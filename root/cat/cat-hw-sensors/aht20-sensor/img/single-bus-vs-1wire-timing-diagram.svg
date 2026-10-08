@@ -1,0 +1,165 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Порівняння протоколів: ASAIR Single Bus (DHT) та Dallas 1-Wire</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Single Bus не має адресації ROM та залежить від точності вимірювання тривалості імпульсу</text>
+
+  <!-- Left Container: ASAIR Single Bus -->
+  <rect x="25" y="70" width="445" height="430" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Left Panel Header Box -->
+  <rect x="35" y="80" width="425" height="45" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="247.5" y="98" font-size="15" font-weight="bold" fill="#2457d6" text-anchor="middle">ASAIR Single Bus (DHT11 / DHT22)</text>
+  <text x="247.5" y="116" font-size="12" fill="#6b7280" text-anchor="middle">Протокол точка-точка • Без адресації ROM</text>
+
+  <!-- Left Section 1: Schematic -->
+  <text x="40" y="143" font-size="13" font-weight="bold" fill="#1a1a1a">1. Схема підключення (1 давач на лінію)</text>
+  <rect x="35" y="152" width="425" height="85" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- MCU Box Left -->
+  <rect x="45" y="167" width="75" height="55" rx="4" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="82.5" y="192" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">MCU</text>
+  <text x="82.5" y="208" font-size="12" fill="#6b7280" text-anchor="middle">GPIO</text>
+
+  <!-- Sensor Box Left -->
+  <rect x="365" y="167" width="80" height="55" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="405" y="192" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">DHT22</text>
+  <text x="405" y="208" font-size="12" fill="#6b7280" text-anchor="middle">(ASAIR)</text>
+
+  <!-- Bus Line Left -->
+  <line x1="120" y1="195" x2="365" y2="195" stroke="#2457d6" stroke-width="2"/>
+  <text x="130" y="215" font-size="12" font-weight="bold" fill="#2457d6">Однопровідна шина DATA</text>
+
+  <!-- Pull-up Resistor Left -->
+  <text x="242" y="164" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">VDD (3.3-5V)</text>
+  <line x1="242" y1="166" x2="242" y2="171" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="233.5" y="171" width="17" height="18" fill="white" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="242" y1="189" x2="242" y2="195" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="255" y="183" font-size="12" fill="#6b7280">4.7 kΩ</text>
+  <circle cx="242" cy="195" r="3" fill="#2457d6"/>
+
+  <!-- Left Section 2: Timing Diagram -->
+  <text x="40" y="255" font-size="13" font-weight="bold" fill="#1a1a1a">2. Часова діаграма передачі даних</text>
+  <rect x="35" y="265" width="425" height="145" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Waveform Left -->
+  <path d="M 45 302 L 65 302 L 65 338 L 135 338 L 135 302 L 155 302 L 155 338 L 195 338 L 195 302 L 235 302 L 235 338 L 265 338 L 265 302 L 285 302 L 285 338 L 315 338 L 315 302 L 365 302 L 365 338 L 375 338 L 375 302 L 445 302" fill="none" stroke="#2457d6" stroke-width="2"/>
+
+  <!-- Pulse Duration Guides Left -->
+  <line x1="265" y1="290" x2="285" y2="290" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="2,2"/>
+  <line x1="315" y1="290" x2="365" y2="290" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="2,2"/>
+
+  <!-- Waveform Labels Left -->
+  <text x="100" y="354" font-size="12" fill="#6b7280" text-anchor="middle">Старт (&gt;18 мс)</text>
+  <text x="195" y="354" font-size="12" fill="#6b7280" text-anchor="middle">Відповідь</text>
+
+  <text x="275" y="283" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Бит '0'</text>
+  <text x="275" y="354" font-size="12" fill="#c0392b" text-anchor="middle">t = 26–28 µs</text>
+
+  <text x="340" y="283" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Бит '1'</text>
+  <text x="340" y="354" font-size="12" fill="#27ae60" text-anchor="middle">t = 70 µs</text>
+
+  <text x="247.5" y="378" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Кодування бітів: за тривалістю t_HIGH (26 µs vs 70 µs)</text>
+  <text x="247.5" y="396" font-size="12" fill="#6b7280" text-anchor="middle">Затримки MCU викривляють t_HIGH → помилка читання</text>
+
+  <!-- Left Section 3: Problem Warning Box -->
+  <rect x="35" y="424" width="425" height="65" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="247.5" y="444" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">⚠️ Обмеження ASAIR Single Bus</text>
+  <text x="247.5" y="462" font-size="12" fill="#1a1a1a" text-anchor="middle">• Без адресації ROM ID — 1 давач на фізичний pin MCU</text>
+  <text x="247.5" y="478" font-size="12" fill="#1a1a1a" text-anchor="middle">• Критична чутливість до системних затримок мікроконтролера</text>
+
+  <!-- Right Container: Dallas 1-Wire -->
+  <rect x="490" y="70" width="445" height="430" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Right Panel Header Box -->
+  <rect x="500" y="80" width="425" height="45" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="712.5" y="98" font-size="15" font-weight="bold" fill="#2457d6" text-anchor="middle">Dallas 1-Wire (DS18B20)</text>
+  <text x="712.5" y="116" font-size="12" fill="#6b7280" text-anchor="middle">Мультидроп шина • Апаратна адресація ROM</text>
+
+  <!-- Right Section 1: Schematic -->
+  <text x="505" y="143" font-size="13" font-weight="bold" fill="#1a1a1a">1. Схема підключення (Мультидроп шина)</text>
+  <rect x="500" y="152" width="425" height="85" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- MCU Box Right -->
+  <rect x="510" y="167" width="75" height="55" rx="4" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="547.5" y="192" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">MCU</text>
+  <text x="547.5" y="208" font-size="12" fill="#6b7280" text-anchor="middle">DQ Pin</text>
+
+  <!-- Bus Line Right -->
+  <line x1="585" y1="180" x2="915" y2="180" stroke="#2457d6" stroke-width="2"/>
+  <text x="625" y="174" font-size="12" font-weight="bold" fill="#2457d6">Спільна шина DQ</text>
+
+  <!-- Pull-up Resistor Right -->
+  <text x="600" y="164" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">VDD</text>
+  <line x1="600" y1="166" x2="600" y2="171" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="591.5" y="171" width="17" height="18" fill="white" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="600" y1="189" x2="600" y2="180" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="600" cy="180" r="3" fill="#2457d6"/>
+
+  <!-- Sensor 1 Box Right -->
+  <rect x="685" y="192" width="105" height="40" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="737.5" y="207" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">DS18B20 #1</text>
+  <text x="737.5" y="224" font-size="12" fill="#6b7280" text-anchor="middle">64-bit ROM ID</text>
+  <line x1="737.5" y1="180" x2="737.5" y2="192" stroke="#2457d6" stroke-width="1.5"/>
+  <circle cx="737.5" cy="180" r="3" fill="#2457d6"/>
+
+  <!-- Sensor 2 Box Right -->
+  <rect x="805" y="192" width="105" height="40" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="857.5" y="207" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">DS18B20 #2</text>
+  <text x="857.5" y="224" font-size="12" fill="#6b7280" text-anchor="middle">64-bit ROM ID</text>
+  <line x1="857.5" y1="180" x2="857.5" y2="192" stroke="#2457d6" stroke-width="1.5"/>
+  <circle cx="857.5" cy="180" r="3" fill="#2457d6"/>
+
+  <!-- Right Section 2: Timing & Slot Sampling -->
+  <text x="505" y="255" font-size="13" font-weight="bold" fill="#1a1a1a">2. Кадр 1-Wire та стробування (Sample Window)</text>
+  <rect x="500" y="265" width="425" height="145" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Frame Phase Blocks -->
+  <rect x="510" y="273" width="115" height="36" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="567.5" y="288" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Reset / Presence</text>
+  <text x="567.5" y="302" font-size="12" fill="#6b7280" text-anchor="middle">Ініціалізація</text>
+
+  <line x1="628" y1="291" x2="634" y2="291" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <rect x="639" y="273" width="145" height="36" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="711.5" y="288" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Match ROM (0x55)</text>
+  <text x="711.5" y="302" font-size="12" fill="#2457d6" text-anchor="middle">Вибір ID сенсора</text>
+
+  <line x1="787" y1="291" x2="793" y2="291" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <rect x="798" y="273" width="117" height="36" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="856.5" y="288" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Read Scratchpad</text>
+  <text x="856.5" y="302" font-size="12" fill="#6b7280" text-anchor="middle">Зчитування даних</text>
+
+  <!-- Waveform Right -->
+  <path d="M 510 345 L 530 345 L 530 370 L 545 370 L 610 370 L 610 345 L 640 345 L 640 370 L 655 370 L 655 345 L 915 345" fill="none" stroke="#2457d6" stroke-width="2"/>
+
+  <!-- Sampling Windows Lines & Dots Right -->
+  <line x1="555" y1="328" x2="555" y2="376" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <circle cx="555" cy="370" r="3.5" fill="#c0392b"/>
+  <text x="555" y="324" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Замір 0</text>
+
+  <line x1="665" y1="328" x2="665" y2="376" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <circle cx="665" cy="345" r="3.5" fill="#27ae60"/>
+  <text x="665" y="324" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Замір 1</text>
+
+  <text x="800" y="365" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Стробування в момент t_SAMPLE (≈15 µs)</text>
+  <text x="800" y="383" font-size="12" fill="#6b7280" text-anchor="middle">Значення біта = рівень у точці виміру</text>
+
+  <!-- Right Section 3: Solution Advantage Box -->
+  <rect x="500" y="424" width="425" height="65" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="712.5" y="444" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">✓ Особливості Dallas 1-Wire</text>
+  <text x="712.5" y="462" font-size="12" fill="#1a1a1a" text-anchor="middle">• Адресація 64-bit ROM дозволяє багато сенсорів на 1 лінії</text>
+  <text x="712.5" y="478" font-size="12" fill="#1a1a1a" text-anchor="middle">• Фіксоване стробування не залежить від точності затримки</text>
+</svg>

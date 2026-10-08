@@ -1,0 +1,136 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- White Background -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Markers -->
+  <defs>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="34" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Апроксимація гамма-кривої у LUT сенсора OV2640</text>
+  <text x="480" y="56" font-size="13" fill="#6b7280" text-anchor="middle">Шматочно-лінійні відрізки між вузлами LUT апроксимують криву γ, утворюючи похибку квантування ΔV</text>
+
+  <!-- Main Background Panels -->
+  <!-- Left Graph Panel -->
+  <rect x="30" y="80" width="590" height="435" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <!-- Right Info Panel -->
+  <rect x="640" y="80" width="290" height="435" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Left Panel Contents: Graph Grid Lines -->
+  <path d="M 105,410 L 575,410 M 105,348 L 575,348 M 105,260 L 575,260 M 105,190 L 575,190 M 105,145 L 575,145 M 105,120 L 575,120" stroke="#e5e7eb" stroke-width="1" stroke-dasharray="3,3"/>
+  <path d="M 155,110 L 155,450 M 225,110 L 225,450 M 335,110 L 335,450 M 455,110 L 455,450 M 575,110 L 575,450" stroke="#e5e7eb" stroke-width="1" stroke-dasharray="3,3"/>
+
+  <!-- Error / Deviation Shaded Region (Between P1 and P2) -->
+  <path d="M 155,348 C 175,312 200,285 225,260 L 225,260 L 155,348 Z" fill="#fdecea" opacity="0.75"/>
+
+  <!-- Continuous Ideal Gamma Curve (Blue Dashed Path) -->
+  <path d="M 105,450 C 130,355 170,295 225,260 C 295,215 405,165 575,120" fill="none" stroke="#2457d6" stroke-width="2.5" stroke-dasharray="6,4"/>
+
+  <!-- Piecewise Linear LUT Approximation Path (Green Solid Line) -->
+  <path d="M 105,450 L 155,348 L 225,260 L 335,190 L 455,145 L 575,120" fill="none" stroke="#27ae60" stroke-width="3"/>
+
+  <!-- Error Indicator ΔV (Vertical Red Line with Arrowheads) -->
+  <line x1="190" y1="283" x2="190" y2="302" stroke="#c0392b" stroke-width="1.5"/>
+  <polygon points="190,279 187,285 193,285" fill="#c0392b"/>
+  <polygon points="190,306 187,300 193,300" fill="#c0392b"/>
+  <text x="178" y="292" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="end">ΔV</text>
+
+  <!-- Node Control Points (Circles P0..P5) -->
+  <circle cx="105" cy="450" r="5" fill="#27ae60" stroke="white" stroke-width="1.5"/>
+  <circle cx="155" cy="348" r="5" fill="#27ae60" stroke="white" stroke-width="1.5"/>
+  <circle cx="225" cy="260" r="5" fill="#27ae60" stroke="white" stroke-width="1.5"/>
+  <circle cx="335" cy="190" r="5" fill="#27ae60" stroke="white" stroke-width="1.5"/>
+  <circle cx="455" cy="145" r="5" fill="#27ae60" stroke="white" stroke-width="1.5"/>
+  <circle cx="575" cy="120" r="5" fill="#27ae60" stroke="white" stroke-width="1.5"/>
+
+  <!-- Node Text Labels (Positioned cleanly outside lines/grid) -->
+  <text x="105" y="472" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">P₀</text>
+  <text x="142" y="334" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">P₁</text>
+  <text x="212" y="246" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">P₂</text>
+  <text x="322" y="176" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">P₃</text>
+  <text x="442" y="131" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">P₄</text>
+  <text x="562" y="106" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">P₅</text>
+
+  <!-- Segment Slope Labels S_i (Positioned cleanly outside lines/grid) -->
+  <text x="122" y="380" font-size="12" fill="#27ae60" font-weight="bold" text-anchor="middle">S₁</text>
+  <text x="185" y="285" font-size="12" fill="#27ae60" font-weight="bold" text-anchor="middle">S₂</text>
+  <text x="280" y="245" font-size="12" fill="#27ae60" font-weight="bold" text-anchor="middle">S₃</text>
+  <text x="360" y="162" font-size="12" fill="#27ae60" font-weight="bold" text-anchor="middle">S₄</text>
+  <text x="515" y="158" font-size="12" fill="#27ae60" font-weight="bold" text-anchor="middle">S₅</text>
+
+  <!-- Main Axes (X and Y) -->
+  <!-- Y Axis -->
+  <line x1="105" y1="450" x2="105" y2="100" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr-dark)"/>
+  <text x="96" y="94" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="end">V_out</text>
+  <text x="96" y="110" font-size="11" fill="#6b7280" text-anchor="end">(0..255)</text>
+
+  <!-- X Axis -->
+  <line x1="105" y1="450" x2="600" y2="450" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr-dark)"/>
+  <text x="605" y="470" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="end">V_in</text>
+  <text x="605" y="485" font-size="11" fill="#6b7280" text-anchor="end">(0..255)</text>
+
+  <!-- Y Axis Tick Labels & Marks -->
+  <line x1="100" y1="450" x2="105" y2="450" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="94" y="454" font-size="11" fill="#6b7280" text-anchor="end">0</text>
+
+  <line x1="100" y1="348" x2="105" y2="348" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="94" y="352" font-size="11" fill="#6b7280" text-anchor="end">Y1</text>
+
+  <line x1="100" y1="260" x2="105" y2="260" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="94" y="264" font-size="11" fill="#6b7280" text-anchor="end">Y2</text>
+
+  <line x1="100" y1="190" x2="105" y2="190" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="94" y="194" font-size="11" fill="#6b7280" text-anchor="end">Y3</text>
+
+  <line x1="100" y1="120" x2="105" y2="120" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="94" y="124" font-size="11" fill="#6b7280" text-anchor="end">255</text>
+
+  <!-- Legend Box (Inside Main Graph Panel, Lower Right) -->
+  <rect x="340" y="375" width="265" height="60" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="355" y1="395" x2="385" y2="395" stroke="#2457d6" stroke-width="2.5" stroke-dasharray="5,3"/>
+  <text x="395" y="399" font-size="12" fill="#1a1a1a">Ідеальна крива V_out = V_in^γ</text>
+
+  <line x1="355" y1="418" x2="385" y2="418" stroke="#27ae60" stroke-width="3"/>
+  <circle cx="370" cy="418" r="3.5" fill="#27ae60"/>
+  <text x="395" y="422" font-size="12" fill="#1a1a1a">LUT апроксимація (регістри)</text>
+
+  <!-- Right Panel Contents -->
+  <text x="785" y="106" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Параметри LUT в OV2640</text>
+
+  <!-- Card 1: Node Registers -->
+  <rect x="655" y="120" width="260" height="80" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="668" y="138" font-size="12" font-weight="bold" fill="#2457d6">1. Вузлові точки (LUT Nodes)</text>
+  <text x="668" y="156" font-size="12" fill="#1a1a1a">• 16 регістрів: Y01_OPT .. Y16_OPT</text>
+  <text x="668" y="174" font-size="12" fill="#1a1a1a">• P_i = (V_in,i , V_out,i) вказують</text>
+  <text x="678" y="190" font-size="12" fill="#6b7280">фіксовані рівні перегину</text>
+
+  <!-- Card 2: Slopes & Regions -->
+  <rect x="655" y="215" width="260" height="90" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="668" y="233" font-size="12" font-weight="bold" fill="#27ae60">2. Нахил відрізків (Slope S_i)</text>
+  <text x="668" y="251" font-size="12" fill="#1a1a1a">• S_i = ΔV_out / ΔV_in</text>
+  <text x="668" y="269" font-size="12" fill="#1a1a1a">• Крутий нахил у тінях (S₁ &gt; S₂)</text>
+  <text x="668" y="287" font-size="12" fill="#1a1a1a">• Пологий нахил у світлах (S₅ &lt; 1)</text>
+
+  <!-- Card 3: Quantization & Error -->
+  <rect x="655" y="320" width="260" height="90" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="668" y="338" font-size="12" font-weight="bold" fill="#c0392b">3. Похибка квантування ΔV</text>
+  <text x="668" y="356" font-size="12" fill="#1a1a1a">• ΔV = |V_ideal - V_lut|</text>
+  <text x="668" y="374" font-size="12" fill="#1a1a1a">• Обмеження розрядністю (8/10 біт)</text>
+  <text x="668" y="392" font-size="12" fill="#1a1a1a">• Мінімізується вибором вузлів</text>
+
+  <!-- Card 4: Hardware Formula -->
+  <rect x="655" y="425" width="260" height="70" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="668" y="443" font-size="12" font-weight="bold" fill="#1a1a1a">Формула інтерполяції:</text>
+  <text x="668" y="461" font-size="12" font-weight="bold" fill="#2457d6">V_out = V_i + S_i × (V_in - X_i)</text>
+  <text x="668" y="479" font-size="11" fill="#6b7280">Апаратне обчислення в DSP</text>
+
+</svg>

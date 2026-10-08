@@ -1,0 +1,126 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-start" markerWidth="9" markerHeight="9" refX="1.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Заголовок та підзаголовок -->
+  <text x="480" y="36" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Часова структура кадру та рядка сенсора OV2640</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Параметри HTS та VTS визначають підсумковий FPS при заданій частоті PCLK</text>
+
+  <!-- Верхній блок: Ланцюжок тактування та обчислення FPS -->
+  <!-- Блок 1: XVCLK -->
+  <rect x="40" y="82" width="200" height="55" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="140" y="104" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">XVCLK (6..27 МГц)</text>
+  <text x="140" y="124" font-size="12" fill="#6b7280" text-anchor="middle">Зовнішня тактова частота</text>
+
+  <!-- Стрілка 1 -->
+  <line x1="240" y1="109.5" x2="315" y2="109.5" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="277.5" y="100" font-size="12" fill="#2457d6" text-anchor="middle">PLL / CLKRC</text>
+
+  <!-- Блок 2: PCLK -->
+  <rect x="315" y="82" width="230" height="55" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="430" y="104" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">PCLK (Піксельний такт)</text>
+  <text x="430" y="124" font-size="12" fill="#1a1a1a" text-anchor="middle">Частота вибірки даних</text>
+
+  <!-- Стрілка 2 -->
+  <line x1="545" y1="109.5" x2="620" y2="109.5" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="582.5" y="100" font-size="12" fill="#6b7280" text-anchor="middle">Растрування</text>
+
+  <!-- Блок 3: FPS Формула -->
+  <rect x="620" y="82" width="300" height="55" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="770" y="103" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Обчислення частоти кадрів</text>
+  <text x="770" y="125" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">FPS = PCLK / (HTS × VTS)</text>
+
+  <!-- Ліва секція: Двовимірне кадрове растрування -->
+  <!-- Розмірна стрілка HTS (угорі) -->
+  <line x1="110" y1="192" x2="440" y2="192" stroke="#1a1a1a" stroke-width="1.5" marker-start="url(#arr-start)" marker-end="url(#arr)"/>
+  <text x="275" y="181" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">HTS = H_ACT + HBLANK (Період рядка в PCLK)</text>
+
+  <!-- Розмірна стрілка VTS (ліворуч) -->
+  <line x1="90" y1="220" x2="90" y2="450" stroke="#1a1a1a" stroke-width="1.5" marker-start="url(#arr-start)" marker-end="url(#arr)"/>
+  <text x="84" y="325" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="end">VTS</text>
+  <text x="84" y="343" font-size="12" fill="#1a1a1a" text-anchor="end">V_ACT +</text>
+  <text x="84" y="359" font-size="12" fill="#6b7280" text-anchor="end">VBLANK</text>
+
+  <!-- Зовнішній контейнер кадру -->
+  <rect x="100" y="210" width="350" height="250" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+
+  <!-- Активна область кадру -->
+  <rect x="110" y="220" width="220" height="164" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="220" y="285" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Активна область кадру</text>
+  <text x="220" y="305" font-size="13" fill="#1a1a1a" text-anchor="middle">H_ACT × V_ACT</text>
+  <text x="220" y="325" font-size="12" fill="#6b7280" text-anchor="middle">(наприклад, 1600 × 1200)</text>
+
+  <!-- HBLANK (Область гасіння рядка) -->
+  <rect x="344" y="220" width="96" height="164" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4 4"/>
+  <text x="392" y="285" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">HBLANK</text>
+  <text x="392" y="305" font-size="12" fill="#c0392b" text-anchor="middle">Dummy Pixels</text>
+  <text x="392" y="325" font-size="12" fill="#6b7280" text-anchor="middle">Гасіння рядка</text>
+
+  <!-- VBLANK (Область гасіння кадру) -->
+  <rect x="110" y="398" width="220" height="52" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4 4"/>
+  <text x="220" y="420" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">VBLANK (Dummy Lines)</text>
+  <text x="220" y="438" font-size="12" fill="#6b7280" text-anchor="middle">Службові рядки гасіння</text>
+
+  <!-- Кутова зона гасіння H×V -->
+  <rect x="344" y="398" width="96" height="52" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-dasharray="3 3"/>
+  <text x="392" y="429" font-size="12" fill="#6b7280" text-anchor="middle">H×V Blank</text>
+
+  <!-- Підпис під лівою секцією -->
+  <text x="275" y="482" font-size="12" fill="#6b7280" text-anchor="middle">Структура двовимірного кадрового масиву OV2640</text>
+
+  <!-- Права секція: Часові діаграми сигналів DVP -->
+  <rect x="490" y="170" width="430" height="325" rx="8" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="705" y="193" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Часові діаграми сигналів інтерфейсу DVP</text>
+
+  <!-- Фонове затінення інтервалів -->
+  <rect x="560" y="208" width="200" height="172" fill="#eaf0fd" opacity="0.5" rx="4"/>
+  <rect x="760" y="208" width="140" height="172" fill="#fdecea" opacity="0.5" rx="4"/>
+
+  <!-- Заголовки інтервалів -->
+  <text x="660" y="222" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Активні пікселі (H_ACT)</text>
+  <text x="830" y="222" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Інтервал HBLANK</text>
+
+  <!-- Сигнал 1: PCLK -->
+  <text x="505" y="248" font-size="13" font-weight="bold" fill="#1a1a1a">PCLK</text>
+  <path d="M 560,252 L 570,252 L 570,237 L 580,237 L 580,252 L 590,252 L 590,237 L 600,237 L 600,252 L 610,252 L 610,237 L 620,237 L 620,252 L 630,252 L 630,237 L 640,237 L 640,252 L 650,252 L 650,237 L 660,237 L 660,252 L 670,252 L 670,237 L 680,237 L 680,252 L 690,252 L 690,237 L 700,237 L 700,252 L 710,252 L 710,237 L 720,237 L 720,252 L 730,252 L 730,237 L 740,237 L 740,252 L 750,252 L 750,237 L 760,237 L 760,252 L 770,252 L 770,237 L 780,237 L 780,252 L 790,252 L 790,237 L 800,237 L 800,252 L 810,252 L 810,237 L 820,237 L 820,252 L 830,252 L 830,237 L 840,237 L 840,252 L 850,252 L 850,237 L 860,237 L 860,252 L 870,252 L 870,237 L 880,237 L 880,252 L 890,252 L 890,237 L 900,237 L 900,252" fill="none" stroke="#2457d6" stroke-width="1.5"/>
+
+  <!-- Сигнал 2: HREF -->
+  <text x="505" y="294" font-size="13" font-weight="bold" fill="#1a1a1a">HREF</text>
+  <text x="505" y="309" font-size="12" fill="#6b7280">Вибірка</text>
+  <path d="M 550,305 L 560,305 L 560,280 L 760,280 L 760,305 L 900,305" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+  <text x="660" y="273" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">HIGH (Передача пікселів D[9:0])</text>
+  <text x="830" y="299" font-size="12" fill="#c0392b" text-anchor="middle">LOW (Пауза)</text>
+
+  <!-- Сигнал 3: VSYNC -->
+  <text x="505" y="354" font-size="13" font-weight="bold" fill="#1a1a1a">VSYNC</text>
+  <text x="505" y="369" font-size="12" fill="#6b7280">Кадр</text>
+  <path d="M 550,365 L 840,365 L 840,340 L 880,340 L 880,365 L 900,365" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+  <text x="695" y="360" font-size="12" fill="#1a1a1a" text-anchor="middle">LOW (Кадр активний: V_ACT рядків)</text>
+  <text x="860" y="334" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Імпульс VSYNC</text>
+
+  <!-- Вертикальні пунктирні лінії розділу часових зон -->
+  <line x1="560" y1="208" x2="560" y2="380" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="3 3"/>
+  <line x1="760" y1="208" x2="760" y2="380" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3 3"/>
+  <line x1="900" y1="208" x2="900" y2="380" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="3 3"/>
+
+  <!-- Розмірна стрілка періоду рядка T_line -->
+  <line x1="560" y1="392" x2="900" y2="392" stroke="#1a1a1a" stroke-width="1.5" marker-start="url(#arr-start)" marker-end="url(#arr)"/>
+  <text x="730" y="407" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">T_line = HTS × T_PCLK</text>
+
+  <!-- Підсумкова зелена панель -->
+  <rect x="505" y="418" width="400" height="58" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="705" y="438" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Ключове правило налаштування тактів OV2640:</text>
+  <text x="705" y="458" font-size="12" fill="#1a1a1a" text-anchor="middle">Збільшення HBLANK / VBLANK зменшує FPS та розвантажує шину MCU</text>
+</svg>

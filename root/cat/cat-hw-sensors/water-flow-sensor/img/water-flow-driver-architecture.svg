@@ -1,0 +1,146 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="550" viewBox="0 0 960 550" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="550" fill="white"/>
+
+  <!-- Маркери стрілок -->
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок та підзаголовок -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Архітектура та потік даних драйвера витрати води</text>
+  <text x="480" y="56" font-size="13" fill="#6b7280" text-anchor="middle">Обробник ISR підраховує імпульси, а періодичний таймер обчислює Q (л/хв) і V (л) через K-фактор</text>
+
+  <!-- Панель 1: Апаратний рівень -->
+  <rect x="25" y="80" width="200" height="425" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="125" y="105" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">1. Апаратний рівень</text>
+
+  <rect x="37" y="120" width="176" height="110" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="125" y="142" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Давач витрати G1/2″</text>
+  <text x="125" y="164" font-size="12" fill="#1a1a1a" text-anchor="middle">Турбіна + Холл</text>
+  <text x="125" y="184" font-size="12" fill="#6b7280" text-anchor="middle">Потік рідини → Оберти</text>
+  <text x="125" y="204" font-size="12" fill="#2457d6" text-anchor="middle">Імпульсна черга N(t)</text>
+
+  <rect x="37" y="255" width="176" height="100" rx="6" fill="white" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="125" y="276" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Вхідний pin GPIO</text>
+  <text x="125" y="296" font-size="12" fill="#6b7280" text-anchor="middle">Фронт: RISING EDGE</text>
+  <text x="125" y="316" font-size="12" fill="#1a1a1a" text-anchor="middle">Апаратне переривання</text>
+  <text x="125" y="336" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Сигнал IRQ</text>
+
+  <rect x="37" y="380" width="176" height="110" rx="6" fill="white" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="125" y="402" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Паспортні дані</text>
+  <text x="125" y="422" font-size="12" fill="#1a1a1a" text-anchor="middle">K-фактор (імп/л)</text>
+  <text x="125" y="442" font-size="12" fill="#6b7280" text-anchor="middle">Напр.: 450 імп/л</text>
+  <text x="125" y="464" font-size="12" fill="#6b7280" text-anchor="middle">F = 7.5 × Q (л/хв)</text>
+
+  <!-- Панель 2: ISR та Таймер -->
+  <rect x="250" y="80" width="205" height="425" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="352.5" y="105" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">2. ISR та Таймер</text>
+
+  <rect x="262" y="120" width="181" height="110" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="352.5" y="142" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Обробник gpio_isr()</text>
+  <text x="352.5" y="164" font-size="12" fill="#1a1a1a" text-anchor="middle">volatile uint32_t</text>
+  <text x="352.5" y="184" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">pulse_count++</text>
+  <text x="352.5" y="204" font-size="12" fill="#6b7280" text-anchor="middle">Швидка обробка в RAM</text>
+
+  <rect x="262" y="255" width="181" height="110" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="352.5" y="276" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Таймер timer_cb()</text>
+  <text x="352.5" y="296" font-size="12" fill="#1a1a1a" text-anchor="middle">Період Δt = 1.0 с</text>
+  <text x="352.5" y="316" font-size="12" fill="#1a1a1a" text-anchor="middle">Атомарне зчитування</text>
+  <text x="352.5" y="334" font-size="12" fill="#6b7280" text-anchor="middle">ΔN = pulse_count</text>
+  <text x="352.5" y="350" font-size="12" fill="#6b7280" text-anchor="middle">pulse_count = 0</text>
+
+  <rect x="262" y="380" width="181" height="110" rx="6" fill="white" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="352.5" y="402" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Детектор життєвості</text>
+  <text x="352.5" y="424" font-size="12" fill="#6b7280" text-anchor="middle">Якщо ΔN == 0 протягом T</text>
+  <text x="352.5" y="446" font-size="12" fill="#c0392b" text-anchor="middle">Стан: Потік відсутній</text>
+  <text x="352.5" y="468" font-size="12" fill="#6b7280" text-anchor="middle">Таймаут неактивності</text>
+
+  <!-- Панель 3: Ядро та Контекст -->
+  <rect x="480" y="80" width="205" height="425" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="582.5" y="105" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">3. Ядро та Контекст</text>
+
+  <rect x="492" y="120" width="181" height="115" rx="6" fill="white" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="582.5" y="142" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">water_flow_t</text>
+  <text x="582.5" y="164" font-size="12" fill="#6b7280" text-anchor="middle">float flow_lmin</text>
+  <text x="582.5" y="184" font-size="12" fill="#6b7280" text-anchor="middle">float flow_m3h</text>
+  <text x="582.5" y="204" font-size="12" fill="#6b7280" text-anchor="middle">double total_liters</text>
+  <text x="582.5" y="222" font-size="12" fill="#6b7280" text-anchor="middle">float k_factor</text>
+
+  <rect x="492" y="255" width="181" height="115" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="582.5" y="276" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Обчислення Q та V</text>
+  <text x="582.5" y="296" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Q = (ΔN / K) / Δt × 60</text>
+  <text x="582.5" y="316" font-size="12" fill="#1a1a1a" text-anchor="middle">[ л/хв ]</text>
+  <text x="582.5" y="336" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">V_tot += ΔN / K</text>
+  <text x="582.5" y="354" font-size="12" fill="#1a1a1a" text-anchor="middle">Q_m3h = Q_lmin × 0.06</text>
+
+  <rect x="492" y="390" width="181" height="100" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="582.5" y="412" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">Діагностика помилок</text>
+  <text x="582.5" y="434" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">ERR_TURBINE_STUCK</text>
+  <text x="582.5" y="456" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">ERR_OUT_OF_RANGE</text>
+
+  <!-- Панель 4: API та Callbacks -->
+  <rect x="745" y="80" width="190" height="425" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="840" y="105" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">4. API та Callbacks</text>
+
+  <rect x="757" y="120" width="166" height="140" rx="6" fill="white" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="840" y="142" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Публічне API</text>
+  <text x="840" y="164" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">flow_get_rate_lmin()</text>
+  <text x="840" y="184" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">flow_get_rate_m3h()</text>
+  <text x="840" y="204" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">flow_get_total_vol()</text>
+  <text x="840" y="224" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">flow_reset_total()</text>
+  <text x="840" y="244" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">flow_set_k_factor()</text>
+
+  <rect x="757" y="280" width="166" height="210" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="840" y="302" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Зворотні виклики</text>
+  <text x="840" y="324" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">cb_on_overflow()</text>
+  <text x="840" y="342" font-size="12" fill="#6b7280" text-anchor="middle">(Перевищення Q_max)</text>
+  <text x="840" y="368" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">cb_on_zero_flow()</text>
+  <text x="840" y="386" font-size="12" fill="#6b7280" text-anchor="middle">(Відсутність потоку)</text>
+  <text x="840" y="412" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">cb_on_error()</text>
+  <text x="840" y="430" font-size="12" fill="#c0392b" text-anchor="middle">(Заклинювання / збій)</text>
+
+  <!-- Зв'язки та стрілки -->
+  <!-- 1. Давач до GPIO Pin -->
+  <line x1="125" y1="230" x2="125" y2="255" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="133" y="246" font-size="12" fill="#2457d6" text-anchor="start">Імпульси</text>
+
+  <!-- 2. GPIO Pin до ISR -->
+  <path d="M 213 336 H 244 V 184 H 262" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="234" y="248" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">IRQ</text>
+
+  <!-- 3. K-фактор до Обчислення (обхід знизу) -->
+  <path d="M 213 435 H 238 V 530 H 467.5 V 335 H 492" fill="none" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr-gray)"/>
+  <text x="352.5" y="524" font-size="12" fill="#6b7280" text-anchor="middle">K-фактор</text>
+
+  <!-- 4. ISR до Таймера -->
+  <line x1="352.5" y1="230" x2="352.5" y2="255" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="360" y="246" font-size="12" fill="#2457d6" text-anchor="start">pulse_count</text>
+
+  <!-- 5. Таймер до Обчислення -->
+  <line x1="443" y1="310" x2="492" y2="310" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="467.5" y="302" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">ΔN, Δt</text>
+
+  <!-- 6. Обчислення до Контексту -->
+  <line x1="582.5" y1="255" x2="582.5" y2="235" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="590" y="248" font-size="12" fill="#27ae60" text-anchor="start">Оновлення Q, V</text>
+
+  <!-- 7. Контекст до API -->
+  <line x1="673" y1="184" x2="757" y2="184" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="715" y="174" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Зчитування</text>
+
+  <!-- 8. Помилки до Callbacks -->
+  <line x1="673" y1="440" x2="757" y2="440" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="715" y="432" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Події / Помилки</text>
+</svg>

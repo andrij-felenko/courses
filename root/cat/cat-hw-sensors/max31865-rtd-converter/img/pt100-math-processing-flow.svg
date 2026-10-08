@@ -1,0 +1,133 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 500" width="960" height="500" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Canvas Background MUST BE FIRST CHILD -->
+  <rect x="0" y="0" width="960" height="500" fill="white"/>
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="700" fill="#1a1a1a">Алгоритм обробки даних MAX31865 та PT100</text>
+  <text x="480" y="52" text-anchor="middle" font-size="13" fill="#6b7280">Від сирого 15-бітного коду АЦП до обчислення температури за Каллендаром — Ван Дюзеном та перевірки FAULT</text>
+
+  <!-- COLUMN 1: SPI Data In -->
+  <rect x="25" y="80" width="205" height="395" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="37" y="92" width="181" height="32" rx="5" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="127.5" y="113" text-anchor="middle" font-size="13" font-weight="700" fill="#2457d6">1. Вхідний потік SPI</text>
+
+  <!-- Box 1.1: RTD Data Registers -->
+  <rect x="37" y="140" width="181" height="125" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="127.5" y="160" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">Регістри 0x01–0x02</text>
+  <text x="47" y="182" text-anchor="start" font-size="11" fill="#1a1a1a">RTD MSB (0x01): D15..D8</text>
+  <text x="47" y="201" text-anchor="start" font-size="11" fill="#1a1a1a">RTD LSB (0x02): D7..D1</text>
+  <text x="47" y="222" text-anchor="start" font-size="11" font-weight="700" fill="#2457d6">ADC_code = D[15:1]</text>
+  <text x="47" y="244" text-anchor="start" font-size="11" fill="#6b7280">D0: LSB FAULT bit</text>
+
+  <!-- Box 1.2: Fault Status Register -->
+  <rect x="37" y="280" width="181" height="180" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="127.5" y="300" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">Fault Status (0x07)</text>
+  <text x="47" y="322" text-anchor="start" font-size="11" fill="#1a1a1a">D7: High Temp Fault</text>
+  <text x="47" y="342" text-anchor="start" font-size="11" fill="#1a1a1a">D6: Low Temp Fault</text>
+  <text x="47" y="362" text-anchor="start" font-size="11" fill="#1a1a1a">D5: REFIN- &gt; 0.85*VBIAS</text>
+  <text x="47" y="382" text-anchor="start" font-size="11" fill="#1a1a1a">D4: REFIN- &lt; 0.85*VBIAS</text>
+  <text x="47" y="402" text-anchor="start" font-size="11" fill="#1a1a1a">D3: RTDIN- &lt; 0.85*VBIAS</text>
+  <text x="47" y="422" text-anchor="start" font-size="11" fill="#1a1a1a">D2: Over/Under Voltage</text>
+
+  <!-- COLUMN 2: Fault Analysis -->
+  <rect x="255" y="80" width="215" height="395" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="267" y="92" width="191" height="32" rx="5" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="362.5" y="113" text-anchor="middle" font-size="13" font-weight="700" fill="#2457d6">2. Аналіз FAULT STATUS</text>
+
+  <!-- Box 2.1: Check Condition -->
+  <rect x="267" y="140" width="191" height="90" rx="6" fill="white" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="362.5" y="162" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">Перевірка біта D0 або</text>
+  <text x="362.5" y="182" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">регістру 0x07 != 0x00</text>
+  <text x="362.5" y="207" text-anchor="middle" font-size="11" fill="#6b7280">Апаратний прапор DRDY/FAULT</text>
+
+  <!-- Branch Fault != 0 -->
+  <text x="375" y="248" text-anchor="start" font-size="11" font-weight="700" fill="#c0392b">Ні (Fault != 0)</text>
+  <line x1="362.5" y1="230" x2="362.5" y2="257" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+
+  <!-- Box 2.2: Fault Output -->
+  <rect x="267" y="265" width="191" height="100" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="362.5" y="285" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">ПОМИЛКА ДАВАЧА</text>
+  <text x="362.5" y="306" text-anchor="middle" font-size="11" fill="#1a1a1a">Обрив ліній / КЗ PT100</text>
+  <text x="362.5" y="326" text-anchor="middle" font-size="11" fill="#1a1a1a">Вихід за межі VBIAS</text>
+  <text x="362.5" y="348" text-anchor="middle" font-size="11" font-weight="700" fill="#c0392b">Зупинка + FAULT_CODE</text>
+
+  <!-- Branch Fault == 0 -->
+  <text x="362.5" y="392" text-anchor="middle" font-size="11" font-weight="700" fill="#27ae60">Так (Fault == 0)</text>
+  <rect x="267" y="405" width="191" height="55" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="362.5" y="426" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">Дані АЦП валідні</text>
+  <text x="362.5" y="445" text-anchor="middle" font-size="11" fill="#1a1a1a">Перехід до нормування</text>
+
+  <!-- COLUMN 3: Resistance Normalization -->
+  <rect x="495" y="80" width="215" height="395" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="507" y="92" width="191" height="32" rx="5" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="602.5" y="113" text-anchor="middle" font-size="13" font-weight="700" fill="#2457d6">3. Нормування опору</text>
+
+  <!-- Box 3.1: Calculation Formula -->
+  <rect x="507" y="140" width="191" height="125" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="602.5" y="160" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">Рівняння вимірювання</text>
+  <text x="602.5" y="184" text-anchor="middle" font-size="11" font-weight="700" fill="#2457d6">R_RTD = ADC_code * R_REF / 32768</text>
+  <text x="517" y="207" text-anchor="start" font-size="11" fill="#1a1a1a">R_REF = 400.0 Ohm (0.1%)</text>
+  <text x="517" y="227" text-anchor="start" font-size="11" fill="#1a1a1a">2^15 = 32768 (15-біт АЦП)</text>
+  <text x="517" y="247" text-anchor="start" font-size="11" fill="#6b7280">R_0 = 100.0 Ohm (при 0 °C)</text>
+
+  <!-- Box 3.2: Range Validation -->
+  <rect x="507" y="280" width="191" height="180" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="602.5" y="300" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">Контроль меж опору</text>
+  <text x="517" y="322" text-anchor="start" font-size="11" fill="#1a1a1a">-200 °C : R_RTD ≈ 18.52 Ohm</text>
+  <text x="517" y="342" text-anchor="start" font-size="11" fill="#1a1a1a">+850 °C : R_RTD ≈ 390.48 Ohm</text>
+  
+  <rect x="517" y="360" width="171" height="85" rx="5" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="602.5" y="380" text-anchor="middle" font-size="11" font-weight="700" fill="#2457d6">Перевірка фізичних меж</text>
+  <text x="602.5" y="400" text-anchor="middle" font-size="11" fill="#1a1a1a">Якщо R поза діапазоном</text>
+  <text x="602.5" y="420" text-anchor="middle" font-size="11" font-weight="700" fill="#c0392b">-&gt; Сигнал RANGE_ERROR</text>
+  <text x="602.5" y="437" text-anchor="middle" font-size="10" fill="#6b7280">інакше -&gt; далі на CVD</text>
+
+  <!-- COLUMN 4: Callendar-Van Dusen Math -->
+  <rect x="735" y="80" width="200" height="395" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="745" y="92" width="180" height="32" rx="5" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="835" y="113" text-anchor="middle" font-size="13" font-weight="700" fill="#2457d6">4. Математика CVD</text>
+
+  <!-- Box 4.1: T >= 0 C formula -->
+  <rect x="745" y="140" width="180" height="125" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="835" y="160" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">Діапазон T &gt;= 0 °C</text>
+  <text x="835" y="180" text-anchor="middle" font-size="11" font-weight="700" fill="#2457d6">T = (-A + sqrt(D)) / (2B)</text>
+  <text x="835" y="200" text-anchor="middle" font-size="11" fill="#1a1a1a">D = A^2 - 4B(1 - R/R_0)</text>
+  <text x="755" y="222" text-anchor="start" font-size="11" fill="#6b7280">A = 3.9083e-3</text>
+  <text x="755" y="244" text-anchor="start" font-size="11" fill="#6b7280">B = -5.775e-7</text>
+
+  <!-- Box 4.2: T < 0 C formula -->
+  <rect x="745" y="280" width="180" height="80" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="835" y="300" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">Діапазон T &lt; 0 °C</text>
+  <text x="835" y="320" text-anchor="middle" font-size="11" fill="#1a1a1a">Поліном 4-го степеня</text>
+  <text x="835" y="340" text-anchor="middle" font-size="11" fill="#6b7280">C = -4.183e-12 (ітерації)</text>
+
+  <!-- Output Box 4.3 -->
+  <rect x="745" y="375" width="180" height="85" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="835" y="397" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">ВИХІДНІ ДАНІ</text>
+  <text x="835" y="420" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">Температура T (°C)</text>
+  <text x="835" y="442" text-anchor="middle" font-size="11" font-weight="700" fill="#27ae60">Прапорець STATUS_OK</text>
+
+  <!-- Inter-column Connecting Lines -->
+  <!-- Col 1 -> Col 2 -->
+  <line x1="218" y1="202" x2="260" y2="202" stroke="#2457d6" stroke-width="2" marker-end="url(#arr)"/>
+
+  <!-- Col 2 -> Col 3 -->
+  <line x1="458" y1="432" x2="488" y2="432" stroke="#27ae60" stroke-width="2"/>
+  <line x1="488" y1="432" x2="488" y2="202" stroke="#27ae60" stroke-width="2"/>
+  <line x1="488" y1="202" x2="500" y2="202" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- Col 3 -> Col 4 -->
+  <line x1="698" y1="202" x2="738" y2="202" stroke="#2457d6" stroke-width="2" marker-end="url(#arr)"/>
+
+</svg>

@@ -1,0 +1,129 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- White Background -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Markers -->
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Title and Subtitle -->
+  <text x="480" y="34" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Послідовність запису керуючих регістрів BME280</text>
+  <text x="480" y="56" font-size="13" fill="#6b7280" text-anchor="middle">Зміни ctrl_hum (0xF2) набирають чинності тільки під час наступного запису в ctrl_meas (0xF4)</text>
+
+  <!-- SECTION 1: Register Bit Structure -->
+  <rect x="40" y="75" width="880" height="150" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="56" y="98" font-size="14" font-weight="bold" fill="#1a1a1a">1. Структура бітових полів керуючих регістрів</text>
+
+  <!-- Register 0xF2 (ctrl_hum) -->
+  <text x="56" y="125" font-size="13" font-weight="bold" fill="#2457d6">Регістр 0xF2: ctrl_hum (Вологість)</text>
+  
+  <!-- Bit Headers 0xF2 -->
+  <text x="78.5" y="142" font-size="11" fill="#6b7280" text-anchor="middle">7</text>
+  <text x="123.5" y="142" font-size="11" fill="#6b7280" text-anchor="middle">6</text>
+  <text x="168.5" y="142" font-size="11" fill="#6b7280" text-anchor="middle">5</text>
+  <text x="213.5" y="142" font-size="11" fill="#6b7280" text-anchor="middle">4</text>
+  <text x="258.5" y="142" font-size="11" fill="#6b7280" text-anchor="middle">3</text>
+  <text x="303.5" y="142" font-size="11" fill="#6b7280" text-anchor="middle">2</text>
+  <text x="348.5" y="142" font-size="11" fill="#6b7280" text-anchor="middle">1</text>
+  <text x="393.5" y="142" font-size="11" fill="#6b7280" text-anchor="middle">0</text>
+
+  <!-- Bit Cells 0xF2 -->
+  <rect x="56" y="148" width="225" height="36" fill="#e5e7eb" stroke="#d0d7de"/>
+  <text x="168.5" y="171" font-size="12" fill="#6b7280" text-anchor="middle">Зарезервовано [7:3]</text>
+
+  <rect x="281" y="148" width="135" height="36" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="348.5" y="171" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">osrs_h [2:0]</text>
+  <text x="348.5" y="202" font-size="11" fill="#1a1a1a" text-anchor="middle">Буферизується (чекає 0xF4)</text>
+
+  <!-- Register 0xF4 (ctrl_meas) -->
+  <text x="480" y="125" font-size="13" font-weight="bold" fill="#2457d6">Регістр 0xF4: ctrl_meas (Температура, Тиск, Режим)</text>
+
+  <!-- Bit Headers 0xF4 -->
+  <text x="505" y="142" font-size="11" fill="#6b7280" text-anchor="middle">7</text>
+  <text x="555" y="142" font-size="11" fill="#6b7280" text-anchor="middle">6</text>
+  <text x="605" y="142" font-size="11" fill="#6b7280" text-anchor="middle">5</text>
+  <text x="655" y="142" font-size="11" fill="#6b7280" text-anchor="middle">4</text>
+  <text x="705" y="142" font-size="11" fill="#6b7280" text-anchor="middle">3</text>
+  <text x="755" y="142" font-size="11" fill="#6b7280" text-anchor="middle">2</text>
+  <text x="805" y="142" font-size="11" fill="#6b7280" text-anchor="middle">1</text>
+  <text x="855" y="142" font-size="11" fill="#6b7280" text-anchor="middle">0</text>
+
+  <!-- Bit Cells 0xF4 -->
+  <rect x="480" y="148" width="150" height="36" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="555" y="171" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">osrs_t [7:5]</text>
+  <text x="555" y="202" font-size="11" fill="#6b7280" text-anchor="middle">Оверсемплінг T</text>
+
+  <rect x="630" y="148" width="150" height="36" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="705" y="171" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">osrs_p [4:2]</text>
+  <text x="705" y="202" font-size="11" fill="#6b7280" text-anchor="middle">Оверсемплінг P</text>
+
+  <rect x="780" y="148" width="100" height="36" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="830" y="171" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">mode [1:0]</text>
+  <text x="830" y="202" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">Активація!</text>
+
+
+  <!-- SECTION 2: Correct Sequence (Green) -->
+  <rect x="40" y="245" width="425" height="270" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="56" y="272" font-size="14" font-weight="bold" fill="#27ae60">2. Правильний порядок запису (РЕКОМЕНДОВАНО)</text>
+
+  <!-- Step 1 (Correct) -->
+  <rect x="60" y="290" width="385" height="55" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="75" y="312" font-size="12" font-weight="bold" fill="#2457d6">КРОК 1:</text>
+  <text x="130" y="312" font-size="13" font-weight="bold" fill="#1a1a1a">Write 0xF2 (ctrl_hum)</text>
+  <text x="75" y="332" font-size="12" fill="#6b7280">Запис osrs_h → збереження в теневий буфер BME280</text>
+
+  <!-- Flow Arrow (Correct) -->
+  <line x1="252.5" y1="345" x2="252.5" y2="367" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="262" y="360" font-size="11" font-weight="bold" fill="#27ae60">Далі</text>
+
+  <!-- Step 2 (Correct) -->
+  <rect x="60" y="370" width="385" height="55" rx="6" fill="white" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="75" y="392" font-size="12" font-weight="bold" fill="#27ae60">КРОК 2:</text>
+  <text x="130" y="392" font-size="13" font-weight="bold" fill="#1a1a1a">Write 0xF4 (ctrl_meas)</text>
+  <text x="75" y="412" font-size="12" fill="#6b7280">Запис osrs_t, osrs_p, mode → тригер запуску вимірювань</text>
+
+  <!-- Result Banner (Correct) -->
+  <rect x="60" y="440" width="385" height="55" rx="6" fill="#27ae60" fill-opacity="0.1" stroke="#27ae60" stroke-width="1"/>
+  <text x="75" y="462" font-size="12" font-weight="bold" fill="#27ae60">УСПІХ:</text>
+  <text x="125" y="462" font-size="12" font-weight="bold" fill="#1a1a1a">Оновлено T, P та вологість H одночасно</text>
+  <text x="75" y="482" font-size="12" fill="#27ae60">Нові налаштування вологості застосовано коректно</text>
+
+
+  <!-- SECTION 3: Incorrect Sequence (Red) -->
+  <rect x="495" y="245" width="425" height="270" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="511" y="272" font-size="14" font-weight="bold" fill="#c0392b">3. Неправильний порядок запису (ПОМИЛКА)</text>
+
+  <!-- Step 1 (Incorrect) -->
+  <rect x="515" y="290" width="385" height="55" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="530" y="312" font-size="12" font-weight="bold" fill="#c0392b">КРОК 1:</text>
+  <text x="585" y="312" font-size="13" font-weight="bold" fill="#1a1a1a">Write 0xF4 (ctrl_meas)</text>
+  <text x="530" y="332" font-size="12" fill="#6b7280">Застосовано лише T і P. Вологість H зберігає СТАРІ біти!</text>
+
+  <!-- Flow Arrow (Incorrect) -->
+  <line x1="707.5" y1="345" x2="707.5" y2="367" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="717" y="360" font-size="11" font-weight="bold" fill="#c0392b">Далі</text>
+
+  <!-- Step 2 (Incorrect) -->
+  <rect x="515" y="370" width="385" height="55" rx="6" fill="white" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="530" y="392" font-size="12" font-weight="bold" fill="#c0392b">КРОК 2:</text>
+  <text x="585" y="392" font-size="13" font-weight="bold" fill="#1a1a1a">Write 0xF2 (ctrl_hum)</text>
+  <text x="530" y="412" font-size="12" fill="#6b7280">Дані osrs_h записано в буфер, але вони НЕ АКТИВНІ!</text>
+
+  <!-- Result Banner (Incorrect) -->
+  <rect x="515" y="440" width="385" height="55" rx="6" fill="#c0392b" fill-opacity="0.1" stroke="#c0392b" stroke-width="1"/>
+  <text x="530" y="462" font-size="12" font-weight="bold" fill="#c0392b">СБОЙ:</text>
+  <text x="575" y="462" font-size="12" font-weight="bold" fill="#1a1a1a">Нові налаштування вологості НЕ діють!</text>
+  <text x="530" y="482" font-size="12" fill="#c0392b">Зміни osrs_h подіють лише після наступного запису 0xF4</text>
+</svg>

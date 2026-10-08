@@ -1,0 +1,120 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-black" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Характеристика перетворення: LM35DZ проти NTC-термістора</text>
+  <text x="480" y="54" text-anchor="middle" font-size="13" fill="#6b7280">LM35DZ дає лінійний сигнал 10 мВ/°C, а NTC вимагає розрахунку рівняння Стейнхарта — Харта</text>
+
+  <!-- Left Graph Container Panel -->
+  <rect x="30" y="75" width="570" height="360" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="8"/>
+
+  <!-- Graph Header & Legend -->
+  <text x="40" y="96" text-anchor="start" font-size="13" font-weight="bold" fill="#1a1a1a">Вихідна напруга V_out (мВ)</text>
+
+  <!-- Legend Pill 1: LM35 -->
+  <rect x="305" y="80" width="140" height="24" rx="12" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="315" y1="92" x2="330" y2="92" stroke="#2457d6" stroke-width="3"/>
+  <text x="388" y="96" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">LM35DZ (10 мВ/°C)</text>
+
+  <!-- Legend Pill 2: NTC -->
+  <rect x="455" y="80" width="135" height="24" rx="12" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <path d="M 463,95 Q 470,88 478,92" stroke="#c0392b" stroke-width="2.5" fill="none"/>
+  <text x="533" y="96" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">NTC (Нелінійний)</text>
+
+  <!-- Grid Lines -->
+  <!-- Horizontal Grid -->
+  <line x1="110" y1="315" x2="560" y2="315" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4 4"/>
+  <line x1="110" y1="250" x2="560" y2="250" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4 4"/>
+  <line x1="110" y1="185" x2="560" y2="185" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4 4"/>
+  <line x1="110" y1="120" x2="560" y2="120" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4 4"/>
+
+  <!-- Vertical Grid -->
+  <line x1="222.5" y1="120" x2="222.5" y2="380" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4 4"/>
+  <line x1="335" y1="120" x2="335" y2="380" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4 4"/>
+  <line x1="447.5" y1="120" x2="447.5" y2="380" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4 4"/>
+  <line x1="560" y1="120" x2="560" y2="380" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4 4"/>
+
+  <!-- Axes -->
+  <line x1="110" y1="380" x2="575" y2="380" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-black)"/>
+  <line x1="110" y1="380" x2="110" y2="105" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-black)"/>
+
+  <!-- Y Ticks -->
+  <line x1="105" y1="315" x2="110" y2="315" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="105" y1="250" x2="110" y2="250" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="105" y1="185" x2="110" y2="185" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="105" y1="120" x2="110" y2="120" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Y Tick Labels -->
+  <text x="102" y="384" text-anchor="end" font-size="12" fill="#6b7280">0 мВ</text>
+  <text x="102" y="319" text-anchor="end" font-size="12" fill="#6b7280">250 мВ</text>
+  <text x="102" y="254" text-anchor="end" font-size="12" fill="#6b7280">500 мВ</text>
+  <text x="102" y="189" text-anchor="end" font-size="12" fill="#6b7280">750 мВ</text>
+  <text x="102" y="124" text-anchor="end" font-size="12" fill="#6b7280">1000 мВ</text>
+
+  <!-- X Ticks -->
+  <line x1="222.5" y1="380" x2="222.5" y2="385" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="335" y1="380" x2="335" y2="385" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="447.5" y1="380" x2="447.5" y2="385" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="560" y1="380" x2="560" y2="385" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- X Tick Labels -->
+  <text x="110" y="400" text-anchor="middle" font-size="12" fill="#6b7280">0°C</text>
+  <text x="222.5" y="400" text-anchor="middle" font-size="12" fill="#6b7280">25°C</text>
+  <text x="335" y="400" text-anchor="middle" font-size="12" fill="#6b7280">50°C</text>
+  <text x="447.5" y="400" text-anchor="middle" font-size="12" fill="#6b7280">75°C</text>
+  <text x="560" y="400" text-anchor="middle" font-size="12" fill="#6b7280">100°C</text>
+
+  <!-- X Axis Title -->
+  <text x="335" y="424" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Температура T (°C)</text>
+
+  <!-- Curve 1: LM35DZ Line -->
+  <line x1="110" y1="380" x2="560" y2="120" stroke="#2457d6" stroke-width="3.5" stroke-linecap="round"/>
+
+  <!-- Curve 2: NTC Thermistor Curve -->
+  <path d="M 110,135 C 170,220 250,290 560,363" stroke="#c0392b" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+
+  <!-- Key Points -->
+  <!-- LM35 Points -->
+  <circle cx="222.5" cy="315" r="4.5" fill="#2457d6" stroke="white" stroke-width="1.5"/>
+  <circle cx="560" cy="120" r="4.5" fill="#2457d6" stroke="white" stroke-width="1.5"/>
+
+  <!-- NTC Points -->
+  <circle cx="110" cy="135" r="4.5" fill="#c0392b" stroke="white" stroke-width="1.5"/>
+  <circle cx="222.5" cy="250" r="4.5" fill="#c0392b" stroke="white" stroke-width="1.5"/>
+
+  <!-- Data Point Labels -->
+  <text x="232" y="334" font-size="12" font-weight="bold" fill="#2457d6">250 мВ (25°C)</text>
+  <text x="548" y="115" text-anchor="end" font-size="12" font-weight="bold" fill="#2457d6">1000 мВ (100°C)</text>
+
+  <text x="122" y="130" font-size="12" font-weight="bold" fill="#c0392b">~940 мВ (0°C)</text>
+  <text x="232" y="242" font-size="12" font-weight="bold" fill="#c0392b">500 мВ (25°C)</text>
+
+  <!-- Right Side Card 1: LM35DZ -->
+  <rect x="620" y="75" width="310" height="170" fill="#eaf0fd" stroke="#b4c6fc" stroke-width="1.5" rx="8"/>
+  <text x="775" y="98" text-anchor="middle" font-weight="bold" font-size="14" fill="#2457d6">LM35DZ (Напівпровідник)</text>
+  <line x1="640" y1="108" x2="910" y2="108" stroke="#b4c6fc" stroke-width="1"/>
+
+  <text x="635" y="128" font-size="12" font-weight="bold" fill="#1a1a1a">Формула: V_out = 10 мВ/°C · T</text>
+  <text x="635" y="148" font-size="12" fill="#1a1a1a">• Масштаб: 10.0 мВ на кожен 1 °C</text>
+  <text x="635" y="168" font-size="12" fill="#1a1a1a">• Обчислення: T = V_out / 0.01 В</text>
+  <text x="635" y="188" font-size="12" fill="#27ae60" font-weight="bold">• Навантаження на МК: мінімальне</text>
+  <text x="635" y="208" font-size="12" fill="#6b7280">• Пряме зчитування АЦП без LUT</text>
+
+  <!-- Right Side Card 2: NTC Thermistor -->
+  <rect x="620" y="265" width="310" height="170" fill="#fdecea" stroke="#f5c6cb" stroke-width="1.5" rx="8"/>
+  <text x="775" y="288" text-anchor="middle" font-weight="bold" font-size="14" fill="#c0392b">NTC-термістор (Опір)</text>
+  <line x1="640" y1="298" x2="910" y2="298" stroke="#f5c6cb" stroke-width="1"/>
+
+  <text x="635" y="318" font-size="12" font-weight="bold" fill="#1a1a1a">Рівняння: 1/T = A + B·ln(R) + C·(ln R)³</text>
+  <text x="635" y="338" font-size="12" fill="#1a1a1a">• Експоненційне падіння опору R(T)</text>
+  <text x="635" y="358" font-size="12" fill="#1a1a1a">• Потрібні логарифми або LUT-таблиці</text>
+  <text x="635" y="378" font-size="12" fill="#c0392b" font-weight="bold">• Навантаження на МК: високе (float)</text>
+  <text x="635" y="398" font-size="12" fill="#6b7280">• Втрата чутливості при високих T</text>
+</svg>

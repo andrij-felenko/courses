@@ -1,0 +1,147 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="30" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Ієрархічна структура вузла Device Tree для IIO-давача</text>
+  <text x="480" y="50" text-anchor="middle" font-size="13" fill="#6b7280">Відповідність між апаратними виводами, властивостями DTS та підсистемами ядра Linux</text>
+
+  <!-- Card 1: Hardware Level -->
+  <rect x="20" y="68" width="250" height="472" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="26" y="74" width="238" height="30" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="145" y="94" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">1. Апаратний рівень (HW)</text>
+
+  <!-- H1: I2C/SPI -->
+  <rect x="30" y="114" width="230" height="72" rx="4" fill="white" stroke="#d0d7de"/>
+  <text x="40" y="133" font-size="12" font-weight="bold" fill="#1a1a1a">Шина I2C / SPI</text>
+  <text x="40" y="151" font-size="12" fill="#6b7280">Виводи: SDA, SCL</text>
+  <text x="40" y="169" font-size="12" fill="#2457d6">Адреса пристрою: 0x48</text>
+
+  <!-- H2: IRQ -->
+  <rect x="30" y="196" width="230" height="72" rx="4" fill="white" stroke="#d0d7de"/>
+  <text x="40" y="215" font-size="12" font-weight="bold" fill="#1a1a1a">Лінія переривання</text>
+  <text x="40" y="233" font-size="12" fill="#6b7280">Вивід: INT / DRDY</text>
+  <text x="40" y="251" font-size="12" fill="#2457d6">Контролер: GPIO1_IO15</text>
+
+  <!-- H3: Power -->
+  <rect x="30" y="278" width="230" height="72" rx="4" fill="white" stroke="#d0d7de"/>
+  <text x="40" y="297" font-size="12" font-weight="bold" fill="#1a1a1a">Джерела живлення</text>
+  <text x="40" y="315" font-size="12" fill="#6b7280">Виводи: VDD, VDDIO</text>
+  <text x="40" y="333" font-size="12" fill="#2457d6">Шина: reg_3v3 (+3.3V)</text>
+
+  <!-- H4: Clock -->
+  <rect x="30" y="360" width="230" height="72" rx="4" fill="white" stroke="#d0d7de"/>
+  <text x="40" y="379" font-size="12" font-weight="bold" fill="#1a1a1a">Тактовий сигнал</text>
+  <text x="40" y="397" font-size="12" fill="#6b7280">Вивід: EXT_CLK</text>
+  <text x="40" y="415" font-size="12" fill="#2457d6">Джерело: clk_ext (24MHz)</text>
+
+  <!-- H5: ADC / Channel -->
+  <rect x="30" y="442" width="230" height="86" rx="4" fill="white" stroke="#d0d7de"/>
+  <text x="40" y="461" font-size="12" font-weight="bold" fill="#1a1a1a">Аналоговий вхід</text>
+  <text x="40" y="479" font-size="12" fill="#6b7280">Вивід: AIN0</text>
+  <text x="40" y="497" font-size="12" fill="#2457d6">Канал ADC0 (IIO Consumer)</text>
+  <text x="40" y="515" font-size="11" fill="#27ae60">Зв'язка io-channels</text>
+
+  <!-- Card 2: Device Tree Node -->
+  <rect x="300" y="68" width="360" height="472" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="306" y="74" width="348" height="30" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="480" y="94" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">2. Опис у Device Tree (&amp;i2c1)</text>
+
+  <!-- DTS Box -->
+  <rect x="310" y="114" width="340" height="414" rx="4" fill="white" stroke="#d0d7de"/>
+  <text x="320" y="132" font-size="12" font-weight="bold" fill="#6b7280">&amp;i2c1 {</text>
+  <text x="330" y="148" font-size="12" font-weight="bold" fill="#1a1a1a">sensor: iio-sensor@48 {</text>
+
+  <!-- D1: reg -->
+  <rect x="338" y="156" width="302" height="44" rx="3" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="346" y="173" font-size="12" font-weight="bold" fill="#2457d6">reg = &lt;0x48&gt;;</text>
+  <text x="346" y="190" font-size="11" fill="#6b7280">/* I2C адреса давача на шині */</text>
+
+  <!-- D2: interrupts -->
+  <rect x="338" y="206" width="302" height="62" rx="3" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="346" y="223" font-size="12" font-weight="bold" fill="#2457d6">interrupt-parent = &lt;&amp;gpio1&gt;;</text>
+  <text x="346" y="241" font-size="12" font-weight="bold" fill="#2457d6">interrupts = &lt;15 IRQ_TYPE_EDGE_RISING&gt;;</text>
+  <text x="346" y="258" font-size="11" fill="#6b7280">/* Конфігурація лінії переривання */</text>
+
+  <!-- D3: vdd-supply -->
+  <rect x="338" y="274" width="302" height="44" rx="3" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="346" y="291" font-size="12" font-weight="bold" fill="#2457d6">vdd-supply = &lt;&amp;reg_3v3&gt;;</text>
+  <text x="346" y="308" font-size="11" fill="#6b7280">/* Посилання на регулятор живлення */</text>
+
+  <!-- D4: clocks -->
+  <rect x="338" y="324" width="302" height="44" rx="3" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="346" y="341" font-size="12" font-weight="bold" fill="#2457d6">clocks = &lt;&amp;clk_ext&gt;;</text>
+  <text x="346" y="358" font-size="11" fill="#6b7280">/* Вхідна тактова частота (CCF) */</text>
+
+  <!-- D5: io-channels -->
+  <rect x="338" y="374" width="302" height="62" rx="3" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="346" y="391" font-size="12" font-weight="bold" fill="#27ae60">io-channels = &lt;&amp;adc 0&gt;;</text>
+  <text x="346" y="409" font-size="12" font-weight="bold" fill="#27ae60">io-channel-names = "vin";</text>
+  <text x="346" y="426" font-size="11" fill="#6b7280">/* Зв'язування каналів IIO (Consumer) */</text>
+
+  <text x="346" y="450" font-size="11" fill="#1a1a1a">compatible = "vendor,iio-sensor";</text>
+  <text x="330" y="480" font-size="12" font-weight="bold" fill="#1a1a1a">};</text>
+  <text x="320" y="500" font-size="12" font-weight="bold" fill="#6b7280">};</text>
+
+  <!-- Card 3: Kernel Subsystems -->
+  <rect x="690" y="68" width="250" height="472" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="696" y="74" width="238" height="30" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="815" y="94" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">3. Підсистеми ядра Linux</text>
+
+  <!-- K1: I2C Core -->
+  <rect x="700" y="114" width="230" height="72" rx="4" fill="white" stroke="#d0d7de"/>
+  <text x="710" y="133" font-size="12" font-weight="bold" fill="#1a1a1a">I2C Bus Controller</text>
+  <text x="710" y="151" font-size="12" fill="#6b7280">Драйвер шини: i2c-imx</text>
+  <text x="710" y="169" font-size="12" fill="#2457d6">Структура: struct i2c_client</text>
+
+  <!-- K2: GPIO / IRQ Domain -->
+  <rect x="700" y="196" width="230" height="72" rx="4" fill="white" stroke="#d0d7de"/>
+  <text x="710" y="215" font-size="12" font-weight="bold" fill="#1a1a1a">GPIO &amp; IRQ Domain</text>
+  <text x="710" y="233" font-size="12" fill="#6b7280">Контролер переривань</text>
+  <text x="710" y="251" font-size="12" fill="#2457d6">Виклики: irq_of_parse_and_map</text>
+
+  <!-- K3: Regulator Framework -->
+  <rect x="700" y="278" width="230" height="72" rx="4" fill="white" stroke="#d0d7de"/>
+  <text x="710" y="297" font-size="12" font-weight="bold" fill="#1a1a1a">Regulator Subsystem</text>
+  <text x="710" y="315" font-size="12" fill="#6b7280">Керування живленням</text>
+  <text x="710" y="333" font-size="12" fill="#2457d6">Виклики: regulator_get()</text>
+
+  <!-- K4: Common Clock Framework -->
+  <rect x="700" y="360" width="230" height="72" rx="4" fill="white" stroke="#d0d7de"/>
+  <text x="710" y="379" font-size="12" font-weight="bold" fill="#1a1a1a">Common Clock Framework</text>
+  <text x="710" y="397" font-size="12" fill="#6b7280">Тактування пристроїв</text>
+  <text x="710" y="415" font-size="12" fill="#2457d6">Виклики: devm_clk_get()</text>
+
+  <!-- K5: IIO In-Kernel API -->
+  <rect x="700" y="442" width="230" height="86" rx="4" fill="white" stroke="#d0d7de"/>
+  <text x="708" y="461" font-size="12" font-weight="bold" fill="#1a1a1a">IIO In-Kernel API</text>
+  <text x="708" y="479" font-size="12" fill="#6b7280">Provider / Consumer</text>
+  <text x="708" y="497" font-size="12" fill="#2457d6">devm_iio_channel_get()</text>
+  <text x="708" y="515" font-size="11" fill="#27ae60">iio_read_channel_raw()</text>
+
+  <!-- Connecting Lines Left to Middle -->
+  <line x1="260" y1="150" x2="338" y2="178" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <line x1="260" y1="232" x2="338" y2="237" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <line x1="260" y1="314" x2="338" y2="296" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <line x1="260" y1="396" x2="338" y2="346" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <line x1="260" y1="485" x2="338" y2="405" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <!-- Connecting Lines Middle to Right -->
+  <line x1="640" y1="178" x2="700" y2="150" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <line x1="640" y1="237" x2="700" y2="232" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <line x1="640" y1="296" x2="700" y2="314" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <line x1="640" y1="346" x2="700" y2="396" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <line x1="640" y1="405" x2="700" y2="485" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+</svg>

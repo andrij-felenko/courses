@@ -1,0 +1,229 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- White Background -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <defs>
+    <!-- Arrow Markers -->
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Схемотехніка модуля TCRT5000 на базі компаратора LM393</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Формування аналогового (AO) та цифрового (DO) сигналів під час виявлення відбиття ІЧ-променя</text>
+
+  <!-- POWER RAILS -->
+  <!-- VCC Rail -->
+  <line x1="35" y1="140" x2="927" y2="140" stroke="#c0392b" stroke-width="2"/>
+  <text x="35" y="125" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="start">VCC (+5V)</text>
+
+  <!-- GND Rail -->
+  <line x1="35" y1="380" x2="927" y2="380" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="35" y="396" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">GND (0V)</text>
+
+  <!-- PANEL 1: TCRT5000 Sensor (Left) -->
+  <rect x="25" y="75" width="285" height="425" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="8"/>
+  <text x="167" y="96" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">1. Оптичний датчик TCRT5000</text>
+
+  <!-- Obstacle Surface -->
+  <rect x="100" y="110" width="180" height="24" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4 4" rx="4"/>
+  <text x="190" y="126" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Поверхня відбиття</text>
+
+  <!-- Optical Rays -->
+  <!-- Emitted IR Ray -->
+  <line x1="105" y1="195" x2="145" y2="138" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="3 3" marker-end="url(#arr-blue)"/>
+  <text x="82" y="165" font-size="12" fill="#2457d6" text-anchor="end">ІЧ-промінь</text>
+
+  <!-- Reflected IR Ray -->
+  <line x1="235" y1="138" x2="265" y2="195" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="3 3" marker-end="url(#arr-blue)"/>
+  <text x="275" y="165" font-size="12" fill="#2457d6" text-anchor="start">Відбитий промінь</text>
+
+  <!-- TCRT5000 Housing Outline -->
+  <rect x="42" y="195" width="250" height="210" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="5 5" rx="6"/>
+  <text x="167" y="212" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">Корпус TCRT5000</text>
+
+  <!-- IR LED Branch (x=95) -->
+  <line x1="95" y1="140" x2="95" y2="230" stroke="#c0392b" stroke-width="1.5"/>
+  <circle cx="95" cy="140" r="3" fill="#c0392b"/>
+
+  <!-- Resistor R1 (IR LED) -->
+  <rect x="87" y="230" width="16" height="30" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="80" y="242" font-size="12" fill="#1a1a1a" text-anchor="end">R1</text>
+  <text x="80" y="256" font-size="12" fill="#6b7280" text-anchor="end">220 Ом</text>
+
+  <line x1="95" y1="260" x2="95" y2="285" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- IR LED D1 -->
+  <polygon points="87,285 103,285 95,301" fill="#c0392b" stroke="#c0392b" stroke-width="1"/>
+  <line x1="87" y1="301" x2="103" y2="301" stroke="#c0392b" stroke-width="2"/>
+  <text x="110" y="296" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">D1 (ІЧ-діод)</text>
+
+  <line x1="95" y1="301" x2="95" y2="380" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="95" cy="380" r="3" fill="#1a1a1a"/>
+
+  <!-- Phototransistor Branch (x=235) -->
+  <line x1="235" y1="140" x2="235" y2="230" stroke="#c0392b" stroke-width="1.5"/>
+  <circle cx="235" cy="140" r="3" fill="#c0392b"/>
+
+  <!-- Resistor R2 (Phototransistor Pull-up) -->
+  <rect x="227" y="230" width="16" height="30" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="248" y="242" font-size="12" fill="#1a1a1a" text-anchor="start">R2</text>
+  <text x="248" y="256" font-size="12" fill="#6b7280" text-anchor="start">10 кОм</text>
+
+  <line x1="235" y1="260" x2="235" y2="275" stroke="#1a1a1a" stroke-width="1.5"/>
+  <!-- Node A (Divider output) -->
+  <circle cx="235" cy="275" r="3.5" fill="#2457d6"/>
+
+  <line x1="235" y1="275" x2="235" y2="288" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Phototransistor Q1 -->
+  <circle cx="235" cy="305" r="16" fill="none" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="230" y1="295" x2="230" y2="315" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="230" y1="298" x2="235" y2="288" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="230" y1="312" x2="235" y2="322" stroke="#1a1a1a" stroke-width="1.5"/>
+  <polygon points="232,323 237,323 235,317" fill="#1a1a1a"/>
+  <text x="256" y="301" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">Q1</text>
+  <text x="256" y="315" font-size="12" fill="#6b7280" text-anchor="start">Фото-Т</text>
+
+  <line x1="235" y1="322" x2="235" y2="380" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="235" cy="380" r="3" fill="#1a1a1a"/>
+
+  <!-- Panel 1 Bottom Explanation Box -->
+  <rect x="35" y="420" width="265" height="60" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="4"/>
+  <text x="167" y="440" font-size="12" fill="#1a1a1a" text-anchor="middle">При наближенні об'єкта Q1 відкривається,</text>
+  <text x="167" y="460" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">напруга V_AO знижується до GND</text>
+
+  <!-- AO SIGNAL WIRING (Blue) -->
+  <line x1="235" y1="275" x2="310" y2="275" stroke="#2457d6" stroke-width="1.5"/>
+  <circle cx="310" cy="275" r="3" fill="#2457d6"/>
+  <!-- Branch to LM393 IN+ -->
+  <line x1="310" y1="275" x2="310" y2="215" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="310" y1="215" x2="460" y2="215" stroke="#2457d6" stroke-width="1.5"/>
+  <!-- Branch to AO Terminal -->
+  <line x1="310" y1="275" x2="310" y2="310" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="310" y1="310" x2="927" y2="310" stroke="#2457d6" stroke-width="1.5"/>
+
+  <!-- PANEL 2: LM393 Comparator (Middle) -->
+  <rect x="325" y="75" width="315" height="425" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="8"/>
+  <text x="482" y="96" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">2. Компаратор LM393</text>
+
+  <!-- Potentiometer R3 Branch (x=360) -->
+  <line x1="360" y1="140" x2="360" y2="230" stroke="#c0392b" stroke-width="1.5"/>
+  <circle cx="360" cy="140" r="3" fill="#c0392b"/>
+
+  <rect x="352" y="230" width="16" height="50" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="345" y="245" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">R3</text>
+  <text x="345" y="260" font-size="12" fill="#6b7280" text-anchor="end">10 кОм</text>
+  <text x="345" y="275" font-size="12" fill="#6b7280" text-anchor="end">(поріг)</text>
+
+  <line x1="360" y1="280" x2="360" y2="380" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="360" cy="380" r="3" fill="#1a1a1a"/>
+
+  <!-- Wiper arrow line to LM393 IN- -->
+  <line x1="368" y1="255" x2="445" y2="255" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr)"/>
+  <line x1="445" y1="255" x2="445" y2="285" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="445" y1="285" x2="460" y2="285" stroke="#6b7280" stroke-width="1.5"/>
+
+  <!-- Signal Labels at LM393 inputs -->
+  <text x="445" y="205" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">V_AO (Сигнал)</text>
+  <text x="440" y="245" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="end">V_ref</text>
+
+  <!-- LM393 Comparator Triangle -->
+  <polygon points="460,185 460,315 550,250" fill="#ffffff" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="472" y="220" font-size="14" font-weight="bold" fill="#1a1a1a">+</text>
+  <text x="472" y="290" font-size="14" font-weight="bold" fill="#1a1a1a">−</text>
+  <text x="498" y="254" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">LM393</text>
+
+  <!-- LM393 Power Connections -->
+  <line x1="500" y1="218" x2="500" y2="140" stroke="#c0392b" stroke-width="1.5"/>
+  <circle cx="500" cy="140" r="3" fill="#c0392b"/>
+  <line x1="500" y1="282" x2="500" y2="380" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="500" cy="380" r="3" fill="#1a1a1a"/>
+
+  <!-- Output DO Line from LM393 tip -->
+  <line x1="550" y1="250" x2="927" y2="250" stroke="#27ae60" stroke-width="2"/>
+  <text x="565" y="242" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="start">Вихід DO</text>
+
+  <!-- Panel 2 Bottom Logic Box -->
+  <rect x="338" y="415" width="288" height="75" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="4"/>
+  <text x="348" y="432" font-size="12" font-weight="bold" fill="#1a1a1a">Принцип порівняння LM393:</text>
+  <text x="348" y="448" font-size="12" fill="#6b7280">• V_AO &gt; V_ref ⇒ DO = 1 (Немає перешкоди)</text>
+  <text x="348" y="464" font-size="12" font-weight="bold" fill="#27ae60">• V_AO &lt; V_ref ⇒ DO = 0 (Виявлено об'єкт)</text>
+  <text x="348" y="480" font-size="12" fill="#6b7280">Поріг спрацювання задається R3</text>
+
+  <!-- PANEL 3: Outputs and Indicators (Right) -->
+  <rect x="655" y="75" width="295" height="425" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="8"/>
+  <text x="802" y="96" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">3. Виходи та індикація</text>
+
+  <!-- Pull-up Resistor R4 (x=675) -->
+  <line x1="675" y1="140" x2="675" y2="175" stroke="#c0392b" stroke-width="1.5"/>
+  <circle cx="675" cy="140" r="3" fill="#c0392b"/>
+
+  <rect x="667" y="175" width="16" height="30" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="662" y="187" font-size="12" fill="#1a1a1a" text-anchor="end">R4</text>
+  <text x="662" y="201" font-size="12" fill="#6b7280" text-anchor="end">10 кОм</text>
+
+  <line x1="675" y1="205" x2="675" y2="250" stroke="#27ae60" stroke-width="1.5"/>
+  <circle cx="675" cy="250" r="3.5" fill="#27ae60"/>
+
+  <!-- Indicator LED D2 (DO LED, x=740) -->
+  <line x1="740" y1="140" x2="740" y2="175" stroke="#c0392b" stroke-width="1.5"/>
+  <circle cx="740" cy="140" r="3" fill="#c0392b"/>
+
+  <rect x="732" y="175" width="16" height="25" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="740" y1="200" x2="740" y2="210" stroke="#27ae60" stroke-width="1.5"/>
+
+  <polygon points="732,210 748,210 740,224" fill="#27ae60" stroke="#27ae60" stroke-width="1"/>
+  <line x1="732" y1="224" x2="748" y2="224" stroke="#27ae60" stroke-width="2"/>
+  <line x1="740" y1="224" x2="740" y2="250" stroke="#27ae60" stroke-width="1.5"/>
+  <circle cx="740" cy="250" r="3.5" fill="#27ae60"/>
+
+  <text x="727" y="187" font-size="12" fill="#1a1a1a" text-anchor="end">R5</text>
+  <text x="727" y="201" font-size="12" fill="#6b7280" text-anchor="end">1 кОм</text>
+  <text x="727" y="217" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="end">D2</text>
+  <text x="727" y="231" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="end">DO-LED</text>
+
+  <!-- Power LED D3 (PWR LED, x=800) -->
+  <line x1="800" y1="140" x2="800" y2="175" stroke="#c0392b" stroke-width="1.5"/>
+  <circle cx="800" cy="140" r="3" fill="#c0392b"/>
+
+  <rect x="792" y="175" width="16" height="25" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="800" y1="200" x2="800" y2="210" stroke="#c0392b" stroke-width="1.5"/>
+
+  <polygon points="792,210 808,210 800,224" fill="#c0392b" stroke="#c0392b" stroke-width="1"/>
+  <line x1="792" y1="224" x2="808" y2="224" stroke="#c0392b" stroke-width="2"/>
+  <line x1="800" y1="224" x2="800" y2="380" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="800" cy="380" r="3" fill="#1a1a1a"/>
+
+  <text x="813" y="187" font-size="12" fill="#1a1a1a" text-anchor="start">R6</text>
+  <text x="813" y="201" font-size="12" fill="#6b7280" text-anchor="start">1 кОм</text>
+  <text x="813" y="217" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="start">D3</text>
+  <text x="813" y="231" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="start">PWR</text>
+
+  <!-- Terminal Block Header -->
+  <rect x="912" y="120" width="30" height="280" fill="#ffffff" stroke="#1a1a1a" stroke-width="2" rx="4"/>
+  <circle cx="927" cy="140" r="5" fill="#c0392b"/>
+  <circle cx="927" cy="140" r="3" fill="#c0392b"/>
+  <circle cx="927" cy="250" r="5" fill="#27ae60"/>
+  <circle cx="927" cy="310" r="5" fill="#2457d6"/>
+  <circle cx="927" cy="380" r="5" fill="#1a1a1a"/>
+  <circle cx="927" cy="380" r="3" fill="#1a1a1a"/>
+
+  <text x="906" y="133" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="end">VCC (+5V)</text>
+  <text x="906" y="243" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="end">DO (Цифровий)</text>
+  <text x="906" y="303" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">AO (Аналоговий)</text>
+  <text x="906" y="373" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">GND (0V)</text>
+
+  <!-- Panel 3 Bottom Summary Box -->
+  <rect x="665" y="420" width="275" height="55" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="4"/>
+  <text x="677" y="436" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">Призначення виходів:</text>
+  <text x="677" y="452" font-size="12" fill="#2457d6" text-anchor="start">• AO: напруга 0...VCC (відбиття)</text>
+  <text x="677" y="468" font-size="12" fill="#27ae60" text-anchor="start">• DO: логічний 0/1 для МК</text>
+</svg>

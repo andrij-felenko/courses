@@ -1,0 +1,132 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" text-anchor="middle" fill="#1a1a1a">SHT30 I2C: Single-Shot (Clock Stretching) vs Periodic Mode</text>
+  <text x="480" y="56" font-size="13" text-anchor="middle" fill="#6b7280">Single-Shot блокує шину SCL під час вимірювання, а Periodic Mode читає дані з буфера без затримки</text>
+
+  <!-- Panel 1: Single-Shot Mode -->
+  <rect x="30" y="75" width="900" height="215" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="45" y="98" font-size="15" font-weight="bold" fill="#c0392b">1. Single-Shot Mode — очікування готовості (Clock Stretching)</text>
+
+  <!-- Row 1 Protocol Sequence -->
+  <!-- Block 1: Start + Addr+W -->
+  <rect x="45" y="112" width="115" height="46" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="102.5" y="130" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">Start + Addr+W</text>
+  <text x="102.5" y="147" font-size="11" text-anchor="middle" fill="#1a1a1a">0x44 (W) + ACK</text>
+
+  <!-- Arrow 1->2 -->
+  <line x1="163" y1="135" x2="173" y2="135" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Block 2: Cmd 0x2C06 -->
+  <rect x="177" y="112" width="125" height="46" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="239.5" y="130" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">Cmd: 0x2C 0x06</text>
+  <text x="239.5" y="147" font-size="11" text-anchor="middle" fill="#6b7280">High Repeatability</text>
+
+  <!-- Arrow 2->3 -->
+  <line x1="305" y1="135" x2="315" y2="135" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Block 3: Clock Stretching -->
+  <rect x="319" y="112" width="200" height="46" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4 2"/>
+  <text x="419" y="130" font-size="12" font-weight="bold" text-anchor="middle" fill="#c0392b">Clock Stretching (SCL = 0)</text>
+  <text x="419" y="147" font-size="11" font-weight="bold" text-anchor="middle" fill="#c0392b">t_meas ≈ 15.0 ms (Пауза)</text>
+
+  <!-- Arrow 3->4 -->
+  <line x1="522" y1="135" x2="532" y2="135" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+
+  <!-- Block 4: Sr + Addr+R -->
+  <rect x="536" y="112" width="115" height="46" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="593.5" y="130" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">Sr + Addr+R</text>
+  <text x="593.5" y="147" font-size="11" text-anchor="middle" fill="#1a1a1a">0x45 (R) + ACK</text>
+
+  <!-- Arrow 4->5 -->
+  <line x1="654" y1="135" x2="664" y2="135" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Block 5: Data Read -->
+  <rect x="668" y="112" width="247" height="46" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="791.5" y="130" font-size="12" font-weight="bold" text-anchor="middle" fill="#27ae60">Data: Temp (2B) + CRC | RH (2B) + CRC</text>
+  <text x="791.5" y="147" font-size="11" text-anchor="middle" fill="#1a1a1a">Master ACK × 5 + NACK + Stop</text>
+
+  <!-- Sub-panel 1L: Repeatability -->
+  <rect x="45" y="170" width="405" height="105" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="57" y="190" font-size="12" font-weight="bold" fill="#1a1a1a">Час вимірювання за рівнями повторюваності:</text>
+  <text x="57" y="210" font-size="12" fill="#1a1a1a">• <tspan font-weight="bold" fill="#2457d6">High</tspan>: t_meas max = 15.0 ms (типово 12.5 ms, висока точність)</text>
+  <text x="57" y="230" font-size="12" fill="#1a1a1a">• <tspan font-weight="bold" fill="#2457d6">Medium</tspan>: t_meas max = 6.5 ms (типово 4.5 ms, баланс)</text>
+  <text x="57" y="250" font-size="12" fill="#1a1a1a">• <tspan font-weight="bold" fill="#2457d6">Low</tspan>: t_meas max = 4.5 ms (типово 2.5 ms, низький струм)</text>
+
+  <!-- Sub-panel 1R: Bus impact -->
+  <rect x="465" y="170" width="450" height="105" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="477" y="190" font-size="12" font-weight="bold" fill="#c0392b">Особливості Clock Stretching:</text>
+  <text x="477" y="210" font-size="12" fill="#1a1a1a">• Давач утримує лінію SCL у LOW під час АЦП-перетворення.</text>
+  <text x="477" y="230" font-size="12" fill="#1a1a1a">• Мікроконтролер (Master) висне в очікуванні відпущення SCL.</text>
+  <text x="477" y="250" font-size="12" fill="#1a1a1a">• Інші пристрої на шині I2C блокуються на час вимірювання.</text>
+
+  <!-- Panel 2: Periodic Mode -->
+  <rect x="30" y="305" width="900" height="235" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="45" y="328" font-size="15" font-weight="bold" fill="#27ae60">2. Periodic Mode + Fetch Data (0xE000) — вимірювання у фоні</text>
+
+  <!-- Card 2A: Setup Periodic Mode -->
+  <rect x="45" y="342" width="405" height="110" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="57" y="362" font-size="12" font-weight="bold" fill="#2457d6">Фаза А: Запуск періоду (одноразово)</text>
+
+  <rect x="57" y="374" width="100" height="36" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="107" y="389" font-size="11" font-weight="bold" text-anchor="middle" fill="#2457d6">Start + Addr+W</text>
+  <text x="107" y="403" font-size="11" text-anchor="middle" fill="#1a1a1a">0x44 (W)</text>
+
+  <line x1="160" y1="392" x2="168" y2="392" stroke="#2457d6" stroke-width="1" marker-end="url(#arr-blue)"/>
+
+  <rect x="171" y="374" width="185" height="36" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="263.5" y="389" font-size="11" font-weight="bold" text-anchor="middle" fill="#2457d6">Cmd: 0x2130 (1 MPS, High)</text>
+  <text x="263.5" y="403" font-size="11" text-anchor="middle" fill="#6b7280">1 вимірювання / сек</text>
+
+  <line x1="359" y1="392" x2="367" y2="392" stroke="#2457d6" stroke-width="1" marker-end="url(#arr-blue)"/>
+
+  <rect x="370" y="374" width="65" height="36" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="402.5" y="389" font-size="11" font-weight="bold" text-anchor="middle" fill="#2457d6">Stop</text>
+  <text x="402.5" y="403" font-size="11" text-anchor="middle" fill="#1a1a1a">Bus Free</text>
+
+  <text x="57" y="434" font-size="11" fill="#6b7280">Частоти MPS: 0.5, 1, 2, 4, 10 вимірювань/сек</text>
+
+  <!-- Card 2B: Fetch Data -->
+  <rect x="465" y="342" width="450" height="110" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="477" y="362" font-size="12" font-weight="bold" fill="#27ae60">Фаза Б: Читання результату (Fetch Data 0xE000)</text>
+
+  <rect x="477" y="374" width="85" height="36" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="519.5" y="396" font-size="11" font-weight="bold" text-anchor="middle" fill="#2457d6">Start+0x44</text>
+
+  <line x1="565" y1="392" x2="573" y2="392" stroke="#2457d6" stroke-width="1" marker-end="url(#arr-blue)"/>
+
+  <rect x="576" y="374" width="85" height="36" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="618.5" y="396" font-size="11" font-weight="bold" text-anchor="middle" fill="#2457d6">Cmd: 0xE000</text>
+
+  <line x1="664" y1="392" x2="672" y2="392" stroke="#2457d6" stroke-width="1" marker-end="url(#arr-blue)"/>
+
+  <rect x="675" y="374" width="80" height="36" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="715" y="396" font-size="11" font-weight="bold" text-anchor="middle" fill="#2457d6">Sr+0x45</text>
+
+  <line x1="758" y1="392" x2="766" y2="392" stroke="#2457d6" stroke-width="1" marker-end="url(#arr-green)"/>
+
+  <rect x="769" y="374" width="135" height="36" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="836.5" y="389" font-size="11" font-weight="bold" text-anchor="middle" fill="#27ae60">6B Data + CRC</text>
+  <text x="836.5" y="403" font-size="11" text-anchor="middle" fill="#1a1a1a">Temp/RH + CRC</text>
+
+  <text x="477" y="434" font-size="11" fill="#27ae60">Видає останні значення з RAM без очікування АЦП</text>
+
+  <!-- Summary Box -->
+  <rect x="45" y="465" width="870" height="60" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="57" y="487" font-size="12" font-weight="bold" fill="#27ae60">Ключові переваги періодичного режиму (Periodic Mode):</text>
+  <text x="57" y="509" font-size="12" fill="#1a1a1a">• <tspan font-weight="bold" fill="#27ae60">Zero Clock Stretching:</tspan> Читання даних з RAM займає &lt; 1 мс. Шина SCL вільна, MCU не блокується.</text>
+</svg>

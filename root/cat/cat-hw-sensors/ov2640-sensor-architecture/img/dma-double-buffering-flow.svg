@@ -1,0 +1,128 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-gray" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Canvas Background -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Архітектура подвійної буферизації DMA (Circular Double-Buffering)</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Почергове заповнення буферів DCMI у SRAM із генерацією переривань DMA без втрати даних</text>
+
+  <!-- Panel 1: DCMI Source -->
+  <rect x="30" y="80" width="220" height="415" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="140" y="103" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Джерело відеопотоку</text>
+  <text x="140" y="121" font-size="12" fill="#6b7280" text-anchor="middle">OV2640 + Апаратний DCMI</text>
+
+  <!-- Sub-box 1A: OV2640 Sensor -->
+  <rect x="45" y="135" width="190" height="100" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="140" y="156" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Сенсор OV2640</text>
+  <text x="140" y="176" font-size="12" fill="#6b7280" text-anchor="middle">Паралельна шина D[7:0]</text>
+  <text x="140" y="194" font-size="12" fill="#6b7280" text-anchor="middle">Тактування: PIXCLK</text>
+  <text x="140" y="212" font-size="12" fill="#6b7280" text-anchor="middle">Синхр: HSYNC / VSYNC</text>
+
+  <!-- Arrow inside Panel 1 -->
+  <line x1="140" y1="235" x2="140" y2="275" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+  <text x="152" y="259" font-size="12" fill="#6b7280" text-anchor="start">DVP потік</text>
+
+  <!-- Sub-box 1B: DCMI Peripheral -->
+  <rect x="45" y="280" width="190" height="100" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="140" y="301" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Модуль STM32 DCMI</text>
+  <text x="140" y="321" font-size="12" fill="#1a1a1a" text-anchor="middle">FIFO накопичувач (4x32)</text>
+  <text x="140" y="339" font-size="12" fill="#1a1a1a" text-anchor="middle">Упаковка 8-біт в 32-біт</text>
+  <text x="140" y="357" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Генерація DMA Request</text>
+
+  <!-- Sub-box 1C: Formats Info -->
+  <rect x="45" y="395" width="190" height="80" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="140" y="417" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Формати відеокадру:</text>
+  <text x="140" y="437" font-size="12" fill="#6b7280" text-anchor="middle">RGB565 / YUV422</text>
+  <text x="140" y="455" font-size="12" fill="#6b7280" text-anchor="middle">стиснений JPEG</text>
+
+  <!-- Panel 2: DMA Controller -->
+  <rect x="280" y="80" width="330" height="415" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="445" y="103" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Контролер STM32 DMA Stream</text>
+  <text x="445" y="121" font-size="12" fill="#6b7280" text-anchor="middle">Режим Circular Double-Buffer (DBM = 1)</text>
+
+  <!-- Sub-box 2A: Memory Address Registers -->
+  <rect x="295" y="135" width="300" height="125" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="445" y="155" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Регістри адресації пам'яті</text>
+
+  <rect x="305" y="165" width="280" height="38" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="315" y="189" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="start">DMA_SxM0AR:</text>
+  <text x="395" y="189" font-size="12" fill="#1a1a1a" text-anchor="start">Вказує на Buffer 0 (SRAM)</text>
+
+  <rect x="305" y="211" width="280" height="38" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="315" y="235" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="start">DMA_SxM1AR:</text>
+  <text x="395" y="235" font-size="12" fill="#1a1a1a" text-anchor="start">Вказує на Buffer 1 (SRAM)</text>
+
+  <!-- Sub-box 2B: CT Target Switcher -->
+  <rect x="295" y="273" width="300" height="110" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="445" y="293" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Логіка перемикання (біти CT і DBM)</text>
+  <text x="310" y="314" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="start">● CT = 0 (Активний):</text>
+  <text x="450" y="314" font-size="12" fill="#1a1a1a" text-anchor="start">DMA пише в Buffer 0</text>
+  <text x="310" y="334" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="start">○ CT = 1 (Черговий):</text>
+  <text x="450" y="334" font-size="12" fill="#1a1a1a" text-anchor="start">DMA пише в Buffer 1</text>
+  <text x="445" y="367" font-size="12" fill="#6b7280" text-anchor="middle">Апаратна зміна CT після кожного кадру</text>
+
+  <!-- Sub-box 2C: DMA IRQ -->
+  <rect x="295" y="395" width="300" height="80" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="445" y="415" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">Генерація переривань DMA IRQ</text>
+  <text x="445" y="435" font-size="12" fill="#1a1a1a" text-anchor="middle">Сигнали: TCIF (Complete) / HTIF (Half)</text>
+  <text x="445" y="455" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Повідомлення CPU про готовність буфера</text>
+
+  <!-- Panel 3: SRAM Memory -->
+  <rect x="640" y="80" width="290" height="415" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="785" y="103" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Пам'ять SRAM (Буфери)</text>
+  <text x="785" y="121" font-size="12" fill="#6b7280" text-anchor="middle">Паралельний доступ DMA та CPU</text>
+
+  <!-- Sub-box 3A: Buffer 0 -->
+  <rect x="655" y="135" width="260" height="150" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="2"/>
+  <path d="M 655 141 A 6 6 0 0 1 661 135 L 909 135 A 6 6 0 0 1 915 141 L 915 167 L 655 167 Z" fill="#eaf0fd"/>
+  <text x="785" y="156" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Buffer 0 (M0AR)</text>
+
+  <rect x="670" y="174" width="230" height="26" rx="13" fill="#2457d6"/>
+  <text x="785" y="191" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">ЗАПИС DMA (CT = 0)</text>
+  <text x="785" y="218" font-size="12" fill="#1a1a1a" text-anchor="middle">Прийом даних кадру від DCMI</text>
+  <text x="785" y="238" font-size="12" fill="#6b7280" text-anchor="middle">Прямий доступ без участі CPU</text>
+  <text x="785" y="258" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Статус: Наповнення...</text>
+
+  <!-- Sub-box 3B: Buffer 1 -->
+  <rect x="655" y="300" width="260" height="175" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="2"/>
+  <path d="M 655 306 A 6 6 0 0 1 661 300 L 909 300 A 6 6 0 0 1 915 306 L 915 332 L 655 332 Z" fill="#e9f7ef"/>
+  <text x="785" y="321" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Buffer 1 (M1AR)</text>
+
+  <rect x="670" y="339" width="230" height="26" rx="13" fill="#27ae60"/>
+  <text x="785" y="356" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">ОБРОБКА CPU (Готовий кадр)</text>
+  <text x="785" y="383" font-size="12" fill="#1a1a1a" text-anchor="middle">Читання попереднього кадру</text>
+  <text x="785" y="403" font-size="12" fill="#1a1a1a" text-anchor="middle">Вивід на TFT / JPEG / SD</text>
+  <text x="785" y="423" font-size="12" fill="#6b7280" text-anchor="middle">Без ризику колізій пам'яті</text>
+  <text x="785" y="443" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Статус: Обробка...</text>
+
+  <!-- Inter-panel Arrow 1: DCMI -> DMA -->
+  <line x1="235" y1="330" x2="290" y2="330" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="265" y="320" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Запит DMA</text>
+
+  <!-- Inter-panel Arrow 2: DMA -> Buffer 0 -->
+  <line x1="595" y1="184" x2="650" y2="184" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+  <text x="625" y="174" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Запис DMA</text>
+
+  <!-- Inter-panel Arrow 3: DMA -> Buffer 1 (Next) -->
+  <line x1="595" y1="340" x2="650" y2="340" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="4,4" marker-end="url(#arr-green)"/>
+  <text x="625" y="330" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Черговий</text>
+
+  <!-- Inter-panel Arrow 4: DMA IRQ -> Buffer 1 -->
+  <line x1="595" y1="435" x2="650" y2="435" stroke="#c0392b" stroke-width="2" stroke-dasharray="4,4" marker-end="url(#arr-red)"/>
+  <text x="625" y="425" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Подія IRQ</text>
+</svg>

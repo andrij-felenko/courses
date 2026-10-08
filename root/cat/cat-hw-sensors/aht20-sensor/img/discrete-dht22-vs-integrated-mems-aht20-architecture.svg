@@ -1,0 +1,111 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-black" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Main Title & Subtitle -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Порівняння архітектур: дискретна (DHT22) та MEMS+ASIC (AHT20)</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Еволюція від дискретних елементів і Single Bus до монолітної системи з I²C</text>
+
+  <!-- Left Panel: DHT22 -->
+  <rect x="25" y="80" width="420" height="415" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- DHT22 Header Badge -->
+  <rect x="40" y="95" width="390" height="36" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="235" y="118" font-size="14" font-weight="bold" fill="#c0392b" text-anchor="middle">DHT22 / AM2302 — Дискретний модуль</text>
+
+  <!-- DHT22 Inner Module Casing -->
+  <rect x="40" y="145" width="390" height="260" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="50" y="162" font-size="11" font-weight="bold" fill="#6b7280">Корпус модуля (дискретна компоновка)</text>
+
+  <!-- DHT22 Humidity Sensor -->
+  <rect x="52" y="175" width="175" height="60" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="139.5" y="196" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Сенсор вологості</text>
+  <text x="139.5" y="218" font-size="11" fill="#1a1a1a" text-anchor="middle">Дискретний полімер</text>
+
+  <!-- DHT22 NTC Thermistor -->
+  <rect x="243" y="175" width="175" height="60" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="330.5" y="196" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Термістор NTC</text>
+  <text x="330.5" y="218" font-size="11" fill="#1a1a1a" text-anchor="middle">Аналоговий датчик T</text>
+
+  <!-- DHT22 Sensor-to-MCU Arrows -->
+  <line x1="139.5" y1="235" x2="139.5" y2="253" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <line x1="330.5" y1="235" x2="330.5" y2="253" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+
+  <!-- DHT22 Microcontroller -->
+  <rect x="52" y="255" width="366" height="70" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="235" y="275" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Зовнішній 8-бітний MCU (з АЦП)</text>
+  <text x="235" y="294" font-size="11" fill="#1a1a1a" text-anchor="middle">Окремий чип обробки аналогового сигналу</text>
+  <text x="235" y="311" font-size="11" fill="#6b7280" text-anchor="middle">Калібрування збережене в OTP пам'яті MCU</text>
+
+  <!-- DHT22 MCU-to-Bus Arrow -->
+  <line x1="235" y1="325" x2="235" y2="340" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- DHT22 Interface -->
+  <rect x="52" y="342" width="366" height="50" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="235" y="361" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Протокол: Single Bus (1-drot, пропрієтарний)</text>
+  <text x="235" y="379" font-size="11" fill="#6b7280" text-anchor="middle">Критичний до часових затримок мікроконтролера</text>
+
+  <!-- DHT22 Summary Badge -->
+  <rect x="40" y="415" width="390" height="68" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1" stroke-dasharray="4 3"/>
+  <text x="50" y="433" font-size="11" font-weight="bold" fill="#c0392b">Особливості та недоліки DHT22:</text>
+  <text x="50" y="451" font-size="11" fill="#1a1a1a">• Великі габарити та деградація полімерного давача</text>
+  <text x="50" y="469" font-size="11" fill="#1a1a1a">• Блокування переривань MCU при зчитуванні по 1 wire</text>
+
+  <!-- Transition Arrow between Panels -->
+  <text x="480" y="258" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">Еволюція</text>
+  <line x1="452" y1="275" x2="505" y2="275" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Right Panel: AHT20 -->
+  <rect x="515" y="80" width="420" height="415" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- AHT20 Header Badge -->
+  <rect x="530" y="95" width="390" height="36" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="725" y="118" font-size="14" font-weight="bold" fill="#27ae60" text-anchor="middle">AHT20 — Монолітний чип MEMS+ASIC</text>
+
+  <!-- AHT20 Inner Chip Package -->
+  <rect x="530" y="145" width="390" height="260" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="540" y="162" font-size="11" font-weight="bold" fill="#6b7280">Корпус чипа SMD LGA (3×3×1 мм)</text>
+
+  <!-- AHT20 MEMS Sensor -->
+  <rect x="542" y="175" width="366" height="60" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="725" y="196" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Інтегрована MEMS-матриця</text>
+  <text x="725" y="218" font-size="11" fill="#1a1a1a" text-anchor="middle">Суміщений кремнієвий давач RH + Temp</text>
+
+  <!-- AHT20 MEMS-to-ASIC Arrow -->
+  <line x1="725" y1="235" x2="725" y2="253" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <!-- AHT20 ASIC Controller -->
+  <rect x="542" y="255" width="366" height="70" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="725" y="275" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Спеціалізований ASIC (24-біт АЦП + DSP)</text>
+  <text x="725" y="294" font-size="11" fill="#1a1a1a" text-anchor="middle">Цифрова обробка сигналу й компенсація</text>
+  <text x="725" y="311" font-size="11" fill="#6b7280" text-anchor="middle">Заводське калібрування в OTP-пам'яті</text>
+
+  <!-- AHT20 ASIC-to-I2C Arrow -->
+  <line x1="725" y1="325" x2="725" y2="340" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- AHT20 Interface -->
+  <rect x="542" y="342" width="366" height="50" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="725" y="361" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Протокол: Стандартна шина I²C</text>
+  <text x="725" y="379" font-size="11" fill="#6b7280" text-anchor="middle">SDA/SCL (до 400 кГц), апаратна обробка, CRC8</text>
+
+  <!-- AHT20 Summary Badge -->
+  <rect x="530" y="415" width="390" height="68" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1" stroke-dasharray="4 3"/>
+  <text x="540" y="433" font-size="11" font-weight="bold" fill="#27ae60">Переваги та особливості AHT20:</text>
+  <text x="540" y="451" font-size="11" fill="#1a1a1a">• Висока довгострокова стабільність та малі розміри</text>
+  <text x="540" y="469" font-size="11" fill="#1a1a1a">• Апаратна шина I²C не блокує виконання коду MCU</text>
+</svg>

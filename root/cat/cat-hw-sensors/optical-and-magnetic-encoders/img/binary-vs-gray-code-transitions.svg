@@ -1,0 +1,151 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 500" width="960" height="500" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background Canvas -->
+  <rect x="0" y="0" width="960" height="500" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Перехід між секторами 3 → 4: Двійковий код vs Код Ґрея</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Одночасна зміна кількох бітів спричиняє колізії, тоді як код Ґрея змінюється лише на 1 біт</text>
+
+  <!-- Left Panel: Binary Code -->
+  <rect x="25" y="70" width="445" height="415" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="40" y="85" width="415" height="34" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="247.5" y="107" font-size="14" font-weight="bold" fill="#c0392b" text-anchor="middle">Двійковий код: одночасна зміна 3 бітів</text>
+
+  <!-- Binary Sector 3 -->
+  <rect x="40" y="135" width="175" height="95" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="127.5" y="155" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Сектор 3 ( N = 3 )</text>
+
+  <rect x="56.5" y="168" width="42" height="42" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="77.5" y="188" font-size="15" font-weight="bold" fill="#c0392b" text-anchor="middle">0</text>
+  <text x="77.5" y="203" font-size="12" fill="#6b7280" text-anchor="middle">b₂</text>
+
+  <rect x="106.5" y="168" width="42" height="42" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="127.5" y="188" font-size="15" font-weight="bold" fill="#c0392b" text-anchor="middle">1</text>
+  <text x="127.5" y="203" font-size="12" fill="#6b7280" text-anchor="middle">b₁</text>
+
+  <rect x="156.5" y="168" width="42" height="42" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="177.5" y="188" font-size="15" font-weight="bold" fill="#c0392b" text-anchor="middle">1</text>
+  <text x="177.5" y="203" font-size="12" fill="#6b7280" text-anchor="middle">b₀</text>
+
+  <!-- Arrow Binary -->
+  <text x="247.5" y="170" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">3 біти</text>
+  <path d="M 223 182 L 268 182" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="247.5" y="198" font-size="12" fill="#c0392b" text-anchor="middle">зміна</text>
+
+  <!-- Binary Sector 4 -->
+  <rect x="280" y="135" width="175" height="95" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="367.5" y="155" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Сектор 4 ( N = 4 )</text>
+
+  <rect x="296.5" y="168" width="42" height="42" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="317.5" y="188" font-size="15" font-weight="bold" fill="#c0392b" text-anchor="middle">1</text>
+  <text x="317.5" y="203" font-size="12" fill="#6b7280" text-anchor="middle">b₂</text>
+
+  <rect x="346.5" y="168" width="42" height="42" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="367.5" y="188" font-size="15" font-weight="bold" fill="#1a1a1a" text-anchor="middle">0</text>
+  <text x="367.5" y="203" font-size="12" fill="#6b7280" text-anchor="middle">b₁</text>
+
+  <rect x="396.5" y="168" width="42" height="42" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="417.5" y="188" font-size="15" font-weight="bold" fill="#1a1a1a" text-anchor="middle">0</text>
+  <text x="417.5" y="203" font-size="12" fill="#6b7280" text-anchor="middle">b₀</text>
+
+  <!-- Glitch Zone Box -->
+  <rect x="40" y="245" width="415" height="140" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="247.5" y="267" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">⚠️ Невизначеність при зміні бітів (Race Condition)</text>
+  <text x="247.5" y="286" font-size="12" fill="#1a1a1a" text-anchor="middle">При перехідній фазі можливі довільні зчитування:</text>
+
+  <rect x="55" y="298" width="115" height="50" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+  <text x="112.5" y="317" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">001₂ (Сектор 1)</text>
+  <text x="112.5" y="336" font-size="12" fill="#6b7280" text-anchor="middle">Хибний спайк</text>
+
+  <rect x="190" y="298" width="115" height="50" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+  <text x="247.5" y="317" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">010₂ (Сектор 2)</text>
+  <text x="247.5" y="336" font-size="12" fill="#6b7280" text-anchor="middle">Зворотний стрибок</text>
+
+  <rect x="325" y="298" width="115" height="50" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+  <text x="382.5" y="317" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">111₂ (Сектор 7)</text>
+  <text x="382.5" y="336" font-size="12" fill="#6b7280" text-anchor="middle">Хибна позиція</text>
+
+  <text x="247.5" y="370" font-size="12" font-style="italic" fill="#c0392b" text-anchor="middle">Результат: непередбачувані проміжні кодові комбінації</text>
+
+  <!-- Left Bottom Outcome Box -->
+  <rect x="40" y="398" width="415" height="72" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="247.5" y="418" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">❌ Помилки вимірювання та збої контролера</text>
+  <text x="247.5" y="437" font-size="12" fill="#1a1a1a" text-anchor="middle">Спричиняє хибні сплески розрахованої швидкості</text>
+  <text x="247.5" y="454" font-size="12" fill="#1a1a1a" text-anchor="middle">та збої в контурах цифрового зворотного зв'язку</text>
+
+  <!-- Right Panel: Gray Code -->
+  <rect x="490" y="70" width="445" height="415" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="505" y="85" width="415" height="34" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="712.5" y="107" font-size="14" font-weight="bold" fill="#27ae60" text-anchor="middle">Код Ґрея: завжди змінюється лише 1 біт</text>
+
+  <!-- Gray Sector 3 -->
+  <rect x="505" y="135" width="175" height="95" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="592.5" y="155" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Сектор 3 ( G = 010₂ )</text>
+
+  <rect x="521.5" y="168" width="42" height="42" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="542.5" y="188" font-size="15" font-weight="bold" fill="#27ae60" text-anchor="middle">0</text>
+  <text x="542.5" y="203" font-size="12" fill="#6b7280" text-anchor="middle">g₂</text>
+
+  <rect x="571.5" y="168" width="42" height="42" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="592.5" y="188" font-size="15" font-weight="bold" fill="#1a1a1a" text-anchor="middle">1</text>
+  <text x="592.5" y="203" font-size="12" fill="#6b7280" text-anchor="middle">g₁</text>
+
+  <rect x="621.5" y="168" width="42" height="42" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="642.5" y="188" font-size="15" font-weight="bold" fill="#1a1a1a" text-anchor="middle">0</text>
+  <text x="642.5" y="203" font-size="12" fill="#6b7280" text-anchor="middle">g₀</text>
+
+  <!-- Arrow Gray -->
+  <text x="712.5" y="170" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">1 біт</text>
+  <path d="M 688 182 L 733 182" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="712.5" y="198" font-size="12" fill="#27ae60" text-anchor="middle">лише g₂</text>
+
+  <!-- Gray Sector 4 -->
+  <rect x="745" y="135" width="175" height="95" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="832.5" y="155" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Сектор 4 ( G = 110₂ )</text>
+
+  <rect x="761.5" y="168" width="42" height="42" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="782.5" y="188" font-size="15" font-weight="bold" fill="#27ae60" text-anchor="middle">1</text>
+  <text x="782.5" y="203" font-size="12" fill="#6b7280" text-anchor="middle">g₂</text>
+
+  <rect x="811.5" y="168" width="42" height="42" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="832.5" y="188" font-size="15" font-weight="bold" fill="#1a1a1a" text-anchor="middle">1</text>
+  <text x="832.5" y="203" font-size="12" fill="#6b7280" text-anchor="middle">g₁</text>
+
+  <rect x="861.5" y="168" width="42" height="42" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="882.5" y="188" font-size="15" font-weight="bold" fill="#1a1a1a" text-anchor="middle">0</text>
+  <text x="882.5" y="203" font-size="12" fill="#6b7280" text-anchor="middle">g₀</text>
+
+  <!-- Smooth Zone Box -->
+  <rect x="505" y="245" width="415" height="140" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="712.5" y="267" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">✓ Гарантована монотонність і плавний перехід</text>
+  <text x="712.5" y="286" font-size="12" fill="#1a1a1a" text-anchor="middle">Зміна стану відбувається виключно по біту g₂:</text>
+
+  <rect x="520" y="298" width="115" height="50" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="577.5" y="317" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">g₂: 0 → 1</text>
+  <text x="577.5" y="336" font-size="12" fill="#27ae60" text-anchor="middle">Зміна біта</text>
+
+  <rect x="655" y="298" width="115" height="50" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="712.5" y="317" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">g₁: 1 → 1</text>
+  <text x="712.5" y="336" font-size="12" fill="#6b7280" text-anchor="middle">Без змін</text>
+
+  <rect x="790" y="298" width="115" height="50" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="847.5" y="317" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">g₀: 0 → 0</text>
+  <text x="847.5" y="336" font-size="12" fill="#6b7280" text-anchor="middle">Без змін</text>
+
+  <text x="712.5" y="370" font-size="12" font-style="italic" fill="#27ae60" text-anchor="middle">Результат: абсолютна відсутність хибних проміжних станів</text>
+
+  <!-- Right Bottom Outcome Box -->
+  <rect x="505" y="398" width="415" height="72" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="712.5" y="418" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">✓ Висока завадостійкість і надійність</text>
+  <text x="712.5" y="437" font-size="12" fill="#1a1a1a" text-anchor="middle">Будь-яка фізична неточність позиціонування датчиків</text>
+  <text x="712.5" y="454" font-size="12" fill="#1a1a1a" text-anchor="middle">дає лише перехід між двома суміжними секторами</text>
+</svg>

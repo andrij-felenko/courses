@@ -1,0 +1,229 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <!-- Arrow markers -->
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+
+    <!-- Grating clip path -->
+    <clipPath id="grating-clip">
+      <rect x="45" y="122" width="505" height="263" rx="4"/>
+    </clipPath>
+  </defs>
+
+  <!-- Background canvas -->
+  <rect x="0" y="0" width="960" height="540" fill="#ffffff"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="40" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Принцип оптичного растра Ферранті: утворення муарових смуг</text>
+  <text x="480" y="60" font-size="13" fill="#6b7280" text-anchor="middle">Накладання ґраток під малим кутом θ перетворює мікроскопічний зсув Δx на контрастний макрозсув ΔY</text>
+
+  <!-- PANEL 1: Left Panel -->
+  <rect x="25" y="75" width="545" height="445" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="45" y="98" font-size="14" font-weight="bold" fill="#1a1a1a">1. Геометрія накладання растрових ґраток</text>
+
+  <!-- Grating Box Area -->
+  <g clip-path="url(#grating-clip)">
+    <rect x="45" y="122" width="505" height="263" fill="#ffffff" stroke="#d0d7de"/>
+
+    <!-- Moiré band background shading -->
+    <rect x="45" y="125" width="505" height="58" fill="#2c3e50" opacity="0.10"/>
+    <rect x="45" y="220" width="505" height="63" fill="#f1c40f" opacity="0.08"/>
+    <rect x="45" y="320" width="505" height="58" fill="#2c3e50" opacity="0.10"/>
+
+    <!-- Grating 1: Fixed scale (Vertical black bars, pitch p = 14px) -->
+    <g fill="#1a1a1a" opacity="0.40">
+      <rect x="30" y="100" width="7" height="300"/>
+      <rect x="44" y="100" width="7" height="300"/>
+      <rect x="58" y="100" width="7" height="300"/>
+      <rect x="72" y="100" width="7" height="300"/>
+      <rect x="86" y="100" width="7" height="300"/>
+      <rect x="100" y="100" width="7" height="300"/>
+      <rect x="114" y="100" width="7" height="300"/>
+      <rect x="128" y="100" width="7" height="300"/>
+      <rect x="142" y="100" width="7" height="300"/>
+      <rect x="156" y="100" width="7" height="300"/>
+      <rect x="170" y="100" width="7" height="300"/>
+      <rect x="184" y="100" width="7" height="300"/>
+      <rect x="198" y="100" width="7" height="300"/>
+      <rect x="212" y="100" width="7" height="300"/>
+      <rect x="226" y="100" width="7" height="300"/>
+      <rect x="240" y="100" width="7" height="300"/>
+      <rect x="254" y="100" width="7" height="300"/>
+      <rect x="268" y="100" width="7" height="300"/>
+      <rect x="282" y="100" width="7" height="300"/>
+      <rect x="296" y="100" width="7" height="300"/>
+      <rect x="310" y="100" width="7" height="300"/>
+      <rect x="324" y="100" width="7" height="300"/>
+      <rect x="338" y="100" width="7" height="300"/>
+      <rect x="352" y="100" width="7" height="300"/>
+      <rect x="366" y="100" width="7" height="300"/>
+      <rect x="380" y="100" width="7" height="300"/>
+      <rect x="394" y="100" width="7" height="300"/>
+      <rect x="408" y="100" width="7" height="300"/>
+      <rect x="422" y="100" width="7" height="300"/>
+      <rect x="436" y="100" width="7" height="300"/>
+      <rect x="450" y="100" width="7" height="300"/>
+      <rect x="464" y="100" width="7" height="300"/>
+      <rect x="478" y="100" width="7" height="300"/>
+      <rect x="492" y="100" width="7" height="300"/>
+      <rect x="506" y="100" width="7" height="300"/>
+      <rect x="520" y="100" width="7" height="300"/>
+      <rect x="534" y="100" width="7" height="300"/>
+      <rect x="548" y="100" width="7" height="300"/>
+    </g>
+
+    <!-- Grating 2: Tilted moving scale (pitch p = 14px, rotated 3.8 deg around center) -->
+    <g fill="#2457d6" opacity="0.45" transform="rotate(3.8, 297.5, 250)">
+      <rect x="30" y="100" width="7" height="300"/>
+      <rect x="44" y="100" width="7" height="300"/>
+      <rect x="58" y="100" width="7" height="300"/>
+      <rect x="72" y="100" width="7" height="300"/>
+      <rect x="86" y="100" width="7" height="300"/>
+      <rect x="100" y="100" width="7" height="300"/>
+      <rect x="114" y="100" width="7" height="300"/>
+      <rect x="128" y="100" width="7" height="300"/>
+      <rect x="142" y="100" width="7" height="300"/>
+      <rect x="156" y="100" width="7" height="300"/>
+      <rect x="170" y="100" width="7" height="300"/>
+      <rect x="184" y="100" width="7" height="300"/>
+      <rect x="198" y="100" width="7" height="300"/>
+      <rect x="212" y="100" width="7" height="300"/>
+      <rect x="226" y="100" width="7" height="300"/>
+      <rect x="240" y="100" width="7" height="300"/>
+      <rect x="254" y="100" width="7" height="300"/>
+      <rect x="268" y="100" width="7" height="300"/>
+      <rect x="282" y="100" width="7" height="300"/>
+      <rect x="296" y="100" width="7" height="300"/>
+      <rect x="310" y="100" width="7" height="300"/>
+      <rect x="324" y="100" width="7" height="300"/>
+      <rect x="338" y="100" width="7" height="300"/>
+      <rect x="352" y="100" width="7" height="300"/>
+      <rect x="366" y="100" width="7" height="300"/>
+      <rect x="380" y="100" width="7" height="300"/>
+      <rect x="394" y="100" width="7" height="300"/>
+      <rect x="408" y="100" width="7" height="300"/>
+      <rect x="422" y="100" width="7" height="300"/>
+      <rect x="436" y="100" width="7" height="300"/>
+      <rect x="450" y="100" width="7" height="300"/>
+      <rect x="464" y="100" width="7" height="300"/>
+      <rect x="478" y="100" width="7" height="300"/>
+      <rect x="492" y="100" width="7" height="300"/>
+      <rect x="506" y="100" width="7" height="300"/>
+      <rect x="520" y="100" width="7" height="300"/>
+      <rect x="534" y="100" width="7" height="300"/>
+      <rect x="548" y="100" width="7" height="300"/>
+    </g>
+
+    <!-- Center indicator dashed lines for bands -->
+    <line x1="45" y1="154" x2="320" y2="154" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4 3"/>
+    <line x1="45" y1="251" x2="320" y2="251" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="4 3"/>
+    <line x1="45" y1="349" x2="320" y2="349" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4 3"/>
+  </g>
+
+  <!-- Moiré Band Labels -->
+  <rect x="52" y="143" width="135" height="22" rx="4" fill="#ffffff" opacity="0.95" stroke="#c0392b" stroke-width="1"/>
+  <text x="119" y="158" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">Темна смуга (мінімум)</text>
+
+  <rect x="52" y="240" width="135" height="22" rx="4" fill="#ffffff" opacity="0.95" stroke="#27ae60" stroke-width="1"/>
+  <text x="119" y="255" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">Світла смуга (максимум)</text>
+
+  <rect x="52" y="338" width="135" height="22" rx="4" fill="#ffffff" opacity="0.95" stroke="#c0392b" stroke-width="1"/>
+  <text x="119" y="353" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">Темна смуга (мінімум)</text>
+
+  <!-- Dimension line for Moiré Period B -->
+  <line x1="510" y1="154" x2="510" y2="349" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)" marker-start="url(#arr-blue)"/>
+  <rect x="460" y="239" width="95" height="24" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+  <text x="507" y="255" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">Період B = p / θ</text>
+
+  <!-- Grating Pitch p dimension -->
+  <line x1="305" y1="132" x2="319" y2="132" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)" marker-start="url(#arr)"/>
+  <rect x="375" y="98" width="55" height="18" rx="3" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="402" y="111" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Крок p</text>
+
+  <!-- Angle theta indicator -->
+  <rect x="445" y="98" width="85" height="18" rx="3" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="487" y="111" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">Кут нахилу θ</text>
+
+  <!-- Movement vector callouts inside diagram -->
+  <line x1="215" y1="368" x2="270" y2="368" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <rect x="210" y="358" width="65" height="20" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="242" y="372" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">Зсув Δx →</text>
+
+  <line x1="438" y1="278" x2="438" y2="328" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <rect x="370" y="293" width="65" height="20" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="402" y="307" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">Зсув ΔY ↓</text>
+
+  <!-- Panel 1 Bottom Formula Box -->
+  <rect x="45" y="395" width="505" height="110" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="60" y="417" font-size="13" font-weight="bold" fill="#2457d6">Формула оптичного коефіцієнта підсилення K:</text>
+  <text x="60" y="442" font-size="15" font-weight="bold" fill="#1a1a1a">K = ΔY / Δx = 1 / θ = B / p</text>
+  <text x="60" y="467" font-size="12" fill="#4b5563">• При кроці p = 20 мкм та куті θ = 0.01 рад (~0.57°):</text>
+  <text x="60" y="487" font-size="12" font-weight="bold" fill="#27ae60">• Мікрозсув Δx = 1 мкм спричиняє макрозсув смуги ΔY = 100 мкм (K = 100×)</text>
+
+  <!-- PANEL 2: Right Panel -->
+  <rect x="585" y="75" width="350" height="445" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="605" y="98" font-size="14" font-weight="bold" fill="#1a1a1a">2. Формування квадратурних сигналів</text>
+
+  <!-- Photodetector Block -->
+  <rect x="605" y="115" width="310" height="125" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="620" y="135" font-size="12" font-weight="bold" fill="#6b7280">Розміщення фотоприймачів (зсув B/4):</text>
+
+  <!-- Gradient area inside detector view -->
+  <rect x="620" y="145" width="280" height="80" rx="4" fill="#f4f6f8" stroke="#d0d7de"/>
+  
+  <!-- Photosensor A -->
+  <rect x="635" y="155" width="100" height="40" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="685" y="172" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Фотодіод A</text>
+  <text x="685" y="187" font-size="11" fill="#6b7280" text-anchor="middle">(фаза 0° / Sin)</text>
+
+  <!-- Photosensor B -->
+  <rect x="780" y="175" width="100" height="40" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="830" y="192" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Фотодіод B</text>
+  <text x="830" y="207" font-size="11" fill="#6b7280" text-anchor="middle">(фаза 90° / Cos)</text>
+
+  <!-- Shift indicator B/4 -->
+  <text x="757" y="162" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="middle">ΔY = B/4</text>
+
+  <!-- Signal Waveforms Block -->
+  <rect x="605" y="250" width="310" height="135" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="620" y="268" font-size="12" font-weight="bold" fill="#6b7280">Вихідні аналогові сигнали A і B:</text>
+
+  <!-- Axes -->
+  <line x1="635" y1="340" x2="895" y2="340" stroke="#9ca3af" stroke-width="1" marker-end="url(#arr)"/>
+  <line x1="640" y1="375" x2="640" y2="280" stroke="#9ca3af" stroke-width="1" marker-end="url(#arr)"/>
+  <text x="895" y="356" font-size="11" fill="#6b7280" text-anchor="end">Переміщення x</text>
+  <text x="645" y="283" font-size="11" fill="#6b7280">U</text>
+
+  <!-- Sine Wave A (Blue) -->
+  <path d="M 640,340 Q 660,300 680,340 T 720,340 T 760,340 T 800,340 T 840,340 T 880,340" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+
+  <!-- Cosine Wave B (Green, shifted by 20px / 90deg) -->
+  <path d="M 640,300 Q 660,340 680,380 T 720,340 T 760,300 T 800,340 T 840,380 T 880,340" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+
+  <!-- Waveform Legend / Labels -->
+  <rect x="710" y="285" width="65" height="18" rx="3" fill="#ffffff" opacity="0.9" stroke="#2457d6" stroke-width="1"/>
+  <text x="742" y="298" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">Сигнал A</text>
+
+  <rect x="790" y="285" width="65" height="18" rx="3" fill="#ffffff" opacity="0.9" stroke="#27ae60" stroke-width="1"/>
+  <text x="822" y="298" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">Сигнал B</text>
+
+  <!-- Phase Shift 90deg annotation -->
+  <text x="670" y="322" font-size="10" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Δφ = 90°</text>
+
+  <!-- Right Panel Bottom Info Box -->
+  <rect x="605" y="395" width="310" height="110" rx="6" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="620" y="417" font-size="13" font-weight="bold" fill="#2457d6">Переваги растрової системи:</text>
+  <text x="620" y="440" font-size="12" fill="#1a1a1a">1. Визначення напрямку руху за фазою</text>
+  <text x="620" y="460" font-size="12" fill="#1a1a1a">2. Оптичне усереднення дефектів штрихів</text>
+  <text x="620" y="480" font-size="12" fill="#1a1a1a">3. Інтерполяція роздільної здатності ASIC</text>
+</svg>

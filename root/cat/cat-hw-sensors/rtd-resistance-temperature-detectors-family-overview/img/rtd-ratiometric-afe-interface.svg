@@ -1,0 +1,175 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Header -->
+  <text x="480" y="32" font-size="18" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Раціометричний AFE-інтерфейс RTD з компенсацією дрейфу та детекцією обриву</text>
+  <text x="480" y="52" font-size="13" text-anchor="middle" fill="#6b7280">Послідовне підключення R_ref скасовує нестабільність струму, а струми підтяжки виявляють аварії</text>
+
+  <!-- Left Container: External Sensor Probe -->
+  <rect x="30" y="75" width="220" height="275" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="140" y="96" font-size="13" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Сенсор RTD (Pt100/1000)</text>
+  <text x="140" y="112" font-size="11" text-anchor="middle" fill="#6b7280">4-провідна схема (ratiometric)</text>
+
+  <!-- Sensor Protective Tube -->
+  <rect x="45" y="125" width="140" height="215" rx="6" fill="none" stroke="#9ca3af" stroke-width="1" stroke-dasharray="4,3"/>
+  <text x="115" y="142" font-size="10" text-anchor="middle" fill="#6b7280">Захисний чохол / Гільза</text>
+
+  <!-- RTD Element -->
+  <rect x="95" y="210" width="40" height="45" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="115" y="237" font-size="11" font-weight="bold" text-anchor="middle" fill="#2457d6">R_RTD(T)</text>
+
+  <!-- Sensor Wires and Parasitic Lead Resistances -->
+  <!-- Wire 1: Force + -->
+  <path d="M 115,210 L 115,165 L 250,165" fill="none" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="150" y="158" width="28" height="14" fill="white" stroke="#2457d6" stroke-width="1"/>
+  <text x="164" y="152" font-size="10" text-anchor="middle" fill="#2457d6">R_L1</text>
+
+  <!-- Wire 2: Sense + -->
+  <path d="M 115,210 L 115,195 L 250,195" fill="none" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="150" y="188" width="28" height="14" fill="white" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="164" y="183" font-size="10" text-anchor="middle" fill="#6b7280">R_L2</text>
+
+  <!-- Wire 3: Sense - -->
+  <path d="M 115,255 L 115,270 L 250,270" fill="none" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="150" y="263" width="28" height="14" fill="white" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="164" y="288" font-size="10" text-anchor="middle" fill="#6b7280">R_L3</text>
+
+  <!-- Wire 4: Force - -->
+  <path d="M 115,255 L 115,300 L 250,300" fill="none" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="150" y="293" width="28" height="14" fill="white" stroke="#27ae60" stroke-width="1"/>
+  <text x="164" y="318" font-size="10" text-anchor="middle" fill="#27ae60">R_L4</text>
+
+  <!-- Junction Dots on RTD -->
+  <circle cx="115" cy="210" r="3" fill="#1a1a1a"/>
+  <circle cx="115" cy="255" r="3" fill="#1a1a1a"/>
+
+  <!-- Terminals Gap -->
+  <text x="267" y="142" font-size="10" text-anchor="middle" fill="#6b7280">Клеми</text>
+  <circle cx="267" cy="165" r="4" fill="#2457d6"/>
+  <circle cx="267" cy="195" r="4" fill="#1a1a1a"/>
+  <circle cx="267" cy="270" r="4" fill="#1a1a1a"/>
+  <circle cx="267" cy="300" r="4" fill="#27ae60"/>
+
+  <line x1="250" y1="165" x2="290" y2="165" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="250" y1="195" x2="290" y2="195" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="250" y1="270" x2="290" y2="270" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="250" y1="300" x2="290" y2="300" stroke="#27ae60" stroke-width="1.5"/>
+
+  <!-- Right Container: AFE / ADC Chip -->
+  <rect x="290" y="75" width="640" height="275" rx="8" fill="#f8fafc" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="610" y="96" font-size="13" font-weight="bold" text-anchor="middle" fill="#2457d6">Спеціалізована AFE / АЦП (наприклад, ADS1220 / MAX31865)</text>
+
+  <!-- AFE Pins -->
+  <text x="295" y="157" font-size="10" font-weight="bold" fill="#2457d6">IOUT1</text>
+  <text x="295" y="187" font-size="10" font-weight="bold" fill="#1a1a1a">AIN+</text>
+  <text x="295" y="262" font-size="10" font-weight="bold" fill="#1a1a1a">AIN-</text>
+  <text x="295" y="292" font-size="10" font-weight="bold" fill="#27ae60">REFIN+</text>
+
+  <!-- Current Generator Block -->
+  <rect x="340" y="145" width="115" height="40" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="397" y="161" font-size="11" font-weight="bold" text-anchor="middle" fill="#2457d6">Струм I_exc</text>
+  <text x="397" y="175" font-size="10" text-anchor="middle" fill="#2457d6">(100 µA..1 mA)</text>
+  <line x1="340" y1="165" x2="290" y2="165" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Reference Resistor Block -->
+  <rect x="340" y="280" width="115" height="40" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="397" y="296" font-size="11" font-weight="bold" text-anchor="middle" fill="#27ae60">R_ref (0.01%)</text>
+  <text x="397" y="310" font-size="10" text-anchor="middle" fill="#27ae60">напр. 4.02 кОм</text>
+  <line x1="290" y1="300" x2="340" y2="300" stroke="#27ae60" stroke-width="2"/>
+  <line x1="455" y1="300" x2="480" y2="300" stroke="#27ae60" stroke-width="2"/>
+  <!-- Ground symbol -->
+  <line x1="480" y1="290" x2="480" y2="310" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="485" y1="295" x2="485" y2="305" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="490" y1="298" x2="490" y2="302" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="498" y="304" font-size="10" fill="#6b7280">GND</text>
+
+  <!-- Reference Trace to ADC Core -->
+  <circle cx="315" cy="300" r="3" fill="#27ae60"/>
+  <path d="M 315,300 L 315,340 L 675,340 L 675,305" fill="none" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <text x="495" y="336" font-size="10" text-anchor="middle" fill="#27ae60">V_ref = I_exc · R_ref</text>
+
+  <!-- Burnout Detectors (I_PU and I_PD) -->
+  <!-- AVDD rail -->
+  <text x="495" y="108" font-size="10" font-weight="bold" text-anchor="middle" fill="#c0392b">AV_DD</text>
+  <line x1="495" y1="112" x2="495" y2="125" stroke="#c0392b" stroke-width="1.5"/>
+
+  <!-- I_PU Box -->
+  <rect x="465" y="125" width="60" height="34" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="495" y="138" font-size="10" font-weight="bold" text-anchor="middle" fill="#c0392b">I_PU</text>
+  <text x="495" y="150" font-size="10" text-anchor="middle" fill="#c0392b">50 nA</text>
+  <line x1="495" y1="159" x2="495" y2="195" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <circle cx="495" cy="195" r="3" fill="#c0392b"/>
+
+  <!-- I_PD Box -->
+  <rect x="465" y="220" width="60" height="34" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="495" y="233" font-size="10" font-weight="bold" text-anchor="middle" fill="#c0392b">I_PD</text>
+  <text x="495" y="245" font-size="10" text-anchor="middle" fill="#c0392b">50 nA</text>
+  <line x1="495" y1="270" x2="495" y2="254" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <circle cx="495" cy="270" r="3" fill="#c0392b"/>
+  <!-- I_PD Ground Connection -->
+  <line x1="495" y1="220" x2="495" y2="208" stroke="#c0392b" stroke-width="1.5"/>
+  <line x1="488" y1="208" x2="502" y2="208" stroke="#c0392b" stroke-width="1.5"/>
+
+  <!-- Signal Wires to PGA -->
+  <line x1="290" y1="195" x2="550" y2="195" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="290" y1="270" x2="550" y2="270" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- PGA Block -->
+  <rect x="550" y="160" width="90" height="135" rx="6" fill="white" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="595" y="182" font-size="13" font-weight="bold" text-anchor="middle" fill="#1a1a1a">PGA</text>
+  <text x="595" y="198" font-size="10" text-anchor="middle" fill="#6b7280">Диференц.</text>
+  <text x="595" y="212" font-size="10" text-anchor="middle" fill="#6b7280">підсилювач</text>
+  <text x="595" y="232" font-size="11" font-weight="bold" text-anchor="middle" fill="#2457d6">G = 1..128</text>
+
+  <!-- PGA Outputs to ADC Core -->
+  <line x1="640" y1="200" x2="675" y2="200" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <line x1="640" y1="260" x2="675" y2="260" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="657" y="192" font-size="10" text-anchor="middle" fill="#2457d6">V_IN</text>
+
+  <!-- ADC Core Block -->
+  <rect x="675" y="135" width="240" height="195" rx="8" fill="#2457d6" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="795" y="160" font-size="14" font-weight="bold" text-anchor="middle" fill="white">24-bit ΣΔ ADC Core</text>
+
+  <text x="795" y="187" font-size="11" text-anchor="middle" fill="#eaf0fd">Code = 2²⁴ · (V_IN / V_REF)</text>
+  <text x="795" y="209" font-size="10" text-anchor="middle" fill="#ffffff">= 2²⁴ · (I_exc · R_RTD) / (I_exc · R_ref)</text>
+  <text x="795" y="235" font-size="13" font-weight="bold" text-anchor="middle" fill="#ffffff">Code = 2²⁴ · (R_RTD / R_ref)</text>
+
+  <!-- Badge inside ADC -->
+  <rect x="705" y="255" width="180" height="26" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="795" y="272" font-size="11" font-weight="bold" text-anchor="middle" fill="#27ae60">✓ I_exc повністю скасовано!</text>
+
+  <text x="665" y="305" font-size="10" text-anchor="end" fill="#27ae60">V_REF</text>
+
+  <!-- Bottom Panels -->
+  <!-- Left Panel: Ratiometric Principle -->
+  <rect x="30" y="368" width="435" height="132" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="45" y="392" font-size="13" font-weight="bold" fill="#27ae60">1. Механізм раціометричної компенсації</text>
+  <text x="45" y="415" font-size="11" fill="#1a1a1a">• Напруги: V_RTD = I_exc · R_RTD,  V_ref = I_exc · R_ref</text>
+  <text x="45" y="436" font-size="11" fill="#1a1a1a">• Струм збудження I_exc є спільним і скорочується в АЦП.</text>
+  <text x="45" y="457" font-size="11" fill="#1a1a1a">• Нульова чутливість до дрейфу струму, температури та шуму.</text>
+  <text x="45" y="480" font-size="11" font-weight="bold" fill="#27ae60">➜ Точність залежить виключно від стабільності R_ref.</text>
+
+  <!-- Right Panel: Burnout Detection -->
+  <rect x="495" y="368" width="435" height="132" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="510" y="392" font-size="13" font-weight="bold" fill="#c0392b">2. Детекція аварійних станів (Burnout)</text>
+  <text x="510" y="415" font-size="11" fill="#1a1a1a">• Обрив дротів (Open circuit):</text>
+  <text x="525" y="436" font-size="11" fill="#c0392b">  струм I_PU підтягує AIN+ до AVDD ➜ Код АЦП = Full Scale</text>
+  <text x="510" y="457" font-size="11" fill="#1a1a1a">• Коротке замикання (Short circuit):</text>
+  <text x="525" y="478" font-size="11" fill="#c0392b">  напруга V_RTD drop ≈ 0 В ➜ Код АЦП = Zero Scale</text>
+</svg>

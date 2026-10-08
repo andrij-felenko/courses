@@ -1,0 +1,126 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-accent" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-solution" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Заголовок та підзаголовок -->
+  <text x="480" y="30" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Масштабування та бітові зсуви у 32/64-бітній арифметиці BMP280/BME280</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Лівий зсув (&lt;&lt; M) зберігає дрібні розряди, а 64-бітний регістр запобігає переповненню полінома тиску</text>
+
+  <!-- ВЕРХНЯ ЧАСТИНА: 32-BIT VS 64-BIT -->
+
+  <!-- Панель 32-bit (Проблема) -->
+  <rect x="30" y="75" width="435" height="195" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" rx="6"/>
+  <text x="45" y="98" font-size="14" font-weight="700" fill="#c0392b">32-бітний регістр int32_t (Без розширення розрядності)</text>
+  
+  <!-- Сітка 32-біт -->
+  <rect x="45" y="110" width="405" height="32" fill="#ffffff" stroke="#c0392b" stroke-width="1" rx="4"/>
+  <rect x="45" y="110" width="105" height="32" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="97" y="130" font-size="11" font-weight="700" fill="#c0392b" text-anchor="middle">[31..28] OVERFLOW</text>
+  
+  <rect x="150" y="110" width="185" height="32" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="242" y="130" font-size="11" fill="#1a1a1a" text-anchor="middle">[27..8] Значення полінома</text>
+  
+  <rect x="335" y="110" width="115" height="32" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="392" y="130" font-size="11" fill="#6b7280" text-anchor="middle">[7..0] Q24.8 d_frac</text>
+
+  <!-- Опис 32-bit -->
+  <text x="45" y="165" font-size="12" fill="#1a1a1a">• При множенні (var1 * var1 * dig_P6) результат сягає ~10¹⁰</text>
+  <text x="45" y="185" font-size="12" fill="#1a1a1a">• Переповнення знакового 32-бітного цілого (максимум 2.14 × 10⁹)</text>
+  <text x="45" y="205" font-size="12" font-weight="700" fill="#c0392b">• Знаковий біт інвертується: тиск стає від'ємним!</text>
+  
+  <!-- Плашка статусу 32-bit -->
+  <rect x="45" y="223" width="310" height="28" fill="#ffffff" stroke="#c0392b" stroke-width="1" rx="4"/>
+  <text x="55" y="241" font-size="12" font-weight="700" fill="#c0392b">❌ Втрата старших розрядів при обчисленні p</text>
+
+
+  <!-- Панель 64-bit (Розв'язок) -->
+  <rect x="495" y="75" width="435" height="195" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="6"/>
+  <text x="510" y="98" font-size="14" font-weight="700" fill="#27ae60">64-бітний регістр int64_t (Рекомендація Bosch Sensortec)</text>
+
+  <!-- Сітка 64-біт -->
+  <rect x="510" y="110" width="405" height="32" fill="#ffffff" stroke="#27ae60" stroke-width="1" rx="4"/>
+  <rect x="510" y="110" width="135" height="32" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="577" y="130" font-size="11" font-weight="700" fill="#27ae60" text-anchor="middle">[63..32] Запас розрядності</text>
+
+  <rect x="645" y="110" width="180" height="32" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="735" y="130" font-size="11" font-weight="700" fill="#2457d6" text-anchor="middle">[31..8] Ціла частина (Pa)</text>
+
+  <rect x="825" y="110" width="90" height="32" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="870" y="130" font-size="11" font-weight="700" fill="#27ae60" text-anchor="middle">[7..0] Q24.8</text>
+
+  <!-- Опис 64-bit -->
+  <text x="510" y="165" font-size="12" fill="#1a1a1a">• 64-бітний проміжний добуток вміщує значення до ±9.22 × 10¹⁸</text>
+  <text x="510" y="185" font-size="12" fill="#1a1a1a">• 32 біти розрядного запасу гарантують відсутність overflow</text>
+  <text x="510" y="205" font-size="12" font-weight="700" fill="#27ae60">• Дробова точність Q24.8 зберігається до кінця обчислень</text>
+
+  <!-- Плашка статусу 64-bit -->
+  <rect x="510" y="223" width="310" height="28" fill="#ffffff" stroke="#27ae60" stroke-width="1" rx="4"/>
+  <text x="520" y="241" font-size="12" font-weight="700" fill="#27ae60">✓ Захист від переповнення + точність 1/256 Pa</text>
+
+
+  <!-- НИЖНЯ ЧАСТИНА: ЕТАПИ БІТОВИХ ЗСУВІВ -->
+
+  <!-- Етап 1: Лівий зсув (<< M) -->
+  <rect x="30" y="290" width="275" height="225" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="45" y="315" font-size="13" font-weight="700" fill="#2457d6">1. Масштабування вліво (&lt;&lt; M)</text>
+  
+  <rect x="45" y="330" width="245" height="38" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="4"/>
+  <text x="167" y="353" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">dig_P5 &lt;&lt; 17  |  dig_P4 &lt;&lt; 35</text>
+
+  <text x="45" y="390" font-size="12" fill="#1a1a1a">• Зсув ліворуч розширює біти</text>
+  <text x="45" y="410" font-size="12" fill="#1a1a1a">  перед діленням на var1</text>
+  <text x="45" y="435" font-size="12" fill="#1a1a1a">• Додає 0-біти в молодші розряди</text>
+  <text x="45" y="455" font-size="12" fill="#1a1a1a">  для збереження дробових значень</text>
+  <text x="45" y="480" font-size="12" font-weight="700" fill="#2457d6">• Формує фіксовану крапку Q24.8</text>
+
+
+  <!-- Стрілка 1 -> 2 -->
+  <line x1="310" y1="400" x2="330" y2="400" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-accent)"/>
+
+
+  <!-- Етап 2: Поліноміальне накопичення -->
+  <rect x="340" y="290" width="280" height="225" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="355" y="315" font-size="13" font-weight="700" fill="#1a1a1a">2. 64-бітне накопичення</text>
+
+  <rect x="355" y="330" width="250" height="52" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="4"/>
+  <text x="365" y="350" font-size="11" font-family="Courier New, monospace" fill="#1a1a1a">var2 = var2 + (var1*P5 &lt;&lt; 17);</text>
+  <text x="365" y="370" font-size="11" font-family="Courier New, monospace" fill="#1a1a1a">p = (((p &lt;&lt; 31) - var2)*3125)/var1;</text>
+
+  <text x="355" y="405" font-size="12" fill="#1a1a1a">• Накопичення суми доданків</text>
+  <text x="355" y="425" font-size="12" fill="#1a1a1a">  компенсаційного полінома</text>
+  <text x="355" y="450" font-size="12" fill="#1a1a1a">• Ділення виконується в 64-бітах</text>
+  <text x="355" y="470" font-size="12" fill="#1a1a1a">  без втрати молодших бітів</text>
+  <text x="355" y="495" font-size="12" font-weight="700" fill="#1a1a1a">• Результат: p в масштабі 256Pa</text>
+
+
+  <!-- Стрілка 2 -> 3 -->
+  <line x1="625" y1="400" x2="645" y2="400" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-accent)"/>
+
+
+  <!-- Етап 3: Правий зсув (>> 8) -->
+  <rect x="655" y="290" width="275" height="225" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="670" y="315" font-size="13" font-weight="700" fill="#27ae60">3. Відновлення Pa (&gt;&gt; 8)</text>
+
+  <rect x="670" y="330" width="245" height="38" fill="#e9f7ef" stroke="#27ae60" stroke-width="1" rx="4"/>
+  <text x="792" y="353" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">p_final = p &gt;&gt; 8  (або  p / 256)</text>
+
+  <rect x="670" y="380" width="245" height="42" fill="#ffffff" stroke="#27ae60" stroke-width="1" rx="4"/>
+  <text x="680" y="398" font-size="11" font-weight="700" fill="#27ae60">Q24.8: 25939200 (25939200 / 256)</text>
+  <text x="680" y="414" font-size="11" font-weight="700" fill="#1a1a1a">Фізичний тиск: 101325 Pa (1013.25 hPa)</text>
+
+  <text x="670" y="445" font-size="12" fill="#1a1a1a">• Зсув праворуч на 8 бітів відкидає</text>
+  <text x="670" y="465" font-size="12" fill="#1a1a1a">  масштабування 256</text>
+  <text x="670" y="490" font-size="12" font-weight="700" fill="#27ae60">• Фінальне значення тиску в Паскалях</text>
+</svg>

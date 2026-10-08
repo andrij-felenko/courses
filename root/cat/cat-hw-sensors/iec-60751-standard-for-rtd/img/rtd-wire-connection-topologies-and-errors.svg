@@ -1,0 +1,193 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- White Background -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Markers -->
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="36" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Топології підключення платинових RTD та їхні похибки</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Від сумування опору ліній до повного відокремлення струмових і потенціальних кіл</text>
+
+  <!-- COLUMN 1: 2-Wire Connection -->
+  <g id="col-2wire">
+    <!-- Panel Box -->
+    <rect x="25" y="78" width="290" height="420" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="8"/>
+
+    <!-- Panel Header -->
+    <text x="170" y="104" font-size="15" font-weight="bold" fill="#c0392b" text-anchor="middle">Двопровідне (2-Wire)</text>
+    <text x="170" y="122" font-size="12" fill="#6b7280" text-anchor="middle">Пряме сумування опорів</text>
+
+    <!-- Badge -->
+    <rect x="45" y="132" width="250" height="26" fill="#fdecea" stroke="#c0392b" stroke-width="1" rx="4"/>
+    <text x="170" y="149" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">Похибка: R_вимір = R_t + 2R_L</text>
+
+    <!-- Schematic Devices -->
+    <!-- Instrument -->
+    <rect x="40" y="195" width="50" height="150" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5" rx="4"/>
+    <text x="65" y="265" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="middle">ADC</text>
+    <text x="65" y="280" font-size="11" fill="#6b7280" text-anchor="middle">I_ex</text>
+
+    <!-- Sensor -->
+    <rect x="250" y="195" width="50" height="150" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="4"/>
+    <text x="275" y="265" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">RTD</text>
+    <text x="275" y="282" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">R_t</text>
+
+    <!-- Wires and Resistor boxes -->
+    <!-- Wire 1 (Top) -->
+    <line x1="90" y1="230" x2="115" y2="230" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+    <line x1="115" y1="230" x2="125" y2="230" stroke="#2457d6" stroke-width="1.5"/>
+    <rect x="125" y="218" width="60" height="24" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" rx="3"/>
+    <text x="155" y="234" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">R_L1</text>
+    <line x1="185" y1="230" x2="250" y2="230" stroke="#2457d6" stroke-width="1.5"/>
+    <text x="107" y="212" font-size="11" fill="#2457d6" text-anchor="middle">I_ex →</text>
+
+    <!-- Wire 2 (Bottom) -->
+    <line x1="250" y1="310" x2="185" y2="310" stroke="#2457d6" stroke-width="1.5"/>
+    <rect x="125" y="298" width="60" height="24" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" rx="3"/>
+    <text x="155" y="314" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">R_L2</text>
+    <line x1="125" y1="310" x2="100" y2="310" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+    <line x1="100" y1="310" x2="90" y2="310" stroke="#2457d6" stroke-width="1.5"/>
+    <text x="107" y="335" font-size="11" fill="#2457d6" text-anchor="middle">← I_ex</text>
+
+    <!-- Summary Box -->
+    <rect x="35" y="365" width="270" height="120" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="6"/>
+    <text x="170" y="388" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">R_вимір = R_t + R_L1 + R_L2</text>
+    <text x="170" y="408" font-size="11" fill="#6b7280" text-anchor="middle">За умови R_L1 = R_L2 = R_L:</text>
+    <text x="170" y="432" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">R_вимір = R_t + 2R_L</text>
+    <text x="170" y="456" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">⚠️ 1 Ом R_L ≈ +2.5 °C похибки</text>
+    <text x="170" y="474" font-size="11" fill="#6b7280" text-anchor="middle">(для платинового Pt100)</text>
+  </g>
+
+  <!-- COLUMN 2: 3-Wire Connection -->
+  <g id="col-3wire">
+    <!-- Panel Box -->
+    <rect x="335" y="78" width="290" height="420" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="8"/>
+
+    <!-- Panel Header -->
+    <text x="480" y="104" font-size="15" font-weight="bold" fill="#2457d6" text-anchor="middle">Трипровідне (3-Wire)</text>
+    <text x="480" y="122" font-size="12" fill="#6b7280" text-anchor="middle">Компенсація за симетрії ліній</text>
+
+    <!-- Badge -->
+    <rect x="355" y="132" width="250" height="26" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="4"/>
+    <text x="480" y="149" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">Компенсація: R_L1 = R_L3</text>
+
+    <!-- Schematic Devices -->
+    <!-- Instrument -->
+    <rect x="350" y="195" width="50" height="150" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5" rx="4"/>
+    <text x="375" y="255" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="middle">ADC /</text>
+    <text x="375" y="270" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Міст</text>
+    <text x="375" y="285" font-size="11" fill="#6b7280" text-anchor="middle">2×I_ex</text>
+
+    <!-- Sensor -->
+    <rect x="560" y="195" width="50" height="150" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="4"/>
+    <text x="585" y="265" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">RTD</text>
+    <text x="585" y="282" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">R_t</text>
+
+    <!-- Wires and Resistor boxes -->
+    <!-- Wire 1 (Top) -->
+    <line x1="400" y1="215" x2="420" y2="215" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+    <line x1="420" y1="215" x2="435" y2="215" stroke="#2457d6" stroke-width="1.5"/>
+    <rect x="435" y="203" width="60" height="24" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5" rx="3"/>
+    <text x="465" y="219" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="middle">R_L1</text>
+    <line x1="495" y1="215" x2="560" y2="215" stroke="#2457d6" stroke-width="1.5"/>
+
+    <!-- Wire 2 (Middle Compensation / Sense) -->
+    <line x1="400" y1="270" x2="435" y2="270" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4,3"/>
+    <rect x="435" y="258" width="60" height="24" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5" rx="3"/>
+    <text x="465" y="274" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="middle">R_L2</text>
+    <line x1="495" y1="270" x2="560" y2="270" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4,3"/>
+    <text x="465" y="252" font-size="10" fill="#2457d6" text-anchor="middle">I_comp</text>
+
+    <!-- Wire 3 (Bottom) -->
+    <line x1="560" y1="325" x2="495" y2="325" stroke="#2457d6" stroke-width="1.5"/>
+    <rect x="435" y="313" width="60" height="24" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5" rx="3"/>
+    <text x="465" y="329" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="middle">R_L3</text>
+    <line x1="435" y1="325" x2="415" y2="325" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+    <line x1="415" y1="325" x2="400" y2="325" stroke="#2457d6" stroke-width="1.5"/>
+
+    <!-- Summary Box -->
+    <rect x="345" y="365" width="270" height="120" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="6"/>
+    <text x="480" y="388" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="middle">V_вимір = I·(R_t + R_L1) - I·R_L3</text>
+    <text x="480" y="408" font-size="11" fill="#6b7280" text-anchor="middle">Якщо R_L1 = R_L3 (симетрія ліній):</text>
+    <text x="480" y="432" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">R_вимір = R_t</text>
+    <text x="480" y="456" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">⚠️ Чутливе до асиметрії ліній</text>
+    <text x="480" y="474" font-size="11" fill="#6b7280" text-anchor="middle">ΔR_L викликає пряму похибку</text>
+  </g>
+
+  <!-- COLUMN 3: 4-Wire Kelvin Connection -->
+  <g id="col-4wire">
+    <!-- Panel Box -->
+    <rect x="645" y="78" width="290" height="420" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="8"/>
+
+    <!-- Panel Header -->
+    <text x="790" y="104" font-size="15" font-weight="bold" fill="#27ae60" text-anchor="middle">Чотирипровідне (4-Wire)</text>
+    <text x="790" y="122" font-size="12" fill="#6b7280" text-anchor="middle">Повне усунення паразитного опору</text>
+
+    <!-- Badge -->
+    <rect x="665" y="132" width="250" height="26" fill="#ffffff" stroke="#27ae60" stroke-width="1" rx="4"/>
+    <text x="790" y="149" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">Точність: R_вимір = R_t (100% R_L=0)</text>
+
+    <!-- Schematic Devices -->
+    <!-- Instrument -->
+    <rect x="660" y="195" width="50" height="150" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5" rx="4"/>
+    <text x="685" y="222" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">I_ex</text>
+    <text x="685" y="236" font-size="10" fill="#6b7280" text-anchor="middle">(Струм)</text>
+    <text x="685" y="304" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">V_sense</text>
+    <text x="685" y="318" font-size="10" fill="#6b7280" text-anchor="middle">(R_in=∞)</text>
+
+    <!-- Sensor -->
+    <rect x="870" y="195" width="50" height="150" fill="#ffffff" stroke="#27ae60" stroke-width="1.5" rx="4"/>
+    <text x="895" y="265" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">RTD</text>
+    <text x="895" y="282" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">R_t</text>
+
+    <!-- Wires and Resistor boxes -->
+    <!-- Wire 1 (Force I+) -->
+    <line x1="710" y1="210" x2="730" y2="210" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+    <line x1="730" y1="210" x2="745" y2="210" stroke="#2457d6" stroke-width="1.5"/>
+    <rect x="745" y="198" width="60" height="24" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5" rx="3"/>
+    <text x="775" y="214" font-size="10" font-weight="bold" fill="#2457d6" text-anchor="middle">R_L1 (I+)</text>
+    <line x1="805" y1="210" x2="870" y2="210" stroke="#2457d6" stroke-width="1.5"/>
+    <text x="727" y="195" font-size="10" fill="#2457d6" text-anchor="middle">I_ex →</text>
+
+    <!-- Wire 2 (Sense V+) -->
+    <line x1="710" y1="245" x2="745" y2="245" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="4,3"/>
+    <rect x="745" y="233" width="60" height="24" fill="#ffffff" stroke="#27ae60" stroke-width="1.5" rx="3"/>
+    <text x="775" y="249" font-size="10" font-weight="bold" fill="#27ae60" text-anchor="middle">R_L2 (V+)</text>
+    <line x1="805" y1="245" x2="870" y2="245" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="4,3"/>
+    <text x="837" y="238" font-size="10" fill="#27ae60" text-anchor="middle">I_sense = 0</text>
+
+    <!-- Wire 3 (Sense V-) -->
+    <line x1="710" y1="295" x2="745" y2="295" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="4,3"/>
+    <rect x="745" y="283" width="60" height="24" fill="#ffffff" stroke="#27ae60" stroke-width="1.5" rx="3"/>
+    <text x="775" y="299" font-size="10" font-weight="bold" fill="#27ae60" text-anchor="middle">R_L3 (V-)</text>
+    <line x1="805" y1="295" x2="870" y2="295" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="4,3"/>
+    <text x="837" y="288" font-size="10" fill="#27ae60" text-anchor="middle">I_sense = 0</text>
+
+    <!-- Wire 4 (Force I-) -->
+    <line x1="870" y1="330" x2="805" y2="330" stroke="#2457d6" stroke-width="1.5"/>
+    <rect x="745" y="318" width="60" height="24" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5" rx="3"/>
+    <text x="775" y="334" font-size="10" font-weight="bold" fill="#2457d6" text-anchor="middle">R_L4 (I-)</text>
+    <line x1="745" y1="330" x2="725" y2="330" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+    <line x1="725" y1="330" x2="710" y2="330" stroke="#2457d6" stroke-width="1.5"/>
+    <text x="727" y="348" font-size="10" fill="#2457d6" text-anchor="middle">← I_ex</text>
+
+    <!-- Summary Box -->
+    <rect x="655" y="365" width="270" height="120" fill="#ffffff" stroke="#27ae60" stroke-width="1" rx="6"/>
+    <text x="790" y="388" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">I_sense ≈ 0 (через R_in = ∞)</text>
+    <text x="790" y="408" font-size="11" fill="#6b7280" text-anchor="middle">Падіння напруги на R_L2, R_L3 дорівнює 0 В</text>
+    <text x="790" y="432" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">V_sense = I_ex · R_t  ⇒  R_вимір = R_t</text>
+    <text x="790" y="456" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">✓ Повна нечутливість до R_L</text>
+    <text x="790" y="474" font-size="11" fill="#6b7280" text-anchor="middle">Стандарт для високої точності</text>
+  </g>
+</svg>

@@ -1,0 +1,135 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Canvas background -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Main Frame Container -->
+  <rect x="20" y="15" width="920" height="490" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="8"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="40" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Часова діаграма вимірювального циклу MAX31865 (режим 1-Shot)</text>
+  <text x="480" y="60" font-size="13" fill="#6b7280" text-anchor="middle">Послідовність увімкнення VBIAS, стабілізації RC-фільтра, запуску 1-Shot та спаду DRDY</text>
+
+  <!-- Main Diagram Panel -->
+  <rect x="30" y="72" width="900" height="375" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="6"/>
+
+  <!-- Vertical Phase Grid Lines -->
+  <line x1="270" y1="96" x2="270" y2="440" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="4 4"/>
+  <line x1="430" y1="96" x2="430" y2="440" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="4 4"/>
+  <line x1="470" y1="96" x2="470" y2="440" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="4 4"/>
+  <line x1="730" y1="96" x2="730" y2="440" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="4 4"/>
+  <line x1="845" y1="96" x2="845" y2="440" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="4 4"/>
+
+  <!-- Event Stage Badges at Top -->
+  <circle cx="270" cy="84" r="9" fill="#2457d6"/>
+  <text x="270" y="88" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">1</text>
+
+  <circle cx="430" cy="84" r="9" fill="#2457d6"/>
+  <text x="430" y="88" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">2</text>
+
+  <circle cx="470" cy="84" r="9" fill="#2457d6"/>
+  <text x="470" y="88" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">3</text>
+
+  <circle cx="730" cy="84" r="9" fill="#27ae60"/>
+  <text x="730" y="88" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">4</text>
+
+  <circle cx="845" cy="84" r="9" fill="#27ae60"/>
+  <text x="845" y="88" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">5</text>
+
+  <!-- Left Column Separator -->
+  <line x1="195" y1="72" x2="195" y2="447" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Signal Names Column -->
+  <!-- Row 1: SPI -->
+  <text x="185" y="112" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="end">Команди SPI</text>
+  <text x="185" y="128" font-size="12" fill="#6b7280" text-anchor="end">(Запис / Читання)</text>
+
+  <!-- Row 2: VBIAS -->
+  <text x="185" y="177" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="end">Сигнал VBIAS</text>
+  <text x="185" y="193" font-size="12" fill="#6b7280" text-anchor="end">(Напруга зсуву)</text>
+
+  <!-- Row 3: 1-Shot -->
+  <text x="185" y="242" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="end">Біт 1-Shot</text>
+  <text x="185" y="258" font-size="12" fill="#6b7280" text-anchor="end">(Запуск оцифрування)</text>
+
+  <!-- Row 4: ADC -->
+  <text x="185" y="307" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="end">Стан АЦП</text>
+  <text x="185" y="323" font-size="12" fill="#6b7280" text-anchor="end">(Оцифрування)</text>
+
+  <!-- Row 5: DRDY -->
+  <text x="185" y="372" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="end">Сигнал DRDY</text>
+  <text x="185" y="388" font-size="12" fill="#6b7280" text-anchor="end">(Готовність даних)</text>
+
+  <!-- ROW 1: SPI Commands Waveform & Packets -->
+  <line x1="205" y1="115" x2="215" y2="115" stroke="#d0d7de" stroke-width="2"/>
+  <rect x="215" y="100" width="105" height="30" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="267" y="119" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">VBIAS = 1</text>
+
+  <line x1="320" y1="115" x2="375" y2="115" stroke="#d0d7de" stroke-width="2"/>
+  <rect x="375" y="100" width="105" height="30" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="427" y="119" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">1-Shot = 1</text>
+
+  <line x1="480" y1="115" x2="795" y2="115" stroke="#d0d7de" stroke-width="2"/>
+  <rect x="795" y="100" width="105" height="30" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="847" y="119" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Читання RTD</text>
+
+  <line x1="900" y1="115" x2="910" y2="115" stroke="#d0d7de" stroke-width="2"/>
+
+  <!-- ROW 2: VBIAS Signal & Stabilization Delay Box -->
+  <rect x="275" y="165" width="150" height="30" fill="#eaf0fd" opacity="0.85" stroke="#2457d6" stroke-width="1" stroke-dasharray="3 3" rx="4"/>
+  <text x="350" y="177" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Затримка стабілізації</text>
+  <text x="350" y="190" font-size="12" fill="#2457d6" text-anchor="middle">t_st ≈ 10.5 ms</text>
+  <path d="M 205,200 L 270,200 L 270,160 L 845,160 L 845,200 L 910,200" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+
+  <!-- ROW 3: 1-Shot Pulse -->
+  <path d="M 205,260 L 430,260 L 430,230 L 470,230 L 470,260 L 910,260" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+  <text x="484" y="238" font-size="12" font-weight="bold" fill="#6b7280">Автоскидання 1-Shot → 0</text>
+  <path d="M 480,242 L 474,250" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- ROW 4: ADC Conversion State -->
+  <line x1="205" y1="315" x2="470" y2="315" stroke="#d0d7de" stroke-width="2"/>
+  <line x1="730" y1="315" x2="910" y2="315" stroke="#d0d7de" stroke-width="2"/>
+  <rect x="470" y="295" width="260" height="40" fill="#eaf0fd" stroke="#2457d6" stroke-width="2" rx="6"/>
+  <text x="600" y="312" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Оцифрування АЦП (t_conv)</text>
+  <text x="600" y="327" font-size="12" fill="#6b7280" text-anchor="middle">52.5 ms (60 Hz) / 62.5 ms (50 Hz)</text>
+
+  <!-- ROW 5: DRDY Signal & Data Ready Window -->
+  <path d="M 205,365 L 730,365 L 730,405 L 845,405 L 845,365 L 910,365" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+  <rect x="735" y="371" width="105" height="30" fill="#e9f7ef" opacity="0.9" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="3 3" rx="4"/>
+  <text x="787" y="384" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">DRDY = 0</text>
+  <text x="787" y="397" font-size="12" fill="#27ae60" text-anchor="middle">Дані готові</text>
+
+  <!-- BOTTOM LEGEND / STEP SUMMARY BAR -->
+  <rect x="30" y="455" width="900" height="42" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="6"/>
+
+  <circle cx="48" cy="476" r="9" fill="#2457d6"/>
+  <text x="48" y="480" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">1</text>
+  <text x="62" y="480" font-size="12" font-weight="bold" fill="#1a1a1a">VBIAS = 1</text>
+
+  <circle cx="155" cy="476" r="9" fill="#2457d6"/>
+  <text x="155" y="480" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">2</text>
+  <text x="169" y="480" font-size="12" font-weight="bold" fill="#1a1a1a">Пауза t_st (RC)</text>
+
+  <circle cx="310" cy="476" r="9" fill="#2457d6"/>
+  <text x="310" y="480" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">3</text>
+  <text x="324" y="480" font-size="12" font-weight="bold" fill="#1a1a1a">Пуск 1-Shot</text>
+
+  <circle cx="450" cy="476" r="9" fill="#27ae60"/>
+  <text x="450" y="480" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">4</text>
+  <text x="464" y="480" font-size="12" font-weight="bold" fill="#27ae60">Спад DRDY (Готово)</text>
+
+  <circle cx="630" cy="476" r="9" fill="#27ae60"/>
+  <text x="630" y="480" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">5</text>
+  <text x="644" y="480" font-size="12" font-weight="bold" fill="#1a1a1a">Читання RTD + VBIAS = 0</text>
+</svg>

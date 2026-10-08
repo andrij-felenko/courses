@@ -1,0 +1,98 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Цикл опитування MAX31865 по SPI та обробка прапорців помилок</text>
+  <text x="480" y="60" font-size="13" fill="#6b7280" text-anchor="middle">Перевірка біта Fault у LSB запобігає використанню некоректних даних при несправності датчика</text>
+
+  <rect x="30" y="86" width="270" height="140" rx="8" ry="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <path d="M 30,94 A 8,8 0 0,1 38,86 L 292,86 A 8,8 0 0,1 300,94 L 300,114 L 30,114 Z" fill="#2457d6"/>
+  <text x="165" y="104" font-size="13" font-weight="bold" fill="white" text-anchor="middle">1. Налаштування (SPI Write 0x80)</text>
+  
+  <text x="42" y="132" font-size="12" font-weight="bold" fill="#1a1a1a">Запис у Config Register (0x80):</text>
+  <text x="42" y="151" font-size="12" fill="#1a1a1a">• VBIAS = 1 (ввімкнути BIAS)</text>
+  <text x="42" y="169" font-size="12" fill="#1a1a1a">• Conversion Mode (Auto / 1-Shot)</text>
+  <text x="42" y="187" font-size="12" fill="#1a1a1a">• 3-Wire / 2-Wire конфігурація</text>
+  <text x="42" y="205" font-size="12" fill="#1a1a1a">• Вибір фільтра 50 Гц / 60 Гц</text>
+
+  <line x1="300" y1="156" x2="321" y2="156" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <rect x="330" y="86" width="270" height="140" rx="8" ry="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <path d="M 330,94 A 8,8 0 0,1 338,86 L 592,86 A 8,8 0 0,1 600,94 L 600,114 L 330,114 Z" fill="#6b7280"/>
+  <text x="465" y="104" font-size="13" font-weight="bold" fill="white" text-anchor="middle">2. Очікування готовності</text>
+
+  <text x="342" y="132" font-size="12" font-weight="bold" fill="#1a1a1a">Завершення АЦП-перетворення:</text>
+  <text x="342" y="152" font-size="12" fill="#1a1a1a">• Контроль виводу DRDY (Low)</text>
+  <text x="342" y="172" font-size="12" fill="#6b7280">   або програмна затримка:</text>
+  <text x="342" y="191" font-size="12" fill="#1a1a1a">• ~52.5 мс (для фільтра 50 Гц)</text>
+  <text x="342" y="210" font-size="12" fill="#1a1a1a">• ~21.0 мс (для фільтра 60 Гц)</text>
+
+  <line x1="600" y1="156" x2="621" y2="156" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr-dark)"/>
+
+  <rect x="630" y="86" width="300" height="140" rx="8" ry="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <path d="M 630,94 A 8,8 0 0,1 638,86 L 922,86 A 8,8 0 0,1 930,94 L 930,114 L 630,114 Z" fill="#2457d6"/>
+  <text x="780" y="104" font-size="13" font-weight="bold" fill="white" text-anchor="middle">3. Читання даних (SPI Read 0x01)</text>
+
+  <text x="642" y="130" font-size="12" font-weight="bold" fill="#1a1a1a">Зчитати 2 байти з адрес 0x01, 0x02:</text>
+  
+  <rect x="642" y="139" width="120" height="36" rx="4" fill="white" stroke="#2457d6" stroke-width="1"/>
+  <text x="702" y="154" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Reg 0x01 (MSB)</text>
+  <text x="702" y="169" font-size="12" fill="#6b7280" text-anchor="middle">D15 .. D8</text>
+
+  <rect x="774" y="139" width="146" height="36" rx="4" fill="white" stroke="#2457d6" stroke-width="1"/>
+  <text x="818" y="154" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Reg 0x02 (LSB)</text>
+  <text x="811" y="169" font-size="12" fill="#6b7280" text-anchor="middle">D7 .. D1</text>
+  
+  <rect x="884" y="141" width="32" height="32" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="900" y="161" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">D0</text>
+
+  <text x="642" y="194" font-size="12" fill="#1a1a1a">• D15..D1: 15-бітне значення ADC</text>
+  <text x="642" y="212" font-size="12" font-weight="bold" fill="#c0392b">• D0 (Fault Bit): 1 = Помилка</text>
+
+  <path d="M 780,226 L 780,238 L 480,238 L 480,248" fill="none" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr-dark)"/>
+
+  <rect x="340" y="250" width="280" height="68" rx="10" ry="10" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="480" y="274" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Перевірка стану біта Fault (LSB Bit 0)</text>
+  <text x="480" y="296" font-size="12" fill="#6b7280" text-anchor="middle">Значення D0 дорівнює 1 чи 0?</text>
+
+  <path d="M 400,318 L 400,332 L 245,332 L 245,366" fill="none" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <rect x="290" y="332" width="95" height="22" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="337" y="347" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Ні (Fault = 0)</text>
+
+  <path d="M 560,318 L 560,332 L 715,332 L 715,366" fill="none" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <rect x="575" y="332" width="95" height="22" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="622" y="347" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Так (Fault = 1)</text>
+
+  <rect x="30" y="368" width="430" height="144" rx="8" ry="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <path d="M 30,376 A 8,8 0 0,1 38,368 L 452,368 A 8,8 0 0,1 460,376 L 460,396 L 30,396 Z" fill="#27ae60"/>
+  <text x="245" y="387" font-size="13" font-weight="bold" fill="white" text-anchor="middle">Результат ДІЙСНИЙ: Обчислення температури</text>
+
+  <text x="45" y="416" font-size="12" font-weight="bold" fill="#1a1a1a">1. Виділення 15-бітного коду ADC:</text>
+  <text x="270" y="416" font-size="12" fill="#27ae60" font-weight="bold">Code = (MSB « 7) | (LSB » 1)</text>
+  <text x="45" y="440" font-size="12" font-weight="bold" fill="#1a1a1a">2. Розрахунок опору RTD (Rref = 400 Ом / 4000 Ом):</text>
+  <text x="65" y="460" font-size="12" fill="#1a1a1a" font-weight="bold">R_RTD = (Code × R_ref) / 32768</text>
+  <text x="45" y="486" font-size="12" font-weight="bold" fill="#1a1a1a">3. Обчислення T (°C) за рівнянням Каллендара — Ван Дюзена</text>
+
+  <rect x="500" y="368" width="430" height="144" rx="8" ry="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <path d="M 500,376 A 8,8 0 0,1 508,368 L 922,368 A 8,8 0 0,1 930,368 L 930,396 L 500,396 Z" fill="#c0392b"/>
+  <text x="715" y="387" font-size="13" font-weight="bold" fill="white" text-anchor="middle">ПОМИЛКА: Обробка та діагностика (Fault Status)</text>
+
+  <text x="515" y="416" font-size="12" font-weight="bold" fill="#1a1a1a">1. Зчитати регістр стану помилок (SPI Read 0x07)</text>
+  <text x="515" y="436" font-size="12" font-weight="bold" fill="#1a1a1a">2. Декодувати біти регістра 0x07:</text>
+  <text x="530" y="454" font-size="12" fill="#c0392b">• D7/D6: Поріг High/Low | D5/D4: Перенапруга</text>
+  <text x="530" y="472" font-size="12" fill="#c0392b">• D3/D2: Обрив кола | D2: КЗ дротів датчика</text>
+  <text x="515" y="496" font-size="12" font-weight="bold" fill="#1a1a1a">3. Скидання прапорця: Запис 0x80 з Bit 1 = 1</text>
+</svg>

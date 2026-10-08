@@ -1,0 +1,186 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- White Background -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <defs>
+    <!-- Arrow Markers -->
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Title and Subtitle -->
+  <text x="480" y="34" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Топологія PCB та трасування DVP-інтерфейсу OV3640</text>
+  <text x="480" y="56" font-size="13" fill="#6b7280" text-anchor="middle">Узгодження опору Z₀ = 50 Ом, вирівнювання довжин ліній та розділення AGND/DGND</text>
+
+  <!-- PANEL 1: Power & Grounding (Left) -->
+  <rect x="20" y="80" width="330" height="460" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="6"/>
+  <text x="185" y="105" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Топологія живлення та заземлення</text>
+
+  <!-- OV3640 Sensor Chip Box in Panel 1 -->
+  <rect x="35" y="125" width="100" height="230" fill="#ffffff" stroke="#2457d6" stroke-width="2" rx="4"/>
+  <text x="85" y="148" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">OV3640</text>
+  <text x="85" y="166" font-size="12" fill="#6b7280" text-anchor="middle">(Сенсор)</text>
+
+  <!-- Sensor Pins Labels -->
+  <text x="128" y="200" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">DOVDD</text>
+  <text x="128" y="250" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="end">AVDD</text>
+  <text x="128" y="300" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">DVDD</text>
+  <text x="128" y="330" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="end">AGND</text>
+  <text x="128" y="346" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">DGND</text>
+
+  <!-- DOVDD Power Line & C1 -->
+  <line x1="135" y1="196" x2="335" y2="196" stroke="#2457d6" stroke-width="2"/>
+  <text x="150" y="188" font-size="12" font-weight="bold" fill="#2457d6">DOVDD (1.8/2.8V)</text>
+  <line x1="200" y1="196" x2="200" y2="225" stroke="#6b7280" stroke-width="1.5"/>
+  <rect x="193" y="206" width="14" height="12" fill="#ffffff" stroke="#1a1a1a"/>
+  <text x="215" y="218" font-size="12" fill="#6b7280">C1 (100 nF)</text>
+
+  <!-- AVDD Power Line with Ferrite Bead FB & C2, C3 -->
+  <line x1="135" y1="250" x2="160" y2="250" stroke="#c0392b" stroke-width="2"/>
+  <rect x="160" y="243" width="24" height="14" fill="#fdecea" stroke="#c0392b" rx="2"/>
+  <text x="172" y="254" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">FB</text>
+  <line x1="184" y1="250" x2="335" y2="250" stroke="#c0392b" stroke-width="2"/>
+  <text x="195" y="242" font-size="12" font-weight="bold" fill="#c0392b">AVDD (2.8V)</text>
+
+  <!-- C2 & C3 Decoupling Caps -->
+  <line x1="220" y1="250" x2="220" y2="280" stroke="#6b7280" stroke-width="1.5"/>
+  <rect x="213" y="260" width="14" height="12" fill="#ffffff" stroke="#1a1a1a"/>
+  <line x1="270" y1="250" x2="270" y2="280" stroke="#6b7280" stroke-width="1.5"/>
+  <rect x="263" y="260" width="14" height="12" fill="#ffffff" stroke="#1a1a1a"/>
+  <line x1="220" y1="280" x2="270" y2="280" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="150" y="298" font-size="12" fill="#6b7280">C2, C3 (100nF + 10µF)</text>
+
+  <!-- DVDD Power Line & C4 -->
+  <line x1="135" y1="320" x2="335" y2="320" stroke="#2457d6" stroke-width="2"/>
+  <text x="150" y="314" font-size="12" font-weight="bold" fill="#2457d6">DVDD (1.5V)</text>
+  <line x1="200" y1="320" x2="200" y2="348" stroke="#6b7280" stroke-width="1.5"/>
+  <rect x="193" y="326" width="14" height="12" fill="#ffffff" stroke="#1a1a1a"/>
+  <text x="220" y="335" font-size="12" fill="#6b7280">C4 (100 nF)</text>
+
+  <!-- Ground Polygons (AGND vs DGND) -->
+  <rect x="35" y="380" width="120" height="75" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="4,3" rx="4"/>
+  <text x="95" y="400" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Полігон AGND</text>
+  <text x="95" y="420" font-size="12" fill="#6b7280" text-anchor="middle">Аналогова земля</text>
+  <text x="95" y="440" font-size="12" fill="#1a1a1a" text-anchor="middle">(AVDD, Сенсор)</text>
+
+  <rect x="215" y="380" width="120" height="75" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4,3" rx="4"/>
+  <text x="275" y="400" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Полігон DGND</text>
+  <text x="275" y="420" font-size="12" fill="#6b7280" text-anchor="middle">Цифрова земля</text>
+  <text x="275" y="440" font-size="12" fill="#1a1a1a" text-anchor="middle">(DVP, DOVDD)</text>
+
+  <!-- Single-Point Ground Bridge (Star Connection) -->
+  <line x1="155" y1="417" x2="170" y2="417" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="200" y1="417" x2="215" y2="417" stroke="#1a1a1a" stroke-width="2"/>
+  <rect x="170" y="407" width="30" height="20" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5" rx="2"/>
+  <text x="185" y="400" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">0 Ом</text>
+
+  <text x="185" y="482" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Точка з'єднання AGND та DGND</text>
+  <text x="185" y="502" font-size="12" fill="#6b7280" text-anchor="middle">(Запобігає цифровим шумам в AGND)</text>
+
+  <!-- Ground Pins Traces -->
+  <path d="M 135,330 L 140,330 L 140,380" fill="none" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <path d="M 135,346 L 140,346 L 140,355 L 275,355 L 275,380" fill="none" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="3,3"/>
+
+  <!-- PANEL 2: DVP Signals Topology & Length Matching (Top Right) -->
+  <rect x="365" y="80" width="575" height="295" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="6"/>
+  <text x="652.5" y="105" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Топологія сигнальних ліній DVP (Length Matching &amp; Z₀)</text>
+
+  <!-- OV3640 Transmitter Box inside Panel 2 -->
+  <rect x="380" y="125" width="90" height="235" fill="#ffffff" stroke="#2457d6" stroke-width="2" rx="4"/>
+  <text x="425" y="148" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">OV3640</text>
+  <text x="425" y="166" font-size="12" fill="#6b7280" text-anchor="middle">(Джерело)</text>
+
+  <text x="462" y="198" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">PCLK</text>
+  <text x="462" y="245" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">HREF</text>
+  <text x="462" y="285" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">VSYNC</text>
+  <text x="462" y="325" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="end">D[9:0]</text>
+
+  <!-- Host MCU Receiver Box inside Panel 2 -->
+  <rect x="835" y="125" width="90" height="235" fill="#ffffff" stroke="#1a1a1a" stroke-width="2" rx="4"/>
+  <text x="880" y="148" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Host MCU</text>
+  <text x="880" y="166" font-size="12" fill="#6b7280" text-anchor="middle">(Приймач)</text>
+
+  <text x="843" y="198" font-size="12" font-weight="bold" fill="#2457d6">PCLK</text>
+  <text x="843" y="245" font-size="12" font-weight="bold" fill="#1a1a1a">HREF</text>
+  <text x="843" y="285" font-size="12" font-weight="bold" fill="#1a1a1a">VSYNC</text>
+  <text x="843" y="325" font-size="12" font-weight="bold" fill="#27ae60">D[9:0]</text>
+
+  <!-- PCLK Trace with Series Termination Rs & Meander Tuning -->
+  <rect x="490" y="186" width="32" height="16" fill="#eaf0fd" stroke="#2457d6" rx="2"/>
+  <text x="506" y="198" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Rs</text>
+  <text x="506" y="180" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">22–33 Ом</text>
+
+  <!-- PCLK Trace lines -->
+  <line x1="470" y1="194" x2="490" y2="194" stroke="#2457d6" stroke-width="2.5"/>
+  <path d="M 522,194 L 560,194 L 566,186 L 578,202 L 590,186 L 602,202 L 614,186 L 626,202 L 632,194 L 835,194" fill="none" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+
+  <!-- PCLK Ground Shielding / Guard Traces -->
+  <line x1="535" y1="175" x2="815" y2="175" stroke="#27ae60" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="535" y1="213" x2="815" y2="213" stroke="#27ae60" stroke-width="1" stroke-dasharray="3,3"/>
+  <!-- Guard Vias (Ground Vias) -->
+  <circle cx="550" cy="175" r="2.5" fill="#27ae60"/>
+  <circle cx="600" cy="175" r="2.5" fill="#27ae60"/>
+  <circle cx="650" cy="175" r="2.5" fill="#27ae60"/>
+  <circle cx="700" cy="175" r="2.5" fill="#27ae60"/>
+  <circle cx="750" cy="175" r="2.5" fill="#27ae60"/>
+  <circle cx="800" cy="175" r="2.5" fill="#27ae60"/>
+
+  <circle cx="550" cy="213" r="2.5" fill="#27ae60"/>
+  <circle cx="600" cy="213" r="2.5" fill="#27ae60"/>
+  <circle cx="650" cy="213" r="2.5" fill="#27ae60"/>
+  <circle cx="700" cy="213" r="2.5" fill="#27ae60"/>
+  <circle cx="750" cy="213" r="2.5" fill="#27ae60"/>
+  <circle cx="800" cy="213" r="2.5" fill="#27ae60"/>
+
+  <text x="675" y="166" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">GND Guard Trace (Екранування PCLK)</text>
+  <text x="675" y="229" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">PCLK: змійовик вирівнювання (Z₀ = 50 Ом)</text>
+
+  <!-- HREF Trace -->
+  <text x="675" y="244" font-size="12" fill="#1a1a1a" text-anchor="middle">HREF: вирівнювання з PCLK (ΔL &lt; 1 мм)</text>
+  <path d="M 470,252 L 575,252 L 580,246 L 590,258 L 600,246 L 610,258 L 615,252 L 835,252" fill="none" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+
+  <!-- VSYNC Trace -->
+  <text x="675" y="278" font-size="12" fill="#1a1a1a" text-anchor="middle">VSYNC: кадрова синхронізація</text>
+  <line x1="470" y1="285" x2="835" y2="285" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+
+  <!-- D[9:0] Bus Traces -->
+  <path d="M 470,318 L 590,318 L 595,313 L 605,323 L 610,318 L 835,318" fill="none" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <path d="M 470,324 L 835,324" fill="none" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <path d="M 470,330 L 630,330 L 635,325 L 645,335 L 650,330 L 835,330" fill="none" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <text x="652.5" y="352" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Паралельна шина D[9:0]: вирівнювання довжин (ΔL ± 1 мм)</text>
+
+  <!-- PANEL 3: Rules & Stackup (Bottom Right) -->
+  <rect x="365" y="390" width="575" height="150" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="6"/>
+  <text x="652.5" y="412" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Правила конструювання та стек плати (Layout Rules)</text>
+
+  <!-- Card 3A: Wave Impedance -->
+  <rect x="380" y="424" width="171" height="104" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="4"/>
+  <text x="465.5" y="442" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Хвильовий опір Z₀</text>
+  <text x="388" y="462" font-size="12" fill="#1a1a1a">• Z₀ = 50 Ом (мікростріп)</text>
+  <text x="388" y="482" font-size="12" fill="#1a1a1a">• Суцільний шар GND</text>
+  <text x="388" y="502" font-size="12" fill="#1a1a1a">• Rs = 22–33 Ом біля pin</text>
+
+  <!-- Card 3B: Length Tuning -->
+  <rect x="567" y="424" width="171" height="104" fill="#e9f7ef" stroke="#27ae60" stroke-width="1" rx="4"/>
+  <text x="652.5" y="442" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Вирівнювання довжин</text>
+  <text x="575" y="462" font-size="12" fill="#1a1a1a">• ΔL(PCLK, Data) &lt; 1 мм</text>
+  <text x="575" y="482" font-size="12" fill="#1a1a1a">• Змійовик: R ≥ 3×w</text>
+  <text x="575" y="502" font-size="12" fill="#1a1a1a">• Мінімум переходів Via</text>
+
+  <!-- Card 3C: Decoupling & AGND -->
+  <rect x="754" y="424" width="171" height="104" fill="#fdecea" stroke="#c0392b" stroke-width="1" rx="4"/>
+  <text x="839.5" y="442" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Фільтрація та AGND</text>
+  <text x="762" y="462" font-size="12" fill="#1a1a1a">• C_decoup &lt; 3 мм до pin</text>
+  <text x="762" y="482" font-size="12" fill="#1a1a1a">• AGND/DGND в 1 точці</text>
+  <text x="762" y="502" font-size="12" fill="#1a1a1a">• FB / 0 Ом місток GND</text>
+</svg>

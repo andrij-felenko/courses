@@ -1,0 +1,229 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Definitions for Markers -->
+  <defs>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Title and Subtitle -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Схеми підключення платинових терморезисторів RTD</text>
+  <text x="480" y="54" text-anchor="middle" font-size="13" fill="#6b7280">Вплив паразитного опору дротів R_L та засоби його компенсації</text>
+
+  <!-- ================= PANEL 1: 2-WIRE ================= -->
+  <rect x="20" y="72" width="296" height="448" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Header Badge -->
+  <rect x="32" y="84" width="272" height="32" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="168" y="105" text-anchor="middle" font-size="15" font-weight="bold" fill="#c0392b">2-провідне підключення</text>
+
+  <!-- Sub-badge -->
+  <rect x="32" y="124" width="272" height="26" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="168" y="141" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Низька точність: похибка 2·R_L</text>
+
+  <!-- Schematic Container -->
+  <rect x="32" y="160" width="272" height="230" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Transmitter / ADC Box -->
+  <rect x="42" y="172" width="75" height="206" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="79" y="194" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Вимірювач</text>
+  <text x="79" y="212" text-anchor="middle" font-size="12" fill="#6b7280">(АЦП)</text>
+
+  <!-- Terminals ADC -->
+  <circle cx="117" cy="235" r="3" fill="#2457d6"/>
+  <text x="110" y="239" text-anchor="end" font-size="12" font-weight="bold" fill="#1a1a1a">I+</text>
+
+  <circle cx="117" cy="335" r="3" fill="#2457d6"/>
+  <text x="110" y="339" text-anchor="end" font-size="12" font-weight="bold" fill="#1a1a1a">I-</text>
+
+  <!-- Sensor Zone -->
+  <rect x="240" y="172" width="54" height="206" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="267" y="194" text-anchor="middle" font-size="12" font-weight="bold" fill="#6b7280">Сенсор</text>
+
+  <!-- RTD Element -->
+  <rect x="257" y="260" width="20" height="50" rx="2" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="267" y="289" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Pt</text>
+  <text x="292" y="255" font-size="12" font-weight="bold" fill="#1a1a1a">t°</text>
+  <circle cx="267" cy="235" r="3" fill="#1a1a1a"/>
+  <circle cx="267" cy="335" r="3" fill="#1a1a1a"/>
+
+  <!-- Top Wire -->
+  <line x1="117" y1="235" x2="155" y2="235" stroke="#c0392b" stroke-width="1.5"/>
+  <rect x="155" y="227" width="36" height="16" rx="2" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="173" y="216" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">R_L1</text>
+  <polyline points="191,235 267,235 267,260" stroke="#c0392b" stroke-width="1.5" fill="none"/>
+
+  <!-- Current Arrow Top Wire -->
+  <line x1="123" y1="225" x2="147" y2="225" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="135" y="216" text-anchor="middle" font-size="12" fill="#2457d6">I</text>
+
+  <!-- Bottom Wire -->
+  <line x1="117" y1="335" x2="155" y2="335" stroke="#c0392b" stroke-width="1.5"/>
+  <rect x="155" y="327" width="36" height="16" rx="2" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="173" y="358" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">R_L2</text>
+  <polyline points="267,310 267,335 191,335" stroke="#c0392b" stroke-width="1.5" fill="none"/>
+
+  <!-- Formula Box Panel 1 -->
+  <rect x="32" y="400" width="272" height="108" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="44" y="420" font-size="12" font-weight="bold" fill="#1a1a1a">Виміряний опір:</text>
+  <text x="44" y="440" font-size="13" font-weight="bold" fill="#c0392b">R_виміру = R_Pt + R_L1 + R_L2</text>
+  <text x="44" y="460" font-size="12" fill="#6b7280">Похибка: ΔR = R_L1 + R_L2</text>
+  <text x="44" y="480" font-size="12" fill="#6b7280">Для Pt100: 1 Ом дріт ≈ +2.6 °C!</text>
+  <text x="44" y="500" font-size="12" fill="#1a1a1a">Застосування: короткі лінії (&lt; 3 м)</text>
+
+
+  <!-- ================= PANEL 2: 3-WIRE ================= -->
+  <rect x="332" y="72" width="296" height="448" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Header Badge -->
+  <rect x="344" y="84" width="272" height="32" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="480" y="105" text-anchor="middle" font-size="15" font-weight="bold" fill="#2457d6">3-провідне підключення</text>
+
+  <!-- Sub-badge -->
+  <rect x="344" y="124" width="272" height="26" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="480" y="141" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Компенсація за умови R_L1 = R_L3</text>
+
+  <!-- Schematic Container -->
+  <rect x="344" y="160" width="272" height="230" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Transmitter / ADC Box -->
+  <rect x="354" y="172" width="75" height="206" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="391" y="194" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Вимірювач</text>
+  <text x="391" y="212" text-anchor="middle" font-size="12" fill="#6b7280">(Міст / АЦП)</text>
+
+  <!-- Terminals ADC -->
+  <circle cx="429" cy="230" r="3" fill="#2457d6"/>
+  <text x="422" y="234" text-anchor="end" font-size="12" font-weight="bold" fill="#1a1a1a">L1</text>
+
+  <circle cx="429" cy="285" r="3" fill="#6b7280"/>
+  <text x="422" y="289" text-anchor="end" font-size="12" font-weight="bold" fill="#6b7280">L2</text>
+
+  <circle cx="429" cy="340" r="3" fill="#2457d6"/>
+  <text x="422" y="344" text-anchor="end" font-size="12" font-weight="bold" fill="#1a1a1a">L3</text>
+
+  <!-- Sensor Zone -->
+  <rect x="552" y="172" width="54" height="206" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="579" y="194" text-anchor="middle" font-size="12" font-weight="bold" fill="#6b7280">Сенсор</text>
+
+  <!-- RTD Element -->
+  <rect x="569" y="260" width="20" height="50" rx="2" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="579" y="289" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Pt</text>
+  <text x="595" y="255" font-size="12" font-weight="bold" fill="#1a1a1a">t°</text>
+  <circle cx="579" cy="230" r="3" fill="#1a1a1a"/>
+  <circle cx="579" cy="340" r="3" fill="#1a1a1a"/>
+
+  <!-- Wire 1 (Top, L1) -->
+  <line x1="429" y1="230" x2="467" y2="230" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="467" y="222" width="36" height="16" rx="2" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="485" y="213" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">R_L1</text>
+  <polyline points="503,230 579,230 579,260" stroke="#2457d6" stroke-width="1.5" fill="none"/>
+
+  <!-- Wire 2 (Middle - Sense, L2) -->
+  <line x1="429" y1="285" x2="467" y2="285" stroke="#6b7280" stroke-width="1.5"/>
+  <rect x="467" y="277" width="36" height="16" rx="2" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="485" y="268" text-anchor="middle" font-size="12" font-weight="bold" fill="#6b7280">R_L2</text>
+  <text x="485" y="305" text-anchor="middle" font-size="11" fill="#6b7280">(I≈0)</text>
+  <polyline points="503,285 545,285 545,230 579,230" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4,3" fill="none"/>
+
+  <!-- Wire 3 (Bottom, L3) -->
+  <line x1="429" y1="340" x2="467" y2="340" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="467" y="332" width="36" height="16" rx="2" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="485" y="362" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">R_L3</text>
+  <polyline points="579,310 579,340 503,340" stroke="#2457d6" stroke-width="1.5" fill="none"/>
+
+  <!-- Formula Box Panel 2 -->
+  <rect x="344" y="400" width="272" height="108" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="356" y="420" font-size="12" font-weight="bold" fill="#1a1a1a">Виміряний опір:</text>
+  <text x="356" y="440" font-size="13" font-weight="bold" fill="#2457d6">R_виміру = R_Pt + (R_L1 - R_L3)</text>
+  <text x="356" y="460" font-size="12" fill="#6b7280">Якщо R_L1 = R_L3  ⇒  ΔR = 0</text>
+  <text x="356" y="480" font-size="12" fill="#6b7280">Чутливий до дисбалансу дротів</text>
+  <text x="356" y="500" font-size="12" fill="#1a1a1a">Застосування: промисловий стандарт</text>
+
+
+  <!-- ================= PANEL 3: 4-WIRE ================= -->
+  <rect x="644" y="72" width="296" height="448" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Header Badge -->
+  <rect x="656" y="84" width="272" height="32" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="792" y="105" text-anchor="middle" font-size="15" font-weight="bold" fill="#27ae60">4-провідне підключення</text>
+
+  <!-- Sub-badge -->
+  <rect x="656" y="124" width="272" height="26" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="792" y="141" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Повне усунення похибки R_L</text>
+
+  <!-- Schematic Container -->
+  <rect x="656" y="160" width="272" height="230" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Transmitter / ADC Box -->
+  <rect x="666" y="172" width="75" height="206" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="703" y="194" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">Вимірювач</text>
+  <text x="703" y="212" text-anchor="middle" font-size="12" fill="#6b7280">(I_ex / V_sens)</text>
+
+  <!-- Terminals ADC -->
+  <circle cx="741" cy="225" r="3" fill="#1a1a1a"/>
+  <text x="734" y="229" text-anchor="end" font-size="12" font-weight="bold" fill="#1a1a1a">I+</text>
+
+  <circle cx="741" cy="260" r="3" fill="#27ae60"/>
+  <text x="734" y="264" text-anchor="end" font-size="12" font-weight="bold" fill="#27ae60">V+</text>
+
+  <circle cx="741" cy="310" r="3" fill="#27ae60"/>
+  <text x="734" y="314" text-anchor="end" font-size="12" font-weight="bold" fill="#27ae60">V-</text>
+
+  <circle cx="741" cy="345" r="3" fill="#1a1a1a"/>
+  <text x="734" y="349" text-anchor="end" font-size="12" font-weight="bold" fill="#1a1a1a">I-</text>
+
+  <!-- Sensor Zone -->
+  <rect x="864" y="172" width="54" height="206" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="891" y="194" text-anchor="middle" font-size="12" font-weight="bold" fill="#6b7280">Сенсор</text>
+
+  <!-- RTD Element -->
+  <rect x="881" y="260" width="20" height="50" rx="2" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="891" y="289" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Pt</text>
+  <text x="907" y="255" font-size="12" font-weight="bold" fill="#1a1a1a">t°</text>
+  <circle cx="891" cy="225" r="3" fill="#1a1a1a"/>
+  <circle cx="891" cy="345" r="3" fill="#1a1a1a"/>
+
+  <!-- Wire 1 (Force I+) -->
+  <line x1="741" y1="225" x2="777" y2="225" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="777" y="217" width="36" height="16" rx="2" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="795" y="208" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">R_L1</text>
+  <polyline points="813,225 891,225 891,260" stroke="#1a1a1a" stroke-width="1.5" fill="none"/>
+
+  <!-- Wire 2 (Sense V+) -->
+  <line x1="741" y1="260" x2="777" y2="260" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="777" y="252" width="36" height="16" rx="2" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="795" y="247" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">R_L2 (I=0)</text>
+  <line x1="813" y1="260" x2="891" y2="260" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="4,3"/>
+
+  <!-- Wire 3 (Sense V-) -->
+  <line x1="741" y1="310" x2="777" y2="310" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="777" y="302" width="36" height="16" rx="2" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="795" y="332" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">R_L3 (I=0)</text>
+  <line x1="813" y1="310" x2="891" y2="310" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="4,3"/>
+
+  <!-- Wire 4 (Force I-) -->
+  <line x1="741" y1="345" x2="777" y2="345" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="777" y="337" width="36" height="16" rx="2" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="795" y="367" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a1a">R_L4</text>
+  <polyline points="891,310 891,345 813,345" stroke="#1a1a1a" stroke-width="1.5" fill="none"/>
+
+  <!-- Formula Box Panel 3 -->
+  <rect x="656" y="400" width="272" height="108" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="668" y="420" font-size="12" font-weight="bold" fill="#1a1a1a">Виміряний опір:</text>
+  <text x="668" y="440" font-size="13" font-weight="bold" fill="#27ae60">V_sens = I_ex · R_Pt  ⇒  R = R_Pt</text>
+  <text x="668" y="460" font-size="12" fill="#6b7280">Струм через V+/V- дорівнює 0</text>
+  <text x="668" y="480" font-size="12" fill="#6b7280">Повна незалежність від R_L</text>
+  <text x="668" y="500" font-size="12" fill="#1a1a1a">Застосування: прецизійні виміри</text>
+</svg>

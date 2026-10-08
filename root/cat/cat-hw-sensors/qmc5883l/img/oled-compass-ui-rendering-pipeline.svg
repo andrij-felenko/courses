@@ -1,0 +1,138 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Конвеєр відмальовування стрілки компаса на OLED-дисплеї</text>
+  <text x="480" y="52" text-anchor="middle" font-size="13" fill="#6b7280">Перетворення кута азимута в екранні координати (128×64) та растровий буфер кадру</text>
+
+  <!-- Card 1 -->
+  <rect x="20" y="70" width="208" height="445" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="26" y="76" width="196" height="32" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="124" y="97" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">1. Кут азимута θ</text>
+
+  <rect x="30" y="118" width="188" height="60" rx="4" fill="white" stroke="#d0d7de"/>
+  <text x="38" y="136" font-size="12" font-weight="bold" fill="#1a1a1a">Вхід: QMC5883L</text>
+  <text x="38" y="154" font-size="12" fill="#6b7280">X_cal = +17.0</text>
+  <text x="38" y="168" font-size="12" fill="#6b7280">Y_cal = +17.0</text>
+
+  <rect x="30" y="188" width="188" height="175" rx="4" fill="white" stroke="#d0d7de"/>
+  <line x1="84" y1="275" x2="164" y2="275" stroke="#9ca3af" stroke-dasharray="3,3"/>
+  <text x="168" y="279" font-size="12" fill="#6b7280">+X</text>
+  <line x1="124" y1="320" x2="124" y2="215" stroke="#9ca3af" stroke-dasharray="3,3"/>
+  <text x="124" y="208" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">+Y (Пн)</text>
+  <line x1="124" y1="275" x2="159" y2="240" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+  <path d="M 124 245 A 30 30 0 0 1 145 254" fill="none" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="142" y="238" font-size="12" font-weight="bold" fill="#2457d6">θ = 45°</text>
+
+  <rect x="30" y="373" width="188" height="132" rx="4" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="38" y="393" font-size="12" font-weight="bold" fill="#27ae60">Формула atan2:</text>
+  <text x="38" y="413" font-size="12" font-weight="bold" fill="#1a1a1a">θ = atan2(Y_cal, X_cal)</text>
+  <text x="38" y="433" font-size="12" fill="#1a1a1a">θ = atan2(17, 17)</text>
+  <text x="38" y="453" font-size="12" font-weight="bold" fill="#27ae60">θ = +0.785 rad</text>
+  <text x="38" y="473" font-size="12" fill="#6b7280">(0.785 rad = 45°)</text>
+  <text x="38" y="493" font-size="12" fill="#6b7280">Кут від осі +Y</text>
+
+  <!-- Flow Arrow 1 -->
+  <line x1="228" y1="280" x2="252" y2="280" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Card 2 -->
+  <rect x="256" y="70" width="208" height="445" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="262" y="76" width="196" height="32" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="360" y="97" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">2. Вектор стрілки</text>
+
+  <rect x="266" y="118" width="188" height="60" rx="4" fill="white" stroke="#d0d7de"/>
+  <text x="274" y="136" font-size="12" font-weight="bold" fill="#1a1a1a">Радіус стрілки:</text>
+  <text x="274" y="154" font-size="12" fill="#1a1a1a">R = 24 px</text>
+  <text x="274" y="168" font-size="12" fill="#6b7280">Довжина вектора</text>
+
+  <rect x="266" y="188" width="188" height="175" rx="4" fill="#fdecea" stroke="#c0392b"/>
+  <text x="274" y="206" font-size="12" font-weight="bold" fill="#c0392b">УВАГА: Інверсія Y!</text>
+  <text x="274" y="224" font-size="12" fill="#1a1a1a">Математична Y: ↑ вгору</text>
+  <text x="274" y="242" font-size="12" fill="#1a1a1a">Екранна Y: ↓ вниз</text>
+  <text x="274" y="265" font-size="12" font-weight="bold" fill="#1a1a1a">Формули зсувів:</text>
+  <text x="274" y="285" font-size="12" font-weight="bold" fill="#2457d6">dx = R · sin(θ)</text>
+  <text x="274" y="305" font-size="12" font-weight="bold" fill="#c0392b">dy = -R · cos(θ)</text>
+  <text x="274" y="325" font-size="12" fill="#6b7280">Мінус повертає</text>
+  <text x="274" y="343" font-size="12" fill="#6b7280">вектор угору (до Пн)</text>
+
+  <rect x="266" y="373" width="188" height="132" rx="4" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="274" y="393" font-size="12" font-weight="bold" fill="#27ae60">Значення зсувів:</text>
+  <text x="274" y="413" font-size="12" fill="#1a1a1a">dx = 24 · sin(0.785)</text>
+  <text x="274" y="431" font-size="12" font-weight="bold" fill="#1a1a1a">dx = +16.97 ≈ +17 px</text>
+  <text x="274" y="451" font-size="12" fill="#1a1a1a">dy = -24 · cos(0.785)</text>
+  <text x="274" y="469" font-size="12" font-weight="bold" fill="#1a1a1a">dy = -16.97 ≈ -17 px</text>
+  <text x="274" y="493" font-size="12" font-weight="bold" fill="#27ae60">Вектор: (+17, -17)</text>
+
+  <!-- Flow Arrow 2 -->
+  <line x1="464" y1="280" x2="488" y2="280" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Card 3 -->
+  <rect x="492" y="70" width="208" height="445" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="498" y="76" width="196" height="32" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="596" y="97" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">3. Координати екрана</text>
+
+  <rect x="502" y="118" width="188" height="60" rx="4" fill="white" stroke="#d0d7de"/>
+  <text x="510" y="136" font-size="12" font-weight="bold" fill="#1a1a1a">Центр екрана (x₀, y₀):</text>
+  <text x="510" y="154" font-size="12" fill="#1a1a1a">x₀ = 128 / 2 = 64 px</text>
+  <text x="510" y="168" font-size="12" fill="#1a1a1a">y₀ = 64 / 2 = 32 px</text>
+
+  <rect x="502" y="188" width="188" height="175" rx="4" fill="white" stroke="#d0d7de"/>
+  <rect x="518" y="200" width="156" height="85" fill="#1a1a1a" rx="3"/>
+  <text x="522" y="214" font-size="12" fill="#9ca3af">(0,0)</text>
+  <text x="620" y="278" font-size="12" fill="#9ca3af">(127,63)</text>
+  <circle cx="596" cy="242.5" r="3" fill="#2457d6"/>
+  <circle cx="617" cy="221.5" r="3" fill="#27ae60"/>
+  <line x1="596" y1="242.5" x2="617" y2="221.5" stroke="#27ae60" stroke-width="2"/>
+  <text x="510" y="305" font-size="12" font-weight="bold" fill="#2457d6">Центр: (64, 32)</text>
+  <text x="510" y="325" font-size="12" font-weight="bold" fill="#27ae60">Кінець: (81, 15)</text>
+  <text x="510" y="345" font-size="12" fill="#6b7280">Алгоритм Брезенгема</text>
+
+  <rect x="502" y="373" width="188" height="132" rx="4" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="510" y="393" font-size="12" font-weight="bold" fill="#27ae60">Розрахунок кінця:</text>
+  <text x="510" y="413" font-size="12" fill="#1a1a1a">x_tip = x₀ + dx</text>
+  <text x="510" y="431" font-size="12" font-weight="bold" fill="#1a1a1a">x_tip = 64 + 17 = 81</text>
+  <text x="510" y="451" font-size="12" fill="#1a1a1a">y_tip = y₀ + dy</text>
+  <text x="510" y="469" font-size="12" font-weight="bold" fill="#1a1a1a">y_tip = 32 - 17 = 15</text>
+  <text x="510" y="493" font-size="12" font-weight="bold" fill="#27ae60">draw_line(64,32, 81,15)</text>
+
+  <!-- Flow Arrow 3 -->
+  <line x1="700" y1="280" x2="724" y2="280" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Card 4 -->
+  <rect x="728" y="70" width="208" height="445" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="734" y="76" width="196" height="32" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="832" y="97" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">4. OLED Кадровий буфер</text>
+
+  <rect x="738" y="118" width="188" height="145" rx="4" fill="white" stroke="#d0d7de"/>
+  <text x="746" y="136" font-size="12" font-weight="bold" fill="#1a1a1a">Мапування в RAM:</text>
+  <text x="746" y="156" font-size="12" fill="#1a1a1a">Page = 15 / 8 = 1</text>
+  <text x="746" y="174" font-size="12" fill="#1a1a1a">Bit = 15 % 8 = 7</text>
+  <text x="746" y="194" font-size="12" font-weight="bold" fill="#2457d6">Індекс у буфері:</text>
+  <text x="746" y="212" font-size="12" fill="#1a1a1a">idx = 1 · 128 + 81 = 209</text>
+  <text x="746" y="230" font-size="12" font-weight="bold" fill="#1a1a1a">buf[209] |= (1 &lt;&lt; 7)</text>
+  <text x="746" y="248" font-size="12" font-weight="bold" fill="#27ae60">Байт у буфері встановлено</text>
+
+  <rect x="738" y="273" width="188" height="232" rx="4" fill="#1a1a1a" stroke="#d0d7de" stroke-width="2"/>
+  <text x="832" y="293" text-anchor="middle" font-size="12" font-weight="bold" fill="#38bdf8">OLED 128×64 (SSD1306)</text>
+  <circle cx="832" cy="375" r="42" fill="#0f172a" stroke="#38bdf8" stroke-width="1.5"/>
+  <text x="832" y="348" text-anchor="middle" font-size="12" font-weight="bold" fill="#ef4444">N</text>
+  <text x="832" y="410" text-anchor="middle" font-size="12" fill="#64748b">S</text>
+  <text x="864" y="379" text-anchor="middle" font-size="12" fill="#64748b">E</text>
+  <text x="800" y="379" text-anchor="middle" font-size="12" fill="#64748b">W</text>
+  <line x1="832" y1="375" x2="857" y2="350" stroke="#ef4444" stroke-width="3" stroke-linecap="round"/>
+  <circle cx="832" cy="375" r="4" fill="#ffffff"/>
+  <circle cx="857" cy="350" r="3" fill="#22c55e"/>
+  <text x="832" y="440" text-anchor="middle" font-size="12" font-weight="bold" fill="#38bdf8">AZIMUTH: 045° (NE)</text>
+  <text x="832" y="460" text-anchor="middle" font-size="12" fill="#94a3b8">(81, 15) → Page 1, Bit 7</text>
+  <text x="832" y="482" text-anchor="middle" font-size="12" font-weight="bold" fill="#22c55e">Передача I2C → OLED</text>
+</svg>

@@ -1,0 +1,184 @@
+<svg viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Структурна блок-схема мікросхеми QMC5883L</text>
+  <text x="480" y="54" text-anchor="middle" font-size="13" fill="#6b7280">Обробка магнітного поля: від AMR-давачів через 16-бітний АЦП, OSR/ODR до I²C-регістрів</text>
+
+  <!-- Main IC Chip Boundary -->
+  <rect x="65" y="75" width="820" height="445" rx="10" ry="10" fill="#fafbfc" stroke="#c0c7d0" stroke-width="2"/>
+  <text x="85" y="98" font-size="13" font-weight="bold" fill="#2457d6">Корпус мікросхеми QMC5883L (ASIC + AMR Sensor)</text>
+
+  <!-- External Input Badge (Left) -->
+  <rect x="10" y="165" width="45" height="55" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="32.5" y="188" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Поле</text>
+  <text x="32.5" y="206" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Bx,By,Bz</text>
+
+  <!-- External Input Arrow -->
+  <line x1="55" y1="192.5" x2="83" y2="192.5" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Column 1 Panel: AMR Sensors -->
+  <rect x="85" y="115" width="175" height="355" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="85" y="115" width="175" height="30" rx="6" fill="#2457d6"/>
+  <text x="172.5" y="135" text-anchor="middle" font-size="13" font-weight="bold" fill="#ffffff">1. AMR-давачі</text>
+
+  <!-- Sub-block 1.1: 3-axis AMR -->
+  <rect x="95" y="158" width="155" height="85" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="172.5" y="180" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">3-осьовий AMR</text>
+  <text x="172.5" y="200" text-anchor="middle" font-size="12" fill="#6b7280">Міст Уітстона</text>
+  <text x="172.5" y="222" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Виходи: Vx, Vy, Vz</text>
+
+  <!-- Sub-block 1.2: Temperature Sensor -->
+  <rect x="95" y="258" width="155" height="85" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="172.5" y="280" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Термодавач</text>
+  <text x="172.5" y="300" text-anchor="middle" font-size="12" fill="#6b7280">Вимірювання T°C</text>
+  <text x="172.5" y="322" text-anchor="middle" font-size="12" fill="#6b7280">Температурний дрейф</text>
+
+  <!-- Sub-block 1.3: Set/Reset Coil -->
+  <rect x="95" y="358" width="155" height="95" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="172.5" y="380" text-anchor="middle" font-size="13" font-weight="bold" fill="#c0392b">Котушка Set/Reset</text>
+  <text x="172.5" y="400" text-anchor="middle" font-size="12" fill="#1a1a1a">Перемагнічування</text>
+  <text x="172.5" y="420" text-anchor="middle" font-size="12" fill="#6b7280">Компенсація зсуву</text>
+  <text x="172.5" y="440" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Знімає намагніченість</text>
+
+  <!-- Connection: AMR -> MUX -->
+  <line x1="250" y1="195.5" x2="288" y2="195.5" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="270" y="184" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">Vx,Vy,Vz</text>
+
+  <!-- Column 2 Panel: AFE -->
+  <rect x="280" y="115" width="175" height="355" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="280" y="115" width="175" height="30" rx="6" fill="#4b5563"/>
+  <text x="367.5" y="135" text-anchor="middle" font-size="13" font-weight="bold" fill="#ffffff">2. Аналоговий блок (AFE)</text>
+
+  <!-- Sub-block 2.1: MUX -->
+  <rect x="290" y="158" width="155" height="75" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="367.5" y="180" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Мультиплексор (MUX)</text>
+  <text x="367.5" y="200" text-anchor="middle" font-size="12" fill="#6b7280">Перемикання сигналів</text>
+  <text x="367.5" y="220" text-anchor="middle" font-size="12" fill="#2457d6">Осі X, Y, Z та Temp</text>
+
+  <!-- MUX -> LNA arrow -->
+  <line x1="367.5" y1="233" x2="367.5" y2="256" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+  <text x="375" y="248" font-size="11" fill="#6b7280">Аналог</text>
+
+  <!-- Sub-block 2.2: LNA -->
+  <rect x="290" y="258" width="155" height="75" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="367.5" y="280" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Підсилювач LNA</text>
+  <text x="367.5" y="300" text-anchor="middle" font-size="12" fill="#6b7280">Малошумне підсилення</text>
+  <text x="367.5" y="320" text-anchor="middle" font-size="12" fill="#6b7280">малих напруг давача</text>
+
+  <!-- LNA -> ADC arrow -->
+  <line x1="367.5" y1="333" x2="367.5" y2="356" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+  <text x="375" y="348" font-size="11" fill="#6b7280">Підсилений</text>
+
+  <!-- Sub-block 2.3: 16-bit ADC -->
+  <rect x="290" y="358" width="155" height="95" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="367.5" y="380" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">16-біт Σ-Δ АЦП</text>
+  <text x="367.5" y="400" text-anchor="middle" font-size="12" fill="#1a1a1a">Аналогово-цифрове</text>
+  <text x="367.5" y="420" text-anchor="middle" font-size="12" fill="#1a1a1a">перетворення</text>
+  <text x="367.5" y="440" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Висока точність</text>
+
+  <!-- Connection: ADC -> OSR Filter -->
+  <path d="M 445 405.5 L 465 405.5 L 465 203 L 483 203" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="465" y="193" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">16-bit</text>
+
+  <!-- Column 3 Panel: DSP Logic -->
+  <rect x="475" y="115" width="175" height="355" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="475" y="115" width="175" height="30" rx="6" fill="#4b5563"/>
+  <text x="562.5" y="135" text-anchor="middle" font-size="13" font-weight="bold" fill="#ffffff">3. Цифрова обробка (DSP)</text>
+
+  <!-- Sub-block 3.1: OSR Filter -->
+  <rect x="485" y="158" width="155" height="90" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="562.5" y="180" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">Фільтр OSR</text>
+  <text x="562.5" y="200" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a1a">OSR: 512, 256, 128, 64</text>
+  <text x="562.5" y="220" text-anchor="middle" font-size="12" fill="#6b7280">Усереднення вибірок</text>
+  <text x="562.5" y="240" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Зниження шуму</text>
+
+  <!-- Sub-block 3.2: ODR Controller -->
+  <rect x="485" y="258" width="155" height="85" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="562.5" y="280" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Контролер ODR</text>
+  <text x="562.5" y="300" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">10, 50, 100, 200 Гц</text>
+  <text x="562.5" y="322" text-anchor="middle" font-size="12" fill="#6b7280">Continuous / Standby</text>
+
+  <!-- ODR -> Set/Reset Driver arrow -->
+  <line x1="562.5" y1="343" x2="562.5" y2="356" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+
+  <!-- Sub-block 3.3: Set/Reset Driver -->
+  <rect x="485" y="358" width="155" height="95" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="562.5" y="380" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Драйвер Set/Reset</text>
+  <text x="562.5" y="400" text-anchor="middle" font-size="12" fill="#6b7280">Генерація струмового</text>
+  <text x="562.5" y="420" text-anchor="middle" font-size="12" fill="#6b7280">імпульсу S/R</text>
+  <text x="562.5" y="440" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Керування котушкою</text>
+
+  <!-- Feedback loop: Set/Reset Driver -> Set/Reset Coil in Col 1 -->
+  <path d="M 562.5 453 L 562.5 495 L 172.5 495 L 172.5 456" fill="none" stroke="#c0392b" stroke-dasharray="4,3" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="367.5" y="485" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">Імпульс розмагнічення S/R</text>
+
+  <!-- Connection: OSR Filter -> Data Registers -->
+  <line x1="640" y1="203" x2="678" y2="203" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="660" y="193" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">Дані OSR</text>
+
+  <!-- Column 4 Panel: Registers & I2C -->
+  <rect x="670" y="115" width="175" height="355" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="670" y="115" width="175" height="30" rx="6" fill="#2457d6"/>
+  <text x="757.5" y="135" text-anchor="middle" font-size="13" font-weight="bold" fill="#ffffff">4. Регістри та I²C</text>
+
+  <!-- Sub-block 4.1: Output Data Regs -->
+  <rect x="680" y="158" width="155" height="90" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="757.5" y="180" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Регістри даних</text>
+  <text x="757.5" y="200" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">00H-05H: X, Y, Z</text>
+  <text x="757.5" y="220" text-anchor="middle" font-size="12" fill="#6b7280">16-бітні значення</text>
+  <text x="757.5" y="240" text-anchor="middle" font-size="12" fill="#6b7280">07H-08H: Дані Temp</text>
+
+  <!-- Connection: Control Regs -> DSP Config -->
+  <line x1="680" y1="300.5" x2="642" y2="300.5" stroke="#6b7280" stroke-dasharray="3,3" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+  <text x="660" y="291" text-anchor="middle" font-size="11" fill="#6b7280">Конфіг</text>
+
+  <!-- Sub-block 4.2: Control Registers -->
+  <rect x="680" y="258" width="155" height="85" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="757.5" y="278" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Керуючі регістри</text>
+  <text x="757.5" y="296" text-anchor="middle" font-size="11" fill="#6b7280">09H: ODR/RNG/OSR/MODE</text>
+  <text x="757.5" y="314" text-anchor="middle" font-size="11" fill="#6b7280">0AH: SOFT_RST/INT_ENB</text>
+  <text x="757.5" y="333" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">06H: Статус (DRDY)</text>
+
+  <!-- Internal flow: Regs -> I2C Controller -->
+  <line x1="757.5" y1="343" x2="757.5" y2="356" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+
+  <!-- Sub-block 4.3: I2C Controller -->
+  <rect x="680" y="358" width="155" height="95" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="757.5" y="380" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Контролер I²C</text>
+  <text x="757.5" y="400" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Slave Addr: 0x0D</text>
+  <text x="757.5" y="420" text-anchor="middle" font-size="12" fill="#6b7280">Fast Mode (400 кГц)</text>
+  <text x="757.5" y="440" text-anchor="middle" font-size="12" fill="#2457d6">SDA / SCL буфери</text>
+
+  <!-- External Outputs (Right) -->
+  <!-- DRDY signal -->
+  <line x1="835" y1="327" x2="938" y2="327" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="910" y="317" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">DRDY</text>
+
+  <!-- SDA signal -->
+  <line x1="835" y1="395" x2="938" y2="395" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="910" y="385" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">SDA</text>
+
+  <!-- SCL signal -->
+  <line x1="835" y1="430" x2="938" y2="430" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="910" y="420" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">SCL</text>
+</svg>

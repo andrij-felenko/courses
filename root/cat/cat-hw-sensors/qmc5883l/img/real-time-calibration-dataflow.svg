@@ -1,0 +1,186 @@
+<svg viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Canvas Background -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="30" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">QMC5883L: Потік даних калібрування у реальному часі</text>
+  <text x="480" y="52" text-anchor="middle" font-size="13" fill="#6b7280">Збір сирих векторів, обчислення коефіцієнтів на ПК та застосування в мікроконтролері</text>
+
+  <!-- CONTAINER 1: QMC5883L SENSOR -->
+  <rect x="20" y="70" width="190" height="390" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="30" y="80" width="170" height="28" rx="5" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="115" y="98" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Давач QMC5883L (I2C)</text>
+
+  <!-- Box 1.1: AMR Sensor -->
+  <rect x="30" y="120" width="170" height="85" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="115" y="138" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">AMR 3D-Сенсор</text>
+  <text x="115" y="155" text-anchor="middle" font-size="11" fill="#6b7280">Вимірювання Bx, By, Bz</text>
+  <text x="115" y="173" text-anchor="middle" font-size="11" fill="#c0392b">Містить Hard/Soft Iron</text>
+  <text x="115" y="190" text-anchor="middle" font-size="11" fill="#c0392b">спотворення</text>
+
+  <!-- Internal Line 1.1 -> 1.2 -->
+  <line x1="115" y1="205" x2="115" y2="223" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+
+  <!-- Box 1.2: 16-bit ADC -->
+  <rect x="30" y="225" width="170" height="80" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="115" y="245" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">16-бітний АЦП (ADC)</text>
+  <text x="115" y="265" text-anchor="middle" font-size="11" fill="#6b7280">Сирі квантовані дані:</text>
+  <text x="115" y="285" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a1a">[X_raw, Y_raw, Z_raw]</text>
+
+  <!-- Internal Line 1.2 -> 1.3 -->
+  <line x1="115" y1="305" x2="115" y2="363" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Box 1.3: I2C Interface -->
+  <rect x="30" y="365" width="170" height="85" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="115" y="386" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">I2C Інтерфейс</text>
+  <text x="115" y="405" text-anchor="middle" font-size="11" fill="#1a1a1a">Адреса шини: 0x0D</text>
+  <text x="115" y="423" text-anchor="middle" font-size="11" fill="#6b7280">Fast Mode (400 кГц)</text>
+  <text x="115" y="441" text-anchor="middle" font-size="11" fill="#6b7280">Лінії SCL / SDA</text>
+
+
+  <!-- CONTAINER 2: MICROCONTROLLER (MCU) -->
+  <rect x="270" y="70" width="420" height="390" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="280" y="80" width="400" height="28" rx="5" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="480" y="98" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Мікроконтролер (MCU / Обробник)</text>
+
+  <!-- Sub-box 2.1: I2C Driver -->
+  <rect x="285" y="120" width="185" height="75" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="377" y="140" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">I2C Драйвер &amp; Буфер</text>
+  <text x="377" y="158" text-anchor="middle" font-size="11" fill="#6b7280">Прийом сирого вектора</text>
+  <text x="377" y="178" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">B_raw = [X, Y, Z]</text>
+
+  <!-- Sub-box 2.2: EEPROM -->
+  <rect x="495" y="120" width="185" height="115" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="587" y="140" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Пам'ять EEPROM / NVS</text>
+  <text x="587" y="160" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">Hard-Iron: X0, Y0, Z0</text>
+  <text x="587" y="178" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">Soft-Iron: Sx, Sy, Sz</text>
+  <text x="587" y="198" text-anchor="middle" font-size="11" fill="#6b7280">Збереження між</text>
+  <text x="587" y="214" text-anchor="middle" font-size="11" fill="#6b7280">перезавантаженнями</text>
+
+  <!-- Sub-box 2.4: Real-time Correction -->
+  <rect x="285" y="215" width="185" height="145" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="377" y="235" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Корекція «на льоту»</text>
+  <text x="377" y="254" text-anchor="middle" font-size="11" fill="#1a1a1a">Застосування коефіцієнтів:</text>
+  <text x="377" y="274" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a1a">X_cal = Sx · (X - X0)</text>
+  <text x="377" y="292" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a1a">Y_cal = Sy · (Y - Y0)</text>
+  <text x="377" y="310" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a1a">Z_cal = Sz · (Z - Z0)</text>
+  <text x="377" y="330" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">Сферична нормалізація</text>
+  <text x="377" y="347" text-anchor="middle" font-size="11" fill="#6b7280">(Виконується щоциклу)</text>
+
+  <!-- Sub-box 2.3: UART Driver -->
+  <rect x="495" y="260" width="185" height="100" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="587" y="278" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">UART / Serial Driver</text>
+  <text x="587" y="297" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">TX: Сирі вектори (Raw)</text>
+  <text x="587" y="316" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">RX: Пакет коефіцієнтів</text>
+  <text x="587" y="335" text-anchor="middle" font-size="11" fill="#6b7280">115200 baud (USB-UART)</text>
+
+  <!-- Sub-box 2.5: Calibrated Vector Output -->
+  <rect x="285" y="380" width="395" height="70" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="482" y="400" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Вихідний оновлений вектор магнітного поля B_cal</text>
+  <text x="482" y="418" text-anchor="middle" font-size="11" fill="#1a1a1a">Передача до алгоритмів AHRS / IMU / Азимута (Heading)</text>
+  <text x="482" y="437" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">B_cal = [X_cal, Y_cal, Z_cal]  (Одинична сфера)</text>
+
+  <!-- Internal MCU Connections -->
+  <!-- I2C Driver -> Correction -->
+  <line x1="377" y1="195" x2="377" y2="213" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <!-- I2C Driver -> UART Driver (Raw stream path) -->
+  <path d="M 470 157 L 482 157 L 482 280 L 493 280" fill="none" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#arr-red)"/>
+  <!-- EEPROM -> Correction -->
+  <path d="M 495 190 L 482 190 L 482 240 L 472 240" fill="none" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <!-- UART RX -> EEPROM Write -->
+  <line x1="550" y1="260" x2="550" y2="237" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="556" y="252" text-anchor="start" font-size="11" font-weight="bold" fill="#27ae60">EEPROM Write</text>
+  <!-- Correction -> Output Box -->
+  <line x1="377" y1="360" x2="377" y2="378" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+
+  <!-- CONTAINER 3: PC CALIBRATOR -->
+  <rect x="755" y="70" width="185" height="390" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="765" y="80" width="165" height="28" rx="5" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="847" y="98" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">ПК: Автокалібратор</text>
+
+  <!-- Sub-box 3.1: Raw Data Visualizer -->
+  <rect x="765" y="120" width="165" height="95" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="847" y="140" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">1. Спотворені дані</text>
+  <text x="847" y="160" text-anchor="middle" font-size="11" fill="#1a1a1a">Форма: 3D Еліпсоїд</text>
+  <text x="847" y="178" text-anchor="middle" font-size="11" fill="#6b7280">Зміщення центру (V0)</text>
+  <text x="847" y="196" text-anchor="middle" font-size="11" fill="#6b7280">Сплющення осей (S)</text>
+
+  <!-- Internal Line 3.1 -> 3.2 -->
+  <line x1="847" y1="215" x2="847" y2="233" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+
+  <!-- Sub-box 3.2: Ellipsoid Fitting -->
+  <rect x="765" y="235" width="165" height="100" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="847" y="255" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">2. Ellipsoid Fitting</text>
+  <text x="847" y="275" text-anchor="middle" font-size="11" fill="#1a1a1a">Апроксимація МНК</text>
+  <text x="847" y="293" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">Hard-Iron: X0, Y0, Z0</text>
+  <text x="847" y="311" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">Soft-Iron: Sx, Sy, Sz</text>
+
+  <!-- Internal Line 3.2 -> 3.3 -->
+  <line x1="847" y1="335" x2="847" y2="353" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <!-- Sub-box 3.3: Calibrated Sphere & Transmit -->
+  <rect x="765" y="355" width="165" height="95" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="847" y="375" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">3. Приведення до сфери</text>
+  <text x="847" y="395" text-anchor="middle" font-size="11" fill="#1a1a1a">Контроль R = 1.0</text>
+  <text x="847" y="415" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">Відправка через UART</text>
+  <text x="847" y="433" text-anchor="middle" font-size="11" fill="#6b7280">[X0,Y0,Z0, Sx,Sy,Sz]</text>
+
+
+  <!-- INTER-CONTAINER BUSES / CONNECTIONS -->
+
+  <!-- I2C BUS (QMC5883L -> MCU) -->
+  <path d="M 200 407 L 222 407 L 222 157 L 283 157" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="226" y="275" text-anchor="start" font-size="12" font-weight="bold" fill="#2457d6">I2C</text>
+  <text x="226" y="293" text-anchor="start" font-size="11" fill="#6b7280">400 кГц</text>
+
+  <!-- UART TX BUS (MCU -> PC) -->
+  <path d="M 680 300 L 710 300 L 710 167 L 763 167" fill="none" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="705" y="230" text-anchor="end" font-size="12" font-weight="bold" fill="#c0392b">TX</text>
+
+  <!-- UART RX BUS (PC -> MCU) -->
+  <path d="M 765 415 L 732 415 L 732 316 L 682 316" fill="none" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="737" y="380" text-anchor="start" font-size="12" font-weight="bold" fill="#27ae60">RX</text>
+
+
+  <!-- LEGEND BAR (BOTTOM) -->
+  <rect x="20" y="475" width="920" height="45" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Phase 1 Badge -->
+  <circle cx="45" cy="497" r="10" fill="#c0392b"/>
+  <text x="45" y="501" text-anchor="middle" font-size="12" font-weight="bold" fill="white">1</text>
+  <text x="62" y="501" text-anchor="start" font-size="12" fill="#1a1a1a">Збір сирих векторів</text>
+
+  <!-- Phase 2 Badge -->
+  <circle cx="235" cy="497" r="10" fill="#2457d6"/>
+  <text x="235" y="501" text-anchor="middle" font-size="12" font-weight="bold" fill="white">2</text>
+  <text x="252" y="501" text-anchor="start" font-size="12" fill="#1a1a1a">Фітинг еліпсоїда на ПК</text>
+
+  <!-- Phase 3 Badge -->
+  <circle cx="455" cy="497" r="10" fill="#27ae60"/>
+  <text x="455" y="501" text-anchor="middle" font-size="12" font-weight="bold" fill="white">3</text>
+  <text x="472" y="501" text-anchor="start" font-size="12" fill="#1a1a1a">Запис коефіцієнтів у EEPROM</text>
+
+  <!-- Phase 4 Badge -->
+  <circle cx="705" cy="497" r="10" fill="#1a1a1a"/>
+  <text x="705" y="501" text-anchor="middle" font-size="12" font-weight="bold" fill="white">4</text>
+  <text x="722" y="501" text-anchor="start" font-size="12" fill="#1a1a1a">Корекція «на льоту»</text>
+</svg>

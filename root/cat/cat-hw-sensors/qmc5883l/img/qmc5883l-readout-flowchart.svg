@@ -1,0 +1,148 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-black" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Canvas Background -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="34" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Алгоритм зчитування триосьових даних QMC5883L</text>
+  <text x="480" y="56" font-size="13" fill="#6b7280" text-anchor="middle">Послідовна перевірка шини I2C, готовності DRDY та переповнення OVL</text>
+
+  <!-- Step Labels Above Columns -->
+  <text x="117" y="92" font-size="11" font-weight="bold" fill="#6b7280" text-anchor="middle">КРОК 1</text>
+  <text x="297" y="92" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">КРОК 2</text>
+  <text x="477" y="92" font-size="11" font-weight="bold" fill="#6b7280" text-anchor="middle">КРОК 3</text>
+  <text x="657" y="92" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">КРОК 4</text>
+  <text x="837" y="92" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">КРОК 5</text>
+
+  <!-- Row 1: Main Flow Boxes -->
+  <!-- Box 1 -->
+  <rect x="45" y="105" width="145" height="90" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="55" y="113" width="125" height="18" rx="4" fill="#eaf0fd"/>
+  <text x="117" y="126" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">I2C REG 0x06</text>
+  <text x="117" y="152" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">1. Читання Status</text>
+  <text x="117" y="170" font-size="11" fill="#6b7280" text-anchor="middle">Запит 1 байту</text>
+  <text x="117" y="185" font-size="11" fill="#6b7280" text-anchor="middle">через шину I2C</text>
+
+  <!-- Box 2 -->
+  <rect x="225" y="105" width="145" height="90" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <rect x="235" y="113" width="125" height="18" rx="4" fill="#ffffff"/>
+  <text x="297" y="126" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">ПРАПОРЕЦЬ DRDY</text>
+  <text x="297" y="152" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">2. DRDY == 1 ?</text>
+  <text x="297" y="170" font-size="11" fill="#6b7280" text-anchor="middle">(Status &amp; 0x01)</text>
+  <text x="297" y="185" font-size="11" fill="#6b7280" text-anchor="middle">Готовність даних</text>
+
+  <!-- Box 3 -->
+  <rect x="405" y="105" width="145" height="90" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="415" y="113" width="125" height="18" rx="4" fill="#eaf0fd"/>
+  <text x="477" y="126" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">REGS 0x00..0x05</text>
+  <text x="477" y="152" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">3. Читання 6 байт</text>
+  <text x="477" y="170" font-size="11" fill="#6b7280" text-anchor="middle">Осі X, Y, Z</text>
+  <text x="477" y="185" font-size="11" fill="#6b7280" text-anchor="middle">(LSB та MSB)</text>
+
+  <!-- Box 4 -->
+  <rect x="585" y="105" width="145" height="90" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <rect x="595" y="113" width="125" height="18" rx="4" fill="#ffffff"/>
+  <text x="657" y="126" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">ПРАПОРЕЦЬ OVL</text>
+  <text x="657" y="152" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">4. OVL == 1 ?</text>
+  <text x="657" y="170" font-size="11" fill="#6b7280" text-anchor="middle">(Status &amp; 0x04)</text>
+  <text x="657" y="185" font-size="11" fill="#6b7280" text-anchor="middle">Переповнення</text>
+
+  <!-- Box 5 -->
+  <rect x="765" y="105" width="145" height="90" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <rect x="775" y="113" width="125" height="18" rx="4" fill="#ffffff"/>
+  <text x="837" y="126" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">РЕЗУЛЬТАТ (OK)</text>
+  <text x="837" y="152" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">5. Вектор XYZ</text>
+  <text x="837" y="170" font-size="11" fill="#27ae60" text-anchor="middle">16-бітний signed</text>
+  <text x="837" y="185" font-size="11" fill="#6b7280" text-anchor="middle">Валідні дані</text>
+
+  <!-- Horizontal Flow Arrows (Row 1) -->
+  <line x1="190" y1="150" x2="223" y2="150" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="207" y="142" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">I2C OK</text>
+
+  <line x1="370" y1="150" x2="403" y2="150" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="387" y="142" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">Так (1)</text>
+
+  <line x1="550" y1="150" x2="583" y2="150" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="567" y="142" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">I2C OK</text>
+
+  <line x1="730" y1="150" x2="763" y2="150" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="747" y="142" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">Ні (0)</text>
+
+  <!-- Row 2: Secondary / Branch Boxes -->
+  <!-- Box 1A -->
+  <rect x="45" y="265" width="145" height="80" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="117" y="290" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Збій шини I2C</text>
+  <text x="117" y="310" font-size="11" fill="#c0392b" text-anchor="middle">Код ERR_I2C</text>
+  <text x="117" y="328" font-size="11" fill="#6b7280" text-anchor="middle">Повтор спроби</text>
+
+  <!-- Box 2A -->
+  <rect x="225" y="265" width="145" height="80" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="297" y="290" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Дані не готові</text>
+  <text x="297" y="310" font-size="11" fill="#6b7280" text-anchor="middle">STATUS_BUSY</text>
+  <text x="297" y="328" font-size="11" fill="#6b7280" text-anchor="middle">Очікування ODR</text>
+
+  <!-- Box 3A -->
+  <rect x="405" y="265" width="145" height="80" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="477" y="290" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Помилка читання</text>
+  <text x="477" y="310" font-size="11" fill="#c0392b" text-anchor="middle">Код ERR_I2C</text>
+  <text x="477" y="328" font-size="11" fill="#6b7280" text-anchor="middle">Скидання шини</text>
+
+  <!-- Box 4A -->
+  <rect x="585" y="265" width="145" height="80" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="657" y="290" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Переповнення</text>
+  <text x="657" y="310" font-size="11" fill="#c0392b" text-anchor="middle">ERR_OVERFLOW</text>
+  <text x="657" y="328" font-size="11" fill="#6b7280" text-anchor="middle">Відкидання даних</text>
+
+  <!-- Box 5A -->
+  <rect x="765" y="265" width="145" height="80" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="837" y="290" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Готовність до ОМ</text>
+  <text x="837" y="310" font-size="11" fill="#27ae60" text-anchor="middle">Передача в компас</text>
+  <text x="837" y="328" font-size="11" fill="#6b7280" text-anchor="middle">Розрахунок азимуту</text>
+
+  <!-- Vertical Down Arrows (Row 1 -> Row 2) -->
+  <line x1="117" y1="195" x2="117" y2="263" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#arr-red)"/>
+  <text x="124" y="234" font-size="11" fill="#c0392b" text-anchor="start">Помилка</text>
+
+  <line x1="297" y1="195" x2="297" y2="263" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+  <text x="304" y="234" font-size="11" fill="#6b7280" text-anchor="start">Ні (0)</text>
+
+  <line x1="477" y1="195" x2="477" y2="263" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#arr-red)"/>
+  <text x="484" y="234" font-size="11" fill="#c0392b" text-anchor="start">Помилка</text>
+
+  <line x1="657" y1="195" x2="657" y2="263" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <text x="664" y="234" font-size="11" fill="#c0392b" text-anchor="start">Так (1)</text>
+
+  <line x1="837" y1="195" x2="837" y2="263" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <text x="844" y="234" font-size="11" fill="#27ae60" text-anchor="start">Успіх</text>
+
+  <!-- Bottom Panel Left: Status Register Bits -->
+  <rect x="45" y="385" width="425" height="110" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="60" y="407" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="start">Регістр статусу Status (0x06):</text>
+  <text x="60" y="430" font-size="11" fill="#1a1a1a" text-anchor="start">• DRDY (Bit 0): 1 = нові дані готові для читання; 0 = очікування</text>
+  <text x="60" y="450" font-size="11" fill="#1a1a1a" text-anchor="start">• OVL  (Bit 2): 1 = переповнення тракту (магнітне насичення)</text>
+  <text x="60" y="470" font-size="11" fill="#1a1a1a" text-anchor="start">• DOR  (Bit 1): 1 = перезапис даних до зчитування (Data Overrun)</text>
+
+  <!-- Bottom Panel Right: Conversion Formula -->
+  <rect x="490" y="385" width="420" height="110" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="505" y="407" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="start">Формування 16-бітних вимірів (Little-Endian):</text>
+  <text x="505" y="430" font-size="11" fill="#1a1a1a" text-anchor="start">• X_raw = (int16_t)(Data[1] &lt;&lt; 8 | Data[0])</text>
+  <text x="505" y="450" font-size="11" fill="#1a1a1a" text-anchor="start">• Y_raw = (int16_t)(Data[3] &lt;&lt; 8 | Data[2])</text>
+  <text x="505" y="470" font-size="11" fill="#1a1a1a" text-anchor="start">• Z_raw = (int16_t)(Data[5] &lt;&lt; 8 | Data[4])</text>
+</svg>

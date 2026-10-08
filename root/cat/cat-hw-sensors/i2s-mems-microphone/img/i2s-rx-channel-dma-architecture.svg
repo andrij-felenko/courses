@@ -1,0 +1,180 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 500" width="960" height="500" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="500" fill="white"/>
+
+  <!-- Title and Subtitle -->
+  <text x="480" y="40" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Архітектура I2S RX-каналу та DMA у ESP-IDF</text>
+  <text x="480" y="62" font-size="13" fill="#6b7280" text-anchor="middle">Апаратний DMA копіює аудіопотік у RAM-буфери без залучення ядра CPU</text>
+
+  <!-- Panel 1: MEMS-мікрофон -->
+  <rect x="25" y="75" width="175" height="405" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="112.5" y="100" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">MEMS-мікрофон</text>
+  <text x="112.5" y="118" font-size="12" fill="#6b7280" text-anchor="middle">Акустичний сенсор</text>
+
+  <!-- Panel 1: Transducer & ADC Box -->
+  <rect x="40" y="135" width="145" height="120" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="112.5" y="158" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Сигма-Дельта АЦП</text>
+  <text x="112.5" y="178" font-size="12" fill="#1a1a1a" text-anchor="middle">Цифровий аудіопотік</text>
+  <text x="112.5" y="198" font-size="12" fill="#6b7280" text-anchor="middle">24-bit / 32-bit PCM</text>
+  <text x="112.5" y="218" font-size="12" fill="#6b7280" text-anchor="middle">f_s = 16..48 kHz</text>
+  <text x="112.5" y="240" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Стандарт I2S Philips</text>
+
+  <!-- Panel 1: Output Pin Drivers Box -->
+  <rect x="40" y="270" width="145" height="195" rx="6" fill="white" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="112.5" y="292" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Виходи шини I2S</text>
+
+  <!-- Pin 1: SCK -->
+  <rect x="50" y="300" width="125" height="35" rx="4" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="112.5" y="323" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">SCK / BCLK</text>
+
+  <!-- Pin 2: WS -->
+  <rect x="50" y="350" width="125" height="35" rx="4" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="112.5" y="373" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">WS / LRCK</text>
+
+  <!-- Pin 3: SD -->
+  <rect x="50" y="400" width="125" height="35" rx="4" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="112.5" y="423" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">SD / DATA</text>
+
+  <!-- Bus Lines: Mic to ESP32 -->
+  <line x1="200" y1="317.5" x2="240" y2="317.5" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr)"/>
+  <text x="220" y="305" font-size="12" fill="#6b7280" text-anchor="middle">BCLK</text>
+
+  <line x1="200" y1="367.5" x2="240" y2="367.5" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr)"/>
+  <text x="220" y="355" font-size="12" fill="#6b7280" text-anchor="middle">WS</text>
+
+  <line x1="200" y1="417.5" x2="240" y2="417.5" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="220" y="405" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">SD</text>
+
+  <!-- Panel 2: Апаратура ESP32 -->
+  <rect x="240" y="75" width="375" height="405" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="427.5" y="100" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Апаратура ESP32 (I2S RX + GDMA)</text>
+  <text x="427.5" y="118" font-size="12" fill="#6b7280" text-anchor="middle">Автоматичне захоплення без участі ЦП</text>
+
+  <!-- I2S RX Модуль -->
+  <rect x="253" y="135" width="167" height="330" rx="6" fill="white" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="336.5" y="158" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">I2S RX Модуль</text>
+  <text x="336.5" y="175" font-size="12" fill="#6b7280" text-anchor="middle">Приймач кадрів</text>
+
+  <!-- Slot Config Box -->
+  <rect x="263" y="185" width="147" height="65" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="336.5" y="205" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">i2s_std_slot_config_t</text>
+  <text x="336.5" y="224" font-size="12" fill="#1a1a1a" text-anchor="middle">slot_mask / bit_width</text>
+  <text x="336.5" y="243" font-size="12" fill="#6b7280" text-anchor="middle">MSB / LSB alignment</text>
+
+  <!-- RX FIFO Buffer -->
+  <rect x="263" y="265" width="147" height="95" rx="4" fill="white" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="336.5" y="283" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">RX FIFO Буфер</text>
+  
+  <rect x="273" y="295" width="22" height="35" rx="3" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="284" y="318" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">S0</text>
+  
+  <rect x="308" y="295" width="22" height="35" rx="3" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="319" y="318" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">S1</text>
+  
+  <rect x="343" y="295" width="22" height="35" rx="3" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="354" y="318" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">S2</text>
+  
+  <rect x="378" y="295" width="22" height="35" rx="3" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="389" y="318" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">S3</text>
+  
+  <text x="336.5" y="352" font-size="12" fill="#6b7280" text-anchor="middle">Апаратний потік PCM</text>
+
+  <!-- Event Trigger Box -->
+  <rect x="263" y="375" width="147" height="75" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="336.5" y="395" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Подія rx_take / eof</text>
+  <text x="336.5" y="414" font-size="12" fill="#1a1a1a" text-anchor="middle">Сигнал тригера DMA</text>
+  <text x="336.5" y="433" font-size="12" fill="#6b7280" text-anchor="middle">Повний кадр FIFO</text>
+
+  <!-- FIFO to GDMA Line -->
+  <line x1="410" y1="312" x2="445" y2="312" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="427.5" y="298" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Req</text>
+
+  <!-- GDMA Контролер -->
+  <rect x="435" y="135" width="167" height="330" rx="6" fill="white" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="518.5" y="158" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">GDMA Контролер</text>
+  <text x="518.5" y="175" font-size="12" fill="#6b7280" text-anchor="middle">Канал прямого доступу</text>
+
+  <!-- GDMA Descriptor Engine -->
+  <rect x="445" y="185" width="147" height="95" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="518.5" y="205" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Дескриптор DMA</text>
+  <text x="518.5" y="224" font-size="12" fill="#1a1a1a" text-anchor="middle">buf_ptr = &amp;RAM_Buf</text>
+  <text x="518.5" y="243" font-size="12" fill="#1a1a1a" text-anchor="middle">length = dma_frame</text>
+  <text x="518.5" y="268" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">owner = 1 (DMA)</text>
+
+  <!-- GDMA Auto-Transfer Engine -->
+  <rect x="445" y="295" width="147" height="155" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="518.5" y="315" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Авто-перекачка</text>
+  <text x="518.5" y="334" font-size="12" fill="#1a1a1a" text-anchor="middle">FIFO &#x2192; RAM</text>
+  <text x="518.5" y="358" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">&#x2713; CPU Вільне!</text>
+  <text x="518.5" y="385" font-size="12" fill="#1a1a1a" text-anchor="middle">Генерація ISR</text>
+  <text x="518.5" y="409" font-size="12" fill="#6b7280" text-anchor="middle">По завершенні</text>
+  <text x="518.5" y="430" font-size="12" fill="#6b7280" text-anchor="middle">dma_frame_num</text>
+
+  <!-- Inter-Panel Connections: GDMA to RAM / CPU -->
+  <line x1="592" y1="202" x2="695" y2="202" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+  <text x="643.5" y="188" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">DMA Запис</text>
+
+  <line x1="592" y1="377" x2="695" y2="377" stroke="#27ae60" stroke-width="2" stroke-dasharray="5,3" marker-end="url(#arr-green)"/>
+  <text x="643.5" y="363" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">ISR Сигнал</text>
+
+  <!-- Panel 3: Пам'ять RAM та ESP-IDF -->
+  <rect x="675" y="75" width="260" height="405" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="805" y="100" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Пам'ять SRAM &amp; ESP-IDF</text>
+  <text x="805" y="118" font-size="12" fill="#6b7280" text-anchor="middle">Кільцеві буфери та API</text>
+
+  <!-- DMA Ring Buffer Box (SRAM) -->
+  <rect x="687" y="135" width="236" height="180" rx="6" fill="white" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="805" y="154" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Кільцевий DMA-буфер у RAM</text>
+
+  <!-- Buffer 0 (Writing) -->
+  <rect x="695" y="168" width="102" height="62" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="746" y="188" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Буфер 0 [Запис]</text>
+  <text x="746" y="207" font-size="12" fill="#1a1a1a" text-anchor="middle">Заповнення</text>
+  <text x="746" y="224" font-size="12" fill="#6b7280" text-anchor="middle">owner = DMA</text>
+
+  <!-- Buffer 1 (Ready) -->
+  <rect x="811" y="168" width="102" height="62" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="862" y="188" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Буфер 1 [Готовий]</text>
+  <text x="862" y="207" font-size="12" fill="#1a1a1a" text-anchor="middle">Для читання</text>
+  <text x="862" y="224" font-size="12" fill="#6b7280" text-anchor="middle">owner = CPU</text>
+
+  <!-- Descriptor List Info -->
+  <rect x="695" y="244" width="102" height="60" rx="4" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="746" y="263" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">lldesc_t список</text>
+  <text x="746" y="281" font-size="12" fill="#6b7280" text-anchor="middle">Коловий next</text>
+  <text x="746" y="296" font-size="12" fill="#2457d6" text-anchor="middle">owner: 1/0</text>
+
+  <!-- Read Window Info -->
+  <rect x="811" y="244" width="102" height="60" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="862" y="263" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Кадр готовий</text>
+  <text x="862" y="281" font-size="12" fill="#1a1a1a" text-anchor="middle">dma_frame</text>
+  <text x="862" y="296" font-size="12" fill="#6b7280" text-anchor="middle">Буфер CPU</text>
+
+  <!-- Vertical Read Arrow -->
+  <line x1="862" y1="304" x2="862" y2="328" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="852" y="322" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="end">Читати кадр</text>
+
+  <!-- FreeRTOS Task / ESP-IDF CPU Application -->
+  <rect x="687" y="330" width="236" height="135" rx="6" fill="white" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="805" y="350" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Прикладна задача (ЦП)</text>
+
+  <!-- API Call Box -->
+  <rect x="695" y="358" width="220" height="97" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="805" y="377" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">i2s_channel_read(rx_handle, ...)</text>
+  <text x="805" y="396" font-size="12" fill="#27ae60" text-anchor="middle">Очікує сигнатуру / семафор</text>
+  <text x="805" y="415" font-size="12" fill="#1a1a1a" text-anchor="middle">Отримує готовий кадр PCM</text>
+  <text x="805" y="434" font-size="12" fill="#6b7280" text-anchor="middle">Обробка: FFT / Фільтрація</text>
+  <text x="805" y="450" font-size="12" fill="#6b7280" text-anchor="middle">Вивільнення ресурсу</text>
+</svg>

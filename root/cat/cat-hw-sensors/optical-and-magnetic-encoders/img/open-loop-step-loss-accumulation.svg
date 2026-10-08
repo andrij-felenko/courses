@@ -1,0 +1,133 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background Canvas -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Main Header -->
+  <text x="480" y="28" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Накопичення похибки втрати кроків у відкритому контурі</text>
+  <text x="480" y="48" font-size="13" fill="#6b7280" text-anchor="middle">При перевантаженні M_навт &gt; M_удерж ротор вискакує з магнітної ями, утворюючи незмінний зсув Δθ</text>
+
+  <!-- Panel 1: STEP Pulses and Ideal Position -->
+  <rect x="30" y="65" width="900" height="110" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="45" y="85" font-size="13" font-weight="bold" fill="#1a1a1a">1. Керуючі імпульси STEP та ідеальне переміщення θ_ref(t)</text>
+
+  <text x="45" y="115" font-size="12" font-weight="bold" fill="#2457d6">STEP</text>
+  <text x="45" y="152" font-size="12" font-weight="bold" fill="#2457d6">θ_ref(t)</text>
+
+  <!-- Time Axis Top -->
+  <line x1="120" y1="162" x2="880" y2="162" stroke="#6b7280" stroke-width="1.2" marker-end="url(#arr-gray)"/>
+  <text x="880" y="152" font-size="12" fill="#6b7280" text-anchor="end">Час t</text>
+
+  <!-- Vertical dashed pulse guides -->
+  <line x1="140" y1="92" x2="140" y2="370" stroke="#d0d7de" stroke-dasharray="2 2" stroke-width="1"/>
+  <line x1="200" y1="92" x2="200" y2="370" stroke="#d0d7de" stroke-dasharray="2 2" stroke-width="1"/>
+  <line x1="260" y1="92" x2="260" y2="370" stroke="#d0d7de" stroke-dasharray="2 2" stroke-width="1"/>
+  <line x1="320" y1="92" x2="320" y2="370" stroke="#d0d7de" stroke-dasharray="2 2" stroke-width="1"/>
+  <line x1="380" y1="92" x2="380" y2="370" stroke="#d0d7de" stroke-dasharray="2 2" stroke-width="1"/>
+  <line x1="440" y1="92" x2="440" y2="370" stroke="#d0d7de" stroke-dasharray="2 2" stroke-width="1"/>
+  <line x1="500" y1="92" x2="500" y2="370" stroke="#d0d7de" stroke-dasharray="2 2" stroke-width="1"/>
+  <line x1="560" y1="92" x2="560" y2="370" stroke="#d0d7de" stroke-dasharray="2 2" stroke-width="1"/>
+  <line x1="620" y1="92" x2="620" y2="370" stroke="#d0d7de" stroke-dasharray="2 2" stroke-width="1"/>
+  <line x1="680" y1="92" x2="680" y2="370" stroke="#d0d7de" stroke-dasharray="2 2" stroke-width="1"/>
+  <line x1="740" y1="92" x2="740" y2="370" stroke="#d0d7de" stroke-dasharray="2 2" stroke-width="1"/>
+  <line x1="800" y1="92" x2="800" y2="370" stroke="#d0d7de" stroke-dasharray="2 2" stroke-width="1"/>
+
+  <!-- STEP Waveform -->
+  <path d="M 120 118 L 140 118 L 140 100 L 155 100 L 155 118 L 200 118 L 200 100 L 215 100 L 215 118 L 260 118 L 260 100 L 275 100 L 275 118 L 320 118 L 320 100 L 335 100 L 335 118 L 380 118 L 380 100 L 395 100 L 395 118 L 440 118 L 440 100 L 455 100 L 455 118 L 500 118 L 500 100 L 515 100 L 515 118 L 560 118 L 560 100 L 575 100 L 575 118 L 620 118 L 620 100 L 635 100 L 635 118 L 680 118 L 680 100 L 695 100 L 695 118 L 740 118 L 740 100 L 755 100 L 755 118 L 800 118 L 800 100 L 815 100 L 815 118 L 860 118" fill="none" stroke="#2457d6" stroke-width="1.8"/>
+
+  <!-- Ideal Position Staircase (Panel 1) -->
+  <path d="M 120 158 L 140 158 L 140 155 L 200 155 L 200 152 L 260 152 L 260 149 L 320 149 L 320 146 L 380 146 L 380 143 L 440 143 L 440 140 L 500 140 L 500 137 L 560 137 L 560 134 L 620 134 L 620 131 L 680 131 L 680 128 L 740 128 L 740 125 L 800 125 L 800 122 L 860 122" fill="none" stroke="#2457d6" stroke-width="2"/>
+
+  <!-- Panel 2: Actual Rotor Trajectory and Error Accumulation -->
+  <rect x="30" y="190" width="900" height="205" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="45" y="212" font-size="13" font-weight="bold" fill="#1a1a1a">2. Фактичний рух ротора θ(t), вискок з ями та накопичення похибки</text>
+  <text x="45" y="295" font-size="12" font-weight="bold" fill="#1a1a1a">θ(t)</text>
+
+  <!-- Legend in Panel 2 -->
+  <rect x="580" y="200" width="335" height="24" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="592" y1="212" x2="617" y2="212" stroke="#2457d6" stroke-dasharray="4 2" stroke-width="2"/>
+  <text x="622" y="216" font-size="12" fill="#6b7280">Ідеальний рух θ_ref</text>
+  <line x1="750" y1="212" x2="775" y2="212" stroke="#c0392b" stroke-width="2.5"/>
+  <text x="780" y="216" font-size="12" fill="#c0392b" font-weight="bold">Фактичний рух θ</text>
+
+  <!-- Overload Region Highlight Box -->
+  <rect x="310" y="230" width="140" height="105" rx="4" fill="#fdecea" fill-opacity="0.5" stroke="#c0392b" stroke-dasharray="4 3" stroke-width="1.5"/>
+  <text x="380" y="246" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">ЗОНА ПЕРЕВАНТАЖЕННЯ</text>
+  <text x="380" y="262" font-size="12" fill="#c0392b" text-anchor="middle">M_навт &gt; M_удерж</text>
+
+  <!-- Error Shading Area (fill between ideal and actual trajectory) -->
+  <path d="M 320 323 L 380 314 L 440 305 L 500 296 L 560 287 L 620 278 L 680 269 L 740 260 L 800 251 L 860 242 L 860 278 L 800 278 L 740 296 L 680 305 L 620 314 L 560 323 L 500 332 L 440 341 L 385 341 L 350 328 L 320 323 Z" fill="#fdecea" opacity="0.5"/>
+
+  <!-- Ideal Trajectory Overlay (Panel 2) -->
+  <path d="M 120 350 L 140 350 L 140 341 L 200 341 L 200 332 L 260 332 L 260 323 L 320 323 L 320 314 L 380 314 L 380 305 L 440 305 L 440 296 L 500 296 L 500 287 L 560 287 L 560 278 L 620 278 L 620 269 L 680 269 L 680 260 L 740 260 L 740 251 L 800 251 L 800 242 L 860 242" fill="none" stroke="#2457d6" stroke-dasharray="4 2" stroke-width="1.8" opacity="0.6"/>
+
+  <!-- Actual Rotor Trajectory (Segmented) -->
+  <!-- 1. Normal Tracking (Green) -->
+  <path d="M 120 350 L 140 350 C 145 336, 155 344, 165 341 L 200 341 C 205 327, 215 335, 225 332 L 260 332 C 265 318, 275 326, 285 323 L 320 323" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+
+  <!-- 2. Overload & Slip Event (Red) -->
+  <path d="M 320 323 C 330 315, 340 320, 350 328 C 360 338, 370 346, 385 341 C 395 336, 405 344, 415 341 L 440 341" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+
+  <!-- 3. Resumed Motion with Permanent Offset (Red) -->
+  <path d="M 440 341 C 445 327, 455 335, 465 332 L 500 332 C 505 318, 515 326, 525 323 L 560 323 C 565 309, 575 317, 585 314 L 620 314 C 625 300, 635 308, 645 305 L 680 305 C 685 291, 695 299, 705 296 L 740 296 C 745 282, 755 290, 765 287 L 800 287 C 805 273, 815 281, 825 278 L 860 278" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+
+  <!-- Slip Alert Card & Icon -->
+  <rect x="250" y="347" width="220" height="24" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+  <circle cx="263" cy="359" r="7" fill="#c0392b"/>
+  <text x="263" y="363" font-size="12" font-weight="bold" fill="white" text-anchor="middle">!</text>
+  <text x="276" y="363" font-size="12" font-weight="bold" fill="#c0392b">Вискок з ями: втрата 2 кроків</text>
+
+  <!-- Error Dimension Indicator -->
+  <line x1="840" y1="244" x2="840" y2="276" stroke="#c0392b" stroke-width="2" marker-start="url(#arr-red)" marker-end="url(#arr-red)"/>
+  <text x="848" y="264" font-size="12" font-weight="bold" fill="#c0392b">Δθ</text>
+
+  <!-- Permanent Error Summary Badge -->
+  <rect x="600" y="305" width="240" height="42" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="720" y="322" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Накопичена похибка Δθ = 2·θ_step</text>
+  <text x="720" y="338" font-size="12" fill="#6b7280" text-anchor="middle">(відкритий контур її не бачить)</text>
+
+  <!-- Time Axis Bottom -->
+  <line x1="120" y1="380" x2="880" y2="380" stroke="#6b7280" stroke-width="1.2" marker-end="url(#arr-gray)"/>
+  <text x="880" y="373" font-size="12" fill="#6b7280" text-anchor="end">Час t</text>
+
+  <!-- Panel 3 (Left): Potential Well Mechanism -->
+  <rect x="30" y="410" width="435" height="110" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="45" y="428" font-size="13" font-weight="bold" fill="#1a1a1a">Фізичний механізм зсуву фази</text>
+
+  <!-- Sine potential energy curve -->
+  <path d="M 50 480 C 60 495, 70 495, 80 495 C 90 495, 100 460, 110 460 C 120 460, 130 495, 140 495 C 150 495, 160 460, 170 460 C 180 460, 190 495, 200 495" fill="none" stroke="#2457d6" stroke-width="2"/>
+  <circle cx="80" cy="489" r="5" fill="#27ae60"/>
+  <path d="M 82 483 Q 110 445 138 483" fill="none" stroke="#c0392b" stroke-width="1.8" stroke-dasharray="3 2" marker-end="url(#arr-red)"/>
+  <circle cx="140" cy="489" r="5" fill="#c0392b"/>
+  <text x="110" y="446" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Зрив (δ &gt; 90°)</text>
+
+  <text x="215" y="452" font-size="12" fill="#1a1a1a">• Зсув кута фази δ перевищує 90°</text>
+  <text x="215" y="472" font-size="12" fill="#1a1a1a">• Момент утримання падає до 0</text>
+  <text x="215" y="492" font-size="12" fill="#1a1a1a">• Ротор перескокує у сусідню яму</text>
+
+  <!-- Panel 4 (Right): Encoder Comparison -->
+  <rect x="495" y="410" width="435" height="110" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="510" y="428" font-size="13" font-weight="bold" fill="#2457d6">Роль енкодера у виявленні втрати кроку</text>
+
+  <rect x="510" y="440" width="105" height="24" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="562" y="456" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Open-Loop</text>
+  <text x="625" y="456" font-size="12" fill="#1a1a1a">Драйвер «сліпий» до похибки Δθ</text>
+
+  <rect x="510" y="476" width="105" height="24" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="562" y="492" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Closed-Loop</text>
+  <text x="625" y="492" font-size="12" fill="#1a1a1a">Енкодер виявляє зсув та додає струм</text>
+</svg>

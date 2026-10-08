@@ -1,0 +1,202 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 550" width="960" height="550" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="550" fill="#ffffff"/>
+
+  <defs>
+    <!-- Markers -->
+    <marker id="arr-black" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="30" text-anchor="middle" font-size="18" font-weight="700" fill="#1a1a1a">Запобігання електролізу електродів: живлення змінним струмом (AC)</text>
+  <text x="480" y="52" text-anchor="middle" font-size="13" fill="#6b7280">Знакозмінна напруга компенсує іонний перенос та усуває корозію контактних датчиків</text>
+
+  <!-- LEFT PANEL: DC EXCITATION (PROBLEM) -->
+  <rect x="25" y="75" width="445" height="455" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <rect x="25" y="75" width="445" height="34" rx="6" fill="#c0392b"/>
+  <text x="247" y="97" text-anchor="middle" font-size="14" font-weight="700" fill="#ffffff">ПОСТІЙНИЙ СТРУМ (DC) — ЕЛЕКТРОЛІЗ І РУЙНУВАННЯ</text>
+
+  <!-- Tank Outer Block (DC) -->
+  <rect x="40" y="118" width="415" height="195" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  
+  <!-- Tank Graphic -->
+  <rect x="55" y="125" width="195" height="152" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <path d="M56,175 L249,175 L249,276 L56,276 Z" fill="#d4e3fc"/>
+  <line x1="56" y1="175" x2="249" y2="175" stroke="#2457d6" stroke-dasharray="4,3" stroke-width="1.5"/>
+  <text x="152" y="195" text-anchor="middle" font-size="12" fill="#2457d6">Рідина (електроліт)</text>
+
+  <!-- Electrode Labels above electrode rects -->
+  <text x="92" y="134" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">Анод (+)</text>
+  <text x="192" y="134" text-anchor="middle" font-size="12" font-weight="700" fill="#6b7280">Катод (-)</text>
+
+  <!-- Electrode A (Anode DC) -->
+  <rect x="85" y="145" width="14" height="105" fill="#c0392b" rx="1"/>
+  <!-- Damage marks on anode -->
+  <line x1="85" y1="185" x2="89" y2="185" stroke="#ffffff" stroke-width="1.5"/>
+  <line x1="85" y1="200" x2="90" y2="200" stroke="#ffffff" stroke-width="1.5"/>
+  <line x1="85" y1="215" x2="88" y2="215" stroke="#ffffff" stroke-width="1.5"/>
+
+  <!-- Bubbles & Ions at Anode -->
+  <circle cx="71" cy="180" r="3" fill="none" stroke="#c0392b" stroke-width="1"/>
+  <circle cx="73" cy="195" r="2" fill="none" stroke="#c0392b" stroke-width="1"/>
+  <text x="71" y="162" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">O₂ ↑</text>
+  <text x="92" y="284" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">Окиснення</text>
+  <text x="92" y="298" text-anchor="middle" font-size="12" fill="#c0392b">розчинення</text>
+
+  <!-- Electrode B (Cathode DC) -->
+  <rect x="185" y="145" width="14" height="105" fill="#6b7280" rx="1"/>
+
+  <!-- Bubbles at Cathode -->
+  <circle cx="212" cy="180" r="3" fill="none" stroke="#6b7280" stroke-width="1"/>
+  <circle cx="209" cy="195" r="2" fill="none" stroke="#6b7280" stroke-width="1"/>
+  <text x="218" y="162" text-anchor="middle" font-size="12" font-weight="700" fill="#6b7280">H₂ ↑</text>
+  <text x="192" y="284" text-anchor="middle" font-size="12" font-weight="700" fill="#6b7280">Відновлення</text>
+  <text x="192" y="298" text-anchor="middle" font-size="12" fill="#6b7280">виділення H₂</text>
+
+  <!-- Ion Migration Arrow -->
+  <line x1="175" y1="230" x2="110" y2="230" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <text x="142" y="222" text-anchor="middle" font-size="12" fill="#c0392b">Іонний перенос</text>
+
+  <!-- DC Circuit Schematic Block -->
+  <rect x="265" y="135" width="175" height="142" rx="4" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="352" y="157" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">Джерело DC</text>
+  
+  <!-- Battery Symbol -->
+  <line x1="345" y1="178" x2="345" y2="208" stroke="#1a1a1a" stroke-width="3"/>
+  <line x1="355" y1="186" x2="355" y2="200" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="337" y="197" text-anchor="end" font-size="12" font-weight="700" fill="#c0392b">+</text>
+  <text x="363" y="197" text-anchor="start" font-size="12" font-weight="700" fill="#6b7280">-</text>
+
+  <!-- Wires -->
+  <path d="M330,193 L280,193 L280,144 L92,144 L92,145" fill="none" stroke="#c0392b" stroke-width="1.5"/>
+  <path d="M370,193 L420,193 L420,144 L192,144 L192,145" fill="none" stroke="#6b7280" stroke-width="1.5"/>
+
+  <text x="352" y="226" text-anchor="middle" font-size="12" fill="#c0392b">V_DC = const &gt; 0</text>
+  <rect x="275" y="236" width="155" height="20" rx="3" fill="#fdecea" stroke="#c0392b"/>
+  <text x="352" y="250" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">Постійна полярність</text>
+
+  <!-- Timing Diagram Block (DC) -->
+  <rect x="40" y="320" width="415" height="195" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="247" y="338" text-anchor="middle" font-size="13" font-weight="700" fill="#1a1a1a">Часові діаграми напруги U(t) та струму I(t)</text>
+
+  <!-- Graph 1: U(t) -->
+  <line x1="80" y1="352" x2="80" y2="402" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="80" y1="392" x2="430" y2="392" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-black)"/>
+  <text x="72" y="358" text-anchor="end" font-size="12" font-weight="700" fill="#1a1a1a">U(t)</text>
+  <text x="435" y="396" text-anchor="start" font-size="12" fill="#1a1a1a">t</text>
+  
+  <line x1="80" y1="365" x2="410" y2="365" stroke="#c0392b" stroke-width="2"/>
+  <text x="88" y="360" text-anchor="start" font-size="12" font-weight="700" fill="#c0392b">+V_DC</text>
+
+  <!-- Graph 2: I(t) -->
+  <line x1="80" y1="418" x2="80" y2="488" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="80" y1="472" x2="430" y2="472" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-black)"/>
+  <text x="72" y="424" text-anchor="end" font-size="12" font-weight="700" fill="#1a1a1a">I(t)</text>
+  <text x="435" y="476" text-anchor="start" font-size="12" fill="#1a1a1a">t</text>
+
+  <line x1="80" y1="438" x2="410" y2="438" stroke="#c0392b" stroke-width="2"/>
+  <path d="M80,472 L80,438 L410,438 L410,472 Z" fill="#c0392b" fill-opacity="0.15"/>
+  <text x="245" y="458" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">Накопичений заряд Q = ∫ I dt &gt;&gt; 0</text>
+  
+  <text x="247" y="500" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">Наслідок: незворотне руйнування електрода</text>
+
+
+  <!-- RIGHT PANEL: AC EXCITATION (SOLUTION) -->
+  <rect x="490" y="75" width="445" height="455" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="490" y="75" width="445" height="34" rx="6" fill="#27ae60"/>
+  <text x="712" y="97" text-anchor="middle" font-size="14" font-weight="700" fill="#ffffff">ЗМІННИЙ СТРУМ (AC) — КОМПЕНСАЦІЯ ТА СТІЙКІСТЬ</text>
+
+  <!-- Tank Outer Block (AC) -->
+  <rect x="505" y="118" width="415" height="195" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+
+  <!-- Tank Graphic -->
+  <rect x="520" y="125" width="195" height="152" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <path d="M521,175 L714,175 L714,276 L521,276 Z" fill="#d4e3fc"/>
+  <line x1="521" y1="175" x2="714" y2="175" stroke="#2457d6" stroke-dasharray="4,3" stroke-width="1.5"/>
+  <text x="617" y="195" text-anchor="middle" font-size="12" fill="#2457d6">Рідина (електроліт)</text>
+
+  <!-- Electrode Labels above electrode rects -->
+  <text x="557" y="134" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">Електрод A</text>
+  <text x="657" y="134" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">Електрод B</text>
+
+  <!-- Electrode A (AC) -->
+  <rect x="550" y="145" width="14" height="105" fill="#27ae60" rx="1"/>
+  <text x="557" y="284" text-anchor="middle" font-size="12" fill="#27ae60">Окиснення</text>
+  <text x="557" y="298" text-anchor="middle" font-size="12" fill="#27ae60">⇄ Відновлення</text>
+
+  <!-- Electrode B (AC) -->
+  <rect x="650" y="145" width="14" height="105" fill="#27ae60" rx="1"/>
+  <text x="657" y="284" text-anchor="middle" font-size="12" fill="#27ae60">Відновлення</text>
+  <text x="657" y="298" text-anchor="middle" font-size="12" fill="#27ae60">⇄ Окиснення</text>
+
+  <!-- Oscillating Ion Arrow -->
+  <line x1="575" y1="215" x2="635" y2="215" stroke="#27ae60" stroke-width="2" marker-start="url(#arr-green)" marker-end="url(#arr-green)"/>
+  <text x="605" y="206" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">Коливальний рух іонів</text>
+
+  <!-- AC Circuit Schematic Block -->
+  <rect x="730" y="135" width="175" height="142" rx="4" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="817" y="157" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">Генератор AC / MCU</text>
+
+  <!-- AC Source Circle -->
+  <circle cx="845" cy="193" r="14" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <path d="M837,193 Q841,187 845,193 T853,193" fill="none" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Capacitor C_dec -->
+  <line x1="780" y1="183" x2="780" y2="203" stroke="#2457d6" stroke-width="2"/>
+  <line x1="786" y1="183" x2="786" y2="203" stroke="#2457d6" stroke-width="2"/>
+  <text x="783" y="176" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">C_dec</text>
+
+  <!-- Wires AC -->
+  <path d="M831,193 L786,193" fill="none" stroke="#27ae60" stroke-width="1.5"/>
+  <path d="M780,193 L745,193 L745,144 L557,144 L557,145" fill="none" stroke="#27ae60" stroke-width="1.5"/>
+  <path d="M859,193 L890,193 L890,144 L657,144 L657,145" fill="none" stroke="#27ae60" stroke-width="1.5"/>
+
+  <text x="817" y="226" text-anchor="middle" font-size="12" fill="#27ae60">V_AC(t) = ±V</text>
+  <rect x="740" y="236" width="155" height="20" rx="3" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="817" y="250" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">Знакозмінна полярність</text>
+
+  <!-- Timing Diagram Block (AC) -->
+  <rect x="505" y="320" width="415" height="195" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="712" y="338" text-anchor="middle" font-size="13" font-weight="700" fill="#1a1a1a">Часові діаграми напруги U(t) та струму I(t)</text>
+
+  <!-- Graph 1: U(t) AC Square Wave -->
+  <line x1="545" y1="352" x2="545" y2="408" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="545" y1="380" x2="895" y2="380" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-black)"/>
+  <text x="537" y="358" text-anchor="end" font-size="12" font-weight="700" fill="#1a1a1a">U(t)</text>
+  <text x="900" y="384" text-anchor="start" font-size="12" fill="#1a1a1a">t</text>
+
+  <path d="M545,360 L625,360 L625,400 L705,400 L705,360 L785,360 L785,400 L865,400 L865,380" fill="none" stroke="#27ae60" stroke-width="2"/>
+  <text x="540" y="364" text-anchor="end" font-size="12" fill="#27ae60">+V</text>
+  <text x="540" y="404" text-anchor="end" font-size="12" fill="#27ae60">-V</text>
+
+  <!-- Graph 2: I(t) AC Current & Zero Net Charge -->
+  <line x1="545" y1="422" x2="545" y2="488" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="545" y1="455" x2="895" y2="455" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-black)"/>
+  <text x="537" y="428" text-anchor="end" font-size="12" font-weight="700" fill="#1a1a1a">I(t)</text>
+  <text x="900" y="459" text-anchor="start" font-size="12" fill="#1a1a1a">t</text>
+
+  <!-- Shaded Pulses +Q and -Q -->
+  <path d="M545,455 L545,435 L625,435 L625,455 Z" fill="#27ae60" fill-opacity="0.25"/>
+  <path d="M625,455 L625,475 L705,475 L705,455 Z" fill="#27ae60" fill-opacity="0.25"/>
+  <path d="M705,455 L705,435 L785,435 L785,455 Z" fill="#27ae60" fill-opacity="0.25"/>
+  <path d="M785,455 L785,475 L865,475 L865,455 Z" fill="#27ae60" fill-opacity="0.25"/>
+  <path d="M545,435 L625,435 L625,475 L705,475 L705,435 L785,435 L785,475 L865,475 L865,455" fill="none" stroke="#27ae60" stroke-width="2"/>
+
+  <text x="585" y="448" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">+Q</text>
+  <text x="665" y="470" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">-Q</text>
+
+  <text x="825" y="432" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">Q_net = (+Q) + (-Q) = 0</text>
+
+  <text x="712" y="500" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">Наслідок: повна відсутність електролізу та корозії</text>
+</svg>

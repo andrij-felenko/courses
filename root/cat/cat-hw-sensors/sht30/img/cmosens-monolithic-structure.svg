@@ -1,0 +1,136 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="30" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Монолітна структура кристала за технологією CMOSens</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Об'єднання сенсорів і цифрової обробки на одному кристалі усуває аналогові завади</text>
+
+  <!-- Left Container: Silicon Die -->
+  <rect x="40" y="75" width="590" height="440" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <rect x="40" y="75" width="590" height="34" rx="8" fill="#2457d6"/>
+  <text x="335" y="97" font-size="14" font-weight="bold" fill="#ffffff" text-anchor="middle">МОНОЛІТНИЙ КРЕМНІЄВИЙ КРИСТАЛ (CMOSens® DIE)</text>
+
+  <!-- Row 1 Left: Sensors (MEMS) -->
+  <rect x="55" y="125" width="265" height="170" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="187.5" y="146" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">СЕНСОРНА ЗОНА (MEMS)</text>
+
+  <!-- Sensor 1: RH Capacitor -->
+  <rect x="68" y="160" width="85" height="45" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-dasharray="3,2"/>
+  <path d="M 75 175 H 145 M 75 183 H 145 M 75 191 H 145" stroke="#2457d6" stroke-width="1.5"/>
+  <circle cx="90" cy="170" r="2" fill="#2457d6"/>
+  <circle cx="115" cy="168" r="2" fill="#2457d6"/>
+  <circle cx="135" cy="172" r="2" fill="#2457d6"/>
+  <text x="162" y="177" font-size="12" font-weight="bold" fill="#1a1a1a">Конденсатор CRH</text>
+  <text x="162" y="194" font-size="12" fill="#6b7280">Полімерний шар</text>
+
+  <!-- Sensor 2: Temperature Sensor -->
+  <rect x="68" y="220" width="85" height="45" rx="4" fill="#eaf0fd" stroke="#2457d6"/>
+  <path d="M 80 248 L 110 230 L 140 248" fill="none" stroke="#2457d6" stroke-width="2"/>
+  <circle cx="110" cy="230" r="3" fill="#2457d6"/>
+  <text x="162" y="237" font-size="12" font-weight="bold" fill="#1a1a1a">Датчик темп. T</text>
+  <text x="162" y="254" font-size="12" fill="#6b7280">Bandgap / PTAT</text>
+
+  <!-- Row 1 Right: Analog Front-End (AFE) -->
+  <rect x="350" y="125" width="265" height="170" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="482.5" y="146" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">АНАЛОГОВИЙ ФРОНТЕНД (AFE)</text>
+
+  <!-- AFE Box 1: C/V Converter -->
+  <rect x="365" y="160" width="235" height="42" rx="4" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="482.5" y="177" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">C/V Перетворювач і підсилювач</text>
+  <text x="482.5" y="193" font-size="12" fill="#6b7280" text-anchor="middle">Малошумний аналоговий тракт</text>
+
+  <!-- AFE Box 2: ADC -->
+  <rect x="365" y="215" width="235" height="42" rx="4" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="482.5" y="232" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">14-бітний ΣΔ-АЦП (ADC)</text>
+  <text x="482.5" y="248" font-size="12" fill="#1a1a1a" text-anchor="middle">Оцифрування прямо біля сенсора</text>
+
+  <!-- Highlight note -->
+  <text x="482.5" y="282" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">✓ Довжина аналогових ліній &lt; 1 мм</text>
+
+  <!-- Signal Arrows between Sensors and AFE -->
+  <path d="M 320 181 H 342" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <path d="M 320 236 H 342" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Row 2: Digital Core -->
+  <rect x="55" y="320" width="560" height="175" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="335" y="341" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">ЦИФРОВИЙ БЛОК ТА ІНТЕРФЕЙС (DIGITAL CORE)</text>
+
+  <!-- Module 3.1: DSP -->
+  <rect x="70" y="355" width="165" height="80" rx="4" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="152.5" y="375" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">DSP Ядро / Обробка</text>
+  <text x="152.5" y="395" font-size="12" fill="#6b7280" text-anchor="middle">Лінеаризація %RH</text>
+  <text x="152.5" y="415" font-size="12" fill="#6b7280" text-anchor="middle">Компенсація темп.</text>
+
+  <!-- Module 3.2: OTP & Heater -->
+  <rect x="252.5" y="355" width="165" height="80" rx="4" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="335" y="375" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">OTP Пам'ять / Нагрівач</text>
+  <text x="335" y="395" font-size="12" fill="#6b7280" text-anchor="middle">Калібрувальні дані</text>
+  <text x="335" y="415" font-size="12" fill="#6b7280" text-anchor="middle">Керування Heater</text>
+
+  <!-- Module 3.3: I2C Interface -->
+  <rect x="435" y="355" width="165" height="80" rx="4" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="517.5" y="375" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">I2C Контролер шини</text>
+  <text x="517.5" y="395" font-size="12" fill="#1a1a1a" text-anchor="middle">Протокол I2C / CRC</text>
+  <text x="517.5" y="415" font-size="12" fill="#1a1a1a" text-anchor="middle">Адреси: 0x44 / 0x45</text>
+
+  <!-- Bottom banner inside Sub-block 3 -->
+  <rect x="70" y="448" width="530" height="34" rx="4" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="335" y="470" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">✓ Повністю обчислені значення RH% та °C у цифровому форматі</text>
+
+  <!-- Arrow from AFE down to Digital Core -->
+  <path d="M 482.5 295 V 311" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="496" y="308" font-size="12" fill="#6b7280">14-біт код</text>
+
+  <!-- Arrows between Digital Modules -->
+  <path d="M 235 395 H 244.5" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+  <path d="M 417.5 395 H 427" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Output Lines from I2C Controller (exiting chip) -->
+  <path d="M 600 385 H 652" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="630" y="377" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">SDA</text>
+
+  <path d="M 600 415 H 652" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="630" y="434" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">SCL</text>
+
+  <!-- Right Container: Key Advantages -->
+  <rect x="670" y="75" width="250" height="440" rx="8" fill="#ffffff" stroke="#d0d7de" stroke-width="2"/>
+  <rect x="670" y="75" width="250" height="34" rx="8" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="795" y="97" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">ПЕРЕВАГИ СТРУКТУРИ</text>
+
+  <!-- Card 1 -->
+  <rect x="682" y="125" width="226" height="110" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="795" y="146" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">1. Захист від завад</text>
+  <text x="694" y="168" font-size="12" font-weight="bold" fill="#1a1a1a">Паразитні ємності ≈ 0</text>
+  <text x="694" y="186" font-size="12" fill="#6b7280">Аналоговий сигнал перетво-</text>
+  <text x="694" y="202" font-size="12" fill="#6b7280">рюється безпосередньо</text>
+  <text x="694" y="218" font-size="12" fill="#6b7280">на кристалі (&lt; 1 мм).</text>
+
+  <!-- Card 2 -->
+  <rect x="682" y="250" width="226" height="110" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="795" y="271" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">2. Точне калібрування</text>
+  <text x="694" y="293" font-size="12" font-weight="bold" fill="#1a1a1a">Коефіцієнти в OTP</text>
+  <text x="694" y="311" font-size="12" fill="#6b7280">Не потребує зовнішнього</text>
+  <text x="694" y="327" font-size="12" fill="#6b7280">підлаштування чи складних</text>
+  <text x="694" y="343" font-size="12" fill="#6b7280">обчислень у МК.</text>
+
+  <!-- Card 3 -->
+  <rect x="682" y="375" width="226" height="120" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="795" y="396" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">3. Мініатюрність &amp; Ціна</text>
+  <text x="694" y="418" font-size="12" font-weight="bold" fill="#1a1a1a">DFN Корпус (2.5×2.5 мм)</text>
+  <text x="694" y="436" font-size="12" fill="#6b7280">Стандартний CMOS-процес</text>
+  <text x="694" y="452" font-size="12" fill="#6b7280">дозволяє масовий випуск</text>
+  <text x="694" y="468" font-size="12" fill="#6b7280">із низькою собівартістю.</text>
+</svg>

@@ -1,0 +1,134 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-black" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Canvas background -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Title and Subtitle -->
+  <text x="480" y="28" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Залежність опору PT100 від температури та нелінійність R(t)</text>
+  <text x="480" y="50" font-size="13" fill="#6b7280" text-anchor="middle">Лінійна модель дає похибку до 96 °C на краях діапазону; при t &lt; 0 °C додається член C·(t-100)·t³</text>
+
+  <!-- Main Chart Container -->
+  <rect x="120" y="85" width="760" height="295" fill="#fafafa" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Temperature Range Zones Shading -->
+  <!-- Negative range (t < 0 °C) -->
+  <rect x="120" y="85" width="145" height="295" fill="#fdecea" fill-opacity="0.5"/>
+  <!-- Positive range (t >= 0 °C) -->
+  <rect x="265" y="85" width="615" height="295" fill="#e9f7ef" fill-opacity="0.4"/>
+
+  <!-- Zone Boundary (0 °C line) -->
+  <line x1="265" y1="85" x2="265" y2="380" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="4,3"/>
+
+  <!-- Zone Badges -->
+  <!-- Negative zone badge -->
+  <rect x="122" y="88" width="140" height="44" rx="4" fill="white" stroke="#c0392b" stroke-width="1"/>
+  <text x="192" y="106" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">t &lt; 0 °C (4-й степінь)</text>
+  <text x="192" y="124" font-size="12" fill="#c0392b" text-anchor="middle">член C·(t-100)·t³ ≠ 0</text>
+
+  <!-- Positive zone badge -->
+  <rect x="275" y="88" width="340" height="44" rx="4" fill="white" stroke="#27ae60" stroke-width="1"/>
+  <text x="445" y="106" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">t ≥ 0 °C: Квадратична залежність (C = 0)</text>
+  <text x="445" y="124" font-size="12" fill="#27ae60" text-anchor="middle">R(t) = R₀·(1 + A·t + B·t²) — аналітичний розв'язок</text>
+
+  <!-- Grid Lines -->
+  <!-- Horizontal grid lines -->
+  <line x1="120" y1="318" x2="880" y2="318" stroke="#9ca3af" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="120" y1="256" x2="880" y2="256" stroke="#e5e7eb" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="120" y1="193" x2="880" y2="193" stroke="#e5e7eb" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="120" y1="131" x2="880" y2="131" stroke="#e5e7eb" stroke-width="1" stroke-dasharray="3,3"/>
+
+  <!-- Vertical grid lines -->
+  <line x1="192" y1="85" x2="192" y2="380" stroke="#e5e7eb" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="337" y1="85" x2="337" y2="380" stroke="#e5e7eb" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="410" y1="85" x2="410" y2="380" stroke="#e5e7eb" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="554" y1="85" x2="554" y2="380" stroke="#e5e7eb" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="699" y1="85" x2="699" y2="380" stroke="#e5e7eb" stroke-width="1" stroke-dasharray="3,3"/>
+
+  <!-- Axes -->
+  <line x1="120" y1="380" x2="892" y2="380" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-black)"/>
+  <line x1="120" y1="380" x2="120" y2="72" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-black)"/>
+
+  <!-- Axis Titles -->
+  <text x="45" y="78" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">Опір R (Ом)</text>
+  <text x="880" y="415" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">Температура t (°C)</text>
+
+  <!-- Y Axis Ticks -->
+  <text x="112" y="384" font-size="12" fill="#6b7280" text-anchor="end">0 Ом</text>
+  <text x="112" y="322" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">100 Ом</text>
+  <text x="112" y="260" font-size="12" fill="#6b7280" text-anchor="end">200 Ом</text>
+  <text x="112" y="197" font-size="12" fill="#6b7280" text-anchor="end">300 Ом</text>
+  <text x="112" y="135" font-size="12" fill="#6b7280" text-anchor="end">400 Ом</text>
+
+  <!-- X Axis Ticks -->
+  <text x="120" y="398" font-size="12" fill="#6b7280" text-anchor="middle">-200°C</text>
+  <text x="192" y="398" font-size="12" fill="#6b7280" text-anchor="middle">-100°C</text>
+  <text x="265" y="398" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">0°C</text>
+  <text x="337" y="398" font-size="12" fill="#6b7280" text-anchor="middle">+100°C</text>
+  <text x="410" y="398" font-size="12" fill="#6b7280" text-anchor="middle">+200°C</text>
+  <text x="554" y="398" font-size="12" fill="#6b7280" text-anchor="middle">+400°C</text>
+  <text x="699" y="398" font-size="12" fill="#6b7280" text-anchor="middle">+600°C</text>
+  <text x="880" y="398" font-size="12" fill="#6b7280" text-anchor="middle">+850°C</text>
+
+  <!-- Linear Approximation Line (dashed red) -->
+  <line x1="120" y1="366" x2="880" y2="115" stroke="#c0392b" stroke-width="2" stroke-dasharray="6,4"/>
+
+  <!-- Actual CVD Curve (solid blue) -->
+  <path d="M 120 368.5 L 156 355.6 L 192 342.5 L 229 330.2 L 265 317.8 L 301 305.8 L 337 293.8 L 374 282.2 L 410 270.6 L 446 259.3 L 482 248.1 L 518 237.1 L 554 226.2 L 591 215.6 L 627 205.2 L 663 194.9 L 699 184.8 L 735 174.9 L 771 165.2 L 808 155.6 L 844 146.2 L 880 137.0" fill="none" stroke="#2457d6" stroke-width="3"/>
+
+  <!-- Point Annotations -->
+  <!-- R0 at 0 °C -->
+  <circle cx="265" cy="317.8" r="5" fill="#2457d6" stroke="white" stroke-width="2"/>
+  <text x="255" y="304" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">R₀ = 100,00 Ом</text>
+
+  <!-- R at 100 °C -->
+  <circle cx="337" cy="293.8" r="4" fill="#2457d6" stroke="white" stroke-width="1.5"/>
+  <text x="345" y="282" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="start">138,51 Ом</text>
+
+  <!-- Error Callout at -200 °C (Upper-left area, above curve) -->
+  <rect x="126" y="220" width="138" height="58" rx="4" fill="white" stroke="#c0392b" stroke-width="1"/>
+  <text x="195" y="236" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Похибка при -200 °C:</text>
+  <text x="195" y="254" font-size="12" fill="#c0392b" text-anchor="middle">ΔR ≈ 4,5 Ом</text>
+  <text x="195" y="270" font-size="12" fill="#c0392b" text-anchor="middle">(Δt ≈ +11,6 °C)</text>
+  <circle cx="120" cy="368.5" r="4" fill="#2457d6" stroke="white" stroke-width="1.5"/>
+  <circle cx="120" cy="366.0" r="4" fill="#c0392b" stroke="white" stroke-width="1.5"/>
+  <path d="M 130 278 L 122 360" stroke="#c0392b" stroke-width="1" stroke-dasharray="3,2"/>
+
+  <!-- Error Callout at +850 °C (Mid-right area, below curve) -->
+  <rect x="675" y="215" width="195" height="48" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="772" y="231" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Похибка при +850 °C:</text>
+  <text x="772" y="249" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">ΔR ≈ 36,9 Ом (Δt ≈ +96 °C!)</text>
+  <circle cx="880" cy="137.0" r="4" fill="#2457d6" stroke="white" stroke-width="1.5"/>
+  <circle cx="880" cy="115.0" r="4" fill="#c0392b" stroke="white" stroke-width="1.5"/>
+  <line x1="880" y1="115" x2="880" y2="137" stroke="#c0392b" stroke-width="2"/>
+  <path d="M 865 215 L 878 142" stroke="#c0392b" stroke-width="1" stroke-dasharray="3,2"/>
+
+  <!-- Legend Box (Bottom-right area, below callout) -->
+  <rect x="590" y="290" width="280" height="64" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="602" y1="309" x2="627" y2="309" stroke="#2457d6" stroke-width="3"/>
+  <text x="635" y="313" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">Дійсна крива CVD (IEC 60751)</text>
+  <line x1="602" y1="335" x2="627" y2="335" stroke="#c0392b" stroke-width="2" stroke-dasharray="5,3"/>
+  <text x="635" y="339" font-size="12" fill="#1a1a1a" text-anchor="start">Лінійна модель R₀(1 + αt)</text>
+
+  <!-- Bottom Summary Cards -->
+  <!-- Card 1: CVD Formulas -->
+  <rect x="50" y="435" width="420" height="95" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="65" y="455" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">Рівняння Каллендара — Ван Дюзена (IEC 60751)</text>
+  <text x="65" y="474" font-size="12" fill="#27ae60" text-anchor="start">• t ≥ 0 °C:  R(t) = R₀ · (1 + A·t + B·t²)</text>
+  <text x="65" y="493" font-size="12" fill="#c0392b" text-anchor="start">• t &lt; 0 °C:  R(t) = R₀ · [1 + A·t + B·t² + C·(t - 100)·t³]</text>
+  <text x="65" y="512" font-size="12" fill="#6b7280" text-anchor="start">A = 3,9083·10⁻³, B = -5,775·10⁻⁷, C = -4,183·10⁻¹²</text>
+
+  <!-- Card 2: MCU Calculations -->
+  <rect x="490" y="435" width="420" height="95" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="505" y="455" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="start">Обчислення температури t в МК (MAX31865)</text>
+  <text x="505" y="474" font-size="12" fill="#1a1a1a" text-anchor="start">• t ≥ 0 °C: Квадратне рівняння має аналітичний розв'язок</text>
+  <text x="505" y="493" font-size="12" fill="#1a1a1a" text-anchor="start">• t &lt; 0 °C: Метод Ньютона або поліном 5-го степеня</text>
+  <text x="505" y="512" font-size="12" fill="#6b7280" text-anchor="start">• MAX31865: R_RTD = ADC_code · R_REF / 32768</text>
+</svg>

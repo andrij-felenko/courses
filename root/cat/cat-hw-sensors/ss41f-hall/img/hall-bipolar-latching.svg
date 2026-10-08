@@ -1,0 +1,229 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <!-- Arrow Markers -->
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-blue-left" markerWidth="9" markerHeight="9" refX="0.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-blue-right" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Canvas Background -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Main Header & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Біполярне защіпання давача Холла SS41F (Bipolar Latching)</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Вихід утримує стан при B = 0 і перемикається лише при досягненні порогів B_OP (полюс S) та B_RP (полюс N)</text>
+
+  <!-- ================= LEFT PANEL: Physical Setup & Switching States ================= -->
+  <rect x="24" y="70" width="440" height="470" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="40" y="94" font-size="14" font-weight="bold" fill="#1a1a1a">1. Фізична схема та дія полюсів магніту</text>
+
+  <!-- Sub-block 1.1: Wiring Diagram -->
+  <rect x="40" y="106" width="408" height="150" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="52" y="124" font-size="12" font-weight="bold" fill="#2457d6">Схема з відкритим колектором (Open-Collector)</text>
+  <text x="432" y="124" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="end">+VCC (+5V)</text>
+
+  <!-- SS41F Chip Box -->
+  <rect x="54" y="138" width="90" height="104" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="99" y="158" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">SS41F</text>
+  <text x="99" y="176" font-size="12" fill="#6b7280" text-anchor="middle">Давач Холла</text>
+  <text x="99" y="194" font-size="12" fill="#1a1a1a" text-anchor="middle">NPN ключ</text>
+  <text x="99" y="212" font-size="12" fill="#2457d6" text-anchor="middle">Защіпка</text>
+
+  <!-- Wire Lines & R_PU -->
+  <!-- VCC Rail line from header down to resistor & Pin 1 -->
+  <line x1="330" y1="126" x2="330" y2="136" stroke="#c0392b" stroke-width="1.5"/>
+  <line x1="144" y1="136" x2="330" y2="136" stroke="#c0392b" stroke-width="1.5"/>
+  <line x1="330" y1="136" x2="330" y2="148" stroke="#c0392b" stroke-width="1.5"/>
+
+  <!-- Pull-up Resistor R_PU -->
+  <rect x="320" y="148" width="20" height="28" fill="white" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="280" y="162" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">R_PU = 10 kΩ</text>
+  <line x1="330" y1="176" x2="330" y2="188" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- OUT Line to MCU -->
+  <line x1="144" y1="188" x2="376" y2="188" stroke="#2457d6" stroke-width="2"/>
+  <circle cx="330" cy="188" r="3" fill="#1a1a1a"/>
+  <text x="156" y="180" font-size="12" font-weight="bold" fill="#2457d6">OUT</text>
+
+  <!-- GND Wire & Symbol -->
+  <line x1="144" y1="222" x2="240" y2="222" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="240" y1="222" x2="240" y2="230" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="232" y1="230" x2="248" y2="230" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="235" y1="233" x2="245" y2="233" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="238" y1="236" x2="242" y2="236" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="252" y="226" font-size="12" fill="#6b7280">GND</text>
+
+  <!-- MCU Receiver Box -->
+  <rect x="376" y="138" width="60" height="104" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="406" y="162" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">MCU</text>
+  <text x="406" y="184" font-size="12" fill="#1a1a1a" text-anchor="middle">GPIO</text>
+  <text x="406" y="206" font-size="12" fill="#6b7280" text-anchor="middle">Вхід</text>
+
+  <!-- Sub-block 1.2A: South Pole Action (Card) -->
+  <rect x="40" y="268" width="198" height="258" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="139" y="290" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">1. Південний полюс (S)</text>
+  <text x="139" y="308" font-size="12" fill="#1a1a1a" text-anchor="middle">Індукція B &gt; +B_OP</text>
+
+  <!-- Magnet S Visual -->
+  <rect x="54" y="322" width="60" height="30" rx="3" fill="#2457d6"/>
+  <text x="84" y="342" font-size="14" font-weight="bold" fill="white" text-anchor="middle">S</text>
+  <line x1="118" y1="337" x2="146" y2="337" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="132" y="328" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">+B</text>
+  <rect x="154" y="322" width="30" height="30" rx="3" fill="#1a1a1a"/>
+  <text x="169" y="342" font-size="12" font-weight="bold" fill="white" text-anchor="middle">SS</text>
+
+  <!-- State Box S -->
+  <rect x="48" y="364" width="182" height="72" rx="4" fill="white" stroke="#2457d6" stroke-width="1"/>
+  <text x="58" y="384" font-size="12" font-weight="bold" fill="#27ae60">Ключ NPN: УВІМК</text>
+  <text x="58" y="402" font-size="12" font-weight="bold" fill="#1a1a1a">Сигнал: OUT = LOW</text>
+  <text x="58" y="420" font-size="12" fill="#6b7280">(Спадаючий фронт ↓)</text>
+
+  <!-- Latch Note S -->
+  <rect x="48" y="444" width="182" height="72" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="58" y="464" font-size="12" font-weight="bold" fill="#1a1a1a">Якщо B зменшується до 0:</text>
+  <text x="58" y="482" font-size="12" font-weight="bold" fill="#2457d6">Защіпка утримує LOW!</text>
+  <text x="58" y="500" font-size="12" fill="#6b7280">(Стан не змінюється)</text>
+
+  <!-- Sub-block 1.2B: North Pole Action (Card) -->
+  <rect x="250" y="268" width="198" height="258" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="349" y="290" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">2. Північний полюс (N)</text>
+  <text x="349" y="308" font-size="12" fill="#1a1a1a" text-anchor="middle">Індукція B &lt; -B_RP</text>
+
+  <!-- Magnet N Visual -->
+  <rect x="264" y="322" width="60" height="30" rx="3" fill="#c0392b"/>
+  <text x="294" y="342" font-size="14" font-weight="bold" fill="white" text-anchor="middle">N</text>
+  <line x1="328" y1="337" x2="356" y2="337" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="342" y="328" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">-B</text>
+  <rect x="364" y="322" width="30" height="30" rx="3" fill="#1a1a1a"/>
+  <text x="379" y="342" font-size="12" font-weight="bold" fill="white" text-anchor="middle">SS</text>
+
+  <!-- State Box N -->
+  <rect x="258" y="364" width="182" height="72" rx="4" fill="white" stroke="#c0392b" stroke-width="1"/>
+  <text x="268" y="384" font-size="12" font-weight="bold" fill="#c0392b">Ключ NPN: ВИМК</text>
+  <text x="268" y="402" font-size="12" font-weight="bold" fill="#1a1a1a">Сигнал: OUT = HIGH</text>
+  <text x="268" y="420" font-size="12" fill="#6b7280">(Зростаючий фронт ↑)</text>
+
+  <!-- Latch Note N -->
+  <rect x="258" y="444" width="182" height="72" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="268" y="464" font-size="12" font-weight="bold" fill="#1a1a1a">Якщо B зростає до 0:</text>
+  <text x="268" y="482" font-size="12" font-weight="bold" fill="#c0392b">Защіпка утримує HIGH!</text>
+  <text x="268" y="500" font-size="12" fill="#6b7280">(Стан не змінюється)</text>
+
+
+  <!-- ================= RIGHT PANEL: Hysteresis Loop & Waveform ================= -->
+  <rect x="496" y="70" width="440" height="470" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="512" y="94" font-size="14" font-weight="bold" fill="#1a1a1a">2. Магнітний гістерезис та часові сигнали</text>
+
+  <!-- Sub-block 2.1: Hysteresis Plot -->
+  <rect x="512" y="106" width="408" height="218" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="716" y="126" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Передавальна характеристика V_OUT(B)</text>
+
+  <!-- Plot Axes -->
+  <!-- X axis (B) -->
+  <line x1="550" y1="264" x2="882" y2="264" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="892" y="268" font-size="12" font-weight="bold" fill="#1a1a1a">B (mT)</text>
+
+  <!-- Y axis (V_OUT) -->
+  <line x1="550" y1="274" x2="550" y2="140" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="550" y="132" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">V_OUT</text>
+
+  <!-- Voltage Levels Labels -->
+  <line x1="545" y1="152" x2="880" y2="152" stroke="#e5e7eb" stroke-dasharray="3,3"/>
+  <text x="542" y="156" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="end">V_CC</text>
+  <text x="542" y="268" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="end">0 В</text>
+
+  <!-- Dashed B=0 line -->
+  <line x1="716" y1="140" x2="716" y2="174" stroke="#d0d7de" stroke-dasharray="3,3"/>
+  <line x1="716" y1="210" x2="716" y2="264" stroke="#d0d7de" stroke-dasharray="3,3"/>
+  <text x="716" y="282" font-size="12" fill="#6b7280" text-anchor="middle">B = 0</text>
+
+  <!-- Dashed Threshold B_RP Line (North pole) -->
+  <line x1="630" y1="140" x2="630" y2="264" stroke="#c0392b" stroke-dasharray="4,3"/>
+  <text x="630" y="282" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">-B_RP</text>
+  <text x="630" y="298" font-size="12" fill="#6b7280" text-anchor="middle">(Полюс N)</text>
+
+  <!-- Dashed Threshold B_OP Line (South pole) -->
+  <line x1="802" y1="140" x2="802" y2="264" stroke="#2457d6" stroke-dasharray="4,3"/>
+  <text x="802" y="282" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">+B_OP</text>
+  <text x="802" y="298" font-size="12" fill="#6b7280" text-anchor="middle">(Полюс S)</text>
+
+  <!-- Hysteresis Path -->
+  <!-- Top path HIGH level (VCC) -->
+  <line x1="560" y1="152" x2="802" y2="152" stroke="#c0392b" stroke-width="2.5"/>
+  <line x1="700" y1="152" x2="720" y2="152" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arr-red)"/>
+
+  <!-- Transition Drop at B_OP -->
+  <line x1="802" y1="152" x2="802" y2="264" stroke="#2457d6" stroke-width="2.5"/>
+  <line x1="802" y1="195" x2="802" y2="215" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Bottom path LOW level (0V) -->
+  <line x1="880" y1="264" x2="630" y2="264" stroke="#2457d6" stroke-width="2.5"/>
+  <line x1="730" y1="264" x2="710" y2="264" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue-left)"/>
+
+  <!-- Transition Rise at B_RP -->
+  <line x1="630" y1="264" x2="630" y2="152" stroke="#c0392b" stroke-width="2.5"/>
+  <line x1="630" y1="220" x2="630" y2="200" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arr-red)"/>
+
+  <!-- Hysteresis Range Indicator -->
+  <line x1="632" y1="202" x2="800" y2="202" stroke="#2457d6" stroke-width="1.5" marker-start="url(#arr-blue-left)" marker-end="url(#arr-blue-right)"/>
+  <text x="716" y="190" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Гістерезис B_HYS</text>
+
+
+  <!-- Sub-block 2.2: Timing Waveforms -->
+  <rect x="512" y="336" width="408" height="190" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="716" y="354" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Часова діаграма сигналів у русі</text>
+
+  <!-- Time Axis t -->
+  <line x1="550" y1="496" x2="882" y2="496" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="892" y="500" font-size="12" font-weight="bold" fill="#1a1a1a">t</text>
+
+  <!-- Signal Labels Left -->
+  <text x="542" y="386" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">+B_OP</text>
+  <text x="542" y="404" font-size="12" fill="#6b7280" text-anchor="end">B = 0</text>
+  <text x="542" y="422" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="end">-B_RP</text>
+  <text x="542" y="456" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="end">V_CC</text>
+  <text x="542" y="482" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="end">0 В</text>
+
+  <!-- Horizontal Reference Lines -->
+  <line x1="550" y1="382" x2="880" y2="382" stroke="#eaf0fd" stroke-dasharray="2,2"/>
+  <line x1="550" y1="400" x2="880" y2="400" stroke="#f4f6f8" stroke-dasharray="2,2"/>
+  <line x1="550" y1="418" x2="880" y2="418" stroke="#fdecea" stroke-dasharray="2,2"/>
+
+  <!-- Curve B(t) -->
+  <path d="M 550,400 C 568,362 592,362 610,362 C 628,362 652,438 670,438 C 688,438 712,362 730,362 C 748,362 772,438 790,438 C 808,438 832,362 850,362 C 868,362 880,400 885,400" fill="none" stroke="#6b7280" stroke-width="2"/>
+  <text x="862" y="372" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">B(t)</text>
+
+  <!-- Digital Waveform V_OUT(t) -->
+  <path d="M 550,452 L 578,452 L 578,480 L 658,480 L 658,452 L 718,452 L 718,480 L 798,480 L 798,452 L 880,452" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+
+  <!-- Vertical Alignment Markers -->
+  <line x1="578" y1="382" x2="578" y2="494" stroke="#2457d6" stroke-dasharray="3,3" stroke-width="1"/>
+  <line x1="658" y1="418" x2="658" y2="494" stroke="#c0392b" stroke-dasharray="3,3" stroke-width="1"/>
+  <line x1="718" y1="382" x2="718" y2="494" stroke="#2457d6" stroke-dasharray="3,3" stroke-width="1"/>
+  <line x1="798" y1="418" x2="798" y2="494" stroke="#c0392b" stroke-dasharray="3,3" stroke-width="1"/>
+
+  <!-- Latch Labels on Waveform -->
+  <text x="618" y="464" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">LOW</text>
+  <text x="618" y="476" font-size="11" fill="#2457d6" text-anchor="middle">(фіксація)</text>
+
+  <text x="688" y="436" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">HIGH</text>
+  <text x="688" y="447" font-size="11" fill="#c0392b" text-anchor="middle">(фіксація)</text>
+
+  <text x="758" y="464" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">LOW</text>
+  <text x="758" y="476" font-size="11" fill="#2457d6" text-anchor="middle">(фіксація)</text>
+
+  <text x="839" y="436" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">HIGH</text>
+  <text x="839" y="447" font-size="11" fill="#c0392b" text-anchor="middle">(фіксація)</text>
+</svg>

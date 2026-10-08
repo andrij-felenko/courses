@@ -1,0 +1,130 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-left" markerWidth="9" markerHeight="9" refX="0.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Схема підключення MEMS-мікрофона I2S до ESP32</text>
+  <text x="480" y="52" text-anchor="middle" font-size="13" fill="#6b7280">RC-фільтр живлення VDD та топологія ліній I2S (BCLK, WS, SD) для запобігання завадам і джитеру</text>
+
+  <!-- ESP32 Block -->
+  <rect x="30" y="80" width="220" height="270" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="40" y="90" width="200" height="32" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="140" y="111" text-anchor="middle" font-size="14" font-weight="bold" fill="#2457d6">ESP32 (I2S Master)</text>
+
+  <text x="235" y="154" text-anchor="end" font-size="13" font-weight="bold" fill="#2457d6">3V3</text>
+  <text x="235" y="194" text-anchor="end" font-size="13" font-weight="bold" fill="#1a1a1a">GND</text>
+  <text x="235" y="234" text-anchor="end" font-size="13" font-weight="bold" fill="#1a1a1a">GPIO22 (BCLK)</text>
+  <text x="235" y="274" text-anchor="end" font-size="13" font-weight="bold" fill="#1a1a1a">GPIO25 (WS)</text>
+  <text x="235" y="314" text-anchor="end" font-size="13" font-weight="bold" fill="#1a1a1a">GPIO21 (SD)</text>
+
+  <circle cx="250" cy="150" r="4" fill="#2457d6"/>
+  <circle cx="250" cy="190" r="4" fill="#1a1a1a"/>
+  <circle cx="250" cy="230" r="4" fill="#1a1a1a"/>
+  <circle cx="250" cy="270" r="4" fill="#1a1a1a"/>
+  <circle cx="250" cy="310" r="4" fill="#1a1a1a"/>
+
+  <!-- MEMS Microphone Block -->
+  <rect x="710" y="80" width="220" height="270" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="720" y="90" width="200" height="32" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="820" y="111" text-anchor="middle" font-size="14" font-weight="bold" fill="#2457d6">MEMS I2S Модуль</text>
+
+  <text x="725" y="154" text-anchor="start" font-size="13" font-weight="bold" fill="#2457d6">VDD</text>
+  <text x="725" y="194" text-anchor="start" font-size="13" font-weight="bold" fill="#1a1a1a">GND</text>
+  <text x="725" y="234" text-anchor="start" font-size="13" font-weight="bold" fill="#1a1a1a">SCK (BCLK)</text>
+  <text x="725" y="274" text-anchor="start" font-size="13" font-weight="bold" fill="#1a1a1a">WS (LRCLK)</text>
+  <text x="725" y="314" text-anchor="start" font-size="13" font-weight="bold" fill="#1a1a1a">SD (Data Out)</text>
+  <text x="725" y="338" text-anchor="start" font-size="11" fill="#6b7280">L/R → GND (Лівий канал)</text>
+
+  <circle cx="710" cy="150" r="4" fill="#2457d6"/>
+  <circle cx="710" cy="190" r="4" fill="#1a1a1a"/>
+  <circle cx="710" cy="230" r="4" fill="#1a1a1a"/>
+  <circle cx="710" cy="270" r="4" fill="#1a1a1a"/>
+  <circle cx="710" cy="310" r="4" fill="#1a1a1a"/>
+
+  <!-- Power Filter Frame -->
+  <rect x="280" y="85" width="410" height="90" rx="6" fill="#eaf0fd" fill-opacity="0.4" stroke="#2457d6" stroke-width="1.2" stroke-dasharray="4 3"/>
+  <text x="485" y="103" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Фільтр живлення VDD (Low-Pass Filter)</text>
+
+  <!-- VDD Circuit Lines -->
+  <line x1="250" y1="150" x2="330" y2="150" stroke="#2457d6" stroke-width="2"/>
+  <rect x="330" y="143" width="36" height="14" fill="white" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="348" y="136" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Rf = 10 Ω</text>
+  <line x1="366" y1="150" x2="710" y2="150" stroke="#2457d6" stroke-width="2"/>
+
+  <!-- Capacitor C1 (10 uF) -->
+  <circle cx="440" cy="150" r="3" fill="#2457d6"/>
+  <line x1="440" y1="150" x2="440" y2="160" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="432" y1="160" x2="448" y2="160" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="432" y1="165" x2="448" y2="165" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="440" y1="165" x2="440" y2="190" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="440" cy="190" r="3" fill="#1a1a1a"/>
+  <text x="454" y="166" text-anchor="start" font-size="12" fill="#1a1a1a">C1 = 10 µF</text>
+
+  <!-- Capacitor C2 (100 nF) -->
+  <circle cx="560" cy="150" r="3" fill="#2457d6"/>
+  <line x1="560" y1="150" x2="560" y2="160" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="552" y1="160" x2="568" y2="160" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="552" y1="165" x2="568" y2="165" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="560" y1="165" x2="560" y2="190" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="560" cy="190" r="3" fill="#1a1a1a"/>
+  <text x="574" y="166" text-anchor="start" font-size="12" fill="#1a1a1a">C2 = 100 nF</text>
+
+  <!-- GND Main Wire -->
+  <line x1="250" y1="190" x2="710" y2="190" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="295" y="184" text-anchor="start" font-size="12" font-weight="bold" fill="#1a1a1a">Спільна шина GND</text>
+
+  <!-- BCLK Line -->
+  <line x1="250" y1="230" x2="330" y2="230" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="330" y="223" width="36" height="14" fill="white" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="348" y="216" text-anchor="middle" font-size="11" fill="#1a1a1a">Rs = 33 Ω</text>
+  <line x1="366" y1="230" x2="702" y2="230" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="520" y="218" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">BCLK (Тактовий сигнал шини, ~1.5–3 МГц)</text>
+
+  <!-- WS Line -->
+  <line x1="250" y1="270" x2="330" y2="270" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="330" y="263" width="36" height="14" fill="white" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="348" y="256" text-anchor="middle" font-size="11" fill="#1a1a1a">Rs = 33 Ω</text>
+  <line x1="366" y1="270" x2="702" y2="270" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="520" y="258" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">WS / LRCLK (Вибірка каналу, 44.1/48 кГц)</text>
+
+  <!-- SD Line -->
+  <line x1="710" y1="310" x2="366" y2="310" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="330" y="303" width="36" height="14" fill="white" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="348" y="296" text-anchor="middle" font-size="11" fill="#1a1a1a">Rs = 33 Ω</text>
+  <line x1="330" y1="310" x2="258" y2="310" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-left)"/>
+  <text x="520" y="298" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">SD (Послідовні дані PCM, 24/32 біт)</text>
+
+  <!-- Bottom Cards -->
+  <!-- Card 1: Power Filter -->
+  <rect x="30" y="375" width="285" height="120" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="45" y="398" font-size="13" font-weight="bold" fill="#27ae60">✔ Фільтрація живлення VDD</text>
+  <text x="45" y="420" font-size="12" fill="#1a1a1a">• RC-фільтр (10 Ω + 10 µF) відсікає</text>
+  <text x="55" y="438" font-size="12" fill="#1a1a1a">  високочастотні пульсації DCDC/LDO.</text>
+  <text x="45" y="460" font-size="12" fill="#1a1a1a">• Конденсатор 100 nF розміщується</text>
+  <text x="55" y="478" font-size="12" fill="#1a1a1a">  найближче до виводу VDD мікрофона.</text>
+
+  <!-- Card 2: Signal Integrity -->
+  <rect x="337" y="375" width="286" height="120" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="352" y="398" font-size="13" font-weight="bold" fill="#2457d6">ℹ Цілісність сигналів I2S</text>
+  <text x="352" y="420" font-size="12" fill="#1a1a1a">• Резистори 33 Ω пригнічують</text>
+  <text x="362" y="438" font-size="12" fill="#1a1a1a">  відбиття сигналів та зворотний дзвін.</text>
+  <text x="352" y="460" font-size="12" fill="#1a1a1a">• Довжина провідників &lt; 10 см,</text>
+  <text x="362" y="478" font-size="12" fill="#1a1a1a">  суцільний екран GND під ними.</text>
+
+  <!-- Card 3: Configuration & DMA -->
+  <rect x="645" y="375" width="285" height="120" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="660" y="398" font-size="13" font-weight="bold" fill="#1a1a1a">⚙ Конфігурація та DMA</text>
+  <text x="660" y="420" font-size="12" fill="#1a1a1a">• L/R = GND → Лівий канал (Left).</text>
+  <text x="660" y="438" font-size="12" fill="#1a1a1a">• L/R = VDD → Правий канал (Right).</text>
+  <text x="660" y="460" font-size="12" fill="#1a1a1a">• Буфери DMA в ESP32 зчитують</text>
+  <text x="670" y="478" font-size="12" fill="#1a1a1a">  потік без затримок процесора.</text>
+</svg>

@@ -1,0 +1,145 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Біла підкладка полотна -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Маркери стрілок -->
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Архітектура банок регістрів та трансляція SCCB-адрес OV3640</text>
+  <text x="480" y="62" font-size="13" fill="#6b7280" text-anchor="middle">Регістр 0xFF комутує 8-бітовий простір адресації SCCB між системним блоком та блоком DSP</text>
+
+  <!-- КОЛОНА 1: Інтерфейс SCCB (Хост) -->
+  <rect x="25" y="85" width="200" height="450" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="125" y="112" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Інтерфейс SCCB (Хост)</text>
+
+  <!-- Блок пакета запису -->
+  <rect x="35" y="130" width="180" height="165" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="125" y="152" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Пакет запису SCCB</text>
+
+  <rect x="43" y="165" width="164" height="32" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="125" y="185" font-size="12" fill="#1a1a1a" text-anchor="middle">ID слейва (0x78 / 0x79)</text>
+
+  <rect x="43" y="205" width="164" height="32" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="125" y="225" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Адреса: Addr [7:0]</text>
+
+  <rect x="43" y="245" width="164" height="32" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="125" y="265" font-size="12" fill="#1a1a1a" text-anchor="middle">Дані: Data [7:0]</text>
+
+  <!-- Блок опису SCCB -->
+  <rect x="35" y="310" width="180" height="210" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="125" y="332" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Принцип адресації:</text>
+  <text x="43" y="356" font-size="12" fill="#6b7280">• 8-бітна адреса SCCB</text>
+  <text x="53" y="374" font-size="12" fill="#6b7280">(значення 0x00...0xFF)</text>
+  <text x="43" y="400" font-size="12" fill="#6b7280">• Прямий доступ 256 Б</text>
+  <text x="53" y="418" font-size="12" fill="#6b7280">в межах однієї банки</text>
+  <text x="43" y="444" font-size="12" font-weight="bold" fill="#2457d6">• Запис у 0xFF змінює</text>
+  <text x="53" y="462" font-size="12" font-weight="bold" fill="#2457d6">активну банку сенсора</text>
+  <text x="43" y="490" font-size="12" fill="#6b7280">• 0xFF доступний завжди</text>
+
+
+  <!-- КОЛОНА 2: Декодер та селектор банків (Центр) -->
+  <rect x="305" y="85" width="250" height="450" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="430" y="112" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Декодер та селектор банків</text>
+
+  <!-- Регістр вибору банки 0xFF -->
+  <rect x="318" y="130" width="224" height="90" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="430" y="152" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Регістр 0xFF (REG_BANK_SEL)</text>
+
+  <rect x="330" y="165" width="94" height="44" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="377" y="182" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">0x00</text>
+  <text x="377" y="198" font-size="12" fill="#6b7280" text-anchor="middle">Системна</text>
+
+  <rect x="436" y="165" width="94" height="44" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="483" y="182" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">0x01</text>
+  <text x="483" y="198" font-size="12" fill="#6b7280" text-anchor="middle">DSP банку</text>
+
+  <!-- Декодер адреси -->
+  <rect x="318" y="245" width="224" height="75" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="430" y="266" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Логіка перевірки адреси</text>
+  <text x="430" y="285" font-size="12" fill="#6b7280" text-anchor="middle">Якщо Addr == 0xFF → оновлення 0xFF</text>
+  <text x="430" y="303" font-size="12" fill="#6b7280" text-anchor="middle">Інакше → перенаправлення в MUX</text>
+
+  <!-- Комутатор MUX -->
+  <polygon points="330,355 530,355 545,430 315,430" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="430" y="384" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Комутатор шини (MUX)</text>
+  <text x="430" y="405" font-size="12" fill="#1a1a1a" text-anchor="middle">Вибір активного масиву</text>
+
+  <!-- Лінії зв'язку всередині Колонки 2 -->
+  <line x1="430" y1="245" x2="430" y2="220" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="442" y="236" font-size="12" font-weight="bold" fill="#2457d6">Запис у 0xFF</text>
+
+  <line x1="430" y1="320" x2="430" y2="355" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="442" y="342" font-size="12" font-weight="bold" fill="#2457d6">Трансляція</text>
+
+
+  <!-- КОЛОНА 3: Фізичні банки пам'яті (Праворуч) -->
+
+  <rect x="575" y="85" width="360" height="450" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Внутрішня картка Банка 0 -->
+  <rect x="585" y="95" width="340" height="195" rx="8" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="595" y="105" width="320" height="28" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="755" y="124" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Банка 0: System Control (REG 0xFF = 0x00)</text>
+
+  <rect x="595" y="140" width="320" height="30" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="607" y="160" font-size="12" font-weight="bold" fill="#1a1a1a">0x00 – 0x1F</text>
+  <text x="685" y="160" font-size="12" fill="#6b7280">Тактування, PLL, системний режим</text>
+
+  <rect x="595" y="175" width="320" height="30" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="607" y="195" font-size="12" font-weight="bold" fill="#1a1a1a">0x20 – 0x4F</text>
+  <text x="685" y="195" font-size="12" fill="#6b7280">Зчитування матриці, експозиція</text>
+
+  <rect x="595" y="210" width="320" height="30" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="607" y="230" font-size="12" font-weight="bold" fill="#1a1a1a">0x50 – 0xFE</text>
+  <text x="685" y="230" font-size="12" fill="#6b7280">Аналоговий підсилювач, AEC, AGC</text>
+
+  <rect x="595" y="245" width="320" height="28" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="607" y="263" font-size="12" font-weight="bold" fill="#2457d6">0xFF</text>
+  <text x="665" y="263" font-size="12" font-weight="bold" fill="#2457d6">Спільний регістр вибору банки</text>
+
+  <!-- Внутрішня картка Банка 1 (DSP / ISP Processing) -->
+  <rect x="585" y="325" width="340" height="195" rx="8" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="595" y="335" width="320" height="28" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="755" y="354" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Банка 1: DSP / ISP (REG 0xFF = 0x01)</text>
+
+  <rect x="595" y="370" width="320" height="30" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="607" y="390" font-size="12" font-weight="bold" fill="#1a1a1a">0x00 – 0x2F</text>
+  <text x="685" y="390" font-size="12" fill="#6b7280">Масштабування (ISP), кадрування</text>
+
+  <rect x="595" y="405" width="320" height="30" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="607" y="425" font-size="12" font-weight="bold" fill="#1a1a1a">0x30 – 0x7F</text>
+  <text x="685" y="425" font-size="12" fill="#6b7280">Матриця кольору, YUV/RGB/RAW</text>
+
+  <rect x="595" y="440" width="320" height="30" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="607" y="460" font-size="12" font-weight="bold" fill="#1a1a1a">0x80 – 0xFE</text>
+  <text x="685" y="460" font-size="12" fill="#6b7280">Баланс білого (AWB), гама</text>
+
+  <rect x="595" y="475" width="320" height="28" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="607" y="493" font-size="12" font-weight="bold" fill="#27ae60">0xFF</text>
+  <text x="665" y="493" font-size="12" font-weight="bold" fill="#27ae60">Спільний регістр вибору банки</text>
+
+  <!-- З'єднувальні лінії та маршрутизація між колонами -->
+
+  <!-- 1. Вхідний сигнал адреси з хоста (Col 1) до декодера (Col 2) -->
+  <path d="M 207,221 L 265,221 L 265,282.5 L 318,282.5" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="265" y="208" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Addr [7:0]</text>
+
+  <!-- 2. Вихід з MUX до Банки 0 -->
+  <path d="M 535,375 L 565,375 L 565,190 L 585,190" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="530" y="365" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">Банка 0</text>
+
+  <!-- 3. Вихід з MUX до Банки 1 -->
+  <path d="M 538,410 L 565,410 L 565,435 L 585,435" fill="none" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="533" y="402" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="end">Банка 1</text>
+</svg>

@@ -1,0 +1,158 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="28" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Схема протифазного збудження диференційного MEMS-конденсатора</text>
+  <text x="480" y="48" text-anchor="middle" font-size="13" fill="#6b7280">Протифазні сигнальні меандри V_ex+ та V_ex- формують вихідний заряд Q_out ∝ Δx</text>
+
+  <!-- Panel 1: Excitation Sources -->
+  <rect x="20" y="68" width="230" height="392" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="135" y="92" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Джерела збудження</text>
+
+  <!-- Sub-box 1: V_ex+ (Phase 0) -->
+  <rect x="32" y="106" width="206" height="156" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="135" y="126" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">V_ex+ (Фаза 0°)</text>
+  <line x1="70" y1="190" x2="225" y2="190" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <path d="M 70,220 L 100,220 L 100,160 L 150,160 L 150,220 L 200,220 L 200,160 L 220,160" stroke="#2457d6" stroke-width="2.5" fill="none"/>
+  <text x="65" y="164" text-anchor="end" font-size="12" fill="#6b7280">+V_p</text>
+  <text x="65" y="224" text-anchor="end" font-size="12" fill="#6b7280">-V_p</text>
+
+  <!-- Sub-box 2: V_ex- (Phase 180) -->
+  <rect x="32" y="280" width="206" height="156" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="135" y="300" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">V_ex- (Фаза 180°)</text>
+  <line x1="70" y1="364" x2="225" y2="364" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <path d="M 70,334 L 100,334 L 100,394 L 150,394 L 150,334 L 200,334 L 200,394 L 220,394" stroke="#2457d6" stroke-width="2.5" fill="none"/>
+  <text x="65" y="338" text-anchor="end" font-size="12" fill="#6b7280">+V_p</text>
+  <text x="65" y="398" text-anchor="end" font-size="12" fill="#6b7280">-V_p</text>
+
+  <!-- Excitation Wires from Panel 1 to Panel 2 -->
+  <line x1="238" y1="147" x2="340" y2="147" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <line x1="238" y1="377" x2="340" y2="377" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Panel 2: Differential MEMS Structure -->
+  <rect x="270" y="68" width="390" height="392" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="465" y="92" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Диференційна MEMS-структура</text>
+
+  <!-- Guard Shield Outline -->
+  <rect x="282" y="106" width="366" height="340" rx="6" fill="none" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="5,4"/>
+
+  <!-- Stator 1 (Top Plate - V_ex+) -->
+  <text x="465" y="126" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Статична обкладка 1 (V_ex+)</text>
+  <rect x="340" y="140" width="250" height="14" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <rect x="390" y="154" width="18" height="65" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <rect x="520" y="154" width="18" height="65" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+
+  <!-- Stator 2 (Bottom Plate - V_ex-) -->
+  <rect x="340" y="370" width="250" height="14" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <rect x="390" y="305" width="18" height="65" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <rect x="520" y="305" width="18" height="65" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="465" y="402" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Статична обкладка 2 (V_ex-)</text>
+
+  <!-- Central Movable Mass (Rotor) -->
+  <!-- Anchor & Spring (Left) -->
+  <rect x="290" y="247" width="16" height="16" rx="2" fill="#6b7280"/>
+  <text x="298" y="240" text-anchor="middle" font-size="12" fill="#6b7280">Підвіс</text>
+  <path d="M 306,255 L 312,247 L 318,263 L 324,247 L 330,263 L 336,255 L 340,255" stroke="#1a1a1a" stroke-width="2" fill="none"/>
+
+  <!-- Rotor Spine & Fingers -->
+  <rect x="340" y="247" width="270" height="16" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <!-- Rotor Upper Fingers -->
+  <rect x="425" y="170" width="18" height="77" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <rect x="555" y="170" width="18" height="77" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <!-- Rotor Lower Fingers -->
+  <rect x="425" y="263" width="18" height="77" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <rect x="555" y="263" width="18" height="77" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+
+  <!-- Rotor Central Mass Label -->
+  <text x="475" y="259" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Центральна рухома маса (Rotor)</text>
+
+  <!-- Motion & Displacement Arrow -->
+  <line x1="450" y1="236" x2="495" y2="236" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="472.5" y="230" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Рух Δx →</text>
+
+  <!-- Capacitance Labels -->
+  <!-- C1 -->
+  <text x="375" y="185" text-anchor="end" font-size="12" font-weight="bold" fill="#1a1a1a">C₁</text>
+  <text x="375" y="200" text-anchor="end" font-size="12" fill="#27ae60">= C₀ + ΔC</text>
+
+  <!-- C2 -->
+  <text x="375" y="325" text-anchor="end" font-size="12" font-weight="bold" fill="#1a1a1a">C₂</text>
+  <text x="375" y="340" text-anchor="end" font-size="12" fill="#27ae60">= C₀ - ΔC</text>
+
+  <!-- Guard Shield Label -->
+  <text x="465" y="438" text-anchor="middle" font-size="12" fill="#6b7280">Екранний провідник (Guard Shield / GND)</text>
+
+  <!-- Sense Wire Exiting Rotor -->
+  <line x1="610" y1="255" x2="680" y2="255" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="645" y="240" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Q_out</text>
+
+  <!-- Panel 3: Analog Readout Frontend -->
+  <rect x="680" y="68" width="260" height="392" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="810" y="92" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Аналоговий фронтенд</text>
+
+  <!-- Input Wire & Sense Node -->
+  <line x1="680" y1="245" x2="765" y2="245" stroke="#27ae60" stroke-width="2"/>
+  <circle cx="685" cy="245" r="3" fill="#27ae60"/>
+  <text x="692" y="260" font-size="12" font-weight="bold" fill="#27ae60">
+    <tspan x="692" dy="0">Вузол</tspan>
+    <tspan x="692" dy="14">зчитування</tspan>
+  </text>
+
+  <!-- Feedback Loop (Cf & Rf in parallel) -->
+  <line x1="685" y1="245" x2="685" y2="140" stroke="#1a1a1a" stroke-width="1.5"/>
+  
+  <!-- Cf (Feedback Capacitor) Top Branch -->
+  <line x1="685" y1="140" x2="760" y2="140" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="760" y1="130" x2="760" y2="150" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="768" y1="130" x2="768" y2="150" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="768" y1="140" x2="850" y2="140" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="764" y="122" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">C_f</text>
+
+  <!-- Rf (Feedback Resistor) Bottom Branch -->
+  <line x1="685" y1="140" x2="685" y2="185" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="685" y1="185" x2="750" y2="185" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="750" y="177" width="30" height="16" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="780" y1="185" x2="850" y2="185" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="765" y="210" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">R_f (Біас / Скидання)</text>
+
+  <!-- Joining Feedback Paths at X=850 -->
+  <line x1="850" y1="140" x2="850" y2="185" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="850" y1="185" x2="850" y2="260" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="850" cy="260" r="3" fill="#1a1a1a"/>
+
+  <!-- Op-Amp Symbol -->
+  <polygon points="765,230 765,290 825,260" fill="#ffffff" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="773" y="249" font-size="14" font-weight="bold" fill="#1a1a1a">-</text>
+  <text x="773" y="279" font-size="14" font-weight="bold" fill="#1a1a1a">+</text>
+
+  <!-- Op-Amp (+) Input to GND -->
+  <line x1="765" y1="275" x2="765" y2="305" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="755" y1="305" x2="775" y2="305" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="759" y1="309" x2="771" y2="309" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="762" y1="313" x2="768" y2="313" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="780" y="311" text-anchor="start" font-size="12" fill="#6b7280">V_ref (GND)</text>
+
+  <!-- Op-Amp Output Wire -->
+  <line x1="825" y1="260" x2="890" y2="260" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+  <circle cx="870" cy="260" r="3" fill="#1a1a1a"/>
+  <line x1="870" y1="260" x2="870" y2="350" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- Output Box V_out -->
+  <rect x="695" y="350" width="230" height="96" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="810" y="372" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">Вихідна напруга V_out</text>
+  <text x="810" y="398" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">V_out = -V_ex · (2ΔC / C_f)</text>
+  <text x="810" y="424" text-anchor="middle" font-size="12" fill="#6b7280">Сигнал V_out ∝ зміщенню Δx</text>
+</svg>

@@ -1,0 +1,97 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 500" width="960" height="500" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="500" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="30" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Діаграма станів автономного монітора мікроклімату SHT30</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Циклічний перехід між глибоким сном та вимірюванням з автоматичним висушуванням сенсора</text>
+
+  <!-- Панель 1: Режим високої енергозатратності (Активна фаза) -->
+  <rect x="30" y="70" width="900" height="240" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="45" y="82" width="540" height="26" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="315" y="99" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">РЕЖИМ ВИСОКОЇ ЕНЕРГОЗАТРАТНОСТІ (Активна фаза: I = 15...30 мА, t ≈ 15 мс)</text>
+
+  <!-- Стан 2: Опитування SHT30 -->
+  <rect x="55" y="125" width="230" height="165" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="170" y="147" font-size="13" font-weight="700" fill="#2457d6" text-anchor="middle">2. Опитування SHT30</text>
+  <line x1="65" y1="157" x2="275" y2="157" stroke="#d0d7de" stroke-width="1"/>
+  <text x="70" y="177" font-size="12" fill="#1a1a1a">• Команда Single Shot (0x2400)</text>
+  <text x="70" y="195" font-size="12" fill="#1a1a1a">• Пауза вимірювання (~15 мс)</text>
+  <text x="70" y="213" font-size="12" fill="#1a1a1a">• Читання 6 байт: T, RH + CRC</text>
+  <text x="70" y="231" font-size="12" fill="#1a1a1a">• Перевірка полінома CRC-8</text>
+  <rect x="70" y="250" width="200" height="26" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="170" y="267" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">CRC-8 валідно [OK]</text>
+
+  <!-- Перехід 2 -> 3 -->
+  <line x1="285" y1="207.5" x2="357" y2="207.5" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+  <text x="325" y="193" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">T, RH</text>
+
+  <!-- Стан 3: Аналіз точки роси -->
+  <rect x="365" y="125" width="240" height="165" rx="6" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="485" y="147" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">3. Аналіз точки роси</text>
+  <line x1="375" y1="157" x2="595" y2="157" stroke="#d0d7de" stroke-width="1"/>
+  <text x="380" y="177" font-size="12" fill="#1a1a1a">• Обчислення T_dew (Магнус)</text>
+  <text x="380" y="195" font-size="12" fill="#1a1a1a">• ΔT = T_sensor - T_dew</text>
+  <text x="380" y="213" font-size="12" fill="#1a1a1a">• Оцінка ризику роси:</text>
+  <rect x="377" y="228" width="104" height="48" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="429" y="246" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">ΔT &gt; 2 °C</text>
+  <text x="429" y="264" font-size="12" fill="#27ae60" text-anchor="middle">Сухо [OK]</text>
+  <rect x="489" y="228" width="104" height="48" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="541" y="246" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">ΔT ≤ 2 °C</text>
+  <text x="541" y="264" font-size="12" fill="#c0392b" text-anchor="middle">Ризик роси!</text>
+
+  <!-- Перехід 3 -> 4 (Ризик роси) -->
+  <line x1="605" y1="252.5" x2="677" y2="252.5" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="645" y="238" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">ΔT ≤ 2 °C</text>
+
+  <!-- Стан 4: Висушування сенсора -->
+  <rect x="685" y="125" width="230" height="165" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="800" y="147" font-size="13" font-weight="700" fill="#c0392b" text-anchor="middle">4. Висушування сенсора</text>
+  <line x1="695" y1="157" x2="905" y2="157" stroke="#c0392b" stroke-opacity="0.3" stroke-width="1"/>
+  <text x="700" y="177" font-size="12" fill="#1a1a1a">• Увімкнути нагрівач (0x306D)</text>
+  <text x="700" y="195" font-size="12" fill="#1a1a1a">• Імпульс нагріву (0.5...1 с)</text>
+  <text x="700" y="213" font-size="12" fill="#1a1a1a">• Вимкнути нагрівач (0x3066)</text>
+  <rect x="695" y="250" width="210" height="26" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+  <text x="800" y="267" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">Випаровування конденсату</text>
+
+  <!-- Панель 2: Режим низької енергозатратності (Глибокий сон) -->
+  <rect x="30" y="360" width="900" height="125" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4 4"/>
+  <rect x="437" y="367" width="356" height="36" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+  <text x="615" y="382" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">РЕЖИМ НИЗЬКОЇ ЕНЕРГОЗАТРАТНОСТІ</text>
+  <text x="615" y="397" font-size="11" fill="#6b7280" text-anchor="middle">Глибокий сон: I ≈ 2...5 мкА, t = 10...60 с</text>
+
+  <!-- Стан 1: Глибокий сон -->
+  <rect x="55" y="395" width="230" height="70" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="170" y="413" font-size="13" font-weight="700" fill="#2457d6" text-anchor="middle">1. Глибокий сон (Sleep)</text>
+  <text x="170" y="431" font-size="12" fill="#6b7280" text-anchor="middle">SHT30: Sleep | МК: Deep Sleep</text>
+  <text x="170" y="449" font-size="12" fill="#1a1a1a" text-anchor="middle">Очікування таймера RTC (10...60 с)</text>
+
+  <!-- Перехід 1 -> 2 (Пробудження за RTC) -->
+  <line x1="170" y1="395" x2="170" y2="298" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="182" y="330" font-size="12" font-weight="700" fill="#2457d6">Таймер RTC</text>
+  <text x="182" y="346" font-size="12" fill="#6b7280">Пробудження МК</text>
+
+  <!-- Перехід 3 -> 1 (Норма / Без нагріву) -->
+  <path d="M 429,290 L 429,415 L 293,415" fill="none" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="440" y="330" font-size="12" font-weight="700" fill="#27ae60">Норма: ΔT &gt; 2 °C</text>
+  <text x="440" y="346" font-size="12" fill="#27ae60">(без нагріву → сон)</text>
+
+  <!-- Перехід 4 -> 1 (Висушено / Повернення в сон) -->
+  <path d="M 800,290 L 800,450 L 293,450" fill="none" stroke="#c0392b" stroke-dasharray="6 3" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="560" y="436" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">Висушено → Повернення в сон</text>
+</svg>

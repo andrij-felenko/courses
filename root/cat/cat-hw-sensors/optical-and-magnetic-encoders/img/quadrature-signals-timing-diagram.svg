@@ -1,0 +1,142 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 500" width="960" height="500" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-dark" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-dark-left" markerWidth="8" markerHeight="8" refX="2" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M7,1 L0,4 L7,7 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-blue-left" markerWidth="8" markerHeight="8" refX="2" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M7,1 L0,4 L7,7 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="500" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Часова діаграма квадратурних сигналів енкодера (A, B, Z)</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Фазовий зсув 90° розрізняє напрямок руху (CW/CCW), а імпульс Z фіксує нульову позицію</text>
+
+  <!-- Main Container Panel -->
+  <rect x="30" y="68" width="900" height="412" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="8"/>
+
+  <!-- Direction Banners -->
+  <rect x="150" y="80" width="320" height="26" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="4"/>
+  <text x="310" y="97" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Прямий рух (CW): Фаза A випереджає B</text>
+
+  <rect x="480" y="80" width="40" height="26" fill="#fdecea" stroke="#c0392b" stroke-width="1" rx="4"/>
+  <text x="500" y="97" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">Зміна</text>
+
+  <rect x="530" y="80" width="320" height="26" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="4"/>
+  <text x="690" y="97" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Зворотний рух (CCW): Фаза B випереджає A</text>
+
+  <!-- Reversal Zone Highlight -->
+  <rect x="480" y="115" width="40" height="235" fill="#fdecea" fill-opacity="0.5" stroke="#c0392b" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="500" y="225" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">Реверс</text>
+
+  <!-- Grid Lines (Vertical Timing Divs) -->
+  <line x1="160" y1="115" x2="160" y2="350" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="200" y1="115" x2="200" y2="350" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="240" y1="115" x2="240" y2="350" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="280" y1="115" x2="280" y2="350" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="320" y1="115" x2="320" y2="350" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="360" y1="115" x2="360" y2="350" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="400" y1="115" x2="400" y2="350" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="440" y1="115" x2="440" y2="350" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="480" y1="115" x2="480" y2="350" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="520" y1="115" x2="520" y2="350" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="560" y1="115" x2="560" y2="350" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="600" y1="115" x2="600" y2="350" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="640" y1="115" x2="640" y2="350" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="680" y1="115" x2="680" y2="350" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="720" y1="115" x2="720" y2="350" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="760" y1="115" x2="760" y2="350" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="800" y1="115" x2="800" y2="350" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="840" y1="115" x2="840" y2="350" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2,2"/>
+
+  <!-- Signal Labels (Left Column) -->
+  <text x="135" y="148" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="end">Сигнал A</text>
+  <text x="135" y="163" font-size="11" fill="#6b7280" text-anchor="end">(Канал A)</text>
+
+  <text x="135" y="223" font-size="13" font-weight="bold" fill="#d97706" text-anchor="end">Сигнал B</text>
+  <text x="135" y="238" font-size="11" fill="#6b7280" text-anchor="end">(Канал B)</text>
+
+  <text x="135" y="298" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="end">Індекс Z</text>
+  <text x="135" y="313" font-size="11" fill="#6b7280" text-anchor="end">(Zero / Index)</text>
+
+  <!-- Waveform Signal A -->
+  <path d="M 140,170 L 160,170 L 160,130 L 240,130 L 240,170 L 320,170 L 320,130 L 400,130 L 400,170 L 480,170 L 520,170 L 560,170 L 560,130 L 640,130 L 640,170 L 720,170 L 720,130 L 800,130 L 800,170 L 850,170" fill="none" stroke="#2457d6" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
+
+  <!-- Waveform Signal B -->
+  <path d="M 140,245 L 200,245 L 200,205 L 280,205 L 280,245 L 360,245 L 360,205 L 440,205 L 440,245 L 480,245 L 520,245 L 520,205 L 600,205 L 600,245 L 680,245 L 680,205 L 760,205 L 760,245 L 850,245" fill="none" stroke="#d97706" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
+
+  <!-- Waveform Signal Z -->
+  <path d="M 140,320 L 200,320 L 200,280 L 240,280 L 240,320 L 560,320 L 560,280 L 600,280 L 600,320 L 850,320" fill="none" stroke="#27ae60" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
+
+  <!-- Measurements: Phase Shift Δφ = 90° -->
+  <line x1="162" y1="118" x2="198" y2="118" stroke="#2457d6" stroke-width="1.5" marker-start="url(#arr-blue-left)" marker-end="url(#arr-blue)"/>
+  <text x="180" y="113" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">Δφ = 90°</text>
+
+  <!-- Measurements: Period T (CW & CCW) -->
+  <line x1="162" y1="344" x2="318" y2="344" stroke="#1a1a1a" stroke-width="1.5" marker-start="url(#arr-dark-left)" marker-end="url(#arr-dark)"/>
+  <text x="240" y="339" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Електричний період T (360°)</text>
+
+  <line x1="522" y1="344" x2="678" y2="344" stroke="#1a1a1a" stroke-width="1.5" marker-start="url(#arr-dark-left)" marker-end="url(#arr-dark)"/>
+  <text x="600" y="339" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Електричний період T (360°)</text>
+
+  <!-- Index Z Badges -->
+  <rect x="180" y="260" width="80" height="16" fill="#e9f7ef" stroke="#27ae60" stroke-width="1" rx="3"/>
+  <text x="220" y="272" font-size="10" font-weight="bold" fill="#27ae60" text-anchor="middle">1 імпульс / об</text>
+
+  <rect x="540" y="260" width="80" height="16" fill="#e9f7ef" stroke="#27ae60" stroke-width="1" rx="3"/>
+  <text x="580" y="272" font-size="10" font-weight="bold" fill="#27ae60" text-anchor="middle">1 імпульс / об</text>
+
+  <!-- Quadrature States Row -->
+  <text x="135" y="375" font-size="11" font-weight="bold" fill="#6b7280" text-anchor="end">Стани (A,B):</text>
+
+  <!-- CW State Boxes -->
+  <rect x="165" y="360" width="30" height="20" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="3"/>
+  <text x="180" y="374" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">1,0</text>
+
+  <rect x="205" y="360" width="30" height="20" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="3"/>
+  <text x="220" y="374" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">1,1</text>
+
+  <rect x="245" y="360" width="30" height="20" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="3"/>
+  <text x="260" y="374" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">0,1</text>
+
+  <rect x="285" y="360" width="30" height="20" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="3"/>
+  <text x="300" y="374" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">0,0</text>
+
+  <!-- CCW State Boxes -->
+  <rect x="525" y="360" width="30" height="20" fill="#fdecea" stroke="#c0392b" stroke-width="1" rx="3"/>
+  <text x="540" y="374" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">0,1</text>
+
+  <rect x="565" y="360" width="30" height="20" fill="#fdecea" stroke="#c0392b" stroke-width="1" rx="3"/>
+  <text x="580" y="374" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">1,1</text>
+
+  <rect x="605" y="360" width="30" height="20" fill="#fdecea" stroke="#c0392b" stroke-width="1" rx="3"/>
+  <text x="620" y="374" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">1,0</text>
+
+  <rect x="645" y="360" width="30" height="20" fill="#fdecea" stroke="#c0392b" stroke-width="1" rx="3"/>
+  <text x="660" y="374" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">0,0</text>
+
+  <!-- Summary Cards at Bottom -->
+  <rect x="45" y="400" width="270" height="66" fill="white" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="60" y="418" font-size="12" font-weight="bold" fill="#1a1a1a">Квадратурна фазировка</text>
+  <text x="60" y="435" font-size="11" fill="#6b7280">Зсув 90° визначає напрямок</text>
+  <text x="60" y="450" font-size="11" fill="#6b7280">руху за черговістю фронтів</text>
+
+  <rect x="345" y="400" width="270" height="66" fill="white" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="360" y="418" font-size="12" font-weight="bold" fill="#1a1a1a">Декодування 4x (CPR)</text>
+  <text x="360" y="435" font-size="11" fill="#6b7280">Підраховує кожен фронт A і B,</text>
+  <text x="360" y="450" font-size="11" fill="#6b7280">що дає 4 стани на період T</text>
+
+  <rect x="645" y="400" width="270" height="66" fill="white" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="660" y="418" font-size="12" font-weight="bold" fill="#1a1a1a">Індексна мітка Z (Index)</text>
+  <text x="660" y="435" font-size="11" fill="#6b7280">Генерує 1 імпульс на оберт для</text>
+  <text x="660" y="450" font-size="11" fill="#6b7280">базування та скидання позиції</text>
+</svg>

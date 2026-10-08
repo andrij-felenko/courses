@@ -1,0 +1,218 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Canvas Background -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Header & Subtitle -->
+  <text x="480" y="28" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Структурна схема та сигнали синхронного демодулювання LVDT</text>
+  <text x="480" y="48" font-size="13" fill="#6b7280" text-anchor="middle">Перетворення змінного AM-сигналу зсуву фази (0°/180°) на двополярну постійну напругу ±Vdc</text>
+
+  <!-- TOP SECTION: BLOCK DIAGRAM PANEL -->
+  <rect x="30" y="65" width="900" height="175" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="45" y="82" font-size="11" font-weight="bold" fill="#6b7280">СТРУКТУРНА СХЕМА ВИМІРЮВАЛЬНОГО ТРАКТУ</text>
+
+  <!-- Block 1: Excitation Generator -->
+  <rect x="45" y="95" width="150" height="110" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="2"/>
+  <rect x="45" y="95" width="150" height="26" rx="6" fill="#eaf0fd"/>
+  <text x="120" y="113" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Генератор збудження</text>
+  <text x="120" y="138" font-size="12" fill="#1a1a1a" text-anchor="middle">Vexc = Vm·sin(ωc t)</text>
+  <text x="120" y="158" font-size="12" fill="#6b7280" text-anchor="middle">fc = 1...10 кГц</text>
+  <text x="120" y="180" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Опорне несуче Vref</text>
+
+  <!-- Arrow 1: Gen -> LVDT -->
+  <line x1="195" y1="135" x2="255" y2="135" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="225" y="127" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Vexc</text>
+
+  <!-- Test Point A Badge -->
+  <circle cx="225" cy="155" r="10" fill="#2457d6"/>
+  <text x="225" y="159" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">A</text>
+
+  <!-- Block 2: LVDT Sensor -->
+  <rect x="255" y="95" width="195" height="110" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="2"/>
+  <rect x="255" y="95" width="195" height="26" rx="6" fill="#f4f6f8"/>
+  <text x="352" y="113" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">LVDT-давач</text>
+  <!-- Core visual elements -->
+  <path d="M 270 145 Q 275 137 280 145 Q 285 153 290 145 Q 295 137 300 145" stroke="#2457d6" stroke-width="2" fill="none"/>
+  <rect x="330" y="138" width="45" height="14" rx="2" fill="#2457d6"/>
+  <text x="352.5" y="149" font-size="11" font-weight="bold" fill="#ffffff" text-anchor="middle">Осердя</text>
+  <path d="M 405 145 Q 410 137 415 145 Q 420 153 425 145 Q 430 137 435 145" stroke="#1a1a1a" stroke-width="2" fill="none"/>
+  <text x="352.5" y="170" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Переміщення осердя ±x</text>
+  <text x="352.5" y="190" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Vout = k · x · sin(ωc t)</text>
+
+  <!-- Arrow 2: LVDT -> PSD -->
+  <line x1="450" y1="135" x2="510" y2="135" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+  <text x="480" y="127" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Vout(t)</text>
+
+  <!-- Test Point B Badge -->
+  <circle cx="480" cy="155" r="10" fill="#2457d6"/>
+  <text x="480" y="159" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">B</text>
+
+  <!-- Block 3: Synchronous Demodulator (PSD) -->
+  <rect x="510" y="95" width="180" height="110" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="2"/>
+  <rect x="510" y="95" width="180" height="26" rx="6" fill="#eaf0fd"/>
+  <text x="600" y="113" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Синхронний демодулятор</text>
+  <!-- Multiplier Symbol -->
+  <circle cx="548" cy="150" r="13" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <line x1="539" y1="141" x2="557" y2="159" stroke="#2457d6" stroke-width="2"/>
+  <line x1="539" y1="159" x2="557" y2="141" stroke="#2457d6" stroke-width="2"/>
+  <text x="570" y="146" font-size="12" font-weight="bold" fill="#1a1a1a">Множник ⊗</text>
+  <text x="570" y="164" font-size="12" font-weight="bold" fill="#2457d6">Vout × sign(Vref)</text>
+  <text x="600" y="190" font-size="12" fill="#6b7280" text-anchor="middle">Фазочутливе випрямлення</text>
+
+  <!-- Arrow 3: PSD -> LPF -->
+  <line x1="690" y1="135" x2="750" y2="135" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+  <text x="720" y="127" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Vpsd(t)</text>
+
+  <!-- Test Point C Badge -->
+  <circle cx="720" cy="155" r="10" fill="#2457d6"/>
+  <text x="720" y="159" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">C</text>
+
+  <!-- Block 4: Low-Pass Filter (LPF) -->
+  <rect x="750" y="95" width="165" height="110" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="2"/>
+  <rect x="750" y="95" width="165" height="26" rx="6" fill="#f4f6f8"/>
+  <text x="832.5" y="113" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Фільтр НЧ (LPF)</text>
+  <text x="832.5" y="142" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Згладжування пульсацій</text>
+  <text x="832.5" y="162" font-size="12" fill="#6b7280" text-anchor="middle">fc &lt;&lt; fc carrier</text>
+  <text x="832.5" y="190" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Вихід Vdc ∝ ±x</text>
+
+  <!-- Output Arrow & Test Point D Badge -->
+  <line x1="915" y1="135" x2="925" y2="135" stroke="#27ae60" stroke-width="2"/>
+  <circle cx="925" cy="135" r="10" fill="#27ae60"/>
+  <text x="925" y="139" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">D</text>
+
+  <!-- Reference Line Path (Vref) from Gen to PSD -->
+  <line x1="120" y1="205" x2="120" y2="225" stroke="#2457d6" stroke-width="2" stroke-dasharray="5,4"/>
+  <line x1="120" y1="225" x2="600" y2="225" stroke="#2457d6" stroke-width="2" stroke-dasharray="5,4"/>
+  <line x1="600" y1="225" x2="600" y2="205" stroke="#2457d6" stroke-width="2" stroke-dasharray="5,4" marker-end="url(#arr-blue)"/>
+  <text x="360" y="220" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Опорне несуче Vref(t) (Синхронізація демодулятора)</text>
+
+  <!-- BOTTOM SECTION: WAVEFORM COMPARISON PANEL -->
+  <rect x="30" y="250" width="900" height="255" rx="8" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="30" y="250" width="900" height="28" rx="8" fill="#f4f6f8"/>
+  <text x="45" y="269" font-size="12" font-weight="bold" fill="#1a1a1a">ОСЦИЛОГРАМИ СИГНАЛІВ ТА ПЕРЕТВОРЕННЯ У КОНТРОЛЬНИХ ТОЧКАХ (A, B, C, D)</text>
+
+  <!-- COLUMN 1: POINT A (Vexc) -->
+  <rect x="45" y="285" width="205" height="210" rx="6" fill="#f4f6f8" stroke="#d0d7de"/>
+  <rect x="45" y="285" width="205" height="24" rx="6" fill="#eaf0fd"/>
+  <circle cx="58" cy="297" r="8" fill="#2457d6"/>
+  <text x="58" y="301" font-size="11" font-weight="bold" fill="#ffffff" text-anchor="middle">A</text>
+  <text x="72" y="301" font-size="12" font-weight="bold" fill="#2457d6">Точка A: Збудження Vexc</text>
+
+  <!-- Axes Col 1 -->
+  <line x1="60" y1="390" x2="235" y2="390" stroke="#6b7280" stroke-width="1" marker-end="url(#arr)"/>
+  <text x="242" y="394" font-size="11" fill="#6b7280">t</text>
+  <line x1="65" y1="455" x2="65" y2="320" stroke="#6b7280" stroke-width="1" marker-end="url(#arr)"/>
+  <text x="65" y="315" font-size="11" fill="#6b7280" text-anchor="middle">V</text>
+
+  <!-- Sine Wave Col 1 -->
+  <path d="M 65 390 C 73 350 77 350 85 350 C 93 350 97 430 105 430 C 113 430 117 350 125 350 C 133 350 137 430 145 430 C 153 430 157 350 165 350 C 173 350 177 430 185 430 C 193 430 197 350 205 350 C 213 350 217 390 225 390" stroke="#2457d6" stroke-width="2" fill="none"/>
+  <!-- Amplitude lines -->
+  <line x1="60" y1="350" x2="225" y2="350" stroke="#2457d6" stroke-width="1" stroke-dasharray="2,2"/>
+  <text x="60" y="348" font-size="11" fill="#2457d6" text-anchor="end">+Vm</text>
+  <line x1="60" y1="430" x2="225" y2="430" stroke="#2457d6" stroke-width="1" stroke-dasharray="2,2"/>
+  <text x="60" y="433" font-size="11" fill="#2457d6" text-anchor="end">-Vm</text>
+  <text x="147.5" y="475" font-size="12" fill="#1a1a1a" text-anchor="middle">Несуча частота fc</text>
+  <text x="147.5" y="490" font-size="11" fill="#6b7280" text-anchor="middle">Амплітуда Vm = const</text>
+
+  <!-- COLUMN 2: POINT B (Vout AM) -->
+  <rect x="265" y="285" width="205" height="210" rx="6" fill="#f4f6f8" stroke="#d0d7de"/>
+  <rect x="265" y="285" width="205" height="24" rx="6" fill="#f4f6f8"/>
+  <circle cx="278" cy="297" r="8" fill="#2457d6"/>
+  <text x="278" y="301" font-size="11" font-weight="bold" fill="#ffffff" text-anchor="middle">B</text>
+  <text x="292" y="301" font-size="12" font-weight="bold" fill="#1a1a1a">Точка B: Сигнал LVDT Vout</text>
+
+  <!-- Left half: x > 0 (Phase 0°) -->
+  <text x="320" y="322" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">х &gt; 0 (Фаза 0°)</text>
+  <line x1="280" y1="365" x2="355" y2="365" stroke="#6b7280" stroke-width="1"/>
+  <path d="M 285 365 C 290 345 295 345 300 345 C 305 345 310 385 315 385 C 320 385 325 345 330 345 C 335 345 340 385 345 385 Q 350 365 355 365" stroke="#2457d6" stroke-width="2" fill="none"/>
+  <text x="320" y="398" font-size="11" fill="#1a1a1a" text-anchor="middle">Синфазно з Vref</text>
+
+  <!-- Divider line -->
+  <line x1="367.5" y1="315" x2="367.5" y2="410" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+
+  <!-- Right half: x < 0 (Phase 180°) -->
+  <text x="415" y="322" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">х &lt; 0 (Фаза 180°)</text>
+  <line x1="375" y1="365" x2="450" y2="365" stroke="#6b7280" stroke-width="1"/>
+  <path d="M 375 365 C 380 385 385 385 390 385 C 395 385 400 345 405 345 C 410 345 415 385 420 385 C 425 385 430 345 435 345 Q 440 365 445 365" stroke="#c0392b" stroke-width="2" fill="none"/>
+  <text x="415" y="398" font-size="11" fill="#c0392b" text-anchor="middle">Протифаза до Vref</text>
+
+  <!-- Box note Col 2 -->
+  <rect x="273" y="420" width="189" height="65" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="367.5" y="438" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Амплітуда ∝ |x|</text>
+  <text x="367.5" y="456" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">Фаза кодує напрямок!</text>
+  <text x="367.5" y="473" font-size="11" fill="#6b7280" text-anchor="middle">При х = 0 : Vout = 0 (баланс)</text>
+
+  <!-- COLUMN 3: POINT C (Vpsd Rectified) -->
+  <rect x="485" y="285" width="205" height="210" rx="6" fill="#f4f6f8" stroke="#d0d7de"/>
+  <rect x="485" y="285" width="205" height="24" rx="6" fill="#eaf0fd"/>
+  <circle cx="498" cy="297" r="8" fill="#2457d6"/>
+  <text x="498" y="301" font-size="11" font-weight="bold" fill="#ffffff" text-anchor="middle">C</text>
+  <text x="512" y="301" font-size="12" font-weight="bold" fill="#2457d6">Точка C: Після PSD Vpsd</text>
+
+  <!-- Left half: x > 0 (Positive pulses) -->
+  <text x="540" y="322" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">х &gt; 0 (Додатне)</text>
+  <line x1="500" y1="365" x2="575" y2="365" stroke="#6b7280" stroke-width="1"/>
+  <path d="M 505 365 C 510 345 515 345 520 345 C 525 345 530 365 535 365 C 540 345 545 345 550 345 C 555 345 560 365 565 365 C 570 345 572 365 575 365" stroke="#27ae60" stroke-width="2" fill="none"/>
+  <text x="540" y="398" font-size="11" fill="#27ae60" text-anchor="middle">Пульсації +V</text>
+
+  <!-- Divider line -->
+  <line x1="587.5" y1="315" x2="587.5" y2="410" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+
+  <!-- Right half: x < 0 (Negative pulses) -->
+  <text x="635" y="322" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">х &lt; 0 (Від'ємне)</text>
+  <line x1="595" y1="365" x2="670" y2="365" stroke="#6b7280" stroke-width="1"/>
+  <path d="M 600 365 C 605 385 610 385 615 385 C 620 385 625 365 630 365 C 635 385 640 385 645 385 C 650 385 655 365 660 365 C 665 385 667 365 670 365" stroke="#c0392b" stroke-width="2" fill="none"/>
+  <text x="635" y="398" font-size="11" fill="#c0392b" text-anchor="middle">Пульсації -V</text>
+
+  <!-- Box note Col 3 -->
+  <rect x="493" y="420" width="189" height="65" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="587.5" y="438" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">Множення на sign(Vref)</text>
+  <text x="587.5" y="456" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Полярність збережено!</text>
+  <text x="587.5" y="473" font-size="11" fill="#6b7280" text-anchor="middle">ВЧ-гармоніки 2fc, 4fc...</text>
+
+  <!-- COLUMN 4: POINT D (Transfer Function Vdc vs x) -->
+  <rect x="705" y="285" width="205" height="210" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="705" y="285" width="205" height="24" rx="6" fill="#27ae60"/>
+  <circle cx="718" cy="297" r="8" fill="#ffffff"/>
+  <text x="718" y="301" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">D</text>
+  <text x="732" y="301" font-size="12" font-weight="bold" fill="#ffffff">Точка D: Вихід Vdc(x)</text>
+
+  <!-- Graph Axes Col 4 -->
+  <line x1="720" y1="390" x2="895" y2="390" stroke="#1a1a1a" stroke-width="1" marker-end="url(#arr)"/>
+  <text x="898" y="394" font-size="11" font-weight="bold" fill="#1a1a1a">x</text>
+  <line x1="805" y1="450" x2="805" y2="320" stroke="#1a1a1a" stroke-width="1" marker-end="url(#arr)"/>
+  <text x="805" y="315" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Vdc</text>
+
+  <!-- Axis Ticks & Labels -->
+  <text x="735" y="404" font-size="10" fill="#6b7280" text-anchor="middle">-xmax</text>
+  <text x="805" y="404" font-size="10" fill="#6b7280" text-anchor="middle">0</text>
+  <text x="870" y="404" font-size="10" fill="#6b7280" text-anchor="middle">+xmax</text>
+  <text x="798" y="338" font-size="10" fill="#27ae60" text-anchor="end">+Vmax</text>
+  <text x="798" y="445" font-size="10" fill="#c0392b" text-anchor="end">-Vmax</text>
+
+  <!-- Linear Line -->
+  <line x1="735" y1="445" x2="875" y2="335" stroke="#27ae60" stroke-width="2.5"/>
+
+  <!-- Key Points -->
+  <circle cx="805" cy="390" r="4" fill="#1a1a1a"/>
+  <text x="835" y="385" font-size="11" fill="#6b7280">Нуль (x=0)</text>
+  <circle cx="875" cy="335" r="4" fill="#27ae60"/>
+  <text x="880" y="330" font-size="11" font-weight="bold" fill="#27ae60">+Vdc</text>
+  <circle cx="735" cy="445" r="4" fill="#c0392b"/>
+  <text x="718" y="450" font-size="11" font-weight="bold" fill="#c0392b">-Vdc</text>
+
+  <!-- Summary Col 4 -->
+  <text x="807.5" y="475" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Vdc = K · x</text>
+  <text x="807.5" y="490" font-size="11" fill="#1a1a1a" text-anchor="middle">Двополярна лінійність</text>
+</svg>

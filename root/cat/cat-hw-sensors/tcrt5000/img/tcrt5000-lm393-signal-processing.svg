@@ -1,0 +1,173 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Canvas White Background -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Main Header -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Обробка сигналів давача TCRT5000 та обчислення центру лінії</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Формування цифрового порогу компаратором LM393 та алгоритм визначення позиції лінії</text>
+
+  <!-- ROW 1: SENSOR TO MCU SIGNAL FLOW -->
+  <!-- Box A: TCRT5000 -->
+  <rect x="30" y="75" width="260" height="210" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="160" y="96" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">TCRT5000 (Оптичний давач)</text>
+  
+  <rect x="45" y="112" width="105" height="68" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="97.5" y="131" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">ІЧ-світлодіод</text>
+  <text x="97.5" y="148" font-size="12" fill="#6b7280" text-anchor="middle">Випромінювач</text>
+  <text x="97.5" y="165" font-size="12" fill="#2457d6" text-anchor="middle">λ = 950 нм</text>
+
+  <rect x="165" y="112" width="105" height="68" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="217.5" y="131" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Фототранзистор</text>
+  <text x="217.5" y="148" font-size="12" fill="#6b7280" text-anchor="middle">Приймач світла</text>
+  <text x="217.5" y="165" font-size="12" fill="#2457d6" text-anchor="middle">Сигнал V_sen</text>
+
+  <text x="160" y="206" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Оптична фокусна відстань:</text>
+  <text x="160" y="226" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">d = 2.5 мм (оптимум 0.2–15 мм)</text>
+  <text x="160" y="246" font-size="12" fill="#6b7280" text-anchor="middle">ІЧ-фільтр захищає від завад</text>
+
+  <!-- Box B: LM393 Comparator -->
+  <rect x="320" y="75" width="310" height="210" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="475" y="96" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Модуль компаратора LM393</text>
+
+  <rect x="338" y="105" width="90" height="48" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="383" y="123" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Тример R_p</text>
+  <text x="383" y="141" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Поріг V_ref</text>
+
+  <polygon points="450,115 520,150 450,185" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="457" y="133" font-size="13" font-weight="bold" fill="#27ae60">+</text>
+  <text x="457" y="173" font-size="13" font-weight="bold" fill="#2457d6">-</text>
+  <text x="475" y="154" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">LM393</text>
+
+  <rect x="545" y="118" width="70" height="28" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="580" y="136" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">DO (0/1)</text>
+
+  <rect x="545" y="154" width="70" height="28" rx="4" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="580" y="172" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">AO (V_sen)</text>
+
+  <text x="475" y="206" font-size="12" fill="#1a1a1a" text-anchor="middle">V_sen &gt; V_ref → DO = 0 (Чорна лінія)</text>
+  <text x="475" y="226" font-size="12" fill="#1a1a1a" text-anchor="middle">V_sen &lt; V_ref → DO = 1 (Біла поверхня)</text>
+  <text x="475" y="246" font-size="12" fill="#6b7280" text-anchor="middle">Компаратор з виходом «відкритий колектор»</text>
+
+  <!-- Box C: Microcontroller -->
+  <rect x="660" y="75" width="270" height="210" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="795" y="96" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Мікроконтролер (MCU)</text>
+
+  <rect x="675" y="118" width="105" height="28" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="727.5" y="136" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">GPIO (Цифровий)</text>
+
+  <rect x="675" y="154" width="105" height="28" rx="4" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="727.5" y="172" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">АЦП (Аналоговий)</text>
+
+  <rect x="800" y="112" width="115" height="70" rx="6" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="857.5" y="131" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Обробка в МК</text>
+  <text x="857.5" y="149" font-size="12" fill="#6b7280" text-anchor="middle">DO: 0 / 1 стейт</text>
+  <text x="857.5" y="167" font-size="12" fill="#6b7280" text-anchor="middle">ADC: 0..1023</text>
+
+  <text x="795" y="206" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Цифровий масив: S_i ∈ {0, 1}</text>
+  <text x="795" y="226" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Аналоговий масив: A_i ∈ [0..1023]</text>
+  <text x="795" y="246" font-size="12" fill="#2457d6" text-anchor="middle">Вхідні дані для PID-регулятора</text>
+
+  <!-- Row 1 Signal Lines -->
+  <!-- Signal 1: Trimmer to LM393 (+) -->
+  <line x1="428" y1="129" x2="448" y2="129" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <!-- Signal 2: Phototransistor to LM393 (-) -->
+  <line x1="270" y1="169" x2="448" y2="169" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="304" y="161" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">V_sen</text>
+
+  <!-- Signal 3: LM393 Triangle Output to DO rect -->
+  <path d="M520,150 L532,150 L532,132 L543,132" fill="none" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Signal 4: Analog Tap to AO rect -->
+  <path d="M330,169 L330,188 L535,188 L535,168 L543,168" fill="none" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4 3" marker-end="url(#arr-gray)"/>
+
+  <!-- Signal 5: LM393 DO to MCU GPIO -->
+  <line x1="615" y1="132" x2="673" y2="132" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="644" y="124" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">DO</text>
+
+  <!-- Signal 6: LM393 AO to MCU ADC -->
+  <line x1="615" y1="168" x2="673" y2="168" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4 3" marker-end="url(#arr-gray)"/>
+  <text x="644" y="160" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">AO</text>
+
+
+  <!-- ROW 2: SENSOR ARRAY & WEIGHTED CALCULATION -->
+  <rect x="30" y="305" width="900" height="215" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="480" y="326" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Масив з 5 давачів (S0..S4) та алгоритм обчислення відхилення від лінії</text>
+
+  <!-- Track and Sensors Panel -->
+  <rect x="50" y="340" width="390" height="106" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  
+  <!-- Black Line on White Surface -->
+  <rect x="210" y="340" width="70" height="106" fill="#1a1a1a"/>
+  <text x="245" y="434" font-size="11" font-weight="bold" fill="#ffffff" text-anchor="middle">Чорна лінія</text>
+  <text x="85" y="356" font-size="11" fill="#6b7280" text-anchor="middle">Біла поверхня</text>
+  <text x="360" y="356" font-size="11" fill="#6b7280" text-anchor="middle">Біла поверхня</text>
+
+  <!-- Sensor 0 (S0) -->
+  <rect x="64" y="368" width="50" height="48" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="89" y="387" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">S0</text>
+  <text x="89" y="405" font-size="12" fill="#1a1a1a" text-anchor="middle">w = -2</text>
+
+  <!-- Sensor 1 (S1) -->
+  <rect x="142" y="368" width="50" height="48" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="167" y="387" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">S1</text>
+  <text x="167" y="405" font-size="12" fill="#1a1a1a" text-anchor="middle">w = -1</text>
+
+  <!-- Sensor 2 (S2) - Centered on Line -->
+  <rect x="220" y="368" width="50" height="48" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <text x="245" y="387" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">S2</text>
+  <text x="245" y="405" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">w = 0</text>
+
+  <!-- Sensor 3 (S3) -->
+  <rect x="298" y="368" width="50" height="48" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="323" y="387" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">S3</text>
+  <text x="323" y="405" font-size="12" fill="#1a1a1a" text-anchor="middle">w = +1</text>
+
+  <!-- Sensor 4 (S4) -->
+  <rect x="376" y="368" width="50" height="48" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="401" y="387" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">S4</text>
+  <text x="401" y="405" font-size="12" fill="#1a1a1a" text-anchor="middle">w = +2</text>
+
+  <!-- Digital Signals Vector Box -->
+  <rect x="50" y="454" width="390" height="52" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="65" y="471" font-size="12" font-weight="bold" fill="#1a1a1a">Зчитаний цифровий вектор [S0..S4]:</text>
+  <text x="89" y="494" font-size="13" font-weight="bold" fill="#6b7280" text-anchor="middle">0</text>
+  <text x="167" y="494" font-size="13" font-weight="bold" fill="#6b7280" text-anchor="middle">0</text>
+  <text x="245" y="494" font-size="14" font-weight="bold" fill="#27ae60" text-anchor="middle">1</text>
+  <text x="323" y="494" font-size="13" font-weight="bold" fill="#6b7280" text-anchor="middle">0</text>
+  <text x="401" y="494" font-size="13" font-weight="bold" fill="#6b7280" text-anchor="middle">0</text>
+
+  <!-- Connection Arrow to Calculation Panel -->
+  <line x1="442" y1="480" x2="458" y2="480" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Right Panel: Calculation Panel -->
+  <rect x="465" y="340" width="450" height="166" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="690" y="360" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Обчислення центру лінії (Weighted Average Position)</text>
+
+  <!-- Section 1: Digital Method -->
+  <text x="480" y="381" font-size="12" font-weight="bold" fill="#1a1a1a">1. Цифровий метод (DO):</text>
+  <rect x="480" y="387" width="420" height="40" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="690" y="403" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Pos = Σ ( w_i × S_i ) / Σ S_i</text>
+  <text x="690" y="420" font-size="11" fill="#1a1a1a" text-anchor="middle">Приклад [0,0,1,0,0]: Pos = (0·(-2)+0·(-1)+1·0+0·1+0·2) / 1 = 0</text>
+
+  <!-- Section 2: Analog Method -->
+  <text x="480" y="444" font-size="12" font-weight="bold" fill="#1a1a1a">2. Аналоговий метод (АЦП / High Resolution):</text>
+  <rect x="480" y="450" width="420" height="40" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="690" y="466" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Pos_analog = Σ ( w_i × A_i ) / Σ A_i</text>
+  <text x="690" y="483" font-size="11" fill="#1a1a1a" text-anchor="middle">Плавно обчислює дробове відхилення між сусідніми давачами</text>
+</svg>

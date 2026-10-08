@@ -1,0 +1,172 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <!-- Arrow markers -->
+    <marker id="arr-axis" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-purple" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#8e44ad"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Векторне додавання корисного сигналу та перехресного наведення (Crosstalk)</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Паразитне відбиття від захисного скла спотворює фазовий зсув φ та амплітуду виміряного ToF-сигналу</text>
+
+  <!-- Panel 1: Complex Plane -->
+  <rect x="25" y="75" width="540" height="425" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="295" y="98" font-size="14" font-weight="700" fill="#1a1a1a" text-anchor="middle">Комплексна площина IQ (In-phase / Quadrature)</text>
+
+  <!-- Grid lines inside Panel 1 -->
+  <path d="M110,130 L110,430 M110,430 L520,430" stroke="#d0d7de" stroke-width="1"/>
+  
+  <!-- Dashed grid lines -->
+  <line x1="205" y1="130" x2="205" y2="430" stroke="#e5e7eb" stroke-dasharray="3,3"/>
+  <line x1="318" y1="130" x2="318" y2="430" stroke="#e5e7eb" stroke-dasharray="3,3"/>
+  <line x1="110" y1="399" x2="520" y2="399" stroke="#e5e7eb" stroke-dasharray="3,3"/>
+  <line x1="110" y1="187" x2="520" y2="187" stroke="#e5e7eb" stroke-dasharray="3,3"/>
+
+  <!-- Projection dashed lines for measured vector -->
+  <line x1="318" y1="187" x2="318" y2="430" stroke="#8e44ad" stroke-dasharray="4,4" stroke-width="1.2"/>
+  <line x1="110" y1="187" x2="318" y2="187" stroke="#8e44ad" stroke-dasharray="4,4" stroke-width="1.2"/>
+
+  <!-- Projection dashed lines for crosstalk vector -->
+  <line x1="205" y1="399" x2="205" y2="430" stroke="#c0392b" stroke-dasharray="3,3" stroke-width="1"/>
+  <line x1="110" y1="399" x2="205" y2="399" stroke="#c0392b" stroke-dasharray="3,3" stroke-width="1"/>
+
+  <!-- Parallelogram dashed lines -->
+  <line x1="110" y1="430" x2="223" y2="218" stroke="#2457d6" stroke-linecap="round" stroke-dasharray="4,4" stroke-width="1.5"/>
+  <line x1="223" y1="218" x2="318" y2="187" stroke="#c0392b" stroke-linecap="round" stroke-dasharray="4,4" stroke-width="1.5"/>
+
+  <!-- Main Vectors -->
+  <!-- 1. Crosstalk Vector (Origin -> 205, 399) -->
+  <line x1="110" y1="430" x2="205" y2="399" stroke="#c0392b" stroke-width="3" stroke-linecap="round" marker-end="url(#arr-red)"/>
+
+  <!-- 2. Target Signal Vector tip-to-tail (205, 399 -> 318, 187) -->
+  <line x1="205" y1="399" x2="318" y2="187" stroke="#2457d6" stroke-width="3" stroke-linecap="round" marker-end="url(#arr-blue)"/>
+
+  <!-- 3. Measured Result Vector (Origin -> 318, 187) -->
+  <line x1="110" y1="430" x2="318" y2="187" stroke="#8e44ad" stroke-width="3.5" stroke-linecap="round" marker-end="url(#arr-purple)"/>
+
+  <!-- Axes lines with markers -->
+  <line x1="75" y1="430" x2="525" y2="430" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-axis)"/>
+  <line x1="110" y1="455" x2="110" y2="115" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-axis)"/>
+
+  <!-- Phase Arcs -->
+  <!-- φ_xtalk arc -->
+  <path d="M155,430 A45,45 0 0,0 152.7,416.1" fill="none" stroke="#c0392b" stroke-width="1.5"/>
+
+  <!-- φ_meas arc -->
+  <path d="M185,430 A75,75 0 0,0 158.8,373.0" fill="none" stroke="#8e44ad" stroke-width="1.5"/>
+
+  <!-- φ_target arc -->
+  <path d="M215,430 A105,105 0 0,0 159.3,337.3" fill="none" stroke="#2457d6" stroke-width="1.5"/>
+
+  <!-- Δφ error arc -->
+  <path d="M194.6,331.2 A130,130 0 0,0 171.0,315.2" fill="none" stroke="#c0392b" stroke-width="2" stroke-dasharray="3,2"/>
+
+  <!-- Axis Labels -->
+  <text x="525" y="452" font-size="12" fill="#6b7280" text-anchor="end">Re (I = A·cos φ)</text>
+  <text x="122" y="128" font-size="12" fill="#6b7280" text-anchor="start">Im (Q = A·sin φ)</text>
+  <text x="95" y="448" font-size="11" fill="#6b7280" text-anchor="end">O(0,0)</text>
+
+  <!-- Projection Ticks Labels -->
+  <text x="205" y="448" font-size="11" fill="#c0392b" text-anchor="middle">I_c</text>
+  <text x="318" y="448" font-size="11" fill="#8e44ad" text-anchor="middle">I_m</text>
+  <text x="96" y="403" font-size="11" fill="#c0392b" text-anchor="end">Q_c</text>
+  <text x="96" y="191" font-size="11" fill="#8e44ad" text-anchor="end">Q_m</text>
+
+  <!-- Vector Text Labels -->
+  <!-- C_xtalk label -->
+  <text x="215" y="415" font-size="12" font-weight="700" fill="#c0392b">C_xtalk</text>
+
+  <!-- S_target label -->
+  <text x="328" y="225" font-size="12" font-weight="700" fill="#2457d6">S_target (Корисний)</text>
+
+  <!-- V_meas label -->
+  <text x="328" y="175" font-size="13" font-weight="700" fill="#8e44ad">V_meas (Виміряний)</text>
+
+  <!-- Phase Angle Labels -->
+  <text x="156" y="426" font-size="10" fill="#c0392b">φ_c</text>
+  <text x="168" y="385" font-size="11" fill="#8e44ad">φ_m</text>
+  <text x="172" y="348" font-size="11" fill="#2457d6">φ_t</text>
+  <text x="188" y="318" font-size="11" font-weight="700" fill="#c0392b">Δφ</text>
+
+  <!-- Callout box inside Panel 1 -->
+  <rect x="330" y="355" width="220" height="125" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="342" y="376" font-size="12" font-weight="700" fill="#1a1a1a">Векторна сума в точці:</text>
+  <text x="342" y="396" font-size="12" font-weight="700" fill="#8e44ad">V_meas = S_target + C_xtalk</text>
+  <text x="342" y="420" font-size="11" fill="#c0392b">Спотворення фази: φ_m ≠ φ_t</text>
+  <text x="342" y="440" font-size="11" fill="#c0392b">Помилка дальності: Δd ∝ Δφ</text>
+  <text x="342" y="462" font-size="11" fill="#6b7280">Δd = c · (φ_m - φ_t) / (4π·f)</text>
+
+
+  <!-- Panel 2: Physical Crosstalk Mechanism -->
+  <rect x="585" y="75" width="350" height="205" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="600" y="96" font-size="13" font-weight="700" fill="#c0392b">1. Джерело оптичного Crosstalk</text>
+
+  <!-- Target object -->
+  <rect x="690" y="108" width="140" height="8" rx="2" fill="#7f8c8d"/>
+  <text x="760" y="103" font-size="10" font-weight="700" fill="#2c3e50" text-anchor="middle">Ціль (Target)</text>
+
+  <!-- Cover Glass -->
+  <rect x="615" y="145" width="290" height="10" rx="2" fill="#aed6f1" fill-opacity="0.7" stroke="#3498db" stroke-dasharray="3,2"/>
+  <text x="760" y="138" font-size="10" font-weight="700" fill="#2980b9" text-anchor="middle">Захисне скло</text>
+
+  <!-- Sensor Base Module -->
+  <rect x="615" y="195" width="290" height="35" rx="4" fill="#2c3e50"/>
+  <rect x="635" y="198" width="50" height="12" rx="2" fill="#e74c3c"/>
+  <text x="660" y="208" font-size="10" font-weight="700" fill="#ffffff" text-anchor="middle">VCSEL</text>
+
+  <rect x="835" y="198" width="50" height="12" rx="2" fill="#2980b9"/>
+  <text x="860" y="208" font-size="10" font-weight="700" fill="#ffffff" text-anchor="middle">SPAD</text>
+
+  <!-- Light rays -->
+  <!-- True Signal Ray: VCSEL(660,195) -> Target(760,116) -> SPAD(860,195) -->
+  <polyline points="660,195 760,116 860,195" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="760" y="165" font-size="11" font-weight="700" fill="#2457d6" text-anchor="middle">S_target</text>
+
+  <!-- Crosstalk Ray: VCSEL(660,195) -> Glass internal(675,150 -> 845,150) -> SPAD(860,195) -->
+  <polyline points="660,195 675,150 845,150 860,195" fill="none" stroke="#c0392b" stroke-width="2" stroke-dasharray="4,2" marker-end="url(#arr-red)"/>
+  <text x="760" y="182" font-size="11" font-weight="700" fill="#c0392b" text-anchor="middle">C_xtalk (Паразитне)</text>
+
+  <!-- Text explanation inside Panel 2 -->
+  <text x="600" y="250" font-size="11" fill="#6b7280">
+    <tspan x="600" dy="0">Паразитний промінь від скла має коротку</tspan>
+    <tspan x="600" dy="15">дистанцію та створює сталий вектор C_xtalk.</tspan>
+  </text>
+
+
+  <!-- Panel 3: Mathematical Vector Compensation -->
+  <rect x="585" y="295" width="350" height="205" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="600" y="318" font-size="13" font-weight="700" fill="#27ae60">2. Векторна компенсація в DSP</text>
+
+  <!-- Formula Card -->
+  <rect x="600" y="330" width="320" height="40" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="760" y="355" font-size="14" font-weight="700" fill="#27ae60" text-anchor="middle">S_target = V_meas - C_xtalk</text>
+
+  <!-- Step 1 -->
+  <rect x="600" y="380" width="320" height="32" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="610" y="401" font-size="11" fill="#1a1a1a">1. Калібрування: вимірювання C_xtalk без цілі</text>
+
+  <!-- Step 2 -->
+  <rect x="600" y="418" width="320" height="32" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="610" y="439" font-size="11" fill="#1a1a1a">2. Віднімання компонент: I_t = I_m - I_c,  Q_t = Q_m - Q_c</text>
+
+  <!-- Step 3 -->
+  <rect x="600" y="456" width="320" height="32" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="610" y="476" font-size="11" font-weight="700" fill="#27ae60">3. Точна фаза: φ_t = atan2(Q_t, I_t)  ⇒  d = (c·φ_t)/(4πf)</text>
+
+</svg>

@@ -1,0 +1,160 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background Canvas -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Title and Subtitle -->
+  <text x="480" y="36" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Електромагнітний зв'язок та фазова модуляція в LVDT</text>
+  <text x="480" y="58" text-anchor="middle" font-size="13" fill="#6b7280">Зсув осердя x змінює взаємоіндуктивності M₁ та M₂, що інвертує фазу на 180° при переході через x = 0</text>
+
+  <!-- LEFT PANEL: Structure & Math Model -->
+  <rect x="30" y="75" width="420" height="445" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="240" y="98" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Схема електромагнітного зв'язку LVDT</text>
+
+  <!-- Subpanel 1A: Physical Schematic -->
+  <rect x="45" y="112" width="390" height="198" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  
+  <!-- Axis of Symmetry (segmented to avoid core text) -->
+  <line x1="55" y1="195" x2="160" y2="195" stroke="#9ca3af" stroke-width="1" stroke-dasharray="4,4"/>
+  <line x1="320" y1="195" x2="425" y2="195" stroke="#9ca3af" stroke-width="1" stroke-dasharray="4,4"/>
+  <text x="55" y="130" text-anchor="start" font-size="12" fill="#6b7280">Вісь симетрії</text>
+
+  <!-- Secondary Winding 1 (S1) -->
+  <rect x="85" y="138" width="90" height="32" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="85" y="220" width="90" height="32" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="130" y="158" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Обмотка S₁</text>
+
+  <!-- Primary Winding (P) -->
+  <rect x="195" y="138" width="90" height="32" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <rect x="195" y="220" width="90" height="32" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="240" y="158" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Первинна P</text>
+
+  <!-- Secondary Winding 2 (S2) -->
+  <rect x="305" y="138" width="90" height="32" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="305" y="220" width="90" height="32" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="350" y="158" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Обмотка S₂</text>
+
+  <!-- Movable Core -->
+  <rect x="165" y="180" width="150" height="30" rx="4" fill="#2457d6" fill-opacity="0.15" stroke="#2457d6" stroke-width="2"/>
+  <text x="240" y="199" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Феромагнітне осердя</text>
+
+  <!-- Connecting Rod & Displacement Vector -->
+  <line x1="315" y1="195" x2="425" y2="195" stroke="#1a1a1a" stroke-width="2.5"/>
+  <line x1="360" y1="178" x2="410" y2="178" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="385" y="172" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Зсув x</text>
+
+  <!-- Mutual Inductances M1 and M2 Arcs -->
+  <path d="M 210 255 Q 170 282 130 255" fill="none" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arr-blue)"/>
+  <text x="170" y="295" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">M₁(x)</text>
+
+  <path d="M 270 255 Q 310 282 350 255" fill="none" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arr-blue)"/>
+  <text x="310" y="295" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">M₂(x)</text>
+
+  <!-- Subpanel 1B: Mathematical Equations -->
+  <rect x="45" y="320" width="390" height="185" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="240" y="342" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Математична модель зв'язку</text>
+
+  <text x="60" y="367" font-size="12" fill="#1a1a1a"><tspan font-weight="bold" fill="#2457d6">M₁(x) = M₀(1 - k·x)</tspan>  та  <tspan font-weight="bold" fill="#2457d6">M₂(x) = M₀(1 + k·x)</tspan></text>
+  <text x="60" y="392" font-size="12" fill="#1a1a1a">Збудження: <tspan font-weight="bold" fill="#c0392b">v_in(t) = V_m · sin(ω t)</tspan></text>
+  <text x="60" y="417" font-size="12" fill="#1a1a1a">Вторинні напруги: <tspan fill="#6b7280">v_S1 = M₁·(di_P/dt),  v_S2 = M₂·(di_P/dt)</tspan></text>
+  <text x="60" y="442" font-size="12" fill="#1a1a1a">Вихідна напруга: <tspan font-weight="bold" fill="#1a1a1a">v_out(t) = (M₁ - M₂)·(di_P/dt)</tspan></text>
+
+  <rect x="55" y="458" width="370" height="36" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="240" y="481" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">v_out(t) = -2 · k · M₀ · x · I_m · ω · cos(ω t)</text>
+
+  <!-- RIGHT PANEL: Waveforms & Characteristic -->
+  <rect x="480" y="75" width="450" height="445" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="705" y="98" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Амплітудно-фазова модуляція та характеристика</text>
+
+  <!-- Subpanel 2A: Waveforms for 3 Positions -->
+  <rect x="495" y="112" width="420" height="198" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="705" y="132" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Вихідна напруга v_out(t) при різних положеннях осердя</text>
+
+  <!-- Column Dividers -->
+  <line x1="635" y1="142" x2="635" y2="298" stroke="#e5e7eb" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="775" y1="142" x2="775" y2="298" stroke="#e5e7eb" stroke-width="1" stroke-dasharray="3,3"/>
+
+  <!-- Column 1: x < 0 -->
+  <text x="565" y="152" text-anchor="middle" font-size="12"><tspan font-weight="bold" fill="#27ae60">x &lt; 0</tspan> (x₁)</text>
+  <text x="565" y="167" text-anchor="middle" font-size="12" fill="#6b7280">M₁ &gt; M₂</text>
+  
+  <line x1="510" y1="215" x2="620" y2="215" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="510" y1="185" x2="620" y2="185" stroke="#27ae60" stroke-width="1" stroke-dasharray="3,3" opacity="0.5"/>
+  <line x1="510" y1="245" x2="620" y2="245" stroke="#27ae60" stroke-width="1" stroke-dasharray="3,3" opacity="0.5"/>
+  <path d="M 510 215 Q 523.75 185, 537.5 215 T 565 215 T 592.5 215 T 620 215" fill="none" stroke="#27ae60" stroke-width="2"/>
+  
+  <text x="565" y="267" text-anchor="middle" font-size="12" fill="#27ae60">Амплітуда V₁</text>
+  <text x="565" y="285" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Фаза φ = 0°</text>
+
+  <!-- Column 2: x = 0 -->
+  <text x="705" y="152" text-anchor="middle" font-size="12"><tspan font-weight="bold" fill="#6b7280">x = 0</tspan> (Нуль)</text>
+  <text x="705" y="167" text-anchor="middle" font-size="12" fill="#6b7280">M₁ = M₂</text>
+  
+  <line x1="650" y1="215" x2="760" y2="215" stroke="#d0d7de" stroke-width="1"/>
+  <path d="M 650 215 Q 663.75 213, 677.5 215 T 705 215 T 732.5 215 T 760 215" fill="none" stroke="#6b7280" stroke-width="1.5"/>
+  
+  <text x="705" y="267" text-anchor="middle" font-size="12" fill="#6b7280">v_out ≈ 0</text>
+  <text x="705" y="285" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">V_null (залишковий)</text>
+
+  <!-- Column 3: x > 0 -->
+  <text x="845" y="152" text-anchor="middle" font-size="12"><tspan font-weight="bold" fill="#c0392b">x &gt; 0</tspan> (x₂)</text>
+  <text x="845" y="167" text-anchor="middle" font-size="12" fill="#6b7280">M₁ &lt; M₂</text>
+  
+  <line x1="790" y1="215" x2="900" y2="215" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="790" y1="185" x2="900" y2="185" stroke="#c0392b" stroke-width="1" stroke-dasharray="3,3" opacity="0.5"/>
+  <line x1="790" y1="245" x2="900" y2="245" stroke="#c0392b" stroke-width="1" stroke-dasharray="3,3" opacity="0.5"/>
+  <path d="M 790 215 Q 803.75 245, 817.5 215 T 845 215 T 872.5 215 T 900 215" fill="none" stroke="#c0392b" stroke-width="2"/>
+  
+  <text x="845" y="267" text-anchor="middle" font-size="12" fill="#c0392b">Амплітуда V₂</text>
+  <text x="845" y="285" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Фаза φ = 180°</text>
+
+  <!-- Subpanel 2B: Amplitude & Phase Characteristic Graph -->
+  <rect x="495" y="320" width="420" height="185" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="705" y="342" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Передавальна характеристика V_out(x) та фаза φ(x)</text>
+
+  <!-- Axes -->
+  <line x1="530" y1="445" x2="880" y2="445" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="888" y="449" text-anchor="start" font-size="12" font-weight="bold" fill="#1a1a1a">x</text>
+
+  <line x1="705" y1="445" x2="705" y2="358" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="693" y="360" text-anchor="end" font-size="12" font-weight="bold" fill="#1a1a1a">V_out</text>
+
+  <!-- Ticks -->
+  <line x1="560" y1="442" x2="560" y2="448" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="560" y="464" text-anchor="middle" font-size="12" fill="#6b7280">-x_max</text>
+
+  <text x="705" y="464" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">0 (Нуль)</text>
+
+  <line x1="850" y1="442" x2="850" y2="448" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="850" y="464" text-anchor="middle" font-size="12" fill="#6b7280">+x_max</text>
+
+  <!-- V-characteristic curves -->
+  <line x1="560" y1="365" x2="705" y2="425" stroke="#27ae60" stroke-width="2.5"/>
+  <line x1="705" y1="425" x2="850" y2="365" stroke="#c0392b" stroke-width="2.5"/>
+
+  <!-- Null voltage line & dot -->
+  <line x1="665" y1="425" x2="705" y2="425" stroke="#c0392b" stroke-width="1" stroke-dasharray="2,2"/>
+  <circle cx="705" cy="425" r="3" fill="#c0392b"/>
+  <text x="660" y="430" text-anchor="end" font-size="12" font-weight="bold" fill="#c0392b">V_null</text>
+
+  <!-- Phase indicator text -->
+  <text x="620" y="360" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">φ = 0° (в фазі)</text>
+  <text x="790" y="360" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">φ = 180° (протифаза)</text>
+
+  <!-- Summary equation -->
+  <text x="705" y="492" text-anchor="middle" font-size="12" fill="#1a1a1a">Лінійна огинаюча: <tspan font-weight="bold" fill="#2457d6">V_out(x) = S · |x|</tspan> (де S — чутливість LVDT)</text>
+</svg>

@@ -1,0 +1,162 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="34" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Схема керованого двофазного живлення нагрівача MQ-7 (5 В / 1.4 В)</text>
+  <text x="480" y="56" font-size="13" fill="#6b7280" text-anchor="middle">Забезпечення селективності до CO шляхом циклічного перемикання напруги нагріву (5 В очищення / 1.4 В вимірювання)</text>
+
+  <!-- ЛІВА ПАНЕЛЬ: Електрична схема -->
+  <rect x="30" y="80" width="530" height="410" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="50" y="108" font-size="15" font-weight="700" fill="#1a1a1a">Електрична схема та зчитування аналогового сигналу</text>
+
+  <!-- Шини живлення VCC та GND -->
+  <!-- VCC (+5V) Line -->
+  <line x1="210" y1="150" x2="375" y2="150" stroke="#c0392b" stroke-width="2"/>
+  <text x="230" y="142" font-size="12" font-weight="700" fill="#c0392b">+5 В (VCC)</text>
+
+  <!-- GND Line -->
+  <line x1="50" y1="450" x2="520" y2="450" stroke="#6b7280" stroke-width="2"/>
+  <text x="230" y="468" font-size="12" font-weight="700" fill="#6b7280">GND (Земля)</text>
+
+  <!-- Блок Мікроконтролера (MCU) -->
+  <rect x="50" y="130" width="130" height="300" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="115" y="155" font-size="14" font-weight="700" fill="#2457d6" text-anchor="middle">Мікроконтролер</text>
+  <text x="115" y="173" font-size="12" fill="#6b7280" text-anchor="middle">(MCU / Arduino)</text>
+
+  <!-- MCU Pin PWM -->
+  <circle cx="180" cy="225" r="4" fill="#2457d6"/>
+  <text x="165" y="222" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="end">ШІМ (PWM)</text>
+  <text x="165" y="238" font-size="11" fill="#6b7280" text-anchor="end">керування V_H</text>
+
+  <!-- MCU Pin ADC -->
+  <circle cx="180" cy="390" r="4" fill="#2457d6"/>
+  <text x="165" y="387" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="end">АЦП (ADC)</text>
+  <text x="165" y="403" font-size="11" fill="#6b7280" text-anchor="end">вхід V_OUT</text>
+
+  <!-- Провідник від MCU GND до загальної шини GND -->
+  <line x1="115" y1="430" x2="115" y2="450" stroke="#6b7280" stroke-width="1.5"/>
+
+  <!-- Блок Перемикача / Драйвера напруги -->
+  <rect x="220" y="200" width="90" height="50" rx="4" fill="white" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="265" y="220" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Ключ Q1</text>
+  <text x="265" y="238" font-size="11" fill="#6b7280" text-anchor="middle">(PWM / Reg)</text>
+
+  <!-- Лінія живлення драйвера від VCC (+5V) -->
+  <line x1="265" y1="150" x2="265" y2="200" stroke="#c0392b" stroke-width="1.5"/>
+
+  <!-- Сигнальний провід від ШІМ до ключа Q1 -->
+  <line x1="180" y1="225" x2="220" y2="225" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="200" y="208" font-size="11" fill="#2457d6" text-anchor="middle">ШІМ</text>
+
+  <!-- Вихідна лінія V_H від ключа до нагрівача MQ-7 -->
+  <line x1="310" y1="225" x2="390" y2="225" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="350" y="196" font-size="11" font-weight="700" fill="#27ae60" text-anchor="middle">V_H (напруга)</text>
+  <text x="350" y="210" font-size="11" font-weight="700" fill="#27ae60" text-anchor="middle">5В / 1.4В</text>
+
+  <!-- Блок Сенсора MQ-7 -->
+  <rect x="390" y="130" width="150" height="300" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="465" y="155" font-size="14" font-weight="700" fill="#27ae60" text-anchor="middle">Сенсор MQ-7</text>
+  <text x="465" y="173" font-size="12" fill="#6b7280" text-anchor="middle">(Модуль / Сенсор)</text>
+
+  <!-- Елемент 1: Нагрівач -->
+  <rect x="410" y="200" width="110" height="50" rx="4" fill="white" stroke="#27ae60" stroke-width="1"/>
+  <text x="465" y="221" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Нагрівач</text>
+  <text x="465" y="238" font-size="11" fill="#6b7280" text-anchor="middle">HA  —  HB</text>
+
+  <!-- З'єднання HB до GND -->
+  <line x1="500" y1="250" x2="500" y2="450" stroke="#6b7280" stroke-width="1.5"/>
+
+  <!-- Елемент 2: Чутливий шар R_s -->
+  <rect x="410" y="275" width="110" height="60" rx="4" fill="white" stroke="#27ae60" stroke-width="1"/>
+  <text x="465" y="296" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Чутливий шар R_s</text>
+  <text x="465" y="313" font-size="11" fill="#6b7280" text-anchor="middle">SnO₂ (газовий опір)</text>
+  <text x="465" y="328" font-size="11" fill="#2457d6" text-anchor="middle">Pin A  —  Pin B</text>
+
+  <!-- З'єднання Pin A до +5V VCC -->
+  <path d="M375,150 L375,290 L410,290" stroke="#c0392b" fill="none" stroke-width="1.5"/>
+
+  <!-- З'єднання Pin B до Дільника та АЦП -->
+  <line x1="430" y1="335" x2="430" y2="390" stroke="#2457d6" stroke-width="1.5"/>
+  <circle cx="430" cy="390" r="4" fill="#2457d6"/>
+
+  <!-- Лінія сигналу V_OUT від точки з'єднання до АЦП MCU -->
+  <line x1="430" y1="390" x2="180" y2="390" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="305" y="378" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">Сигнал V_OUT на АЦП</text>
+
+  <!-- Навантажувальний резистор R_L -->
+  <rect x="415" y="405" width="30" height="25" fill="white" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="455" y="422" font-size="12" font-weight="700" fill="#1a1a1a">R_L</text>
+  <line x1="430" y1="390" x2="430" y2="405" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="430" y1="430" x2="430" y2="450" stroke="#6b7280" stroke-width="1.5"/>
+
+
+  <!-- ПРАВА ПАНЕЛЬ: Двофазний режим живлення -->
+  <rect x="580" y="80" width="350" height="410" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="600" y="108" font-size="15" font-weight="700" fill="#1a1a1a">Двофазний часовий цикл живлення</text>
+
+  <!-- Фаза 1: Очищення -->
+  <rect x="600" y="130" width="310" height="98" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="615" y="152" font-size="13" font-weight="700" fill="#c0392b">Фаза 1: Очищення / Регенерація</text>
+  <text x="615" y="172" font-size="12" font-weight="700" fill="#1a1a1a">Напруга: 5.0 В  |  Тривалість: 60 с</text>
+  <text x="615" y="192" font-size="11" fill="#6b7280">• Спалювання CO та очищення поверхні SnO₂</text>
+  <text x="615" y="210" font-size="11" fill="#c0392b" font-weight="700">⛔ Вимірювання НЕ проводиться (високий T°)</text>
+
+  <!-- Фаза 2: Вимірювання -->
+  <rect x="600" y="240" width="310" height="115" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="615" y="262" font-size="13" font-weight="700" fill="#27ae60">Фаза 2: Адсорбція та вимірювання</text>
+  <text x="615" y="282" font-size="12" font-weight="700" fill="#1a1a1a">Напруга: 1.4 В  |  Тривалість: 90 с</text>
+  <text x="615" y="302" font-size="11" fill="#6b7280">• Охолодження та адсорбція CO на SnO₂</text>
+  <text x="615" y="320" font-size="11" fill="#27ae60" font-weight="700">✓ Зчитування АЦП у кінці фази (t = 148–150 с)</text>
+  <text x="615" y="338" font-size="11" fill="#6b7280">• Обчислення ppm CO за кривою R_s / R_0</text>
+
+  <!-- Графік V_H(t) -->
+  <rect x="600" y="370" width="310" height="105" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="610" y="387" font-size="11" font-weight="700" fill="#1a1a1a">Часова діаграма напруги нагрівача V_H (t)</text>
+
+  <!-- Осі координат -->
+  <line x1="640" y1="450" x2="890" y2="450" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr)"/>
+  <line x1="640" y1="450" x2="640" y2="395" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- Позначки осі Y -->
+  <text x="632" y="408" font-size="10" font-weight="700" fill="#c0392b" text-anchor="end">5.0В</text>
+  <line x1="637" y1="405" x2="643" y2="405" stroke="#c0392b" stroke-width="1"/>
+
+  <text x="632" y="433" font-size="10" font-weight="700" fill="#27ae60" text-anchor="end">1.4В</text>
+  <line x1="637" y1="430" x2="643" y2="430" stroke="#27ae60" stroke-width="1"/>
+
+  <!-- Графік напруги (Waveform) -->
+  <!-- Фаза 1 (5V): x=640 to 710, y=405 -->
+  <line x1="640" y1="405" x2="710" y2="405" stroke="#c0392b" stroke-width="2.5"/>
+  <line x1="710" y1="405" x2="710" y2="430" stroke="#6b7280" stroke-width="1" stroke-dasharray="2,2"/>
+
+  <!-- Фаза 2 (1.4V): x=710 to 830, y=430 -->
+  <line x1="710" y1="430" x2="830" y2="430" stroke="#27ae60" stroke-width="2.5"/>
+  <line x1="830" y1="430" x2="830" y2="405" stroke="#6b7280" stroke-width="1" stroke-dasharray="2,2"/>
+
+  <!-- Наступна фаза 1 (5V): x=830 to 880, y=405 -->
+  <line x1="830" y1="405" x2="880" y2="405" stroke="#c0392b" stroke-width="2.5"/>
+
+  <!-- Маркер заміру АЦП -->
+  <circle cx="825" cy="430" r="4" fill="#2457d6" stroke="white" stroke-width="1"/>
+  <line x1="825" y1="430" x2="825" y2="450" stroke="#2457d6" stroke-width="1" stroke-dasharray="2,2"/>
+  <text x="820" y="442" font-size="10" font-weight="700" fill="#2457d6" text-anchor="end">Замір АЦП</text>
+
+  <!-- Позначки осі X (Час) -->
+  <text x="640" y="465" font-size="10" fill="#6b7280" text-anchor="middle">0 с</text>
+  <text x="710" y="465" font-size="10" fill="#6b7280" text-anchor="middle">60 с</text>
+  <text x="825" y="465" font-size="10" font-weight="700" fill="#2457d6" text-anchor="middle">150 с</text>
+
+</svg>

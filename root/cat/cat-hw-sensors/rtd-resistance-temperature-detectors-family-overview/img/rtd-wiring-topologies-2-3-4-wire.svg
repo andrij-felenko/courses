@@ -1,0 +1,169 @@
+<svg viewBox="0 0 960 560" width="960" height="560" xmlns="http://www.w3.org/2000/svg" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Схеми підключення RTD-сенсорів (2-, 3- та 4-провідні)</text>
+  <text x="480" y="52" text-anchor="middle" font-size="13" fill="#6b7280">Вплив опору ліній RL та механізми компенсації падіння напруги</text>
+
+  <!-- ================= ПАНЕЛЬ 1: 2-WIRE ================= -->
+  <rect x="20" y="70" width="293" height="470" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  
+  <!-- Плашка заголовка -->
+  <rect x="32" y="82" width="269" height="36" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="166.5" y="104" text-anchor="middle" font-size="14" font-weight="bold" fill="#c0392b">2-Провідна схема (2-Wire)</text>
+
+  <!-- Схема -->
+  <rect x="36" y="160" width="85" height="200" rx="6" fill="white" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="78.5" y="185" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Прилад / ADC</text>
+  
+  <!-- Джерело струму та вольтметр -->
+  <circle cx="78.5" cy="225" r="14" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <path d="M78.5,217 L78.5,233 M74.5,229 L78.5,235 L82.5,229" stroke="#c0392b" stroke-width="1.5" fill="none"/>
+  
+  <circle cx="78.5" cy="295" r="14" fill="white" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="78.5" y="300" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">V</text>
+
+  <!-- Сенсор RTD -->
+  <rect x="235" y="160" width="55" height="200" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="262.5" y="185" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">RTD</text>
+  <rect x="247.5" y="235" width="30" height="50" rx="2" fill="white" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="262.5" y="264" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a1a">R_RTD</text>
+
+  <!-- Провідники та опори -->
+  <path d="M121,200 L150,200 M195,200 L262.5,200 L262.5,235" stroke="#c0392b" stroke-width="2" fill="none"/>
+  <rect x="150" y="193" width="45" height="14" rx="2" fill="white" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="172.5" y="186" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">R_L1</text>
+  <path d="M130,200 L142,200" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)" fill="none"/>
+
+  <path d="M121,320 L150,320 M195,320 L262.5,320 L262.5,285" stroke="#c0392b" stroke-width="2" fill="none"/>
+  <rect x="150" y="313" width="45" height="14" rx="2" fill="white" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="172.5" y="344" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">R_L2</text>
+  <path d="M142,320 L130,320" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)" fill="none"/>
+
+  <!-- Блок пояснення -->
+  <rect x="32" y="380" width="269" height="145" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="44" y="404" font-size="13" font-weight="bold" fill="#c0392b">Виміряний опір:</text>
+  <text x="44" y="426" font-size="13" fill="#1a1a1a">R_виміряне = R_RTD + R_L1 + R_L2</text>
+  <text x="44" y="452" font-size="13" font-weight="bold" fill="#c0392b">Похибка вимірювання:</text>
+  <text x="44" y="474" font-size="13" fill="#c0392b">ΔR = R_L1 + R_L2 = 2 · R_L</text>
+  <text x="44" y="500" font-size="12" fill="#6b7280">10 Ом R_L ≈ +25 °C (для Pt100)</text>
+
+
+  <!-- ================= ПАНЕЛЬ 2: 3-WIRE ================= -->
+  <rect x="333" y="70" width="294" height="470" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Плашка заголовка -->
+  <rect x="345" y="82" width="270" height="36" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="480" y="104" text-anchor="middle" font-size="14" font-weight="bold" fill="#2457d6">3-Провідна схема (3-Wire)</text>
+
+  <!-- Схема -->
+  <rect x="349" y="160" width="85" height="200" rx="6" fill="white" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="391.5" y="182" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">AFE / ADC</text>
+
+  <circle cx="391.5" cy="210" r="13" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="391.5" y="214" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">I1</text>
+
+  <circle cx="391.5" cy="260" r="13" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="391.5" y="264" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">I2</text>
+
+  <circle cx="391.5" cy="315" r="13" fill="white" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="391.5" y="319" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a1a">ADC</text>
+
+  <!-- Сенсор RTD -->
+  <rect x="548" y="160" width="55" height="200" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="575.5" y="185" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">RTD</text>
+  <rect x="560.5" y="235" width="30" height="50" rx="2" fill="white" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="575.5" y="264" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a1a">R_RTD</text>
+
+  <!-- Провідники та опори -->
+  <path d="M434,210 L463,210 M508,210 L575.5,210 L575.5,235" stroke="#2457d6" stroke-width="2" fill="none"/>
+  <rect x="463" y="203" width="45" height="14" rx="2" fill="white" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="485.5" y="196" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">R_L1</text>
+  <path d="M440,210 L452,210" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)" fill="none"/>
+
+  <path d="M434,260 L463,260 M508,260 L540,260 L540,222 L575.5,222" stroke="#2457d6" stroke-width="2" fill="none"/>
+  <rect x="463" y="253" width="45" height="14" rx="2" fill="white" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="485.5" y="246" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">R_L2</text>
+  <path d="M440,260 L452,260" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)" fill="none"/>
+
+  <path d="M434,330 L463,330 M508,330 L575.5,330 L575.5,285" stroke="#2457d6" stroke-width="2" fill="none"/>
+  <rect x="463" y="323" width="45" height="14" rx="2" fill="white" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="485.5" y="354" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">R_L3</text>
+  <path d="M452,330 L440,330" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)" fill="none"/>
+
+  <circle cx="575.5" cy="222" r="3.5" fill="#2457d6"/>
+
+  <!-- Блок пояснення -->
+  <rect x="345" y="380" width="270" height="145" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="357" y="404" font-size="13" font-weight="bold" fill="#2457d6">Рівняння вимірювання (I1=I2):</text>
+  <text x="357" y="426" font-size="13" fill="#1a1a1a">V_виміряна = I · (R_RTD + R_L1 - R_L2)</text>
+  <text x="357" y="452" font-size="13" font-weight="bold" fill="#27ae60">Умова компенсації:</text>
+  <text x="357" y="474" font-size="13" fill="#27ae60">Якщо R_L1 = R_L2 ⟹ ΔR = 0</text>
+  <text x="357" y="500" font-size="12" fill="#6b7280">Вимагає однакового опору дротів</text>
+
+
+  <!-- ================= ПАНЕЛЬ 3: 4-WIRE ================= -->
+  <rect x="647" y="70" width="293" height="470" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Плашка заголовка -->
+  <rect x="659" y="82" width="269" height="36" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="793.5" y="104" text-anchor="middle" font-size="14" font-weight="bold" fill="#27ae60">4-Провідна схема (4-Wire)</text>
+
+  <!-- Схема -->
+  <rect x="663" y="160" width="85" height="200" rx="6" fill="white" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="705.5" y="182" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">AFE / ADC</text>
+
+  <circle cx="705.5" cy="210" r="13" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="705.5" y="214" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">I_ex</text>
+
+  <circle cx="705.5" cy="265" r="13" fill="white" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="705.5" y="269" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a1a">V_in</text>
+
+  <!-- Сенсор RTD -->
+  <rect x="860" y="160" width="55" height="200" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="887.5" y="185" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">RTD</text>
+  <rect x="872.5" y="235" width="30" height="50" rx="2" fill="white" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="887.5" y="264" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a1a">R_RTD</text>
+
+  <!-- Провідники та опори -->
+  <path d="M748,200 L777,200 M822,200 L887.5,200 L887.5,235" stroke="#27ae60" stroke-width="2" fill="none"/>
+  <rect x="777" y="193" width="45" height="14" rx="2" fill="white" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="799.5" y="186" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">R_L1 (Force+)</text>
+  <path d="M754,200 L766,200" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)" fill="none"/>
+
+  <path d="M748,240 L777,240 M822,240 L852,240 L852,222 L887.5,222" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="5,3" fill="none"/>
+  <rect x="777" y="233" width="45" height="14" rx="2" fill="white" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="799.5" y="226" text-anchor="middle" font-size="11" fill="#6b7280">R_L2 (Sense+)</text>
+
+  <path d="M748,285 L777,285 M822,285 L852,285 L852,298 L887.5,298" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="5,3" fill="none"/>
+  <rect x="777" y="278" width="45" height="14" rx="2" fill="white" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="799.5" y="307" text-anchor="middle" font-size="11" fill="#6b7280">R_L3 (Sense-)</text>
+
+  <path d="M748,330 L777,330 M822,330 L887.5,330 L887.5,285" stroke="#27ae60" stroke-width="2" fill="none"/>
+  <rect x="777" y="323" width="45" height="14" rx="2" fill="white" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="799.5" y="352" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">R_L4 (Force-)</text>
+  <path d="M766,330 L754,330" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)" fill="none"/>
+
+  <circle cx="887.5" cy="222" r="3.5" fill="#27ae60"/>
+  <circle cx="887.5" cy="298" r="3.5" fill="#27ae60"/>
+
+  <!-- Блок пояснення -->
+  <rect x="659" y="380" width="269" height="145" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="671" y="404" font-size="13" font-weight="bold" fill="#27ae60">Схема Кельвіна (Kelvin):</text>
+  <text x="671" y="426" font-size="13" fill="#1a1a1a">V_Sense = I_ex · R_RTD</text>
+  <text x="671" y="452" font-size="13" font-weight="bold" fill="#27ae60">Повна компенсація опору:</text>
+  <text x="671" y="474" font-size="13" fill="#27ae60">I_Sense ≈ 0 ⟹ ΔV_RL = 0 ⟹ ΔR = 0</text>
+  <text x="671" y="500" font-size="12" fill="#6b7280">Незалежно від довжини та опору дротів</text>
+</svg>

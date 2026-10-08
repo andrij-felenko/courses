@@ -1,0 +1,138 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-accent" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="30" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Тракт масштабування та кадрування роздільної здатності в OV2640</text>
+  <text x="480" y="52" text-anchor="middle" font-size="13" fill="#6b7280">Послідовна обробка кадру від UXGA (1600×1200) до CIF (352×288) через кадрування, субдискретизацію та DSP-скалер</text>
+
+  <!-- Register Bank Banners -->
+  <rect x="30" y="65" width="665" height="14" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="3"/>
+  <text x="362" y="75.5" text-anchor="middle" font-size="10" font-weight="bold" fill="#2457d6">СЕНСОРНИЙ БАНК РЕЄСТРІВ (BANK 1 — 0xFF = 0x01)</text>
+
+  <rect x="735" y="65" width="195" height="14" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="3"/>
+  <text x="832" y="75.5" text-anchor="middle" font-size="10" font-weight="bold" fill="#2457d6">DSP БАНК (BANK 0 — 0xFF = 0x00)</text>
+
+  <!-- Card 1: Sensor Array UXGA -->
+  <rect x="30" y="85" width="195" height="380" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="8"/>
+  <rect x="38" y="93" width="179" height="26" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="4"/>
+  <text x="127" y="110" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">1. Матриця UXGA</text>
+
+  <rect x="43" y="127" width="169" height="114" fill="white" stroke="#2457d6" stroke-width="1.5" rx="4"/>
+  <rect x="51" y="135" width="153" height="98" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" stroke-dasharray="2,2" rx="2"/>
+  <text x="127" y="168" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">1600 × 1200</text>
+  <text x="127" y="188" text-anchor="middle" font-size="11" fill="#6b7280">2 000 000 пікселів</text>
+  <text x="127" y="204" text-anchor="middle" font-size="11" fill="#6b7280">(Повний кадр 4:3)</text>
+
+  <rect x="38" y="249" width="179" height="206" fill="white" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="48" y="268" font-size="12" font-weight="bold" fill="#1a1a1a">Характеристики:</text>
+  <text x="48" y="286" font-size="11" fill="#1a1a1a">• Фізична матриця UXGA</text>
+  <text x="48" y="304" font-size="11" fill="#1a1a1a">• Формат 1600 × 1200</text>
+  <text x="48" y="322" font-size="11" fill="#1a1a1a">• Захоплення RAW RGB</text>
+  <line x1="48" y1="334" x2="207" y2="334" stroke="#d0d7de" stroke-width="1"/>
+  <text x="48" y="351" font-size="11" font-weight="bold" fill="#6b7280">Реєстри (Bank 1):</text>
+  <text x="48" y="369" font-size="11" fill="#2457d6">COM7[7] = 0 (UXGA)</text>
+  <text x="48" y="387" font-size="11" fill="#2457d6">UXGA_DBLC = 1</text>
+  <text x="48" y="405" font-size="11" fill="#6b7280">CLKRC = 0x00 (PLL)</text>
+  <text x="48" y="423" font-size="11" fill="#6b7280">COM10 = PCLK output</text>
+  <text x="48" y="441" font-size="10" fill="#6b7280">COM1 = full frame</text>
+
+  <!-- Arrow 1 -> 2 -->
+  <line x1="225" y1="184" x2="260" y2="184" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-accent)"/>
+  <text x="242.5" y="176" text-anchor="middle" font-size="10" font-weight="bold" fill="#2457d6">Crop</text>
+
+  <!-- Card 2: Windowing / Crop -->
+  <rect x="265" y="85" width="195" height="380" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="8"/>
+  <rect x="273" y="93" width="179" height="26" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="4"/>
+  <text x="362" y="110" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">2. Кадрування (Crop)</text>
+
+  <rect x="278" y="127" width="169" height="114" fill="white" stroke="#d0d7de" stroke-width="1.5" rx="4"/>
+  <rect x="286" y="133" width="153" height="102" fill="none" stroke="#9ca3af" stroke-width="1" stroke-dasharray="3,3" rx="2"/>
+  <rect x="300" y="143" width="125" height="82" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="3"/>
+  <text x="362" y="168" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Вікно кадру</text>
+  <text x="362" y="188" text-anchor="middle" font-size="11" fill="#2457d6">Виділення ROI</text>
+  <text x="362" y="204" text-anchor="middle" font-size="11" fill="#6b7280">(Обрізання країв)</text>
+
+  <rect x="273" y="249" width="179" height="206" fill="white" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="283" y="268" font-size="12" font-weight="bold" fill="#1a1a1a">Налаштування ROI:</text>
+  <text x="283" y="286" font-size="11" fill="#1a1a1a">• Вибір початку кадру</text>
+  <text x="283" y="304" font-size="11" fill="#1a1a1a">• Обрізання країв</text>
+  <text x="283" y="322" font-size="11" fill="#1a1a1a">• Формування HREF</text>
+  <line x1="283" y1="334" x2="442" y2="334" stroke="#d0d7de" stroke-width="1"/>
+  <text x="283" y="351" font-size="11" font-weight="bold" fill="#6b7280">Реєстри (Bank 1):</text>
+  <text x="283" y="369" font-size="11" fill="#2457d6">HSTART / HSTOP</text>
+  <text x="283" y="387" font-size="11" fill="#2457d6">VSTART / VSTOP</text>
+  <text x="283" y="405" font-size="11" fill="#6b7280">HREFST / HREFEND</text>
+  <text x="283" y="423" font-size="11" fill="#6b7280">VREFST / VREFEND</text>
+  <text x="283" y="441" font-size="10" fill="#6b7280">HREF pulse window</text>
+
+  <!-- Arrow 2 -> 3 -->
+  <line x1="460" y1="184" x2="495" y2="184" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="477.5" y="176" text-anchor="middle" font-size="10" font-weight="bold" fill="#27ae60">Binning</text>
+
+  <!-- Card 3: Sub-sampling / Binning -->
+  <rect x="500" y="85" width="195" height="380" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="8"/>
+  <rect x="508" y="93" width="179" height="26" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="4"/>
+  <text x="597" y="110" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">3. Sub-sampling</text>
+
+  <rect x="513" y="127" width="169" height="114" fill="white" stroke="#d0d7de" stroke-width="1.5" rx="4"/>
+  <rect x="528" y="138" width="139" height="92" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="3"/>
+  <text x="597" y="168" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">800 × 600 (SVGA)</text>
+  <text x="597" y="188" text-anchor="middle" font-size="11" fill="#27ae60">Пропуск 2:1 / Binning</text>
+  <text x="597" y="204" text-anchor="middle" font-size="11" fill="#6b7280">(Зниження шини PCLK)</text>
+
+  <rect x="508" y="249" width="179" height="206" fill="white" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="518" y="268" font-size="12" font-weight="bold" fill="#1a1a1a">Механізм Binning:</text>
+  <text x="518" y="286" font-size="11" fill="#1a1a1a">• Субдискретизація</text>
+  <text x="518" y="304" font-size="11" fill="#1a1a1a">• Збереження кута FOV</text>
+  <text x="518" y="322" font-size="11" fill="#1a1a1a">• SVGA базовий потік</text>
+  <line x1="518" y1="334" x2="677" y2="334" stroke="#d0d7de" stroke-width="1"/>
+  <text x="518" y="351" font-size="11" font-weight="bold" fill="#6b7280">Реєстри (Bank 1):</text>
+  <text x="518" y="369" font-size="11" fill="#27ae60">COM7[6] = 1 (SVGA)</text>
+  <text x="518" y="387" font-size="11" fill="#27ae60">COM3[3] = 1 (Binning)</text>
+  <text x="518" y="405" font-size="11" fill="#6b7280">REG32 = subsample</text>
+  <text x="518" y="423" font-size="11" fill="#6b7280">CLKRC = divider</text>
+  <text x="518" y="441" font-size="10" fill="#6b7280">PCLK rate reduction</text>
+
+  <!-- Arrow 3 -> 4 -->
+  <line x1="695" y1="184" x2="730" y2="184" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-accent)"/>
+  <text x="712.5" y="174" text-anchor="middle" font-size="10" font-weight="bold" fill="#2457d6">Scaler</text>
+  <text x="712.5" y="196" text-anchor="middle" font-size="10" fill="#6b7280">Bank 0</text>
+
+  <!-- Card 4: DSP Scaler & Output -->
+  <rect x="735" y="85" width="195" height="380" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="8"/>
+  <rect x="743" y="93" width="179" height="26" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="4"/>
+  <text x="832" y="110" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">4. DSP &amp; Вихід DVP</text>
+
+  <rect x="748" y="127" width="169" height="114" fill="white" stroke="#d0d7de" stroke-width="1.5" rx="4"/>
+  <rect x="756" y="134" width="153" height="100" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="3"/>
+  <rect x="772" y="148" width="121" height="72" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="3"/>
+  <text x="832" y="168" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">VGA / CIF / QVGA</text>
+  <text x="832" y="186" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">352 × 288 (CIF)</text>
+  <text x="832" y="202" text-anchor="middle" font-size="10" fill="#6b7280">DVP: YUV / RGB / JPEG</text>
+
+  <rect x="743" y="249" width="179" height="206" fill="white" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="753" y="268" font-size="12" font-weight="bold" fill="#1a1a1a">Масштабування DSP:</text>
+  <text x="753" y="286" font-size="11" fill="#1a1a1a">• DSP HW Scaler</text>
+  <text x="753" y="304" font-size="11" fill="#1a1a1a">• RGB565 / YUV / JPEG</text>
+  <text x="753" y="322" font-size="11" fill="#1a1a1a">• Вихід DVP (PCLK/HREF)</text>
+  <line x1="753" y1="334" x2="912" y2="334" stroke="#d0d7de" stroke-width="1"/>
+  <text x="753" y="351" font-size="11" font-weight="bold" fill="#6b7280">Реєстри (Bank 0):</text>
+  <text x="753" y="369" font-size="11" fill="#2457d6">ZMOW / ZMOH (scale)</text>
+  <text x="753" y="387" font-size="11" fill="#2457d6">ZMOWI / ZMOHI (win)</text>
+  <text x="753" y="405" font-size="11" fill="#6b7280">HOUTSIZE / VOUTSIZE</text>
+  <text x="753" y="423" font-size="11" fill="#6b7280">CTRL2 = DCW enable</text>
+  <text x="753" y="441" font-size="10" fill="#6b7280">IMAGE_MODE = CIF</text>
+</svg>

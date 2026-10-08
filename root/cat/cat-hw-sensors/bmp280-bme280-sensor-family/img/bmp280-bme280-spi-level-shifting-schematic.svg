@@ -1,0 +1,158 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Marker Definitions -->
+  <defs>
+    <marker id="arr-black" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-green-start" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Header -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Схема узгодження рівнів SPI для BMP280 / BME280</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">MOSFET-перетворення напруг для 4-провідного SPI та схема об'єднання сигналів для 3-провідного режиму (SDIO)</text>
+
+  <!-- PANEL A: 4-WIRE SPI -->
+  <rect x="24" y="75" width="444" height="460" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="8" ry="8"/>
+  <text x="246" y="100" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">4-провідний SPI (CSB, SCK, SDI, SDO) з MOSFET</text>
+
+  <!-- Panel A: MCU Block -->
+  <rect x="44" y="125" width="110" height="230" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <text x="99" y="145" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Мікроконтролер</text>
+  <text x="99" y="162" font-size="12" fill="#6b7280" text-anchor="middle">HV (3.3V / 5V)</text>
+
+  <!-- MCU Pins -->
+  <text x="146" y="200" font-size="12" fill="#1a1a1a" text-anchor="end">CSB</text>
+  <text x="146" y="245" font-size="12" fill="#1a1a1a" text-anchor="end">SCK</text>
+  <text x="146" y="290" font-size="12" fill="#1a1a1a" text-anchor="end">SDI (MOSI)</text>
+  <text x="146" y="335" font-size="12" fill="#1a1a1a" text-anchor="end">SDO (MISO)</text>
+
+  <!-- Panel A: Level Shifter Block -->
+  <rect x="184" y="125" width="124" height="230" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5" rx="6"/>
+  <text x="246" y="145" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Level Shifter</text>
+  <text x="246" y="162" font-size="12" fill="#6b7280" text-anchor="middle">4× N-MOSFET</text>
+
+  <!-- MOSFET Channel Indicators -->
+  <rect x="234" y="193" width="24" height="14" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="3"/>
+  <rect x="234" y="238" width="24" height="14" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="3"/>
+  <rect x="234" y="283" width="24" height="14" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="3"/>
+  <rect x="234" y="328" width="24" height="14" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="3"/>
+
+  <!-- Panel A: Sensor Block -->
+  <rect x="338" y="125" width="110" height="230" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="6"/>
+  <text x="393" y="145" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">BMP280 / BME280</text>
+  <text x="393" y="162" font-size="12" fill="#6b7280" text-anchor="middle">LV (1.8V VDDIO)</text>
+
+  <!-- Sensor Pins -->
+  <text x="346" y="200" font-size="12" fill="#1a1a1a" text-anchor="start">CSB</text>
+  <text x="346" y="245" font-size="12" fill="#1a1a1a" text-anchor="start">SCK</text>
+  <text x="346" y="290" font-size="12" fill="#1a1a1a" text-anchor="start">SDI</text>
+  <text x="346" y="335" font-size="12" fill="#1a1a1a" text-anchor="start">SDO</text>
+
+  <!-- Signal Lines in Panel A -->
+  <line x1="154" y1="200" x2="184" y2="200" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="308" y1="200" x2="337" y2="200" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <line x1="154" y1="245" x2="184" y2="245" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="308" y1="245" x2="337" y2="245" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-black)"/>
+
+  <line x1="154" y1="290" x2="184" y2="290" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="308" y1="290" x2="337" y2="290" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-black)"/>
+
+  <line x1="338" y1="335" x2="308" y2="335" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="184" y1="335" x2="155" y2="335" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <!-- Panel A Inset: Single MOSFET Channel Schematic -->
+  <rect x="44" y="380" width="404" height="140" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="246" y="396" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Канал MOSFET: двонапрямкове узгодження</text>
+
+  <text x="115" y="416" font-size="12" fill="#2457d6" text-anchor="middle">VCC (5V/3.3V)</text>
+  <text x="246" y="416" font-size="12" fill="#27ae60" text-anchor="middle">Gate → VDDIO</text>
+  <text x="375" y="416" font-size="12" fill="#27ae60" text-anchor="middle">VDDIO (1.8V)</text>
+
+  <line x1="115" y1="418" x2="115" y2="424" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="375" y1="418" x2="375" y2="424" stroke="#27ae60" stroke-width="1.5"/>
+
+  <rect x="109" y="424" width="12" height="22" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="95" y="440" font-size="12" fill="#6b7280" text-anchor="end">R1</text>
+  <line x1="115" y1="446" x2="115" y2="456" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <rect x="369" y="424" width="12" height="22" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="395" y="440" font-size="12" fill="#6b7280" text-anchor="start">R2</text>
+  <line x1="375" y1="446" x2="375" y2="456" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <line x1="246" y1="418" x2="246" y2="446" stroke="#27ae60" stroke-width="1.5"/>
+
+  <rect x="226" y="446" width="40" height="20" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="3"/>
+  <text x="246" y="460" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">NMOS</text>
+
+  <line x1="60" y1="456" x2="226" y2="456" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="266" y1="456" x2="430" y2="456" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="115" cy="456" r="3" fill="#1a1a1a"/>
+  <circle cx="375" cy="456" r="3" fill="#1a1a1a"/>
+
+  <text x="60" y="476" font-size="12" fill="#2457d6" text-anchor="start">Вхід/Вихід МК</text>
+  <text x="430" y="476" font-size="12" fill="#27ae60" text-anchor="end">Вхід/Вихід Давача</text>
+  <text x="246" y="504" font-size="12" fill="#6b7280" text-anchor="middle">Низький рівень (0V) проходить через внутрішній діод MOSFET</text>
+
+  <!-- PANEL B: 3-WIRE SPI -->
+  <rect x="492" y="75" width="444" height="460" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="8" ry="8"/>
+  <text x="714" y="100" font-size="14" font-weight="bold" fill="#27ae60" text-anchor="middle">3-провідний SPI (CSB, SCK, SDIO — напівдуплекс)</text>
+
+  <!-- Panel B: MCU Block -->
+  <rect x="512" y="125" width="110" height="230" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <text x="567" y="145" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Мікроконтролер</text>
+  <text x="567" y="162" font-size="12" fill="#6b7280" text-anchor="middle">(SPI Master)</text>
+
+  <!-- MCU Pins in Panel B -->
+  <text x="614" y="200" font-size="12" fill="#1a1a1a" text-anchor="end">CSB</text>
+  <text x="614" y="245" font-size="12" fill="#1a1a1a" text-anchor="end">SCK</text>
+  <text x="614" y="312" font-size="12" fill="#1a1a1a" text-anchor="end">SDIO (GPIO)</text>
+
+  <!-- Panel B: Sensor Block -->
+  <rect x="806" y="125" width="110" height="230" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="6"/>
+  <text x="861" y="145" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">BMP280 / BME280</text>
+  <text x="861" y="162" font-size="12" fill="#6b7280" text-anchor="middle">spi3w_en = 1</text>
+
+  <!-- Sensor Pins in Panel B -->
+  <text x="814" y="200" font-size="12" fill="#1a1a1a" text-anchor="start">CSB</text>
+  <text x="814" y="245" font-size="12" fill="#1a1a1a" text-anchor="start">SCK</text>
+  <text x="814" y="290" font-size="12" fill="#1a1a1a" text-anchor="start">SDI (SDIO)</text>
+  <text x="814" y="335" font-size="12" fill="#6b7280" text-anchor="start">SDO</text>
+
+  <!-- CSB line in Panel B -->
+  <line x1="622" y1="200" x2="805" y2="200" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="714" y="190" font-size="12" fill="#2457d6" text-anchor="middle">CSB (Вибір пристрою)</text>
+
+  <!-- SCK line in Panel B -->
+  <line x1="622" y1="245" x2="805" y2="245" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-black)"/>
+  <text x="714" y="235" font-size="12" fill="#6b7280" text-anchor="middle">SCK (Тактовий сигнал)</text>
+
+  <!-- SDIO bidirectional line in Panel B -->
+  <path d="M 622 312 L 670 312 L 710 290 L 805 290" fill="none" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)" marker-start="url(#arr-green-start)"/>
+  <text x="714" y="278" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Спільна лінія SDIO (Tx / Rx)</text>
+
+  <!-- SDO pin NC in Panel B -->
+  <line x1="806" y1="335" x2="760" y2="335" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <circle cx="760" cy="335" r="3" fill="none" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="755" y="352" font-size="12" fill="#6b7280" text-anchor="middle">SDO не викор. (Hi-Z)</text>
+
+  <!-- Panel B Inset: Comparison Card -->
+  <rect x="512" y="380" width="404" height="140" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="714" y="396" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Порівняння 4-Wire vs 3-Wire SPI</text>
+
+  <text x="526" y="424" font-size="12" fill="#1a1a1a">● 4-Wire: Повний дуплекс (SDI + SDO), до 10 МГц</text>
+  <text x="526" y="448" font-size="12" fill="#1a1a1a">● 3-Wire: Напівдуплекс (SDIO), заощаджує 1 вивід МК</text>
+  <text x="526" y="472" font-size="12" fill="#27ae60">● Вмикання 3-Wire: Запис 0x01 у регістр 0xF5 (config)</text>
+  <text x="526" y="496" font-size="12" fill="#c0392b">● Увага: Неузгодження напруг без MOSFET пошкодить 1.8V</text>
+</svg>

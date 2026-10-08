@@ -1,0 +1,74 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок та підзаголовок -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Архітектура повторно входжуваної (Reentrant) C-бібліотеки в RTOS</text>
+  <text x="480" y="60" font-size="13" fill="#6b7280" text-anchor="middle">Паралельні задачі обчислюють параметри вологості через власні стекові контексти без м'ютексів</text>
+
+  <!-- Задача 1 -->
+  <rect x="40" y="90" width="420" height="170" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="8"/>
+  <text x="55" y="112" font-size="14" font-weight="bold" fill="#1a1a1a">Задача 1: Task_HVAC (Пріоритет: High)</text>
+  <rect x="55" y="125" width="390" height="120" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <text x="70" y="145" font-size="12" font-weight="bold" fill="#2457d6">Стековий контекст Задачі 1 (RAM)</text>
+  <text x="70" y="167" font-size="12" fill="#1a1a1a">• cfg_a: magnus_params_t (вода, standard)</text>
+  <text x="70" y="187" font-size="12" fill="#1a1a1a">• T_in = 23.5 °C, RH_in = 55.0 % (float32)</text>
+  <text x="70" y="207" font-size="12" fill="#1a1a1a">• T_dew_out (локальна змінна на стеку)</text>
+  <text x="70" y="227" font-size="12" fill="#6b7280">Викликає: magnus_dew_point(&amp;cfg_a, ...)</text>
+
+  <!-- Задача 2 -->
+  <rect x="500" y="90" width="420" height="170" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="8"/>
+  <text x="515" y="112" font-size="14" font-weight="bold" fill="#1a1a1a">Задача 2: Task_Telemetry (Пріоритет: Low)</text>
+  <rect x="515" y="125" width="390" height="120" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <text x="530" y="145" font-size="12" font-weight="bold" fill="#2457d6">Стековий контекст Задачі 2 (RAM)</text>
+  <text x="530" y="167" font-size="12" fill="#1a1a1a">• cfg_b: magnus_params_t (лід, sub-zero)</text>
+  <text x="530" y="187" font-size="12" fill="#1a1a1a">• T_in = -12.4 °C, RH_in = 88.2 % (Q16.16)</text>
+  <text x="530" y="207" font-size="12" fill="#1a1a1a">• P_sat_out (локальна змінна на стеку)</text>
+  <text x="530" y="227" font-size="12" fill="#6b7280">Викликає: magnus_dew_point(&amp;cfg_b, ...)</text>
+
+  <!-- Стрілки викликів та центральний бейдж -->
+  <line x1="250" y1="260" x2="250" y2="318" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="240" y="293" font-size="12" fill="#2457d6" text-anchor="end">Контекст Задачі 1</text>
+
+  <rect x="350" y="272" width="260" height="36" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="4"/>
+  <text x="480" y="294" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Спільний Pure-код бібліотеки в Flash</text>
+
+  <line x1="710" y1="260" x2="710" y2="318" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="720" y="293" font-size="12" fill="#2457d6" text-anchor="start">Контекст Задачі 2</text>
+
+  <!-- Спільна бібліотека (Flash/ROM) -->
+  <rect x="40" y="320" width="880" height="110" fill="#e9f7ef" stroke="#27ae60" stroke-width="2" rx="8"/>
+  <text x="60" y="344" font-size="14" font-weight="bold" fill="#27ae60">Повторно входжувана (Reentrant) C-бібліотека у ROM / Flash</text>
+
+  <rect x="60" y="356" width="265" height="44" fill="white" stroke="#27ae60" rx="4"/>
+  <text x="192.5" y="373" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">magnus_dew_point()</text>
+  <text x="192.5" y="391" font-size="12" fill="#6b7280" text-anchor="middle">Обчислення точки роси T_dew</text>
+
+  <rect x="347.5" y="356" width="265" height="44" fill="white" stroke="#27ae60" rx="4"/>
+  <text x="480" y="373" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">magnus_saturation_vapor_pressure()</text>
+  <text x="480" y="391" font-size="12" fill="#6b7280" text-anchor="middle">Тиск насиченої пари P_sat</text>
+
+  <rect x="635" y="356" width="265" height="44" fill="white" stroke="#27ae60" rx="4"/>
+  <text x="767.5" y="373" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">magnus_absolute_humidity()</text>
+  <text x="767.5" y="391" font-size="12" fill="#6b7280" text-anchor="middle">Абсолютна вологість AH</text>
+
+  <text x="480" y="418" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Жодних глобальних / статичних змінних (No Static/Global State) • Повна повторна входжуваність</text>
+
+  <!-- Нижні панелі з перевагами -->
+  <rect x="40" y="445" width="420" height="70" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="6"/>
+  <text x="55" y="465" font-size="13" font-weight="bold" fill="#27ae60">✓ Стекова ізоляція даних (Stack Isolation)</text>
+  <text x="55" y="484" font-size="12" fill="#1a1a1a">• Всі проміжні значення зберігаються у стеку викликаючої задачі</text>
+  <text x="55" y="502" font-size="12" fill="#1a1a1a">• Структура коефіцієнтів передається за константним вказівником</text>
+
+  <rect x="500" y="445" width="420" height="70" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <text x="515" y="465" font-size="13" font-weight="bold" fill="#2457d6">✓ Відсутність блокувань (Zero Locking Latency)</text>
+  <text x="515" y="484" font-size="12" fill="#1a1a1a">• Не потрібні м'ютекси (Mutex), семафори чи закриття переривань</text>
+  <text x="515" y="502" font-size="12" fill="#1a1a1a">• Немає інверсії пріоритетів та затримок детермінованого відгуку</text>
+</svg>

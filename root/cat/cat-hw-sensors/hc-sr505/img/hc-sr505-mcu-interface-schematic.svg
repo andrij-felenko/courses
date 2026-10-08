@@ -1,0 +1,85 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-black" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Canvas Background -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Схема підключення PIR-давача HC-SR505 до мікроконтролера</text>
+  <text x="480" y="60" font-size="13" fill="#6b7280" text-anchor="middle">Вихід OUT видає 3,3 В цифровий сигнал при виявленні руху (пряма сумісність з МК 3,3 В та 5 В)</text>
+
+  <!-- Left Panel: HC-SR505 Module -->
+  <rect x="40" y="90" width="260" height="330" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2" rx="8"/>
+  <rect x="55" y="105" width="230" height="32" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <text x="170" y="126" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">Модуль HC-SR505</text>
+  <text x="170" y="150" font-size="12" fill="#6b7280" text-anchor="middle">Мініатюрний PIR-сенсор</text>
+
+  <!-- Lens Illustration -->
+  <circle cx="170" cy="205" r="36" fill="#ffffff" stroke="#2457d6" stroke-width="2"/>
+  <circle cx="170" cy="205" r="24" fill="none" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <circle cx="170" cy="205" r="4" fill="#2457d6"/>
+  <text x="170" y="260" font-size="12" fill="#6b7280" text-anchor="middle">Лінза Френеля</text>
+
+  <!-- Module Pins -->
+  <rect x="250" y="295" width="45" height="22" fill="#c0392b" rx="4"/>
+  <text x="272.5" y="310" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">VCC</text>
+
+  <rect x="250" y="340" width="45" height="22" fill="#27ae60" rx="4"/>
+  <text x="272.5" y="355" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">OUT</text>
+
+  <rect x="250" y="385" width="45" height="22" fill="#1a1a1a" rx="4"/>
+  <text x="272.5" y="400" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">GND</text>
+
+  <!-- Middle Panel: Interface Features Callout -->
+  <rect x="325" y="105" width="310" height="135" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="8"/>
+  <text x="480" y="127" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Ключові особливості інтерфейсу HC-SR505:</text>
+  <text x="338" y="152" font-size="12" fill="#1a1a1a" text-anchor="start">• Вихід 3.3 В — сумісний з МК 3.3V та 5V</text>
+  <text x="338" y="174" font-size="12" fill="#1a1a1a" text-anchor="start">• Затримка HIGH: фіксована (~8 секунд)</text>
+  <text x="338" y="196" font-size="12" fill="#1a1a1a" text-anchor="start">• Автоперезапуск (Re-trigger) при русі</text>
+  <text x="338" y="218" font-size="12" fill="#1a1a1a" text-anchor="start">• Струм споживання: &lt; 60 мкА (у спокої)</text>
+
+  <!-- Wiring Lines & Labels -->
+  <!-- Line 1: VCC -->
+  <line x1="665" y1="306" x2="295" y2="306" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arr-red)"/>
+  <text x="480" y="290" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Живлення: +5 V (робочий діапазон 4.5 – 20 V)</text>
+
+  <!-- Line 2: OUT Signal -->
+  <line x1="295" y1="351" x2="665" y2="351" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arr-green)"/>
+  <text x="480" y="335" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Сигнал OUT: 3.3 V HIGH (рух) / 0 V LOW (спокій)</text>
+
+  <!-- Line 3: GND -->
+  <line x1="665" y1="396" x2="295" y2="396" stroke="#1a1a1a" stroke-width="2.5"/>
+  <text x="480" y="380" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Спільний дріт заземлення: GND (0 V)</text>
+
+  <!-- Right Panel: Microcontroller -->
+  <rect x="660" y="90" width="260" height="330" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2" rx="8"/>
+  <rect x="675" y="105" width="230" height="32" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <text x="790" y="126" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">Мікроконтролер (МК)</text>
+  <text x="790" y="150" font-size="12" fill="#6b7280" text-anchor="middle">(ESP32 / STM32 / Arduino)</text>
+
+  <!-- MCU IC Graphic -->
+  <rect x="715" y="165" width="150" height="95" fill="#ffffff" stroke="#6b7280" stroke-width="1.5" rx="6"/>
+  <circle cx="730" cy="212.5" r="5" fill="#d0d7de"/>
+  <text x="795" y="205" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Плата МК</text>
+  <text x="795" y="227" font-size="12" fill="#6b7280" text-anchor="middle">GPIO Вхід (3.3V/5V)</text>
+
+  <!-- MCU Pins -->
+  <rect x="665" y="295" width="45" height="22" fill="#c0392b" rx="4"/>
+  <text x="687.5" y="310" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">5V</text>
+
+  <rect x="665" y="340" width="45" height="22" fill="#27ae60" rx="4"/>
+  <text x="687.5" y="355" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">GPIO</text>
+
+  <rect x="665" y="385" width="45" height="22" fill="#1a1a1a" rx="4"/>
+  <text x="687.5" y="400" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">GND</text>
+</svg>

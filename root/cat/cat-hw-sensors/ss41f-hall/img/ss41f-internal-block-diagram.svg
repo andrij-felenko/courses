@@ -1,0 +1,141 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 500" width="960" height="500" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="500" fill="#ffffff"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Внутрішня блок-схема цифрового давача Холла SS41F</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Перетворення аналогової напруги Холла в дискретний вихід із тригером Шмітта та відкритим колектором</text>
+
+  <!-- IC Package Container -->
+  <rect x="90" y="85" width="665" height="390" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2" rx="8"/>
+  <text x="105" y="78" font-size="13" font-weight="700" fill="#2457d6">Корпус IC SS41F (Bipolar Hall Latch)</text>
+
+  <!-- External Circuit Container -->
+  <rect x="780" y="85" width="165" height="390" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="4 4" rx="8"/>
+  <text x="862" y="78" font-size="13" font-weight="700" fill="#6b7280" text-anchor="middle">Зовнішня схема</text>
+
+  <!-- Magnet Input -->
+  <text x="177" y="112" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">Магнітне поле B</text>
+  <rect x="152" y="120" width="25" height="18" fill="#c0392b" rx="2"/>
+  <text x="164" y="133" font-size="12" font-weight="700" fill="#ffffff" text-anchor="middle">S</text>
+  <rect x="177" y="120" width="25" height="18" fill="#2457d6" rx="2"/>
+  <text x="189" y="133" font-size="12" font-weight="700" fill="#ffffff" text-anchor="middle">N</text>
+  <line x1="177" y1="139" x2="177" y2="157" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Block 1: Hall Element -->
+  <rect x="110" y="160" width="135" height="135" fill="#ffffff" stroke="#2457d6" stroke-width="2" rx="6"/>
+  <text x="177" y="182" font-size="14" font-weight="700" fill="#1a1a1a" text-anchor="middle">Елемент Холла</text>
+  <text x="177" y="198" font-size="12" fill="#6b7280" text-anchor="middle">Напівпровідник</text>
+  <text x="177" y="214" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">V_H ∝ B</text>
+  <polygon points="177,236 193,252 177,268 161,252" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+
+  <!-- Block 2: Voltage Regulator & Temp Comp -->
+  <rect x="110" y="320" width="135" height="130" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5" rx="6"/>
+  <text x="177" y="343" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">Регулятор напруги</text>
+  <text x="177" y="360" font-size="12" fill="#6b7280" text-anchor="middle">Температурна</text>
+  <text x="177" y="376" font-size="12" fill="#6b7280" text-anchor="middle">компенсація</text>
+  <text x="177" y="402" font-size="12" fill="#27ae60" text-anchor="middle">Стабільний струм</text>
+  <line x1="177" y1="320" x2="177" y2="298" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <text x="188" y="312" font-size="12" fill="#27ae60">I_bias</text>
+
+  <!-- Block 3: Differential Amplifier -->
+  <rect x="275" y="160" width="135" height="135" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5" rx="6"/>
+  <text x="342" y="182" font-size="14" font-weight="700" fill="#1a1a1a" text-anchor="middle">Диф. підсилювач</text>
+  <text x="342" y="198" font-size="12" fill="#6b7280" text-anchor="middle">Підсилення V_H</text>
+  <text x="342" y="214" font-size="12" fill="#6b7280" text-anchor="middle">зменшення шумів</text>
+  <polygon points="320,230 320,280 370,255" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="324" y1="243" x2="332" y2="243" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="328" y1="239" x2="328" y2="247" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="324" y1="267" x2="332" y2="267" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Differential Connections -->
+  <line x1="245" y1="243" x2="318" y2="243" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="245" y1="267" x2="318" y2="267" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="260" y="235" font-size="12" fill="#2457d6" text-anchor="middle">V_H</text>
+
+  <!-- Block 4: Schmitt Trigger -->
+  <rect x="475" y="160" width="135" height="135" fill="#ffffff" stroke="#2457d6" stroke-width="2" rx="6"/>
+  <text x="542" y="182" font-size="14" font-weight="700" fill="#1a1a1a" text-anchor="middle">Тригер Шмітта</text>
+  <text x="542" y="198" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">Гістерезис (Latch)</text>
+  <path d="M522,220 L557,220 L557,250 L567,250 M557,250 L527,250 L527,220 L517,220" fill="none" stroke="#2457d6" stroke-width="2"/>
+  <text x="542" y="278" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">B_OP / B_RP</text>
+
+  <!-- Amp to Schmitt Trigger Connection -->
+  <line x1="370" y1="255" x2="473" y2="255" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="442" y="238" font-size="12" fill="#6b7280" text-anchor="middle">Аналоговий</text>
+
+  <!-- Block 5: Output Stage -->
+  <rect x="650" y="160" width="95" height="135" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5" rx="6"/>
+  <text x="697" y="182" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">Вихідний каскад</text>
+  <text x="697" y="198" font-size="12" fill="#6b7280" text-anchor="middle">NPN відкритий</text>
+  <text x="697" y="212" font-size="12" fill="#6b7280" text-anchor="middle">колектор</text>
+  <line x1="695" y1="235" x2="695" y2="265" stroke="#1a1a1a" stroke-width="2.5"/>
+  <line x1="675" y1="250" x2="695" y2="250" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="695" y1="240" x2="715" y2="225" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="715" y1="225" x2="715" y2="215" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="695" y1="260" x2="715" y2="275" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <line x1="715" y1="275" x2="715" y2="290" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Schmitt to Transistor Base Connection -->
+  <line x1="610" y1="250" x2="673" y2="250" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="630" y="235" font-size="12" fill="#2457d6" text-anchor="middle">Логіка</text>
+
+  <!-- Pin 1 (VCC) -->
+  <line x1="45" y1="385" x2="110" y2="385" stroke="#27ae60" stroke-width="2"/>
+  <circle cx="45" cy="385" r="4" fill="#27ae60"/>
+  <text x="15" y="370" font-size="12" font-weight="700" fill="#27ae60">Pin 1 (VCC)</text>
+
+  <!-- Pin 2 (GND) -->
+  <line x1="177" y1="445" x2="715" y2="445" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="400" y1="445" x2="400" y2="470" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="400" cy="470" r="4" fill="#1a1a1a"/>
+  <line x1="390" y1="480" x2="410" y2="480" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="394" y1="484" x2="406" y2="484" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="398" y1="488" x2="402" y2="488" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="415" y="474" font-size="12" font-weight="700" fill="#1a1a1a">Pin 2 (GND)</text>
+
+  <!-- Pin 3 (OUTPUT) Pin line and label -->
+  <path d="M715,215 L755,215 L780,215" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="755" cy="215" r="4" fill="#1a1a1a"/>
+
+  <!-- External Circuit -->
+  <line x1="780" y1="215" x2="860" y2="215" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="860" cy="215" r="3" fill="#1a1a1a"/>
+  <text x="785" y="202" font-size="12" font-weight="700" fill="#1a1a1a">Pin 3 (OUT)</text>
+
+  <!-- External Resistor -->
+  <line x1="860" y1="215" x2="860" y2="180" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="850" y="140" width="20" height="40" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="860" y1="140" x2="860" y2="120" stroke="#27ae60" stroke-width="2"/>
+  <text x="860" y="112" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">+V_CC (+5V..+24V)</text>
+  <text x="875" y="156" font-size="12" font-weight="700" fill="#2457d6">R_pull-up</text>
+  <text x="875" y="170" font-size="12" fill="#6b7280">(1k - 10k)</text>
+
+  <!-- Signal to MCU -->
+  <line x1="860" y1="215" x2="935" y2="215" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="872" y="235" font-size="12" font-weight="700" fill="#27ae60">Вихід V_OUT</text>
+  <text x="872" y="250" font-size="12" fill="#6b7280">До МК (GPIO)</text>
+
+  <!-- Output State Table -->
+  <rect x="790" y="270" width="148" height="170" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="6"/>
+  <text x="864" y="290" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">Стан виходу SS41F</text>
+  <line x1="800" y1="298" x2="928" y2="298" stroke="#d0d7de" stroke-width="1"/>
+  <text x="804" y="315" font-size="12" font-weight="700" fill="#1a1a1a">S-полюс (B &gt; B_OP):</text>
+  <text x="804" y="332" font-size="12" fill="#6b7280">• NPN відкритий</text>
+  <text x="804" y="348" font-size="12" font-weight="700" fill="#c0392b">• V_OUT = LOW (0V)</text>
+  <text x="804" y="375" font-size="12" font-weight="700" fill="#1a1a1a">N-полюс (B &lt; B_RP):</text>
+  <text x="804" y="392" font-size="12" fill="#6b7280">• NPN закритий</text>
+  <text x="804" y="408" font-size="12" font-weight="700" fill="#27ae60">• V_OUT = HIGH (V_CC)</text>
+</svg>

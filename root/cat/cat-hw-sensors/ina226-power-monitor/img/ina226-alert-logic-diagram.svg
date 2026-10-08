@@ -1,0 +1,134 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="25" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Логіка спрацьовування апаратного виводу ALERT в INA226</text>
+  <text x="480" y="47" text-anchor="middle" font-size="13" fill="#6b7280">Порівняння виміряних величин із пороговим регістром, маскування прапорців та вихідна полярність</text>
+
+  <!-- Panel 1: Джерела вимірювань -->
+  <rect x="25" y="70" width="180" height="425" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="115" y="95" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">1. ДЖЕРЕЛА ВИМІРЮВАНЬ</text>
+
+  <rect x="37" y="115" width="156" height="68" rx="6" fill="white" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="115" y="137" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">V_SHUNT (01h)</text>
+  <text x="115" y="157" text-anchor="middle" font-size="12" fill="#6b7280">SOL / SUL (Шунт ±)</text>
+
+  <rect x="37" y="205" width="156" height="68" rx="6" fill="white" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="115" y="227" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">V_BUS (02h)</text>
+  <text x="115" y="247" text-anchor="middle" font-size="12" fill="#6b7280">BOL / BUL (Шина ±)</text>
+
+  <rect x="37" y="295" width="156" height="68" rx="6" fill="white" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="115" y="317" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">POWER (03h)</text>
+  <text x="115" y="337" text-anchor="middle" font-size="12" fill="#6b7280">POL (Потужність +)</text>
+
+  <rect x="37" y="385" width="156" height="68" rx="6" fill="white" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="115" y="407" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Готовність виміру</text>
+  <text x="115" y="427" text-anchor="middle" font-size="12" fill="#6b7280">CVRF (Conv Ready)</text>
+
+  <!-- Panel 2: Порівняння з порогом -->
+  <rect x="260" y="70" width="195" height="425" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="357.5" y="95" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">2. ПОРІВНЯННЯ З ПОРОГОМ</text>
+
+  <rect x="272" y="115" width="171" height="65" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="357.5" y="137" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Alert Limit Reg (07h)</text>
+  <text x="357.5" y="157" text-anchor="middle" font-size="12" fill="#1a1a1a">16-біт поріг порівняння</text>
+
+  <rect x="272" y="215" width="171" height="95" rx="6" fill="white" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="357.5" y="238" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Цифровий компаратор</text>
+  <text x="357.5" y="258" text-anchor="middle" font-size="12" fill="#6b7280">Порівняння значень:</text>
+  <text x="357.5" y="280" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Джерело &gt; / &lt; Limit</text>
+
+  <rect x="272" y="340" width="171" height="135" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="357.5" y="362" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Mask/Enable Reg (06h)</text>
+  <text x="357.5" y="385" text-anchor="middle" font-size="12" fill="#1a1a1a">Маска подій:</text>
+  <text x="357.5" y="405" text-anchor="middle" font-size="12" fill="#1a1a1a">SOL, SUL, BOL, BUL, POL</text>
+  <text x="357.5" y="425" text-anchor="middle" font-size="12" fill="#6b7280">CVRF, LATCH, APOL</text>
+  <text x="357.5" y="445" text-anchor="middle" font-size="12" fill="#6b7280">Управління тривогами</text>
+
+  <!-- Panel 2 Internal Connections -->
+  <path d="M357.5,180 L357.5,215" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="367" y="201" font-size="11" fill="#2457d6">Limit</text>
+
+  <path d="M357.5,340 L357.5,310" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+  <text x="367" y="329" font-size="11" fill="#6b7280">Маска</text>
+
+  <!-- Panel 3: Обробка прапорця -->
+  <rect x="520" y="70" width="190" height="425" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="615" y="95" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">3. ОБРОБКА ПРАПОРЦЯ</text>
+
+  <rect x="532" y="145" width="166" height="95" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="615" y="170" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Прапорець AFF (Reg 06h)</text>
+  <text x="615" y="192" text-anchor="middle" font-size="12" fill="#1a1a1a">Установлюється в 1</text>
+  <text x="615" y="212" text-anchor="middle" font-size="12" fill="#6b7280">при виконанні умови</text>
+
+  <rect x="532" y="280" width="166" height="155" rx="6" fill="white" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="615" y="303" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Режим LATCH (Бит 0)</text>
+  <text x="615" y="330" text-anchor="middle" font-size="12" fill="#27ae60">LATCH = 0 (Прозорий):</text>
+  <text x="615" y="350" text-anchor="middle" font-size="12" fill="#1a1a1a">Автоскидання у нормі</text>
+  <text x="615" y="380" text-anchor="middle" font-size="12" fill="#c0392b">LATCH = 1 (Засувка):</text>
+  <text x="615" y="400" text-anchor="middle" font-size="12" fill="#1a1a1a">Тримає до читання 06h</text>
+
+  <!-- Panel 3 Internal Connections -->
+  <path d="M615,240 L615,280" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <text x="625" y="264" font-size="11" fill="#6b7280">Стан</text>
+
+  <!-- Panel 4: Вихідний сигнал -->
+  <rect x="765" y="70" width="170" height="425" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="850" y="95" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">4. ВИХІДНИЙ СИГНАЛ</text>
+
+  <rect x="775" y="145" width="150" height="105" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="850" y="168" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Полярність APOL</text>
+  <text x="850" y="190" text-anchor="middle" font-size="12" fill="#1a1a1a">APOL=0: Active Low</text>
+  <text x="850" y="210" text-anchor="middle" font-size="12" fill="#1a1a1a">APOL=1: Active High</text>
+  <text x="850" y="230" text-anchor="middle" font-size="12" fill="#6b7280">(Open-Drain / Push)</text>
+
+  <rect x="775" y="280" width="150" height="155" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="850" y="306" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Вивід ALERT</text>
+  <text x="850" y="330" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Апаратна ніжка</text>
+  <text x="850" y="356" text-anchor="middle" font-size="12" fill="#1a1a1a">Підключення до</text>
+  <text x="850" y="376" text-anchor="middle" font-size="12" fill="#1a1a1a">переривання MCU</text>
+  <text x="850" y="405" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Сигнал INT</text>
+
+  <!-- Panel 4 Internal Connections -->
+  <path d="M850,250 L850,280" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <text x="860" y="269" font-size="11" fill="#27ae60">Рівень</text>
+
+  <!-- Inter-Panel Connections -->
+  <!-- 1 -> 2: Data sources bus -->
+  <path d="M193,149 L225,149 L225,329 L193,329" fill="none" stroke="#2457d6" stroke-width="1.5"/>
+  <path d="M193,239 L225,239" fill="none" stroke="#2457d6" stroke-width="1.5"/>
+  <path d="M225,262 L272,262" fill="none" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="232" y="254" text-anchor="middle" font-size="11" fill="#2457d6">Дані</text>
+
+  <!-- 1 -> 2: CVRF to Reg 06h -->
+  <path d="M193,419 L272,419" fill="none" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+  <text x="232" y="411" text-anchor="middle" font-size="11" fill="#6b7280">CVRF</text>
+
+  <!-- 2 -> 3: Comparator to AFF Flag -->
+  <path d="M443,262 L487,262 L487,192 L532,192" fill="none" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <text x="465" y="254" font-size="11" font-weight="bold" fill="#c0392b">Подія</text>
+
+  <!-- 2 -> 3: LATCH bit to Latch Unit -->
+  <path d="M443,445 L487,445 L487,350 L532,350" fill="none" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+  <text x="465" y="437" font-size="11" fill="#6b7280">LATCH</text>
+
+  <!-- 3 -> 4: Latch Unit to APOL Polarity -->
+  <path d="M698,350 L737,350 L737,197 L775,197" fill="none" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <text x="720" y="342" font-size="11" fill="#27ae60">Умова</text>
+</svg>

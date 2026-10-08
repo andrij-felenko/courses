@@ -1,0 +1,138 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-accent" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Компенсація паразитної ємності внутрішнім CapDAC</text>
+  <text x="480" y="54" text-anchor="middle" font-size="13" fill="#6b7280">CapDAC віднімає постійне зміщення (C_p + C_0), зсуваючи корисний сигнал ΔC у центр діапазону АЦП</text>
+
+  <!-- Left Panel: Circuit Diagram -->
+  <rect x="40" y="75" width="435" height="445" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="257" y="100" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Структура вхідного каскаду CDC</text>
+
+  <!-- Block 1: MEMS Capacitance -->
+  <rect x="55" y="125" width="150" height="65" rx="6" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="130" y="150" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">MEMS-структура</text>
+  <text x="130" y="170" text-anchor="middle" font-size="12" fill="#2457d6">C_mems = C_0 + ΔC</text>
+
+  <!-- Block 2: Parasitic Capacitance -->
+  <rect x="55" y="210" width="150" height="65" rx="6" fill="#fdecea" stroke="#c0392b"/>
+  <text x="130" y="235" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Паразитна ємність</text>
+  <text x="130" y="255" text-anchor="middle" font-size="12" fill="#c0392b">C_p (плата, виводи)</text>
+
+  <!-- Block 3: Offset CapDAC -->
+  <rect x="55" y="295" width="150" height="65" rx="6" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="130" y="320" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Компенсаційний ЦАП</text>
+  <text x="130" y="340" text-anchor="middle" font-size="12" fill="#27ae60">CapDAC (C_dac)</text>
+
+  <!-- Summary Card (Left Panel Bottom) -->
+  <rect x="55" y="380" width="150" height="52" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="130" y="400" text-anchor="middle" font-size="11" fill="#1a1a1a">Умова компенсації:</text>
+  <text x="130" y="418" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">C_dac = C_0 + C_p</text>
+
+  <!-- Charge Amplifier Block -->
+  <rect x="270" y="170" width="180" height="130" rx="8" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="360" y="198" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Зарядовий підсилювач</text>
+  <text x="360" y="218" text-anchor="middle" font-size="11" fill="#6b7280">(Інтегратор ємності)</text>
+  <text x="360" y="250" text-anchor="middle" font-size="11" fill="#6b7280">Результуючий заряд:</text>
+  <text x="360" y="270" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Q_in = ΔC · V_exc</text>
+
+  <!-- ADC Block -->
+  <rect x="270" y="330" width="180" height="70" rx="6" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="360" y="357" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">24-біт Sigma-Delta АЦП</text>
+  <text x="360" y="377" text-anchor="middle" font-size="11" fill="#6b7280">Вихідний код CDC (DRDY)</text>
+
+  <!-- Signal Arrows in Left Panel -->
+  <path d="M205,157.5 L235,157.5 L235,200 L268,200" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-accent)"/>
+  <text x="220" y="150" text-anchor="middle" font-size="11" fill="#2457d6">+Q_mems</text>
+
+  <path d="M205,242.5 L268,242.5" fill="none" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="235" y="235" text-anchor="middle" font-size="11" fill="#c0392b">+Q_p</text>
+
+  <path d="M205,327.5 L235,327.5 L235,270 L268,270" fill="none" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="220" y="342" text-anchor="middle" font-size="11" fill="#27ae60">-Q_dac</text>
+
+  <path d="M360,300 L360,328" fill="none" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+
+  <!-- Right Panel: ADC Dynamic Range Comparison -->
+  <rect x="495" y="75" width="425" height="445" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="707" y="100" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Вплив CapDAC на динамічний діапазон АЦП</text>
+
+  <!-- Sub-column 1: Without CapDAC -->
+  <text x="595" y="132" text-anchor="middle" font-size="13" font-weight="bold" fill="#c0392b">1. Без компенсації</text>
+  <text x="595" y="149" text-anchor="middle" font-size="11" fill="#6b7280">(Велике постійне зміщення)</text>
+
+  <!-- ADC Bar 1 Frame -->
+  <rect x="545" y="165" width="100" height="250" rx="4" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="545" y1="290" x2="645" y2="290" stroke="#d0d7de" stroke-dasharray="3 3"/>
+
+  <!-- Axis labels left -->
+  <text x="538" y="172" text-anchor="end" font-size="10" font-weight="bold" fill="#1a1a1a">100% FS</text>
+  <text x="538" y="293" text-anchor="end" font-size="10" fill="#6b7280">50%</text>
+  <text x="538" y="413" text-anchor="end" font-size="10" font-weight="bold" fill="#1a1a1a">0</text>
+
+  <!-- Regions inside Bar 1 -->
+  <!-- Offset region C_p + C_0 -->
+  <rect x="547" y="227" width="96" height="186" fill="#fdecea" stroke="#c0392b" stroke-dasharray="3 3"/>
+  <text x="595" y="315" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">C_p + C_0</text>
+  <text x="595" y="333" text-anchor="middle" font-size="11" fill="#c0392b">(75% шкали)</text>
+
+  <!-- Delta C region (un-amplified) -->
+  <rect x="547" y="182" width="96" height="45" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="595" y="209" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">ΔC (вузький)</text>
+
+  <!-- Saturation warning marker -->
+  <text x="595" y="178" text-anchor="middle" font-size="10" fill="#c0392b">⚠️ Поріг насичення</text>
+
+  <!-- Card below Bar 1 -->
+  <rect x="520" y="430" width="150" height="70" rx="6" fill="#fdecea" stroke="#c0392b"/>
+  <text x="595" y="450" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">Обмежена точність</text>
+  <text x="595" y="468" text-anchor="middle" font-size="11" fill="#6b7280">• Мале підсилення PGA</text>
+  <text x="595" y="486" text-anchor="middle" font-size="11" fill="#6b7280">• Низька роздільність</text>
+
+  <!-- Transition Arrow between Bar 1 and Bar 2 -->
+  <path d="M652,290 L728,290" fill="none" stroke="#27ae60" stroke-width="2" stroke-dasharray="4 3" marker-end="url(#arr-green)"/>
+  <rect x="658" y="266" width="64" height="20" rx="3" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="690" y="280" text-anchor="middle" font-size="10" font-weight="bold" fill="#27ae60">+ CapDAC</text>
+
+  <!-- Sub-column 2: With CapDAC -->
+  <text x="790" y="132" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">2. З компенсацією CapDAC</text>
+  <text x="790" y="149" text-anchor="middle" font-size="11" fill="#6b7280">(Повне центрування та PGA)</text>
+
+  <!-- ADC Bar 2 Frame -->
+  <rect x="740" y="165" width="100" height="250" rx="4" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="740" y1="290" x2="840" y2="290" stroke="#27ae60" stroke-dasharray="3 3"/>
+
+  <!-- Axis labels right -->
+  <text x="847" y="172" text-anchor="start" font-size="10" font-weight="bold" fill="#1a1a1a">FS</text>
+  <text x="847" y="293" text-anchor="start" font-size="10" fill="#27ae60">CapDAC zero</text>
+  <text x="847" y="413" text-anchor="start" font-size="10" font-weight="bold" fill="#1a1a1a">0</text>
+
+  <!-- Regions inside Bar 2 -->
+  <!-- Delta C region (amplified with full PGA scale) -->
+  <rect x="742" y="200" width="96" height="180" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="790" y="275" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">ΔC × PGA Gain</text>
+  <text x="790" y="295" text-anchor="middle" font-size="11" fill="#2457d6">Повний діапазон АЦП</text>
+  <text x="790" y="313" text-anchor="middle" font-size="11" fill="#6b7280">(Максимальний SNR)</text>
+
+  <!-- Card below Bar 2 -->
+  <rect x="715" y="430" width="150" height="70" rx="6" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="790" y="450" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">Максимальна точність</text>
+  <text x="790" y="468" text-anchor="middle" font-size="11" fill="#6b7280">• Повна шкала для ΔC</text>
+  <text x="790" y="486" text-anchor="middle" font-size="11" fill="#6b7280">• Висока чутливість</text>
+</svg>

@@ -1,0 +1,128 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-black" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Background Canvas -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Ультразвукове вимірювання рівня та DSP-фільтрація відбиттів</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Цифрова фільтрація відсікає хибні ехо-сигнали від стінок та хвилювання для точного розрахунку t_TOF</text>
+
+  <!-- PANEL 1: PHYSICAL MODEL -->
+  <rect x="24" y="70" width="410" height="425" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="8"/>
+  <text x="229" y="94" font-size="14" font-weight="700" fill="#1a1a1a" text-anchor="middle">1. Хід акустичних сигналів у резервуарі</text>
+
+  <!-- Tank Geometry -->
+  <path d="M 70,360 Q 85,352 100,360 T 130,360 T 160,360 T 190,360 T 220,360 T 250,360 T 280,360 T 310,360 T 340,360 T 370,360 L 388,360 L 388,460 L 70,460 Z" fill="#eaf0fd"/>
+  <path d="M 70,360 Q 85,352 100,360 T 130,360 T 160,360 T 190,360 T 220,360 T 250,360 T 280,360 T 310,360 T 340,360 T 370,360 L 388,360" fill="none" stroke="#2457d6" stroke-width="2"/>
+  <line x1="70" y1="140" x2="70" y2="460" stroke="#6b7280" stroke-width="3"/>
+  <line x1="388" y1="140" x2="388" y2="460" stroke="#6b7280" stroke-width="3"/>
+  <line x1="70" y1="460" x2="388" y2="460" stroke="#6b7280" stroke-width="3"/>
+
+  <!-- Obstacle on Left Wall -->
+  <rect x="70" y="215" width="20" height="15" fill="#c0392b" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="78" y="252" font-size="12" fill="#c0392b" text-anchor="start">Завада від стінки s_0</text>
+
+  <!-- Sensor Unit at Top -->
+  <rect x="194" y="120" width="70" height="30" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5" rx="4"/>
+  <rect x="204" y="150" width="50" height="6" fill="#2457d6"/>
+  <text x="229" y="112" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">УЗ-давач (Tx/Rx)</text>
+
+  <!-- Acoustic Rays -->
+  <!-- Parasitic Ray s_0 to Obstacle -->
+  <line x1="204" y1="156" x2="85" y2="222" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,3"/>
+
+  <!-- Direct Pulse Ray (Down) -->
+  <line x1="220" y1="156" x2="220" y2="355" stroke="#2457d6" stroke-width="2" stroke-dasharray="6,4" marker-end="url(#arr-blue)"/>
+  <text x="210" y="240" font-size="12" fill="#2457d6" text-anchor="end">Прямий імпульс</text>
+
+  <!-- True Echo Ray s_1 (Up) -->
+  <line x1="238" y1="355" x2="238" y2="156" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="248" y="240" font-size="12" fill="#27ae60" text-anchor="start">Корисне ехо s_1</text>
+
+  <!-- Parasitic Ray s_2 to Wave Crest -->
+  <line x1="254" y1="156" x2="320" y2="360" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <text x="315" y="280" font-size="12" fill="#c0392b" text-anchor="start">Хвильова завада s_2</text>
+
+  <!-- Distance & Level Dimensions -->
+  <line x1="365" y1="156" x2="365" y2="355" stroke="#6b7280" stroke-width="1.5" marker-start="url(#arr-gray)" marker-end="url(#arr-gray)"/>
+  <text x="358" y="200" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">Дистанція d</text>
+
+  <line x1="115" y1="360" x2="115" y2="460" stroke="#2457d6" stroke-width="1.5" marker-start="url(#arr-blue)" marker-end="url(#arr-blue)"/>
+  <text x="122" y="415" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="start">H (рівень)</text>
+
+  <text x="229" y="445" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Рідина (хвилююча поверхня)</text>
+
+  <!-- PANEL 2: DSP ANALYSIS -->
+  <rect x="454" y="70" width="482" height="425" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="8"/>
+  <text x="695" y="94" font-size="14" font-weight="700" fill="#1a1a1a" text-anchor="middle">2. Амплітудно-часовий аналіз та селекція сигналу</text>
+
+  <!-- GRAPH A: RAW SIGNAL -->
+  <rect x="470" y="112" width="450" height="168" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="4"/>
+  <text x="482" y="130" font-size="12" font-weight="700" fill="#1a1a1a">а) Первинний сигнал U(t) з хибними піками</text>
+
+  <line x1="505" y1="245" x2="890" y2="245" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+  <text x="898" y="249" font-size="12" fill="#6b7280" text-anchor="start">t</text>
+  <line x1="505" y1="245" x2="505" y2="142" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+  <text x="500" y="138" font-size="12" fill="#6b7280" text-anchor="end">U</text>
+
+  <!-- Fixed Threshold line -->
+  <line x1="505" y1="190" x2="880" y2="190" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <text x="875" y="182" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="end">U_th</text>
+
+  <!-- Raw Signal Path -->
+  <path d="M 505,245 L 508,245 L 511,155 L 515,265 L 519,165 L 523,255 L 527,245 L 565,245 L 571,245 L 576,175 L 581,255 L 586,245 L 685,245 L 692,205 L 699,165 L 706,235 L 713,172 L 720,240 L 727,180 L 734,245 L 785,245 L 792,245 L 798,182 L 804,250 L 810,245 L 880,245" fill="none" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Graph A Labels -->
+  <text x="517" y="270" font-size="12" fill="#6b7280" text-anchor="middle">Tx-імпульс</text>
+  <text x="576" y="152" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Хибний пік s_0</text>
+  <text x="713" y="152" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Корисна луна s_1</text>
+  <text x="810" y="165" font-size="12" fill="#c0392b" text-anchor="middle">Завада s_2</text>
+
+  <!-- GRAPH B: DSP FILTERED SIGNAL -->
+  <rect x="470" y="295" width="450" height="185" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="4"/>
+  <text x="482" y="313" font-size="12" font-weight="700" fill="#27ae60">б) Очищений сигнал, вікно селекції T_win та t_TOF</text>
+
+  <line x1="505" y1="428" x2="890" y2="428" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+  <text x="898" y="432" font-size="12" fill="#6b7280" text-anchor="start">t</text>
+  <line x1="505" y1="428" x2="505" y2="325" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+  <text x="500" y="323" font-size="12" fill="#6b7280" text-anchor="end">U</text>
+
+  <!-- Selection Window T_win -->
+  <rect x="665" y="332" width="90" height="96" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="3,3" rx="4"/>
+  <text x="710" y="327" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Вікно T_win</text>
+
+  <!-- TVG Dynamic Threshold Curve -->
+  <path d="M 505,340 L 595,340 Q 640,340 665,385 L 755,385 Q 780,340 880,340" fill="none" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="5,3"/>
+  <text x="875" y="356" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="end">U_th(t)</text>
+
+  <!-- Suppressed signals outside window -->
+  <line x1="505" y1="428" x2="665" y2="428" stroke="#d0d7de" stroke-width="2"/>
+  <line x1="755" y1="428" x2="880" y2="428" stroke="#d0d7de" stroke-width="2"/>
+
+  <!-- Centroid Envelope Peak inside T_win -->
+  <path d="M 665,428 C 685,428 695,350 710,350 C 725,350 735,428 755,428 Z" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <circle cx="710" cy="350" r="4" fill="#2457d6"/>
+
+  <!-- Time of Flight Measurement -->
+  <line x1="710" y1="350" x2="710" y2="452" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <line x1="505" y1="452" x2="710" y2="452" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <line x1="505" y1="447" x2="505" y2="457" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="607" y="468" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">t_TOF (точний час прольоту)</text>
+</svg>

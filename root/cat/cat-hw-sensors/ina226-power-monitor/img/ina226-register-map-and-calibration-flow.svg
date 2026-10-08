@@ -1,0 +1,170 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-accent" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Canvas Background -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Карта регістрів та математичний потік калібрування INA226</text>
+  <text x="480" y="52" text-anchor="middle" font-size="13" fill="#6b7280">Взаємозв'язок 16-бітних регістрів, АЦП та внутрішнього математичного блоку</text>
+
+  <!-- SECTION 0: Configuration Register 00h -->
+  <rect x="30" y="68" width="900" height="124" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="45" y="87" font-size="13" font-weight="bold" fill="#1a1a1a">Регістр конфігурації Configuration (00h, 16-біт, R/W) — Налаштування АЦП</text>
+
+  <!-- Bit 15: RST -->
+  <rect x="45" y="97" width="52" height="40" rx="4" fill="#fdecea" stroke="#c0392b"/>
+  <text x="71" y="114" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">RST</text>
+  <text x="71" y="129" text-anchor="middle" font-size="11" fill="#6b7280">Bit 15</text>
+  <text x="71" y="152" text-anchor="middle" font-size="11" fill="#6b7280">Скидання</text>
+  <text x="71" y="167" text-anchor="middle" font-size="11" fill="#6b7280">(RST=1)</text>
+
+  <!-- Bits 14-12: Reserved -->
+  <rect x="107" y="97" width="98" height="40" rx="4" fill="#e5e7eb" stroke="#d0d7de"/>
+  <text x="156" y="114" text-anchor="middle" font-size="12" font-weight="bold" fill="#6b7280">—</text>
+  <text x="156" y="129" text-anchor="middle" font-size="11" fill="#6b7280">Bits 14-12</text>
+  <text x="156" y="152" text-anchor="middle" font-size="11" fill="#6b7280">Зарезервовано</text>
+  <text x="156" y="167" text-anchor="middle" font-size="11" fill="#6b7280">(завжди 0)</text>
+
+  <!-- Bits 11-9: AVG -->
+  <rect x="215" y="97" width="168" height="40" rx="4" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="299" y="114" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">AVG [2:0]</text>
+  <text x="299" y="129" text-anchor="middle" font-size="11" fill="#6b7280">Bits 11-9</text>
+  <text x="299" y="152" text-anchor="middle" font-size="11" fill="#1a1a1a">Усереднення: 1...1024</text>
+  <text x="299" y="167" text-anchor="middle" font-size="11" fill="#6b7280">(1, 4, 16 ... 1024)</text>
+
+  <!-- Bits 8-6: VBUSCT -->
+  <rect x="393" y="97" width="168" height="40" rx="4" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="477" y="114" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">VBUSCT [2:0]</text>
+  <text x="477" y="129" text-anchor="middle" font-size="11" fill="#6b7280">Bits 8-6</text>
+  <text x="477" y="152" text-anchor="middle" font-size="11" fill="#1a1a1a">Час VBUS: 140 мкс...8.24 мс</text>
+  <text x="477" y="167" text-anchor="middle" font-size="11" fill="#6b7280">(за замовчуванням 1.1 мс)</text>
+
+  <!-- Bits 5-3: VSHCT -->
+  <rect x="571" y="97" width="168" height="40" rx="4" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="655" y="114" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">VSHCT [2:0]</text>
+  <text x="655" y="129" text-anchor="middle" font-size="11" fill="#6b7280">Bits 5-3</text>
+  <text x="655" y="152" text-anchor="middle" font-size="11" fill="#1a1a1a">Час VSH: 140 мкс...8.24 мс</text>
+  <text x="655" y="167" text-anchor="middle" font-size="11" fill="#6b7280">(за замовчуванням 1.1 мс)</text>
+
+  <!-- Bits 2-0: MODE -->
+  <rect x="749" y="97" width="166" height="40" rx="4" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="832" y="114" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">MODE [2:0]</text>
+  <text x="832" y="129" text-anchor="middle" font-size="11" fill="#6b7280">Bits 2-0</text>
+  <text x="832" y="152" text-anchor="middle" font-size="11" fill="#1a1a1a">Режим вимірювання</text>
+  <text x="832" y="167" text-anchor="middle" font-size="11" fill="#6b7280">(Cont / Trig / Shutdown)</text>
+
+  <!-- LOWER PANELS SECTION -->
+
+  <!-- Panel 1: Primary ADC Data (Left) -->
+  <rect x="30" y="208" width="270" height="338" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="45" y="228" font-size="13" font-weight="bold" fill="#1a1a1a">1. Виміряні дані АЦП</text>
+
+  <!-- Shunt Voltage Reg 01h -->
+  <rect x="45" y="240" width="240" height="125" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="57" y="260" font-size="13" font-weight="bold" fill="#2457d6">Shunt Voltage (01h)</text>
+  <text x="57" y="278" font-size="11" fill="#1a1a1a">16-біт знакова величина (R/O)</text>
+  <text x="57" y="296" font-size="11" fill="#6b7280">Диференційна напруга IN+ / IN-</text>
+  <text x="57" y="314" font-size="11" font-weight="bold" fill="#2457d6">LSB = 2.5 мкВ</text>
+  <text x="57" y="332" font-size="11" fill="#6b7280">Діапазон: ±81.92 мВ</text>
+  <text x="57" y="350" font-size="11" fill="#27ae60">→ Вхід для обчислення Current</text>
+
+  <!-- Bus Voltage Reg 02h -->
+  <rect x="45" y="377" width="240" height="155" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="57" y="397" font-size="13" font-weight="bold" fill="#2457d6">Bus Voltage (02h)</text>
+  <text x="57" y="415" font-size="11" fill="#1a1a1a">16-біт беззнакова величина (R/O)</text>
+  <text x="57" y="433" font-size="11" fill="#6b7280">Напруга шини VBUS відносно GND</text>
+  <text x="57" y="451" font-size="11" font-weight="bold" fill="#2457d6">LSB = 1.25 мВ</text>
+  <text x="57" y="469" font-size="11" fill="#6b7280">Діапазон: 0 В...36 В</text>
+  <text x="57" y="487" font-size="11" fill="#27ae60">→ Вхід для обчислення Power</text>
+  <text x="57" y="505" font-size="11" fill="#6b7280">Bits 15-0: пряме значення VBUS</text>
+  <text x="57" y="523" font-size="11" fill="#6b7280">(без множення на калібрування)</text>
+
+  <!-- Panel 2: Math Engine & Calibration (Center) -->
+  <rect x="315" y="208" width="330" height="338" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="330" y="228" font-size="13" font-weight="bold" fill="#1a1a1a">2. Математика та Калібрування</text>
+
+  <!-- Calibration Reg 05h -->
+  <rect x="330" y="240" width="300" height="115" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="342" y="260" font-size="13" font-weight="bold" fill="#27ae60">Calibration Register (05h)</text>
+  <text x="342" y="278" font-size="11" fill="#1a1a1a">16-біт беззнаковий коефіцієнт (R/W)</text>
+  <text x="342" y="298" font-size="11" font-weight="bold" fill="#1a1a1a">CAL = trunc( 0.00512 / (Current_LSB × R_sh) )</text>
+  <text x="342" y="316" font-size="11" fill="#6b7280">Програмується MCU через шину I2C</text>
+  <text x="342" y="334" font-size="11" fill="#27ae60">Визначає масштаб струму Current_LSB</text>
+
+  <!-- Internal ALU Engine -->
+  <rect x="330" y="367" width="300" height="165" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="2"/>
+  <text x="480" y="387" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Внутрішній ALU (Математичний блок)</text>
+
+  <!-- ALU Formula 1: Current -->
+  <rect x="340" y="397" width="280" height="58" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="480" y="416" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a1a">Current = (ShuntVoltage × CAL) / 2048</text>
+  <text x="480" y="434" text-anchor="middle" font-size="11" fill="#6b7280">Запис результату в регістр 04h</text>
+  <text x="480" y="449" text-anchor="middle" font-size="11" fill="#6b7280">Фіксований дільник 2048</text>
+
+  <!-- ALU Formula 2: Power -->
+  <rect x="340" y="465" width="280" height="58" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="480" y="484" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a1a">Power = (Current × BusVoltage) / 20000</text>
+  <text x="480" y="502" text-anchor="middle" font-size="11" fill="#6b7280">Запис результату в регістр 03h</text>
+  <text x="480" y="517" text-anchor="middle" font-size="11" fill="#6b7280">Фіксований дільник 20000</text>
+
+  <!-- Panel 3: Results & Alerts (Right) -->
+  <rect x="660" y="208" width="270" height="338" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="675" y="228" font-size="13" font-weight="bold" fill="#1a1a1a">3. Результати та Аварії</text>
+
+  <!-- Current Reg 04h -->
+  <rect x="675" y="240" width="240" height="88" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="687" y="260" font-size="13" font-weight="bold" fill="#2457d6">Current Register (04h)</text>
+  <text x="687" y="278" font-size="11" fill="#1a1a1a">16-біт знакова величина (R/O)</text>
+  <text x="687" y="296" font-size="11" font-weight="bold" fill="#1a1a1a">I = Current × Current_LSB</text>
+  <text x="687" y="314" font-size="11" fill="#6b7280">Фізичний струм у колі (А)</text>
+
+  <!-- Power Reg 03h -->
+  <rect x="675" y="338" width="240" height="88" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="687" y="358" font-size="13" font-weight="bold" fill="#2457d6">Power Register (03h)</text>
+  <text x="687" y="376" font-size="11" fill="#1a1a1a">16-біт беззнакова величина (R/O)</text>
+  <text x="687" y="394" font-size="11" font-weight="bold" fill="#1a1a1a">P = Power × 25 × Current_LSB</text>
+  <text x="687" y="412" font-size="11" fill="#6b7280">Фізична потужність у колі (Вт)</text>
+
+  <!-- Alert Regs 06h & 07h -->
+  <rect x="675" y="436" width="240" height="96" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="687" y="456" font-size="12" font-weight="bold" fill="#c0392b">Mask/Enable (06h) &amp; Limit (07h)</text>
+  <text x="687" y="474" font-size="11" fill="#1a1a1a">Порівняння з Alert Limit (07h)</text>
+  <text x="687" y="492" font-size="11" font-weight="bold" fill="#c0392b">Сигнал на виводі ALERT (pin 3)</text>
+  <text x="687" y="510" font-size="11" fill="#6b7280">Over/Under Voltage, Over-Current</text>
+  <text x="687" y="524" font-size="11" fill="#6b7280">або Conversion Ready (CVRF)</text>
+
+  <!-- CONNECTING ARROWS & FLOW PATHS -->
+
+  <!-- Shunt Voltage (01h) -> ALU Current -->
+  <path d="M 285 296 H 300 V 426 H 338" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-accent)"/>
+
+  <!-- Bus Voltage (02h) -> ALU Power -->
+  <path d="M 285 451 H 308 V 494 H 338" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-accent)"/>
+
+  <!-- CAL Register (05h) -> ALU Engine -->
+  <path d="M 480 355 V 365" fill="none" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- ALU Current -> Current Reg (04h) -->
+  <path d="M 620 426 H 652 V 284 H 673" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-accent)"/>
+
+  <!-- Internal ALU Current -> Power flow -->
+  <path d="M 480 455 V 463" fill="none" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-accent)"/>
+
+  <!-- ALU Power -> Power Reg (03h) -->
+  <path d="M 620 494 H 652 V 382 H 673" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-accent)"/>
+
+  <!-- Power Reg -> Alert Control -->
+  <path d="M 795 426 V 434" fill="none" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+
+</svg>

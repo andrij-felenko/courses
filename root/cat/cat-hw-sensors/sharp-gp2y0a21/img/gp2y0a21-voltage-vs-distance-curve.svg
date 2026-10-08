@@ -1,0 +1,161 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Характеристика Sharp GP2Y0A21YK0F: V(d) та її лінеаризація</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Немонотонний сигнал у зоні &lt;10 см створює інверсію; у зоні 10–80 см напруга лінеаризується в відстань</text>
+
+  <!-- Left Panel: Graph -->
+  <rect x="40" y="80" width="530" height="430" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="8"/>
+  <text x="60" y="106" font-size="14" font-weight="bold" fill="#1a1a1a">1. Графік залежності вихідної напруги V_out від відстані d</text>
+
+  <!-- Zone Headers above graph grid -->
+  <text x="136" y="128" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">Інверсія (&lt;10 см)</text>
+  <text x="346" y="128" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">Робочий діапазон вимірювання (10–80 см)</text>
+
+  <!-- Graph Background Zones -->
+  <!-- Inverse Zone (<10 cm) -->
+  <rect x="110" y="140" width="52.5" height="290" fill="#fdecea" opacity="0.6"/>
+  <line x1="162.5" y1="140" x2="162.5" y2="430" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4 4"/>
+
+  <!-- Working Zone (10-80 cm) -->
+  <rect x="162.5" y="140" width="367.5" height="290" fill="#e9f7ef" opacity="0.5"/>
+
+  <!-- Grid lines -->
+  <!-- Horizontal grid lines -->
+  <line x1="110" y1="395" x2="530" y2="395" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2 2"/>
+  <line x1="110" y1="342" x2="530" y2="342" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2 2"/>
+  <line x1="110" y1="254" x2="340" y2="254" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2 2"/>
+  <line x1="520" y1="254" x2="530" y2="254" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2 2"/>
+  <line x1="110" y1="166" x2="530" y2="166" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2 2"/>
+
+  <!-- Vertical grid lines -->
+  <line x1="215" y1="220" x2="215" y2="430" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2 2"/>
+  <line x1="320" y1="140" x2="320" y2="430" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2 2"/>
+  <line x1="425" y1="290" x2="425" y2="430" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2 2"/>
+
+  <!-- Ambiguity Reference Line (V = 2.3V) -->
+  <line x1="110" y1="228" x2="162.5" y2="228" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3 3"/>
+
+  <!-- Ambiguity Note Card -->
+  <rect x="175" y="172" width="155" height="44" fill="#fdecea" stroke="#c0392b" stroke-width="1" rx="4"/>
+  <text x="183" y="189" font-size="11" font-weight="bold" fill="#c0392b">Неоднозначність:</text>
+  <text x="183" y="204" font-size="11" fill="#c0392b">V = 2.3 В для 4 см і 10 см</text>
+  <line x1="185" y1="216" x2="167" y2="225" stroke="#c0392b" stroke-width="1" stroke-dasharray="2 2" marker-end="url(#arr-red)"/>
+
+  <!-- Working Zone Formula Card -->
+  <rect x="345" y="230" width="170" height="54" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="6"/>
+  <text x="353" y="247" font-size="11" font-weight="bold" fill="#2457d6">Апроксимація (10–80 см)</text>
+  <text x="353" y="263" font-size="11" font-weight="bold" fill="#1a1a1a">d ≈ 16.7 / (V_out - 0.12)</text>
+  <text x="353" y="276" font-size="11" fill="#6b7280">d — у см, V_out — у Вольтах</text>
+
+  <!-- Curve Path V_out(d) -->
+  <path d="M 110,377 C 120,310 132,180 141.5,158 C 150,140 156,190 162.5,228 C 180,285 200,310 215,316 C 260,345 290,360 320,364 C 370,375 440,387 530,395" fill="none" stroke="#2457d6" stroke-width="3"/>
+
+  <!-- Key Points & Annotations on Graph -->
+  <!-- Peak Point (6 cm, 3.1 V) -->
+  <circle cx="141.5" cy="158" r="4.5" fill="#c0392b"/>
+  <text x="148" y="156" font-size="11" font-weight="bold" fill="#c0392b">V_max ≈ 3.1 В (6 см)</text>
+
+  <!-- Intersections for 2.3 V ambiguity -->
+  <circle cx="131" cy="228" r="4" fill="#c0392b"/>
+  <circle cx="162.5" cy="228" r="4" fill="#2457d6"/>
+
+  <!-- Point at 80 cm -->
+  <circle cx="530" cy="395" r="4" fill="#2457d6"/>
+  <text x="525" y="368" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="end">0.4 В @ 80 см</text>
+
+  <!-- Axes -->
+  <!-- Y Axis -->
+  <line x1="110" y1="430" x2="110" y2="132" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+  <text x="100" y="125" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="end">V_out (В)</text>
+
+  <!-- Y Ticks -->
+  <line x1="105" y1="166" x2="110" y2="166" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="102" y="170" font-size="11" fill="#1a1a1a" text-anchor="end">3.0 В</text>
+
+  <line x1="105" y1="228" x2="110" y2="228" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="102" y="232" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="end">2.3 В</text>
+
+  <line x1="105" y1="254" x2="110" y2="254" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="102" y="258" font-size="11" fill="#1a1a1a" text-anchor="end">2.0 В</text>
+
+  <line x1="105" y1="342" x2="110" y2="342" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="102" y="346" font-size="11" fill="#1a1a1a" text-anchor="end">1.0 В</text>
+
+  <line x1="105" y1="395" x2="110" y2="395" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="102" y="399" font-size="11" fill="#1a1a1a" text-anchor="end">0.4 В</text>
+
+  <text x="102" y="434" font-size="11" fill="#1a1a1a" text-anchor="end">0.0 В</text>
+
+  <!-- X Axis -->
+  <line x1="110" y1="430" x2="545" y2="430" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+  <text x="530" y="470" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="end">d (см)</text>
+
+  <!-- X Ticks -->
+  <line x1="110" y1="430" x2="110" y2="435" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="110" y="452" font-size="11" fill="#1a1a1a" text-anchor="middle">0</text>
+
+  <line x1="162.5" y1="430" x2="162.5" y2="435" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="162.5" y="452" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">10</text>
+
+  <line x1="215" y1="430" x2="215" y2="435" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="215" y="452" font-size="11" fill="#1a1a1a" text-anchor="middle">20</text>
+
+  <line x1="320" y1="430" x2="320" y2="435" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="320" y="452" font-size="11" fill="#1a1a1a" text-anchor="middle">40</text>
+
+  <line x1="425" y1="430" x2="425" y2="435" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="425" y="452" font-size="11" fill="#1a1a1a" text-anchor="middle">60</text>
+
+  <line x1="530" y1="430" x2="530" y2="435" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="530" y="452" font-size="11" fill="#1a1a1a" text-anchor="middle">80</text>
+
+  <!-- Right Panel: Linearization & Signal Processing Flowchart -->
+  <rect x="590" y="80" width="330" height="430" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="8"/>
+  <text x="606" y="106" font-size="14" font-weight="bold" fill="#1a1a1a">2. Алгоритм обробки сигналу</text>
+
+  <!-- Block 1: Sensor Signal -->
+  <rect x="615" y="125" width="280" height="55" fill="white" stroke="#d0d7de" stroke-width="1.5" rx="6"/>
+  <text x="627" y="145" font-size="12" font-weight="bold" fill="#1a1a1a">1. Вихідний сигнал давача</text>
+  <text x="627" y="163" font-size="11" fill="#6b7280">V_out (0.4 В ... 3.1 В) + завади</text>
+
+  <!-- Arrow 1 -> 2 -->
+  <line x1="755" y1="180" x2="755" y2="194" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- Block 2: ADC & Median Filter -->
+  <rect x="615" y="200" width="280" height="62" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <text x="627" y="220" font-size="12" font-weight="bold" fill="#2457d6">2. АЦП та Медіанний фільтр</text>
+  <text x="627" y="236" font-size="11" fill="#1a1a1a">Оцифрування АЦП (10 біт: 0..1023)</text>
+  <text x="627" y="251" font-size="11" fill="#6b7280">Придушення імпульсних сплесків</text>
+
+  <!-- Arrow 2 -> 3 -->
+  <line x1="755" y1="262" x2="755" y2="276" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- Block 3: Distance Calculation -->
+  <rect x="615" y="282" width="280" height="80" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="6"/>
+  <text x="627" y="302" font-size="12" font-weight="bold" fill="#27ae60">3. Перетворення у відстань</text>
+  <text x="627" y="319" font-size="11" fill="#1a1a1a">Формула оберненої пропорційності:</text>
+  <text x="627" y="335" font-size="11" font-weight="bold" fill="#27ae60">d = 16.7 / (V_out - 0.12)</text>
+  <text x="627" y="350" font-size="11" fill="#6b7280">або табличний пошук (LUT 10–80 см)</text>
+
+  <!-- Arrow 3 -> 4 -->
+  <line x1="755" y1="362" x2="755" y2="376" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- Block 4: Boundary Check -->
+  <rect x="615" y="382" width="280" height="103" fill="white" stroke="#d0d7de" stroke-width="1.5" rx="6"/>
+  <text x="627" y="402" font-size="12" font-weight="bold" fill="#1a1a1a">4. Обробка межових станів</text>
+  <text x="627" y="420" font-size="11" fill="#c0392b">V &gt; 2.3 В ➔ Помилка (d &lt; 10 см)</text>
+  <text x="627" y="437" font-size="11" fill="#27ae60">0.4 В ≤ V ≤ 2.3 В ➔ d = 10...80 см</text>
+  <text x="627" y="454" font-size="11" fill="#6b7280">V &lt; 0.4 В ➔ За межами (&gt; 80 см)</text>
+</svg>

@@ -1,0 +1,137 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Canvas Background -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Main Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Лінійні функції перетворення 16-бітного АЦП SHT30</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Сирий 16-бітний код АЦП (0...65535) пропорційно відображається на шкали температури й вологості</text>
+
+  <!-- Left Panel: Temperature -->
+  <rect x="30" y="75" width="435" height="320" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="50" y="98" font-size="14" font-weight="bold" fill="#1a1a1a">Температура: T (°C)</text>
+  <text x="450" y="98" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="end">T = -45 + 175 · (S_T / 65535)</text>
+
+  <!-- Temperature Grid Lines -->
+  <line x1="95" y1="140" x2="375" y2="140" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4,4"/>
+  <text x="87" y="144" font-size="12" fill="#1a1a1a" text-anchor="end">+130 °C</text>
+
+  <line x1="95" y1="248" x2="216" y2="248" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4,4"/>
+  <text x="87" y="252" font-size="12" fill="#6b7280" text-anchor="end">+25 °C</text>
+
+  <line x1="95" y1="274" x2="177" y2="274" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4,4"/>
+  <text x="87" y="278" font-size="12" fill="#6b7280" text-anchor="end">0 °C</text>
+
+  <text x="87" y="324" font-size="12" fill="#1a1a1a" text-anchor="end">-45 °C</text>
+
+  <!-- Temperature Axes -->
+  <line x1="95" y1="330" x2="95" y2="118" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="95" y="108" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">T (°C)</text>
+
+  <line x1="85" y1="320" x2="420" y2="320" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="425" y="316" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">S_T</text>
+
+  <!-- Temperature X-axis ticks & vertical grid -->
+  <line x1="177" y1="320" x2="177" y2="274" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4,4"/>
+  <text x="177" y="340" font-size="12" fill="#6b7280" text-anchor="middle">16852</text>
+  <text x="177" y="356" font-size="12" fill="#6b7280" text-anchor="middle">(0x41D4)</text>
+
+  <line x1="375" y1="320" x2="375" y2="140" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4,4"/>
+  <text x="375" y="340" font-size="12" fill="#1a1a1a" text-anchor="middle">65535</text>
+  <text x="375" y="356" font-size="12" fill="#6b7280" text-anchor="middle">(0xFFFF)</text>
+
+  <text x="95" y="340" font-size="12" fill="#1a1a1a" text-anchor="middle">0</text>
+  <text x="95" y="356" font-size="12" fill="#6b7280" text-anchor="middle">(0x0000)</text>
+
+  <!-- Temperature Plot Line & Points -->
+  <line x1="95" y1="320" x2="375" y2="140" stroke="#2457d6" stroke-width="3"/>
+  <circle cx="95" cy="320" r="5" fill="#2457d6"/>
+  <circle cx="177" cy="274" r="4" fill="#2457d6"/>
+  <circle cx="216" cy="248" r="4" fill="#2457d6"/>
+  <circle cx="375" cy="140" r="5" fill="#2457d6"/>
+
+  <text x="110" y="305" font-size="12" font-weight="bold" fill="#2457d6">Мін: -45 °C</text>
+  <text x="365" y="130" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">Макс: +130 °C</text>
+
+  <!-- Temperature Resolution Badge -->
+  <rect x="235" y="255" width="165" height="48" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="243" y="273" font-size="12" font-weight="bold" fill="#2457d6">Роздільна здатність:</text>
+  <text x="243" y="291" font-size="12" fill="#1a1a1a">1 LSB ≈ 0.00267 °C</text>
+
+  <!-- Right Panel: Humidity -->
+  <rect x="495" y="75" width="435" height="320" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="515" y="98" font-size="14" font-weight="bold" fill="#1a1a1a">Відносна вологість: RH (%)</text>
+  <text x="915" y="98" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="end">RH = 100 · (S_RH / 65535)</text>
+
+  <!-- Humidity Grid Lines -->
+  <line x1="560" y1="140" x2="840" y2="140" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4,4"/>
+  <text x="552" y="144" font-size="12" fill="#1a1a1a" text-anchor="end">100 %</text>
+
+  <line x1="560" y1="230" x2="700" y2="230" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4,4"/>
+  <text x="552" y="234" font-size="12" fill="#6b7280" text-anchor="end">50 %</text>
+
+  <text x="552" y="324" font-size="12" fill="#1a1a1a" text-anchor="end">0 %</text>
+
+  <!-- Humidity Axes -->
+  <line x1="560" y1="330" x2="560" y2="118" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="560" y="108" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">RH (%)</text>
+
+  <line x1="550" y1="320" x2="885" y2="320" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="890" y="316" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">S_RH</text>
+
+  <!-- Humidity X-axis ticks & vertical grid -->
+  <line x1="700" y1="320" x2="700" y2="230" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4,4"/>
+  <text x="700" y="340" font-size="12" fill="#6b7280" text-anchor="middle">32768</text>
+  <text x="700" y="356" font-size="12" fill="#6b7280" text-anchor="middle">(0x8000)</text>
+
+  <line x1="840" y1="320" x2="840" y2="140" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4,4"/>
+  <text x="840" y="340" font-size="12" fill="#1a1a1a" text-anchor="middle">65535</text>
+  <text x="840" y="356" font-size="12" fill="#6b7280" text-anchor="middle">(0xFFFF)</text>
+
+  <text x="560" y="340" font-size="12" fill="#1a1a1a" text-anchor="middle">0</text>
+  <text x="560" y="356" font-size="12" fill="#6b7280" text-anchor="middle">(0x0000)</text>
+
+  <!-- Humidity Plot Line & Points -->
+  <line x1="560" y1="320" x2="840" y2="140" stroke="#27ae60" stroke-width="3"/>
+  <circle cx="560" cy="320" r="5" fill="#27ae60"/>
+  <circle cx="700" cy="230" r="4" fill="#27ae60"/>
+  <circle cx="840" cy="140" r="5" fill="#27ae60"/>
+
+  <text x="575" y="305" font-size="12" font-weight="bold" fill="#27ae60">Мін: 0 %</text>
+  <text x="830" y="130" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="end">Макс: 100 %</text>
+
+  <!-- Humidity Resolution Badge -->
+  <rect x="700" y="255" width="165" height="48" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="708" y="273" font-size="12" font-weight="bold" fill="#27ae60">Роздільна здатність:</text>
+  <text x="708" y="291" font-size="12" fill="#1a1a1a">1 LSB ≈ 0.01525 %</text>
+
+  <!-- Bottom Panel: Formulas & Integer Math -->
+  <rect x="30" y="410" width="900" height="90" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="50" y="430" font-size="13" font-weight="bold" fill="#1a1a1a">Математичний зв'язок та обчислення на мікроконтролерах (MCU без FPU):</text>
+
+  <!-- Bottom Column 1: Temperature Math -->
+  <rect x="50" y="438" width="275" height="52" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="60" y="455" font-size="12" font-weight="bold" fill="#2457d6">T (°C) = -45 + 175 · (S_T / 65535)</text>
+  <text x="60" y="475" font-size="12" fill="#1a1a1a">T_mC = -4500 + (17500 * S_T) / 65535</text>
+
+  <!-- Bottom Column 2: Humidity Math -->
+  <rect x="342" y="438" width="275" height="52" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="352" y="455" font-size="12" font-weight="bold" fill="#27ae60">RH (%) = 100 · (S_RH / 65535)</text>
+  <text x="352" y="475" font-size="12" fill="#1a1a1a">RH_m% = (10000 * S_RH) / 65535</text>
+
+  <!-- Bottom Column 3: Integer Safety -->
+  <rect x="635" y="438" width="275" height="52" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="645" y="455" font-size="12" font-weight="bold" fill="#1a1a1a">Цілочисельна точність:</text>
+  <text x="645" y="475" font-size="12" fill="#6b7280">uint32_t запобігає переповненню</text>
+</svg>

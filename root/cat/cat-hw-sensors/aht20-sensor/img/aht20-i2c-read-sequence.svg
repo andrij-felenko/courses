@@ -1,92 +1,159 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 500" width="960" height="500" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
-  <rect x="0" y="0" width="960" height="500" fill="white"/>
-  
-  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Послідовність викликів I2C та розбір 7-байтного пакета AHT20</text>
-  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Команда 0xAC, неблокуюча затримка 80 мс та розпакування 20-бітних даних</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
 
-  <!-- Step 1: Write Trigger Command -->
-  <rect x="40" y="90" width="260" height="110" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
-  <text x="170" y="115" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">1. Тригер вимірювання</text>
-  <text x="170" y="140" font-size="12" fill="#1a1a1a" text-anchor="middle">Адреса: 0x38 + W</text>
-  <text x="170" y="160" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Байти: 0xAC, 0x33, 0x00</text>
-  <text x="170" y="180" font-size="12" fill="#6b7280" text-anchor="middle">Запуск конверсії АЦП</text>
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
 
-  <!-- Arrow 1 -> 2 -->
-  <path d="M 300,145 L 340,145" stroke="#2457d6" stroke-width="2" fill="none"/>
-  <polygon points="340,140 350,145 340,150" fill="#2457d6"/>
+  <!-- Заголовок та підзаголовок -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Послідовність I2C-протоколу AHT20: запуск та зчитування даних</text>
+  <text x="480" y="53" text-anchor="middle" font-size="13" fill="#6b7280">Команда 0xAC відкриває цикл вимірювання, після паузи 80 мс зчитуються 7 байтів (Статус, 20-біт RH, 20-біт T, CRC8)</text>
 
-  <!-- Step 2: Conversion Delay -->
-  <rect x="350" y="90" width="260" height="110" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
-  <text x="480" y="115" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">2. Очікування конверсії</text>
-  <text x="480" y="140" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Пауза t_conv ≥ 80 мс</text>
-  <text x="480" y="160" font-size="12" fill="#6b7280" text-anchor="middle">Busy Bit[7] = 1</text>
-  <text x="480" y="180" font-size="12" fill="#6b7280" text-anchor="middle">Не опитувати шину</text>
+  <!-- Крок 1. Запис команди вимірювання -->
+  <rect x="30" y="72" width="900" height="108" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="45" y="93" font-size="13" font-weight="bold" fill="#2457d6">КРОК 1. Запис команди вимірювання (Write: 0x70)</text>
 
-  <!-- Arrow 2 -> 3 -->
-  <path d="M 610,145 L 650,145" stroke="#2457d6" stroke-width="2" fill="none"/>
-  <polygon points="650,140 660,145 650,150" fill="#2457d6"/>
+  <rect x="75" y="104" width="34" height="42" rx="4" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="92" y="129" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">S</text>
 
-  <!-- Step 3: Read 7 Bytes -->
-  <rect x="660" y="90" width="260" height="110" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
-  <text x="790" y="115" font-size="14" font-weight="bold" fill="#27ae60" text-anchor="middle">3. Зчитування результату</text>
-  <text x="790" y="140" font-size="12" fill="#1a1a1a" text-anchor="middle">Адреса: 0x38 + R</text>
-  <text x="790" y="160" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Отримання 7 байтів</text>
-  <text x="790" y="180" font-size="12" fill="#6b7280" text-anchor="middle">Busy Bit[7] = 0</text>
+  <rect x="123" y="104" width="115" height="42" rx="4" fill="#ffffff" stroke="#2457d6"/>
+  <text x="180.5" y="122" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">0x70 (Write)</text>
+  <text x="180.5" y="137" text-anchor="middle" font-size="12" fill="#6b7280">[0x38 &lt;&lt; 1 | 0]</text>
 
-  <!-- Structure Heading -->
-  <text x="480" y="240" font-size="15" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Структура 7-байтового пакета даних відповіді</text>
+  <rect x="252" y="104" width="55" height="42" rx="4" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="279.5" y="129" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">ACK</text>
 
-  <!-- Byte 0 -->
-  <rect x="40" y="265" width="115" height="70" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
-  <text x="97" y="287" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Байт 0</text>
-  <text x="97" y="307" font-size="12" fill="#2457d6" text-anchor="middle">Статус</text>
-  <text x="97" y="323" font-size="12" fill="#6b7280" text-anchor="middle">Busy/Calib</text>
+  <rect x="321" y="104" width="105" height="42" rx="4" fill="#ffffff" stroke="#2457d6"/>
+  <text x="373.5" y="122" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">0xAC</text>
+  <text x="373.5" y="137" text-anchor="middle" font-size="12" fill="#6b7280">Команда</text>
 
-  <!-- Byte 1 -->
-  <rect x="165" y="265" width="115" height="70" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
-  <text x="222" y="287" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Байт 1</text>
-  <text x="222" y="307" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Hum[19:12]</text>
-  <text x="222" y="323" font-size="12" fill="#6b7280" text-anchor="middle">8 біт вологості</text>
+  <rect x="440" y="104" width="55" height="42" rx="4" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="467.5" y="129" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">ACK</text>
 
-  <!-- Byte 2 -->
-  <rect x="290" y="265" width="115" height="70" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
-  <text x="347" y="287" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Байт 2</text>
-  <text x="347" y="307" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Hum[11:4]</text>
-  <text x="347" y="323" font-size="12" fill="#6b7280" text-anchor="middle">8 біт вологості</text>
+  <rect x="509" y="104" width="90" height="42" rx="4" fill="#ffffff" stroke="#2457d6"/>
+  <text x="554" y="122" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">0x33</text>
+  <text x="554" y="137" text-anchor="middle" font-size="12" fill="#6b7280">Параметр 1</text>
 
-  <!-- Byte 3 -->
-  <rect x="415" y="265" width="130" height="70" rx="4" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="2"/>
-  <text x="480" y="287" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Байт 3</text>
-  <text x="480" y="307" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Hum[3:0] | Temp[19:16]</text>
-  <text x="480" y="323" font-size="12" fill="#6b7280" text-anchor="middle">4 біти H / 4 біти T</text>
+  <rect x="613" y="104" width="55" height="42" rx="4" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="640.5" y="129" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">ACK</text>
 
-  <!-- Byte 4 -->
-  <rect x="555" y="265" width="115" height="70" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
-  <text x="612" y="287" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Байт 4</text>
-  <text x="612" y="307" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Temp[15:8]</text>
-  <text x="612" y="323" font-size="12" fill="#6b7280" text-anchor="middle">8 біт темп.</text>
+  <rect x="682" y="104" width="90" height="42" rx="4" fill="#ffffff" stroke="#2457d6"/>
+  <text x="727" y="122" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">0x00</text>
+  <text x="727" y="137" text-anchor="middle" font-size="12" fill="#6b7280">Параметр 2</text>
 
-  <!-- Byte 5 -->
-  <rect x="680" y="265" width="115" height="70" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
-  <text x="737" y="287" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Байт 5</text>
-  <text x="737" y="307" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Temp[7:0]</text>
-  <text x="737" y="323" font-size="12" fill="#6b7280" text-anchor="middle">8 біт темп.</text>
+  <rect x="786" y="104" width="55" height="42" rx="4" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="813.5" y="129" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">ACK</text>
 
-  <!-- Byte 6 -->
-  <rect x="805" y="265" width="115" height="70" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="2"/>
-  <text x="862" y="287" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Байт 6</text>
-  <text x="862" y="307" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">CRC-8</text>
-  <text x="862" y="323" font-size="12" fill="#6b7280" text-anchor="middle">Поліном 0x31</text>
+  <rect x="855" y="104" width="34" height="42" rx="4" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="872" y="129" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">P</text>
 
-  <!-- Data Decode Annotations -->
-  <!-- Humidity 20-bit code bracket -->
-  <path d="M 165,345 L 165,360 L 350,360 L 350,370 L 350,360 L 515,360 L 515,345" stroke="#2457d6" stroke-width="2" fill="none"/>
-  <text x="350" y="390" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">20-бітний код вологості S_RH</text>
-  <text x="350" y="410" font-size="12" fill="#1a1a1a" text-anchor="middle">RH = (S_RH / 1048576) × 100%</text>
+  <text x="480" y="164" text-anchor="middle" font-size="12" fill="#6b7280">Кадри білого/синього кольору передає Master | Зелені кадри ACK віддає давач AHT20</text>
 
-  <!-- Temperature 20-bit code bracket -->
-  <path d="M 450,425 L 450,440 L 612,440 L 612,450 L 612,440 L 795,440 L 795,425" stroke="#27ae60" stroke-width="2" fill="none"/>
-  <text x="612" y="470" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">20-бітний код температури S_T</text>
-  <text x="612" y="490" font-size="12" fill="#1a1a1a" text-anchor="middle">T = (S_T / 1048576) × 200 - 50 °C</text>
+  <!-- Пауза на перетворення -->
+  <rect x="30" y="194" width="900" height="48" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="6 4"/>
+  <text x="480" y="213" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Пауза вимірювання: затримка ≥ 80 мс</text>
+  <text x="480" y="231" text-anchor="middle" font-size="12" fill="#1a1a1a">Внутрішній ASIC AHT20 проводить вимірювання MEMS. Прапорець Status[7] (Busy): 1 ➔ 0 (Готово)</text>
 
+  <!-- Крок 2. Зчитування 7 байтів -->
+  <rect x="30" y="256" width="900" height="136" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="45" y="276" font-size="13" font-weight="bold" fill="#2457d6">КРОК 2. Зчитування 7 байтів результату (Read: 0x71)</text>
+
+  <rect x="40" y="288" width="22" height="40" rx="3" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="51" y="313" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">S</text>
+
+  <rect x="74" y="288" width="45" height="40" rx="3" fill="#ffffff" stroke="#2457d6"/>
+  <text x="96.5" y="305" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">0x71</text>
+  <text x="96.5" y="320" text-anchor="middle" font-size="12" fill="#6b7280">Read</text>
+
+  <rect x="131" y="288" width="30" height="40" rx="3" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="146" y="313" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">ACK</text>
+
+  <rect x="173" y="288" width="50" height="40" rx="3" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="198" y="305" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">B0</text>
+  <text x="198" y="320" text-anchor="middle" font-size="12" fill="#6b7280">0x18</text>
+
+  <rect x="235" y="288" width="30" height="40" rx="3" fill="#ffffff" stroke="#2457d6"/>
+  <text x="250" y="313" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">ACK</text>
+
+  <rect x="277" y="288" width="44" height="40" rx="3" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="299" y="305" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">B1</text>
+  <text x="299" y="320" text-anchor="middle" font-size="12" fill="#6b7280">RH1</text>
+
+  <rect x="333" y="288" width="30" height="40" rx="3" fill="#ffffff" stroke="#2457d6"/>
+  <text x="348" y="313" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">ACK</text>
+
+  <rect x="375" y="288" width="44" height="40" rx="3" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="397" y="305" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">B2</text>
+  <text x="397" y="320" text-anchor="middle" font-size="12" fill="#6b7280">RH2</text>
+
+  <rect x="431" y="288" width="30" height="40" rx="3" fill="#ffffff" stroke="#2457d6"/>
+  <text x="446" y="313" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">ACK</text>
+
+  <rect x="473" y="288" width="58" height="40" rx="3" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="502" y="305" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">B3</text>
+  <text x="502" y="320" text-anchor="middle" font-size="12" fill="#6b7280">RH|T</text>
+
+  <rect x="543" y="288" width="30" height="40" rx="3" fill="#ffffff" stroke="#2457d6"/>
+  <text x="558" y="313" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">ACK</text>
+
+  <rect x="585" y="288" width="44" height="40" rx="3" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="607" y="305" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">B4</text>
+  <text x="607" y="320" text-anchor="middle" font-size="12" fill="#6b7280">T1</text>
+
+  <rect x="641" y="288" width="30" height="40" rx="3" fill="#ffffff" stroke="#2457d6"/>
+  <text x="656" y="313" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">ACK</text>
+
+  <rect x="683" y="288" width="44" height="40" rx="3" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="705" y="305" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">B5</text>
+  <text x="705" y="320" text-anchor="middle" font-size="12" fill="#6b7280">T2</text>
+
+  <rect x="739" y="288" width="30" height="40" rx="3" fill="#ffffff" stroke="#2457d6"/>
+  <text x="754" y="313" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">ACK</text>
+
+  <rect x="781" y="288" width="48" height="40" rx="3" fill="#fdecea" stroke="#c0392b"/>
+  <text x="805" y="305" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">B6</text>
+  <text x="805" y="320" text-anchor="middle" font-size="12" fill="#c0392b">CRC</text>
+
+  <rect x="841" y="288" width="34" height="40" rx="3" fill="#ffffff" stroke="#2457d6"/>
+  <text x="858" y="313" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">NACK</text>
+
+  <rect x="887" y="288" width="22" height="40" rx="3" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="898" y="313" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">P</text>
+
+  <line x1="277" y1="336" x2="502" y2="336" stroke="#2457d6" stroke-width="2"/>
+  <line x1="502" y1="336" x2="727" y2="336" stroke="#27ae60" stroke-width="2"/>
+
+  <text x="198" y="352" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Статус</text>
+  <text x="198" y="368" text-anchor="middle" font-size="12" fill="#6b7280">[7]:Busy, [3]:Cal</text>
+
+  <text x="390" y="352" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Вологість (20 біт RH)</text>
+  <text x="390" y="368" text-anchor="middle" font-size="12" fill="#6b7280">B1[7:0] + B2[7:0] + B3[7:4]</text>
+
+  <text x="614" y="352" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Температура (20 біт T)</text>
+  <text x="614" y="368" text-anchor="middle" font-size="12" fill="#6b7280">B3[3:0] + B4[7:0] + B5[7:0]</text>
+
+  <text x="805" y="352" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">CRC8</text>
+  <text x="805" y="368" text-anchor="middle" font-size="12" fill="#c0392b">Контроль</text>
+
+  <!-- Скріплення та декодування -->
+  <rect x="30" y="405" width="900" height="115" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="320" y1="417" x2="320" y2="508" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4 3"/>
+  <line x1="628" y1="417" x2="628" y2="508" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4 3"/>
+
+  <text x="45" y="425" font-size="12" font-weight="bold" fill="#2457d6">1. Розпакування 20-бітних даних</text>
+  <text x="45" y="449" font-size="12" fill="#1a1a1a">S_RH = (B1 « 12) | (B2 « 4) | (B3 » 4)</text>
+  <text x="45" y="471" font-size="12" fill="#1a1a1a">S_T  = ((B3 &amp; 0x0F) « 16) | (B4 « 8) | B5</text>
+  <text x="45" y="493" font-size="12" fill="#6b7280">B1..B3[7:4] = RH,  B3[3:0]..B5 = T</text>
+
+  <text x="335" y="425" font-size="12" font-weight="bold" fill="#2457d6">2. Перетворення у фізичні величини</text>
+  <text x="335" y="449" font-size="12" fill="#1a1a1a">RH (%) = (S_RH / 2²⁰) × 100 %</text>
+  <text x="335" y="471" font-size="12" fill="#1a1a1a">T (°C)  = (S_T / 2²⁰) × 200 - 50</text>
+  <text x="335" y="493" font-size="12" fill="#6b7280">2²⁰ = 1 048 576 (діапазон 0..1048575)</text>
+
+  <text x="643" y="425" font-size="12" font-weight="bold" fill="#2457d6">3. Контроль статусу та CRC8</text>
+  <text x="643" y="449" font-size="12" fill="#1a1a1a">B0: Status[7]=0 (Ready), Status[3]=1 (Cal)</text>
+  <text x="643" y="471" font-size="12" fill="#1a1a1a">B6: CRC8 (поліном X⁸ + X⁵ + X⁴ + 1)</text>
+  <text x="643" y="493" font-size="12" fill="#6b7280">CRC8 розраховується для байтів B0..B5</text>
 </svg>

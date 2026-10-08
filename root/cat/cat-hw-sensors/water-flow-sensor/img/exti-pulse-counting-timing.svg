@@ -1,0 +1,111 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <defs>
+    <marker id="arr-gray" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M 0 0 L 8 4 L 0 8 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-blue-right" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M 0 0 L 8 4 L 0 8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-blue-left" markerWidth="8" markerHeight="8" refX="1" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M 8 0 L 0 4 L 8 8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Title and Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Часова діаграма сигналів давача витрати води та обробки EXTI</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Фіксація спадаючого фронту (Falling Edge) визначає інтервал Δt для розрахунку витрати Q та інкрементує лічильник N</text>
+
+  <!-- Container Panel -->
+  <rect x="25" y="70" width="910" height="425" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Voltage Level Labels -->
+  <text x="130" y="128" font-size="12" fill="#1a1a1a" text-anchor="end">HIGH (3.3V / 5V)</text>
+  <text x="130" y="208" font-size="12" fill="#1a1a1a" text-anchor="end">LOW (0V)</text>
+
+  <!-- Reference Dashed Lines -->
+  <line x1="140" y1="135" x2="870" y2="135" stroke="#d0d7de" stroke-dasharray="4,4" stroke-width="1"/>
+  <line x1="140" y1="215" x2="870" y2="215" stroke="#d0d7de" stroke-dasharray="4,4" stroke-width="1"/>
+
+  <!-- Time Axis -->
+  <line x1="140" y1="230" x2="880" y2="230" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+  <text x="890" y="234" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="start">Час (t)</text>
+
+  <!-- Digital Signal Waveform -->
+  <path d="M 140 215 L 170 215 L 170 135 L 250 135 L 250 215 L 350 215 L 350 135 L 430 135 L 430 215 L 530 215 L 530 135 L 610 135 L 610 215 L 710 215 L 710 135 L 790 135 L 790 215 L 860 215" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+
+  <!-- Event Badges (Above Falling Edges) -->
+  <rect x="175" y="85" width="150" height="26" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="250" y="102" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">Спадаючий фронт #1</text>
+
+  <rect x="355" y="85" width="150" height="26" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="430" y="102" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">Спадаючий фронт #2</text>
+
+  <rect x="535" y="85" width="150" height="26" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="610" y="102" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">Спадаючий фронт #3</text>
+
+  <rect x="715" y="85" width="150" height="26" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="790" y="102" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">Спадаючий фронт #4</text>
+
+  <!-- Vertical Trigger Lines -->
+  <line x1="250" y1="111" x2="250" y2="275" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <line x1="430" y1="111" x2="430" y2="275" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <line x1="610" y1="111" x2="610" y2="275" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <line x1="790" y1="111" x2="790" y2="275" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3,3"/>
+
+  <!-- Row Label for ISR -->
+  <text x="175" y="305" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">Обробник EXTI:</text>
+
+  <!-- ISR Execution Boxes -->
+  <rect x="190" y="275" width="120" height="58" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="250" y="293" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">ISR EXTI (N=1)</text>
+  <text x="250" y="310" font-size="11" fill="#1a1a1a" text-anchor="middle">t₁ = micros()</text>
+  <text x="250" y="325" font-size="11" fill="#6b7280" text-anchor="middle">pulse_count++</text>
+
+  <rect x="370" y="275" width="120" height="58" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="430" y="293" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">ISR EXTI (N=2)</text>
+  <text x="430" y="310" font-size="11" fill="#1a1a1a" text-anchor="middle">t₂ = micros()</text>
+  <text x="430" y="325" font-size="11" fill="#6b7280" text-anchor="middle">pulse_count++</text>
+
+  <rect x="550" y="275" width="120" height="58" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="610" y="293" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">ISR EXTI (N=3)</text>
+  <text x="610" y="310" font-size="11" fill="#1a1a1a" text-anchor="middle">t₃ = micros()</text>
+  <text x="610" y="325" font-size="11" fill="#6b7280" text-anchor="middle">pulse_count++</text>
+
+  <rect x="730" y="275" width="120" height="58" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="790" y="293" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">ISR EXTI (N=4)</text>
+  <text x="790" y="310" font-size="11" fill="#1a1a1a" text-anchor="middle">t₄ = micros()</text>
+  <text x="790" y="325" font-size="11" fill="#6b7280" text-anchor="middle">pulse_count++</text>
+
+  <!-- Row Label for Period / Delta t -->
+  <text x="175" y="369" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">Період / Δt:</text>
+
+  <!-- Interval 1 -->
+  <line x1="256" y1="365" x2="424" y2="365" stroke="#2457d6" stroke-width="1.5" marker-start="url(#arr-blue-left)" marker-end="url(#arr-blue-right)"/>
+  <text x="340" y="357" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Δt₁ = t₂ - t₁</text>
+  <text x="340" y="382" font-size="11" fill="#6b7280" text-anchor="middle">f₁ = 1 / Δt₁</text>
+
+  <!-- Interval 2 -->
+  <line x1="436" y1="365" x2="604" y2="365" stroke="#2457d6" stroke-width="1.5" marker-start="url(#arr-blue-left)" marker-end="url(#arr-blue-right)"/>
+  <text x="520" y="357" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Δt₂ = t₃ - t₂</text>
+  <text x="520" y="382" font-size="11" fill="#6b7280" text-anchor="middle">f₂ = 1 / Δt₂</text>
+
+  <!-- Interval 3 -->
+  <line x1="616" y1="365" x2="784" y2="365" stroke="#2457d6" stroke-width="1.5" marker-start="url(#arr-blue-left)" marker-end="url(#arr-blue-right)"/>
+  <text x="700" y="357" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Δt₃ = t₄ - t₃</text>
+  <text x="700" y="382" font-size="11" fill="#6b7280" text-anchor="middle">f₃ = 1 / Δt₃</text>
+
+  <!-- Summary Calculation Cards -->
+  <!-- Card 1: Instantaneous Flow Rate -->
+  <rect x="45" y="402" width="415" height="78" rx="6" fill="white" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="60" y="422" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="start">1. МИТТЄВА ВИВРАТА (Q)</text>
+  <text x="60" y="443" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="start">Q = f / K = 1 / (K · Δt)   [л/хв]</text>
+  <text x="60" y="463" font-size="11" fill="#6b7280" text-anchor="start">f — частота [Гц], K — фактор давача (напр. 7.5)</text>
+
+  <!-- Card 2: Accumulated Volume -->
+  <rect x="480" y="402" width="435" height="78" rx="6" fill="white" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="495" y="422" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="start">2. СУМАРНИЙ ОБ'ЄМ (V)</text>
+  <text x="495" y="443" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="start">V = N / (K · 60)   [літри]</text>
+  <text x="495" y="463" font-size="11" fill="#6b7280" text-anchor="start">N — кількість імпульсів (інкремент в ISR)</text>
+</svg>

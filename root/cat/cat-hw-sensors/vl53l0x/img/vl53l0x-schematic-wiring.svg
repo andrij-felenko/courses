@@ -1,0 +1,213 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Canvas Background -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="30" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Схема підключення VL53L0X: розділене живлення та узгодження рівнів</text>
+  <text x="480" y="50" text-anchor="middle" font-size="13" fill="#6b7280">Фізична обв'язка 2.8 В (VDD/AVDD), MOSFET-перетворювач I2C (3.3 В ↔ 2.8 В) та лінії XSHUT і GPIO1</text>
+
+  <!-- Card 1: MCU -->
+  <rect x="20" y="65" width="210" height="435" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="26" y="71" width="198" height="32" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="125" y="92" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">1. Мікроконтролер (3.3 В)</text>
+
+  <rect x="35" y="112" width="180" height="378" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="125" y="134" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">MCU (STM32 / ESP32)</text>
+  <text x="125" y="152" text-anchor="middle" font-size="12" fill="#6b7280">Логіка: 3.3 В</text>
+
+  <!-- MCU Pins -->
+  <rect x="185" y="180" width="30" height="22" rx="2" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="175" y="196" text-anchor="end" font-size="12" font-weight="bold" fill="#2457d6">+3.3V</text>
+
+  <rect x="185" y="235" width="30" height="22" rx="2" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="175" y="251" text-anchor="end" font-size="12" fill="#1a1a1a">SCL_3V3</text>
+
+  <rect x="185" y="290" width="30" height="22" rx="2" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="175" y="306" text-anchor="end" font-size="12" fill="#1a1a1a">SDA_3V3</text>
+
+  <rect x="185" y="345" width="30" height="22" rx="2" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="175" y="361" text-anchor="end" font-size="12" fill="#1a1a1a">GPIO_XSHUT</text>
+
+  <rect x="185" y="400" width="30" height="22" rx="2" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="175" y="416" text-anchor="end" font-size="12" fill="#1a1a1a">GPIO_INT</text>
+
+  <rect x="185" y="450" width="30" height="22" rx="2" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="175" y="466" text-anchor="end" font-size="12" fill="#1a1a1a">GND</text>
+
+  <!-- Card 2: Level Shifter & Power -->
+  <rect x="250" y="65" width="440" height="435" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="256" y="71" width="428" height="32" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="470" y="92" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">2. Блок обв'язки: LDO 2.8 В, узгодження I2C та резистори</text>
+
+  <!-- LDO 2.8V Regulator -->
+  <rect x="325" y="118" width="110" height="52" rx="4" fill="white" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="380" y="138" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">LDO 2.8V</text>
+  <text x="380" y="156" text-anchor="middle" font-size="12" fill="#6b7280">XC6206 / AP7333</text>
+
+  <!-- Filtering Capacitors Box -->
+  <rect x="495" y="118" width="180" height="72" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="585" y="134" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Фільтрація VDD/AVDD</text>
+
+  <!-- Capacitors -->
+  <rect x="512" y="144" width="16" height="22" fill="white" stroke="#27ae60"/>
+  <text x="534" y="178" font-size="12" fill="#1a1a1a">C1 100 nF</text>
+
+  <rect x="592" y="144" width="16" height="22" fill="white" stroke="#27ae60"/>
+  <text x="614" y="178" font-size="12" fill="#1a1a1a">C2 4.7 µF</text>
+
+  <!-- I2C Level Shifter Components -->
+  <!-- R1 (Pull-up 3.3V SCL) -->
+  <rect x="292" y="200" width="16" height="22" fill="white" stroke="#1a1a1a"/>
+  <text x="286" y="215" text-anchor="end" font-size="12" fill="#1a1a1a">R1 4.7k</text>
+
+  <!-- Q1 (MOSFET SCL) -->
+  <rect x="368" y="233" width="64" height="26" rx="3" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="400" y="250" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Q1 BSS138</text>
+
+  <!-- R2 (Pull-up 2.8V SCL) -->
+  <rect x="452" y="200" width="16" height="22" fill="white" stroke="#1a1a1a"/>
+  <text x="474" y="215" font-size="12" fill="#1a1a1a">R2 4.7k</text>
+
+  <!-- R3 (Pull-up 3.3V SDA) -->
+  <rect x="292" y="275" width="16" height="22" fill="white" stroke="#1a1a1a"/>
+  <text x="286" y="290" text-anchor="end" font-size="12" fill="#1a1a1a">R3 4.7k</text>
+
+  <!-- Q2 (MOSFET SDA) -->
+  <rect x="368" y="288" width="64" height="26" rx="3" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="400" y="305" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Q2 BSS138</text>
+
+  <!-- R4 (Pull-up 2.8V SDA) -->
+  <rect x="452" y="275" width="16" height="22" fill="white" stroke="#1a1a1a"/>
+  <text x="474" y="290" font-size="12" fill="#1a1a1a">R4 4.7k</text>
+
+  <!-- Level Shifter Annotation -->
+  <text x="560" y="230" font-size="12" font-weight="bold" fill="#2457d6">Узгодження I2C</text>
+  <text x="560" y="270" font-size="12" fill="#6b7280">3.3 В ↔ 2.8 В (FET)</text>
+  <text x="560" y="288" font-size="12" fill="#6b7280">Двонапрямне</text>
+
+  <!-- Control Lines Resistors R5, R6 -->
+  <!-- R5 (XSHUT Pull-up) -->
+  <rect x="452" y="330" width="16" height="22" fill="white" stroke="#1a1a1a"/>
+  <text x="474" y="345" font-size="12" fill="#1a1a1a">R5 10k</text>
+  <text x="560" y="340" font-size="12" font-weight="bold" fill="#1a1a1a">XSHUT (Reset/EN)</text>
+  <text x="560" y="375" font-size="12" fill="#6b7280">High=Active, Low=Sleep</text>
+
+  <!-- R6 (GPIO1 Pull-up) -->
+  <rect x="452" y="385" width="16" height="22" fill="white" stroke="#1a1a1a"/>
+  <text x="474" y="400" font-size="12" fill="#1a1a1a">R6 10k</text>
+  <text x="560" y="395" font-size="12" font-weight="bold" fill="#1a1a1a">GPIO1 (Interrupt)</text>
+  <text x="560" y="430" font-size="12" fill="#6b7280">Open-Drain Active Low</text>
+
+  <!-- GND Rail Note -->
+  <text x="470" y="450" text-anchor="middle" font-size="12" font-weight="bold" fill="#6b7280">Спільна шина заземлення (GND)</text>
+
+  <!-- Card 3: VL53L0X Module -->
+  <rect x="710" y="65" width="230" height="435" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="716" y="71" width="218" height="32" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="825" y="92" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">3. Давач VL53L0X</text>
+
+  <rect x="725" y="112" width="200" height="378" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="825" y="130" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">VL53L0X (ToF Sensor)</text>
+
+  <!-- VL53L0X Optics Box -->
+  <rect x="735" y="172" width="180" height="56" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <rect x="742" y="178" width="78" height="44" rx="3" fill="white" stroke="#c0392b"/>
+  <text x="781" y="195" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">VCSEL</text>
+  <text x="781" y="213" text-anchor="middle" font-size="12" fill="#c0392b">940 нм</text>
+
+  <rect x="828" y="178" width="78" height="44" rx="3" fill="white" stroke="#2457d6"/>
+  <text x="867" y="195" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">SPAD</text>
+  <text x="867" y="213" text-anchor="middle" font-size="12" fill="#2457d6">Матриця</text>
+
+  <!-- VL53L0X Pins -->
+  <rect x="725" y="140" width="30" height="22" rx="2" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="765" y="156" font-size="12" font-weight="bold" fill="#27ae60">VDD / AVDD (2.8V)</text>
+
+  <rect x="725" y="235" width="30" height="22" rx="2" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="765" y="251" font-size="12" fill="#1a1a1a">SCL (2.8V)</text>
+
+  <rect x="725" y="290" width="30" height="22" rx="2" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="765" y="306" font-size="12" fill="#1a1a1a">SDA (2.8V)</text>
+
+  <rect x="725" y="345" width="30" height="22" rx="2" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="765" y="361" font-size="12" fill="#1a1a1a">XSHUT</text>
+
+  <rect x="725" y="400" width="30" height="22" rx="2" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="765" y="416" font-size="12" fill="#1a1a1a">GPIO1</text>
+
+  <rect x="725" y="450" width="30" height="22" rx="2" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="765" y="466" font-size="12" fill="#1a1a1a">GND</text>
+
+  <!-- Optical Window Note inside Card 3 -->
+  <text x="825" y="273" text-anchor="middle" font-size="12" fill="#6b7280">Скло: зазор &lt; 0.5 мм</text>
+
+  <!-- Lines / Wires -->
+  <!-- Wire +3.3V Power Rail: MCU (215, 191) -> LDO VIN & Pullups -->
+  <line x1="215" y1="191" x2="280" y2="191" stroke="#2457d6" stroke-width="2"/>
+  <line x1="280" y1="191" x2="280" y2="144" stroke="#2457d6" stroke-width="2"/>
+  <line x1="280" y1="144" x2="325" y2="144" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  
+  <!-- Branch +3.3V down to R1 and R3 -->
+  <line x1="300" y1="191" x2="300" y2="200" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="300" y1="222" x2="300" y2="246" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="300" y1="246" x2="300" y2="275" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="300" y1="297" x2="300" y2="301" stroke="#2457d6" stroke-width="1.5"/>
+
+  <!-- Wire +2.8V Power Rail: LDO VOUT (435, 144) -> Caps, Gate Q1/Q2, R2/R4/R5/R6, VL53L0X VDD (725, 144) -->
+  <line x1="435" y1="144" x2="725" y2="144" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arr-green)"/>
+
+  <!-- Connections from +2.8V rail down to Caps C1, C2 -->
+  <line x1="520" y1="144" x2="520" y2="144" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="520" y1="166" x2="520" y2="185" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="600" y1="144" x2="600" y2="144" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="600" y1="166" x2="600" y2="185" stroke="#27ae60" stroke-width="1.5"/>
+
+  <!-- Connections from +2.8V rail down to MOSFET Gates Q1, Q2 (routed at x=442 to avoid LDO box) -->
+  <line x1="442" y1="144" x2="442" y2="233" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="442" y1="233" x2="432" y2="233" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="442" y1="233" x2="442" y2="288" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="442" y1="288" x2="432" y2="288" stroke="#27ae60" stroke-width="1.5"/>
+
+  <!-- Connections from +2.8V rail down to Pullups R2, R4, R5, R6 -->
+  <line x1="460" y1="144" x2="460" y2="200" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="460" y1="222" x2="460" y2="246" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="460" y1="246" x2="460" y2="275" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="460" y1="297" x2="460" y2="301" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="460" y1="301" x2="460" y2="330" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="460" y1="352" x2="460" y2="356" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="460" y1="356" x2="460" y2="385" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="460" y1="407" x2="460" y2="411" stroke="#27ae60" stroke-width="1.5"/>
+
+  <!-- SCL_3V3 Line: MCU (215, 246) -> Q1 Drain (368, 246) -->
+  <line x1="215" y1="246" x2="368" y2="246" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- SCL_2V8 Line: Q1 Source (432, 246) -> VL53L0X Pin 10 (725, 246) -->
+  <line x1="432" y1="246" x2="725" y2="246" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- SDA_3V3 Line: MCU (215, 301) -> Q2 Drain (368, 301) -->
+  <line x1="215" y1="301" x2="368" y2="301" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- SDA_2V8 Line: Q2 Source (432, 301) -> VL53L0X Pin 9 (725, 301) -->
+  <line x1="432" y1="301" x2="725" y2="301" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- XSHUT Line: MCU (215, 356) -> VL53L0X Pin 5 (725, 356) -->
+  <line x1="215" y1="356" x2="725" y2="356" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- GPIO1 Line: VL53L0X Pin 7 (725, 411) -> MCU Pin (215, 411) -->
+  <line x1="725" y1="411" x2="215" y2="411" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- GND Rail: MCU GND (215, 461) -> LDO GND, Caps, VL53L0X GND (725, 461) -->
+  <line x1="215" y1="461" x2="725" y2="461" stroke="#6b7280" stroke-width="2"/>
+</svg>

@@ -1,0 +1,99 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+  <!-- Header -->
+  <text x="480" y="30" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Теплова реакція піроелектричного кристала HC-SR505 та генерація струму</text>
+  <text x="480" y="50" text-anchor="middle" font-size="13" fill="#6b7280">Піроелектричний струм I_pir(t) пропорційний похідній dT/dt і зникає після стабілізації температури</text>
+  <!-- Left Panel -->
+  <rect x="20" y="65" width="515" height="455" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="277" y="88" text-anchor="middle" font-size="14" font-weight="bold" fill="#2457d6">Часові діаграми процесів у кристалі</text>
+  <line x1="120" y1="135" x2="120" y2="170" stroke="#9ca3af" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="230" y1="135" x2="230" y2="170" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="340" y1="135" x2="340" y2="170" stroke="#9ca3af" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="120" y1="235" x2="120" y2="290" stroke="#9ca3af" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="230" y1="235" x2="230" y2="290" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="340" y1="235" x2="340" y2="290" stroke="#9ca3af" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="120" y1="365" x2="120" y2="475" stroke="#9ca3af" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="230" y1="365" x2="230" y2="475" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="340" y1="365" x2="340" y2="475" stroke="#9ca3af" stroke-width="1" stroke-dasharray="3,3"/>
+  <!-- Graph 1 -->
+  <text x="35" y="108" font-size="13" font-weight="bold" fill="#2457d6">1. ІЧ-потік P_IR(t) [мВт]</text>
+  <line x1="70" y1="170" x2="495" y2="170" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="505" y="174" font-size="12" fill="#1a1a1a">t</text>
+  <line x1="80" y1="175" x2="80" y2="120" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="68" y="124" text-anchor="end" font-size="12" fill="#1a1a1a">P</text>
+  <path d="M 80 170 L 120 170 L 120 135 L 340 135 L 340 170 L 485 170" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+  <path d="M 120 170 L 120 135 L 340 135 L 340 170 Z" fill="#eaf0fd" opacity="0.6"/>
+  <text x="230" y="125" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">ІЧ-імпульс P₀ (рух об'єкта)</text>
+  <text x="68" y="139" text-anchor="end" font-size="12" fill="#6b7280">P₀</text>
+  <line x1="75" y1="135" x2="85" y2="135" stroke="#6b7280" stroke-width="1"/>
+  <!-- Graph 2 -->
+  <text x="35" y="202" font-size="13" font-weight="bold" fill="#c0392b">2. Температура кристала T(t) [°C]</text>
+  <line x1="70" y1="290" x2="495" y2="290" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="505" y="294" font-size="12" fill="#1a1a1a">t</text>
+  <line x1="80" y1="295" x2="80" y2="218" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="68" y="222" text-anchor="end" font-size="12" fill="#1a1a1a">T</text>
+  <line x1="75" y1="280" x2="480" y2="280" stroke="#9ca3af" stroke-dasharray="2,2"/>
+  <text x="68" y="284" text-anchor="end" font-size="12" fill="#6b7280">T₀</text>
+  <line x1="75" y1="235" x2="340" y2="235" stroke="#9ca3af" stroke-dasharray="2,2"/>
+  <text x="68" y="239" text-anchor="end" font-size="12" fill="#c0392b">T₀+ΔT</text>
+  <path d="M 80 280 L 120 280 C 145 242 185 235 230 235 L 340 235 C 365 273 405 280 450 280 L 485 280" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+  <text x="120" y="220" font-size="12" font-weight="bold" fill="#c0392b">dT/dt &gt; 0</text>
+  <text x="290" y="220" text-anchor="middle" font-size="12" font-weight="bold" fill="#6b7280">dT/dt = 0 (стабілізація)</text>
+  <text x="385" y="250" font-size="12" font-weight="bold" fill="#c0392b">dT/dt &lt; 0</text>
+  <!-- Graph 3 -->
+  <text x="35" y="320" font-size="13" font-weight="bold" fill="#27ae60">3. Піроелектричний струм I_pir(t) = p · A · (dT/dt)</text>
+  <line x1="70" y1="420" x2="495" y2="420" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="505" y="424" font-size="12" fill="#1a1a1a">t</text>
+  <line x1="80" y1="490" x2="80" y2="335" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="68" y="339" text-anchor="end" font-size="12" fill="#1a1a1a">I</text>
+  <line x1="75" y1="365" x2="230" y2="365" stroke="#9ca3af" stroke-dasharray="2,2"/>
+  <text x="68" y="369" text-anchor="end" font-size="12" fill="#27ae60">+I_max</text>
+  <line x1="75" y1="475" x2="335" y2="475" stroke="#9ca3af" stroke-dasharray="2,2"/>
+  <text x="68" y="479" text-anchor="end" font-size="12" fill="#c0392b">-I_max</text>
+  <path d="M 80 420 L 120 420 L 120 365 C 150 410 190 420 230 420 L 340 420 L 340 475 C 370 430 410 420 450 420 L 485 420" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+  <text x="135" y="355" font-size="12" font-weight="bold" fill="#27ae60">Пік струму (+I_max)</text>
+  <rect x="240" y="398" width="90" height="18" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="285" y="411" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">I_pir = 0</text>
+  <text x="350" y="490" font-size="12" font-weight="bold" fill="#c0392b">Зворотний пік (-I_max)</text>
+  <text x="120" y="505" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">t₀ (початок)</text>
+  <text x="230" y="505" text-anchor="middle" font-size="12" fill="#6b7280">t_stab</text>
+  <text x="340" y="505" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">t₁ (кінець)</text>
+  <!-- Right Panel -->
+  <rect x="550" y="65" width="390" height="455" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="745" y="88" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Фізичні принципи та математика</text>
+  <rect x="562" y="102" width="366" height="120" rx="5" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="572" y="120" font-size="12" font-weight="bold" fill="#1a1a1a">1. Потік випромінювання (Стефан — Больцман):</text>
+  <text x="572" y="140" font-size="13" font-weight="bold" fill="#2457d6">P_IR = ε · σ · A_pir · (T_obj⁴ - T_bg⁴)</text>
+  <text x="572" y="160" font-size="12" fill="#6b7280">ε — випромінювальна здатність (людина ≈ 0.98)</text>
+  <text x="572" y="180" font-size="12" fill="#6b7280">σ = 5.67×10⁻⁸ Вт/(м²·К⁴) — стала Больцмана</text>
+  <text x="572" y="200" font-size="12" fill="#6b7280">ΔP_IR викликає зміну температури dT/dt</text>
+  <rect x="562" y="232" width="366" height="135" rx="5" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="572" y="250" font-size="12" font-weight="bold" fill="#2457d6">2. Основне рівняння піроефекту:</text>
+  <text x="572" y="272" font-size="14" font-weight="bold" fill="#2457d6">I_pir(t) = p · A · (dT / dt)</text>
+  <text x="572" y="294" font-size="12" fill="#1a1a1a">p — піроелектричний коефіцієнт матеріалу</text>
+  <text x="572" y="312" font-size="12" fill="#1a1a1a">A — робоча площа кристала [м²]</text>
+  <text x="572" y="330" font-size="12" font-weight="bold" fill="#c0392b">dT/dt — швидкість зміни температури [К/с]</text>
+  <text x="572" y="348" font-size="12" font-weight="bold" fill="#2457d6">Стабільна T (dT/dt = 0)  ⇒  I_pir = 0</text>
+  <rect x="562" y="377" width="366" height="130" rx="5" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="572" y="397" font-size="12" font-weight="bold" fill="#27ae60">3. Практичні висновки для HC-SR505:</text>
+  <text x="572" y="417" font-size="12" font-weight="bold" fill="#1a1a1a">• Сенсор реагує ТІЛЬКИ на РУХ об'єкта</text>
+  <text x="572" y="435" font-size="12" font-weight="bold" fill="#1a1a1a">• Нерухома людина є «невидимою»</text>
+  <text x="572" y="453" font-size="12" font-weight="bold" fill="#1a1a1a">• Лінза Френеля модулює потік P_IR</text>
+  <text x="572" y="471" font-size="12" fill="#6b7280">  створюючи зміну температури dT/dt</text>
+  <text x="572" y="489" font-size="12" font-weight="bold" fill="#27ae60">• Підсилювач обробляє лише змінний струм</text>
+</svg>

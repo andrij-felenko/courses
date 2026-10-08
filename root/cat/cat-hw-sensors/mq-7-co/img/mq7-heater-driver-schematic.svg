@@ -1,0 +1,207 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- White Background -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Definitions for Markers -->
+  <defs>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="36" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Двофазний драйвер живлення нагрівача MQ-7 на MOSFET-ключах</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Комутація напруг 5 В / 1,4 В та розділення силової (PGND) і аналогової (AGND) земель</text>
+
+  <!-- PANEL 1: POWER SWITCHING BLOCK -->
+  <rect x="30" y="75" width="300" height="325" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="180" y="96" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Комутатор напруги нагрівача</text>
+
+  <!-- Channel 1: 5V Rail & Q1 MOSFET -->
+  <text x="45" y="112" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="start">+5.0 V (Фаза 1)</text>
+  <line x1="40" y1="120" x2="150" y2="120" stroke="#c0392b" stroke-width="2"/>
+
+  <rect x="150" y="100" width="75" height="40" fill="#ffffff" stroke="#c0392b" stroke-width="1.5" rx="4"/>
+  <text x="187" y="116" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Q1 P-FET</text>
+  <text x="187" y="132" font-size="12" fill="#c0392b" text-anchor="middle">5.0 V Ключ</text>
+
+  <text x="45" y="150" font-size="12" fill="#1a1a1a" text-anchor="start">МК: CTRL_5V (60 c)</text>
+  <path d="M 40 160 L 187 160 L 187 140" fill="none" stroke="#1a1a1a" stroke-width="1.5" stroke-dasharray="3,3"/>
+
+  <line x1="225" y1="120" x2="240" y2="120" stroke="#1a1a1a" stroke-width="1.5"/>
+  <!-- Diode D1 -->
+  <polygon points="240,114 250,120 240,126" fill="#c0392b"/>
+  <line x1="250" y1="114" x2="250" y2="126" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="245" y="106" font-size="12" fill="#6b7280" text-anchor="middle">D1</text>
+  <line x1="250" y1="120" x2="285" y2="120" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Channel 2: 1.4V Rail & Q2 MOSFET -->
+  <text x="45" y="212" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="start">+1.4 V (Фаза 2)</text>
+  <line x1="40" y1="220" x2="150" y2="220" stroke="#2457d6" stroke-width="2"/>
+
+  <rect x="150" y="200" width="75" height="40" fill="#ffffff" stroke="#2457d6" stroke-width="1.5" rx="4"/>
+  <text x="187" y="216" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Q2 P-FET</text>
+  <text x="187" y="232" font-size="12" fill="#2457d6" text-anchor="middle">1.4 V Ключ</text>
+
+  <text x="45" y="250" font-size="12" fill="#1a1a1a" text-anchor="start">МК: CTRL_1.4V (90 c)</text>
+  <path d="M 40 260 L 187 260 L 187 240" fill="none" stroke="#1a1a1a" stroke-width="1.5" stroke-dasharray="3,3"/>
+
+  <line x1="225" y1="220" x2="240" y2="220" stroke="#1a1a1a" stroke-width="1.5"/>
+  <!-- Diode D2 -->
+  <polygon points="240,214 250,220 240,226" fill="#2457d6"/>
+  <line x1="250" y1="214" x2="250" y2="226" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="245" y="206" font-size="12" fill="#6b7280" text-anchor="middle">D2</text>
+  <line x1="250" y1="220" x2="285" y2="220" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Bus Join & Output to Sensor -->
+  <line x1="285" y1="120" x2="285" y2="220" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="285" cy="170" r="3" fill="#1a1a1a"/>
+  <line x1="285" y1="170" x2="330" y2="170" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="308" y="162" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">V_HEAT</text>
+
+  <!-- Panel 1 Footer Note -->
+  <text x="180" y="340" font-size="12" fill="#6b7280" text-anchor="middle">Автоматична зміна режимів 5 В / 1,4 В</text>
+  <text x="180" y="358" font-size="12" fill="#6b7280" text-anchor="middle">з силового джерела живлення</text>
+
+  <!-- PANEL 2: MQ-7 SENSOR BLOCK -->
+  <rect x="350" y="75" width="260" height="325" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="480" y="96" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Модуль / Сенсор MQ-7</text>
+
+  <!-- VCC Line for Sensor Pin A -->
+  <text x="540" y="108" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">+5.0 V (VCC_SENS)</text>
+  <line x1="540" y1="116" x2="540" y2="150" stroke="#c0392b" stroke-width="1.5"/>
+
+  <!-- Sensor Frame -->
+  <rect x="375" y="122" width="210" height="213" fill="#ffffff" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4,4" rx="8"/>
+  <text x="480" y="138" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">MQ-7 (Чутливий елемент)</text>
+
+  <!-- Left: Heater Circuit inside Sensor -->
+  <text x="425" y="154" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">H1</text>
+  <line x1="330" y1="170" x2="415" y2="170" stroke="#2457d6" stroke-width="2"/>
+  <line x1="415" y1="150" x2="415" y2="170" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="415" cy="170" r="3" fill="#1a1a1a"/>
+
+  <!-- Heater Resistance Coil -->
+  <path d="M 415 170 L 415 175 L 422 180 L 408 188 L 422 196 L 408 204 L 422 212 L 415 217 L 415 230" fill="none" stroke="#c0392b" stroke-width="2"/>
+  <text x="402" y="200" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="end">R_H ≈ 33 Ом</text>
+
+  <text x="425" y="244" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">H2</text>
+  <line x1="415" y1="230" x2="415" y2="365" stroke="#c0392b" stroke-width="2"/>
+
+  <!-- Right: Gas Sensor Element inside Sensor -->
+  <text x="552" y="154" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">A</text>
+  <circle cx="540" cy="150" r="3" fill="#c0392b"/>
+
+  <!-- Sensor Film Box R_S -->
+  <rect x="525" y="172" width="30" height="44" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="3"/>
+  <line x1="518" y1="212" x2="562" y2="178" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="515" y="196" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">R_S (CO)</text>
+
+  <line x1="540" y1="150" x2="540" y2="172" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="540" y1="216" x2="540" y2="230" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="540" cy="230" r="3" fill="#1a1a1a"/>
+  <text x="552" y="248" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">B</text>
+
+  <!-- Line from Pin B out to Panel 3 -->
+  <line x1="540" y1="230" x2="630" y2="230" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- PGND Ground Symbol at bottom of Panel 2 -->
+  <line x1="400" y1="365" x2="430" y2="365" stroke="#c0392b" stroke-width="2"/>
+  <line x1="405" y1="370" x2="425" y2="370" stroke="#c0392b" stroke-width="1.5"/>
+  <line x1="410" y1="375" x2="420" y2="375" stroke="#c0392b" stroke-width="1"/>
+  <text x="415" y="394" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">PGND (Силова)</text>
+
+  <!-- GROUND SEPARATION / STAR POINT INTERCONNECT -->
+  <path d="M 430 365 L 515 365" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="2,2"/>
+  <rect x="515" y="358" width="40" height="14" fill="#ffffff" stroke="#1a1a1a" stroke-width="1" rx="2"/>
+  <text x="535" y="350" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">R_0 (0 Ом)</text>
+  <path d="M 555 365 L 720 365" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="2,2"/>
+  <text x="535" y="385" font-size="12" fill="#6b7280" text-anchor="middle">Точка з'єднання</text>
+  <text x="535" y="397" font-size="12" fill="#6b7280" text-anchor="middle">земель (Star Point)</text>
+
+  <!-- PANEL 3: ANALOG MEASUREMENT & LPF BLOCK -->
+  <rect x="630" y="75" width="300" height="325" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="780" y="96" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Аналоговий вихід та ФНЧ</text>
+
+  <!-- Connection from Pin B -->
+  <line x1="630" y1="230" x2="670" y2="230" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="670" cy="230" r="3" fill="#1a1a1a"/>
+  <text x="670" y="214" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">V_SENS</text>
+
+  <!-- Load Resistor R_L (vertical) -->
+  <line x1="670" y1="230" x2="670" y2="245" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="662" y="245" width="16" height="40" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5" rx="2"/>
+  <text x="686" y="269" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">R_L (10..47 кОм)</text>
+  <line x1="670" y1="285" x2="670" y2="365" stroke="#27ae60" stroke-width="1.5"/>
+
+  <!-- Low-Pass Filter R_F (horizontal) -->
+  <line x1="670" y1="230" x2="720" y2="230" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="720" y="222" width="40" height="16" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5" rx="2"/>
+  <text x="740" y="214" font-size="12" fill="#1a1a1a" text-anchor="middle">R_F = 1 кОм</text>
+  <line x1="760" y1="230" x2="800" y2="230" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="800" cy="230" r="3" fill="#1a1a1a"/>
+
+  <!-- Filter Capacitor C_F (vertical) -->
+  <line x1="800" y1="230" x2="800" y2="252" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="790" y1="252" x2="810" y2="252" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="790" y1="258" x2="810" y2="258" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="800" y1="258" x2="800" y2="365" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="818" y="260" font-size="12" fill="#1a1a1a" text-anchor="start">C_F = 100 нФ</text>
+
+  <!-- Output line to MCU ADC -->
+  <line x1="800" y1="230" x2="905" y2="230" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="850" y="214" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">V_OUT (до АЦП МК)</text>
+
+  <!-- AGND Ground Line & Symbol -->
+  <line x1="670" y1="365" x2="800" y2="365" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="720" y1="365" x2="750" y2="365" stroke="#27ae60" stroke-width="2"/>
+  <line x1="725" y1="370" x2="745" y2="370" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="730" y1="375" x2="740" y2="375" stroke="#27ae60" stroke-width="1"/>
+  <text x="735" y="394" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">AGND (Аналогова)</text>
+
+  <!-- BOTTOM PANEL: TIMING WAVEFORM DIAGRAM -->
+  <rect x="30" y="415" width="900" height="120" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="45" y="433" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="start">Графік напруги живлення нагрівача V_HEAT (цикл 150 секунд):</text>
+
+  <!-- Y-Axis Labels -->
+  <text x="110" y="452" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="end">5.0 В</text>
+  <text x="110" y="488" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">1.4 В</text>
+  <text x="110" y="505" font-size="12" fill="#6b7280" text-anchor="end">0 В</text>
+
+  <!-- Base Axis Line -->
+  <line x1="120" y1="505" x2="910" y2="505" stroke="#6b7280" stroke-width="1"/>
+
+  <!-- Phase 1 Shading (0..60s) -->
+  <rect x="120" y="440" width="316" height="65" fill="#fdecea" opacity="0.7" rx="3"/>
+  <text x="278" y="466" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Фаза 1: High (5.0 В) — 60 с</text>
+  <text x="278" y="480" font-size="12" fill="#1a1a1a" text-anchor="middle">Очищення чутливого шару (регенерація)</text>
+
+  <!-- Phase 2 Shading (60..150s) -->
+  <rect x="436" y="440" width="474" height="65" fill="#e9f7ef" opacity="0.7" rx="3"/>
+  <text x="630" y="466" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Фаза 2: Low (1.4 В) — 90 с</text>
+  <text x="630" y="480" font-size="12" fill="#1a1a1a" text-anchor="middle">Адсорбція CO та зміна опору R_S</text>
+
+  <!-- ADC Reading Window Highlight -->
+  <rect x="825" y="442" width="80" height="38" fill="#ffffff" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="2,2" rx="3"/>
+  <text x="865" y="456" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">АЦП</text>
+  <text x="865" y="470" font-size="12" fill="#27ae60" text-anchor="middle">Замір</text>
+
+  <!-- Waveform Line -->
+  <path d="M 120 505 L 120 452 L 436 452 L 436 488 L 910 488" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+
+  <!-- Time Axis Ticks -->
+  <line x1="120" y1="505" x2="120" y2="509" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="120" y="523" font-size="12" fill="#6b7280" text-anchor="middle">0 c</text>
+
+  <line x1="436" y1="505" x2="436" y2="509" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="436" y="523" font-size="12" fill="#6b7280" text-anchor="middle">60 c</text>
+
+  <line x1="910" y1="505" x2="910" y2="509" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="910" y="523" font-size="12" fill="#6b7280" text-anchor="middle">150 c</text>
+</svg>

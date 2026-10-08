@@ -1,0 +1,106 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Часова діаграма спрацьовування та вимірювання інтервалів SS41F</text>
+  <text x="480" y="54" text-anchor="middle" font-size="13" fill="#6b7280">Перемикання виходу за порогами B_OP / B_RP та фіксація часових позначок EXTI</text>
+
+  <!-- Main Container Panel -->
+  <rect x="30" y="70" width="900" height="425" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Vertical Divider Line -->
+  <line x1="220" y1="85" x2="220" y2="480" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="4,4"/>
+
+  <!-- Vertical Event Markers (Dashed lines from EXTI points) -->
+  <line x1="370" y1="120" x2="370" y2="465" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <line x1="690" y1="190" x2="690" y2="465" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,4"/>
+
+  <!-- Horizontal Section Separators -->
+  <line x1="45" y1="220" x2="915" y2="220" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="45" y1="320" x2="915" y2="320" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="45" y1="415" x2="915" y2="415" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- TRACK 1: Magnetic Induction B(t) -->
+  <text x="45" y="94" text-anchor="start" font-size="13" font-weight="bold" fill="#1a1a1a">Індукція поля B(t)</text>
+  <text x="45" y="108" text-anchor="start" font-size="12" fill="#6b7280">Магнітні полюси S / N</text>
+
+  <!-- Threshold Horizontal Reference Lines & Y-axis Labels -->
+  <line x1="230" y1="120" x2="900" y2="120" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <text x="210" y="132" text-anchor="end" font-size="12" font-weight="bold" fill="#27ae60">+B_OP (Південь)</text>
+
+  <line x1="230" y1="155" x2="900" y2="155" stroke="#9ca3af" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="210" y="150" text-anchor="end" font-size="12" fill="#6b7280">B = 0</text>
+
+  <line x1="230" y1="190" x2="900" y2="190" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <text x="210" y="185" text-anchor="end" font-size="12" font-weight="bold" fill="#c0392b">-B_RP (Північ)</text>
+
+  <!-- Magnetic Field Curve B(t) -->
+  <path d="M 240,155 C 290,155 330,125 370,120 C 410,110 440,102 460,102 C 500,102 520,110 550,120 C 600,135 650,175 690,190 C 730,205 760,205 770,205 C 810,205 850,170 880,155" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+
+  <!-- Track 1 Region Badges -->
+  <rect x="395" y="75" width="130" height="20" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="460" y="89" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">S-полюс (B &gt; +B_OP)</text>
+
+  <rect x="705" y="165" width="130" height="20" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="770" y="179" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">N-полюс (B &lt; -B_RP)</text>
+
+  <!-- TRACK 2: SS41F Output V_OUT(t) -->
+  <text x="45" y="240" text-anchor="start" font-size="13" font-weight="bold" fill="#1a1a1a">Вихід SS41F</text>
+  <text x="45" y="255" text-anchor="start" font-size="12" fill="#6b7280">V_OUT (Pull-up)</text>
+
+  <text x="210" y="238" text-anchor="end" font-size="12" fill="#6b7280">HIGH (1)</text>
+  <text x="210" y="290" text-anchor="end" font-size="12" fill="#6b7280">LOW (0)</text>
+
+  <!-- Output Logic Waveform -->
+  <path d="M 240,245 L 370,245 L 370,295 L 690,295 L 690,245 L 880,245" fill="none" stroke="#2457d6" stroke-width="2.5" stroke-linejoin="round"/>
+
+  <!-- Output Event Points -->
+  <circle cx="370" cy="295" r="5" fill="#27ae60"/>
+  <circle cx="690" cy="245" r="5" fill="#c0392b"/>
+
+  <!-- Track 2 Annotation Cards -->
+  <rect x="405" y="252" width="130" height="34" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="470" y="266" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Активний вихід</text>
+  <text x="470" y="280" text-anchor="middle" font-size="12" fill="#1a1a1a">V_OUT = 0 В (LOW)</text>
+
+  <rect x="555" y="252" width="125" height="34" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="617.5" y="266" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Гістерезис SS41F</text>
+  <text x="617.5" y="280" text-anchor="middle" font-size="12" fill="#6b7280">стан утримується</text>
+
+  <!-- TRACK 3: EXTI Interrupts & Callbacks -->
+  <text x="45" y="342" text-anchor="start" font-size="13" font-weight="bold" fill="#1a1a1a">Переривання EXTI</text>
+  <text x="45" y="357" text-anchor="start" font-size="12" fill="#6b7280">Обробка подіями</text>
+
+  <!-- Event Cards for Falling Edge & Rising Edge -->
+  <rect x="235" y="340" width="125" height="40" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="297.5" y="356" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">EXTI Falling Edge</text>
+  <text x="297.5" y="371" text-anchor="middle" font-size="12" fill="#1a1a1a">t_1 = get_tick()</text>
+
+  <rect x="390" y="340" width="280" height="40" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="530" y="356" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Виклик Callback-функцій</text>
+  <text x="530" y="371" text-anchor="middle" font-size="12" fill="#1a1a1a">on_south_detected() → on_north_detected()</text>
+
+  <rect x="700" y="340" width="125" height="40" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="762.5" y="356" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">EXTI Rising Edge</text>
+  <text x="762.5" y="371" text-anchor="middle" font-size="12" fill="#1a1a1a">t_2 = get_tick()</text>
+
+  <!-- TRACK 4: Time Interval Measurement Δt -->
+  <text x="45" y="442" text-anchor="start" font-size="13" font-weight="bold" fill="#1a1a1a">Виміряний час Δt</text>
+  <text x="45" y="457" text-anchor="start" font-size="12" fill="#6b7280">Інтервал імпульсу</text>
+
+  <!-- Calculation Card & Dimension Arrows -->
+  <line x1="390" y1="453" x2="372" y2="453" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <line x1="670" y1="453" x2="688" y2="453" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <rect x="395" y="432" width="270" height="42" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="530" y="449" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Δt = t_2 - t_1 (тривалість S-полюса)</text>
+  <text x="530" y="465" text-anchor="middle" font-size="12" fill="#6b7280">Обчислення кутової швидкості / періоду</text>
+</svg>

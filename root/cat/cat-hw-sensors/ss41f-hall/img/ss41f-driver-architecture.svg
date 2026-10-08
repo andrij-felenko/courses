@@ -1,0 +1,142 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-accent" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Заголовок та підзаголовок -->
+  <text x="480" y="34" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Архітектура програмного драйвера SS41F</text>
+  <text x="480" y="56" font-size="13" fill="#6b7280" text-anchor="middle">Передача апаратного сигналу від GPIO/EXTI до обробника ISR та користувацького Callback</text>
+
+  <!-- Колонка 1: Апаратний рівень -->
+  <rect x="30" y="90" width="200" height="390" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="8"/>
+  <text x="130" y="115" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">1. Апаратний рівень</text>
+
+  <!-- Блок 1.1: SS41F -->
+  <rect x="45" y="140" width="170" height="85" fill="white" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="130" y="162" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Давач SS41F</text>
+  <text x="130" y="182" font-size="12" fill="#1a1a1a" text-anchor="middle">Цифровий вихід</text>
+  <text x="130" y="200" font-size="12" fill="#6b7280" text-anchor="middle">(Open-Drain / Pull-up)</text>
+
+  <!-- Блок 1.2: GPIO Pin -->
+  <rect x="45" y="260" width="170" height="90" fill="white" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="130" y="284" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Вхідний PIN GPIO</text>
+  <text x="130" y="306" font-size="12" fill="#1a1a1a" text-anchor="middle">Підтяжка Pull-Up</text>
+  <text x="130" y="328" font-size="12" fill="#6b7280" text-anchor="middle">Логічний рівень H/L</text>
+
+  <!-- Блок 1.3: Фізична подія -->
+  <rect x="45" y="380" width="170" height="80" fill="white" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="130" y="402" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Магнітна подія:</text>
+  <text x="130" y="422" font-size="12" fill="#1a1a1a" text-anchor="middle">Зміна полярності</text>
+  <text x="130" y="440" font-size="12" fill="#6b7280" text-anchor="middle">N-полюс ↔ S-полюс</text>
+
+  <!-- Колонка 2: Периферія EXTI -->
+  <rect x="250" y="90" width="200" height="390" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="8"/>
+  <text x="350" y="115" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">2. Периферія EXTI</text>
+
+  <!-- Блок 2.1: EXTI Controller -->
+  <rect x="265" y="140" width="170" height="85" fill="white" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="350" y="162" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Контролер EXTI</text>
+  <text x="350" y="182" font-size="12" fill="#1a1a1a" text-anchor="middle">Зовнішнє переривання</text>
+  <text x="350" y="200" font-size="12" fill="#6b7280" text-anchor="middle">Апаратний монітор</text>
+
+  <!-- Блок 2.2: Edge Trigger -->
+  <rect x="265" y="260" width="170" height="90" fill="white" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="350" y="284" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Детектор фронту</text>
+  <text x="350" y="306" font-size="12" fill="#2457d6" text-anchor="middle">Rising / Falling Edge</text>
+  <text x="350" y="328" font-size="12" fill="#6b7280" text-anchor="middle">Генерація IRQ</text>
+
+  <!-- Блок 2.3: Апаратний тригер -->
+  <rect x="265" y="380" width="170" height="80" fill="white" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="350" y="402" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Режим запізнення:</text>
+  <text x="350" y="422" font-size="12" fill="#1a1a1a" text-anchor="middle">Апаратний тригер</text>
+  <text x="350" y="440" font-size="12" fill="#6b7280" text-anchor="middle">Без затримки CPU</text>
+
+  <!-- Колонка 3: Драйвер SS41F -->
+  <rect x="470" y="90" width="220" height="390" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="8"/>
+  <text x="580" y="115" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">3. Драйвер SS41F</text>
+
+  <!-- Блок 3.1: ISR -->
+  <rect x="485" y="140" width="190" height="85" fill="white" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <text x="580" y="162" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">SS41F_GPIO_ISR()</text>
+  <text x="580" y="182" font-size="12" fill="#1a1a1a" text-anchor="middle">Обробник переривання</text>
+  <text x="580" y="200" font-size="12" fill="#6b7280" text-anchor="middle">Захват таймштампу</text>
+
+  <!-- Блок 3.2: Драйвер & Стан -->
+  <rect x="485" y="260" width="190" height="90" fill="white" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <text x="580" y="284" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Контекст Драйвера</text>
+  <text x="580" y="306" font-size="12" fill="#1a1a1a" text-anchor="middle">Фільтрація брязкоту</text>
+  <text x="580" y="328" font-size="12" fill="#6b7280" text-anchor="middle">Оновлення стану</text>
+
+  <!-- Блок 3.3: API Драйвера -->
+  <rect x="485" y="380" width="190" height="80" fill="white" stroke="#2457d6" stroke-width="1" stroke-dasharray="4,3" rx="6"/>
+  <text x="580" y="402" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Публічний API:</text>
+  <text x="580" y="422" font-size="12" fill="#1a1a1a" text-anchor="middle">SS41F_Init(&amp;cfg)</text>
+  <text x="580" y="440" font-size="12" fill="#6b7280" text-anchor="middle">SS41F_GetState()</text>
+
+  <!-- Колонка 4: Рівень застосунку -->
+  <rect x="710" y="90" width="220" height="390" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="8"/>
+  <text x="820" y="115" font-size="14" font-weight="bold" fill="#27ae60" text-anchor="middle">4. Рівень застосунку</text>
+
+  <!-- Блок 4.1: Callback -->
+  <rect x="725" y="140" width="190" height="85" fill="white" stroke="#27ae60" stroke-width="1.5" rx="6"/>
+  <text x="820" y="162" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">User Callback</text>
+  <text x="820" y="182" font-size="12" fill="#1a1a1a" text-anchor="middle">on_hall_event(evt)</text>
+  <text x="820" y="200" font-size="12" fill="#6b7280" text-anchor="middle">Сповіщення системи</text>
+
+  <!-- Блок 4.2: Бізнес-логіка -->
+  <rect x="725" y="260" width="190" height="90" fill="white" stroke="#27ae60" stroke-width="1.5" rx="6"/>
+  <text x="820" y="284" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Верхній рівень</text>
+  <text x="820" y="306" font-size="12" fill="#1a1a1a" text-anchor="middle">Розрахунок RPM / Швидкості</text>
+  <text x="820" y="328" font-size="12" fill="#6b7280" text-anchor="middle">Детекція напрямку</text>
+
+  <!-- Блок 4.3: Режим виконання -->
+  <rect x="725" y="380" width="190" height="80" fill="#e9f7ef" stroke="#27ae60" stroke-width="1" rx="6"/>
+  <text x="820" y="402" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Неблокуюча робота:</text>
+  <text x="820" y="422" font-size="12" fill="#1a1a1a" text-anchor="middle">Мінімальний ISR</text>
+  <text x="820" y="440" font-size="12" fill="#6b7280" text-anchor="middle">Подія в чергу EventLoop</text>
+
+  <!-- ЗВ'ЯЗКИ (З'єднувальні лінії зі стрілками) -->
+
+  <!-- 1. SS41F -> GPIO Pin -->
+  <line x1="130" y1="225" x2="130" y2="260" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="138" y="247" font-size="11" fill="#6b7280" text-anchor="start">VOUT</text>
+
+  <!-- 2. GPIO Pin -> Edge Detector -->
+  <line x1="215" y1="305" x2="265" y2="305" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="240" y="293" font-size="11" fill="#1a1a1a" text-anchor="middle">Сигнал</text>
+
+  <!-- 3. Edge Detector -> EXTI Controller -->
+  <line x1="350" y1="260" x2="350" y2="225" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="358" y="247" font-size="11" fill="#6b7280" text-anchor="start">Детекція фронту</text>
+
+  <!-- 4. EXTI Controller -> SS41F_GPIO_ISR -->
+  <line x1="435" y1="182.5" x2="485" y2="182.5" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-accent)"/>
+  <text x="460" y="170" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">IRQ</text>
+
+  <!-- 5. SS41F_GPIO_ISR -> Контекст Драйвера -->
+  <line x1="580" y1="225" x2="580" y2="260" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-accent)"/>
+  <text x="588" y="247" font-size="11" fill="#2457d6" text-anchor="start">Оновлення стану</text>
+
+  <!-- 6. SS41F_GPIO_ISR -> User Callback -->
+  <line x1="675" y1="182.5" x2="725" y2="182.5" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <text x="700" y="170" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">Callback</text>
+
+  <!-- 7. User Callback -> Бізнес-логіка -->
+  <line x1="820" y1="225" x2="820" y2="260" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <text x="828" y="247" font-size="11" fill="#27ae60" text-anchor="start">Подія в App</text>
+
+  <!-- 8. API Драйвера -> Контекст Драйвера -->
+  <line x1="580" y1="380" x2="580" y2="350" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr-accent)"/>
+  <text x="588" y="369" font-size="11" fill="#6b7280" text-anchor="start">Конфігурація</text>
+</svg>

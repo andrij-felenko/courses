@@ -1,0 +1,211 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Background Canvas -->
+  <rect x="0" y="0" width="960" height="520" fill="#ffffff"/>
+
+  <!-- Main Header -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Топології підключення RTD (PT100/PT1000) до MAX31865</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Відокремлення струмових (FORCE) та вимірювальних (RTIN) ліній усуває вплив опору дротів</text>
+
+  <!-- ==================== PANEL 1: 2-WIRE ==================== -->
+  <g id="panel-2wire">
+    <!-- Container -->
+    <rect x="25" y="75" width="290" height="425" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+    <!-- Header Badge -->
+    <rect x="40" y="90" width="260" height="34" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+    <text x="170" y="112" font-size="14" font-weight="bold" fill="#c0392b" text-anchor="middle">2-Провідне підключення</text>
+
+    <!-- MAX31865 IC Box -->
+    <rect x="40" y="145" width="85" height="185" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+    <text x="82.5" y="166" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">MAX31865</text>
+    
+    <!-- IC Pins -->
+    <text x="108" y="194" font-size="12" fill="#6b7280" text-anchor="end">F+</text>
+    <text x="108" y="224" font-size="12" fill="#6b7280" text-anchor="end">IN+</text>
+    <text x="108" y="274" font-size="12" fill="#6b7280" text-anchor="end">IN-</text>
+    <text x="108" y="304" font-size="12" fill="#6b7280" text-anchor="end">F-</text>
+
+    <!-- Board Shorting Jumpers at IC -->
+    <line x1="125" y1="190" x2="125" y2="220" stroke="#c0392b" stroke-width="2"/>
+    <line x1="125" y1="270" x2="125" y2="300" stroke="#c0392b" stroke-width="2"/>
+    <circle cx="125" cy="205" r="3" fill="#c0392b"/>
+    <circle cx="125" cy="285" r="3" fill="#c0392b"/>
+
+    <!-- Sensor Box -->
+    <rect x="225" y="145" width="75" height="185" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+    <text x="262.5" y="166" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">PT100</text>
+    
+    <!-- Sensor Resistor -->
+    <rect x="245" y="222" width="15" height="45" rx="2" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+    <text x="275" y="249" font-size="12" fill="#c0392b" text-anchor="start">R_RTD</text>
+
+    <!-- Sensor Internal Connections -->
+    <line x1="225" y1="205" x2="252.5" y2="205" stroke="#c0392b" stroke-width="1.5"/>
+    <line x1="252.5" y1="205" x2="252.5" y2="222" stroke="#c0392b" stroke-width="1.5"/>
+    <line x1="225" y1="285" x2="252.5" y2="285" stroke="#c0392b" stroke-width="1.5"/>
+    <line x1="252.5" y1="285" x2="252.5" y2="267" stroke="#c0392b" stroke-width="1.5"/>
+
+    <!-- Wires between IC and Sensor -->
+    <!-- Wire 1 -->
+    <line x1="125" y1="205" x2="148" y2="205" stroke="#c0392b" stroke-width="2"/>
+    <rect x="148" y="197" width="54" height="16" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+    <text x="175" y="190" font-size="12" fill="#c0392b" text-anchor="middle">R_w1</text>
+    <line x1="202" y1="205" x2="225" y2="205" stroke="#c0392b" stroke-width="2"/>
+
+    <!-- Wire 2 -->
+    <line x1="125" y1="285" x2="148" y2="285" stroke="#c0392b" stroke-width="2"/>
+    <rect x="148" y="277" width="54" height="16" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+    <text x="175" y="306" font-size="12" fill="#c0392b" text-anchor="middle">R_w2</text>
+    <line x1="202" y1="285" x2="225" y2="285" stroke="#c0392b" stroke-width="2"/>
+
+    <!-- Bottom Analysis Card -->
+    <rect x="40" y="345" width="260" height="140" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+    <text x="170" y="370" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">R_виміряне = R_RTD + 2·R_w</text>
+    <text x="170" y="393" font-size="12" fill="#1a1a1a" text-anchor="middle">Струм вимірювання I_bias</text>
+    <text x="170" y="413" font-size="12" fill="#1a1a1a" text-anchor="middle">протікає через обидва дроти</text>
+    <text x="170" y="433" font-size="12" fill="#6b7280" text-anchor="middle">Похибка: ~2.5 °C на 1 Ом R_w</text>
+    <text x="170" y="465" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">❌ Висока чутливість до R_w</text>
+  </g>
+
+  <!-- ==================== PANEL 2: 3-WIRE ==================== -->
+  <g id="panel-3wire">
+    <!-- Container -->
+    <rect x="335" y="75" width="290" height="425" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+    <!-- Header Badge -->
+    <rect x="350" y="90" width="260" height="34" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+    <text x="480" y="112" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">3-Провідне підключення</text>
+
+    <!-- MAX31865 IC Box -->
+    <rect x="350" y="145" width="85" height="185" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+    <text x="392.5" y="166" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">MAX31865</text>
+    
+    <!-- IC Pins -->
+    <text x="418" y="194" font-size="12" fill="#6b7280" text-anchor="end">F+</text>
+    <text x="418" y="224" font-size="12" fill="#6b7280" text-anchor="end">IN+</text>
+    <text x="418" y="274" font-size="12" fill="#6b7280" text-anchor="end">IN-</text>
+    <text x="418" y="304" font-size="12" fill="#6b7280" text-anchor="end">F-</text>
+
+    <!-- Board Jumper for FORCE- and RTIN- -->
+    <line x1="435" y1="270" x2="435" y2="300" stroke="#2457d6" stroke-width="2"/>
+    <circle cx="435" cy="285" r="3" fill="#2457d6"/>
+
+    <!-- Sensor Box -->
+    <rect x="535" y="145" width="75" height="185" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+    <text x="572.5" y="166" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">PT100</text>
+
+    <!-- Sensor Resistor -->
+    <rect x="555" y="222" width="15" height="45" rx="2" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+    <text x="585" y="249" font-size="12" fill="#2457d6" text-anchor="start">R_RTD</text>
+
+    <!-- Sensor Internal Connections -->
+    <line x1="535" y1="205" x2="562.5" y2="205" stroke="#2457d6" stroke-width="1.5"/>
+    <line x1="562.5" y1="205" x2="562.5" y2="222" stroke="#2457d6" stroke-width="1.5"/>
+    <line x1="535" y1="285" x2="562.5" y2="285" stroke="#2457d6" stroke-width="1.5"/>
+    <line x1="562.5" y1="285" x2="562.5" y2="267" stroke="#2457d6" stroke-width="1.5"/>
+    <circle cx="535" cy="205" r="3" fill="#2457d6"/>
+
+    <!-- Wires between IC and Sensor -->
+    <!-- Wire 1 (FORCE+) -->
+    <line x1="435" y1="190" x2="458" y2="193" stroke="#2457d6" stroke-width="2"/>
+    <rect x="458" y="185" width="54" height="16" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+    <text x="485" y="178" font-size="12" fill="#2457d6" text-anchor="middle">R_w1</text>
+    <line x1="512" y1="201" x2="535" y2="205" stroke="#2457d6" stroke-width="2"/>
+
+    <!-- Wire 2 (RTIN+) -->
+    <line x1="435" y1="220" x2="458" y2="217" stroke="#374151" stroke-width="1.5" stroke-dasharray="4,3"/>
+    <rect x="458" y="209" width="54" height="16" rx="3" fill="#ffffff" stroke="#6b7280" stroke-width="1"/>
+    <text x="485" y="238" font-size="12" fill="#6b7280" text-anchor="middle">R_w2</text>
+    <line x1="512" y1="209" x2="535" y2="205" stroke="#374151" stroke-width="1.5" stroke-dasharray="4,3"/>
+
+    <!-- Wire 3 (RTIN- / FORCE-) -->
+    <line x1="435" y1="285" x2="458" y2="285" stroke="#2457d6" stroke-width="2"/>
+    <rect x="458" y="277" width="54" height="16" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+    <text x="485" y="306" font-size="12" fill="#2457d6" text-anchor="middle">R_w3</text>
+    <line x1="512" y1="285" x2="535" y2="285" stroke="#2457d6" stroke-width="2"/>
+
+    <!-- Bottom Analysis Card -->
+    <rect x="350" y="345" width="260" height="140" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+    <text x="480" y="370" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">R_виміряне = R_RTD + (R_w1 - R_w3)</text>
+    <text x="480" y="393" font-size="12" fill="#1a1a1a" text-anchor="middle">Автоматична компенсація</text>
+    <text x="480" y="413" font-size="12" fill="#1a1a1a" text-anchor="middle">за умови рівності R_w1 = R_w3</text>
+    <text x="480" y="433" font-size="12" fill="#6b7280" text-anchor="middle">Вимагає однаковості дротів</text>
+    <text x="480" y="465" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">⚡ Часткова компенсація</text>
+  </g>
+
+  <!-- ==================== PANEL 3: 4-WIRE ==================== -->
+  <g id="panel-4wire">
+    <!-- Container -->
+    <rect x="645" y="75" width="290" height="425" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+    <!-- Header Badge -->
+    <rect x="660" y="90" width="260" height="34" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+    <text x="790" y="112" font-size="14" font-weight="bold" fill="#27ae60" text-anchor="middle">4-Провідне підключення</text>
+
+    <!-- MAX31865 IC Box -->
+    <rect x="660" y="145" width="85" height="185" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+    <text x="702.5" y="166" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">MAX31865</text>
+    
+    <!-- IC Pins -->
+    <text x="728" y="194" font-size="12" fill="#6b7280" text-anchor="end">F+</text>
+    <text x="728" y="224" font-size="12" fill="#6b7280" text-anchor="end">IN+</text>
+    <text x="728" y="264" font-size="12" fill="#6b7280" text-anchor="end">IN-</text>
+    <text x="728" y="294" font-size="12" fill="#6b7280" text-anchor="end">F-</text>
+
+    <!-- Sensor Box -->
+    <rect x="845" y="145" width="75" height="185" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+    <text x="882.5" y="166" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">PT100</text>
+
+    <!-- Sensor Resistor -->
+    <rect x="865" y="222" width="15" height="36" rx="2" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+    <text x="895" y="244" font-size="12" fill="#27ae60" text-anchor="start">R_RTD</text>
+
+    <!-- Sensor Internal Connections -->
+    <line x1="845" y1="190" x2="855" y2="190" stroke="#27ae60" stroke-width="1.5"/>
+    <line x1="845" y1="220" x2="855" y2="220" stroke="#27ae60" stroke-width="1.5"/>
+    <line x1="855" y1="190" x2="855" y2="222" stroke="#27ae60" stroke-width="1.5"/>
+    <line x1="855" y1="222" x2="865" y2="222" stroke="#27ae60" stroke-width="1.5"/>
+    <circle cx="855" cy="222" r="2.5" fill="#27ae60"/>
+
+    <line x1="845" y1="260" x2="855" y2="260" stroke="#27ae60" stroke-width="1.5"/>
+    <line x1="845" y1="290" x2="855" y2="290" stroke="#27ae60" stroke-width="1.5"/>
+    <line x1="855" y1="260" x2="855" y2="290" stroke="#27ae60" stroke-width="1.5"/>
+    <line x1="855" y1="258" x2="865" y2="258" stroke="#27ae60" stroke-width="1.5"/>
+    <circle cx="855" cy="258" r="2.5" fill="#27ae60"/>
+
+    <!-- Wires between IC and Sensor -->
+    <!-- Wire 1 (FORCE+) -->
+    <line x1="745" y1="190" x2="768" y2="190" stroke="#27ae60" stroke-width="2"/>
+    <rect x="768" y="182" width="54" height="16" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+    <text x="795" y="175" font-size="12" fill="#27ae60" text-anchor="middle">R_w1</text>
+    <line x1="822" y1="190" x2="845" y2="190" stroke="#27ae60" stroke-width="2"/>
+
+    <!-- Wire 2 (RTIN+) -->
+    <line x1="745" y1="220" x2="768" y2="220" stroke="#374151" stroke-width="1.5" stroke-dasharray="4,3"/>
+    <rect x="768" y="212" width="54" height="16" rx="3" fill="#ffffff" stroke="#6b7280" stroke-width="1"/>
+    <text x="795" y="239" font-size="12" fill="#6b7280" text-anchor="middle">R_w2</text>
+    <text x="750" y="212" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="start">I ≈ 0</text>
+    <line x1="822" y1="220" x2="845" y2="220" stroke="#374151" stroke-width="1.5" stroke-dasharray="4,3"/>
+
+    <!-- Wire 3 (RTIN-) -->
+    <line x1="745" y1="260" x2="768" y2="260" stroke="#374151" stroke-width="1.5" stroke-dasharray="4,3"/>
+    <rect x="768" y="252" width="54" height="16" rx="3" fill="#ffffff" stroke="#6b7280" stroke-width="1"/>
+    <text x="795" y="279" font-size="12" fill="#6b7280" text-anchor="middle">R_w3</text>
+    <text x="750" y="252" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="start">I ≈ 0</text>
+    <line x1="822" y1="260" x2="845" y2="260" stroke="#374151" stroke-width="1.5" stroke-dasharray="4,3"/>
+
+    <!-- Wire 4 (FORCE-) -->
+    <line x1="745" y1="290" x2="768" y2="290" stroke="#27ae60" stroke-width="2"/>
+    <rect x="768" y="282" width="54" height="16" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+    <text x="795" y="309" font-size="12" fill="#27ae60" text-anchor="middle">R_w4</text>
+    <line x1="822" y1="290" x2="845" y2="290" stroke="#27ae60" stroke-width="2"/>
+
+    <!-- Bottom Analysis Card -->
+    <rect x="660" y="345" width="260" height="140" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+    <text x="790" y="370" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">R_виміряне = R_RTD</text>
+    <text x="790" y="393" font-size="12" fill="#1a1a1a" text-anchor="middle">Повне розділення I та U</text>
+    <text x="790" y="413" font-size="12" fill="#1a1a1a" text-anchor="middle">Падіння U на R_w2, R_w3 дорівнює 0</text>
+    <text x="790" y="433" font-size="12" fill="#6b7280" text-anchor="middle">Не залежить від довжини кабелю</text>
+    <text x="790" y="465" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">✔ Повна компенсація (100%)</text>
+  </g>
+</svg>

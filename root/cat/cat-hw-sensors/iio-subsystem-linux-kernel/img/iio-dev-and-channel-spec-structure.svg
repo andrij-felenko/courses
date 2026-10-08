@@ -1,0 +1,129 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-accent" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Header -->
+  <text x="480" y="36" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Структура iio_dev, специфікація каналів та автогенерація sysfs</text>
+  <text x="480" y="58" text-anchor="middle" font-size="13" fill="#6b7280">Поля iio_chan_spec визначають назви sysfs-атрибутів та двійковий формат даних у кільцевому буфері</text>
+
+  <!-- Column 1: struct iio_dev -->
+  <rect x="20" y="78" width="210" height="460" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="32" y="92" width="186" height="34" rx="5" fill="#2457d6"/>
+  <text x="125" y="114" text-anchor="middle" font-size="14" font-weight="bold" fill="#ffffff">struct iio_dev</text>
+
+  <!-- Col 1 Box 1: Metadata -->
+  <rect x="32" y="138" width="186" height="76" rx="5" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="42" y="158" font-size="12" font-weight="bold" fill="#6b7280">Метадані пристрою</text>
+  <text x="42" y="180" font-size="12" font-family="monospace" fill="#1a1a1a">.name = "mpu6050"</text>
+  <text x="42" y="200" font-size="12" font-family="monospace" fill="#1a1a1a">.num_channels = 3</text>
+
+  <!-- Col 1 Box 2: Pointer to channels -->
+  <rect x="32" y="226" width="186" height="76" rx="5" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="42" y="248" font-size="12" font-weight="bold" fill="#2457d6">Вказівник на канали</text>
+  <text x="42" y="278" font-size="13" font-weight="bold" font-family="monospace" fill="#2457d6">.channels = &amp;channels</text>
+
+  <!-- Col 1 Box 3: Ring buffer -->
+  <rect x="32" y="314" width="186" height="76" rx="5" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="42" y="336" font-size="12" font-weight="bold" fill="#6b7280">Кільцевий буфер</text>
+  <text x="42" y="366" font-size="12" font-family="monospace" fill="#1a1a1a">.buffer = &amp;iio_buf</text>
+
+  <!-- Col 1 Box 4: Registration -->
+  <rect x="32" y="402" width="186" height="86" rx="5" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="42" y="422" font-size="12" font-weight="bold" fill="#6b7280">Реєстрація у системі</text>
+  <text x="42" y="448" font-size="12" font-family="monospace" fill="#1a1a1a">iio_device_register()</text>
+  <text x="42" y="472" font-size="12" fill="#6b7280">створює /dev/iio:device0</text>
+
+  <!-- Arrow 1: pointer to channels array -->
+  <line x1="218" y1="264" x2="272" y2="264" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-accent)"/>
+  <text x="250" y="250" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">масив</text>
+
+  <!-- Column 2: struct iio_chan_spec -->
+  <rect x="280" y="78" width="340" height="460" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="292" y="92" width="316" height="34" rx="5" fill="#2457d6"/>
+  <text x="450" y="114" text-anchor="middle" font-size="14" font-weight="bold" fill="#ffffff">struct iio_chan_spec channels[]</text>
+
+  <!-- Col 2 Outer Container -->
+  <rect x="292" y="138" width="316" height="380" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="304" y="158" font-size="13" font-weight="bold" fill="#2457d6">channels[0]: IIO_ACCEL (Вісь X)</text>
+
+  <!-- Col 2 Group A -->
+  <rect x="302" y="172" width="296" height="72" rx="4" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="312" y="190" font-size="12" font-weight="bold" fill="#1a1a1a">Тип та модифікатор каналу:</text>
+  <text x="312" y="210" font-size="12" font-family="monospace" fill="#1a1a1a">.type = IIO_ACCEL</text>
+  <text x="312" y="230" font-size="12" font-family="monospace" fill="#1a1a1a">.modified = 1, .channel2 = IIO_MOD_X</text>
+
+  <!-- Col 2 Group B -->
+  <rect x="302" y="256" width="296" height="114" rx="4" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="312" y="274" font-size="12" font-weight="bold" fill="#2457d6">Маски Sysfs (Автополя):</text>
+  <text x="312" y="294" font-size="12" font-family="monospace" fill="#1a1a1a">.info_mask_separate =</text>
+  <text x="326" y="312" font-size="12" font-family="monospace" font-weight="bold" fill="#2457d6">BIT(IIO_CHAN_INFO_RAW)</text>
+  <text x="312" y="332" font-size="12" font-family="monospace" fill="#1a1a1a">.info_mask_shared_by_type =</text>
+  <text x="326" y="350" font-size="12" font-family="monospace" font-weight="bold" fill="#2457d6">BIT(IIO_CHAN_INFO_SCALE)</text>
+
+  <!-- Col 2 Group C -->
+  <rect x="302" y="382" width="296" height="126" rx="4" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="312" y="400" font-size="12" font-weight="bold" fill="#27ae60">Формат буфера (Scan Spec):</text>
+  <text x="312" y="420" font-size="12" font-family="monospace" fill="#1a1a1a">.scan_index = 0</text>
+  <text x="312" y="440" font-size="12" font-family="monospace" fill="#1a1a1a">.scan_type = {</text>
+  <text x="326" y="460" font-size="12" font-family="monospace" fill="#1a1a1a">.sign = 's', .realbits = 16,</text>
+  <text x="326" y="480" font-size="12" font-family="monospace" fill="#1a1a1a">.storagebits = 16, .shift = 0 }</text>
+
+  <!-- Arrow 2: Group B to Sysfs Box -->
+  <path d="M 598,312 L 655,312 L 655,193 L 722,193" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-accent)"/>
+  <text x="663" y="256" font-size="12" font-weight="bold" fill="#2457d6">sysfs ABI</text>
+
+  <!-- Arrow 3: Group C to Buffer Box -->
+  <path d="M 598,440 L 655,440 L 655,384 L 722,384" fill="none" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="663" y="418" font-size="12" font-weight="bold" fill="#27ae60">потік</text>
+
+  <!-- Column 3: Generated sysfs & buffer -->
+  <rect x="730" y="78" width="216" height="460" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="740" y="92" width="196" height="34" rx="5" fill="#1a1a1a"/>
+  <text x="838" y="114" text-anchor="middle" font-size="14" font-weight="bold" fill="#ffffff">Генерація та вивід</text>
+
+  <!-- Col 3 Sysfs Box -->
+  <rect x="740" y="138" width="196" height="176" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="750" y="158" font-size="12" font-weight="bold" fill="#2457d6">Файли sysfs (sysfs ABI)</text>
+
+  <rect x="748" y="170" width="180" height="40" rx="4" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="756" y="186" font-size="12" font-family="monospace" font-weight="bold" fill="#1a1a1a">in_accel_x_raw</text>
+  <text x="756" y="202" font-size="12" fill="#6b7280">← окреме значення (raw)</text>
+
+  <rect x="748" y="218" width="180" height="40" rx="4" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="756" y="234" font-size="12" font-family="monospace" font-weight="bold" fill="#1a1a1a">in_accel_scale</text>
+  <text x="756" y="250" font-size="12" fill="#6b7280">← спільне для всіх accel</text>
+
+  <text x="750" y="276" font-size="12" font-weight="bold" fill="#1a1a1a">Формула у userspace:</text>
+  <text x="750" y="296" font-size="12" font-family="monospace" font-weight="bold" fill="#2457d6">Val = (raw + offset) * scale</text>
+
+  <!-- Col 3 Buffer Box -->
+  <rect x="740" y="328" width="196" height="190" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="750" y="344" font-size="12" font-weight="bold" fill="#27ae60">Кадр буфера</text>
+  <text x="750" y="360" font-size="11" fill="#6b7280">(/dev/iio:device0)</text>
+
+  <rect x="748" y="370" width="180" height="44" rx="4" fill="#f4f6f8" stroke="#d0d7de"/>
+  <rect x="750" y="372" width="84" height="40" rx="3" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="792" y="389" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Chan 0 (X)</text>
+  <text x="792" y="405" text-anchor="middle" font-size="12" font-family="monospace" fill="#1a1a1a">s16 data</text>
+
+  <rect x="842" y="372" width="84" height="40" rx="3" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="884" y="389" text-anchor="middle" font-size="12" fill="#6b7280">Timestamp</text>
+  <text x="884" y="405" text-anchor="middle" font-size="12" font-family="monospace" fill="#6b7280">64-bit int</text>
+
+  <text x="750" y="434" font-size="12" font-weight="bold" fill="#1a1a1a">Параметри кадру:</text>
+  <text x="750" y="454" font-size="12" fill="#1a1a1a">• Порядок: scan_index</text>
+  <text x="750" y="474" font-size="12" fill="#1a1a1a">• Формат: sign='s', 16b</text>
+  <text x="750" y="494" font-size="12" fill="#1a1a1a">• Пакування: 16 storage</text>
+</svg>

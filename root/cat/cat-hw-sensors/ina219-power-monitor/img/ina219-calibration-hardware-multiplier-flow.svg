@@ -1,0 +1,140 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-accent" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-main" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Заголовок та підзаголовок -->
+  <text x="480" y="32" font-size="18" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Апаратний множник та потік даних у реєстрах INA219</text>
+  <text x="480" y="52" font-size="13" text-anchor="middle" fill="#6b7280">Автоматичне обчислення струму та потужності без навантаження на мікроконтролер</text>
+
+  <!-- Основний корпус / панель INA219 -->
+  <rect x="20" y="70" width="920" height="430" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="40" y="93" font-size="14" font-weight="bold" fill="#1a1a1a">Внутрішня схемотехніка обробки даних INA219</text>
+
+  <!-- Колонки / блоки -->
+
+  <!-- Колонка 1: Вхідний тракт -->
+  <rect x="35" y="108" width="235" height="377" rx="6" fill="white" stroke="#d0d7de"/>
+  <text x="152" y="128" font-size="13" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Вхідний тракт та АЦП</text>
+
+  <!-- Блок А1: Аналогові входи -->
+  <rect x="45" y="140" width="215" height="55" rx="5" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="152" y="162" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Аналогові входи</text>
+  <text x="152" y="180" font-size="12" text-anchor="middle" fill="#6b7280">V_shunt (IN+, IN-) / V_bus</text>
+
+  <!-- Стрілка А1 -> А2 -->
+  <line x1="152" y1="195" x2="152" y2="215" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-main)"/>
+
+  <!-- Блок А2: АЦП -->
+  <rect x="45" y="215" width="215" height="55" rx="5" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="152" y="237" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">12-біт ΣΔ АЦП + PGA</text>
+  <text x="152" y="255" font-size="12" text-anchor="middle" fill="#1a1a1a">Оцифрування напруги</text>
+
+  <!-- Розгалуження від АЦП -->
+  <line x1="152" y1="270" x2="152" y2="300" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-main)"/>
+
+  <!-- Блок А3: Shunt Reg -->
+  <rect x="45" y="300" width="215" height="55" rx="5" fill="white" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="152" y="322" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">Shunt Voltage Reg (01h)</text>
+  <text x="152" y="340" font-size="12" text-anchor="middle" fill="#6b7280">V_shunt (ціле число, LSB=10 мкВ)</text>
+
+  <!-- Зв'язок від АЦП до Bus Reg -->
+  <path d="M 152 285 L 30 285 L 30 412 L 45 412" fill="none" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-main)"/>
+
+  <!-- Блок А4: Bus Reg -->
+  <rect x="45" y="385" width="215" height="55" rx="5" fill="white" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="152" y="407" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">Bus Voltage Reg (02h)</text>
+  <text x="152" y="425" font-size="12" text-anchor="middle" fill="#6b7280">V_bus (ціле число, LSB=4 мВ)</text>
+
+  <!-- Колонка 2: Калібрування -->
+  <rect x="285" y="108" width="205" height="377" rx="6" fill="white" stroke="#d0d7de"/>
+  <text x="387" y="128" font-size="13" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Налаштування калібрування</text>
+
+  <!-- Блок Б1: Host MCU -->
+  <rect x="295" y="140" width="185" height="115" rx="5" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="387" y="160" font-size="12" font-weight="bold" text-anchor="middle" fill="#27ae60">Мікроконтролер (Host)</text>
+  <text x="387" y="178" font-size="12" text-anchor="middle" fill="#1a1a1a">1. Обирає Current_LSB</text>
+  <text x="387" y="196" font-size="12" text-anchor="middle" fill="#1a1a1a">2. Обчислює Cal:</text>
+  <text x="387" y="214" font-size="12" font-style="italic" text-anchor="middle" fill="#27ae60">0.04096 / (I_LSB × R_shunt)</text>
+  <text x="387" y="234" font-size="12" text-anchor="middle" fill="#27ae60">3. Записує Cal по I2C</text>
+
+  <!-- Стрілка Б1 -> Б2 -->
+  <line x1="387" y1="255" x2="387" y2="300" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <!-- Блок Б2: Calibration Reg -->
+  <rect x="295" y="300" width="185" height="55" rx="5" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="387" y="322" font-size="12" font-weight="bold" text-anchor="middle" fill="#27ae60">Calibration Reg (05h)</text>
+  <text x="387" y="340" font-size="12" text-anchor="middle" fill="#1a1a1a">Значення калібрування (Cal)</text>
+
+  <!-- Блок Б3: Примітка -->
+  <rect x="295" y="385" width="185" height="55" rx="5" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="387" y="407" font-size="12" font-weight="bold" text-anchor="middle" fill="#6b7280">Пам&apos;ять конфігурації</text>
+  <text x="387" y="425" font-size="12" text-anchor="middle" fill="#6b7280">Зберігає Cal для множника</text>
+
+  <!-- Колонка 3: Множники -->
+  <rect x="505" y="108" width="240" height="377" rx="6" fill="white" stroke="#d0d7de"/>
+  <text x="625" y="128" font-size="13" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Апаратний арифметичний тракт</text>
+
+  <!-- Блок В1: Множник струму -->
+  <rect x="515" y="185" width="220" height="95" rx="5" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="625" y="207" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">Множник Струму</text>
+  <text x="625" y="227" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Current = (V_shunt × Cal) / 4096</text>
+  <text x="625" y="247" font-size="12" text-anchor="middle" fill="#6b7280">Переклікування та зсув на 12 біт</text>
+  <text x="625" y="265" font-size="12" text-anchor="middle" fill="#2457d6">Автоматичний розрахунок</text>
+
+  <!-- Блок В2: Множник потужності -->
+  <rect x="515" y="345" width="220" height="95" rx="5" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="625" y="367" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">Множник Потужності</text>
+  <text x="625" y="387" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Power = (Current × V_bus) / 5000</text>
+  <text x="625" y="407" font-size="12" text-anchor="middle" fill="#6b7280">Множення струму на напругу</text>
+  <text x="625" y="425" font-size="12" text-anchor="middle" fill="#2457d6">Обчислення в реальному часі</text>
+
+  <!-- Зв'язок В1 -> В2 (Потік Current до Power Multiplier) -->
+  <line x1="625" y1="280" x2="625" y2="345" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-accent)"/>
+
+  <!-- Колонка 4: Результати -->
+  <rect x="760" y="108" width="165" height="377" rx="6" fill="white" stroke="#d0d7de"/>
+  <text x="842" y="128" font-size="13" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Результати (I2C)</text>
+
+  <!-- Блок Г1: Current Reg -->
+  <rect x="770" y="185" width="145" height="95" rx="5" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <text x="842" y="207" font-size="12" font-weight="bold" text-anchor="middle" fill="#27ae60">Current Reg (04h)</text>
+  <text x="842" y="227" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Значення струму</text>
+  <text x="842" y="247" font-size="12" text-anchor="middle" fill="#6b7280">I = Current × I_LSB</text>
+  <text x="842" y="265" font-size="12" text-anchor="middle" fill="#27ae60">Готово до читання</text>
+
+  <!-- Блок Г2: Power Reg -->
+  <rect x="770" y="345" width="145" height="95" rx="5" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <text x="842" y="367" font-size="12" font-weight="bold" text-anchor="middle" fill="#27ae60">Power Reg (03h)</text>
+  <text x="842" y="387" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Значення потужності</text>
+  <text x="842" y="407" font-size="12" text-anchor="middle" fill="#6b7280">P = Power × P_LSB</text>
+  <text x="842" y="425" font-size="12" text-anchor="middle" fill="#27ae60">Готово до читання</text>
+
+  <!-- Міжколонкові зв'язки -->
+
+  <!-- Shunt Reg (А3) -> Множник Струму (В1) (Обхід каналом y=370) -->
+  <path d="M 260 327 L 275 327 L 275 370 L 495 370 L 495 232 L 515 232" fill="none" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-accent)"/>
+
+  <!-- Calibration Reg (Б2) -> Множник Струму (В1) -->
+  <path d="M 480 327 L 495 327 L 495 247 L 515 247" fill="none" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <!-- Множник Струму (В1) -> Current Reg (Г1) -->
+  <line x1="735" y1="232" x2="770" y2="232" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-accent)"/>
+
+  <!-- Bus Reg (А4) -> Множник Потужності (В2) (Обхід знизу y=460) -->
+  <path d="M 260 412 L 275 412 L 275 460 L 495 460 L 495 392 L 515 392" fill="none" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-accent)"/>
+
+  <!-- Множник Потужності (В2) -> Power Reg (Г2) -->
+  <line x1="735" y1="392" x2="770" y2="392" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-accent)"/>
+</svg>

@@ -1,0 +1,160 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Canvas Background -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="38" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Побітовий розрахунок CRC-8 у давачі SHT30</text>
+  <text x="480" y="58" text-anchor="middle" font-size="13" fill="#6b7280">Логіка LFSR: зсув регістра, аналіз MSB та умовна операція XOR з поліномом 0x31</text>
+
+  <!-- Panel 1 (Left): Parameters -->
+  <rect x="24" y="78" width="262" height="440" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  
+  <rect x="36" y="90" width="238" height="32" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="155" y="111" text-anchor="middle" font-size="14" font-weight="bold" fill="#2457d6">Параметри CRC-8 SHT30</text>
+
+  <rect x="36" y="132" width="238" height="85" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="48" y="152" font-size="13" font-weight="bold" fill="#1a1a1a">Твірний поліном:</text>
+  <text x="48" y="172" font-size="13" font-weight="bold" fill="#2457d6">P(x) = x⁸ + x⁵ + x⁴ + 1</text>
+  <text x="48" y="193" font-size="12" fill="#6b7280">HEX: 0x31  |  BIN: 0b00110001</text>
+
+  <rect x="36" y="227" width="238" height="85" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="48" y="247" font-size="13" font-weight="bold" fill="#1a1a1a">Початковий стан (Seed):</text>
+  <text x="48" y="267" font-size="13" font-weight="bold" fill="#27ae60">0xFF  (0b11111111)</text>
+  <text x="48" y="288" font-size="12" fill="#6b7280">Порядок: MSB first (b7 → b0)</text>
+
+  <rect x="36" y="322" width="238" height="184" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="48" y="342" font-size="13" font-weight="bold" fill="#27ae60">Перевірка цілісності:</text>
+  <text x="48" y="364" font-size="12" fill="#1a1a1a">• SHT30 додає 1 байт CRC</text>
+  <text x="48" y="383" font-size="12" fill="#1a1a1a">  після кожних 2 байтів даних.</text>
+  <text x="48" y="411" font-size="12" fill="#1a1a1a">• Якщо обчислити CRC для</text>
+  <text x="48" y="430" font-size="12" fill="#1a1a1a">  послідовності (Дані + CRC),</text>
+  <text x="48" y="456" font-size="12" font-weight="bold" fill="#27ae60">  підсумок ЗАВЖДИ = 0x00</text>
+  <text x="48" y="479" font-size="12" fill="#6b7280">  (без помилок у каналі I2C)</text>
+
+  <!-- Panel 2 (Top Right): LFSR Shift Register -->
+  <rect x="298" y="78" width="638" height="212" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="314" y="99" font-size="14" font-weight="bold" fill="#1a1a1a">Зсувний регістр (LFSR)</text>
+
+  <!-- Shift Indicator Arrow above cells -->
+  <path d="M840,103 L600,103" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="720" y="95" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Зсув ліворуч (crc &lt;&lt; 1)</text>
+
+  <!-- 8 Bit Cells -->
+  <!-- b7 MSB -->
+  <rect x="312" y="125" width="64" height="46" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="2"/>
+  <text x="344" y="120" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">b7 (MSB)</text>
+  <text x="344" y="153" text-anchor="middle" font-size="15" font-weight="bold" fill="#c0392b">msb</text>
+
+  <!-- b6 -->
+  <rect x="384" y="125" width="64" height="46" rx="4" fill="white" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="416" y="120" text-anchor="middle" font-size="12" fill="#6b7280">b6</text>
+  <text x="416" y="153" text-anchor="middle" font-size="15" fill="#1a1a1a">b6</text>
+
+  <!-- b5 -->
+  <rect x="456" y="125" width="64" height="46" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="488" y="120" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">b5 (x⁵)</text>
+  <text x="488" y="153" text-anchor="middle" font-size="15" font-weight="bold" fill="#2457d6">b5</text>
+
+  <!-- b4 -->
+  <rect x="528" y="125" width="64" height="46" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="560" y="120" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">b4 (x⁴)</text>
+  <text x="560" y="153" text-anchor="middle" font-size="15" font-weight="bold" fill="#2457d6">b4</text>
+
+  <!-- b3 -->
+  <rect x="600" y="125" width="64" height="46" rx="4" fill="white" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="632" y="120" text-anchor="middle" font-size="12" fill="#6b7280">b3</text>
+  <text x="632" y="153" text-anchor="middle" font-size="15" fill="#1a1a1a">b3</text>
+
+  <!-- b2 -->
+  <rect x="672" y="125" width="64" height="46" rx="4" fill="white" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="704" y="120" text-anchor="middle" font-size="12" fill="#6b7280">b2</text>
+  <text x="704" y="153" text-anchor="middle" font-size="15" fill="#1a1a1a">b2</text>
+
+  <!-- b1 -->
+  <rect x="744" y="125" width="64" height="46" rx="4" fill="white" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="776" y="120" text-anchor="middle" font-size="12" fill="#6b7280">b1</text>
+  <text x="776" y="153" text-anchor="middle" font-size="15" fill="#1a1a1a">b1</text>
+
+  <!-- b0 -->
+  <rect x="816" y="125" width="64" height="46" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="848" y="120" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">b0 (x⁰)</text>
+  <text x="848" y="153" text-anchor="middle" font-size="15" font-weight="bold" fill="#2457d6">b0</text>
+
+  <!-- Feedback Line & XOR Circles -->
+  <path d="M344,171 L344,215 L848,215" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,3" fill="none"/>
+  <text x="354" y="196" font-size="12" font-weight="bold" fill="#c0392b">Зворотний зв'язок 0x31 (якщо msb == 1)</text>
+
+  <circle cx="488" cy="215" r="11" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="488" y="219" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">⊕</text>
+  <text x="488" y="242" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">XOR (b5)</text>
+
+  <circle cx="560" cy="215" r="11" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="560" y="219" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">⊕</text>
+  <text x="560" y="242" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">XOR (b4)</text>
+
+  <circle cx="848" cy="215" r="11" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="848" y="219" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">⊕</text>
+  <text x="848" y="242" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">XOR (b0)</text>
+
+  <!-- Input into b0 -->
+  <path d="M924,148 L884,148" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+  <text x="892" y="136" font-size="12" font-weight="bold" fill="#1a1a1a">Вхід</text>
+
+  <!-- Panel 3 (Bottom Right): Algorithm Flowchart -->
+  <rect x="298" y="306" width="638" height="212" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="314" y="328" font-size="14" font-weight="bold" fill="#1a1a1a">Покроковий алгоритм обробки біта (цикл for bit = 8..1)</text>
+
+  <!-- Node 1 -->
+  <rect x="314" y="344" width="180" height="78" rx="6" fill="white" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="404" y="366" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">1. Виділення MSB &amp; Зсув</text>
+  <text x="404" y="387" text-anchor="middle" font-size="12" fill="#6b7280">msb = crc &amp; 0x80</text>
+  <text x="404" y="407" text-anchor="middle" font-size="12" fill="#2457d6">crc = crc &lt;&lt; 1</text>
+
+  <path d="M494,383 L520,383" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+
+  <!-- Node 2 -->
+  <rect x="520" y="344" width="160" height="78" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="600" y="371" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">2. Чи був msb != 0?</text>
+  <text x="600" y="397" text-anchor="middle" font-size="12" fill="#6b7280">(старший біт = 1)</text>
+
+  <!-- Branch YES -->
+  <path d="M680,383 L714,383" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <text x="697" y="375" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">ТАК</text>
+
+  <!-- Node 3A -->
+  <rect x="714" y="344" width="208" height="78" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="818" y="366" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">3A. Виконати XOR 0x31</text>
+  <text x="818" y="387" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">crc = crc ^ 0x31</text>
+  <text x="818" y="407" text-anchor="middle" font-size="12" fill="#27ae60">(інверсія бітів 5, 4, 0)</text>
+
+  <!-- Branch NO -->
+  <path d="M600,422 L600,440" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <text x="592" y="435" text-anchor="end" font-size="12" font-weight="bold" fill="#c0392b">НІ</text>
+
+  <!-- Node 3B -->
+  <rect x="520" y="440" width="160" height="52" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="600" y="458" text-anchor="middle" font-size="13" font-weight="bold" fill="#c0392b">3B. Без змін</text>
+  <text x="600" y="476" text-anchor="middle" font-size="12" fill="#6b7280">crc без XOR</text>
+
+  <!-- Loop feedback -->
+  <path d="M818,422 L818,498 L354,498 L354,422" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4,3" fill="none" marker-end="url(#arr-gray)"/>
+  <text x="715" y="493" text-anchor="end" font-size="12" font-weight="bold" fill="#6b7280">Повторити для бітів 7..0 (8 ітерацій на байт)</text>
+</svg>

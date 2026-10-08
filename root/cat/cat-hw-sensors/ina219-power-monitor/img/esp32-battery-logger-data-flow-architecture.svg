@@ -1,0 +1,139 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="36" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Архітектура потоків даних автономного логера (ESP32 + INA219)</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Низькоспоживче накопичення у RTC Fast RAM, дамп в NVS Flash та пакетна Wi-Fi передача</text>
+
+  <!-- CARD 1: INA219 Sensor -->
+  <rect x="30" y="80" width="195" height="380" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <path d="M 30,88 A 8,8 0 0 1 38,80 L 217,80 A 8,8 0 0 1 225,88 L 225,120 L 30,120 Z" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="127.5" y="105" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">1. Сенсор INA219</text>
+
+  <!-- Sub-block 1.1 -->
+  <rect x="40" y="130" width="175" height="92" rx="6" fill="white" stroke="#d0d7de"/>
+  <text x="127.5" y="148" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Режими моніторингу</text>
+  <text x="127.5" y="168" font-size="12" fill="#6b7280" text-anchor="middle">Triggered / Power-Down</text>
+  <text x="127.5" y="188" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">I_sleep &lt; 1 µA (сон)</text>
+  <text x="127.5" y="208" font-size="12" fill="#1a1a1a" text-anchor="middle">Пробудження по I2C</text>
+
+  <!-- Sub-block 1.2 -->
+  <rect x="40" y="232" width="175" height="98" rx="6" fill="white" stroke="#d0d7de"/>
+  <text x="127.5" y="250" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Вимірювані величини</text>
+  <text x="127.5" y="270" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">V_bus : Напруга шини</text>
+  <text x="127.5" y="290" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">I_shunt : Струм (±A)</text>
+  <text x="127.5" y="312" font-size="12" fill="#6b7280" text-anchor="middle">P_bus = V_bus × I_shunt</text>
+
+  <!-- Sub-block 1.3 -->
+  <rect x="40" y="340" width="175" height="108" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-dasharray="4,3"/>
+  <text x="127.5" y="358" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Шина I2C (SDA/SCL)</text>
+  <text x="127.5" y="378" font-size="12" fill="#1a1a1a" text-anchor="middle">Передача вибірок (k)</text>
+  <text x="127.5" y="398" font-size="12" fill="#6b7280" text-anchor="middle">Період вибірки Δt</text>
+  <text x="127.5" y="420" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Синхронізація з ULP</text>
+
+  <!-- CARD 2: RTC Fast RAM -->
+  <rect x="263" y="80" width="195" height="380" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <path d="M 263,88 A 8,8 0 0 1 271,80 L 450,80 A 8,8 0 0 1 458,88 L 458,120 L 263,120 Z" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="360.5" y="105" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">2. RTC Fast RAM (8 KB)</text>
+
+  <!-- Sub-block 2.1 -->
+  <rect x="273" y="130" width="175" height="118" rx="6" fill="white" stroke="#d0d7de"/>
+  <text x="360.5" y="148" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Інтегрування в часі</text>
+  <text x="360.5" y="168" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Q = ∑ (I_k × Δt)</text>
+  <text x="360.5" y="186" font-size="12" fill="#6b7280" text-anchor="middle">Ємність [мА·год]</text>
+  <text x="360.5" y="210" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">E = ∑ (P_k × Δt)</text>
+  <text x="360.5" y="228" font-size="12" fill="#6b7280" text-anchor="middle">Енергія [Вт·год]</text>
+
+  <!-- Sub-block 2.2 -->
+  <rect x="273" y="258" width="175" height="190" rx="6" fill="white" stroke="#d0d7de"/>
+  <text x="360.5" y="276" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Кільцевий буфер RTC</text>
+  <rect x="281" y="288" width="36" height="30" rx="4" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="299" y="307" font-size="12" fill="#2457d6" text-anchor="middle">Buf[0]</text>
+  <rect x="322" y="288" width="36" height="30" rx="4" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="340" y="307" font-size="12" fill="#2457d6" text-anchor="middle">Buf[1]</text>
+  <rect x="363" y="288" width="36" height="30" rx="4" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="381" y="307" font-size="12" fill="#2457d6" text-anchor="middle">Buf[2]</text>
+  <rect x="404" y="288" width="36" height="30" rx="4" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="422" y="307" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Buf[N]</text>
+  <text x="360.5" y="336" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Збереження в Deep Sleep</text>
+  <text x="360.5" y="356" font-size="12" fill="#6b7280" text-anchor="middle">Пам'ять доступна ULP</text>
+  <text x="360.5" y="376" font-size="12" fill="#1a1a1a" text-anchor="middle">Ядра CPU вимкнено</text>
+  <text x="360.5" y="396" font-size="12" fill="#2457d6" text-anchor="middle">Таймер періодичності</text>
+  <text x="360.5" y="416" font-size="12" fill="#6b7280" text-anchor="middle">Пробудження при переповненні</text>
+  <text x="360.5" y="436" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Автономний моніторинг</text>
+
+  <!-- CARD 3: NVS Flash -->
+  <rect x="496" y="80" width="195" height="380" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <path d="M 496,88 A 8,8 0 0 1 504,80 L 683,80 A 8,8 0 0 1 691,88 L 691,120 L 496,120 Z" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="593.5" y="105" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">3. NVS Flash Пам'ять</text>
+
+  <!-- Sub-block 3.1 -->
+  <rect x="506" y="130" width="175" height="118" rx="6" fill="white" stroke="#d0d7de"/>
+  <text x="593.5" y="148" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Тригери скидання (Дамп)</text>
+  <text x="593.5" y="168" font-size="12" fill="#1a1a1a" text-anchor="middle">• Буфер RTC заповнено</text>
+  <text x="593.5" y="188" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">• Поріг розряду V_bat</text>
+  <text x="593.5" y="208" font-size="12" fill="#6b7280" text-anchor="middle">• Запланований розклад</text>
+  <text x="593.5" y="230" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Захист від зносу Flash</text>
+
+  <!-- Sub-block 3.2 -->
+  <rect x="506" y="258" width="175" height="190" rx="6" fill="white" stroke="#d0d7de"/>
+  <text x="593.5" y="276" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Ключі хранилища NVS</text>
+  <rect x="514" y="288" width="159" height="90" rx="4" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="522" y="308" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="start">"total_mah":</text>
+  <text x="665" y="308" font-size="12" fill="#1a1a1a" text-anchor="end">Q_accum</text>
+  <text x="522" y="333" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="start">"total_wh":</text>
+  <text x="665" y="333" font-size="12" fill="#1a1a1a" text-anchor="end">E_accum</text>
+  <text x="522" y="358" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="start">"boot_cnt":</text>
+  <text x="665" y="358" font-size="12" fill="#1a1a1a" text-anchor="end">N_cycles</text>
+  <text x="593.5" y="398" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Енергонезалежний стан</text>
+  <text x="593.5" y="418" font-size="12" fill="#6b7280" text-anchor="middle">Збереження при reboot/cut</text>
+  <text x="593.5" y="438" font-size="12" fill="#1a1a1a" text-anchor="middle">Авто-відновлення даних</text>
+
+  <!-- CARD 4: Wi-Fi Telemetry -->
+  <rect x="730" y="80" width="200" height="380" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <path d="M 730,88 A 8,8 0 0 1 738,80 L 922,80 A 8,8 0 0 1 930,88 L 930,120 L 730,120 Z" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="830" y="105" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">4. Wi-Fi Телеметрія</text>
+
+  <!-- Sub-block 4.1 -->
+  <rect x="740" y="130" width="180" height="118" rx="6" fill="white" stroke="#d0d7de"/>
+  <text x="830" y="148" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Пакетна передача (Burst)</text>
+  <text x="830" y="168" font-size="12" fill="#6b7280" text-anchor="middle">Короткий сеанс зв'язку</text>
+  <text x="830" y="188" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">I_wifi ~ 120–240 мА</text>
+  <text x="830" y="208" font-size="12" fill="#1a1a1a" text-anchor="middle">Відправлення накопичень</text>
+  <text x="830" y="230" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Мінімізація часу Wi-Fi</text>
+
+  <!-- Sub-block 4.2 -->
+  <rect x="740" y="258" width="180" height="190" rx="6" fill="white" stroke="#d0d7de"/>
+  <text x="830" y="276" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Структурний JSON / MQTT</text>
+  <rect x="748" y="288" width="164" height="90" rx="4" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="755" y="306" font-size="12" fill="#1a1a1a" text-anchor="start">{ "dev": "esp32_bat",</text>
+  <text x="755" y="325" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="start">  "v_bat": 3.84, "i_mA": -450,</text>
+  <text x="755" y="344" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="start">  "mah": 1850, "wh": 7.1,</text>
+  <text x="755" y="363" font-size="12" fill="#1a1a1a" text-anchor="start">  "status": "OK" }</text>
+  <text x="830" y="398" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">До Сервера / MQTT Broker</text>
+  <text x="830" y="418" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Швидкий перехід у Deep Sleep</text>
+  <text x="830" y="438" font-size="12" fill="#6b7280" text-anchor="middle">Цикл вимірювання завершено</text>
+
+  <!-- Connections / Flow Arrows -->
+  <line x1="225" y1="394" x2="263" y2="394" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="244" y="382" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">I2C</text>
+
+  <line x1="458" y1="189" x2="496" y2="189" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="477" y="177" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Дамп</text>
+
+  <line x1="691" y1="189" x2="730" y2="189" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="710.5" y="177" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Wi-Fi</text>
+
+  <line x1="691" y1="333" x2="730" y2="333" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="710.5" y="321" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">JSON</text>
+</svg>

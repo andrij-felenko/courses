@@ -1,0 +1,129 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-accent" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Title and Subtitle -->
+  <text x="480" y="34" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Послідовність реєстрації IIO-драйвера в ядрі Linux</text>
+  <text x="480" y="56" text-anchor="middle" font-size="13" fill="#6b7280">Покроковий порядок ініціалізації: від виділення пам'яті до реєстрації в sysfs і /dev</text>
+
+  <!-- Card 1: Allocation -->
+  <rect x="31" y="82" width="205" height="365" rx="8" ry="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="41" y="92" width="185" height="28" rx="4" ry="4" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="133" y="110" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">КРОК 1: Виділення пам'яті</text>
+  
+  <rect x="41" y="128" width="185" height="36" rx="4" ry="4" fill="#2457d6"/>
+  <text x="133" y="150" text-anchor="middle" font-size="13" font-weight="bold" fill="#ffffff">devm_iio_device_alloc()</text>
+
+  <rect x="41" y="174" width="185" height="152" rx="4" ry="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="51" y="193" font-size="12" font-weight="bold" fill="#1a1a1a">Дії та призначення:</text>
+  <text x="51" y="213" font-size="12" fill="#1a1a1a">• Виділяє struct iio_dev</text>
+  <text x="51" y="231" font-size="12" fill="#1a1a1a">• Резервує sizeof(priv)</text>
+  <text x="51" y="249" font-size="12" fill="#1a1a1a">• Прив'язує iio_priv()</text>
+  <text x="51" y="267" font-size="12" fill="#1a1a1a">• Реєструє devm-ресурс</text>
+  <text x="51" y="285" font-size="12" fill="#6b7280">• Авто-звільнення</text>
+
+  <rect x="41" y="334" width="185" height="100" rx="4" ry="4" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="51" y="352" font-size="12" font-weight="bold" fill="#2457d6">Результат:</text>
+  <text x="51" y="370" font-size="12" fill="#1a1a1a">Отримано вказівник</text>
+  <text x="51" y="388" font-size="12" fill="#1a1a1a">indio_dev із готовістю</text>
+  <text x="51" y="406" font-size="12" fill="#1a1a1a">до конфігурації</text>
+  <text x="51" y="424" font-size="12" fill="#6b7280">(priv = iio_priv(indio))</text>
+
+  <!-- Arrow 1 -> 2 -->
+  <line x1="236" y1="264" x2="258" y2="264" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-accent)"/>
+
+  <!-- Card 2: Configuration -->
+  <rect x="262" y="82" width="205" height="365" rx="8" ry="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="272" y="92" width="185" height="28" rx="4" ry="4" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="364.5" y="110" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">КРОК 2: Конфігурація IIO</text>
+  
+  <rect x="272" y="128" width="185" height="36" rx="4" ry="4" fill="#2457d6"/>
+  <text x="364.5" y="150" text-anchor="middle" font-size="13" font-weight="bold" fill="#ffffff">структура iio_dev</text>
+
+  <rect x="272" y="174" width="185" height="152" rx="4" ry="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="282" y="193" font-size="12" font-weight="bold" fill="#1a1a1a">Параметри iio_dev:</text>
+  <text x="282" y="213" font-size="12" fill="#1a1a1a">• info = &amp;chip_info</text>
+  <text x="282" y="231" font-size="12" fill="#1a1a1a">• channels = specs</text>
+  <text x="282" y="249" font-size="12" fill="#1a1a1a">• num_channels = N</text>
+  <text x="282" y="267" font-size="12" fill="#1a1a1a">• name = "sensor_id"</text>
+  <text x="282" y="285" font-size="12" fill="#6b7280">• modes = DIRECT</text>
+
+  <rect x="272" y="334" width="185" height="100" rx="4" ry="4" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="282" y="352" font-size="12" font-weight="bold" fill="#2457d6">Результат:</text>
+  <text x="282" y="370" font-size="12" fill="#1a1a1a">Описано специфікацію</text>
+  <text x="282" y="388" font-size="12" fill="#1a1a1a">аналогових/цифрових</text>
+  <text x="282" y="406" font-size="12" fill="#1a1a1a">каналів та sysfs-ops</text>
+  <text x="282" y="424" font-size="12" fill="#6b7280">(read_raw, write_raw)</text>
+
+  <!-- Arrow 2 -> 3 -->
+  <line x1="467" y1="264" x2="489" y2="264" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-accent)"/>
+
+  <!-- Card 3: Buffer & Trigger -->
+  <rect x="493" y="82" width="205" height="365" rx="8" ry="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="503" y="92" width="185" height="28" rx="4" ry="4" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="595.5" y="110" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">КРОК 3: Буфер і тригери</text>
+  
+  <rect x="503" y="128" width="185" height="36" rx="4" ry="4" fill="#2457d6"/>
+  <text x="595.5" y="142" text-anchor="middle" font-size="12" font-weight="bold" fill="#ffffff">devm_iio_triggered_...</text>
+  <text x="595.5" y="157" text-anchor="middle" font-size="12" font-weight="bold" fill="#ffffff">buffer_setup()</text>
+
+  <rect x="503" y="174" width="185" height="152" rx="4" ry="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="513" y="193" font-size="12" font-weight="bold" fill="#1a1a1a">Параметри прив'язки:</text>
+  <text x="513" y="213" font-size="12" fill="#1a1a1a">• pollfunc (h_top)</text>
+  <text x="513" y="231" font-size="12" fill="#1a1a1a">• trigger_handler</text>
+  <text x="513" y="249" font-size="12" fill="#1a1a1a">• setup_ops (buffer)</text>
+  <text x="513" y="267" font-size="12" fill="#1a1a1a">• kfifo / ring-buffer</text>
+  <text x="513" y="285" font-size="12" fill="#6b7280">• HW / SW triggers</text>
+
+  <rect x="503" y="334" width="185" height="100" rx="4" ry="4" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="513" y="352" font-size="12" font-weight="bold" fill="#2457d6">Результат:</text>
+  <text x="513" y="370" font-size="12" fill="#1a1a1a">Створено кільцевий</text>
+  <text x="513" y="388" font-size="12" fill="#1a1a1a">буфер та обробники</text>
+  <text x="513" y="406" font-size="12" fill="#1a1a1a">переривань для</text>
+  <text x="513" y="424" font-size="12" fill="#6b7280">потокового зчитування</text>
+
+  <!-- Arrow 3 -> 4 -->
+  <line x1="698" y1="264" x2="720" y2="264" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- Card 4: Device Registration -->
+  <rect x="724" y="82" width="205" height="365" rx="8" ry="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="734" y="92" width="185" height="28" rx="4" ry="4" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="826.5" y="110" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">КРОК 4: Реєстрація в ядрі</text>
+  
+  <rect x="734" y="128" width="185" height="36" rx="4" ry="4" fill="#27ae60"/>
+  <text x="826.5" y="150" text-anchor="middle" font-size="12" font-weight="bold" fill="#ffffff">devm_iio_device_register()</text>
+
+  <rect x="734" y="174" width="185" height="152" rx="4" ry="4" fill="#ffffff" stroke="#27ae60"/>
+  <text x="744" y="193" font-size="12" font-weight="bold" fill="#1a1a1a">Дії підсистеми IIO:</text>
+  <text x="744" y="213" font-size="12" fill="#1a1a1a">• Публікація в sysfs</text>
+  <text x="744" y="231" font-size="12" fill="#1a1a1a">• Створення chrdev</text>
+  <text x="744" y="249" font-size="12" fill="#1a1a1a">• Вузол /dev/iio:deviceX</text>
+  <text x="744" y="267" font-size="12" fill="#1a1a1a">• Зв'язок із udev / libiio</text>
+  <text x="744" y="285" font-size="12" fill="#27ae60">• Готовність до обміну</text>
+
+  <rect x="734" y="334" width="185" height="100" rx="4" ry="4" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="744" y="352" font-size="12" font-weight="bold" fill="#27ae60">Результат:</text>
+  <text x="744" y="370" font-size="12" fill="#1a1a1a">Пристрій IIO повністю</text>
+  <text x="744" y="388" font-size="12" fill="#1a1a1a">зареєстровано в ядрі</text>
+  <text x="744" y="406" font-size="12" fill="#1a1a1a">і доступно для збору</text>
+  <text x="744" y="424" font-size="12" fill="#27ae60">даних користувачем</text>
+
+  <!-- Bottom Domain Context Bars -->
+  <rect x="31" y="460" width="436" height="38" rx="6" ry="6" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="249" y="484" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Етап А: Підготовка структур драйвера в ядрі</text>
+
+  <rect x="493" y="460" width="205" height="38" rx="6" ry="6" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="595.5" y="484" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Етап Б: Буферизація</text>
+
+  <rect x="724" y="460" width="205" height="38" rx="6" ry="6" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="826.5" y="484" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Етап В: Інтерфейси userspace</text>
+</svg>

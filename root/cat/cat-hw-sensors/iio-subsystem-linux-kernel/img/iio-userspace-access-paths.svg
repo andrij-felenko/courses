@@ -1,0 +1,116 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Canvas Background -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="28" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Шляхи доступу з простору користувача до підсистеми IIO</text>
+  <text x="480" y="48" font-size="13" fill="#6b7280" text-anchor="middle">Прямий доступ через sysfs (низька частота) vs потокове зчитування через буфер (висока частота)</text>
+
+  <!-- Layer 1: Userspace -->
+  <rect x="25" y="70" width="910" height="85" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="40" y="88" font-size="12" font-weight="bold" fill="#6b7280">ПРОСТІР КОРИСТУВАЧА (USERSPACE)</text>
+
+  <!-- Userspace - Left: Sysfs App -->
+  <rect x="50" y="98" width="410" height="48" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="255" y="117" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Додаток (cat / sysfs poll)</text>
+  <text x="255" y="135" font-size="12" fill="#6b7280" text-anchor="middle">/sys/bus/iio/devices/iio:device0/in_accel_x_raw</text>
+
+  <!-- Userspace - Right: Streaming App -->
+  <rect x="500" y="98" width="410" height="48" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="705" y="117" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Додаток / libiio (Потоковий збір)</text>
+  <text x="705" y="135" font-size="12" fill="#2457d6" text-anchor="middle">/dev/iio:device0 (символьний пристрій)</text>
+
+  <!-- Flow Arrows: Userspace <-> Kernel Space -->
+  <!-- Left Path -->
+  <line x1="180" y1="155" x2="180" y2="210" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+  <text x="168" y="187" font-size="12" fill="#1a1a1a" text-anchor="end">1. read() запит</text>
+
+  <line x1="330" y1="210" x2="330" y2="155" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr-gray)"/>
+  <text x="342" y="187" font-size="12" fill="#6b7280" text-anchor="start">4. ASCII-текст</text>
+
+  <!-- Right Path -->
+  <line x1="627.5" y1="210" x2="627.5" y2="155" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="640" y="187" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="start">Бінарні пакети (read / poll)</text>
+
+  <!-- Layer 2: Kernel Space -->
+  <rect x="25" y="215" width="910" height="140" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="40" y="233" font-size="12" font-weight="bold" fill="#6b7280">ПРОСТІР ЯДРА (KERNEL SPACE)</text>
+
+  <!-- Kernel - Left: IIO Direct Access -->
+  <rect x="50" y="242" width="410" height="102" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="255" y="260" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">IIO Core &amp; Driver (Direct Access)</text>
+  <line x1="65" y1="267" x2="445" y2="267" stroke="#e5e7eb" stroke-width="1"/>
+  <text x="65" y="284" font-size="12" fill="#1a1a1a">• Виклик read_raw() у IIO-драйвері</text>
+  <text x="65" y="303" font-size="12" fill="#1a1a1a">• Синхронне зчитування по I2C/SPI</text>
+  <text x="65" y="322" font-size="12" fill="#6b7280">• Форматування значення в ASCII (sprintf)</text>
+
+  <!-- Kernel - Right: Ring Buffer & Trigger -->
+  <rect x="500" y="242" width="250" height="102" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="625" y="260" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Кільцевий буфер (iio_buffer)</text>
+  <line x1="515" y1="267" x2="735" y2="267" stroke="#c7d7fa" stroke-width="1"/>
+  <text x="515" y="284" font-size="12" fill="#1a1a1a">• kfifo / DMA кільцева черга</text>
+  <text x="515" y="303" font-size="12" fill="#1a1a1a">• Пакунки вибірок (timestamp)</text>
+  <text x="515" y="322" font-size="12" fill="#2457d6">• iio_push_to_buffers()</text>
+
+  <rect x="765" y="242" width="145" height="102" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="837.5" y="260" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">IIO Trigger</text>
+  <line x1="775" y1="267" x2="900" y2="267" stroke="#e5e7eb" stroke-width="1"/>
+  <text x="837.5" y="283" font-size="12" fill="#6b7280" text-anchor="middle">Джерело подій:</text>
+  <text x="837.5" y="302" font-size="12" fill="#1a1a1a" text-anchor="middle">• hrtimer / таймер</text>
+  <text x="837.5" y="321" font-size="12" fill="#1a1a1a" text-anchor="middle">• GPIO / DRDY IRQ</text>
+
+  <!-- Inter-kernel Trigger Line -->
+  <line x1="765" y1="293" x2="757" y2="293" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Flow Arrows: Kernel Space <-> Hardware Layer -->
+  <!-- Left Path -->
+  <line x1="180" y1="355" x2="180" y2="410" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+  <text x="168" y="387" font-size="12" fill="#1a1a1a" text-anchor="end">2. SPI/I2C запит</text>
+
+  <line x1="330" y1="410" x2="330" y2="355" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr-gray)"/>
+  <text x="342" y="387" font-size="12" fill="#6b7280" text-anchor="start">3. Raw біти</text>
+
+  <!-- Right Path -->
+  <line x1="627.5" y1="410" x2="627.5" y2="355" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="640" y="387" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="start">DMA / FIFO Потік</text>
+
+  <line x1="837.5" y1="410" x2="837.5" y2="355" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#arr-blue)"/>
+
+  <!-- Layer 3: Hardware Layer -->
+  <rect x="25" y="415" width="910" height="55" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="40" y="431" font-size="12" font-weight="bold" fill="#6b7280">АПАРАТНИЙ РІВЕНЬ (HARDWARE)</text>
+
+  <!-- Hardware - Left: Sensor -->
+  <rect x="50" y="435" width="410" height="28" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="255" y="453" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Давач (ADC / IMU) — Опитування по SPI / I2C</text>
+
+  <!-- Hardware - Right: Sensor & IRQ -->
+  <rect x="500" y="435" width="250" height="28" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="625" y="453" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Давач (ADC / IMU)</text>
+
+  <rect x="765" y="435" width="145" height="28" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="837.5" y="453" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">DRDY IRQ Pin</text>
+
+  <!-- Layer 4: Summary Cards -->
+  <!-- Left Summary -->
+  <rect x="25" y="490" width="440" height="52" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="245" y="510" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Низька частота (10–100 Гц) — Polling sysfs</text>
+  <text x="245" y="530" font-size="12" fill="#1a1a1a" text-anchor="middle">Високі накладні витрати: VFS open/read, парсинг ASCII</text>
+
+  <!-- Right Summary -->
+  <rect x="495" y="490" width="440" height="52" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="715" y="510" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Висока частота (кГц+) — Streaming Buffer</text>
+  <text x="715" y="530" font-size="12" fill="#1a1a1a" text-anchor="middle">Низькі витрати: kfifo / DMA, бінарний формат, без затримок</text>
+</svg>

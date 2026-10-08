@@ -1,0 +1,151 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- White Background -->
+  <rect x="0" y="0" width="960" height="560" fill="#ffffff"/>
+
+  <!-- Definitions for Markers -->
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Title and Subtitle -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Часова діаграма та конвеєризація SPI-кадрів AS5048A</text>
+  <text x="480" y="54" text-anchor="middle" font-size="13" fill="#6b7280">Дані за адресою з кадру N повертаються веденим у кадрі N+1 з перевіркою парності</text>
+
+  <!-- TOP PANEL: SPI Frame Structure -->
+  <rect x="40" y="75" width="880" height="135" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="60" y="96" font-size="14" font-weight="bold" fill="#1a1a1a">Структура 16-бітного SPI-кадру AS5048A</text>
+
+  <!-- MOSI Subpanel -->
+  <rect x="60" y="108" width="410" height="88" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="70" y="125" font-size="12" font-weight="bold" fill="#2457d6">MOSI (Команда запиту / читання):</text>
+
+  <!-- MOSI Bit Boxes -->
+  <!-- Bit 15: PAR -->
+  <rect x="70" y="134" width="55" height="36" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="97.5" y="149" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">PAR</text>
+  <text x="97.5" y="163" text-anchor="middle" font-size="10" fill="#6b7280">b15</text>
+
+  <!-- Bit 14: R/W -->
+  <rect x="130" y="134" width="55" height="36" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="157.5" y="149" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a1a">R/W</text>
+  <text x="157.5" y="163" text-anchor="middle" font-size="10" fill="#6b7280">b14</text>
+
+  <!-- Bits 13..0: ADDR -->
+  <rect x="190" y="134" width="270" height="36" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="325" y="149" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">14-бітна адреса регістра (ADDR)</text>
+  <text x="325" y="163" text-anchor="middle" font-size="10" fill="#6b7280">b13 ... b0 (наприклад, 0x3FFF — читання кута)</text>
+
+  <text x="70" y="184" font-size="10" fill="#6b7280">b15: Парність (парна), b14: Read=1/Write=0</text>
+
+  <!-- MISO Subpanel -->
+  <rect x="480" y="108" width="420" height="88" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="490" y="125" font-size="12" font-weight="bold" fill="#2457d6">MISO (Кадр відповіді / дані):</text>
+
+  <!-- MISO Bit Boxes -->
+  <!-- Bit 15: PAR -->
+  <rect x="490" y="134" width="55" height="36" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="517.5" y="149" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">PAR</text>
+  <text x="517.5" y="163" text-anchor="middle" font-size="10" fill="#6b7280">b15</text>
+
+  <!-- Bit 14: EF -->
+  <rect x="550" y="134" width="55" height="36" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="577.5" y="149" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">EF</text>
+  <text x="577.5" y="163" text-anchor="middle" font-size="10" fill="#c0392b">b14</text>
+
+  <!-- Bits 13..0: DATA -->
+  <rect x="610" y="134" width="280" height="36" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="750" y="149" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">14-бітні дані кута або регістра</text>
+  <text x="750" y="163" text-anchor="middle" font-size="10" fill="#6b7280">b13 ... b0 (значення кута 0..16383)</text>
+
+  <text x="490" y="184" font-size="10" fill="#6b7280">b15: Парність, b14: Error Flag (1 = Помилка)</text>
+
+  <!-- BOTTOM PANEL: Timing & Frame Pipelining -->
+  <rect x="40" y="222" width="880" height="320" rx="8" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="60" y="244" font-size="14" font-weight="bold" fill="#1a1a1a">Хронограма конвеєризації запит-відповідь (Frame Pipelining Latency)</text>
+
+  <!-- Frame Grid Columns -->
+  <line x1="415" y1="250" x2="415" y2="480" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4 4"/>
+  <line x1="655" y1="250" x2="655" y2="480" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4 4"/>
+
+  <!-- Column Headers -->
+  <text x="295" y="262" text-anchor="middle" font-size="12" font-weight="bold" fill="#6b7280">Кадр N-1</text>
+  <text x="535" y="262" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Кадр N (Запит кута)</text>
+  <text x="775" y="262" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Кадр N+1 (Відповідь)</text>
+
+  <!-- Signal 1: CSn -->
+  <text x="60" y="286" font-size="12" font-weight="bold" fill="#1a1a1a">CSn</text>
+  <path d="M 180,270 L 190,270 L 190,290 L 400,290 L 400,270 L 430,270 L 430,290 L 640,290 L 640,270 L 670,270 L 670,290 L 880,290 L 880,270 L 900,270" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Signal 2: SCLK -->
+  <text x="60" y="324" font-size="12" font-weight="bold" fill="#1a1a1a">SCLK</text>
+  <text x="60" y="337" font-size="10" fill="#6b7280">(16 імпульсів)</text>
+  <!-- Clock Pulses Frame N-1 -->
+  <path d="M 180,330 L 195,330 L 195,310 L 210,310 L 210,330 L 225,330 L 225,310 L 240,310 L 240,330 L 255,330 L 255,310 L 270,310 L 270,330 L 285,330 L 285,310 L 300,310 L 300,330 L 315,330 L 315,310 L 330,310 L 330,330 L 345,330 L 345,310 L 360,310 L 360,330 L 375,330 L 375,310 L 390,310 L 390,330 L 400,330" fill="none" stroke="#6b7280" stroke-width="1.5"/>
+  <!-- Clock Pulses Frame N -->
+  <path d="M 400,330 L 435,330 L 435,310 L 450,310 L 450,330 L 465,330 L 465,310 L 480,310 L 480,330 L 495,330 L 495,310 L 510,310 L 510,330 L 525,330 L 525,310 L 540,310 L 540,330 L 555,330 L 555,310 L 570,310 L 570,330 L 585,330 L 585,310 L 600,310 L 600,330 L 615,330 L 615,310 L 630,310 L 630,330 L 640,330" fill="none" stroke="#6b7280" stroke-width="1.5"/>
+  <!-- Clock Pulses Frame N+1 -->
+  <path d="M 640,330 L 675,330 L 675,310 L 690,310 L 690,330 L 705,330 L 705,310 L 720,310 L 720,330 L 735,330 L 735,310 L 750,310 L 750,330 L 765,330 L 765,310 L 780,310 L 780,330 L 795,330 L 795,310 L 810,310 L 810,330 L 825,330 L 825,310 L 840,310 L 840,330 L 855,330 L 855,310 L 870,310 L 870,330 L 900,330" fill="none" stroke="#6b7280" stroke-width="1.5"/>
+
+  <!-- Signal 3: MOSI -->
+  <text x="60" y="368" font-size="12" font-weight="bold" fill="#2457d6">MOSI</text>
+  <text x="60" y="382" font-size="10" fill="#6b7280">(Запит Master)</text>
+
+  <!-- MOSI Frame N-1 -->
+  <rect x="195" y="352" width="200" height="40" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="295" y="369" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">CMD (N-1)</text>
+  <text x="295" y="383" text-anchor="middle" font-size="11" fill="#6b7280">Попередній запит</text>
+
+  <!-- MOSI Frame N (Key Command Request) -->
+  <rect x="435" y="352" width="200" height="40" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="535" y="369" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">READ ANGLE (0x3FFF)</text>
+  <text x="535" y="383" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">Запит кута θ_N</text>
+
+  <!-- MOSI Frame N+1 -->
+  <rect x="675" y="352" width="200" height="40" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="775" y="369" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">NOP / CMD (N+1)</text>
+  <text x="775" y="383" text-anchor="middle" font-size="11" fill="#6b7280">Наступний запит</text>
+
+  <!-- Signal 4: MISO -->
+  <text x="60" y="448" font-size="12" font-weight="bold" fill="#27ae60">MISO</text>
+  <text x="60" y="462" font-size="10" fill="#6b7280">(Відповідь Slave)</text>
+
+  <!-- MISO Frame N-1 -->
+  <rect x="195" y="432" width="200" height="40" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="295" y="449" text-anchor="middle" font-size="12" font-weight="bold" fill="#6b7280">DATA (N-2)</text>
+  <text x="295" y="463" text-anchor="middle" font-size="11" fill="#6b7280">Дані запиту N-2</text>
+
+  <!-- MISO Frame N -->
+  <rect x="435" y="432" width="200" height="40" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="535" y="449" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">DATA (N-1)</text>
+  <text x="535" y="463" text-anchor="middle" font-size="11" fill="#6b7280">Відповідь на запит N-1</text>
+
+  <!-- MISO Frame N+1 (Key Data Response) -->
+  <rect x="675" y="432" width="200" height="40" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <text x="775" y="449" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">ANGLE DATA (θ_N)</text>
+  <text x="775" y="463" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">Кут для запиту з Кадру N!</text>
+
+  <!-- Curved Pipelining Latency Arrow -->
+  <path d="M 535,392 C 535,422 775,402 775,430" fill="none" stroke="#27ae60" stroke-width="2.5" stroke-dasharray="5 3" marker-end="url(#arr-green)"/>
+
+  <!-- Pipelining Badge -->
+  <rect x="565" y="400" width="180" height="24" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="655" y="416" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">Затримка 1 кадр (Pipelining)</text>
+
+  <!-- Summary Banner -->
+  <rect x="60" y="488" width="840" height="42" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <circle cx="75" cy="509" r="4" fill="#2457d6"/>
+  <text x="88" y="505" font-size="11" font-weight="bold" fill="#1a1a1a">Конвеєрна обробка (Pipelining):</text>
+  <text x="278" y="505" font-size="11" fill="#1a1a1a">Перший кадр надсилає команду читання 0x3FFF; результат кута повертається у другому кадрі SPI.</text>
+  <text x="88" y="521" font-size="11" fill="#6b7280">Перевірка: контролер зобов'язаний обчислити парність (b15) та перевірити прапорець помилки (EF=0 у b14) перед використанням кута.</text>
+</svg>

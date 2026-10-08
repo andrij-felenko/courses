@@ -1,0 +1,182 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Canvas Background -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="30" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Аналоговий фронтенд зчитування ємності MEMS (C-V перетворювач)</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Підсилювач заряду з guard-екрануванням нейтралізує паразитивні ємності та струми витоку</text>
+
+  <!-- Panel 1: MEMS-структура -->
+  <rect x="30" y="75" width="230" height="460" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="45" y="90" width="200" height="28" rx="5" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="145" y="108" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">1. MEMS-структура</text>
+
+  <!-- Excitation Generator 1 (+V_exc) -->
+  <circle cx="60" cy="180" r="14" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <path d="M 53,180 Q 56.5,174 60,180 T 67,180" fill="none" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="60" y="156" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">+V_exc</text>
+  <line x1="74" y1="180" x2="90" y2="180" stroke="#2457d6" stroke-width="2"/>
+
+  <!-- Top Fixed Plate -->
+  <text x="130" y="165" font-size="12" fill="#1a1a1a" text-anchor="middle">Верхній електрод</text>
+  <rect x="90" y="175" width="80" height="10" rx="2" fill="#2457d6"/>
+
+  <!-- Top Capacitance Label -->
+  <text x="210" y="196" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">C_s1</text>
+  <text x="210" y="210" font-size="12" fill="#6b7280" text-anchor="middle">C_0 + ΔC</text>
+
+  <!-- Central Moving Mass Plate -->
+  <text x="130" y="226" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Рухома маса (Sense)</text>
+  <rect x="90" y="235" width="80" height="10" rx="2" fill="#1a1a1a"/>
+  <path d="M 130,248 L 130,258" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+
+  <!-- Bottom Capacitance Label -->
+  <text x="210" y="268" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">C_s2</text>
+  <text x="210" y="282" font-size="12" fill="#6b7280" text-anchor="middle">C_0 – ΔC</text>
+
+  <!-- Bottom Fixed Plate -->
+  <rect x="90" y="295" width="80" height="10" rx="2" fill="#2457d6"/>
+  <text x="130" y="323" font-size="12" fill="#1a1a1a" text-anchor="middle">Нижній електрод</text>
+
+  <!-- Excitation Generator 2 (-V_exc) -->
+  <line x1="74" y1="300" x2="90" y2="300" stroke="#2457d6" stroke-width="2"/>
+  <circle cx="60" cy="300" r="14" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <path d="M 53,300 Q 56.5,294 60,300 T 67,300" fill="none" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="60" y="330" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">–V_exc</text>
+
+  <!-- Output Wire from Moving Mass -->
+  <line x1="170" y1="240" x2="260" y2="240" stroke="#1a1a1a" stroke-width="2.5"/>
+  <circle cx="170" cy="240" r="3" fill="#1a1a1a"/>
+
+  <!-- Panel 1 Bottom Summary Box -->
+  <rect x="42" y="370" width="206" height="145" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="52" y="392" font-size="12" font-weight="bold" fill="#1a1a1a">Принцип вимірювання:</text>
+  <text x="52" y="414" font-size="12" fill="#6b7280">При зсуві маси на Δx:</text>
+  <text x="52" y="436" font-size="12" fill="#1a1a1a">C_s1 = C_0 + ΔC</text>
+  <text x="52" y="456" font-size="12" fill="#1a1a1a">C_s2 = C_0 – ΔC</text>
+  <text x="52" y="482" font-size="12" font-weight="bold" fill="#2457d6">ΔQ = 2 · V_exc · ΔC</text>
+  <text x="52" y="502" font-size="12" fill="#6b7280">Заряд на виході маси</text>
+
+  <!-- Inter-panel Connection 1 -> 2 -->
+  <line x1="260" y1="240" x2="295" y2="240" stroke="#1a1a1a" stroke-width="2.5" marker-end="url(#arr-dark)"/>
+
+  <!-- Panel 2: Траса та Guard-екран -->
+  <rect x="270" y="75" width="280" height="460" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="285" y="90" width="250" height="28" rx="5" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="410" y="108" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">2. Траса та Guard-екран</text>
+
+  <!-- Guard Ring Outer Screen Box -->
+  <text x="410" y="165" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Екранний провідник (Guard Ring)</text>
+  <rect x="295" y="180" width="230" height="120" rx="8" fill="#ffffff" stroke="#27ae60" stroke-width="2" stroke-dasharray="6 4"/>
+
+  <!-- Signal Trace through Guard Zone -->
+  <line x1="295" y1="240" x2="525" y2="240" stroke="#1a1a1a" stroke-width="2.5"/>
+  <text x="410" y="230" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Сигнальна траса N_in</text>
+
+  <!-- Parasitic Capacitor C_p -->
+  <line x1="345" y1="180" x2="345" y2="202" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="335" y1="202" x2="355" y2="202" stroke="#27ae60" stroke-width="2"/>
+  <line x1="335" y1="210" x2="355" y2="210" stroke="#27ae60" stroke-width="2"/>
+  <line x1="345" y1="210" x2="345" y2="240" stroke="#27ae60" stroke-width="1.5"/>
+  <circle cx="345" cy="240" r="3" fill="#1a1a1a"/>
+  <text x="328" y="210" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="end">C_p</text>
+
+  <!-- Leakage Resistor R_leak -->
+  <line x1="475" y1="240" x2="475" y2="258" stroke="#c0392b" stroke-width="1.5"/>
+  <circle cx="475" cy="240" r="3" fill="#1a1a1a"/>
+  <rect x="467" y="258" width="16" height="24" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+  <line x1="475" y1="282" x2="475" y2="300" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="458" y="274" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="end">R_leak</text>
+
+  <!-- Guard Connection Line -->
+  <line x1="410" y1="300" x2="410" y2="340" stroke="#27ae60" stroke-width="2"/>
+  <circle cx="410" cy="300" r="3" fill="#27ae60"/>
+  <text x="422" y="325" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="start">V_guard = V_ref</text>
+
+  <!-- Panel 2 Bottom Summary Box -->
+  <rect x="280" y="370" width="260" height="145" rx="6" fill="#ffffff" stroke="#27ae60"/>
+  <text x="290" y="392" font-size="12" font-weight="bold" fill="#27ae60">Захисний ефект (Guard):</text>
+  <text x="290" y="414" font-size="12" font-weight="bold" fill="#1a1a1a">V_guard ≈ V_in-  ⇒  ΔV = 0 B</text>
+  <text x="290" y="436" font-size="12" fill="#6b7280">1. Струм витоку: I_leak = ΔV / R = 0</text>
+  <text x="290" y="458" font-size="12" fill="#6b7280">2. Перезаряд C_p: I_Cp = 0</text>
+  <text x="290" y="482" font-size="12" font-weight="bold" fill="#27ae60">Паразитна ємність C_p усунена!</text>
+  <text x="290" y="502" font-size="12" fill="#6b7280">Не зменшує коефіцієнт передачі</text>
+
+  <!-- Inter-panel Connection 2 -> 3 -->
+  <line x1="525" y1="240" x2="570" y2="240" stroke="#1a1a1a" stroke-width="2.5" marker-end="url(#arr-dark)"/>
+
+  <!-- Panel 3: Підсилювач заряду (AFE) -->
+  <rect x="570" y="75" width="360" height="460" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="585" y="90" width="330" height="28" rx="5" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="750" y="108" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">3. Каскад підсилювача (AFE)</text>
+
+  <!-- Feedback Loop Junction Node -->
+  <line x1="570" y1="240" x2="690" y2="240" stroke="#1a1a1a" stroke-width="2.5"/>
+  <circle cx="620" cy="240" r="3.5" fill="#1a1a1a"/>
+
+  <!-- Vertical wire UP to Feedback Loop -->
+  <line x1="620" y1="240" x2="620" y2="145" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="620" cy="180" r="2.5" fill="#1a1a1a"/>
+
+  <!-- Feedback Branch 1: Capacitor C_f (y=145) -->
+  <line x1="620" y1="145" x2="695" y2="145" stroke="#2457d6" stroke-width="2"/>
+  <line x1="695" y1="133" x2="695" y2="157" stroke="#2457d6" stroke-width="2.5"/>
+  <line x1="705" y1="133" x2="705" y2="157" stroke="#2457d6" stroke-width="2.5"/>
+  <line x1="705" y1="145" x2="830" y2="145" stroke="#2457d6" stroke-width="2"/>
+  <text x="730" y="133" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">C_f (Інтегруюча ємність)</text>
+
+  <!-- Feedback Branch 2: Resistor R_b (y=180) -->
+  <line x1="620" y1="180" x2="685" y2="180" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="685" y="172" width="30" height="16" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="715" y1="180" x2="830" y2="180" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="730" y="202" font-size="12" fill="#6b7280" text-anchor="middle">R_b (10 МОм...1 ГОм)</text>
+
+  <!-- Feedback Loop Output Junction Node -->
+  <line x1="830" y1="145" x2="830" y2="260" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="830" cy="180" r="2.5" fill="#1a1a1a"/>
+  <circle cx="830" cy="260" r="3.5" fill="#1a1a1a"/>
+
+  <!-- Op-Amp Symbol -->
+  <polygon points="690,215 690,305 780,260" fill="#ffffff" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="702" y="242" font-size="16" font-weight="bold" fill="#1a1a1a">–</text>
+  <text x="702" y="288" font-size="16" font-weight="bold" fill="#1a1a1a">+</text>
+  <text x="730" y="265" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">ОП</text>
+
+  <!-- Non-inverting input wire (+) to V_ref -->
+  <line x1="660" y1="280" x2="690" y2="280" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="660" y1="280" x2="660" y2="340" stroke="#27ae60" stroke-width="2"/>
+  <circle cx="660" cy="340" r="3.5" fill="#27ae60"/>
+
+  <!-- Connection from V_ref to Guard Ring in Panel 2 -->
+  <path d="M 660,340 L 410,340" fill="none" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <line x1="660" y1="340" x2="660" y2="358" stroke="#2457d6" stroke-width="1.5"/>
+  <!-- V_ref Reference Circle -->
+  <circle cx="660" cy="358" r="8" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="676" y="362" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="start">V_ref (Опорна напруга)</text>
+
+  <!-- Op-Amp Output Line -->
+  <line x1="780" y1="260" x2="850" y2="260" stroke="#2457d6" stroke-width="2.5"/>
+  <circle cx="850" cy="260" r="4" fill="#2457d6"/>
+  <text x="860" y="264" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="start">V_out(t)</text>
+
+  <!-- Panel 3 Bottom Summary Box -->
+  <rect x="585" y="370" width="330" height="145" rx="6" fill="#ffffff" stroke="#2457d6"/>
+  <text x="595" y="392" font-size="12" font-weight="bold" fill="#2457d6">Рівняння вихідного сигналу:</text>
+  <text x="595" y="416" font-size="13" font-weight="bold" fill="#1a1a1a">V_out = – (2 · ΔC / C_f) · V_exc</text>
+  <text x="595" y="440" font-size="12" fill="#6b7280">• Вихідна напруга пропорційна ΔC</text>
+  <text x="595" y="460" font-size="12" fill="#6b7280">• C_p не входить у формулу V_out</text>
+  <text x="595" y="484" font-size="12" font-weight="bold" fill="#27ae60">Результат: Висока точність AFE</text>
+  <text x="595" y="504" font-size="12" fill="#6b7280">Стабільність проти витоків і шуму</text>
+</svg>

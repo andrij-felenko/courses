@@ -1,0 +1,150 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Canvas Background -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="30" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Топологія PCB для MEMS: Принцип охоронного кільця (Guard Ring)</text>
+  <text x="480" y="52" text-anchor="middle" font-size="13" fill="#6b7280">Активне еквіпотенційне екранування (V_guard = V_sense) нейтралізує паразитну ємність C_stray</text>
+
+  <!-- Left Panel: Without Guard Ring -->
+  <g id="panel-without-guard">
+    <rect x="30" y="70" width="435" height="450" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" rx="8"/>
+
+    <!-- Header Box -->
+    <rect x="45" y="85" width="405" height="34" fill="#ffffff" stroke="#c0392b" stroke-width="1" rx="4"/>
+    <text x="247.5" y="107" text-anchor="middle" font-size="14" font-weight="bold" fill="#c0392b">1. Без Guard Ring (витік і паразитна ємність)</text>
+
+    <!-- PCB Layout Container -->
+    <rect x="45" y="130" width="405" height="200" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="6"/>
+
+    <!-- MEMS Chip -->
+    <rect x="60" y="150" width="90" height="130" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.5" rx="4"/>
+    <text x="105" y="172" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">MEMS IC</text>
+    <text x="105" y="192" text-anchor="middle" font-size="12" fill="#6b7280">C_mems ≈ fF</text>
+    <rect x="150" y="205" width="16" height="20" fill="#d97706" rx="2"/>
+    <text x="105" y="260" text-anchor="middle" font-size="12" fill="#1a1a1a">SENSE Pin</text>
+
+    <!-- AFE Chip -->
+    <rect x="340" y="150" width="90" height="130" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.5" rx="4"/>
+    <text x="385" y="172" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">AFE IC</text>
+    <text x="385" y="192" text-anchor="middle" font-size="12" fill="#6b7280">Вхід AFE</text>
+    <rect x="324" y="205" width="16" height="20" fill="#d97706" rx="2"/>
+    <text x="385" y="260" text-anchor="middle" font-size="12" fill="#1a1a1a">In+ (High-Z)</text>
+
+    <!-- High-Z SENSE Trace -->
+    <rect x="166" y="210" width="158" height="10" fill="#2457d6" rx="2"/>
+    <text x="245" y="196" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Чутлива лінія V_sense</text>
+
+    <!-- Stray Capacitance & Substrate Leakage Markers -->
+    <line x1="140" y1="223" x2="140" y2="275" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#arr-red)"/>
+    <line x1="350" y1="223" x2="350" y2="275" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#arr-red)"/>
+    <text x="245" y="248" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">C_stray ≈ 1–10 pF (паразитна)</text>
+
+    <!-- Ground Plane -->
+    <rect x="170" y="280" width="150" height="36" fill="#e5e7eb" stroke="#9ca3af" stroke-width="1" stroke-dasharray="4,3" rx="3"/>
+    <text x="245" y="302" text-anchor="middle" font-size="12" fill="#4b5563">Земля (GND = 0 V)</text>
+
+    <!-- Summary Box -->
+    <rect x="45" y="345" width="405" height="160" fill="#ffffff" stroke="#f5c6cb" stroke-width="1" rx="6"/>
+    <text x="60" y="370" font-size="12" font-weight="bold" fill="#c0392b">Потенціал:</text>
+    <text x="135" y="370" font-size="12" fill="#1a1a1a">ΔV = V_sense - 0 V ≠ 0 (є різниця)</text>
+
+    <text x="60" y="395" font-size="12" font-weight="bold" fill="#c0392b">Витік струму:</text>
+    <text x="155" y="395" font-size="12" fill="#1a1a1a">I_leak = ΔV / R_sub (через підкладку)</text>
+
+    <text x="60" y="420" font-size="12" font-weight="bold" fill="#c0392b">Паразитна C:</text>
+    <text x="150" y="420" font-size="12" fill="#1a1a1a">C_stray ≈ 1–10 pF &gt;&gt; C_mems (fF)</text>
+
+    <!-- Callout inside Summary -->
+    <rect x="60" y="438" width="375" height="52" fill="#fdecea" stroke="#c0392b" stroke-dasharray="3,3" rx="4"/>
+    <text x="247.5" y="458" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Наслідок: Сигнал MEMS шунтується ємністю PCB,</text>
+    <text x="247.5" y="476" text-anchor="middle" font-size="12" fill="#c0392b">виникає температурний дрейф і втрата чутливості</text>
+  </g>
+
+  <!-- Right Panel: With Guard Ring -->
+  <g id="panel-with-guard">
+    <rect x="495" y="70" width="435" height="450" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="8"/>
+
+    <!-- Header Box -->
+    <rect x="510" y="85" width="405" height="34" fill="#ffffff" stroke="#27ae60" stroke-width="1" rx="4"/>
+    <text x="712.5" y="107" text-anchor="middle" font-size="14" font-weight="bold" fill="#27ae60">2. З Guard Ring (Активне екранування)</text>
+
+    <!-- PCB Layout Container -->
+    <rect x="510" y="130" width="405" height="200" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="6"/>
+
+    <!-- MEMS Chip -->
+    <rect x="525" y="150" width="85" height="130" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.5" rx="4"/>
+    <text x="567.5" y="172" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">MEMS IC</text>
+    <text x="567.5" y="192" text-anchor="middle" font-size="12" fill="#6b7280">C_mems ≈ fF</text>
+    <rect x="610" y="205" width="14" height="20" fill="#d97706" rx="2"/>
+    <text x="567.5" y="260" text-anchor="middle" font-size="12" fill="#1a1a1a">SENSE Pin</text>
+
+    <!-- AFE Chip with Buffer -->
+    <rect x="795" y="150" width="110" height="130" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.5" rx="4"/>
+    <text x="850" y="168" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">AFE IC</text>
+    <text x="850" y="186" text-anchor="middle" font-size="12" fill="#6b7280">Вхід AFE</text>
+
+    <!-- AFE Pads -->
+    <rect x="781" y="209" width="14" height="12" fill="#d97706" rx="2"/>
+    <rect x="781" y="248" width="14" height="12" fill="#27ae60" rx="2"/>
+
+    <!-- Op-amp symbol inside AFE -->
+    <polygon points="828,202 828,248 868,225" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+    <text x="834" y="216" font-size="12" font-weight="bold" fill="#27ae60">+</text>
+    <text x="834" y="242" font-size="12" font-weight="bold" fill="#27ae60">-</text>
+
+    <!-- Op-amp Internal Connections & Feedback -->
+    <line x1="795" y1="215" x2="828" y2="215" stroke="#2457d6" stroke-width="1.5"/>
+    <line x1="868" y1="225" x2="882" y2="225" stroke="#27ae60" stroke-width="1.5"/>
+    <path d="M 882,225 L 882,256 L 815,256 L 815,238 L 828,238" fill="none" stroke="#27ae60" stroke-width="1.5"/>
+    <line x1="815" y1="254" x2="795" y2="254" stroke="#27ae60" stroke-width="1.5"/>
+
+    <text x="850" y="274" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Буфер A_v = 1</text>
+
+    <!-- Guard Traces & SENSE Trace -->
+    <!-- Top Guard Trace -->
+    <rect x="628" y="198" width="153" height="6" fill="#27ae60" rx="1"/>
+    <!-- SENSE Trace -->
+    <rect x="624" y="212" width="157" height="6" fill="#2457d6" rx="1"/>
+    <!-- Bottom Guard Trace -->
+    <rect x="628" y="226" width="153" height="6" fill="#27ae60" rx="1"/>
+    <!-- Guard Ring Loop connection on left -->
+    <rect x="624" y="198" width="6" height="34" fill="#27ae60" rx="1"/>
+
+    <!-- Trace Labels -->
+    <text x="702.5" y="188" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Чутлива лінія V_sense</text>
+    <text x="702.5" y="248" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Guard Ring (V_guard = V_sense)</text>
+
+    <!-- Outer Ground Plane -->
+    <rect x="635" y="275" width="135" height="36" fill="#e5e7eb" stroke="#9ca3af" stroke-width="1" stroke-dasharray="4,3" rx="3"/>
+    <text x="702.5" y="297" text-anchor="middle" font-size="12" fill="#4b5563">Зовнішня земля (GND)</text>
+
+    <!-- Summary Box -->
+    <rect x="510" y="345" width="405" height="160" fill="#ffffff" stroke="#a3e0b5" stroke-width="1" rx="6"/>
+    <text x="525" y="370" font-size="12" font-weight="bold" fill="#27ae60">Потенціал:</text>
+    <text x="600" y="370" font-size="12" fill="#1a1a1a">V_guard = V_sense  ⇒  ΔV = 0.00 V</text>
+
+    <text x="525" y="395" font-size="12" font-weight="bold" fill="#27ae60">Струм витоку:</text>
+    <text x="620" y="395" font-size="12" fill="#1a1a1a">I_leak = 0 / R_sub = 0.00 A (немає витоку)</text>
+
+    <text x="525" y="420" font-size="12" font-weight="bold" fill="#27ae60">Ефективна C:</text>
+    <text x="620" y="420" font-size="12" fill="#1a1a1a">C_eff = C_stray × (1 - A_v) ≈ 0.0 fF</text>
+
+    <!-- Callout inside Summary -->
+    <rect x="525" y="438" width="375" height="52" fill="#e9f7ef" stroke="#27ae60" stroke-dasharray="3,3" rx="4"/>
+    <text x="712.5" y="458" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Результат: Паразитна ємність знижена в &gt;1000 разів,</text>
+    <text x="712.5" y="476" text-anchor="middle" font-size="12" fill="#27ae60">зберігається фемтофарадна чутливість MEMS-сенсора</text>
+  </g>
+</svg>

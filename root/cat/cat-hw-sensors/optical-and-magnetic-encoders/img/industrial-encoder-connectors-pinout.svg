@@ -1,0 +1,327 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="30" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Цокольовка та розводка промислових роз'ємів енкодерів (M12, M23, DB9)</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Призначення контактів: диференційні пари (A/Ā, B/B̄, Z/Z̄), живлення (Vcc/GND) та екран (PE)</text>
+
+  <!-- PANEL 1: M12 Connector -->
+  <rect x="25" y="70" width="285" height="415" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="167" y="94" font-size="15" font-weight="bold" fill="#2457d6" text-anchor="middle">Роз'єм M12 (8-pin)</text>
+  <text x="167" y="112" font-size="12" fill="#6b7280" text-anchor="middle">Стандарт A-Coded (IEC 61076)</text>
+
+  <!-- M12 Circular Diagram -->
+  <circle cx="167" cy="185" r="50" fill="#eaf0fd" stroke="#2457d6" stroke-width="2.5"/>
+  <circle cx="167" cy="185" r="42" fill="white" stroke="#d0d7de" stroke-width="1.5"/>
+  <!-- Keyway notch -->
+  <rect x="163" y="133" width="8" height="6" fill="#2457d6" rx="1"/>
+
+  <!-- M12 Pins (r=7.5) -->
+  <!-- Pin 1: GND (149, 167) -->
+  <circle cx="149" cy="167" r="7.5" fill="#4b5563"/>
+  <text x="149" y="171" font-size="12" font-weight="bold" fill="white" text-anchor="middle">1</text>
+
+  <!-- Pin 2: Vcc (167, 159) -->
+  <circle cx="167" cy="159" r="7.5" fill="#c0392b"/>
+  <text x="167" y="163" font-size="12" font-weight="bold" fill="white" text-anchor="middle">2</text>
+
+  <!-- Pin 3: A (185, 167) -->
+  <circle cx="185" cy="167" r="7.5" fill="#2457d6"/>
+  <text x="185" y="171" font-size="12" font-weight="bold" fill="white" text-anchor="middle">3</text>
+
+  <!-- Pin 4: /A (193, 185) -->
+  <circle cx="193" cy="185" r="7.5" fill="#60a5fa"/>
+  <text x="193" y="189" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">4</text>
+
+  <!-- Pin 5: B (185, 203) -->
+  <circle cx="185" cy="203" r="7.5" fill="#d97706"/>
+  <text x="185" y="207" font-size="12" font-weight="bold" fill="white" text-anchor="middle">5</text>
+
+  <!-- Pin 6: /B (167, 211) -->
+  <circle cx="167" cy="211" r="7.5" fill="#fbbf24"/>
+  <text x="167" y="215" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">6</text>
+
+  <!-- Pin 7: Z (149, 203) -->
+  <circle cx="149" cy="203" r="7.5" fill="#27ae60"/>
+  <text x="149" y="207" font-size="12" font-weight="bold" fill="white" text-anchor="middle">7</text>
+
+  <!-- Pin 8: /Z (141, 185) -->
+  <circle cx="141" cy="185" r="7.5" fill="#4ade80"/>
+  <text x="141" y="189" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">8</text>
+
+  <text x="167" y="189" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">M12-8</text>
+
+  <!-- M12 Pinout Table -->
+  <rect x="37" y="248" width="261" height="22" rx="4" fill="#2457d6"/>
+  <text x="45" y="264" font-size="12" font-weight="bold" fill="white">Пін</text>
+  <text x="85" y="264" font-size="12" font-weight="bold" fill="white">Сигнал</text>
+  <text x="155" y="264" font-size="12" font-weight="bold" fill="white">Призначення</text>
+
+  <!-- Table Rows M12 -->
+  <circle cx="47" cy="285" r="4.5" fill="#4b5563"/>
+  <text x="56" y="289" font-size="12" fill="#1a1a1a">1</text>
+  <text x="85" y="289" font-size="12" font-weight="bold" fill="#1a1a1a">GND</text>
+  <text x="155" y="289" font-size="12" fill="#1a1a1a">0 В (Загальний)</text>
+
+  <circle cx="47" cy="307" r="4.5" fill="#c0392b"/>
+  <text x="56" y="311" font-size="12" fill="#1a1a1a">2</text>
+  <text x="85" y="311" font-size="12" font-weight="bold" fill="#c0392b">Vcc</text>
+  <text x="155" y="311" font-size="12" fill="#1a1a1a">+5V / +10..30V</text>
+
+  <circle cx="47" cy="329" r="4.5" fill="#2457d6"/>
+  <text x="56" y="333" font-size="12" fill="#1a1a1a">3</text>
+  <text x="85" y="333" font-size="12" font-weight="bold" fill="#2457d6">A</text>
+  <text x="155" y="333" font-size="12" fill="#1a1a1a">Канал A (Прямий)</text>
+
+  <circle cx="47" cy="351" r="4.5" fill="#60a5fa"/>
+  <text x="56" y="355" font-size="12" fill="#1a1a1a">4</text>
+  <text x="85" y="355" font-size="12" font-weight="bold" fill="#2563eb">Ā (/A)</text>
+  <text x="155" y="355" font-size="12" fill="#1a1a1a">Канал Ā (Інверсний)</text>
+
+  <circle cx="47" cy="373" r="4.5" fill="#d97706"/>
+  <text x="56" y="377" font-size="12" fill="#1a1a1a">5</text>
+  <text x="85" y="377" font-size="12" font-weight="bold" fill="#d97706">B</text>
+  <text x="155" y="377" font-size="12" fill="#1a1a1a">Канал B (Прямий)</text>
+
+  <circle cx="47" cy="395" r="4.5" fill="#fbbf24"/>
+  <text x="56" y="399" font-size="12" fill="#1a1a1a">6</text>
+  <text x="85" y="399" font-size="12" font-weight="bold" fill="#b45309">B̄ (/B)</text>
+  <text x="155" y="399" font-size="12" fill="#1a1a1a">Канал B̄ (Інверсний)</text>
+
+  <circle cx="47" cy="417" r="4.5" fill="#27ae60"/>
+  <text x="56" y="421" font-size="12" fill="#1a1a1a">7</text>
+  <text x="85" y="421" font-size="12" font-weight="bold" fill="#27ae60">Z</text>
+  <text x="155" y="421" font-size="12" fill="#1a1a1a">Нуль-мітка (Index)</text>
+
+  <circle cx="47" cy="439" r="4.5" fill="#4ade80"/>
+  <text x="56" y="443" font-size="12" fill="#1a1a1a">8</text>
+  <text x="85" y="443" font-size="12" font-weight="bold" fill="#16a34a">Z̄ (/Z)</text>
+  <text x="155" y="443" font-size="12" fill="#1a1a1a">Нуль-мітка Z̄ (Інв.)</text>
+
+  <circle cx="47" cy="461" r="4.5" fill="#9ca3af"/>
+  <text x="56" y="465" font-size="12" fill="#1a1a1a">К</text>
+  <text x="85" y="465" font-size="12" font-weight="bold" fill="#6b7280">Shield</text>
+  <text x="155" y="465" font-size="12" fill="#1a1a1a">Екран кабелю (PE)</text>
+
+
+  <!-- PANEL 2: M23 Connector -->
+  <rect x="337" y="70" width="285" height="415" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="479" y="94" font-size="15" font-weight="bold" fill="#2457d6" text-anchor="middle">Роз'єм M23 (12-pin)</text>
+  <text x="479" y="112" font-size="12" fill="#6b7280" text-anchor="middle">Промисловий стандарт M23</text>
+
+  <!-- M23 Circular Diagram -->
+  <circle cx="479" cy="185" r="50" fill="#eaf0fd" stroke="#2457d6" stroke-width="2.5"/>
+  <circle cx="479" cy="185" r="42" fill="white" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Center Pin 12 (Vcc) -->
+  <circle cx="479" cy="185" r="7.5" fill="#c0392b"/>
+  <text x="479" y="189" font-size="12" font-weight="bold" fill="white" text-anchor="middle">12</text>
+
+  <!-- M23 Outer Pins (1..11, r=7) -->
+  <!-- Pin 1 (479, 158) /B -->
+  <circle cx="479" cy="158" r="7" fill="#fbbf24"/>
+  <text x="479" y="162" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">1</text>
+
+  <!-- Pin 2 (494, 161) Sense Vcc -->
+  <circle cx="494" cy="161" r="7" fill="#e67e22"/>
+  <text x="494" y="165" font-size="12" font-weight="bold" fill="white" text-anchor="middle">2</text>
+
+  <!-- Pin 3 (504, 172) Z -->
+  <circle cx="504" cy="172" r="7" fill="#27ae60"/>
+  <text x="504" y="176" font-size="12" font-weight="bold" fill="white" text-anchor="middle">3</text>
+
+  <!-- Pin 4 (506, 185) /Z -->
+  <circle cx="506" cy="185" r="7" fill="#4ade80"/>
+  <text x="506" y="189" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">4</text>
+
+  <!-- Pin 5 (502, 198) A -->
+  <circle cx="502" cy="198" r="7" fill="#2457d6"/>
+  <text x="502" y="202" font-size="12" font-weight="bold" fill="white" text-anchor="middle">5</text>
+
+  <!-- Pin 6 (492, 208) /A -->
+  <circle cx="492" cy="208" r="7" fill="#60a5fa"/>
+  <text x="492" y="212" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">6</text>
+
+  <!-- Pin 7 (479, 212) NC -->
+  <circle cx="479" cy="212" r="7" fill="#9ca3af"/>
+  <text x="479" y="216" font-size="12" font-weight="bold" fill="white" text-anchor="middle">7</text>
+
+  <!-- Pin 8 (466, 208) B -->
+  <circle cx="466" cy="208" r="7" fill="#d97706"/>
+  <text x="466" y="212" font-size="12" font-weight="bold" fill="white" text-anchor="middle">8</text>
+
+  <!-- Pin 9 (456, 198) Shield -->
+  <circle cx="456" cy="198" r="7" fill="#6b7280"/>
+  <text x="456" y="202" font-size="12" font-weight="bold" fill="white" text-anchor="middle">9</text>
+
+  <!-- Pin 10 (452, 185) GND -->
+  <circle cx="452" cy="185" r="7" fill="#4b5563"/>
+  <text x="452" y="189" font-size="12" font-weight="bold" fill="white" text-anchor="middle">10</text>
+
+  <!-- Pin 11 (454, 172) Sense GND -->
+  <circle cx="454" cy="172" r="7" fill="#e67e22"/>
+  <text x="454" y="176" font-size="12" font-weight="bold" fill="white" text-anchor="middle">11</text>
+
+  <!-- M23 Pinout Table -->
+  <rect x="349" y="248" width="261" height="22" rx="4" fill="#2457d6"/>
+  <text x="357" y="264" font-size="12" font-weight="bold" fill="white">Пін</text>
+  <text x="412" y="264" font-size="12" font-weight="bold" fill="white">Сигнал</text>
+  <text x="468" y="264" font-size="12" font-weight="bold" fill="white">Призначення</text>
+
+  <!-- Table Rows M23 -->
+  <circle cx="359" cy="285" r="4.5" fill="#c0392b"/>
+  <text x="368" y="289" font-size="12" fill="#1a1a1a">12, 10</text>
+  <text x="412" y="289" font-size="12" font-weight="bold" fill="#c0392b">Vcc/GND</text>
+  <text x="468" y="289" font-size="12" fill="#1a1a1a">Живлення (5-30V, 0V)</text>
+
+  <circle cx="359" cy="307" r="4.5" fill="#e67e22"/>
+  <text x="368" y="311" font-size="12" fill="#1a1a1a">2, 11</text>
+  <text x="412" y="311" font-size="12" font-weight="bold" fill="#d97706">Sense</text>
+  <text x="468" y="311" font-size="12" fill="#1a1a1a">Сонда напруги (V/G)</text>
+
+  <circle cx="359" cy="329" r="4.5" fill="#2457d6"/>
+  <text x="368" y="333" font-size="12" fill="#1a1a1a">5</text>
+  <text x="412" y="333" font-size="12" font-weight="bold" fill="#2457d6">A</text>
+  <text x="468" y="333" font-size="12" fill="#1a1a1a">Канал A (Прямий)</text>
+
+  <circle cx="359" cy="351" r="4.5" fill="#60a5fa"/>
+  <text x="368" y="355" font-size="12" fill="#1a1a1a">6</text>
+  <text x="412" y="355" font-size="12" font-weight="bold" fill="#2563eb">Ā (/A)</text>
+  <text x="468" y="355" font-size="12" fill="#1a1a1a">Канал Ā (Інверсний)</text>
+
+  <circle cx="359" cy="373" r="4.5" fill="#d97706"/>
+  <text x="368" y="377" font-size="12" fill="#1a1a1a">8</text>
+  <text x="412" y="377" font-size="12" font-weight="bold" fill="#d97706">B</text>
+  <text x="468" y="377" font-size="12" fill="#1a1a1a">Канал B (Прямий)</text>
+
+  <circle cx="359" cy="395" r="4.5" fill="#fbbf24"/>
+  <text x="368" y="399" font-size="12" fill="#1a1a1a">1</text>
+  <text x="412" y="399" font-size="12" font-weight="bold" fill="#b45309">B̄ (/B)</text>
+  <text x="468" y="399" font-size="12" fill="#1a1a1a">Канал B̄ (Інверсний)</text>
+
+  <circle cx="359" cy="417" r="4.5" fill="#27ae60"/>
+  <text x="368" y="421" font-size="12" fill="#1a1a1a">3, 4</text>
+  <text x="412" y="421" font-size="12" font-weight="bold" fill="#27ae60">Z, Z̄</text>
+  <text x="468" y="421" font-size="12" fill="#1a1a1a">Нуль-мітка Z / Z̄</text>
+
+  <circle cx="359" cy="439" r="4.5" fill="#9ca3af"/>
+  <text x="368" y="443" font-size="12" fill="#1a1a1a">7</text>
+  <text x="412" y="443" font-size="12" font-weight="bold" fill="#6b7280">NC</text>
+  <text x="468" y="443" font-size="12" fill="#1a1a1a">Не підключено / Сенсор</text>
+
+  <circle cx="359" cy="461" r="4.5" fill="#6b7280"/>
+  <text x="368" y="465" font-size="12" fill="#1a1a1a">9</text>
+  <text x="412" y="465" font-size="12" font-weight="bold" fill="#6b7280">Shield</text>
+  <text x="468" y="465" font-size="12" fill="#1a1a1a">Екран кабелю (PE)</text>
+
+
+  <!-- PANEL 3: DB9 Connector -->
+  <rect x="649" y="70" width="286" height="415" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="792" y="94" font-size="15" font-weight="bold" fill="#2457d6" text-anchor="middle">Роз'єм DB9 (D-Sub)</text>
+  <text x="792" y="112" font-size="12" fill="#6b7280" text-anchor="middle">Інтерфейс RS-422 / TTL</text>
+
+  <!-- DB9 Shell Diagram -->
+  <polygon points="727,145 857,145 847,215 737,215" fill="#eaf0fd" stroke="#2457d6" stroke-width="2.5"/>
+  <polygon points="732,150 852,150 843,210 741,210" fill="white" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- DB9 Top Row Pins (1..5) -->
+  <circle cx="752" cy="168" r="7" fill="#2457d6"/>
+  <text x="752" y="172" font-size="12" font-weight="bold" fill="white" text-anchor="middle">1</text>
+
+  <circle cx="772" cy="168" r="7" fill="#60a5fa"/>
+  <text x="772" y="172" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">2</text>
+
+  <circle cx="792" cy="168" r="7" fill="#d97706"/>
+  <text x="792" y="172" font-size="12" font-weight="bold" fill="white" text-anchor="middle">3</text>
+
+  <circle cx="812" cy="168" r="7" fill="#fbbf24"/>
+  <text x="812" y="172" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">4</text>
+
+  <circle cx="832" cy="168" r="7" fill="#27ae60"/>
+  <text x="832" y="172" font-size="12" font-weight="bold" fill="white" text-anchor="middle">5</text>
+
+  <!-- DB9 Bottom Row Pins (6..9) -->
+  <circle cx="762" cy="194" r="7" fill="#4ade80"/>
+  <text x="762" y="198" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">6</text>
+
+  <circle cx="782" cy="194" r="7" fill="#c0392b"/>
+  <text x="782" y="198" font-size="12" font-weight="bold" fill="white" text-anchor="middle">7</text>
+
+  <circle cx="802" cy="194" r="7" fill="#4b5563"/>
+  <text x="802" y="198" font-size="12" font-weight="bold" fill="white" text-anchor="middle">8</text>
+
+  <circle cx="822" cy="194" r="7" fill="#9ca3af"/>
+  <text x="822" y="198" font-size="12" font-weight="bold" fill="white" text-anchor="middle">9</text>
+
+  <text x="792" y="233" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">DB9 (Male / Виделка)</text>
+
+  <!-- DB9 Pinout Table -->
+  <rect x="661" y="248" width="262" height="22" rx="4" fill="#2457d6"/>
+  <text x="669" y="264" font-size="12" font-weight="bold" fill="white">Пін</text>
+  <text x="709" y="264" font-size="12" font-weight="bold" fill="white">Сигнал</text>
+  <text x="775" y="264" font-size="12" font-weight="bold" fill="white">Призначення</text>
+
+  <!-- Table Rows DB9 -->
+  <circle cx="671" cy="285" r="4.5" fill="#2457d6"/>
+  <text x="680" y="289" font-size="12" fill="#1a1a1a">1</text>
+  <text x="709" y="289" font-size="12" font-weight="bold" fill="#2457d6">A</text>
+  <text x="775" y="289" font-size="12" fill="#1a1a1a">Канал A (Прямий)</text>
+
+  <circle cx="671" cy="307" r="4.5" fill="#60a5fa"/>
+  <text x="680" y="311" font-size="12" fill="#1a1a1a">2</text>
+  <text x="709" y="311" font-size="12" font-weight="bold" fill="#2563eb">Ā (/A)</text>
+  <text x="775" y="311" font-size="12" fill="#1a1a1a">Канал Ā (Інверсний)</text>
+
+  <circle cx="671" cy="329" r="4.5" fill="#d97706"/>
+  <text x="680" y="333" font-size="12" fill="#1a1a1a">3</text>
+  <text x="709" y="333" font-size="12" font-weight="bold" fill="#d97706">B</text>
+  <text x="775" y="333" font-size="12" fill="#1a1a1a">Канал B (Прямий)</text>
+
+  <circle cx="671" cy="351" r="4.5" fill="#fbbf24"/>
+  <text x="680" y="355" font-size="12" fill="#1a1a1a">4</text>
+  <text x="709" y="355" font-size="12" font-weight="bold" fill="#b45309">B̄ (/B)</text>
+  <text x="775" y="355" font-size="12" fill="#1a1a1a">Канал B̄ (Інверсний)</text>
+
+  <circle cx="671" cy="373" r="4.5" fill="#27ae60"/>
+  <text x="680" y="377" font-size="12" fill="#1a1a1a">5</text>
+  <text x="709" y="377" font-size="12" font-weight="bold" fill="#27ae60">Z</text>
+  <text x="775" y="377" font-size="12" fill="#1a1a1a">Нуль-мітка (Index)</text>
+
+  <circle cx="671" cy="395" r="4.5" fill="#4ade80"/>
+  <text x="680" y="399" font-size="12" fill="#1a1a1a">6</text>
+  <text x="709" y="399" font-size="12" font-weight="bold" fill="#16a34a">Z̄ (/Z)</text>
+  <text x="775" y="399" font-size="12" fill="#1a1a1a">Нуль-мітка Z̄ (Інв.)</text>
+
+  <circle cx="671" cy="417" r="4.5" fill="#c0392b"/>
+  <text x="680" y="421" font-size="12" fill="#1a1a1a">7</text>
+  <text x="709" y="421" font-size="12" font-weight="bold" fill="#c0392b">Vcc</text>
+  <text x="775" y="421" font-size="12" fill="#1a1a1a">Живлення (+5V/+24V)</text>
+
+  <circle cx="671" cy="439" r="4.5" fill="#4b5563"/>
+  <text x="680" y="443" font-size="12" fill="#1a1a1a">8</text>
+  <text x="709" y="443" font-size="12" font-weight="bold" fill="#1a1a1a">GND</text>
+  <text x="775" y="443" font-size="12" fill="#1a1a1a">0 В (Загальний)</text>
+
+  <circle cx="671" cy="461" r="4.5" fill="#6b7280"/>
+  <text x="680" y="465" font-size="12" fill="#1a1a1a">9</text>
+  <text x="709" y="465" font-size="12" font-weight="bold" fill="#6b7280">Shield</text>
+  <text x="775" y="465" font-size="12" fill="#1a1a1a">Екран кабелю (PE)</text>
+
+
+  <!-- BOTTOM LEGEND BOX -->
+  <rect x="25" y="495" width="910" height="50" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="40" y="516" font-size="12" font-weight="bold" fill="#2457d6">Правила підключення:</text>
+
+  <rect x="190" y="506" width="12" height="12" rx="2" fill="#2457d6"/>
+  <text x="207" y="516" font-size="12" fill="#1a1a1a">Диференційні пари (A/Ā, B/B̄, Z/Z̄) — кручена пара 120 Ом (RS-422)</text>
+
+  <rect x="655" y="506" width="12" height="12" rx="2" fill="#c0392b"/>
+  <text x="672" y="516" font-size="12" fill="#1a1a1a">Vcc / GND — окрема пара живлення</text>
+
+  <rect x="190" y="526" width="12" height="12" rx="2" fill="#27ae60"/>
+  <text x="207" y="536" font-size="12" fill="#1a1a1a">Shield (Екран) — підключення до корпуса роз'єму на 360° (захист EMI)</text>
+
+  <rect x="685" y="526" width="12" height="12" rx="2" fill="#d97706"/>
+  <text x="702" y="536" font-size="12" fill="#1a1a1a">Sense — компенсація падіння U</text>
+</svg>

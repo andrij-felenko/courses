@@ -1,0 +1,304 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <!-- Arrowhead Markers -->
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-left-blue" markerWidth="9" markerHeight="9" refX="0.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#2457d6"/>
+    </marker>
+
+    <!-- Metallic Gradients -->
+    <linearGradient id="coreGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#3b82f6"/>
+      <stop offset="50%" stop-color="#1d4ed8"/>
+      <stop offset="100%" stop-color="#1e3a8a"/>
+    </linearGradient>
+
+    <linearGradient id="casingGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#f1f5f9"/>
+      <stop offset="50%" stop-color="#e2e8f0"/>
+      <stop offset="100%" stop-color="#cbd5e1"/>
+    </linearGradient>
+
+    <linearGradient id="rodGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#cbd5e1"/>
+      <stop offset="50%" stop-color="#94a3b8"/>
+      <stop offset="100%" stop-color="#64748b"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Canvas Background -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="38" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Герметичний аерокосмічний LVDT (конструктивний розріз)</text>
+  <text x="480" y="58" text-anchor="middle" font-size="13" fill="#6b7280">Безконтактне осердя, подвійне резервування та зварний корпус для критичних гідроприводів</text>
+
+  <!-- Top Annotation Callout Cards -->
+  <!-- Channel A Callout -->
+  <rect x="40" y="74" width="260" height="46" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="52" y="92" font-size="13" font-weight="bold" fill="#2457d6">Канал A (Основний вихід)</text>
+  <text x="52" y="109" font-size="12" fill="#6b7280">Pri A + Sec 1A / Sec 2A</text>
+
+  <!-- Connector Callout -->
+  <rect x="340" y="74" width="280" height="46" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="352" y="92" font-size="13" font-weight="bold" fill="#2457d6">Герметичний роз'єм (Glass-to-Metal)</text>
+  <text x="352" y="109" font-size="12" fill="#1a1a1a">Склометалеві виводи для 350 бар</text>
+
+  <!-- Channel B Callout -->
+  <rect x="660" y="74" width="260" height="46" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="672" y="92" font-size="13" font-weight="bold" fill="#2457d6">Канал B (Резервний вихід)</text>
+  <text x="672" y="109" font-size="12" fill="#6b7280">Pri B + Sec 1B / Sec 2B</text>
+
+  <!-- Pointer lines from Top Callouts -->
+  <path d="M 170,120 L 250,155" stroke="#2457d6" stroke-width="1.2" stroke-dasharray="3 3" marker-end="url(#arr-blue)"/>
+  <path d="M 480,120 L 480,130" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <path d="M 790,120 L 710,155" stroke="#2457d6" stroke-width="1.2" stroke-dasharray="3 3" marker-end="url(#arr-blue)"/>
+
+  <!-- LVDT MAIN BODY CUTAWAY (Y = 130..385) -->
+
+  <!-- Hydraulic Fluid Bore Channel (Light Blue Tint) -->
+  <rect x="35" y="244" width="745" height="32" fill="#e0f2fe" opacity="0.6"/>
+
+  <!-- Longitudinal Axis Centerline -->
+  <line x1="40" y1="260" x2="790" y2="260" stroke="#94a3b8" stroke-dasharray="8 4" stroke-width="1.5"/>
+
+  <!-- Hermetic Connector Socket (Top Center) -->
+  <rect x="445" y="130" width="70" height="25" rx="3" fill="#cbd5e1" stroke="#475569" stroke-width="1.5"/>
+  <!-- Glass Insulator Sleeves & Pins -->
+  <circle cx="460" cy="142" r="5" fill="#93c5fd" stroke="#2563eb"/>
+  <circle cx="480" cy="142" r="5" fill="#93c5fd" stroke="#2563eb"/>
+  <circle cx="500" cy="142" r="5" fill="#93c5fd" stroke="#2563eb"/>
+  <rect x="458" y="133" width="4" height="18" fill="#d97706"/>
+  <rect x="478" y="133" width="4" height="18" fill="#d97706"/>
+  <rect x="498" y="133" width="4" height="18" fill="#d97706"/>
+
+  <!-- Outer Casing Stainless Steel Walls -->
+  <rect x="160" y="155" width="620" height="15" fill="url(#casingGrad)" stroke="#64748b" stroke-width="1.5"/>
+  <rect x="160" y="350" width="620" height="15" fill="url(#casingGrad)" stroke="#64748b" stroke-width="1.5"/>
+
+  <!-- Right Welded End Cap -->
+  <path d="M 780,155 L 790,155 Q 798,260 790,365 L 780,365 Z" fill="#cbd5e1" stroke="#64748b" stroke-width="1.5"/>
+  <!-- Weld Joints (Laser/TIG Beads) -->
+  <circle cx="780" cy="155" r="4" fill="#c0392b"/>
+  <circle cx="780" cy="365" r="4" fill="#c0392b"/>
+
+  <!-- Left Hydraulic Mounting Flange -->
+  <path d="M 130,135 L 160,135 L 160,385 L 130,385 Z" fill="#cbd5e1" stroke="#64748b" stroke-width="1.5"/>
+  <!-- Flange Mounting Bolt Holes -->
+  <circle cx="145" cy="148" r="4" fill="#94a3b8" stroke="#475569"/>
+  <circle cx="145" cy="372" r="4" fill="#94a3b8" stroke="#475569"/>
+  <!-- High Pressure Seal O-Rings -->
+  <rect x="150" y="156" width="6" height="12" fill="#c0392b"/>
+  <rect x="150" y="352" width="6" height="12" fill="#c0392b"/>
+
+  <!-- Magnetic Shielding Layers (Mu-Metal) -->
+  <rect x="168" y="170" width="604" height="6" fill="#94a3b8" stroke="#475569" stroke-width="1"/>
+  <rect x="168" y="344" width="604" height="6" fill="#94a3b8" stroke="#475569" stroke-width="1"/>
+
+  <!-- Epoxy Potting Compound Space -->
+  <rect x="168" y="176" width="604" height="4" fill="#f1f5f9"/>
+  <rect x="168" y="340" width="604" height="4" fill="#f1f5f9"/>
+
+  <!-- Ceramic Bobbin Former Tubes & Ribs -->
+  <rect x="168" y="235" width="604" height="5" fill="#d0d7de"/>
+  <rect x="168" y="280" width="604" height="5" fill="#d0d7de"/>
+
+  <!-- Bobbin Ribs (Separators) -->
+  <rect x="175" y="180" width="7" height="60" fill="#cbd5e1" stroke="#94a3b8"/>
+  <rect x="175" y="280" width="7" height="60" fill="#cbd5e1" stroke="#94a3b8"/>
+
+  <rect x="260" y="180" width="7" height="60" fill="#cbd5e1" stroke="#94a3b8"/>
+  <rect x="260" y="280" width="7" height="60" fill="#cbd5e1" stroke="#94a3b8"/>
+
+  <rect x="373" y="180" width="7" height="60" fill="#cbd5e1" stroke="#94a3b8"/>
+  <rect x="373" y="280" width="7" height="60" fill="#cbd5e1" stroke="#94a3b8"/>
+
+  <!-- Central Inter-Channel Isolation Barrier -->
+  <rect x="458" y="180" width="24" height="60" fill="#94a3b8" stroke="#475569"/>
+  <rect x="458" y="280" width="24" height="60" fill="#94a3b8" stroke="#475569"/>
+
+  <rect x="560" y="180" width="7" height="60" fill="#cbd5e1" stroke="#94a3b8"/>
+  <rect x="560" y="280" width="7" height="60" fill="#cbd5e1" stroke="#94a3b8"/>
+
+  <rect x="673" y="180" width="7" height="60" fill="#cbd5e1" stroke="#94a3b8"/>
+  <rect x="673" y="280" width="7" height="60" fill="#cbd5e1" stroke="#94a3b8"/>
+
+  <rect x="758" y="180" width="7" height="60" fill="#cbd5e1" stroke="#94a3b8"/>
+  <rect x="758" y="280" width="7" height="60" fill="#cbd5e1" stroke="#94a3b8"/>
+
+  <!-- COIL SECTIONS (UPPER & LOWER) -->
+
+  <!-- CHANNEL A COILS -->
+  <!-- Sec 1A -->
+  <rect x="182" y="180" width="78" height="55" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="182" y="285" width="78" height="55" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <!-- Wire turn accents -->
+  <circle cx="190" cy="186" r="2.5" fill="#27ae60"/><circle cx="198" cy="186" r="2.5" fill="#27ae60"/>
+  <circle cx="206" cy="186" r="2.5" fill="#27ae60"/><circle cx="214" cy="186" r="2.5" fill="#27ae60"/>
+  <circle cx="222" cy="186" r="2.5" fill="#27ae60"/><circle cx="230" cy="186" r="2.5" fill="#27ae60"/>
+  <circle cx="238" cy="186" r="2.5" fill="#27ae60"/><circle cx="246" cy="186" r="2.5" fill="#27ae60"/>
+
+  <text x="221" y="202" text-anchor="middle" font-size="12" font-weight="bold" fill="#1e7e34">Sec 1A</text>
+  <text x="221" y="218" text-anchor="middle" font-size="12" fill="#4b5563">(2-а A)</text>
+  <text x="221" y="318" text-anchor="middle" font-size="12" fill="#1e7e34">Sec 1A</text>
+
+  <!-- Pri A -->
+  <rect x="267" y="180" width="106" height="55" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="267" y="285" width="106" height="55" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <!-- Wire turn accents -->
+  <circle cx="277" cy="186" r="2.5" fill="#2457d6"/><circle cx="287" cy="186" r="2.5" fill="#2457d6"/>
+  <circle cx="297" cy="186" r="2.5" fill="#2457d6"/><circle cx="307" cy="186" r="2.5" fill="#2457d6"/>
+  <circle cx="317" cy="186" r="2.5" fill="#2457d6"/><circle cx="327" cy="186" r="2.5" fill="#2457d6"/>
+  <circle cx="337" cy="186" r="2.5" fill="#2457d6"/><circle cx="347" cy="186" r="2.5" fill="#2457d6"/>
+  <circle cx="357" cy="186" r="2.5" fill="#2457d6"/>
+
+  <text x="320" y="202" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Pri A</text>
+  <text x="320" y="218" text-anchor="middle" font-size="12" fill="#1d4ed8">(Первинна A)</text>
+  <text x="320" y="318" text-anchor="middle" font-size="12" fill="#2457d6">Pri A</text>
+
+  <!-- Sec 2A -->
+  <rect x="380" y="180" width="78" height="55" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="380" y="285" width="78" height="55" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <!-- Wire turn accents -->
+  <circle cx="388" cy="186" r="2.5" fill="#27ae60"/><circle cx="396" cy="186" r="2.5" fill="#27ae60"/>
+  <circle cx="404" cy="186" r="2.5" fill="#27ae60"/><circle cx="412" cy="186" r="2.5" fill="#27ae60"/>
+  <circle cx="420" cy="186" r="2.5" fill="#27ae60"/><circle cx="428" cy="186" r="2.5" fill="#27ae60"/>
+  <circle cx="436" cy="186" r="2.5" fill="#27ae60"/><circle cx="444" cy="186" r="2.5" fill="#27ae60"/>
+
+  <text x="419" y="202" text-anchor="middle" font-size="12" font-weight="bold" fill="#1e7e34">Sec 2A</text>
+  <text x="419" y="218" text-anchor="middle" font-size="12" fill="#4b5563">(2-а A)</text>
+  <text x="419" y="318" text-anchor="middle" font-size="12" fill="#1e7e34">Sec 2A</text>
+
+  <!-- CHANNEL B COILS -->
+  <!-- Sec 1B -->
+  <rect x="482" y="180" width="78" height="55" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="482" y="285" width="78" height="55" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <!-- Wire turn accents -->
+  <circle cx="490" cy="186" r="2.5" fill="#27ae60"/><circle cx="498" cy="186" r="2.5" fill="#27ae60"/>
+  <circle cx="506" cy="186" r="2.5" fill="#27ae60"/><circle cx="514" cy="186" r="2.5" fill="#27ae60"/>
+  <circle cx="522" cy="186" r="2.5" fill="#27ae60"/><circle cx="530" cy="186" r="2.5" fill="#27ae60"/>
+  <circle cx="538" cy="186" r="2.5" fill="#27ae60"/><circle cx="546" cy="186" r="2.5" fill="#27ae60"/>
+
+  <text x="521" y="202" text-anchor="middle" font-size="12" font-weight="bold" fill="#1e7e34">Sec 1B</text>
+  <text x="521" y="218" text-anchor="middle" font-size="12" fill="#4b5563">(2-а B)</text>
+  <text x="521" y="318" text-anchor="middle" font-size="12" fill="#1e7e34">Sec 1B</text>
+
+  <!-- Pri B -->
+  <rect x="567" y="180" width="106" height="55" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="567" y="285" width="106" height="55" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <!-- Wire turn accents -->
+  <circle cx="577" cy="186" r="2.5" fill="#2457d6"/><circle cx="587" cy="186" r="2.5" fill="#2457d6"/>
+  <circle cx="597" cy="186" r="2.5" fill="#2457d6"/><circle cx="607" cy="186" r="2.5" fill="#2457d6"/>
+  <circle cx="617" cy="186" r="2.5" fill="#2457d6"/><circle cx="627" cy="186" r="2.5" fill="#2457d6"/>
+  <circle cx="637" cy="186" r="2.5" fill="#2457d6"/><circle cx="647" cy="186" r="2.5" fill="#2457d6"/>
+  <circle cx="657" cy="186" r="2.5" fill="#2457d6"/>
+
+  <text x="620" y="202" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Pri B</text>
+  <text x="620" y="218" text-anchor="middle" font-size="12" fill="#1d4ed8">(Первинна B)</text>
+  <text x="620" y="318" text-anchor="middle" font-size="12" fill="#2457d6">Pri B</text>
+
+  <!-- Sec 2B -->
+  <rect x="680" y="180" width="78" height="55" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="680" y="285" width="78" height="55" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <!-- Wire turn accents -->
+  <circle cx="688" cy="186" r="2.5" fill="#27ae60"/><circle cx="696" cy="186" r="2.5" fill="#27ae60"/>
+  <circle cx="704" cy="186" r="2.5" fill="#27ae60"/><circle cx="712" cy="186" r="2.5" fill="#27ae60"/>
+  <circle cx="720" cy="186" r="2.5" fill="#27ae60"/><circle cx="728" cy="186" r="2.5" fill="#27ae60"/>
+  <circle cx="736" cy="186" r="2.5" fill="#27ae60"/><circle cx="744" cy="186" r="2.5" fill="#27ae60"/>
+
+  <text x="719" y="202" text-anchor="middle" font-size="12" font-weight="bold" fill="#1e7e34">Sec 2B</text>
+  <text x="719" y="218" text-anchor="middle" font-size="12" fill="#4b5563">(2-а B)</text>
+  <text x="719" y="318" text-anchor="middle" font-size="12" fill="#1e7e34">Sec 2B</text>
+
+  <!-- Inner Pressure Tube Walls (Inconel Pressure Barrier) -->
+  <rect x="160" y="240" width="620" height="4" fill="#94a3b8" stroke="#475569" stroke-width="1"/>
+  <rect x="160" y="276" width="620" height="4" fill="#94a3b8" stroke="#475569" stroke-width="1"/>
+
+  <!-- Extension Rod (Titanium/Stainless Steel) -->
+  <rect x="40" y="255" width="280" height="10" rx="2" fill="url(#rodGrad)" stroke="#475569" stroke-width="1"/>
+
+  <!-- Core Attachment Screw Coupler -->
+  <rect x="315" y="252" width="15" height="16" rx="2" fill="#64748b" stroke="#334155" stroke-width="1"/>
+
+  <!-- Ferromagnetic Core (Permalloy Core) -->
+  <rect x="330" y="247" width="140" height="26" rx="4" fill="url(#coreGrad)" stroke="#1d4ed8" stroke-width="1.5"/>
+  <!-- Core metallic highlight line -->
+  <line x1="334" y1="253" x2="466" y2="253" stroke="#60a5fa" stroke-width="1.5" opacity="0.8"/>
+
+  <!-- Callout Boxes Left & Right of Body -->
+
+  <!-- Rod Callout Card Left -->
+  <rect x="20" y="145" width="100" height="42" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="28" y="163" font-size="12" font-weight="bold" fill="#1a1a1a">Шток приводу</text>
+  <text x="28" y="179" font-size="12" fill="#6b7280">(титановий)</text>
+  <path d="M 70,187 L 70,250" stroke="#6b7280" stroke-width="1" marker-end="url(#arr-dark)"/>
+
+  <!-- Motion Arrow Left -->
+  <rect x="20" y="325" width="100" height="42" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="28" y="343" font-size="12" font-weight="bold" fill="#2457d6">Хід осердя</text>
+  <text x="28" y="359" font-size="12" fill="#1d4ed8">зсув ±x</text>
+  <path d="M 70,325 L 70,298" stroke="#2457d6" stroke-width="1" marker-end="url(#arr-blue)"/>
+
+  <line x1="40" y1="290" x2="110" y2="290" stroke="#2457d6" stroke-width="1.5" marker-start="url(#arr-left-blue)" marker-end="url(#arr-blue)"/>
+
+  <!-- Weld Callout Card Right -->
+  <rect x="795" y="145" width="145" height="42" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="805" y="163" font-size="12" font-weight="bold" fill="#c0392b">Лазерний шов</text>
+  <text x="805" y="179" font-size="12" fill="#6b7280">Герметичний торець</text>
+  <path d="M 795,166 L 784,158" stroke="#c0392b" stroke-width="1" marker-end="url(#arr-red)"/>
+
+  <!-- Magnetic Shield Callout Right -->
+  <rect x="795" y="325" width="145" height="42" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="805" y="343" font-size="12" font-weight="bold" fill="#1a1a1a">Магнітний екран</text>
+  <text x="805" y="359" font-size="12" fill="#6b7280">(сплав Му-метал)</text>
+  <path d="M 795,346 L 775,346" stroke="#6b7280" stroke-width="1" marker-end="url(#arr-dark)"/>
+
+  <!-- Middle Callout Annotations Below Casing (Y = 380..395) -->
+  <text x="320" y="392" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Феромагнітне осердя (Пермалой)</text>
+  <path d="M 320,380 L 360,277" stroke="#2457d6" stroke-width="1" stroke-dasharray="2 2" marker-end="url(#arr-blue)"/>
+
+  <text x="590" y="392" text-anchor="middle" font-size="12" fill="#6b7280">Радіальний зазор (без тертя)</text>
+  <path d="M 590,380 L 590,282" stroke="#6b7280" stroke-width="1" stroke-dasharray="2 2" marker-end="url(#arr-dark)"/>
+
+  <!-- FEATURE PANELS BOTTOM ROW (Y = 415..535) -->
+
+  <!-- Panel 1: No Contact -->
+  <rect x="20" y="415" width="215" height="120" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="32" y="437" font-size="13" font-weight="bold" fill="#1a1a1a">1. Безнасадочне осердя</text>
+  <text x="32" y="457" font-size="12" fill="#6b7280">• Повна відсутність тертя</text>
+  <text x="32" y="475" font-size="12" fill="#6b7280">• Нескінченна роздільність</text>
+  <text x="32" y="493" font-size="12" fill="#6b7280">• Необмежений ресурс робіт</text>
+  <text x="32" y="511" font-size="12" fill="#27ae60">✓ Нульовий механічний знос</text>
+
+  <!-- Panel 2: Pressure Seal -->
+  <rect x="250" y="415" width="215" height="120" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="262" y="437" font-size="13" font-weight="bold" fill="#1a1a1a">2. Захист від тиску</text>
+  <text x="262" y="457" font-size="12" fill="#6b7280">• Гільза високого тиску</text>
+  <text x="262" y="475" font-size="12" fill="#6b7280">• Робочий тиск рідини:</text>
+  <text x="262" y="493" font-size="12" fill="#2457d6">  до 350 бар (5000 psi)</text>
+  <text x="262" y="511" font-size="12" fill="#27ae60">✓ Суцільнозварний корпус</text>
+
+  <!-- Panel 3: Dual Redundancy -->
+  <rect x="480" y="415" width="225" height="120" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="492" y="437" font-size="13" font-weight="bold" fill="#2457d6">3. Резервування 2×(Pri+Sec)</text>
+  <text x="492" y="457" font-size="12" fill="#1a1a1a">• Незалежні канали A і B</text>
+  <text x="492" y="475" font-size="12" fill="#1a1a1a">• Ізольовані секції обмоток</text>
+  <text x="492" y="493" font-size="12" fill="#6b7280">• Відмова A не зупиняє B</text>
+  <text x="492" y="511" font-size="12" fill="#27ae60">✓ Стандарт DO-160 / MIL-STD</text>
+
+  <!-- Panel 4: Environmental Extreme -->
+  <rect x="720" y="415" width="220" height="120" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="732" y="437" font-size="13" font-weight="bold" fill="#1a1a1a">4. Стійкість довкілля</text>
+  <text x="732" y="457" font-size="12" fill="#6b7280">• Температура: -55 ... +175 °C</text>
+  <text x="732" y="475" font-size="12" fill="#6b7280">• Вібрація: до 30 g (2000 Гц)</text>
+  <text x="732" y="493" font-size="12" fill="#6b7280">• Епоксидне заливання</text>
+  <text x="732" y="511" font-size="12" fill="#27ae60">✓ Магнітний екран Му-метал</text>
+</svg>

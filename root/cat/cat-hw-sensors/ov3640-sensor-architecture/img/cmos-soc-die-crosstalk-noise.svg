@@ -1,0 +1,163 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="28" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Топологія SoC-сенсора OV3640 та механізм підкладкового шуму</text>
+  <text x="480" y="48" font-size="13" fill="#6b7280" text-anchor="middle">Високочастотні перемикання ISP/JPEG наводять імпульсні завади через спільний кремній у чутливий піксельний масив</text>
+
+  <!-- Outer Die Box (Single Silicon Die) -->
+  <rect x="30" y="65" width="900" height="435" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <text x="45" y="85" font-size="12" font-weight="bold" fill="#6b7280">КРЕМНІЄВИЙ КРИСТАЛ SOC (SINGLE DIE OV3640)</text>
+
+  <!-- ANALOG DOMAIN PANEL -->
+  <rect x="45" y="98" width="375" height="232" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="60" y="118" font-size="13" font-weight="bold" fill="#27ae60">АНАЛОГОВА ЧАСТИНА (Чутливий масив та АЦП)</text>
+
+  <!-- Pixel Array Box -->
+  <rect x="55" y="130" width="215" height="188" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="67" y="150" font-size="13" font-weight="bold" fill="#1a1a1a">Матриця пікселів</text>
+  <text x="67" y="166" font-size="12" fill="#6b7280">3.15 Мп (2048×1536)</text>
+
+  <!-- Bayer Grid Representation -->
+  <rect x="67" y="178" width="16" height="16" rx="2" fill="#fdecea" stroke="#c0392b"/>
+  <text x="75" y="190" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">R</text>
+  <rect x="85" y="178" width="16" height="16" rx="2" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="93" y="190" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">G</text>
+  <rect x="103" y="178" width="16" height="16" rx="2" fill="#fdecea" stroke="#c0392b"/>
+  <text x="111" y="190" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">R</text>
+  <rect x="121" y="178" width="16" height="16" rx="2" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="129" y="190" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">G</text>
+
+  <rect x="67" y="196" width="16" height="16" rx="2" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="75" y="208" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">G</text>
+  <rect x="85" y="196" width="16" height="16" rx="2" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="93" y="208" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">B</text>
+  <rect x="103" y="196" width="16" height="16" rx="2" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="111" y="208" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">G</text>
+  <rect x="121" y="196" width="16" height="16" rx="2" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="129" y="208" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">B</text>
+
+  <rect x="67" y="214" width="16" height="16" rx="2" fill="#fdecea" stroke="#c0392b"/>
+  <text x="75" y="226" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">R</text>
+  <rect x="85" y="214" width="16" height="16" rx="2" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="93" y="226" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">G</text>
+  <rect x="103" y="214" width="16" height="16" rx="2" fill="#fdecea" stroke="#c0392b"/>
+  <text x="111" y="226" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">R</text>
+  <rect x="121" y="214" width="16" height="16" rx="2" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="129" y="226" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">G</text>
+
+  <rect x="67" y="232" width="16" height="16" rx="2" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="75" y="244" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">G</text>
+  <rect x="85" y="232" width="16" height="16" rx="2" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="93" y="244" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">B</text>
+  <rect x="103" y="232" width="16" height="16" rx="2" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="111" y="244" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">G</text>
+  <rect x="121" y="232" width="16" height="16" rx="2" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="129" y="244" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">B</text>
+
+  <text x="143" y="192" font-size="12" fill="#1a1a1a">• 1.75 мкм піксель</text>
+  <text x="143" y="210" font-size="12" fill="#1a1a1a">• 4T APS фотодіод</text>
+  <text x="143" y="228" font-size="12" fill="#1a1a1a">• Спільний FD вузол</text>
+
+  <text x="67" y="272" font-size="12" font-weight="bold" fill="#c0392b">Чутливість: мікровольти (мкВ)</text>
+  <text x="67" y="290" font-size="12" fill="#c0392b">Вразливий вузол FD</text>
+
+  <!-- ADC Front-End Box -->
+  <rect x="278" y="130" width="134" height="188" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="286" y="150" font-size="12" font-weight="bold" fill="#1a1a1a">Аналоговий фронтенд</text>
+  <text x="286" y="166" font-size="12" fill="#6b7280">CDS, PGA, 10-біт АЦП</text>
+
+  <text x="286" y="192" font-size="12" fill="#1a1a1a">• CDS зчитування</text>
+  <text x="286" y="210" font-size="12" fill="#1a1a1a">• PGA підсилювач</text>
+  <text x="286" y="228" font-size="12" fill="#1a1a1a">• Стовпчикові АЦП</text>
+  <text x="286" y="272" font-size="12" font-weight="bold" fill="#c0392b">Поріг шуму: ~1 мВ</text>
+  <text x="286" y="290" font-size="12" fill="#6b7280">Зчитує малий V_out</text>
+
+  <!-- GUARD RING PANEL -->
+  <rect x="432" y="98" width="90" height="232" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <text x="477" y="120" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Захисне кільце</text>
+  <text x="477" y="136" font-size="12" fill="#6b7280" text-anchor="middle">(Guard Ring)</text>
+
+  <text x="477" y="175" font-size="12" fill="#2457d6" text-anchor="middle">Бар'єр p+</text>
+  <text x="477" y="191" font-size="12" fill="#2457d6" text-anchor="middle">поверхневих</text>
+  <text x="477" y="207" font-size="12" fill="#2457d6" text-anchor="middle">струмів</text>
+
+  <text x="477" y="252" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">⚠️ Обмеження</text>
+  <text x="477" y="270" font-size="12" fill="#c0392b" text-anchor="middle">Не зупиняє</text>
+  <text x="477" y="286" font-size="12" fill="#c0392b" text-anchor="middle">глибокі струми</text>
+
+  <!-- DIGITAL DOMAIN PANEL -->
+  <rect x="534" y="98" width="381" height="232" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="546" y="118" font-size="13" font-weight="bold" fill="#c0392b">ЦИФРОВА ЧАСТИНА (Джерело завад dI/dt та dV/dt)</text>
+
+  <!-- ISP Box -->
+  <rect x="546" y="130" width="174" height="188" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="556" y="150" font-size="13" font-weight="bold" fill="#1a1a1a">Процесор ISP</text>
+  <text x="556" y="166" font-size="12" fill="#6b7280">Обробка кадрів</text>
+
+  <text x="556" y="192" font-size="12" fill="#1a1a1a">• Демозаїка (Bayer)</text>
+  <text x="556" y="210" font-size="12" fill="#1a1a1a">• Автобаланс білого</text>
+  <text x="556" y="228" font-size="12" fill="#1a1a1a">• Гама та шарпінг</text>
+  <text x="556" y="272" font-size="12" font-weight="bold" fill="#c0392b">Перемикання вентилів</text>
+  <text x="556" y="290" font-size="12" fill="#c0392b">Частота: 24–54 МГц</text>
+
+  <!-- JPEG & I/O Box -->
+  <rect x="728" y="130" width="175" height="188" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="738" y="150" font-size="13" font-weight="bold" fill="#1a1a1a">JPEG &amp; Вихідні шини</text>
+  <text x="738" y="166" font-size="12" fill="#6b7280">Стиснення та В/В буфери</text>
+
+  <text x="738" y="192" font-size="12" fill="#1a1a1a">• Кодер JPEG</text>
+  <text x="738" y="210" font-size="12" fill="#1a1a1a">• Шина DVP (8/10 біт)</text>
+  <text x="738" y="228" font-size="12" fill="#1a1a1a">• Генератор PLL</text>
+  <text x="738" y="272" font-size="12" font-weight="bold" fill="#c0392b">Кидки струму dI/dt</text>
+  <text x="738" y="290" font-size="12" fill="#c0392b">Фронти напруги dV/dt</text>
+
+  <!-- SUBSTRATE REGION -->
+  <rect x="45" y="348" width="870" height="142" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="477" y="367" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">СПІЛЬНА КРЕМНІЄВА ПІДКЛАДКА P-TYPE (P-SUBSTRATE)</text>
+
+  <!-- Downward Arrows from Digital Domain into Substrate -->
+  <line x1="633" y1="330" x2="633" y2="395" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <line x1="800" y1="330" x2="800" y2="395" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+
+  <text x="645" y="360" font-size="12" font-weight="bold" fill="#c0392b">i_inj = C_sub · dV/dt</text>
+  <text x="645" y="376" font-size="12" fill="#c0392b">Інжекція завад ISP</text>
+
+  <text x="812" y="368" font-size="12" fill="#c0392b">Завади JPEG/ВВ</text>
+
+  <!-- Upward Arrows from Substrate into Analog Domain -->
+  <line x1="162" y1="395" x2="162" y2="330" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <line x1="295" y1="395" x2="295" y2="330" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+
+  <text x="150" y="372" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="end">Шум на FD вузлах</text>
+  <text x="283" y="372" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="end">Завади в АЦП</text>
+
+  <!-- Horizontal Propagation Channel in Substrate -->
+  <line x1="800" y1="415" x2="162" y2="415" stroke="#c0392b" stroke-width="2.5" stroke-dasharray="6,4"/>
+  <line x1="560" y1="415" x2="480" y2="415" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <line x1="390" y1="415" x2="310" y2="415" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+
+  <text x="480" y="403" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Паразитне поширення струму через опір R_sub та шину GND</text>
+
+  <!-- Substrate Noise Impact & GND Bounce text -->
+  <text x="60" y="448" font-size="12" font-weight="bold" fill="#c0392b">Наведення завад (V_noise = i_sub · R_sub)</text>
+  <text x="60" y="466" font-size="12" fill="#1a1a1a">• Фіксований темновий шум (FPN)</text>
+  <text x="60" y="484" font-size="12" fill="#1a1a1a">• Горизонтальний смуговий шум (Pattern Noise)</text>
+
+  <text x="520" y="448" font-size="12" font-weight="bold" fill="#2457d6">Шум заземлення (Ground Bounce)</text>
+  <text x="520" y="466" font-size="12" fill="#6b7280">• Імпульсне підстрибування потенціалу ΔV_gnd</text>
+  <text x="520" y="484" font-size="12" fill="#6b7280">• Модуляція порогу спрацьовування компараторів АЦП</text>
+</svg>

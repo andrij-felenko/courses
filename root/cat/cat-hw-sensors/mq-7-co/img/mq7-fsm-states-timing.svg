@@ -1,0 +1,143 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Скінченний автомат та часова діаграма драйвера MQ-7</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Двофазний цикл нагріву (60 с / 5.0 В та 90 с / 1.4 В) з опитуванням АЦП наприкінці вимірювання</text>
+
+  <!-- PANEL 1: FSM States -->
+  <rect x="24" y="70" width="912" height="205" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="44" y="92" font-size="14" font-weight="bold" fill="#1a1a1a">Схема станів автомата драйвера (FSM)</text>
+
+  <!-- FSM Transition Labels (placed above boxes) -->
+  <text x="177.5" y="112" font-size="12" fill="#6b7280" text-anchor="middle">Старт (t=0)</text>
+  <text x="375" y="112" font-size="12" fill="#6b7280" text-anchor="middle">t ≥ 60 с</text>
+  <text x="575" y="112" font-size="12" fill="#6b7280" text-anchor="middle">t ≥ 150 с</text>
+  <text x="767.5" y="112" font-size="12" fill="#c0392b" text-anchor="middle">Помилка</text>
+
+  <!-- FSM State 1: STATE_INIT -->
+  <rect x="44" y="125" width="106" height="70" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="97" y="145" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">STATE_INIT</text>
+  <text x="97" y="163" font-size="12" fill="#1a1a1a" text-anchor="middle">Скидання</text>
+  <text x="97" y="180" font-size="12" fill="#6b7280" text-anchor="middle">таймерів</text>
+
+  <!-- FSM State 2: STATE_HEAT_HIGH -->
+  <rect x="205" y="125" width="140" height="70" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="275" y="145" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">STATE_HEAT_HIGH</text>
+  <text x="275" y="163" font-size="12" fill="#1a1a1a" text-anchor="middle">V_h = 5.0 В (60 с)</text>
+  <text x="275" y="180" font-size="12" fill="#6b7280" text-anchor="middle">Очищення сенсора</text>
+
+  <!-- FSM State 3: STATE_HEAT_LOW -->
+  <rect x="405" y="125" width="140" height="70" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="475" y="145" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">STATE_HEAT_LOW</text>
+  <text x="475" y="163" font-size="12" fill="#1a1a1a" text-anchor="middle">V_h = 1.4 В (90 с)</text>
+  <text x="475" y="180" font-size="12" fill="#6b7280" text-anchor="middle">Фаза вимірювання</text>
+
+  <!-- FSM State 4: STATE_READ_ADC -->
+  <rect x="605" y="125" width="135" height="70" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="672.5" y="145" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">STATE_READ_ADC</text>
+  <text x="672.5" y="163" font-size="12" fill="#1a1a1a" text-anchor="middle">Зчитування АЦП</text>
+  <text x="672.5" y="180" font-size="12" fill="#27ae60" text-anchor="middle">Обчислення ppm</text>
+
+  <!-- FSM State 5: STATE_FAULT -->
+  <rect x="795" y="125" width="120" height="70" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="855" y="145" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">STATE_FAULT</text>
+  <text x="855" y="163" font-size="12" fill="#c0392b" text-anchor="middle">Аварійний режим</text>
+  <text x="855" y="180" font-size="12" fill="#6b7280" text-anchor="middle">Обрив / Помилка</text>
+
+  <!-- Transition Arrows between States -->
+  <line x1="150" y1="160" x2="197" y2="160" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <line x1="345" y1="160" x2="397" y2="160" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <line x1="545" y1="160" x2="597" y2="160" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <line x1="740" y1="160" x2="787" y2="160" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#arr-red)"/>
+
+  <!-- Loop Back Transition: READ_ADC -> HEAT_HIGH -->
+  <path d="M 672.5 195 L 672.5 232 L 275 232 L 275 203" fill="none" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="473.75" y="252" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Новий цикл вимірювання (t = 0)</text>
+
+  <!-- PANEL 2: Timing Diagram -->
+  <rect x="24" y="290" width="912" height="250" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="44" y="308" font-size="14" font-weight="bold" fill="#1a1a1a">Часова діаграма напруги нагріву V_h(t) та момент опитування АЦП</text>
+
+  <!-- Phase Shading Rectangles -->
+  <rect x="110" y="355" width="150" height="115" fill="#eaf0fd" rx="4"/>
+  <rect x="260" y="425" width="225" height="45" fill="#e9f7ef" rx="4"/>
+  <rect x="485" y="355" width="150" height="115" fill="#eaf0fd" rx="4"/>
+  <rect x="635" y="425" width="225" height="45" fill="#e9f7ef" rx="4"/>
+
+  <!-- Voltage Level Reference Lines -->
+  <line x1="110" y1="355" x2="885" y2="355" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4,4"/>
+  <line x1="110" y1="425" x2="885" y2="425" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4,4"/>
+
+  <!-- Vertical Phase Boundary Lines -->
+  <line x1="260" y1="340" x2="260" y2="475" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="485" y1="340" x2="485" y2="475" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <line x1="635" y1="340" x2="635" y2="475" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="860" y1="340" x2="860" y2="475" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="3,3"/>
+
+  <!-- Waveform Trace -->
+  <path d="M 110 355 L 260 355 L 260 425 L 485 425 L 485 355 L 635 355 L 635 425 L 860 425 L 860 355" fill="none" stroke="#2457d6" stroke-width="2.5" stroke-linejoin="round"/>
+
+  <!-- Axes -->
+  <line x1="110" y1="475" x2="110" y2="335" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <line x1="105" y1="470" x2="885" y2="470" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- Axis Titles & Tick Labels -->
+  <text x="110" y="330" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">V_h (В)</text>
+  <text x="100" y="359" font-size="12" fill="#1a1a1a" text-anchor="end">5.0 В</text>
+  <text x="100" y="429" font-size="12" fill="#1a1a1a" text-anchor="end">1.4 В</text>
+  <text x="100" y="474" font-size="12" fill="#1a1a1a" text-anchor="end">0 В</text>
+  <text x="895" y="474" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">t (с)</text>
+
+  <!-- Time Axis Tick Lines -->
+  <line x1="110" y1="470" x2="110" y2="475" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="260" y1="470" x2="260" y2="475" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="485" y1="470" x2="485" y2="475" stroke="#27ae60" stroke-width="2"/>
+  <line x1="635" y1="470" x2="635" y2="475" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="860" y1="470" x2="860" y2="475" stroke="#27ae60" stroke-width="2"/>
+
+  <!-- Time Axis Tick Text -->
+  <text x="110" y="488" font-size="12" fill="#6b7280" text-anchor="middle">0 с</text>
+  <text x="260" y="488" font-size="12" fill="#6b7280" text-anchor="middle">60 с</text>
+  <text x="485" y="488" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">150 с</text>
+  <text x="635" y="488" font-size="12" fill="#6b7280" text-anchor="middle">210 с</text>
+  <text x="860" y="488" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">300 с</text>
+
+  <!-- Phase Labels -->
+  <text x="185" y="342" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Очищення</text>
+  <text x="185" y="375" font-size="12" fill="#2457d6" text-anchor="middle">5.0 В / 60 с</text>
+
+  <text x="372.5" y="412" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Вимірювання: 1.4 В / 90 с</text>
+
+  <text x="560" y="342" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Очищення</text>
+  <text x="560" y="375" font-size="12" fill="#2457d6" text-anchor="middle">5.0 В / 60 с</text>
+
+  <text x="747.5" y="412" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Вимірювання: 1.4 В / 90 с</text>
+
+  <!-- ADC Sampling Markers -->
+  <circle cx="485" cy="425" r="6" fill="#27ae60" stroke="#ffffff" stroke-width="2"/>
+  <circle cx="485" cy="425" r="2.5" fill="#ffffff"/>
+  <text x="485" y="507" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Опитування АЦП</text>
+  <text x="485" y="522" font-size="12" fill="#27ae60" text-anchor="middle">(кінець фази 90 с)</text>
+
+  <circle cx="860" cy="425" r="6" fill="#27ae60" stroke="#ffffff" stroke-width="2"/>
+  <circle cx="860" cy="425" r="2.5" fill="#ffffff"/>
+  <text x="860" y="507" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Опитування АЦП</text>
+  <text x="860" y="522" font-size="12" fill="#27ae60" text-anchor="middle">(кінець фази 90 с)</text>
+</svg>

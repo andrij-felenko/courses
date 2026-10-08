@@ -1,0 +1,125 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 500" width="960" height="500" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Canvas Background -->
+  <rect x="0" y="0" width="960" height="500" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="30" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Схема тактування (PLL) та масштабування кадру (ISP) сенсора OV3640</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Зв'язок вхідної частоти XVCLK, дільників PLL, масштабування ISP та підсумкової PCLK</text>
+
+  <!-- LEFT PANEL: PLL Clock Generation -->
+  <rect x="25" y="70" width="445" height="410" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="45" y="93" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="start">1. Дільники PLL та генерація частоти PCLK</text>
+
+  <!-- XVCLK Input Block -->
+  <rect x="45" y="115" width="110" height="65" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="100" y="140" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">XVCLK</text>
+  <text x="100" y="160" font-size="12" fill="#6b7280" text-anchor="middle">6–27 МГц</text>
+
+  <!-- Arrow XVCLK -> Pre-DIV -->
+  <line x1="155" y1="147.5" x2="177" y2="147.5" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Pre-DIV Block -->
+  <rect x="185" y="115" width="120" height="65" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="245" y="140" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Pre-DIV (N)</text>
+  <text x="245" y="160" font-size="12" fill="#6b7280" text-anchor="middle">PLL_PRE [3:0]</text>
+
+  <!-- Arrow Pre-DIV -> PLL Mult -->
+  <line x1="305" y1="147.5" x2="327" y2="147.5" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+
+  <!-- PLL Mult Block -->
+  <rect x="335" y="115" width="120" height="65" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="395" y="140" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">PLL Mult (M)</text>
+  <text x="395" y="160" font-size="12" fill="#6b7280" text-anchor="middle">PLL_MULT [5:0]</text>
+
+  <!-- Arrow PLL Mult -> Post-DIV -->
+  <line x1="395" y1="180" x2="395" y2="202" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+
+  <!-- Post-DIV Block -->
+  <rect x="335" y="210" width="120" height="65" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="395" y="235" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Post-DIV (P)</text>
+  <text x="395" y="255" font-size="12" fill="#6b7280" text-anchor="middle">CLKRC_DIV [3:0]</text>
+
+  <!-- Arrow Post-DIV -> PCLK Output -->
+  <line x1="335" y1="242.5" x2="313" y2="242.5" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <!-- PCLK Output Block -->
+  <rect x="185" y="210" width="120" height="65" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="245" y="235" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">PCLK / SYSCLK</text>
+  <text x="245" y="255" font-size="12" fill="#27ae60" text-anchor="middle">До DVP та ISP</text>
+
+  <!-- PLL Formula & Explanation Card -->
+  <rect x="45" y="295" width="410" height="170" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="60" y="318" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="start">Рівняння тактування (Clock Formula):</text>
+  
+  <rect x="60" y="328" width="380" height="36" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="250" y="351" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">f_PCLK = f_XVCLK × M / (N × P)</text>
+
+  <text x="60" y="382" font-size="12" fill="#1a1a1a" text-anchor="start"><tspan font-weight="bold" fill="#2457d6">f_XVCLK:</tspan><tspan fill="#1a1a1a"> Зовнішній опорний клок (напр. 24 МГц)</tspan></text>
+  <text x="60" y="402" font-size="12" fill="#1a1a1a" text-anchor="start"><tspan font-weight="bold" fill="#2457d6">N, M, P:</tspan><tspan fill="#1a1a1a"> Регістрові дільники/множники PLL</tspan></text>
+  <text x="60" y="422" font-size="12" fill="#1a1a1a" text-anchor="start"><tspan font-weight="bold" fill="#27ae60">f_PCLK:</tspan><tspan fill="#1a1a1a"> Часовий строб видачі даних на виводи DVP</tspan></text>
+  <text x="60" y="442" font-size="12" fill="#6b7280" text-anchor="start">Забезпечує тактування шини DVP та ISP ядра</text>
+
+
+  <!-- RIGHT PANEL: ISP Geometry Scaling & Crop -->
+  <rect x="490" y="70" width="445" height="410" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="510" y="93" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="start">2. Кадрування (Crop) та масштабування (Scaling)</text>
+
+  <!-- Stage 1: Active Matrix -->
+  <rect x="508" y="115" width="124" height="160" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <!-- Matrix Drawing -->
+  <rect x="525" y="125" width="90" height="60" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <line x1="555" y1="125" x2="555" y2="185" stroke="#2457d6" stroke-width="0.5" stroke-dasharray="2,2"/>
+  <line x1="585" y1="125" x2="585" y2="185" stroke="#2457d6" stroke-width="0.5" stroke-dasharray="2,2"/>
+  <line x1="525" y1="155" x2="615" y2="155" stroke="#2457d6" stroke-width="0.5" stroke-dasharray="2,2"/>
+  <text x="570" y="208" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Матриця QXGA</text>
+  <text x="570" y="228" font-size="12" fill="#6b7280" text-anchor="middle">2048 × 1536</text>
+  <text x="570" y="248" font-size="12" fill="#6b7280" text-anchor="middle">Повний масив</text>
+
+  <!-- Arrow Stage 1 -> Stage 2 -->
+  <line x1="632" y1="195" x2="644" y2="195" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+
+  <!-- Stage 2: Crop / ROI -->
+  <rect x="652" y="115" width="124" height="160" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <!-- Crop Drawing -->
+  <rect x="669" y="125" width="90" height="60" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2,2"/>
+  <rect x="679" y="133" width="70" height="44" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="714" y="208" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Кадрування (Crop)</text>
+  <text x="714" y="228" font-size="12" fill="#6b7280" text-anchor="middle">X/Y_ADDR_ST</text>
+  <text x="714" y="248" font-size="12" fill="#1a1a1a" text-anchor="middle">Вікно W_in × H_in</text>
+
+  <!-- Arrow Stage 2 -> Stage 3 -->
+  <line x1="776" y1="195" x2="788" y2="195" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+
+  <!-- Stage 3: Scaler -->
+  <rect x="796" y="115" width="124" height="160" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <!-- Scaler Drawing -->
+  <rect x="813" y="125" width="90" height="60" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2,2"/>
+  <rect x="828" y="138" width="60" height="34" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="858" y="208" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Масштабування</text>
+  <text x="858" y="228" font-size="12" fill="#6b7280" text-anchor="middle">SCALE_X / Y</text>
+  <text x="858" y="248" font-size="12" fill="#27ae60" text-anchor="middle">Кадр W_out × H_out</text>
+
+  <!-- Geometry Formula & Output Card -->
+  <rect x="510" y="295" width="410" height="170" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="525" y="318" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="start">Формування підсумкового кадру DVP:</text>
+  
+  <rect x="525" y="328" width="380" height="36" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="715" y="351" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">W_out = W_in / Scale_X ,  H_out = H_in / Scale_Y</text>
+
+  <text x="525" y="382" font-size="12" fill="#1a1a1a" text-anchor="start"><tspan font-weight="bold" fill="#2457d6">Розміри:</tspan><tspan fill="#1a1a1a"> QXGA (2048×1536), UXGA, 720p, VGA</tspan></text>
+  <text x="525" y="402" font-size="12" fill="#1a1a1a" text-anchor="start"><tspan font-weight="bold" fill="#2457d6">Частота кадру:</tspan><tspan fill="#1a1a1a"> FPS = f_PCLK / (HTS × VTS)</tspan></text>
+  <text x="525" y="422" font-size="12" fill="#1a1a1a" text-anchor="start"><tspan font-weight="bold" fill="#27ae60">HTS / VTS:</tspan><tspan fill="#1a1a1a"> Загальні інтервали рядків і кадрів</tspan></text>
+  <text x="525" y="442" font-size="12" fill="#6b7280" text-anchor="start">Зміна PLL або розміру вимагає перерахунку HTS/VTS</text>
+</svg>

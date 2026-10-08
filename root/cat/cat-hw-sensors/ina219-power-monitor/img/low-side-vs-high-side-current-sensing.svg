@@ -1,0 +1,131 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="35" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Низькобічне (Low-Side) vs високобічне (High-Side) вимірювання струму</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Низькобічний шунт створює зсув GND та пропускає КЗ; високобічний INA219 усуває ці вади</text>
+
+  <!-- Left Panel: Low-Side -->
+  <rect x="25" y="75" width="445" height="425" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="40" y="90" width="415" height="34" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="247.5" y="112" font-size="14" font-weight="700" fill="#c0392b" text-anchor="middle">Низькобічне схемування (Low-Side Sensing)</text>
+
+  <!-- Low-Side Schematic -->
+  <text x="45" y="152" font-size="13" font-weight="700" fill="#2457d6">V+ (Шина живлення +5V..+26V)</text>
+  <line x1="45" y1="165" x2="300" y2="165" stroke="#2457d6" stroke-width="2.5"/>
+  <line x1="230" y1="165" x2="230" y2="195" stroke="#2457d6" stroke-width="2"/>
+
+  <!-- Load -->
+  <rect x="165" y="195" width="130" height="60" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="2"/>
+  <text x="230" y="222" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">Навантаження</text>
+  <text x="230" y="240" font-size="12" fill="#6b7280" text-anchor="middle">(Load)</text>
+
+  <!-- Wire Load to Node A -->
+  <line x1="230" y1="255" x2="230" y2="285" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="230" cy="285" r="4" fill="#c0392b"/>
+
+  <text x="242" y="278" font-size="12" font-weight="700" fill="#c0392b">GND_LOAD = V_SHUNT</text>
+  <text x="242" y="293" font-size="12" fill="#c0392b">(&gt; 0 V зміщення)</text>
+
+  <!-- Shunt Resistor -->
+  <line x1="230" y1="285" x2="230" y2="310" stroke="#1a1a1a" stroke-width="2"/>
+  <rect x="215" y="310" width="30" height="40" rx="2" fill="#ffffff" stroke="#c0392b" stroke-width="2"/>
+  <text x="230" y="334" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">R_SH</text>
+  <line x1="230" y1="350" x2="230" y2="370" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- System GND -->
+  <line x1="215" y1="370" x2="245" y2="370" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="220" y1="375" x2="240" y2="375" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="225" y1="380" x2="235" y2="380" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="253" y="375" font-size="12" font-weight="700" fill="#1a1a1a">GND (0 V)</text>
+
+  <!-- Sensor ADC/OpAmp -->
+  <rect x="45" y="305" width="90" height="45" rx="4" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="90" y="324" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">АЦП / ОП</text>
+  <text x="90" y="340" font-size="12" fill="#6b7280" text-anchor="middle">Вимірювач</text>
+  <path d="M 230 285 L 145 285 L 145 315" fill="none" stroke="#1a1a1a" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <path d="M 230 360 L 145 360 L 145 340" fill="none" stroke="#1a1a1a" stroke-width="1.5" stroke-dasharray="3,3"/>
+
+  <!-- Fault path -->
+  <text x="340" y="212" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">КЗ на корпус</text>
+  <path d="M 230 225 L 395 225 L 395 370" fill="none" stroke="#c0392b" stroke-width="2" stroke-dasharray="5,4" marker-end="url(#arr-red)"/>
+  <line x1="385" y1="370" x2="405" y2="370" stroke="#c0392b" stroke-width="2"/>
+  <line x1="388" y1="375" x2="402" y2="375" stroke="#c0392b" stroke-width="1.5"/>
+  <line x1="391" y1="380" x2="399" y2="380" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="402" y="310" font-size="12" font-weight="700" fill="#c0392b">I_FAULT</text>
+  <text x="402" y="325" font-size="12" fill="#c0392b">повз R_SH!</text>
+
+  <!-- Low-side summary -->
+  <rect x="40" y="410" width="415" height="75" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+  <text x="52" y="428" font-size="12" font-weight="700" fill="#c0392b">✖ Зсув землі: GND навантаження = V_SHUNT (&gt; 0 V)</text>
+  <text x="52" y="446" font-size="12" font-weight="700" fill="#c0392b">✖ Сліпота до КЗ: струм витоку на корпус не вимірюється</text>
+  <text x="52" y="464" font-size="12" fill="#6b7280">✖ Ускладнює I2C/SPI інтерфейси через різницю потенціалів</text>
+
+  <!-- Right Panel: High-Side -->
+  <rect x="490" y="75" width="445" height="425" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="505" y="90" width="415" height="34" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="712.5" y="112" font-size="14" font-weight="700" fill="#27ae60" text-anchor="middle">Високобічне схемування (High-Side Sensing / INA219)</text>
+
+  <!-- High-Side Schematic -->
+  <text x="510" y="152" font-size="13" font-weight="700" fill="#2457d6">V+ (Шина живлення +5V..+26V)</text>
+  <line x1="510" y1="165" x2="600" y2="165" stroke="#2457d6" stroke-width="2.5"/>
+
+  <!-- Shunt Resistor -->
+  <rect x="600" y="150" width="50" height="30" rx="2" fill="#ffffff" stroke="#27ae60" stroke-width="2"/>
+  <text x="625" y="169" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">R_SH</text>
+  <line x1="650" y1="165" x2="700" y2="165" stroke="#2457d6" stroke-width="2.5"/>
+  <line x1="700" y1="165" x2="700" y2="195" stroke="#2457d6" stroke-width="2"/>
+
+  <!-- Load -->
+  <rect x="635" y="195" width="130" height="60" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="2"/>
+  <text x="700" y="222" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">Навантаження</text>
+  <text x="700" y="240" font-size="12" fill="#6b7280" text-anchor="middle">(Load)</text>
+
+  <!-- Wire Load to System GND -->
+  <line x1="700" y1="255" x2="700" y2="285" stroke="#27ae60" stroke-width="2"/>
+  <circle cx="700" cy="285" r="4" fill="#27ae60"/>
+  <text x="712" y="278" font-size="12" font-weight="700" fill="#27ae60">GND_LOAD = 0 V</text>
+  <text x="712" y="293" font-size="12" fill="#27ae60">(Чиста земля)</text>
+
+  <line x1="700" y1="285" x2="700" y2="370" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="685" y1="370" x2="715" y2="370" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="690" y1="375" x2="710" y2="375" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="695" y1="380" x2="705" y2="380" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="723" y="375" font-size="12" font-weight="700" fill="#1a1a1a">GND (0 V)</text>
+
+  <!-- INA219 Monitor -->
+  <rect x="510" y="295" width="120" height="60" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="570" y="316" font-size="13" font-weight="700" fill="#2457d6" text-anchor="middle">INA219</text>
+  <text x="570" y="332" font-size="12" fill="#1a1a1a" text-anchor="middle">12-bit АЦП + I2C</text>
+  <text x="570" y="346" font-size="12" fill="#6b7280" text-anchor="middle">High-Side Monitor</text>
+
+  <!-- Taps to INA219 -->
+  <path d="M 580 165 L 580 230 L 545 230 L 545 295" fill="none" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <path d="M 640 165 L 640 220 L 595 220 L 595 295" fill="none" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="3,3"/>
+
+  <!-- Fault path High-Side -->
+  <text x="750" y="152" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">КЗ на корпус</text>
+  <path d="M 625 150 L 625 135 L 860 135 L 860 370" fill="none" stroke="#27ae60" stroke-width="2" stroke-dasharray="5,4" marker-end="url(#arr-green)"/>
+  <line x1="850" y1="370" x2="870" y2="370" stroke="#27ae60" stroke-width="2"/>
+  <line x1="853" y1="375" x2="867" y2="375" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="856" y1="380" x2="864" y2="380" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="867" y="310" font-size="12" font-weight="700" fill="#27ae60">I_FAULT йде</text>
+  <text x="867" y="325" font-size="12" font-weight="700" fill="#27ae60">через R_SH!</text>
+  <text x="867" y="342" font-size="12" font-weight="700" fill="#27ae60">✓ КЗ видно!</text>
+
+  <!-- High-side summary -->
+  <rect x="505" y="410" width="415" height="75" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="517" y="428" font-size="12" font-weight="700" fill="#27ae60">✓ Земля навантаження: точно 0 V (без зміщення GND)</text>
+  <text x="517" y="446" font-size="12" font-weight="700" fill="#27ae60">✓ Повний захист: виявляє КЗ на корпус до навантаження</text>
+  <text x="517" y="464" font-size="12" fill="#6b7280">✓ INA219 обчислює струм, напругу шини й потужність</text>
+</svg>

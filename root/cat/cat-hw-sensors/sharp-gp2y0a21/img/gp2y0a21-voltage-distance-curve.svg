@@ -1,0 +1,186 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <defs>
+    <!-- Arrow marker -->
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <!-- Gradient under voltage curve -->
+    <linearGradient id="curveGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#2457d6" stop-opacity="0.20"/>
+      <stop offset="100%" stop-color="#2457d6" stop-opacity="0.0"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="30" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Залежність вихідної напруги Sharp GP2Y0A21YK0F від відстані</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Пік напруги при ~10 см ділить характеристику на сліпу зону (0–10 см) та робочий діапазон (10–80 см)</text>
+
+  <!-- Zone background shading inside grid area -->
+  <!-- Blind zone background (0..10 cm -> X: 100..200, Y: 100..370) -->
+  <rect x="100" y="100" width="100" height="270" fill="#fdecea" fill-opacity="0.75"/>
+  <!-- Working zone background (10..80 cm -> X: 200..900, Y: 100..370) -->
+  <rect x="200" y="100" width="700" height="270" fill="#e9f7ef" fill-opacity="0.45"/>
+
+  <!-- Zone Badges / Headers inside graph -->
+  <!-- Blind zone badge -->
+  <rect x="108" y="108" width="84" height="26" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+  <text x="150" y="125" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Сліпа зона</text>
+
+  <!-- Working zone badge -->
+  <rect x="650" y="108" width="220" height="26" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="760" y="125" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Робочий діапазон (10–80 см)</text>
+
+  <!-- Grid Lines (Horizontal for Y values: 0.5V to 3.5V, split around callout boxes) -->
+  <!-- Y = 3.5V (Y = 104) -->
+  <line x1="100" y1="104" x2="900" y2="104" stroke="#d0d7de" stroke-dasharray="2 2" stroke-width="1"/>
+
+  <!-- Y = 3.0V (Y = 142) -->
+  <line x1="100" y1="142" x2="220" y2="142" stroke="#d0d7de" stroke-dasharray="2 2" stroke-width="1"/>
+  <line x1="430" y1="142" x2="900" y2="142" stroke="#d0d7de" stroke-dasharray="2 2" stroke-width="1"/>
+
+  <!-- Y = 2.5V (Y = 180) -->
+  <line x1="100" y1="180" x2="255" y2="180" stroke="#d0d7de" stroke-dasharray="2 2" stroke-width="1"/>
+  <line x1="880" y1="180" x2="900" y2="180" stroke="#d0d7de" stroke-dasharray="2 2" stroke-width="1"/>
+
+  <!-- Y = 2.0V (Y = 218) -->
+  <line x1="100" y1="218" x2="255" y2="218" stroke="#d0d7de" stroke-dasharray="2 2" stroke-width="1"/>
+  <line x1="480" y1="218" x2="900" y2="218" stroke="#d0d7de" stroke-dasharray="2 2" stroke-width="1"/>
+
+  <!-- Y = 1.5V (Y = 256) -->
+  <line x1="100" y1="256" x2="900" y2="256" stroke="#d0d7de" stroke-dasharray="2 2" stroke-width="1"/>
+
+  <!-- Y = 1.0V (Y = 294) -->
+  <line x1="100" y1="294" x2="900" y2="294" stroke="#d0d7de" stroke-dasharray="2 2" stroke-width="1"/>
+
+  <!-- Y = 0.5V (Y = 332) -->
+  <line x1="100" y1="332" x2="900" y2="332" stroke="#d0d7de" stroke-dasharray="2 2" stroke-width="1"/>
+
+  <!-- Vertical grid lines for X values: 20cm to 80cm -->
+  <line x1="300" y1="275" x2="300" y2="370" stroke="#d0d7de" stroke-dasharray="2 2" stroke-width="1"/>
+  <line x1="400" y1="275" x2="400" y2="370" stroke="#d0d7de" stroke-dasharray="2 2" stroke-width="1"/>
+  <line x1="500" y1="275" x2="500" y2="370" stroke="#d0d7de" stroke-dasharray="2 2" stroke-width="1"/>
+  <line x1="600" y1="275" x2="600" y2="370" stroke="#d0d7de" stroke-dasharray="2 2" stroke-width="1"/>
+  <line x1="700" y1="275" x2="700" y2="370" stroke="#d0d7de" stroke-dasharray="2 2" stroke-width="1"/>
+  <line x1="800" y1="275" x2="800" y2="370" stroke="#d0d7de" stroke-dasharray="2 2" stroke-width="1"/>
+  <line x1="900" y1="275" x2="900" y2="370" stroke="#d0d7de" stroke-dasharray="2 2" stroke-width="1"/>
+
+  <!-- Vertical boundary line at L = 10 cm (X = 200) -->
+  <line x1="200" y1="100" x2="200" y2="370" stroke="#c0392b" stroke-dasharray="4 4" stroke-width="2"/>
+
+  <!-- Gradient Area Under Curve -->
+  <path d="M 100,370 L 100,339.6 C 120,310 160,210 200,142 C 230,195 260,240 300,252 C 350,280 370,290 400,294 C 460,304 480,308 500,310.7 C 560,317 580,319 600,320.6 C 660,326 680,328 700,329.7 C 760,334 780,335 800,335.8 C 850,338 870,339 900,339.6 L 900,370 Z" fill="url(#curveGrad)"/>
+
+  <!-- Curve Line -->
+  <path d="M 100,339.6 C 120,310 160,210 200,142 C 230,195 260,240 300,252 C 350,280 370,290 400,294 C 460,304 480,308 500,310.7 C 560,317 580,319 600,320.6 C 660,326 680,328 700,329.7 C 760,334 780,335 800,335.8 C 850,338 870,339 900,339.6" fill="none" stroke="#2457d6" stroke-width="3.5" stroke-linecap="round"/>
+
+  <!-- Ambiguity reference line (V = 2.0 V at 5.5 cm and 15 cm) -->
+  <line x1="155" y1="218" x2="250" y2="218" stroke="#c0392b" stroke-dasharray="3 3" stroke-width="1.5"/>
+  <circle cx="155" cy="218" r="4" fill="#c0392b"/>
+  <circle cx="250" cy="218" r="4" fill="#c0392b"/>
+
+  <!-- Peak Point Annotation -->
+  <!-- Horizontal reference line for Peak V = 3.0 V -->
+  <line x1="100" y1="142" x2="200" y2="142" stroke="#c0392b" stroke-dasharray="3 3" stroke-width="1.5"/>
+  <circle cx="200" cy="142" r="5" fill="#c0392b" stroke="#ffffff" stroke-width="2"/>
+
+  <!-- Peak Callout Box (inside Working Zone: X=220, Y=108, W=210, H=46) -->
+  <line x1="200" y1="142" x2="220" y2="131" stroke="#c0392b" stroke-width="1.5"/>
+  <rect x="220" y="108" width="210" height="46" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="230" y="126" font-size="12" font-weight="bold" fill="#c0392b">Максимум Vout ≈ 3.0 В</text>
+  <text x="230" y="143" font-size="12" fill="#6b7280">(пік на межі L = 10 см)</text>
+
+  <!-- Ambiguity Callout Box (inside Working Zone: X=255, Y=175, W=225, H=48) -->
+  <line x1="250" y1="218" x2="255" y2="205" stroke="#c0392b" stroke-width="1.5"/>
+  <rect x="255" y="175" width="225" height="48" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="265" y="193" font-size="12" font-weight="bold" fill="#c0392b">Неоднозначність у сліпій зоні:</text>
+  <text x="265" y="211" font-size="12" fill="#1a1a1a">Vout = 2.0 В при 5.5 см і 15 см!</text>
+
+  <!-- Non-linear Function Callout Box (inside Working Zone: X=500, Y=150, W=380, H=52) -->
+  <rect x="500" y="150" width="380" height="52" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="550" y1="202" x2="550" y2="310" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="3 3"/>
+  <text x="515" y="170" font-size="12" font-weight="bold" fill="#2457d6">Залежність нелінійна: Vout ≈ k / (L + d)</text>
+  <text x="515" y="188" font-size="12" fill="#1a1a1a">Для обчислення L застосовують LUT або формулу</text>
+
+  <!-- Main Axes Lines with Arrows -->
+  <!-- Y-axis -->
+  <line x1="100" y1="370" x2="100" y2="85" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+  <!-- X-axis -->
+  <line x1="100" y1="370" x2="915" y2="370" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+
+  <!-- Axis Titles -->
+  <text x="40" y="78" font-size="13" font-weight="bold" fill="#1a1a1a">Вихідна напруга Vout (В)</text>
+  <text x="500" y="412" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Відстань L (см)</text>
+
+  <!-- Y-axis Ticks & Labels -->
+  <line x1="94" y1="370" x2="100" y2="370" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="90" y="374" font-size="12" fill="#1a1a1a" text-anchor="end">0.0</text>
+
+  <line x1="94" y1="332" x2="100" y2="332" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="90" y="336" font-size="12" fill="#1a1a1a" text-anchor="end">0.5</text>
+
+  <line x1="94" y1="294" x2="100" y2="294" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="90" y="298" font-size="12" fill="#1a1a1a" text-anchor="end">1.0</text>
+
+  <line x1="94" y1="256" x2="100" y2="256" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="90" y="260" font-size="12" fill="#1a1a1a" text-anchor="end">1.5</text>
+
+  <line x1="94" y1="218" x2="100" y2="218" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="90" y="222" font-size="12" fill="#1a1a1a" text-anchor="end">2.0</text>
+
+  <line x1="94" y1="180" x2="100" y2="180" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="90" y="184" font-size="12" fill="#1a1a1a" text-anchor="end">2.5</text>
+
+  <line x1="94" y1="142" x2="100" y2="142" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="90" y="146" font-size="12" fill="#1a1a1a" text-anchor="end">3.0</text>
+
+  <line x1="94" y1="104" x2="100" y2="104" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="90" y="108" font-size="12" fill="#1a1a1a" text-anchor="end">3.5</text>
+
+  <!-- X-axis Ticks & Labels -->
+  <line x1="100" y1="370" x2="100" y2="376" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="100" y="390" font-size="12" fill="#1a1a1a" text-anchor="middle">0</text>
+
+  <line x1="200" y1="370" x2="200" y2="376" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="200" y="390" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">10</text>
+
+  <line x1="300" y1="370" x2="300" y2="376" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="300" y="390" font-size="12" fill="#1a1a1a" text-anchor="middle">20</text>
+
+  <line x1="400" y1="370" x2="400" y2="376" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="400" y="390" font-size="12" fill="#1a1a1a" text-anchor="middle">30</text>
+
+  <line x1="500" y1="370" x2="500" y2="376" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="500" y="390" font-size="12" fill="#1a1a1a" text-anchor="middle">40</text>
+
+  <line x1="600" y1="370" x2="600" y2="376" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="600" y="390" font-size="12" fill="#1a1a1a" text-anchor="middle">50</text>
+
+  <line x1="700" y1="370" x2="700" y2="376" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="700" y="390" font-size="12" fill="#1a1a1a" text-anchor="middle">60</text>
+
+  <line x1="800" y1="370" x2="800" y2="376" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="800" y="390" font-size="12" fill="#1a1a1a" text-anchor="middle">70</text>
+
+  <line x1="900" y1="370" x2="900" y2="376" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="900" y="390" font-size="12" fill="#1a1a1a" text-anchor="middle">80</text>
+
+  <!-- Bottom Summary Cards / Panels -->
+  <!-- Left Card: Blind Zone Summary -->
+  <rect x="100" y="435" width="370" height="95" rx="8" fill="#fdecea" stroke="#d0d7de" stroke-width="1"/>
+  <path d="M 100,443 A 8,8 0 0 1 108,435 L 462,435 A 8,8 0 0 1 470,443 L 470,463 L 100,463 Z" fill="#c0392b"/>
+  <text x="285" y="454" font-size="13" font-weight="bold" fill="#ffffff" text-anchor="middle">СЛІПА ЗОНА (0 – 10 см)</text>
+  <text x="115" y="480" font-size="12" fill="#1a1a1a">• Напруга падає від 3.0 В до 0.4 В при наближенні</text>
+  <text x="115" y="498" font-size="12" fill="#1a1a1a">• Сигнал неоднозначний: збігається з робочою зоною</text>
+  <text x="115" y="516" font-size="12" font-weight="bold" fill="#c0392b">• Вимагає фізичного обмеження наближення об'єкта</text>
+
+  <!-- Right Card: Working Range Summary -->
+  <rect x="490" y="435" width="410" height="95" rx="8" fill="#e9f7ef" stroke="#d0d7de" stroke-width="1"/>
+  <path d="M 490,443 A 8,8 0 0 1 498,435 L 892,435 A 8,8 0 0 1 900,443 L 900,463 L 490,463 Z" fill="#27ae60"/>
+  <text x="695" y="454" font-size="13" font-weight="bold" fill="#ffffff" text-anchor="middle">РОБОЧИЙ ДІАПАЗОН (10 – 80 см)</text>
+  <text x="505" y="480" font-size="12" fill="#1a1a1a">• Монотонне спадання напруги від 3.0 В до 0.4 В</text>
+  <text x="505" y="498" font-size="12" fill="#1a1a1a">• Висока чутливість на 10–30 см, нижча — на 50–80 см</text>
+  <text x="505" y="516" font-size="12" font-weight="bold" fill="#27ae60">• Лінеаризація через ADC LUT або формулу 1/(V - V₀)</text>
+</svg>

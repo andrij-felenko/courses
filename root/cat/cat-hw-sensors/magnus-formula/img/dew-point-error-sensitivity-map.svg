@@ -1,0 +1,189 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- White Background -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Definitions (Markers) -->
+  <defs>
+    <marker id="arr-accent" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-danger" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Карта чутливості похибки точки роси ΔTdp(RH, T)</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">При RH &lt; 20% похибка давача вологості ±2% спричиняє стрімке зростання похибки точки роси (до &gt; 1.5 °C)</text>
+
+  <!-- ==================== LEFT PANEL: SENSITIVITY CURVES ==================== -->
+  <rect x="30" y="70" width="435" height="415" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <text x="247" y="93" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Графік чутливості ΔTdp від відносної вологості RH</text>
+  <text x="247" y="110" font-size="12" fill="#6b7280" text-anchor="middle">За похибки давача вологості ΔRH = ±2%</text>
+
+  <!-- Plot Background & Grid -->
+  <rect x="75" y="145" width="360" height="280" fill="white" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Critical Zone Highlight (RH < 20%) -->
+  <rect x="75" y="145" width="40" height="280" fill="#fdecea" opacity="0.75"/>
+  <line x1="115" y1="145" x2="115" y2="425" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,4"/>
+
+  <!-- Horizontal Grid & Y Ticks -->
+  <text x="75" y="135" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">Похибка ΔTdp (°C)</text>
+
+  <line x1="75" y1="369" x2="435" y2="369" stroke="#e1e4e8" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="70" y="373" font-size="12" fill="#6b7280" text-anchor="end">0.5 °C</text>
+
+  <line x1="75" y1="313" x2="435" y2="313" stroke="#e1e4e8" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="70" y="317" font-size="12" fill="#6b7280" text-anchor="end">1.0 °C</text>
+
+  <line x1="75" y1="257" x2="435" y2="257" stroke="#e1e4e8" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="70" y="261" font-size="12" fill="#6b7280" text-anchor="end">1.5 °C</text>
+
+  <line x1="75" y1="201" x2="290" y2="201" stroke="#e1e4e8" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="70" y="205" font-size="12" fill="#6b7280" text-anchor="end">2.0 °C</text>
+
+  <text x="70" y="149" font-size="12" fill="#6b7280" text-anchor="end">2.5 °C</text>
+  <text x="70" y="429" font-size="12" fill="#6b7280" text-anchor="end">0.0 °C</text>
+
+  <!-- Vertical Grid & X Ticks -->
+  <line x1="195" y1="225" x2="195" y2="425" stroke="#e1e4e8" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="275" y1="225" x2="275" y2="425" stroke="#e1e4e8" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="355" y1="225" x2="355" y2="425" stroke="#e1e4e8" stroke-width="1" stroke-dasharray="3,3"/>
+
+  <text x="75" y="442" font-size="12" fill="#6b7280" text-anchor="middle">10%</text>
+  <text x="115" y="442" font-size="12" fill="#c0392b" font-weight="bold" text-anchor="middle">20%</text>
+  <text x="195" y="442" font-size="12" fill="#6b7280" text-anchor="middle">40%</text>
+  <text x="275" y="442" font-size="12" fill="#6b7280" text-anchor="middle">60%</text>
+  <text x="355" y="442" font-size="12" fill="#6b7280" text-anchor="middle">80%</text>
+  <text x="435" y="442" font-size="12" fill="#6b7280" text-anchor="middle">100%</text>
+
+  <text x="255" y="462" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Відносна вологість RH (%)</text>
+
+  <!-- Curves -->
+  <!-- T = 0 °C Curve -->
+  <path d="M 75,183 C 85,220 95,258 115,295 C 155,334 195,356 275,377 C 355,388 435,394 435,394" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+
+  <!-- T = +20 °C Curve -->
+  <path d="M 75,148 C 85,190 95,232 115,276 C 155,321 195,344 275,368 C 355,381 435,389 435,389" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+
+  <!-- T = +40 °C Curve -->
+  <path d="M 83,151 C 90,185 95,204 115,254 C 155,305 195,332 275,360 C 355,374 435,382 435,382" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+
+  <!-- Key Points & Value Badges -->
+  <circle cx="115" cy="276" r="4" fill="#2457d6" stroke="white" stroke-width="1.5"/>
+  <text x="145" y="245" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">1.33 °C</text>
+
+  <circle cx="235" cy="357" r="4" fill="#2457d6" stroke="white" stroke-width="1.5"/>
+  <line x1="235" y1="361" x2="235" y2="396" stroke="#2457d6" stroke-width="1" stroke-dasharray="2,2"/>
+  <text x="225" y="412" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">0.59 °C</text>
+
+  <!-- Risk Zone Callout Box -->
+  <rect x="130" y="152" width="155" height="44" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="138" y="170" font-size="12" font-weight="bold" fill="#c0392b">Зона ризику: RH &lt; 20%</text>
+  <text x="138" y="186" font-size="12" fill="#c0392b">ΔTdp стрімко зростає</text>
+
+  <!-- Legend Box Panel 1 -->
+  <rect x="295" y="152" width="132" height="64" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="303" y1="167" x2="323" y2="167" stroke="#c0392b" stroke-width="2.5"/>
+  <circle cx="313" cy="167" r="3" fill="#c0392b"/>
+  <text x="329" y="171" font-size="12" fill="#1a1a1a">T = +40 °C</text>
+
+  <line x1="303" y1="184" x2="323" y2="184" stroke="#2457d6" stroke-width="2.5"/>
+  <circle cx="313" cy="184" r="3" fill="#2457d6"/>
+  <text x="329" y="188" font-size="12" fill="#1a1a1a">T = +20 °C</text>
+
+  <line x1="303" y1="201" x2="323" y2="201" stroke="#27ae60" stroke-width="2.5"/>
+  <circle cx="313" cy="201" r="3" fill="#27ae60"/>
+  <text x="329" y="205" font-size="12" fill="#1a1a1a">T = 0 °C</text>
+
+
+  <!-- ==================== RIGHT PANEL: 2D ERROR MAP ==================== -->
+  <rect x="495" y="70" width="435" height="415" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <text x="712" y="93" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">2D-карта похибки ΔTdp(RH, T)</text>
+  <text x="712" y="110" font-size="12" fill="#6b7280" text-anchor="middle">Кольорові зони точності та ізолінії похибки (°C)</text>
+
+  <!-- Plot Container -->
+  <g>
+    <!-- Heatmap Shaded Regions -->
+    <!-- Region 1: High Accuracy (< 0.5 °C) -->
+    <path d="M 763,145 L 900,145 L 900,425 L 684,425 Q 704,355 724,285 Q 744,215 763,145 Z" fill="#e9f7ef"/>
+
+    <!-- Region 2: Moderate Error (0.5 ... 1.0 °C) -->
+    <path d="M 623,145 L 763,145 Q 744,215 724,285 Q 704,355 684,425 L 583,425 Q 592,355 601,285 Q 612,215 623,145 Z" fill="#eaf0fd"/>
+
+    <!-- Region 3: High Error (1.0 ... 1.5 °C) -->
+    <path d="M 582,145 L 623,145 Q 612,215 601,285 Q 592,355 583,425 L 558,425 Q 564,355 570,285 Q 576,215 582,145 Z" fill="#fef9e7"/>
+
+    <!-- Region 4: Critical Zone (> 1.5 °C) -->
+    <path d="M 540,145 L 582,145 Q 576,215 570,285 Q 564,355 558,425 L 540,425 Z" fill="#fdecea"/>
+
+    <!-- Heatmap Outer Frame -->
+    <rect x="540" y="145" width="360" height="280" fill="none" stroke="#d0d7de" stroke-width="1"/>
+
+    <!-- Contour Lines -->
+    <!-- 0.5 °C Contour -->
+    <path d="M 763,145 Q 744,215 724,285 Q 704,355 684,425" fill="none" stroke="#27ae60" stroke-width="2" stroke-dasharray="6,3"/>
+    <rect x="750" y="204" width="46" height="18" rx="3" fill="white" stroke="#27ae60" stroke-width="1"/>
+    <text x="773" y="217" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">0.5 °C</text>
+
+    <!-- 1.0 °C Contour -->
+    <path d="M 623,145 Q 612,215 601,285 Q 592,355 587,388" fill="none" stroke="#2457d6" stroke-width="2" stroke-dasharray="6,3"/>
+    <rect x="620" y="204" width="46" height="18" rx="3" fill="white" stroke="#2457d6" stroke-width="1"/>
+    <text x="643" y="217" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">1.0 °C</text>
+
+    <!-- 1.5 °C Contour -->
+    <path d="M 582,145 Q 576,215 570,285 Q 564,355 561,388" fill="none" stroke="#c0392b" stroke-width="2"/>
+    <rect x="583" y="156" width="42" height="18" rx="3" fill="white" stroke="#c0392b" stroke-width="1"/>
+    <text x="604" y="169" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">1.5 °C</text>
+
+    <!-- Heatmap Zone Annotations -->
+    <text x="810" y="258" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Висока точність</text>
+    <text x="810" y="274" font-size="12" fill="#27ae60" text-anchor="middle">ΔTdp &lt; 0.5 °C</text>
+
+    <text x="670" y="305" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Помірна похибка</text>
+    <text x="670" y="321" font-size="12" fill="#2457d6" text-anchor="middle">0.5...1.0 °C</text>
+
+    <!-- Critical Zone Label inside Region 4 -->
+    <rect x="543" y="152" width="37" height="42" rx="3" fill="white" stroke="#c0392b" stroke-width="1"/>
+    <text x="561" y="167" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Зона</text>
+    <text x="561" y="184" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">ризику</text>
+
+    <!-- Y-axis (Temperature) Grid & Ticks -->
+    <text x="540" y="135" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">Температура T (°C)</text>
+
+    <text x="535" y="149" font-size="12" fill="#6b7280" text-anchor="end">+50 °C</text>
+    <line x1="540" y1="192" x2="900" y2="192" stroke="#e1e4e8" stroke-width="1" stroke-dasharray="3,3"/>
+    <text x="535" y="196" font-size="12" fill="#6b7280" text-anchor="end">+40 °C</text>
+    <line x1="540" y1="238" x2="900" y2="238" stroke="#e1e4e8" stroke-width="1" stroke-dasharray="3,3"/>
+    <text x="535" y="242" font-size="12" fill="#6b7280" text-anchor="end">+30 °C</text>
+    <line x1="540" y1="285" x2="900" y2="285" stroke="#e1e4e8" stroke-width="1" stroke-dasharray="3,3"/>
+    <text x="535" y="289" font-size="12" fill="#6b7280" text-anchor="end">+20 °C</text>
+    <line x1="540" y1="332" x2="900" y2="332" stroke="#e1e4e8" stroke-width="1" stroke-dasharray="3,3"/>
+    <text x="535" y="336" font-size="12" fill="#6b7280" text-anchor="end">+10 °C</text>
+    <line x1="540" y1="378" x2="900" y2="378" stroke="#e1e4e8" stroke-width="1" stroke-dasharray="3,3"/>
+    <text x="535" y="382" font-size="12" fill="#6b7280" text-anchor="end">0 °C</text>
+    <text x="535" y="429" font-size="12" fill="#6b7280" text-anchor="end">-10 °C</text>
+
+    <!-- X-axis (RH) Grid & Ticks -->
+    <text x="540" y="442" font-size="12" fill="#6b7280" text-anchor="middle">10%</text>
+    <text x="580" y="442" font-size="12" fill="#c0392b" font-weight="bold" text-anchor="middle">20%</text>
+    <text x="660" y="442" font-size="12" fill="#6b7280" text-anchor="middle">40%</text>
+    <text x="740" y="442" font-size="12" fill="#6b7280" text-anchor="middle">60%</text>
+    <text x="820" y="442" font-size="12" fill="#6b7280" text-anchor="middle">80%</text>
+    <text x="900" y="442" font-size="12" fill="#6b7280" text-anchor="middle">100%</text>
+
+    <text x="720" y="462" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Відносна вологість RH (%)</text>
+  </g>
+
+  <!-- ==================== BOTTOM SUMMARY BAR ==================== -->
+  <rect x="30" y="492" width="900" height="52" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+
+  <text x="45" y="512" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="start">Аналітична оцінка похибки:</text>
+  <text x="45" y="530" font-size="12" fill="#1a1a1a" text-anchor="start">ΔTdp ≈ [ b·a / (a - γ)² ] · (ΔRH / RH)</text>
+
+  <text x="470" y="512" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="start">Практичний висновок:</text>
+  <text x="470" y="530" font-size="12" fill="#1a1a1a" text-anchor="start">Множник 1/RH підсилює похибку RH у 6–12 разів при RH &lt; 20%</text>
+</svg>

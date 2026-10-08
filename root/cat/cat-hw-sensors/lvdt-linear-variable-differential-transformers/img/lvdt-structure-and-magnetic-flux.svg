@@ -1,0 +1,177 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Marker Definitions -->
+  <defs>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#9ca3af"/>
+    </marker>
+  </defs>
+
+  <!-- Header -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Розподіл магнітного потоку та формування сигналу в LVDT</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Зсув осердя змінює індуктивний зв'язок обмоток: Φ₁ ≠ Φ₂, створюючи вихідну напругу V_out = e₁ - e₂</text>
+
+  <!-- PANEL 1: NULL POSITION (x = 0) -->
+  <rect x="24" y="72" width="444" height="428" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  
+  <!-- Panel 1 Title & Badge -->
+  <text x="246" y="94" font-size="15" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Нульове положення (x = 0)</text>
+  <rect x="116" y="104" width="260" height="24" rx="12" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="246" y="120" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Рівновага: Φ₁ = Φ₂  ⇒  V_out = 0</text>
+
+  <!-- Flux Labels Panel 1 -->
+  <text x="186" y="141" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Φ₁</text>
+  <text x="306" y="141" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Φ₂</text>
+
+  <!-- Flux Loops Panel 1 -->
+  <!-- Left Upper & Lower Flux Loops (Phi 1) -->
+  <path d="M 230,172 C 230,145 142,145 142,172" fill="none" stroke="#2457d6" stroke-width="2" stroke-dasharray="4,3" marker-end="url(#arr-blue)"/>
+  <path d="M 230,290 C 230,317 142,317 142,290" fill="none" stroke="#2457d6" stroke-width="2" stroke-dasharray="4,3" marker-end="url(#arr-blue)"/>
+
+  <!-- Right Upper & Lower Flux Loops (Phi 2) -->
+  <path d="M 262,172 C 262,145 350,145 350,172" fill="none" stroke="#2457d6" stroke-width="2" stroke-dasharray="4,3" marker-end="url(#arr-blue)"/>
+  <path d="M 262,290 C 262,317 350,317 350,290" fill="none" stroke="#2457d6" stroke-width="2" stroke-dasharray="4,3" marker-end="url(#arr-blue)"/>
+
+  <!-- LVDT Cross-Section Frame & Coils Panel 1 -->
+  <!-- Central Guide Sleeve / Tube -->
+  <rect x="70" y="214" width="352" height="32" rx="3" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Push Rod & Label -->
+  <line x1="40" y1="230" x2="151" y2="230" stroke="#6b7280" stroke-width="3"/>
+  <text x="56" y="204" font-size="12" fill="#6b7280" text-anchor="middle">Шток</text>
+
+  <!-- Upper Coils Panel 1 -->
+  <!-- S1 Upper -->
+  <rect x="88" y="172" width="80" height="40" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="128" y="189" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Вторинна S₁</text>
+  <text x="128" y="204" font-size="11" fill="#6b7280" text-anchor="middle">напруга e₁</text>
+
+  <!-- P Upper -->
+  <rect x="206" y="172" width="80" height="40" rx="4" fill="#2457d6" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="246" y="189" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">Первинна P</text>
+  <text x="246" y="204" font-size="11" fill="#ffffff" text-anchor="middle">живлення V_ex</text>
+
+  <!-- S2 Upper -->
+  <rect x="324" y="172" width="80" height="40" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="364" y="189" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Вторинна S₂</text>
+  <text x="364" y="204" font-size="11" fill="#6b7280" text-anchor="middle">напруга e₂</text>
+
+  <!-- Lower Coils Panel 1 -->
+  <rect x="88" y="250" width="80" height="40" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="128" y="274" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">S₁</text>
+
+  <rect x="206" y="250" width="80" height="40" rx="4" fill="#2457d6" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="246" y="274" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">P</text>
+
+  <rect x="324" y="250" width="80" height="40" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="364" y="274" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">S₂</text>
+
+  <!-- Ferromagnetic Core Panel 1 (Centered at x=246) -->
+  <rect x="151" y="218" width="190" height="24" rx="4" fill="#4b5563" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="246" y="234" font-size="11" font-weight="bold" fill="#ffffff" text-anchor="middle">Осердя в центрі (x = 0)</text>
+
+  <!-- Center Indicator Panel 1 -->
+  <line x1="246" y1="294" x2="246" y2="322" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <circle cx="246" cy="322" r="3" fill="#27ae60"/>
+  <text x="246" y="342" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Осердя точно по центру (x = 0)</text>
+
+  <!-- Sub-box Electrical Scheme & Output Signal Panel 1 -->
+  <rect x="44" y="354" width="404" height="132" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="246" y="372" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Електрична схема та вихідний сигнал</text>
+  
+  <text x="128" y="392" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">e₁ = Eₘ · sin(ωt)</text>
+  <text x="364" y="392" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">e₂ = Eₘ · sin(ωt)</text>
+  <text x="246" y="410" font-size="12" fill="#6b7280" text-anchor="middle">Зустрічне ввімкнення: V_out = e₁ - e₂</text>
+
+  <rect x="64" y="422" width="364" height="50" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="246" y="442" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Вихідний сигнал: V_out = 0 В (Нуль)</text>
+  <text x="246" y="460" font-size="12" fill="#1a1a1a" text-anchor="middle">Амплітуди e₁ та e₂ однакові й компенсуються</text>
+
+
+  <!-- PANEL 2: DISPLACED POSITION (x > 0) -->
+  <rect x="492" y="72" width="444" height="428" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  
+  <!-- Panel 2 Title & Badge -->
+  <text x="714" y="94" font-size="15" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Зміщене положення (x &gt; 0)</text>
+  <rect x="584" y="104" width="260" height="24" rx="12" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="714" y="120" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Несиметрія: Φ₁ &gt; Φ₂  ⇒  V_out &gt; 0</text>
+
+  <!-- Flux Labels Panel 2 -->
+  <text x="654" y="141" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Φ₁ (сильний)</text>
+  <text x="774" y="141" font-size="12" fill="#6b7280" text-anchor="middle">Φ₂ (слабкий)</text>
+
+  <!-- Flux Loops Panel 2 -->
+  <!-- Left Upper & Lower Flux Loops (Phi 1 - Strong) -->
+  <path d="M 698,172 C 698,145 610,145 610,172" fill="none" stroke="#2457d6" stroke-width="3" marker-end="url(#arr-blue)"/>
+  <path d="M 698,290 C 698,317 610,317 610,290" fill="none" stroke="#2457d6" stroke-width="3" marker-end="url(#arr-blue)"/>
+
+  <!-- Right Upper & Lower Flux Loops (Phi 2 - Weak) -->
+  <path d="M 730,172 C 730,147 818,147 818,172" fill="none" stroke="#9ca3af" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#arr-gray)"/>
+  <path d="M 730,290 C 730,315 818,315 818,290" fill="none" stroke="#9ca3af" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#arr-gray)"/>
+
+  <!-- LVDT Cross-Section Frame & Coils Panel 2 -->
+  <!-- Central Guide Sleeve / Tube -->
+  <rect x="538" y="214" width="352" height="32" rx="3" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Push Rod & Label -->
+  <line x1="508" y1="230" x2="576" y2="230" stroke="#6b7280" stroke-width="3"/>
+  <text x="524" y="204" font-size="12" fill="#6b7280" text-anchor="middle">Шток</text>
+
+  <!-- Upper Coils Panel 2 -->
+  <!-- S1 Upper -->
+  <rect x="556" y="172" width="80" height="40" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="596" y="189" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Вторинна S₁</text>
+  <text x="596" y="204" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">більша e₁</text>
+
+  <!-- P Upper -->
+  <rect x="674" y="172" width="80" height="40" rx="4" fill="#2457d6" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="714" y="189" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">Первинна P</text>
+  <text x="714" y="204" font-size="11" fill="#ffffff" text-anchor="middle">живлення V_ex</text>
+
+  <!-- S2 Upper -->
+  <rect x="792" y="172" width="80" height="40" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="832" y="189" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Вторинна S₂</text>
+  <text x="832" y="204" font-size="11" fill="#6b7280" text-anchor="middle">менша e₂</text>
+
+  <!-- Lower Coils Panel 2 -->
+  <rect x="556" y="250" width="80" height="40" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="596" y="274" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">S₁</text>
+
+  <rect x="674" y="250" width="80" height="40" rx="4" fill="#2457d6" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="714" y="274" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">P</text>
+
+  <rect x="792" y="250" width="80" height="40" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="832" y="274" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">S₂</text>
+
+  <!-- Ferromagnetic Core Panel 2 (Shifted left to center x=671) -->
+  <rect x="576" y="218" width="190" height="24" rx="4" fill="#4b5563" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="671" y="234" font-size="11" font-weight="bold" fill="#ffffff" text-anchor="middle">Осердя зміщено вліво</text>
+
+  <!-- Displacement Indicator Arrow Panel 2 -->
+  <line x1="714" y1="294" x2="714" y2="316" stroke="#9ca3af" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="714" y1="316" x2="671" y2="316" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="692" y="342" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Зсув осердя -Δx</text>
+
+  <!-- Sub-box Electrical Scheme & Output Signal Panel 2 -->
+  <rect x="512" y="354" width="404" height="132" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="714" y="372" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Електрична схема та вихідний сигнал</text>
+  
+  <text x="596" y="392" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">e₁ = E_max · sin(ωt)</text>
+  <text x="832" y="392" font-size="12" fill="#6b7280" text-anchor="middle">e₂ = E_min · sin(ωt)</text>
+  <text x="714" y="410" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Незбалансованість: e₁ &gt; e₂</text>
+
+  <rect x="532" y="422" width="364" height="50" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="714" y="442" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Вихідний сигнал: V_out = e₁ - e₂ &gt; 0 В</text>
+  <text x="714" y="460" font-size="12" fill="#1a1a1a" text-anchor="middle">Амплітуда V_out ∝ |x|, Сигнал у фазі з V_ex</text>
+</svg>

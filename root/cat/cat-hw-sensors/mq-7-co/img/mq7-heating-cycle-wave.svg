@@ -1,0 +1,130 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-up" markerWidth="9" markerHeight="9" refX="4" refY="1.5" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,8 L4,0 L8,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-right" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Canvas Background -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="36" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Двофазний цикл живлення нагрівача та динаміка опору Rs (MQ-7)</text>
+  <text x="480" y="56" font-size="13" fill="#6b7280" text-anchor="middle">Очищення поверхні (5 В / 60 с) та стабілізація опору для вимірювання (1.4 В / 90 с)</text>
+
+  <!-- Background Phase Regions (Colored Shading) -->
+  <rect x="110" y="72" width="250" height="353" fill="#fdecea" fill-opacity="0.35" rx="4"/>
+  <rect x="360" y="72" width="375" height="353" fill="#e9f7ef" fill-opacity="0.35" rx="4"/>
+  <rect x="735" y="72" width="145" height="353" fill="#f4f6f8" fill-opacity="0.5" rx="4"/>
+
+  <!-- Phase Header Badges -->
+  <rect x="125" y="76" width="220" height="24" rx="4" fill="#c0392b"/>
+  <text x="235" y="92" font-size="12" font-weight="bold" fill="white" text-anchor="middle">ФАЗА 1: Очищення (5.0 В / 60 с)</text>
+
+  <rect x="415" y="76" width="265" height="24" rx="4" fill="#27ae60"/>
+  <text x="547" y="92" font-size="12" font-weight="bold" fill="white" text-anchor="middle">ФАЗА 2: Вимірювання CO (1.4 В / 90 с)</text>
+
+  <rect x="750" y="76" width="115" height="24" rx="4" fill="#95a5a6"/>
+  <text x="807" y="92" font-size="12" font-weight="bold" fill="white" text-anchor="middle">Новий цикл...</text>
+
+  <!-- Short Boundary Divider Segment Marks -->
+  <line x1="360" y1="100" x2="360" y2="108" stroke="#d0d7de" stroke-width="1.5"/>
+  <line x1="360" y1="205" x2="360" y2="235" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <line x1="735" y1="100" x2="735" y2="108" stroke="#d0d7de" stroke-width="1.5"/>
+  <line x1="735" y1="205" x2="735" y2="235" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="3,3"/>
+
+  <!-- ==================== GRAPH 1: HEATER VOLTAGE VH ==================== -->
+  <!-- Y-Axis Graph 1 -->
+  <line x1="110" y1="105" x2="110" y2="225" stroke="#1a1a1a" stroke-width="1.5" marker-start="url(#arr-up)"/>
+  <text x="45" y="112" font-size="13" font-weight="bold" fill="#1a1a1a">VH (В)</text>
+
+  <!-- Gridlines & Voltage Ticks Graph 1 -->
+  <line x1="110" y1="128" x2="880" y2="128" stroke="#e5e7eb" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="100" y="132" font-size="12" fill="#6b7280" text-anchor="end">5.0 В</text>
+
+  <line x1="110" y1="188" x2="880" y2="188" stroke="#e5e7eb" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="100" y="192" font-size="12" fill="#6b7280" text-anchor="end">1.4 В</text>
+
+  <line x1="110" y1="225" x2="880" y2="225" stroke="#d0d7de" stroke-width="1"/>
+  <text x="100" y="229" font-size="12" fill="#6b7280" text-anchor="end">0 В</text>
+
+  <!-- Voltage Waveform Lines -->
+  <line x1="110" y1="128" x2="360" y2="128" stroke="#c0392b" stroke-width="3"/>
+  <line x1="360" y1="128" x2="360" y2="188" stroke="#c0392b" stroke-width="2" stroke-dasharray="3,3"/>
+  <line x1="360" y1="188" x2="735" y2="188" stroke="#27ae60" stroke-width="3"/>
+  <line x1="735" y1="188" x2="735" y2="128" stroke="#27ae60" stroke-width="2" stroke-dasharray="3,3"/>
+  <line x1="735" y1="128" x2="880" y2="128" stroke="#c0392b" stroke-width="3"/>
+
+  <!-- Voltage Labels -->
+  <text x="235" y="118" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">5.0 В — Високотемпературне очищення</text>
+  <text x="547" y="178" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">1.4 В — Низькотемпературне вимірювання</text>
+
+  <!-- ==================== GRAPH 2: SENSOR RESISTANCE Rs ==================== -->
+  <!-- Y-Axis Graph 2 -->
+  <line x1="110" y1="245" x2="110" y2="425" stroke="#1a1a1a" stroke-width="1.5" marker-start="url(#arr-up)"/>
+  <text x="45" y="255" font-size="13" font-weight="bold" fill="#1a1a1a">Rs (кОм)</text>
+
+  <!-- X-Axis Graph 2 (Time Axis) -->
+  <line x1="110" y1="425" x2="890" y2="425" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-right)"/>
+  <text x="898" y="429" font-size="13" font-weight="bold" fill="#1a1a1a">t (с)</text>
+
+  <!-- Time Ticks & Labels on X-axis -->
+  <line x1="110" y1="425" x2="110" y2="431" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="110" y="445" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">0 с</text>
+
+  <line x1="360" y1="425" x2="360" y2="431" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="360" y="445" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">60 с</text>
+
+  <line x1="693" y1="425" x2="693" y2="431" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="693" y="445" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">140 с</text>
+
+  <line x1="735" y1="425" x2="735" y2="431" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="735" y="445" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">150 с</text>
+
+  <line x1="860" y1="425" x2="860" y2="431" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="860" y="445" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">180 с</text>
+
+  <!-- Measurement Highlight Region (140s..150s, X=693..733) -->
+  <rect x="693" y="240" width="40" height="185" fill="#27ae60" fill-opacity="0.15" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="4,3" rx="3"/>
+
+  <!-- Resistance Curves -->
+  <!-- Curve 1: 100 ppm CO (Solid Blue) -->
+  <path d="M 110,395 L 360,395 C 366,395 375,275 390,275 C 440,275 580,355 693,355 L 735,355 C 740,355 750,395 765,395 L 860,395" fill="none" stroke="#2457d6" stroke-width="3"/>
+
+  <!-- Curve 2: Clean Air (Dashed Light Blue) -->
+  <path d="M 110,395 L 360,395 C 366,395 375,260 390,260 C 440,260 580,295 693,295 L 735,295 C 740,295 750,395 765,395 L 860,395" fill="none" stroke="#5c7cfa" stroke-width="2.5" stroke-dasharray="6,4"/>
+
+  <!-- Callout Box for ADC Measurement Window -->
+  <rect x="470" y="368" width="215" height="38" rx="5" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="577" y="384" font-size="12" font-weight="bold" fill="#1e7e34" text-anchor="middle">ЗЧИТУВАННЯ СИГНАЛУ (ADC)</text>
+  <text x="577" y="399" font-size="12" fill="#27ae60" text-anchor="middle">наприкінці 90 с (t = 140...150 с)</text>
+  <line x1="685" y1="387" x2="705" y2="387" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <!-- Graph 2 Annotations -->
+  <text x="235" y="375" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Очищення поверхні SnO₂</text>
+
+  <text x="365" y="248" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="start">Стрибок Rs</text>
+  <line x1="395" y1="252" x2="382" y2="265" stroke="#2457d6" stroke-width="1.2" marker-end="url(#arr-blue)"/>
+
+  <!-- Curve Labels placed cleanly -->
+  <text x="505" y="248" font-size="12" font-weight="bold" fill="#5c7cfa" text-anchor="start">Чисте повітря (високий Rs)</text>
+  <text x="370" y="335" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="start">100 ppm CO (низький Rs)</text>
+
+  <!-- ==================== BOTTOM EXPLANATORY CARDS ==================== -->
+  <rect x="40" y="460" width="430" height="56" rx="6" fill="#fdecea" stroke="#f5c6cb" stroke-width="1"/>
+  <text x="55" y="479" font-size="12" font-weight="bold" fill="#c0392b">1. Нагрів 5.0 В (60 с) — Очищення</text>
+  <text x="55" y="499" font-size="12" fill="#1a1a1a">Висока t° спалює залишки CO та вологи, очищуючи SnO₂.</text>
+
+  <rect x="490" y="460" width="430" height="56" rx="6" fill="#e9f7ef" stroke="#c3e6cb" stroke-width="1"/>
+  <text x="505" y="479" font-size="12" font-weight="bold" fill="#27ae60">2. Нагрів 1.4 В (90 с) — Вимірювання</text>
+  <text x="505" y="499" font-size="12" fill="#1a1a1a">CO адсорбується на поверхні; опір зчитують на 85–90-й с.</text>
+</svg>

@@ -1,0 +1,143 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="700" fill="#1a1a1a">Топологія кристала та корпусу BME280 (LGA 2.5×2.5 мм)</text>
+  <text x="480" y="54" text-anchor="middle" font-size="13" fill="#6b7280">Трикомпонентний сенсорний кристал з інтегрованими зонами тиску, вологості й температури</text>
+
+  <!-- Ліва панель: Розріз корпусу -->
+  <rect x="30" y="75" width="435" height="435" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="8"/>
+  <text x="247" y="102" text-anchor="middle" font-size="14" font-weight="700" fill="#1a1a1a">Поперечний розріз корпусу LGA</text>
+  <text x="247" y="122" text-anchor="middle" font-size="12" fill="#6b7280">Вентиляційний отвір та дифузійна порожнина</text>
+
+  <!-- Позначення вентиляційного отвору -->
+  <text x="247" y="150" text-anchor="middle" font-size="13" font-weight="700" fill="#2457d6">Вентиляційний отвір ∅ 0.4 мм</text>
+  <text x="247" y="168" text-anchor="middle" font-size="12" fill="#6b7280">(Вхід повітря, тиску та вологи)</text>
+
+  <!-- Металева кришка -->
+  <rect x="70" y="180" width="130" height="14" fill="#cbd5e1" stroke="#475569" stroke-width="1.5"/>
+  <rect x="294" y="180" width="130" height="14" fill="#cbd5e1" stroke="#475569" stroke-width="1.5"/>
+  <rect x="70" y="194" width="16" height="236" fill="#cbd5e1" stroke="#475569" stroke-width="1.5"/>
+  <rect x="408" y="194" width="16" height="236" fill="#cbd5e1" stroke="#475569" stroke-width="1.5"/>
+
+  <!-- Дифузійні потоки (стрілки вниз) -->
+  <path d="M225,172 L225,225" stroke="#2457d6" stroke-width="2" stroke-dasharray="4,3" marker-end="url(#arr-blue)"/>
+  <path d="M247,172 L247,225" stroke="#2457d6" stroke-width="2" stroke-dasharray="4,3" marker-end="url(#arr-blue)"/>
+  <path d="M269,172 L269,225" stroke="#2457d6" stroke-width="2" stroke-dasharray="4,3" marker-end="url(#arr-blue)"/>
+
+  <text x="247" y="250" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">Дифузійна порожнина корпусу</text>
+
+  <!-- Дротяна розварка -->
+  <path d="M130,340 Q105,320 96,430" fill="none" stroke="#1a1a1a" stroke-width="1.5"/>
+  <path d="M364,340 Q389,320 398,430" fill="none" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="108" y="310" text-anchor="middle" font-size="12" fill="#6b7280">Дротяна розварка</text>
+
+  <!-- Силіконовий кристал в розрізі -->
+  <rect x="125" y="340" width="244" height="78" fill="#e2e8f0" stroke="#1e40af" stroke-width="2" rx="4"/>
+
+  <rect x="135" y="350" width="70" height="58" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="3"/>
+  <text x="170" y="375" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">Волога</text>
+  <text x="170" y="392" text-anchor="middle" font-size="11" fill="#15803d">(RH)</text>
+
+  <rect x="212" y="350" width="70" height="58" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="3"/>
+  <text x="247" y="375" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">Тиск</text>
+  <text x="247" y="392" text-anchor="middle" font-size="11" fill="#1e40af">(P)</text>
+
+  <rect x="289" y="350" width="70" height="58" fill="#fef3c7" stroke="#b45309" stroke-width="1.5" rx="3"/>
+  <text x="324" y="375" text-anchor="middle" font-size="12" font-weight="700" fill="#b45309">Темп.</text>
+  <text x="324" y="392" text-anchor="middle" font-size="11" fill="#92400e">(T)</text>
+
+  <!-- Еластомірний клей -->
+  <rect x="125" y="418" width="244" height="12" fill="#94a3b8" rx="1"/>
+
+  <!-- Субстрат LGA -->
+  <rect x="86" y="430" width="322" height="30" fill="#334155" stroke="#1e293b" stroke-width="1.5" rx="2"/>
+  <text x="247" y="450" text-anchor="middle" font-size="12" font-weight="700" fill="#ffffff">Основа корпусу LGA (Підкладка)</text>
+
+  <!-- Контактні площадки LGA -->
+  <rect x="96" y="460" width="38" height="10" fill="#f59e0b" rx="1"/>
+  <rect x="148" y="460" width="38" height="10" fill="#f59e0b" rx="1"/>
+  <rect x="200" y="460" width="38" height="10" fill="#f59e0b" rx="1"/>
+  <rect x="252" y="460" width="38" height="10" fill="#f59e0b" rx="1"/>
+  <rect x="304" y="460" width="38" height="10" fill="#f59e0b" rx="1"/>
+  <rect x="356" y="460" width="38" height="10" fill="#f59e0b" rx="1"/>
+
+  <text x="247" y="495" text-anchor="middle" font-size="12" fill="#6b7280">Зовнішні контактні площадки LGA (8-pin)</text>
+
+  <!-- Права панель: Топологія кристала -->
+  <rect x="495" y="75" width="435" height="435" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="8"/>
+  <text x="712" y="102" text-anchor="middle" font-size="14" font-weight="700" fill="#1a1a1a">Топологія поверхні кристала BME280</text>
+  <text x="712" y="122" text-anchor="middle" font-size="12" fill="#6b7280">Окремі вимірювальні зони на монолітному кремнії</text>
+
+  <!-- Позначення проекції отвору -->
+  <text x="712" y="140" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">Проекція отвору корпусу (∅ 0.4 мм)</text>
+
+  <!-- Кристал (Top View) -->
+  <rect x="535" y="148" width="355" height="345" fill="#ffffff" stroke="#475569" stroke-width="2" rx="6"/>
+
+  <!-- Проекційне коло вентиляційного отвору -->
+  <circle cx="712" cy="305" r="32" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <text x="712" y="309" text-anchor="middle" font-size="11" font-weight="700" fill="#2457d6">Отвір ∅0.4</text>
+
+  <!-- Bond pads на кристалі -->
+  <rect x="585" y="152" width="24" height="12" fill="#f59e0b" stroke="#d97706" stroke-width="1" rx="1"/>
+  <rect x="655" y="152" width="24" height="12" fill="#f59e0b" stroke="#d97706" stroke-width="1" rx="1"/>
+  <rect x="745" y="152" width="24" height="12" fill="#f59e0b" stroke="#d97706" stroke-width="1" rx="1"/>
+  <rect x="815" y="152" width="24" height="12" fill="#f59e0b" stroke="#d97706" stroke-width="1" rx="1"/>
+
+  <rect x="585" y="475" width="24" height="12" fill="#f59e0b" stroke="#d97706" stroke-width="1" rx="1"/>
+  <rect x="655" y="475" width="24" height="12" fill="#f59e0b" stroke="#d97706" stroke-width="1" rx="1"/>
+  <rect x="745" y="475" width="24" height="12" fill="#f59e0b" stroke="#d97706" stroke-width="1" rx="1"/>
+  <rect x="815" y="475" width="24" height="12" fill="#f59e0b" stroke="#d97706" stroke-width="1" rx="1"/>
+
+  <rect x="539" y="240" width="12" height="24" fill="#f59e0b" stroke="#d97706" stroke-width="1" rx="1"/>
+  <rect x="539" y="360" width="12" height="24" fill="#f59e0b" stroke="#d97706" stroke-width="1" rx="1"/>
+
+  <rect x="874" y="240" width="12" height="24" fill="#f59e0b" stroke="#d97706" stroke-width="1" rx="1"/>
+  <rect x="874" y="360" width="12" height="24" fill="#f59e0b" stroke="#d97706" stroke-width="1" rx="1"/>
+
+  <text x="712" y="465" text-anchor="middle" font-size="11" fill="#6b7280">Контактні площадки кристала (Bond Pads)</text>
+
+  <!-- Зона 1: Волога -->
+  <rect x="565" y="175" width="140" height="120" fill="#e9f7ef" stroke="#27ae60" stroke-width="2" rx="4"/>
+  <line x1="585" y1="234" x2="685" y2="234" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="6,4"/>
+  <line x1="585" y1="244" x2="685" y2="244" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="6,4"/>
+  <line x1="585" y1="254" x2="685" y2="254" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="6,4"/>
+
+  <text x="635" y="200" text-anchor="middle" font-size="13" font-weight="700" fill="#27ae60">Сенсор вологості</text>
+  <text x="635" y="218" text-anchor="middle" font-size="12" font-weight="700" fill="#15803d">(Ємнісний polymer)</text>
+  <text x="635" y="274" text-anchor="middle" font-size="11" fill="#6b7280">Відкритий шар</text>
+
+  <!-- Зона 2: Тиск -->
+  <rect x="720" y="175" width="140" height="120" fill="#eaf0fd" stroke="#2457d6" stroke-width="2" rx="4"/>
+  <circle cx="790" cy="245" r="22" fill="#dbeafe" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="790" y="198" text-anchor="middle" font-size="13" font-weight="700" fill="#2457d6">Сенсор тиску</text>
+  <text x="790" y="215" text-anchor="middle" font-size="12" font-weight="700" fill="#1e40af">(MEMS мембрана)</text>
+  <text x="790" y="280" text-anchor="middle" font-size="11" fill="#6b7280">Вакуумна камера</text>
+
+  <!-- Зона 3: Температура -->
+  <rect x="565" y="340" width="140" height="125" fill="#fef3c7" stroke="#b45309" stroke-width="2" rx="4"/>
+  <text x="635" y="362" text-anchor="middle" font-size="13" font-weight="700" fill="#b45309">Сенсор Temp</text>
+  <text x="635" y="380" text-anchor="middle" font-size="12" font-weight="700" fill="#92400e">(PTAT термодіод)</text>
+  <text x="635" y="400" text-anchor="middle" font-size="11" fill="#78350f">Поруч із вологою</text>
+  <text x="635" y="416" text-anchor="middle" font-size="11" fill="#78350f">й тиском для точної</text>
+  <text x="635" y="432" text-anchor="middle" font-size="11" fill="#78350f">термокомпенсації</text>
+
+  <!-- Зона 4: ASIC -->
+  <rect x="720" y="340" width="140" height="125" fill="#f3e8ff" stroke="#6b21a8" stroke-width="2" rx="4"/>
+  <text x="790" y="362" text-anchor="middle" font-size="13" font-weight="700" fill="#6b21a8">Блок ASIC</text>
+  <text x="790" y="380" text-anchor="middle" font-size="12" fill="#581c87">24-bit АЦП &amp; NVM</text>
+  <text x="790" y="400" text-anchor="middle" font-size="11" fill="#6b21a8">I2C / SPI інтерфейс</text>
+  <text x="790" y="416" text-anchor="middle" font-size="11" fill="#6b21a8">IIR фільтрація</text>
+  <text x="790" y="432" text-anchor="middle" font-size="11" fill="#6b21a8">Калібрувальні коеф.</text>
+</svg>

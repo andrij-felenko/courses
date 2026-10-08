@@ -1,0 +1,189 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Біла підкладка полотна -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Маркери стрілок у defs -->
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#4b5563"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="38" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Схемотехніка 3-провідного вимірювального тракту Pt100 з ОП</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Двоканальне джерело струмів I1 = I2 скасовує падіння напруги на підвідних дротах RL</text>
+
+  <!-- ВЕРХНЯ СЕКЦІЯ: СХЕМА (Y = 75..330) -->
+
+  <!-- БЛОК 1: АНАЛОГОВИЙ ВИМІРЮВАЛЬНИЙ МОДУЛЬ -->
+  <rect x="40" y="75" width="440" height="255" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="6"/>
+  <rect x="40" y="75" width="440" height="28" fill="#eaf0fd" stroke="#d0d7de" stroke-width="1.5" rx="6"/>
+  <text x="260" y="94" font-size="13" font-weight="700" fill="#2457d6" text-anchor="middle">Аналоговий вимірювальний модуль (Плата АЦП / МК)</text>
+
+  <!-- Підблок А: Генератор струмів -->
+  <rect x="52" y="112" width="133" height="205" fill="white" stroke="#d0d7de" stroke-width="1" rx="4"/>
+  <text x="118.5" y="128" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Джерела I_exc</text>
+  <text x="118.5" y="143" font-size="11" fill="#6b7280" text-anchor="middle">I1 = I2 = 100 мкА</text>
+
+  <!-- Джерело 1 -->
+  <circle cx="118.5" cy="175" r="15" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <path d="M110.5,175 L124.5,175" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="118.5" y="156" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">I1</text>
+
+  <!-- Джерело 2 -->
+  <circle cx="118.5" cy="235" r="15" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <path d="M110.5,235 L124.5,235" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <text x="118.5" y="216" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">I2</text>
+
+  <!-- AGND джерела -->
+  <line x1="118.5" y1="250" x2="118.5" y2="280" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="108.5" y1="280" x2="128.5" y2="280" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="112.5" y1="284" x2="124.5" y2="284" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="115.5" y1="288" x2="121.5" y2="288" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="118.5" y="303" font-size="11" fill="#6b7280" text-anchor="middle">AGND</text>
+
+  <!-- Лінії зв'язку джерел з клемником -->
+  <line x1="133.5" y1="175" x2="460" y2="175" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="133.5" y1="235" x2="460" y2="235" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="118.5" y1="280" x2="460" y2="280" stroke="#4b5563" stroke-width="1.5"/>
+
+  <!-- Підблок Б: Диференціальний підсилювач на ОП -->
+  <rect x="200" y="112" width="240" height="205" fill="white" stroke="#d0d7de" stroke-width="1" rx="4"/>
+  <text x="320" y="128" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Диференціальний підсилювач (ОП)</text>
+
+  <!-- Трикутник ОП -->
+  <path d="M310,165 L310,245 L370,205 Z" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="322" y="184" font-size="14" font-weight="700" fill="#2457d6" text-anchor="middle">+</text>
+  <text x="322" y="234" font-size="14" font-weight="700" fill="#2457d6" text-anchor="middle">−</text>
+
+  <!-- Резистори обв'язки ОП -->
+  <!-- R1 (вхід +) -->
+  <rect x="235" y="167" width="30" height="16" fill="white" stroke="#2457d6" stroke-width="1.5" rx="2"/>
+  <text x="250" y="159" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">R1</text>
+  <line x1="210" y1="175" x2="235" y2="175" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="265" y1="175" x2="310" y2="175" stroke="#2457d6" stroke-width="1.5"/>
+  <!-- Вузлова точка підключення V1 від T1 -->
+  <circle cx="210" cy="175" r="3" fill="#2457d6"/>
+
+  <!-- R4 (дільник до AGND на + вхід) -->
+  <line x1="285" y1="175" x2="285" y2="200" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="277" y="200" width="16" height="30" fill="white" stroke="#2457d6" stroke-width="1.5" rx="2"/>
+  <text x="268" y="219" font-size="12" font-weight="700" fill="#2457d6" text-anchor="end">R4</text>
+  <line x1="285" y1="230" x2="285" y2="255" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="275" y1="255" x2="295" y2="255" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="279" y1="259" x2="291" y2="259" stroke="#6b7280" stroke-width="1.5"/>
+
+  <!-- R3 (вхід -) -->
+  <rect x="235" y="227" width="30" height="16" fill="white" stroke="#2457d6" stroke-width="1.5" rx="2"/>
+  <text x="250" y="256" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">R3</text>
+  <line x1="210" y1="235" x2="235" y2="235" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="265" y1="235" x2="310" y2="235" stroke="#2457d6" stroke-width="1.5"/>
+  <!-- Вузлова точка підключення V2 від T2 -->
+  <circle cx="210" cy="235" r="3" fill="#27ae60"/>
+
+  <!-- R2 (зворотний зв'язок) -->
+  <line x1="370" y1="205" x2="390" y2="205" stroke="#2457d6" stroke-width="1.5"/>
+  <circle cx="385" cy="205" r="3" fill="#2457d6"/>
+  <line x1="385" y1="205" x2="385" y2="148" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="385" y1="148" x2="345" y2="148" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="315" y="140" width="30" height="16" fill="white" stroke="#2457d6" stroke-width="1.5" rx="2"/>
+  <text x="330" y="134" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">R2</text>
+  <line x1="315" y1="148" x2="295" y2="148" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="295" y1="148" x2="295" y2="235" stroke="#2457d6" stroke-width="1.5"/>
+  <circle cx="295" cy="235" r="3" fill="#2457d6"/>
+
+  <!-- Вихід ОП на АЦП -->
+  <line x1="385" y1="205" x2="425" y2="205" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="410" y="220" font-size="11" font-weight="700" fill="#2457d6" text-anchor="middle">V_out = G × V_diff</text>
+  <text x="410" y="235" font-size="11" font-weight="700" fill="#1a1a1a" text-anchor="middle">До АЦП МК</text>
+
+  <!-- Клеми підключення (T1, T2, T3) -->
+  <circle cx="460" cy="175" r="4" fill="#2457d6"/>
+  <text x="452" y="168" font-size="11" font-weight="700" fill="#2457d6" text-anchor="end">T1</text>
+
+  <circle cx="460" cy="235" r="4" fill="#27ae60"/>
+  <text x="452" y="228" font-size="11" font-weight="700" fill="#27ae60" text-anchor="end">T2</text>
+
+  <circle cx="460" cy="280" r="4" fill="#4b5563"/>
+  <text x="452" y="273" font-size="11" font-weight="700" fill="#4b5563" text-anchor="end">T3</text>
+
+
+  <!-- БЛОК 2: 3-ПРОВІДНИЙ КАБЕЛЬ -->
+  <rect x="495" y="110" width="230" height="205" fill="#ffffff" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4,4" rx="4"/>
+  <text x="610" y="128" font-size="11" fill="#6b7280" text-anchor="middle">3-провідний кабель (L = 10..100 м)</text>
+
+  <!-- Дріт 1 -->
+  <line x1="460" y1="175" x2="740" y2="175" stroke="#2457d6" stroke-width="2"/>
+  <rect x="585" y="167" width="36" height="16" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="2"/>
+  <text x="603" y="159" font-size="11" font-weight="700" fill="#2457d6" text-anchor="middle">RL1</text>
+  <text x="530" y="165" font-size="11" font-weight="700" fill="#2457d6" text-anchor="middle">I1 →</text>
+
+  <!-- Дріт 2 -->
+  <line x1="460" y1="235" x2="740" y2="235" stroke="#27ae60" stroke-width="2"/>
+  <rect x="585" y="227" width="36" height="16" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="2"/>
+  <text x="603" y="219" font-size="11" font-weight="700" fill="#27ae60" text-anchor="middle">RL2</text>
+  <text x="530" y="225" font-size="11" font-weight="700" fill="#27ae60" text-anchor="middle">I2 →</text>
+
+  <!-- Дріт 3 -->
+  <line x1="740" y1="280" x2="460" y2="280" stroke="#4b5563" stroke-width="2"/>
+  <rect x="585" y="272" width="36" height="16" fill="#f4f6f8" stroke="#4b5563" stroke-width="1.5" rx="2"/>
+  <text x="603" y="302" font-size="11" font-weight="700" fill="#4b5563" text-anchor="middle">RL3</text>
+  <text x="530" y="270" font-size="11" font-weight="700" fill="#4b5563" text-anchor="middle">← I1 + I2</text>
+
+
+  <!-- БЛОК 3: ДАВАЧ Pt100 -->
+  <rect x="740" y="75" width="180" height="255" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.5" rx="6"/>
+  <rect x="740" y="75" width="180" height="28" fill="#1a1a1a" stroke="#1a1a1a" stroke-width="1.5" rx="6"/>
+  <text x="830" y="94" font-size="13" font-weight="700" fill="white" text-anchor="middle">Давач Pt100</text>
+
+  <!-- Елемент Pt100 -->
+  <rect x="800" y="175" width="40" height="65" fill="#eaf0fd" stroke="#2457d6" stroke-width="2" rx="3"/>
+  <line x1="785" y1="245" x2="850" y2="170" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="860" y="195" font-size="11" font-weight="700" fill="#2457d6" text-anchor="start">R_RTD</text>
+  <text x="860" y="212" font-size="11" fill="#6b7280" text-anchor="start">100 Ом</text>
+  <text x="860" y="166" font-size="11" font-weight="700" fill="#c0392b" text-anchor="start">t °C</text>
+
+  <!-- З'єднання всередині головки давача -->
+  <line x1="740" y1="175" x2="820" y2="175" stroke="#2457d6" stroke-width="2"/>
+  <line x1="740" y1="235" x2="820" y2="235" stroke="#27ae60" stroke-width="2"/>
+  <line x1="820" y1="235" x2="820" y2="280" stroke="#27ae60" stroke-width="2"/>
+  <line x1="820" y1="240" x2="820" y2="280" stroke="#2457d6" stroke-width="2"/>
+  <circle cx="820" cy="280" r="5" fill="#1a1a1a"/>
+  <text x="820" y="304" font-size="11" fill="#6b7280" text-anchor="middle">Спільний вузол</text>
+
+
+  <!-- НИЖНЯ СЕКЦІЯ: МАТЕМАТИКА ТА ПОХИБКИ (Y = 345..495) -->
+
+  <!-- ПАНЕЛЬ ЛІВОРУЧ: МАТЕМАТИКА КАНСЕЛЯЦІЇ -->
+  <rect x="40" y="345" width="435" height="150" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <text x="257.5" y="366" font-size="13" font-weight="700" fill="#2457d6" text-anchor="middle">Математика 3-провідної компенсації</text>
+
+  <text x="55" y="388" font-size="11" fill="#1a1a1a">Напруга T1:  V1 = I1 × RL1 + I1 × R_RTD + (I1 + I2) × RL3</text>
+  <text x="55" y="408" font-size="11" fill="#1a1a1a">Напруга T2:  V2 = I2 × RL2 + (I1 + I2) × RL3</text>
+  <text x="55" y="428" font-size="11" font-weight="700" fill="#1a1a1a">Диференціальний сигнал V_diff = V1 − V2  (при I1 = I2 = I_exc):</text>
+
+  <rect x="55" y="438" width="405" height="32" fill="white" stroke="#2457d6" stroke-width="1" rx="4"/>
+  <text x="257.5" y="459" font-size="11" font-weight="700" fill="#2457d6" text-anchor="middle">V_diff = I_exc × (RL + R_RTD) − I_exc × RL = I_exc × R_RTD</text>
+
+  <text x="257.5" y="485" font-size="11" font-weight="700" fill="#27ae60" text-anchor="middle">Опір дротів RL повністю компенсаційно скасовано!</text>
+
+
+  <!-- ПАНЕЛЬ ПРАВОРУЧ: ДЖЕРЕЛА ПОХИБОК -->
+  <rect x="490" y="345" width="430" height="150" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="6"/>
+  <text x="705" y="366" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">Джерела похибок та вимоги до схемотехніки</text>
+
+  <text x="505" y="388" font-size="11" fill="#c0392b">• Асиметрія струмів (I1 ≠ I2) → похибка компенсації ΔI × RL</text>
+  <text x="505" y="408" font-size="11" fill="#c0392b">• Асиметрія дротів (RL1 ≠ RL2) → паразитна напруга ΔRL</text>
+  <text x="505" y="430" font-size="11" font-weight="700" fill="#27ae60">• Дрейф зсуву ОП → вимагає Zero-Drift ОП (V_os &lt; 10 мкВ)</text>
+  <text x="505" y="452" font-size="11" font-weight="700" fill="#27ae60">• Самонагрів Pt100 → струм I_exc ≤ 1 мА (P_diss &lt; 100 мкВт)</text>
+  <text x="505" y="474" font-size="11" fill="#6b7280">• Мережеві завади → ФНЧ на входах ОП (придушення 50 Гц)</text>
+</svg>

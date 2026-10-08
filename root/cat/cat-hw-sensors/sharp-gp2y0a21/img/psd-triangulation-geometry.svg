@@ -1,0 +1,159 @@
+<svg width="960" height="540" viewBox="0 0 960 540" xmlns="http://www.w3.org/2000/svg" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <defs>
+    <!-- Маркери стрілок -->
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок та підзаголовок -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Геометрія оптичної триангуляції в ІЧ-далекомірах PSD</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Зміщення плями x обернено пропорційне відстані D: D = (L · f) / x</text>
+
+  <!-- ЛІВА ЧАСТИНА: СХЕМА ОПТИЧНОЇ ТРИАНГУЛЯЦІЇ -->
+
+  <!-- Підкладка корпусу сенсора -->
+  <rect x="140" y="365" width="400" height="150" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="155" y="503" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="start">Корпус ІЧ-далекоміра PSD</text>
+
+  <!-- Подібні трикутники -->
+  <!-- Трикутник 1 (Зовнішній: Ціль A - Випромінювач - Лінза) -->
+  <polygon points="190,140 190,375 450,375" fill="#2457d6" fill-opacity="0.07" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="6,4"/>
+  <!-- Трикутник 2 (Внутрішній: Лінза - Вісь лінзи на PSD - Пляма A) -->
+  <polygon points="450,375 450,465 510,465" fill="#2457d6" fill-opacity="0.18" stroke="#2457d6" stroke-width="1.5"/>
+
+  <!-- Оптичні осі -->
+  <line x1="190" y1="60" x2="190" y2="375" stroke="#9ca3af" stroke-width="1" stroke-dasharray="4,4"/>
+  <line x1="450" y1="60" x2="450" y2="465" stroke="#9ca3af" stroke-width="1" stroke-dasharray="4,4"/>
+
+  <!-- Випромінений ІЧ-промінь -->
+  <line x1="190" y1="375" x2="190" y2="140" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arr-red)"/>
+  <text x="180" y="250" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="end">ІЧ-промінь</text>
+
+  <!-- Відбиті промені -->
+  <!-- Промінь від Цілі A (основний) -->
+  <line x1="190" y1="140" x2="450" y2="375" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <line x1="450" y1="375" x2="510" y2="465" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="310" y="238" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="start">Відбите світло</text>
+
+  <!-- Промінь від Цілі B (далека ціль) -->
+  <line x1="190" y1="75" x2="450" y2="375" stroke="#d97706" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <line x1="450" y1="375" x2="490" y2="465" stroke="#d97706" stroke-width="1.5" stroke-dasharray="4,3"/>
+
+  <!-- Ціль B (далека) -->
+  <rect x="160" y="60" width="60" height="30" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <circle cx="190" cy="75" r="4" fill="#c0392b"/>
+  <text x="190" y="79" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Ціль B</text>
+
+  <!-- Ціль A (основна) -->
+  <rect x="160" y="125" width="60" height="30" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <circle cx="190" cy="140" r="4" fill="#27ae60"/>
+  <text x="190" y="144" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Ціль A</text>
+
+  <!-- Елементи сенсора -->
+  <!-- ІЧ-випромінювач -->
+  <rect x="175" y="375" width="30" height="18" rx="4" fill="#1a1a1a"/>
+  <circle cx="190" cy="375" r="5" fill="#c0392b"/>
+  <text x="190" y="418" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">ІЧ-випромінювач</text>
+  <text x="190" y="435" font-size="12" fill="#6b7280" text-anchor="middle">(LED / лазер)</text>
+
+  <!-- Приймальна лінза -->
+  <path d="M 450 357 C 459 366, 459 384, 450 393 C 441 384, 441 366, 450 357 Z" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <circle cx="450" cy="375" r="3" fill="#2457d6"/>
+  <text x="385" y="418" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Приймальна лінза</text>
+
+  <!-- PSD-детектор -->
+  <rect x="430" y="465" width="105" height="10" rx="2" fill="#2c3e50" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="450" y1="465" x2="450" y2="475" stroke="#ffffff" stroke-width="1.5"/>
+
+  <!-- Світлові плями на PSD -->
+  <circle cx="510" cy="470" r="4" fill="#2457d6"/>
+  <circle cx="510" cy="470" r="7" fill="none" stroke="#2457d6" stroke-width="1.5"/>
+  <circle cx="490" cy="470" r="3.5" fill="#d97706"/>
+
+  <!-- Розмірні лінії -->
+  <!-- Відстань D -->
+  <line x1="100" y1="140" x2="100" y2="375" stroke="#1a1a1a" stroke-width="1.5" marker-start="url(#arr-dark)" marker-end="url(#arr-dark)"/>
+  <line x1="85" y1="140" x2="160" y2="140" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="85" y1="375" x2="140" y2="375" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2,2"/>
+  <text x="92" y="260" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="end">Відстань D</text>
+
+  <!-- Базова відстань L -->
+  <line x1="190" y1="345" x2="450" y2="345" stroke="#1a1a1a" stroke-width="1.5" marker-start="url(#arr-dark)" marker-end="url(#arr-dark)"/>
+  <line x1="190" y1="375" x2="190" y2="338" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="450" y1="357" x2="450" y2="338" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2,2"/>
+  <text x="320" y="339" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Базова відстань L</text>
+
+  <!-- Фокусна відстань f -->
+  <line x1="310" y1="375" x2="310" y2="465" stroke="#1a1a1a" stroke-width="1.5" marker-start="url(#arr-dark)" marker-end="url(#arr-dark)"/>
+  <line x1="300" y1="375" x2="450" y2="375" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="300" y1="465" x2="430" y2="465" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2,2"/>
+  <text x="302" y="424" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="end">f</text>
+
+  <!-- Зміщення x -->
+  <line x1="450" y1="492" x2="510" y2="492" stroke="#2457d6" stroke-width="1.5" marker-start="url(#arr-blue)" marker-end="url(#arr-blue)"/>
+  <line x1="450" y1="475" x2="450" y2="496" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="510" y1="475" x2="510" y2="496" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2,2"/>
+  <text x="480" y="487" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">зміщення x</text>
+
+  <!-- Напис PSD-детектор -->
+  <text x="480" y="509" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">PSD-детектор</text>
+
+  <!-- Підписи трикутників -->
+  <text x="270" y="300" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Δ 1 (D, L)</text>
+  <text x="462" y="438" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="start">Δ 2</text>
+
+
+  <!-- ПРАВА ЧАСТИНА: ПАНЕЛІ ТА ГРАФІК -->
+
+  <!-- Панель 1: Формула -->
+  <rect x="570" y="75" width="360" height="135" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <path d="M 570 83 C 570 78, 575 75, 580 75 L 920 75 C 925 75, 930 78, 930 83 L 930 107 L 570 107 Z" fill="#eaf0fd"/>
+  <text x="585" y="96" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="start">Математична модель триангуляції</text>
+  <text x="585" y="126" font-size="12" fill="#1a1a1a" text-anchor="start">З подібності трикутників  Δ1 ~ Δ2:</text>
+  <text x="585" y="146" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="start">x / f  =  L / D</text>
+  <rect x="585" y="156" width="330" height="42" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="750" y="182" font-size="16" font-weight="bold" fill="#2457d6" text-anchor="middle">D = ( L · f ) / x</text>
+
+  <!-- Панель 2: Параметри -->
+  <rect x="570" y="222" width="360" height="135" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <path d="M 570 230 C 570 225, 575 222, 580 222 L 920 222 C 925 222, 930 225, 930 230 L 930 254 L 570 254 Z" fill="#eaf0fd"/>
+  <text x="585" y="243" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="start">Параметри та позначення:</text>
+  <text x="585" y="269" font-size="12" fill="#1a1a1a" text-anchor="start">L — базова відстань (між осями)</text>
+  <text x="585" y="289" font-size="12" fill="#1a1a1a" text-anchor="start">f — фокусна відстань лінзи</text>
+  <text x="585" y="309" font-size="12" fill="#1a1a1a" text-anchor="start">D — відстань до об'єкта</text>
+  <text x="585" y="329" font-size="12" fill="#1a1a1a" text-anchor="start">x — зміщення плями на PSD</text>
+
+  <!-- Панель 3: Графік залежності x(D) -->
+  <rect x="570" y="369" width="360" height="146" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <path d="M 570 377 C 570 372, 575 369, 580 369 L 920 369 C 925 369, 930 372, 930 377 L 930 401 L 570 401 Z" fill="#eaf0fd"/>
+  <text x="585" y="390" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="start">Залежність x(D) та нелінійність:</text>
+
+  <!-- Графік гіперболи x = C/D -->
+  <!-- Осі координат -->
+  <line x1="635" y1="485" x2="905" y2="485" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+  <line x1="635" y1="485" x2="635" y2="412" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+  <text x="895" y="503" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="end">Відстань D</text>
+  <text x="625" y="418" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="end">x</text>
+
+  <!-- Крива x(D) -->
+  <path d="M 648 422 C 660 462, 710 475, 895 478" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+
+  <!-- Анотації до графіка -->
+  <text x="670" y="426" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="start">Мала відстань D</text>
+  <text x="670" y="440" font-size="12" fill="#27ae60" text-anchor="start">→ велике зміщення Δx</text>
+  <text x="730" y="462" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="start">Велика відстань D (мале Δx)</text>
+
+</svg>

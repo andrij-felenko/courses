@@ -1,0 +1,124 @@
+<svg width="960" height="560" viewBox="0 0 960 560" xmlns="http://www.w3.org/2000/svg" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="30" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Часова діаграма опитування AS5048 через SPI + DMA у циклі ШІМ</text>
+  <text x="480" y="52" text-anchor="middle" font-size="13" fill="#6b7280">Неблокувальний обмін через DMA звільняє CPU для обчислень FOC та оновлення ШІМ</text>
+
+  <!-- Головна панель діаграми -->
+  <rect x="20" y="70" width="920" height="475" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Розділювальна вертикальна лінія між назвами сигналів і часовою шкалою -->
+  <line x1="215" y1="75" x2="215" y2="500" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4 4"/>
+
+  <!-- Часові позначки зверху -->
+  <text x="280" y="90" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">t0: Тригер ШІМ</text>
+  <text x="460" y="90" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">t1: DMA TC (Дані)</text>
+  <text x="710" y="90" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">t2: Запис у ШІМ</text>
+  <text x="870" y="90" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">t3: Тригер N+1</text>
+
+  <!-- Підпис періоду ШІМ над стрілкою -->
+  <text x="575" y="106" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Період ШІМ N (T_PWM)</text>
+
+  <!-- Стрілка періоду ШІМ -->
+  <line x1="280" y1="118" x2="870" y2="118" stroke="#1a1a1a" stroke-width="1.5" marker-start="url(#arr)" marker-end="url(#arr)"/>
+
+  <!-- Вертикальні лінії часових засічок (Milestone grid lines) -->
+  <line x1="280" y1="124" x2="280" y2="500" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="6 4"/>
+  <line x1="460" y1="124" x2="460" y2="500" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="4 4"/>
+  <line x1="710" y1="124" x2="710" y2="500" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4 4"/>
+  <line x1="870" y1="124" x2="870" y2="500" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="6 4"/>
+
+  <!-- ================= РЯДОК 1: ШІМ Таймер ================= -->
+  <text x="35" y="148" font-size="13" font-weight="bold" fill="#1a1a1a">1. Лічильник ШІМ</text>
+  <text x="35" y="166" font-size="12" fill="#6b7280">(Центрований ШІМ)</text>
+
+  <!-- Центрований сигнал ШІМ -->
+  <path d="M 230 165 L 280 185 L 575 145 L 870 185 L 920 165" stroke="#1a1a1a" stroke-width="2" fill="none"/>
+  <circle cx="280" cy="185" r="4" fill="#2457d6"/>
+  <circle cx="870" cy="185" r="4" fill="#2457d6"/>
+  <text x="290" y="200" text-anchor="start" font-size="12" font-weight="bold" fill="#2457d6">Подія TRGO</text>
+  <text x="575" y="134" text-anchor="middle" font-size="12" fill="#6b7280">ARR (пік)</text>
+
+  <!-- ================= РЯДОК 2: Шина SPI ================= -->
+  <text x="35" y="228" font-size="13" font-weight="bold" fill="#1a1a1a">2. Шина SPI (AS5048)</text>
+  <text x="35" y="246" font-size="12" fill="#6b7280">(CS, SCLK, MOSI, MISO)</text>
+
+  <!-- Сигнал CS (Низький рівень під час передачі) -->
+  <path d="M 230 218 L 280 218 L 280 232 L 460 232 L 460 218 L 925 218" stroke="#c0392b" stroke-width="2" fill="none"/>
+  <text x="370" y="228" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">CS = LOW</text>
+
+  <!-- Кадр SPI SCLK -->
+  <rect x="285" y="240" width="170" height="26" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="370" y="257" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">16-біт кадр SPI (10 МГц)</text>
+  <text x="370" y="278" text-anchor="middle" font-size="12" fill="#6b7280">t_SPI ≈ 1.6 мкс (16 біт)</text>
+
+  <!-- ================= РЯДОК 3: Контролер DMA ================= -->
+  <text x="35" y="308" font-size="13" font-weight="bold" fill="#1a1a1a">3. Канал DMA SPI</text>
+  <text x="35" y="326" font-size="12" fill="#6b7280">(Фоновий передавач)</text>
+
+  <!-- Блок активності DMA -->
+  <rect x="285" y="296" width="170" height="34" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="370" y="311" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Прийом кута в RAM</text>
+  <text x="370" y="325" text-anchor="middle" font-size="12" fill="#27ae60">(без участі CPU)</text>
+
+  <!-- Позначка DMA TC -->
+  <line x1="460" y1="330" x2="460" y2="368" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <text x="468" y="354" text-anchor="start" font-size="12" font-weight="bold" fill="#27ae60">Подія DMA TC</text>
+
+  <!-- ================= РЯДОК 4: Ядро процесора ================= -->
+  <text x="35" y="388" font-size="13" font-weight="bold" fill="#1a1a1a">4. Ядро процесора</text>
+  <text x="35" y="406" font-size="12" fill="#6b7280">(Обчислення FOC)</text>
+
+  <!-- CPU вільний -->
+  <rect x="285" y="380" width="170" height="36" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-dasharray="4 3" stroke-width="1.5"/>
+  <text x="370" y="395" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">CPU вільний</text>
+  <text x="370" y="410" text-anchor="middle" font-size="12" fill="#27ae60">для інших задач</text>
+
+  <!-- Обчислення FOC -->
+  <rect x="465" y="380" width="240" height="36" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="585" y="395" text-anchor="middle" font-size="12" bold="bold" font-weight="bold" fill="#2457d6">Перетворення FOC (Кларк, Парк)</text>
+  <text x="585" y="410" text-anchor="middle" font-size="12" fill="#2457d6">θ_el = PP·(θ_mech - θ_0) + ПІД</text>
+
+  <!-- Фоновий цикл -->
+  <rect x="715" y="380" width="150" height="36" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="790" y="402" text-anchor="middle" font-size="12" fill="#6b7280">Фоновий цикл</text>
+
+  <!-- Стрілка передачі даних FOC у ШІМ -->
+  <line x1="710" y1="416" x2="710" y2="450" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="718" y="436" text-anchor="start" font-size="12" font-weight="bold" fill="#2457d6">Оновлення CCRx</text>
+
+  <!-- ================= РЯДОК 5: Тіньові регістри ШІМ ================= -->
+  <text x="35" y="468" font-size="13" font-weight="bold" fill="#1a1a1a">5. Регістри ШІМ</text>
+  <text x="35" y="486" font-size="12" fill="#6b7280">(Тіньова буферизація)</text>
+
+  <!-- Поточний коефіцієнт ШІМ N-1 -->
+  <rect x="285" y="458" width="420" height="34" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="495" y="479" text-anchor="middle" font-size="12" fill="#6b7280">Діє коефіцієнт заповнення ШІМ періоду N-1</text>
+
+  <!-- Тіньовий буфер CCRx -->
+  <rect x="715" y="458" width="150" height="34" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-dasharray="3 3" stroke-width="1.5"/>
+  <text x="790" y="472" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Запис нових CCRx</text>
+  <text x="790" y="485" text-anchor="middle" font-size="12" fill="#6b7280">(очікування reload)</text>
+
+  <!-- Новий ШІМ N -->
+  <rect x="875" y="458" width="50" height="34" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="900" y="479" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">ШІМ N</text>
+
+  <!-- ================= НИЖНЯ ПАНЕЛЬ ВИСНОВКУ ================= -->
+  <rect x="35" y="508" width="890" height="28" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="480" y="526" text-anchor="middle" font-size="12" fill="#1a1a1a">Ключовий принцип: DMA виключає затримку очікування SPI → FOC обчислює вектор за один період ШІМ без втрати часу CPU</text>
+</svg>

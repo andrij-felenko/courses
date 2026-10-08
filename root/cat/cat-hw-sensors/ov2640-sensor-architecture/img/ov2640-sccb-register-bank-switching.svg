@@ -1,0 +1,125 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 500" width="960" height="500" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="500" fill="white"/>
+
+  <defs>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Перемикання банків реєстрів OV2640 через шину SCCB</text>
+  <text x="480" y="54" font-size="13" text-anchor="middle" fill="#6b7280">Запис у реєстр 0xFF (0x00 / 0x01) вибирає адресаційний простір: DSP або Sensor Core</text>
+
+  <!-- Panel 1: Host MCU / SCCB -->
+  <rect x="25" y="85" width="220" height="385" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="135" y="112" font-size="14" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Хост-контролер (SCCB)</text>
+
+  <!-- Sub-box 1: Write Bank 0 -->
+  <rect x="40" y="130" width="190" height="90" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="135" y="152" font-size="13" font-weight="bold" text-anchor="middle" fill="#27ae60">Команда вибору Bank 0</text>
+  <text x="135" y="174" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">SCCB_Write(0xFF, 0x00)</text>
+  <text x="135" y="196" font-size="12" text-anchor="middle" fill="#27ae60">Активація DSP реєстрів</text>
+
+  <!-- Sub-box 2: Write Bank 1 -->
+  <rect x="40" y="240" width="190" height="90" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="135" y="262" font-size="13" font-weight="bold" text-anchor="middle" fill="#2457d6">Команда вибору Bank 1</text>
+  <text x="135" y="284" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">SCCB_Write(0xFF, 0x01)</text>
+  <text x="135" y="306" font-size="12" text-anchor="middle" fill="#2457d6">Активація Sensor Core</text>
+
+  <!-- Sub-box 3: Note -->
+  <rect x="40" y="350" width="190" height="105" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="135" y="372" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Особливості адресації</text>
+  <text x="135" y="392" font-size="12" text-anchor="middle" fill="#6b7280">Адреси 0x00...0xFE спільні</text>
+  <text x="135" y="412" font-size="12" text-anchor="middle" fill="#6b7280">для обох банків сенсора</text>
+  <text x="135" y="432" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">0xFF — перемикач банків</text>
+
+  <!-- Panel 2: Register 0xFF & Switch logic -->
+  <rect x="295" y="85" width="210" height="385" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="400" y="112" font-size="14" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Внутрішній реєстр 0xFF</text>
+
+  <!-- Sub-box 1 in Panel 2: Register Container -->
+  <rect x="305" y="130" width="190" height="95" rx="6" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="400" y="152" font-size="13" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Реєстр 0xFF (RA_DLC)</text>
+  <rect x="315" y="165" width="170" height="48" rx="4" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="400" y="184" font-size="12" text-anchor="middle" fill="#6b7280">Спільна адреса 0xFF</text>
+  <text x="400" y="202" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Значення: 0x00 / 0x01</text>
+
+  <!-- Internal Arrow Reg 0xFF -> Logic -->
+  <path d="M 400,225 V 240" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+
+  <!-- Sub-box 2 in Panel 2: Decoder Logic -->
+  <rect x="305" y="240" width="190" height="215" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="400" y="262" font-size="13" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Дешифратор адреси</text>
+
+  <!-- Switch Option 1 -->
+  <rect x="315" y="275" width="170" height="75" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="400" y="295" font-size="12" font-weight="bold" text-anchor="middle" fill="#27ae60">Якщо 0xFF == 0x00</text>
+  <text x="400" y="315" font-size="12" text-anchor="middle" fill="#1a1a1a">Доступ до реєстрів</text>
+  <text x="400" y="333" font-size="12" font-weight="bold" text-anchor="middle" fill="#27ae60">BANK 0 (DSP / ISP)</text>
+
+  <!-- Switch Option 2 -->
+  <rect x="315" y="360" width="170" height="75" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="400" y="380" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">Якщо 0xFF == 0x01</text>
+  <text x="400" y="400" font-size="12" text-anchor="middle" fill="#1a1a1a">Доступ до реєстрів</text>
+  <text x="400" y="418" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">BANK 1 (Sensor Core)</text>
+
+  <!-- Inter-panel connections: Host MCU -> Reg 0xFF -->
+  <path d="M 230,175 H 305" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="268" y="165" font-size="12" font-weight="bold" text-anchor="middle" fill="#27ae60">0x00</text>
+
+  <path d="M 230,285 H 280 V 195 H 305" stroke="#2457d6" stroke-width="2" fill="none" marker-end="url(#arr-blue)"/>
+  <text x="274" y="245" font-size="12" font-weight="bold" text-anchor="end" fill="#2457d6">0x01</text>
+
+  <!-- Panel 3: Bank 0 (DSP / ISP) -->
+  <rect x="545" y="85" width="390" height="185" rx="8" fill="#f4f6f8" stroke="#27ae60" stroke-width="2"/>
+  <text x="740" y="110" font-size="14" font-weight="bold" text-anchor="middle" fill="#27ae60">BANK 0 — Обробка зображення (DSP / ISP)</text>
+  <text x="740" y="128" font-size="12" text-anchor="middle" fill="#6b7280">Адреси 0x00...0xFE при 0xFF = 0x00</text>
+
+  <rect x="560" y="140" width="170" height="55" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="645" y="160" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Формати (IMAGE_MODE)</text>
+  <text x="645" y="180" font-size="12" text-anchor="middle" fill="#6b7280">YUV422, RGB565, JPEG</text>
+
+  <rect x="750" y="140" width="170" height="55" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="835" y="160" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Масштаб &amp; DVP (RESET)</text>
+  <text x="835" y="180" font-size="12" text-anchor="middle" fill="#6b7280">UXGA, SVGA, CIF, PCLK</text>
+
+  <rect x="560" y="203" width="170" height="55" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="645" y="223" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">JPEG компресор (QS)</text>
+  <text x="645" y="243" font-size="12" text-anchor="middle" fill="#6b7280">Якість, стиснення, FIFO</text>
+
+  <rect x="750" y="203" width="170" height="55" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="835" y="223" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Віконцевання (HSIZE)</text>
+  <text x="835" y="243" font-size="12" text-anchor="middle" fill="#6b7280">Контраст, насиченість</text>
+
+  <!-- Panel 4: Bank 1 (Sensor Core) -->
+  <rect x="545" y="285" width="390" height="185" rx="8" fill="#f4f6f8" stroke="#2457d6" stroke-width="2"/>
+  <text x="740" y="310" font-size="14" font-weight="bold" text-anchor="middle" fill="#2457d6">BANK 1 — Сенсорна матриця (Sensor Core)</text>
+  <text x="740" y="328" font-size="12" text-anchor="middle" fill="#6b7280">Адреси 0x00...0xFE при 0xFF = 0x01</text>
+
+  <rect x="560" y="340" width="170" height="55" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="645" y="360" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Автоекспозиція (AEC)</text>
+  <text x="645" y="380" font-size="12" text-anchor="middle" fill="#6b7280">AEC[15:0], час витримки</text>
+
+  <rect x="750" y="340" width="170" height="55" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="835" y="360" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Підсилення (AGC / GAIN)</text>
+  <text x="835" y="380" font-size="12" text-anchor="middle" fill="#6b7280">Аналогове підсилення</text>
+
+  <rect x="560" y="403" width="170" height="55" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="645" y="423" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Баланс білого (AWB)</text>
+  <text x="645" y="443" font-size="12" text-anchor="middle" fill="#6b7280">Підсилення R, G, B</text>
+
+  <rect x="750" y="403" width="170" height="55" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="835" y="423" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Тактування (CLKRC)</text>
+  <text x="835" y="443" font-size="12" text-anchor="middle" fill="#6b7280">PLL, дільники частоти</text>
+
+  <!-- Inter-panel connections: Decoder -> Bank 0 / Bank 1 -->
+  <path d="M 485,312 H 520 V 110 H 545" stroke="#27ae60" stroke-width="2" fill="none" marker-end="url(#arr-green)"/>
+  <path d="M 485,397 H 530 V 310 H 545" stroke="#2457d6" stroke-width="2" fill="none" marker-end="url(#arr-blue)"/>
+</svg>

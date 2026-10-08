@@ -1,0 +1,122 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 510" width="960" height="510" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-main" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="510" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="30" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Конвеєр обробки кадру OV2640: Windowing та Scaling</text>
+  <text x="480" y="52" text-anchor="middle" font-size="13" fill="#6b7280">Формування роздільної здатності кадру від піксельної матриці UXGA до виходу DVP</text>
+
+  <!-- Block 1: Pixel Array -->
+  <rect x="25" y="75" width="205" height="355" rx="8" ry="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="127" y="98" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">1. Матриця пікселів</text>
+  <text x="127" y="116" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">UXGA (1600 × 1200)</text>
+
+  <!-- Block 1 Graphic -->
+  <rect x="42" y="130" width="170" height="120" rx="6" ry="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="52" y="150" width="150" height="80" rx="4" ry="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="127" y="180" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">1600 × 1200</text>
+  <text x="127" y="202" text-anchor="middle" font-size="12" fill="#6b7280">Повний масив пікселів</text>
+
+  <!-- Block 1 Register Card -->
+  <rect x="35" y="262" width="185" height="156" rx="6" ry="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="45" y="284" text-anchor="start" font-size="12" font-weight="bold" fill="#1a1a1a">Джерело сирого кадру:</text>
+  <text x="45" y="304" text-anchor="start" font-size="12" fill="#1a1a1a">• Сенсорний масив</text>
+  <text x="45" y="324" text-anchor="start" font-size="12" fill="#1a1a1a">• RAW RGB (Bayer)</text>
+  <text x="45" y="350" text-anchor="start" font-size="12" font-weight="bold" fill="#2457d6">Реєстровий банк:</text>
+  <text x="45" y="370" text-anchor="start" font-size="12" font-weight="bold" fill="#2457d6">BANK 1 (SENSOR: 0x01)</text>
+  <text x="45" y="396" text-anchor="start" font-size="12" fill="#6b7280">Основа геометрії сенсора</text>
+
+  <!-- Connector 1 -> 2 -->
+  <line x1="230" y1="190" x2="258" y2="190" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-main)"/>
+  <text x="244" y="176" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">RAW</text>
+
+  <!-- Block 2: Windowing -->
+  <rect x="260" y="75" width="205" height="355" rx="8" ry="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="362" y="98" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">2. Кадрування (Window)</text>
+  <text x="362" y="116" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Виділення області (Crop)</text>
+
+  <!-- Block 2 Graphic -->
+  <rect x="277" y="130" width="170" height="120" rx="6" ry="6" fill="#ffffff" stroke="#9ca3af" stroke-width="1.5" stroke-dasharray="4 3"/>
+  <rect x="292" y="145" width="140" height="90" rx="4" ry="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="362" y="182" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">ROI: H_SIZE × V_SIZE</text>
+  <text x="362" y="204" text-anchor="middle" font-size="12" fill="#1a1a1a">1600×1200 → 800×600</text>
+
+  <!-- Block 2 Register Card -->
+  <rect x="270" y="262" width="185" height="156" rx="6" ry="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="280" y="282" text-anchor="start" font-size="12" font-weight="bold" fill="#1a1a1a">Реєстри Windowing:</text>
+  <text x="280" y="301" text-anchor="start" font-size="12" fill="#1a1a1a">• HSTART / HSTOP</text>
+  <text x="280" y="320" text-anchor="start" font-size="12" fill="#1a1a1a">• VSTART / VSTOP</text>
+  <text x="280" y="339" text-anchor="start" font-size="12" fill="#1a1a1a">• H_SIZE / V_SIZE</text>
+  <text x="280" y="358" text-anchor="start" font-size="12" fill="#1a1a1a">• X_OFF / Y_OFF</text>
+  <text x="280" y="390" text-anchor="start" font-size="12" fill="#6b7280">Обрізання країв кадру</text>
+
+  <!-- Connector 2 -> 3 -->
+  <line x1="465" y1="190" x2="493" y2="190" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-main)"/>
+  <text x="479" y="176" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">ROI</text>
+
+  <!-- Block 3: Scaling -->
+  <rect x="495" y="75" width="205" height="355" rx="8" ry="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="597" y="98" text-anchor="middle" font-size="13.5" font-weight="bold" fill="#1a1a1a">3. Масштабування (Scaling)</text>
+  <text x="597" y="116" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Зміна розміру (DSP Zoom)</text>
+
+  <!-- Block 3 Graphic -->
+  <rect x="512" y="130" width="171" height="120" rx="6" ry="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="520" y="142" width="58" height="42" rx="4" ry="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="549" y="167" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">ROI</text>
+  <line x1="583" y1="163" x2="611" y2="163" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+  <text x="597" y="152" text-anchor="middle" font-size="12" font-weight="bold" fill="#6b7280">Zoom</text>
+  <rect x="616" y="145" width="58" height="36" rx="4" ry="4" fill="#2457d6" fill-opacity="0.15" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="645" y="167" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">OUT</text>
+  <text x="597" y="208" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Масштаб: SVGA/VGA/QVGA</text>
+  <text x="597" y="230" text-anchor="middle" font-size="12" fill="#6b7280">800×600 → 640×480</text>
+
+  <!-- Block 3 Register Card -->
+  <rect x="505" y="262" width="185" height="156" rx="6" ry="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="515" y="282" text-anchor="start" font-size="12" font-weight="bold" fill="#1a1a1a">Реєстри Scaling (DSP):</text>
+  <text x="515" y="301" text-anchor="start" font-size="12" fill="#1a1a1a">• ZMOW (Output Width)</text>
+  <text x="515" y="320" text-anchor="start" font-size="12" fill="#1a1a1a">• ZMOH (Output Height)</text>
+  <text x="515" y="339" text-anchor="start" font-size="12" fill="#1a1a1a">• ZMSS / QS (Zoom &amp; Q)</text>
+  <text x="515" y="365" text-anchor="start" font-size="12" font-weight="bold" fill="#2457d6">Банк: DSP (0x00)</text>
+  <text x="515" y="390" text-anchor="start" font-size="12" fill="#6b7280">Пропорційне стиснення</text>
+
+  <!-- Connector 3 -> 4 -->
+  <line x1="700" y1="190" x2="728" y2="190" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-main)"/>
+  <text x="714" y="176" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">DSP</text>
+
+  <!-- Block 4: Output Interface -->
+  <rect x="730" y="75" width="205" height="355" rx="8" ry="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="832" y="98" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">4. Вихідний інтерфейс</text>
+  <text x="832" y="116" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Форматування &amp; JPEG</text>
+
+  <!-- Block 4 Graphic -->
+  <rect x="747" y="130" width="170" height="52" rx="4" ry="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="832" y="149" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Нестиснуті формати</text>
+  <text x="832" y="167" text-anchor="middle" font-size="12" fill="#6b7280">YUV422 / RGB565 / RAW</text>
+
+  <rect x="747" y="190" width="170" height="58" rx="4" ry="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="832" y="210" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">JPEG Компресор</text>
+  <text x="832" y="228" text-anchor="middle" font-size="12" fill="#1a1a1a">Стиснення &amp; Q-Scale</text>
+
+  <!-- Block 4 Register Card -->
+  <rect x="740" y="262" width="185" height="156" rx="6" ry="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="750" y="282" text-anchor="start" font-size="12" font-weight="bold" fill="#1a1a1a">Конфігурація виходу:</text>
+  <text x="750" y="301" text-anchor="start" font-size="12" fill="#1a1a1a">• Реєстр IMAGE_MODE</text>
+  <text x="750" y="320" text-anchor="start" font-size="12" fill="#1a1a1a">• Вихідний кадр FIFO</text>
+  <text x="750" y="345" text-anchor="start" font-size="12" font-weight="bold" fill="#27ae60">Шина сигналів DVP:</text>
+  <text x="750" y="365" text-anchor="start" font-size="12" fill="#1a1a1a">• Дані: Y[9:0]</text>
+  <text x="750" y="384" text-anchor="start" font-size="12" fill="#1a1a1a">• PCLK, HREF, VSYNC</text>
+
+  <!-- Bottom Panel -->
+  <rect x="25" y="442" width="910" height="50" rx="6" ry="6" fill="#eaf0fd" stroke="#d0d7de" stroke-width="1"/>
+  <text x="480" y="462" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Логіка конвеєра: Windowing виділяє кадрове вікно (ROI), а Scaling змінює підсумковий масштаб кадру.</text>
+  <text x="480" y="481" text-anchor="middle" font-size="12" fill="#6b7280">Перемикання між банками SENSOR (0x01) та DSP (0x00) виконується через реєстр 0xFF по шині SCCB</text>
+</svg>

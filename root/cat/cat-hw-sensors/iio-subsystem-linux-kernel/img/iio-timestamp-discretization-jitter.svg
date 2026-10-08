@@ -1,0 +1,158 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- White Background -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Definitions -->
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-blue-start" markerWidth="9" markerHeight="9" refX="0.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-red-start" markerWidth="9" markerHeight="9" refX="0.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Header -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Дискретизація часових міток та джитер у підсистемі Linux IIO</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Відхилення реальних моментів збору вибірок t_k від ідеальної сітки T_ideal через затримки переривань</text>
+
+  <!-- Main Timing Container -->
+  <rect x="30" y="75" width="900" height="270" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Vertical Grid Lines (Ideal Sampling Instances) -->
+  <line x1="280" y1="85" x2="280" y2="330" stroke="#2457d6" stroke-width="1" stroke-dasharray="4,4" stroke-opacity="0.4"/>
+  <line x1="440" y1="85" x2="440" y2="330" stroke="#2457d6" stroke-width="1" stroke-dasharray="4,4" stroke-opacity="0.4"/>
+  <line x1="600" y1="85" x2="600" y2="330" stroke="#2457d6" stroke-width="1" stroke-dasharray="4,4" stroke-opacity="0.4"/>
+  <line x1="760" y1="85" x2="760" y2="330" stroke="#2457d6" stroke-width="1" stroke-dasharray="4,4" stroke-opacity="0.4"/>
+
+  <!-- SECTION 1: IDEAL TIMER GRID (Y Baseline = 130) -->
+  <text x="45" y="125" font-size="13" font-weight="bold" fill="#2457d6">Ідеальна сітка T_ideal</text>
+  <text x="45" y="142" font-size="12" fill="#6b7280">Теоретичний крок таймера</text>
+
+  <!-- Dimension Arrows for T_ideal -->
+  <line x1="285" y1="102" x2="435" y2="102" stroke="#2457d6" stroke-width="1.5" marker-start="url(#arr-blue-start)" marker-end="url(#arr-blue)"/>
+  <text x="360" y="96" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">T_ideal = 10 мс</text>
+
+  <line x1="445" y1="102" x2="595" y2="102" stroke="#2457d6" stroke-width="1.5" marker-start="url(#arr-blue-start)" marker-end="url(#arr-blue)"/>
+  <text x="520" y="96" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">T_ideal = 10 мс</text>
+
+  <line x1="605" y1="102" x2="755" y2="102" stroke="#2457d6" stroke-width="1.5" marker-start="url(#arr-blue-start)" marker-end="url(#arr-blue)"/>
+  <text x="680" y="96" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">T_ideal = 10 мс</text>
+
+  <!-- Baseline 1 -->
+  <line x1="250" y1="130" x2="870" y2="130" stroke="#2457d6" stroke-width="2"/>
+
+  <!-- Ticks for Row 1 -->
+  <line x1="280" y1="122" x2="280" y2="138" stroke="#2457d6" stroke-width="2"/>
+  <line x1="440" y1="122" x2="440" y2="138" stroke="#2457d6" stroke-width="2"/>
+  <line x1="600" y1="122" x2="600" y2="138" stroke="#2457d6" stroke-width="2"/>
+  <line x1="760" y1="122" x2="760" y2="138" stroke="#2457d6" stroke-width="2"/>
+
+  <!-- Ticks Labels -->
+  <text x="280" y="148" font-size="12" fill="#2457d6" text-anchor="middle">t_0 (0 мс)</text>
+  <text x="440" y="148" font-size="12" fill="#2457d6" text-anchor="middle">t_1 (10 мс)</text>
+  <text x="600" y="148" font-size="12" fill="#2457d6" text-anchor="middle">t_2 (20 мс)</text>
+  <text x="760" y="148" font-size="12" fill="#2457d6" text-anchor="middle">t_3 (30 мс)</text>
+
+
+  <!-- SECTION 2: HARDWARE DRDY INTERRUPT SIGNAL (Y Baseline = 200) -->
+  <text x="45" y="195" font-size="13" font-weight="bold" fill="#6b7280">Сигнал DRDY давача</text>
+  <text x="45" y="212" font-size="12" fill="#6b7280">Апаратний імпульс готовності</text>
+
+  <!-- Baseline 2 -->
+  <line x1="250" y1="200" x2="870" y2="200" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- DRDY Pulses -->
+  <path d="M 250,200 L 280,200 L 280,180 L 292,180 L 292,200 L 446,200 L 446,180 L 458,180 L 458,200 L 595,200 L 595,180 L 607,180 L 607,200 L 772,200 L 772,180 L 784,180 L 784,200 L 870,200" fill="none" stroke="#6b7280" stroke-width="1.5"/>
+
+  <!-- DRDY Pulse Labels -->
+  <text x="286" y="174" font-size="12" fill="#6b7280" text-anchor="middle">DRDY 0</text>
+  <text x="452" y="174" font-size="12" fill="#6b7280" text-anchor="middle">DRDY 1</text>
+  <text x="601" y="174" font-size="12" fill="#6b7280" text-anchor="middle">DRDY 2</text>
+  <text x="778" y="174" font-size="12" fill="#6b7280" text-anchor="middle">DRDY 3</text>
+
+
+  <!-- SECTION 3: KERNEL IIO TIMESTAMPS t_k (Y Baseline = 270) -->
+  <text x="45" y="265" font-size="13" font-weight="bold" fill="#1a1a1a">Мітки часу IIO t_k</text>
+  <text x="45" y="282" font-size="12" fill="#6b7280">Фіксація ktime в обробнику</text>
+
+  <!-- Baseline 3 -->
+  <line x1="250" y1="270" x2="870" y2="270" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Jitter Highlight Boxes -->
+  <rect x="440" y="256" width="25" height="28" fill="#fdecea" stroke="#c0392b" stroke-dasharray="3,3" rx="3"/>
+  <text x="452.5" y="248" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">+1.6 мс</text>
+
+  <rect x="590" y="256" width="10" height="28" fill="#fdecea" stroke="#c0392b" stroke-dasharray="3,3" rx="3"/>
+  <text x="595" y="248" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">-0.6 мс</text>
+
+  <rect x="760" y="256" width="30" height="28" fill="#fdecea" stroke="#c0392b" stroke-dasharray="3,3" rx="3"/>
+  <text x="775" y="248" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">+2.0 мс</text>
+
+  <!-- Timestamp Point Circles & Vertical Stem Lines -->
+  <!-- Point 0 (x=280) -->
+  <line x1="280" y1="262" x2="280" y2="278" stroke="#27ae60" stroke-width="2"/>
+  <circle cx="280" cy="270" r="5" fill="#27ae60"/>
+  <text x="280" y="294" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">t_0 = 0.00 мс</text>
+
+  <!-- Point 1 (x=465) -->
+  <line x1="465" y1="262" x2="465" y2="278" stroke="#c0392b" stroke-width="2"/>
+  <circle cx="465" cy="270" r="5" fill="#c0392b"/>
+  <text x="465" y="294" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">t_1 = 11.60 мс</text>
+
+  <!-- Point 2 (x=590) -->
+  <line x1="590" y1="262" x2="590" y2="278" stroke="#c0392b" stroke-width="2"/>
+  <circle cx="590" cy="270" r="5" fill="#c0392b"/>
+  <text x="590" y="294" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">t_2 = 19.40 мс</text>
+
+  <!-- Point 3 (x=790) -->
+  <line x1="790" y1="262" x2="790" y2="278" stroke="#c0392b" stroke-width="2"/>
+  <circle cx="790" cy="270" r="5" fill="#c0392b"/>
+  <text x="790" y="294" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">t_3 = 32.00 мс</text>
+
+  <!-- Measured Intervals Delta t_k (at Y=322) -->
+  <line x1="285" y1="322" x2="460" y2="322" stroke="#c0392b" stroke-width="1.5" marker-start="url(#arr-red-start)" marker-end="url(#arr-red)"/>
+  <text x="372.5" y="335" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Δt_1 = 11.60 мс</text>
+
+  <line x1="470" y1="322" x2="585" y2="322" stroke="#c0392b" stroke-width="1.5" marker-start="url(#arr-red-start)" marker-end="url(#arr-red)"/>
+  <text x="527.5" y="335" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Δt_2 = 7.80 мс</text>
+
+  <line x1="595" y1="322" x2="785" y2="322" stroke="#c0392b" stroke-width="1.5" marker-start="url(#arr-red-start)" marker-end="url(#arr-red)"/>
+  <text x="690" y="335" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Δt_3 = 12.60 мс</text>
+
+
+  <!-- LOWER CARDS CONTAINER (y: 360..495) -->
+
+  <!-- Card 1: Джерела джитера -->
+  <rect x="30" y="360" width="286" height="135" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="45" y="380" font-size="13" font-weight="bold" fill="#2457d6">1. Джерела джитерів у ядрі</text>
+  <text x="45" y="402" font-size="12" fill="#1a1a1a">• IRQ Latency: затримка обробника</text>
+  <text x="45" y="422" font-size="12" fill="#1a1a1a">• Scheduling: затримка тредів ядра</text>
+  <text x="45" y="442" font-size="12" fill="#1a1a1a">• Clock resolution: дискретність ns</text>
+  <text x="45" y="466" font-size="12" font-weight="bold" fill="#2457d6">Формула: t_k = t_ideal + δ_irq + δ_clk</text>
+
+  <!-- Card 2: Наслідки для обчислень -->
+  <rect x="336" y="360" width="286" height="135" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="351" y="380" font-size="13" font-weight="bold" fill="#c0392b">2. Похибка дискретизації</text>
+  <text x="351" y="402" font-size="12" fill="#1a1a1a">• Непостійний крок Δt_k = t_k - t_k-1</text>
+  <text x="351" y="422" font-size="12" fill="#1a1a1a">• Похибка чисельного інтегрування</text>
+  <text x="351" y="442" font-size="12" fill="#1a1a1a">• Спектральний шум у ДПФ / FFT</text>
+  <text x="351" y="466" font-size="12" font-weight="bold" fill="#c0392b">Вимога: фіксувати t_k у ns (64-bit)</text>
+
+  <!-- Card 3: Рішення в IIO -->
+  <rect x="644" y="360" width="286" height="135" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="659" y="380" font-size="13" font-weight="bold" fill="#27ae60">3. Точність та масштабування</text>
+  <text x="659" y="402" font-size="12" fill="#1a1a1a">• ktime_get_boottime_ns() в IRQ</text>
+  <text x="659" y="422" font-size="12" fill="#1a1a1a">• Кільцевий буфер IIO (ring buffer)</text>
+  <text x="659" y="442" font-size="12" fill="#1a1a1a">• val = (raw + offset) × scale</text>
+  <text x="659" y="466" font-size="12" font-weight="bold" fill="#27ae60">Формат: IIO_VAL_INT_PLUS_NANO</text>
+</svg>

@@ -1,0 +1,117 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 510" width="960" height="510" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="510" fill="white"/>
+
+  <!-- Header -->
+  <text x="480" y="24" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Потік даних апаратного JPEG-кодера OV3640</text>
+  <text x="480" y="46" font-size="13" fill="#6b7280" text-anchor="middle">Формування стисненого потоку змінної довжини з маркерами SOI/EOI замість фіксованого кадру YUV</text>
+
+  <!-- Section 1: Hardware Pipeline Blocks -->
+  <!-- Block 1: Pixel Array -->
+  <rect x="35" y="75" width="180" height="90" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="6"/>
+  <text x="125" y="100" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Матриця пікселів</text>
+  <text x="125" y="122" font-size="12" fill="#6b7280" text-anchor="middle">2048 × 1536 (UXGA)</text>
+  <text x="125" y="144" font-size="12" fill="#2457d6" text-anchor="middle">Raw RGB (Bayer)</text>
+
+  <!-- Arrow 1 -> 2 -->
+  <line x1="215" y1="120" x2="255" y2="120" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Block 2: ISP Module -->
+  <rect x="255" y="75" width="200" height="90" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="6"/>
+  <text x="355" y="100" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Модуль ISP</text>
+  <text x="355" y="122" font-size="12" fill="#6b7280" text-anchor="middle">Обробка та гамма</text>
+  <text x="355" y="144" font-size="12" fill="#1a1a1a" text-anchor="middle">Формування YUV422</text>
+
+  <!-- Arrow 2 -> 3 -->
+  <line x1="455" y1="120" x2="495" y2="120" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="475" y="110" font-size="12" fill="#6b7280" text-anchor="middle">YUV</text>
+
+  <!-- Block 3: JPEG Encoder -->
+  <rect x="495" y="75" width="210" height="90" fill="#eaf0fd" stroke="#2457d6" stroke-width="2" rx="6"/>
+  <text x="600" y="100" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">JPEG-кодер</text>
+  <text x="600" y="122" font-size="12" fill="#1a1a1a" text-anchor="middle">DCT + Квантування</text>
+  <text x="600" y="144" font-size="12" fill="#1a1a1a" text-anchor="middle">Кодування Гаффмана</text>
+
+  <!-- Arrow 3 -> 4 -->
+  <line x1="705" y1="120" x2="745" y2="120" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="725" y="110" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">JPEG</text>
+
+  <!-- Block 4: DVP Interface -->
+  <rect x="745" y="75" width="180" height="90" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="6"/>
+  <text x="835" y="100" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Інтерфейс DVP</text>
+  <text x="835" y="122" font-size="12" fill="#6b7280" text-anchor="middle">Шина Y[9:2]</text>
+  <text x="835" y="144" font-size="12" fill="#6b7280" text-anchor="middle">PCLK, HREF, VSYNC</text>
+
+  <!-- Section 2: Comparative Memory Buffer Formats -->
+
+  <!-- Panel A: YUV422 Format -->
+  <rect x="35" y="190" width="890" height="105" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="8"/>
+  <text x="50" y="212" font-size="13" font-weight="bold" fill="#1a1a1a">А. Режим YUV422: Фіксований розмір кадру у пам'яті (N = W × H × 2 байт)</text>
+
+  <!-- Buffer A Grid -->
+  <rect x="50" y="224" width="860" height="36" fill="white" stroke="#d0d7de" rx="4"/>
+  <rect x="50" y="224" width="170" height="36" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="135" y="246" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Y0 | U0 | Y1 | V0</text>
+
+  <rect x="220" y="224" width="170" height="36" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="305" y="246" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Y2 | U2 | Y3 | V2</text>
+
+  <rect x="390" y="224" width="350" height="36" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="565" y="246" font-size="12" fill="#6b7280" text-anchor="middle">... Нестиснені дані пікселів кадру ...</text>
+
+  <rect x="740" y="224" width="170" height="36" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="825" y="246" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">YN-2 | UN-2 | YN-1 | VN-2</text>
+
+  <text x="480" y="282" font-size="12" fill="#6b7280" text-anchor="middle">Розмір кадру завжди сталий. Потрібний обсяг буфера SRAM обчислюється точно до прийому даних.</text>
+
+  <!-- Panel B: JPEG Format -->
+  <rect x="35" y="315" width="890" height="170" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="8"/>
+  <text x="50" y="336" font-size="13" font-weight="bold" fill="#2457d6">Б. Режим JPEG: Змінна довжина потоку з маркерами кадру</text>
+  <text x="910" y="336" font-size="12" fill="#6b7280" text-anchor="end">Шина DVP висилає потік побайтово</text>
+
+  <!-- Buffer B Grid -->
+  <rect x="50" y="348" width="860" height="42" fill="white" stroke="#d0d7de" rx="4"/>
+
+  <!-- Marker SOI -->
+  <rect x="50" y="348" width="80" height="42" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <text x="90" y="365" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">SOI</text>
+  <text x="90" y="382" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">0xFFD8</text>
+
+  <!-- Headers -->
+  <rect x="130" y="348" width="140" height="42" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="200" y="365" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Заголовки JPEG</text>
+  <text x="200" y="382" font-size="12" fill="#6b7280" text-anchor="middle">DQT / DHT / SOF0</text>
+
+  <!-- Payload -->
+  <rect x="270" y="348" width="360" height="42" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="450" y="365" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Стиснені дані зображення (Payload)</text>
+  <text x="450" y="382" font-size="12" fill="#6b7280" text-anchor="middle">Обсяг залежить від складності кадру</text>
+
+  <!-- Marker EOI -->
+  <rect x="630" y="348" width="80" height="42" fill="#fdecea" stroke="#c0392b" stroke-width="2"/>
+  <text x="670" y="365" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">EOI</text>
+  <text x="670" y="382" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">0xFFD9</text>
+
+  <!-- Unused Buffer -->
+  <rect x="710" y="348" width="200" height="42" fill="#ffffff" stroke="#d0d7de" stroke-dasharray="4 4" stroke-width="1.5"/>
+  <text x="810" y="365" font-size="12" fill="#6b7280" text-anchor="middle">Вільне тло буфера</text>
+  <text x="810" y="382" font-size="12" fill="#6b7280" text-anchor="middle">(Резервна пам'ять)</text>
+
+  <!-- Dimension line for L_JPEG -->
+  <line x1="50" y1="412" x2="710" y2="412" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="50" y1="405" x2="50" y2="419" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="710" y1="405" x2="710" y2="419" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="380" y="434" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Дійсна довжина JPEG-файлу = L_JPEG (від SOI 0xFFD8 до EOI 0xFFD9)</text>
+
+  <!-- Warning note -->
+  <text x="480" y="466" font-size="12" fill="#c0392b" text-anchor="middle">Примітка: При перевищенні L_JPEG розрахованого буфера хоста відбувається переповнення SRAM.</text>
+</svg>

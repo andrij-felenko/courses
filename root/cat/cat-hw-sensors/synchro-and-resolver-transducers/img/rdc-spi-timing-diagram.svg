@@ -1,0 +1,152 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-main" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-main-rev" markerWidth="8" markerHeight="8" refX="1" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M7,1 L0,4 L7,7 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-blue-rev" markerWidth="8" markerHeight="8" refX="1" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M7,1 L0,4 L7,7 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-red-rev" markerWidth="8" markerHeight="8" refX="1" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M7,1 L0,4 L7,7 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Title block -->
+  <text x="480" y="30" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Часова діаграма SPI-інтерфейсу RDC (Resolver-to-Digital Converter)</text>
+  <text x="480" y="50" font-size="13" fill="#6b7280" text-anchor="middle">Захоплення кута стробом SAMPLE, затримки регістрів та передача кадру за сигналами CS, SCLK, SDIO</text>
+
+  <!-- Main diagram panel -->
+  <rect x="20" y="65" width="920" height="345" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Dashed vertical timing guides -->
+  <line x1="210" y1="85" x2="210" y2="395" stroke="#9ca3af" stroke-width="1.2" stroke-dasharray="3,3"/>
+  <line x1="290" y1="85" x2="290" y2="395" stroke="#9ca3af" stroke-width="1.2" stroke-dasharray="3,3"/>
+  <line x1="330" y1="85" x2="330" y2="395" stroke="#9ca3af" stroke-width="1.2" stroke-dasharray="3,3"/>
+  <line x1="365" y1="320" x2="365" y2="395" stroke="#c0392b" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="400" y1="200" x2="400" y2="395" stroke="#9ca3af" stroke-width="1.2" stroke-dasharray="3,3"/>
+  <line x1="450" y1="240" x2="450" y2="395" stroke="#9ca3af" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="820" y1="160" x2="820" y2="395" stroke="#9ca3af" stroke-width="1.2" stroke-dasharray="3,3"/>
+
+  <!-- Signal 1: SAMPLE -->
+  <rect x="35" y="85" width="125" height="44" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="97" y="103" font-size="13" font-weight="700" fill="#2457d6" text-anchor="middle">SAMPLE</text>
+  <text x="97" y="120" font-size="11" fill="#6b7280" text-anchor="middle">Строб фіксації</text>
+
+  <path d="M 175,95 L 210,95 L 210,125 L 290,125 L 290,95 L 925,95" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+
+  <!-- Signal 2: CS -->
+  <rect x="35" y="165" width="125" height="44" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="97" y="183" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">CS</text>
+  <text x="97" y="200" font-size="11" fill="#6b7280" text-anchor="middle">Вибір мікросхеми</text>
+
+  <path d="M 175,175 L 330,175 L 330,205 L 820,205 L 820,175 L 925,175" fill="none" stroke="#1a1a1a" stroke-width="2.5"/>
+
+  <!-- Signal 3: SCLK -->
+  <rect x="35" y="245" width="125" height="44" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="97" y="263" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">SCLK</text>
+  <text x="97" y="280" font-size="11" fill="#6b7280" text-anchor="middle">Тактова шина SPI</text>
+
+  <path d="M 175,255 L 400,255 L 400,285 L 425,285 L 425,255 L 450,255 L 450,285 L 475,285 L 475,255 L 500,255 L 500,285 L 525,285 L 525,255 L 550,255 L 550,285 L 575,285 L 575,255 L 600,255" fill="none" stroke="#1a1a1a" stroke-width="2.5"/>
+  <text x="625" y="273" font-size="14" font-weight="700" fill="#6b7280" text-anchor="middle">&#8226;&#8226;&#8226;</text>
+  <path d="M 650,255 L 670,255 L 670,285 L 695,285 L 695,255 L 720,255 L 720,285 L 745,285 L 745,255 L 770,255 L 925,255" fill="none" stroke="#1a1a1a" stroke-width="2.5"/>
+
+  <!-- Signal 4: SDIO -->
+  <rect x="35" y="325" width="125" height="52" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="97" y="345" font-size="13" font-weight="700" fill="#27ae60" text-anchor="middle">SDIO / SDO</text>
+  <text x="97" y="362" font-size="11" fill="#6b7280" text-anchor="middle">Вихід даних RDC</text>
+
+  <!-- High-Z lines -->
+  <line x1="175" y1="355" x2="350" y2="355" stroke="#9ca3af" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <text x="260" y="350" font-size="11" fill="#6b7280" text-anchor="middle">High-Z (високоімпедансний стан)</text>
+  <line x1="835" y1="355" x2="925" y2="355" stroke="#9ca3af" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <text x="875" y="350" font-size="11" fill="#6b7280" text-anchor="middle">High-Z</text>
+
+  <!-- SDIO Data Frame Cells -->
+  <!-- Cell 1: FAULT -->
+  <polygon points="350,355 365,340 425,340 425,370 365,370" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="397" y="359" font-size="11" font-weight="700" fill="#c0392b" text-anchor="middle">FAULT</text>
+
+  <!-- Cell 2: DB15 (MSB) -->
+  <polygon points="425,340 475,340 475,370 425,370" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="450" y="359" font-size="11" font-weight="700" fill="#27ae60" text-anchor="middle">DB15</text>
+
+  <!-- Cell 3: DB14 -->
+  <polygon points="475,340 525,340 525,370 475,370" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="500" y="359" font-size="11" fill="#1a1a1a" text-anchor="middle">DB14</text>
+
+  <!-- Cell 4: DB13 -->
+  <polygon points="525,340 575,340 575,370 525,370" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="550" y="359" font-size="11" fill="#1a1a1a" text-anchor="middle">DB13</text>
+
+  <!-- Cell 5: Middle Data Range -->
+  <polygon points="575,340 665,340 665,370 575,370" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="620" y="359" font-size="11" fill="#6b7280" text-anchor="middle">Дані кута &#952;</text>
+
+  <!-- Cell 6: DB1 -->
+  <polygon points="665,340 715,340 715,370 665,370" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="690" y="359" font-size="11" fill="#1a1a1a" text-anchor="middle">DB1</text>
+
+  <!-- Cell 7: DB0 (LSB) -->
+  <polygon points="715,340 765,340 765,370 715,370" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="740" y="359" font-size="11" font-weight="700" fill="#27ae60" text-anchor="middle">DB0</text>
+
+  <!-- Cell 8: PAR -->
+  <polygon points="765,340 820,340 835,355 820,370 765,370" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="792" y="359" font-size="11" font-weight="700" fill="#2457d6" text-anchor="middle">PAR</text>
+
+  <!-- TIMING MEASUREMENT ARROWS & LABELS -->
+
+  <!-- t_delay arrow (top) -->
+  <line x1="215" y1="80" x2="325" y2="80" stroke="#1a1a1a" stroke-width="1.5" marker-start="url(#arr-main-rev)" marker-end="url(#arr-main)"/>
+  <text x="270" y="76" font-size="11" font-weight="700" fill="#1a1a1a" text-anchor="middle">t_delay (затримка регістру)</text>
+
+  <!-- t_SAMPLE arrow (inside SAMPLE low) -->
+  <line x1="215" y1="138" x2="285" y2="138" stroke="#2457d6" stroke-width="1.5" marker-start="url(#arr-blue-rev)" marker-end="url(#arr-blue)"/>
+  <text x="250" y="152" font-size="11" font-weight="700" fill="#2457d6" text-anchor="middle">t_SAMPLE</text>
+
+  <!-- t_CS_setup arrow -->
+  <line x1="335" y1="225" x2="395" y2="225" stroke="#2457d6" stroke-width="1.5" marker-start="url(#arr-blue-rev)" marker-end="url(#arr-blue)"/>
+  <text x="365" y="220" font-size="11" font-weight="700" fill="#2457d6" text-anchor="middle">t_CS_setup</text>
+
+  <!-- t_access arrow -->
+  <line x1="333" y1="326" x2="362" y2="326" stroke="#c0392b" stroke-width="1.5" marker-start="url(#arr-red-rev)" marker-end="url(#arr-red)"/>
+  <text x="347" y="320" font-size="10" font-weight="700" fill="#c0392b" text-anchor="middle">t_access</text>
+
+  <!-- T_SCLK arrow -->
+  <line x1="405" y1="300" x2="445" y2="300" stroke="#1a1a1a" stroke-width="1.5" marker-start="url(#arr-main-rev)" marker-end="url(#arr-main)"/>
+  <text x="425" y="312" font-size="10" font-weight="700" fill="#1a1a1a" text-anchor="middle">T_SCLK</text>
+
+  <!-- t_quiet arrow -->
+  <line x1="825" y1="225" x2="915" y2="225" stroke="#1a1a1a" stroke-width="1.5" marker-start="url(#arr-main-rev)" marker-end="url(#arr-main)"/>
+  <text x="870" y="220" font-size="11" fill="#6b7280" text-anchor="middle">t_quiet (пауза)</text>
+
+  <!-- Bottom Explanatory Panel -->
+  <rect x="20" y="425" width="920" height="80" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Note 1 -->
+  <text x="40" y="446" font-size="13" font-weight="700" fill="#2457d6">1. Фіксація даних (SAMPLE)</text>
+  <text x="40" y="466" font-size="12" fill="#1a1a1a">Спад SAMPLE фіксує кут &#952; у внутрішньому</text>
+  <text x="40" y="484" font-size="12" fill="#6b7280">регістрі RDC. Необхідна затримка t_delay.</text>
+
+  <!-- Note 2 -->
+  <text x="345" y="446" font-size="13" font-weight="700" fill="#27ae60">2. Формат кадру SDIO</text>
+  <text x="345" y="466" font-size="12" fill="#1a1a1a">Кадр містить: FAULT/DOS (діагностика),</text>
+  <text x="345" y="484" font-size="12" fill="#6b7280">біти кута DB15..DB0 та біт паритету PAR.</text>
+
+  <!-- Note 3 -->
+  <text x="655" y="446" font-size="13" font-weight="700" fill="#c0392b">3. Критичні таймінги</text>
+  <text x="655" y="466" font-size="12" fill="#1a1a1a">t_CS_setup &#8805; 50 нс, f_SCLK &#8804; 10-25 МГц.</text>
+  <text x="655" y="484" font-size="12" fill="#6b7280">Зчитування при CS=0, MSB передається першим.</text>
+</svg>

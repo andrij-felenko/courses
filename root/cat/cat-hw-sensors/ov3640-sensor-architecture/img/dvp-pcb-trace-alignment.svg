@@ -1,0 +1,139 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- White Background -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <defs>
+    <!-- Arrow Markers -->
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Title and Subtitle -->
+  <text x="480" y="38" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Топологія трасування шини DVP сенсора OV3640</text>
+  <text x="480" y="60" text-anchor="middle" font-size="13" fill="#6b7280">Вирівнювання довжин трас меандрами та суцільна площина GND забезпечують фазову синхронізацію</text>
+
+  <!-- LEFT PANEL: BAD ROUTING -->
+  <rect x="30" y="75" width="435" height="310" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="247" y="96" text-anchor="middle" font-size="14" font-weight="bold" fill="#c0392b">Неузгоджені траси (Перекіс фаз t_skew)</text>
+
+  <!-- Left Chip: OV3640 (Tx) -->
+  <rect x="50" y="115" width="80" height="150" rx="4" fill="white" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="90" y="180" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">OV3640</text>
+  <text x="90" y="200" text-anchor="middle" font-size="12" fill="#6b7280">(Передавач)</text>
+
+  <!-- Right Chip: MCU (Rx) -->
+  <rect x="365" y="115" width="80" height="150" rx="4" fill="white" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="405" y="180" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Хост MCU</text>
+  <text x="405" y="200" text-anchor="middle" font-size="12" fill="#6b7280">(Приймач)</text>
+
+  <!-- PCLK Trace (Unmatched, Straight Long) -->
+  <text x="247" y="136" text-anchor="middle" font-size="12" fill="#c0392b">PCLK (Пряма траса, L = 120 мм)</text>
+  <line x1="130" y1="145" x2="365" y2="145" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arr-red)"/>
+
+  <!-- Data Trace D[9:0] (Short Straight) -->
+  <text x="247" y="211" text-anchor="middle" font-size="12" fill="#c0392b">D[9:0] (Коротка траса, L = 95 мм)</text>
+  <line x1="130" y1="220" x2="365" y2="220" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arr-red)"/>
+
+  <!-- Problem Callout Box -->
+  <text x="247" y="250" text-anchor="middle" font-size="13" font-weight="bold" fill="#c0392b">Різниця довжин ΔL = 25 мм</text>
+  <text x="247" y="268" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">t_skew &gt; t_setup → Перекручування пікселів!</text>
+
+  <!-- Panel 1 GND Slot Sub-panel -->
+  <rect x="45" y="285" width="405" height="92" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="247" y="303" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Опорна площина GND з розрізом (Слот)</text>
+  
+  <!-- Signal line over slot -->
+  <line x1="60" y1="318" x2="435" y2="318" stroke="#c0392b" stroke-width="2.5"/>
+  <!-- FR-4 Layer -->
+  <rect x="60" y="321" width="375" height="10" fill="#e8d8c8"/>
+  <text x="80" y="329" font-size="10" fill="#6b7280">FR-4</text>
+  <!-- Split GND Plane -->
+  <rect x="60" y="331" width="150" height="8" fill="#c0392b"/>
+  <rect x="210" y="331" width="75" height="8" fill="#ffffff" stroke="#c0392b" stroke-dasharray="2,2"/>
+  <text x="247" y="338" text-anchor="middle" font-size="10" font-weight="bold" fill="#c0392b">Слот</text>
+  <rect x="285" y="331" width="150" height="8" fill="#c0392b"/>
+  <!-- Return current loop -->
+  <path d="M 180,342 C 180,364 315,364 315,342" fill="none" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#arr-red)"/>
+  <text x="247" y="368" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">Петля зворотного струму створює EMI завади</text>
+
+
+  <!-- RIGHT PANEL: GOOD ROUTING -->
+  <rect x="495" y="75" width="435" height="310" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="712" y="96" text-anchor="middle" font-size="14" font-weight="bold" fill="#27ae60">Правильне трасування (Meander Matching)</text>
+
+  <!-- Left Chip: OV3640 (Tx) -->
+  <rect x="515" y="115" width="80" height="150" rx="4" fill="white" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="555" y="180" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">OV3640</text>
+  <text x="555" y="200" text-anchor="middle" font-size="12" fill="#6b7280">(Передавач)</text>
+
+  <!-- Right Chip: MCU (Rx) -->
+  <rect x="830" y="115" width="80" height="150" rx="4" fill="white" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="870" y="180" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Хост MCU</text>
+  <text x="870" y="200" text-anchor="middle" font-size="12" fill="#6b7280">(Приймач)</text>
+
+  <!-- PCLK Trace (Straight with Rs Resistor) -->
+  <text x="712" y="134" text-anchor="middle" font-size="12" fill="#2457d6">PCLK (Опорна лінія, L = 120 мм, Rs = 22 Ω)</text>
+  <line x1="595" y1="145" x2="830" y2="145" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+  <!-- Series resistor Rs near Tx -->
+  <rect x="620" y="139" width="22" height="12" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="2"/>
+  <text x="631" y="149" text-anchor="middle" font-size="10" font-weight="bold" fill="#2457d6">Rs</text>
+
+  <!-- Data Trace D[9:0] (Length Matched with Meanders) -->
+  <text x="712" y="202" text-anchor="middle" font-size="12" fill="#27ae60">D[9:0] (Меандри вирівнювання, L = 120 мм)</text>
+  <path d="M 595,220 L 640,220 L 645,210 L 655,210 L 660,230 L 670,230 L 675,210 L 685,210 L 690,230 L 700,230 L 705,220 L 830,220" fill="none" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arr-green)"/>
+
+  <!-- Solution Callout Box -->
+  <text x="712" y="250" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">Узгодження довжин: ΔL &lt; 0.5 мм</text>
+  <text x="712" y="268" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">t_skew ≈ 0 пс → Надійна вибірка даних</text>
+
+  <!-- Panel 2 Continuous GND Sub-panel -->
+  <rect x="510" y="285" width="405" height="92" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="712" y="303" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Суцільна опорна площина GND (Continuous Ground)</text>
+  
+  <!-- Signal line over continuous plane -->
+  <line x1="525" y1="318" x2="900" y2="318" stroke="#27ae60" stroke-width="2.5"/>
+  <!-- FR-4 Layer -->
+  <rect x="525" y="321" width="375" height="10" fill="#e8d8c8"/>
+  <text x="545" y="329" font-size="10" fill="#6b7280">FR-4</text>
+  <!-- Continuous GND Plane -->
+  <rect x="525" y="331" width="375" height="8" fill="#27ae60"/>
+  <!-- Direct return current arrow -->
+  <line x1="880" y1="344" x2="545" y2="344" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#arr-blue)"/>
+  <text x="712" y="368" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">Прямий зворотний шлях під трасою (Z0 = 50 Ом)</text>
+
+
+  <!-- BOTTOM PANEL: KEY DESIGN RULES -->
+  <rect x="30" y="398" width="900" height="138" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="480" y="416" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">КЛЮЧОВІ ПРАВИЛА ТРАСУВАННЯ DVP / PCLK (OV3640)</text>
+
+  <!-- Column 1: PCLK Rules -->
+  <text x="180" y="437" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">1. Тактова лінія PCLK</text>
+  <text x="180" y="457" text-anchor="middle" font-size="12" fill="#1a1a1a">• Топологія Point-to-Point</text>
+  <text x="180" y="477" text-anchor="middle" font-size="12" fill="#1a1a1a">• Резистор Rs = 22–33 Ом біля Tx</text>
+  <text x="180" y="497" text-anchor="middle" font-size="12" fill="#1a1a1a">• Мінімум Vias (&lt; 2 переходи)</text>
+  <text x="180" y="517" text-anchor="middle" font-size="12" fill="#1a1a1a">• Захисний інтервал S ≥ 3W</text>
+
+  <!-- Column 2: Length Matching Rules -->
+  <text x="480" y="437" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">2. Вирівнювання трас D[9:0]</text>
+  <text x="480" y="457" text-anchor="middle" font-size="12" fill="#1a1a1a">• Допуск довжини ΔL &lt; 1.0 мм</text>
+  <text x="480" y="477" text-anchor="middle" font-size="12" fill="#1a1a1a">• Зсув фаз t_skew &lt; 50 пс</text>
+  <text x="480" y="497" text-anchor="middle" font-size="12" fill="#1a1a1a">• Згладжені меандри (кути 45°)</text>
+  <text x="480" y="517" text-anchor="middle" font-size="12" fill="#1a1a1a">• Амплітуда меандра H ≥ 3W</text>
+
+  <!-- Column 3: Signal Integrity Rules -->
+  <text x="780" y="437" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">3. Опорна площина та SI</text>
+  <text x="780" y="457" text-anchor="middle" font-size="12" fill="#1a1a1a">• Хвильовий опір Z0 = 50 Ом</text>
+  <text x="780" y="477" text-anchor="middle" font-size="12" fill="#1a1a1a">• Суцільний шар GND під шиною</text>
+  <text x="780" y="497" text-anchor="middle" font-size="12" fill="#1a1a1a">• Заборона розрізів під DVP</text>
+  <text x="780" y="517" text-anchor="middle" font-size="12" fill="#1a1a1a">• Блокування живлення 100 нФ</text>
+</svg>

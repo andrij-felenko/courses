@@ -1,0 +1,144 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Definitions -->
+  <defs>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Title Block -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Порівняльний аналіз температурних коефіцієнтів α для RTD-сенсорів</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Фіксація α = 0,003851 °C⁻¹ у стандарту IEC 60751 забезпечує взаємозамінність у промисловості</text>
+
+  <!-- Plot Container Background -->
+  <rect x="110" y="100" width="500" height="330" fill="#f8fafc" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Horizontal Grid Lines -->
+  <!-- 60 Ohm (Y=415) -->
+  <line x1="110" y1="415" x2="610" y2="415" stroke="#e2e8f0" stroke-dasharray="4 4" stroke-width="1"/>
+  <!-- 100 Ohm (Y=355) Baseline -->
+  <line x1="110" y1="355" x2="610" y2="355" stroke="#cbd5e1" stroke-dasharray="4 4" stroke-width="1.5"/>
+  <!-- 140 Ohm (Y=295) -->
+  <line x1="110" y1="295" x2="610" y2="295" stroke="#e2e8f0" stroke-dasharray="4 4" stroke-width="1"/>
+  <!-- 180 Ohm (Y=235) -->
+  <line x1="110" y1="235" x2="610" y2="235" stroke="#e2e8f0" stroke-dasharray="4 4" stroke-width="1"/>
+  <!-- 220 Ohm (Y=175) -->
+  <line x1="110" y1="175" x2="610" y2="175" stroke="#e2e8f0" stroke-dasharray="4 4" stroke-width="1"/>
+  <!-- 260 Ohm (Y=115) -->
+  <line x1="110" y1="115" x2="610" y2="115" stroke="#e2e8f0" stroke-dasharray="4 4" stroke-width="1"/>
+
+  <!-- Vertical Grid Lines -->
+  <!-- 0 °C (X=210) Baseline -->
+  <line x1="210" y1="100" x2="210" y2="430" stroke="#cbd5e1" stroke-dasharray="4 4" stroke-width="1.5"/>
+  <!-- 100 °C (X=310) -->
+  <line x1="310" y1="100" x2="310" y2="430" stroke="#e2e8f0" stroke-dasharray="4 4" stroke-width="1"/>
+  <!-- 200 °C (X=410) -->
+  <line x1="410" y1="100" x2="410" y2="430" stroke="#e2e8f0" stroke-dasharray="4 4" stroke-width="1"/>
+  <!-- 300 °C (X=510) -->
+  <line x1="510" y1="100" x2="510" y2="430" stroke="#e2e8f0" stroke-dasharray="4 4" stroke-width="1"/>
+
+  <!-- Axes -->
+  <!-- Y-axis line -->
+  <line x1="110" y1="100" x2="110" y2="430" stroke="#6b7280" stroke-width="1.5" marker-start="url(#arr-gray)"/>
+  <!-- X-axis line -->
+  <line x1="110" y1="430" x2="610" y2="430" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+
+  <!-- Y-axis Tick Labels -->
+  <text x="102" y="82" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="end">Опір R (Ом)</text>
+  <text x="102" y="419" font-size="12" fill="#6b7280" text-anchor="end">60</text>
+  <text x="102" y="359" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">100</text>
+  <text x="102" y="299" font-size="12" fill="#6b7280" text-anchor="end">140</text>
+  <text x="102" y="239" font-size="12" fill="#6b7280" text-anchor="end">180</text>
+  <text x="102" y="179" font-size="12" fill="#6b7280" text-anchor="end">220</text>
+  <text x="102" y="119" font-size="12" fill="#6b7280" text-anchor="end">260</text>
+
+  <!-- X-axis Tick Labels -->
+  <text x="110" y="448" font-size="12" fill="#6b7280" text-anchor="middle">-100</text>
+  <text x="210" y="448" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">0</text>
+  <text x="310" y="448" font-size="12" fill="#6b7280" text-anchor="middle">100</text>
+  <text x="410" y="448" font-size="12" fill="#6b7280" text-anchor="middle">200</text>
+  <text x="510" y="448" font-size="12" fill="#6b7280" text-anchor="middle">300</text>
+  <text x="610" y="448" font-size="12" fill="#6b7280" text-anchor="middle">400</text>
+  <text x="360" y="468" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Температура T (°C)</text>
+
+  <!-- Curves -->
+  <!-- Industrial Pt100 IEC 60751 (α = 0.003851) Green -->
+  <path d="M 110,414.6 L 210,355 L 310,297.2 L 410,239.5 L 510,181.7 L 610,123.9" fill="none" stroke="#27ae60" stroke-width="2.5" stroke-linejoin="round"/>
+
+  <!-- Lab Reference Pt100 ITS-90 (α = 0.003920) Red -->
+  <path d="M 110,413.8 L 210,355 L 310,296.2 L 410,237.4 L 510,178.6 L 610,119.8" fill="none" stroke="#c0392b" stroke-width="2.5" stroke-dasharray="6 3" stroke-linejoin="round"/>
+
+  <!-- Pivot Point (0 °C, 100 Ohm) -->
+  <circle cx="210" cy="355" r="5" fill="#2457d6" stroke="white" stroke-width="1.5"/>
+
+  <!-- End Points at 400 °C -->
+  <circle cx="610" cy="123.9" r="4" fill="#27ae60"/>
+  <circle cx="610" cy="119.8" r="4" fill="#c0392b"/>
+
+  <!-- On-Plot Label Boxes & Callouts -->
+
+  <!-- 1. Lab Reference Platinum Label Box -->
+  <rect x="125" y="115" width="200" height="52" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+  <text x="135" y="133" font-size="12" font-weight="bold" fill="#c0392b">Еталонна платина (ITS-90)</text>
+  <text x="135" y="153" font-size="12" fill="#c0392b">α = 0,003920 °C⁻¹ (чиста Pt)</text>
+  <line x1="225" y1="167" x2="260" y2="325" stroke="#c0392b" stroke-dasharray="2 2" stroke-width="1" marker-end="url(#arr-red)"/>
+
+  <!-- 2. Divergence at 400°C Callout Box -->
+  <rect x="340" y="115" width="205" height="52" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+  <text x="350" y="132" font-size="11" font-weight="bold" fill="#c0392b">Розбіжність при 400 °C:</text>
+  <text x="350" y="147" font-size="11" fill="#1a1a1a">ΔR = 2,76 Ом (ΔT ≈ 7,2 °C)</text>
+  <text x="350" y="160" font-size="10" fill="#6b7280">Помилка за розширенні T-діапазону</text>
+  <line x1="545" y1="140" x2="604" y2="122" stroke="#c0392b" stroke-dasharray="2 2" stroke-width="1" marker-end="url(#arr-red)"/>
+
+  <!-- 3. Pivot Point Callout Box -->
+  <rect x="135" y="240" width="160" height="42" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+  <text x="143" y="257" font-size="11" font-weight="bold" fill="#2457d6">R₀ = 100,00 Ом (при 0 °C)</text>
+  <text x="143" y="273" font-size="11" fill="#6b7280">Точка збігу стандарту</text>
+  <line x1="210" y1="282" x2="210" y2="347" stroke="#2457d6" stroke-dasharray="2 2" stroke-width="1" marker-end="url(#arr-blue)"/>
+
+  <!-- 4. Industrial Platinum Label Box -->
+  <rect x="365" y="360" width="225" height="52" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="375" y="378" font-size="12" font-weight="bold" fill="#27ae60">Промислова платина (IEC 60751)</text>
+  <text x="375" y="398" font-size="12" fill="#27ae60">α = 0,003851 °C⁻¹ (легована Pt)</text>
+  <line x1="475" y1="360" x2="460" y2="213" stroke="#27ae60" stroke-dasharray="2 2" stroke-width="1" marker-end="url(#arr-green)"/>
+
+  <!-- Right Side Panel 1: Industrial Standard Details -->
+  <rect x="640" y="100" width="300" height="165" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="650" y="112" width="280" height="24" rx="4" fill="#27ae60"/>
+  <text x="790" y="129" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">IEC 60751 / DIN 43760 (Pt100)</text>
+
+  <text x="655" y="153" font-size="12" fill="#1a1a1a">• α = 0,003851 °C⁻¹ (фіксована норма)</text>
+  <text x="655" y="173" font-size="12" fill="#1a1a1a">• R(100 °C) = 138,51 Ом</text>
+  <text x="655" y="193" font-size="12" fill="#1a1a1a">• Дротяні та тонкоплівкові (thin-film)</text>
+  <text x="655" y="213" font-size="12" fill="#1a1a1a">• Висока міцність та вібростійкість</text>
+  <text x="655" y="233" font-size="12" font-weight="bold" fill="#27ae60">• Повна взаємозамінність датчиків</text>
+
+  <!-- Right Side Panel 2: Reference Platinum Details -->
+  <rect x="640" y="280" width="300" height="165" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <rect x="650" y="292" width="280" height="24" rx="4" fill="#c0392b"/>
+  <text x="790" y="309" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">ITS-90 / IPTS-68 (Чиста Pt 99.999%)</text>
+
+  <text x="655" y="333" font-size="12" fill="#1a1a1a">• α = 0,003920 °C⁻¹ (еталонна шкала)</text>
+  <text x="655" y="353" font-size="12" fill="#1a1a1a">• R(100 °C) = 139,20 Ом</text>
+  <text x="655" y="373" font-size="12" fill="#1a1a1a">• Лабораторні еталони температури (SPRT)</text>
+  <text x="655" y="393" font-size="12" fill="#1a1a1a">• Крихкість та чутливість до деформацій</text>
+  <text x="655" y="413" font-size="12" font-weight="bold" fill="#c0392b">• Потребує індивідуального калібрування</text>
+
+  <!-- Bottom Summary Banner -->
+  <rect x="60" y="478" width="880" height="46" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="500" y="497" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Практичний висновок: Фіксація α = 0,003851 °C⁻¹ у IEC 60751 забезпечує уніфіковану взаємозамінність RTD-сенсорів.</text>
+  <text x="500" y="515" font-size="12" fill="#6b7280" text-anchor="middle">Плутанина між еталонною та промисловою платиною дає помилку вимірювання ΔT ≈ 1,8 °C при 100 °C та понад 7 °C при 400 °C.</text>
+
+</svg>

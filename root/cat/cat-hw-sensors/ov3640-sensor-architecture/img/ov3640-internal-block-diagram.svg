@@ -1,0 +1,190 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Canvas Background -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="30" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Внутрішня архітектура та конвеєр даних сенсора OV3640</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Перетворення зображення від піксельної матриці Bayer до блоків ISP, Scaler, JPEG та інтерфейсу DVP</text>
+
+  <!-- Outer Chip Container -->
+  <rect x="40" y="75" width="860" height="425" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <text x="55" y="98" font-size="14" font-weight="bold" fill="#6b7280">Мікросхема сенсора OV3640</text>
+
+  <!-- UPPER DATA PIPELINE -->
+
+  <!-- Column 1: Matrix & ADC -->
+  <rect x="55" y="125" width="135" height="210" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="122.5" y="146" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Матриця та АЦП</text>
+  <text x="122.5" y="162" font-size="12" fill="#6b7280" text-anchor="middle">(2 MP CMOS Array)</text>
+
+  <rect x="65" y="175" width="115" height="65" rx="4" fill="white" stroke="#2457d6" stroke-width="1"/>
+  <text x="122.5" y="196" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Піксельний масив</text>
+  <text x="122.5" y="214" font-size="12" fill="#6b7280" text-anchor="middle">1600 × 1200 UXGA</text>
+  <text x="122.5" y="230" font-size="12" fill="#2457d6" text-anchor="middle">Bayer RGB</text>
+
+  <rect x="65" y="250" width="115" height="75" rx="4" fill="white" stroke="#2457d6" stroke-width="1"/>
+  <text x="122.5" y="272" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Стовпчикові АЦП</text>
+  <text x="122.5" y="292" font-size="12" fill="#6b7280" text-anchor="middle">10-бітний відлік</text>
+  <text x="122.5" y="310" font-size="12" fill="#6b7280" text-anchor="middle">CDS оцифровка</text>
+
+  <!-- Arrow: Matrix -> ISP -->
+  <line x1="190" y1="230" x2="235" y2="230" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="212.5" y="218" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">10-bit</text>
+
+  <!-- Column 2: ISP Engine -->
+  <rect x="235" y="125" width="145" height="210" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="307.5" y="146" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Процесор ISP</text>
+  <text x="307.5" y="162" font-size="12" fill="#6b7280" text-anchor="middle">(Обробка сигналів)</text>
+
+  <rect x="245" y="175" width="125" height="46" rx="4" fill="white" stroke="#2457d6" stroke-width="1"/>
+  <text x="307.5" y="193" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">BLC та Демозаїк</text>
+  <text x="307.5" y="209" font-size="12" fill="#6b7280" text-anchor="middle">Баланс чорного</text>
+
+  <rect x="245" y="227" width="125" height="46" rx="4" fill="white" stroke="#2457d6" stroke-width="1"/>
+  <text x="307.5" y="245" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">AEC / AWB / AGC</text>
+  <text x="307.5" y="261" font-size="12" fill="#6b7280" text-anchor="middle">Авто-експозиція</text>
+
+  <rect x="245" y="279" width="125" height="46" rx="4" fill="white" stroke="#2457d6" stroke-width="1"/>
+  <text x="307.5" y="297" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Матриця кольору</text>
+  <text x="307.5" y="313" font-size="12" fill="#6b7280" text-anchor="middle">Гамма та чіткість</text>
+
+  <!-- Arrow: ISP -> Scaler -->
+  <line x1="380" y1="230" x2="425" y2="230" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="402.5" y="218" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">YUV</text>
+
+  <!-- Column 3: Scaler / Crop -->
+  <rect x="425" y="125" width="135" height="210" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="492.5" y="146" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Скейлер / Crop</text>
+  <text x="492.5" y="162" font-size="12" fill="#6b7280" text-anchor="middle">(Масштаб і вікно)</text>
+
+  <rect x="435" y="175" width="115" height="70" rx="4" fill="white" stroke="#2457d6" stroke-width="1"/>
+  <text x="492.5" y="196" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Кадрування</text>
+  <text x="492.5" y="214" font-size="12" fill="#6b7280" text-anchor="middle">Віконний режим</text>
+  <text x="492.5" y="230" font-size="12" fill="#6b7280" text-anchor="middle">HSTART / VSTART</text>
+
+  <rect x="435" y="255" width="115" height="70" rx="4" fill="white" stroke="#2457d6" stroke-width="1"/>
+  <text x="492.5" y="276" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Масштабування</text>
+  <text x="492.5" y="294" font-size="12" fill="#6b7280" text-anchor="middle">UXGA → SVGA/VGA</text>
+  <text x="492.5" y="310" font-size="12" fill="#6b7280" text-anchor="middle">Downsampling</text>
+
+  <!-- Fork arrows: Scaler -> JPEG / Format MUX -->
+  <path d="M 560 230 L 582.5 230 L 582.5 172.5 L 605 172.5" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="595" y="160" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">YUV</text>
+
+  <path d="M 560 230 L 582.5 230 L 582.5 287.5 L 605 287.5" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="595" y="305" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">Raw</text>
+
+  <!-- Column 4A: JPEG Engine -->
+  <rect x="605" y="125" width="135" height="95" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="672.5" y="145" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Кодер JPEG</text>
+
+  <rect x="613" y="153" width="119" height="59" rx="4" fill="white" stroke="#2457d6" stroke-width="1"/>
+  <text x="672.5" y="177" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">JPEG Engine</text>
+  <text x="672.5" y="197" font-size="12" fill="#6b7280" text-anchor="middle">Стиснення кадрів</text>
+
+  <!-- Column 4B: Format Converter -->
+  <rect x="605" y="240" width="135" height="95" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="672.5" y="260" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Форматувальник</text>
+
+  <rect x="613" y="268" width="119" height="59" rx="4" fill="white" stroke="#2457d6" stroke-width="1"/>
+  <text x="672.5" y="289" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Прямий потік</text>
+  <text x="672.5" y="309" font-size="12" fill="#6b7280" text-anchor="middle">YUV422 / RGB565</text>
+
+  <!-- Merge arrows: JPEG & Format MUX -> DVP -->
+  <path d="M 740 172.5 L 762.5 172.5 L 762.5 200 L 785 200" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="750" y="160" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="start">JPEG</text>
+
+  <path d="M 740 287.5 L 762.5 287.5 L 762.5 260 L 785 260" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="750" y="305" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="start">YUV/RGB</text>
+
+  <!-- Column 5: DVP Interface -->
+  <rect x="785" y="125" width="100" height="210" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="835" y="146" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Порт DVP</text>
+  <text x="835" y="162" font-size="12" fill="#6b7280" text-anchor="middle">(Вихід даних)</text>
+
+  <rect x="793" y="175" width="84" height="145" rx="4" fill="white" stroke="#2457d6" stroke-width="1"/>
+  <text x="835" y="196" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">FIFO Буфер</text>
+  <text x="835" y="216" font-size="12" fill="#6b7280" text-anchor="middle">Формування</text>
+  <text x="835" y="234" font-size="12" fill="#6b7280" text-anchor="middle">сигналів</text>
+  <text x="835" y="252" font-size="12" fill="#6b7280" text-anchor="middle">тактування</text>
+  <text x="835" y="280" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">D[9:0], PCLK</text>
+  <text x="835" y="298" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">HREF, VSYNC</text>
+
+  <!-- LOWER CONTROL ROW -->
+
+  <!-- Control Block 1: Clock & Timing -->
+  <rect x="55" y="365" width="325" height="115" rx="6" fill="white" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="217.5" y="386" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Генератор тактування та таймінгів</text>
+
+  <rect x="65" y="398" width="145" height="70" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="137.5" y="418" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Множник PLL</text>
+  <text x="137.5" y="437" font-size="12" fill="#6b7280" text-anchor="middle">XVCLK → SYSCLK</text>
+  <text x="137.5" y="455" font-size="12" fill="#6b7280" text-anchor="middle">Генерація PCLK</text>
+
+  <rect x="220" y="398" width="150" height="70" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="295" y="418" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Контролер розгортки</text>
+  <text x="295" y="437" font-size="12" fill="#6b7280" text-anchor="middle">Синхронізація кадрів</text>
+  <text x="295" y="455" font-size="12" fill="#6b7280" text-anchor="middle">Сигнали HREF / VSYNC</text>
+
+  <!-- Control Block 2: SCCB & Register Map -->
+  <rect x="425" y="365" width="460" height="115" rx="6" fill="white" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="655" y="386" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Інтерфейс керування та регістри конфігурації (SCCB / Registers)</text>
+
+  <rect x="435" y="398" width="140" height="70" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="505" y="418" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Шина SCCB</text>
+  <text x="505" y="437" font-size="12" fill="#6b7280" text-anchor="middle">Лінії SIOC / SIOD</text>
+  <text x="505" y="455" font-size="12" fill="#6b7280" text-anchor="middle">Доступ до банок</text>
+
+  <rect x="585" y="398" width="290" height="70" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="730" y="418" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Карта банок регістрів (Bank 0 / Bank 1)</text>
+  <text x="730" y="437" font-size="12" fill="#6b7280" text-anchor="middle">Налаштування режимів AEC / AGC / AWB,</text>
+  <text x="730" y="455" font-size="12" fill="#6b7280" text-anchor="middle">роздільності, тактування та коефіцієнтів ISP</text>
+
+  <!-- INTERNAL CONTROL SIGNALS -->
+
+  <!-- Clock signal up to ISP -->
+  <line x1="295" y1="365" x2="295" y2="335" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4 3" marker-end="url(#arr-gray)"/>
+  <text x="303" y="354" font-size="12" fill="#6b7280" text-anchor="start">Такти</text>
+
+  <!-- Register config control up to Pipeline -->
+  <line x1="655" y1="365" x2="655" y2="335" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4 3" marker-end="url(#arr-gray)"/>
+  <text x="663" y="354" font-size="12" fill="#6b7280" text-anchor="start">Конфігурація</text>
+
+  <!-- EXTERNAL PINS & CONNECTIONS -->
+
+  <!-- XVCLK Input -->
+  <line x1="15" y1="433" x2="55" y2="433" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr-dark)"/>
+  <text x="35" y="425" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">XVCLK</text>
+
+  <!-- SCCB Lines (SIOC, SIOD from bottom) -->
+  <line x1="470" y1="500" x2="470" y2="468" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr-dark)"/>
+  <text x="462" y="492" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">SIOC</text>
+
+  <line x1="540" y1="500" x2="540" y2="468" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr-dark)"/>
+  <text x="548" y="492" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">SIOD</text>
+
+  <!-- DVP Output Pins (Right side) -->
+  <line x1="885" y1="160" x2="945" y2="160" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="905" y="152" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="start">D[9:0]</text>
+
+  <line x1="885" y1="205" x2="945" y2="205" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="905" y="197" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="start">PCLK</text>
+
+  <line x1="885" y1="250" x2="945" y2="250" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="905" y="242" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="start">HREF</text>
+
+  <line x1="885" y1="295" x2="945" y2="295" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="905" y="287" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="start">VSYNC</text>
+</svg>

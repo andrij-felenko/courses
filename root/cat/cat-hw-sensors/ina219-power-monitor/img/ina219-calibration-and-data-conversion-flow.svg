@@ -1,0 +1,150 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Header -->
+  <text x="480" y="38" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Математичний потік даних та калібрування INA219</text>
+  <text x="480" y="60" font-size="13" fill="#6b7280" text-anchor="middle">Від вибору Current_LSB і запису в Calibration до розрахунку струму й потужності</text>
+
+  <!-- Stage 1 Panel: Software Calibration -->
+  <rect x="30" y="85" width="280" height="445" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="42" y="97" width="256" height="28" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="170" y="116" font-size="13" font-weight="700" fill="#2457d6" text-anchor="middle">1. Калібрування (Driver)</text>
+
+  <!-- Block 1.1 -->
+  <rect x="45" y="140" width="250" height="45" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="170" y="158" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Вхідні параметри системи</text>
+  <text x="170" y="174" font-size="12" fill="#6b7280" text-anchor="middle">R_shunt (Ом), I_max (А)</text>
+
+  <line x1="170" y1="185" x2="170" y2="198" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+
+  <!-- Block 1.2 -->
+  <rect x="45" y="200" width="250" height="45" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="170" y="218" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Крок струму (Current_LSB)</text>
+  <text x="170" y="234" font-size="12" fill="#2457d6" text-anchor="middle">Current_LSB = I_max / 32768</text>
+
+  <line x1="170" y1="245" x2="170" y2="258" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+
+  <!-- Block 1.3 -->
+  <rect x="45" y="260" width="250" height="58" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="170" y="277" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Значення калібрування (Cal)</text>
+  <text x="170" y="294" font-size="12" fill="#2457d6" text-anchor="middle">Cal = trunc(0.04096 /</text>
+  <text x="170" y="309" font-size="12" fill="#2457d6" text-anchor="middle">(Current_LSB × R_shunt))</text>
+
+  <line x1="170" y1="318" x2="170" y2="331" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+
+  <!-- Block 1.4 -->
+  <rect x="45" y="333" width="250" height="48" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="170" y="351" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">Запис Cal через I2C</text>
+  <text x="170" y="367" font-size="12" fill="#1a1a1a" text-anchor="middle">Запис у регістр 05h (Calibration)</text>
+
+  <!-- Stage 1 Info Box -->
+  <rect x="45" y="395" width="250" height="120" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4"/>
+  <text x="170" y="416" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Правила калібрування</text>
+  <text x="170" y="436" font-size="11" fill="#6b7280" text-anchor="middle">• Current_LSB визначає точність струму</text>
+  <text x="170" y="454" font-size="11" fill="#6b7280" text-anchor="middle">• Cal записується при ініціалізації</text>
+  <text x="170" y="474" font-size="11" fill="#6b7280" text-anchor="middle">• 0.04096 — фіксований скаляр чипа</text>
+  <text x="170" y="494" font-size="11" fill="#6b7280" text-anchor="middle">• Гарантує обчислення в АЦП INA219</text>
+
+  <!-- Stage 2 Panel: Hardware Registers -->
+  <rect x="340" y="85" width="280" height="445" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="352" y="97" width="256" height="28" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="480" y="116" font-size="13" font-weight="700" fill="#2457d6" text-anchor="middle">2. Регістри та АЦП (Hardware)</text>
+
+  <!-- Reg 05h (Left) -->
+  <rect x="355" y="140" width="120" height="55" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="415" y="159" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">Reg 05h</text>
+  <text x="415" y="174" font-size="11" font-weight="700" fill="#2457d6" text-anchor="middle">Calibration</text>
+  <text x="415" y="187" font-size="10" fill="#1a1a1a" text-anchor="middle">(з драйвера)</text>
+
+  <!-- Reg 01h (Right) -->
+  <rect x="485" y="140" width="120" height="55" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="545" y="159" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Reg 01h</text>
+  <text x="545" y="174" font-size="11" fill="#6b7280" text-anchor="middle">V_shunt_raw</text>
+  <text x="545" y="187" font-size="10" fill="#6b7280" text-anchor="middle">(10 µV / bit)</text>
+
+  <!-- Reg 04h (Left) -->
+  <rect x="355" y="215" width="120" height="60" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="415" y="233" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Reg 04h: I_raw</text>
+  <text x="415" y="249" font-size="10" fill="#2457d6" text-anchor="middle">(V_shunt_raw × Cal)</text>
+  <text x="415" y="263" font-size="10" fill="#2457d6" text-anchor="middle">/ 4096</text>
+
+  <!-- Reg 02h (Right) -->
+  <rect x="485" y="215" width="120" height="60" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="545" y="233" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Reg 02h</text>
+  <text x="545" y="249" font-size="11" fill="#6b7280" text-anchor="middle">V_bus_raw</text>
+  <text x="545" y="263" font-size="10" fill="#6b7280" text-anchor="middle">(4 mV / bit)</text>
+
+  <!-- Reg 03h (Full Width) -->
+  <rect x="355" y="295" width="250" height="55" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="480" y="315" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Reg 03h: Power (P_raw)</text>
+  <text x="480" y="335" font-size="12" fill="#2457d6" text-anchor="middle">P_raw = (I_raw × V_bus_raw) / 5000</text>
+
+  <!-- Stage 2 Info Box -->
+  <rect x="355" y="370" width="250" height="145" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4"/>
+  <text x="480" y="391" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Статус та прапорці АЦП</text>
+  <text x="480" y="411" font-size="11" fill="#6b7280" text-anchor="middle">• CNVR (Conversion Ready):</text>
+  <text x="480" y="427" font-size="11" fill="#6b7280" text-anchor="middle">  сигналізує про завершення вимірювання</text>
+  <text x="480" y="447" font-size="11" fill="#c0392b" text-anchor="middle">• OVF (Math Overflow):</text>
+  <text x="480" y="463" font-size="11" fill="#c0392b" text-anchor="middle">  переповнення струму або потужності</text>
+  <text x="480" y="483" font-size="11" fill="#6b7280" text-anchor="middle">• Двонаправлений вимірювач (±40..320 mV)</text>
+
+  <!-- Arrows inside Stage 2 -->
+  <line x1="415" y1="195" x2="415" y2="208" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <path d="M 545,195 L 545,205 L 472,205 L 440,213" fill="none" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <path d="M 415,275 L 415,293" fill="none" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <path d="M 545,275 L 545,293" fill="none" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Stage 1 -> Stage 2 Arrow -->
+  <path d="M 295,357 L 325,357 L 325,167 L 353,167" fill="none" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Stage 3 Panel: Physical Output -->
+  <rect x="650" y="85" width="280" height="445" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="662" y="97" width="256" height="28" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="790" y="116" font-size="13" font-weight="700" fill="#27ae60" text-anchor="middle">3. Фізичні величини (Driver Output)</text>
+
+  <!-- Output 3.1: V_shunt -->
+  <rect x="665" y="140" width="250" height="55" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="790" y="159" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Напруга шунта (V_shunt)</text>
+  <text x="790" y="179" font-size="12" fill="#27ae60" text-anchor="middle">V_shunt = V_shunt_raw × 10 µV</text>
+
+  <!-- Output 3.2: V_bus -->
+  <rect x="665" y="215" width="250" height="55" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="790" y="234" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Напруга шини (V_bus)</text>
+  <text x="790" y="254" font-size="12" fill="#27ae60" text-anchor="middle">V_bus = V_bus_raw × 4 mV</text>
+
+  <!-- Output 3.3: Current I -->
+  <rect x="665" y="290" width="250" height="60" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="790" y="309" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Струм навантаження (I)</text>
+  <text x="790" y="329" font-size="12" fill="#27ae60" text-anchor="middle">I = I_raw × Current_LSB</text>
+
+  <!-- Output 3.4: Power P -->
+  <rect x="665" y="370" width="250" height="65" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="790" y="388" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Потужність споживання (P)</text>
+  <text x="790" y="407" font-size="12" fill="#27ae60" text-anchor="middle">P = P_raw × Power_LSB</text>
+  <text x="790" y="423" font-size="11" fill="#6b7280" text-anchor="middle">(Power_LSB = 20 × Current_LSB)</text>
+
+  <!-- Stage 3 Info Box -->
+  <rect x="665" y="450" width="250" height="65" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1" stroke-dasharray="4"/>
+  <text x="790" y="471" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">Результат драйвера</text>
+  <text x="790" y="492" font-size="11" fill="#1a1a1a" text-anchor="middle">Готові фізичні значення Вольти, Ампери,</text>
+  <text x="790" y="506" font-size="11" fill="#1a1a1a" text-anchor="middle">Вати для API C/C++ або Python</text>
+
+  <!-- Stage 2 -> Stage 3 Arrows -->
+  <line x1="605" y1="167" x2="663" y2="167" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <line x1="605" y1="242" x2="663" y2="242" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <path d="M 415,275 L 415,285 L 635,285 L 635,320 L 663,320" fill="none" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <path d="M 605,322 L 635,322 L 635,402 L 663,402" fill="none" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+</svg>

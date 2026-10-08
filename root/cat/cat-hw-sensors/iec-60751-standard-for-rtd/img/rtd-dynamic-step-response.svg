@@ -1,0 +1,149 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 500" width="960" height="500" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <!-- Arrow markers -->
+    <marker id="arr-axis" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-green-right" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-green-left" markerWidth="9" markerHeight="9" refX="0.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-blue-right" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-blue-left" markerWidth="9" markerHeight="9" refX="0.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="500" fill="white"/>
+
+  <!-- Header -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Динамічна перехідна характеристика RTD першого порядку</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Часові константи τ₀.₅ та τ₀.₉ за IEC 60751 визначають швидкість теплового відгуку</text>
+
+  <!-- Background grid / subtle panel for chart area -->
+  <rect x="50" y="75" width="560" height="410" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="8"/>
+
+  <!-- Horizontal reference level lines (dashed) -->
+  <!-- 100% level line (T_f) -->
+  <line x1="100" y1="130" x2="580" y2="130" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,4"/>
+
+  <!-- 90% level line (T_0 + 0.9 Delta T) -->
+  <line x1="100" y1="157" x2="304.2" y2="157" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4,4"/>
+
+  <!-- 50% level line (T_0 + 0.5 Delta T) -->
+  <line x1="100" y1="265" x2="175.5" y2="265" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="4,4"/>
+
+  <!-- Vertical reference level lines (dashed down to X-axis) -->
+  <!-- t = 0 line -->
+  <line x1="120" y1="130" x2="120" y2="400" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,4"/>
+
+  <!-- t = tau_0.5 line -->
+  <line x1="175.5" y1="265" x2="175.5" y2="400" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="4,4"/>
+
+  <!-- t = tau_0.9 line -->
+  <line x1="304.2" y1="157" x2="304.2" y2="400" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4,4"/>
+
+  <!-- Ambient temperature step input path (Red dashed) -->
+  <path d="M 70 400 L 120 400 L 120 130 L 580 130" fill="none" stroke="#c0392b" stroke-width="2" stroke-dasharray="6,4"/>
+  <text x="130" y="118" font-size="12" font-weight="bold" fill="#c0392b">Стрибок температури середовища T_amb</text>
+
+  <!-- RTD Temperature response curve (Blue solid) -->
+  <path d="M 70 400 L 120 400 C 145 315, 160 280, 175.5 265 C 200 240, 250 180, 304.2 157 C 380 136, 460 131, 580 130.8" fill="none" stroke="#2457d6" stroke-width="3.5" stroke-linejoin="round" stroke-linecap="round"/>
+  <text x="400" y="195" font-size="13" font-weight="bold" fill="#2457d6">Реакція RTD T(t)</text>
+
+  <!-- Point highlights on curve -->
+  <!-- 50% point -->
+  <circle cx="175.5" cy="265" r="5" fill="#27ae60" stroke="white" stroke-width="2"/>
+  <rect x="195" y="250" width="82" height="26" fill="#e9f7ef" stroke="#27ae60" stroke-width="1" rx="4"/>
+  <text x="236" y="267" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">50% (τ₀.₅)</text>
+
+  <!-- 90% point -->
+  <circle cx="304.2" cy="157" r="5" fill="#2457d6" stroke="white" stroke-width="2"/>
+  <rect x="320" y="142" width="82" height="26" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="4"/>
+  <text x="361" y="159" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">90% (τ₀.₉)</text>
+
+  <!-- Axes -->
+  <!-- Y-axis -->
+  <line x1="100" y1="410" x2="100" y2="95" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr-axis)"/>
+  <text x="100" y="86" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Температура T</text>
+
+  <!-- X-axis -->
+  <line x1="90" y1="400" x2="595" y2="400" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr-axis)"/>
+  <text x="595" y="424" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="end">Час t</text>
+
+  <!-- Y-axis tick marks and labels -->
+  <!-- T_f -->
+  <line x1="95" y1="130" x2="100" y2="130" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="92" y="134" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="end">T_f (100%)</text>
+
+  <!-- 90% Y label -->
+  <line x1="95" y1="157" x2="100" y2="157" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="92" y="161" font-size="12" fill="#2457d6" text-anchor="end">T₀ + 0.9ΔT</text>
+
+  <!-- 50% Y label -->
+  <line x1="95" y1="265" x2="100" y2="265" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="92" y="269" font-size="12" fill="#27ae60" text-anchor="end">T₀ + 0.5ΔT</text>
+
+  <!-- T_0 -->
+  <line x1="95" y1="400" x2="100" y2="400" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="92" y="404" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">T₀ (0%)</text>
+
+  <!-- X-axis tick marks and labels -->
+  <!-- t = 0 -->
+  <line x1="120" y1="400" x2="120" y2="406" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="120" y="424" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">t = 0</text>
+
+  <!-- tau_0.5 -->
+  <line x1="175.5" y1="400" x2="175.5" y2="406" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="175.5" y="424" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">τ₀.₅</text>
+
+  <!-- tau_0.9 -->
+  <line x1="304.2" y1="400" x2="304.2" y2="406" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="304.2" y="424" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">τ₀.₉</text>
+
+  <!-- Dimension arrows for time intervals -->
+  <!-- Interval tau_0.5 -->
+  <line x1="120" y1="452" x2="175.5" y2="452" stroke="#27ae60" stroke-width="1.5" marker-start="url(#arr-green-left)" marker-end="url(#arr-green-right)"/>
+  <text x="147.75" y="448" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">τ₀.₅</text>
+
+  <!-- Interval tau_0.9 -->
+  <line x1="120" y1="474" x2="304.2" y2="474" stroke="#2457d6" stroke-width="1.5" marker-start="url(#arr-blue-left)" marker-end="url(#arr-blue-right)"/>
+  <text x="212.1" y="470" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">τ₀.₉</text>
+
+  <!-- Right Information Panel -->
+  <rect x="635" y="75" width="300" height="410" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="8"/>
+
+  <!-- Panel Header -->
+  <rect x="635" y="75" width="300" height="40" fill="#eaf0fd" stroke="#d0d7de" stroke-width="1.5" rx="8"/>
+  <text x="785" y="100" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">Математична модель</text>
+
+  <!-- Equation Card -->
+  <text x="650" y="138" font-size="12" font-weight="bold" fill="#1a1a1a">Перехідна функція:</text>
+  <rect x="650" y="146" width="270" height="42" fill="white" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="785" y="172" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">T(t) = T₀ + ΔT · (1 - e⁻ᵗ/ᵀ)</text>
+
+  <!-- Standard Time Constants -->
+  <text x="650" y="210" font-size="12" font-weight="bold" fill="#1a1a1a">Нормовані часи (IEC 60751):</text>
+
+  <!-- Green Box for tau_0.5 -->
+  <rect x="650" y="218" width="270" height="56" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="6"/>
+  <text x="662" y="238" font-size="13" font-weight="bold" fill="#27ae60">τ₀.₅ = τ · ln(2) ≈ 0.693 · τ</text>
+  <text x="662" y="260" font-size="12" fill="#1a1a1a">Час 50% термічного відгуку</text>
+
+  <!-- Blue Box for tau_0.9 -->
+  <rect x="650" y="284" width="270" height="56" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <text x="662" y="304" font-size="13" font-weight="bold" fill="#2457d6">τ₀.₉ = τ · ln(10) ≈ 2.303 · τ</text>
+  <text x="662" y="326" font-size="12" fill="#1a1a1a">Час 90% термічного відгуку</text>
+
+  <!-- Practical Estimation Box -->
+  <rect x="650" y="350" width="270" height="120" fill="white" stroke="#d0d7de" stroke-width="1.5" rx="6"/>
+  <text x="662" y="370" font-size="12" font-weight="bold" fill="#1a1a1a">Практичне співвідношення:</text>
+  <text x="785" y="396" font-size="15" font-weight="bold" fill="#2457d6" text-anchor="middle">τ₀.₉ ≈ 3.32 · τ₀.₅</text>
+  <text x="785" y="424" font-size="12" fill="#6b7280" text-anchor="middle">Дозволяє розрахувати τ₀.₉</text>
+  <text x="785" y="442" font-size="12" fill="#6b7280" text-anchor="middle">за швидшим вимірюванням τ₀.₅</text>
+</svg>

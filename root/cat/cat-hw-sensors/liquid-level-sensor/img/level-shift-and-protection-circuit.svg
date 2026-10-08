@@ -1,0 +1,142 @@
+<svg viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif" xmlns="http://www.w3.org/2000/svg">
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Title and Subtitle -->
+  <text x="480" y="36" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Схема узгодження рівнів 3.3 В / 5 В та захисту входу МК</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Дільник напруги знижує 5 В → 3.3 В, RC-фільтр згладжує завади, а TVS-діод скидає сплески на землю</text>
+
+  <!-- Panel 1: Sensor / Давач (Left) -->
+  <rect x="40" y="85" width="180" height="345" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="8"/>
+  <text x="130" y="108" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Сенсор 5 В</text>
+  <text x="130" y="125" font-size="12" fill="#6b7280" text-anchor="middle">(Вихідний сигнал)</text>
+
+  <!-- Inner Sensor Block -->
+  <rect x="55" y="145" width="150" height="200" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="130" y="175" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Давач рівня</text>
+  <text x="130" y="193" font-size="12" fill="#6b7280" text-anchor="middle">(Поплавковий /</text>
+  <text x="130" y="209" font-size="12" fill="#6b7280" text-anchor="middle">ультразвуковий)</text>
+
+  <text x="130" y="245" font-size="12" fill="#1a1a1a" text-anchor="middle">Вихідна напруга:</text>
+  <text x="130" y="265" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">5 В (TTL)</text>
+  <text x="130" y="285" font-size="12" fill="#c0392b" text-anchor="middle">Небезпечно</text>
+  <text x="130" y="301" font-size="12" fill="#c0392b" text-anchor="middle">для 3.3 В входу!</text>
+
+  <!-- Sensor Terminal -->
+  <circle cx="205" cy="240" r="4" fill="#c0392b"/>
+  <text x="195" y="232" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="end">OUT 5V</text>
+
+  <!-- Panel 2: Level Shift & Protection (Middle) -->
+  <rect x="240" y="85" width="480" height="345" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="8"/>
+  <text x="480" y="108" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Вузол узгодження рівнів та захисту</text>
+
+  <!-- Signal Path Label -->
+  <text x="375" y="138" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Корисний сигнал (до МК)</text>
+  <line x1="260" y1="148" x2="470" y2="148" stroke="#2457d6" stroke-width="2" stroke-dasharray="4,3" marker-end="url(#arr-blue)"/>
+
+  <!-- ESD Badge -->
+  <rect x="535" y="125" width="170" height="40" fill="#fdecea" stroke="#c0392b" stroke-width="1" rx="4"/>
+  <text x="620" y="141" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">⚡ Завади та ESD сплески</text>
+  <text x="620" y="157" font-size="12" fill="#c0392b" text-anchor="middle">(скидаються в GND)</text>
+
+  <!-- Main Signal Wire -->
+  <line x1="205" y1="240" x2="300" y2="240" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="360" y1="240" x2="745" y2="240" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Resistor R1 -->
+  <rect x="300" y="228" width="60" height="24" fill="#ffffff" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="330" y="198" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">R1 = 1.8 кОм</text>
+  <text x="330" y="214" font-size="12" fill="#6b7280" text-anchor="middle">(Дільник R1/R2)</text>
+
+  <!-- Node A (R2 Branch) -->
+  <circle cx="380" cy="240" r="3.5" fill="#1a1a1a"/>
+  <line x1="380" y1="240" x2="380" y2="270" stroke="#1a1a1a" stroke-width="2"/>
+  <rect x="368" y="270" width="24" height="50" fill="#ffffff" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="380" y1="320" x2="380" y2="370" stroke="#1a1a1a" stroke-width="2"/>
+  <!-- R2 Labels -->
+  <text x="358" y="286" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">R2 = 3.3 кОм</text>
+  <text x="358" y="302" font-size="12" fill="#6b7280" text-anchor="end">(Дільник)</text>
+  <text x="358" y="318" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="end">U_out = 3.24В</text>
+
+  <!-- Node B (C1 Branch) -->
+  <circle cx="490" cy="240" r="3.5" fill="#1a1a1a"/>
+  <line x1="490" y1="240" x2="490" y2="285" stroke="#1a1a1a" stroke-width="2"/>
+  <!-- Capacitor C1 -->
+  <line x1="476" y1="285" x2="504" y2="285" stroke="#1a1a1a" stroke-width="3"/>
+  <line x1="476" y1="295" x2="504" y2="295" stroke="#1a1a1a" stroke-width="3"/>
+  <line x1="490" y1="295" x2="490" y2="370" stroke="#1a1a1a" stroke-width="2"/>
+  <!-- C1 Labels -->
+  <text x="466" y="286" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">C1 = 10 нФ</text>
+  <text x="466" y="302" font-size="12" fill="#6b7280" text-anchor="end">(Фільтр RC)</text>
+  <text x="466" y="318" font-size="12" fill="#2457d6" text-anchor="end">τ = 18 мкс</text>
+
+  <!-- Node C (TVS Branch) -->
+  <circle cx="605" cy="240" r="3.5" fill="#1a1a1a"/>
+  <line x1="605" y1="240" x2="605" y2="271" stroke="#1a1a1a" stroke-width="2"/>
+  <!-- TVS Diode Symbol -->
+  <path d="M 593,271 L 595,275 L 615,275 L 617,279" stroke="#c0392b" stroke-width="2" fill="none"/>
+  <polygon points="605,275 593,295 617,295" fill="#fdecea" stroke="#c0392b" stroke-width="2"/>
+  <line x1="605" y1="295" x2="605" y2="370" stroke="#1a1a1a" stroke-width="2"/>
+  <!-- TVS Labels -->
+  <text x="623" y="282" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="start">TVS діод</text>
+  <text x="623" y="298" font-size="12" fill="#6b7280" text-anchor="start">(ESD захист)</text>
+  <text x="623" y="314" font-size="12" fill="#c0392b" text-anchor="start">U_clamp = 5В</text>
+
+  <!-- Red ESD Discharge Flow Line -->
+  <path d="M 230,225 L 595,225 Q 605,225 605,240 L 605,365" stroke="#c0392b" stroke-width="2" stroke-dasharray="5,3" fill="none" marker-end="url(#arr-red)"/>
+
+  <!-- Common Ground Rail -->
+  <line x1="380" y1="370" x2="605" y2="370" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="490" y1="370" x2="490" y2="385" stroke="#1a1a1a" stroke-width="2"/>
+  <!-- GND Symbol -->
+  <line x1="475" y1="385" x2="505" y2="385" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="480" y1="390" x2="500" y2="390" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="485" y1="395" x2="495" y2="395" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="490" y="414" font-size="12" fill="#1a1a1a" text-anchor="middle">Спільна земля (GND)</text>
+
+  <!-- Panel 3: MCU / Мікроконтролер (Right) -->
+  <rect x="740" y="85" width="180" height="345" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="8"/>
+  <text x="830" y="108" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Мікроконтролер</text>
+  <text x="830" y="125" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">(Вхід 3.3 В)</text>
+
+  <!-- Inner MCU Block -->
+  <rect x="755" y="150" width="150" height="260" fill="#ffffff" stroke="#27ae60" stroke-width="2" rx="6"/>
+  <circle cx="745" cy="240" r="4" fill="#27ae60"/>
+  <text x="740" y="232" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="end">GPIO</text>
+
+  <text x="830" y="175" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Порт GPIO / ADC</text>
+  <text x="830" y="193" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">(U_in ≤ 3.3 В)</text>
+
+  <!-- Status Card Inside MCU -->
+  <rect x="765" y="215" width="130" height="180" fill="#e9f7ef" stroke="#27ae60" stroke-width="1" stroke-dasharray="4,3" rx="4"/>
+  <text x="830" y="236" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">СТАН СИГНАЛУ:</text>
+  <text x="830" y="258" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">✓ Напруга:</text>
+  <text x="830" y="276" font-size="12" fill="#1a1a1a" text-anchor="middle">3.24 В (безпечна)</text>
+  <text x="830" y="300" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">✓ Фільтрація:</text>
+  <text x="830" y="318" font-size="12" fill="#1a1a1a" text-anchor="middle">без дріботіння</text>
+  <text x="830" y="342" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">✓ Захист:</text>
+  <text x="830" y="360" font-size="12" fill="#1a1a1a" text-anchor="middle">ESD імпульси</text>
+  <text x="830" y="378" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">заблоковано</text>
+
+  <!-- Bottom Legend / Summary Panel -->
+  <rect x="40" y="445" width="880" height="60" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="60" y="468" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">1. Дільник R1-R2</text>
+  <text x="60" y="488" font-size="12" fill="#6b7280" text-anchor="start">Понижує рівень 5 В → 3.24 В</text>
+
+  <text x="340" y="468" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="start">2. RC-фільтр (R1-C1)</text>
+  <text x="340" y="488" font-size="12" fill="#6b7280" text-anchor="start">Пригнічує брязкіт і ВЧ-шуми</text>
+
+  <text x="640" y="468" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="start">3. Діод TVS (ESD)</text>
+  <text x="640" y="488" font-size="12" fill="#6b7280" text-anchor="start">Обмежує сплески на рівні 5 В</text>
+</svg>

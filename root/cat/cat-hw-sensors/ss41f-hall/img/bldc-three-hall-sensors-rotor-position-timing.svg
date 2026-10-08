@@ -1,0 +1,164 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 530" width="960" height="530" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M 0 0 L 8 4 L 0 8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M 0 0 L 8 4 L 0 8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Canvas Background -->
+  <rect x="0" y="0" width="960" height="530" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Розташування трьох давачів Холла SS41F та часові діаграми у BLDC</text>
+  <text x="480" y="54" text-anchor="middle" font-size="13" fill="#6b7280">Зміщення давачів на 120° ел. формує 6 унікальних станів (60° ел.) для комутації фаз</text>
+
+  <!-- Left Panel: Spatial Layout -->
+  <rect x="25" y="75" width="385" height="435" rx="8" ry="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="217" y="98" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Радіальне розміщення давачів (120°)</text>
+
+  <!-- Sensor Arc Guides (3 dashed arcs between sensors) -->
+  <path d="M 255,165 A 90,90 0 0,1 297,260" fill="none" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <path d="M 270,305 A 90,90 0 0,1 164,305" fill="none" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <path d="M 137,260 A 90,90 0 0,1 179,165" fill="none" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="4,4"/>
+
+  <!-- Rotor Outer Stator Rim -->
+  <circle cx="217" cy="245" r="70" fill="none" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Rotor Magnets (4 pole ring sectors: N, S, N, S) -->
+  <path d="M 217,177 A 68,68 0 0,1 285,245 L 239,245 A 22,22 0 0,0 217,223 Z" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <path d="M 285,245 A 68,68 0 0,1 217,313 L 217,267 A 22,22 0 0,0 239,245 Z" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <path d="M 217,313 A 68,68 0 0,1 149,245 L 195,245 A 22,22 0 0,0 217,267 Z" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <path d="M 149,245 A 68,68 0 0,1 217,177 L 217,223 A 22,22 0 0,0 195,245 Z" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+
+  <!-- Shaft Disc -->
+  <circle cx="217" cy="245" r="22" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="217" y="249" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a1a">Ротор</text>
+
+  <!-- Magnet Pole Labels -->
+  <text x="249" y="217" text-anchor="middle" font-size="14" font-weight="bold" fill="#c0392b">N</text>
+  <text x="249" y="281" text-anchor="middle" font-size="14" font-weight="bold" fill="#2457d6">S</text>
+  <text x="185" y="281" text-anchor="middle" font-size="14" font-weight="bold" fill="#c0392b">N</text>
+  <text x="185" y="217" text-anchor="middle" font-size="14" font-weight="bold" fill="#2457d6">S</text>
+
+  <!-- Dashed Angle Reference Lines from center towards sensors (stopping before sensor boxes) -->
+  <line x1="217" y1="223" x2="217" y2="168" stroke="#6b7280" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="236" y1="256" x2="276" y2="279" stroke="#6b7280" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="198" y1="256" x2="158" y2="279" stroke="#6b7280" stroke-width="1" stroke-dasharray="3,3"/>
+
+  <!-- Rotation Arrow -->
+  <path d="M 217,203 A 42,42 0 0,1 249,216" fill="none" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="257" y="210" font-size="13" font-weight="bold" fill="#1a1a1a">ω</text>
+
+  <!-- Hall Sensor H1 (0° / Top) -->
+  <rect x="199" y="142" width="36" height="24" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="2"/>
+  <text x="217" y="158" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">H1</text>
+  <text x="217" y="126" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">SS41F (0°)</text>
+
+  <!-- Hall Sensor H2 (120° / Lower Right) -->
+  <rect x="277" y="278" width="36" height="24" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="2"/>
+  <text x="295" y="294" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">H2</text>
+  <text x="320" y="294" text-anchor="start" font-size="12" font-weight="bold" fill="#1a1a1a">SS41F (120°)</text>
+
+  <!-- Hall Sensor H3 (240° / Lower Left) -->
+  <rect x="121" y="278" width="36" height="24" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="2"/>
+  <text x="139" y="294" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">H3</text>
+  <text x="114" y="294" text-anchor="end" font-size="12" font-weight="bold" fill="#1a1a1a">SS41F (240°)</text>
+
+  <!-- Label below rotor -->
+  <text x="217" y="348" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Напрямок обертання (ω)</text>
+
+  <!-- Left Panel Legend Box -->
+  <rect x="40" y="370" width="355" height="128" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="52" y="390" font-size="12" font-weight="bold" fill="#1a1a1a">Особливості біполярного давача SS41F:</text>
+  <text x="52" y="412" font-size="12" fill="#1a1a1a">• HIGH (1) — південний полюс S (B &gt; Bop)</text>
+  <text x="52" y="434" font-size="12" fill="#1a1a1a">• LOW (0) — північний полюс N (B &lt; Brp)</text>
+  <text x="52" y="456" font-size="12" font-weight="bold" fill="#2457d6">• Стан зафіксовано (Latch) до зміни полюса</text>
+  <text x="52" y="478" font-size="12" fill="#6b7280">• 3 давачі зсунуті на 120° формують 6 станів</text>
+
+  <!-- Right Panel: Timing Diagrams -->
+  <rect x="435" y="75" width="500" height="435" rx="8" ry="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="685" y="98" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Часові діаграми вихідних сигналів (60° ел.)</text>
+  <text x="685" y="116" text-anchor="middle" font-size="12" fill="#6b7280">Кожні 60° ел. змінюється стан лише одного давача</text>
+
+  <!-- Vertical Sector Grid Lines -->
+  <line x1="510" y1="135" x2="510" y2="320" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="570" y1="135" x2="570" y2="320" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="630" y1="135" x2="630" y2="320" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="690" y1="135" x2="690" y2="320" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="750" y1="135" x2="750" y2="320" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="810" y1="135" x2="810" y2="320" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="870" y1="135" x2="870" y2="320" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+
+  <!-- Signal H1 -->
+  <text x="475" y="164" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">H1</text>
+  <rect x="510" y="145" width="180" height="30" fill="#eaf0fd" opacity="0.6"/>
+  <path d="M 510,145 L 690,145 L 690,175 L 870,175" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+  <text x="600" y="138" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">HIGH (1)</text>
+  <text x="780" y="168" text-anchor="middle" font-size="11" font-weight="bold" fill="#6b7280">LOW (0)</text>
+
+  <!-- Signal H2 -->
+  <text x="475" y="229" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">H2</text>
+  <rect x="630" y="210" width="180" height="30" fill="#eaf0fd" opacity="0.6"/>
+  <path d="M 510,240 L 630,240 L 630,210 L 810,210 L 810,240 L 870,240" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+  <text x="540" y="233" text-anchor="middle" font-size="11" font-weight="bold" fill="#6b7280">LOW (0)</text>
+  <text x="720" y="203" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">HIGH (1)</text>
+  <text x="840" y="233" text-anchor="middle" font-size="11" font-weight="bold" fill="#6b7280">LOW (0)</text>
+
+  <!-- Signal H3 -->
+  <text x="475" y="294" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">H3</text>
+  <rect x="510" y="275" width="60" height="30" fill="#eaf0fd" opacity="0.6"/>
+  <rect x="750" y="275" width="120" height="30" fill="#eaf0fd" opacity="0.6"/>
+  <path d="M 510,275 L 570,275 L 570,305 L 750,305 L 750,275 L 860,275" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+  <text x="540" y="268" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">HIGH (1)</text>
+  <text x="660" y="298" text-anchor="middle" font-size="11" font-weight="bold" fill="#6b7280">LOW (0)</text>
+  <text x="840" y="268" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">HIGH (1)</text>
+
+  <!-- Electrical Angles Axis Labels -->
+  <text x="510" y="336" text-anchor="middle" font-size="11" fill="#6b7280">0°</text>
+  <text x="570" y="336" text-anchor="middle" font-size="11" fill="#6b7280">60°</text>
+  <text x="630" y="336" text-anchor="middle" font-size="11" fill="#6b7280">120°</text>
+  <text x="690" y="336" text-anchor="middle" font-size="11" fill="#6b7280">180°</text>
+  <text x="750" y="336" text-anchor="middle" font-size="11" fill="#6b7280">240°</text>
+  <text x="810" y="336" text-anchor="middle" font-size="11" fill="#6b7280">300°</text>
+  <text x="870" y="336" text-anchor="middle" font-size="11" fill="#6b7280">360°</text>
+
+  <!-- Sectors Row -->
+  <text x="470" y="358" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Сектор:</text>
+  <text x="540" y="358" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Крок 1</text>
+  <text x="600" y="358" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Крок 2</text>
+  <text x="660" y="358" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Крок 3</text>
+  <text x="720" y="358" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Крок 4</text>
+  <text x="780" y="358" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Крок 5</text>
+  <text x="840" y="358" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Крок 6</text>
+
+  <!-- Binary Code Pills Row -->
+  <text x="470" y="388" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">H1-H2-H3:</text>
+
+  <rect x="519" y="374" width="42" height="20" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="540" y="388" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">1 0 1</text>
+
+  <rect x="579" y="374" width="42" height="20" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="600" y="388" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">1 0 0</text>
+
+  <rect x="639" y="374" width="42" height="20" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="660" y="388" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">1 1 0</text>
+
+  <rect x="699" y="374" width="42" height="20" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="720" y="388" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">0 1 0</text>
+
+  <rect x="759" y="374" width="42" height="20" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="780" y="388" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">0 1 1</text>
+
+  <rect x="819" y="374" width="42" height="20" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="840" y="388" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">0 0 1</text>
+
+  <!-- Right Panel Info Box -->
+  <rect x="450" y="408" width="470" height="90" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="462" y="426" font-size="12" font-weight="bold" fill="#1a1a1a">Особливості 6-крокової комутації BLDC:</text>
+  <text x="462" y="446" font-size="12" fill="#1a1a1a">• Зміна стану одного давача відбувається кожні 60° ел.</text>
+  <text x="462" y="466" font-size="12" fill="#1a1a1a">• Усі 6 комбінацій є унікальними та визначають фазу</text>
+  <text x="462" y="486" font-size="12" font-weight="bold" fill="#c0392b">• Комбінації (0,0,0) та (1,1,1) — неможливі / заборонені</text>
+</svg>

@@ -1,0 +1,176 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#94a3b8"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="35" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Структура обмоток та амплітудна модуляція резольвера і сельсина</text>
+  <text x="480" y="56" text-anchor="middle" font-size="13" fill="#6b7280">Просторовий зсув обмоток (90° та 120°) перетворює кут ротора θ на амплітуду вихідних сигналів</text>
+
+  <!-- LEFT PANEL: RESOLVER -->
+  <rect x="30" y="75" width="435" height="445" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="50" y="98" font-size="15" font-weight="bold" fill="#2457d6">1. Двофазний резольвер (90° квадратура)</text>
+  <text x="50" y="116" font-size="12" fill="#6b7280">Обмотки статора Sin та Cos розташовані під кутом 90°</text>
+
+  <!-- Left Zone A: Spatial Winding Schema -->
+  <rect x="45" y="128" width="405" height="172" rx="6" fill="white" stroke="#e5e7eb" stroke-width="1"/>
+  
+  <!-- Resolver Stator Circles & Axes -->
+  <circle cx="140" cy="212" r="50" fill="#f8fafc" stroke="#94a3b8" stroke-dasharray="4,3" stroke-width="1.5"/>
+  <line x1="140" y1="148" x2="140" y2="276" stroke="#cbd5e1" stroke-dasharray="2,2"/>
+  <line x1="75" y1="212" x2="205" y2="212" stroke="#cbd5e1" stroke-dasharray="2,2"/>
+
+  <!-- Stator Sin Winding (Vertical, 90°) -->
+  <rect x="130" y="150" width="20" height="16" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="130" y="258" width="20" height="16" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="140" y="143" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Sin (S1-S3)</text>
+
+  <!-- Stator Cos Winding (Horizontal, 0°) -->
+  <rect x="78" y="204" width="16" height="16" rx="3" fill="#e0f2fe" stroke="#0284c7" stroke-width="1.5"/>
+  <rect x="186" y="204" width="16" height="16" rx="3" fill="#e0f2fe" stroke="#0284c7" stroke-width="1.5"/>
+  <text x="196" y="232" font-size="12" font-weight="bold" fill="#0284c7">Cos (S2-S4)</text>
+
+  <!-- Rotor assembly (Angled at 35°) -->
+  <line x1="140" y1="212" x2="190" y2="212" stroke="#94a3b8" stroke-dasharray="3,2"/>
+  <line x1="112" y1="231" x2="168" y2="193" stroke="#d97706" stroke-width="7" stroke-linecap="round"/>
+  <circle cx="140" cy="212" r="5" fill="white" stroke="#d97706" stroke-width="2"/>
+  
+  <!-- Angle theta arc -->
+  <path d="M 170 212 A 30 30 0 0 0 165 195" fill="none" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="175" y="205" font-size="13" font-weight="bold" fill="#c0392b">θ</text>
+
+  <!-- Connection to Rotor Excitation -->
+  <path d="M 168 193 Q 220 178 275 178" fill="none" stroke="#d97706" stroke-width="1.5" stroke-dasharray="3,3"/>
+
+  <!-- Resolver Excitation Info Box -->
+  <rect x="275" y="138" width="165" height="152" rx="6" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1"/>
+  <text x="285" y="156" font-size="12" font-weight="bold" fill="#d97706">Первинне збудження:</text>
+  <text x="285" y="176" font-size="12" font-weight="bold" fill="#1a1a1a">U_збд = U_m · sin(ωt)</text>
+  <text x="285" y="198" font-size="11" fill="#4b5563">Ротор R1-R2: збудження</text>
+  <text x="285" y="218" font-size="11" fill="#4b5563">Частота: 400 Гц – 10 кГц</text>
+  <text x="285" y="240" font-size="11" font-weight="bold" fill="#2457d6">Зсув обмоток: 90°</text>
+  <text x="285" y="262" font-size="11" font-weight="bold" fill="#0284c7">Вихід: Sin / Cos напруги</text>
+
+  <!-- Left Zone B: Waveforms & Output Formulas -->
+  <rect x="45" y="315" width="405" height="190" rx="6" fill="white" stroke="#e5e7eb" stroke-width="1"/>
+  <text x="60" y="336" font-size="13" font-weight="bold" fill="#1a1a1a">Амплітудна модуляція вихідних сигналів:</text>
+
+  <!-- Axis -->
+  <line x1="80" y1="400" x2="430" y2="400" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+  <line x1="80" y1="440" x2="80" y2="350" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+  <text x="75" y="348" text-anchor="end" font-size="11" fill="#6b7280">U(θ)</text>
+  <text x="435" y="415" text-anchor="end" font-size="11" fill="#6b7280">θ</text>
+
+  <!-- Ticks -->
+  <line x1="165" y1="397" x2="165" y2="403" stroke="#94a3b8" stroke-width="1"/>
+  <text x="165" y="414" text-anchor="middle" font-size="11" fill="#6b7280">90°</text>
+  <line x1="250" y1="397" x2="250" y2="403" stroke="#94a3b8" stroke-width="1"/>
+  <text x="250" y="414" text-anchor="middle" font-size="11" fill="#6b7280">180°</text>
+  <line x1="335" y1="397" x2="335" y2="403" stroke="#94a3b8" stroke-width="1"/>
+  <text x="335" y="414" text-anchor="middle" font-size="11" fill="#6b7280">270°</text>
+  <line x1="420" y1="397" x2="420" y2="403" stroke="#94a3b8" stroke-width="1"/>
+  <text x="420" y="414" text-anchor="middle" font-size="11" fill="#6b7280">360°</text>
+
+  <!-- Sin envelope curve (Blue) -->
+  <path d="M 80 400 C 120 360, 125 360, 165 360 C 205 360, 210 400, 250 400 C 290 400, 295 440, 335 440 C 375 440, 380 400, 420 400" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+
+  <!-- Cos envelope curve (Sky Blue dashed) -->
+  <path d="M 80 360 C 120 360, 125 400, 165 400 C 205 400, 210 440, 250 440 C 290 440, 295 400, 335 400 C 375 400, 380 360, 420 360" fill="none" stroke="#0284c7" stroke-width="2.5" stroke-dasharray="6,3"/>
+
+  <!-- Equations box -->
+  <rect x="60" y="438" width="375" height="56" rx="4" fill="#eaf0fd" stroke="#bfdbfe" stroke-width="1"/>
+  <text x="70" y="458" font-size="12" font-weight="bold" fill="#2457d6">U_Sin(θ) = K · U_m · sin(ωt) · sin(θ)</text>
+  <text x="70" y="478" font-size="12" font-weight="bold" fill="#0284c7">U_Cos(θ) = K · U_m · sin(ωt) · cos(θ)</text>
+
+
+  <!-- RIGHT PANEL: SYNCHRO -->
+  <rect x="495" y="75" width="435" height="445" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="515" y="98" font-size="15" font-weight="bold" fill="#2457d6">2. Трифазний сельсин (120° зсув)</text>
+  <text x="515" y="116" font-size="12" fill="#6b7280">Три обмотки статора з'єднані у зірку (Y) під кутами 120°</text>
+
+  <!-- Right Zone A: Spatial Winding Schema -->
+  <rect x="510" y="128" width="405" height="172" rx="6" fill="white" stroke="#e5e7eb" stroke-width="1"/>
+
+  <!-- Synchro Stator Circle & Star Lines -->
+  <circle cx="605" cy="212" r="50" fill="#f8fafc" stroke="#94a3b8" stroke-dasharray="4,3" stroke-width="1.5"/>
+  <line x1="605" y1="212" x2="605" y2="168" stroke="#2457d6" stroke-width="2"/>
+  <line x1="605" y1="212" x2="567" y2="234" stroke="#d97706" stroke-width="2"/>
+  <line x1="605" y1="212" x2="643" y2="234" stroke="#7c3aed" stroke-width="2"/>
+  <circle cx="605" cy="212" r="4" fill="#1a1a1a"/>
+  <text x="596" y="202" text-anchor="end" font-size="12" font-weight="bold" fill="#4b5563">N</text>
+
+  <!-- Stator S1 Coil (Top, 90°) -->
+  <rect x="595" y="148" width="20" height="16" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="605" y="141" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">S1 (90°)</text>
+
+  <!-- Stator S2 Coil (Bottom-Left, 210°) -->
+  <rect x="548" y="226" width="20" height="16" rx="3" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/>
+  <text x="542" y="258" text-anchor="middle" font-size="12" font-weight="bold" fill="#d97706">S2 (210°)</text>
+
+  <!-- Stator S3 Coil (Bottom-Right, 330°) -->
+  <rect x="642" y="226" width="20" height="16" rx="3" fill="#f3e8ff" stroke="#7c3aed" stroke-width="1.5"/>
+  <text x="668" y="258" text-anchor="middle" font-size="12" font-weight="bold" fill="#7c3aed">S3 (330°)</text>
+
+  <!-- Rotor assembly (Angled at 35°) -->
+  <line x1="605" y1="212" x2="655" y2="212" stroke="#94a3b8" stroke-dasharray="3,2"/>
+  <line x1="577" y1="232" x2="633" y2="192" stroke="#c0392b" stroke-width="7" stroke-linecap="round"/>
+  <circle cx="605" cy="212" r="5" fill="white" stroke="#c0392b" stroke-width="2"/>
+
+  <!-- Angle theta arc -->
+  <path d="M 635 212 A 30 30 0 0 0 630 195" fill="none" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="640" y="205" font-size="13" font-weight="bold" fill="#c0392b">θ</text>
+
+  <!-- Connection to Rotor Excitation -->
+  <path d="M 633 192 Q 685 178 740 178" fill="none" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3,3"/>
+
+  <!-- Synchro Excitation Info Box -->
+  <rect x="740" y="138" width="165" height="152" rx="6" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1"/>
+  <text x="750" y="156" font-size="12" font-weight="bold" fill="#d97706">Первинне збудження:</text>
+  <text x="750" y="176" font-size="12" font-weight="bold" fill="#1a1a1a">U_збд = U_m · sin(ωt)</text>
+  <text x="750" y="198" font-size="11" fill="#4b5563">Ротор R1-R2: збудження</text>
+  <text x="750" y="218" font-size="11" fill="#4b5563">Схема статора: Зірка (Y)</text>
+  <text x="750" y="240" font-size="11" font-weight="bold" fill="#2457d6">Зсув обмоток: 120°</text>
+  <text x="750" y="262" font-size="11" font-weight="bold" fill="#7c3aed">Вихід: 3-фазна система</text>
+
+  <!-- Right Zone B: Waveforms & Output Formulas -->
+  <rect x="510" y="315" width="405" height="190" rx="6" fill="white" stroke="#e5e7eb" stroke-width="1"/>
+  <text x="525" y="336" font-size="13" font-weight="bold" fill="#1a1a1a">Міжлінійні вихідні напруги статора:</text>
+
+  <!-- Axis -->
+  <line x1="545" y1="400" x2="895" y2="400" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+  <line x1="545" y1="440" x2="545" y2="350" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+  <text x="540" y="348" text-anchor="end" font-size="11" fill="#6b7280">U(θ)</text>
+  <text x="900" y="415" text-anchor="end" font-size="11" fill="#6b7280">θ</text>
+
+  <!-- Ticks -->
+  <line x1="658" y1="397" x2="658" y2="403" stroke="#94a3b8" stroke-width="1"/>
+  <text x="658" y="414" text-anchor="middle" font-size="11" fill="#6b7280">120°</text>
+  <line x1="771" y1="397" x2="771" y2="403" stroke="#94a3b8" stroke-width="1"/>
+  <text x="771" y="414" text-anchor="middle" font-size="11" fill="#6b7280">240°</text>
+  <line x1="884" y1="397" x2="884" y2="403" stroke="#94a3b8" stroke-width="1"/>
+  <text x="884" y="414" text-anchor="middle" font-size="11" fill="#6b7280">360°</text>
+
+  <!-- 3-Phase Line Waveform curves -->
+  <!-- U_S2-S3 (Amber solid) -->
+  <path d="M 545 400 C 585 360, 590 360, 630 360 C 670 360, 675 400, 715 400 C 755 400, 760 440, 800 440 C 840 440, 844 400, 884 400" fill="none" stroke="#d97706" stroke-width="2"/>
+
+  <!-- U_S1-S2 (Blue dashed) -->
+  <path d="M 545 365 C 560 360, 565 360, 573 360 C 613 360, 618 400, 658 400 C 698 400, 703 440, 743 440 C 783 440, 788 400, 828 400 C 868 400, 874 365, 884 365" fill="none" stroke="#2457d6" stroke-width="2" stroke-dasharray="5,3"/>
+
+  <!-- U_S3-S1 (Purple dotted) -->
+  <path d="M 545 435 C 570 440, 615 440, 658 400 C 700 360, 710 360, 743 360 C 785 360, 795 400, 828 400 C 860 400, 870 435, 884 435" fill="none" stroke="#7c3aed" stroke-width="2" stroke-dasharray="2,2"/>
+
+  <!-- Equations box -->
+  <rect x="525" y="438" width="375" height="58" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="535" y="455" font-size="11" font-weight="bold" fill="#2457d6">U_S1-S2(θ) = K · U_m · sin(ωt) · sin(θ + 120°)</text>
+  <text x="535" y="471" font-size="11" font-weight="bold" fill="#d97706">U_S2-S3(θ) = K · U_m · sin(ωt) · sin(θ)</text>
+  <text x="535" y="487" font-size="11" font-weight="bold" fill="#7c3aed">U_S3-S1(θ) = K · U_m · sin(ωt) · sin(θ - 120°)</text>
+</svg>

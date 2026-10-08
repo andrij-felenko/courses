@@ -1,0 +1,121 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Header -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Сигнальний тракт: ECM з зовнішньою обв'язкою vs монолітний I2S MEMS</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Інтеграція АЦП та I2S-контролера в MEMS усуває вразливі аналогові лінії та дискретні підсилювачі</text>
+
+  <!-- TOP PANEL: ECM (Analog signal chain) -->
+  <rect x="30" y="72" width="900" height="175" rx="8" fill="#fdecea" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="45" y="82" width="220" height="24" rx="4" fill="#c0392b"/>
+  <text x="155" y="98" font-size="13" font-weight="bold" fill="white" text-anchor="middle">ТРАДИЦІЙНИЙ АНАЛОГОВИЙ ECM</text>
+
+  <!-- Acoustic input ECM -->
+  <path d="M 40 143 Q 43 150 40 157 M 44 139 Q 48 150 44 161" stroke="#6b7280" stroke-width="2" fill="none"/>
+  <text x="42" y="132" font-size="12" fill="#6b7280" text-anchor="middle">Звук</text>
+
+  <!-- Block 1: ECM Capsule -->
+  <rect x="58" y="118" width="140" height="64" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="128" y="143" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">ECM Капсуль</text>
+  <text x="128" y="163" font-size="12" fill="#6b7280" text-anchor="middle">+ JFET транзистор</text>
+
+  <!-- Arrow 1: ECM -> OpAmp -->
+  <line x1="198" y1="150" x2="255" y2="150" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <text x="226" y="136" font-size="12" fill="#c0392b" text-anchor="middle">мВ (аналог)</text>
+  <text x="226" y="168" font-size="12" fill="#c0392b" text-anchor="middle">Вразливий</text>
+
+  <!-- Block 2: Op-Amp -->
+  <rect x="257" y="118" width="150" height="64" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="332" y="143" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Малошумний ОП</text>
+  <text x="332" y="163" font-size="12" fill="#6b7280" text-anchor="middle">+ RC-фільтри / gain</text>
+
+  <!-- Arrow 2: OpAmp -> ADC -->
+  <line x1="407" y1="150" x2="465" y2="150" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <text x="436" y="136" font-size="12" fill="#c0392b" text-anchor="middle">1-2V (аналог)</text>
+
+  <!-- Block 3: Discrete ADC -->
+  <rect x="467" y="118" width="140" height="64" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="537" y="143" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Зовнішній АЦП</text>
+  <text x="537" y="163" font-size="12" fill="#6b7280" text-anchor="middle">(Codec / ADC IC)</text>
+
+  <!-- Arrow 3: ADC -> MCU -->
+  <line x1="607" y1="150" x2="665" y2="150" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="636" y="136" font-size="12" fill="#2457d6" text-anchor="middle">I2S / SPI</text>
+  <text x="636" y="168" font-size="12" fill="#2457d6" text-anchor="middle">Цифровий</text>
+
+  <!-- Block 4: MCU -->
+  <rect x="667" y="118" width="125" height="64" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="729" y="143" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">ESP32 / MCU</text>
+  <text x="729" y="163" font-size="12" fill="#2457d6" text-anchor="middle">I2S шина</text>
+
+  <!-- Panel 1 Summary Note -->
+  <text x="480" y="218" font-size="12" fill="#c0392b" text-anchor="middle">⚠ 3 аналогові вузли, чутливість до електромагнітних наводок (EMI/RFI), висока складність трасування PCB</text>
+
+  <!-- BOTTOM PANEL: I2S MEMS (Monolithic digital chain) -->
+  <rect x="30" y="260" width="900" height="175" rx="8" fill="#e9f7ef" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="45" y="270" width="220" height="24" rx="4" fill="#27ae60"/>
+  <text x="155" y="286" font-size="13" font-weight="bold" fill="white" text-anchor="middle">МОНОЛІТНИЙ I2S MEMS-МІКРОФОН</text>
+
+  <!-- Acoustic input MEMS -->
+  <path d="M 130 348 Q 133 355 130 362 M 134 344 Q 138 355 134 366" stroke="#6b7280" stroke-width="2" fill="none"/>
+  <text x="132" y="337" font-size="12" fill="#6b7280" text-anchor="middle">Звук</text>
+
+  <!-- Integrated MEMS IC Box -->
+  <rect x="145" y="305" width="460" height="90" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="2"/>
+  <text x="375" y="322" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">ЄДИНИЙ КОРПУС MEMS (LGA)</text>
+
+  <!-- Sub-box 1: MEMS membrane -->
+  <rect x="155" y="332" width="88" height="52" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="199" y="352" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">MEMS</text>
+  <text x="199" y="368" font-size="12" fill="#6b7280" text-anchor="middle">мембрана</text>
+
+  <line x1="243" y1="358" x2="255" y2="358" stroke="#27ae60" stroke-width="1" marker-end="url(#arr-green)"/>
+
+  <!-- Sub-box 2: Internal Amp -->
+  <rect x="257" y="332" width="88" height="52" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="301" y="352" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Внутрішній</text>
+  <text x="301" y="368" font-size="12" fill="#6b7280" text-anchor="middle">підсилювач</text>
+
+  <line x1="345" y1="358" x2="357" y2="358" stroke="#27ae60" stroke-width="1" marker-end="url(#arr-green)"/>
+
+  <!-- Sub-box 3: Sigma-Delta ADC -->
+  <rect x="359" y="332" width="75" height="52" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="396" y="352" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">ΣΔ АЦП</text>
+  <text x="396" y="368" font-size="12" fill="#6b7280" text-anchor="middle">(ADC)</text>
+
+  <line x1="434" y1="358" x2="446" y2="358" stroke="#27ae60" stroke-width="1" marker-end="url(#arr-green)"/>
+
+  <!-- Sub-box 4: I2S Controller -->
+  <rect x="448" y="332" width="145" height="52" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="520" y="352" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Контролер I2S</text>
+  <text x="520" y="368" font-size="12" fill="#6b7280" text-anchor="middle">(SCK, WS, SD)</text>
+
+  <!-- Output Arrow: Integrated IC -> MCU -->
+  <line x1="605" y1="358" x2="665" y2="358" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arr-green)"/>
+  <text x="635" y="344" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">I2S потік</text>
+  <text x="635" y="376" font-size="12" fill="#27ae60" text-anchor="middle">Цифровий</text>
+
+  <!-- Block 2: MCU -->
+  <rect x="667" y="313" width="125" height="74" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="729" y="347" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">ESP32 / MCU</text>
+  <text x="729" y="367" font-size="12" fill="#2457d6" text-anchor="middle">I2S шина</text>
+
+  <!-- Panel 2 Summary Note -->
+  <text x="480" y="420" font-size="12" fill="#27ae60" text-anchor="middle">✓ Нуль аналогових трас на PCB, висока завадостійкість, мінімальна площа та простий монтаж</text>
+</svg>

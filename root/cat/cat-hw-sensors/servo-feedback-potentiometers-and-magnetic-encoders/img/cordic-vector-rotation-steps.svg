@@ -1,0 +1,155 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-orange" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#d35400"/>
+    </marker>
+    <marker id="arr-purple" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#8e44ad"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Canvas Background -->
+  <rect x="0" y="0" width="960" height="540" fill="#ffffff"/>
+
+  <!-- Title and Subtitle -->
+  <text x="480" y="30" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Ітераційне зведення вектора до осі в алгоритмі CORDIC</text>
+  <text x="480" y="52" text-anchor="middle" font-size="13" fill="#6b7280">Послідовні повороти на кути αᵢ = arctan(2⁻ⁱ) обнулюють y-компоненту та обчислюють кут atan2(y, x)</text>
+
+  <!-- LEFT PANEL: Vectoring Geometry -->
+  <rect x="20" y="70" width="450" height="450" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="36" y="96" font-size="14" font-weight="bold" fill="#1a1a1a">Геометрична траєкторія вектора (Vectoring)</text>
+  <text x="36" y="114" font-size="12" fill="#6b7280">Повороти для зведення вектора V до осі X (y → 0)</text>
+
+  <!-- Y Axis -->
+  <line x1="140" y1="375" x2="140" y2="135" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="140" y="128" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Y (Sin / Q)</text>
+
+  <!-- X Axis -->
+  <line x1="50" y1="280" x2="390" y2="280" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="396" y="284" text-anchor="start" font-size="12" font-weight="bold" fill="#1a1a1a">X (Cos / I)</text>
+
+  <!-- Origin O -->
+  <circle cx="140" cy="280" r="3" fill="#1a1a1a"/>
+  <text x="128" y="296" text-anchor="end" font-size="12" fill="#6b7280">O</text>
+
+  <!-- Initial Vector V0 (blue) -->
+  <line x1="140" y1="280" x2="212" y2="184" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+  <text x="218" y="178" font-size="12" font-weight="bold" fill="#2457d6">V₀</text>
+  <line x1="212" y1="184" x2="212" y2="280" stroke="#2457d6" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="218" y="235" font-size="12" font-weight="bold" fill="#2457d6">y₀ &gt; 0</text>
+
+  <!-- Initial Angle Arc theta0 -->
+  <path d="M 175 280 A 35 35 0 0 0 161 252" fill="none" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="134" y1="248" x2="161" y2="252" stroke="#2457d6" stroke-width="1" stroke-dasharray="2,2"/>
+  <text x="132" y="252" text-anchor="end" font-size="12" font-weight="bold" fill="#2457d6">θ₀ = 53.1°</text>
+
+  <!-- Step 0 Rotation Arc (-45 deg) -->
+  <path d="M 188 216 A 80 80 0 0 1 219 269" fill="none" stroke="#d35400" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <text x="235" y="205" font-size="12" fill="#d35400">–α₀ (–45.0°)</text>
+
+  <!-- Vector V1 after Step 0 (orange) -->
+  <line x1="140" y1="280" x2="308" y2="256" stroke="#d35400" stroke-width="2.2" marker-end="url(#arr-orange)"/>
+  <text x="316" y="252" font-size="12" font-weight="bold" fill="#d35400">V₁</text>
+  <line x1="308" y1="256" x2="308" y2="280" stroke="#d35400" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="314" y="274" font-size="12" font-weight="bold" fill="#d35400">y₁ &gt; 0</text>
+
+  <!-- Step 1 Rotation Arc (-26.6 deg) -->
+  <path d="M 259 263 A 120 120 0 0 1 254 318" fill="none" stroke="#8e44ad" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <text x="225" y="248" font-size="12" fill="#8e44ad">–α₁ (–26.6°)</text>
+
+  <!-- Vector V2 after Step 1 (purple) -->
+  <line x1="140" y1="280" x2="320" y2="340" stroke="#8e44ad" stroke-width="2" marker-end="url(#arr-purple)"/>
+  <text x="328" y="352" font-size="12" font-weight="bold" fill="#8e44ad">V₂</text>
+  <line x1="320" y1="340" x2="320" y2="280" stroke="#8e44ad" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="326" y="325" font-size="12" font-weight="bold" fill="#8e44ad">y₂ &lt; 0</text>
+
+  <!-- Step 2 Rotation Arc (+14.0 deg) -->
+  <path d="M 282 327 A 150 150 0 0 0 289 291" fill="none" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <text x="220" y="362" font-size="12" fill="#27ae60">+α₂ (+14.0°)</text>
+
+  <!-- Vector V3 after Step 2 (green) -->
+  <line x1="140" y1="280" x2="335" y2="295" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arr-green)"/>
+  <text x="342" y="308" font-size="12" font-weight="bold" fill="#27ae60">V₃ ≈ (K·R, 0)</text>
+
+  <!-- Summary Box Inside Left Panel -->
+  <rect x="36" y="395" width="418" height="110" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="48" y="416" font-size="12" font-weight="bold" fill="#1a1a1a">Принцип режиму Vectoring:</text>
+  <text x="48" y="436" font-size="12" fill="#4b5563">1. Знак yᵢ визначає напрямок: dᵢ = –sign(yᵢ)</text>
+  <text x="48" y="456" font-size="12" fill="#4b5563">2. Кут накопичується: zᵢ₊₁ = zᵢ – dᵢ · arctan(2⁻ⁱ)</text>
+  <text x="48" y="480" font-size="12" font-weight="bold" fill="#27ae60">3. При yₙ → 0 суматор кута zₙ → atan2(y₀, x₀)</text>
+
+  <!-- RIGHT PANEL: Angle Accumulation and Hardware Logic -->
+  <rect x="490" y="70" width="450" height="450" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="508" y="96" font-size="14" font-weight="bold" fill="#1a1a1a">Акумулятор кута z та апаратні ітерації</text>
+  <text x="508" y="114" font-size="12" fill="#6b7280">Обчислення кута без множення — тільки зсуви та додавання</text>
+
+  <!-- Table Card -->
+  <rect x="508" y="130" width="414" height="240" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Table Header Row -->
+  <rect x="508" y="130" width="414" height="30" rx="6 6 0 0" fill="#eaf0fd"/>
+  <text x="518" y="150" font-size="12" font-weight="bold" fill="#2457d6">Крок i</text>
+  <text x="565" y="150" font-size="12" font-weight="bold" fill="#2457d6">Кут αᵢ = arctan(2⁻ⁱ)</text>
+  <text x="705" y="150" font-size="12" font-weight="bold" fill="#2457d6">Знак yᵢ та dᵢ</text>
+  <text x="822" y="150" font-size="12" font-weight="bold" fill="#2457d6">Суматор z</text>
+
+  <!-- Table Dividers -->
+  <line x1="508" y1="160" x2="922" y2="160" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="508" y1="186" x2="922" y2="186" stroke="#e5e7eb" stroke-width="1"/>
+  <line x1="508" y1="212" x2="922" y2="212" stroke="#e5e7eb" stroke-width="1"/>
+  <line x1="508" y1="238" x2="922" y2="238" stroke="#e5e7eb" stroke-width="1"/>
+
+  <!-- Row 0 -->
+  <text x="530" y="177" font-size="12" fill="#1a1a1a">0</text>
+  <text x="565" y="177" font-size="12" fill="#1a1a1a">α₀ = 45.00° (2⁰)</text>
+  <text x="705" y="177" font-size="12" font-weight="bold" fill="#c0392b">y₀ &gt; 0 → d₀ = –1</text>
+  <text x="822" y="177" font-size="12" font-weight="bold" fill="#1a1a1a">+45.00°</text>
+
+  <!-- Row 1 -->
+  <rect x="509" y="187" width="412" height="24" fill="#f8fafc"/>
+  <text x="530" y="203" font-size="12" fill="#1a1a1a">1</text>
+  <text x="565" y="203" font-size="12" fill="#1a1a1a">α₁ = 26.57° (2⁻¹)</text>
+  <text x="705" y="203" font-size="12" font-weight="bold" fill="#c0392b">y₁ &gt; 0 → d₁ = –1</text>
+  <text x="822" y="203" font-size="12" font-weight="bold" fill="#1a1a1a">+71.57°</text>
+
+  <!-- Row 2 -->
+  <text x="530" y="229" font-size="12" fill="#1a1a1a">2</text>
+  <text x="565" y="229" font-size="12" fill="#1a1a1a">α₂ = 14.04° (2⁻²)</text>
+  <text x="705" y="229" font-size="12" font-weight="bold" fill="#27ae60">y₂ &lt; 0 → d₂ = +1</text>
+  <text x="822" y="229" font-size="12" font-weight="bold" fill="#1a1a1a">+57.53°</text>
+
+  <!-- Row 3 -->
+  <rect x="509" y="239" width="412" height="24" fill="#f8fafc"/>
+  <text x="530" y="255" font-size="12" fill="#1a1a1a">3</text>
+  <text x="565" y="255" font-size="12" fill="#1a1a1a">α₃ = 7.13°  (2⁻³)</text>
+  <text x="705" y="255" font-size="12" font-weight="bold" fill="#27ae60">y₃ &lt; 0 → d₃ = +1</text>
+  <text x="822" y="255" font-size="12" font-weight="bold" fill="#1a1a1a">+50.40°</text>
+
+  <!-- Result Row / Subcard -->
+  <rect x="509" y="265" width="412" height="104" rx="0 0 5 5" fill="#e9f7ef"/>
+  <line x1="508" y1="265" x2="922" y2="265" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="530" y="285" font-size="12" font-weight="bold" fill="#27ae60">... N ітерацій</text>
+  <text x="705" y="285" font-size="12" font-weight="bold" fill="#27ae60">yₙ → 0 (до осі X)</text>
+  <text x="822" y="285" font-size="12" font-weight="bold" fill="#27ae60">zₙ → 53.13°</text>
+
+  <text x="525" y="312" font-size="12" font-weight="bold" fill="#1a1a1a">Результат:</text>
+  <text x="525" y="332" font-size="12" fill="#27ae60">• Накопичений кут zₙ = atan2(y₀, x₀) = 53.13°</text>
+  <text x="525" y="352" font-size="12" fill="#4b5563">• Похибка зменшується вдвічі з кожною ітерацією</text>
+
+  <!-- Hardware Operations Card -->
+  <rect x="508" y="388" width="414" height="117" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="524" y="408" font-size="12" font-weight="bold" fill="#2457d6">Апаратні рівняння CORDIC (тільки shift &amp; add):</text>
+  <text x="524" y="430" font-size="12.5" font-weight="bold" fill="#1a1a1a">xᵢ₊₁ = xᵢ – dᵢ · (yᵢ &gt;&gt; i)</text>
+  <text x="524" y="451" font-size="12.5" font-weight="bold" fill="#1a1a1a">yᵢ₊₁ = yᵢ + dᵢ · (xᵢ &gt;&gt; i)</text>
+  <text x="524" y="472" font-size="12.5" font-weight="bold" fill="#1a1a1a">zᵢ₊₁ = zᵢ – dᵢ · atan_lut[i]</text>
+  <text x="524" y="494" font-size="12" fill="#6b7280">де dᵢ = –sign(yᵢ),  atan_lut[i] = arctan(2⁻ⁱ) з ПЗУ</text>
+</svg>

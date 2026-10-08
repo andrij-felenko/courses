@@ -1,0 +1,140 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 500" width="960" height="500" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-black" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Canvas Background -->
+  <rect x="0" y="0" width="960" height="500" fill="white"/>
+
+  <!-- Title and Subtitle -->
+  <text x="480" y="30" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Вплив струму збудження на самонагрів RTD</text>
+  <text x="480" y="52" text-anchor="middle" font-size="13" fill="#6b7280">Струм Iexc ≤ 1 мА мінімізує похибку ΔT, яка зростає квадратично й залежить від середовища</text>
+
+  <!-- PANEL 1: Circuit & Heat Model -->
+  <rect x="30" y="75" width="430" height="395" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="245" y="96" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Схема джерела струму та виділення тепла</text>
+
+  <!-- Current Source Box -->
+  <rect x="65" y="120" width="120" height="70" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <circle cx="95" cy="155" r="14" fill="none" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="95" y1="163" x2="95" y2="149" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="142" y="148" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Джерело</text>
+  <text x="142" y="165" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">струму</text>
+
+  <!-- Top Connecting Wire with Current Arrow -->
+  <line x1="185" y1="155" x2="265" y2="155" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="225" y="142" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Iexc</text>
+
+  <!-- RTD Element Box -->
+  <rect x="265" y="120" width="160" height="70" rx="6" fill="#ffffff" stroke="#1a1a1a" stroke-width="2"/>
+  <path d="M 272 155 L 279 155 L 283 145 L 291 165 L 299 145 L 307 165 L 311 155 L 318 155" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="372" y="147" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">RTD елемент</text>
+  <text x="372" y="165" text-anchor="middle" font-size="12" fill="#6b7280">Pt100 / Pt1000</text>
+
+  <!-- Circuit Return Wire -->
+  <path d="M 425 155 L 440 155 L 440 195 L 50 195 L 50 155 L 65 155" fill="none" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Heat Dissipation Note -->
+  <text x="245" y="218" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Теплове виділення: P = Iexc² · R</text>
+
+  <!-- Formula Box -->
+  <rect x="50" y="232" width="390" height="115" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="65" y="252" font-size="12" font-weight="bold" fill="#1a1a1a">Розрахунок виділення тепла та похибки:</text>
+  <text x="65" y="271" font-size="12" fill="#1a1a1a">1. Виділення потужності: P = Iexc² · R</text>
+  <text x="80" y="289" font-size="12" fill="#6b7280">Приклад (Pt100, 1 мА): P = (1 мА)² · 100 Ом = 0.1 мВт</text>
+  <text x="65" y="308" font-size="12" fill="#1a1a1a">2. Похибка температури: ΔT = P · S</text>
+  <text x="80" y="326" font-size="12" fill="#6b7280">де S — коефіцієнт самонагріву (°C/мВт)</text>
+
+  <!-- Recommendation Box -->
+  <rect x="50" y="357" width="390" height="100" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="65" y="377" font-size="12" font-weight="bold" fill="#27ae60">Рекомендований струм збудження:</text>
+  <text x="65" y="397" font-size="12" fill="#1a1a1a">• Для Pt100: Iexc = 0.5...1.0 мА (P ≤ 0.1...0.4 мВт)</text>
+  <text x="65" y="417" font-size="12" fill="#1a1a1a">• Для Pt1000: Iexc = 0.1...0.2 мА (P ≤ 0.01...0.04 мВт)</text>
+  <text x="65" y="437" font-size="12" font-weight="bold" fill="#27ae60">(утримує похибку самонагріву ΔT &lt; 0.02 °C)</text>
+
+  <!-- PANEL 2: Graph of ΔT vs Iexc -->
+  <rect x="480" y="75" width="450" height="395" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="705" y="96" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Залежність похибки ΔT від струму Iexc</text>
+
+  <!-- Y Axis Title -->
+  <text x="550" y="116" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Похибка ΔT (°C)</text>
+
+  <!-- Graph Background Zones -->
+  <rect x="550" y="135" width="120" height="245" fill="#e9f7ef" fill-opacity="0.5" stroke="#27ae60" stroke-dasharray="3,3" stroke-width="1"/>
+  <text x="610" y="155" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Норма</text>
+
+  <rect x="670" y="135" width="240" height="245" fill="#fdecea" fill-opacity="0.4" stroke="#c0392b" stroke-dasharray="3,3" stroke-width="1"/>
+  <text x="865" y="150" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Перегрів</text>
+  <text x="865" y="165" text-anchor="middle" font-size="12" fill="#c0392b">(самонагрів)</text>
+
+  <!-- Grid Lines -->
+  <line x1="550" y1="330" x2="910" y2="330" stroke="#d0d7de" stroke-dasharray="2,2" stroke-width="1"/>
+  <line x1="550" y1="280" x2="910" y2="280" stroke="#d0d7de" stroke-dasharray="2,2" stroke-width="1"/>
+  <line x1="550" y1="230" x2="910" y2="230" stroke="#d0d7de" stroke-dasharray="2,2" stroke-width="1"/>
+  <line x1="550" y1="180" x2="910" y2="180" stroke="#d0d7de" stroke-dasharray="2,2" stroke-width="1"/>
+  <line x1="550" y1="130" x2="910" y2="130" stroke="#d0d7de" stroke-dasharray="2,2" stroke-width="1"/>
+
+  <!-- Graph Axes -->
+  <line x1="550" y1="380" x2="915" y2="380" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-black)"/>
+  <line x1="550" y1="380" x2="550" y2="130" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-black)"/>
+
+  <!-- Y Ticks and Labels -->
+  <line x1="545" y1="130" x2="550" y2="130" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="542" y="134" text-anchor="end" font-size="12" fill="#6b7280">0.5</text>
+  <line x1="545" y1="180" x2="550" y2="180" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="542" y="184" text-anchor="end" font-size="12" fill="#6b7280">0.4</text>
+  <line x1="545" y1="230" x2="550" y2="230" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="542" y="234" text-anchor="end" font-size="12" fill="#6b7280">0.3</text>
+  <line x1="545" y1="280" x2="550" y2="280" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="542" y="284" text-anchor="end" font-size="12" fill="#6b7280">0.2</text>
+  <line x1="545" y1="330" x2="550" y2="330" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="542" y="334" text-anchor="end" font-size="12" fill="#6b7280">0.1</text>
+  <line x1="545" y1="380" x2="550" y2="380" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="542" y="384" text-anchor="end" font-size="12" fill="#6b7280">0.0</text>
+
+  <!-- X Ticks and Labels -->
+  <line x1="550" y1="380" x2="550" y2="385" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="550" y="398" text-anchor="middle" font-size="12" fill="#6b7280">0</text>
+  <line x1="610" y1="380" x2="610" y2="385" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="610" y="398" text-anchor="middle" font-size="12" fill="#6b7280">0.5</text>
+  <line x1="670" y1="380" x2="670" y2="385" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="670" y="398" text-anchor="middle" font-size="12" fill="#6b7280">1.0</text>
+  <line x1="730" y1="380" x2="730" y2="385" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="730" y="398" text-anchor="middle" font-size="12" fill="#6b7280">1.5</text>
+  <line x1="790" y1="380" x2="790" y2="385" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="790" y="398" text-anchor="middle" font-size="12" fill="#6b7280">2.0</text>
+  <line x1="850" y1="380" x2="850" y2="385" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="850" y="398" text-anchor="middle" font-size="12" fill="#6b7280">2.5</text>
+  <line x1="910" y1="380" x2="910" y2="385" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="910" y="398" text-anchor="middle" font-size="12" fill="#6b7280">3.0</text>
+
+  <!-- X Axis Title -->
+  <text x="730" y="418" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Струм збудження Iexc (мА)</text>
+
+  <!-- Plot Curves -->
+  <!-- Curve 1: Still Air (Red) -->
+  <path d="M 550 380 Q 710 365 800 130" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+  <text x="560" y="310" font-size="12" font-weight="bold" fill="#c0392b">Застійне повітря</text>
+
+  <!-- Curve 2: Moving Air 2 m/s (Blue) -->
+  <path d="M 550 380 Q 790 370 910 270" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+  <text x="800" y="205" font-size="12" font-weight="bold" fill="#2457d6">Повітряний потік</text>
+  <text x="800" y="220" font-size="12" fill="#2457d6">(2 м/с)</text>
+
+  <!-- Curve 3: Flowing Water 0.4 m/s (Green) -->
+  <path d="M 550 380 Q 790 380 910 368" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+  <text x="820" y="347" font-size="12" font-weight="bold" fill="#27ae60">Рідина / Вода</text>
+  <text x="820" y="360" font-size="12" fill="#27ae60">(0.4 м/с)</text>
+
+  <!-- Bottom Legend / Info Box -->
+  <rect x="485" y="435" width="440" height="28" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="705" y="453" text-anchor="middle" font-size="12" fill="#6b7280">S: Повітря ~0.15 °C/мВт  |  Обдув ~0.05 °C/мВт  |  Вода ~0.01 °C/мВт</text>
+</svg>

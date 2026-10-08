@@ -1,0 +1,211 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Потік даних I2S DMA та віконна обробка Ханна</text>
+  <text x="480" y="54" text-anchor="middle" font-size="13" fill="#6b7280">DMA фоново заповнює один буфер (Ping), поки ядро ESP32 обробляє попередній (Pong)</text>
+
+  <!-- ЕТАП 1: MEMS-мікрофон -->
+  <rect x="25" y="85" width="145" height="375" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="97.5" y="110" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">MEMS-мікрофон</text>
+  <text x="97.5" y="126" text-anchor="middle" font-size="12" fill="#6b7280">INMP441 / ICS-43434</text>
+
+  <!-- Корпус сенсора -->
+  <rect x="35" y="142" width="125" height="125" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <!-- Акустичний отвір та хвилі -->
+  <path d="M 43 162 A 10 10 0 0 1 43 182" fill="none" stroke="#2457d6" stroke-width="1.5"/>
+  <path d="M 38 157 A 15 15 0 0 1 38 187" fill="none" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="2 2"/>
+  <circle cx="60" cy="172" r="12" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <circle cx="60" cy="172" r="4" fill="#2457d6"/>
+
+  <text x="97.5" y="202" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">24-bit PCM</text>
+  <text x="97.5" y="220" text-anchor="middle" font-size="12" fill="#6b7280">f_s = 44.1 кГц</text>
+  <text x="97.5" y="238" text-anchor="middle" font-size="12" fill="#6b7280">I2S Slave</text>
+
+  <!-- Блок сигналів шини -->
+  <rect x="35" y="280" width="125" height="165" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="97.5" y="300" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Сигнали шини</text>
+
+  <!-- SCK -->
+  <text x="45" y="334" text-anchor="start" font-size="12" font-weight="bold" fill="#2457d6">SCK</text>
+  <line x1="75" y1="330" x2="150" y2="330" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="112.5" y="346" text-anchor="middle" font-size="12" fill="#6b7280">BCLK (Тактов.)</text>
+
+  <!-- WS -->
+  <text x="45" y="372" text-anchor="start" font-size="12" font-weight="bold" fill="#2457d6">WS</text>
+  <line x1="75" y1="368" x2="150" y2="368" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="112.5" y="384" text-anchor="middle" font-size="12" fill="#6b7280">LRCK (Канал)</text>
+
+  <!-- SD -->
+  <text x="45" y="410" text-anchor="start" font-size="12" font-weight="bold" fill="#2457d6">SD</text>
+  <line x1="75" y1="406" x2="150" y2="406" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="112.5" y="422" text-anchor="middle" font-size="12" fill="#6b7280">Data (Дані)</text>
+
+  <!-- Стрілка між Етапом 1 і Етапом 2 -->
+  <path d="M 170 160 L 195 160" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="182.5" y="154" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">I2S</text>
+
+  <!-- ЕТАП 2: Периферія I2S & DMA -->
+  <rect x="195" y="85" width="270" height="375" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="330" y="110" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Периферія I2S &amp; DMA</text>
+  <text x="330" y="126" text-anchor="middle" font-size="12" fill="#6b7280">Подвійна буферизація (Ping-Pong)</text>
+
+  <!-- I2S Hardware Controller -->
+  <rect x="210" y="142" width="240" height="35" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="330" y="164" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Контролер I2S (Hardware RX)</text>
+
+  <!-- Стрілка запису DMA -->
+  <line x1="270" y1="177" x2="270" y2="205" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="280" y="196" text-anchor="start" font-size="12" font-weight="bold" fill="#2457d6">Запис DMA</text>
+
+  <!-- Буфер 0 (Ping) -->
+  <rect x="210" y="205" width="240" height="110" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <rect x="218" y="213" width="105" height="20" rx="3" fill="#2457d6"/>
+  <text x="270.5" y="227" text-anchor="middle" font-size="12" font-weight="bold" fill="white">Буфер 0 (Ping)</text>
+
+  <rect x="330" y="213" width="112" height="20" rx="3" fill="white" stroke="#2457d6"/>
+  <text x="386" y="227" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">АКТИВНИЙ ЗАПИС</text>
+
+  <!-- Семпли Буфера 0 -->
+  <g>
+    <rect x="220" y="245" width="34" height="30" rx="3" fill="#2457d6"/>
+    <text x="237" y="265" text-anchor="middle" font-size="12" font-weight="bold" fill="white">S₀</text>
+
+    <rect x="257" y="245" width="34" height="30" rx="3" fill="#2457d6"/>
+    <text x="274" y="265" text-anchor="middle" font-size="12" font-weight="bold" fill="white">S₁</text>
+
+    <rect x="294" y="245" width="34" height="30" rx="3" fill="#2457d6"/>
+    <text x="311" y="265" text-anchor="middle" font-size="12" font-weight="bold" fill="white">S₂</text>
+
+    <rect x="331" y="245" width="34" height="30" rx="3" fill="white" stroke="#2457d6"/>
+    <text x="348" y="265" text-anchor="middle" font-size="12" fill="#2457d6">S₃</text>
+
+    <rect x="368" y="245" width="34" height="30" rx="3" fill="white" stroke="#d0d7de"/>
+    <text x="385" y="265" text-anchor="middle" font-size="12" fill="#6b7280">...</text>
+
+    <rect x="405" y="245" width="34" height="30" rx="3" fill="white" stroke="#d0d7de"/>
+    <text x="422" y="265" text-anchor="middle" font-size="12" fill="#6b7280">S_N</text>
+  </g>
+  <text x="330" y="301" text-anchor="middle" font-size="12" fill="#2457d6">Заповнюється фоново периферією</text>
+
+  <!-- Буфер 1 (Pong) -->
+  <rect x="210" y="330" width="240" height="110" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <rect x="218" y="338" width="105" height="20" rx="3" fill="#27ae60"/>
+  <text x="270.5" y="352" text-anchor="middle" font-size="12" font-weight="bold" fill="white">Буфер 1 (Pong)</text>
+
+  <rect x="330" y="338" width="112" height="20" rx="3" fill="white" stroke="#27ae60"/>
+  <text x="386" y="352" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">ГОТОВИЙ ДО CPU</text>
+
+  <!-- Семпли Буфера 1 -->
+  <g>
+    <rect x="220" y="370" width="34" height="30" rx="3" fill="#e9f7ef" stroke="#27ae60"/>
+    <text x="237" y="390" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">S₀</text>
+
+    <rect x="257" y="370" width="34" height="30" rx="3" fill="#e9f7ef" stroke="#27ae60"/>
+    <text x="274" y="390" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">S₁</text>
+
+    <rect x="294" y="370" width="34" height="30" rx="3" fill="#e9f7ef" stroke="#27ae60"/>
+    <text x="311" y="390" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">S₂</text>
+
+    <rect x="331" y="370" width="34" height="30" rx="3" fill="#e9f7ef" stroke="#27ae60"/>
+    <text x="348" y="390" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">S₃</text>
+
+    <rect x="368" y="370" width="34" height="30" rx="3" fill="#e9f7ef" stroke="#27ae60"/>
+    <text x="385" y="390" text-anchor="middle" font-size="12" fill="#27ae60">...</text>
+
+    <rect x="405" y="370" width="34" height="30" rx="3" fill="#e9f7ef" stroke="#27ae60"/>
+    <text x="422" y="390" text-anchor="middle" font-size="12" fill="#27ae60">S_N</text>
+  </g>
+  <text x="330" y="426" text-anchor="middle" font-size="12" fill="#27ae60">Передається в ядро на обробку</text>
+
+  <!-- Стрілка від Буфера 1 (Pong) до Ядра ESP32 через Gap 2-3 -->
+  <path d="M 450 385 L 480 385 L 480 180 L 495 180" fill="none" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="480" y="276" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Pong</text>
+  <text x="480" y="290" text-anchor="middle" font-size="12" fill="#27ae60">кадр</text>
+
+  <!-- ЕТАП 3: Обробка ядром ESP32 -->
+  <rect x="495" y="85" width="270" height="375" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="630" y="110" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Обробка ядром ESP32</text>
+  <text x="630" y="126" text-anchor="middle" font-size="12" fill="#6b7280">Конвеєр DSP (FreeRTOS Task)</text>
+
+  <!-- Підблок 1: Кадрування -->
+  <rect x="510" y="142" width="240" height="75" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="630" y="162" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">1. Кадрування сигналу (N = 512)</text>
+  <!-- Графік вхідної хвилі -->
+  <path d="M 530 182 Q 545 167 560 182 T 590 182 T 620 182 T 650 182 T 680 182 T 710 182 T 730 182" fill="none" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="630" y="206" text-anchor="middle" font-size="12" fill="#6b7280">Вхідні PCM-семпли x[n]</text>
+
+  <!-- Стрілка вниз -->
+  <line x1="630" y1="217" x2="630" y2="232" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Підблок 2: Вікно Ханна -->
+  <rect x="510" y="232" width="240" height="105" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="630" y="252" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">2. Накладання вікна Ханна</text>
+  <text x="630" y="270" text-anchor="middle" font-size="12" fill="#1a1a1a">w[n] = 0.5 - 0.5 · cos(2πn / N)</text>
+  <!-- Графік кривої Ханна -->
+  <line x1="535" y1="300" x2="725" y2="300" stroke="#6b7280" stroke-width="1" stroke-dasharray="2 2"/>
+  <path d="M 535 300 Q 630 272 725 300" fill="none" stroke="#27ae60" stroke-width="2"/>
+  <text x="630" y="325" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Придушення спектрального витоку</text>
+
+  <!-- Стрілка вниз -->
+  <line x1="630" y1="337" x2="630" y2="352" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Підблок 3: FFT & SPL -->
+  <rect x="510" y="352" width="240" height="95" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="630" y="372" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">3. FFT &amp; Розрахунок SPL</text>
+  <text x="630" y="392" text-anchor="middle" font-size="12" fill="#6b7280">Прискорення esp_dsp_fft_512()</text>
+  <text x="630" y="414" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">L_p = 20 · log₁₀(P / P_ref) [дБ SPL]</text>
+  <text x="630" y="434" text-anchor="middle" font-size="12" fill="#6b7280">Калібрування чутливості MEMS</text>
+
+  <!-- Стрілка між Етапом 3 і Етапом 4 -->
+  <line x1="750" y1="400" x2="790" y2="400" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="777.5" y="392" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Дані</text>
+
+  <!-- ЕТАП 4: OLED Монітор -->
+  <rect x="790" y="85" width="145" height="375" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="862.5" y="110" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">OLED Монітор</text>
+  <text x="862.5" y="126" text-anchor="middle" font-size="12" fill="#6b7280">Дисплей 128×64</text>
+
+  <!-- Корпус дисплея -->
+  <rect x="800" y="142" width="125" height="235" rx="8" fill="#1a1a1a" stroke="#000000" stroke-width="2"/>
+  <rect x="807" y="149" width="111" height="201" rx="4" fill="#0d1117" stroke="#30363d" stroke-width="1"/>
+
+  <!-- Вміст екрана OLED -->
+  <text x="862.5" y="170" text-anchor="middle" font-size="12" font-weight="bold" fill="#00ff66">SPL METER</text>
+  <line x1="813" y1="176" x2="911" y2="176" stroke="#30363d" stroke-width="1"/>
+
+  <text x="862.5" y="198" text-anchor="middle" font-size="14" font-weight="bold" fill="#ffffff">74.2 dB SPL</text>
+  <text x="862.5" y="214" text-anchor="middle" font-size="12" fill="#8b949e">Рівень шуму (RMS)</text>
+
+  <!-- Спектрограма (стовпчики) -->
+  <g>
+    <rect x="817" y="285" width="9" height="30" rx="1" fill="#00ff66"/>
+    <rect x="830" y="270" width="9" height="45" rx="1" fill="#00ff66"/>
+    <rect x="843" y="245" width="9" height="70" rx="1" fill="#00ff66"/>
+    <rect x="856" y="235" width="9" height="80" rx="1" fill="#00ff66"/>
+    <rect x="869" y="255" width="9" height="60" rx="1" fill="#00ff66"/>
+    <rect x="882" y="275" width="9" height="40" rx="1" fill="#00ff66"/>
+    <rect x="895" y="295" width="9" height="20" rx="1" fill="#00ff66"/>
+    <line x1="813" y1="315" x2="911" y2="315" stroke="#30363d" stroke-width="1"/>
+  </g>
+
+  <text x="862.5" y="333" text-anchor="middle" font-size="12" fill="#8b949e">Спектр (Гц)</text>
+  <text x="862.5" y="347" text-anchor="middle" font-size="12" fill="#00ff66">44.1 kHz PCM</text>
+
+  <!-- Статус нижче дисплея -->
+  <text x="862.5" y="405" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Оновлення без</text>
+  <text x="862.5" y="423" text-anchor="middle" font-size="12" fill="#6b7280">мерехтіння</text>
+</svg>

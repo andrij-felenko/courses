@@ -1,0 +1,101 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="800" height="500" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="800" height="500" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="400" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Поперечний переріз горизонтального бака</text>
+  <text x="400" y="60" font-size="13" fill="#6b7280" text-anchor="middle">Залежність об'єму рідини від висоти h визначається кутом сегмента θ</text>
+
+  <!-- Описові елементи у defs -->
+  <defs>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- ОСНОВНИЙ МАЛЮНОК: Переріз бака -->
+  <!-- Вертикальна вісь симетрії -->
+  <line x1="270" y1="115" x2="270" y2="435" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="6,4"/>
+
+  <!-- Заповнення рідиною (сегмент круга) -->
+  <path d="M 136.45,317 A 140,140 0 0,0 403.55,317 Z" fill="#eaf0fd" stroke="none"/>
+
+  <!-- Сектор кута theta (затінення) -->
+  <path d="M 270,275 L 233.75,286.4 A 38,38 0 0,0 306.25,286.4 Z" fill="#2457d6" opacity="0.12"/>
+  <!-- Дуга кута theta -->
+  <path d="M 233.75,286.4 A 38,38 0 0,0 306.25,286.4" fill="none" stroke="#2457d6" stroke-width="2"/>
+
+  <!-- Стінка бака (контур циліндра) -->
+  <circle cx="270" cy="275" r="140" fill="none" stroke="#1a1a1a" stroke-width="4"/>
+
+  <!-- Поверхня (дзеркало) рідини -->
+  <line x1="136.45" y1="317" x2="403.55" y2="317" stroke="#2457d6" stroke-width="3"/>
+
+  <!-- Радіуси до точок перетину з поверхнею -->
+  <line x1="270" y1="275" x2="136.45" y2="317" stroke="#6b7280" stroke-width="2" stroke-dasharray="5,4"/>
+  <line x1="270" y1="275" x2="403.55" y2="317" stroke="#6b7280" stroke-width="2" stroke-dasharray="5,4"/>
+
+  <!-- Центр бака C -->
+  <circle cx="270" cy="275" r="4" fill="#1a1a1a"/>
+
+  <!-- Розмірна лінія висоти h (ліворуч від бака) -->
+  <line x1="70" y1="415" x2="270" y2="415" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <line x1="70" y1="317" x2="136.45" y2="317" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="3,3" opacity="0.5"/>
+  <line x1="85" y1="325" x2="85" y2="407" stroke="#2457d6" stroke-width="2"/>
+  <polygon points="85,317 81,327 89,327" fill="#2457d6"/>
+  <polygon points="85,415 81,405 89,405" fill="#2457d6"/>
+
+  <!-- Розмірна лінія радіуса R (праворуч від бака) -->
+  <line x1="270" y1="275" x2="455" y2="275" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <line x1="270" y1="415" x2="455" y2="415" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <line x1="445" y1="283" x2="445" y2="407" stroke="#6b7280" stroke-width="1.5"/>
+  <polygon points="445,275 441,285 449,285" fill="#6b7280"/>
+  <polygon points="445,415 441,405 449,405" fill="#6b7280"/>
+
+  <!-- Підписи на малюнку -->
+  <text x="270" y="263" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">C</text>
+  <text x="270" y="306" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">θ</text>
+  <text x="190" y="286" font-size="14" font-weight="bold" fill="#6b7280" text-anchor="middle">R</text>
+  <text x="350" y="286" font-size="14" font-weight="bold" fill="#6b7280" text-anchor="middle">R</text>
+  <text x="70" y="371" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="end">h</text>
+  <text x="458" y="350" font-size="14" font-weight="bold" fill="#6b7280" text-anchor="start">R</text>
+
+  <text x="270" y="338" font-size="12" font-weight="600" fill="#2457d6" text-anchor="middle">Поверхня рідини (дзеркало)</text>
+  <text x="270" y="112" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Корпус бака (радіус R)</text>
+  <text x="270" y="446" font-size="12" fill="#6b7280" text-anchor="middle">Дно бака (h = 0)</text>
+
+  <!-- ПРАВА ПАНЕЛЬ: Формули та аналіз -->
+  <rect x="480" y="100" width="295" height="355" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  
+  <!-- Заголовок панелі -->
+  <rect x="480" y="100" width="295" height="38" rx="8" fill="#eaf0fd" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="481" y="125" width="293" height="13" fill="#eaf0fd"/>
+  <text x="627" y="124" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">Формули та геометрія</text>
+
+  <!-- Блок 1: Кут -->
+  <text x="495" y="160" font-size="13" font-weight="bold" fill="#1a1a1a">1. Центральний кут θ:</text>
+  <rect x="495" y="168" width="265" height="46" rx="4" fill="white" stroke="#d0d7de"/>
+  <text x="627" y="188" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">θ = 2 · arccos((R - h) / R)</text>
+  <text x="627" y="205" font-size="12" fill="#6b7280" text-anchor="middle">h = R · (1 - cos(θ / 2))</text>
+
+  <!-- Блок 2: Площа та Об'єм -->
+  <text x="495" y="235" font-size="13" font-weight="bold" fill="#1a1a1a">2. Площа сегмента A(h):</text>
+  <rect x="495" y="243" width="265" height="46" rx="4" fill="white" stroke="#d0d7de"/>
+  <text x="627" y="263" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">A(h) = ½ · R² · (θ - sin θ)</text>
+  <text x="627" y="280" font-size="12" fill="#6b7280" text-anchor="middle">Об'єм рідини V(h) = A(h) · L</text>
+
+  <!-- Блок 3: Нелінійність -->
+  <rect x="495" y="302" width="265" height="138" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="507" y="322" font-size="12" font-weight="bold" fill="#2457d6">Особливість вимірювання:</text>
+  <text x="507" y="344" font-size="12" fill="#1a1a1a">• При сталому Δh приріст ΔV</text>
+  <text x="519" y="360" font-size="12" fill="#1a1a1a">є нелінійним по висоті бака</text>
+  <text x="507" y="380" font-size="12" fill="#1a1a1a">• Чутливість V'(h) максимальна</text>
+  <text x="519" y="396" font-size="12" fill="#1a1a1a">поблизу центру h = R</text>
+  <text x="507" y="422" font-size="12" font-weight="bold" fill="#2457d6">• Вимагає таб. перерахунку в MCU</text>
+</svg>

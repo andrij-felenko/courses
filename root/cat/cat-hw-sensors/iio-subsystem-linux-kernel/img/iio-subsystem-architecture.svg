@@ -1,0 +1,124 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 650" width="960" height="650" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Підкладка -->
+  <rect x="0" y="0" width="960" height="650" fill="white"/>
+
+  <!-- Заголовок та підзаголовок -->
+  <text x="480" y="34" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Архітектура підсистеми Industrial I/O (IIO) в ядрі Linux</text>
+  <text x="480" y="56" text-anchor="middle" font-size="13" fill="#6b7280">Двоканальна передача даних: опитальне зчитування через Sysfs та потоковий збір через Кільцевий буфер</text>
+
+  <!-- 1. ПРОСТІР КОРИСТУВАЧА -->
+  <rect x="30" y="75" width="900" height="130" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="45" y="96" font-size="12" font-weight="bold" fill="#2457d6">ПРОСТІР КОРИСТУВАЧА (USERSPACE)</text>
+
+  <!-- Блок прикладного застосунку -->
+  <rect x="280" y="82" width="630" height="34" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="595" y="103" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Прикладний застосунок (C / Python / libiio / iio_info / iio_readdev)</text>
+
+  <!-- Стрілки в просторі користувача -->
+  <line x1="310" y1="116" x2="310" y2="145" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="318" y="134" font-size="12" fill="#2457d6">sysfs запит</text>
+
+  <line x1="630" y1="145" x2="630" y2="116" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="638" y="134" font-size="12" fill="#2457d6">read(/dev/iio)</text>
+
+  <!-- Інтерфейс Sysfs -->
+  <rect x="50" y="145" width="410" height="50" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="255" y="165" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Sysfs Інтерфейс (Прямий доступ за запитом)</text>
+  <text x="255" y="183" text-anchor="middle" font-size="12" fill="#6b7280">/sys/bus/iio/devices/iio:device0/in_accel_x_raw</text>
+
+  <!-- Інтерфейс Chardev -->
+  <rect x="500" y="145" width="410" height="50" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="705" y="165" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Символьний пристрій Chardev (Потоковий збір)</text>
+  <text x="705" y="183" text-anchor="middle" font-size="12" fill="#6b7280">/dev/iio:device0 (Кільцевий буфер та черга подій)</text>
+
+  <!-- Межа 1: простору користувача та ядра -->
+  <line x1="30" y1="238" x2="200" y2="238" stroke="#6b7280" stroke-width="1" stroke-dasharray="4,4"/>
+  <text x="302" y="238" text-anchor="end" font-size="12" fill="#1a1a1a">sysfs read_raw</text>
+  <text x="470" y="238" text-anchor="middle" font-size="12" font-weight="bold" fill="#6b7280">Межа користувача та ядра (VFS / Syscalls)</text>
+  <text x="638" y="238" font-size="12" fill="#2457d6">kfifo stream data</text>
+  <line x1="760" y1="238" x2="930" y2="238" stroke="#6b7280" stroke-width="1" stroke-dasharray="4,4"/>
+
+  <!-- Стрілки між простором користувача та ядром -->
+  <line x1="310" y1="195" x2="310" y2="298" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <line x1="630" y1="324" x2="630" y2="195" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- 2. ПРОСТІР ЯДРА -->
+  <rect x="30" y="265" width="900" height="245" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="45" y="284" font-size="12" font-weight="bold" fill="#2457d6">ПРОСТІР ЯДРА (LINUX KERNEL SPACE)</text>
+
+  <!-- Опис пристрою iio_dev -->
+  <rect x="50" y="298" width="410" height="106" rx="5" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="65" y="316" font-size="12" font-weight="bold" fill="#1a1a1a">Опис пристрою та каналів (iio_dev)</text>
+  <rect x="65" y="324" width="380" height="70" rx="4" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="255" y="342" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Масив каналів: struct iio_chan_spec</text>
+  <text x="255" y="360" text-anchor="middle" font-size="12" fill="#1a1a1a">Пряме зчитування: .read_raw() / .write_raw()</text>
+  <text x="255" y="378" text-anchor="middle" font-size="12" fill="#6b7280">Масштабування вимірів: raw × scale + offset</text>
+
+  <!-- Буфер та Тригери -->
+  <rect x="500" y="298" width="410" height="106" rx="5" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="515" y="316" font-size="12" font-weight="bold" fill="#1a1a1a">Потоковий буфер та тригери</text>
+
+  <rect x="515" y="324" width="185" height="70" rx="4" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="607" y="342" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">iio_buffer (kfifo)</text>
+  <text x="607" y="360" text-anchor="middle" font-size="12" fill="#1a1a1a">Буфер вибірок</text>
+  <text x="607" y="378" text-anchor="middle" font-size="12" fill="#6b7280">Scan mask + Timestamp</text>
+
+  <rect x="715" y="324" width="180" height="70" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="805" y="342" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">iio_trigger</text>
+  <text x="805" y="360" text-anchor="middle" font-size="12" fill="#6b7280">GPIO IRQ / hrtimer</text>
+  <text x="805" y="378" text-anchor="middle" font-size="12" fill="#6b7280">Обробник: poll_func</text>
+
+  <!-- Стрілки у просторі ядра -->
+  <line x1="255" y1="404" x2="255" y2="430" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="262" y="421" font-size="12" fill="#1a1a1a">read_raw() callback</text>
+
+  <line x1="607" y1="430" x2="607" y2="404" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="615" y="421" font-size="12" fill="#2457d6">iio_push_to_buffers()</text>
+
+  <line x1="805" y1="404" x2="805" y2="430" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="813" y="421" font-size="12" fill="#1a1a1a">trigger_handler()</text>
+
+  <!-- Драйвер IIO пристрою -->
+  <rect x="50" y="430" width="860" height="68" rx="5" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="65" y="447" font-size="12" font-weight="bold" fill="#2457d6">Драйвер конкретного IIO-пристрою (IIO Device Driver)</text>
+  <text x="65" y="463" font-size="12" fill="#1a1a1a">Реалізує callbacks: read_raw(), write_raw(), trigger_handler(), push_to_buffers()</text>
+  <text x="65" y="479" font-size="12" fill="#6b7280">Реєстрація у системі: devm_iio_device_register(), iio_triggered_buffer_setup()</text>
+
+  <!-- Межа 2: з апаратним рівнем -->
+  <line x1="30" y1="530" x2="45" y2="530" stroke="#6b7280" stroke-width="1" stroke-dasharray="4,4"/>
+  <text x="55" y="528" font-size="12" fill="#1a1a1a">SPI / I2C / ADC шина</text>
+  <line x1="195" y1="530" x2="320" y2="530" stroke="#6b7280" stroke-width="1" stroke-dasharray="4,4"/>
+  <text x="480" y="534" text-anchor="middle" font-size="12" font-weight="bold" fill="#6b7280">Фізичний інтерфейс шин та лінії переривань</text>
+  <line x1="640" y1="530" x2="765" y2="530" stroke="#6b7280" stroke-width="1" stroke-dasharray="4,4"/>
+  <text x="788" y="528" font-size="12" fill="#c0392b">DRDY / GPIO IRQ</text>
+  <line x1="895" y1="530" x2="930" y2="530" stroke="#6b7280" stroke-width="1" stroke-dasharray="4,4"/>
+
+  <!-- Стрілки до апаратного рівня -->
+  <line x1="180" y1="498" x2="180" y2="578" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <line x1="780" y1="578" x2="780" y2="498" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+
+  <!-- 3. АПАРАТНИЙ РІВЕНЬ -->
+  <rect x="30" y="550" width="900" height="85" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="45" y="570" font-size="12" font-weight="bold" fill="#2457d6">АПАРАТНИЙ РІВЕНЬ (HARDWARE)</text>
+
+  <rect x="50" y="578" width="260" height="40" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="180" y="602" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Інерційний модуль (IMU / Accel)</text>
+
+  <rect x="350" y="578" width="260" height="40" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="480" y="602" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">АЦП / ЦАП (ADC / DAC)</text>
+
+  <rect x="650" y="578" width="260" height="40" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="780" y="602" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Давачі тиску / світла / температури</text>
+</svg>

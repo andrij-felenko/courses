@@ -1,0 +1,169 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Markers -->
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="38" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Принципова схема та розпіновка давача TCRT5000</text>
+  <text x="480" y="56" text-anchor="middle" font-size="13" fill="#6b7280">Підключення ІЧ-діода та фототранзистора, обмежувальні резистори й оптичне відбиття</text>
+
+  <!-- PANEL 1: Schematic & Pinout -->
+  <rect x="30" y="75" width="435" height="445" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="48" y="98" text-anchor="start" font-size="14" font-weight="bold" fill="#1a1a1a">Схема підключення та обв'язка TCRT5000</text>
+
+  <!-- VCC Rail -->
+  <text x="48" y="134" text-anchor="start" font-size="12" font-weight="bold" fill="#c0392b">+VCC (5V)</text>
+  <line x1="115" y1="130" x2="380" y2="130" stroke="#c0392b" stroke-width="2"/>
+
+  <!-- GND Rail -->
+  <text x="48" y="475" text-anchor="start" font-size="12" font-weight="bold" fill="#1a1a1a">GND (0V)</text>
+  <line x1="115" y1="475" x2="380" y2="475" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Resistor R1 (LED limit) -->
+  <line x1="210" y1="130" x2="210" y2="150" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="200" y="150" width="20" height="40" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="190" y="174" text-anchor="end" font-size="12" font-weight="bold" fill="#1a1a1a">R1 = 220 Ω</text>
+  <line x1="225" y1="135" x2="225" y2="147" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="232" y="144" text-anchor="start" font-size="12" fill="#2457d6">I_LED</text>
+  <line x1="210" y1="190" x2="210" y2="210" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Resistor R2 (Phototransistor pull-up) -->
+  <line x1="340" y1="130" x2="340" y2="150" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="330" y="150" width="20" height="40" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="360" y="174" text-anchor="start" font-size="12" font-weight="bold" fill="#1a1a1a">R2 = 10 kΩ</text>
+  <line x1="325" y1="135" x2="325" y2="147" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <text x="318" y="144" text-anchor="end" font-size="12" fill="#27ae60">I_C</text>
+  <line x1="340" y1="190" x2="340" y2="210" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- V_OUT Signal Output Node -->
+  <circle cx="340" cy="198" r="3.5" fill="#1a1a1a"/>
+  <line x1="340" y1="198" x2="395" y2="198" stroke="#2457d6" stroke-width="2"/>
+  <circle cx="395" cy="198" r="4" fill="#2457d6"/>
+  <text x="402" y="194" text-anchor="start" font-size="12" font-weight="bold" fill="#2457d6">V_OUT</text>
+  <text x="402" y="208" text-anchor="start" font-size="12" fill="#6b7280">(до АЦП)</text>
+
+  <!-- TCRT5000 Component Box -->
+  <rect x="150" y="210" width="230" height="210" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="2" stroke-dasharray="6,4"/>
+  <text x="265" y="228" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Корпус TCRT5000</text>
+
+  <!-- Pin 1 (Anode A) -->
+  <circle cx="210" cy="210" r="4" fill="#2457d6"/>
+  <text x="195" y="205" text-anchor="end" font-size="12" font-weight="bold" fill="#2457d6">1: Анод (A)</text>
+  <line x1="210" y1="210" x2="210" y2="295" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- IR LED Symbol -->
+  <polygon points="200,295 220,295 210,315" fill="#2457d6"/>
+  <line x1="198" y1="315" x2="222" y2="315" stroke="#2457d6" stroke-width="2"/>
+  <line x1="220" y1="295" x2="245" y2="280" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <line x1="225" y1="305" x2="250" y2="290" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="255" y="285" text-anchor="start" font-size="12" fill="#2457d6">ІЧ 950 нм</text>
+
+  <!-- Pin 2 (Cathode K) -->
+  <line x1="210" y1="315" x2="210" y2="420" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="210" cy="420" r="4" fill="#2457d6"/>
+  <text x="195" y="435" text-anchor="end" font-size="12" font-weight="bold" fill="#2457d6">2: Катод (K)</text>
+  <line x1="210" y1="420" x2="210" y2="475" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="210" cy="475" r="3.5" fill="#1a1a1a"/>
+
+  <!-- Pin 3 (Collector C) -->
+  <circle cx="340" cy="210" r="4" fill="#2457d6"/>
+  <text x="330" y="205" text-anchor="end" font-size="12" font-weight="bold" fill="#2457d6">3: Колектор (C)</text>
+  <line x1="340" y1="210" x2="340" y2="285" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="340" y1="285" x2="325" y2="302" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Phototransistor Symbol -->
+  <line x1="325" y1="295" x2="325" y2="335" stroke="#1a1a1a" stroke-width="2.5"/>
+  <line x1="285" y1="300" x2="310" y2="310" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <line x1="285" y1="315" x2="310" y2="325" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <text x="235" y="365" text-anchor="start" font-size="12" fill="#27ae60">Відбите світло</text>
+
+  <!-- Pin 4 (Emitter E) -->
+  <line x1="325" y1="328" x2="340" y2="345" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <line x1="340" y1="345" x2="340" y2="420" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="340" cy="420" r="4" fill="#2457d6"/>
+  <text x="355" y="435" text-anchor="start" font-size="12" font-weight="bold" fill="#2457d6">4: Емітер (E)</text>
+  <line x1="340" y1="420" x2="340" y2="475" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="340" cy="475" r="3.5" fill="#1a1a1a"/>
+
+  <!-- Panel 1 Note -->
+  <text x="247" y="505" text-anchor="middle" font-size="12" fill="#6b7280">TCRT5000: ІЧ-діод (випромінювач) + фототранзистор (приймач)</text>
+
+
+  <!-- PANEL 2: Optical Principle & Output Logic -->
+  <rect x="480" y="75" width="450" height="445" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="495" y="98" text-anchor="start" font-size="14" font-weight="bold" fill="#1a1a1a">Принцип оптичної взаємодії та рівні сигналів</text>
+
+  <!-- Sub-section 1: Optical Diagram -->
+  <!-- Target Reflective Surface -->
+  <rect x="580" y="135" width="110" height="12" rx="2" fill="#d0d7de" stroke="#6b7280"/>
+  <text x="635" y="124" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Поверхня відбиття</text>
+
+  <!-- Optical Sensor Body -->
+  <rect x="580" y="215" width="110" height="48" rx="5" fill="#1e293b" stroke="#0f172a"/>
+  <!-- Lenses -->
+  <rect x="588" y="203" width="36" height="12" rx="2" fill="#2457d6"/>
+  <text x="606" y="233" text-anchor="middle" font-size="12" font-weight="bold" fill="#ffffff">ІЧ-діод</text>
+
+  <rect x="646" y="203" width="36" height="12" rx="2" fill="#0f172a" stroke="#475569"/>
+  <text x="664" y="233" text-anchor="middle" font-size="12" font-weight="bold" fill="#ffffff">Фото-Тр</text>
+  <text x="635" y="252" text-anchor="middle" font-size="12" fill="#94a3b8">TCRT5000</text>
+
+  <!-- Light Rays -->
+  <line x1="606" y1="203" x2="628" y2="147" stroke="#2457d6" stroke-width="2" stroke-dasharray="4,3" marker-end="url(#arr-blue)"/>
+  <text x="495" y="174" text-anchor="start" font-size="12" fill="#2457d6">Випромінювання</text>
+
+  <line x1="642" y1="147" x2="664" y2="203" stroke="#27ae60" stroke-width="2" stroke-dasharray="4,3" marker-end="url(#arr-green)"/>
+  <text x="675" y="174" text-anchor="start" font-size="12" fill="#27ae60">Відбиття</text>
+
+  <!-- Distance Indicator -->
+  <line x1="738" y1="147" x2="738" y2="215" stroke="#1a1a1a" stroke-width="1"/>
+  <polyline points="735,152 738,147 741,152" fill="none" stroke="#1a1a1a" stroke-width="1"/>
+  <polyline points="735,210 738,215 741,210" fill="none" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="746" y="168" text-anchor="start" font-size="12" font-weight="bold" fill="#1a1a1a">d: 0.2–15 мм</text>
+  <text x="746" y="186" text-anchor="start" font-size="12" fill="#6b7280">опт. 2.5 мм</text>
+
+  <!-- Spec Card (Right side of optical diagram) -->
+  <rect x="825" y="115" width="98" height="148" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="874" y="133" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Параметри</text>
+  <text x="830" y="153" text-anchor="start" font-size="12" fill="#1a1a1a">• λ: 950 нм</text>
+  <text x="830" y="173" text-anchor="start" font-size="12" fill="#1a1a1a">• I_F: 60 мА</text>
+  <text x="830" y="193" text-anchor="start" font-size="12" fill="#1a1a1a">• I_C: ~ 1 мА</text>
+  <text x="830" y="213" text-anchor="start" font-size="12" fill="#1a1a1a">• V_CEO: 32 В</text>
+  <text x="830" y="233" text-anchor="start" font-size="12" fill="#1a1a1a">• d_max: 15мм</text>
+  <text x="830" y="251" text-anchor="start" font-size="12" fill="#1a1a1a">• d_opt: 2.5мм</text>
+
+  <!-- Sub-section 2: Output Logic Cards -->
+  <text x="495" y="292" text-anchor="start" font-size="13" font-weight="bold" fill="#1a1a1a">Режими роботи та вихідний рівень (V_OUT)</text>
+
+  <!-- Box 1: Bright Surface -->
+  <rect x="495" y="310" width="205" height="195" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="597" y="330" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Світла поверхня</text>
+  <text x="597" y="348" text-anchor="middle" font-size="12" fill="#27ae60">(Є відбиття ІЧ)</text>
+  <text x="505" y="375" text-anchor="start" font-size="12" font-weight="bold" fill="#1a1a1a">• Транзистор: ВІДКРИТИЙ</text>
+  <text x="505" y="398" text-anchor="start" font-size="12" fill="#1a1a1a">• Струм I_C: високий</text>
+  <text x="505" y="423" text-anchor="start" font-size="12" font-weight="bold" fill="#27ae60">• Вихід V_OUT ≈ 0.1...0.4 В</text>
+  <text x="505" y="448" text-anchor="start" font-size="12" font-weight="bold" fill="#27ae60">• Логічний рівень: LOW (0)</text>
+  <text x="505" y="475" text-anchor="start" font-size="12" fill="#6b7280">• Цифровий вихід DO = 0</text>
+
+  <!-- Box 2: Dark Surface -->
+  <rect x="715" y="310" width="205" height="195" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="817" y="330" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Чорна поверхня</text>
+  <text x="817" y="348" text-anchor="middle" font-size="12" fill="#c0392b">(Немає відбиття)</text>
+  <text x="725" y="375" text-anchor="start" font-size="12" font-weight="bold" fill="#1a1a1a">• Транзистор: ЗАКРИТИЙ</text>
+  <text x="725" y="398" text-anchor="start" font-size="12" fill="#1a1a1a">• Струм I_C ≈ 0</text>
+  <text x="725" y="423" text-anchor="start" font-size="12" fill="#c0392b">• Вихід V_OUT ≈ V_CC (5 В)</text>
+  <text x="725" y="448" text-anchor="start" font-size="12" font-weight="bold" fill="#c0392b">• Логічний рівень: HIGH (1)</text>
+  <text x="725" y="475" text-anchor="start" font-size="12" fill="#6b7280">• Цифровий вихід DO = 1</text>
+</svg>

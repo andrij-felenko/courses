@@ -1,0 +1,190 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 510" width="960" height="510" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="510" fill="white"/>
+
+  <!-- Top Header & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Послідовний потік обробки сигналів RTD у прошивці</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Перетворення коду АЦП у температуру: перевірка меж, калібрування та обчислення CVD / LUT</text>
+
+  <!-- STAGE 1: Вхідні дані -->
+  <g id="stage1">
+    <rect x="30" y="90" width="190" height="210" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="8"/>
+    <rect x="30" y="90" width="190" height="36" fill="#2457d6" rx="8"/>
+    <rect x="30" y="116" width="190" height="10" fill="#2457d6"/>
+    <text x="125" y="113" font-size="13" font-weight="bold" fill="#ffffff" text-anchor="middle">1. Вхідні дані</text>
+
+    <!-- Inner Box 1a -->
+    <rect x="40" y="138" width="170" height="44" fill="#ffffff" stroke="#d0d7de" rx="4"/>
+    <text x="125" y="155" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Код АЦП (N_ADC)</text>
+    <text x="125" y="171" font-size="12" fill="#6b7280" text-anchor="middle">або Опір R_rx (Ом)</text>
+
+    <!-- Inner Box 1b -->
+    <rect x="40" y="192" width="170" height="44" fill="#ffffff" stroke="#d0d7de" rx="4"/>
+    <text x="125" y="209" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Параметри схеми</text>
+    <text x="125" y="225" font-size="12" fill="#6b7280" text-anchor="middle">R_ref, I_ex, 2/3/4-пров</text>
+
+    <!-- Inner Box 1c -->
+    <rect x="40" y="246" width="170" height="44" fill="#eaf0fd" stroke="#2457d6" rx="4"/>
+    <text x="125" y="263" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">R_rx = f(N_ADC, R_ref)</text>
+    <text x="125" y="279" font-size="12" fill="#6b7280" text-anchor="middle">Обчислення опору</text>
+  </g>
+
+  <!-- Arrow Stage 1 -> Stage 2 -->
+  <line x1="220" y1="195" x2="242" y2="195" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="235" y="186" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">R_rx</text>
+
+  <!-- STAGE 2: Детекція збоїв -->
+  <g id="stage2">
+    <rect x="250" y="90" width="210" height="210" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="8"/>
+    <rect x="250" y="90" width="210" height="36" fill="#2457d6" rx="8"/>
+    <rect x="250" y="116" width="210" height="10" fill="#2457d6"/>
+    <text x="355" y="113" font-size="13" font-weight="bold" fill="#ffffff" text-anchor="middle">2. Детекція збоїв</text>
+
+    <!-- Inner Box 2a -->
+    <rect x="260" y="138" width="190" height="44" fill="#ffffff" stroke="#d0d7de" rx="4"/>
+    <text x="355" y="155" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Перевірка меж</text>
+    <text x="355" y="171" font-size="12" fill="#6b7280" text-anchor="middle">R_min ≤ R_rx ≤ R_max</text>
+
+    <!-- Inner Box 2b -->
+    <rect x="260" y="192" width="190" height="44" fill="#fdecea" stroke="#c0392b" rx="4"/>
+    <text x="355" y="209" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">R_rx &lt; R_min → КЗ</text>
+    <text x="355" y="225" font-size="12" fill="#6b7280" text-anchor="middle">Коротке замикання</text>
+
+    <!-- Inner Box 2c -->
+    <rect x="260" y="246" width="190" height="44" fill="#fdecea" stroke="#c0392b" rx="4"/>
+    <text x="355" y="263" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">R_rx &gt; R_max → Обрив</text>
+    <text x="355" y="279" font-size="12" fill="#6b7280" text-anchor="middle">Обрив лінії / давача</text>
+  </g>
+
+  <!-- Arrow Stage 2 -> Stage 3 -->
+  <line x1="460" y1="195" x2="482" y2="195" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="475" y="186" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Норма</text>
+
+  <!-- STAGE 3: Калібрування -->
+  <g id="stage3">
+    <rect x="490" y="90" width="180" height="210" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="8"/>
+    <rect x="490" y="90" width="180" height="36" fill="#2457d6" rx="8"/>
+    <rect x="490" y="116" width="180" height="10" fill="#2457d6"/>
+    <text x="580" y="113" font-size="13" font-weight="bold" fill="#ffffff" text-anchor="middle">3. Калібрування</text>
+
+    <!-- Inner Box 3a -->
+    <rect x="500" y="138" width="160" height="44" fill="#ffffff" stroke="#d0d7de" rx="4"/>
+    <text x="580" y="155" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Двоточкове калібр.</text>
+    <text x="580" y="171" font-size="12" fill="#6b7280" text-anchor="middle">Зсув нуля + Підсилення</text>
+
+    <!-- Inner Box 3b -->
+    <rect x="500" y="192" width="160" height="44" fill="#eaf0fd" stroke="#2457d6" rx="4"/>
+    <text x="580" y="209" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">R_cal = (R_rx - R_off)</text>
+    <text x="580" y="225" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">× K_gain</text>
+
+    <!-- Inner Box 3c -->
+    <rect x="500" y="246" width="160" height="44" fill="#ffffff" stroke="#d0d7de" rx="4"/>
+    <text x="580" y="263" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Компенсація дротів</text>
+    <text x="580" y="279" font-size="12" fill="#6b7280" text-anchor="middle">R_wire (2/3-провідна)</text>
+  </g>
+
+  <!-- Arrow Stage 3 -> Stage 4 -->
+  <line x1="670" y1="195" x2="692" y2="195" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="685" y="186" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">R_cal</text>
+
+  <!-- STAGE 4: Обчислення T -->
+  <g id="stage4">
+    <rect x="700" y="90" width="230" height="210" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="8"/>
+    <rect x="700" y="90" width="230" height="36" fill="#2457d6" rx="8"/>
+    <rect x="700" y="116" width="230" height="10" fill="#2457d6"/>
+    <text x="815" y="113" font-size="13" font-weight="bold" fill="#ffffff" text-anchor="middle">4. Обчислення T</text>
+
+    <!-- Inner Box 4a -->
+    <rect x="710" y="138" width="210" height="70" fill="#ffffff" stroke="#d0d7de" rx="4"/>
+    <text x="815" y="156" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Рівняння Каллендара–Ван Дюзена</text>
+    <text x="815" y="173" font-size="12" fill="#2457d6" text-anchor="middle">T ≥ 0°C: квадр. рівняння</text>
+    <text x="815" y="190" font-size="12" fill="#6b7280" text-anchor="middle">T &lt; 0°C: поліном 4-го ст.</text>
+
+    <!-- Inner Box 4b -->
+    <rect x="710" y="218" width="210" height="72" fill="#ffffff" stroke="#d0d7de" rx="4"/>
+    <text x="815" y="236" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Табличний метод (LUT)</text>
+    <text x="815" y="254" font-size="12" fill="#2457d6" text-anchor="middle">Швидкий пошук інтервалу</text>
+    <text x="815" y="272" font-size="12" fill="#6b7280" text-anchor="middle">Лінійна інтерполяція T(R)</text>
+  </g>
+
+  <!-- BOTTOM ROW PANELS -->
+
+  <!-- Bottom 1: Конфігураційні дані -->
+  <g id="bottom1">
+    <rect x="30" y="350" width="190" height="130" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="6"/>
+    <text x="125" y="372" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Конфігураційні дані</text>
+    <rect x="40" y="382" width="170" height="26" fill="#ffffff" stroke="#d0d7de" rx="3"/>
+    <text x="125" y="399" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Номінал R0 (Pt100/Pt1000)</text>
+    <rect x="40" y="414" width="170" height="26" fill="#ffffff" stroke="#d0d7de" rx="3"/>
+    <text x="125" y="431" font-size="12" fill="#6b7280" text-anchor="middle">Опорний резистор R_ref</text>
+    <rect x="40" y="446" width="170" height="26" fill="#ffffff" stroke="#d0d7de" rx="3"/>
+    <text x="125" y="463" font-size="12" fill="#6b7280" text-anchor="middle">Схема підкл. (2/3/4-пров)</text>
+  </g>
+
+  <!-- Line Bottom 1 -> Stage 1 -->
+  <line x1="125" y1="350" x2="125" y2="308" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr-gray)"/>
+  <text x="133" y="333" font-size="12" fill="#6b7280" text-anchor="start">Конфіг.</text>
+
+  <!-- Bottom 2: Діагностика -->
+  <g id="bottom2">
+    <rect x="250" y="350" width="210" height="130" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" rx="6"/>
+    <text x="355" y="372" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">Діагностичні прапори станів</text>
+    <rect x="260" y="382" width="190" height="26" fill="#ffffff" stroke="#f5c6cb" rx="3"/>
+    <text x="355" y="399" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">ERR_OPEN (Обрив / R &gt; R_max)</text>
+    <rect x="260" y="414" width="190" height="26" fill="#ffffff" stroke="#f5c6cb" rx="3"/>
+    <text x="355" y="431" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">ERR_SHORT (КЗ / R &lt; R_min)</text>
+    <rect x="260" y="446" width="190" height="26" fill="#ffffff" stroke="#f5c6cb" rx="3"/>
+    <text x="355" y="463" font-size="12" fill="#6b7280" text-anchor="middle">ERR_RANGE (Вихід за межі T)</text>
+  </g>
+
+  <!-- Line Stage 2 -> Bottom 2 -->
+  <line x1="355" y1="300" x2="355" y2="342" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="363" y="325" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="start">Помилка</text>
+
+  <!-- Bottom 3: Коефіцієнти -->
+  <g id="bottom3">
+    <rect x="490" y="350" width="180" height="130" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+    <text x="580" y="372" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Коефіцієнти CVD</text>
+    <rect x="500" y="382" width="160" height="26" fill="#ffffff" stroke="#d0d7de" rx="3"/>
+    <text x="580" y="399" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">A = 3.9083 × 10⁻³</text>
+    <rect x="500" y="414" width="160" height="26" fill="#ffffff" stroke="#d0d7de" rx="3"/>
+    <text x="580" y="431" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">B = -5.775 × 10⁻⁷</text>
+    <rect x="500" y="446" width="160" height="26" fill="#ffffff" stroke="#d0d7de" rx="3"/>
+    <text x="580" y="463" font-size="12" fill="#6b7280" text-anchor="middle">C = -4.183 × 10⁻¹²</text>
+  </g>
+
+  <!-- Line Bottom 3 -> Stage 3 -->
+  <line x1="580" y1="350" x2="580" y2="308" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr-blue)"/>
+  <text x="588" y="333" font-size="12" fill="#2457d6" text-anchor="start">Коеф.</text>
+
+  <!-- Bottom 4: Результат -->
+  <g id="bottom4">
+    <rect x="700" y="350" width="230" height="130" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="6"/>
+    <text x="815" y="372" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Підсумковий результат API</text>
+    <rect x="710" y="382" width="210" height="26" fill="#ffffff" stroke="#c3e6cb" rx="3"/>
+    <text x="815" y="399" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Температура T (°C)</text>
+    <rect x="710" y="414" width="210" height="26" fill="#ffffff" stroke="#c3e6cb" rx="3"/>
+    <text x="815" y="431" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">STATUS_OK (Дійсні дані)</text>
+    <rect x="710" y="446" width="210" height="26" fill="#ffffff" stroke="#c3e6cb" rx="3"/>
+    <text x="815" y="463" font-size="12" fill="#6b7280" text-anchor="middle">Параметри: R0, α, A, B, C</text>
+  </g>
+
+  <!-- Line Stage 4 -> Bottom 4 -->
+  <line x1="815" y1="300" x2="815" y2="342" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="823" y="325" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="start">Успіх</text>
+</svg>

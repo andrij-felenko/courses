@@ -1,0 +1,140 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 535" width="960" height="535" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Підкладка на все полотно -->
+  <rect x="0" y="0" width="960" height="535" fill="#ffffff"/>
+
+  <!-- Заголовок та підзаголовок -->
+  <text x="480" y="32" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Матриця I²C-адрес INA219 залежно від підключення виводів A0 та A1</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Комбінації 4 ліній (GND, VS, SDA, SCL) на виводах A1 та A0 задають 16 унікальних 7-бітних адрес (0x40–0x4F)</text>
+
+  <!-- Верхня панель кодування бітів адреси -->
+  <rect x="20" y="70" width="920" height="55" rx="6" fill="#eaf0fd" stroke="#d0d7de" stroke-width="1"/>
+  <text x="35" y="92" font-size="13" font-weight="700" fill="#2457d6">Формат 7-бітної адреси:  1  0  0  A1₁  A1₀  A0₁  A0₀</text>
+  <text x="35" y="113" font-size="12" fill="#6b7280">Значення бітів підключення: GND = 00 | VS (VCC) = 01 | SDA = 10 | SCL = 11</text>
+  <text x="930" y="92" font-size="12" fill="#1a1a1a" text-anchor="end">Фіксований префікс [6:4]: 100₂</text>
+  <text x="930" y="113" font-size="12" font-weight="700" fill="#27ae60" text-anchor="end">0x40 — адреса за замовчуванням (A1=GND, A0=GND)</text>
+
+  <!-- Заголовок для колонок (A0) -->
+  <text x="563" y="144" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">Підключення виводу A0 (молодші біти A0₁ A0₀)</text>
+
+  <!-- Кутова комірка заголовків -->
+  <rect x="20" y="154" width="145" height="38" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="92" y="177" font-size="12" font-weight="700" fill="#6b7280" text-anchor="middle">Виводи: A1 ↓ / A0 →</text>
+
+  <!-- Заголовки колонок A0 -->
+  <rect x="177" y="154" width="181" height="38" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="267" y="170" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">A0 = GND</text>
+  <text x="267" y="185" font-size="12" fill="#6b7280" text-anchor="middle">(біти 00)</text>
+
+  <rect x="370" y="154" width="181" height="38" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="460" y="170" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">A0 = VS (VCC)</text>
+  <text x="460" y="185" font-size="12" fill="#6b7280" text-anchor="middle">(біти 01)</text>
+
+  <rect x="563" y="154" width="181" height="38" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="653" y="170" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">A0 = SDA</text>
+  <text x="653" y="185" font-size="12" fill="#6b7280" text-anchor="middle">(біти 10)</text>
+
+  <rect x="756" y="154" width="181" height="38" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="846" y="170" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">A0 = SCL</text>
+  <text x="846" y="185" font-size="12" fill="#6b7280" text-anchor="middle">(біти 11)</text>
+
+  <!-- РЯДОК 1: A1 = GND (00) -->
+  <rect x="20" y="202" width="145" height="72" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="92" y="235" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">A1 = GND</text>
+  <text x="92" y="253" font-size="12" fill="#6b7280" text-anchor="middle">(старші біти 00)</text>
+
+  <!-- (R1, C1): 0x40 -->
+  <rect x="177" y="202" width="181" height="72" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="267" y="228" font-size="16" font-weight="700" fill="#27ae60" text-anchor="middle">0x40</text>
+  <text x="267" y="247" font-size="12" fill="#1a1a1a" text-anchor="middle">100 0000₂</text>
+  <text x="267" y="264" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">★ за замовчуванням</text>
+
+  <!-- (R1, C2): 0x41 -->
+  <rect x="370" y="202" width="181" height="72" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="460" y="234" font-size="16" font-weight="700" fill="#2457d6" text-anchor="middle">0x41</text>
+  <text x="460" y="254" font-size="12" fill="#1a1a1a" text-anchor="middle">100 0001₂</text>
+
+  <!-- (R1, C3): 0x42 -->
+  <rect x="563" y="202" width="181" height="72" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="653" y="234" font-size="16" font-weight="700" fill="#2457d6" text-anchor="middle">0x42</text>
+  <text x="653" y="254" font-size="12" fill="#1a1a1a" text-anchor="middle">100 0010₂</text>
+
+  <!-- (R1, C4): 0x43 -->
+  <rect x="756" y="202" width="181" height="72" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="846" y="234" font-size="16" font-weight="700" fill="#2457d6" text-anchor="middle">0x43</text>
+  <text x="846" y="254" font-size="12" fill="#1a1a1a" text-anchor="middle">100 0011₂</text>
+
+  <!-- РЯДОК 2: A1 = VS (01) -->
+  <rect x="20" y="284" width="145" height="72" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="92" y="317" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">A1 = VS (VCC)</text>
+  <text x="92" y="335" font-size="12" fill="#6b7280" text-anchor="middle">(старші біти 01)</text>
+
+  <!-- (R2, C1): 0x44 -->
+  <rect x="177" y="284" width="181" height="72" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="267" y="316" font-size="16" font-weight="700" fill="#2457d6" text-anchor="middle">0x44</text>
+  <text x="267" y="336" font-size="12" fill="#1a1a1a" text-anchor="middle">100 0100₂</text>
+
+  <!-- (R2, C2): 0x45 -->
+  <rect x="370" y="284" width="181" height="72" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="460" y="316" font-size="16" font-weight="700" fill="#2457d6" text-anchor="middle">0x45</text>
+  <text x="460" y="336" font-size="12" fill="#1a1a1a" text-anchor="middle">100 0101₂</text>
+
+  <!-- (R2, C3): 0x46 -->
+  <rect x="563" y="284" width="181" height="72" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="653" y="316" font-size="16" font-weight="700" fill="#2457d6" text-anchor="middle">0x46</text>
+  <text x="653" y="336" font-size="12" fill="#1a1a1a" text-anchor="middle">100 0110₂</text>
+
+  <!-- (R2, C4): 0x47 -->
+  <rect x="756" y="284" width="181" height="72" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="846" y="316" font-size="16" font-weight="700" fill="#2457d6" text-anchor="middle">0x47</text>
+  <text x="846" y="336" font-size="12" fill="#1a1a1a" text-anchor="middle">100 0111₂</text>
+
+  <!-- РЯДОК 3: A1 = SDA (10) -->
+  <rect x="20" y="366" width="145" height="72" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="92" y="399" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">A1 = SDA</text>
+  <text x="92" y="417" font-size="12" fill="#6b7280" text-anchor="middle">(старші біти 10)</text>
+
+  <!-- (R3, C1): 0x48 -->
+  <rect x="177" y="366" width="181" height="72" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="267" y="398" font-size="16" font-weight="700" fill="#2457d6" text-anchor="middle">0x48</text>
+  <text x="267" y="418" font-size="12" fill="#1a1a1a" text-anchor="middle">100 1000₂</text>
+
+  <!-- (R3, C2): 0x49 -->
+  <rect x="370" y="366" width="181" height="72" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="460" y="398" font-size="16" font-weight="700" fill="#2457d6" text-anchor="middle">0x49</text>
+  <text x="460" y="418" font-size="12" fill="#1a1a1a" text-anchor="middle">100 1001₂</text>
+
+  <!-- (R3, C3): 0x4A -->
+  <rect x="563" y="366" width="181" height="72" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="653" y="398" font-size="16" font-weight="700" fill="#2457d6" text-anchor="middle">0x4A</text>
+  <text x="653" y="418" font-size="12" fill="#1a1a1a" text-anchor="middle">100 1010₂</text>
+
+  <!-- (R3, C4): 0x4B -->
+  <rect x="756" y="366" width="181" height="72" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="846" y="398" font-size="16" font-weight="700" fill="#2457d6" text-anchor="middle">0x4B</text>
+  <text x="846" y="418" font-size="12" fill="#1a1a1a" text-anchor="middle">100 1011₂</text>
+
+  <!-- РЯДОК 4: A1 = SCL (11) -->
+  <rect x="20" y="448" width="145" height="72" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="92" y="481" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">A1 = SCL</text>
+  <text x="92" y="499" font-size="12" fill="#6b7280" text-anchor="middle">(старші біти 11)</text>
+
+  <!-- (R4, C1): 0x4C -->
+  <rect x="177" y="448" width="181" height="72" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="267" y="480" font-size="16" font-weight="700" fill="#2457d6" text-anchor="middle">0x4C</text>
+  <text x="267" y="500" font-size="12" fill="#1a1a1a" text-anchor="middle">100 1100₂</text>
+
+  <!-- (R4, C2): 0x4D -->
+  <rect x="370" y="448" width="181" height="72" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="460" y="480" font-size="16" font-weight="700" fill="#2457d6" text-anchor="middle">0x4D</text>
+  <text x="460" y="500" font-size="12" fill="#1a1a1a" text-anchor="middle">100 1101₂</text>
+
+  <!-- (R4, C3): 0x4E -->
+  <rect x="563" y="448" width="181" height="72" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="653" y="480" font-size="16" font-weight="700" fill="#2457d6" text-anchor="middle">0x4E</text>
+  <text x="653" y="500" font-size="12" fill="#1a1a1a" text-anchor="middle">100 1110₂</text>
+
+  <!-- (R4, C4): 0x4F -->
+  <rect x="756" y="448" width="181" height="72" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="846" y="480" font-size="16" font-weight="700" fill="#2457d6" text-anchor="middle">0x4F</text>
+  <text x="846" y="500" font-size="12" fill="#1a1a1a" text-anchor="middle">100 1111₂</text>
+</svg>

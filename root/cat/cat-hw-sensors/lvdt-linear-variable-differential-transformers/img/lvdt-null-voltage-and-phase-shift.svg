@@ -1,0 +1,110 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="480" fill="#ffffff"/>
+
+  <defs>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Векторна діаграма залишкової напруги U_null та фазового зсуву LVDT</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">У нульовому положенні U_null складається з квадратурної (U_quad) та синфазної (U_act) компонент</text>
+
+  <!-- Panel 1: Vector Diagrams -->
+  <rect x="30" y="70" width="530" height="390" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="45" y="95" font-size="14" font-weight="bold" fill="#1a1a1a">1. Векторні діаграми струмів та напруг у нулі (x = 0)</text>
+
+  <!-- Divider inside Panel 1 -->
+  <line x1="282" y1="105" x2="282" y2="445" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4,4"/>
+
+  <!-- Zone 1A: Primary Phase Shift -->
+  <text x="163" y="122" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Первинне коло: зсув фази φ_p</text>
+  
+  <!-- Primary Voltage U_p -->
+  <line x1="65" y1="235" x2="245" y2="235" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+  <text x="155" y="215" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">U_p (напруга збудження)</text>
+
+  <!-- Primary Current I_p -->
+  <line x1="65" y1="235" x2="219" y2="307" stroke="#2457d6" stroke-width="2.5" stroke-dasharray="6,3" marker-end="url(#arr-blue)"/>
+  <text x="142" y="295" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">I_p (струм збудження)</text>
+
+  <!-- Phase Shift Angle Arc φ_p -->
+  <path d="M 125,235 A 60,60 0 0,1 119.4,260.4" fill="none" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="135" y="252" font-size="12" font-weight="bold" fill="#2457d6">φ_p</text>
+
+  <!-- Zone 1A Bottom Card -->
+  <rect x="50" y="340" width="220" height="95" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="160" y="360" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Формула фазового зсуву:</text>
+  <text x="160" y="380" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">tg(φ_p) = ω · L_p / R_p</text>
+  <text x="160" y="400" font-size="12" fill="#6b7280" text-anchor="middle">R_p — активний опір первинної</text>
+  <text x="160" y="418" font-size="12" fill="#6b7280" text-anchor="middle">L_p — індуктивність первинної</text>
+
+  <!-- Zone 1B: Secondary Null Residual Voltage -->
+  <text x="415" y="122" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Вторинне коло: залишкова U_null</text>
+
+  <!-- Label for U_null above triangle -->
+  <text x="365" y="158" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">U_null (залишкова напруга)</text>
+
+  <!-- Components of U_null -->
+  <line x1="315" y1="305" x2="415" y2="305" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arr-green)"/>
+  <text x="365" y="323" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">U_act (синфазна)</text>
+
+  <line x1="415" y1="305" x2="415" y2="175" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arr-red)"/>
+  <text x="425" y="240" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="start">U_quad (квадратурна)</text>
+
+  <!-- Parallelogram Projection Lines -->
+  <line x1="315" y1="175" x2="415" y2="175" stroke="#6b7280" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="315" y1="305" x2="315" y2="175" stroke="#6b7280" stroke-width="1" stroke-dasharray="3,3"/>
+
+  <!-- Resultant U_null -->
+  <line x1="315" y1="305" x2="415" y2="175" stroke="#1a1a1a" stroke-width="3" marker-end="url(#arr-dark)"/>
+
+  <!-- Right Angle Mark -->
+  <path d="M 403,305 L 403,293 L 415,293" fill="none" stroke="#6b7280" stroke-width="1.2"/>
+
+  <!-- Angle ψ Arc -->
+  <path d="M 355,305 A 40,40 0 0,0 339.4,273.3" fill="none" stroke="#6b7280" stroke-width="1.2"/>
+  <text x="360" y="293" font-size="12" fill="#6b7280">ψ</text>
+
+  <!-- Zone 1B Bottom Card -->
+  <rect x="295" y="340" width="240" height="95" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="415" y="360" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Рівняння залишкової напруги:</text>
+  <text x="415" y="380" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">U_null = √(U_act² + U_quad²)</text>
+  <text x="415" y="400" font-size="12" fill="#c0392b" text-anchor="middle">U_quad — від ємності C_ps (90°)</text>
+  <text x="415" y="418" font-size="12" fill="#27ae60" text-anchor="middle">U_act — від втрат і несиметрії (0°)</text>
+
+  <!-- Panel 2: Physical Causes -->
+  <rect x="580" y="70" width="350" height="390" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="595" y="95" font-size="14" font-weight="bold" fill="#1a1a1a">2. Фізичні причини складових U_null</text>
+
+  <!-- Card 2A: Quadrature -->
+  <rect x="595" y="110" width="320" height="100" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="610" y="132" font-size="13" font-weight="bold" fill="#c0392b">1. Квадратурна напруга U_quad (90°)</text>
+  <text x="610" y="153" font-size="12" fill="#1a1a1a">Паразитна міжобмоточна ємність C_ps</text>
+  <text x="610" y="172" font-size="12" font-weight="bold" fill="#c0392b">Струм витоку: I_c = j · ω · C_ps · U_p</text>
+  <text x="610" y="191" font-size="12" fill="#6b7280">Не усувається центруванням осердя</text>
+
+  <!-- Card 2B: In-phase -->
+  <rect x="595" y="222" width="320" height="100" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="610" y="244" font-size="13" font-weight="bold" fill="#27ae60">2. Синфазна залишкова напруга U_act (0°)</text>
+  <text x="610" y="265" font-size="12" fill="#1a1a1a">Вихрові струми та втрати у сталі осердя</text>
+  <text x="610" y="284" font-size="12" fill="#1a1a1a">Геометрична несиметрія вторинних обмоток</text>
+  <text x="610" y="303" font-size="12" font-weight="bold" fill="#27ae60">Мінімізується точною юстировкою осердя</text>
+
+  <!-- Card 2C: Phase Shift -->
+  <rect x="595" y="334" width="320" height="100" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="610" y="356" font-size="13" font-weight="bold" fill="#2457d6">3. Фазовий зсув струму збудження φ_p</text>
+  <text x="610" y="377" font-size="12" fill="#1a1a1a">Активний опір R_p та індуктивність L_p</text>
+  <text x="610" y="396" font-size="12" fill="#1a1a1a">При зростанні частоти f зсув φ_p зменшується</text>
+  <text x="610" y="415" font-size="12" font-weight="bold" fill="#2457d6">Компенсується синхронним демодулятором</text>
+</svg>

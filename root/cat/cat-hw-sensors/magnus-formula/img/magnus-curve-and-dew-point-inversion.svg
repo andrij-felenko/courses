@@ -1,0 +1,143 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Canvas Background -->
+  <rect x="0" y="0" width="960" height="540" fill="#ffffff"/>
+
+  <!-- Definitions for Arrow Markers -->
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Визначення точки роси T_dp на кривій тиску насиченої пари E(T)</text>
+  <text x="480" y="54" text-anchor="middle" font-size="13" fill="#6b7280">Охолодження повітря при сталій вологості e до перетину з кривою насичення визначить точку роси</text>
+
+  <!-- Left Main Plot Area Background Panel -->
+  <rect x="30" y="75" width="590" height="440" rx="8" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Y-Axis Label (Above Y axis top) -->
+  <text x="130" y="98" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Тиск пари e, E (гПа)</text>
+
+  <!-- Axes Lines -->
+  <!-- Y-Axis Line -->
+  <line x1="130" y1="440" x2="130" y2="110" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <!-- X-Axis Line -->
+  <line x1="130" y1="440" x2="570" y2="440" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- X-Axis Label (End of X axis, to the right of last tick, above X axis) -->
+  <text x="445" y="422" text-anchor="start" font-size="13" font-weight="bold" fill="#1a1a1a">Температура T (°C)</text>
+
+  <!-- Grid Lines (Horizontal & Vertical) -->
+  <!-- Grid e = E(T) = 31.7 hPa (y = 266) -->
+  <line x1="130" y1="266" x2="420" y2="266" stroke="#2457d6" stroke-width="1" stroke-dasharray="4,4"/>
+  <!-- Grid e = 16.0 hPa (y = 352) -->
+  <line x1="130" y1="352" x2="420" y2="352" stroke="#27ae60" stroke-width="1" stroke-dasharray="4,4"/>
+
+  <!-- Vertical Grid for T_dp = 14°C (x = 310) -->
+  <line x1="310" y1="352" x2="310" y2="440" stroke="#27ae60" stroke-width="1" stroke-dasharray="4,4"/>
+  <!-- Vertical Grid for T = 25°C (x = 420) -->
+  <line x1="420" y1="266" x2="420" y2="440" stroke="#2457d6" stroke-width="1" stroke-dasharray="4,4"/>
+
+  <!-- Axis Ticks & Labels -->
+  <!-- Y-axis Ticks -->
+  <line x1="125" y1="440" x2="130" y2="440" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="120" y="444" text-anchor="end" font-size="12" fill="#6b7280">0</text>
+
+  <line x1="125" y1="352" x2="130" y2="352" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="120" y="356" text-anchor="end" font-size="13" font-weight="bold" fill="#27ae60">e = 16 гПа</text>
+
+  <line x1="125" y1="266" x2="130" y2="266" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="120" y="270" text-anchor="end" font-size="13" font-weight="bold" fill="#2457d6">E(T) = 31.7</text>
+
+  <line x1="125" y1="131" x2="130" y2="131" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="120" y="135" text-anchor="end" font-size="12" fill="#6b7280">56</text>
+
+  <!-- X-axis Ticks -->
+  <line x1="170" y1="440" x2="170" y2="445" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="170" y="460" text-anchor="middle" font-size="12" fill="#6b7280">0°C</text>
+
+  <line x1="310" y1="440" x2="310" y2="445" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="310" y="462" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">T_dp = 14°C</text>
+
+  <line x1="420" y1="440" x2="420" y2="445" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="420" y="462" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">T = 25°C</text>
+
+  <line x1="520" y1="440" x2="520" y2="445" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="520" y="460" text-anchor="middle" font-size="12" fill="#6b7280">35°C</text>
+
+  <!-- Dew Point Deficit Dimension Bar (under X axis labels) -->
+  <line x1="315" y1="485" x2="415" y2="485" stroke="#6b7280" stroke-width="1.5"/>
+  <polygon points="315,482 308,485 315,488" fill="#6b7280"/>
+  <polygon points="415,482 422,485 415,488" fill="#6b7280"/>
+  <text x="365" y="504" text-anchor="middle" font-size="12" font-weight="bold" fill="#6b7280">Дефіцит точки роси ΔT = T - T_dp = 11°C</text>
+
+  <!-- Curve E(T) -->
+  <path d="M 170 406 C 240 380, 280 365, 310 352 C 360 330, 395 295, 420 266 C 460 220, 490 175, 520 131" fill="none" stroke="#2457d6" stroke-width="3.5"/>
+
+  <!-- Curve Label -->
+  <text x="300" y="190" text-anchor="start" font-size="13" font-weight="bold" fill="#2457d6">Крива насичення E(T)</text>
+
+  <!-- Cooling Arrow Process (B -> C) -->
+  <line x1="412" y1="352" x2="318" y2="352" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arr-green)"/>
+  <text x="365" y="334" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">
+    <tspan x="365" dy="0">Охолодження</tspan>
+    <tspan x="365" dy="13">(e = const)</tspan>
+  </text>
+
+  <!-- Vertical Deficit Arrow Line (B -> A) -->
+  <line x1="420" y1="344" x2="420" y2="274" stroke="#2457d6" stroke-width="2" stroke-dasharray="4,3"/>
+  <text x="430" y="308" font-size="12" fill="#2457d6">Дефіцит вологості:</text>
+  <text x="430" y="322" font-size="12" font-weight="bold" fill="#2457d6">RH = e / E(T) = 50%</text>
+
+  <!-- Key State Points (A, B, C) -->
+  <!-- Point A: Saturation -->
+  <circle cx="420" cy="266" r="5" fill="#2457d6"/>
+  <text x="410" y="250" text-anchor="end" font-size="13" font-weight="bold" fill="#2457d6">A: Насичення (T, E(T))</text>
+
+  <!-- Point B: Current State -->
+  <circle cx="420" cy="352" r="5" fill="#c0392b"/>
+  <text x="430" y="375" font-size="13" font-weight="bold" fill="#c0392b">B: Поточний стан (T, e)</text>
+
+  <!-- Point C: Dew Point -->
+  <circle cx="310" cy="352" r="5.5" fill="#27ae60" stroke="#ffffff" stroke-width="1"/>
+  <text x="295" y="300" text-anchor="end" font-size="13" font-weight="bold" fill="#27ae60">C: Точка роси (T_dp, e)</text>
+
+  <!-- Right Information Panel -->
+  <rect x="640" y="75" width="295" height="440" rx="10" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Panel Header -->
+  <rect x="655" y="90" width="265" height="34" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="787" y="112" text-anchor="middle" font-size="14" font-weight="bold" fill="#2457d6">Формула Магнуса-Тетенса</text>
+
+  <!-- Section 1: E(T) -->
+  <text x="655" y="146" font-size="12" font-weight="bold" fill="#1a1a1a">1. Тиск насиченої пари E(T):</text>
+  <rect x="655" y="154" width="265" height="40" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="787" y="179" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">E(T) = E_0 · exp[ (a·T) / (b + T) ]</text>
+
+  <!-- Section 2: gamma(T, RH) -->
+  <text x="655" y="214" font-size="12" font-weight="bold" fill="#1a1a1a">2. Параметр γ(T, RH):</text>
+  <rect x="655" y="222" width="265" height="52" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="787" y="243" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">γ(T, RH) = ln(e / E_0)</text>
+  <text x="787" y="263" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">= (a·T) / (b + T) + ln(RH)</text>
+
+  <!-- Section 3: Dew point inversion -->
+  <text x="655" y="294" font-size="12" font-weight="bold" fill="#1a1a1a">3. Аналітичне обернення (T_dp):</text>
+  <rect x="655" y="302" width="265" height="44" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="787" y="329" text-anchor="middle" font-size="14" font-weight="bold" fill="#27ae60">T_dp = (b · γ) / (a - γ)</text>
+
+  <!-- Section 4: Constants & Details -->
+  <text x="655" y="366" font-size="12" font-weight="bold" fill="#1a1a1a">Емпіричні константи (вода):</text>
+
+  <text x="660" y="386" font-size="12" fill="#1a1a1a">• E_0 = 6.112 гПа (тиск при 0 °C)</text>
+  <text x="660" y="406" font-size="12" fill="#1a1a1a">• a = 17.27,  b = 237.7 °C</text>
+  <text x="660" y="426" font-size="12" fill="#1a1a1a">• Діапазон: -40 °C ... +60 °C</text>
+  <text x="660" y="446" font-size="12" fill="#6b7280">• Похибка апроксимації &lt; 0.1 °C</text>
+  <text x="660" y="466" font-size="12" fill="#6b7280">• У точці C (T_dp): e = E(T_dp), RH = 100%</text>
+</svg>

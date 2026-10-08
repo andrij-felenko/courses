@@ -1,0 +1,150 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 500" width="960" height="500" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="500" fill="white"/>
+
+  <defs>
+    <!-- Маркери стрілок -->
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок та підзаголовок -->
+  <text x="480" y="30" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Слідкуючий перетворювач «резольвер–код» (Tracking RDC)</text>
+  <text x="480" y="52" text-anchor="middle" font-size="13" fill="#6b7280">Замкнений контур ФАПЧ зводить помилку sin(θ − φ) до нуля та генерує код кута φ і швидкості ω</text>
+
+  <!-- ПАНЕЛЬ 1: Аналогова секція та виділення помилки -->
+  <rect x="30" y="75" width="540" height="395" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="45" y="94" font-size="13" font-weight="bold" fill="#6b7280">АНАЛОГОВИЙ ТРАКТ ТА СИНТЕЗ ПОМИЛКИ</text>
+
+  <!-- ПАНЕЛЬ 2: Цифровий контур слідкування -->
+  <rect x="590" y="75" width="340" height="395" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="605" y="94" font-size="13" font-weight="bold" fill="#6b7280">ЦИФРОВИЙ КОНТУР СЛІДКУВАННЯ (ФАПЧ)</text>
+
+  <!-- ВХІДНІ БЛОКИ СИГНАЛІВ РЕЗОЛЬВЕРА -->
+  <!-- V_sin -->
+  <rect x="45" y="115" width="90" height="60" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="90" y="136" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">V_sin (θ)</text>
+  <text x="90" y="156" text-anchor="middle" font-size="12" fill="#1a1a1a">sin θ · sin ωt</text>
+
+  <!-- V_cos -->
+  <rect x="45" y="215" width="90" height="60" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="90" y="236" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">V_cos (θ)</text>
+  <text x="90" y="256" text-anchor="middle" font-size="12" fill="#1a1a1a">cos θ · sin ωt</text>
+
+  <!-- V_ref -->
+  <rect x="45" y="315" width="90" height="50" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="90" y="334" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">V_ref</text>
+  <text x="90" y="352" text-anchor="middle" font-size="12" fill="#1a1a1a">sin ωt</text>
+
+  <!-- МНОЖНИКИ ТА LUT -->
+  <!-- Верхній множник -->
+  <rect x="175" y="115" width="120" height="60" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="235" y="136" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Множник ×</text>
+  <text x="235" y="156" text-anchor="middle" font-size="12" fill="#6b7280">V_sin · cos φ</text>
+
+  <!-- Нижній множник -->
+  <rect x="175" y="215" width="120" height="60" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="235" y="236" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Множник ×</text>
+  <text x="235" y="256" text-anchor="middle" font-size="12" fill="#6b7280">V_cos · sin φ</text>
+
+  <!-- sin/cos ЦАП / LUT -->
+  <rect x="175" y="385" width="120" height="60" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="235" y="406" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">sin / cos ЦАП</text>
+  <text x="235" y="426" text-anchor="middle" font-size="12" fill="#6b7280">Таблиця LUT</text>
+
+  <!-- ВІДНІМАЧ (СУМАТОР ПОМИЛКИ) -->
+  <rect x="345" y="165" width="70" height="80" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="380" y="202" text-anchor="middle" font-size="18" font-weight="bold" fill="#c0392b">Σ / −</text>
+  <text x="380" y="222" text-anchor="middle" font-size="12" fill="#1a1a1a">Різниця</text>
+  <text x="335" y="142" font-size="14" font-weight="bold" fill="#27ae60">+</text>
+  <text x="335" y="200" font-size="14" font-weight="bold" fill="#c0392b">−</text>
+
+  <!-- ФАЗОЧУТЛИВИЙ ДЕТЕКТОР (DEMODULATOR) -->
+  <rect x="460" y="165" width="95" height="80" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="507" y="193" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Фазочутливий</text>
+  <text x="507" y="210" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">детектор</text>
+  <text x="507" y="228" text-anchor="middle" font-size="12" fill="#6b7280">(ФЧД / PSD)</text>
+
+  <!-- ФІЛЬТР КОНТУРУ (ПІ-РЕГУЛЯТОР) -->
+  <rect x="615" y="165" width="110" height="80" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="670" y="193" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Фільтр контуру</text>
+  <text x="670" y="210" text-anchor="middle" font-size="12" fill="#1a1a1a">ПІ-регулятор</text>
+  <text x="670" y="228" text-anchor="middle" font-size="12" fill="#6b7280">K_p + K_i / s</text>
+
+  <!-- РЕВЕРСИВНИЙ ЛІЧИЛЬНИК -->
+  <rect x="775" y="165" width="120" height="80" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="835" y="190" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Реверсивний</text>
+  <text x="835" y="208" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">лічильник</text>
+  <text x="835" y="228" text-anchor="middle" font-size="12" fill="#6b7280">Інтегратор (1/s)</text>
+
+  <!-- ВИХІДНІ БЛОКИ (ЗЕЛЕНІ) -->
+  <!-- Вихід швидкості -->
+  <rect x="785" y="105" width="130" height="42" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="850" y="123" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Вихід швидкості ω</text>
+  <text x="850" y="138" text-anchor="middle" font-size="12" fill="#1a1a1a">dθ/dt (аналог/код)</text>
+
+  <!-- Вихід кута -->
+  <rect x="785" y="295" width="130" height="50" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="850" y="316" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">Вихід кута φ</text>
+  <text x="850" y="334" text-anchor="middle" font-size="12" fill="#1a1a1a">Цифровий код кута</text>
+
+  <!-- ЛІНІЇ ТА СВЯЗИ -->
+  <!-- V_sin -> Верхній множник -->
+  <line x1="135" y1="145" x2="175" y2="145" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- V_cos -> Нижній множник -->
+  <line x1="135" y1="245" x2="175" y2="245" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- LUT -> cos φ -> Верхній множник -->
+  <path d="M 205 385 L 205 295 L 155 295 L 155 175 L 205 175" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="145" y="200" text-anchor="end" font-size="12" font-weight="bold" fill="#2457d6">cos φ</text>
+
+  <!-- LUT -> sin φ -> Нижній множник -->
+  <line x1="265" y1="385" x2="265" y2="275" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="275" y="325" font-size="12" font-weight="bold" fill="#2457d6">sin φ</text>
+
+  <!-- Верхній множник -> Віднімач (+) -->
+  <line x1="295" y1="145" x2="345" y2="145" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Нижній множник -> Віднімач (-) -->
+  <path d="M 295 245 L 320 245 L 320 205 L 345 205" fill="none" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+
+  <!-- Підпис сигналу помилки над лініями -->
+  <text x="435" y="134" text-anchor="middle" font-size="12" fill="#6b7280">Сигнал неузгодженості:</text>
+  <text x="435" y="150" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">V_0·sin(θ − φ)·sin ωt</text>
+
+  <!-- Віднімач -> ФЧД -->
+  <line x1="415" y1="205" x2="460" y2="205" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+
+  <!-- V_ref -> ФЧД (Опорний сигнал) -->
+  <path d="M 135 340 L 507 340 L 507 245" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="380" y="332" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Опорна напруга V_ref = sin ωt</text>
+
+  <!-- Підпис демодульованої помилки між панелями -->
+  <text x="582" y="134" text-anchor="middle" font-size="12" fill="#6b7280">Демодульована помилка:</text>
+  <text x="582" y="150" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">V_ε ∝ (θ − φ)</text>
+
+  <!-- ФЧД -> Фільтр контуру -->
+  <line x1="555" y1="205" x2="615" y2="205" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+
+  <!-- Фільтр контуру -> Лічильник -->
+  <line x1="725" y1="205" x2="775" y2="205" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Відгалуження на Вихід швидкості -->
+  <circle cx="750" cy="205" r="3.5" fill="#2457d6"/>
+  <path d="M 750 205 L 750 126 L 785 126" fill="none" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- Лічильник -> Вихід кута -->
+  <line x1="835" y1="245" x2="835" y2="295" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- Вихід кута -> Зворотний зв'язок на sin/cos LUT -->
+  <path d="M 835 345 L 835 415 L 295 415" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="560" y="438" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Ззворотний зв'язок: цифровий кут φ (12–16 біт)</text>
+</svg>

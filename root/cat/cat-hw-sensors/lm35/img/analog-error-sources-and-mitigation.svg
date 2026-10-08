@@ -1,0 +1,158 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <defs>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="42" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Джерела аналогових похибок LM35DZ та їхня компенсація</text>
+  <text x="480" y="68" font-size="13" fill="#6b7280" text-anchor="middle">Паразитний опір землі створює зсув напруги, а RC-фільтр усуває завади й самозбудження</text>
+
+  <!-- PANEL 1: PROBLEM -->
+  <rect x="25" y="90" width="440" height="445" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <rect x="35" y="100" width="420" height="32" rx="4" fill="#c0392b"/>
+  <text x="245" y="121" font-size="14" font-weight="bold" fill="#ffffff" text-anchor="middle">НЕПРАВИЛЬНО: Паразитний опір землі та завади</text>
+
+  <!-- Panel 1 VCC Line -->
+  <path d="M 105 160 L 375 160" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <text x="240" y="152" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">+5V (VCC)</text>
+
+  <!-- Panel 1 LM35DZ Box -->
+  <rect x="60" y="180" width="90" height="110" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+  <path d="M 105 160 L 105 180" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="105" y="195" font-size="12" fill="#6b7280" text-anchor="middle">+V</text>
+  <text x="105" y="220" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">LM35DZ</text>
+  <text x="105" y="238" font-size="12" fill="#6b7280" text-anchor="middle">Давач</text>
+  <text x="105" y="280" font-size="12" fill="#6b7280" text-anchor="middle">GND</text>
+  <path d="M 105 290 L 105 330" stroke="#c0392b" stroke-width="1.5"/>
+
+  <!-- Panel 1 MCU Box -->
+  <rect x="330" y="180" width="90" height="110" rx="4" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <path d="M 375 160 L 375 180" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="375" y="195" font-size="12" fill="#6b7280" text-anchor="middle">+V</text>
+  <text x="375" y="220" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">МК / АЦП</text>
+  <text x="375" y="238" font-size="12" fill="#6b7280" text-anchor="middle">MCU</text>
+  <text x="375" y="280" font-size="12" fill="#6b7280" text-anchor="middle">GND</text>
+  <path d="M 375 290 L 375 330" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Panel 1 Signal Line & Cable Capacitance -->
+  <path d="M 150 235 L 330 235" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="240" y="215" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">ВЧ завади V_noise</text>
+
+  <!-- C_cable (parasitic capacitance) -->
+  <path d="M 240 235 L 240 268" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <line x1="230" y1="268" x2="250" y2="268" stroke="#c0392b" stroke-width="1.5"/>
+  <line x1="230" y1="274" x2="250" y2="274" stroke="#c0392b" stroke-width="1.5"/>
+  <path d="M 240 274 L 240 330" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <text x="256" y="275" font-size="12" font-weight="bold" fill="#c0392b">C_cable</text>
+
+  <!-- Panel 1 Ground Line & Parasitic Resistor R_gnd -->
+  <path d="M 105 330 L 225 330" stroke="#c0392b" stroke-width="2"/>
+  <rect x="225" y="323" width="50" height="14" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+  <path d="M 275 330 L 375 330" stroke="#c0392b" stroke-width="2"/>
+  <text x="250" y="313" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">R_gnd</text>
+
+  <!-- Current flow arrow on GND -->
+  <path d="M 120 345 L 360 345" stroke="#c0392b" stroke-width="1" stroke-dasharray="3,3" marker-end="url(#arr-red)"/>
+  <text x="250" y="360" font-size="12" fill="#c0392b" text-anchor="middle">Струм I_total = I_датчика + I_нав</text>
+
+  <!-- Ground symbol MCU side -->
+  <path d="M 375 330 L 375 338" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="365" y1="338" x2="385" y2="338" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="369" y1="342" x2="381" y2="342" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="373" y1="346" x2="377" y2="346" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Panel 1 Callout Box 1 -->
+  <rect x="40" y="375" width="410" height="65" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+  <text x="50" y="394" font-size="12" font-weight="bold" fill="#c0392b">1. Паразитний зсув землі (Ground Shift):</text>
+  <text x="50" y="411" font-size="12" fill="#1a1a1a">V_shift = I_total × R_gnd → АЦП бачить V_out + V_shift</text>
+  <text x="50" y="428" font-size="12" font-weight="bold" fill="#c0392b">Похибка: +10 мВ зсуву = +1 °C хибного нагріву!</text>
+
+  <!-- Panel 1 Callout Box 2 -->
+  <rect x="40" y="450" width="410" height="65" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+  <text x="50" y="469" font-size="12" font-weight="bold" fill="#c0392b">2. Ємнісне навантаження та завади:</text>
+  <text x="50" y="486" font-size="12" fill="#1a1a1a">Пряме підключення C_cable викликає самозбудження</text>
+  <text x="50" y="503" font-size="12" fill="#1a1a1a">Відсутність фільтрація пропускає ВЧ наведення</text>
+
+
+  <!-- PANEL 2: SOLUTION -->
+  <rect x="495" y="90" width="440" height="445" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="505" y="100" width="420" height="32" rx="4" fill="#27ae60"/>
+  <text x="715" y="121" font-size="14" font-weight="bold" fill="#ffffff" text-anchor="middle">ПРАВИЛЬНО: Зіркова земля та ізолюючий RC-фільтр</text>
+
+  <!-- Panel 2 VCC Line -->
+  <path d="M 575 160 L 865 160" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="710" y="152" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">+5V (VCC)</text>
+
+  <!-- Panel 2 C_dec Capacitor -->
+  <path d="M 550 160 L 550 228" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="540" y1="228" x2="560" y2="228" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="540" y1="234" x2="560" y2="234" stroke="#27ae60" stroke-width="1.5"/>
+  <path d="M 550 234 L 550 330" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="532" y="228" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="end">C_dec</text>
+  <text x="532" y="244" font-size="12" fill="#6b7280" text-anchor="end">0.1 мкФ</text>
+
+  <!-- Panel 2 LM35DZ Box -->
+  <rect x="530" y="180" width="90" height="110" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <path d="M 575 160 L 575 180" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="575" y="195" font-size="12" fill="#6b7280" text-anchor="middle">+V</text>
+  <text x="575" y="220" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">LM35DZ</text>
+  <text x="575" y="238" font-size="12" fill="#6b7280" text-anchor="middle">Давач</text>
+  <text x="575" y="280" font-size="12" fill="#6b7280" text-anchor="middle">GND</text>
+  <path d="M 575 290 L 575 330" stroke="#27ae60" stroke-width="1.5"/>
+
+  <!-- Panel 2 MCU Box -->
+  <rect x="820" y="180" width="90" height="110" rx="4" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <path d="M 865 160 L 865 180" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="865" y="195" font-size="12" fill="#6b7280" text-anchor="middle">+V</text>
+  <text x="865" y="220" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">МК / АЦП</text>
+  <text x="865" y="238" font-size="12" fill="#6b7280" text-anchor="middle">MCU</text>
+  <text x="865" y="280" font-size="12" fill="#6b7280" text-anchor="middle">GND</text>
+  <path d="M 865 290 L 865 330" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Panel 2 Signal Line with R_s and C_f -->
+  <path d="M 620 235 L 645 235" stroke="#27ae60" stroke-width="2"/>
+  <!-- Resistor R_s -->
+  <rect x="645" y="227" width="50" height="16" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="670" y="208" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">R_s = 1 кОм</text>
+  <path d="M 695 235 L 820 235" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- Capacitor C_f -->
+  <path d="M 735 235 L 735 268" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="725" y1="268" x2="745" y2="268" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="725" y1="274" x2="745" y2="274" stroke="#27ae60" stroke-width="1.5"/>
+  <path d="M 735 274 L 735 330" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="752" y="270" font-size="12" font-weight="bold" fill="#27ae60">C_f = 1 мкФ</text>
+  <text x="752" y="284" font-size="12" fill="#6b7280">Фільтр ВЧ</text>
+
+  <!-- Panel 2 Ground Line (Star GND) -->
+  <path d="M 575 330 L 865 330" stroke="#27ae60" stroke-width="2"/>
+  <text x="720" y="360" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Зіркове заземлення: I_сигн ≈ 0 → V_shift ≈ 0</text>
+
+  <!-- Ground symbol MCU side Panel 2 -->
+  <path d="M 865 330 L 865 338" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="855" y1="338" x2="875" y2="338" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="859" y1="342" x2="871" y2="342" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="863" y1="346" x2="867" y2="346" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Panel 2 Callout Box 1 -->
+  <rect x="510" y="375" width="410" height="65" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="520" y="394" font-size="12" font-weight="bold" fill="#27ae60">1. Ізолюючий RC-фільтр (R_s + C_f):</text>
+  <text x="520" y="411" font-size="12" fill="#1a1a1a">R_s (1 кОм) ізолює ємність кабелю → усуває самозбудження</text>
+  <text x="520" y="428" font-size="12" fill="#1a1a1a">C_f (1 мкФ) разом з R_s пригнічує високочастотні завади</text>
+
+  <!-- Panel 2 Callout Box 2 -->
+  <rect x="510" y="450" width="410" height="65" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="520" y="469" font-size="12" font-weight="bold" fill="#27ae60">2. Зіркове заземлення та розв'язка:</text>
+  <text x="520" y="486" font-size="12" fill="#1a1a1a">Окремий провідник землі: струм I ≈ 0, зсув V_shift ≈ 0</text>
+  <text x="520" y="503" font-size="12" fill="#1a1a1a">C_dec (0.1 мкФ) фільтрує імпульсні завади по живленню</text>
+</svg>

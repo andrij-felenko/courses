@@ -1,0 +1,176 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="540" fill="#ffffff"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="28" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Вихідний диференціальний сигнал LVDT: амплітуда та фаза</text>
+  <text x="480" y="48" font-size="13" fill="#6b7280" text-anchor="middle">При переході осердя через нуль амплітуда прямує до мінімуму, а фаза змінюється на 180°</text>
+
+  <!-- Panel 1: LVDT Circuit/Principle Diagram -->
+  <rect x="25" y="65" width="910" height="105" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="40" y="82" font-size="13" font-weight="700" fill="#1a1a1a">Зв'язок напруг: V_out = V_S1 - V_S2</text>
+
+  <!-- Secondary S1 Winding -->
+  <rect x="250" y="98" width="120" height="40" rx="4" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="310" y="116" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Вторинна S₁</text>
+  <text x="310" y="131" font-size="12" fill="#6b7280" text-anchor="middle">Напруга V_S1</text>
+
+  <!-- Primary P Winding -->
+  <rect x="420" y="98" width="120" height="40" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="480" y="116" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">Первинна P</text>
+  <text x="480" y="131" font-size="12" fill="#2457d6" text-anchor="middle">Збудження V_ex</text>
+
+  <!-- Secondary S2 Winding -->
+  <rect x="590" y="98" width="120" height="40" rx="4" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="650" y="116" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Вторинна S₂</text>
+  <text x="650" y="131" font-size="12" fill="#6b7280" text-anchor="middle">Напруга V_S2</text>
+
+  <!-- Ferromagnetic Core -->
+  <rect x="340" y="146" width="280" height="14" rx="3" fill="#6b7280" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="480" y="157" font-size="12" font-weight="700" fill="#ffffff" text-anchor="middle">Феромагнітне осердя</text>
+
+  <!-- Core Displacement Arrows -->
+  <line x1="330" y1="153" x2="280" y2="153" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <text x="268" y="157" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">-x</text>
+
+  <line x1="630" y1="153" x2="680" y2="153" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <text x="692" y="157" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">+x</text>
+
+  <!-- Null Center Indicator -->
+  <line x1="480" y1="84" x2="480" y2="98" stroke="#9ca3af" stroke-dasharray="3,3"/>
+  <text x="480" y="82" font-size="12" fill="#6b7280" text-anchor="middle">Null (x=0)</text>
+
+  <!-- Waveform Panel 1: Core Left (x < 0) -->
+  <rect x="25" y="185" width="290" height="150" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <rect x="25" y="185" width="290" height="24" rx="6" fill="#c0392b"/>
+  <rect x="25" y="203" width="290" height="6" fill="#c0392b"/>
+  <text x="170" y="201" font-size="12" font-weight="700" fill="#ffffff" text-anchor="middle">1. Осердя зміщено ліворуч (x &lt; 0)</text>
+
+  <!-- Panel 1 Waveform Axes -->
+  <line x1="45" y1="260" x2="295" y2="260" stroke="#d0d7de" stroke-dasharray="2,2"/>
+  <line x1="45" y1="260" x2="300" y2="260" stroke="#6b7280" stroke-width="1" marker-end="url(#arr-gray)"/>
+  <text x="306" y="264" font-size="12" fill="#6b7280">t</text>
+  <line x1="55" y1="300" x2="55" y2="218" stroke="#6b7280" stroke-width="1" marker-end="url(#arr-gray)"/>
+  <text x="42" y="222" font-size="12" fill="#6b7280" text-anchor="end">V</text>
+
+  <!-- Excitation Ref (Panel 1) -->
+  <path d="M 55,260 Q 95,225 135,260 Q 175,295 215,260 Q 255,225 295,260" fill="none" stroke="#9ca3af" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <!-- Output Waveform (Panel 1 - 180 deg phase) -->
+  <path d="M 55,260 Q 95,295 135,260 Q 175,225 215,260 Q 255,295 295,260" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+  <text x="70" y="222" font-size="12" fill="#c0392b">— V_out</text>
+  <text x="170" y="322" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">Фазовий зсув: φ = 180°</text>
+
+  <!-- Waveform Panel 2: Core Null (x = 0) -->
+  <rect x="335" y="185" width="290" height="150" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="335" y="185" width="290" height="24" rx="6" fill="#6b7280"/>
+  <rect x="335" y="203" width="290" height="6" fill="#6b7280"/>
+  <text x="480" y="201" font-size="12" font-weight="700" fill="#ffffff" text-anchor="middle">2. Нульова позиція (x = 0)</text>
+
+  <!-- Panel 2 Waveform Axes -->
+  <line x1="355" y1="260" x2="605" y2="260" stroke="#d0d7de" stroke-dasharray="2,2"/>
+  <line x1="355" y1="260" x2="610" y2="260" stroke="#6b7280" stroke-width="1" marker-end="url(#arr-gray)"/>
+  <text x="616" y="264" font-size="12" fill="#6b7280">t</text>
+  <line x1="365" y1="300" x2="365" y2="218" stroke="#6b7280" stroke-width="1" marker-end="url(#arr-gray)"/>
+  <text x="352" y="222" font-size="12" fill="#6b7280" text-anchor="end">V</text>
+
+  <!-- Excitation Ref (Panel 2) -->
+  <path d="M 365,260 Q 405,225 445,260 Q 485,295 525,260 Q 565,225 605,260" fill="none" stroke="#9ca3af" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <!-- Output Waveform (Panel 2 - Residual V_null) -->
+  <path d="M 365,260 Q 405,256 445,260 Q 485,264 525,260 Q 565,256 605,260" fill="none" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="380" y="222" font-size="12" fill="#1a1a1a">— V_null (мала)</text>
+  <text x="480" y="322" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Мінімальний залишок V_null ≈ 0</text>
+
+  <!-- Waveform Panel 3: Core Right (x > 0) -->
+  <rect x="645" y="185" width="290" height="150" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <rect x="645" y="185" width="290" height="24" rx="6" fill="#27ae60"/>
+  <rect x="645" y="203" width="290" height="6" fill="#27ae60"/>
+  <text x="790" y="201" font-size="12" font-weight="700" fill="#ffffff" text-anchor="middle">3. Осердя зміщено праворуч (x &gt; 0)</text>
+
+  <!-- Panel 3 Waveform Axes -->
+  <line x1="665" y1="260" x2="915" y2="260" stroke="#d0d7de" stroke-dasharray="2,2"/>
+  <line x1="665" y1="260" x2="920" y2="260" stroke="#6b7280" stroke-width="1" marker-end="url(#arr-gray)"/>
+  <text x="926" y="264" font-size="12" fill="#6b7280">t</text>
+  <line x1="675" y1="300" x2="675" y2="218" stroke="#6b7280" stroke-width="1" marker-end="url(#arr-gray)"/>
+  <text x="662" y="222" font-size="12" fill="#6b7280" text-anchor="end">V</text>
+
+  <!-- Excitation Ref (Panel 3) -->
+  <path d="M 675,260 Q 715,225 755,260 Q 795,295 835,260 Q 875,225 915,260" fill="none" stroke="#9ca3af" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <!-- Output Waveform (Panel 3 - 0 deg phase) -->
+  <path d="M 675,260 Q 715,225 755,260 Q 795,295 835,260 Q 875,225 915,260" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+  <text x="690" y="222" font-size="12" fill="#27ae60">— V_out</text>
+  <text x="790" y="322" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">Фазовий зсув: φ = 0° (синфазно)</text>
+
+  <!-- Bottom Panel Left: Amplitude Characteristic -->
+  <rect x="25" y="350" width="445" height="170" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="40" y="367" font-size="13" font-weight="700" fill="#1a1a1a">Амплітудна характеристика |V_out(x)|</text>
+
+  <!-- Amplitude Graph Axes -->
+  <line x1="65" y1="480" x2="435" y2="480" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="330" y="514" font-size="12" fill="#1a1a1a" text-anchor="middle">Положення осердя (x)</text>
+
+  <text x="85" y="498" font-size="12" fill="#6b7280" text-anchor="middle">-x_max</text>
+  <text x="247" y="498" font-size="12" fill="#6b7280" text-anchor="middle">0 (Null)</text>
+  <text x="405" y="498" font-size="12" fill="#6b7280" text-anchor="middle">+x_max</text>
+
+  <line x1="247" y1="492" x2="247" y2="385" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="240" y="392" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="end">|V_out|</text>
+
+  <!-- Ideal linear reference -->
+  <path d="M 85,400 L 247,480 L 405,400" fill="none" stroke="#9ca3af" stroke-width="1" stroke-dasharray="3,3"/>
+  <!-- Real V-Curve -->
+  <path d="M 85,400 L 235,468 Q 247,473 259,468 L 405,400" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+
+  <!-- Operating range & V_null annotations -->
+  <line x1="105" y1="384" x2="155" y2="384" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="339" y1="384" x2="389" y2="384" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="247" y="388" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">Робочий лінійний діапазон</text>
+
+  <line x1="150" y1="462" x2="238" y2="472" stroke="#c0392b" stroke-width="1" stroke-dasharray="2,2"/>
+  <text x="70" y="462" font-size="12" fill="#c0392b">V_null (залишок)</text>
+
+  <!-- Bottom Panel Right: Phase Characteristic -->
+  <rect x="490" y="350" width="445" height="170" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="505" y="367" font-size="13" font-weight="700" fill="#1a1a1a">Фазова характеристика φ(x)</text>
+
+  <!-- Phase Graph Axes -->
+  <line x1="530" y1="475" x2="900" y2="475" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="795" y="514" font-size="12" fill="#1a1a1a" text-anchor="middle">Положення осердя (x)</text>
+
+  <text x="550" y="493" font-size="12" fill="#6b7280" text-anchor="middle">-x_max</text>
+  <text x="712" y="493" font-size="12" fill="#6b7280" text-anchor="middle">0</text>
+  <text x="870" y="493" font-size="12" fill="#6b7280" text-anchor="middle">+x_max</text>
+
+  <line x1="712" y1="492" x2="712" y2="385" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="705" y="392" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="end">Фаза φ</text>
+
+  <text x="705" y="405" font-size="12" fill="#c0392b" text-anchor="end">180°</text>
+  <text x="705" y="465" font-size="12" fill="#27ae60" text-anchor="end">0°</text>
+
+  <!-- Phase curve lines -->
+  <line x1="550" y1="415" x2="712" y2="415" stroke="#c0392b" stroke-width="2.5"/>
+  <line x1="712" y1="415" x2="712" y2="475" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <line x1="712" y1="475" x2="870" y2="475" stroke="#27ae60" stroke-width="2.5"/>
+
+  <circle cx="712" cy="415" r="4" fill="#ffffff" stroke="#c0392b" stroke-width="2"/>
+  <circle cx="712" cy="475" r="4" fill="#27ae60"/>
+
+  <text x="725" y="435" font-size="12" font-weight="700" fill="#c0392b">Стрибок фази 180° при x = 0</text>
+</svg>

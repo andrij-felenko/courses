@@ -1,0 +1,173 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- White Canvas Background -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Marker Definitions -->
+  <defs>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Title and Subtitle -->
+  <text x="480" y="35" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Механіка електростатичного колапсу (Pull-in) та злипання (Stiction)</text>
+  <text x="480" y="56" font-size="13" fill="#6b7280" text-anchor="middle">При зсуві x ≥ ⅓ d₀ сила притягання F_el перевищує відновлювальну силу пружини F_mech</text>
+
+  <!-- LEFT PANEL: FORCE VS DISPLACEMENT GRAPH -->
+  <rect x="25" y="75" width="570" height="420" rx="8" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Shaded Background Regions in Plot -->
+  <!-- Stable Region (0 to 1/3 d0) -->
+  <rect x="100" y="125" width="130" height="295" fill="#e9f7ef" opacity="0.65"/>
+  <!-- Pull-in Region (1/3 d0 to 0.85 d0) -->
+  <rect x="230" y="125" width="200" height="295" fill="#fdecea" opacity="0.65"/>
+  <!-- Stiction Risk Zone (0.85 d0 to d0) -->
+  <rect x="430" y="125" width="60" height="295" fill="#fadbd8" opacity="0.75"/>
+
+  <!-- Region Header Badges -->
+  <!-- Region 1: Stable -->
+  <rect x="110" y="88" width="115" height="24" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="167" y="105" font-size="12" font-weight="bold" fill="#1e8449" text-anchor="middle">Стійкий режим</text>
+
+  <!-- Region 2: Pull-in -->
+  <rect x="250" y="88" width="160" height="24" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="330" y="105" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Зона Pull-in (колапс)</text>
+
+  <!-- Region 3: Stiction -->
+  <rect x="432" y="88" width="80" height="24" rx="4" fill="#fadbd8" stroke="#78281f" stroke-width="1"/>
+  <text x="472" y="105" font-size="12" font-weight="bold" fill="#78281f" text-anchor="middle">Stiction</text>
+
+  <!-- Critical Lines -->
+  <!-- Critical Line x = d0/3 -->
+  <line x1="230" y1="125" x2="230" y2="420" stroke="#c0392b" stroke-dasharray="4 4" stroke-width="1.5"/>
+  <!-- Contact Wall x = d0 -->
+  <line x1="490" y1="125" x2="490" y2="420" stroke="#78281f" stroke-width="3"/>
+
+  <!-- Plot Axes -->
+  <!-- X Axis -->
+  <line x1="100" y1="420" x2="540" y2="420" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+  <!-- Y Axis -->
+  <line x1="100" y1="420" x2="100" y2="125" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+  <!-- Y Axis Title positioned safely to the left of Y axis line -->
+  <text x="92" y="112" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="end">Сила, F</text>
+
+  <!-- Horizontal dashed line for F_pi -->
+  <line x1="100" y1="320" x2="230" y2="320" stroke="#6b7280" stroke-dasharray="3 3" stroke-width="1"/>
+  <text x="92" y="324" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="end">F_pi</text>
+
+  <!-- Force Curves -->
+  <!-- Mechanical Spring Force (F_mech = k * x) -->
+  <line x1="100" y1="420" x2="490" y2="120" stroke="#2457d6" stroke-width="2.5"/>
+
+  <!-- Electrostatic Force (F_el) -->
+  <path d="M 100,376 C 150,360 190,345 230,320 C 275,290 320,230 360,125" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+
+  <!-- Pull-in Point Marker & Pointer Callout -->
+  <circle cx="230" cy="320" r="5" fill="#c0392b" stroke="#ffffff" stroke-width="2"/>
+  <line x1="195" y1="268" x2="224" y2="312" stroke="#c0392b" stroke-width="1.2" marker-end="url(#arr-red)"/>
+  <text x="190" y="244" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="end">Точка Pull-in</text>
+  <text x="190" y="260" font-size="12" fill="#1a1a1a" text-anchor="end">x_pi = ⅓ d₀</text>
+
+  <!-- Curve Labels -->
+  <!-- Electrostatic Force Label -->
+  <text x="105" y="148" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="start">F_el ∝ U²/(d₀−x)²</text>
+  <text x="105" y="165" font-size="12" fill="#6b7280" text-anchor="start">(притягальна)</text>
+
+  <!-- Mechanical Force Label -->
+  <text x="340" y="285" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="start">F_mech = k · x</text>
+  <text x="340" y="302" font-size="12" fill="#6b7280" text-anchor="start">(відновлювальна)</text>
+
+  <!-- X Axis Ticks and Labels -->
+  <line x1="100" y1="420" x2="100" y2="426" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="100" y="442" font-size="12" fill="#1a1a1a" text-anchor="middle">0</text>
+
+  <line x1="230" y1="420" x2="230" y2="426" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="230" y="442" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">⅓ d₀</text>
+
+  <line x1="490" y1="420" x2="490" y2="426" stroke="#78281f" stroke-width="1.5"/>
+  <text x="490" y="442" font-size="12" font-weight="bold" fill="#78281f" text-anchor="middle">d₀</text>
+
+  <!-- X Axis Title -->
+  <text x="315" y="475" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Зсув електрода x (початковий зазор d₀)</text>
+
+  <!-- RIGHT PANEL: PHYSICAL CELL DIAGRAM & MECHANICS SUMMARY -->
+  <rect x="615" y="75" width="320" height="420" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Right Panel Title -->
+  <text x="775" y="98" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Будова MEMS-осередку</text>
+
+  <!-- Inner Box for Cell Schematic Diagram -->
+  <rect x="627" y="112" width="296" height="142" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Left Anchor Support -->
+  <rect x="635" y="145" width="12" height="50" rx="1" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="630" y1="155" x2="635" y2="150" stroke="#6b7280" stroke-width="1"/>
+  <line x1="630" y1="170" x2="635" y2="165" stroke="#6b7280" stroke-width="1"/>
+  <line x1="630" y1="185" x2="635" y2="180" stroke="#6b7280" stroke-width="1"/>
+
+  <!-- Spring k -->
+  <path d="M 647,170 L 653,160 L 661,180 L 669,160 L 677,180 L 685,170" fill="none" stroke="#2457d6" stroke-width="2" stroke-linejoin="round"/>
+  <text x="666" y="152" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">пружина k</text>
+
+  <!-- Moving Mass -->
+  <rect x="685" y="140" width="42" height="60" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="706" y="165" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Рухома</text>
+  <text x="706" y="181" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">маса</text>
+
+  <!-- Displacement Arrow and Label -->
+  <text x="640" y="214" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="start">зсув x</text>
+  <line x1="686" y1="210" x2="720" y2="210" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Gap Dimension -->
+  <line x1="731" y1="128" x2="793" y2="128" stroke="#6b7280" stroke-width="1.2" marker-start="url(#arr-gray)" marker-end="url(#arr-gray)"/>
+  <text x="762" y="123" font-size="12" fill="#6b7280" text-anchor="middle">зазор (d₀ − x)</text>
+
+  <!-- Fixed Electrode & Stopper (Dimple) -->
+  <rect x="795" y="140" width="22" height="60" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="2"/>
+  <rect x="817" y="145" width="10" height="50" rx="1" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="827" y1="150" x2="832" y2="155" stroke="#6b7280" stroke-width="1"/>
+  <line x1="827" y1="165" x2="832" y2="170" stroke="#6b7280" stroke-width="1"/>
+  <line x1="827" y1="180" x2="832" y2="185" stroke="#6b7280" stroke-width="1"/>
+
+  <!-- Dielectric Stopper -->
+  <rect x="790" y="162" width="5" height="16" rx="1" fill="#c0392b"/>
+  <text x="784" y="174" font-size="12" fill="#c0392b" text-anchor="end">стопор</text>
+
+  <!-- Fixed Electrode Label -->
+  <text x="830" y="244" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">нерухомий електрод</text>
+
+  <!-- Electrical Connection & Voltage Source -->
+  <polyline points="706,200 706,224 728,224" fill="none" stroke="#1a1a1a" stroke-width="1.2"/>
+  <polyline points="806,200 806,224 752,224" fill="none" stroke="#1a1a1a" stroke-width="1.2"/>
+  <circle cx="740" cy="224" r="11" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="740" y="228" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">U</text>
+
+  <!-- Summary Cards -->
+  <!-- Card 1: Pull-in Mechanics -->
+  <rect x="627" y="266" width="296" height="106" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="629.5" y1="266" x2="629.5" y2="372" stroke="#c0392b" stroke-width="5"/>
+  <text x="642" y="284" font-size="12" font-weight="bold" fill="#c0392b">Критична точка Pull-in: x_pi = ⅓ d₀</text>
+  <text x="642" y="302" font-size="12" fill="#1a1a1a">• При x &lt; ⅓ d₀ : F_mech переважає</text>
+  <text x="642" y="320" font-size="12" fill="#c0392b">• При x ≥ ⅓ d₀ : dF_el/dx &gt; k (колапс)</text>
+  <text x="642" y="338" font-size="12" fill="#1a1a1a">• Наслідок: миттєвий колапс зазору</text>
+  <text x="642" y="356" font-size="12" font-weight="bold" fill="#1e8449">• Напруга: U_pi = √( 8k·d₀³ / 27εA )</text>
+
+  <!-- Card 2: Stiction Mechanics -->
+  <rect x="627" y="384" width="296" height="111" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="629.5" y1="384" x2="629.5" y2="495" stroke="#78281f" stroke-width="5"/>
+  <text x="642" y="402" font-size="12" font-weight="bold" fill="#78281f">Механіка злипання (Stiction)</text>
+  <text x="642" y="419" font-size="12" fill="#1a1a1a">• Контакт при x → d₀ (нульовий зазор)</text>
+  <text x="642" y="436" font-size="12" fill="#1a1a1a">• Переважають сили ван-дер-Ваальса</text>
+  <text x="642" y="452" font-size="12" fill="#1a1a1a">  та капілярне притягання</text>
+  <text x="642" y="469" font-size="12" font-weight="bold" fill="#27ae60">• Захист: стопори (dimples)</text>
+  <text x="642" y="485" font-size="12" fill="#6b7280">  та обмеження робочої U &lt; U_pi</text>
+</svg>

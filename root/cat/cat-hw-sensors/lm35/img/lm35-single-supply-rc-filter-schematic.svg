@@ -1,0 +1,124 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 500" width="960" height="500" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="500" fill="#ffffff"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="34" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Схема підключення LM35 з RC-фільтром до АЦП</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Пасивний RC-фільтр низьких частот пригнічує ВЧ-завади для стабільного зчитування АЦП</text>
+
+  <!-- PANEL 1: LM35DZ Sensor -->
+  <rect x="40" y="80" width="250" height="340" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <path d="M 40,88 A 8,8 0 0,1 48,80 L 282,80 A 8,8 0 0,1 290,88 L 290,114 L 40,114 Z" fill="#eaf0fd"/>
+  <text x="165" y="102" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">Давач температури LM35DZ</text>
+
+  <!-- VCC Wire & Label -->
+  <text x="65" y="130" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="start">+5 В (VCC)</text>
+  <path d="M 55,140 L 130,140 L 130,305" fill="none" stroke="#c0392b" stroke-width="2"/>
+  <circle cx="55" cy="140" r="3" fill="#c0392b"/>
+
+  <!-- LM35 IC Body -->
+  <rect x="70" y="190" width="190" height="190" rx="6" fill="#ffffff" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="165" y="218" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">LM35DZ</text>
+  <text x="165" y="238" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">10 мВ / °C</text>
+  <text x="165" y="256" font-size="12" fill="#6b7280" text-anchor="middle">Однополярне живлення</text>
+  <text x="165" y="272" font-size="12" fill="#6b7280" text-anchor="middle">Діапазон: +2°C...+110°C</text>
+
+  <!-- LM35 Pins -->
+  <text x="82" y="309" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">+VS (1)</text>
+  <text x="248" y="344" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">VOUT (2)</text>
+  <text x="82" y="374" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">GND (3)</text>
+
+  <!-- Signal Output Label near pin 2 -->
+  <text x="275" y="332" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">V_OUT</text>
+
+  <!-- PANEL 2: RC Low-Pass Filter -->
+  <rect x="320" y="80" width="300" height="340" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <path d="M 320,88 A 8,8 0 0,1 328,80 L 612,80 A 8,8 0 0,1 620,88 L 620,114 L 320,114 Z" fill="#eaf0fd"/>
+  <text x="470" y="102" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">Пасивний RC-фільтр НЧ</text>
+
+  <!-- Formula Box -->
+  <rect x="335" y="130" width="270" height="95" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="470" y="148" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Розрахунок частоти зрізу (f_c):</text>
+  <text x="470" y="170" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">f_c = 1 / (2π · R₁ · C₁) ≈ 160 Гц</text>
+  <text x="470" y="190" font-size="12" fill="#6b7280" text-anchor="middle">Пригнічує ВЧ-шуми та мережеві</text>
+  <text x="470" y="208" font-size="12" fill="#6b7280" text-anchor="middle">наведення 50 Гц від мережі 220 В</text>
+
+  <!-- Resistor R1 -->
+  <text x="400" y="294" font-size="12" fill="#6b7280" text-anchor="middle">(вирівнювальний R_F)</text>
+  <text x="400" y="316" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">R₁ = 1 кОм</text>
+  <rect x="370" y="330" width="60" height="20" fill="#ffffff" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Signal Wires -->
+  <path d="M 260,340 L 370,340" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <path d="M 430,340 L 680,340" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Filter Node junction -->
+  <circle cx="500" cy="340" r="4" fill="#1a1a1a"/>
+
+  <!-- Capacitor C1 -->
+  <path d="M 500,340 L 500,360" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="488" y1="360" x2="512" y2="360" stroke="#1a1a1a" stroke-width="3"/>
+  <line x1="488" y1="367" x2="512" y2="367" stroke="#1a1a1a" stroke-width="3"/>
+  <path d="M 500,367 L 500,395" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+
+  <text x="524" y="360" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="start">C₁ = 1 мкФ</text>
+  <text x="524" y="378" font-size="12" fill="#6b7280" text-anchor="start">(шунтуючий)</text>
+
+  <!-- PANEL 3: Microcontroller / ADC -->
+  <rect x="650" y="80" width="270" height="340" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <path d="M 650,88 A 8,8 0 0,1 658,80 L 912,80 A 8,8 0 0,1 920,88 L 920,114 L 650,114 Z" fill="#eaf0fd"/>
+  <text x="785" y="102" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">Мікроконтролер (MCU)</text>
+
+  <!-- VREF Wire & Labels -->
+  <path d="M 785,130 L 785,190" fill="none" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="795" y="152" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="start">V_REF = 1.1 В / 5 В</text>
+  <text x="795" y="170" font-size="12" fill="#6b7280" text-anchor="start">(Опорна напруга)</text>
+
+  <!-- MCU IC Chip Body -->
+  <rect x="680" y="190" width="210" height="190" rx="6" fill="#ffffff" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="785" y="200" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">VREF</text>
+  <text x="785" y="222" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Модуль АЦП (ADC)</text>
+  <text x="785" y="244" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Роздільна здатність 10 біт</text>
+  <text x="785" y="264" font-size="12" fill="#6b7280" text-anchor="middle">Крок (5V): 4.88 мВ (0.49°C)</text>
+  <text x="785" y="284" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Крок (1.1V): 1.07 мВ (0.11°C)</text>
+
+  <!-- MCU Pins -->
+  <text x="692" y="344" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="start">ADCx (A0)</text>
+  <text x="740" y="374" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">GND</text>
+
+  <!-- GND Rail & Connections -->
+  <path d="M 55,395 L 880,395" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+  <path d="M 130,370 L 130,395" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+  <path d="M 740,380 L 740,395" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- GND Ground symbols -->
+  <line x1="120" y1="395" x2="140" y2="395" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="490" y1="395" x2="510" y2="395" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="730" y1="395" x2="750" y2="395" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- GND Rail Text -->
+  <text x="65" y="414" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">Спільний дріт (GND / 0 В)</text>
+
+  <!-- BOTTOM BADGES / TAKEAWAYS -->
+  <!-- Left Badge: Self-Heating -->
+  <rect x="40" y="435" width="430" height="45" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="55" y="453" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="start">Вплив самонагріву LM35:</text>
+  <text x="55" y="470" font-size="12" fill="#1a1a1a" text-anchor="start">Струм ~50 мкА дає мінімальний самонагрів (&lt;0.1°C у повітрі)</text>
+
+  <!-- Right Badge: Software Filtering -->
+  <rect x="490" y="435" width="430" height="45" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="505" y="453" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="start">Програмне згладжування сигналу:</text>
+  <text x="505" y="470" font-size="12" fill="#1a1a1a" text-anchor="start">Ковзне усереднення або EMA стабілізують покази АЦП</text>
+</svg>

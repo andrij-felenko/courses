@@ -1,0 +1,142 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="500" viewBox="0 0 960 500" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-accent" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background Canvas -->
+  <rect x="0" y="0" width="960" height="500" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="34" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Потік даних тригеризованого буфера в підсистемі IIO Linux</text>
+  <text x="480" y="56" font-size="13" fill="#6b7280" text-anchor="middle">Апаратне переривання фіксує timestamp, а обробник тригера пакує дані та передає їх у kfifo</text>
+
+  <!-- STAGE 1: Джерело події -->
+  <rect x="25" y="75" width="200" height="405" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="125" y="98" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">1. Джерело події</text>
+
+  <!-- Box 1A -->
+  <rect x="40" y="115" width="170" height="95" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="125" y="140" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Апаратний сенсор</text>
+  <text x="125" y="162" font-size="12" fill="#6b7280" text-anchor="middle">Подія / DRDY IRQ</text>
+  <text x="125" y="184" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Сигнал готовності</text>
+
+  <!-- Down arrow inside stage 1 -->
+  <line x1="125" y1="210" x2="125" y2="242" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+
+  <!-- Box 1B -->
+  <rect x="40" y="250" width="170" height="210" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="125" y="275" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">iio_trigger</text>
+  <text x="125" y="300" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">iio_trigger_poll()</text>
+  <text x="125" y="325" font-size="12" fill="#6b7280" text-anchor="middle">Обхід списку</text>
+  <text x="125" y="345" font-size="12" fill="#6b7280" text-anchor="middle">pollfunc пристроїв</text>
+  <line x1="55" y1="362" x2="195" y2="362" stroke="#d0d7de" stroke-width="1"/>
+  <text x="125" y="385" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">[ Hard IRQ ]</text>
+  <text x="125" y="407" font-size="12" fill="#6b7280" text-anchor="middle">Верхня половина</text>
+
+  <!-- Connection 1 -> 2 -->
+  <line x1="225" y1="300" x2="257" y2="300" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-accent)"/>
+  <text x="245" y="288" font-size="12" fill="#2457d6" text-anchor="middle">Виклик</text>
+
+
+  <!-- STAGE 2: Обробка та знімок -->
+  <rect x="265" y="75" width="220" height="405" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="375" y="98" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">2. Обробка та знімок</text>
+
+  <!-- Box 2A -->
+  <rect x="280" y="115" width="190" height="120" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="375" y="138" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">iio_pollfunc_store_time</text>
+  <text x="375" y="162" font-size="12" fill="#6b7280" text-anchor="middle">Захоплення часу (ns)</text>
+  <text x="375" y="186" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">pf-&gt;timestamp =</text>
+  <text x="375" y="208" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">ktime_get_boottime_ns()</text>
+
+  <!-- Down arrow inside stage 2 -->
+  <line x1="375" y1="235" x2="375" y2="252" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+
+  <!-- Box 2B -->
+  <rect x="280" y="260" width="190" height="200" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="375" y="283" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Threaded IRQ Handler</text>
+  <text x="375" y="306" font-size="12" fill="#6b7280" text-anchor="middle">Зчитування шини SPI/I2C</text>
+  <text x="375" y="328" font-size="12" fill="#6b7280" text-anchor="middle">Формування кадру:</text>
+
+  <rect x="290" y="338" width="170" height="46" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="375" y="356" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">[ Ch0 | Ch1 | Pad | TS ]</text>
+  <text x="375" y="374" font-size="12" fill="#6b7280" text-anchor="middle">буфер вимірювання</text>
+
+  <line x1="295" y1="394" x2="455" y2="394" stroke="#d0d7de" stroke-width="1"/>
+  <text x="375" y="416" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">[ Threaded IRQ ]</text>
+  <text x="375" y="438" font-size="12" fill="#6b7280" text-anchor="middle">Нижня половина</text>
+
+  <!-- Connection 2 -> 3 -->
+  <line x1="485" y1="360" x2="517" y2="360" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-accent)"/>
+  <text x="505" y="348" font-size="12" fill="#2457d6" text-anchor="middle">Кадр</text>
+
+
+  <!-- STAGE 3: Ядро IIO Core -->
+  <rect x="525" y="75" width="200" height="405" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="625" y="98" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">3. Ядро IIO Core</text>
+
+  <!-- Box 3A -->
+  <rect x="540" y="115" width="170" height="345" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="625" y="142" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">iio_push_to_buffers()</text>
+  <text x="625" y="166" font-size="12" fill="#6b7280" text-anchor="middle">Передача в буфери</text>
+
+  <!-- Sub-card 1 (Аргументи) -->
+  <rect x="550" y="180" width="150" height="110" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="560" y="200" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">Аргументи:</text>
+  <text x="560" y="222" font-size="12" fill="#6b7280" text-anchor="start">1. indio_dev</text>
+  <text x="560" y="244" font-size="12" fill="#6b7280" text-anchor="start">2. data (кадр)</text>
+  <text x="560" y="266" font-size="12" fill="#6b7280" text-anchor="start">   з timestamp</text>
+
+  <!-- Sub-card 2 (Дії IIO Core) -->
+  <rect x="550" y="300" width="150" height="145" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="625" y="322" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Дії IIO Core:</text>
+  <text x="625" y="345" font-size="12" fill="#6b7280" text-anchor="middle">• Перевірка active</text>
+  <text x="625" y="367" font-size="12" fill="#6b7280" text-anchor="middle">• Demux/маскування</text>
+  <text x="625" y="389" font-size="12" fill="#6b7280" text-anchor="middle">• store_to_buffers</text>
+  <text x="625" y="411" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">• Запис у kfifo</text>
+  <text x="625" y="431" font-size="12" fill="#6b7280" text-anchor="middle">• Waking pollers</text>
+
+  <!-- Connection 3 -> 4 -->
+  <line x1="725" y1="360" x2="757" y2="360" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-accent)"/>
+  <text x="745" y="348" font-size="12" fill="#2457d6" text-anchor="middle">Push</text>
+
+
+  <!-- STAGE 4: Кільцевий буфер -->
+  <rect x="765" y="75" width="170" height="405" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="850" y="98" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">4. Кільцевий буфер</text>
+
+  <!-- Box 4A -->
+  <rect x="778" y="115" width="144" height="210" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="850" y="138" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">iio_kfifo_buf</text>
+  <text x="850" y="158" font-size="12" fill="#6b7280" text-anchor="middle">Черга кадрів (FIFO)</text>
+
+  <!-- Slots -->
+  <rect x="788" y="172" width="124" height="28" rx="3" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="850" y="190" font-size="12" fill="#6b7280" text-anchor="middle">Frame N-2 (старий)</text>
+
+  <rect x="788" y="206" width="124" height="28" rx="3" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="850" y="224" font-size="12" fill="#1a1a1a" text-anchor="middle">Frame N-1</text>
+
+  <rect x="788" y="240" width="124" height="30" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="850" y="259" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Frame N (новий)</text>
+
+  <text x="850" y="295" font-size="12" fill="#27ae60" text-anchor="middle">Кільцеве збереження</text>
+
+  <!-- Down arrow inside stage 4 -->
+  <line x1="850" y1="325" x2="850" y2="342" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+
+  <!-- Box 4B -->
+  <rect x="778" y="350" width="144" height="110" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="850" y="372" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">User Space Node</text>
+  <text x="850" y="394" font-size="12" fill="#6b7280" text-anchor="middle">/dev/iio:deviceX</text>
+  <text x="850" y="416" font-size="12" fill="#6b7280" text-anchor="middle">poll() / epoll()</text>
+  <text x="850" y="438" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">read(fd, buf, size)</text>
+</svg>

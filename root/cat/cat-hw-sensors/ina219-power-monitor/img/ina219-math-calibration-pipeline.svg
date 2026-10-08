@@ -1,0 +1,116 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-black" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Canvas Background -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="700" text-anchor="middle" fill="#1a1a1a">Математичний конвеєр апаратного калібрування INA219</text>
+  <text x="480" y="52" font-size="13" text-anchor="middle" fill="#6b7280">Обчислення струму й потужності з фіксованою комою від V_SHUNT до регістрів результатів</text>
+
+  <!-- Top Panel: Host MCU Software Setup -->
+  <rect x="40" y="75" width="880" height="95" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="55" y="93" font-size="13" font-weight="700" fill="#1a1a1a">Хост-мікроконтролер: програмне обчислення констант калібрування</text>
+
+  <!-- Top Card 1: Cal calculation -->
+  <rect x="55" y="100" width="415" height="62" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="67" y="118" font-size="12" font-weight="700" fill="#2457d6">Формула калібрувального коефіцієнта Cal:</text>
+  <text x="67" y="136" font-size="12" fill="#1a1a1a">Cal = trunc( 0.04096 / (Current_LSB × R_shunt) )</text>
+  <text x="67" y="153" font-size="12" fill="#6b7280">де 0.04096 В = 4096 × 10 мкВ (масштаб АЦП)</text>
+
+  <!-- Top Card 2: LSB Selection -->
+  <rect x="490" y="100" width="415" height="62" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="502" y="118" font-size="12" font-weight="700" fill="#27ae60">Вибір Current_LSB та Power_LSB:</text>
+  <text x="502" y="136" font-size="12" fill="#1a1a1a">Power_LSB = 20 × Current_LSB</text>
+  <text x="502" y="153" font-size="12" fill="#6b7280">I_max / 32767 ≤ Current_LSB ≤ I_max / 4096</text>
+
+  <!-- Arrow: Write Cal to Calibration Reg -->
+  <path d="M185,162 L185,220" stroke="#27ae60" stroke-width="1.5" fill="none" marker-end="url(#arr-green)"/>
+  <text x="193" y="195" font-size="12" font-weight="700" fill="#27ae60">Запис Cal по I2C</text>
+
+  <!-- Main Container: INA219 Internal Hardware -->
+  <rect x="40" y="185" width="880" height="335" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="480" y="206" font-size="14" font-weight="700" text-anchor="middle" fill="#1a1a1a">Внутрішній апаратний тракт обробки даних INA219</text>
+
+  <!-- Column 1: Input Registers -->
+  <!-- Box 1.1: Calibration Register (05h) -->
+  <rect x="55" y="220" width="240" height="65" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="67" y="238" font-size="12" font-weight="700" fill="#27ae60">Calibration Register (05h)</text>
+  <text x="67" y="255" font-size="12" fill="#1a1a1a">Значення Cal (16 біт ціле)</text>
+  <text x="67" y="272" font-size="12" fill="#6b7280">Записується хостом по I2C</text>
+
+  <!-- Box 1.2: Shunt Voltage Register (01h) -->
+  <rect x="55" y="305" width="240" height="75" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="67" y="323" font-size="12" font-weight="700" fill="#2457d6">Shunt Voltage Register (01h)</text>
+  <text x="67" y="340" font-size="12" fill="#1a1a1a">V_SHUNT_REG = V_SHUNT / 10 мкВ</text>
+  <text x="67" y="357" font-size="12" fill="#1a1a1a">LSB = 10 мкВ = 0.00001 В</text>
+  <text x="67" y="372" font-size="12" fill="#6b7280">16-біт ціле зі знаком (PGA 1..8)</text>
+
+  <!-- Box 1.3: Bus Voltage Register (02h) -->
+  <rect x="55" y="400" width="240" height="75" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="67" y="418" font-size="12" font-weight="700" fill="#2457d6">Bus Voltage Register (02h)</text>
+  <text x="67" y="435" font-size="12" fill="#1a1a1a">V_BUS_REG = V_BUS / 4 мВ</text>
+  <text x="67" y="452" font-size="12" fill="#1a1a1a">LSB = 4 мВ = 0.004 В</text>
+  <text x="67" y="467" font-size="12" fill="#6b7280">16-біт (дані зсунуті на 3 біти)</text>
+
+  <!-- Column 2: Hardware Math Multipliers -->
+  <!-- Box 2.1: Hardware Current Multiplier -->
+  <rect x="345" y="235" width="260" height="105" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="475" y="255" font-size="12" font-weight="700" text-anchor="middle" fill="#2457d6">Апаратний обчислювач струму</text>
+  <text x="475" y="275" font-size="12" font-weight="700" text-anchor="middle" fill="#1a1a1a">Current_REG = (Shunt_REG × Cal) / 4096</text>
+  <text x="475" y="295" font-size="12" text-anchor="middle" fill="#6b7280">ділення на 4096 (зсув на 12 біт)</text>
+  <text x="475" y="315" font-size="12" font-weight="700" text-anchor="middle" fill="#27ae60">I_REG = I / Current_LSB</text>
+
+  <!-- Box 2.2: Hardware Power Multiplier -->
+  <rect x="345" y="380" width="260" height="105" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="475" y="400" font-size="12" font-weight="700" text-anchor="middle" fill="#2457d6">Апаратний обчислювач потужності</text>
+  <text x="475" y="420" font-size="12" font-weight="700" text-anchor="middle" fill="#1a1a1a">Power_REG = (Current_REG × Bus_REG) / 20000</text>
+  <text x="475" y="440" font-size="12" text-anchor="middle" fill="#6b7280">ділення на 20000 (фіксований дільник)</text>
+  <text x="475" y="460" font-size="12" font-weight="700" text-anchor="middle" fill="#27ae60">P_REG = P / Power_LSB</text>
+
+  <!-- Column 3: Result Registers -->
+  <!-- Box 3.1: Current Register (04h) -->
+  <rect x="655" y="235" width="240" height="105" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="667" y="255" font-size="12" font-weight="700" fill="#27ae60">Current Register (04h)</text>
+  <text x="667" y="275" font-size="12" fill="#1a1a1a">15-біт значення струму</text>
+  <text x="667" y="295" font-size="12" font-weight="700" fill="#2457d6">I = Current_REG × Current_LSB</text>
+  <text x="667" y="315" font-size="12" fill="#6b7280">Струм у базі [А]</text>
+
+  <!-- Box 3.2: Power Register (03h) -->
+  <rect x="655" y="380" width="240" height="105" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="667" y="400" font-size="12" font-weight="700" fill="#27ae60">Power Register (03h)</text>
+  <text x="667" y="420" font-size="12" fill="#1a1a1a">16-біт значення потужності</text>
+  <text x="667" y="440" font-size="12" font-weight="700" fill="#2457d6">P = Power_REG × Power_LSB</text>
+  <text x="667" y="460" font-size="12" fill="#6b7280">Потужність у базі [Вт]</text>
+
+  <!-- Data Flow Arrows -->
+  <!-- Arrow 2: Cal -> Current Multiplier -->
+  <path d="M295,252.5 L345,265" stroke="#27ae60" stroke-width="1.5" fill="none" marker-end="url(#arr-green)"/>
+
+  <!-- Arrow 3: Shunt Reg -> Current Multiplier -->
+  <path d="M295,342.5 L345,310" stroke="#2457d6" stroke-width="1.5" fill="none" marker-end="url(#arr-blue)"/>
+
+  <!-- Arrow 4: Current Multiplier -> Current Register -->
+  <path d="M605,287.5 L655,287.5" stroke="#27ae60" stroke-width="1.5" fill="none" marker-end="url(#arr-green)"/>
+
+  <!-- Arrow 5: Bus Reg -> Power Multiplier -->
+  <path d="M295,437.5 L345,432.5" stroke="#2457d6" stroke-width="1.5" fill="none" marker-end="url(#arr-blue)"/>
+
+  <!-- Arrow 6: Current Register -> Power Multiplier -->
+  <path d="M775,340 L775,360 L475,360 L475,380" stroke="#2457d6" stroke-width="1.5" fill="none" marker-end="url(#arr-blue)"/>
+  <text x="625" y="352" font-size="12" font-weight="700" fill="#2457d6">Current_REG</text>
+
+  <!-- Arrow 7: Power Multiplier -> Power Register -->
+  <path d="M605,432.5 L655,432.5" stroke="#27ae60" stroke-width="1.5" fill="none" marker-end="url(#arr-green)"/>
+
+</svg>

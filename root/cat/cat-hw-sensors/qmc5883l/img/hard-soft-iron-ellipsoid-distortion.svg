@@ -1,0 +1,123 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="28" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Магнітні завади: Hard Iron (зсув) та Soft Iron (деформація)</text>
+  <text x="480" y="48" text-anchor="middle" font-size="13" fill="#6b7280">Тверді завади зміщують центр сфери вимірювань, а м'які — деформують її в похилий еліпсоїд</text>
+
+  <!-- PANEL 1: Ideal Field -->
+  <rect x="25" y="68" width="290" height="325" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="37" y="80" width="266" height="32" rx="5" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="170" y="101" text-anchor="middle" font-size="14" font-weight="bold" fill="#27ae60">1. Ідеальне поле (Без завад)</text>
+
+  <!-- Panel 1 Axes -->
+  <line x1="75" y1="225" x2="255" y2="225" stroke="#9ca3af" stroke-width="1.2" marker-end="url(#arr)"/>
+  <text x="262" y="215" text-anchor="start" font-size="12" fill="#6b7280">Bx</text>
+  <line x1="170" y1="305" x2="170" y2="145" stroke="#9ca3af" stroke-width="1.2" marker-end="url(#arr)"/>
+  <text x="170" y="134" text-anchor="middle" font-size="12" fill="#6b7280">By</text>
+
+  <!-- Panel 1 Ideal Circle -->
+  <circle cx="170" cy="225" r="60" fill="#27ae60" fill-opacity="0.08" stroke="#27ae60" stroke-width="2.5"/>
+  <circle cx="170" cy="225" r="3.5" fill="#27ae60"/>
+  <text x="162" y="242" text-anchor="end" font-size="12" font-weight="bold" fill="#27ae60">O(0,0)</text>
+
+  <!-- Panel 1 Vector B -->
+  <line x1="170" y1="225" x2="212" y2="183" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="218" y="176" text-anchor="start" font-size="13" font-weight="bold" fill="#2457d6">B</text>
+
+  <!-- Panel 1 Text Notes -->
+  <text x="170" y="338" text-anchor="middle" font-size="12" fill="#1a1a1a">• Коло з центром у точці (0,0)</text>
+  <text x="170" y="356" text-anchor="middle" font-size="12" fill="#1a1a1a">• Постійний радіус |B| = B_earth</text>
+  <text x="170" y="374" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">• Азимут обчислюється точно</text>
+
+
+  <!-- PANEL 2: Hard Iron Distortion -->
+  <rect x="335" y="68" width="290" height="325" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="347" y="80" width="266" height="32" rx="5" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="480" y="101" text-anchor="middle" font-size="14" font-weight="bold" fill="#c0392b">2. Hard Iron (Зсув центра)</text>
+
+  <!-- Panel 2 Axes -->
+  <line x1="385" y1="225" x2="575" y2="225" stroke="#9ca3af" stroke-width="1.2" stroke-dasharray="4,3" marker-end="url(#arr)"/>
+  <text x="584" y="220" text-anchor="start" font-size="12" fill="#6b7280">Bx</text>
+  <line x1="480" y1="305" x2="480" y2="145" stroke="#9ca3af" stroke-width="1.2" stroke-dasharray="4,3" marker-end="url(#arr)"/>
+  <text x="480" y="134" text-anchor="middle" font-size="12" fill="#6b7280">By</text>
+  <circle cx="480" cy="225" r="3" fill="#6b7280"/>
+  <text x="455" y="242" text-anchor="end" font-size="12" fill="#6b7280">(0,0)</text>
+
+  <!-- Panel 2 Shifted Circle & Vector V_hard -->
+  <circle cx="520" cy="195" r="60" fill="#c0392b" fill-opacity="0.08" stroke="#c0392b" stroke-width="2.5"/>
+  <line x1="480" y1="225" x2="516" y2="198" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <circle cx="520" cy="195" r="3.5" fill="#c0392b"/>
+  <text x="528" y="191" text-anchor="start" font-size="12" font-weight="bold" fill="#c0392b">O'</text>
+  <text x="486" y="192" text-anchor="start" font-size="12" font-weight="bold" fill="#c0392b">V_hard</text>
+
+  <!-- Panel 2 Text Notes -->
+  <text x="480" y="338" text-anchor="middle" font-size="12" fill="#1a1a1a">• Коло зміщене на вектор V_hard</text>
+  <text x="480" y="356" text-anchor="middle" font-size="12" fill="#1a1a1a">• Форма та розмір НЕ змінюються</text>
+  <text x="480" y="374" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">• Джерело: постійні магніти / струми</text>
+
+
+  <!-- PANEL 3: Soft Iron Distortion -->
+  <rect x="645" y="68" width="290" height="325" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="657" y="80" width="266" height="32" rx="5" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="790" y="101" text-anchor="middle" font-size="14" font-weight="bold" fill="#c0392b">3. Soft Iron (Деформація)</text>
+
+  <!-- Panel 3 Axes -->
+  <line x1="695" y1="225" x2="875" y2="225" stroke="#9ca3af" stroke-width="1.2" marker-end="url(#arr)"/>
+  <text x="882" y="215" text-anchor="start" font-size="12" fill="#6b7280">Bx</text>
+  <line x1="790" y1="305" x2="790" y2="145" stroke="#9ca3af" stroke-width="1.2" marker-end="url(#arr)"/>
+  <text x="790" y="134" text-anchor="middle" font-size="12" fill="#6b7280">By</text>
+  <circle cx="790" cy="225" r="3.5" fill="#c0392b"/>
+  <text x="775" y="221" text-anchor="end" font-size="12" font-weight="bold" fill="#c0392b">O(0,0)</text>
+
+  <!-- Reference Ghost Ideal Circle -->
+  <circle cx="790" cy="225" r="60" fill="none" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <text x="836" y="162" text-anchor="start" font-size="12" fill="#9ca3af">Ідеальне коло</text>
+
+  <!-- Distorted Ellipse -->
+  <ellipse cx="790" cy="225" rx="76" ry="44" transform="rotate(-20 790 225)" fill="#c0392b" fill-opacity="0.08" stroke="#c0392b" stroke-width="2.5"/>
+
+  <!-- Principal Axes of Ellipse -->
+  <line x1="718.6" y1="251.0" x2="861.4" y2="199.0" stroke="#c0392b" stroke-width="1.2" stroke-dasharray="3,3"/>
+  <line x1="775.0" y1="183.7" x2="805.0" y2="266.3" stroke="#c0392b" stroke-width="1.2" stroke-dasharray="3,3"/>
+  <text x="868" y="196" text-anchor="start" font-size="12" font-weight="bold" fill="#c0392b">Вісь a</text>
+  <text x="808" y="296" text-anchor="start" font-size="12" font-weight="bold" fill="#c0392b">Вісь b</text>
+
+  <!-- Panel 3 Text Notes -->
+  <text x="790" y="338" text-anchor="middle" font-size="12" fill="#1a1a1a">• Коло деформується в еліпсоїд (a ≠ b)</text>
+  <text x="790" y="356" text-anchor="middle" font-size="12" fill="#1a1a1a">• Можливий поворот головних осей</text>
+  <text x="790" y="374" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">• Джерело: феромагнетики (сталь, залізо)</text>
+
+
+  <!-- BOTTOM SUMMARY PANEL -->
+  <rect x="25" y="408" width="910" height="87" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+
+  <rect x="40" y="418" width="165" height="26" rx="4" fill="#2457d6"/>
+  <text x="122.5" y="435" text-anchor="middle" font-size="13" font-weight="bold" fill="white">Математична модель</text>
+
+  <text x="220" y="435" text-anchor="start" font-size="13" font-weight="bold" fill="#1a1a1a">Виміряне поле:</text>
+  <text x="328" y="435" text-anchor="start" font-size="14" font-weight="bold" fill="#c0392b">B_raw = W · B_ideal + V_hard</text>
+
+  <text x="548" y="435" text-anchor="start" font-size="13" font-weight="bold" fill="#1a1a1a">Каліброване поле:</text>
+  <text x="676" y="435" text-anchor="start" font-size="14" font-weight="bold" fill="#27ae60">B_calib = W⁻¹ · (B_raw - V_hard)</text>
+
+  <text x="40" y="470" text-anchor="start" font-size="12" fill="#6b7280">V_hard — вектор зсуву (Hard Iron offset)</text>
+  <text x="350" y="470" text-anchor="start" font-size="12" fill="#6b7280">W — матриця деформації та повороту (Soft Iron matrix)</text>
+  <text x="715" y="470" text-anchor="start" font-size="12" fill="#6b7280">B_ideal — ідеальне поле Землі</text>
+</svg>

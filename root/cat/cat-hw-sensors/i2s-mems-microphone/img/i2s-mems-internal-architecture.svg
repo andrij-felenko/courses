@@ -1,0 +1,210 @@
+<svg viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="38" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Внутрішня архітектура I2S MEMS-мікрофона</text>
+  <text x="480" y="60" text-anchor="middle" font-size="13" fill="#6b7280">Перетворення акустичних коливань у цифровий PCM-потік всередині єдиного корпусу</text>
+
+  <!-- External Sound Source (Left Area) -->
+  <text x="52" y="145" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Акустичні</text>
+  <text x="52" y="160" text-anchor="middle" font-size="12" fill="#6b7280">коливання</text>
+  <text x="52" y="175" text-anchor="middle" font-size="12" fill="#6b7280">тиск p(t)</text>
+
+  <path d="M 32 215 A 25 25 0 0 1 32 255" fill="none" stroke="#2457d6" stroke-width="2" stroke-dasharray="3 3"/>
+  <path d="M 47 205 A 35 35 0 0 1 47 265" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+  <path d="M 62 195 A 45 45 0 0 1 62 275" fill="none" stroke="#2457d6" stroke-width="3"/>
+
+  <line x1="64" y1="235" x2="78" y2="235" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Acoustic Port -->
+  <text x="89" y="190" text-anchor="middle" font-size="12" fill="#6b7280">Звуковий</text>
+  <text x="89" y="204" text-anchor="middle" font-size="12" fill="#6b7280">отвір</text>
+  <rect x="82" y="218" width="14" height="34" rx="3" fill="#1a1a1a"/>
+
+  <line x1="96" y1="235" x2="126" y2="235" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Outer Chip Frame (MEMS IC Package) -->
+  <rect x="115" y="75" width="715" height="380" rx="10" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <text x="130" y="95" text-anchor="start" font-size="13" font-weight="bold" fill="#2457d6">Корпус I2S MEMS-мікрофона (IC Package)</text>
+
+  <!-- BLOCK 1: MEMS Sensor -->
+  <rect x="130" y="110" width="124" height="290" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="192" y="130" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">MEMS-сенсор</text>
+  <text x="192" y="146" text-anchor="middle" font-size="12" fill="#6b7280">(Акустичний)</text>
+
+  <!-- Backplate & Membrane graphics -->
+  <rect x="145" y="165" width="94" height="10" rx="2" fill="#d0d7de"/>
+  <rect x="160" y="165" width="10" height="10" fill="#ffffff"/>
+  <rect x="187" y="165" width="10" height="10" fill="#ffffff"/>
+  <rect x="214" y="165" width="10" height="10" fill="#ffffff"/>
+  <text x="192" y="188" text-anchor="middle" font-size="12" fill="#6b7280">Обкладка</text>
+
+  <line x1="192" y1="192" x2="192" y2="206" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <rect x="145" y="210" width="94" height="4" rx="2" fill="#2457d6"/>
+  <text x="192" y="228" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Мембрана</text>
+
+  <line x1="140" y1="240" x2="244" y2="240" stroke="#e5e7eb" stroke-width="1"/>
+  <text x="192" y="256" text-anchor="middle" font-size="12" fill="#1a1a1a">Зміна тиску</text>
+  <text x="192" y="272" text-anchor="middle" font-size="12" fill="#1a1a1a">змінює ємність</text>
+  <text x="192" y="292" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">ΔC ~ Δp</text>
+
+  <line x1="140" y1="305" x2="244" y2="305" stroke="#e5e7eb" stroke-width="1"/>
+  <text x="192" y="323" text-anchor="middle" font-size="12" font-weight="bold" fill="#6b7280">Сигнал: ємність</text>
+  <text x="192" y="339" text-anchor="middle" font-size="12" fill="#6b7280">(фемтофаради, fF)</text>
+  <text x="192" y="360" text-anchor="middle" font-size="12" fill="#c0392b">Аналогове</text>
+  <text x="192" y="376" text-anchor="middle" font-size="12" fill="#c0392b">середовище</text>
+
+  <!-- Arrow 1 -> 2 -->
+  <line x1="256" y1="210" x2="268" y2="210" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="262" y="202" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">ΔC</text>
+
+  <!-- BLOCK 2: Analog ASIC -->
+  <rect x="270" y="110" width="124" height="290" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="332" y="130" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Аналоговий ASIC</text>
+  <text x="332" y="146" text-anchor="middle" font-size="12" fill="#6b7280">(Фронтенд)</text>
+
+  <rect x="278" y="155" width="108" height="38" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="332" y="170" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Charge Pump</text>
+  <text x="332" y="184" text-anchor="middle" font-size="12" fill="#6b7280">(Зміщення Vbias)</text>
+
+  <rect x="278" y="200" width="108" height="38" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="332" y="215" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">C-to-V / LNA</text>
+  <text x="332" y="229" text-anchor="middle" font-size="12" fill="#6b7280">Підсилювач</text>
+
+  <line x1="280" y1="244" x2="384" y2="244" stroke="#e5e7eb" stroke-width="1"/>
+  <text x="332" y="258" text-anchor="middle" font-size="12" fill="#1a1a1a">Перетворення ΔC</text>
+  <text x="332" y="273" text-anchor="middle" font-size="12" fill="#1a1a1a">в напругу ΔV</text>
+  <text x="332" y="292" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">V_ana(t)</text>
+
+  <line x1="280" y1="305" x2="384" y2="305" stroke="#e5e7eb" stroke-width="1"/>
+  <text x="332" y="323" text-anchor="middle" font-size="12" font-weight="bold" fill="#6b7280">Аналогова напруга</text>
+  <text x="332" y="339" text-anchor="middle" font-size="12" fill="#6b7280">(Вузька смуга)</text>
+  <text x="332" y="360" text-anchor="middle" font-size="12" fill="#c0392b">Вразливе до</text>
+  <text x="332" y="376" text-anchor="middle" font-size="12" fill="#c0392b">наводок в IC</text>
+
+  <!-- Arrow 2 -> 3 -->
+  <line x1="396" y1="210" x2="408" y2="210" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="402" y="202" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">V(t)</text>
+
+  <!-- BLOCK 3: Sigma-Delta ADC (Accent) -->
+  <rect x="410" y="110" width="124" height="290" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="472" y="130" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Σ-Δ АЦП</text>
+  <text x="472" y="146" text-anchor="middle" font-size="12" fill="#2457d6">(Модулятор)</text>
+
+  <rect x="418" y="155" width="108" height="38" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+  <text x="472" y="170" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">1-бітний</text>
+  <text x="472" y="184" text-anchor="middle" font-size="12" fill="#6b7280">компаратор</text>
+
+  <rect x="418" y="200" width="108" height="38" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+  <text x="472" y="215" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Oversampling</text>
+  <text x="472" y="229" text-anchor="middle" font-size="12" fill="#6b7280">64x / 128x Fs</text>
+
+  <line x1="420" y1="244" x2="524" y2="244" stroke="#b0c4de" stroke-width="1"/>
+  <text x="472" y="258" text-anchor="middle" font-size="12" fill="#1a1a1a">Шум-шейпінг</text>
+  <text x="472" y="273" text-anchor="middle" font-size="12" fill="#6b7280">(Noise Shaping)</text>
+  <text x="472" y="292" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">fs = 1..3 МГц</text>
+
+  <line x1="420" y1="305" x2="524" y2="305" stroke="#b0c4de" stroke-width="1"/>
+  <text x="472" y="323" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">1-біт PDM-потік</text>
+  <text x="472" y="339" text-anchor="middle" font-size="12" fill="#6b7280">(Висока частота)</text>
+  <text x="472" y="360" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Перехід у цифру!</text>
+  <text x="472" y="376" text-anchor="middle" font-size="12" fill="#27ae60">(Завадостійкість)</text>
+
+  <!-- Arrow 3 -> 4 -->
+  <line x1="536" y1="210" x2="548" y2="210" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="542" y="202" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">PDM</text>
+
+  <!-- BLOCK 4: Decimation Filter -->
+  <rect x="550" y="110" width="124" height="290" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="612" y="130" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Дециматор</text>
+  <text x="612" y="146" text-anchor="middle" font-size="12" fill="#6b7280">(Digital Filter)</text>
+
+  <rect x="558" y="155" width="108" height="38" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="612" y="170" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">CIC / FIR фільтр</text>
+  <text x="612" y="184" text-anchor="middle" font-size="12" fill="#6b7280">Пригнічення шуму</text>
+
+  <rect x="558" y="200" width="108" height="38" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="612" y="215" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Downsampling</text>
+  <text x="612" y="229" text-anchor="middle" font-size="12" fill="#6b7280">Зниження частоти</text>
+
+  <line x1="560" y1="244" x2="664" y2="244" stroke="#e5e7eb" stroke-width="1"/>
+  <text x="612" y="258" text-anchor="middle" font-size="12" fill="#1a1a1a">Децимація даних</text>
+  <text x="612" y="273" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">PDM → PCM</text>
+  <text x="612" y="292" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">24-біт / 48 кГц</text>
+
+  <line x1="560" y1="305" x2="664" y2="305" stroke="#e5e7eb" stroke-width="1"/>
+  <text x="612" y="323" text-anchor="middle" font-size="12" font-weight="bold" fill="#6b7280">PCM-відліки</text>
+  <text x="612" y="339" text-anchor="middle" font-size="12" fill="#6b7280">(Паралельне слово)</text>
+  <text x="612" y="360" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Звільнення CPU</text>
+  <text x="612" y="376" text-anchor="middle" font-size="12" fill="#27ae60">(Апаратний DSP)</text>
+
+  <!-- Arrow 4 -> 5 -->
+  <line x1="676" y1="210" x2="688" y2="210" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="682" y="202" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">PCM</text>
+
+  <!-- BLOCK 5: I2S Controller (Solution/Green) -->
+  <rect x="690" y="110" width="124" height="290" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="752" y="130" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">Контролер I2S</text>
+  <text x="752" y="146" text-anchor="middle" font-size="12" fill="#27ae60">(Bus Interface)</text>
+
+  <rect x="698" y="155" width="108" height="38" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="752" y="170" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Зсувний регістр</text>
+  <text x="752" y="184" text-anchor="middle" font-size="12" fill="#6b7280">Серіалізатор</text>
+
+  <rect x="698" y="200" width="108" height="38" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="752" y="215" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Логіка L/R</text>
+  <text x="752" y="229" text-anchor="middle" font-size="12" fill="#6b7280">Кадрова синхро</text>
+
+  <line x1="700" y1="244" x2="804" y2="244" stroke="#a3e4d7" stroke-width="1"/>
+  <text x="752" y="258" text-anchor="middle" font-size="12" fill="#1a1a1a">Формування кадрів</text>
+  <text x="752" y="273" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">I2S фреймів</text>
+  <text x="752" y="292" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Стандарт I2S</text>
+
+  <line x1="700" y1="305" x2="804" y2="305" stroke="#a3e4d7" stroke-width="1"/>
+  <text x="752" y="323" text-anchor="middle" font-size="12" font-weight="bold" fill="#6b7280">Вихідні лінії:</text>
+  <text x="752" y="339" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">SCK, WS, SD</text>
+  <text x="752" y="360" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Пряме підключення</text>
+  <text x="752" y="376" text-anchor="middle" font-size="12" fill="#27ae60">до МК (ESP32)</text>
+
+  <!-- Bottom Note inside Chip Frame -->
+  <text x="472" y="432" text-anchor="middle" font-size="12" fill="#6b7280">Пін SEL (L/R Select): GND = Лівий канал (Left), VDD = Правий канал (Right)</text>
+
+  <!-- Host Box (ESP32) on Right -->
+  <rect x="845" y="110" width="95" height="290" rx="8" fill="#ffffff" stroke="#2457d6" stroke-dasharray="4 4" stroke-width="1.5"/>
+  <text x="892" y="130" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Мікроконтролер</text>
+  <text x="892" y="146" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">(Хост / ESP32)</text>
+
+  <!-- Output Lines from IC to Host -->
+  <!-- SCK -->
+  <line x1="814" y1="180" x2="843" y2="180" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr-dark)"/>
+  <text x="828" y="172" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">SCK</text>
+  <text x="892" y="184" text-anchor="middle" font-size="12" fill="#1a1a1a">BCLK (Такти)</text>
+
+  <!-- WS -->
+  <line x1="814" y1="230" x2="843" y2="230" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr-dark)"/>
+  <text x="828" y="222" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">WS</text>
+  <text x="892" y="234" text-anchor="middle" font-size="12" fill="#1a1a1a">LRCLK (Кадр)</text>
+
+  <!-- SD -->
+  <line x1="814" y1="280" x2="843" y2="280" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="828" y="272" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">SD</text>
+  <text x="892" y="284" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">DATA (Дані)</text>
+
+  <line x1="850" y1="310" x2="935" y2="310" stroke="#d0d7de" stroke-width="1"/>
+  <text x="892" y="330" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Апаратний</text>
+  <text x="892" y="346" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">I2S+DMA модуль</text>
+  <text x="892" y="368" text-anchor="middle" font-size="12" fill="#6b7280">(Zero CPU load)</text>
+</svg>

@@ -1,0 +1,116 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="34" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Структура I2C-транзакції SHT30 та верифікація даних CRC-8</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Кожен 16-бітний блок даних (температура й вологість) супроводжується власним байтом CRC-8</text>
+
+  <!-- ПАНЕЛЬ 1: I2C Транзакція -->
+  <rect x="30" y="85" width="900" height="165" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="50" y="108" font-size="14" font-weight="700" fill="#1a1a1a">1. Послідовність байтів I2C при зчитуванні вимірювань (6 байтів від SHT30)</text>
+
+  <!-- Групувальні підписи над блоками -->
+  <text x="337" y="132" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">Блок 1: Температура (16 біт + CRC)</text>
+  <text x="660" y="132" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">Блок 2: Вологість (16 біт + CRC)</text>
+
+  <!-- Блоки байтів -->
+  <!-- S (Start) -->
+  <rect x="50" y="145" width="32" height="48" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="66" y="174" font-size="13" font-weight="700" fill="#2457d6" text-anchor="middle">S</text>
+
+  <!-- ADDR + R -->
+  <rect x="88" y="145" width="85" height="48" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="130" y="163" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">ADDR+R</text>
+  <text x="130" y="181" font-size="12" fill="#6b7280" text-anchor="middle">0x89</text>
+
+  <!-- Temp MSB -->
+  <rect x="179" y="145" width="105" height="48" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="231" y="163" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Temp MSB</text>
+  <text x="231" y="181" font-size="12" fill="#2457d6" text-anchor="middle">Байт 1 (0x68)</text>
+
+  <!-- Temp LSB -->
+  <rect x="290" y="145" width="105" height="48" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="342" y="163" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Temp LSB</text>
+  <text x="342" y="181" font-size="12" fill="#2457d6" text-anchor="middle">Байт 2 (0x34)</text>
+
+  <!-- Temp CRC -->
+  <rect x="401" y="145" width="95" height="48" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="448" y="163" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">CRC-8</text>
+  <text x="448" y="181" font-size="12" fill="#27ae60" text-anchor="middle">Байт 3 (0x64)</text>
+
+  <!-- Hum MSB -->
+  <rect x="502" y="145" width="105" height="48" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="554" y="163" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Hum MSB</text>
+  <text x="554" y="181" font-size="12" fill="#2457d6" text-anchor="middle">Байт 4 (0x82)</text>
+
+  <!-- Hum LSB -->
+  <rect x="613" y="145" width="105" height="48" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="665" y="163" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Hum LSB</text>
+  <text x="665" y="181" font-size="12" fill="#2457d6" text-anchor="middle">Байт 5 (0x1B)</text>
+
+  <!-- Hum CRC -->
+  <rect x="724" y="145" width="95" height="48" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="771" y="163" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">CRC-8</text>
+  <text x="771" y="181" font-size="12" fill="#27ae60" text-anchor="middle">Байт 6 (0x83)</text>
+
+  <!-- P (Stop) -->
+  <rect x="825" y="145" width="32" height="48" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="841" y="174" font-size="13" font-weight="700" fill="#c0392b" text-anchor="middle">P</text>
+
+  <!-- Примітки внизу Панелі 1 -->
+  <text x="50" y="222" font-size="12" fill="#6b7280">S — Start, P — Stop, ADDR+R — Адреса 0x44 + зчитування (1)</text>
+  <text x="502" y="222" font-size="12" fill="#27ae60">Байт CRC-8 розраховується сенсором для кожної пари даних окремо</text>
+
+
+  <!-- ПАНЕЛЬ 2: CRC-8 Математична модель MCU -->
+  <rect x="30" y="265" width="900" height="175" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="50" y="288" font-size="14" font-weight="700" fill="#1a1a1a">2. Математична модель верифікації CRC-8 на стороні мікроконтролера</text>
+
+  <!-- Етап А: Вхідні дані -->
+  <rect x="50" y="308" width="220" height="118" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="160" y="328" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">1. Отримані дані</text>
+  <text x="160" y="348" font-size="12" fill="#2457d6" text-anchor="middle">MSB: 0x68  |  LSB: 0x34</text>
+  <text x="160" y="370" font-size="12" fill="#1a1a1a" text-anchor="middle">Зчитано CRC-8: 0x64</text>
+  <text x="160" y="392" font-size="12" fill="#6b7280" text-anchor="middle">(2 байти даних + 1 байт CRC)</text>
+
+  <!-- Стрілка А -> Б -->
+  <line x1="270" y1="367" x2="312" y2="367" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="295" y="357" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">16 біт</text>
+
+  <!-- Етап Б: Обчислювач CRC -->
+  <rect x="320" y="308" width="270" height="118" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="455" y="328" font-size="13" font-weight="700" fill="#2457d6" text-anchor="middle">2. Обчислення CRC-8 (MCU)</text>
+  <text x="335" y="348" font-size="12" fill="#1a1a1a">Поліном: x⁸ + x⁵ + x⁴ + 1 (0x31)</text>
+  <text x="335" y="370" font-size="12" fill="#1a1a1a">Init value: 0xFF (SHT30 standard)</text>
+  <text x="335" y="392" font-size="12" font-weight="700" fill="#27ae60">Обчислений CRC-8: 0x64</text>
+
+  <!-- Стрілка Б -> В -->
+  <line x1="590" y1="367" x2="632" y2="367" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="615" y="357" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">CRC_calc</text>
+
+  <!-- Етап В: Порівняння й рішення -->
+  <rect x="640" y="308" width="260" height="118" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="770" y="328" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">3. Порівняння й рішення</text>
+  <text x="770" y="348" font-size="12" fill="#1a1a1a" text-anchor="middle">CRC_calc == CRC_rx ? (0x64 == 0x64)</text>
+
+  <rect x="652" y="360" width="112" height="54" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="708" y="380" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">ЗБІГ [OK]</text>
+  <text x="708" y="398" font-size="12" fill="#27ae60" text-anchor="middle">Дані дійсні</text>
+
+  <rect x="776" y="360" width="112" height="54" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="832" y="380" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">РОЗБІЖНІСТЬ</text>
+  <text x="832" y="398" font-size="12" fill="#c0392b" text-anchor="middle">Помилка CRC</text>
+</svg>

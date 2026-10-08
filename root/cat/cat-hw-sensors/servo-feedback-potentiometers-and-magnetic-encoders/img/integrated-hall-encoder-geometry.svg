@@ -1,0 +1,185 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="520" viewBox="0 0 960 520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-accent" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="38" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Геометрія інтегрального енкодера Холла та чотирифазної матриці</text>
+  <text x="480" y="58" text-anchor="middle" font-size="13" fill="#6b7280">Диференціальне розміщення 4 сенсорів на кристалі усуває завади та обчислює кут θ = arctan2(Vsin, Vcos)</text>
+
+  <!-- Left Panel: Top View Geometry -->
+  <rect x="30" y="75" width="435" height="425" rx="8" ry="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="247" y="100" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">1. Топологія кристала (вигляд зверху)</text>
+  <text x="247" y="118" text-anchor="middle" font-size="12" fill="#6b7280">Чотири елементи Холла зі зсувом 90° навколо осі</text>
+
+  <!-- Silicon Die -->
+  <rect x="137" y="135" width="220" height="205" rx="6" fill="#ffffff" stroke="#b0bec5" stroke-width="1.5"/>
+  <text x="247" y="153" text-anchor="middle" font-size="12" font-weight="bold" fill="#64748b">Кристал кремнію (Silicon Die)</text>
+
+  <!-- Center Crosshair & Trajectory -->
+  <line x1="120" y1="240" x2="374" y2="240" stroke="#94a3b8" stroke-dasharray="4,4" stroke-width="1"/>
+  <line x1="247" y1="125" x2="247" y2="350" stroke="#94a3b8" stroke-dasharray="4,4" stroke-width="1"/>
+  <circle cx="247" cy="240" r="55" fill="none" stroke="#cbd5e1" stroke-dasharray="3,3" stroke-width="1.5"/>
+
+  <!-- Magnet Pole Overlay (Semi-transparent) -->
+  <path d="M 284.5,175.1 A 75,75 0 0,1 209.5,304.9 Z" fill="#c0392b" fill-opacity="0.1" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <path d="M 209.5,304.9 A 75,75 0 0,1 284.5,175.1 Z" fill="#2457d6" fill-opacity="0.1" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <text x="305" y="185" font-size="13" font-weight="bold" fill="#c0392b">N (Північ)</text>
+  <text x="145" y="305" font-size="13" font-weight="bold" fill="#2457d6">S (Південь)</text>
+
+  <!-- Hall Sensor Elements -->
+  <!-- HY+ (Top, 90 deg) -->
+  <rect x="236" y="174" width="22" height="22" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="247" y="168" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">HY+</text>
+
+  <!-- HX- (Left, 180 deg) -->
+  <rect x="181" y="229" width="22" height="22" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="174" y="244" text-anchor="end" font-size="12" font-weight="bold" fill="#2457d6">HX-</text>
+
+  <!-- HX+ (Right, 0 deg) -->
+  <rect x="291" y="229" width="22" height="22" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="320" y="244" font-size="12" font-weight="bold" fill="#2457d6">HX+</text>
+
+  <!-- HY- (Bottom, 270 deg) -->
+  <rect x="236" y="284" width="22" height="22" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="247" y="320" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">HY-</text>
+
+  <!-- Field Vector B(theta) -->
+  <line x1="247" y1="240" x2="292" y2="214" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arr-red)"/>
+  <text x="285" y="200" font-size="12" font-weight="bold" fill="#c0392b">B(θ)</text>
+
+  <!-- Angle theta arc -->
+  <path d="M 282,240 A 35,35 0 0,0 277,222" fill="none" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="286" y="234" font-size="13" font-weight="bold" fill="#1a1a1a">θ</text>
+
+  <!-- Magnet rotation direction -->
+  <path d="M 330,225 A 85,85 0 0,0 310,175" fill="none" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#arr)"/>
+  <text x="335" y="195" font-size="12" font-weight="bold" fill="#6b7280">ω</text>
+
+  <!-- Left Panel Signal Formula Block -->
+  <rect x="45" y="355" width="405" height="130" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="247" y="375" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Формування різницевих сигналів:</text>
+
+  <text x="60" y="398" font-size="12" fill="#1a1a1a">Синусний канал:</text>
+  <text x="175" y="398" font-size="12" font-weight="bold" fill="#2457d6">Vsin = HY+ − HY− ∝ B · sin(θ)</text>
+
+  <text x="60" y="420" font-size="12" fill="#1a1a1a">Косинусний канал:</text>
+  <text x="175" y="420" font-size="12" font-weight="bold" fill="#2457d6">Vcos = HX+ − HX− ∝ B · cos(θ)</text>
+
+  <rect x="55" y="433" width="385" height="44" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="247" y="452" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">✓ Однофазна завада B_ext віднімається (HY+ − HY− = 0)</text>
+  <text x="247" y="467" text-anchor="middle" font-size="12" fill="#27ae60">Амплітудна нестабільність B скасовується у діленні sin/cos</text>
+
+  <!-- Right Panel: Side Cross-Section & Architecture -->
+  <rect x="495" y="75" width="435" height="425" rx="8" ry="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="712" y="100" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">2. Конструкція вузла та обробка сигналів</text>
+  <text x="712" y="118" text-anchor="middle" font-size="12" fill="#6b7280">Розріз: вал, дисковий магніт, повітряний зазор g та IC</text>
+
+  <!-- Centerline of Rotation -->
+  <line x1="620" y1="130" x2="620" y2="310" stroke="#94a3b8" stroke-dasharray="6,3,2,3" stroke-width="1"/>
+  <text x="620" y="128" text-anchor="middle" font-size="12" fill="#64748b">Вісь обертання</text>
+
+  <!-- Motor Shaft -->
+  <rect x="600" y="135" width="40" height="55" fill="#e2e8f0" stroke="#475569" stroke-width="1.5"/>
+  <line x1="592" y1="162" x2="600" y2="162" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="590" y="165" text-anchor="end" font-size="12" font-weight="bold" fill="#1a1a1a">Вал двигуна</text>
+
+  <!-- Permanent Magnet (N & S Poles) -->
+  <rect x="570" y="190" width="50" height="25" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="595" y="207" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">N</text>
+
+  <rect x="620" y="190" width="50" height="25" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="645" y="207" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">S</text>
+
+  <line x1="670" y1="202.5" x2="680" y2="202.5" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="682" y="207" font-size="12" font-weight="bold" fill="#1a1a1a">Дисковий магніт</text>
+
+  <!-- Airgap Dimension -->
+  <line x1="515" y1="215" x2="515" y2="250" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="510" y1="215" x2="520" y2="215" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="510" y1="250" x2="520" y2="250" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="522" y="236" font-size="12" font-weight="bold" fill="#2457d6">Зазор g: 0.5–2 мм</text>
+
+  <!-- Magnetic Flux Lines -->
+  <path d="M 585,215 Q 585,245 620,245 Q 655,245 655,215" fill="none" stroke="#2457d6" stroke-dasharray="3,3" stroke-width="1.5"/>
+
+  <!-- IC Package & Die -->
+  <rect x="555" y="250" width="130" height="32" rx="3" fill="#334155" stroke="#0f172a" stroke-width="1.5"/>
+  
+  <!-- IC Pins -->
+  <rect x="545" y="255" width="10" height="4" fill="#94a3b8"/>
+  <rect x="545" y="264" width="10" height="4" fill="#94a3b8"/>
+  <rect x="545" y="273" width="10" height="4" fill="#94a3b8"/>
+  <rect x="685" y="255" width="10" height="4" fill="#94a3b8"/>
+  <rect x="685" y="264" width="10" height="4" fill="#94a3b8"/>
+  <rect x="685" y="273" width="10" height="4" fill="#94a3b8"/>
+
+  <!-- Die Inside Package -->
+  <rect x="580" y="258" width="80" height="10" rx="1" fill="#cbd5e1" stroke="#94a3b8" stroke-width="1"/>
+  <rect x="590" y="260" width="8" height="6" fill="#2457d6"/>
+  <rect x="642" y="260" width="8" height="6" fill="#2457d6"/>
+
+  <line x1="685" y1="262" x2="695" y2="262" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="698" y="265" font-size="12" font-weight="bold" fill="#1a1a1a">Корпус IC (SOIC-8)</text>
+
+  <line x1="660" y1="277" x2="695" y2="277" stroke="#64748b" stroke-width="1"/>
+  <text x="698" y="280" font-size="12" fill="#64748b">Кристал з сенсорами</text>
+
+  <!-- PCB -->
+  <rect x="515" y="285" width="210" height="12" rx="2" fill="#27ae60" stroke="#1e8449" stroke-width="1.5"/>
+  <line x1="725" y1="291" x2="733" y2="291" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="735" y="295" font-size="12" fill="#1a1a1a">Друкована плата (PCB)</text>
+
+  <!-- Signal Processing Block Diagram Container -->
+  <rect x="510" y="320" width="405" height="165" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="712" y="340" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Внутрішній тракт обробки та обчислень:</text>
+
+  <!-- Block 1: Sensors -->
+  <rect x="525" y="352" width="105" height="42" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="577" y="369" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">4× Сенсори</text>
+  <text x="577" y="384" text-anchor="middle" font-size="12" fill="#6b7280">HX±, HY±</text>
+
+  <!-- Arrow 1 to 2 -->
+  <line x1="630" y1="373" x2="653" y2="373" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-accent)"/>
+
+  <!-- Block 2: Amplifiers -->
+  <rect x="658" y="352" width="112" height="42" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="714" y="369" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Підсилювачі</text>
+  <text x="714" y="384" text-anchor="middle" font-size="12" fill="#6b7280">Vsin, Vcos</text>
+
+  <!-- Arrow 2 to 3 -->
+  <line x1="770" y1="373" x2="793" y2="373" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-accent)"/>
+
+  <!-- Block 3: CORDIC / ADC -->
+  <rect x="798" y="352" width="105" height="42" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="850" y="369" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">CORDIC / АЦП</text>
+  <text x="850" y="384" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">θ = arctan2</text>
+
+  <!-- Arrow Block 3 down to Output -->
+  <line x1="850" y1="394" x2="850" y2="410" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <!-- Side Spec Badge -->
+  <rect x="520" y="415" width="130" height="58" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="585" y="432" text-anchor="middle" font-size="12" fill="#6b7280">Частота оновлення:</text>
+  <text x="585" y="447" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">10–100 кГц</text>
+  <text x="585" y="462" text-anchor="middle" font-size="12" fill="#6b7280">Точність: 12–14 біт</text>
+
+  <!-- Output Block -->
+  <rect x="662" y="415" width="241" height="58" rx="4" fill="#27ae60" stroke="#1e8449" stroke-width="1.5"/>
+  <text x="782.5" y="435" text-anchor="middle" font-size="12" font-weight="bold" fill="#ffffff">Вихідний абсолютний кут θ</text>
+  <text x="782.5" y="455" text-anchor="middle" font-size="12" fill="#ffffff">Інтерфейси: SPI, SSI, PWM, ABZ</text>
+</svg>

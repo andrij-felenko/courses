@@ -1,0 +1,117 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+  
+  <defs>
+    <marker id="arr-blue" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">4-провідне кельвінівське підключення RTD (4-Wire Kelvin Sensing)</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Струмові та потенціальні лінії розділені: струм I_sense ≈ 0 А усуває падіння напруги на дротах</text>
+
+  <!-- Left Block: Measurement Unit -->
+  <rect x="40" y="75" width="230" height="310" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="155" y="98" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Вимірювальний прилад (АЦП)</text>
+
+  <!-- Current Source Box -->
+  <rect x="55" y="108" width="200" height="44" rx="5" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="155" y="128" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Джерело струму I_exc</text>
+  <text x="155" y="143" font-size="11" fill="#6b7280" text-anchor="middle">I_exc = const (напр. 1 мА)</text>
+
+  <!-- ADC Voltmeter Box -->
+  <rect x="55" y="200" width="200" height="105" rx="5" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="155" y="222" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Прецизійний АЦП</text>
+  <text x="155" y="243" font-size="11" fill="#6b7280" text-anchor="middle">Вхідний опір R_in &gt;&gt; 10 МОм</text>
+  <text x="155" y="264" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Струм входу I_sense ≈ 0 А</text>
+  <text x="155" y="286" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">V_ADC = V_RTD</text>
+
+  <!-- Internal Wiring in Left Block -->
+  <path d="M255,120 L270,120" stroke="#2457d6" stroke-width="2" fill="none"/>
+  <path d="M255,340 L155,340 L155,152" stroke="#2457d6" stroke-width="2" fill="none"/>
+  <path d="M255,185 L270,185" stroke="#27ae60" stroke-width="2" fill="none"/>
+  <path d="M255,275 L270,275" stroke="#27ae60" stroke-width="2" fill="none"/>
+
+  <!-- Terminals Left -->
+  <circle cx="270" cy="120" r="3.5" fill="#2457d6"/>
+  <circle cx="270" cy="185" r="3.5" fill="#27ae60"/>
+  <circle cx="270" cy="275" r="3.5" fill="#27ae60"/>
+  <circle cx="270" cy="340" r="3.5" fill="#2457d6"/>
+
+  <!-- Cable Container -->
+  <rect x="285" y="102" width="390" height="265" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-dasharray="4 4" stroke-width="1.2"/>
+  <text x="480" y="94" font-size="11" font-style="italic" fill="#6b7280" text-anchor="middle">Кабельна лінія (опір провідників R_w1 ... R_w4)</text>
+
+  <!-- Wires -->
+  <!-- Wire 1: Force+ -->
+  <line x1="270" y1="120" x2="690" y2="120" stroke="#2457d6" stroke-width="2"/>
+  <rect x="455" y="112" width="50" height="16" rx="3" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="480" y="107" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">R_w1</text>
+  <text x="295" y="138" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="start">Force+ (I+)</text>
+  <line x1="390" y1="120" x2="435" y2="120" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="412" y="138" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">I_exc →</text>
+
+  <!-- Wire 2: Sense+ -->
+  <line x1="270" y1="185" x2="690" y2="185" stroke="#27ae60" stroke-width="2"/>
+  <rect x="455" y="177" width="50" height="16" rx="3" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="480" y="172" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">R_w2</text>
+  <text x="295" y="172" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="start">Sense+ (V+)</text>
+  <text x="365" y="203" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">I_sense ≈ 0 А  (ΔV_Rw2 = 0 В)</text>
+
+  <!-- Wire 3: Sense- -->
+  <line x1="270" y1="275" x2="690" y2="275" stroke="#27ae60" stroke-width="2"/>
+  <rect x="455" y="267" width="50" height="16" rx="3" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="480" y="262" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">R_w3</text>
+  <text x="295" y="262" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="start">Sense- (V-)</text>
+  <text x="365" y="293" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">I_sense ≈ 0 А  (ΔV_Rw3 = 0 В)</text>
+
+  <!-- Wire 4: Force- -->
+  <line x1="270" y1="340" x2="690" y2="340" stroke="#2457d6" stroke-width="2"/>
+  <rect x="455" y="332" width="50" height="16" rx="3" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="480" y="327" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">R_w4</text>
+  <text x="295" y="358" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="start">Force- (I-)</text>
+  <line x1="435" y1="340" x2="390" y2="340" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="412" y="358" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">← I_exc</text>
+
+  <!-- Voltage Indicator Arrow on right side of cable -->
+  <line x1="590" y1="190" x2="590" y2="270" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="3 3" marker-start="url(#arr-green)" marker-end="url(#arr-green)"/>
+  <text x="605" y="234" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="start">V_ADC = V_RTD</text>
+
+  <!-- Right Block: Sensor -->
+  <rect x="690" y="75" width="230" height="310" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="805" y="98" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Сенсорний вузол RTD</text>
+  <text x="805" y="115" font-size="11" fill="#6b7280" text-anchor="middle">(Об'єкт вимірювання)</text>
+
+  <!-- Terminals Right -->
+  <circle cx="690" cy="120" r="3.5" fill="#2457d6"/>
+  <circle cx="690" cy="185" r="3.5" fill="#27ae60"/>
+  <circle cx="690" cy="275" r="3.5" fill="#27ae60"/>
+  <circle cx="690" cy="340" r="3.5" fill="#2457d6"/>
+
+  <!-- Kelvin Kelvin Connection Lines inside Right Block -->
+  <path d="M690,120 L760,120 L760,190 L790,190" stroke="#2457d6" stroke-width="2" fill="none"/>
+  <path d="M690,185 L760,185 L760,190" stroke="#27ae60" stroke-width="2" fill="none"/>
+  <circle cx="760" cy="190" r="4" fill="#27ae60"/>
+  <text x="752" y="175" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="end">Точка Кельвіна 1</text>
+
+  <path d="M690,340 L760,340 L760,270 L790,270" stroke="#2457d6" stroke-width="2" fill="none"/>
+  <path d="M690,275 L760,275 L760,270" stroke="#27ae60" stroke-width="2" fill="none"/>
+  <circle cx="760" cy="270" r="4" fill="#27ae60"/>
+  <text x="752" y="295" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="end">Точка Кельвіна 2</text>
+
+  <!-- RTD Resistor Element -->
+  <rect x="790" y="190" width="30" height="80" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="2"/>
+  <text x="805" y="234" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">R_RTD</text>
+  <text x="832" y="234" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="start">t °C</text>
+
+  <!-- Bottom Panel -->
+  <rect x="40" y="398" width="880" height="62" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="55" y="420" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="start">Формула:</text>
+  <text x="125" y="420" font-size="12" fill="#1a1a1a" text-anchor="start">V_ADC = V_RTD + I_sense · (R_w2 + R_w3) = I_exc · R_RTD + 0 · (R_w2 + R_w3) = I_exc · R_RTD</text>
+  <text x="55" y="444" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="start">Висновок:</text>
+  <text x="125" y="444" font-size="12" fill="#1a1a1a" text-anchor="start">Опір дротів R_w1...R_w4 повністю усувається з результату вимірювання (ΔV_line = 0 В)</text>
+</svg>

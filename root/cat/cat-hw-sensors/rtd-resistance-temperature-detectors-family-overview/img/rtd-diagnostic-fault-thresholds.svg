@@ -1,0 +1,171 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 550" width="960" height="550" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-orange" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#e67e22"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Background Canvas -->
+  <rect x="0" y="0" width="960" height="550" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Діагностичні пороги та зони станів RTD-вимірювача</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Виявлення обриву дротів, короткого замикання та виходу за межі робочого діапазону</text>
+
+  <!-- Top Status Cards -->
+  <!-- Card 1: Short Circuit -->
+  <rect x="40" y="75" width="140" height="120" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" rx="6"/>
+  <text x="110" y="98" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">RTD_ERR_SHORT_CIRCUIT</text>
+  <text x="110" y="120" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Коротке замикання</text>
+  <text x="110" y="142" font-size="11" fill="#6b7280" text-anchor="middle">Аварійний прапор</text>
+  <text x="110" y="168" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">R &lt; R_short</text>
+
+  <!-- Card 2: Under-range -->
+  <rect x="192" y="75" width="140" height="120" fill="#fef5e7" stroke="#e67e22" stroke-width="1.5" rx="6"/>
+  <text x="262" y="98" font-size="11" font-weight="bold" fill="#d35400" text-anchor="middle">RTD_ERR_UNDER_RANGE</text>
+  <text x="262" y="120" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Вихід нижче меж</text>
+  <text x="262" y="142" font-size="11" fill="#6b7280" text-anchor="middle">Попередження</text>
+  <text x="262" y="168" font-size="11" font-weight="bold" fill="#d35400" text-anchor="middle">R_short ≤ R &lt; R_min</text>
+
+  <!-- Card 3: Normal Valid Zone -->
+  <rect x="344" y="75" width="272" height="120" fill="#e9f7ef" stroke="#27ae60" stroke-width="2" rx="6"/>
+  <text x="480" y="98" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">RTD_ERR_NONE / RTD_OK</text>
+  <text x="480" y="120" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Штатна зона вимірювання</text>
+  <text x="480" y="142" font-size="11" fill="#6b7280" text-anchor="middle">Дійсні значення температури</text>
+  <text x="480" y="168" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">R_min ≤ R ≤ R_max  (-200°C ... +850°C)</text>
+
+  <!-- Card 4: Over-range -->
+  <rect x="628" y="75" width="140" height="120" fill="#fef5e7" stroke="#e67e22" stroke-width="1.5" rx="6"/>
+  <text x="698" y="98" font-size="11" font-weight="bold" fill="#d35400" text-anchor="middle">RTD_ERR_OVER_RANGE</text>
+  <text x="698" y="120" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Вихід вище меж</text>
+  <text x="698" y="142" font-size="11" fill="#6b7280" text-anchor="middle">Попередження</text>
+  <text x="698" y="168" font-size="11" font-weight="bold" fill="#d35400" text-anchor="middle">R_max &lt; R ≤ R_open</text>
+
+  <!-- Card 5: Open Circuit -->
+  <rect x="780" y="75" width="140" height="120" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" rx="6"/>
+  <text x="850" y="98" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">RTD_ERR_OPEN_CIRCUIT</text>
+  <text x="850" y="120" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Обрив кола / дротів</text>
+  <text x="850" y="142" font-size="11" fill="#6b7280" text-anchor="middle">Аварійний прапор</text>
+  <text x="850" y="168" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">R &gt; R_open</text>
+
+  <!-- Connection Arrows Top Cards -> Range Bar -->
+  <line x1="110" y1="195" x2="110" y2="215" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <line x1="262" y1="195" x2="262" y2="215" stroke="#e67e22" stroke-width="1.5" marker-end="url(#arr-orange)"/>
+  <line x1="480" y1="195" x2="480" y2="215" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <line x1="698" y1="195" x2="698" y2="215" stroke="#e67e22" stroke-width="1.5" marker-end="url(#arr-orange)"/>
+  <line x1="850" y1="195" x2="850" y2="215" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+
+  <!-- Colored Resistance Range Bar -->
+  <rect x="40" y="220" width="146" height="30" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <rect x="186" y="220" width="152" height="30" fill="#fef5e7" stroke="#e67e22" stroke-width="1"/>
+  <rect x="338" y="220" width="284" height="30" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="622" y="220" width="152" height="30" fill="#fef5e7" stroke="#e67e22" stroke-width="1"/>
+  <rect x="774" y="220" width="146" height="30" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+
+  <text x="113" y="240" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Зона КЗ</text>
+  <text x="262" y="240" font-size="12" font-weight="bold" fill="#d35400" text-anchor="middle">Нижня межа</text>
+  <text x="480" y="240" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Робочий діапазон вимірювання</text>
+  <text x="698" y="240" font-size="12" font-weight="bold" fill="#d35400" text-anchor="middle">Верхня межа</text>
+  <text x="847" y="240" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Зона обриву</text>
+
+  <!-- Vertical Threshold Lines -->
+  <line x1="186" y1="195" x2="186" y2="350" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4 3"/>
+  <line x1="338" y1="195" x2="338" y2="350" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="4 3"/>
+  <line x1="622" y1="195" x2="622" y2="350" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="4 3"/>
+  <line x1="774" y1="195" x2="774" y2="350" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4 3"/>
+
+  <!-- Resistance Axis -->
+  <line x1="30" y1="280" x2="925" y2="280" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+  <text x="925" y="268" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">Опір RTD (R) →</text>
+
+  <!-- Resistance Threshold Labels -->
+  <text x="186" y="272" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">R_short</text>
+  <text x="338" y="272" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">R_min</text>
+  <text x="622" y="272" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">R_max</text>
+  <text x="774" y="272" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">R_open</text>
+
+  <!-- Resistance Values below axis -->
+  <text x="40" y="302" font-size="11" fill="#1a1a1a" text-anchor="middle">0 Ом</text>
+  <text x="186" y="302" font-size="11" fill="#6b7280" text-anchor="middle">~10 Ом</text>
+  <text x="338" y="302" font-size="11" fill="#1a1a1a" text-anchor="middle">18.5 Ом (-200°C)</text>
+  <text x="622" y="302" font-size="11" fill="#1a1a1a" text-anchor="middle">390.5 Ом (+850°C)</text>
+  <text x="774" y="302" font-size="11" fill="#6b7280" text-anchor="middle">~450 Ом</text>
+  <text x="920" y="302" font-size="11" fill="#1a1a1a" text-anchor="middle">R → ∞</text>
+
+  <!-- ADC Code Parallel Axis -->
+  <line x1="30" y1="325" x2="925" y2="325" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="3 3" marker-end="url(#arr-gray)"/>
+  <text x="35" y="320" font-size="11" font-weight="bold" fill="#6b7280" text-anchor="start">Код АЦП (ADC):</text>
+
+  <text x="40" y="342" font-size="11" fill="#6b7280" text-anchor="middle">ADC ≈ 0</text>
+  <text x="186" y="342" font-size="11" fill="#6b7280" text-anchor="middle">ADC_short</text>
+  <text x="338" y="342" font-size="11" fill="#6b7280" text-anchor="middle">ADC_min</text>
+  <text x="622" y="342" font-size="11" fill="#6b7280" text-anchor="middle">ADC_max</text>
+  <text x="774" y="342" font-size="11" fill="#6b7280" text-anchor="middle">ADC_open</text>
+  <text x="920" y="342" font-size="11" fill="#6b7280" text-anchor="middle">ADC_full</text>
+
+  <!-- Bottom Physical Causes Cards -->
+  <!-- Card B1 -->
+  <rect x="40" y="360" width="140" height="115" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="110" y="378" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Апаратний збій</text>
+  <text x="46" y="398" font-size="11" fill="#1a1a1a" text-anchor="start">• КЗ ліній/сенсора</text>
+  <text x="46" y="416" font-size="11" fill="#6b7280" text-anchor="start">• U_in ≈ 0 В</text>
+  <text x="46" y="434" font-size="11" fill="#6b7280" text-anchor="start">• ADC ≈ 0</text>
+  <text x="110" y="458" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">Дія: Аварія / Стоп</text>
+
+  <!-- Card B2 -->
+  <rect x="192" y="360" width="140" height="115" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="262" y="378" font-size="12" font-weight="bold" fill="#d35400" text-anchor="middle">Вихід нижче T_min</text>
+  <text x="198" y="398" font-size="11" fill="#1a1a1a" text-anchor="start">• T &lt; -200 °C</text>
+  <text x="198" y="416" font-size="11" fill="#6b7280" text-anchor="start">• Дрейф нуля АЦП</text>
+  <text x="198" y="434" font-size="11" fill="#6b7280" text-anchor="start">• Зсув калібровки</text>
+  <text x="262" y="458" font-size="11" font-weight="bold" fill="#d35400" text-anchor="middle">Дія: Обмеження min</text>
+
+  <!-- Card B3 -->
+  <rect x="344" y="360" width="272" height="115" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="480" y="378" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Обробка сигналу (Бібліотека C/C++)</text>
+  <text x="354" y="398" font-size="11" fill="#1a1a1a" text-anchor="start">• Розрахунок R_rtd за значеннями АЦП та R_ref</text>
+  <text x="354" y="416" font-size="11" fill="#1a1a1a" text-anchor="start">• Рівняння Каллендара — Ван Дюзена / LUT</text>
+  <text x="354" y="434" font-size="11" fill="#6b7280" text-anchor="start">• Компенсація зсуву нуля та підсилення</text>
+  <text x="480" y="458" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">Результат: T (°C), Прапор: RTD_OK</text>
+
+  <!-- Card B4 -->
+  <rect x="628" y="360" width="140" height="115" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="698" y="378" font-size="12" font-weight="bold" fill="#d35400" text-anchor="middle">Вихід вище T_max</text>
+  <text x="634" y="398" font-size="11" fill="#1a1a1a" text-anchor="start">• T &gt; +850 °C</text>
+  <text x="634" y="416" font-size="11" fill="#6b7280" text-anchor="start">• Перегрів сенсора</text>
+  <text x="634" y="434" font-size="11" fill="#6b7280" text-anchor="start">• Зсув підсилення</text>
+  <text x="698" y="458" font-size="11" font-weight="bold" fill="#d35400" text-anchor="middle">Дія: Обмеження max</text>
+
+  <!-- Card B5 -->
+  <rect x="780" y="360" width="140" height="115" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="850" y="378" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Апаратний обрив</text>
+  <text x="786" y="398" font-size="11" fill="#1a1a1a" text-anchor="start">• Обрив ліній RTD</text>
+  <text x="786" y="416" font-size="11" fill="#6b7280" text-anchor="start">• U_in → V_ref</text>
+  <text x="786" y="434" font-size="11" fill="#6b7280" text-anchor="start">• ADC → ADC_full</text>
+  <text x="850" y="458" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">Дія: Аварія / Стоп</text>
+
+  <!-- Bottom Legend Bar -->
+  <rect x="40" y="495" width="880" height="32" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="4"/>
+  <text x="55" y="515" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="start">Легенда станів:</text>
+
+  <rect x="160" y="503" width="16" height="12" fill="#e9f7ef" stroke="#27ae60" rx="2"/>
+  <text x="182" y="515" font-size="11" fill="#1a1a1a" text-anchor="start">Норма (RTD_OK)</text>
+
+  <rect x="310" y="503" width="16" height="12" fill="#fef5e7" stroke="#e67e22" rx="2"/>
+  <text x="332" y="515" font-size="11" fill="#1a1a1a" text-anchor="start">Вихід за межі (RTD_ERR_..._RANGE)</text>
+
+  <rect x="580" y="503" width="16" height="12" fill="#fdecea" stroke="#c0392b" rx="2"/>
+  <text x="602" y="515" font-size="11" fill="#1a1a1a" text-anchor="start">Апаратна аварія (RTD_ERR_SHORT / OPEN)</text>
+</svg>

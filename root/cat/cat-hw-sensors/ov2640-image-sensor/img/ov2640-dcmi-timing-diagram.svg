@@ -1,0 +1,152 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 500" width="960" height="500" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="4" refY="7.5" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,0 L4,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Canvas background -->
+  <rect x="0" y="0" width="960" height="500" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Часова діаграма сигналів DCMI при захопленні кадру OV2640 (RGB565)</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Сигнали VSYNC і HREF визначають межі кадру й рядка, а PCLK стробує 2 байти RGB565 на піксель</text>
+
+  <!-- Main Container Panel -->
+  <rect x="24" y="72" width="912" height="408" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- SECTION 1: MACRO LEVEL (FRAME & LINES) -->
+  <text x="45" y="94" font-size="13" font-weight="bold" fill="#1a1a1a">1. Рівень кадру та рядків (VSYNC / HREF)</text>
+
+  <!-- Signal 1 Label: VSYNC -->
+  <text x="45" y="120" font-size="13" font-weight="bold" fill="#1a1a1a">VSYNC</text>
+  <text x="45" y="136" font-size="12" fill="#6b7280">(кадр активний)</text>
+
+  <!-- Signal 1 Waveform: VSYNC -->
+  <path d="M 180,135 L 220,135 L 220,112 L 860,112 L 860,135 L 895,135" fill="none" stroke="#2457d6" stroke-width="2.5" stroke-linejoin="round"/>
+  <text x="540" y="104" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Кадровий інтервал (Frame Active)</text>
+
+  <!-- Signal 2 Label: HREF -->
+  <text x="45" y="166" font-size="13" font-weight="bold" fill="#1a1a1a">HREF</text>
+  <text x="45" y="182" font-size="12" fill="#6b7280">(активні рядки)</text>
+
+  <!-- Signal 2 Waveform: HREF Pulses -->
+  <path d="M 180,180 L 230,180 L 230,158 L 360,158 L 360,180 L 390,180 L 390,158 L 520,158 L 520,180 L 550,180 L 550,158 L 680,158 L 680,180 L 710,180 L 710,158 L 840,158 L 840,180 L 895,180" fill="none" stroke="#27ae60" stroke-width="2.5" stroke-linejoin="round"/>
+  
+  <text x="295" y="150" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Рядок 1</text>
+  <text x="455" y="150" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Рядок 2</text>
+  <text x="615" y="150" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Рядок 3</text>
+  <text x="775" y="150" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Рядок N</text>
+  <text x="375" y="196" font-size="12" fill="#6b7280" text-anchor="middle">пауза</text>
+
+  <!-- Section Divider -->
+  <line x1="45" y1="206" x2="895" y2="206" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4,4"/>
+
+  <!-- SECTION 2: MICRO LEVEL (BYTES & PIXELS) -->
+  <text x="45" y="226" font-size="13" font-weight="bold" fill="#1a1a1a">2. Рівень байтів і пікселів (PCLK / D[7:0] під час активного HREF)</text>
+
+  <!-- Signal 3 Label: HREF Zoomed -->
+  <text x="45" y="252" font-size="13" font-weight="bold" fill="#1a1a1a">HREF</text>
+  <text x="45" y="268" font-size="12" fill="#27ae60">(HIGH = рядок)</text>
+
+  <!-- Signal 3 Waveform: HREF Active -->
+  <path d="M 180,268 L 200,268 L 200,250 L 890,250 L 890,268 L 895,268" fill="none" stroke="#27ae60" stroke-width="2.5" stroke-linejoin="round"/>
+  <text x="540" y="244" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">HREF = HIGH (Активна передача даних рядка)</text>
+
+  <!-- Strobe Indicator Text above PCLK -->
+  <text x="275" y="280" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Зчитування DCMI (спад PCLK)</text>
+
+  <!-- Signal 4 Label: PCLK -->
+  <text x="45" y="300" font-size="13" font-weight="bold" fill="#1a1a1a">PCLK</text>
+  <text x="45" y="316" font-size="12" fill="#2457d6">(строб даних)</text>
+
+  <!-- Signal 4 Waveform: PCLK Clock Pulses -->
+  <path d="M 180,318 L 220,318 L 220,288 L 275,288 L 275,318 L 330,318 L 330,288 L 385,288 L 385,318 L 440,318 L 440,288 L 495,288 L 495,318 L 550,318 L 550,288 L 605,288 L 605,318 L 660,318 L 660,288 L 715,288 L 715,318 L 770,318 L 770,288 L 825,288 L 825,318 L 880,318 L 880,288 L 895,288" fill="none" stroke="#2457d6" stroke-width="2" stroke-linejoin="round"/>
+
+  <!-- Signal 5 Label: D[7:0] -->
+  <text x="45" y="356" font-size="13" font-weight="bold" fill="#1a1a1a">D[7:0]</text>
+  <text x="45" y="372" font-size="12" fill="#6b7280">(шина даних)</text>
+
+  <!-- Signal 5 Waveform: Data Envelopes -->
+  <line x1="180" y1="360" x2="220" y2="360" stroke="#6b7280" stroke-width="1.5"/>
+
+  <!-- Byte 1 (P1): x = 220..330 -->
+  <polygon points="220,360 226,345 324,345 330,360 324,375 226,375" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="220" y1="360" x2="226" y2="345" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="220" y1="360" x2="226" y2="375" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="275" y="355" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Байт 1</text>
+  <text x="275" y="371" font-size="12" fill="#2457d6" text-anchor="middle">R[4:0] G[5:3]</text>
+
+  <!-- Byte 2 (P1): x = 330..440 -->
+  <polygon points="330,360 336,345 434,345 440,360 434,375 336,375" fill="#f4f6f8" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="330" y1="360" x2="336" y2="345" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="330" y1="360" x2="336" y2="375" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="385" y="355" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Байт 2</text>
+  <text x="385" y="371" font-size="12" fill="#2457d6" text-anchor="middle">G[2:0] B[4:0]</text>
+
+  <!-- Byte 1 (P2): x = 440..550 -->
+  <polygon points="440,360 446,345 544,345 550,360 544,375 446,375" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="440" y1="360" x2="446" y2="345" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="440" y1="360" x2="446" y2="375" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="495" y="355" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Байт 1</text>
+  <text x="495" y="371" font-size="12" fill="#2457d6" text-anchor="middle">R[4:0] G[5:3]</text>
+
+  <!-- Byte 2 (P2): x = 550..660 -->
+  <polygon points="550,360 556,345 654,345 660,360 654,375 556,375" fill="#f4f6f8" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="550" y1="360" x2="556" y2="345" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="550" y1="360" x2="556" y2="375" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="605" y="355" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Байт 2</text>
+  <text x="605" y="371" font-size="12" fill="#2457d6" text-anchor="middle">G[2:0] B[4:0]</text>
+
+  <!-- Byte 1 (P3): x = 660..770 -->
+  <polygon points="660,360 666,345 764,345 770,360 764,375 666,375" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="660" y1="360" x2="666" y2="345" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="660" y1="360" x2="666" y2="375" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="715" y="355" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Байт 1</text>
+  <text x="715" y="371" font-size="12" fill="#2457d6" text-anchor="middle">R[4:0] G[5:3]</text>
+
+  <!-- Byte 2 (P3): x = 770..880 -->
+  <polygon points="770,360 776,345 874,345 880,360 874,375 776,375" fill="#f4f6f8" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="770" y1="360" x2="776" y2="345" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="770" y1="360" x2="776" y2="375" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="825" y="355" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Байт 2</text>
+  <text x="825" y="371" font-size="12" fill="#2457d6" text-anchor="middle">G[2:0] B[4:0]</text>
+
+  <line x1="880" y1="360" x2="895" y2="360" stroke="#6b7280" stroke-width="1.5"/>
+
+  <!-- Strobe Markers at PCLK Falling Edges (x=275, 385, 495, 605, 715, 825) -->
+  <line x1="275" y1="288" x2="275" y2="338" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="2,2" marker-end="url(#arr-red)"/>
+  <line x1="385" y1="288" x2="385" y2="338" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="2,2" marker-end="url(#arr-red)"/>
+  <line x1="495" y1="288" x2="495" y2="338" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="2,2" marker-end="url(#arr-red)"/>
+  <line x1="605" y1="288" x2="605" y2="338" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="2,2" marker-end="url(#arr-red)"/>
+  <line x1="715" y1="288" x2="715" y2="338" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="2,2" marker-end="url(#arr-red)"/>
+  <line x1="825" y1="288" x2="825" y2="338" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="2,2" marker-end="url(#arr-red)"/>
+
+  <!-- BOTTOM PANELS / BOXES (y = 395..465) -->
+  <!-- Box 0: Config Info -->
+  <rect x="45" y="395" width="163" height="70" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="126" y="415" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Конфігурація DMA:</text>
+  <text x="126" y="433" font-size="12" fill="#1a1a1a" text-anchor="middle">Упаковка по 32 біти</text>
+  <text x="126" y="451" font-size="12" fill="#6b7280" text-anchor="middle">(2 пікселі на слово)</text>
+
+  <!-- Box 1: Pixel 1 -->
+  <rect x="220" y="395" width="208" height="70" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="324" y="415" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Піксель 1 (RGB565)</text>
+  <text x="324" y="433" font-size="12" fill="#1a1a1a" text-anchor="middle">2 байти = 2 такти PCLK</text>
+  <text x="324" y="451" font-size="12" fill="#6b7280" text-anchor="middle">16 біт колірних даних</text>
+
+  <!-- Box 2: Pixel 2 -->
+  <rect x="440" y="395" width="208" height="70" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="544" y="415" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Піксель 2 (RGB565)</text>
+  <text x="544" y="433" font-size="12" fill="#1a1a1a" text-anchor="middle">2 байти = 2 такти PCLK</text>
+  <text x="544" y="451" font-size="12" fill="#6b7280" text-anchor="middle">16 біт колірних даних</text>
+
+  <!-- Box 3: Pixel 3 -->
+  <rect x="660" y="395" width="208" height="70" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="764" y="415" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Піксель 3 (RGB565)</text>
+  <text x="764" y="433" font-size="12" fill="#1a1a1a" text-anchor="middle">2 байти = 2 такти PCLK</text>
+  <text x="764" y="451" font-size="12" fill="#6b7280" text-anchor="middle">16 біт колірних даних</text>
+</svg>

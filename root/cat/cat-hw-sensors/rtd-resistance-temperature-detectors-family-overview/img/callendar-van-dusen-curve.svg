@@ -1,0 +1,165 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Canvas Background -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="40" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Залежність опору Pt100 від температури: Лінійна модель vs Каллендар — Ван Дюзен</text>
+  <text x="480" y="64" text-anchor="middle" font-size="13" fill="#6b7280">Лінійна апроксимація завищує опір за високих температур та накопичує похибку</text>
+
+  <!-- Plot Background Panel -->
+  <rect x="110" y="105" width="560" height="310" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="6"/>
+
+  <!-- Grid Lines -->
+  <!-- Horizontal Grid Lines (Resistance) -->
+  <line x1="110" y1="371" x2="670" y2="371" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4,4"/>
+  <line x1="110" y1="327" x2="670" y2="327" stroke="#b0b8c0" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <line x1="110" y1="283" x2="670" y2="283" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4,4"/>
+
+  <line x1="110" y1="239" x2="330" y2="239" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4,4"/>
+  <line x1="470" y1="239" x2="475" y2="239" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4,4"/>
+  <line x1="625" y1="239" x2="670" y2="239" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4,4"/>
+
+  <line x1="110" y1="194" x2="330" y2="194" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4,4"/>
+  <line x1="475" y1="194" x2="670" y2="194" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4,4"/>
+
+  <line x1="110" y1="150" x2="130" y2="150" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4,4"/>
+  <line x1="305" y1="150" x2="420" y2="150" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4,4"/>
+  <line x1="620" y1="150" x2="670" y2="150" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4,4"/>
+
+  <!-- Vertical Grid Lines (Temperature) -->
+  <line x1="150" y1="105" x2="150" y2="120" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4,4"/>
+  <line x1="150" y1="165" x2="150" y2="415" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4,4"/>
+
+  <line x1="215" y1="105" x2="215" y2="120" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4,4"/>
+  <line x1="215" y1="165" x2="215" y2="415" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4,4"/>
+
+  <line x1="280" y1="105" x2="280" y2="120" stroke="#b0b8c0" stroke-width="1.5"/>
+  <line x1="280" y1="165" x2="280" y2="340" stroke="#b0b8c0" stroke-width="1.5"/>
+  <line x1="280" y1="360" x2="280" y2="415" stroke="#b0b8c0" stroke-width="1.5"/>
+
+  <line x1="345" y1="105" x2="345" y2="190" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4,4"/>
+  <line x1="345" y1="215" x2="345" y2="415" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4,4"/>
+
+  <line x1="410" y1="105" x2="410" y2="190" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4,4"/>
+  <line x1="410" y1="215" x2="410" y2="415" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4,4"/>
+
+  <line x1="475" y1="105" x2="475" y2="120" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4,4"/>
+  <line x1="475" y1="165" x2="475" y2="415" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4,4"/>
+
+  <line x1="540" y1="105" x2="540" y2="120" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4,4"/>
+  <line x1="540" y1="165" x2="540" y2="238" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4,4"/>
+  <line x1="540" y1="260" x2="540" y2="415" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4,4"/>
+
+  <line x1="605" y1="105" x2="605" y2="120" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4,4"/>
+  <line x1="605" y1="165" x2="605" y2="238" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4,4"/>
+  <line x1="605" y1="260" x2="605" y2="415" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4,4"/>
+
+  <line x1="670" y1="105" x2="670" y2="415" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4,4"/>
+
+  <!-- Error Shading Area (between Linear and CVD above 0°C) -->
+  <path d="M 280,327 L 410,259 L 540,191 L 670,123 L 670,138 C 605,167 540,197 475,228 C 410,260 345,293 280,327 Z" fill="#fdecea" opacity="0.85"/>
+
+  <!-- Curves -->
+  <!-- 1. Linear Model (Red Dashed Line) -->
+  <path d="M 150,395 L 670,123" stroke="#c0392b" stroke-width="2.5" stroke-dasharray="6,4" fill="none"/>
+
+  <!-- 2. Callendar — Van Dusen Curve (Blue Solid Line) -->
+  <path d="M 150,399 C 190,373 235,348 280,327 C 345,293 410,260 475,228 C 540,197 605,167 670,138" stroke="#2457d6" stroke-width="3" fill="none"/>
+
+  <!-- Calibration Point Dot at 0°C (R0 = 100 Ohm) -->
+  <circle cx="280" cy="327" r="5" fill="#1a1a1a"/>
+  <circle cx="280" cy="327" r="2.5" fill="white"/>
+
+  <!-- Plot Axes Lines -->
+  <line x1="110" y1="415" x2="670" y2="415" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="110" y1="105" x2="110" y2="415" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Y-axis Header -->
+  <text x="110" y="90" font-size="13" font-weight="bold" fill="#1a1a1a">Опір R (Ом)</text>
+
+  <!-- Y-axis Tick Labels -->
+  <text x="100" y="419" text-anchor="end" font-size="12" fill="#6b7280">0</text>
+  <text x="100" y="375" text-anchor="end" font-size="12" fill="#6b7280">50</text>
+  <text x="100" y="331" text-anchor="end" font-size="12" font-weight="bold" fill="#1a1a1a">100</text>
+  <text x="100" y="287" text-anchor="end" font-size="12" fill="#6b7280">150</text>
+  <text x="100" y="243" text-anchor="end" font-size="12" fill="#6b7280">200</text>
+  <text x="100" y="198" text-anchor="end" font-size="12" fill="#6b7280">250</text>
+  <text x="100" y="154" text-anchor="end" font-size="12" fill="#6b7280">300</text>
+
+  <!-- X-axis Tick Labels -->
+  <text x="150" y="435" text-anchor="middle" font-size="12" fill="#6b7280">-200°C</text>
+  <text x="215" y="435" text-anchor="middle" font-size="12" fill="#6b7280">-100°C</text>
+  <text x="280" y="435" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">0°C</text>
+  <text x="345" y="435" text-anchor="middle" font-size="12" fill="#6b7280">100°C</text>
+  <text x="410" y="435" text-anchor="middle" font-size="12" fill="#6b7280">200°C</text>
+  <text x="475" y="435" text-anchor="middle" font-size="12" fill="#6b7280">300°C</text>
+  <text x="540" y="435" text-anchor="middle" font-size="12" fill="#6b7280">400°C</text>
+  <text x="605" y="435" text-anchor="middle" font-size="12" fill="#6b7280">500°C</text>
+  <text x="670" y="435" text-anchor="middle" font-size="12" fill="#6b7280">600°C</text>
+
+  <!-- X-axis Title -->
+  <text x="390" y="460" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Температура t (°C)</text>
+
+  <!-- In-Plot Annotations -->
+  <!-- 1. Calibration Point Annotation -->
+  <text x="280" y="356" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">R₀ = 100 Ом (0 °C)</text>
+
+  <!-- 2. High Temperature Error Annotation & Arrow -->
+  <text x="430" y="135" font-size="12" font-weight="bold" fill="#c0392b">Зростаюча нелінійна похибка</text>
+  <text x="430" y="152" font-size="12" fill="#c0392b">ΔR ≈ 17.35 Ом (&gt; 45 °C)</text>
+  <line x1="615" y1="160" x2="658" y2="135" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#arr-red)"/>
+
+  <!-- 3. Curve Labels on Graph -->
+  <text x="340" y="210" font-size="12" font-weight="bold" fill="#c0392b">Лінійна модель R(t)</text>
+  <text x="480" y="255" font-size="12" font-weight="bold" fill="#2457d6">Каллендар — Ван Дюзен</text>
+
+  <!-- 4. Negative Temperature Callout & Arrow -->
+  <text x="135" y="135" font-size="12" font-weight="bold" fill="#2457d6">Від'ємні t (&lt; 0 °C):</text>
+  <text x="135" y="152" font-size="12" fill="#6b7280">Додається член C(t-100)t³</text>
+  <line x1="210" y1="162" x2="175" y2="370" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#arr-blue)"/>
+
+  <!-- Bottom Legend Bar -->
+  <rect x="110" y="478" width="560" height="32" fill="#f4f6f8" stroke="#d0d7de" rx="4"/>
+  <line x1="125" y1="494" x2="155" y2="494" stroke="#c0392b" stroke-width="2.5" stroke-dasharray="6,4"/>
+  <text x="163" y="498" font-size="12" fill="#1a1a1a">Лінійна модель (приблизна)</text>
+  <line x1="360" y1="494" x2="390" y2="494" stroke="#2457d6" stroke-width="3"/>
+  <text x="398" y="498" font-size="12" fill="#1a1a1a">Модель Каллендара — Ван Дюзена (точна)</text>
+
+  <!-- Right Side Panel Cards -->
+  <!-- Card 1: Problem (Linear Model) -->
+  <rect x="690" y="105" width="250" height="110" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" rx="6"/>
+  <text x="705" y="125" font-size="13" font-weight="bold" fill="#c0392b">Лінійна модель R(t)</text>
+  <text x="705" y="145" font-size="12" fill="#1a1a1a">R(t) = R₀·(1 + α·t)</text>
+  <text x="705" y="163" font-size="12" fill="#6b7280">α = 0.003851 °C⁻¹</text>
+  <text x="705" y="183" font-size="12" font-weight="bold" fill="#c0392b">Похибка при +600 °C: &gt; 45 °C</text>
+  <text x="705" y="201" font-size="12" fill="#c0392b">(ΔR ≈ +17.35 Ом завищення)</text>
+
+  <!-- Card 2: Solution (Callendar - Van Dusen Model) -->
+  <rect x="690" y="228" width="250" height="150" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <text x="705" y="248" font-size="13" font-weight="bold" fill="#2457d6">Каллендар — Ван Дюзен (CVD)</text>
+  <text x="705" y="268" font-size="12" font-weight="bold" fill="#1a1a1a">t ≥ 0 °C: R(t) = R₀(1 + At + Bt²)</text>
+  <text x="705" y="286" font-size="12" fill="#6b7280">B = -5.775·10⁻⁷ °C⁻² (нелінійність)</text>
+  <text x="705" y="308" font-size="12" font-weight="bold" fill="#1a1a1a">t &lt; 0 °C: додається C(t-100)t³</text>
+  <text x="705" y="326" font-size="12" fill="#6b7280">C = -4.183·10⁻¹² °C⁻⁴</text>
+  <text x="705" y="350" font-size="12" font-weight="bold" fill="#27ae60">Стандарт IEC 60751 / DIN 43760</text>
+
+  <!-- Card 3: Calibration Base Point -->
+  <rect x="690" y="391" width="250" height="119" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="6"/>
+  <text x="705" y="411" font-size="13" font-weight="bold" fill="#27ae60">Точка калібрування R₀</text>
+  <text x="705" y="431" font-size="12" fill="#1a1a1a">При t = 0 °C: R₀ = 100.00 Ом</text>
+  <text x="705" y="451" font-size="12" fill="#6b7280">У цій точці всі моделі</text>
+  <text x="705" y="471" font-size="12" fill="#6b7280">дають точний збіг значення</text>
+  <text x="705" y="491" font-size="12" fill="#6b7280">Базовий допуск і еталон</text>
+</svg>

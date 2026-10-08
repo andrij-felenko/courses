@@ -1,0 +1,111 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Header -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Карта регістрів та структура SPI-кадру енкодера AS5048</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">16-бітний формат даних SPI (PAR, R/W, EF) та адресація вимірювання кута і діагностики</text>
+
+  <!-- Panel 1: SPI Frame Format -->
+  <rect x="30" y="70" width="900" height="190" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="45" y="92" font-size="14" font-weight="bold" fill="#1a1a1a">Формат 16-бітного SPI-кадру AS5048</text>
+
+  <!-- Command Frame -->
+  <text x="45" y="112" font-size="12" font-weight="bold" fill="#2457d6">Кадр запиту (Command Frame, Master → Slave):</text>
+  
+  <rect x="45" y="120" width="80" height="32" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="85" y="141" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">PAR</text>
+  <text x="85" y="166" font-size="11" fill="#6b7280" text-anchor="middle">Bit 15 (PAR)</text>
+
+  <rect x="135" y="120" width="100" height="32" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="185" y="141" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">R / W</text>
+  <text x="185" y="166" font-size="11" fill="#6b7280" text-anchor="middle">Bit 14 (0=W, 1=R)</text>
+
+  <rect x="245" y="120" width="620" height="32" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="555" y="141" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">ADDR [13:0] — 14-бітна адреса регістру (або дані запису)</text>
+  <text x="555" y="166" font-size="11" fill="#6b7280" text-anchor="middle">Bits 13..0 (Адреса або дані для запису)</text>
+
+  <!-- Flow connection arrow (Command to Response delay t+1) -->
+  <path d="M 865,136 L 890,136 L 890,214 L 873,214" fill="none" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="898" y="178" font-size="11" font-weight="bold" fill="#2457d6">t+1</text>
+
+  <!-- Response Frame -->
+  <text x="45" y="190" font-size="12" font-weight="bold" fill="#27ae60">Кадр відповіді (Read Response Frame, Slave → Master):</text>
+
+  <rect x="45" y="198" width="80" height="32" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="85" y="219" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">PAR</text>
+  <text x="85" y="244" font-size="11" fill="#6b7280" text-anchor="middle">Bit 15 (PAR)</text>
+
+  <rect x="135" y="198" width="100" height="32" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="185" y="219" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">EF</text>
+  <text x="185" y="244" font-size="11" fill="#c0392b" text-anchor="middle">Bit 14 (EF: Error)</text>
+
+  <rect x="245" y="198" width="620" height="32" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="555" y="219" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">DATA [13:0] — 14-бітне значення кута (0..16383) / Дані регістру</text>
+  <text x="555" y="244" font-size="11" fill="#6b7280" text-anchor="middle">Bits 13..0 (Корисні 14-бітні дані відповіді)</text>
+
+  <!-- Panel 2: Register Map -->
+  <rect x="30" y="275" width="900" height="260" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="45" y="297" font-size="14" font-weight="bold" fill="#1a1a1a">Карта основних регістрів AS5048 (14-бітні адреси SPI)</text>
+
+  <!-- Table Header -->
+  <rect x="45" y="310" width="870" height="24" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="105" y="326" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Адреса (HEX)</text>
+  <text x="175" y="326" font-size="12" font-weight="bold" fill="#2457d6">Назва регістру</text>
+  <text x="335" y="326" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Тип</text>
+  <text x="380" y="326" font-size="12" font-weight="bold" fill="#2457d6">Призначення та структура даних</text>
+
+  <!-- Table Row 1: NOP -->
+  <rect x="45" y="338" width="870" height="28" rx="3" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="105" y="356" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">0x0000</text>
+  <text x="175" y="356" font-size="12" font-weight="bold" fill="#1a1a1a">NOP</text>
+  <text x="335" y="356" font-size="12" fill="#6b7280" text-anchor="middle">R/W</text>
+  <text x="380" y="356" font-size="12" fill="#1a1a1a">No Operation (холоста операція для зчитування попереднього кадру)</text>
+
+  <!-- Table Row 2: Clear Error Flag -->
+  <rect x="45" y="370" width="870" height="28" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="105" y="388" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">0x0001</text>
+  <text x="175" y="388" font-size="12" font-weight="bold" fill="#c0392b">Clear Error Flag</text>
+  <text x="335" y="388" font-size="12" fill="#6b7280" text-anchor="middle">R</text>
+  <text x="380" y="388" font-size="12" fill="#1a1a1a">Читання помилок (Bit 0: Framing, Bit 1: Command, Bit 2: Parity) та скидання EF</text>
+
+  <!-- Table Row 3: Programming Control -->
+  <rect x="45" y="402" width="870" height="28" rx="3" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="105" y="420" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">0x0015</text>
+  <text x="175" y="420" font-size="12" font-weight="bold" fill="#1a1a1a">Programming Control</text>
+  <text x="335" y="420" font-size="12" fill="#6b7280" text-anchor="middle">R/W</text>
+  <text x="380" y="420" font-size="12" fill="#1a1a1a">Керування програмуванням OTP-пам'яті (Enable burn / Verify)</text>
+
+  <!-- Table Row 4: Zero Position (OTP) -->
+  <rect x="45" y="434" width="870" height="28" rx="3" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="105" y="452" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">0x0016</text>
+  <text x="175" y="452" font-size="12" font-weight="bold" fill="#1a1a1a">Zero Position (OTP)</text>
+  <text x="335" y="452" font-size="12" fill="#6b7280" text-anchor="middle">R/W/P</text>
+  <text x="380" y="452" font-size="12" fill="#1a1a1a">14-бітне значення зсуву нуля (програмується в OTP для встановлення 0°)</text>
+
+  <!-- Table Row 5: AGC / Diagnostics -->
+  <rect x="45" y="466" width="870" height="28" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="105" y="484" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">0x3FFD</text>
+  <text x="175" y="484" font-size="12" font-weight="bold" fill="#2457d6">AGC / Diagnostics</text>
+  <text x="335" y="484" font-size="12" fill="#6b7280" text-anchor="middle">R</text>
+  <text x="380" y="484" font-size="12" fill="#1a1a1a">Рівень підсилення AGC (0..255), прапорці магнітного поля (COMP Low/High, OCF)</text>
+
+  <!-- Table Row 6: ANGLE (Raw Angle) -->
+  <rect x="45" y="498" width="870" height="28" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="105" y="516" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">0x3FFF</text>
+  <text x="175" y="516" font-size="12" font-weight="bold" fill="#27ae60">ANGLE (Raw Angle)</text>
+  <text x="335" y="516" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">R</text>
+  <text x="380" y="516" font-size="12" font-weight="bold" fill="#27ae60">Вихідне 14-бітне значення кута (0..16383, роздільна здатність 0.022°)</text>
+</svg>

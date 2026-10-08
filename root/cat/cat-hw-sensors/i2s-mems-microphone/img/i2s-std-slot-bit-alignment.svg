@@ -1,0 +1,132 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-black" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Header -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Часова розгортка сигналів I2S та вирівнювання бітів у DMA-буфері</text>
+  <text x="480" y="55" font-size="13" fill="#6b7280" text-anchor="middle">Стандартний режим I2S (Philips): зсув 1 SCK, MSB-перший, 24 біти у 32-бітному слоті DMA</text>
+
+  <!-- Panel 1: Signals Timing Diagram -->
+  <rect x="30" y="75" width="900" height="210" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="45" y="96" font-size="14" font-weight="bold" fill="#2457d6">1. Часові сигнали шини I2S (стандарт Philips)</text>
+
+  <!-- Signal Labels -->
+  <text x="45" y="136" font-size="12" font-weight="bold" fill="#1a1a1a">WS (LRCLK)</text>
+  <text x="45" y="170" font-size="12" font-weight="bold" fill="#1a1a1a">SCK (BCLK)</text>
+  <text x="45" y="212" font-size="12" font-weight="bold" fill="#1a1a1a">SD (Data)</text>
+
+  <!-- Delay Highlight Boxes (1 SCK shift) -->
+  <rect x="160" y="110" width="30" height="118" fill="#fdecea" opacity="0.6" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <text x="175" y="104" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">1 SCK зсув</text>
+
+  <rect x="540" y="110" width="30" height="118" fill="#fdecea" opacity="0.6" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <text x="555" y="104" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">1 SCK зсув</text>
+
+  <!-- WS Waveform -->
+  <path d="M 135,120 H 160 V 144 H 540 V 120 H 900" fill="none" stroke="#2457d6" stroke-width="2"/>
+  <text x="350" y="134" font-size="12" fill="#2457d6" text-anchor="middle">Лівий канал (WS = LOW)</text>
+  <text x="720" y="134" font-size="12" fill="#2457d6" text-anchor="middle">Правий канал (WS = HIGH)</text>
+
+  <!-- SCK Waveform (Synchronized with Bit Slots) -->
+  <path d="M 135,174 H 145 V 158 H 160 V 174 H 175 V 158 H 190 V 174 H 212 V 158 H 235 V 174 H 240 V 158 H 262 V 174 H 285 V 158 H 290 V 174 H 312 V 158 H 335 V 174 H 340 V 158 H 362 V 174 H 385 V 158 H 390 V 174 H 412 V 158 H 435 V 174 H 440 V 158 H 463 V 174 H 487 V 158 H 511 V 174 H 535 V 158 H 540 V 174 H 555 V 158 H 570 V 174 H 592 V 158 H 615 V 174 H 620 V 158 H 642 V 174 H 665 V 158 H 670 V 174 H 692 V 158 H 715 V 174 H 720 V 158 H 742 V 174 H 765 V 158 H 770 V 174 H 797 V 158 H 825 V 174 H 852 V 158 H 880 V 174 H 900" fill="none" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- SD Signal: Left Channel -->
+  <line x1="135" y1="208" x2="165" y2="208" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="2,2"/>
+  <rect x="165" y="196" width="20" height="24" rx="3" fill="#ffffff" stroke="#6b7280" stroke-width="1"/>
+  <text x="175" y="212" font-size="12" fill="#6b7280" text-anchor="middle">Z</text>
+  <line x1="185" y1="208" x2="190" y2="208" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="2,2"/>
+
+  <!-- Left Data Payload -->
+  <text x="212" y="188" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">MSB</text>
+  <rect x="190" y="194" width="45" height="28" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="212" y="212" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">D23</text>
+
+  <rect x="240" y="194" width="45" height="28" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="262" y="212" font-size="12" fill="#2457d6" text-anchor="middle">D22</text>
+
+  <rect x="290" y="194" width="45" height="28" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="312" y="212" font-size="12" fill="#2457d6" text-anchor="middle">D21</text>
+
+  <rect x="340" y="194" width="45" height="28" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="362" y="212" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">...</text>
+
+  <text x="412" y="188" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">LSB</text>
+  <rect x="390" y="194" width="45" height="28" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="412" y="212" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">D0</text>
+
+  <!-- Left Data Padding -->
+  <text x="487" y="188" font-size="12" fill="#6b7280" text-anchor="middle">Заповнення нулями</text>
+  <rect x="440" y="194" width="95" height="28" rx="3" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <text x="487" y="212" font-size="12" fill="#6b7280" text-anchor="middle">00000000 (8 біт)</text>
+
+  <!-- SD Signal: Right Channel -->
+  <line x1="535" y1="208" x2="545" y2="208" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="2,2"/>
+  <rect x="545" y="196" width="20" height="24" rx="3" fill="#ffffff" stroke="#6b7280" stroke-width="1"/>
+  <text x="555" y="212" font-size="12" fill="#6b7280" text-anchor="middle">Z</text>
+  <line x1="565" y1="208" x2="570" y2="208" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="2,2"/>
+
+  <text x="592" y="188" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">MSB</text>
+  <rect x="570" y="194" width="45" height="28" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="592" y="212" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">D23</text>
+
+  <rect x="620" y="194" width="45" height="28" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="642" y="212" font-size="12" fill="#2457d6" text-anchor="middle">D22</text>
+
+  <rect x="670" y="194" width="45" height="28" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="692" y="212" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">...</text>
+
+  <text x="742" y="188" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">LSB</text>
+  <rect x="720" y="194" width="45" height="28" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="742" y="212" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">D0</text>
+
+  <text x="825" y="188" font-size="12" fill="#6b7280" text-anchor="middle">Заповнення нулями</text>
+  <rect x="770" y="194" width="110" height="28" rx="3" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <text x="825" y="212" font-size="12" fill="#6b7280" text-anchor="middle">00000000 (8 біт)</text>
+
+  <!-- Slot Dimension Line -->
+  <path d="M 160,238 L 160,248 M 160,243 L 535,243 M 535,238 L 535,248" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="347" y="265" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Слот I2S = 32 біти (24 біти аудіоданих + 8 нульових бітів)</text>
+
+  <!-- Panel 2: Memory & DMA Buffer Layout -->
+  <rect x="30" y="295" width="900" height="225" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="45" y="318" font-size="14" font-weight="bold" fill="#2457d6">2. Упаковка даних у DMA-пам'ять ESP32 та їх програмне вирівнювання</text>
+
+  <!-- Block A: Raw DMA Register Word -->
+  <text x="50" y="344" font-size="13" font-weight="bold" fill="#1a1a1a">А. Упаковка 32-бітного слова у DMA-буфері</text>
+
+  <text x="50" y="360" font-size="12" font-weight="bold" fill="#2457d6">Біт 31 (MSB)</text>
+  <text x="330" y="360" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">Біт 8 (LSB)</text>
+  <rect x="50" y="366" width="280" height="38" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="190" y="390" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">24 біти даних MEMS (D23 ... D0)</text>
+
+  <text x="345" y="360" font-size="12" fill="#c0392b">Біт 7</text>
+  <text x="435" y="360" font-size="12" fill="#c0392b" text-anchor="end">Біт 0</text>
+  <rect x="345" y="366" width="90" height="38" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="390" y="390" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">0x00 (8 бітів)</text>
+
+  <text x="242" y="422" font-size="12" fill="#6b7280" text-anchor="middle">i2s_channel_read(): MSB вирівняно ліворуч (зсув +8 бітів)</text>
+
+  <!-- Arrow to Block B -->
+  <line x1="443" y1="385" x2="480" y2="385" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="462" y="377" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">&gt;&gt; 8</text>
+
+  <!-- Block B: Normalized PCM Sample -->
+  <text x="495" y="344" font-size="13" font-weight="bold" fill="#27ae60">Б. Нормалізація для DSP (знакове розширення)</text>
+  <rect x="495" y="366" width="415" height="38" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="702" y="390" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">int32_t pcm_data = ((int32_t)raw_sample) &gt;&gt; 8;</text>
+  <text x="702" y="422" font-size="12" fill="#6b7280" text-anchor="middle">Арифметичний зсув вправо зберігає знак 24-бітного відліку у int32_t</text>
+
+  <!-- Bottom Note Box inside Panel 2 -->
+  <rect x="50" y="438" width="860" height="68" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="65" y="460" font-size="12" fill="#1a1a1a">• Конфігурація ESP-IDF v5: i2s_std_slot_config_t (slot_bit_width = 32, data_bit_width = 24, bit_shift = true)</text>
+  <text x="65" y="488" font-size="12" font-weight="bold" fill="#27ae60">✔ Налаштування bit_shift = true вирівнює MSB із 1-м тактом SCK після крайки WS, виключаючи зсув фази та тріск.</text>
+</svg>

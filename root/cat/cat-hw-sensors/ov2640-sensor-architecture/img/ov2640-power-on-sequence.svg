@@ -1,0 +1,115 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-start" markerWidth="9" markerHeight="9" refX="0.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Background Canvas -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="28" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Часова послідовність подачі живлення та скидання OV2640</text>
+  <text x="480" y="48" text-anchor="middle" font-size="13" fill="#6b7280">Стабілізація напруг, активація XVCLK та послідовність виходу з режимів PWDN і RESETB</text>
+
+  <!-- Main Container Panel -->
+  <rect x="30" y="60" width="900" height="380" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Top Timing Interval Arrow Indicators -->
+  <line x1="255" y1="78" x2="365" y2="78" stroke="#2457d6" stroke-width="1.5" marker-start="url(#arr-start)" marker-end="url(#arr)"/>
+  <text x="310" y="74" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">t_VDD ≥ 5 мс</text>
+
+  <line x1="375" y1="78" x2="485" y2="78" stroke="#2457d6" stroke-width="1.5" marker-start="url(#arr-start)" marker-end="url(#arr)"/>
+  <text x="430" y="74" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Старт XVCLK</text>
+
+  <line x1="495" y1="78" x2="605" y2="78" stroke="#2457d6" stroke-width="1.5" marker-start="url(#arr-start)" marker-end="url(#arr)"/>
+  <text x="550" y="74" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">t_PWDN ≥ 1 мс</text>
+
+  <line x1="615" y1="78" x2="725" y2="78" stroke="#2457d6" stroke-width="1.5" marker-start="url(#arr-start)" marker-end="url(#arr)"/>
+  <text x="670" y="74" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">t_RST ≥ 1 мс</text>
+
+  <line x1="735" y1="78" x2="845" y2="78" stroke="#2457d6" stroke-width="1.5" marker-start="url(#arr-start)" marker-end="url(#arr)"/>
+  <text x="790" y="74" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">2048 тактів</text>
+
+  <!-- Time Labels above vertical grid lines -->
+  <text x="250" y="95" text-anchor="middle" font-size="12" fill="#6b7280">t0 (0 мс)</text>
+  <text x="370" y="95" text-anchor="middle" font-size="12" fill="#6b7280">t1 (≥ 5 мс)</text>
+  <text x="490" y="95" text-anchor="middle" font-size="12" fill="#6b7280">t2</text>
+  <text x="610" y="95" text-anchor="middle" font-size="12" fill="#6b7280">t3</text>
+  <text x="730" y="95" text-anchor="middle" font-size="12" fill="#6b7280">t4</text>
+  <text x="850" y="95" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">t5 (Готово)</text>
+
+  <!-- Vertical Time Grid Lines -->
+  <line x1="250" y1="80" x2="250" y2="360" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="370" y1="80" x2="370" y2="360" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="490" y1="80" x2="490" y2="360" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="610" y1="80" x2="610" y2="360" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="730" y1="80" x2="730" y2="360" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="850" y1="80" x2="850" y2="360" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+
+  <!-- Left Column: Signal Names -->
+  <line x1="210" y1="80" x2="210" y2="360" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Track 1 Labels -->
+  <text x="195" y="118" text-anchor="end" font-size="13" font-weight="bold" fill="#1a1a1a">DOVDD, AVDD, DVDD</text>
+  <text x="195" y="133" text-anchor="end" font-size="11" fill="#6b7280">(Живлення сенсора)</text>
+
+  <!-- Track 2 Labels -->
+  <text x="195" y="172" text-anchor="end" font-size="13" font-weight="bold" fill="#1a1a1a">PWDN</text>
+  <text x="195" y="187" text-anchor="end" font-size="11" fill="#6b7280">(Power Down)</text>
+
+  <!-- Track 3 Labels -->
+  <text x="195" y="226" text-anchor="end" font-size="13" font-weight="bold" fill="#1a1a1a">XVCLK</text>
+  <text x="195" y="241" text-anchor="end" font-size="11" fill="#6b7280">(Тактовий сигнал)</text>
+
+  <!-- Track 4 Labels -->
+  <text x="195" y="280" text-anchor="end" font-size="13" font-weight="bold" fill="#1a1a1a">RESETB</text>
+  <text x="195" y="295" text-anchor="end" font-size="11" fill="#6b7280">(Апаратне скидання)</text>
+
+  <!-- Track 5 Labels -->
+  <text x="195" y="334" text-anchor="end" font-size="13" font-weight="bold" fill="#1a1a1a">Інтерфейс SCCB</text>
+  <text x="195" y="349" text-anchor="end" font-size="11" fill="#6b7280">(Шина керування)</text>
+
+  <!-- Track 1: Power Waveform -->
+  <polygon points="250,145 370,112 880,112 880,145" fill="#eaf0fd" opacity="0.7"/>
+  <polyline points="215,145 250,145 370,112 880,112" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+  <text x="550" y="133" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">DOVDD (1.8–3.3 В)  |  AVDD (2.8 В)  |  DVDD (1.2 В)</text>
+
+  <!-- Track 2: PWDN Waveform -->
+  <polyline points="215,167 610,167 610,200 880,200" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+  <text x="410" y="187" text-anchor="middle" font-size="12" fill="#c0392b">HIGH (Сенсор у режимі Power Down)</text>
+  <text x="740" y="187" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">LOW (Активний)</text>
+
+  <!-- Track 3: XVCLK Waveform -->
+  <line x1="215" y1="255" x2="490" y2="255" stroke="#2457d6" stroke-width="2"/>
+  <path d="M 490,255 L 490,222 L 500,222 L 500,255 L 510,255 L 510,222 L 520,222 L 520,255 L 530,255 L 530,222 L 540,222 L 540,255 L 550,255 L 550,222 L 560,222 L 560,255 L 570,255 L 570,222 L 580,222 L 580,255 L 590,255 L 590,222 L 600,222 L 600,255 L 610,255 L 610,222 L 620,222 L 620,255 L 630,255 L 630,222 L 640,222 L 640,255 L 650,255 L 650,222 L 660,222 L 660,255 L 670,255 L 670,222 L 680,222 L 680,255 L 690,255 L 690,222 L 700,222 L 700,255 L 710,255 L 710,222 L 720,222 L 720,255 L 730,255 L 730,222 L 740,222 L 740,255 L 750,255 L 750,222 L 760,222 L 760,255 L 770,255 L 770,222 L 780,222 L 780,255 L 790,255 L 790,222 L 800,222 L 800,255 L 810,255 L 810,222 L 820,222 L 820,255 L 830,255 L 830,222 L 840,222 L 840,255 L 850,255 L 850,222 L 860,222 L 860,255 L 870,255 L 870,222 L 880,222 L 880,255" fill="none" stroke="#2457d6" stroke-width="1.8"/>
+  <text x="350" y="244" text-anchor="middle" font-size="12" fill="#6b7280">OFF</text>
+  <text x="680" y="214" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">XVCLK (6–27 МГц)</text>
+
+  <!-- Track 4: RESETB Waveform -->
+  <polyline points="215,310 730,310 730,277 880,277" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+  <text x="470" y="297" text-anchor="middle" font-size="12" fill="#c0392b">LOW (Скидання утримується)</text>
+  <text x="805" y="267" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">HIGH (Скидання знято)</text>
+
+  <!-- Track 5: SCCB & Sensor Internal State Blocks -->
+  <rect x="250" y="330" width="480" height="26" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="490" y="347" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Внутрішній скид (POR) / Сенсор неактивний</text>
+
+  <rect x="736" y="330" width="110" height="26" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="791" y="347" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">t_init (2048 clk)</text>
+
+  <rect x="852" y="330" width="60" height="26" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="882" y="347" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">SCCB OK</text>
+
+  <!-- Bottom Explanatory Cards -->
+  <rect x="45" y="375" width="425" height="48" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="55" y="392" font-size="12" font-weight="bold" fill="#c0392b">Критична умова запобігання пошкодженню:</text>
+  <text x="55" y="412" font-size="12" fill="#1a1a1a">PWDN=HIGH та RESETB=LOW тримають до стабілізації VDD і XVCLK.</text>
+
+  <rect x="485" y="375" width="425" height="48" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="495" y="392" font-size="12" font-weight="bold" fill="#27ae60">Початок шинної комунікації:</text>
+  <text x="495" y="412" font-size="12" fill="#1a1a1a">Доступ до регістрів SCCB можливий через 2048 тактів XVCLK.</text>
+</svg>

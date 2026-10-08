@@ -1,0 +1,175 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Canvas Background -->
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <!-- Main Title & Subtitle -->
+  <text x="480" y="30" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Логіка формування сигналу тривоги ALERT в INA226</text>
+  <text x="480" y="52" text-anchor="middle" font-size="13" fill="#6b7280">Порівняння вимірів з порогом, маскування подій та вихід з відкритим стоком</text>
+
+  <!-- COLUMN 1: Data Registers & Limit -->
+  <rect x="30" y="75" width="190" height="380" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="125" y="98" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Регістри даних</text>
+
+  <!-- Box 1A: V_SHUNT -->
+  <rect x="42" y="110" width="166" height="52" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="125" y="130" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">V_SHUNT (01h)</text>
+  <text x="125" y="148" text-anchor="middle" font-size="12" fill="#6b7280">Напруга шунта</text>
+
+  <!-- Box 1B: V_BUS -->
+  <rect x="42" y="170" width="166" height="52" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="125" y="190" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">V_BUS (02h)</text>
+  <text x="125" y="208" text-anchor="middle" font-size="12" fill="#6b7280">Напруга шини</text>
+
+  <!-- Box 1C: POWER -->
+  <rect x="42" y="230" width="166" height="52" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="125" y="250" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">POWER (03h)</text>
+  <text x="125" y="268" text-anchor="middle" font-size="12" fill="#6b7280">Потужність</text>
+
+  <!-- Box 1D: ALERT_LIMIT -->
+  <rect x="42" y="294" width="166" height="68" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="125" y="316" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">ALERT_LIMIT (07h)</text>
+  <text x="125" y="334" text-anchor="middle" font-size="12" fill="#1a1a1a">Порогове значення</text>
+  <text x="125" y="350" text-anchor="middle" font-size="11" fill="#6b7280">(16-бітний поріг)</text>
+
+  <!-- Box 1E: CVRF / OVF -->
+  <rect x="42" y="374" width="166" height="68" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="125" y="396" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">CVRF / OVF (06h)</text>
+  <text x="125" y="414" text-anchor="middle" font-size="11" fill="#6b7280">Готовність вибірки /</text>
+  <text x="125" y="430" text-anchor="middle" font-size="11" fill="#6b7280">Переповнення обчислень</text>
+
+  <!-- COLUMN 2: Digital Comparator -->
+  <rect x="250" y="75" width="190" height="380" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="345" y="98" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Цифровий компаратор</text>
+
+  <!-- Box 2A: Mode Selector -->
+  <rect x="260" y="110" width="170" height="172" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="345" y="128" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Умови порівняння:</text>
+  <text x="345" y="150" text-anchor="middle" font-size="11" fill="#2457d6">SOL: V_SHUNT &gt; Limit</text>
+  <text x="345" y="170" text-anchor="middle" font-size="11" fill="#2457d6">SUL: V_SHUNT &lt; Limit</text>
+  <text x="345" y="190" text-anchor="middle" font-size="11" fill="#2457d6">BOL: V_BUS &gt; Limit</text>
+  <text x="345" y="210" text-anchor="middle" font-size="11" fill="#2457d6">BUL: V_BUS &lt; Limit</text>
+  <text x="345" y="230" text-anchor="middle" font-size="11" fill="#2457d6">POL: POWER &gt; Limit</text>
+  <text x="345" y="260" text-anchor="middle" font-size="11" fill="#6b7280">(активна 1 з 5 умов)</text>
+
+  <!-- Arrow inside Col 2 from Mode Box to CMP -->
+  <line x1="345" y1="282" x2="345" y2="290" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+
+  <!-- Box 2B: Comparator Unit -->
+  <rect x="260" y="294" width="170" height="148" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="345" y="316" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Компаратор (CMP)</text>
+  <text x="345" y="340" text-anchor="middle" font-size="12" fill="#1a1a1a">Порівняння вибірки</text>
+  <text x="345" y="360" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">з ALERT_LIMIT</text>
+  <text x="345" y="390" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Перевищення порогу</text>
+  <text x="345" y="410" text-anchor="middle" font-size="11" fill="#6b7280">Формування прапорця</text>
+  <text x="345" y="426" text-anchor="middle" font-size="11" fill="#6b7280">тривоги (Alert Event)</text>
+
+  <!-- COLUMN 3: MASK_ENABLE Register -->
+  <rect x="470" y="75" width="220" height="380" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="580" y="98" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Регістр MASK_ENABLE (06h)</text>
+
+  <!-- Box 3A: OR Gate / AFF -->
+  <rect x="482" y="110" width="196" height="100" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="580" y="128" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Логіка маскування (OR)</text>
+  <text x="580" y="148" text-anchor="middle" font-size="11" fill="#1a1a1a">Об'єднання дозволених подій</text>
+  <text x="580" y="170" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Прапор AFF (Alert Flag)</text>
+  <text x="580" y="190" text-anchor="middle" font-size="11" fill="#6b7280">1 = Спрацював монітор</text>
+
+  <!-- Arrow inside Col 3 from OR Gate to LATCH -->
+  <line x1="580" y1="210" x2="580" y2="218" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+
+  <!-- Box 3B: LATCH -->
+  <rect x="482" y="222" width="196" height="90" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="580" y="240" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Біт LATCH (Режим засувки)</text>
+  <text x="580" y="262" text-anchor="middle" font-size="11" fill="#1a1a1a">0: Прозорий (авто-скидання)</text>
+  <text x="580" y="280" text-anchor="middle" font-size="11" fill="#1a1a1a">1: Засувка (до читання 06h)</text>
+  <text x="580" y="298" text-anchor="middle" font-size="11" fill="#6b7280">або очищення порогового значення</text>
+
+  <!-- Arrow inside Col 3 from LATCH to APOL -->
+  <line x1="580" y1="312" x2="580" y2="320" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+
+  <!-- Box 3C: APOL -->
+  <rect x="482" y="324" width="196" height="118" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="580" y="342" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Біт APOL (Полярність)</text>
+  <text x="580" y="364" text-anchor="middle" font-size="11" fill="#1a1a1a">0: Active Low (за замовч.)</text>
+  <text x="580" y="382" text-anchor="middle" font-size="11" fill="#1a1a1a">1: Active High (інверсія)</text>
+  <line x1="495" y1="394" x2="665" y2="394" stroke="#d0d7de" stroke-width="1"/>
+  <text x="580" y="412" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">Сигнал керування затвором</text>
+  <text x="580" y="428" text-anchor="middle" font-size="11" fill="#2457d6">вихідного FET-транзистора</text>
+
+  <!-- COLUMN 4: Open-Drain ALERT Output Stage -->
+  <rect x="720" y="75" width="215" height="380" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="827" y="98" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Каскад ALERT (Open-Drain)</text>
+
+  <!-- VDD Rail -->
+  <text x="810" y="120" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">V_DD (+3.3V / +5V)</text>
+  <circle cx="810" cy="130" r="4" fill="#2457d6"/>
+  <line x1="810" y1="134" x2="810" y2="145" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Pull-up Resistor R_pullup -->
+  <rect x="802" y="145" width="16" height="40" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="828" y="162" text-anchor="start" font-size="12" font-weight="bold" fill="#1a1a1a">R_pullup</text>
+  <text x="828" y="178" text-anchor="start" font-size="11" fill="#6b7280">10 кОм</text>
+  <line x1="810" y1="185" x2="810" y2="225" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Drain Node Junction -->
+  <circle cx="810" cy="225" r="4" fill="#1a1a1a"/>
+
+  <!-- Line to ALERT Output Pin -->
+  <line x1="810" y1="225" x2="855" y2="225" stroke="#1a1a1a" stroke-width="2"/>
+  <rect x="855" y="200" width="68" height="50" rx="5" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="889" y="222" text-anchor="middle" font-size="13" font-weight="bold" fill="#c0392b">ALERT</text>
+  <text x="889" y="240" text-anchor="middle" font-size="11" fill="#6b7280">Вивід ІС</text>
+
+  <!-- N-FET Transistor -->
+  <line x1="810" y1="225" x2="810" y2="275" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="810" y1="275" x2="802" y2="275" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="802" y1="275" x2="802" y2="315" stroke="#1a1a1a" stroke-width="2.5"/>
+  <line x1="795" y1="275" x2="795" y2="315" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="760" y1="295" x2="795" y2="295" stroke="#2457d6" stroke-width="2"/>
+  <line x1="802" y1="315" x2="810" y2="315" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="810" y1="315" x2="810" y2="345" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="740" y="322" text-anchor="start" font-size="11" font-weight="bold" fill="#1a1a1a">N-FET</text>
+  <text x="740" y="336" text-anchor="start" font-size="11" fill="#6b7280">Open-Drain</text>
+
+  <!-- Ground GND Symbol -->
+  <line x1="798" y1="345" x2="822" y2="345" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="803" y1="349" x2="817" y2="349" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="807" y1="353" x2="813" y2="353" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="830" y="351" text-anchor="start" font-size="11" font-weight="bold" fill="#6b7280">GND</text>
+
+  <!-- Status Summary Box -->
+  <rect x="730" y="366" width="195" height="82" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="827" y="384" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Логічні рівні ALERT:</text>
+  <text x="827" y="403" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">Тривога (APOL=0): LOW (0 V)</text>
+  <text x="827" y="421" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">Норма (APOL=0): HIGH (V_DD)</text>
+  <text x="827" y="438" text-anchor="middle" font-size="11" fill="#6b7280">(відкритий стік з R_pullup)</text>
+
+  <!-- INTER-COLUMN SIGNAL FLOW LINES -->
+  <!-- Signal 1: Data Registers -> Mode Selector -->
+  <line x1="208" y1="196" x2="255" y2="196" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="233" y="188" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">Дані</text>
+
+  <!-- Signal 2: ALERT_LIMIT -> CMP -->
+  <line x1="208" y1="328" x2="255" y2="328" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="233" y="320" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">Поріг</text>
+
+  <!-- Signal 3: CMP -> OR Gate (Col 2 -> Col 3) -->
+  <path d="M 430,368 L 455,368 L 455,160 L 477,160" fill="none" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <text x="455" y="268" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">Подія</text>
+
+  <!-- Signal 4: APOL -> Transistor Gate (Col 3 -> Col 4) -->
+  <path d="M 678,420 L 705,420 L 705,295 L 755,295" fill="none" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="730" y="287" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">Затвор</text>
+</svg>

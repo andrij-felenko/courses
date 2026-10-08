@@ -1,0 +1,146 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 500" width="960" height="500" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <!-- Arrow markers -->
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-dark-start" markerWidth="9" markerHeight="9" refX="0.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-blue-start" markerWidth="9" markerHeight="9" refX="0.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-green-start" markerWidth="9" markerHeight="9" refX="0.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-gray-start" markerWidth="9" markerHeight="9" refX="0.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Canvas Background -->
+  <rect x="0" y="0" width="960" height="500" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="35" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Структура кадру ШІМ-виходу магнітного енкодера AS5048</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Тривалість активного імпульсу t_on визначає кутове значення N від 0 до 16383 відліків</text>
+
+  <!-- Main Waveform Panel -->
+  <rect x="40" y="75" width="880" height="255" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Top Dimension: Full PWM Period T_PWM -->
+  <line x1="150" y1="96" x2="860" y2="96" stroke="#1a1a1a" stroke-width="1.5" marker-start="url(#arr-dark-start)" marker-end="url(#arr-dark)"/>
+  <text x="505" y="90" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Повний період T_PWM ≈ 1025 µs (4120 тактів f_clk)</text>
+
+  <!-- Active Pulse Width t_on Dimension -->
+  <line x1="150" y1="120" x2="710" y2="120" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4 2" marker-start="url(#arr-blue-start)" marker-end="url(#arr-blue)"/>
+  <text x="430" y="114" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">t_on = t_init + t_data (активний високий рівень)</text>
+
+  <!-- Background highlights for waveform regions -->
+  <!-- t_init region -->
+  <rect x="150" y="145" width="80" height="80" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" stroke-dasharray="3 3"/>
+  <!-- t_data region -->
+  <rect x="230" y="145" width="480" height="80" fill="#e9f7ef" stroke="#27ae60" stroke-width="1" stroke-dasharray="3 3"/>
+  <!-- t_guard / low region -->
+  <rect x="710" y="145" width="150" height="80" fill="#fdecea" stroke="#c0392b" stroke-width="1" stroke-dasharray="3 3"/>
+
+  <!-- Waveform Line (Thick signal trace) -->
+  <!-- LOW before frame -->
+  <line x1="110" y1="225" x2="150" y2="225" stroke="#6b7280" stroke-width="2.5"/>
+  <!-- Rising edge 1 (t = 0) -->
+  <line x1="150" y1="225" x2="150" y2="145" stroke="#2457d6" stroke-width="2.5"/>
+  <!-- HIGH level: t_init -->
+  <line x1="150" y1="145" x2="230" y2="145" stroke="#2457d6" stroke-width="2.5"/>
+  <!-- HIGH level: t_data -->
+  <line x1="230" y1="145" x2="710" y2="145" stroke="#27ae60" stroke-width="2.5"/>
+  <!-- Falling edge -->
+  <line x1="710" y1="145" x2="710" y2="225" stroke="#27ae60" stroke-width="2.5"/>
+  <!-- LOW level: guard &amp; idle -->
+  <line x1="710" y1="225" x2="860" y2="225" stroke="#6b7280" stroke-width="2.5"/>
+  <!-- Rising edge 2 (next frame) -->
+  <line x1="860" y1="225" x2="860" y2="145" stroke="#1a1a1a" stroke-width="2.5"/>
+  <!-- HIGH start next frame -->
+  <line x1="860" y1="145" x2="900" y2="145" stroke="#1a1a1a" stroke-width="2.5"/>
+
+  <!-- Signal level labels on left -->
+  <text x="100" y="149" font-size="12" fill="#6b7280" text-anchor="end">HIGH (5V)</text>
+  <text x="100" y="229" font-size="12" fill="#6b7280" text-anchor="end">LOW (0V)</text>
+
+  <!-- In-region labels -->
+  <!-- t_init region text -->
+  <text x="190" y="172" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">t_init</text>
+  <text x="190" y="192" font-size="12" fill="#2457d6" text-anchor="middle">4.0 µs</text>
+
+  <!-- t_data region text -->
+  <text x="470" y="172" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">t_data (Робочий інтервал кута)</text>
+  <text x="470" y="192" font-size="12" fill="#1e7e34" text-anchor="middle">0.25 µs … 1023.5 µs (1 … 4094 такти) → N = 0 … 16383</text>
+
+  <!-- Low / Guard text -->
+  <text x="785" y="182" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Пауза низького рівня</text>
+  <text x="785" y="200" font-size="12" fill="#c0392b" text-anchor="middle">t_guard ≥ 2.5 µs</text>
+
+  <!-- Vertical dashed guide lines upper segments -->
+  <line x1="150" y1="225" x2="150" y2="240" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3 3"/>
+  <line x1="230" y1="225" x2="230" y2="240" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3 3"/>
+  <line x1="710" y1="225" x2="710" y2="240" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3 3"/>
+  <line x1="860" y1="225" x2="860" y2="240" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3 3"/>
+
+  <!-- Time markers below waveform -->
+  <text x="150" y="256" font-size="12" fill="#6b7280" text-anchor="middle">t = 0</text>
+  <text x="230" y="256" font-size="12" fill="#6b7280" text-anchor="middle">4.0 µs</text>
+  <text x="710" y="256" font-size="12" fill="#6b7280" text-anchor="middle">t_on</text>
+  <text x="860" y="256" font-size="12" fill="#6b7280" text-anchor="middle">1025 µs</text>
+
+  <!-- Vertical dashed guide lines lower segments -->
+  <line x1="150" y1="268" x2="150" y2="295" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3 3"/>
+  <line x1="230" y1="268" x2="230" y2="295" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3 3"/>
+  <line x1="710" y1="268" x2="710" y2="295" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3 3"/>
+  <line x1="860" y1="268" x2="860" y2="295" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3 3"/>
+
+  <!-- Interval dimensions below waveform -->
+  <!-- t_init arrow & label -->
+  <line x1="150" y1="282" x2="230" y2="282" stroke="#2457d6" stroke-width="1.5" marker-start="url(#arr-blue-start)" marker-end="url(#arr-blue)"/>
+  <text x="190" y="302" font-size="12" fill="#2457d6" text-anchor="middle">16 тактів</text>
+
+  <!-- t_data arrow & label -->
+  <line x1="230" y1="282" x2="710" y2="282" stroke="#27ae60" stroke-width="1.5" marker-start="url(#arr-green-start)" marker-end="url(#arr-green)"/>
+  <text x="470" y="302" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">t_data = 1…4094 такти (0.25…1023.5 µs)</text>
+
+  <!-- t_guard arrow & label -->
+  <line x1="710" y1="282" x2="860" y2="282" stroke="#6b7280" stroke-width="1.5" marker-start="url(#arr-gray-start)" marker-end="url(#arr-gray)"/>
+  <text x="785" y="302" font-size="12" fill="#6b7280" text-anchor="middle">t_guard ≥ 10 тактів (2.5 µs)</text>
+
+  <!-- Bottom Info Cards -->
+  <!-- Card 1: Reference intervals -->
+  <rect x="40" y="350" width="275" height="125" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="55" y="373" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="start">Опорні такти та інтервали</text>
+  <text x="55" y="395" font-size="12" fill="#1a1a1a" text-anchor="start">• f_clk = 4 МГц (T_clk = 0.25 µs)</text>
+  <text x="55" y="417" font-size="12" fill="#1a1a1a" text-anchor="start">• t_init = 16 тактів (4.0 µs)</text>
+  <text x="55" y="439" font-size="12" fill="#1a1a1a" text-anchor="start">• t_guard ≥ 10 тактів (2.5 µs)</text>
+  <text x="55" y="461" font-size="12" fill="#6b7280" text-anchor="start">• T_PWM = 4120 тактів (1025 µs)</text>
+
+  <!-- Card 2: Angle values N -->
+  <rect x="330" y="350" width="300" height="125" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="345" y="373" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="start">Характерні значення кута N</text>
+  <text x="345" y="395" font-size="12" fill="#1a1a1a" text-anchor="start">• N = 0 (0°): t_data = 1 такт (0.25 µs)</text>
+  <text x="345" y="417" font-size="12" fill="#1a1a1a" text-anchor="start">• N = 8191 (180°): t_data = 2047 тактів</text>
+  <text x="345" y="439" font-size="12" fill="#1a1a1a" text-anchor="start">• N = 16383 (359.98°): 4094 такти</text>
+  <text x="345" y="461" font-size="12" fill="#27ae60" font-weight="bold" text-anchor="start">• Діапазон t_on: 4.25 µs … 1027.5 µs</text>
+
+  <!-- Card 3: Software decoding formula -->
+  <rect x="645" y="350" width="275" height="125" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="660" y="373" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="start">Перерахунок тривалості в кут</text>
+  <text x="660" y="395" font-size="12" fill="#1a1a1a" text-anchor="start">• t_data = t_on - t_init</text>
+  <text x="660" y="417" font-size="12" fill="#1a1a1a" text-anchor="start">• N = (t_data / T_clk) - 1</text>
+  <text x="660" y="439" font-size="12" fill="#1a1a1a" text-anchor="start">• N = ((t_on - 4.0 µs) / 0.25 µs) - 1</text>
+  <text x="660" y="461" font-size="12" fill="#2457d6" font-weight="bold" text-anchor="start">• θ = (N / 16384) × 360°</text>
+</svg>

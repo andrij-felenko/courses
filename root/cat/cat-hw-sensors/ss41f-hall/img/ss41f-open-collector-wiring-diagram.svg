@@ -1,0 +1,184 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-main" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Main Header & Subheader -->
+  <text x="480" y="34" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Схема підключення цифрового давача Холла SS41F</text>
+  <text x="480" y="56" font-size="13" fill="#6b7280" text-anchor="middle">Зовнішній R_pullup підтягує вихід до V_MCU, а NPN-транзистор давача замикає лінію на GND</text>
+
+  <!-- LEFT PANEL: HIGH STATE (OFF) -->
+  <rect x="20" y="70" width="450" height="375" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="245" y="93" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">А. Стан ЗАКРИТИЙ (Немає магніту B &lt; B_RP)</text>
+  <text x="245" y="112" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Вихід HIGH: струм тече в MCU (V_out ≈ V_MCU)</text>
+
+  <!-- SS41F IC Box Left -->
+  <rect x="35" y="130" width="130" height="295" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="90" y="145" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">SS41F (TO-92)</text>
+
+  <!-- Sensing & Logic Blocks Left -->
+  <rect x="45" y="170" width="110" height="30" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="100" y="190" font-size="12" fill="#2457d6" text-anchor="middle">Елемент Холла</text>
+
+  <rect x="50" y="213" width="100" height="24" rx="4" fill="#f4f6f8" stroke="#6b7280" stroke-width="1"/>
+  <text x="100" y="229" font-size="12" fill="#6b7280" text-anchor="middle">Тригер Шмітта</text>
+
+  <!-- Internal Connections Left -->
+  <line x1="100" y1="200" x2="100" y2="213" stroke="#2457d6" stroke-width="1.5"/>
+  <path d="M100,237 L100,270 L110,270" fill="none" stroke="#6b7280" stroke-width="1.5"/>
+
+  <!-- Transistor Base & Open Switch Left -->
+  <line x1="110" y1="258" x2="110" y2="282" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="125" cy="275" r="3" fill="#1a1a1a"/>
+  <circle cx="125" cy="290" r="3" fill="#1a1a1a"/>
+  <line x1="110" y1="270" x2="122" y2="256" stroke="#6b7280" stroke-width="2"/>
+
+  <!-- Internal Transistor Wires Left -->
+  <line x1="125" y1="275" x2="165" y2="275" stroke="#1a1a1a" stroke-width="1.5"/>
+  <path d="M125,290 L125,380 L165,380" fill="none" stroke="#1a1a1a" stroke-width="1.5"/>
+  <path d="M165,165 L150,165 L150,185 L145,185" fill="none" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <text x="75" y="330" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">Ключ: ЗАКРИТИЙ</text>
+  <text x="75" y="347" font-size="12" fill="#6b7280" text-anchor="middle">(не проводить)</text>
+
+  <!-- Pin Labels Left -->
+  <text x="163" y="160" font-size="12" fill="#6b7280" text-anchor="end">1:VCC</text>
+  <text x="163" y="267" font-size="12" fill="#6b7280" text-anchor="end">3:OUT</text>
+  <text x="163" y="372" font-size="12" fill="#6b7280" text-anchor="end">2:GND</text>
+
+  <!-- External Connections Left -->
+  <!-- VCC Line -->
+  <path d="M165,165 L250,165" fill="none" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="195" y="145" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">VCC (+4.5..24V)</text>
+
+  <!-- GND Line & Symbol Left -->
+  <path d="M165,380 L350,380" fill="none" stroke="#1a1a1a" stroke-width="1.5"/>
+  <path d="M195,380 L195,395" fill="none" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="185" y1="395" x2="205" y2="395" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="189" y1="399" x2="201" y2="399" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="192" y1="403" x2="198" y2="403" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="195" y="420" font-size="12" fill="#6b7280" text-anchor="middle">GND (0V)</text>
+
+  <!-- Capacitor C1 Left -->
+  <path d="M250,165 L250,200" fill="none" stroke="#1a1a1a" stroke-width="1.5"/>
+  <path d="M250,208 L250,380" fill="none" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="242" y1="200" x2="258" y2="200" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="242" y1="208" x2="258" y2="208" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="262" y="208" font-size="12" fill="#1a1a1a" text-anchor="start">C1 = 0.1 мкФ</text>
+
+  <!-- Pull-up Resistor R_pullup Left -->
+  <path d="M350,165 L350,185" fill="none" stroke="#1a1a1a" stroke-width="1.5"/>
+  <path d="M350,225 L350,380" fill="none" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="343" y="185" width="14" height="40" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="350" y="145" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">V_MCU (+3.3V / +5V)</text>
+  <text x="362" y="208" font-size="12" fill="#1a1a1a" text-anchor="start">R_pullup = 4.7 кОм</text>
+
+  <!-- Output Wire & MCU Left -->
+  <path d="M165,275 L410,275" fill="none" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="410" y="235" width="55" height="80" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="437.5" y="255" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">MCU</text>
+  <text x="437.5" y="275" font-size="12" fill="#1a1a1a" text-anchor="middle">GPIO</text>
+  <text x="437.5" y="295" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">HIGH</text>
+
+  <!-- Current Path Green Arrow (HIGH State) -->
+  <path d="M350,167 L350,275 L402,275" fill="none" stroke="#27ae60" stroke-width="2" stroke-dasharray="4,3" marker-end="url(#arr-green)"/>
+  <text x="300" y="267" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">V_out ≈ V_MCU</text>
+  <text x="380" y="297" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">I_out</text>
+  <text x="380" y="313" font-size="12" fill="#27ae60" text-anchor="middle">(в MCU)</text>
+
+  <!-- RIGHT PANEL: LOW STATE (ON) -->
+  <rect x="490" y="70" width="450" height="375" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="715" y="93" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Б. Стан ВІДКРИТИЙ (Магніт S поруч B &gt; B_OP)</text>
+  <text x="715" y="112" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Вихід LOW: струм скидається в GND (V_out ≤ 0.4V)</text>
+
+  <!-- SS41F IC Box Right -->
+  <rect x="505" y="130" width="130" height="295" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="560" y="145" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">SS41F (TO-92)</text>
+
+  <!-- Magnet Symbol Right -->
+  <rect x="525" y="165" width="90" height="22" rx="3" fill="#c0392b" stroke="#962d22" stroke-width="1"/>
+  <text x="570" y="180" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">[ S ] МАГНІТ</text>
+
+  <!-- Sensing & Logic Blocks Right -->
+  <rect x="515" y="195" width="110" height="24" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="570" y="211" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">B &gt; B_OP (Активно)</text>
+
+  <rect x="520" y="226" width="100" height="22" rx="4" fill="#f4f6f8" stroke="#6b7280" stroke-width="1"/>
+  <text x="570" y="241" font-size="12" fill="#6b7280" text-anchor="middle">Тригер Шмітта</text>
+
+  <!-- Transistor Base & Closed Switch Right -->
+  <line x1="580" y1="256" x2="580" y2="280" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="595" cy="275" r="3" fill="#c0392b"/>
+  <circle cx="595" cy="290" r="3" fill="#c0392b"/>
+  <line x1="595" y1="275" x2="595" y2="290" stroke="#c0392b" stroke-width="2.5"/>
+
+  <!-- Internal Transistor Wires Right -->
+  <line x1="595" y1="275" x2="635" y2="275" stroke="#1a1a1a" stroke-width="1.5"/>
+  <path d="M595,290 L595,380 L635,380" fill="none" stroke="#1a1a1a" stroke-width="1.5"/>
+  <path d="M635,165 L620,165 L620,185 L615,185" fill="none" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <text x="545" y="330" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Ключ: ВІДКРИТИЙ</text>
+  <text x="535" y="347" font-size="12" fill="#c0392b" text-anchor="middle">(проводить на GND)</text>
+
+  <!-- Pin Labels Right -->
+  <text x="633" y="160" font-size="12" fill="#6b7280" text-anchor="end">1:VCC</text>
+  <text x="633" y="267" font-size="12" fill="#6b7280" text-anchor="end">3:OUT</text>
+  <text x="633" y="372" font-size="12" fill="#6b7280" text-anchor="end">2:GND</text>
+
+  <!-- External Connections Right -->
+  <!-- VCC Line -->
+  <path d="M635,165 L720,165" fill="none" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="665" y="145" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">VCC (+4.5..24V)</text>
+
+  <!-- GND Line & Symbol Right -->
+  <path d="M635,380 L820,380" fill="none" stroke="#1a1a1a" stroke-width="1.5"/>
+  <path d="M665,380 L665,395" fill="none" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="655" y1="395" x2="675" y2="395" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="659" y1="399" x2="671" y2="399" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="662" y1="403" x2="668" y2="403" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="665" y="420" font-size="12" fill="#6b7280" text-anchor="middle">GND (0V)</text>
+
+  <!-- Capacitor C1 Right -->
+  <path d="M720,165 L720,200" fill="none" stroke="#1a1a1a" stroke-width="1.5"/>
+  <path d="M720,208 L720,380" fill="none" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="712" y1="200" x2="728" y2="200" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="712" y1="208" x2="728" y2="208" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="732" y="208" font-size="12" fill="#1a1a1a" text-anchor="start">C1 = 0.1 мкФ</text>
+
+  <!-- Pull-up Resistor R_pullup Right -->
+  <path d="M820,165 L820,185" fill="none" stroke="#1a1a1a" stroke-width="1.5"/>
+  <path d="M820,225 L820,380" fill="none" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="813" y="185" width="14" height="40" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="820" y="145" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">V_MCU (+3.3V / +5V)</text>
+  <text x="832" y="208" font-size="12" fill="#1a1a1a" text-anchor="start">R_pullup = 4.7 кОм</text>
+
+  <!-- Output Wire & MCU Right -->
+  <path d="M635,275 L875,275" fill="none" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="875" y="235" width="55" height="80" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="902.5" y="255" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">MCU</text>
+  <text x="902.5" y="275" font-size="12" fill="#1a1a1a" text-anchor="middle">GPIO</text>
+  <text x="902.5" y="295" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">LOW</text>
+
+  <!-- Current Path Red Arrow (LOW State / Sink Current) -->
+  <path d="M820,167 L820,275 L638,275" fill="none" stroke="#c0392b" stroke-width="2" stroke-dasharray="4,3" marker-end="url(#arr-red)"/>
+  <path d="M635,275 L595,275 L595,380 L665,380 L665,393" fill="none" stroke="#c0392b" stroke-width="2" stroke-dasharray="4,3"/>
+  <text x="770" y="267" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">V_out ≤ 0.4V</text>
+  <text x="847.5" y="297" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">I_sink</text>
+  <text x="847.5" y="313" font-size="12" fill="#c0392b" text-anchor="middle">(в GND)</text>
+
+  <!-- BOTTOM INFORMATION BANNER -->
+  <rect x="20" y="455" width="920" height="65" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="480" y="478" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Формула вибору R_pullup: R_min = (V_MCU - V_OL) / I_sink(max) ≈ 250 Ом (при 5V), типічно 4.7...10 кОм</text>
+  <text x="480" y="498" font-size="12" fill="#6b7280" text-anchor="middle">Конденсатор C1 (0.1 мкФ) ставиться поруч з виводами VCC/GND для придушення імпульсних завад живлення</text>
+</svg>

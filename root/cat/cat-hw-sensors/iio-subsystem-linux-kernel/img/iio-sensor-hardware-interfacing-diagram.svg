@@ -1,0 +1,141 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Canvas Background -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Header -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Апаратне підключення IIO-давача до хост-процесора</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Розмежування доменів живлення (VDD/VDDIO), конвертер рівнів та маршрутизація I²C/SPI й GPIO</text>
+
+  <!-- Host Processor Panel -->
+  <rect x="25" y="75" width="255" height="440" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <text x="152.5" y="98" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Хост-процесор (SoC / Linux)</text>
+
+  <!-- Host Sub-block 1: PMIC 3.3V Rail -->
+  <rect x="40" y="115" width="225" height="55" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="152.5" y="137" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Живлення I/O (VDD_IO = 3.3V)</text>
+  <text x="152.5" y="155" font-size="12" fill="#6b7280" text-anchor="middle">Джерело для Host-сторони</text>
+
+  <!-- Host Sub-block 2: I2C/SPI Controller -->
+  <rect x="40" y="185" width="225" height="125" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="152.5" y="207" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Контролер I²C / SPI</text>
+  <text x="152.5" y="226" font-size="12" fill="#1a1a1a" text-anchor="middle">Вузол DT: /soc/i2c@021a0000</text>
+  <text x="152.5" y="245" font-size="12" fill="#6b7280" text-anchor="middle">Шина i2c-0 (IIO Core)</text>
+  <text x="152.5" y="270" font-size="12" fill="#1a1a1a" text-anchor="middle">Виходи: SCL, SDA (3.3V)</text>
+  <text x="152.5" y="295" font-size="12" fill="#6b7280" text-anchor="middle">io-channels = &lt;&amp;adc 0&gt;</text>
+
+  <!-- Host Sub-block 3: GPIO Controller -->
+  <rect x="40" y="325" width="225" height="80" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="152.5" y="346" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Контролер GPIO (IRQ)</text>
+  <text x="152.5" y="366" font-size="12" fill="#1a1a1a" text-anchor="middle">interrupts = &lt;12 2&gt; (FALLING)</text>
+  <text x="152.5" y="386" font-size="12" fill="#6b7280" text-anchor="middle">Вхід: GPIO1_IO12 (DRDY)</text>
+
+  <!-- Host Sub-block 4: Main Power 5V -->
+  <rect x="40" y="420" width="225" height="80" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="152.5" y="442" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Основне живлення VBUS = 5.0V</text>
+  <text x="152.5" y="462" font-size="12" fill="#6b7280" text-anchor="middle">Джерело для LDO</text>
+  <text x="152.5" y="482" font-size="12" fill="#6b7280" text-anchor="middle">стабілізатора плати</text>
+
+  <!-- Middle Area: Interfacing & Level Shifter -->
+  <!-- Level Shifter & Pull-Up Container -->
+  <rect x="335" y="185" width="290" height="125" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4 4"/>
+  <text x="480" y="204" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Конвертер рівнів &amp; Pull-Up</text>
+  
+  <!-- Level Shifter IC -->
+  <rect x="430" y="215" width="100" height="85" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="480" y="235" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">TXS0108E</text>
+  <text x="480" y="253" font-size="12" fill="#6b7280" text-anchor="middle">3.3V ↔ 1.8V</text>
+  <text x="480" y="271" font-size="12" fill="#6b7280" text-anchor="middle">Двонаправлений</text>
+  <text x="480" y="289" font-size="12" fill="#6b7280" text-anchor="middle">перетворювач</text>
+
+  <!-- Pull-Up Resistors Labels inside Level Shifter box -->
+  <text x="375" y="240" font-size="11" fill="#1a1a1a" text-anchor="middle">R_PU = 4.7 kΩ</text>
+  <text x="375" y="256" font-size="11" fill="#6b7280" text-anchor="middle">(до 3.3V)</text>
+  <text x="585" y="240" font-size="11" fill="#1a1a1a" text-anchor="middle">R_PU = 4.7 kΩ</text>
+  <text x="585" y="256" font-size="11" fill="#6b7280" text-anchor="middle">(до 1.8V)</text>
+
+  <!-- Interrupt Buffer Box -->
+  <rect x="335" y="325" width="290" height="80" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="480" y="348" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Лінія переривання (GPIO / DRDY)</text>
+  <text x="480" y="368" font-size="12" fill="#6b7280" text-anchor="middle">Пряме з'єднання (1.8V CMOS)</text>
+  <text x="480" y="388" font-size="12" fill="#6b7280" text-anchor="middle">Активний рівень: HIGH / FALLING</text>
+
+  <!-- LDO Voltage Regulator Box -->
+  <rect x="335" y="420" width="290" height="80" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="480" y="443" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">LDO Стабілізатор (TPS7A05)</text>
+  <text x="480" y="463" font-size="12" fill="#1a1a1a" text-anchor="middle">Перетворення: 5.0V → 1.8V</text>
+  <text x="480" y="483" font-size="12" fill="#6b7280" text-anchor="middle">Чисте живлення VDD / VREF</text>
+
+  <!-- IIO Sensor IC Panel -->
+  <rect x="680" y="75" width="255" height="440" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <text x="807.5" y="98" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">IIO-давач (MEMS IMU / ADC)</text>
+
+  <!-- Sensor Sub-block 1: Power Domain & VREF -->
+  <rect x="695" y="115" width="225" height="85" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="807.5" y="136" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Домен живлення давача</text>
+  <text x="807.5" y="156" font-size="12" fill="#1a1a1a" text-anchor="middle">VDD = 1.8V (Аналогове/Ядро)</text>
+  <text x="807.5" y="174" font-size="12" fill="#1a1a1a" text-anchor="middle">VDDIO = 1.8V (Цифровий I/O)</text>
+  <text x="807.5" y="190" font-size="12" fill="#6b7280" text-anchor="middle">vdd-supply = &lt;&amp;vreg_1v8&gt;</text>
+
+  <!-- Sensor Sub-block 2: Slave Interface -->
+  <rect x="695" y="215" width="225" height="95" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="807.5" y="236" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Інтерфейс шини (Slave)</text>
+  <text x="807.5" y="256" font-size="12" fill="#1a1a1a" text-anchor="middle">I²C Адреса: 0x68 (reg = &lt;0x68&gt;)</text>
+  <text x="807.5" y="274" font-size="12" fill="#6b7280" text-anchor="middle">Вхідні лінії: SCL, SDA</text>
+  <text x="807.5" y="292" font-size="12" fill="#6b7280" text-anchor="middle">Регістри даних &amp; FIFO</text>
+
+  <!-- Sensor Sub-block 3: MEMS Core -->
+  <rect x="695" y="325" width="225" height="80" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="807.5" y="346" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">MEMS Матриця + АЦП</text>
+  <text x="807.5" y="366" font-size="12" fill="#1a1a1a" text-anchor="middle">IIO: in_accel_x_raw...</text>
+  <text x="807.5" y="386" font-size="12" fill="#6b7280" text-anchor="middle">24-bit Delta-Sigma / 16-bit</text>
+
+  <!-- Sensor Sub-block 4: INT Output Driver -->
+  <rect x="695" y="420" width="225" height="80" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="807.5" y="442" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Вихід переривання (INT1)</text>
+  <text x="807.5" y="462" font-size="12" fill="#1a1a1a" text-anchor="middle">Сигнал: DRDY (Data Ready)</text>
+  <text x="807.5" y="482" font-size="12" fill="#6b7280" text-anchor="middle">Сповіщення ядра Linux</text>
+
+  <!-- Connecting Lines / Wires -->
+  <!-- 3.3V Power Line to Level Shifter Host VDD -->
+  <path d="M 265,142.5 L 307.5,142.5 L 307.5,215 L 335,215" fill="none" stroke="#27ae60" stroke-width="2" stroke-dasharray="3 3"/>
+  <text x="307.5" y="134" font-size="11" fill="#27ae60" text-anchor="middle">VDD_IO (3.3V)</text>
+
+  <!-- I2C SCL Signal Wire -->
+  <line x1="265" y1="240" x2="335" y2="240" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="300" y="232" font-size="11" fill="#2457d6" text-anchor="middle">SCL (3.3V)</text>
+  <line x1="625" y1="240" x2="695" y2="240" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="660" y="232" font-size="11" fill="#2457d6" text-anchor="middle">SCL (1.8V)</text>
+
+  <!-- I2C SDA Signal Wire -->
+  <line x1="265" y1="280" x2="335" y2="280" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="300" y="272" font-size="11" fill="#2457d6" text-anchor="middle">SDA (3.3V)</text>
+  <line x1="625" y1="280" x2="695" y2="280" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="660" y="272" font-size="11" fill="#2457d6" text-anchor="middle">SDA (1.8V)</text>
+
+  <!-- GPIO Interrupt Wire (DRDY from Sensor to Host) -->
+  <line x1="695" y1="365" x2="625" y2="365" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="660" y="357" font-size="11" fill="#2457d6" text-anchor="middle">INT1 / DRDY</text>
+  <line x1="335" y1="365" x2="265" y2="365" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="300" y="357" font-size="11" fill="#2457d6" text-anchor="middle">GPIO_INT</text>
+
+  <!-- 5.0V Power Line from Host PMIC to LDO -->
+  <line x1="265" y1="460" x2="335" y2="460" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="300" y="452" font-size="11" fill="#27ae60" text-anchor="middle">VBUS (5.0V)</text>
+
+  <!-- 1.8V Power Line from LDO Output to Sensor & Level Shifter -->
+  <path d="M 625,460 L 660,460 L 660,157.5 L 695,157.5" fill="none" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <line x1="660" y1="215" x2="625" y2="215" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="3 3"/>
+  <text x="650" y="147" font-size="11" fill="#27ae60" text-anchor="end">VDD (1.8V)</text>
+</svg>

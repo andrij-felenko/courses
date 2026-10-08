@@ -1,0 +1,169 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="35" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Цифровий тракт обробки даних BMP280 / BME280</text>
+  <text x="480" y="57" font-size="13" fill="#6b7280" text-anchor="middle">Трансформація сигналів АЦП через оверсемплінг та IIR-фільтр до регістрів у режимах Sleep, Forced і Normal</text>
+
+  <!-- Control Panel: Modes -->
+  <rect x="30" y="80" width="900" height="75" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="45" y="122" font-size="13" font-weight="bold" fill="#1a1a1a">Режими вимірювання (MODE[1:0]):</text>
+
+  <!-- Mode 1: Sleep -->
+  <rect x="275" y="88" width="200" height="59" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="375" y="107" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">00: Sleep Mode</text>
+  <text x="375" y="127" font-size="12" fill="#6b7280" text-anchor="middle">Пауза, АЦП вимкнено</text>
+
+  <!-- Mode 2: Forced -->
+  <rect x="490" y="88" width="215" height="59" rx="4" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="597" y="107" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">01/10: Forced Mode</text>
+  <text x="597" y="127" font-size="12" fill="#1a1a1a" text-anchor="middle">1 цикл (T→P→H) → Sleep</text>
+
+  <!-- Mode 3: Normal -->
+  <rect x="720" y="88" width="200" height="59" rx="4" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="820" y="107" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">11: Normal Mode</text>
+  <text x="820" y="127" font-size="12" fill="#1a1a1a" text-anchor="middle">Неперервно (t_standby)</text>
+
+  <!-- Trigger arrow from control panel to pipeline -->
+  <line x1="108" y1="155" x2="108" y2="175" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#arr)"/>
+  <text x="115" y="168" font-size="12" fill="#2457d6">Тригер</text>
+
+  <!-- STAGE 1: Sensors & ADC -->
+  <rect x="30" y="175" width="156" height="315" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <path d="M 30 181 A 6 6 0 0 1 36 175 L 180 175 A 6 6 0 0 1 186 181 L 186 207 L 30 207 Z" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="108" y="196" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">1. СЕНСОРИ ТА АЦП</text>
+
+  <rect x="40" y="217" width="136" height="78" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="108" y="233" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">MEMS-сенсори</text>
+  <text x="108" y="253" font-size="12" fill="#6b7280" text-anchor="middle">P: П'єзорезистивний</text>
+  <text x="108" y="273" font-size="12" fill="#6b7280" text-anchor="middle">T, H: Ємнісні</text>
+
+  <line x1="108" y1="295" x2="108" y2="310" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <rect x="40" y="310" width="136" height="168" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="108" y="328" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">АЦП (ADC)</text>
+  <text x="108" y="350" font-size="12" fill="#1a1a1a" text-anchor="middle">20-bit ΔΣ (Тиск P)</text>
+  <text x="108" y="370" font-size="12" fill="#1a1a1a" text-anchor="middle">20-bit ΔΣ (Темп. T)</text>
+  <text x="108" y="390" font-size="12" fill="#1a1a1a" text-anchor="middle">16-bit ΔΣ (Вол. H)</text>
+  <text x="108" y="430" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Первинні відліки</text>
+  <text x="108" y="450" font-size="12" fill="#6b7280" text-anchor="middle">без фільтрації</text>
+
+  <!-- Arrow 1 -> 2 -->
+  <line x1="186" y1="390" x2="208" y2="390" stroke="#2457d6" stroke-width="2" marker-end="url(#arr)"/>
+  <text x="197" y="380" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">ADC_raw</text>
+
+  <!-- STAGE 2: Oversampling -->
+  <rect x="208" y="175" width="160" height="315" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <path d="M 208 181 A 6 6 0 0 1 214 175 L 362 175 A 6 6 0 0 1 368 181 L 368 207 L 208 207 Z" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="288" y="196" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">2. ОВЕРСЕМПЛІНГ</text>
+
+  <rect x="218" y="217" width="140" height="95" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="288" y="233" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Управління (NVM)</text>
+  <text x="288" y="253" font-size="12" fill="#1a1a1a" text-anchor="middle">osrs_t[2:0] → Temp</text>
+  <text x="288" y="271" font-size="12" fill="#1a1a1a" text-anchor="middle">osrs_p[2:0] → Press</text>
+  <text x="288" y="289" font-size="12" fill="#1a1a1a" text-anchor="middle">osrs_h[2:0] → Hum</text>
+
+  <rect x="218" y="322" width="140" height="156" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="288" y="340" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Кратність усреднення</text>
+  <text x="288" y="362" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Skip, ×1, ×2,</text>
+  <text x="288" y="380" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">×4, ×8, ×16</text>
+  <text x="288" y="410" font-size="12" fill="#6b7280" text-anchor="middle">Накопичення N вибірок</text>
+  <text x="288" y="440" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">↓ Шум / ↑ Розділення</text>
+
+  <!-- Arrow 2 -> 3 -->
+  <line x1="368" y1="270" x2="390" y2="270" stroke="#2457d6" stroke-width="2" marker-end="url(#arr)"/>
+  <text x="379" y="260" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">T, P</text>
+
+  <line x1="368" y1="420" x2="390" y2="420" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#arr-gray)"/>
+  <text x="379" y="410" font-size="12" fill="#6b7280" text-anchor="middle">H</text>
+
+  <!-- STAGE 3: IIR Filtering -->
+  <rect x="390" y="175" width="170" height="315" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <path d="M 390 181 A 6 6 0 0 1 396 175 L 554 175 A 6 6 0 0 1 560 181 L 560 207 L 390 207 Z" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="475" y="196" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">3. IIR-ФІЛЬТРАЦІЯ</text>
+
+  <rect x="400" y="217" width="150" height="170" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="400" y="217" width="150" height="24" rx="4" fill="#eaf0fd"/>
+  <text x="475" y="233" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">IIR-фільтр (T, P)</text>
+  <text x="475" y="255" font-size="12" fill="#1a1a1a" text-anchor="middle">config.filter[2:0]</text>
+  <text x="475" y="275" font-size="12" fill="#1a1a1a" text-anchor="middle">Коеф: Off, 2, 4, 8, 16</text>
+  <text x="475" y="300" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">y[n] = (x + (c-1)y)/c</text>
+  <text x="475" y="330" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Згладжування шумів</text>
+  <text x="475" y="350" font-size="12" fill="#6b7280" text-anchor="middle">і поривів повітря</text>
+
+  <rect x="400" y="397" width="150" height="81" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <rect x="400" y="397" width="150" height="24" rx="4" fill="#f4f6f8"/>
+  <text x="475" y="413" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">Канал вологості (H)</text>
+  <text x="475" y="438" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Обхід IIR-фільтра</text>
+  <text x="475" y="458" font-size="12" fill="#6b7280" text-anchor="middle">Пряма передача</text>
+
+  <!-- Arrow 3 -> 4 -->
+  <line x1="560" y1="302" x2="582" y2="302" stroke="#2457d6" stroke-width="2" marker-end="url(#arr)"/>
+  <text x="571" y="292" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">T, P</text>
+
+  <line x1="560" y1="437" x2="582" y2="437" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#arr-gray)"/>
+  <text x="571" y="427" font-size="12" fill="#6b7280" text-anchor="middle">H</text>
+
+  <!-- STAGE 4: Output Registers -->
+  <rect x="582" y="175" width="160" height="315" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <path d="M 582 181 A 6 6 0 0 1 588 175 L 736 175 A 6 6 0 0 1 742 181 L 742 207 L 582 207 Z" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="662" y="196" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">4. РЕГІСТРИ ДАНИХ</text>
+
+  <rect x="592" y="217" width="140" height="138" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="662" y="233" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Вихідні регістри</text>
+  <text x="662" y="253" font-size="12" fill="#1a1a1a" text-anchor="middle">press (0xF7..0xF9)</text>
+  <text x="662" y="271" font-size="12" fill="#1a1a1a" text-anchor="middle">temp (0xFA..0xFC)</text>
+  <text x="662" y="289" font-size="12" fill="#1a1a1a" text-anchor="middle">hum (0xFD..0xFE)</text>
+  <text x="662" y="315" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Сирі дані АЦП</text>
+  <text x="662" y="333" font-size="12" fill="#6b7280" text-anchor="middle">(20-bit / 16-bit)</text>
+
+  <rect x="592" y="365" width="140" height="113" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="662" y="381" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">NVM / OTP Пам'ять</text>
+  <text x="662" y="401" font-size="12" fill="#6b7280" text-anchor="middle">Калібрувальні коеф.:</text>
+  <text x="662" y="421" font-size="12" fill="#1a1a1a" text-anchor="middle">dig_T1..3, dig_P1..9</text>
+  <text x="662" y="441" font-size="12" fill="#1a1a1a" text-anchor="middle">dig_H1..H6</text>
+
+  <!-- Arrow 4 -> 5 -->
+  <line x1="742" y1="347" x2="764" y2="347" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="753" y="337" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">I2C / SPI</text>
+
+  <!-- STAGE 5: Host MCU -->
+  <rect x="764" y="175" width="166" height="315" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <path d="M 764 181 A 6 6 0 0 1 770 175 L 924 175 A 6 6 0 0 1 930 181 L 930 207 L 764 207 Z" fill="#27ae60" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="847" y="196" font-size="13" font-weight="bold" fill="#ffffff" text-anchor="middle">5. ХОСТ-МІКРОКОНТРОЛЕР</text>
+
+  <rect x="774" y="217" width="146" height="261" rx="4" fill="#ffffff" stroke="#27ae60"/>
+  <rect x="774" y="217" width="146" height="26" rx="4" fill="#e9f7ef"/>
+  <text x="847" y="234" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Математика в МК</text>
+
+  <text x="847" y="256" font-size="12" fill="#1a1a1a" text-anchor="middle">Обчислення t_fine</text>
+  <text x="847" y="274" font-size="12" fill="#6b7280" text-anchor="middle">(температурний стан)</text>
+
+  <line x1="784" y1="289" x2="910" y2="289" stroke="#d0d7de"/>
+
+  <text x="847" y="307" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Результат:</text>
+
+  <text x="847" y="332" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">T [°C]</text>
+  <text x="847" y="348" font-size="12" fill="#6b7280" text-anchor="middle">Температура</text>
+
+  <text x="847" y="373" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">P [Pa / hPa]</text>
+  <text x="847" y="389" font-size="12" fill="#6b7280" text-anchor="middle">Атмосферний тиск</text>
+
+  <text x="847" y="414" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">RH [%]</text>
+  <text x="847" y="430" font-size="12" fill="#6b7280" text-anchor="middle">Відносна вологість</text>
+
+  <text x="847" y="460" font-size="12" fill="#6b7280" text-anchor="middle">32/64-bit цілі / float</text>
+</svg>

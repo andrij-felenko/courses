@@ -1,0 +1,149 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="38" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Ланцюг утворення сигналу: від магнітної шкали до інтерполяційного ASIC</text>
+  <text x="480" y="56" text-anchor="middle" font-size="13" fill="#6b7280">Магніторезистивний сенсор формує синусоїдальні фази, а ASIC виконує CORDIC-інтерполяцію для високої розрядності</text>
+
+  <!-- CARD 1 -->
+  <rect x="20" y="74" width="208" height="444" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="26" y="80" width="196" height="32" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="124" y="101" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">1. Магнітна шкала</text>
+
+  <rect x="30" y="120" width="188" height="150" rx="4" fill="white" stroke="#d0d7de"/>
+  <text x="38" y="138" font-size="12" font-weight="bold" fill="#1a1a1a">Магнітні домени (N/S):</text>
+  
+  <rect x="38" y="146" width="172" height="26" rx="2" fill="#f4f6f8" stroke="#d0d7de"/>
+  <rect x="40" y="148" width="40" height="22" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="60" y="163" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">N</text>
+  <rect x="82" y="148" width="40" height="22" fill="#fdecea" stroke="#c0392b"/>
+  <text x="102" y="163" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">S</text>
+  <rect x="124" y="148" width="40" height="22" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="144" y="163" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">N</text>
+  <rect x="166" y="148" width="40" height="22" fill="#fdecea" stroke="#c0392b"/>
+  <text x="186" y="163" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">S</text>
+
+  <line x1="40" y1="176" x2="122" y2="176" stroke="#1a1a1a" stroke-dasharray="2,2"/>
+  <text x="81" y="190" text-anchor="middle" font-size="12" fill="#1a1a1a">Період λ (1–5 мм)</text>
+  <text x="38" y="208" font-size="12" fill="#6b7280">Поле B(x) змінюється</text>
+  <text x="38" y="224" font-size="12" fill="#6b7280">за синусоїдою вздовж x</text>
+  <text x="38" y="246" font-size="12" font-weight="bold" fill="#2457d6">B(x) = B₀ · sin(2πx / λ)</text>
+
+  <rect x="30" y="280" width="188" height="230" rx="4" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="38" y="300" font-size="12" font-weight="bold" fill="#27ae60">Переваги технології:</text>
+  <text x="38" y="320" font-size="12" fill="#1a1a1a">• Стійкість до пилу й мастил</text>
+  <text x="38" y="338" font-size="12" fill="#1a1a1a">• Немає крихкого скла</text>
+  <text x="38" y="356" font-size="12" fill="#1a1a1a">• Висока вібростійкість</text>
+  <text x="38" y="378" font-size="12" font-weight="bold" fill="#2457d6">Захист середовища:</text>
+  <text x="38" y="396" font-size="12" fill="#6b7280">Ідеально для важкого</text>
+  <text x="38" y="412" font-size="12" fill="#6b7280">промислового обладнання</text>
+  <text x="38" y="434" font-size="12" font-weight="bold" fill="#1a1a1a">Робочий зазор (Airgap):</text>
+  <text x="38" y="452" font-size="12" fill="#6b7280">до 0.5–2.0 мм від сенсора</text>
+  <text x="38" y="476" font-size="12" font-weight="bold" fill="#27ae60">Надійне зчитування</text>
+
+  <!-- Flow Arrow 1 -->
+  <line x1="228" y1="296" x2="252" y2="296" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- CARD 2 -->
+  <rect x="256" y="74" width="208" height="444" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="262" y="80" width="196" height="32" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="360" y="101" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">2. Тонкоплівковий MR-сенсор</text>
+
+  <rect x="266" y="120" width="188" height="150" rx="4" fill="white" stroke="#d0d7de"/>
+  <text x="274" y="138" font-size="12" font-weight="bold" fill="#1a1a1a">Місток Вітстона (AMR/GMR):</text>
+  <text x="274" y="154" font-size="12" fill="#6b7280">Зсув елементів на λ/4 (90°)</text>
+
+  <rect x="274" y="162" width="172" height="60" fill="#f4f6f8" stroke="#d0d7de" rx="3"/>
+  <line x1="274" y1="192" x2="446" y2="192" stroke="#d0d7de" stroke-dasharray="2,2"/>
+  <path d="M 274 192 Q 295.5 172 317 192 T 360 192 T 403 192 T 446 192" fill="none" stroke="#2457d6" stroke-width="2"/>
+  <path d="M 274 172 Q 295.5 192 317 212 T 360 192 T 403 172 T 446 192" fill="none" stroke="#c0392b" stroke-dasharray="3,2" stroke-width="1.5"/>
+
+  <text x="274" y="238" font-size="12" font-weight="bold" fill="#2457d6">V_sin = V₀ · sin(θ)</text>
+  <text x="274" y="254" font-size="12" font-weight="bold" fill="#c0392b">V_cos = V₀ · cos(θ)</text>
+
+  <rect x="266" y="280" width="188" height="230" rx="4" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="274" y="300" font-size="12" font-weight="bold" fill="#2457d6">Аналоговий вихід фаз:</text>
+  <text x="274" y="320" font-size="12" fill="#1a1a1a">• Диференційні сигнали:</text>
+  <text x="274" y="336" font-size="12" fill="#6b7280">  ΔV_sin, ΔV_cos (1V p-p)</text>
+  <text x="274" y="354" font-size="12" fill="#1a1a1a">• Зсув фаз точно 90°</text>
+  <text x="274" y="376" font-size="12" font-weight="bold" fill="#c0392b">Фактори похибок:</text>
+  <text x="274" y="394" font-size="12" fill="#6b7280">• Зсув нуля (Offset)</text>
+  <text x="274" y="410" font-size="12" fill="#6b7280">• Дисбаланс підсилення</text>
+  <text x="274" y="426" font-size="12" fill="#6b7280">• Неортогональність фаз</text>
+  <text x="274" y="450" font-size="12" font-weight="bold" fill="#2457d6">Канал передачі:</text>
+  <text x="274" y="468" font-size="12" fill="#6b7280">Екранований кабель</text>
+  <text x="360" y="492" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Вхід на ASIC</text>
+
+  <!-- Flow Arrow 2 -->
+  <line x1="464" y1="296" x2="488" y2="296" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- CARD 3 -->
+  <rect x="492" y="74" width="208" height="444" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="498" y="80" width="196" height="32" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="596" y="101" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">3. Інтерполяційний ASIC</text>
+
+  <rect x="502" y="120" width="188" height="150" rx="4" fill="white" stroke="#d0d7de"/>
+  <text x="510" y="138" font-size="12" font-weight="bold" fill="#1a1a1a">Аналогова корекція:</text>
+  <text x="510" y="156" font-size="12" fill="#1a1a1a">1. PGA (Підсилення)</text>
+  <text x="510" y="172" font-size="12" fill="#6b7280">   Нормалізація сигналу</text>
+  <text x="510" y="192" font-size="12" fill="#1a1a1a">2. Автокалібрування</text>
+  <text x="510" y="208" font-size="12" fill="#6b7280">   Компенсація offset/gain</text>
+  <text x="510" y="230" font-size="12" font-weight="bold" fill="#27ae60">Очищені sin, cos фази</text>
+  <text x="510" y="248" font-size="12" fill="#6b7280">Подача на CORDIC/АЦП</text>
+
+  <rect x="502" y="280" width="188" height="230" rx="4" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="510" y="300" font-size="12" font-weight="bold" fill="#27ae60">CORDIC Обчислювач:</text>
+  <text x="510" y="320" font-size="12" font-weight="bold" fill="#1a1a1a">θ = arctan2(V_sin, V_cos)</text>
+  <text x="510" y="342" font-size="12" font-weight="bold" fill="#2457d6">Множник інтерполяції N:</text>
+  <text x="510" y="360" font-size="12" fill="#1a1a1a">N = 256, 1024 або 4096</text>
+  <text x="510" y="382" font-size="12" font-weight="bold" fill="#1a1a1a">Дискретність крок:</text>
+  <text x="510" y="400" font-size="12" font-weight="bold" fill="#27ae60">Δx = λ / N</text>
+  <text x="510" y="418" font-size="12" fill="#6b7280">Приклад: 2 мм / 4096</text>
+  <text x="510" y="436" font-size="12" font-weight="bold" fill="#27ae60">Δx ≈ 0.488 мкм!</text>
+  <text x="510" y="456" font-size="12" fill="#6b7280">Субмікронна точність</text>
+  <text x="510" y="474" font-size="12" fill="#6b7280">без використання оптики</text>
+
+  <!-- Flow Arrow 3 -->
+  <line x1="700" y1="296" x2="724" y2="296" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- CARD 4 -->
+  <rect x="728" y="74" width="208" height="444" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="734" y="80" width="196" height="32" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="832" y="101" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">4. Високорозрядний вихід</text>
+
+  <rect x="738" y="120" width="188" height="150" rx="4" fill="white" stroke="#d0d7de"/>
+  <text x="746" y="138" font-size="12" font-weight="bold" fill="#1a1a1a">Абсолютний код:</text>
+  <text x="746" y="156" font-size="12" fill="#1a1a1a">• Шина SSI / BiSS-C</text>
+  <text x="746" y="172" font-size="12" fill="#6b7280">  Синхронний протокол</text>
+  <text x="746" y="192" font-size="12" fill="#1a1a1a">• Розрядність: 16–24 біт</text>
+  <text x="746" y="208" font-size="12" fill="#6b7280">  Прямий код позиції</text>
+  <text x="746" y="230" font-size="12" font-weight="bold" fill="#2457d6">Кадр даних DATA</text>
+  <text x="746" y="248" font-size="12" fill="#6b7280">із контролем CRC</text>
+
+  <rect x="738" y="280" width="188" height="230" rx="4" fill="white" stroke="#d0d7de"/>
+  <text x="746" y="300" font-size="12" font-weight="bold" fill="#1a1a1a">Інкрементний вихід:</text>
+  <text x="746" y="318" font-size="12" fill="#1a1a1a">• Квадратура ABZ (RS-422)</text>
+  <text x="746" y="334" font-size="12" fill="#6b7280">  Імпульси каналів A, B</text>
+
+  <rect x="746" y="342" width="172" height="48" fill="#f4f6f8" stroke="#d0d7de" rx="3"/>
+  <polyline points="752,360 768,360 768,350 784,350 784,360 800,360 800,350 816,350 816,360 832,360 832,350 848,350 848,360 864,360 864,350 880,350 880,360 896,360 896,350 910,350" fill="none" stroke="#2457d6" stroke-width="1.5"/>
+  <polyline points="752,380 760,380 760,370 776,370 776,380 792,380 792,370 808,370 808,380 824,380 824,370 840,370 840,380 856,380 856,370 872,370 872,380 888,380 888,370 904,370 904,380 910,380" fill="none" stroke="#27ae60" stroke-width="1.5"/>
+
+  <text x="746" y="406" font-size="12" font-weight="bold" fill="#2457d6">Сигнал A</text>
+  <text x="826" y="406" font-size="12" font-weight="bold" fill="#27ae60">Сигнал B (90°)</text>
+
+  <text x="746" y="428" font-size="12" font-weight="bold" fill="#1a1a1a">Приймач сигналу:</text>
+  <text x="746" y="446" font-size="12" fill="#6b7280">Таймер МК / шина ЧПУ</text>
+  <text x="746" y="470" font-size="12" font-weight="bold" fill="#27ae60">Високошвидкісний</text>
+  <text x="746" y="488" font-size="12" font-weight="bold" fill="#27ae60">відлік положення</text>
+</svg>

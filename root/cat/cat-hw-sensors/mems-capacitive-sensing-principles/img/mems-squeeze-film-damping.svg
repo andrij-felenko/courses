@@ -1,0 +1,151 @@
+<svg viewBox="0 0 960 540" width="960" height="540" xmlns="http://www.w3.org/2000/svg" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <defs>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Ефект стискального демпфування (Squeeze-Film Damping) у MEMS</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">В'язке витіснення газу при низькому числі Сквіза σ та газова пружина при високому σ</text>
+
+  <!-- Panel 1: Physical Mechanism -->
+  <rect x="30" y="75" width="435" height="440" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="8"/>
+  <text x="247" y="102" font-size="15" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Фізичний механізм у зазорі h₀</text>
+
+  <!-- Motion Arrow & Label -->
+  <line x1="75" y1="118" x2="75" y2="142" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="75" y="112" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Рух v(t)</text>
+
+  <!-- Top Plate (Moving Electrode) -->
+  <text x="247" y="123" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Рухомий електрод (маса m)</text>
+  <rect x="110" y="130" width="275" height="25" fill="#eaf0fd" stroke="#2457d6" stroke-width="2" rx="4"/>
+
+  <!-- Gap Region & Pressure Profile -->
+  <line x1="75" y1="168" x2="75" y2="277" stroke="#6b7280" stroke-width="1.5"/>
+  <polygon points="75,163 71,171 79,171" fill="#6b7280"/>
+  <polygon points="75,282 71,274 79,274" fill="#6b7280"/>
+  <text x="65" y="228" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="end">h₀</text>
+
+  <path d="M 120,275 Q 247,190 375,275" fill="none" stroke="#c0392b" stroke-width="2" stroke-dasharray="4,3"/>
+  <text x="247" y="177" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Надлишковий тиск p(x)</text>
+
+  <!-- Outgoing Gas Flow Arrows -->
+  <line x1="200" y1="245" x2="140" y2="245" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+  <text x="170" y="235" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Потік Q</text>
+
+  <line x1="294" y1="245" x2="354" y2="245" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+  <text x="324" y="235" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Потік Q</text>
+
+  <!-- Center Compression Indicators -->
+  <line x1="247" y1="205" x2="247" y2="218" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <line x1="247" y1="265" x2="247" y2="252" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <text x="247" y="235" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Стискання</text>
+
+  <!-- Bottom Plate (Fixed Electrode) -->
+  <rect x="110" y="285" width="275" height="26" fill="#eaf0fd" stroke="#2457d6" stroke-width="2" rx="4"/>
+  <text x="247" y="303" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Нерухомий електрод (статор)</text>
+
+  <!-- Ground Anchor Marks -->
+  <line x1="110" y1="311" x2="385" y2="311" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="135" y1="311" x2="125" y2="319" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="175" y1="311" x2="165" y2="319" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="215" y1="311" x2="205" y2="319" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="255" y1="311" x2="245" y2="319" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="295" y1="311" x2="285" y2="319" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="335" y1="311" x2="325" y2="319" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="375" y1="311" x2="365" y2="319" stroke="#2457d6" stroke-width="1.5"/>
+
+  <!-- Width Dimension Line -->
+  <line x1="110" y1="338" x2="385" y2="338" stroke="#6b7280" stroke-width="1.5"/>
+  <polygon points="110,338 118,334 118,342" fill="#6b7280"/>
+  <polygon points="385,338 377,334 377,342" fill="#6b7280"/>
+  <text x="247" y="353" font-size="12" fill="#6b7280" text-anchor="middle">Ширина електрода W</text>
+
+  <!-- Panel 1 Sub-cards for Low/High Frequencies -->
+  <rect x="42" y="370" width="195" height="130" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="6"/>
+  <text x="139" y="392" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Низькі частоти (σ « 1)</text>
+  <text x="52" y="414" font-size="12" fill="#1a1a1a">• Газ встигає витікати</text>
+  <text x="52" y="434" font-size="12" fill="#1a1a1a">• В'язке демпфування c</text>
+  <text x="52" y="454" font-size="12" fill="#1a1a1a">• Опір пропорційний v</text>
+  <text x="52" y="476" font-size="12" font-weight="bold" fill="#27ae60">• Дисипація енергії</text>
+
+  <rect x="252" y="370" width="195" height="130" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" rx="6"/>
+  <text x="349" y="392" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">Високі частоти (σ » 1)</text>
+  <text x="262" y="414" font-size="12" fill="#1a1a1a">• Газ запертий у зазорі</text>
+  <text x="262" y="434" font-size="12" fill="#1a1a1a">• Ефект «газової пружини» k_g</text>
+  <text x="262" y="454" font-size="12" fill="#1a1a1a">• Додаткова жорсткість</text>
+  <text x="262" y="476" font-size="12" font-weight="bold" fill="#c0392b">• Зсув резонансу вгору</text>
+
+  <!-- Panel 2: Frequency Response & Damping Regimes -->
+  <rect x="495" y="75" width="435" height="440" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="8"/>
+  <text x="712" y="102" font-size="15" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Амплітудно-частотна характеристика (АЧХ)</text>
+
+  <!-- Graph Background Grid -->
+  <rect x="535" y="130" width="375" height="235" fill="#ffffff" stroke="#e1e4e8" stroke-width="1" rx="4"/>
+  <line x1="535" y1="185" x2="910" y2="185" stroke="#f0f3f6" stroke-width="1"/>
+  <line x1="535" y1="240" x2="910" y2="240" stroke="#f0f3f6" stroke-width="1"/>
+  <line x1="535" y1="295" x2="910" y2="295" stroke="#f0f3f6" stroke-width="1"/>
+
+  <!-- Vertical Reference Lines -->
+  <line x1="650" y1="165" x2="650" y2="365" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="805" y1="240" x2="805" y2="365" stroke="#f5c6cb" stroke-width="1" stroke-dasharray="3,3"/>
+
+  <!-- Graph Axes -->
+  <line x1="555" y1="360" x2="555" y2="138" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+  <text x="565" y="122" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Амплітуда |H(ω)|</text>
+
+  <line x1="550" y1="355" x2="895" y2="355" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+  <text x="725" y="395" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Частота ω / Число Сквіза σ</text>
+
+  <!-- Axis Ticks & Frequency Labels -->
+  <line x1="650" y1="355" x2="650" y2="360" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="650" y="375" font-size="12" fill="#6b7280" text-anchor="middle">ω₀ (резонанс)</text>
+
+  <line x1="805" y1="355" x2="805" y2="360" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="805" y="375" font-size="12" fill="#c0392b" text-anchor="middle">ω₀' (з k_g)</text>
+
+  <!-- Graph Curves -->
+  <!-- Curve 1: Vacuum / Low damping (Sharp High Q peak at w0=650) -->
+  <path d="M 555,335 L 630,335 Q 650,155 670,335 L 895,335" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+  <text x="650" y="145" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Q » 1 (Вакуум)</text>
+
+  <!-- Curve 2: Optimal Viscous Damping -->
+  <path d="M 555,285 C 610,285 635,270 650,270 C 680,270 750,330 895,335" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+  <text x="695" y="200" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">
+    <tspan x="695" dy="0">Оптимальне</tspan>
+    <tspan x="695" dy="16">демпфування</tspan>
+  </text>
+  <line x1="695" y1="222" x2="695" y2="275" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="2,2" marker-end="url(#arr-green)"/>
+
+  <!-- Curve 3: Strong Squeeze Film / Gas Spring (Shifted peak at w0'=805) -->
+  <path d="M 555,305 C 630,305 730,295 780,250 Q 805,235 830,280 L 895,335" fill="none" stroke="#c0392b" stroke-width="2.5" stroke-dasharray="6,3"/>
+  <text x="805" y="200" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">
+    <tspan x="805" dy="0">Газова пружина k_g</tspan>
+    <tspan x="805" dy="16">(σ » 1)</tspan>
+  </text>
+  <line x1="805" y1="222" x2="805" y2="235" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+
+  <!-- Legend Box -->
+  <rect x="515" y="405" width="395" height="95" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="6"/>
+
+  <line x1="528" y1="421" x2="553" y2="421" stroke="#2457d6" stroke-width="3"/>
+  <text x="560" y="425" font-size="12" fill="#1a1a1a"><tspan font-weight="bold" fill="#2457d6">Вакуум (σ → 0):</tspan> слабке демпфування, пік Q » 1</text>
+
+  <line x1="528" y1="446" x2="553" y2="446" stroke="#27ae60" stroke-width="3"/>
+  <text x="560" y="450" font-size="12" fill="#1a1a1a"><tspan font-weight="bold" fill="#27ae60">Атмосфера (σ ~ 1):</tspan> в'язкий опір c, оптимальна АЧХ</text>
+
+  <line x1="528" y1="471" x2="553" y2="471" stroke="#c0392b" stroke-width="3" stroke-dasharray="4,2"/>
+  <text x="560" y="475" font-size="12" fill="#1a1a1a"><tspan font-weight="bold" fill="#c0392b">Стиснутий газ (σ » 1):</tspan> пружність k_g, зсув ω₀'</text>
+</svg>

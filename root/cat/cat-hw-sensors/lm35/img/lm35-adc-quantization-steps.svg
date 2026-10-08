@@ -1,0 +1,143 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Marker Definitions -->
+  <defs>
+    <marker id="arr-dark" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L6,3 L0,6 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L6,3 L0,6 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L6,3 L0,6 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L6,3 L0,6 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Title and Subtitle -->
+  <text x="480" y="30" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Передавальна характеристика АЦП для давача LM35 (10 мВ/°C)</text>
+  <text x="480" y="50" font-size="13" fill="#6b7280" text-anchor="middle">Зниження V_REF з 5.0 В до 1.1 В зменшує крок LSB з 0.488 °C до 0.107 °C, піднімаючи роздільну здатність у 4.5 раза</text>
+
+  <!-- Main Graph Panel -->
+  <rect x="30" y="70" width="570" height="350" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  
+  <!-- Graph Legend Bar at top of panel -->
+  <rect x="42" y="80" width="546" height="36" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  
+  <line x1="52" y1="98" x2="72" y2="98" stroke="#2457d6" stroke-width="2.5" stroke-dasharray="4,2"/>
+  <text x="77" y="102" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="start">V_out (10 мВ/°C)</text>
+
+  <line x1="185" y1="98" x2="205" y2="98" stroke="#c0392b" stroke-width="2.5"/>
+  <text x="210" y="102" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="start">V_REF = 5.0 В (0.488 °C)</text>
+
+  <line x1="385" y1="98" x2="405" y2="98" stroke="#27ae60" stroke-width="2"/>
+  <text x="410" y="102" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="start">V_REF = 1.1 В (0.107 °C)</text>
+
+  <!-- Y-axis Label -->
+  <text x="42" y="132" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="start">V_out (мВ)</text>
+
+  <!-- Gridlines -->
+  <!-- Horizontal grid lines at V = 10, 20, 30, 40, 50 mV -->
+  <line x1="110" y1="330" x2="560" y2="330" stroke="#e5e7eb" stroke-dasharray="3,3" stroke-width="1"/>
+  <line x1="110" y1="280" x2="560" y2="280" stroke="#e5e7eb" stroke-dasharray="3,3" stroke-width="1"/>
+  <line x1="110" y1="230" x2="560" y2="230" stroke="#e5e7eb" stroke-dasharray="3,3" stroke-width="1"/>
+  <line x1="110" y1="180" x2="560" y2="180" stroke="#e5e7eb" stroke-dasharray="3,3" stroke-width="1"/>
+  <line x1="110" y1="130" x2="560" y2="130" stroke="#e5e7eb" stroke-dasharray="3,3" stroke-width="1"/>
+
+  <!-- Vertical grid lines at T = 1, 2, 3, 4, 5 °C -->
+  <line x1="200" y1="130" x2="200" y2="380" stroke="#e5e7eb" stroke-dasharray="3,3" stroke-width="1"/>
+  <line x1="290" y1="130" x2="290" y2="380" stroke="#e5e7eb" stroke-dasharray="3,3" stroke-width="1"/>
+  <line x1="380" y1="130" x2="380" y2="380" stroke="#e5e7eb" stroke-dasharray="3,3" stroke-width="1"/>
+  <line x1="470" y1="130" x2="470" y2="380" stroke="#e5e7eb" stroke-dasharray="3,3" stroke-width="1"/>
+  <line x1="560" y1="130" x2="560" y2="380" stroke="#e5e7eb" stroke-dasharray="3,3" stroke-width="1"/>
+
+  <!-- Y-axis Values -->
+  <text x="102" y="384" font-size="11" fill="#6b7280" text-anchor="end">0</text>
+  <text x="102" y="334" font-size="11" fill="#6b7280" text-anchor="end">10</text>
+  <text x="102" y="284" font-size="11" fill="#6b7280" text-anchor="end">20</text>
+  <text x="102" y="234" font-size="11" fill="#6b7280" text-anchor="end">30</text>
+  <text x="102" y="184" font-size="11" fill="#6b7280" text-anchor="end">40</text>
+  <text x="102" y="134" font-size="11" fill="#6b7280" text-anchor="end">50</text>
+
+  <!-- X-axis Values -->
+  <text x="110" y="396" font-size="11" fill="#6b7280" text-anchor="middle">0°C</text>
+  <text x="200" y="396" font-size="11" fill="#6b7280" text-anchor="middle">1°C</text>
+  <text x="290" y="396" font-size="11" fill="#6b7280" text-anchor="middle">2°C</text>
+  <text x="380" y="396" font-size="11" fill="#6b7280" text-anchor="middle">3°C</text>
+  <text x="470" y="396" font-size="11" fill="#6b7280" text-anchor="middle">4°C</text>
+  <text x="560" y="396" font-size="11" fill="#6b7280" text-anchor="middle">5°C</text>
+
+  <!-- X-axis Title -->
+  <text x="335" y="412" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Температура T (°C)</text>
+
+  <!-- Graph Axes -->
+  <line x1="110" y1="380" x2="575" y2="380" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+  <line x1="110" y1="380" x2="110" y2="125" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+
+  <!-- 1. Fine Quantization Staircase (V_REF = 1.1 V, LSB = 1.07 mV = 0.107 °C) -->
+  <path d="M 110,380 
+    H 120 V 375 H 130 V 369 H 140 V 364 H 150 V 359 H 160 V 353 H 170 V 348 
+    H 180 V 343 H 190 V 337 H 200 V 332 H 210 V 327 H 220 V 321 H 230 V 316 
+    H 240 V 311 H 250 V 305 H 260 V 300 H 270 V 295 H 280 V 289 H 290 V 284 
+    H 300 V 279 H 310 V 273 H 320 V 268 H 330 V 263 H 340 V 257 H 350 V 252 
+    H 360 V 247 H 370 V 241 H 380 V 236 H 390 V 231 H 400 V 225 H 410 V 220 
+    H 420 V 215 H 430 V 209 H 440 V 204 H 450 V 199 H 460 V 193 H 470 V 188 
+    H 480 V 183 H 490 V 177 H 500 V 172 H 510 V 167 H 520 V 161 H 530 V 156 
+    H 540 V 151 H 550 V 145 H 560 V 140" fill="none" stroke="#27ae60" stroke-width="1.8" stroke-linejoin="miter"/>
+
+  <!-- 2. Coarse Quantization Staircase (V_REF = 5.0 V, LSB = 4.88 mV = 0.488 °C) -->
+  <path d="M 110,380 
+    H 155 V 356 H 200 V 331 H 245 V 307 H 290 V 282 H 335 V 258 
+    H 380 V 233 H 425 V 209 H 470 V 185 H 515 V 160 H 560 V 136" fill="none" stroke="#c0392b" stroke-width="2.5" stroke-linejoin="miter"/>
+
+  <!-- 3. Continuous Analog Signal Line V_out(T) = 10 mV/°C -->
+  <line x1="110" y1="380" x2="560" y2="130" stroke="#2457d6" stroke-width="2" stroke-dasharray="6,4"/>
+
+  <!-- Right Cards Area -->
+
+  <!-- Card 1: V_REF = 5.0 V -->
+  <rect x="620" y="70" width="310" height="170" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="775" y="95" font-size="14" font-weight="bold" fill="#c0392b" text-anchor="middle">V_REF = 5.0 В (Стандартне VCC)</text>
+  <text x="775" y="113" font-size="12" fill="#6b7280" text-anchor="middle">Груба роздільна здатність вимірювання</text>
+  <line x1="640" y1="123" x2="910" y2="123" stroke="#f1aeb5" stroke-width="1"/>
+
+  <text x="640" y="142" font-size="12" fill="#1a1a1a">Крок напруги АЦП (LSB):</text>
+  <text x="910" y="142" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="end">4.88 мВ</text>
+
+  <text x="640" y="164" font-size="12" fill="#1a1a1a">Ціна LSB у температурі:</text>
+  <text x="910" y="164" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="end">0.488 °C / LSB</text>
+
+  <text x="640" y="186" font-size="12" fill="#1a1a1a">Похибка квантування (±½ LSB):</text>
+  <text x="910" y="186" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="end">±0.244 °C</text>
+
+  <text x="640" y="208" font-size="12" fill="#1a1a1a">Використано діапазон АЦП:</text>
+  <text x="910" y="208" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="end">225 кодів (22%)</text>
+
+  <!-- Card 2: V_REF = 1.1 V -->
+  <rect x="620" y="250" width="310" height="170" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="775" y="275" font-size="14" font-weight="bold" fill="#27ae60" text-anchor="middle">V_REF = 1.1 В (Внутрішня опора)</text>
+  <text x="775" y="293" font-size="12" fill="#6b7280" text-anchor="middle">Оптимальний режим для LM35 (0..110°C)</text>
+  <line x1="640" y1="303" x2="910" y2="303" stroke="#a3cfbb" stroke-width="1"/>
+
+  <text x="640" y="322" font-size="12" fill="#1a1a1a">Крок напруги АЦП (LSB):</text>
+  <text x="910" y="322" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="end">1.07 мВ</text>
+
+  <text x="640" y="344" font-size="12" fill="#1a1a1a">Ціна LSB у температурі:</text>
+  <text x="910" y="344" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="end">0.107 °C / LSB</text>
+
+  <text x="640" y="366" font-size="12" fill="#1a1a1a">Похибка квантування (±½ LSB):</text>
+  <text x="910" y="366" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="end">±0.054 °C</text>
+
+  <text x="640" y="388" font-size="12" fill="#1a1a1a">Використано діапазон АЦП:</text>
+  <text x="910" y="388" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="end">1024 коди (100%)</text>
+
+  <!-- Bottom Panel: Formula & Conclusion -->
+  <rect x="30" y="435" width="900" height="80" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="480" y="458" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Формула квантування: LSB_temp = V_REF / (2^N × 10 мВ/°C)</text>
+  <text x="480" y="480" font-size="12" fill="#1a1a1a" text-anchor="middle">Перехід на V_REF = 1.1 В звужує вхідну шкалу АЦП до 1100 мВ, що точно відповідає максимальній температурі LM35 (+110 °C)</text>
+  <text x="480" y="498" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Висновок: Вибір V_REF = 1.1 В дає 4.5-кратний виграш у точності без додаткових апаратних витрат</text>
+
+</svg>

@@ -1,0 +1,116 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Часова діаграма подійного пробудження STM32 за сигналом Watermark</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Мікроконтролер перебуває у режимі Sleep/Stop і прокидається по EXTI лише при заповненні FIFO порогу</text>
+
+  <!-- Main Container Panel -->
+  <rect x="25" y="68" width="910" height="462" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Left Column Separator Line -->
+  <line x1="215" y1="68" x2="215" y2="478" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4 4"/>
+
+  <!-- Track Dividers -->
+  <line x1="30" y1="158" x2="920" y2="158" stroke="#e1e4e8" stroke-width="1"/>
+  <line x1="30" y1="224" x2="920" y2="224" stroke="#e1e4e8" stroke-width="1"/>
+  <line x1="30" y1="290" x2="920" y2="290" stroke="#e1e4e8" stroke-width="1"/>
+  <line x1="30" y1="368" x2="920" y2="368" stroke="#e1e4e8" stroke-width="1"/>
+  <line x1="30" y1="478" x2="920" y2="478" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Time Event Vertical Guidelines -->
+  <line x1="512" y1="90" x2="512" y2="478" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4 4"/>
+  <line x1="724" y1="90" x2="724" y2="478" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="4 4"/>
+
+  <!-- Top Event Marker Labels -->
+  <text x="512" y="82" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">t1: Поріг FIFO</text>
+  <text x="724" y="82" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">t2: Скидання FIFO</text>
+
+  <!-- TRACK 1: FIFO Count -->
+  <text x="40" y="102" font-size="13" font-weight="bold" fill="#1a1a1a">Наповнення FIFO</text>
+  <text x="40" y="120" font-size="12" fill="#6b7280">(вибірки ADXL345)</text>
+  <text x="40" y="138" font-size="12" font-weight="bold" fill="#c0392b">Watermark = 16</text>
+
+  <!-- Watermark Level Dashed Line -->
+  <line x1="230" y1="114" x2="890" y2="114" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3 3"/>
+  <text x="230" y="110" font-size="11" font-weight="bold" fill="#c0392b">Поріг Watermark (16 зразків)</text>
+
+  <!-- FIFO Ramp Waveform -->
+  <polygon points="240,148 257,148 257,144 274,144 274,140 291,140 291,137 308,137 308,133 325,133 325,130 342,130 342,126 359,126 359,123 376,123 376,119 393,119 393,116 410,116 410,114 512,114 566,118 582,122 598,126 614,130 630,134 646,138 662,141 678,143 694,145 710,147 724,148 736,148 753,148 753,145 770,145 770,142 787,142 787,139 804,139 804,136 821,136 821,133 838,133 838,130 855,130 855,127 872,127 872,124 890,124 890,148" fill="#eaf0fd" fill-opacity="0.7"/>
+  <path d="M 240,148 L 257,148 L 257,144 L 274,144 L 274,140 L 291,140 L 291,137 L 308,137 L 308,133 L 325,133 L 325,130 L 342,130 L 342,126 L 359,126 L 359,123 L 376,123 L 376,119 L 393,119 L 393,116 L 410,116 L 410,114 L 512,114 L 566,118 L 582,122 L 598,126 L 614,130 L 630,134 L 646,138 L 662,141 L 678,143 L 694,145 L 710,147 L 724,148 L 736,148 L 753,148 L 753,145 L 770,145 L 770,142 L 787,142 L 787,139 L 804,139 L 804,136 L 821,136 L 821,133 L 838,133 L 838,130 L 855,130 L 855,127 L 872,127 L 872,124 L 890,124" stroke="#2457d6" stroke-width="2" fill="none"/>
+
+  <!-- TRACK 2: INT1 Signal -->
+  <text x="40" y="185" font-size="13" font-weight="bold" fill="#1a1a1a">Вивід INT1 (EXTI)</text>
+  <text x="40" y="203" font-size="12" fill="#6b7280">Апаратна подія</text>
+
+  <path d="M 240,210 L 512,210 L 512,175 L 680,175 L 680,210 L 890,210" stroke="#2457d6" stroke-width="2.5" fill="none"/>
+  <text x="512" y="168" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">Фронт EXTI (HIGH)</text>
+  <text x="680" y="168" font-size="11" fill="#6b7280" text-anchor="middle">Читання INT_SOURCE (LOW)</text>
+
+  <!-- TRACK 3: SPI/I2C Bus -->
+  <text x="40" y="251" font-size="13" font-weight="bold" fill="#1a1a1a">Шина SPI / I2C</text>
+  <text x="40" y="269" font-size="12" fill="#6b7280">Канал даних</text>
+
+  <line x1="240" y1="257" x2="556" y2="257" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="398" y="249" font-size="11" fill="#6b7280" text-anchor="middle">IDLE (неактивна)</text>
+
+  <polygon points="556,257 566,238 714,238 724,257 714,276 566,276" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <text x="640" y="252" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">SPI Burst Read (0x32)</text>
+  <text x="640" y="268" font-size="11" fill="#1a1a1a" text-anchor="middle">16 вибірок × 6 байт</text>
+
+  <line x1="724" y1="257" x2="890" y2="257" stroke="#6b7280" stroke-width="1.5"/>
+
+  <!-- TRACK 4: STM32 Power States -->
+  <text x="40" y="322" font-size="13" font-weight="bold" fill="#1a1a1a">Режим STM32</text>
+  <text x="40" y="340" font-size="12" fill="#6b7280">Стан CPU</text>
+
+  <!-- State 1: Sleep -->
+  <rect x="240" y="304" width="260" height="50" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="370" y="325" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Sleep / Stop Mode</text>
+  <text x="370" y="342" font-size="11" fill="#6b7280" text-anchor="middle">Ядро зупинено (~2–15 мкА)</text>
+
+  <!-- State 2: Wakeup ISR -->
+  <rect x="512" y="304" width="36" height="50" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="530" y="333" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">ISR</text>
+
+  <!-- State 3: Active Mode -->
+  <rect x="560" y="304" width="152" height="50" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="636" y="325" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Active Mode</text>
+  <text x="636" y="342" font-size="11" fill="#1a1a1a" text-anchor="middle">Burst Read + g-обробка</text>
+
+  <!-- State 4: Sleep -->
+  <rect x="724" y="304" width="166" height="50" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="807" y="325" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Sleep / Stop Mode</text>
+  <text x="807" y="342" font-size="11" fill="#6b7280" text-anchor="middle">Очікування порогу</text>
+
+  <!-- TRACK 5: Current Consumption Profile -->
+  <text x="40" y="405" font-size="13" font-weight="bold" fill="#1a1a1a">Струм I<tspan font-size="10" dy="3">CC</tspan></text>
+  <text x="40" y="425" font-size="12" fill="#6b7280">Профіль споживання</text>
+
+  <polygon points="240,450 512,450 516,395 720,395 724,450 890,450 890,465 240,465" fill="#e9f7ef" fill-opacity="0.6"/>
+  <path d="M 240,450 L 512,450 L 516,395 L 720,395 L 724,450 L 890,450" stroke="#27ae60" stroke-width="2.5" fill="none"/>
+
+  <text x="250" y="443" font-size="11" font-weight="bold" fill="#2457d6">I_sleep ≈ 10 µA (Sleep/Stop)</text>
+  <text x="640" y="386" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">Імпульс споживання: I_active ≈ 10 mA (~1.5 ms)</text>
+
+  <!-- TIME AXIS & SUMMARY -->
+  <line x1="240" y1="492" x2="880" y2="492" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+  <text x="890" y="496" font-size="12" font-weight="bold" fill="#1a1a1a">Час (t)</text>
+
+  <!-- Summary Box -->
+  <rect x="230" y="508" width="670" height="28" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="565" y="526" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Енергоефективність: CPU спить >98% часу, прокидаючись лише для burst-читання FIFO</text>
+</svg>

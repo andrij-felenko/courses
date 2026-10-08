@@ -1,0 +1,155 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Marker Definitions -->
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-left" markerWidth="9" markerHeight="9" refX="1" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-right" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Canvas Background -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Main Title & Subtitle -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Двофазний температурний цикл живлення MQ-7</text>
+  <text x="480" y="54" text-anchor="middle" font-size="13" fill="#6b7280">Висока напруга (5.0 В) очищує поверхню SnO₂, а низька (1.4 В) забезпечує селективність вимірювання CO</text>
+
+  <!-- Graph Panel -->
+  <rect x="40" y="75" width="880" height="220" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Shading for Phase 1 (0 to 60s) -->
+  <rect x="140" y="95" width="240" height="155" fill="#eaf0fd" fill-opacity="0.6"/>
+
+  <!-- Shading for Phase 2 (60 to 150s) -->
+  <rect x="380" y="95" width="360" height="155" fill="#e9f7ef" fill-opacity="0.6"/>
+
+  <!-- Sampling Window Highlight in Phase 2 (135 to 150s, i.e., 85..90s of Phase 2) -->
+  <rect x="680" y="95" width="60" height="155" fill="#27ae60" fill-opacity="0.2" stroke="#27ae60" stroke-dasharray="3,3" rx="4"/>
+
+  <!-- Shading for Next Cycle Phase 1 (150 to 180s) -->
+  <rect x="740" y="95" width="100" height="155" fill="#eaf0fd" fill-opacity="0.3"/>
+
+  <!-- Grid Reference Lines -->
+  <line x1="120" y1="120" x2="840" y2="120" stroke="#d0d7de" stroke-dasharray="4,4" stroke-width="1"/>
+  <line x1="120" y1="210" x2="840" y2="210" stroke="#d0d7de" stroke-dasharray="4,4" stroke-width="1"/>
+
+  <!-- Phase Boundary Vertical Lines -->
+  <line x1="380" y1="95" x2="380" y2="250" stroke="#6b7280" stroke-dasharray="3,3" stroke-width="1"/>
+  <line x1="740" y1="95" x2="740" y2="250" stroke="#6b7280" stroke-dasharray="3,3" stroke-width="1"/>
+
+  <!-- Waveform Path -->
+  <path d="M 140,120 L 380,120" stroke="#2457d6" stroke-width="3.5" fill="none"/>
+  <path d="M 380,120 L 380,210" stroke="#6b7280" stroke-width="2" stroke-dasharray="4,3" fill="none"/>
+  <path d="M 380,210 L 740,210" stroke="#27ae60" stroke-width="3.5" fill="none"/>
+  <path d="M 740,210 L 740,120" stroke="#6b7280" stroke-width="2" stroke-dasharray="4,3" fill="none"/>
+  <path d="M 740,120 L 840,120" stroke="#2457d6" stroke-width="3.5" fill="none"/>
+
+  <!-- Sampling Window Text and Arrow -->
+  <text x="670" y="140" text-anchor="middle" font-size="11" font-weight="bold" fill="#1e7e34">Замір V_out (CO)</text>
+  <line x1="670" y1="146" x2="670" y2="162" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <!-- Phase Labels inside Graph -->
+  <text x="260" y="108" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">ФАЗА 1: 5.0 В (60 с) — Очищення</text>
+  <text x="530" y="192" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">ФАЗА 2: 1.4 В (90 с) — Вимірювання CO</text>
+
+  <!-- Axes -->
+  <!-- Y-axis -->
+  <line x1="120" y1="250" x2="120" y2="95" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="110" y="90" text-anchor="end" font-size="13" font-weight="bold" fill="#1a1a1a">V_H (В)</text>
+
+  <!-- Y Ticks -->
+  <line x1="115" y1="120" x2="120" y2="120" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="110" y="124" text-anchor="end" font-size="12" font-weight="bold" fill="#2457d6">5.0 В</text>
+
+  <line x1="115" y1="210" x2="120" y2="210" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="110" y="214" text-anchor="end" font-size="12" font-weight="bold" fill="#27ae60">1.4 В</text>
+
+  <line x1="115" y1="250" x2="120" y2="250" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="110" y="254" text-anchor="end" font-size="12" fill="#6b7280">0.0 В</text>
+
+  <!-- X-axis -->
+  <line x1="120" y1="250" x2="855" y2="250" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="865" y="254" font-size="13" font-weight="bold" fill="#1a1a1a">t (с)</text>
+
+  <!-- X Ticks -->
+  <line x1="140" y1="250" x2="140" y2="255" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="140" y="268" text-anchor="middle" font-size="12" fill="#1a1a1a">0</text>
+
+  <line x1="380" y1="250" x2="380" y2="255" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="380" y="268" text-anchor="middle" font-size="12" fill="#1a1a1a">60 с</text>
+
+  <line x1="740" y1="250" x2="740" y2="255" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="740" y="268" text-anchor="middle" font-size="12" fill="#1a1a1a">150 с</text>
+
+  <line x1="840" y1="250" x2="840" y2="255" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="840" y="268" text-anchor="middle" font-size="12" fill="#1a1a1a">180 с</text>
+
+  <!-- Period T Dimension Arrow -->
+  <text x="440" y="279" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Повний період T = 150 с (60 с + 90 с)</text>
+  <line x1="140" y1="286" x2="300" y2="286" stroke="#1a1a1a" stroke-width="1.2" marker-start="url(#arr-left)"/>
+  <line x1="580" y1="286" x2="740" y2="286" stroke="#1a1a1a" stroke-width="1.2" marker-end="url(#arr-right)"/>
+
+  <!-- Lower Cards Section -->
+  <!-- Card 1: Phase 1 -->
+  <rect x="40" y="310" width="425" height="185" rx="8" fill="#f4f6f8" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="40" y="310" width="425" height="32" rx="6" fill="#2457d6"/>
+  <text x="252" y="331" text-anchor="middle" font-size="13" font-weight="bold" fill="white">ФАЗА 1: НАГРІВ ТА ОЧИЩЕННЯ (5.0 В / 60 с)</text>
+
+  <text x="55" y="362" font-size="12">
+    <tspan font-weight="bold" fill="#2457d6">Режим:</tspan>
+    <tspan fill="#1a1a1a"> Висока температура (~350°C – 400°C)</tspan>
+  </text>
+  <text x="55" y="386" font-size="12">
+    <tspan font-weight="bold" fill="#2457d6">Хімізм:</tspan>
+    <tspan fill="#1a1a1a"> Термічна десорбція газів та випалювання CO</tspan>
+  </text>
+  <text x="55" y="410" font-size="12">
+    <tspan font-weight="bold" fill="#2457d6">Реакція:</tspan>
+    <tspan fill="#1a1a1a"> 2CO + O₂⁻ → 2CO₂↑ + e⁻ (швидке очищення)</tspan>
+  </text>
+  <text x="55" y="434" font-size="12">
+    <tspan font-weight="bold" fill="#2457d6">Результат:</tspan>
+    <tspan fill="#1a1a1a"> Скидання стану поверхні, видалення вологи та H₂</tspan>
+  </text>
+  <text x="55" y="458" font-size="12">
+    <tspan font-weight="bold" fill="#c0392b">Статус:</tspan>
+    <tspan font-weight="bold" fill="#c0392b"> ⛔ Вимірювання заборонене (сигнал недійсний)</tspan>
+  </text>
+
+  <!-- Card 2: Phase 2 -->
+  <rect x="495" y="310" width="425" height="185" rx="8" fill="#f4f6f8" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="495" y="310" width="425" height="32" rx="6" fill="#27ae60"/>
+  <text x="707" y="331" text-anchor="middle" font-size="13" font-weight="bold" fill="white">ФАЗА 2: СЕЛЕКТИВНЕ ВИМІРЮВАННЯ CO (1.4 В / 90 с)</text>
+
+  <text x="510" y="362" font-size="12">
+    <tspan font-weight="bold" fill="#27ae60">Режим:</tspan>
+    <tspan fill="#1a1a1a"> Низька температура (~150°C)</tspan>
+  </text>
+  <text x="510" y="386" font-size="12">
+    <tspan font-weight="bold" fill="#27ae60">Хімізм:</tspan>
+    <tspan fill="#1a1a1a"> Адсорбція O₂⁻ та селективна реакція з CO</tspan>
+  </text>
+  <text x="510" y="410" font-size="12">
+    <tspan font-weight="bold" fill="#27ae60">Селективність:</tspan>
+    <tspan fill="#1a1a1a"> Енергії замало для H₂, але вистачає для CO</tspan>
+  </text>
+  <text x="510" y="434" font-size="12">
+    <tspan font-weight="bold" fill="#27ae60">Рівновага:</tspan>
+    <tspan fill="#1a1a1a"> 90 с потрібно для теплового стабілізування</tspan>
+  </text>
+  <text x="510" y="458" font-size="12">
+    <tspan font-weight="bold" fill="#27ae60">Статус:</tspan>
+    <tspan font-weight="bold" fill="#27ae60"> Зчитування R_s наприкінці фази (85–90 с)</tspan>
+  </text>
+</svg>

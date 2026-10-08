@@ -1,0 +1,144 @@
+<svg viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <marker id="arr-blue" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M 0,1 L 7,4 L 0,7 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-grey" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M 0,1 L 7,4 L 0,7 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-green" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M 0,1 L 7,4 L 0,7 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Підкладка полотна -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Заголовок та підзаголовок -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Тракт зчитування та компенсації даних BMP280 / BME280</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Пакетне зчитування регістрів ADC поєднується з коефіцієнтами NVM у послідовному математичному тракті</text>
+
+  <!-- Панель 1: Джерела даних (Лівий блок) -->
+  <rect x="30" y="75" width="275" height="440" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="45" y="98" font-size="14" font-weight="bold" fill="#1a1a1a">Джерела даних (I²C / SPI)</text>
+
+  <!-- Підблок 1A: Регістри ADC -->
+  <rect x="40" y="110" width="255" height="180" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="4"/>
+  <text x="50" y="128" font-size="12" font-weight="bold" fill="#1a1a1a">Регістри ADC (Burst Read 0xF7-0xFE)</text>
+
+  <rect x="50" y="136" width="235" height="38" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="3"/>
+  <text x="60" y="152" font-size="12" font-weight="bold" fill="#2457d6">0xF7..0xF9: adc_P</text>
+  <text x="60" y="167" font-size="11" fill="#6b7280">20 біт — Сирий тиск</text>
+
+  <rect x="50" y="182" width="235" height="38" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="3"/>
+  <text x="60" y="198" font-size="12" font-weight="bold" fill="#2457d6">0xFA..0xFC: adc_T</text>
+  <text x="60" y="213" font-size="11" fill="#6b7280">20 біт — Сира температура</text>
+
+  <rect x="50" y="228" width="235" height="38" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="3"/>
+  <text x="60" y="244" font-size="12" font-weight="bold" fill="#2457d6">0xFD..0xFE: adc_H</text>
+  <text x="60" y="259" font-size="11" fill="#6b7280">16 біт — Сира вологість (BME)</text>
+
+  <text x="50" y="281" font-size="11" fill="#6b7280">Пакетне читання 6–8 байт поспіль</text>
+
+  <!-- Підблок 1B: Калібрування NVM -->
+  <rect x="40" y="300" width="255" height="205" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="4"/>
+  <text x="50" y="318" font-size="12" font-weight="bold" fill="#1a1a1a">Пам'ять NVM (Калібрування 0x88..)</text>
+
+  <rect x="50" y="326" width="235" height="38" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="3"/>
+  <text x="60" y="342" font-size="12" font-weight="bold" fill="#1a1a1a">dig_T1 .. dig_T3</text>
+  <text x="60" y="357" font-size="11" fill="#6b7280">3 коефіцієнти температури</text>
+
+  <rect x="50" y="372" width="235" height="38" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="3"/>
+  <text x="60" y="388" font-size="12" font-weight="bold" fill="#1a1a1a">dig_P1 .. dig_P9</text>
+  <text x="60" y="403" font-size="11" fill="#6b7280">9 коефіцієнтів тиску</text>
+
+  <rect x="50" y="418" width="235" height="38" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="3"/>
+  <text x="60" y="434" font-size="12" font-weight="bold" fill="#1a1a1a">dig_H1 .. dig_H6</text>
+  <text x="60" y="449" font-size="11" fill="#6b7280">6 коефіцієнтів вологості (BME)</text>
+
+  <text x="50" y="490" font-size="11" fill="#6b7280">Зчитуються 1 раз під час ініціалізації</text>
+
+  <!-- Панель 2: Алгоритм компенсації (Центральний блок) -->
+  <rect x="330" y="75" width="370" height="440" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="345" y="98" font-size="14" font-weight="bold" fill="#1a1a1a">Алгоритм компенсації (ПО / MCU)</text>
+
+  <!-- Крок 1: Температура -->
+  <rect x="345" y="110" width="340" height="118" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="5"/>
+  <text x="358" y="128" font-size="13" font-weight="bold" fill="#2457d6">КРОК 1. Компенсація температури (Першочергово)</text>
+  <text x="358" y="145" font-size="11" fill="#1a1a1a">Входи: adc_T + (dig_T1, dig_T2, dig_T3)</text>
+
+  <rect x="358" y="153" width="314" height="66" fill="#ffffff" stroke="#2457d6" stroke-width="1" rx="4"/>
+  <text x="368" y="170" font-size="12" font-weight="bold" fill="#2457d6">Обчислення температури:</text>
+  <text x="368" y="187" font-size="11" fill="#1a1a1a">1) t_fine — тонке значення (вхід для P та H)</text>
+  <text x="368" y="204" font-size="11" font-weight="bold" fill="#27ae60">2) T = t_fine / 5120  (значення в °C)</text>
+
+  <!-- Крок 2A: Тиск -->
+  <rect x="345" y="240" width="340" height="122" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="5"/>
+  <text x="358" y="258" font-size="13" font-weight="bold" fill="#1a1a1a">КРОК 2A. Компенсація тиску</text>
+  <text x="358" y="275" font-size="11" fill="#1a1a1a">Входи: adc_P + dig_P1..P9 + t_fine (з Кроку 1)</text>
+  <text x="358" y="293" font-size="11" fill="#6b7280">Поліноміальна нелінійна корекція</text>
+
+  <rect x="358" y="322" width="314" height="28" fill="#e9f7ef" stroke="#27ae60" stroke-width="1" rx="3"/>
+  <text x="368" y="340" font-size="11" font-weight="bold" fill="#27ae60">Вихід: P (Тиск у Паскалях / гектопаскалях)</text>
+
+  <!-- Крок 2B: Вологість -->
+  <rect x="345" y="374" width="340" height="130" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="5"/>
+  <text x="358" y="392" font-size="13" font-weight="bold" fill="#1a1a1a">КРОК 2B. Компенсація вологості (BME280)</text>
+  <text x="358" y="409" font-size="11" fill="#1a1a1a">Входи: adc_H + dig_H1..H6 + t_fine (з Кроку 1)</text>
+  <text x="358" y="427" font-size="11" fill="#6b7280">Корекція нелінійності й температурного дрейфу</text>
+
+  <rect x="358" y="456" width="314" height="28" fill="#e9f7ef" stroke="#27ae60" stroke-width="1" rx="3"/>
+  <text x="368" y="474" font-size="11" font-weight="bold" fill="#27ae60">Вихід: H (Відносна вологість у %RH)</text>
+
+  <text x="358" y="496" font-size="11" fill="#6b7280">* для BMP280 цей крок пропускається</text>
+
+  <!-- Панель 3: Вихідні дані (Правий блок) -->
+  <rect x="725" y="75" width="205" height="440" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="6"/>
+  <text x="740" y="98" font-size="14" font-weight="bold" fill="#27ae60">Вихідні дані (Фізичні)</text>
+
+  <!-- Карточка 1: Температура -->
+  <rect x="737" y="110" width="181" height="118" fill="#ffffff" stroke="#27ae60" stroke-width="1" rx="4"/>
+  <text x="747" y="130" font-size="12" font-weight="bold" fill="#1a1a1a">Температура (T)</text>
+  <text x="747" y="158" font-size="20" font-weight="bold" fill="#27ae60">23.45 °C</text>
+  <text x="747" y="180" font-size="11" fill="#6b7280">T = t_fine / 5120</text>
+  <text x="747" y="200" font-size="11" fill="#6b7280">Точність: ±0.5 °C</text>
+
+  <!-- Карточка 2: Тиск -->
+  <rect x="737" y="240" width="181" height="118" fill="#ffffff" stroke="#27ae60" stroke-width="1" rx="4"/>
+  <text x="747" y="260" font-size="12" font-weight="bold" fill="#1a1a1a">Атмосферний тиск (P)</text>
+  <text x="747" y="288" font-size="20" font-weight="bold" fill="#27ae60">1013.25 гПа</text>
+  <text x="747" y="310" font-size="11" fill="#6b7280">101325 Па</text>
+  <text x="747" y="330" font-size="11" fill="#6b7280">Точність: ±1.0 гПа</text>
+
+  <!-- Карточка 3: Вологість -->
+  <rect x="737" y="370" width="181" height="134" fill="#ffffff" stroke="#27ae60" stroke-width="1" rx="4"/>
+  <text x="747" y="390" font-size="12" font-weight="bold" fill="#1a1a1a">Вологість (H)</text>
+  <text x="747" y="418" font-size="20" font-weight="bold" fill="#27ae60">48.5 %RH</text>
+  <text x="747" y="440" font-size="11" fill="#6b7280">Тільки BME280</text>
+  <text x="747" y="460" font-size="11" fill="#6b7280">(відсутня в BMP280)</text>
+  <text x="747" y="480" font-size="11" fill="#6b7280">Точність: ±3 %RH</text>
+
+  <!-- Стрілки зв'язків між блоками -->
+  <!-- 1. Сирі дані та коефіцієнти -> Крок 1 (Температура) -->
+  <path d="M 285,201 L 314,201 L 314,160 L 345,160" fill="none" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <path d="M 285,345 L 308,345 L 308,180 L 345,180" fill="none" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-grey)"/>
+
+  <!-- 2. Сирі дані та коефіцієнти -> Крок 2A (Тиск) -->
+  <path d="M 285,155 L 320,155 L 320,280 L 345,280" fill="none" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <path d="M 285,391 L 314,391 L 314,300 L 345,300" fill="none" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-grey)"/>
+
+  <!-- 3. Сирі дані та коефіцієнти -> Крок 2B (Вологість) -->
+  <path d="M 285,247 L 324,247 L 324,414 L 345,414" fill="none" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <path d="M 285,437 L 308,437 L 308,432 L 345,432" fill="none" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-grey)"/>
+
+  <!-- 4. Шина t_fine для Кроків 2A та 2B -->
+  <path d="M 672,187 L 708,187 L 708,414" fill="none" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <path d="M 708,280 L 685,280" fill="none" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <path d="M 708,414 L 685,414" fill="none" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="704" y="233" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="end">t_fine</text>
+
+  <!-- 5. Виходи алгоритмів -> Карточки результатів -->
+  <path d="M 685,170 L 737,170" fill="none" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <path d="M 685,336 L 737,336" fill="none" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <path d="M 685,470 L 737,470" fill="none" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+</svg>

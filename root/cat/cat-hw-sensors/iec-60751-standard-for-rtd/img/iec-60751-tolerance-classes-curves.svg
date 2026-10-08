@@ -1,0 +1,204 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- White Canvas Background -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Definitions -->
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="30" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Допустимі температурні відхилення RTD за стандартом IEC 60751</text>
+  <text x="480" y="50" font-size="13" fill="#6b7280" text-anchor="middle">Найвища точність — біля 0 °C; тонкоплівкові (F) та дротяні (W) сенсори мають різні діапазони</text>
+
+  <!-- LEFT PLOT AREA -->
+  <!-- Plot background grid rectangle -->
+  <rect x="75" y="95" width="560" height="340" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Horizontal Grid Lines -->
+  <line x1="75" y1="392.5" x2="635" y2="392.5" stroke="#f0f2f5" stroke-width="1"/>
+  <line x1="75" y1="350.0" x2="635" y2="350.0" stroke="#f0f2f5" stroke-width="1"/>
+  <line x1="75" y1="307.5" x2="635" y2="307.5" stroke="#f0f2f5" stroke-width="1"/>
+  <line x1="75" y1="265.0" x2="635" y2="265.0" stroke="#f0f2f5" stroke-width="1"/>
+  <line x1="75" y1="222.5" x2="635" y2="222.5" stroke="#f0f2f5" stroke-width="1"/>
+  <line x1="75" y1="180.0" x2="635" y2="180.0" stroke="#f0f2f5" stroke-width="1"/>
+  <line x1="75" y1="137.5" x2="635" y2="137.5" stroke="#f0f2f5" stroke-width="1"/>
+
+  <!-- Vertical Grid Lines -->
+  <line x1="145.0" y1="95" x2="145.0" y2="435" stroke="#f0f2f5" stroke-width="1"/>
+  <line x1="285.0" y1="95" x2="285.0" y2="435" stroke="#f0f2f5" stroke-width="1"/>
+  <line x1="355.0" y1="95" x2="355.0" y2="435" stroke="#f0f2f5" stroke-width="1"/>
+  <line x1="425.0" y1="95" x2="425.0" y2="435" stroke="#f0f2f5" stroke-width="1"/>
+  <line x1="495.0" y1="95" x2="495.0" y2="435" stroke="#f0f2f5" stroke-width="1"/>
+  <line x1="565.0" y1="95" x2="565.0" y2="435" stroke="#f0f2f5" stroke-width="1"/>
+
+  <!-- Highlighted vertical axis at t = 0 °C -->
+  <line x1="215.0" y1="95" x2="215.0" y2="435" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="4 4"/>
+  <text x="215.0" y="88" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">t = 0 °C</text>
+
+  <!-- Y-Axis Title -->
+  <text x="75" y="70" font-size="13" font-weight="bold" fill="#1a1a1a">Допуск похибки Δt (± °C)</text>
+
+  <!-- Y-Axis Ticks and Labels -->
+  <line x1="70" y1="435.0" x2="75" y2="435.0" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="67" y="439" font-size="12" fill="#6b7280" text-anchor="end">0.0</text>
+
+  <line x1="70" y1="392.5" x2="75" y2="392.5" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="67" y="396.5" font-size="12" fill="#6b7280" text-anchor="end">0.5</text>
+
+  <line x1="70" y1="350.0" x2="75" y2="350.0" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="67" y="354" font-size="12" fill="#6b7280" text-anchor="end">1.0</text>
+
+  <line x1="70" y1="307.5" x2="75" y2="307.5" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="67" y="311.5" font-size="12" fill="#6b7280" text-anchor="end">1.5</text>
+
+  <line x1="70" y1="265.0" x2="75" y2="265.0" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="67" y="269" font-size="12" fill="#6b7280" text-anchor="end">2.0</text>
+
+  <line x1="70" y1="222.5" x2="75" y2="222.5" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="67" y="226.5" font-size="12" fill="#6b7280" text-anchor="end">2.5</text>
+
+  <line x1="70" y1="180.0" x2="75" y2="180.0" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="67" y="184" font-size="12" fill="#6b7280" text-anchor="end">3.0</text>
+
+  <line x1="70" y1="137.5" x2="75" y2="137.5" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="67" y="141.5" font-size="12" fill="#6b7280" text-anchor="end">3.5</text>
+
+  <line x1="70" y1="95.0" x2="75" y2="95.0" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="67" y="99" font-size="12" fill="#6b7280" text-anchor="end">4.0</text>
+
+  <!-- X-Axis Ticks and Labels -->
+  <line x1="75.0" y1="435" x2="75.0" y2="440" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="75.0" y="452" font-size="12" fill="#6b7280" text-anchor="middle">-200</text>
+
+  <line x1="145.0" y1="435" x2="145.0" y2="440" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="145.0" y="452" font-size="12" fill="#6b7280" text-anchor="middle">-100</text>
+
+  <line x1="215.0" y1="435" x2="215.0" y2="440" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="215.0" y="452" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">0</text>
+
+  <line x1="285.0" y1="435" x2="285.0" y2="440" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="285.0" y="452" font-size="12" fill="#6b7280" text-anchor="middle">100</text>
+
+  <line x1="355.0" y1="435" x2="355.0" y2="440" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="355.0" y="452" font-size="12" fill="#6b7280" text-anchor="middle">200</text>
+
+  <line x1="425.0" y1="435" x2="425.0" y2="440" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="425.0" y="452" font-size="12" fill="#6b7280" text-anchor="middle">300</text>
+
+  <line x1="495.0" y1="435" x2="495.0" y2="440" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="495.0" y="452" font-size="12" fill="#6b7280" text-anchor="middle">400</text>
+
+  <line x1="565.0" y1="435" x2="565.0" y2="440" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="565.0" y="452" font-size="12" fill="#6b7280" text-anchor="middle">500</text>
+
+  <line x1="635.0" y1="435" x2="635.0" y2="440" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="635.0" y="452" font-size="12" fill="#6b7280" text-anchor="middle">600</text>
+
+  <!-- X-Axis Title -->
+  <text x="355" y="472" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Температура t (°C)</text>
+
+  <!-- TOLERANCE CURVES -->
+
+  <!-- Class C (#c0392b Red) -->
+  <!-- Wire-wound extended section (-196 to -50 °C) -->
+  <path d="M 77.8,217.4 L 180.0,341.5" stroke="#c0392b" stroke-width="2.5" stroke-dasharray="4 3" fill="none"/>
+  <!-- Standard/F range (-50 to +340 °C) -->
+  <path d="M 180.0,341.5 L 215.0,384.0 L 453.0,95.0" stroke="#c0392b" stroke-width="2.5" fill="none"/>
+  <text x="360" y="130" font-size="13" font-weight="bold" fill="#c0392b">Клас C</text>
+
+  <!-- Class B (#d97706 Amber) -->
+  <!-- Wire-wound extended section (-196 to -50 °C) -->
+  <path d="M 77.8,326.2 L 180.0,388.3" stroke="#d97706" stroke-width="2.5" stroke-dasharray="4 3" fill="none"/>
+  <!-- Standard/F range (-50 to +500 °C) -->
+  <path d="M 180.0,388.3 L 215.0,409.5 L 565.0,197.0" stroke="#d97706" stroke-width="2.5" fill="none"/>
+  <!-- Wire-wound extended section (+500 to +600 °C) -->
+  <path d="M 565.0,197.0 L 635.0,154.5" stroke="#d97706" stroke-width="2.5" stroke-dasharray="4 3" fill="none"/>
+  <text x="505" y="170" font-size="13" font-weight="bold" fill="#d97706">Клас B</text>
+
+  <!-- Class A (#059669 Green) -->
+  <!-- Wire-wound extended section (-100 to -30 °C) -->
+  <path d="M 145.0,405.3 L 194.0,417.2" stroke="#059669" stroke-width="2.5" stroke-dasharray="4 3" fill="none"/>
+  <!-- Standard/F range (-30 to +300 °C) -->
+  <path d="M 194.0,417.2 L 215.0,422.3 L 425.0,371.3" stroke="#059669" stroke-width="2.5" fill="none"/>
+  <!-- Wire-wound extended section (+300 to +450 °C) -->
+  <path d="M 425.0,371.3 L 530.0,345.8" stroke="#059669" stroke-width="2.5" stroke-dasharray="4 3" fill="none"/>
+  <text x="435" y="330" font-size="13" font-weight="bold" fill="#059669">Клас A</text>
+
+  <!-- Class AA (#2457d6 Blue) -->
+  <!-- Wire-wound extended section (-50 to 0 °C) -->
+  <path d="M 180.0,419.3 L 215.0,426.5" stroke="#2457d6" stroke-width="2.5" stroke-dasharray="4 3" fill="none"/>
+  <!-- Standard/F range (0 to +150 °C) -->
+  <path d="M 215.0,426.5 L 320.0,404.8" stroke="#2457d6" stroke-width="2.5" fill="none"/>
+  <!-- Wire-wound extended section (+150 to +250 °C) -->
+  <path d="M 320.0,404.8 L 390.0,390.4" stroke="#2457d6" stroke-width="2.5" stroke-dasharray="4 3" fill="none"/>
+  <text x="360" y="422" font-size="13" font-weight="bold" fill="#2457d6">Клас AA</text>
+
+  <!-- Dots at t = 0 °C -->
+  <circle cx="215.0" cy="426.5" r="4" fill="#2457d6"/>
+  <circle cx="215.0" cy="422.3" r="4" fill="#059669"/>
+  <circle cx="215.0" cy="409.5" r="4" fill="#d97706"/>
+  <circle cx="215.0" cy="384.0" r="4" fill="#c0392b"/>
+
+  <!-- BOTTOM SUMMARY BAR BELOW PLOT -->
+  <rect x="75" y="488" width="560" height="44" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="85" y="503" font-size="12" font-weight="bold" fill="#1a1a1a">Похибка при 0 °C (мінімальна у всьому діапазоні):</text>
+  <text x="85" y="522" font-size="12" font-weight="bold" fill="#2457d6">AA: ±0.10 °C</text>
+  <text x="210" y="522" font-size="12" font-weight="bold" fill="#059669">A: ±0.15 °C</text>
+  <text x="340" y="522" font-size="12" font-weight="bold" fill="#d97706">B: ±0.30 °C</text>
+  <text x="470" y="522" font-size="12" font-weight="bold" fill="#c0392b">C: ±0.60 °C</text>
+
+  <!-- RIGHT PANEL -->
+  <rect x="655" y="70" width="285" height="465" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <text x="670" y="96" font-size="14" font-weight="bold" fill="#1a1a1a">Класи та формули IEC 60751</text>
+
+  <!-- Class AA Box -->
+  <rect x="670" y="110" width="62" height="20" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="701" y="124" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Клас AA</text>
+  <text x="742" y="124" font-size="12" font-weight="bold" fill="#1a1a1a">Δt = ±(0.10 + 0.0017·|t|)</text>
+  <text x="670" y="146" font-size="12" fill="#4b5563">• F (тонкоплівкові): 0…+150 °C</text>
+  <text x="670" y="162" font-size="12" fill="#4b5563">• W (дротяні): -50…+250 °C</text>
+
+  <!-- Class A Box -->
+  <rect x="670" y="176" width="62" height="20" rx="4" fill="#e9f7ef" stroke="#059669" stroke-width="1"/>
+  <text x="701" y="190" font-size="12" font-weight="bold" fill="#059669" text-anchor="middle">Клас A</text>
+  <text x="742" y="190" font-size="12" font-weight="bold" fill="#1a1a1a">Δt = ±(0.15 + 0.0020·|t|)</text>
+  <text x="670" y="212" font-size="12" fill="#4b5563">• F (тонкоплівкові): -30…+300 °C</text>
+  <text x="670" y="228" font-size="12" fill="#4b5563">• W (дротяні): -100…+450 °C</text>
+
+  <!-- Class B Box -->
+  <rect x="670" y="242" width="62" height="20" rx="4" fill="#fffbeb" stroke="#d97706" stroke-width="1"/>
+  <text x="701" y="256" font-size="12" font-weight="bold" fill="#d97706" text-anchor="middle">Клас B</text>
+  <text x="742" y="256" font-size="12" font-weight="bold" fill="#1a1a1a">Δt = ±(0.30 + 0.0050·|t|)</text>
+  <text x="670" y="278" font-size="12" fill="#4b5563">• F (тонкоплівкові): -50…+500 °C</text>
+  <text x="670" y="294" font-size="12" fill="#4b5563">• W (дротяні): -196…+600 °C</text>
+
+  <!-- Class C Box -->
+  <rect x="670" y="308" width="62" height="20" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="701" y="322" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Клас C</text>
+  <text x="742" y="322" font-size="12" font-weight="bold" fill="#1a1a1a">Δt = ±(0.60 + 0.0100·|t|)</text>
+  <text x="670" y="344" font-size="12" fill="#4b5563">• F (тонкоплівкові): -50…+600 °C</text>
+  <text x="670" y="360" font-size="12" fill="#4b5563">• W (дротяні): -196…+600 °C</text>
+
+  <line x1="670" y1="372" x2="925" y2="372" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Legend Section -->
+  <line x1="670" y1="388" x2="705" y2="388" stroke="#1a1a1a" stroke-width="2.5"/>
+  <text x="715" y="392" font-size="12" fill="#1a1a1a">Суцільна: спільний / F діапазон</text>
+
+  <line x1="670" y1="408" x2="705" y2="408" stroke="#1a1a1a" stroke-width="2.5" stroke-dasharray="4 3"/>
+  <text x="715" y="412" font-size="12" fill="#1a1a1a">Пунктир: розширення для W</text>
+
+  <!-- Key takeaways Card -->
+  <rect x="670" y="426" width="255" height="95" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="682" y="444" font-size="12" font-weight="bold" fill="#2457d6">Особливості IEC 60751:</text>
+  <text x="682" y="462" font-size="12" fill="#1a1a1a">• Найвища точність при t = 0 °C</text>
+  <text x="682" y="480" font-size="12" fill="#1a1a1a">• Похибка зростає лінійно з |t|</text>
+  <text x="682" y="498" font-size="12" fill="#1a1a1a">• W-сенсори термостійкіші за F</text>
+</svg>

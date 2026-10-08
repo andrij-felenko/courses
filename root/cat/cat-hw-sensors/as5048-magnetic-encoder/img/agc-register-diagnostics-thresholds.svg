@@ -1,0 +1,121 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- White Background -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Definitions & Markers -->
+  <defs>
+    <marker id="arr-black" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Діагностика AS5048: залежність регістра AGC від повітряного зазору</text>
+  <text x="480" y="57" font-size="13" fill="#6b7280" text-anchor="middle">Порогові прапорці COMPH і COMPL виявляють механічний зсув магніту та збої поля</text>
+
+  <!-- Graph Background Regions -->
+  <!-- Region 1: Too Close / COMPH=1 -->
+  <rect x="140" y="90" width="180" height="260" fill="#fdecea" fill-opacity="0.6"/>
+  <!-- Region 2: Normal Range -->
+  <rect x="320" y="90" width="360" height="260" fill="#e9f7ef" fill-opacity="0.7"/>
+  <!-- Region 3: Too Far / COMPL=1 -->
+  <rect x="680" y="90" width="180" height="260" fill="#fdecea" fill-opacity="0.6"/>
+
+  <!-- Grid Lines & Boundaries -->
+  <line x1="320" y1="90" x2="320" y2="350" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <line x1="680" y1="90" x2="680" y2="350" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <line x1="140" y1="90" x2="860" y2="90" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="140" y1="220" x2="860" y2="220" stroke="#e0e6ed" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="140" y1="350" x2="860" y2="350" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Status Cards Inside Regions -->
+  <!-- Region 1 Card -->
+  <rect x="152" y="102" width="156" height="75" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+  <rect x="158" y="108" width="144" height="22" rx="4" fill="#c0392b"/>
+  <text x="230" y="123" font-size="11" font-weight="bold" fill="#ffffff" text-anchor="middle">COMPH = 1 | COMPL = 0</text>
+  <text x="230" y="147" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Магніт заблизько</text>
+  <text x="230" y="164" font-size="11" fill="#6b7280" text-anchor="middle">B &gt; B_max (AGC = 0)</text>
+
+  <!-- Region 2 Card -->
+  <rect x="380" y="102" width="240" height="75" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="390" y="108" width="220" height="22" rx="4" fill="#27ae60"/>
+  <text x="500" y="123" font-size="11" font-weight="bold" fill="#ffffff" text-anchor="middle">COMPH = 0 | COMPL = 0</text>
+  <text x="500" y="147" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Оптимальна робота AGC</text>
+  <text x="500" y="164" font-size="11" fill="#6b7280" text-anchor="middle">B_min ≤ B ≤ B_max (1..254)</text>
+
+  <!-- Region 3 Card -->
+  <rect x="692" y="102" width="156" height="75" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+  <rect x="700" y="108" width="140" height="22" rx="4" fill="#c0392b"/>
+  <text x="770" y="123" font-size="11" font-weight="bold" fill="#ffffff" text-anchor="middle">COMPH = 0 | COMPL = 1</text>
+  <text x="770" y="147" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Магніт задалеко</text>
+  <text x="770" y="164" font-size="11" fill="#6b7280" text-anchor="middle">B &lt; B_min (AGC = 255)</text>
+
+  <!-- Curve Label Box -->
+  <rect x="440" y="222" width="150" height="22" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+  <text x="515" y="237" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">Крива регулювання AGC</text>
+
+  <!-- Main AGC Characteristic Curve -->
+  <path d="M 140,350 L 320,350 C 400,350 600,90 680,90 L 860,90" stroke="#2457d6" stroke-width="3.5" fill="none"/>
+
+  <!-- Threshold Boundary Dots -->
+  <circle cx="320" cy="350" r="5" fill="#2457d6" stroke="#ffffff" stroke-width="2"/>
+  <circle cx="680" cy="90" r="5" fill="#2457d6" stroke="#ffffff" stroke-width="2"/>
+
+  <!-- Y-Axis & Labels -->
+  <line x1="140" y1="350" x2="140" y2="78" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr-black)"/>
+  <text x="140" y="70" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Регістр AGC [0..255]</text>
+
+  <!-- Y-Axis Ticks -->
+  <line x1="134" y1="90" x2="140" y2="90" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="128" y="93" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">255 (0xFF)</text>
+  <text x="128" y="107" font-size="11" fill="#6b7280" text-anchor="end">Макс. підсилення</text>
+
+  <line x1="134" y1="220" x2="140" y2="220" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="128" y="224" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">128 (0x80)</text>
+
+  <line x1="134" y1="350" x2="140" y2="350" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="128" y="348" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">0 (0x00)</text>
+  <text x="128" y="362" font-size="11" fill="#6b7280" text-anchor="end">Мін. підсилення</text>
+
+  <!-- X-Axis & Labels -->
+  <line x1="140" y1="350" x2="880" y2="350" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr-black)"/>
+
+  <!-- X-Axis Ticks -->
+  <line x1="320" y1="350" x2="320" y2="356" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="320" y="369" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="middle">z_min ≈ 0.5 мм</text>
+  <text x="320" y="382" font-size="11" fill="#6b7280" text-anchor="middle">(B_max ≈ 70 мТл)</text>
+
+  <line x1="680" y1="350" x2="680" y2="356" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="680" y="369" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="middle">z_max ≈ 2.5 мм</text>
+  <text x="680" y="382" font-size="11" fill="#6b7280" text-anchor="middle">(B_min ≈ 30 мТл)</text>
+
+  <!-- X-Axis Main Titles -->
+  <text x="500" y="401" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Повітряний зазор z (мм)</text>
+  <text x="500" y="416" font-size="11" fill="#6b7280" text-anchor="middle">Магнітна індукція B (мТл) зменшується зі зростанням зазору z</text>
+
+  <!-- Bottom Diagnostic Summary Panel -->
+  <rect x="40" y="435" width="880" height="100" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="60" y="454" font-size="12" font-weight="bold" fill="#1a1a1a">Діагностика та дія системи за прапорцями регістра:</text>
+
+  <!-- Panel Sub-boxes -->
+  <!-- Box 1 -->
+  <rect x="60" y="462" width="265" height="63" rx="5" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="72" y="478" font-size="11" font-weight="bold" fill="#c0392b">COMPH = 1 (Перенасичення)</text>
+  <text x="72" y="493" font-size="11" fill="#1a1a1a">• Збільшити зазор z між магнітом і ІС</text>
+  <text x="72" y="508" font-size="11" fill="#6b7280">• Перевірити намагніченість (B &gt; 70 мТл)</text>
+
+  <!-- Box 2 -->
+  <rect x="347" y="462" width="266" height="63" rx="5" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="359" y="478" font-size="11" font-weight="bold" fill="#27ae60">COMPH = 0, COMPL = 0 (Оптимум)</text>
+  <text x="359" y="493" font-size="11" fill="#1a1a1a">• Дані кута CORDIC 14-біт дійсно точні</text>
+  <text x="359" y="508" font-size="11" fill="#6b7280">• Авторегуляція AGC у реальному часі</text>
+
+  <!-- Box 3 -->
+  <rect x="635" y="462" width="265" height="63" rx="5" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="647" y="478" font-size="11" font-weight="bold" fill="#c0392b">COMPL = 1 (Слабкий сигнал)</text>
+  <text x="647" y="493" font-size="11" fill="#1a1a1a">• Зменшити зазор z (наблизити магніт)</text>
+  <text x="647" y="508" font-size="11" fill="#6b7280">• Перевірити зсув осі (B &lt; 30 мТл)</text>
+</svg>

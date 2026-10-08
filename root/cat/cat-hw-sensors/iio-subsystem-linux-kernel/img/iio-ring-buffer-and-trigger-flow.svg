@@ -1,0 +1,156 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <defs>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Потік даних та часова діаграма тригерів в підсистемі IIO</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Апаратний тригер фіксує timestamp у Top Half і передає зчитані вибірки каналів у кільцевий буфер</text>
+
+  <!-- PANEL A: Trigger Source -->
+  <rect x="30" y="75" width="180" height="195" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="120" y="95" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Джерело тригера</text>
+  
+  <rect x="42" y="108" width="156" height="68" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="120" y="126" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">HW IRQ (DRDY Pin)</text>
+  <text x="120" y="144" font-size="12" fill="#6b7280" text-anchor="middle">Сигнал готовності</text>
+  <text x="120" y="160" font-size="12" fill="#6b7280" text-anchor="middle">даних давача</text>
+
+  <rect x="42" y="184" width="156" height="74" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="120" y="204" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">hrtimer Trigger</text>
+  <text x="120" y="222" font-size="12" fill="#6b7280" text-anchor="middle">Програмний таймер</text>
+  <text x="120" y="238" font-size="12" fill="#6b7280" text-anchor="middle">ядра Linux</text>
+
+  <!-- Arrow A -> B -->
+  <line x1="210" y1="172" x2="245" y2="172" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- PANEL B: Kernel IRQ Handlers -->
+  <rect x="255" y="75" width="265" height="195" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="387" y="95" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Обробка переривання в ядрі</text>
+
+  <rect x="267" y="108" width="241" height="68" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="387" y="126" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Top Half (Hard IRQ)</text>
+  <text x="387" y="144" font-size="12" fill="#1a1a1a" text-anchor="middle">ts = iio_get_time_ns()</text>
+  <text x="387" y="160" font-size="12" fill="#6b7280" text-anchor="middle">Фіксація часу вибірки</text>
+
+  <line x1="387" y1="176" x2="387" y2="182" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <rect x="267" y="184" width="241" height="74" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="387" y="202" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Bottom Half (Threaded IRQ)</text>
+  <text x="387" y="220" font-size="12" fill="#1a1a1a" text-anchor="middle">Зчитування SPI/I2C каналів</text>
+  <text x="387" y="238" font-size="12" fill="#1a1a1a" text-anchor="middle">iio_push_to_buffers_with_timestamp()</text>
+
+  <!-- Arrow B -> C -->
+  <line x1="520" y1="172" x2="550" y2="172" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- PANEL C: iio_buffer & Frame structure -->
+  <rect x="560" y="75" width="200" height="195" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="660" y="95" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Кільцевий буфер iio_buffer</text>
+  <text x="660" y="112" font-size="12" fill="#6b7280" text-anchor="middle">Кадр вибірки (scan element):</text>
+
+  <rect x="570" y="120" width="40" height="28" rx="3" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="590" y="138" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Ch 0</text>
+
+  <rect x="613" y="120" width="40" height="28" rx="3" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="633" y="138" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Ch 1</text>
+
+  <rect x="656" y="120" width="40" height="28" rx="3" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="676" y="138" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Ch 2</text>
+
+  <rect x="699" y="120" width="51" height="28" rx="3" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="724" y="138" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">TS (64b)</text>
+
+  <rect x="570" y="156" width="180" height="102" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <rect x="576" y="164" width="168" height="24" rx="3" fill="#ffffff" stroke="#d0d7de" stroke-dasharray="2,2"/>
+  <text x="660" y="180" font-size="12" fill="#6b7280" text-anchor="middle">Кадр #N-2 (прочитано)</text>
+
+  <rect x="576" y="193" width="168" height="24" rx="3" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="660" y="209" font-size="12" fill="#2457d6" text-anchor="middle">Кадр #N-1 [Ch0,Ch1,Ch2,TS]</text>
+
+  <rect x="576" y="222" width="168" height="26" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="660" y="239" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Новий кадр #N [ push ]</text>
+
+  <!-- Arrow C -> D -->
+  <line x1="760" y1="172" x2="785" y2="172" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- PANEL D: Userspace -->
+  <rect x="795" y="75" width="135" height="195" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="862" y="95" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Простір користувача</text>
+
+  <rect x="803" y="108" width="119" height="48" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="862" y="126" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">/dev/iio:device0</text>
+  <text x="862" y="144" font-size="12" fill="#6b7280" text-anchor="middle">символьний пристрій</text>
+
+  <rect x="803" y="164" width="119" height="94" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="862" y="182" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">libiio / App</text>
+  <text x="862" y="200" font-size="12" fill="#1a1a1a" text-anchor="middle">poll() -> POLLIN</text>
+  <text x="862" y="218" font-size="12" fill="#1a1a1a" text-anchor="middle">read(fd, buf)</text>
+  <text x="862" y="236" font-size="12" fill="#1a1a1a" text-anchor="middle">Обробка вибірок</text>
+  <text x="862" y="250" font-size="12" fill="#6b7280" text-anchor="middle">із timestamp</text>
+
+  <!-- BOTTOM SECTION: TIMING DIAGRAM -->
+  <rect x="30" y="285" width="900" height="235" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="480" y="307" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Часова діаграма обробки події тригера (Timing &amp; Execution Flow)</text>
+
+  <!-- t0 Vertical reference line -->
+  <line x1="220" y1="328" x2="220" y2="495" stroke="#c0392b" stroke-dasharray="3,3" stroke-width="1.5"/>
+  <rect x="175" y="313" width="90" height="18" rx="3" fill="#fdecea" stroke="#c0392b"/>
+  <text x="220" y="326" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">t₀: IRQ фронт</text>
+
+  <!-- Track Labels -->
+  <text x="170" y="345" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">HW IRQ (DRDY)</text>
+  <text x="170" y="388" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">Контекст ЦПУ</text>
+  <text x="170" y="431" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">Шина SPI/I2C</text>
+  <text x="170" y="474" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">Буфер / App</text>
+
+  <!-- Track 1: HW IRQ Signal -->
+  <path d="M180,347 L220,347 L220,332 L250,332 L250,347 L880,347" stroke="#c0392b" stroke-width="2" fill="none"/>
+
+  <!-- Track 2: CPU Context -->
+  <text x="255" y="363" font-size="12" fill="#c0392b" text-anchor="middle">ts_captured</text>
+  <rect x="220" y="370" width="70" height="26" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="255" y="387" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Top Half</text>
+
+  <rect x="290" y="370" width="60" height="26" rx="3" fill="#ffffff" stroke="#d0d7de" stroke-dasharray="2,2"/>
+  <text x="320" y="387" font-size="12" fill="#6b7280" text-anchor="middle">затримка</text>
+
+  <rect x="350" y="370" width="300" height="26" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="500" y="387" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Bottom Half (kthread IRQ обробник)</text>
+
+  <rect x="650" y="370" width="90" height="26" rx="3" fill="#ffffff" stroke="#d0d7de" stroke-dasharray="2,2"/>
+  <text x="695" y="387" font-size="12" fill="#6b7280" text-anchor="middle">перехід uspace</text>
+
+  <rect x="740" y="370" width="130" height="26" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="805" y="387" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Userspace Process</text>
+
+  <!-- Track 3: Bus Transfer -->
+  <line x1="180" y1="426" x2="370" y2="426" stroke="#d0d7de" stroke-dasharray="2,2"/>
+  <rect x="370" y="413" width="250" height="26" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="495" y="430" font-size="12" fill="#2457d6" text-anchor="middle">Зчитування каналів Ch0, Ch1, Ch2 (SPI)</text>
+  <line x1="620" y1="426" x2="880" y2="426" stroke="#d0d7de" stroke-dasharray="2,2"/>
+
+  <!-- Track 4: Buffer / App Event -->
+  <line x1="630" y1="396" x2="630" y2="495" stroke="#27ae60" stroke-dasharray="2,2"/>
+  <rect x="610" y="456" width="125" height="26" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="672" y="473" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">iio_push + POLLIN</text>
+
+  <rect x="740" y="456" width="130" height="26" rx="3" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="805" y="473" font-size="12" fill="#27ae60" text-anchor="middle">read() з iio_buffer</text>
+
+  <!-- Time Axis Line -->
+  <line x1="180" y1="498" x2="885" y2="498" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+  <text x="885" y="514" font-size="12" fill="#6b7280" text-anchor="end">Час (t)</text>
+</svg>

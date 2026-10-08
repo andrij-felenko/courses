@@ -1,0 +1,225 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Маркери стрілок -->
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Порівняння двійкового коду та коду Ґрея в абсолютних енкодерах</text>
+  <text x="480" y="60" font-size="13" fill="#6b7280" text-anchor="middle">Код Ґрея змінює лише один біт між сусідніми секторами, усуваючи зчитувальні глітчі</text>
+
+  <!-- ЛІВА ПАНЕЛЬ: ДВІЙКОВИЙ КОД -->
+  <rect x="40" y="80" width="425" height="350" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="252" y="108" font-size="15" font-weight="bold" fill="#c0392b" text-anchor="middle">Прямий двійковий код (Binary Code)</text>
+  <text x="252" y="126" font-size="12" fill="#6b7280" text-anchor="middle">Зміна кількох бітів одночасно (ризик глітчів)</text>
+
+  <!-- Підпис колонок (секторів) у лівій панелі -->
+  <text x="115" y="148" font-size="12" fill="#6b7280" text-anchor="middle">0</text>
+  <text x="155" y="148" font-size="12" fill="#6b7280" text-anchor="middle">1</text>
+  <text x="195" y="148" font-size="12" fill="#6b7280" text-anchor="middle">2</text>
+  <text x="235" y="148" font-size="12" fill="#6b7280" text-anchor="middle">3</text>
+  <text x="275" y="148" font-size="12" fill="#6b7280" text-anchor="middle">4</text>
+  <text x="315" y="148" font-size="12" fill="#6b7280" text-anchor="middle">5</text>
+  <text x="355" y="148" font-size="12" fill="#6b7280" text-anchor="middle">6</text>
+  <text x="395" y="148" font-size="12" fill="#6b7280" text-anchor="middle">7</text>
+
+  <!-- Назви доріжок у лівій панелі -->
+  <text x="90" y="181" font-size="12" fill="#1a1a1a" text-anchor="end">b₂</text>
+  <text x="90" y="211" font-size="12" fill="#1a1a1a" text-anchor="end">b₁</text>
+  <text x="90" y="241" font-size="12" fill="#1a1a1a" text-anchor="end">b₀</text>
+
+  <!-- Доріжка b2 (MSB) -->
+  <rect x="95" y="165" width="40" height="24" fill="#ffffff" stroke="#d0d7de"/>
+  <rect x="135" y="165" width="40" height="24" fill="#ffffff" stroke="#d0d7de"/>
+  <rect x="175" y="165" width="40" height="24" fill="#ffffff" stroke="#d0d7de"/>
+  <rect x="215" y="165" width="40" height="24" fill="#ffffff" stroke="#d0d7de"/>
+  <rect x="255" y="165" width="40" height="24" fill="#1a1a1a" stroke="#1a1a1a"/>
+  <rect x="295" y="165" width="40" height="24" fill="#1a1a1a" stroke="#1a1a1a"/>
+  <rect x="335" y="165" width="40" height="24" fill="#1a1a1a" stroke="#1a1a1a"/>
+  <rect x="375" y="165" width="40" height="24" fill="#1a1a1a" stroke="#1a1a1a"/>
+
+  <text x="115" y="181" font-size="12" fill="#6b7280" text-anchor="middle">0</text>
+  <text x="155" y="181" font-size="12" fill="#6b7280" text-anchor="middle">0</text>
+  <text x="195" y="181" font-size="12" fill="#6b7280" text-anchor="middle">0</text>
+  <text x="235" y="181" font-size="12" fill="#6b7280" text-anchor="middle">0</text>
+  <text x="275" y="181" font-size="12" fill="#ffffff" text-anchor="middle">1</text>
+  <text x="315" y="181" font-size="12" fill="#ffffff" text-anchor="middle">1</text>
+  <text x="355" y="181" font-size="12" fill="#ffffff" text-anchor="middle">1</text>
+  <text x="395" y="181" font-size="12" fill="#ffffff" text-anchor="middle">1</text>
+
+  <!-- Доріжка b1 -->
+  <rect x="95" y="195" width="40" height="24" fill="#ffffff" stroke="#d0d7de"/>
+  <rect x="135" y="195" width="40" height="24" fill="#ffffff" stroke="#d0d7de"/>
+  <rect x="175" y="195" width="40" height="24" fill="#1a1a1a" stroke="#1a1a1a"/>
+  <rect x="215" y="195" width="40" height="24" fill="#1a1a1a" stroke="#1a1a1a"/>
+  <rect x="255" y="195" width="40" height="24" fill="#ffffff" stroke="#d0d7de"/>
+  <rect x="295" y="195" width="40" height="24" fill="#ffffff" stroke="#d0d7de"/>
+  <rect x="335" y="195" width="40" height="24" fill="#1a1a1a" stroke="#1a1a1a"/>
+  <rect x="375" y="195" width="40" height="24" fill="#1a1a1a" stroke="#1a1a1a"/>
+
+  <text x="115" y="211" font-size="12" fill="#6b7280" text-anchor="middle">0</text>
+  <text x="155" y="211" font-size="12" fill="#6b7280" text-anchor="middle">0</text>
+  <text x="195" y="211" font-size="12" fill="#ffffff" text-anchor="middle">1</text>
+  <text x="235" y="211" font-size="12" fill="#ffffff" text-anchor="middle">1</text>
+  <text x="275" y="211" font-size="12" fill="#6b7280" text-anchor="middle">0</text>
+  <text x="315" y="211" font-size="12" fill="#6b7280" text-anchor="middle">0</text>
+  <text x="355" y="211" font-size="12" fill="#ffffff" text-anchor="middle">1</text>
+  <text x="395" y="211" font-size="12" fill="#ffffff" text-anchor="middle">1</text>
+
+  <!-- Доріжка b0 (LSB) -->
+  <rect x="95" y="225" width="40" height="24" fill="#ffffff" stroke="#d0d7de"/>
+  <rect x="135" y="225" width="40" height="24" fill="#1a1a1a" stroke="#1a1a1a"/>
+  <rect x="175" y="225" width="40" height="24" fill="#ffffff" stroke="#d0d7de"/>
+  <rect x="215" y="225" width="40" height="24" fill="#1a1a1a" stroke="#1a1a1a"/>
+  <rect x="255" y="225" width="40" height="24" fill="#ffffff" stroke="#d0d7de"/>
+  <rect x="295" y="225" width="40" height="24" fill="#1a1a1a" stroke="#1a1a1a"/>
+  <rect x="335" y="225" width="40" height="24" fill="#ffffff" stroke="#d0d7de"/>
+  <rect x="375" y="225" width="40" height="24" fill="#1a1a1a" stroke="#1a1a1a"/>
+
+  <text x="115" y="241" font-size="12" fill="#6b7280" text-anchor="middle">0</text>
+  <text x="155" y="241" font-size="12" fill="#ffffff" text-anchor="middle">1</text>
+  <text x="195" y="241" font-size="12" fill="#6b7280" text-anchor="middle">0</text>
+  <text x="235" y="241" font-size="12" fill="#ffffff" text-anchor="middle">1</text>
+  <text x="275" y="241" font-size="12" fill="#6b7280" text-anchor="middle">0</text>
+  <text x="315" y="241" font-size="12" fill="#ffffff" text-anchor="middle">1</text>
+  <text x="355" y="241" font-size="12" fill="#6b7280" text-anchor="middle">0</text>
+  <text x="395" y="241" font-size="12" fill="#ffffff" text-anchor="middle">1</text>
+
+  <!-- Кодові значення внизу доріжок -->
+  <text x="115" y="268" font-size="12" fill="#1a1a1a" text-anchor="middle">000</text>
+  <text x="155" y="268" font-size="12" fill="#1a1a1a" text-anchor="middle">001</text>
+  <text x="195" y="268" font-size="12" fill="#1a1a1a" text-anchor="middle">010</text>
+  <text x="235" y="268" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">011</text>
+  <text x="275" y="268" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">100</text>
+  <text x="315" y="268" font-size="12" fill="#1a1a1a" text-anchor="middle">101</text>
+  <text x="355" y="268" font-size="12" fill="#1a1a1a" text-anchor="middle">110</text>
+  <text x="395" y="268" font-size="12" fill="#1a1a1a" text-anchor="middle">111</text>
+
+  <!-- Підсвітка критичного переходу 3 -> 4 у двійковому коді -->
+  <rect x="213" y="156" width="84" height="118" rx="4" fill="#fdecea" fill-opacity="0.4" stroke="#c0392b" stroke-width="2" stroke-dasharray="4 2"/>
+  <text x="255" y="282" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">Δ = 3 біти!</text>
+
+  <!-- Блок пояснення помилки лівої панелі -->
+  <rect x="55" y="290" width="395" height="125" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="70" y="314" font-size="13" font-weight="bold" fill="#c0392b">Перехід 3 → 4 (011₂ → 100₂):</text>
+  <text x="70" y="336" font-size="12" fill="#1a1a1a">• Змінюються УСІ 3 біти одночасно</text>
+  <text x="70" y="358" font-size="12" fill="#1a1a1a">• При мікронезсуві датчиків виникає глітч:</text>
+  <text x="70" y="380" font-size="12" font-weight="bold" fill="#c0392b">  011 → [111 (7) або 000 (0)] → 100</text>
+  <text x="70" y="402" font-size="12" fill="#c0392b">  (Величезна стрибкоподібна помилка!)</text>
+
+  <!-- ПРАВА ПАНЕЛЬ: КОД ҐРЕЯ -->
+  <rect x="495" y="80" width="425" height="350" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="707" y="108" font-size="15" font-weight="bold" fill="#27ae60" text-anchor="middle">Код Ґрея (Gray Code)</text>
+  <text x="707" y="126" font-size="12" fill="#6b7280" text-anchor="middle">Зміна лише 1 біта при кожному переході</text>
+
+  <!-- Підпис колонок (секторів) у правій панелі -->
+  <text x="570" y="148" font-size="12" fill="#6b7280" text-anchor="middle">0</text>
+  <text x="610" y="148" font-size="12" fill="#6b7280" text-anchor="middle">1</text>
+  <text x="650" y="148" font-size="12" fill="#6b7280" text-anchor="middle">2</text>
+  <text x="690" y="148" font-size="12" fill="#6b7280" text-anchor="middle">3</text>
+  <text x="730" y="148" font-size="12" fill="#6b7280" text-anchor="middle">4</text>
+  <text x="770" y="148" font-size="12" fill="#6b7280" text-anchor="middle">5</text>
+  <text x="810" y="148" font-size="12" fill="#6b7280" text-anchor="middle">6</text>
+  <text x="850" y="148" font-size="12" fill="#6b7280" text-anchor="middle">7</text>
+
+  <!-- Назви доріжок у правій панелі -->
+  <text x="545" y="181" font-size="12" fill="#1a1a1a" text-anchor="end">g₂</text>
+  <text x="545" y="211" font-size="12" fill="#1a1a1a" text-anchor="end">g₁</text>
+  <text x="545" y="241" font-size="12" fill="#1a1a1a" text-anchor="end">g₀</text>
+
+  <!-- Доріжка g2 (MSB) -->
+  <rect x="550" y="165" width="40" height="24" fill="#ffffff" stroke="#d0d7de"/>
+  <rect x="590" y="165" width="40" height="24" fill="#ffffff" stroke="#d0d7de"/>
+  <rect x="630" y="165" width="40" height="24" fill="#ffffff" stroke="#d0d7de"/>
+  <rect x="670" y="165" width="40" height="24" fill="#ffffff" stroke="#d0d7de"/>
+  <rect x="710" y="165" width="40" height="24" fill="#1a1a1a" stroke="#1a1a1a"/>
+  <rect x="750" y="165" width="40" height="24" fill="#1a1a1a" stroke="#1a1a1a"/>
+  <rect x="790" y="165" width="40" height="24" fill="#1a1a1a" stroke="#1a1a1a"/>
+  <rect x="830" y="165" width="40" height="24" fill="#1a1a1a" stroke="#1a1a1a"/>
+
+  <text x="570" y="181" font-size="12" fill="#6b7280" text-anchor="middle">0</text>
+  <text x="610" y="181" font-size="12" fill="#6b7280" text-anchor="middle">0</text>
+  <text x="650" y="181" font-size="12" fill="#6b7280" text-anchor="middle">0</text>
+  <text x="690" y="181" font-size="12" fill="#6b7280" text-anchor="middle">0</text>
+  <text x="730" y="181" font-size="12" fill="#ffffff" text-anchor="middle">1</text>
+  <text x="770" y="181" font-size="12" fill="#ffffff" text-anchor="middle">1</text>
+  <text x="810" y="181" font-size="12" fill="#ffffff" text-anchor="middle">1</text>
+  <text x="850" y="181" font-size="12" fill="#ffffff" text-anchor="middle">1</text>
+
+  <!-- Доріжка g1 -->
+  <rect x="550" y="195" width="40" height="24" fill="#ffffff" stroke="#d0d7de"/>
+  <rect x="590" y="195" width="40" height="24" fill="#ffffff" stroke="#d0d7de"/>
+  <rect x="630" y="195" width="40" height="24" fill="#1a1a1a" stroke="#1a1a1a"/>
+  <rect x="670" y="195" width="40" height="24" fill="#1a1a1a" stroke="#1a1a1a"/>
+  <rect x="710" y="195" width="40" height="24" fill="#1a1a1a" stroke="#1a1a1a"/>
+  <rect x="750" y="195" width="40" height="24" fill="#1a1a1a" stroke="#1a1a1a"/>
+  <rect x="790" y="195" width="40" height="24" fill="#ffffff" stroke="#d0d7de"/>
+  <rect x="830" y="195" width="40" height="24" fill="#ffffff" stroke="#d0d7de"/>
+
+  <text x="570" y="211" font-size="12" fill="#6b7280" text-anchor="middle">0</text>
+  <text x="610" y="211" font-size="12" fill="#6b7280" text-anchor="middle">0</text>
+  <text x="650" y="211" font-size="12" fill="#ffffff" text-anchor="middle">1</text>
+  <text x="690" y="211" font-size="12" fill="#ffffff" text-anchor="middle">1</text>
+  <text x="730" y="211" font-size="12" fill="#ffffff" text-anchor="middle">1</text>
+  <text x="770" y="211" font-size="12" fill="#ffffff" text-anchor="middle">1</text>
+  <text x="810" y="211" font-size="12" fill="#6b7280" text-anchor="middle">0</text>
+  <text x="850" y="211" font-size="12" fill="#6b7280" text-anchor="middle">0</text>
+
+  <!-- Доріжка g0 (LSB) -->
+  <rect x="550" y="225" width="40" height="24" fill="#ffffff" stroke="#d0d7de"/>
+  <rect x="590" y="225" width="40" height="24" fill="#1a1a1a" stroke="#1a1a1a"/>
+  <rect x="630" y="225" width="40" height="24" fill="#1a1a1a" stroke="#1a1a1a"/>
+  <rect x="670" y="225" width="40" height="24" fill="#ffffff" stroke="#d0d7de"/>
+  <rect x="710" y="225" width="40" height="24" fill="#ffffff" stroke="#d0d7de"/>
+  <rect x="750" y="225" width="40" height="24" fill="#1a1a1a" stroke="#1a1a1a"/>
+  <rect x="790" y="225" width="40" height="24" fill="#1a1a1a" stroke="#1a1a1a"/>
+  <rect x="830" y="225" width="40" height="24" fill="#ffffff" stroke="#d0d7de"/>
+
+  <text x="570" y="241" font-size="12" fill="#6b7280" text-anchor="middle">0</text>
+  <text x="610" y="241" font-size="12" fill="#ffffff" text-anchor="middle">1</text>
+  <text x="650" y="241" font-size="12" fill="#ffffff" text-anchor="middle">1</text>
+  <text x="690" y="241" font-size="12" fill="#6b7280" text-anchor="middle">0</text>
+  <text x="730" y="241" font-size="12" fill="#6b7280" text-anchor="middle">0</text>
+  <text x="770" y="241" font-size="12" fill="#ffffff" text-anchor="middle">1</text>
+  <text x="810" y="241" font-size="12" fill="#ffffff" text-anchor="middle">1</text>
+  <text x="850" y="241" font-size="12" fill="#6b7280" text-anchor="middle">0</text>
+
+  <!-- Кодові значення внизу доріжок -->
+  <text x="570" y="268" font-size="12" fill="#1a1a1a" text-anchor="middle">000</text>
+  <text x="610" y="268" font-size="12" fill="#1a1a1a" text-anchor="middle">001</text>
+  <text x="650" y="268" font-size="12" fill="#1a1a1a" text-anchor="middle">011</text>
+  <text x="690" y="268" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">010</text>
+  <text x="730" y="268" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">110</text>
+  <text x="770" y="268" font-size="12" fill="#1a1a1a" text-anchor="middle">111</text>
+  <text x="810" y="268" font-size="12" fill="#1a1a1a" text-anchor="middle">101</text>
+  <text x="850" y="268" font-size="12" fill="#1a1a1a" text-anchor="middle">100</text>
+
+  <!-- Підсвітка безпечного переходу 3 -> 4 у коді Ґрея -->
+  <rect x="668" y="156" width="84" height="118" rx="4" fill="#e9f7ef" fill-opacity="0.4" stroke="#27ae60" stroke-width="2" stroke-dasharray="4 2"/>
+  <text x="710" y="282" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">Δ = 1 біт</text>
+
+  <!-- Блок пояснення успіху правої панелі -->
+  <rect x="510" y="290" width="395" height="125" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="525" y="314" font-size="13" font-weight="bold" fill="#27ae60">Перехід 3 → 4 (010₂ → 110₂):</text>
+  <text x="525" y="336" font-size="12" fill="#1a1a1a">• Змінюється ЛИШЕ 1 біт (g₂: 0 → 1)</text>
+  <text x="525" y="358" font-size="12" fill="#1a1a1a">• При будь-якій неузгодженості датчиків:</text>
+  <text x="525" y="380" font-size="12" font-weight="bold" fill="#27ae60">  зчитається 010 (3) або 110 (4)</text>
+  <text x="525" y="402" font-size="12" fill="#27ae60">  (Глітчі виключені! Помилка ≤ 1 сектор)</text>
+
+  <!-- НИЖНЯ ПАНЕЛЬ: ПРАКТИЧНИЙ ВИСНОВОК ТА ДЕКОДУВАННЯ -->
+  <rect x="40" y="445" width="880" height="75" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="55" y="467" font-size="13" font-weight="bold" fill="#2457d6">Практичне значення та декодування коду Ґрея в МК:</text>
+  <text x="55" y="488" font-size="12" fill="#1a1a1a">• Маска диска енкодера виконується в коді Ґрея для запобігання хибним спрацьовуванням при зчитуванні.</text>
+  <text x="55" y="508" font-size="12" fill="#6b7280">• Перетворення в двійковий код: B[n-1] = G[n-1], B[i] = B[i+1] ⊕ G[i] (виконується в МК однією XOR-операцією).</text>
+</svg>

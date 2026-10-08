@@ -1,0 +1,157 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-dim" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L6,3 L0,6 Z" fill="#475569"/>
+    </marker>
+    <marker id="arr-dim-left" markerWidth="6" markerHeight="6" refX="1" refY="3" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M6,0 L0,3 L6,6 Z" fill="#475569"/>
+    </marker>
+    <marker id="arr-dim-up" markerWidth="6" markerHeight="6" refX="3" refY="1" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,6 L3,0 L6,6 Z" fill="#475569"/>
+    </marker>
+    <marker id="arr-dim-down" markerWidth="6" markerHeight="6" refX="3" refY="5" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L3,6 L6,0 Z" fill="#475569"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Title and Subtitle -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Топології диференціальних гребінчастих електродів MEMS</text>
+  <text x="480" y="54" text-anchor="middle" font-size="13" fill="#6b7280">Порівняння геометрій зі змінним зазором (gap-closing) та змінною площею перекриття (overlap)</text>
+
+  <!-- PANEL A: Gap-closing -->
+  <rect x="24" y="72" width="444" height="464" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="246" y="98" text-anchor="middle" font-size="15" font-weight="bold" fill="#1a1a1a">а) Змінний зазор (Gap-closing)</text>
+  <text x="246" y="118" text-anchor="middle" font-size="12" fill="#6b7280">Зміна ємності за рахунок зміни відстані d</text>
+
+  <!-- Panel A: Terminals & Anchors -->
+  <text x="89" y="138" text-anchor="middle" font-size="12" fill="#334155">Статор 1</text>
+  <rect x="54" y="145" width="70" height="24" rx="3" fill="#334155"/>
+  <text x="89" y="161" text-anchor="middle" font-size="12" font-weight="bold" fill="#ffffff">S₁</text>
+
+  <text x="403" y="138" text-anchor="middle" font-size="12" fill="#334155">Статор 2</text>
+  <rect x="368" y="145" width="70" height="24" rx="3" fill="#334155"/>
+  <text x="403" y="161" text-anchor="middle" font-size="12" font-weight="bold" fill="#ffffff">S₂</text>
+
+  <!-- Panel A: Stator 1 Structure -->
+  <path d="M 89,169 L 89,180 L 135,180 L 135,310 L 115,310 L 115,180 L 89,180 Z" fill="#334155"/>
+
+  <!-- Panel A: Stator 2 Structure -->
+  <path d="M 403,169 L 403,180 L 317,180 L 317,310 L 337,310 L 337,180 L 403,180 Z" fill="#334155"/>
+
+  <!-- Panel A: Capacitance Sensing Zones -->
+  <rect x="135" y="180" width="87" height="130" fill="#eaf0fd" fill-opacity="0.8" stroke="#2457d6" stroke-dasharray="3,3" stroke-width="1"/>
+  <rect x="242" y="180" width="75" height="130" fill="#eaf0fd" fill-opacity="0.8" stroke="#2457d6" stroke-dasharray="3,3" stroke-width="1"/>
+
+  <!-- Panel A: Rotor Structure -->
+  <rect x="222" y="180" width="20" height="130" fill="#2457d6" rx="1"/>
+  <rect x="180" y="310" width="132" height="15" fill="#2457d6" rx="2"/>
+
+  <!-- Panel A: Mechanical Spring -->
+  <path d="M 246,325 L 246,335 L 238,340 L 254,348 L 238,356 L 254,364 L 246,369 L 246,375" fill="none" stroke="#2457d6" stroke-width="2"/>
+  <rect x="211" y="375" width="70" height="24" rx="3" fill="#2457d6"/>
+  <text x="246" y="391" text-anchor="middle" font-size="12" font-weight="bold" fill="#ffffff">Ротор R</text>
+
+  <!-- Panel A: Motion Arrow -->
+  <line x1="205" y1="155" x2="245" y2="155" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="225" y="148" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Зсув +x</text>
+
+  <!-- Panel A: Extension Lines & Dimensions -->
+  <line x1="135" y1="180" x2="135" y2="245" stroke="#94a3b8" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="222" y1="180" x2="222" y2="245" stroke="#94a3b8" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="242" y1="180" x2="242" y2="245" stroke="#94a3b8" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="317" y1="180" x2="317" y2="245" stroke="#94a3b8" stroke-width="1" stroke-dasharray="2,2"/>
+
+  <!-- Panel A: Dimension Lines -->
+  <line x1="137" y1="238" x2="220" y2="238" stroke="#475569" stroke-width="1" marker-start="url(#arr-dim-left)" marker-end="url(#arr-dim)"/>
+  <text x="178.5" y="228" text-anchor="middle" font-size="12" fill="#1a1a1a">d₁ = d₀ + x</text>
+  <text x="178.5" y="258" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">C₁</text>
+
+  <line x1="244" y1="238" x2="315" y2="238" stroke="#475569" stroke-width="1" marker-start="url(#arr-dim-left)" marker-end="url(#arr-dim)"/>
+  <text x="279.5" y="228" text-anchor="middle" font-size="12" fill="#1a1a1a">d₂ = d₀ - x</text>
+  <text x="279.5" y="258" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">C₂</text>
+
+  <!-- Panel A: Overlap Length Dimension L0 -->
+  <line x1="75" y1="180" x2="115" y2="180" stroke="#94a3b8" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="75" y1="310" x2="180" y2="310" stroke="#94a3b8" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="78" y1="182" x2="78" y2="308" stroke="#475569" stroke-width="1" marker-start="url(#arr-dim-up)" marker-end="url(#arr-dim-down)"/>
+  <text x="68" y="248" text-anchor="end" font-size="12" fill="#1a1a1a">L₀</text>
+
+  <!-- Panel A: Summary Formula Card -->
+  <rect x="40" y="412" width="412" height="106" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="246" y="434" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">C₁ = ε·A / (d₀ + x)   |   C₂ = ε·A / (d₀ - x)</text>
+  <text x="246" y="456" text-anchor="middle" font-size="12" fill="#1a1a1a">ΔC = C₂ - C₁ ≈ 2·C₀·(x / d₀)   (при x ≪ d₀)</text>
+  <text x="246" y="478" text-anchor="middle" font-size="12" fill="#1a1a1a">Чутливість: dC/dx ∝ 1/d₀²  (висока)</text>
+  <text x="246" y="500" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Обмеження: нелінійність, ефект pull-in</text>
+
+
+  <!-- PANEL B: Overlap-varying -->
+  <rect x="492" y="72" width="444" height="464" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="714" y="98" text-anchor="middle" font-size="15" font-weight="bold" fill="#1a1a1a">б) Змінна площа (Overlap-varying)</text>
+  <text x="714" y="118" text-anchor="middle" font-size="12" fill="#6b7280">Зміна ємності за рахунок зміни довжини перекриття L</text>
+
+  <!-- Panel B: Terminals & Anchors -->
+  <text x="557" y="138" text-anchor="middle" font-size="12" fill="#334155">Статор 1</text>
+  <rect x="522" y="145" width="70" height="24" rx="3" fill="#334155"/>
+  <text x="557" y="161" text-anchor="middle" font-size="12" font-weight="bold" fill="#ffffff">S₁</text>
+
+  <text x="869" y="138" text-anchor="middle" font-size="12" fill="#334155">Статор 2</text>
+  <rect x="834" y="145" width="70" height="24" rx="3" fill="#334155"/>
+  <text x="869" y="161" text-anchor="middle" font-size="12" font-weight="bold" fill="#ffffff">S₂</text>
+
+  <!-- Panel B: Stator 1 Structure -->
+  <rect x="547" y="169" width="30" height="11" fill="#334155"/>
+  <rect x="547" y="180" width="193" height="20" fill="#334155" rx="2"/>
+
+  <!-- Panel B: Stator 2 Structure -->
+  <rect x="849" y="169" width="20" height="111" fill="#334155"/>
+  <rect x="674" y="280" width="195" height="20" fill="#334155" rx="2"/>
+
+  <!-- Panel B: Capacitance Sensing Zones -->
+  <rect x="592" y="200" width="148" height="30" fill="#eaf0fd" fill-opacity="0.8" stroke="#2457d6" stroke-dasharray="3,3" stroke-width="1"/>
+  <rect x="674" y="250" width="66" height="30" fill="#eaf0fd" fill-opacity="0.8" stroke="#2457d6" stroke-dasharray="3,3" stroke-width="1"/>
+
+  <!-- Panel B: Rotor Structure -->
+  <rect x="560" y="230" width="180" height="20" fill="#2457d6" rx="2"/>
+  <rect x="620" y="250" width="20" height="75" fill="#2457d6"/>
+
+  <!-- Panel B: Mechanical Spring -->
+  <path d="M 630,325 L 630,335 L 622,340 L 638,348 L 622,356 L 638,364 L 630,369 L 630,375" fill="none" stroke="#2457d6" stroke-width="2"/>
+  <rect x="595" y="375" width="70" height="24" rx="3" fill="#2457d6"/>
+  <text x="630" y="391" text-anchor="middle" font-size="12" font-weight="bold" fill="#ffffff">Ротор R</text>
+
+  <!-- Panel B: Motion Arrow -->
+  <line x1="745" y1="240" x2="785" y2="240" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="765" y="232" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Зсув +x</text>
+
+  <!-- Panel B: Extension Lines & Dimensions -->
+  <line x1="592" y1="180" x2="592" y2="165" stroke="#94a3b8" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="740" y1="230" x2="740" y2="165" stroke="#94a3b8" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="594" y1="168" x2="738" y2="168" stroke="#475569" stroke-width="1" marker-start="url(#arr-dim-left)" marker-end="url(#arr-dim)"/>
+  <text x="666" y="160" text-anchor="middle" font-size="12" fill="#1a1a1a">L₁ = L₀ + x</text>
+  <text x="666" y="219" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">C₁</text>
+
+  <line x1="674" y1="280" x2="674" y2="315" stroke="#94a3b8" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="740" y1="250" x2="740" y2="315" stroke="#94a3b8" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="676" y1="312" x2="738" y2="312" stroke="#475569" stroke-width="1" marker-start="url(#arr-dim-left)" marker-end="url(#arr-dim)"/>
+  <text x="707" y="328" text-anchor="middle" font-size="12" fill="#1a1a1a">L₂ = L₀ - x</text>
+  <text x="707" y="269" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">C₂</text>
+
+  <!-- Panel B: Constant Gap Dimension d0 -->
+  <line x1="535" y1="200" x2="592" y2="200" stroke="#94a3b8" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="535" y1="230" x2="560" y2="230" stroke="#94a3b8" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="542" y1="202" x2="542" y2="228" stroke="#475569" stroke-width="1" marker-start="url(#arr-dim-up)" marker-end="url(#arr-dim-down)"/>
+  <text x="534" y="219" text-anchor="end" font-size="12" fill="#1a1a1a">d₀</text>
+
+  <!-- Panel B: Summary Formula Card -->
+  <rect x="508" y="412" width="412" height="106" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="714" y="434" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">C₁ = ε·(L₀ + x)·h / d₀   |   C₂ = ε·(L₀ - x)·h / d₀</text>
+  <text x="714" y="456" text-anchor="middle" font-size="12" fill="#1a1a1a">ΔC = C₁ - C₂ = 2·ε·h·x / d₀   (суворо лінійно)</text>
+  <text x="714" y="478" text-anchor="middle" font-size="12" fill="#1a1a1a">Чутливість: dC/dx = const  (лінійна)</text>
+  <text x="714" y="500" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Переваги: широкий динамічний діапазон, без pull-in</text>
+</svg>

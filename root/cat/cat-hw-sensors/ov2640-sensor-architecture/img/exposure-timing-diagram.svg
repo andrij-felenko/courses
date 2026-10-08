@@ -1,0 +1,141 @@
+<svg viewBox="0 0 960 530" width="960" height="530" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M 0 0 L 8 4 L 0 8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M 0 0 L 8 4 L 0 8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M 0 0 L 8 4 L 0 8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="530" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Часова діаграма експонування та накопичення заряду в сенсорі OV2640</text>
+  <text x="480" y="56" font-size="13" fill="#6b7280" text-anchor="middle">Тривалість експозиції t_exp визначається добутком кількості рядків N_AEC на період рядка t_line</text>
+
+  <!-- Panel 1: Frame and Line Synchronization -->
+  <rect x="30" y="70" width="900" height="190" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="45" y="90" font-size="13" font-weight="bold" fill="#1a1a1a">1. Синхронізація сигналу (VSYNC, HREF, PCLK)</text>
+
+  <!-- Frame Period Dimension (T_frame) -->
+  <line x1="190" y1="112" x2="840" y2="112" stroke="#1a1a1a" stroke-width="1.5" marker-start="url(#arr)" marker-end="url(#arr)"/>
+  <text x="515" y="100" font-size="12" fill="#1a1a1a" text-anchor="middle">Кадровий інтервал T_frame = N_lines × t_line</text>
+
+  <!-- VSYNC Signal -->
+  <text x="45" y="128" font-size="13" font-weight="bold" fill="#2457d6">VSYNC</text>
+  <text x="45" y="142" font-size="12" fill="#6b7280">(Кадр)</text>
+  <path d="M 130 142 L 160 142 L 160 124 L 190 124 L 190 142 L 840 142 L 840 124 L 870 124 L 870 142 L 900 142" stroke="#2457d6" stroke-width="2" fill="none"/>
+
+  <!-- HREF Signal -->
+  <text x="45" y="170" font-size="13" font-weight="bold" fill="#2457d6">HREF</text>
+  <text x="45" y="184" font-size="12" fill="#6b7280">(Рядки)</text>
+
+  <text x="220" y="148" font-size="12" fill="#6b7280" text-anchor="middle">Рядок 1</text>
+  <text x="300" y="148" font-size="12" fill="#6b7280" text-anchor="middle">Рядок 2</text>
+  <text x="380" y="148" font-size="12" fill="#6b7280" text-anchor="middle">Рядок 3</text>
+  <text x="670" y="148" font-size="12" fill="#6b7280" text-anchor="middle">Рядок N_AEC</text>
+
+  <path d="M 130 180 L 190 180 L 190 160 L 250 160 L 250 180 L 270 180 L 270 160 L 330 160 L 330 180 L 350 180 L 350 160 L 410 160 L 410 180 L 430 180 L 430 160 L 490 160 L 490 180 L 510 180" stroke="#2457d6" stroke-width="2" fill="none"/>
+  
+  <!-- Break in HREF -->
+  <text x="535" y="174" font-size="14" font-weight="bold" fill="#6b7280" text-anchor="middle">. . .</text>
+
+  <path d="M 560 180 L 640 180 L 640 160 L 700 160 L 700 180 L 720 180 L 720 160 L 780 160 L 780 180 L 900 180" stroke="#2457d6" stroke-width="2" fill="none"/>
+
+  <!-- HREF Line Period Dimension (t_line) -->
+  <line x1="270" y1="192" x2="350" y2="192" stroke="#2457d6" stroke-width="1.5" marker-start="url(#arr-blue)" marker-end="url(#arr-blue)"/>
+  <text x="310" y="208" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Період рядка t_line</text>
+
+  <!-- PCLK Signal -->
+  <text x="45" y="228" font-size="13" font-weight="bold" fill="#2457d6">PCLK</text>
+  <text x="45" y="242" font-size="12" fill="#6b7280">(Такти)</text>
+
+  <!-- PCLK Waveform detail -->
+  <path d="M 130 236 L 190 236 L 190 222 L 198 222 L 198 236 L 206 236 L 206 222 L 214 222 L 214 236 L 222 236 L 222 222 L 230 222 L 230 236 L 238 236 L 238 222 L 246 222 L 246 236 L 250 236 M 270 236 L 350 236 M 350 236 L 350 222 L 358 222 L 358 236 L 366 236 L 366 222 L 374 222 L 374 236 L 382 236 L 382 222 L 390 222 L 390 236 M 560 236 L 900 236" stroke="#2457d6" stroke-width="1.5" fill="none"/>
+
+  <line x1="190" y1="248" x2="206" y2="248" stroke="#1a1a1a" stroke-width="1.2" marker-start="url(#arr)" marker-end="url(#arr)"/>
+  <text x="215" y="252" font-size="12" fill="#1a1a1a">T_PCLK = 1 / f_PCLK (такт пікселя)</text>
+
+  <!-- Panel 2: Rolling Shutter Exposure and Photo-charge Accumulation -->
+  <rect x="30" y="275" width="900" height="233" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="45" y="295" font-size="13" font-weight="bold" fill="#1a1a1a">2. Накопичення фотозаряду Rolling Shutter та підсилення (AEC / AGC)</text>
+
+  <!-- Top Labels above Graph -->
+  <text x="135" y="318" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">Заряд Q_pixel</text>
+  <text x="200" y="318" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">RST (Скидання)</text>
+  <text x="540" y="318" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">READ (Зчитування)</text>
+
+  <!-- Graph Y-axis -->
+  <line x1="140" y1="455" x2="140" y2="330" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- Graph X-axis -->
+  <line x1="140" y1="455" x2="580" y2="455" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="590" y="459" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">Час (t)</text>
+
+  <!-- Saturation Limit Line -->
+  <line x1="140" y1="350" x2="540" y2="350" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <text x="145" y="342" font-size="12" font-weight="bold" fill="#c0392b">Межа насичення V_sat</text>
+
+  <!-- V_reset Baseline -->
+  <line x1="140" y1="445" x2="540" y2="445" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="132" y="449" font-size="12" fill="#6b7280" text-anchor="end">V_reset</text>
+
+  <!-- Exposure Region Highlight -->
+  <rect x="200" y="350" width="340" height="95" fill="#eaf0fd" opacity="0.4"/>
+
+  <!-- Vertical Marker Lines for RST and READ -->
+  <line x1="200" y1="330" x2="200" y2="455" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <line x1="540" y1="330" x2="540" y2="455" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="3,3"/>
+
+  <!-- High Illumination Overexposure Line -->
+  <path d="M 200 445 L 240 350 L 540 350" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,4" fill="none"/>
+  <text x="370" y="370" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Висока освітленість (ризик насичення)</text>
+
+  <!-- Normal Charge Accumulation Ramp Line -->
+  <line x1="200" y1="445" x2="540" y2="410" stroke="#2457d6" stroke-width="2.5"/>
+  <text x="370" y="392" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Нормальне накопичення</text>
+  <text x="370" y="405" font-size="12" fill="#2457d6" text-anchor="middle">Q(t) ∝ I × t</text>
+
+  <!-- Ticks on X-axis -->
+  <line x1="200" y1="455" x2="200" y2="459" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="200" y="472" font-size="12" fill="#6b7280" text-anchor="middle">t_0 (RST)</text>
+
+  <line x1="260" y1="455" x2="260" y2="459" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="260" y="472" font-size="12" fill="#6b7280" text-anchor="middle">1 line</text>
+
+  <line x1="320" y1="455" x2="320" y2="459" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="320" y="472" font-size="12" fill="#6b7280" text-anchor="middle">2 lines</text>
+
+  <text x="430" y="472" font-size="12" fill="#6b7280" text-anchor="middle">. . .</text>
+
+  <line x1="540" y1="455" x2="540" y2="459" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="540" y="472" font-size="12" fill="#6b7280" text-anchor="middle">N_AEC lines</text>
+
+  <!-- Exposure Duration Dimension Line (t_exp) -->
+  <line x1="200" y1="486" x2="540" y2="486" stroke="#1a1a1a" stroke-width="1.5" marker-start="url(#arr)" marker-end="url(#arr)"/>
+  <text x="370" y="502" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Тривалість експозиції t_exp = N_AEC × t_line</text>
+
+  <!-- Signal Processing Blocks on the Right -->
+  <line x1="540" y1="410" x2="650" y2="410" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="595" y="402" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">V_sig</text>
+
+  <!-- Box 1: AGC Gain -->
+  <rect x="655" y="335" width="250" height="65" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="780" y="353" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Аналогове / Цифрове Gain</text>
+  <text x="780" y="369" font-size="12" fill="#1a1a1a" text-anchor="middle">V_out = Q_pixel × A_Gain</text>
+  <text x="780" y="385" font-size="12" fill="#6b7280" text-anchor="middle">Реєстри AGC / GAIN (OV2640)</text>
+
+  <!-- Arrow Box 1 to Box 2 -->
+  <line x1="780" y1="400" x2="780" y2="418" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Box 2: ADC & DSP -->
+  <rect x="655" y="420" width="250" height="65" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="780" y="438" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">АЦП та Матриця DSP</text>
+  <text x="780" y="454" font-size="12" fill="#1a1a1a" text-anchor="middle">10-bit ADC → Gamma → YUV</text>
+  <text x="780" y="470" font-size="12" fill="#6b7280" text-anchor="middle">Вихідний цифровий потік</text>
+</svg>

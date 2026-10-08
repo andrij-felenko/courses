@@ -1,0 +1,154 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+  
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Схема підключення BMP280 / BME280 за інтерфейсом I2C</text>
+  <text x="480" y="54" text-anchor="middle" font-size="13" fill="#6b7280">CSB підтягнуто до VDDIO для увімкнення I2C; стан SDO визначає I2C-адресу (GND = 0x76, VDDIO = 0x77)</text>
+
+  <!-- Power & Ground Rails -->
+  <line x1="190" y1="95" x2="880" y2="95" stroke="#2457d6" stroke-width="3"/>
+  <text x="535" y="86" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Шина живлення +3.3 V (VDD / VDDIO)</text>
+
+  <line x1="190" y1="515" x2="880" y2="515" stroke="#1a1a1a" stroke-width="3"/>
+  <text x="535" y="538" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Спільна шина заземлення (GND)</text>
+
+  <!-- Microcontroller Panel -->
+  <rect x="30" y="115" width="170" height="375" rx="8" ry="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <path d="M 30 123 A 8 8 0 0 1 38 115 L 192 115 A 8 8 0 0 1 200 115 L 200 163 L 30 163 Z" fill="#eaf0fd" stroke="#d0d7de" stroke-width="1"/>
+  <text x="115" y="138" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Мікроконтролер</text>
+  <text x="115" y="154" text-anchor="middle" font-size="12" fill="#6b7280">(MCU / Host)</text>
+
+  <!-- MCU Pins -->
+  <rect x="170" y="178" width="30" height="24" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="185" y="194" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">3.3V</text>
+
+  <rect x="170" y="373" width="30" height="24" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="185" y="389" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">SCL</text>
+
+  <rect x="170" y="423" width="30" height="24" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="185" y="439" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">SDA</text>
+
+  <rect x="170" y="463" width="30" height="24" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="185" y="479" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">GND</text>
+
+  <!-- Sensor Panel -->
+  <rect x="670" y="115" width="260" height="375" rx="8" ry="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <path d="M 670 123 A 8 8 0 0 1 678 115 L 922 115 A 8 8 0 0 1 930 115 L 930 163 L 670 163 Z" fill="#eaf0fd" stroke="#d0d7de" stroke-width="1"/>
+  <text x="800" y="138" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Давач BMP280 / BME280</text>
+  <text x="800" y="154" text-anchor="middle" font-size="12" fill="#6b7280">Корпус LGA-8 / Модуль</text>
+
+  <!-- Sensor Pins & Descriptions -->
+  <rect x="670" y="188" width="55" height="24" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="697" y="204" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">VDD</text>
+  <text x="735" y="204" font-size="12" fill="#1a1a1a">VDD (Живлення 1.71–3.6 V)</text>
+
+  <rect x="670" y="228" width="55" height="24" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="697" y="244" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">VDDIO</text>
+  <text x="735" y="244" font-size="12" fill="#1a1a1a">VDDIO (Інтерфейс 1.2–3.6 V)</text>
+
+  <rect x="670" y="273" width="55" height="24" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="697" y="289" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">CSB</text>
+  <text x="735" y="289" font-size="12" fill="#1a1a1a">CSB (High = I2C, Low = SPI)</text>
+
+  <rect x="670" y="323" width="55" height="24" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="697" y="339" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">SDO</text>
+  <text x="735" y="339" font-size="12" fill="#1a1a1a">SDO (GND=0x76, VDDIO=0x77)</text>
+
+  <rect x="670" y="373" width="55" height="24" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="697" y="389" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">SCL</text>
+  <text x="735" y="389" font-size="12" fill="#1a1a1a">SCL (Тактовий сигнал I2C)</text>
+
+  <rect x="670" y="423" width="55" height="24" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="697" y="439" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">SDA</text>
+  <text x="735" y="439" font-size="12" fill="#1a1a1a">SDA (Лінія даних I2C)</text>
+
+  <rect x="670" y="463" width="55" height="24" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="697" y="479" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">GND</text>
+  <text x="735" y="479" font-size="12" fill="#1a1a1a">GND (Спільна земля)</text>
+
+  <!-- Wiring connections -->
+  <!-- MCU 3.3V to Top Rail -->
+  <line x1="200" y1="190" x2="200" y2="95" stroke="#2457d6" stroke-width="2"/>
+  <circle cx="200" cy="95" r="4" fill="#2457d6"/>
+
+  <!-- MCU GND to Bottom Rail -->
+  <line x1="200" y1="475" x2="200" y2="515" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="200" cy="515" r="4" fill="#1a1a1a"/>
+
+  <!-- SCL Line -->
+  <line x1="200" y1="385" x2="670" y2="385" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+  <text x="212" y="377" font-size="12" font-weight="bold" fill="#1a1a1a">SCL</text>
+
+  <!-- SDA Line -->
+  <line x1="200" y1="435" x2="670" y2="435" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+  <text x="212" y="427" font-size="12" font-weight="bold" fill="#1a1a1a">SDA</text>
+
+  <!-- Sensor GND to Bottom Rail -->
+  <line x1="670" y1="475" x2="670" y2="515" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="670" cy="515" r="4" fill="#1a1a1a"/>
+
+  <!-- R1 Pull-up Resistor (SCL) at X=260 -->
+  <line x1="260" y1="95" x2="260" y2="200" stroke="#1a1a1a" stroke-width="2"/>
+  <rect x="253" y="200" width="14" height="36" fill="#ffffff" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="272" y="222" font-size="12" font-weight="bold" fill="#1a1a1a">R1 = 4.7 кОм</text>
+  <line x1="260" y1="236" x2="260" y2="385" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="260" cy="95" r="4" fill="#2457d6"/>
+  <circle cx="260" cy="385" r="4" fill="#1a1a1a"/>
+
+  <!-- R2 Pull-up Resistor (SDA) at X=350 -->
+  <line x1="350" y1="95" x2="350" y2="200" stroke="#1a1a1a" stroke-width="2"/>
+  <rect x="343" y="200" width="14" height="36" fill="#ffffff" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="362" y="222" font-size="12" font-weight="bold" fill="#1a1a1a">R2 = 4.7 кОм</text>
+  <line x1="350" y1="236" x2="350" y2="435" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="350" cy="95" r="4" fill="#2457d6"/>
+  <circle cx="350" cy="435" r="4" fill="#1a1a1a"/>
+
+  <!-- CSB Branch at X=440 -->
+  <line x1="670" y1="285" x2="440" y2="285" stroke="#27ae60" stroke-width="2"/>
+  <line x1="440" y1="285" x2="440" y2="95" stroke="#27ae60" stroke-width="2"/>
+  <circle cx="440" cy="95" r="4" fill="#2457d6"/>
+  <rect x="385" y="271" width="110" height="28" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="440" y="289" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">CSB → VDDIO (I2C)</text>
+
+  <!-- SDO Branch at X=510 -->
+  <line x1="670" y1="335" x2="510" y2="335" stroke="#2457d6" stroke-width="2"/>
+  <line x1="510" y1="335" x2="510" y2="515" stroke="#2457d6" stroke-width="2"/>
+  <circle cx="510" cy="515" r="4" fill="#1a1a1a"/>
+  <rect x="445" y="321" width="130" height="28" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="510" y="339" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">SDO → GND (0x76)</text>
+
+  <!-- C2 Decoupling Capacitor at X=580 -->
+  <line x1="670" y1="240" x2="580" y2="240" stroke="#2457d6" stroke-width="2"/>
+  <line x1="580" y1="240" x2="580" y2="95" stroke="#2457d6" stroke-width="2"/>
+  <circle cx="580" cy="95" r="4" fill="#2457d6"/>
+  <circle cx="580" cy="240" r="4" fill="#2457d6"/>
+
+  <line x1="580" y1="240" x2="580" y2="254" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="568" y1="254" x2="592" y2="254" stroke="#1a1a1a" stroke-width="2.5"/>
+  <line x1="568" y1="262" x2="592" y2="262" stroke="#1a1a1a" stroke-width="2.5"/>
+  <line x1="580" y1="262" x2="580" y2="515" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="580" cy="515" r="4" fill="#1a1a1a"/>
+  <text x="562" y="262" text-anchor="end" font-size="12" font-weight="bold" fill="#1a1a1a">C2 = 100 нФ</text>
+
+  <!-- C1 Decoupling Capacitor at X=630 -->
+  <line x1="670" y1="200" x2="630" y2="200" stroke="#2457d6" stroke-width="2"/>
+  <line x1="630" y1="200" x2="630" y2="95" stroke="#2457d6" stroke-width="2"/>
+  <circle cx="630" cy="95" r="4" fill="#2457d6"/>
+  <circle cx="630" cy="200" r="4" fill="#2457d6"/>
+
+  <line x1="630" y1="200" x2="630" y2="214" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="618" y1="214" x2="642" y2="214" stroke="#1a1a1a" stroke-width="2.5"/>
+  <line x1="618" y1="222" x2="642" y2="222" stroke="#1a1a1a" stroke-width="2.5"/>
+  <line x1="630" y1="222" x2="630" y2="515" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="630" cy="515" r="4" fill="#1a1a1a"/>
+  <text x="612" y="222" text-anchor="end" font-size="12" font-weight="bold" fill="#1a1a1a">C1 = 100 нФ</text>
+</svg>

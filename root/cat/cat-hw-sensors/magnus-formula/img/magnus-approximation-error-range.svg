@@ -1,0 +1,123 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- White canvas background -->
+  <rect x="0" y="0" width="960" height="560" fill="#ffffff"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="38" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Похибка формули Магнуса проти похибки давача SHT30</text>
+  <text x="480" y="60" text-anchor="middle" font-size="13" fill="#6b7280">Математична похибка апроксимації (≤ 0.4%) істотно менша за апаратну похибку давача (2.0%…3.6%)</text>
+
+  <!-- Main Chart Container -->
+  <rect x="40" y="80" width="880" height="350" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Y-Axis Title -->
+  <text x="45" y="105" text-anchor="start" font-size="12" font-weight="bold" fill="#1a1a1a">Похибка (%)</text>
+
+  <!-- Y-Axis Grid Lines & Ticks (Segmented to avoid crossing text boxes) -->
+  <!-- 4.0 % Grid Line -->
+  <line x1="120" y1="148" x2="200" y2="148" stroke="#e5e7eb" stroke-dasharray="4,4" stroke-width="1"/>
+  <line x1="450" y1="148" x2="640" y2="148" stroke="#e5e7eb" stroke-dasharray="4,4" stroke-width="1"/>
+  <line x1="860" y1="148" x2="880" y2="148" stroke="#e5e7eb" stroke-dasharray="4,4" stroke-width="1"/>
+  <text x="110" y="152" text-anchor="end" font-size="12" fill="#6b7280">4.0 %</text>
+
+  <!-- 3.0 % Grid Line -->
+  <line x1="120" y1="203" x2="880" y2="203" stroke="#e5e7eb" stroke-dasharray="4,4" stroke-width="1"/>
+  <text x="110" y="207" text-anchor="end" font-size="12" fill="#6b7280">3.0 %</text>
+
+  <!-- 2.0 % Grid Line -->
+  <line x1="120" y1="259" x2="880" y2="259" stroke="#e5e7eb" stroke-dasharray="4,4" stroke-width="1"/>
+  <text x="110" y="263" text-anchor="end" font-size="12" fill="#6b7280">2.0 %</text>
+
+  <!-- 1.0 % Grid Line -->
+  <line x1="120" y1="314" x2="480" y2="314" stroke="#e5e7eb" stroke-dasharray="4,4" stroke-width="1"/>
+  <line x1="730" y1="314" x2="880" y2="314" stroke="#e5e7eb" stroke-dasharray="4,4" stroke-width="1"/>
+  <text x="110" y="318" text-anchor="end" font-size="12" fill="#6b7280">1.0 %</text>
+
+  <!-- Y=0 Baseline -->
+  <line x1="120" y1="370" x2="880" y2="370" stroke="#9ca3af" stroke-width="1.5"/>
+  <text x="110" y="374" text-anchor="end" font-size="12" fill="#6b7280">0.0 %</text>
+
+  <!-- X-Axis Grid Lines & Ticks (Segmented to avoid crossing text boxes) -->
+  <!-- -40°C Grid Line -->
+  <line x1="120" y1="120" x2="120" y2="370" stroke="#e5e7eb" stroke-dasharray="4,4" stroke-width="1"/>
+  <text x="120" y="390" text-anchor="middle" font-size="12" fill="#6b7280">-40°C</text>
+
+  <!-- -20°C Grid Line -->
+  <line x1="272" y1="120" x2="272" y2="135" stroke="#e5e7eb" stroke-dasharray="4,4" stroke-width="1"/>
+  <line x1="272" y1="185" x2="272" y2="370" stroke="#e5e7eb" stroke-dasharray="4,4" stroke-width="1"/>
+  <text x="272" y="390" text-anchor="middle" font-size="12" fill="#6b7280">-20°C</text>
+
+  <!-- 0°C Grid Line -->
+  <line x1="424" y1="120" x2="424" y2="135" stroke="#e5e7eb" stroke-dasharray="4,4" stroke-width="1"/>
+  <line x1="424" y1="185" x2="424" y2="370" stroke="#e5e7eb" stroke-dasharray="4,4" stroke-width="1"/>
+  <text x="424" y="390" text-anchor="middle" font-size="12" fill="#6b7280">0°C</text>
+
+  <!-- +20°C Grid Line -->
+  <line x1="576" y1="120" x2="576" y2="280" stroke="#e5e7eb" stroke-dasharray="4,4" stroke-width="1"/>
+  <line x1="576" y1="330" x2="576" y2="370" stroke="#e5e7eb" stroke-dasharray="4,4" stroke-width="1"/>
+  <text x="576" y="390" text-anchor="middle" font-size="12" fill="#6b7280">+20°C</text>
+
+  <!-- +40°C Grid Line -->
+  <line x1="728" y1="120" x2="728" y2="135" stroke="#e5e7eb" stroke-dasharray="4,4" stroke-width="1"/>
+  <line x1="728" y1="190" x2="728" y2="370" stroke="#e5e7eb" stroke-dasharray="4,4" stroke-width="1"/>
+  <text x="728" y="390" text-anchor="middle" font-size="12" fill="#6b7280">+40°C</text>
+
+  <!-- +60°C Grid Line -->
+  <line x1="880" y1="120" x2="880" y2="370" stroke="#e5e7eb" stroke-dasharray="4,4" stroke-width="1"/>
+  <text x="880" y="390" text-anchor="middle" font-size="12" fill="#6b7280">+60°C</text>
+
+  <!-- X-Axis Title -->
+  <text x="500" y="418" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Робоча температура навколишнього середовища T (°C)</text>
+
+  <!-- Shaded Area Under SHT30 Curve (Red tint) -->
+  <path d="M 120,370 L 120,170 C 196,192 272,214 348,237 C 424,253 500,259 614,259 C 728,231 804,203 880,170 L 880,370 Z" fill="#fdecea" fill-opacity="0.7"/>
+
+  <!-- Shaded Area Under Magnus Curve (Blue tint) -->
+  <path d="M 120,370 L 120,351 C 196,358 272,363 348,367 C 424,368 500,367 576,366 C 652,362 728,358 804,353 880,349 L 880,370 Z" fill="#eaf0fd" fill-opacity="0.9"/>
+
+  <!-- SHT30 Curve (Red dashed line) -->
+  <path d="M 120,170 C 196,192 272,214 348,237 C 424,253 500,259 614,259 C 728,231 804,203 880,170" fill="none" stroke="#c0392b" stroke-width="2.5" stroke-dasharray="6,4"/>
+
+  <!-- Magnus Formula Curve (Blue solid line) -->
+  <path d="M 120,351 C 196,358 272,363 348,367 C 424,368 500,367 576,366 C 652,362 728,358 804,353 880,349" fill="none" stroke="#2457d6" stroke-width="3"/>
+
+  <!-- Callout 1: SHT30 Error Box -->
+  <rect x="200" y="135" width="250" height="50" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="325" y="153" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Номінальна похибка SHT30</text>
+  <text x="325" y="171" text-anchor="middle" font-size="12" fill="#1a1a1a">Апаратний допуск ±2.0% ... ±3.6%</text>
+  <line x1="325" y1="185" x2="325" y2="238" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <circle cx="325" cy="240" r="4" fill="#c0392b"/>
+
+  <!-- Callout 2: Magnus Formula Error Box -->
+  <rect x="480" y="280" width="250" height="50" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="605" y="298" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Похибка формули Магнуса</text>
+  <text x="605" y="316" text-anchor="middle" font-size="12" fill="#1a1a1a">Математичне наближення ≤ 0.4%</text>
+  <line x1="605" y1="330" x2="605" y2="363" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <circle cx="605" cy="365" r="4" fill="#2457d6"/>
+
+  <!-- Callout 3: Green Success Badge -->
+  <rect x="640" y="135" width="220" height="55" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="750" y="154" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Запас точності &gt; 5×</text>
+  <text x="750" y="172" text-anchor="middle" font-size="12" fill="#1a1a1a">Формула не лімітує систему</text>
+
+  <!-- Bottom Cards Section -->
+  <!-- Card 1: SHT30 Hardware -->
+  <rect x="40" y="445" width="282" height="95" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="55" y="468" text-anchor="start" font-size="13" font-weight="bold" fill="#c0392b">Давач SHT30 (Hardware)</text>
+  <text x="55" y="490" text-anchor="start" font-size="12" fill="#1a1a1a">• Типова похибка: ±2.0% RH</text>
+  <text x="55" y="508" text-anchor="start" font-size="12" fill="#1a1a1a">• Екстремуми: до ±3.6% RH</text>
+  <text x="55" y="526" text-anchor="start" font-size="12" fill="#6b7280">• Фізична межа давача</text>
+
+  <!-- Card 2: Magnus Math -->
+  <rect x="339" y="445" width="282" height="95" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="354" y="468" text-anchor="start" font-size="13" font-weight="bold" fill="#2457d6">Формула Магнуса (Math)</text>
+  <text x="354" y="490" text-anchor="start" font-size="12" fill="#1a1a1a">• Макс. похибка: ≤ 0.4%</text>
+  <text x="354" y="508" text-anchor="start" font-size="12" fill="#1a1a1a">• Ззвичайні умови: &lt; 0.1%</text>
+  <text x="354" y="526" text-anchor="start" font-size="12" fill="#6b7280">• Математичне наближення</text>
+
+  <!-- Card 3: Engineer Conclusion -->
+  <rect x="638" y="445" width="282" height="95" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="653" y="468" text-anchor="start" font-size="13" font-weight="bold" fill="#27ae60">Практичний висновок</text>
+  <text x="653" y="490" text-anchor="start" font-size="12" fill="#1a1a1a">• Формула не лімітує точність</text>
+  <text x="653" y="508" text-anchor="start" font-size="12" fill="#1a1a1a">• Оптимальна для MCU C/C++</text>
+  <text x="653" y="526" text-anchor="start" font-size="12" fill="#6b7280">• Висока швидкість обчислень</text>
+</svg>

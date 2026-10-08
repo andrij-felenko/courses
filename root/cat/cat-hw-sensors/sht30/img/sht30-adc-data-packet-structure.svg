@@ -1,0 +1,136 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <!-- Main Title and Subtitle -->
+  <text x="480" y="38" font-size="18" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Структура кадру даних давача SHT30 (I2C)</text>
+  <text x="480" y="60" font-size="13" text-anchor="middle" fill="#6b7280">6-байтовий пакет містить два 16-бітних слова (Temp та RH) з окремою контрольною сумою CRC-8</text>
+
+  <!-- Transmission Order Bar -->
+  <rect x="40" y="78" width="880" height="28" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="4"/>
+  <text x="480" y="96" font-size="12" text-anchor="middle" fill="#1a1a1a">Порядок передачі I2C: [ MSB Temp ] ➜ [ LSB Temp ] ➜ [ CRC ] ➜ [ MSB RH ] ➜ [ LSB RH ] ➜ [ CRC ]</text>
+
+  <!-- LEFT PANEL: Temperature Data Word -->
+  <rect x="40" y="120" width="428" height="340" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5" rx="8"/>
+  <rect x="52" y="132" width="404" height="32" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="4"/>
+  <text x="254" y="153" font-size="14" font-weight="bold" text-anchor="middle" fill="#2457d6">Слово 1: Виміряна температура (16 біт + CRC)</text>
+
+  <!-- CRC Coverage indicator Temp -->
+  <path d="M 60 188 L 314 188" stroke="#2457d6" stroke-width="2" fill="none"/>
+  <text x="187" y="180" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">Вхідні дані CRC (2 байти)</text>
+  <path d="M 314 188 C 328 188, 328 204, 328 204" stroke="#27ae60" stroke-width="2" fill="none" marker-end="url(#arr-green)"/>
+  <text x="388" y="180" font-size="12" font-weight="bold" text-anchor="middle" fill="#27ae60">Контроль CRC-8</text>
+
+  <!-- Byte 1: Temp MSB -->
+  <rect x="60" y="194" width="120" height="96" fill="#ffffff" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <text x="120" y="214" font-size="13" font-weight="bold" text-anchor="middle" fill="#2457d6">Байт 1: MSB</text>
+  <text x="120" y="234" font-size="13" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Temp [15:8]</text>
+  <text x="120" y="254" font-size="12" text-anchor="middle" fill="#6b7280">8 біт (D15...D8)</text>
+  <text x="120" y="274" font-size="12" text-anchor="middle" fill="#2457d6">1-й по I2C</text>
+
+  <!-- Byte 2: Temp LSB -->
+  <rect x="194" y="194" width="120" height="96" fill="#ffffff" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <text x="254" y="214" font-size="13" font-weight="bold" text-anchor="middle" fill="#2457d6">Байт 2: LSB</text>
+  <text x="254" y="234" font-size="13" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Temp [7:0]</text>
+  <text x="254" y="254" font-size="12" text-anchor="middle" fill="#6b7280">8 біт (D7...D0)</text>
+  <text x="254" y="274" font-size="12" text-anchor="middle" fill="#2457d6">2-й по I2C</text>
+
+  <!-- Byte 3: Temp CRC -->
+  <rect x="328" y="194" width="120" height="96" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="6"/>
+  <text x="388" y="214" font-size="13" font-weight="bold" text-anchor="middle" fill="#27ae60">Байт 3: CRC</text>
+  <text x="388" y="234" font-size="13" font-weight="bold" text-anchor="middle" fill="#1a1a1a">CRC-8 (Temp)</text>
+  <text x="388" y="254" font-size="12" text-anchor="middle" fill="#6b7280">Poly: 0x31</text>
+  <text x="388" y="274" font-size="12" text-anchor="middle" fill="#27ae60">3-й по I2C</text>
+
+  <!-- Connectors from bytes to lower blocks (Left Panel) -->
+  <line x1="187" y1="290" x2="187" y2="302" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <line x1="388" y1="290" x2="388" y2="302" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <!-- Raw Temp Value Box -->
+  <rect x="60" y="306" width="254" height="62" fill="#f4f6f8" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <text x="187" y="325" font-size="13" font-weight="bold" text-anchor="middle" fill="#2457d6">16-бітне значення S_T</text>
+  <text x="187" y="343" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">S_T = (MSB &lt;&lt; 8) | LSB</text>
+  <text x="187" y="359" font-size="12" text-anchor="middle" fill="#6b7280">Діапазон: 0...65535</text>
+
+  <!-- CRC Info Box (Temp) -->
+  <rect x="328" y="306" width="120" height="62" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="6"/>
+  <text x="388" y="325" font-size="12" font-weight="bold" text-anchor="middle" fill="#27ae60">Алгоритм CRC</text>
+  <text x="388" y="343" font-size="12" text-anchor="middle" fill="#1a1a1a">Init = 0xFF</text>
+  <text x="388" y="359" font-size="12" text-anchor="middle" fill="#6b7280">x^8+x^5+x^4+1</text>
+
+  <!-- Connector from Raw Temp to Formula -->
+  <line x1="187" y1="368" x2="187" y2="378" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Temp Formula Container -->
+  <rect x="60" y="382" width="388" height="62" fill="#ffffff" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <text x="254" y="401" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Формула перетворення у °C:</text>
+  <text x="254" y="426" font-size="14" font-weight="bold" text-anchor="middle" fill="#2457d6">T = -45 + 175 × ( S_T / 65535 )</text>
+
+  <!-- RIGHT PANEL: Humidity Data Word -->
+  <rect x="492" y="120" width="428" height="340" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5" rx="8"/>
+  <rect x="504" y="132" width="404" height="32" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="4"/>
+  <text x="706" y="153" font-size="14" font-weight="bold" text-anchor="middle" fill="#2457d6">Слово 2: Виміряна вологість (16 біт + CRC)</text>
+
+  <!-- CRC Coverage indicator RH -->
+  <path d="M 512 188 L 766 188" stroke="#2457d6" stroke-width="2" fill="none"/>
+  <text x="639" y="180" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">Вхідні дані CRC (2 байти)</text>
+  <path d="M 766 188 C 780 188, 780 204, 780 204" stroke="#27ae60" stroke-width="2" fill="none" marker-end="url(#arr-green)"/>
+  <text x="840" y="180" font-size="12" font-weight="bold" text-anchor="middle" fill="#27ae60">Контроль CRC-8</text>
+
+  <!-- Byte 4: RH MSB -->
+  <rect x="512" y="194" width="120" height="96" fill="#ffffff" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <text x="572" y="214" font-size="13" font-weight="bold" text-anchor="middle" fill="#2457d6">Байт 4: MSB</text>
+  <text x="572" y="234" font-size="13" font-weight="bold" text-anchor="middle" fill="#1a1a1a">RH [15:8]</text>
+  <text x="572" y="254" font-size="12" text-anchor="middle" fill="#6b7280">8 біт (D15...D8)</text>
+  <text x="572" y="274" font-size="12" text-anchor="middle" fill="#2457d6">4-й по I2C</text>
+
+  <!-- Byte 5: RH LSB -->
+  <rect x="646" y="194" width="120" height="96" fill="#ffffff" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <text x="706" y="214" font-size="13" font-weight="bold" text-anchor="middle" fill="#2457d6">Байт 5: LSB</text>
+  <text x="706" y="234" font-size="13" font-weight="bold" text-anchor="middle" fill="#1a1a1a">RH [7:0]</text>
+  <text x="706" y="254" font-size="12" text-anchor="middle" fill="#6b7280">8 біт (D7...D0)</text>
+  <text x="706" y="274" font-size="12" text-anchor="middle" fill="#2457d6">5-й по I2C</text>
+
+  <!-- Byte 6: RH CRC -->
+  <rect x="780" y="194" width="120" height="96" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="6"/>
+  <text x="840" y="214" font-size="13" font-weight="bold" text-anchor="middle" fill="#27ae60">Байт 6: CRC</text>
+  <text x="840" y="234" font-size="13" font-weight="bold" text-anchor="middle" fill="#1a1a1a">CRC-8 (RH)</text>
+  <text x="840" y="254" font-size="12" text-anchor="middle" fill="#6b7280">Poly: 0x31</text>
+  <text x="840" y="274" font-size="12" text-anchor="middle" fill="#27ae60">6-й по I2C</text>
+
+  <!-- Connectors from bytes to lower blocks (Right Panel) -->
+  <line x1="639" y1="290" x2="639" y2="302" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <line x1="840" y1="290" x2="840" y2="302" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <!-- Raw RH Value Box -->
+  <rect x="512" y="306" width="254" height="62" fill="#f4f6f8" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <text x="639" y="325" font-size="13" font-weight="bold" text-anchor="middle" fill="#2457d6">16-бітне значення S_RH</text>
+  <text x="639" y="343" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">S_RH = (MSB &lt;&lt; 8) | LSB</text>
+  <text x="639" y="359" font-size="12" text-anchor="middle" fill="#6b7280">Діапазон: 0...65535</text>
+
+  <!-- CRC Info Box (RH) -->
+  <rect x="780" y="306" width="120" height="62" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="6"/>
+  <text x="840" y="325" font-size="12" font-weight="bold" text-anchor="middle" fill="#27ae60">Алгоритм CRC</text>
+  <text x="840" y="343" font-size="12" text-anchor="middle" fill="#1a1a1a">Init = 0xFF</text>
+  <text x="840" y="359" font-size="12" text-anchor="middle" fill="#6b7280">x^8+x^5+x^4+1</text>
+
+  <!-- Connector from Raw RH to Formula -->
+  <line x1="639" y1="368" x2="639" y2="378" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- RH Formula Container -->
+  <rect x="512" y="382" width="388" height="62" fill="#ffffff" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <text x="706" y="401" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Формула перетворення у %RH:</text>
+  <text x="706" y="426" font-size="14" font-weight="bold" text-anchor="middle" fill="#2457d6">RH = 100 × ( S_RH / 65535 )</text>
+</svg>

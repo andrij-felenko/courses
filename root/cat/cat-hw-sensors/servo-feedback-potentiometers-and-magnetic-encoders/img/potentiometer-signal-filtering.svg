@@ -1,0 +1,133 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 525" width="960" height="525" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-blue-rev" markerWidth="8" markerHeight="8" refX="1" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="525" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Фільтрація аналогового сигналу потенціометра сервопривода</text>
+  <text x="480" y="52" text-anchor="middle" font-size="13" fill="#6b7280">EMA забезпечує краще придушення сплесків брязкоту та меншу фазову затримку ніж SMA</text>
+
+  <!-- Main Graph Panel Container -->
+  <rect x="40" y="70" width="880" height="345" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Legend Bar Inside Main Panel -->
+  <rect x="130" y="80" width="700" height="28" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Legend Item 1: Real Angle -->
+  <line x1="145" y1="94" x2="175" y2="94" stroke="#475569" stroke-width="2" stroke-dasharray="5,3"/>
+  <text x="182" y="98" font-size="12" fill="#1a1a1a">Кут вала (ідеал)</text>
+
+  <!-- Legend Item 2: Raw ADC -->
+  <line x1="310" y1="94" x2="340" y2="94" stroke="#c0392b" stroke-width="1.5" stroke-opacity="0.8"/>
+  <text x="347" y="98" font-size="12" fill="#1a1a1a">Сирий АЦП (з шумом)</text>
+
+  <!-- Legend Item 3: SMA -->
+  <line x1="500" y1="94" x2="530" y2="94" stroke="#2457d6" stroke-width="2.5"/>
+  <text x="537" y="98" font-size="12" fill="#1a1a1a">SMA (N=8)</text>
+
+  <!-- Legend Item 4: EMA -->
+  <line x1="635" y1="94" x2="665" y2="94" stroke="#27ae60" stroke-width="2.5"/>
+  <text x="672" y="98" font-size="12" fill="#1a1a1a">EMA (α=0.25)</text>
+
+  <!-- Grid Background Lines & Axis Labels -->
+  <text x="60" y="100" font-size="12" font-weight="bold" fill="#1a1a1a">Кут θ (°)</text>
+
+  <line x1="110" y1="125" x2="890" y2="125" stroke="#e2e8f0" stroke-width="1" stroke-dasharray="4,4"/>
+  <text x="100" y="129" text-anchor="end" font-size="12" fill="#6b7280">100°</text>
+
+  <line x1="110" y1="185" x2="890" y2="185" stroke="#e2e8f0" stroke-width="1" stroke-dasharray="4,4"/>
+  <text x="100" y="189" text-anchor="end" font-size="12" fill="#6b7280">75°</text>
+
+  <line x1="110" y1="245" x2="890" y2="245" stroke="#e2e8f0" stroke-width="1" stroke-dasharray="4,4"/>
+  <text x="100" y="249" text-anchor="end" font-size="12" fill="#6b7280">50°</text>
+
+  <line x1="110" y1="305" x2="890" y2="305" stroke="#e2e8f0" stroke-width="1" stroke-dasharray="4,4"/>
+  <text x="100" y="309" text-anchor="end" font-size="12" fill="#6b7280">25°</text>
+
+  <line x1="110" y1="365" x2="890" y2="365" stroke="#94a3b8" stroke-width="1.5"/>
+  <text x="100" y="369" text-anchor="end" font-size="12" fill="#6b7280">0°</text>
+
+  <line x1="110" y1="125" x2="110" y2="365" stroke="#94a3b8" stroke-width="1.5"/>
+  <text x="110" y="383" text-anchor="middle" font-size="12" fill="#6b7280">0</text>
+
+  <line x1="240" y1="125" x2="240" y2="365" stroke="#e2e8f0" stroke-width="1" stroke-dasharray="4,4"/>
+  <text x="240" y="383" text-anchor="middle" font-size="12" fill="#6b7280">50</text>
+
+  <line x1="370" y1="125" x2="370" y2="365" stroke="#e2e8f0" stroke-width="1" stroke-dasharray="4,4"/>
+  <text x="370" y="383" text-anchor="middle" font-size="12" fill="#6b7280">100</text>
+
+  <line x1="500" y1="125" x2="500" y2="365" stroke="#e2e8f0" stroke-width="1" stroke-dasharray="4,4"/>
+  <text x="500" y="383" text-anchor="middle" font-size="12" fill="#6b7280">150</text>
+
+  <line x1="630" y1="125" x2="630" y2="365" stroke="#e2e8f0" stroke-width="1" stroke-dasharray="4,4"/>
+  <text x="630" y="383" text-anchor="middle" font-size="12" fill="#6b7280">200</text>
+
+  <line x1="760" y1="125" x2="760" y2="365" stroke="#e2e8f0" stroke-width="1" stroke-dasharray="4,4"/>
+  <text x="760" y="383" text-anchor="middle" font-size="12" fill="#6b7280">250</text>
+
+  <line x1="890" y1="125" x2="890" y2="365" stroke="#94a3b8" stroke-width="1.5"/>
+  <text x="890" y="383" text-anchor="middle" font-size="12" fill="#6b7280">300</text>
+
+  <text x="890" y="401" text-anchor="end" font-size="12" font-weight="bold" fill="#1a1a1a">Час t (мс)</text>
+
+  <!-- Curve 1: Ideal Signal -->
+  <path d="M 110,317 L 318,317 L 474,173 L 890,173" fill="none" stroke="#475569" stroke-width="2" stroke-dasharray="6,4"/>
+
+  <!-- Curve 2: Raw ADC Signal (Noisy Jitter + Chatter Spike) -->
+  <polyline points="110,317 120,311 130,323 140,309 150,325 160,312 170,321 180,305 190,326 200,314 210,320 220,308 230,324 240,311 250,322 260,313 270,319 280,307 290,325 300,312 310,321 318,317 330,297 340,305 350,282 360,291 370,265 380,274 390,245 400,253 410,227 420,239 430,207 440,219 450,189 460,202 470,173 474,173 485,167 495,179 505,165 515,177 525,169 535,178 545,166 555,175 565,168 575,177 585,169 595,176 605,167 615,178 625,170 635,177 645,168 656,176 666,170 675,145 685,188 695,128 705,208 715,133 725,192 735,155 745,176 755,168 765,177 775,166 785,178 795,169 805,176 815,167 825,178 835,169 845,176 855,168 865,177 875,167 890,173" fill="none" stroke="#c0392b" stroke-width="1.2" stroke-opacity="0.8"/>
+
+  <!-- Curve 3: Moving Average (SMA, N=8) -->
+  <path d="M 110,317 L 325,317 C 350,317 375,302 405,267 C 445,222 485,182 525,176 C 545,173 560,173 656,173 C 675,173 690,163 705,163 C 720,163 735,173 755,173 L 890,173" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+
+  <!-- Curve 4: Exponential Moving Average (EMA, α=0.25) -->
+  <path d="M 110,317 L 320,317 C 335,317 365,282 410,227 C 455,175 475,173 500,173 L 660,173 C 680,173 695,167 705,167 C 715,167 725,173 740,173 L 890,173" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+
+  <!-- Visual Annotation 1: Fast EMA Response -->
+  <rect x="165" y="210" width="150" height="42" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="240" y="228" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Швидка реакція EMA</text>
+  <text x="240" y="244" text-anchor="middle" font-size="11" fill="#1a1a1a">Мінімальне запізнення</text>
+  <path d="M 240,252 L 325,305" fill="none" stroke="#27ae60" stroke-width="1" stroke-dasharray="3,3" marker-end="url(#arr-green)"/>
+
+  <!-- Visual Annotation 2: Phase Lag of SMA -->
+  <line x1="380" y1="245" x2="425" y2="245" stroke="#2457d6" stroke-width="1.5" marker-start="url(#arr-blue-rev)" marker-end="url(#arr-blue)"/>
+  <rect x="430" y="295" width="165" height="42" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="512" y="313" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Фазова затримка SMA</text>
+  <text x="512" y="329" text-anchor="middle" font-size="11" fill="#1a1a1a">Запізнення фронту ~30 мс</text>
+  <path d="M 490,295 L 415,255" fill="none" stroke="#2457d6" stroke-width="1" stroke-dasharray="3,3" marker-end="url(#arr-blue)"/>
+
+  <!-- Visual Annotation 3: Contact Chatter Spike Rejection -->
+  <rect x="685" y="210" width="185" height="42" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="777" y="228" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Сплеск брязкоту контакту</text>
+  <text x="777" y="244" text-anchor="middle" font-size="11" fill="#1a1a1a">EMA усуває імпульсну заваду</text>
+  <path d="M 720,210 L 700,140" fill="none" stroke="#c0392b" stroke-width="1" stroke-dasharray="3,3" marker-end="url(#arr-red)"/>
+
+  <!-- Bottom Comparison Cards -->
+  <!-- Card 1: SMA Details -->
+  <rect x="40" y="435" width="425" height="65" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="56" y="455" font-size="13" font-weight="bold" fill="#2457d6">Ковзне середнє (SMA, N=8)</text>
+  <text x="56" y="472" font-size="11" fill="#1a1a1a">Формула: y[k] = (x[k] + x[k-1] + ... + x[k-7]) / 8</text>
+  <text x="56" y="488" font-size="11" fill="#6b7280">Вимагає буфер в ОЗП; фазова затримка τ ≈ (N-1)/2 = 3.5 відліки</text>
+
+  <!-- Card 2: EMA Details -->
+  <rect x="495" y="435" width="425" height="65" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="511" y="455" font-size="13" font-weight="bold" fill="#27ae60">Експоненціальне згладжування (EMA, α=0.25)</text>
+  <text x="511" y="472" font-size="11" fill="#1a1a1a">Формула: y[k] = α · x[k] + (1 - α) · y[k-1]</text>
+  <text x="511" y="488" font-size="11" fill="#6b7280">Зберігає 1 стан в ОЗП; гнучке налаштування коефіцієнта α</text>
+</svg>

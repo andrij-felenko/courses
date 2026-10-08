@@ -1,0 +1,124 @@
+<svg width="960" height="520" viewBox="0 0 960 520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <marker id="arr" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-accent" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Background Canvas -->
+  <rect x="0" y="0" width="960" height="520" fill="#ffffff"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="30" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Конструкція платинових RTD-елементів: Wire-Wound vs Thin-Film</text>
+  <text x="480" y="52" text-anchor="middle" font-size="13" fill="#6b7280">Дротяні елементи надають вищу термостабільність, а тонкоплівкові — вищий опір та компактність</text>
+
+  <!-- LEFT PANEL: WIRE-WOUND -->
+  <rect x="30" y="75" width="435" height="425" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="8"/>
+  <rect x="130" y="90" width="235" height="28" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="14"/>
+  <text x="247" y="109" text-anchor="middle" font-size="14" font-weight="bold" fill="#2457d6">Дротяний елемент (Wire-Wound)</text>
+
+  <!-- Wire-Wound Graphics -->
+  <!-- Outer Ceramic Tube Body -->
+  <rect x="140" y="170" width="220" height="110" rx="10" fill="#ffffff" stroke="#94a3b8" stroke-width="2"/>
+  <!-- Inner Ceramic Core Channels -->
+  <rect x="155" y="185" width="190" height="80" rx="5" fill="#f1f5f9" stroke="#cbd5e1" stroke-width="1.5" stroke-dasharray="3 3"/>
+
+  <!-- Helical Platinum Wire Coil -->
+  <path d="M 55 205 L 155 205 M 155 205 C 175 195, 175 215, 195 205 C 215 195, 215 215, 235 205 C 255 195, 255 215, 275 205 C 295 195, 295 215, 315 205 C 335 195, 335 230, 315 245 C 295 235, 295 255, 275 245 C 255 235, 255 255, 235 245 C 215 235, 215 255, 195 245 C 175 235, 175 255, 155 245 L 55 245" fill="none" stroke="#d97706" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <!-- Extension Leads & Weld Points -->
+  <line x1="55" y1="205" x2="155" y2="205" stroke="#475569" stroke-width="3"/>
+  <line x1="55" y1="245" x2="155" y2="245" stroke="#475569" stroke-width="3"/>
+  <circle cx="155" cy="205" r="4" fill="#b45309"/>
+  <circle cx="155" cy="245" r="4" fill="#b45309"/>
+
+  <!-- Callout Labels & Leader Lines: Wire-Wound -->
+  <!-- Platinum Wire Coil -->
+  <text x="250" y="145" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Платинова спіраль (Pt wire)</text>
+  <line x1="250" y1="150" x2="250" y2="195" stroke="#2457d6" stroke-width="1.2" marker-end="url(#arr-accent)"/>
+
+  <!-- Laser Weld -->
+  <text x="115" y="165" text-anchor="middle" font-size="12" fill="#1a1a1a">Зварне з'єднання</text>
+  <line x1="120" y1="172" x2="151" y2="201" stroke="#6b7280" stroke-width="1.2" marker-end="url(#arr)"/>
+
+  <!-- Leads -->
+  <text x="50" y="285" text-anchor="start" font-size="12" fill="#1a1a1a">Вивідні провідники</text>
+  <line x1="75" y1="270" x2="75" y2="248" stroke="#6b7280" stroke-width="1.2" marker-end="url(#arr)"/>
+
+  <!-- Ceramic Body -->
+  <text x="355" y="315" text-anchor="middle" font-size="12" fill="#1a1a1a">Керамічний корпус (Al₂O₃)</text>
+  <line x1="335" y1="298" x2="315" y2="277" stroke="#6b7280" stroke-width="1.2" marker-end="url(#arr)"/>
+
+  <!-- Ceramic Powder / Glass Seal -->
+  <text x="170" y="315" text-anchor="middle" font-size="12" fill="#1a1a1a">Фіксуюча глазур / порошок</text>
+  <line x1="180" y1="298" x2="200" y2="262" stroke="#6b7280" stroke-width="1.2" marker-end="url(#arr)"/>
+
+  <!-- Summary Box: Wire-Wound -->
+  <rect x="45" y="345" width="405" height="140" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="60" y="367" font-size="13" font-weight="bold" fill="#1a1a1a">Особливості Wire-Wound:</text>
+  <text x="60" y="390" font-size="12" fill="#1a1a1a"><tspan fill="#27ae60" font-weight="bold">✓</tspan> Найвища стабільність та точність (до Class AA)</text>
+  <text x="60" y="412" font-size="12" fill="#1a1a1a"><tspan fill="#27ae60" font-weight="bold">✓</tspan> Широкий діапазон T°: від -200 °C до +850 °C</text>
+  <text x="60" y="434" font-size="12" fill="#1a1a1a"><tspan fill="#c0392b" font-weight="bold">⚠</tspan> Чутливий до сильної вібрації (крихка спіраль)</text>
+  <text x="60" y="456" font-size="12" fill="#6b7280"><tspan fill="#c0392b" font-weight="bold">⚠</tspan> Більші габарити та висока теплова інерція</text>
+  <text x="60" y="475" font-size="12" fill="#6b7280">• Оптимальний номінал опору: Pt100</text>
+
+
+  <!-- RIGHT PANEL: THIN-FILM -->
+  <rect x="495" y="75" width="435" height="425" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="8"/>
+  <rect x="595" y="90" width="235" height="28" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="14"/>
+  <text x="712" y="109" text-anchor="middle" font-size="14" font-weight="bold" fill="#2457d6">Тонкоплівковий (Thin-Film)</text>
+
+  <!-- Thin-Film Graphics -->
+  <!-- Substrate Plate -->
+  <rect x="560" y="215" width="220" height="70" rx="4" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+  <path d="M 560 285 L 560 292 L 780 292 L 780 285 Z" fill="#cbd5e1" stroke="#94a3b8" stroke-width="1.5"/>
+
+  <!-- Meander Thin Film Pattern -->
+  <path d="M 580 235 H 720 V 242 H 595 V 249 H 720 V 256 H 595 V 263 H 720 V 270 H 580" fill="none" stroke="#d97706" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <!-- Contact Pads -->
+  <rect x="575" y="230" width="20" height="12" rx="2" fill="#b45309"/>
+  <rect x="575" y="263" width="20" height="12" rx="2" fill="#b45309"/>
+
+  <!-- Extension Lead Wires & Welds -->
+  <line x1="515" y1="236" x2="575" y2="236" stroke="#475569" stroke-width="3"/>
+  <line x1="515" y1="269" x2="575" y2="269" stroke="#475569" stroke-width="3"/>
+  <circle cx="580" cy="236" r="3.5" fill="#f59e0b"/>
+  <circle cx="580" cy="269" r="3.5" fill="#f59e0b"/>
+
+  <!-- Glass Passivation Layer Overlay -->
+  <rect x="590" y="222" width="145" height="56" rx="4" fill="#2457d6" fill-opacity="0.18" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4 3"/>
+
+  <!-- Callout Labels & Leader Lines: Thin-Film -->
+  <!-- Glass Layer -->
+  <text x="660" y="145" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Захисний шар скла (пасивація)</text>
+  <line x1="660" y1="150" x2="660" y2="219" stroke="#2457d6" stroke-width="1.2" marker-end="url(#arr-accent)"/>
+
+  <!-- Contact Pads -->
+  <text x="525" y="180" text-anchor="middle" font-size="12" fill="#1a1a1a">Контактні майданчики</text>
+  <line x1="535" y1="185" x2="573" y2="227" stroke="#6b7280" stroke-width="1.2" marker-end="url(#arr)"/>
+
+  <!-- Thin Film Meander -->
+  <text x="790" y="180" text-anchor="middle" font-size="12" fill="#1a1a1a">Платиновий меандр (~1 мкм)</text>
+  <line x1="765" y1="185" x2="700" y2="233" stroke="#6b7280" stroke-width="1.2" marker-end="url(#arr)"/>
+
+  <!-- Leads -->
+  <text x="515" y="297" text-anchor="start" font-size="12" fill="#1a1a1a">Вивідні провідники</text>
+  <line x1="535" y1="282" x2="535" y2="271" stroke="#6b7280" stroke-width="1.2" marker-end="url(#arr)"/>
+
+  <!-- Substrate -->
+  <text x="740" y="320" text-anchor="middle" font-size="12" fill="#1a1a1a">Керамічна підкладка (Al₂O₃)</text>
+  <line x1="740" y1="303" x2="720" y2="292" stroke="#6b7280" stroke-width="1.2" marker-end="url(#arr)"/>
+
+  <!-- Summary Box: Thin-Film -->
+  <rect x="510" y="345" width="405" height="140" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="525" y="367" font-size="13" font-weight="bold" fill="#1a1a1a">Особливості Thin-Film:</text>
+  <text x="525" y="390" font-size="12" fill="#1a1a1a"><tspan fill="#27ae60" font-weight="bold">✓</tspan> Високий опір у малому об'ємі (стандарт Pt1000)</text>
+  <text x="525" y="412" font-size="12" fill="#1a1a1a"><tspan fill="#27ae60" font-weight="bold">✓</tspan> Низька теплова маса — швидкий відгук на зміну T°</text>
+  <text x="525" y="434" font-size="12" fill="#1a1a1a"><tspan fill="#27ae60" font-weight="bold">✓</tspan> Відмінна стійкість до вібрацій та технологічність</text>
+  <text x="525" y="456" font-size="12" fill="#6b7280"><tspan fill="#c0392b" font-weight="bold">⚠</tspan> Обмежений робочий діапазон T° (до +500 °C)</text>
+  <text x="525" y="475" font-size="12" fill="#6b7280">• Масове промислове виробництво (SMD / 2.0×2.3 мм)</text>
+</svg>

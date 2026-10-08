@@ -1,0 +1,151 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Маркери для стрілок -->
+  <defs>
+    <marker id="arr-main" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="30" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Кельвінівське 4-провідне підключення шунта та I2C-обв'язка INA219</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Вимірювальні провідники VIN+/VIN- підключаються безпосередньо до контактів шунта вбік від силового струму</text>
+
+  <!-- ==================== ПАНЕЛЬ 1: ВИМІРЮВАЛЬНИЙ ЛАНЦЮГ ==================== -->
+  <rect x="25" y="70" width="280" height="430" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="165" y="95" font-size="14" font-weight="700" fill="#1a1a1a" text-anchor="middle">1. Вимірювальний ланцюг (High-Side)</text>
+
+  <!-- Джерело V_IN -->
+  <rect x="45" y="115" width="105" height="50" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="97" y="137" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">Джерело V_IN</text>
+  <text x="97" y="154" font-size="12" fill="#6b7280" text-anchor="middle">+12V ... +26V</text>
+
+  <!-- Навантаження R_LOAD -->
+  <rect x="45" y="430" width="105" height="50" rx="4" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="97" y="452" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Навантаження</text>
+  <text x="97" y="469" font-size="12" fill="#6b7280" text-anchor="middle">R_LOAD</text>
+
+  <!-- Силові доріжки (High Current Path) -->
+  <!-- V_IN (+) to Pad A -->
+  <path d="M150,140 L225,140 L225,195" fill="none" stroke="#c0392b" stroke-width="3.5" marker-end="url(#arr-red)"/>
+  <!-- Pad B to Load (+) -->
+  <path d="M225,370 L225,455 L150,455" fill="none" stroke="#c0392b" stroke-width="3.5" marker-end="url(#arr-red)"/>
+
+  <!-- Позначка силового струму -->
+  <rect x="40" y="268" width="115" height="44" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="97" y="286" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">Силовий струм I</text>
+  <text x="97" y="303" font-size="12" fill="#c0392b" text-anchor="middle">падіння на доріжках!</text>
+
+  <!-- Блок шунтового резистора SMD -->
+  <rect x="175" y="190" width="115" height="185" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="232" y="210" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Шунт R_SHUNT</text>
+
+  <!-- Contact Pad A -->
+  <rect x="185" y="220" width="95" height="30" rx="3" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="232" y="239" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Майданчик A</text>
+
+  <!-- Resistor Element -->
+  <rect x="195" y="255" width="75" height="60" rx="2" fill="#1a1a1a"/>
+  <text x="232" y="282" font-size="12" font-weight="700" fill="white" text-anchor="middle">R_SHUNT</text>
+  <text x="232" y="299" font-size="12" fill="white" text-anchor="middle">0.1 Ω (1%)</text>
+
+  <!-- Contact Pad B -->
+  <rect x="185" y="320" width="95" height="30" rx="3" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="232" y="339" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Майданчик B</text>
+
+  <!-- Кельвінівські лінії (Sense Wires) -->
+  <!-- VIN+ sense line from Pad A center-right -->
+  <path d="M280,235 L365,235" fill="none" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arr-green)"/>
+  <text x="322" y="223" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">VIN+ (Kelvin)</text>
+
+  <!-- VIN- sense line from Pad B center-right -->
+  <path d="M280,335 L365,335" fill="none" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arr-green)"/>
+  <text x="322" y="323" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">VIN- (Kelvin)</text>
+
+  <!-- ==================== ПАНЕЛЬ 2: ЦИФРОВИЙ МОНІТОР INA219 ==================== -->
+  <rect x="330" y="70" width="270" height="430" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="465" y="95" font-size="14" font-weight="700" fill="#1a1a1a" text-anchor="middle">2. Цифровий монітор INA219</text>
+
+  <!-- IC Chip Frame -->
+  <rect x="350" y="110" width="230" height="375" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="2"/>
+  <text x="465" y="133" font-size="15" font-weight="700" fill="#2457d6" text-anchor="middle">INA219</text>
+
+  <!-- Internal PGA Block -->
+  <rect x="365" y="145" width="200" height="58" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="465" y="166" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">PGA (±40mV ... ±320mV)</text>
+  <text x="465" y="186" font-size="12" fill="#1a1a1a" text-anchor="middle">12-bit ΔΣ ADC (V_SHUNT)</text>
+
+  <!-- Internal Bus ADC Block -->
+  <rect x="365" y="218" width="200" height="54" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="465" y="240" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">Bus Voltage ADC</text>
+  <text x="465" y="258" font-size="12" fill="#6b7280" text-anchor="middle">Вимірювання V_BUS (0..26V)</text>
+
+  <!-- Calibration & Math Engine -->
+  <rect x="365" y="287" width="200" height="58" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="465" y="309" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Калібрувальний регістр</text>
+  <text x="465" y="329" font-size="12" fill="#6b7280" text-anchor="middle">Апаратне множення I &amp; P</text>
+
+  <!-- I2C Controller Block -->
+  <rect x="365" y="360" width="200" height="54" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="465" y="382" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">I2C Контролер</text>
+  <text x="465" y="400" font-size="12" fill="#6b7280" text-anchor="middle">Інтерфейс зв'язку</text>
+
+  <!-- Address Selection Block (A0, A1) -->
+  <rect x="365" y="424" width="200" height="50" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="465" y="444" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Виводи адреси A0, A1</text>
+  <text x="465" y="462" font-size="12" fill="#6b7280" text-anchor="middle">A0-GND, A1-GND -> 0x40</text>
+
+  <!-- ==================== ПАНЕЛЬ 3: ШИНА I2C ТА ГОЛОВНИЙ КОНТРОЛЕР ==================== -->
+  <rect x="625" y="70" width="310" height="430" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="780" y="95" font-size="14" font-weight="700" fill="#1a1a1a" text-anchor="middle">3. Шина I2C та Мікроконтролер</text>
+
+  <!-- VDD Line (Top) -->
+  <path d="M640,128 L915,128" stroke="#2457d6" stroke-width="2"/>
+  <text x="780" y="120" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">Шина живлення VDD (+3.3V / +5V)</text>
+
+  <!-- Pull-up R_PU1 (SDA) at x=663 -->
+  <rect x="640" y="145" width="46" height="50" rx="3" fill="#ffffff" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="663" y="167" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">R_PU1</text>
+  <text x="663" y="184" font-size="12" fill="#6b7280" text-anchor="middle">10 kΩ</text>
+  <path d="M663,128 L663,145" stroke="#1a1a1a" stroke-width="1.5"/>
+  <path d="M663,195 L663,375" stroke="#2457d6" stroke-width="2"/>
+
+  <!-- Pull-up R_PU2 (SCL) at x=713 -->
+  <rect x="690" y="145" width="46" height="50" rx="3" fill="#ffffff" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="713" y="167" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">R_PU2</text>
+  <text x="713" y="184" font-size="12" fill="#6b7280" text-anchor="middle">10 kΩ</text>
+  <path d="M713,128 L713,145" stroke="#1a1a1a" stroke-width="1.5"/>
+  <path d="M713,195 L713,415" stroke="#2457d6" stroke-width="2"/>
+
+  <!-- SDA Line (INA219 to Host) -->
+  <path d="M580,375 L810,375" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="600" y="365" font-size="12" font-weight="700" fill="#2457d6">SDA</text>
+
+  <!-- SCL Line (INA219 to Host) -->
+  <path d="M580,415 L810,415" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="600" y="405" font-size="12" font-weight="700" fill="#2457d6">SCL</text>
+
+  <!-- Host MCU Box -->
+  <rect x="810" y="330" width="110" height="120" rx="6" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="865" y="365" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">Host MCU</text>
+  <text x="865" y="386" font-size="12" fill="#6b7280" text-anchor="middle">ESP32 / STM32</text>
+  <text x="865" y="403" font-size="12" fill="#6b7280" text-anchor="middle">Arduino</text>
+
+  <!-- Legend / Key takeaway box -->
+  <rect x="725" y="230" width="200" height="80" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="825" y="250" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">Перевага Кельвіна:</text>
+  <text x="825" y="270" font-size="12" fill="#1a1a1a" text-anchor="middle">Усуває помилку вимірювання</text>
+  <text x="825" y="287" font-size="12" fill="#1a1a1a" text-anchor="middle">від опору PCB-доріжок</text>
+  <text x="825" y="302" font-size="12" fill="#1a1a1a" text-anchor="middle">та паяних з'єднань</text>
+</svg>

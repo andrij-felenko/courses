@@ -1,0 +1,144 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">I2C-кадр SHT30: 16-бітна команда, вимірювання та 6 байтів з CRC-8</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Послідовність запису команди, затримка t_meas та зчитування даних температури й вологості з перевіркою CRC-8</text>
+
+  <rect x="30" y="75" width="900" height="115" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="45" y="96" font-size="14" font-weight="bold" fill="#2457d6">1. Запис 16-бітної команди (Master → SHT30)</text>
+
+  <rect x="45" y="112" width="32" height="48" rx="4" fill="#2457d6" stroke="#1c44b2"/>
+  <text x="61" y="141" font-size="13" font-weight="bold" fill="#ffffff" text-anchor="middle">S</text>
+
+  <rect x="83" y="112" width="130" height="48" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="148" y="132" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">7-біт ADDR + W</text>
+  <text x="148" y="148" font-size="12" fill="#6b7280" text-anchor="middle">0x44 (0x88)</text>
+
+  <rect x="219" y="112" width="32" height="48" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="235" y="141" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">A</text>
+
+  <rect x="257" y="112" width="170" height="48" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="342" y="132" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">CMD MSB (0x24 / 0x2C)</text>
+  <text x="342" y="148" font-size="12" fill="#2457d6" text-anchor="middle">Режим / Повторюваність</text>
+
+  <rect x="433" y="112" width="32" height="48" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="449" y="141" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">A</text>
+
+  <rect x="471" y="112" width="170" height="48" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="556" y="132" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">CMD LSB (0x00 / 0x06)</text>
+  <text x="556" y="148" font-size="12" fill="#2457d6" text-anchor="middle">Рівень точності / Опції</text>
+
+  <rect x="647" y="112" width="32" height="48" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="663" y="141" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">A</text>
+
+  <rect x="685" y="112" width="32" height="48" rx="4" fill="#2457d6" stroke="#1c44b2"/>
+  <text x="701" y="141" font-size="13" font-weight="bold" fill="#ffffff" text-anchor="middle">P</text>
+
+  <rect x="727" y="112" width="188" height="48" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="821" y="131" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">16-бітна команда I2C</text>
+  <text x="821" y="147" font-size="12" fill="#6b7280" text-anchor="middle">Single Shot / Periodic</text>
+
+  <rect x="30" y="200" width="900" height="72" rx="8" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <rect x="45" y="211" width="270" height="50" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="180" y="231" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Затримка вимірювання t_meas</text>
+  <text x="180" y="247" font-size="12" fill="#1a1a1a" text-anchor="middle">4.5 ms (Low) ... 15.0 ms (High)</text>
+
+  <rect x="330" y="211" width="285" height="50" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="472" y="231" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Режим Clock Stretching</text>
+  <text x="472" y="247" font-size="12" fill="#1a1a1a" text-anchor="middle">SHT30 утримує SCL = LOW до готовності</text>
+
+  <rect x="630" y="211" width="285" height="50" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="772" y="231" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">Режим без розширення такту</text>
+  <text x="772" y="247" font-size="12" fill="#1a1a1a" text-anchor="middle">Master робить delay() або NACK-опитування</text>
+
+  <rect x="30" y="282" width="900" height="134" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="45" y="303" font-size="14" font-weight="bold" fill="#2457d6">2. Зчитування результату: 6 байтів + байти контрольної суми CRC-8 (Master ← SHT30)</text>
+
+  <rect x="32" y="318" width="28" height="52" rx="4" fill="#2457d6" stroke="#1c44b2"/>
+  <text x="46" y="349" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">S</text>
+
+  <rect x="64" y="318" width="84" height="52" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="106" y="340" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">ADDR+R</text>
+  <text x="106" y="356" font-size="12" fill="#6b7280" text-anchor="middle">0x44 + 1</text>
+
+  <rect x="152" y="318" width="24" height="52" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="164" y="349" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">A</text>
+
+  <rect x="180" y="318" width="88" height="52" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="224" y="340" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Байт 1: Temp</text>
+  <text x="224" y="356" font-size="12" fill="#2457d6" text-anchor="middle">MSB (8 біт)</text>
+
+  <rect x="272" y="318" width="24" height="52" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="284" y="349" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">A</text>
+
+  <rect x="300" y="318" width="88" height="52" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="344" y="340" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Байт 2: Temp</text>
+  <text x="344" y="356" font-size="12" fill="#2457d6" text-anchor="middle">LSB (8 біт)</text>
+
+  <rect x="392" y="318" width="24" height="52" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="404" y="349" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">A</text>
+
+  <rect x="420" y="318" width="88" height="52" rx="4" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/>
+  <text x="464" y="340" font-size="12" font-weight="bold" fill="#b45309" text-anchor="middle">Байт 3: CRC</text>
+  <text x="464" y="356" font-size="12" font-weight="bold" fill="#b45309" text-anchor="middle">CRC-8 (Temp)</text>
+
+  <rect x="512" y="318" width="24" height="52" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="524" y="349" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">A</text>
+
+  <rect x="540" y="318" width="88" height="52" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="584" y="340" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Байт 4: RH</text>
+  <text x="584" y="356" font-size="12" fill="#2457d6" text-anchor="middle">MSB (8 біт)</text>
+
+  <rect x="632" y="318" width="24" height="52" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="644" y="349" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">A</text>
+
+  <rect x="660" y="318" width="88" height="52" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="704" y="340" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Байт 5: RH</text>
+  <text x="704" y="356" font-size="12" fill="#2457d6" text-anchor="middle">LSB (8 біт)</text>
+
+  <rect x="752" y="318" width="24" height="52" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="764" y="349" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">A</text>
+
+  <rect x="780" y="318" width="88" height="52" rx="4" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/>
+  <text x="824" y="340" font-size="12" font-weight="bold" fill="#b45309" text-anchor="middle">Байт 6: CRC</text>
+  <text x="824" y="356" font-size="12" font-weight="bold" fill="#b45309" text-anchor="middle">CRC-8 (RH)</text>
+
+  <rect x="872" y="318" width="24" height="52" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="884" y="349" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">N</text>
+
+  <rect x="900" y="318" width="28" height="52" rx="4" fill="#2457d6" stroke="#1c44b2"/>
+  <text x="914" y="349" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">P</text>
+
+  <text x="344" y="398" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Слово 1: 16-біт Температура + CRC-8</text>
+  <text x="704" y="398" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Слово 2: 16-біт Вологість + CRC-8</text>
+
+  <rect x="30" y="428" width="900" height="96" rx="8" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <text x="45" y="446" font-size="12" font-weight="bold" fill="#1a1a1a">Сигнали та біти стану:</text>
+  <rect x="45" y="455" width="12" height="12" rx="2" fill="#2457d6"/>
+  <text x="63" y="465" font-size="12" fill="#1a1a1a">S / P — START / STOP біти</text>
+  <rect x="45" y="473" width="12" height="12" rx="2" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="63" y="483" font-size="12" fill="#1a1a1a">A / N — ACK (0) / NACK (1)</text>
+  <rect x="45" y="491" width="12" height="12" rx="2" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="63" y="501" font-size="12" fill="#1a1a1a">CMD — MSB + LSB (16 біт)</text>
+
+  <text x="325" y="446" font-size="12" font-weight="bold" fill="#b45309">Алгоритм CRC-8 (Sensirion):</text>
+  <text x="325" y="465" font-size="12" fill="#1a1a1a">Поліном: P(x) = x⁸ + x⁵ + x⁴ + 1 (0x31)</text>
+  <text x="325" y="483" font-size="12" fill="#1a1a1a">Початкове значення: Init = 0xFF</text>
+  <text x="325" y="501" font-size="12" fill="#6b7280">Розрахунок окремо для T та RH (2 байти)</text>
+
+  <text x="635" y="446" font-size="12" font-weight="bold" fill="#2457d6">Параметри повторюваності (t_meas):</text>
+  <text x="635" y="465" font-size="12" fill="#1a1a1a">High (Висока): 12.5...15.0 ms</text>
+  <text x="635" y="483" font-size="12" fill="#1a1a1a">Medium (Середня): 4.5...6.5 ms</text>
+  <text x="635" y="501" font-size="12" fill="#1a1a1a">Low (Низька): 2.5...4.5 ms</text>
+</svg>

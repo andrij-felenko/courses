@@ -1,0 +1,132 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Математика калібрування та потік обчислень в INA226</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">ПЗ розраховує CAL і задає Current_LSB; INA226 автоматично обчислює струм і потужність у залізі</text>
+
+  <!-- LEFT PANEL: Host MCU -->
+  <rect x="30" y="75" width="410" height="445" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="8"/>
+  <text x="50" y="100" font-size="13" font-weight="700" fill="#1a1a1a">ХОСТ-МІКРОКОНТРОЛЕР (ПРОГРАМНА ЧАСТИНА)</text>
+
+  <!-- Step 0: Input Parameters -->
+  <rect x="50" y="116" width="370" height="72" fill="white" stroke="#d0d7de" rx="6"/>
+  <text x="65" y="136" font-size="12" font-weight="700" fill="#1a1a1a">Вхідні дані розрахунку:</text>
+  <text x="65" y="154" font-size="12" fill="#6b7280">• IMAX — максимальний очікуваний струм (А)</text>
+  <text x="65" y="172" font-size="12" fill="#6b7280">• RSHUNT — опір вимірювального шунта (Ом)</text>
+
+  <!-- Arrow down -->
+  <line x1="235" y1="188" x2="235" y2="206" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Step 1: Current_LSB -->
+  <rect x="50" y="206" width="370" height="62" fill="#eaf0fd" stroke="#2457d6" rx="6"/>
+  <text x="235" y="230" font-size="13" font-weight="700" fill="#2457d6" text-anchor="middle">Current_LSB = IMAX / 32768</text>
+  <text x="235" y="252" font-size="12" fill="#6b7280" text-anchor="middle">(задає вагу 1 LSB струму в амперах)</text>
+
+  <!-- Arrow down -->
+  <line x1="235" y1="268" x2="235" y2="286" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Step 2: CAL calculation -->
+  <rect x="50" y="286" width="370" height="80" fill="#eaf0fd" stroke="#2457d6" rx="6"/>
+  <text x="235" y="310" font-size="13" font-weight="700" fill="#2457d6" text-anchor="middle">CAL = trunc( 0.00512 / (Current_LSB × RSHUNT) )</text>
+  <text x="235" y="332" font-size="12" fill="#6b7280" text-anchor="middle">0.00512 — внутрішня масштабуюча константа</text>
+  <text x="235" y="350" font-size="12" fill="#6b7280" text-anchor="middle">CAL — 16-бітне ціле безрозмірне число</text>
+
+  <!-- Arrow down -->
+  <line x1="235" y1="366" x2="235" y2="384" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Step 3: I2C write -->
+  <rect x="50" y="384" width="370" height="122" fill="white" stroke="#2457d6" rx="6"/>
+  <text x="65" y="406" font-size="12" font-weight="700" fill="#1a1a1a">Передача конфігурації через I2C:</text>
+  <text x="65" y="426" font-size="12" font-weight="700" fill="#2457d6">• Запис CAL у регістр Calibration (05h)</text>
+  <text x="65" y="446" font-size="12" fill="#6b7280">• Зберігає Current_LSB у пам'яті MCU</text>
+  <text x="65" y="466" font-size="12" fill="#6b7280">• Використовує Current_LSB для конвертації</text>
+  <text x="65" y="488" font-size="12" font-weight="700" fill="#c0392b">⚠ Без запису CAL струм і потужність = 0</text>
+
+
+  <!-- RIGHT PANEL: INA226 Silicon Core -->
+  <rect x="475" y="75" width="455" height="445" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="8"/>
+  <text x="495" y="100" font-size="13" font-weight="700" fill="#2457d6">МІКРОСХЕМА INA226 (АПАРАТНЕ ЯДРО)</text>
+
+  <!-- ADC Block -->
+  <rect x="495" y="116" width="415" height="102" fill="white" stroke="#d0d7de" rx="6"/>
+  <text x="510" y="136" font-size="12" font-weight="700" fill="#1a1a1a">Вимірювання АЦП (Analog Front-End):</text>
+
+  <!-- Shunt Voltage Reg -->
+  <rect x="510" y="146" width="185" height="62" fill="#f4f6f8" stroke="#d0d7de" rx="4"/>
+  <text x="602" y="166" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">VSHUNT Register (01h)</text>
+  <text x="602" y="184" font-size="12" fill="#6b7280" text-anchor="middle">VSHUNT = ISHUNT × RSHUNT</text>
+  <text x="602" y="200" font-size="12" fill="#2457d6" text-anchor="middle">LSB = 2.5 µV</text>
+
+  <!-- Bus Voltage Reg -->
+  <rect x="710" y="146" width="185" height="62" fill="#f4f6f8" stroke="#d0d7de" rx="4"/>
+  <text x="802" y="166" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">VBUS Register (02h)</text>
+  <text x="802" y="184" font-size="12" fill="#6b7280" text-anchor="middle">Напруга шини живлення</text>
+  <text x="802" y="200" font-size="12" fill="#2457d6" text-anchor="middle">LSB = 1.25 mV</text>
+
+  <!-- Calibration Register 05h -->
+  <rect x="495" y="236" width="415" height="44" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <text x="702" y="262" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">Calibration Register (05h)</text>
+
+  <!-- Math Engine -->
+  <rect x="495" y="296" width="415" height="110" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="6"/>
+  <text x="510" y="316" font-size="12" font-weight="700" fill="#27ae60">Апаратне арифметичне ядро (Math Engine):</text>
+  <text x="510" y="338" font-size="12" font-weight="700" fill="#1a1a1a">Current_Reg = (VSHUNT_Reg × CAL) / 2048</text>
+  <text x="510" y="356" font-size="12" fill="#27ae60">→ I = Current_Reg × Current_LSB (А)</text>
+  <text x="510" y="378" font-size="12" font-weight="700" fill="#1a1a1a">Power_Reg = (Current_Reg × VBUS_Reg) / 20000</text>
+  <text x="510" y="396" font-size="12" fill="#27ae60">→ P = Power_Reg × (25 × Current_LSB) (Вт)</text>
+
+  <!-- Output Registers -->
+  <!-- Current Reg 04h -->
+  <rect x="510" y="430" width="185" height="66" fill="#e9f7ef" stroke="#27ae60" rx="6"/>
+  <text x="602" y="450" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">Current Register (04h)</text>
+  <text x="602" y="468" font-size="12" fill="#1a1a1a" text-anchor="middle">Код струму (16 біт)</text>
+  <text x="602" y="484" font-size="12" fill="#6b7280" text-anchor="middle">Доступний по I2C</text>
+
+  <!-- Power Reg 03h -->
+  <rect x="710" y="430" width="185" height="66" fill="#e9f7ef" stroke="#27ae60" rx="6"/>
+  <text x="802" y="450" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">Power Register (03h)</text>
+  <text x="802" y="468" font-size="12" fill="#1a1a1a" text-anchor="middle">Код потужності (16 біт)</text>
+  <text x="802" y="484" font-size="12" fill="#6b7280" text-anchor="middle">Доступний по I2C</text>
+
+  <!-- Inter-panel Flow Arrows -->
+  <!-- I2C Write CAL -->
+  <path d="M420,426 L458,426 L458,258 L495,258" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="458" y="248" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">Запис CAL</text>
+
+  <!-- Internal INA226 connections -->
+  <!-- VSHUNT to Math Engine -->
+  <line x1="602" y1="208" x2="602" y2="296" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#arr-gray)"/>
+  <text x="594" y="230" font-size="12" fill="#6b7280" text-anchor="end">VSHUNT</text>
+
+  <!-- CAL to Math Engine -->
+  <line x1="702" y1="280" x2="702" y2="296" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- VBUS to Math Engine -->
+  <line x1="802" y1="208" x2="802" y2="296" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#arr-gray)"/>
+  <text x="810" y="230" font-size="12" fill="#6b7280" text-anchor="start">VBUS</text>
+
+  <!-- Math Engine to Current Reg -->
+  <line x1="602" y1="406" x2="602" y2="430" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- Math Engine to Power Reg -->
+  <line x1="802" y1="406" x2="802" y2="430" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- I2C Read back to MCU -->
+  <line x1="510" y1="471" x2="420" y2="471" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr-green)"/>
+  <text x="458" y="463" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">Читання I2C</text>
+
+</svg>

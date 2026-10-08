@@ -1,0 +1,116 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Canvas background -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="36" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Перемикання банків регістрів OV2640 через шину SCCB</text>
+  <text x="480" y="57" font-size="13" fill="#6b7280" text-anchor="middle">Запис значення 0x00 або 0x01 у регістр BANK_SEL (0xFF) перенаправляє SCCB-команди</text>
+
+  <!-- MCU Panel -->
+  <rect x="20" y="80" width="145" height="350" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="8"/>
+  <text x="92.5" y="105" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Мікроконтролер</text>
+  <text x="92.5" y="122" font-size="12" fill="#6b7280" text-anchor="middle">(Host MCU)</text>
+
+  <!-- MCU Step 1 -->
+  <rect x="28" y="135" width="129" height="72" fill="#ffffff" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <text x="92.5" y="155" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Крок 1: Bank 0</text>
+  <text x="92.5" y="175" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">BANK_SEL = 0x00</text>
+  <text x="92.5" y="193" font-size="12" fill="#6b7280" text-anchor="middle">(Режим DSP)</text>
+
+  <!-- MCU Step 2 -->
+  <rect x="28" y="222" width="129" height="72" fill="#ffffff" stroke="#27ae60" stroke-width="1.5" rx="6"/>
+  <text x="92.5" y="242" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Крок 2: Bank 1</text>
+  <text x="92.5" y="262" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">BANK_SEL = 0x01</text>
+  <text x="92.5" y="280" font-size="12" fill="#6b7280" text-anchor="middle">(Режим Sensor)</text>
+
+  <!-- MCU SCCB Interface -->
+  <rect x="28" y="309" width="129" height="105" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <text x="92.5" y="330" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Модуль SCCB</text>
+  <text x="92.5" y="352" font-size="12" fill="#1a1a1a" text-anchor="middle">SIOC (SCL)</text>
+  <text x="92.5" y="372" font-size="12" fill="#1a1a1a" text-anchor="middle">SIOD (SDA)</text>
+  <text x="92.5" y="394" font-size="12" fill="#6b7280" text-anchor="middle">Адреса: 0x60</text>
+
+  <!-- SCCB Bus Line from MCU to OV2640 -->
+  <line x1="165" y1="265" x2="255" y2="265" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+  <text x="200" y="246" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Шина SCCB</text>
+  <text x="200" y="284" font-size="12" fill="#6b7280" text-anchor="middle">SIOC/SIOD</text>
+
+  <!-- OV2640 Container -->
+  <rect x="235" y="80" width="705" height="350" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="8"/>
+  <text x="587.5" y="108" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Сенсор зображення OV2640 (Внутрішній блок керування)</text>
+
+  <!-- BANK_SEL Register Box -->
+  <rect x="255" y="145" width="170" height="240" fill="#ffffff" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <text x="340" y="170" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Регістр BANK_SEL</text>
+  <text x="340" y="190" font-size="12" fill="#6b7280" text-anchor="middle">Адреса: 0xFF</text>
+
+  <!-- Selector 0x00 -->
+  <rect x="265" y="210" width="150" height="65" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="5"/>
+  <text x="340" y="232" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Значення = 0x00</text>
+  <text x="340" y="252" font-size="12" fill="#1a1a1a" text-anchor="middle">Маршрут: Банк 0</text>
+
+  <!-- Selector 0x01 -->
+  <rect x="265" y="295" width="150" height="65" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="5"/>
+  <text x="340" y="317" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Значення = 0x01</text>
+  <text x="340" y="337" font-size="12" fill="#1a1a1a" text-anchor="middle">Маршрут: Банк 1</text>
+
+  <!-- Route to Bank 0 -->
+  <path d="M415,242.5 L465,242.5 L465,197.5 L515,197.5" fill="none" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+  <text x="470" y="179" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">0x00 (DSP)</text>
+
+  <!-- Route to Bank 1 -->
+  <line x1="415" y1="327.5" x2="515" y2="327.5" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arr-green)"/>
+  <text x="470" y="310" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">0x01 (Sens)</text>
+
+  <!-- Bank 0 (DSP) Box -->
+  <rect x="515" y="135" width="405" height="125" fill="#ffffff" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <text x="527" y="157" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="start">Банк 0: Цифровий процесор сигналів (DSP)</text>
+
+  <!-- Bank 0 Cards -->
+  <rect x="527" y="168" width="120" height="80" fill="#eaf0fd" stroke="#d0d7de" stroke-width="1" rx="4"/>
+  <text x="587" y="188" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Формат і маштаб</text>
+  <text x="587" y="208" font-size="12" fill="#6b7280" text-anchor="middle">RGB565 / JPEG</text>
+  <text x="587" y="230" font-size="12" fill="#2457d6" text-anchor="middle">0xDA, 0xD7, 0xE0</text>
+
+  <rect x="657" y="168" width="120" height="80" fill="#eaf0fd" stroke="#d0d7de" stroke-width="1" rx="4"/>
+  <text x="717" y="188" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">ISP та гама</text>
+  <text x="717" y="208" font-size="12" fill="#6b7280" text-anchor="middle">Криві, стиснення</text>
+  <text x="717" y="230" font-size="12" fill="#2457d6" text-anchor="middle">0x44, 0x50, 0x5A</text>
+
+  <rect x="787" y="168" width="120" height="80" fill="#eaf0fd" stroke="#d0d7de" stroke-width="1" rx="4"/>
+  <text x="847" y="188" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Кадрування</text>
+  <text x="847" y="208" font-size="12" fill="#6b7280" text-anchor="middle">HSIZE, VSIZE</text>
+  <text x="847" y="230" font-size="12" fill="#2457d6" text-anchor="middle">0x03, 0x04, 0x05</text>
+
+  <!-- Bank 1 (Sensor) Box -->
+  <rect x="515" y="280" width="405" height="125" fill="#ffffff" stroke="#27ae60" stroke-width="1.5" rx="6"/>
+  <text x="527" y="302" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="start">Банк 1: Матриця та аналогове ядро (Sensor)</text>
+
+  <!-- Bank 1 Cards -->
+  <rect x="527" y="313" width="120" height="80" fill="#e9f7ef" stroke="#d0d7de" stroke-width="1" rx="4"/>
+  <text x="587" y="333" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">AEC / AGC</text>
+  <text x="587" y="353" font-size="12" fill="#6b7280" text-anchor="middle">Експозиція</text>
+  <text x="587" y="375" font-size="12" fill="#27ae60" text-anchor="middle">0x10, 0x04, 0x45</text>
+
+  <rect x="657" y="313" width="120" height="80" fill="#e9f7ef" stroke="#d0d7de" stroke-width="1" rx="4"/>
+  <text x="717" y="333" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">AWB баланс</text>
+  <text x="717" y="353" font-size="12" fill="#6b7280" text-anchor="middle">Підсилення R/G/B</text>
+  <text x="717" y="375" font-size="12" fill="#27ae60" text-anchor="middle">0x69, 0x6A, 0x6B</text>
+
+  <rect x="787" y="313" width="120" height="80" fill="#e9f7ef" stroke="#d0d7de" stroke-width="1" rx="4"/>
+  <text x="847" y="333" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Клок та Скидання</text>
+  <text x="847" y="353" font-size="12" fill="#6b7280" text-anchor="middle">COM7, CLKRC</text>
+  <text x="847" y="375" font-size="12" fill="#27ae60" text-anchor="middle">0x12, 0x11, 0x0C</text>
+</svg>

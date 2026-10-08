@@ -1,0 +1,177 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Header -->
+  <text x="480" y="34" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Збіжність Ньютона — Рафсона для рівняння Каллендара — Ван Дюзена (t &lt; 0 °C)</text>
+  <text x="480" y="56" font-size="13" fill="#6b7280" text-anchor="middle">Геометричний зміст дотичних: початкове наближення t₀ швидко збігається до точного значення t* за 2–3 кроки</text>
+
+  <!-- Main Graph Panel -->
+  <rect x="45" y="80" width="605" height="435" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Grid Lines -->
+  <line x1="115" y1="184" x2="615" y2="184" stroke="#e1e4e8" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="115" y1="230" x2="615" y2="230" stroke="#e1e4e8" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="115" y1="322" x2="615" y2="322" stroke="#e1e4e8" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="115" y1="368" x2="615" y2="368" stroke="#e1e4e8" stroke-width="1" stroke-dasharray="3,3"/>
+
+  <!-- Target Level Line R_meas = 60.26 Ohm -->
+  <line x1="115" y1="275" x2="615" y2="275" stroke="#c0392b" stroke-width="1.8" stroke-dasharray="6,4"/>
+
+  <!-- R_meas Label Badge -->
+  <rect x="470" y="235" width="135" height="24" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="537" y="251" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">R_meas = 60.26 Ом</text>
+
+  <!-- Graph Axes -->
+  <!-- Y Axis (R) -->
+  <line x1="115" y1="435" x2="115" y2="105" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+  <text x="115" y="98" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Опір R (Ом)</text>
+
+  <!-- Y Axis Ticks & Labels -->
+  <line x1="110" y1="184" x2="115" y2="184" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="107" y="188" font-size="12" fill="#6b7280" text-anchor="end">80</text>
+
+  <line x1="110" y1="230" x2="115" y2="230" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="107" y="234" font-size="12" fill="#6b7280" text-anchor="end">70</text>
+
+  <line x1="110" y1="275" x2="115" y2="275" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="107" y="279" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="end">60.3</text>
+
+  <line x1="110" y1="322" x2="115" y2="322" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="107" y="326" font-size="12" fill="#6b7280" text-anchor="end">50</text>
+
+  <line x1="110" y1="368" x2="115" y2="368" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="107" y="372" font-size="12" fill="#6b7280" text-anchor="end">40</text>
+
+  <!-- X Axis (t) -->
+  <line x1="115" y1="435" x2="625" y2="435" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+  <text x="620" y="462" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="end">t (°C)</text>
+
+  <!-- X Axis Ticks & Labels -->
+  <!-- t0 = -150 °C -->
+  <line x1="175" y1="435" x2="175" y2="441" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="175" y="462" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">t₀ (-150°)</text>
+
+  <!-- t1 = -112 °C -->
+  <line x1="327" y1="435" x2="327" y2="441" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="327" y="462" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">t₁ (-112°)</text>
+
+  <!-- t* = -100 °C -->
+  <line x1="375" y1="435" x2="375" y2="480" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="375" y="496" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">t* (-100°)</text>
+
+  <!-- t = -50 °C -->
+  <line x1="525" y1="435" x2="525" y2="441" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="525" y="462" font-size="12" fill="#6b7280" text-anchor="middle">-50°</text>
+
+  <!-- Callendar-Van Dusen Curve R(t) -->
+  <path d="M 135,405 C 255,345 425,250 565,183" fill="none" stroke="#2457d6" stroke-width="3"/>
+
+  <!-- Curve Description Label -->
+  <text x="400" y="135" font-size="12" font-weight="bold" fill="#2457d6">Крива R(t) Каллендара — Ван Дюзена</text>
+  <text x="400" y="151" font-size="12" fill="#6b7280">t &lt; 0 °C: кубічний член C(t-100)t³</text>
+
+  <!-- STEP 0: P0 (t0, R(t0)) & Tangent 1 -->
+  <!-- Vertical projection line for t0 -->
+  <line x1="175" y1="369" x2="175" y2="435" stroke="#c0392b" stroke-width="1.2" stroke-dasharray="3,3"/>
+
+  <!-- Point P0 -->
+  <circle cx="175" cy="369" r="5" fill="#c0392b"/>
+  <text x="185" y="395" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="start">P₀ (t₀, R(t₀))</text>
+
+  <!-- Tangent Line 1 -->
+  <line x1="145" y1="387" x2="327" y2="275" stroke="#c0392b" stroke-width="1.8" stroke-dasharray="5,3"/>
+  <text x="245" y="295" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="start">Дотична 1</text>
+
+  <!-- Delta R0 Vertical Indicator -->
+  <line x1="200" y1="275" x2="200" y2="353" stroke="#c0392b" stroke-width="1.2" stroke-dasharray="3,2"/>
+  <text x="206" y="320" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="start">ΔR₀</text>
+
+  <!-- Tangent 1 Intersection on R_meas -->
+  <circle cx="327" cy="275" r="4" fill="#c0392b"/>
+
+  <!-- STEP 1: Vertical projection to P1 (t1, R(t1)) and Tangent 2 -->
+  <!-- Vertical projection line for t1 -->
+  <line x1="327" y1="275" x2="327" y2="435" stroke="#2457d6" stroke-width="1.2" stroke-dasharray="3,3"/>
+
+  <!-- Point P1 -->
+  <circle cx="327" cy="298" r="5" fill="#2457d6"/>
+  <text x="315" y="355" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">P₁ (t₁, R(t₁))</text>
+
+  <!-- Tangent Line 2 -->
+  <line x1="305" y1="309" x2="375" y2="275" stroke="#27ae60" stroke-width="2"/>
+  <text x="295" y="268" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="end">Дотична 2</text>
+
+  <!-- Delta R1 Vertical Indicator -->
+  <line x1="342" y1="275" x2="342" y2="298" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="347" y="312" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="start">ΔR₁</text>
+
+  <!-- FINAL CONVERGENCE: Point P* (t*, R_meas) -->
+  <!-- Target Point P* -->
+  <circle cx="375" cy="275" r="6" fill="#27ae60" stroke="white" stroke-width="1.5"/>
+
+  <!-- Pointer Callout Badge to Exact Solution -->
+  <rect x="425" y="325" width="145" height="40" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="497" y="342" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Точний розв'язок t*</text>
+  <text x="497" y="357" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="middle">t* = -100.00 °C</text>
+  <line x1="425" y1="325" x2="383" y2="283" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <!-- RIGHT SIDE PANEL (Algorithm Summary & Metrics) -->
+  <rect x="670" y="80" width="250" height="435" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Panel Header -->
+  <rect x="670" y="80" width="250" height="40" rx="8" fill="#eaf0fd" stroke="#d0d7de" stroke-width="1"/>
+  <text x="795" y="105" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">Алгоритм та збіжність</text>
+
+  <!-- Card 1: Iteration Formula -->
+  <rect x="682" y="132" width="226" height="74" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="692" y="151" font-size="12" font-weight="bold" fill="#1a1a1a">Формула Ньютона — Рафсона:</text>
+  <text x="795" y="173" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">tₖ₊₁ = tₖ - f(tₖ) / f'(tₖ)</text>
+  <text x="795" y="192" font-size="12" fill="#6b7280" text-anchor="middle">де f(tₖ) = R(tₖ) - R_meas</text>
+
+  <!-- Card 2: Iteration Steps -->
+  <rect x="682" y="220" width="226" height="170" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="692" y="239" font-size="12" font-weight="bold" fill="#1a1a1a">Динаміка наближення:</text>
+
+  <!-- Step 0 -->
+  <circle cx="700" cy="262" r="7" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="700" y="266" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">0</text>
+  <text x="714" y="261" font-size="12" font-weight="bold" fill="#c0392b">t₀ = -150.00 °C (старт)</text>
+  <text x="714" y="276" font-size="12" fill="#6b7280">Похибка: Δt = 50.00 °C</text>
+
+  <!-- Step 1 -->
+  <circle cx="700" cy="307" r="7" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="700" y="311" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">1</text>
+  <text x="714" y="306" font-size="12" font-weight="bold" fill="#2457d6">t₁ = -112.00 °C (крок 1)</text>
+  <text x="714" y="321" font-size="12" fill="#6b7280">Похибка: Δt = 12.00 °C</text>
+
+  <!-- Step 2 -->
+  <circle cx="700" cy="352" r="7" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="700" y="356" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">2</text>
+  <text x="714" y="351" font-size="12" font-weight="bold" fill="#27ae60">t₂ = -100.03 °C (крок 2)</text>
+  <text x="714" y="366" font-size="12" fill="#6b7280">Похибка: Δt &lt; 0.03 °C</text>
+
+  <!-- Card 3: Conclusion -->
+  <rect x="682" y="404" width="226" height="98" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <circle cx="700" cy="424" r="9" fill="#27ae60"/>
+  <path d="M695,424 L698,427 L705,420" stroke="white" stroke-width="2" fill="none"/>
+  <text x="716" y="428" font-size="12" font-weight="bold" fill="#27ae60">Квадратична збіжність</text>
+  <text x="692" y="448" font-size="12" fill="#1a1a1a">Точні знаки подвоюються</text>
+  <text x="692" y="464" font-size="12" fill="#1a1a1a">на кожній ітерації. Для MCU</text>
+  <text x="692" y="480" font-size="12" fill="#1a1a1a">достатньо 2–3 кроків.</text>
+</svg>

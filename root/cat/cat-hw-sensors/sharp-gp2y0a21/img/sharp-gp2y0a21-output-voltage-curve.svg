@@ -1,0 +1,156 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 530" width="960" height="530" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="530" fill="white"/>
+
+  <!-- Маркери стрілок -->
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Залежність вихідної напруги Vo від відстані (Sharp GP2Y0A21YK0F)</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Немонотонність у мертвій зоні (0–10 см) та спадна залежність (3.1–0.4 В) у робочому діапазоні (10–80 см)</text>
+
+  <!-- Банери зон -->
+  <rect x="150" y="70" width="70" height="30" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="185" y="89" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">0–10 см</text>
+
+  <rect x="230" y="70" width="480" height="30" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="470" y="89" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Робочий діапазон давача: 10 – 80 см (монотонно спадний сигнал)</text>
+
+  <!-- Зонування підкладки графіка -->
+  <!-- Мертва зона 0-10 см -->
+  <rect x="150" y="110" width="70" height="300" fill="#fdecea" fill-opacity="0.4"/>
+  <!-- Робочий діапазон 10-80 см -->
+  <rect x="220" y="110" width="490" height="300" fill="#e9f7ef" fill-opacity="0.4"/>
+
+  <!-- Акцентні межі зон -->
+  <line x1="220" y1="110" x2="220" y2="410" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="5,5"/>
+  <line x1="710" y1="110" x2="710" y2="410" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="5,5"/>
+
+  <!-- Пунктирні лінії рівнів напруги -->
+  <line x1="150" y1="162" x2="195" y2="162" stroke="#c0392b" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="150" y1="226" x2="220" y2="226" stroke="#2457d6" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="150" y1="378" x2="710" y2="378" stroke="#2457d6" stroke-width="1" stroke-dasharray="3,3"/>
+
+  <!-- Осі координат -->
+  <line x1="150" y1="410" x2="150" y2="105" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+  <line x1="150" y1="410" x2="790" y2="410" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+
+  <!-- Назви осей -->
+  <text x="140" y="98" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="end">Vo (В)</text>
+  <text x="465" y="455" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Відстань до об'єкта L (см)</text>
+
+  <!-- Засічки та підписи Y -->
+  <line x1="144" y1="410" x2="150" y2="410" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="138" y="414" font-size="12" fill="#1a1a1a" text-anchor="end">0.0</text>
+
+  <line x1="144" y1="370" x2="150" y2="370" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="138" y="374" font-size="12" fill="#1a1a1a" text-anchor="end">0.5</text>
+
+  <line x1="144" y1="330" x2="150" y2="330" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="138" y="334" font-size="12" fill="#1a1a1a" text-anchor="end">1.0</text>
+
+  <line x1="144" y1="290" x2="150" y2="290" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="138" y="294" font-size="12" fill="#1a1a1a" text-anchor="end">1.5</text>
+
+  <line x1="144" y1="250" x2="150" y2="250" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="138" y="254" font-size="12" fill="#1a1a1a" text-anchor="end">2.0</text>
+
+  <line x1="144" y1="210" x2="150" y2="210" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="138" y="214" font-size="12" fill="#1a1a1a" text-anchor="end">2.5</text>
+
+  <line x1="144" y1="170" x2="150" y2="170" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="138" y="174" font-size="12" fill="#1a1a1a" text-anchor="end">3.0</text>
+
+  <line x1="144" y1="130" x2="150" y2="130" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="138" y="134" font-size="12" fill="#1a1a1a" text-anchor="end">3.5</text>
+
+  <!-- Спеціальні засічки Y -->
+  <line x1="144" y1="226" x2="150" y2="226" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="138" y="230" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="end">2.3 В</text>
+
+  <line x1="144" y1="162" x2="150" y2="162" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="138" y="160" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="end">3.1 В</text>
+
+  <!-- Засічки та підписи X -->
+  <line x1="150" y1="410" x2="150" y2="416" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="150" y="432" font-size="12" fill="#1a1a1a" text-anchor="middle">0</text>
+
+  <line x1="220" y1="410" x2="220" y2="416" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="220" y="432" font-size="12" fill="#1a1a1a" text-anchor="middle">10</text>
+
+  <line x1="290" y1="410" x2="290" y2="416" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="290" y="432" font-size="12" fill="#1a1a1a" text-anchor="middle">20</text>
+
+  <line x1="360" y1="410" x2="360" y2="416" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="360" y="432" font-size="12" fill="#1a1a1a" text-anchor="middle">30</text>
+
+  <line x1="430" y1="410" x2="430" y2="416" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="430" y="432" font-size="12" fill="#1a1a1a" text-anchor="middle">40</text>
+
+  <line x1="500" y1="410" x2="500" y2="416" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="500" y="432" font-size="12" fill="#1a1a1a" text-anchor="middle">50</text>
+
+  <line x1="570" y1="410" x2="570" y2="416" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="570" y="432" font-size="12" fill="#1a1a1a" text-anchor="middle">60</text>
+
+  <line x1="640" y1="410" x2="640" y2="416" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="640" y="432" font-size="12" fill="#1a1a1a" text-anchor="middle">70</text>
+
+  <line x1="710" y1="410" x2="710" y2="416" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="710" y="432" font-size="12" fill="#1a1a1a" text-anchor="middle">80</text>
+
+  <!-- Крива залежності Vo від відстані -->
+  <path d="M 150,314 C 160,280 168,245 174.5,226 C 182,200 188,162 195.5,162 C 203,162 212,195 220,226 C 235,265 260,295 290,306 C 325,319 342,333 360,338 C 395,347 412,349 430,350 C 465,357 482,360 500,362 C 535,367 552,369 570,370 C 605,373 622,374 640,374 C 675,377 692,377.5 710,378 L 745,380.5" fill="none" stroke="#2457d6" stroke-width="3.5" stroke-linejoin="round" stroke-linecap="round"/>
+
+  <!-- Точки на кривій -->
+  <circle cx="174.5" cy="226" r="5" fill="#c0392b" stroke="#ffffff" stroke-width="2"/>
+  <circle cx="195.5" cy="162" r="5" fill="#c0392b" stroke="#ffffff" stroke-width="2"/>
+  <circle cx="220" cy="226" r="5" fill="#2457d6" stroke="#ffffff" stroke-width="2"/>
+  <circle cx="710" cy="378" r="5" fill="#2457d6" stroke="#ffffff" stroke-width="2"/>
+
+  <!-- Блок позначення нижньої мертвої зони -->
+  <rect x="155" y="330" width="60" height="70" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="185" y="347" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">Мертва</text>
+  <text x="185" y="361" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">зона</text>
+  <text x="185" y="375" font-size="11" fill="#c0392b" text-anchor="middle">0 – 10 см</text>
+  <text x="185" y="389" font-size="11" fill="#6b7280" text-anchor="middle">(хибна)</text>
+
+  <!-- Плашка виклику піку (3.1 В) -->
+  <rect x="235" y="120" width="165" height="46" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+  <line x1="195.5" y1="162" x2="235" y2="143" stroke="#c0392b" stroke-width="1"/>
+  <text x="243" y="138" font-size="12" font-weight="bold" fill="#c0392b">Максимум: ~3.1 В</text>
+  <text x="243" y="155" font-size="11" fill="#6b7280">при L ≈ 6.5 см (пік)</text>
+
+  <!-- Плашка виклику старту (2.3 В) -->
+  <rect x="235" y="180" width="165" height="46" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="220" y1="226" x2="235" y2="203" stroke="#2457d6" stroke-width="1"/>
+  <text x="243" y="198" font-size="12" font-weight="bold" fill="#2457d6">Робочий старт: 2.3 В</text>
+  <text x="243" y="215" font-size="11" fill="#6b7280">при L = 10 см (початок)</text>
+
+  <!-- Інформаційна картка немонотонності -->
+  <rect x="415" y="120" width="285" height="102" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="427" y="141" font-size="12" font-weight="bold" fill="#c0392b">⚠️ Особливість мертвої зони (0–10 см):</text>
+  <text x="427" y="160" font-size="11" fill="#1a1a1a">• Спочатку Vo зростає до 3.1 В, а далі спадає</text>
+  <text x="427" y="179" font-size="11" fill="#1a1a1a">• Напруга 2.3 В виникає і на 3.5 см, і на 10 см</text>
+  <text x="427" y="198" font-size="11" font-weight="bold" fill="#c0392b">• Правильні дані — тільки в межах 10–80 см!</text>
+
+  <!-- Плашка виклику фінішу (0.4 В) -->
+  <rect x="540" y="315" width="160" height="46" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="710" y1="378" x2="620" y2="361" stroke="#2457d6" stroke-width="1"/>
+  <text x="548" y="333" font-size="12" font-weight="bold" fill="#2457d6">Межа виміру: 0.4 В</text>
+  <text x="548" y="350" font-size="11" fill="#6b7280">при L = 80 см (кінець)</text>
+
+  <!-- Нижній блок формули апроксимації -->
+  <rect x="150" y="472" width="660" height="32" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="480" y="493" font-size="12" fill="#1a1a1a" text-anchor="middle">Апроксимація в діапазоні 10–80 см: L (см) ≈ 27.86 / (Vo - 0.1) або L (см) ≈ 1 / (0.035 × Vo - 0.005)</text>
+</svg>

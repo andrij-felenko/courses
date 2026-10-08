@@ -1,0 +1,111 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <!-- Arrow markers -->
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="34" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Порівняння геометрії оптики HC-SR501 та HC-SR505</text>
+  <text x="480" y="56" text-anchor="middle" font-size="13" fill="#6b7280">Зменшення фокусної відстані мікролінзи дозволило скоротити габарити без зміни PIR-елемента</text>
+
+  <!-- LEFT PANEL: HC-SR501 -->
+  <rect x="40" y="78" width="425" height="382" rx="10" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="252" y="105" text-anchor="middle" font-size="15" font-weight="bold" fill="#1a1a1a">HC-SR501: Стандартний модуль</text>
+  <text x="252" y="123" text-anchor="middle" font-size="12" fill="#6b7280">Довгофокусна сфера (f₁ ≈ 12.0 мм)</text>
+
+  <!-- HC-SR501 Lens Dome -->
+  <path d="M 142 250 C 142 165, 362 165, 362 250 Z" fill="#eaf0fd" fill-opacity="0.6" stroke="#2457d6" stroke-width="2"/>
+  <path d="M 165 220 C 165 180, 339 180, 339 220" fill="none" stroke="#2457d6" stroke-width="1" stroke-dasharray="3 3" opacity="0.6"/>
+  <path d="M 190 195 C 190 175, 314 175, 314 195" fill="none" stroke="#2457d6" stroke-width="1" stroke-dasharray="3 3" opacity="0.6"/>
+  <text x="252" y="156" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Купол Френеля (R ≈ 11.5 мм)</text>
+
+  <!-- HC-SR501 Rays -->
+  <line x1="170" y1="165" x2="170" y2="202" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4 3"/>
+  <line x1="170" y1="202" x2="230" y2="330" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4 3"/>
+  <line x1="334" y1="165" x2="334" y2="202" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4 3"/>
+  <line x1="334" y1="202" x2="274" y2="330" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4 3"/>
+
+  <line x1="210" y1="165" x2="210" y2="178" stroke="#c0392b" stroke-width="1.2" stroke-dasharray="4 3"/>
+  <line x1="210" y1="178" x2="230" y2="330" stroke="#c0392b" stroke-width="1.2" stroke-dasharray="4 3"/>
+  <line x1="294" y1="165" x2="294" y2="178" stroke="#c0392b" stroke-width="1.2" stroke-dasharray="4 3"/>
+  <line x1="294" y1="178" x2="274" y2="330" stroke="#c0392b" stroke-width="1.2" stroke-dasharray="4 3"/>
+
+  <!-- HC-SR501 PIR Sensor Package -->
+  <rect x="192" y="330" width="120" height="28" rx="4" fill="#ffffff" stroke="#475569" stroke-width="1.5"/>
+  <rect x="208" y="335" width="88" height="14" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <rect x="218" y="338" width="24" height="8" fill="#2457d6" rx="1"/>
+  <rect x="262" y="338" width="24" height="8" fill="#2457d6" rx="1"/>
+  <text x="252" y="373" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Двоелементний PIR-кристал</text>
+  <text x="252" y="388" text-anchor="middle" font-size="11" fill="#6b7280">Стандартна площа сенсора S</text>
+
+  <!-- HC-SR501 Dimensions -->
+  <!-- Focal Length f1 -->
+  <line x1="85" y1="202" x2="85" y2="330" stroke="#c0392b" stroke-width="1.5" marker-start="url(#arr-red)" marker-end="url(#arr-red)"/>
+  <text x="92" y="260" text-anchor="start" font-size="13" font-weight="bold" fill="#c0392b">f₁ = 12.0 мм</text>
+  <text x="92" y="275" text-anchor="start" font-size="11" fill="#6b7280">(довга фокусна)</text>
+
+  <!-- Height H1 -->
+  <line x1="410" y1="165" x2="410" y2="330" stroke="#1a1a1a" stroke-width="1.5" marker-start="url(#arr-dark)" marker-end="url(#arr-dark)"/>
+  <text x="404" y="200" text-anchor="end" font-size="13" font-weight="bold" fill="#1a1a1a">H₁ ≈ 14.5 мм</text>
+
+  <!-- HC-SR501 Bottom Card -->
+  <rect x="58" y="402" width="388" height="44" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="252" y="420" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Громіздкий оптичний вузол (f₁ = 12 мм)</text>
+  <text x="252" y="436" text-anchor="middle" font-size="11" fill="#6b7280">Вимагає високого купола та великої плати</text>
+
+  <!-- RIGHT PANEL: HC-SR505 -->
+  <rect x="495" y="78" width="425" height="382" rx="10" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="707" y="105" text-anchor="middle" font-size="15" font-weight="bold" fill="#2457d6">HC-SR505: Мікролінза</text>
+  <text x="707" y="123" text-anchor="middle" font-size="12" fill="#6b7280">Короткофокусна мікросфера (f₂ ≈ 5.5 мм)</text>
+
+  <!-- HC-SR505 Micro-Lens Dome -->
+  <path d="M 637 275 C 637 220, 777 220, 777 275 Z" fill="#ffffff" fill-opacity="0.75" stroke="#2457d6" stroke-width="2"/>
+  <path d="M 655 260 C 655 238, 759 238, 759 260" fill="none" stroke="#2457d6" stroke-width="1" stroke-dasharray="3 3" opacity="0.6"/>
+  <text x="707" y="210" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Мікролінза (R ≈ 5.5 мм)</text>
+
+  <!-- HC-SR505 Rays -->
+  <line x1="652" y1="225" x2="652" y2="256" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="4 3"/>
+  <line x1="652" y1="256" x2="685" y2="330" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="4 3"/>
+  <line x1="762" y1="225" x2="762" y2="256" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="4 3"/>
+  <line x1="762" y1="256" x2="729" y2="330" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="4 3"/>
+
+  <line x1="680" y1="225" x2="680" y2="238" stroke="#27ae60" stroke-width="1.2" stroke-dasharray="4 3"/>
+  <line x1="680" y1="238" x2="685" y2="330" stroke="#27ae60" stroke-width="1.2" stroke-dasharray="4 3"/>
+  <line x1="734" y1="225" x2="734" y2="238" stroke="#27ae60" stroke-width="1.2" stroke-dasharray="4 3"/>
+  <line x1="734" y1="238" x2="729" y2="330" stroke="#27ae60" stroke-width="1.2" stroke-dasharray="4 3"/>
+
+  <!-- HC-SR505 PIR Sensor Package (IDENTICAL SIZE) -->
+  <rect x="647" y="330" width="120" height="28" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="663" y="335" width="88" height="14" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <rect x="673" y="338" width="24" height="8" fill="#2457d6" rx="1"/>
+  <rect x="717" y="338" width="24" height="8" fill="#2457d6" rx="1"/>
+  <text x="707" y="373" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">ОДНАКОВИЙ PIR-кристал</text>
+  <text x="707" y="388" text-anchor="middle" font-size="11" fill="#6b7280">Площа S ідентична HC-SR501</text>
+
+  <!-- HC-SR505 Dimensions -->
+  <!-- Focal Length f2 -->
+  <line x1="540" y1="256" x2="540" y2="330" stroke="#27ae60" stroke-width="1.5" marker-start="url(#arr-green)" marker-end="url(#arr-green)"/>
+  <text x="546" y="280" text-anchor="start" font-size="13" font-weight="bold" fill="#27ae60">f₂ = 5.5 мм</text>
+  <text x="546" y="295" text-anchor="start" font-size="11" fill="#27ae60">(f₂ ≈ 0.45·f₁)</text>
+
+  <!-- Height H2 -->
+  <line x1="850" y1="225" x2="850" y2="330" stroke="#27ae60" stroke-width="1.5" marker-start="url(#arr-green)" marker-end="url(#arr-green)"/>
+  <text x="858" y="260" text-anchor="start" font-size="13" font-weight="bold" fill="#27ae60">H₂ ≈ 7.0 мм</text>
+  <text x="858" y="275" text-anchor="start" font-size="11" fill="#6b7280">(−50% висоти)</text>
+
+  <!-- HC-SR505 Bottom Card -->
+  <rect x="513" y="402" width="388" height="44" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="707" y="420" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Ультракомпактна мікрооптика (f₂ = 5.5 мм)</text>
+  <text x="707" y="436" text-anchor="middle" font-size="11" fill="#6b7280">Скорочує габарити при збереженні площі кристала</text>
+</svg>

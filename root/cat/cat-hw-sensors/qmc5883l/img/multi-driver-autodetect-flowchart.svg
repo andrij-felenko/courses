@@ -1,0 +1,96 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 615" width="960" height="615" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Canvas Background -->
+  <rect x="0" y="0" width="960" height="615" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="30" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Алгоритм автовизначення магнітометрів HMC5883L / QMC5883L</text>
+  <text x="480" y="52" text-anchor="middle" font-size="13" fill="#6b7280">Послідовна перевірка I2C-адрес та сигнатурних регістрів WHO_AM_I для вибору драйвера</text>
+
+  <!-- Start Block -->
+  <rect x="140" y="75" width="180" height="36" rx="18" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="230" y="98" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Старт: Ініціалізація I2C</text>
+
+  <!-- Line Start -> Step 1 -->
+  <line x1="230" y1="111" x2="230" y2="135" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Step 1: Probe 0x1E -->
+  <rect x="90" y="135" width="280" height="74" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="230" y="158" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">1. Спроба зв'язку за адресою 0x1E</text>
+  <text x="230" y="177" text-anchor="middle" font-size="12" fill="#1a1a1a">Перевірка наявності HMC5883L (ACK?)</text>
+  <text x="230" y="195" text-anchor="middle" font-size="12" fill="#6b7280">I2C Address: 0x1E</text>
+
+  <!-- Step 1 -> YES (ACK) -->
+  <line x1="370" y1="172" x2="475" y2="172" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <rect x="385" y="145" width="75" height="20" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="422.5" y="159" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">ТАК (ACK)</text>
+
+  <!-- Step 1 -> NO (NACK) -->
+  <line x1="230" y1="209" x2="230" y2="310" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <rect x="238" y="246" width="75" height="20" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="275.5" y="260" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">НІ (NACK)</text>
+
+  <!-- Step 1.1: Register Check HMC -->
+  <rect x="475" y="135" width="435" height="74" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="692.5" y="158" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Зчитування регістрів IRA, IRB, IRC (0x0A..0x0C)</text>
+  <text x="692.5" y="177" text-anchor="middle" font-size="12" fill="#6b7280">Сигнатура == 0x48, 0x34, 0x33 (символи "H43")?</text>
+  <text x="692.5" y="195" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Сигнатура відповідає чипу Honeywell</text>
+
+  <!-- Line Register Check -> Driver HMC -->
+  <line x1="692.5" y1="209" x2="692.5" y2="232" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- Driver HMC Card -->
+  <rect x="510" y="232" width="365" height="54" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="692.5" y="253" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">Завантаження драйвера HMC5883L</text>
+  <text x="692.5" y="272" text-anchor="middle" font-size="12" fill="#1a1a1a">Режим: Continuous, Gain: default, Address: 0x1E</text>
+
+  <!-- Step 2: Probe 0x0D -->
+  <rect x="90" y="310" width="280" height="74" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="230" y="333" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">2. Спроба зв'язку за адресою 0x0D</text>
+  <text x="230" y="352" text-anchor="middle" font-size="12" fill="#1a1a1a">Перевірка наявності QMC5883L (ACK?)</text>
+  <text x="230" y="370" text-anchor="middle" font-size="12" fill="#6b7280">I2C Address: 0x0D</text>
+
+  <!-- Step 2 -> YES (ACK) -->
+  <line x1="370" y1="347" x2="475" y2="347" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <rect x="385" y="322" width="75" height="20" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="422.5" y="336" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">ТАК (ACK)</text>
+
+  <!-- Step 2 -> NO (NACK) -->
+  <line x1="230" y1="384" x2="230" y2="485" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <rect x="238" y="421" width="75" height="20" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="275.5" y="435" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">НІ (NACK)</text>
+
+  <!-- Step 2.1: Register Check QMC -->
+  <rect x="475" y="310" width="435" height="74" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="692.5" y="333" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Зчитування сигнатурного регістра CHIP_ID (0x0D)</text>
+  <text x="692.5" y="352" text-anchor="middle" font-size="12" fill="#6b7280">Регістр 0x0D (CHIP_ID) == 0xFF?</text>
+  <text x="692.5" y="370" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Сигнатура відповідає чипу QST QMC5883L</text>
+
+  <!-- Line Register Check -> Driver QMC -->
+  <line x1="692.5" y1="384" x2="692.5" y2="407" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- Driver QMC Card -->
+  <rect x="510" y="407" width="365" height="54" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="692.5" y="428" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">Завантаження драйвера QMC5883L</text>
+  <text x="692.5" y="447" text-anchor="middle" font-size="12" fill="#1a1a1a">Режим: Continuous, ODR: 200Hz, Address: 0x0D</text>
+
+  <!-- Step 3: Error / Not Found Card -->
+  <rect x="90" y="485" width="280" height="54" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="230" y="506" text-anchor="middle" font-size="13" font-weight="bold" fill="#c0392b">Помилка: Магнітометр не знайдено</text>
+  <text x="230" y="525" text-anchor="middle" font-size="12" fill="#1a1a1a">Жоден з відомих датчиків не відповідає</text>
+
+  <!-- Bottom Legend / Summary Panel -->
+  <rect x="50" y="555" width="860" height="40" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="480" y="579" text-anchor="middle" font-size="12" fill="#1a1a1a">Ключові відмінності: HMC5883L (адреса 0x1E, ID "H43")  |  QMC5883L (адреса 0x0D, ID 0xFF, інша карта регістрів)</text>
+</svg>

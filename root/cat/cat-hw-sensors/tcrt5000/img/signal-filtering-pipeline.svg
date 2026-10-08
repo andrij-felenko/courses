@@ -1,0 +1,138 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 530" width="960" height="530" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background Canvas -->
+  <rect x="0" y="0" width="960" height="530" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Конвеєр обробки аналогового сигналу TCRT5000</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Зрізання імпульсних завад медіанним фільтром та приглушення шуму ковзним середнім</text>
+
+  <!-- Pipeline Block Diagram -->
+  <!-- Block 1: ADC Raw -->
+  <rect x="30" y="80" width="175" height="76" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="117.5" y="105" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Вхід з АЦП</text>
+  <text x="117.5" y="125" font-size="12" fill="#1a1a1a" text-anchor="middle">x[n] (сирий сигнал)</text>
+  <text x="117.5" y="143" font-size="12" fill="#6b7280" text-anchor="middle">з шумом і піками</text>
+
+  <!-- Arrow 1 -->
+  <line x1="205" y1="118" x2="241" y2="118" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="223" y="110" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">x[n]</text>
+
+  <!-- Block 2: Median Filter -->
+  <rect x="247" y="80" width="210" height="76" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="352" y="105" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">Медіанний фільтр</text>
+  <text x="352" y="124" font-size="12" fill="#1a1a1a" text-anchor="middle">Вікно N = 3..5</text>
+  <text x="352" y="141" font-size="12" fill="#6b7280" text-anchor="middle">y[n] = med(x[n-k]..)</text>
+
+  <!-- Arrow 2 -->
+  <line x1="457" y1="118" x2="493" y2="118" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="475" y="110" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">y[n]</text>
+
+  <!-- Block 3: Moving Average -->
+  <rect x="499" y="80" width="210" height="76" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="604" y="105" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">Ковзне середнє</text>
+  <text x="604" y="124" font-size="12" fill="#1a1a1a" text-anchor="middle">Вікно M = 4..8</text>
+  <text x="604" y="141" font-size="12" fill="#6b7280" text-anchor="middle">z[n] = (1/M) Σ y[n-k]</text>
+
+  <!-- Arrow 3 -->
+  <line x1="709" y1="118" x2="745" y2="118" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="727" y="110" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">z[n]</text>
+
+  <!-- Block 4: Clean Output -->
+  <rect x="751" y="80" width="179" height="76" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="840.5" y="105" font-size="14" font-weight="bold" fill="#27ae60" text-anchor="middle">Вихідний сигнал</text>
+  <text x="840.5" y="125" font-size="12" fill="#1a1a1a" text-anchor="middle">z[n] (без завад)</text>
+  <text x="840.5" y="143" font-size="12" fill="#6b7280" text-anchor="middle">до тригера Шмітта</text>
+
+  <!-- Section: Signal Panels -->
+
+  <!-- Panel 1: Raw Signal x[n] -->
+  <rect x="30" y="175" width="285" height="335" rx="10" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="30" y="175" width="285" height="38" rx="10" fill="#f4f6f8"/>
+  <line x1="30" y1="213" x2="315" y2="213" stroke="#d0d7de" stroke-width="1"/>
+  <text x="172.5" y="198" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">1. Вхідний сигнал з АЦП x[n]</text>
+
+  <!-- Panel 1 Grid & Axes -->
+  <line x1="70" y1="350" x2="285" y2="350" stroke="#d0d7de" stroke-dasharray="4,4" stroke-width="1"/>
+  <text x="65" y="354" font-size="12" fill="#6b7280" text-anchor="end">V_th</text>
+
+  <line x1="70" y1="460" x2="290" y2="460" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+  <line x1="70" y1="460" x2="70" y2="235" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+  <text x="65" y="230" font-size="12" fill="#6b7280" text-anchor="end">U, В</text>
+  <text x="295" y="478" font-size="12" fill="#6b7280" text-anchor="end">t, ms</text>
+  <text x="65" y="473" font-size="12" fill="#6b7280" text-anchor="end">0</text>
+
+  <!-- Panel 1 Plot Path -->
+  <path d="M 70,282 L 80,276 L 90,284 L 100,278 L 108,280 L 113,425 L 118,275 L 125,283 L 135,279 L 160,408 L 170,414 L 175,405 L 180,408 L 185,255 L 190,412 L 200,406 L 210,415 L 220,407 L 235,412 L 250,408 L 265,413 L 280,409" fill="none" stroke="#c0392b" stroke-width="2"/>
+  <circle cx="113" cy="425" r="10" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="2,2"/>
+  <circle cx="185" cy="255" r="10" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="2,2"/>
+
+  <!-- Panel 1 Bottom Label Pill -->
+  <rect x="75" y="475" width="195" height="24" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="172.5" y="491" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Імпульсні завади (спайки)</text>
+
+
+  <!-- Panel 2: Median Filtered y[n] -->
+  <rect x="337.5" y="175" width="285" height="335" rx="10" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="337.5" y="175" width="285" height="38" rx="10" fill="#eaf0fd"/>
+  <line x1="337.5" y1="213" x2="622.5" y2="213" stroke="#2457d6" stroke-width="1"/>
+  <text x="480" y="198" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">2. Після медіанного фільтра y[n]</text>
+
+  <!-- Panel 2 Grid & Axes -->
+  <line x1="377.5" y1="350" x2="592.5" y2="350" stroke="#d0d7de" stroke-dasharray="4,4" stroke-width="1"/>
+  <text x="372.5" y="354" font-size="12" fill="#6b7280" text-anchor="end">V_th</text>
+
+  <line x1="377.5" y1="460" x2="597.5" y2="460" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+  <line x1="377.5" y1="460" x2="377.5" y2="235" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+  <text x="372.5" y="230" font-size="12" fill="#6b7280" text-anchor="end">U, В</text>
+  <text x="602.5" y="478" font-size="12" fill="#6b7280" text-anchor="end">t, ms</text>
+  <text x="372.5" y="473" font-size="12" fill="#6b7280" text-anchor="end">0</text>
+
+  <!-- Panel 2 Plot Path -->
+  <path d="M 377.5,282 L 387.5,276 L 397.5,284 L 407.5,278 L 415.5,280 L 420.5,279 L 425.5,277 L 432.5,283 L 442.5,279 L 467.5,408 L 477.5,414 L 482.5,408 L 487.5,410 L 492.5,412 L 507.5,406 L 517.5,415 L 527.5,407 L 542.5,412 L 557.5,408 L 572.5,413 L 587.5,409" fill="none" stroke="#2457d6" stroke-width="2"/>
+
+  <!-- Panel 2 Bottom Label Pill -->
+  <rect x="382.5" y="475" width="195" height="24" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="480" y="491" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Спайки зрізано, шум лишився</text>
+
+
+  <!-- Panel 3: Moving Average z[n] -->
+  <rect x="645" y="175" width="285" height="335" rx="10" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="645" y="175" width="285" height="38" rx="10" fill="#e9f7ef"/>
+  <line x1="645" y1="213" x2="930" y2="213" stroke="#27ae60" stroke-width="1"/>
+  <text x="787.5" y="198" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">3. Після ковзного середнього z[n]</text>
+
+  <!-- Panel 3 Hysteresis Thresholds & Axes -->
+  <line x1="685" y1="335" x2="900" y2="335" stroke="#27ae60" stroke-dasharray="4,4" stroke-width="1"/>
+  <line x1="685" y1="365" x2="900" y2="365" stroke="#27ae60" stroke-dasharray="4,4" stroke-width="1"/>
+  <text x="680" y="339" font-size="12" fill="#27ae60" text-anchor="end">V_high</text>
+  <text x="680" y="369" font-size="12" fill="#27ae60" text-anchor="end">V_low</text>
+
+  <line x1="685" y1="460" x2="905" y2="460" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+  <line x1="685" y1="460" x2="685" y2="235" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+  <text x="680" y="230" font-size="12" fill="#6b7280" text-anchor="end">U, В</text>
+  <text x="910" y="478" font-size="12" fill="#6b7280" text-anchor="end">t, ms</text>
+  <text x="680" y="473" font-size="12" fill="#6b7280" text-anchor="end">0</text>
+
+  <!-- Panel 3 Smooth Curve -->
+  <path d="M 685,280 C 725,280 740,280 750,290 C 765,310 765,380 780,400 C 790,410 820,410 895,410" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+
+  <!-- Panel 3 Region Labels -->
+  <text x="705" y="262" font-size="12" fill="#6b7280" text-anchor="start">Світла поверхня</text>
+  <text x="815" y="438" font-size="12" fill="#6b7280" text-anchor="start">Темна лінія</text>
+
+  <!-- Panel 3 Bottom Label Pill -->
+  <rect x="690" y="475" width="195" height="24" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="787.5" y="491" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Гладка крива для компаратора</text>
+</svg>

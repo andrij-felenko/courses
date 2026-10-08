@@ -1,0 +1,111 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-accent" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-success" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Canvas Background -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Title and Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Структура sysfs-атрибутів IIO та розрахунок фізичних величин</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Перетворення сирого значення пристрою (raw) у фізичну величину за допомогою offset та scale</text>
+
+  <!-- Left Panel: Sysfs attributes hierarchy -->
+  <rect x="30" y="75" width="380" height="360" rx="8" ry="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <path d="M 30 83 A 8 8 0 0 1 38 75 L 402 75 A 8 8 0 0 1 410 83 L 410 111 L 30 111 Z" fill="#eaf0fd"/>
+  <line x1="30" y1="111" x2="410" y2="111" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="45" y="98" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="start">📁 /sys/bus/iio/devices/iio:device0/</text>
+
+  <!-- File 1: name -->
+  <rect x="48" y="122" width="344" height="52" rx="6" ry="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="60" y="142" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="start">📄 name</text>
+  <text x="376" y="142" font-size="13" font-weight="bold" fill="#6b7280" text-anchor="end">&quot;mpu6050&quot;</text>
+  <text x="60" y="162" font-size="12" fill="#6b7280" text-anchor="start">Ідентифікатор сенсора / драйвера ядра</text>
+
+  <!-- File 2: in_accel_x_raw -->
+  <rect x="48" y="186" width="344" height="58" rx="6" ry="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="60" y="208" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="start">📄 in_accel_x_raw</text>
+  <text x="376" y="208" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="end">1420</text>
+  <text x="60" y="230" font-size="12" fill="#6b7280" text-anchor="start">Сире 16-бітне значення ADC (осі X)</text>
+
+  <!-- File 3: in_accel_offset -->
+  <rect x="48" y="256" width="344" height="58" rx="6" ry="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="60" y="278" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="start">📄 in_accel_offset</text>
+  <text x="376" y="278" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="end">-12</text>
+  <text x="60" y="300" font-size="12" fill="#6b7280" text-anchor="start">Апаратний зсув нуля (offset)</text>
+
+  <!-- File 4: in_accel_scale -->
+  <rect x="48" y="326" width="344" height="58" rx="6" ry="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="60" y="348" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="start">📄 in_accel_scale</text>
+  <text x="376" y="348" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="end">0.00981</text>
+  <text x="60" y="370" font-size="12" fill="#6b7280" text-anchor="start">Множник для переведення в м/с²</text>
+
+  <text x="60" y="414" font-size="12" fill="#6b7280" text-anchor="start">💡 Значення читаються у форматі ASCII</text>
+
+  <!-- Right Panel: Mathematical Flow -->
+  <rect x="440" y="75" width="490" height="360" rx="8" ry="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <path d="M 440 83 A 8 8 0 0 1 448 75 L 922 75 A 8 8 0 0 1 930 83 L 930 111 L 440 111 Z" fill="#eaf0fd"/>
+  <line x1="440" y1="111" x2="930" y2="111" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="455" y="98" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="start">🧮 Математична схема обчислення</text>
+
+  <!-- Formula Banner -->
+  <rect x="455" y="120" width="460" height="42" rx="6" ry="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="685" y="146" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Value = (raw + offset) × scale</text>
+
+  <!-- Input Cards inside Right Panel -->
+  <rect x="455" y="180" width="105" height="46" rx="6" ry="6" fill="white" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="507" y="196" font-size="12" fill="#6b7280" text-anchor="middle">raw</text>
+  <text x="507" y="214" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">1420</text>
+
+  <rect x="455" y="244" width="105" height="46" rx="6" ry="6" fill="white" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="507" y="260" font-size="12" fill="#6b7280" text-anchor="middle">offset</text>
+  <text x="507" y="278" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">-12</text>
+
+  <rect x="455" y="362" width="105" height="46" rx="6" ry="6" fill="white" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="507" y="378" font-size="12" fill="#6b7280" text-anchor="middle">scale</text>
+  <text x="507" y="396" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">0.00981</text>
+
+  <!-- Connecting arrows from sysfs files to input cards -->
+  <path d="M 392 215 L 455 203" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-accent)"/>
+  <path d="M 392 285 L 455 267" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-accent)"/>
+  <path d="M 392 355 L 455 385" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-accent)"/>
+
+  <!-- Operator 1: Addition (+) -->
+  <text x="595" y="206" font-size="12" fill="#6b7280" text-anchor="middle">Додавання</text>
+  <circle cx="595" cy="235" r="18" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="595" y="241" font-size="16" font-weight="bold" fill="#2457d6" text-anchor="middle">+</text>
+
+  <path d="M 560 203 L 579 222" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-accent)"/>
+  <path d="M 560 267 L 579 248" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-accent)"/>
+
+  <!-- Intermediate Result Box -->
+  <rect x="640" y="210" width="115" height="50" rx="6" ry="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="697" y="228" font-size="12" fill="#6b7280" text-anchor="middle">1420 + (-12)</text>
+  <text x="697" y="247" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">= 1408 LSB</text>
+
+  <path d="M 613 235 L 640 235" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-accent)"/>
+
+  <!-- Operator 2: Multiplication (x) -->
+  <text x="790" y="206" font-size="12" fill="#6b7280" text-anchor="middle">Множення</text>
+  <circle cx="790" cy="235" r="18" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="790" y="241" font-size="16" font-weight="bold" fill="#2457d6" text-anchor="middle">×</text>
+
+  <path d="M 755 235 L 772 235" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-accent)"/>
+
+  <!-- Scale routing into multiplication node -->
+  <path d="M 560 385 H 595 V 285 H 845 V 235 H 808" stroke="#2457d6" stroke-width="1.5" fill="none" marker-end="url(#arr-accent)"/>
+
+  <!-- Output from Multiplication to Final Result Box -->
+  <path d="M 790 253 L 790 315" stroke="#27ae60" stroke-width="2" fill="none" marker-end="url(#arr-success)"/>
+
+  <!-- Final Result Box -->
+  <rect x="635" y="315" width="280" height="95" rx="8" ry="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <text x="775" y="338" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Фізичне значення (SI)</text>
+  <text x="775" y="362" font-size="13" fill="#1a1a1a" text-anchor="middle">1408 LSB × 0.00981 м/с²</text>
+  <text x="775" y="393" font-size="18" font-weight="bold" fill="#27ae60" text-anchor="middle">= 13.8125 м/с²</text>
+</svg>

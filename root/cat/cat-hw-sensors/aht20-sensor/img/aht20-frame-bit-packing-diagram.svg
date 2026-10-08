@@ -1,0 +1,189 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Markers -->
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="30" font-size="18" font-weight="700" text-anchor="middle" fill="#1a1a1a">Структура 7-байтного кадру відповіді AHT20 та розпакування бітів</text>
+  <text x="480" y="52" font-size="13" text-anchor="middle" fill="#6b7280">Розподіл 20-бітних даних вологості S_RH та температури S_T через спільний тринадцятий байт</text>
+
+  <!-- TOP SECTION: 7 I2C FRAME BYTES -->
+
+  <!-- Byte 0: Status Register -->
+  <g>
+    <rect x="35" y="75" width="120" height="135" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+    <text x="95" y="94" font-size="13" font-weight="700" text-anchor="middle" fill="#1a1a1a">Байт 0</text>
+    <text x="95" y="111" font-size="12" font-weight="700" text-anchor="middle" fill="#6b7280">Регістр стану</text>
+
+    <rect x="42" y="122" width="106" height="38" rx="4" fill="#ffffff" stroke="#cbd5e1"/>
+    <text x="95" y="137" font-size="12" font-weight="700" text-anchor="middle" fill="#c0392b">Біт 7: Busy</text>
+    <text x="95" y="152" font-size="12" text-anchor="middle" fill="#6b7280">1 = зайнятий</text>
+
+    <rect x="42" y="164" width="106" height="38" rx="4" fill="#ffffff" stroke="#cbd5e1"/>
+    <text x="95" y="179" font-size="12" font-weight="700" text-anchor="middle" fill="#27ae60">Біт 3: Calibrated</text>
+    <text x="95" y="194" font-size="12" text-anchor="middle" fill="#6b7280">1 = калібровано</text>
+  </g>
+
+  <!-- Byte 1: Humidity High Byte -->
+  <g>
+    <rect x="162" y="75" width="120" height="135" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+    <text x="222" y="94" font-size="13" font-weight="700" text-anchor="middle" fill="#2457d6">Байт 1</text>
+    <text x="222" y="111" font-size="12" text-anchor="middle" fill="#1a1a1a">S_RH [19:12]</text>
+
+    <rect x="170" y="122" width="104" height="80" rx="4" fill="#ffffff" stroke="#2457d6"/>
+    <text x="222" y="145" font-size="13" font-weight="700" text-anchor="middle" fill="#2457d6">Вологість</text>
+    <text x="222" y="165" font-size="12" text-anchor="middle" fill="#1a1a1a">Старші 8 бітів</text>
+    <text x="222" y="184" font-size="12" text-anchor="middle" fill="#6b7280">(біт 19 ... біт 12)</text>
+  </g>
+
+  <!-- Byte 2: Humidity Mid Byte -->
+  <g>
+    <rect x="289" y="75" width="120" height="135" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+    <text x="349" y="94" font-size="13" font-weight="700" text-anchor="middle" fill="#2457d6">Байт 2</text>
+    <text x="349" y="111" font-size="12" text-anchor="middle" fill="#1a1a1a">S_RH [11:4]</text>
+
+    <rect x="297" y="122" width="104" height="80" rx="4" fill="#ffffff" stroke="#2457d6"/>
+    <text x="349" y="145" font-size="13" font-weight="700" text-anchor="middle" fill="#2457d6">Вологість</text>
+    <text x="349" y="165" font-size="12" text-anchor="middle" fill="#1a1a1a">Середні 8 бітів</text>
+    <text x="349" y="184" font-size="12" text-anchor="middle" fill="#6b7280">(біт 11 ... біт 4)</text>
+  </g>
+
+  <!-- Byte 3: Split Byte (Shared Nibbles) -->
+  <g>
+    <rect x="416" y="75" width="128" height="135" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+    <text x="480" y="94" font-size="13" font-weight="700" text-anchor="middle" fill="#1a1a1a">Байт 3</text>
+    <text x="480" y="111" font-size="12" font-weight="700" text-anchor="middle" fill="#6b7280">Спільний байт</text>
+
+    <!-- High Nibble: S_RH [3:0] -->
+    <rect x="422" y="122" width="55" height="80" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+    <text x="449" y="140" font-size="12" font-weight="700" text-anchor="middle" fill="#2457d6">S_RH</text>
+    <text x="449" y="156" font-size="12" font-weight="700" text-anchor="middle" fill="#2457d6">[3:0]</text>
+    <text x="449" y="174" font-size="12" text-anchor="middle" fill="#1a1a1a">4 біти</text>
+    <text x="449" y="190" font-size="12" text-anchor="middle" fill="#6b7280">біт 7..4</text>
+
+    <!-- Low Nibble: S_T [19:16] -->
+    <rect x="481" y="122" width="55" height="80" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+    <text x="508" y="140" font-size="12" font-weight="700" text-anchor="middle" fill="#27ae60">S_T</text>
+    <text x="508" y="156" font-size="12" font-weight="700" text-anchor="middle" fill="#27ae60">[19:16]</text>
+    <text x="508" y="174" font-size="12" text-anchor="middle" fill="#1a1a1a">4 біти</text>
+    <text x="508" y="190" font-size="12" text-anchor="middle" fill="#6b7280">біт 3..0</text>
+  </g>
+
+  <!-- Byte 4: Temperature Mid Byte -->
+  <g>
+    <rect x="551" y="75" width="120" height="135" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+    <text x="611" y="94" font-size="13" font-weight="700" text-anchor="middle" fill="#27ae60">Байт 4</text>
+    <text x="611" y="111" font-size="12" text-anchor="middle" fill="#1a1a1a">S_T [15:8]</text>
+
+    <rect x="559" y="122" width="104" height="80" rx="4" fill="#ffffff" stroke="#27ae60"/>
+    <text x="611" y="145" font-size="13" font-weight="700" text-anchor="middle" fill="#27ae60">Температура</text>
+    <text x="611" y="165" font-size="12" text-anchor="middle" fill="#1a1a1a">Середні 8 бітів</text>
+    <text x="611" y="184" font-size="12" text-anchor="middle" fill="#6b7280">(біт 15 ... біт 8)</text>
+  </g>
+
+  <!-- Byte 5: Temperature Low Byte -->
+  <g>
+    <rect x="678" y="75" width="120" height="135" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+    <text x="738" y="94" font-size="13" font-weight="700" text-anchor="middle" fill="#27ae60">Байт 5</text>
+    <text x="738" y="111" font-size="12" text-anchor="middle" fill="#1a1a1a">S_T [7:0]</text>
+
+    <rect x="686" y="122" width="104" height="80" rx="4" fill="#ffffff" stroke="#27ae60"/>
+    <text x="738" y="145" font-size="13" font-weight="700" text-anchor="middle" fill="#27ae60">Температура</text>
+    <text x="738" y="165" font-size="12" text-anchor="middle" fill="#1a1a1a">Молодші 8 бітів</text>
+    <text x="738" y="184" font-size="12" text-anchor="middle" fill="#6b7280">(біт 7 ... біт 0)</text>
+  </g>
+
+  <!-- Byte 6: CRC8 -->
+  <g>
+    <rect x="805" y="75" width="120" height="135" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+    <text x="865" y="94" font-size="13" font-weight="700" text-anchor="middle" fill="#1a1a1a">Байт 6</text>
+    <text x="865" y="111" font-size="12" font-weight="700" text-anchor="middle" fill="#6b7280">CRC8</text>
+
+    <rect x="813" y="122" width="104" height="80" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+    <text x="865" y="145" font-size="13" font-weight="700" text-anchor="middle" fill="#1a1a1a">Контрольна сума</text>
+    <text x="865" y="165" font-size="12" text-anchor="middle" fill="#1a1a1a">Поліном CRC-8</text>
+    <text x="865" y="184" font-size="12" text-anchor="middle" fill="#6b7280">x⁸ + x⁵ + x⁴ + 1</text>
+  </g>
+
+  <!-- CONNECTING ARROWS -->
+  <path d="M 222 210 L 222 230 L 135 230 L 135 247" fill="none" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <path d="M 349 210 L 349 230 L 291 230 L 291 247" fill="none" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <path d="M 449 202 L 449 230 L 408 230 L 408 247" fill="none" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <path d="M 508 202 L 508 230 L 551 230 L 551 247" fill="none" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <path d="M 611 210 L 611 230 L 669 230 L 669 247" fill="none" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <path d="M 738 210 L 738 230 L 825 230 L 825 247" fill="none" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <!-- BOTTOM SECTION: RECONSTRUCTION & FORMULAS -->
+
+  <!-- Left Panel: Humidity S_RH Assembly -->
+  <g>
+    <rect x="35" y="255" width="435" height="260" rx="8" fill="#f4f6f8" stroke="#2457d6" stroke-width="1.5"/>
+    <path d="M 35 287 L 470 287" stroke="#2457d6" stroke-width="1.5"/>
+
+    <text x="252" y="276" font-size="14" font-weight="700" text-anchor="middle" fill="#2457d6">20-бітне значення відносної вологості S_RH</text>
+
+    <!-- Bit visual row -->
+    <rect x="60" y="300" width="150" height="45" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+    <text x="135" y="319" font-size="13" font-weight="700" text-anchor="middle" fill="#2457d6">S_RH [19:12]</text>
+    <text x="135" y="336" font-size="12" text-anchor="middle" fill="#1a1a1a">з Байту 1 (8 бітів)</text>
+
+    <rect x="216" y="300" width="150" height="45" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+    <text x="291" y="319" font-size="13" font-weight="700" text-anchor="middle" fill="#2457d6">S_RH [11:4]</text>
+    <text x="291" y="336" font-size="12" text-anchor="middle" fill="#1a1a1a">з Байту 2 (8 бітів)</text>
+
+    <rect x="372" y="300" width="73" height="45" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+    <text x="408" y="319" font-size="13" font-weight="700" text-anchor="middle" fill="#2457d6">S_RH [3:0]</text>
+    <text x="408" y="336" font-size="12" text-anchor="middle" fill="#1a1a1a">Байт 3[7:4]</text>
+
+    <!-- Bit shift operations box -->
+    <rect x="50" y="360" width="405" height="60" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+    <text x="252" y="378" font-size="12" font-weight="700" text-anchor="middle" fill="#6b7280">Побітове збирання 20-бітного числа S_RH:</text>
+    <text x="252" y="402" font-size="13" font-weight="700" text-anchor="middle" fill="#2457d6">S_RH = (Byte1 &lt;&lt; 12) | (Byte2 &lt;&lt; 4) | (Byte3 &gt;&gt; 4)</text>
+
+    <!-- Physical value formula box -->
+    <rect x="50" y="435" width="405" height="65" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+    <text x="252" y="454" font-size="12" font-weight="700" text-anchor="middle" fill="#6b7280">Обчислення відносної вологості (%):</text>
+    <text x="252" y="480" font-size="14" font-weight="700" text-anchor="middle" fill="#1a1a1a">RH [%] = ( S_RH / 2²⁰ ) × 100%</text>
+  </g>
+
+  <!-- Right Panel: Temperature S_T Assembly -->
+  <g>
+    <rect x="490" y="255" width="435" height="260" rx="8" fill="#f4f6f8" stroke="#27ae60" stroke-width="1.5"/>
+    <path d="M 490 287 L 925 287" stroke="#27ae60" stroke-width="1.5"/>
+
+    <text x="707" y="276" font-size="14" font-weight="700" text-anchor="middle" fill="#27ae60">20-бітне значення температури S_T</text>
+
+    <!-- Bit visual row -->
+    <rect x="515" y="300" width="73" height="45" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+    <text x="551" y="319" font-size="13" font-weight="700" text-anchor="middle" fill="#27ae60">S_T [19:16]</text>
+    <text x="551" y="336" font-size="12" text-anchor="middle" fill="#1a1a1a">Байт 3[3:0]</text>
+
+    <rect x="594" y="300" width="150" height="45" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+    <text x="669" y="319" font-size="13" font-weight="700" text-anchor="middle" fill="#27ae60">S_T [15:8]</text>
+    <text x="669" y="336" font-size="12" text-anchor="middle" fill="#1a1a1a">з Байту 4 (8 бітів)</text>
+
+    <rect x="750" y="300" width="150" height="45" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+    <text x="825" y="319" font-size="13" font-weight="700" text-anchor="middle" fill="#27ae60">S_T [7:0]</text>
+    <text x="825" y="336" font-size="12" text-anchor="middle" fill="#1a1a1a">з Байту 5 (8 бітів)</text>
+
+    <!-- Bit shift operations box -->
+    <rect x="505" y="360" width="405" height="60" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+    <text x="707" y="378" font-size="12" font-weight="700" text-anchor="middle" fill="#6b7280">Побітове збирання 20-бітного числа S_T:</text>
+    <text x="707" y="402" font-size="13" font-weight="700" text-anchor="middle" fill="#27ae60">S_T = ((Byte3 &amp; 0x0F) &lt;&lt; 16) | (Byte4 &lt;&lt; 8) | Byte5</text>
+
+    <!-- Physical value formula box -->
+    <rect x="505" y="435" width="405" height="65" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+    <text x="707" y="454" font-size="12" font-weight="700" text-anchor="middle" fill="#6b7280">Обчислення температури (°C):</text>
+    <text x="707" y="480" font-size="14" font-weight="700" text-anchor="middle" fill="#1a1a1a">T [°C] = ( S_T / 2²⁰ ) × 200 − 50</text>
+  </g>
+</svg>

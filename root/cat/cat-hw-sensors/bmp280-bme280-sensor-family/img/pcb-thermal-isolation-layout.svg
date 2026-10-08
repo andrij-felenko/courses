@@ -1,0 +1,100 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="520" fill="#ffffff"/>
+
+  <!-- Defs for markers -->
+  <defs>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Title and Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Топологія друкованої плати з тепловою ізоляцією давача BME280</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Фрезеровані прорізи та вузькі містки ізолюють чутливий елемент від тепла MCU і LDO</text>
+
+  <!-- PCB Outer Frame -->
+  <rect x="30" y="70" width="900" height="425" rx="12" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <text x="50" y="93" font-size="13" font-weight="bold" fill="#6b7280">Друкована плата (FR4 / Dual-Layer PCB)</text>
+
+  <!-- Hot Zone -->
+  <rect x="45" y="105" width="440" height="375" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="6,4"/>
+  <text x="60" y="128" font-size="14" font-weight="bold" fill="#c0392b">ГАРЯЧА ЗОНА (Джерела самонагріву)</text>
+
+  <!-- MCU Box -->
+  <rect x="60" y="142" width="195" height="170" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="2"/>
+  <text x="157" y="165" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">Мікроконтролер (MCU)</text>
+  <text x="157" y="188" font-size="12" fill="#1a1a1a" text-anchor="middle">Активний струм: 10–25 мА</text>
+  <text x="157" y="208" font-size="12" fill="#c0392b" text-anchor="middle">Потужність P ≈ 50 мВт</text>
+  <text x="157" y="228" font-size="12" fill="#1a1a1a" text-anchor="middle">Локальний нагрів: +2...4 °C</text>
+  <text x="157" y="253" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">Оптимізація:</text>
+  <text x="157" y="273" font-size="12" fill="#6b7280" text-anchor="middle">Занурення в Sleep Mode</text>
+  <text x="157" y="293" font-size="12" fill="#6b7280" text-anchor="middle">Періодичне опитування</text>
+
+  <!-- LDO Regulator Box -->
+  <rect x="275" y="142" width="195" height="170" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="2"/>
+  <text x="372" y="165" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">Стабілізатор LDO</text>
+  <text x="372" y="188" font-size="12" fill="#1a1a1a" text-anchor="middle">Вхідна напруга Vin = 5.0 V</text>
+  <text x="372" y="208" font-size="12" fill="#c0392b" text-anchor="middle">Тепловиділення: (Vin-Vout)·I</text>
+  <text x="372" y="228" font-size="12" fill="#1a1a1a" text-anchor="middle">Постійний розігрів плати</text>
+  <text x="372" y="253" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">Рекомендація:</text>
+  <text x="372" y="273" font-size="12" fill="#6b7280" text-anchor="middle">Віддаляти від давача</text>
+  <text x="372" y="293" font-size="12" fill="#6b7280" text-anchor="middle">Або імпульсний DC-DC</text>
+
+  <!-- Heat Conduction Info Box -->
+  <rect x="60" y="325" width="410" height="140" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="265" y="347" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">Шляхи поширення тепла по платі</text>
+  <text x="265" y="370" font-size="12" fill="#1a1a1a" text-anchor="middle">Мідний полігон (Cu): λ = 385 Вт/(м·К) — головний провідник тепла</text>
+  <text x="265" y="390" font-size="12" fill="#1a1a1a" text-anchor="middle">Основа текстоліту (FR4): λ = 0.25 Вт/(м·К)</text>
+  <text x="265" y="412" font-size="12" fill="#c0392b" text-anchor="middle">Суцільна мідь передає тепло безпосередньо до корпусів поруч</text>
+  <text x="265" y="435" font-size="12" fill="#2457d6" text-anchor="middle">Необхідне розривання полігонів та прорізи</text>
+
+  <!-- Slot Barrier Zone -->
+  <rect x="500" y="105" width="80" height="375" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="2" stroke-dasharray="5,3"/>
+  <text x="540" y="125" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Проріз</text>
+  <text x="540" y="142" font-size="12" fill="#2457d6" text-anchor="middle">(Slot)</text>
+
+  <!-- Top Bridge -->
+  <rect x="500" y="165" width="80" height="45" fill="#f4f6f8" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="540" y="183" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Місток 1</text>
+  <text x="540" y="200" font-size="12" fill="#6b7280" text-anchor="middle">VDD, GND</text>
+
+  <!-- Air Gap Details -->
+  <text x="540" y="240" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Повітряний</text>
+  <text x="540" y="258" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">зазор</text>
+  <text x="540" y="276" font-size="12" fill="#6b7280" text-anchor="middle">(Air Gap)</text>
+  <text x="540" y="298" font-size="12" fill="#6b7280" text-anchor="middle">λ = 0.026</text>
+  <text x="540" y="316" font-size="12" fill="#6b7280" text-anchor="middle">Вт/(м·К)</text>
+
+  <!-- Bottom Bridge -->
+  <rect x="500" y="350" width="80" height="45" fill="#f4f6f8" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="540" y="368" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Місток 2</text>
+  <text x="540" y="385" font-size="12" fill="#6b7280" text-anchor="middle">SDA, SCL</text>
+
+  <!-- Isolated Sensor Zone -->
+  <rect x="595" y="105" width="320" height="375" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="610" y="128" font-size="14" font-weight="bold" fill="#27ae60">ІЗОЛЬОВАНИЙ ОСТРІВЕЦЬ СЕНСОРА</text>
+
+  <!-- BME280 Sensor Box -->
+  <rect x="650" y="142" width="210" height="170" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="2"/>
+  <text x="755" y="165" font-size="14" font-weight="bold" fill="#27ae60" text-anchor="middle">Давач BME280</text>
+  <text x="755" y="187" font-size="12" fill="#6b7280" text-anchor="middle">Корпус LGA-8 (2.5×2.5 мм)</text>
+  <text x="755" y="210" font-size="12" fill="#1a1a1a" text-anchor="middle">Вимірює T, RH та тиск P</text>
+  <text x="755" y="232" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">T_sensor ≈ T_amb (довкілля)</text>
+  <text x="755" y="254" font-size="12" fill="#1a1a1a" text-anchor="middle">Помилка ΔT &lt; 0.1 °C</text>
+  <text x="755" y="276" font-size="12" fill="#27ae60" text-anchor="middle">Немає викривлення відносної</text>
+  <text x="755" y="294" font-size="12" fill="#27ae60" text-anchor="middle">вологості % RH</text>
+
+  <!-- Rules Box -->
+  <rect x="610" y="325" width="290" height="140" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="755" y="347" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Правила трасування біля BME280</text>
+  <text x="625" y="372" font-size="12" fill="#1a1a1a">1. Виріз у мідному полігоні (Polygon Cutout)</text>
+  <text x="625" y="394" font-size="12" fill="#1a1a1a">2. Вузькі провідники I2C/SPI (0.15–0.2 мм)</text>
+  <text x="625" y="416" font-size="12" fill="#1a1a1a">3. Відсутність теплоємних переходів (Vias)</text>
+  <text x="625" y="438" font-size="12" fill="#27ae60">4. Вільне омивання повітрям навколо</text>
+</svg>

@@ -1,0 +1,116 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 640" width="960" height="640" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-main" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="640" fill="white"/>
+
+  <!-- Header -->
+  <text x="480" y="34" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Алгоритм опитування INA219 та перевірки прапорців CNVR / OVF</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Зчитування регістра Bus Voltage (0x02) фіксує вимірювання та скидає прапорці готовності й переповнення</text>
+
+  <!-- Register 0x02 Structure Info Panel -->
+  <rect x="640" y="90" width="285" height="155" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="6"/>
+  <text x="782" y="112" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Регістр Bus Voltage (0x02)</text>
+  
+  <rect x="655" y="124" width="145" height="36" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2" rx="4"/>
+  <text x="727" y="146" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">BD[12:0]</text>
+
+  <rect x="804" y="124" width="24" height="36" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.2" rx="4"/>
+  <text x="816" y="146" font-size="12" fill="#6b7280" text-anchor="middle">—</text>
+
+  <rect x="832" y="124" width="42" height="36" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2" rx="4"/>
+  <text x="853" y="146" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">CNVR</text>
+
+  <rect x="878" y="124" width="42" height="36" fill="#fdecea" stroke="#c0392b" stroke-width="1.2" rx="4"/>
+  <text x="899" y="146" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">OVF</text>
+
+  <text x="655" y="180" font-size="12" fill="#1a1a1a">CNVR=1: конверсію ADC завершено</text>
+  <text x="655" y="200" font-size="12" fill="#1a1a1a">OVF=1: переповнення I / P (Math Overflow)</text>
+  <text x="655" y="222" font-size="12" font-weight="700" fill="#2457d6">Читання 0x02 скидає CNVR та OVF в 0</text>
+
+  <!-- Step 1: Start -->
+  <rect x="295" y="90" width="270" height="48" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <text x="430" y="109" font-size="13" font-weight="700" fill="#2457d6" text-anchor="middle">1. Старт циклу опитування</text>
+  <text x="430" y="127" font-size="12" fill="#6b7280" text-anchor="middle">Таймер МК / періодична задача bare-metal</text>
+
+  <line x1="430" y1="138" x2="430" y2="172" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arr-blue)"/>
+
+  <!-- Step 2: Read Reg 0x02 -->
+  <rect x="275" y="172" width="310" height="54" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="6"/>
+  <text x="430" y="193" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">2. Читання регістра Bus Voltage (0x02)</text>
+  <text x="430" y="212" font-size="12" fill="#6b7280" text-anchor="middle">I2C Read (2 байти): витяг BD[12:0], CNVR, OVF</text>
+
+  <line x1="430" y1="226" x2="430" y2="260" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arr-main)"/>
+
+  <!-- Step 3: Check CNVR -->
+  <rect x="275" y="260" width="310" height="56" fill="#f4f6f8" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <text x="430" y="282" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">3. Прапорець CNVR == 1 ?</text>
+  <text x="430" y="301" font-size="12" fill="#6b7280" text-anchor="middle">(Conversion Ready — оновлення завершено)</text>
+
+  <!-- CNVR == 0 branch -->
+  <line x1="275" y1="288" x2="210" y2="288" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arr-red)"/>
+  <text x="242" y="280" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">Ні (0)</text>
+
+  <rect x="35" y="260" width="175" height="56" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" rx="6"/>
+  <text x="122" y="282" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">Конверсія триває</text>
+  <text x="122" y="301" font-size="12" fill="#6b7280" text-anchor="middle">Очікування / затримка</text>
+
+  <path d="M 122 260 L 122 199 L 275 199" fill="none" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+
+  <!-- CNVR == 1 branch -->
+  <line x1="430" y1="316" x2="430" y2="350" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arr-green)"/>
+  <text x="442" y="337" font-size="12" font-weight="700" fill="#27ae60">Так (1)</text>
+
+  <!-- Step 4: Check OVF -->
+  <rect x="275" y="350" width="310" height="56" fill="#f4f6f8" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <text x="430" y="372" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">4. Прапорець OVF == 1 ?</text>
+  <text x="430" y="391" font-size="12" fill="#6b7280" text-anchor="middle">(Math Overflow — математичне переповнення)</text>
+
+  <!-- OVF == 1 branch -->
+  <line x1="585" y1="378" x2="645" y2="378" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arr-red)"/>
+  <text x="615" y="370" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">Так (1)</text>
+
+  <rect x="645" y="350" width="275" height="56" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" rx="6"/>
+  <text x="782" y="372" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">Помилка: Math Overflow!</text>
+  <text x="782" y="391" font-size="12" fill="#6b7280" text-anchor="middle">Дані I/P недійсні (скинути/коригувати PGA)</text>
+
+  <!-- OVF == 0 branch -->
+  <line x1="430" y1="406" x2="430" y2="440" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arr-green)"/>
+  <text x="442" y="427" font-size="12" font-weight="700" fill="#27ae60">Ні (0)</text>
+
+  <!-- Step 5: Read Current/Power -->
+  <rect x="275" y="440" width="310" height="54" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="6"/>
+  <text x="430" y="461" font-size="13" font-weight="700" fill="#27ae60" text-anchor="middle">5. Зчитування Current (0x04) та Power (0x03)</text>
+  <text x="430" y="480" font-size="12" fill="#6b7280" text-anchor="middle">I2C Read розрахованих значень струму й потужності</text>
+
+  <line x1="430" y1="494" x2="430" y2="528" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arr-green)"/>
+
+  <!-- Step 6: Output / Telemetry -->
+  <rect x="275" y="528" width="310" height="54" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="6"/>
+  <text x="430" y="549" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">6. Передача телеметрії через UART</text>
+  <text x="430" y="568" font-size="12" fill="#6b7280" text-anchor="middle">Форматування U_bus, I, P та відправка в термінал</text>
+
+  <!-- Loop back lines -->
+  <line x1="430" y1="582" x2="430" y2="608" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="782" y1="406" x2="782" y2="608" stroke="#c0392b" stroke-width="1.5"/>
+  <line x1="782" y1="608" x2="20" y2="608" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="20" y1="608" x2="20" y2="114" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="20" y1="114" x2="295" y2="114" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+  <text x="157" y="98" font-size="12" fill="#6b7280" text-anchor="middle">Наступна ітерація опитування</text>
+</svg>

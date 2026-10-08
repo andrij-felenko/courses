@@ -1,0 +1,252 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="480" fill="#ffffff"/>
+
+  <defs>
+    <marker id="arr-red" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-purple" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#9333ea"/>
+    </marker>
+    <marker id="arr-orange" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#ea580c"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="30" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Структура конфігураційного регістру INA226 (адреса 00h)</text>
+  <text x="480" y="52" text-anchor="middle" font-size="13" fill="#6b7280">16-бітне слово визначає режим роботи, час перетворення АЦП та параметри усереднення</text>
+
+  <!-- Register Label -->
+  <text x="48" y="78" font-size="12" font-weight="bold" fill="#1a1a1a">Бітова карта Configuration Register (за замовчуванням: 4127h = 0100 0001 0010 0111b):</text>
+
+  <!-- Bit Numbers (top row) -->
+  <g font-size="11" font-weight="bold" fill="#6b7280" text-anchor="middle">
+    <text x="73.5" y="98">15</text>
+    <text x="130.5" y="98">14</text>
+    <text x="182.5" y="98">13</text>
+    <text x="234.5" y="98">12</text>
+    <text x="291.5" y="98">11</text>
+    <text x="343.5" y="98">10</text>
+    <text x="395.5" y="98">9</text>
+    <text x="452.5" y="98">8</text>
+    <text x="504.5" y="98">7</text>
+    <text x="556.5" y="98">6</text>
+    <text x="613.5" y="98">5</text>
+    <text x="665.5" y="98">4</text>
+    <text x="717.5" y="98">3</text>
+    <text x="774.5" y="98">2</text>
+    <text x="826.5" y="98">1</text>
+    <text x="878.5" y="98">0</text>
+  </g>
+
+  <!-- Bit Boxes (Y: 104 to 150) -->
+  <!-- Bit 15: RST -->
+  <rect x="48" y="104" width="51" height="46" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="73.5" y="122" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">RST</text>
+  <text x="73.5" y="140" text-anchor="middle" font-size="11" fill="#6b7280">0</text>
+
+  <!-- Bits 14..12: Reserved -->
+  <rect x="105" y="104" width="51" height="46" rx="3" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="130.5" y="122" text-anchor="middle" font-size="11" font-weight="bold" fill="#6b7280">RSV</text>
+  <text x="130.5" y="140" text-anchor="middle" font-size="11" fill="#6b7280">1</text>
+
+  <rect x="157" y="104" width="51" height="46" rx="3" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="182.5" y="122" text-anchor="middle" font-size="11" font-weight="bold" fill="#6b7280">RSV</text>
+  <text x="182.5" y="140" text-anchor="middle" font-size="11" fill="#6b7280">0</text>
+
+  <rect x="209" y="104" width="51" height="46" rx="3" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="234.5" y="122" text-anchor="middle" font-size="11" font-weight="bold" fill="#6b7280">RSV</text>
+  <text x="234.5" y="140" text-anchor="middle" font-size="11" fill="#6b7280">0</text>
+
+  <!-- Bits 11..9: AVG -->
+  <rect x="266" y="104" width="51" height="46" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="291.5" y="122" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">AVG2</text>
+  <text x="291.5" y="140" text-anchor="middle" font-size="11" fill="#6b7280">0</text>
+
+  <rect x="318" y="104" width="51" height="46" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="343.5" y="122" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">AVG1</text>
+  <text x="343.5" y="140" text-anchor="middle" font-size="11" fill="#6b7280">0</text>
+
+  <rect x="370" y="104" width="51" height="46" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="395.5" y="122" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">AVG0</text>
+  <text x="395.5" y="140" text-anchor="middle" font-size="11" fill="#6b7280">0</text>
+
+  <!-- Bits 8..6: VBUSCT -->
+  <rect x="427" y="104" width="51" height="46" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="452.5" y="122" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">VBUS2</text>
+  <text x="452.5" y="140" text-anchor="middle" font-size="11" fill="#6b7280">1</text>
+
+  <rect x="479" y="104" width="51" height="46" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="504.5" y="122" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">VBUS1</text>
+  <text x="504.5" y="140" text-anchor="middle" font-size="11" fill="#6b7280">0</text>
+
+  <rect x="531" y="104" width="51" height="46" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="556.5" y="122" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">VBUS0</text>
+  <text x="556.5" y="140" text-anchor="middle" font-size="11" fill="#6b7280">0</text>
+
+  <!-- Bits 5..3: VSHCT -->
+  <rect x="588" y="104" width="51" height="46" rx="3" fill="#f3e8ff" stroke="#9333ea" stroke-width="1.5"/>
+  <text x="613.5" y="122" text-anchor="middle" font-size="11" font-weight="bold" fill="#9333ea">VSH2</text>
+  <text x="613.5" y="140" text-anchor="middle" font-size="11" fill="#6b7280">1</text>
+
+  <rect x="640" y="104" width="51" height="46" rx="3" fill="#f3e8ff" stroke="#9333ea" stroke-width="1.5"/>
+  <text x="665.5" y="122" text-anchor="middle" font-size="11" font-weight="bold" fill="#9333ea">VSH1</text>
+  <text x="665.5" y="140" text-anchor="middle" font-size="11" fill="#6b7280">0</text>
+
+  <rect x="692" y="104" width="51" height="46" rx="3" fill="#f3e8ff" stroke="#9333ea" stroke-width="1.5"/>
+  <text x="717.5" y="122" text-anchor="middle" font-size="11" font-weight="bold" fill="#9333ea">VSH0</text>
+  <text x="717.5" y="140" text-anchor="middle" font-size="11" fill="#6b7280">0</text>
+
+  <!-- Bits 2..0: MODE -->
+  <rect x="749" y="104" width="51" height="46" rx="3" fill="#fff7ed" stroke="#ea580c" stroke-width="1.5"/>
+  <text x="774.5" y="122" text-anchor="middle" font-size="11" font-weight="bold" fill="#ea580c">MOD3</text>
+  <text x="774.5" y="140" text-anchor="middle" font-size="11" fill="#6b7280">1</text>
+
+  <rect x="801" y="104" width="51" height="46" rx="3" fill="#fff7ed" stroke="#ea580c" stroke-width="1.5"/>
+  <text x="826.5" y="122" text-anchor="middle" font-size="11" font-weight="bold" fill="#ea580c">MOD2</text>
+  <text x="826.5" y="140" text-anchor="middle" font-size="11" fill="#6b7280">1</text>
+
+  <rect x="853" y="104" width="51" height="46" rx="3" fill="#fff7ed" stroke="#ea580c" stroke-width="1.5"/>
+  <text x="878.5" y="122" text-anchor="middle" font-size="11" font-weight="bold" fill="#ea580c">MOD1</text>
+  <text x="878.5" y="140" text-anchor="middle" font-size="11" fill="#6b7280">1</text>
+
+  <!-- Group Banners (Y: 158 to 180) -->
+  <rect x="48" y="158" width="51" height="22" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="73.5" y="173" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">RST (15)</text>
+
+  <rect x="105" y="158" width="155" height="22" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="182.5" y="173" text-anchor="middle" font-size="11" font-weight="bold" fill="#6b7280">Зарезервовано (14..12)</text>
+
+  <rect x="266" y="158" width="155" height="22" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="343.5" y="173" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">AVG[2:0] (11..9)</text>
+
+  <rect x="427" y="158" width="155" height="22" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="504.5" y="173" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">VBUSCT[2:0] (8..6)</text>
+
+  <rect x="588" y="158" width="155" height="22" rx="4" fill="#f3e8ff" stroke="#9333ea" stroke-width="1"/>
+  <text x="665.5" y="173" text-anchor="middle" font-size="11" font-weight="bold" fill="#9333ea">VSHCT[2:0] (5..3)</text>
+
+  <rect x="749" y="158" width="155" height="22" rx="4" fill="#fff7ed" stroke="#ea580c" stroke-width="1"/>
+  <text x="826.5" y="173" text-anchor="middle" font-size="11" font-weight="bold" fill="#ea580c">MODE[3:1] (2..0)</text>
+
+  <!-- Connecting Arrows -->
+  <line x1="73.5" y1="180" x2="125.5" y2="210" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <line x1="343.5" y1="180" x2="304" y2="210" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <line x1="504.5" y1="180" x2="480" y2="210" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <line x1="665.5" y1="180" x2="656" y2="210" stroke="#9333ea" stroke-width="1.5" marker-end="url(#arr-purple)"/>
+  <line x1="826.5" y1="180" x2="832" y2="210" stroke="#ea580c" stroke-width="1.5" marker-end="url(#arr-orange)"/>
+
+  <!-- Detail Cards (Y: 215 to 458, Height = 243) -->
+
+  <!-- Card 1: RST & Reserved -->
+  <rect x="48" y="215" width="155" height="243" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+  <path d="M 48,221 A 6,6 0 0 1 54,215 L 197,215 A 6,6 0 0 1 203,221 L 203,243 L 48,243 Z" fill="#fdecea"/>
+  <line x1="48" y1="243" x2="203" y2="243" stroke="#c0392b" stroke-width="1"/>
+  <text x="125.5" y="234" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Скидання та резерв</text>
+
+  <text x="56" y="260" font-size="11" fill="#1a1a1a">
+    <tspan x="56" dy="0" font-weight="bold" fill="#c0392b">RST (біт 15):</tspan>
+    <tspan x="56" dy="16">• 1 = M'яке скидання</tspan>
+    <tspan x="56" dy="16">  (Reset системний)</tspan>
+    <tspan x="56" dy="16">• 0 = Нормальна</tspan>
+    <tspan x="56" dy="16">  робота (дефолт)</tspan>
+    <tspan x="56" dy="20" font-weight="bold" fill="#6b7280">Зарезервовано:</tspan>
+    <tspan x="56" dy="16">• Біти 14..12: 100b</tspan>
+    <tspan x="56" dy="16">  (фіксований стан)</tspan>
+    <tspan x="56" dy="22" font-size="11" fill="#6b7280">RST сам скидається</tspan>
+    <tspan x="56" dy="14" font-size="11" fill="#6b7280">в 0 після виконання</tspan>
+  </text>
+  <line x1="56" y1="384" x2="195" y2="384" stroke="#d0d7de" stroke-dasharray="2,2"/>
+
+  <!-- Card 2: AVG -->
+  <rect x="224" y="215" width="160" height="243" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <path d="M 224,221 A 6,6 0 0 1 230,215 L 378,215 A 6,6 0 0 1 384,221 L 384,243 L 224,243 Z" fill="#e9f7ef"/>
+  <line x1="224" y1="243" x2="384" y2="243" stroke="#27ae60" stroke-width="1"/>
+  <text x="304" y="234" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Усереднення (AVG)</text>
+
+  <text x="232" y="260" font-size="11" fill="#1a1a1a">
+    <tspan x="232" dy="0" font-weight="bold" fill="#1a1a1a">AVG[2:0] (біти 11..9):</tspan>
+    <tspan x="232" dy="16">000b : 1 (без ус., деф)</tspan>
+    <tspan x="232" dy="15">001b : 4 вибірки</tspan>
+    <tspan x="232" dy="15">010b : 16 вибірок</tspan>
+    <tspan x="232" dy="15">011b : 64 вибірки</tspan>
+    <tspan x="232" dy="15">100b : 128 вибірок</tspan>
+    <tspan x="232" dy="15">101b : 256 вибірок</tspan>
+    <tspan x="232" dy="15">110b : 512 вибірок</tspan>
+    <tspan x="232" dy="15">111b : 1024 вибірки</tspan>
+    <tspan x="232" dy="20" font-weight="bold" fill="#27ae60">Зменшує шуми,</tspan>
+    <tspan x="232" dy="14" fill="#6b7280">збільшує час циклу</tspan>
+  </text>
+  <line x1="232" y1="400" x2="376" y2="400" stroke="#d0d7de" stroke-dasharray="2,2"/>
+
+  <!-- Card 3: VBUSCT -->
+  <rect x="400" y="215" width="160" height="243" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <path d="M 400,221 A 6,6 0 0 1 406,215 L 554,215 A 6,6 0 0 1 560,221 L 560,243 L 400,243 Z" fill="#eaf0fd"/>
+  <line x1="400" y1="243" x2="560" y2="243" stroke="#2457d6" stroke-width="1"/>
+  <text x="480" y="234" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Час VBUS (VBUSCT)</text>
+
+  <text x="408" y="260" font-size="11" fill="#1a1a1a">
+    <tspan x="408" dy="0" font-weight="bold" fill="#1a1a1a">VBUSCT[2:0] (8..6):</tspan>
+    <tspan x="408" dy="16">000b : 140 µs</tspan>
+    <tspan x="408" dy="15">001b : 204 µs</tspan>
+    <tspan x="408" dy="15">010b : 332 µs</tspan>
+    <tspan x="408" dy="15">011b : 588 µs</tspan>
+    <tspan x="408" dy="15">100b : 1.1 ms (деф)</tspan>
+    <tspan x="408" dy="15">101b : 2.116 ms</tspan>
+    <tspan x="408" dy="15">110b : 4.156 ms</tspan>
+    <tspan x="408" dy="15">111b : 8.244 ms</tspan>
+    <tspan x="408" dy="20" font-weight="bold" fill="#2457d6">Час конверсії</tspan>
+    <tspan x="408" dy="14" fill="#6b7280">напруги шини VBUS</tspan>
+  </text>
+  <line x1="408" y1="400" x2="552" y2="400" stroke="#d0d7de" stroke-dasharray="2,2"/>
+
+  <!-- Card 4: VSHCT -->
+  <rect x="576" y="215" width="160" height="243" rx="6" fill="#ffffff" stroke="#9333ea" stroke-width="1.5"/>
+  <path d="M 576,221 A 6,6 0 0 1 582,215 L 730,215 A 6,6 0 0 1 736,221 L 736,243 L 576,243 Z" fill="#f3e8ff"/>
+  <line x1="576" y1="243" x2="736" y2="243" stroke="#9333ea" stroke-width="1"/>
+  <text x="656" y="234" text-anchor="middle" font-size="12" font-weight="bold" fill="#9333ea">Час VSHUNT (VSHCT)</text>
+
+  <text x="584" y="260" font-size="11" fill="#1a1a1a">
+    <tspan x="584" dy="0" font-weight="bold" fill="#1a1a1a">VSHCT[2:0] (5..3):</tspan>
+    <tspan x="584" dy="16">000b : 140 µs</tspan>
+    <tspan x="584" dy="15">001b : 204 µs</tspan>
+    <tspan x="584" dy="15">010b : 332 µs</tspan>
+    <tspan x="584" dy="15">011b : 588 µs</tspan>
+    <tspan x="584" dy="15">100b : 1.1 ms (деф)</tspan>
+    <tspan x="584" dy="15">101b : 2.116 ms</tspan>
+    <tspan x="584" dy="15">110b : 4.156 ms</tspan>
+    <tspan x="584" dy="15">111b : 8.244 ms</tspan>
+    <tspan x="584" dy="20" font-weight="bold" fill="#9333ea">Час конверсії</tspan>
+    <tspan x="584" dy="14" fill="#6b7280">струму на шунті</tspan>
+  </text>
+  <line x1="584" y1="400" x2="728" y2="400" stroke="#d0d7de" stroke-dasharray="2,2"/>
+
+  <!-- Card 5: MODE -->
+  <rect x="752" y="215" width="160" height="243" rx="6" fill="#ffffff" stroke="#ea580c" stroke-width="1.5"/>
+  <path d="M 752,221 A 6,6 0 0 1 758,215 L 906,215 A 6,6 0 0 1 912,221 L 912,243 L 752,243 Z" fill="#fff7ed"/>
+  <line x1="752" y1="243" x2="912" y2="243" stroke="#ea580c" stroke-width="1"/>
+  <text x="832" y="234" text-anchor="middle" font-size="12" font-weight="bold" fill="#ea580c">Режим (MODE)</text>
+
+  <text x="760" y="260" font-size="11" fill="#1a1a1a">
+    <tspan x="760" dy="0" font-weight="bold" fill="#1a1a1a">MODE[3:1] (2..0):</tspan>
+    <tspan x="760" dy="16">000b: Shutdown (вимк)</tspan>
+    <tspan x="760" dy="15">001b: Shunt, Trig</tspan>
+    <tspan x="760" dy="15">010b: Bus, Trig</tspan>
+    <tspan x="760" dy="15">011b: Shunt+Bus, Trig</tspan>
+    <tspan x="760" dy="15">100b: Shutdown (вимк)</tspan>
+    <tspan x="760" dy="15">101b: Shunt, Cont</tspan>
+    <tspan x="760" dy="15">110b: Bus, Cont</tspan>
+    <tspan x="760" dy="15">111b: Shunt+Bus, Cont</tspan>
+    <tspan x="760" dy="20" font-weight="bold" fill="#ea580c">Дефолт: 111b</tspan>
+    <tspan x="760" dy="14" fill="#6b7280">(Continuous Shunt+Bus)</tspan>
+  </text>
+  <line x1="760" y1="400" x2="904" y2="400" stroke="#d0d7de" stroke-dasharray="2,2"/>
+</svg>

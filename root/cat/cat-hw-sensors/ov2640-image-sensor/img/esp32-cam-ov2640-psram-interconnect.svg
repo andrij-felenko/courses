@@ -1,0 +1,145 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 510" width="960" height="510" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-blue-rev" markerWidth="9" markerHeight="9" refX="0.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="510" fill="white"/>
+
+  <!-- Title and Subtitle -->
+  <text x="480" y="35" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Апаратна інтеграція ESP32-CAM: OV2640, PSRAM та розмежування GPIO</text>
+  <text x="480" y="58" text-anchor="middle" font-size="13" fill="#6b7280">Шини DVP та SCCB сенсора мають окремі GPIO, відмінні від виводів SPI PSRAM</text>
+
+  <!-- ================= LEFT BLOCK: OV2640 ================= -->
+  <rect x="40" y="90" width="230" height="340" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <path d="M40 98 A8 8 0 0 1 48 90 L262 90 A8 8 0 0 1 270 98 L270 138 L40 138 Z" fill="#eaf0fd"/>
+  <text x="155" y="115" text-anchor="middle" font-size="15" font-weight="bold" fill="#2457d6">Сенсор OV2640</text>
+  <text x="155" y="132" text-anchor="middle" font-size="12" fill="#6b7280">2 Megapixel CMOS</text>
+
+  <!-- Panel 1: SCCB -->
+  <rect x="52" y="145" width="206" height="73" rx="6" fill="white" stroke="#d0d7de"/>
+  <text x="62" y="162" font-size="12" font-weight="bold" fill="#1a1a1a">Шина керування (SCCB)</text>
+  <text x="62" y="184" font-size="12" fill="#1a1a1a">SIOC (SCL)</text>
+  <text x="62" y="206" font-size="12" fill="#1a1a1a">SIOD (SDA)</text>
+
+  <!-- Panel 2: DVP Clocks -->
+  <rect x="52" y="228" width="206" height="95" rx="6" fill="white" stroke="#d0d7de"/>
+  <text x="62" y="245" font-size="12" font-weight="bold" fill="#1a1a1a">Синхронізація DVP</text>
+  <text x="62" y="267" font-size="12" fill="#1a1a1a">PCLK, VSYNC</text>
+  <text x="62" y="287" font-size="12" fill="#1a1a1a">HREF, XCLK</text>
+  <text x="62" y="307" font-size="12" fill="#1a1a1a">PWDN</text>
+
+  <!-- Panel 3: DVP Data -->
+  <rect x="52" y="333" width="206" height="85" rx="6" fill="white" stroke="#d0d7de"/>
+  <text x="62" y="350" font-size="12" font-weight="bold" fill="#1a1a1a">Дані DVP (8 біт)</text>
+  <text x="62" y="385" font-size="12" fill="#1a1a1a">Y2 .. Y9 (Паралельні)</text>
+
+
+  <!-- ================= CENTER BLOCK: ESP32 ================= -->
+  <rect x="345" y="90" width="270" height="340" rx="8" fill="#f4f6f8" stroke="#2457d6" stroke-width="2"/>
+  <path d="M345 98 A8 8 0 0 1 353 90 L607 90 A8 8 0 0 1 615 98 L615 138 L345 138 Z" fill="#2457d6"/>
+  <text x="480" y="115" text-anchor="middle" font-size="15" font-weight="bold" fill="white">Мікроконтролер ESP32</text>
+  <text x="480" y="132" text-anchor="middle" font-size="12" fill="#eaf0fd">Двоядерний 240 МГц</text>
+
+  <!-- ESP32 Left Subpanels (OV2640 GPIOs) -->
+  <!-- SCCB GPIO -->
+  <rect x="355" y="145" width="118" height="73" rx="6" fill="white" stroke="#d0d7de"/>
+  <text x="414" y="162" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">SCCB GPIO</text>
+  <text x="414" y="184" text-anchor="middle" font-size="12" fill="#1a1a1a">GPIO27 (SIOC)</text>
+  <text x="414" y="206" text-anchor="middle" font-size="12" fill="#1a1a1a">GPIO26 (SIOD)</text>
+
+  <!-- DVP Clocks GPIO -->
+  <rect x="355" y="228" width="118" height="95" rx="6" fill="white" stroke="#d0d7de"/>
+  <text x="414" y="245" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">DVP Clocks</text>
+  <text x="414" y="267" text-anchor="middle" font-size="12" fill="#1a1a1a">GPIO22 / 25</text>
+  <text x="414" y="287" text-anchor="middle" font-size="12" fill="#1a1a1a">GPIO23 / 0</text>
+  <text x="414" y="307" text-anchor="middle" font-size="12" fill="#1a1a1a">GPIO32 (PWDN)</text>
+
+  <!-- DVP Data GPIO -->
+  <rect x="355" y="333" width="118" height="85" rx="6" fill="white" stroke="#d0d7de"/>
+  <text x="414" y="350" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">DVP Data</text>
+  <text x="414" y="372" text-anchor="middle" font-size="12" fill="#1a1a1a">GPIO5,18,19,21</text>
+  <text x="414" y="392" text-anchor="middle" font-size="12" fill="#1a1a1a">GPIO36,39,34,35</text>
+
+  <!-- ESP32 Right Subpanel (PSRAM SPI GPIOs) -->
+  <rect x="487" y="145" width="118" height="273" rx="6" fill="white" stroke="#d0d7de"/>
+  <text x="546" y="165" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">PSRAM SPI</text>
+  <text x="546" y="195" text-anchor="middle" font-size="12" fill="#1a1a1a">GPIO16 (CS)</text>
+  <text x="546" y="225" text-anchor="middle" font-size="12" fill="#1a1a1a">GPIO17 (CLK)</text>
+  <text x="546" y="255" text-anchor="middle" font-size="12" fill="#1a1a1a">GPIO6–11</text>
+  <text x="546" y="272" text-anchor="middle" font-size="12" fill="#6b7280">(SD0 – SD3)</text>
+
+  <!-- PSRAM Isolated Badge -->
+  <rect x="495" y="333" width="102" height="65" rx="4" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="546" y="357" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Ізольована</text>
+  <text x="546" y="377" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">шина SPI</text>
+
+
+  <!-- ================= RIGHT BLOCK: PSRAM ================= -->
+  <rect x="690" y="90" width="230" height="340" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <path d="M690 98 A8 8 0 0 1 698 90 L912 90 A8 8 0 0 1 920 98 L920 138 L690 138 Z" fill="#e9f7ef"/>
+  <text x="805" y="115" text-anchor="middle" font-size="15" font-weight="bold" fill="#27ae60">Пам'ять PSRAM</text>
+  <text x="805" y="132" text-anchor="middle" font-size="12" fill="#6b7280">4MB / 8MB Pseudo-SRAM</text>
+
+  <!-- PSRAM Subpanel 1: SPI Interface -->
+  <rect x="702" y="145" width="206" height="115" rx="6" fill="white" stroke="#d0d7de"/>
+  <text x="805" y="165" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Інтерфейс SPI / QSPI</text>
+  <text x="715" y="195" font-size="12" fill="#1a1a1a">CE# (Chip Select)</text>
+  <text x="715" y="225" font-size="12" fill="#1a1a1a">SCLK (Serial Clock)</text>
+  <text x="715" y="248" font-size="12" fill="#1a1a1a">SIO0..SIO3 (4-bit)</text>
+
+  <!-- PSRAM Subpanel 2: Allocation -->
+  <rect x="702" y="270" width="206" height="148" rx="6" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="805" y="290" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Використання буферів</text>
+  <text x="715" y="316" font-size="12" fill="#1a1a1a">• Кадрові буфери FB0/FB1</text>
+  <text x="715" y="340" font-size="12" fill="#1a1a1a">• JPEG DMA компресія</text>
+  <text x="715" y="364" font-size="12" fill="#1a1a1a">• Асинхронний HTTP-потік</text>
+  <text x="715" y="388" font-size="12" fill="#1a1a1a">• Без затримок CPU</text>
+
+
+  <!-- ================= CONNECTIONS & BUSES ================= -->
+
+  <!-- Left Bus 1: SCCB -->
+  <line x1="258" y1="184" x2="355" y2="184" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)" marker-start="url(#arr-blue-rev)"/>
+  <line x1="258" y1="206" x2="355" y2="206" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)" marker-start="url(#arr-blue-rev)"/>
+  <rect x="275" y="146" width="65" height="22" rx="4" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="307" y="161" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">SCCB</text>
+
+  <!-- Left Bus 2: DVP Clocks -->
+  <line x1="258" y1="267" x2="355" y2="267" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <line x1="258" y1="287" x2="355" y2="287" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <line x1="258" y1="307" x2="355" y2="307" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <rect x="272" y="230" width="71" height="22" rx="4" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="307" y="245" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Синхро</text>
+
+  <!-- Left Bus 3: DVP Data (8-bit) -->
+  <line x1="258" y1="381" x2="355" y2="381" stroke="#2457d6" stroke-width="3" marker-end="url(#arr-blue)"/>
+  <line x1="295" y1="375" x2="305" y2="387" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="270" y="335" width="75" height="22" rx="4" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="307" y="350" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">DVP 8 біт</text>
+
+  <!-- Right Bus: SPI PSRAM -->
+  <line x1="605" y1="195" x2="702" y2="195" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <line x1="605" y1="225" x2="702" y2="225" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <line x1="605" y1="248" x2="702" y2="248" stroke="#27ae60" stroke-width="3" marker-end="url(#arr-green)"/>
+  <line x1="645" y1="242" x2="655" y2="254" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="620" y="146" width="65" height="22" rx="4" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="652" y="161" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">SPI QSPI</text>
+
+
+  <!-- ================= BOTTOM CALLOUT ================= -->
+  <rect x="40" y="445" width="880" height="42" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <circle cx="65" cy="466" r="11" fill="#27ae60"/>
+  <path d="M60 466 L64 470 L71 462" stroke="white" stroke-width="2.2" fill="none"/>
+  <text x="88" y="471" font-size="12" font-weight="bold" fill="#27ae60">Висновок схемотехніки:</text>
+  <text x="245" y="471" font-size="12" fill="#1a1a1a">Жодного конфлікту GPIO: лінії DVP (8+4), SCCB (2) та SPI PSRAM повністю розмежовані.</text>
+
+</svg>

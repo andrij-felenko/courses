@@ -1,0 +1,122 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <defs>
+    <marker id="arr-black" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="35" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Внутрішня блок-схема термодатчика LM35</text>
+  <text x="480" y="58" text-anchor="middle" font-size="13" fill="#6b7280">Перетворення струму PTAT на калібровану вихідну напругу 10 мВ/°C</text>
+
+  <!-- External Chip Container (LM35 Die / Package Boundary) -->
+  <rect x="165" y="85" width="630" height="400" rx="12" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <text x="185" y="112" font-size="14" font-weight="bold" fill="#6b7280">Кристал мікросхеми LM35</text>
+
+  <!-- Internal Power Rail -->
+  <path d="M 185,135 L 410,135 M 560,135 L 765,135" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <rect x="410" y="122" width="150" height="20" rx="4" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="485" y="136" text-anchor="middle" font-size="12" fill="#2457d6">Шина живлення (+V_S)</text>
+
+  <!-- Internal Ground Rail -->
+  <path d="M 185,455 L 415,455 M 555,455 L 765,455" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <rect x="415" y="445" width="140" height="20" rx="4" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="485" y="459" text-anchor="middle" font-size="12" fill="#6b7280">Спільна шина (GND)</text>
+
+  <!-- Power Line Drops from Rail to Blocks -->
+  <path d="M 265,135 L 265,155" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <path d="M 485,142 L 485,155" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <path d="M 705,135 L 705,155" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Ground Line Connections from Rail to Blocks -->
+  <path d="M 265,455 L 265,430" stroke="#6b7280" stroke-width="1.5"/>
+  <path d="M 485,445 L 485,430" stroke="#6b7280" stroke-width="1.5"/>
+  <path d="M 705,455 L 705,430" stroke="#6b7280" stroke-width="1.5"/>
+
+  <!-- BLOCK 1: PTAT Current Generator -->
+  <rect x="185" y="155" width="160" height="275" rx="8" fill="#ffffff" stroke="#2457d6" stroke-width="2"/>
+  <text x="265" y="178" text-anchor="middle" font-size="14" font-weight="bold" fill="#2457d6">1. Джерело PTAT</text>
+  <text x="265" y="196" text-anchor="middle" font-size="12" fill="#6b7280">(Термодавач)</text>
+
+  <rect x="191" y="208" width="148" height="85" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="265" y="228" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Ядро Bandgap</text>
+  <text x="265" y="250" text-anchor="middle" font-size="12" fill="#1a1a1a">ΔV_BE = (kT/q)·ln(N)</text>
+  <text x="265" y="274" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">I_PTAT = ΔV_BE / R</text>
+
+  <rect x="191" y="303" width="148" height="115" rx="6" fill="#f4f6f8"/>
+  <text x="265" y="325" text-anchor="middle" font-size="12" fill="#1a1a1a">Струм пропорційний</text>
+  <text x="265" y="346" text-anchor="middle" font-size="12" fill="#1a1a1a">температурі в Кельвінах</text>
+  <text x="265" y="372" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Темп. коефіцієнт:</text>
+  <text x="265" y="395" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">+0.33% / K</text>
+
+  <!-- Signal 1 Arrow & Label -->
+  <path d="M 345,247 L 405,247" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="375" y="236" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">I_PTAT</text>
+
+  <!-- BLOCK 2: Zero Offset Stage -->
+  <rect x="405" y="155" width="160" height="275" rx="8" fill="#ffffff" stroke="#d0d7de" stroke-width="2"/>
+  <text x="485" y="178" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">2. Зсув нуля</text>
+  <text x="485" y="196" text-anchor="middle" font-size="12" fill="#6b7280">(Компенсація K → °C)</text>
+
+  <rect x="411" y="208" width="148" height="85" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="485" y="228" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Опорне I_ref (0 K)</text>
+  <text x="485" y="250" text-anchor="middle" font-size="12" fill="#1a1a1a">Віднімання 273.15 K</text>
+  <text x="485" y="274" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">I_sig = I_PTAT - I_ref</text>
+
+  <rect x="411" y="303" width="148" height="115" rx="6" fill="#f4f6f8"/>
+  <text x="485" y="325" text-anchor="middle" font-size="12" fill="#1a1a1a">Узгодження початку</text>
+  <text x="485" y="346" text-anchor="middle" font-size="12" fill="#1a1a1a">відліку градусів:</text>
+  <text x="485" y="372" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">I_sig = 0 A</text>
+  <text x="485" y="395" text-anchor="middle" font-size="12" fill="#6b7280">при 0 °C (273.15 K)</text>
+
+  <!-- Signal 2 Arrow & Label -->
+  <path d="M 565,247 L 625,247" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr-black)"/>
+  <text x="595" y="236" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">I_sig</text>
+
+  <!-- BLOCK 3: Output Scaling Op-Amp -->
+  <rect x="625" y="155" width="160" height="275" rx="8" fill="#ffffff" stroke="#27ae60" stroke-width="2"/>
+  <text x="705" y="178" text-anchor="middle" font-size="14" font-weight="bold" fill="#27ae60">3. Масштабування</text>
+  <text x="705" y="196" text-anchor="middle" font-size="12" fill="#6b7280">(ОП + Laser Trim)</text>
+
+  <rect x="631" y="208" width="148" height="85" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="705" y="228" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Операційний підсилювач</text>
+  <text x="705" y="250" text-anchor="middle" font-size="12" fill="#1a1a1a">Підгонка R_F (Trimming)</text>
+  <text x="705" y="274" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">V_OUT = I_sig · R_F</text>
+
+  <rect x="631" y="303" width="148" height="115" rx="6" fill="#e9f7ef"/>
+  <text x="705" y="325" text-anchor="middle" font-size="12" fill="#1a1a1a">Точно підігнаний</text>
+  <text x="705" y="346" text-anchor="middle" font-size="12" fill="#1a1a1a">вихідний масштаб:</text>
+  <text x="705" y="372" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">10 мВ / °C</text>
+  <text x="705" y="395" text-anchor="middle" font-size="12" fill="#6b7280">(+250 мВ при +25°C)</text>
+
+  <!-- Pin 1 (+V_S) Connections & Label -->
+  <path d="M 145,158 L 165,158 M 165,158 L 165,135" stroke="#2457d6" stroke-width="2"/>
+  <rect x="105" y="140" width="40" height="36" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="125" y="163" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">+V_S</text>
+  <text x="95" y="152" text-anchor="end" font-size="12" font-weight="bold" fill="#2457d6">Живлення</text>
+  <text x="95" y="168" text-anchor="end" font-size="12" fill="#6b7280">+4...30 В</text>
+
+  <!-- Pin 2 (GND) Connections & Label -->
+  <path d="M 145,398 L 165,398 M 165,398 L 165,455" stroke="#6b7280" stroke-width="2"/>
+  <rect x="105" y="380" width="40" height="36" rx="4" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="125" y="403" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">GND</text>
+  <text x="95" y="392" text-anchor="end" font-size="12" font-weight="bold" fill="#1a1a1a">Земля (GND)</text>
+  <text x="95" y="408" text-anchor="end" font-size="12" fill="#6b7280">0 В (земля)</text>
+
+  <!-- Pin 3 (V_OUT) Connections & Label -->
+  <path d="M 785,268 L 815,268" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <rect x="815" y="250" width="40" height="36" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <text x="835" y="273" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">V_OUT</text>
+  <text x="865" y="258" text-anchor="start" font-size="12" font-weight="bold" fill="#27ae60">Вихід V_OUT</text>
+  <text x="865" y="278" text-anchor="start" font-size="13" font-weight="bold" fill="#27ae60">10 мВ / °C</text>
+
+</svg>

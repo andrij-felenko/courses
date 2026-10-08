@@ -1,0 +1,209 @@
+<svg viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Definitions for Markers -->
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="30" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Джерела шуму в ємнісному вимірювальному тракті MEMS</text>
+  <text x="480" y="52" text-anchor="middle" font-size="13" fill="#6b7280">Підсумковий шум на виході формується з механічного, kT/C шуму ключів та шуму підсилювача</text>
+
+  <!-- ================= PANEL 1: MEMS & BROWNIAN NOISE ================= -->
+  <rect x="20" y="72" width="286" height="273" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="163" y="94" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">1. MEMS &amp; Броунівський шум</text>
+
+  <!-- Panel 1 Schematic Box -->
+  <rect x="32" y="106" width="262" height="114" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="163" y="124" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Рухома маса m, згасання c</text>
+
+  <!-- Wall Anchor & Spring -->
+  <line x1="42" y1="142" x2="42" y2="178" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="36" y1="146" x2="42" y2="142" stroke="#6b7280" stroke-width="1"/>
+  <line x1="36" y1="158" x2="42" y2="154" stroke="#6b7280" stroke-width="1"/>
+  <line x1="36" y1="170" x2="42" y2="166" stroke="#6b7280" stroke-width="1"/>
+  <line x1="36" y1="182" x2="42" y2="178" stroke="#6b7280" stroke-width="1"/>
+
+  <path d="M 42,160 L 48,160 L 51,154 L 57,166 L 63,154 L 69,166 L 72,160 L 75,160" fill="none" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="58" y="146" text-anchor="middle" font-size="11" fill="#6b7280">k, c</text>
+
+  <!-- Capacitor Plates -->
+  <line x1="75" y1="142" x2="145" y2="142" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="75" y1="160" x2="145" y2="160" stroke="#2457d6" stroke-width="3"/>
+  <line x1="75" y1="178" x2="145" y2="178" stroke="#1a1a1a" stroke-width="2"/>
+
+  <text x="152" y="146" font-size="11" font-weight="bold" fill="#1a1a1a">C_s1</text>
+  <text x="152" y="182" font-size="11" font-weight="bold" fill="#1a1a1a">C_s2</text>
+
+  <!-- Brownian Force Badge -->
+  <circle cx="230" cy="160" r="14" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="230" y="164" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">F_br</text>
+  <line x1="216" y1="160" x2="178" y2="160" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3,2" marker-end="url(#arr-red)"/>
+
+  <text x="163" y="206" text-anchor="middle" font-size="11" fill="#6b7280">Зсув маси створює ΔC = C_s1 - C_s2</text>
+
+  <!-- Panel 1 Noise Box -->
+  <rect x="32" y="226" width="262" height="106" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="163" y="244" text-anchor="middle" font-size="13" font-weight="bold" fill="#c0392b">Спектральна щільність шуму</text>
+  <text x="163" y="263" text-anchor="middle" font-size="11" fill="#1a1a1a">Механічний шум Броунівського руху:</text>
+  <text x="163" y="284" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">S_a,br = (4 · k_B · T · c) / m²</text>
+  <text x="163" y="306" text-anchor="middle" font-size="11" fill="#6b7280">Еквівалентний шум: e_n,br ∝ √(c) / m</text>
+
+  <!-- ================= SIGNAL FLOW 1 ================= -->
+  <line x1="306" y1="160" x2="330" y2="160" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="318" y="150" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">ΔC(t)</text>
+
+  <!-- ================= PANEL 2: SC INTERFACE & KT/C NOISE ================= -->
+  <rect x="330" y="72" width="290" height="273" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="475" y="94" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">2. SC-інтерфейс &amp; kT/C Шум</text>
+
+  <!-- Panel 2 Schematic Box -->
+  <rect x="342" y="106" width="266" height="114" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="475" y="124" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Ключі перемикання з R_on</text>
+
+  <!-- SC Circuit Schematic -->
+  <line x1="352" y1="160" x2="365" y2="160" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="365" y1="145" x2="365" y2="175" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Switch 1 & Cs1 -->
+  <line x1="365" y1="145" x2="370" y2="145" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="370" cy="145" r="2" fill="#1a1a1a"/>
+  <circle cx="386" cy="145" r="2" fill="#1a1a1a"/>
+  <line x1="370" y1="145" x2="384" y2="137" stroke="#2457d6" stroke-width="2"/>
+  <text x="377" y="132" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">Φ₁</text>
+
+  <line x1="386" y1="145" x2="408" y2="145" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="408" y1="137" x2="408" y2="153" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="414" y1="137" x2="414" y2="153" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="414" y1="145" x2="465" y2="145" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="411" y="132" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a1a">C_s1</text>
+
+  <!-- Switch 2 & Cs2 -->
+  <line x1="365" y1="175" x2="370" y2="175" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="370" cy="175" r="2" fill="#1a1a1a"/>
+  <circle cx="386" cy="175" r="2" fill="#1a1a1a"/>
+  <line x1="370" y1="175" x2="384" y2="167" stroke="#2457d6" stroke-width="2"/>
+  <text x="377" y="193" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">Φ₂</text>
+
+  <line x1="386" y1="175" x2="408" y2="175" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="408" y1="167" x2="408" y2="183" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="414" y1="167" x2="414" y2="183" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="414" y1="175" x2="465" y2="175" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="411" y="193" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a1a">C_s2</text>
+
+  <!-- Combine to SC output -->
+  <line x1="465" y1="145" x2="465" y2="175" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="465" y1="160" x2="510" y2="160" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Switch Thermal Noise Generator Badge -->
+  <circle cx="545" cy="160" r="14" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="545" y="164" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">v_sw</text>
+  <line x1="531" y1="160" x2="500" y2="160" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3,2" marker-end="url(#arr-red)"/>
+
+  <text x="475" y="206" text-anchor="middle" font-size="11" fill="#6b7280">Дискретизація заряду на частоті f_clk</text>
+
+  <!-- Panel 2 Noise Box -->
+  <rect x="342" y="226" width="266" height="106" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="475" y="244" text-anchor="middle" font-size="13" font-weight="bold" fill="#c0392b">Термічний шум стробування</text>
+  <text x="475" y="263" text-anchor="middle" font-size="11" fill="#1a1a1a">Накопичення шуму kT/C при перемиканні:</text>
+  <text x="475" y="284" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">S_v,sw = (2 · k_B · T) / (f_clk · C_s)</text>
+  <text x="475" y="306" text-anchor="middle" font-size="11" fill="#6b7280">Аліасинг ВЧ шуму в робочу смугу</text>
+
+  <!-- ================= SIGNAL FLOW 2 ================= -->
+  <line x1="620" y1="160" x2="644" y2="160" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="632" y="150" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">ΔQ(t)</text>
+
+  <!-- ================= PANEL 3: CHARGE AMPLIFIER ================= -->
+  <rect x="644" y="72" width="296" height="273" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="792" y="94" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">3. Підсилювач заряду (CSA)</text>
+
+  <!-- Panel 3 Schematic Box -->
+  <rect x="656" y="106" width="272" height="114" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="792" y="124" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Підсилювач (Op-Amp + C_f)</text>
+
+  <!-- Input wire -->
+  <line x1="666" y1="152" x2="690" y2="152" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Parasitic Cap Cp -->
+  <circle cx="690" cy="152" r="2" fill="#1a1a1a"/>
+  <line x1="690" y1="152" x2="690" y2="168" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="682" y1="168" x2="698" y2="168" stroke="#6b7280" stroke-width="2"/>
+  <line x1="682" y1="173" x2="698" y2="173" stroke="#6b7280" stroke-width="2"/>
+  <line x1="690" y1="173" x2="690" y2="183" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="684" y1="183" x2="696" y2="183" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="687" y1="186" x2="693" y2="186" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="672" y="174" text-anchor="end" font-size="11" font-weight="bold" fill="#6b7280">C_p</text>
+
+  <!-- Op-Amp Triangle & Inputs -->
+  <line x1="690" y1="152" x2="750" y2="152" stroke="#1a1a1a" stroke-width="1.5"/>
+  <polygon points="750,140 750,184 785,162" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="755" y="154" font-size="12" font-weight="bold" fill="#1a1a1a">-</text>
+  <text x="755" y="176" font-size="12" font-weight="bold" fill="#1a1a1a">+</text>
+
+  <!-- Feedback Loop with Cf -->
+  <circle cx="715" cy="152" r="2" fill="#1a1a1a"/>
+  <line x1="715" y1="152" x2="715" y2="135" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="715" y1="135" x2="745" y2="135" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="745" y1="129" x2="745" y2="141" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="751" y1="129" x2="751" y2="141" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="748" y="125" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a1a">C_f</text>
+  <line x1="751" y1="135" x2="800" y2="135" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="800" y1="135" x2="800" y2="162" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Op-Amp Output line -->
+  <line x1="785" y1="162" x2="815" y2="162" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="800" cy="162" r="2" fill="#1a1a1a"/>
+
+  <!-- Op-Amp Noise Generator badge on (+) input -->
+  <line x1="750" y1="174" x2="734" y2="174" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="722" cy="174" r="12" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="722" y="178" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">e_n</text>
+  <line x1="710" y1="174" x2="702" y2="174" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="702" y1="168" x2="702" y2="180" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="699" y1="171" x2="699" y2="177" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <text x="792" y="206" text-anchor="middle" font-size="11" fill="#6b7280">Паразитне C_p збільшує шум підсилювача</text>
+
+  <!-- Panel 3 Noise Box -->
+  <rect x="656" y="226" width="272" height="106" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="792" y="244" text-anchor="middle" font-size="13" font-weight="bold" fill="#c0392b">Власний шум підсилювача</text>
+  <text x="792" y="263" text-anchor="middle" font-size="11" fill="#1a1a1a">Коефіцієнт підсилення шуму A_n = 1 + C_p/C_f:</text>
+  <text x="792" y="284" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">S_v,amp = e_n² · (1 + C_p / C_f)²</text>
+  <text x="792" y="306" text-anchor="middle" font-size="11" fill="#6b7280">Містить 1/f флікер та тепловий e_n</text>
+
+  <!-- ================= BOTTOM PANEL: OUTPUT NOISE SPECTRUM SUMMARY ================= -->
+  <rect x="20" y="360" width="920" height="185" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="480" y="380" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Підсумкова спектральна щільність шуму на виході</text>
+  <text x="480" y="398" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">S_v,out(f) = S_v,br(f) + S_v,sw(f) + S_v,amp(f)</text>
+
+  <!-- Bottom Card 1 -->
+  <rect x="36" y="412" width="286" height="122" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="179" y="430" text-anchor="middle" font-size="13" font-weight="bold" fill="#c0392b">1. Броунівська межа (S_v,br)</text>
+  <text x="50" y="449" font-size="11" fill="#1a1a1a">• Визначається згасанням c</text>
+  <text x="50" y="467" font-size="11" fill="#6b7280">• Не залежить від схемотехніки</text>
+  <text x="50" y="485" font-size="11" fill="#1a1a1a">• Фундаментальна межа MEMS</text>
+  <text x="179" y="512" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">e_n,br = (2V_dd / C_f) · √(4 k_B T c) / m</text>
+
+  <!-- Bottom Card 2 -->
+  <rect x="337" y="412" width="286" height="122" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="480" y="430" text-anchor="middle" font-size="13" font-weight="bold" fill="#c0392b">2. SC Шум ключів (S_v,sw)</text>
+  <text x="351" y="449" font-size="11" fill="#1a1a1a">• Накопичується на ємності C_s</text>
+  <text x="351" y="467" font-size="11" fill="#6b7280">• Згортається у смугу f_clk / 2</text>
+  <text x="351" y="485" font-size="11" fill="#1a1a1a">• Залежить від C_s та f_clk</text>
+  <text x="480" y="512" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">v_n,sw = √(2 k_B T / (f_clk · C_s))</text>
+
+  <!-- Bottom Card 3 -->
+  <rect x="638" y="412" width="286" height="122" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="781" y="430" text-anchor="middle" font-size="13" font-weight="bold" fill="#c0392b">3. Шум підсилювача (S_v,amp)</text>
+  <text x="652" y="449" font-size="11" fill="#1a1a1a">• 1/f флікер + білий шум e_n</text>
+  <text x="652" y="467" font-size="11" fill="#6b7280">• Підсилюється фактором (1 + C_p/C_f)</text>
+  <text x="652" y="485" font-size="11" fill="#1a1a1a">• Мінімізується зменшенням C_p</text>
+  <text x="781" y="512" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">v_n,amp = e_n · (1 + C_p / C_f)</text>
+</svg>

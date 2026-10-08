@@ -1,1 +1,126 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460"><rect x="0" y="0" width="960" height="460" fill="white"/><text x="480" y="230" font-size="20" text-anchor="middle">AHT20 Diagram</text></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Canvas Background -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Title and Subtitle -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Розпакування 20-бітних даних AHT20 з I2C-кадру</text>
+  <text x="480" y="60" font-size="13" fill="#6b7280" text-anchor="middle">Байт 3 ділиться навпіл: старша тетрада належить вологості S_RH, молодша — температурі S_T</text>
+
+  <!-- Top Row: I2C Bytes Stream -->
+  <!-- Card 0: Status -->
+  <rect x="30" y="100" width="105" height="70" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="6"/>
+  <text x="82.5" y="118" font-size="12" fill="#6b7280" text-anchor="middle">Байт 0</text>
+  <text x="82.5" y="138" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Status</text>
+  <text x="82.5" y="158" font-size="12" fill="#6b7280" text-anchor="middle">[7:0]</text>
+
+  <!-- Card 1: Data 1 (S_RH High) -->
+  <rect x="147" y="100" width="112" height="70" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <text x="203" y="118" font-size="12" fill="#6b7280" text-anchor="middle">Байт 1</text>
+  <text x="203" y="138" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Data 1</text>
+  <text x="203" y="158" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">S_RH[19:12]</text>
+
+  <!-- Card 2: Data 2 (S_RH Mid) -->
+  <rect x="271" y="100" width="112" height="70" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <text x="327" y="118" font-size="12" fill="#6b7280" text-anchor="middle">Байт 2</text>
+  <text x="327" y="138" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Data 2</text>
+  <text x="327" y="158" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">S_RH[11:4]</text>
+
+  <!-- Card 3: Data 3 Shared (Split Byte) Header and Sub-cards -->
+  <text x="465" y="92" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Байт 3 (спільний)</text>
+  <!-- Card 3 Left Half (S_RH Low) -->
+  <rect x="395" y="100" width="66" height="70" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="4"/>
+  <text x="428" y="125" font-size="12" fill="#6b7280" text-anchor="middle">Байт 3a</text>
+  <text x="428" y="143" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Data 3a</text>
+  <text x="428" y="160" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">S_RH[3:0]</text>
+
+  <!-- Card 3 Right Half (S_T High) -->
+  <rect x="469" y="100" width="66" height="70" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="4"/>
+  <text x="502" y="125" font-size="12" fill="#6b7280" text-anchor="middle">Байт 3b</text>
+  <text x="502" y="143" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Data 3b</text>
+  <text x="502" y="160" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">S_T[19:16]</text>
+
+  <!-- Card 4: Data 4 (S_T Mid) -->
+  <rect x="547" y="100" width="112" height="70" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="6"/>
+  <text x="603" y="118" font-size="12" fill="#6b7280" text-anchor="middle">Байт 4</text>
+  <text x="603" y="138" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Data 4</text>
+  <text x="603" y="158" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">S_T[15:8]</text>
+
+  <!-- Card 5: Data 5 (S_T Low) -->
+  <rect x="671" y="100" width="112" height="70" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="6"/>
+  <text x="727" y="118" font-size="12" fill="#6b7280" text-anchor="middle">Байт 5</text>
+  <text x="727" y="138" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Data 5</text>
+  <text x="727" y="158" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">S_T[7:0]</text>
+
+  <!-- Card 6: CRC8 -->
+  <rect x="795" y="100" width="135" height="70" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="6"/>
+  <text x="862.5" y="118" font-size="12" fill="#6b7280" text-anchor="middle">Байт 6</text>
+  <text x="862.5" y="138" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">CRC8</text>
+  <text x="862.5" y="158" font-size="12" fill="#6b7280" text-anchor="middle">[7:0]</text>
+
+  <!-- Connecting Flow Paths (Arrows) -->
+  <!-- Blue arrows for S_RH -->
+  <path d="M 203,170 C 203,225 105,230 105,285" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <path d="M 327,170 C 327,225 247.5,230 247.5,285" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <path d="M 428,170 C 428,225 390,230 390,285" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Green arrows for S_T -->
+  <path d="M 502,170 C 502,225 570,230 570,285" fill="none" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <path d="M 603,170 C 603,225 712.5,230 712.5,285" fill="none" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <path d="M 727,170 C 727,225 855,230 855,285" fill="none" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- Middle Row: Reconstructed 20-bit Data Registers -->
+  <!-- Panel 1: S_RH Panel -->
+  <rect x="30" y="260" width="435" height="170" fill="#f4f6f8" stroke="#2457d6" stroke-width="1.5" rx="8"/>
+  
+  <rect x="45" y="285" width="120" height="45" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="4"/>
+  <text x="105" y="304" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Байт 1</text>
+  <text x="105" y="321" font-size="12" fill="#6b7280" text-anchor="middle">біт [19:12]</text>
+
+  <rect x="187.5" y="285" width="120" height="45" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="4"/>
+  <text x="247.5" y="304" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Байт 2</text>
+  <text x="247.5" y="321" font-size="12" fill="#6b7280" text-anchor="middle">біт [11:4]</text>
+
+  <rect x="330" y="285" width="120" height="45" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="4"/>
+  <text x="390" y="304" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Байт 3 [7:4]</text>
+  <text x="390" y="321" font-size="12" fill="#6b7280" text-anchor="middle">біт [3:0]</text>
+
+  <text x="247.5" y="352" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">20-бітний код вологості S_RH (20 біт)</text>
+  <text x="247.5" y="380" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">S_RH = (B1 &lt;&lt; 12) | (B2 &lt;&lt; 4) | (B3 &gt;&gt; 4)</text>
+  <text x="247.5" y="405" font-size="12" fill="#6b7280" text-anchor="middle">RH (%) = (S_RH / 2²⁰) × 100%</text>
+
+  <!-- Panel 2: S_T Panel -->
+  <rect x="495" y="260" width="435" height="170" fill="#f4f6f8" stroke="#27ae60" stroke-width="1.5" rx="8"/>
+  
+  <rect x="510" y="285" width="120" height="45" fill="#e9f7ef" stroke="#27ae60" stroke-width="1" rx="4"/>
+  <text x="570" y="304" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Байт 3 [3:0]</text>
+  <text x="570" y="321" font-size="12" fill="#6b7280" text-anchor="middle">біт [19:16]</text>
+
+  <rect x="652.5" y="285" width="120" height="45" fill="#e9f7ef" stroke="#27ae60" stroke-width="1" rx="4"/>
+  <text x="712.5" y="304" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Байт 4</text>
+  <text x="712.5" y="321" font-size="12" fill="#6b7280" text-anchor="middle">біт [15:8]</text>
+
+  <rect x="795" y="285" width="120" height="45" fill="#e9f7ef" stroke="#27ae60" stroke-width="1" rx="4"/>
+  <text x="855" y="304" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Байт 5</text>
+  <text x="855" y="321" font-size="12" fill="#6b7280" text-anchor="middle">біт [7:0]</text>
+
+  <text x="712.5" y="352" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">20-бітний код температури S_T (20 біт)</text>
+  <text x="712.5" y="380" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">S_T = ((B3 &amp; 0x0F) &lt;&lt; 16) | (B4 &lt;&lt; 8) | B5</text>
+  <text x="712.5" y="405" font-size="12" fill="#6b7280" text-anchor="middle">T (°C) = (S_T / 2²⁰) × 200 − 50</text>
+
+  <!-- Bottom Row: System Notes -->
+  <rect x="30" y="455" width="900" height="60" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="50" y="478" font-size="12" font-weight="bold" fill="#1a1a1a">Перевірка стану (Байт 0):</text>
+  <text x="50" y="498" font-size="12" fill="#6b7280">біт 7 (Busy) = 0 — готовність | біт 3 (Cal) = 1 — відкалібровано</text>
+  
+  <text x="500" y="478" font-size="12" font-weight="bold" fill="#1a1a1a">Контрольна сума (Байт 6):</text>
+  <text x="500" y="498" font-size="12" fill="#6b7280">CRC8 (поліном 0x31, init 0xFF) для валідації пакету I2C</text>
+</svg>

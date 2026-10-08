@@ -1,0 +1,130 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Canvas Background -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Конструкція RTD-сенсорів та монтаж у захисну гільзу (Thermowell)</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Особливості тонкоплівкових і дротових елементів та забезпечення теплового контакту</text>
+
+  <!-- PANEL 1: Thin-Film RTD -->
+  <rect x="30" y="75" width="285" height="435" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <rect x="42" y="87" width="261" height="28" fill="#eaf0fd" rx="4"/>
+  <text x="172.5" y="106" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">1. Тонкоплівковий (Thin-Film)</text>
+
+  <!-- Thin-Film Diagram -->
+  <rect x="65" y="132" width="215" height="30" fill="#0284c7" fill-opacity="0.12" stroke="#0284c7" stroke-dasharray="4 2" stroke-width="1.5" rx="3"/>
+  <text x="172.5" y="151" font-size="12" fill="#0369a1" text-anchor="middle">Захисне скляне покриття</text>
+
+  <text x="172.5" y="178" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Платинова плівка (Pt)</text>
+  <rect x="85" y="185" width="175" height="22" fill="#2457d6" fill-opacity="0.15" stroke="#2457d6" stroke-width="1.5" rx="2"/>
+  <path d="M 95,196 H 250 M 95,191 H 250 M 95,201 H 250" stroke="#2457d6" stroke-width="2" stroke-dasharray="8 4"/>
+
+  <rect x="65" y="212" width="215" height="30" fill="#e2e8f0" stroke="#94a3b8" stroke-width="1.5" rx="3"/>
+  <text x="172.5" y="231" font-size="12" fill="#475569" text-anchor="middle">Підкладка з кераміки (Al₂O₃)</text>
+
+  <line x1="42" y1="196" x2="85" y2="196" stroke="#475569" stroke-width="3"/>
+  <line x1="260" y1="196" x2="303" y2="196" stroke="#475569" stroke-width="3"/>
+  <circle cx="85" cy="196" r="4" fill="#d97706"/>
+  <circle cx="260" cy="196" r="4" fill="#d97706"/>
+  <text x="172.5" y="265" font-size="12" fill="#1a1a1a" text-anchor="middle">Контактні виводи (дроти)</text>
+
+  <!-- Panel 1 Bullet Box -->
+  <rect x="42" y="285" width="261" height="210" fill="white" stroke="#d0d7de" stroke-width="1" rx="4"/>
+  <text x="54" y="304" font-size="12" font-weight="bold" fill="#1a1a1a">Характеристики тонкоплівкових:</text>
+  <text x="54" y="325" font-size="12" fill="#1a1a1a">• Малі розміри (напр. 2×2 мм)</text>
+  <text x="54" y="346" font-size="12" fill="#1a1a1a">• Швидкий відгук (τ₀.₅ &lt; 0.3 с)</text>
+  <text x="54" y="367" font-size="12" fill="#1a1a1a">• Номінали: Pt100, Pt1000</text>
+  <text x="54" y="388" font-size="12" fill="#1a1a1a">• Діапазон: -50°C ... +500°C</text>
+  <text x="54" y="409" font-size="12" fill="#1a1a1a">• Висока вібростійкість</text>
+  <text x="54" y="430" font-size="12" fill="#2457d6">• Струм збудження: 100–500 мкА</text>
+  <text x="54" y="451" font-size="12" fill="#c0392b">• Чутливі до самонагріву</text>
+  <text x="54" y="472" font-size="12" fill="#6b7280">• Класи точності: Class A, B</text>
+
+  <!-- PANEL 2: Wire-Wound RTD -->
+  <rect x="337" y="75" width="285" height="435" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <rect x="349" y="87" width="261" height="28" fill="#eaf0fd" rx="4"/>
+  <text x="479.5" y="106" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">2. Дротовий (Wire-Wound)</text>
+
+  <!-- Wire-Wound Diagram -->
+  <text x="479.5" y="133" font-size="12" fill="#1a1a1a" text-anchor="middle">Керамічний каркас (Al₂O₃)</text>
+  <rect x="372" y="140" width="215" height="106" fill="#e2e8f0" stroke="#64748b" stroke-width="1.5" rx="6"/>
+  <rect x="387" y="154" width="185" height="32" fill="white" stroke="#94a3b8" stroke-width="1" rx="4"/>
+  <rect x="387" y="204" width="185" height="32" fill="white" stroke="#94a3b8" stroke-width="1" rx="4"/>
+
+  <path d="M 397,170 Q 407,160 417,170 T 437,170 T 457,170 T 477,170 T 497,170 T 517,170 T 537,170 T 557,170" stroke="#2457d6" stroke-width="2.5" fill="none"/>
+  <path d="M 397,220 Q 407,210 417,220 T 437,220 T 457,220 T 477,220 T 497,220 T 517,220 T 537,220 T 557,220" stroke="#2457d6" stroke-width="2.5" fill="none"/>
+  <path d="M 397,170 C 382,170 382,220 397,220" stroke="#2457d6" stroke-width="2.5" fill="none"/>
+
+  <line x1="557" y1="170" x2="610" y2="170" stroke="#475569" stroke-width="3"/>
+  <line x1="557" y1="220" x2="610" y2="220" stroke="#475569" stroke-width="3"/>
+
+  <text x="479.5" y="265" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Платинова спіраль у каналах</text>
+
+  <!-- Panel 2 Bullet Box -->
+  <rect x="349" y="285" width="261" height="210" fill="white" stroke="#d0d7de" stroke-width="1" rx="4"/>
+  <text x="361" y="304" font-size="12" font-weight="bold" fill="#1a1a1a">Характеристики дротових:</text>
+  <text x="361" y="325" font-size="12" fill="#27ae60">• Найвища точність (1/3 DIN, AA)</text>
+  <text x="361" y="346" font-size="12" fill="#1a1a1a">• Широкий Т-діапазон: -200..+850°C</text>
+  <text x="361" y="367" font-size="12" fill="#1a1a1a">• Довгострокова стабільність</text>
+  <text x="361" y="388" font-size="12" fill="#c0392b">• Більша теплова інерція (τ₀.₅ &gt; 2 с)</text>
+  <text x="361" y="409" font-size="12" fill="#1a1a1a">• Більші розміри (Ø 3–5 мм)</text>
+  <text x="361" y="430" font-size="12" fill="#1a1a1a">• Струм збудження: 1–2 мА</text>
+  <text x="361" y="451" font-size="12" fill="#1a1a1a">• Складніша технологія виготовлення</text>
+  <text x="361" y="472" font-size="12" fill="#6b7280">• Застосування: еталони, лабораторії</text>
+
+  <!-- PANEL 3: Thermowell Assembly -->
+  <rect x="644" y="75" width="285" height="435" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <rect x="656" y="87" width="261" height="28" fill="#eaf0fd" rx="4"/>
+  <text x="786.5" y="106" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">3. Монтаж у Thermowell</text>
+
+  <!-- Thermowell Assembly Diagram -->
+  <text x="786.5" y="133" font-size="12" fill="#1a1a1a" text-anchor="middle">Захисна гільза (Thermowell)</text>
+  <rect x="668" y="140" width="237" height="96" fill="#cbd5e1" stroke="#475569" stroke-width="1.5" rx="6"/>
+  <rect x="668" y="154" width="218" height="68" fill="#f8fafc" stroke="#64748b" stroke-width="1.5"/>
+
+  <!-- Heat Paste Layer at Tip -->
+  <rect x="866" y="155" width="19" height="66" fill="#e9f7ef" stroke="#27ae60" stroke-dasharray="2 2" stroke-width="1"/>
+
+  <!-- Probe Insert -->
+  <rect x="668" y="166" width="198" height="44" fill="#e2e8f0" stroke="#334155" stroke-width="1.5" rx="3"/>
+
+  <!-- Sensor Element in Probe Tip -->
+  <rect x="812" y="174" width="48" height="28" fill="#2457d6" fill-opacity="0.2" stroke="#2457d6" stroke-width="1.5" rx="2"/>
+  <text x="836" y="192" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">RTD</text>
+
+  <!-- Text inside sheath -->
+  <text x="740" y="192" font-size="12" fill="#334155" text-anchor="middle">Вставка RTD</text>
+
+  <!-- Spring indicator -->
+  <path d="M 672,188 L 676,180 L 682,196 L 688,180 L 694,196 L 698,188" stroke="#475569" stroke-width="2" fill="none"/>
+  <line x1="702" y1="188" x2="714" y2="188" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- Heat Flow Arrows from Bottom Environment -->
+  <line x1="820" y1="264" x2="820" y2="242" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <line x1="850" y1="264" x2="850" y2="242" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <line x1="880" y1="264" x2="880" y2="242" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="786.5" y="276" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Тепловий потік (Q) від середовища</text>
+
+  <!-- Panel 3 Bullet Box -->
+  <rect x="656" y="285" width="261" height="210" fill="white" stroke="#d0d7de" stroke-width="1" rx="4"/>
+  <text x="668" y="304" font-size="12" font-weight="bold" fill="#1a1a1a">Вимоги до монтажу:</text>
+  <text x="668" y="325" font-size="12" fill="#27ae60">✔ Щільний дотик до дна гільзи</text>
+  <text x="668" y="346" font-size="12" fill="#27ae60">✔ Застосування теплопасти</text>
+  <text x="668" y="367" font-size="12" fill="#c0392b">✖ Повітряний зазор ➔ інерція і похибка</text>
+  <text x="668" y="388" font-size="12" fill="#1a1a1a">• Глибина занурення: L ≥ 10...15 × D</text>
+  <text x="668" y="409" font-size="12" fill="#1a1a1a">• Захист від витоку тепла по гілці</text>
+  <text x="668" y="430" font-size="12" fill="#1a1a1a">• Стійкість до вібрації й тиску</text>
+  <text x="668" y="451" font-size="12" fill="#6b7280">• Заміна вставки без зупинки ліній</text>
+</svg>

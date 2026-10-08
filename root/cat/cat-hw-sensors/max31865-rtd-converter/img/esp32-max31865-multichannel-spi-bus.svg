@@ -1,0 +1,146 @@
+<svg viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif" xmlns="http://www.w3.org/2000/svg">
+  <!-- White Background -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Definitions for Arrow Markers -->
+  <defs>
+    <marker id="arr-blue" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-orange" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#d35400"/>
+    </marker>
+    <marker id="arr-red" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="36" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Підключення кількох перетворювачів MAX31865 до шини SPI ESP32</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Спільні лінії SCLK, SDI, SDO з окремими сигналами вибору пристрою CS0–CS3</text>
+
+  <!-- Legend Box -->
+  <rect x="270" y="82" width="370" height="40" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="455" y="99" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Спільна шина SPI: SCLK, SDI, SDO (3 провідники)</text>
+  <text x="455" y="115" font-size="12" fill="#c0392b" text-anchor="middle">Окремі лінії CS: CS0–CS3 для кожного модуля</text>
+
+  <!-- ESP32 Microcontroller Panel -->
+  <rect x="40" y="140" width="200" height="370" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="140" y="168" font-size="16" font-weight="bold" fill="#1a1a1a" text-anchor="middle">ESP32</text>
+  <text x="140" y="186" font-size="12" fill="#6b7280" text-anchor="middle">Мікроконтролер</text>
+  <line x1="55" y1="196" x2="225" y2="196" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- ESP32 Pin Labels -->
+  <text x="228" y="218" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">GPIO18 (SCLK)</text>
+  <text x="228" y="248" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="end">GPIO23 (SDI)</text>
+  <text x="228" y="278" font-size="12" font-weight="bold" fill="#d35400" text-anchor="end">GPIO19 (SDO)</text>
+  <line x1="55" y1="292" x2="225" y2="292" stroke="#d0d7de" stroke-dasharray="3,3" stroke-width="1"/>
+  <text x="228" y="314" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="end">GPIO15 (CS0)</text>
+  <text x="228" y="364" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="end">GPIO5 (CS1)</text>
+  <text x="228" y="414" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="end">GPIO4 (CS2)</text>
+  <text x="228" y="464" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="end">GPIO2 (CS3)</text>
+
+  <!-- MAX31865 Converter Modules -->
+
+  <!-- Module 0 -->
+  <rect x="670" y="140" width="250" height="75" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="682" y="159" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="start">SCLK</text>
+  <text x="682" y="174" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="start">SDI</text>
+  <text x="682" y="189" font-size="12" font-weight="bold" fill="#d35400" text-anchor="start">SDO</text>
+  <text x="682" y="204" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="start">CS</text>
+  <text x="780" y="165" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">MAX31865 #0</text>
+  <rect x="835" y="152" width="75" height="50" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="872" y="172" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">PT100</text>
+  <text x="872" y="189" font-size="12" fill="#6b7280" text-anchor="middle">Канал 0</text>
+
+  <!-- Module 1 -->
+  <rect x="670" y="235" width="250" height="75" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="682" y="254" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="start">SCLK</text>
+  <text x="682" y="269" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="start">SDI</text>
+  <text x="682" y="284" font-size="12" font-weight="bold" fill="#d35400" text-anchor="start">SDO</text>
+  <text x="682" y="299" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="start">CS</text>
+  <text x="780" y="260" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">MAX31865 #1</text>
+  <rect x="835" y="247" width="75" height="50" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="872" y="267" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">PT100</text>
+  <text x="872" y="284" font-size="12" fill="#6b7280" text-anchor="middle">Канал 1</text>
+
+  <!-- Module 2 -->
+  <rect x="670" y="330" width="250" height="75" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="682" y="349" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="start">SCLK</text>
+  <text x="682" y="364" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="start">SDI</text>
+  <text x="682" y="379" font-size="12" font-weight="bold" fill="#d35400" text-anchor="start">SDO</text>
+  <text x="682" y="394" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="start">CS</text>
+  <text x="780" y="355" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">MAX31865 #2</text>
+  <rect x="835" y="342" width="75" height="50" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="872" y="362" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">PT1000</text>
+  <text x="872" y="379" font-size="12" fill="#6b7280" text-anchor="middle">Канал 2</text>
+
+  <!-- Module 3 -->
+  <rect x="670" y="425" width="250" height="75" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="682" y="444" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="start">SCLK</text>
+  <text x="682" y="459" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="start">SDI</text>
+  <text x="682" y="474" font-size="12" font-weight="bold" fill="#d35400" text-anchor="start">SDO</text>
+  <text x="682" y="489" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="start">CS</text>
+  <text x="780" y="450" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">MAX31865 #3</text>
+  <rect x="835" y="437" width="75" height="50" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="872" y="457" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">PT1000</text>
+  <text x="872" y="474" font-size="12" fill="#6b7280" text-anchor="middle">Канал 3</text>
+
+  <!-- SPI Shared Bus Lines -->
+
+  <!-- SCLK Trunk & Connections -->
+  <line x1="310" y1="155" x2="310" y2="440" stroke="#2457d6" stroke-width="2"/>
+  <line x1="240" y1="214" x2="310" y2="214" stroke="#2457d6" stroke-width="2"/>
+  <line x1="310" y1="155" x2="670" y2="155" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <line x1="310" y1="250" x2="670" y2="250" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <line x1="310" y1="345" x2="670" y2="345" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <line x1="310" y1="440" x2="670" y2="440" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <circle cx="310" cy="214" r="3.5" fill="#2457d6"/>
+  <circle cx="310" cy="155" r="3.5" fill="#2457d6"/>
+  <circle cx="310" cy="250" r="3.5" fill="#2457d6"/>
+  <circle cx="310" cy="345" r="3.5" fill="#2457d6"/>
+  <circle cx="310" cy="440" r="3.5" fill="#2457d6"/>
+
+  <!-- SDI Trunk & Connections -->
+  <line x1="350" y1="170" x2="350" y2="455" stroke="#27ae60" stroke-width="2"/>
+  <line x1="240" y1="244" x2="350" y2="244" stroke="#27ae60" stroke-width="2"/>
+  <line x1="350" y1="170" x2="670" y2="170" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <line x1="350" y1="265" x2="670" y2="265" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <line x1="350" y1="360" x2="670" y2="360" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <line x1="350" y1="455" x2="670" y2="455" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <circle cx="350" cy="244" r="3.5" fill="#27ae60"/>
+  <circle cx="350" cy="170" r="3.5" fill="#27ae60"/>
+  <circle cx="350" cy="265" r="3.5" fill="#27ae60"/>
+  <circle cx="350" cy="360" r="3.5" fill="#27ae60"/>
+  <circle cx="350" cy="455" r="3.5" fill="#27ae60"/>
+
+  <!-- SDO Trunk & Connections -->
+  <line x1="390" y1="185" x2="390" y2="470" stroke="#d35400" stroke-width="2"/>
+  <line x1="390" y1="274" x2="240" y2="274" stroke="#d35400" stroke-width="2" marker-end="url(#arr-orange)"/>
+  <line x1="670" y1="185" x2="390" y2="185" stroke="#d35400" stroke-width="2"/>
+  <line x1="670" y1="280" x2="390" y2="280" stroke="#d35400" stroke-width="2"/>
+  <line x1="670" y1="375" x2="390" y2="375" stroke="#d35400" stroke-width="2"/>
+  <line x1="670" y1="470" x2="390" y2="470" stroke="#d35400" stroke-width="2"/>
+  <circle cx="390" cy="274" r="3.5" fill="#d35400"/>
+  <circle cx="390" cy="185" r="3.5" fill="#d35400"/>
+  <circle cx="390" cy="280" r="3.5" fill="#d35400"/>
+  <circle cx="390" cy="375" r="3.5" fill="#d35400"/>
+  <circle cx="390" cy="470" r="3.5" fill="#d35400"/>
+
+  <!-- Individual CS Lines -->
+  <!-- CS0 Line -->
+  <path d="M 240 310 L 440 310 L 440 200 L 670 200" fill="none" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arr-red)"/>
+
+  <!-- CS1 Line -->
+  <path d="M 240 360 L 480 360 L 480 295 L 670 295" fill="none" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arr-red)"/>
+
+  <!-- CS2 Line -->
+  <path d="M 240 410 L 520 410 L 520 390 L 670 390" fill="none" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arr-red)"/>
+
+  <!-- CS3 Line -->
+  <path d="M 240 460 L 560 460 L 560 485 L 670 485" fill="none" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arr-red)"/>
+
+</svg>

@@ -1,0 +1,217 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- White Background -->
+  <rect x="0" y="0" width="960" height="540" fill="#ffffff"/>
+
+  <!-- Definitions for Markers -->
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-accent" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#e74c3c"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2980b9"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Структура колірної матриці Байєра (Bayer Pattern Grid)</text>
+  <text x="480" y="54" text-anchor="middle" font-size="13" fill="#6b7280">Чергування світлофільтрів R, G, B над фотодіодами сенсора зображення OV2640</text>
+
+  <!-- LEFT PANEL: 2D Bayer Grid -->
+  <rect x="30" y="75" width="435" height="445" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="247" y="100" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Матриця колірних фільтрів (4×4 пікселі)</text>
+
+  <!-- Grid Column Headers -->
+  <text x="115" y="122" text-anchor="middle" font-size="11" font-weight="bold" fill="#6b7280">C0</text>
+  <text x="175" y="122" text-anchor="middle" font-size="11" font-weight="bold" fill="#6b7280">C1</text>
+  <text x="235" y="122" text-anchor="middle" font-size="11" font-weight="bold" fill="#6b7280">C2</text>
+  <text x="295" y="122" text-anchor="middle" font-size="11" font-weight="bold" fill="#6b7280">C3</text>
+
+  <!-- Grid Row Headers -->
+  <text x="75" y="165" text-anchor="end" font-size="11" font-weight="bold" fill="#6b7280">R0</text>
+  <text x="75" y="225" text-anchor="end" font-size="11" font-weight="bold" fill="#6b7280">R1</text>
+  <text x="75" y="285" text-anchor="end" font-size="11" font-weight="bold" fill="#6b7280">R2</text>
+  <text x="75" y="345" text-anchor="end" font-size="11" font-weight="bold" fill="#6b7280">R3</text>
+
+  <!-- Row 0: R, Gr, R, Gr -->
+  <rect x="85" y="130" width="60" height="60" rx="4" fill="#e74c3c" stroke="#c0392b" stroke-width="1"/>
+  <text x="115" y="165" text-anchor="middle" font-size="15" font-weight="bold" fill="#ffffff">R</text>
+
+  <rect x="145" y="130" width="60" height="60" rx="4" fill="#27ae60" stroke="#1e8449" stroke-width="1"/>
+  <text x="175" y="165" text-anchor="middle" font-size="15" font-weight="bold" fill="#ffffff">Gr</text>
+
+  <rect x="205" y="130" width="60" height="60" rx="4" fill="#e74c3c" stroke="#c0392b" stroke-width="1"/>
+  <text x="235" y="165" text-anchor="middle" font-size="15" font-weight="bold" fill="#ffffff">R</text>
+
+  <rect x="265" y="130" width="60" height="60" rx="4" fill="#27ae60" stroke="#1e8449" stroke-width="1"/>
+  <text x="295" y="165" text-anchor="middle" font-size="15" font-weight="bold" fill="#ffffff">Gr</text>
+
+  <!-- Row 1: Gb, B, Gb, B -->
+  <rect x="85" y="190" width="60" height="60" rx="4" fill="#27ae60" stroke="#1e8449" stroke-width="1"/>
+  <text x="115" y="225" text-anchor="middle" font-size="15" font-weight="bold" fill="#ffffff">Gb</text>
+
+  <rect x="145" y="190" width="60" height="60" rx="4" fill="#2980b9" stroke="#1f618d" stroke-width="1"/>
+  <text x="175" y="225" text-anchor="middle" font-size="15" font-weight="bold" fill="#ffffff">B</text>
+
+  <rect x="205" y="190" width="60" height="60" rx="4" fill="#27ae60" stroke="#1e8449" stroke-width="1"/>
+  <text x="235" y="225" text-anchor="middle" font-size="15" font-weight="bold" fill="#ffffff">Gb</text>
+
+  <rect x="265" y="190" width="60" height="60" rx="4" fill="#2980b9" stroke="#1f618d" stroke-width="1"/>
+  <text x="295" y="225" text-anchor="middle" font-size="15" font-weight="bold" fill="#ffffff">B</text>
+
+  <!-- Row 2: R, Gr, R, Gr -->
+  <rect x="85" y="250" width="60" height="60" rx="4" fill="#e74c3c" stroke="#c0392b" stroke-width="1"/>
+  <text x="115" y="285" text-anchor="middle" font-size="15" font-weight="bold" fill="#ffffff">R</text>
+
+  <rect x="145" y="250" width="60" height="60" rx="4" fill="#27ae60" stroke="#1e8449" stroke-width="1"/>
+  <text x="175" y="285" text-anchor="middle" font-size="15" font-weight="bold" fill="#ffffff">Gr</text>
+
+  <rect x="205" y="250" width="60" height="60" rx="4" fill="#e74c3c" stroke="#c0392b" stroke-width="1"/>
+  <text x="235" y="285" text-anchor="middle" font-size="15" font-weight="bold" fill="#ffffff">R</text>
+
+  <rect x="265" y="250" width="60" height="60" rx="4" fill="#27ae60" stroke="#1e8449" stroke-width="1"/>
+  <text x="295" y="285" text-anchor="middle" font-size="15" font-weight="bold" fill="#ffffff">Gr</text>
+
+  <!-- Row 3: Gb, B, Gb, B -->
+  <rect x="85" y="310" width="60" height="60" rx="4" fill="#27ae60" stroke="#1e8449" stroke-width="1"/>
+  <text x="115" y="345" text-anchor="middle" font-size="15" font-weight="bold" fill="#ffffff">Gb</text>
+
+  <rect x="145" y="310" width="60" height="60" rx="4" fill="#2980b9" stroke="#1f618d" stroke-width="1"/>
+  <text x="175" y="345" text-anchor="middle" font-size="15" font-weight="bold" fill="#ffffff">B</text>
+
+  <rect x="205" y="310" width="60" height="60" rx="4" fill="#27ae60" stroke="#1e8449" stroke-width="1"/>
+  <text x="235" y="345" text-anchor="middle" font-size="15" font-weight="bold" fill="#ffffff">Gb</text>
+
+  <rect x="265" y="310" width="60" height="60" rx="4" fill="#2980b9" stroke="#1f618d" stroke-width="1"/>
+  <text x="295" y="345" text-anchor="middle" font-size="15" font-weight="bold" fill="#ffffff">B</text>
+
+  <!-- Highlight 2x2 Elementary Unit (RGGB Block) -->
+  <rect x="83" y="128" width="124" height="124" rx="6" fill="none" stroke="#2457d6" stroke-width="3" stroke-dasharray="6,4"/>
+
+  <!-- Legend Box inside Panel 1 -->
+  <rect x="340" y="130" width="112" height="240" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="396" y="150" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Легенда RGB</text>
+
+  <rect x="348" y="165" width="16" height="16" rx="3" fill="#e74c3c"/>
+  <text x="370" y="178" font-size="11" fill="#1a1a1a">R — Червоний</text>
+
+  <rect x="348" y="195" width="16" height="16" rx="3" fill="#27ae60"/>
+  <text x="370" y="208" font-size="11" fill="#1a1a1a">Gr — Зелений</text>
+
+  <rect x="348" y="225" width="16" height="16" rx="3" fill="#27ae60"/>
+  <text x="370" y="238" font-size="11" fill="#1a1a1a">Gb — Зелений</text>
+
+  <rect x="348" y="255" width="16" height="16" rx="3" fill="#2980b9"/>
+  <text x="370" y="268" font-size="11" fill="#1a1a1a">B — Синій</text>
+
+  <line x1="348" y1="282" x2="444" y2="282" stroke="#e5e7eb" stroke-width="1"/>
+
+  <text x="396" y="298" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">Співвідношення</text>
+  <text x="396" y="314" text-anchor="middle" font-size="11" fill="#1a1a1a">50% G : 25% R</text>
+  <text x="396" y="328" text-anchor="middle" font-size="11" fill="#1a1a1a">: 25% B</text>
+  <text x="396" y="348" text-anchor="middle" font-size="10" fill="#6b7280">(Чутливість ока)</text>
+
+  <!-- Panel 1 Bottom Card -->
+  <rect x="45" y="385" width="405" height="120" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="247.5" y="406" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Особливості сітки Байєра в OV2640</text>
+  <text x="60" y="427" font-size="11.5" fill="#1a1a1a">• <tspan font-weight="bold">Формат RGGB:</tspan> Перший рядок R-Gr-R-Gr, другий Gb-B-Gb-B</text>
+  <text x="60" y="447" font-size="11.5" fill="#1a1a1a">• <tspan font-weight="bold">Подвійний зелений (Gr/Gb):</tspan> зменшує шум яскравості (Luma Y)</text>
+  <text x="60" y="467" font-size="11.5" fill="#1a1a1a">• <tspan font-weight="bold">Апаратний ISP:</tspan> відновлює повноколірний кадр RGB з RAW</text>
+  <text x="60" y="487" font-size="11.5" fill="#6b7280">• Налаштовується регістрами SCCB (COM7, CLKRC тощо)</text>
+
+  <!-- RIGHT PANEL: 3D Stack / Optical Cross-Section -->
+  <rect x="485" y="75" width="445" height="445" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="707.5" y="100" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Пошаровий оптичний розріз пікселя CMOS</text>
+
+  <!-- Layer 1: Incoming Rays -->
+  <line x1="540" y1="120" x2="540" y2="155" stroke="#e74c3c" stroke-width="2.5" marker-end="url(#arr-red)"/>
+  <line x1="620" y1="120" x2="620" y2="155" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arr-green)"/>
+  <line x1="700" y1="120" x2="700" y2="155" stroke="#2980b9" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+
+  <text x="755" y="135" font-size="12" font-weight="bold" fill="#1a1a1a">Падаюче світло</text>
+  <text x="755" y="150" font-size="11" fill="#6b7280">Спектр RGB (λ ≈ 400–700 нм)</text>
+
+  <!-- Layer 2: Microlenses -->
+  <path d="M505,185 Q540,158 575,185 Z" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <path d="M585,185 Q620,158 655,185 Z" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <path d="M665,185 Q700,158 735,185 Z" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+
+  <text x="755" y="175" font-size="12" font-weight="bold" fill="#2457d6">Масив мікролінз</text>
+  <text x="755" y="190" font-size="11" fill="#6b7280">Фокусування на фотодіод</text>
+
+  <!-- Layer 3: Color Filter Array (CFA) -->
+  <rect x="505" y="195" width="70" height="40" rx="4" fill="#e74c3c" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="540" y="214" text-anchor="middle" font-size="12" font-weight="bold" fill="#ffffff">Фільтр R</text>
+  <text x="540" y="227" text-anchor="middle" font-size="10" fill="#ffffff">λ ~ 650nm</text>
+
+  <rect x="585" y="195" width="70" height="40" rx="4" fill="#27ae60" stroke="#1e8449" stroke-width="1.5"/>
+  <text x="620" y="214" text-anchor="middle" font-size="12" font-weight="bold" fill="#ffffff">Фільтр G</text>
+  <text x="620" y="227" text-anchor="middle" font-size="10" fill="#ffffff">λ ~ 540nm</text>
+
+  <rect x="665" y="195" width="70" height="40" rx="4" fill="#2980b9" stroke="#1f618d" stroke-width="1.5"/>
+  <text x="700" y="214" text-anchor="middle" font-size="12" font-weight="bold" fill="#ffffff">Фільтр B</text>
+  <text x="700" y="227" text-anchor="middle" font-size="10" fill="#ffffff">λ ~ 450nm</text>
+
+  <text x="755" y="215" font-size="12" font-weight="bold" fill="#1a1a1a">Фільтри Байєра</text>
+  <text x="755" y="230" font-size="11" fill="#6b7280">Селекція довжин хвиль</text>
+
+  <!-- Layer 4: Photodiode Array in Silicon Substrate -->
+  <rect x="495" y="250" width="250" height="85" rx="5" fill="#e9ecef" stroke="#b0b7be" stroke-width="1.5"/>
+
+  <rect x="505" y="260" width="70" height="65" rx="4" fill="#fdecea" stroke="#e74c3c" stroke-width="1.5"/>
+  <text x="540" y="284" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Фотодіод R</text>
+  <text x="540" y="299" text-anchor="middle" font-size="11" fill="#1a1a1a">Заряд Q_R</text>
+  <text x="540" y="313" text-anchor="middle" font-size="10" fill="#6b7280">p-n перехід</text>
+
+  <rect x="585" y="260" width="70" height="65" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="620" y="284" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Фотодіод G</text>
+  <text x="620" y="299" text-anchor="middle" font-size="11" fill="#1a1a1a">Заряд Q_G</text>
+  <text x="620" y="313" text-anchor="middle" font-size="10" fill="#6b7280">p-n перехід</text>
+
+  <rect x="665" y="260" width="70" height="65" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="700" y="284" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Фотодіод B</text>
+  <text x="700" y="299" text-anchor="middle" font-size="11" fill="#1a1a1a">Заряд Q_B</text>
+  <text x="700" y="313" text-anchor="middle" font-size="10" fill="#6b7280">p-n перехід</text>
+
+  <text x="755" y="280" font-size="12" font-weight="bold" fill="#1a1a1a">Фотодіодний шар</text>
+  <text x="755" y="295" font-size="11" fill="#6b7280">Генерація фотоструму</text>
+  <text x="755" y="308" font-size="11" fill="#6b7280">та накопичення заряду</text>
+
+  <!-- Panel 2 Bottom Card: ISP & DVP Flow -->
+  <rect x="495" y="350" width="425" height="155" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="707.5" y="370" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Обробка в апаратному ISP сенсора OV2640</text>
+
+  <!-- Block 1 -->
+  <rect x="505" y="385" width="115" height="42" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="562.5" y="402" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a1a">RAW Bayer</text>
+  <text x="562.5" y="417" text-anchor="middle" font-size="10" fill="#6b7280">1 колір / піксель</text>
+
+  <!-- Arrow 1 -->
+  <line x1="623" y1="406" x2="640" y2="406" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-accent)"/>
+
+  <!-- Block 2 -->
+  <rect x="643" y="385" width="130" height="42" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="708" y="402" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">Демозаїка (ISP)</text>
+  <text x="708" y="417" text-anchor="middle" font-size="10" fill="#1a1a1a">Інтерполяція 3×3</text>
+
+  <!-- Arrow 2 -->
+  <line x1="776" y1="406" x2="793" y2="406" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-accent)"/>
+
+  <!-- Block 3 -->
+  <rect x="796" y="385" width="114" height="42" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="853" y="402" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">Формат DVP</text>
+  <text x="853" y="417" text-anchor="middle" font-size="10" fill="#1a1a1a">RGB565 / JPEG</text>
+
+  <!-- Card bottom notes -->
+  <text x="707.5" y="447" text-anchor="middle" font-size="11" fill="#1a1a1a">Апаратний ISP інтегрує спектральні дані сусідніх пікселів R, G, B</text>
+  <text x="707.5" y="463" text-anchor="middle" font-size="11" fill="#1a1a1a">у повноколірну матрицю (24-біт RGB або стиснутий JPEG)</text>
+  <text x="707.5" y="479" text-anchor="middle" font-size="11" fill="#6b7280">Передача даних контролюється сигналами PCLK, VSYNC, HREF</text>
+</svg>

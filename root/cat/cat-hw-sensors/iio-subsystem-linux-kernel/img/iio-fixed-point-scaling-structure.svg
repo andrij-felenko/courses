@@ -1,0 +1,110 @@
+<svg viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif" xmlns="http://www.w3.org/2000/svg">
+  <!-- White Background -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Arrow Markers -->
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Структура кодування масштабних множників у підсистемі Linux IIO</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Формати IIO_VAL_* передають раціональні числа через цілочисельну пару val та val2 без використання ковзної крапки</text>
+
+  <!-- Section 1: System Pipeline Overview -->
+  <g>
+    <!-- Box 1: Driver -->
+    <rect x="30" y="75" width="275" height="100" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+    <text x="42" y="96" font-size="13" font-weight="bold" fill="#2457d6">1. Драйвер пристрою (Kernel)</text>
+    <text x="42" y="118" font-size="12" fill="#1a1a1a">Функція: read_raw(...)</text>
+    <text x="42" y="136" font-size="12" fill="#6b7280">Заповнює: int val, int val2</text>
+    <text x="42" y="154" font-size="12" fill="#6b7280">Повертає тип: IIO_VAL_*</text>
+
+    <!-- Arrow 1: Driver to Core -->
+    <line x1="305" y1="125" x2="319" y2="125" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+    <!-- Box 2: IIO Core -->
+    <rect x="325" y="75" width="310" height="100" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+    <text x="337" y="96" font-size="13" font-weight="bold" fill="#2457d6">2. Ядро IIO: iio_format_value()</text>
+    <text x="337" y="118" font-size="12" fill="#1a1a1a">Обробка цілочисельного масиву</text>
+    <text x="337" y="136" font-size="12" fill="#1a1a1a">Генерація десяткового рядка</text>
+    <text x="337" y="154" font-size="12" font-weight="bold" fill="#27ae60">Формат: "0.009582" або "3300/4095"</text>
+
+    <!-- Arrow 2: Core to User Space -->
+    <line x1="635" y1="125" x2="649" y2="125" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+    <!-- Box 3: User Space -->
+    <rect x="655" y="75" width="275" height="100" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+    <text x="667" y="96" font-size="13" font-weight="bold" fill="#2457d6">3. User Space / sysfs</text>
+    <text x="667" y="118" font-size="12" fill="#1a1a1a">Файл: in_accel_x_scale</text>
+    <text x="667" y="136" font-size="12" fill="#6b7280">Перетворення у фізичні величини:</text>
+    <text x="667" y="154" font-size="12" font-weight="bold" fill="#1a1a1a">Value = (raw + offset) × scale</text>
+  </g>
+
+  <!-- Section 2: Formats Breakdown Cards -->
+
+  <!-- Card 1: IIO_VAL_INT_PLUS_MICRO -->
+  <g>
+    <rect x="30" y="195" width="900" height="95" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+    
+    <!-- Row 1: Badge, Formula, Array mapping -->
+    <rect x="45" y="207" width="205" height="26" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+    <text x="147" y="224" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">IIO_VAL_INT_PLUS_MICRO</text>
+
+    <rect x="260" y="207" width="235" height="26" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+    <text x="377" y="224" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">scale = val + val2 / 10⁶</text>
+
+    <rect x="505" y="207" width="410" height="26" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+    <text x="710" y="224" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">vals[0] = val (ціла)   |   vals[1] = val2 (мікро-частина, 10⁻⁶)</text>
+
+    <!-- Row 2: Example Box -->
+    <rect x="45" y="242" width="870" height="38" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+    <text x="57" y="266" font-size="13" font-weight="bold" fill="#2457d6">Приклад (Акселерометр):</text>
+    <text x="235" y="266" font-size="13" fill="#1a1a1a">val = <tspan font-weight="bold" fill="#2457d6">0</tspan>, val2 = <tspan font-weight="bold" fill="#2457d6">9582</tspan>  ⇒  scale = 0 + 9582 / 10⁶ = <tspan font-weight="bold" fill="#27ae60">0.0009582</tspan> (м/с²/LSB)</text>
+  </g>
+
+  <!-- Card 2: IIO_VAL_INT_PLUS_NANO -->
+  <g>
+    <rect x="30" y="302" width="900" height="95" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+    
+    <!-- Row 1: Badge, Formula, Array mapping -->
+    <rect x="45" y="314" width="205" height="26" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+    <text x="147" y="331" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">IIO_VAL_INT_PLUS_NANO</text>
+
+    <rect x="260" y="314" width="235" height="26" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+    <text x="377" y="331" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">scale = val + val2 / 10⁹</text>
+
+    <rect x="505" y="314" width="410" height="26" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+    <text x="710" y="331" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">vals[0] = val (ціла)   |   vals[1] = val2 (нано-частина, 10⁻⁹)</text>
+
+    <!-- Row 2: Example Box -->
+    <rect x="45" y="349" width="870" height="38" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+    <text x="57" y="373" font-size="13" font-weight="bold" fill="#2457d6">Приклад (Гіроскоп):</text>
+    <text x="210" y="373" font-size="13" fill="#1a1a1a">val = <tspan font-weight="bold" fill="#2457d6">0</tspan>, val2 = <tspan font-weight="bold" fill="#2457d6">488281</tspan>  ⇒  scale = 0 + 488281 / 10⁹ = <tspan font-weight="bold" fill="#27ae60">0.000488281</tspan> (рад/с/LSB)</text>
+  </g>
+
+  <!-- Card 3: IIO_VAL_FRACTIONAL -->
+  <g>
+    <rect x="30" y="409" width="900" height="95" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+    
+    <!-- Row 1: Badge, Formula, Array mapping -->
+    <rect x="45" y="421" width="205" height="26" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+    <text x="147" y="438" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">IIO_VAL_FRACTIONAL</text>
+
+    <rect x="260" y="421" width="235" height="26" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+    <text x="377" y="438" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">scale = val / val2</text>
+
+    <rect x="505" y="421" width="410" height="26" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+    <text x="710" y="438" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">vals[0] = val (чисельник)   |   vals[1] = val2 (знаменник)</text>
+
+    <!-- Row 2: Example Box -->
+    <rect x="45" y="456" width="870" height="38" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+    <text x="57" y="480" font-size="13" font-weight="bold" fill="#2457d6">Приклад (12-біт АЦП):</text>
+    <text x="215" y="480" font-size="13" fill="#1a1a1a">val = <tspan font-weight="bold" fill="#2457d6">3300</tspan> (мВ), val2 = <tspan font-weight="bold" fill="#2457d6">4095</tspan> (2¹²-1)  ⇒  scale = 3300 / 4095 ≈ <tspan font-weight="bold" fill="#27ae60">0.805861</tspan> (мВ/LSB)</text>
+  </g>
+
+  <!-- Footer Note -->
+  <text x="480" y="524" font-size="12" fill="#6b7280" text-anchor="middle">Примітка: для логарифмічних дільників використовується IIO_VAL_FRACTIONAL_LOG2, де scale = val / 2^val2</text>
+</svg>

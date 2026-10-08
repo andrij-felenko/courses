@@ -1,0 +1,113 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="460" viewBox="0 0 960 460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Canvas background -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Definitions for arrow markers -->
+  <defs>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Header Title and Subtitle -->
+  <text x="480" y="36" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Схема підключення PIR-модуля HC-SR505 до мікроконтролера</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Пряме підключення виходу OUT (3.3 В) до GPIO та спільна шина заземлення (GND)</text>
+
+  <!-- LEFT PANEL: HC-SR505 Module -->
+  <rect x="40" y="95" width="250" height="330" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  
+  <!-- Left Panel Header -->
+  <rect x="55" y="110" width="220" height="32" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="165" y="131" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">Модуль HC-SR505</text>
+
+  <!-- Fresnel Lens Diagram -->
+  <circle cx="165" cy="170" r="24" fill="#ffffff" stroke="#2457d6" stroke-width="2"/>
+  <circle cx="165" cy="170" r="15" fill="none" stroke="#93c5fd" stroke-width="1.5" stroke-dasharray="3 2"/>
+  <circle cx="165" cy="170" r="6" fill="#2457d6"/>
+  <text x="165" y="208" font-size="12" fill="#6b7280" text-anchor="middle">PIR-сенсор (лінза)</text>
+
+  <!-- Module Terminals / Labels -->
+  <!-- VCC Pin -->
+  <text x="60" y="218" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="start">VCC</text>
+  <text x="60" y="234" font-size="12" fill="#6b7280" text-anchor="start">живлення (4.5–20 В)</text>
+  <rect x="260" y="210" width="30" height="20" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+
+  <!-- OUT Pin -->
+  <text x="60" y="308" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="start">OUT</text>
+  <text x="60" y="324" font-size="12" fill="#6b7280" text-anchor="start">вихід 3.3 В (лог. 1)</text>
+  <rect x="260" y="300" width="30" height="20" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+
+  <!-- GND Pin -->
+  <text x="60" y="398" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="start">GND</text>
+  <text x="60" y="414" font-size="12" fill="#6b7280" text-anchor="start">спільний 0 В (земля)</text>
+  <rect x="260" y="390" width="30" height="20" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+
+  <!-- Connection Terminal Dots (Left) -->
+  <circle cx="290" cy="220" r="5" fill="#c0392b"/>
+  <circle cx="290" cy="310" r="5" fill="#2457d6"/>
+  <circle cx="290" cy="400" r="5" fill="#27ae60"/>
+
+  <!-- RIGHT PANEL: Microcontroller (MCU) -->
+  <rect x="670" y="95" width="250" height="330" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  
+  <!-- Right Panel Header -->
+  <rect x="685" y="110" width="220" height="32" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="795" y="131" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">Мікроконтролер (MCU)</text>
+
+  <!-- MCU Chip Illustration -->
+  <rect x="740" y="152" width="110" height="50" rx="4" fill="#2c3e50" stroke="#1a252f" stroke-width="1.5"/>
+  <text x="795" y="172" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">ESP32 / Arduino</text>
+  <text x="795" y="188" font-size="12" fill="#94a3b8" text-anchor="middle">STM32 / RP2040</text>
+
+  <!-- MCU Terminals / Labels -->
+  <!-- 5V / VCC Pin -->
+  <rect x="670" y="210" width="30" height="20" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="710" y="218" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="start">5V / VCC</text>
+  <text x="710" y="234" font-size="12" fill="#6b7280" text-anchor="start">вихід живлення 5 В</text>
+
+  <!-- GPIO Pin -->
+  <rect x="670" y="300" width="30" height="20" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="710" y="308" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="start">GPIO (Input)</text>
+  <text x="710" y="324" font-size="12" fill="#6b7280" text-anchor="start">вхідний цифровий pin</text>
+
+  <!-- GND Pin -->
+  <rect x="670" y="390" width="30" height="20" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="710" y="398" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="start">GND</text>
+  <text x="710" y="414" font-size="12" fill="#6b7280" text-anchor="start">земля платформи</text>
+
+  <!-- Connection Terminal Dots (Right) -->
+  <circle cx="670" cy="220" r="5" fill="#c0392b"/>
+  <circle cx="670" cy="310" r="5" fill="#2457d6"/>
+  <circle cx="670" cy="400" r="5" fill="#27ae60"/>
+
+  <!-- CENTRAL WIRING AND CALLOUTS -->
+  <!-- 1. VCC Line (Power 5V) -->
+  <line x1="670" y1="220" x2="290" y2="220" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arr-red)"/>
+  
+  <rect x="370" y="165" width="220" height="42" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="480" y="182" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Шина живлення +5 В</text>
+  <text x="480" y="198" font-size="12" fill="#6b7280" text-anchor="middle">HC-SR505 працює від 4.5 до 20 В</text>
+  <line x1="480" y1="207" x2="480" y2="216" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="2 2"/>
+
+  <!-- 2. OUT Line (Signal 3.3V) -->
+  <line x1="290" y1="310" x2="670" y2="310" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+  
+  <rect x="335" y="250" width="290" height="44" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="480" y="267" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Цифровий сигнал OUT (3.3 В)</text>
+  <text x="480" y="283" font-size="12" fill="#6b7280" text-anchor="middle">Вихід 3.3 В прямо сумісний з GPIO 3.3V / 5V</text>
+  <line x1="480" y1="294" x2="480" y2="306" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="2 2"/>
+
+  <!-- 3. GND Line (Common Ground) -->
+  <line x1="290" y1="400" x2="670" y2="400" stroke="#27ae60" stroke-width="2.5"/>
+  
+  <rect x="345" y="342" width="270" height="44" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="480" y="359" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Спільний мінус (Common GND)</text>
+  <text x="480" y="375" font-size="12" fill="#6b7280" text-anchor="middle">Обов'язкове об'єднання точок заземлення</text>
+  <line x1="480" y1="386" x2="480" y2="396" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="2 2"/>
+</svg>

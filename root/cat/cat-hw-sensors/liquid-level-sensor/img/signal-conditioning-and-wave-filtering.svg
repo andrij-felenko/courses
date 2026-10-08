@@ -1,0 +1,127 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <defs>
+    <marker id="arr-black" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="36" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Узгодження сигналу давача рівня та приглушення хвилювання</text>
+  <text x="480" y="58" text-anchor="middle" font-size="13" fill="#6b7280">Аналоговий RC-фільтр пригнічує шум, а ковзне середнє видаляє сплески хвиль</text>
+
+  <!-- Panel 1: Hardware Circuit Structure -->
+  <rect x="25" y="75" width="430" height="385" rx="8" ry="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="240" y="102" text-anchor="middle" font-size="15" font-weight="bold" fill="#1a1a1a">Схема узгодження сигналу (Hardware)</text>
+
+  <!-- Block 1: Liquid Level Sensor -->
+  <rect x="40" y="130" width="95" height="135" rx="6" ry="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="87.5" y="152" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Сенсор</text>
+  <rect x="52" y="165" width="71" height="65" rx="3" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <path d="M 53,195 Q 70,188 87.5,195 T 122,195 L 122,229 L 53,229 Z" fill="#eaf0fd"/>
+  <path d="M 53,195 Q 70,188 87.5,195 T 122,195" fill="none" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="72" y1="157" x2="72" y2="225" stroke="#6b7280" stroke-width="3"/>
+  <line x1="103" y1="157" x2="103" y2="225" stroke="#6b7280" stroke-width="3"/>
+  <text x="87.5" y="252" text-anchor="middle" font-size="12" fill="#6b7280">(рівень h)</text>
+
+  <!-- Interconnect 1 -->
+  <line x1="135" y1="195" x2="195" y2="195" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="165" y="180" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">V_in(t)</text>
+  <text x="165" y="218" text-anchor="middle" font-size="12" fill="#6b7280">Сирий</text>
+
+  <!-- Block 2: RC Low Pass Filter -->
+  <rect x="195" y="130" width="125" height="135" rx="6" ry="6" fill="#ffffff" stroke="#d0d7de" stroke-width="2"/>
+  <text x="257.5" y="152" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">RC-фільтр НЧ</text>
+  <line x1="195" y1="195" x2="220" y2="195" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="220" y="187" width="30" height="16" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="235" y="179" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">R</text>
+  <line x1="250" y1="195" x2="275" y2="195" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="275" cy="195" r="3" fill="#1a1a1a"/>
+  <line x1="275" y1="195" x2="275" y2="211" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="265" y1="211" x2="285" y2="211" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="265" y1="217" x2="285" y2="217" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="292" y="218" text-anchor="start" font-size="12" font-weight="bold" fill="#1a1a1a">C</text>
+  <line x1="275" y1="217" x2="275" y2="230" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="268" y1="230" x2="282" y2="230" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="271" y1="234" x2="279" y2="234" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="273" y1="238" x2="277" y2="238" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Interconnect 2 -->
+  <line x1="320" y1="195" x2="380" y2="195" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="350" y="180" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">V_rc(t)</text>
+
+  <!-- Block 3: MCU -->
+  <rect x="380" y="130" width="60" height="135" rx="6" ry="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <text x="410" y="152" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">МК</text>
+  <circle cx="380" cy="195" r="4" fill="#27ae60"/>
+  <text x="410" y="190" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">АЦП</text>
+  <rect x="385" y="205" width="50" height="46" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="410" y="223" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">DSP</text>
+  <text x="410" y="241" text-anchor="middle" font-size="12" fill="#6b7280">SMA</text>
+
+  <!-- Explanatory Text Cards -->
+  <rect x="40" y="280" width="400" height="80" rx="5" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="52" y="300" text-anchor="start" font-size="12" font-weight="bold" fill="#2457d6">1. Аналоговий етап (RC-фільтрація)</text>
+  <text x="52" y="322" text-anchor="start" font-size="12" fill="#1a1a1a">• Частота зрізу: f_c = 1 / (2π · R · C)</text>
+  <text x="52" y="344" text-anchor="start" font-size="12" fill="#6b7280">• Пригнічує високочастотний електричний шум</text>
+
+  <rect x="40" y="370" width="400" height="80" rx="5" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="52" y="390" text-anchor="start" font-size="12" font-weight="bold" fill="#27ae60">2. Цифровий етап (Ковзне середнє)</text>
+  <text x="52" y="412" text-anchor="start" font-size="12" fill="#1a1a1a">• Формула: y[n] = (1 / N) · ∑ x[n-k]</text>
+  <text x="52" y="434" text-anchor="start" font-size="12" fill="#6b7280">• Усереднення N вибірок усуває сплески хвиль</text>
+
+  <!-- Panel 2: Signal Oscillations Plot -->
+  <rect x="475" y="75" width="460" height="385" rx="8" ry="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="705" y="102" text-anchor="middle" font-size="15" font-weight="bold" fill="#1a1a1a">Графік фільтрації сплесків від хвилювання</text>
+
+  <!-- Plot Grid lines -->
+  <line x1="535" y1="360" x2="915" y2="360" stroke="#e1e4e8" stroke-dasharray="3,3"/>
+  <line x1="535" y1="310" x2="915" y2="310" stroke="#e1e4e8" stroke-dasharray="3,3"/>
+  <line x1="535" y1="260" x2="915" y2="260" stroke="#e1e4e8" stroke-dasharray="3,3"/>
+  <line x1="535" y1="210" x2="915" y2="210" stroke="#e1e4e8" stroke-dasharray="3,3"/>
+
+  <!-- True liquid level line -->
+  <line x1="535" y1="275" x2="915" y2="255" stroke="#95a5a6" stroke-width="1.5" stroke-dasharray="5,4"/>
+
+  <!-- Moving average window shading -->
+  <rect x="710" y="215" width="80" height="195" fill="#2457d6" opacity="0.07" stroke="#2457d6" stroke-dasharray="4,3"/>
+  <rect x="715" y="375" width="70" height="22" rx="3" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+  <text x="750" y="390" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Вікно N</text>
+
+  <!-- Legend Box -->
+  <rect x="545" y="120" width="215" height="82" rx="5" fill="#ffffff" opacity="0.95" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="555" y1="136" x2="575" y2="136" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="582" y="140" text-anchor="start" font-size="12" font-weight="bold" fill="#c0392b">V_in: сирий + шум</text>
+
+  <line x1="555" y1="154" x2="575" y2="154" stroke="#2457d6" stroke-width="2" stroke-dasharray="4,2"/>
+  <text x="582" y="158" text-anchor="start" font-size="12" font-weight="bold" fill="#2457d6">V_rc: RC-фільтр</text>
+
+  <line x1="555" y1="172" x2="575" y2="172" stroke="#27ae60" stroke-width="3.5"/>
+  <text x="582" y="176" text-anchor="start" font-size="12" font-weight="bold" fill="#27ae60">V_out: після SMA</text>
+
+  <line x1="555" y1="190" x2="575" y2="190" stroke="#95a5a6" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <text x="582" y="194" text-anchor="start" font-size="12" font-weight="bold" fill="#7f8c8d">h_true: істинний рівень</text>
+
+  <!-- Signal Curves -->
+  <!-- 1. Raw signal (V_in): HF Noise + Wave Spikes -->
+  <path d="M 535,285 L 540,305 L 545,275 L 550,330 L 555,315 L 560,340 L 565,300 L 570,255 L 575,230 L 580,260 L 585,235 L 590,280 L 595,305 L 600,335 L 605,320 L 610,340 L 615,300 L 620,260 L 625,225 L 630,248 L 635,230 L 640,268 L 645,295 L 650,325 L 655,310 L 660,330 L 665,290 L 670,250 L 675,220 L 680,242 L 685,225 L 690,262 L 695,290 L 700,318 L 705,302 L 710,322 L 715,282 L 720,242 L 725,215 L 730,238 L 735,220 L 740,255 L 745,282 L 750,310 L 755,295 L 760,312 L 765,272 L 770,235 L 775,210 L 780,230 L 785,215 L 790,250 L 795,278 L 800,305 L 805,290 L 810,308 L 815,268 L 820,230 L 825,208 L 830,225 L 835,210 L 840,245 L 845,272 L 850,298 L 855,285 L 860,300 L 865,262 L 870,225 L 875,205 L 880,220 L 885,208 L 890,240 L 895,260 L 900,280 L 905,268 L 910,260" fill="none" stroke="#c0392b" stroke-width="1.2" opacity="0.85"/>
+
+  <!-- 2. RC Filtered signal (V_rc): HF Noise removed, wave oscillations remain -->
+  <path d="M 535,285 C 550,335 560,345 575,242 C 590,298 600,335 615,288 C 630,232 640,222 655,278 C 670,325 680,325 695,270 C 710,225 720,215 735,265 C 750,312 760,312 775,258 C 790,212 800,205 815,255 C 830,298 840,298 855,248 C 870,205 880,200 895,248 C 905,265 910,258 915,255" fill="none" stroke="#2457d6" stroke-width="2" stroke-dasharray="4,2"/>
+
+  <!-- 3. SMA Filtered signal (V_out): Smooth output -->
+  <path d="M 535,285 Q 585,282 635,275 T 735,265 T 835,258 T 915,255" fill="none" stroke="#27ae60" stroke-width="3.5"/>
+
+  <!-- Plot Axes -->
+  <line x1="535" y1="415" x2="535" y2="125" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-black)"/>
+  <line x1="535" y1="415" x2="915" y2="415" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-black)"/>
+  <text x="535" y="117" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Рівень h (V)</text>
+  <text x="915" y="437" text-anchor="end" font-size="12" font-weight="bold" fill="#1a1a1a">Час t</text>
+</svg>

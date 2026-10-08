@@ -1,0 +1,196 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Canvas Background -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Title and Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Геометрична трансформація «Еліпсоїд → Сфера» для калібрування магнітометра</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Відновлення сферичної симетрії вимірювань компенсацією зміщення Hard Iron та деформації Soft Iron</text>
+
+  <!-- CARD 1: Raw Distorted Ellipsoid -->
+  <rect x="24" y="75" width="250" height="325" rx="8" fill="#fdecea" stroke="#e6b8b8" stroke-width="1.5"/>
+  <path d="M 24 83 A 8 8 0 0 1 32 75 L 266 75 A 8 8 0 0 1 274 83 L 274 122 L 24 122 Z" fill="#f8d7da"/>
+  <line x1="24" y1="122" x2="274" y2="122" stroke="#e6b8b8" stroke-width="1.5"/>
+  <text x="149" y="95" font-size="14" font-weight="bold" fill="#c0392b" text-anchor="middle">1. Спотворений еліпсоїд</text>
+  <text x="149" y="112" font-size="12" fill="#6b7280" text-anchor="middle">Hard Iron + Soft Iron</text>
+
+  <!-- Card 1 Geometry Visual -->
+  <!-- 3D Axes for Card 1 -->
+  <line x1="115" y1="255" x2="165" y2="280" stroke="#6b7280" stroke-width="1.2" marker-end="url(#arr-gray)"/>
+  <line x1="115" y1="255" x2="175" y2="220" stroke="#6b7280" stroke-width="1.2" marker-end="url(#arr-gray)"/>
+  <line x1="115" y1="255" x2="115" y2="150" stroke="#6b7280" stroke-width="1.2" marker-end="url(#arr-gray)"/>
+  <circle cx="115" cy="255" r="3" fill="#6b7280"/>
+  <text x="90" y="270" font-size="11" fill="#6b7280" text-anchor="middle">O(0,0)</text>
+  <text x="173" y="286" font-size="12" fill="#6b7280">X</text>
+  <text x="183" y="218" font-size="12" fill="#6b7280">Y</text>
+  <text x="115" y="142" font-size="12" fill="#6b7280" text-anchor="middle">Z</text>
+
+  <!-- Shift Vector b -->
+  <line x1="115" y1="255" x2="165" y2="215" stroke="#c0392b" stroke-width="1.8" stroke-dasharray="4,3" marker-end="url(#arr-red)"/>
+  <text x="132" y="226" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">b</text>
+
+  <!-- Rotated Ellipsoid Card 1 -->
+  <g transform="rotate(-25 165 215)">
+    <ellipse cx="165" cy="215" rx="55" ry="34" fill="#c0392b" fill-opacity="0.1" stroke="#c0392b" stroke-width="1.8"/>
+    <ellipse cx="165" cy="215" rx="55" ry="14" fill="none" stroke="#c0392b" stroke-width="1" stroke-dasharray="3,3" opacity="0.7"/>
+    <ellipse cx="165" cy="215" rx="18" ry="34" fill="none" stroke="#c0392b" stroke-width="1" stroke-dasharray="3,3" opacity="0.7"/>
+    <circle cx="165" cy="215" r="3" fill="#c0392b"/>
+  </g>
+  <!-- Scattered points on Card 1 ellipsoid surface -->
+  <circle cx="125" cy="210" r="2.2" fill="#c0392b"/>
+  <circle cx="150" cy="185" r="2.2" fill="#c0392b"/>
+  <circle cx="195" cy="200" r="2.2" fill="#c0392b"/>
+  <circle cx="205" cy="230" r="2.2" fill="#c0392b"/>
+  <circle cx="180" cy="245" r="2.2" fill="#c0392b"/>
+  <circle cx="140" cy="235" r="2.2" fill="#c0392b"/>
+  <circle cx="160" cy="250" r="2.2" fill="#c0392b"/>
+  <circle cx="135" cy="195" r="2.2" fill="#c0392b"/>
+
+  <!-- Card 1 Explanatory Box -->
+  <rect x="34" y="320" width="230" height="70" rx="6" fill="#ffffff" stroke="#e6b8b8" stroke-width="1"/>
+  <text x="44" y="338" font-size="11" fill="#c0392b">• Зсув центра: b = [bx, by, bz]</text>
+  <text x="44" y="355" font-size="11" fill="#1a1a1a">• Спотворення форми й кута</text>
+  <text x="44" y="372" font-size="11" fill="#6b7280">• Спектр даних: еліпсоїд</text>
+
+
+  <!-- TRANSITION 1: Step 1 (- b) -->
+  <line x1="276" y1="230" x2="284" y2="230" stroke="#c0392b" stroke-width="1.5"/>
+  <rect x="284" y="192" width="61" height="76" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="314" y="208" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">Крок 1</text>
+  <text x="314" y="230" font-size="16" font-weight="bold" fill="#c0392b" text-anchor="middle">− b</text>
+  <text x="314" y="246" font-size="11" fill="#6b7280" text-anchor="middle">Зсув</text>
+  <text x="314" y="260" font-size="11" fill="#6b7280" text-anchor="middle">Hard Iron</text>
+  <line x1="345" y1="230" x2="353" y2="230" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+
+
+  <!-- CARD 2: Centered Ellipsoid -->
+  <rect x="355" y="75" width="250" height="325" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <path d="M 355 83 A 8 8 0 0 1 363 75 L 597 75 A 8 8 0 0 1 605 83 L 605 122 L 355 122 Z" fill="#eaf0fd"/>
+  <line x1="355" y1="122" x2="605" y2="122" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="480" y="95" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">2. Центрований еліпсоїд</text>
+  <text x="480" y="112" font-size="12" fill="#6b7280" text-anchor="middle">Компенсація зсуву b</text>
+
+  <!-- Card 2 Geometry Visual -->
+  <!-- 3D Axes for Card 2 centered at ellipsoid origin -->
+  <line x1="480" y1="220" x2="540" y2="250" stroke="#6b7280" stroke-width="1.2" marker-end="url(#arr-gray)"/>
+  <line x1="480" y1="220" x2="540" y2="185" stroke="#6b7280" stroke-width="1.2" marker-end="url(#arr-gray)"/>
+  <line x1="480" y1="220" x2="480" y2="145" stroke="#6b7280" stroke-width="1.2" marker-end="url(#arr-gray)"/>
+  <circle cx="480" cy="220" r="3" fill="#2457d6"/>
+  <text x="440" y="235" font-size="11" fill="#2457d6" text-anchor="end">(0,0,0)</text>
+  <text x="548" y="256" font-size="12" fill="#6b7280">X</text>
+  <text x="548" y="183" font-size="12" fill="#6b7280">Y</text>
+  <text x="480" y="137" font-size="12" fill="#6b7280" text-anchor="middle">Z</text>
+
+  <!-- Vector h' -->
+  <line x1="480" y1="220" x2="520" y2="195" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arr-blue)"/>
+  <text x="505" y="200" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">h'</text>
+
+  <!-- Rotated Ellipsoid Card 2 -->
+  <g transform="rotate(-25 480 220)">
+    <ellipse cx="480" cy="220" rx="55" ry="34" fill="#2457d6" fill-opacity="0.1" stroke="#2457d6" stroke-width="1.8"/>
+    <ellipse cx="480" cy="220" rx="55" ry="14" fill="none" stroke="#2457d6" stroke-width="1" stroke-dasharray="3,3" opacity="0.7"/>
+    <ellipse cx="480" cy="220" rx="18" ry="34" fill="none" stroke="#2457d6" stroke-width="1" stroke-dasharray="3,3" opacity="0.7"/>
+  </g>
+  <!-- Scattered points on Card 2 ellipsoid surface -->
+  <circle cx="440" cy="215" r="2.2" fill="#2457d6"/>
+  <circle cx="465" cy="190" r="2.2" fill="#2457d6"/>
+  <circle cx="510" cy="205" r="2.2" fill="#2457d6"/>
+  <circle cx="520" cy="235" r="2.2" fill="#2457d6"/>
+  <circle cx="495" cy="250" r="2.2" fill="#2457d6"/>
+  <circle cx="455" cy="240" r="2.2" fill="#2457d6"/>
+  <circle cx="475" cy="255" r="2.2" fill="#2457d6"/>
+  <circle cx="450" cy="200" r="2.2" fill="#2457d6"/>
+
+  <!-- Card 2 Explanatory Box -->
+  <rect x="365" y="320" width="230" height="70" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="375" y="338" font-size="11" fill="#2457d6">• Центр суміщено з (0,0,0)</text>
+  <text x="375" y="355" font-size="11" fill="#1a1a1a">• Анізотропія залишається</text>
+  <text x="375" y="372" font-size="11" fill="#6b7280">• Обчислення: h' = h_raw − b</text>
+
+
+  <!-- TRANSITION 2: Step 2 (* W) -->
+  <line x1="607" y1="230" x2="615" y2="230" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="615" y="192" width="61" height="76" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="645" y="208" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">Крок 2</text>
+  <text x="645" y="230" font-size="16" font-weight="bold" fill="#27ae60" text-anchor="middle">× W</text>
+  <text x="645" y="246" font-size="11" fill="#6b7280" text-anchor="middle">Матриця</text>
+  <text x="645" y="260" font-size="11" fill="#6b7280" text-anchor="middle">Soft Iron</text>
+  <line x1="676" y1="230" x2="684" y2="230" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+
+  <!-- CARD 3: Calibrated Sphere -->
+  <rect x="686" y="75" width="250" height="325" rx="8" fill="#e9f7ef" stroke="#a3e4d7" stroke-width="1.5"/>
+  <path d="M 686 83 A 8 8 0 0 1 694 75 L 928 75 A 8 8 0 0 1 936 83 L 936 122 L 686 122 Z" fill="#d4efdf"/>
+  <line x1="686" y1="122" x2="936" y2="122" stroke="#a3e4d7" stroke-width="1.5"/>
+  <text x="811" y="95" font-size="14" font-weight="bold" fill="#27ae60" text-anchor="middle">3. Калібрована сфера</text>
+  <text x="811" y="112" font-size="12" fill="#6b7280" text-anchor="middle">Компенсація матрицею W</text>
+
+  <!-- Card 3 Geometry Visual -->
+  <!-- 3D Axes for Card 3 -->
+  <line x1="811" y1="220" x2="871" y2="250" stroke="#6b7280" stroke-width="1.2" marker-end="url(#arr-gray)"/>
+  <line x1="811" y1="220" x2="871" y2="185" stroke="#6b7280" stroke-width="1.2" marker-end="url(#arr-gray)"/>
+  <line x1="811" y1="220" x2="811" y2="145" stroke="#6b7280" stroke-width="1.2" marker-end="url(#arr-gray)"/>
+  <circle cx="811" cy="220" r="3" fill="#27ae60"/>
+  <text x="771" y="235" font-size="11" fill="#27ae60" text-anchor="end">(0,0,0)</text>
+  <text x="879" y="256" font-size="12" fill="#6b7280">X</text>
+  <text x="879" y="183" font-size="12" fill="#6b7280">Y</text>
+  <text x="811" y="137" font-size="12" fill="#6b7280" text-anchor="middle">Z</text>
+
+  <!-- Perfect Sphere Card 3 -->
+  <circle cx="811" cy="220" r="44" fill="#27ae60" fill-opacity="0.1" stroke="#27ae60" stroke-width="2"/>
+  <ellipse cx="811" cy="220" rx="44" ry="15" fill="none" stroke="#27ae60" stroke-width="1" stroke-dasharray="3,3" opacity="0.7"/>
+  <ellipse cx="811" cy="220" rx="15" ry="44" fill="none" stroke="#27ae60" stroke-width="1" stroke-dasharray="3,3" opacity="0.7"/>
+
+  <!-- Calibrated Vector h_cal -->
+  <line x1="811" y1="220" x2="847" y2="194" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="835" y="200" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">h_cal</text>
+
+  <!-- Scattered points on Card 3 sphere surface -->
+  <circle cx="770" cy="220" r="2.2" fill="#27ae60"/>
+  <circle cx="785" cy="188" r="2.2" fill="#27ae60"/>
+  <circle cx="835" cy="190" r="2.2" fill="#27ae60"/>
+  <circle cx="850" cy="225" r="2.2" fill="#27ae60"/>
+  <circle cx="830" cy="252" r="2.2" fill="#27ae60"/>
+  <circle cx="788" cy="248" r="2.2" fill="#27ae60"/>
+  <circle cx="811" cy="176" r="2.2" fill="#27ae60"/>
+  <circle cx="811" cy="264" r="2.2" fill="#27ae60"/>
+
+  <!-- Card 3 Explanatory Box -->
+  <rect x="696" y="320" width="230" height="70" rx="6" fill="#ffffff" stroke="#a3e4d7" stroke-width="1"/>
+  <text x="706" y="338" font-size="11" fill="#27ae60">• Ідеальна сферична симетрія</text>
+  <text x="706" y="355" font-size="11" fill="#1a1a1a">• Нормований модуль: |h_cal| = 1</text>
+  <text x="706" y="372" font-size="11" fill="#6b7280">• Трансформація: h_cal = W · h'</text>
+
+
+  <!-- BOTTOM SUMMARY PANEL -->
+  <rect x="24" y="410" width="912" height="85" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Left summary info -->
+  <text x="44" y="436" font-size="13" font-weight="bold" fill="#1a1a1a">Алгоритм калібрування:</text>
+  <text x="44" y="456" font-size="11" fill="#6b7280">1. Пошук b та W через МНК</text>
+  <text x="44" y="473" font-size="11" fill="#6b7280">2. Відновлення сфери</text>
+
+  <!-- Center Formula Box -->
+  <rect x="275" y="422" width="370" height="61" rx="8" fill="#ffffff" stroke="#2457d6" stroke-width="1.8"/>
+  <text x="460" y="449" font-size="18" font-weight="bold" fill="#2457d6" text-anchor="middle">h_cal = W · (h_raw − b)</text>
+  <text x="460" y="470" font-size="11" fill="#6b7280" text-anchor="middle">Калібрований магнітний вектор одиничного радіуса</text>
+
+  <!-- Right summary info -->
+  <text x="660" y="438" font-size="11" fill="#c0392b">b = [bx, by, bz]^T — зсув Hard Iron</text>
+  <text x="660" y="458" font-size="11" fill="#27ae60">W — 3×3 матриця Soft Iron</text>
+  <text x="660" y="476" font-size="11" fill="#1a1a1a">|h_cal| = 1 — одинична сфера</text>
+</svg>

@@ -1,0 +1,138 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-accent" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="34" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">32-рівневий FIFO-буфер ADXL345 та механізм переривання Watermark</text>
+  <text x="480" y="56" font-size="13" fill="#6b7280" text-anchor="middle">Накопичення вибірок до порогу буфера будить мікроконтролер та ініціює пакетне зчитування</text>
+
+  <!-- Panel 1: ADXL345 FIFO Buffer -->
+  <rect x="30" y="80" width="280" height="425" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="170" y="104" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">1. FIFO-буфер ADXL345</text>
+  <text x="170" y="120" font-size="12" fill="#6b7280" text-anchor="middle">Глибина 32 вибірки (X, Y, Z)</text>
+
+  <!-- Incoming ADC Arrow & Label -->
+  <line x1="35" y1="155" x2="53" y2="155" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-accent)"/>
+  <text x="35" y="147" font-size="10" fill="#2457d6" text-anchor="start">Дані ADC</text>
+
+  <!-- FIFO Container Box -->
+  <rect x="55" y="140" width="120" height="290" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="2"/>
+
+  <!-- Empty Slots Area (16..31) -->
+  <text x="115" y="195" font-size="11" fill="#9ca3af" text-anchor="middle">Слоти 16–31 порожні</text>
+
+  <!-- Watermark Threshold Line -->
+  <line x1="45" y1="280" x2="180" y2="280" stroke="#c0392b" stroke-width="2" stroke-dasharray="4,3"/>
+  <text x="185" y="264" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="start">Поріг Watermark</text>
+  <text x="185" y="278" font-size="11" fill="#c0392b" text-anchor="start">SAMPLES = 16</text>
+  <text x="185" y="292" font-size="11" fill="#6b7280" text-anchor="start">(в FIFO_CTL)</text>
+
+  <!-- Filled Slots Area (0..15) -->
+  <rect x="56" y="281" width="118" height="148" fill="#eaf0fd"/>
+
+  <!-- Individual Sample Blocks -->
+  <rect x="60" y="286" width="110" height="30" rx="3" fill="#d0e1fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="115" y="304" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">Вибірка 16 (W)</text>
+
+  <rect x="60" y="320" width="110" height="30" rx="3" fill="#d0e1fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="115" y="338" font-size="11" fill="#1a1a1a" text-anchor="middle">Вибірки 8–15</text>
+
+  <rect x="60" y="354" width="110" height="30" rx="3" fill="#d0e1fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="115" y="372" font-size="11" fill="#1a1a1a" text-anchor="middle">Вибірки 4–7</text>
+
+  <rect x="60" y="388" width="110" height="30" rx="3" fill="#d0e1fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="115" y="406" font-size="11" fill="#1a1a1a" text-anchor="middle">Вибірки 0–3</text>
+
+  <!-- Panel 1 Bottom Status Box -->
+  <rect x="45" y="442" width="250" height="50" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="170" y="462" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Заповнення = 16 вибірок</text>
+  <text x="170" y="480" font-size="11" fill="#c0392b" text-anchor="middle">Досягнуто поріг Watermark!</text>
+
+
+  <!-- Panel 2: Interrupt Logic -->
+  <rect x="340" y="80" width="280" height="425" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="480" y="104" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">2. Логіка переривань</text>
+  <text x="480" y="120" font-size="12" fill="#6b7280" text-anchor="middle">Формування та маскування</text>
+
+  <!-- Box 2.1: Comparator -->
+  <rect x="360" y="140" width="240" height="70" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="480" y="162" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Компаратор Watermark</text>
+  <text x="480" y="180" font-size="11" fill="#2457d6" text-anchor="middle">N_samples ≥ SAMPLES (16)</text>
+  <text x="480" y="196" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">Умова виконана (TRUE)</text>
+
+  <line x1="480" y1="210" x2="480" y2="235" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-accent)"/>
+
+  <!-- Box 2.2: INT_SOURCE Register -->
+  <rect x="360" y="235" width="240" height="80" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="480" y="256" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Регістр INT_SOURCE (0x30)</text>
+  <rect x="375" y="268" width="210" height="36" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="480" y="290" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">Біт WATERMARK = 1 (Active)</text>
+
+  <line x1="480" y1="315" x2="480" y2="340" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-accent)"/>
+
+  <!-- Box 2.3: Routing & Masking -->
+  <rect x="360" y="340" width="240" height="85" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="480" y="361" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Маскування та вихід</text>
+  <text x="480" y="379" font-size="11" fill="#6b7280" text-anchor="middle">INT_ENABLE: біт Watermark = 1</text>
+  <text x="480" y="395" font-size="11" fill="#6b7280" text-anchor="middle">INT_MAP: 0 → пин INT1</text>
+  <text x="480" y="413" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">Активний рівень HIGH</text>
+
+  <!-- Panel 2 Bottom Box -->
+  <rect x="360" y="442" width="240" height="50" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="480" y="462" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">Вихідний сигнал INT1</text>
+  <text x="480" y="480" font-size="11" fill="#1a1a1a" text-anchor="middle">Перехід L → H тригерить EXTI</text>
+
+
+  <!-- Panel 3: STM32 Microcontroller -->
+  <rect x="650" y="80" width="280" height="425" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="790" y="104" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">3. Мікроконтролер STM32</text>
+  <text x="790" y="120" font-size="12" fill="#6b7280" text-anchor="middle">Обробка та очищення FIFO</text>
+
+  <!-- Box 3.1: EXTI Interrupt -->
+  <rect x="670" y="140" width="240" height="70" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="790" y="162" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Пробудження МК (EXTI ISR)</text>
+  <text x="790" y="180" font-size="11" fill="#1a1a1a" text-anchor="middle">Вихід з Sleep / Stop Mode</text>
+  <text x="790" y="196" font-size="11" fill="#6b7280" text-anchor="middle">Фронт Rising Edge на INT1</text>
+
+  <line x1="790" y1="210" x2="790" y2="235" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-accent)"/>
+
+  <!-- Box 3.2: SPI Burst Read -->
+  <rect x="670" y="235" width="240" height="85" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="790" y="256" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Пакетне зчитування (Burst)</text>
+  <text x="790" y="274" font-size="11" fill="#2457d6" text-anchor="middle">SPI/I2C: зчитування 16 вибірок</text>
+  <text x="790" y="290" font-size="11" fill="#6b7280" text-anchor="middle">(16 × 6 байт = 96 байт)</text>
+  <text x="790" y="306" font-size="11" fill="#6b7280" text-anchor="middle">з регістра DATAX0 (0x32)</text>
+
+  <line x1="790" y1="320" x2="790" y2="340" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- Box 3.3: Flag Reset -->
+  <rect x="670" y="340" width="240" height="85" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="790" y="361" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Скидання переривання</text>
+  <text x="790" y="379" font-size="11" fill="#1a1a1a" text-anchor="middle">FIFO опустошується &lt; 16</text>
+  <text x="790" y="395" font-size="11" fill="#1a1a1a" text-anchor="middle">INT_SOURCE: WATERMARK → 0</text>
+  <text x="790" y="413" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">INT1 повертається в LOW</text>
+
+  <!-- Panel 3 Bottom Box -->
+  <rect x="670" y="442" width="240" height="50" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="790" y="462" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Повернення в Sleep Mode</text>
+  <text x="790" y="480" font-size="11" fill="#6b7280" text-anchor="middle">до наступного Watermark</text>
+
+  <!-- Signal Path: INT1 Interrupt Output (Panel 2 -> Panel 3) -->
+  <path d="M 600 380 L 635 380 L 635 175 L 670 175" fill="none" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-accent)"/>
+  <text x="642" y="220" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="start">INT1 (L → H)</text>
+
+  <!-- Signal Path: SPI/I2C Burst Read Return (Panel 3 -> Panel 1) -->
+  <path d="M 670 275 L 635 275 L 635 538 L 115 538 L 115 497" fill="none" stroke="#27ae60" stroke-width="2.5" stroke-dasharray="6,4" marker-end="url(#arr-green)"/>
+  <text x="375" y="527" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">Пакетне зчитування вибірок через шину SPI / I2C (Burst Read 16 × 6B)</text>
+</svg>

@@ -1,0 +1,129 @@
+<svg viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif" xmlns="http://www.w3.org/2000/svg">
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <!-- Маркери стрілок -->
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="32" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Часова діаграма DVP-інтерфейсу сенсора OV2640</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Кадрова (VSYNC) та рядкова (HREF) синхронізація з вибіркою байтів Y[9:2] за зростаючим фронтом PCLK</text>
+
+  <!-- ПАНЕЛЬ 1: Макрорівень (Кадри та рядки) -->
+  <rect x="40" y="70" width="880" height="160" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="55" y="92" font-size="13" font-weight="700" fill="#1a1a1a">1. Синхронізація кадрів (VSYNC) та активних рядків (HREF)</text>
+
+  <!-- Назви сигналів Панелі 1 -->
+  <text x="60" y="130" font-size="13" font-weight="700" fill="#2457d6">VSYNC</text>
+  <text x="60" y="180" font-size="13" font-weight="700" fill="#2457d6">HREF</text>
+
+  <!-- Осі та роздільники -->
+  <line x1="140" y1="105" x2="140" y2="215" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- VSYNC підсвічування та підписи -->
+  <text x="175" y="108" font-size="12" fill="#6b7280" text-anchor="middle">Пауза кадрів</text>
+  <text x="515" y="132" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">Активна передача кадру (VSYNC = LOW)</text>
+
+  <!-- VSYNC сигнальна лінія -->
+  <path d="M 140,115 L 210,115 L 210,140 L 820,140 L 820,115 L 890,115" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+
+  <!-- HREF підсвічування активного рядка 1 -->
+  <rect x="230" y="165" width="140" height="25" fill="#eaf0fd" opacity="0.6"/>
+  <line x1="230" y1="156" x2="370" y2="156" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="300" y="149" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">Активний рядок (t_LINE)</text>
+
+  <!-- HREF сигнальна лінія -->
+  <path d="M 140,190 L 230,190 L 230,165 L 370,165 L 370,190 L 410,190 L 410,165 L 550,165 L 550,190 L 590,190 M 650,190 L 650,165 L 790,165 L 790,190 L 890,190" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+
+  <!-- Позначення рядків та пауз -->
+  <text x="300" y="182" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Рядок 1</text>
+  <text x="390" y="206" font-size="12" fill="#6b7280" text-anchor="middle">t_HBLK</text>
+  <text x="480" y="182" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Рядок 2</text>
+  <text x="620" y="182" font-size="14" font-weight="700" fill="#6b7280" text-anchor="middle">. . .</text>
+  <text x="720" y="182" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Рядок N</text>
+
+  <!-- Лінії масштабування (Zoom) від Рядка 1 до Панелі 2 -->
+  <line x1="230" y1="190" x2="140" y2="245" stroke="#2457d6" stroke-dasharray="3,3" stroke-width="1.5" opacity="0.5"/>
+  <line x1="370" y1="190" x2="890" y2="245" stroke="#2457d6" stroke-dasharray="3,3" stroke-width="1.5" opacity="0.5"/>
+
+  <!-- ПАНЕЛЬ 2: Мікрорівень (Тактування PCLK та шина Y[9:2]) -->
+  <rect x="40" y="245" width="880" height="215" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="55" y="267" font-size="13" font-weight="700" fill="#1a1a1a">2. Деталізація рядка: Вибірка даних Y[9:2] за зростаючим фронтом PCLK</text>
+
+  <!-- Назви сигналів Панелі 2 -->
+  <text x="60" y="303" font-size="13" font-weight="700" fill="#2457d6">HREF</text>
+  <text x="60" y="348" font-size="13" font-weight="700" fill="#2457d6">PCLK</text>
+  <text x="60" y="398" font-size="13" font-weight="700" fill="#2457d6">Y[9:2]</text>
+
+  <!-- Вісь Панелі 2 -->
+  <line x1="140" y1="280" x2="140" y2="445" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- HREF лінія (High протягом усього активного рядка) -->
+  <path d="M 140,298 L 890,298" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+  <text x="160" y="292" font-size="12" font-weight="700" fill="#27ae60">HREF = HIGH (Дані рядка активні)</text>
+
+  <!-- Позначення зростаючих фронтів PCLK (Зчитування) -->
+  <text x="515" y="310" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">Зчитування байта в DMA за зростаючим фронтом PCLK</text>
+
+  <!-- PCLK сигнальна лінія -->
+  <path d="M 140,355 L 170,355 L 170,335 L 215,335 L 215,355 L 260,355 L 260,335 L 305,335 L 305,355 L 350,355 L 350,335 L 395,335 L 395,355 L 440,355 L 440,335 L 485,335 L 485,355 L 530,355 L 530,335 L 575,335 L 575,355 L 620,355 L 620,335 L 665,335 L 665,355 L 710,355 L 710,335 L 755,335 L 755,355 L 800,355 L 800,335 L 845,335 L 845,355 L 890,355" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+
+  <!-- Пунктирні лінії стробування від зростаючого фронту PCLK до верху осередку даних -->
+  <line x1="170" y1="325" x2="170" y2="376" stroke="#27ae60" stroke-dasharray="3,3" stroke-width="1.5"/>
+  <line x1="260" y1="325" x2="260" y2="376" stroke="#27ae60" stroke-dasharray="3,3" stroke-width="1.5"/>
+  <line x1="350" y1="325" x2="350" y2="376" stroke="#27ae60" stroke-dasharray="3,3" stroke-width="1.5"/>
+  <line x1="440" y1="325" x2="440" y2="376" stroke="#27ae60" stroke-dasharray="3,3" stroke-width="1.5"/>
+  <line x1="530" y1="325" x2="530" y2="376" stroke="#27ae60" stroke-dasharray="3,3" stroke-width="1.5"/>
+  <line x1="620" y1="325" x2="620" y2="376" stroke="#27ae60" stroke-dasharray="3,3" stroke-width="1.5"/>
+  <line x1="710" y1="325" x2="710" y2="376" stroke="#27ae60" stroke-dasharray="3,3" stroke-width="1.5"/>
+  <line x1="800" y1="325" x2="800" y2="376" stroke="#27ae60" stroke-dasharray="3,3" stroke-width="1.5"/>
+
+  <!-- Стрілки фронтів PCLK -->
+  <polygon points="170,323 166,316 174,316" fill="#27ae60"/>
+  <polygon points="260,323 256,316 264,316" fill="#27ae60"/>
+  <polygon points="350,323 346,316 354,316" fill="#27ae60"/>
+  <polygon points="440,323 436,316 444,316" fill="#27ae60"/>
+  <polygon points="530,323 526,316 534,316" fill="#27ae60"/>
+  <polygon points="620,323 616,316 624,316" fill="#27ae60"/>
+  <polygon points="710,323 706,316 714,316" fill="#27ae60"/>
+  <polygon points="800,323 796,316 804,316" fill="#27ae60"/>
+
+  <!-- Осередки байтів паралельної шини Y[9:2] -->
+  <polygon points="215,395 220,380 300,380 305,395 300,410 220,410" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <polygon points="305,395 310,380 390,380 395,395 390,410 310,410" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <polygon points="395,395 400,380 480,380 485,395 480,410 400,410" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <polygon points="485,395 490,380 570,380 575,395 570,410 490,410" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <polygon points="575,395 580,380 660,380 665,395 660,410 580,410" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <polygon points="665,395 670,380 750,380 755,395 750,410 670,410" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <polygon points="755,395 760,380 840,380 845,395 840,410 760,410" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+
+  <!-- Текст всередині осередків байтів -->
+  <text x="260" y="399" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Байт 1 (Y0)</text>
+  <text x="350" y="399" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Байт 2 (U0)</text>
+  <text x="440" y="399" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Байт 3 (Y1)</text>
+  <text x="530" y="399" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Байт 4 (V0)</text>
+  <text x="620" y="399" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Байт 5 (Y2)</text>
+  <text x="710" y="399" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Байт 6 (U2)</text>
+  <text x="800" y="399" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Байт 7 (Y3)</text>
+
+  <!-- Групувальні дужки пікселів -->
+  <path d="M 220,422 L 220,426 L 305,426 L 305,430 L 305,426 L 390,426 L 390,422" fill="none" stroke="#1a1a1a" stroke-width="1.2"/>
+  <text x="305" y="443" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Піксель 1 (2 байти)</text>
+
+  <path d="M 400,422 L 400,426 L 485,426 L 485,430 L 485,426 L 570,426 L 570,422" fill="none" stroke="#1a1a1a" stroke-width="1.2"/>
+  <text x="485" y="443" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Піксель 2 (2 байти)</text>
+
+  <path d="M 580,422 L 580,426 L 665,426 L 665,430 L 665,426 L 750,426 L 750,422" fill="none" stroke="#1a1a1a" stroke-width="1.2"/>
+  <text x="665" y="443" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Піксель 3 (2 байти)</text>
+
+</svg>

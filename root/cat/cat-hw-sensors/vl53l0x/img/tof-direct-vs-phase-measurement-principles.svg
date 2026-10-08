@@ -1,0 +1,129 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="540" viewBox="0 0 960 540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Canvas background -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Definitions for arrow markers -->
+  <defs>
+    <marker id="arr-dark" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-right-accent" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-left-accent" markerWidth="8" markerHeight="8" refX="1" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M7,1 L0,4 L7,7 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-right-green" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-left-green" markerWidth="8" markerHeight="8" refX="1" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M7,1 L0,4 L7,7 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="35" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Прямий (dToF) та фазовий (pToF) методи вимірювання відстані</text>
+  <text x="480" y="57" font-size="13" fill="#6b7280" text-anchor="middle">dToF реєструє час затримки імпульсу Δt, а pToF обчислює відстань через фазовий зсув Δφ</text>
+
+  <!-- ==================== PANEL 1: Direct ToF (dToF) ==================== -->
+  <rect x="30" y="75" width="900" height="215" rx="8" ry="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Panel 1 Title & Formula -->
+  <text x="45" y="100" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="start">1. Прямий метод вимірювання часу прольоту (dToF)</text>
+  <rect x="650" y="85" width="260" height="30" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="780" y="105" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">d = (c · Δt) / 2</text>
+
+  <!-- Signal Labels (Left Column) -->
+  <text x="145" y="152" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">Передавач (Tx)</text>
+  <text x="145" y="167" font-size="12" fill="#6b7280" text-anchor="end">Лазерний імпульс</text>
+
+  <text x="145" y="217" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">Приймач (Rx)</text>
+  <text x="145" y="232" font-size="12" fill="#6b7280" text-anchor="end">Сигнал на SPAD</text>
+
+  <!-- Baselines -->
+  <line x1="160" y1="165" x2="650" y2="165" stroke="#d0d7de" stroke-width="1.5"/>
+  <line x1="160" y1="235" x2="650" y2="235" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Tx Pulse -->
+  <rect x="220" y="125" width="30" height="40" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+
+  <!-- Rx Signal: Noise floor + Delayed pulse -->
+  <path d="M 160,235 L 200,235 L 204,232 L 208,235 L 280,235 L 284,231 L 288,235 L 340,235 L 344,233 L 348,235 L 440,235 L 470,235 L 520,235 L 524,232 L 528,235 L 650,235" fill="none" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="440" y="207" width="30" height="28" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+
+  <!-- Guide lines for Δt -->
+  <line x1="235" y1="120" x2="235" y2="265" stroke="#6b7280" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="455" y1="120" x2="455" y2="265" stroke="#6b7280" stroke-width="1" stroke-dasharray="3,3"/>
+
+  <!-- Δt Dimension arrow & badge -->
+  <line x1="235" y1="250" x2="300" y2="250" stroke="#2457d6" stroke-width="2" marker-start="url(#arr-left-accent)"/>
+  <line x1="390" y1="250" x2="455" y2="250" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-right-accent)"/>
+  <rect x="305" y="238" width="80" height="24" rx="4" fill="#2457d6"/>
+  <text x="345" y="254" font-size="12" font-weight="bold" fill="white" text-anchor="middle">Δt (час)</text>
+
+  <!-- Time Axis -->
+  <line x1="160" y1="275" x2="650" y2="275" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+  <text x="650" y="268" font-size="12" fill="#1a1a1a" text-anchor="end">Час (t)</text>
+
+  <!-- Right Info Card (dToF) -->
+  <rect x="670" y="125" width="240" height="145" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="682" y="147" font-size="12" font-weight="bold" fill="#1a1a1a">• Прямий відлік часу t</text>
+  <text x="682" y="163" font-size="12" fill="#6b7280">Вимірюється безпосередньо</text>
+  <text x="682" y="187" font-size="12" font-weight="bold" fill="#1a1a1a">• Короткі імпульси</text>
+  <text x="682" y="203" font-size="12" fill="#6b7280">Тривалість в пс / нс</text>
+  <text x="682" y="227" font-size="12" font-weight="bold" fill="#1a1a1a">• Детектор: SPAD матриця</text>
+  <text x="682" y="243" font-size="12" fill="#6b7280">Реєстрація окремих фотонів</text>
+
+  <!-- ==================== PANEL 2: Phase ToF (pToF / iToF) ==================== -->
+  <rect x="30" y="305" width="900" height="215" rx="8" ry="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Panel 2 Title & Formula -->
+  <text x="45" y="330" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="start">2. Фазовий метод вимірювання (pToF / iToF)</text>
+  <rect x="560" y="315" width="350" height="30" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="735" y="335" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Δt = Δφ / (2π f_mod)  ⇒  d = (c · Δφ) / (4π f_mod)</text>
+
+  <!-- Period T Indicator -->
+  <line x1="220" y1="348" x2="460" y2="348" stroke="#2457d6" stroke-width="1.5" marker-start="url(#arr-left-accent)" marker-end="url(#arr-right-accent)"/>
+  <text x="340" y="343" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Період T = 1 / f_mod</text>
+
+  <!-- Signal Labels (Left Column) -->
+  <text x="145" y="385" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">Передавач (Tx)</text>
+  <text x="145" y="400" font-size="12" fill="#6b7280" text-anchor="end">Модульований S_tx</text>
+
+  <text x="145" y="460" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">Приймач (Rx)</text>
+  <text x="145" y="475" font-size="12" fill="#6b7280" text-anchor="end">Зсунутий S_rx(t)</text>
+
+  <!-- Baselines for Sine Waves -->
+  <line x1="160" y1="390" x2="650" y2="390" stroke="#d0d7de" stroke-dasharray="2,2"/>
+  <line x1="160" y1="465" x2="650" y2="465" stroke="#d0d7de" stroke-dasharray="2,2"/>
+
+  <!-- Tx Modulated Waveform (Sine Wave) -->
+  <path d="M 160,390 C 182,390 198,365 220,365 C 242,365 258,390 280,390 C 302,390 318,415 340,415 C 362,415 378,390 400,390 C 422,390 438,365 460,365 C 482,365 498,390 520,390 C 542,390 558,415 580,415 C 602,415 618,390 640,390" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+
+  <!-- Rx Phase-Shifted Waveform (Sine Wave) -->
+  <path d="M 160,465 C 182,465 198,440 220,440 C 242,440 258,465 280,465 C 302,465 318,490 340,490 C 362,490 378,465 400,465 C 422,465 438,440 460,440 C 482,440 498,465 520,465 C 542,465 558,490 580,490 C 602,490 618,465 640,465" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+
+  <!-- Guide lines for Phase Shift Δφ -->
+  <line x1="220" y1="355" x2="220" y2="495" stroke="#6b7280" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="280" y1="355" x2="280" y2="495" stroke="#6b7280" stroke-width="1" stroke-dasharray="3,3"/>
+
+  <!-- Δφ Dimension arrow & badge -->
+  <line x1="220" y1="428" x2="229" y2="428" stroke="#27ae60" stroke-width="2" marker-start="url(#arr-left-green)"/>
+  <line x1="271" y1="428" x2="280" y2="428" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-right-green)"/>
+  <rect x="233" y="416" width="34" height="24" rx="4" fill="#27ae60"/>
+  <text x="250" y="432" font-size="12" font-weight="bold" fill="white" text-anchor="middle">Δφ</text>
+
+  <!-- Time Axis -->
+  <line x1="160" y1="505" x2="650" y2="505" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+  <text x="650" y="498" font-size="12" fill="#1a1a1a" text-anchor="end">Час (t)</text>
+
+  <!-- Right Info Card (pToF) -->
+  <rect x="670" y="355" width="240" height="150" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="682" y="375" font-size="12" font-weight="bold" fill="#1a1a1a">• Непрямий вимір (iToF)</text>
+  <text x="682" y="391" font-size="12" fill="#6b7280">Вимірюється фазовий зсув Δφ</text>
+  <text x="682" y="415" font-size="12" font-weight="bold" fill="#1a1a1a">• Неперервне опромінення</text>
+  <text x="682" y="431" font-size="12" fill="#6b7280">Модуляція з частотою f_mod</text>
+  <text x="682" y="455" font-size="12" font-weight="bold" fill="#1a1a1a">• Детектор: demod pixel</text>
+  <text x="682" y="471" font-size="12" fill="#6b7280">Накопичення заряду за фазами</text>
+  <text x="682" y="493" font-size="12" font-weight="bold" fill="#27ae60">• Основа технології VL53L0X</text>
+</svg>

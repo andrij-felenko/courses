@@ -1,0 +1,140 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Canvas Header -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Калібрування годографа синусно-косинусних сигналів енкодера</text>
+  <text x="480" y="56" font-size="13" fill="#6b7280" text-anchor="middle">Компенсація постійного зсуву, амплітудного дисбалансу та неортогональності фаз</text>
+
+  <!-- LEFT PANEL: Uncalibrated Hodograph (Deformed Ellipse) -->
+  <rect x="25" y="74" width="410" height="308" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="40" y="94" font-size="14" font-weight="bold" fill="#c0392b">1. Реальний деформований годограф (еліпс)</text>
+
+  <!-- Left Plane Grid/Axes -->
+  <!-- Ideal Circle reference line -->
+  <circle cx="215" cy="240" r="75" fill="none" stroke="#9ca3af" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <text x="40" y="345" font-size="12" fill="#6b7280">Ідеальне коло (R = 1)</text>
+
+  <!-- Left Axes -->
+  <line x1="55" y1="240" x2="400" y2="240" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+  <text x="405" y="244" font-size="12" font-weight="bold" fill="#1a1a1a">V_cos</text>
+
+  <line x1="215" y1="360" x2="215" y2="120" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+  <text x="215" y="112" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">V_sin</text>
+
+  <!-- Ideal Center (0,0) -->
+  <line x1="210" y1="240" x2="220" y2="240" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="215" y1="235" x2="215" y2="245" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="202" y="258" font-size="12" fill="#6b7280" text-anchor="end">(0,0)</text>
+
+  <!-- Deformed Ellipse (shifted center, tilted, non-equal axes) -->
+  <g transform="translate(250, 215) rotate(-20)">
+    <ellipse cx="0" cy="0" rx="105" ry="65" fill="#fdecea" fill-opacity="0.4" stroke="#c0392b" stroke-width="2.5"/>
+  </g>
+
+  <!-- Shift Vector V_os (from (215,240) to (250,215)) -->
+  <line x1="215" y1="240" x2="248" y2="216" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <circle cx="250" cy="215" r="3.5" fill="#c0392b"/>
+  <text x="258" y="208" font-size="12" font-weight="bold" fill="#c0392b">V_os (зсув)</text>
+
+  <!-- Gain Imbalance Callout -->
+  <text x="40" y="152" font-size="12" font-weight="bold" fill="#c0392b">A_cos ≠ A_sin</text>
+  <line x1="120" y1="150" x2="160" y2="175" stroke="#c0392b" stroke-width="1.2" stroke-dasharray="3,3"/>
+
+  <!-- Phase Error Callout (Tilt) -->
+  <line x1="145" y1="253" x2="355" y2="177" stroke="#c0392b" stroke-width="1.2" stroke-dasharray="4,4"/>
+  <text x="325" y="165" font-size="12" font-weight="bold" fill="#c0392b">Фазовий зсув α</text>
+
+  <!-- MIDDLE TRANSITION BADGE -->
+  <path d="M 445 240 L 515 240" stroke="#2457d6" stroke-width="3" marker-end="url(#arr-blue)"/>
+  <text x="480" y="222" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Калібрування</text>
+
+  <!-- RIGHT PANEL: Calibrated Hodograph (Normalized Circle) -->
+  <rect x="525" y="74" width="410" height="308" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="540" y="94" font-size="14" font-weight="bold" fill="#27ae60">2. Калібрований годограф (коло)</text>
+
+  <!-- Right Plane Grid/Axes -->
+  <line x1="555" y1="240" x2="880" y2="240" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+  <text x="885" y="244" font-size="12" font-weight="bold" fill="#1a1a1a">V_cos*</text>
+
+  <line x1="715" y1="360" x2="715" y2="120" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+  <text x="715" y="112" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">V_sin*</text>
+
+  <!-- Calibrated Circle (R = 75) -->
+  <circle cx="715" cy="240" r="75" fill="#e9f7ef" fill-opacity="0.7" stroke="#27ae60" stroke-width="2.5"/>
+
+  <!-- Origin (0,0) -->
+  <line x1="710" y1="240" x2="720" y2="240" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="715" y1="235" x2="715" y2="245" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="702" y="258" font-size="12" fill="#6b7280" text-anchor="end">(0,0)</text>
+
+  <!-- Vector V(θ) at θ = 55° -->
+  <line x1="715" y1="240" x2="756" y2="181" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+  <circle cx="758" cy="178.6" r="3.5" fill="#2457d6"/>
+  <text x="766" y="172" font-size="12" font-weight="bold" fill="#2457d6">V(θ)</text>
+
+  <!-- Projections -->
+  <line x1="758" y1="178.6" x2="758" y2="240" stroke="#2457d6" stroke-width="1.2" stroke-dasharray="3,3"/>
+  <text x="758" y="258" font-size="12" fill="#2457d6" text-anchor="middle">V_cos*</text>
+
+  <line x1="758" y1="178.6" x2="715" y2="178.6" stroke="#2457d6" stroke-width="1.2" stroke-dasharray="3,3"/>
+  <text x="702" y="182" font-size="12" fill="#2457d6" text-anchor="end">V_sin*</text>
+
+  <!-- Angle θ arc -->
+  <path d="M 743 240 A 28 28 0 0 0 731 217" fill="none" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="740" y="222" font-size="12" font-weight="bold" fill="#2457d6">θ</text>
+
+  <!-- Circle Radius R=1 label -->
+  <text x="540" y="345" font-size="12" font-weight="bold" fill="#27ae60">Нормоване коло (R = 1)</text>
+
+  <!-- BOTTOM PANEL: Mathematical Model & Algorithms -->
+  <rect x="25" y="395" width="910" height="125" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="40" y="416" font-size="13" font-weight="bold" fill="#2457d6">Математичні етапи калібрування сигналів:</text>
+
+  <!-- Col 1 -->
+  <text x="40" y="438" font-size="12" font-weight="bold" fill="#1a1a1a">1. Усунення зсуву</text>
+  <text x="40" y="456" font-size="12" fill="#1a1a1a">V_c,cos = V_cos - V_os,x</text>
+  <text x="40" y="472" font-size="12" fill="#1a1a1a">V_c,sin = V_sin - V_os,y</text>
+  <text x="40" y="506" font-size="12" fill="#6b7280">Центрування еліпса в (0,0)</text>
+
+  <line x1="245" y1="428" x2="245" y2="510" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Col 2 -->
+  <text x="260" y="438" font-size="12" font-weight="bold" fill="#1a1a1a">2. Вирівнювання посилення</text>
+  <text x="260" y="456" font-size="12" fill="#1a1a1a">V_g,cos = V_c,cos / A_cos</text>
+  <text x="260" y="472" font-size="12" fill="#1a1a1a">V_g,sin = V_c,sin / A_sin</text>
+  <text x="260" y="506" font-size="12" fill="#6b7280">Стиснення осей до R = 1</text>
+
+  <line x1="470" y1="428" x2="470" y2="510" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Col 3 -->
+  <text x="485" y="438" font-size="12" font-weight="bold" fill="#1a1a1a">3. Корекція фази</text>
+  <text x="485" y="456" font-size="12" fill="#1a1a1a">V_cos* = V_g,cos</text>
+  <text x="485" y="472" font-size="12" fill="#1a1a1a">V_sin* = (V_g,sin - sin α · V_g,cos) /</text>
+  <text x="535" y="488" font-size="12" fill="#1a1a1a">cos α</text>
+  <text x="485" y="506" font-size="12" fill="#6b7280">Усунення неортогональності</text>
+
+  <line x1="760" y1="428" x2="760" y2="510" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Col 4 -->
+  <text x="775" y="438" font-size="12" font-weight="bold" fill="#1a1a1a">4. Точний кут</text>
+  <text x="775" y="456" font-size="12" font-weight="bold" fill="#2457d6">θ = atan2(V_sin*,</text>
+  <text x="825" y="472" font-size="12" font-weight="bold" fill="#2457d6">V_cos*)</text>
+  <text x="775" y="506" font-size="12" fill="#6b7280">Кут 0..360° / CORDIC</text>
+
+</svg>

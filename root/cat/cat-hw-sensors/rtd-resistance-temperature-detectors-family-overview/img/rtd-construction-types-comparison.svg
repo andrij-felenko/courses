@@ -1,0 +1,162 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="520" fill="#ffffff"/>
+  
+  <defs>
+    <marker id="dot-blue" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto" markerUnits="userSpaceOnUse">
+      <circle cx="3" cy="3" r="2.5" fill="#2457d6"/>
+    </marker>
+    <marker id="dot-amber" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto" markerUnits="userSpaceOnUse">
+      <circle cx="3" cy="3" r="2.5" fill="#d97706"/>
+    </marker>
+    <marker id="dot-slate" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto" markerUnits="userSpaceOnUse">
+      <circle cx="3" cy="3" r="2.5" fill="#475569"/>
+    </marker>
+    <marker id="dot-dark" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto" markerUnits="userSpaceOnUse">
+      <circle cx="3" cy="3" r="2.5" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Конструктивні типи платинових елементів RTD</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Порівняння тонкоплівкової (Thin-Film) та дротової (Wire-Wound) технологій виготовлення</text>
+
+  <!-- Left Panel: Thin-Film -->
+  <rect x="30" y="70" width="435" height="425" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  
+  <rect x="45" y="85" width="405" height="45" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="247.5" y="104" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">Тонкоплівковий елемент (Thin-Film)</text>
+  <text x="247.5" y="121" font-size="12" fill="#6b7280" text-anchor="middle">Напилення шар-меандру на плоску кераміку</text>
+
+  <!-- Thin-Film Diagram -->
+  <!-- Al2O3 Substrate -->
+  <rect x="110" y="225" width="150" height="24" fill="#cbd5e1" stroke="#475569" stroke-width="1.5" rx="2"/>
+  
+  <!-- Platinum Serpentine Layer -->
+  <rect x="115" y="217" width="140" height="8" fill="#d97706" stroke="#b45309" stroke-width="1" rx="1"/>
+  <path d="M 125 217 L 125 225 M 135 217 L 135 225 M 145 217 L 145 225 M 155 217 L 155 225 M 165 217 L 165 225 M 175 217 L 175 225 M 185 217 L 185 225 M 195 217 L 195 225 M 205 217 L 205 225 M 215 217 L 215 225 M 225 217 L 225 225 M 235 217 L 235 225 M 245 217 L 245 225" stroke="#ffffff" stroke-width="1.5"/>
+
+  <!-- Glass Passivation Layer -->
+  <rect x="110" y="198" width="150" height="19" fill="#2457d6" fill-opacity="0.15" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4,2" rx="2"/>
+
+  <!-- Contact Pads & Lead Wires -->
+  <rect x="112" y="206" width="20" height="12" fill="#94a3b8" stroke="#475569" stroke-width="1"/>
+  <rect x="238" y="206" width="20" height="12" fill="#94a3b8" stroke="#475569" stroke-width="1"/>
+  <line x1="55" y1="212" x2="112" y2="212" stroke="#475569" stroke-width="3" stroke-linecap="round"/>
+  <line x1="258" y1="212" x2="300" y2="212" stroke="#475569" stroke-width="3" stroke-linecap="round"/>
+
+  <!-- Thin-Film Annotations -->
+  <text x="45" y="168" font-size="12" font-weight="bold" fill="#1a1a1a">Контактні виводи</text>
+  <text x="45" y="182" font-size="11" fill="#6b7280">(приварені дрітки)</text>
+  <line x1="95" y1="187" x2="80" y2="210" stroke="#1a1a1a" stroke-width="1.2" marker-end="url(#dot-dark)"/>
+
+  <text x="315" y="168" font-size="12" font-weight="bold" fill="#2457d6">Захисне скло</text>
+  <text x="315" y="182" font-size="11" fill="#6b7280">(пасиваційний шар)</text>
+  <line x1="310" y1="175" x2="240" y2="205" stroke="#2457d6" stroke-width="1.2" marker-end="url(#dot-blue)"/>
+
+  <text x="315" y="208" font-size="12" font-weight="bold" fill="#d97706">Платиновий шар</text>
+  <text x="315" y="222" font-size="11" fill="#6b7280">меандр (~1 мкм)</text>
+  <line x1="310" y1="215" x2="245" y2="221" stroke="#d97706" stroke-width="1.2" marker-end="url(#dot-amber)"/>
+
+  <text x="315" y="248" font-size="12" font-weight="bold" fill="#475569">Керамічна основа</text>
+  <text x="315" y="262" font-size="11" fill="#6b7280">Al₂O₃ (0.5–1 мм)</text>
+  <line x1="310" y1="255" x2="245" y2="237" stroke="#475569" stroke-width="1.2" marker-end="url(#dot-slate)"/>
+
+  <!-- Left Characteristics Card -->
+  <rect x="45" y="280" width="405" height="200" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="45" y="280" width="405" height="28" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="247.5" y="299" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Ключові властивості тонкоплівкових елементів</text>
+
+  <!-- Row 1 -->
+  <rect x="55" y="316" width="110" height="22" rx="4" fill="#e9f7ef"/>
+  <text x="110" y="331" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">✔ Габарити</text>
+  <text x="175" y="331" font-size="12" fill="#1a1a1a">Мікрогабарити (наприклад, 2×2×1 мм)</text>
+
+  <!-- Row 2 -->
+  <rect x="55" y="346" width="110" height="22" rx="4" fill="#e9f7ef"/>
+  <text x="110" y="361" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">✔ Механіка</text>
+  <text x="175" y="361" font-size="12" fill="#1a1a1a">Висока вібростійкість (моноліт)</text>
+
+  <!-- Row 3 -->
+  <rect x="55" y="376" width="110" height="22" rx="4" fill="#e9f7ef"/>
+  <text x="110" y="391" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">✔ Відгук</text>
+  <text x="175" y="391" font-size="12" fill="#1a1a1a">Швидка реакція (τ₀.₅ ≈ 0.1–0.3 с)</text>
+
+  <!-- Row 4 -->
+  <rect x="55" y="406" width="110" height="22" rx="4" fill="#fdecea"/>
+  <text x="110" y="421" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">⚠ Діапазон</text>
+  <text x="175" y="421" font-size="12" fill="#1a1a1a">-50 °C ... +400 °C (до +500 °C)</text>
+
+  <!-- Row 5 -->
+  <rect x="55" y="436" width="110" height="22" rx="4" fill="#eaf0fd"/>
+  <text x="110" y="451" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">ℹ Серія / Ціна</text>
+  <text x="175" y="451" font-size="12" fill="#1a1a1a">Автоматичне масове виробництво</text>
+
+  <!-- Right Panel: Wire-Wound -->
+  <rect x="495" y="70" width="435" height="425" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  
+  <rect x="510" y="85" width="405" height="45" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="712.5" y="104" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">Дротовий елемент (Wire-Wound)</text>
+  <text x="712.5" y="121" font-size="12" fill="#6b7280" text-anchor="middle">Платинова спіраль у керамічній або скляній колбі</text>
+
+  <!-- Wire-Wound Diagram -->
+  <!-- Ceramic Body Outer -->
+  <rect x="565" y="190" width="155" height="55" fill="#e2e8f0" stroke="#475569" stroke-width="1.5" rx="6"/>
+  
+  <!-- Cutaway Window & Ceramic Powder -->
+  <rect x="585" y="200" width="115" height="35" fill="#ffffff" stroke="#cbd5e1" stroke-width="1" rx="3"/>
+  <rect x="586" y="201" width="113" height="33" fill="#f8fafc" rx="2"/>
+
+  <!-- Helical Platinum Wire Coil -->
+  <path d="M 593 217 C 593 207, 605 207, 605 217 C 605 227, 617 227, 617 217 C 617 207, 629 207, 629 217 C 629 227, 641 227, 641 217 C 641 207, 653 207, 653 217 C 653 227, 665 227, 665 217 C 665 207, 677 207, 677 217 C 677 227, 689 227, 689 217" fill="none" stroke="#d97706" stroke-width="2.5" stroke-linecap="round"/>
+
+  <!-- Lead Wires -->
+  <line x1="515" y1="207" x2="585" y2="207" stroke="#475569" stroke-width="3" stroke-linecap="round"/>
+  <line x1="515" y1="227" x2="585" y2="227" stroke="#475569" stroke-width="3" stroke-linecap="round"/>
+
+  <!-- Wire-Wound Annotations -->
+  <text x="510" y="168" font-size="12" font-weight="bold" fill="#1a1a1a">Міцні виводи</text>
+  <text x="510" y="182" font-size="11" fill="#6b7280">(дріт Pt / Ni)</text>
+  <line x1="545" y1="185" x2="545" y2="203" stroke="#1a1a1a" stroke-width="1.2" marker-end="url(#dot-dark)"/>
+
+  <text x="745" y="168" font-size="12" font-weight="bold" fill="#475569">Керамічна трубка</text>
+  <text x="745" y="182" font-size="11" fill="#6b7280">Al₂O₃ (Ø 1.5–3 мм)</text>
+  <line x1="740" y1="175" x2="705" y2="193" stroke="#475569" stroke-width="1.2" marker-end="url(#dot-slate)"/>
+
+  <text x="745" y="208" font-size="12" font-weight="bold" fill="#d97706">Платинова спіраль</text>
+  <text x="745" y="222" font-size="11" fill="#6b7280">дріт Ø 15–25 мкм</text>
+  <line x1="740" y1="215" x2="690" y2="217" stroke="#d97706" stroke-width="1.2" marker-end="url(#dot-amber)"/>
+
+  <text x="745" y="248" font-size="12" font-weight="bold" fill="#2457d6">Фіксуючий порошок</text>
+  <text x="745" y="262" font-size="11" fill="#6b7280">порошок Al₂O₃</text>
+  <line x1="740" y1="255" x2="675" y2="230" stroke="#2457d6" stroke-width="1.2" marker-end="url(#dot-blue)"/>
+
+  <!-- Right Characteristics Card -->
+  <rect x="510" y="280" width="405" height="200" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="510" y="280" width="405" height="28" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="712.5" y="299" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Ключові властивості дротових елементів</text>
+
+  <!-- Row 1 -->
+  <rect x="520" y="316" width="110" height="22" rx="4" fill="#fdecea"/>
+  <text x="575" y="331" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">⚠ Габарити</text>
+  <text x="640" y="331" font-size="12" fill="#1a1a1a">Більші (Ø 1.5–3 мм, L = 10–20 мм)</text>
+
+  <!-- Row 2 -->
+  <rect x="520" y="346" width="110" height="22" rx="4" fill="#fdecea"/>
+  <text x="575" y="361" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">⚠ Механіка</text>
+  <text x="640" y="361" font-size="12" fill="#1a1a1a">Чутливі до сильних ударів і вібрацій</text>
+
+  <!-- Row 3 -->
+  <rect x="520" y="376" width="110" height="22" rx="4" fill="#f4f6f8"/>
+  <text x="575" y="391" font-size="11" font-weight="bold" fill="#6b7280" text-anchor="middle">⏱ Відгук</text>
+  <text x="640" y="391" font-size="12" fill="#1a1a1a">Більша інерційність (τ₀.₅ ≈ 1–3 с)</text>
+
+  <!-- Row 4 -->
+  <rect x="520" y="406" width="110" height="22" rx="4" fill="#e9f7ef"/>
+  <text x="575" y="421" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">✔ Діапазон</text>
+  <text x="640" y="421" font-size="12" fill="#1a1a1a">-200 °C ... +600 °C (до +850 °C)</text>
+
+  <!-- Row 5 -->
+  <rect x="520" y="436" width="110" height="22" rx="4" fill="#e9f7ef"/>
+  <text x="575" y="451" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">✔ Точність</text>
+  <text x="640" y="451" font-size="12" fill="#1a1a1a">Найвища точність (клас AA, 1/10 DIN)</text>
+</svg>

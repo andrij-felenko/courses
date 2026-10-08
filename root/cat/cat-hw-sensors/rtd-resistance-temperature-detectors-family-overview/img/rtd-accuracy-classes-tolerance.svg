@@ -1,0 +1,149 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Canvas Header -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Коридор допусків температурних класів точності RTD</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Клас AA та 1/3 DIN мають найвужчу похибку біля 0 °C, а Class B — найширший діапазон</text>
+
+  <!-- Left Panel: Graph Area -->
+  <rect x="25" y="75" width="650" height="398" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="8"/>
+  <text x="40" y="94" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="start">Похибка вимірювання Δt (°C) залежно від t (°C)</text>
+
+  <!-- Inner Plot White Background for high contrast -->
+  <rect x="100" y="115" width="540" height="300" fill="#ffffff" stroke="#e5e7eb" stroke-width="1"/>
+
+  <!-- Gridlines -->
+  <!-- Horizontal grid lines -->
+  <line x1="100" y1="165" x2="640" y2="165" stroke="#f3f4f6" stroke-width="1"/>
+  <line x1="100" y1="215" x2="640" y2="215" stroke="#f3f4f6" stroke-width="1"/>
+  <line x1="100" y1="315" x2="640" y2="315" stroke="#f3f4f6" stroke-width="1"/>
+  <line x1="100" y1="365" x2="640" y2="365" stroke="#f3f4f6" stroke-width="1"/>
+
+  <!-- Vertical grid lines -->
+  <line x1="167.5" y1="115" x2="167.5" y2="415" stroke="#f3f4f6" stroke-width="1"/>
+  <line x1="302.5" y1="115" x2="302.5" y2="415" stroke="#f3f4f6" stroke-width="1"/>
+  <line x1="370" y1="115" x2="370" y2="415" stroke="#f3f4f6" stroke-width="1"/>
+  <line x1="437.5" y1="115" x2="437.5" y2="415" stroke="#f3f4f6" stroke-width="1"/>
+  <line x1="505" y1="115" x2="505" y2="415" stroke="#f3f4f6" stroke-width="1"/>
+  <line x1="572.5" y1="115" x2="572.5" y2="415" stroke="#f3f4f6" stroke-width="1"/>
+
+  <!-- Zero Reference Axis Lines (Center axes) -->
+  <!-- Nominal zero temperature t = 0 °C -->
+  <line x1="235" y1="115" x2="235" y2="415" stroke="#9ca3af" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <!-- Nominal zero error Δt = 0 °C -->
+  <line x1="100" y1="265" x2="640" y2="265" stroke="#9ca3af" stroke-width="1.5" stroke-dasharray="4,4"/>
+
+  <!-- Class B Tolerance Corridor (Gray) -->
+  <path d="M 100,200 L 167.5,225 L 235,250 L 302.5,225 L 370,200 L 437.5,175 L 505,150 L 572.5,125 L 640,100 L 640,430 L 572.5,405 L 505,380 L 437.5,355 L 370,330 L 302.5,305 L 235,280 L 167.5,305 L 100,330 Z" fill="#6b7280" fill-opacity="0.12" stroke="#6b7280" stroke-width="1.5"/>
+
+  <!-- Class A Tolerance Corridor (Amber/Orange) -->
+  <path d="M 167.5,247.5 L 235,257.5 L 302.5,247.5 L 370,237.5 L 437.5,227.5 L 505,217.5 L 538.75,212.5 L 538.75,317.5 L 505,312.5 L 437.5,302.5 L 370,292.5 L 302.5,282.5 L 235,272.5 L 167.5,282.5 Z" fill="#d97706" fill-opacity="0.18" stroke="#d97706" stroke-width="1.5"/>
+
+  <!-- Class AA Tolerance Corridor (Blue) -->
+  <path d="M 201.25,255.75 L 235,260 L 302.5,251.5 L 370,243 L 403.75,238.75 L 403.75,291.25 L 370,287 L 302.5,278.5 L 235,270 L 201.25,274.25 Z" fill="#2457d6" fill-opacity="0.25" stroke="#2457d6" stroke-width="1.5"/>
+
+  <!-- Class 1/3 DIN Tolerance Corridor (Green/Emerald) -->
+  <path d="M 235,260 L 302.5,251.65 L 336.25,247.5 L 336.25,282.5 L 302.5,278.35 L 235,270 Z" fill="#27ae60" fill-opacity="0.35" stroke="#27ae60" stroke-width="1.5"/>
+
+  <!-- Axis Borders & Ticks -->
+  <!-- Y Axis Line -->
+  <line x1="100" y1="115" x2="100" y2="415" stroke="#1a1a1a" stroke-width="1.5"/>
+  <!-- X Axis Line -->
+  <line x1="100" y1="415" x2="640" y2="415" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Y Ticks -->
+  <line x1="95" y1="115" x2="100" y2="115" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="95" y1="165" x2="100" y2="165" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="95" y1="215" x2="100" y2="215" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="95" y1="265" x2="100" y2="265" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="95" y1="315" x2="100" y2="315" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="95" y1="365" x2="100" y2="365" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="95" y1="415" x2="100" y2="415" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Y Axis Labels (x=90, text-anchor=end) -->
+  <text x="90" y="119" font-size="12" fill="#1a1a1a" text-anchor="end">+3.0 °C</text>
+  <text x="90" y="169" font-size="12" fill="#1a1a1a" text-anchor="end">+2.0 °C</text>
+  <text x="90" y="219" font-size="12" fill="#1a1a1a" text-anchor="end">+1.0 °C</text>
+  <text x="90" y="269" font-size="12" fill="#1a1a1a" text-anchor="end">0.0 °C</text>
+  <text x="90" y="319" font-size="12" fill="#1a1a1a" text-anchor="end">-1.0 °C</text>
+  <text x="90" y="369" font-size="12" fill="#1a1a1a" text-anchor="end">-2.0 °C</text>
+  <text x="90" y="419" font-size="12" fill="#1a1a1a" text-anchor="end">-3.0 °C</text>
+
+  <!-- X Ticks -->
+  <line x1="100" y1="415" x2="100" y2="420" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="167.5" y1="415" x2="167.5" y2="420" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="235" y1="415" x2="235" y2="420" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="302.5" y1="415" x2="302.5" y2="420" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="370" y1="415" x2="370" y2="420" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="437.5" y1="415" x2="437.5" y2="420" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="505" y1="415" x2="505" y2="420" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="572.5" y1="415" x2="572.5" y2="420" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="640" y1="415" x2="640" y2="420" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- X Axis Labels (y=432, text-anchor=middle) -->
+  <text x="100" y="432" font-size="12" fill="#1a1a1a" text-anchor="middle">-200 °C</text>
+  <text x="167.5" y="432" font-size="12" fill="#1a1a1a" text-anchor="middle">-100 °C</text>
+  <text x="235" y="432" font-size="12" fill="#1a1a1a" text-anchor="middle">0 °C</text>
+  <text x="302.5" y="432" font-size="12" fill="#1a1a1a" text-anchor="middle">+100 °C</text>
+  <text x="370" y="432" font-size="12" fill="#1a1a1a" text-anchor="middle">+200 °C</text>
+  <text x="437.5" y="432" font-size="12" fill="#1a1a1a" text-anchor="middle">+300 °C</text>
+  <text x="505" y="432" font-size="12" fill="#1a1a1a" text-anchor="middle">+400 °C</text>
+  <text x="572.5" y="432" font-size="12" fill="#1a1a1a" text-anchor="middle">+500 °C</text>
+  <text x="640" y="432" font-size="12" fill="#1a1a1a" text-anchor="middle">+600 °C</text>
+
+  <!-- X Axis Title -->
+  <text x="370" y="458" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Температура середовища t (°C)</text>
+
+  <!-- In-chart Corridor Labels -->
+  <text x="580" y="105" font-size="12" font-weight="bold" fill="#4a5568" text-anchor="middle">Class B</text>
+  <text x="480" y="195" font-size="12" font-weight="bold" fill="#d97706" text-anchor="middle">Class A</text>
+  <text x="380" y="225" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Class AA</text>
+  <text x="330" y="238" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">1/3 DIN</text>
+
+  <!-- Right Panel: Specifications & Formulas -->
+  <rect x="690" y="75" width="245" height="398" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="8"/>
+  <text x="812.5" y="98" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Параметри класів (IEC 60751)</text>
+  <line x1="705" y1="108" x2="920" y2="108" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Card 1: 1/3 DIN -->
+  <rect x="703" y="118" width="219" height="72" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="5"/>
+  <text x="713" y="134" font-size="12" font-weight="bold" fill="#27ae60">1/3 DIN (дробовий DIN)</text>
+  <text x="713" y="152" font-size="12" fill="#1a1a1a">Δt = ±(0.10 + 0.0017·|t|) °C</text>
+  <text x="713" y="170" font-size="12" fill="#6b7280">Діапазон: 0... +150 °C</text>
+
+  <!-- Card 2: Class AA -->
+  <rect x="703" y="200" width="219" height="72" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="5"/>
+  <text x="713" y="216" font-size="12" font-weight="bold" fill="#2457d6">Class AA (найвищий IEC)</text>
+  <text x="713" y="234" font-size="12" fill="#1a1a1a">Δt = ±(0.10 + 0.0017·|t|) °C</text>
+  <text x="713" y="252" font-size="12" fill="#6b7280">Діапазон: -50... +250 °C</text>
+
+  <!-- Card 3: Class A -->
+  <rect x="703" y="282" width="219" height="72" fill="#fffbe6" stroke="#d97706" stroke-width="1.5" rx="5"/>
+  <text x="713" y="298" font-size="12" font-weight="bold" fill="#d97706">Class A (промисловий точний)</text>
+  <text x="713" y="316" font-size="12" fill="#1a1a1a">Δt = ±(0.15 + 0.0020·|t|) °C</text>
+  <text x="713" y="334" font-size="12" fill="#6b7280">Діапазон: -100... +450 °C</text>
+
+  <!-- Card 4: Class B -->
+  <rect x="703" y="364" width="219" height="95" fill="#f8fafc" stroke="#6b7280" stroke-width="1.5" rx="5"/>
+  <text x="713" y="380" font-size="12" font-weight="bold" fill="#4a5568">Class B (базовий стандарт)</text>
+  <text x="713" y="398" font-size="12" fill="#1a1a1a">Δt = ±(0.30 + 0.0050·|t|) °C</text>
+  <text x="713" y="416" font-size="12" fill="#6b7280">Діапазон: -196... +600 °C</text>
+  <text x="713" y="434" font-size="12" fill="#4a5568">Похибка при 0 °C: ±0.30 °C</text>
+
+  <!-- Bottom Panel: Practical Summary Banner -->
+  <rect x="25" y="488" width="910" height="52" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="6"/>
+  <rect x="35" y="496" width="135" height="36" fill="#2457d6" rx="4"/>
+  <text x="102.5" y="518" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">ПРАКТИЧНИЙ ВИСНОВОК</text>
+  <text x="185" y="508" font-size="12" fill="#1a1a1a">• Для високої точності біля 0...100 °C обирають Class AA або 1/3 DIN (похибка не перевищує ±0.1...0.27 °C).</text>
+  <text x="185" y="528" font-size="12" fill="#6b7280">• Для широких діапазонів (до +600 °C) або економії застосовують Class B з розрахунком бюджету похибки.</text>
+</svg>

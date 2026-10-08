@@ -1,0 +1,145 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Геометрія відбиття давача TCRT5000 та формування сигналу</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Відбиття ІЧ-променя від білої секції формує піковий струм IC при відстані d ≈ 2.5 мм</text>
+
+  <!-- ЛІВА ПАНЕЛЬ: Оптична схема -->
+  <rect x="30" y="72" width="465" height="445" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="262.5" y="96" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Оптична схема розміщення TCRT5000</text>
+  <text x="262.5" y="114" font-size="12" fill="#6b7280" text-anchor="middle">Корпус давача TCRT5000</text>
+
+  <!-- Напис та вказівник оптичного бар'єра розміщено зверху, поза контурами корпусу -->
+  <text x="262.5" y="128" font-size="12" font-weight="bold" fill="#374151" text-anchor="middle">Бар'єр</text>
+  <line x1="262.5" y1="129" x2="262.5" y2="134" stroke="#374151" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+
+  <!-- Корпус давача -->
+  <rect x="125" y="135" width="275" height="80" rx="6" fill="#1a1a1a"/>
+
+  <!-- Внутрішній блок: ІЧ-світлодіод -->
+  <rect x="137" y="142" width="110" height="66" rx="4" fill="#2457d6" fill-opacity="0.15" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="192" y="159" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">ІЧ-світлодіод</text>
+  <text x="192" y="176" font-size="12" fill="#2457d6" text-anchor="middle">Випромінювач</text>
+  <text x="192" y="193" font-size="12" fill="#2457d6" text-anchor="middle">λ = 950 нм</text>
+
+  <!-- Центральна перегородка (бар'єр без внутрішнього тексту) -->
+  <rect x="256" y="135" width="13" height="80" fill="#374151"/>
+
+  <!-- Внутрішній блок: Фототранзистор -->
+  <rect x="278" y="142" width="110" height="66" rx="4" fill="#27ae60" fill-opacity="0.15" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="333" y="159" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Фототранзистор</text>
+  <text x="333" y="176" font-size="12" fill="#27ae60" text-anchor="middle">Приймач</text>
+  <text x="333" y="193" font-size="12" fill="#27ae60" text-anchor="middle">відбиття</text>
+
+  <!-- Оптичні промені -->
+  <polygon points="177,215 207,215 305,360 275,360" fill="#2457d6" fill-opacity="0.12"/>
+  <line x1="192" y1="215" x2="284" y2="351" stroke="#2457d6" stroke-width="2.5" stroke-dasharray="6,3" marker-end="url(#arr-blue)"/>
+
+  <polygon points="275,360 305,360 348,215 318,215" fill="#27ae60" fill-opacity="0.12"/>
+  <line x1="290" y1="360" x2="328" y2="225" stroke="#27ae60" stroke-width="2.5" stroke-dasharray="6,3" marker-end="url(#arr-green)"/>
+
+  <circle cx="290" cy="360" r="5" fill="#27ae60" stroke="#ffffff" stroke-width="1.5"/>
+
+  <!-- Підписи променів -->
+  <text x="175" y="252" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">Падаючий промінь</text>
+  <text x="365" y="252" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="start">Відбитий промінь</text>
+
+  <!-- Позначення фокусної відстані -->
+  <line x1="60" y1="215" x2="60" y2="360" stroke="#c0392b" stroke-width="1.5"/>
+  <path d="M 56,223 L 60,215 L 64,223" fill="none" stroke="#c0392b" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M 56,352 L 60,360 L 64,352" fill="none" stroke="#c0392b" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <line x1="45" y1="215" x2="125" y2="215" stroke="#c0392b" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="45" y1="360" x2="240" y2="360" stroke="#c0392b" stroke-width="1" stroke-dasharray="3,3"/>
+
+  <text x="68" y="280" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="start">d ≈ 2.5 мм</text>
+  <text x="68" y="297" font-size="12" fill="#c0392b" text-anchor="start">(Фокус)</text>
+
+  <!-- Секції рухомого диска -->
+  <rect x="55" y="360" width="185" height="50" fill="#1a1a1a" stroke="#d0d7de"/>
+  <text x="147.5" y="390" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">Чорна секція (Поглинання)</text>
+
+  <rect x="240" y="360" width="225" height="50" fill="#ffffff" stroke="#d0d7de" stroke-width="2"/>
+  <text x="352.5" y="390" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Біла секція (Відбиття)</text>
+
+  <!-- Стрілка напрямку руху -->
+  <line x1="160" y1="428" x2="340" y2="428" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr-dark)"/>
+  <text x="250" y="448" font-size="12" fill="#1a1a1a" text-anchor="middle">Напрямок руху валу / диска (v)</text>
+
+  <!-- Планка-висновок лівої панелі -->
+  <rect x="45" y="468" width="435" height="34" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="262.5" y="489" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Максимальний струм IC досягається при фокусі d ≈ 2.5 мм</text>
+
+  <!-- ПРАВА ПАНЕЛЬ: Залежність струму IC -->
+  <rect x="515" y="72" width="415" height="445" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="722.5" y="96" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Залежність струму IC від відстані та поверхні</text>
+
+  <!-- Графік А -->
+  <text x="535" y="120" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">А. Струм IC залежно від відстані d</text>
+
+  <line x1="765" y1="116" x2="785" y2="116" stroke="#2457d6" stroke-width="2.5"/>
+  <text x="790" y="120" font-size="12" fill="#1a1a1a" text-anchor="start">Біла поверхня</text>
+  <line x1="765" y1="134" x2="785" y2="134" stroke="#c0392b" stroke-width="2" stroke-dasharray="4,3"/>
+  <text x="790" y="138" font-size="12" fill="#1a1a1a" text-anchor="start">Чорна поверхня</text>
+
+  <line x1="585" y1="240" x2="585" y2="145" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+  <line x1="585" y1="240" x2="885" y2="240" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+  <text x="578" y="150" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">IC (мА)</text>
+  <text x="890" y="244" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">d (мм)</text>
+
+  <line x1="675" y1="240" x2="675" y2="245" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="675" y="258" font-size="12" fill="#1a1a1a" text-anchor="middle">2.5</text>
+
+  <line x1="765" y1="240" x2="765" y2="245" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="765" y="258" font-size="12" fill="#1a1a1a" text-anchor="middle">5.0</text>
+
+  <line x1="865" y1="240" x2="865" y2="245" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="865" y="258" font-size="12" fill="#1a1a1a" text-anchor="middle">10.0</text>
+
+  <path d="M 585,238 C 615,235 645,158 675,158 C 730,158 780,205 880,232" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+  <line x1="585" y1="236" x2="880" y2="236" stroke="#c0392b" stroke-width="2" stroke-dasharray="4,3"/>
+
+  <line x1="675" y1="158" x2="675" y2="240" stroke="#2457d6" stroke-width="1" stroke-dasharray="3,3"/>
+  <circle cx="675" cy="158" r="4" fill="#2457d6"/>
+  <text x="685" y="154" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="start">Пік IC (робоча зона)</text>
+
+  <!-- Графік Б -->
+  <text x="535" y="286" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">Б. Імпульси струму IC(t) при зміні секцій</text>
+
+  <rect x="585" y="315" width="55" height="110" fill="#d0d7de" fill-opacity="0.3"/>
+  <rect x="640" y="315" width="140" height="110" fill="#eaf0fd" fill-opacity="0.5"/>
+  <rect x="780" y="315" width="50" height="110" fill="#d0d7de" fill-opacity="0.3"/>
+  <rect x="830" y="315" width="55" height="110" fill="#eaf0fd" fill-opacity="0.5"/>
+
+  <text x="612.5" y="306" font-size="12" fill="#6b7280" text-anchor="middle">ЧОРНА</text>
+  <text x="710" y="306" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">БІЛА</text>
+  <text x="805" y="306" font-size="12" fill="#6b7280" text-anchor="middle">ЧОРНА</text>
+  <text x="857.5" y="306" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">БІЛА</text>
+
+  <line x1="585" y1="425" x2="585" y2="315" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+  <line x1="585" y1="425" x2="885" y2="425" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+  <text x="578" y="325" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">IC</text>
+  <text x="890" y="429" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">Час (t)</text>
+
+  <path d="M 585,415 L 630,415 L 645,340 L 775,340 L 785,415 L 825,415 L 835,340 L 885,340" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+
+  <line x1="585" y1="385" x2="885" y2="385" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <text x="578" y="389" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="end">Ith</text>
+  <text x="710" y="360" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Поріг компаратора</text>
+  <text x="710" y="375" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">(поріг Ith)</text>
+
+  <!-- Планка-висновок правої панелі -->
+  <rect x="525" y="468" width="395" height="34" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="722.5" y="489" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Компаратор перетворює IC &gt; Ith у цифровий імпульс (0V / 5V)</text>
+</svg>

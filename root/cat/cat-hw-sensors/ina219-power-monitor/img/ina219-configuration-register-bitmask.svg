@@ -1,0 +1,155 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 500" width="960" height="500" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="500" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="30" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Бітова маска конфігураційного регістру INA219 (0x00)</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">16-бітне слово визначає режими вимірювання, діапазон PGA, точність АЦП та скидання</text>
+
+  <!-- Bit Headers (Bit numbers 15 to 0) -->
+  <g font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">
+    <text x="67.5" y="88">15</text>
+    <text x="122.5" y="88">14</text>
+    <text x="177.5" y="88">13</text>
+    <text x="232.5" y="88">12</text>
+    <text x="287.5" y="88">11</text>
+    <text x="342.5" y="88">10</text>
+    <text x="397.5" y="88">9</text>
+    <text x="452.5" y="88">8</text>
+    <text x="507.5" y="88">7</text>
+    <text x="562.5" y="88">6</text>
+    <text x="617.5" y="88">5</text>
+    <text x="672.5" y="88">4</text>
+    <text x="727.5" y="88">3</text>
+    <text x="782.5" y="88">2</text>
+    <text x="837.5" y="88">1</text>
+    <text x="892.5" y="88">0</text>
+  </g>
+
+  <!-- Bit Cells (Register Row) -->
+  <!-- Bit 15: RST -->
+  <rect x="40" y="98" width="55" height="44" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" rx="3"/>
+  <text x="67.5" y="125" font-size="13" font-weight="700" fill="#c0392b" text-anchor="middle">RST</text>
+
+  <!-- Bit 14: Unused -->
+  <rect x="95" y="98" width="55" height="44" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="3"/>
+  <text x="122.5" y="125" font-size="13" font-weight="700" fill="#6b7280" text-anchor="middle">—</text>
+
+  <!-- Bit 13: BRNG -->
+  <rect x="150" y="98" width="55" height="44" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="3"/>
+  <text x="177.5" y="125" font-size="13" font-weight="700" fill="#2457d6" text-anchor="middle">BRNG</text>
+
+  <!-- Bits 12-11: PG1, PG0 -->
+  <rect x="205" y="98" width="110" height="44" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="3"/>
+  <line x1="260" y1="98" x2="260" y2="142" stroke="#27ae60" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="232.5" y="125" font-size="13" font-weight="700" fill="#27ae60" text-anchor="middle">PG1</text>
+  <text x="287.5" y="125" font-size="13" font-weight="700" fill="#27ae60" text-anchor="middle">PG0</text>
+
+  <!-- Bits 10-7: BADC4..1 -->
+  <rect x="315" y="98" width="220" height="44" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="3"/>
+  <line x1="370" y1="98" x2="370" y2="142" stroke="#2457d6" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="425" y1="98" x2="425" y2="142" stroke="#2457d6" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="480" y1="98" x2="480" y2="142" stroke="#2457d6" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="342.5" y="125" font-size="11" font-weight="700" fill="#2457d6" text-anchor="middle">BADC4</text>
+  <text x="397.5" y="125" font-size="11" font-weight="700" fill="#2457d6" text-anchor="middle">BADC3</text>
+  <text x="452.5" y="125" font-size="11" font-weight="700" fill="#2457d6" text-anchor="middle">BADC2</text>
+  <text x="507.5" y="125" font-size="11" font-weight="700" fill="#2457d6" text-anchor="middle">BADC1</text>
+
+  <!-- Bits 6-3: SADC4..1 -->
+  <rect x="535" y="98" width="220" height="44" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="3"/>
+  <line x1="590" y1="98" x2="590" y2="142" stroke="#27ae60" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="645" y1="98" x2="645" y2="142" stroke="#27ae60" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="700" y1="98" x2="700" y2="142" stroke="#27ae60" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="562.5" y="125" font-size="11" font-weight="700" fill="#27ae60" text-anchor="middle">SADC4</text>
+  <text x="617.5" y="125" font-size="11" font-weight="700" fill="#27ae60" text-anchor="middle">SADC3</text>
+  <text x="672.5" y="125" font-size="11" font-weight="700" fill="#27ae60" text-anchor="middle">SADC2</text>
+  <text x="727.5" y="125" font-size="11" font-weight="700" fill="#27ae60" text-anchor="middle">SADC1</text>
+
+  <!-- Bits 2-0: MODE3..1 -->
+  <rect x="755" y="98" width="165" height="44" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="3"/>
+  <line x1="810" y1="98" x2="810" y2="142" stroke="#2457d6" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="865" y1="98" x2="865" y2="142" stroke="#2457d6" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="782.5" y="125" font-size="11" font-weight="700" fill="#2457d6" text-anchor="middle">MODE3</text>
+  <text x="837.5" y="125" font-size="11" font-weight="700" fill="#2457d6" text-anchor="middle">MODE2</text>
+  <text x="892.5" y="125" font-size="11" font-weight="700" fill="#2457d6" text-anchor="middle">MODE1</text>
+
+  <!-- ROW 1 PANELS -->
+  <!-- Panel 1: RST & BRNG -->
+  <rect x="40" y="185" width="270" height="135" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="6"/>
+  <rect x="40" y="185" width="270" height="28" fill="#eaf0fd" rx="6"/>
+  <text x="175" y="204" font-size="13" font-weight="700" fill="#2457d6" text-anchor="middle">RST (15) та BRNG (13)</text>
+  <text x="52" y="228" font-size="12" fill="#1a1a1a">RST: 1 = скидання регістрів (Reset)</text>
+  <text x="52" y="248" font-size="12" fill="#1a1a1a">BRNG: діапазон напруги шини V_BUS</text>
+  <text x="52" y="268" font-size="12" fill="#6b7280">• 0 = 16 В (макс. напруга 16 V)</text>
+  <text x="52" y="288" font-size="12" fill="#6b7280">• 1 = 32 В (макс. 32 V, за замовч.)</text>
+
+  <!-- Panel 2: PGA Gain -->
+  <rect x="325" y="185" width="310" height="135" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="6"/>
+  <rect x="325" y="185" width="310" height="28" fill="#e9f7ef" rx="6"/>
+  <text x="480" y="204" font-size="13" font-weight="700" fill="#27ae60" text-anchor="middle">PG[1:0] (біти 12–11) — Діапазон PGA</text>
+  <text x="337" y="228" font-size="12" fill="#1a1a1a">00: ±40 мВ  (діапазон PGA /1)</text>
+  <text x="337" y="248" font-size="12" fill="#1a1a1a">01: ±80 мВ  (діапазон PGA /2)</text>
+  <text x="337" y="268" font-size="12" fill="#1a1a1a">10: ±160 мВ (діапазон PGA /4)</text>
+  <text x="337" y="288" font-size="12" fill="#1a1a1a">11: ±320 мВ (діапазон PGA /8, дефолт)</text>
+  <text x="337" y="308" font-size="11" fill="#6b7280">Задає макс. падіння напруги на шунті</text>
+
+  <!-- Panel 3: MODE -->
+  <rect x="650" y="185" width="270" height="135" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="6"/>
+  <rect x="650" y="185" width="270" height="28" fill="#eaf0fd" rx="6"/>
+  <text x="785" y="204" font-size="13" font-weight="700" fill="#2457d6" text-anchor="middle">MODE[3:1] (біти 2–0) — Режим роботи</text>
+  <text x="662" y="228" font-size="12" fill="#1a1a1a">000: Power-Down (режим сну)</text>
+  <text x="662" y="248" font-size="12" fill="#1a1a1a">011: Shunt &amp; Bus (Triggered)</text>
+  <text x="662" y="268" font-size="12" fill="#1a1a1a">100: АЦП вимкнено (AdcOff)</text>
+  <text x="662" y="288" font-size="12" fill="#1a1a1a">111: Shunt &amp; Bus (Continuous)</text>
+  <text x="662" y="308" font-size="11" fill="#6b7280">001/101: тільки Shunt; 010/110: Bus</text>
+
+  <!-- ROW 2 PANELS -->
+  <!-- Panel 4: BADC -->
+  <rect x="40" y="340" width="425" height="135" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="6"/>
+  <rect x="40" y="340" width="425" height="28" fill="#eaf0fd" rx="6"/>
+  <text x="252.5" y="359" font-size="13" font-weight="700" fill="#2457d6" text-anchor="middle">BADC[4:1] (біти 10–7) — АЦП напруги шини</text>
+  <text x="52" y="383" font-size="12" fill="#1a1a1a">00xx: 9 біт (84 мкс) ... 12 біт (532 мкс)</text>
+  <text x="52" y="403" font-size="12" fill="#1a1a1a">1000: 1 вибірка 12 біт (532 мкс, дефолт)</text>
+  <text x="52" y="423" font-size="12" fill="#1a1a1a">1001..1111: Усереднення 2..128 вибірок</text>
+  <text x="52" y="443" font-size="11" fill="#6b7280">Зменшує шум вимірювання напруги V_BUS</text>
+
+  <!-- Panel 5: SADC -->
+  <rect x="495" y="340" width="425" height="135" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="6"/>
+  <rect x="495" y="340" width="425" height="28" fill="#e9f7ef" rx="6"/>
+  <text x="707.5" y="359" font-size="13" font-weight="700" fill="#27ae60" text-anchor="middle">SADC[4:1] (біти 6–3) — АЦП напруги шунта</text>
+  <text x="507" y="383" font-size="12" fill="#1a1a1a">00xx: 9 біт (84 мкс) ... 12 біт (532 мкс)</text>
+  <text x="507" y="403" font-size="12" fill="#1a1a1a">1000: 1 вибірка 12 біт (532 мкс, дефолт)</text>
+  <text x="507" y="423" font-size="12" fill="#1a1a1a">1001..1111: Усереднення 2..128 вибірок</text>
+  <text x="507" y="443" font-size="11" fill="#6b7280">Визначає точність вимірювання струму I</text>
+
+  <!-- CONNECTING LINES WITH ARROWS -->
+  <!-- Bit 15 -> Panel 1 -->
+  <path d="M 67.5,142 L 67.5,162 L 120,162 L 120,177" fill="none" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <!-- Bit 13 -> Panel 1 -->
+  <path d="M 177.5,142 L 177.5,162 L 230,162 L 230,177" fill="none" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Bits 12-11 -> Panel 2 -->
+  <path d="M 260,142 L 260,162 L 480,162 L 480,177" fill="none" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <!-- Bits 2-0 -> Panel 3 -->
+  <path d="M 837.5,142 L 837.5,162 L 785,162 L 785,177" fill="none" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Bits 10-7 -> Panel 4 -->
+  <path d="M 425,142 L 425,160 L 317.5,160 L 317.5,330 L 252.5,330 L 252.5,332" fill="none" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Bits 6-3 -> Panel 5 -->
+  <path d="M 645,142 L 645,160 L 642.5,160 L 642.5,330 L 707.5,330 L 707.5,332" fill="none" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+</svg>

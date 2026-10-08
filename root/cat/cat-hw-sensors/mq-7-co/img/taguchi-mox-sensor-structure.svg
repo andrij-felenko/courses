@@ -1,0 +1,140 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 500" width="960" height="500" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-accent" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="500" fill="white"/>
+
+  <!-- Title and Subtitle -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Будова та геометрія контакту напівпровідникового MOX-давача Тагучі</text>
+  <text x="480" y="60" font-size="13" fill="#6b7280" text-anchor="middle">Внутрішній спіральний нагрівач передає тепло через керамічну трубку Al₂O₃ до зовнішнього пористого шару SnO₂</text>
+
+  <!-- Left Panel: Structural Cross-section -->
+  <rect x="30" y="85" width="490" height="400" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="45" y="100" width="460" height="32" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="275" y="121" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">Поперечний розріз сенсорної трубки MQ-7</text>
+
+  <!-- Callout Lines and Texts (Top) -->
+  <text x="55" y="155" font-size="13" font-weight="bold" fill="#2457d6">Шар SnO₂ (мікропори)</text>
+  <text x="55" y="172" font-size="12" fill="#6b7280">адсорбція кисню O₂⁻</text>
+  <path d="M175,178 L210,210" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-accent)" fill="none"/>
+
+  <text x="495" y="155" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="end">Трубка Al₂O₃</text>
+  <text x="495" y="172" font-size="12" fill="#6b7280" text-anchor="end">керамічний ізолятор</text>
+  <path d="M390,178 L340,230" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)" fill="none"/>
+
+  <!-- Cylinder Sensor Body -->
+  <!-- Outer Sensing Layer SnO2 (Top & Bottom strips) -->
+  <rect x="180" y="210" width="190" height="15" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="180" y="335" width="190" height="15" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+
+  <!-- Porous texture dots in SnO2 layer -->
+  <circle cx="200" cy="217" r="1.5" fill="#2457d6"/>
+  <circle cx="230" cy="217" r="1.5" fill="#2457d6"/>
+  <circle cx="260" cy="217" r="1.5" fill="#2457d6"/>
+  <circle cx="290" cy="217" r="1.5" fill="#2457d6"/>
+  <circle cx="320" cy="217" r="1.5" fill="#2457d6"/>
+  <circle cx="350" cy="217" r="1.5" fill="#2457d6"/>
+  <circle cx="215" cy="342" r="1.5" fill="#2457d6"/>
+  <circle cx="245" cy="342" r="1.5" fill="#2457d6"/>
+  <circle cx="275" cy="342" r="1.5" fill="#2457d6"/>
+  <circle cx="305" cy="342" r="1.5" fill="#2457d6"/>
+  <circle cx="335" cy="342" r="1.5" fill="#2457d6"/>
+
+  <!-- Al2O3 Ceramic Cylinder Tube Wall -->
+  <rect x="180" y="225" width="190" height="30" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+  <rect x="180" y="305" width="190" height="30" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+
+  <!-- Inner Chamber Hollow -->
+  <rect x="180" y="255" width="190" height="50" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Electrodes (Left and Right Ring Bands) -->
+  <rect x="155" y="208" width="25" height="144" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="370" y="208" width="25" height="144" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+
+  <!-- Heating Spiral Path Inside Cavity -->
+  <path d="M 105,280 L 150,280 C 160,260 170,300 180,280 C 190,260 200,300 210,280 C 220,260 230,300 240,280 C 250,260 260,300 270,280 C 280,260 290,300 300,280 C 310,260 320,300 330,280 C 340,260 350,300 360,280 C 370,260 380,300 390,280 L 445,280" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+
+  <!-- Heater Terminal Pin Labels -->
+  <text x="100" y="272" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="end">VH (+)</text>
+  <text x="450" y="272" font-size="12" font-weight="bold" fill="#c0392b">VH (-)</text>
+
+  <!-- Callout Lines and Texts (Bottom) -->
+  <text x="55" y="385" font-size="13" font-weight="bold" fill="#c0392b">Спіраль VH (Ni-Cr)</text>
+  <text x="55" y="402" font-size="12" fill="#6b7280">нагрів 1.4V / 5.0V</text>
+  <path d="M175,372 L230,285" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)" fill="none"/>
+
+  <text x="495" y="385" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="end">Електроди Au/Pt</text>
+  <text x="495" y="402" font-size="12" fill="#6b7280" text-anchor="end">знімають опір Rs</text>
+  <path d="M385,372 L380,320" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)" fill="none"/>
+
+  <!-- Bottom Info Banner inside Left Panel -->
+  <rect x="45" y="430" width="460" height="40" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="275" y="447" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Геометричний принцип Taguchi MOX:</text>
+  <text x="275" y="463" font-size="12" fill="#6b7280" text-anchor="middle">Прямий нагрів кераміки забезпечує швидку термостабілізацію SnO₂</text>
+
+  <!-- Right Panel: Stack & Heating Phases -->
+  <rect x="540" y="85" width="390" height="400" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Card A: Layer Stack -->
+  <rect x="555" y="100" width="360" height="165" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="555" y="100" width="360" height="28" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="735" y="119" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Пошарова структура елемента Тагучі</text>
+
+  <!-- Row 1 -->
+  <rect x="570" y="138" width="130" height="22" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="635" y="153" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">1. Нагрівач (Ni-Cr)</text>
+  <text x="710" y="153" font-size="12" fill="#1a1a1a">Спіраль у центрі кераміки</text>
+
+  <!-- Row 2 -->
+  <rect x="570" y="168" width="130" height="22" rx="4" fill="#f4f6f8" stroke="#6b7280" stroke-width="1"/>
+  <text x="635" y="183" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="middle">2. Трубка Al₂O₃</text>
+  <text x="710" y="183" font-size="12" fill="#1a1a1a">Теплопровідний ізолятор</text>
+
+  <!-- Row 3 -->
+  <rect x="570" y="198" width="130" height="22" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="635" y="213" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">3. Шар SnO₂</text>
+  <text x="710" y="213" font-size="12" fill="#1a1a1a">Пористий оксид олова (CO)</text>
+
+  <!-- Row 4 -->
+  <rect x="570" y="228" width="130" height="22" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="635" y="243" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">4. Електроди Au</text>
+  <text x="710" y="243" font-size="12" fill="#1a1a1a">Контакти вимірювання Rs</text>
+
+  <!-- Card B: Dual-Phase Heating -->
+  <rect x="555" y="280" width="360" height="190" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="555" y="280" width="360" height="28" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="735" y="299" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Двофазний режим нагріву MQ-7</text>
+
+  <!-- Phase 1 Block -->
+  <rect x="570" y="318" width="155" height="107" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="647" y="336" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Фаза 1: Випалювання</text>
+  <text x="647" y="355" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">5.0V / ~400°C (60 с)</text>
+  <text x="647" y="375" font-size="11" fill="#6b7280" text-anchor="middle">Десорбція домішок</text>
+  <text x="647" y="390" font-size="11" fill="#6b7280" text-anchor="middle">та очищення SnO₂</text>
+  <text x="647" y="410" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">CO НЕ вимірюється</text>
+
+  <!-- Phase 2 Block -->
+  <rect x="745" y="318" width="155" height="107" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="822" y="336" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Фаза 2: Вимірювання</text>
+  <text x="822" y="355" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">1.4V / ~150°C (90 с)</text>
+  <text x="822" y="375" font-size="11" fill="#6b7280" text-anchor="middle">Селективна реакція</text>
+  <text x="822" y="390" font-size="11" fill="#6b7280" text-anchor="middle">з чадним газом CO</text>
+  <text x="822" y="410" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">Зчитування опору Rs</text>
+
+  <!-- Bottom Note inside Card B -->
+  <rect x="570" y="434" width="330" height="26" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="735" y="451" font-size="11" fill="#6b7280" text-anchor="middle">Циклічне живлення — фізична вимога селективності MOX</text>
+</svg>

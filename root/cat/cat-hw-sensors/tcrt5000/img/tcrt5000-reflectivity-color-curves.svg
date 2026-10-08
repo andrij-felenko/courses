@@ -1,0 +1,155 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="560" fill="#ffffff"/>
+
+  <!-- Markers -->
+  <defs>
+    <marker id="arr-left" markerWidth="8" markerHeight="8" refX="1" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M7,1 L1,4 L7,7 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-right" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M1,1 L7,4 L1,7 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="34" font-size="18" font-weight="700" text-anchor="middle" fill="#1a1a1a">Характеристики вихідної напруги TCRT5000 від відстані</text>
+  <text x="480" y="56" font-size="13" text-anchor="middle" fill="#6b7280">Колір і відбивність поверхні змінюють амплітуду сигналу, зберігаючи пік чутливості на d ≈ 2.5 мм</text>
+
+  <!-- Graph Shaded Peak Sensitivity Area -->
+  <rect x="164" y="138" width="35" height="322" fill="#eaf0fd" opacity="0.7"/>
+
+  <!-- Grid Lines (Horizontal) -->
+  <line x1="95" y1="390" x2="650" y2="390" stroke="#e5e7eb" stroke-dasharray="4,4" stroke-width="1"/>
+  <line x1="95" y1="320" x2="650" y2="320" stroke="#e5e7eb" stroke-dasharray="4,4" stroke-width="1"/>
+  <line x1="95" y1="250" x2="650" y2="250" stroke="#e5e7eb" stroke-dasharray="4,4" stroke-width="1"/>
+  <line x1="95" y1="180" x2="650" y2="180" stroke="#e5e7eb" stroke-dasharray="4,4" stroke-width="1"/>
+  <line x1="95" y1="110" x2="650" y2="110" stroke="#e5e7eb" stroke-dasharray="4,4" stroke-width="1"/>
+
+  <!-- Grid Lines (Vertical) -->
+  <line x1="164" y1="138" x2="164" y2="460" stroke="#e5e7eb" stroke-dasharray="4,4" stroke-width="1"/>
+  <line x1="233.5" y1="110" x2="233.5" y2="460" stroke="#e5e7eb" stroke-dasharray="4,4" stroke-width="1"/>
+  <line x1="302.5" y1="110" x2="302.5" y2="460" stroke="#e5e7eb" stroke-dasharray="4,4" stroke-width="1"/>
+  <line x1="371.5" y1="110" x2="371.5" y2="460" stroke="#e5e7eb" stroke-dasharray="4,4" stroke-width="1"/>
+  <line x1="440.5" y1="110" x2="440.5" y2="460" stroke="#e5e7eb" stroke-dasharray="4,4" stroke-width="1"/>
+  <line x1="509.5" y1="110" x2="509.5" y2="460" stroke="#e5e7eb" stroke-dasharray="4,4" stroke-width="1"/>
+  <line x1="578.5" y1="110" x2="578.5" y2="460" stroke="#e5e7eb" stroke-dasharray="4,4" stroke-width="1"/>
+  <line x1="647.5" y1="110" x2="647.5" y2="460" stroke="#e5e7eb" stroke-dasharray="4,4" stroke-width="1"/>
+
+  <!-- Peak Vertical Line -->
+  <line x1="181.5" y1="138" x2="181.5" y2="460" stroke="#2457d6" stroke-dasharray="4,3" stroke-width="1.5"/>
+
+  <!-- Peak Badge Label -->
+  <rect x="116" y="110" width="131" height="26" rx="4" fill="#2457d6"/>
+  <text x="181.5" y="127" font-size="12" font-weight="700" fill="#ffffff" text-anchor="middle">Пік d ≈ 2.5 мм</text>
+
+  <!-- Graph Curves -->
+  <!-- White Paper (90%) -->
+  <path d="M 95 446 C 110 390, 125 290, 147 208 C 160 170, 170 155.5, 181.5 155.5 C 200 155.5, 210 180, 233.5 220 C 267.5 271, 300 320, 371.5 365 C 440.5 400, 509.5 425, 647.5 453" fill="none" stroke="#2457d6" stroke-width="3"/>
+  <circle cx="181.5" cy="155.5" r="5" fill="#2457d6" stroke="#ffffff" stroke-width="2"/>
+  <text x="195" y="152" font-size="12" font-weight="700" fill="#2457d6">4.35 В</text>
+
+  <!-- Black Gloss (10%) -->
+  <path d="M 95 454.4 C 115 430, 140 360, 181.5 320 C 220 320, 240 350, 267.5 372.5 C 320 400, 371.5 414.5, 509.5 443.9 C 560 452, 600 455, 647.5 456.5" fill="none" stroke="#27ae60" stroke-width="3"/>
+  <circle cx="181.5" cy="320" r="5" fill="#27ae60" stroke="#ffffff" stroke-width="2"/>
+  <text x="195" y="315" font-size="12" font-weight="700" fill="#27ae60">2.00 В</text>
+
+  <!-- Matte Black (3%) -->
+  <path d="M 95 457.9 C 115 448, 140 420, 181.5 407.5 C 210 407.5, 240 420, 267.5 427.1 C 320 437, 371.5 442.5, 509.5 453.7 C 560 457, 600 458, 647.5 458.6" fill="none" stroke="#c0392b" stroke-width="3"/>
+  <circle cx="181.5" cy="407.5" r="5" fill="#c0392b" stroke="#ffffff" stroke-width="2"/>
+  <text x="195" y="402" font-size="12" font-weight="700" fill="#c0392b">0.75 В</text>
+
+  <!-- Axes Lines -->
+  <!-- Y Axis -->
+  <line x1="95" y1="110" x2="95" y2="460" stroke="#1a1a1a" stroke-width="2"/>
+  <!-- X Axis -->
+  <line x1="95" y1="460" x2="650" y2="460" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Y Ticks and Labels -->
+  <line x1="90" y1="460" x2="95" y2="460" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="84" y="464" font-size="12" fill="#6b7280" text-anchor="end">0.0 В</text>
+
+  <line x1="90" y1="390" x2="95" y2="390" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="84" y="394" font-size="12" fill="#6b7280" text-anchor="end">1.0 В</text>
+
+  <line x1="90" y1="320" x2="95" y2="320" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="84" y="324" font-size="12" fill="#6b7280" text-anchor="end">2.0 В</text>
+
+  <line x1="90" y1="250" x2="95" y2="250" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="84" y="254" font-size="12" fill="#6b7280" text-anchor="end">3.0 В</text>
+
+  <line x1="90" y1="180" x2="95" y2="180" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="84" y="184" font-size="12" fill="#6b7280" text-anchor="end">4.0 В</text>
+
+  <line x1="90" y1="110" x2="95" y2="110" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="84" y="114" font-size="12" fill="#6b7280" text-anchor="end">5.0 В</text>
+
+  <!-- Y Axis Title -->
+  <text x="95" y="90" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">Вихідна напруга V_OUT (В)</text>
+
+  <!-- X Ticks and Labels -->
+  <line x1="95" y1="460" x2="95" y2="465" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="95" y="480" font-size="12" fill="#6b7280" text-anchor="middle">0</text>
+
+  <line x1="164" y1="460" x2="164" y2="465" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="164" y="480" font-size="12" fill="#6b7280" text-anchor="middle">2</text>
+
+  <line x1="233.5" y1="460" x2="233.5" y2="465" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="233.5" y="480" font-size="12" fill="#6b7280" text-anchor="middle">4</text>
+
+  <line x1="302.5" y1="460" x2="302.5" y2="465" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="302.5" y="480" font-size="12" fill="#6b7280" text-anchor="middle">6</text>
+
+  <line x1="371.5" y1="460" x2="371.5" y2="465" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="371.5" y="480" font-size="12" fill="#6b7280" text-anchor="middle">8</text>
+
+  <line x1="440.5" y1="460" x2="440.5" y2="465" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="440.5" y="480" font-size="12" fill="#6b7280" text-anchor="middle">10</text>
+
+  <line x1="509.5" y1="460" x2="509.5" y2="465" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="509.5" y="480" font-size="12" fill="#6b7280" text-anchor="middle">12</text>
+
+  <line x1="578.5" y1="460" x2="578.5" y2="465" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="578.5" y="480" font-size="12" fill="#6b7280" text-anchor="middle">14</text>
+
+  <line x1="647.5" y1="460" x2="647.5" y2="465" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="647.5" y="480" font-size="12" fill="#6b7280" text-anchor="middle">16</text>
+
+  <!-- X Axis Title -->
+  <text x="371.5" y="504" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">Відстань до поверхні d (мм)</text>
+
+  <!-- Effective Detection Range Bar -->
+  <line x1="102" y1="538" x2="200" y2="538" stroke="#6b7280" stroke-width="1.5" marker-start="url(#arr-left)"/>
+  <line x1="510" y1="538" x2="613" y2="538" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-right)"/>
+  <text x="355" y="542" font-size="12" fill="#6b7280" text-anchor="middle">Зона ефективного виявлення: 0.2 ... 15 мм</text>
+
+  <!-- Side Panels -->
+  <!-- Panel 1: Surface Parameters -->
+  <rect x="675" y="90" width="260" height="215" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="690" y="115" font-size="14" font-weight="700" fill="#1a1a1a">Параметри поверхонь</text>
+
+  <rect x="690" y="130" width="12" height="12" rx="3" fill="#2457d6"/>
+  <text x="710" y="141" font-size="13" font-weight="700" fill="#1a1a1a">Білий папір</text>
+  <text x="710" y="157" font-size="12" fill="#6b7280">k_відб = 90% | V_max ≈ 4.35 В</text>
+
+  <rect x="690" y="180" width="12" height="12" rx="3" fill="#27ae60"/>
+  <text x="710" y="191" font-size="13" font-weight="700" fill="#1a1a1a">Чорний глянець</text>
+  <text x="710" y="207" font-size="12" fill="#6b7280">k_відб = 10% | V_max ≈ 2.00 В</text>
+
+  <rect x="690" y="230" width="12" height="12" rx="3" fill="#c0392b"/>
+  <text x="710" y="241" font-size="13" font-weight="700" fill="#1a1a1a">Матовий чорний</text>
+  <text x="710" y="257" font-size="12" fill="#6b7280">k_відб = 3% | V_max ≈ 0.75 В</text>
+
+  <!-- Panel 2: Physics & Notes -->
+  <rect x="675" y="320" width="260" height="190" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="690" y="345" font-size="14" font-weight="700" fill="#1a1a1a">Фізика та особливості</text>
+
+  <text x="690" y="370" font-size="12" font-weight="700" fill="#2457d6">• Пік чутливості (d = 2.5 мм):</text>
+  <text x="702" y="386" font-size="12" fill="#1a1a1a">Максимальне оптичне перекриття</text>
+
+  <text x="690" y="412" font-size="12" font-weight="700" fill="#c0392b">• Близька зона (d &lt; 1.0 мм):</text>
+  <text x="702" y="428" font-size="12" fill="#1a1a1a">Спад через паралакс світлодіода</text>
+
+  <text x="690" y="454" font-size="12" font-weight="700" fill="#27ae60">• Калібрування порогу LM393:</text>
+  <text x="702" y="470" font-size="12" fill="#1a1a1a">Потребує підлаштування під колір</text>
+</svg>

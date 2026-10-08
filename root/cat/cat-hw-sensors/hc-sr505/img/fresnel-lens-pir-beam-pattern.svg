@@ -1,0 +1,162 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 570" width="960" height="570" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="570" fill="white"/>
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Геометрія ІЧ-променів у мультисегментній лінзі Френеля PIR-давача</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Сегменти лінзи фокусують випромінювання на елементи A і B, створюючи різницю потенціалів</text>
+
+  <!-- Left Panel: Optical Scheme -->
+  <rect x="30" y="76" width="560" height="470" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="48" y="100" font-size="14" font-weight="bold" fill="#1a1a1a">Оптична схема та двоелементний сенсор</text>
+
+  <!-- Motion Arrow & Objects -->
+  <text x="270" y="122" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Напрямок руху об'єкта (ІЧ-джерело)</text>
+  <line x1="120" y1="130" x2="420" y2="130" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+
+  <!-- Object at Zone A -->
+  <rect x="135" y="144" width="90" height="36" rx="5" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="180" y="158" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Об'єкт</text>
+  <text x="180" y="172" font-size="12" fill="#2457d6" text-anchor="middle">Зона A</text>
+
+  <!-- Object at Zone B -->
+  <rect x="315" y="144" width="90" height="36" rx="5" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="360" y="158" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Об'єкт</text>
+  <text x="360" y="172" font-size="12" fill="#c0392b" text-anchor="middle">Зона B</text>
+
+  <!-- Incident Ray Cone A -->
+  <polygon points="180,180 115,248 215,248" fill="#2457d6" fill-opacity="0.12"/>
+  <line x1="180" y1="180" x2="115" y2="248" stroke="#2457d6" stroke-width="1.2" stroke-dasharray="4 2"/>
+  <line x1="180" y1="180" x2="215" y2="248" stroke="#2457d6" stroke-width="1.2" stroke-dasharray="4 2"/>
+
+  <!-- Incident Ray Cone B -->
+  <polygon points="360,180 325,248 425,248" fill="#c0392b" fill-opacity="0.12"/>
+  <line x1="360" y1="180" x2="325" y2="248" stroke="#c0392b" stroke-width="1.2" stroke-dasharray="4 2"/>
+  <line x1="360" y1="180" x2="425" y2="248" stroke="#c0392b" stroke-width="1.2" stroke-dasharray="4 2"/>
+
+  <!-- Fresnel Lens Central Label -->
+  <text x="270" y="204" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Лінза Френеля</text>
+  <text x="270" y="220" font-size="12" fill="#6b7280" text-anchor="middle">(HDPE)</text>
+
+  <!-- Fresnel Lens Graphics -->
+  <path d="M 100,260 Q 270,232 440,260 L 440,268 Q 270,240 100,268 Z" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <path d="M 115,258 Q 165,246 215,240 L 215,246 Q 165,252 115,264 Z" fill="#2457d6" fill-opacity="0.3"/>
+  <path d="M 325,240 Q 375,246 425,258 L 425,264 Q 375,252 325,246 Z" fill="#c0392b" fill-opacity="0.3"/>
+
+  <!-- Segment Labels -->
+  <text x="40" y="262" font-size="12" font-weight="bold" fill="#2457d6">Сегменти A</text>
+  <line x1="108" y1="256" x2="135" y2="254" stroke="#2457d6" stroke-width="1" stroke-dasharray="3 2"/>
+
+  <text x="500" y="262" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="end">Сегменти B</text>
+  <line x1="432" y1="256" x2="405" y2="254" stroke="#c0392b" stroke-width="1" stroke-dasharray="3 2"/>
+
+  <!-- Focused Ray Cone A -->
+  <polygon points="115,268 215,268 272,388 208,388" fill="#2457d6" fill-opacity="0.12"/>
+  <line x1="115" y1="268" x2="208" y2="388" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="215" y1="268" x2="272" y2="388" stroke="#2457d6" stroke-width="1.5"/>
+
+  <!-- Focused Ray Cone B -->
+  <polygon points="325,268 425,268 352,388 288,388" fill="#c0392b" fill-opacity="0.12"/>
+  <line x1="325" y1="268" x2="288" y2="388" stroke="#c0392b" stroke-width="1.5"/>
+  <line x1="425" y1="268" x2="352" y2="388" stroke="#c0392b" stroke-width="1.5"/>
+
+  <!-- Optical IR Filter -->
+  <rect x="195" y="332" width="170" height="14" rx="3" fill="#d0d7de" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="42" y="334" font-size="12" font-weight="bold" fill="#6b7280">ІЧ-фільтр</text>
+  <text x="42" y="348" font-size="12" fill="#6b7280">(5–14 мкм)</text>
+  <line x1="114" y1="339" x2="190" y2="339" stroke="#6b7280" stroke-width="1" stroke-dasharray="3 2"/>
+
+  <!-- Pyroelectric Sensor Package TO-5 -->
+  <rect x="190" y="362" width="180" height="96" rx="6" fill="white" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="42" y="370" font-size="12" fill="#6b7280">Корпус сенсора</text>
+  <text x="42" y="384" font-size="12" fill="#6b7280">(TO-5)</text>
+  <line x1="140" y1="370" x2="186" y2="370" stroke="#6b7280" stroke-width="1" stroke-dasharray="3 2"/>
+
+  <!-- Element A -->
+  <rect x="208" y="388" width="64" height="54" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="240" y="408" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">(+)</text>
+  <text x="240" y="426" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Елемент A</text>
+
+  <!-- Element B -->
+  <rect x="288" y="388" width="64" height="54" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="2"/>
+  <text x="320" y="408" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">(-)</text>
+  <text x="320" y="426" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Елемент B</text>
+
+  <text x="240" y="476" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Диференціальне підключення кристалів</text>
+  <text x="240" y="494" font-size="12" fill="#6b7280" text-anchor="middle">Зустрічна полярність компенсує фонову температуру</text>
+
+  <!-- Legend Box -->
+  <rect x="426" y="362" width="150" height="155" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="438" y="382" font-size="12" font-weight="bold" fill="#1a1a1a">Позначення:</text>
+  <rect x="438" y="394" width="12" height="12" rx="2" fill="#2457d6"/>
+  <text x="456" y="405" font-size="12" fill="#2457d6">Зона / Канал A</text>
+  <rect x="438" y="418" width="12" height="12" rx="2" fill="#c0392b"/>
+  <text x="456" y="429" font-size="12" fill="#c0392b">Зона / Канал B</text>
+  <text x="438" y="454" font-size="12" font-weight="bold" fill="#1a1a1a">Матеріал:</text>
+  <text x="438" y="472" font-size="12" fill="#6b7280">Танталат літію</text>
+  <text x="438" y="490" font-size="12" fill="#6b7280">(LiTaO₃)</text>
+
+  <!-- Right Panel: Signal Processing -->
+  <rect x="615" y="76" width="315" height="470" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="632" y="100" font-size="14" font-weight="bold" fill="#1a1a1a">Формування сигналу та обробка</text>
+
+  <!-- Graph 1: Signal V_A -->
+  <text x="632" y="114" font-size="12" font-weight="bold" fill="#2457d6">1. Сигнал V_A (канал A)</text>
+  <line x1="645" y1="155" x2="890" y2="155" stroke="#d0d7de" stroke-width="1.5"/>
+  <line x1="645" y1="132" x2="645" y2="165" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="638" y="159" font-size="12" fill="#6b7280" text-anchor="end">0</text>
+  <text x="896" y="159" font-size="12" fill="#6b7280">t</text>
+  <path d="M 645,155 L 695,155 Q 710,155 720,135 Q 730,155 745,155 L 890,155" fill="none" stroke="#2457d6" stroke-width="2"/>
+  <text x="720" y="128" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">+ΔV_A</text>
+
+  <!-- Graph 2: Signal V_B -->
+  <text x="632" y="184" font-size="12" font-weight="bold" fill="#c0392b">2. Сигнал V_B (канал B)</text>
+  <line x1="645" y1="218" x2="890" y2="218" stroke="#d0d7de" stroke-width="1.5"/>
+  <line x1="645" y1="196" x2="645" y2="240" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="638" y="222" font-size="12" fill="#6b7280" text-anchor="end">0</text>
+  <text x="896" y="222" font-size="12" fill="#6b7280">t</text>
+  <path d="M 645,218 L 760,218 Q 775,218 785,238 Q 795,218 810,218 L 890,218" fill="none" stroke="#c0392b" stroke-width="2"/>
+  <text x="785" y="254" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">-ΔV_B</text>
+
+  <!-- Graph 3: Differential Voltage ΔV -->
+  <text x="632" y="272" font-size="12" font-weight="bold" fill="#1a1a1a">3. Різниця потенціалів ΔV = V_A - V_B</text>
+  <line x1="645" y1="322" x2="890" y2="322" stroke="#d0d7de" stroke-width="1.5"/>
+  <line x1="645" y1="290" x2="645" y2="354" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="638" y="326" font-size="12" fill="#6b7280" text-anchor="end">0</text>
+  <text x="896" y="326" font-size="12" fill="#6b7280">t</text>
+  <line x1="645" y1="302" x2="842" y2="302" stroke="#27ae60" stroke-dasharray="3 3" stroke-width="1"/>
+  <text x="850" y="306" font-size="12" font-weight="bold" fill="#27ae60">+V_th</text>
+  <line x1="645" y1="342" x2="842" y2="342" stroke="#27ae60" stroke-dasharray="3 3" stroke-width="1"/>
+  <text x="850" y="346" font-size="12" font-weight="bold" fill="#27ae60">-V_th</text>
+  <path d="M 645,322 L 695,322 Q 710,322 720,293 Q 730,322 745,322 Q 770,322 785,351 Q 800,322 815,322 L 890,322" fill="none" stroke="#1a1a1a" stroke-width="2.5"/>
+
+  <!-- Graph 4: Digital Output OUT -->
+  <text x="632" y="370" font-size="12" font-weight="bold" fill="#27ae60">4. Цифровий вихід OUT (компаратор)</text>
+  <line x1="645" y1="414" x2="890" y2="414" stroke="#d0d7de" stroke-width="1.5"/>
+  <line x1="645" y1="388" x2="645" y2="418" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="638" y="418" font-size="12" fill="#6b7280" text-anchor="end">0</text>
+  <text x="896" y="418" font-size="12" fill="#6b7280">t</text>
+  <path d="M 645,414 L 720,414 L 720,392 L 875,392 L 875,414 L 890,414" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+  <text x="797" y="388" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">HIGH (3.3V) / t_delay ≈ 2.3 s</text>
+
+  <!-- Summary Box -->
+  <rect x="630" y="430" width="285" height="100" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="642" y="446" font-size="12" font-weight="bold" fill="#27ae60">Властивість диференціювання:</text>
+  <text x="642" y="464" font-size="12" fill="#1a1a1a">• Фоновий нагрів: V_A = V_B ⇒ ΔV = 0</text>
+  <text x="642" y="480" font-size="12" fill="#6b7280">  (немає хибних спрацювань від сонця)</text>
+  <text x="642" y="498" font-size="12" font-weight="bold" fill="#27ae60">• Рух об'єкта: V_A ≠ V_B ⇒ |ΔV| > V_th</text>
+  <text x="642" y="514" font-size="12" fill="#27ae60">  (формування вихідного імпульсу OUT)</text>
+</svg>

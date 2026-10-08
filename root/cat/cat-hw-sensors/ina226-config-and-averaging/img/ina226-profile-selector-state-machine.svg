@@ -1,0 +1,137 @@
+<svg viewBox="0 0 960 540" width="960" height="540" xmlns="http://www.w3.org/2000/svg" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <!-- Arrow Markers -->
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Title block -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Автомат станів та часова діаграма перемикання профілів INA226</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Динамічна зміна конфігурації в 00h за сигналом Conversion Ready та затримка t_conv</text>
+
+  <!-- LEFT PANEL: STATE MACHINE -->
+  <rect x="25" y="80" width="400" height="435" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="8"/>
+  <text x="45" y="106" font-size="14" font-weight="bold" fill="#1a1a1a">1. Кінцевий автомат (State Machine)</text>
+  <text x="45" y="124" font-size="12" fill="#6b7280">Перемикання профілів вимірювання</text>
+
+  <!-- State 1: High-Precision -->
+  <rect x="45" y="140" width="360" height="106" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="6"/>
+  <text x="60" y="162" font-size="13" font-weight="bold" fill="#27ae60">ПРОФІЛЬ ТОЧНОСТІ (High-Precision)</text>
+  <text x="60" y="181" font-size="12" font-weight="bold" fill="#1a1a1a">Reg 00h: 0x4927 (AVG = 128, t_conv = 1.1 ms)</text>
+  <text x="60" y="199" font-size="12" fill="#1a1a1a">Інтервал вибірки: t_sample = 281.6 ms</text>
+  <text x="60" y="217" font-size="12" fill="#6b7280">Логування фонового струму (низький шум)</text>
+  <text x="60" y="235" font-size="12" fill="#27ae60">Умова: I_load ≤ I_th</text>
+
+  <!-- Transition 1 -> 2 (Downwards) -->
+  <rect x="50" y="272" width="90" height="46" fill="#fdecea" stroke="#c0392b" stroke-width="1" rx="4"/>
+  <text x="95" y="290" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">I_load &gt; I_th</text>
+  <text x="95" y="307" font-size="12" fill="#c0392b" text-anchor="middle">Перевищення</text>
+  <line x1="155" y1="246" x2="155" y2="344" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+
+  <!-- Transition 2 -> 1 (Upwards) -->
+  <line x1="295" y1="344" x2="295" y2="246" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <rect x="310" y="272" width="95" height="46" fill="#e9f7ef" stroke="#27ae60" stroke-width="1" rx="4"/>
+  <text x="357" y="290" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">I_load ≤ I_th</text>
+  <text x="357" y="307" font-size="12" fill="#27ae60" text-anchor="middle">Нормалізація</text>
+
+  <!-- State 2: High-Speed -->
+  <rect x="45" y="348" width="360" height="106" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" rx="6"/>
+  <text x="60" y="370" font-size="13" font-weight="bold" fill="#c0392b">ПРОФІЛЬ ШВИДКОСТІ (High-Speed)</text>
+  <text x="60" y="389" font-size="12" font-weight="bold" fill="#1a1a1a">Reg 00h: 0x4127 (AVG = 1, t_conv = 1.1 ms)</text>
+  <text x="60" y="407" font-size="12" fill="#1a1a1a">Інтервал вибірки: t_sample = 2.2 ms</text>
+  <text x="60" y="425" font-size="12" fill="#6b7280">Виявлення короткочасних піків струму</text>
+  <text x="60" y="443" font-size="12" fill="#c0392b">Умова: I_load &gt; I_th</text>
+
+  <!-- Left Panel Footer Note -->
+  <rect x="45" y="468" width="360" height="34" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="4"/>
+  <text x="225" y="490" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Дія МК: Запис I2C 00h → Скидання конверсії</text>
+
+
+  <!-- RIGHT PANEL: TIMING DIAGRAM -->
+  <rect x="445" y="80" width="490" height="435" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="8"/>
+  <text x="465" y="106" font-size="14" font-weight="bold" fill="#1a1a1a">2. Часова діаграма перемикання та затримка</text>
+  <text x="465" y="124" font-size="12" fill="#6b7280">Реакція на перевищення I_th та поява першої вибірки</text>
+
+  <!-- Vertical Event Markers (segmented to avoid text collision) -->
+  <!-- Event t_event (I2C Write) at x=660 -->
+  <line x1="660" y1="142" x2="660" y2="184" stroke="#c0392b" stroke-width="1" stroke-dasharray="4 3"/>
+  <line x1="660" y1="204" x2="660" y2="344" stroke="#c0392b" stroke-width="1" stroke-dasharray="4 3"/>
+  <line x1="660" y1="372" x2="660" y2="408" stroke="#c0392b" stroke-width="1" stroke-dasharray="4 3"/>
+  <text x="660" y="138" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Подія I_load &gt; I_th</text>
+
+  <!-- Event t_ready (Data Ready) at x=780 -->
+  <line x1="780" y1="142" x2="780" y2="210" stroke="#27ae60" stroke-width="1" stroke-dasharray="4 3"/>
+  <line x1="780" y1="226" x2="780" y2="300" stroke="#27ae60" stroke-width="1" stroke-dasharray="4 3"/>
+  <line x1="780" y1="316" x2="780" y2="344" stroke="#27ae60" stroke-width="1" stroke-dasharray="4 3"/>
+  <line x1="780" y1="372" x2="780" y2="408" stroke="#27ae60" stroke-width="1" stroke-dasharray="4 3"/>
+  <text x="780" y="138" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Готовність даних</text>
+
+  <!-- Signal 1: Current I_load -->
+  <text x="465" y="162" font-size="12" font-weight="bold" fill="#1a1a1a">Струм I_load</text>
+  <text x="465" y="176" font-size="12" fill="#6b7280">(Навантаження)</text>
+  <!-- Current waveform -->
+  <path d="M 580,180 L 660,180 L 660,152 L 900,152" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+  <!-- Threshold line I_th -->
+  <line x1="580" y1="166" x2="900" y2="166" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4 3"/>
+  <text x="905" y="170" font-size="12" font-weight="bold" fill="#c0392b">I_th</text>
+
+  <!-- Signal 2: Reg 00h Config -->
+  <text x="465" y="218" font-size="12" font-weight="bold" fill="#1a1a1a">Конфіг Reg 00h</text>
+  <text x="465" y="232" font-size="12" fill="#6b7280">(Запис I2C)</text>
+
+  <rect x="580" y="206" width="70" height="28" fill="#e9f7ef" stroke="#27ae60" stroke-width="1" rx="3"/>
+  <text x="615" y="224" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">0x4927</text>
+
+  <!-- Small I2C badge -->
+  <rect x="645" y="186" width="30" height="18" fill="#c0392b" rx="3"/>
+  <text x="660" y="200" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">I2C</text>
+
+  <rect x="660" y="206" width="240" height="28" fill="#fdecea" stroke="#c0392b" stroke-width="1" rx="3"/>
+  <text x="780" y="224" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">0x4127 (AVG = 1)</text>
+
+  <!-- Signal 3: CNVR Signal -->
+  <text x="465" y="276" font-size="12" font-weight="bold" fill="#1a1a1a">Сигнал CNVR</text>
+  <text x="465" y="290" font-size="12" fill="#6b7280">(Alert Pin)</text>
+
+  <path d="M 580,270 L 774,270 L 774,295 L 786,295 L 786,270 L 830,270 L 830,295 L 842,295 L 842,270 L 886,270 L 886,295 L 898,295 L 898,270 L 900,270" fill="none" stroke="#2457d6" stroke-width="2"/>
+
+  <!-- CNVR Pulse Labels -->
+  <text x="780" y="314" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">1-ша вибірка</text>
+  <text x="836" y="314" font-size="12" fill="#6b7280" text-anchor="middle">2-га</text>
+  <text x="892" y="314" font-size="12" fill="#6b7280" text-anchor="middle">3-тя</text>
+
+  <!-- Signal 4: Data Registers -->
+  <text x="465" y="356" font-size="12" font-weight="bold" fill="#1a1a1a">Регістр даних</text>
+  <text x="465" y="370" font-size="12" fill="#6b7280">(Shunt Voltage)</text>
+
+  <rect x="580" y="344" width="75" height="28" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="3"/>
+  <text x="617" y="362" font-size="12" fill="#2457d6" text-anchor="middle">Старі дані</text>
+
+  <rect x="660" y="344" width="120" height="28" fill="#fdecea" stroke="#c0392b" stroke-width="1" stroke-dasharray="3 3" rx="3"/>
+  <text x="720" y="362" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Очікування ADC</text>
+
+  <rect x="780" y="344" width="120" height="28" fill="#e9f7ef" stroke="#27ae60" stroke-width="1" rx="3"/>
+  <text x="840" y="362" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Нові дані (AVG=1)</text>
+
+  <!-- Bottom Delay Dimension Bracket -->
+  <line x1="700" y1="410" x2="665" y2="410" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <line x1="740" y1="410" x2="775" y2="410" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="720" y="406" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">t_conv</text>
+
+  <rect x="600" y="430" width="240" height="46" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="4"/>
+  <text x="720" y="448" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Затримка реакції t_conv</text>
+  <text x="720" y="465" font-size="12" fill="#1a1a1a" text-anchor="middle">t_conv = 2.2 ms (1-ша вибірка)</text>
+</svg>

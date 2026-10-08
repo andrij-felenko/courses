@@ -1,0 +1,134 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="30" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Апаратний конвеєр обчислень INA226</text>
+  <text x="480" y="52" text-anchor="middle" font-size="13" fill="#6b7280">Обробка V_SHUNT і V_BUS через АЦП, регістр CAL та апаратні множники у струм і потужність</text>
+
+  <!-- Main Chip Container -->
+  <rect x="30" y="70" width="900" height="435" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="50" y="92" font-size="13" font-weight="bold" fill="#6b7280">СТРУКТУРА ТА ВНУТРІШНЯ МАТЕМАТИКА ЧИПА INA226</text>
+
+  <!-- External Pins on Chip Boundary -->
+  <rect x="15" y="148" width="30" height="22" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="30" y="163" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">IN±</text>
+
+  <rect x="15" y="182" width="30" height="22" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="30" y="197" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">BUS</text>
+
+  <!-- COLUMN 1: ADC & Raw Data -->
+  <rect x="45" y="105" width="220" height="385" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="155" y="125" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">1. АЦП та первинні дані</text>
+
+  <!-- Box 1.1: ADC & Averaging -->
+  <rect x="60" y="138" width="190" height="70" rx="5" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="155" y="158" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">16-біт ΔΣ АЦП</text>
+  <text x="155" y="176" text-anchor="middle" font-size="12" fill="#1a1a1a">Усереднення N вибірок</text>
+  <text x="155" y="193" text-anchor="middle" font-size="12" fill="#6b7280">(N = 1, 4, 16 ... 1024)</text>
+
+  <!-- Box 1.2: Shunt Voltage Register (01h) -->
+  <rect x="60" y="235" width="190" height="85" rx="5" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="155" y="256" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Shunt Voltage Reg (01h)</text>
+  <text x="155" y="278" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">V_SHUNT (2.5 µВ/LSB)</text>
+  <text x="155" y="298" text-anchor="middle" font-size="12" fill="#6b7280">Шкала ±81.92 мВ (16 біт)</text>
+
+  <!-- Box 1.3: Bus Voltage Register (02h) -->
+  <rect x="60" y="350" width="190" height="85" rx="5" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="155" y="371" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Bus Voltage Reg (02h)</text>
+  <text x="155" y="393" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">V_BUS (1.25 мВ/LSB)</text>
+  <text x="155" y="413" text-anchor="middle" font-size="12" fill="#6b7280">Шкала 0...36 В (16 біт)</text>
+
+  <!-- COLUMN 2: Calibration & Current -->
+  <rect x="285" y="105" width="330" height="385" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="450" y="125" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">2. Калібрування та струм</text>
+
+  <!-- Box 2.1: Calibration Register (05h) -->
+  <rect x="295" y="138" width="310" height="85" rx="5" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="450" y="158" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">Calibration Register (05h)</text>
+  <text x="450" y="180" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">CAL = trunc( 0.00512 / (Current_LSB · R_SHUNT) )</text>
+  <text x="450" y="198" text-anchor="middle" font-size="12" fill="#6b7280">Записується користувачем у RAM</text>
+
+  <!-- Box 2.2: Current Engine Multiplier 1 -->
+  <rect x="295" y="245" width="310" height="75" rx="5" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="450" y="265" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Апаратний множник струму</text>
+  <text x="450" y="285" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Current Reg = (Shunt_Reg · CAL) / 2048</text>
+  <text x="450" y="303" text-anchor="middle" font-size="12" fill="#6b7280">Фіксований дільник 2048 (0x800)</text>
+
+  <!-- Box 2.3: Current Register (04h) -->
+  <rect x="295" y="350" width="310" height="85" rx="5" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="450" y="370" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Current Register (04h)</text>
+  <text x="450" y="390" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">I = Current_Reg · Current_LSB</text>
+  <text x="450" y="408" text-anchor="middle" font-size="12" fill="#6b7280">Результат струму в Амперах (16 біт)</text>
+
+  <!-- COLUMN 3: Power Calculation -->
+  <rect x="635" y="105" width="280" height="385" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="775" y="125" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">3. Обчислення потужності</text>
+
+  <!-- Box 3.1: Scale Relation Box -->
+  <rect x="650" y="138" width="250" height="85" rx="5" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="775" y="158" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Масштаб потужності</text>
+  <text x="775" y="180" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Power_LSB = 25 · Current_LSB</text>
+  <text x="775" y="198" text-anchor="middle" font-size="12" fill="#6b7280">Фіксоване співвідношення чипа</text>
+
+  <!-- Box 3.2: Power Engine Multiplier 2 -->
+  <rect x="650" y="245" width="250" height="75" rx="5" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="775" y="265" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Апаратний множник потужності</text>
+  <text x="775" y="284" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Power Reg = (Current_Reg · Bus_Reg)</text>
+  <text x="775" y="303" text-anchor="middle" font-size="12" fill="#6b7280">Дільник / 20 000</text>
+
+  <!-- Box 3.3: Power Register (03h) -->
+  <rect x="650" y="350" width="250" height="85" rx="5" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="775" y="370" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Power Register (03h)</text>
+  <text x="775" y="390" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">P = Power_Reg · Power_LSB</text>
+  <text x="775" y="408" text-anchor="middle" font-size="12" fill="#6b7280">Результат потужності у Ватах</text>
+
+  <!-- SIGNAL FLOW LINES & ARROWS -->
+
+  <!-- Pin IN+- -> ADC -->
+  <path d="M 45,159 L 60,159" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Pin BUS -> ADC -->
+  <path d="M 45,193 L 60,193" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- ADC -> Shunt Voltage Reg -->
+  <path d="M 155,208 L 155,235" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- ADC -> Bus Voltage Reg (routing around left of Shunt Reg) -->
+  <path d="M 60,173 L 52,173 L 52,392 L 60,392" stroke="#2457d6" stroke-width="1.5" fill="none" marker-end="url(#arr-blue)"/>
+
+  <!-- Shunt Voltage Reg -> Current Multiplier -->
+  <path d="M 250,282.5 L 295,282.5" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Calibration Reg -> Current Multiplier -->
+  <path d="M 450,223 L 450,245" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <!-- Current Multiplier -> Current Register -->
+  <path d="M 450,320 L 450,350" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Current Register -> Power Multiplier -->
+  <path d="M 605,392.5 L 625,392.5 L 625,282.5 L 650,282.5" stroke="#2457d6" stroke-width="1.5" fill="none" marker-end="url(#arr-blue)"/>
+
+  <!-- Bus Voltage Reg -> Power Multiplier (routing across bottom) -->
+  <path d="M 250,392.5 L 270,392.5 L 270,460 L 635,460 L 635,297.5 L 650,297.5" stroke="#2457d6" stroke-width="1.5" fill="none" marker-end="url(#arr-blue)"/>
+  <text x="450" y="452" text-anchor="middle" font-size="12" fill="#2457d6">Дані напруги шини V_BUS</text>
+
+  <!-- Scale Info Box -> Power Multiplier -->
+  <path d="M 775,223 L 775,245" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4 3" marker-end="url(#arr-gray)"/>
+
+  <!-- Power Multiplier -> Power Register -->
+  <path d="M 775,320 L 775,350" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+</svg>

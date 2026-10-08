@@ -1,0 +1,106 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 490" width="960" height="490" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-black" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-green-start" markerWidth="9" markerHeight="9" refX="0.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Background Canvas -->
+  <rect x="0" y="0" width="960" height="490" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Часова діаграма вихідного сигналу HC-SR505</text>
+  <text x="480" y="54" text-anchor="middle" font-size="13" fill="#6b7280">При повторному русі відлік затримки t_delay ≈ 8 с перезапускається від останнього виявлення</text>
+
+  <!-- Main Container Panel -->
+  <rect x="30" y="70" width="900" height="395" rx="10" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Track 1 Panel: Physical Motion -->
+  <rect x="45" y="85" width="870" height="120" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  
+  <!-- Track 1 Left Label Block -->
+  <text x="55" y="112" font-size="14" font-weight="bold" fill="#1a1a1a">Фізичний рух</text>
+  <text x="55" y="130" font-size="12" fill="#6b7280">у зоні PIR</text>
+
+  <!-- Track 1 Level Labels -->
+  <text x="195" y="134" text-anchor="end" font-size="12" font-weight="bold" fill="#c0392b">Є рух</text>
+  <text x="195" y="179" text-anchor="end" font-size="12" fill="#6b7280">Немає</text>
+
+  <!-- Track 1 Horizontal Level Lines -->
+  <line x1="205" y1="130" x2="885" y2="130" stroke="#e5e7eb" stroke-dasharray="4 4"/>
+  <line x1="205" y1="175" x2="885" y2="175" stroke="#e5e7eb" stroke-dasharray="4 4"/>
+
+  <!-- Track 1 Motion Pulse Fills -->
+  <rect x="270" y="130" width="40" height="45" fill="#fdecea" opacity="0.6"/>
+  <rect x="450" y="130" width="40" height="45" fill="#fdecea" opacity="0.6"/>
+
+  <!-- Track 1 Motion Signal Path -->
+  <path d="M 205,175 H 270 V 130 H 310 V 175 H 450 V 130 H 490 V 175 H 885" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+
+  <!-- Track 1 Pulse Text Labels -->
+  <text x="290" y="112" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">1-й рух</text>
+  <text x="470" y="112" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">2-й рух (повторний)</text>
+
+  <!-- Vertical Trigger Guidelines -->
+  <line x1="270" y1="175" x2="270" y2="265" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3 3" opacity="0.6"/>
+  <line x1="450" y1="175" x2="450" y2="215" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3 3" opacity="0.6"/>
+  <line x1="490" y1="175" x2="490" y2="215" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="3 3"/>
+  <line x1="490" y1="255" x2="490" y2="290" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="3 3"/>
+  <line x1="750" y1="265" x2="750" y2="345" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="3 3"/>
+
+  <!-- Track 2 Panel: Digital Output Signal OUT -->
+  <rect x="45" y="215" width="870" height="165" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Track 2 Left Label Block -->
+  <text x="55" y="242" font-size="14" font-weight="bold" fill="#2457d6">Вихідний сигнал</text>
+  <text x="55" y="260" font-size="12" fill="#6b7280">OUT (0 / 3.3 В)</text>
+
+  <!-- Track 2 Level Labels -->
+  <text x="195" y="269" text-anchor="end" font-size="12" font-weight="bold" fill="#2457d6">HIGH</text>
+  <text x="195" y="339" text-anchor="end" font-size="12" fill="#6b7280">LOW</text>
+
+  <!-- Track 2 Horizontal Level Lines -->
+  <line x1="205" y1="265" x2="885" y2="265" stroke="#e5e7eb" stroke-dasharray="4 4"/>
+  <line x1="205" y1="335" x2="885" y2="335" stroke="#e5e7eb" stroke-dasharray="4 4"/>
+
+  <!-- Track 2 OUT Active Pulse Fill -->
+  <rect x="270" y="265" width="480" height="70" fill="#eaf0fd" opacity="0.5"/>
+
+  <!-- Track 2 OUT Signal Path -->
+  <path d="M 205,335 H 270 V 265 H 750 V 335 H 885" fill="none" stroke="#2457d6" stroke-width="3"/>
+
+  <!-- Retrigger Event Badge -->
+  <rect x="425" y="226" width="190" height="24" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="520" y="242" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">⚡ Перезапуск відліку</text>
+
+  <!-- Initial 8s Countdown Indicator (Interrupted) -->
+  <line x1="270" y1="290" x2="450" y2="290" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="3 3"/>
+  <text x="360" y="284" text-anchor="middle" font-size="12" fill="#6b7280">Початкові 8 с (перервано)</text>
+
+  <!-- Actual 8s Delay Dimension Line (from 2nd motion end) -->
+  <line x1="490" y1="290" x2="750" y2="290" stroke="#27ae60" stroke-width="2" marker-start="url(#arr-green-start)" marker-end="url(#arr-green)"/>
+  <text x="620" y="284" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">t_delay ≈ 8 с (від останнього руху)</text>
+
+  <!-- Active OUT State Label -->
+  <text x="510" y="320" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">OUT = HIGH (+3.3 В) — тривалість затримки подовжено</text>
+
+  <!-- Fall to LOW Label -->
+  <text x="750" y="358" text-anchor="middle" font-size="12" fill="#6b7280">OUT → 0 В (LOW)</text>
+
+  <!-- Bottom Key Takeaway Panel -->
+  <rect x="45" y="395" width="870" height="60" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="60" y="417" font-size="13" font-weight="bold" fill="#27ae60">Ключовий висновок: Апаратний автоперезапуск (Retriggering)</text>
+  <text x="60" y="437" font-size="12" fill="#1a1a1a">Будь-який рух під час активного сигналу OUT (+3.3 В) скидає внутрішній таймер і відновлює відлік 8 секунд наново.</text>
+</svg>

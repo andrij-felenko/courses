@@ -1,0 +1,168 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background canvas -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="38" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Часова структура кадру та сигналів інтерфейсу DVP (OV3640)</text>
+  <text x="480" y="58" text-anchor="middle" font-size="13" fill="#6b7280">Тактові імпульси PCLK передають корисні пікселі під час HREF=High, а паузи HBLANK і VBLANK формують часову сітку кадру</text>
+
+  <!-- Section 1: 2D Spatial Frame Matrix -->
+  <text x="40" y="86" font-size="13" font-weight="bold" fill="#1a1a1a">1. Просторово-часова матриця кадру</text>
+
+  <!-- 2D Matrix Outer Container Panel -->
+  <rect x="150" y="98" width="625" height="150" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="4"/>
+
+  <!-- Active Video Frame Region -->
+  <rect x="155" y="125" width="440" height="80" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="3"/>
+  <text x="375" y="156" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Активна зона кадру (H_ACTIVE × V_ACTIVE)</text>
+  <text x="375" y="178" text-anchor="middle" font-size="12" fill="#1a1a1a">Передача корисних пікселів (Raw RGB / YUV / JPEG)</text>
+
+  <!-- HBLANK Region -->
+  <rect x="607" y="125" width="163" height="80" fill="#ffffff" stroke="#6b7280" stroke-width="1" stroke-dasharray="4,4" rx="3"/>
+  <text x="688" y="156" text-anchor="middle" font-size="13" font-weight="bold" fill="#6b7280">HBLANK</text>
+  <text x="688" y="178" text-anchor="middle" font-size="12" fill="#6b7280">Пауза рядка</text>
+
+  <!-- VBLANK Region -->
+  <rect x="155" y="211" width="615" height="30" fill="#ffffff" stroke="#6b7280" stroke-width="1" stroke-dasharray="4,4" rx="3"/>
+  <text x="462" y="231" text-anchor="middle" font-size="12" font-weight="bold" fill="#6b7280">VBLANK (Гасувальний інтервал кадру: 48 рядків / пауза між кадрами)</text>
+
+  <!-- Dimensions on 2D Matrix -->
+  <!-- H_ACTIVE Dimension Arrow above active box -->
+  <line x1="155" y1="112" x2="595" y2="112" stroke="#2457d6" stroke-width="1" marker-start="url(#arr-blue)" marker-end="url(#arr-blue)"/>
+  <text x="375" y="108" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">H_ACTIVE (1600 PCLK)</text>
+
+  <!-- HBLANK Dimension Arrow above HBLANK box -->
+  <line x1="607" y1="112" x2="770" y2="112" stroke="#6b7280" stroke-width="1" marker-start="url(#arr-gray)" marker-end="url(#arr-gray)"/>
+  <text x="688" y="108" text-anchor="middle" font-size="12" font-weight="bold" fill="#6b7280">HBLANK (336 PCLK)</text>
+
+  <!-- Left Side Dimensions for V_ACTIVE and VBLANK -->
+  <text x="140" y="165" text-anchor="end" font-size="12" font-weight="bold" fill="#2457d6">V_ACTIVE (1200)</text>
+  <text x="140" y="229" text-anchor="end" font-size="12" font-weight="bold" fill="#6b7280">VBLANK (48)</text>
+
+  <!-- Formula Panel on the Right -->
+  <rect x="790" y="98" width="150" height="150" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="4"/>
+  <text x="865" y="120" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Формули тактування</text>
+  <line x1="800" y1="126" x2="930" y2="126" stroke="#27ae60" stroke-width="1"/>
+  <text x="865" y="145" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">T_line = H_tot × t_PCLK</text>
+  <text x="865" y="167" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">V_tot = V_ACT + V_BLK</text>
+  <text x="865" y="192" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">FPS = PCLK / N_total</text>
+  <text x="865" y="212" text-anchor="middle" font-size="12" fill="#6b7280">N_tot = H_tot × V_tot</text>
+  <text x="865" y="233" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Частота кадрів</text>
+
+  <!-- Section 2: DVP Signal Timing Waveforms -->
+  <text x="40" y="278" font-size="13" font-weight="bold" fill="#1a1a1a">2. Сигнали електронного інтерфейсу DVP на часовій осі</text>
+
+  <!-- Top Timing Bracket for Full Line Period T_line -->
+  <line x1="160" y1="300" x2="540" y2="300" stroke="#1a1a1a" stroke-width="1.5" marker-start="url(#arr)" marker-end="url(#arr)"/>
+  <text x="350" y="294" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Повний період рядка T_line (1936 тактів PCLK)</text>
+
+  <!-- Vertical Dashed Alignment Guide Lines -->
+  <line x1="160" y1="305" x2="160" y2="520" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="440" y1="305" x2="440" y2="520" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="540" y1="305" x2="540" y2="520" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="760" y1="305" x2="760" y2="520" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+
+  <!-- Signal 1: VSYNC -->
+  <text x="145" y="332" text-anchor="end" font-size="12" font-weight="bold" fill="#1a1a1a">VSYNC</text>
+  <text x="145" y="346" text-anchor="end" font-size="12" fill="#6b7280">(Кадр)</text>
+  <path d="M 160,340 L 760,340 L 760,320 L 910,320" fill="none" stroke="#2457d6" stroke-width="2"/>
+  <text x="835" y="312" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">VBLANK</text>
+
+  <!-- Signal 2: HREF -->
+  <text x="145" y="380" text-anchor="end" font-size="12" font-weight="bold" fill="#1a1a1a">HREF</text>
+  <text x="145" y="394" text-anchor="end" font-size="12" fill="#6b7280">(Рядок)</text>
+  <path d="M 160,365 L 440,365 L 440,390 L 540,390 L 540,365 L 760,365 L 760,390 L 910,390" fill="none" stroke="#2457d6" stroke-width="2"/>
+  <text x="300" y="357" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">HREF = High (Активний рядок N)</text>
+  <text x="490" y="383" text-anchor="middle" font-size="12" font-weight="bold" fill="#6b7280">HREF = Low</text>
+  <text x="650" y="357" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Активний рядок N+1</text>
+
+  <!-- Signal 3: PCLK -->
+  <text x="145" y="428" text-anchor="end" font-size="12" font-weight="bold" fill="#1a1a1a">PCLK</text>
+  <text x="145" y="442" text-anchor="end" font-size="12" fill="#6b7280">(Такти)</text>
+  <path d="M 160,435 L 160,420 L 170,420 L 170,435 L 180,435 L 180,420 L 190,420 L 190,435 L 200,435 L 200,420 L 210,420 L 210,435 L 220,435 L 220,420 L 230,420 L 230,435 L 240,435 L 240,420 L 250,420 L 250,435 L 260,435 L 260,420 L 270,420 L 270,435 L 280,435 L 280,420 L 290,420 L 290,435 L 300,435 L 300,420 L 310,420 L 310,435 L 320,435 L 320,420 L 330,420 L 330,435 L 340,435 L 340,420 L 350,420 L 350,435 L 360,435 L 360,420 L 370,420 L 370,435 L 380,435 L 380,420 L 390,420 L 390,435 L 400,435 L 400,420 L 410,420 L 410,435 L 420,435 L 420,420 L 430,420 L 430,435 L 440,435 L 440,420 L 450,420 L 450,435 L 460,435 L 460,420 L 470,420 L 470,435 L 480,435 L 480,420 L 490,420 L 490,435 L 500,435 L 500,420 L 510,420 L 510,435 L 520,435 L 520,420 L 530,420 L 530,435 L 540,435 L 540,420 L 550,420 L 550,435 L 560,435 L 560,420 L 570,420 L 570,435 L 580,435 L 580,420 L 590,420 L 590,435 L 600,435 L 600,420 L 610,420 L 610,435 L 620,435 L 620,420 L 630,420 L 630,435 L 640,435 L 640,420 L 650,420 L 650,435 L 660,435 L 660,420 L 670,420 L 670,435 L 680,435 L 680,420 L 690,420 L 690,435 L 700,435 L 700,420 L 710,420 L 710,435 L 720,435 L 720,420 L 730,420 L 730,435 L 740,435 L 740,420 L 750,420 L 750,435 L 760,435 L 760,420 L 770,420 L 770,435 L 780,435 L 780,420 L 790,420 L 790,435 L 800,435 L 800,420 L 810,420 L 810,435 L 820,435 L 820,420 L 830,420 L 830,435 L 840,435 L 840,420 L 850,420 L 850,435 L 860,435 L 860,420 L 870,420 L 870,435 L 880,435 L 880,420 L 890,420 L 890,435 L 900,435 L 900,420 L 910,420 L 910,435" fill="none" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Signal 4: D[9:0] Data Bus -->
+  <text x="145" y="476" text-anchor="end" font-size="12" font-weight="bold" fill="#1a1a1a">D[9:0]</text>
+  <text x="145" y="490" text-anchor="end" font-size="12" fill="#6b7280">(Дані)</text>
+
+  <!-- Data Bus Cells: Active Line N -->
+  <polygon points="160,480 165,470 195,470 200,480 195,490 165,490" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="180" y="484" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">P0</text>
+
+  <polygon points="200,480 205,470 235,470 240,480 235,490 205,490" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="220" y="484" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">P1</text>
+
+  <polygon points="240,480 245,470 275,470 280,480 275,490 245,490" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="260" y="484" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">P2</text>
+
+  <polygon points="280,480 285,470 315,470 320,480 315,490 285,490" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="300" y="484" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">P3</text>
+
+  <polygon points="320,480 325,470 355,470 360,480 355,490 325,490" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="340" y="484" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">...</text>
+
+  <polygon points="360,480 365,470 395,470 400,480 395,490 365,490" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="380" y="484" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Pn-1</text>
+
+  <polygon points="400,480 405,470 435,470 440,480 435,490 405,490" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="420" y="484" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Pn</text>
+
+  <!-- Data Bus HBLANK IDLE State -->
+  <line x1="440" y1="480" x2="540" y2="480" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <text x="490" y="462" text-anchor="middle" font-size="12" fill="#6b7280">IDLE (недійсні)</text>
+
+  <!-- Data Bus Cells: Active Line N+1 -->
+  <polygon points="540,480 545,470 575,470 580,480 575,490 545,490" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="560" y="484" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">P0</text>
+
+  <polygon points="580,480 585,470 615,470 620,480 615,490 585,490" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="600" y="484" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">P1</text>
+
+  <polygon points="620,480 625,470 655,470 660,480 655,490 625,490" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="640" y="484" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">P2</text>
+
+  <polygon points="660,480 665,470 695,470 700,480 695,490 665,490" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="680" y="484" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">...</text>
+
+  <polygon points="700,480 705,470 755,470 760,480 755,490 705,490" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="730" y="484" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Pn</text>
+
+  <!-- Data Bus VBLANK IDLE State -->
+  <line x1="760" y1="480" x2="910" y2="480" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <text x="835" y="462" text-anchor="middle" font-size="12" fill="#6b7280">IDLE (пауза кадру)</text>
+
+  <!-- Bottom Timing Dimensions -->
+  <!-- Active Line N Dimension -->
+  <line x1="160" y1="515" x2="440" y2="515" stroke="#2457d6" stroke-width="1" marker-start="url(#arr-blue)" marker-end="url(#arr-blue)"/>
+  <text x="300" y="507" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">H_ACTIVE (1600 тактів PCLK)</text>
+  <text x="300" y="533" text-anchor="middle" font-size="12" fill="#6b7280">Захоплення пікселів по спаду PCLK</text>
+
+  <!-- HBLANK Dimension -->
+  <line x1="440" y1="515" x2="540" y2="515" stroke="#6b7280" stroke-width="1" marker-start="url(#arr-gray)" marker-end="url(#arr-gray)"/>
+  <text x="490" y="507" text-anchor="middle" font-size="12" font-weight="bold" fill="#6b7280">HBLANK</text>
+  <text x="490" y="533" text-anchor="middle" font-size="12" fill="#6b7280">336 PCLK</text>
+
+  <!-- Active Line N+1 Dimension -->
+  <line x1="540" y1="515" x2="760" y2="515" stroke="#2457d6" stroke-width="1" marker-start="url(#arr-blue)" marker-end="url(#arr-blue)"/>
+  <text x="650" y="507" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">H_ACTIVE (Рядок N+1)</text>
+
+  <!-- VBLANK Dimension -->
+  <line x1="760" y1="515" x2="910" y2="515" stroke="#6b7280" stroke-width="1" marker-start="url(#arr-gray)" marker-end="url(#arr-gray)"/>
+  <text x="835" y="507" text-anchor="middle" font-size="12" font-weight="bold" fill="#6b7280">VBLANK</text>
+  <text x="835" y="533" text-anchor="middle" font-size="12" fill="#6b7280">48 рядків</text>
+</svg>

@@ -1,0 +1,138 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 550" width="960" height="550" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-accent" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-start-accent" markerWidth="8" markerHeight="8" refX="1" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-end-accent" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-start-green" markerWidth="8" markerHeight="8" refX="1" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-end-green" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Canvas background -->
+  <rect x="0" y="0" width="960" height="550" fill="white"/>
+
+  <!-- Main Title & Subtitle -->
+  <text x="480" y="30" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Триканальне живлення та послідовність ввімкнення OV3640</text>
+  <text x="480" y="52" text-anchor="middle" font-size="13" fill="#6b7280">Правильні затримки між DOVDD, AVDD, DVDD і RESETB запобігають апаратним збоям сенсора</text>
+
+  <!-- Left Panel: Power Topology -->
+  <rect x="24" y="70" width="320" height="460" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="184" y="94" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Схема триканального живлення</text>
+
+  <!-- Power Source Box -->
+  <rect x="40" y="108" width="288" height="92" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="184" y="128" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Джерело живлення (LDO / PMIC)</text>
+  <text x="184" y="148" text-anchor="middle" font-size="12" fill="#1a1a1a">DOVDD: 1.8V / 2.8V  |  AVDD: 2.8V</text>
+  <text x="184" y="166" text-anchor="middle" font-size="12" fill="#1a1a1a">DVDD: 1.5V (внутрішній / зовнішній)</text>
+  <text x="184" y="184" text-anchor="middle" font-size="12" fill="#6b7280">Окремі лінії та блокувальні ємності</text>
+
+  <!-- Interconnect Lines -->
+  <!-- DOVDD line -->
+  <line x1="80" y1="200" x2="80" y2="276" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-accent)"/>
+  <text x="86" y="242" font-size="12" font-weight="bold" fill="#2457d6">DOVDD</text>
+
+  <!-- AVDD line & LC Filter -->
+  <line x1="184" y1="200" x2="184" y2="222" stroke="#27ae60" stroke-width="2"/>
+  <rect x="136" y="222" width="96" height="32" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="184" y="242" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">LC Фільтр AVDD</text>
+  <line x1="184" y1="254" x2="184" y2="276" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- DVDD line -->
+  <line x1="288" y1="200" x2="288" y2="276" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-accent)"/>
+  <text x="282" y="242" text-anchor="end" font-size="12" font-weight="bold" fill="#2457d6">DVDD</text>
+
+  <!-- OV3640 Chip Module -->
+  <rect x="40" y="276" width="288" height="238" rx="6" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="184" y="298" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Сенсор зображення OV3640</text>
+
+  <!-- Domain 1: Digital I/O -->
+  <rect x="52" y="312" width="264" height="52" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="184" y="330" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Цифровий домен I/O (DOVDD)</text>
+  <text x="184" y="350" text-anchor="middle" font-size="12" fill="#6b7280">Паралельний відеоінтерфейс DVP / SCCB</text>
+
+  <!-- Domain 2: Analog Domain -->
+  <rect x="52" y="376" width="264" height="58" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="184" y="394" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Аналоговий домен (AVDD)</text>
+  <text x="184" y="418" text-anchor="middle" font-size="12" fill="#1a1a1a">Матриця 3 Мп, підсилювач (PGA) та АЦП</text>
+
+  <!-- Domain 3: Digital Core -->
+  <rect x="52" y="446" width="264" height="56" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="184" y="464" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Ядро цифрової обробки (DVDD)</text>
+  <text x="184" y="486" text-anchor="middle" font-size="12" fill="#1a1a1a">Внутрішній DSP, генератор PLL, FIFO</text>
+
+  <!-- Right Panel: Power-up Timing Diagram -->
+  <rect x="360" y="70" width="576" height="460" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="648" y="94" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Часова діаграма послідовності ввімкнення (Power-up Sequence)</text>
+
+  <!-- Vertical dashed timeline grid lines -->
+  <line x1="515" y1="125" x2="515" y2="395" stroke="#d0d7de" stroke-dasharray="3,3"/>
+  <line x1="585" y1="125" x2="585" y2="395" stroke="#d0d7de" stroke-dasharray="3,3"/>
+  <line x1="660" y1="125" x2="660" y2="395" stroke="#d0d7de" stroke-dasharray="3,3"/>
+  <line x1="730" y1="125" x2="730" y2="395" stroke="#d0d7de" stroke-dasharray="3,3"/>
+  <line x1="810" y1="125" x2="810" y2="395" stroke="#d0d7de" stroke-dasharray="3,3"/>
+  <line x1="865" y1="125" x2="865" y2="395" stroke="#d0d7de" stroke-dasharray="3,3"/>
+
+  <!-- Timeline Stage Markers -->
+  <text x="515" y="118" text-anchor="middle" font-size="12" font-weight="bold" fill="#6b7280">t0</text>
+  <text x="585" y="118" text-anchor="middle" font-size="12" font-weight="bold" fill="#6b7280">t1</text>
+  <text x="660" y="118" text-anchor="middle" font-size="12" font-weight="bold" fill="#6b7280">t2</text>
+  <text x="730" y="118" text-anchor="middle" font-size="12" font-weight="bold" fill="#6b7280">t3</text>
+  <text x="810" y="118" text-anchor="middle" font-size="12" font-weight="bold" fill="#6b7280">t4</text>
+  <text x="865" y="118" text-anchor="middle" font-size="12" font-weight="bold" fill="#6b7280">t5</text>
+
+  <!-- Track 1: DOVDD, AVDD, DVDD -->
+  <text x="485" y="156" text-anchor="end" font-size="12" font-weight="bold" fill="#2457d6">DOVDD, AVDD, DVDD</text>
+  <path d="M 495 168 L 515 168 L 540 148 L 915 148" fill="none" stroke="#2457d6" stroke-width="2"/>
+
+  <!-- Delay t_pow annotation -->
+  <line x1="515" y1="136" x2="585" y2="136" stroke="#2457d6" stroke-width="1" marker-start="url(#arr-start-accent)" marker-end="url(#arr-end-accent)"/>
+  <text x="550" y="132" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">t_pow ≥ 5 мс</text>
+
+  <!-- Track 2: XCLK -->
+  <text x="485" y="204" text-anchor="end" font-size="12" font-weight="bold" fill="#2457d6">XCLK (Тактування)</text>
+  <path d="M 495 214 L 660 214 L 660 194 L 670 194 L 670 214 L 680 214 L 680 194 L 690 194 L 690 214 L 700 214 L 700 194 L 710 194 L 710 214 L 720 214 L 720 194 L 730 194 L 730 214 L 740 214 L 740 194 L 750 194 L 750 214 L 760 214 L 760 194 L 770 194 L 770 214 L 780 214 L 780 194 L 790 194 L 790 214 L 800 214 L 800 194 L 810 194 L 810 214 L 820 214 L 820 194 L 830 194 L 830 214 L 840 214 L 840 194 L 850 194 L 850 214 L 860 214 L 860 194 L 870 194 L 870 214 L 880 214 L 880 194 L 890 194 L 890 214 L 900 214 L 900 194 L 910 194 L 910 214 L 915 214" fill="none" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="610" y="206" text-anchor="middle" font-size="12" fill="#6b7280">Старт XCLK</text>
+
+  <!-- Track 3: PWDN -->
+  <text x="485" y="254" text-anchor="end" font-size="12" font-weight="bold" fill="#c0392b">PWDN (Power Down)</text>
+  <path d="M 495 242 L 730 242 L 737 264 L 915 264" fill="none" stroke="#c0392b" stroke-width="2"/>
+  <text x="610" y="236" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">PWDN = HIGH (Сплячий режим)</text>
+  <text x="825" y="258" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">PWDN = LOW (Активний)</text>
+
+  <!-- Track 4: RESETB -->
+  <text x="485" y="308" text-anchor="end" font-size="12" font-weight="bold" fill="#27ae60">RESETB (Скидання)</text>
+  <path d="M 495 316 L 810 316 L 817 294 L 915 294" fill="none" stroke="#27ae60" stroke-width="2"/>
+  <text x="640" y="310" text-anchor="middle" font-size="12" fill="#c0392b">RESETB = LOW (Скидання)</text>
+
+  <!-- Delay t_rst annotation -->
+  <line x1="730" y1="332" x2="810" y2="332" stroke="#27ae60" stroke-width="1" marker-start="url(#arr-start-green)" marker-end="url(#arr-end-green)"/>
+  <text x="770" y="346" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">t_rst ≥ 1 мс</text>
+
+  <!-- Track 5: SCCB Bus State -->
+  <text x="485" y="378" text-anchor="end" font-size="12" font-weight="bold" fill="#1a1a1a">Шина SCCB (I2C)</text>
+  <rect x="495" y="363" width="370" height="26" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="680" y="380" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Недоступна (ініціалізація)</text>
+
+  <rect x="865" y="363" width="50" height="26" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="890" y="380" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Готово</text>
+
+  <!-- Summary Card at bottom of Right Panel -->
+  <rect x="372" y="406" width="552" height="114" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="384" y="424" font-size="12" font-weight="bold" fill="#1a1a1a">Ключові апаратні затримки ввімкнення:</text>
+  <text x="384" y="443" font-size="12" fill="#1a1a1a">1. <tspan font-weight="bold">t_pow (t0 → t1):</tspan> Живлення DOVDD, AVDD, DVDD (≥ 5 мс до XCLK)</text>
+  <text x="384" y="462" font-size="12" fill="#1a1a1a">2. <tspan font-weight="bold">t_clk (t1 → t2):</tspan> Стабілізація XCLK перед виходом зі сплячого режиму</text>
+  <text x="384" y="481" font-size="12" fill="#1a1a1a">3. <tspan font-weight="bold">t_rst (t3 → t4):</tspan> Зняття RESETB через ≥ 1 мс після переходу PWDN в LOW</text>
+  <text x="384" y="500" font-size="12" font-weight="bold" fill="#27ae60">4. t5: Через 1–2 мс після RESETB=HIGH дозволено перші транзакції SCCB</text>
+</svg>

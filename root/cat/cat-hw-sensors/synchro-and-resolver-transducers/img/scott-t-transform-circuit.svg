@@ -1,0 +1,144 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 500" width="960" height="500" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-main" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Canvas Background -->
+  <rect x="0" y="0" width="960" height="500" fill="white"/>
+
+  <!-- Title Section -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Схема перетворення Скотта (Scott-T Transform)</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Конвертація 3-фазних напруг сельсина (S1, S2, S3) у 2-фазний квадратурний сигнал sin/cos</text>
+
+  <!-- PANEL 1: Synchro Inputs -->
+  <rect x="25" y="75" width="200" height="365" rx="8" ry="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="125" y="98" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Входи від сельсина</text>
+  <text x="125" y="116" font-size="12" fill="#6b7280" text-anchor="middle">Обмотки статора (Y)</text>
+
+  <!-- Synchro Stator Schematic -->
+  <circle cx="70" cy="255" r="4.5" fill="#6b7280"/>
+  <text x="55" y="259" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="end">N</text>
+
+  <!-- Stator Phase S1 -->
+  <line x1="70" y1="255" x2="105" y2="205" stroke="#1a1a1a" stroke-width="1.5"/>
+  <path d="M 105 205 Q 115 195 125 205 Q 135 195 145 205" fill="none" stroke="#2457d6" stroke-width="2"/>
+  <line x1="145" y1="205" x2="195" y2="150" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="195" cy="150" r="4.5" fill="#2457d6"/>
+  <text x="170" y="140" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">S1 (0°)</text>
+
+  <!-- Stator Phase S3 -->
+  <line x1="70" y1="255" x2="105" y2="255" stroke="#1a1a1a" stroke-width="1.5"/>
+  <path d="M 105 255 Q 117.5 243 130 255 Q 142.5 243 155 255" fill="none" stroke="#2457d6" stroke-width="2"/>
+  <line x1="155" y1="255" x2="195" y2="255" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="195" cy="255" r="4.5" fill="#2457d6"/>
+  <text x="170" y="245" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">S3 (120°)</text>
+
+  <!-- Stator Phase S2 -->
+  <line x1="70" y1="255" x2="105" y2="305" stroke="#1a1a1a" stroke-width="1.5"/>
+  <path d="M 105 305 Q 115 315 125 305 Q 135 315 145 305" fill="none" stroke="#2457d6" stroke-width="2"/>
+  <line x1="145" y1="305" x2="195" y2="360" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="195" cy="360" r="4.5" fill="#2457d6"/>
+  <text x="170" y="350" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">S2 (240°)</text>
+
+  <!-- Wires connecting Panel 1 to Panel 2 -->
+  <line x1="195" y1="150" x2="380" y2="150" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="195" y1="255" x2="280" y2="255" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="195" y1="360" x2="380" y2="360" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- PANEL 2: Scott-T Transformer Network -->
+  <rect x="245" y="75" width="460" height="365" rx="8" ry="8" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <path d="M 245 83 Q 245 75 253 75 L 697 75 Q 705 75 705 83 L 705 108 L 245 108 Z" fill="#eaf0fd" stroke="#d0d7de" stroke-width="1"/>
+  <text x="475" y="96" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">Трансформаторний вузол Скотта</text>
+
+  <!-- Teaser Transformer Section -->
+  <text x="295" y="140" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Teaser (cos)</text>
+  <path d="M 280 175 Q 290.8 163 301.6 175 Q 312.4 163 323.2 175 Q 334 163 345 175" fill="none" stroke="#2457d6" stroke-width="2"/>
+
+  <!-- Teaser Core -->
+  <line x1="275" y1="205" x2="350" y2="205" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <line x1="275" y1="210" x2="350" y2="210" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4,3"/>
+
+  <!-- Teaser Primary Winding -->
+  <text x="312" y="230" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Обмотка Teaser</text>
+  <text x="312" y="244" font-size="11" fill="#6b7280" text-anchor="middle">86.6% витків (√3/2)</text>
+  <path d="M 280 255 Q 290.8 243 301.6 255 Q 312.4 243 323.2 255 Q 334 243 345 255" fill="none" stroke="#2457d6" stroke-width="2"/>
+  <line x1="345" y1="255" x2="380" y2="255" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Main Primary Winding (Vertical at x=380) -->
+  <path d="M 380 150 Q 368 163.1 380 176.25 Q 368 189.4 380 202.5 Q 368 215.6 380 228.75 Q 368 241.9 380 255" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="380" cy="255" r="4.5" fill="#1a1a1a"/>
+  <path d="M 380 255 Q 368 268.1 380 281.25 Q 368 294.4 380 307.5 Q 368 320.6 380 333.75 Q 368 346.9 380 360" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Main Primary Labels -->
+  <text x="388" y="195" font-size="11" fill="#6b7280" text-anchor="start">50% N_main</text>
+  <text x="388" y="259" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">CT (50%)</text>
+  <text x="388" y="320" font-size="11" fill="#6b7280" text-anchor="start">50% N_main</text>
+
+  <!-- Main Transformer Core -->
+  <line x1="455" y1="140" x2="455" y2="370" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="5,3"/>
+  <line x1="461" y1="140" x2="461" y2="370" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="5,3"/>
+
+  <!-- Main Secondary Winding (Vertical at x=495) -->
+  <path d="M 495 230 Q 507 243.75 495 257.5 Q 507 271.25 495 285 Q 507 298.75 495 312.5 Q 507 326.25 495 340" fill="none" stroke="#27ae60" stroke-width="2"/>
+  <line x1="495" y1="230" x2="510" y2="230" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="510" y1="230" x2="510" y2="410" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="6,3"/>
+
+  <!-- Main Secondary Labels -->
+  <text x="600" y="285" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Вторинна обмотка Main</text>
+  <text x="600" y="303" font-size="12" fill="#1a1a1a" text-anchor="middle">U_sin = U_m · sin(θ)</text>
+
+  <!-- Signal Lines & Routing -->
+  <!-- Cosine Signal Wire (Blue) -->
+  <text x="580" y="116" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Сигнал cos(θ)</text>
+  <path d="M 345 175 L 345 125 L 715 125 L 715 150 L 735 150" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Sine Signal Wire (Green) -->
+  <text x="580" y="330" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Сигнал sin(θ)</text>
+  <line x1="495" y1="340" x2="735" y2="340" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- Common Reference GND Line -->
+  <path d="M 280 175 L 265 175 L 265 410 L 725 410" fill="none" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="6,3"/>
+  <circle cx="510" cy="410" r="3.5" fill="#6b7280"/>
+  <text x="580" y="403" font-size="12" fill="#6b7280" text-anchor="middle">Спільний 0В (GND)</text>
+
+  <!-- PANEL 3: Quadrature Outputs -->
+  <rect x="725" y="75" width="210" height="365" rx="8" ry="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="830" y="98" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Квадратурні виходи</text>
+  <text x="830" y="116" font-size="12" fill="#6b7280" text-anchor="middle">Формат sin / cos</text>
+
+  <!-- COS Channel Box -->
+  <rect x="735" y="135" width="190" height="135" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="830" y="153" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Канал COS (U_cos)</text>
+  <text x="830" y="169" font-size="11" fill="#1a1a1a" text-anchor="middle">U_cos = U_m · cos(θ) · sin(ωt)</text>
+  <text x="830" y="184" font-size="11" fill="#6b7280" text-anchor="middle">Зсув фази: 90°</text>
+
+  <!-- COS Waveform Frame -->
+  <rect x="745" y="193" width="170" height="65" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <line x1="750" y1="222" x2="910" y2="222" stroke="#d0d7de" stroke-dasharray="3,3"/>
+  <path d="M 755 206 C 775 206, 795 238, 830 238 C 865 238, 885 206, 905 206" fill="none" stroke="#2457d6" stroke-width="2"/>
+  <text x="830" y="250" font-size="11" fill="#2457d6" text-anchor="middle">cos(θ) · sin(ωt)</text>
+
+  <!-- SIN Channel Box -->
+  <rect x="735" y="285" width="190" height="135" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="830" y="303" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Канал SIN (U_sin)</text>
+  <text x="830" y="319" font-size="11" fill="#1a1a1a" text-anchor="middle">U_sin = U_m · sin(θ) · sin(ωt)</text>
+  <text x="830" y="334" font-size="11" fill="#6b7280" text-anchor="middle">Зсув фази: 0°</text>
+
+  <!-- SIN Waveform Frame -->
+  <rect x="745" y="343" width="170" height="65" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <line x1="750" y1="372" x2="910" y2="372" stroke="#d0d7de" stroke-dasharray="3,3"/>
+  <path d="M 755 372 C 775 352, 795 352, 830 372 C 865 392, 885 392, 905 372" fill="none" stroke="#27ae60" stroke-width="2"/>
+  <text x="830" y="400" font-size="11" fill="#27ae60" text-anchor="middle">sin(θ) · sin(ωt)</text>
+
+  <!-- Bottom Legend Banner -->
+  <rect x="25" y="450" width="910" height="35" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="480" y="472" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan font-weight="bold" fill="#2457d6">Ключовий принцип Scott-T:</tspan> Обмотка Teaser має √3/2 ≈ 0.866 витків від Main для вирівнювання амплітуд сигналів sin і cos.</text>
+</svg>

@@ -1,0 +1,144 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-accent" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-dark" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Архітектура C++ драйвера магнітометра QMC5883L</text>
+  <text x="480" y="54" font-size="13" text-anchor="middle" fill="#6b7280">C++ API відокремлює прикладну логіку від регістрів та I2C HAL, контролюючи ODR, Range та OSR</text>
+
+  <!-- COLUMN 1: Application Layer -->
+  <rect x="30" y="75" width="240" height="440" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="8"/>
+  <text x="150" y="98" font-size="15" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Прикладний рівень (App)</text>
+
+  <!-- Block 1.1: Init & Config -->
+  <rect x="42" y="112" width="216" height="110" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="6"/>
+  <text x="150" y="130" font-size="13" font-weight="bold" text-anchor="middle" fill="#2457d6">Конфігурація давача</text>
+  <text x="52" y="152" font-size="11" fill="#1a1a1a">driver.init(&amp;i2c_bus)</text>
+  <text x="52" y="170" font-size="11" fill="#1a1a1a">driver.setODR(ODR_100HZ)</text>
+  <text x="52" y="188" font-size="11" fill="#1a1a1a">driver.setRange(RANGE_8G)</text>
+  <text x="52" y="206" font-size="11" fill="#1a1a1a">driver.setOSR(OSR_512)</text>
+
+  <!-- Block 1.2: Read Data -->
+  <rect x="42" y="232" width="216" height="105" fill="#e9f7ef" stroke="#27ae60" stroke-width="1" rx="6"/>
+  <text x="150" y="250" font-size="13" font-weight="bold" text-anchor="middle" fill="#27ae60">Зчитування даних (16-bit)</text>
+  <text x="52" y="272" font-size="11" fill="#1a1a1a">if (driver.isDataReady())</text>
+  <text x="52" y="290" font-size="11" fill="#1a1a1a">  auto raw = driver.readRaw()</text>
+  <text x="52" y="308" font-size="11" fill="#6b7280">  // X, Y, Z (16-bit signed)</text>
+  <text x="52" y="326" font-size="11" fill="#6b7280">  // Використання LSB/MSB</text>
+
+  <!-- Block 1.3: Diagnostics & Errors -->
+  <rect x="42" y="347" width="216" height="153" fill="#fdecea" stroke="#c0392b" stroke-width="1" rx="6"/>
+  <text x="150" y="365" font-size="13" font-weight="bold" text-anchor="middle" fill="#c0392b">Опрацювання помилок</text>
+  <text x="52" y="385" font-size="11" fill="#1a1a1a">if (driver.isOverflow())</text>
+  <text x="52" y="402" font-size="11" fill="#c0392b">  // OVL прапорець (Reg 0x06)</text>
+  <text x="52" y="422" font-size="11" fill="#1a1a1a">if (err != Status::OK)</text>
+  <text x="52" y="439" font-size="11" fill="#c0392b">  // Збій I2C шини</text>
+  <text x="52" y="460" font-size="11" fill="#1a1a1a">driver.softReset()</text>
+  <text x="52" y="478" font-size="11" fill="#6b7280">  // Програмне скидання (0x0A)</text>
+
+  <!-- COLUMN 2: Driver Layer -->
+  <rect x="310" y="75" width="340" height="440" fill="#ffffff" stroke="#2457d6" stroke-width="2" rx="8"/>
+  <text x="480" y="98" font-size="15" font-weight="bold" text-anchor="middle" fill="#2457d6">C++ Драйвер QMC5883L</text>
+
+  <!-- Sub-block 2.1: Public API -->
+  <rect x="325" y="112" width="310" height="110" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="480" y="130" font-size="13" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Публічний C++ API</text>
+  <text x="335" y="152" font-size="11" fill="#1a1a1a">+ init(i2c_port: II2CAdapter*): Status</text>
+  <text x="335" y="170" font-size="11" fill="#1a1a1a">+ setConfig(odr, range, osr): Status</text>
+  <text x="335" y="188" font-size="11" fill="#1a1a1a">+ readRaw(Vector3D&amp; out): Status</text>
+  <text x="335" y="206" font-size="11" fill="#1a1a1a">+ getStatus(StatusFlags&amp; out): Status</text>
+
+  <!-- Sub-block 2.2: Internal Logic -->
+  <rect x="325" y="232" width="310" height="160" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="480" y="248" font-size="13" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Внутрішні обробники драйвера</text>
+
+  <rect x="335" y="256" width="290" height="42" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="4"/>
+  <text x="480" y="272" font-size="11" font-weight="bold" text-anchor="middle" fill="#2457d6">Конфігуратор регістрів (0x09 / 0x0A)</text>
+  <text x="480" y="290" font-size="11" text-anchor="middle" fill="#1a1a1a">Маскування та зсув: OSR | RNG | ODR | MODE</text>
+
+  <rect x="335" y="304" width="290" height="42" fill="#e9f7ef" stroke="#27ae60" stroke-width="1" rx="4"/>
+  <text x="480" y="320" font-size="11" font-weight="bold" text-anchor="middle" fill="#27ae60">Декодер 16-біт даних (X, Y, Z)</text>
+  <text x="480" y="338" font-size="11" text-anchor="middle" fill="#1a1a1a">Формування: (int16_t)((MSB &lt;&lt; 8) | LSB)</text>
+
+  <rect x="335" y="352" width="290" height="32" fill="#fdecea" stroke="#c0392b" stroke-width="1" rx="4"/>
+  <text x="480" y="373" font-size="11" font-weight="bold" text-anchor="middle" fill="#c0392b">Аналіз прапорців DRDY та OVL (Reg 0x06)</text>
+
+  <!-- Sub-block 2.3: I2C HAL Interface -->
+  <rect x="325" y="402" width="310" height="98" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="6"/>
+  <text x="480" y="420" font-size="13" font-weight="bold" text-anchor="middle" fill="#2457d6">Абстракція шини: II2CAdapter</text>
+  <text x="335" y="442" font-size="11" fill="#1a1a1a">virtual readReg(dev, reg, buf, len): bool</text>
+  <text x="335" y="462" font-size="11" fill="#1a1a1a">virtual writeReg(dev, reg, val): bool</text>
+  <text x="335" y="482" font-size="11" fill="#6b7280">// Портативність: STM32, ESP32, AVR</text>
+
+  <!-- COLUMN 3: Hardware Registers -->
+  <rect x="690" y="75" width="240" height="440" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="8"/>
+  <text x="810" y="98" font-size="15" font-weight="bold" text-anchor="middle" fill="#1a1a1a">QMC5883L (Регістри)</text>
+
+  <!-- Reg Block 3.1: Data Registers -->
+  <rect x="702" y="112" width="216" height="110" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="810" y="130" font-size="13" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Регістри даних (0x00..0x05)</text>
+  <text x="712" y="152" font-size="11" fill="#1a1a1a">0x00: X_LSB  |  0x01: X_MSB</text>
+  <text x="712" y="170" font-size="11" fill="#1a1a1a">0x02: Y_LSB  |  0x03: Y_MSB</text>
+  <text x="712" y="188" font-size="11" fill="#1a1a1a">0x04: Z_LSB  |  0x05: Z_MSB</text>
+  <text x="712" y="206" font-size="11" fill="#6b7280">// 6 байтів (пакетне читання)</text>
+
+  <!-- Reg Block 3.2: Status Register -->
+  <rect x="702" y="232" width="216" height="95" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="810" y="250" font-size="13" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Регістр стану (0x06 Status)</text>
+  <text x="712" y="270" font-size="11" fill="#27ae60">Bit 0: DRDY (Data Ready)</text>
+  <text x="712" y="288" font-size="11" fill="#c0392b">Bit 1: OVL (Data Overflow)</text>
+  <text x="712" y="306" font-size="11" fill="#6b7280">Bit 2: DOR (Data Overrun)</text>
+
+  <!-- Reg Block 3.3: Control Registers -->
+  <rect x="702" y="337" width="216" height="163" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="810" y="355" font-size="13" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Регістри керування</text>
+  <text x="712" y="374" font-size="11" font-weight="bold" fill="#2457d6">0x09 Control 1:</text>
+  <text x="712" y="390" font-size="11" fill="#1a1a1a">ODR: 10, 50, 100, 200 Hz</text>
+  <text x="712" y="406" font-size="11" fill="#1a1a1a">RNG: ±2G / ±8G  |  OSR: 64..512</text>
+  <text x="712" y="422" font-size="11" fill="#1a1a1a">MODE: Continuous (01) / Standby</text>
+  <text x="712" y="442" font-size="11" font-weight="bold" fill="#2457d6">0x0A Control 2:</text>
+  <text x="712" y="458" font-size="11" fill="#1a1a1a">SOFT_RST (Bit 7), ROL_PNT (Bit 6)</text>
+  <text x="712" y="476" font-size="11" font-weight="bold" fill="#2457d6">0x0B SET/RESET Period:</text>
+  <text x="712" y="492" font-size="11" fill="#1a1a1a">Запис значення 0x01</text>
+
+  <!-- CONNECTING ARROWS & LABELS -->
+
+  <!-- Arrow 1: App Config -> Driver Config -->
+  <line x1="258" y1="167" x2="325" y2="167" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arr-accent)"/>
+  <text x="291.5" y="158" font-size="11" font-weight="bold" text-anchor="middle" fill="#2457d6">Виклики API</text>
+
+  <!-- Arrow 2: App Data Read -> Driver Data Read -->
+  <line x1="258" y1="285" x2="325" y2="285" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arr-green)"/>
+  <text x="291.5" y="276" font-size="11" font-weight="bold" text-anchor="middle" fill="#27ae60">Зчитування</text>
+
+  <!-- Arrow 3: App Error Diagnostics -> Driver Status Check -->
+  <line x1="258" y1="420" x2="325" y2="420" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arr-red)"/>
+  <text x="291.5" y="411" font-size="11" font-weight="bold" text-anchor="middle" fill="#c0392b">Статус/OVL</text>
+
+  <!-- Arrow 4: Driver HAL -> Hardware Registers (I2C Write) -->
+  <line x1="635" y1="435" x2="702" y2="435" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arr-accent)"/>
+  <text x="668.5" y="426" font-size="11" font-weight="bold" text-anchor="middle" fill="#2457d6">I2C Write</text>
+
+  <!-- Arrow 5: Hardware Data Regs -> Driver Data Decoder (I2C Read) -->
+  <line x1="702" y1="167" x2="635" y2="167" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arr-green)"/>
+  <text x="668.5" y="158" font-size="11" font-weight="bold" text-anchor="middle" fill="#27ae60">I2C Read</text>
+
+  <!-- Arrow 6: Hardware Status Reg -> Driver Status Checker (Status Read) -->
+  <line x1="702" y1="280" x2="635" y2="280" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arr-red)"/>
+  <text x="668.5" y="271" font-size="11" font-weight="bold" text-anchor="middle" fill="#c0392b">DRDY / OVL</text>
+</svg>

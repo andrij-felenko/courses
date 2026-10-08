@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Порівняння карт регістрів HMC5883L та QMC5883L</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Різні I2C-адреси (0x1E vs 0x0D), порядок байтів (MSB vs LSB) та осей (X-Z-Y vs X-Y-Z)</text>
+  <rect x="35" y="80" width="430" height="455" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="8"/>
+  <rect x="47" y="92" width="406" height="50" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <text x="250" y="112" font-size="15" font-weight="bold" fill="#1a1a1a" text-anchor="middle">HMC5883L (Honeywell)</text>
+  <text x="250" y="131" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">I2C-адреса: 0x1E</text>
+  <rect x="47" y="154" width="406" height="92" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="59" y="172" font-size="12" font-weight="bold" fill="#1a1a1a">Конфігурація на початку карти (0x00 - 0x02):</text>
+  <text x="59" y="193" font-size="12" fill="#1a1a1a">0x00 : CRA  — Налаштування усереднення та ODR</text>
+  <text x="59" y="213" font-size="12" fill="#1a1a1a">0x01 : CRB  — Налаштування підсилення (Gain)</text>
+  <text x="59" y="233" font-size="12" fill="#1a1a1a">0x02 : MR   — Режим роботи (Continuous / Single)</text>
+  <rect x="47" y="258" width="406" height="156" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" rx="6"/>
+  <text x="59" y="276" font-size="12" font-weight="bold" fill="#c0392b">Вихідні дані осей (0x03 - 0x08) — MSB спочатку:</text>
+  <text x="59" y="297" font-size="12" font-weight="bold" fill="#1a1a1a">0x03..0x04 : X_MSB , X_LSB  (Вісь X)</text>
+  <text x="59" y="318" font-size="12" font-weight="bold" fill="#c0392b">0x05..0x06 : Z_MSB , Z_LSB  (Вісь Z — спочатку Z!)</text>
+  <text x="59" y="339" font-size="12" font-weight="bold" fill="#c0392b">0x07..0x08 : Y_MSB , Y_LSB  (Вісь Y — потім Y!)</text>
+  <rect x="57" y="352" width="386" height="50" fill="#ffffff" stroke="#c0392b" stroke-width="1" rx="4"/>
+  <text x="250" y="370" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Порядок осей: X → Z → Y</text>
+  <text x="250" y="390" font-size="12" fill="#6b7280" text-anchor="middle">Порядок байтів: MSB (старший) → LSB (молодший)</text>
+  <rect x="47" y="426" width="406" height="94" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="59" y="444" font-size="12" font-weight="bold" fill="#1a1a1a">Статус та ідентифікація (0x09 - 0x0C):</text>
+  <text x="59" y="464" font-size="12" fill="#1a1a1a">0x09       : Status Register (RDY, LOCK, REN)</text>
+  <text x="59" y="484" font-size="12" fill="#1a1a1a">0x0A..0x0C : Identification Reg A, B, C ("H43")</text>
+  <text x="59" y="504" font-size="12" fill="#6b7280">Сигнатура  : ASCII-значення "H43" (0x48, 0x34, 0x33)</text>
+  <rect x="495" y="80" width="430" height="455" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="8"/>
+  <rect x="507" y="92" width="406" height="50" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <text x="710" y="112" font-size="15" font-weight="bold" fill="#1a1a1a" text-anchor="middle">QMC5883L (QST)</text>
+  <text x="710" y="131" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">I2C-адреса: 0x0D</text>
+  <rect x="507" y="154" width="406" height="156" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" rx="6"/>
+  <text x="519" y="172" font-size="12" font-weight="bold" fill="#c0392b">Вихідні дані осей на початку (0x00 - 0x05) — LSB:</text>
+  <text x="519" y="193" font-size="12" font-weight="bold" fill="#c0392b">0x00..0x01 : X_LSB , X_MSB  (Вісь X — LSB спочатку!)</text>
+  <text x="519" y="214" font-size="12" font-weight="bold" fill="#1a1a1a">0x02..0x03 : Y_LSB , Y_MSB  (Вісь Y — стандартно Y)</text>
+  <text x="519" y="235" font-size="12" font-weight="bold" fill="#c0392b">0x04..0x05 : Z_LSB , Z_MSB  (Вісь Z — в кінці Z!)</text>
+  <rect x="517" y="248" width="386" height="50" fill="#ffffff" stroke="#c0392b" stroke-width="1" rx="4"/>
+  <text x="710" y="266" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Порядок осей: X → Y → Z</text>
+  <text x="710" y="286" font-size="12" fill="#6b7280" text-anchor="middle">Порядок байтів: LSB (молодший) → MSB (старший)</text>
+  <rect x="507" y="322" width="406" height="70" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="519" y="340" font-size="12" font-weight="bold" fill="#1a1a1a">Статус та термометр (0x06 - 0x08):</text>
+  <text x="519" y="359" font-size="12" fill="#1a1a1a">0x06       : Status Register (DRDY, OVFL, DOR)</text>
+  <text x="519" y="378" font-size="12" fill="#1a1a1a">0x07..0x08 : TOUT_LSB, TOUT_MSB (Давач температури)</text>
+  <rect x="507" y="404" width="406" height="116" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="519" y="420" font-size="12" font-weight="bold" fill="#1a1a1a">Конфігурація та ID в кінці (0x09 - 0x0D):</text>
+  <text x="519" y="440" font-size="12" fill="#1a1a1a">0x09 : Control 1 — ODR, RNG (підсилення), OSR</text>
+  <text x="519" y="460" font-size="12" fill="#1a1a1a">0x0A : Control 2 — SOFT_RST, ROL_PTR, INT_ENB</text>
+  <text x="519" y="480" font-size="12" fill="#1a1a1a">0x0B : SET/RESET Period — Період скидання (FBR)</text>
+  <text x="519" y="500" font-size="12" fill="#6b7280">0x0D : Chip ID   — Сигнатурне значення 0xFF</text>
+</svg>

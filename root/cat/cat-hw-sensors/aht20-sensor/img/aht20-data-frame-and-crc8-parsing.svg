@@ -1,0 +1,170 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Біла підкладка на все полотно -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Маркери для стрілок -->
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="34" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Структура 7-байтного кадру відповідей AHT20 та обчислення CRC8</text>
+  <text x="480" y="56" font-size="13" fill="#6b7280" text-anchor="middle">20-бітні значення вологості та температури розщеплені в Byte 3, а Byte 6 містить контрольну суму CRC8</text>
+
+  <!-- СЕКЦІЯ 1: 7-байтовий кадр відповідей AHT20 -->
+  <!-- Byte 0: Status -->
+  <rect x="48" y="80" width="115" height="70" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="4"/>
+  <text x="105.5" y="98" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">Byte 0</text>
+  <text x="105.5" y="118" font-size="12" fill="#1a1a1a" text-anchor="middle">Статус (State)</text>
+  <text x="105.5" y="136" font-size="11" fill="#6b7280" text-anchor="middle">Busy[7], Cal[3]</text>
+
+  <!-- Byte 1: Humidity MSB -->
+  <rect x="173" y="80" width="115" height="70" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="4"/>
+  <text x="230.5" y="98" font-size="13" font-weight="700" fill="#2457d6" text-anchor="middle">Byte 1</text>
+  <text x="230.5" y="118" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">HUM [19:12]</text>
+  <text x="230.5" y="136" font-size="11" fill="#6b7280" text-anchor="middle">8 б вологості</text>
+
+  <!-- Byte 2: Humidity MID -->
+  <rect x="298" y="80" width="115" height="70" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="4"/>
+  <text x="355.5" y="98" font-size="13" font-weight="700" fill="#2457d6" text-anchor="middle">Byte 2</text>
+  <text x="355.5" y="118" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">HUM [11:4]</text>
+  <text x="355.5" y="136" font-size="11" fill="#6b7280" text-anchor="middle">8 б вологості</text>
+
+  <!-- Byte 3: Split Byte (HUM LSB [7:4] | TMP MSB [3:0]) -->
+  <rect x="423" y="80" width="57" height="70" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="4"/>
+  <text x="451.5" y="98" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">Byte 3</text>
+  <text x="451.5" y="118" font-size="11" font-weight="700" fill="#2457d6" text-anchor="middle">HUM[3:0]</text>
+  <text x="451.5" y="136" font-size="11" fill="#6b7280" text-anchor="middle">біт 7..4</text>
+
+  <rect x="481" y="80" width="57" height="70" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="4"/>
+  <text x="509.5" y="98" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">Byte 3</text>
+  <text x="509.5" y="118" font-size="11" font-weight="700" fill="#27ae60" text-anchor="middle">TMP[19:16]</text>
+  <text x="509.5" y="136" font-size="11" fill="#6b7280" text-anchor="middle">біт 3..0</text>
+
+  <!-- Byte 4: Temp MID -->
+  <rect x="548" y="80" width="115" height="70" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="4"/>
+  <text x="605.5" y="98" font-size="13" font-weight="700" fill="#27ae60" text-anchor="middle">Byte 4</text>
+  <text x="605.5" y="118" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">TMP [15:8]</text>
+  <text x="605.5" y="136" font-size="11" fill="#6b7280" text-anchor="middle">8 б температури</text>
+
+  <!-- Byte 5: Temp LSB -->
+  <rect x="673" y="80" width="115" height="70" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="4"/>
+  <text x="730.5" y="98" font-size="13" font-weight="700" fill="#27ae60" text-anchor="middle">Byte 5</text>
+  <text x="730.5" y="118" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">TMP [7:0]</text>
+  <text x="730.5" y="136" font-size="11" fill="#6b7280" text-anchor="middle">8 б температури</text>
+
+  <!-- Byte 6: CRC8 -->
+  <rect x="798" y="80" width="114" height="70" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" rx="4"/>
+  <text x="855" y="98" font-size="13" font-weight="700" fill="#c0392b" text-anchor="middle">Byte 6</text>
+  <text x="855" y="118" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">CRC8</text>
+  <text x="855" y="136" font-size="11" fill="#6b7280" text-anchor="middle">Контрольна сума</text>
+
+  <!-- СТРІЛКИ ВІД БАЙТІВ ДО ПАНЕЛЕЙ ДЕТАЛІЗАЦІЇ -->
+  <line x1="105.5" y1="150" x2="105.5" y2="175" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr-gray)"/>
+  <line x1="480" y1="150" x2="480" y2="175" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr-blue)"/>
+  <line x1="855" y1="150" x2="855" y2="175" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr-red)"/>
+
+  <!-- СЕКЦІЯ 2: ТРИ ПАНЕЛІ ДЕТАЛІЗАЦІЇ (Y = 175..345) -->
+  <!-- Панель 1: Байт стану (Byte 0) -->
+  <rect x="48" y="175" width="215" height="170" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="6"/>
+  <text x="155.5" y="197" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">Байт стану (Byte 0)</text>
+
+  <rect x="60" y="210" width="191" height="34" fill="white" stroke="#d0d7de" stroke-width="1" rx="4"/>
+  <text x="70" y="231" font-size="11" font-weight="700" fill="#c0392b">Біт [7] Busy:</text>
+  <text x="142" y="231" font-size="11" fill="#1a1a1a">1 = вимірює, 0 = готово</text>
+
+  <rect x="60" y="250" width="191" height="34" fill="white" stroke="#d0d7de" stroke-width="1" rx="4"/>
+  <text x="70" y="271" font-size="11" font-weight="700" fill="#27ae60">Біт [3] CAL:</text>
+  <text x="142" y="271" font-size="11" fill="#1a1a1a">1 = відкалібровано</text>
+
+  <rect x="60" y="290" width="191" height="42" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="4"/>
+  <text x="155.5" y="307" font-size="11" font-weight="700" fill="#2457d6" text-anchor="middle">Перед обробкою даних:</text>
+  <text x="155.5" y="323" font-size="11" fill="#1a1a1a" text-anchor="middle">перевірити (Byte0 &amp; 0x80) == 0</text>
+
+  <!-- Панель 2: Відновлення 20-бітних значень (Bytes 1..5) -->
+  <rect x="278" y="175" width="424" height="170" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="6"/>
+  <text x="490" y="197" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">Відновлення 20-бітних сирих значень та конвертація</text>
+
+  <!-- Блок вологості -->
+  <rect x="290" y="210" width="400" height="58" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="4"/>
+  <text x="302" y="227" font-size="12" font-weight="700" fill="#2457d6">Вологість S_RH (20 біт):</text>
+  <text x="302" y="243" font-size="11" fill="#1a1a1a">S_RH = (Byte1 &lt;&lt; 12) | (Byte2 &lt;&lt; 4) | (Byte3 &gt;&gt; 4)</text>
+  <text x="302" y="259" font-size="11" font-weight="700" fill="#2457d6">RH (%) = (S_RH / 1048576) × 100%</text>
+
+  <!-- Блок температури -->
+  <rect x="290" y="276" width="400" height="58" fill="#e9f7ef" stroke="#27ae60" stroke-width="1" rx="4"/>
+  <text x="302" y="293" font-size="12" font-weight="700" fill="#27ae60">Температура S_T (20 біт):</text>
+  <text x="302" y="309" font-size="11" fill="#1a1a1a">S_T = ((Byte3 &amp; 0x0F) &lt;&lt; 16) | (Byte4 &lt;&lt; 8) | Byte5</text>
+  <text x="302" y="325" font-size="11" font-weight="700" fill="#27ae60">T (°C) = (S_T / 1048576) × 200 - 50</text>
+
+  <!-- Панель 3: Перевірка CRC8 (Byte 6) -->
+  <rect x="717" y="175" width="195" height="170" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" rx="6"/>
+  <text x="814.5" y="197" font-size="13" font-weight="700" fill="#c0392b" text-anchor="middle">Контрольна сума CRC8</text>
+
+  <text x="729" y="218" font-size="11" font-weight="700" fill="#1a1a1a">Дані:</text>
+  <text x="768" y="218" font-size="11" fill="#1a1a1a">Byte 0 … Byte 5 (6 байт)</text>
+
+  <text x="729" y="236" font-size="11" font-weight="700" fill="#1a1a1a">Поліном:</text>
+  <text x="786" y="236" font-size="11" fill="#c0392b">0x31 (x⁸ + x⁵ + x⁴ + 1)</text>
+
+  <text x="729" y="254" font-size="11" font-weight="700" fill="#1a1a1a">Поч. значення:</text>
+  <text x="815" y="254" font-size="11" fill="#1a1a1a">0xFF</text>
+
+  <rect x="727" y="270" width="175" height="64" fill="white" stroke="#c0392b" stroke-width="1" rx="4"/>
+  <text x="814.5" y="288" font-size="11" font-weight="700" fill="#c0392b" text-anchor="middle">CRC8(Byte0..Byte5) == Byte6</text>
+  <text x="814.5" y="306" font-size="11" fill="#27ae60" text-anchor="middle">Збігається → дані валідні</text>
+  <text x="814.5" y="324" font-size="11" fill="#c0392b" text-anchor="middle">Незбіг → помилка шини/кадру</text>
+
+  <!-- СТРІЛКИ ВІД ПАНЕЛЕЙ ДО НИЖНЬОГО КОНВЕЄРА -->
+  <line x1="155.5" y1="345" x2="155.5" y2="365" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr-gray)"/>
+  <line x1="490" y1="345" x2="490" y2="365" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr-blue)"/>
+  <line x1="814.5" y1="345" x2="814.5" y2="365" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr-red)"/>
+
+  <!-- СЕКЦІЯ 3: НИЖНІЙ КОНВЕЄР ОБРОБКИ (Y = 365..480) -->
+  <rect x="48" y="365" width="864" height="115" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="6"/>
+  <text x="480" y="387" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">Алгоритм обробки кадру в неблокуючому драйвері мовою C</text>
+
+  <!-- Блок Крок 1 -->
+  <rect x="68" y="402" width="180" height="60" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="4"/>
+  <text x="158" y="422" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">1. Читання кадру</text>
+  <text x="158" y="440" font-size="11" fill="#1a1a1a" text-anchor="middle">i2c_read(AHT20_ADDR,</text>
+  <text x="158" y="454" font-size="11" fill="#6b7280" text-anchor="middle">buf, 7 байтів)</text>
+
+  <!-- Стрілка 1->2 -->
+  <line x1="248" y1="432" x2="278" y2="432" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Блок Крок 2 -->
+  <rect x="283" y="402" width="180" height="60" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" rx="4"/>
+  <text x="373" y="422" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">2. Верифікація CRC8</text>
+  <text x="373" y="440" font-size="11" fill="#1a1a1a" text-anchor="middle">crc8(buf, 6) == buf[6]</text>
+  <text x="373" y="454" font-size="11" fill="#c0392b" text-anchor="middle">Якщо ні → ERR_CRC</text>
+
+  <!-- Стрілка 2->3 -->
+  <line x1="463" y1="432" x2="493" y2="432" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+
+  <!-- Блок Крок 3 -->
+  <rect x="498" y="402" width="180" height="60" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="4"/>
+  <text x="588" y="422" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">3. Контроль Busy</text>
+  <text x="588" y="440" font-size="11" fill="#1a1a1a" text-anchor="middle">(buf[0] &amp; 0x80) == 0</text>
+  <text x="588" y="454" font-size="11" fill="#6b7280" text-anchor="middle">Якщо 1 → повтор/таймаут</text>
+
+  <!-- Стрілка 3->4 -->
+  <line x1="678" y1="432" x2="708" y2="432" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Блок Крок 4 -->
+  <rect x="713" y="402" width="180" height="60" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="4"/>
+  <text x="803" y="422" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">4. Декодування</text>
+  <text x="803" y="440" font-size="11" fill="#1a1a1a" text-anchor="middle">Обчислення S_RH та S_T</text>
+  <text x="803" y="454" font-size="11" fill="#27ae60" text-anchor="middle">Вихід: RH% і Temp °C</text>
+</svg>

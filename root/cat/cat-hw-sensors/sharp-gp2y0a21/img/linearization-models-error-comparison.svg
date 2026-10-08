@@ -1,0 +1,178 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Markers -->
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Порівняння моделей лінеаризації давача Sharp GP2Y0A21YK0F</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Гіперболічна модель оптимальна для віддалей 20–80 см, а LUT забезпечує високу швидкість без FPU</text>
+
+  <!-- LEFT PANEL: Approximation Curves d(V) -->
+  <rect x="30" y="80" width="435" height="365" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="247" y="104" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Апроксимація залежності відстані від напруги d(V)</text>
+
+  <!-- Left Legend -->
+  <circle cx="50" cy="128" r="4" fill="#1a1a1a"/>
+  <text x="60" y="132" font-size="12" fill="#1a1a1a">Експеримент</text>
+  <line x1="150" y1="128" x2="175" y2="128" stroke="#2457d6" stroke-width="2.5"/>
+  <text x="182" y="132" font-size="12" fill="#1a1a1a">Гіпербола</text>
+  <line x1="260" y1="128" x2="285" y2="128" stroke="#c0392b" stroke-width="2" stroke-dasharray="4,3"/>
+  <text x="292" y="132" font-size="12" fill="#1a1a1a">Степенева</text>
+  <line x1="370" y1="128" x2="395" y2="128" stroke="#27ae60" stroke-width="2"/>
+  <text x="402" y="132" font-size="12" fill="#1a1a1a">LUT</text>
+
+  <!-- Left Grid -->
+  <line x1="80" y1="163" x2="430" y2="163" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="80" y1="214" x2="430" y2="214" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="80" y1="266" x2="430" y2="266" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="80" y1="292" x2="430" y2="292" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="80" y1="318" x2="430" y2="318" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="80" y1="344" x2="430" y2="344" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+
+  <line x1="97" y1="150" x2="97" y2="370" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="163" y1="150" x2="163" y2="370" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="230" y1="150" x2="230" y2="370" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="297" y1="150" x2="297" y2="370" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="363" y1="150" x2="363" y2="370" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="430" y1="150" x2="430" y2="370" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+
+  <!-- Left Curves -->
+  <!-- Power curve -->
+  <path d="M 90 152 C 105 210, 135 272, 177 300 C 225 328, 305 348, 415 362" fill="none" stroke="#c0392b" stroke-width="2" stroke-dasharray="5,4"/>
+  <!-- Hyperbolic curve -->
+  <path d="M 90 163 C 107 214, 138 266, 177 292 C 228 318, 300 331, 405 344" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+  <!-- LUT curve (piecewise linear connecting points) -->
+  <path d="M 90 163 L 107 214 L 122 240 L 143 266 L 177 292 L 238 318 L 300 331 L 405 344" fill="none" stroke="#27ae60" stroke-width="2"/>
+
+  <!-- Experimental Dots -->
+  <circle cx="405" cy="344" r="4.5" fill="#1a1a1a"/>
+  <circle cx="300" cy="331" r="4.5" fill="#1a1a1a"/>
+  <circle cx="238" cy="318" r="4.5" fill="#1a1a1a"/>
+  <circle cx="177" cy="292" r="4.5" fill="#1a1a1a"/>
+  <circle cx="143" cy="266" r="4.5" fill="#1a1a1a"/>
+  <circle cx="122" cy="240" r="4.5" fill="#1a1a1a"/>
+  <circle cx="107" cy="214" r="4.5" fill="#1a1a1a"/>
+  <circle cx="90" cy="163" r="4.5" fill="#1a1a1a"/>
+
+  <!-- Left Axes -->
+  <line x1="80" y1="370" x2="445" y2="370" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <line x1="80" y1="370" x2="80" y2="140" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- Left Axis Labels & Titles -->
+  <text x="55" y="156" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">d (см)</text>
+
+  <text x="72" y="167" font-size="12" fill="#1a1a1a" text-anchor="end">80</text>
+  <text x="72" y="218" font-size="12" fill="#1a1a1a" text-anchor="end">60</text>
+  <text x="72" y="270" font-size="12" fill="#1a1a1a" text-anchor="end">40</text>
+  <text x="72" y="322" font-size="12" fill="#1a1a1a" text-anchor="end">20</text>
+  <text x="72" y="348" font-size="12" fill="#1a1a1a" text-anchor="end">10</text>
+
+  <text x="97" y="386" font-size="12" fill="#1a1a1a" text-anchor="middle">0.4</text>
+  <text x="163" y="386" font-size="12" fill="#1a1a1a" text-anchor="middle">0.8</text>
+  <text x="230" y="386" font-size="12" fill="#1a1a1a" text-anchor="middle">1.2</text>
+  <text x="297" y="386" font-size="12" fill="#1a1a1a" text-anchor="middle">1.6</text>
+  <text x="363" y="386" font-size="12" fill="#1a1a1a" text-anchor="middle">2.0</text>
+  <text x="430" y="386" font-size="12" fill="#1a1a1a" text-anchor="middle">2.4</text>
+
+  <text x="255" y="412" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Напруга V_out (В)</text>
+
+
+  <!-- RIGHT PANEL: Error Distribution |delta|(d) -->
+  <rect x="495" y="80" width="435" height="365" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="712" y="104" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Розподіл відносної похибки |δ| (%) за дистанцією</text>
+
+  <!-- Right Legend -->
+  <line x1="567" y1="128" x2="592" y2="128" stroke="#2457d6" stroke-width="2.5"/>
+  <text x="599" y="132" font-size="12" fill="#1a1a1a">Гіпербола</text>
+  <line x1="687" y1="128" x2="712" y2="128" stroke="#c0392b" stroke-width="2" stroke-dasharray="4,3"/>
+  <text x="719" y="132" font-size="12" fill="#1a1a1a">Степенева</text>
+  <line x1="807" y1="128" x2="832" y2="128" stroke="#27ae60" stroke-width="2"/>
+  <text x="839" y="132" font-size="12" fill="#1a1a1a">LUT (8 вузлів)</text>
+
+  <!-- Distance Zone Shading -->
+  <rect x="545" y="150" width="51" height="220" fill="#fdecea" opacity="0.6"/>
+  <rect x="596" y="150" width="153" height="220" fill="#eaf0fd" opacity="0.5"/>
+  <rect x="749" y="150" width="151" height="220" fill="#e9f7ef" opacity="0.6"/>
+
+  <text x="570" y="162" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">Ближня</text>
+  <text x="672" y="162" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">Середня зона (20–50 см)</text>
+  <text x="824" y="162" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">Дальня зона (50–80 см)</text>
+
+  <!-- Right Grid -->
+  <line x1="545" y1="194" x2="900" y2="194" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="545" y1="238" x2="900" y2="238" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="545" y1="282" x2="900" y2="282" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="545" y1="326" x2="900" y2="326" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+
+  <line x1="596" y1="170" x2="596" y2="370" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="647" y1="170" x2="647" y2="370" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="698" y1="170" x2="698" y2="370" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="749" y1="170" x2="749" y2="370" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="800" y1="170" x2="800" y2="370" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="851" y1="170" x2="851" y2="370" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="900" y1="170" x2="900" y2="370" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+
+  <!-- Right Curves -->
+  <!-- Power Error Curve -->
+  <path d="M 545 198 C 570 245, 585 270, 596 278 C 647 293, 750 282, 900 264" fill="none" stroke="#c0392b" stroke-width="2" stroke-dasharray="5,4"/>
+  <!-- Hyperbolic Error Curve -->
+  <path d="M 545 249 C 570 300, 585 325, 596 330 C 647 344, 750 346, 900 337" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+  <!-- LUT Error Curve (Ripple arcs) -->
+  <path d="M 545 370 Q 557 315 570 370 Q 583 330 596 370 Q 621 344 647 370 Q 672 350 698 370 Q 723 355 749 370 Q 774 357 800 370 Q 850 359 900 370" fill="none" stroke="#27ae60" stroke-width="2"/>
+
+  <!-- Right Axes -->
+  <line x1="545" y1="370" x2="915" y2="370" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <line x1="545" y1="370" x2="545" y2="135" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- Right Axis Labels & Titles -->
+  <text x="545" y="142" font-size="12" font-weight="bold" fill="#1a1a1a">Похибка |δ| (%)</text>
+
+  <text x="537" y="154" font-size="12" fill="#1a1a1a" text-anchor="end">10%</text>
+  <text x="537" y="198" font-size="12" fill="#1a1a1a" text-anchor="end">8%</text>
+  <text x="537" y="242" font-size="12" fill="#1a1a1a" text-anchor="end">6%</text>
+  <text x="537" y="286" font-size="12" fill="#1a1a1a" text-anchor="end">4%</text>
+  <text x="537" y="330" font-size="12" fill="#1a1a1a" text-anchor="end">2%</text>
+  <text x="537" y="374" font-size="12" fill="#1a1a1a" text-anchor="end">0%</text>
+
+  <text x="545" y="386" font-size="12" fill="#1a1a1a" text-anchor="middle">10</text>
+  <text x="596" y="386" font-size="12" fill="#1a1a1a" text-anchor="middle">20</text>
+  <text x="647" y="386" font-size="12" fill="#1a1a1a" text-anchor="middle">30</text>
+  <text x="698" y="386" font-size="12" fill="#1a1a1a" text-anchor="middle">40</text>
+  <text x="749" y="386" font-size="12" fill="#1a1a1a" text-anchor="middle">50</text>
+  <text x="800" y="386" font-size="12" fill="#1a1a1a" text-anchor="middle">60</text>
+  <text x="851" y="386" font-size="12" fill="#1a1a1a" text-anchor="middle">70</text>
+  <text x="900" y="386" font-size="12" fill="#1a1a1a" text-anchor="middle">80</text>
+
+  <text x="722" y="412" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Дистанція d (см)</text>
+
+
+  <!-- BOTTOM SUMMARY CARDS -->
+
+  <!-- Card 1: Hyperbolic -->
+  <rect x="30" y="455" width="285" height="85" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="42" y="475" font-size="13" font-weight="bold" fill="#2457d6">Гіперболічна модель</text>
+  <text x="42" y="495" font-size="12" fill="#1a1a1a">• Похибка: &lt; 2% (при d &gt; 20 см)</text>
+  <text x="42" y="512" font-size="12" fill="#1a1a1a">• Складність: 1 ділення (Float)</text>
+  <text x="42" y="529" font-size="12" fill="#6b7280">• Призначення: MCU з FPU / 32-біт</text>
+
+  <!-- Card 2: Power -->
+  <rect x="337" y="455" width="285" height="85" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="349" y="475" font-size="13" font-weight="bold" fill="#c0392b">Степенева модель</text>
+  <text x="349" y="495" font-size="12" fill="#1a1a1a">• Похибка: ~ 3.5 – 5.0%</text>
+  <text x="349" y="512" font-size="12" fill="#1a1a1a">• Складність: pow() — повільно</text>
+  <text x="349" y="529" font-size="12" fill="#6b7280">• Призначення: рідко (важка для MCU)</text>
+
+  <!-- Card 3: LUT -->
+  <rect x="645" y="455" width="285" height="85" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="657" y="475" font-size="13" font-weight="bold" fill="#27ae60">Таблиця LUT (Look-Up Table)</text>
+  <text x="657" y="495" font-size="12" fill="#1a1a1a">• Похибка: &lt; 1% у вузлах, &lt; 2.5% між</text>
+  <text x="657" y="512" font-size="12" fill="#1a1a1a">• Складність: цілочисельна (Integer)</text>
+  <text x="657" y="529" font-size="12" fill="#6b7280">• Призначення: 8-бітні MCU (AVR / Arduino)</text>
+
+</svg>

@@ -1,0 +1,109 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-green-up" markerWidth="9" markerHeight="9" refX="4" refY="1" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,8 L4,0 L8,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-green-down" markerWidth="9" markerHeight="9" refX="4" refY="7" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L4,8 L8,0 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Canvas Background -->
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Диференційне вимірювання для приглушення фонового засвічення</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Віднімання сигналу павзи (LED OFF) від сигналу спалаху (LED ON) вилучає фонову заваду</text>
+
+  <!-- Left Panel: Timing Diagram -->
+  <rect x="30" y="80" width="570" height="375" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="8"/>
+  <text x="315" y="106" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Часова діаграма зчитування АЦП</text>
+
+  <!-- Phase background zones -->
+  <rect x="130" y="125" width="110" height="280" fill="#fdecea" fill-opacity="0.4" rx="4"/>
+  <rect x="250" y="125" width="130" height="280" fill="#eaf0fd" fill-opacity="0.4" rx="4"/>
+  <rect x="390" y="125" width="195" height="280" fill="#fdecea" fill-opacity="0.4" rx="4"/>
+
+  <!-- Phase Labels -->
+  <text x="185" y="143" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Павза (LED OFF)</text>
+  <text x="315" y="143" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Спалах (LED ON)</text>
+  <text x="487" y="143" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Павза (LED OFF)</text>
+
+  <!-- LED Control Waveform -->
+  <path d="M 110,180 L 250,180 L 250,160 L 380,160 L 380,180 L 575,180" stroke="#2457d6" stroke-width="2.5" fill="none"/>
+  <text x="45" y="173" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="start">LED Control</text>
+
+  <!-- Time Axis -->
+  <line x1="100" y1="400" x2="535" y2="400" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+  <text x="543" y="404" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">Час (t)</text>
+
+  <!-- Ambient Light Reference Line -->
+  <line x1="120" y1="340" x2="570" y2="340" stroke="#c0392b" stroke-dasharray="4,4" stroke-width="1.5"/>
+  <text x="115" y="344" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="end">V_ambient</text>
+
+  <!-- ADC Signal Waveform -->
+  <path d="M 120,340 L 250,340 L 265,240 L 380,240 L 395,340 L 570,340" stroke="#2457d6" stroke-width="2.5" fill="none"/>
+
+  <!-- Sampling Points -->
+  <!-- Sample 1 (LED OFF) -->
+  <circle cx="185" cy="340" r="4.5" fill="#c0392b"/>
+  <line x1="185" y1="180" x2="185" y2="400" stroke="#c0392b" stroke-dasharray="2,2" stroke-width="1"/>
+  <text x="185" y="365" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Замір 1: V_OFF</text>
+  <text x="185" y="380" font-size="12" fill="#6b7280" text-anchor="middle">(= V_ambient)</text>
+
+  <!-- Sample 2 (LED ON) -->
+  <circle cx="315" cy="240" r="4.5" fill="#2457d6"/>
+  <line x1="315" y1="160" x2="315" y2="400" stroke="#2457d6" stroke-dasharray="2,2" stroke-width="1"/>
+  <text x="315" y="212" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Замір 2: V_ON</text>
+  <text x="315" y="227" font-size="12" fill="#6b7280" text-anchor="middle">(= V_signal + V_ambient)</text>
+
+  <!-- Delta V Dimension Arrow & Box -->
+  <line x1="425" y1="332" x2="425" y2="248" stroke="#27ae60" stroke-width="2" marker-start="url(#arr-green-down)" marker-end="url(#arr-green-up)"/>
+  
+  <rect x="437" y="275" width="138" height="34" fill="#e9f7ef" stroke="#27ae60" stroke-width="1" rx="4"/>
+  <text x="506" y="289" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">ΔV = V_ON - V_OFF</text>
+  <text x="506" y="303" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">= V_signal</text>
+
+  <!-- Right Panel: Algorithm & Math Model -->
+  <rect x="620" y="80" width="310" height="375" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="8"/>
+  <text x="775" y="106" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Математична модель</text>
+
+  <!-- Step 1 Box -->
+  <rect x="635" y="125" width="280" height="60" fill="#ffffff" stroke="#d0d7de" rx="6"/>
+  <text x="647" y="145" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">1. Вимірювання павзи (LED OFF)</text>
+  <text x="647" y="167" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="start">V_OFF = V_ambient</text>
+  <text x="905" y="167" font-size="12" fill="#6b7280" text-anchor="end">(тільки фон)</text>
+
+  <!-- Step 1 to 2 Arrow -->
+  <line x1="775" y1="185" x2="775" y2="198" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+
+  <!-- Step 2 Box -->
+  <rect x="635" y="200" width="280" height="60" fill="#ffffff" stroke="#d0d7de" rx="6"/>
+  <text x="647" y="220" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">2. Вимірювання спалаху (LED ON)</text>
+  <text x="647" y="242" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="start">V_ON = V_signal + V_ambient</text>
+
+  <!-- Step 2 to 3 Arrow -->
+  <line x1="775" y1="260" x2="775" y2="273" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+
+  <!-- Step 3 Box -->
+  <rect x="635" y="275" width="280" height="75" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="6"/>
+  <text x="647" y="295" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="start">3. Диференційне віднімання</text>
+  <text x="647" y="317" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="start">ΔV = V_ON - V_OFF</text>
+  <text x="647" y="337" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="start">ΔV = V_signal</text>
+  <text x="905" y="317" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="end">✓ Без завад</text>
+
+  <!-- Step 3 to 4 Arrow -->
+  <line x1="775" y1="350" x2="775" y2="363" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+
+  <!-- Step 4 Box -->
+  <rect x="635" y="365" width="280" height="70" fill="#ffffff" stroke="#d0d7de" rx="6"/>
+  <text x="647" y="385" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">Перевага:</text>
+  <text x="647" y="403" font-size="12" fill="#6b7280" text-anchor="start">Повна компенсація фонового зсуву</text>
+  <text x="647" y="419" font-size="12" fill="#6b7280" text-anchor="start">від сонячного світла та ламп</text>
+</svg>

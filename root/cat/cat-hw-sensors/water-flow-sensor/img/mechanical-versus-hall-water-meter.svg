@@ -1,0 +1,171 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 530" width="960" height="530" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <!-- Arrow Markers -->
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Background Canvas -->
+  <rect x="0" y="0" width="960" height="530" fill="white"/>
+
+  <!-- Main Title & Subtitle -->
+  <text x="480" y="36" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Порівняння механічної передачі та безконтактного давача Холла</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Сальник валу створює тертя і ризик витоку; магнітне поле зчитує оберти через суцільну стінку</text>
+
+  <!-- ==================== LEFT PANEL: MECHANICAL METER ==================== -->
+  <rect x="30" y="80" width="435" height="420" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Left Header Pill -->
+  <rect x="45" y="92" width="405" height="32" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="247.5" y="113" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">МЕХАНІЧНИЙ ВИ ТРАТОМІР (З САЛЬНИКОМ)</text>
+
+  <!-- Water Flow Pipe Chamber -->
+  <rect x="50" y="138" width="395" height="80" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="65" y="160" font-size="12" font-weight="bold" fill="#2457d6">Потік води Q →</text>
+
+  <!-- Flow lines -->
+  <path d="M 65 168 H 430" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="8,5" opacity="0.7" marker-end="url(#arr-blue)"/>
+  <path d="M 65 198 H 430" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="8,5" opacity="0.7" marker-end="url(#arr-blue)"/>
+
+  <!-- Turbine / Rotor Left -->
+  <g>
+    <!-- Blades -->
+    <path d="M 242.5 162 L 240 139 L 255 139 L 252.5 162 Z" fill="#d0d7de" stroke="#1a1a1a"/>
+    <path d="M 242.5 194 L 240 217 L 255 217 L 252.5 194 Z" fill="#d0d7de" stroke="#1a1a1a"/>
+    <path d="M 233.5 178 L 204.5 175.5 L 204.5 190.5 L 233.5 188 Z" fill="#d0d7de" stroke="#1a1a1a"/>
+    <path d="M 261.5 178 L 290.5 175.5 L 290.5 190.5 L 261.5 188 Z" fill="#d0d7de" stroke="#1a1a1a"/>
+    <!-- Hub -->
+    <circle cx="247.5" cy="178" r="14" fill="#ffffff" stroke="#1a1a1a" stroke-width="2"/>
+    <circle cx="247.5" cy="178" r="4" fill="#1a1a1a"/>
+  </g>
+  <text x="65" y="212" font-size="12" fill="#1a1a1a">Крильчатка (ротор)</text>
+
+  <!-- Shaft -->
+  <line x1="247.5" y1="178" x2="247.5" y2="285" stroke="#6b7280" stroke-width="5"/>
+  <text x="235" y="277" font-size="12" fill="#6b7280" text-anchor="end">Вал передачі</text>
+
+  <!-- Packing Gland / Seal (Сальник) -->
+  <rect x="225" y="236" width="45" height="24" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <line x1="225" y1="248" x2="270" y2="248" stroke="#c0392b" stroke-width="1" stroke-dasharray="3,2"/>
+  <text x="280" y="252" font-size="12" font-weight="bold" fill="#c0392b">Сальник (ущільнення)</text>
+
+  <!-- Water Leakage Droplets & Text -->
+  <g>
+    <path d="M 243 264 C 240 269 246 273 243 273 C 240 273 237 269 243 264 Z" fill="#2457d6" stroke="#c0392b" stroke-width="0.8"/>
+    <path d="M 253 267 C 250 272 256 276 253 276 C 250 276 247 272 253 267 Z" fill="#2457d6" stroke="#c0392b" stroke-width="0.8"/>
+  </g>
+  <text x="280" y="277" font-size="12" fill="#c0392b">Витік рідини</text>
+
+  <!-- Gearbox (Редуктор) -->
+  <rect x="175" y="285" width="145" height="48" rx="4" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="195" cy="309" r="10" fill="none" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="3,2"/>
+  <circle cx="210" cy="309" r="7" fill="none" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="3,2"/>
+  <text x="247.5" y="304" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Редуктор</text>
+  <text x="247.5" y="321" font-size="12" fill="#6b7280" text-anchor="middle">зубчасті колеса</text>
+
+  <!-- Left Callout Box 1: Friction -->
+  <rect x="45" y="350" width="190" height="52" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="55" y="369" font-size="12" font-weight="bold" fill="#c0392b">1. Механічне тертя</text>
+  <text x="55" y="387" font-size="12" fill="#c0392b">гальмує малі потоки Q</text>
+
+  <!-- Left Callout Box 2: Leakage -->
+  <rect x="250" y="350" width="200" height="52" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="260" y="369" font-size="12" font-weight="bold" fill="#c0392b">2. Ризик протікання</text>
+  <text x="260" y="387" font-size="12" fill="#c0392b">через зношення сальника</text>
+
+  <!-- Pointer lines for Callout 1 & 2 -->
+  <path d="M 140 350 V 248 H 225" fill="none" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr-red)"/>
+  <path d="M 380 350 H 425 V 228 H 270 V 236" fill="none" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr-red)"/>
+
+  <!-- Left Summary Pill -->
+  <rect x="45" y="453" width="405" height="34" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="247.5" y="474" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">❌ Втрата чутливості + ризик протікання</text>
+
+
+  <!-- ==================== RIGHT PANEL: HERMETIC HALL FLOW METER ==================== -->
+  <rect x="495" y="80" width="435" height="420" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Right Header Pill -->
+  <rect x="510" y="92" width="405" height="32" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="712.5" y="113" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">ГЕРМЕТИЧНИЙ ДАВАЧ ХОЛЛА (БЕЗКОНТАКТНИЙ)</text>
+
+  <!-- Water Flow Pipe Chamber -->
+  <rect x="515" y="138" width="395" height="80" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="530" y="160" font-size="12" font-weight="bold" fill="#2457d6">Потік води Q →</text>
+
+  <!-- Flow lines -->
+  <path d="M 530 168 H 895" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="8,5" opacity="0.7" marker-end="url(#arr-blue)"/>
+  <path d="M 530 198 H 895" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="8,5" opacity="0.7" marker-end="url(#arr-blue)"/>
+
+  <!-- Turbine / Rotor Right with Magnet -->
+  <g>
+    <!-- Blades -->
+    <path d="M 707.5 162 L 705 139 L 720 139 L 717.5 162 Z" fill="#d0d7de" stroke="#1a1a1a"/>
+    <path d="M 707.5 194 L 705 217 L 720 217 L 717.5 194 Z" fill="#d0d7de" stroke="#1a1a1a"/>
+    <path d="M 698.5 178 L 669.5 175.5 L 669.5 190.5 L 698.5 188 Z" fill="#d0d7de" stroke="#1a1a1a"/>
+    <path d="M 726.5 178 L 755.5 175.5 L 755.5 190.5 L 726.5 188 Z" fill="#d0d7de" stroke="#1a1a1a"/>
+    <!-- Hub -->
+    <circle cx="712.5" cy="178" r="14" fill="#ffffff" stroke="#1a1a1a" stroke-width="2"/>
+    <circle cx="712.5" cy="178" r="4" fill="#1a1a1a"/>
+  </g>
+  <text x="530" y="212" font-size="12" fill="#1a1a1a">Крильчатка</text>
+
+  <!-- Permanent Magnet embedded in rotor -->
+  <rect x="702" y="196" width="21" height="12" rx="2" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="703" y="197" width="9.5" height="10" rx="1" fill="#c0392b"/>
+  <rect x="712.5" y="197" width="9.5" height="10" rx="1" fill="#2457d6"/>
+  <text x="740" y="206" font-size="12" font-weight="bold" fill="#1a1a1a">Магніт N-S</text>
+  <path d="M 736 202 H 725" stroke="#6b7280" stroke-width="1" stroke-dasharray="3,2" marker-end="url(#arr-gray)"/>
+
+  <!-- Solid Hermetic Wall -->
+  <rect x="515" y="234" width="395" height="14" rx="2" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="515" y1="241" x2="910" y2="241" stroke="#ffffff" stroke-width="1" stroke-dasharray="6,6"/>
+  <text x="770" y="230" font-size="12" font-weight="bold" fill="#27ae60">Суцільна стінка</text>
+
+  <!-- Magnetic Field Lines -->
+  <path d="M 698 208 C 680 230 680 255 698 275" fill="none" stroke="#8e44ad" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <path d="M 712.5 208 C 705 230 705 255 712.5 275" fill="none" stroke="#8e44ad" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <path d="M 727 208 C 745 230 745 255 727 275" fill="none" stroke="#8e44ad" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <text x="645" y="260" font-size="12" font-weight="bold" fill="#8e44ad" text-anchor="end">Магнітне поле B</text>
+
+  <!-- Hall Effect Sensor -->
+  <rect x="655" y="275" width="115" height="28" rx="4" fill="#1a1a1a" stroke="#27ae60" stroke-width="2"/>
+  <text x="712.5" y="293" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">Давач Холла</text>
+
+  <!-- Microcontroller Block -->
+  <rect x="640" y="318" width="145" height="48" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="695" y1="303" x2="695" y2="318" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="712.5" y1="303" x2="712.5" y2="318" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="730" y1="303" x2="730" y2="318" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="712.5" y="336" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Мікроконтролер</text>
+  <text x="712.5" y="353" font-size="12" fill="#6b7280" text-anchor="middle">цифрові імпульси</text>
+
+  <!-- Right Callout Box 1: Hermetic Seal -->
+  <rect x="510" y="385" width="190" height="52" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="520" y="404" font-size="12" font-weight="bold" fill="#27ae60">1. 100% герметичність</text>
+  <text x="520" y="422" font-size="12" fill="#27ae60">корпус без отворів</text>
+
+  <!-- Right Callout Box 2: Non-contact sensing -->
+  <rect x="715" y="385" width="200" height="52" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="725" y="404" font-size="12" font-weight="bold" fill="#27ae60">2. Безконтактність</text>
+  <text x="725" y="422" font-size="12" fill="#27ae60">висока чутливість на min Q</text>
+
+  <!-- Pointer lines for Callout 1 & 2 -->
+  <path d="M 530 385 V 248" fill="none" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr-green)"/>
+  <path d="M 815 385 V 290 H 770" fill="none" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr-green)"/>
+
+  <!-- Right Summary Pill -->
+  <rect x="510" y="453" width="405" height="34" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="712.5" y="474" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">✓ Довговічність + точні імпульси для МК</text>
+
+</svg>

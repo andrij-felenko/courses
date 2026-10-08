@@ -1,0 +1,264 @@
+<svg viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif" xmlns="http://www.w3.org/2000/svg">
+  <!-- White Background -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Definitions for Markers -->
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="30" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Схема підключення 4-провідного PT100 до MAX31865 та STM32</text>
+  <text x="480" y="50" font-size="13" fill="#6b7280" text-anchor="middle">Відокремлення струмових та потенційних ліній, RC-фільтри, ратіометричний Rref і переривання EXTI</text>
+
+  <!-- Panel 1: Давач PT100 -->
+  <rect x="25" y="70" width="175" height="380" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="6"/>
+  <text x="112" y="92" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Давач PT100 (4-дротовий)</text>
+
+  <!-- Probe Body Outer Container -->
+  <rect x="32" y="110" width="90" height="200" fill="#ffffff" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  
+  <!-- Internal Wires inside Probe Body -->
+  <!-- Upper junction: RTD top wire splits to Force+ and Sense+ -->
+  <line x1="77" y1="135" x2="165" y2="135" stroke="#c0392b" stroke-width="1.5"/>
+  <line x1="77" y1="135" x2="77" y2="155" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="77" y1="155" x2="165" y2="155" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="77" y1="135" x2="77" y2="168" stroke="#c0392b" stroke-width="1.5"/>
+
+  <!-- Inner Info Card (Text Box) -->
+  <rect x="38" y="170" width="78" height="80" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="4"/>
+  <text x="77" y="193" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">PT100</text>
+  <text x="77" y="212" font-size="12" fill="#6b7280" text-anchor="middle">100 Ω @ 0°C</text>
+  <text x="77" y="231" font-size="12" fill="#1a1a1a" text-anchor="middle">Platinum RTD</text>
+
+  <!-- Lower junction: RTD bottom wire splits to Sense- and Force- -->
+  <line x1="77" y1="252" x2="77" y2="298" stroke="#c0392b" stroke-width="1.5"/>
+  <line x1="77" y1="280" x2="165" y2="280" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="77" y1="298" x2="165" y2="298" stroke="#c0392b" stroke-width="1.5"/>
+
+  <!-- Terminals -->
+  <rect x="155" y="125" width="20" height="185" fill="#ffffff" stroke="#d0d7de" rx="3"/>
+  <circle cx="165" cy="135" r="4" fill="#c0392b"/>
+  <circle cx="165" cy="155" r="4" fill="#2457d6"/>
+  <circle cx="165" cy="280" r="4" fill="#2457d6"/>
+  <circle cx="165" cy="298" r="4" fill="#c0392b"/>
+  <text x="148" y="130" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="end">F+</text>
+  <text x="148" y="150" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">S+</text>
+  <text x="148" y="275" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">S-</text>
+  <text x="148" y="314" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="end">F-</text>
+
+  <!-- Explanatory Box in Panel 1 -->
+  <rect x="30" y="325" width="165" height="115" fill="#e9f7ef" stroke="#27ae60" stroke-width="1" rx="4"/>
+  <text x="38" y="343" font-size="12" font-weight="bold" fill="#27ae60">4-провідна схема:</text>
+  <text x="38" y="362" font-size="12" fill="#1a1a1a">• F+/F-: струм I_bias</text>
+  <text x="38" y="381" font-size="12" fill="#1a1a1a">• S+/S-: напруга V_rtd</text>
+  <text x="38" y="403" font-size="12" font-weight="bold" fill="#27ae60">• Опір дротів R_w = 0</text>
+  <text x="38" y="422" font-size="12" fill="#6b7280">виключається з виміру</text>
+
+  <!-- Panel 2: RC-фільтри та Rref -->
+  <rect x="215" y="70" width="190" height="380" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="6"/>
+  <text x="310" y="92" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">RC-фільтри та Rref</text>
+
+  <!-- Force+ Line through Panel 2 -->
+  <line x1="165" y1="135" x2="435" y2="135" stroke="#c0392b" stroke-width="2"/>
+  <text x="225" y="123" font-size="12" fill="#c0392b">Force+ (струм)</text>
+
+  <!-- Sense+ Line with R_F1 -->
+  <line x1="165" y1="155" x2="250" y2="155" stroke="#2457d6" stroke-width="2"/>
+  <rect x="250" y="147" width="30" height="16" fill="#ffffff" stroke="#2457d6" stroke-width="1.5" rx="2"/>
+  <text x="265" y="179" font-size="12" fill="#2457d6" text-anchor="middle">R_F1 (100 Ω)</text>
+  <line x1="280" y1="155" x2="435" y2="155" stroke="#2457d6" stroke-width="2"/>
+
+  <!-- Sense- Line with R_F2 -->
+  <line x1="165" y1="280" x2="250" y2="280" stroke="#2457d6" stroke-width="2"/>
+  <rect x="250" y="272" width="30" height="16" fill="#ffffff" stroke="#2457d6" stroke-width="1.5" rx="2"/>
+  <text x="265" y="267" font-size="12" fill="#2457d6" text-anchor="middle">R_F2 (100 Ω)</text>
+  <line x1="280" y1="280" x2="435" y2="280" stroke="#2457d6" stroke-width="2"/>
+
+  <!-- Differential Capacitor C_diff -->
+  <line x1="310" y1="155" x2="310" y2="209" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="300" y1="209" x2="320" y2="209" stroke="#2457d6" stroke-width="2"/>
+  <line x1="300" y1="225" x2="320" y2="225" stroke="#2457d6" stroke-width="2"/>
+  <line x1="310" y1="225" x2="310" y2="280" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="295" y="213" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">C_diff</text>
+  <text x="295" y="229" font-size="12" fill="#6b7280" text-anchor="end">100 nF</text>
+
+  <!-- Common-mode Capacitors C_cm1 and C_cm2 -->
+  <line x1="355" y1="155" x2="355" y2="203" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="347" y1="203" x2="363" y2="203" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="349" y1="207" x2="361" y2="207" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="355" y1="207" x2="355" y2="218" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="366" y="201" font-size="12" fill="#6b7280" text-anchor="start">C_cm</text>
+  <text x="366" y="217" font-size="12" fill="#6b7280" text-anchor="start">10 nF</text>
+
+  <line x1="355" y1="280" x2="355" y2="252" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="347" y1="252" x2="363" y2="252" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="349" y1="248" x2="361" y2="248" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="355" y1="248" x2="355" y2="237" stroke="#6b7280" stroke-width="1.5"/>
+
+  <!-- Force- Line through Panel 2 -->
+  <line x1="165" y1="298" x2="435" y2="298" stroke="#c0392b" stroke-width="2"/>
+  <text x="225" y="316" font-size="12" fill="#c0392b">Force- (повернення)</text>
+
+  <!-- Rref Resistor Sub-circuit -->
+  <!-- Wire connecting FORCE- to REFIN+ -->
+  <path d="M 435,298 L 400,298 L 400,345 L 435,345" fill="none" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="3 3"/>
+  <line x1="400" y1="345" x2="317" y2="345" stroke="#27ae60" stroke-width="2"/>
+  <line x1="317" y1="345" x2="317" y2="355" stroke="#27ae60" stroke-width="2"/>
+  <rect x="275" y="355" width="84" height="30" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="3"/>
+  <text x="317" y="374" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Rref = 430 Ω</text>
+  <line x1="317" y1="385" x2="317" y2="395" stroke="#27ae60" stroke-width="2"/>
+  <line x1="317" y1="395" x2="435" y2="395" stroke="#27ae60" stroke-width="2"/>
+  <!-- GND node at REFIN- -->
+  <line x1="317" y1="395" x2="317" y2="405" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="307" y1="405" x2="327" y2="405" stroke="#6b7280" stroke-width="1.5"/>
+
+  <text x="317" y="420" font-size="12" fill="#1a1a1a" text-anchor="middle">0.1%, 15 ppm/°C</text>
+  <text x="317" y="438" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Еталон опору</text>
+
+  <!-- Panel 3: MAX31865 IC -->
+  <rect x="420" y="70" width="245" height="380" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <text x="542.5" y="92" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">MAX31865 (RTD Converter)</text>
+
+  <rect x="435" y="105" width="225" height="335" fill="#ffffff" stroke="#2457d6" stroke-width="2" rx="6"/>
+
+  <!-- Left Pins -->
+  <circle cx="435" cy="135" r="4" fill="#c0392b"/>
+  <circle cx="435" cy="155" r="4" fill="#2457d6"/>
+  <circle cx="435" cy="280" r="4" fill="#2457d6"/>
+  <circle cx="435" cy="298" r="4" fill="#c0392b"/>
+  <circle cx="435" cy="345" r="4" fill="#27ae60"/>
+  <circle cx="435" cy="395" r="4" fill="#27ae60"/>
+
+  <text x="443" y="139" font-size="12" font-weight="bold" fill="#c0392b">FORCE+</text>
+  <text x="443" y="159" font-size="12" font-weight="bold" fill="#2457d6">RTDIN+</text>
+  <text x="443" y="284" font-size="12" font-weight="bold" fill="#2457d6">RTDIN-</text>
+  <text x="443" y="302" font-size="12" font-weight="bold" fill="#c0392b">FORCE-</text>
+  <text x="443" y="349" font-size="12" font-weight="bold" fill="#27ae60">REFIN+</text>
+  <text x="443" y="399" font-size="12" font-weight="bold" fill="#27ae60">REFIN-</text>
+
+  <!-- Internal Sub-blocks -->
+  <rect x="488" y="130" width="84" height="95" fill="#eaf0fd" stroke="#2457d6" rx="4"/>
+  <text x="530" y="150" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">15-bit ΔΣ ADC</text>
+  <text x="530" y="169" font-size="11" fill="#1a1a1a" text-anchor="middle">I_bias Джерело</text>
+  <text x="530" y="188" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">Ратіометрія</text>
+  <text x="530" y="207" font-size="11" fill="#6b7280" text-anchor="middle">V_rtd / V_ref</text>
+
+  <rect x="488" y="240" width="84" height="85" fill="#f4f6f8" stroke="#d0d7de" rx="4"/>
+  <text x="530" y="262" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="middle">SPI Регістри</text>
+  <text x="530" y="281" font-size="11" fill="#6b7280" text-anchor="middle">Configuration</text>
+  <text x="530" y="300" font-size="11" fill="#6b7280" text-anchor="middle">RTD MSB / LSB</text>
+
+  <rect x="488" y="340" width="84" height="80" fill="#fdecea" stroke="#c0392b" rx="4"/>
+  <text x="530" y="362" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">Діагностика</text>
+  <text x="530" y="381" font-size="11" fill="#c0392b" text-anchor="middle">Обрив / КЗ</text>
+  <text x="530" y="400" font-size="11" fill="#c0392b" text-anchor="middle">T_high / low</text>
+
+  <!-- Right Pins -->
+  <circle cx="660" cy="135" r="4" fill="#1a1a1a"/>
+  <circle cx="660" cy="170" r="4" fill="#6b7280"/>
+  <circle cx="660" cy="220" r="4" fill="#2457d6"/>
+  <circle cx="660" cy="260" r="4" fill="#2457d6"/>
+  <circle cx="660" cy="300" r="4" fill="#2457d6"/>
+  <circle cx="660" cy="340" r="4" fill="#2457d6"/>
+  <circle cx="660" cy="380" r="4" fill="#27ae60"/>
+  <circle cx="660" cy="415" r="4" fill="#c0392b"/>
+
+  <text x="652" y="139" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">VDD</text>
+  <text x="652" y="174" font-size="12" fill="#6b7280" text-anchor="end">GND</text>
+  <text x="652" y="224" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">CS</text>
+  <text x="652" y="264" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">SCLK</text>
+  <text x="652" y="304" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">SDO (MISO)</text>
+  <text x="652" y="344" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">SDI (MOSI)</text>
+  <text x="652" y="384" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="end">DRDY</text>
+  <text x="652" y="419" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="end">FAULT</text>
+
+  <!-- Interconnecting Wires MAX31865 to STM32 -->
+  <line x1="660" y1="135" x2="705" y2="135" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="681.5" y="123" font-size="11" fill="#1a1a1a" text-anchor="middle">3.3V</text>
+
+  <line x1="660" y1="170" x2="705" y2="170" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4 2"/>
+  <text x="681.5" y="160" font-size="11" fill="#6b7280" text-anchor="middle">GND</text>
+
+  <line x1="705" y1="220" x2="660" y2="220" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="681.5" y="210" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">CS</text>
+
+  <line x1="705" y1="260" x2="660" y2="260" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="681.5" y="250" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">SCK</text>
+
+  <line x1="660" y1="300" x2="705" y2="300" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="681.5" y="290" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">MISO</text>
+
+  <line x1="705" y1="340" x2="660" y2="340" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="681.5" y="330" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">MOSI</text>
+
+  <line x1="660" y1="380" x2="705" y2="380" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="681.5" y="370" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">DRDY</text>
+
+  <line x1="660" y1="415" x2="705" y2="415" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="681.5" y="405" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">FAULT</text>
+
+  <!-- Panel 4: STM32 Microcontroller -->
+  <rect x="698" y="70" width="237" height="380" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="6"/>
+  <text x="816.5" y="92" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Мікроконтролер STM32</text>
+
+  <rect x="705" y="105" width="215" height="335" fill="#ffffff" stroke="#d0d7de" stroke-width="2" rx="6"/>
+  <text x="812.5" y="128" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">STM32 Microcontroller</text>
+
+  <!-- Left Pins MCU -->
+  <circle cx="705" cy="135" r="4" fill="#1a1a1a"/>
+  <circle cx="705" cy="170" r="4" fill="#6b7280"/>
+  <circle cx="705" cy="220" r="4" fill="#2457d6"/>
+  <circle cx="705" cy="260" r="4" fill="#2457d6"/>
+  <circle cx="705" cy="300" r="4" fill="#2457d6"/>
+  <circle cx="705" cy="340" r="4" fill="#2457d6"/>
+  <circle cx="705" cy="380" r="4" fill="#27ae60"/>
+  <circle cx="705" cy="415" r="4" fill="#c0392b"/>
+
+  <text x="713" y="139" font-size="12" font-weight="bold" fill="#1a1a1a">3.3V</text>
+  <text x="713" y="174" font-size="12" fill="#6b7280">GND</text>
+
+  <!-- Sub-block SPI1 Master -->
+  <rect x="725" y="195" width="180" height="155" fill="#eaf0fd" stroke="#2457d6" rx="4"/>
+  <text x="815" y="215" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Модуль SPI1 (Master)</text>
+  <text x="733" y="235" font-size="12" font-weight="bold" fill="#2457d6">PA4 (GPIO_CS)</text>
+  <text x="733" y="275" font-size="12" font-weight="bold" fill="#2457d6">PA5 (SPI1_SCK)</text>
+  <text x="733" y="308" font-size="12" font-weight="bold" fill="#2457d6">PA6 (SPI1_MISO)</text>
+  <text x="733" y="338" font-size="12" font-weight="bold" fill="#2457d6">PA7 (SPI1_MOSI)</text>
+
+  <!-- Sub-block EXTI Controller -->
+  <rect x="725" y="362" width="180" height="68" fill="#fdecea" stroke="#c0392b" rx="4"/>
+  <text x="815" y="380" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Контролер EXTI</text>
+  <text x="733" y="398" font-size="12" font-weight="bold" fill="#27ae60">PA0 (EXTI0_DRDY)</text>
+  <text x="733" y="420" font-size="12" font-weight="bold" fill="#c0392b">PA1 (EXTI1_FAULT)</text>
+
+  <!-- Bottom Summary Cards -->
+  <!-- Card 1 -->
+  <rect x="25" y="465" width="295" height="60" fill="#e9f7ef" stroke="#27ae60" stroke-width="1" rx="4"/>
+  <text x="35" y="483" font-size="12" font-weight="bold" fill="#27ae60">1. 4-провідне відокремлення (Force / Sense)</text>
+  <text x="35" y="501" font-size="12" fill="#1a1a1a">Струм тече через F+/F-, напруга зчитується</text>
+  <text x="35" y="517" font-size="12" fill="#1a1a1a">через S+/S- без падіння напруги на дротах.</text>
+
+  <!-- Card 2 -->
+  <rect x="332" y="465" width="295" height="60" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="4"/>
+  <text x="342" y="483" font-size="12" font-weight="bold" fill="#2457d6">2. Ратіометричний Rref = 430 Ω (0.1%)</text>
+  <text x="342" y="501" font-size="12" fill="#1a1a1a">R_rtd = Rref × (ADC_Code / 32768).</text>
+  <text x="342" y="517" font-size="12" fill="#1a1a1a">Усуває нестабільність струму джерела.</text>
+
+  <!-- Card 3 -->
+  <rect x="640" y="465" width="295" height="60" fill="#fdecea" stroke="#c0392b" stroke-width="1" rx="4"/>
+  <text x="650" y="483" font-size="12" font-weight="bold" fill="#c0392b">3. Апаратні переривання EXTI</text>
+  <text x="650" y="501" font-size="12" fill="#1a1a1a">DRDY сповіщає про готовність 15-біт даних.</text>
+  <text x="650" y="517" font-size="12" fill="#1a1a1a">FAULT фіксує обрив, КЗ та аварійні пороги.</text>
+</svg>

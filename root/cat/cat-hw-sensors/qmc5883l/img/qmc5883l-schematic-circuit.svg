@@ -1,0 +1,174 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 500" width="960" height="500" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Canvas background -->
+  <rect x="0" y="0" width="960" height="500" fill="white"/>
+
+  <!-- Header -->
+  <text x="480" y="36" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Принципова схема обв'язування магнітометра QMC5883L</text>
+  <text x="480" y="58" text-anchor="middle" font-size="13" fill="#6b7280">Повна схема QFN-16: підтяжка I2C (4.7 кОм), фільтри VDD/VDDIO та конденсатори C1 (4.7 мкФ) і C2 (0.22 мкФ)</text>
+
+  <!-- Power Rail (+3.3V) -->
+  <path d="M150,82 L515,82" stroke="#c0392b" stroke-width="2.5" fill="none"/>
+  <text x="330" y="74" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">+3.3V (VDD / VDDIO)</text>
+  <circle cx="150" cy="82" r="3.5" fill="#c0392b"/>
+  <circle cx="190" cy="82" r="3.5" fill="#c0392b"/>
+  <circle cx="255" cy="82" r="3.5" fill="#c0392b"/>
+  <circle cx="330" cy="82" r="3.5" fill="#c0392b"/>
+  <circle cx="455" cy="82" r="3.5" fill="#c0392b"/>
+  <circle cx="515" cy="82" r="3.5" fill="#c0392b"/>
+
+  <!-- Ground Rail (GND) -->
+  <path d="M50,455 L665,455" stroke="#1a1a1a" stroke-width="2.5" fill="none"/>
+  <text x="35" y="443" text-anchor="start" font-size="12" font-weight="bold" fill="#1a1a1a">GND</text>
+  <path d="M50,455 L50,467 M40,467 L60,467 M44,471 L56,471 M48,475 L52,475" stroke="#1a1a1a" stroke-width="1.5" fill="none"/>
+  <circle cx="85" cy="455" r="3.5" fill="#1a1a1a"/>
+  <circle cx="330" cy="455" r="3.5" fill="#1a1a1a"/>
+  <circle cx="390" cy="455" r="3.5" fill="#1a1a1a"/>
+  <circle cx="455" cy="455" r="3.5" fill="#1a1a1a"/>
+  <circle cx="495" cy="455" r="3.5" fill="#1a1a1a"/>
+  <circle cx="560" cy="455" r="3.5" fill="#1a1a1a"/>
+  <circle cx="620" cy="455" r="3.5" fill="#1a1a1a"/>
+
+  <!-- MCU Panel -->
+  <rect x="35" y="120" width="100" height="250" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="85" y="143" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Мікроконтролер</text>
+  <text x="85" y="159" text-anchor="middle" font-size="11" fill="#6b7280">(I2C Master)</text>
+
+  <text x="127" y="199" text-anchor="end" font-size="12" font-weight="bold" fill="#1a1a1a">SDA</text>
+  <circle cx="135" cy="195" r="3" fill="#1a1a1a"/>
+
+  <text x="127" y="239" text-anchor="end" font-size="12" font-weight="bold" fill="#1a1a1a">SCL</text>
+  <circle cx="135" cy="235" r="3" fill="#1a1a1a"/>
+
+  <text x="127" y="309" text-anchor="end" font-size="12" font-weight="bold" fill="#1a1a1a">DRDY</text>
+  <circle cx="135" cy="305" r="3" fill="#1a1a1a"/>
+
+  <text x="127" y="349" text-anchor="end" font-size="12" font-weight="bold" fill="#c0392b">3.3V</text>
+  <circle cx="135" cy="345" r="3" fill="#c0392b"/>
+
+  <!-- MCU Wires -->
+  <path d="M135,345 L150,345 L150,82" stroke="#c0392b" stroke-width="1.5" fill="none"/>
+  <path d="M85,370 L85,455" stroke="#1a1a1a" stroke-width="1.5" fill="none"/>
+
+  <!-- R1 Resistor (4.7k) -->
+  <path d="M190,82 L190,120 M190,160 L190,195" stroke="#1a1a1a" stroke-width="1.5" fill="none"/>
+  <rect x="182" y="120" width="16" height="40" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="190" cy="195" r="3.5" fill="#1a1a1a"/>
+  <text x="204" y="135" text-anchor="start" font-size="12" font-weight="bold" fill="#1a1a1a">R1</text>
+  <text x="204" y="151" text-anchor="start" font-size="11" fill="#6b7280">4.7 кОм</text>
+
+  <!-- R2 Resistor (4.7k) -->
+  <path d="M255,82 L255,140 M255,180 L255,235" stroke="#1a1a1a" stroke-width="1.5" fill="none"/>
+  <rect x="247" y="140" width="16" height="40" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="255" cy="235" r="3.5" fill="#1a1a1a"/>
+  <text x="269" y="155" text-anchor="start" font-size="12" font-weight="bold" fill="#1a1a1a">R2</text>
+  <text x="269" y="171" text-anchor="start" font-size="11" fill="#6b7280">4.7 кОм</text>
+
+  <!-- C3 Capacitor (10 uF) -->
+  <path d="M330,82 L330,350" stroke="#c0392b" stroke-width="1.5" fill="none"/>
+  <path d="M330,360 L330,455" stroke="#1a1a1a" stroke-width="1.5" fill="none"/>
+  <line x1="320" y1="350" x2="340" y2="350" stroke="#c0392b" stroke-width="2"/>
+  <line x1="320" y1="360" x2="340" y2="360" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="312" y="351" text-anchor="end" font-size="12" font-weight="bold" fill="#1a1a1a">C3</text>
+  <text x="312" y="367" text-anchor="end" font-size="11" fill="#6b7280">10 мкФ</text>
+
+  <!-- C4 Capacitor (0.1 uF) -->
+  <path d="M390,275 L390,350" stroke="#c0392b" stroke-width="1.5" fill="none"/>
+  <path d="M390,360 L390,455" stroke="#1a1a1a" stroke-width="1.5" fill="none"/>
+  <line x1="380" y1="350" x2="400" y2="350" stroke="#c0392b" stroke-width="2"/>
+  <line x1="380" y1="360" x2="400" y2="360" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="406" y="351" text-anchor="start" font-size="12" font-weight="bold" fill="#1a1a1a">C4</text>
+  <text x="406" y="367" text-anchor="start" font-size="11" fill="#6b7280">0.1 мкФ</text>
+
+  <!-- C5 Capacitor (0.1 uF) -->
+  <path d="M455,82 L455,395" stroke="#c0392b" stroke-width="1.5" fill="none"/>
+  <path d="M455,405 L455,455" stroke="#1a1a1a" stroke-width="1.5" fill="none"/>
+  <line x1="445" y1="395" x2="465" y2="395" stroke="#c0392b" stroke-width="2"/>
+  <line x1="445" y1="405" x2="465" y2="405" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="438" y="396" text-anchor="end" font-size="12" font-weight="bold" fill="#1a1a1a">C5</text>
+  <text x="438" y="412" text-anchor="end" font-size="11" fill="#6b7280">0.1 мкФ</text>
+
+  <!-- QMC5883L Chip Box -->
+  <rect x="480" y="120" width="190" height="250" rx="8" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="495" cy="135" r="4" fill="#1a1a1a"/>
+
+  <text x="575" y="150" text-anchor="middle" font-size="16" font-weight="bold" fill="#1a1a1a">QMC5883L</text>
+  <text x="575" y="168" text-anchor="middle" font-size="11" fill="#6b7280">3-Axis Compass (QFN-16)</text>
+
+  <!-- Pin 4 S1 Wire & Label -->
+  <path d="M515,82 L515,120" stroke="#c0392b" stroke-width="1.5" fill="none"/>
+  <text x="523" y="104" text-anchor="start" font-size="12" font-weight="bold" fill="#c0392b">4: S1</text>
+
+  <!-- Left Pins -->
+  <path d="M135,195 L480,195" stroke="#1a1a1a" stroke-width="1.5" fill="none"/>
+  <text x="488" y="199" text-anchor="start" font-size="12" font-weight="bold" fill="#1a1a1a">16: SDA</text>
+
+  <path d="M135,235 L480,235" stroke="#1a1a1a" stroke-width="1.5" fill="none"/>
+  <text x="488" y="239" text-anchor="start" font-size="12" font-weight="bold" fill="#1a1a1a">1: SCL</text>
+
+  <path d="M330,275 L480,275" stroke="#c0392b" stroke-width="1.5" fill="none"/>
+  <text x="488" y="279" text-anchor="start" font-size="12" font-weight="bold" fill="#c0392b">2: VDD</text>
+
+  <path d="M455,315 L480,315" stroke="#c0392b" stroke-width="1.5" fill="none"/>
+  <text x="488" y="319" text-anchor="start" font-size="12" font-weight="bold" fill="#c0392b">13: VDDIO</text>
+
+  <!-- Right Pins -->
+  <path d="M670,195 L710,195 L710,208" stroke="#2457d6" stroke-width="1.5" fill="none"/>
+  <text x="662" y="199" text-anchor="end" font-size="12" font-weight="bold" fill="#2457d6">8: SETP</text>
+
+  <path d="M670,240 L710,240 L710,226" stroke="#2457d6" stroke-width="1.5" fill="none"/>
+  <text x="662" y="244" text-anchor="end" font-size="12" font-weight="bold" fill="#2457d6">12: SETC</text>
+
+  <path d="M670,305 L755,305 L755,430 L140,430 L140,305 L135,305" stroke="#1a1a1a" stroke-width="1.5" stroke-dasharray="4,3" fill="none"/>
+  <text x="662" y="309" text-anchor="end" font-size="12" font-weight="bold" fill="#1a1a1a">15: DRDY</text>
+
+  <!-- Bottom Pins -->
+  <path d="M495,370 L495,400" stroke="#2457d6" stroke-width="1.5" fill="none"/>
+  <path d="M495,410 L495,455" stroke="#1a1a1a" stroke-width="1.5" fill="none"/>
+  <text x="495" y="363" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">10: C1</text>
+
+  <path d="M560,370 L560,455" stroke="#1a1a1a" stroke-width="1.5" fill="none"/>
+  <text x="560" y="363" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">9: GND</text>
+
+  <path d="M620,370 L620,455" stroke="#1a1a1a" stroke-width="1.5" fill="none"/>
+  <text x="620" y="363" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">11: GND</text>
+
+  <!-- C1 Capacitor -->
+  <line x1="485" y1="400" x2="505" y2="400" stroke="#2457d6" stroke-width="2"/>
+  <line x1="485" y1="410" x2="505" y2="410" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="510" y="401" text-anchor="start" font-size="12" font-weight="bold" fill="#2457d6">C1</text>
+  <text x="510" y="415" text-anchor="start" font-size="11" fill="#6b7280">4.7 мкФ</text>
+
+  <!-- C2 Capacitor -->
+  <line x1="700" y1="208" x2="720" y2="208" stroke="#2457d6" stroke-width="2"/>
+  <line x1="700" y1="226" x2="720" y2="226" stroke="#2457d6" stroke-width="2"/>
+  <text x="728" y="214" text-anchor="start" font-size="12" font-weight="bold" fill="#2457d6">C2</text>
+  <text x="728" y="230" text-anchor="start" font-size="11" fill="#6b7280">0.22 мкФ</text>
+
+  <!-- Side Card 1 -->
+  <rect x="785" y="120" width="155" height="155" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="795" y="142" text-anchor="start" font-size="13" font-weight="bold" fill="#2457d6">Коло Set/Reset (S/R)</text>
+  <text x="795" y="162" text-anchor="start" font-size="12" font-weight="bold" fill="#1a1a1a">• C1 (4.7 мкФ):</text>
+  <text x="795" y="177" text-anchor="start" font-size="11" fill="#6b7280">  Накопичувач LDO</text>
+  <text x="795" y="191" text-anchor="start" font-size="11" fill="#6b7280">  внутрішньої схеми</text>
+  <text x="795" y="211" text-anchor="start" font-size="12" font-weight="bold" fill="#1a1a1a">• C2 (0.22 мкФ):</text>
+  <text x="795" y="226" text-anchor="start" font-size="11" fill="#6b7280">  Імпульс S/R</text>
+  <text x="795" y="240" text-anchor="start" font-size="11" fill="#6b7280">  перемагнічення</text>
+  <text x="795" y="262" text-anchor="start" font-size="11" font-weight="bold" fill="#2457d6">I2C Адреса: 0x0D</text>
+
+  <!-- Side Card 2 -->
+  <rect x="785" y="290" width="155" height="170" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="795" y="312" text-anchor="start" font-size="13" font-weight="bold" fill="#27ae60">Параметри обв'язки</text>
+  <text x="795" y="332" text-anchor="start" font-size="12" font-weight="bold" fill="#1a1a1a">• R1, R2 (4.7 кОм):</text>
+  <text x="795" y="347" text-anchor="start" font-size="11" fill="#6b7280">  Підтяжка SDA/SCL</text>
+  <text x="795" y="361" text-anchor="start" font-size="11" fill="#6b7280">  до шини VDDIO</text>
+  <text x="795" y="381" text-anchor="start" font-size="12" font-weight="bold" fill="#1a1a1a">• C3..C5 (фільтрація):</text>
+  <text x="795" y="396" text-anchor="start" font-size="11" fill="#6b7280">  C3=10мкФ, C4/5=0.1мкФ</text>
+  <text x="795" y="418" text-anchor="start" font-size="11" fill="#27ae60">• VDD: 2.16В...3.6В</text>
+  <text x="795" y="434" text-anchor="start" font-size="11" fill="#27ae60">• VDDIO: 1.71В...VDD</text>
+</svg>

@@ -1,0 +1,161 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="30" text-anchor="middle" font-size="18" font-weight="700" fill="#1a1a1a">Робота квадратурного декодера STM32 TIM у режимах X2/X4 та вхідного фільтра</text>
+  <text x="480" y="52" text-anchor="middle" font-size="13" fill="#6b7280">Фазовий зсув 90°, декодування напрямку DIR, відліки CNT та придушення коротких завад (IC1F)</text>
+
+  <!-- Main Panel -->
+  <rect x="20" y="68" width="920" height="472" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Time Grid Dashed Lines -->
+  <line x1="305" y1="95" x2="305" y2="480" stroke="#d0d7de" stroke-dasharray="2,2"/>
+  <line x1="360" y1="95" x2="360" y2="480" stroke="#d0d7de" stroke-dasharray="2,2"/>
+  <line x1="415" y1="95" x2="415" y2="480" stroke="#d0d7de" stroke-dasharray="2,2"/>
+  <line x1="470" y1="95" x2="470" y2="480" stroke="#d0d7de" stroke-dasharray="2,2"/>
+  <line x1="525" y1="95" x2="525" y2="480" stroke="#d0d7de" stroke-dasharray="2,2"/>
+  <line x1="635" y1="95" x2="635" y2="480" stroke="#d0d7de" stroke-dasharray="2,2"/>
+  <line x1="690" y1="95" x2="690" y2="480" stroke="#d0d7de" stroke-dasharray="2,2"/>
+  <line x1="745" y1="95" x2="745" y2="480" stroke="#d0d7de" stroke-dasharray="2,2"/>
+  <line x1="800" y1="95" x2="800" y2="480" stroke="#d0d7de" stroke-dasharray="2,2"/>
+
+  <!-- Event Markers: Reverse and Z-Pulse -->
+  <line x1="580" y1="95" x2="580" y2="480" stroke="#c0392b" stroke-dasharray="4,4" stroke-width="1.5"/>
+  <rect x="525" y="73" width="110" height="20" rx="3" fill="#fdecea" stroke="#c0392b"/>
+  <text x="580" y="87" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">Реверс (DIR 0→1)</text>
+
+  <line x1="855" y1="95" x2="855" y2="480" stroke="#27ae60" stroke-dasharray="4,4" stroke-width="1.5"/>
+  <rect x="815" y="73" width="80" height="20" rx="3" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="855" y="87" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">Мітка Z (0)</text>
+
+  <!-- Left Column Channel Badges -->
+  <rect x="35" y="98" width="180" height="28" rx="4" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="125" y="117" text-anchor="middle" font-size="13" font-weight="700" fill="#2457d6">Вхід TI1 (Фаза A)</text>
+
+  <rect x="35" y="158" width="180" height="28" rx="4" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="125" y="177" text-anchor="middle" font-size="13" font-weight="700" fill="#27ae60">Фільтр TI1F (IC1F)</text>
+
+  <rect x="35" y="218" width="180" height="28" rx="4" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="125" y="237" text-anchor="middle" font-size="13" font-weight="700" fill="#2457d6">Вхід TI2 (Фаза B)</text>
+
+  <rect x="35" y="278" width="180" height="28" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="125" y="297" text-anchor="middle" font-size="13" font-weight="700" fill="#1a1a1a">Індекс Z (TI3)</text>
+
+  <rect x="35" y="338" width="180" height="28" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="125" y="357" text-anchor="middle" font-size="13" font-weight="700" fill="#1a1a1a">Напрямок (DIR)</text>
+
+  <rect x="35" y="398" width="180" height="28" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="125" y="417" text-anchor="middle" font-size="13" font-weight="700" fill="#1a1a1a">Лічильник CNT (X2)</text>
+
+  <rect x="35" y="452" width="180" height="28" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="125" y="471" text-anchor="middle" font-size="13" font-weight="700" fill="#1a1a1a">Лічильник CNT (X4)</text>
+
+  <!-- Waveform 1: Raw TI1 (Signal A with Noise Glitch) -->
+  <path d="M 250,126 L 305,126 L 305,102 L 415,102 L 415,126 L 435,126 L 435,102 L 445,102 L 445,126 L 525,126 L 525,102 L 580,102 L 580,126 L 690,126 L 690,102 L 800,102 L 800,126 L 910,126" fill="none" stroke="#2457d6" stroke-width="2"/>
+  <!-- Noise Glitch Highlight -->
+  <rect x="430" y="97" width="20" height="33" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1" stroke-dasharray="2,2"/>
+  <text x="440" y="93" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">Завада</text>
+
+  <!-- Waveform 2: Filtered TI1F (Noise Glitch Rejected) -->
+  <path d="M 250,186 L 305,186 L 305,162 L 415,162 L 415,186 L 525,186 L 525,162 L 580,162 L 580,186 L 690,186 L 690,162 L 800,162 L 800,186 L 910,186" fill="none" stroke="#27ae60" stroke-width="2"/>
+  <rect x="430" y="157" width="20" height="33" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="440" y="153" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">Чистий сигнал</text>
+
+  <!-- Waveform 3: TI2 (Signal B) -->
+  <path d="M 250,246 L 360,246 L 360,222 L 470,222 L 470,246 L 635,246 L 635,222 L 745,222 L 745,246 L 910,246" fill="none" stroke="#2457d6" stroke-width="2"/>
+
+  <!-- Waveform 4: Index Marker Z -->
+  <path d="M 250,306 L 855,306 L 855,282 L 890,282 L 890,306 L 910,306" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Track 5: Direction DIR -->
+  <rect x="250" y="340" width="330" height="24" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="415" y="356" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">DIR = 0 (Прямий хід / UP)</text>
+
+  <rect x="580" y="340" width="330" height="24" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="745" y="356" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">DIR = 1 (Зворотний хід / DOWN)</text>
+
+  <!-- Track 6: CNT (X2 Mode) -->
+  <g font-size="12" font-weight="700" text-anchor="middle">
+    <!-- 250..305 -->
+    <rect x="250" y="398" width="55" height="28" fill="#ffffff" stroke="#d0d7de"/>
+    <text x="277" y="416" fill="#6b7280">10</text>
+    <!-- 305..415 -->
+    <rect x="305" y="398" width="110" height="28" fill="#eaf0fd" stroke="#2457d6"/>
+    <text x="360" y="416" fill="#2457d6">11</text>
+    <!-- 415..525 -->
+    <rect x="415" y="398" width="110" height="28" fill="#eaf0fd" stroke="#2457d6"/>
+    <text x="470" y="416" fill="#2457d6">12</text>
+    <!-- 525..690 -->
+    <rect x="525" y="398" width="165" height="28" fill="#eaf0fd" stroke="#2457d6"/>
+    <text x="607" y="416" fill="#2457d6">13</text>
+    <!-- 690..800 -->
+    <rect x="690" y="398" width="110" height="28" fill="#fdecea" stroke="#c0392b"/>
+    <text x="745" y="416" fill="#c0392b">12</text>
+    <!-- 800..855 -->
+    <rect x="800" y="398" width="55" height="28" fill="#fdecea" stroke="#c0392b"/>
+    <text x="827" y="416" fill="#c0392b">11</text>
+    <!-- 855..910 -->
+    <rect x="855" y="398" width="55" height="28" fill="#e9f7ef" stroke="#27ae60"/>
+    <text x="882" y="416" fill="#27ae60">0</text>
+  </g>
+
+  <!-- Track 7: CNT (X4 Mode) -->
+  <g font-size="12" font-weight="700" text-anchor="middle">
+    <!-- 250..305 -->
+    <rect x="250" y="452" width="55" height="28" fill="#ffffff" stroke="#d0d7de"/>
+    <text x="277" y="470" fill="#6b7280">20</text>
+    <!-- 305..360 -->
+    <rect x="305" y="452" width="55" height="28" fill="#eaf0fd" stroke="#2457d6"/>
+    <text x="332" y="470" fill="#2457d6">21</text>
+    <!-- 360..415 -->
+    <rect x="360" y="452" width="55" height="28" fill="#eaf0fd" stroke="#2457d6"/>
+    <text x="387" y="470" fill="#2457d6">22</text>
+    <!-- 415..470 -->
+    <rect x="415" y="452" width="55" height="28" fill="#eaf0fd" stroke="#2457d6"/>
+    <text x="442" y="470" fill="#2457d6">23</text>
+    <!-- 470..525 -->
+    <rect x="470" y="452" width="55" height="28" fill="#eaf0fd" stroke="#2457d6"/>
+    <text x="497" y="470" fill="#2457d6">24</text>
+    <!-- 525..635 -->
+    <rect x="525" y="452" width="110" height="28" fill="#eaf0fd" stroke="#2457d6"/>
+    <text x="580" y="470" fill="#2457d6">25</text>
+    <!-- 635..690 -->
+    <rect x="635" y="452" width="55" height="28" fill="#fdecea" stroke="#c0392b"/>
+    <text x="662" y="470" fill="#c0392b">24</text>
+    <!-- 690..745 -->
+    <rect x="690" y="452" width="55" height="28" fill="#fdecea" stroke="#c0392b"/>
+    <text x="717" y="470" fill="#c0392b">23</text>
+    <!-- 745..800 -->
+    <rect x="745" y="452" width="55" height="28" fill="#fdecea" stroke="#c0392b"/>
+    <text x="772" y="470" fill="#c0392b">22</text>
+    <!-- 800..855 -->
+    <rect x="800" y="452" width="55" height="28" fill="#fdecea" stroke="#c0392b"/>
+    <text x="827" y="470" fill="#c0392b">21</text>
+    <!-- 855..910 -->
+    <rect x="855" y="452" width="55" height="28" fill="#e9f7ef" stroke="#27ae60"/>
+    <text x="882" y="470" fill="#27ae60">0</text>
+  </g>
+
+  <!-- Summary Cards at Bottom -->
+  <rect x="35" y="496" width="280" height="32" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="175" y="516" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">Режим X2: рахує по фронтах TI1 (2 кванта/T)</text>
+
+  <rect x="330" y="496" width="300" height="32" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="480" y="516" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">Режим X4: рахує по всіх фронтах TI1+TI2 (4 кванти/T)</text>
+
+  <rect x="645" y="496" width="265" height="32" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="777" y="516" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">Фільтр IC1F: відсікає короткі завади</text>
+</svg>

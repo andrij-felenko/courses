@@ -1,0 +1,83 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+  
+  <!-- Title & Subtitle -->
+  <text x="480" y="28" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Амплітудно-частотна характеристика фільтра INA226</text>
+  <text x="480" y="48" font-size="13" fill="#6b7280" text-anchor="middle">Залежність смуги пропускання та точок режекції 50/60 Гц від часу конверсії T_conv і усереднення N_AVG</text>
+
+  <!-- Legend Bar (Above plot) -->
+  <rect x="110" y="62" width="525" height="32" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="4"/>
+  <line x1="125" y1="78" x2="155" y2="78" stroke="#2457d6" stroke-width="2.5"/>
+  <text x="163" y="82" font-size="12" fill="#1a1a1a">T_int = 20 мс (режекція 50 Гц)</text>
+  <line x1="385" y1="78" x2="415" y2="78" stroke="#27ae60" stroke-width="2.5"/>
+  <text x="423" y="82" font-size="12" fill="#1a1a1a">T_int = 16.67 мс (режекція 60 Гц)</text>
+
+  <!-- Plot Background -->
+  <rect x="110" y="110.0" width="525" height="275" fill="#fafafa" stroke="#e5e7eb" stroke-width="1"/>
+
+  <!-- Horizontal Grid Lines -->
+  <line x1="110" y1="110.0" x2="635" y2="110.0" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="110" y1="190.6" x2="635" y2="190.6" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="110" y1="247.5" x2="635" y2="247.5" stroke="#e5e7eb" stroke-width="1" stroke-dasharray="2,2"/>
+
+  <!-- Vertical Grid Lines for Notches -->
+  <line x1="297.5" y1="110.0" x2="297.5" y2="385.0" stroke="#2457d6" stroke-width="1" stroke-dasharray="4,4" opacity="0.5"/>
+  <line x1="335.0" y1="110.0" x2="335.0" y2="385.0" stroke="#27ae60" stroke-width="1" stroke-dasharray="4,4" opacity="0.5"/>
+  <line x1="485.0" y1="110.0" x2="485.0" y2="385.0" stroke="#2457d6" stroke-width="1" stroke-dasharray="2,2" opacity="0.3"/>
+  <line x1="560.0" y1="110.0" x2="560.0" y2="385.0" stroke="#27ae60" stroke-width="1" stroke-dasharray="2,2" opacity="0.3"/>
+
+  <!-- Plot Curves -->
+  <path d="M 110.0,110.0 L 113.8,110.2 L 117.5,110.7 L 121.2,111.6 L 125.0,112.9 L 128.8,114.5 L 132.5,116.5 L 136.2,118.8 L 140.0,121.4 L 143.8,124.4 L 147.5,127.7 L 151.2,131.4 L 155.0,135.3 L 158.8,139.6 L 162.5,144.1 L 166.2,148.9 L 170.0,154.0 L 173.8,159.4 L 177.5,165.0 L 181.2,170.8 L 185.0,176.9 L 188.8,183.1 L 192.5,189.6 L 196.2,196.2 L 200.0,203.0 L 203.8,209.9 L 207.5,217.0 L 211.2,224.2 L 215.0,231.5 L 218.8,238.8 L 222.5,246.2 L 226.2,253.7 L 230.0,261.2 L 233.8,268.8 L 237.5,276.3 L 241.2,283.8 L 245.0,291.3 L 248.8,298.8 L 252.5,306.2 L 256.2,313.5 L 260.0,320.7 L 263.8,327.8 L 267.5,334.8 L 271.2,341.7 L 275.0,348.4 L 278.8,354.9 L 282.5,361.3 L 286.2,367.6 L 290.0,373.6 L 293.8,379.4 L 297.5,385.0 L 301.2,379.6 L 305.0,374.5 L 308.8,369.5 L 312.5,364.8 L 316.2,360.4 L 320.0,356.2 L 323.8,352.3 L 327.5,348.6 L 331.2,345.3 L 335.0,342.1 L 338.8,339.3 L 342.5,336.7 L 346.2,334.4 L 350.0,332.3 L 353.8,330.5 L 357.5,329.0 L 361.2,327.8 L 365.0,326.8 L 368.8,326.0 L 372.5,325.5 L 376.2,325.3 L 380.0,325.3 L 383.8,325.5 L 387.5,326.0 L 391.2,326.6 L 395.0,327.5 L 398.8,328.6 L 402.5,329.9 L 406.2,331.3 L 410.0,333.0 L 413.8,334.8 L 417.5,336.7 L 421.2,338.8 L 425.0,341.0 L 428.8,343.3 L 432.5,345.8 L 436.2,348.3 L 440.0,351.0 L 443.8,353.7 L 447.5,356.4 L 451.2,359.2 L 455.0,362.1 L 458.8,365.0 L 462.5,367.9 L 466.2,370.8 L 470.0,373.7 L 473.8,376.5 L 477.5,379.4 L 481.2,382.2 L 485.0,385.0 L 488.8,382.3 L 492.5,379.6 L 496.2,377.0 L 500.0,374.5 L 503.8,372.1 L 507.5,369.8 L 511.2,367.6 L 515.0,365.5 L 518.8,363.5 L 522.5,361.6 L 526.2,359.9 L 530.0,358.2 L 533.8,356.8 L 537.5,355.4 L 541.2,354.2 L 545.0,353.1 L 548.8,352.2 L 552.5,351.4 L 556.2,350.8 L 560.0,350.3 L 563.8,350.0 L 567.5,349.8 L 571.2,349.7 L 575.0,349.8 L 578.8,350.0 L 582.5,350.3 L 586.2,350.8 L 590.0,351.4 L 593.8,352.1 L 597.5,353.0 L 601.2,353.9 L 605.0,355.0 L 608.8,356.2 L 612.5,357.4 L 616.2,358.8 L 620.0,360.2 L 623.8,361.7 L 627.5,363.3 L 631.2,364.9 L 635.0,366.6" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+  <path d="M 110.0,110.0 L 113.8,110.1 L 117.5,110.5 L 121.2,111.1 L 125.0,112.0 L 128.8,113.1 L 132.5,114.5 L 136.2,116.1 L 140.0,118.0 L 143.8,120.1 L 147.5,122.4 L 151.2,125.0 L 155.0,127.7 L 158.8,130.7 L 162.5,134.0 L 166.2,137.4 L 170.0,141.1 L 173.8,144.9 L 177.5,148.9 L 181.2,153.2 L 185.0,157.6 L 188.8,162.2 L 192.5,166.9 L 196.2,171.8 L 200.0,176.9 L 203.8,182.1 L 207.5,187.4 L 211.2,192.9 L 215.0,198.5 L 218.8,204.1 L 222.5,209.9 L 226.2,215.8 L 230.0,221.8 L 233.8,227.8 L 237.5,233.9 L 241.2,240.1 L 245.0,246.2 L 248.8,252.5 L 252.5,258.7 L 256.2,265.0 L 260.0,271.3 L 263.8,277.6 L 267.5,283.8 L 271.2,290.1 L 275.0,296.3 L 278.8,302.5 L 282.5,308.6 L 286.2,314.7 L 290.0,320.7 L 293.8,326.6 L 297.5,332.5 L 301.2,338.2 L 305.0,343.9 L 308.8,349.5 L 312.5,354.9 L 316.2,360.3 L 320.0,365.5 L 323.8,370.6 L 327.5,375.5 L 331.2,380.3 L 335.0,385.0 L 338.8,380.5 L 342.5,376.1 L 346.2,372.0 L 350.0,367.9 L 353.8,364.1 L 357.5,360.4 L 361.2,356.9 L 365.0,353.6 L 368.8,350.4 L 372.5,347.5 L 376.2,344.7 L 380.0,342.1 L 383.8,339.7 L 387.5,337.5 L 391.2,335.5 L 395.0,333.6 L 398.8,332.0 L 402.5,330.5 L 406.2,329.2 L 410.0,328.1 L 413.8,327.2 L 417.5,326.5 L 421.2,325.9 L 425.0,325.5 L 428.8,325.3 L 432.5,325.3 L 436.2,325.4 L 440.0,325.6 L 443.8,326.1 L 447.5,326.6 L 451.2,327.4 L 455.0,328.2 L 458.8,329.2 L 462.5,330.3 L 466.2,331.6 L 470.0,333.0 L 473.8,334.5 L 477.5,336.0 L 481.2,337.7 L 485.0,339.5 L 488.8,341.4 L 492.5,343.3 L 496.2,345.4 L 500.0,347.5 L 503.8,349.6 L 507.5,351.8 L 511.2,354.1 L 515.0,356.4 L 518.8,358.8 L 522.5,361.1 L 526.2,363.5 L 530.0,365.9 L 533.8,368.3 L 537.5,370.8 L 541.2,373.2 L 545.0,375.6 L 548.8,378.0 L 552.5,380.3 L 556.2,382.7 L 560.0,385.0 L 563.8,382.7 L 567.5,380.5 L 571.2,378.3 L 575.0,376.2 L 578.8,374.1 L 582.5,372.1 L 586.2,370.2 L 590.0,368.3 L 593.8,366.5 L 597.5,364.8 L 601.2,363.2 L 605.0,361.6 L 608.8,360.1 L 612.5,358.8 L 616.2,357.5 L 620.0,356.3 L 623.8,355.2 L 627.5,354.2 L 631.2,353.3 L 635.0,352.5" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+
+  <!-- Notch Markers (Circles at Zeros) -->
+  <circle cx="297.5" cy="385.0" r="5" fill="#2457d6"/>
+  <circle cx="335.0" cy="385.0" r="5" fill="#27ae60"/>
+  <circle cx="485.0" cy="385.0" r="4" fill="#2457d6"/>
+  <circle cx="560.0" cy="385.0" r="4" fill="#27ae60"/>
+
+  <!-- Y-Axis Ticks & Labels -->
+  <text x="100" y="114" font-size="12" fill="#1a1a1a" text-anchor="end">1.0</text>
+  <text x="100" y="194" font-size="12" fill="#6b7280" text-anchor="end">0.707 (-3 dB)</text>
+  <text x="100" y="251" font-size="12" fill="#1a1a1a" text-anchor="end">0.5</text>
+  <text x="100" y="389" font-size="12" fill="#1a1a1a" text-anchor="end">0.0</text>
+  <text x="110" y="102" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="start">Відносна амплітуда |H(f)|</text>
+
+  <!-- X-Axis Ticks & Labels -->
+  <text x="110.0" y="405" font-size="12" fill="#1a1a1a" text-anchor="middle">0</text>
+  <text x="203.8" y="405" font-size="12" fill="#1a1a1a" text-anchor="middle">25</text>
+  <text x="297.5" y="405" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">50</text>
+  <text x="335.0" y="405" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">60</text>
+  <text x="485.0" y="405" font-size="12" fill="#2457d6" text-anchor="middle">100</text>
+  <text x="560.0" y="405" font-size="12" fill="#27ae60" text-anchor="middle">120</text>
+  <text x="635.0" y="405" font-size="12" fill="#1a1a1a" text-anchor="middle">140</text>
+  <text x="635.0" y="425" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="end">Частота f [Гц]</text>
+
+  <!-- Right Information Panel -->
+  <rect x="655" y="62" width="280" height="360" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="8"/>
+  <text x="795" y="85" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">РОЗРАХУНОК ФІЛЬТРАЦІЇ INA226</text>
+
+  <rect x="670" y="100" width="250" height="85" fill="white" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="680" y="120" font-size="12" font-weight="bold" fill="#2457d6">Час інтегрування T_int:</text>
+  <text x="680" y="142" font-size="13" fill="#1a1a1a">T_int = N_AVG × T_conv</text>
+  <text x="680" y="162" font-size="12" fill="#6b7280">Визначає загальний цикл вибірки</text>
+
+  <rect x="670" y="195" width="250" height="100" fill="white" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="680" y="215" font-size="12" font-weight="bold" fill="#2457d6">Частоти режекції (нулі АЧХ):</text>
+  <text x="680" y="237" font-size="13" fill="#1a1a1a">f_notch = k / T_int,  k = 1, 2, 3...</text>
+  <text x="680" y="257" font-size="12" fill="#6b7280">• T_int = 20 мс -&gt; 50, 100 Гц</text>
+  <text x="680" y="277" font-size="12" fill="#6b7280">• T_int = 16.67 мс -&gt; 60, 120 Гц</text>
+
+  <rect x="670" y="305" width="250" height="105" fill="white" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="680" y="325" font-size="12" font-weight="bold" fill="#27ae60">Пригнічення шуму (SNR):</text>
+  <text x="680" y="347" font-size="13" fill="#1a1a1a">σ_out = σ_in / √(N_AVG)</text>
+  <text x="680" y="367" font-size="12" fill="#1a1a1a">При N_AVG = 16: шум ↓ в 4 рази</text>
+  <text x="680" y="390" font-size="12" font-weight="bold" fill="#27ae60">SNR gain = +12.0 дБ</text>
+
+  <!-- Bottom Summary Card -->
+  <rect x="110" y="442" width="825" height="100" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="8"/>
+  <text x="125" y="464" font-size="13" font-weight="bold" fill="#2457d6">ІНЖЕНЕРНИЙ БАЛАНС: ЗАТРИМКА, ШУМ ТА ЗАВАДОЗАХИЩЕНІСТЬ</text>
+  <text x="125" y="484" font-size="12" fill="#1a1a1a">1. Точки режекції (нулі) залежать від добутку N_AVG × T_conv: T_int = 20 мс пригнічує 50 Гц, T_int = 16.67 мс — 60 Гц.</text>
+  <text x="125" y="504" font-size="12" fill="#1a1a1a">2. Комбінований час T_int = 100 мс забезпечує режекцію обох частот (50 Гц і 60 Гц) одночасно.</text>
+  <text x="125" y="524" font-size="12" fill="#1a1a1a">3. Збільшення N_AVG зменшує шум у √(N_AVG) разів, але пропорційно збільшує час оновлення даних T_cycle.</text>
+</svg>

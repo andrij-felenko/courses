@@ -1,0 +1,162 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 530" width="960" height="530" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-black" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-purple" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#7c3aed"/>
+    </marker>
+  </defs>
+
+  <!-- Canvas Background -->
+  <rect x="0" y="0" width="960" height="530" fill="white"/>
+
+  <!-- Title Block -->
+  <text x="480" y="28" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Однополярне (TTL/HTL) та диференційне (RS-422) підключення енкодера</text>
+  <text x="480" y="48" font-size="13" fill="#6b7280" text-anchor="middle">Диференційна пара придушує синфазні завади (CMRR) та забезпечує цілісність сигналу</text>
+
+  <!-- PANEL 1: SINGLE-ENDED TRANSMISSION -->
+  <rect x="30" y="65" width="900" height="205" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="45" y="87" font-size="14" font-weight="bold" fill="#c0392b">1. Однополярне підключення (Single-Ended: TTL / HTL) — Схильне до завад</text>
+
+  <!-- Sub-block 1A: Transmitter -->
+  <rect x="45" y="100" width="160" height="155" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="125" y="118" font-size="13" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Енкодер (Tx)</text>
+  <text x="125" y="134" font-size="12" text-anchor="middle" fill="#6b7280">Вихід TTL/HTL</text>
+
+  <!-- Buffer icon inside Tx1 -->
+  <polygon points="65,150 65,180 90,165" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="90" y1="165" x2="205" y2="165" stroke="#2457d6" stroke-width="2.5"/>
+  <text x="100" y="157" font-size="12" font-weight="bold" fill="#2457d6">A</text>
+
+  <!-- Clean wave preview inside Tx1 -->
+  <path d="M 60,215 L 72,215 L 72,200 L 84,200 L 84,215 L 96,215 L 96,200 L 108,200 L 108,215 L 120,215" fill="none" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="125" y="213" font-size="12" fill="#2457d6">Чистий A</text>
+
+  <!-- GND pin inside Tx1 -->
+  <line x1="65" y1="240" x2="205" y2="240" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <text x="195" y="233" font-size="12" fill="#6b7280" text-anchor="end">GND</text>
+
+  <!-- Wires in Middle Zone 1 -->
+  <text x="215" y="155" font-size="12" fill="#2457d6">Лінія A (сигнал)</text>
+  <text x="215" y="232" font-size="12" fill="#6b7280">Спільний провід (GND)</text>
+
+  <!-- Noise Source 1 -->
+  <rect x="345" y="98" width="155" height="42" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="422" y="115" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Завада V_noise(t)</text>
+  <text x="422" y="131" font-size="11" fill="#c0392b" text-anchor="middle">(наведення від двигуна)</text>
+  <line x1="422" y1="140" x2="422" y2="157" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+
+  <!-- Distorted Signal Text & Waveform 1 -->
+  <text x="480" y="155" font-size="12" fill="#c0392b">V_sig + V_noise</text>
+
+  <!-- Distorted Wave visual line segment (positioned clear of text) -->
+  <line x1="205" y1="165" x2="575" y2="165" stroke="#2457d6" stroke-width="2.5"/>
+  <path d="M 575,165 L 580,150 L 585,175 L 590,155 L 595,165 L 620,165 L 625,148 L 630,172 L 635,165 L 660,165" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+  <line x1="205" y1="240" x2="660" y2="240" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4,3"/>
+
+  <!-- Sub-block 1B: Receiver -->
+  <rect x="660" y="100" width="255" height="155" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="787" y="118" font-size="13" font-weight="bold" text-anchor="middle" fill="#c0392b">Приймач (MCU / PLC)</text>
+  <text x="787" y="133" font-size="12" text-anchor="middle" fill="#6b7280">Однополярний вхід (ref: GND)</text>
+
+  <!-- Comparator display inside Rx1 -->
+  <rect x="675" y="140" width="225" height="86" fill="white" stroke="#c0392b" stroke-width="1" rx="4"/>
+  <line x1="685" y1="184" x2="890" y2="184" stroke="#6b7280" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="820" y="180" font-size="12" fill="#6b7280">Поріг V_th</text>
+
+  <!-- Distorted input waveform inside comparator box (completely clear of labels) -->
+  <path d="M 685,208 L 700,208 L 700,172 L 735,172 L 735,208 L 755,208 L 760,162 L 770,162 L 775,208 L 890,208" fill="none" stroke="#c0392b" stroke-width="1.8"/>
+
+  <!-- Noise spike warning text -->
+  <text x="765" y="154" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">▲ завада &gt; V_th</text>
+
+  <!-- Result status banner 1 -->
+  <text x="787" y="244" font-size="12" font-weight="bold" text-anchor="middle" fill="#c0392b">❌ Хибні імпульси та зсув позиції</text>
+
+
+  <!-- PANEL 2: DIFFERENTIAL RS-422 TRANSMISSION -->
+  <rect x="30" y="285" width="900" height="225" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="45" y="307" font-size="14" font-weight="bold" fill="#27ae60">2. Диференційне підключення (RS-422) — Придушення синфазної завади (CMRR)</text>
+
+  <!-- Sub-block 2A: Transmitter (Line Driver) -->
+  <rect x="45" y="320" width="160" height="175" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="125" y="338" font-size="13" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Енкодер (Line Driver)</text>
+  <text x="125" y="354" font-size="12" text-anchor="middle" fill="#6b7280">Диференційний вихід</text>
+
+  <!-- Line Driver Buffer A+ -->
+  <polygon points="65,370 65,396 88,383" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="88" y1="383" x2="205" y2="383" stroke="#2457d6" stroke-width="2.5"/>
+  <text x="195" y="376" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">A+</text>
+
+  <!-- Line Driver Buffer A- -->
+  <polygon points="65,420 65,446 88,433" fill="#f3e8ff" stroke="#7c3aed" stroke-width="1.5"/>
+  <circle cx="91" cy="433" r="3" fill="white" stroke="#7c3aed" stroke-width="1.5"/>
+  <line x1="94" y1="433" x2="205" y2="433" stroke="#7c3aed" stroke-width="2.5"/>
+  <text x="195" y="426" font-size="12" font-weight="bold" fill="#7c3aed" text-anchor="end">A-</text>
+
+  <!-- Mini differential signals inside Tx2 -->
+  <path d="M 60,406 L 70,406 L 70,399 L 80,399 L 80,406 L 90,406" fill="none" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="98" y="405" font-size="11" fill="#2457d6">A+ (прямий)</text>
+
+  <path d="M 60,460 L 70,460 L 70,467 L 80,467 L 80,460 L 90,460" fill="none" stroke="#7c3aed" stroke-width="1.5"/>
+  <text x="98" y="466" font-size="11" fill="#7c3aed">A- (інверсний)</text>
+
+  <!-- Twisted Pair Background Box -->
+  <rect x="215" y="370" width="435" height="76" rx="4" fill="#eaf0fd" fill-opacity="0.3" stroke="#2457d6" stroke-dasharray="3,3" stroke-opacity="0.4"/>
+  <text x="222" y="365" font-size="12" font-weight="bold" fill="#2457d6">Вита пара (Twisted Pair)</text>
+
+  <!-- Wires in Middle Zone 2 -->
+  <text x="222" y="380" font-size="12" fill="#2457d6">Пряма лінія A+</text>
+  <text x="222" y="430" font-size="12" fill="#7c3aed">Інверсна лінія A-</text>
+
+  <!-- Noise Source 2 (Synphase) -->
+  <rect x="360" y="393" width="145" height="30" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="432" y="412" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Синфазна завада V_n</text>
+
+  <!-- Noise arrows up and down -->
+  <line x1="432" y1="393" x2="432" y2="387" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arr-red)"/>
+  <line x1="432" y1="423" x2="432" y2="429" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arr-red)"/>
+
+  <!-- Signals before Rx2 -->
+  <line x1="205" y1="383" x2="660" y2="383" stroke="#2457d6" stroke-width="2.5"/>
+  <line x1="205" y1="433" x2="660" y2="433" stroke="#7c3aed" stroke-width="2.5"/>
+
+  <text x="495" y="380" font-size="12" fill="#2457d6">V_A+ = V_sig + V_n</text>
+  <text x="495" y="430" font-size="12" fill="#7c3aed">V_A- = -V_sig + V_n</text>
+
+  <!-- Sub-block 2B: Differential Receiver -->
+  <rect x="660" y="320" width="255" height="175" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="787" y="338" font-size="13" font-weight="bold" text-anchor="middle" fill="#27ae60">Приймач (RS-422 Rx)</text>
+
+  <!-- Termination Resistor Rt -->
+  <path d="M 672,383 L 672,398 L 667,401 L 677,406 L 667,411 L 677,416 L 672,419 L 672,433" fill="none" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="652" y="412" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="end">R_T=120Ω</text>
+
+  <!-- Differential Receiver Op-Amp Symbol -->
+  <polygon points="695,370 695,446 730,408" fill="white" stroke="#27ae60" stroke-width="2"/>
+  <text x="701" y="388" font-size="13" font-weight="bold" fill="#2457d6">+</text>
+  <text x="701" y="430" font-size="13" font-weight="bold" fill="#7c3aed">-</text>
+
+  <!-- Line connecting Receiver triangle output to Math Box -->
+  <line x1="730" y1="408" x2="740" y2="408" stroke="#27ae60" stroke-width="2"/>
+
+  <!-- Math Box inside Rx2 -->
+  <rect x="740" y="350" width="165" height="96" rx="4" fill="white" stroke="#27ae60" stroke-width="1"/>
+  <text x="822" y="368" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">V_out = V_A+ - V_A-</text>
+  <text x="822" y="385" font-size="12" fill="#1a1a1a" text-anchor="middle">= (V_sig + V_n) -</text>
+  <text x="822" y="401" font-size="12" fill="#1a1a1a" text-anchor="middle">   (-V_sig + V_n)</text>
+  <text x="822" y="421" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">= 2 · V_sig  (V_n = 0!)</text>
+
+  <!-- Result status banner 2 -->
+  <text x="787" y="480" font-size="12" font-weight="bold" text-anchor="middle" fill="#27ae60">✓ Чистий сигнал / Без завад</text>
+</svg>

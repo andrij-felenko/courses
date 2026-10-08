@@ -1,0 +1,176 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Background Canvas -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Header -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Крива насичення Магнуса-Тетенса: тиск пари E(t)</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Розходження кривих «вода / лід» при t &lt; 0 °C та межі застосовності коефіцієнтів (a, b)</text>
+
+  <!-- GRAPH 1: OVERVIEW (-40 to +40 °C) -->
+  <rect x="40" y="75" width="530" height="210" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="95" y="93" font-size="12" font-weight="bold" fill="#1a1a1a">Загальний хід кривої E(t) від -40 °C до +40 °C</text>
+  <text x="85" y="93" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">E, гПа</text>
+
+  <!-- Graph 1 Grid Lines -->
+  <line x1="90" y1="210" x2="540" y2="210" stroke="#d0d7de" stroke-dasharray="3,3"/>
+  <line x1="90" y1="175" x2="540" y2="175" stroke="#d0d7de" stroke-dasharray="3,3"/>
+  <line x1="90" y1="140" x2="540" y2="140" stroke="#d0d7de" stroke-dasharray="3,3"/>
+  <line x1="90" y1="105" x2="540" y2="105" stroke="#d0d7de" stroke-dasharray="3,3"/>
+
+  <!-- Graph 1 Y Ticks -->
+  <text x="85" y="245" font-size="12" fill="#6b7280" text-anchor="end">0</text>
+  <text x="85" y="210" font-size="12" fill="#6b7280" text-anchor="end">20</text>
+  <text x="85" y="175" font-size="12" fill="#6b7280" text-anchor="end">40</text>
+  <text x="85" y="140" font-size="12" fill="#6b7280" text-anchor="end">60</text>
+  <text x="85" y="105" font-size="12" fill="#6b7280" text-anchor="end">80</text>
+
+  <!-- Graph 1 Axes -->
+  <line x1="90" y1="245" x2="540" y2="245" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="90" y1="105" x2="90" y2="245" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="315" y1="105" x2="315" y2="245" stroke="#9ca3af" stroke-dasharray="3,3"/>
+
+  <!-- Graph 1 X Ticks & Labels -->
+  <line x1="90" y1="245" x2="90" y2="249" stroke="#1a1a1a" stroke-width="1"/>
+  <line x1="202.5" y1="245" x2="202.5" y2="249" stroke="#1a1a1a" stroke-width="1"/>
+  <line x1="315" y1="245" x2="315" y2="249" stroke="#1a1a1a" stroke-width="1"/>
+  <line x1="427.5" y1="245" x2="427.5" y2="249" stroke="#1a1a1a" stroke-width="1"/>
+  <line x1="540" y1="245" x2="540" y2="249" stroke="#1a1a1a" stroke-width="1"/>
+
+  <text x="90" y="263" font-size="12" fill="#6b7280" text-anchor="middle">-40</text>
+  <text x="202.5" y="263" font-size="12" fill="#6b7280" text-anchor="middle">-20</text>
+  <text x="315" y="263" font-size="12" fill="#1a1a1a" font-weight="bold" text-anchor="middle">0</text>
+  <text x="427.5" y="263" font-size="12" fill="#6b7280" text-anchor="middle">+20</text>
+  <text x="540" y="263" font-size="12" fill="#6b7280" text-anchor="middle">+40</text>
+  <text x="540" y="277" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">t, °C</text>
+
+  <!-- Graph 1 Zoom Box Highlight -->
+  <rect x="90" y="225" width="225" height="20" fill="#2457d6" fill-opacity="0.08" stroke="#2457d6" stroke-dasharray="4,4" stroke-width="1.2" rx="2"/>
+
+  <!-- Graph 1 Curve -->
+  <path d="M 90 244.8 C 160 244, 240 241, 315 234.3 C 360 228, 400 215, 427.5 204.1 C 465 185, 505 152, 540 115.9" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+
+  <!-- Graph 1 Annotations -->
+  <circle cx="315" cy="234.3" r="4" fill="#2457d6"/>
+  <text x="305" y="222" font-size="12" fill="#1a1a1a" text-anchor="end">E0 = 6.11 гПа (0 °C)</text>
+  <text x="350" y="170" font-size="12" font-weight="bold" fill="#2457d6">Вода (Tetens/Buck)</text>
+
+  <!-- Connection Lines from Zoom Box to Graph 2 -->
+  <line x1="90" y1="280" x2="90" y2="305" stroke="#2457d6" stroke-dasharray="2,2" opacity="0.4"/>
+  <line x1="315" y1="280" x2="540" y2="305" stroke="#2457d6" stroke-dasharray="2,2" opacity="0.4"/>
+
+  <!-- GRAPH 2: DETAILED SUB-ZERO REGION (-40 to 0 °C) -->
+  <rect x="40" y="305" width="530" height="215" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="95" y="323" font-size="12" font-weight="bold" fill="#1a1a1a">Деталізація при t &lt; 0 °C: Вода vs Лід vs Магнус (1844)</text>
+  <text x="85" y="323" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">E, гПа</text>
+
+  <!-- Graph 2 Grid Lines -->
+  <line x1="90" y1="429" x2="540" y2="429" stroke="#d0d7de" stroke-dasharray="3,3"/>
+  <line x1="90" y1="383" x2="540" y2="383" stroke="#d0d7de" stroke-dasharray="3,3"/>
+  <line x1="90" y1="337" x2="540" y2="337" stroke="#d0d7de" stroke-dasharray="3,3"/>
+
+  <!-- Graph 2 Y Ticks -->
+  <text x="85" y="475" font-size="12" fill="#6b7280" text-anchor="end">0</text>
+  <text x="85" y="429" font-size="12" fill="#6b7280" text-anchor="end">2</text>
+  <text x="85" y="383" font-size="12" fill="#6b7280" text-anchor="end">4</text>
+  <text x="85" y="337" font-size="12" fill="#6b7280" text-anchor="end">6</text>
+
+  <!-- Graph 2 Axes -->
+  <line x1="90" y1="475" x2="540" y2="475" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="90" y1="335" x2="90" y2="475" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="540" y1="335" x2="540" y2="475" stroke="#9ca3af" stroke-dasharray="3,3"/>
+
+  <!-- Graph 2 X Ticks & Labels -->
+  <line x1="90" y1="475" x2="90" y2="479" stroke="#1a1a1a" stroke-width="1"/>
+  <line x1="202.5" y1="475" x2="202.5" y2="479" stroke="#1a1a1a" stroke-width="1"/>
+  <line x1="315" y1="475" x2="315" y2="479" stroke="#1a1a1a" stroke-width="1"/>
+  <line x1="427.5" y1="475" x2="427.5" y2="479" stroke="#1a1a1a" stroke-width="1"/>
+  <line x1="540" y1="475" x2="540" y2="479" stroke="#1a1a1a" stroke-width="1"/>
+
+  <text x="90" y="493" font-size="12" fill="#6b7280" text-anchor="middle">-40</text>
+  <text x="202.5" y="493" font-size="12" fill="#6b7280" text-anchor="middle">-30</text>
+  <text x="315" y="493" font-size="12" fill="#6b7280" text-anchor="middle">-20</text>
+  <text x="427.5" y="493" font-size="12" fill="#6b7280" text-anchor="middle">-10</text>
+  <text x="540" y="493" font-size="12" fill="#1a1a1a" font-weight="bold" text-anchor="middle">0</text>
+  <text x="540" y="507" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">t, °C</text>
+
+  <!-- Graph 2 Shaded Difference Region -->
+  <path d="M 90 470.7 C 150 468, 202.5 463.3, 315 446.4 C 400 427, 427.5 409.5, 540 334.4 C 427.5 415.5, 400 435, 315 451.4 C 202.5 466.3, 150 470, 90 472.1 Z" fill="#fdecea" opacity="0.75"/>
+
+  <!-- Graph 2 Curves -->
+  <!-- Water Curve -->
+  <path d="M 90 470.7 C 150 468, 202.5 463.3, 315 446.4 C 400 427, 427.5 409.5, 540 334.4" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+  <!-- Ice Curve -->
+  <path d="M 90 472.1 C 150 470, 202.5 466.3, 315 451.4 C 400 435, 427.5 415.5, 540 334.4" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+  <!-- Classic Magnus Curve -->
+  <path d="M 90 470.8 C 150 468.2, 202.5 463.5, 315 446.8 C 400 427.5, 427.5 410.0, 540 334.5" fill="none" stroke="#8e44ad" stroke-width="1.8" stroke-dasharray="5,4"/>
+
+  <circle cx="540" cy="334.4" r="4" fill="#2457d6"/>
+
+  <!-- Graph 2 Callout Box for Phase Divergence -->
+  <rect x="145" y="342" width="250" height="38" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="270" y="357" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Розходження фаз ΔE</text>
+  <text x="270" y="372" font-size="12" fill="#1a1a1a" text-anchor="middle">E(вода) &gt; E(лід) на 21.5% при -20 °C</text>
+  <line x1="315" y1="380" x2="315" y2="440" stroke="#c0392b" stroke-dasharray="2,2" marker-end="url(#arr-red)"/>
+
+  <!-- Graph 2 Curve Labels -->
+  <text x="360" y="400" font-size="12" font-weight="bold" fill="#2457d6">Вода (Tetens)</text>
+  <text x="420" y="445" font-size="12" font-weight="bold" fill="#c0392b">Лід (Tetens)</text>
+  <text x="110" y="450" font-size="12" fill="#8e44ad">Магнус (1844)</text>
+
+  <!-- RIGHT COLUMN: REFERENCE & FORMULAS -->
+
+  <!-- Card 1: Formula -->
+  <rect x="590" y="75" width="330" height="125" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="605" y="95" font-size="14" font-weight="bold" fill="#1a1a1a">Рівняння Магнуса-Тетенса</text>
+  <rect x="605" y="105" width="300" height="40" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="755" y="130" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">E(t) = E0 · exp( a·t / (b + t) )</text>
+  <text x="605" y="163" font-size="12" fill="#1a1a1a">• E0 = 6.112 гПа — тиск при t = 0 °C</text>
+  <text x="605" y="183" font-size="12" fill="#6b7280">• a, b — коефіцієнти фази та діапазону</text>
+
+  <!-- Card 2: Coefficient Table -->
+  <rect x="590" y="215" width="330" height="185" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="605" y="235" font-size="14" font-weight="bold" fill="#1a1a1a">Коефіцієнти (a, b) у стандартах</text>
+  
+  <rect x="605" y="245" width="300" height="24" rx="3" fill="#eaf0fd" stroke="#d0d7de"/>
+  <text x="615" y="261" font-size="12" font-weight="bold" fill="#2457d6">Модель / Фаза</text>
+  <text x="770" y="261" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">a</text>
+  <text x="855" y="261" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">b (°C)</text>
+
+  <text x="615" y="283" font-size="12" font-weight="bold" fill="#2457d6">Tetens (Вода)</text>
+  <text x="770" y="283" font-size="12" fill="#1a1a1a" text-anchor="middle">17.27</text>
+  <text x="855" y="283" font-size="12" fill="#1a1a1a" text-anchor="middle">237.70</text>
+  <line x1="605" y1="291" x2="905" y2="291" stroke="#d0d7de"/>
+
+  <text x="615" y="307" font-size="12" font-weight="bold" fill="#c0392b">Tetens (Лід)</text>
+  <text x="770" y="307" font-size="12" fill="#1a1a1a" text-anchor="middle">21.875</text>
+  <text x="855" y="307" font-size="12" fill="#1a1a1a" text-anchor="middle">265.50</text>
+  <line x1="605" y1="315" x2="905" y2="315" stroke="#d0d7de"/>
+
+  <text x="615" y="331" font-size="12" font-weight="bold" fill="#1a1a1a">Buck (1981)</text>
+  <text x="770" y="331" font-size="12" fill="#1a1a1a" text-anchor="middle">17.368</text>
+  <text x="855" y="331" font-size="12" fill="#1a1a1a" text-anchor="middle">238.88</text>
+  <line x1="605" y1="339" x2="905" y2="339" stroke="#d0d7de"/>
+
+  <text x="615" y="355" font-size="12" fill="#8e44ad">Magnus (1844)</text>
+  <text x="770" y="355" font-size="12" fill="#1a1a1a" text-anchor="middle">17.100</text>
+  <text x="855" y="355" font-size="12" fill="#1a1a1a" text-anchor="middle">234.17</text>
+
+  <text x="605" y="383" font-size="12" fill="#6b7280">• Buck (1981) — сучасний метеостандарт</text>
+
+  <!-- Card 3: Sensor Recommendations -->
+  <rect x="590" y="415" width="330" height="105" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="605" y="435" font-size="14" font-weight="bold" fill="#27ae60">✔ Практичні правила для давачів</text>
+  <text x="605" y="456" font-size="12" fill="#1a1a1a">• Для точки роси Td використовують</text>
+  <text x="617" y="472" font-size="12" font-weight="bold" fill="#2457d6">обернену формулу: Td = (b·α)/(a - α)</text>
+  <text x="605" y="492" font-size="12" fill="#1a1a1a">• Невірно обрані (a, b) при t &lt; 0 °C</text>
+  <text x="617" y="508" font-size="12" fill="#c0392b">вказують на хибну відносну вологість</text>
+</svg>

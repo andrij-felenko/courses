@@ -1,0 +1,192 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="540" fill="#ffffff"/>
+
+  <!-- Main Title & Subtitle -->
+  <text x="480" y="28" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Оптичний та магнітний енкодери: конструкція та зчитування</text>
+  <text x="480" y="48" font-size="13" fill="#6b7280" text-anchor="middle">Оптична система модулює світловий потік, магнітна — детектує зсув полюсів датчиками</text>
+
+  <!-- LEFT PANEL: Optical Encoder -->
+  <rect x="20" y="65" width="450" height="455" rx="8" ry="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="245" y="88" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Оптичний енкодер (растрова система)</text>
+
+  <!-- LED Box -->
+  <rect x="175" y="104" width="140" height="26" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="245" y="121" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Світлодіод (LED)</text>
+
+  <!-- Light Labels & Pointer -->
+  <text x="35" y="118" font-size="12" fill="#2457d6" text-anchor="start">Світловий потік</text>
+  <line x1="140" y1="114" x2="168" y2="114" stroke="#2457d6" stroke-width="1.2" marker-end="url(#arr-blue)"/>
+
+  <text x="455" y="116" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">Кодовий диск</text>
+  <text x="455" y="130" font-size="12" fill="#6b7280" text-anchor="end">(растрова маска)</text>
+  <line x1="410" y1="136" x2="410" y2="158" stroke="#1a1a1a" stroke-width="1.2" marker-end="url(#arr-dark)"/>
+
+  <!-- Emitted Light Cone -->
+  <polygon points="195,130 295,130 370,162 120,162" fill="#2457d6" fill-opacity="0.08"/>
+
+  <!-- Scale Pitch Dimension -->
+  <line x1="95" y1="150" x2="145" y2="150" stroke="#1a1a1a" stroke-width="1.2"/>
+  <line x1="95" y1="146" x2="95" y2="154" stroke="#1a1a1a" stroke-width="1.2"/>
+  <line x1="145" y1="146" x2="145" y2="154" stroke="#1a1a1a" stroke-width="1.2"/>
+  <text x="120" y="142" font-size="12" fill="#1a1a1a" text-anchor="middle">Крок λ</text>
+
+  <!-- Optical Code Scale / Disk -->
+  <rect x="45" y="162" width="400" height="20" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Opaque Stripes -->
+  <rect x="45" y="162" width="25" height="20" fill="#1a1a1a"/>
+  <rect x="95" y="162" width="25" height="20" fill="#1a1a1a"/>
+  <rect x="145" y="162" width="25" height="20" fill="#1a1a1a"/>
+  <rect x="195" y="162" width="25" height="20" fill="#1a1a1a"/>
+  <rect x="245" y="162" width="25" height="20" fill="#1a1a1a"/>
+  <rect x="295" y="162" width="25" height="20" fill="#1a1a1a"/>
+  <rect x="345" y="162" width="25" height="20" fill="#1a1a1a"/>
+  <rect x="395" y="162" width="25" height="20" fill="#1a1a1a"/>
+
+  <!-- Transmitted Light Beams through Slots -->
+  <rect x="120" y="182" width="25" height="42" fill="#2457d6" fill-opacity="0.10"/>
+  <rect x="220" y="182" width="25" height="42" fill="#2457d6" fill-opacity="0.10"/>
+  <rect x="320" y="182" width="25" height="42" fill="#2457d6" fill-opacity="0.10"/>
+
+  <!-- Mask / Aperture Plate -->
+  <rect x="75" y="224" width="340" height="4" fill="#6b7280"/>
+
+  <!-- Photodiode Array -->
+  <rect x="95" y="232" width="85" height="26" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="137.5" y="249" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Фотодіод A</text>
+
+  <rect x="195" y="232" width="85" height="26" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="237.5" y="249" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Фотодіод B</text>
+
+  <rect x="295" y="232" width="85" height="26" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="337.5" y="249" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Індекс Z</text>
+
+  <!-- Spatial Phase Annotation -->
+  <text x="245" y="276" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Зсув елементів: Δx = λ/4 (фаза 90°)</text>
+
+  <!-- Left Waveforms Sub-panel -->
+  <rect x="35" y="292" width="420" height="185" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="245" y="310" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Сформовані квадратурні сигнали</text>
+
+  <!-- Channel A Waveform -->
+  <text x="45" y="338" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="start">Канал A</text>
+  <path d="M 100,344 L 100,326 L 136,326 L 136,344 L 176,344 L 176,326 L 216,326 L 216,344 L 256,344 L 256,326 L 296,326 L 296,344 L 336,344 L 336,326 L 376,326 L 376,344 L 410,344" stroke="#27ae60" stroke-width="2" fill="none"/>
+
+  <!-- Channel B Waveform -->
+  <text x="45" y="380" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="start">Канал B</text>
+  <path d="M 100,386 L 116,386 L 116,368 L 156,368 L 156,386 L 196,386 L 196,368 L 236,368 L 236,386 L 276,386 L 276,368 L 316,368 L 316,386 L 356,386 L 356,368 L 396,368 L 396,386 L 410,386" stroke="#2457d6" stroke-width="2" fill="none"/>
+
+  <!-- Index Z Waveform -->
+  <text x="45" y="422" font-size="12" font-weight="bold" fill="#8e44ad" text-anchor="start">Мітка Z</text>
+  <path d="M 100,430 L 216,430 L 216,412 L 256,412 L 256,430 L 410,430" stroke="#8e44ad" stroke-width="2" fill="none"/>
+
+  <!-- Phase Grid Lines & Label -->
+  <line x1="136" y1="320" x2="136" y2="436" stroke="#d0d7de" stroke-dasharray="3,3"/>
+  <line x1="156" y1="320" x2="156" y2="436" stroke="#d0d7de" stroke-dasharray="3,3"/>
+  <text x="146" y="360" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="middle">90°</text>
+
+  <!-- Left Time Axis -->
+  <line x1="100" y1="448" x2="420" y2="448" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+  <text x="415" y="464" font-size="12" fill="#6b7280" text-anchor="end">Кут / Час t</text>
+
+  <!-- Left Feature Note -->
+  <text x="245" y="502" font-size="12" fill="#6b7280" text-anchor="middle">Особливості: висока точність, чутливий до пилу</text>
+
+
+  <!-- RIGHT PANEL: Magnetic Encoder -->
+  <rect x="490" y="65" width="450" height="455" rx="8" ry="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="715" y="88" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Магнітний енкодер (полюсне кільце)</text>
+
+  <!-- Magnetic Sensors Box -->
+  <rect x="545" y="104" width="100" height="26" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="595" y="121" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Датчик A (Hall)</text>
+
+  <rect x="700" y="104" width="100" height="26" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="750" y="121" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Датчик B (Hall)</text>
+
+  <!-- Magnetic Field Line Label & Pointer -->
+  <text x="498" y="145" font-size="11" font-weight="bold" fill="#8e44ad" text-anchor="start">Поле B(x)</text>
+
+  <text x="925" y="116" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">Магнітне кільце</text>
+  <text x="925" y="130" font-size="12" fill="#6b7280" text-anchor="end">(полюси N-S)</text>
+  <line x1="880" y1="136" x2="880" y2="158" stroke="#1a1a1a" stroke-width="1.2" marker-end="url(#arr-dark)"/>
+
+  <!-- Magnetic Field Arches -->
+  <path d="M 560,162 Q 590,146 615,162" stroke="#8e44ad" stroke-width="1.5" stroke-dasharray="3,3" fill="none"/>
+  <path d="M 690,162 Q 720,146 745,162" stroke="#8e44ad" stroke-width="1.5" stroke-dasharray="3,3" fill="none"/>
+  <path d="M 820,162 Q 850,146 875,162" stroke="#8e44ad" stroke-width="1.5" stroke-dasharray="3,3" fill="none"/>
+
+  <!-- Magnetic Ring Track -->
+  <rect x="525" y="162" width="390" height="20" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Magnetic Poles -->
+  <rect x="525" y="162" width="65" height="20" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="557.5" y="176" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">N</text>
+
+  <rect x="590" y="162" width="65" height="20" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="622.5" y="176" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">S</text>
+
+  <rect x="655" y="162" width="65" height="20" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="687.5" y="176" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">N</text>
+
+  <rect x="720" y="162" width="65" height="20" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="752.5" y="176" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">S</text>
+
+  <rect x="785" y="162" width="65" height="20" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="817.5" y="176" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">N</text>
+
+  <rect x="850" y="162" width="65" height="20" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="882.5" y="176" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">S</text>
+
+  <!-- Pole Pitch Dimension -->
+  <line x1="590" y1="192" x2="720" y2="192" stroke="#1a1a1a" stroke-width="1.2"/>
+  <line x1="590" y1="187" x2="590" y2="197" stroke="#1a1a1a" stroke-width="1.2"/>
+  <line x1="720" y1="187" x2="720" y2="197" stroke="#1a1a1a" stroke-width="1.2"/>
+  <text x="655" y="214" font-size="12" fill="#1a1a1a" text-anchor="middle">Крок полюсів λ_p</text>
+
+  <!-- Interpolator DSP Box -->
+  <rect x="575" y="232" width="280" height="26" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="715" y="249" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Інтерполятор / Компаратор (DSP)</text>
+
+  <!-- Spatial Shift Annotation -->
+  <text x="715" y="276" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Зсув датчиків: Δx = λ_p/4 (фазовий зсув 90°)</text>
+
+  <!-- Right Signals Sub-panel -->
+  <rect x="505" y="292" width="420" height="185" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="715" y="310" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Аналогова індукція B(x) та виходи</text>
+
+  <!-- Field Sine Wave B(x) -->
+  <text x="515" y="338" font-size="12" font-weight="bold" fill="#8e44ad" text-anchor="start">Поле B(x)</text>
+  <path d="M 580,334 C 600,314 620,314 640,334 C 660,354 680,354 700,334 C 720,314 740,314 760,334 C 780,354 800,354 820,334 C 840,314 860,314 880,334" stroke="#8e44ad" stroke-width="2" fill="none"/>
+
+  <!-- Output Channel A -->
+  <text x="515" y="380" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="start">Вихід A</text>
+  <path d="M 580,386 L 580,368 L 640,368 L 640,386 L 700,386 L 700,368 L 760,368 L 760,386 L 820,386 L 820,368 L 880,368" stroke="#27ae60" stroke-width="2" fill="none"/>
+
+  <!-- Output Channel B -->
+  <text x="515" y="422" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="start">Вихід B</text>
+  <path d="M 580,428 L 595,428 L 595,410 L 655,410 L 655,428 L 715,428 L 715,410 L 775,410 L 775,428 L 835,428 L 835,410 L 880,410" stroke="#2457d6" stroke-width="2" fill="none"/>
+
+  <!-- Right Time Axis -->
+  <line x1="570" y1="448" x2="890" y2="448" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+  <text x="885" y="464" font-size="12" fill="#6b7280" text-anchor="end">Кут / Позиція x</text>
+
+  <!-- Right Feature Note -->
+  <text x="715" y="502" font-size="12" fill="#6b7280" text-anchor="middle">Особливості: стійкий до бруду, вібрацій, олії</text>
+</svg>

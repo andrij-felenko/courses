@@ -1,0 +1,173 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="700" text-anchor="middle" fill="#1a1a1a">Внутрішня блок-схема цифрового монітора живлення INA219</text>
+  <text x="480" y="52" font-size="13" text-anchor="middle" fill="#6b7280">Вимірювання напруги шунта й шини, апаратне множення через регістр калібрування та передача по I2C</text>
+
+  <!-- Outer IC Package -->
+  <rect x="130" y="75" width="700" height="455" rx="10" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <text x="480" y="98" font-size="14" font-weight="700" text-anchor="middle" fill="#1a1a1a">Мікросхема INA219</text>
+
+  <!-- Left Pins & External Connections -->
+  <text x="30" y="138" font-size="12" font-weight="700" text-anchor="middle" fill="#1a1a1a">R_SHUNT</text>
+  <path d="M30,160 L30,170 M30,190 L30,200" stroke="#2457d6" stroke-width="2"/>
+  <rect x="25" y="170" width="10" height="20" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+
+  <path d="M30,160 L130,160" stroke="#2457d6" stroke-width="2"/>
+  <text x="80" y="150" font-size="12" font-weight="700" text-anchor="middle" fill="#2457d6">VIN+</text>
+
+  <path d="M30,200 L130,200" stroke="#2457d6" stroke-width="2"/>
+  <text x="80" y="190" font-size="12" font-weight="700" text-anchor="middle" fill="#2457d6">VIN-</text>
+
+  <path d="M30,275 L130,275" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="80" y="265" font-size="12" font-weight="700" text-anchor="middle" fill="#1a1a1a">VBUS (0..26В)</text>
+
+  <!-- Bottom Power Pins -->
+  <path d="M220,530 L220,555" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="220" y="522" font-size="12" font-weight="700" text-anchor="middle" fill="#6b7280">GND</text>
+
+  <path d="M290,530 L290,555" stroke="#2457d6" stroke-width="2"/>
+  <text x="290" y="522" font-size="12" font-weight="700" text-anchor="middle" fill="#2457d6">VCC (3..5.5В)</text>
+
+  <!-- Right Digital Pins -->
+  <path d="M830,160 L930,160" stroke="#2457d6" stroke-width="2"/>
+  <text x="880" y="150" font-size="12" font-weight="700" text-anchor="middle" fill="#2457d6">SCL</text>
+
+  <path d="M830,220 L930,220" stroke="#2457d6" stroke-width="2"/>
+  <text x="880" y="210" font-size="12" font-weight="700" text-anchor="middle" fill="#2457d6">SDA</text>
+
+  <path d="M830,350 L930,350" stroke="#6b7280" stroke-width="2"/>
+  <text x="880" y="340" font-size="12" font-weight="700" text-anchor="middle" fill="#6b7280">A0</text>
+
+  <path d="M830,410 L930,410" stroke="#6b7280" stroke-width="2"/>
+  <text x="880" y="400" font-size="12" font-weight="700" text-anchor="middle" fill="#6b7280">A1</text>
+
+  <!-- Internal Functional Blocks -->
+  <!-- Block 1: PGA -->
+  <rect x="155" y="130" width="150" height="90" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="230" y="155" font-size="13" font-weight="700" text-anchor="middle" fill="#2457d6">Підсилювач PGA</text>
+  <text x="230" y="177" font-size="12" text-anchor="middle" fill="#1a1a1a">Прогр. підсилення</text>
+  <text x="230" y="197" font-size="12" text-anchor="middle" fill="#6b7280">±40 мВ ... ±320 мВ</text>
+
+  <!-- Block 2: VBUS Divider -->
+  <rect x="155" y="245" width="150" height="65" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="230" y="270" font-size="13" font-weight="700" text-anchor="middle" fill="#1a1a1a">Дільник VBUS</text>
+  <text x="230" y="292" font-size="12" text-anchor="middle" fill="#6b7280">Атенюатор 0–26 В</text>
+
+  <!-- Block 3: ADC -->
+  <rect x="340" y="130" width="150" height="155" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="415" y="155" font-size="13" font-weight="700" text-anchor="middle" fill="#2457d6">12-бітний ΣΔ АЦП</text>
+  <text x="415" y="177" font-size="12" text-anchor="middle" fill="#1a1a1a">(ADC Engine)</text>
+  <text x="415" y="202" font-size="12" text-anchor="middle" fill="#1a1a1a">Усереднення вибірок</text>
+  <text x="415" y="222" font-size="12" text-anchor="middle" fill="#6b7280">(1 .. 128 вибірок)</text>
+  <text x="415" y="250" font-size="12" font-weight="700" text-anchor="middle" fill="#2457d6">Час перетворення</text>
+  <text x="415" y="268" font-size="12" text-anchor="middle" fill="#6b7280">84 мкс ... 68.10 мс</text>
+
+  <!-- Block 4: Math Engine -->
+  <rect x="340" y="315" width="150" height="190" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="415" y="338" font-size="13" font-weight="700" text-anchor="middle" fill="#27ae60">Блок множення</text>
+  <text x="415" y="356" font-size="12" font-weight="700" text-anchor="middle" fill="#27ae60">та обчислень</text>
+  <text x="415" y="385" font-size="12" font-weight="700" text-anchor="middle" fill="#1a1a1a">Current =</text>
+  <text x="415" y="403" font-size="12" text-anchor="middle" fill="#1a1a1a">(Shunt × Cal) / 4096</text>
+  <text x="415" y="435" font-size="12" font-weight="700" text-anchor="middle" fill="#1a1a1a">Power =</text>
+  <text x="415" y="453" font-size="12" text-anchor="middle" fill="#1a1a1a">(Current × Bus) / 5000</text>
+  <text x="415" y="488" font-size="12" font-style="italic" text-anchor="middle" fill="#27ae60">Апаратний розрахунок</text>
+
+  <!-- Block 5: Registers Container -->
+  <rect x="525" y="115" width="170" height="390" rx="8" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="610" y="136" font-size="13" font-weight="700" text-anchor="middle" fill="#1a1a1a">Внутрішні регістри</text>
+
+  <!-- Sub-Registers -->
+  <rect x="535" y="148" width="150" height="42" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="610" y="165" font-size="12" font-weight="700" text-anchor="middle" fill="#1a1a1a">Configuration (00h)</text>
+  <text x="610" y="181" font-size="12" text-anchor="middle" fill="#6b7280">Режими, PGA, АЦП</text>
+
+  <rect x="535" y="198" width="150" height="42" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="610" y="215" font-size="12" font-weight="700" text-anchor="middle" fill="#1a1a1a">Shunt Voltage (01h)</text>
+  <text x="610" y="231" font-size="12" text-anchor="middle" fill="#2457d6">V_SHUNT (падіння)</text>
+
+  <rect x="535" y="248" width="150" height="42" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="610" y="265" font-size="12" font-weight="700" text-anchor="middle" fill="#1a1a1a">Bus Voltage (02h)</text>
+  <text x="610" y="281" font-size="12" text-anchor="middle" fill="#2457d6">V_BUS (напруга шини)</text>
+
+  <rect x="535" y="298" width="150" height="42" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="610" y="315" font-size="12" font-weight="700" text-anchor="middle" fill="#27ae60">Calibration (05h)</text>
+  <text x="610" y="331" font-size="12" text-anchor="middle" fill="#1a1a1a">Коефіцієнт струму</text>
+
+  <rect x="535" y="348" width="150" height="42" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="610" y="365" font-size="12" font-weight="700" text-anchor="middle" fill="#2457d6">Current (04h)</text>
+  <text x="610" y="381" font-size="12" text-anchor="middle" fill="#1a1a1a">Струм (I_LSB × val)</text>
+
+  <rect x="535" y="398" width="150" height="42" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="610" y="415" font-size="12" font-weight="700" text-anchor="middle" fill="#2457d6">Power (03h)</text>
+  <text x="610" y="431" font-size="12" text-anchor="middle" fill="#1a1a1a">Потужність (P_LSB × val)</text>
+
+  <rect x="535" y="448" width="150" height="42" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="610" y="465" font-size="12" font-weight="700" text-anchor="middle" fill="#6b7280">Status / Flags</text>
+  <text x="610" y="481" font-size="12" text-anchor="middle" fill="#6b7280">OVF / OVF-P / CNVR</text>
+
+  <!-- Block 6: I2C Interface -->
+  <rect x="715" y="130" width="95" height="375" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="762" y="160" font-size="13" font-weight="700" text-anchor="middle" fill="#2457d6">Інтерфейс</text>
+  <text x="762" y="180" font-size="13" font-weight="700" text-anchor="middle" fill="#2457d6">I2C</text>
+  <text x="762" y="215" font-size="12" text-anchor="middle" fill="#1a1a1a">Керуюча</text>
+  <text x="762" y="233" font-size="12" text-anchor="middle" fill="#1a1a1a">логіка</text>
+  <text x="762" y="295" font-size="12" text-anchor="middle" fill="#6b7280">Декодер</text>
+  <text x="762" y="313" font-size="12" text-anchor="middle" fill="#6b7280">адреси</text>
+  <text x="762" y="375" font-size="12" font-weight="700" text-anchor="middle" fill="#1a1a1a">A0 / A1</text>
+  <text x="762" y="393" font-size="12" text-anchor="middle" fill="#6b7280">(16 адрес)</text>
+
+  <!-- Signal Paths & Connections -->
+  <!-- VIN+ & VIN- to PGA -->
+  <path d="M130,160 L155,160" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <path d="M130,200 L155,200" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- VBUS to Divider -->
+  <path d="M130,275 L155,275" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+
+  <!-- PGA to ADC -->
+  <path d="M305,175 L340,175" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="322" y="160" font-size="12" text-anchor="middle" fill="#2457d6">V_SHUNT</text>
+
+  <!-- Divider to ADC -->
+  <path d="M305,275 L322,275 L322,240 L340,240" stroke="#1a1a1a" stroke-width="2" fill="none" marker-end="url(#arr)"/>
+  <text x="322" y="225" font-size="12" text-anchor="middle" fill="#1a1a1a">V_BUS</text>
+
+  <!-- ADC to Shunt & Bus Regs -->
+  <path d="M490,175 L512,175 L512,219 L535,219" stroke="#2457d6" stroke-width="2" fill="none" marker-end="url(#arr-blue)"/>
+  <path d="M490,240 L512,240 L512,269 L535,269" stroke="#1a1a1a" stroke-width="2" fill="none" marker-end="url(#arr)"/>
+
+  <!-- Cal Reg to Math Engine -->
+  <path d="M535,319 L512,319 L512,380 L490,380" stroke="#27ae60" stroke-width="2" fill="none" marker-end="url(#arr-green)"/>
+
+  <!-- Shunt & Bus Regs to Math Engine -->
+  <path d="M535,225 L520,225 L520,440 L490,440" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4,3" fill="none" marker-end="url(#arr-blue)"/>
+
+  <!-- Math Engine outputs -->
+  <path d="M490,395 L535,369" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <path d="M490,460 L535,419" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- Registers <-> I2C Interface -->
+  <path d="M695,219 L715,219" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <path d="M715,369 L695,369" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- External I2C Pins -->
+  <path d="M810,160 L830,160" stroke="#2457d6" stroke-width="2"/>
+  <path d="M810,220 L830,220" stroke="#2457d6" stroke-width="2"/>
+  <path d="M830,350 L810,350" stroke="#6b7280" stroke-width="2" marker-end="url(#arr)"/>
+  <path d="M830,410 L810,410" stroke="#6b7280" stroke-width="2" marker-end="url(#arr)"/>
+</svg>

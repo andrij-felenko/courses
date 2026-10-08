@@ -1,0 +1,196 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 550" width="960" height="550" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Canvas Background -->
+  <rect x="0" y="0" width="960" height="550" fill="#ffffff"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="28" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Принципи вимірювання рівня рідини</text>
+  <text x="480" y="48" font-size="13" fill="#6b7280" text-anchor="middle">Конструктивні відмінності, середовище використання та фізика формування сигналу</text>
+
+  <!-- COLUMN 1: Resistive -->
+  <g id="col-resistive">
+    <rect x="25" y="65" width="170" height="465" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+    <text x="110" y="83" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">1. Резистивний</text>
+    <rect x="45" y="94" width="130" height="20" rx="4" fill="#eaf0fd"/>
+    <text x="110" y="108" font-size="12" fill="#2457d6" text-anchor="middle">Контактний / Опору</text>
+
+    <!-- Tank & Sensor -->
+    <rect x="40" y="145" width="140" height="190" rx="4" fill="#ffffff" stroke="#b0b7c0" stroke-width="1.5"/>
+    <path d="M 41,230 H 179 V 334 H 41 Z" fill="#dbeafe" opacity="0.8"/>
+    <line x1="41" y1="230" x2="179" y2="230" stroke="#2457d6" stroke-width="2"/>
+
+    <rect x="90" y="148" width="40" height="16" rx="2" fill="#6b7280"/>
+    <line x1="104" y1="164" x2="104" y2="300" stroke="#2457d6" stroke-width="3"/>
+    <line x1="120" y1="164" x2="120" y2="300" stroke="#1a1a1a" stroke-width="3"/>
+
+    <!-- Submerged current paths -->
+    <line x1="104" y1="250" x2="120" y2="250" stroke="#27ae60" stroke-dasharray="2,2" stroke-width="1.5"/>
+    <line x1="104" y1="270" x2="120" y2="270" stroke="#27ae60" stroke-dasharray="2,2" stroke-width="1.5"/>
+    <line x1="104" y1="290" x2="120" y2="290" stroke="#27ae60" stroke-dasharray="2,2" stroke-width="1.5"/>
+
+    <text x="48" y="180" font-size="12" fill="#1a1a1a">Зонди</text>
+    <text x="44" y="255" font-size="12" fill="#1a1a1a">Провідна</text>
+    <text x="44" y="272" font-size="12" fill="#1a1a1a">рідина</text>
+    <text x="110" y="324" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">R = f(h)</text>
+
+    <!-- Summary Box -->
+    <rect x="31" y="350" width="158" height="165" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+    <text x="39" y="372" font-size="12" font-weight="bold" fill="#1a1a1a">Сигнал: <tspan font-weight="normal" fill="#6b7280">Опір R / I</tspan></text>
+    <text x="39" y="396" font-size="12" font-weight="bold" fill="#1a1a1a">Рідина: <tspan font-weight="normal" fill="#6b7280">Провідна</tspan></text>
+    <text x="39" y="420" font-size="12" font-weight="bold" fill="#1a1a1a">Плюси: <tspan font-weight="normal" fill="#6b7280">Простота, ціна</tspan></text>
+    <text x="39" y="444" font-size="12" font-weight="bold" fill="#1a1a1a">Мінуси: <tspan font-weight="normal" fill="#c0392b">Електроліз</tspan></text>
+    <text x="39" y="468" font-size="12" font-weight="bold" fill="#1a1a1a">Тип: <tspan font-weight="normal" fill="#2457d6">Аналоговий</tspan></text>
+    <text x="39" y="492" font-size="12" font-weight="bold" fill="#1a1a1a">Захист: <tspan font-weight="normal" fill="#27ae60">Змінний струм</tspan></text>
+  </g>
+
+  <!-- COLUMN 2: Reed Float -->
+  <g id="col-float">
+    <rect x="210" y="65" width="170" height="465" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+    <text x="295" y="83" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">2. Поплавковий</text>
+    <rect x="230" y="94" width="130" height="20" rx="4" fill="#eaf0fd"/>
+    <text x="295" y="108" font-size="12" fill="#2457d6" text-anchor="middle">Магнітно-герконовий</text>
+
+    <!-- Tank & Sensor -->
+    <rect x="225" y="145" width="140" height="190" rx="4" fill="#ffffff" stroke="#b0b7c0" stroke-width="1.5"/>
+    <path d="M 226,230 H 364 V 334 H 226 Z" fill="#dbeafe" opacity="0.8"/>
+    <line x1="226" y1="230" x2="364" y2="230" stroke="#2457d6" stroke-width="2"/>
+
+    <line x1="295" y1="148" x2="295" y2="305" stroke="#6b7280" stroke-width="6"/>
+    <rect x="293" y="222" width="4" height="16" rx="1" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+
+    <!-- Float ring halves -->
+    <rect x="268" y="218" width="18" height="24" rx="3" fill="#2457d6"/>
+    <rect x="280" y="222" width="4" height="16" rx="1" fill="#c0392b"/>
+
+    <rect x="304" y="218" width="18" height="24" rx="3" fill="#2457d6"/>
+    <rect x="306" y="222" width="4" height="16" rx="1" fill="#c0392b"/>
+
+    <text x="231" y="175" font-size="12" fill="#1a1a1a">Шток</text>
+    <text x="231" y="200" font-size="12" fill="#1a1a1a">Поплавець</text>
+    <text x="308" y="175" font-size="12" fill="#1a1a1a">Геркон</text>
+    <text x="295" y="324" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">SW: ON / OFF</text>
+
+    <!-- Summary Box -->
+    <rect x="216" y="350" width="158" height="165" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+    <text x="224" y="372" font-size="12" font-weight="bold" fill="#1a1a1a">Сигнал: <tspan font-weight="normal" fill="#6b7280">Замикання SW</tspan></text>
+    <text x="224" y="396" font-size="12" font-weight="bold" fill="#1a1a1a">Рідина: <tspan font-weight="normal" fill="#6b7280">Чиста</tspan></text>
+    <text x="224" y="420" font-size="12" font-weight="bold" fill="#1a1a1a">Плюси: <tspan font-weight="normal" fill="#6b7280">Розв'язка, ціна</tspan></text>
+    <text x="224" y="444" font-size="12" font-weight="bold" fill="#1a1a1a">Мінуси: <tspan font-weight="normal" fill="#c0392b">Мех. знос</tspan></text>
+    <text x="224" y="468" font-size="12" font-weight="bold" fill="#1a1a1a">Тип: <tspan font-weight="normal" fill="#2457d6">Дискретний</tspan></text>
+    <text x="224" y="492" font-size="12" font-weight="bold" fill="#1a1a1a">Захист: <tspan font-weight="normal" fill="#27ae60">Герметичність</tspan></text>
+  </g>
+
+  <!-- COLUMN 3: Capacitive -->
+  <g id="col-capacitive">
+    <rect x="395" y="65" width="170" height="465" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+    <text x="480" y="83" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">3. Ємнісний</text>
+    <rect x="415" y="94" width="130" height="20" rx="4" fill="#eaf0fd"/>
+    <text x="480" y="108" font-size="12" fill="#2457d6" text-anchor="middle">Діелектричний</text>
+
+    <!-- Tank & Sensor -->
+    <rect x="410" y="145" width="140" height="190" rx="4" fill="#ffffff" stroke="#b0b7c0" stroke-width="1.5"/>
+    <path d="M 411,230 H 549 V 334 H 411 Z" fill="#dbeafe" opacity="0.8"/>
+    <line x1="411" y1="230" x2="549" y2="230" stroke="#2457d6" stroke-width="2"/>
+
+    <rect x="460" y="148" width="40" height="16" rx="2" fill="#6b7280"/>
+    <line x1="480" y1="164" x2="480" y2="305" stroke="#eaf0fd" stroke-width="12" stroke-linecap="square"/>
+    <line x1="474" y1="164" x2="474" y2="305" stroke="#2457d6" stroke-width="1.5"/>
+    <line x1="486" y1="164" x2="486" y2="305" stroke="#2457d6" stroke-width="1.5"/>
+    <line x1="480" y1="164" x2="480" y2="305" stroke="#1a1a1a" stroke-width="3"/>
+
+    <!-- Field arcs -->
+    <path d="M 435,260 Q 454,260 472,260" fill="none" stroke="#2457d6" stroke-dasharray="2,2"/>
+    <path d="M 435,285 Q 454,285 472,285" fill="none" stroke="#2457d6" stroke-dasharray="2,2"/>
+
+    <text x="416" y="180" font-size="12" fill="#1a1a1a">Зонд</text>
+    <text x="415" y="200" font-size="12" fill="#1a1a1a">Діелектрик</text>
+    <text x="480" y="324" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">C = f(h, ε)</text>
+
+    <!-- Summary Box -->
+    <rect x="401" y="350" width="158" height="165" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+    <text x="409" y="372" font-size="12" font-weight="bold" fill="#1a1a1a">Сигнал: <tspan font-weight="normal" fill="#6b7280">Ємність C</tspan></text>
+    <text x="409" y="396" font-size="12" font-weight="bold" fill="#1a1a1a">Рідина: <tspan font-weight="normal" fill="#6b7280">Діелектрик</tspan></text>
+    <text x="409" y="420" font-size="12" font-weight="bold" fill="#1a1a1a">Плюси: <tspan font-weight="normal" fill="#6b7280">Без відкр. Cu</tspan></text>
+    <text x="409" y="444" font-size="12" font-weight="bold" fill="#1a1a1a">Мінуси: <tspan font-weight="normal" fill="#c0392b">Чутливий до T</tspan></text>
+    <text x="409" y="468" font-size="12" font-weight="bold" fill="#1a1a1a">Тип: <tspan font-weight="normal" fill="#2457d6">Аналоговий</tspan></text>
+    <text x="409" y="492" font-size="12" font-weight="bold" fill="#1a1a1a">Захист: <tspan font-weight="normal" fill="#27ae60">Фторопласт</tspan></text>
+  </g>
+
+  <!-- COLUMN 4: Optical Prism -->
+  <g id="col-optical">
+    <rect x="580" y="65" width="170" height="465" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+    <text x="665" y="83" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">4. Оптичний</text>
+    <rect x="600" y="94" width="130" height="20" rx="4" fill="#eaf0fd"/>
+    <text x="665" y="108" font-size="12" fill="#2457d6" text-anchor="middle">Заломлення світла</text>
+
+    <!-- Tank & Sensor -->
+    <rect x="595" y="145" width="140" height="190" rx="4" fill="#ffffff" stroke="#b0b7c0" stroke-width="1.5"/>
+    <path d="M 596,230 H 734 V 334 H 596 Z" fill="#dbeafe" opacity="0.8"/>
+    <line x1="596" y1="230" x2="734" y2="230" stroke="#2457d6" stroke-width="2"/>
+
+    <rect x="645" y="148" width="40" height="35" rx="3" fill="#6b7280"/>
+    <polygon points="653,183 677,183 665,225" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+    <circle cx="655" cy="165" r="4" fill="#c0392b"/>
+    <circle cx="675" cy="165" r="4" fill="#27ae60"/>
+
+    <line x1="655" y1="169" x2="665" y2="220" stroke="#c0392b" stroke-width="2"/>
+    <line x1="665" y1="220" x2="680" y2="255" stroke="#c0392b" stroke-dasharray="3,3" stroke-width="2"/>
+
+    <text x="599" y="170" font-size="12" fill="#1a1a1a">IR LED</text>
+    <text x="599" y="210" font-size="12" fill="#1a1a1a">Призма</text>
+    <text x="665" y="324" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">n_prism ≈ n_liq</text>
+
+    <!-- Summary Box -->
+    <rect x="586" y="350" width="158" height="165" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+    <text x="594" y="372" font-size="12" font-weight="bold" fill="#1a1a1a">Сигнал: <tspan font-weight="normal" fill="#6b7280">Світло (IR)</tspan></text>
+    <text x="594" y="396" font-size="12" font-weight="bold" fill="#1a1a1a">Рідина: <tspan font-weight="normal" fill="#6b7280">Прозора</tspan></text>
+    <text x="594" y="420" font-size="12" font-weight="bold" fill="#1a1a1a">Плюси: <tspan font-weight="normal" fill="#6b7280">Компактність</tspan></text>
+    <text x="594" y="444" font-size="12" font-weight="bold" fill="#1a1a1a">Мінуси: <tspan font-weight="normal" fill="#c0392b">Бруд на призмі</tspan></text>
+    <text x="594" y="468" font-size="12" font-weight="bold" fill="#1a1a1a">Тип: <tspan font-weight="normal" fill="#2457d6">Дискретний</tspan></text>
+    <text x="594" y="492" font-size="12" font-weight="bold" fill="#1a1a1a">Захист: <tspan font-weight="normal" fill="#27ae60">Полірування</tspan></text>
+  </g>
+
+  <!-- COLUMN 5: Ultrasonic -->
+  <g id="col-ultrasonic">
+    <rect x="765" y="65" width="170" height="465" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+    <text x="850" y="83" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">5. Ультразвуковий</text>
+    <rect x="785" y="94" width="130" height="20" rx="4" fill="#eaf0fd"/>
+    <text x="850" y="108" font-size="12" fill="#2457d6" text-anchor="middle">Безконтактне ехо</text>
+
+    <!-- Tank & Sensor -->
+    <rect x="780" y="145" width="140" height="190" rx="4" fill="#ffffff" stroke="#b0b7c0" stroke-width="1.5"/>
+    <path d="M 781,245 H 919 V 334 H 781 Z" fill="#dbeafe" opacity="0.8"/>
+    <line x1="781" y1="245" x2="919" y2="245" stroke="#2457d6" stroke-width="2"/>
+
+    <rect x="830" y="148" width="40" height="20" rx="3" fill="#2457d6"/>
+    <circle cx="840" cy="168" r="4" fill="#ffffff" stroke="#1a1a1a"/>
+    <circle cx="860" cy="168" r="4" fill="#ffffff" stroke="#1a1a1a"/>
+
+    <line x1="840" y1="172" x2="840" y2="239" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+    <line x1="860" y1="239" x2="860" y2="172" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#arr-green)"/>
+
+    <text x="784" y="165" font-size="12" fill="#1a1a1a">Сенсор</text>
+    <text x="784" y="205" font-size="12" fill="#1a1a1a">Повітря</text>
+    <text x="850" y="324" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">d = v · t / 2</text>
+
+    <!-- Summary Box -->
+    <rect x="771" y="350" width="158" height="165" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+    <text x="779" y="372" font-size="12" font-weight="bold" fill="#1a1a1a">Сигнал: <tspan font-weight="normal" fill="#6b7280">Час прольоту t</tspan></text>
+    <text x="779" y="396" font-size="12" font-weight="bold" fill="#1a1a1a">Рідина: <tspan font-weight="normal" fill="#6b7280">Будь-яка</tspan></text>
+    <text x="779" y="420" font-size="12" font-weight="bold" fill="#1a1a1a">Плюси: <tspan font-weight="normal" fill="#6b7280">Без контакту</tspan></text>
+    <text x="779" y="444" font-size="12" font-weight="bold" fill="#1a1a1a">Мінуси: <tspan font-weight="normal" fill="#c0392b">Піна, пара</tspan></text>
+    <text x="779" y="468" font-size="12" font-weight="bold" fill="#1a1a1a">Тип: <tspan font-weight="normal" fill="#2457d6">Аналоговий</tspan></text>
+    <text x="779" y="492" font-size="12" font-weight="bold" fill="#1a1a1a">Захист: <tspan font-weight="normal" fill="#27ae60">Фільтрація</tspan></text>
+  </g>
+</svg>

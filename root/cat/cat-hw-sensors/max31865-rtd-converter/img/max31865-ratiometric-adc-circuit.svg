@@ -1,0 +1,150 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Визначення маркерів стрілок -->
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок та підзаголовок -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Співвідносне (Ratiometric) вимірювання опору RTD у MAX31865</text>
+  <text x="480" y="60" font-size="13" fill="#6b7280" text-anchor="middle">Падіння напруги на R_REF слугує опорною напругою АЦП, що повністю скасовує дрейф струму I_BIAS</text>
+
+  <!-- ЛІВА ПАНЕЛЬ: Електрична схема -->
+  <rect x="25" y="75" width="540" height="440" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="295" y="98" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Електрична схема вимірювального кола MAX31865</text>
+
+  <!-- Зонна рамка мікросхеми MAX31865 -->
+  <rect x="240" y="115" width="310" height="385" rx="8" fill="#ffffff" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="6,4"/>
+  <text x="395" y="135" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Мікросхема MAX31865 (АЦП + джерело струму)</text>
+
+  <!-- Джерело струму I_BIAS у мікросхемі -->
+  <rect x="300" y="152" width="80" height="40" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="340" y="167" font-size="12" fill="#6b7280" text-anchor="middle">Джерело струму</text>
+  <text x="340" y="184" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">I_BIAS</text>
+
+  <!-- Провід від джерела струму до FORCE+ -->
+  <line x1="300" y1="173" x2="240" y2="173" stroke="#2457d6" stroke-width="2"/>
+
+  <!-- Струмові стрілки I_BIAS -->
+  <text x="42" y="174" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">I_BIAS</text>
+  <line x1="42" y1="180" x2="42" y2="205" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr-blue)"/>
+
+  <text x="42" y="304" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">I_BIAS</text>
+  <line x1="42" y1="310" x2="42" y2="335" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr-blue)"/>
+
+  <!-- Силові провідники контуру -->
+  <line x1="240" y1="173" x2="80" y2="173" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="80" y1="173" x2="80" y2="222" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Резистор R_RTD -->
+  <rect x="65" y="222" width="30" height="56" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="80" y1="278" x2="80" y2="352" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Підписи R_RTD -->
+  <text x="98" y="236" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">R_RTD (PT100/1000)</text>
+  <text x="98" y="254" font-size="12" fill="#6b7280" text-anchor="start">Датчик температури</text>
+  <text x="98" y="272" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="start">V_RTD = I_BIAS · R_RTD</text>
+
+  <!-- Резистор R_REF -->
+  <rect x="65" y="352" width="30" height="56" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="80" y1="408" x2="80" y2="455" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Підписи R_REF -->
+  <text x="98" y="366" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">R_REF (400/4000 Ω)</text>
+  <text x="98" y="384" font-size="12" fill="#6b7280" text-anchor="start">Опорний резистор</text>
+  <text x="98" y="402" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="start">V_REF = I_BIAS · R_REF</text>
+
+  <!-- Заземлення (GND) -->
+  <line x1="65" y1="455" x2="95" y2="455" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="71" y1="459" x2="89" y2="459" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="76" y1="463" x2="84" y2="463" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="80" y="477" font-size="12" fill="#6b7280" text-anchor="middle">GND</text>
+
+  <!-- Сигнальні провідники та вузли -->
+  <circle cx="80" cy="215" r="3.5" fill="#1a1a1a"/>
+  <line x1="80" y1="215" x2="240" y2="215" stroke="#2457d6" stroke-width="1.5"/>
+
+  <circle cx="80" cy="285" r="3.5" fill="#1a1a1a"/>
+  <line x1="80" y1="285" x2="240" y2="285" stroke="#2457d6" stroke-width="1.5"/>
+
+  <circle cx="80" cy="345" r="3.5" fill="#1a1a1a"/>
+  <line x1="80" y1="345" x2="240" y2="345" stroke="#27ae60" stroke-width="1.5"/>
+
+  <circle cx="80" cy="415" r="3.5" fill="#1a1a1a"/>
+  <line x1="80" y1="415" x2="240" y2="415" stroke="#27ae60" stroke-width="1.5"/>
+
+  <!-- Позначення виводів IC -->
+  <text x="246" y="161" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">FORCE+</text>
+  <text x="246" y="203" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">RTDIN+</text>
+  <text x="246" y="273" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">RTDIN-</text>
+  <text x="246" y="333" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">REFIN+</text>
+  <text x="246" y="403" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">REFIN-</text>
+
+  <!-- Внутрішні провідники IC до АЦП -->
+  <line x1="240" y1="215" x2="360" y2="215" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="240" y1="285" x2="360" y2="285" stroke="#2457d6" stroke-width="1.5"/>
+
+  <line x1="240" y1="345" x2="360" y2="345" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="240" y1="415" x2="360" y2="415" stroke="#27ae60" stroke-width="1.5"/>
+
+  <!-- Блок АЦП усередині IC -->
+  <rect x="360" y="195" width="180" height="230" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="450" y="215" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">15-bit ΔΣ АЦП</text>
+
+  <text x="366" y="230" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="start">Вхід V_IN (RTD)</text>
+  <text x="366" y="360" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="start">Опора V_REF (REF)</text>
+
+  <!-- Внутрішнє ядро обчислення АЦП -->
+  <rect x="368" y="242" width="164" height="104" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="450" y="259" font-size="12" fill="#6b7280" text-anchor="middle">Формула АЦП:</text>
+  <text x="450" y="277" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Code = (V_IN/V_REF) × 32768</text>
+
+  <rect x="374" y="304" width="152" height="30" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="450" y="323" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">I_BIAS скорочується!</text>
+
+  <!-- Блок SPI виходу усередині IC -->
+  <line x1="450" y1="425" x2="450" y2="435" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+  <rect x="360" y="435" width="180" height="55" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="450" y="453" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Цифровий вихід SPI</text>
+  <text x="450" y="473" font-size="12" fill="#6b7280" text-anchor="middle">Код АЦП (15 біт): 0 .. 32767</text>
+
+  <!-- ПРАВА ПАНЕЛЬ: Математичне обґрунтування -->
+  <rect x="585" y="75" width="350" height="440" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="760" y="98" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Аналіз та розрахунок</text>
+
+  <!-- Картка 1: Виведення формули -->
+  <rect x="600" y="115" width="320" height="110" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="612" y="133" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">1. Скасування струму збудження</text>
+  <text x="760" y="152" font-size="12" fill="#1a1a1a" text-anchor="middle">Code = (V_RTD / V_REF) × 32768</text>
+  <text x="760" y="170" font-size="12" fill="#2457d6" text-anchor="middle">Code = (I_BIAS·R_RTD) / (I_BIAS·R_REF) × 32768</text>
+  <rect x="612" y="180" width="296" height="32" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="760" y="201" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Code = (R_RTD / R_REF) × 32768</text>
+
+  <!-- Картка 2: Переваги методу -->
+  <rect x="600" y="238" width="320" height="105" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="612" y="256" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">2. Ключові переваги методу</text>
+  <text x="612" y="276" font-size="12" fill="#1a1a1a" text-anchor="start">• Нульова чутливість до дрейфу I_BIAS</text>
+  <text x="612" y="294" font-size="12" fill="#6b7280" text-anchor="start">• Незалежність від нестабільності VDD</text>
+  <text x="612" y="312" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="start">• Точність залежить тільки від R_REF</text>
+
+  <!-- Картка 3: Обчислення опору в МК -->
+  <rect x="600" y="356" width="320" height="144" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="612" y="374" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">3. Розрахунок R_RTD у мікроконтролері</text>
+  <rect x="612" y="384" width="296" height="30" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="760" y="403" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">R_RTD = (Code × R_REF) / 32768</text>
+  <text x="612" y="428" font-size="12" fill="#1a1a1a" text-anchor="start">• PT100: R_REF = 400 Ω (1 LSB ≈ 0.0122 Ω)</text>
+  <text x="612" y="445" font-size="12" fill="#1a1a1a" text-anchor="start">• PT1000: R_REF = 4000 Ω (1 LSB ≈ 0.1221 Ω)</text>
+  <rect x="612" y="454" width="296" height="36" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="620" y="468" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="start">Вимога до R_REF: 0.1%, ТКС ≤ 10 ppm/°C</text>
+  <text x="620" y="482" font-size="12" fill="#c0392b" text-anchor="start">Похибка R_REF напряму визначає похибку t°</text>
+</svg>

@@ -1,0 +1,116 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-red" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L7,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-black" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L7,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Title and Subtitle -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Залежність опору Pt100 від температури та похибка лінеаризації</text>
+  <text x="480" y="60" font-size="13" fill="#6b7280" text-anchor="middle">Реальна характеристика IEC 60751 порівняно з лінійною апроксимацією R₀(1 + α·t)</text>
+
+  <!-- Y Axis Title -->
+  <text x="100" y="90" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="start">Опір R (Ом)</text>
+
+  <!-- Chart Area Background Panel -->
+  <rect x="100" y="105" width="780" height="325" fill="#f4f6f8" rx="4"/>
+
+  <!-- Horizontal Grid Lines -->
+  <line x1="100" y1="384" x2="880" y2="384" stroke="#d0d7de" stroke-dasharray="4,4"/>
+  <line x1="100" y1="339" x2="880" y2="339" stroke="#b0b7c0" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <line x1="100" y1="293" x2="195" y2="293" stroke="#d0d7de" stroke-dasharray="4,4"/>
+  <line x1="375" y1="293" x2="880" y2="293" stroke="#d0d7de" stroke-dasharray="4,4"/>
+  <line x1="100" y1="247" x2="195" y2="247" stroke="#d0d7de" stroke-dasharray="4,4"/>
+  <line x1="375" y1="247" x2="880" y2="247" stroke="#d0d7de" stroke-dasharray="4,4"/>
+  <line x1="100" y1="201" x2="880" y2="201" stroke="#d0d7de" stroke-dasharray="4,4"/>
+  <line x1="410" y1="156" x2="540" y2="156" stroke="#d0d7de" stroke-dasharray="4,4"/>
+  <line x1="790" y1="156" x2="880" y2="156" stroke="#d0d7de" stroke-dasharray="4,4"/>
+
+  <!-- Vertical Grid Lines -->
+  <line x1="198" y1="179" x2="198" y2="248" stroke="#d0d7de" stroke-dasharray="4,4"/>
+  <line x1="198" y1="294" x2="198" y2="430" stroke="#d0d7de" stroke-dasharray="4,4"/>
+  <line x1="295" y1="179" x2="295" y2="248" stroke="#b0b7c0" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <line x1="295" y1="344" x2="295" y2="430" stroke="#b0b7c0" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <line x1="393" y1="179" x2="393" y2="430" stroke="#d0d7de" stroke-dasharray="4,4"/>
+  <line x1="490" y1="105" x2="490" y2="430" stroke="#d0d7de" stroke-dasharray="4,4"/>
+  <line x1="588" y1="154" x2="588" y2="430" stroke="#d0d7de" stroke-dasharray="4,4"/>
+  <line x1="685" y1="154" x2="685" y2="430" stroke="#d0d7de" stroke-dasharray="4,4"/>
+  <line x1="783" y1="154" x2="783" y2="430" stroke="#d0d7de" stroke-dasharray="4,4"/>
+
+  <!-- Axes -->
+  <line x1="100" y1="105" x2="100" y2="430" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="100" y1="430" x2="880" y2="430" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Y Axis Ticks & Labels -->
+  <text x="90" y="434" font-size="12" fill="#1a1a1a" text-anchor="end">0 Ом</text>
+  <text x="90" y="388" font-size="12" fill="#1a1a1a" text-anchor="end">50 Ом</text>
+  <text x="90" y="343" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">100 Ом</text>
+  <text x="90" y="297" font-size="12" fill="#1a1a1a" text-anchor="end">150 Ом</text>
+  <text x="90" y="251" font-size="12" fill="#1a1a1a" text-anchor="end">200 Ом</text>
+  <text x="90" y="205" font-size="12" fill="#1a1a1a" text-anchor="end">250 Ом</text>
+  <text x="90" y="160" font-size="12" fill="#1a1a1a" text-anchor="end">300 Ом</text>
+
+  <!-- X Axis Ticks & Labels -->
+  <text x="100" y="448" font-size="12" fill="#1a1a1a" text-anchor="middle">-200 °C</text>
+  <text x="198" y="448" font-size="12" fill="#1a1a1a" text-anchor="middle">-100 °C</text>
+  <text x="295" y="448" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">0 °C</text>
+  <text x="393" y="448" font-size="12" fill="#1a1a1a" text-anchor="middle">100 °C</text>
+  <text x="490" y="448" font-size="12" fill="#1a1a1a" text-anchor="middle">200 °C</text>
+  <text x="588" y="448" font-size="12" fill="#1a1a1a" text-anchor="middle">300 °C</text>
+  <text x="685" y="448" font-size="12" fill="#1a1a1a" text-anchor="middle">400 °C</text>
+  <text x="783" y="448" font-size="12" fill="#1a1a1a" text-anchor="middle">500 °C</text>
+  <text x="880" y="448" font-size="12" fill="#1a1a1a" text-anchor="middle">600 °C</text>
+
+  <!-- X Axis Title -->
+  <text x="490" y="472" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Температура t (°C)</text>
+
+  <!-- Linear Model Curve -->
+  <line x1="100" y1="409.3" x2="880" y2="132.0" stroke="#2457d6" stroke-width="2.5" stroke-dasharray="6,4"/>
+
+  <!-- Real Pt100 Characteristic Curve -->
+  <path d="M 100 413.3 C 165 388, 230 362, 295 339 C 490 269.2, 685 204.1, 880 147.7" fill="none" stroke="#27ae60" stroke-width="3.5" stroke-linecap="round"/>
+
+  <!-- Legend Box -->
+  <rect x="115" y="115" width="295" height="64" rx="6" fill="white" stroke="#d0d7de" stroke-width="1.5"/>
+  <line x1="127" y1="133" x2="157" y2="133" stroke="#27ae60" stroke-width="3.5" stroke-linecap="round"/>
+  <text x="167" y="137" font-size="12" font-weight="bold" fill="#1a1a1a">Реальна крива R(t) (IEC 60751)</text>
+  <line x1="127" y1="156" x2="157" y2="156" stroke="#2457d6" stroke-width="2.5" stroke-dasharray="6,4"/>
+  <text x="167" y="160" font-size="12" fill="#1a1a1a">Лінійна модель Rlin(t) = R₀(1 + α·t)</text>
+
+  <!-- Reference Point Box & Leader Line -->
+  <rect x="195" y="248" width="180" height="46" rx="6" fill="white" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="207" y="267" font-size="12" font-weight="bold" fill="#1a1a1a">R₀ = 100.00 Ом</text>
+  <text x="207" y="285" font-size="12" fill="#6b7280">(t = 0 °C, точка відліку)</text>
+  <line x1="295" y1="294" x2="295" y2="333" stroke="#1a1a1a" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#arr-black)"/>
+  <circle cx="295" cy="339" r="5" fill="#1a1a1a"/>
+
+  <!-- High Temp Error Callout Box & Arrow -->
+  <rect x="540" y="108" width="250" height="46" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="550" y="125" font-size="12" font-weight="bold" fill="#c0392b">ΔR = +17.35 Ом (при +600 °C)</text>
+  <text x="550" y="143" font-size="12" fill="#1a1a1a">Похибка лінеаризації ≈ +45.0 °C</text>
+  <path d="M 790 131 L 872 131" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#arr-red)"/>
+
+  <!-- High Temp Error Markers at 600 °C -->
+  <circle cx="880" cy="132" r="4.5" fill="#2457d6"/>
+  <circle cx="880" cy="147.7" r="4.5" fill="#27ae60"/>
+  <line x1="880" y1="132" x2="880" y2="147.7" stroke="#c0392b" stroke-width="2" stroke-dasharray="2,2"/>
+
+  <!-- Negative Temp Error Markers at -200 °C -->
+  <circle cx="100" cy="409.3" r="4.5" fill="#2457d6"/>
+  <circle cx="100" cy="413.3" r="4.5" fill="#27ae60"/>
+
+  <!-- Bottom Summary Cards -->
+  <rect x="100" y="484" width="375" height="52" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="112" y="502" font-size="12" font-weight="bold" fill="#c0392b">t &lt; 0 °C: R(t) = R₀ [1 + A·t + B·t² + C·(t-100)·t³]</text>
+  <text x="112" y="524" font-size="12" fill="#1a1a1a">При -200 °C: ΔR = +4.46 Ом (похибка моделі ≈ +11.6 °C)</text>
+
+  <rect x="505" y="484" width="375" height="52" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="517" y="502" font-size="12" font-weight="bold" fill="#2457d6">t &gt;= 0 °C: R(t) = R₀ [1 + A·t + B·t²]</text>
+  <text x="517" y="524" font-size="12" fill="#1a1a1a">Квадратний член B·t² спричиняє падіння крутизни dR/dt</text>
+</svg>

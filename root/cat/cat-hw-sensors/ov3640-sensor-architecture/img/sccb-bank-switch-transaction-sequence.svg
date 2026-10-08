@@ -1,0 +1,149 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-black" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background Canvas -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Title and Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Послідовність SCCB-транзакцій з перемиканням банок регістрів OV3640</text>
+  <text x="480" y="54" font-size="13" text-anchor="middle" fill="#6b7280">Часова залежність між вибором банку та безпосереднім доступом до цільового регістру</text>
+
+  <!-- STEP 1 CONTAINER -->
+  <rect x="40" y="80" width="420" height="345" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Step 1 Header -->
+  <rect x="52" y="92" width="396" height="32" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="250" y="113" font-size="13" font-weight="bold" text-anchor="middle" fill="#2457d6">Крок 1: Перемикання банку (SCCB Write)</text>
+
+  <!-- Step 1 Bus Phases -->
+  <g id="step1-bus">
+    <!-- Phase 1 -->
+    <rect x="60" y="138" width="118" height="48" rx="4" fill="#ffffff" stroke="#2457d6"/>
+    <text x="119" y="156" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">0x78 (ID+W)</text>
+    <text x="119" y="173" font-size="11" text-anchor="middle" fill="#6b7280">Фаза 1: ID sensor</text>
+
+    <!-- Arrow 1-2 -->
+    <line x1="178" y1="162" x2="193" y2="162" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+    <!-- Phase 2 -->
+    <rect x="193" y="138" width="122" height="48" rx="4" fill="#ffffff" stroke="#2457d6"/>
+    <text x="254" y="156" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">0xFF (Bank Reg)</text>
+    <text x="254" y="173" font-size="11" text-anchor="middle" fill="#6b7280">Фаза 2: Адреса</text>
+
+    <!-- Arrow 2-3 -->
+    <line x1="315" y1="162" x2="330" y2="162" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+    <!-- Phase 3 -->
+    <rect x="330" y="138" width="120" height="48" rx="4" fill="#ffffff" stroke="#2457d6"/>
+    <text x="390" y="156" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">0x01 (Bank 1)</text>
+    <text x="390" y="173" font-size="11" text-anchor="middle" fill="#6b7280">Фаза 3: Номер</text>
+  </g>
+
+  <!-- Step 1 Internal Sensor Map Box -->
+  <rect x="60" y="200" width="390" height="210" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="72" y="220" font-size="12" font-weight="bold" fill="#1a1a1a">Карта банок пам'яті OV3640:</text>
+
+  <!-- Bank 0 -->
+  <rect x="72" y="235" width="112" height="160" rx="4" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="128" y="252" font-size="12" font-weight="bold" text-anchor="middle" fill="#6b7280">Bank 0</text>
+  <text x="128" y="268" font-size="11" text-anchor="middle" fill="#6b7280">Неактивний</text>
+  <rect x="80" y="285" width="96" height="24" rx="2" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="128" y="300" font-size="11" text-anchor="middle" fill="#6b7280">Reg 0x12</text>
+  <rect x="80" y="315" width="96" height="24" rx="2" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="128" y="330" font-size="11" text-anchor="middle" fill="#6b7280">Reg 0x13</text>
+  <text x="128" y="362" font-size="14" text-anchor="middle" fill="#6b7280">...</text>
+
+  <!-- Bank 1 (ACTIVE) -->
+  <rect x="199" y="235" width="122" height="160" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <text x="260" y="252" font-size="12" font-weight="bold" text-anchor="middle" fill="#27ae60">Bank 1</text>
+  <rect x="210" y="257" width="100" height="18" rx="3" fill="#27ae60"/>
+  <text x="260" y="270" font-size="11" font-weight="bold" text-anchor="middle" fill="#ffffff">АКТИВНИЙ</text>
+  <rect x="207" y="283" width="106" height="24" rx="3" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="260" y="299" font-size="11" font-weight="bold" text-anchor="middle" fill="#27ae60">Reg 0x12 (Ціль)</text>
+  <rect x="207" y="313" width="106" height="24" rx="2" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="260" y="329" font-size="11" text-anchor="middle" fill="#1a1a1a">Reg 0x13</text>
+  <text x="260" y="362" font-size="14" text-anchor="middle" fill="#27ae60">...</text>
+
+  <!-- Bank 2 -->
+  <rect x="334" y="235" width="106" height="160" rx="4" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="387" y="252" font-size="12" font-weight="bold" text-anchor="middle" fill="#6b7280">Bank 2</text>
+  <text x="387" y="268" font-size="11" text-anchor="middle" fill="#6b7280">Неактивний</text>
+  <rect x="341" y="285" width="92" height="24" rx="2" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="387" y="300" font-size="11" text-anchor="middle" fill="#6b7280">Reg 0x12</text>
+  <rect x="341" y="315" width="92" height="24" rx="2" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="387" y="330" font-size="11" text-anchor="middle" fill="#6b7280">Reg 0x13</text>
+  <text x="387" y="362" font-size="14" text-anchor="middle" fill="#6b7280">...</text>
+
+  <!-- TRANSITION ARROW (STEP 1 -> STEP 2) -->
+  <text x="480" y="236" font-size="11" text-anchor="middle" fill="#27ae60">Далі</text>
+  <line x1="465" y1="250" x2="493" y2="250" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="480" y="268" font-size="11" text-anchor="middle" fill="#27ae60">t →</text>
+
+  <!-- STEP 2 CONTAINER -->
+  <rect x="500" y="80" width="420" height="345" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Step 2 Header -->
+  <rect x="512" y="92" width="396" height="32" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="710" y="113" font-size="13" font-weight="bold" text-anchor="middle" fill="#27ae60">Крок 2: Доступ до цільового регістру Bank 1</text>
+
+  <!-- Option A Container -->
+  <rect x="515" y="138" width="390" height="125" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="527" y="157" font-size="12" font-weight="bold" fill="#2457d6">Варіант А: Запис у регістр Bank 1 (SCCB Write)</text>
+
+  <!-- Option A Bus Blocks -->
+  <g id="option-a-bus">
+    <rect x="525" y="170" width="112" height="48" rx="4" fill="#ffffff" stroke="#2457d6"/>
+    <text x="581" y="188" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">0x78 (ID+W)</text>
+    <text x="581" y="205" font-size="11" text-anchor="middle" fill="#6b7280">Фаза 1: ID</text>
+
+    <line x1="637" y1="194" x2="652" y2="194" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+    <rect x="652" y="170" width="118" height="48" rx="4" fill="#ffffff" stroke="#2457d6"/>
+    <text x="711" y="188" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">0x12 (Reg Addr)</text>
+    <text x="711" y="205" font-size="11" text-anchor="middle" fill="#6b7280">Фаза 2: Адреса</text>
+
+    <line x1="770" y1="194" x2="785" y2="194" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+    <rect x="785" y="170" width="110" height="48" rx="4" fill="#ffffff" stroke="#2457d6"/>
+    <text x="840" y="188" font-size="12" font-weight="bold" text-anchor="middle" fill="#27ae60">0x80 (Data)</text>
+    <text x="840" y="205" font-size="11" text-anchor="middle" fill="#6b7280">Фаза 3: Дані</text>
+  </g>
+
+  <text x="527" y="248" font-size="11" font-weight="bold" fill="#27ae60">Результат: Записано значення 0x80 у Bank 1, Reg 0x12</text>
+
+  <!-- Option B Container -->
+  <rect x="515" y="275" width="390" height="135" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="527" y="294" font-size="12" font-weight="bold" fill="#2457d6">Варіант Б: Читання з регістру Bank 1 (SCCB Read)</text>
+
+  <!-- Option B Bus Blocks -->
+  <g id="option-b-bus">
+    <rect x="525" y="307" width="178" height="48" rx="4" fill="#ffffff" stroke="#2457d6"/>
+    <text x="614" y="325" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">0x78 [W] + 0x12 [Reg]</text>
+    <text x="614" y="342" font-size="11" text-anchor="middle" fill="#6b7280">Фаза 1: Вказати регістр</text>
+
+    <line x1="703" y1="331" x2="720" y2="331" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+    <rect x="720" y="307" width="175" height="48" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+    <text x="807" y="325" font-size="12" font-weight="bold" text-anchor="middle" fill="#27ae60">0x79 [R] + Data Out</text>
+    <text x="807" y="342" font-size="11" text-anchor="middle" fill="#27ae60">Фаза 2: Зчитати дані</text>
+  </g>
+
+  <text x="527" y="393" font-size="11" font-weight="bold" fill="#27ae60">Результат: Отримано дані з Bank 1, Reg 0x12</text>
+
+  <!-- WARNING BANNER -->
+  <rect x="40" y="445" width="880" height="55" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+  <rect x="52" y="457" width="68" height="31" rx="4" fill="#c0392b"/>
+  <text x="86" y="476" font-size="12" font-weight="bold" text-anchor="middle" fill="#ffffff">УВАГА!</text>
+  <text x="132" y="467" font-size="12" fill="#1a1a1a">В OV3640 однакові адреси регістрів (0x00..0xFF) дублюються у різних банках пам'яті.</text>
+  <text x="132" y="486" font-size="12" font-weight="bold" fill="#c0392b">Без попереднього запису в регістр 0xFF (Bank Select) транзакція змінить регістр іншого банку!</text>
+</svg>

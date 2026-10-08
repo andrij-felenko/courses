@@ -1,0 +1,187 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- White Background -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Markers -->
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Аналоговий інтерфейс потенціометричного давача кута</text>
+  <text x="480" y="54" font-size="13" text-anchor="middle" fill="#6b7280">Схема узгодження: RC-фільтр низьких частот, захист АЦП та об'єднання земель Star Ground</text>
+
+  <!-- ZONE 1: Sensor Box -->
+  <rect x="25" y="75" width="215" height="360" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="25" y="75" width="215" height="34" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="25" y="99" width="215" height="10" fill="#eaf0fd"/>
+  <text x="132" y="97" font-size="13" font-weight="bold" text-anchor="middle" fill="#2457d6">Давач кута (Потенціометр)</text>
+
+  <!-- Sensor Internal Details -->
+  <!-- Shaft Angle Symbol -->
+  <path d="M 60,195 A 20,20 0 0,1 90,180" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="75" y="165" font-size="12" font-weight="bold" font-style="italic" text-anchor="middle" fill="#2457d6">θ (кут)</text>
+
+  <!-- Potentiometer Resistor Body -->
+  <rect x="110" y="180" width="20" height="150" fill="white" stroke="#1a1a1a" stroke-width="2" rx="2"/>
+  <text x="100" y="245" font-size="12" font-weight="bold" text-anchor="end" fill="#1a1a1a">R_POT</text>
+  <text x="100" y="263" font-size="12" text-anchor="end" fill="#6b7280">10 кОм</text>
+
+  <!-- Sensor Wires -->
+  <!-- VREF wire top -->
+  <line x1="120" y1="180" x2="120" y2="135" stroke="#c0392b" stroke-width="2"/>
+  <line x1="120" y1="135" x2="260" y2="135" stroke="#c0392b" stroke-width="2"/>
+  <text x="185" y="122" font-size="12" font-weight="bold" text-anchor="middle" fill="#c0392b">V_REF (+3.3V)</text>
+
+  <!-- Wiper Arm & Signal wire -->
+  <line x1="155" y1="255" x2="132" y2="255" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <line x1="155" y1="255" x2="260" y2="255" stroke="#2457d6" stroke-width="2"/>
+  <text x="205" y="242" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">V_S (Сигнал)</text>
+
+  <!-- AGND wire bottom -->
+  <line x1="120" y1="330" x2="120" y2="375" stroke="#27ae60" stroke-width="2.5"/>
+  <line x1="120" y1="375" x2="260" y2="375" stroke="#27ae60" stroke-width="2.5"/>
+  <text x="185" y="395" font-size="12" font-weight="bold" text-anchor="middle" fill="#27ae60">AGND (Давач)</text>
+
+
+  <!-- ZONE 2: Interface & Protection Box -->
+  <rect x="260" y="75" width="390" height="360" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="260" y="75" width="390" height="34" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="260" y="99" width="390" height="10" fill="#e9f7ef"/>
+  <text x="455" y="97" font-size="13" font-weight="bold" text-anchor="middle" fill="#27ae60">Коло узгодження та фільтрації (RC + TVS)</text>
+
+  <!-- VREF Bus Line -->
+  <line x1="260" y1="135" x2="670" y2="135" stroke="#c0392b" stroke-width="2"/>
+
+  <!-- Signal Input to Resistor R_F -->
+  <line x1="260" y1="255" x2="320" y2="255" stroke="#2457d6" stroke-width="2"/>
+
+  <!-- Resistor R_F -->
+  <rect x="320" y="245" width="50" height="20" fill="white" stroke="#1a1a1a" stroke-width="2" rx="2"/>
+  <text x="345" y="232" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">R_F = 1 кОм</text>
+  <text x="345" y="283" font-size="12" text-anchor="middle" fill="#6b7280">Обмеження струму</text>
+
+  <!-- Line from R_F to Diode Node (430, 255) -->
+  <line x1="370" y1="255" x2="430" y2="255" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Diode D1 (to VREF) -->
+  <line x1="430" y1="255" x2="430" y2="135" stroke="#c0392b" stroke-width="1.5"/>
+  <polygon points="420,202 440,202 430,188" fill="#c0392b"/>
+  <line x1="420" y1="188" x2="440" y2="188" stroke="#c0392b" stroke-width="2"/>
+  <path d="M 420,192 L 420,188 L 440,188 L 440,184" fill="none" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="448" y="198" font-size="12" font-weight="bold" text-anchor="start" fill="#c0392b">D1 (TVS)</text>
+
+  <!-- Diode D2 (from AGND) -->
+  <line x1="430" y1="375" x2="430" y2="255" stroke="#c0392b" stroke-width="1.5"/>
+  <polygon points="420,322 440,322 430,308" fill="#c0392b"/>
+  <line x1="420" y1="308" x2="440" y2="308" stroke="#c0392b" stroke-width="2"/>
+  <path d="M 420,312 L 420,308 L 440,308 L 440,304" fill="none" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="448" y="318" font-size="12" font-weight="bold" text-anchor="start" fill="#c0392b">D2 (TVS)</text>
+
+  <!-- Line from Node 1 to Node 2 (530, 255) -->
+  <line x1="430" y1="255" x2="530" y2="255" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Capacitor C_F -->
+  <line x1="530" y1="255" x2="530" y2="305" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="516" y1="305" x2="544" y2="305" stroke="#2457d6" stroke-width="2.5"/>
+  <line x1="516" y1="315" x2="544" y2="315" stroke="#2457d6" stroke-width="2.5"/>
+  <line x1="530" y1="315" x2="530" y2="375" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="552" y="305" font-size="12" font-weight="bold" text-anchor="start" fill="#2457d6">C_F = 10 нФ</text>
+  <text x="552" y="323" font-size="12" text-anchor="start" fill="#6b7280">Фільтр НЧ</text>
+
+  <!-- Signal Line to MCU -->
+  <line x1="530" y1="255" x2="670" y2="255" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="600" y="242" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">V_ADC</text>
+
+  <!-- AGND Line Bus -->
+  <line x1="260" y1="375" x2="650" y2="375" stroke="#27ae60" stroke-width="2.5"/>
+  <text x="275" y="395" font-size="12" font-weight="bold" text-anchor="start" fill="#27ae60">Шина аналогової землі AGND</text>
+
+  <!-- Junction Dots -->
+  <circle cx="430" cy="255" r="3.5" fill="#1a1a1a"/>
+  <circle cx="430" cy="135" r="3.5" fill="#c0392b"/>
+  <circle cx="430" cy="375" r="3.5" fill="#27ae60"/>
+  <circle cx="530" cy="255" r="3.5" fill="#1a1a1a"/>
+  <circle cx="530" cy="375" r="3.5" fill="#27ae60"/>
+
+
+  <!-- ZONE 3: MCU Box -->
+  <rect x="670" y="75" width="265" height="360" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="670" y="75" width="265" height="34" rx="8" fill="#eaf0fd" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="670" y="99" width="265" height="10" fill="#eaf0fd"/>
+  <text x="802" y="97" font-size="13" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Мікроконтролер (MCU)</text>
+
+  <!-- Internal ADC Block -->
+  <rect x="745" y="160" width="175" height="205" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4 3"/>
+  <text x="832" y="182" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">Внутрішній АЦП (ADC)</text>
+
+  <!-- ADC Sub-blocks -->
+  <rect x="755" y="198" width="155" height="34" rx="4" fill="white" stroke="#2457d6" stroke-width="1"/>
+  <text x="832" y="219" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">S&amp;H (Утримання)</text>
+
+  <rect x="755" y="244" width="155" height="34" rx="4" fill="white" stroke="#2457d6" stroke-width="1"/>
+  <text x="832" y="265" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">SAR АЦП (12-bit)</text>
+
+  <text x="832" y="305" font-size="12" text-anchor="middle" fill="#6b7280">Вхідний опір R_IN &gt; 10 МОм</text>
+  <text x="832" y="330" font-size="12" font-weight="bold" text-anchor="middle" fill="#27ae60">Аналогове ядро АЦП</text>
+
+  <!-- MCU Internal connection line -->
+  <line x1="670" y1="255" x2="745" y2="255" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="3 3"/>
+
+  <!-- MCU Pins & Labels -->
+  <circle cx="670" cy="135" r="4" fill="#c0392b"/>
+  <text x="682" y="124" font-size="12" font-weight="bold" text-anchor="start" fill="#c0392b">VREF</text>
+
+  <circle cx="670" cy="255" r="4" fill="#2457d6"/>
+  <text x="682" y="242" font-size="12" font-weight="bold" text-anchor="start" fill="#2457d6">ADC_IN</text>
+
+  <circle cx="670" cy="375" r="4" fill="#27ae60"/>
+  <text x="682" y="364" font-size="12" font-weight="bold" text-anchor="start" fill="#27ae60">AGND</text>
+  <line x1="670" y1="375" x2="650" y2="375" stroke="#27ae60" stroke-width="2.5"/>
+
+  <circle cx="670" cy="415" r="4" fill="#2457d6"/>
+  <text x="682" y="410" font-size="12" font-weight="bold" text-anchor="start" fill="#2457d6">DGND (Цифра)</text>
+  <path d="M 670,415 L 650,415 L 650,375" fill="none" stroke="#2457d6" stroke-width="2" stroke-dasharray="5 3"/>
+
+
+  <!-- Star Ground Junction & Callout -->
+  <circle cx="650" cy="375" r="9" fill="#27ae60" stroke="white" stroke-width="2"/>
+  <circle cx="650" cy="375" r="4" fill="white"/>
+
+  <rect x="460" y="392" width="170" height="40" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="615" y1="392" x2="642" y2="378" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <text x="545" y="408" font-size="12" font-weight="bold" text-anchor="middle" fill="#27ae60">Точка Star Ground</text>
+  <text x="545" y="424" font-size="12" text-anchor="middle" fill="#1a1a1a">Об'єднання AGND та DGND</text>
+
+
+  <!-- ZONE 4: Bottom Card (Formulas & Rules) -->
+  <rect x="25" y="450" width="910" height="70" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <line x1="325" y1="460" x2="325" y2="510" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="625" y1="460" x2="625" y2="510" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Col 1 -->
+  <text x="40" y="468" font-size="12" font-weight="bold" fill="#1a1a1a">RC-Фільтр низьких частот:</text>
+  <text x="40" y="487" font-size="12" font-weight="bold" fill="#2457d6">f_c = 1 / (2π · R_F · C_F) ≈ 15.9 кГц</text>
+  <text x="40" y="505" font-size="12" fill="#6b7280">Приглушує шуми ШІМ та наведення двигуна</text>
+
+  <!-- Col 2 -->
+  <text x="340" y="468" font-size="12" font-weight="bold" fill="#1a1a1a">Апаратний захист входу АЦП:</text>
+  <text x="340" y="487" font-size="12" font-weight="bold" fill="#c0392b">0 V ≤ V_ADC ≤ V_REF (Обмеження D1, D2)</text>
+  <text x="340" y="505" font-size="12" fill="#6b7280">Захищає порт від сплесків перенапруги</text>
+
+  <!-- Col 3 -->
+  <text x="640" y="468" font-size="12" font-weight="bold" fill="#1a1a1a">Топологія земель (Star Ground):</text>
+  <text x="640" y="487" font-size="12" font-weight="bold" fill="#27ae60">AGND + DGND в 1 точці на АЦП / MCU</text>
+  <text x="640" y="505" font-size="12" fill="#6b7280">Блокує витоки цифрових струмів в аналог</text>
+</svg>

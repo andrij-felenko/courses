@@ -1,0 +1,112 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Canvas Background -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Title and Subtitle -->
+  <text x="480" y="36" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Подвійна буферизація (Ping-Pong) при записі аудіо на SD-карту</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">I2S DMA безперервно заповнює один буфер, поки задача FreeRTOS зберігає інший без втрати кадрів</text>
+
+  <!-- PANEL 1: Step 1 (Left) -->
+  <rect x="30" y="80" width="435" height="395" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="247.5" y="103" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Крок 1: DMA заповнює Буфер 1, SD записує Буфер 2</text>
+  <text x="247.5" y="121" font-size="12" fill="#6b7280" text-anchor="middle">Активний потік аудіо не чекає на завершення операції SD</text>
+
+  <!-- I2S DMA Engine (Step 1) -->
+  <rect x="50" y="138" width="395" height="52" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="247.5" y="157" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Вхідний потік I2S (DMA Controller)</text>
+  <text x="247.5" y="176" font-size="12" fill="#6b7280" text-anchor="middle">Безперервний захват PCM: 44.1 кГц / 16 біт</text>
+
+  <!-- Arrow: DMA to Buffer 1 (Step 1) -->
+  <line x1="147.5" y1="190" x2="147.5" y2="232" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="155" y="215" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="start">Запис (DMA)</text>
+
+  <!-- Buffer 1 (Step 1: Filling) -->
+  <rect x="50" y="235" width="185" height="110" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <rect x="60" y="247" width="165" height="22" rx="4" fill="#27ae60"/>
+  <text x="142.5" y="262" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">БУФЕР 1: НАПОВНЮЄТЬСЯ</text>
+  <rect x="65" y="280" width="155" height="14" rx="3" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <rect x="67" y="282" width="100" height="10" rx="2" fill="#27ae60"/>
+  <text x="142.5" y="312" font-size="12" fill="#1a1a1a" text-anchor="middle">Об'єм: 512 байт (PCM)</text>
+  <text x="142.5" y="332" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Стан: Заповнено 65%</text>
+
+  <!-- Buffer 2 (Step 1: Saving to SD) -->
+  <rect x="260" y="235" width="185" height="110" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <rect x="270" y="247" width="165" height="22" rx="4" fill="#2457d6"/>
+  <text x="352.5" y="262" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">БУФЕР 2: ЗБЕРЕЖЕННЯ</text>
+  <rect x="275" y="280" width="155" height="14" rx="3" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+  <rect x="277" y="282" width="151" height="10" rx="2" fill="#2457d6"/>
+  <text x="352.5" y="312" font-size="12" fill="#1a1a1a" text-anchor="middle">Об'єм: 512 байт (Повний)</text>
+  <text x="352.5" y="332" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Стан: Запис на SD-карту</text>
+
+  <!-- Arrow: Buffer 2 to SD Task (Step 1) -->
+  <line x1="352.5" y1="345" x2="352.5" y2="388" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="360" y="370" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="start">Скидання (SD)</text>
+
+  <!-- SD Task Block (Step 1) -->
+  <rect x="50" y="390" width="395" height="52" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="247.5" y="410" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Задача FreeRTOS: sd_write_task</text>
+  <text x="247.5" y="429" font-size="12" fill="#6b7280" text-anchor="middle">Запис блоку 512B на SD (SPI / SDMMC)</text>
+
+  <!-- Swap Badge (Step 1) -->
+  <rect x="50" y="447" width="395" height="22" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="247.5" y="462" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Подія: Буфер 1 заповнено → Переривання I2S (ISR)</text>
+
+
+  <!-- PANEL 2: Step 2 (Right) -->
+  <rect x="495" y="80" width="435" height="395" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="712.5" y="103" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Крок 2: Перемикання ролей (Ping-Pong Switch)</text>
+  <text x="712.5" y="121" font-size="12" fill="#6b7280" text-anchor="middle">DMA переключився на Буфер 2, SD бере Буфер 1</text>
+
+  <!-- I2S DMA Engine (Step 2) -->
+  <rect x="515" y="138" width="395" height="52" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="712.5" y="157" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Вхідний потік I2S (DMA Controller)</text>
+  <text x="712.5" y="176" font-size="12" fill="#6b7280" text-anchor="middle">Миттєве перемикання вказівника засувки</text>
+
+  <!-- Arrow: DMA to Buffer 2 (Step 2) -->
+  <line x1="817.5" y1="190" x2="817.5" y2="232" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="825" y="215" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="start">Запис (DMA)</text>
+
+  <!-- Buffer 1 (Step 2: Saving to SD) -->
+  <rect x="515" y="235" width="185" height="110" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <rect x="525" y="247" width="165" height="22" rx="4" fill="#2457d6"/>
+  <text x="607.5" y="262" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">БУФЕР 1: ЗБЕРЕЖЕННЯ</text>
+  <rect x="530" y="280" width="155" height="14" rx="3" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+  <rect x="532" y="282" width="151" height="10" rx="2" fill="#2457d6"/>
+  <text x="607.5" y="312" font-size="12" fill="#1a1a1a" text-anchor="middle">Об'єм: 512 байт (Повний)</text>
+  <text x="607.5" y="332" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Стан: Запис на SD-карту</text>
+
+  <!-- Buffer 2 (Step 2: Filling) -->
+  <rect x="725" y="235" width="185" height="110" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <rect x="735" y="247" width="165" height="22" rx="4" fill="#27ae60"/>
+  <text x="817.5" y="262" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">БУФЕР 2: НАПОВНЮЄТЬСЯ</text>
+  <rect x="740" y="280" width="155" height="14" rx="3" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <rect x="742" y="282" width="55" height="10" rx="2" fill="#27ae60"/>
+  <text x="817.5" y="312" font-size="12" fill="#1a1a1a" text-anchor="middle">Об'єм: 512 байт (PCM)</text>
+  <text x="817.5" y="332" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Стан: Заповнено 35%</text>
+
+  <!-- Arrow: Buffer 1 to SD Task (Step 2) -->
+  <line x1="607.5" y1="345" x2="607.5" y2="388" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="615" y="370" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="start">Скидання (SD)</text>
+
+  <!-- SD Task Block (Step 2) -->
+  <rect x="515" y="390" width="395" height="52" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="712.5" y="410" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Задача FreeRTOS: sd_write_task</text>
+  <text x="712.5" y="429" font-size="12" fill="#6b7280" text-anchor="middle">Запис блоку 512B на SD (SPI / SDMMC)</text>
+
+  <!-- Cycle Badge (Step 2) -->
+  <rect x="515" y="447" width="395" height="22" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="712.5" y="462" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Результат: Безперервний аудіопотік без втрати кадрів!</text>
+
+  <!-- Bottom Conclusion Banner -->
+  <rect x="30" y="490" width="900" height="35" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="480" y="512" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Висновок: Двобуферний механізм компенсує затримки запису на SD-карту (до 50 мс) без розривів звуку</text>
+</svg>

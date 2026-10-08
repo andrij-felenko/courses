@@ -1,0 +1,222 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- White Background -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Markers -->
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Часові діаграми та з'єднання DVP-інтерфейсу OV2640 з ESP32</text>
+  <text x="480" y="60" font-size="13" fill="#6b7280" text-anchor="middle">Захоплення кадрових даних D[7:0] за фронтом PCLK при активних VSYNC та HREF через DMA</text>
+
+  <!-- LEFT PANEL: INTERFACE WIRING SCHEMATIC -->
+  <g id="left-panel">
+    <rect x="20" y="80" width="340" height="420" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+    <text x="190" y="105" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Схема з'єднання DVP-інтерфейсу</text>
+
+    <!-- OV2640 Chip Block -->
+    <rect x="32" y="125" width="82" height="355" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+    <text x="73" y="148" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">OV2640</text>
+    <text x="73" y="166" font-size="12" fill="#6b7280" text-anchor="middle">(Давач)</text>
+    <rect x="38" y="445" width="70" height="24" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+    <text x="73" y="461" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">FIFO / DSP</text>
+
+    <!-- ESP32 Chip Block -->
+    <rect x="266" y="125" width="82" height="355" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+    <text x="307" y="148" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">ESP32</text>
+    <text x="307" y="166" font-size="12" fill="#6b7280" text-anchor="middle">(I2S / DMA)</text>
+    <rect x="272" y="445" width="70" height="24" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+    <text x="307" y="461" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">PSRAM</text>
+
+    <!-- Connections & Signal Labels -->
+    <!-- XCLK: ESP32 -> OV2640 -->
+    <line x1="266" y1="200" x2="114" y2="200" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arr-blue)"/>
+    <text x="190" y="192" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">XCLK (10-20 MHz)</text>
+
+    <!-- PCLK: OV2640 -> ESP32 -->
+    <line x1="114" y1="245" x2="266" y2="245" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arr)"/>
+    <text x="190" y="237" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">PCLK (Pixel Clock)</text>
+
+    <!-- VSYNC: OV2640 -> ESP32 -->
+    <line x1="114" y1="290" x2="266" y2="290" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arr)"/>
+    <text x="190" y="282" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">VSYNC (Frame Sync)</text>
+
+    <!-- HREF: OV2640 -> ESP32 -->
+    <line x1="114" y1="335" x2="266" y2="335" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arr)"/>
+    <text x="190" y="327" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">HREF (Line Valid)</text>
+
+    <!-- D[7:0]: OV2640 -> ESP32 -->
+    <line x1="114" y1="380" x2="266" y2="380" stroke="#1a1a1a" stroke-width="3.5" marker-end="url(#arr)"/>
+    <text x="190" y="372" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">D[7:0] (8 біт)</text>
+
+    <!-- SCCB: Bidirectional -->
+    <line x1="120" y1="425" x2="260" y2="425" stroke="#6b7280" stroke-width="1.8" marker-start="url(#arr)" marker-end="url(#arr)"/>
+    <text x="190" y="417" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">SCCB (SIOC, SIOD)</text>
+  </g>
+
+  <!-- RIGHT PANEL: TIMING DIAGRAM -->
+  <g id="right-panel">
+    <rect x="380" y="80" width="560" height="420" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+    <text x="660" y="105" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Часова діаграма сигналів DVP при захопленні кадру</text>
+
+    <!-- Shading Regions for Frame and Line Active States (NO STROKE to prevent line collision) -->
+    <!-- Active Frame Region Shading (VSYNC = LOW) -->
+    <rect x="500" y="160" width="415" height="315" fill="#2457d6" fill-opacity="0.04" rx="6"/>
+
+    <!-- Active Line Region Shading (HREF = HIGH) -->
+    <rect x="540" y="220" width="320" height="255" fill="#27ae60" fill-opacity="0.05" rx="4"/>
+
+    <!-- Dashed Vertical Lines for Active Line Boundaries -->
+    <line x1="540" y1="220" x2="540" y2="475" stroke="#27ae60" stroke-width="1" stroke-dasharray="4,4"/>
+    <line x1="860" y1="220" x2="860" y2="475" stroke="#27ae60" stroke-width="1" stroke-dasharray="4,4"/>
+
+    <!-- Left Column: Signal Names -->
+    <text x="455" y="148" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">XCLK</text>
+    <text x="455" y="204" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">VSYNC</text>
+    <text x="455" y="264" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">HREF</text>
+    <text x="455" y="324" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">PCLK</text>
+    <text x="455" y="384" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">D[7:0]</text>
+    <text x="455" y="452" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="end">DMA Strobe</text>
+
+    <!-- Region Labels above waveforms -->
+    <text x="710" y="175" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Активний кадр (VSYNC = LOW)</text>
+
+    <text x="507" y="235" font-size="12" fill="#6b7280" text-anchor="middle">Пауза</text>
+    <text x="700" y="235" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Активний рядок (HREF = HIGH)</text>
+
+    <text x="700" y="298" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Захоплення даних за зростаючим фронтом PCLK</text>
+
+    <!-- Waveform 1: XCLK (Master Clock) -->
+    <path d="M 475,155 L 475,135 L 490,135 L 490,155 L 505,155 L 505,135 L 520,135 L 520,155 L 535,155 L 535,135 L 550,135 L 550,155 L 565,155 L 565,135 L 580,135 L 580,155 L 595,155 L 595,135 L 610,135 L 610,155 L 625,155 L 625,135 L 640,135 L 640,155 L 655,155 L 655,135 L 670,135 L 670,155 L 685,155 L 685,135 L 700,135 L 700,155 L 715,155 L 715,135 L 730,135 L 730,155 L 745,155 L 745,135 L 760,135 L 760,155 L 775,155 L 775,135 L 790,135 L 790,155 L 805,155 L 805,135 L 820,135 L 820,155 L 835,155 L 835,135 L 850,135 L 850,155 L 865,155 L 865,135 L 880,135 L 880,155 L 895,155 L 895,135 L 910,135 L 910,155 L 915,155" fill="none" stroke="#2457d6" stroke-width="1.8"/>
+
+    <!-- Waveform 2: VSYNC -->
+    <path d="M 475,190 L 500,190 L 500,210 L 915,210" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+
+    <!-- Waveform 3: HREF -->
+    <path d="M 475,270 L 540,270 L 540,250 L 860,250 L 860,270 L 915,270" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+
+    <!-- Waveform 4: PCLK -->
+    <path d="M 475,330 L 480,330 L 480,310 L 500,310 L 500,330 L 520,330 L 520,310 L 540,310 L 540,330 L 560,330 L 560,310 L 580,310 L 580,330 L 600,330 L 600,310 L 620,310 L 620,330 L 640,330 L 640,310 L 660,310 L 660,330 L 680,330 L 680,310 L 700,310 L 700,330 L 720,330 L 720,310 L 740,310 L 740,330 L 760,330 L 760,310 L 780,310 L 780,330 L 800,330 L 800,310 L 820,310 L 820,330 L 840,330 L 840,310 L 860,310 L 860,330 L 880,330 L 880,310 L 900,310 L 900,330 L 915,330" fill="none" stroke="#1a1a1a" stroke-width="1.8"/>
+
+    <!-- Waveform 5: D[7:0] Data Bus -->
+    <!-- Idle state before active line -->
+    <path d="M 475,368 L 535,368 L 540,380 L 535,392 L 475,392" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+    <text x="505" y="384" font-size="12" fill="#6b7280" text-anchor="middle">Ідл</text>
+
+    <!-- Active Byte Cells (Hexagonal Bus Data Cells) -->
+    <!-- Byte 0: 540 to 580 -->
+    <polygon points="540,380 544,368 576,368 580,380 576,392 544,392" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+    <text x="560" y="384" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">B0</text>
+
+    <!-- Byte 1: 580 to 620 -->
+    <polygon points="580,380 584,368 616,368 620,380 616,392 584,392" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+    <text x="600" y="384" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">B1</text>
+
+    <!-- Byte 2: 620 to 660 -->
+    <polygon points="620,380 624,368 656,368 660,380 656,392 624,392" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+    <text x="640" y="384" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">B2</text>
+
+    <!-- Byte 3: 660 to 700 -->
+    <polygon points="660,380 664,368 696,368 700,380 696,392 664,392" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+    <text x="680" y="384" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">B3</text>
+
+    <!-- Byte 4: 700 to 740 -->
+    <polygon points="700,380 704,368 736,368 740,380 736,392 704,392" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+    <text x="720" y="384" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">B4</text>
+
+    <!-- Byte 5: 740 to 780 -->
+    <polygon points="740,380 744,368 776,368 780,380 776,392 744,392" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+    <text x="760" y="384" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">B5</text>
+
+    <!-- Byte 6: 780 to 820 -->
+    <polygon points="780,380 784,368 816,368 820,380 816,392 784,392" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+    <text x="800" y="384" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">B6</text>
+
+    <!-- Byte 7: 820 to 860 -->
+    <polygon points="820,380 824,368 856,368 860,380 856,392 824,392" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+    <text x="840" y="384" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">B7</text>
+
+    <!-- Idle state after active line -->
+    <path d="M 860,380 L 865,368 L 915,368 M 860,380 L 865,392 L 915,392" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+    <text x="890" y="384" font-size="12" fill="#6b7280" text-anchor="middle">Ідл</text>
+
+    <!-- DMA Sampling Trigger Vertical Lines (Aligned with PCLK Rising Edges, Split around D[7:0] text) -->
+    <!-- Edge 0: 560 -->
+    <circle cx="560" cy="310" r="3.5" fill="#27ae60"/>
+    <line x1="560" y1="315" x2="560" y2="365" stroke="#27ae60" stroke-width="1.2" stroke-dasharray="3,3"/>
+    <line x1="560" y1="395" x2="560" y2="431" stroke="#27ae60" stroke-width="1.2" stroke-dasharray="3,3" marker-end="url(#arr-green)"/>
+
+    <!-- Edge 1: 600 -->
+    <circle cx="600" cy="310" r="3.5" fill="#27ae60"/>
+    <line x1="600" y1="315" x2="600" y2="365" stroke="#27ae60" stroke-width="1.2" stroke-dasharray="3,3"/>
+    <line x1="600" y1="395" x2="600" y2="431" stroke="#27ae60" stroke-width="1.2" stroke-dasharray="3,3" marker-end="url(#arr-green)"/>
+
+    <!-- Edge 2: 640 -->
+    <circle cx="640" cy="310" r="3.5" fill="#27ae60"/>
+    <line x1="640" y1="315" x2="640" y2="365" stroke="#27ae60" stroke-width="1.2" stroke-dasharray="3,3"/>
+    <line x1="640" y1="395" x2="640" y2="431" stroke="#27ae60" stroke-width="1.2" stroke-dasharray="3,3" marker-end="url(#arr-green)"/>
+
+    <!-- Edge 3: 680 -->
+    <circle cx="680" cy="310" r="3.5" fill="#27ae60"/>
+    <line x1="680" y1="315" x2="680" y2="365" stroke="#27ae60" stroke-width="1.2" stroke-dasharray="3,3"/>
+    <line x1="680" y1="395" x2="680" y2="431" stroke="#27ae60" stroke-width="1.2" stroke-dasharray="3,3" marker-end="url(#arr-green)"/>
+
+    <!-- Edge 4: 720 -->
+    <circle cx="720" cy="310" r="3.5" fill="#27ae60"/>
+    <line x1="720" y1="315" x2="720" y2="365" stroke="#27ae60" stroke-width="1.2" stroke-dasharray="3,3"/>
+    <line x1="720" y1="395" x2="720" y2="431" stroke="#27ae60" stroke-width="1.2" stroke-dasharray="3,3" marker-end="url(#arr-green)"/>
+
+    <!-- Edge 5: 760 -->
+    <circle cx="760" cy="310" r="3.5" fill="#27ae60"/>
+    <line x1="760" y1="315" x2="760" y2="365" stroke="#27ae60" stroke-width="1.2" stroke-dasharray="3,3"/>
+    <line x1="760" y1="395" x2="760" y2="431" stroke="#27ae60" stroke-width="1.2" stroke-dasharray="3,3" marker-end="url(#arr-green)"/>
+
+    <!-- Edge 6: 800 -->
+    <circle cx="800" cy="310" r="3.5" fill="#27ae60"/>
+    <line x1="800" y1="315" x2="800" y2="365" stroke="#27ae60" stroke-width="1.2" stroke-dasharray="3,3"/>
+    <line x1="800" y1="395" x2="800" y2="431" stroke="#27ae60" stroke-width="1.2" stroke-dasharray="3,3" marker-end="url(#arr-green)"/>
+
+    <!-- Edge 7: 840 -->
+    <circle cx="840" cy="310" r="3.5" fill="#27ae60"/>
+    <line x1="840" y1="315" x2="840" y2="365" stroke="#27ae60" stroke-width="1.2" stroke-dasharray="3,3"/>
+    <line x1="840" y1="395" x2="840" y2="431" stroke="#27ae60" stroke-width="1.2" stroke-dasharray="3,3" marker-end="url(#arr-green)"/>
+
+    <!-- DMA Captured Buffer Row in ESP32 RAM/PSRAM -->
+    <rect x="543" y="437" width="34" height="22" rx="3" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+    <text x="560" y="453" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">B0</text>
+
+    <rect x="583" y="437" width="34" height="22" rx="3" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+    <text x="600" y="453" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">B1</text>
+
+    <rect x="623" y="437" width="34" height="22" rx="3" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+    <text x="640" y="453" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">B2</text>
+
+    <rect x="663" y="437" width="34" height="22" rx="3" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+    <text x="680" y="453" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">B3</text>
+
+    <rect x="703" y="437" width="34" height="22" rx="3" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+    <text x="720" y="453" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">B4</text>
+
+    <rect x="743" y="437" width="34" height="22" rx="3" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+    <text x="760" y="453" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">B5</text>
+
+    <rect x="783" y="437" width="34" height="22" rx="3" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+    <text x="800" y="453" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">B6</text>
+
+    <rect x="823" y="437" width="34" height="22" rx="3" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+    <text x="840" y="453" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">B7</text>
+
+    <!-- DMA Buffer Description Footer Label -->
+    <text x="660" y="490" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Апаратне збереження байтів у PSRAM через DMA (без участі CPU)</text>
+  </g>
+</svg>

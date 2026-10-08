@@ -1,0 +1,113 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-black" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка полотна -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Заголовок та підзаголовок -->
+  <text x="480" y="28" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Архітектура LGA-модуля VL53L0X (FlightSense)</text>
+  <text x="480" y="48" font-size="13" fill="#6b7280" text-anchor="middle">Монолітна інтеграція VCSEL-випромінювача, SPAD-матриці та обробника гістограм</text>
+
+  <!-- Цільова відбивальна поверхня -->
+  <rect x="220" y="70" width="520" height="30" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="4"/>
+  <text x="480" y="90" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Відбивальна поверхня (об'єкт вимірювання відстані)</text>
+
+  <!-- Оптичні промені -->
+  <line x1="280" y1="200" x2="355" y2="104" stroke="#2457d6" stroke-width="2" stroke-dasharray="5,3" marker-end="url(#arr-blue)"/>
+  <text x="240" y="130" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">Лазерний промінь 940 нм</text>
+
+  <line x1="605" y1="104" x2="680" y2="200" stroke="#27ae60" stroke-width="2" stroke-dasharray="5,3" marker-end="url(#arr-green)"/>
+  <text x="720" y="130" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="start">Відбиті фотони (ToF)</text>
+
+  <!-- Корпус LGA чипа VL53L0X -->
+  <rect x="60" y="165" width="840" height="330" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2" rx="8"/>
+  <text x="80" y="187" font-size="12" font-weight="bold" fill="#6b7280">Корпус VL53L0X (LGA 12-pin)</text>
+
+  <!-- Оптичні вікна та бар'єр -->
+  <rect x="200" y="200" width="160" height="25" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="4"/>
+  <text x="280" y="217" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Вікно випромінювача</text>
+
+  <rect x="600" y="200" width="160" height="25" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="4"/>
+  <text x="680" y="217" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Вікно приймача</text>
+
+  <!-- Світлоізоляційний бар'єр -->
+  <rect x="440" y="200" width="80" height="145" fill="#374151" stroke="#1a1a1a" stroke-width="1" rx="3"/>
+  <text x="480" y="235" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">Оптичний</text>
+  <text x="480" y="255" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">бар'єр</text>
+  <text x="480" y="275" font-size="11" fill="#d0d7de" text-anchor="middle">(Захист від</text>
+  <text x="480" y="291" font-size="11" fill="#d0d7de" text-anchor="middle">Crosstalk)</text>
+
+  <!-- Кристал випромінювача (VCSEL) -->
+  <rect x="100" y="245" width="310" height="180" fill="#ffffff" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <text x="115" y="265" font-size="12" font-weight="bold" fill="#2457d6">Кристал випромінювача VCSEL</text>
+
+  <rect x="120" y="275" width="270" height="55" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="4"/>
+  <text x="255" y="297" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Лазерний діод VCSEL (940 нм)</text>
+  <text x="255" y="317" font-size="11" fill="#6b7280" text-anchor="middle">Випромінювання невидимого ІЧ-світла</text>
+
+  <rect x="120" y="350" width="270" height="55" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="4"/>
+  <text x="255" y="372" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Схема керування та драйвер VCSEL</text>
+  <text x="255" y="392" font-size="11" fill="#6b7280" text-anchor="middle">Генерація наносекундних імпульсів</text>
+
+  <line x1="255" y1="350" x2="255" y2="336" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Кристал обробки (ASIC та SPAD-матриця) -->
+  <rect x="550" y="245" width="330" height="180" fill="#ffffff" stroke="#27ae60" stroke-width="1.5" rx="6"/>
+  <text x="565" y="265" font-size="12" font-weight="bold" fill="#27ae60">Кристал обробки ASIC та SPAD-матриці</text>
+
+  <rect x="565" y="275" width="300" height="55" fill="#e9f7ef" stroke="#27ae60" stroke-width="1" rx="4"/>
+  <text x="715" y="295" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Матриця SPAD-детекторів</text>
+  <text x="715" y="315" font-size="11" fill="#1a1a1a" text-anchor="middle">Опорні (Ref) та приймальні (Return) SPAD</text>
+
+  <rect x="565" y="350" width="300" height="55" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="4"/>
+  <text x="715" y="370" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Мікроконтролер &amp; Histogram Engine</text>
+  <text x="715" y="390" font-size="11" fill="#6b7280" text-anchor="middle">Обчислення ToF-гістограм, RAM/ROM, I²C</text>
+
+  <line x1="715" y1="330" x2="715" y2="344" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <!-- Лінія міжкристальної синхронізації -->
+  <line x1="565" y1="377" x2="396" y2="377" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr-blue)"/>
+  <text x="480" y="368" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">Синхронізація (Strobe)</text>
+
+  <!-- Субстрат підкладки -->
+  <rect x="80" y="440" width="800" height="15" fill="#d0d7de" rx="2"/>
+  <text x="480" y="452" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Кремнієва та керамічна підкладка LGA-модуля</text>
+
+  <!-- Зовнішні контактні площадки LGA -->
+  <line x1="230" y1="455" x2="230" y2="460" stroke="#6b7280" stroke-width="1.5"/>
+  <rect x="195" y="460" width="70" height="25" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="3"/>
+  <text x="230" y="477" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">VDD</text>
+
+  <line x1="330" y1="455" x2="330" y2="460" stroke="#6b7280" stroke-width="1.5"/>
+  <rect x="295" y="460" width="70" height="25" fill="#f4f6f8" stroke="#6b7280" stroke-width="1" rx="3"/>
+  <text x="330" y="477" font-size="11" font-weight="bold" fill="#6b7280" text-anchor="middle">GND</text>
+
+  <line x1="430" y1="455" x2="430" y2="460" stroke="#6b7280" stroke-width="1.5"/>
+  <rect x="395" y="460" width="70" height="25" fill="#e9f7ef" stroke="#27ae60" stroke-width="1" rx="3"/>
+  <text x="430" y="477" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">SCL</text>
+
+  <line x1="530" y1="455" x2="530" y2="460" stroke="#6b7280" stroke-width="1.5"/>
+  <rect x="495" y="460" width="70" height="25" fill="#e9f7ef" stroke="#27ae60" stroke-width="1" rx="3"/>
+  <text x="530" y="477" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">SDA</text>
+
+  <line x1="630" y1="455" x2="630" y2="460" stroke="#6b7280" stroke-width="1.5"/>
+  <rect x="595" y="460" width="70" height="25" fill="#f4f6f8" stroke="#6b7280" stroke-width="1" rx="3"/>
+  <text x="630" y="477" font-size="11" font-weight="bold" fill="#6b7280" text-anchor="middle">XSHUT</text>
+
+  <line x1="730" y1="455" x2="730" y2="460" stroke="#6b7280" stroke-width="1.5"/>
+  <rect x="695" y="460" width="70" height="25" fill="#fdecea" stroke="#c0392b" stroke-width="1" rx="3"/>
+  <text x="730" y="477" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">GPIO1</text>
+
+  <!-- Нижня примітка про підключення -->
+  <text x="480" y="518" font-size="12" fill="#6b7280" text-anchor="middle">Зовнішній інтерфейс: підключення до хост-мікроконтролера через шину I²C та переривання GPIO</text>
+</svg>

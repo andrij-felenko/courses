@@ -1,0 +1,179 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 500" width="960" height="500" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="500" fill="white"/>
+
+  <!-- Header -->
+  <text x="480" y="38" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Потік даних DCMI → DMA у режимі подвійного буферизування</text>
+  <text x="480" y="60" text-anchor="middle" font-size="13" fill="#6b7280">Автоматичне перемикання буферів за подією Frame Complete усуває розриви кадрів</text>
+
+  <!-- Column 1: Сенсор OV2640 -->
+  <rect x="25" y="85" width="175" height="395" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="35" y="95" width="155" height="32" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="112.5" y="116" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Сенсор OV2640</text>
+
+  <!-- Box 1.1: Матриця пікселів -->
+  <rect x="35" y="137" width="155" height="55" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="112.5" y="156" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Матриця пікселів</text>
+  <text x="112.5" y="176" text-anchor="middle" font-size="11" fill="#6b7280">UXGA / SVGA / RGB565</text>
+
+  <!-- Box 1.2: Сигнали інтерфейсу -->
+  <rect x="35" y="200" width="155" height="198" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="112.5" y="218" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Шина сигналів</text>
+  
+  <rect x="43" y="226" width="139" height="27" rx="3" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="112.5" y="244" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">D[0..7] (8-біт)</text>
+
+  <rect x="43" y="259" width="139" height="27" rx="3" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="112.5" y="277" text-anchor="middle" font-size="11" fill="#1a1a1a">PCLK (Pixel Clock)</text>
+
+  <rect x="43" y="292" width="139" height="27" rx="3" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="112.5" y="310" text-anchor="middle" font-size="11" fill="#1a1a1a">HREF (Line Sync)</text>
+
+  <rect x="43" y="325" width="139" height="27" rx="3" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="112.5" y="343" text-anchor="middle" font-size="11" fill="#1a1a1a">VSYNC (Frame Sync)</text>
+
+  <rect x="43" y="358" width="139" height="27" rx="3" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="112.5" y="376" text-anchor="middle" font-size="11" fill="#6b7280">SCCB (I2C Control)</text>
+
+  <!-- Box 1.3: Опис формату -->
+  <rect x="35" y="406" width="155" height="64" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="112.5" y="425" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a1a">Вихідний потік:</text>
+  <text x="112.5" y="443" text-anchor="middle" font-size="11" fill="#6b7280">RGB565 / YUV422</text>
+  <text x="112.5" y="459" text-anchor="middle" font-size="10" fill="#6b7280">2 байти на піксель</text>
+
+
+  <!-- Column 2: Периферія DCMI -->
+  <rect x="220" y="85" width="175" height="395" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="230" y="95" width="155" height="32" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="307.5" y="116" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Периферія DCMI</text>
+
+  <!-- Box 2.1: Контролер сигналів -->
+  <rect x="230" y="137" width="155" height="98" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="307.5" y="156" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Контролер сигналів</text>
+  <text x="307.5" y="175" text-anchor="middle" font-size="11" fill="#6b7280">• Детекція VSYNC / HREF</text>
+  <text x="307.5" y="193" text-anchor="middle" font-size="11" fill="#6b7280">• Стробування по PCLK</text>
+  <text x="307.5" y="211" text-anchor="middle" font-size="11" fill="#6b7280">• Контроль кадру</text>
+
+  <!-- Box 2.2: Упаковка даних -->
+  <rect x="230" y="243" width="155" height="65" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="307.5" y="263" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Упаковка даних</text>
+  <text x="307.5" y="281" text-anchor="middle" font-size="11" fill="#6b7280">Зсув 8b → 32b word</text>
+  <text x="307.5" y="297" text-anchor="middle" font-size="10" fill="#6b7280">Формування 32-біт слів</text>
+
+  <!-- Box 2.3: DCMI FIFO -->
+  <rect x="230" y="316" width="155" height="75" rx="4" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="307.5" y="338" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Буфер DCMI FIFO</text>
+  <text x="307.5" y="357" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">4 × 32-біт (16 байт)</text>
+  <text x="307.5" y="375" text-anchor="middle" font-size="10" fill="#6b7280">Захист від оверфлоу</text>
+
+  <!-- Box 2.4: Генератор DMA Req -->
+  <rect x="230" y="399" width="155" height="71" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="307.5" y="420" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Запит DMA (Req)</text>
+  <text x="307.5" y="438" text-anchor="middle" font-size="11" fill="#6b7280">Сигнал DCMI_DR</text>
+  <text x="307.5" y="456" text-anchor="middle" font-size="10" fill="#6b7280">При заповненні FIFO</text>
+
+
+  <!-- Column 3: Контролер DMA (DBM = 1) -->
+  <rect x="425" y="85" width="220" height="395" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="435" y="95" width="200" height="32" rx="4" fill="#ffffff" stroke="#2457d6"/>
+  <text x="535" y="116" text-anchor="middle" font-size="14" font-weight="bold" fill="#2457d6">Контролер DMA (DBM=1)</text>
+
+  <!-- Box 3.1: Вказівники пам'яті -->
+  <rect x="435" y="135" width="200" height="135" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="535" y="152" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a1a">Регістри адрес буферів:</text>
+
+  <rect x="445" y="158" width="180" height="48" rx="4" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="535" y="177" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">DMA_SxM0AR (Target 0)</text>
+  <text x="535" y="195" text-anchor="middle" font-size="10" fill="#2457d6">Вказівник: &amp;Buffer_0</text>
+
+  <rect x="445" y="212" width="180" height="48" rx="4" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="535" y="231" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">DMA_SxM1AR (Target 1)</text>
+  <text x="535" y="249" text-anchor="middle" font-size="10" fill="#27ae60">Вказівник: &amp;Buffer_1</text>
+
+  <!-- Box 3.2: Апаратний селектор CT -->
+  <rect x="435" y="278" width="200" height="92" rx="4" fill="#ffffff" stroke="#2457d6"/>
+  <text x="535" y="298" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Апаратний селектор CT</text>
+  <text x="535" y="317" text-anchor="middle" font-size="11" fill="#2457d6">Біт CT = 0: Запис в M0</text>
+  <text x="535" y="334" text-anchor="middle" font-size="11" fill="#27ae60">Біт CT = 1: Запис в M1</text>
+  
+  <rect x="455" y="342" width="160" height="22" rx="3" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="535" y="357" text-anchor="middle" font-size="10" font-weight="bold" fill="#2457d6">Поточний запис: CT=0</text>
+
+  <!-- Box 3.3: Подія Frame Complete -->
+  <rect x="435" y="378" width="200" height="92" rx="4" fill="#ffffff" stroke="#c0392b"/>
+  <text x="535" y="398" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Подія Frame Complete</text>
+  <text x="535" y="417" text-anchor="middle" font-size="11" fill="#1a1a1a">1. Апаратне CT = NOT(CT)</text>
+  <text x="535" y="435" text-anchor="middle" font-size="11" fill="#1a1a1a">2. Генерація DMA TC IRQ</text>
+  <text x="535" y="453" text-anchor="middle" font-size="10" font-weight="bold" fill="#27ae60">Без затримки ядра CPU!</text>
+
+
+  <!-- Column 4: Буфери в SRAM / Обробка -->
+  <rect x="675" y="85" width="260" height="395" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="685" y="95" width="240" height="32" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="805" y="116" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Буфери в SRAM / Обробка</text>
+
+  <!-- Box 4.1: Buffer 0 (FB_0) -->
+  <rect x="685" y="135" width="240" height="112" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <rect x="695" y="143" width="125" height="22" rx="3" fill="#2457d6"/>
+  <text x="757.5" y="158" text-anchor="middle" font-size="11" font-weight="bold" fill="#ffffff">Buffer 0 (FB_0)</text>
+
+  <rect x="830" y="143" width="85" height="22" rx="3" fill="#ffffff" stroke="#2457d6"/>
+  <text x="872.5" y="158" text-anchor="middle" font-size="10" font-weight="bold" fill="#2457d6">DMA WRITE</text>
+
+  <text x="697" y="181" font-size="11" fill="#1a1a1a">• Стан: Заповнення DMA (Кадр N)</text>
+  <text x="697" y="199" font-size="11" fill="#1a1a1a">• Запис 32-біт слів із DCMI FIFO</text>
+  <text x="697" y="217" font-size="11" fill="#c0392b">• CPU НЕ читає під час запису</text>
+  <text x="697" y="235" font-size="10" fill="#2457d6">Розмір: 320×240 × 2B = 153.6 KB</text>
+
+  <!-- Box 4.2: Buffer 1 (FB_1) -->
+  <rect x="685" y="255" width="240" height="112" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <rect x="695" y="263" width="125" height="22" rx="3" fill="#27ae60"/>
+  <text x="757.5" y="278" text-anchor="middle" font-size="11" font-weight="bold" fill="#ffffff">Buffer 1 (FB_1)</text>
+
+  <rect x="830" y="263" width="85" height="22" rx="3" fill="#ffffff" stroke="#27ae60"/>
+  <text x="872.5" y="278" text-anchor="middle" font-size="10" font-weight="bold" fill="#27ae60">CPU / DISPLAY</text>
+
+  <text x="697" y="301" font-size="11" fill="#1a1a1a">• Стан: Готовий кадр (Кадр N-1)</text>
+  <text x="697" y="319" font-size="11" fill="#1a1a1a">• Виведення на TFT / Обробка DSP</text>
+  <text x="697" y="337" font-size="11" fill="#27ae60">• Відсутність артефактів (Tearing)</text>
+  <text x="697" y="355" font-size="10" fill="#27ae60">Готовий до трансляції через SPI/LTDC</text>
+
+  <!-- Box 4.3: Споживач даних -->
+  <rect x="685" y="375" width="240" height="95" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="805" y="396" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Периферія виведення / Споживач</text>
+  <text x="805" y="416" text-anchor="middle" font-size="11" fill="#6b7280">TFT Дисплей / LTDC / SPI / SD-карта</text>
+  <text x="805" y="435" text-anchor="middle" font-size="11" fill="#1a1a1a">Зчитування даних у паралельному режимі</text>
+  <text x="805" y="454" text-anchor="middle" font-size="10" font-weight="bold" fill="#27ae60">Паралельна робота без очікування DMA</text>
+
+
+  <!-- Connecting Arrows -->
+  <!-- 1. OV2640 Data Bus D[0..7] -> DCMI -->
+  <path d="M 182 240 L 220 240" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+
+  <!-- 2. DCMI FIFO -> DMA Controller -->
+  <path d="M 385 353.5 L 425 353.5" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+
+  <!-- 3. Frame End Signal (DCMI -> DMA Frame Complete) -->
+  <path d="M 385 434.5 L 425 434.5" stroke="#c0392b" stroke-width="2" stroke-dasharray="4,3" marker-end="url(#arr-red)"/>
+
+  <!-- 4. Active DMA Pointer: M0 -> Buffer 0 -->
+  <path d="M 625 182 L 685 182" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+
+  <!-- 5. Inactive DMA Pointer / Next target: M1 -> Buffer 1 -->
+  <path d="M 625 236 L 655 236 L 655 311 L 685 311" fill="none" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr-green)"/>
+
+  <!-- 6. Buffer 1 -> Display Consumer -->
+  <path d="M 805 367 L 805 375" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+</svg>

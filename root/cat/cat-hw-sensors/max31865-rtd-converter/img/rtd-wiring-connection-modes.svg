@@ -1,0 +1,199 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-blue-left" markerWidth="9" markerHeight="9" refX="0.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Canvas Background -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Main Title & Subtitle -->
+  <text x="480" y="30" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Схеми підключення PT100/PT1000 до MAX31865</text>
+  <text x="480" y="50" font-size="13" fill="#6b7280" text-anchor="middle">Порівняння 2-, 3- та 4-провідних конфігурацій, перемичок та компенсації опору дротів (Rw)</text>
+
+  <!-- ==================== CARD 1: 2-WIRE ==================== -->
+  <rect x="30" y="70" width="285" height="445" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="8"/>
+  <text x="172.5" y="93" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">2-провідне підключення</text>
+  
+  <rect x="90" y="104" width="165" height="22" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="172.5" y="119" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Без компенсації Rw</text>
+
+  <!-- MAX31865 Sub-panel Card 1 -->
+  <rect x="42" y="138" width="90" height="245" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="87" y="155" font-size="11" font-weight="bold" fill="#6b7280" text-anchor="middle">MAX31865</text>
+
+  <!-- IC Pins Card 1 -->
+  <rect x="117" y="173" width="15" height="16" fill="#eaf0fd" stroke="#2457d6" rx="2"/>
+  <text x="48" y="185" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="start">FORCE+</text>
+
+  <rect x="117" y="223" width="15" height="16" fill="#eaf0fd" stroke="#2457d6" rx="2"/>
+  <text x="48" y="235" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="start">RTIN+</text>
+
+  <rect x="117" y="283" width="15" height="16" fill="#eaf0fd" stroke="#2457d6" rx="2"/>
+  <text x="48" y="295" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="start">RTIN-</text>
+
+  <rect x="117" y="333" width="15" height="16" fill="#eaf0fd" stroke="#2457d6" rx="2"/>
+  <text x="48" y="345" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="start">FORCE-</text>
+
+  <!-- Jumpers Card 1 -->
+  <path d="M 117 181 L 104 181 L 104 231 L 117 231" stroke="#27ae60" stroke-width="2.5" fill="none"/>
+  <text x="100" y="210" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="end">Перемичка</text>
+
+  <path d="M 117 291 L 104 291 L 104 341 L 117 341" stroke="#27ae60" stroke-width="2.5" fill="none"/>
+  <text x="100" y="320" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="end">Перемичка</text>
+
+  <!-- RTD Sub-panel Card 1 -->
+  <rect x="210" y="138" width="90" height="245" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="255" y="155" font-size="11" font-weight="bold" fill="#6b7280" text-anchor="middle">PT100</text>
+  <rect x="243" y="230" width="24" height="62" fill="#eaf0fd" stroke="#2457d6" stroke-width="2" rx="3"/>
+  <text x="255" y="265" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">R_rtd</text>
+
+  <circle cx="225" cy="206" r="3.5" fill="#1a1a1a"/>
+  <path d="M 225 206 L 255 206 L 255 230" stroke="#1a1a1a" stroke-width="1.5" fill="none"/>
+
+  <circle cx="225" cy="316" r="3.5" fill="#1a1a1a"/>
+  <path d="M 225 316 L 255 316 L 255 292" stroke="#1a1a1a" stroke-width="1.5" fill="none"/>
+
+  <!-- Wires Card 1 -->
+  <line x1="132" y1="206" x2="225" y2="206" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+  <text x="178" y="196" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">Rw1</text>
+  <text x="178" y="223" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">I_exc →</text>
+
+  <line x1="225" y1="316" x2="132" y2="316" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+  <text x="178" y="334" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">Rw2</text>
+  <text x="178" y="306" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">← I_exc</text>
+
+  <!-- Formula Box Card 1 -->
+  <rect x="42" y="395" width="261" height="108" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="172.5" y="415" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">Результат вимірювання:</text>
+  <text x="172.5" y="436" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">R_вимір = R_RTD + Rw1 + Rw2</text>
+  <text x="172.5" y="457" font-size="11" fill="#6b7280" text-anchor="middle">Опір дротів повністю додається</text>
+  <text x="172.5" y="478" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">Помилка: ~0.26 °C на 1 Ом Rw</text>
+  <text x="172.5" y="496" font-size="11" fill="#6b7280" text-anchor="middle">(для датчика PT100)</text>
+
+  <!-- ==================== CARD 2: 3-WIRE ==================== -->
+  <rect x="337" y="70" width="285" height="445" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="8"/>
+  <text x="479.5" y="93" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">3-провідне підключення</text>
+  
+  <rect x="387" y="104" width="185" height="22" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="479.5" y="119" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Часткова компенсація</text>
+
+  <!-- MAX31865 Sub-panel Card 2 -->
+  <rect x="349" y="138" width="90" height="245" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="394" y="155" font-size="11" font-weight="bold" fill="#6b7280" text-anchor="middle">MAX31865</text>
+
+  <!-- IC Pins Card 2 -->
+  <rect x="424" y="173" width="15" height="16" fill="#eaf0fd" stroke="#2457d6" rx="2"/>
+  <text x="355" y="185" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="start">FORCE+</text>
+
+  <rect x="424" y="223" width="15" height="16" fill="#eaf0fd" stroke="#2457d6" rx="2"/>
+  <text x="355" y="235" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="start">RTIN+</text>
+
+  <rect x="424" y="283" width="15" height="16" fill="#eaf0fd" stroke="#2457d6" rx="2"/>
+  <text x="355" y="295" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="start">RTIN-</text>
+
+  <rect x="424" y="333" width="15" height="16" fill="#eaf0fd" stroke="#2457d6" rx="2"/>
+  <text x="355" y="345" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="start">FORCE-</text>
+
+  <!-- Jumper Card 2 -->
+  <path d="M 424 291 L 411 291 L 411 341 L 424 341" stroke="#27ae60" stroke-width="2.5" fill="none"/>
+  <text x="407" y="320" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="end">Перемичка</text>
+
+  <!-- RTD Sub-panel Card 2 -->
+  <rect x="517" y="138" width="90" height="245" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="562" y="155" font-size="11" font-weight="bold" fill="#6b7280" text-anchor="middle">PT100</text>
+  <rect x="550" y="230" width="24" height="62" fill="#eaf0fd" stroke="#2457d6" stroke-width="2" rx="3"/>
+  <text x="562" y="265" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">R_rtd</text>
+
+  <circle cx="532" cy="181" r="3.5" fill="#1a1a1a"/>
+  <circle cx="532" cy="231" r="3.5" fill="#1a1a1a"/>
+  <path d="M 532 181 L 562 181 L 562 230 M 532 231 L 562 231" stroke="#1a1a1a" stroke-width="1.5" fill="none"/>
+
+  <circle cx="532" cy="316" r="3.5" fill="#1a1a1a"/>
+  <path d="M 532 316 L 562 316 L 562 292" stroke="#1a1a1a" stroke-width="1.5" fill="none"/>
+
+  <!-- Wires Card 2 -->
+  <line x1="439" y1="181" x2="532" y2="181" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+  <text x="485" y="169" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">Rw1</text>
+  <text x="485" y="197" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">I_exc →</text>
+
+  <line x1="439" y1="231" x2="532" y2="231" stroke="#6b7280" stroke-width="2" stroke-dasharray="5,3"/>
+  <text x="485" y="221" font-size="11" font-weight="bold" fill="#6b7280" text-anchor="middle">Rw2 (I≈0)</text>
+
+  <line x1="532" y1="316" x2="439" y2="316" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+  <text x="485" y="334" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">Rw3</text>
+  <text x="485" y="306" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">← I_exc</text>
+
+  <!-- Formula Box Card 2 -->
+  <rect x="349" y="395" width="261" height="108" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="479.5" y="415" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">Результат вимірювання:</text>
+  <text x="479.5" y="436" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">R_вимір = R_RTD + (Rw1 - Rw3)</text>
+  <text x="479.5" y="457" font-size="11" fill="#6b7280" text-anchor="middle">Точно за умови: Rw1 = Rw3</text>
+  <text x="479.5" y="478" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">Налаштувати bit 3-wire в Config</text>
+  <text x="479.5" y="496" font-size="11" fill="#6b7280" text-anchor="middle">(компенсує опір однакових дротів)</text>
+
+  <!-- ==================== CARD 3: 4-WIRE ==================== -->
+  <rect x="645" y="70" width="285" height="445" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="8"/>
+  <text x="787.5" y="93" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">4-провідне підключення</text>
+  
+  <rect x="700" y="104" width="175" height="22" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="787.5" y="119" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Повна компенсація Rw</text>
+
+  <!-- MAX31865 Sub-panel Card 3 -->
+  <rect x="657" y="138" width="90" height="245" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="702" y="155" font-size="11" font-weight="bold" fill="#6b7280" text-anchor="middle">MAX31865</text>
+
+  <!-- IC Pins Card 3 -->
+  <rect x="732" y="173" width="15" height="16" fill="#eaf0fd" stroke="#2457d6" rx="2"/>
+  <text x="663" y="185" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="start">FORCE+</text>
+
+  <rect x="732" y="223" width="15" height="16" fill="#eaf0fd" stroke="#2457d6" rx="2"/>
+  <text x="663" y="235" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="start">RTIN+</text>
+
+  <rect x="732" y="283" width="15" height="16" fill="#eaf0fd" stroke="#2457d6" rx="2"/>
+  <text x="663" y="295" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="start">RTIN-</text>
+
+  <rect x="732" y="333" width="15" height="16" fill="#eaf0fd" stroke="#2457d6" rx="2"/>
+  <text x="663" y="345" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="start">FORCE-</text>
+
+  <!-- RTD Sub-panel Card 3 -->
+  <rect x="825" y="138" width="90" height="245" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="870" y="155" font-size="11" font-weight="bold" fill="#6b7280" text-anchor="middle">PT100</text>
+  <rect x="858" y="230" width="24" height="62" fill="#eaf0fd" stroke="#2457d6" stroke-width="2" rx="3"/>
+  <text x="870" y="265" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">R_rtd</text>
+
+  <circle cx="840" cy="181" r="3.5" fill="#1a1a1a"/>
+  <circle cx="840" cy="231" r="3.5" fill="#1a1a1a"/>
+  <path d="M 840 181 L 870 181 L 870 230 M 840 231 L 870 231" stroke="#1a1a1a" stroke-width="1.5" fill="none"/>
+
+  <circle cx="840" cy="291" r="3.5" fill="#1a1a1a"/>
+  <circle cx="840" cy="341" r="3.5" fill="#1a1a1a"/>
+  <path d="M 840 291 L 870 291 L 870 292 M 840 341 L 870 341" stroke="#1a1a1a" stroke-width="1.5" fill="none"/>
+
+  <!-- Wires Card 3 -->
+  <line x1="747" y1="181" x2="840" y2="181" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+  <text x="793" y="169" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">Rw1</text>
+  <text x="793" y="197" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">I_exc →</text>
+
+  <line x1="747" y1="231" x2="840" y2="231" stroke="#27ae60" stroke-width="2" stroke-dasharray="5,3"/>
+  <text x="793" y="221" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">Rw2 (I=0)</text>
+
+  <line x1="747" y1="291" x2="840" y2="291" stroke="#27ae60" stroke-width="2" stroke-dasharray="5,3"/>
+  <text x="793" y="281" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">Rw3 (I=0)</text>
+
+  <line x1="840" y1="341" x2="747" y2="341" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+  <text x="793" y="358" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">Rw4</text>
+  <text x="793" y="331" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">← I_exc</text>
+
+  <!-- Formula Box Card 3 -->
+  <rect x="657" y="395" width="261" height="108" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="787.5" y="415" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">Результат вимірювання:</text>
+  <text x="787.5" y="436" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">R_вимір = R_RTD</text>
+  <text x="787.5" y="457" font-size="11" fill="#6b7280" text-anchor="middle">Повна компенсація опору дротів</text>
+  <text x="787.5" y="478" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">Найвища прецизійність</text>
+  <text x="787.5" y="496" font-size="11" fill="#6b7280" text-anchor="middle">(струм I=0 в лініях вимірювання RTIN)</text>
+</svg>

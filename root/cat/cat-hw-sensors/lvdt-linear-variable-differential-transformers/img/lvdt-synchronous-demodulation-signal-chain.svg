@@ -1,0 +1,145 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Background Canvas -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Definitions for Markers -->
+  <defs>
+    <marker id="arr-black" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Main Title & Subtitle -->
+  <text x="480" y="35" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Схема вимірювального тракту LVDT із синхронним демодулюванням</text>
+  <text x="480" y="56" font-size="13" fill="#6b7280" text-anchor="middle">Синхронне випрямлення зберігає знак переміщення та пригнічує квадратурну залишкову напругу</text>
+
+  <!-- TOP PANEL: BLOCK DIAGRAM -->
+  <rect x="30" y="78" width="900" height="192" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="45" y="98" font-size="12" font-weight="bold" fill="#6b7280">СТРУКТУРНА СХЕМА СИГНАЛЬНОГО ТРАКТУ</text>
+
+  <!-- Block 1: Excitation Generator -->
+  <rect x="55" y="125" width="130" height="110" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="120" y="148" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Генератор</text>
+  <text x="120" y="165" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">збудження</text>
+  <path d="M 95 183 Q 107.5 173 120 183 T 145 183" stroke="#2457d6" stroke-width="2" fill="none"/>
+  <text x="120" y="205" font-size="12" fill="#2457d6" text-anchor="middle">V_exc = V_m·sin(ωt)</text>
+
+  <!-- Line 1: Generator -> LVDT -->
+  <path d="M 185 160 L 235 160" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-black)"/>
+  <text x="210" y="148" font-size="12" fill="#6b7280" text-anchor="middle">V_exc</text>
+
+  <!-- Block 2: LVDT Sensor -->
+  <rect x="235" y="125" width="150" height="110" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="310" y="146" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Давач LVDT</text>
+  <rect x="295" y="154" width="30" height="8" rx="2" fill="#2457d6" opacity="0.8"/>
+  <text x="310" y="182" font-size="12" fill="#6b7280" text-anchor="middle">Осердя: x (рух)</text>
+  <text x="310" y="205" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">V_out = k·x·sin(ωt)</text>
+
+  <!-- Line 2: LVDT -> Preamplifier -->
+  <path d="M 385 160 L 435 160" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-black)"/>
+  <text x="410" y="148" font-size="12" fill="#6b7280" text-anchor="middle">V_out</text>
+
+  <!-- Block 3: Preamplifier & BPF -->
+  <rect x="435" y="125" width="115" height="110" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="492" y="155" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Підсилювач</text>
+  <text x="492" y="175" font-size="12" fill="#6b7280" text-anchor="middle">та ФВ (BPF)</text>
+  <text x="492" y="200" font-size="12" fill="#6b7280" text-anchor="middle">Фільтрація завад</text>
+
+  <!-- Line 3: Preamplifier -> Demodulator -->
+  <path d="M 550 160 L 610 160" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-black)"/>
+  <text x="580" y="148" font-size="12" fill="#6b7280" text-anchor="middle">V_ac</text>
+
+  <!-- Block 4: Synchronous Demodulator -->
+  <rect x="610" y="125" width="140" height="110" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="680" y="148" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Синхронний</text>
+  <text x="680" y="165" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">демодулятор</text>
+  <circle cx="680" cy="183" r="8" fill="none" stroke="#27ae60" stroke-width="1.5"/>
+  <path d="M 675 178 L 685 188 M 685 178 L 675 188" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="680" y="208" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">× sign(V_ref)</text>
+
+  <!-- Reference carrier signal path (Excitation -> Demodulator) -->
+  <path d="M 120 235 L 120 252 L 680 252 L 680 235" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="5,3" fill="none" marker-end="url(#arr-blue)"/>
+  <text x="400" y="246" font-size="12" fill="#2457d6" text-anchor="middle">Опорний сигнал фази V_ref</text>
+
+  <!-- Line 4: Demodulator -> LPF -->
+  <path d="M 750 160 L 790 160" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-black)"/>
+  <text x="770" y="148" font-size="12" fill="#6b7280" text-anchor="middle">V_dem</text>
+
+  <!-- Block 5: Low-Pass Filter (LPF) -->
+  <rect x="790" y="125" width="105" height="110" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="842" y="148" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">ФНЧ (LPF)</text>
+  <path d="M 822 175 L 845 175 Q 855 175 862 185 L 862 187" stroke="#1a1a1a" stroke-width="1.8" fill="none"/>
+  <text x="842" y="208" font-size="12" fill="#6b7280" text-anchor="middle">f_cut &lt;&lt; f_exc</text>
+
+  <!-- Output line -->
+  <path d="M 895 160 L 925 160" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="910" y="145" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">V_DC</text>
+
+
+  <!-- BOTTOM PANEL: WAVEFORMS AND QUADRATURE NOISE SUPPRESSION -->
+  <rect x="30" y="285" width="900" height="225" rx="8" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="45" y="305" font-size="12" font-weight="bold" fill="#6b7280">СИГНАЛИ ТА ПРИНЦИП ПОДАВЛЕННЯ КВАДРАТУРНОЇ ЗАВАДИ</text>
+
+  <!-- Card 1: Positive Displacement (x > 0) -->
+  <rect x="45" y="315" width="280" height="185" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="185" y="333" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Переміщення x &gt; 0 (Фаза 0°)</text>
+  <text x="185" y="350" font-size="12" fill="#6b7280" text-anchor="middle">V_out у фазі з опорним V_ref</text>
+  <text x="60" y="372" font-size="12" fill="#27ae60">V_dem (після СД)</text>
+
+  <!-- Card 1 Waveforms -->
+  <line x1="60" y1="425" x2="310" y2="425" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <!-- Input AC Wave (blue dashed) -->
+  <path d="M 70 425 C 85 385, 112.5 385, 127.5 425 C 142.5 465, 170 465, 185 425 C 200 385, 227.5 385, 242.5 425 C 257.5 465, 285 465, 300 425" stroke="#2457d6" stroke-width="1.2" stroke-dasharray="3,3" opacity="0.6" fill="none"/>
+  <!-- Demodulated Wave (full positive arches) -->
+  <path d="M 70 425 C 85 385, 112.5 385, 127.5 425 C 142.5 385, 170 385, 185 425 C 200 385, 227.5 385, 242.5 425 C 257.5 385, 285 385, 300 425" stroke="#27ae60" stroke-width="2.2" fill="none"/>
+  <!-- Filtered DC Level -->
+  <line x1="70" y1="400" x2="300" y2="400" stroke="#27ae60" stroke-width="2.5" stroke-dasharray="6,4"/>
+  <text x="285" y="394" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="end">+V_DC</text>
+  <text x="185" y="482" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Результат ФНЧ: +V_DC (Додатна)</text>
+
+  <!-- Card 2: Negative Displacement (x < 0) -->
+  <rect x="340" y="315" width="280" height="185" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="480" y="333" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">Переміщення x &lt; 0 (Фаза 180°)</text>
+  <text x="480" y="350" font-size="12" fill="#6b7280" text-anchor="middle">V_out протифазний до V_ref</text>
+  <text x="355" y="372" font-size="12" fill="#c0392b">V_dem (після СД)</text>
+
+  <!-- Card 2 Waveforms -->
+  <line x1="355" y1="425" x2="605" y2="425" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <!-- Input AC Wave (blue dashed) -->
+  <path d="M 365 425 C 380 465, 407.5 465, 422.5 425 C 437.5 385, 465 385, 480 425 C 495 465, 522.5 465, 537.5 425 C 552.5 385, 580 385, 595 425" stroke="#2457d6" stroke-width="1.2" stroke-dasharray="3,3" opacity="0.6" fill="none"/>
+  <!-- Demodulated Wave (full negative arches) -->
+  <path d="M 365 425 C 380 465, 407.5 465, 422.5 425 C 437.5 465, 465 465, 480 425 C 495 465, 522.5 465, 537.5 425 C 552.5 465, 580 465, 595 425" stroke="#c0392b" stroke-width="2.2" fill="none"/>
+  <!-- Filtered DC Level -->
+  <line x1="365" y1="450" x2="595" y2="450" stroke="#c0392b" stroke-width="2.5" stroke-dasharray="6,4"/>
+  <text x="580" y="464" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="end">-V_DC</text>
+  <text x="480" y="482" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Результат ФНЧ: -V_DC (Від'ємна)</text>
+
+  <!-- Card 3: Quadrature Noise (Phase 90°) -->
+  <rect x="635" y="315" width="280" height="185" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="775" y="333" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Квадратурний шум (Фаза 90°)</text>
+  <text x="775" y="350" font-size="12" fill="#6b7280" text-anchor="middle">Залишкова напруга нульового стану</text>
+  <text x="650" y="372" font-size="12" fill="#2457d6">V_quad (після СД)</text>
+
+  <!-- Card 3 Waveforms -->
+  <line x1="650" y1="425" x2="900" y2="425" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <!-- Demodulated Quadrature Waveform (symmetric positive and negative half-waves) -->
+  <path d="M 660 425 C 668 395, 681 395, 688.75 425 C 696.5 455, 709.5 455, 717.5 425 C 725.5 395, 738.5 395, 746.25 425 C 754 455, 767 455, 775 425 C 783 395, 796 395, 803.75 425 C 811.5 455, 824.5 455, 832.5 425 C 840.5 395, 853.5 395, 861.25 425 C 869 455, 882 455, 890 425" stroke="#2457d6" stroke-width="2" fill="none"/>
+  <!-- Shaded Area Markers -->
+  <rect x="668" y="398" width="14" height="25" fill="#eaf0fd" opacity="0.7"/>
+  <text x="675" y="414" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">+</text>
+  <rect x="696" y="427" width="14" height="25" fill="#fdecea" opacity="0.7"/>
+  <text x="703" y="443" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">-</text>
+  <!-- Zero DC line -->
+  <line x1="660" y1="425" x2="890" y2="425" stroke="#2457d6" stroke-width="2.5"/>
+  <text x="880" y="415" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">V_DC = 0</text>
+  <text x="775" y="482" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Середнє = 0 В (Пригнічено)</text>
+</svg>

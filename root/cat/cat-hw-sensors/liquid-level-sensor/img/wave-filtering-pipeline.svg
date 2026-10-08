@@ -1,0 +1,195 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Двокаскадний конвеєр обробки сигналу давача рівня</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Приглушення завад від хвилювання поверхні: RC-фільтр, тригер Шмітта, медіана та EMA</text>
+
+  <!-- Domain 1: Hardware -->
+  <rect x="25" y="75" width="440" height="415" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="35" y="85" width="420" height="28" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="245" y="104" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">КАСКАД 1: АНАЛОГОВЕ УЗГОДЖЕННЯ (HARDWARE)</text>
+
+  <!-- Card 1: RC Filter -->
+  <rect x="35" y="125" width="200" height="355" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="43" y="131" width="184" height="24" rx="4" fill="#eaf0fd"/>
+  <text x="135" y="148" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">1. RC-фільтр (ФНЧ)</text>
+
+  <!-- Card 1 Schematic -->
+  <rect x="45" y="169" width="180" height="76" rx="4" fill="#fafafa" stroke="#e5e7eb"/>
+  <line x1="53" y1="202" x2="85" y2="202" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="53" y="190" font-size="12" fill="#1a1a1a" text-anchor="start">V_in</text>
+  <rect x="85" y="195" width="36" height="14" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="103" y="186" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">R</text>
+  <line x1="121" y1="202" x2="145" y2="202" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="145" cy="202" r="2.5" fill="#1a1a1a"/>
+  <line x1="145" y1="202" x2="145" y2="215" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="135" y1="215" x2="155" y2="215" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="135" y1="221" x2="155" y2="221" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="162" y="222" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">C</text>
+  <line x1="145" y1="221" x2="145" y2="230" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="137" y1="230" x2="153" y2="230" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="140" y1="234" x2="150" y2="234" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="143" y1="237" x2="147" y2="237" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="145" y1="202" x2="215" y2="202" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="195" y="190" font-size="12" fill="#2457d6" text-anchor="middle">V_rc</text>
+
+  <!-- Card 1 Formula -->
+  <rect x="45" y="259" width="180" height="38" rx="4" fill="#f4f6f8"/>
+  <text x="135" y="273" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">f_c = 1 / (2πRC)</text>
+  <text x="135" y="289" font-size="12" fill="#6b7280" text-anchor="middle">Зрізає ВЧ-шум хвиль</text>
+
+  <!-- Card 1 Graph -->
+  <rect x="45" y="311" width="180" height="164" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="135" y="326" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Осцилограма RC-фільтра</text>
+  <line x1="55" y1="438" x2="215" y2="438" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="60" y1="335" x2="60" y2="442" stroke="#d0d7de" stroke-width="1"/>
+  <text x="55" y="345" font-size="12" fill="#6b7280" text-anchor="end">V</text>
+  <path d="M 62 410 L 75 365 L 85 430 L 95 355 L 105 425 L 115 345 L 130 435 L 145 360 L 160 415 L 175 375 L 195 420 L 212 390" fill="none" stroke="#c0392b" stroke-width="1.2" stroke-dasharray="2,2"/>
+  <path d="M 62 405 C 80 375, 100 415, 120 380 C 140 355, 165 415, 190 395 L 212 395" fill="none" stroke="#2457d6" stroke-width="2"/>
+  <line x1="55" y1="456" x2="70" y2="456" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="2,2"/>
+  <text x="73" y="460" font-size="12" fill="#c0392b" text-anchor="start">V_in</text>
+  <line x1="140" y1="456" x2="155" y2="456" stroke="#2457d6" stroke-width="2"/>
+  <text x="158" y="460" font-size="12" fill="#2457d6" text-anchor="start">V_rc</text>
+
+  <!-- Card 2: Schmitt Trigger -->
+  <rect x="255" y="125" width="200" height="355" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="263" y="131" width="184" height="24" rx="4" fill="#eaf0fd"/>
+  <text x="355" y="148" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">2. Тригер Шмітта</text>
+
+  <!-- Card 2 Schematic -->
+  <rect x="265" y="169" width="180" height="76" rx="4" fill="#fafafa" stroke="#e5e7eb"/>
+  <polygon points="305,177 305,233 375,205" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <path d="M 330 201 L 345 201 L 345 210 L 338 210 M 345 201 L 345 192 L 352 192" fill="none" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="275" y1="190" x2="305" y2="190" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="298" y="187" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">-</text>
+  <line x1="275" y1="220" x2="305" y2="220" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="298" y="217" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">+</text>
+  <line x1="375" y1="205" x2="435" y2="205" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="415" y="190" font-size="12" fill="#2457d6" text-anchor="middle">V_st</text>
+
+  <!-- Card 2 Formula -->
+  <rect x="265" y="259" width="180" height="38" rx="4" fill="#f4f6f8"/>
+  <text x="355" y="273" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">ΔV = V_th - V_tl</text>
+  <text x="355" y="289" font-size="12" fill="#6b7280" text-anchor="middle">Захист від брязкіту станів</text>
+
+  <!-- Card 2 Graph -->
+  <rect x="265" y="311" width="180" height="164" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="355" y="326" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Гістерезисна порогова дія</text>
+  <line x1="275" y1="438" x2="435" y2="438" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="280" y1="335" x2="280" y2="442" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="280" y1="365" x2="435" y2="365" stroke="#c0392b" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="430" y="360" font-size="12" fill="#c0392b" text-anchor="end">V_th</text>
+  <line x1="280" y1="410" x2="435" y2="410" stroke="#27ae60" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="430" y="424" font-size="12" fill="#27ae60" text-anchor="end">V_tl</text>
+  <path d="M 282 425 C 295 350, 320 355, 340 425 C 360 435, 380 345, 400 360 L 430 380" fill="none" stroke="#2457d6" stroke-width="1.5"/>
+  <path d="M 282 435 L 302 435 L 302 345 L 345 345 L 345 435 L 388 435 L 388 345 L 430 345" fill="none" stroke="#27ae60" stroke-width="2"/>
+  <line x1="285" y1="456" x2="305" y2="456" stroke="#27ae60" stroke-width="2"/>
+  <text x="310" y="460" font-size="12" fill="#27ae60" text-anchor="start">Вихід V_st</text>
+
+  <!-- Inter-stage Arrow 1 & 2 -->
+  <line x1="235" y1="202" x2="253" y2="202" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <line x1="455" y1="202" x2="493" y2="202" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="477" y="190" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">АЦП</text>
+
+  <!-- Domain 2: Firmware -->
+  <rect x="495" y="75" width="440" height="415" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="505" y="85" width="420" height="28" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="715" y="104" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">КАСКАД 2: ЦИФРОВА ОБРОБКА МК (FIRMWARE)</text>
+
+  <!-- Card 3: Median Filter -->
+  <rect x="505" y="125" width="200" height="355" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="513" y="131" width="184" height="24" rx="4" fill="#e9f7ef"/>
+  <text x="605" y="148" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">3. Медіанний фільтр</text>
+
+  <!-- Card 3 Schematic -->
+  <rect x="515" y="169" width="180" height="76" rx="4" fill="#fafafa" stroke="#e5e7eb"/>
+  <text x="605" y="182" font-size="12" fill="#6b7280" text-anchor="middle">Вікно вибірки N=5</text>
+  <rect x="530" y="189" width="150" height="22" rx="3" fill="#ffffff" stroke="#d0d7de"/>
+  <rect x="590" y="189" width="30" height="22" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <line x1="560" y1="189" x2="560" y2="211" stroke="#d0d7de"/>
+  <line x1="590" y1="189" x2="590" y2="211" stroke="#d0d7de"/>
+  <line x1="620" y1="189" x2="620" y2="211" stroke="#d0d7de"/>
+  <line x1="650" y1="189" x2="650" y2="211" stroke="#d0d7de"/>
+  <text x="545" y="204" font-size="12" fill="#1a1a1a" text-anchor="middle">12</text>
+  <text x="575" y="204" font-size="12" fill="#1a1a1a" text-anchor="middle">14</text>
+  <text x="605" y="204" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">89</text>
+  <text x="635" y="204" font-size="12" fill="#1a1a1a" text-anchor="middle">13</text>
+  <text x="665" y="204" font-size="12" fill="#1a1a1a" text-anchor="middle">15</text>
+  <text x="605" y="234" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Медіана = 14 (89 відкинуто)</text>
+
+  <!-- Card 3 Formula -->
+  <rect x="515" y="259" width="180" height="38" rx="4" fill="#f4f6f8"/>
+  <text x="605" y="273" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">X_med = Med(X[k-2..k+2])</text>
+  <text x="605" y="289" font-size="12" fill="#6b7280" text-anchor="middle">Видаляє імпульсні сплески</text>
+
+  <!-- Card 3 Graph -->
+  <rect x="515" y="311" width="180" height="164" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="605" y="326" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Усунення аномальних піків</text>
+  <line x1="525" y1="438" x2="685" y2="438" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="530" y1="335" x2="530" y2="442" stroke="#d0d7de" stroke-width="1"/>
+  <path d="M 532 410 L 560 405 L 585 408 L 600 345 L 615 407 L 640 402 L 680 405" fill="none" stroke="#c0392b" stroke-width="1.2" stroke-dasharray="2,2"/>
+  <path d="M 532 410 L 560 405 L 585 408 L 600 407 L 615 407 L 640 402 L 680 405" fill="none" stroke="#27ae60" stroke-width="2"/>
+  <line x1="530" y1="456" x2="545" y2="456" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="2,2"/>
+  <text x="548" y="460" font-size="12" fill="#c0392b" text-anchor="start">Зі сплеском</text>
+  <line x1="620" y1="456" x2="635" y2="456" stroke="#27ae60" stroke-width="2"/>
+  <text x="638" y="460" font-size="12" fill="#27ae60" text-anchor="start">Без піка</text>
+
+  <!-- Inter-stage Arrow 3 -->
+  <line x1="705" y1="202" x2="723" y2="202" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- Card 4: EMA -->
+  <rect x="725" y="125" width="200" height="355" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="733" y="131" width="184" height="24" rx="4" fill="#e9f7ef"/>
+  <text x="825" y="148" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">4. EMA з гістерезисом</text>
+
+  <!-- Card 4 Schematic -->
+  <rect x="735" y="169" width="180" height="76" rx="4" fill="#fafafa" stroke="#e5e7eb"/>
+  <line x1="742" y1="192" x2="765" y2="192" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="765" y="181" width="24" height="22" rx="3" fill="#ffffff" stroke="#1a1a1a"/>
+  <text x="777" y="196" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">α</text>
+  <line x1="789" y1="192" x2="815" y2="192" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="823" cy="192" r="8" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="823" y="196" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">+</text>
+  <line x1="831" y1="192" x2="908" y2="192" stroke="#27ae60" stroke-width="2"/>
+  <text x="895" y="184" font-size="12" fill="#27ae60" text-anchor="middle">Y_k</text>
+  <circle cx="875" cy="192" r="2" fill="#27ae60"/>
+  <line x1="875" y1="192" x2="875" y2="225" stroke="#6b7280" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="875" y1="225" x2="859" y2="225" stroke="#6b7280" stroke-width="1" stroke-dasharray="2,2"/>
+  <rect x="831" y="214" width="28" height="22" rx="3" fill="#ffffff" stroke="#6b7280"/>
+  <text x="845" y="229" font-size="12" fill="#6b7280" text-anchor="middle">Z⁻¹</text>
+  <line x1="831" y1="225" x2="823" y2="225" stroke="#6b7280" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="823" y1="225" x2="823" y2="200" stroke="#6b7280" stroke-width="1" stroke-dasharray="2,2"/>
+
+  <!-- Card 4 Formula -->
+  <rect x="735" y="259" width="180" height="38" rx="4" fill="#f4f6f8"/>
+  <text x="825" y="273" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Y_k = α·X_k + (1-α)·Y_k-1</text>
+  <text x="825" y="289" font-size="12" fill="#6b7280" text-anchor="middle">Згладжування низьких хвиль</text>
+
+  <!-- Card 4 Graph -->
+  <rect x="735" y="311" width="180" height="164" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="825" y="326" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Остаточний чистий рівень</text>
+  <line x1="745" y1="438" x2="905" y2="438" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="750" y1="335" x2="750" y2="442" stroke="#d0d7de" stroke-width="1"/>
+  <path d="M 752 420 C 770 380, 785 430, 805 385 C 825 425, 845 380, 865 415 L 902 390" fill="none" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="2,2"/>
+  <path d="M 752 410 C 780 395, 810 402, 840 397 L 902 396" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+  <line x1="750" y1="396" x2="905" y2="396" stroke="#2457d6" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="750" y1="456" x2="770" y2="456" stroke="#27ae60" stroke-width="2.5"/>
+  <text x="773" y="460" font-size="12" fill="#27ae60" text-anchor="start">Вихід Y_out</text>
+
+  <!-- Bottom Summary Bar -->
+  <rect x="25" y="506" width="910" height="28" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="480" y="524" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Результат: Повне приглушення сплесків хвиль та відсутність хибних спрацьовувань давача</text>
+</svg>

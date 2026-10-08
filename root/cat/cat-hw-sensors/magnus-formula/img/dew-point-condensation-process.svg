@@ -1,0 +1,155 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="530" viewBox="0 0 960 530" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Полотно -->
+  <rect x="0" y="0" width="960" height="530" fill="white"/>
+
+  <!-- Визначення маркерів стрілок -->
+  <defs>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок та підзаголовок -->
+  <text x="480" y="30" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Охолодження повітря при сталій абсолютній вологості та утворення конденсату</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">При зниженні температури T тиск насиченої пари p_s(T) зменшується: досягнення RH = 100% (T = T_dew) спричиняє випадання роси</text>
+
+  <!-- ==================== ПАНЕЛЬ 1: Термодинамічний графік ==================== -->
+  <rect x="30" y="75" width="530" height="435" rx="8" ry="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="45" y="100" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="start">1. Залежність тиску пари від температури p_s(T)</text>
+
+  <!-- Підкладка зони конденсації (поза кривою насичення) -->
+  <path d="M 130,415 C 200,380 230,340 250,320 C 310,260 380,210 430,180 C 460,162 480,145 500,130 L 130,130 Z" fill="#fdecea" opacity="0.6"/>
+  <text x="210" y="155" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="start">Зона конденсації (RH &gt; 100%)</text>
+  <text x="210" y="170" font-size="12" fill="#c0392b" text-anchor="start">Перенасичена пара / Рідка фаза</text>
+
+  <!-- Підкладка ненасиченої зони -->
+  <text x="360" y="445" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="start">Ненасичене повітря (RH &lt; 100%)</text>
+  <text x="360" y="460" font-size="12" fill="#6b7280" text-anchor="start">Газоподібна пара H₂O</text>
+
+  <!-- Вісі координат -->
+  <!-- Осі X (Температура T) -->
+  <line x1="110" y1="390" x2="520" y2="390" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+  <text x="520" y="375" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">Температура T (°C)</text>
+
+  <!-- Вісь Y (Тиск p) -->
+  <line x1="130" y1="400" x2="130" y2="120" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+  <text x="135" y="122" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">Тиск пари p (гПа)</text>
+
+  <!-- Засічки на осі X -->
+  <!-- T_dew = 14°C -->
+  <line x1="250" y1="387" x2="250" y2="393" stroke="#c0392b" stroke-width="2"/>
+  <text x="250" y="410" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">T_dew = 14°C</text>
+  <text x="250" y="425" font-size="12" fill="#c0392b" text-anchor="middle">(Точка роси)</text>
+
+  <!-- T1 = 28°C -->
+  <line x1="430" y1="387" x2="430" y2="393" stroke="#2457d6" stroke-width="2"/>
+  <text x="430" y="410" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">T1 = 28°C</text>
+  <text x="430" y="425" font-size="12" fill="#2457d6" text-anchor="middle">(Початкова T)</text>
+
+  <!-- Засічки на осі Y -->
+  <!-- p_v = 16 гПа -->
+  <line x1="127" y1="320" x2="133" y2="320" stroke="#2457d6" stroke-width="2"/>
+  <text x="122" y="324" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">p_v = 16</text>
+
+  <!-- p_s(T1) = 38 гПа -->
+  <line x1="127" y1="180" x2="133" y2="180" stroke="#6b7280" stroke-width="2"/>
+  <text x="122" y="184" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="end">p_s(T1) = 38</text>
+
+  <!-- Експоненційна крива Магнуса p_s(T) -->
+  <path d="M 130,415 C 200,380 230,340 250,320 C 310,260 380,210 430,180 C 460,162 480,145 500,130" fill="none" stroke="#1a1a1a" stroke-width="2.5"/>
+  <text x="495" y="145" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">Крива Магнуса p_s(T)</text>
+
+  <!-- Пунктирні лінії зв'язку -->
+  <!-- Вертикаль T1 = 28°C -->
+  <line x1="430" y1="180" x2="430" y2="385" stroke="#6b7280" stroke-dasharray="3,3"/>
+  <!-- Горизонталь p_s(T1) = 38 гПа -->
+  <line x1="135" y1="180" x2="430" y2="180" stroke="#6b7280" stroke-dasharray="3,3"/>
+
+  <!-- Вертикаль T_dew = 14°C -->
+  <line x1="250" y1="320" x2="250" y2="385" stroke="#c0392b" stroke-dasharray="3,3"/>
+  <!-- Горизонталь p_v = 16 гПа -->
+  <line x1="135" y1="320" x2="430" y2="320" stroke="#2457d6" stroke-dasharray="3,3"/>
+
+  <!-- Процес охолодження (Лінія від Стан 1 до Стан 2) -->
+  <line x1="422" y1="320" x2="258" y2="320" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Бейдж на лінії охолодження -->
+  <rect x="280" y="293" width="125" height="22" rx="4" fill="#2457d6"/>
+  <text x="342" y="308" font-size="12" font-weight="bold" fill="white" text-anchor="middle">Охолодження: p_v = const</text>
+
+  <!-- Точка Стан 1 (28°C, 42% RH) -->
+  <circle cx="430" cy="320" r="6" fill="#2457d6"/>
+  <rect x="365" y="334" width="125" height="34" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="427" y="348" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Стан 1 (28°C)</text>
+  <text x="427" y="362" font-size="12" fill="#2457d6" text-anchor="middle">RH = 42% (Пара)</text>
+
+  <!-- Точка Стан 2 (14°C, 100% RH - Точка роси) -->
+  <circle cx="250" cy="320" r="6" fill="#c0392b"/>
+  <rect x="155" y="222" width="135" height="48" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="222" y="238" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Стан 2: Точка роси</text>
+  <text x="222" y="252" font-size="12" fill="#c0392b" text-anchor="middle">RH = 100% (p_v = p_s)</text>
+  <text x="222" y="264" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Початок конденсації</text>
+
+  <!-- ==================== ПАНЕЛЬ 2: Фізичний ефект на платі ==================== -->
+  <rect x="580" y="75" width="350" height="435" rx="8" ry="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="595" y="100" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="start">2. Вплив на електронну плату (PCB)</text>
+
+  <!-- Підпанель А: Нормальний режим (T > T_dew) -->
+  <rect x="595" y="115" width="320" height="180" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="610" y="136" font-size="13" font-weight="bold" fill="#27ae60">Норма: T_pcb = 28°C &gt; T_dew (14°C)</text>
+
+  <!-- Схема плати (Норма) -->
+  <!-- Плата PCB -->
+  <rect x="615" y="210" width="280" height="10" rx="2" fill="#27ae60"/>
+  <!-- Чип MCU -->
+  <rect x="705" y="182" width="90" height="28" rx="3" fill="#1a1a1a"/>
+  <text x="750" y="200" font-size="12" font-weight="bold" fill="white" text-anchor="middle">MCU / Sensor</text>
+  <!-- Виводи чипа -->
+  <line x1="695" y1="196" x2="705" y2="196" stroke="#d0d7de" stroke-width="3"/>
+  <line x1="795" y1="196" x2="805" y2="196" stroke="#d0d7de" stroke-width="3"/>
+
+  <!-- Позначки сухого повітря -->
+  <text x="610" y="157" font-size="12" fill="#1a1a1a">• Волога у газоподібній фазі (H₂O)</text>
+  <text x="610" y="172" font-size="12" fill="#1a1a1a">• Суха поверхня, високий опір</text>
+
+  <!-- Статусний бейдж (Норма) -->
+  <rect x="610" y="252" width="290" height="26" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="755" y="269" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Конденсат відсутній — безпечна робота</text>
+
+  <!-- Підпанель Б: Конденсація (T <= T_dew) -->
+  <rect x="595" y="310" width="320" height="185" rx="6" fill="fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="610" y="331" font-size="13" font-weight="bold" fill="#c0392b">Аварія: T_pcb ≤ T_dew (14°C)</text>
+
+  <!-- Позначки конденсації -->
+  <text x="610" y="352" font-size="12" fill="#1a1a1a">• Досягнуто RH = 100% біля поверхні</text>
+  <text x="610" y="367" font-size="12" fill="#c0392b" font-weight="bold">• Фазовий перехід: пара → краплі води</text>
+
+  <!-- Схема плати (Конденсат) -->
+  <!-- Плата PCB -->
+  <rect x="615" y="415" width="280" height="10" rx="2" fill="#27ae60"/>
+  <!-- Чип MCU -->
+  <rect x="705" y="387" width="90" height="28" rx="3" fill="#1a1a1a"/>
+  <text x="750" y="405" font-size="12" font-weight="bold" fill="white" text-anchor="middle">MCU / Sensor</text>
+  <!-- Виводи чипа -->
+  <line x1="695" y1="401" x2="705" y2="401" stroke="#d0d7de" stroke-width="3"/>
+  <line x1="795" y1="401" x2="805" y2="401" stroke="#d0d7de" stroke-width="3"/>
+
+  <!-- Краплі води на виводах та платі -->
+  <circle cx="692" cy="401" r="5" fill="#2457d6"/>
+  <circle cx="808" cy="401" r="5" fill="#2457d6"/>
+  <ellipse cx="650" cy="413" rx="8" ry="4" fill="#2457d6"/>
+  <ellipse cx="850" cy="413" rx="9" ry="4" fill="#2457d6"/>
+
+  <!-- Позначка короткого замикання -->
+  <text x="692" y="380" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Роса / Вода</text>
+
+  <!-- Статусний бейдж (Аварія) -->
+  <rect x="610" y="452" width="290" height="26" rx="4" fill="#c0392b"/>
+  <text x="755" y="469" font-size="12" font-weight="bold" fill="white" text-anchor="middle">⛔ Небезпека: Коротке замикання й корозія</text>
+</svg>

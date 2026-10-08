@@ -1,0 +1,126 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+  <defs>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Header -->
+  <text x="480" y="28" text-anchor="middle" font-size="18" font-weight="700" fill="#1a1a1a">Порівняння топологій: дискретний підсилювач vs інтегрований монітор INA226</text>
+  <text x="480" y="48" text-anchor="middle" font-size="13" fill="#6b7280">Перенесення АЦП, фільтра та обчислювача у кристал усуває аналоговий дрейф і розвантажує МК</text>
+
+  <!-- Left Panel: Discrete -->
+  <rect x="30" y="70" width="435" height="430" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="247" y="94" text-anchor="middle" font-size="15" font-weight="700" fill="#c0392b">Дискретна аналогова схема (INA138 + АЦП МК)</text>
+  <text x="247" y="112" text-anchor="middle" font-size="12" fill="#6b7280">Аналогова підготовка сигналу та обробка в МК</text>
+
+  <!-- Left Bus & Shunt -->
+  <line x1="50" y1="140" x2="195" y2="140" stroke="#1a1a1a" stroke-width="2.5"/>
+  <line x1="300" y1="140" x2="445" y2="140" stroke="#1a1a1a" stroke-width="2.5"/>
+  <text x="50" y="132" font-size="12" font-weight="700" fill="#1a1a1a">Шина живлення (V_BUS)</text>
+  <rect x="195" y="123" width="105" height="34" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="247" y="144" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">R_shunt (Шунт)</text>
+  
+  <line x1="110" y1="140" x2="110" y2="185" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="185" y1="140" x2="185" y2="185" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="147" y="168" text-anchor="middle" font-size="12" fill="#2457d6">V_SENSE (мВ)</text>
+
+  <!-- Analog Amp Block -->
+  <rect x="60" y="185" width="165" height="75" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="142" y="206" text-anchor="middle" font-size="13" font-weight="700" fill="#c0392b">Аналоговий ПС струму</text>
+  <text x="142" y="224" text-anchor="middle" font-size="12" fill="#1a1a1a">Підсилювач (INA138 / ОП)</text>
+  <text x="142" y="242" text-anchor="middle" font-size="12" fill="#c0392b">V_out = g_m × R_L × V_SENSE</text>
+
+  <!-- Drift Callout -->
+  <rect x="240" y="185" width="210" height="75" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="345" y="204" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">⚠️ Точки дрейфу та похибок:</text>
+  <text x="345" y="222" text-anchor="middle" font-size="12" fill="#c0392b">• Дрейф зсуву ОП від t°</text>
+  <text x="345" y="240" text-anchor="middle" font-size="12" fill="#c0392b">• Точність дискретних R_L</text>
+
+  <!-- Signal line down to MCU -->
+  <line x1="142" y1="260" x2="142" y2="295" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <text x="152" y="280" font-size="12" fill="#c0392b">Аналогова траса V_out (чутлива до завад)</text>
+
+  <!-- MCU Block -->
+  <rect x="50" y="295" width="395" height="95" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="247" y="313" text-anchor="middle" font-size="13" font-weight="700" fill="#c0392b">Мікроконтролер (MCU)</text>
+  
+  <rect x="65" y="323" width="170" height="55" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+  <text x="150" y="342" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">Вбудований АЦП (SAR)</text>
+  <text x="150" y="360" text-anchor="middle" font-size="12" fill="#6b7280">10–12 біт, шум квантування</text>
+
+  <line x1="235" y1="350" x2="260" y2="350" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+
+  <rect x="260" y="323" width="170" height="55" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+  <text x="345" y="342" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">Програмна обробка</text>
+  <text x="345" y="360" text-anchor="middle" font-size="12" fill="#c0392b">Часті ISR, P = V × I в коді</text>
+
+  <!-- Left Summary -->
+  <rect x="50" y="405" width="395" height="80" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="65" y="424" font-size="12" font-weight="700" fill="#c0392b">⛔ Проблеми дискретної топології:</text>
+  <text x="65" y="442" font-size="12" fill="#1a1a1a">• Нагромадження дрейфу компонентів (ОП + R_shunt + R_L)</text>
+  <text x="65" y="460" font-size="12" fill="#1a1a1a">• Наводки імпульсних завад на аналогову лінію V_out</text>
+  <text x="65" y="478" font-size="12" fill="#1a1a1a">• Високе навантаження CPU на постійне опитування й фільтрацію</text>
+
+  <!-- Right Panel: Integrated -->
+  <rect x="495" y="70" width="435" height="430" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="712" y="94" text-anchor="middle" font-size="15" font-weight="700" fill="#27ae60">Інтегрований цифровий монітор (INA226)</text>
+  <text x="712" y="112" text-anchor="middle" font-size="12" fill="#6b7280">Обробка сигналу в кристалі та цифрова шина I²C</text>
+
+  <!-- Right Bus & Shunt -->
+  <line x1="515" y1="140" x2="660" y2="140" stroke="#1a1a1a" stroke-width="2.5"/>
+  <line x1="765" y1="140" x2="910" y2="140" stroke="#1a1a1a" stroke-width="2.5"/>
+  <text x="515" y="132" font-size="12" font-weight="700" fill="#1a1a1a">Шина живлення (V_BUS)</text>
+  <rect x="660" y="123" width="105" height="34" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="712.5" y="144" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">R_shunt (Kelvin)</text>
+
+  <line x1="575" y1="140" x2="575" y2="185" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="650" y1="140" x2="650" y2="185" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="612.5" y="168" text-anchor="middle" font-size="12" fill="#2457d6">V_SENSE</text>
+
+  <!-- INA226 Chip -->
+  <rect x="515" y="185" width="395" height="135" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="530" y="204" font-size="13" font-weight="700" fill="#27ae60">Мікросхема INA226 (єдиний кристал)</text>
+
+  <rect x="530" y="215" width="110" height="55" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="585" y="234" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">16-біт ΔΣ-АЦП</text>
+  <text x="585" y="252" text-anchor="middle" font-size="12" fill="#27ae60">Низький дрейф</text>
+
+  <line x1="640" y1="242.5" x2="655" y2="242.5" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <rect x="655" y="215" width="115" height="55" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="712.5" y="234" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">Цифровий фільтр</text>
+  <text x="712.5" y="252" text-anchor="middle" font-size="12" fill="#27ae60">Усереднення 1..1024</text>
+
+  <line x1="770" y1="242.5" x2="785" y2="242.5" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <rect x="785" y="215" width="110" height="55" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="840" y="234" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">Обчислювач P</text>
+  <text x="840" y="252" text-anchor="middle" font-size="12" fill="#27ae60">P = V_BUS × I</text>
+
+  <rect x="530" y="278" width="365" height="34" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="712.5" y="299" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">Регістри даних (V, I, P) + I²C / SMBus контролер</text>
+
+  <!-- Digital bus line down to MCU -->
+  <line x1="712.5" y1="312" x2="712.5" y2="335" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <text x="722" y="331" font-size="12" fill="#27ae60">Цифрова шина I²C (SDA, SCL, ALERT)</text>
+
+  <!-- Right MCU Block -->
+  <rect x="515" y="335" width="395" height="55" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="712" y="353" text-anchor="middle" font-size="13" font-weight="700" fill="#27ae60">Мікроконтролер (MCU)</text>
+  <text x="712" y="373" text-anchor="middle" font-size="12" fill="#1a1a1a">Читає вже точні й усереднені значення V, I, P без втрати ресурсів CPU</text>
+
+  <!-- Right Summary -->
+  <rect x="515" y="405" width="395" height="80" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="530" y="424" font-size="12" font-weight="700" fill="#27ae60">✓ Переваги інтегрованої топології:</text>
+  <text x="530" y="442" font-size="12" fill="#1a1a1a">• Висока точність та апаратне усереднення в чипі</text>
+  <text x="530" y="460" font-size="12" fill="#1a1a1a">• Цифрова завадостійкість (відсутність аналогових ліній на платі)</text>
+  <text x="530" y="478" font-size="12" fill="#1a1a1a">• Нульове навантаження на МК (обчислення P робить INA226)</text>
+</svg>

@@ -1,0 +1,174 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Markers -->
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Main Title & Subtitle -->
+  <text x="480" y="38" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Модель коаксіального ємнісного давача рівня рідини</text>
+  <text x="480" y="60" text-anchor="middle" font-size="13" fill="#6b7280">Повна ємність зонда C є сумою паралельних ємностей газової (C_gas) та рідкої (C_liquid) фаз</text>
+
+  <!-- Left Panel: Physical Model -->
+  <rect x="25" y="78" width="445" height="422" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="247" y="102" text-anchor="middle" font-size="15" font-weight="bold" fill="#1a1a1a">Геометрія та фази коаксіального зонда</text>
+
+  <!-- Probe symmetry axis line -->
+  <line x1="200" y1="140" x2="200" y2="422" stroke="#9ca3af" stroke-width="1.5" stroke-dasharray="6,3,1,3"/>
+  <text x="200" y="432" text-anchor="middle" font-size="12" fill="#6b7280">Вісь зонда</text>
+
+  <!-- Gas medium inside probe -->
+  <rect x="145" y="145" width="41" height="120" fill="#ffffff" fill-opacity="0.9"/>
+  <rect x="214" y="145" width="41" height="120" fill="#ffffff" fill-opacity="0.9"/>
+
+  <!-- Liquid medium inside probe -->
+  <rect x="145" y="265" width="41" height="150" fill="#2457d6" fill-opacity="0.2"/>
+  <rect x="214" y="265" width="41" height="150" fill="#2457d6" fill-opacity="0.2"/>
+
+  <!-- Liquid surface line -->
+  <line x1="120" y1="265" x2="280" y2="265" stroke="#2457d6" stroke-width="2" stroke-dasharray="4,3"/>
+
+  <!-- Inner electrode (solid rod r=14, x=186..214) -->
+  <rect x="186" y="145" width="28" height="270" fill="#94a3b8" stroke="#475569" stroke-width="1.5"/>
+
+  <!-- Outer electrode walls (thickness=8, left x=137..145, right x=255..263) -->
+  <rect x="137" y="145" width="8" height="270" fill="#cbd5e1" stroke="#475569" stroke-width="1.5"/>
+  <rect x="255" y="145" width="8" height="270" fill="#cbd5e1" stroke="#475569" stroke-width="1.5"/>
+
+  <!-- Perforations in outer electrode for liquid equalization -->
+  <rect x="136" y="385" width="10" height="15" fill="#f4f6f8"/>
+  <rect x="254" y="385" width="10" height="15" fill="#f4f6f8"/>
+
+  <!-- Electrode Top Labels -->
+  <text x="130" y="132" text-anchor="end" font-size="12" fill="#475569">Електрод 1 (R)</text>
+  <line x1="130" y1="135" x2="141" y2="143" stroke="#475569" stroke-width="1"/>
+
+  <text x="210" y="132" text-anchor="start" font-size="12" fill="#475569">Електрод 2 (r)</text>
+  <line x1="210" y1="135" x2="200" y2="143" stroke="#475569" stroke-width="1"/>
+
+  <!-- Dimension line H (Total Length) at x=48 -->
+  <line x1="48" y1="145" x2="48" y2="415" stroke="#1a1a1a" stroke-width="1.2"/>
+  <line x1="43" y1="145" x2="53" y2="145" stroke="#1a1a1a" stroke-width="1.2"/>
+  <line x1="43" y1="415" x2="53" y2="415" stroke="#1a1a1a" stroke-width="1.2"/>
+  <text x="38" y="284" text-anchor="end" font-size="14" font-weight="bold" fill="#1a1a1a">H</text>
+
+  <!-- Dimension line H-h (Gas Height) at x=90 -->
+  <line x1="90" y1="145" x2="90" y2="265" stroke="#1a1a1a" stroke-width="1.2"/>
+  <line x1="85" y1="145" x2="95" y2="145" stroke="#1a1a1a" stroke-width="1.2"/>
+  <line x1="85" y1="265" x2="95" y2="265" stroke="#1a1a1a" stroke-width="1.2"/>
+  <text x="82" y="210" text-anchor="end" font-size="12" font-weight="bold" fill="#1a1a1a">H − h</text>
+
+  <!-- Dimension line h (Liquid Height) at x=90 -->
+  <line x1="90" y1="265" x2="90" y2="415" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="85" y1="415" x2="95" y2="415" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="82" y="345" text-anchor="end" font-size="13" font-weight="bold" fill="#2457d6">h</text>
+
+  <!-- Gas Phase Annotation Box -->
+  <line x1="250" y1="205" x2="285" y2="205" stroke="#6b7280" stroke-dasharray="2,2"/>
+  <text x="290" y="195" text-anchor="start" font-size="13" font-weight="bold" fill="#1a1a1a">Газова фаза (H−h)</text>
+  <text x="290" y="215" text-anchor="start" font-size="12" fill="#6b7280">Проникність: ε_gas ≈ ε_0</text>
+  <text x="290" y="233" text-anchor="start" font-size="12" font-weight="bold" fill="#2457d6">Ємність: C_gas</text>
+
+  <!-- Liquid Phase Annotation Box -->
+  <line x1="250" y1="340" x2="285" y2="340" stroke="#2457d6" stroke-dasharray="2,2"/>
+  <text x="290" y="335" text-anchor="start" font-size="13" font-weight="bold" fill="#1a1a1a">Рідка фаза (h)</text>
+  <text x="290" y="355" text-anchor="start" font-size="12" fill="#6b7280">Проникність: ε_liq = ε_r ε_0</text>
+  <text x="290" y="373" text-anchor="start" font-size="12" font-weight="bold" fill="#2457d6">Ємність: C_liquid</text>
+
+  <!-- Dimension line r (Inner radius) at y=448 -->
+  <line x1="200" y1="448" x2="214" y2="448" stroke="#1a1a1a" stroke-width="1.2"/>
+  <line x1="200" y1="444" x2="200" y2="452" stroke="#1a1a1a" stroke-width="1.2"/>
+  <line x1="214" y1="444" x2="214" y2="452" stroke="#1a1a1a" stroke-width="1.2"/>
+  <text x="207" y="460" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">r</text>
+
+  <!-- Dimension line R (Outer radius) at y=474 -->
+  <line x1="200" y1="474" x2="255" y2="474" stroke="#1a1a1a" stroke-width="1.2"/>
+  <line x1="200" y1="470" x2="200" y2="478" stroke="#1a1a1a" stroke-width="1.2"/>
+  <line x1="255" y1="470" x2="255" y2="478" stroke="#1a1a1a" stroke-width="1.2"/>
+  <text x="227" y="486" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">R</text>
+
+
+  <!-- Right Panel: Equivalent Circuit & Formula -->
+  <rect x="490" y="78" width="445" height="422" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="712" y="102" text-anchor="middle" font-size="15" font-weight="bold" fill="#1a1a1a">Еквівалентна схема та математична модель</text>
+
+  <!-- Sub-card 1: Circuit schematic -->
+  <rect x="505" y="118" width="415" height="150" rx="6" fill="#ffffff" stroke="#e2e8f0" stroke-width="1"/>
+  <text x="520" y="138" text-anchor="start" font-size="13" font-weight="bold" fill="#1a1a1a">Схема паралельного з'єднання ємностей</text>
+
+  <!-- Circuit Terminal A -->
+  <circle cx="540" cy="195" r="4" fill="#2457d6"/>
+  <text x="530" y="199" text-anchor="end" font-size="13" font-weight="bold" fill="#2457d6">A</text>
+  <line x1="544" y1="195" x2="575" y2="195" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Vertical Left Bus -->
+  <line x1="575" y1="165" x2="575" y2="225" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Top Branch: C_gas -->
+  <line x1="575" y1="165" x2="640" y2="165" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="640" y1="153" x2="640" y2="177" stroke="#1a1a1a" stroke-width="2.5"/>
+  <rect x="641" y="154" width="8" height="22" fill="#ffffff"/>
+  <line x1="650" y1="153" x2="650" y2="177" stroke="#1a1a1a" stroke-width="2.5"/>
+  <line x1="650" y1="165" x2="715" y2="165" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="645" y="146" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">C_gas</text>
+  <text x="645" y="190" text-anchor="middle" font-size="12" fill="#6b7280">(газ: H−h)</text>
+
+  <!-- Bottom Branch: C_liquid -->
+  <line x1="575" y1="225" x2="640" y2="225" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="640" y1="213" x2="640" y2="237" stroke="#2457d6" stroke-width="2.5"/>
+  <rect x="641" y="214" width="8" height="22" fill="#eaf0fd"/>
+  <line x1="650" y1="213" x2="650" y2="237" stroke="#2457d6" stroke-width="2.5"/>
+  <line x1="650" y1="225" x2="715" y2="225" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="645" y="208" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">C_liquid</text>
+  <text x="645" y="252" text-anchor="middle" font-size="12" fill="#6b7280">(рідина: h)</text>
+
+  <!-- Vertical Right Bus -->
+  <line x1="715" y1="165" x2="715" y2="225" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="715" y1="195" x2="750" y2="195" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Circuit Terminal B -->
+  <circle cx="750" cy="195" r="4" fill="#2457d6"/>
+  <text x="760" y="199" text-anchor="start" font-size="13" font-weight="bold" fill="#2457d6">B</text>
+
+  <!-- Equals Sign -->
+  <text x="785" y="199" text-anchor="start" font-size="18" font-weight="bold" fill="#1a1a1a">=</text>
+
+  <!-- Equivalent Capacitor C_total -->
+  <line x1="805" y1="195" x2="830" y2="195" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="830" y1="175" x2="830" y2="215" stroke="#2457d6" stroke-width="2.5"/>
+  <rect x="831" y="176" width="8" height="38" fill="#eaf0fd"/>
+  <line x1="840" y1="175" x2="840" y2="215" stroke="#2457d6" stroke-width="2.5"/>
+  <line x1="840" y1="195" x2="865" y2="195" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="835" y="165" text-anchor="middle" font-size="14" font-weight="bold" fill="#2457d6">C_total</text>
+  <text x="835" y="235" text-anchor="middle" font-size="12" fill="#1a1a1a">C_gas + C_liquid</text>
+
+  <!-- Sub-card 2: Formulas -->
+  <rect x="505" y="280" width="415" height="205" rx="6" fill="#ffffff" stroke="#e2e8f0" stroke-width="1"/>
+  <text x="520" y="302" text-anchor="start" font-size="13" font-weight="bold" fill="#1a1a1a">Розрахункові формули складових ємності</text>
+
+  <!-- Formula 1: C_gas -->
+  <text x="520" y="328" text-anchor="start" font-size="13" fill="#1a1a1a">C_gas = 2π·ε_0·ε_gas / ln(R/r) · (H − h)</text>
+
+  <!-- Formula 2: C_liquid -->
+  <text x="520" y="358" text-anchor="start" font-size="13" fill="#1a1a1a">C_liquid = 2π·ε_0·ε_liq / ln(R/r) · h</text>
+
+  <!-- Formula Separator Line -->
+  <line x1="520" y1="375" x2="905" y2="375" stroke="#cbd5e1" stroke-width="1" stroke-dasharray="3,3"/>
+
+  <!-- Formula Highlight Box: C(h) -->
+  <rect x="515" y="388" width="395" height="40" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="525" y="413" text-anchor="start" font-size="13" font-weight="bold" fill="#2457d6">C(h) = C_0 + [ 2π·ε_0·(ε_liq − ε_gas) / ln(R/r) ] · h</text>
+
+  <!-- Summary Lines -->
+  <text x="520" y="452" text-anchor="start" font-size="12" fill="#1a1a1a">Початкова ємність (порожній):</text>
+  <text x="725" y="452" text-anchor="start" font-size="12" font-weight="bold" fill="#475569">C_0 = 2π·ε_0·ε_gas·H / ln(R/r)</text>
+
+  <text x="520" y="474" text-anchor="start" font-size="12" font-weight="bold" fill="#27ae60">Залежність ємності C від рівня h — строго лінійна</text>
+</svg>

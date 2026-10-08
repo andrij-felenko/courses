@@ -1,0 +1,143 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-orange" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#d35400"/>
+    </marker>
+  </defs>
+
+  <!-- Canvas Background -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Header Section -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Діагностичні прапорці RDC у кадрі SPI та пороги виявлення</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Прив'язка прапорців LOS, DOS, LOT у регістрі статусу до апаратних несправностей резольвера</text>
+
+  <!-- Panel 1: SPI Status Register -->
+  <rect x="40" y="75" width="880" height="100" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="56" y="96" font-size="13" font-weight="bold" fill="#1a1a1a">СТАТУСНИЙ БАЙТ RDC (КАДР SPI):</text>
+  <text x="904" y="96" font-size="12" fill="#6b7280" text-anchor="end">Шина SPI: SCLK, CS, SDIO (Read Fault Register)</text>
+
+  <!-- Bit Cell 7: D7 FAULT -->
+  <rect x="56" y="108" width="98" height="52" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="105" y="125" font-size="11" fill="#6b7280" text-anchor="middle">D7</text>
+  <text x="105" y="146" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">FAULT</text>
+
+  <!-- Bit Cell 6: D6 LOT (Highlight Red) -->
+  <rect x="164" y="108" width="98" height="52" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="2"/>
+  <text x="213" y="125" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">D6</text>
+  <text x="213" y="146" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">LOT</text>
+
+  <!-- Bit Cell 5: D5 DOS (Highlight Orange) -->
+  <rect x="272" y="108" width="98" height="52" rx="6" fill="#fef5e7" stroke="#d35400" stroke-width="2"/>
+  <text x="321" y="125" font-size="11" font-weight="bold" fill="#d35400" text-anchor="middle">D5</text>
+  <text x="321" y="146" font-size="13" font-weight="bold" fill="#d35400" text-anchor="middle">DOS</text>
+
+  <!-- Bit Cell 4: D4 LOS (Highlight Red) -->
+  <rect x="380" y="108" width="98" height="52" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="2"/>
+  <text x="429" y="125" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">D4</text>
+  <text x="429" y="146" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">LOS</text>
+
+  <!-- Bit Cell 3: D3 PHASE -->
+  <rect x="488" y="108" width="98" height="52" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="537" y="125" font-size="11" fill="#6b7280" text-anchor="middle">D3</text>
+  <text x="537" y="146" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">PHASE</text>
+
+  <!-- Bit Cell 2: D2 FREQ -->
+  <rect x="596" y="108" width="98" height="52" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="645" y="125" font-size="11" fill="#6b7280" text-anchor="middle">D2</text>
+  <text x="645" y="146" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">FREQ</text>
+
+  <!-- Bit Cell 1: D1 PARITY -->
+  <rect x="704" y="108" width="98" height="52" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="753" y="125" font-size="11" fill="#6b7280" text-anchor="middle">D1</text>
+  <text x="753" y="146" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">PARITY</text>
+
+  <!-- Bit Cell 0: D0 READY -->
+  <rect x="812" y="108" width="98" height="52" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="861" y="125" font-size="11" fill="#6b7280" text-anchor="middle">D0</text>
+  <text x="861" y="146" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">READY</text>
+
+  <!-- Connecting Arrows from Register Bits to Cards -->
+  <!-- D6 (LOT) -> Card 1 -->
+  <path d="M 213 160 L 213 185 L 178 185 L 178 217" fill="none" stroke="#c0392b" stroke-width="2" stroke-dasharray="4 3" marker-end="url(#arr-red)"/>
+
+  <!-- D5 (DOS) -> Card 2 -->
+  <path d="M 321 160 L 321 195 L 480 195 L 480 217" fill="none" stroke="#d35400" stroke-width="2" stroke-dasharray="4 3" marker-end="url(#arr-orange)"/>
+
+  <!-- D4 (LOS) -> Card 3 -->
+  <path d="M 429 160 L 429 205 L 782 205 L 782 217" fill="none" stroke="#c0392b" stroke-width="2" stroke-dasharray="4 3" marker-end="url(#arr-red)"/>
+
+  <!-- CARD 1: LOT (Loss of Tracking) -->
+  <rect x="40" y="225" width="276" height="270" rx="8" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+  <rect x="40" y="225" width="276" height="38" rx="6" fill="#fdecea"/>
+  <text x="178" y="249" font-size="14" font-weight="bold" fill="#c0392b" text-anchor="middle">LOT (Bit D6) • Втрата відстеження</text>
+
+  <!-- Card 1 - Block A: Cause -->
+  <rect x="52" y="273" width="252" height="58" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="62" y="289" font-size="12" font-weight="bold" fill="#1a1a1a">Причина збою:</text>
+  <text x="62" y="306" font-size="11" fill="#1a1a1a">• Перевищення швидкості ω &gt; ω_макс</text>
+  <text x="62" y="321" font-size="11" fill="#1a1a1a">• Стрибок прискорення / розрив PLL</text>
+
+  <!-- Card 1 - Block B: Threshold -->
+  <rect x="52" y="341" width="252" height="64" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="62" y="357" font-size="12" font-weight="bold" fill="#c0392b">Критичний поріг (Threshold):</text>
+  <text x="62" y="374" font-size="11" fill="#1a1a1a">• Помилка кута: Δθ = |θ_вал - θ_RDC|</text>
+  <text x="62" y="391" font-size="11" font-weight="bold" fill="#c0392b">• Спрацювання: Δθ &gt; θ_thresh (1.0°)</text>
+
+  <!-- Card 1 - Block C: Action -->
+  <rect x="52" y="415" width="252" height="68" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="62" y="431" font-size="12" font-weight="bold" fill="#2457d6">Реакція драйвера МК:</text>
+  <text x="62" y="448" font-size="11" fill="#1a1a1a">• Скидання PI-регулятора кута</text>
+  <text x="62" y="465" font-size="11" fill="#1a1a1a">• Заборона оновлення позиції валу</text>
+
+
+  <!-- CARD 2: DOS (Degradation of Signal) -->
+  <rect x="342" y="225" width="276" height="270" rx="8" fill="#ffffff" stroke="#d35400" stroke-width="1.5"/>
+  <rect x="342" y="225" width="276" height="38" rx="6" fill="#fef5e7"/>
+  <text x="480" y="249" font-size="14" font-weight="bold" fill="#d35400" text-anchor="middle">DOS (Bit D5) • Деградація сигналу</text>
+
+  <!-- Card 2 - Block A: Cause -->
+  <rect x="354" y="273" width="252" height="58" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="364" y="289" font-size="12" font-weight="bold" fill="#1a1a1a">Причина збою:</text>
+  <text x="364" y="306" font-size="11" fill="#1a1a1a">• Падіння амплітуди збудження V_EXC</text>
+  <text x="364" y="321" font-size="11" fill="#1a1a1a">• Дисбаланс обмоток / знос ізоляції</text>
+
+  <!-- Card 2 - Block B: Threshold -->
+  <rect x="354" y="341" width="252" height="64" rx="4" fill="#fef5e7" stroke="#d35400" stroke-width="1"/>
+  <text x="364" y="357" font-size="12" font-weight="bold" fill="#d35400">Критичний поріг (Threshold):</text>
+  <text x="364" y="374" font-size="11" fill="#1a1a1a">• Вектор: V_mag = √(V_sin² + V_cos²)</text>
+  <text x="364" y="391" font-size="11" font-weight="bold" fill="#d35400">• Відхилення V_mag &gt; ±20% від норми</text>
+
+  <!-- Card 2 - Block C: Action -->
+  <rect x="354" y="415" width="252" height="68" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="364" y="431" font-size="12" font-weight="bold" fill="#2457d6">Реакція драйвера МК:</text>
+  <text x="364" y="448" font-size="11" fill="#1a1a1a">• Сигнал раннього попередження</text>
+  <text x="364" y="465" font-size="11" fill="#1a1a1a">• Перехід у Derating (зниження I_max)</text>
+
+
+  <!-- CARD 3: LOS (Loss of Signal) -->
+  <rect x="644" y="225" width="276" height="270" rx="8" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+  <rect x="644" y="225" width="276" height="38" rx="6" fill="#fdecea"/>
+  <text x="782" y="249" font-size="14" font-weight="bold" fill="#c0392b" text-anchor="middle">LOS (Bit D4) • Втрата сигналу</text>
+
+  <!-- Card 3 - Block A: Cause -->
+  <rect x="656" y="273" width="252" height="58" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="666" y="289" font-size="12" font-weight="bold" fill="#1a1a1a">Причина збою:</text>
+  <text x="666" y="306" font-size="11" fill="#1a1a1a">• Обрив кабелю SIN / COS / EXC</text>
+  <text x="666" y="321" font-size="11" fill="#1a1a1a">• КЗ сигнальних ліній на GND / VCC</text>
+
+  <!-- Card 3 - Block B: Threshold -->
+  <rect x="656" y="341" width="252" height="64" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="666" y="357" font-size="12" font-weight="bold" fill="#c0392b">Критичний поріг (Threshold):</text>
+  <text x="666" y="374" font-size="11" fill="#1a1a1a">• Напруга: V_mag = √(V_sin² + V_cos²)</text>
+  <text x="666" y="391" font-size="11" font-weight="bold" fill="#c0392b">• Спрацювання: V_mag &lt; 0.12 V</text>
+
+  <!-- Card 3 - Block C: Action -->
+  <rect x="656" y="415" width="252" height="68" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="666" y="431" font-size="12" font-weight="bold" fill="#c0392b">Реакція драйвера МК:</text>
+  <text x="666" y="448" font-size="11" fill="#1a1a1a">• Аварійне відключення ШІМ (High-Z)</text>
+  <text x="666" y="465" font-size="11" fill="#1a1a1a">• Активація захисту STO (Safe Torque)</text>
+</svg>

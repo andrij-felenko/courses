@@ -1,0 +1,158 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Принципова схема та перерозподіл магнітного потоку в LVDT</text>
+  <text x="480" y="54" text-anchor="middle" font-size="13" fill="#6b7280">Зсув феромагнітного осердя змінює взаємну індуктивність обмоток і фазу вихідної напруги</text>
+
+  <!-- Left Panel: Structural & Electrical Schematic -->
+  <rect x="24" y="75" width="444" height="440" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="36" y="90" width="420" height="32" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="246" y="111" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">1. Фізична та електрична схема LVDT</text>
+
+  <!-- Physical LVDT Coil Assembly Container -->
+  <rect x="36" y="135" width="420" height="160" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Secondary Coil S1 (Top and Bottom) -->
+  <rect x="52" y="150" width="96" height="32" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="100" y="171" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Вторинна S₁</text>
+
+  <rect x="52" y="248" width="96" height="32" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="100" y="269" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Вторинна S₁</text>
+
+  <!-- Primary Coil P (Top and Bottom) -->
+  <rect x="198" y="150" width="96" height="32" rx="3" fill="#2457d6" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="246" y="171" text-anchor="middle" font-size="12" font-weight="bold" fill="#ffffff">Первинна P</text>
+
+  <rect x="198" y="248" width="96" height="32" rx="3" fill="#2457d6" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="246" y="269" text-anchor="middle" font-size="12" font-weight="bold" fill="#ffffff">Первинна P</text>
+
+  <!-- Secondary Coil S2 (Top and Bottom) -->
+  <rect x="344" y="150" width="96" height="32" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="392" y="171" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Вторинна S₂</text>
+
+  <rect x="344" y="248" width="96" height="32" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="392" y="269" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Вторинна S₂</text>
+
+  <!-- Central Bore Tube -->
+  <rect x="44" y="192" width="404" height="46" fill="#f8fafc" stroke="#94a3b8" stroke-width="1" stroke-dasharray="4,3"/>
+
+  <!-- Core Inside Tube -->
+  <rect x="180" y="197" width="132" height="36" rx="4" fill="#475569" stroke="#1e293b" stroke-width="1.5"/>
+  <text x="246" y="219" text-anchor="middle" font-size="12" font-weight="bold" fill="#ffffff">Осердя (High-μ)</text>
+
+  <!-- Non-magnetic Push Rod -->
+  <rect x="312" y="212" width="128" height="6" fill="#94a3b8" rx="2"/>
+  <text x="376" y="206" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Шток (±x)</text>
+
+  <!-- Electrical Circuit Subpanel -->
+  <rect x="36" y="310" width="420" height="190" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="246" y="330" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Симетричне зустрічно-послідовне увімкнення</text>
+
+  <!-- Excitation Source Box -->
+  <rect x="52" y="344" width="140" height="48" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="122" y="363" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Збудження V_in</text>
+  <text x="122" y="381" text-anchor="middle" font-size="12" fill="#6b7280">V_in = V_m·sin(ωt)</text>
+
+  <!-- Output Voltage Box -->
+  <rect x="300" y="344" width="140" height="48" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="370" y="363" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Вихід V_out</text>
+  <text x="370" y="381" text-anchor="middle" font-size="12" fill="#1a1a1a">V_out = V_S1 - V_S2</text>
+
+  <!-- Wiring connections -->
+  <line x1="192" y1="368" x2="300" y2="368" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="3,3"/>
+
+  <!-- Equations Box -->
+  <rect x="52" y="404" width="388" height="84" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="64" y="424" font-size="12" font-weight="bold" fill="#1a1a1a">Електричні зв'язки та рівняння:</text>
+  <text x="64" y="444" font-size="12" fill="#1a1a1a">1. Індукція: V_S1 = M₁(x)·(di_P/dt),  V_S2 = M₂(x)·(di_P/dt)</text>
+  <text x="64" y="464" font-size="12" fill="#2457d6">2. Диференціальний вихід: V_out(x) = [M₁(x) - M₂(x)]·(di_P/dt)</text>
+  <text x="64" y="480" font-size="12" fill="#27ae60" font-weight="bold">3. Симетрія (x=0): M₁ = M₂ ⇒ V_S1 = V_S2 ⇒ V_out = 0 В</text>
+
+  <!-- Right Panel: Flux Redistribution & 3 Operating States -->
+  <rect x="492" y="75" width="444" height="440" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="504" y="90" width="420" height="32" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="714" y="111" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">2. Перерозподіл потоку та фаза V_out</text>
+
+  <!-- Card A: Null Position (x = 0) -->
+  <rect x="504" y="135" width="420" height="110" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="518" y="156" font-size="13" font-weight="bold" fill="#27ae60">Нульове положення (x = 0) — Баланс</text>
+
+  <!-- Card A Graphic: Centered Core -->
+  <rect x="518" y="172" width="28" height="28" rx="2" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="532" y="190" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">S₁</text>
+
+  <rect x="568" y="172" width="28" height="28" rx="2" fill="#2457d6"/>
+  <text x="582" y="190" text-anchor="middle" font-size="12" font-weight="bold" fill="#ffffff">P</text>
+
+  <rect x="618" y="172" width="28" height="28" rx="2" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="632" y="190" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">S₂</text>
+
+  <rect x="556" y="206" width="64" height="10" rx="2" fill="#475569"/>
+  <text x="588" y="230" text-anchor="middle" font-size="12" fill="#6b7280">Φ₁ = Φ₂</text>
+
+  <!-- Card A Text -->
+  <text x="670" y="174" font-size="12" fill="#1a1a1a">Магнітні потоки: Φ₁ = Φ₂</text>
+  <text x="670" y="194" font-size="12" fill="#1a1a1a">Амплітуди напруг: V_S1 = V_S2</text>
+  <rect x="670" y="206" width="240" height="26" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="790" y="223" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">V_out = 0 В (Нуль-орган)</text>
+
+  <!-- Card B: Shift Left (x < 0) -->
+  <rect x="504" y="260" width="420" height="110" rx="6" fill="white" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="518" y="281" font-size="13" font-weight="bold" fill="#2457d6">Зміщення ліворуч (x &lt; 0) — Перевага S₁</text>
+
+  <!-- Card B Graphic: Core Shifted Left -->
+  <rect x="518" y="297" width="28" height="28" rx="2" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="532" y="315" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">S₁</text>
+
+  <rect x="568" y="297" width="28" height="28" rx="2" fill="#2457d6"/>
+  <text x="582" y="315" text-anchor="middle" font-size="12" font-weight="bold" fill="#ffffff">P</text>
+
+  <rect x="618" y="297" width="28" height="28" rx="2" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="632" y="315" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">S₂</text>
+
+  <rect x="532" y="331" width="64" height="10" rx="2" fill="#475569"/>
+  <text x="588" y="355" text-anchor="middle" font-size="12" fill="#2457d6" font-weight="bold">Φ₁ &gt; Φ₂</text>
+
+  <!-- Card B Text -->
+  <text x="670" y="299" font-size="12" fill="#1a1a1a">Магнітні потоки: Φ₁ &gt; Φ₂</text>
+  <text x="670" y="319" font-size="12" fill="#1a1a1a">Амплітуди напруг: V_S1 &gt; V_S2</text>
+  <rect x="670" y="331" width="240" height="26" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="790" y="348" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">V_out в фазі з V_in (Δφ = 0°)</text>
+
+  <!-- Card C: Shift Right (x > 0) -->
+  <rect x="504" y="385" width="420" height="110" rx="6" fill="white" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="518" y="406" font-size="13" font-weight="bold" fill="#2457d6">Зміщення праворуч (x &gt; 0) — Перевага S₂</text>
+
+  <!-- Card C Graphic: Core Shifted Right -->
+  <rect x="518" y="422" width="28" height="28" rx="2" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="532" y="440" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">S₁</text>
+
+  <rect x="568" y="422" width="28" height="28" rx="2" fill="#2457d6"/>
+  <text x="582" y="440" text-anchor="middle" font-size="12" font-weight="bold" fill="#ffffff">P</text>
+
+  <rect x="618" y="422" width="28" height="28" rx="2" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="632" y="440" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">S₂</text>
+
+  <rect x="580" y="456" width="64" height="10" rx="2" fill="#475569"/>
+  <text x="588" y="480" text-anchor="middle" font-size="12" fill="#2457d6" font-weight="bold">Φ₁ &lt; Φ₂</text>
+
+  <!-- Card C Text -->
+  <text x="670" y="424" font-size="12" fill="#1a1a1a">Магнітні потоки: Φ₁ &lt; Φ₂</text>
+  <text x="670" y="444" font-size="12" fill="#1a1a1a">Амплітуди напруг: V_S1 &lt; V_S2</text>
+  <rect x="670" y="456" width="240" height="26" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="790" y="473" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">V_out у протифазі (Δφ = 180°)</text>
+</svg>

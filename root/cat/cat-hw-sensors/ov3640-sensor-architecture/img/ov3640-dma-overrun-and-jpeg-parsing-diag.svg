@@ -1,0 +1,128 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 530" width="960" height="530" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-gray" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Canvas background -->
+  <rect x="0" y="0" width="960" height="530" fill="#ffffff"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Діагностика переповнення DMA та перевірка маркерів JPEG (SOI / EOI)</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Контроль цілісності потоку OV3640: від буферизації DVP у SRAM до виявлення втрати маркерів</text>
+
+  <!-- Section 1: Upper Container (SRAM DMA Flow) -->
+  <rect x="25" y="75" width="910" height="170" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="45" y="98" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="start">1. Апаратний потік DVP → Контролер DMA → Буфер SRAM Host MCU</text>
+
+  <!-- Sub-block A: OV3640 Sensor -->
+  <rect x="45" y="115" width="160" height="110" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="125" y="136" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Сенсор OV3640</text>
+  <text x="125" y="154" font-size="11" fill="#1a1a1a" text-anchor="middle">Режим JPEG Output</text>
+  <text x="125" y="172" font-size="11" fill="#6b7280" text-anchor="middle">Сигнали: PCLK, HREF</text>
+  <text x="125" y="192" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">Потік 8-біт DVP</text>
+
+  <!-- Arrow OV3640 -> DMA -->
+  <line x1="205" y1="170" x2="255" y2="170" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="230" y="158" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">DVP Data</text>
+
+  <!-- Sub-block B: DMA Controller -->
+  <rect x="255" y="115" width="160" height="110" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="335" y="136" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Контролер DMA</text>
+  <text x="335" y="154" font-size="11" fill="#6b7280" text-anchor="middle">Запис без участі CPU</text>
+  <text x="335" y="172" font-size="11" fill="#6b7280" text-anchor="middle">Кільцевий буфер / FIFO</text>
+  <text x="335" y="192" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Авто-інкремент адреси</text>
+
+  <!-- Arrow DMA -> SRAM -->
+  <line x1="415" y1="170" x2="465" y2="170" stroke="#6b7280" stroke-width="2" marker-end="url(#arr-gray)"/>
+  <text x="440" y="158" font-size="11" fill="#6b7280" text-anchor="middle">DMA Write</text>
+
+  <!-- Sub-block C: SRAM Buffer -->
+  <rect x="465" y="115" width="455" height="110" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="480" y="134" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">Кільцевий SRAM буфер прийому (Розмір N байт)</text>
+
+  <!-- Slots inside SRAM -->
+  <!-- Slot 1: SOI -->
+  <rect x="475" y="146" width="70" height="48" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="510" y="164" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">SOI</text>
+  <text x="510" y="180" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">0xFFD8</text>
+
+  <!-- Slot 2: Payload -->
+  <rect x="550" y="146" width="95" height="48" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="597.5" y="164" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">JPEG Payload</text>
+  <text x="597.5" y="180" font-size="11" fill="#6b7280" text-anchor="middle">Байти кадрів</text>
+
+  <!-- Slot 3: EOI -->
+  <rect x="650" y="146" width="70" height="48" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="685" y="164" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">EOI</text>
+  <text x="685" y="180" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">0xFFD9</text>
+
+  <!-- Slot 4: Overrun Zone -->
+  <rect x="725" y="146" width="185" height="48" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4 3"/>
+  <text x="817.5" y="164" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">DMA Overrun Zone</text>
+  <text x="817.5" y="180" font-size="11" fill="#c0392b" text-anchor="middle">Перезапис / Втрата EOI</text>
+
+  <!-- Pointers under slots -->
+  <text x="510" y="210" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">▲ Старт</text>
+  <text x="685" y="210" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">▲ Фініш OK</text>
+  <text x="817.5" y="210" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">▲ Переповнення</text>
+
+  <!-- Section 2: Lower Split Containers -->
+  <!-- Left Panel: Scenario A -->
+  <rect x="25" y="260" width="445" height="250" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="45" y="283" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="start">Сценарій А: Валідація маркерів JPEG (Норма)</text>
+
+  <!-- Left Step 1 -->
+  <rect x="45" y="298" width="405" height="52" rx="5" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="60" y="316" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="start">1. Детекція початкового маркеру SOI (0xFFD8)</text>
+  <text x="60" y="336" font-size="11" fill="#1a1a1a" text-anchor="start">Виявлено 0xFFD8 на початку → Включення фіксації кадру (InFrame = 1)</text>
+
+  <line x1="247.5" y1="350" x2="247.5" y2="362" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <!-- Left Step 2 -->
+  <rect x="45" y="364" width="405" height="52" rx="5" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="60" y="382" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="start">2. Накопичення даних DMA у буфері SRAM</text>
+  <text x="60" y="402" font-size="11" fill="#1a1a1a" text-anchor="start">Потік записується безперервно. Маркери збережено в потоці</text>
+
+  <line x1="247.5" y1="416" x2="247.5" y2="428" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <!-- Left Step 3 -->
+  <rect x="45" y="430" width="405" height="66" rx="5" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="60" y="448" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="start">3. Детекція кінцевого маркеру EOI (0xFFD9) → УСПІХ</text>
+  <text x="60" y="468" font-size="11" fill="#1a1a1a" text-anchor="start">Знайдено 0xFFD9 в межах N байт → Перевірка цілісності OK</text>
+  <text x="60" y="484" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="start">Кадр передається до декодера / SD-карти (InFrame = 0)</text>
+
+  <!-- Right Panel: Scenario B -->
+  <rect x="490" y="260" width="445" height="250" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="510" y="283" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="start">Сценарій Б: Виявлення DMA Overrun та збоїв</text>
+
+  <!-- Right Step 1 -->
+  <rect x="510" y="298" width="405" height="52" rx="5" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+  <text x="525" y="316" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="start">1. Переповнення буфера / Затримка CPU</text>
+  <text x="525" y="336" font-size="11" fill="#1a1a1a" text-anchor="start">Лічильник досяг N байт без EOI АБО новий SOI раніше часу</text>
+
+  <line x1="712.5" y1="350" x2="712.5" y2="362" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+
+  <!-- Right Step 2 -->
+  <rect x="510" y="364" width="405" height="52" rx="5" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+  <text x="525" y="382" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="start">2. Діагностичний результат: DMA Overrun</text>
+  <text x="525" y="402" font-size="11" fill="#1a1a1a" text-anchor="start">Висока PCLK або мала SRAM → Перезапис даних / втрата EOI</text>
+
+  <line x1="712.5" y1="416" x2="712.5" y2="428" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+
+  <!-- Right Step 3 -->
+  <rect x="510" y="430" width="405" height="66" rx="5" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="525" y="448" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="start">3. Дія при аварії: Скидання DMA та Ресинхронізація</text>
+  <text x="525" y="468" font-size="11" fill="#1a1a1a" text-anchor="start">Аварійна зупинка DMA → Відкидання пошкодженого кадру</text>
+  <text x="525" y="484" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="start">Очищення буфера SRAM, очікування нового SOI (0xFFD8)</text>
+</svg>

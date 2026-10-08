@@ -1,0 +1,130 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Background Canvas -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Header & Subheader -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Амплітудно-частотна характеристика (АЧХ) IIR-фільтра високих частот</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Придушення постійного зсуву (DC) та залежність частоти зрізу f_c від коефіцієнта α</text>
+
+  <!-- Left Main Panel: Graph Area -->
+  <rect x="40" y="75" width="620" height="425" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Graph Plot Background -->
+  <rect x="110" y="120" width="520" height="280" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Horizontal Grid Lines -->
+  <line x1="110" y1="176" x2="630" y2="176" stroke="#e5e7eb" stroke-width="1" stroke-dasharray="3 3"/>
+  <line x1="110" y1="232" x2="630" y2="232" stroke="#e5e7eb" stroke-width="1" stroke-dasharray="3 3"/>
+  <line x1="110" y1="288" x2="630" y2="288" stroke="#e5e7eb" stroke-width="1" stroke-dasharray="3 3"/>
+  <line x1="110" y1="344" x2="630" y2="344" stroke="#e5e7eb" stroke-width="1" stroke-dasharray="3 3"/>
+
+  <!-- Cutoff Level -3 dB Line (Gain = 0.707) -->
+  <line x1="110" y1="202" x2="630" y2="202" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="4 4"/>
+  <text x="620" y="195" font-size="12" font-weight="bold" fill="#64748b" text-anchor="end">Рівень зрізу -3 дБ (K = 0.707)</text>
+
+  <!-- Vertical Grid Lines -->
+  <line x1="214" y1="120" x2="214" y2="400" stroke="#e5e7eb" stroke-width="1" stroke-dasharray="3 3"/>
+  <line x1="318" y1="120" x2="318" y2="400" stroke="#e5e7eb" stroke-width="1" stroke-dasharray="3 3"/>
+  <line x1="422" y1="120" x2="422" y2="400" stroke="#e5e7eb" stroke-width="1" stroke-dasharray="3 3"/>
+  <line x1="526" y1="120" x2="526" y2="400" stroke="#e5e7eb" stroke-width="1" stroke-dasharray="3 3"/>
+
+  <!-- Cutoff Frequency Vertical Projection Lines -->
+  <line x1="123" y1="202" x2="123" y2="400" stroke="#2457d6" stroke-width="1" stroke-dasharray="3 3"/>
+  <line x1="216" y1="202" x2="216" y2="400" stroke="#c0392b" stroke-width="1" stroke-dasharray="3 3"/>
+
+  <!-- Graph Curves -->
+  <!-- Curve 1: Recommended Filter (alpha = 0.995) -->
+  <path d="M 110 400 C 115 320, 118 240, 123.2 202 C 130 160, 145 135, 162 128.6 C 214 122, 318 120.6, 630 120" fill="none" stroke="#2457d6" stroke-width="3"/>
+
+  <!-- Curve 2: Aggressive Filter (alpha = 0.950) -->
+  <path d="M 110 400 C 140 330, 170 265, 216 202 C 260 165, 318 150, 422 135 C 526 128, 580 126, 630 125.6" fill="none" stroke="#c0392b" stroke-width="2.5" stroke-dasharray="5 3"/>
+
+  <!-- Cutoff Points Markers -->
+  <circle cx="123.2" cy="202" r="5" fill="#2457d6" stroke="white" stroke-width="2"/>
+  <circle cx="216" cy="202" r="5" fill="#c0392b" stroke="white" stroke-width="2"/>
+
+  <!-- Point Callouts -->
+  <text x="128" y="172" font-size="12" font-weight="bold" fill="#2457d6">f_c1 ≈ 13 Гц (α = 0.995)</text>
+  <text x="222" y="222" font-size="12" font-weight="bold" fill="#c0392b">f_c2 ≈ 102 Гц (α = 0.950)</text>
+
+  <!-- DC Offset Highlight Point & Callout -->
+  <circle cx="110" cy="400" r="6" fill="#c0392b" stroke="white" stroke-width="2"/>
+  <rect x="115" y="340" width="165" height="44" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="123" y="356" font-size="12" font-weight="bold" fill="#c0392b">DC Offset (0 Гц)</text>
+  <text x="123" y="374" font-size="12" fill="#1a1a1a">Повне придушення (K = 0)</text>
+  <path d="M 140 384 L 118 396" fill="none" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+
+  <!-- Axis Titles and Ticks -->
+  <text x="40" y="102" font-size="13" font-weight="bold" fill="#1a1a1a">Коефіцієнт передачі |H(f)|</text>
+
+  <!-- Y-axis Tick Labels -->
+  <text x="102" y="124" font-size="12" fill="#1a1a1a" text-anchor="end">1.0</text>
+  <text x="102" y="180" font-size="12" fill="#1a1a1a" text-anchor="end">0.8</text>
+  <text x="102" y="206" font-size="12" font-weight="bold" fill="#475569" text-anchor="end">0.707</text>
+  <text x="102" y="236" font-size="12" fill="#1a1a1a" text-anchor="end">0.6</text>
+  <text x="102" y="292" font-size="12" fill="#1a1a1a" text-anchor="end">0.4</text>
+  <text x="102" y="348" font-size="12" fill="#1a1a1a" text-anchor="end">0.2</text>
+  <text x="102" y="404" font-size="12" fill="#1a1a1a" text-anchor="end">0.0</text>
+
+  <!-- X-axis Tick Labels -->
+  <text x="110" y="420" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">0 Гц (DC)</text>
+  <text x="214" y="420" font-size="12" fill="#1a1a1a" text-anchor="middle">100</text>
+  <text x="318" y="420" font-size="12" fill="#1a1a1a" text-anchor="middle">200</text>
+  <text x="422" y="420" font-size="12" fill="#1a1a1a" text-anchor="middle">300</text>
+  <text x="526" y="420" font-size="12" fill="#1a1a1a" text-anchor="middle">400</text>
+  <text x="630" y="420" font-size="12" fill="#1a1a1a" text-anchor="middle">500</text>
+
+  <!-- X-axis Main Title -->
+  <text x="370" y="445" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Частота f (Гц)  [при частоті дискретизації f_s = 16 кГц]</text>
+
+  <!-- Graph Legend -->
+  <rect x="380" y="446" width="272" height="44" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="390" y1="458" x2="410" y2="458" stroke="#2457d6" stroke-width="3"/>
+  <text x="415" y="462" font-size="12" font-weight="bold" fill="#2457d6">α = 0.995 (f_c ≈ 13 Гц — оптимально)</text>
+  <line x1="390" y1="476" x2="410" y2="476" stroke="#c0392b" stroke-width="2.5" stroke-dasharray="4 2"/>
+  <text x="415" y="480" font-size="12" font-weight="bold" fill="#c0392b">α = 0.950 (f_c ≈ 102 Гц — зрізає баси)</text>
+
+  <!-- Right Panel: Formulas & Explanation -->
+  <rect x="675" y="75" width="265" height="425" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Block 1: Filter Equation -->
+  <rect x="685" y="85" width="245" height="32" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="807" y="106" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Рівняння IIR HPF 1-го порядку</text>
+
+  <rect x="685" y="123" width="245" height="42" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="807" y="141" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">y[n] = α · (y[n-1] + x[n] - x[n-1])</text>
+  <text x="807" y="157" font-size="12" fill="#6b7280" text-anchor="middle">x[n] — вхід I2S, y[n] — вихід без DC</text>
+
+  <!-- Block 2: Cutoff Frequency -->
+  <rect x="685" y="175" width="245" height="32" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="807" y="196" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Частота зрізу (f_c)</text>
+
+  <rect x="685" y="213" width="245" height="52" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="807" y="232" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">f_c ≈ (1 - α) · f_s / (2 · π)</text>
+  <text x="807" y="252" font-size="12" fill="#6b7280" text-anchor="middle">при f_s = 16 кГц, α = 0.995 → f_c ≈ 13 Гц</text>
+
+  <!-- Block 3: Key Takeaways -->
+  <rect x="685" y="275" width="245" height="213" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="697" y="295" font-size="13" font-weight="bold" fill="#1a1a1a">Властивості та рекомендації:</text>
+
+  <text x="697" y="318" font-size="12" font-weight="bold" fill="#c0392b">1. Придушення DC-зсуву (0 Гц):</text>
+  <text x="707" y="336" font-size="12" fill="#1a1a1a">При f = 0 Гц коефіцієнт K = 0.</text>
+  <text x="707" y="352" font-size="12" fill="#6b7280">Усуває зсув нуля MEMS-давача.</text>
+
+  <text x="697" y="378" font-size="12" font-weight="bold" fill="#2457d6">2. Вибір коефіцієнта α:</text>
+  <text x="707" y="396" font-size="12" fill="#1a1a1a">α = 0.99...0.999 забезпечує</text>
+  <text x="707" y="412" font-size="12" fill="#1a1a1a">низьку f_c без втрати басів.</text>
+
+  <text x="697" y="438" font-size="12" font-weight="bold" fill="#27ae60">3. Точність RMS і нормалізація:</text>
+  <text x="707" y="456" font-size="12" fill="#1a1a1a">Без DC offset обчислення RMS</text>
+  <text x="707" y="472" font-size="12" fill="#1a1a1a">відображає реальну енергію звуку.</text>
+</svg>

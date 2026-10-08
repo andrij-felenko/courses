@@ -1,0 +1,116 @@
+<svg viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Background Canvas -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Main Title & Subtitle -->
+  <text x="480" y="35" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Розсіювання потужності P_shunt та температурний дрейф шунта INA219</text>
+  <text x="480" y="57" font-size="13" fill="#6b7280" text-anchor="middle">Запас потужності (k_з ≥ 2) запобігає перегріву шунта та мінімізує похибку вимірювання ΔR/R</text>
+
+  <!-- LEFT PANEL: Power Dissipation P_shunt -->
+  <rect x="25" y="75" width="445" height="440" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="247" y="100" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Теплова потужність P_shunt = I² · R</text>
+  <text x="247" y="118" font-size="12" fill="#6b7280" text-anchor="middle">Залежність розсіювання від струму навантаження I_load</text>
+
+  <!-- Panel A Shaded Zones -->
+  <rect x="85" y="165" width="165" height="265" fill="#e9f7ef" opacity="0.7"/>
+  <rect x="250" y="165" width="85" height="265" fill="#fff8e7" opacity="0.7"/>
+  <rect x="335" y="165" width="100" height="265" fill="#fdecea" opacity="0.7"/>
+
+  <!-- Panel A Axes -->
+  <line x1="85" y1="430" x2="85" y2="155" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <line x1="85" y1="430" x2="445" y2="430" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="35" y="145" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">Потужність P_shunt (Вт)</text>
+  <text x="260" y="472" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Струм навантаження I_load (A)</text>
+
+  <!-- Panel A Reference Lines & Labels -->
+  <line x1="85" y1="230" x2="435" y2="230" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <text x="92" y="222" font-size="12" font-weight="bold" fill="#c0392b">P_nom (Межа потужності)</text>
+
+  <line x1="85" y1="330" x2="435" y2="330" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <text x="92" y="322" font-size="12" font-weight="bold" fill="#27ae60">P_робоча = P_nom / 2</text>
+
+  <line x1="250" y1="165" x2="250" y2="430" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <line x1="335" y1="165" x2="335" y2="430" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3,3"/>
+
+  <text x="85" y="448" font-size="12" fill="#6b7280" text-anchor="middle">0</text>
+  <text x="250" y="448" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">I_робочий</text>
+  <text x="335" y="448" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">I_nom</text>
+  <text x="425" y="448" font-size="12" fill="#6b7280" text-anchor="middle">I_max</text>
+
+  <!-- Panel A Curve -->
+  <path d="M 85 430 C 180 430, 250 350, 335 230 C 375 160, 400 165, 415 165" fill="none" stroke="#2457d6" stroke-width="3"/>
+
+  <!-- Panel A Points -->
+  <circle cx="250" cy="330" r="5" fill="#27ae60" stroke="white" stroke-width="2"/>
+  <text x="165" y="355" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="end">Точка A: k_з = 2</text>
+  <text x="165" y="371" font-size="12" fill="#27ae60" text-anchor="end">Безпечний режим</text>
+
+  <circle cx="335" cy="230" r="5" fill="#c0392b" stroke="white" stroke-width="2"/>
+  <text x="345" y="202" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="start">Точка B: k_з = 1</text>
+  <text x="345" y="218" font-size="12" fill="#c0392b" text-anchor="start">Межа нагріву</text>
+
+  <!-- Panel A Zone Labels -->
+  <text x="135" y="275" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">ОБЛАСТЬ БЕЗПЕКИ</text>
+  <text x="135" y="291" font-size="12" fill="#6b7280" text-anchor="middle">Низький самонагрів</text>
+
+  <text x="385" y="398" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">ПЕРЕГРІВ</text>
+  <text x="385" y="414" font-size="12" fill="#c0392b" text-anchor="middle">ΔT &gt; 75°C</text>
+
+  <text x="247" y="498" font-size="12" fill="#1a1a1a" text-anchor="middle">Рекомендація: P_nom ≥ 2 · P_max  (k_з ≥ 2)</text>
+
+
+  <!-- RIGHT PANEL: Resistance Thermal Drift ΔR/R -->
+  <rect x="490" y="75" width="445" height="440" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="712" y="100" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Температурний дрейф опору ΔR/R</text>
+  <text x="712" y="118" font-size="12" fill="#6b7280" text-anchor="middle">Порівняння шунта з запасом (k_з = 2) та без запасу (k_з = 1)</text>
+
+  <!-- Panel B Shaded Zones -->
+  <rect x="550" y="165" width="165" height="265" fill="#e9f7ef" opacity="0.7"/>
+  <rect x="715" y="165" width="85" height="265" fill="#fff8e7" opacity="0.7"/>
+  <rect x="800" y="165" width="100" height="265" fill="#fdecea" opacity="0.7"/>
+
+  <!-- Panel B Axes -->
+  <line x1="550" y1="430" x2="550" y2="155" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <line x1="550" y1="430" x2="910" y2="430" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="500" y="145" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">Дрейф опору ΔR/R (%)</text>
+  <text x="725" y="472" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Струм навантаження I_load (A)</text>
+
+  <!-- Panel B Reference Lines & Labels -->
+  <line x1="550" y1="370" x2="900" y2="370" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <text x="557" y="362" font-size="12" font-weight="bold" fill="#27ae60">Межа АЦП INA219 (0.1%)</text>
+
+  <line x1="550" y1="230" x2="900" y2="230" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <text x="557" y="222" font-size="12" font-weight="bold" fill="#c0392b">Критична похибка (1.0%)</text>
+
+  <line x1="715" y1="165" x2="715" y2="430" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <line x1="800" y1="165" x2="800" y2="430" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3,3"/>
+
+  <text x="550" y="448" font-size="12" fill="#6b7280" text-anchor="middle">0</text>
+  <text x="715" y="448" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">I_робочий</text>
+  <text x="800" y="448" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">I_nom</text>
+  <text x="890" y="448" font-size="12" fill="#6b7280" text-anchor="middle">I_max</text>
+
+  <!-- Panel B Curves -->
+  <!-- Green Curve: k_з = 2 -->
+  <path d="M 550 430 Q 715 395 880 360" fill="none" stroke="#27ae60" stroke-width="3"/>
+  <text x="640" y="412" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">k_з = 2: ΔR/R &lt; 0.05%</text>
+
+  <!-- Red Curve: k_з = 1 -->
+  <path d="M 550 430 Q 715 375 800 230 T 865 165" fill="none" stroke="#c0392b" stroke-width="3"/>
+  <text x="725" y="185" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="start">k_з = 1: дрейф &gt; 2%</text>
+  <text x="725" y="201" font-size="12" fill="#c0392b" text-anchor="start">Лавиноподібний нагрів</text>
+
+  <text x="712" y="498" font-size="12" fill="#1a1a1a" text-anchor="middle">Висновок: при k_з ≥ 2 похибка дрейфу залишається в межах 1 LSB</text>
+</svg>

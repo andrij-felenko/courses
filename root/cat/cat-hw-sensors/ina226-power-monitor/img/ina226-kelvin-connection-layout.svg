@@ -1,0 +1,134 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-orange" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#d97706"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-white" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#ffffff"/>
+    </marker>
+  </defs>
+
+  <!-- Canvas Background -->
+  <rect x="0" y="0" width="960" height="460" fill="#ffffff"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="30" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Підключення Кельвіна для монітора живлення INA226</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Знімання сигналів безпосередньо з площадок шунта усуває похибку від опору мідних доріжок</text>
+
+  <!-- ================= PANEL 1: INCORRECT (2-WIRE) ================= -->
+  <rect x="30" y="80" width="435" height="360" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+
+  <!-- Panel 1 Badge -->
+  <rect x="45" y="95" width="405" height="32" rx="4" fill="#c0392b"/>
+  <text x="247.5" y="116" font-size="13" font-weight="bold" fill="#ffffff" text-anchor="middle">Звичайне підключення (з похибкою на міді)</text>
+
+  <!-- Load Current Label -->
+  <text x="50" y="145" font-size="12" font-weight="bold" fill="#d97706" text-anchor="start">I_LOAD (струм навантаження)</text>
+
+  <!-- Power Line Segment 1 -->
+  <line x1="50" y1="175" x2="95" y2="175" stroke="#d97706" stroke-width="8" stroke-linecap="round" marker-end="url(#arr-orange)"/>
+
+  <!-- Parasitic Copper Resistance R_Cu1 -->
+  <rect x="95" y="163" width="40" height="24" rx="3" fill="#fef3c7" stroke="#b45309" stroke-width="1.5"/>
+  <text x="115" y="179" font-size="12" font-weight="bold" fill="#b45309" text-anchor="middle">R_Cu</text>
+
+  <!-- Power Line Segment 2 -->
+  <line x1="135" y1="175" x2="175" y2="175" stroke="#d97706" stroke-width="8" stroke-linecap="round" marker-end="url(#arr-orange)"/>
+
+  <!-- SMD Shunt & Pads -->
+  <rect x="175" y="160" width="35" height="30" rx="2" fill="#b45309"/>
+  <rect x="210" y="163" width="75" height="24" rx="3" fill="#374151" stroke="#1f2937" stroke-width="1.5"/>
+  <text x="247.5" y="179" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">R_SHUNT</text>
+  <rect x="285" y="160" width="35" height="30" rx="2" fill="#b45309"/>
+
+  <!-- Power Line Segment 3 -->
+  <line x1="320" y1="175" x2="360" y2="175" stroke="#d97706" stroke-width="8" stroke-linecap="round" marker-end="url(#arr-orange)"/>
+
+  <!-- Parasitic Copper Resistance R_Cu2 -->
+  <rect x="360" y="163" width="40" height="24" rx="3" fill="#fef3c7" stroke="#b45309" stroke-width="1.5"/>
+  <text x="380" y="179" font-size="12" font-weight="bold" fill="#b45309" text-anchor="middle">R_Cu</text>
+
+  <!-- Power Line Segment 4 -->
+  <line x1="400" y1="175" x2="445" y2="175" stroke="#d97706" stroke-width="8" stroke-linecap="round" marker-end="url(#arr-orange)"/>
+
+  <!-- Incorrect Sense Tapping Points & Traces -->
+  <circle cx="65" cy="175" r="4" fill="#c0392b"/>
+  <polyline points="65,175 65,250 157.5,250" fill="none" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="73" y="235" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="start">VIN+</text>
+
+  <circle cx="430" cy="175" r="4" fill="#c0392b"/>
+  <polyline points="430,175 430,250 337.5,250" fill="none" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="422" y="235" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="end">VIN-</text>
+
+  <!-- INA226 IC Box (Problem) -->
+  <rect x="157.5" y="240" width="180" height="85" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="2"/>
+  <text x="247.5" y="262" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">INA226 (АЦП)</text>
+  <text x="168" y="282" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="start">IN+</text>
+  <text x="327" y="282" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="end">IN-</text>
+  <text x="247.5" y="308" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">V_вимір = V_SHUNT + 2·V_Cu</text>
+
+  <!-- Panel 1 Summary Card -->
+  <rect x="45" y="340" width="405" height="85" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+  <text x="55" y="362" font-size="12" font-weight="bold" fill="#c0392b">❌ Похибка: спад напруги V_Cu додається до V_SHUNT</text>
+  <text x="55" y="384" font-size="12" fill="#1a1a1a">• Струм I_LOAD тече через ділянку знімання напруги</text>
+  <text x="55" y="406" font-size="12" fill="#6b7280">• Опір міді R_Cu змінюється від температури (похибка росте)</text>
+
+  <!-- ================= PANEL 2: CORRECT KELVIN TOPOLOGY ================= -->
+  <rect x="495" y="80" width="435" height="360" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+
+  <!-- Panel 2 Badge -->
+  <rect x="510" y="95" width="405" height="32" rx="4" fill="#27ae60"/>
+  <text x="712.5" y="116" font-size="13" font-weight="bold" fill="#ffffff" text-anchor="middle">4-провідна топологія Кельвіна (без похибки)</text>
+
+  <!-- Power Current Label & Pad Labels -->
+  <text x="510" y="145" font-size="12" font-weight="bold" fill="#d97706" text-anchor="start">I_LOAD</text>
+  <text x="605" y="145" font-size="12" fill="#6b7280" text-anchor="middle">Майданчик 1</text>
+  <text x="712.5" y="145" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Шунт</text>
+  <text x="820" y="145" font-size="12" fill="#6b7280" text-anchor="middle">Майданчик 2</text>
+
+  <!-- Power Copper Pours & Current Arrows -->
+  <rect x="510" y="160" width="60" height="36" rx="3" fill="#d97706"/>
+  <line x1="518" y1="178" x2="560" y2="178" stroke="#ffffff" stroke-width="3" marker-end="url(#arr-white)"/>
+
+  <rect x="575" y="156" width="60" height="44" rx="3" fill="#b45309" stroke="#78350f" stroke-width="1.5"/>
+
+  <!-- SMD Shunt Body -->
+  <rect x="635" y="162" width="155" height="32" rx="3" fill="#374151" stroke="#1f2937" stroke-width="1.5"/>
+  <text x="712.5" y="182" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">R_SHUNT (шунт)</text>
+
+  <rect x="790" y="156" width="60" height="44" rx="3" fill="#b45309" stroke="#78350f" stroke-width="1.5"/>
+
+  <rect x="855" y="160" width="60" height="36" rx="3" fill="#d97706"/>
+  <line x1="863" y1="178" x2="905" y2="178" stroke="#ffffff" stroke-width="3" marker-end="url(#arr-white)"/>
+
+  <!-- Kelvin Taps & Signal Traces -->
+  <circle cx="625" cy="195" r="4" fill="#27ae60" stroke="#ffffff" stroke-width="1"/>
+  <text x="615" y="218" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="end">Точка Кельвіна VIN+</text>
+  <polyline points="625,195 625,230 635,230 635,240" fill="none" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arr-green)"/>
+
+  <circle cx="800" cy="195" r="4" fill="#27ae60" stroke="#ffffff" stroke-width="1"/>
+  <text x="810" y="218" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="start">Точка Кельвіна VIN-</text>
+  <polyline points="800,195 800,230 790,230 790,240" fill="none" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arr-green)"/>
+
+  <!-- Differential Pair Label -->
+  <text x="712.5" y="225" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Диференціальна пара</text>
+
+  <!-- INA226 IC Box (Solution) -->
+  <rect x="615" y="240" width="195" height="85" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="2"/>
+  <text x="712.5" y="262" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">INA226 (АЦП)</text>
+  <text x="627" y="282" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="start">IN+</text>
+  <text x="798" y="282" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="end">IN-</text>
+  <text x="712.5" y="308" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">V_вимір = V_SHUNT</text>
+
+  <!-- Panel 2 Summary Card -->
+  <rect x="510" y="340" width="405" height="85" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="520" y="362" font-size="12" font-weight="bold" fill="#27ae60">✓ Точність 100%: спад V_Cu не впливає на вимірювання</text>
+  <text x="520" y="384" font-size="12" fill="#1a1a1a">• Сигнальні лінії знімають напругу безпосередньо з площадок</text>
+  <text x="520" y="406" font-size="12" fill="#6b7280">• Вхідний струм INA226 мізерний (I_SENSE ≈ 0 A)</text>
+</svg>

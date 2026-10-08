@@ -1,0 +1,158 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Canvas Background -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Схема підключення та обв'язки давача AHT20 (LGA-6)</text>
+  <text x="480" y="54" font-size="13" text-anchor="middle" fill="#6b7280">Керамічний фільтр 100 нФ біля VDD-GND та підтягувальні резистори Rp для надійної шини I²C</text>
+
+  <!-- Left Panel: Microcontroller -->
+  <rect x="30" y="75" width="180" height="440" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="120" y="100" font-size="14" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Мікроконтролер</text>
+  <text x="120" y="118" font-size="12" text-anchor="middle" fill="#6b7280">(I²C Master / MCU)</text>
+
+  <rect x="45" y="135" width="150" height="365" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  
+  <text x="175" y="194" font-size="12" font-weight="bold" text-anchor="end" fill="#1a1a1a">VDD</text>
+  <text x="175" y="218" font-size="12" text-anchor="end" fill="#6b7280">2.0 – 5.5 В</text>
+  <circle cx="195" cy="200" r="3.5" fill="#2457d6"/>
+
+  <text x="175" y="274" font-size="12" font-weight="bold" text-anchor="end" fill="#1a1a1a">SDA</text>
+  <text x="175" y="298" font-size="12" text-anchor="end" fill="#6b7280">(I²C Data)</text>
+  <circle cx="195" cy="280" r="3.5" fill="#2457d6"/>
+
+  <text x="175" y="354" font-size="12" font-weight="bold" text-anchor="end" fill="#1a1a1a">SCL</text>
+  <text x="175" y="378" font-size="12" text-anchor="end" fill="#6b7280">(I²C Clock)</text>
+  <circle cx="195" cy="360" r="3.5" fill="#2457d6"/>
+
+  <text x="175" y="434" font-size="12" font-weight="bold" text-anchor="end" fill="#1a1a1a">GND</text>
+  <text x="175" y="458" font-size="12" text-anchor="end" fill="#6b7280">0 В (Спільна)</text>
+  <circle cx="195" cy="440" r="3.5" fill="#2457d6"/>
+
+  <!-- Middle Panel: Circuit Schematic -->
+  <rect x="225" y="75" width="455" height="440" rx="8" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="452" y="100" font-size="14" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Принципова схема обв'язки AHT20</text>
+  
+  <!-- Highlight Box around Decoupling Filter Region (< 5 mm from sensor) -->
+  <rect x="420" y="135" width="105" height="335" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="4 3"/>
+  <text x="472" y="156" font-size="12" font-weight="bold" text-anchor="middle" fill="#27ae60">Фільтр VDD</text>
+  <text x="472" y="174" font-size="12" font-weight="bold" text-anchor="middle" fill="#27ae60">&lt; 5 мм</text>
+
+  <!-- AHT20 Chip IC -->
+  <rect x="540" y="135" width="125" height="335" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="602" y="165" font-size="14" font-weight="bold" text-anchor="middle" fill="#2457d6">AHT20</text>
+  <text x="602" y="181" font-size="12" text-anchor="middle" fill="#6b7280">LGA-6 (3×3 мм)</text>
+
+  <!-- AHT20 Pin Labels & Terminal Dots -->
+  <!-- Pin 2: VDD -->
+  <circle cx="540" cy="200" r="3.5" fill="#2457d6"/>
+  <text x="548" y="194" font-size="12" font-weight="bold" fill="#1a1a1a">2: VDD</text>
+
+  <!-- Pin 3: SDA -->
+  <circle cx="540" cy="280" r="3.5" fill="#2457d6"/>
+  <text x="548" y="274" font-size="12" font-weight="bold" fill="#1a1a1a">3: SDA</text>
+
+  <!-- Pin 5: SCL -->
+  <circle cx="540" cy="360" r="3.5" fill="#2457d6"/>
+  <text x="548" y="354" font-size="12" font-weight="bold" fill="#1a1a1a">5: SCL</text>
+
+  <!-- Pin 1: NC -->
+  <line x1="525" y1="400" x2="540" y2="400" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="2 2"/>
+  <circle cx="540" cy="400" r="3.5" fill="#6b7280"/>
+  <text x="548" y="394" font-size="12" font-weight="bold" fill="#6b7280">1: NC</text>
+
+  <!-- Pin 6: NC -->
+  <line x1="665" y1="400" x2="680" y2="400" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="2 2"/>
+  <circle cx="665" cy="400" r="3.5" fill="#6b7280"/>
+  <text x="657" y="394" font-size="12" font-weight="bold" text-anchor="end" fill="#6b7280">6: NC</text>
+
+  <!-- Pin 4: GND -->
+  <circle cx="665" cy="440" r="3.5" fill="#2457d6"/>
+  <text x="657" y="434" font-size="12" font-weight="bold" text-anchor="end" fill="#1a1a1a">4: GND</text>
+
+  <!-- Main Horizontal Wires -->
+  <!-- VDD Line -->
+  <line x1="195" y1="200" x2="540" y2="200" stroke="#2457d6" stroke-width="2"/>
+  <text x="235" y="188" font-size="12" font-weight="bold" fill="#2457d6">Лінія живлення VDD (2.0 – 5.5 В)</text>
+  <circle cx="270" cy="200" r="3" fill="#2457d6"/>
+  <circle cx="350" cy="200" r="3" fill="#2457d6"/>
+  <circle cx="440" cy="200" r="3" fill="#2457d6"/>
+
+  <!-- SDA Line -->
+  <line x1="195" y1="280" x2="540" y2="280" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="310" y="270" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">SDA</text>
+  <circle cx="270" cy="280" r="3" fill="#1a1a1a"/>
+
+  <!-- SCL Line -->
+  <line x1="195" y1="360" x2="540" y2="360" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="310" y="350" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">SCL</text>
+  <circle cx="350" cy="360" r="3" fill="#1a1a1a"/>
+
+  <!-- GND Line -->
+  <line x1="195" y1="440" x2="665" y2="440" stroke="#6b7280" stroke-width="2"/>
+  <text x="235" y="458" font-size="12" font-weight="bold" fill="#6b7280">Спільна шина заземлення GND (0 В)</text>
+  <circle cx="440" cy="440" r="3" fill="#6b7280"/>
+
+  <!-- Passive Components -->
+  <!-- Rp1 (Pull-up for SDA) -->
+  <line x1="270" y1="200" x2="270" y2="225" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="263" y="225" width="14" height="30" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="270" y1="255" x2="270" y2="280" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="255" y="236" font-size="12" font-weight="bold" text-anchor="end" fill="#1a1a1a">Rp1</text>
+  <text x="255" y="252" font-size="12" text-anchor="end" fill="#6b7280">4.7 кОм</text>
+
+  <!-- Rp2 (Pull-up for SCL) -->
+  <line x1="350" y1="200" x2="350" y2="225" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="343" y="225" width="14" height="30" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="350" y1="255" x2="350" y2="360" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="365" y="236" font-size="12" font-weight="bold" text-anchor="start" fill="#1a1a1a">Rp2</text>
+  <text x="365" y="252" font-size="12" text-anchor="start" fill="#6b7280">4.7 кОм</text>
+
+  <!-- Cdec (Decoupling Capacitor 100 nF) -->
+  <line x1="440" y1="200" x2="440" y2="230" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="428" y1="230" x2="452" y2="230" stroke="#27ae60" stroke-width="2.5"/>
+  <line x1="428" y1="238" x2="452" y2="238" stroke="#27ae60" stroke-width="2.5"/>
+  <line x1="440" y1="238" x2="440" y2="440" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="455" y="230" font-size="12" font-weight="bold" text-anchor="start" fill="#27ae60">Cdec</text>
+  <text x="455" y="246" font-size="12" font-weight="bold" text-anchor="start" fill="#27ae60">100 нФ</text>
+  <text x="455" y="262" font-size="12" text-anchor="start" fill="#6b7280">(кераміка)</text>
+
+  <!-- Right Panel: Rules & Recommendations -->
+  <rect x="695" y="75" width="235" height="440" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="812" y="100" font-size="14" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Вимоги до обв'язки та PCB</text>
+
+  <!-- Block 1: Power & Decoupling -->
+  <rect x="705" y="115" width="215" height="110" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="715" y="133" font-size="12" font-weight="bold" fill="#27ae60">1. Живлення та фільтр</text>
+  <text x="715" y="151" font-size="12" fill="#1a1a1a">• VDD = 2.0 В ... 5.5 В</text>
+  <text x="715" y="169" font-size="12" fill="#6b7280">  (типово 3.3 В)</text>
+  <text x="715" y="187" font-size="12" fill="#1a1a1a">• Cdec = 100 нФ (кераміка)</text>
+  <text x="715" y="205" font-size="12" font-weight="bold" fill="#27ae60">• Монтаж: &lt; 5 мм від VDD-GND</text>
+
+  <!-- Block 2: I2C Pull-ups -->
+  <rect x="705" y="237" width="215" height="120" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="715" y="255" font-size="12" font-weight="bold" fill="#2457d6">2. Підтягувальні Rp</text>
+  <text x="715" y="273" font-size="12" fill="#1a1a1a">• Номінал: Rp = 2.2 ... 10 кОм</text>
+  <text x="715" y="291" font-size="12" fill="#1a1a1a">• Залежить від Cbus та fSCL</text>
+  <text x="715" y="309" font-size="12" fill="#1a1a1a">• Стандартно: 4.7 кОм (100 кГц)</text>
+  <text x="715" y="327" font-size="12" fill="#6b7280">  (2.2 кОм для 400 кГц)</text>
+  <text x="715" y="345" font-size="12" fill="#6b7280">• Rp(max) = tr / (0.85 Cbus)</text>
+
+  <!-- Block 3: PCB & Thermal Isolation -->
+  <rect x="705" y="369" width="215" height="135" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="715" y="387" font-size="12" font-weight="bold" fill="#c0392b">3. Теплорозв'язка плати</text>
+  <text x="715" y="405" font-size="12" fill="#1a1a1a">• Прорізи/термомості у платі</text>
+  <text x="715" y="423" font-size="12" fill="#1a1a1a">• Віддалення від джерел тепла</text>
+  <text x="715" y="441" font-size="12" fill="#1a1a1a">• Захист від пилу та вологи</text>
+  <text x="715" y="459" font-size="12" font-weight="bold" fill="#c0392b">⚠ Самонагрів викривляє</text>
+  <text x="715" y="477" font-size="12" font-weight="bold" fill="#c0392b">  вимірювання T та RH!</text>
+</svg>

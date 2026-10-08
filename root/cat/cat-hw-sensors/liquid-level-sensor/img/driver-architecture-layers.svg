@@ -1,0 +1,169 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="540" viewBox="0 0 960 540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-accent" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-alert" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-success" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background Canvas -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Main Title and Subtitle -->
+  <text x="480" y="30" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Архітектура програмного драйвера давача рівня рідини</text>
+  <text x="480" y="52" text-anchor="middle" font-size="13" fill="#6b7280">Передача сирих даних АЦП через конвеєр фільтрації до API прикладного рівня</text>
+
+  <!-- COLUMN 1: Hardware & HAL -->
+  <rect x="24" y="72" width="206" height="444" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="127" y="96" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">1. Апаратний рівень</text>
+  <text x="127" y="112" text-anchor="middle" font-size="12" fill="#6b7280">(HAL / Збір даних)</text>
+
+  <!-- Box 1.1 -->
+  <rect x="38" y="128" width="178" height="74" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="127" y="146" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Первинні давачі</text>
+  <text x="127" y="164" text-anchor="middle" font-size="12" fill="#6b7280">П'єзо / Гідростатика</text>
+  <text x="127" y="182" text-anchor="middle" font-size="12" fill="#6b7280">Поплавок / Ультразвук</text>
+
+  <line x1="127" y1="202" x2="127" y2="220" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+
+  <!-- Box 1.2 -->
+  <rect x="38" y="226" width="178" height="74" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="127" y="244" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Модулі периферії</text>
+  <text x="127" y="262" text-anchor="middle" font-size="12" fill="#1a1a1a">ADC1_IN3 (Напруга)</text>
+  <text x="127" y="280" text-anchor="middle" font-size="12" fill="#1a1a1a">TIM_IC (Тривалість)</text>
+
+  <line x1="127" y1="300" x2="127" y2="318" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+
+  <!-- Box 1.3 -->
+  <rect x="38" y="324" width="178" height="74" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="127" y="342" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Кільцевий буфер DMA</text>
+  <text x="127" y="360" text-anchor="middle" font-size="12" fill="#1a1a1a">adc_raw_buffer[]</text>
+  <text x="127" y="378" text-anchor="middle" font-size="12" fill="#6b7280">Безперервний збір</text>
+
+  <line x1="127" y1="398" x2="127" y2="416" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-accent)"/>
+
+  <!-- Box 1.4 -->
+  <rect x="38" y="422" width="178" height="70" rx="6" fill="#ffffff" stroke="#2457d6" stroke-dasharray="4,3" stroke-width="1.5"/>
+  <text x="127" y="440" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Сирі відліки (Raw)</text>
+  <text x="127" y="458" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">uint16_t raw_adc</text>
+  <text x="127" y="476" text-anchor="middle" font-size="12" fill="#6b7280">Невідфільтровані</text>
+
+
+  <!-- COLUMN 2: DSP Filtering Pipeline -->
+  <rect x="259" y="72" width="206" height="444" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="362" y="96" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">2. Конвеєр обробки</text>
+  <text x="362" y="112" text-anchor="middle" font-size="12" fill="#6b7280">(Цифрова фільтрація)</text>
+
+  <!-- Box 2.1 -->
+  <rect x="273" y="128" width="178" height="96" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="362" y="146" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">1. Медіанна фільтрація</text>
+  <text x="362" y="164" text-anchor="middle" font-size="12" fill="#1a1a1a">Вікно вибірок N = 5..9</text>
+  <text x="362" y="182" text-anchor="middle" font-size="12" fill="#6b7280">Вилучення сплесків</text>
+  <text x="362" y="200" text-anchor="middle" font-size="12" fill="#6b7280">і імпульсних завад</text>
+
+  <line x1="362" y1="224" x2="362" y2="242" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-accent)"/>
+
+  <!-- Box 2.2 -->
+  <rect x="273" y="248" width="178" height="96" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="362" y="266" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">2. Рухоме середнє</text>
+  <text x="362" y="284" text-anchor="middle" font-size="12" fill="#1a1a1a">SMA / EMA усреднення</text>
+  <text x="362" y="302" text-anchor="middle" font-size="12" fill="#6b7280">Згладжування хвиль</text>
+  <text x="362" y="320" text-anchor="middle" font-size="12" fill="#6b7280">та коливань поверхні</text>
+
+  <line x1="362" y1="344" x2="362" y2="362" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-accent)"/>
+
+  <!-- Box 2.3 -->
+  <rect x="273" y="368" width="178" height="124" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="362" y="386" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">3. Темп. компенсація</text>
+  <text x="362" y="404" text-anchor="middle" font-size="12" fill="#1a1a1a">Корекція густини H(T)</text>
+  <text x="362" y="422" text-anchor="middle" font-size="12" fill="#1a1a1a">Калібрувальна таблиця</text>
+  <text x="362" y="440" text-anchor="middle" font-size="12" fill="#6b7280">Обчислення рівня H [мм]</text>
+  <text x="362" y="458" text-anchor="middle" font-size="12" fill="#6b7280">та об'єму V [м³ / л]</text>
+
+
+  <!-- COLUMN 3: Safety & Diagnostics -->
+  <rect x="494" y="72" width="206" height="444" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="597" y="96" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">3. Контроль станів</text>
+  <text x="597" y="112" text-anchor="middle" font-size="12" fill="#6b7280">(Безпека та діагностика)</text>
+
+  <!-- Box 3.1 -->
+  <rect x="508" y="128" width="178" height="96" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="597" y="146" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Захист сухого ходу</text>
+  <text x="597" y="164" text-anchor="middle" font-size="12" fill="#1a1a1a">Поріг H &lt; H_min</text>
+  <text x="597" y="182" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">EVT_DRY_RUN</text>
+  <text x="597" y="200" text-anchor="middle" font-size="12" fill="#6b7280">Захист насоса від збою</text>
+
+  <line x1="597" y1="224" x2="597" y2="242" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-alert)"/>
+
+  <!-- Box 3.2 -->
+  <rect x="508" y="248" width="178" height="96" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="597" y="266" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Контроль переповнення</text>
+  <text x="597" y="284" text-anchor="middle" font-size="12" fill="#1a1a1a">Поріг H &gt; H_max</text>
+  <text x="597" y="302" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">EVT_OVERFLOW</text>
+  <text x="597" y="320" text-anchor="middle" font-size="12" fill="#6b7280">Аварійний скид / сирена</text>
+
+  <line x1="597" y1="344" x2="597" y2="362" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+
+  <!-- Box 3.3 -->
+  <rect x="508" y="368" width="178" height="124" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="597" y="386" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Коди помилок API</text>
+  <text x="597" y="404" text-anchor="middle" font-size="12" fill="#c0392b">ERR_DISCONNECTED</text>
+  <text x="597" y="422" text-anchor="middle" font-size="12" fill="#c0392b">ERR_OUT_OF_RANGE</text>
+  <text x="597" y="440" text-anchor="middle" font-size="12" fill="#6b7280">Обрив сенсора / коротке</text>
+  <text x="597" y="458" text-anchor="middle" font-size="12" fill="#6b7280">замикання ліній АЦП</text>
+
+
+  <!-- COLUMN 4: Application API -->
+  <rect x="729" y="72" width="206" height="444" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="832" y="96" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">4. Прикладне API</text>
+  <text x="832" y="112" text-anchor="middle" font-size="12" fill="#6b7280">(Прикладний рівень)</text>
+
+  <!-- Box 4.1 -->
+  <rect x="743" y="128" width="178" height="96" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="832" y="146" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Конфігурація драйвера</text>
+  <text x="832" y="164" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">liquid_level_config_t</text>
+  <text x="832" y="182" text-anchor="middle" font-size="12" fill="#6b7280">Налаштування порогів,</text>
+  <text x="832" y="200" text-anchor="middle" font-size="12" fill="#6b7280">калібрування та періоду</text>
+
+  <line x1="832" y1="224" x2="832" y2="242" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-accent)"/>
+
+  <!-- Box 4.2 -->
+  <rect x="743" y="248" width="178" height="96" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="832" y="266" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">API зчитування</text>
+  <text x="832" y="284" text-anchor="middle" font-size="12" fill="#1a1a1a">liquid_level_read_m3()</text>
+  <text x="832" y="302" text-anchor="middle" font-size="12" fill="#1a1a1a">liquid_level_get_status()</text>
+  <text x="832" y="320" text-anchor="middle" font-size="12" fill="#6b7280">Отримання рівнів та стану</text>
+
+  <line x1="832" y1="344" x2="832" y2="362" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-success)"/>
+
+  <!-- Box 4.3 -->
+  <rect x="743" y="368" width="178" height="124" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="832" y="386" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Захисна автоматика</text>
+  <text x="832" y="404" text-anchor="middle" font-size="12" fill="#1a1a1a">Керування насосом</text>
+  <text x="832" y="422" text-anchor="middle" font-size="12" fill="#1a1a1a">Перекриття клапана</text>
+  <text x="832" y="440" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Подієві callbacks</text>
+  <text x="832" y="458" text-anchor="middle" font-size="12" fill="#6b7280">Надійний захист об'єкта</text>
+
+
+  <!-- Inter-column Flow Connectors -->
+  <!-- Col 1 to Col 2 -->
+  <text x="244.5" y="448" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">raw</text>
+  <line x1="230" y1="457" x2="251" y2="457" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-accent)"/>
+
+  <!-- Col 2 to Col 3 -->
+  <text x="479.5" y="421" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">filt</text>
+  <line x1="465" y1="430" x2="486" y2="430" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-accent)"/>
+
+  <!-- Col 3 to Col 4 -->
+  <text x="714.5" y="421" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">data</text>
+  <line x1="700" y1="430" x2="721" y2="430" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-accent)"/>
+
+</svg>

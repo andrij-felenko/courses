@@ -1,0 +1,103 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка на все полотно -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Часова послідовність вимірювань та усереднення INA226</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Прапор CVRF оновлюється після накопичення N_AVG зразків: T_conv = N_AVG × (T_SHUNT + T_BUS)</text>
+
+  <!-- Головна панель -->
+  <rect x="30" y="72" width="900" height="428" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Блок 1: Одиничний зразок -->
+  <rect x="48" y="88" width="864" height="122" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="65" y="110" font-size="14" font-weight="bold" fill="#2457d6">1. Структура одного зразка вимірювання (T_sample = T_SHUNT + T_BUS)</text>
+
+  <rect x="160" y="124" width="310" height="46" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="315" y="142" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Конверсія шунта (T_SHUNT)</text>
+  <text x="315" y="159" font-size="12" fill="#6b7280" text-anchor="middle">140 мкс ... 8.244 мс (регістр 00h [5:3])</text>
+
+  <rect x="490" y="124" width="310" height="46" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="645" y="142" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Конверсія шини (T_BUS)</text>
+  <text x="645" y="159" font-size="12" fill="#6b7280" text-anchor="middle">140 мкс ... 8.244 мс (регістр 00h [8:6])</text>
+
+  <!-- Розмірна лінія T_sample -->
+  <line x1="160" y1="182" x2="800" y2="182" stroke="#1a1a1a" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="160" y1="177" x2="160" y2="187" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="800" y1="177" x2="800" y2="187" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="480" y="201" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">T_sample = T_SHUNT + T_BUS (Тривалість одного зразка)</text>
+
+  <!-- Блок 2: Цикл усереднення -->
+  <rect x="48" y="224" width="864" height="128" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="65" y="244" font-size="14" font-weight="bold" fill="#2457d6">2. Накопичення N_AVG зразків у цифровому усереднювачі</text>
+
+  <rect x="65" y="258" width="105" height="44" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="117.5" y="275" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Зразок 1</text>
+  <text x="117.5" y="291" font-size="12" fill="#6b7280" text-anchor="middle">T_sample</text>
+
+  <line x1="170" y1="280" x2="187" y2="280" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <rect x="189" y="258" width="105" height="44" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="241.5" y="275" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Зразок 2</text>
+  <text x="241.5" y="291" font-size="12" fill="#6b7280" text-anchor="middle">T_sample</text>
+
+  <line x1="294" y1="280" x2="311" y2="280" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <rect x="313" y="258" width="45" height="44" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2,2"/>
+  <text x="335.5" y="285" font-size="14" font-weight="bold" fill="#6b7280" text-anchor="middle">...</text>
+
+  <line x1="358" y1="280" x2="375" y2="280" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <rect x="377" y="258" width="115" height="44" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="434.5" y="275" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Зразок N_AVG</text>
+  <text x="434.5" y="291" font-size="12" fill="#6b7280" text-anchor="middle">T_sample</text>
+
+  <line x1="492" y1="280" x2="538" y2="280" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <rect x="540" y="258" width="355" height="44" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="717.5" y="275" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Цифровий накопичувач / Суматор</text>
+  <text x="717.5" y="291" font-size="12" fill="#1a1a1a" text-anchor="middle">Обчислення середнього значення за N_AVG зразків</text>
+
+  <!-- Розмірна лінія T_conv -->
+  <line x1="65" y1="318" x2="492" y2="318" stroke="#1a1a1a" stroke-width="1"/>
+  <line x1="65" y1="313" x2="65" y2="323" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="492" y1="313" x2="492" y2="323" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="278.5" y="340" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Час накопичення T_conv = N_AVG × (T_SHUNT + T_BUS)</text>
+
+  <text x="717.5" y="340" font-size="12" fill="#6b7280" text-anchor="middle">N_AVG = 1, 4, 16, 64, 128, 256, 512, 1024 (00h [11:9])</text>
+
+  <!-- Блок 3: Результат та CVRF -->
+  <rect x="48" y="366" width="864" height="118" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="65" y="386" font-size="14" font-weight="bold" fill="#2457d6">3. Оновлення регістрів даних та активація прапора CVRF</text>
+
+  <rect x="65" y="402" width="250" height="60" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="190" y="423" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Запис результатів вимірювання</text>
+  <text x="190" y="440" font-size="12" fill="#1a1a1a" text-anchor="middle">Регістр 01h (Shunt Voltage)</text>
+  <text x="190" y="455" font-size="12" fill="#1a1a1a" text-anchor="middle">Регістр 02h (Bus Voltage)</text>
+
+  <line x1="315" y1="432" x2="355" y2="432" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <rect x="357" y="402" width="250" height="60" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="482" y="423" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Прапор CVRF = 1 (Ready)</text>
+  <text x="482" y="440" font-size="12" fill="#1a1a1a" text-anchor="middle">Mask/Enable Reg (06h, bit 3)</text>
+  <text x="482" y="455" font-size="12" fill="#6b7280" text-anchor="middle">Готовність нових даних</text>
+
+  <line x1="607" y1="432" x2="647" y2="432" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <rect x="649" y="402" width="245" height="60" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="771.5" y="423" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Сигнал переривання / Читання</text>
+  <text x="771.5" y="440" font-size="12" fill="#1a1a1a" text-anchor="middle">Низький рівень на виході ALERT</text>
+  <text x="771.5" y="455" font-size="12" fill="#6b7280" text-anchor="middle">Читання регістрів по I2C</text>
+</svg>

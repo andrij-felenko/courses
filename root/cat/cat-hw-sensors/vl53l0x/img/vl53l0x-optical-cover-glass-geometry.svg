@@ -1,0 +1,104 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Canvas Background -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Геометрія покривного скла та оптична перегородка VL53L0X</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Герметична перегородка в повітряному зазорі усуває оптичне наведення (crosstalk) на приймач</text>
+
+  <!-- PANEL 1: CORRECT ASSEMBLY -->
+  <rect x="30" y="75" width="435" height="365" rx="8" fill="#f4f6f8" stroke="#27ae60" stroke-width="2"/>
+  <rect x="45" y="88" width="405" height="30" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="247.5" y="108" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">ПРАВИЛЬНО: Перегородка щільно прилягає до скла</text>
+
+  <!-- Cover Glass P1 -->
+  <rect x="60" y="140" width="375" height="24" rx="2" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" opacity="0.9"/>
+  <text x="247.5" y="156" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Покривне скло (Cover Window)</text>
+
+  <!-- Barrier P1 -->
+  <rect x="235" y="164" width="25" height="111" fill="#1a1a1a"/>
+  <text x="225" y="235" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">Оптична</text>
+  <text x="225" y="250" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">перегородка</text>
+
+  <!-- Air Gap Indicator P1 -->
+  <line x1="415" y1="164" x2="415" y2="275" stroke="#6b7280" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="410" y1="164" x2="420" y2="164" stroke="#6b7280" stroke-width="1"/>
+  <line x1="410" y1="275" x2="420" y2="275" stroke="#6b7280" stroke-width="1"/>
+  <text x="420" y="223" font-size="12" fill="#6b7280" text-anchor="start">h_gap</text>
+
+  <!-- Module Substrate P1 -->
+  <rect x="60" y="275" width="375" height="70" rx="4" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="95" y="275" width="100" height="16" fill="#f4f6f8" stroke="#6b7280" stroke-width="1"/>
+  <rect x="130" y="278" width="30" height="10" fill="#2457d6" rx="1"/>
+  <text x="145" y="308" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">VCSEL (940 нм)</text>
+
+  <rect x="300" y="275" width="100" height="16" fill="#f4f6f8" stroke="#6b7280" stroke-width="1"/>
+  <rect x="335" y="278" width="30" height="10" fill="#27ae60" rx="1"/>
+  <text x="350" y="308" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">SPAD (Приймач)</text>
+  <text x="247.5" y="332" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Модуль VL53L0X (LGA)</text>
+
+  <!-- Rays P1 -->
+  <line x1="145" y1="275" x2="145" y2="105" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <line x1="350" y1="105" x2="350" y2="270" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <path d="M 145,275 L 190,164 L 235,205" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4,3" fill="none"/>
+  <circle cx="235" cy="205" r="3" fill="#c0392b"/>
+
+  <!-- Summary Box P1 -->
+  <rect x="45" y="365" width="405" height="58" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="247.5" y="388" font-size="12" fill="#1a1a1a" text-anchor="middle">• Світловий потік проникає лише крізь скло</text>
+  <text x="247.5" y="408" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">• Відсутнє паразитне наведення (Crosstalk = 0)</text>
+
+
+  <!-- PANEL 2: INCORRECT ASSEMBLY -->
+  <rect x="495" y="75" width="435" height="365" rx="8" fill="#f4f6f8" stroke="#c0392b" stroke-width="2"/>
+  <rect x="510" y="88" width="405" height="30" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="712.5" y="108" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">НЕПРАВИЛЬНО: Зазор між перегородкою та склом</text>
+
+  <!-- Cover Glass P2 -->
+  <rect x="525" y="140" width="375" height="24" rx="2" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" opacity="0.9"/>
+  <text x="712.5" y="156" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Покривне скло (Cover Window)</text>
+
+  <!-- Short Barrier P2 -->
+  <rect x="700" y="200" width="25" height="75" fill="#1a1a1a"/>
+
+  <!-- Gap Indicator P2 -->
+  <rect x="700" y="164" width="25" height="36" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <text x="732" y="182" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="start">Нещільний</text>
+  <text x="732" y="197" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="start">зазор</text>
+
+  <text x="590" y="225" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="end">Паразитне</text>
+  <text x="590" y="240" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="end">наведення</text>
+
+  <!-- Module Substrate P2 -->
+  <rect x="525" y="275" width="375" height="70" rx="4" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="560" y="275" width="100" height="16" fill="#f4f6f8" stroke="#6b7280" stroke-width="1"/>
+  <rect x="595" y="278" width="30" height="10" fill="#2457d6" rx="1"/>
+  <text x="610" y="308" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">VCSEL (940 нм)</text>
+
+  <rect x="765" y="275" width="100" height="16" fill="#f4f6f8" stroke="#6b7280" stroke-width="1"/>
+  <rect x="800" y="278" width="30" height="10" fill="#c0392b" rx="1"/>
+  <text x="815" y="308" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">SPAD (Приймач)</text>
+  <text x="712.5" y="332" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Модуль VL53L0X (LGA)</text>
+
+  <!-- Rays P2 -->
+  <line x1="610" y1="275" x2="610" y2="105" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <line x1="815" y1="105" x2="815" y2="270" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <path d="M 610,275 L 655,164 L 800,270" stroke="#c0392b" stroke-width="2" stroke-dasharray="5,3" fill="none" marker-end="url(#arr-red)"/>
+
+  <!-- Summary Box P2 -->
+  <rect x="510" y="365" width="405" height="58" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="712.5" y="388" font-size="12" fill="#1a1a1a" text-anchor="middle">• Світло відбивається від склопакета в SPAD</text>
+  <text x="712.5" y="408" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">• Викликає переповнення та хибні вимірювання</text>
+</svg>

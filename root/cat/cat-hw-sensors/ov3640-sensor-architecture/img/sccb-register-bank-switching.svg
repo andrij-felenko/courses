@@ -1,0 +1,150 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Background MUST be first child element -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Marker definitions -->
+  <defs>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="38" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Перемикання банок регістрів OV3640 через регістр 0xFF</text>
+  <text x="480" y="58" text-anchor="middle" font-size="13" fill="#6b7280">Запис номера сторінки в регістр 0xFF перемикає активну банку для наступних команд SCCB</text>
+
+  <!-- LEFT PANEL: SCCB Transactions -->
+  <rect x="30" y="80" width="420" height="410" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="240" y="105" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Послідовність передачі по шині SCCB</text>
+
+  <!-- Step 1 Container -->
+  <rect x="45" y="120" width="390" height="152" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="60" y="142" text-anchor="start" font-size="13" font-weight="bold" fill="#2457d6">Крок 1: Перемикання сторінки (Page Select)</text>
+  <text x="60" y="160" text-anchor="start" font-size="12" fill="#6b7280">Запис 0x01 у регістр 0xFF (Вибір Bank 1)</text>
+
+  <!-- Step 1 Byte Blocks -->
+  <!-- Phase 1: Device ID -->
+  <rect x="60" y="174" width="105" height="52" rx="4" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="112" y="195" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">ID: 0x78</text>
+  <text x="112" y="213" text-anchor="middle" font-size="12" fill="#6b7280">(Write)</text>
+
+  <!-- Phase 2: Reg Sub-address -->
+  <rect x="177" y="174" width="120" height="52" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="237" y="195" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Регістр: 0xFF</text>
+  <text x="237" y="213" text-anchor="middle" font-size="12" fill="#2457d6">(Bank Select)</text>
+
+  <!-- Phase 3: Data Value -->
+  <rect x="309" y="174" width="110" height="52" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="364" y="195" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Дані: 0x01</text>
+  <text x="364" y="213" text-anchor="middle" font-size="12" fill="#27ae60">(Page 1)</text>
+
+  <!-- Step 1 Status Bar -->
+  <rect x="60" y="236" width="359" height="26" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="239" y="253" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Покажчик сторінки в OV3640 стає 0x01</text>
+
+  <!-- Arrow between steps -->
+  <line x1="240" y1="272" x2="240" y2="293" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Step 2 Container -->
+  <rect x="45" y="298" width="390" height="176" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="60" y="320" text-anchor="start" font-size="13" font-weight="bold" fill="#2457d6">Крок 2: Запис даних у вибрану банку</text>
+  <text x="60" y="338" text-anchor="start" font-size="12" fill="#6b7280">Запис конфігурації у внутрішній регістр 0x12</text>
+
+  <!-- Step 2 Byte Blocks -->
+  <!-- Phase 1: Device ID -->
+  <rect x="60" y="352" width="105" height="52" rx="4" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="112" y="373" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">ID: 0x78</text>
+  <text x="112" y="391" text-anchor="middle" font-size="12" fill="#6b7280">(Write)</text>
+
+  <!-- Phase 2: Target Reg -->
+  <rect x="177" y="352" width="120" height="52" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="237" y="373" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Регістр: 0x12</text>
+  <text x="237" y="391" text-anchor="middle" font-size="12" fill="#2457d6">(DSP Ctrl)</text>
+
+  <!-- Phase 3: Data Value -->
+  <rect x="309" y="352" width="110" height="52" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="364" y="373" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Дані: 0x80</text>
+  <text x="364" y="391" text-anchor="middle" font-size="12" fill="#2457d6">(Val)</text>
+
+  <!-- Step 2 Status Bar (2 lines text) -->
+  <rect x="60" y="414" width="359" height="48" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="239" y="432" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Запис спрямовується в регістр 0x12 Банки 1</text>
+  <text x="239" y="450" text-anchor="middle" font-size="12" fill="#6b7280">(замість регістру 0x12 у Банці 0)</text>
+
+  <!-- RIGHT PANEL: Register Space -->
+  <rect x="470" y="80" width="460" height="410" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="700" y="105" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Карта банок регістрів сенсора OV3640</text>
+
+  <!-- Selector Reg 0xFF Container -->
+  <rect x="485" y="120" width="430" height="44" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="500" y="146" text-anchor="start" font-size="13" font-weight="bold" fill="#1a1a1a">Регістр вибору сторінки (Reg 0xFF):</text>
+  <rect x="795" y="127" width="115" height="30" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="852" y="146" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">0x01 (Bank 1)</text>
+
+  <!-- Bank 0 (Page 0x00) Container -->
+  <rect x="485" y="174" width="295" height="80" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="485" y="174" width="135" height="22" rx="4" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="552" y="189" text-anchor="middle" font-size="12" font-weight="bold" fill="#6b7280">Bank 0 (Page 0x00)</text>
+  <text x="630" y="189" text-anchor="start" font-size="12" fill="#6b7280">Тактування</text>
+
+  <!-- Bank 0 Regs -->
+  <rect x="495" y="204" width="105" height="40" rx="4" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="547" y="220" text-anchor="middle" font-size="12" font-weight="bold" fill="#6b7280">Reg 0x12</text>
+  <text x="547" y="236" text-anchor="middle" font-size="12" fill="#6b7280">(System)</text>
+
+  <rect x="608" y="204" width="162" height="40" rx="4" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="689" y="228" text-anchor="middle" font-size="12" fill="#6b7280">0x00...0xFE (Неактивні)</text>
+
+  <!-- Page 1 Selector Indicator Corridor Card -->
+  <rect x="795" y="174" width="120" height="80" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="855" y1="157" x2="855" y2="170" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="855" y="196" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">ВКАЗУЄ НА</text>
+  <text x="855" y="214" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">СТОРОНУ 1</text>
+  <text x="855" y="232" text-anchor="middle" font-size="12" fill="#27ae60">(Page 0x01)</text>
+  <line x1="855" y1="254" x2="855" y2="265" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- Bank 1 (Page 0x01) Container - ACTIVE -->
+  <rect x="485" y="269" width="430" height="110" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="2"/>
+  <rect x="485" y="269" width="155" height="24" rx="4" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="562" y="285" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Bank 1 (Page 0x01) ★</text>
+  <rect x="795" y="273" width="110" height="20" rx="3" fill="#e9f7ef"/>
+  <text x="850" y="287" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">АКТИВНА СТОРІНКА</text>
+  <text x="500" y="306" text-anchor="start" font-size="12" fill="#1a1a1a">Блок DSP, кодувальник JPEG, формати виходу</text>
+
+  <!-- Bank 1 Target Reg 0x12 -->
+  <rect x="500" y="316" width="190" height="52" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="595" y="336" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Reg 0x12 = 0x80</text>
+  <text x="595" y="354" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">← Модифіковано Кроком 2</text>
+
+  <!-- Bank 1 Other Regs -->
+  <rect x="700" y="316" width="200" height="52" rx="4" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="800" y="336" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Регістри DSP / JPEG</text>
+  <text x="800" y="354" text-anchor="middle" font-size="12" fill="#6b7280">0x00...0xFE (Активні)</text>
+
+  <!-- Bank 2 (Page 0x02) Container -->
+  <rect x="485" y="389" width="430" height="85" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="485" y="389" width="135" height="24" rx="4" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="552" y="405" text-anchor="middle" font-size="12" font-weight="bold" fill="#6b7280">Bank 2 (Page 0x02)</text>
+  <text x="630" y="405" text-anchor="start" font-size="12" fill="#6b7280">Масштабування (ISP Windowing) та кадрування</text>
+
+  <!-- Bank 2 Regs -->
+  <rect x="500" y="423" width="125" height="40" rx="4" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="562" y="439" text-anchor="middle" font-size="12" font-weight="bold" fill="#6b7280">Reg 0x12</text>
+  <text x="562" y="455" text-anchor="middle" font-size="12" fill="#6b7280">(ISP Scale)</text>
+
+  <rect x="635" y="423" width="265" height="40" rx="4" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="767" y="447" text-anchor="middle" font-size="12" fill="#6b7280">Регістри 0x00...0xFE (Неактивні)</text>
+
+  <!-- Inter-panel Connecting Lines -->
+  <!-- Line from Step 1 Data (0x01) to Reg 0xFF Value Box -->
+  <path d="M 419 200 C 450 200, 450 142, 477 142" fill="none" stroke="#27ae60" stroke-width="2" stroke-dasharray="5 3" marker-end="url(#arr-green)"/>
+
+  <!-- Line from Step 2 Target Reg 0x12 to Bank 1 Reg 0x12 -->
+  <path d="M 419 378 C 455 378, 455 342, 492 342" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+</svg>

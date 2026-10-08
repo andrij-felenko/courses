@@ -1,0 +1,219 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Canvas Background -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Header -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Аналоговий фронтенд (AFE) на перемикальних конденсаторах</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Вимірювання фемтофарадних змін ємності ΔC за допомогою протифазного тактування</text>
+
+  <!-- PANEL 1: MEMS & Excitation -->
+  <rect x="30" y="80" width="310" height="435" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="42" y="92" width="286" height="28" rx="5" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="185" y="111" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">1. Диференціальний MEMS-сенсор</text>
+
+  <!-- Excitation Voltage Sources -->
+  <!-- Top excitation source +V_exc (Phi_1) -->
+  <rect x="42" y="153" width="90" height="30" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="87" y="172" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">+V_exc (Φ₁)</text>
+  <line x1="132" y1="168" x2="165" y2="168" stroke="#2457d6" stroke-width="1.5"/>
+
+  <!-- Bottom excitation source -V_exc (Phi_2) -->
+  <rect x="42" y="261" width="90" height="30" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="87" y="280" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">-V_exc (Φ₂)</text>
+  <line x1="132" y1="276" x2="165" y2="276" stroke="#2457d6" stroke-width="1.5"/>
+
+  <!-- MEMS Structure Graphics -->
+  <!-- Top Stator (Fixed Plate 1) -->
+  <rect x="165" y="165" width="75" height="6" fill="#1a1a1a" rx="1"/>
+  <!-- Top Stator Anchor Hatch Marks -->
+  <line x1="175" y1="165" x2="170" y2="158" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="190" y1="165" x2="185" y2="158" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="205" y1="165" x2="200" y2="158" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="220" y1="165" x2="215" y2="158" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="250" y="168" font-size="12" fill="#1a1a1a" text-anchor="start">Статор 1</text>
+
+  <!-- Top Capacitance Label -->
+  <text x="202" y="192" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">C_s1 = C_0 + ΔC</text>
+
+  <!-- Rotor (Central Movable Electrode) -->
+  <text x="202" y="210" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Ротор (рухомий електрод)</text>
+  <rect x="155" y="218" width="95" height="7" fill="#2457d6" rx="2"/>
+
+  <!-- Displacement Indicator arrow -->
+  <line x1="140" y1="208" x2="140" y2="234" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="133" y="225" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="end">±Δx</text>
+
+  <!-- Bottom Capacitance Label -->
+  <text x="202" y="250" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">C_s2 = C_0 - ΔC</text>
+
+  <!-- Bottom Stator (Fixed Plate 2) -->
+  <rect x="165" y="273" width="75" height="6" fill="#1a1a1a" rx="1"/>
+  <!-- Bottom Stator Anchor Hatch Marks -->
+  <line x1="175" y1="279" x2="170" y2="286" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="190" y1="279" x2="185" y2="286" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="205" y1="279" x2="200" y2="286" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="220" y1="279" x2="215" y2="286" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="250" y="278" font-size="12" fill="#1a1a1a" text-anchor="start">Статор 2</text>
+
+  <!-- Central Sense Line exiting Rotor -->
+  <line x1="250" y1="221" x2="325" y2="221" stroke="#2457d6" stroke-width="2"/>
+  <circle cx="250" cy="221" r="3.5" fill="#2457d6"/>
+
+  <!-- Parasitic Capacitance C_p representation -->
+  <line x1="290" y1="221" x2="290" y2="242" stroke="#6b7280" stroke-width="1" stroke-dasharray="3,3"/>
+  <!-- C_p Capacitor Symbol -->
+  <line x1="282" y1="242" x2="298" y2="242" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="282" y1="248" x2="298" y2="248" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="290" y1="248" x2="290" y2="265" stroke="#6b7280" stroke-width="1" stroke-dasharray="3,3"/>
+  <!-- GND for C_p -->
+  <line x1="282" y1="265" x2="298" y2="265" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="285" y1="269" x2="295" y2="269" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="288" y1="273" x2="292" y2="273" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="290" y="292" font-size="12" fill="#6b7280" text-anchor="middle">C_p (паразитна)</text>
+
+  <!-- Signal Flow Line to Panel 2 -->
+  <line x1="325" y1="221" x2="355" y2="221" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Waveform Box Panel 1 -->
+  <rect x="42" y="320" width="286" height="180" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="185" y="340" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Тактові сигнали збудження</text>
+
+  <!-- Waveform 1 (Phi_1) -->
+  <text x="52" y="365" font-size="12" fill="#2457d6">Φ₁ (+V_exc)</text>
+  <polyline points="140,370 160,370 160,355 190,355 190,370 230,370 230,355 260,355 260,370 300,370" fill="none" stroke="#2457d6" stroke-width="1.5"/>
+
+  <!-- Waveform 2 (Phi_2) -->
+  <text x="52" y="425" font-size="12" fill="#c0392b">Φ₂ (-V_exc)</text>
+  <polyline points="140,425 160,425 160,440 190,440 190,425 230,425 230,440 260,440 260,425 300,425" fill="none" stroke="#c0392b" stroke-width="1.5"/>
+
+  <text x="185" y="485" font-size="12" fill="#6b7280" text-anchor="middle">Протифазні імпульси регулюють заряд</text>
+
+  <!-- PANEL 2: Charge Amplifier -->
+  <rect x="360" y="80" width="290" height="435" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="372" y="92" width="266" height="28" rx="5" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="505" y="111" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">2. Підсилювач заряду (Charge Amp)</text>
+
+  <!-- OpAmp Wire Input -->
+  <line x1="355" y1="221" x2="415" y2="221" stroke="#2457d6" stroke-width="2"/>
+  <line x1="415" y1="221" x2="415" y2="200" stroke="#2457d6" stroke-width="2"/>
+  <line x1="415" y1="200" x2="440" y2="200" stroke="#2457d6" stroke-width="2"/>
+  <circle cx="415" cy="221" r="3.5" fill="#2457d6"/>
+  <circle cx="415" cy="200" r="3.5" fill="#2457d6"/>
+
+  <!-- OpAmp Symbol Triangle -->
+  <polygon points="440,175 440,265 515,220" fill="#ffffff" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="452" y="205" font-size="14" font-weight="bold" fill="#1a1a1a">-</text>
+  <text x="452" y="244" font-size="14" font-weight="bold" fill="#1a1a1a">+</text>
+
+  <!-- OpAmp Non-inverting Input (+): Connected to Bias/GND -->
+  <line x1="440" y1="240" x2="440" y2="265" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="432" y1="265" x2="448" y2="265" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="435" y1="269" x2="445" y2="269" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="438" y1="273" x2="442" y2="273" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="455" y="292" font-size="12" fill="#6b7280" text-anchor="middle">Віртуальна земля (V_bias)</text>
+
+  <!-- Feedback Branch: C_f (top) & Reset Switch S_rst (middle) -->
+  <!-- Upper Wire to C_f -->
+  <line x1="415" y1="200" x2="415" y2="140" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="415" y1="140" x2="470" y2="140" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="476" y1="140" x2="540" y2="140" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="540" y1="140" x2="540" y2="220" stroke="#2457d6" stroke-width="1.5"/>
+
+  <!-- Feedback Capacitor C_f -->
+  <line x1="470" y1="130" x2="470" y2="150" stroke="#2457d6" stroke-width="2"/>
+  <line x1="476" y1="130" x2="476" y2="150" stroke="#2457d6" stroke-width="2"/>
+  <text x="473" y="124" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">C_f</text>
+
+  <!-- Middle Wire to Reset Switch S_rst -->
+  <line x1="415" y1="170" x2="463" y2="170" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="463" cy="170" r="2.5" fill="#1a1a1a"/>
+  <!-- Switch blade (open/controlled) -->
+  <line x1="463" y1="170" x2="482" y2="162" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="485" cy="170" r="2.5" fill="#1a1a1a"/>
+  <line x1="485" y1="170" x2="540" y2="170" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="474" y="184" font-size="12" fill="#1a1a1a" text-anchor="middle">S_rst (Φ_rst)</text>
+
+  <!-- OpAmp Output Line -->
+  <line x1="515" y1="220" x2="550" y2="220" stroke="#2457d6" stroke-width="2"/>
+  <circle cx="540" cy="220" r="3.5" fill="#2457d6"/>
+
+  <!-- Signal Flow Line to Panel 3 -->
+  <line x1="550" y1="220" x2="655" y2="220" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Equations & Immunity Box Panel 2 -->
+  <rect x="372" y="320" width="266" height="180" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="505" y="340" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Фізичний принцип перетворення</text>
+  <text x="505" y="368" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Q_in = 2 · V_exc · ΔC</text>
+  <text x="505" y="394" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">V_amp = -2 · V_exc · (ΔC / C_f)</text>
+
+  <!-- Immunity Badge -->
+  <rect x="382" y="412" width="246" height="76" rx="5" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="505" y="432" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">✓ Нейтралізація паразитних C_p:</text>
+  <text x="505" y="450" font-size="12" fill="#1a1a1a" text-anchor="middle">Вхід V_in утримується біля 0 В,</text>
+  <text x="505" y="468" font-size="12" fill="#1a1a1a" text-anchor="middle">тому C_p не відбирає корисний заряд</text>
+
+  <!-- PANEL 3: Demodulation & LPF -->
+  <rect x="665" y="80" width="265" height="435" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="682" y="92" width="231" height="28" rx="5" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="797" y="111" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">3. Демодуляція та ФНЧ</text>
+
+  <!-- Synchronous Demodulator Switch -->
+  <line x1="655" y1="220" x2="695" y2="220" stroke="#2457d6" stroke-width="2"/>
+  <circle cx="695" cy="220" r="2.5" fill="#1a1a1a"/>
+  <!-- Switch blade -->
+  <line x1="695" y1="220" x2="715" y2="210" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="718" cy="220" r="2.5" fill="#1a1a1a"/>
+  <line x1="718" y1="220" x2="735" y2="220" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Switch Clock Control Line -->
+  <line x1="707" y1="162" x2="707" y2="210" stroke="#6b7280" stroke-width="1" stroke-dasharray="3,3" marker-end="url(#arr)"/>
+  <text x="707" y="152" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">ФКД (Φ_demod)</text>
+
+  <!-- LPF Resistor R_lpf -->
+  <line x1="735" y1="220" x2="745" y2="220" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="745" y="213" width="35" height="14" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="762" y="204" font-size="12" fill="#1a1a1a" text-anchor="middle">R_lpf</text>
+  <line x1="780" y1="220" x2="840" y2="220" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- LPF Capacitor C_lpf to GND -->
+  <circle cx="805" cy="220" r="3" fill="#1a1a1a"/>
+  <line x1="805" y1="220" x2="805" y2="242" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="797" y1="242" x2="813" y2="242" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="797" y1="248" x2="813" y2="248" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="805" y1="248" x2="805" y2="265" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="797" y1="265" x2="813" y2="265" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="800" y1="269" x2="810" y2="269" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="803" y1="273" x2="807" y2="273" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="820" y="248" font-size="12" fill="#1a1a1a" text-anchor="start">C_lpf</text>
+
+  <!-- Output Port -->
+  <line x1="840" y1="220" x2="855" y2="220" stroke="#2457d6" stroke-width="2"/>
+  <circle cx="855" cy="220" r="4" fill="#2457d6"/>
+  <text x="865" y="224" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="start">V_out ∝ ΔC</text>
+
+  <!-- Waveform Box Panel 3 -->
+  <rect x="682" y="320" width="231" height="180" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="797" y="340" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Форма вихідного сигналу</text>
+
+  <!-- Waveform 1: Modulated V_amp -->
+  <text x="692" y="365" font-size="12" fill="#6b7280">V_amp (змінна напруга)</text>
+  <polyline points="692,395 720,395 720,375 750,375 750,395 780,395 780,375 810,375 810,395 840,395" fill="none" stroke="#6b7280" stroke-width="1.5"/>
+
+  <!-- Waveform 2: Filtered V_out -->
+  <text x="692" y="425" font-size="12" fill="#27ae60">V_out (постійна напруга)</text>
+  <line x1="692" y1="450" x2="840" y2="450" stroke="#27ae60" stroke-width="2.5"/>
+
+  <text x="797" y="485" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">V_out = K · V_exc · (ΔC / C_f)</text>
+</svg>

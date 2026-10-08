@@ -1,0 +1,118 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Canvas Background -->
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="36" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Послідовність ініціалізації драйвера сенсора OV3640</text>
+  <text x="480" y="56" font-size="13" fill="#6b7280" text-anchor="middle">Алгоритм від Software Reset і перевірки CHIP ID до конфігурації регістрів через SCCB</text>
+
+  <!-- Row 1: Initialization State Flow -->
+
+  <!-- Step 1: Software Reset -->
+  <rect x="35" y="82" width="155" height="110" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="112.5" y="106" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">1. Software Reset</text>
+  <text x="112.5" y="130" font-size="12" fill="#1a1a1a" text-anchor="middle">Запис reg[0x3012]</text>
+  <text x="112.5" y="148" font-size="12" fill="#1a1a1a" text-anchor="middle">Встановлення 0x80</text>
+  <text x="112.5" y="166" font-size="12" fill="#6b7280" text-anchor="middle">Пауза ~5–10 мс</text>
+
+  <!-- Step 2: Read CHIP ID -->
+  <rect x="220" y="82" width="155" height="110" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="297.5" y="106" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">2. Читання ID</text>
+  <text x="297.5" y="130" font-size="12" fill="#1a1a1a" text-anchor="middle">Регістр 0x300A (High)</text>
+  <text x="297.5" y="148" font-size="12" fill="#1a1a1a" text-anchor="middle">Регістр 0x300B (Low)</text>
+  <text x="297.5" y="166" font-size="12" fill="#6b7280" text-anchor="middle">SCCB Read Transaction</text>
+
+  <!-- Step 3: Validate CHIP ID (Decision) -->
+  <rect x="405" y="82" width="150" height="110" rx="8" fill="#f4f6f8" stroke="#2457d6" stroke-width="2"/>
+  <text x="480" y="104" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">3. Валідація ID</text>
+  <rect x="415" y="116" width="130" height="30" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="480" y="136" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">ID == 0x3640 ?</text>
+  <text x="480" y="166" font-size="12" fill="#6b7280" text-anchor="middle">Ідентифікація чипа</text>
+
+  <!-- Step 4: Load Base Registers -->
+  <rect x="585" y="82" width="155" height="110" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="662.5" y="106" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">4. Базові регістри</text>
+  <text x="662.5" y="130" font-size="12" fill="#1a1a1a" text-anchor="middle">Масив reg_array</text>
+  <text x="662.5" y="148" font-size="12" fill="#1a1a1a" text-anchor="middle">Тактування &amp; PLL</text>
+  <text x="662.5" y="166" font-size="12" fill="#6b7280" text-anchor="middle">Матриця та DSP</text>
+
+  <!-- Step 5: Format & Start -->
+  <rect x="770" y="82" width="155" height="110" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <text x="847.5" y="106" font-size="14" font-weight="bold" fill="#27ae60" text-anchor="middle">5. Формат і Старт</text>
+  <text x="847.5" y="130" font-size="12" fill="#1a1a1a" text-anchor="middle">VGA / UXGA, YUV</text>
+  <text x="847.5" y="148" font-size="12" fill="#1a1a1a" text-anchor="middle">Активація потоку</text>
+  <text x="847.5" y="166" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">ГОТОВИЙ ДО РОБОТИ</text>
+
+  <!-- Row 1 Flow Arrows -->
+  <!-- 1 -> 2 -->
+  <line x1="190" y1="137" x2="220" y2="137" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <!-- 2 -> 3 -->
+  <line x1="375" y1="137" x2="405" y2="137" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <!-- 3 -> 4 (YES) -->
+  <line x1="555" y1="137" x2="585" y2="137" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="570" y="125" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">ТАК</text>
+  <!-- 4 -> 5 (OK) -->
+  <line x1="740" y1="137" x2="770" y2="137" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="755" y="125" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">ОК</text>
+
+  <!-- Connectors from Row 1 to Row 2 -->
+  <!-- Step 2 -> SCCB Panel -->
+  <line x1="260" y1="192" x2="205" y2="262" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4 4" marker-end="url(#arr-gray)"/>
+  <text x="255" y="230" font-size="12" fill="#6b7280" text-anchor="start">Зчитування</text>
+
+  <!-- Step 3 -> Error State (NO / NACK) -->
+  <line x1="480" y1="192" x2="480" y2="262" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="492" y="230" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="start">НІ / NACK</text>
+
+  <!-- Step 4 -> Register Config Panel -->
+  <line x1="700" y1="192" x2="755" y2="262" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4 4" marker-end="url(#arr-blue)"/>
+  <text x="675" y="230" font-size="12" fill="#2457d6" text-anchor="end">Запис банок</text>
+
+  <!-- Row 2: Technical Detail Panels -->
+
+  <!-- Panel 1: SCCB Protocol Details (Bottom Left) -->
+  <rect x="35" y="262" width="340" height="190" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="205" y="286" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Протокол керування та шина SCCB</text>
+  <text x="55" y="314" font-size="12" fill="#1a1a1a">• Адресація: 16-бітні адреси (0x3000–0x30FF)</text>
+  <text x="55" y="338" font-size="12" fill="#1a1a1a">• Перемикання банок: регістр 0x3004 / 0x3008</text>
+  <text x="55" y="362" font-size="12" fill="#1a1a1a">• Контроль квитування: обов'язковий ACK</text>
+  <text x="55" y="386" font-size="12" fill="#1a1a1a">• Помилки: NACK / Timeout зупиняє процес</text>
+  <rect x="55" y="404" width="300" height="30" rx="4" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="205" y="423" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">SCCB: 3-Phase Write / 2-Phase Read</text>
+
+  <!-- Panel 2: Error State (Bottom Middle) -->
+  <rect x="405" y="262" width="150" height="190" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="2"/>
+  <text x="480" y="286" font-size="14" font-weight="bold" fill="#c0392b" text-anchor="middle">СТАН ПОМИЛКИ</text>
+  <text x="480" y="310" font-size="12" fill="#1a1a1a" text-anchor="middle">Помилка CHIP ID</text>
+  <text x="480" y="328" font-size="12" fill="#1a1a1a" text-anchor="middle">або NACK шини</text>
+  <line x1="420" y1="340" x2="540" y2="340" stroke="#f5c6cb" stroke-width="1"/>
+  <text x="480" y="358" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Реакція драйвера:</text>
+  <text x="480" y="378" font-size="12" fill="#1a1a1a" text-anchor="middle">• Повтор запиту (3×)</text>
+  <text x="480" y="396" font-size="12" fill="#1a1a1a" text-anchor="middle">• Повернення -ENODEV</text>
+  <text x="480" y="414" font-size="12" fill="#1a1a1a" text-anchor="middle">• Аварійне вимкнення</text>
+
+  <!-- Panel 3: Configuration & Registers (Bottom Right) -->
+  <rect x="585" y="262" width="340" height="190" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="755" y="286" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Конфігураційні таблиці та режими</text>
+  <text x="605" y="314" font-size="12" fill="#1a1a1a">• Базовий масив: PLL, тактування, аналог</text>
+  <text x="605" y="338" font-size="12" fill="#1a1a1a">• Роздільність: UXGA, SVGA, VGA, CIF</text>
+  <text x="605" y="362" font-size="12" fill="#1a1a1a">• Вихідний формат: YUV422, RGB565, RAW</text>
+  <text x="605" y="386" font-size="12" fill="#1a1a1a">• Енергозбереження: Standby / Powerdown</text>
+  <rect x="605" y="404" width="300" height="30" rx="4" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="755" y="423" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Завантаження таблиць {reg_addr, val}</text>
+</svg>

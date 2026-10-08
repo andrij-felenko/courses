@@ -1,0 +1,143 @@
+<svg viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif" xmlns="http://www.w3.org/2000/svg">
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Header -->
+  <text x="480" y="30" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Інтегральний цифровий давач Холла (SS41F)</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Об'єднання елемента Холла, підсилювача та тригера Шмітта на одному кристалі</text>
+
+  <!-- VCC Pin (External Terminal Top Right) -->
+  <rect x="800" y="25" width="120" height="28" rx="4" fill="#2457d6"/>
+  <text x="860" y="44" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">VCC (+4.5…24V)</text>
+
+  <!-- Main Silicon Die Container -->
+  <rect x="100" y="85" width="760" height="330" rx="10" ry="10" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <text x="120" y="107" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="start">ЄДИНИЙ КРЕМНІЄВИЙ КРИСТАЛ ІМС (SILICON DIE)</text>
+
+  <!-- Voltage Regulator Block -->
+  <rect x="440" y="100" width="200" height="55" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="540" y="120" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Стабілізатор напруги</text>
+  <text x="540" y="138" font-size="12" fill="#6b7280" text-anchor="middle">(Регулятор живлення)</text>
+
+  <!-- Power Lines from VCC Pin and Regulator -->
+  <path d="M 860 53 L 860 127.5 L 640 127.5" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="745" y="120" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Живлення VCC</text>
+
+  <path d="M 440 127.5 L 195 127.5 L 195 190" fill="none" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr-blue)"/>
+  <path d="M 375 127.5 L 375 190" fill="none" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr-blue)"/>
+  <text x="290" y="120" font-size="12" fill="#2457d6" text-anchor="middle">Стабілізоване живлення</text>
+
+  <!-- External Input: Magnetic Field Vector B (Left of IC) -->
+  <text x="55" y="255" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Магнітне</text>
+  <text x="55" y="272" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">поле B</text>
+  <line x1="25" y1="285" x2="120" y2="285" stroke="#c0392b" stroke-width="2.5" stroke-dasharray="4,3" marker-end="url(#arr-red)"/>
+
+  <!-- BLOCK 1: Hall Element -->
+  <rect x="120" y="190" width="150" height="160" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="195" y="212" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">Елемент Холла</text>
+  <text x="195" y="228" font-size="12" fill="#2457d6" text-anchor="middle">(Hall Plate)</text>
+
+  <!-- Hall Plate Graphic Icon -->
+  <polygon points="195,242 215,258 195,274 175,258" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="175" y1="258" x2="215" y2="258" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="195" y="255" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">I</text>
+
+  <text x="195" y="308" font-size="12" fill="#1a1a1a" text-anchor="middle">Аналоговий сигнал:</text>
+  <text x="195" y="328" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">V_H ≈ 10–50 µV</text>
+
+  <!-- Connection 1: Hall -> Op-Amp -->
+  <line x1="270" y1="270" x2="300" y2="270" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="285" y="252" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">V_H</text>
+  <text x="285" y="292" font-size="12" fill="#6b7280" text-anchor="middle">~µV</text>
+
+  <!-- BLOCK 2: Differential Amplifier -->
+  <rect x="300" y="190" width="150" height="160" rx="8" fill="#ffffff" stroke="#d0d7de" stroke-width="2"/>
+  <text x="375" y="212" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Підсилювач</text>
+  <text x="375" y="228" font-size="12" fill="#6b7280" text-anchor="middle">(Diff Amp)</text>
+
+  <!-- Op-Amp Graphic Icon -->
+  <polygon points="345,242 345,292 405,267" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="352" y="254" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">+</text>
+  <text x="352" y="284" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">−</text>
+  <text x="375" y="271" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">K</text>
+
+  <text x="375" y="308" font-size="12" fill="#1a1a1a" text-anchor="middle">Підсилена напруга:</text>
+  <text x="375" y="328" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">V_AMP ≈ 0.5–3.5 V</text>
+
+  <!-- Connection 2: Op-Amp -> Schmitt Trigger -->
+  <line x1="450" y1="270" x2="480" y2="270" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+  <text x="465" y="252" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">V_AMP</text>
+  <text x="465" y="292" font-size="12" fill="#6b7280" text-anchor="middle">~V</text>
+
+  <!-- BLOCK 3: Schmitt Trigger -->
+  <rect x="480" y="190" width="150" height="160" rx="8" fill="#ffffff" stroke="#d0d7de" stroke-width="2"/>
+  <text x="555" y="212" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Тригер Шмітта</text>
+  <text x="555" y="228" font-size="12" fill="#6b7280" text-anchor="middle">(Schmitt Trigger)</text>
+
+  <!-- Schmitt Trigger Graphic Icon -->
+  <path d="M535,255 L552,255 L552,277 L575,277 M535,272 L558,272 L558,250 L575,250" fill="none" stroke="#2457d6" stroke-width="2"/>
+
+  <text x="555" y="308" font-size="12" fill="#1a1a1a" text-anchor="middle">Пороги спрацьовування:</text>
+  <text x="555" y="328" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">B_OP / B_RP</text>
+
+  <!-- Connection 3: Schmitt Trigger -> Output Driver -->
+  <line x1="630" y1="270" x2="660" y2="270" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="645" y="252" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Логіка</text>
+  <text x="645" y="292" font-size="12" fill="#6b7280" text-anchor="middle">0 / 1</text>
+
+  <!-- BLOCK 4: Output Driver (Open-Collector) -->
+  <rect x="660" y="190" width="150" height="160" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <text x="735" y="212" font-size="14" font-weight="bold" fill="#27ae60" text-anchor="middle">Вихідний каскад</text>
+  <text x="735" y="228" font-size="12" fill="#27ae60" text-anchor="middle">(Open-Collector)</text>
+
+  <!-- NPN Transistor Graphic Icon -->
+  <line x1="725" y1="245" x2="725" y2="280" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="710" y1="262.5" x2="725" y2="262.5" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="725" y1="252" x2="745" y2="240" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="745" y1="240" x2="745" y2="235" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="725" y1="273" x2="745" y2="285" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="745" y1="285" x2="745" y2="290" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="750" y="266" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="start">NPN</text>
+
+  <text x="735" y="308" font-size="12" fill="#1a1a1a" text-anchor="middle">Відкритий колектор:</text>
+  <text x="735" y="328" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">V_OUT (I_sink ≤ 20 mA)</text>
+
+  <!-- VOUT Pin (External Terminal Right) -->
+  <line x1="810" y1="270" x2="865" y2="270" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <rect x="865" y="256" width="75" height="28" rx="4" fill="#27ae60"/>
+  <text x="902.5" y="275" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">VOUT</text>
+
+  <!-- Ground Rail (Internal IC Die) -->
+  <line x1="120" y1="375" x2="810" y2="375" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <text x="120" y="368" font-size="12" fill="#6b7280" text-anchor="start">Спільна шина заземлення (GND)</text>
+
+  <!-- GND Pin Line & Terminal (Bottom External Terminal) -->
+  <line x1="465" y1="375" x2="465" y2="415" stroke="#6b7280" stroke-width="2" marker-end="url(#arr)"/>
+  <rect x="415" y="415" width="100" height="26" rx="4" fill="#6b7280"/>
+  <text x="465" y="432" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">GND (0V)</text>
+
+  <!-- Bottom Educational Summary Panel -->
+  <rect x="100" y="455" width="760" height="45" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="115" y="482" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">ЕВОЛЮЦІЯ СИГНАЛУ:</text>
+  <text x="240" y="482" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="start">1. B (Поле)</text>
+  <text x="315" y="482" font-size="12" fill="#6b7280" text-anchor="start">➔</text>
+  <text x="330" y="482" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="start">2. µV (Аналог)</text>
+  <text x="425" y="482" font-size="12" fill="#6b7280" text-anchor="start">➔</text>
+  <text x="440" y="482" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">3. V (Підсилений)</text>
+  <text x="555" y="482" font-size="12" fill="#6b7280" text-anchor="start">➔</text>
+  <text x="570" y="482" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="start">4. 0/1 (Цифровий)</text>
+</svg>

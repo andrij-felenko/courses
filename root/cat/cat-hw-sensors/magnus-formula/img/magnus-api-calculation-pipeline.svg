@@ -1,0 +1,161 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Markers -->
+  <defs>
+    <marker id="arr-black" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Title and Subtitle -->
+  <text x="480" y="38" font-size="17" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Пайплайн обчислювального API для формули Магнуса-Тетенса</text>
+  <text x="480" y="60" font-size="13" fill="#6b7280" text-anchor="middle">Перевірка даних, вибір структури коефіцієнтів та типів (Float32 / Q16.16) забезпечують безпечний розрахунок</text>
+
+  <!-- 1. Stage Panel 1: Вхідні дані -->
+  <rect x="30" y="82" width="195" height="388" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="127.5" y="103" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">1. ВХІДНІ ДАНІ</text>
+
+  <!-- Box 1A: Параметри -->
+  <rect x="42" y="118" width="171" height="122" fill="white" stroke="#2457d6" stroke-width="1.5" rx="4"/>
+  <rect x="42" y="118" width="171" height="24" fill="#eaf0fd" rx="4"/>
+  <text x="127.5" y="134" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Вхідні вимірювання</text>
+  <text x="52" y="158" font-size="12" fill="#1a1a1a">• Temp: T (°C)</text>
+  <text x="52" y="178" font-size="12" fill="#1a1a1a">• Humidity: RH (%)</text>
+  <text x="52" y="198" font-size="12" fill="#6b7280">• SHT3x / BME280</text>
+  <text x="52" y="218" font-size="12" fill="#6b7280">• Джерело: I2C / ADC</text>
+
+  <!-- Box 1B: Коефіцієнти -->
+  <rect x="42" y="254" width="171" height="202" fill="white" stroke="#2457d6" stroke-width="1.5" rx="4"/>
+  <rect x="42" y="254" width="171" height="24" fill="#eaf0fd" rx="4"/>
+  <text x="127.5" y="270" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">magnus_coeffs_t</text>
+  <text x="52" y="292" font-size="12" font-weight="bold" fill="#1a1a1a">Фазовий стан:</text>
+  <text x="52" y="310" font-size="12" fill="#1a1a1a">• Вода: T ≥ 0 °C</text>
+  <text x="52" y="328" font-size="12" fill="#6b7280">  a=17.625, b=243.04</text>
+  <text x="52" y="348" font-size="12" fill="#1a1a1a">• Лід: T &lt; 0 °C</text>
+  <text x="52" y="366" font-size="12" fill="#6b7280">  a=22.452, b=272.55</text>
+  <text x="52" y="388" font-size="12" font-weight="bold" fill="#1a1a1a">Константа пари:</text>
+  <text x="52" y="406" font-size="12" fill="#6b7280">  c = 6.1078 hPa</text>
+  <text x="52" y="426" font-size="12" fill="#6b7280">  [T_min, T_max]</text>
+
+  <!-- 2. Stage Panel 2: Валідація -->
+  <rect x="250" y="82" width="190" height="388" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="345" y="103" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">2. ВАЛІДАЦІЯ ТА БЕЗПЕКА</text>
+
+  <!-- Box 2A: Валідатор -->
+  <rect x="262" y="118" width="166" height="152" fill="white" stroke="#2457d6" stroke-width="1.5" rx="4"/>
+  <rect x="262" y="118" width="166" height="24" fill="#eaf0fd" rx="4"/>
+  <text x="345" y="134" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">magnus_validate()</text>
+  <text x="272" y="158" font-size="12" font-weight="bold" fill="#1a1a1a">Перевірка меж:</text>
+  <text x="272" y="178" font-size="12" fill="#1a1a1a">1. RH ∈ [0, 100] %</text>
+  <text x="272" y="198" font-size="12" fill="#1a1a1a">2. T ∈ [T_min, T_max]</text>
+  <text x="272" y="218" font-size="12" fill="#1a1a1a">3. Pointer != NULL</text>
+  <text x="272" y="244" font-size="12" font-weight="bold" fill="#27ae60">✓ Валідація ОК</text>
+
+  <!-- Box 2B: Помилка -->
+  <rect x="262" y="310" width="166" height="146" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" rx="4"/>
+  <rect x="262" y="310" width="166" height="24" fill="#f5c6cb" rx="4"/>
+  <text x="345" y="326" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Коди помилок</text>
+  <text x="272" y="350" font-size="12" font-weight="bold" fill="#c0392b">✗ Помилка даних:</text>
+  <text x="272" y="370" font-size="12" fill="#1a1a1a">• ERR_RH_RANGE</text>
+  <text x="272" y="390" font-size="12" fill="#1a1a1a">• ERR_TEMP_RANGE</text>
+  <text x="272" y="410" font-size="12" fill="#1a1a1a">• ERR_NULL_PTR</text>
+  <text x="272" y="432" font-size="12" fill="#6b7280">Зупинка розрахунку</text>
+
+  <!-- 3. Stage Panel 3: Обчислювальні ядра -->
+  <rect x="465" y="82" width="255" height="388" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="592.5" y="103" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">3. ОБЧИСЛЮВАЛЬНІ ЯДРА</text>
+
+  <!-- Box 3A: Float32 -->
+  <rect x="477" y="118" width="231" height="152" fill="white" stroke="#2457d6" stroke-width="1.5" rx="4"/>
+  <rect x="477" y="118" width="231" height="24" fill="#eaf0fd" rx="4"/>
+  <text x="592.5" y="134" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Float32 Engine (з FPU)</text>
+  <text x="487" y="158" font-size="12" fill="#1a1a1a">• magnus_dew_point_f32()</text>
+  <text x="487" y="178" font-size="12" fill="#1a1a1a">• magnus_sat_pressure_f32()</text>
+  <text x="487" y="198" font-size="12" fill="#1a1a1a">• magnus_abs_humidity_f32()</text>
+  <text x="487" y="222" font-size="12" fill="#27ae60">Точні значення (IEEE 754)</text>
+  <text x="487" y="242" font-size="12" fill="#6b7280">Потокобезпечна реалізація</text>
+
+  <!-- Box 3B: Q16.16 -->
+  <rect x="477" y="300" width="231" height="156" fill="white" stroke="#2457d6" stroke-width="1.5" rx="4"/>
+  <rect x="477" y="300" width="231" height="24" fill="#eaf0fd" rx="4"/>
+  <text x="592.5" y="316" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Fixed-Point Q16.16 (без FPU)</text>
+  <text x="487" y="340" font-size="12" fill="#1a1a1a">• magnus_dew_point_q16()</text>
+  <text x="487" y="360" font-size="12" fill="#1a1a1a">• magnus_sat_pressure_q16()</text>
+  <text x="487" y="380" font-size="12" fill="#1a1a1a">• magnus_abs_humidity_q16()</text>
+  <text x="487" y="404" font-size="12" fill="#27ae60">Швидкі LUT / int32_t</text>
+  <text x="487" y="424" font-size="12" fill="#6b7280">Детермінований час RTOS</text>
+
+  <!-- 4. Stage Panel 4: Результат та статус -->
+  <rect x="745" y="82" width="185" height="388" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="837.5" y="103" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">4. РЕЗУЛЬТАТ ТА СТАТУС</text>
+
+  <!-- Box 4A: Статус -->
+  <rect x="757" y="118" width="161" height="116" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="4"/>
+  <rect x="757" y="118" width="161" height="24" fill="#c3e6cb" rx="4"/>
+  <text x="837.5" y="134" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Статус повернення</text>
+  <text x="767" y="158" font-size="12" font-weight="bold" fill="#27ae60">✓ MAGNUS_OK</text>
+  <text x="767" y="178" font-size="12" fill="#1a1a1a">Код статусу: 0</text>
+  <text x="767" y="198" font-size="12" fill="#6b7280">Дані коректні</text>
+
+  <!-- Box 4B: Результати -->
+  <rect x="757" y="250" width="161" height="206" fill="white" stroke="#2457d6" stroke-width="1.5" rx="4"/>
+  <rect x="757" y="250" width="161" height="24" fill="#eaf0fd" rx="4"/>
+  <text x="837.5" y="266" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Результат розрахунку</text>
+  <text x="767" y="290" font-size="12" font-weight="bold" fill="#1a1a1a">1. Точка роси:</text>
+  <text x="767" y="308" font-size="12" fill="#2457d6">   Td (°C)</text>
+  <text x="767" y="328" font-size="12" font-weight="bold" fill="#1a1a1a">2. Тиск насичення:</text>
+  <text x="767" y="346" font-size="12" fill="#2457d6">   Es (hPa)</text>
+  <text x="767" y="366" font-size="12" font-weight="bold" fill="#1a1a1a">3. Абс. вологість:</text>
+  <text x="767" y="384" font-size="12" fill="#2457d6">   d (g/m³)</text>
+  <text x="767" y="408" font-size="12" fill="#6b7280">Передача у буфер</text>
+  <text x="767" y="426" font-size="12" fill="#6b7280">додатка / RTOS</text>
+
+  <!-- CONNECTORS -->
+  <!-- 1A -> 2A -->
+  <path d="M 213 178 L 254 178" stroke="#2457d6" stroke-width="1.5" fill="none" marker-end="url(#arr-blue)"/>
+  <text x="233.5" y="170" font-size="11" fill="#2457d6" text-anchor="middle">T, RH</text>
+
+  <!-- 1B -> 2A -->
+  <path d="M 213 340 L 235 340 L 235 220 L 254 220" stroke="#2457d6" stroke-width="1.5" fill="none" marker-end="url(#arr-blue)"/>
+  <text x="244" y="285" font-size="11" fill="#2457d6" text-anchor="start">cfg</text>
+
+  <!-- 2A -> 2B (Invalid) -->
+  <path d="M 345 270 L 345 302" stroke="#c0392b" stroke-width="1.5" fill="none" marker-end="url(#arr-red)"/>
+  <text x="353" y="291" font-size="11" font-weight="bold" fill="#c0392b">Невдача</text>
+
+  <!-- 2A -> Stage 3 (Success) -->
+  <path d="M 428 180 L 452 180" stroke="#27ae60" stroke-width="1.5" fill="none"/>
+  <text x="440" y="172" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">Успіх</text>
+
+  <!-- Split to 3A and 3B -->
+  <path d="M 452 180 L 469 180" stroke="#2457d6" stroke-width="1.5" fill="none" marker-end="url(#arr-blue)"/>
+  <path d="M 452 180 L 452 360 L 469 360" stroke="#2457d6" stroke-width="1.5" fill="none" marker-end="url(#arr-blue)"/>
+  <text x="442" y="270" font-size="10" fill="#2457d6" text-anchor="end">Q16.16</text>
+  <text x="460" y="168" font-size="10" fill="#2457d6" text-anchor="middle">Float32</text>
+
+  <!-- 3A -> 4A & 4B -->
+  <path d="M 708 176 L 749 176" stroke="#27ae60" stroke-width="1.5" fill="none" marker-end="url(#arr-green)"/>
+  <text x="728.5" y="168" font-size="10" fill="#27ae60" text-anchor="middle">OK</text>
+
+  <path d="M 708 220 L 730 220 L 730 320 L 749 320" stroke="#2457d6" stroke-width="1.5" fill="none" marker-end="url(#arr-blue)"/>
+  <text x="737" y="270" font-size="10" fill="#2457d6" text-anchor="start">float</text>
+
+  <!-- 3B -> 4B -->
+  <path d="M 708 380 L 749 380" stroke="#2457d6" stroke-width="1.5" fill="none" marker-end="url(#arr-blue)"/>
+  <text x="728.5" y="372" font-size="10" fill="#2457d6" text-anchor="middle">q16</text>
+
+  <!-- Error Path from 2B to Status Box 4A -->
+  <path d="M 345 456 L 345 492 L 837.5 492 L 837.5 242" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,3" fill="none" marker-end="url(#arr-red)"/>
+  <text x="591" y="487" font-size="10" fill="#c0392b" text-anchor="middle">Повернення коду помилки (Status != MAGNUS_OK)</text>
+</svg>

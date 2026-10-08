@@ -1,0 +1,112 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-left-blue" markerWidth="9" markerHeight="9" refX="0.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-left-red" markerWidth="9" markerHeight="9" refX="0.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-left-green" markerWidth="9" markerHeight="9" refX="0.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Header -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Часова діаграма паралельного інтерфейсу DVP (OV2640)</text>
+  <text x="480" y="60" font-size="13" fill="#6b7280" text-anchor="middle">Фіксація даних Y[9:2] за фронтом PCLK вимагає дотримання вікон t_setup та t_hold</text>
+
+  <!-- Section 1: Frame and Line Timing Panel -->
+  <rect x="30" y="75" width="900" height="190" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="8"/>
+  <text x="45" y="98" font-size="14" font-weight="bold" fill="#1a1a1a">1. Синхронізація кадрів (VSYNC) та рядків (HREF)</text>
+
+  <!-- Signal Labels Panel 1 -->
+  <text x="45" y="132" font-size="13" font-weight="bold" fill="#2457d6">VSYNC (Кадр)</text>
+  <text x="45" y="177" font-size="13" font-weight="bold" fill="#27ae60">HREF (Рядок)</text>
+  <text x="45" y="222" font-size="13" font-weight="bold" fill="#8e44ad">PCLK / Y[9:2]</text>
+
+  <!-- VSYNC Waveform -->
+  <path d="M 170 140 L 210 140 L 210 118 L 810 118 L 810 140 L 900 140" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+  <text x="510" y="110" font-size="12" fill="#2457d6" text-anchor="middle">Активний кадр (t_FRAME)</text>
+
+  <!-- HREF Waveform -->
+  <path d="M 170 185 L 230 185 L 230 160 L 480 160 L 480 185 L 530 185 L 530 160 L 780 160 L 780 185 L 900 185" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+  <text x="355" y="152" font-size="12" fill="#27ae60" text-anchor="middle">Активний рядок 1</text>
+  <text x="505" y="202" font-size="12" fill="#6b7280" text-anchor="middle">t_HBLANK</text>
+  <text x="655" y="152" font-size="12" fill="#27ae60" text-anchor="middle">Активний рядок 2</text>
+
+  <!-- PCLK / Data Bus Summary Waveform -->
+  <line x1="170" y1="230" x2="230" y2="230" stroke="#9ca3af" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <line x1="480" y1="230" x2="530" y2="230" stroke="#9ca3af" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <line x1="780" y1="230" x2="900" y2="230" stroke="#9ca3af" stroke-width="1.5" stroke-dasharray="4,4"/>
+
+  <rect x="230" y="218" width="250" height="24" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="4"/>
+  <text x="355" y="234" font-size="12" fill="#1a1a1a" text-anchor="middle">Передача байтів пікселів</text>
+
+  <rect x="530" y="218" width="250" height="24" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="4"/>
+  <text x="655" y="234" font-size="12" fill="#1a1a1a" text-anchor="middle">Передача байтів пікселів</text>
+
+
+  <!-- Section 2: Detailed Setup & Hold Timing Panel -->
+  <rect x="30" y="280" width="900" height="195" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="8"/>
+  <text x="45" y="298" font-size="14" font-weight="bold" fill="#1a1a1a">2. Стробування байта та часові вимоги (Setup &amp; Hold)</text>
+
+  <!-- Signal Labels Panel 2 -->
+  <text x="45" y="355" font-size="13" font-weight="bold" fill="#2457d6">PCLK (Тактовий)</text>
+  <text x="45" y="445" font-size="13" font-weight="bold" fill="#8e44ad">Y[9:2] (Дані)</text>
+
+  <!-- PCLK Detailed Waveform -->
+  <path d="M 170 375 L 220 375 L 220 335 L 370 335 L 370 375 L 520 375 L 520 335 L 670 335 L 670 375 L 820 375 L 820 335 L 900 335" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+
+  <!-- PCLK Period T_PCLK Dimension Line -->
+  <line x1="220" y1="322" x2="520" y2="322" stroke="#2457d6" stroke-width="1.2" marker-start="url(#arr-left-blue)" marker-end="url(#arr-blue)"/>
+  <text x="370" y="316" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">T_PCLK</text>
+
+  <!-- Active Sampling Edge Indicator at x=520 -->
+  <line x1="520" y1="335" x2="520" y2="465" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <circle cx="520" cy="355" r="4" fill="#c0392b"/>
+  <text x="520" y="316" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Фронт зчитування (Active Edge)</text>
+
+  <!-- Data Bus Y[9:2] Detailed Waveform -->
+  <!-- Byte N Hex Shape (x=190 to 470) -->
+  <polygon points="190,445 205,425 455,425 470,445 455,465 205,465" fill="#eaf0fd" stroke="#8e44ad" stroke-width="2"/>
+  <text x="330" y="449" font-size="13" font-weight="bold" fill="#8e44ad" text-anchor="middle">Байт N (Y0)</text>
+
+  <!-- Crossover transitions -->
+  <path d="M 455 425 L 485 465 M 455 465 L 485 425" fill="none" stroke="#8e44ad" stroke-width="1.5"/>
+  <path d="M 555 425 L 585 465 M 555 465 L 585 425" fill="none" stroke="#27ae60" stroke-width="1.5"/>
+
+  <!-- Byte N+1 Hex Shape (x=585 to 850) -->
+  <polygon points="585,445 600,425 835,425 850,445 835,465 600,465" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <text x="717" y="449" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Байт N+1 (U0)</text>
+
+  <!-- Setup Time Window Highlight (t_setup) -->
+  <rect x="485" y="385" width="35" height="80" fill="#fdecea" opacity="0.6" stroke="#c0392b" stroke-dasharray="2,2"/>
+  <line x1="485" y1="400" x2="520" y2="400" stroke="#c0392b" stroke-width="1.5" marker-start="url(#arr-left-red)" marker-end="url(#arr-red)"/>
+  <text x="502" y="395" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">t_setup</text>
+
+  <!-- Hold Time Window Highlight (t_hold) -->
+  <rect x="520" y="385" width="35" height="80" fill="#e9f7ef" opacity="0.6" stroke="#27ae60" stroke-dasharray="2,2"/>
+  <line x1="520" y1="400" x2="555" y2="400" stroke="#27ae60" stroke-width="1.5" marker-start="url(#arr-left-green)" marker-end="url(#arr-green)"/>
+  <text x="537" y="395" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">t_hold</text>
+
+
+  <!-- Section 3: Summary / Key Rules Footer -->
+  <rect x="30" y="485" width="900" height="55" fill="#e9f7ef" stroke="#27ae60" stroke-width="1" rx="6"/>
+  <text x="45" y="505" font-size="12" font-weight="bold" fill="#1e7e34">Правило надійної обробки відеопотоку DVP:</text>
+  <text x="45" y="525" font-size="12" fill="#1a1a1a">• t_setup: шина даних стабільна ДО активного фронту PCLK</text>
+  <text x="460" y="525" font-size="12" fill="#1a1a1a">• t_hold: шина даних утримується ПІСЛЯ активного фронту PCLK</text>
+</svg>

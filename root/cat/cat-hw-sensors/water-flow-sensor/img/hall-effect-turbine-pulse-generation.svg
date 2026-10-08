@@ -1,0 +1,180 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- White Background -->
+  <rect x="0" y="0" width="960" height="520" fill="#ffffff"/>
+
+  <!-- Definitions for Markers -->
+  <defs>
+    <marker id="arr-black" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Header -->
+  <text x="480" y="32" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Давач витрати води: безконтактне зчитування та генерація імпульсів</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Магнітна турбінка у воді + напівпровідниковий елемент Холла за герметичною стінкою</text>
+
+  <!-- LEFT PANEL: Mechanical Housing & Hall Sensing -->
+  <rect x="30" y="75" width="435" height="425" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="247" y="100" font-size="14" font-weight="700" fill="#1a1a1a" text-anchor="middle">1. Конструкція та магнітна розв'язка</text>
+
+  <!-- Dry Zone (Electronics) -->
+  <rect x="50" y="115" width="395" height="95" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="65" y="135" font-size="12" font-weight="700" fill="#6b7280">СУХА ЗОНА (Електроніка)</text>
+
+  <!-- Hall IC Block -->
+  <rect x="217" y="145" width="60" height="40" rx="4" fill="#1a1a1a"/>
+  <text x="247" y="169" font-size="12" font-weight="700" fill="#ffffff" text-anchor="middle">Hall IC</text>
+
+  <!-- Wires & Labels -->
+  <line x1="277" y1="153" x2="330" y2="153" stroke="#c0392b" stroke-width="2"/>
+  <text x="335" y="157" font-size="12" font-weight="700" fill="#c0392b">VCC (5В)</text>
+
+  <line x1="277" y1="165" x2="330" y2="165" stroke="#2457d6" stroke-width="2"/>
+  <text x="335" y="169" font-size="12" font-weight="700" fill="#2457d6">OUT (Імпульс)</text>
+
+  <line x1="277" y1="177" x2="330" y2="177" stroke="#6b7280" stroke-width="2"/>
+  <text x="335" y="181" font-size="12" font-weight="700" fill="#6b7280">GND (0В)</text>
+
+  <!-- Hall Element Label on Left -->
+  <text x="65" y="162" font-size="12" font-weight="700" fill="#2457d6">Елемент Холла</text>
+  <text x="65" y="178" font-size="12" fill="#6b7280">тригер Шмітта</text>
+
+  <!-- Solid Hermetic Wall -->
+  <rect x="50" y="215" width="395" height="26" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="247" y="232" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">Суцільна стінка корпусу (без валів, сальників і протікань)</text>
+
+  <!-- Water Flow Chamber -->
+  <rect x="50" y="246" width="395" height="240" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="65" y="266" font-size="12" font-weight="700" fill="#2457d6">ВОДЯНА КАМЕРА (Потік рідини)</text>
+
+  <!-- Flow Arrow & Label -->
+  <path d="M 65,300 L 145,300" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+  <text x="105" y="292" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">Потік Q (л/хв)</text>
+
+  <!-- Second Flow Arrow at bottom -->
+  <path d="M 65,465 L 145,465" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+  <text x="105" y="457" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">Вода G1/2″</text>
+
+  <!-- Turbine Rotor Center -->
+  <circle cx="247" cy="375" r="70" fill="none" stroke="#2457d6" stroke-width="1" stroke-dasharray="4,4"/>
+  <circle cx="247" cy="375" r="16" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="247" cy="375" r="4" fill="#1a1a1a"/>
+
+  <!-- Turbine Blades -->
+  <!-- Top Blade with Magnet -->
+  <rect x="241" y="295" width="12" height="64" fill="#d0d7de" stroke="#6b7280" stroke-width="1"/>
+  <!-- Magnet N/S on Top Blade -->
+  <rect x="237" y="272" width="20" height="12" fill="#c0392b" rx="1"/>
+  <text x="247" y="282" font-size="10" font-weight="700" fill="#ffffff" text-anchor="middle">N</text>
+  <rect x="237" y="284" width="20" height="12" fill="#2457d6" rx="1"/>
+  <text x="247" y="294" font-size="10" font-weight="700" fill="#ffffff" text-anchor="middle">S</text>
+
+  <!-- Magnet Label -->
+  <text x="265" y="285" font-size="12" font-weight="700" fill="#c0392b">Магніт</text>
+
+  <!-- Magnetic Field Lines (B-field) -->
+  <path d="M 235,270 C 220,250 220,200 235,188" fill="none" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <path d="M 259,270 C 274,250 274,200 259,188" fill="none" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <text x="180" y="205" font-size="11" font-style="italic" fill="#c0392b" text-anchor="end">Магнітне поле B</text>
+  <line x1="183" y1="202" x2="225" y2="215" stroke="#c0392b" stroke-width="1" stroke-dasharray="2,2" marker-end="url(#arr-red)"/>
+
+  <!-- Bottom Blade -->
+  <rect x="241" y="391" width="12" height="54" fill="#d0d7de" stroke="#6b7280" stroke-width="1"/>
+
+  <!-- Left Blade -->
+  <rect x="177" y="369" width="54" height="12" fill="#d0d7de" stroke="#6b7280" stroke-width="1"/>
+
+  <!-- Right Blade -->
+  <rect x="263" y="369" width="54" height="12" fill="#d0d7de" stroke="#6b7280" stroke-width="1"/>
+
+  <!-- Rotation Arc -->
+  <path d="M 315,345 A 55,55 0 0,0 270,315" fill="none" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="325" y="330" font-size="12" font-weight="700" fill="#27ae60">Обертання ω</text>
+
+  <!-- Callout for Rotor -->
+  <text x="340" y="395" font-size="12" font-weight="700" fill="#1a1a1a">Ротор турбінки</text>
+  <text x="340" y="411" font-size="12" fill="#6b7280">водяні лопаті</text>
+
+
+  <!-- RIGHT PANEL: Impulse Generation & Signal Analysis -->
+  <rect x="495" y="75" width="435" height="425" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="712" y="100" font-size="14" font-weight="700" fill="#1a1a1a" text-anchor="middle">2. Генерація прямокутних імпульсів</text>
+
+  <!-- Sub-panel A: Magnet Position vs State -->
+  <rect x="515" y="115" width="395" height="150" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- State 1: Magnet FAR -->
+  <text x="610" y="137" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">Магніт ДАЛЕКО (B &lt; B_RP)</text>
+
+  <!-- Box for HIGH State -->
+  <rect x="535" y="150" width="150" height="30" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="610" y="170" font-size="13" font-weight="700" fill="#c0392b" text-anchor="middle">Вихід = HIGH (5В)</text>
+
+  <text x="610" y="198" font-size="12" fill="#6b7280" text-anchor="middle">Транзистор закритий</text>
+  <text x="610" y="214" font-size="12" fill="#6b7280" text-anchor="middle">Підтяжка до VCC</text>
+
+  <rect x="560" y="228" width="100" height="22" rx="11" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="610" y="243" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">Логічна «1»</text>
+
+  <!-- Vertical Divider -->
+  <line x1="712" y1="125" x2="712" y2="255" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4,3"/>
+
+  <!-- State 2: Magnet NEAR -->
+  <text x="815" y="137" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">Магніт БЛИЗЬКО (B &gt; B_OP)</text>
+
+  <!-- Box for LOW State -->
+  <rect x="740" y="150" width="150" height="30" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="815" y="170" font-size="13" font-weight="700" fill="#27ae60" text-anchor="middle">Вихід = LOW (0В)</text>
+
+  <text x="815" y="198" font-size="12" fill="#6b7280" text-anchor="middle">Транзистор відкритий</text>
+  <text x="815" y="214" font-size="12" fill="#6b7280" text-anchor="middle">Ключ замикає на GND</text>
+
+  <rect x="765" y="228" width="100" height="22" rx="11" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="815" y="243" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">Логічний «0»</text>
+
+
+  <!-- Sub-panel B: Waveform & Formula -->
+  <rect x="515" y="278" width="395" height="208" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="530" y="298" font-size="12" font-weight="700" fill="#1a1a1a">Часова діаграма напруги V_out(t)</text>
+
+  <!-- Waveform Axes -->
+  <line x1="565" y1="410" x2="565" y2="315" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-black)"/>
+  <text x="555" y="315" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="end">V_out</text>
+
+  <!-- Ticks on Y axis -->
+  <line x1="560" y1="335" x2="565" y2="335" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="555" y="339" font-size="12" fill="#6b7280" text-anchor="end">5В</text>
+
+  <line x1="560" y1="400" x2="565" y2="400" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="555" y="404" font-size="12" fill="#6b7280" text-anchor="end">0В</text>
+
+  <line x1="565" y1="400" x2="890" y2="400" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-black)"/>
+  <text x="895" y="404" font-size="12" font-weight="700" fill="#1a1a1a">Час (t)</text>
+
+  <!-- Square Pulse Waveform -->
+  <path d="M 565,335 L 600,335 L 600,400 L 640,400 L 640,335 L 680,335 L 680,400 L 720,400 L 720,335 L 760,335 L 760,400 L 800,400 L 800,335 L 840,335 L 840,400 L 870,400" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+
+  <!-- Period Indicator -->
+  <line x1="640" y1="322" x2="720" y2="322" stroke="#27ae60" stroke-width="1.5" marker-start="url(#arr-green)" marker-end="url(#arr-green)"/>
+  <text x="680" y="318" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">Період T = 1 / f</text>
+
+  <!-- Pulse annotations below X-axis -->
+  <line x1="600" y1="400" x2="600" y2="415" stroke="#c0392b" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="640" y1="400" x2="640" y2="415" stroke="#6b7280" stroke-width="1" stroke-dasharray="2,2"/>
+
+  <text x="620" y="415" font-size="11" fill="#c0392b" text-anchor="middle">Магніт біля Холла</text>
+  <text x="660" y="427" font-size="11" fill="#6b7280" text-anchor="middle">Магніт відійшов</text>
+
+  <!-- Formula Card -->
+  <rect x="530" y="440" width="365" height="36" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="712" y="462" font-size="13" font-weight="700" fill="#2457d6" text-anchor="middle">Формула витрати: f = K · Q   (К-фактор ≈ 7.5 імпульсів/л)</text>
+</svg>

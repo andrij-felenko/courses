@@ -1,0 +1,152 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+<defs>
+  <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+    <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+  </marker>
+  <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+    <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+  </marker>
+  <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+    <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+  </marker>
+</defs>
+<rect x="0" y="0" width="960" height="560" fill="white"/>
+
+<!-- Title & Subtitle -->
+<text x="480" y="36" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Обчислювальний конвеєр компенсації вимірювань BMP280 / BME280</text>
+<text x="480" y="56" text-anchor="middle" font-size="13" fill="#6b7280">Змінна t_fine акумулює температуру та є обов'язковою передумовою для компенсації тиску й вологості</text>
+
+<!-- Panel Containers -->
+<rect x="20" y="75" width="210" height="465" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+<text x="125" y="97" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">1. Первинні дані АЦП</text>
+
+<rect x="250" y="75" width="225" height="465" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+<text x="362.5" y="97" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">2. Обчислення t_fine</text>
+
+<rect x="495" y="75" width="230" height="465" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+<text x="610" y="97" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">3. Залежні компенсації</text>
+
+<rect x="745" y="75" width="195" height="465" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+<text x="842.5" y="97" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">4. Фізичні величини</text>
+
+<!-- Panel 1 Inner Elements -->
+<rect x="32" y="112" width="186" height="75" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+<text x="125" y="132" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">adc_T (20 біт)</text>
+<text x="125" y="150" text-anchor="middle" font-size="12" fill="#1a1a1a">Код температури</text>
+<text x="125" y="168" text-anchor="middle" font-size="12" fill="#6b7280">Регістри 0xFA..0xFC</text>
+
+<rect x="32" y="197" width="186" height="36" rx="4" fill="#eaf0fd" stroke="#9bb5f6" stroke-width="1"/>
+<text x="125" y="220" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Калібрування з NVM</text>
+
+<rect x="32" y="243" width="186" height="75" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+<text x="125" y="263" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">adc_P (20 біт)</text>
+<text x="125" y="281" text-anchor="middle" font-size="12" fill="#1a1a1a">Код тиску</text>
+<text x="125" y="299" text-anchor="middle" font-size="12" fill="#6b7280">Регістри 0xF7..0xF9</text>
+
+<rect x="32" y="328" width="186" height="75" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+<text x="125" y="348" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">adc_H (16 біт)</text>
+<text x="125" y="366" text-anchor="middle" font-size="12" fill="#1a1a1a">Код вологості (BME)</text>
+<text x="125" y="384" text-anchor="middle" font-size="12" fill="#6b7280">Регістри 0xFD..0xFE</text>
+
+<rect x="32" y="428" width="186" height="92" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+<text x="125" y="448" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Порядок зчитування:</text>
+<text x="125" y="468" text-anchor="middle" font-size="12" fill="#1a1a1a">1. Спочатку adc_T</text>
+<text x="125" y="488" text-anchor="middle" font-size="12" fill="#1a1a1a">2. Потім adc_P, adc_H</text>
+<text x="125" y="508" text-anchor="middle" font-size="12" fill="#c0392b">(для стабільності t_fine)</text>
+
+<!-- Panel 2 Inner Elements -->
+<rect x="260" y="112" width="205" height="195" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+<text x="362.5" y="132" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Поліном температури</text>
+<text x="362.5" y="150" text-anchor="middle" font-size="12" fill="#6b7280">Параметри: T1, T2, T3</text>
+
+<rect x="270" y="160" width="185" height="48" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+<text x="362.5" y="178" text-anchor="middle" font-size="12" fill="#1a1a1a">var1 = f(adc_T, T1, T2)</text>
+<text x="362.5" y="196" text-anchor="middle" font-size="12" fill="#1a1a1a">var2 = f(adc_T, T1, T3)</text>
+
+<rect x="270" y="218" width="185" height="78" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+<text x="362.5" y="240" text-anchor="middle" font-size="14" font-weight="bold" fill="#2457d6">t_fine = var1 + var2</text>
+<text x="362.5" y="260" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Ключовий параметр</text>
+<text x="362.5" y="280" text-anchor="middle" font-size="12" fill="#6b7280">Необхідний для P та RH</text>
+
+<rect x="260" y="328" width="205" height="85" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+<text x="362.5" y="350" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">Температура T (°C)</text>
+<text x="362.5" y="370" text-anchor="middle" font-size="12" fill="#1a1a1a">T = (t_fine * 5 + 128)/25600</text>
+<text x="362.5" y="392" text-anchor="middle" font-size="12" fill="#27ae60">Фізичне значення в °C</text>
+
+<path d="M 362.5 296 L 362.5 328" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+<rect x="260" y="428" width="205" height="92" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+<text x="362.5" y="448" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Характеристики t_fine:</text>
+<text x="362.5" y="468" text-anchor="middle" font-size="12" fill="#6b7280">Формат: 32-бітне ціле</text>
+<text x="362.5" y="488" text-anchor="middle" font-size="12" fill="#6b7280">Крок: 1/5120 °C (~0.0002°C)</text>
+<text x="362.5" y="508" text-anchor="middle" font-size="12" fill="#6b7280">Зберігає точності АЦП</text>
+
+<!-- Panel 3 Inner Elements -->
+<rect x="507" y="112" width="206" height="75" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+<text x="610" y="132" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Критична залежність:</text>
+<text x="610" y="150" text-anchor="middle" font-size="12" fill="#1a1a1a">Без обчислення t_fine</text>
+<text x="610" y="168" text-anchor="middle" font-size="12" fill="#c0392b">тиск і вологість НЕДІЙСНІ</text>
+
+<rect x="507" y="205" width="206" height="120" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+<text x="610" y="227" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Компенсація тиску P</text>
+<text x="610" y="247" text-anchor="middle" font-size="12" fill="#6b7280">Параметри: P1..P9</text>
+<text x="610" y="267" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Вхід: adc_P + t_fine</text>
+<text x="610" y="287" text-anchor="middle" font-size="12" fill="#1a1a1a">P = poly(adc_P, t_fine)</text>
+<text x="610" y="307" text-anchor="middle" font-size="12" fill="#6b7280">64-біт цілі / FPU double</text>
+
+<rect x="507" y="350" width="206" height="120" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+<text x="610" y="372" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Компенсація вологості RH</text>
+<text x="610" y="392" text-anchor="middle" font-size="12" fill="#6b7280">Параметри: H1..H6 (BME)</text>
+<text x="610" y="412" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Вхід: adc_H + t_fine</text>
+<text x="610" y="432" text-anchor="middle" font-size="12" fill="#1a1a1a">RH = poly(adc_H, t_fine)</text>
+<text x="610" y="452" text-anchor="middle" font-size="12" fill="#6b7280">32-біт Q22.10 фіксована</text>
+
+<!-- Panel 4 Inner Elements -->
+<rect x="757" y="112" width="171" height="65" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+<text x="842.5" y="134" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">Температура T</text>
+<text x="842.5" y="156" text-anchor="middle" font-size="12" fill="#1a1a1a">°C (градуси Цельсія)</text>
+
+<rect x="757" y="232" width="171" height="65" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+<text x="842.5" y="254" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">Атмосферний тиск P</text>
+<text x="842.5" y="276" text-anchor="middle" font-size="12" fill="#1a1a1a">Па або гПа (hPa)</text>
+
+<rect x="757" y="322" width="171" height="75" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+<text x="842.5" y="342" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Висота h (м)</text>
+<text x="842.5" y="360" text-anchor="middle" font-size="12" fill="#1a1a1a">Барометрична</text>
+<text x="842.5" y="378" text-anchor="middle" font-size="12" fill="#6b7280">h = f(P, P0, T)</text>
+
+<rect x="757" y="422" width="171" height="65" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+<text x="842.5" y="444" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">Відносна вологість</text>
+<text x="842.5" y="466" text-anchor="middle" font-size="12" fill="#1a1a1a">% RH (BME280)</text>
+
+<!-- Flows & Connections -->
+<!-- adc_T to Polynomial T -->
+<path d="M 218 150 L 260 150" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+<!-- adc_P to P compensation (routed via bottom channel at y=530) -->
+<path d="M 218 280 L 236 280 L 236 530 L 485 530 L 485 267 L 507 267" fill="none" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr-gray)"/>
+
+<!-- adc_H to RH compensation (routed via bottom channel at y=542) -->
+<path d="M 218 365 L 244 365 L 244 542 L 492 542 L 492 412 L 507 412" fill="none" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr-gray)"/>
+
+<!-- t_fine to P compensation -->
+<path d="M 455 257 L 507 257" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+<text x="481" y="249" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">t_fine</text>
+
+<!-- t_fine to RH compensation -->
+<path d="M 455 277 L 481 277 L 481 412 L 507 412" fill="none" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+
+<!-- T (Panel 2) to Physical T (Panel 4) routed cleanly around Panel 3 via bottom channel at y=520 -->
+<path d="M 465 370 L 478 370 L 478 520 L 738 520 L 738 145 L 757 145" fill="none" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+<text x="608" y="513" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">Фізична T (°C)</text>
+
+<!-- P compensation to Physical P -->
+<path d="M 713 265 L 757 265" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+<!-- RH compensation to Physical RH -->
+<path d="M 713 452 L 757 452" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+<!-- Pressure P to Altitude h -->
+<path d="M 842.5 297 L 842.5 322" fill="none" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#arr-blue)"/>
+
+</svg>

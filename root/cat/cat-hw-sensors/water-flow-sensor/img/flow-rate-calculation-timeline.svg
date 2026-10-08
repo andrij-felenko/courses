@@ -1,0 +1,113 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Canvas Background -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Title and Subtitle -->
+  <text x="480" y="35" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Часова діаграма обчислення витрати води (G1/2″)</text>
+  <text x="480" y="55" font-size="13" fill="#6b7280" text-anchor="middle">Підрахунок імпульсів N за вікно T_calc і розрахунок миттєвої витрати Q (л/хв) в обробнику таймера</text>
+
+  <!-- Main Background Panel -->
+  <rect x="40" y="75" width="880" height="275" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="8"/>
+
+  <!-- TRACK 1: Water Flow Rate Q(t) -->
+  <text x="55" y="102" font-size="13" font-weight="bold" fill="#1a1a1a">Швидкість потоку</text>
+  <text x="55" y="118" font-size="12" fill="#6b7280">Q (л/хв)</text>
+
+  <!-- Flow Rate Shaded Area & Curve -->
+  <path d="M 190,135 L 190,95 L 510,95 L 510,135 Z" fill="#eaf0fd"/>
+  <path d="M 510,135 L 510,115 L 830,115 L 830,135 Z" fill="#eaf0fd"/>
+  <line x1="190" y1="135" x2="830" y2="135" stroke="#d0d7de" stroke-width="1.5"/>
+  <path d="M 190,95 L 510,95 L 510,115 L 830,115" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+
+  <!-- Flow Rate Labels -->
+  <text x="350" y="90" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Висока витрата: Q₁ = 8.0 л/хв</text>
+  <text x="670" y="110" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Низька витрата: Q₂ = 3.0 л/хв</text>
+
+  <!-- Track Divider 1 -->
+  <line x1="55" y1="145" x2="905" y2="145" stroke="#d0d7de" stroke-dasharray="3,3" stroke-width="1"/>
+
+  <!-- TRACK 2: GPIO Sensor Signals -->
+  <text x="55" y="172" font-size="13" font-weight="bold" fill="#1a1a1a">Сигнал з давача</text>
+  <text x="55" y="188" font-size="12" fill="#6b7280">GPIO (Імпульси)</text>
+
+  <!-- Pulse Train Path -->
+  <path d="M 190,195 L 200,195 L 200,165 L 218,165 L 218,195 L 240,195 L 240,165 L 258,165 L 258,195 L 280,195 L 280,165 L 298,165 L 298,195 L 320,195 L 320,165 L 338,165 L 338,195 L 360,195 L 360,165 L 378,165 L 378,195 L 400,195 L 400,165 L 418,165 L 418,195 L 440,195 L 440,165 L 458,165 L 458,195 L 480,195 L 480,165 L 498,165 L 498,195 L 510,195 L 540,195 L 540,165 L 580,165 L 580,195 L 646,195 L 646,165 L 686,165 L 686,195 L 752,195 L 752,165 L 792,165 L 792,195 L 830,195" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Pulse Interval Markers -->
+  <line x1="240" y1="155" x2="280" y2="155" stroke="#2457d6" stroke-width="1"/>
+  <text x="260" y="152" font-size="12" fill="#2457d6" text-anchor="middle">Δt₁ (короткий)</text>
+
+  <line x1="540" y1="155" x2="646" y2="155" stroke="#2457d6" stroke-width="1"/>
+  <text x="593" y="152" font-size="12" fill="#2457d6" text-anchor="middle">Δt₂ (довгий)</text>
+
+  <!-- Interrupt Trigger Annotation -->
+  <text x="350" y="214" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Кожна зростаюча висота запускає переривання GPIO: N = N + 1</text>
+
+  <!-- Track Divider 2 -->
+  <line x1="55" y1="225" x2="905" y2="225" stroke="#d0d7de" stroke-dasharray="3,3" stroke-width="1"/>
+
+  <!-- TRACK 3: Timer Calculation Windows -->
+  <text x="55" y="252" font-size="13" font-weight="bold" fill="#1a1a1a">Вікна таймера</text>
+  <text x="55" y="268" font-size="12" fill="#6b7280">T_calc = 500 ms</text>
+
+  <!-- Window Rectangles -->
+  <rect x="190" y="240" width="320" height="36" fill="#ffffff" stroke="#2457d6" stroke-width="1.5" rx="4" stroke-dasharray="5,3"/>
+  <text x="350" y="263" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Вікно 1: N₁ = 8 імпульсів (за 500 ms)</text>
+
+  <rect x="510" y="240" width="320" height="36" fill="#ffffff" stroke="#2457d6" stroke-width="1.5" rx="4" stroke-dasharray="5,3"/>
+  <text x="670" y="263" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Вікно 2: N₂ = 3 імпульси (за 500 ms)</text>
+
+  <!-- Time Axis -->
+  <line x1="170" y1="300" x2="880" y2="300" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="888" y="304" font-size="12" font-weight="bold" fill="#1a1a1a">Час t</text>
+
+  <!-- Ticks -->
+  <line x1="190" y1="295" x2="190" y2="305" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="190" y="322" font-size="12" fill="#1a1a1a" text-anchor="middle">0 ms</text>
+
+  <line x1="510" y1="295" x2="510" y2="305" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="510" y="322" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">500 ms (Переривання таймера)</text>
+
+  <line x1="830" y1="295" x2="830" y2="305" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="830" y="322" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">1000 ms (Переривання таймера)</text>
+
+  <!-- Dashed Vertical Lines to Action Cards -->
+  <line x1="510" y1="327" x2="510" y2="370" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#arr-green)"/>
+  <line x1="830" y1="327" x2="830" y2="370" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#arr-green)"/>
+
+  <!-- BOTTOM PANEL 1: Driver Calibration Formulas -->
+  <rect x="40" y="375" width="290" height="120" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5" rx="6"/>
+  <text x="55" y="398" font-size="13" font-weight="bold" fill="#1a1a1a">Параметри калібрування</text>
+  <text x="55" y="420" font-size="12" font-weight="bold" fill="#2457d6">Q = N / (T_calc · K)</text>
+  <text x="55" y="440" font-size="12" fill="#6b7280">K = 2.0 Гц / (л/хв) (K-фактор)</text>
+  <text x="55" y="460" font-size="12" fill="#6b7280">T_calc = 0.5 с (період оновлення)</text>
+  <text x="55" y="480" font-size="12" fill="#6b7280">V_total += Q · T_calc (об'єм води)</text>
+
+  <!-- BOTTOM PANEL 2: Action at Window 1 End -->
+  <rect x="345" y="375" width="330" height="120" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="6"/>
+  <text x="510" y="398" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Обробка Вікна 1 (t = 500 ms)</text>
+  <text x="360" y="420" font-size="12" fill="#1a1a1a">1. Витрата: Q₁ = 8 / (0.5 · 2.0) = 8.0 л/хв</text>
+  <text x="360" y="440" font-size="12" fill="#1a1a1a">2. Накопичений об'єм: V_total += 0.067 л</text>
+  <text x="360" y="460" font-size="12" font-weight="bold" fill="#27ae60">3. Скидання лічильника: N = 0</text>
+  <text x="360" y="480" font-size="12" fill="#6b7280">Викликається callback оновлення даних</text>
+
+  <!-- BOTTOM PANEL 3: Action at Window 2 End -->
+  <rect x="690" y="375" width="230" height="120" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="6"/>
+  <text x="805" y="398" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Обробка Вікна 2 (t = 1000 ms)</text>
+  <text x="705" y="420" font-size="12" fill="#1a1a1a">1. Витрата: Q₂ = 3 / (0.5 · 2.0)</text>
+  <text x="705" y="440" font-size="12" font-weight="bold" fill="#2457d6">   Q₂ = 3.0 л/хв</text>
+  <text x="705" y="460" font-size="12" fill="#1a1a1a">2. V_total += 0.025 л</text>
+  <text x="705" y="480" font-size="12" font-weight="bold" fill="#27ae60">3. Скидання N = 0</text>
+</svg>

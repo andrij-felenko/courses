@@ -1,0 +1,139 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок та підзаголовок -->
+  <text x="480" y="32" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Калібрування та лінеаризація характеристики LVDT</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Поліноміальна корекція усуває нелінійність країв та зсув нульової точки LVDT</text>
+
+  <!-- Ліва панель (Графік) -->
+  <rect x="30" y="70" width="540" height="430" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="300" y="94" font-size="14" font-weight="700" fill="#1a1a1a" text-anchor="middle">Характеристика LVDT: до та після корекції</text>
+
+  <!-- Поле графіка -->
+  <rect x="85" y="115" width="460" height="280" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Сітка графіка -->
+  <line x1="85" y1="160" x2="545" y2="160" stroke="#e5e7eb" stroke-dasharray="3,3" stroke-width="1"/>
+  <line x1="85" y1="205" x2="545" y2="205" stroke="#e5e7eb" stroke-dasharray="3,3" stroke-width="1"/>
+  <line x1="85" y1="295" x2="545" y2="295" stroke="#e5e7eb" stroke-dasharray="3,3" stroke-width="1"/>
+  <line x1="85" y1="340" x2="545" y2="340" stroke="#e5e7eb" stroke-dasharray="3,3" stroke-width="1"/>
+
+  <line x1="135" y1="115" x2="135" y2="395" stroke="#e5e7eb" stroke-dasharray="3,3" stroke-width="1"/>
+  <line x1="225" y1="115" x2="225" y2="395" stroke="#e5e7eb" stroke-dasharray="3,3" stroke-width="1"/>
+  <line x1="405" y1="115" x2="405" y2="395" stroke="#e5e7eb" stroke-dasharray="3,3" stroke-width="1"/>
+  <line x1="495" y1="115" x2="495" y2="395" stroke="#e5e7eb" stroke-dasharray="3,3" stroke-width="1"/>
+
+  <!-- Осі координат -->
+  <line x1="85" y1="250" x2="535" y2="250" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <line x1="315" y1="395" x2="315" y2="123" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- Підписи осей -->
+  <text x="315" y="418" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Переміщення сердечника x [мм]</text>
+  <text x="95" y="107" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="start">Вихідний сигнал V_out / x_calc</text>
+
+  <!-- Позначки та засічки осей -->
+  <text x="135" y="270" font-size="11" fill="#6b7280" text-anchor="middle">-x_max</text>
+  <text x="295" y="270" font-size="11" fill="#6b7280" text-anchor="end">0 (Null)</text>
+  <text x="495" y="270" font-size="11" fill="#6b7280" text-anchor="middle">+x_max</text>
+
+  <text x="78" y="164" font-size="11" fill="#6b7280" text-anchor="end">+V_max</text>
+  <text x="78" y="254" font-size="11" fill="#6b7280" text-anchor="end">0</text>
+  <text x="78" y="344" font-size="11" fill="#6b7280" text-anchor="end">-V_max</text>
+
+  <!-- Ідеальна крива (пряма) -->
+  <line x1="135" y1="350" x2="495" y2="150" stroke="#9ca3af" stroke-width="1.5" stroke-dasharray="4,4"/>
+
+  <!-- Сира нелінійна крива LVDT (Червона) -->
+  <path d="M 135,370 C 195,350 245,305 315,258 C 385,211 435,155 495,130" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+
+  <!-- Лінеаризована корегована пряма (Зелена) -->
+  <line x1="135" y1="350" x2="495" y2="150" stroke="#27ae60" stroke-width="3"/>
+
+  <!-- Точки калібрування на зеленій лінії -->
+  <circle cx="135" cy="350" r="4" fill="#27ae60"/>
+  <circle cx="225" cy="300" r="4" fill="#27ae60"/>
+  <circle cx="315" cy="250" r="4" fill="#27ae60"/>
+  <circle cx="405" cy="200" r="4" fill="#27ae60"/>
+  <circle cx="495" cy="150" r="4" fill="#27ae60"/>
+
+  <!-- Виносні позначки похибок -->
+  <!-- 1. Зсув нуля -->
+  <line x1="315" y1="250" x2="315" y2="258" stroke="#c0392b" stroke-width="1.5"/>
+  <rect x="200" y="215" width="105" height="24" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="252" y="231" font-size="11" font-weight="700" fill="#c0392b" text-anchor="middle">ΔV_null (Зсув нуля)</text>
+
+  <!-- 2. Краєва нелінійність -->
+  <line x1="495" y1="130" x2="495" y2="150" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="2,2"/>
+  <rect x="350" y="125" width="135" height="34" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="417" y="139" font-size="11" font-weight="700" fill="#c0392b" text-anchor="middle">Краєва нелінійність</text>
+  <text x="417" y="153" font-size="11" fill="#c0392b" text-anchor="middle">Δx_err ≈ 1.5% FS</text>
+
+  <!-- Легенда графіка (внизу панелі під графіком) -->
+  <rect x="45" y="435" width="510" height="50" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="60" y1="460" x2="80" y2="460" stroke="#c0392b" stroke-width="2.5"/>
+  <text x="87" y="464" font-size="11" fill="#1a1a1a">Сирий сигнал (нелінійний)</text>
+
+  <line x1="230" y1="460" x2="250" y2="460" stroke="#9ca3af" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <text x="257" y="464" font-size="11" fill="#1a1a1a">Ідеальна шкала</text>
+
+  <line x1="380" y1="460" x2="400" y2="460" stroke="#27ae60" stroke-width="3"/>
+  <circle cx="390" cy="460" r="3" fill="#27ae60"/>
+  <text x="407" y="464" font-size="11" fill="#1a1a1a">Корегована крива P(V)</text>
+
+  <!-- Права панель (Алгоритм обробки) -->
+  <rect x="590" y="70" width="340" height="430" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="760" y="94" font-size="14" font-weight="700" fill="#1a1a1a" text-anchor="middle">Алгоритм лінеаризації у ПЗ</text>
+
+  <!-- Крок 1 -->
+  <rect x="605" y="115" width="310" height="64" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="617" y="132" font-size="11" font-weight="700" fill="#2457d6">1. Ратіометричне вимірювання</text>
+  <text x="617" y="150" font-size="12" font-weight="700" fill="#1a1a1a">V_norm = (V_S1 - V_S2) / V_EXC</text>
+  <text x="617" y="167" font-size="11" fill="#6b7280">Усуває амплітудну нестабільність генератора</text>
+
+  <line x1="760" y1="179" x2="760" y2="194" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Крок 2 -->
+  <rect x="605" y="195" width="310" height="64" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="617" y="212" font-size="11" font-weight="700" fill="#2457d6">2. Віднімання зсуву нуля</text>
+  <text x="617" y="230" font-size="12" font-weight="700" fill="#1a1a1a">V_zero = V_norm - V_null</text>
+  <text x="617" y="247" font-size="11" fill="#6b7280">Компенсує механічну похибку монтажу</text>
+
+  <line x1="760" y1="259" x2="760" y2="274" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Крок 3 -->
+  <rect x="605" y="275" width="310" height="70" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="617" y="293" font-size="11" font-weight="700" fill="#27ae60">3. Поліноміальна корекція (3-й ступінь)</text>
+  <text x="617" y="313" font-size="13" font-weight="700" fill="#1a1a1a">x_calc = a₃·V³ + a₂·V² + a₁·V + a₀</text>
+  <text x="617" y="332" font-size="11" fill="#6b7280">Апроксимація та виправлення нелінійності</text>
+
+  <!-- Порівняльні картки -->
+  <rect x="605" y="360" width="150" height="125" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="680" y="378" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">До корекції</text>
+  <text x="613" y="398" font-size="11" fill="#1a1a1a">• Похибка: ~1.5%</text>
+  <text x="613" y="416" font-size="11" fill="#1a1a1a">• Дрейф від Т°</text>
+  <text x="613" y="434" font-size="11" fill="#1a1a1a">• Викривлення країв</text>
+  <text x="613" y="452" font-size="11" fill="#1a1a1a">• Амплітудний шум</text>
+
+  <rect x="765" y="360" width="150" height="125" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="840" y="378" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">Після корекції</text>
+  <text x="773" y="398" font-size="11" fill="#1a1a1a">• Похибка: &lt;0.05%</text>
+  <text x="773" y="416" font-size="11" fill="#1a1a1a">• Термокомпенсація</text>
+  <text x="773" y="434" font-size="11" fill="#1a1a1a">• Виправлена шкала</text>
+  <text x="773" y="452" font-size="11" fill="#1a1a1a">• Висока точність</text>
+</svg>

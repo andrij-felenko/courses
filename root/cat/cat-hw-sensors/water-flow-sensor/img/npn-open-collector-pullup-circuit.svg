@@ -1,0 +1,149 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+  
+  <defs>
+    <marker id="arr-green" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L7,3 L0,6 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L7,3 L0,6 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Main Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Схема NPN з відкритим колектором та формування логічних рівнів</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Підтяжка R_pullup до V_MCU (3.3 В / 5 В) задає HIGH-рівень, а відкритий NPN притягує сигнал до LOW (0 В)</text>
+
+  <!-- PANEL 1: NPN OFF / HIGH -->
+  <rect x="20" y="75" width="450" height="425" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="8"/>
+  <text x="245" y="97" font-size="13" font-weight="700" fill="#27ae60" text-anchor="middle">СТАН 1: NPN ЗАЧИНЕНИЙ (МАГНІТ ДАЛЕКО)</text>
+  <text x="245" y="116" font-size="12" fill="#6b7280" text-anchor="middle">Вихідний сигнал: HIGH (+3.3 В / +5 В)</text>
+
+  <!-- Sensor 1 Box -->
+  <rect x="35" y="135" width="145" height="250" fill="#ffffff" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <text x="107" y="156" font-size="13" font-weight="700" fill="#2457d6" text-anchor="middle">Давач G1/2″</text>
+  <text x="107" y="172" font-size="12" fill="#6b7280" text-anchor="middle">(Живлення 5–18 В)</text>
+
+  <!-- Hall Element 1 -->
+  <rect x="45" y="182" width="125" height="46" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="4"/>
+  <text x="107" y="201" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Елемент Холла</text>
+  <text x="107" y="218" font-size="12" fill="#6b7280" text-anchor="middle">Магніт далеко</text>
+
+  <!-- NPN Transistor 1 -->
+  <rect x="45" y="238" width="125" height="135" fill="#fdecea" stroke="#c0392b" stroke-width="1" rx="4"/>
+  <text x="107" y="258" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">NPN Транзистор</text>
+  <text x="107" y="276" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">[ ЗАЧИНЕНИЙ ]</text>
+  <text x="107" y="296" font-size="12" fill="#1a1a1a" text-anchor="middle">C: Високий опір (Z)</text>
+  <text x="107" y="314" font-size="12" fill="#6b7280" text-anchor="middle">B: U_BE &lt; 0.6 В (OFF)</text>
+  <text x="107" y="332" font-size="12" fill="#6b7280" text-anchor="middle">E: На землю GND</text>
+  <text x="107" y="360" font-size="12" fill="#6b7280" text-anchor="middle">I_CE = 0 (струму нема)</text>
+
+  <!-- MCU 1 Box -->
+  <rect x="315" y="135" width="140" height="250" fill="#ffffff" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <text x="385" y="156" font-size="13" font-weight="700" fill="#2457d6" text-anchor="middle">Мікроконтролер</text>
+  <text x="385" y="172" font-size="12" fill="#6b7280" text-anchor="middle">(ESP32 / Arduino)</text>
+
+  <rect x="325" y="265" width="120" height="58" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="4"/>
+  <text x="385" y="287" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Вхід GPIO</text>
+  <text x="385" y="307" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">HIGH (3.3В / 5В)</text>
+
+  <!-- V_MCU Supply 1 -->
+  <rect x="202" y="135" width="90" height="26" fill="#e9f7ef" stroke="#27ae60" stroke-width="1" rx="4"/>
+  <text x="247" y="152" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">+V_MCU (3.3/5V)</text>
+
+  <!-- Resistor 1 -->
+  <line x1="247" y1="161" x2="247" y2="188" stroke="#27ae60" stroke-width="2"/>
+  <rect x="237" y="188" width="20" height="44" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="264" y="206" font-size="12" font-weight="700" fill="#1a1a1a">R_pullup</text>
+  <text x="264" y="222" font-size="12" fill="#6b7280">4.7–10 кОм</text>
+  <line x1="247" y1="232" x2="247" y2="290" stroke="#27ae60" stroke-width="2"/>
+
+  <!-- Signal Wires 1 -->
+  <line x1="180" y1="290" x2="247" y2="290" stroke="#6b7280" stroke-width="2"/>
+  <line x1="247" y1="290" x2="325" y2="290" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <circle cx="247" cy="290" r="4" fill="#27ae60"/>
+
+  <!-- Wire label 1 -->
+  <text x="210" y="282" font-size="12" fill="#6b7280" text-anchor="middle">Сигнал (C)</text>
+
+  <!-- GND Wire 1 -->
+  <line x1="180" y1="365" x2="325" y2="365" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="247" y1="365" x2="247" y2="376" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="239" y1="376" x2="255" y2="376" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="242" y1="380" x2="252" y2="380" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="245" y1="384" x2="249" y2="384" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="247" y="398" font-size="12" fill="#6b7280" text-anchor="middle">GND (0 В)</text>
+
+  <!-- Banner 1 -->
+  <rect x="35" y="415" width="420" height="72" fill="#e9f7ef" stroke="#27ae60" stroke-width="1" rx="6"/>
+  <text x="47" y="436" font-size="12" fill="#1a1a1a">• NPN-транзистор закритий (високий опір колектора).</text>
+  <text x="47" y="454" font-size="12" fill="#1a1a1a">• R_pullup підтягує лінію сигналу до напруги V_MCU.</text>
+  <text x="47" y="472" font-size="12" font-weight="700" fill="#27ae60">• Результат: Логічна 1 (HIGH: U_вх = 3.3 В або 5 В).</text>
+
+
+  <!-- PANEL 2: NPN ON / LOW -->
+  <rect x="490" y="75" width="450" height="425" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="8"/>
+  <text x="715" y="97" font-size="13" font-weight="700" fill="#c0392b" text-anchor="middle">СТАН 2: NPN ВІДЧИНЕНИЙ (ПОТІК ВОДИ / МАГНІТ)</text>
+  <text x="715" y="116" font-size="12" fill="#6b7280" text-anchor="middle">Вихідний сигнал: LOW (~0.1 В)</text>
+
+  <!-- Sensor 2 Box -->
+  <rect x="505" y="135" width="145" height="250" fill="#ffffff" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <text x="577" y="156" font-size="13" font-weight="700" fill="#2457d6" text-anchor="middle">Давач G1/2″</text>
+  <text x="577" y="172" font-size="12" fill="#6b7280" text-anchor="middle">(Живлення 5–18 В)</text>
+
+  <!-- Hall Element 2 -->
+  <rect x="515" y="182" width="125" height="46" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="4"/>
+  <text x="577" y="201" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Елемент Холла</text>
+  <text x="577" y="218" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">Магніт поруч</text>
+
+  <!-- NPN Transistor 2 -->
+  <rect x="515" y="238" width="125" height="135" fill="#e9f7ef" stroke="#27ae60" stroke-width="1" rx="4"/>
+  <text x="577" y="258" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">NPN Транзистор</text>
+  <text x="577" y="276" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">[ ВІДЧИНЕНИЙ ]</text>
+  <text x="577" y="296" font-size="12" fill="#1a1a1a" text-anchor="middle">C: Замкнено на GND</text>
+  <text x="577" y="314" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">B: U_BE &gt; 0.7 В (ON)</text>
+  <text x="577" y="332" font-size="12" fill="#1a1a1a" text-anchor="middle">E: На землю GND</text>
+  <text x="577" y="360" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">I_CE тече на GND</text>
+
+  <!-- MCU 2 Box -->
+  <rect x="785" y="135" width="140" height="250" fill="#ffffff" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <text x="855" y="156" font-size="13" font-weight="700" fill="#2457d6" text-anchor="middle">Мікроконтролер</text>
+  <text x="855" y="172" font-size="12" fill="#6b7280" text-anchor="middle">(ESP32 / Arduino)</text>
+
+  <rect x="795" y="265" width="120" height="58" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" rx="4"/>
+  <text x="855" y="287" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Вхід GPIO</text>
+  <text x="855" y="307" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">LOW (~0.1 В)</text>
+
+  <!-- V_MCU Supply 2 -->
+  <rect x="672" y="135" width="90" height="26" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="4"/>
+  <text x="717" y="152" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">+V_MCU (3.3/5V)</text>
+
+  <!-- Resistor 2 -->
+  <line x1="717" y1="161" x2="717" y2="188" stroke="#c0392b" stroke-width="2"/>
+  <rect x="707" y="188" width="20" height="44" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="734" y="206" font-size="12" font-weight="700" fill="#1a1a1a">R_pullup</text>
+  <text x="734" y="222" font-size="12" fill="#6b7280">4.7–10 кОм</text>
+  <line x1="717" y1="232" x2="717" y2="290" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+
+  <!-- Signal Wires 2 -->
+  <line x1="717" y1="290" x2="650" y2="290" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <line x1="717" y1="290" x2="795" y2="290" stroke="#c0392b" stroke-width="2"/>
+  <circle cx="717" cy="290" r="4" fill="#c0392b"/>
+
+  <!-- Wire label 2 -->
+  <text x="680" y="282" font-size="12" fill="#c0392b" text-anchor="middle">Сигнал (C)</text>
+
+  <!-- GND Wire 2 -->
+  <line x1="650" y1="365" x2="795" y2="365" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="717" y1="365" x2="717" y2="376" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="709" y1="376" x2="725" y2="376" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="712" y1="380" x2="722" y2="380" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="715" y1="384" x2="719" y2="384" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="717" y="398" font-size="12" fill="#6b7280" text-anchor="middle">GND (0 В)</text>
+
+  <!-- Banner 2 -->
+  <rect x="505" y="415" width="420" height="72" fill="#fdecea" stroke="#c0392b" stroke-width="1" rx="6"/>
+  <text x="517" y="436" font-size="12" fill="#1a1a1a">• Магніт турбіни відкриває NPN-транзистор (насичення).</text>
+  <text x="517" y="454" font-size="12" fill="#1a1a1a">• Струм тече з V_MCU через R_pullup і транзистор на GND.</text>
+  <text x="517" y="472" font-size="12" font-weight="700" fill="#c0392b">• Результат: Логічний 0 (LOW: U_CE(sat) ≈ 0.1–0.2 В).</text>
+</svg>

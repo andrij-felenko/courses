@@ -1,0 +1,109 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 490" width="960" height="490" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <!-- Arrow markers -->
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+
+    <!-- Double headed arrow markers -->
+    <marker id="arr-start" markerWidth="9" markerHeight="9" refX="1.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue-start" markerWidth="9" markerHeight="9" refX="1.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green-start" markerWidth="9" markerHeight="9" refX="1.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="490" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Циклограма струму споживання логера з давачем AHT20</text>
+  <text x="480" y="54" text-anchor="middle" font-size="13" fill="#6b7280">Чергування короткої активної фази (t_active) та глибокого сну (t_sleep) мінімізує середній струм I_avg</text>
+
+  <!-- Main Diagram Panel -->
+  <rect x="40" y="75" width="880" height="280" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Shaded Phase Regions -->
+  <!-- Active Phase 1 -->
+  <rect x="180" y="125" width="80" height="177" rx="4" fill="#eaf0fd"/>
+  <!-- Sleep Phase 1 -->
+  <rect x="260" y="125" width="400" height="177" rx="4" fill="#e9f7ef"/>
+  <!-- Active Phase 2 -->
+  <rect x="660" y="125" width="80" height="177" rx="4" fill="#eaf0fd"/>
+  <!-- Sleep Phase 2 -->
+  <rect x="740" y="125" width="120" height="177" rx="4" fill="#e9f7ef"/>
+
+  <!-- Horizontal Reference Lines (Dashed) -->
+  <!-- Active Current Level -->
+  <line x1="140" y1="150" x2="870" y2="150" stroke="#2457d6" stroke-dasharray="4,4" stroke-width="1" opacity="0.6"/>
+  <!-- Average Current Level -->
+  <line x1="140" y1="275" x2="870" y2="275" stroke="#c0392b" stroke-dasharray="6,3" stroke-width="1.5"/>
+
+  <!-- Axes -->
+  <!-- Y-Axis (Current) -->
+  <line x1="140" y1="310" x2="140" y2="108" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <!-- X-Axis (Time) -->
+  <line x1="140" y1="302" x2="890" y2="302" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- Y-Axis Axis Title & Labels -->
+  <text x="132" y="100" text-anchor="end" font-size="13" font-weight="bold" fill="#1a1a1a">Струм I</text>
+  <text x="132" y="154" text-anchor="end" font-size="12" font-weight="bold" fill="#2457d6">I_active (6 mA)</text>
+  <text x="132" y="279" text-anchor="end" font-size="12" font-weight="bold" fill="#c0392b">I_avg (63 µA)</text>
+  <text x="132" y="299" text-anchor="end" font-size="12" font-weight="bold" fill="#27ae60">I_sleep (3 µA)</text>
+  <text x="132" y="318" text-anchor="end" font-size="12" fill="#6b7280">0 mA</text>
+
+  <!-- X-Axis Title -->
+  <text x="895" y="325" text-anchor="end" font-size="13" font-weight="bold" fill="#1a1a1a">Час t (s)</text>
+
+  <!-- Waveform (Current line) -->
+  <path d="M 140 300 L 180 300 L 180 160 L 200 160 L 200 150 L 240 150 L 240 155 L 260 155 L 260 300 L 660 300 L 660 160 L 680 160 L 680 150 L 720 150 L 720 155 L 740 155 L 740 300 L 870 300" fill="none" stroke="#2457d6" stroke-width="2.5" stroke-linejoin="round"/>
+
+  <!-- Annotations on Active Phase 1 -->
+  <text x="220" y="102" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Активна фаза</text>
+  <line x1="183" y1="114" x2="257" y2="114" stroke="#2457d6" stroke-width="1.2" marker-start="url(#arr-blue-start)" marker-end="url(#arr-blue)"/>
+  <text x="220" y="178" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">t_active</text>
+  <text x="220" y="196" text-anchor="middle" font-size="12" fill="#6b7280">(~100 ms)</text>
+
+  <!-- Annotations on Sleep Phase 1 -->
+  <text x="460" y="102" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">Режим глибокого сну (Deep Sleep)</text>
+  <line x1="263" y1="114" x2="657" y2="114" stroke="#27ae60" stroke-width="1.2" marker-start="url(#arr-green-start)" marker-end="url(#arr-green)"/>
+
+  <text x="460" y="178" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">t_sleep ≥ 2 s...60 s</text>
+  <text x="460" y="200" text-anchor="middle" font-size="12" fill="#6b7280">Мікроконтролер у соні (RTC таймер активний)</text>
+  <text x="460" y="218" text-anchor="middle" font-size="12" fill="#6b7280">Живлення AHT20 та периферії вимкнено</text>
+
+  <!-- Active Phase 2 Label -->
+  <text x="700" y="102" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Наступний цикл</text>
+
+  <!-- Average Current Line Annotation -->
+  <text x="865" y="270" text-anchor="end" font-size="12" font-weight="bold" fill="#c0392b">Середній струм I_avg</text>
+
+  <!-- Cycle Period T_cycle Arrow & Label -->
+  <line x1="183" y1="332" x2="657" y2="332" stroke="#1a1a1a" stroke-width="1.2" marker-start="url(#arr-start)" marker-end="url(#arr)"/>
+  <text x="420" y="348" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Період циклу T_cycle = t_active + t_sleep</text>
+
+  <!-- Bottom Cards -->
+  <!-- Left Card: Self-Heating Warning -->
+  <rect x="40" y="375" width="425" height="95" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="55" y="396" font-size="13" font-weight="bold" fill="#c0392b">⚠️ Небезпека самонагрівання (Self-Heating)</text>
+  <text x="55" y="418" font-size="12" fill="#1a1a1a">• Опитування частіше ніж 1 раз на 2 секунди (T_cycle &lt; 2 s)</text>
+  <text x="55" y="436" font-size="12" fill="#1a1a1a">• Внутрішній розігрів сенсора викривляє T (+0.3...1 °C) та RH</text>
+  <text x="55" y="454" font-size="12" font-weight="bold" fill="#c0392b">• Рекомендація: інтервал вимірювання T_cycle ≥ 2...10 s</text>
+
+  <!-- Right Card: Power Optimization -->
+  <rect x="495" y="375" width="425" height="95" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="510" y="396" font-size="13" font-weight="bold" fill="#27ae60">⚡ Оптимізація енергоспоживання</text>
+  <text x="510" y="418" font-size="12" fill="#1a1a1a">• Формула: I_avg = (I_active · t_active + I_sleep · t_sleep) / T_cycle</text>
+  <text x="510" y="436" font-size="12" fill="#1a1a1a">• Приклад: (6 mA · 0.1 s + 0.003 mA · 9.9 s) / 10 s = 63 µA</text>
+  <text x="510" y="454" font-size="12" font-weight="bold" fill="#27ae60">• Результат: робота від батареї 1000 mAh понад 1.5 року!</text>
+</svg>

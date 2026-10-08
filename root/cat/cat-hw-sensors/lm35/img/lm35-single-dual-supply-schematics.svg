@@ -1,0 +1,144 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Canvas Background -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Main Title & Subtitle -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Схеми живлення та підключення LM35DZ до АЦП</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Однополярне увімкнення вимірює від +2 °C, а двополярне з R_S розширює діапазон до -55 °C</text>
+
+  <!-- PANEL 1: Single Supply -->
+  <rect x="30" y="80" width="435" height="420" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Panel 1 Header -->
+  <rect x="45" y="95" width="405" height="34" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="247.5" y="117" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">Однополярне живлення (Basic Single Supply)</text>
+
+  <!-- Panel 1 Range Badge -->
+  <rect x="105" y="137" width="285" height="26" rx="13" fill="white" stroke="#2457d6" stroke-width="1"/>
+  <text x="247.5" y="154" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Діапазон: +2 °C ... +150 °C</text>
+
+  <!-- Panel 1 Schematic Lines & Wiring -->
+  <!-- Power Rail +Vs -->
+  <line x1="80" y1="195" x2="252.5" y2="195" stroke="#2457d6" stroke-width="2"/>
+  <circle cx="80" cy="195" r="4" fill="#2457d6"/>
+  <text x="162.5" y="187" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">+V_S (+4 В ... +30 В)</text>
+  <line x1="252.5" y1="195" x2="252.5" y2="225" stroke="#2457d6" stroke-width="2"/>
+
+  <!-- Decoupling Capacitor C1 -->
+  <line x1="130" y1="195" x2="130" y2="260" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="106" y1="260" x2="154" y2="260" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="106" y1="268" x2="154" y2="268" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="130" y1="268" x2="130" y2="375" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="100" y="268" font-size="12" fill="#1a1a1a" text-anchor="end">C1 = 0.1 мкФ</text>
+
+  <!-- LM35 Component Box (Panel 1) -->
+  <rect x="190" y="225" width="125" height="115" rx="6" fill="white" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="252.5" y="245" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">+V_S</text>
+  <text x="252.5" y="278" font-size="15" font-weight="bold" fill="#1a1a1a" text-anchor="middle">LM35DZ</text>
+  <text x="302" y="286" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">V_OUT</text>
+  <text x="252.5" y="330" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">GND</text>
+
+  <!-- GND Wire & Symbol (Panel 1) -->
+  <line x1="252.5" y1="340" x2="252.5" y2="375" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="130" y1="375" x2="315" y2="375" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="252.5" y1="375" x2="252.5" y2="385" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="242" y1="385" x2="263" y2="385" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="246" y1="389" x2="259" y2="389" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="250" y1="393" x2="255" y2="393" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="252.5" y="410" font-size="12" fill="#6b7280" text-anchor="middle">0 В (GND)</text>
+
+  <!-- Output Wire & ADC Connection (Panel 1) -->
+  <line x1="315" y1="282.5" x2="385" y2="282.5" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="350" y="274" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">+10 мВ/°C</text>
+
+  <!-- ADC Box (Panel 1) -->
+  <rect x="385" y="250" width="60" height="65" rx="5" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="415" y="278" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">АЦП</text>
+  <text x="415" y="296" font-size="11" fill="#6b7280" text-anchor="middle">(ADC)</text>
+
+  <!-- Explanatory Card (Panel 1) -->
+  <rect x="45" y="425" width="405" height="60" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="55" y="445" font-size="12" fill="#1a1a1a">• Вихідна напруга: 0 мВ при 0 °C (лінійність 10 мВ/°C)</text>
+  <text x="55" y="465" font-size="12" fill="#6b7280">• Не вимагає додаткових зовнішніх компонентів</text>
+
+
+  <!-- PANEL 2: Dual Supply with Pull-Down Resistor -->
+  <rect x="495" y="80" width="435" height="420" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Panel 2 Header -->
+  <rect x="510" y="95" width="405" height="34" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="712.5" y="117" font-size="14" font-weight="bold" fill="#27ae60" text-anchor="middle">Двополярне живлення з R_S (Full-Range Supply)</text>
+
+  <!-- Panel 2 Range Badge -->
+  <rect x="570" y="137" width="285" height="26" rx="13" fill="white" stroke="#27ae60" stroke-width="1"/>
+  <text x="712.5" y="154" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Розширений діапазон: -55 °C ... +150 °C</text>
+
+  <!-- Panel 2 Schematic Lines & Wiring -->
+  <!-- Power Rail +Vs -->
+  <line x1="545" y1="195" x2="712.5" y2="195" stroke="#27ae60" stroke-width="2"/>
+  <circle cx="545" cy="195" r="4" fill="#27ae60"/>
+  <text x="627.5" y="187" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">+V_S (+4 В ... +30 В)</text>
+  <line x1="712.5" y1="195" x2="712.5" y2="225" stroke="#27ae60" stroke-width="2"/>
+
+  <!-- Decoupling Capacitor C1 (Panel 2) -->
+  <line x1="595" y1="195" x2="595" y2="260" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="571" y1="260" x2="619" y2="260" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="571" y1="268" x2="619" y2="268" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="595" y1="268" x2="595" y2="340" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="565" y="268" font-size="12" fill="#1a1a1a" text-anchor="end">C1 = 0.1 мкФ</text>
+
+  <!-- LM35 Component Box (Panel 2) -->
+  <rect x="650" y="225" width="125" height="115" rx="6" fill="white" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="712.5" y="245" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">+V_S</text>
+  <text x="712.5" y="278" font-size="15" font-weight="bold" fill="#1a1a1a" text-anchor="middle">LM35DZ</text>
+  <text x="762" y="286" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">V_OUT</text>
+  <text x="712.5" y="330" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">GND</text>
+
+  <!-- GND Wire & Symbol (Panel 2) -->
+  <line x1="712.5" y1="340" x2="712.5" y2="340" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="595" y1="340" x2="712.5" y2="340" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="640" y1="340" x2="640" y2="348" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="630" y1="348" x2="650" y2="348" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="633" y1="352" x2="647" y2="352" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="637" y1="356" x2="643" y2="356" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="640" y="372" font-size="12" fill="#6b7280" text-anchor="middle">0 В (GND)</text>
+
+  <!-- Output & Pull-down Resistor Wiring -->
+  <line x1="775" y1="282.5" x2="855" y2="282.5" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr-green)"/>
+  <circle cx="795" cy="282.5" r="3" fill="#1a1a1a"/>
+  <text x="825" y="274" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">V_OUT</text>
+
+  <!-- Pull-Down Resistor Rs -->
+  <line x1="795" y1="282.5" x2="795" y2="305" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="787" y="305" width="16" height="40" fill="white" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="795" y="329" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">R_S</text>
+  <text x="810" y="320" font-size="11" font-weight="bold" fill="#27ae60">R_S = -V_S / 50 мкА</text>
+  <text x="810" y="336" font-size="11" fill="#6b7280">(підтяжка до -V_S)</text>
+
+  <!-- Negative Supply Rail -Vs -->
+  <line x1="795" y1="345" x2="795" y2="385" stroke="#c0392b" stroke-width="1.5"/>
+  <circle cx="795" cy="385" r="4" fill="#c0392b"/>
+  <text x="795" y="405" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">-V_S (напр. -5 В)</text>
+
+  <!-- ADC Box (Panel 2) -->
+  <rect x="855" y="250" width="60" height="65" rx="5" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="885" y="278" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">АЦП</text>
+  <text x="885" y="296" font-size="11" fill="#6b7280" text-anchor="middle">(ADC)</text>
+
+  <!-- Explanatory Card (Panel 2) -->
+  <rect x="510" y="425" width="405" height="60" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="520" y="445" font-size="12" fill="#1a1a1a">• R_S тягне вихід до -V_S, задаючи витік ~50 мкА</text>
+  <text x="520" y="465" font-size="12" fill="#6b7280">• Вихідна напруга стає від'ємною при T &lt; 0 °C</text>
+</svg>

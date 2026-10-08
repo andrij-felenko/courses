@@ -1,0 +1,161 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- White Background -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Definitions for Markers & Gradients -->
+  <defs>
+    <marker id="arr-black" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#64748b"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+
+    <linearGradient id="shaftGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#cbd5e1"/>
+      <stop offset="50%" stop-color="#f8fafc"/>
+      <stop offset="100%" stop-color="#94a3b8"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Магнітний енкодер: діаметральний магніт та мікросхема Холла</text>
+  <text x="480" y="60" font-size="13" fill="#6b7280" text-anchor="middle">Визначення кута обертання вала за напрямком вектора магнітної індукції B</text>
+
+  <!-- PANEL 1: Mechanical Layout -->
+  <rect x="30" y="85" width="435" height="445" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="247.5" y="114" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">1. Компонування: вал, магніт та IC</text>
+
+  <!-- Motor Shaft -->
+  <rect x="187.5" y="130" width="120" height="45" rx="4" fill="url(#shaftGrad)" stroke="#64748b" stroke-width="1.5"/>
+  <text x="247.5" y="157" font-size="12" fill="#475569" text-anchor="middle">Вал двигуна</text>
+
+  <!-- Axis segment above shaft -->
+  <line x1="247.5" y1="120" x2="247.5" y2="130" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="4,3"/>
+
+  <!-- Rotation Arc & Label -->
+  <path d="M 217.5,190 A 30,10 0 0,1 277.5,190" fill="none" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr-black)"/>
+  <text x="247.5" y="208" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Напрямок обертання ω (θ)</text>
+
+  <!-- Magnet Caption above magnet -->
+  <text x="247.5" y="224" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Діаметрально намагнічений магніт</text>
+
+  <!-- Diametrically Magnetized Magnet -->
+  <!-- Magnet North Pole (Red) -->
+  <path d="M 157.5,230 L 247.5,230 L 247.5,272 L 157.5,272 Z" fill="#c0392b"/>
+  <rect x="157.5" y="230" width="90" height="5" fill="#e74c3c"/>
+  <text x="202.5" y="256" font-size="13" font-weight="bold" fill="#ffffff" text-anchor="middle">N (Північ)</text>
+
+  <!-- Magnet South Pole (Blue) -->
+  <path d="M 247.5,230 L 337.5,230 L 337.5,272 L 247.5,272 Z" fill="#2457d6"/>
+  <rect x="247.5" y="230" width="90" height="5" fill="#3b82f6"/>
+  <text x="292.5" y="256" font-size="13" font-weight="bold" fill="#ffffff" text-anchor="middle">S (Південь)</text>
+
+  <!-- Outer Magnet Border -->
+  <rect x="157.5" y="230" width="180" height="42" rx="4" fill="none" stroke="#1e293b" stroke-width="1.5"/>
+
+  <!-- B-Field Lines from Magnet to IC -->
+  <path d="M 202.5,272 C 202.5,305 227.5,325 247.5,325" fill="none" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4,3" stroke-opacity="0.8"/>
+  <path d="M 292.5,272 C 292.5,305 267.5,325 247.5,325" fill="none" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4,3" stroke-opacity="0.8"/>
+  <line x1="247.5" y1="272" x2="247.5" y2="327" stroke="#2457d6" stroke-width="2" stroke-dasharray="4,3" marker-end="url(#arr-blue)"/>
+
+  <!-- Air Gap Dimension Line & Label -->
+  <line x1="70" y1="230" x2="70" y2="335" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="65" y1="230" x2="75" y2="230" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="65" y1="335" x2="75" y2="335" stroke="#2457d6" stroke-width="1.5"/>
+  <polygon points="70,230 66,238 74,238" fill="#2457d6"/>
+  <polygon points="70,335 66,327 74,327" fill="#2457d6"/>
+  <text x="82" y="278" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="start">Зазор d</text>
+  <text x="82" y="294" font-size="12" fill="#6b7280" text-anchor="start">(0.5–2.5 мм)</text>
+
+  <!-- IC Chip Package -->
+  <rect x="157.5" y="335" width="180" height="40" rx="4" fill="#1e293b" stroke="#0f172a" stroke-width="1.5"/>
+  <!-- IC Pins -->
+  <rect x="145.5" y="343" width="12" height="6" rx="1" fill="#94a3b8"/>
+  <rect x="145.5" y="361" width="12" height="6" rx="1" fill="#94a3b8"/>
+  <rect x="337.5" y="343" width="12" height="6" rx="1" fill="#94a3b8"/>
+  <rect x="337.5" y="361" width="12" height="6" rx="1" fill="#94a3b8"/>
+
+  <!-- Hall Array Die inside IC -->
+  <rect x="192" y="342" width="111" height="26" rx="3" fill="#f59e0b" fill-opacity="0.25" stroke="#d97706" stroke-width="1.5" stroke-dasharray="3,2"/>
+  <text x="247.5" y="359" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">Матриця Холла</text>
+
+  <!-- PCB Base -->
+  <rect x="117.5" y="380" width="260" height="20" rx="3" fill="#15803d" stroke="#166534" stroke-width="1.5"/>
+  <text x="247.5" y="394" font-size="12" fill="#ffffff" text-anchor="middle">Друкована плата (PCB)</text>
+
+  <!-- Explanatory Box at bottom of Panel 1 -->
+  <rect x="45" y="415" width="405" height="100" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="60" y="435" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">Особливості конструкції:</text>
+  <text x="60" y="455" font-size="12" fill="#1a1a1a" text-anchor="start">• Безконтактне вимірювання — відсутній механічний знос</text>
+  <text x="60" y="475" font-size="12" fill="#1a1a1a" text-anchor="start">• Магніт фіксується на валу точно по центру сенсора</text>
+  <text x="60" y="495" font-size="12" fill="#1a1a1a" text-anchor="start">• Вектор індукції B пронизує кристал IC під кутом θ</text>
+
+  <!-- PANEL 2: Sensing Principle -->
+  <rect x="495" y="85" width="435" height="445" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="712.5" y="114" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">2. Принцип вимірювання: матриця сенсорів та вектор B</text>
+
+  <!-- IC Chip Top View Substrate -->
+  <rect x="562.5" y="130" width="300" height="225" rx="8" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+
+  <!-- Trajectory Circle of Rotating B Vector -->
+  <circle cx="712.5" cy="242" r="70" stroke="#cbd5e1" stroke-width="1" stroke-dasharray="4,4" fill="none"/>
+
+  <!-- Coordinate Axes X and Y -->
+  <line x1="580" y1="242" x2="842" y2="242" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+  <line x1="712.5" y1="338" x2="712.5" y2="150" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+  <text x="848" y="246" font-size="13" font-weight="bold" fill="#64748b" text-anchor="start">X</text>
+  <text x="725" y="160" font-size="13" font-weight="bold" fill="#64748b" text-anchor="start">Y</text>
+
+  <!-- 4 Hall Elements Array -->
+  <!-- Hx+ -->
+  <rect x="765" y="231" width="22" height="22" rx="3" fill="#f59e0b" stroke="#b45309" stroke-width="1.5"/>
+  <text x="776" y="268" font-size="12" font-weight="bold" fill="#b45309" text-anchor="middle">Hx+</text>
+  <!-- Hx- -->
+  <rect x="638" y="231" width="22" height="22" rx="3" fill="#f59e0b" stroke="#b45309" stroke-width="1.5"/>
+  <text x="649" y="268" font-size="12" font-weight="bold" fill="#b45309" text-anchor="middle">Hx-</text>
+  <!-- Hy+ -->
+  <rect x="701.5" y="165" width="22" height="22" rx="3" fill="#f59e0b" stroke="#b45309" stroke-width="1.5"/>
+  <text x="730" y="180" font-size="12" font-weight="bold" fill="#b45309" text-anchor="start">Hy+</text>
+  <!-- Hy- -->
+  <rect x="701.5" y="297" width="22" height="22" rx="3" fill="#f59e0b" stroke="#b45309" stroke-width="1.5"/>
+  <text x="730" y="312" font-size="12" font-weight="bold" fill="#b45309" text-anchor="start">Hy-</text>
+
+  <!-- Projections of Vector B -->
+  <line x1="769.8" y1="201.9" x2="769.8" y2="242" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <line x1="769.8" y1="201.9" x2="712.5" y2="201.9" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="3,3"/>
+
+  <!-- Component Bx on X-axis -->
+  <line x1="712.5" y1="242" x2="769.8" y2="242" stroke="#2457d6" stroke-width="2.5"/>
+  <text x="741" y="258" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Bx</text>
+
+  <!-- Component By on Y-axis -->
+  <line x1="712.5" y1="242" x2="712.5" y2="201.9" stroke="#2457d6" stroke-width="2.5"/>
+  <text x="695" y="226" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">By</text>
+
+  <!-- Angle theta Arc & Arrow -->
+  <path d="M 747.5,242 A 35,35 0 0,0 741.2,221.9" stroke="#c0392b" stroke-width="2" fill="none" marker-end="url(#arr-red)"/>
+  <text x="754" y="236" font-size="14" font-weight="bold" fill="#c0392b" text-anchor="start">θ</text>
+
+  <!-- Magnetic Vector B -->
+  <path d="M 712.5,242 L 769.8,201.9" stroke="#2457d6" stroke-width="3" marker-end="url(#arr-blue)"/>
+  <text x="782" y="196" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="start">B</text>
+
+  <!-- Formula & Math Model Box -->
+  <rect x="510" y="365" width="405" height="150" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="712.5" y="387" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Обчислення кута мікроконтролером:</text>
+  <text x="712.5" y="410" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Bx = B₀ · cos(θ)   ,   By = B₀ · sin(θ)</text>
+
+  <!-- Main Angle Formula Box -->
+  <rect x="572.5" y="422" width="280" height="34" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="712.5" y="444" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">θ = arctan2( By , Bx )</text>
+
+  <text x="712.5" y="476" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">✓ Незалежність від амплітуди B₀ (відстані магніту)</text>
+  <text x="712.5" y="498" font-size="12" fill="#1a1a1a" text-anchor="middle">Співвідношення By/Bx компенсує температурний дрейф</text>
+</svg>

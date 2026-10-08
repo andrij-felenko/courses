@@ -1,0 +1,120 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Canvas Background -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="36" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Внутрішня архітектура та шлях сигналу OV2640</text>
+  <text x="480" y="56" font-size="13" fill="#6b7280" text-anchor="middle">Аналоговий сигнал з SXGA-матриці оцифровується, обробляється ISP та виводиться через DVP або JPEG</text>
+
+  <!-- Outer Sensor Chip Container -->
+  <rect x="25" y="72" width="910" height="428" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="8"/>
+  <text x="45" y="94" font-size="14" font-weight="bold" fill="#1a1a1a">CMOS-сенсор зображення OV2640</text>
+
+  <!-- PANEL 1: Analog Core -->
+  <rect x="45" y="108" width="230" height="250" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5" rx="6"/>
+  <text x="60" y="127" font-size="13" font-weight="bold" fill="#1a1a1a">Аналогове ядро</text>
+
+  <!-- Sub-block 1.1: Photo Matrix -->
+  <rect x="55" y="138" width="210" height="90" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="4"/>
+  <text x="160" y="160" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Фотодіодна матриця</text>
+  <text x="160" y="180" font-size="12" fill="#1a1a1a" text-anchor="middle">SXGA (1600×1200)</text>
+  <text x="160" y="202" font-size="12" fill="#6b7280" text-anchor="middle">Масив пікселів 1/4"</text>
+
+  <!-- Arrow 1.1 -> 1.2 -->
+  <line x1="160" y1="228" x2="160" y2="248" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Sub-block 1.2: Analog Processing & ADC -->
+  <rect x="55" y="248" width="210" height="95" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5" rx="4"/>
+  <text x="160" y="271" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Аналогова обробка</text>
+  <text x="160" y="293" font-size="12" fill="#6b7280" text-anchor="middle">Підсилювач PGA (Gain)</text>
+  <text x="160" y="315" font-size="12" fill="#1a1a1a" text-anchor="middle">10-бітний АЦП (ADC)</text>
+
+  <!-- PANEL 2: Digital Processing (ISP & JPEG) -->
+  <rect x="300" y="108" width="325" height="250" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5" rx="6"/>
+  <text x="315" y="127" font-size="13" font-weight="bold" fill="#1a1a1a">Цифрова обробка (ISP &amp; JPEG)</text>
+
+  <!-- Sub-block 2.1: ISP Core -->
+  <rect x="310" y="138" width="305" height="90" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="4"/>
+  <text x="462.5" y="160" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Процесор сигналів зображення (ISP)</text>
+  <text x="462.5" y="180" font-size="12" fill="#1a1a1a" text-anchor="middle">BLC • AWB / AEC • Гама-корекція</text>
+  <text x="462.5" y="200" font-size="12" fill="#6b7280" text-anchor="middle">Шумозаглушення • Чіткість • De-Bayer</text>
+
+  <!-- Arrow 2.1 -> 2.2 -->
+  <line x1="462.5" y1="228" x2="462.5" y2="248" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Sub-block 2.2: Scaler & JPEG Compressor -->
+  <rect x="310" y="248" width="305" height="95" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="4"/>
+  <text x="462.5" y="271" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Масштабування та компресія</text>
+  <text x="462.5" y="293" font-size="12" fill="#1a1a1a" text-anchor="middle">Масштабувальник (UXGA → SVGA/VGA)</text>
+  <text x="462.5" y="315" font-size="12" fill="#6b7280" text-anchor="middle">Апаратний модуль-компресор JPEG</text>
+
+  <!-- Signal Path ADC -> ISP -->
+  <path d="M 265 295.5 L 282.5 295.5 L 282.5 183 L 310 183" fill="none" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- PANEL 3: Control, Timing & Power -->
+  <rect x="45" y="375" width="580" height="110" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5" rx="6"/>
+  <text x="325" y="394" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Блок керування, тактування та живлення</text>
+
+  <!-- Sub-block 3.1: SCCB Interface -->
+  <rect x="55" y="405" width="260" height="68" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5" rx="4"/>
+  <text x="185" y="423" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Інтерфейс SCCB</text>
+  <text x="185" y="442" font-size="12" fill="#6b7280" text-anchor="middle">Шина налаштувань (SIOC, SIOD)</text>
+  <text x="185" y="461" font-size="12" fill="#6b7280" text-anchor="middle">Доступ до внутрішніх регістрів</text>
+
+  <!-- Sub-block 3.2: Timing & Power Modes -->
+  <rect x="330" y="405" width="285" height="68" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5" rx="4"/>
+  <text x="472.5" y="423" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Тактування та живлення</text>
+  <text x="472.5" y="442" font-size="12" fill="#6b7280" text-anchor="middle">Вхідний клок XCLK (до 24 MHz)</text>
+  <text x="472.5" y="461" font-size="12" fill="#6b7280" text-anchor="middle">Сплячі режими: Standby / PWDN</text>
+
+  <!-- Control & Clock Lines -->
+  <path d="M 150 405 L 150 358" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4 3" marker-end="url(#arr-gray)"/>
+  <path d="M 490 405 L 490 358" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4 3" marker-end="url(#arr-gray)"/>
+
+  <!-- PANEL 4: Output DVP Interface -->
+  <rect x="650" y="108" width="265" height="377" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5" rx="6"/>
+  <text x="665" y="127" font-size="13" font-weight="bold" fill="#1a1a1a">Вихідний інтерфейс DVP</text>
+
+  <!-- Sub-block 4.1: Synchronization Signals -->
+  <rect x="660" y="138" width="245" height="95" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5" rx="4"/>
+  <text x="782.5" y="158" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Сигнали синхронізації</text>
+  <text x="782.5" y="177" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">PCLK (Pixel Clock)</text>
+  <text x="782.5" y="196" font-size="12" fill="#1a1a1a" text-anchor="middle">VSYNC (Кадрова синхр.)</text>
+  <text x="782.5" y="215" font-size="12" fill="#1a1a1a" text-anchor="middle">HREF (Рядкова синхр.)</text>
+
+  <!-- Sub-block 4.2: Data Stream Formatter -->
+  <rect x="660" y="248" width="245" height="95" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="4"/>
+  <text x="782.5" y="269" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Формувач потоку даних</text>
+  <text x="782.5" y="289" font-size="12" fill="#1a1a1a" text-anchor="middle">• Стиснений потік JPEG</text>
+  <text x="782.5" y="309" font-size="12" fill="#1a1a1a" text-anchor="middle">• RGB565 / YUV422 / RAW</text>
+  <text x="782.5" y="329" font-size="12" fill="#6b7280" text-anchor="middle">8-бітний вихідний потік</text>
+
+  <!-- Arrow 4.2 -> 4.3 -->
+  <line x1="782.5" y1="343" x2="782.5" y2="358" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <!-- Sub-block 4.3: Parallel Data Bus Y2-Y9 -->
+  <rect x="660" y="358" width="245" height="115" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="4"/>
+  <text x="782.5" y="380" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Паралельна шина даних</text>
+  <text x="782.5" y="403" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Y2, Y3, Y4, Y5, Y6, Y7, Y8, Y9</text>
+  <text x="782.5" y="425" font-size="12" fill="#6b7280" text-anchor="middle">8 біт даних відеокадру</text>
+  <text x="782.5" y="447" font-size="12" fill="#27ae60" text-anchor="middle">Вихід до МК / DMA</text>
+
+  <!-- Connectors into Panel 4 -->
+  <line x1="615" y1="295.5" x2="660" y2="295.5" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <path d="M 615 439 L 637.5 439 L 637.5 183 L 660 183" fill="none" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4 3" marker-end="url(#arr-gray)"/>
+</svg>

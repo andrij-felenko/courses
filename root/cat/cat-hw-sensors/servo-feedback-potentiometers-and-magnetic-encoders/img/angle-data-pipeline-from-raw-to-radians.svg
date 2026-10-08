@@ -1,0 +1,144 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="460" viewBox="0 0 960 460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <defs>
+    <marker id="arr-accent" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-err" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-ok" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="34" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Конвеєр обробки кутових даних: від сирого відліку до радіан</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Послідовна перевірка цілісності, компенсація зміщення та фільтрація сигналу для контуру керування</text>
+
+  <!-- Етап 1: Сирий відлік -->
+  <rect x="35" y="100" width="185" height="230" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="45" y="110" width="165" height="30" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="127.5" y="130" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">1. Сирий відлік</text>
+  <text x="127.5" y="158" font-size="12" fill="#1a1a1a" text-anchor="middle">АЦП / SPI Кадр</text>
+
+  <rect x="45" y="168" width="165" height="42" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="127.5" y="184" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Потенціометр (ADC)</text>
+  <text x="127.5" y="200" font-size="12" fill="#6b7280" text-anchor="middle">N_raw = 0...4095 (12-bit)</text>
+
+  <rect x="45" y="218" width="165" height="56" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="127.5" y="234" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Магнітний енкодер</text>
+  <text x="127.5" y="250" font-size="12" fill="#2457d6" font-family="monospace" text-anchor="middle">[P | EF | D13...D0]</text>
+  <text x="127.5" y="266" font-size="12" fill="#6b7280" text-anchor="middle">14 біт + біт парності</text>
+
+  <rect x="45" y="282" width="165" height="38" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="127.5" y="297" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Вхідний потік</text>
+  <text x="127.5" y="312" font-size="12" fill="#6b7280" text-anchor="middle">Сирий відлік N_raw</text>
+
+  <!-- Стрілка 1 -> 2 -->
+  <line x1="220" y1="215" x2="262" y2="215" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-accent)"/>
+  <text x="245" y="202" font-size="12" fill="#2457d6" text-anchor="middle">N_raw</text>
+
+  <!-- Етап 2: Перевірка цілісності -->
+  <rect x="270" y="100" width="185" height="230" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="280" y="110" width="165" height="30" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="362.5" y="130" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">2. Перевірка цілісності</text>
+  <text x="362.5" y="158" font-size="12" fill="#1a1a1a" text-anchor="middle">Валідація кадру</text>
+
+  <rect x="280" y="168" width="165" height="42" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="362.5" y="184" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Контроль парності</text>
+  <text x="362.5" y="200" font-size="12" fill="#2457d6" font-family="monospace" text-anchor="middle">parity(N_raw) == P</text>
+
+  <rect x="280" y="218" width="165" height="42" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="362.5" y="234" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Прапорець помилки</text>
+  <text x="362.5" y="250" font-size="12" fill="#27ae60" font-family="monospace" text-anchor="middle">EF == 0 (Без збою)</text>
+
+  <rect x="280" y="268" width="165" height="52" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="362.5" y="286" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Кадр валідний?</text>
+  <text x="362.5" y="304" font-size="12" fill="#1a1a1a" text-anchor="middle">Так -> N_valid = N_raw</text>
+
+  <!-- Стрілка 2 -> Error -->
+  <line x1="362.5" y1="330" x2="362.5" y2="361" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-err)"/>
+  <text x="372" y="348" font-size="12" fill="#c0392b" text-anchor="start">Ні (Збій)</text>
+
+  <!-- Стрілка 2 -> 3 -->
+  <line x1="455" y1="215" x2="497" y2="215" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-accent)"/>
+  <text x="480" y="202" font-size="12" fill="#2457d6" text-anchor="middle">N_valid</text>
+
+  <!-- Етап 3: Зсув та радіани -->
+  <rect x="505" y="100" width="185" height="230" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="515" y="110" width="165" height="30" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="597.5" y="130" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">3. Зсув та радіани</text>
+  <text x="597.5" y="158" font-size="12" fill="#1a1a1a" text-anchor="middle">Калібрування та кут</text>
+
+  <rect x="515" y="168" width="165" height="56" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="597.5" y="184" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Нулювання (Zero Offset)</text>
+  <text x="597.5" y="200" font-size="12" fill="#2457d6" font-family="monospace" text-anchor="middle">N_cal = (N_valid - N_zero)</text>
+  <text x="597.5" y="216" font-size="12" fill="#2457d6" font-family="monospace" text-anchor="middle">mod N_max</text>
+
+  <rect x="515" y="232" width="165" height="48" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="597.5" y="248" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Масштабування в кут</text>
+  <text x="597.5" y="266" font-size="12" fill="#1a1a1a" font-family="monospace" text-anchor="middle">θ_raw = (N_cal/N_max)·2π</text>
+
+  <rect x="515" y="288" width="165" height="32" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="597.5" y="308" font-size="12" fill="#6b7280" text-anchor="middle">Діапазон: [-π, +π] rad</text>
+
+  <!-- Стрілка 3 -> 4 -->
+  <line x1="690" y1="215" x2="732" y2="215" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-accent)"/>
+  <text x="715" y="202" font-size="12" fill="#2457d6" text-anchor="middle">θ_raw</text>
+
+  <!-- Етап 4: Фільтрація та вихід -->
+  <rect x="740" y="100" width="185" height="230" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="750" y="110" width="165" height="30" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="832.5" y="130" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">4. Фільтрація та вихід</text>
+  <text x="832.5" y="158" font-size="12" fill="#1a1a1a" text-anchor="middle">Обробка сигналу</text>
+
+  <rect x="750" y="168" width="165" height="56" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="832.5" y="184" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Фільтр низьких частот</text>
+  <text x="832.5" y="200" font-size="12" fill="#2457d6" font-family="monospace" text-anchor="middle">θ_out = α·θ_raw +</text>
+  <text x="832.5" y="216" font-size="12" fill="#2457d6" font-family="monospace" text-anchor="middle">(1 - α)·θ_prev</text>
+
+  <rect x="750" y="232" width="165" height="38" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="832.5" y="248" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Придушення шуму АЦП</text>
+  <text x="832.5" y="262" font-size="12" fill="#6b7280" text-anchor="middle">Згладжування відліків</text>
+
+  <rect x="750" y="278" width="165" height="42" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="832.5" y="294" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Вихідний кут θ</text>
+  <text x="832.5" y="310" font-size="12" fill="#1a1a1a" text-anchor="middle">Одиниці: радіани [rad]</text>
+
+  <!-- Нижні блоки системи -->
+
+  <!-- Апаратний рівень (під Етапом 1) -->
+  <line x1="127.5" y1="365" x2="127.5" y2="334" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#arr-dark)"/>
+  <text x="135" y="352" font-size="12" fill="#6b7280" text-anchor="start">Опитування</text>
+  <rect x="35" y="365" width="185" height="65" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4,3"/>
+  <text x="127.5" y="385" font-size="13" font-weight="bold" fill="#6b7280" text-anchor="middle">Апаратне забезпечення</text>
+  <text x="127.5" y="403" font-size="12" fill="#1a1a1a" text-anchor="middle">• Таймер / Периферія АЦП</text>
+  <text x="127.5" y="419" font-size="12" fill="#6b7280" text-anchor="middle">• Шина SPI / DMA транзакції</text>
+
+  <!-- Обробник помилок (під Етапом 2) -->
+  <rect x="270" y="365" width="185" height="65" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="362.5" y="385" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">Обробник помилок</text>
+  <text x="362.5" y="403" font-size="12" fill="#1a1a1a" text-anchor="middle">• Фіксація прапорця Fault</text>
+  <text x="362.5" y="419" font-size="12" fill="#6b7280" text-anchor="middle">• Утримання значення θ_prev</text>
+
+  <!-- Калібрувальні дані (під Етапом 3) -->
+  <line x1="597.5" y1="365" x2="597.5" y2="334" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#arr-dark)"/>
+  <text x="605" y="352" font-size="12" fill="#6b7280" text-anchor="start">Параметри</text>
+  <rect x="505" y="365" width="185" height="65" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4,3"/>
+  <text x="597.5" y="385" font-size="13" font-weight="bold" fill="#6b7280" text-anchor="middle">Калібрувальні дані</text>
+  <text x="597.5" y="403" font-size="12" fill="#1a1a1a" text-anchor="middle">• Збереження N_zero у EEPROM</text>
+  <text x="597.5" y="419" font-size="12" fill="#6b7280" text-anchor="middle">• Роздільна здатність N_max</text>
+
+  <!-- Контур керування (під Етапом 4) -->
+  <line x1="832.5" y1="330" x2="832.5" y2="361" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-ok)"/>
+  <text x="842" y="348" font-size="12" fill="#27ae60" text-anchor="start">θ_out [rad]</text>
+  <rect x="740" y="365" width="185" height="65" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="832.5" y="385" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Контур керування</text>
+  <text x="832.5" y="403" font-size="12" fill="#1a1a1a" text-anchor="middle">• PID-регулятор положення</text>
+  <text x="832.5" y="419" font-size="12" fill="#6b7280" text-anchor="middle">• Розрахунок швидкості ω</text>
+</svg>

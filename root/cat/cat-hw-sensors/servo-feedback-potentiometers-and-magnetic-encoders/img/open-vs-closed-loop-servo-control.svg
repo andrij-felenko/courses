@@ -1,0 +1,163 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <!-- Arrow Markers -->
+    <marker id="arr-black" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Canvas Background -->
+  <rect x="0" y="0" width="960" height="520" fill="#ffffff"/>
+
+  <!-- Main Header -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Контур керування сервомотором: відкрите vs замкнене коло</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Зворотний зв'язок за кутом компенсує зовнішній момент M_ext та усуває похибку Δθ</text>
+
+  <!-- ==================== LEFT PANEL: OPEN LOOP ==================== -->
+  <g id="open-loop">
+    <!-- Panel Background & Border -->
+    <rect x="25" y="75" width="445" height="425" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+    
+    <!-- Panel Header Banner -->
+    <rect x="25" y="75" width="445" height="36" rx="8" fill="#c0392b"/>
+    <rect x="25" y="99" width="445" height="12" fill="#c0392b"/>
+    <text x="247.5" y="98" font-size="14" font-weight="bold" fill="#ffffff" text-anchor="middle">ВІДКРИТЕ КОЛО (БЕЗ ДАВАЧА КУТА)</text>
+
+    <!-- Input Signal theta_set -->
+    <text x="65" y="142" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">θ_set</text>
+    <text x="65" y="156" font-size="12" fill="#6b7280" text-anchor="middle">(заданий кут)</text>
+    <line x1="35" y1="170" x2="95" y2="170" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-black)"/>
+
+    <!-- Controller Block -->
+    <rect x="95" y="145" width="115" height="50" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+    <text x="152.5" y="166" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Контролер</text>
+    <text x="152.5" y="182" font-size="12" fill="#6b7280" text-anchor="middle">(без корекції)</text>
+
+    <!-- Signal U Line -->
+    <text x="240" y="156" font-size="12" fill="#6b7280" text-anchor="middle">Сигнал U</text>
+    <line x1="210" y1="170" x2="270" y2="170" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-black)"/>
+
+    <!-- Motor & Gearbox Block -->
+    <rect x="270" y="145" width="120" height="50" rx="6" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+    <text x="330" y="166" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Двигун і редуктор</text>
+    <text x="330" y="182" font-size="12" fill="#6b7280" text-anchor="middle">(привід вала)</text>
+
+    <!-- External Load Disturbance (M_ext) -->
+    <text x="430" y="130" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">M_ext</text>
+    <line x1="430" y1="135" x2="430" y2="157" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+
+    <!-- Output Shaft & Rotor Disk -->
+    <line x1="390" y1="170" x2="445" y2="170" stroke="#1a1a1a" stroke-width="3"/>
+    <circle cx="430" cy="170" r="10" fill="#ffffff" stroke="#1a1a1a" stroke-width="2"/>
+    <line x1="430" y1="170" x2="437" y2="163" stroke="#c0392b" stroke-width="2"/>
+    <text x="415" y="196" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="end">θ_fact</text>
+    <text x="415" y="210" font-size="12" fill="#c0392b" text-anchor="end">θ_fact ≠ θ_set</text>
+
+    <!-- Missing Feedback Connection (Dashed Line & Crossed Out Icon) -->
+    <path d="M 445,170 L 445,250 L 345,250" fill="none" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,4"/>
+    <rect x="125" y="235" width="220" height="30" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,4"/>
+    <text x="235" y="254" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Давач відсутній (коло розімкнене)</text>
+    <path d="M 125,250 L 65,250 L 65,193" fill="none" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,4"/>
+
+    <!-- Crossed Out Icon -->
+    <circle cx="65" cy="185" r="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+    <line x1="59.5" y1="179.5" x2="70.5" y2="190.5" stroke="#c0392b" stroke-width="2"/>
+    <line x1="70.5" y1="179.5" x2="59.5" y2="190.5" stroke="#c0392b" stroke-width="2"/>
+
+    <!-- Lower Summary Card (Open Loop) -->
+    <rect x="40" y="295" width="415" height="185" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+    <text x="55" y="318" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="start">Наслідок відсутності зворотного зв'язку:</text>
+    <text x="55" y="340" font-size="12" fill="#1a1a1a" text-anchor="start">• Контролер подає U лише для заданого θ_set</text>
+    <text x="55" y="360" font-size="12" fill="#1a1a1a" text-anchor="start">• Момент M_ext зміщує вал на кут Δθ</text>
+    <text x="55" y="380" font-size="12" fill="#1a1a1a" text-anchor="start">• Контролер не знає про реальне відхилення</text>
+
+    <!-- Highlighted Error Box -->
+    <rect x="55" y="398" width="385" height="66" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+    <text x="247.5" y="422" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">Похибка: θ_fact = θ_set − Δθ</text>
+    <text x="247.5" y="444" font-size="12" fill="#c0392b" text-anchor="middle">(похибка Δθ ≠ 0 не усувається)</text>
+  </g>
+
+  <!-- ==================== RIGHT PANEL: CLOSED LOOP ==================== -->
+  <g id="closed-loop">
+    <!-- Panel Background & Border -->
+    <rect x="490" y="75" width="445" height="425" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+    <!-- Panel Header Banner -->
+    <rect x="490" y="75" width="445" height="36" rx="8" fill="#27ae60"/>
+    <rect x="490" y="99" width="445" height="12" fill="#27ae60"/>
+    <text x="712.5" y="98" font-size="14" font-weight="bold" fill="#ffffff" text-anchor="middle">ЗАМКНЕНЕ КОЛО (ІЗ ДАВАЧЕМ ПОЛОЖЕННЯ)</text>
+
+    <!-- Input Signal theta_set -->
+    <text x="520" y="150" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">θ_set</text>
+    <line x1="505" y1="170" x2="538" y2="170" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+    <!-- Summing Junction (Sigma) -->
+    <circle cx="555" cy="170" r="14" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+    <text x="555" y="175" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">Σ</text>
+    <text x="537" y="164" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">+</text>
+    <text x="555" y="196" font-size="14" font-weight="bold" fill="#c0392b" text-anchor="middle">−</text>
+
+    <!-- Error Signal e -->
+    <text x="597" y="156" font-size="12" fill="#6b7280" text-anchor="middle">Похибка e</text>
+    <line x1="569" y1="170" x2="625" y2="170" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-black)"/>
+
+    <!-- PID Controller Block -->
+    <rect x="625" y="145" width="110" height="50" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+    <text x="680" y="166" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">PID-контролер</text>
+    <text x="680" y="182" font-size="12" fill="#6b7280" text-anchor="middle">(e = θ_set − θ_fb)</text>
+
+    <!-- Signal U Line -->
+    <text x="762.5" y="156" font-size="12" fill="#6b7280" text-anchor="middle">Сигнал U</text>
+    <line x1="735" y1="170" x2="790" y2="170" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-black)"/>
+
+    <!-- Motor & Gearbox Block -->
+    <rect x="790" y="145" width="120" height="50" rx="6" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+    <text x="850" y="166" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Двигун і редуктор</text>
+    <text x="850" y="182" font-size="12" fill="#6b7280" text-anchor="middle">(привід вала)</text>
+
+    <!-- External Load Disturbance (M_ext) -->
+    <text x="915" y="130" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">M_ext</text>
+    <line x1="915" y1="135" x2="915" y2="157" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+
+    <!-- Output Shaft & Rotor Disk -->
+    <line x1="910" y1="170" x2="925" y2="170" stroke="#1a1a1a" stroke-width="3"/>
+    <circle cx="915" cy="170" r="10" fill="#ffffff" stroke="#1a1a1a" stroke-width="2"/>
+    <line x1="915" y1="170" x2="915" y2="158" stroke="#27ae60" stroke-width="2"/>
+    <text x="895" y="196" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="end">θ_fact</text>
+    <text x="895" y="210" font-size="12" fill="#27ae60" text-anchor="end">θ_fact ≈ θ_set</text>
+
+    <!-- Feedback Path Line from Shaft to Sensor -->
+    <path d="M 915,180 L 915,250 L 830,250" fill="none" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+    <!-- Position Sensor Block -->
+    <rect x="590" y="230" width="240" height="40" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+    <text x="710" y="247" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Давач кута (потенціометр / енкодер)</text>
+    <text x="710" y="262" font-size="11" fill="#6b7280" text-anchor="middle">Вимірює реальний кут вала θ_fact</text>
+
+    <!-- Feedback Line from Sensor to Summing Junction -->
+    <path d="M 590,250 L 555,250 L 555,184" fill="none" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+    <text x="545" y="215" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">θ_fb</text>
+    <text x="545" y="229" font-size="12" fill="#6b7280" text-anchor="end">(FB)</text>
+
+    <!-- Lower Summary Card (Closed Loop) -->
+    <rect x="505" y="295" width="415" height="185" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+    <text x="520" y="318" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="start">Результат дії зворотного зв'язку:</text>
+    <text x="520" y="340" font-size="12" fill="#1a1a1a" text-anchor="start">• M_ext зміщує вал → давач фіксує зміну θ</text>
+    <text x="520" y="360" font-size="12" fill="#1a1a1a" text-anchor="start">• Виникає неузгодженість e = θ_set − θ_fb ≠ 0</text>
+    <text x="520" y="380" font-size="12" fill="#1a1a1a" text-anchor="start">• Контролер змінює U для компенсації M_ext</text>
+
+    <!-- Highlighted Success Box -->
+    <rect x="520" y="398" width="385" height="66" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+    <text x="712.5" y="422" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Точність: θ_fact → θ_set</text>
+    <text x="712.5" y="444" font-size="12" fill="#27ae60" text-anchor="middle">(похибка Δθ ≈ 0 успішно усунута)</text>
+  </g>
+</svg>

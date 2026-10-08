@@ -1,0 +1,161 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 510" width="960" height="510" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="510" fill="white"/>
+  <defs>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-black" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="30" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Апаратний RC-фільтр та TVS-захист сигнальної лінії</text>
+  <text x="480" y="50" font-size="13" fill="#6b7280" text-anchor="middle">Придушення шумів турбулентності та захист входу мікроконтролера від сплесків</text>
+
+  <!-- Panel 1: Hall Sensor -->
+  <rect x="25" y="68" width="220" height="275" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="8"/>
+  <text x="135" y="90" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Давач Холла (G1/2″)</text>
+  <text x="135" y="108" font-size="12" fill="#6b7280" text-anchor="middle">Вихід: NPN відкритий колектор</text>
+
+  <!-- Power Line -->
+  <text x="235" y="125" font-size="12" fill="#c0392b" text-anchor="end">+5V...18V DC</text>
+  <line x1="135" y1="132" x2="245" y2="132" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,3"/>
+
+  <!-- Hall Element -->
+  <rect x="45" y="145" width="60" height="40" fill="#ffffff" stroke="#6b7280" stroke-width="1.5" rx="4"/>
+  <text x="75" y="161" font-size="12" fill="#1a1a1a" text-anchor="middle">Елемент</text>
+  <text x="75" y="175" font-size="12" fill="#1a1a1a" text-anchor="middle">Холла</text>
+  <line x1="105" y1="165" x2="125" y2="165" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- NPN Transistor -->
+  <line x1="125" y1="150" x2="125" y2="180" stroke="#1a1a1a" stroke-width="2.5"/>
+  <line x1="125" y1="155" x2="145" y2="145" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="145" y1="145" x2="145" y2="195" stroke="#2457d6" stroke-width="2"/>
+  <line x1="125" y1="175" x2="145" y2="185" stroke="#1a1a1a" stroke-width="1.5"/>
+  <polygon points="143,180 147,187 138,185" fill="#1a1a1a"/>
+  <line x1="145" y1="185" x2="145" y2="270" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="85" y="210" font-size="12" fill="#6b7280" text-anchor="middle">NPN-ключ</text>
+
+  <!-- Signal & Ground Output Lines -->
+  <text x="235" y="187" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">Сигнал (Pulse)</text>
+  <line x1="145" y1="195" x2="255" y2="195" stroke="#2457d6" stroke-width="2.5"/>
+
+  <text x="235" y="262" font-size="12" fill="#1a1a1a" text-anchor="end">Земля (GND)</text>
+  <line x1="145" y1="270" x2="255" y2="270" stroke="#6b7280" stroke-width="2"/>
+
+  <!-- Panel 2: Matching & TVS Protection Circuit -->
+  <rect x="255" y="68" width="430" height="275" fill="#f4f6f8" stroke="#2457d6" stroke-width="1.5" rx="8"/>
+  <text x="470" y="90" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">Коло узгодження та TVS-захисту</text>
+
+  <!-- Vcc Pull-up Rail -->
+  <text x="345" y="112" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Vcc (3.3V / 5V)</text>
+  <circle cx="345" cy="120" r="3.5" fill="#27ae60"/>
+  <line x1="345" y1="120" x2="345" y2="135" stroke="#27ae60" stroke-width="2"/>
+
+  <rect x="338" y="135" width="14" height="30" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="330" y="148" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">R_pull</text>
+  <text x="330" y="163" font-size="12" fill="#6b7280" text-anchor="end">4.7–10 кОм</text>
+  <line x1="345" y1="165" x2="345" y2="195" stroke="#2457d6" stroke-width="2"/>
+
+  <!-- Series Resistor R_f -->
+  <rect x="370" y="187" width="50" height="16" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="395" y="173" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">R_f = 1...10 кОм</text>
+  <text x="395" y="220" font-size="12" fill="#6b7280" text-anchor="middle">(придушення ВЧ-шуму)</text>
+
+  <!-- Capacitor C_f -->
+  <line x1="480" y1="195" x2="480" y2="222" stroke="#2457d6" stroke-width="2"/>
+  <line x1="468" y1="222" x2="492" y2="222" stroke="#1a1a1a" stroke-width="2.5"/>
+  <line x1="468" y1="228" x2="492" y2="228" stroke="#1a1a1a" stroke-width="2.5"/>
+  <line x1="480" y1="228" x2="480" y2="270" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="500" y="220" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">C_f</text>
+  <text x="500" y="236" font-size="12" fill="#6b7280" text-anchor="start">10...100 нФ</text>
+
+  <!-- TVS Diode D_TVS -->
+  <line x1="585" y1="195" x2="585" y2="214" stroke="#2457d6" stroke-width="2"/>
+  <path d="M 575,210 L 579,214 L 591,214 L 595,218" stroke="#c0392b" stroke-width="2" fill="none"/>
+  <polygon points="585,230 575,214 595,214" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <line x1="585" y1="230" x2="585" y2="270" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="602" y="216" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="start">D_TVS</text>
+  <text x="602" y="231" font-size="12" fill="#c0392b" text-anchor="start">TVS 3.3V/5V</text>
+  <text x="602" y="246" font-size="12" fill="#6b7280" text-anchor="start">Захист від</text>
+  <text x="602" y="260" font-size="12" fill="#6b7280" text-anchor="start">сплесків</text>
+
+  <!-- Signal Line & Nodes -->
+  <line x1="255" y1="195" x2="370" y2="195" stroke="#2457d6" stroke-width="2.5"/>
+  <line x1="420" y1="195" x2="685" y2="195" stroke="#2457d6" stroke-width="2.5"/>
+  <circle cx="345" cy="195" r="3.5" fill="#2457d6"/>
+  <circle cx="480" cy="195" r="3.5" fill="#2457d6"/>
+  <circle cx="585" cy="195" r="3.5" fill="#2457d6"/>
+
+  <!-- GND Line & Nodes -->
+  <line x1="255" y1="270" x2="685" y2="270" stroke="#6b7280" stroke-width="2"/>
+  <circle cx="480" cy="270" r="3.5" fill="#6b7280"/>
+  <circle cx="585" cy="270" r="3.5" fill="#6b7280"/>
+
+  <!-- Formula Callout Box -->
+  <rect x="275" y="285" width="390" height="48" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="470" y="303" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Частота зрізу: f_c = 1 / (2π · R_f · C_f)</text>
+  <text x="470" y="321" font-size="12" fill="#1a1a1a" text-anchor="middle">Приклад: R = 1 кОм, C = 100 нФ → f_c ≈ 1.6 кГц</text>
+
+  <!-- Panel 3: Microcontroller -->
+  <rect x="695" y="68" width="240" height="275" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="8"/>
+  <text x="815" y="90" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Мікроконтролер</text>
+  <text x="815" y="108" font-size="12" fill="#6b7280" text-anchor="middle">ESP32 / STM32 / AVR</text>
+
+  <text x="705" y="172" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="start">GPIO Pin</text>
+  <text x="705" y="186" font-size="12" fill="#6b7280" text-anchor="start">(Вхід МК)</text>
+  <circle cx="695" cy="195" r="3.5" fill="#2457d6"/>
+
+  <rect x="725" y="210" width="180" height="115" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5" rx="6"/>
+  <text x="815" y="230" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Вхідний тригер Шмітта</text>
+  <text x="815" y="246" font-size="12" fill="#6b7280" text-anchor="middle">Апаратний гістерезис</text>
+  <path d="M 803,266 L 811,266 L 811,256 L 827,256 M 827,258 L 819,258 L 819,268 L 803,268" stroke="#2457d6" stroke-width="1.5" fill="none"/>
+  <text x="815" y="292" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Рівень 0...Vcc (OK)</text>
+  <text x="815" y="310" font-size="12" fill="#27ae60" text-anchor="middle">Точна лічба імпульсів</text>
+
+  <!-- Bottom Oscillogram Section -->
+  <!-- Left Oscillogram: Raw signal before filter -->
+  <rect x="25" y="360" width="440" height="135" fill="#fdecea" stroke="#c0392b" stroke-width="1" rx="8"/>
+  <text x="40" y="382" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="start">Осцилограма ДО фільтра (вихід NPN):</text>
+
+  <!-- Scope grid & Y-axis -->
+  <line x1="60" y1="465" x2="180" y2="465" stroke="#6b7280" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="60" y1="430" x2="180" y2="430" stroke="#6b7280" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="60" y1="405" x2="180" y2="405" stroke="#c0392b" stroke-width="1" stroke-dasharray="2,2"/>
+  <text x="55" y="469" font-size="11" fill="#6b7280" text-anchor="end">0V</text>
+  <text x="55" y="434" font-size="11" fill="#6b7280" text-anchor="end">5V</text>
+  <text x="55" y="409" font-size="11" fill="#c0392b" text-anchor="end">&gt;5V</text>
+
+  <!-- Raw Noisy Signal Path -->
+  <path d="M 60,465 L 80,465 L 80,430 L 82,398 L 85,440 L 87,418 L 90,430 L 115,430 L 115,465 L 145,465 L 145,430 L 147,395 L 150,438 L 153,420 L 155,430 L 180,430" fill="none" stroke="#c0392b" stroke-width="2"/>
+
+  <!-- Left Oscillogram Bullet Points -->
+  <text x="195" y="412" font-size="12" fill="#c0392b" text-anchor="start">• Небезпечні сплески напруги (&gt;5 В)</text>
+  <text x="195" y="432" font-size="12" fill="#c0392b" text-anchor="start">• ВЧ-шум від турбулентності води</text>
+  <text x="195" y="452" font-size="12" fill="#c0392b" text-anchor="start">• Ризик хибних відліків та збою МК</text>
+
+  <!-- Right Oscillogram: Filtered signal after filter -->
+  <rect x="495" y="360" width="440" height="135" fill="#e9f7ef" stroke="#27ae60" stroke-width="1" rx="8"/>
+  <text x="510" y="382" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="start">Осцилограма ПІСЛЯ фільтра (вхід GPIO):</text>
+
+  <!-- Scope grid & Y-axis -->
+  <line x1="530" y1="465" x2="650" y2="465" stroke="#6b7280" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="530" y1="430" x2="650" y2="430" stroke="#27ae60" stroke-width="1" stroke-dasharray="2,2"/>
+  <text x="525" y="469" font-size="11" fill="#6b7280" text-anchor="end">0V</text>
+  <text x="525" y="434" font-size="11" fill="#27ae60" text-anchor="end">Vcc</text>
+
+  <!-- Clean Filtered Signal Path -->
+  <path d="M 530,465 L 548,465 C 551,465 553,430 558,430 L 585,430 C 588,430 590,465 595,465 L 618,465 C 621,465 623,430 628,430 L 650,430" fill="none" stroke="#27ae60" stroke-width="2"/>
+
+  <!-- Right Oscillogram Bullet Points -->
+  <text x="660" y="412" font-size="12" fill="#27ae60" text-anchor="start">• Зрізано TVS-діодом на рівні Vcc</text>
+  <text x="660" y="432" font-size="12" fill="#27ae60" text-anchor="start">• Згладжено RC-фільтром НЧ</text>
+  <text x="660" y="452" font-size="12" fill="#27ae60" text-anchor="start">• Точна та стабільна лічба імпульсів</text>
+</svg>

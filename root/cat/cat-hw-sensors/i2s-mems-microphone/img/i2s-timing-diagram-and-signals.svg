@@ -1,0 +1,158 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 512" width="960" height="512" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- White Background -->
+  <rect x="0" y="0" width="960" height="512" fill="white"/>
+
+  <defs>
+    <!-- Arrow Markers -->
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-red-start" markerWidth="9" markerHeight="9" refX="0.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-green-start" markerWidth="9" markerHeight="9" refX="0.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Title and Subtitle -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Часова діаграма сигналів шини I2S (INMP441 / MSM261S)</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Зсув MSB на 1 такт BCLK відносно фронту WS та вибірка даних за спадним фронтом BCLK</text>
+
+  <!-- Top Channel Banners -->
+  <rect x="190" y="72" width="300" height="22" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="340" y="87" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Лівий канал (WS = 0)</text>
+
+  <rect x="490" y="72" width="300" height="22" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="640" y="87" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Правий канал (WS = 1)</text>
+
+  <!-- Left Column Signal Labels Panel -->
+  <rect x="25" y="72" width="150" height="320" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="100" y="92" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">СИГНАЛИ</text>
+
+  <text x="100" y="128" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">BCLK</text>
+  <text x="100" y="144" font-size="12" fill="#6b7280" text-anchor="middle">Тактовий сигнал</text>
+
+  <text x="100" y="218" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">WS (LRCLK)</text>
+  <text x="100" y="234" font-size="12" fill="#6b7280" text-anchor="middle">Вибір каналу</text>
+
+  <text x="100" y="303" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">SD (SDATA)</text>
+  <text x="100" y="319" font-size="12" fill="#6b7280" text-anchor="middle">Послідовні дані</text>
+
+  <!-- 1 BCLK Delay Highlights -->
+  <!-- Left Channel Delay Region -->
+  <rect x="190" y="106" width="60" height="235" fill="#fdecea" opacity="0.45" stroke="#c0392b" stroke-dasharray="3,3" stroke-width="1"/>
+  <text x="220" y="171" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">Затримка</text>
+  <text x="220" y="184" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">1 такт</text>
+  <line x1="193" y1="191" x2="247" y2="191" stroke="#c0392b" stroke-width="1.5" marker-start="url(#arr-red-start)" marker-end="url(#arr-red)"/>
+
+  <!-- Right Channel Delay Region -->
+  <rect x="490" y="106" width="60" height="235" fill="#fdecea" opacity="0.45" stroke="#c0392b" stroke-dasharray="3,3" stroke-width="1"/>
+  <text x="520" y="171" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">Затримка</text>
+  <text x="520" y="184" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">1 такт</text>
+  <line x1="493" y1="191" x2="547" y2="191" stroke="#c0392b" stroke-width="1.5" marker-start="url(#arr-red-start)" marker-end="url(#arr-red)"/>
+
+  <!-- Vertical Sampling Dashed Lines -->
+  <!-- Falling edge MSB Left (X=280) -->
+  <line x1="280" y1="106" x2="280" y2="351" stroke="#c0392b" stroke-dasharray="3,3" stroke-width="1.2" opacity="0.6"/>
+  <polygon points="280,158 276,150 284,150" fill="#c0392b"/>
+  <text x="280" y="104" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">Вибірка</text>
+
+  <!-- Falling edge B22 Left (X=340) -->
+  <line x1="340" y1="116" x2="340" y2="336" stroke="#6b7280" stroke-dasharray="2,2" stroke-width="1" opacity="0.4"/>
+  <polygon points="340,158 336,150 344,150" fill="#6b7280"/>
+
+  <!-- Falling edge MSB Right (X=580) -->
+  <line x1="580" y1="106" x2="580" y2="351" stroke="#c0392b" stroke-dasharray="3,3" stroke-width="1.2" opacity="0.6"/>
+  <polygon points="580,158 576,150 584,150" fill="#c0392b"/>
+  <text x="580" y="104" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">Вибірка</text>
+
+  <!-- Falling edge B22 Right (X=640) -->
+  <line x1="640" y1="116" x2="640" y2="336" stroke="#6b7280" stroke-dasharray="2,2" stroke-width="1" opacity="0.4"/>
+  <polygon points="640,158 636,150 644,150" fill="#6b7280"/>
+
+  <!-- Waveform 1: BCLK -->
+  <path d="M 190,151 V 116 H 220 V 151 H 250 V 116 H 280 V 151 H 310 V 116 H 340 V 151 H 370 V 116 H 400 V 151 H 430 V 116 H 460 V 151 H 490 V 116 H 520 V 151 H 550 V 116 H 580 V 151 H 610 V 116 H 640 V 151 H 670 V 116 H 700 V 151 H 730 V 116 H 760 V 151 H 790 V 116 H 820 V 151 H 850 V 116 H 880" stroke="#1a1a1a" stroke-width="2" fill="none"/>
+
+  <!-- Waveform 2: WS -->
+  <path d="M 190,211 V 241 H 490 V 211 H 790 V 241 H 880" stroke="#2457d6" stroke-width="2.5" fill="none"/>
+
+  <!-- Waveform 3: SD (Bus Data Cells) -->
+  <!-- Left Channel Data Cells -->
+  <polygon points="190,306 195,286 245,286 250,306 245,326 195,326" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <text x="220" y="310" font-size="11" fill="#c0392b" font-weight="bold" text-anchor="middle">Затримка</text>
+
+  <polygon points="250,306 255,286 305,286 310,306 305,326 255,326" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="280" y="310" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">MSB (B23)</text>
+
+  <polygon points="310,306 315,286 365,286 370,306 365,326 315,326" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="340" y="310" font-size="12" fill="#1a1a1a" text-anchor="middle">B22</text>
+
+  <polygon points="370,306 375,286 425,286 430,306 425,326 375,326" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="400" y="310" font-size="12" fill="#1a1a1a" text-anchor="middle">B21</text>
+
+  <polygon points="430,306 435,286 485,286 490,306 485,326 435,326" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="460" y="310" font-size="12" fill="#1a1a1a" text-anchor="middle">B20 ...</text>
+
+  <!-- Right Channel Data Cells -->
+  <polygon points="490,306 495,286 545,286 550,306 545,326 495,326" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <text x="520" y="310" font-size="11" fill="#c0392b" font-weight="bold" text-anchor="middle">Затримка</text>
+
+  <polygon points="550,306 555,286 605,286 610,306 605,326 555,326" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="580" y="310" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">MSB (B23)</text>
+
+  <polygon points="610,306 615,286 665,286 670,306 665,326 615,326" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="640" y="310" font-size="12" fill="#1a1a1a" text-anchor="middle">B22</text>
+
+  <polygon points="670,306 675,286 725,286 730,306 725,326 675,326" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="700" y="310" font-size="12" fill="#1a1a1a" text-anchor="middle">B21</text>
+
+  <polygon points="730,306 735,286 785,286 790,306 785,326 735,326" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="760" y="310" font-size="12" fill="#1a1a1a" text-anchor="middle">B20 ...</text>
+
+  <polygon points="790,306 795,286 845,286 850,306 845,326 795,326" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <text x="820" y="310" font-size="11" fill="#c0392b" font-weight="bold" text-anchor="middle">Затримка</text>
+
+  <line x1="850" y1="306" x2="880" y2="306" stroke="#6b7280" stroke-dasharray="3,3" stroke-width="1.5"/>
+
+  <!-- Setup and Hold Annotations -->
+  <!-- Left MSB Setup/Hold -->
+  <line x1="252" y1="351" x2="278" y2="351" stroke="#27ae60" stroke-width="1.5" marker-start="url(#arr-green-start)" marker-end="url(#arr-green)"/>
+  <text x="276" y="346" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="end">t_setup</text>
+
+  <line x1="282" y1="351" x2="308" y2="351" stroke="#27ae60" stroke-width="1.5" marker-start="url(#arr-green-start)" marker-end="url(#arr-green)"/>
+  <text x="284" y="346" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="start">t_hold</text>
+
+  <text x="280" y="371" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Вікно стабільності даних</text>
+
+  <!-- Right MSB Setup/Hold -->
+  <line x1="552" y1="351" x2="578" y2="351" stroke="#27ae60" stroke-width="1.5" marker-start="url(#arr-green-start)" marker-end="url(#arr-green)"/>
+  <text x="576" y="346" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="end">t_setup</text>
+
+  <line x1="582" y1="351" x2="608" y2="351" stroke="#27ae60" stroke-width="1.5" marker-start="url(#arr-green-start)" marker-end="url(#arr-green)"/>
+  <text x="584" y="346" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="start">t_hold</text>
+
+  <text x="580" y="371" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Вікно стабільності даних</text>
+
+  <!-- Bottom Informational Cards -->
+  <!-- Card 1: Channel Logic -->
+  <rect x="25" y="412" width="435" height="80" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="40" y="433" font-size="13" font-weight="bold" fill="#1a1a1a">Конфігурація виводу L/R (вибір каналу):</text>
+  <text x="40" y="453" font-size="12" fill="#1a1a1a">• L/R = GND: передача в Лівому каналі (WS = 0)</text>
+  <text x="40" y="473" font-size="12" fill="#1a1a1a">• L/R = VDD: передача в Правому каналі (WS = 1)</text>
+
+  <!-- Card 2: Timing Rules -->
+  <rect x="480" y="412" width="455" height="80" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="495" y="433" font-size="13" font-weight="bold" fill="#2457d6">Ключові параметри шини I2S:</text>
+  <text x="495" y="453" font-size="12" fill="#1a1a1a">• 1 такт затримки: MSB зсунуто на 1 BCLK від WS</text>
+  <text x="495" y="473" font-size="12" fill="#1a1a1a">• Зчитування: спадний фронт BCLK фіксує SD</text>
+</svg>

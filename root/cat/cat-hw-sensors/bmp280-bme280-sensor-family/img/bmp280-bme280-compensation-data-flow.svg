@@ -1,0 +1,127 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Canvas Background -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="36" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Схема потоку даних компенсації в давачах BMP280 / BME280</text>
+  <text x="480" y="56" text-anchor="middle" font-size="13" fill="#6b7280">Обчислення температури дає t_fine, необхідний для розрахунку тиску та вологості</text>
+
+  <!-- Column Headers -->
+  <text x="140" y="78" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Первинні дані (NVM + АЦП)</text>
+  <text x="480" y="78" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Обчислювальний тракт компенсації</text>
+  <text x="820" y="78" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">Дійсні значення</text>
+
+  <!-- ROW 1: TEMPERATURE CHANNEL -->
+  <!-- Col 1: Temperature Inputs -->
+  <rect x="30" y="92" width="220" height="118" rx="6" fill="#f4f6f8" stroke="#d0d7de"/>
+  <rect x="30" y="92" width="220" height="26" rx="6" fill="#eaf0fd"/>
+  <rect x="30" y="112" width="220" height="6" fill="#eaf0fd"/>
+  <text x="140" y="110" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Канал температури</text>
+  <text x="42" y="135" font-size="12" font-weight="bold" fill="#1a1a1a">• АЦП: adc_T (20 біт)</text>
+  <text x="42" y="158" font-size="12" fill="#1a1a1a">• NVM: dig_T1 .. dig_T3</text>
+  <text x="42" y="179" font-size="12" fill="#6b7280">  (3 калібр. коефіцієнти)</text>
+
+  <!-- Col 2: Step 1 Temperature Calc & t_fine -->
+  <rect x="290" y="92" width="380" height="118" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="480" y="113" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">КРОК 1: Компенсація температури</text>
+  <text x="480" y="134" text-anchor="middle" font-size="12" fill="#1a1a1a">var1 = (adc_T / 16384 - dig_T1 / 1024) × dig_T2</text>
+  <text x="480" y="151" text-anchor="middle" font-size="12" fill="#1a1a1a">var2 = ((adc_T / 131072 - dig_T1 / 8192)²) × dig_T3</text>
+
+  <!-- t_fine Badge inside Step 1 -->
+  <rect x="360" y="166" width="240" height="32" rx="4" fill="#2457d6"/>
+  <text x="480" y="187" text-anchor="middle" font-size="12" font-weight="bold" fill="white">t_fine = var1 + var2</text>
+
+  <!-- Col 3: Temperature Result -->
+  <rect x="710" y="92" width="220" height="118" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="820" y="113" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">Результат T</text>
+  <text x="820" y="134" text-anchor="middle" font-size="12" fill="#1a1a1a">T = (t_fine × 5 + 128) / 256</text>
+  <rect x="730" y="152" width="180" height="44" rx="4" fill="#27ae60"/>
+  <text x="820" y="170" text-anchor="middle" font-size="12" font-weight="bold" fill="white">Температура T</text>
+  <text x="820" y="186" text-anchor="middle" font-size="12" fill="white">( °C / градуси Цельсія )</text>
+
+  <!-- FLOW ARROWS ROW 1 (Col 1 -> Col 2, Col 2 -> Col 3) -->
+  <line x1="250" y1="151" x2="282" y2="151" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr-dark)"/>
+  <line x1="670" y1="151" x2="702" y2="151" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- FLOW ARROW VERTICAL 1: Step 1 -> Step 2A (t_fine dependency) -->
+  <line x1="480" y1="210" x2="480" y2="226" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+
+  <!-- ROW 2: PRESSURE CHANNEL -->
+  <!-- Col 1: Pressure Inputs -->
+  <rect x="30" y="234" width="220" height="118" rx="6" fill="#f4f6f8" stroke="#d0d7de"/>
+  <rect x="30" y="234" width="220" height="26" rx="6" fill="#eaf0fd"/>
+  <rect x="30" y="254" width="220" height="6" fill="#eaf0fd"/>
+  <text x="140" y="252" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Канал тиску</text>
+  <text x="42" y="277" font-size="12" font-weight="bold" fill="#1a1a1a">• АЦП: adc_P (20 біт)</text>
+  <text x="42" y="300" font-size="12" fill="#1a1a1a">• NVM: dig_P1 .. dig_P9</text>
+  <text x="42" y="321" font-size="12" fill="#6b7280">  (9 калібр. коефіцієнтів)</text>
+
+  <!-- Col 2: Step 2A Pressure Calc -->
+  <rect x="290" y="234" width="380" height="118" rx="6" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="480" y="255" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">КРОК 2A: Компенсація тиску</text>
+  <text x="480" y="276" text-anchor="middle" font-size="12" fill="#1a1a1a">var1 = (t_fine / 2) - 64000</text>
+  <text x="480" y="295" text-anchor="middle" font-size="12" fill="#1a1a1a">P = 1048576 - adc_P - (var2 / 4096)</text>
+  <rect x="370" y="310" width="220" height="26" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="480" y="327" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">+ вхідний параметр t_fine</text>
+
+  <!-- Col 3: Pressure Result -->
+  <rect x="710" y="234" width="220" height="118" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="820" y="255" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">Результат P</text>
+  <text x="820" y="276" text-anchor="middle" font-size="12" fill="#1a1a1a">Атмосферний тиск</text>
+  <rect x="730" y="294" width="180" height="44" rx="4" fill="#27ae60"/>
+  <text x="820" y="312" text-anchor="middle" font-size="12" font-weight="bold" fill="white">Атмосферний тиск P</text>
+  <text x="820" y="328" text-anchor="middle" font-size="12" fill="white">( Па / гПа / мм рт. ст. )</text>
+
+  <!-- FLOW ARROWS ROW 2 -->
+  <line x1="250" y1="293" x2="282" y2="293" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr-dark)"/>
+  <line x1="670" y1="293" x2="702" y2="293" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- FLOW ARROW VERTICAL 2: Step 2A -> Step 2B (t_fine dependency) -->
+  <line x1="480" y1="352" x2="480" y2="368" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+
+  <!-- ROW 3: HUMIDITY CHANNEL (BME280) -->
+  <!-- Col 1: Humidity Inputs -->
+  <rect x="30" y="376" width="220" height="118" rx="6" fill="#f4f6f8" stroke="#d0d7de"/>
+  <rect x="30" y="376" width="220" height="26" rx="6" fill="#eaf0fd"/>
+  <rect x="30" y="396" width="220" height="6" fill="#eaf0fd"/>
+  <text x="140" y="394" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Канал вологості (BME280)</text>
+  <text x="42" y="419" font-size="12" font-weight="bold" fill="#1a1a1a">• АЦП: adc_H (16 біт)</text>
+  <text x="42" y="442" font-size="12" fill="#1a1a1a">• NVM: dig_H1 .. dig_H6</text>
+  <text x="42" y="463" font-size="12" fill="#6b7280">  (6 калібр. коефіцієнтів)</text>
+
+  <!-- Col 2: Step 2B Humidity Calc -->
+  <rect x="290" y="376" width="380" height="118" rx="6" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="480" y="397" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">КРОК 2B: Компенсація вологості</text>
+  <text x="480" y="418" text-anchor="middle" font-size="12" fill="#1a1a1a">var_H = t_fine - 76800</text>
+  <text x="480" y="437" text-anchor="middle" font-size="12" fill="#1a1a1a">H = (adc_H - (dig_H4 × 64 + ...)) × var_H</text>
+  <rect x="370" y="452" width="220" height="26" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="480" y="469" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">+ вхідний параметр t_fine</text>
+
+  <!-- Col 3: Humidity Result -->
+  <rect x="710" y="376" width="220" height="118" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="820" y="397" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">Результат H</text>
+  <text x="820" y="418" text-anchor="middle" font-size="12" fill="#1a1a1a">Відносна вологість</text>
+  <rect x="730" y="436" width="180" height="44" rx="4" fill="#27ae60"/>
+  <text x="820" y="454" text-anchor="middle" font-size="12" font-weight="bold" fill="white">Відносна вологість H</text>
+  <text x="820" y="470" text-anchor="middle" font-size="12" fill="white">( %RH / відсотки вологості )</text>
+
+  <!-- FLOW ARROWS ROW 3 -->
+  <line x1="250" y1="435" x2="282" y2="435" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr-dark)"/>
+  <line x1="670" y1="435" x2="702" y2="435" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- BOTTOM SUMMARY BANNER -->
+  <rect x="30" y="508" width="900" height="26" rx="4" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="480" y="525" text-anchor="middle" font-size="12" fill="#6b7280"><tspan font-weight="bold" fill="#2457d6">Ключовий висновок:</tspan> t_fine обчислюється першим — без нього неможливо скомпенсувати тиск та вологість</text>
+</svg>

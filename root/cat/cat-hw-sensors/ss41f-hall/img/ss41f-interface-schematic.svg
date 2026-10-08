@@ -1,0 +1,223 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- White Background -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Definitions / Markers -->
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Title and Subtitle -->
+  <text x="480" y="30" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Інтерфейс підключення цифрового давача Холла SS41F до мікроконтролера</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Відкритий колектор вимагає підтяжки R_pullup, а RC-фільтр та TVS-діод захищають вхід GPIO від завад і сплесків</text>
+
+  <!-- Panel 1: SS41F Sensor -->
+  <rect x="30" y="75" width="230" height="335" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="145" y="96" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Давач SS41F</text>
+  <text x="145" y="114" font-size="12" fill="#6b7280" text-anchor="middle">Корпус TO-92 / SOT-89</text>
+
+  <!-- Panel 1 Inner Chip Box -->
+  <rect x="42" y="128" width="206" height="270" rx="6" fill="white" stroke="#2457d6" stroke-width="2"/>
+  <text x="145" y="140" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Внутрішня структура SS41F</text>
+
+  <!-- Hall Element Box -->
+  <rect x="52" y="165" width="55" height="42" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="79" y="182" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Елемент</text>
+  <text x="79" y="197" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Холла</text>
+
+  <!-- Arrow Hall to Amp -->
+  <line x1="107" y1="186" x2="120" y2="186" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Amplifier & Schmitt Trigger Box -->
+  <rect x="120" y="165" width="60" height="42" rx="4" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="150" y="182" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Підсилювач</text>
+  <text x="150" y="197" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">+ Тригер</text>
+
+  <!-- NPN Key Label -->
+  <text x="130" y="250" font-size="12" fill="#6b7280" text-anchor="middle">NPN ключ (OC)</text>
+
+  <!-- Arrow Schmitt to Transistor Base -->
+  <path d="M 180,186 L 165,186 L 165,260 L 205,260" fill="none" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+
+  <!-- NPN Transistor (Open Collector) -->
+  <line x1="205" y1="248" x2="205" y2="272" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="205" y1="253" x2="220" y2="230" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="205" y1="267" x2="220" y2="290" stroke="#1a1a1a" stroke-width="1.5"/>
+  <polygon points="217,283 220,290 212,288" fill="#1a1a1a"/>
+
+  <!-- SS41F Pins Exiting -->
+  <!-- Pin 1 VCC Wire -->
+  <line x1="105" y1="165" x2="105" y2="158" stroke="#c0392b" stroke-width="1.5"/>
+  <line x1="105" y1="158" x2="248" y2="158" stroke="#c0392b" stroke-width="1.5"/>
+  <circle cx="248" cy="158" r="3" fill="#c0392b"/>
+  <text x="240" y="153" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="end">Pin 1 (VCC)</text>
+
+  <!-- Pin 3 OUT Wire -->
+  <line x1="220" y1="230" x2="248" y2="230" stroke="#2457d6" stroke-width="2"/>
+  <circle cx="248" cy="230" r="3" fill="#2457d6"/>
+  <text x="240" y="222" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">Pin 3 (OUT)</text>
+
+  <!-- Pin 2 GND Wire -->
+  <line x1="220" y1="290" x2="220" y2="350" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="220" y1="350" x2="248" y2="350" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="248" cy="350" r="3" fill="#1a1a1a"/>
+  <text x="210" y="342" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">Pin 2 (GND)</text>
+
+  <!-- Panel 2: Signal Conditioning & Protection -->
+  <rect x="265" y="75" width="425" height="335" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="477" y="96" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Обв'язка та захист сигналу</text>
+  <text x="477" y="114" font-size="12" fill="#6b7280" text-anchor="middle">Підтяжка рівня, RC-фільтр завад та ESD-захист</text>
+
+  <!-- Power Rails Top -->
+  <!-- VCC Node for Sensor -->
+  <line x1="305" y1="130" x2="305" y2="158" stroke="#c0392b" stroke-width="1.5"/>
+  <circle cx="305" cy="130" r="3" fill="#c0392b"/>
+  <text x="305" y="124" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">+5V (VCC)</text>
+  <line x1="248" y1="158" x2="305" y2="158" stroke="#c0392b" stroke-width="1.5"/>
+
+  <!-- Decoupling Capacitor C1 -->
+  <line x1="305" y1="158" x2="305" y2="230" stroke="#c0392b" stroke-width="1.5"/>
+  <line x1="293" y1="230" x2="317" y2="230" stroke="#c0392b" stroke-width="2"/>
+  <line x1="293" y1="238" x2="317" y2="238" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="305" y1="238" x2="305" y2="350" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="305" cy="350" r="3" fill="#1a1a1a"/>
+  <text x="285" y="230" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">C1 = 100 nF</text>
+  <text x="285" y="244" font-size="12" fill="#6b7280" text-anchor="end">(блокувальний)</text>
+
+  <!-- VDD Power Rail for Pull-Up R_pullup -->
+  <line x1="415" y1="130" x2="415" y2="165" stroke="#c0392b" stroke-width="1.5"/>
+  <circle cx="415" cy="130" r="3" fill="#c0392b"/>
+  <text x="415" y="124" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">VDD (+3.3V/+5V)</text>
+
+  <!-- Pull-Up Resistor R_pullup (R1) -->
+  <rect x="407" y="165" width="16" height="36" fill="white" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="415" y1="201" x2="415" y2="230" stroke="#2457d6" stroke-width="1.5"/>
+  <circle cx="415" cy="230" r="3" fill="#2457d6"/>
+  <text x="398" y="176" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">R_pullup</text>
+  <text x="398" y="190" font-size="12" fill="#2457d6" text-anchor="end">4.7 кОм</text>
+  <text x="398" y="204" font-size="12" fill="#6b7280" text-anchor="end">підтяжка OC</text>
+
+  <!-- Signal Line Pass-Through -->
+  <line x1="248" y1="230" x2="460" y2="230" stroke="#2457d6" stroke-width="2"/>
+
+  <!-- Series Low-Pass Filter Resistor Rf (R2) -->
+  <rect x="460" y="222" width="40" height="16" fill="white" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="480" y="196" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">R_f = 1 кОм</text>
+  <text x="480" y="210" font-size="12" fill="#6b7280" text-anchor="middle">(струмообмеження)</text>
+
+  <!-- Signal Line Post-Rf -->
+  <line x1="500" y1="230" x2="720" y2="230" stroke="#2457d6" stroke-width="2"/>
+
+  <!-- Filter Capacitor Cf (C2) -->
+  <circle cx="555" cy="230" r="3" fill="#2457d6"/>
+  <line x1="555" y1="230" x2="555" y2="265" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="543" y1="265" x2="567" y2="265" stroke="#2457d6" stroke-width="2"/>
+  <line x1="543" y1="273" x2="567" y2="273" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="555" y1="273" x2="555" y2="350" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="555" cy="350" r="3" fill="#1a1a1a"/>
+  <text x="535" y="266" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">C_f = 1 нФ</text>
+  <text x="535" y="280" font-size="12" fill="#27ae60" text-anchor="end">ФНЧ завад</text>
+
+  <!-- ESD Protection Diode D1 (TVS / Schottky) -->
+  <circle cx="635" cy="230" r="3" fill="#2457d6"/>
+  <line x1="635" y1="230" x2="635" y2="260" stroke="#2457d6" stroke-width="1.5"/>
+  <!-- Cathode bar -->
+  <line x1="625" y1="260" x2="645" y2="260" stroke="#c0392b" stroke-width="2"/>
+  <line x1="622" y1="256" x2="625" y2="260" stroke="#c0392b" stroke-width="2"/>
+  <line x1="645" y1="260" x2="648" y2="264" stroke="#c0392b" stroke-width="2"/>
+  <!-- Diode Triangle -->
+  <polygon points="627,260 643,260 635,275" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <line x1="635" y1="275" x2="635" y2="350" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="635" cy="350" r="3" fill="#1a1a1a"/>
+  <text x="652" y="266" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">D_ESD (TVS)</text>
+  <text x="652" y="280" font-size="12" fill="#c0392b" text-anchor="start">Захист GPIO</text>
+
+  <!-- Ground Line GND -->
+  <line x1="248" y1="350" x2="720" y2="350" stroke="#1a1a1a" stroke-width="1.5"/>
+  <!-- GND Symbols -->
+  <path d="M 300,358 L 310,358 M 302,362 L 308,362 M 304,366 L 306,366" stroke="#1a1a1a" stroke-width="1.5"/>
+  <path d="M 550,358 L 560,358 M 552,362 L 558,362 M 554,366 L 556,366" stroke="#1a1a1a" stroke-width="1.5"/>
+  <path d="M 630,358 L 640,358 M 632,362 L 638,362 M 634,366 L 636,366" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Panel 3: Microcontroller (MCU) -->
+  <rect x="705" y="75" width="225" height="335" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="817" y="96" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Мікроконтролер (MCU)</text>
+  <text x="817" y="114" font-size="12" fill="#6b7280" text-anchor="middle">Вхід GPIO / EXTI</text>
+
+  <!-- MCU Inner Chip Box -->
+  <rect x="718" y="128" width="199" height="270" rx="6" fill="white" stroke="#2457d6" stroke-width="2"/>
+  <text x="817" y="148" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">STM32 / ESP32 MCU</text>
+
+  <!-- GPIO Pin Terminal & Label -->
+  <circle cx="720" cy="230" r="4" fill="#2457d6"/>
+  <text x="725" y="198" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">GPIO_IN (EXTI)</text>
+
+  <!-- Line inside MCU into Schmitt Trigger -->
+  <line x1="720" y1="230" x2="765" y2="230" stroke="#2457d6" stroke-width="1.5"/>
+
+  <!-- Schmitt Trigger Buffer -->
+  <rect x="765" y="213" width="38" height="34" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <path d="M 774,233 L 783,233 L 783,225 L 792,225 M 792,225 L 783,225 L 783,233 L 774,233" fill="none" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="784" y="260" font-size="12" fill="#6b7280" text-anchor="middle">Тригер Шмітта</text>
+
+  <!-- Arrow to EXTI ISR -->
+  <line x1="803" y1="230" x2="825" y2="230" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- EXTI ISR Box -->
+  <rect x="825" y="210" width="82" height="40" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="866" y="227" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">EXTI ISR</text>
+  <text x="866" y="241" font-size="12" fill="#1a1a1a" text-anchor="middle">Переривання</text>
+
+  <!-- Waveform / Signal Diagram Inside MCU -->
+  <rect x="730" y="280" width="175" height="105" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="817" y="297" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Сигнал на GPIO</text>
+
+  <!-- Waveform Axis and Line -->
+  <line x1="745" y1="355" x2="890" y2="355" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="745" y1="325" x2="890" y2="325" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+
+  <!-- Signal Waveform (Low when Magnet present, High when Magnet absent) -->
+  <path d="M 745,355 L 795,355 L 795,325 L 890,325" fill="none" stroke="#27ae60" stroke-width="2"/>
+  <circle cx="795" cy="325" r="3" fill="#27ae60"/>
+
+  <!-- Waveform Labels -->
+  <text x="765" y="371" font-size="12" fill="#c0392b" text-anchor="middle">0V (NPN ON)</text>
+  <text x="845" y="317" font-size="12" fill="#27ae60" text-anchor="middle">3.3V (NPN OFF)</text>
+
+  <!-- Bottom Summary Callout Cards -->
+  <!-- Card 1 -->
+  <rect x="30" y="425" width="215" height="80" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="137" y="443" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">1. Відкритий колектор</text>
+  <text x="137" y="460" font-size="12" fill="#1a1a1a" text-anchor="middle">NPN-транзистор притягує</text>
+  <text x="137" y="475" font-size="12" fill="#1a1a1a" text-anchor="middle">вихід до GND при N-полюсі</text>
+  <text x="137" y="490" font-size="12" fill="#6b7280" text-anchor="middle">Без підтяжки стан плаває</text>
+
+  <!-- Card 2 -->
+  <rect x="260" y="425" width="215" height="80" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="367" y="443" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">2. Підтягувальний R_pullup</text>
+  <text x="367" y="460" font-size="12" fill="#1a1a1a" text-anchor="middle">Формує високий рівень VDD</text>
+  <text x="367" y="475" font-size="12" fill="#1a1a1a" text-anchor="middle">при закритому транзисторі</text>
+  <text x="367" y="490" font-size="12" fill="#6b7280" text-anchor="middle">Типово: 4.7 кОм – 10 кОм</text>
+
+  <!-- Card 3 -->
+  <rect x="490" y="425" width="215" height="80" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="597" y="443" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">3. RC-фільтр завад (Rf, Cf)</text>
+  <text x="597" y="460" font-size="12" fill="#1a1a1a" text-anchor="middle">Пригнічує ВЧ-шуми та брязкіт</text>
+  <text x="597" y="475" font-size="12" fill="#1a1a1a" text-anchor="middle">фронтів під час комутації</text>
+  <text x="597" y="490" font-size="12" fill="#6b7280" text-anchor="middle">Часова стала τ ≈ 1 мкс</text>
+
+  <!-- Card 4 -->
+  <rect x="720" y="425" width="210" height="80" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="825" y="443" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">4. TVS / ESD Захист (D1)</text>
+  <text x="825" y="460" font-size="12" fill="#1a1a1a" text-anchor="middle">Захищає вхідний каскад GPIO</text>
+  <text x="825" y="475" font-size="12" fill="#1a1a1a" text-anchor="middle">від статики та індуктивних</text>
+  <text x="825" y="490" font-size="12" fill="#6b7280" text-anchor="middle">сплесків довгого кабелю</text>
+</svg>

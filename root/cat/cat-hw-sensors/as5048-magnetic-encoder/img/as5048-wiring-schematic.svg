@@ -1,0 +1,286 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- White Background -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <defs>
+    <!-- Arrow Markers -->
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Принципова схема обв'язки та підключення енкодера AS5048</text>
+  <text x="480" y="54" text-anchor="middle" font-size="13" fill="#6b7280">Контури живлення (5V / 3.3V), обв'язка TSSOP-14, фільтрація та сигнальні шини SPI / I²C</text>
+
+  <!-- PANEL 1: POWER SCHEMES (x=25, y=75, w=285, h=445) -->
+  <rect x="25" y="75" width="285" height="445" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="8"/>
+  <text x="167.5" y="98" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Конфігурації живлення VDD</text>
+
+  <!-- SUB-PANEL 1A: 5V Mode (x=37, y=112, w=261, h=192) -->
+  <rect x="37" y="112" width="261" height="192" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="47" y="132" font-size="13" font-weight="bold" fill="#27ae60">Режим 5 В (з вбудованим LDO)</text>
+  
+  <!-- 5V Rail components -->
+  <text x="47" y="158" font-size="12" font-weight="bold" fill="#27ae60">+5V</text>
+  <!-- Wire from +5V rail -->
+  <line x1="75" y1="154" x2="195" y2="154" stroke="#27ae60" stroke-width="2"/>
+  <circle cx="115" cy="154" r="3" fill="#27ae60"/>
+  <circle cx="150" cy="154" r="3" fill="#27ae60"/>
+  
+  <!-- Decoupling Cap C1 (10 uF) -->
+  <line x1="115" y1="154" x2="115" y2="170" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="105" y1="170" x2="125" y2="170" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="105" y1="174" x2="125" y2="174" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="115" y1="174" x2="115" y2="190" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="47" y="182" font-size="11" fill="#1a1a1a">C1: 10 µF</text>
+
+  <!-- Decoupling Cap C2 (100 nF) -->
+  <line x1="150" y1="154" x2="150" y2="170" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="140" y1="170" x2="160" y2="170" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="140" y1="174" x2="160" y2="174" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="150" y1="174" x2="150" y2="190" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="163" y="182" font-size="11" fill="#1a1a1a">C2: 100 nF</text>
+
+  <!-- GND rail for 5V capacitors -->
+  <line x1="105" y1="190" x2="160" y2="190" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="132.5" y1="190" x2="132.5" y2="198" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="122.5" y1="198" x2="142.5" y2="198" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="126.5" y1="201" x2="138.5" y2="201" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="130.5" y1="204" x2="134.5" y2="204" stroke="#1a1a1a" stroke-width="1"/>
+
+  <!-- Pin 11 Box -->
+  <rect x="195" y="142" width="88" height="24" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="3"/>
+  <text x="239" y="158" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">11: VDD5V</text>
+
+  <!-- Pin 12 LDO Output -->
+  <rect x="195" y="235" width="88" height="24" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="3"/>
+  <text x="239" y="251" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">12: VDD3V</text>
+
+  <!-- Line out from Pin 12 to Cap C3 -->
+  <line x1="195" y1="247" x2="135" y2="247" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="135" y1="247" x2="135" y2="255" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="125" y1="255" x2="145" y2="255" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="125" y1="259" x2="145" y2="259" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="135" y1="259" x2="135" y2="269" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="65" y="261" font-size="11" fill="#1a1a1a">C3: 10 µF</text>
+  <!-- GND for C3 -->
+  <line x1="125" y1="269" x2="145" y2="269" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="129" y1="272" x2="141" y2="272" stroke="#1a1a1a" stroke-width="1.5"/>
+  
+  <text x="47" y="292" font-size="11" fill="#6b7280">VDD3V — регульований вихід 3.3 В</text>
+
+  <!-- SUB-PANEL 1B: 3.3V Mode (x=37, y=318, w=261, h=190) -->
+  <rect x="37" y="318" width="261" height="190" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="47" y="338" font-size="13" font-weight="bold" fill="#2457d6">Режим 3.3 В (пряме живлення)</text>
+
+  <text x="47" y="364" font-size="12" font-weight="bold" fill="#2457d6">+3.3V</text>
+  <!-- Rail +3.3V -->
+  <line x1="88" y1="360" x2="175" y2="360" stroke="#2457d6" stroke-width="2"/>
+  <circle cx="115" cy="360" r="3" fill="#2457d6"/>
+  <circle cx="150" cy="360" r="3" fill="#2457d6"/>
+  <circle cx="175" cy="360" r="3" fill="#2457d6"/>
+
+  <!-- Bridge line to Pin 11 and Pin 12 -->
+  <line x1="175" y1="360" x2="175" y2="432" stroke="#2457d6" stroke-width="2"/>
+  <line x1="175" y1="360" x2="195" y2="360" stroke="#2457d6" stroke-width="2"/>
+  <line x1="175" y1="432" x2="195" y2="432" stroke="#2457d6" stroke-width="2"/>
+
+  <!-- Decoupling Cap C1 (10 uF) -->
+  <line x1="115" y1="360" x2="115" y2="376" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="105" y1="376" x2="125" y2="376" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="105" y1="380" x2="125" y2="380" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="115" y1="380" x2="115" y2="396" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="47" y="388" font-size="11" fill="#1a1a1a">C1: 10 µF</text>
+
+  <!-- Decoupling Cap C2 (100 nF) -->
+  <line x1="150" y1="360" x2="150" y2="376" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="140" y1="376" x2="160" y2="376" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="140" y1="380" x2="160" y2="380" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="150" y1="380" x2="150" y2="396" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="163" y="388" font-size="11" fill="#1a1a1a">C2: 100 nF</text>
+
+  <!-- GND rail for 3.3V capacitors -->
+  <line x1="105" y1="396" x2="160" y2="396" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="132.5" y1="396" x2="132.5" y2="404" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="122.5" y1="404" x2="142.5" y2="404" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="126.5" y1="407" x2="138.5" y2="407" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="130.5" y1="410" x2="134.5" y2="410" stroke="#1a1a1a" stroke-width="1"/>
+
+  <!-- Pin 11 Box in 3.3V mode -->
+  <rect x="195" y="348" width="88" height="24" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="3"/>
+  <text x="239" y="364" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">11: VDD5V</text>
+
+  <!-- Pin 12 Box in 3.3V mode -->
+  <rect x="195" y="420" width="88" height="24" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="3"/>
+  <text x="239" y="436" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">12: VDD3V</text>
+
+  <text x="47" y="475" font-size="11" font-weight="bold" fill="#2457d6">Увага: VDD5V та VDD3V</text>
+  <text x="47" y="493" font-size="11" fill="#2457d6">з'єднуються разом при 3.3 В!</text>
+
+
+  <!-- PANEL 2: TSSOP-14 IC & MAGNET (x=330, y=75, w=300, h=445) -->
+  <rect x="330" y="75" width="300" height="445" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="8"/>
+  <text x="480" y="98" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Розпіновка TSSOP-14 та магніт</text>
+
+  <!-- IC Chip Body -->
+  <rect x="400" y="115" width="160" height="260" fill="#ffffff" stroke="#1a1a1a" stroke-width="2" rx="6"/>
+  <!-- Pin 1 Index Dot -->
+  <circle cx="418" cy="130" r="5" fill="#1a1a1a"/>
+  
+  <!-- IC Title inside body -->
+  <text x="480" y="235" text-anchor="middle" font-size="16" font-weight="bold" fill="#1a1a1a">AS5048</text>
+  <text x="480" y="255" text-anchor="middle" font-size="12" fill="#6b7280">TSSOP-14</text>
+
+  <!-- PINS LEFT (1 to 7) -->
+  <!-- Pin 1: CSn / SDA -->
+  <line x1="365" y1="140" x2="400" y2="140" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="360" y="144" text-anchor="end" font-size="12" font-weight="bold" fill="#1a1a1a">1: CSn / SDA</text>
+
+  <!-- Pin 2: CLK / SCL -->
+  <line x1="365" y1="175" x2="400" y2="175" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="360" y="179" text-anchor="end" font-size="12" font-weight="bold" fill="#1a1a1a">2: CLK / SCL</text>
+
+  <!-- Pin 3: MISO / A2 -->
+  <line x1="365" y1="210" x2="400" y2="210" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="360" y="214" text-anchor="end" font-size="12" font-weight="bold" fill="#1a1a1a">3: MISO / A2</text>
+
+  <!-- Pin 4: MOSI / A1 -->
+  <line x1="365" y1="245" x2="400" y2="245" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="360" y="249" text-anchor="end" font-size="12" font-weight="bold" fill="#1a1a1a">4: MOSI / A1</text>
+
+  <!-- Pin 5: TEST -->
+  <line x1="365" y1="280" x2="400" y2="280" stroke="#6b7280" stroke-width="2"/>
+  <text x="360" y="284" text-anchor="end" font-size="12" fill="#6b7280">5: TEST</text>
+
+  <!-- Pin 6: TEST -->
+  <line x1="365" y1="315" x2="400" y2="315" stroke="#6b7280" stroke-width="2"/>
+  <text x="360" y="319" text-anchor="end" font-size="12" fill="#6b7280">6: TEST</text>
+
+  <!-- Pin 7: TEST -->
+  <line x1="365" y1="350" x2="400" y2="350" stroke="#6b7280" stroke-width="2"/>
+  <text x="360" y="354" text-anchor="end" font-size="12" fill="#6b7280">7: TEST</text>
+
+  <!-- Left TEST Pins GND Bus (Pins 5, 6, 7 connected together) -->
+  <line x1="375" y1="280" x2="375" y2="350" stroke="#6b7280" stroke-width="1.5"/>
+
+  <!-- PINS RIGHT (14 down to 8) -->
+  <!-- Pin 14: PWM -->
+  <line x1="560" y1="140" x2="595" y2="140" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="600" y="144" font-size="12" font-weight="bold" fill="#1a1a1a">14: PWM</text>
+
+  <!-- Pin 13: GND -->
+  <line x1="560" y1="175" x2="595" y2="175" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="600" y="179" font-size="12" font-weight="bold" fill="#1a1a1a">13: GND</text>
+
+  <!-- Pin 12: VDD3V -->
+  <line x1="560" y1="210" x2="595" y2="210" stroke="#2457d6" stroke-width="2"/>
+  <text x="600" y="214" font-size="12" font-weight="bold" fill="#2457d6">12: VDD3V</text>
+
+  <!-- Pin 11: VDD5V -->
+  <line x1="560" y1="245" x2="595" y2="245" stroke="#27ae60" stroke-width="2"/>
+  <text x="600" y="249" font-size="12" font-weight="bold" fill="#27ae60">11: VDD5V</text>
+
+  <!-- Pin 10: TEST -->
+  <line x1="560" y1="280" x2="595" y2="280" stroke="#6b7280" stroke-width="2"/>
+  <text x="600" y="284" font-size="12" fill="#6b7280">10: TEST</text>
+
+  <!-- Pin 9: TEST -->
+  <line x1="560" y1="315" x2="595" y2="315" stroke="#6b7280" stroke-width="2"/>
+  <text x="600" y="319" font-size="12" fill="#6b7280">9: TEST</text>
+
+  <!-- Pin 8: TEST -->
+  <line x1="560" y1="350" x2="595" y2="350" stroke="#6b7280" stroke-width="2"/>
+  <text x="600" y="354" font-size="12" fill="#6b7280">8: TEST</text>
+
+  <!-- Right TEST Pins GND Bus (Pins 8, 9, 10 connected together) -->
+  <line x1="585" y1="280" x2="585" y2="350" stroke="#6b7280" stroke-width="1.5"/>
+
+  <!-- SUB-PANEL 2B: MAGNET & ALIGNMENT (x=342, y=390, w=276, h=118) -->
+  <rect x="342" y="390" width="276" height="118" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="480" y="410" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Позиціонування магніту (Sense Magnet)</text>
+
+  <!-- Magnet graphic (N / S pole cylinder) -->
+  <rect x="350" y="422" width="30" height="18" fill="#c0392b" rx="2"/>
+  <text x="365" y="435" text-anchor="middle" font-size="11" font-weight="bold" fill="#ffffff">N</text>
+  <rect x="380" y="422" width="30" height="18" fill="#2457d6" rx="2"/>
+  <text x="395" y="435" text-anchor="middle" font-size="11" font-weight="bold" fill="#ffffff">S</text>
+  <text x="350" y="452" font-size="11" fill="#6b7280">Діаметральний</text>
+  <text x="350" y="466" font-size="11" fill="#6b7280">магніт N/S</text>
+
+  <!-- Alignment Spec lines -->
+  <text x="440" y="430" font-size="12" fill="#1a1a1a">• Зазор: 0.5–3.0 мм</text>
+  <text x="440" y="448" font-size="12" fill="#1a1a1a">• Зсув: &lt; 0.5 мм</text>
+  <text x="440" y="466" font-size="12" fill="#1a1a1a">• Поле B: 30–70 мТл</text>
+
+  <text x="350" y="493" font-size="12" font-weight="bold" fill="#c0392b">⚠️ TEST виводи 5..10 — на GND!</text>
+
+  <!-- PANEL 3: MCU INTERFACE (x=650, y=75, w=285, h=445) -->
+  <rect x="650" y="75" width="285" height="445" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="8"/>
+  <text x="792.5" y="98" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Сигнальне підключення до МК</text>
+
+  <!-- SUB-PANEL 3A: AS5048A SPI (x=662, y=112, w=261, h=192) -->
+  <rect x="662" y="112" width="261" height="192" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="672" y="132" font-size="13" font-weight="bold" fill="#2457d6">AS5048A: 4-провідний SPI (10 МГц)</text>
+
+  <!-- Signal connections SPI -->
+  <rect x="672" y="145" width="48" height="20" fill="#eaf0fd" stroke="#2457d6" rx="3"/>
+  <text x="696" y="159" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">CSn</text>
+  <line x1="720" y1="155" x2="835" y2="155" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="840" y="159" font-size="12" fill="#1a1a1a">МК GPIO (CS)</text>
+
+  <!-- CS Pull-up resistor line -->
+  <line x1="765" y1="155" x2="765" y2="170" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="758" y="170" width="14" height="22" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="776" y="185" font-size="11" fill="#6b7280">10 kΩ</text>
+  <line x1="765" y1="192" x2="765" y2="200" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="756" y="210" font-size="11" font-weight="bold" fill="#2457d6">VDD</text>
+
+  <rect x="672" y="180" width="48" height="20" fill="#eaf0fd" stroke="#2457d6" rx="3"/>
+  <text x="696" y="194" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">CLK</text>
+  <line x1="720" y1="190" x2="835" y2="190" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="840" y="194" font-size="12" fill="#1a1a1a">МК SCLK</text>
+
+  <rect x="672" y="215" width="48" height="20" fill="#eaf0fd" stroke="#2457d6" rx="3"/>
+  <text x="696" y="229" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">MISO</text>
+  <line x1="720" y1="225" x2="835" y2="225" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="840" y="229" font-size="12" fill="#1a1a1a">МК MISO</text>
+
+  <rect x="672" y="250" width="48" height="20" fill="#eaf0fd" stroke="#2457d6" rx="3"/>
+  <text x="696" y="264" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">MOSI</text>
+  <line x1="720" y1="260" x2="835" y2="260" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="840" y="264" font-size="12" fill="#1a1a1a">МК MOSI</text>
+
+  <text x="672" y="292" font-size="11" fill="#6b7280">• Кадр: 16 біт | Daisy-Chain</text>
+
+  <!-- SUB-PANEL 3B: AS5048B I2C (x=662, y=318, w=261, h=190) -->
+  <rect x="662" y="318" width="261" height="190" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="672" y="338" font-size="13" font-weight="bold" fill="#27ae60">AS5048B: 2-провідний I²C (400 кГц)</text>
+
+  <!-- SDA with Pullup -->
+  <rect x="672" y="350" width="48" height="20" fill="#e9f7ef" stroke="#27ae60" rx="3"/>
+  <text x="696" y="364" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">SDA</text>
+  <line x1="720" y1="360" x2="835" y2="360" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <text x="840" y="364" font-size="12" fill="#1a1a1a">МК SDA</text>
+
+  <!-- SCL with Pullup -->
+  <rect x="672" y="385" width="48" height="20" fill="#e9f7ef" stroke="#27ae60" rx="3"/>
+  <text x="696" y="399" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">SCL</text>
+  <line x1="720" y1="395" x2="835" y2="395" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <text x="840" y="399" font-size="12" fill="#1a1a1a">МК SCL</text>
+
+  <!-- Pullup Note for I2C -->
+  <rect x="672" y="416" width="241" height="34" fill="#e9f7ef" stroke="#27ae60" rx="4"/>
+  <text x="680" y="431" font-size="11" fill="#1a1a1a">Підтяжка R_pullup = 4.7 kΩ до VDD</text>
+  <text x="680" y="445" font-size="11" fill="#6b7280">обов'язкова на SDA та SCL</text>
+
+  <!-- Address Selection A1, A2 -->
+  <text x="672" y="475" font-size="11" fill="#1a1a1a">Адресація: A1, A2 → GND або VDD</text>
+  <text x="672" y="493" font-size="11" fill="#6b7280">4 можливі I²C-адреси (0x40 .. 0x43)</text>
+</svg>

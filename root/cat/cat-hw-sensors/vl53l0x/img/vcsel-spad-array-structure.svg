@@ -1,0 +1,123 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Canvas background -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Структура VL53L0X: випромінювач VCSEL, робоча та опорна SPAD-матриці</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Опорна SPAD-матриця калібрує внутрішній час прольоту, а робоча вимірює фотони, відбиті від цілі</text>
+
+  <!-- Target / Object Box -->
+  <rect x="560" y="75" width="340" height="50" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="730" y="94" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Об'єкт / Ціль вимірювання</text>
+  <text x="730" y="112" font-size="12" fill="#6b7280" text-anchor="middle">Відстань d (не залежить від кольору і поверхні)</text>
+
+  <!-- Title for Chip Section -->
+  <text x="60" y="172" font-size="14" font-weight="bold" fill="#1a1a1a">Модуль чипа VL53L0X</text>
+
+  <!-- Main Chip Outer Enclosure -->
+  <rect x="50" y="180" width="860" height="335" rx="10" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+
+  <!-- Emitter Lens (TX) inside Chip -->
+  <rect x="140" y="192" width="90" height="22" rx="4" fill="#2457d6" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="185" y="207" font-size="12" font-weight="bold" fill="white" text-anchor="middle">Лінза TX</text>
+
+  <!-- Receiver Lens (RX) inside Chip -->
+  <rect x="690" y="192" width="90" height="22" rx="4" fill="#2457d6" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="735" y="207" font-size="12" font-weight="bold" fill="white" text-anchor="middle">Лінза RX</text>
+
+  <!-- External Optical Beams -->
+  <!-- Emitted Light Beam -->
+  <line x1="185" y1="192" x2="552" y2="104" stroke="#2457d6" stroke-width="2.5" stroke-dasharray="6,4" marker-end="url(#arr-blue)"/>
+  <text x="330" y="118" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">ІЧ-імпульси (940 нм)</text>
+  <text x="330" y="132" font-size="12" fill="#6b7280" text-anchor="middle">Прямий потік фотонів</text>
+
+  <!-- Reflected Light Beam -->
+  <line x1="735" y1="125" x2="735" y2="182" stroke="#2457d6" stroke-width="2.5" stroke-dasharray="6,4" marker-end="url(#arr-blue)"/>
+  <text x="755" y="145" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="start">Відбиті фотони</text>
+  <text x="755" y="159" font-size="12" fill="#6b7280" text-anchor="start">Потік згасання</text>
+
+  <!-- Sub-panel 1: VCSEL Emitter (Left) -->
+  <rect x="70" y="225" width="220" height="150" rx="6" fill="white" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="180" y="244" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Випромінювач VCSEL</text>
+
+  <rect x="82" y="255" width="196" height="46" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="180" y="272" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Лазерний діод VCSEL</text>
+  <text x="180" y="289" font-size="12" fill="#6b7280" text-anchor="middle">Драйвер квантових імпульсів</text>
+
+  <text x="180" y="320" font-size="12" fill="#1a1a1a" text-anchor="middle">Генерація вузьких ІЧ-спалахів</text>
+  <text x="180" y="338" font-size="12" fill="#6b7280" text-anchor="middle">Безпечна потужність (Class 1)</text>
+  <text x="180" y="356" font-size="12" fill="#6b7280" text-anchor="middle">Довжина хвилі λ = 940 нм</text>
+
+  <!-- Internal Reference Optical Path Line -->
+  <line x1="278" y1="278" x2="367" y2="278" stroke="#27ae60" stroke-width="2" stroke-dasharray="4,3" marker-end="url(#arr-green)"/>
+  <text x="325" y="268" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Ref шлях</text>
+
+  <!-- Sub-panel 2: Reference SPAD Array (Middle) -->
+  <rect x="360" y="225" width="240" height="150" rx="6" fill="white" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="480" y="244" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Опорний канал (Ref SPAD)</text>
+
+  <rect x="372" y="255" width="216" height="46" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="480" y="272" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Опорна SPAD-матриця</text>
+  <text x="480" y="289" font-size="12" fill="#6b7280" text-anchor="middle">Атенуйовані внутрішні SPAD</text>
+
+  <text x="480" y="320" font-size="12" fill="#1a1a1a" text-anchor="middle">Калібрування початкового часу t₀</text>
+  <text x="480" y="338" font-size="12" fill="#6b7280" text-anchor="middle">Компенсація температури та дрейфу</text>
+  <text x="480" y="356" font-size="12" fill="#6b7280" text-anchor="middle">Внутрішній оптичний довідник</text>
+
+  <!-- Sub-panel 3: Target SPAD Array (Right) -->
+  <rect x="630" y="225" width="260" height="150" rx="6" fill="white" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="760" y="244" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Приймальна матриця (Target SPAD)</text>
+
+  <rect x="642" y="255" width="236" height="46" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="760" y="272" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Робоча SPAD-матриця</text>
+  <text x="760" y="289" font-size="12" fill="#6b7280" text-anchor="middle">Однофотонні лавинні діоди</text>
+
+  <text x="760" y="320" font-size="12" fill="#1a1a1a" text-anchor="middle">Фіксація фотонів відбитого сигналу</text>
+  <text x="760" y="338" font-size="12" fill="#6b7280" text-anchor="middle">Робота в Geiger-режимі (надшвидка)</text>
+  <text x="760" y="356" font-size="12" fill="#6b7280" text-anchor="middle">Динамічне виділення активної зони</text>
+
+  <!-- Connecting Lines from Upper Sub-panels to Bottom Digital Core -->
+  <line x1="180" y1="375" x2="180" y2="408" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#arr-blue)"/>
+  <line x1="360" y1="375" x2="360" y2="408" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#arr-green)"/>
+  <line x1="760" y1="375" x2="760" y2="408" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#arr-blue)"/>
+
+  <!-- Sub-panel 4: Digital Core & Interfaces (Bottom) -->
+  <rect x="70" y="390" width="820" height="110" rx="6" fill="white" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="480" y="406" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Цифрове ядро та інтерфейси</text>
+
+  <!-- Sub-box 4A: TDC & Processing -->
+  <rect x="85" y="416" width="245" height="72" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="207" y="434" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">TDC &amp; Обробка ToF</text>
+  <text x="207" y="451" font-size="12" fill="#6b7280" text-anchor="middle">Time-to-Digital конвертер</text>
+  <text x="207" y="468" font-size="12" fill="#2457d6" text-anchor="middle">Обчислення відстані: d = c · Δt / 2</text>
+
+  <!-- Connection 4A -> 4B -->
+  <line x1="330" y1="452" x2="337" y2="452" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+
+  <!-- Sub-box 4B: Algorithms & Calibration -->
+  <rect x="345" y="416" width="270" height="72" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="480" y="434" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Алгоритми та Калібрування</text>
+  <text x="480" y="451" font-size="12" fill="#1a1a1a" text-anchor="middle">Компенсація завад (Crosstalk)</text>
+  <text x="480" y="468" font-size="12" fill="#6b7280" text-anchor="middle">Зсув (Offset) та Профілі роботи</text>
+
+  <!-- Connection 4B -> 4C -->
+  <line x1="615" y1="452" x2="622" y2="452" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+
+  <!-- Sub-box 4C: Interfaces -->
+  <rect x="630" y="416" width="245" height="72" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="752" y="434" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Зовнішній інтерфейс</text>
+  <text x="752" y="451" font-size="12" fill="#2457d6" text-anchor="middle">I2C шина (SDA / SCL, 0x29)</text>
+  <text x="752" y="468" font-size="12" fill="#1a1a1a" text-anchor="middle">XSHUT (Reset) / GPIO1 (INT)</text>
+</svg>

@@ -1,0 +1,133 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 535" width="960" height="535" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="535" fill="white"/>
+  
+  <defs>
+    <marker id="arr-black" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-grey" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="30" font-size="18" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Магнітні завади та їхній вплив на вимірювальну сферу магнітометра</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Hard Iron зміщує центр сфери (зсув вектора), Soft Iron деформує її в еліпсоїд (масштабування осей)</text>
+
+  <!-- PANEL 1: Ideal Sphere -->
+  <rect x="30" y="75" width="286" height="350" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="42" y="87" width="262" height="30" rx="5" fill="#27ae60"/>
+  <text x="173" y="107" font-size="14" font-weight="bold" fill="#ffffff" text-anchor="middle">1. Ідеальна сфера (без завад)</text>
+
+  <!-- Panel 1 Geometry -->
+  <line x1="173" y1="300" x2="173" y2="152" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-black)"/>
+  <line x1="173" y1="240" x2="108" y2="288" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-black)"/>
+  <line x1="173" y1="240" x2="265" y2="240" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-black)"/>
+
+  <circle cx="173" cy="240" r="60" fill="#27ae60" fill-opacity="0.08" stroke="#27ae60" stroke-width="2"/>
+  <ellipse cx="173" cy="240" rx="60" ry="20" fill="none" stroke="#27ae60" stroke-width="1.2" stroke-dasharray="4,3"/>
+  <ellipse cx="173" cy="240" rx="20" ry="60" fill="none" stroke="#27ae60" stroke-width="1" stroke-dasharray="4,3"/>
+  <circle cx="173" cy="240" r="4" fill="#27ae60"/>
+
+  <line x1="173" y1="240" x2="215" y2="198" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- Panel 1 Geometry Labels -->
+  <text x="173" y="142" font-size="13" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Z</text>
+  <text x="90" y="300" font-size="13" font-weight="bold" text-anchor="middle" fill="#1a1a1a">X</text>
+  <text x="277" y="244" font-size="13" font-weight="bold" text-anchor="start" fill="#1a1a1a">Y</text>
+  <text x="158" y="258" font-size="12" fill="#27ae60" text-anchor="end">(0,0,0)</text>
+  <text x="222" y="190" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="start">|B| = R</text>
+
+  <!-- Panel 1 Info Box -->
+  <rect x="42" y="320" width="262" height="90" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="52" y="340" font-size="12" fill="#1a1a1a">• Центр у початку координат (0,0,0)</text>
+  <text x="52" y="360" font-size="12" fill="#1a1a1a">• Радіус R дорівнює |B| Землі</text>
+  <text x="52" y="380" font-size="12" fill="#27ae60" font-weight="bold">• Осі рівні: Rx = Ry = Rz</text>
+  <text x="52" y="400" font-size="12" fill="#6b7280">• Калібрування не потрібне</text>
+
+  <!-- PANEL 2: Hard Iron -->
+  <rect x="336" y="75" width="286" height="350" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <rect x="348" y="87" width="262" height="30" rx="5" fill="#c0392b"/>
+  <text x="479" y="107" font-size="14" font-weight="bold" fill="#ffffff" text-anchor="middle">2. Hard Iron (зсув центру)</text>
+
+  <!-- Panel 2 Geometry -->
+  <line x1="479" y1="300" x2="479" y2="152" stroke="#6b7280" stroke-width="1" stroke-dasharray="3,3" marker-end="url(#arr-grey)"/>
+  <line x1="479" y1="240" x2="414" y2="288" stroke="#6b7280" stroke-width="1" stroke-dasharray="3,3" marker-end="url(#arr-grey)"/>
+  <line x1="479" y1="240" x2="571" y2="240" stroke="#6b7280" stroke-width="1" stroke-dasharray="3,3" marker-end="url(#arr-grey)"/>
+  <circle cx="479" cy="240" r="3.5" fill="#6b7280"/>
+
+  <line x1="479" y1="240" x2="502" y2="209" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+
+  <circle cx="505" cy="205" r="60" fill="#c0392b" fill-opacity="0.08" stroke="#c0392b" stroke-width="2"/>
+  <ellipse cx="505" cy="205" rx="60" ry="20" fill="none" stroke="#c0392b" stroke-width="1.2" stroke-dasharray="4,3"/>
+  <ellipse cx="505" cy="205" rx="20" ry="60" fill="none" stroke="#c0392b" stroke-width="1" stroke-dasharray="4,3"/>
+  <circle cx="505" cy="205" r="4" fill="#c0392b"/>
+
+  <!-- Panel 2 Geometry Labels -->
+  <text x="479" y="142" font-size="13" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Z</text>
+  <text x="396" y="300" font-size="13" font-weight="bold" text-anchor="middle" fill="#1a1a1a">X</text>
+  <text x="583" y="244" font-size="13" font-weight="bold" text-anchor="start" fill="#1a1a1a">Y</text>
+  <text x="465" y="258" font-size="12" fill="#6b7280" text-anchor="end">(0,0,0)</text>
+  <text x="470" y="215" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="end">V_off</text>
+  <text x="505" y="190" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">(Vx, Vy, Vz)</text>
+
+  <!-- Panel 2 Info Box -->
+  <rect x="348" y="320" width="262" height="90" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="358" y="340" font-size="12" fill="#1a1a1a">• Джерело: намагнічена сталь, мотор</text>
+  <text x="358" y="360" font-size="12" fill="#c0392b" font-weight="bold">• Сфера зміщена на вектор V_off</text>
+  <text x="358" y="380" font-size="12" fill="#1a1a1a">• Форма та радіус не змінені</text>
+  <text x="358" y="400" font-size="12" fill="#2457d6">• Усунення: B_corr = B - V_off</text>
+
+  <!-- PANEL 3: Soft Iron -->
+  <rect x="642" y="75" width="286" height="350" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="654" y="87" width="262" height="30" rx="5" fill="#2457d6"/>
+  <text x="785" y="107" font-size="14" font-weight="bold" fill="#ffffff" text-anchor="middle">3. Soft Iron (деформація)</text>
+
+  <!-- Panel 3 Geometry -->
+  <line x1="785" y1="300" x2="785" y2="152" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-black)"/>
+  <line x1="785" y1="240" x2="720" y2="288" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-black)"/>
+  <line x1="785" y1="240" x2="877" y2="240" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-black)"/>
+
+  <circle cx="785" cy="240" r="60" fill="none" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="4,3"/>
+
+  <g transform="rotate(-25 785 240)">
+    <ellipse cx="785" cy="240" rx="72" ry="42" fill="#2457d6" fill-opacity="0.08" stroke="#2457d6" stroke-width="2"/>
+    <ellipse cx="785" cy="240" rx="72" ry="16" fill="none" stroke="#2457d6" stroke-width="1" stroke-dasharray="4,3"/>
+    <line x1="713" y1="240" x2="857" y2="240" stroke="#2457d6" stroke-width="1" stroke-dasharray="2,2"/>
+    <line x1="785" y1="198" x2="785" y2="282" stroke="#2457d6" stroke-width="1" stroke-dasharray="2,2"/>
+  </g>
+  <circle cx="785" cy="240" r="4" fill="#2457d6"/>
+
+  <!-- Panel 3 Geometry Labels -->
+  <text x="785" y="142" font-size="13" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Z</text>
+  <text x="702" y="300" font-size="13" font-weight="bold" text-anchor="middle" fill="#1a1a1a">X</text>
+  <text x="889" y="244" font-size="13" font-weight="bold" text-anchor="start" fill="#1a1a1a">Y</text>
+  <text x="695" y="168" font-size="12" fill="#6b7280" text-anchor="start">Ідеальна сфера R</text>
+  <text x="840" y="200" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="start">a &gt; R</text>
+  <text x="800" y="285" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="start">b &lt; R</text>
+
+  <!-- Panel 3 Info Box -->
+  <rect x="654" y="320" width="262" height="90" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="664" y="340" font-size="12" fill="#1a1a1a">• Джерело: м'яка сталь, феромагнетики</text>
+  <text x="664" y="360" font-size="12" fill="#2457d6" font-weight="bold">• Сфера сплющується в еліпсоїд</text>
+  <text x="664" y="380" font-size="12" fill="#1a1a1a">• Зміна масштабу та поворот осей</text>
+  <text x="664" y="400" font-size="12" fill="#27ae60">• Усунення: матриця масштабу W⁻¹</text>
+
+  <!-- BOTTOM SUMMARY BANNER -->
+  <rect x="30" y="440" width="898" height="75" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="42" y="450" width="160" height="55" rx="6" fill="#2457d6"/>
+  <text x="122" y="472" font-size="13" font-weight="bold" fill="#ffffff" text-anchor="middle">Повне калібрування</text>
+  <text x="122" y="492" font-size="12" fill="#eaf0fd" text-anchor="middle">Hard + Soft Iron</text>
+
+  <text x="215" y="472" font-size="14" font-weight="bold" fill="#1a1a1a">Модель: <tspan fill="#2457d6">B_raw</tspan> = <tspan fill="#2457d6">W</tspan> · <tspan fill="#27ae60">B_ideal</tspan> + <tspan fill="#c0392b">V_off</tspan>   ⇒   <tspan fill="#27ae60">B_cal</tspan> = <tspan fill="#2457d6">W⁻¹</tspan> · (<tspan fill="#2457d6">B_raw</tspan> - <tspan fill="#c0392b">V_off</tspan>)</text>
+  <text x="215" y="495" font-size="12" fill="#6b7280">Де V_off — вектор зсуву Hard Iron (3×1), а W⁻¹ — матриця масштабування та повороту Soft Iron (3×3)</text>
+</svg>

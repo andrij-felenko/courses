@@ -1,0 +1,162 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-accent" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Header -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Структура перемикання банків регістрів OV2640 через шину SCCB</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Запис 0x00 або 0x01 у регістр 0xFF визначає банк (DSP чи Sensor) для наступних команд</text>
+
+  <!-- Column 1: SCCB Transactions -->
+  <rect x="35" y="80" width="260" height="415" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="165" y="104" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Транзакції шини SCCB</text>
+  <text x="165" y="122" font-size="12" fill="#6b7280" text-anchor="middle">(Адреса пристрою 0x60 W)</text>
+
+  <!-- Step 1 Card -->
+  <rect x="50" y="138" width="230" height="68" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="62" y="162" font-size="13" font-weight="bold" fill="#2457d6">1. Вибір банку DSP</text>
+  <text x="62" y="186" font-size="12" fill="#1a1a1a">SCCB write: reg 0xFF = 0x00</text>
+
+  <!-- Arrow 1 to 2 -->
+  <line x1="165" y1="206" x2="165" y2="224" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+
+  <!-- Step 2 Card -->
+  <rect x="50" y="226" width="230" height="68" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="62" y="250" font-size="13" font-weight="bold" fill="#1a1a1a">2. Налаштування DSP</text>
+  <text x="62" y="274" font-size="12" fill="#6b7280">SCCB write: reg 0x50 = 0x80</text>
+
+  <!-- Arrow 2 to 3 -->
+  <line x1="165" y1="294" x2="165" y2="312" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+
+  <!-- Step 3 Card -->
+  <rect x="50" y="314" width="230" height="68" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="62" y="338" font-size="13" font-weight="bold" fill="#27ae60">3. Вибір банку Sensor</text>
+  <text x="62" y="362" font-size="12" fill="#1a1a1a">SCCB write: reg 0xFF = 0x01</text>
+
+  <!-- Arrow 3 to 4 -->
+  <line x1="165" y1="382" x2="165" y2="400" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+
+  <!-- Step 4 Card -->
+  <rect x="50" y="402" width="230" height="68" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="62" y="426" font-size="13" font-weight="bold" fill="#1a1a1a">4. Налаштування Sensor</text>
+  <text x="62" y="450" font-size="12" fill="#6b7280">SCCB write: reg 0x12 = 0x00</text>
+
+  <!-- Column 2: Bank Selector Register 0xFF -->
+  <rect x="320" y="80" width="260" height="415" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="450" y="104" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Регістр 0xFF (RA_DLMT)</text>
+  <text x="450" y="122" font-size="12" fill="#6b7280" text-anchor="middle">Селектор банків пам'яті</text>
+
+  <!-- Register 0xFF Top Card -->
+  <rect x="335" y="138" width="230" height="90" rx="6" fill="#ffffff" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="450" y="160" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Значення регістру 0xFF:</text>
+
+  <rect x="350" y="180" width="95" height="34" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="397" y="202" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">0x00 (DSP)</text>
+
+  <rect x="455" y="180" width="95" height="34" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="502" y="202" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">0x01 (Sensor)</text>
+
+  <!-- Register Rules Bottom Card -->
+  <rect x="335" y="244" width="230" height="226" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="450" y="268" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Особливості перемикання</text>
+
+  <!-- Section A -->
+  <rect x="350" y="284" width="10" height="10" rx="2" fill="#2457d6"/>
+  <text x="368" y="294" font-size="12" font-weight="bold" fill="#2457d6">Контекст Bank 0 (DSP)</text>
+  <text x="368" y="312" font-size="12" fill="#6b7280">При [0xFF] = 0x00 адреси</text>
+  <text x="368" y="328" font-size="12" fill="#6b7280">0x00–0xFE керують DSP</text>
+
+  <line x1="350" y1="342" x2="550" y2="342" stroke="#e5e7eb" stroke-width="1"/>
+
+  <!-- Section B -->
+  <rect x="350" y="354" width="10" height="10" rx="2" fill="#27ae60"/>
+  <text x="368" y="364" font-size="12" font-weight="bold" fill="#27ae60">Контекст Bank 1 (Sensor)</text>
+  <text x="368" y="382" font-size="12" fill="#6b7280">При [0xFF] = 0x01 адреси</text>
+  <text x="368" y="398" font-size="12" fill="#6b7280">0x00–0xFE керують сенсором</text>
+
+  <line x1="350" y1="412" x2="550" y2="412" stroke="#e5e7eb" stroke-width="1"/>
+
+  <!-- Section C -->
+  <rect x="350" y="424" width="10" height="10" rx="2" fill="#c0392b"/>
+  <text x="368" y="434" font-size="12" font-weight="bold" fill="#1a1a1a">Регістр 0xFF наскрізний:</text>
+  <text x="368" y="452" font-size="12" fill="#6b7280">Завжди доступний з обох банків</text>
+
+  <!-- Column 3: Address Banks -->
+  <!-- Top Sub-panel: Bank 0 (DSP) -->
+  <rect x="605" y="80" width="320" height="198" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="765" y="104" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">Банк 0: Обробка зображення (DSP)</text>
+  <text x="765" y="122" font-size="12" fill="#6b7280" text-anchor="middle">Активується записом 0x00 у регістр 0xFF</text>
+
+  <rect x="618" y="134" width="294" height="132" rx="5" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Row 1 -->
+  <rect x="626" y="142" width="85" height="22" rx="3" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="668" y="157" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">0x05 (CTRLI)</text>
+  <text x="720" y="157" font-size="12" fill="#1a1a1a">Формат виходу &amp; DVP</text>
+
+  <!-- Row 2 -->
+  <rect x="626" y="170" width="85" height="22" rx="3" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="668" y="185" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">0x50–0x5C</text>
+  <text x="720" y="185" font-size="12" fill="#1a1a1a">Scaling, Windowing, Crop</text>
+
+  <!-- Row 3 -->
+  <rect x="626" y="198" width="85" height="22" rx="3" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="668" y="213" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">0xE0–0xFC</text>
+  <text x="720" y="213" font-size="12" fill="#1a1a1a">JPEG-компресор &amp; FIFO</text>
+
+  <!-- Row 4 -->
+  <rect x="626" y="226" width="85" height="22" rx="3" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="668" y="241" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">0xFF (SEL)</text>
+  <text x="720" y="241" font-size="12" font-weight="bold" fill="#2457d6">Поточний банк = 0x00</text>
+
+  <!-- Bottom Sub-panel: Bank 1 (Sensor) -->
+  <rect x="605" y="297" width="320" height="198" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="765" y="321" font-size="14" font-weight="bold" fill="#27ae60" text-anchor="middle">Банк 1: Ядро сенсора (Sensor Core)</text>
+  <text x="765" y="339" font-size="12" fill="#6b7280" text-anchor="middle">Активується записом 0x01 у регістр 0xFF</text>
+
+  <rect x="618" y="351" width="294" height="132" rx="5" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Row 1 -->
+  <rect x="626" y="359" width="85" height="22" rx="3" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="668" y="374" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">0x00–0x04</text>
+  <text x="720" y="374" font-size="12" fill="#1a1a1a">AGC / AEC, підсилення</text>
+
+  <!-- Row 2 -->
+  <rect x="626" y="387" width="85" height="22" rx="3" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="668" y="402" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">0x11–0x12</text>
+  <text x="720" y="402" font-size="12" fill="#1a1a1a">CLKRC, COM7 (Режим кадру)</text>
+
+  <!-- Row 3 -->
+  <rect x="626" y="415" width="85" height="22" rx="3" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="668" y="430" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">0x2A–0x2D</text>
+  <text x="720" y="430" font-size="12" fill="#1a1a1a">Геометрія піксельного кадру</text>
+
+  <!-- Row 4 -->
+  <rect x="626" y="443" width="85" height="22" rx="3" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="668" y="458" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">0xFF (SEL)</text>
+  <text x="720" y="458" font-size="12" fill="#27ae60">Поточний банк = 0x01</text>
+
+  <!-- Connecting Arrows Between Columns -->
+  <!-- Step 1 to Reg 0xFF -->
+  <line x1="280" y1="172" x2="333" y2="172" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-accent)"/>
+
+  <!-- Step 3 to Reg 0xFF -->
+  <path d="M 280,348 C 308,348 308,203 333,203" fill="none" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- Reg 0xFF to Bank 0 (DSP) -->
+  <line x1="565" y1="172" x2="603" y2="172" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-accent)"/>
+
+  <!-- Reg 0xFF to Bank 1 (Sensor) -->
+  <path d="M 565,203 C 592,203 592,370 603,370" fill="none" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+</svg>

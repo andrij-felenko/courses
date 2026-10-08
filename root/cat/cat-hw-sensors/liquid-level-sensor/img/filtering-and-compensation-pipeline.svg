@@ -1,0 +1,180 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Background Canvas -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Title and Subtitle -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Конвеєр цифрової обробки сигналу давача рівня рідини</text>
+  <text x="480" y="52" text-anchor="middle" font-size="13" fill="#6b7280">Послідовна медіанна фільтрація, згладжування шуму та температурна компенсація</text>
+
+  <!-- Outer Container Panel -->
+  <rect x="10" y="62" width="940" height="466" rx="10" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- STAGE 1: ADC / Raw Signal -->
+  <rect x="20" y="72" width="200" height="260" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="20" y="72" width="200" height="44" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="120" y="90" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">1. Сирий сигнал АЦП</text>
+  <text x="120" y="106" text-anchor="middle" font-size="12" fill="#6b7280">Зчитування без обробки</text>
+
+  <!-- Graph 1: Waveform with noise and spike -->
+  <rect x="30" y="124" width="180" height="90" rx="4" fill="white" stroke="#d0d7de"/>
+  <line x1="30" y1="146" x2="210" y2="146" stroke="#e5e7eb" stroke-dasharray="2,2"/>
+  <line x1="30" y1="169" x2="210" y2="169" stroke="#e5e7eb" stroke-dasharray="2,2"/>
+  <line x1="30" y1="192" x2="210" y2="192" stroke="#e5e7eb" stroke-dasharray="2,2"/>
+  <path d="M 35,175 L 45,168 L 55,177 L 65,165 L 75,173 L 85,130 L 95,205 L 105,171 L 115,177 L 125,166 L 135,174 L 145,168 L 155,175 L 165,169 L 175,173 L 185,170 L 205,172" fill="none" stroke="#c0392b" stroke-width="1.8"/>
+  <text x="145" y="138" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Сплеск (завада)</text>
+
+  <!-- Parameters 1 -->
+  <text x="30" y="234" font-size="12" fill="#1a1a1a"><tspan font-weight="bold">Сирий вихід:</tspan> <tspan font-family="monospace">ADC_raw</tspan></text>
+  <text x="30" y="250" font-size="12" fill="#6b7280">Частота оновлення: 100 Гц</text>
+  <text x="30" y="266" font-size="12" fill="#c0392b">• Присутній ВЧ-шум</text>
+  <text x="30" y="282" font-size="12" fill="#c0392b">• Імпульсні сплески</text>
+  <text x="30" y="298" font-size="12" fill="#6b7280">АЦП: 12-біт (0..4095)</text>
+  <text x="30" y="314" font-size="12" fill="#6b7280">Діапазон: 0.5 – 4.5 В</text>
+
+  <!-- Arrow 1 -> 2 -->
+  <path d="M 222,169 L 244,169" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="233" y="161" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">ADC</text>
+
+  <!-- STAGE 2: Median Filter -->
+  <rect x="250" y="72" width="200" height="260" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="250" y="72" width="200" height="44" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="350" y="90" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">2. Медіанний фільтр</text>
+  <text x="350" y="106" text-anchor="middle" font-size="12" fill="#6b7280">Вилучення сплесків</text>
+
+  <!-- Graph 2: Spike removed, residual noise -->
+  <rect x="260" y="124" width="180" height="90" rx="4" fill="white" stroke="#d0d7de"/>
+  <line x1="260" y1="146" x2="440" y2="146" stroke="#e5e7eb" stroke-dasharray="2,2"/>
+  <line x1="260" y1="169" x2="440" y2="169" stroke="#e5e7eb" stroke-dasharray="2,2"/>
+  <line x1="260" y1="192" x2="440" y2="192" stroke="#e5e7eb" stroke-dasharray="2,2"/>
+  <path d="M 315,173 L 325,130 L 335,205 L 345,171" fill="none" stroke="#c0392b" stroke-width="1" stroke-dasharray="2,2" stroke-opacity="0.4"/>
+  <path d="M 265,175 L 275,168 L 285,177 L 295,167 L 305,173 L 315,169 L 325,174 L 335,171 L 345,177 L 355,168 L 365,175 L 375,169 L 385,173 L 395,170 L 405,172 L 415,169 L 435,171" fill="none" stroke="#2457d6" stroke-width="1.8"/>
+  <text x="375" y="138" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Сплеск вилучено</text>
+
+  <!-- Parameters 2 -->
+  <text x="260" y="234" font-size="12" fill="#1a1a1a"><tspan font-weight="bold">Фільтр:</tspan> <tspan font-style="italic">Median (N=5)</tspan></text>
+  <text x="260" y="250" font-size="12" fill="#6b7280">Вихідне значення: x_med</text>
+  <text x="260" y="266" font-size="12" fill="#27ae60">✓ Ліквідація викидів</text>
+  <text x="260" y="282" font-size="12" fill="#27ae60">✓ Збереження фронтів</text>
+  <text x="260" y="298" font-size="12" fill="#6b7280">Буфер: 5 відліків</text>
+  <text x="260" y="314" font-size="12" fill="#6b7280">Сортування: 5 тактів</text>
+
+  <!-- Arrow 2 -> 3 -->
+  <path d="M 452,169 L 474,169" fill="none" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="463" y="161" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">x_med</text>
+
+  <!-- STAGE 3: Moving Average -->
+  <rect x="480" y="72" width="200" height="260" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="480" y="72" width="200" height="44" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="580" y="90" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">3. Рухоме середнє</text>
+  <text x="580" y="106" text-anchor="middle" font-size="12" fill="#6b7280">Пригнічення шуму</text>
+
+  <!-- Graph 3: Smooth curve -->
+  <rect x="490" y="124" width="180" height="90" rx="4" fill="white" stroke="#d0d7de"/>
+  <line x1="490" y1="146" x2="670" y2="146" stroke="#e5e7eb" stroke-dasharray="2,2"/>
+  <line x1="490" y1="169" x2="670" y2="169" stroke="#e5e7eb" stroke-dasharray="2,2"/>
+  <line x1="490" y1="192" x2="670" y2="192" stroke="#e5e7eb" stroke-dasharray="2,2"/>
+  <path d="M 495,175 L 505,168 L 515,177 L 525,167 L 535,173 L 545,169 L 555,174 L 565,171 L 575,177 L 585,168 L 595,175 L 605,169 L 615,173 L 625,170 L 635,172 L 645,169 L 665,171" fill="none" stroke="#d0d7de" stroke-width="1"/>
+  <path d="M 495,173 Q 535,169 580,172 T 665,170" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+  <text x="605" y="138" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Гладка крива</text>
+
+  <!-- Parameters 3 -->
+  <text x="490" y="234" font-size="12" fill="#1a1a1a"><tspan font-weight="bold">Фільтр:</tspan> <tspan font-style="italic">SMA / EMA (N=8)</tspan></text>
+  <text x="490" y="250" font-size="12" fill="#6b7280">Вихідне значення: x_avg</text>
+  <text x="490" y="266" font-size="12" fill="#27ae60">✓ Зріз ВЧ-пульсацій</text>
+  <text x="490" y="282" font-size="12" fill="#27ae60">✓ Стабільний відлік</text>
+  <text x="490" y="298" font-size="12" fill="#6b7280">Коефіцієнт α: 0.25</text>
+  <text x="490" y="314" font-size="12" fill="#6b7280">Затримка: ~40 мс</text>
+
+  <!-- Arrow 3 -> 4 -->
+  <path d="M 682,169 L 704,169" fill="none" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="693" y="161" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">x_avg</text>
+
+  <!-- STAGE 4: Temperature Compensation -->
+  <rect x="710" y="72" width="230" height="260" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="710" y="72" width="230" height="44" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="825" y="90" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">4. Температурна компенсація</text>
+  <text x="825" y="106" text-anchor="middle" font-size="12" fill="#6b7280">Корекція дрейфу та розрахунок</text>
+
+  <!-- Sub-Box 4.1: Compensation Formula -->
+  <rect x="720" y="124" width="210" height="62" rx="4" fill="white" stroke="#d0d7de"/>
+  <text x="726" y="140" font-size="12" font-weight="bold" fill="#1a1a1a">Рівняння компенсації:</text>
+  <text x="726" y="156" font-size="12" font-weight="bold" font-family="monospace" fill="#2457d6">h_comp = h_avg · (1 + α·ΔT)</text>
+  <text x="726" y="172" font-size="12" fill="#6b7280">ΔT = T_d − T_0,  α = 0.00021</text>
+
+  <!-- Sub-Box 4.2: Output API Values -->
+  <rect x="720" y="194" width="210" height="126" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="825" y="210" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">ВИХІДНІ ДАНІ DRIVER API</text>
+  <line x1="730" y1="216" x2="920" y2="216" stroke="#27ae60" stroke-opacity="0.3"/>
+  <text x="728" y="232" font-size="12" fill="#1a1a1a">Рівень (h): <tspan font-weight="bold" fill="#27ae60">452.4 мм</tspan></text>
+  <text x="728" y="248" font-size="12" fill="#1a1a1a">Об'єм (V): <tspan font-weight="bold" fill="#27ae60">128.5 л</tspan></text>
+  <text x="728" y="264" font-size="12" fill="#1a1a1a">Статус: <tspan font-weight="bold" fill="#27ae60">STATUS_OK (0x00)</tspan></text>
+  <text x="728" y="280" font-size="12" fill="#6b7280">Точність вимірювання: ±0.5%</text>
+  <text x="728" y="298" font-size="12" font-weight="bold" fill="#2457d6">Дані готові для АСУ ТП</text>
+
+  <!-- BOTTOM ROW (y=382..512) -->
+
+  <!-- Bottom Block 1: Safety Automation -->
+  <rect x="20" y="382" width="430" height="130" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="235" y="400" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Аналіз критичних станів (Захисна автоматика)</text>
+
+  <!-- Dry Run Sub-panel -->
+  <rect x="30" y="408" width="195" height="94" rx="4" fill="white" stroke="#c0392b" stroke-opacity="0.4"/>
+  <text x="38" y="424" font-size="12" font-weight="bold" fill="#c0392b">● Сухий хід (Dry Run)</text>
+  <text x="38" y="440" font-size="12" fill="#1a1a1a">Умова: h &lt; h_min (10 мм)</text>
+  <text x="38" y="456" font-size="12" fill="#c0392b">Реакція: Вимкн. насоса</text>
+  <text x="38" y="472" font-size="12" fill="#6b7280">Код API: ERR_DRY_RUN</text>
+  <text x="38" y="488" font-size="12" fill="#6b7280">Подія: EVENT_DRY_RUN</text>
+
+  <!-- Overflow Sub-panel -->
+  <rect x="245" y="408" width="195" height="94" rx="4" fill="white" stroke="#c0392b" stroke-opacity="0.4"/>
+  <text x="253" y="424" font-size="12" font-weight="bold" fill="#c0392b">● Переповнення (Overflow)</text>
+  <text x="253" y="440" font-size="12" fill="#1a1a1a">Умова: h &gt; h_max (950 мм)</text>
+  <text x="253" y="456" font-size="12" fill="#c0392b">Реакція: Закр. клапан</text>
+  <text x="253" y="472" font-size="12" fill="#6b7280">Код API: ERR_OVERFLOW</text>
+  <text x="253" y="488" font-size="12" fill="#6b7280">Подія: EVENT_OVERFLOW</text>
+
+  <!-- Bottom Block 2: Temperature Sensor Input -->
+  <rect x="480" y="382" width="200" height="130" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="580" y="400" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Давач температури</text>
+
+  <rect x="490" y="408" width="180" height="94" rx="4" fill="white" stroke="#2457d6" stroke-opacity="0.3"/>
+  <text x="498" y="424" font-size="12" fill="#1a1a1a"><tspan font-weight="bold">Виміряна T:</tspan> <tspan font-family="monospace" fill="#2457d6" font-weight="bold">24.8 °C</tspan></text>
+  <text x="498" y="440" font-size="12" fill="#6b7280">Базова T_0: 20.0 °C</text>
+  <text x="498" y="456" font-size="12" fill="#2457d6">Дельта ΔT: +4.8 °C</text>
+  <text x="498" y="472" font-size="12" fill="#6b7280">Період T: 1000 мс</text>
+  <text x="498" y="488" font-size="12" fill="#6b7280">Канал корекції</text>
+
+  <!-- Bottom Block 3: Pipeline Configuration -->
+  <rect x="710" y="382" width="230" height="130" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="825" y="400" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Параметри конвеєра</text>
+
+  <rect x="720" y="408" width="210" height="94" rx="4" fill="white" stroke="#d0d7de"/>
+  <text x="728" y="424" font-size="12" fill="#1a1a1a">• Медіана: вікно N = 5</text>
+  <text x="728" y="440" font-size="12" fill="#1a1a1a">• Сер. значення: N = 8</text>
+  <text x="728" y="456" font-size="12" fill="#1a1a1a">• Коефіцієнт α: 0.00021</text>
+  <text x="728" y="472" font-size="12" fill="#6b7280">• Оновлення: 100 Гц</text>
+  <text x="728" y="488" font-size="12" fill="#27ae60">• Захист автоматики: Увімкн.</text>
+
+  <!-- INTER-BLOCK CONNECTING ARROWS IN MID GAP (y=332..382) -->
+
+  <!-- Temp Sensor Data Arrow to Stage 4 -->
+  <path d="M 580,382 L 580,352 L 770,352 L 770,334" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="705" y="346" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Дані T°</text>
+
+  <!-- Safety Monitoring Feedback Arrow from Stage 4 Output to Safety Automation -->
+  <path d="M 740,332 L 740,366 L 235,366 L 235,380" fill="none" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr-red)"/>
+  <text x="345" y="358" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Контроль межових рівнів h_comp</text>
+
+</svg>

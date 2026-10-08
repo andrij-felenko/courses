@@ -1,0 +1,130 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-blue-start" markerWidth="9" markerHeight="9" refX="1.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-green-start" markerWidth="9" markerHeight="9" refX="1.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background Canvas -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="34" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Часова діаграма роботи BME280 у режимі Forced Mode</text>
+  <text x="480" y="56" font-size="13" fill="#6b7280" text-anchor="middle">Перехід зі стану Sleep, цикл вимірювання, прапорець status.measuring та оновлення регістрів</text>
+
+  <!-- Outer Diagram Panel -->
+  <rect x="25" y="75" width="910" height="440" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Left Sidebar Panel for Track Labels -->
+  <rect x="35" y="85" width="170" height="340" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Left Sidebar Labels -->
+  <!-- Row 1 Label -->
+  <text x="120" y="112" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Шина I2C / SPI</text>
+  <text x="120" y="128" font-size="12" fill="#6b7280" text-anchor="middle">(Команди MCU)</text>
+
+  <!-- Row 2 Label -->
+  <text x="120" y="172" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Режим BME280</text>
+  <text x="120" y="188" font-size="12" fill="#6b7280" text-anchor="middle">(Mode State)</text>
+
+  <!-- Row 3 Label -->
+  <text x="120" y="237" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">status.measuring</text>
+  <text x="120" y="253" font-size="12" fill="#6b7280" text-anchor="middle">(bit 3, reg 0xF3)</text>
+
+  <!-- Row 4 Label -->
+  <text x="120" y="307" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Струм споживання</text>
+  <text x="120" y="323" font-size="12" fill="#6b7280" text-anchor="middle">I_DD (живлення)</text>
+
+  <!-- Row 5 Label -->
+  <text x="120" y="377" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Регістри даних</text>
+  <text x="120" y="393" font-size="12" fill="#6b7280" text-anchor="middle">(0xF7..0xFE)</text>
+
+  <!-- Vertical Timing Grid Lines -->
+  <line x1="310" y1="140" x2="310" y2="435" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4,4"/>
+  <line x1="360" y1="140" x2="360" y2="435" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4,4"/>
+  <line x1="660" y1="140" x2="660" y2="435" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4,4"/>
+
+  <line x1="740" y1="140" x2="740" y2="155" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4,4"/>
+  <line x1="740" y1="265" x2="740" y2="365" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4,4"/>
+  <line x1="740" y1="405" x2="740" y2="435" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4,4"/>
+
+  <line x1="850" y1="140" x2="850" y2="155" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4,4"/>
+  <line x1="850" y1="265" x2="850" y2="365" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4,4"/>
+  <line x1="850" y1="405" x2="850" y2="435" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4,4"/>
+
+  <!-- Track 1: Bus Activity -->
+  <line x1="225" y1="120" x2="310" y2="120" stroke="#9ca3af" stroke-width="1.5"/>
+  <line x1="360" y1="120" x2="740" y2="120" stroke="#9ca3af" stroke-width="1.5"/>
+  <line x1="850" y1="120" x2="915" y2="120" stroke="#9ca3af" stroke-width="1.5"/>
+
+  <text x="335" y="96" font-size="12" fill="#1a1a1a" text-anchor="middle">Запис ctrl_meas (0xF4)</text>
+  <rect x="310" y="105" width="50" height="30" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="335" y="124" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">WRITE</text>
+
+  <text x="795" y="96" font-size="12" fill="#1a1a1a" text-anchor="middle">Зчитування даних (Burst Read)</text>
+  <rect x="740" y="105" width="110" height="30" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="795" y="124" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">READ 0xF7..0xFE</text>
+
+  <!-- Track 2: Sensor Operating Mode -->
+  <rect x="225" y="160" width="135" height="32" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="267" y="180" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">SLEEP MODE</text>
+
+  <rect x="360" y="160" width="300" height="32" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="510" y="180" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">FORCED MODE — ВИМІРЮВАННЯ (T, P, H)</text>
+
+  <rect x="660" y="160" width="255" height="32" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="787" y="180" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">SLEEP MODE (автоматично)</text>
+
+  <!-- Track 3: status.measuring Flag Waveform -->
+  <path d="M 225 255 L 360 255 L 360 225 L 660 225 L 660 255 L 915 255" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+  <text x="267" y="247" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">0 (Sleep)</text>
+  <text x="510" y="217" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">1 (Вимірювання активне)</text>
+  <text x="668" y="247" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="start">0 (готові)</text>
+
+  <!-- Track 4: Current Consumption Profile I_DD -->
+  <path d="M 225 335 L 310 335 L 310 320 L 360 320 L 360 285 L 660 285 L 660 335 L 740 335 L 740 320 L 850 320 L 850 335 L 915 335 L 915 340 L 225 340 Z" fill="#eaf0fd" opacity="0.6"/>
+  <path d="M 225 335 L 310 335 L 310 320 L 360 320 L 360 285 L 660 285 L 660 335 L 740 335 L 740 320 L 850 320 L 850 335 L 915 335" fill="none" stroke="#2457d6" stroke-width="2"/>
+
+  <text x="260" y="315" font-size="12" fill="#6b7280" text-anchor="middle">I_sleep ≈ 0.2µA</text>
+  <text x="510" y="274" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">I_meas ≈ 350...714 µA</text>
+  <text x="795" y="308" font-size="12" fill="#27ae60" text-anchor="middle">I_bus ≈ 200 µA</text>
+
+  <!-- Track 5: Data Registers State -->
+  <rect x="225" y="365" width="435" height="32" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="510" y="385" font-size="12" fill="#6b7280" text-anchor="middle">Попередні дані (заблоковано)</text>
+
+  <rect x="660" y="365" width="255" height="32" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <text x="787" y="385" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Нові дані T, P, H готові</text>
+
+  <!-- Interval Dimension Lines & Annotations -->
+  <line x1="360" y1="420" x2="660" y2="420" stroke="#2457d6" stroke-width="1.5" marker-start="url(#arr-blue-start)" marker-end="url(#arr-blue)"/>
+  <text x="510" y="414" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">t_measure ≈ 9.3...113 мс</text>
+
+  <line x1="740" y1="420" x2="850" y2="420" stroke="#27ae60" stroke-width="1.5" marker-start="url(#arr-green-start)" marker-end="url(#arr-green)"/>
+  <text x="795" y="414" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">t_read (I2C/SPI)</text>
+
+  <!-- Phase Summary Step Cards at Bottom -->
+  <rect x="225" y="450" width="130" height="50" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="290" y="470" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">1. Запуск MCU</text>
+  <text x="290" y="488" font-size="12" fill="#6b7280" text-anchor="middle">Запис ctrl_meas</text>
+
+  <rect x="367" y="450" width="290" height="50" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="512" y="470" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">2. Автономне вимірювання сенсором</text>
+  <text x="512" y="488" font-size="12" fill="#6b7280" text-anchor="middle">status.measuring = 1, MCU може спати</text>
+
+  <rect x="669" y="450" width="246" height="50" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="792" y="470" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">3. Оновлення даних &amp; авто-сон</text>
+  <text x="792" y="488" font-size="12" fill="#6b7280" text-anchor="middle">status.measuring = 0, зчитування</text>
+</svg>

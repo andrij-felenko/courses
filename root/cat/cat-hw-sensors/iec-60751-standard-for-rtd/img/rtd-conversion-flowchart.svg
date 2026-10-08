@@ -1,0 +1,82 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 550" width="960" height="550" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-accent" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-ok" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-err" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="550" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Алгоритм перетворення опору RTD у температуру (rtd_r_to_temp)</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Обчислення температури за стандартом IEC 60751 та діагностика вимірювального тракту</text>
+
+  <!-- Step 1: Input Data -->
+  <rect x="310" y="78" width="340" height="48" rx="6" fill="#f4f6f8" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="480" y="97" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Вхідні дані: R_meas, R_0 (100 / 1000 Ом)</text>
+  <text x="480" y="113" font-size="12" fill="#6b7280" text-anchor="middle">Параметри калібрування: A, B, C (IEC 60751)</text>
+
+  <!-- Arrow 1 -> 2 -->
+  <line x1="480" y1="126" x2="480" y2="150" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-accent)"/>
+
+  <!-- Step 2: Range / Diagnostic Check -->
+  <rect x="310" y="150" width="340" height="50" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="480" y="170" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Перевірка діапазону: R_min ≤ R_meas ≤ R_max ?</text>
+  <text x="480" y="187" font-size="12" fill="#6b7280" text-anchor="middle">Виявлення обриву давача або короткого замикання</text>
+
+  <!-- Error Branch 2 -> 2ERR -->
+  <line x1="650" y1="175" x2="730" y2="175" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-err)"/>
+  <text x="690" y="167" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Ні (Помилка)</text>
+
+  <!-- Error Node -->
+  <rect x="730" y="150" width="200" height="50" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="830" y="170" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">RTD_ERR_OUT_OF_BOUNDS</text>
+  <text x="830" y="187" font-size="12" fill="#c0392b" text-anchor="middle">Аварія вимірювача</text>
+
+  <!-- Connection 2 -> 3 (Normal Flow) -->
+  <line x1="480" y1="200" x2="480" y2="225" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-ok)"/>
+  <text x="488" y="217" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="start">Так (Норма)</text>
+
+  <!-- Step 3: Temperature Region Decision -->
+  <rect x="310" y="225" width="340" height="50" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="480" y="245" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Порівняння: R_meas ≥ R_0 ?</text>
+  <text x="480" y="262" font-size="12" fill="#1a1a1a" text-anchor="middle">Визначення температурної області (T ≥ 0 °C чи T &lt; 0 °C)</text>
+
+  <!-- Left Branch 3 -> 4A (T >= 0 °C) -->
+  <path d="M 390 275 L 390 305 L 245 305 L 245 345" stroke="#27ae60" stroke-width="2" fill="none" marker-end="url(#arr-ok)"/>
+  <text x="317" y="298" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Так (T ≥ 0 °C)</text>
+
+  <!-- Right Branch 3 -> 4B (T < 0 °C) -->
+  <path d="M 570 275 L 570 305 L 715 305 L 715 345" stroke="#2457d6" stroke-width="2" fill="none" marker-end="url(#arr-accent)"/>
+  <text x="642" y="298" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Ні (T &lt; 0 °C)</text>
+
+  <!-- Step 4A: Positive Region (Quadratic) -->
+  <rect x="40" y="345" width="410" height="90" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="245" y="365" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Додатна область: T ≥ 0 °C (Квадратична формула)</text>
+  <text x="245" y="383" font-size="12" fill="#1a1a1a" text-anchor="middle">Рівняння: R(T) = R_0 · (1 + A·T + B·T²)</text>
+  <text x="245" y="401" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Прямий розв'язок: T = (-A + √(A² - 4B(1 - R/R_0))) / (2B)</text>
+  <text x="245" y="419" font-size="12" fill="#6b7280" text-anchor="middle">Точне аналітичне обчислення без ітерацій</text>
+
+  <!-- Step 4B: Negative Region (CVD) -->
+  <rect x="510" y="345" width="410" height="90" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="715" y="365" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Від'ємна область: T &lt; 0 °C (Рівняння CVD)</text>
+  <text x="715" y="383" font-size="12" fill="#1a1a1a" text-anchor="middle">Рівняння: R(T) = R_0 · [1 + A·T + B·T² + C·(T - 100)·T³]</text>
+  <text x="715" y="401" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Чисельний розв'язок: метод Ньютона — Рафсона</text>
+  <text x="715" y="419" font-size="12" fill="#6b7280" text-anchor="middle">Початкове наближення T_0 з квадратичної формули</text>
+
+  <!-- Convergence Paths 4A & 4B -> Step 5 -->
+  <path d="M 245 435 L 245 455 L 380 455 L 380 475" stroke="#27ae60" stroke-width="2" fill="none" marker-end="url(#arr-ok)"/>
+  <path d="M 715 435 L 715 455 L 580 455 L 580 475" stroke="#2457d6" stroke-width="2" fill="none" marker-end="url(#arr-accent)"/>
+
+  <!-- Step 5: Tolerance & Final Result -->
+  <rect x="270" y="475" width="420" height="50" rx="6" fill="#f4f6f8" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="480" y="495" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Розрахунок допуску: rtd_get_tolerance(T, class_id)</text>
+  <text x="480" y="512" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Повернення: RTD_OK, T (°C), похибка ±ΔT (°C)</text>
+</svg>

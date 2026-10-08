@@ -1,0 +1,139 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-dark" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-dark-start" markerWidth="8" markerHeight="8" refX="1" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M7,1 L1,4 L7,7 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-blue-start" markerWidth="8" markerHeight="8" refX="1" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M7,1 L1,4 L7,7 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-gray-start" markerWidth="8" markerHeight="8" refX="1" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M7,1 L1,4 L7,7 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-red" markerWidth="8" markerHeight="8" refX="8" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-red-start" markerWidth="8" markerHeight="8" refX="1" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M7,1 L1,4 L7,7 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Header -->
+  <text x="480" y="34" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Часова діаграма сигналів DVP-інтерфейсу OV2640</text>
+  <text x="480" y="56" text-anchor="middle" font-size="13" fill="#6b7280">Передача даних D[7:0] здійснюється за стробом PCLK при активних рівнях VSYNC та HREF</text>
+
+  <!-- Panel 1: Frame Level -->
+  <rect x="30" y="76" width="900" height="176" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="45" y="96" font-size="13" font-weight="bold" fill="#2457d6">1. Кадровий рівень (структура кадру)</text>
+
+  <!-- Panel 1 Intervals -->
+  <line x1="150" y1="98" x2="740" y2="98" stroke="#1a1a1a" stroke-width="1.2" marker-start="url(#arr-dark-start)" marker-end="url(#arr-dark)"/>
+  <text x="465" y="94" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">t_FRAME (Активний кадр: N рядків)</text>
+
+  <line x1="740" y1="98" x2="890" y2="98" stroke="#6b7280" stroke-width="1.2" marker-start="url(#arr-gray-start)" marker-end="url(#arr-gray)"/>
+  <text x="815" y="94" text-anchor="middle" font-size="12" font-weight="bold" fill="#6b7280">t_VBLANK</text>
+
+  <!-- Panel 1 VSYNC -->
+  <text x="50" y="132" font-size="13" font-weight="bold" fill="#1a1a1a">VSYNC</text>
+  <text x="445" y="116" text-anchor="middle" font-size="12" fill="#2457d6">VSYNC = 1 (Активний кадр)</text>
+  <path d="M 120,138 L 150,138 L 150,122 L 740,122 L 740,138 L 890,138" stroke="#2457d6" stroke-width="2" fill="none"/>
+
+  <!-- Panel 1 HREF -->
+  <text x="50" y="174" font-size="13" font-weight="bold" fill="#1a1a1a">HREF</text>
+  <path d="M 120,180 L 165,180 L 165,162 L 230,162 L 230,180 L 245,180 L 245,162 L 310,162 L 310,180 L 325,180 L 325,162 L 390,162 L 390,180 M 495,180 L 495,162 L 560,162 L 560,180 L 575,180 L 575,162 L 640,162 L 640,180 L 890,180" stroke="#1a1a1a" stroke-width="1.5" fill="none"/>
+  <line x1="390" y1="180" x2="495" y2="180" stroke="#6b7280" stroke-dasharray="3,3" stroke-width="1.5"/>
+
+  <line x1="230" y1="152" x2="245" y2="152" stroke="#6b7280" stroke-width="1" marker-start="url(#arr-gray-start)" marker-end="url(#arr-gray)"/>
+  <text x="237.5" y="148" text-anchor="middle" font-size="11" fill="#6b7280">t_HBLANK</text>
+
+  <!-- Panel 1 D[7:0] -->
+  <text x="50" y="218" font-size="13" font-weight="bold" fill="#1a1a1a">D[7:0]</text>
+  <rect x="165" y="202" width="65" height="22" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="197.5" y="217" text-anchor="middle" font-size="12" fill="#2457d6">Рядок 1</text>
+
+  <rect x="245" y="202" width="65" height="22" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="277.5" y="217" text-anchor="middle" font-size="12" fill="#2457d6">Рядок 2</text>
+
+  <rect x="325" y="202" width="65" height="22" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="357.5" y="217" text-anchor="middle" font-size="12" fill="#2457d6">Рядок 3</text>
+
+  <text x="442.5" y="217" text-anchor="middle" font-size="14" font-weight="bold" fill="#6b7280">• • •</text>
+
+  <rect x="495" y="202" width="65" height="22" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="527.5" y="217" text-anchor="middle" font-size="12" fill="#2457d6">Рядок N-1</text>
+
+  <rect x="575" y="202" width="65" height="22" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="607.5" y="217" text-anchor="middle" font-size="12" fill="#2457d6">Рядок N</text>
+
+  <line x1="640" y1="213" x2="890" y2="213" stroke="#6b7280" stroke-dasharray="3,3" stroke-width="1.2"/>
+  <text x="765" y="238" text-anchor="middle" font-size="12" fill="#6b7280">Пауза між кадрами (V-BLANK)</text>
+
+  <!-- Panel 2: Line and Pixel Level -->
+  <rect x="30" y="268" width="900" height="238" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="45" y="286" font-size="13" font-weight="bold" fill="#2457d6">2. Рядковий та піксельний рівень (деталізація HREF, PCLK і D[7:0])</text>
+
+  <!-- Panel 2 VSYNC -->
+  <text x="50" y="306" font-size="13" font-weight="bold" fill="#1a1a1a">VSYNC</text>
+  <line x1="140" y1="302" x2="890" y2="302" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="515" y="298" text-anchor="middle" font-size="12" fill="#2457d6">VSYNC = 1 (Вибірка активного рядка всередині кадру)</text>
+
+  <!-- Panel 2 HREF & HBLANK intervals -->
+  <line x1="210" y1="320" x2="770" y2="320" stroke="#1a1a1a" stroke-width="1.2" marker-start="url(#arr-dark-start)" marker-end="url(#arr-dark)"/>
+  <text x="490" y="316" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">t_HREF (Активний рядок: M пікселів)</text>
+
+  <line x1="770" y1="320" x2="890" y2="320" stroke="#6b7280" stroke-width="1.2" marker-start="url(#arr-gray-start)" marker-end="url(#arr-gray)"/>
+  <text x="830" y="316" text-anchor="middle" font-size="12" font-weight="bold" fill="#6b7280">t_HBLANK</text>
+
+  <!-- Panel 2 HREF -->
+  <text x="50" y="356" font-size="13" font-weight="bold" fill="#1a1a1a">HREF</text>
+  <path d="M 140,362 L 210,362 L 210,338 L 770,338 L 770,362 L 890,362" stroke="#1a1a1a" stroke-width="1.5" fill="none"/>
+
+  <!-- Panel 2 PCLK interval -->
+  <line x1="270" y1="380" x2="310" y2="380" stroke="#2457d6" stroke-width="1.2" marker-start="url(#arr-blue-start)" marker-end="url(#arr-blue)"/>
+  <text x="290" y="376" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">t_PCLK</text>
+
+  <!-- Panel 2 PCLK -->
+  <text x="50" y="408" font-size="13" font-weight="bold" fill="#1a1a1a">PCLK</text>
+  <path d="M 140,418 L 150,418 L 150,398 L 170,398 L 170,418 L 190,418 L 190,398 L 210,398 L 210,418 L 230,418 L 230,398 L 250,398 L 250,418 L 270,418 L 270,398 L 290,398 L 290,418 L 310,418 L 310,398 L 330,398 L 330,418 L 350,418 L 350,398 L 370,398 L 370,418 L 390,418 L 390,398 L 410,398 L 410,418 L 430,418 L 430,398 L 450,398 L 450,418 L 470,418 L 470,398 L 490,398 L 490,418 M 570,418 L 590,418 L 590,398 L 610,398 L 610,418 L 630,418 L 630,398 L 650,398 L 650,418 L 670,418 L 670,398 L 690,398 L 690,418 L 710,418 L 710,398 L 730,398 L 730,418 L 750,418 L 750,398 L 770,398 L 770,418 L 790,418 L 790,398 L 810,398 L 810,418 L 830,418 L 830,398 L 850,398 L 850,418 L 870,418 L 870,398 L 890,398" stroke="#2457d6" stroke-width="1.5" fill="none"/>
+  <line x1="490" y1="408" x2="570" y2="408" stroke="#6b7280" stroke-dasharray="3,3" stroke-width="1.5"/>
+
+  <!-- Panel 2 D[7:0] -->
+  <text x="50" y="460" font-size="13" font-weight="bold" fill="#1a1a1a">D[7:0]</text>
+  <line x1="140" y1="456" x2="230" y2="456" stroke="#6b7280" stroke-dasharray="3,3" stroke-width="1.2"/>
+
+  <polygon points="230,456 238,444 302,444 310,456 302,468 238,468" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="270" y="460" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Байт 1 (Y0)</text>
+
+  <polygon points="310,456 318,444 382,444 390,456 382,468 318,468" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="350" y="460" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Байт 2 (U0)</text>
+
+  <polygon points="390,456 398,444 462,444 470,456 462,468 398,468" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="430" y="460" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Байт 3 (Y1)</text>
+
+  <line x1="470" y1="456" x2="590" y2="456" stroke="#6b7280" stroke-dasharray="3,3" stroke-width="1.2"/>
+  <text x="530" y="450" text-anchor="middle" font-size="14" font-weight="bold" fill="#6b7280">• • •</text>
+
+  <polygon points="590,456 598,444 662,444 670,456 662,468 598,468" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="630" y="460" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Байт 2M-1</text>
+
+  <polygon points="670,456 678,444 742,444 750,456 742,468 678,468" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="710" y="460" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Байт 2M</text>
+
+  <line x1="750" y1="456" x2="890" y2="456" stroke="#6b7280" stroke-dasharray="3,3" stroke-width="1.2"/>
+
+  <!-- Sampling Edge & Setup/Hold -->
+  <line x1="310" y1="398" x2="310" y2="474" stroke="#c0392b" stroke-dasharray="3,3" stroke-width="1.2"/>
+  <line x1="290" y1="478" x2="330" y2="478" stroke="#c0392b" stroke-width="1.2" marker-start="url(#arr-red-start)" marker-end="url(#arr-red)"/>
+  <text x="310" y="495" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Фронт PCLK: t_su (встановлення) та t_hd (утримання)</text>
+</svg>

@@ -1,0 +1,153 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <defs>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Main Title & Subtitle -->
+  <text x="480" y="34" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Обчислення CRC-8 (AHT20) на апаратному регістрі LFSR</text>
+  <text x="480" y="56" text-anchor="middle" font-size="13" fill="#6b7280">Зсув біта ліворуч додає зворотний зв'язок MSB ⊕ D_in у розряди b₅, b₄, b₀ за поліномом 0x31</text>
+
+  <!-- Main Circuit Container -->
+  <rect x="30" y="76" width="900" height="424" rx="10" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Top Header Banner inside Container -->
+  <rect x="50" y="90" width="860" height="38" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" stroke-dasharray="4,4"/>
+  <text x="65" y="114" text-anchor="start" font-size="13" font-weight="bold" fill="#2457d6">Твірний поліном AHT20: P(X) = X⁸ + X⁵ + X⁴ + 1 (Маска: 0x31)</text>
+  <text x="895" y="114" text-anchor="end" font-size="13" font-weight="bold" fill="#27ae60">Init: 0xFF | Напрямок: MSB-first</text>
+
+  <!-- Data Input Bit (D_in) -->
+  <text x="85" y="140" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Вхідний біт D_in</text>
+  <line x1="85" y1="146" x2="85" y2="208" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Polynomial Tap Labels above circuit -->
+  <text x="163" y="182" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Вихід X⁸ (MSB)</text>
+  <text x="380" y="182" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Операнд X⁵</text>
+  <text x="485" y="182" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Операнд X⁴</text>
+  <text x="798" y="182" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Операнд X⁰ (1)</text>
+
+  <!-- Input XOR Gate (MSB ⊕ D_in) -->
+  <circle cx="85" cy="220" r="12" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="85" y="224" text-anchor="middle" font-size="14" font-weight="bold" fill="#2457d6">⊕</text>
+
+  <!-- Register Cells b7 to b0 -->
+  <!-- Cell b7 (MSB) -->
+  <rect x="140" y="197" width="46" height="46" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="163" y="217" text-anchor="middle" font-size="14" font-weight="bold" fill="#2457d6">b₇</text>
+  <text x="163" y="234" text-anchor="middle" font-size="11" fill="#6b7280">(MSB)</text>
+
+  <!-- MSB output to Input XOR -->
+  <line x1="140" y1="220" x2="97" y2="220" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Shift b6 -> b7 -->
+  <line x1="225" y1="220" x2="186" y2="220" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+
+  <!-- Cell b6 -->
+  <rect x="225" y="197" width="46" height="46" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="248" y="225" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">b₆</text>
+
+  <!-- Shift b5 -> b6 -->
+  <line x1="310" y1="220" x2="271" y2="220" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+
+  <!-- Cell b5 (+ X^5) -->
+  <rect x="310" y="197" width="46" height="46" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="2"/>
+  <text x="333" y="217" text-anchor="middle" font-size="14" font-weight="bold" fill="#c0392b">b₅</text>
+  <text x="333" y="234" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">+ X⁵</text>
+
+  <!-- Shift XOR 5 -> b5 -->
+  <line x1="370" y1="220" x2="356" y2="220" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+
+  <!-- XOR Gate 5 -->
+  <circle cx="380" cy="220" r="10" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="380" y="224" text-anchor="middle" font-size="13" font-weight="bold" fill="#c0392b">⊕</text>
+
+  <!-- Shift b4 -> XOR 5 -->
+  <line x1="415" y1="220" x2="390" y2="220" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+
+  <!-- Cell b4 (+ X^4) -->
+  <rect x="415" y="197" width="46" height="46" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="2"/>
+  <text x="438" y="217" text-anchor="middle" font-size="14" font-weight="bold" fill="#c0392b">b₄</text>
+  <text x="438" y="234" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">+ X⁴</text>
+
+  <!-- Shift XOR 4 -> b4 -->
+  <line x1="475" y1="220" x2="461" y2="220" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+
+  <!-- XOR Gate 4 -->
+  <circle cx="485" cy="220" r="10" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="485" y="224" text-anchor="middle" font-size="13" font-weight="bold" fill="#c0392b">⊕</text>
+
+  <!-- Shift b3 -> XOR 4 -->
+  <line x1="520" y1="220" x2="495" y2="220" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+
+  <!-- Cell b3 -->
+  <rect x="520" y="197" width="46" height="46" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="543" y="225" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">b₃</text>
+
+  <!-- Shift b2 -> b3 -->
+  <line x1="605" y1="220" x2="566" y2="220" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+
+  <!-- Cell b2 -->
+  <rect x="605" y="197" width="46" height="46" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="628" y="225" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">b₂</text>
+
+  <!-- Shift b1 -> b2 -->
+  <line x1="690" y1="220" x2="651" y2="220" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+
+  <!-- Cell b1 -->
+  <rect x="690" y="197" width="46" height="46" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="713" y="225" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">b₁</text>
+
+  <!-- Shift b0 -> b1 -->
+  <line x1="775" y1="220" x2="736" y2="220" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+
+  <!-- Cell b0 (+ 1) -->
+  <rect x="775" y="197" width="46" height="46" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="2"/>
+  <text x="798" y="217" text-anchor="middle" font-size="14" font-weight="bold" fill="#c0392b">b₀</text>
+  <text x="798" y="234" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">+ 1</text>
+
+  <!-- Feedback vertical line down from Input XOR -->
+  <line x1="85" y1="232" x2="85" y2="310" stroke="#27ae60" stroke-width="2"/>
+  <text x="100" y="275" text-anchor="start" font-size="12" font-weight="bold" fill="#27ae60">Сигнал F = b₇ ⊕ D_in</text>
+
+  <!-- Feedback horizontal bus line -->
+  <line x1="85" y1="310" x2="798" y2="310" stroke="#27ae60" stroke-width="2"/>
+  <text x="640" y="302" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Шина зворотного зв'язку за маскою 0x31</text>
+
+  <!-- Feedback Taps going UP -->
+  <!-- Tap to XOR 5 -->
+  <line x1="380" y1="310" x2="380" y2="230" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+
+  <!-- Tap to XOR 4 -->
+  <line x1="485" y1="310" x2="485" y2="230" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+
+  <!-- Tap to b0 -->
+  <line x1="798" y1="310" x2="798" y2="243" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+
+  <!-- Explanatory Cards at Bottom -->
+  <!-- Card 1 (Left) -->
+  <rect x="50" y="350" width="415" height="130" rx="8" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="68" y="374" text-anchor="start" font-size="13" font-weight="bold" fill="#1a1a1a">Покрокова логіка для кожного біта:</text>
+  <text x="68" y="398" text-anchor="start" font-size="12" fill="#1a1a1a">1. Обчислення зворотного зв'язку: F = b₇ ⊕ D_in</text>
+  <text x="68" y="422" text-anchor="start" font-size="12" fill="#1a1a1a">2. Зсув усіх розрядів ліворуч: bₖ ⟵ bₖ₋₁</text>
+  <text x="68" y="446" text-anchor="start" font-size="12" font-weight="bold" fill="#c0392b">3. Модифікація за F: якщо F=1, інверсія b₅, b₄, b₀</text>
+
+  <!-- Card 2 (Right) -->
+  <rect x="485" y="350" width="425" height="130" rx="8" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="503" y="374" text-anchor="start" font-size="13" font-weight="bold" fill="#1a1a1a">Параметри алгоритму CRC-8 для AHT20:</text>
+  <text x="503" y="398" text-anchor="start" font-size="12" fill="#1a1a1a">• Поліном: X⁸ + X⁵ + X⁴ + 1  (Hex-маска: 0x31)</text>
+  <text x="503" y="422" text-anchor="start" font-size="12" fill="#1a1a1a">• Початковий стан (Init): 0xFF (усі 8 бітів = 1)</text>
+  <text x="503" y="446" text-anchor="start" font-size="12" font-weight="bold" fill="#27ae60">• Валідація: обчислена CRC порівнюється з 7-м байтом</text>
+</svg>

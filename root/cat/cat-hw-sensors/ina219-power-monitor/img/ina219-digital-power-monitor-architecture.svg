@@ -1,0 +1,148 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 500" width="960" height="500" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Підкладка полотна -->
+  <rect x="0" y="0" width="960" height="500" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="700" fill="#1a1a1a">Внутрішня архітектура та потік даних монітора INA219</text>
+  <text x="480" y="52" text-anchor="middle" font-size="13" fill="#6b7280">Апаратне обчислення струму й потужності знімає розрахункове навантаження з мікроконтролера</text>
+
+  <!-- 1. Ліва секція: Силова шина (High-Side) -->
+  <text x="110" y="80" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">+V_IN (до 26V)</text>
+  <line x1="25" y1="95" x2="70" y2="95" stroke="#1a1a1a" stroke-width="2"/>
+  
+  <!-- Шунт R_SHUNT -->
+  <rect x="70" y="87" width="40" height="16" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5" rx="2"/>
+  <text x="90" y="99" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">R_S</text>
+
+  <line x1="110" y1="95" x2="195" y2="95" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="145" y="88" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">I_LOAD</text>
+  <line x1="120" y1="95" x2="170" y2="95" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Навантаження (Load) -->
+  <line x1="190" y1="95" x2="190" y2="160" stroke="#1a1a1a" stroke-width="2"/>
+  <rect x="160" y="160" width="60" height="50" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="4"/>
+  <text x="190" y="182" text-anchor="middle" font-size="12" fill="#1a1a1a">Наван-</text>
+  <text x="190" y="197" text-anchor="middle" font-size="12" fill="#1a1a1a">таження</text>
+
+  <!-- Земля (GND) -->
+  <line x1="190" y1="210" x2="190" y2="235" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="175" y1="235" x2="205" y2="235" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="180" y1="239" x2="200" y2="239" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="185" y1="243" x2="195" y2="243" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Сигнальні відводи від шунта до INA219 -->
+  <!-- VIN+ -->
+  <line x1="55" y1="95" x2="55" y2="130" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="55" y1="130" x2="225" y2="130" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="140" y="122" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">VIN+</text>
+
+  <!-- VIN- -->
+  <line x1="125" y1="95" x2="125" y2="170" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="125" y1="170" x2="225" y2="170" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="140" y="162" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">VIN-</text>
+
+  <!-- VBUS -->
+  <line x1="125" y1="170" x2="125" y2="210" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="3 3"/>
+  <line x1="125" y1="210" x2="225" y2="210" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="140" y="202" text-anchor="middle" font-size="12" font-weight="700" fill="#6b7280">VBUS</text>
+
+  <!-- 2. Центральна секція: Корпус INA219 -->
+  <rect x="225" y="70" width="500" height="390" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2" rx="10"/>
+  <text x="475" y="95" text-anchor="middle" font-size="15" font-weight="700" fill="#1a1a1a">Цифровий монітор живлення INA219</text>
+
+  <!-- Блок А: АЦП та підсилювач -->
+  <rect x="245" y="115" width="200" height="135" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <text x="345" y="137" text-anchor="middle" font-size="13" font-weight="700" fill="#2457d6">PGA &amp; 12-біт АЦП</text>
+  <text x="345" y="160" text-anchor="middle" font-size="12" fill="#1a1a1a">Вимірювання V_SHUNT</text>
+  <text x="345" y="178" text-anchor="middle" font-size="12" fill="#6b7280">(±40mV .. ±320mV)</text>
+  <text x="345" y="203" text-anchor="middle" font-size="12" fill="#1a1a1a">Вимірювання V_BUS</text>
+  <text x="345" y="221" text-anchor="middle" font-size="12" fill="#6b7280">(0V .. 26V)</text>
+
+  <!-- Блок B: Калібрувальний регістр -->
+  <rect x="245" y="265" width="200" height="110" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5" rx="6"/>
+  <text x="345" y="287" text-anchor="middle" font-size="13" font-weight="700" fill="#1a1a1a">Калібрувальний регістр</text>
+  <text x="345" y="308" text-anchor="middle" font-size="12" fill="#2457d6" font-weight="700">Calibration (05h)</text>
+  <text x="345" y="331" text-anchor="middle" font-size="12" fill="#1a1a1a">Cal = 0.04096 / (Current_LSB × R_S)</text>
+  <text x="345" y="354" text-anchor="middle" font-size="12" fill="#6b7280">Записується з МК через I2C</text>
+
+  <!-- Блок C: Апаратний множник -->
+  <rect x="475" y="115" width="230" height="135" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="6"/>
+  <text x="590" y="137" text-anchor="middle" font-size="13" font-weight="700" fill="#27ae60">Апаратний множник</text>
+  <text x="590" y="165" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">I = (V_SHUNT × Cal) / 4096</text>
+  <text x="590" y="195" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">P = (I × V_BUS) / 5000</text>
+  <text x="590" y="225" text-anchor="middle" font-size="12" fill="#27ae60">Автоматичне множення у chip</text>
+
+  <!-- Блок D: Регістри даних -->
+  <rect x="475" y="265" width="230" height="110" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5" rx="6"/>
+  <text x="590" y="287" text-anchor="middle" font-size="13" font-weight="700" fill="#1a1a1a">Блок регістрів даних</text>
+  <text x="590" y="308" text-anchor="middle" font-size="12" fill="#6b7280">V_SHUNT (01h) | V_BUS (02h)</text>
+  <text x="590" y="331" text-anchor="middle" font-size="12" fill="#27ae60" font-weight="700">Current (04h) — готовий струм [A]</text>
+  <text x="590" y="354" text-anchor="middle" font-size="12" fill="#27ae60" font-weight="700">Power (03h) — потужність [W]</text>
+
+  <!-- Блок E: I2C інтерфейс -->
+  <rect x="245" y="390" width="460" height="50" fill="#ffffff" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <text x="475" y="420" text-anchor="middle" font-size="13" font-weight="700" fill="#2457d6">Модуль шини I2C (контролер SDA / SCL)</text>
+
+  <!-- Внутрішній потік даних (стрілки між блоками всередині chip) -->
+  <!-- АЦП -> Множник -->
+  <line x1="445" y1="160" x2="475" y2="160" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="460" y="152" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">V</text>
+
+  <!-- Cal -> Множник -->
+  <line x1="445" y1="310" x2="460" y2="310" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="460" y1="310" x2="460" y2="200" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="460" y1="200" x2="475" y2="200" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="454" y="250" text-anchor="end" font-size="12" font-weight="700" fill="#2457d6">Cal</text>
+
+  <!-- Множник -> Регістри даних -->
+  <line x1="590" y1="250" x2="590" y2="265" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <!-- I2C -> Cal (Запис калібрування) -->
+  <line x1="345" y1="390" x2="345" y2="375" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- Регістри даних -> I2C (Читання) -->
+  <line x1="590" y1="375" x2="590" y2="390" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- 3. Права секція: Мікроконтролер (MCU) -->
+  <rect x="755" y="115" width="180" height="325" fill="#eaf0fd" stroke="#2457d6" stroke-width="2" rx="8"/>
+  <text x="845" y="142" text-anchor="middle" font-size="14" font-weight="700" fill="#1a1a1a">Мікроконтролер</text>
+  <text x="845" y="160" text-anchor="middle" font-size="12" fill="#6b7280">(Хост-процесор)</text>
+
+  <!-- Картки переваг на МК -->
+  <!-- Картка 1 -->
+  <rect x="768" y="175" width="154" height="65" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5" rx="4"/>
+  <text x="845" y="196" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">1. Готові дані</text>
+  <text x="845" y="215" text-anchor="middle" font-size="12" fill="#1a1a1a">Читає струм [mA]</text>
+  <text x="845" y="230" text-anchor="middle" font-size="12" fill="#1a1a1a">та потужність [mW]</text>
+
+  <!-- Картка 2 -->
+  <rect x="768" y="250" width="154" height="65" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5" rx="4"/>
+  <text x="845" y="271" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">2. Нуль обчислень</text>
+  <text x="845" y="290" text-anchor="middle" font-size="12" fill="#1a1a1a">Без розрахунків</text>
+  <text x="845" y="305" text-anchor="middle" font-size="12" fill="#1a1a1a">I = U/R на CPU</text>
+
+  <!-- Картка 3 -->
+  <rect x="768" y="325" width="154" height="65" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5" rx="4"/>
+  <text x="845" y="346" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">3. Простий I2C</text>
+  <text x="845" y="365" text-anchor="middle" font-size="12" fill="#1a1a1a">Усього 2 лінії (SDA/SCL)</text>
+  <text x="845" y="380" text-anchor="middle" font-size="12" fill="#1a1a1a">до 4 адреси на шині</text>
+
+  <!-- Зв'язок I2C між INA219 та МК -->
+  <line x1="705" y1="410" x2="755" y2="410" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <line x1="755" y1="420" x2="705" y2="420" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="730" y="402" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">SDA</text>
+  <text x="730" y="435" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">SCL</text>
+
+</svg>

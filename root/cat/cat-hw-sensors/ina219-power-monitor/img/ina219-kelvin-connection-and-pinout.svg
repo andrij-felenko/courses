@@ -1,0 +1,172 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- White Background -->
+  <rect x="0" y="0" width="960" height="520" fill="#ffffff"/>
+
+  <!-- Markers -->
+  <defs>
+    <marker id="arr-red" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#4a5568"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Цокольовка INA219 та Кельвінівське підключення шунта</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Окремі вимірювальні траси VIN+/VIN- виключають спад напруги на паразитному опорі силових провідників</text>
+
+  <!-- LEFT PANEL: Pinout & Functions -->
+  <rect x="30" y="75" width="430" height="420" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  
+  <rect x="42" y="87" width="406" height="30" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="245" y="107" font-size="13" font-weight="700" fill="#2457d6" text-anchor="middle">Призначення виводів INA219 (SOT23-8 / SOIC-8)</text>
+
+  <!-- IC Chip Body -->
+  <rect x="185" y="175" width="120" height="190" rx="6" fill="#2c3e50" stroke="#1a252f" stroke-width="2"/>
+  <circle cx="205" cy="195" r="5" fill="#ecf0f1"/>
+  
+  <text x="245" y="260" font-size="16" font-weight="700" fill="#ffffff" text-anchor="middle">INA219</text>
+  <text x="245" y="280" font-size="11" fill="#95a5a6" text-anchor="middle">I2C Power Monitor</text>
+  <text x="245" y="295" font-size="11" fill="#95a5a6" text-anchor="middle">±320 mV / 26V Bus</text>
+
+  <!-- Left Pins (1-4) -->
+  <rect x="165" y="199" width="20" height="12" fill="#bdc3c7" stroke="#7f8c8d"/>
+  <text x="157" y="209" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="end">1: A1</text>
+  <text x="157" y="222" font-size="11" fill="#6b7280" text-anchor="end">I2C-адреса (біт 1)</text>
+
+  <rect x="165" y="239" width="20" height="12" fill="#bdc3c7" stroke="#7f8c8d"/>
+  <text x="157" y="249" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="end">2: A0</text>
+  <text x="157" y="262" font-size="11" fill="#6b7280" text-anchor="end">I2C-адреса (біт 0)</text>
+
+  <rect x="165" y="279" width="20" height="12" fill="#bdc3c7" stroke="#7f8c8d"/>
+  <text x="157" y="289" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="end">3: SDA</text>
+  <text x="157" y="302" font-size="11" fill="#6b7280" text-anchor="end">Лінія даних I2C</text>
+
+  <rect x="165" y="319" width="20" height="12" fill="#bdc3c7" stroke="#7f8c8d"/>
+  <text x="157" y="329" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="end">4: SCL</text>
+  <text x="157" y="342" font-size="11" fill="#6b7280" text-anchor="end">Тактування I2C</text>
+
+  <!-- Right Pins (8-5) -->
+  <rect x="305" y="199" width="20" height="12" fill="#bdc3c7" stroke="#7f8c8d"/>
+  <text x="333" y="209" font-size="12" font-weight="700" fill="#27ae60" text-anchor="start">8: VIN+</text>
+  <text x="333" y="222" font-size="11" fill="#6b7280" text-anchor="start">+ шунта / V_BUS</text>
+
+  <rect x="305" y="239" width="20" height="12" fill="#bdc3c7" stroke="#7f8c8d"/>
+  <text x="333" y="249" font-size="12" font-weight="700" fill="#27ae60" text-anchor="start">7: VIN-</text>
+  <text x="333" y="262" font-size="11" fill="#6b7280" text-anchor="start">- шунта / load</text>
+
+  <rect x="305" y="279" width="20" height="12" fill="#bdc3c7" stroke="#7f8c8d"/>
+  <text x="333" y="289" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="start">6: GND</text>
+  <text x="333" y="302" font-size="11" fill="#6b7280" text-anchor="start">Спільний (0 В)</text>
+
+  <rect x="305" y="319" width="20" height="12" fill="#bdc3c7" stroke="#7f8c8d"/>
+  <text x="333" y="329" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="start">5: VS</text>
+  <text x="333" y="342" font-size="11" fill="#6b7280" text-anchor="start">+3.0...+5.5 В</text>
+
+  <!-- Left Bottom Note Box -->
+  <rect x="42" y="380" width="406" height="102" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="54" y="400" font-size="12" font-weight="700" fill="#1a1a1a">Ключові специфікації вхідних кіл:</text>
+  <text x="54" y="419" font-size="11.5" fill="#1a1a1a">• Напруга шини V_BUS: 0 В...26 В (не залежить від V_S)</text>
+  <text x="54" y="436" font-size="11.5" fill="#1a1a1a">• Макс. шунтова напруга V_SHUNT: ±320 мВ (PGA ÷1, ÷2, ÷4, ÷8)</text>
+  <text x="54" y="453" font-size="11.5" fill="#1a1a1a">• Вхідний опір VIN+/VIN-: ~320 кОм (струм входу I_in ≈ 0 мкА)</text>
+  <text x="54" y="470" font-size="11.5" fill="#1a1a1a">• I2C Адресація: A0/A1 до GND, VS, SDA, SCL (16 комбінацій)</text>
+
+  <!-- RIGHT PANEL: Kelvin Sensing vs Standard -->
+  <rect x="480" y="75" width="450" height="420" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- SUB-SECTION 1: Standard Connection (Wrong) -->
+  <rect x="492" y="87" width="426" height="190" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+  <rect x="502" y="95" width="406" height="24" rx="4" fill="#c0392b"/>
+  <text x="705" y="111" font-size="12" font-weight="700" fill="#ffffff" text-anchor="middle">Звичайне підключення (Паразитний опір R_пар у контурі)</text>
+
+  <!-- Power trace top diagram -->
+  <path d="M 515,165 L 545,165" stroke="#c0392b" stroke-width="4"/>
+  <rect x="543" y="157" width="26" height="16" fill="#e74c3c" rx="2"/>
+  <text x="556" y="169" font-size="10" font-weight="700" fill="#ffffff" text-anchor="middle">R_п1</text>
+
+  <path d="M 569,165 L 590,165" stroke="#c0392b" stroke-width="4"/>
+  
+  <!-- Shunt resistor 1 -->
+  <rect x="590" y="153" width="16" height="24" fill="#7f8c8d" rx="2"/>
+  <rect x="606" y="156" width="48" height="18" fill="#34495e" rx="2"/>
+  <text x="630" y="169" font-size="10" font-weight="700" fill="#ffffff" text-anchor="middle">R_shunt</text>
+  <rect x="654" y="153" width="16" height="24" fill="#7f8c8d" rx="2"/>
+
+  <path d="M 670,165 L 691,165" stroke="#c0392b" stroke-width="4"/>
+  <rect x="691" y="157" width="26" height="16" fill="#e74c3c" rx="2"/>
+  <text x="704" y="169" font-size="10" font-weight="700" fill="#ffffff" text-anchor="middle">R_п2</text>
+
+  <path d="M 717,165 L 745,165" stroke="#c0392b" stroke-width="4" marker-end="url(#arr-red)"/>
+  <text x="515" y="152" font-size="10" font-weight="700" fill="#c0392b">V_BUS</text>
+  <text x="745" y="152" font-size="10" font-weight="700" fill="#c0392b" text-anchor="end">I_load</text>
+
+  <!-- Sense lines standard tapped outside -->
+  <path d="M 525,165 L 525,200 L 770,200" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#arr-red)"/>
+  <path d="M 735,165 L 735,212 L 770,212" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#arr-red)"/>
+
+  <!-- INA219 standard block -->
+  <rect x="775" y="188" width="125" height="34" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="837" y="202" font-size="11" font-weight="700" fill="#c0392b" text-anchor="middle">Входи INA219</text>
+  <text x="837" y="215" font-size="10" fill="#c0392b" text-anchor="middle">V_вх = I·(R_sh + 2R_п)</text>
+
+  <!-- Standard warning note -->
+  <rect x="502" y="228" width="406" height="40" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+  <text x="705" y="244" font-size="11.5" font-weight="700" fill="#c0392b" text-anchor="middle">⛔ Похибка: Вимірюється спад напруги і на провідниках R_п1, R_п2</text>
+  <text x="705" y="259" font-size="11" fill="#6b7280" text-anchor="middle">Опір доріжок та спайок спотворює струм вимірювання (похибка до 10-30%)</text>
+
+
+  <!-- SUB-SECTION 2: Kelvin Connection (Correct) -->
+  <rect x="492" y="287" width="426" height="198" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="502" y="295" width="406" height="24" rx="4" fill="#27ae60"/>
+  <text x="705" y="311" font-size="12" font-weight="700" fill="#ffffff" text-anchor="middle">Кельвінівське підключення (Kelvin Sense): Абсолютна точність</text>
+
+  <!-- Power trace bottom diagram -->
+  <path d="M 515,360 L 545,360" stroke="#4a5568" stroke-width="4"/>
+  <rect x="543" y="352" width="26" height="16" fill="#95a5a6" rx="2"/>
+  <text x="556" y="364" font-size="10" font-weight="700" fill="#ffffff" text-anchor="middle">R_п1</text>
+
+  <path d="M 569,360 L 590,360" stroke="#4a5568" stroke-width="4"/>
+  
+  <!-- Shunt resistor 2 -->
+  <rect x="590" y="348" width="16" height="24" fill="#7f8c8d" rx="2"/>
+  <rect x="606" y="351" width="48" height="18" fill="#2c3e50" rx="2"/>
+  <text x="630" y="364" font-size="10" font-weight="700" fill="#ffffff" text-anchor="middle">R_shunt</text>
+  <rect x="654" y="348" width="16" height="24" fill="#7f8c8d" rx="2"/>
+
+  <path d="M 670,360 L 691,360" stroke="#4a5568" stroke-width="4"/>
+  <rect x="691" y="352" width="26" height="16" fill="#95a5a6" rx="2"/>
+  <text x="704" y="364" font-size="10" font-weight="700" fill="#ffffff" text-anchor="middle">R_п2</text>
+
+  <path d="M 717,360 L 745,360" stroke="#4a5568" stroke-width="4" marker-end="url(#arr-gray)"/>
+  <text x="515" y="347" font-size="10" font-weight="700" fill="#4a5568">V_BUS</text>
+  <text x="745" y="347" font-size="10" font-weight="700" fill="#4a5568" text-anchor="end">I_load</text>
+
+  <!-- Kelvin Sense lines directly from inner pads -->
+  <path d="M 598,372 L 598,396 L 770,396" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <path d="M 662,372 L 662,408 L 770,408" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- Pads contact points -->
+  <circle cx="598" cy="368" r="2.5" fill="#27ae60"/>
+  <circle cx="662" cy="368" r="2.5" fill="#27ae60"/>
+
+  <text x="592" y="386" font-size="10" font-weight="700" fill="#27ae60" text-anchor="end">VIN+</text>
+  <text x="656" y="386" font-size="10" font-weight="700" fill="#27ae60" text-anchor="end">VIN-</text>
+
+  <!-- INA219 Kelvin block -->
+  <rect x="775" y="384" width="125" height="34" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="837" y="398" font-size="11" font-weight="700" fill="#27ae60" text-anchor="middle">Входи INA219</text>
+  <text x="837" y="411" font-size="10" font-weight="700" fill="#27ae60" text-anchor="middle">V_диф = I_load · R_sh</text>
+
+  <!-- Kelvin success note -->
+  <rect x="502" y="426" width="406" height="48" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="705" y="443" font-size="11.5" font-weight="700" fill="#27ae60" text-anchor="middle">✓ Результат: Спад напруги на R_п1 та R_п2 повністю виключено</text>
+  <text x="705" y="458" font-size="11" fill="#1a1a1a" text-anchor="middle">Траси VIN+/VIN- підключені безпосередньо до майданчиків шунта.</text>
+  <text x="705" y="469" font-size="10" fill="#6b7280" text-anchor="middle">Оскільки I_вхід ≈ 0 мкА, спад напруги на сенсорних доріжках дорівнює нулю.</text>
+</svg>

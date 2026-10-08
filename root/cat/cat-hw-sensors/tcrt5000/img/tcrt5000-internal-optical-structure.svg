@@ -1,0 +1,172 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <defs>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Title and Subtitle -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Внутрішня оптична структура давача TCRT5000</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Центральна непрозора перегородка усуває пряме засвічення, забезпечуючи зону виявлення</text>
+
+  <!-- Left Side Panel (ІЧ-Світлодіод) -->
+  <rect x="20" y="85" width="175" height="425" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="8" ry="8"/>
+  <text x="35" y="115" font-size="14" font-weight="bold" fill="#c0392b">ІЧ-СВІТЛОДІОД</text>
+  <text x="35" y="133" font-size="12" fill="#6b7280">(Випромінювач / Emitter)</text>
+
+  <text x="35" y="165" font-size="12" font-weight="bold" fill="#1a1a1a">• Довжина хвилі:</text>
+  <text x="35" y="183" font-size="12" fill="#1a1a1a">  λ = 950 нм (ІЧ)</text>
+
+  <text x="35" y="213" font-size="12" font-weight="bold" fill="#1a1a1a">• Прямий струм:</text>
+  <text x="35" y="231" font-size="12" fill="#1a1a1a">  I_F = 10 ... 20 мА</text>
+
+  <text x="35" y="261" font-size="12" font-weight="bold" fill="#1a1a1a">• Кут випромінювання:</text>
+  <text x="35" y="279" font-size="12" fill="#1a1a1a">  θ ≈ 30°</text>
+
+  <!-- Left Callout Box -->
+  <rect x="30" y="300" width="155" height="195" fill="#fdecea" stroke="#c0392b" stroke-width="1" rx="6" ry="6"/>
+  <text x="38" y="322" font-size="12" font-weight="bold" fill="#c0392b">ОПТИЧНИЙ КОНУС</text>
+  <text x="38" y="342" font-size="12" fill="#1a1a1a">Вбудована лінза</text>
+  <text x="38" y="362" font-size="12" fill="#1a1a1a">спрямовує ІЧ-потік</text>
+  <text x="38" y="382" font-size="12" fill="#1a1a1a">під кутом до осі</text>
+  <text x="38" y="402" font-size="12" fill="#1a1a1a">для перетину з</text>
+  <text x="38" y="422" font-size="12" fill="#1a1a1a">конусом приймача</text>
+  <text x="38" y="442" font-size="12" fill="#1a1a1a">у зовнішній зоні</text>
+  <text x="38" y="462" font-size="12" fill="#1a1a1a">відбивання (d).</text>
+
+  <!-- Right Side Panel (Фототранзистор) -->
+  <rect x="765" y="85" width="175" height="425" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="8" ry="8"/>
+  <text x="780" y="115" font-size="14" font-weight="bold" fill="#2457d6">ФОТОТРАНЗИСТОР</text>
+  <text x="780" y="133" font-size="12" fill="#6b7280">(Приймач / Receiver)</text>
+
+  <text x="780" y="165" font-size="12" font-weight="bold" fill="#1a1a1a">• Оптична відстань:</text>
+  <text x="780" y="183" font-size="12" fill="#1a1a1a">  d_opt ≈ 2,5 мм</text>
+
+  <text x="780" y="213" font-size="12" font-weight="bold" fill="#1a1a1a">• Робочий діапазон:</text>
+  <text x="780" y="231" font-size="12" fill="#1a1a1a">  d = 0,2 ... 15 мм</text>
+
+  <text x="780" y="261" font-size="12" font-weight="bold" fill="#1a1a1a">• Струм колектора:</text>
+  <text x="780" y="279" font-size="12" fill="#1a1a1a">  I_C ∝ відбивності</text>
+
+  <!-- Right Callout Box -->
+  <rect x="775" y="300" width="155" height="195" fill="#e9f7ef" stroke="#27ae60" stroke-width="1" rx="6" ry="6"/>
+  <text x="783" y="322" font-size="12" font-weight="bold" fill="#27ae60">ЗАХИСТ ВІД ЗАСВІТКИ</text>
+  <text x="783" y="342" font-size="12" fill="#1a1a1a">Центральна стінка</text>
+  <text x="783" y="362" font-size="12" fill="#1a1a1a">повністю перекриває</text>
+  <text x="783" y="382" font-size="12" fill="#1a1a1a">прямий шлях світла.</text>
+  <text x="783" y="402" font-size="12" fill="#1a1a1a">Сигнал формується</text>
+  <text x="783" y="422" font-size="12" fill="#1a1a1a">виключно відбитим</text>
+  <text x="783" y="442" font-size="12" fill="#1a1a1a">зовнішнім променем</text>
+  <text x="783" y="462" font-size="12" fill="#1a1a1a">від об'єкта.</text>
+
+  <!-- Central Diagram Area -->
+
+  <!-- Target Object Surface -->
+  <rect x="270" y="85" width="420" height="32" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2" rx="4" ry="4"/>
+  <line x1="270" y1="117" x2="690" y2="117" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="480" y="106" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Відбивальна поверхня (об'єкт виявлення)</text>
+
+  <!-- Distance Measurement Dimension Line -->
+  <line x1="252" y1="117" x2="252" y2="250" stroke="#6b7280" stroke-width="1.5" marker-start="url(#arr-gray)" marker-end="url(#arr-gray)"/>
+  <line x1="244" y1="117" x2="260" y2="117" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="244" y1="250" x2="260" y2="250" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="242" y="177" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">d ≈</text>
+  <text x="242" y="193" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">2,5 мм</text>
+
+  <!-- Emitter Ray Cone (Red) -->
+  <polygon points="366,250 285,117 515,117" fill="#fdecea" opacity="0.5"/>
+  <line x1="366" y1="250" x2="285" y2="117" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr-red)"/>
+  <line x1="366" y1="250" x2="515" y2="117" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr-red)"/>
+  <line x1="366" y1="250" x2="400" y2="117" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+
+  <!-- Receiver FOV Cone (Blue) -->
+  <polygon points="594,250 445,117 675,117" fill="#eaf0fd" opacity="0.5"/>
+  <line x1="594" y1="250" x2="445" y2="117" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr-blue)"/>
+  <line x1="594" y1="250" x2="675" y2="117" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr-blue)"/>
+  <line x1="560" y1="117" x2="594" y2="250" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Optical Overlap Zone (Green Polygon) -->
+  <polygon points="445,117 515,117 480,147" fill="#e9f7ef" stroke="#27ae60" stroke-width="2" stroke-dasharray="3,3"/>
+
+  <!-- Overlap Callout Badge and Pointer -->
+  <line x1="480" y1="147" x2="480" y2="172" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <rect x="415" y="172" width="130" height="34" fill="#ffffff" stroke="#27ae60" stroke-width="1.5" rx="4" ry="4"/>
+  <text x="480" y="186" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">ЗОНА ПЕРЕТИНУ</text>
+  <text x="480" y="200" font-size="12" fill="#1a1a1a" text-anchor="middle">(робоча зона)</text>
+
+  <!-- Sensor Housing Outer Body -->
+  <rect x="270" y="250" width="420" height="185" fill="#2d3748" stroke="#1a1a1a" stroke-width="2" rx="6" ry="6"/>
+
+  <!-- Central Opaque Barrier -->
+  <rect x="462" y="250" width="36" height="185" fill="#1a1a1a" stroke="#000000" stroke-width="1"/>
+
+  <!-- Inner Cavities -->
+  <rect x="282" y="262" width="168" height="160" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="4" ry="4"/>
+  <rect x="510" y="262" width="168" height="160" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="4" ry="4"/>
+
+  <!-- Lenses -->
+  <path d="M 292,262 Q 366,238 440,262 Z" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <path d="M 520,262 Q 594,238 668,262 Z" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+
+  <!-- Substrates and Dies -->
+  <!-- LED Substrate & Die -->
+  <path d="M 346,375 L 386,375 L 381,400 L 351,400 Z" fill="#d0d7de" stroke="#6b7280"/>
+  <rect x="356" y="355" width="20" height="20" fill="#c0392b" stroke="#962d22" stroke-width="1" rx="2" ry="2"/>
+
+  <!-- Phototransistor Substrate & Die -->
+  <path d="M 574,375 L 614,375 L 609,400 L 579,400 Z" fill="#d0d7de" stroke="#6b7280"/>
+  <rect x="584" y="355" width="20" height="20" fill="#2457d6" stroke="#1d45b0" stroke-width="1" rx="2" ry="2"/>
+
+  <!-- LED and PT Labels in Chambers -->
+  <rect x="294" y="280" width="144" height="26" fill="#ffffff" stroke="#c0392b" stroke-width="1" rx="4" ry="4"/>
+  <text x="366" y="297" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">ІЧ-світлодіод (LED)</text>
+
+  <rect x="522" y="280" width="144" height="26" fill="#ffffff" stroke="#2457d6" stroke-width="1" rx="4" ry="4"/>
+  <text x="594" y="297" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Фототранзистор</text>
+
+  <!-- Blocked Internal Crosstalk Line -->
+  <line x1="366" y1="365" x2="462" y2="365" stroke="#c0392b" stroke-width="2" stroke-dasharray="4,3"/>
+  <circle cx="462" cy="365" r="7" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <line x1="457" y1="360" x2="467" y2="370" stroke="#c0392b" stroke-width="1.5"/>
+  <line x1="457" y1="370" x2="467" y2="360" stroke="#c0392b" stroke-width="1.5"/>
+
+  <!-- Barrier Callout Badge below package -->
+  <rect x="385" y="445" width="190" height="52" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5" rx="6" ry="6"/>
+  <line x1="480" y1="435" x2="480" y2="445" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="480" y="462" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Центральний бар'єр</text>
+  <text x="480" y="478" font-size="12" fill="#c0392b" text-anchor="middle">Прямий промінь заблоковано</text>
+  <text x="480" y="492" font-size="12" fill="#6b7280" text-anchor="middle">(непрозорий пластик)</text>
+
+  <!-- Package Terminal Leads -->
+  <line x1="310" y1="435" x2="310" y2="485" stroke="#6b7280" stroke-width="3"/>
+  <line x1="360" y1="435" x2="360" y2="485" stroke="#6b7280" stroke-width="3"/>
+  <line x1="600" y1="435" x2="600" y2="485" stroke="#6b7280" stroke-width="3"/>
+  <line x1="650" y1="435" x2="650" y2="485" stroke="#6b7280" stroke-width="3"/>
+
+  <!-- Terminal Lead Labels -->
+  <text x="310" y="502" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">A</text>
+  <text x="310" y="516" font-size="12" fill="#6b7280" text-anchor="middle">Анод</text>
+
+  <text x="360" y="502" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">K</text>
+  <text x="360" y="516" font-size="12" fill="#6b7280" text-anchor="middle">Катод</text>
+
+  <text x="600" y="502" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">C</text>
+  <text x="600" y="516" font-size="12" fill="#6b7280" text-anchor="middle">Колектор</text>
+
+  <text x="650" y="502" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">E</text>
+  <text x="650" y="516" font-size="12" fill="#6b7280" text-anchor="middle">Емітер</text>
+</svg>

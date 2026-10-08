@@ -1,0 +1,151 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <!-- Markers for arrows -->
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-green-start" markerWidth="9" markerHeight="9" refX="0.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Canvas background -->
+  <rect x="0" y="0" width="960" height="540" fill="#ffffff"/>
+
+  <!-- Global Header and Subtitle -->
+  <text x="480" y="34" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Прямий ToF проти Амплітудного вимірювання відстані</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Часовий зсув Δt залежить лише від відстані d, у той час як амплітуда відбитка змінюється від кольору</text>
+
+  <!-- ================= LEFT PANEL: Амплітудний метод ================= -->
+  <rect x="30" y="75" width="435" height="445" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  
+  <!-- Left Panel Banner -->
+  <rect x="45" y="90" width="405" height="34" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="247" y="112" font-size="14" font-weight="bold" fill="#c0392b" text-anchor="middle">Амплітудний метод (вимірювання інтенсивності)</text>
+
+  <!-- Physical Setup (Left) -->
+  <rect x="50" y="138" width="95" height="52" rx="5" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="97" y="158" font-size="12" fill="#1a1a1a" text-anchor="middle">Джерело /</text>
+  <text x="97" y="174" font-size="12" fill="#1a1a1a" text-anchor="middle">Приймач</text>
+
+  <line x1="145" y1="164" x2="308" y2="164" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4 3" marker-end="url(#arr-blue)"/>
+  <text x="226" y="154" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Відстань d</text>
+
+  <rect x="315" y="136" width="16" height="24" rx="2" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="338" y="152" font-size="12" fill="#1a1a1a" text-anchor="start">Біла ціль (R = 90%)</text>
+
+  <rect x="315" y="166" width="16" height="24" rx="2" fill="#4a5568" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="338" y="182" font-size="12" fill="#1a1a1a" text-anchor="start">Темна ціль (R = 10%)</text>
+
+  <!-- Waveform Card (Left) -->
+  <rect x="45" y="200" width="405" height="182" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Waveform Axes (Left) -->
+  <line x1="80" y1="355" x2="80" y2="218" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+  <line x1="80" y1="355" x2="430" y2="355" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+  <text x="80" y="212" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Амплітуда A</text>
+  <text x="435" y="370" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">Час t</text>
+
+  <!-- Detection Threshold Line -->
+  <line x1="80" y1="285" x2="415" y2="285" stroke="#c0392b" stroke-width="1.2" stroke-dasharray="4 3"/>
+  <text x="415" y="280" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="end">Поріг A_th</text>
+
+  <!-- TX Pulse (Left) -->
+  <path d="M 80,355 L 85,355 L 90,260 L 105,260 L 110,355 Z" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="97" y="250" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">TX</text>
+
+  <!-- RX Pulse White Target (Left) -->
+  <path d="M 220,355 C 230,355 235,230 255,230 C 275,230 280,355 290,355 Z" fill="rgba(36, 87, 214, 0.15)" stroke="#2457d6" stroke-width="2"/>
+  <text x="255" y="222" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">A₁ (Біла ціль: A₁ &gt; A_th)</text>
+
+  <!-- RX Pulse Dark Target (Left) -->
+  <path d="M 220,355 C 230,355 235,310 255,310 C 275,310 280,355 290,355 Z" fill="rgba(107, 114, 128, 0.15)" stroke="#6b7280" stroke-width="2" stroke-dasharray="4 2"/>
+  <text x="298" y="332" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="start">A₂ (Темна: A₂ &lt; A_th)</text>
+  <text x="415" y="304" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="end">A₂ нижче порогу A_th!</text>
+
+  <!-- Time Ticks (Left) -->
+  <line x1="97" y1="355" x2="97" y2="360" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="97" y="372" font-size="12" fill="#6b7280" text-anchor="middle">t = 0</text>
+  <line x1="255" y1="355" x2="255" y2="360" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="255" y="372" font-size="12" fill="#6b7280" text-anchor="middle">t = Δt</text>
+
+  <!-- Summary Box (Left) -->
+  <rect x="45" y="395" width="405" height="110" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="60" y="418" font-size="13" font-weight="bold" fill="#c0392b">❌ Недоліки амплітудного методу:</text>
+  <text x="60" y="438" font-size="12" fill="#1a1a1a">• Амплітуда відбитку A залежить від коефіцієнта відбиття (R)</text>
+  <text x="60" y="456" font-size="12" fill="#1a1a1a">• Темний близький об'єкт має таку ж A, як білий далекий</text>
+  <text x="60" y="474" font-size="12" font-weight="bold" fill="#c0392b">• Виникає невизначеність і велика похибка вимірювання Δd</text>
+  <text x="60" y="492" font-size="12" fill="#6b7280">• Необхідне постійне перекалібрування під колір поверхні</text>
+
+  <!-- ================= RIGHT PANEL: Direct ToF VL53L0X ================= -->
+  <rect x="495" y="75" width="435" height="445" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Right Panel Banner -->
+  <rect x="510" y="90" width="405" height="34" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="712" y="112" font-size="14" font-weight="bold" fill="#27ae60" text-anchor="middle">Принцип Direct ToF (VL53L0X: VCSEL + SPAD)</text>
+
+  <!-- Physical Setup (Right) -->
+  <rect x="515" y="138" width="95" height="52" rx="5" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="562" y="158" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">VCSEL 940 нм</text>
+  <text x="562" y="174" font-size="12" fill="#1a1a1a" text-anchor="middle">SPAD Матриця</text>
+
+  <line x1="610" y1="164" x2="773" y2="164" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="4 3" marker-end="url(#arr-green)"/>
+  <text x="691" y="154" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Відстань d</text>
+
+  <rect x="780" y="136" width="16" height="24" rx="2" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="803" y="152" font-size="12" fill="#1a1a1a" text-anchor="start">Біла ціль (R = 90%)</text>
+
+  <rect x="780" y="166" width="16" height="24" rx="2" fill="#4a5568" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="803" y="182" font-size="12" fill="#1a1a1a" text-anchor="start">Темна ціль (R = 10%)</text>
+
+  <!-- Waveform Card (Right) -->
+  <rect x="510" y="200" width="405" height="182" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Waveform Axes (Right) -->
+  <line x1="545" y1="355" x2="545" y2="218" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+  <line x1="545" y1="355" x2="895" y2="355" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+  <text x="545" y="212" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Потік фотонів</text>
+  <text x="900" y="370" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">Час t</text>
+
+  <!-- Time Delay Arrow and Lines -->
+  <line x1="562" y1="230" x2="562" y2="238" stroke="#6b7280" stroke-width="1" stroke-dasharray="2 2"/>
+  <line x1="562" y1="258" x2="562" y2="355" stroke="#6b7280" stroke-width="1" stroke-dasharray="2 2"/>
+  <line x1="720" y1="230" x2="720" y2="355" stroke="#27ae60" stroke-width="1" stroke-dasharray="2 2"/>
+  <line x1="565" y1="238" x2="717" y2="238" stroke="#27ae60" stroke-width="2" marker-start="url(#arr-green-start)" marker-end="url(#arr-green)"/>
+  <text x="641" y="230" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Час прольоту Δt = 2d / c</text>
+
+  <!-- TX Pulse (Right) -->
+  <path d="M 545,355 L 550,355 L 555,260 L 570,260 L 575,355 Z" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="562" y="250" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">VCSEL TX</text>
+
+  <!-- RX Pulse White Target (Right) -->
+  <path d="M 685,355 C 695,355 700,250 720,250 C 740,250 745,355 755,355 Z" fill="rgba(39, 174, 96, 0.15)" stroke="#27ae60" stroke-width="2"/>
+  <text x="758" y="262" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="start">Біла ціль (A₁)</text>
+
+  <!-- RX Pulse Dark Target (Right) -->
+  <path d="M 685,355 C 695,355 700,300 720,300 C 740,300 745,355 755,355 Z" fill="rgba(36, 87, 214, 0.15)" stroke="#2457d6" stroke-width="2" stroke-dasharray="4 2"/>
+  <text x="758" y="304" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="start">Темна ціль (A₂)</text>
+
+  <!-- Time Ticks (Right) -->
+  <line x1="562" y1="355" x2="562" y2="360" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="562" y="372" font-size="12" fill="#6b7280" text-anchor="middle">t = 0</text>
+  <line x1="720" y1="355" x2="720" y2="360" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="720" y="372" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">t = Δt (сталий)</text>
+
+  <!-- Summary Box (Right) -->
+  <rect x="510" y="395" width="405" height="110" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="525" y="418" font-size="13" font-weight="bold" fill="#27ae60">✔ Переваги Direct ToF (VL53L0X):</text>
+  <text x="525" y="438" font-size="12" font-weight="bold" fill="#1a1a1a">• Δt₁ = Δt₂ = Δt — час прольоту залишається СТАЛИМ</text>
+  <text x="525" y="456" font-size="12" fill="#1a1a1a">• SPAD фіксує точний момент приходу перших фотонів</text>
+  <text x="525" y="474" font-size="12" font-weight="bold" fill="#27ae60">• Відстань d = (c · Δt) / 2 НЕ залежить від кольору й альбедо</text>
+  <text x="525" y="492" font-size="12" fill="#6b7280">• Висока точність вимірювання від 3 см до 2 м</text>
+</svg>

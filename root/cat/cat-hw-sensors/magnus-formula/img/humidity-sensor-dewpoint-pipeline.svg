@@ -1,0 +1,109 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Обчислювальний конвеєр точки роси за формулою Магнуса-Тетенса</text>
+  <text x="480" y="60" font-size="13" fill="#6b7280" text-anchor="middle">Перетворення виміряної температури T та вологості RH у тиск пари Es, E та точку роси Td</text>
+
+  <rect x="30" y="85" width="205" height="260" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="30" y="85" width="205" height="36" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="132.5" y="108" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">1. Вимірювання</text>
+  <text x="132.5" y="138" font-size="12" fill="#6b7280" text-anchor="middle">Давач (DHT / BME)</text>
+
+  <rect x="42" y="150" width="181" height="80" rx="6" fill="white" stroke="#d0d7de"/>
+  <text x="52" y="170" font-size="12" font-weight="bold" fill="#1a1a1a">Температура (T):</text>
+  <text x="52" y="190" font-size="12" font-weight="bold" fill="#2457d6">T = +25.0 °C</text>
+  <text x="52" y="210" font-size="12" fill="#6b7280">діапазон -40..+85 °C</text>
+
+  <rect x="42" y="242" width="181" height="90" rx="6" fill="white" stroke="#d0d7de"/>
+  <text x="52" y="262" font-size="12" font-weight="bold" fill="#1a1a1a">Вологість (RH):</text>
+  <text x="52" y="282" font-size="12" font-weight="bold" fill="#2457d6">RH = 60.0 %</text>
+  <text x="52" y="302" font-size="12" fill="#6b7280">відносна вологість</text>
+  <text x="52" y="320" font-size="12" fill="#6b7280">діапазон 0..100 %</text>
+
+  <line x1="235" y1="215" x2="252" y2="215" stroke="#2457d6" stroke-width="2" marker-end="url(#arr)"/>
+  <text x="247.5" y="200" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">T</text>
+
+  <rect x="260" y="85" width="205" height="260" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="260" y="85" width="205" height="36" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="362.5" y="108" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">2. Тиск насичення Es</text>
+  <text x="362.5" y="138" font-size="12" fill="#6b7280" text-anchor="middle">Рівняння Магнуса</text>
+
+  <rect x="272" y="150" width="181" height="182" rx="6" fill="white" stroke="#d0d7de"/>
+  <text x="282" y="170" font-size="12" font-weight="bold" fill="#1a1a1a">Формула Es(T):</text>
+  <text x="282" y="192" font-size="12" font-weight="bold" fill="#2457d6">Es = a · exp(b·T / (c+T))</text>
+  <text x="282" y="216" font-size="12" fill="#1a1a1a">Обчислення для T = +25 °C:</text>
+  <text x="282" y="236" font-size="12" fill="#6b7280">b·T / (c+T) = 1.6457</text>
+  <text x="282" y="254" font-size="12" fill="#6b7280">exp(1.6457) = 5.1846</text>
+
+  <rect x="280" y="268" width="165" height="54" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-dasharray="3,3"/>
+  <text x="362.5" y="288" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Es = 31.67 гПа</text>
+  <text x="362.5" y="308" font-size="12" fill="#6b7280" text-anchor="middle">(тиск насичення при 25°C)</text>
+
+  <line x1="465" y1="215" x2="482" y2="215" stroke="#2457d6" stroke-width="2" marker-end="url(#arr)"/>
+  <text x="477.5" y="200" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Es</text>
+
+  <rect x="490" y="85" width="205" height="260" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="490" y="85" width="205" height="36" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="592.5" y="108" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">3. Дійсний тиск E</text>
+  <text x="592.5" y="138" font-size="12" fill="#6b7280" text-anchor="middle">Врахування вологості</text>
+
+  <rect x="502" y="150" width="181" height="182" rx="6" fill="white" stroke="#d0d7de"/>
+  <text x="512" y="170" font-size="12" font-weight="bold" fill="#1a1a1a">Формула E(RH, Es):</text>
+  <text x="512" y="192" font-size="12" font-weight="bold" fill="#2457d6">E = Es · (RH / 100%)</text>
+  <text x="512" y="216" font-size="12" fill="#1a1a1a">Вхідні значення:</text>
+  <text x="512" y="236" font-size="12" fill="#6b7280">Es = 31.67 гПа</text>
+  <text x="512" y="254" font-size="12" fill="#6b7280">RH = 60.0 % (0.60)</text>
+
+  <rect x="510" y="268" width="165" height="54" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-dasharray="3,3"/>
+  <text x="592.5" y="288" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">E = 19.00 гПа</text>
+  <text x="592.5" y="308" font-size="12" fill="#6b7280" text-anchor="middle">(парціальний тиск пари)</text>
+
+  <path d="M 132.5,345 L 132.5,358 L 592.5,358 L 592.5,345" fill="none" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr-gray)"/>
+
+  <line x1="695" y1="215" x2="712" y2="215" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="707.5" y="200" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">E</text>
+
+  <rect x="720" y="85" width="205" height="260" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="720" y="85" width="205" height="36" rx="8" fill="#27ae60"/>
+  <text x="822.5" y="108" font-size="13" font-weight="bold" fill="white" text-anchor="middle">4. Точка роси Td</text>
+  <text x="822.5" y="138" font-size="12" fill="#6b7280" text-anchor="middle">Обернена формула</text>
+
+  <rect x="732" y="150" width="181" height="182" rx="6" fill="white" stroke="#27ae60"/>
+  <text x="742" y="170" font-size="12" font-weight="bold" fill="#1a1a1a">Формула Td(E):</text>
+  <text x="742" y="192" font-size="12" font-weight="bold" fill="#27ae60">γ = ln(E / a) = 1.132</text>
+  <text x="742" y="216" font-size="12" font-weight="bold" fill="#1a1a1a">Td = c·γ / (b - γ)</text>
+  <text x="742" y="236" font-size="12" fill="#6b7280">243.5 · 1.132 / 16.538</text>
+
+  <rect x="740" y="252" width="165" height="70" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="822.5" y="276" font-size="15" font-weight="bold" fill="#27ae60" text-anchor="middle">Td = +16.7 °C</text>
+  <text x="822.5" y="296" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Температура роси</text>
+  <text x="822.5" y="314" font-size="12" fill="#6b7280" text-anchor="middle">(конденсація при 16.7°C)</text>
+
+  <rect x="30" y="370" width="435" height="125" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="30" y="370" width="435" height="30" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="247.5" y="390" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Стандартні коефіцієнти Магнуса (для води, T &gt; 0 °C)</text>
+  <text x="45" y="416" font-size="12" fill="#1a1a1a">• a = 6.112 гПа   (тиск насичення при 0 °C)</text>
+  <text x="45" y="436" font-size="12" fill="#1a1a1a">• b = 17.67           (безрозмірний коефіцієнт)</text>
+  <text x="45" y="456" font-size="12" fill="#1a1a1a">• c = 243.5 °C       (температурна константа)</text>
+  <text x="45" y="478" font-size="12" fill="#6b7280">Похибка &lt; 0.1 °C в діапазоні від -40 °C до +50 °C</text>
+
+  <rect x="495" y="370" width="435" height="125" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="495" y="370" width="435" height="30" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="712.5" y="390" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Практичне застосування в мікроконтролері</text>
+  <text x="510" y="416" font-size="12" fill="#1a1a1a">• Моніторинг ризику: якщо T_поверхні ≤ Td</text>
+  <text x="510" y="436" font-size="12" fill="#c0392b" font-weight="bold">  ⇒ Небезпека випадіння роси / конденсату</text>
+  <text x="510" y="456" font-size="12" fill="#27ae60" font-weight="bold">  ⇒ Реакція: увімкнення підігріву чи обдування</text>
+  <text x="510" y="478" font-size="12" fill="#6b7280">Оптимізація: таблична апроксимація (LUT) для MCU</text>
+</svg>

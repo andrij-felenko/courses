@@ -1,0 +1,152 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-black" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Canvas Background -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Співвідносна (Ratiometric) схема вимірювання RTD</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Одне струмове коло живить R_RTD та R_REF: дрейф струму I взаємно скорочується у виразі АЦП</text>
+
+  <!-- Left Main Panel: Circuit & ADC Structure -->
+  <rect x="30" y="75" width="530" height="440" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="8"/>
+  <text x="50" y="100" font-size="14" font-weight="bold" fill="#1a1a1a">Схемотехнічна модель вимірювального кола (MAX31865)</text>
+
+  <!-- VDD Power Rail Symbol -->
+  <line x1="115" y1="115" x2="155" y2="115" stroke="#2457d6" stroke-width="2"/>
+  <text x="135" y="110" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">VDD</text>
+  <line x1="135" y1="115" x2="135" y2="127" stroke="#2457d6" stroke-width="2"/>
+
+  <!-- Current Source Symbol -->
+  <circle cx="135" cy="145" r="18" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <line x1="135" y1="133" x2="135" y2="153" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="163" y="140" font-size="12" font-weight="bold" fill="#2457d6">Джерело струму I_BIAS</text>
+  <text x="163" y="156" font-size="12" fill="#c0392b">(струм може дрейфувати)</text>
+
+  <!-- Main Loop Wire: Top Section -->
+  <line x1="135" y1="163" x2="135" y2="205" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="145" y="183" font-size="12" font-weight="bold" fill="#2457d6">I_BIAS</text>
+
+  <!-- Resistor R_RTD (PT100/PT1000) -->
+  <rect x="123" y="205" width="24" height="60" fill="#ffffff" stroke="#1a1a1a" stroke-width="2" rx="2"/>
+  <text x="115" y="230" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="end">R_RTD</text>
+  <text x="115" y="246" font-size="12" fill="#6b7280" text-anchor="end">(датчик RTD)</text>
+
+  <!-- Voltage Tap Box 1: V_RTD -->
+  <rect x="175" y="215" width="135" height="42" fill="#eaf0fd" stroke="#2457d6" stroke-dasharray="3,3" rx="4"/>
+  <text x="242" y="232" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">V_RTD = I × R_RTD</text>
+  <text x="242" y="248" font-size="12" fill="#6b7280" text-anchor="middle">Вхідний сигнал V_IN</text>
+
+  <!-- Main Loop Wire: Middle Section -->
+  <line x1="135" y1="265" x2="135" y2="335" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="145" y="300" font-size="12" font-weight="bold" fill="#2457d6">I_BIAS</text>
+
+  <!-- Resistor R_REF (Precision Reference) -->
+  <rect x="123" y="335" width="24" height="60" fill="#e9f7ef" stroke="#27ae60" stroke-width="2" rx="2"/>
+  <text x="115" y="360" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="end">R_REF</text>
+  <text x="115" y="376" font-size="12" fill="#6b7280" text-anchor="end">(еталон)</text>
+
+  <!-- Voltage Tap Box 2: V_REF -->
+  <rect x="175" y="345" width="135" height="42" fill="#e9f7ef" stroke="#27ae60" stroke-dasharray="3,3" rx="4"/>
+  <text x="242" y="362" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">V_REF = I × R_REF</text>
+  <text x="242" y="378" font-size="12" fill="#6b7280" text-anchor="middle">Опорна напруга</text>
+
+  <!-- Main Loop Wire: Bottom Section to GND -->
+  <line x1="135" y1="395" x2="135" y2="435" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="145" y="418" font-size="12" font-weight="bold" fill="#2457d6">I_BIAS</text>
+
+  <!-- Ground Symbol -->
+  <line x1="120" y1="435" x2="150" y2="435" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="125" y1="440" x2="145" y2="440" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="130" y1="445" x2="140" y2="445" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="135" y="462" font-size="12" fill="#6b7280" text-anchor="middle">GND</text>
+
+  <!-- Connecting Wires to ADC Inputs -->
+  <circle cx="135" cy="205" r="3.5" fill="#2457d6"/>
+  <line x1="135" y1="205" x2="340" y2="205" stroke="#2457d6" stroke-width="1.5"/>
+
+  <circle cx="135" cy="265" r="3.5" fill="#2457d6"/>
+  <line x1="135" y1="265" x2="340" y2="265" stroke="#2457d6" stroke-width="1.5"/>
+
+  <circle cx="135" cy="335" r="3.5" fill="#27ae60"/>
+  <line x1="135" y1="335" x2="340" y2="335" stroke="#27ae60" stroke-width="1.5"/>
+
+  <circle cx="135" cy="395" r="3.5" fill="#27ae60"/>
+  <line x1="135" y1="395" x2="340" y2="395" stroke="#27ae60" stroke-width="1.5"/>
+
+  <!-- ADC Block (MAX31865) -->
+  <rect x="340" y="115" width="205" height="380" fill="#ffffff" stroke="#2457d6" stroke-width="2" rx="8"/>
+  <text x="442" y="138" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">АЦП MAX31865</text>
+  <text x="442" y="154" font-size="12" fill="#6b7280" text-anchor="middle">(Delta-Sigma ADC)</text>
+
+  <!-- Pin Labels Inside ADC -->
+  <text x="348" y="209" font-size="12" font-weight="bold" fill="#2457d6">V_IN+</text>
+  <text x="348" y="269" font-size="12" font-weight="bold" fill="#2457d6">V_IN-</text>
+  <text x="348" y="339" font-size="12" font-weight="bold" fill="#27ae60">V_REFP</text>
+  <text x="348" y="399" font-size="12" font-weight="bold" fill="#27ae60">V_REFN</text>
+
+  <!-- ADC Processing Core -->
+  <rect x="390" y="170" width="145" height="270" fill="#f4f6f8" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <text x="462" y="192" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Обчислення АЦП</text>
+  <text x="462" y="214" font-size="12" fill="#6b7280" text-anchor="middle">Співвідношення:</text>
+  <text x="462" y="236" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Code = (V_IN / V_REF)</text>
+  <text x="462" y="254" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">× (2^N - 1)</text>
+
+  <!-- Inner Ratio Box -->
+  <rect x="400" y="270" width="125" height="95" fill="#ffffff" stroke="#d0d7de" rx="4"/>
+  <text x="462" y="290" font-size="12" fill="#2457d6" text-anchor="middle">V_IN = I × R_RTD</text>
+  <line x1="410" y1="300" x2="515" y2="300" stroke="#d0d7de" stroke-width="1"/>
+  <text x="462" y="318" font-size="12" fill="#27ae60" text-anchor="middle">V_REF = I × R_REF</text>
+  <text x="462" y="348" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Струм I скорочено!</text>
+
+  <!-- Output Arrow & SPI Label -->
+  <line x1="462" y1="440" x2="462" y2="456" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-black)"/>
+  <text x="462" y="475" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Цифровий код SPI</text>
+
+  <!-- Right Main Panel: Math Derivation & Advantages -->
+  <rect x="580" y="75" width="350" height="440" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="8"/>
+  <text x="595" y="100" font-size="14" font-weight="bold" fill="#1a1a1a">Принцип скасування дрейфу струму</text>
+
+  <!-- Card 1: Substitution -->
+  <rect x="595" y="115" width="320" height="105" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="610" y="135" font-size="12" font-weight="bold" fill="#1a1a1a">1. Підстановка напруг у формулу АЦП</text>
+  <text x="610" y="154" font-size="12" fill="#6b7280">Струм I у виразі V_IN та V_REF однаковий:</text>
+  <rect x="610" y="165" width="290" height="42" fill="#ffffff" stroke="#2457d6" stroke-dasharray="3,3" rx="4"/>
+  <text x="755" y="191" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Code = ( I · R_RTD / I · R_REF ) × 2^N</text>
+
+  <!-- Card 2: Cancellation -->
+  <rect x="595" y="232" width="320" height="110" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="6"/>
+  <text x="610" y="252" font-size="12" font-weight="bold" fill="#27ae60">2. Взаємне скорочення струму I:</text>
+  <rect x="610" y="262" width="290" height="42" fill="#ffffff" stroke="#27ae60" stroke-width="2" rx="4"/>
+  <text x="755" y="288" font-size="14" font-weight="bold" fill="#27ae60" text-anchor="middle">Code = ( R_RTD / R_REF ) × 2^N</text>
+  <text x="755" y="326" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">R_RTD = R_REF × ( Code / 2^N )</text>
+
+  <!-- Card 3: Key Advantages -->
+  <rect x="595" y="354" width="320" height="150" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="6"/>
+  <text x="610" y="374" font-size="12" font-weight="bold" fill="#2457d6">3. Практичні переваги методу:</text>
+
+  <!-- Bullet 1 -->
+  <circle cx="618" cy="396" r="4" fill="#27ae60"/>
+  <text x="628" y="400" font-size="12" font-weight="bold" fill="#1a1a1a">Повна незалежність від дрейфу I_BIAS</text>
+  <text x="628" y="415" font-size="12" fill="#6b7280">Дрейф та шум струму не впливають на код</text>
+
+  <!-- Bullet 2 -->
+  <circle cx="618" cy="436" r="4" fill="#27ae60"/>
+  <text x="628" y="440" font-size="12" font-weight="bold" fill="#1a1a1a">Вимоги до точності перенесені на R_REF</text>
+  <text x="628" y="455" font-size="12" fill="#6b7280">Похибка залежить лише від стабільності R_REF</text>
+
+  <!-- Bullet 3 -->
+  <circle cx="618" cy="476" r="4" fill="#27ae60"/>
+  <text x="628" y="480" font-size="12" font-weight="bold" fill="#1a1a1a">Оптимально для дельта-сигма АЦП</text>
+  <text x="628" y="495" font-size="12" fill="#6b7280">Пряма цифрова шкала без прецизійних ДСТ</text>
+</svg>

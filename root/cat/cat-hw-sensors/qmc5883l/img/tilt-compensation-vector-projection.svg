@@ -1,0 +1,124 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <defs>
+    <marker id="arr-black" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-purple" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#8e44ad"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="36" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Компенсація нахилу та проєкція магнітного вектора</text>
+  <text x="480" y="56" text-anchor="middle" font-size="13" fill="#6b7280">Перерахунок 3D-вектора B у горизонтальну площину Землі за кутами roll (φ) та pitch (θ)</text>
+
+  <!-- ЛІВА ПАНЕЛЬ: 3D Геометрія проєкції -->
+  <rect x="25" y="75" width="580" height="465" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="45" y="98" font-size="14" font-weight="bold" fill="#1a1a1a">3D-геометрія просторового повороту та проєкції</text>
+
+  <!-- Легенда площин -->
+  <text x="45" y="118" font-size="12" font-weight="bold" fill="#27ae60">■ Горизонтальна площина Землі (X_h, Y_h)</text>
+  <text x="45" y="136" font-size="12" font-weight="bold" fill="#2457d6">■ Похилена площина датчика (X_s, Y_s)</text>
+
+  <!-- 1. Горизонтальна площина Землі (Земний горизонт) -->
+  <polygon points="140,260 560,260 470,430 50,430" fill="#e9f7ef" fill-opacity="0.4" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="6,4"/>
+
+  <!-- 2. Похилена площина датчика QMC5883L -->
+  <polygon points="145,190 505,225 415,390 55,355" fill="#eaf0fd" fill-opacity="0.45" stroke="#2457d6" stroke-width="1.5"/>
+
+  <!-- 3. Корпус чипа QMC5883L в центрі O(240, 340) -->
+  <polygon points="225,345 255,348 250,332 220,329" fill="#1a1a1a" stroke="#2457d6" stroke-width="1"/>
+  <text x="170" y="318" font-size="12" font-weight="bold" fill="#1a1a1a">QMC5883L</text>
+
+  <!-- 4. Земні горизонтальні осі (X_h, Y_h) -->
+  <line x1="240" y1="340" x2="450" y2="340" stroke="#27ae60" stroke-width="2" stroke-dasharray="5,3" marker-end="url(#arr-green)"/>
+  <text x="450" y="325" text-anchor="end" font-size="12" font-weight="bold" fill="#27ae60">X_h (Північ)</text>
+
+  <line x1="240" y1="340" x2="90" y2="435" stroke="#27ae60" stroke-width="2" stroke-dasharray="5,3" marker-end="url(#arr-green)"/>
+  <text x="40" y="455" font-size="12" font-weight="bold" fill="#27ae60">Y_h (Схід)</text>
+
+  <!-- 5. Осі датчика (X_s, Y_s, Z_s) -->
+  <line x1="240" y1="340" x2="440" y2="285" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="430" y="275" text-anchor="end" font-size="12" font-weight="bold" fill="#2457d6">X_s (вісь чипа)</text>
+
+  <line x1="240" y1="340" x2="110" y2="385" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="75" y="395" font-size="12" font-weight="bold" fill="#2457d6">Y_s</text>
+
+  <line x1="240" y1="340" x2="275" y2="170" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="282" y="165" font-size="12" font-weight="bold" fill="#2457d6">Z_s (нормаль)</text>
+
+  <!-- 6. Вектор гравітації g від акселерометра -->
+  <line x1="240" y1="340" x2="240" y2="485" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="250" y="495" font-size="12" font-weight="bold" fill="#c0392b">g (гравітація)</text>
+
+  <!-- 7. Вектор магнітного поля B (3D) та проєкції -->
+  <!-- Повний 3D вектор B -->
+  <line x1="240" y1="340" x2="370" y2="180" stroke="#8e44ad" stroke-width="2.5" marker-end="url(#arr-purple)"/>
+  <text x="380" y="175" font-size="13" font-weight="bold" fill="#8e44ad">Вектор B (3D)</text>
+
+  <!-- Проєкційна вертикальна лінія з кінця B на горизонтальну площину -->
+  <line x1="370" y1="180" x2="370" y2="370" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="3,3"/>
+
+  <!-- Дійсний компенсований вектор B_comp на горизонтальній площині -->
+  <line x1="240" y1="340" x2="370" y2="370" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arr-green)"/>
+  <text x="380" y="375" font-size="12" font-weight="bold" fill="#27ae60">B_comp (дійсний)</text>
+
+  <!-- Хибний вектор B_raw на похиленій площині -->
+  <line x1="370" y1="180" x2="365" y2="235" stroke="#6b7280" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="240" y1="340" x2="365" y2="235" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr-red)"/>
+  <text x="378" y="238" font-size="12" fill="#c0392b">B_raw (хибний)</text>
+
+  <!-- 8. Дуги кутів (Pitch θ, Roll φ, Heading ψ) -->
+  <!-- Pitch θ (між X_h та X_s) -->
+  <path d="M 320,340 A 80,80 0 0,0 316,318" stroke="#2457d6" stroke-width="1.5" fill="none"/>
+  <text x="338" y="335" font-size="12" font-weight="bold" fill="#2457d6">θ (pitch)</text>
+
+  <!-- Roll φ (між Y_h та Y_s) -->
+  <path d="M 176,380 A 75,75 0 0,0 169,365" stroke="#2457d6" stroke-width="1.5" fill="none"/>
+  <text x="165" y="358" font-size="12" font-weight="bold" fill="#2457d6">φ (roll)</text>
+
+  <!-- Heading ψ (азимут між X_h та B_comp) -->
+  <path d="M 305,340 A 65,65 0 0,1 303,355" stroke="#27ae60" stroke-width="1.5" fill="none"/>
+  <text x="250" y="375" font-size="12" font-weight="bold" fill="#27ae60">ψ (азимут)</text>
+
+  <!-- ПРАВА ПАНЕЛЬ 1: Проблема без компенсації -->
+  <rect x="625" y="75" width="310" height="155" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="640" y="98" font-size="13" font-weight="bold" fill="#c0392b">❌ Без компенсації нахилу</text>
+  <text x="640" y="120" font-size="12" fill="#1a1a1a">• При нахилі Z-компонента поля</text>
+  <text x="652" y="138" font-size="12" fill="#1a1a1a">проєктується на осі X_s та Y_s</text>
+  <text x="640" y="160" font-size="12" font-weight="bold" fill="#c0392b">• Помилка азимута: до 35°–50°</text>
+  <text x="652" y="178" font-size="12" fill="#6b7280">при нахилі всього на 15°–20°</text>
+  <text x="640" y="206" font-size="12" font-weight="bold" fill="#1a1a1a">ψ_raw = atan2(-B_y, B_x)</text>
+
+  <!-- ПРАВА ПАНЕЛЬ 2: Алгоритм компенсації -->
+  <rect x="625" y="245" width="310" height="295" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="640" y="268" font-size="13" font-weight="bold" fill="#27ae60">✅ Алгоритм компенсації нахилу</text>
+
+  <text x="640" y="290" font-size="12" font-weight="bold" fill="#1a1a1a">1. Кути нахилу (акселерометр):</text>
+  <text x="652" y="308" font-size="12" fill="#2457d6">φ (roll)  = atan2(A_y, A_z)</text>
+  <text x="652" y="326" font-size="12" fill="#2457d6">θ (pitch) = atan2(-A_x, √(A_y² + A_z²))</text>
+
+  <text x="640" y="348" font-size="12" font-weight="bold" fill="#1a1a1a">2. Горизонтальні проєкції B:</text>
+  <text x="652" y="366" font-size="12" font-weight="bold" fill="#27ae60">B_x,c = B_x·cosθ +</text>
+  <text x="664" y="384" font-size="12" font-weight="bold" fill="#27ae60">+ (B_y·sinφ + B_z·cosφ)·sinθ</text>
+  <text x="652" y="402" font-size="12" font-weight="bold" fill="#27ae60">B_y,c = B_y·cosφ - B_z·sinφ</text>
+
+  <text x="640" y="424" font-size="12" font-weight="bold" fill="#1a1a1a">3. Компенсований азимут:</text>
+  <text x="652" y="442" font-size="12" font-weight="bold" fill="#1a1a1a">ψ = atan2(-B_y,c , B_x,c)</text>
+
+  <text x="640" y="464" font-size="12" font-weight="bold" fill="#1a1a1a">4. Дійсний (географічний) азимут:</text>
+  <text x="652" y="482" font-size="12" fill="#6b7280">ψ_true = ψ + D  (D — магнітне схилення)</text>
+
+  <text x="640" y="512" font-size="12" font-weight="bold" fill="#c0392b">⚠️ Сингулярність при pitch θ = ±90°</text>
+</svg>

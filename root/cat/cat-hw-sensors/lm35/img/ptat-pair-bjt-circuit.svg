@@ -1,0 +1,147 @@
+<svg viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif" xmlns="http://www.w3.org/2000/svg">
+  <!-- White Background -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Markers for Arrows -->
+  <defs>
+    <marker id="arr-dark" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Title and Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Схема PTAT-ядра на паралельній парі транзисторів (BJT)</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Різниця напруг ΔV_BE = V_T · ln(N) виділяється на резисторі R1 і є пропорційною температурі T</text>
+
+  <!-- Left Panel: Schematic Diagram -->
+  <rect x="25" y="75" width="565" height="440" rx="10" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="45" y="100" font-size="14" font-weight="bold" fill="#1a1a1a">Принципова схема виділення ΔV_BE</text>
+
+  <!-- Power Rail V_CC -->
+  <line x1="150" y1="145" x2="350" y2="145" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="250" cy="145" r="4" fill="#1a1a1a"/>
+  <text x="250" y="133" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">+V_CC</text>
+
+  <!-- Current Generators -->
+  <text x="250" y="162" font-size="11" fill="#6b7280" text-anchor="middle">Генератор однакових струмів</text>
+
+  <!-- Current Source 1 (I1) -->
+  <line x1="180" y1="145" x2="180" y2="170" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="165" y="170" width="30" height="34" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="180" y1="175" x2="180" y2="197" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <line x1="180" y1="204" x2="180" y2="235" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="155" y="191" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">I_C1 = I_0</text>
+
+  <!-- Current Source 2 (I2) -->
+  <line x1="320" y1="145" x2="320" y2="170" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="305" y="170" width="30" height="34" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="320" y1="175" x2="320" y2="197" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <line x1="320" y1="204" x2="320" y2="235" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="345" y="191" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="start">I_C2 = I_0</text>
+
+  <!-- Diode connection on Q1 -->
+  <circle cx="180" cy="235" r="3.5" fill="#1a1a1a"/>
+  <polyline points="180,235 165,235 165,250" fill="none" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Transistor Q1 -->
+  <line x1="165" y1="238" x2="165" y2="262" stroke="#1a1a1a" stroke-width="3"/>
+  <line x1="165" y1="243" x2="180" y2="235" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="165" y1="257" x2="180" y2="265" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+  <line x1="180" y1="265" x2="180" y2="415" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="172" cy="250" r="20" fill="none" stroke="#d0d7de" stroke-dasharray="3,3"/>
+  <text x="125" y="245" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="end">Q1</text>
+  <text x="125" y="261" font-size="12" fill="#6b7280" text-anchor="end">Площа = 1 · A_E</text>
+
+  <!-- Base Connection -->
+  <line x1="165" y1="250" x2="305" y2="250" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="235" y="242" font-size="11" fill="#6b7280" text-anchor="middle">Спільна база (V_B)</text>
+
+  <!-- Transistor Q2 -->
+  <line x1="305" y1="238" x2="305" y2="262" stroke="#1a1a1a" stroke-width="3"/>
+  <line x1="305" y1="243" x2="320" y2="235" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="305" y1="257" x2="320" y2="265" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+  <line x1="320" y1="265" x2="320" y2="315" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="312" cy="250" r="22" fill="#eaf0fd" fill-opacity="0.6" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="345" y="245" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="start">Q2</text>
+  <text x="345" y="261" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="start">Площа = N · A_E</text>
+  <text x="345" y="275" font-size="11" fill="#6b7280" text-anchor="start">(N-кратно більша)</text>
+
+  <!-- Emitter Node V_E2 and Resistor R1 -->
+  <circle cx="320" cy="315" r="3.5" fill="#27ae60"/>
+  <text x="332" y="312" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="start">Вузол V_E2</text>
+
+  <rect x="310" y="325" width="20" height="50" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <line x1="320" y1="315" x2="320" y2="325" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="320" y1="375" x2="320" y2="415" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="340" y="347" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="start">R1</text>
+  <text x="340" y="362" font-size="11" fill="#27ae60" text-anchor="start">(PTAT-резистор)</text>
+
+  <!-- Ground Rail & Ground Symbol -->
+  <line x1="140" y1="415" x2="360" y2="415" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="250" y1="415" x2="250" y2="423" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="235" y1="423" x2="265" y2="423" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="241" y1="428" x2="259" y2="428" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="247" y1="433" x2="253" y2="433" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="250" y="448" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">GND (0 В)</text>
+
+  <!-- V_BE1 Measurement Bracket (Left) -->
+  <line x1="165" y1="250" x2="70" y2="250" stroke="#2457d6" stroke-dasharray="3,3" stroke-width="1"/>
+  <line x1="140" y1="415" x2="70" y2="415" stroke="#2457d6" stroke-dasharray="3,3" stroke-width="1"/>
+  <line x1="70" y1="257" x2="70" y2="408" stroke="#2457d6" stroke-width="1.5" marker-start="url(#arr-blue)" marker-end="url(#arr-blue)"/>
+  <text x="62" y="325" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="end">V_BE1</text>
+  <text x="62" y="340" font-size="11" fill="#6b7280" text-anchor="end">(на Q1)</text>
+
+  <!-- V_BE2 Measurement Bracket (Right top) -->
+  <line x1="320" y1="250" x2="450" y2="250" stroke="#6b7280" stroke-dasharray="3,3" stroke-width="1"/>
+  <line x1="320" y1="315" x2="450" y2="315" stroke="#6b7280" stroke-dasharray="3,3" stroke-width="1"/>
+  <line x1="450" y1="257" x2="450" y2="308" stroke="#6b7280" stroke-width="1.5" marker-start="url(#arr-gray)" marker-end="url(#arr-gray)"/>
+  <text x="460" y="280" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="start">V_BE2</text>
+  <text x="460" y="295" font-size="11" fill="#6b7280" text-anchor="start">(на Q2)</text>
+
+  <!-- ΔV_BE Measurement Bracket (Right bottom across R1) -->
+  <line x1="360" y1="415" x2="450" y2="415" stroke="#27ae60" stroke-dasharray="3,3" stroke-width="1"/>
+  <line x1="450" y1="322" x2="450" y2="408" stroke="#27ae60" stroke-width="2" marker-start="url(#arr-green)" marker-end="url(#arr-green)"/>
+  <text x="460" y="352" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="start">ΔV_BE = V_BE1 − V_BE2</text>
+  <text x="460" y="370" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="start">U_R1 = V_T · ln(N)</text>
+  <text x="460" y="386" font-size="11" fill="#6b7280" text-anchor="start">(падіння на R1)</text>
+
+  <!-- Summary Banner at Bottom of Left Panel -->
+  <rect x="45" y="465" width="525" height="34" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="307" y="486" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Струм через R1:   I_PTAT = ΔV_BE / R1 = (V_T / R1) · ln(N)  ~  T (K)</text>
+
+  <!-- Right Panel: Mathematics & Principle -->
+  <rect x="605" y="75" width="330" height="440" rx="10" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="625" y="100" font-size="14" font-weight="bold" fill="#2457d6">Фізична та математична модель</text>
+
+  <!-- Card 1: V_T -->
+  <rect x="620" y="115" width="300" height="80" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="632" y="134" font-size="12" font-weight="bold" fill="#6b7280">1. Термодинамічна напруга (V_T):</text>
+  <text x="632" y="157" font-size="14" font-weight="bold" fill="#2457d6">V_T = (k · T) / q</text>
+  <text x="632" y="179" font-size="11" fill="#1a1a1a">V_T ≈ 25.85 мВ при T = 300 K (27 °C)</text>
+
+  <!-- Card 2: ΔV_BE -->
+  <rect x="620" y="208" width="300" height="147" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="632" y="227" font-size="12" font-weight="bold" fill="#6b7280">2. Вольт-амперні характеристики:</text>
+  <text x="632" y="247" font-size="12" fill="#1a1a1a">I_C1 = I_S · exp(V_BE1 / V_T)</text>
+  <text x="632" y="266" font-size="12" fill="#1a1a1a">I_C2 = N · I_S · exp(V_BE2 / V_T)</text>
+  <text x="632" y="291" font-size="12" font-weight="bold" fill="#6b7280">Оскільки I_C1 = I_C2 = I_0:</text>
+  <text x="632" y="314" font-size="13" font-weight="bold" fill="#27ae60">ΔV_BE = V_BE1 − V_BE2 = V_T · ln(N)</text>
+  <text x="632" y="337" font-size="11" fill="#1a1a1a">Залежить ТІЛЬКИ від T та коефіцієнта N</text>
+
+  <!-- Card 3: LM35 Application -->
+  <rect x="620" y="368" width="300" height="117" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="632" y="388" font-size="12" font-weight="bold" fill="#27ae60">3. Застосування в LM35DZ:</text>
+  <text x="632" y="409" font-size="12" font-weight="bold" fill="#1a1a1a">I_PTAT = (k · ln(N) / (q · R1)) · T</text>
+  <text x="632" y="430" font-size="11" fill="#1a1a1a">• Абсолютна лінійність за температурою</text>
+  <text x="632" y="447" font-size="11" fill="#1a1a1a">• Незалежність від технологічного I_S</text>
+  <text x="632" y="464" font-size="11" fill="#1a1a1a">• Масштабується схемою до 10 мВ/°C</text>
+</svg>

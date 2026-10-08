@@ -1,0 +1,229 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- White Background -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Definitions -->
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="34" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Структура SPI-транзакцій MAX31865 (Read / Write)</text>
+  <text x="480" y="58" text-anchor="middle" font-size="13" fill="#6b7280">Старший біт адреси A7 визначає операцію (1 = Запис, 0 = Читання), передача MSB-вперед при CS = 0</text>
+
+  <!-- PANEL 1: WRITE CYCLE -->
+  <g id="panel-write">
+    <!-- Panel Background -->
+    <rect x="20" y="75" width="920" height="215" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+    <!-- Panel Title -->
+    <text x="35" y="95" text-anchor="start" font-size="13" font-weight="bold" fill="#2457d6">1. Транзакція запису в регістр (Write: A7 = 1)</text>
+
+    <!-- Byte Section Headers -->
+    <text x="331" y="110" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Адресний байт (MSB-вперед)</text>
+    <text x="683" y="110" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Байт даних для запису (Write Data)</text>
+
+    <!-- Signal Labels -->
+    <text x="110" y="130" text-anchor="end" font-size="13" font-weight="bold" fill="#1a1a1a">CS#</text>
+    <text x="110" y="164" text-anchor="end" font-size="13" font-weight="bold" fill="#1a1a1a">SCLK</text>
+    <text x="110" y="204" text-anchor="end" font-size="13" font-weight="bold" fill="#1a1a1a">SDI (MOSI)</text>
+    <text x="110" y="250" text-anchor="end" font-size="13" font-weight="bold" fill="#1a1a1a">SDO (MISO)</text>
+
+    <!-- CS# Signal -->
+    <path d="M 125,118 L 145,118 L 145,130 L 869,130 L 869,118 L 920,118" fill="none" stroke="#2457d6" stroke-width="2"/>
+
+    <!-- SCLK Clock Numbers -->
+    <text x="166" y="148" text-anchor="middle" font-size="12" fill="#6b7280">1</text>
+    <text x="210" y="148" text-anchor="middle" font-size="12" fill="#6b7280">2</text>
+    <text x="254" y="148" text-anchor="middle" font-size="12" fill="#6b7280">3</text>
+    <text x="298" y="148" text-anchor="middle" font-size="12" fill="#6b7280">4</text>
+    <text x="342" y="148" text-anchor="middle" font-size="12" fill="#6b7280">5</text>
+    <text x="386" y="148" text-anchor="middle" font-size="12" fill="#6b7280">6</text>
+    <text x="430" y="148" text-anchor="middle" font-size="12" fill="#6b7280">7</text>
+    <text x="474" y="148" text-anchor="middle" font-size="12" fill="#6b7280">8</text>
+    <text x="518" y="148" text-anchor="middle" font-size="12" fill="#6b7280">9</text>
+    <text x="562" y="148" text-anchor="middle" font-size="12" fill="#6b7280">10</text>
+    <text x="606" y="148" text-anchor="middle" font-size="12" fill="#6b7280">11</text>
+    <text x="650" y="148" text-anchor="middle" font-size="12" fill="#6b7280">12</text>
+    <text x="694" y="148" text-anchor="middle" font-size="12" fill="#6b7280">13</text>
+    <text x="738" y="148" text-anchor="middle" font-size="12" fill="#6b7280">14</text>
+    <text x="782" y="148" text-anchor="middle" font-size="12" fill="#6b7280">15</text>
+    <text x="826" y="148" text-anchor="middle" font-size="12" fill="#6b7280">16</text>
+
+    <!-- SCLK Signal -->
+    <path d="M 125,168 L 155,168 L 155,152 L 177,152 L 177,168 L 199,168 L 199,152 L 221,152 L 221,168 L 243,168 L 243,152 L 265,152 L 265,168 L 287,168 L 287,152 L 309,152 L 309,168 L 331,168 L 331,152 L 353,152 L 353,168 L 375,168 L 375,152 L 397,152 L 397,168 L 419,168 L 419,152 L 441,152 L 441,168 L 463,168 L 463,152 L 485,152 L 485,168 L 507,168 L 507,152 L 529,152 L 529,168 L 551,168 L 551,152 L 573,152 L 573,168 L 595,168 L 595,152 L 617,152 L 617,168 L 639,168 L 639,152 L 661,152 L 661,168 L 683,168 L 683,152 L 705,152 L 705,168 L 727,168 L 727,152 L 749,152 L 749,168 L 771,168 L 771,152 L 793,152 L 793,168 L 815,168 L 815,152 L 837,152 L 837,168 L 859,168 L 920,168" fill="none" stroke="#1a1a1a" stroke-width="1.5"/>
+
+    <!-- SDI Idle Before/After Lines -->
+    <path d="M 125,200 L 155,200" fill="none" stroke="#6b7280" stroke-dasharray="3,3" stroke-width="1"/>
+    <path d="M 859,200 L 920,200" fill="none" stroke="#6b7280" stroke-dasharray="3,3" stroke-width="1"/>
+
+    <!-- SDI Address Bits -->
+    <rect x="155" y="186" width="44" height="28" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+    <text x="177" y="204" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">A7=1</text>
+
+    <rect x="199" y="186" width="44" height="28" rx="3" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+    <text x="221" y="204" text-anchor="middle" font-size="12" fill="#1a1a1a">A6</text>
+
+    <rect x="243" y="186" width="44" height="28" rx="3" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+    <text x="265" y="204" text-anchor="middle" font-size="12" fill="#1a1a1a">A5</text>
+
+    <rect x="287" y="186" width="44" height="28" rx="3" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+    <text x="309" y="204" text-anchor="middle" font-size="12" fill="#1a1a1a">A4</text>
+
+    <rect x="331" y="186" width="44" height="28" rx="3" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+    <text x="353" y="204" text-anchor="middle" font-size="12" fill="#1a1a1a">A3</text>
+
+    <rect x="375" y="186" width="44" height="28" rx="3" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+    <text x="397" y="204" text-anchor="middle" font-size="12" fill="#1a1a1a">A2</text>
+
+    <rect x="419" y="186" width="44" height="28" rx="3" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+    <text x="441" y="204" text-anchor="middle" font-size="12" fill="#1a1a1a">A1</text>
+
+    <rect x="463" y="186" width="44" height="28" rx="3" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+    <text x="485" y="204" text-anchor="middle" font-size="12" fill="#1a1a1a">A0</text>
+
+    <!-- SDI Data Bits (Write) -->
+    <rect x="507" y="186" width="44" height="28" rx="3" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+    <text x="529" y="204" text-anchor="middle" font-size="12" fill="#1a1a1a">D7</text>
+
+    <rect x="551" y="186" width="44" height="28" rx="3" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+    <text x="573" y="204" text-anchor="middle" font-size="12" fill="#1a1a1a">D6</text>
+
+    <rect x="595" y="186" width="44" height="28" rx="3" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+    <text x="617" y="204" text-anchor="middle" font-size="12" fill="#1a1a1a">D5</text>
+
+    <rect x="639" y="186" width="44" height="28" rx="3" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+    <text x="661" y="204" text-anchor="middle" font-size="12" fill="#1a1a1a">D4</text>
+
+    <rect x="683" y="186" width="44" height="28" rx="3" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+    <text x="705" y="204" text-anchor="middle" font-size="12" fill="#1a1a1a">D3</text>
+
+    <rect x="727" y="186" width="44" height="28" rx="3" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+    <text x="749" y="204" text-anchor="middle" font-size="12" fill="#1a1a1a">D2</text>
+
+    <rect x="771" y="186" width="44" height="28" rx="3" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+    <text x="793" y="204" text-anchor="middle" font-size="12" fill="#1a1a1a">D1</text>
+
+    <rect x="815" y="186" width="44" height="28" rx="3" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+    <text x="837" y="204" text-anchor="middle" font-size="12" fill="#1a1a1a">D0</text>
+
+    <!-- SDO High-Z Signal & Annotation -->
+    <path d="M 125,246 L 920,246" fill="none" stroke="#6b7280" stroke-dasharray="4,4" stroke-width="1.5"/>
+    <text x="507" y="268" text-anchor="middle" font-size="12" fill="#6b7280">Вихід SDO вимкнено (High-Z / високий імпеданс)</text>
+  </g>
+
+  <!-- PANEL 2: READ CYCLE -->
+  <g id="panel-read">
+    <!-- Panel Background -->
+    <rect x="20" y="305" width="920" height="215" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+    <!-- Panel Title -->
+    <text x="35" y="323" text-anchor="start" font-size="13" font-weight="bold" fill="#27ae60">2. Транзакція читання з регістру (Read: A7 = 0)</text>
+
+    <!-- Byte Section Headers -->
+    <text x="331" y="340" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Адресний байт (MSB-вперед)</text>
+    <text x="683" y="340" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Байт даних від MAX31865 (Read Data)</text>
+
+    <!-- Signal Labels -->
+    <text x="110" y="360" text-anchor="end" font-size="13" font-weight="bold" fill="#1a1a1a">CS#</text>
+    <text x="110" y="394" text-anchor="end" font-size="13" font-weight="bold" fill="#1a1a1a">SCLK</text>
+    <text x="110" y="434" text-anchor="end" font-size="13" font-weight="bold" fill="#1a1a1a">SDI (MOSI)</text>
+    <text x="110" y="484" text-anchor="end" font-size="13" font-weight="bold" fill="#1a1a1a">SDO (MISO)</text>
+
+    <!-- CS# Signal -->
+    <path d="M 125,348 L 145,348 L 145,360 L 869,360 L 869,348 L 920,348" fill="none" stroke="#27ae60" stroke-width="2"/>
+
+    <!-- SCLK Clock Numbers -->
+    <text x="166" y="378" text-anchor="middle" font-size="12" fill="#6b7280">1</text>
+    <text x="210" y="378" text-anchor="middle" font-size="12" fill="#6b7280">2</text>
+    <text x="254" y="378" text-anchor="middle" font-size="12" fill="#6b7280">3</text>
+    <text x="298" y="378" text-anchor="middle" font-size="12" fill="#6b7280">4</text>
+    <text x="342" y="378" text-anchor="middle" font-size="12" fill="#6b7280">5</text>
+    <text x="386" y="378" text-anchor="middle" font-size="12" fill="#6b7280">6</text>
+    <text x="430" y="378" text-anchor="middle" font-size="12" fill="#6b7280">7</text>
+    <text x="474" y="378" text-anchor="middle" font-size="12" fill="#6b7280">8</text>
+    <text x="518" y="378" text-anchor="middle" font-size="12" fill="#6b7280">9</text>
+    <text x="562" y="378" text-anchor="middle" font-size="12" fill="#6b7280">10</text>
+    <text x="606" y="378" text-anchor="middle" font-size="12" fill="#6b7280">11</text>
+    <text x="650" y="378" text-anchor="middle" font-size="12" fill="#6b7280">12</text>
+    <text x="694" y="378" text-anchor="middle" font-size="12" fill="#6b7280">13</text>
+    <text x="738" y="378" text-anchor="middle" font-size="12" fill="#6b7280">14</text>
+    <text x="782" y="378" text-anchor="middle" font-size="12" fill="#6b7280">15</text>
+    <text x="826" y="378" text-anchor="middle" font-size="12" fill="#6b7280">16</text>
+
+    <!-- SCLK Signal -->
+    <path d="M 125,398 L 155,398 L 155,382 L 177,382 L 177,398 L 199,398 L 199,382 L 221,382 L 221,398 L 243,398 L 243,382 L 265,382 L 265,398 L 287,398 L 287,382 L 309,382 L 309,398 L 331,398 L 331,382 L 353,382 L 353,398 L 375,398 L 375,382 L 397,382 L 397,398 L 419,398 L 419,382 L 441,382 L 441,398 L 463,398 L 463,382 L 485,382 L 485,398 L 507,398 L 507,382 L 529,382 L 529,398 L 551,398 L 551,382 L 573,382 L 573,398 L 595,398 L 595,382 L 617,382 L 617,398 L 639,398 L 639,382 L 661,382 L 661,398 L 683,398 L 683,382 L 705,382 L 705,398 L 727,398 L 727,382 L 749,382 L 749,398 L 771,398 L 771,382 L 793,382 L 793,398 L 815,398 L 815,382 L 837,382 L 837,398 L 859,398 L 920,398" fill="none" stroke="#1a1a1a" stroke-width="1.5"/>
+
+    <!-- SDI Idle Line -->
+    <path d="M 125,430 L 155,430" fill="none" stroke="#6b7280" stroke-dasharray="3,3" stroke-width="1"/>
+
+    <!-- SDI Address Bits -->
+    <rect x="155" y="416" width="44" height="28" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+    <text x="177" y="434" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">A7=0</text>
+
+    <rect x="199" y="416" width="44" height="28" rx="3" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+    <text x="221" y="434" text-anchor="middle" font-size="12" fill="#1a1a1a">A6</text>
+
+    <rect x="243" y="416" width="44" height="28" rx="3" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+    <text x="265" y="434" text-anchor="middle" font-size="12" fill="#1a1a1a">A5</text>
+
+    <rect x="287" y="416" width="44" height="28" rx="3" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+    <text x="309" y="434" text-anchor="middle" font-size="12" fill="#1a1a1a">A4</text>
+
+    <rect x="331" y="416" width="44" height="28" rx="3" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+    <text x="353" y="434" text-anchor="middle" font-size="12" fill="#1a1a1a">A3</text>
+
+    <rect x="375" y="416" width="44" height="28" rx="3" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+    <text x="397" y="434" text-anchor="middle" font-size="12" fill="#1a1a1a">A2</text>
+
+    <rect x="419" y="416" width="44" height="28" rx="3" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+    <text x="441" y="434" text-anchor="middle" font-size="12" fill="#1a1a1a">A1</text>
+
+    <rect x="463" y="416" width="44" height="28" rx="3" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+    <text x="485" y="434" text-anchor="middle" font-size="12" fill="#1a1a1a">A0</text>
+
+    <!-- SDI Data Phase (Don't Care / High-Z) -->
+    <rect x="507" y="416" width="352" height="28" rx="3" fill="#ffffff" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+    <text x="683" y="434" text-anchor="middle" font-size="12" fill="#6b7280">Лінія SDI нехтується (Don't Care / High-Z)</text>
+
+    <!-- SDO High-Z during Address Phase -->
+    <path d="M 125,480 L 507,480" fill="none" stroke="#6b7280" stroke-dasharray="4,4" stroke-width="1.5"/>
+    <text x="331" y="475" text-anchor="middle" font-size="12" fill="#6b7280">High-Z (прийом адреси)</text>
+
+    <!-- SDO Read Data Bits -->
+    <rect x="507" y="466" width="44" height="28" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+    <text x="529" y="484" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">D7</text>
+
+    <rect x="551" y="466" width="44" height="28" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+    <text x="573" y="484" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">D6</text>
+
+    <rect x="595" y="466" width="44" height="28" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+    <text x="617" y="484" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">D5</text>
+
+    <rect x="639" y="466" width="44" height="28" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+    <text x="661" y="484" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">D4</text>
+
+    <rect x="683" y="466" width="44" height="28" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+    <text x="705" y="484" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">D3</text>
+
+    <rect x="727" y="466" width="44" height="28" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+    <text x="749" y="484" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">D2</text>
+
+    <rect x="771" y="466" width="44" height="28" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+    <text x="793" y="484" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">D1</text>
+
+    <rect x="815" y="466" width="44" height="28" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+    <text x="837" y="484" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">D0</text>
+
+    <!-- SDO High-Z After Frame -->
+    <path d="M 859,480 L 920,480" fill="none" stroke="#6b7280" stroke-dasharray="4,4" stroke-width="1.5"/>
+  </g>
+</svg>

@@ -1,0 +1,128 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 500" width="960" height="500" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- White Background -->
+  <rect x="0" y="0" width="960" height="500" fill="white"/>
+
+  <!-- Definitions for Markers -->
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-blue-start" markerWidth="9" markerHeight="9" refX="1.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="30" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Часова сітка та синхронізація шини I2S</text>
+  <text x="480" y="50" font-size="13" fill="#6b7280" text-anchor="middle">Співвідношення частот MCLK, BCLK і WS визначає розрядність кадру: F_BCLK = 2 × N_bits × F_s</text>
+
+  <!-- Main Signal Timing Panel -->
+  <rect x="30" y="70" width="900" height="275" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Left Labels Panel Divider -->
+  <line x1="180" y1="70" x2="180" y2="345" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Left Signal Labels -->
+  <text x="45" y="102" font-size="14" font-weight="bold" fill="#1a1a1a">MCLK</text>
+  <text x="45" y="118" font-size="12" fill="#6b7280">256 F_s (Master)</text>
+
+  <text x="45" y="162" font-size="14" font-weight="bold" fill="#1a1a1a">BCLK</text>
+  <text x="45" y="178" font-size="12" fill="#6b7280">64 F_s (Bit Clock)</text>
+
+  <text x="45" y="222" font-size="14" font-weight="bold" fill="#1a1a1a">WS (LRCLK)</text>
+  <text x="45" y="238" font-size="12" fill="#6b7280">1 F_s (Word Select)</text>
+
+  <text x="45" y="285" font-size="14" font-weight="bold" fill="#1a1a1a">SD (DATA)</text>
+  <text x="45" y="301" font-size="12" fill="#6b7280">PCM Data Bits</text>
+
+  <!-- Vertical Timing Grid Lines -->
+  <line x1="220" y1="70" x2="220" y2="345" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="280" y1="70" x2="280" y2="345" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="340" y1="70" x2="340" y2="345" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="400" y1="70" x2="400" y2="345" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="460" y1="70" x2="460" y2="345" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="520" y1="70" x2="520" y2="345" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="580" y1="70" x2="580" y2="345" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="640" y1="70" x2="640" y2="345" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="700" y1="70" x2="700" y2="345" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="760" y1="70" x2="760" y2="345" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="820" y1="70" x2="820" y2="345" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="880" y1="70" x2="880" y2="345" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+
+  <!-- Highlight Column for 1-Bit Delay -->
+  <rect x="250" y="75" width="60" height="260" rx="4" fill="#c0392b" fill-opacity="0.06" stroke="#c0392b" stroke-dasharray="4,4" stroke-width="1"/>
+  <text x="280" y="86" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">I2S Delay</text>
+
+  <!-- MCLK Waveform (660px, 44 pulses of 15px) -->
+  <path d="M 190,120 V 100 H 197.5 V 120 H 205 V 100 H 212.5 V 120 H 220 V 100 H 227.5 V 120 H 235 V 100 H 242.5 V 120 H 250 V 100 H 257.5 V 120 H 265 V 100 H 272.5 V 120 H 280 V 100 H 287.5 V 120 H 295 V 100 H 302.5 V 120 H 310 V 100 H 317.5 V 120 H 325 V 100 H 332.5 V 120 H 340 V 100 H 347.5 V 120 H 355 V 100 H 362.5 V 120 H 370 V 100 H 377.5 V 120 H 385 V 100 H 392.5 V 120 H 400 V 100 H 407.5 V 120 H 415 V 100 H 422.5 V 120 H 430 V 100 H 437.5 V 120 H 445 V 100 H 452.5 V 120 H 460 V 100 H 467.5 V 120 H 475 V 100 H 482.5 V 120 H 490 V 100 H 497.5 V 120 H 505 V 100 H 512.5 V 120 H 520 V 100 H 527.5 V 120 H 535 V 100 H 542.5 V 120 H 550 V 100 H 557.5 V 120 H 565 V 100 H 572.5 V 120 H 580 V 100 H 587.5 V 120 H 595 V 100 H 602.5 V 120 H 610 V 100 H 617.5 V 120 H 625 V 100 H 632.5 V 120 H 640 V 100 H 647.5 V 120 H 655 V 100 H 662.5 V 120 H 670 V 100 H 677.5 V 120 H 685 V 100 H 692.5 V 120 H 700 V 100 H 707.5 V 120 H 715 V 100 H 722.5 V 120 H 730 V 100 H 737.5 V 120 H 745 V 100 H 752.5 V 120 H 760 V 100 H 767.5 V 120 H 775 V 100 H 782.5 V 120 H 790 V 100 H 797.5 V 120 H 805 V 100 H 812.5 V 120 H 820 V 100 H 827.5 V 120 H 835 V 100 H 842.5 V 120 H 850 V 100 H 857.5 V 120 H 865 V 100 H 872.5 V 120 H 880 V 100 H 887.5 V 120 H 895" stroke="#6b7280" stroke-width="1.5" fill="none"/>
+
+  <!-- BCLK Waveform -->
+  <path d="M 190,185 V 155 H 220 V 185 H 250 V 155 H 280 V 185 H 310 V 155 H 340 V 185 H 370 V 155 H 400 V 185 H 430 V 155 H 460 V 185 H 490 V 155 H 520 V 185 H 550 V 155 H 580 V 185 H 610 V 155 H 640 V 185 H 670 V 155 H 700 V 185 H 730 V 155 H 760 V 185 H 790 V 155 H 820 V 185 H 850 V 155 H 880 V 185 H 895" stroke="#2457d6" stroke-width="2.5" fill="none"/>
+
+  <!-- T_BCLK Arrow and Annotation -->
+  <line x1="280" y1="140" x2="340" y2="140" stroke="#2457d6" stroke-width="1.5" marker-start="url(#arr-blue-start)" marker-end="url(#arr-blue)"/>
+  <text x="310" y="134" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">T_BCLK</text>
+
+  <!-- WS (Word Select) Waveform -->
+  <path d="M 190,225 H 250 V 255 H 895" stroke="#1a1a1a" stroke-width="2.5" fill="none"/>
+  <text x="195" y="210" font-size="12" fill="#6b7280">Right Ch (WS = 1)</text>
+  <text x="580" y="210" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Left Channel (WS = 0) — Slot = N_bits × T_BCLK</text>
+
+  <!-- MSB Sampling Indicator Arrow & Badge -->
+  <line x1="340" y1="205" x2="340" y2="162" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="3,2" marker-end="url(#arr-green)"/>
+  <rect x="350" y="185" width="105" height="20" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="402.5" y="199" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Фіксація MSB</text>
+
+  <!-- SD (Serial Data) Bus Blocks -->
+  <rect x="190" y="290" width="60" height="30" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="220" y="310" font-size="12" fill="#6b7280" text-anchor="middle">LSB (P)</text>
+
+  <rect x="250" y="290" width="60" height="30" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <text x="280" y="310" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Delay</text>
+
+  <rect x="310" y="290" width="60" height="30" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <text x="340" y="310" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">MSB</text>
+
+  <rect x="370" y="290" width="60" height="30" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="400" y="310" font-size="12" fill="#2457d6" text-anchor="middle">Bit 30</text>
+
+  <rect x="430" y="290" width="60" height="30" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="460" y="310" font-size="12" fill="#2457d6" text-anchor="middle">Bit 29</text>
+
+  <rect x="490" y="290" width="60" height="30" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="520" y="310" font-size="12" fill="#2457d6" text-anchor="middle">Bit 28</text>
+
+  <rect x="550" y="290" width="60" height="30" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="580" y="310" font-size="12" fill="#2457d6" text-anchor="middle">Bit 27</text>
+
+  <rect x="610" y="290" width="120" height="30" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="670" y="310" font-size="12" fill="#6b7280" text-anchor="middle">• • •</text>
+
+  <rect x="730" y="290" width="60" height="30" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="760" y="310" font-size="12" fill="#2457d6" text-anchor="middle">Bit 1</text>
+
+  <rect x="790" y="290" width="60" height="30" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <text x="820" y="310" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">LSB</text>
+
+  <!-- Bottom Card 1: Math & Frequencies -->
+  <rect x="30" y="360" width="435" height="120" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="45" y="383" font-size="14" font-weight="bold" fill="#2457d6">Математика часової сітки</text>
+  <text x="45" y="408" font-size="12" fill="#1a1a1a">F_BCLK = 2 × N_bits × F_s  (наприклад: 2 × 32 × 48 кГц = 3.072 МГц)</text>
+  <text x="45" y="428" font-size="12" fill="#1a1a1a">F_MCLK = 256 × F_s  (12.288 МГц для системного PLL ESP32)</text>
+  <text x="45" y="448" font-size="12" fill="#1a1a1a">T_BCLK = 1 / F_BCLK = T_s / (2 × N_bits),   T_WS = 1 / F_s</text>
+  <text x="45" y="468" font-size="12" fill="#6b7280">N_bits — ширина слоту (16, 24 або 32 біти на канал)</text>
+
+  <!-- Bottom Card 2: I2S Protocol Rules -->
+  <rect x="495" y="360" width="435" height="120" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="510" y="383" font-size="14" font-weight="bold" fill="#27ae60">Правила протоколу I2S</text>
+  <text x="510" y="408" font-size="12" fill="#1a1a1a">• Зсув на 1 біт: MSB передається через 1 BCLK після фронту WS</text>
+  <text x="510" y="428" font-size="12" fill="#1a1a1a">• Полярність WS: 0 = Лівий (Left), 1 = Правий канал (Right)</text>
+  <text x="510" y="448" font-size="12" fill="#1a1a1a">• Зчитування: приймач фіксує біти за наростаючим фронтом BCLK</text>
+  <text x="510" y="468" font-size="12" fill="#6b7280">• Знакове розширення: 24-бітні PCM даних у 32-бітному слоті DMA</text>
+</svg>

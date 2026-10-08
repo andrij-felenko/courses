@@ -1,0 +1,169 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Canvas Background -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Marker Definitions for Arrows -->
+  <defs>
+    <marker id="arr-black" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Main Title & Subtitle -->
+  <text x="480" y="38" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Розміщення магніту та допуски монтажу для енкодера AS5048</text>
+  <text x="480" y="58" text-anchor="middle" font-size="13" fill="#6b7280">Робочий повітряний зазор, радіальний зсув та магнітна індукція над масивом елементів Холла</text>
+
+  <!-- LEFT PANEL: Mechanical Tolerances (Side View) -->
+  <rect x="30" y="75" width="435" height="420" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="247" y="98" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">1. Геометрія монтажу та допуски (Side View)</text>
+
+  <!-- Motor Shaft -->
+  <rect x="202" y="112" width="16" height="33" fill="#eaf0fd" stroke="#6b7280" stroke-width="1"/>
+  <text x="210" y="125" text-anchor="middle" font-size="11" fill="#6b7280">Вал</text>
+
+  <!-- Diametrically Magnetized Cylindrical Magnet -->
+  <!-- N pole (Left half - Red) -->
+  <path d="M 150 145 L 210 145 L 210 185 L 150 185 Z" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="180" y="169" text-anchor="middle" font-size="15" font-weight="bold" fill="#c0392b">N</text>
+
+  <!-- S pole (Right half - Blue) -->
+  <path d="M 210 145 L 270 145 L 270 185 L 210 185 Z" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="240" y="169" text-anchor="middle" font-size="15" font-weight="bold" fill="#2457d6">S</text>
+
+  <!-- Central Axis line -->
+  <line x1="210" y1="105" x2="210" y2="305" stroke="#6b7280" stroke-width="1" stroke-dasharray="4,4"/>
+
+  <!-- Magnet Label and Pointer -->
+  <line x1="272" y1="155" x2="325" y2="155" stroke="#6b7280" stroke-width="1" marker-end="url(#arr-black)"/>
+  <text x="330" y="145" text-anchor="start" font-size="12" font-weight="bold" fill="#1a1a1a">Магніт Ø6 × 2.5 мм</text>
+  <text x="330" y="161" text-anchor="start" font-size="11" fill="#6b7280">(діаметральне N-S)</text>
+
+  <!-- Air Gap Indicator z -->
+  <line x1="290" y1="185" x2="310" y2="185" stroke="#1a1a1a" stroke-width="1"/>
+  <line x1="290" y1="245" x2="310" y2="245" stroke="#1a1a1a" stroke-width="1"/>
+  <line x1="300" y1="185" x2="300" y2="245" stroke="#1a1a1a" stroke-width="1.5" marker-start="url(#arr-black)" marker-end="url(#arr-black)"/>
+  <text x="312" y="210" text-anchor="start" font-size="13" font-weight="bold" fill="#1a1a1a">z = 0.5 – 2.5 мм</text>
+  <text x="312" y="228" text-anchor="start" font-size="11" fill="#6b7280">(оптимально ~1.5 мм)</text>
+
+  <!-- Radial Offset Indicator Δr -->
+  <line x1="210" y1="200" x2="175" y2="200" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <text x="165" y="204" text-anchor="end" font-size="12" font-weight="bold" fill="#c0392b">Δr ≤ 0.5 мм</text>
+  <text x="165" y="220" text-anchor="end" font-size="11" fill="#6b7280">(радіальний зсув)</text>
+
+  <!-- AS5048 IC Package (Side view) -->
+  <rect x="130" y="245" width="160" height="36" rx="3" fill="#1a1a1a" stroke="#000000"/>
+  <text x="210" y="267" text-anchor="middle" font-size="13" font-weight="bold" fill="#ffffff">AS5048 IC</text>
+  
+  <!-- IC Pins -->
+  <line x1="118" y1="255" x2="130" y2="255" stroke="#6b7280" stroke-width="2"/>
+  <line x1="118" y1="265" x2="130" y2="265" stroke="#6b7280" stroke-width="2"/>
+  <line x1="118" y1="275" x2="130" y2="275" stroke="#6b7280" stroke-width="2"/>
+  <line x1="290" y1="255" x2="302" y2="255" stroke="#6b7280" stroke-width="2"/>
+  <line x1="290" y1="265" x2="302" y2="265" stroke="#6b7280" stroke-width="2"/>
+  <line x1="290" y1="275" x2="302" y2="275" stroke="#6b7280" stroke-width="2"/>
+
+  <!-- Embedded Hall Sensor Array position inside IC -->
+  <rect x="170" y="247" width="80" height="5" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="2,2"/>
+  <text x="210" y="304" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Масив елементів Холла (глибина ~0.4 мм)</text>
+
+  <!-- Summary Requirements Card inside Left Panel -->
+  <rect x="45" y="325" width="405" height="158" fill="#ffffff" stroke="#d0d7de" rx="6"/>
+  <text x="60" y="347" font-size="13" font-weight="bold" fill="#1a1a1a">Вимоги до механічного монтажу:</text>
+  <text x="70" y="370" font-size="12" fill="#1a1a1a">• Магніт: циліндричний, діаметральний</text>
+  <text x="70" y="391" font-size="12" fill="#1a1a1a">• Зазор z: 0.5 – 2.5 мм (оптимально 1.5 мм)</text>
+  <text x="70" y="412" font-size="12" fill="#1a1a1a">• Зсув Δr: ≤ 0.5 мм від осі мікросхеми</text>
+  <text x="70" y="433" font-size="12" fill="#1a1a1a">• Перекіс (tilt): &lt; 1° відносно ІС</text>
+  <text x="70" y="454" font-size="12" fill="#6b7280">• Опори: неферромагнітні (латунь, Д16Т)</text>
+
+
+  <!-- RIGHT PANEL: Magnetic Field & Hall Sensor Array (Top View) -->
+  <rect x="495" y="75" width="435" height="420" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="712" y="98" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">2. Магнітне поле та масив елементів Холла (Top View)</text>
+
+  <!-- Rotation Angle Label above IC -->
+  <text x="712" y="117" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Кут обертання α (14 біт)</text>
+
+  <!-- Top View IC Package -->
+  <rect x="632" y="125" width="160" height="160" rx="8" fill="#ffffff" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="647" cy="140" r="4" fill="#6b7280"/>
+
+  <!-- Curved rotation arc -->
+  <path d="M 645 120 A 85 85 0 0 1 779 120" fill="none" stroke="#2457d6" stroke-width="2" stroke-dasharray="4,4" marker-end="url(#arr-blue)"/>
+
+  <!-- Magnetic Field Lines Overlay -->
+  <path d="M 620 160 Q 712 190 804 160" fill="none" stroke="#2457d6" stroke-width="1.2" opacity="0.4" stroke-dasharray="3,3"/>
+  <path d="M 620 205 Q 712 235 804 205" fill="none" stroke="#2457d6" stroke-width="1.5" opacity="0.6" stroke-dasharray="4,3"/>
+  <path d="M 620 250 Q 712 280 804 250" fill="none" stroke="#2457d6" stroke-width="1.2" opacity="0.4" stroke-dasharray="3,3"/>
+
+  <!-- 4 Hall Sensors Array -->
+  <!-- Hall 1 (Top) -->
+  <rect x="703" y="161" width="18" height="18" rx="2" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="712" y="174" text-anchor="middle" font-size="10" font-weight="bold" fill="#2457d6">H1</text>
+
+  <!-- Hall 2 (Right) -->
+  <rect x="738" y="196" width="18" height="18" rx="2" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="747" y="209" text-anchor="middle" font-size="10" font-weight="bold" fill="#2457d6">H2</text>
+
+  <!-- Hall 3 (Bottom) -->
+  <rect x="703" y="231" width="18" height="18" rx="2" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="712" y="244" text-anchor="middle" font-size="10" font-weight="bold" fill="#2457d6">H3</text>
+
+  <!-- Hall 4 (Left) -->
+  <rect x="668" y="196" width="18" height="18" rx="2" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="677" y="209" text-anchor="middle" font-size="10" font-weight="bold" fill="#2457d6">H4</text>
+
+  <!-- Center Dot -->
+  <circle cx="712" cy="205" r="2.5" fill="#1a1a1a"/>
+
+  <!-- Left Pointer & Label: Array Diagonal -->
+  <line x1="666" y1="205" x2="615" y2="205" stroke="#6b7280" stroke-width="1" marker-end="url(#arr-black)"/>
+  <text x="605" y="198" text-anchor="end" font-size="12" font-weight="bold" fill="#1a1a1a">Діагональ масиву</text>
+  <text x="605" y="215" text-anchor="end" font-size="11" fill="#6b7280">d = 2.2 мм</text>
+
+  <!-- Right Pointer & Label: 4 Hall Elements -->
+  <line x1="758" y1="205" x2="795" y2="205" stroke="#6b7280" stroke-width="1" marker-end="url(#arr-black)"/>
+  <text x="800" y="198" text-anchor="start" font-size="12" font-weight="bold" fill="#1a1a1a">4 елементи Холла</text>
+  <text x="800" y="215" text-anchor="start" font-size="11" fill="#6b7280">(sin / cos пара)</text>
+
+  <!-- B-Field Header -->
+  <text x="712" y="313" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Діапазон магнітної індукції B (ортогональна складова)</text>
+
+  <!-- B-field Scale Bar -->
+  <rect x="515" y="325" width="395" height="30" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  
+  <!-- Zone 1: Weak field <30mT -->
+  <path d="M 519 326 L 620 326 L 620 354 L 519 354 A 3 3 0 0 1 516 351 L 516 329 A 3 3 0 0 1 519 326 Z" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="567" y="345" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">&lt; 30 мТл</text>
+
+  <!-- Zone 2: Optimal field 30-70mT -->
+  <rect x="620" y="326" width="185" height="28" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="712" y="345" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">30 – 70 мТл (Норма)</text>
+
+  <!-- Zone 3: Saturation field >70mT -->
+  <path d="M 805 326 L 906 326 A 3 3 0 0 1 909 329 L 909 351 A 3 3 0 0 1 906 354 L 805 354 Z" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="857" y="345" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">&gt; 70 мТл</text>
+
+  <!-- AGC Register Section Header -->
+  <text x="712" y="377" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Діагностика AGC (Automatic Gain Control) та прапорці</text>
+
+  <!-- AGC Card -->
+  <rect x="515" y="390" width="395" height="93" fill="#ffffff" stroke="#d0d7de" rx="6"/>
+
+  <text x="530" y="413" font-size="12" font-weight="bold" fill="#c0392b">AGC = 255 (MIN)</text>
+  <text x="650" y="413" font-size="12" fill="#1a1a1a">Заслабке поле (&lt;30 мТл, z &gt; 2.5 мм)</text>
+
+  <text x="530" y="437" font-size="12" font-weight="bold" fill="#27ae60">AGC = 1...254 (ОК)</text>
+  <text x="650" y="437" font-size="12" fill="#1a1a1a">Оптимальне поле (30–70 мТл)</text>
+
+  <text x="530" y="461" font-size="12" font-weight="bold" fill="#c0392b">AGC = 0 (MAX)</text>
+  <text x="650" y="461" font-size="12" fill="#1a1a1a">Насичення (&gt;70 мТл, z &lt; 0.5 мм)</text>
+</svg>

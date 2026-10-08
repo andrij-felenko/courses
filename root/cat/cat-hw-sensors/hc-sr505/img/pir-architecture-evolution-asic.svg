@@ -1,0 +1,121 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-accent" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="38" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Еволюція архітектури PIR-давача: від дискретних каскадів до ASIC</text>
+  <text x="480" y="60" text-anchor="middle" font-size="13" fill="#6b7280">Інтеграція аналогового тракту в ASIC (HC-SR505) мінімізує обв'язку, розміри плати та споживання</text>
+
+  <!-- Left Panel: Discrete Architecture -->
+  <rect x="30" y="80" width="435" height="415" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="30" y="80" width="435" height="36" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <rect x="30" y="104" width="435" height="12" fill="#fdecea"/>
+  <text x="247" y="103" text-anchor="middle" font-size="14" font-weight="bold" fill="#c0392b">Дискретна архітектура (1970-ті – 1990-ті)</text>
+
+  <!-- Left Block 1: PIR Sensor -->
+  <rect x="55" y="130" width="385" height="48" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="247" y="150" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Піроелектричний сенсор (PIR)</text>
+  <text x="247" y="167" text-anchor="middle" font-size="12" fill="#6b7280">Слабкий аналоговий ІЧ-сигнал (мкВ)</text>
+
+  <!-- Arrow 1 Left -->
+  <line x1="247" y1="178" x2="247" y2="191" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- Left Block 2: Discrete Analog Processing -->
+  <rect x="55" y="198" width="385" height="112" rx="6" fill="#ffffff" stroke="#c0392b" stroke-dasharray="4 4"/>
+  <text x="70" y="215" text-anchor="start" font-size="12" font-weight="bold" fill="#c0392b">Дискретний аналоговий тракт (~80 dB):</text>
+
+  <rect x="70" y="225" width="170" height="73" rx="4" fill="#fdecea" stroke="#c0392b"/>
+  <text x="155" y="247" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">1-й каскад ОУ</text>
+  <text x="155" y="265" text-anchor="middle" font-size="12" fill="#6b7280">RC-фільтр смуги</text>
+  <text x="155" y="283" text-anchor="middle" font-size="12" fill="#6b7280">підсилення ~40 dB</text>
+
+  <line x1="240" y1="261" x2="250" y2="261" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+
+  <rect x="255" y="225" width="170" height="73" rx="4" fill="#fdecea" stroke="#c0392b"/>
+  <text x="340" y="247" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">2-й каскад ОУ</text>
+  <text x="340" y="265" text-anchor="middle" font-size="12" fill="#6b7280">RC-фільтр смуги</text>
+  <text x="340" y="283" text-anchor="middle" font-size="12" fill="#6b7280">підсилення ~40 dB</text>
+
+  <!-- Arrow 2 Left -->
+  <line x1="247" y1="310" x2="247" y2="321" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- Left Block 3: Comparator and Trimmers -->
+  <rect x="55" y="328" width="385" height="73" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="247" y="348" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Віконний компаратор + Подвійні потенціометри</text>
+  <text x="247" y="366" text-anchor="middle" font-size="12" fill="#6b7280">Ручне регулювання чутливості та часу затримки</text>
+  <text x="247" y="384" text-anchor="middle" font-size="12" fill="#c0392b">Громіздкі R/C ланцюги та потенціометри</text>
+
+  <!-- Arrow 3 Left -->
+  <line x1="247" y1="401" x2="247" y2="409" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- Left Block 4: Summary Box -->
+  <rect x="55" y="416" width="385" height="66" rx="6" fill="#fdecea" stroke="#c0392b"/>
+  <text x="70" y="434" text-anchor="start" font-size="12" font-weight="bold" fill="#c0392b">Параметри класичної схеми:</text>
+  <text x="70" y="451" text-anchor="start" font-size="12" fill="#1a1a1a">• 30–50 дискретних елементів; плата ~80×50 мм</text>
+  <text x="70" y="468" text-anchor="start" font-size="12" fill="#1a1a1a">• Високе споживання (~5 мА); чутливість до завад</text>
+
+  <!-- Center Evolution Arrow -->
+  <line x1="467" y1="254" x2="491" y2="254" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-accent)"/>
+
+  <!-- Right Panel: Integrated ASIC Architecture -->
+  <rect x="495" y="80" width="435" height="415" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="495" y="80" width="435" height="36" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <rect x="495" y="104" width="435" height="12" fill="#e9f7ef"/>
+  <text x="712" y="103" text-anchor="middle" font-size="14" font-weight="bold" fill="#27ae60">Інтегрована ASIC-архітектура (HC-SR505)</text>
+
+  <!-- Right Block 1: PIR + Micro Lens -->
+  <rect x="520" y="130" width="385" height="48" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="712" y="150" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">PIR-сенсор + Мініатюрна лінза Френеля</text>
+  <text x="712" y="167" text-anchor="middle" font-size="12" fill="#6b7280">Оптимізований фокус та мінімізована віконна зона</text>
+
+  <!-- Arrow 1 Right -->
+  <line x1="712" y1="178" x2="712" y2="191" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- Right Block 2: Monolithic ASIC -->
+  <rect x="520" y="198" width="385" height="112" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="535" y="215" text-anchor="start" font-size="12" font-weight="bold" fill="#27ae60">Спеціалізований кристалик ASIC (EG0001 / BISS):</text>
+
+  <rect x="535" y="225" width="170" height="73" rx="4" fill="#ffffff" stroke="#27ae60"/>
+  <text x="620" y="247" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Інтегровані ОУ</text>
+  <text x="620" y="265" text-anchor="middle" font-size="12" fill="#6b7280">Вбудована активна</text>
+  <text x="620" y="283" text-anchor="middle" font-size="12" fill="#6b7280">фільтрація завад</text>
+
+  <line x1="705" y1="261" x2="715" y2="261" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <rect x="720" y="225" width="170" height="73" rx="4" fill="#ffffff" stroke="#27ae60"/>
+  <text x="805" y="247" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Компаратор + Таймер</text>
+  <text x="805" y="265" text-anchor="middle" font-size="12" fill="#6b7280">Фіксовані пороги</text>
+  <text x="805" y="283" text-anchor="middle" font-size="12" fill="#6b7280">і затримка (~8 с)</text>
+
+  <!-- Arrow 2 Right -->
+  <line x1="712" y1="310" x2="712" y2="321" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- Right Block 3: Fixed Params -->
+  <rect x="520" y="328" width="385" height="73" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="712" y="348" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Конструктивно фіксовані параметри</text>
+  <text x="712" y="366" text-anchor="middle" font-size="12" fill="#6b7280">Відмова від потенціометрів на користь надійності</text>
+  <text x="712" y="384" text-anchor="middle" font-size="12" fill="#27ae60">Усього 4–6 SMD-компонентів обв'язки</text>
+
+  <!-- Arrow 3 Right -->
+  <line x1="712" y1="401" x2="712" y2="409" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- Right Block 4: Summary Box -->
+  <rect x="520" y="416" width="385" height="66" rx="6" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="535" y="434" text-anchor="start" font-size="12" font-weight="bold" fill="#27ae60">Переваги модуля HC-SR505:</text>
+  <text x="535" y="451" text-anchor="start" font-size="12" fill="#1a1a1a">• Ультракомпактна плата (всього 10 × 33 мм)</text>
+  <text x="535" y="468" text-anchor="start" font-size="12" fill="#1a1a1a">• Споживання &lt; 50 мкА; висока стійкість до завад</text>
+</svg>

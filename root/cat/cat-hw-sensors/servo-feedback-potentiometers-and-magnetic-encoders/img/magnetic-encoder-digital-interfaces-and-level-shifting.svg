@@ -1,0 +1,194 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <!-- Arrow Right Blue -->
+    <marker id="arr-blue-r" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <!-- Arrow Left Red -->
+    <marker id="arr-red-l" markerWidth="9" markerHeight="9" refX="0.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Main Title & Subtitle -->
+  <text x="480" y="38" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Схема підключення магнітного енкодера до 3.3 V мікроконтролера</text>
+  <text x="480" y="58" text-anchor="middle" font-size="13" fill="#6b7280">Двонапрямне узгодження рівнів 3.3 V / 5 V (I2C) та захист ліній дільником напруги (SPI)</text>
+
+  <!-- SECTION 1: I2C BUS -->
+  <rect x="25" y="74" width="910" height="224" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="40" y="96" text-anchor="start" font-size="14" font-weight="bold" fill="#1a1a1a">1. Двонапрямна шина I2C: Перетворення рівнів 3.3 V ↔ 5 V на MOSFET</text>
+
+  <!-- MCU Box I2C -->
+  <rect x="45" y="110" width="170" height="174" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="130" y="130" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Мікроконтролер</text>
+  <text x="130" y="145" text-anchor="middle" font-size="12" fill="#6b7280">(STM32 / ESP32: 3.3V)</text>
+
+  <text x="205" y="160" text-anchor="end" font-size="12" font-weight="bold" fill="#2457d6">3.3V VCC</text>
+  <text x="205" y="210" text-anchor="end" font-size="12" font-weight="bold" fill="#2457d6">SDA (3.3V)</text>
+  <text x="205" y="242" text-anchor="end" font-size="12" font-weight="bold" fill="#2457d6">SCL (3.3V)</text>
+  <text x="205" y="270" text-anchor="end" font-size="12" font-weight="bold" fill="#1a1a1a">GND</text>
+
+  <!-- Center Level Shifter Box I2C -->
+  <rect x="235" y="110" width="480" height="174" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="475" y="130" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Двонапрямні MOSFET-перетворювачі рівнів</text>
+
+  <!-- Power Rails I2C -->
+  <!-- 3.3V Rail -->
+  <path d="M 215,150 L 405,150" fill="none" stroke="#2457d6" stroke-width="2"/>
+  <circle cx="215" cy="150" r="3" fill="#2457d6"/>
+  <text x="290" y="144" text-anchor="middle" font-size="12" fill="#2457d6">Шина 3.3 V</text>
+
+  <!-- 5.0V Rail -->
+  <path d="M 735,150 L 500,150" fill="none" stroke="#27ae60" stroke-width="2"/>
+  <circle cx="735" cy="150" r="3" fill="#27ae60"/>
+  <text x="660" y="144" text-anchor="middle" font-size="12" fill="#27ae60">Шина 5.0 V</text>
+
+  <!-- Gate connection to 3.3V Rail -->
+  <line x1="405" y1="150" x2="405" y2="194" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <circle cx="405" cy="150" r="3" fill="#2457d6"/>
+  <text x="412" y="172" text-anchor="start" font-size="12" font-weight="bold" fill="#2457d6">V_G = 3.3V</text>
+
+  <!-- Pull-up R1 (3.3V) -->
+  <line x1="331" y1="150" x2="331" y2="166" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="324" y="166" width="14" height="26" fill="white" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="331" y1="192" x2="331" y2="210" stroke="#2457d6" stroke-width="1.5"/>
+  <circle cx="331" cy="150" r="3" fill="#2457d6"/>
+  <circle cx="331" cy="210" r="3" fill="#2457d6"/>
+  <text x="318" y="180" text-anchor="end" font-size="12" fill="#1a1a1a">R1: 4.7 kΩ</text>
+
+  <!-- Pull-up R2 (5V) -->
+  <line x1="500" y1="150" x2="500" y2="166" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="493" y="166" width="14" height="26" fill="white" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="500" y1="192" x2="500" y2="210" stroke="#27ae60" stroke-width="1.5"/>
+  <circle cx="500" cy="150" r="3" fill="#27ae60"/>
+  <circle cx="500" cy="210" r="3" fill="#27ae60"/>
+  <text x="514" y="180" text-anchor="start" font-size="12" fill="#1a1a1a">R2: 4.7 kΩ</text>
+
+  <!-- SDA Line -->
+  <line x1="215" y1="210" x2="375" y2="210" stroke="#2457d6" stroke-width="2"/>
+  <line x1="435" y1="210" x2="735" y2="210" stroke="#2457d6" stroke-width="2"/>
+  <circle cx="215" cy="210" r="3" fill="#2457d6"/>
+  <circle cx="735" cy="210" r="3" fill="#27ae60"/>
+
+  <!-- MOSFET Q1 Box -->
+  <rect x="375" y="194" width="60" height="32" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="405" y="214" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Q1 BSS138</text>
+
+  <!-- SCL Line & Note -->
+  <line x1="215" y1="242" x2="735" y2="242" stroke="#2457d6" stroke-width="2"/>
+  <circle cx="215" cy="242" r="3" fill="#2457d6"/>
+  <circle cx="735" cy="242" r="3" fill="#27ae60"/>
+  <text x="475" y="258" text-anchor="middle" font-size="12" fill="#6b7280">Канал SCL: аналогічна схема (Q2, R3=4.7k, R4=4.7k)</text>
+
+  <!-- Solution Banner I2C -->
+  <text x="475" y="276" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">✓ Безпечне узгодження: 3.3V МК захищено від 5V шини</text>
+
+  <!-- Encoder Box I2C -->
+  <rect x="735" y="110" width="185" height="174" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="827" y="130" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">Магнітний енкодер</text>
+  <text x="827" y="145" text-anchor="middle" font-size="12" fill="#6b7280">(AS5048B / I2C 5V)</text>
+
+  <text x="745" y="160" text-anchor="start" font-size="12" font-weight="bold" fill="#27ae60">5V VCC</text>
+  <text x="745" y="210" text-anchor="start" font-size="12" font-weight="bold" fill="#27ae60">SDA (5V)</text>
+  <text x="745" y="242" text-anchor="start" font-size="12" font-weight="bold" fill="#27ae60">SCL (5V)</text>
+  <text x="745" y="270" text-anchor="start" font-size="12" font-weight="bold" fill="#1a1a1a">GND</text>
+
+  <!-- Decoupling Cap C1 inside Encoder I2C -->
+  <line x1="745" y1="150" x2="840" y2="150" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="840" y1="150" x2="840" y2="170" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="832" y1="170" x2="848" y2="170" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="832" y1="176" x2="848" y2="176" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="840" y1="176" x2="840" y2="270" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="840" cy="150" r="3" fill="#27ae60"/>
+  <circle cx="840" cy="270" r="3" fill="#1a1a1a"/>
+  <text x="852" y="174" text-anchor="start" font-size="12" fill="#1a1a1a">C1: 100 nF</text>
+  <text x="852" y="188" text-anchor="start" font-size="12" fill="#6b7280">(фільтр)</text>
+
+
+  <!-- SECTION 2: SPI BUS -->
+  <rect x="25" y="314" width="910" height="224" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="40" y="336" text-anchor="start" font-size="14" font-weight="bold" fill="#1a1a1a">2. Шина SPI: Однонапрямні лінії та резистивний захист входу MISO (5V → 3.3V)</text>
+
+  <!-- MCU Box SPI -->
+  <rect x="45" y="350" width="170" height="174" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="130" y="368" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Мікроконтролер</text>
+  <text x="130" y="383" text-anchor="middle" font-size="12" fill="#6b7280">(3.3V SPI Master)</text>
+
+  <text x="205" y="400" text-anchor="end" font-size="12" font-weight="bold" fill="#2457d6">CS (3.3V)</text>
+  <text x="205" y="428" text-anchor="end" font-size="12" font-weight="bold" fill="#2457d6">SCLK (3.3V)</text>
+  <text x="205" y="456" text-anchor="end" font-size="12" font-weight="bold" fill="#2457d6">MOSI (3.3V)</text>
+  <text x="205" y="492" text-anchor="end" font-size="12" font-weight="bold" fill="#c0392b">MISO (≤3.3V)</text>
+
+  <!-- Center SPI Box -->
+  <rect x="235" y="350" width="480" height="174" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="475" y="368" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Узгодження напрямків та рівнів сигналів SPI</text>
+
+  <!-- CS Line -->
+  <text x="475" y="394" text-anchor="middle" font-size="12" fill="#2457d6">CS (3.3V Out) → Пряме підключення до 5V входу</text>
+  <line x1="215" y1="400" x2="735" y2="400" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue-r)"/>
+  <circle cx="215" cy="400" r="3" fill="#2457d6"/>
+
+  <!-- SCLK Line -->
+  <text x="475" y="422" text-anchor="middle" font-size="12" fill="#2457d6">SCLK (3.3V Out) → Пряме підключення до 5V входу</text>
+  <line x1="215" y1="428" x2="735" y2="428" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue-r)"/>
+  <circle cx="215" cy="428" r="3" fill="#2457d6"/>
+
+  <!-- MOSI Line -->
+  <text x="475" y="450" text-anchor="middle" font-size="12" fill="#2457d6">MOSI (3.3V Out) → Пряме підключення до 5V входу</text>
+  <line x1="215" y1="456" x2="735" y2="456" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue-r)"/>
+  <circle cx="215" cy="456" r="3" fill="#2457d6"/>
+
+  <!-- MISO Line & Voltage Divider (5V -> 3.3V) -->
+  <text x="540" y="478" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">R_A: 1.8 kΩ</text>
+  <text x="350" y="482" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">U_MISO ≈ 3.23 V</text>
+
+  <!-- MISO 5V Line from Encoder to Divider R_A -->
+  <line x1="735" y1="492" x2="560" y2="492" stroke="#c0392b" stroke-width="2"/>
+  <circle cx="735" cy="492" r="3" fill="#c0392b"/>
+
+  <!-- Resistor R_A -->
+  <rect x="520" y="484" width="40" height="16" fill="white" stroke="#c0392b" stroke-width="1.5"/>
+
+  <!-- Line between R_A and MCU with arrow left -->
+  <line x1="520" y1="492" x2="215" y2="492" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red-l)"/>
+  <circle cx="215" cy="492" r="3" fill="#c0392b"/>
+
+  <!-- Junction point to R_B branch -->
+  <circle cx="480" cy="492" r="3" fill="#c0392b"/>
+
+  <!-- R_B vertical branch to GND -->
+  <line x1="480" y1="492" x2="480" y2="500" stroke="#c0392b" stroke-width="1.5"/>
+  <rect x="473" y="500" width="14" height="20" fill="white" stroke="#c0392b" stroke-width="1.5"/>
+  <line x1="480" y1="520" x2="480" y2="524" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="495" y="514" text-anchor="start" font-size="12" font-weight="bold" fill="#c0392b">R_B: 3.3 kΩ (до GND)</text>
+
+  <!-- GND symbol at bottom of R_B -->
+  <line x1="472" y1="524" x2="488" y2="524" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="475" y1="527" x2="485" y2="527" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="478" y1="530" x2="482" y2="530" stroke="#1a1a1a" stroke-width="1"/>
+
+  <!-- Encoder Box SPI -->
+  <rect x="735" y="350" width="185" height="174" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="827" y="368" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">Магнітний енкодер</text>
+  <text x="827" y="383" text-anchor="middle" font-size="12" fill="#6b7280">(AS5048A / SPI 5V)</text>
+
+  <text x="745" y="400" text-anchor="start" font-size="12" font-weight="bold" fill="#27ae60">CS (In)</text>
+  <text x="745" y="428" text-anchor="start" font-size="12" font-weight="bold" fill="#27ae60">SCLK (In)</text>
+  <text x="745" y="456" text-anchor="start" font-size="12" font-weight="bold" fill="#27ae60">MOSI (In)</text>
+  <text x="745" y="492" text-anchor="start" font-size="12" font-weight="bold" fill="#c0392b">MISO (5V Out)</text>
+
+  <!-- Decoupling Cap C2 inside Encoder SPI -->
+  <line x1="840" y1="396" x2="840" y2="420" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="832" y1="420" x2="848" y2="420" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="832" y1="426" x2="848" y2="426" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="840" y1="426" x2="840" y2="492" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="840" cy="396" r="3" fill="#27ae60"/>
+  <circle cx="840" cy="492" r="3" fill="#1a1a1a"/>
+  <text x="852" y="425" text-anchor="start" font-size="12" fill="#1a1a1a">C2: 100 nF</text>
+
+  <!-- Solution Banner SPI -->
+  <text x="827" y="515" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">✓ Екран кабелю на AGND</text>
+</svg>

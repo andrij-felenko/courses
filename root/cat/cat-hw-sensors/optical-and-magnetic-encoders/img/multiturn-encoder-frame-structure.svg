@@ -1,0 +1,130 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 470" width="960" height="470" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Canvas background -->
+  <rect x="0" y="0" width="960" height="470" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Структура цифрового кадру багатооборотного енкодера</text>
+  <text x="480" y="60" font-size="13" fill="#6b7280" text-anchor="middle">Розбірка послідовного кадру: лічильник обертів (MT), однооборотна фаза (ST) та контрольні біти (CRC)</text>
+
+  <!-- Bit Stream Sequence Bar -->
+  <text x="80" y="96" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">MSB (Старші біти)</text>
+  <text x="480" y="96" font-size="12" fill="#6b7280" text-anchor="middle">Послідовний потік даних (Serial Data Stream)</text>
+  <text x="880" y="96" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">LSB (Молодші біти)</text>
+  <line x1="200" y1="108" x2="760" y2="108" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Card 1: Multi-turn (MT) -->
+  <rect x="80" y="128" width="250" height="235" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <text x="205" y="153" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Лічильник обертів</text>
+  <text x="205" y="171" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Multi-Turn (MT)</text>
+  
+  <rect x="95" y="188" width="220" height="36" fill="white" stroke="#2457d6" stroke-width="1.5" rx="4"/>
+  <line x1="139" y1="188" x2="139" y2="224" stroke="#2457d6" stroke-width="1"/>
+  <line x1="183" y1="188" x2="183" y2="224" stroke="#2457d6" stroke-width="1"/>
+  <line x1="227" y1="188" x2="227" y2="224" stroke="#2457d6" stroke-width="1"/>
+  <line x1="271" y1="188" x2="271" y2="224" stroke="#2457d6" stroke-width="1"/>
+  
+  <text x="117" y="211" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">b₁₅</text>
+  <text x="161" y="211" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">b₁₄</text>
+  <text x="205" y="211" font-size="12" fill="#6b7280" text-anchor="middle">• • •</text>
+  <text x="249" y="211" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">b₁</text>
+  <text x="293" y="211" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">b₀</text>
+
+  <text x="205" y="247" font-size="12" fill="#1a1a1a" text-anchor="middle">Розрядність: 12–16 біт</text>
+  <text x="205" y="267" font-size="12" fill="#4b5563" text-anchor="middle">Діапазон: 4096 обертів</text>
+  <text x="205" y="287" font-size="12" fill="#4b5563" text-anchor="middle">Формат: код Ґрея / Binary</text>
+
+  <rect x="92" y="305" width="226" height="44" fill="white" stroke="#d0d7de" stroke-width="1" rx="4"/>
+  <text x="205" y="323" font-size="12" fill="#1a1a1a" text-anchor="middle">Фіксує кількість повних</text>
+  <text x="205" y="339" font-size="12" fill="#1a1a1a" text-anchor="middle">обертів вала двигуна</text>
+
+  <!-- Card 2: Single-turn (ST) -->
+  <rect x="344" y="128" width="270" height="235" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="6"/>
+  <text x="479" y="153" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Однооборотна фаза</text>
+  <text x="479" y="171" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Single-Turn (ST)</text>
+
+  <rect x="359" y="188" width="240" height="36" fill="white" stroke="#27ae60" stroke-width="1.5" rx="4"/>
+  <line x1="399" y1="188" x2="399" y2="224" stroke="#27ae60" stroke-width="1"/>
+  <line x1="439" y1="188" x2="439" y2="224" stroke="#27ae60" stroke-width="1"/>
+  <line x1="479" y1="188" x2="479" y2="224" stroke="#27ae60" stroke-width="1"/>
+  <line x1="519" y1="188" x2="519" y2="224" stroke="#27ae60" stroke-width="1"/>
+  <line x1="559" y1="188" x2="559" y2="224" stroke="#27ae60" stroke-width="1"/>
+
+  <text x="379" y="211" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">b₁₇</text>
+  <text x="419" y="211" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">b₁₆</text>
+  <text x="459" y="211" font-size="12" fill="#6b7280" text-anchor="middle">• • •</text>
+  <text x="499" y="211" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">b₂</text>
+  <text x="539" y="211" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">b₁</text>
+  <text x="579" y="211" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">b₀</text>
+
+  <text x="479" y="247" font-size="12" fill="#1a1a1a" text-anchor="middle">Розрядність: 13–20 біт</text>
+  <text x="479" y="267" font-size="12" fill="#4b5563" text-anchor="middle">Роздільність: 262 144 кр/об</text>
+  <text x="479" y="287" font-size="12" fill="#4b5563" text-anchor="middle">Точність: кут θ ∈ [0, 360°)</text>
+
+  <rect x="359" y="305" width="240" height="44" fill="white" stroke="#d0d7de" stroke-width="1" rx="4"/>
+  <text x="479" y="323" font-size="12" fill="#1a1a1a" text-anchor="middle">Визначає точну кутову</text>
+  <text x="479" y="339" font-size="12" fill="#1a1a1a" text-anchor="middle">позицію всередині 1 оберту</text>
+
+  <!-- Card 3: Status / Alarm -->
+  <rect x="628" y="128" width="94" height="235" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" rx="6"/>
+  <text x="675" y="153" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Стан</text>
+  <text x="675" y="171" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Flags</text>
+
+  <rect x="640" y="188" width="70" height="36" fill="white" stroke="#c0392b" stroke-width="1.5" rx="4"/>
+  <line x1="675" y1="188" x2="675" y2="224" stroke="#c0392b" stroke-width="1"/>
+
+  <text x="657" y="211" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">E</text>
+  <text x="693" y="211" font-size="12" font-weight="bold" fill="#d35400" text-anchor="middle">W</text>
+
+  <text x="675" y="247" font-size="12" fill="#1a1a1a" text-anchor="middle">2 біти</text>
+  <text x="675" y="267" font-size="12" fill="#c0392b" text-anchor="middle">E: Помилка</text>
+  <text x="675" y="287" font-size="12" fill="#d35400" text-anchor="middle">W: Увага</text>
+
+  <rect x="636" y="305" width="78" height="44" fill="white" stroke="#d0d7de" stroke-width="1" rx="4"/>
+  <text x="675" y="323" font-size="12" fill="#1a1a1a" text-anchor="middle">Діагностика</text>
+  <text x="675" y="339" font-size="12" fill="#1a1a1a" text-anchor="middle">сенсора</text>
+
+  <!-- Card 4: Integrity (CRC / Parity) -->
+  <rect x="736" y="128" width="144" height="235" fill="#f4f6f8" stroke="#4b5563" stroke-width="1.5" rx="6"/>
+  <text x="808" y="153" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Цілісність</text>
+  <text x="808" y="171" font-size="12" font-weight="bold" fill="#4b5563" text-anchor="middle">CRC / Parity</text>
+
+  <rect x="748" y="188" width="120" height="36" fill="white" stroke="#4b5563" stroke-width="1.5" rx="4"/>
+  <line x1="778" y1="188" x2="778" y2="224" stroke="#4b5563" stroke-width="1"/>
+  <line x1="808" y1="188" x2="808" y2="224" stroke="#4b5563" stroke-width="1"/>
+  <line x1="838" y1="188" x2="838" y2="224" stroke="#4b5563" stroke-width="1"/>
+
+  <text x="763" y="211" font-size="12" font-weight="bold" fill="#4b5563" text-anchor="middle">C₅</text>
+  <text x="793" y="211" font-size="12" fill="#6b7280" text-anchor="middle">• •</text>
+  <text x="823" y="211" font-size="12" font-weight="bold" fill="#4b5563" text-anchor="middle">C₀</text>
+  <text x="853" y="211" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">P</text>
+
+  <text x="808" y="247" font-size="12" fill="#1a1a1a" text-anchor="middle">6 біт CRC + 1P</text>
+  <text x="808" y="267" font-size="12" fill="#4b5563" text-anchor="middle">Поліном: x⁶+x+1</text>
+  <text x="808" y="287" font-size="12" fill="#4b5563" text-anchor="middle">Контрольна сума</text>
+
+  <rect x="746" y="305" width="124" height="44" fill="white" stroke="#d0d7de" stroke-width="1" rx="4"/>
+  <text x="808" y="323" font-size="12" fill="#1a1a1a" text-anchor="middle">Захист кадру від</text>
+  <text x="808" y="339" font-size="12" fill="#1a1a1a" text-anchor="middle">завад та збоїв</text>
+
+  <!-- Summary Banner -->
+  <rect x="80" y="380" width="800" height="65" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="6"/>
+  
+  <text x="225" y="403" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Формула: N = (MT × 2ⁿ) + ST</text>
+  <text x="225" y="427" font-size="12" fill="#6b7280" text-anchor="middle">Поєднує оберти MT та фазу ST</text>
+
+  <line x1="370" y1="390" x2="370" y2="435" stroke="#d0d7de" stroke-width="1"/>
+
+  <text x="500" y="403" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Декодування Gray → Binary</text>
+  <text x="500" y="427" font-size="12" fill="#6b7280" text-anchor="middle">XOR-маски для вилучення збоїв</text>
+
+  <line x1="630" y1="390" x2="630" y2="435" stroke="#d0d7de" stroke-width="1"/>
+
+  <text x="755" y="403" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Контроль цілісності кадру</text>
+  <text x="755" y="427" font-size="12" fill="#6b7280" text-anchor="middle">Апаратна перевірка CRC/P</text>
+</svg>

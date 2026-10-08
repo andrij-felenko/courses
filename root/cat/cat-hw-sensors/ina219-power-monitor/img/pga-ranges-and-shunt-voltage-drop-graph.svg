@@ -1,0 +1,114 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Заголовок та підзаголовок -->
+  <text x="480" y="35" font-size="18" font-weight="700" text-anchor="middle" fill="#1a1a1a">Залежність спаду напруги V_shunt та діапазонів PGA в INA219</text>
+  <text x="480" y="55" font-size="13" text-anchor="middle" fill="#6b7280">Шкала PGA визначає максимальний струм I_max та дискретність АЦП (LSB)</text>
+
+  <!-- Ліва панель: Графік V_shunt від I -->
+  <rect x="35" y="70" width="500" height="375" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="55" y="92" font-size="13" font-weight="700" fill="#1a1a1a">Графік спаду напруги V_shunt = I · R_shunt (R_shunt = 0.1 Ом)</text>
+
+  <!-- Смуги діапазонів PGA в графіку -->
+  <rect x="95" y="125" width="390" height="140" fill="#ffffff" opacity="0.7"/>
+  <rect x="95" y="265" width="390" height="70" fill="#eaf0fd" opacity="0.4"/>
+  <rect x="95" y="335" width="390" height="35" fill="#eaf0fd" opacity="0.7"/>
+  <rect x="95" y="370" width="390" height="35" fill="#e9f7ef" opacity="0.8"/>
+
+  <!-- Пунктирні лінії рівнів PGA -->
+  <line x1="90" y1="125" x2="485" y2="125" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4,4"/>
+  <line x1="90" y1="265" x2="485" y2="265" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4,4"/>
+  <line x1="90" y1="335" x2="485" y2="335" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4,4"/>
+  <line x1="90" y1="370" x2="485" y2="370" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4,4"/>
+
+  <!-- Осі координат -->
+  <line x1="95" y1="405" x2="95" y2="115" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <line x1="90" y1="405" x2="495" y2="405" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- Підписи осей -->
+  <text x="95" y="110" font-size="12" font-weight="700" text-anchor="middle" fill="#1a1a1a">V_shunt (мВ)</text>
+  <text x="500" y="425" font-size="12" font-weight="700" text-anchor="start" fill="#1a1a1a">I (А)</text>
+
+  <!-- Позначки на осі Y (V_shunt) -->
+  <text x="86" y="129" font-size="12" text-anchor="end" fill="#1a1a1a">320 мВ</text>
+  <text x="86" y="269" font-size="12" text-anchor="end" fill="#1a1a1a">160 мВ</text>
+  <text x="86" y="339" font-size="12" text-anchor="end" fill="#1a1a1a">80 мВ</text>
+  <text x="86" y="374" font-size="12" text-anchor="end" fill="#1a1a1a">40 мВ</text>
+  <text x="86" y="409" font-size="12" text-anchor="end" fill="#1a1a1a">0 мВ</text>
+
+  <!-- Позначки на осі X (I) -->
+  <line x1="95" y1="405" x2="95" y2="410" stroke="#1a1a1a" stroke-width="1"/>
+  <line x1="144" y1="405" x2="144" y2="410" stroke="#1a1a1a" stroke-width="1"/>
+  <line x1="193" y1="405" x2="193" y2="410" stroke="#1a1a1a" stroke-width="1"/>
+  <line x1="290" y1="405" x2="290" y2="410" stroke="#1a1a1a" stroke-width="1"/>
+  <line x1="485" y1="405" x2="485" y2="410" stroke="#1a1a1a" stroke-width="1"/>
+
+  <text x="95" y="425" font-size="12" text-anchor="middle" fill="#1a1a1a">0 А</text>
+  <text x="144" y="425" font-size="12" text-anchor="middle" fill="#1a1a1a">0.4 А</text>
+  <text x="193" y="425" font-size="12" text-anchor="middle" fill="#1a1a1a">0.8 А</text>
+  <text x="290" y="425" font-size="12" text-anchor="middle" fill="#1a1a1a">1.6 А</text>
+  <text x="485" y="425" font-size="12" text-anchor="middle" fill="#1a1a1a">3.2 А</text>
+
+  <!-- Лінійний графік V_shunt = I * R_shunt -->
+  <line x1="95" y1="405" x2="485" y2="125" stroke="#2457d6" stroke-width="3"/>
+
+  <!-- Точки переходу діапазонів PGA -->
+  <circle cx="144" cy="370" r="5" fill="#27ae60" stroke="#ffffff" stroke-width="2"/>
+  <circle cx="193" cy="335" r="5" fill="#2457d6" stroke="#ffffff" stroke-width="2"/>
+  <circle cx="290" cy="265" r="5" fill="#2457d6" stroke="#ffffff" stroke-width="2"/>
+  <circle cx="485" cy="125" r="5" fill="#1a1a1a" stroke="#ffffff" stroke-width="2"/>
+
+  <!-- Позначки режимів усередині графіка -->
+  <text x="115" y="155" font-size="12" font-weight="700" fill="#1a1a1a">PGA ÷8 (±320 мВ) — макс. діапазон</text>
+  <text x="340" y="300" font-size="12" font-weight="700" fill="#2457d6">PGA ÷4 (±160 мВ)</text>
+  <text x="280" y="353" font-size="12" font-weight="700" fill="#2457d6">PGA ÷2 (±80 мВ)</text>
+  <text x="240" y="388" font-size="12" font-weight="700" fill="#27ae60">PGA ÷1 (±40 мВ) — малі струми</text>
+
+  <!-- Права панель: Картки режимів PGA -->
+  <text x="555" y="92" font-size="13" font-weight="700" fill="#1a1a1a">Характеристики режимів підсилювача PGA</text>
+
+  <!-- Картка 1: PGA ÷1 -->
+  <rect x="555" y="105" width="370" height="72" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="570" y="124" font-size="13" font-weight="700" fill="#27ae60">PGA ÷1 (Gain = 1) — Діапазон ±40 мВ</text>
+  <text x="570" y="144" font-size="12" fill="#1a1a1a">I_max = 0.4 А (при R_shunt = 0.1 Ом) | LSB = 9.77 мкВ</text>
+  <text x="570" y="162" font-size="12" fill="#6b7280">Найвища точність, мінімальні втрати P_shunt ≤ 16 мВт</text>
+
+  <!-- Картка 2: PGA ÷2 -->
+  <rect x="555" y="190" width="370" height="72" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="570" y="209" font-size="13" font-weight="700" fill="#2457d6">PGA ÷2 (Gain = 1/2) — Діапазон ±80 мВ</text>
+  <text x="570" y="229" font-size="12" fill="#1a1a1a">I_max = 0.8 А (при R_shunt = 0.1 Ом) | LSB = 19.53 мкВ</text>
+  <text x="570" y="247" font-size="12" fill="#6b7280">Компромісна точність для середньомалих навантажень</text>
+
+  <!-- Картка 3: PGA ÷4 -->
+  <rect x="555" y="275" width="370" height="72" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="570" y="294" font-size="13" font-weight="700" fill="#2457d6">PGA ÷4 (Gain = 1/4) — Діапазон ±160 мВ</text>
+  <text x="570" y="314" font-size="12" fill="#1a1a1a">I_max = 1.6 А (при R_shunt = 0.1 Ом) | LSB = 39.06 мкВ</text>
+  <text x="570" y="332" font-size="12" fill="#6b7280">Розширений струмовий діапазон, помірний спад V_shunt</text>
+
+  <!-- Картка 4: PGA ÷8 -->
+  <rect x="555" y="360" width="370" height="72" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="570" y="379" font-size="13" font-weight="700" fill="#1a1a1a">PGA ÷8 (Gain = 1/8) — Діапазон ±320 мВ (за замовч.)</text>
+  <text x="570" y="399" font-size="12" fill="#1a1a1a">I_max = 3.2 А (при R_shunt = 0.1 Ом) | LSB = 78.13 мкВ</text>
+  <text x="570" y="417" font-size="12" fill="#6b7280">Максимальний струм, але найвищі втрати P_shunt ≤ 1.02 Вт</text>
+
+  <!-- Нижня підсумкова панель -->
+  <rect x="35" y="455" width="890" height="60" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="50" y="468" width="105" height="34" rx="4" fill="#2457d6"/>
+  <text x="102.5" y="489" font-size="12" font-weight="700" fill="#ffffff" text-anchor="middle">КОМПРОМІС</text>
+
+  <text x="175" y="478" font-size="12" font-weight="700" fill="#1a1a1a">Формули розрахунку:</text>
+  <text x="310" y="478" font-size="12" fill="#1a1a1a">V_shunt_max = I_max · R_shunt  |  P_shunt = I_max² · R_shunt  |  LSB_I = LSB_V / R_shunt</text>
+
+  <text x="175" y="498" font-size="12" font-weight="700" fill="#2457d6">Правило вибору:</text>
+  <text x="290" y="498" font-size="12" fill="#6b7280">Для високої точності обирають мінімальне R_shunt та підганяють PGA до V_shunt_max</text>
+</svg>

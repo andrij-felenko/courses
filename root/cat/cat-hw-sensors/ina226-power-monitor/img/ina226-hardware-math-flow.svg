@@ -1,0 +1,101 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <!-- Definitions -->
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Title and Subtitle -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Апаратний потік обчислень струму та потужності в INA226</text>
+  <text x="480" y="52" text-anchor="middle" font-size="13" fill="#6b7280">Внутрішнє ядро чипа перераховує виміряну напругу в струм і потужність за допомогою CAL</text>
+
+  <!-- Main Chip Panel -->
+  <rect x="30" y="72" width="900" height="388" rx="12" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="50" y="94" font-size="13" font-weight="bold" fill="#1a1a1a">ВНУТРІШНЄ МАТЕМАТИЧНЕ ЯДРО ТА РЕГІСТРИ INA226</text>
+
+  <!-- Column 1: Primary Registers -->
+  <!-- Box 1A: Calibration Register -->
+  <rect x="50" y="115" width="230" height="75" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="165" y="134" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Calibration Register (05h)</text>
+  <text x="165" y="152" text-anchor="middle" font-size="12" fill="#6b7280">Задається мікроконтролером</text>
+  <text x="165" y="172" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">CAL = 0.00512 / (I_LSB × R_sh)</text>
+
+  <!-- Box 1B: Shunt Voltage Register -->
+  <rect x="50" y="215" width="230" height="75" rx="8" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="165" y="234" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Shunt Voltage Reg (01h)</text>
+  <text x="165" y="252" text-anchor="middle" font-size="12" fill="#6b7280">Вимір ΔΣ АЦП (V_IN+ − V_IN−)</text>
+  <text x="165" y="272" text-anchor="middle" font-size="12" fill="#1a1a1a">16 біт, крок LSB = 2.5 мкВ</text>
+
+  <!-- Box 1C: Bus Voltage Register -->
+  <rect x="50" y="315" width="230" height="75" rx="8" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="165" y="334" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Bus Voltage Reg (02h)</text>
+  <text x="165" y="352" text-anchor="middle" font-size="12" fill="#6b7280">Вимір ΔΣ АЦП (V_BUS відн. GND)</text>
+  <text x="165" y="372" text-anchor="middle" font-size="12" fill="#1a1a1a">16 біт, крок LSB = 1.25 мВ</text>
+
+  <!-- Column 2: Hardware Math Engines -->
+  <!-- Box 2A: Current Engine -->
+  <rect x="350" y="155" width="260" height="95" rx="8" fill="#ffffff" stroke="#2457d6" stroke-width="2"/>
+  <text x="480" y="175" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Апаратне обчислення струму</text>
+  <rect x="362" y="185" width="236" height="54" rx="4" fill="#eaf0fd"/>
+  <text x="480" y="205" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Current = (ShuntReg × CAL) / 2048</text>
+  <text x="480" y="226" text-anchor="middle" font-size="12" fill="#6b7280">апаратний зсув / 2048</text>
+
+  <!-- Box 2B: Power Engine -->
+  <rect x="350" y="295" width="260" height="95" rx="8" fill="#ffffff" stroke="#2457d6" stroke-width="2"/>
+  <text x="480" y="315" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Апаратне обчислення потужності</text>
+  <rect x="362" y="325" width="236" height="54" rx="4" fill="#eaf0fd"/>
+  <text x="480" y="345" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Power = (Current × BusReg) / 20000</text>
+  <text x="480" y="366" text-anchor="middle" font-size="12" fill="#6b7280">масштаб: 25 × Current_LSB</text>
+
+  <!-- Column 3: Output Registers -->
+  <!-- Box 3A: Current Register -->
+  <rect x="680" y="165" width="230" height="75" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="795" y="184" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">Current Register (04h)</text>
+  <text x="795" y="202" text-anchor="middle" font-size="12" fill="#6b7280">Готовий струм для читання</text>
+  <text x="795" y="222" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">I = Значення × Current_LSB</text>
+
+  <!-- Box 3B: Power Register -->
+  <rect x="680" y="305" width="230" height="75" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="795" y="324" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">Power Register (03h)</text>
+  <text x="795" y="342" text-anchor="middle" font-size="12" fill="#6b7280">Готова потужність для читання</text>
+  <text x="795" y="362" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">P = Значення × 25 × I_LSB</text>
+
+  <!-- Signal Paths and Labels -->
+  <!-- 1. Calibration Reg -> Current Engine -->
+  <path d="M 280 152.5 H 325 V 180 H 350" fill="none" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="295" y="142" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">CAL</text>
+
+  <!-- 2. Shunt Voltage Reg -> Current Engine -->
+  <path d="M 280 252.5 H 325 V 220 H 350" fill="none" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+  <text x="295" y="270" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">V_SHUNT</text>
+
+  <!-- 3. Current Engine -> Current Register -->
+  <path d="M 610 202.5 H 680" fill="none" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="645" y="193" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Запис</text>
+
+  <!-- 4. Current Register -> Power Engine -->
+  <path d="M 680 225 H 645 V 325 H 610" fill="none" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <text x="654" y="275" font-size="12" font-weight="bold" fill="#27ae60">I_REG</text>
+
+  <!-- 5. Bus Voltage Reg -> Power Engine -->
+  <path d="M 280 352.5 H 350" fill="none" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+  <text x="315" y="343" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">V_BUS</text>
+
+  <!-- 6. Power Engine -> Power Register -->
+  <path d="M 610 360 H 680" fill="none" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="645" y="351" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Запис</text>
+
+  <!-- Summary Strip -->
+  <rect x="50" y="412" width="860" height="32" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="480" y="433" text-anchor="middle" font-size="12" fill="#6b7280">Зчитування мікроконтролером (I²C): Current (04h) та Power (03h) отримуються безпосередньо у фізичних одиницях</text>
+</svg>

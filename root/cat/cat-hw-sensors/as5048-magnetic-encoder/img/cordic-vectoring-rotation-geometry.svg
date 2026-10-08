@@ -1,0 +1,117 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Маркери стрілок -->
+  <defs>
+    <marker id="arr-black" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="34" font-size="18" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Векторний режим CORDIC у магнітному енкодері AS5048</text>
+  <text x="480" y="56" font-size="13" text-anchor="middle" fill="#6b7280">Послідовне зведення компоненти y до нуля для визначення кута z = θ та амплітуди Kn·R</text>
+
+  <!-- ЛІВА ПАНЕЛЬ: Геометрія декартової системи координат та векторів CORDIC -->
+  <rect x="30" y="80" width="540" height="430" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="45" y="105" font-size="14" font-weight="bold" fill="#1a1a1a">Геометрія псевдообертань у декартовій системі</text>
+
+  <!-- Координатні осі -->
+  <line x1="75" y1="340" x2="505" y2="340" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-black)"/>
+  <line x1="110" y1="460" x2="110" y2="135" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-black)"/>
+
+  <text x="512" y="344" font-size="13" font-weight="bold" fill="#1a1a1a">X (Bx)</text>
+  <text x="110" y="124" font-size="13" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Y (By)</text>
+  <text x="96" y="358" font-size="12" fill="#6b7280" text-anchor="end">O (0,0)</text>
+
+  <!-- Проекції початкового вектора V0 -->
+  <line x1="190" y1="225" x2="190" y2="340" stroke="#6b7280" stroke-dasharray="4,4" stroke-width="1"/>
+  <line x1="190" y1="225" x2="110" y2="225" stroke="#6b7280" stroke-dasharray="4,4" stroke-width="1"/>
+
+  <text x="190" y="358" font-size="12" fill="#1a1a1a" text-anchor="middle">Bx</text>
+  <text x="96" y="229" font-size="12" fill="#1a1a1a" text-anchor="end">By</text>
+
+  <!-- Початковий вектор V0 -->
+  <line x1="110" y1="340" x2="190" y2="225" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+  <text x="195" y="200" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="start">V₀ (Bx, By)</text>
+
+  <!-- Дуга початкового кута theta -->
+  <path d="M 140 340 A 30 30 0 0 0 127.1 315.4" fill="none" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="142" y="328" font-size="12" font-weight="bold" fill="#2457d6">θ (z₀)</text>
+
+  <!-- Коло початкового радіуса R (дуга) -->
+  <path d="M 190 225 A 140 140 0 0 1 250 340" fill="none" stroke="#2457d6" stroke-width="1" stroke-dasharray="3,3"/>
+  <circle cx="250" cy="340" r="3" fill="#2457d6"/>
+  <text x="250" y="358" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">R</text>
+
+  <!-- Ітерація 0: псевдообертання на -alpha_0 (-45 deg) -->
+  <line x1="110" y1="340" x2="305" y2="305" stroke="#6b7280" stroke-dasharray="5,3" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+  <path d="M 190 225 Q 260 230 305 305" fill="none" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#arr-red)"/>
+  <text x="240" y="228" font-size="12" fill="#c0392b">i=0: -α₀ (-45°)</text>
+
+  <!-- Ітерація 1: псевдообертання на -alpha_1 (-26.6 deg) -->
+  <line x1="110" y1="340" x2="323" y2="403" stroke="#6b7280" stroke-dasharray="5,3" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+  <path d="M 305 305 Q 330 350 323 403" fill="none" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#arr-red)"/>
+  <text x="320" y="290" font-size="12" fill="#c0392b">i=1: -α₁ (-26.6°)</text>
+
+  <!-- Ітерація 2: псевдообертання на +alpha_2 (+14.0 deg) -->
+  <path d="M 323 403 Q 350 380 340 340" fill="none" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#arr-green)"/>
+  <text x="350" y="390" font-size="12" fill="#27ae60">i=2: +α₂ (+14.0°)</text>
+
+  <!-- Зведення до осі X: результуючий вектор VN -->
+  <line x1="110" y1="340" x2="340" y2="340" stroke="#27ae60" stroke-width="3" marker-end="url(#arr-green)"/>
+  <circle cx="340" cy="340" r="4" fill="#27ae60"/>
+  <text x="355" y="325" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="start">VN = (Kn·R, 0)</text>
+
+  <!-- Блок ключових умов у кутку графіку -->
+  <rect x="360" y="130" width="195" height="75" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="370" y="150" font-size="12" font-weight="bold" fill="#2457d6">Ціль: yN → 0 (до осі X)</text>
+  <text x="370" y="170" font-size="12" fill="#1a1a1a">Кут: zN = z₀ + ∑ d_i · α_i</text>
+  <text x="370" y="190" font-size="12" font-weight="bold" fill="#27ae60">zN = θ = atan2(By, Bx)</text>
+
+  <!-- Розмірний кронштейн масштабування амплітуди Kn*R -->
+  <line x1="110" y1="455" x2="340" y2="455" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="110" y1="450" x2="110" y2="460" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="340" y1="450" x2="340" y2="460" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="225" y="482" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Розширення амплітуди: xN = Kn · R (Kn ≈ 1.6468)</text>
+
+  <!-- ПРАВА ПАНЕЛЬ: Формули та розрахунки CORDIC -->
+
+  <!-- Картка 1: Ітераційне обчислення -->
+  <rect x="590" y="80" width="340" height="150" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="605" y="105" font-size="14" font-weight="bold" fill="#1a1a1a">Ітераційне обчислення (CORDIC)</text>
+  <text x="605" y="128" font-size="12" fill="#1a1a1a">Напрямок:  d_i = -sign(y_i · x_i)</text>
+  <text x="605" y="148" font-size="12" fill="#1a1a1a">x_{i+1} = x_i - d_i · y_i · 2⁻ⁱ</text>
+  <text x="605" y="168" font-size="12" fill="#1a1a1a">y_{i+1} = y_i + d_i · x_i · 2⁻ⁱ</text>
+  <text x="605" y="188" font-size="12" fill="#1a1a1a">z_{i+1} = z_i - d_i · α_i  (α_i = atan 2⁻ⁱ)</text>
+  <text x="605" y="212" font-size="12" font-weight="bold" fill="#2457d6">Апаратні дії: зсув (&gt;&gt;) та додавання</text>
+
+  <!-- Картка 2: Вихідні величини та AGC -->
+  <rect x="590" y="245" width="340" height="130" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="605" y="268" font-size="14" font-weight="bold" fill="#27ae60">Вихідні обчислені величини</text>
+  <text x="605" y="292" font-size="12" font-weight="bold" fill="#1a1a1a">1. Absolute Angle (14-bit):</text>
+  <text x="620" y="310" font-size="12" fill="#1a1a1a">θ = z_N = atan2(B_y, B_x) → SPI Data</text>
+  <text x="605" y="334" font-size="12" font-weight="bold" fill="#1a1a1a">2. Magnitude &amp; AGC Check:</text>
+  <text x="620" y="352" font-size="12" fill="#1a1a1a">R = x_N / K_n  (K_n ≈ 1.6468)</text>
+
+  <!-- Картка 3: Діагностика та цілісність -->
+  <rect x="590" y="390" width="340" height="120" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="605" y="413" font-size="14" font-weight="bold" fill="#1a1a1a">Діагностика та цілісність даних</text>
+  <text x="605" y="435" font-size="12" fill="#1a1a1a">• Контур AGC (MAGH / MAGL прапори)</text>
+  <text x="605" y="455" font-size="12" fill="#1a1a1a">• Перевірка виходу з магнітного поля</text>
+  <text x="605" y="475" font-size="12" fill="#1a1a1a">• Захист SPI: біт парності (Parity)</text>
+  <text x="605" y="495" font-size="12" fill="#1a1a1a">• Роздільна здатність: 360° / 16384</text>
+</svg>

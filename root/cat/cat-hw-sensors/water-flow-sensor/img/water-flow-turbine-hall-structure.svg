@@ -1,0 +1,206 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-main" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-grey" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+    <linearGradient id="water-grad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#eaf0fd"/>
+      <stop offset="50%" stop-color="#dbeafe"/>
+      <stop offset="100%" stop-color="#eaf0fd"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="520" fill="#ffffff"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="30" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Будова та принцип роботи турбінного давача витрати води G1/2″</text>
+  <text x="480" y="50" font-size="13" fill="#6b7280" text-anchor="middle">Потік рідини обертає турбіну з магнітом, генеруючи прямокутні імпульси на виході елемента Холла</text>
+
+  <!-- Panel 1: Flow Meter Cross-Section -->
+  <rect x="20" y="70" width="570" height="435" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="35" y="92" font-size="14" font-weight="bold" fill="#1a1a1a">Розріз корпусу G1/2″</text>
+
+  <!-- Cable Wire Header -->
+  <text x="210" y="112" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Кабель (VCC, OUT, GND)</text>
+  <rect x="193" y="116" width="34" height="6" rx="2" fill="#475569"/>
+  <line x1="200" y1="120" x2="200" y2="116" stroke="#dc2626" stroke-width="2"/>
+  <line x1="210" y1="120" x2="210" y2="116" stroke="#d97706" stroke-width="2"/>
+  <line x1="220" y1="120" x2="220" y2="116" stroke="#1e293b" stroke-width="2"/>
+
+  <!-- Dry Sealed Compartment & Hall Sensor -->
+  <rect x="160" y="120" width="100" height="58" rx="4" fill="#ffffff" stroke="#475569" stroke-width="2"/>
+  <text x="210" y="136" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">Сухий відсік</text>
+  <rect x="182" y="145" width="56" height="22" rx="3" fill="#1e293b"/>
+  <text x="210" y="160" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">Hall IC</text>
+
+  <!-- Magnetic Field Coupling Lines -->
+  <path d="M 206,222 C 190,205 190,195 196,178" fill="none" stroke="#dc2626" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <path d="M 214,222 C 230,205 230,195 224,178" fill="none" stroke="#2563eb" stroke-width="1.5" stroke-dasharray="3,3"/>
+
+  <!-- Water Channels & Chamber Background -->
+  <!-- Left pipe channel -->
+  <rect x="35" y="255" width="110" height="60" fill="url(#water-grad)"/>
+  <!-- Right pipe channel -->
+  <rect x="275" y="255" width="110" height="60" fill="url(#water-grad)"/>
+  <!-- Chamber inner water area -->
+  <circle cx="210" cy="285" r="65" fill="url(#water-grad)"/>
+
+  <!-- Metallic Housing Cutout -->
+  <!-- Left pipe top wall -->
+  <rect x="35" y="243" width="110" height="12" fill="#cbd5e1" stroke="#475569" stroke-width="1.5"/>
+  <!-- Left pipe bottom wall -->
+  <rect x="35" y="315" width="110" height="12" fill="#cbd5e1" stroke="#475569" stroke-width="1.5"/>
+  <!-- Left pipe threads -->
+  <path d="M 40,237 L 44,243 M 48,237 L 52,243 M 56,237 L 60,243 M 64,237 L 68,243" stroke="#475569" stroke-width="1.5"/>
+  <path d="M 40,333 L 44,327 M 48,333 L 52,327 M 56,333 L 60,327 M 64,333 L 68,327" stroke="#475569" stroke-width="1.5"/>
+
+  <!-- Right pipe top wall -->
+  <rect x="275" y="243" width="110" height="12" fill="#cbd5e1" stroke="#475569" stroke-width="1.5"/>
+  <!-- Right pipe bottom wall -->
+  <rect x="275" y="315" width="110" height="12" fill="#cbd5e1" stroke="#475569" stroke-width="1.5"/>
+  <!-- Right pipe threads -->
+  <path d="M 350,237 L 354,243 M 358,237 L 362,243 M 366,237 L 370,243" stroke="#475569" stroke-width="1.5"/>
+  <path d="M 350,333 L 354,327 M 358,333 L 362,327 M 366,333 L 370,327" stroke="#475569" stroke-width="1.5"/>
+
+  <!-- Chamber Housing Outer Wall Ring (cut at pipe connections) -->
+  <path d="M 145,243 A 77 77 0 1 1 275,243 A 77 77 0 0 1 275,327 A 77 77 0 1 1 145,327 M 145,255 A 65 65 0 1 0 275,255 A 65 65 0 0 0 275,315 A 65 65 0 1 0 145,315" fill="#cbd5e1" stroke="#475569" stroke-width="1.5" fill-rule="evenodd"/>
+
+  <!-- Flow Badges -->
+  <rect x="35" y="205" width="115" height="24" rx="4" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="92.5" y="221" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Вхід Q (G1/2″) ➔</text>
+
+  <rect x="270" y="205" width="115" height="24" rx="4" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="327.5" y="221" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">➔ Вихід Q (G1/2″)</text>
+
+  <!-- Water Stream lines -->
+  <line x1="45" y1="285" x2="125" y2="285" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <path d="M 130,270 Q 165,260 180,245" fill="none" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4,2" marker-end="url(#arr-blue)"/>
+  <path d="M 130,300 Q 165,310 180,325" fill="none" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4,2" marker-end="url(#arr-blue)"/>
+  <line x1="295" y1="285" x2="375" y2="285" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Rotation Arrow -->
+  <path d="M 175,255 A 35 35 0 0 1 230,250" fill="none" stroke="#2457d6" stroke-width="2" stroke-dasharray="4,3" marker-end="url(#arr-blue)"/>
+
+  <!-- Rotation Badge placed below housing to avoid line intersections -->
+  <rect x="160" y="368" width="100" height="22" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+  <text x="210" y="383" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">ω (обертання)</text>
+
+  <!-- Turbine Rotor Blades -->
+  <!-- Top blade (contains magnet) -->
+  <path d="M 203,265 L 203,222 C 203,218 217,218 217,222 L 217,265 Z" fill="#475569" stroke="#1e293b" stroke-width="1.5"/>
+  <!-- Right blade -->
+  <path d="M 230,278 L 273,278 C 277,278 277,292 273,292 L 230,292 Z" fill="#475569" stroke="#1e293b" stroke-width="1.5"/>
+  <!-- Bottom blade -->
+  <path d="M 203,305 L 203,348 C 203,352 217,352 217,305 Z" fill="#475569" stroke="#1e293b" stroke-width="1.5"/>
+  <!-- Left blade -->
+  <path d="M 190,278 L 147,278 C 143,278 143,292 147,292 L 190,292 Z" fill="#475569" stroke="#1e293b" stroke-width="1.5"/>
+
+  <!-- Magnet in Top Blade -->
+  <rect x="202" y="224" width="8" height="15" fill="#dc2626" rx="1"/>
+  <rect x="210" y="224" width="8" height="15" fill="#2563eb" rx="1"/>
+  <text x="206" y="236" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">N</text>
+  <text x="214" y="236" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">S</text>
+
+  <!-- Center Hub -->
+  <circle cx="210" cy="285" r="20" fill="#334155" stroke="#0f172a" stroke-width="2"/>
+  <circle cx="210" cy="285" r="6" fill="#cbd5e1" stroke="#1e293b" stroke-width="1.5"/>
+
+  <!-- Leader Lines & Callout Cards -->
+  <!-- Callout 1: Hall IC -->
+  <line x1="260" y1="150" x2="395" y2="136" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="3,3" marker-end="url(#arr-grey)"/>
+  <rect x="395" y="115" width="180" height="42" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="405" y="132" font-size="12" font-weight="bold" fill="#1a1a1a">Давач Холла (Hall IC)</text>
+  <text x="405" y="148" font-size="12" fill="#6b7280">Сухий ізольований відсік</text>
+
+  <!-- Callout 2: Magnet -->
+  <path d="M 218,230 L 250,196 L 395,196" fill="none" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="3,3" marker-end="url(#arr-grey)"/>
+  <rect x="395" y="175" width="180" height="42" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="405" y="192" font-size="12" font-weight="bold" fill="#1a1a1a">Постійний магніт</text>
+  <text x="405" y="208" font-size="12" fill="#6b7280">Вбудований у лопатку</text>
+
+  <!-- Callout 3: Rotor -->
+  <path d="M 218,335 L 370,335 L 395,306" fill="none" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="3,3" marker-end="url(#arr-grey)"/>
+  <rect x="395" y="285" width="180" height="42" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="405" y="302" font-size="12" font-weight="bold" fill="#1a1a1a">Крильчатка (ротор)</text>
+  <text x="405" y="318" font-size="12" fill="#6b7280">Обертається потоком</text>
+
+  <!-- Callout 4: Housing -->
+  <line x1="275" y1="350" x2="395" y2="376" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="3,3" marker-end="url(#arr-grey)"/>
+  <rect x="395" y="355" width="180" height="42" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="405" y="372" font-size="12" font-weight="bold" fill="#1a1a1a">Корпус G1/2″</text>
+  <text x="405" y="388" font-size="12" fill="#6b7280">Латунь / міцний пластик</text>
+
+  <!-- Bottom Principle Banner Panel 1 -->
+  <rect x="35" y="420" width="540" height="70" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="50" y="440" font-size="12"><tspan font-weight="bold" fill="#2457d6">Принцип роботи:</tspan><tspan fill="#1a1a1a"> Кожен оберт ротора відповідає проходженню об'єму V₀</tspan></text>
+  <text x="50" y="458" font-size="12" fill="#6b7280">Магніт проходить повз давач Холла, формуючи 1 імпульс на виході.</text>
+  <text x="50" y="476" font-size="12" fill="#6b7280">Частота імпульсів прямо пропорційна швидкості потоку води Q.</text>
+
+  <!-- Panel 2: Signal & Processing -->
+  <rect x="610" y="70" width="330" height="435" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="625" y="92" font-size="14" font-weight="bold" fill="#1a1a1a">Формування та обробка сигналу</text>
+
+  <!-- Section A: Wiring Box -->
+  <text x="625" y="116" font-size="12" font-weight="bold" fill="#1a1a1a">Призначення виводів:</text>
+  <rect x="625" y="124" width="300" height="82" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+
+  <rect x="635" y="132" width="42" height="20" rx="3" fill="#fdecea" stroke="#dc2626"/>
+  <text x="656" y="146" font-size="12" font-weight="bold" fill="#dc2626" text-anchor="middle">VCC</text>
+  <text x="688" y="146" font-size="12" font-weight="bold" fill="#dc2626">Червоний:</text>
+  <text x="755" y="146" font-size="12" fill="#1a1a1a">+5V ... +24V DC</text>
+
+  <rect x="635" y="155" width="42" height="20" rx="3" fill="#fef3c7" stroke="#d97706"/>
+  <text x="656" y="169" font-size="12" font-weight="bold" fill="#d97706" text-anchor="middle">OUT</text>
+  <text x="688" y="169" font-size="12" font-weight="bold" fill="#d97706">Жовтий:</text>
+  <text x="745" y="169" font-size="12" fill="#1a1a1a">Імпульси (NPN OC)</text>
+
+  <rect x="635" y="178" width="42" height="20" rx="3" fill="#f1f5f9" stroke="#1e293b"/>
+  <text x="656" y="192" font-size="12" font-weight="bold" fill="#1e293b" text-anchor="middle">GND</text>
+  <text x="688" y="192" font-size="12" font-weight="bold" fill="#1e293b">Чорний:</text>
+  <text x="748" y="192" font-size="12" fill="#1a1a1a">Спільний мінус 0V</text>
+
+  <!-- Section B: Waveform Graph -->
+  <text x="625" y="224" font-size="12" font-weight="bold" fill="#1a1a1a">Прямокутні імпульси на виході OUT:</text>
+
+  <rect x="625" y="232" width="300" height="140" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+
+  <!-- Oscillogram Grid -->
+  <line x1="660" y1="268" x2="895" y2="268" stroke="#e2e8f0" stroke-dasharray="2,2"/>
+  <line x1="660" y1="340" x2="895" y2="340" stroke="#e2e8f0" stroke-dasharray="2,2"/>
+
+  <!-- Axes -->
+  <line x1="660" y1="350" x2="660" y2="250" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-main)"/>
+  <text x="646" y="250" font-size="12" font-weight="bold" fill="#1a1a1a">V</text>
+  <text x="654" y="272" font-size="12" fill="#6b7280" text-anchor="end">Vcc</text>
+  <text x="654" y="344" font-size="12" fill="#6b7280" text-anchor="end">0V</text>
+
+  <line x1="660" y1="340" x2="905" y2="340" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-main)"/>
+  <text x="912" y="344" font-size="12" font-weight="bold" fill="#1a1a1a">t</text>
+
+  <!-- Waveform pulses -->
+  <path d="M 660,340 L 680,340 L 680,268 L 730,268 L 730,340 L 780,340 L 780,268 L 830,268 L 830,340 L 870,340 L 870,268 L 895,268" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+
+  <!-- Period Marker -->
+  <line x1="680" y1="252" x2="780" y2="252" stroke="#2457d6" stroke-width="1.5" marker-start="url(#arr-blue)" marker-end="url(#arr-blue)"/>
+  <line x1="680" y1="255" x2="680" y2="340" stroke="#2457d6" stroke-opacity="0.3" stroke-dasharray="2,2"/>
+  <line x1="780" y1="255" x2="780" y2="340" stroke="#2457d6" stroke-opacity="0.3" stroke-dasharray="2,2"/>
+  <text x="730" y="246" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Період T = 1/f</text>
+
+  <text x="705" y="286" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">HIGH</text>
+  <text x="755" y="325" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">LOW</text>
+
+  <!-- Section C: Formulas & Calculation -->
+  <rect x="625" y="385" width="300" height="105" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="640" y="405" font-size="12" font-weight="bold" fill="#2457d6">Частотна залежність:</text>
+  <text x="640" y="425" font-size="12" font-weight="bold" fill="#1a1a1a">f = K · Q  <tspan font-size="12" font-weight="normal" fill="#6b7280">(Гц = імп/с)</tspan></text>
+  <text x="640" y="445" font-size="12" fill="#1a1a1a">Витрата: <tspan font-weight="bold" fill="#2457d6">Q = f / K</tspan> [л/хв]</text>
+  <text x="640" y="465" font-size="12" fill="#1a1a1a">Об'єм: <tspan font-weight="bold">V = N / (60 · K)</tspan> [літрів]</text>
+  <text x="640" y="482" font-size="12" fill="#6b7280">Для G1/2″ K ≈ 7.5 Гц / (л/хв)</text>
+</svg>

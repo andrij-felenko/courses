@@ -1,0 +1,159 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-black" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="35" font-size="18" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Дискретне інтегрування двонапрямленого потоку енергії (INA226)</text>
+  <text x="480" y="58" font-size="13" text-anchor="middle" fill="#6b7280">Роздільне накопичення у регістри за знаком струму для обчислення А·год та Вт·год</text>
+
+  <!-- TOP PANEL: Block Diagram -->
+  <rect x="25" y="75" width="910" height="195" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="45" y="98" font-size="14" font-weight="bold" fill="#1a1a1a">Блок-схема вимірювання та логіка розділення за знаком струму</text>
+
+  <!-- Block 1: INA226 Sensor -->
+  <rect x="45" y="115" width="160" height="135" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="125" y="138" font-size="13" font-weight="bold" text-anchor="middle" fill="#2457d6">Давач INA226</text>
+  <text x="125" y="162" font-size="12" text-anchor="middle" fill="#1a1a1a">Вимірювання:</text>
+  <text x="125" y="184" font-size="12" text-anchor="middle" fill="#1a1a1a">I [A], U [V], P [W]</text>
+  <text x="125" y="208" font-size="12" text-anchor="middle" fill="#6b7280">Період квантування</text>
+  <text x="125" y="228" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">інтервал Δt</text>
+
+  <!-- Arrow 1: INA226 -> Sign Check -->
+  <line x1="205" y1="182.5" x2="255" y2="182.5" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-black)"/>
+  <text x="230" y="172" font-size="12" text-anchor="middle" fill="#1a1a1a">I, P</text>
+
+  <!-- Block 2: Sign Check -->
+  <rect x="255" y="115" width="165" height="135" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="337" y="138" font-size="13" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Аналіз знака I</text>
+  <text x="337" y="162" font-size="12" font-weight="bold" text-anchor="middle" fill="#27ae60">Якщо I &gt; 0</text>
+  <text x="337" y="184" font-size="12" text-anchor="middle" fill="#27ae60">Режим заряду</text>
+  <text x="337" y="208" font-size="12" font-weight="bold" text-anchor="middle" fill="#c0392b">Якщо I &lt; 0</text>
+  <text x="337" y="228" font-size="12" text-anchor="middle" fill="#c0392b">Режим розряду</text>
+
+  <!-- Arrow 2: Sign Check -> Charge Reg -->
+  <line x1="420" y1="145" x2="475" y2="145" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <text x="447" y="137" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">I &gt; 0</text>
+
+  <!-- Arrow 3: Sign Check -> Discharge Reg -->
+  <line x1="420" y1="220" x2="475" y2="220" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <text x="447" y="212" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">I &lt; 0</text>
+
+  <!-- Block 3: Charge Register -->
+  <rect x="475" y="115" width="220" height="60" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="585" y="136" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Накопичення заряду (+)</text>
+  <text x="585" y="158" font-size="12" fill="#1a1a1a" text-anchor="middle">Q_ch += I × Δt / 3600 [А·год]</text>
+
+  <!-- Block 4: Discharge Register -->
+  <rect x="475" y="190" width="220" height="60" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="585" y="211" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Накопичення розряду (-)</text>
+  <text x="585" y="233" font-size="12" fill="#1a1a1a" text-anchor="middle">Q_dis += |I| × Δt / 3600 [А·год]</text>
+
+  <!-- Merging lines to Summary Block -->
+  <path d="M 695,145 L 725,145 L 725,182.5 L 750,182.5" fill="none" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-black)"/>
+  <path d="M 695,220 L 725,220 L 725,182.5" fill="none" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Block 5: Energy Summary Block -->
+  <rect x="750" y="115" width="170" height="135" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="835" y="136" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Підсумок енергії</text>
+  <text x="835" y="158" font-size="12" fill="#27ae60" text-anchor="middle">E_ch += P × Δt</text>
+  <text x="835" y="180" font-size="12" fill="#c0392b" text-anchor="middle">E_dis += |P| × Δt</text>
+  <text x="835" y="206" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Баланс А·год:</text>
+  <text x="835" y="228" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">ΔQ = Q_ch - Q_dis</text>
+
+  <!-- BOTTOM PANEL: Timing Diagram -->
+  <rect x="25" y="285" width="910" height="255" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="45" y="308" font-size="14" font-weight="bold" fill="#1a1a1a">Часова діаграма дискретного інтегрування (квантування за часом Δt)</text>
+
+  <!-- Quantization Rectangles -->
+  <!-- Interval 1 (Charge) -->
+  <rect x="140" y="355" width="110" height="60" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="2,2"/>
+  <text x="195" y="390" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">+ΔQ_ch</text>
+
+  <!-- Interval 2 (Charge) -->
+  <rect x="250" y="335" width="110" height="80" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="2,2"/>
+  <text x="305" y="380" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">+ΔQ_ch</text>
+
+  <!-- Interval 4 (Discharge) -->
+  <rect x="470" y="415" width="110" height="50" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="2,2"/>
+  <text x="525" y="448" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">+ΔQ_dis</text>
+
+  <!-- Interval 5 (Discharge) -->
+  <rect x="580" y="415" width="110" height="35" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="2,2"/>
+  <text x="635" y="438" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">+ΔQ_dis</text>
+
+  <!-- Interval 6 (Charge) -->
+  <rect x="690" y="375" width="110" height="40" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="2,2"/>
+  <text x="745" y="398" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">+ΔQ_ch</text>
+
+  <!-- Vertical grid lines at sample times -->
+  <line x1="140" y1="325" x2="140" y2="495" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="250" y1="325" x2="250" y2="495" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="360" y1="325" x2="360" y2="495" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="470" y1="325" x2="470" y2="495" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="580" y1="325" x2="580" y2="495" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="690" y1="325" x2="690" y2="495" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="800" y1="325" x2="800" y2="495" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+
+  <!-- Zero current reference line -->
+  <line x1="120" y1="415" x2="860" y2="415" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4,4"/>
+
+  <!-- Time Axis X -->
+  <line x1="120" y1="415" x2="865" y2="415" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-black)"/>
+  <text x="875" y="419" font-size="12" font-weight="bold" fill="#1a1a1a">Час (t)</text>
+
+  <!-- Current Axis Y -->
+  <line x1="120" y1="495" x2="120" y2="330" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-black)"/>
+  <text x="110" y="342" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="end">+I (Заряд)</text>
+  <text x="110" y="419" font-size="12" fill="#6b7280" text-anchor="end">0</text>
+  <text x="110" y="485" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="end">-I (Розряд)</text>
+
+  <!-- Continuous Analog Current I(t) curve -->
+  <path d="M 120,415 C 130,375 135,370 140,370 C 170,340 220,345 250,360 C 280,325 330,335 360,415 C 390,460 440,465 470,465 C 500,485 550,475 580,450 C 610,435 660,435 690,415 C 720,360 770,365 800,390 C 820,405 840,415 860,415" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+
+  <!-- Sample dots at measurement points -->
+  <circle cx="140" cy="370" r="4" fill="#2457d6"/>
+  <circle cx="250" cy="360" r="4" fill="#2457d6"/>
+  <circle cx="360" cy="415" r="4" fill="#2457d6"/>
+  <circle cx="470" cy="465" r="4" fill="#2457d6"/>
+  <circle cx="580" cy="450" r="4" fill="#2457d6"/>
+  <circle cx="690" cy="415" r="4" fill="#2457d6"/>
+  <circle cx="800" cy="390" r="4" fill="#2457d6"/>
+
+  <!-- Time labels below axis -->
+  <text x="140" y="508" font-size="12" fill="#6b7280" text-anchor="middle">t0</text>
+  <text x="250" y="508" font-size="12" fill="#6b7280" text-anchor="middle">t1</text>
+  <text x="360" y="508" font-size="12" fill="#6b7280" text-anchor="middle">t2</text>
+  <text x="470" y="508" font-size="12" fill="#6b7280" text-anchor="middle">t3</text>
+  <text x="580" y="508" font-size="12" fill="#6b7280" text-anchor="middle">t4</text>
+  <text x="690" y="508" font-size="12" fill="#6b7280" text-anchor="middle">t5</text>
+  <text x="800" y="508" font-size="12" fill="#6b7280" text-anchor="middle">t6</text>
+
+  <!-- Delta t dimension marker -->
+  <line x1="140" y1="330" x2="250" y2="330" stroke="#2457d6" stroke-width="1.5" marker-start="url(#arr-blue)" marker-end="url(#arr-blue)"/>
+  <text x="195" y="325" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Δt (період)</text>
+
+  <!-- Register status indicators at the bottom -->
+  <rect x="140" y="518" width="220" height="18" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="250" y="531" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Регістр Q_ch зростає (+)</text>
+
+  <rect x="470" y="518" width="220" height="18" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="580" y="531" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Регістр Q_dis зростає (+)</text>
+
+  <rect x="690" y="518" width="110" height="18" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="745" y="531" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Q_ch += ΔQ</text>
+</svg>

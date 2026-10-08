@@ -1,0 +1,151 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <!-- Arrow Markers -->
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+
+    <!-- Substrate Anchor Hatch Pattern -->
+    <pattern id="anchor-hatch" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+      <line x1="0" y1="0" x2="0" y2="8" stroke="#a0a6b0" stroke-width="1.5"/>
+    </pattern>
+  </defs>
+
+  <!-- Canvas Background -->
+  <rect x="0" y="0" width="960" height="540" fill="#ffffff"/>
+
+  <!-- Header Title & Subtitle -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Топологія диференційного гребінчастого ємнісного давача (MEMS Comb-Drive)</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Зсув рухомої маси зміщує зазори d₁ та d₂ у протилежних напрямках, формуючи диференційну ємність ΔC</text>
+
+  <!-- PANEL 1: Mechanical Topology (Left Side) -->
+  <rect x="25" y="78" width="595" height="442" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="40" y="100" font-size="14" font-weight="bold" fill="#1a1a1a">1. Конструкція диференційного мікроконденсатора</text>
+
+  <!-- Top Anchor A Bar (Stator 1, Green +Vs) -->
+  <path d="M 85,115 L 545,115 L 545,140 L 378,140 L 378,320 L 360,320 L 360,140 L 153,140 L 153,320 L 135,320 L 135,140 L 85,140 Z" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <rect x="490" y="115" width="55" height="25" fill="url(#anchor-hatch)" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="305" y="133" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Нерухомий електрод A (Stator 1, +Vs)</text>
+
+  <!-- Bottom Anchor B Bar (Stator 2, Red -Vs) -->
+  <path d="M 85,395 L 545,395 L 545,370 L 475,370 L 475,190 L 457,190 L 457,370 L 250,370 L 250,190 L 232,190 L 232,370 L 85,370 Z" fill="#fdecea" stroke="#c0392b" stroke-width="2"/>
+  <rect x="490" y="370" width="55" height="25" fill="url(#anchor-hatch)" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="305" y="388" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Нерухомий електрод B (Stator 2, -Vs)</text>
+
+  <!-- Central Moving Proof Mass & Rotor Fingers (Blue, Displaced Left by x) -->
+  <path d="M 130,250 L 181,250 L 181,160 L 199,160 L 199,250 L 406,250 L 406,160 L 424,160 L 424,250 L 480,250 L 480,280 L 424,280 L 424,350 L 406,350 L 406,280 L 199,280 L 199,350 L 181,350 L 181,280 L 130,280 Z" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="305" y="264" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Рухома маса m</text>
+  <text x="305" y="276" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">(Rotor, Vx)</text>
+
+  <!-- Left Flexible Suspension Spring & Anchor -->
+  <rect x="40" y="250" width="35" height="30" rx="3" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="40" y="250" width="35" height="30" fill="url(#anchor-hatch)"/>
+  <text x="57.5" y="296" font-size="11" fill="#6b7280" text-anchor="middle">Анкер</text>
+
+  <path d="M 75,265 L 85,253 L 95,277 L 105,253 L 115,277 L 130,265" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+  <text x="100" y="244" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">k</text>
+
+  <!-- Right Flexible Suspension Spring & Anchor -->
+  <path d="M 480,265 L 492,253 L 502,277 L 512,253 L 522,277 L 535,265" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+  <text x="507" y="244" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">k</text>
+
+  <rect x="535" y="250" width="35" height="30" rx="3" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="535" y="250" width="35" height="30" fill="url(#anchor-hatch)"/>
+  <text x="552.5" y="296" font-size="11" fill="#6b7280" text-anchor="middle">Анкер</text>
+
+  <!-- Finger Overlap Length (L) Annotation -->
+  <line x1="110" y1="160" x2="135" y2="160" stroke="#1a1a1a" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="110" y1="320" x2="135" y2="320" stroke="#1a1a1a" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="110" y1="160" x2="110" y2="320" stroke="#1a1a1a" stroke-width="1.5" marker-start="url(#arr-dark)" marker-end="url(#arr-dark)"/>
+  <text x="98" y="200" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="end">L</text>
+
+  <!-- Cell 1 Gaps & Capacitances Annotations -->
+  <line x1="153" y1="210" x2="181" y2="210" stroke="#27ae60" stroke-width="1.5" marker-start="url(#arr-green)" marker-end="url(#arr-green)"/>
+  <text x="167" y="198" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">d₁</text>
+  <text x="167" y="226" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">C₁ ↑</text>
+
+  <line x1="199" y1="210" x2="232" y2="210" stroke="#c0392b" stroke-width="1.5" marker-start="url(#arr-red)" marker-end="url(#arr-red)"/>
+  <text x="215.5" y="198" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">d₂</text>
+  <text x="215.5" y="226" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">C₂ ↓</text>
+
+  <!-- Cell 2 Gaps & Capacitances Annotations -->
+  <line x1="378" y1="210" x2="406" y2="210" stroke="#27ae60" stroke-width="1.5" marker-start="url(#arr-green)" marker-end="url(#arr-green)"/>
+  <text x="392" y="198" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">d₁</text>
+  <text x="392" y="226" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">C₁ ↑</text>
+
+  <line x1="424" y1="210" x2="457" y2="210" stroke="#c0392b" stroke-width="1.5" marker-start="url(#arr-red)" marker-end="url(#arr-red)"/>
+  <text x="440.5" y="198" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">d₂</text>
+  <text x="440.5" y="226" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">C₂ ↓</text>
+
+  <!-- Vector Arrow: Displacement x -->
+  <line x1="345" y1="332" x2="265" y2="332" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="305" y="324" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Зміщення x</text>
+
+  <!-- Vector Arrow: Acceleration a / Force Fin -->
+  <line x1="345" y1="425" x2="265" y2="425" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr-dark)"/>
+  <text x="305" y="416" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Прискорення a (інерційна сила Fin)</text>
+
+  <!-- Panel 1 Bottom Legend Card -->
+  <rect x="40" y="452" width="565" height="50" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="55" y="471" font-size="12" font-weight="bold" fill="#27ae60">d₁ = d₀ - x  ⇒  C₁ = ε·A / (d₀ - x)   [зменшення зазору → зростання C₁]</text>
+  <text x="55" y="491" font-size="12" font-weight="bold" fill="#c0392b">d₂ = d₀ + x  ⇒  C₂ = ε·A / (d₀ + x)   [збільшення зазору → спадання C₂]</text>
+
+  <!-- PANEL 2: Electrical Model & Differential Sensing (Right Side) -->
+  <rect x="635" y="78" width="300" height="442" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="650" y="100" font-size="14" font-weight="bold" fill="#1a1a1a">2. Електрична еквівалентність</text>
+
+  <!-- Card 1: Capacitive Divider Bridge -->
+  <rect x="648" y="115" width="274" height="135" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="660" y="133" font-size="12" font-weight="bold" fill="#1a1a1a">Еквівалентний півміст</text>
+
+  <!-- Top Supply Terminal (+Vs) -->
+  <circle cx="785" cy="146" r="3" fill="#27ae60"/>
+  <line x1="785" y1="146" x2="785" y2="160" stroke="#27ae60" stroke-width="2"/>
+  <text x="797" y="150" font-size="11" font-weight="bold" fill="#27ae60">+Vs</text>
+
+  <!-- Capacitor C1 -->
+  <line x1="770" y1="160" x2="800" y2="160" stroke="#27ae60" stroke-width="2.5"/>
+  <line x1="770" y1="172" x2="800" y2="172" stroke="#27ae60" stroke-width="2.5"/>
+  <text x="758" y="170" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="end">C₁ (d₁)</text>
+
+  <!-- Center Output Terminal Vx -->
+  <line x1="785" y1="172" x2="785" y2="208" stroke="#2457d6" stroke-width="2"/>
+  <circle cx="785" cy="190" r="4" fill="#2457d6"/>
+  <line x1="785" y1="190" x2="840" y2="190" stroke="#2457d6" stroke-width="2"/>
+  <circle cx="840" cy="190" r="3" fill="#2457d6"/>
+  <text x="848" y="194" font-size="11" font-weight="bold" fill="#2457d6">Vx (Вихід)</text>
+
+  <!-- Capacitor C2 -->
+  <line x1="770" y1="208" x2="800" y2="208" stroke="#c0392b" stroke-width="2.5"/>
+  <line x1="770" y1="220" x2="800" y2="220" stroke="#c0392b" stroke-width="2.5"/>
+  <text x="758" y="218" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="end">C₂ (d₂)</text>
+
+  <!-- Bottom Supply Terminal (-Vs) -->
+  <line x1="785" y1="220" x2="785" y2="236" stroke="#c0392b" stroke-width="2"/>
+  <circle cx="785" cy="236" r="3" fill="#c0392b"/>
+  <text x="797" y="240" font-size="11" font-weight="bold" fill="#c0392b">-Vs</text>
+
+  <!-- Card 2: Math Model & Differential Formula -->
+  <rect x="648" y="260" width="274" height="135" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="660" y="278" font-size="12" font-weight="bold" fill="#1a1a1a">Диференційний сигнал</text>
+  <text x="660" y="302" font-size="12" font-weight="bold" fill="#2457d6">ΔC = C₁ - C₂</text>
+  <text x="660" y="326" font-size="12" font-weight="bold" fill="#2457d6">ΔC ≈ 2 · C₀ · (x / d₀)</text>
+  <text x="660" y="350" font-size="12" font-weight="bold" fill="#27ae60">Vout = Vs · (x / d₀)</text>
+  <text x="660" y="376" font-size="11" fill="#6b7280">де C₀ = N·ε·L·h / d₀ (початкова ємність)</text>
+
+  <!-- Card 3: Invariants & Topology Advantages -->
+  <rect x="648" y="405" width="274" height="97" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="660" y="423" font-size="12" font-weight="bold" fill="#2457d6">Переваги топології:</text>
+  <text x="660" y="443" font-size="11" fill="#1a1a1a">✓ Лінійність виходу Vout ∝ x</text>
+  <text x="660" y="462" font-size="11" fill="#1a1a1a">✓ Компенсація температури</text>
+  <text x="660" y="481" font-size="11" fill="#1a1a1a">✓ Подавлення синфазних завад</text>
+</svg>

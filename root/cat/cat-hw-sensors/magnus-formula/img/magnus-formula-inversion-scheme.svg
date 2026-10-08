@@ -1,0 +1,113 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок та підзаголовок -->
+  <text x="480" y="28" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Схема прямого та оберненого розрахунку за формулою Магнуса</text>
+  <text x="480" y="48" font-size="13" fill="#6b7280" text-anchor="middle">Пряме перетворення дає тиск пари e(T, RH), а логарифмічне обернення обчислює точку роси T_d</text>
+
+  <!-- Блок 1: Вхідні вимірювання -->
+  <rect x="35" y="70" width="240" height="140" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="155" y="93" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">Вхідні вимірювання</text>
+  <line x1="45" y1="103" x2="265" y2="103" stroke="#2457d6" stroke-width="1" opacity="0.3"/>
+
+  <rect x="50" y="116" width="32" height="18" rx="3" fill="#2457d6"/>
+  <text x="66" y="130" font-size="12" font-weight="bold" fill="white" text-anchor="middle">T</text>
+  <text x="90" y="130" font-size="13" fill="#1a1a1a" text-anchor="start">Температура (°C)</text>
+
+  <rect x="50" y="148" width="32" height="18" rx="3" fill="#2457d6"/>
+  <text x="66" y="162" font-size="12" font-weight="bold" fill="white" text-anchor="middle">RH</text>
+  <text x="90" y="162" font-size="13" fill="#1a1a1a" text-anchor="start">Вологість (%)</text>
+
+  <text x="155" y="194" font-size="12" fill="#6b7280" text-anchor="middle">Дані первинних давачів</text>
+
+  <!-- Стрілка Блок 1 -> Блок 2 -->
+  <line x1="275" y1="140" x2="307" y2="140" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="295" y="126" font-size="12" fill="#2457d6" text-anchor="middle">T, RH</text>
+
+  <!-- Блок 2: Пряме перетворення -->
+  <rect x="315" y="70" width="330" height="140" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="480" y="93" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">1. Пряме перетворення e(T, RH)</text>
+  <line x1="325" y1="103" x2="635" y2="103" stroke="#d0d7de" stroke-width="1"/>
+  <text x="480" y="128" font-size="13" fill="#1a1a1a" text-anchor="middle">E(T) = E₀ · exp( (a · T) / (b + T) )</text>
+  <text x="480" y="154" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">e = (RH / 100%) · E(T)</text>
+  <text x="480" y="194" font-size="12" fill="#6b7280" text-anchor="middle">E₀ = 6.112 hPa,  a = 17.625,  b = 243.04 °C</text>
+
+  <!-- Стрілка Блок 2 -> Блок 3 -->
+  <line x1="645" y1="140" x2="677" y2="140" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="665" y="126" font-size="12" fill="#2457d6" text-anchor="middle">e, E₀</text>
+
+  <!-- Блок 3: Логарифмування -->
+  <rect x="685" y="70" width="240" height="140" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="805" y="93" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">2. Логарифмування γ</text>
+  <line x1="695" y1="103" x2="915" y2="103" stroke="#d0d7de" stroke-width="1"/>
+  <text x="805" y="128" font-size="13" fill="#1a1a1a" text-anchor="middle">γ = ln(e / E₀)</text>
+  <text x="805" y="154" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">γ = ln(RH/100%) + (a·T)/(b+T)</text>
+  <text x="805" y="194" font-size="12" fill="#6b7280" text-anchor="middle">Безрозмірний аргумент</text>
+
+  <!-- Стрілка Блок 3 -> Блок 4 -->
+  <line x1="805" y1="210" x2="805" y2="232" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="817" y="225" font-size="12" fill="#27ae60" text-anchor="start">вхід γ</text>
+
+  <!-- Блок 4: Обернене перетворення (Точка роси) -->
+  <rect x="315" y="240" width="610" height="125" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="620" y="263" font-size="14" font-weight="bold" fill="#27ae60" text-anchor="middle">3. Обернене перетворення — Виведення точки роси T_d</text>
+  <line x1="325" y1="271" x2="915" y2="271" stroke="#27ae60" stroke-width="1" opacity="0.3"/>
+  <text x="620" y="294" font-size="13" fill="#1a1a1a" text-anchor="middle">Умова фазового переходу:  E(T_d) = e  ⇒  (a · T_d) / (b + T_d) = γ(T, RH)</text>
+  <text x="620" y="322" font-size="14" font-weight="bold" fill="#27ae60" text-anchor="middle">T_d = ( b · γ(T, RH) ) / ( a - γ(T, RH) )</text>
+  <text x="620" y="350" font-size="12" fill="#6b7280" text-anchor="middle">Температура, до якої слід охолодити повітря для досягнення 100% вологості</text>
+
+  <!-- Блок 5: Критерій конденсації та захист -->
+  <rect x="35" y="240" width="240" height="250" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="155" y="263" font-size="14" font-weight="bold" fill="#c0392b" text-anchor="middle">Аналіз ризику роси</text>
+  <line x1="45" y1="271" x2="265" y2="271" stroke="#c0392b" stroke-width="1" opacity="0.3"/>
+
+  <!-- Стрілка з Блоку 1 -> Блок 5 -->
+  <line x1="155" y1="210" x2="155" y2="232" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="167" y="225" font-size="12" fill="#c0392b" text-anchor="start">вхід T</text>
+
+  <!-- Стрілка з Блоку 4 -> Блок 5 -->
+  <line x1="315" y1="302" x2="283" y2="302" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="299" y="290" font-size="12" fill="#c0392b" text-anchor="middle">T_d</text>
+
+  <!-- Вкладені плашки в Блок 5 -->
+  <rect x="45" y="283" width="220" height="38" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="155" y="298" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">T_поверхні > T_d  ⇒  БЕЗПЕЧНО</text>
+  <text x="155" y="314" font-size="12" fill="#27ae60" text-anchor="middle">Суха поверхня, немає роси</text>
+
+  <rect x="45" y="329" width="220" height="48" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="155" y="347" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">T_поверхні ≤ T_d  ⇒  НЕБЕЗПЕКА</text>
+  <text x="155" y="367" font-size="12" fill="#c0392b" text-anchor="middle">Випадання конденсату / роси</text>
+
+  <text x="155" y="405" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Правило захисту пристрою:</text>
+  <text x="155" y="425" font-size="12" fill="#1a1a1a" text-anchor="middle">Якщо (T - T_d) &lt; 3 °C  ⇒</text>
+  <text x="155" y="445" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Увімкнути підігрів / осушення</text>
+  <text x="155" y="465" font-size="12" fill="#6b7280" text-anchor="middle">для запобігання росі</text>
+
+  <!-- Стрілка Блок 4 -> Блок 6 -->
+  <line x1="620" y1="365" x2="620" y2="387" stroke="#6b7280" stroke-width="2" marker-end="url(#arr-gray)"/>
+  <text x="632" y="380" font-size="12" fill="#6b7280" text-anchor="start">формули в код</text>
+
+  <!-- Блок 6: Реалізація C/C++ -->
+  <rect x="315" y="395" width="610" height="95" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="620" y="416" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">4. Програмна реалізація в C / C++ (float32)</text>
+  <line x1="325" y1="424" x2="915" y2="424" stroke="#d0d7de" stroke-width="1"/>
+
+  <rect x="335" y="430" width="570" height="52" rx="4" fill="#1e1e1e"/>
+  <text x="345" y="448" font-size="12" fill="#4ec9b0" font-family="Consolas, Monaco, monospace" text-anchor="start">float gamma = logf(RH / 100.0f) + (17.625f * T) / (243.04f + T);</text>
+  <text x="345" y="468" font-size="12" fill="#ce9178" font-family="Consolas, Monaco, monospace" text-anchor="start">float T_d   = (243.04f * gamma) / (17.625f - gamma);</text>
+</svg>

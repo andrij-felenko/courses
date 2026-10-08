@@ -1,0 +1,165 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background Canvas -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Title Block -->
+  <text x="480" y="36" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Структура 16-бітового SPI-кадру магнітного енкодера AS5048</text>
+  <text x="480" y="60" font-size="13" fill="#6b7280" text-anchor="middle">Кадр MISO: контрольна парність (PAR), прапорець помилки (EF) та 14-бітовий код кута (DATA)</text>
+
+  <!-- Bit Frame Main Container -->
+  <rect x="60" y="88" width="840" height="108" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="6"/>
+  <text x="80" y="108" font-size="12" font-weight="bold" fill="#6b7280">Вхідний 16-бітовий потік MSB → LSB (SPI Rx Data Frame):</text>
+
+  <!-- Bit Indices (above boxes) -->
+  <text x="105" y="127" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">15</text>
+  <text x="155" y="127" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">14</text>
+  <text x="205" y="127" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">13</text>
+  <text x="255" y="127" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">12</text>
+  <text x="305" y="127" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">11</text>
+  <text x="355" y="127" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">10</text>
+  <text x="405" y="127" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">9</text>
+  <text x="455" y="127" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">8</text>
+  <text x="505" y="127" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">7</text>
+  <text x="555" y="127" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">6</text>
+  <text x="605" y="127" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">5</text>
+  <text x="655" y="127" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">4</text>
+  <text x="705" y="127" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">3</text>
+  <text x="755" y="127" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">2</text>
+  <text x="805" y="127" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">1</text>
+  <text x="855" y="127" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">0</text>
+
+  <!-- Bit Boxes -->
+  <!-- Bit 15: Parity -->
+  <rect x="80" y="135" width="50" height="48" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="105" y="164" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">PAR</text>
+
+  <!-- Bit 14: Error Flag -->
+  <rect x="130" y="135" width="50" height="48" fill="#fdecea" stroke="#c0392b" stroke-width="2"/>
+  <text x="155" y="164" font-size="14" font-weight="bold" fill="#c0392b" text-anchor="middle">EF</text>
+
+  <!-- Bits 13..0: Data Payload -->
+  <rect x="180" y="135" width="700" height="48" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <!-- Internal bit grid lines -->
+  <line x1="230" y1="135" x2="230" y2="183" stroke="#27ae60" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="280" y1="135" x2="280" y2="183" stroke="#27ae60" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="330" y1="135" x2="330" y2="183" stroke="#27ae60" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="380" y1="135" x2="380" y2="183" stroke="#27ae60" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="430" y1="135" x2="430" y2="183" stroke="#27ae60" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="480" y1="135" x2="480" y2="183" stroke="#27ae60" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="530" y1="135" x2="530" y2="183" stroke="#27ae60" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="580" y1="135" x2="580" y2="183" stroke="#27ae60" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="630" y1="135" x2="630" y2="183" stroke="#27ae60" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="680" y1="135" x2="680" y2="183" stroke="#27ae60" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="730" y1="135" x2="730" y2="183" stroke="#27ae60" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="780" y1="135" x2="780" y2="183" stroke="#27ae60" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="830" y1="135" x2="830" y2="183" stroke="#27ae60" stroke-width="1" stroke-dasharray="2,2"/>
+
+  <!-- Bit labels 13..0 inside boxes -->
+  <text x="205" y="164" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">D13</text>
+  <text x="255" y="164" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">D12</text>
+  <text x="305" y="164" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">D11</text>
+  <text x="355" y="164" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">D10</text>
+  <text x="405" y="164" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">D9</text>
+  <text x="455" y="164" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">D8</text>
+  <text x="505" y="164" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">D7</text>
+  <text x="555" y="164" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">D6</text>
+  <text x="605" y="164" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">D5</text>
+  <text x="655" y="164" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">D4</text>
+  <text x="705" y="164" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">D3</text>
+  <text x="755" y="164" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">D2</text>
+  <text x="805" y="164" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">D1</text>
+  <text x="855" y="164" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">D0</text>
+
+  <!-- Routing Lines from Bits to Cards -->
+  <!-- Parity Bit Routing (Blue) -->
+  <path d="M 105 183 L 105 222 L 165 222 L 165 242" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Error Flag Routing (Red) -->
+  <path d="M 155 183 L 155 214 L 410 214 L 410 242" fill="none" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+
+  <!-- Data Payload Routing (Green) -->
+  <!-- Bracket over DATA bits -->
+  <path d="M 185 183 L 185 206 L 875 206 L 875 183" fill="none" stroke="#27ae60" stroke-width="2"/>
+  <path d="M 530 206 L 530 230 L 725 230 L 725 242" fill="none" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- Lower Panel 1: Parity Explanation Card -->
+  <rect x="50" y="250" width="230" height="245" fill="#f4f6f8" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <path d="M 50 256 A 6 6 0 0 1 56 250 L 274 250 A 6 6 0 0 1 280 256 L 280 282 L 50 282 Z" fill="#eaf0fd"/>
+  <line x1="50" y1="282" x2="280" y2="282" stroke="#2457d6" stroke-width="1"/>
+  <text x="165" y="271" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">PAR — Парність (Bit 15)</text>
+
+  <text x="64" y="303" font-size="12" font-weight="bold" fill="#1a1a1a">Контроль парності (Even):</text>
+  <text x="64" y="323" font-size="12" fill="#6b7280">• Сума всіх 16 бітів (15..0)</text>
+  <text x="64" y="341" font-size="12" fill="#6b7280">  має бути ПАРНОЮ (Even).</text>
+  <text x="64" y="359" font-size="12" fill="#6b7280">• Виявляє поодинокі спотворення</text>
+  <text x="64" y="377" font-size="12" fill="#6b7280">  даних на шині SPI.</text>
+
+  <rect x="62" y="392" width="206" height="90" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="4"/>
+  <text x="72" y="412" font-size="12" font-weight="bold" fill="#2457d6">Перевірка в драйвері:</text>
+  <text x="72" y="432" font-size="12" font-weight="bold" fill="#1a1a1a">if (__builtin_parity(v))</text>
+  <text x="72" y="452" font-size="12" fill="#c0392b">    return ERR_PARITY;</text>
+  <text x="72" y="470" font-size="12" fill="#27ae60">else ok = true;</text>
+
+  <!-- Lower Panel 2: Error Flag Explanation Card -->
+  <rect x="295" y="250" width="230" height="245" fill="#f4f6f8" stroke="#c0392b" stroke-width="1.5" rx="6"/>
+  <path d="M 295 256 A 6 6 0 0 1 301 250 L 519 250 A 6 6 0 0 1 525 256 L 525 282 L 295 282 Z" fill="#fdecea"/>
+  <line x1="295" y1="282" x2="525" y2="282" stroke="#c0392b" stroke-width="1"/>
+  <text x="410" y="271" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">EF — Прапор помилки (Bit 14)</text>
+
+  <text x="309" y="303" font-size="12" font-weight="bold" fill="#1a1a1a">Статус давача (Error Flag):</text>
+  <text x="309" y="323" font-size="12" fill="#27ae60">• EF = 0: Дані кута дійсні</text>
+  <text x="309" y="341" font-size="12" fill="#c0392b">• EF = 1: Апаратний збій давача</text>
+  <text x="309" y="359" font-size="12" fill="#6b7280">  (слабке/сильне магн. поле,</text>
+  <text x="309" y="377" font-size="12" fill="#6b7280">   помилка framing/parity).</text>
+
+  <rect x="307" y="392" width="206" height="90" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="4"/>
+  <text x="317" y="412" font-size="12" font-weight="bold" fill="#c0392b">Алгоритм обробки EF = 1:</text>
+  <text x="317" y="432" font-size="12" font-weight="bold" fill="#1a1a1a">1. Відкинути поточний кадр</text>
+  <text x="317" y="452" font-size="12" fill="#6b7280">2. Прочитати рег. 0x0001</text>
+  <text x="317" y="470" font-size="12" fill="#6b7280">   (Clear Error Flag)</text>
+
+  <!-- Lower Panel 3: Data Payload Explanation Card -->
+  <rect x="540" y="250" width="370" height="245" fill="#f4f6f8" stroke="#27ae60" stroke-width="1.5" rx="6"/>
+  <path d="M 540 256 A 6 6 0 0 1 546 250 L 904 250 A 6 6 0 0 1 910 256 L 910 282 L 540 282 Z" fill="#e9f7ef"/>
+  <line x1="540" y1="282" x2="910" y2="282" stroke="#27ae60" stroke-width="1"/>
+  <text x="725" y="271" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">DATA[13:0] — 14-бітовий код кута (Bits 13..0)</text>
+
+  <!-- Sub-card 3A: Resolution & Specs -->
+  <rect x="552" y="292" width="168" height="190" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="4"/>
+  <text x="636" y="312" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Параметри давача</text>
+  <line x1="562" y1="320" x2="710" y2="320" stroke="#e1e4e8" stroke-width="1"/>
+  <text x="562" y="340" font-size="12" fill="#1a1a1a">• Розрядність: 14 бітів</text>
+  <text x="562" y="360" font-size="12" fill="#1a1a1a">• Градацій: N = 2¹⁴</text>
+  <text x="562" y="380" font-size="12" fill="#1a1a1a">  = 16 384 відліків</text>
+  <text x="562" y="404" font-size="12" font-weight="bold" fill="#2457d6">• Дискрет (LSB):</text>
+  <text x="562" y="424" font-size="12" font-weight="bold" fill="#27ae60">  360° / 16384 ≈ 0.022°</text>
+  <text x="562" y="444" font-size="12" fill="#6b7280">  (~1.32 кутових мінут)</text>
+  <text x="562" y="468" font-size="12" fill="#6b7280">Діапазон: 0..16383</text>
+
+  <!-- Sub-card 3B: Calculation Formula -->
+  <rect x="730" y="292" width="168" height="190" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="4"/>
+  <text x="814" y="312" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Обчислення кута</text>
+  <line x1="740" y1="320" x2="888" y2="320" stroke="#e1e4e8" stroke-width="1"/>
+  <text x="740" y="340" font-size="12" font-weight="bold" fill="#2457d6">Базова формула:</text>
+  <text x="740" y="360" font-size="12" font-weight="bold" fill="#1a1a1a">θ = DATA × 360° / 16384</text>
+  <text x="740" y="388" font-size="12" font-weight="bold" fill="#1a1a1a">Зі зміщенням нуля:</text>
+  <text x="740" y="408" font-size="12" fill="#6b7280">raw = (DATA - Offset)</text>
+  <text x="740" y="426" font-size="12" fill="#6b7280">    &amp; 0x3FFF;</text>
+  <text x="740" y="448" font-size="12" font-weight="bold" fill="#27ae60">θ_deg = raw × 0.02197°</text>
+  <text x="740" y="468" font-size="12" fill="#27ae60">Вивід: 0.00° .. 359.98°</text>
+</svg>

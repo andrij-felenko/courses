@@ -1,0 +1,99 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="480" fill="#ffffff"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="35" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Схема розв'язки живлення ІЧ-далекоміра Sharp GP2Y0A21</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Розв'язувальні конденсатори C1 та C2 підключають якомога ближче до виводів живлення VCC і GND</text>
+
+  <!-- БЛОК 1: Sharp GP2Y0A21 -->
+  <rect x="30" y="80" width="250" height="370" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <rect x="40" y="92" width="230" height="32" rx="4" fill="#eaf0fd"/>
+  <text x="155" y="113" font-size="14" font-weight="700" fill="#2457d6" text-anchor="middle">Sharp GP2Y0A21YK0F</text>
+  <text x="155" y="140" font-size="12" fill="#6b7280" text-anchor="middle">ІЧ-далекомір (10–80 см)</text>
+
+  <!-- Внутрішня оптика та примітка -->
+  <rect x="50" y="158" width="210" height="110" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="155" y="180" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Оптична система</text>
+  <text x="155" y="200" font-size="12" fill="#c0392b" text-anchor="middle">ІЧ-випромінювач (LED)</text>
+  <text x="155" y="220" font-size="12" fill="#6b7280" text-anchor="middle">Сплески струму: ~200 мА</text>
+  <text x="155" y="240" font-size="12" fill="#6b7280" text-anchor="middle">Тривалість: ~245 мкс</text>
+
+  <!-- Виводи на корпусі давача -->
+  <rect x="250" y="280" width="30" height="150" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="235" y="174" font-size="12" font-weight="700" fill="#c0392b" text-anchor="end">VCC</text>
+  <text x="235" y="294" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="end">GND</text>
+  <text x="235" y="414" font-size="12" font-weight="700" fill="#2457d6" text-anchor="end">Vo</text>
+
+  <!-- БЛОК 2: Зона розв'язки (Decoupling Zone) -->
+  <rect x="305" y="80" width="350" height="370" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="2" stroke-dasharray="6,4"/>
+  <rect x="315" y="92" width="330" height="32" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="480" y="113" font-size="13" font-weight="700" fill="#27ae60" text-anchor="middle">Зона розв'язки (поблизу виводів VCC / GND)</text>
+
+  <!-- Лінії живлення та сигналу -->
+  <!-- VCC Rail -->
+  <line x1="680" y1="170" x2="280" y2="170" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arr-red)"/>
+  <text x="295" y="156" font-size="12" font-weight="700" fill="#c0392b" text-anchor="start">VCC (+5V)</text>
+
+  <!-- GND Rail -->
+  <line x1="680" y1="290" x2="280" y2="290" stroke="#1a1a1a" stroke-width="2.5"/>
+  <text x="295" y="276" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="start">GND (0V)</text>
+
+  <!-- Signal Vo Rail -->
+  <line x1="280" y1="410" x2="680" y2="410" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+  <text x="295" y="396" font-size="12" font-weight="700" fill="#2457d6" text-anchor="start">Vo (Аналоговий сигнал 0.4–3.1 В)</text>
+
+  <!-- Конденсатор C1 (Електролітичний) -->
+  <circle cx="410" cy="170" r="4" fill="#c0392b"/>
+  <circle cx="410" cy="290" r="4" fill="#1a1a1a"/>
+  <line x1="410" y1="170" x2="410" y2="216" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="398" y1="216" x2="422" y2="216" stroke="#1a1a1a" stroke-width="3"/>
+  <line x1="398" y1="224" x2="422" y2="224" stroke="#1a1a1a" stroke-width="3"/>
+  <line x1="410" y1="224" x2="410" y2="290" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="390" y="215" font-size="13" font-weight="700" fill="#c0392b" text-anchor="end">+</text>
+  <text x="380" y="195" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="end">C1: 10–47 мкФ</text>
+  <text x="380" y="245" font-size="12" fill="#6b7280" text-anchor="end">(Електроліт)</text>
+  <text x="400" y="322" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">НЧ-буфер струму</text>
+  <text x="400" y="339" font-size="12" fill="#1a1a1a" text-anchor="middle">Згладжує сплески</text>
+  <text x="400" y="356" font-size="12" fill="#6b7280" text-anchor="middle">під час спалахів ІЧ</text>
+
+  <!-- Конденсатор C2 (Керамічний) -->
+  <circle cx="550" cy="170" r="4" fill="#c0392b"/>
+  <circle cx="550" cy="290" r="4" fill="#1a1a1a"/>
+  <line x1="550" y1="170" x2="550" y2="216" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="538" y1="216" x2="562" y2="216" stroke="#1a1a1a" stroke-width="3"/>
+  <line x1="538" y1="224" x2="562" y2="224" stroke="#1a1a1a" stroke-width="3"/>
+  <line x1="550" y1="224" x2="550" y2="290" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="575" y="195" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="start">C2: 0.1 мкФ (100 нФ)</text>
+  <text x="575" y="245" font-size="12" fill="#6b7280" text-anchor="start">(Кераміка)</text>
+  <text x="550" y="322" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">ВЧ-фільтрація</text>
+  <text x="550" y="339" font-size="12" fill="#1a1a1a" text-anchor="middle">Гасить високочастотні</text>
+  <text x="550" y="356" font-size="12" fill="#6b7280" text-anchor="middle">шуми та завади</text>
+
+  <!-- БЛОК 3: Мікроконтролер (MCU) -->
+  <rect x="680" y="80" width="250" height="370" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <rect x="690" y="92" width="230" height="32" rx="4" fill="#eaf0fd"/>
+  <text x="805" y="113" font-size="14" font-weight="700" fill="#2457d6" text-anchor="middle">Мікроконтролер (MCU)</text>
+  <text x="805" y="140" font-size="12" fill="#6b7280" text-anchor="middle">Arduino / ESP32 / STM32</text>
+
+  <!-- Виводи MCU -->
+  <rect x="680" y="150" width="28" height="280" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="718" y="174" font-size="12" font-weight="700" fill="#c0392b" text-anchor="start">+5V (VCC)</text>
+  <text x="718" y="294" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="start">GND</text>
+  <text x="718" y="414" font-size="12" font-weight="700" fill="#2457d6" text-anchor="start">A0 (АЦП)</text>
+
+  <!-- Додаткові описи в Блоці MCU -->
+  <text x="805" y="210" font-size="12" fill="#6b7280" text-anchor="middle">Джерело живлення +5В</text>
+  <text x="805" y="240" font-size="12" fill="#6b7280" text-anchor="middle">Спільна шина Ground</text>
+  <text x="805" y="340" font-size="12" fill="#6b7280" text-anchor="middle">Обробка аналогового сигналу</text>
+  <text x="805" y="360" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">Фільтрація + LUT-лінеаризація</text>
+</svg>

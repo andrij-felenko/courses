@@ -1,0 +1,209 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 500" width="960" height="500" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-black" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M 0,0 L 8,4 L 0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red-right" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M 0,0 L 8,4 L 0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-red-left" markerWidth="8" markerHeight="8" refX="1" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M 8,0 L 0,4 L 8,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Background Canvas -->
+  <rect x="0" y="0" width="960" height="500" fill="#ffffff"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="30" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Часова діаграма шини I2S для MEMS-мікрофона</text>
+  <text x="480" y="50" font-size="13" fill="#6b7280" text-anchor="middle">Передача аудіоданих SD із зсувом на 1 такт BCLK відносно фронту вибірки каналу WS</text>
+
+  <!-- Main Waveform Panel -->
+  <rect x="35" y="65" width="890" height="278" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="8"/>
+
+  <!-- Channel Region Overlay Panels -->
+  <!-- Left Channel Region (WS = 0) -->
+  <rect x="240" y="73" width="280" height="262" fill="#eaf0fd" fill-opacity="0.4" stroke="#b4c6fc" stroke-width="1" stroke-dasharray="4,4" rx="6"/>
+  <text x="380" y="89" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">ЛІВИЙ КАНАЛ (WS = 0)</text>
+
+  <!-- Right Channel Region (WS = 1) -->
+  <rect x="520" y="73" width="280" height="262" fill="#e9f7ef" fill-opacity="0.4" stroke="#a3e4d7" stroke-width="1" stroke-dasharray="4,4" rx="6"/>
+  <text x="660" y="89" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">ПРАВИЙ КАНАЛ (WS = 1)</text>
+
+  <!-- Signal Labels (Left Column) -->
+  <!-- WS Signal Label -->
+  <text x="55" y="118" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="start">WS (LRCLK)</text>
+  <text x="55" y="134" font-size="12" fill="#6b7280" text-anchor="start">Вибір каналу</text>
+
+  <!-- BCLK Signal Label -->
+  <text x="55" y="185" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="start">BCLK</text>
+  <text x="55" y="201" font-size="12" fill="#6b7280" text-anchor="start">Тактовий сигнал</text>
+
+  <!-- SD Signal Label -->
+  <text x="55" y="265" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="start">SD (SDATA)</text>
+  <text x="55" y="281" font-size="12" fill="#6b7280" text-anchor="start">Дані мікрофона</text>
+
+  <!-- Waveform Grid Base Lines -->
+  <line x1="180" y1="135" x2="860" y2="135" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="180" y1="205" x2="860" y2="205" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2,2"/>
+
+  <!-- Vertical Sampling Dashed Lines (from BCLK rising edge down to SD cell top) -->
+  <!-- Left Channel Sampling Lines -->
+  <line x1="300" y1="175" x2="300" y2="250" stroke="#27ae60" stroke-width="1" stroke-dasharray="3,3"/>
+  <circle cx="300" cy="175" r="3" fill="#27ae60"/>
+
+  <line x1="340" y1="175" x2="340" y2="250" stroke="#27ae60" stroke-width="1" stroke-dasharray="3,3"/>
+  <circle cx="340" cy="175" r="3" fill="#27ae60"/>
+
+  <line x1="380" y1="175" x2="380" y2="250" stroke="#27ae60" stroke-width="1" stroke-dasharray="3,3"/>
+  <circle cx="380" cy="175" r="3" fill="#27ae60"/>
+
+  <line x1="420" y1="175" x2="420" y2="250" stroke="#27ae60" stroke-width="1" stroke-dasharray="3,3"/>
+  <circle cx="420" cy="175" r="3" fill="#27ae60"/>
+
+  <line x1="460" y1="175" x2="460" y2="250" stroke="#27ae60" stroke-width="1" stroke-dasharray="3,3"/>
+  <circle cx="460" cy="175" r="3" fill="#27ae60"/>
+
+  <line x1="500" y1="175" x2="500" y2="250" stroke="#27ae60" stroke-width="1" stroke-dasharray="3,3"/>
+  <circle cx="500" cy="175" r="3" fill="#27ae60"/>
+
+  <!-- Right Channel Sampling Lines -->
+  <line x1="580" y1="175" x2="580" y2="250" stroke="#27ae60" stroke-width="1" stroke-dasharray="3,3"/>
+  <circle cx="580" cy="175" r="3" fill="#27ae60"/>
+
+  <line x1="620" y1="175" x2="620" y2="250" stroke="#27ae60" stroke-width="1" stroke-dasharray="3,3"/>
+  <circle cx="620" cy="175" r="3" fill="#27ae60"/>
+
+  <line x1="660" y1="175" x2="660" y2="250" stroke="#27ae60" stroke-width="1" stroke-dasharray="3,3"/>
+  <circle cx="660" cy="175" r="3" fill="#27ae60"/>
+
+  <line x1="700" y1="175" x2="700" y2="250" stroke="#27ae60" stroke-width="1" stroke-dasharray="3,3"/>
+  <circle cx="700" cy="175" r="3" fill="#27ae60"/>
+
+  <line x1="740" y1="175" x2="740" y2="250" stroke="#27ae60" stroke-width="1" stroke-dasharray="3,3"/>
+  <circle cx="740" cy="175" r="3" fill="#27ae60"/>
+
+  <line x1="780" y1="175" x2="780" y2="250" stroke="#27ae60" stroke-width="1" stroke-dasharray="3,3"/>
+  <circle cx="780" cy="175" r="3" fill="#27ae60"/>
+
+  <!-- TRACK 1: WS (LRCLK) Waveform -->
+  <path d="M 180,105 L 240,105 L 240,135 L 520,135 L 520,105 L 800,105 L 800,135 L 860,135" fill="none" stroke="#2457d6" stroke-width="2.5" stroke-linejoin="round"/>
+
+  <!-- WS Transition Marker Line at Frame Start -->
+  <line x1="240" y1="73" x2="240" y2="135" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <text x="240" y="152" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Фронт WS (Початок кадру)</text>
+
+  <!-- Legend for Sampling Points at y=152 (outside vertical sampling lines range y=175..250) -->
+  <text x="660" y="152" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">▲ Зчитування бітів по фронту BCLK</text>
+
+  <!-- TRACK 2: BCLK Waveform -->
+  <path d="M 180,205 L 200,205 L 200,175 L 220,175 L 220,205 L 240,205 L 240,175 L 260,175 L 260,205 L 280,205 L 280,175 L 300,175 L 300,205 L 320,205 L 320,175 L 340,175 L 340,205 L 360,205 L 360,175 L 380,175 L 380,205 L 400,205 L 400,175 L 420,175 L 420,205 L 440,205 L 440,175 L 460,175 L 460,205 L 480,205 L 480,175 L 500,175 L 500,205 L 520,205 L 520,175 L 540,175 L 540,205 L 560,205 L 560,175 L 580,175 L 580,205 L 600,205 L 600,175 L 620,175 L 620,205 L 640,205 L 640,175 L 660,175 L 660,205 L 680,205 L 680,175 L 700,175 L 700,205 L 720,205 L 720,175 L 740,175 L 740,205 L 760,205 L 760,175 L 780,175 L 780,205 L 800,205 L 800,175 L 820,175 L 820,205 L 840,205 L 840,175 L 860,175" fill="none" stroke="#1a1a1a" stroke-width="2" stroke-linejoin="round"/>
+
+  <!-- Annotations in Gap 2 (between BCLK and SD) -->
+  <!-- 1 BCLK Delay Dimension Line & Text (Left channel) -->
+  <line x1="240" y1="224" x2="280" y2="224" stroke="#c0392b" stroke-width="1.5" marker-start="url(#arr-red-left)" marker-end="url(#arr-red-right)"/>
+  <text x="260" y="218" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Зсув 1 BCLK</text>
+
+  <!-- 1 BCLK Delay Dimension Line & Text (Right channel) -->
+  <line x1="520" y1="224" x2="560" y2="224" stroke="#c0392b" stroke-width="1.5" marker-start="url(#arr-red-left)" marker-end="url(#arr-red-right)"/>
+  <text x="540" y="218" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Зсув 1 BCLK</text>
+
+  <!-- TRACK 3: SD (SDATA) Bus Data Cells -->
+  <!-- Cell 0: Previous / Idle Data -->
+  <polygon points="180,268 185,250 235,250 240,268 235,286 185,286" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Cell 1: 1 BCLK Delay Slot (Left) -->
+  <polygon points="240,268 245,250 275,250 280,268 275,286 245,286" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="260" y="272" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Зсув</text>
+
+  <!-- Cell 2: MSB (Left) -->
+  <polygon points="280,268 285,250 315,250 320,268 315,286 285,286" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="300" y="272" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">MSB</text>
+
+  <!-- Cell 3: Bit 22 -->
+  <polygon points="320,268 325,250 355,250 360,268 355,286 325,286" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="340" y="272" font-size="12" fill="#1a1a1a" text-anchor="middle">B22</text>
+
+  <!-- Cell 4: Bit 21 -->
+  <polygon points="360,268 365,250 395,250 400,268 395,286 365,286" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="380" y="272" font-size="12" fill="#1a1a1a" text-anchor="middle">B21</text>
+
+  <!-- Cell 5: ... -->
+  <polygon points="400,268 405,250 435,250 440,268 435,286 405,286" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="420" y="272" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">...</text>
+
+  <!-- Cell 6: Bit 1 -->
+  <polygon points="440,268 445,250 475,250 480,268 475,286 445,286" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="460" y="272" font-size="12" fill="#1a1a1a" text-anchor="middle">B1</text>
+
+  <!-- Cell 7: LSB (Left) -->
+  <polygon points="480,268 485,250 515,250 520,268 515,286 485,286" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="500" y="272" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">LSB</text>
+
+  <!-- Cell 8: 1 BCLK Delay Slot (Right) -->
+  <polygon points="520,268 525,250 555,250 560,268 555,286 525,286" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="540" y="272" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Зсув</text>
+
+  <!-- Cell 9: MSB (Right) -->
+  <polygon points="560,268 565,250 595,250 600,268 595,286 565,286" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <text x="580" y="272" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">MSB</text>
+
+  <!-- Cell 10: Bit 22 -->
+  <polygon points="600,268 605,250 635,250 640,268 635,286 605,286" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="620" y="272" font-size="12" fill="#1a1a1a" text-anchor="middle">B22</text>
+
+  <!-- Cell 11: Bit 21 -->
+  <polygon points="640,268 645,250 675,250 680,268 675,286 645,286" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="660" y="272" font-size="12" fill="#1a1a1a" text-anchor="middle">B21</text>
+
+  <!-- Cell 12: ... -->
+  <polygon points="680,268 685,250 715,250 720,268 715,286 685,286" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="700" y="272" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">...</text>
+
+  <!-- Cell 13: Bit 1 -->
+  <polygon points="720,268 725,250 755,250 760,268 755,286 725,286" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="740" y="272" font-size="12" fill="#1a1a1a" text-anchor="middle">B1</text>
+
+  <!-- Cell 14: LSB (Right) -->
+  <polygon points="760,268 765,250 795,250 800,268 795,286 765,286" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <text x="780" y="272" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">LSB</text>
+
+  <!-- Cell 15: 1 BCLK Delay Slot (Next Frame) -->
+  <polygon points="800,268 805,250 835,250 840,268 835,286 805,286" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="820" y="272" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Зсув</text>
+
+  <!-- Channel Status Boxes below SD Track -->
+  <rect x="280" y="296" width="240" height="26" fill="#ffffff" stroke="#b4c6fc" stroke-width="1" rx="4"/>
+  <text x="400" y="313" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Дані: Лівий канал (24/32-біт PCM)</text>
+
+  <rect x="560" y="296" width="240" height="26" fill="#ffffff" stroke="#a3e4d7" stroke-width="1" rx="4"/>
+  <text x="680" y="313" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Дані: Правий канал (24/32-біт PCM)</text>
+
+  <!-- Bottom Explanatory Cards Section -->
+  <!-- Card 1: 1 BCLK Delay Specification -->
+  <rect x="35" y="355" width="280" height="125" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <path d="M 35,361 A 6,6 0 0 1 41,355 L 309,355 A 6,6 0 0 1 315,361 L 315,383 L 35,383 Z" fill="#eaf0fd"/>
+  <text x="175" y="374" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">1. ЗСУВ НА 1 ТАКТ BCLK</text>
+  <text x="45" y="398" font-size="12" fill="#1a1a1a" text-anchor="start">• Перший біт MSB передається</text>
+  <text x="45" y="416" font-size="12" fill="#1a1a1a" text-anchor="start">  зі зсувом на 1 такт після WS</text>
+  <text x="45" y="434" font-size="12" fill="#1a1a1a" text-anchor="start">• Тактова частота: BCLK = 64 × fₛ</text>
+  <text x="45" y="452" font-size="12" fill="#6b7280" text-anchor="start">• fₛ = частота дискретизації (WS)</text>
+
+  <!-- Card 2: Sampling Phase & Edge -->
+  <rect x="340" y="355" width="280" height="125" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <path d="M 340,361 A 6,6 0 0 1 346,355 L 614,355 A 6,6 0 0 1 620,355 L 620,383 L 340,383 Z" fill="#e9f7ef"/>
+  <text x="480" y="374" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">2. СИНХРОНІЗАЦІЯ ВИБІРКИ</text>
+  <text x="350" y="398" font-size="12" fill="#1a1a1a" text-anchor="start">• Мікрофон змінює SD по ▼ BCLK</text>
+  <text x="350" y="416" font-size="12" fill="#1a1a1a" text-anchor="start">• ESP32 зчитує SD по ▲ BCLK</text>
+  <text x="350" y="434" font-size="12" fill="#1a1a1a" text-anchor="start">• Забезпечує максимальний</text>
+  <text x="350" y="452" font-size="12" fill="#6b7280" text-anchor="start">  запас завадостійкості даних</text>
+
+  <!-- Card 3: Hardware Addressing (L/R) -->
+  <rect x="645" y="355" width="280" height="125" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <path d="M 645,361 A 6,6 0 0 1 651,355 L 919,355 A 6,6 0 0 1 925,355 L 925,383 L 645,383 Z" fill="#fdecea"/>
+  <text x="785" y="374" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">3. АПАРАТНИЙ ВИБІР КАНАЛУ</text>
+  <text x="655" y="398" font-size="12" fill="#1a1a1a" text-anchor="start">• Pin L/R = GND ➔ Лівий (WS=0)</text>
+  <text x="655" y="416" font-size="12" fill="#1a1a1a" text-anchor="start">• Pin L/R = VDD ➔ Правий (WS=1)</text>
+  <text x="655" y="434" font-size="12" fill="#1a1a1a" text-anchor="start">• В неактивному каналі вихід SD</text>
+  <text x="655" y="452" font-size="12" fill="#6b7280" text-anchor="start">  переходить у High-Z стан</text>
+</svg>

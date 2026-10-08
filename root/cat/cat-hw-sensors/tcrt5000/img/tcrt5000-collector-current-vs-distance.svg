@@ -1,0 +1,186 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-black" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">TCRT5000: Залежність струму колектора I_C від відстані d</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Пікова чутливість на відстані 2,5 мм; швидкий спад при d &gt; 3 мм</text>
+
+  <!-- Y-Axis Title -->
+  <text x="100" y="74" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">I_C / I_Cmax (%)</text>
+
+  <!-- Grid Lines -->
+  <line x1="100" y1="320" x2="640" y2="320" stroke="#e5e7eb" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="100" y1="250" x2="640" y2="250" stroke="#e5e7eb" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="100" y1="180" x2="640" y2="180" stroke="#e5e7eb" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="100" y1="110" x2="640" y2="110" stroke="#e5e7eb" stroke-width="1" stroke-dasharray="3,3"/>
+
+  <line x1="280" y1="110" x2="280" y2="390" stroke="#e5e7eb" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="370" y1="110" x2="370" y2="390" stroke="#e5e7eb" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="460" y1="110" x2="460" y2="125" stroke="#e5e7eb" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="460" y1="177" x2="460" y2="390" stroke="#e5e7eb" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="550" y1="110" x2="550" y2="125" stroke="#e5e7eb" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="550" y1="177" x2="550" y2="390" stroke="#e5e7eb" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="640" y1="110" x2="640" y2="390" stroke="#e5e7eb" stroke-width="1" stroke-dasharray="3,3"/>
+
+  <!-- Shaded Area Under Curve -->
+  <path d="M 100,390 L 100,376 C 110,350 125,260 136,222 C 150,170 170,110 190,110 C 210,110 230,170 280,244.4 C 330,300 390,320 460,339.6 C 530,358 590,370 640,373.2 L 640,390 Z" fill="#2457d6" fill-opacity="0.08"/>
+
+  <!-- Peak Guide Lines -->
+  <line x1="190" y1="110" x2="190" y2="390" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <line x1="190" y1="110" x2="100" y2="110" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4,4"/>
+
+  <!-- Main Curve Path -->
+  <path d="M 100,376 C 110,350 125,260 136,222 C 150,170 170,110 190,110 C 210,110 230,170 280,244.4 C 330,300 390,320 460,339.6 C 530,358 590,370 640,373.2" fill="none" stroke="#2457d6" stroke-width="3" stroke-linecap="round"/>
+
+  <!-- Key Curve Points -->
+  <circle cx="190" cy="110" r="5" fill="#2457d6" stroke="#ffffff" stroke-width="2"/>
+  <circle cx="280" cy="244.4" r="4" fill="#2457d6"/>
+  <circle cx="460" cy="339.6" r="4" fill="#2457d6"/>
+  <circle cx="640" cy="373.2" r="4" fill="#2457d6"/>
+
+  <!-- Peak Callout Badge -->
+  <rect x="210" y="75" width="155" height="26" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="287.5" y="92" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Пік: d = 2,5 мм (100%)</text>
+  <line x1="210" y1="88" x2="197" y2="88" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="197" y1="88" x2="197" y2="103" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Measurement Conditions Box -->
+  <rect x="420" y="125" width="210" height="50" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="430" y="143" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="start">Умови вимірювання:</text>
+  <text x="430" y="162" font-size="11" fill="#6b7280" text-anchor="start">Білий папір (відбивання 90%)</text>
+
+  <!-- Axes -->
+  <line x1="100" y1="390" x2="645" y2="390" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr-black)"/>
+  <line x1="100" y1="390" x2="100" y2="85" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr-black)"/>
+
+  <!-- X-Axis Label -->
+  <text x="652" y="394" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">d (мм)</text>
+
+  <!-- Y-Axis Ticks & Labels -->
+  <line x1="95" y1="110" x2="100" y2="110" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="90" y="114" font-size="12" fill="#1a1a1a" text-anchor="end">100%</text>
+
+  <line x1="95" y1="180" x2="100" y2="180" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="90" y="184" font-size="12" fill="#1a1a1a" text-anchor="end">75%</text>
+
+  <line x1="95" y1="250" x2="100" y2="250" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="90" y="254" font-size="12" fill="#1a1a1a" text-anchor="end">50%</text>
+
+  <line x1="95" y1="320" x2="100" y2="320" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="90" y="324" font-size="12" fill="#1a1a1a" text-anchor="end">25%</text>
+
+  <line x1="95" y1="390" x2="100" y2="390" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="90" y="394" font-size="12" fill="#1a1a1a" text-anchor="end">0%</text>
+
+  <!-- X-Axis Ticks & Labels -->
+  <line x1="100" y1="390" x2="100" y2="395" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="100" y="406" font-size="11" fill="#1a1a1a" text-anchor="middle">0</text>
+
+  <line x1="136" y1="390" x2="136" y2="395" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="136" y="406" font-size="11" fill="#1a1a1a" text-anchor="middle">1,0</text>
+
+  <line x1="190" y1="390" x2="190" y2="395" stroke="#2457d6" stroke-width="2"/>
+  <text x="190" y="406" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">2,5</text>
+
+  <line x1="280" y1="390" x2="280" y2="395" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="280" y="406" font-size="11" fill="#1a1a1a" text-anchor="middle">5,0</text>
+
+  <line x1="370" y1="390" x2="370" y2="395" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="370" y="406" font-size="11" fill="#1a1a1a" text-anchor="middle">7,5</text>
+
+  <line x1="460" y1="390" x2="460" y2="395" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="460" y="406" font-size="11" fill="#1a1a1a" text-anchor="middle">10,0</text>
+
+  <line x1="550" y1="390" x2="550" y2="395" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="550" y="406" font-size="11" fill="#1a1a1a" text-anchor="middle">12,5</text>
+
+  <line x1="640" y1="390" x2="640" y2="395" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="640" y="406" font-size="11" fill="#1a1a1a" text-anchor="middle">15,0</text>
+
+  <!-- Operational Zone Summary Cards Below X-Axis -->
+  <rect x="100" y="418" width="70" height="38" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="135" y="433" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">Сліпа зона</text>
+  <text x="135" y="447" font-size="11" fill="#6b7280" text-anchor="middle">&lt; 0,5 мм</text>
+
+  <rect x="182" y="418" width="130" height="38" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="247" y="433" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">Оптимальна зона</text>
+  <text x="247" y="447" font-size="11" fill="#6b7280" text-anchor="middle">1,5 – 3,5 мм</text>
+
+  <rect x="324" y="418" width="316" height="38" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="482" y="433" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Зона спаду чутливості</text>
+  <text x="482" y="447" font-size="11" fill="#6b7280" text-anchor="middle">4,0 – 15,0 мм</text>
+
+  <!-- Right Side Panel -->
+  <rect x="695" y="75" width="245" height="381" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="817.5" y="98" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Фізика оптичного перекриття</text>
+  <line x1="705" y1="108" x2="930" y2="108" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Optical Geometry Box -->
+  <rect x="705" y="116" width="225" height="130" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  
+  <!-- Reflecting surface -->
+  <text x="817.5" y="131" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Відбивальна поверхня</text>
+  <rect x="737.5" y="135" width="160" height="6" rx="2" fill="#95a5a6"/>
+
+  <!-- Light Cones -->
+  <polygon points="747.5,215 782.5,215 845,141 810,141" fill="#2457d6" fill-opacity="0.15"/>
+  <line x1="747.5" y1="215" x2="810" y2="141" stroke="#2457d6" stroke-width="1.2" stroke-dasharray="3,3"/>
+  <line x1="782.5" y1="215" x2="845" y2="141" stroke="#2457d6" stroke-width="1.2" stroke-dasharray="3,3"/>
+
+  <polygon points="790,141 825,141 887.5,215 852.5,215" fill="#27ae60" fill-opacity="0.15"/>
+  <line x1="790" y1="141" x2="852.5" y2="215" stroke="#27ae60" stroke-width="1.2" stroke-dasharray="3,3"/>
+  <line x1="825" y1="141" x2="887.5" y2="215" stroke="#27ae60" stroke-width="1.2" stroke-dasharray="3,3"/>
+
+  <!-- Overlap region highlight -->
+  <ellipse cx="817.5" cy="141" rx="7.5" ry="3" fill="#27ae60" stroke="#27ae60" stroke-width="1"/>
+
+  <!-- Overlap Callout Badge (placed in clear space on right) -->
+  <rect x="832" y="152" width="92" height="22" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="878" y="167" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">Перекриття</text>
+  <line x1="832" y1="163" x2="826" y2="163" stroke="#27ae60" stroke-width="1"/>
+  <line x1="826" y1="163" x2="826" y2="147" stroke="#27ae60" stroke-width="1" marker-end="url(#arr-green)"/>
+
+  <!-- Distance Indicator -->
+  <line x1="720" y1="141" x2="720" y2="210" stroke="#2457d6" stroke-width="1.5" marker-start="url(#arr-blue)" marker-end="url(#arr-blue)"/>
+  <text x="714" y="180" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="end">d</text>
+
+  <!-- Sensor Housing & Partition -->
+  <rect x="737.5" y="215" width="160" height="25" rx="3" fill="#2c3e50"/>
+  <rect x="747.5" y="215" width="35" height="4" fill="#2457d6"/>
+  <rect x="852.5" y="215" width="35" height="4" fill="#27ae60"/>
+  
+  <!-- Optical Partition (standing above housing top) -->
+  <rect x="812.5" y="195" width="10" height="20" rx="1" fill="#1a1a1a"/>
+  
+  <text x="765" y="232" font-size="11" font-weight="bold" fill="#ffffff" text-anchor="middle">ІЧ-LED</text>
+  <text x="870" y="232" font-size="11" font-weight="bold" fill="#ffffff" text-anchor="middle">Фото-Тр</text>
+
+  <!-- Explanatory Cards in Right Panel -->
+  <rect x="705" y="258" width="225" height="54" rx="5" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="715" y="273" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="start">d &lt; 0,5 мм: Мале перекриття</text>
+  <text x="715" y="288" font-size="11" fill="#1a1a1a" text-anchor="start">Промені зрізаються перегородкою</text>
+  <text x="715" y="302" font-size="11" fill="#6b7280" text-anchor="start">або відбиваються повз приймач</text>
+
+  <rect x="705" y="324" width="225" height="54" rx="5" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="715" y="339" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="start">d = 2,5 мм: Максимум I_C</text>
+  <text x="715" y="354" font-size="11" fill="#1a1a1a" text-anchor="start">Оптимальний перетин конусів</text>
+  <text x="715" y="368" font-size="11" fill="#6b7280" text-anchor="start">випромінювання та чутливості</text>
+
+  <rect x="705" y="390" width="225" height="54" rx="5" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="715" y="405" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">d &gt; 3,0 мм: Геометричний спад</text>
+  <text x="715" y="420" font-size="11" fill="#1a1a1a" text-anchor="start">Розсіювання плями світла та</text>
+  <text x="715" y="434" font-size="11" fill="#6b7280" text-anchor="start">падіння освітленості ~1/d²</text>
+</svg>

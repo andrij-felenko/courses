@@ -1,0 +1,145 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-main" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-accent" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-error" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-ok" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Цикл високошвидкісного збору даних libiio</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Пакетне оновлення буфера, перевірка переповнень і неблокуючий запис у накопичувач</text>
+
+  <!-- Kernel Space Panel -->
+  <rect x="30" y="72" width="900" height="68" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="45" y="92" font-size="12" font-weight="bold" fill="#6b7280">Ядро Linux (Kernel)</text>
+
+  <!-- Kernel Components -->
+  <rect x="210" y="82" width="170" height="50" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="295" y="100" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">IIO Давач / Sensor</text>
+  <text x="295" y="118" font-size="12" fill="#6b7280" text-anchor="middle">(Hardware Trigger)</text>
+
+  <path d="M 380 107 L 510 107" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-accent)"/>
+  <text x="445" y="99" font-size="12" fill="#2457d6" text-anchor="middle">DMA / IRQ</text>
+
+  <rect x="510" y="82" width="220" height="50" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="620" y="100" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Кільцевий буфер IIO</text>
+  <text x="620" y="118" font-size="12" fill="#6b7280" text-anchor="middle">(/dev/iio:device0)</text>
+
+  <!-- Connection Kernel -> User Space -->
+  <path d="M 620 132 L 620 165 L 142.5 165 L 142.5 225" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4 4" marker-end="url(#arr-accent)" fill="none"/>
+  <text x="381" y="157" font-size="12" fill="#2457d6" text-anchor="middle">sys_read() / refill</text>
+
+  <!-- User Space Panel -->
+  <rect x="30" y="190" width="900" height="330" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="480" y="210" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Простір користувача (User Space Data Logger Loop)</text>
+
+  <!-- Step 1 Card -->
+  <rect x="45" y="225" width="195" height="250" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="142.5" y="244" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">1. Отримання блоку</text>
+  <text x="142.5" y="260" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">iio_buffer_refill()</text>
+
+  <rect x="57" y="272" width="171" height="70" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="142.5" y="290" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Пакетне зчитування</text>
+  <text x="142.5" y="308" font-size="12" fill="#6b7280" text-anchor="middle">Заповнення iio_buffer</text>
+  <text x="142.5" y="326" font-size="12" fill="#6b7280" text-anchor="middle">кадрами з ядра</text>
+
+  <rect x="57" y="352" width="171" height="110" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="67" y="373" font-size="12" fill="#1a1a1a">• Блокуючий очікувач</text>
+  <text x="67" y="393" font-size="12" fill="#1a1a1a">• Мінімізація syscalls</text>
+  <text x="67" y="413" font-size="12" fill="#1a1a1a">• Повертає байти</text>
+  <text x="67" y="433" font-size="12" fill="#6b7280">  або помилку ret &lt; 0</text>
+
+  <!-- Arrow Step 1 -> Step 2 -->
+  <path d="M 240 307 L 270 307" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-main)"/>
+
+  <!-- Step 2 Card -->
+  <rect x="270" y="225" width="195" height="250" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="367.5" y="244" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">2. Контроль Overrun</text>
+  <text x="367.5" y="260" font-size="12" fill="#6b7280" text-anchor="middle">Перевірка втрат даних</text>
+
+  <rect x="282" y="272" width="171" height="34" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="367.5" y="293" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">overrun &gt; 0 ?</text>
+
+  <path d="M 367.5 306 L 367.5 316" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-error)"/>
+
+  <rect x="282" y="316" width="171" height="56" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="367.5" y="332" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Так: Втрата кадрів!</text>
+  <text x="367.5" y="348" font-size="12" fill="#c0392b" text-anchor="middle">drop_count += count</text>
+  <text x="367.5" y="364" font-size="12" fill="#6b7280" text-anchor="middle">Лог втрати / Re-sync</text>
+
+  <path d="M 367.5 372 L 367.5 382" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-ok)"/>
+
+  <rect x="282" y="382" width="171" height="80" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="367.5" y="401" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Ні: Буфер в нормі</text>
+  <text x="367.5" y="418" font-size="12" fill="#27ae60" text-anchor="middle">Потік без пропусків</text>
+  <text x="367.5" y="435" font-size="12" fill="#6b7280" text-anchor="middle">Перехід до розпаковки</text>
+
+  <!-- Arrow Step 2 -> Step 3 -->
+  <path d="M 453 422 L 495 422" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-ok)"/>
+
+  <!-- Step 3 Card -->
+  <rect x="495" y="225" width="195" height="250" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="592.5" y="244" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">3. Демультиплекс</text>
+  <text x="592.5" y="260" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">iio_channel_read()</text>
+
+  <rect x="507" y="272" width="171" height="46" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="592.5" y="289" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Сирий interleaved блок</text>
+  <text x="592.5" y="306" font-size="12" fill="#1a1a1a" text-anchor="middle">[Ch0 | Ch1 | Ch2 | Ts]</text>
+
+  <path d="M 592.5 318 L 592.5 325" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-accent)"/>
+
+  <rect x="507" y="325" width="171" height="32" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="592.5" y="346" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Розбір за маскою</text>
+
+  <path d="M 592.5 357 L 592.5 364" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-accent)"/>
+
+  <rect x="507" y="364" width="171" height="98" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="592.5" y="383" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Розпаковані дані:</text>
+  <text x="517" y="401" font-size="12" fill="#1a1a1a">• Accel: ax, ay, az</text>
+  <text x="517" y="419" font-size="12" fill="#1a1a1a">• Gyro: gx, gy, gz</text>
+  <text x="517" y="437" font-size="12" fill="#6b7280">• Timestamp: 64-bit</text>
+
+  <!-- Arrow Step 3 -> Step 4 -->
+  <path d="M 690 413 L 720 413" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-main)"/>
+
+  <!-- Step 4 Card -->
+  <rect x="720" y="225" width="195" height="250" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="817.5" y="244" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">4. Неблокуючий вивід</text>
+  <text x="817.5" y="260" font-size="12" fill="#6b7280" text-anchor="middle">Асинхронний запис</text>
+
+  <rect x="732" y="272" width="171" height="48" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="817.5" y="289" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Ring-буфер програми</text>
+  <text x="817.5" y="307" font-size="12" fill="#1a1a1a" text-anchor="middle">Lock-free push (без wait)</text>
+
+  <path d="M 817.5 320 L 817.5 327" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-ok)"/>
+
+  <rect x="732" y="327" width="171" height="45" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="817.5" y="344" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Фоновий потік I/O</text>
+  <text x="817.5" y="361" font-size="12" fill="#6b7280" text-anchor="middle">(Async Disk Worker)</text>
+
+  <path d="M 817.5 372 L 817.5 379" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-ok)"/>
+
+  <rect x="732" y="379" width="171" height="83" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="817.5" y="397" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Накопичувач / Файл</text>
+  <text x="817.5" y="415" font-size="12" fill="#1a1a1a" text-anchor="middle">CSV / Binary / Socket</text>
+  <text x="817.5" y="433" font-size="12" fill="#6b7280" text-anchor="middle">Без затримок вибірки</text>
+
+  <!-- Loop Return Arrow -->
+  <path d="M 817.5 475 L 817.5 500 L 142.5 500 L 142.5 478" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4 4" marker-end="url(#arr-gray)" fill="none"/>
+  <text x="480" y="494" font-size="12" fill="#6b7280" text-anchor="middle">Наступна ітерація циклу збору (while logger_running)</text>
+</svg>

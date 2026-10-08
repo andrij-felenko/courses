@@ -1,0 +1,159 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="30" font-size="18" font-weight="700" text-anchor="middle" fill="#1a1a1a">Потік даних DVP → I2S DMA → PSRAM при передачі JPEG-кадру</text>
+  <text x="480" y="52" font-size="13" text-anchor="middle" fill="#6b7280">Автономне захоплення байтів через дескриптори DMA з генеруванням переривання за маркером EOI</text>
+
+  <!-- Panel 1: OV2640 Sensor -->
+  <rect x="20" y="75" width="200" height="445" rx="6" ry="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="120" y="100" font-size="14" font-weight="700" text-anchor="middle" fill="#2457d6">Сенсор OV2640 (DVP)</text>
+
+  <rect x="35" y="118" width="170" height="65" rx="4" fill="white" stroke="#d0d7de"/>
+  <text x="120" y="142" font-size="12" font-weight="700" text-anchor="middle" fill="#1a1a1a">Апаратний JPEG DSP</text>
+  <text x="120" y="162" font-size="12" text-anchor="middle" fill="#6b7280">Стиснення у реальному часі</text>
+
+  <rect x="35" y="198" width="170" height="307" rx="4" fill="white" stroke="#d0d7de"/>
+  <text x="120" y="220" font-size="12" font-weight="700" text-anchor="middle" fill="#1a1a1a">Сигнали шини DVP</text>
+
+  <rect x="45" y="235" width="150" height="42" rx="4" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="120" y="253" font-size="12" font-weight="700" text-anchor="middle" fill="#1a1a1a">XCLK (вхід 20 МГц)</text>
+  <text x="120" y="269" font-size="12" text-anchor="middle" fill="#6b7280">Тактування сенсора</text>
+
+  <rect x="45" y="290" width="150" height="42" rx="4" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="120" y="308" font-size="12" font-weight="700" text-anchor="middle" fill="#1a1a1a">PCLK (Pixel Clock)</text>
+  <text x="120" y="324" font-size="12" text-anchor="middle" fill="#6b7280">Строб кожного байта</text>
+
+  <rect x="45" y="345" width="150" height="42" rx="4" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="120" y="363" font-size="12" font-weight="700" text-anchor="middle" fill="#1a1a1a">VSYNC / HREF</text>
+  <text x="120" y="379" font-size="12" text-anchor="middle" fill="#6b7280">Кадрова синхронізація</text>
+
+  <rect x="45" y="440" width="150" height="50" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="120" y="462" font-size="13" font-weight="700" text-anchor="middle" fill="#2457d6">D0–D7 (8 біт)</text>
+  <text x="120" y="480" font-size="12" text-anchor="middle" fill="#6b7280">Шина даних JPEG</text>
+
+
+  <!-- Panel 2: ESP32 I2S/CAM Controller -->
+  <rect x="245" y="75" width="220" height="445" rx="6" ry="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="355" y="100" font-size="14" font-weight="700" text-anchor="middle" fill="#1a1a1a">Контролер I2S (CAM ESP32)</text>
+
+  <rect x="260" y="118" width="190" height="85" rx="4" fill="white" stroke="#d0d7de"/>
+  <text x="355" y="140" font-size="12" font-weight="700" text-anchor="middle" fill="#1a1a1a">Паралельний RX FIFO</text>
+  <text x="355" y="160" font-size="12" text-anchor="middle" fill="#6b7280">Прийом 8-біт за PCLK</text>
+  <text x="355" y="180" font-size="12" text-anchor="middle" fill="#6b7280">Пакування у 32-біт слова</text>
+
+  <rect x="260" y="215" width="190" height="85" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="355" y="237" font-size="12" font-weight="700" text-anchor="middle" fill="#27ae60">Детектор маркерів</text>
+  <text x="355" y="257" font-size="12" text-anchor="middle" fill="#1a1a1a">Фіксація EOI (0xFF 0xD9)</text>
+  <text x="355" y="277" font-size="12" text-anchor="middle" fill="#27ae60">або спад VSYNC (EOF)</text>
+
+  <rect x="260" y="312" width="190" height="193" rx="4" fill="white" stroke="#d0d7de"/>
+  <text x="355" y="334" font-size="12" font-weight="700" text-anchor="middle" fill="#1a1a1a">Двигун I2S DMA</text>
+  <text x="355" y="354" font-size="12" text-anchor="middle" fill="#6b7280">Автоматичний запис в RAM</text>
+  <text x="355" y="374" font-size="12" text-anchor="middle" fill="#6b7280">Ітерація дескрипторів</text>
+
+  <rect x="275" y="440" width="160" height="50" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="355" y="461" font-size="12" font-weight="700" text-anchor="middle" fill="#c0392b">Генерація ISR</text>
+  <text x="355" y="479" font-size="12" text-anchor="middle" fill="#c0392b">Переривання кінця кадру</text>
+
+
+  <!-- Panel 3: DMA Descriptors Linked List -->
+  <rect x="490" y="75" width="220" height="445" rx="6" ry="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="600" y="100" font-size="14" font-weight="700" text-anchor="middle" fill="#1a1a1a">Дескриптори DMA (Linked List)</text>
+
+  <!-- Descriptor 0 -->
+  <rect x="505" y="118" width="190" height="95" rx="4" fill="white" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="515" y="138" font-size="12" font-weight="700" fill="#2457d6">Descriptor 0</text>
+  <text x="515" y="158" font-size="12" fill="#1a1a1a">buf: &amp;PSRAM_Buf_0</text>
+  <text x="515" y="176" font-size="12" fill="#1a1a1a">length: 4092 B | owner: 1</text>
+  <text x="515" y="194" font-size="12" font-weight="700" fill="#6b7280">eof: 0 (кадр триває)</text>
+
+  <!-- Descriptor 1 -->
+  <rect x="505" y="235" width="190" height="95" rx="4" fill="white" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="515" y="255" font-size="12" font-weight="700" fill="#2457d6">Descriptor 1</text>
+  <text x="515" y="275" font-size="12" fill="#1a1a1a">buf: &amp;PSRAM_Buf_1</text>
+  <text x="515" y="293" font-size="12" fill="#1a1a1a">length: 4092 B | owner: 1</text>
+  <text x="515" y="311" font-size="12" font-weight="700" fill="#6b7280">eof: 0 (кадр триває)</text>
+
+  <!-- Descriptor 2 -->
+  <rect x="505" y="352" width="190" height="153" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="515" y="372" font-size="12" font-weight="700" fill="#27ae60">Descriptor 2 (Кінець кадру)</text>
+  <text x="515" y="392" font-size="12" fill="#1a1a1a">buf: &amp;PSRAM_Buf_2</text>
+  <text x="515" y="410" font-size="12" fill="#1a1a1a">length: 1280 B (залишок)</text>
+  <text x="515" y="428" font-size="12" font-weight="700" fill="#27ae60">eof: 1 (EOI / VSYNC)</text>
+  <text x="515" y="446" font-size="12" fill="#6b7280">owner: 0 (передано CPU)</text>
+  <text x="515" y="464" font-size="12" font-weight="700" fill="#2457d6">next: &amp;Descriptor 0</text>
+  <text x="515" y="488" font-size="12" font-weight="700" fill="#27ae60">Тригер переривання</text>
+
+  <!-- Inter-descriptor arrows -->
+  <path d="M 600,213 L 600,233" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <path d="M 600,330 L 600,350" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+
+
+  <!-- Panel 4: PSRAM Ring Buffer -->
+  <rect x="735" y="75" width="205" height="445" rx="6" ry="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="837" y="100" font-size="14" font-weight="700" text-anchor="middle" fill="#1a1a1a">Пам'ять PSRAM (Кільце)</text>
+
+  <!-- Buffer 0 -->
+  <rect x="750" y="118" width="175" height="75" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="837" y="138" font-size="12" font-weight="700" text-anchor="middle" fill="#2457d6">Буфер 0 (4092 B)</text>
+  <text x="837" y="156" font-size="12" text-anchor="middle" fill="#1a1a1a">Заголовок &amp; SOI (0xFF 0xD8)</text>
+  <text x="837" y="174" font-size="12" text-anchor="middle" fill="#6b7280">Прямий запис DMA</text>
+
+  <!-- Buffer 1 -->
+  <rect x="750" y="205" width="175" height="75" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="837" y="225" font-size="12" font-weight="700" text-anchor="middle" fill="#2457d6">Буфер 1 (4092 B)</text>
+  <text x="837" y="243" font-size="12" text-anchor="middle" fill="#1a1a1a">Основні дані JPEG</text>
+  <text x="837" y="261" font-size="12" text-anchor="middle" fill="#6b7280">Прямий запис DMA</text>
+
+  <!-- Buffer 2 -->
+  <rect x="750" y="292" width="175" height="85" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="837" y="312" font-size="12" font-weight="700" text-anchor="middle" fill="#27ae60">Буфер 2 (1280 B)</text>
+  <text x="837" y="330" font-size="12" text-anchor="middle" fill="#1a1a1a">Кінець кадру &amp; EOI (0xFF 0xD9)</text>
+  <text x="837" y="348" font-size="12" font-weight="700" text-anchor="middle" fill="#27ae60">Разом: 9464 B</text>
+  <text x="837" y="364" font-size="12" text-anchor="middle" fill="#6b7280">Кадр сформовано</text>
+
+  <!-- HTTP Task / CPU Consumer -->
+  <rect x="750" y="420" width="175" height="85" rx="4" fill="white" stroke="#1a1a1a" stroke-dasharray="4,4" stroke-width="1.5"/>
+  <text x="837" y="442" font-size="12" font-weight="700" text-anchor="middle" fill="#1a1a1a">HTTP/MJPEG Задача</text>
+  <text x="837" y="460" font-size="12" text-anchor="middle" fill="#6b7280">Читання готового camera_fb_t</text>
+  <text x="837" y="478" font-size="12" text-anchor="middle" fill="#2457d6">Трансляція без копіювання</text>
+  <text x="837" y="494" font-size="12" text-anchor="middle" fill="#6b7280">(Zero-Copy до Wi-Fi)</text>
+
+
+  <!-- Connecting Data & Signal Paths -->
+
+  <!-- Path 1: D0-D7 to I2S RX FIFO -->
+  <path d="M 195,465 L 230,465 L 230,160 L 258,160" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Path 2: EOI detector to Descriptor 2 -->
+  <path d="M 450,257 L 475,257 L 475,400 L 503,400" fill="none" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <!-- Path 3: DMA engine to Descriptors -->
+  <path d="M 450,350 L 470,350 L 470,165 L 503,165" fill="none" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Path 4: Descriptor buf pointers to PSRAM Buffers -->
+  <!-- Desc 0 -> PSRAM Buf 0 -->
+  <path d="M 695,165 L 748,155" fill="none" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <!-- Desc 1 -> PSRAM Buf 1 -->
+  <path d="M 695,282 L 748,242" fill="none" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <!-- Desc 2 -> PSRAM Buf 2 -->
+  <path d="M 695,410 L 748,335" fill="none" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <!-- Path 5: EOI / Desc 2 ISR trigger to CPU HTTP Task -->
+  <path d="M 435,465 L 470,465 L 470,510 L 837,510 L 837,507" fill="none" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,4" marker-end="url(#arr)"/>
+
+</svg>

@@ -1,0 +1,224 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-orange" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#d97706"/>
+    </marker>
+  </defs>
+
+  <!-- Canvas Background -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Схема підключення RS-422 енкодера до таймера STM32</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Диференційні лінії 120 Ом та ESD-захист конвертуються receiver-ом MAX3095 у 3.3V логіку для TIMx</text>
+
+  <!-- Panel 1: Encoder -->
+  <rect x="30" y="85" width="150" height="445" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <text x="105" y="112" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Енкодер RS-422</text>
+  <text x="105" y="130" font-size="12" fill="#6b7280" text-anchor="middle">Вихід 5V (Diff)</text>
+
+  <!-- Encoder Channel A Box -->
+  <rect x="42" y="152" width="126" height="76" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="52" y="172" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="start">Канал A</text>
+  <text x="160" y="168" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">A+</text>
+  <text x="160" y="228" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">A-</text>
+  <circle cx="180" cy="175" r="3.5" fill="#2457d6"/>
+  <circle cx="180" cy="215" r="3.5" fill="#2457d6"/>
+
+  <!-- Encoder Channel B Box -->
+  <rect x="42" y="272" width="126" height="76" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="52" y="292" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="start">Канал B</text>
+  <text x="160" y="288" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="end">B+</text>
+  <text x="160" y="348" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="end">B-</text>
+  <circle cx="180" cy="295" r="3.5" fill="#27ae60"/>
+  <circle cx="180" cy="335" r="3.5" fill="#27ae60"/>
+
+  <!-- Encoder Channel Z Box -->
+  <rect x="42" y="392" width="126" height="76" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="52" y="412" font-size="12" font-weight="bold" fill="#d97706" text-anchor="start">Мітка Z</text>
+  <text x="160" y="408" font-size="12" font-weight="bold" fill="#d97706" text-anchor="end">Z+</text>
+  <text x="160" y="468" font-size="12" font-weight="bold" fill="#d97706" text-anchor="end">Z-</text>
+  <circle cx="180" cy="415" r="3.5" fill="#d97706"/>
+  <circle cx="180" cy="455" r="3.5" fill="#d97706"/>
+
+  <!-- Section Column Headers (Interconnect & Divider) -->
+  <text x="260" y="108" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">Термінування</text>
+  <text x="365" y="108" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">ESD-захист</text>
+  <text x="730" y="108" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">Узгодження</text>
+  <text x="730" y="124" font-size="12" fill="#6b7280" text-anchor="middle">5V -&gt; 3.3V</text>
+
+  <!-- ==================== CHANNEL A ==================== -->
+  <!-- Signal A+ and A- lines -->
+  <line x1="180" y1="175" x2="490" y2="175" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <line x1="180" y1="215" x2="490" y2="215" stroke="#2457d6" stroke-width="2" stroke-dasharray="6,3" marker-end="url(#arr-blue)"/>
+
+  <!-- Signal A Labels -->
+  <text x="215" y="164" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">A+</text>
+  <text x="215" y="232" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">A-</text>
+
+  <!-- Termination Resistor Rt A -->
+  <line x1="260" y1="175" x2="260" y2="185" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="254" y="185" width="12" height="20" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="260" y1="205" x2="260" y2="215" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="260" cy="175" r="2.5" fill="#1a1a1a"/>
+  <circle cx="260" cy="215" r="2.5" fill="#1a1a1a"/>
+  <text x="260" y="164" font-size="12" fill="#1a1a1a" text-anchor="middle">120 Ом</text>
+
+  <!-- TVS Diode Box A -->
+  <rect x="340" y="165" width="50" height="60" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="365" y="200" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">TVS</text>
+  <line x1="365" y1="225" x2="365" y2="238" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="357" y1="238" x2="373" y2="238" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="360" y1="241" x2="370" y2="241" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="363" y1="244" x2="367" y2="244" stroke="#6b7280" stroke-width="1.5"/>
+
+  <!-- ==================== CHANNEL B ==================== -->
+  <!-- Signal B+ and B- lines -->
+  <line x1="180" y1="295" x2="490" y2="295" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <line x1="180" y1="335" x2="490" y2="335" stroke="#27ae60" stroke-width="2" stroke-dasharray="6,3" marker-end="url(#arr-green)"/>
+
+  <!-- Signal B Labels -->
+  <text x="215" y="284" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">B+</text>
+  <text x="215" y="352" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">B-</text>
+
+  <!-- Termination Resistor Rt B -->
+  <line x1="260" y1="295" x2="260" y2="305" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="254" y="305" width="12" height="20" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="260" y1="325" x2="260" y2="335" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="260" cy="295" r="2.5" fill="#1a1a1a"/>
+  <circle cx="260" cy="335" r="2.5" fill="#1a1a1a"/>
+  <text x="260" y="284" font-size="12" fill="#1a1a1a" text-anchor="middle">120 Ом</text>
+
+  <!-- TVS Diode Box B -->
+  <rect x="340" y="285" width="50" height="60" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="365" y="320" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">TVS</text>
+  <line x1="365" y1="345" x2="365" y2="358" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="357" y1="358" x2="373" y2="358" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="360" y1="361" x2="370" y2="361" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="363" y1="364" x2="367" y2="364" stroke="#6b7280" stroke-width="1.5"/>
+
+  <!-- ==================== CHANNEL Z ==================== -->
+  <!-- Signal Z+ and Z- lines -->
+  <line x1="180" y1="415" x2="490" y2="415" stroke="#d97706" stroke-width="2" marker-end="url(#arr-orange)"/>
+  <line x1="180" y1="455" x2="490" y2="455" stroke="#d97706" stroke-width="2" stroke-dasharray="6,3" marker-end="url(#arr-orange)"/>
+
+  <!-- Signal Z Labels -->
+  <text x="215" y="404" font-size="12" font-weight="bold" fill="#d97706" text-anchor="middle">Z+</text>
+  <text x="215" y="472" font-size="12" font-weight="bold" fill="#d97706" text-anchor="middle">Z-</text>
+
+  <!-- Termination Resistor Rt Z -->
+  <line x1="260" y1="415" x2="260" y2="425" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="254" y="425" width="12" height="20" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="260" y1="445" x2="260" y2="455" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="260" cy="415" r="2.5" fill="#1a1a1a"/>
+  <circle cx="260" cy="455" r="2.5" fill="#1a1a1a"/>
+  <text x="260" y="404" font-size="12" fill="#1a1a1a" text-anchor="middle">120 Ом</text>
+
+  <!-- TVS Diode Box Z -->
+  <rect x="340" y="405" width="50" height="60" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="365" y="440" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">TVS</text>
+  <line x1="365" y1="465" x2="365" y2="478" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="357" y1="478" x2="373" y2="478" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="360" y1="481" x2="370" y2="481" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="363" y1="484" x2="367" y2="484" stroke="#6b7280" stroke-width="1.5"/>
+
+  <!-- Panel 2: MAX3095 Receiver -->
+  <rect x="460" y="85" width="210" height="445" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="565" y="112" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">Приймач MAX3095</text>
+  <text x="565" y="130" font-size="12" fill="#6b7280" text-anchor="middle">RS-422 -&gt; TTL/CMOS</text>
+
+  <!-- Receiver A Triangle -->
+  <polygon points="490,160 490,230 545,195" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="500" y="181" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="start">+</text>
+  <text x="500" y="211" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="start">-</text>
+  <line x1="545" y1="195" x2="680" y2="195" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="605" y="182" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">5V TTL</text>
+
+  <!-- Receiver B Triangle -->
+  <polygon points="490,280 490,350 545,315" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="500" y="301" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="start">+</text>
+  <text x="500" y="331" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="start">-</text>
+  <line x1="545" y1="315" x2="680" y2="315" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="605" y="302" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">5V TTL</text>
+
+  <!-- Receiver Z Triangle -->
+  <polygon points="490,400 490,470 545,435" fill="#ffffff" stroke="#d97706" stroke-width="1.5"/>
+  <text x="500" y="421" font-size="12" font-weight="bold" fill="#d97706" text-anchor="start">+</text>
+  <text x="500" y="451" font-size="12" font-weight="bold" fill="#d97706" text-anchor="start">-</text>
+  <line x1="545" y1="435" x2="680" y2="435" stroke="#d97706" stroke-width="2" marker-end="url(#arr-orange)"/>
+  <text x="605" y="422" font-size="12" font-weight="bold" fill="#d97706" text-anchor="middle">5V TTL</text>
+
+  <!-- Divider A (5V -> 3.3V) -->
+  <line x1="680" y1="195" x2="695" y2="195" stroke="#2457d6" stroke-width="2"/>
+  <rect x="695" y="189" width="26" height="12" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="708" y="180" font-size="12" fill="#1a1a1a" text-anchor="middle">1k</text>
+  <line x1="721" y1="195" x2="790" y2="195" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <circle cx="735" cy="195" r="3" fill="#2457d6"/>
+  <line x1="735" y1="195" x2="735" y2="207" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="729" y="207" width="12" height="20" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="748" y="221" font-size="12" fill="#1a1a1a" text-anchor="start">2k</text>
+  <line x1="735" y1="227" x2="735" y2="237" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="727" y1="237" x2="743" y2="237" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="730" y1="240" x2="740" y2="240" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="733" y1="243" x2="737" y2="243" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="765" y="182" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">3.3V</text>
+
+  <!-- Divider B (5V -> 3.3V) -->
+  <line x1="680" y1="315" x2="695" y2="315" stroke="#27ae60" stroke-width="2"/>
+  <rect x="695" y="309" width="26" height="12" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="708" y="300" font-size="12" fill="#1a1a1a" text-anchor="middle">1k</text>
+  <line x1="721" y1="315" x2="790" y2="315" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <circle cx="735" cy="315" r="3" fill="#27ae60"/>
+  <line x1="735" y1="315" x2="735" y2="327" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="729" y="327" width="12" height="20" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="748" y="341" font-size="12" fill="#1a1a1a" text-anchor="start">2k</text>
+  <line x1="735" y1="347" x2="735" y2="357" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="727" y1="357" x2="743" y2="357" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="730" y1="360" x2="740" y2="360" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="733" y1="363" x2="737" y2="363" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="765" y="302" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">3.3V</text>
+
+  <!-- Divider Z (5V -> 3.3V) -->
+  <line x1="680" y1="435" x2="695" y2="435" stroke="#d97706" stroke-width="2"/>
+  <rect x="695" y="429" width="26" height="12" fill="#ffffff" stroke="#d97706" stroke-width="1.5"/>
+  <text x="708" y="420" font-size="12" fill="#1a1a1a" text-anchor="middle">1k</text>
+  <line x1="721" y1="435" x2="790" y2="435" stroke="#d97706" stroke-width="2" marker-end="url(#arr-orange)"/>
+  <circle cx="735" cy="435" r="3" fill="#d97706"/>
+  <line x1="735" y1="435" x2="735" y2="447" stroke="#d97706" stroke-width="1.5"/>
+  <rect x="729" y="447" width="12" height="20" fill="#ffffff" stroke="#d97706" stroke-width="1.5"/>
+  <text x="748" y="461" font-size="12" fill="#1a1a1a" text-anchor="start">2k</text>
+  <line x1="735" y1="467" x2="735" y2="477" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="727" y1="477" x2="743" y2="477" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="730" y1="480" x2="740" y2="480" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="733" y1="483" x2="737" y2="483" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="765" y="422" font-size="12" font-weight="bold" fill="#d97706" text-anchor="middle">3.3V</text>
+
+  <!-- Panel 3: STM32 Microcontroller -->
+  <rect x="790" y="85" width="140" height="445" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <text x="860" y="112" font-size="14" font-weight="bold" fill="#27ae60" text-anchor="middle">Мікроконтролер</text>
+  <text x="860" y="130" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">STM32</text>
+
+  <!-- Timer Peripheral Box -->
+  <rect x="802" y="155" width="116" height="200" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="860" y="175" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">TIMx Encoder</text>
+  <text x="860" y="191" font-size="12" fill="#6b7280" text-anchor="middle">Режим x4</text>
+  <text x="810" y="216" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="start">TIMx_CH1</text>
+  <text x="810" y="304" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="start">TIMx_CH2</text>
+
+  <!-- Timer Counter Register Box -->
+  <rect x="812" y="240" width="96" height="36" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="860" y="256" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">TIMx_CNT</text>
+  <text x="860" y="270" font-size="12" fill="#6b7280" text-anchor="middle">(Лічильник)</text>
+
+  <!-- GPIO Z-Index Peripheral Box -->
+  <rect x="802" y="390" width="116" height="95" rx="6" fill="#ffffff" stroke="#d97706" stroke-width="1.5"/>
+  <text x="860" y="412" font-size="12" font-weight="bold" fill="#d97706" text-anchor="middle">GPIO / EXTI</text>
+  <text x="810" y="452" font-size="12" font-weight="bold" fill="#d97706" text-anchor="start">Z-мітка</text>
+  <text x="860" y="470" font-size="12" fill="#6b7280" text-anchor="middle">(Скинути CNT)</text>
+</svg>
