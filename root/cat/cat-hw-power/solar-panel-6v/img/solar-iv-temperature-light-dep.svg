@@ -1,0 +1,143 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Маркери стрілок -->
+  <defs>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок та підзаголовок -->
+  <text x="480" y="34" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Залежність ВАХ та точки MPP від освітленості й температури</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Освітленість визначає струм Isc, а температура знижує напругу Voc і граничну потужність Pmax</text>
+
+  <!-- ЛІВА ПАНЕЛЬ: ОСВІТЛЕНІСТЬ -->
+  <rect x="30" y="75" width="435" height="425" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="247" y="100" font-size="15" font-weight="700" fill="#1a1a1a" text-anchor="middle">1. Вплив інтенсивності освітленості (E)</text>
+
+  <!-- Легенда Лівої Панелі -->
+  <rect x="225" y="112" width="195" height="58" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="233" y1="124" x2="253" y2="124" stroke="#2457d6" stroke-width="2.5"/>
+  <text x="258" y="128" font-size="12" fill="#1a1a1a">1000 Вт/м² (100%)</text>
+  <line x1="233" y1="140" x2="253" y2="140" stroke="#0284c7" stroke-width="2.5"/>
+  <text x="258" y="144" font-size="12" fill="#1a1a1a">600 Вт/м² (60%)</text>
+  <line x1="233" y1="156" x2="253" y2="156" stroke="#16a34a" stroke-width="2.5"/>
+  <text x="258" y="160" font-size="12" fill="#1a1a1a">200 Вт/м² (20%)</text>
+
+  <!-- Сітка Лівої Панелі -->
+  <line x1="90" y1="360" x2="430" y2="360" stroke="#e2e8f0" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="90" y1="290" x2="430" y2="290" stroke="#e2e8f0" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="90" y1="220" x2="430" y2="220" stroke="#e2e8f0" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="175" y1="150" x2="175" y2="430" stroke="#e2e8f0" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="260" y1="150" x2="260" y2="430" stroke="#e2e8f0" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="345" y1="150" x2="345" y2="430" stroke="#e2e8f0" stroke-width="1" stroke-dasharray="3,3"/>
+
+  <!-- Осі координат Лівої Панелі -->
+  <line x1="90" y1="430" x2="435" y2="430" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+  <line x1="90" y1="430" x2="90" y2="140" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+
+  <text x="430" y="415" font-size="12" fill="#1a1a1a" text-anchor="end">V (В)</text>
+  <text x="90" y="130" font-size="12" fill="#1a1a1a" text-anchor="middle">Струм I (мА)</text>
+
+  <!-- Позначки осей Лівої Панелі -->
+  <text x="82" y="434" font-size="12" fill="#6b7280" text-anchor="end">0</text>
+  <text x="82" y="364" font-size="12" fill="#6b7280" text-anchor="end">100</text>
+  <text x="82" y="294" font-size="12" fill="#6b7280" text-anchor="end">200</text>
+  <text x="82" y="224" font-size="12" fill="#6b7280" text-anchor="end">300</text>
+  <text x="82" y="182" font-size="12" font-weight="700" fill="#2457d6" text-anchor="end">Isc=360</text>
+
+  <text x="175" y="448" font-size="12" fill="#6b7280" text-anchor="middle">2</text>
+  <text x="260" y="448" font-size="12" fill="#6b7280" text-anchor="middle">4</text>
+  <text x="345" y="448" font-size="12" fill="#6b7280" text-anchor="middle">6</text>
+  <text x="396" y="448" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">Voc=7.2</text>
+
+  <!-- Криві ВАХ Лівої Панелі -->
+  <path d="M 90,178 C 260,180 330,182 345,199 C 365,225 385,320 396,430" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+  <path d="M 90,279 C 240,280 315,282 332,294 C 350,315 375,370 383,430" fill="none" stroke="#0284c7" stroke-width="2.5"/>
+  <path d="M 90,380 C 220,381 295,382 315,385 C 330,395 355,415 362,430" fill="none" stroke="#16a34a" stroke-width="2.5"/>
+
+  <!-- Траєкторія MPP Ліва Панель -->
+  <path d="M 315,385 L 332,294 L 345,199" fill="none" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,3"/>
+
+  <!-- Точки MPP Ліва Панель -->
+  <circle cx="345" cy="199" r="4.5" fill="#2457d6" stroke="white" stroke-width="1.5"/>
+  <text x="355" y="195" font-size="12" font-weight="700" fill="#2457d6">MPP1 (1.98 W)</text>
+
+  <circle cx="332" cy="294" r="4.5" fill="#0284c7" stroke="white" stroke-width="1.5"/>
+  <text x="342" y="285" font-size="12" font-weight="700" fill="#0284c7">MPP2 (1.11 W)</text>
+
+  <circle cx="315" cy="385" r="4.5" fill="#16a34a" stroke="white" stroke-width="1.5"/>
+  <text x="302" y="405" font-size="12" font-weight="700" fill="#16a34a" text-anchor="middle">MPP3 (0.34W)</text>
+
+  <!-- Висновковий банер Ліва Панель -->
+  <rect x="95" y="465" width="335" height="24" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="262" y="481" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">Isc спадає пропорційно освітленню; Voc майже стабільна</text>
+
+  <!-- ПРАВА ПАНЕЛЬ: ТЕМПЕРАТУРА -->
+  <rect x="495" y="75" width="435" height="425" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="712" y="100" font-size="15" font-weight="700" fill="#1a1a1a" text-anchor="middle">2. Вплив температури кристала (T)</text>
+
+  <!-- Легенда Правої Панелі -->
+  <rect x="690" y="112" width="195" height="58" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="698" y1="124" x2="718" y2="124" stroke="#2457d6" stroke-width="2.5"/>
+  <text x="723" y="128" font-size="12" fill="#1a1a1a">T = 25 °C (Норма)</text>
+  <line x1="698" y1="140" x2="718" y2="140" stroke="#e67e22" stroke-width="2.5"/>
+  <text x="723" y="144" font-size="12" fill="#1a1a1a">T = 50 °C (Нагрів)</text>
+  <line x1="698" y1="156" x2="718" y2="156" stroke="#c0392b" stroke-width="2.5"/>
+  <text x="723" y="160" font-size="12" fill="#1a1a1a">T = 75 °C (Перегрів)</text>
+
+  <!-- Сітка Правої Панелі -->
+  <line x1="555" y1="360" x2="895" y2="360" stroke="#e2e8f0" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="555" y1="290" x2="895" y2="290" stroke="#e2e8f0" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="555" y1="220" x2="895" y2="220" stroke="#e2e8f0" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="640" y1="150" x2="640" y2="430" stroke="#e2e8f0" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="725" y1="150" x2="725" y2="430" stroke="#e2e8f0" stroke-width="1" stroke-dasharray="3,3"/>
+
+  <!-- Осі координат Правої Панелі -->
+  <line x1="555" y1="430" x2="900" y2="430" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+  <line x1="555" y1="430" x2="555" y2="140" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+
+  <text x="895" y="415" font-size="12" fill="#1a1a1a" text-anchor="end">V (В)</text>
+  <text x="555" y="130" font-size="12" fill="#1a1a1a" text-anchor="middle">Струм I (мА)</text>
+
+  <!-- Позначки осей Правої Панелі -->
+  <text x="547" y="434" font-size="12" fill="#6b7280" text-anchor="end">0</text>
+  <text x="547" y="294" font-size="12" fill="#6b7280" text-anchor="end">200</text>
+  <text x="547" y="182" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="end">360</text>
+
+  <text x="640" y="448" font-size="12" fill="#6b7280" text-anchor="middle">2</text>
+  <text x="725" y="448" font-size="12" fill="#6b7280" text-anchor="middle">4</text>
+  <text x="793" y="448" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">5.6</text>
+  <text x="827" y="448" font-size="12" font-weight="700" fill="#e67e22" text-anchor="middle">6.4</text>
+  <text x="861" y="448" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">7.2</text>
+
+  <!-- Криві ВАХ Правої Панелі -->
+  <path d="M 555,178 C 725,180 795,182 810,199 C 830,225 850,320 861,430" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+  <path d="M 555,175 C 695,177 760,180 776,204 C 795,230 818,320 827,430" fill="none" stroke="#e67e22" stroke-width="2.5"/>
+  <path d="M 555,171 C 665,173 728,176 742,210 C 760,240 784,330 793,430" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+
+  <!-- Траєкторія MPP Права Панель -->
+  <path d="M 810,199 L 776,204 L 742,210" fill="none" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,3"/>
+
+  <!-- Точки MPP Права Панель -->
+  <circle cx="810" cy="199" r="4.5" fill="#2457d6" stroke="white" stroke-width="1.5"/>
+  <text x="820" y="188" font-size="12" font-weight="700" fill="#2457d6">MPP1 (1.98W)</text>
+
+  <circle cx="776" cy="204" r="4.5" fill="#e67e22" stroke="white" stroke-width="1.5"/>
+  <text x="770" y="178" font-size="12" font-weight="700" fill="#e67e22" text-anchor="end">MPP2 (1.68W)</text>
+
+  <circle cx="742" cy="210" r="4.5" fill="#c0392b" stroke="white" stroke-width="1.5"/>
+  <text x="670" y="214" font-size="12" font-weight="700" fill="#c0392b" text-anchor="end">MPP3 (1.38W)</text>
+
+  <!-- Висновковий банер Права Панель -->
+  <rect x="560" y="465" width="335" height="24" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="727" y="481" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">Перегрів знижує Voc і Pmax (втрата до ~30% потужності)</text>
+</svg>

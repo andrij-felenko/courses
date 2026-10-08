@@ -1,0 +1,131 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 510" width="960" height="510" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-danger" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-accent" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-success" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка полотна -->
+  <rect x="0" y="0" width="960" height="510" fill="white"/>
+
+  <!-- Заголовок та підзаголовок -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Схема температурного захисту та кіл тривоги SkyRC iMAX B6 Mini</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Мікроконтролер контролює NTC, струм і полярність для блокування силових MOSFET</text>
+
+  <!-- БЛОК 1: Сенсори та кола захисту (Ліва панель) -->
+  <rect x="20" y="78" width="270" height="280" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="30" y="88" width="250" height="26" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="155" y="105" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Сенсори та кола захисту</text>
+
+  <!-- Підблок 1A: NTC Термодатчик -->
+  <rect x="30" y="122" width="250" height="66" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="40" y="138" font-size="12" font-weight="bold" fill="#1a1a1a">Термодатчик NTC (Temp Port)</text>
+  <text x="40" y="154" font-size="12" fill="#6b7280">Дільник R_pullup (10k) + NTC 10k</text>
+  <text x="40" y="170" font-size="12" fill="#2457d6">Сигнал: V_TEMP (Поріг &gt; 50°C)</text>
+
+  <!-- Підблок 1B: Захист від переполюсовки -->
+  <rect x="30" y="196" width="250" height="66" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="40" y="212" font-size="12" font-weight="bold" fill="#1a1a1a">Захист від переполюсовки</text>
+  <text x="40" y="228" font-size="12" fill="#6b7280">Дільник моніторингу V_IN / V_BAT</text>
+  <text x="40" y="244" font-size="12" fill="#c0392b">Сигнал: V_REV (Переполюсовка)</text>
+
+  <!-- Підблок 1C: Датчик струму OCP -->
+  <rect x="30" y="270" width="250" height="66" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="40" y="286" font-size="12" font-weight="bold" fill="#1a1a1a">Датчик струму та OCP</text>
+  <text x="40" y="302" font-size="12" fill="#6b7280">Шунт R_shunt (0.05 Ом) + ОУ</text>
+  <text x="40" y="318" font-size="12" fill="#2457d6">Сигнал: V_CURR (Струм I &gt; I_max)</text>
+
+  <!-- БЛОК 2: Мікроконтролер (Центральна панель) -->
+  <rect x="340" y="78" width="270" height="280" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="350" y="88" width="250" height="26" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="475" y="105" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Мікроконтролер (MCU)</text>
+
+  <rect x="350" y="122" width="250" height="224" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="360" y="138" font-size="12" font-weight="bold" fill="#2457d6">АЦП входи моніторингу:</text>
+
+  <!-- Вхід АЦП 1 -->
+  <rect x="360" y="145" width="230" height="22" rx="3" fill="#eaf0fd" stroke="#d0d7de" stroke-width="1"/>
+  <text x="370" y="160" font-size="12" fill="#1a1a1a">ADC_TEMP ← Сигнал V_TEMP</text>
+
+  <!-- Вхід АЦП 2 -->
+  <rect x="360" y="173" width="230" height="22" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="370" y="188" font-size="12" fill="#c0392b">ADC_REV ← Сигнал V_REV</text>
+
+  <!-- Вхід АЦП 3 -->
+  <rect x="360" y="201" width="230" height="22" rx="3" fill="#eaf0fd" stroke="#d0d7de" stroke-width="1"/>
+  <text x="370" y="216" font-size="12" fill="#1a1a1a">ADC_I ← Сигнал V_CURR</text>
+
+  <!-- Блок алгоритму -->
+  <rect x="360" y="232" width="230" height="46" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="475" y="250" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Алгоритм порівняння уставок</text>
+  <text x="475" y="266" font-size="12" fill="#6b7280" text-anchor="middle">Аналіз фатал. помилок (Fault)</text>
+
+  <!-- Вихід тривоги -->
+  <rect x="360" y="286" width="230" height="46" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="475" y="304" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Вихід тривоги: GATE_OFF</text>
+  <text x="475" y="320" font-size="12" fill="#6b7280" text-anchor="middle">Зняття PWM та блокування FET</text>
+
+  <!-- БЛОК 3: Силовий вихід та батарея (Права панель) -->
+  <rect x="670" y="78" width="270" height="280" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="680" y="88" width="250" height="26" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="805" y="105" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Силовий вихід та батарея</text>
+
+  <!-- Акумулятор та порти -->
+  <rect x="680" y="122" width="250" height="126" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="690" y="138" font-size="12" font-weight="bold" fill="#1a1a1a">Акумуляторна збірка 1S–6S</text>
+  <text x="690" y="155" font-size="12" fill="#2457d6">Порт живлення (XT60 / Banana)</text>
+  <text x="690" y="172" font-size="12" fill="#2457d6">Порт балансира JST-XH (1S–6S)</text>
+  <text x="690" y="189" font-size="12" fill="#1a1a1a">Хімія: LiPo, LiIon, LiFe, NiMH, Pb</text>
+  <text x="690" y="206" font-size="12" fill="#6b7280">Поклітинний моніторинг V_cell</text>
+  <text x="690" y="223" font-size="12" fill="#6b7280">Контакт NTC-датчика з батареєю</text>
+
+  <!-- Силові ключі -->
+  <rect x="680" y="256" width="250" height="90" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="690" y="274" font-size="12" font-weight="bold" fill="#c0392b">Ключі розмикання виходу (FET)</text>
+  <text x="690" y="291" font-size="12" fill="#1a1a1a">Силові P-FET / N-FET транзистори</text>
+  <text x="690" y="308" font-size="12" fill="#c0392b">При тривозі: Миттєве розмикання</text>
+  <text x="690" y="325" font-size="12" fill="#27ae60">Норма: Ввімкнено (Заряд / Розряд)</text>
+
+  <!-- Стрілки сигналів між блоками -->
+  <!-- V_TEMP -->
+  <line x1="280" y1="156" x2="338" y2="156" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-accent)"/>
+  <text x="309" y="144" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">V_TEMP</text>
+
+  <!-- V_REV -->
+  <polyline points="280,229 298,229 298,184 338,184" fill="none" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-danger)"/>
+  <text x="319" y="173" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">V_REV</text>
+
+  <!-- V_CURR -->
+  <polyline points="280,303 322,303 322,212 338,212" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-accent)"/>
+  <text x="300" y="292" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">V_CURR</text>
+
+  <!-- GATE_OFF -->
+  <line x1="610" y1="309" x2="668" y2="309" stroke="#c0392b" stroke-width="2" stroke-dasharray="5,3" marker-end="url(#arr-danger)"/>
+  <text x="639" y="298" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">GATE_OFF</text>
+
+  <!-- Нижній порівняльний блок (Нормальний режим vs Аварійний захист) -->
+  <!-- Ліворуч: Нормальний режим -->
+  <rect x="20" y="378" width="450" height="112" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="32" y="398" font-size="13" font-weight="bold" fill="#27ae60">✓ Нормальний режим (Безпечний заряд / розряд):</text>
+  <text x="32" y="418" font-size="12" fill="#1a1a1a">• Контроль T_NTC &lt; 50°C: Стабільний тепловий баланс пристрою</text>
+  <text x="32" y="436" font-size="12" fill="#1a1a1a">• Правильна полярність та I_chg ≤ I_set (без перевантаження)</text>
+  <text x="32" y="454" font-size="12" fill="#1a1a1a">• Силові MOSFET-ключі замкнені: триває стандартний цикл CC/CV</text>
+  <text x="32" y="474" font-size="12" font-weight="bold" fill="#27ae60">Результат: Повна безпека та максимальний ресурс батареї</text>
+
+  <!-- Праворуч: Аварійне спрацьовування -->
+  <rect x="490" y="378" width="450" height="112" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="502" y="398" font-size="13" font-weight="bold" fill="#c0392b">⛔ Аварійний захист (OVERTEMP / OVERCURRENT):</text>
+  <text x="502" y="418" font-size="12" fill="#1a1a1a">• Фіксація T &gt; T_max або помилки полярності / перевантаження</text>
+  <text x="502" y="436" font-size="12" fill="#1a1a1a">• Апаратний перерив MCU: зняття GATE_OFF за &lt; 10 мкс</text>
+  <text x="502" y="454" font-size="12" fill="#1a1a1a">• Повне розмикання силового виходу, BEEP та зупинка процесу</text>
+  <text x="502" y="474" font-size="12" font-weight="bold" fill="#c0392b">Результат: Запобігання перегріву, пожежі та виходу з ладу</text>
+</svg>

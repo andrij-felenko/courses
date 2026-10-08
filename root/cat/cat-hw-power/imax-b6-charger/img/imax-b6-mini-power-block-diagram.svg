@@ -1,0 +1,147 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="560" viewBox="0 0 960 560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-main" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Canvas background -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Title and Subtitle -->
+  <text x="480" y="36" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">SkyRC iMAX B6 Mini: Силова топологія та зворотний зв'язок</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Buck-Boost перетворювач регулює струм і напругу під контролем багатоканального АЦП</text>
+
+  <!-- Box 1: DC Input Stage -->
+  <rect x="30" y="85" width="170" height="200" fill="#f4f6f8" stroke="#d0d7de" rx="6"/>
+  <text x="115" y="108" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Вхідне DC-живлення</text>
+  <text x="115" y="127" font-size="12" fill="#6b7280" text-anchor="middle">Джерело DC 11...18 B</text>
+
+  <rect x="42" y="140" width="146" height="65" fill="#ffffff" stroke="#d0d7de" rx="4"/>
+  <text x="115" y="163" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Захист переполярності</text>
+  <text x="115" y="185" font-size="11" fill="#6b7280" text-anchor="middle">P-channel MOSFET (Q_in)</text>
+
+  <text x="115" y="230" font-size="11" fill="#6b7280" text-anchor="middle">Вхідний фільтр C_in</text>
+  <text x="115" y="254" font-size="11" fill="#2457d6" text-anchor="middle">I_in макс. 8.5 A</text>
+
+  <!-- Box 2: Synchronous Buck-Boost Power Converter -->
+  <rect x="230" y="85" width="440" height="200" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <text x="450" y="108" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">Синхронний Buck-Boost перетворювач (80 Вт)</text>
+
+  <rect x="245" y="122" width="125" height="75" fill="#ffffff" stroke="#d0d7de" rx="4"/>
+  <text x="307" y="144" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Buck-ступінь</text>
+  <text x="307" y="164" font-size="12" fill="#1a1a1a" text-anchor="middle">Ключі Q1, Q2</text>
+  <text x="307" y="182" font-size="11" fill="#6b7280" text-anchor="middle">Пониження U</text>
+
+  <rect x="390" y="132" width="120" height="54" fill="#ffffff" stroke="#2457d6" rx="4"/>
+  <text x="450" y="154" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Індуктор L1</text>
+  <text x="450" y="172" font-size="11" fill="#6b7280" text-anchor="middle">Дросель 22 мкГн</text>
+
+  <rect x="530" y="122" width="125" height="75" fill="#ffffff" stroke="#d0d7de" rx="4"/>
+  <text x="592" y="144" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Boost-ступінь</text>
+  <text x="592" y="164" font-size="12" fill="#1a1a1a" text-anchor="middle">Ключі Q3, Q4</text>
+  <text x="592" y="182" font-size="11" fill="#6b7280" text-anchor="middle">Підвищення U</text>
+
+  <rect x="290" y="212" width="320" height="60" fill="#ffffff" stroke="#d0d7de" rx="4"/>
+  <text x="450" y="235" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Драйвери затворів MOSFET (PWM)</text>
+  <text x="450" y="256" font-size="11" fill="#6b7280" text-anchor="middle">Синхронне керування Buck / Boost</text>
+
+  <!-- Box 3: Output Power Stage -->
+  <rect x="700" y="85" width="230" height="200" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="6"/>
+  <text x="815" y="108" font-size="14" font-weight="bold" fill="#27ae60" text-anchor="middle">Вихідний силовий каскад</text>
+
+  <rect x="715" y="122" width="200" height="52" fill="#ffffff" stroke="#27ae60" rx="4"/>
+  <text x="815" y="142" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Вимірювальний шунт R_sense</text>
+  <text x="815" y="161" font-size="11" fill="#27ae60" text-anchor="middle">R = 0.01 Ом (Current Sense)</text>
+
+  <rect x="715" y="184" width="200" height="90" fill="#ffffff" stroke="#d0d7de" rx="4"/>
+  <text x="815" y="204" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Захисний вихідний FET</text>
+  <text x="815" y="224" font-size="12" fill="#27ae60" text-anchor="middle">U_out = 0.8...26.1 B</text>
+  <text x="815" y="244" font-size="11" fill="#1a1a1a" text-anchor="middle">I_chg = 0.1...6.0 A (50W розряд)</text>
+  <text x="815" y="262" font-size="11" fill="#6b7280" text-anchor="middle">Силові банан-роз'єми +/-</text>
+
+  <!-- Box 4: Cell Balancing Circuit -->
+  <rect x="30" y="340" width="170" height="190" fill="#ffffff" stroke="#d0d7de" rx="6"/>
+  <text x="115" y="363" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Схема балансування</text>
+  <text x="115" y="388" font-size="12" fill="#1a1a1a" text-anchor="middle">Ключі розряду 1S..6S</text>
+  <text x="115" y="410" font-size="11" fill="#6b7280" text-anchor="middle">Резистори R_bal (300 мА)</text>
+  <text x="115" y="438" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Порт JST-XH (1S..6S)</text>
+  <text x="115" y="460" font-size="11" fill="#6b7280" text-anchor="middle">Покомірковий розряд</text>
+  <text x="115" y="488" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">Вирівнювання V_cell</text>
+  <text x="115" y="508" font-size="11" fill="#6b7280" text-anchor="middle">Точність &lt; 3 мВ</text>
+
+  <!-- Box 5: MCU Block -->
+  <rect x="230" y="340" width="440" height="190" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.5" rx="6"/>
+  <text x="450" y="363" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Мікроконтролер MCU (ARM Cortex-M0)</text>
+
+  <rect x="245" y="380" width="195" height="135" fill="#ffffff" stroke="#d0d7de" rx="4"/>
+  <text x="342" y="400" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">АЦП та вимірювання</text>
+  <text x="342" y="420" font-size="11" fill="#1a1a1a" text-anchor="middle">• Диф. підсилювач I_sense</text>
+  <text x="342" y="440" font-size="11" fill="#1a1a1a" text-anchor="middle">• Моніторинг U_in / U_out</text>
+  <text x="342" y="460" font-size="11" fill="#1a1a1a" text-anchor="middle">• Мультиплексор 6S комірок</text>
+  <text x="342" y="480" font-size="11" fill="#1a1a1a" text-anchor="middle">• Термодатчик NTC (OTP)</text>
+  <text x="342" y="500" font-size="11" fill="#6b7280" text-anchor="middle">• Розрахунок R_int (вн. опір)</text>
+
+  <rect x="455" y="380" width="200" height="135" fill="#ffffff" stroke="#d0d7de" rx="4"/>
+  <text x="555" y="400" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Алгоритми та ШІМ</text>
+  <text x="555" y="420" font-size="11" fill="#2457d6" text-anchor="middle">• ШІМ-генератор Buck/Boost</text>
+  <text x="555" y="440" font-size="11" fill="#1a1a1a" text-anchor="middle">• Профілі CC/CV, Delta-V</text>
+  <text x="555" y="460" font-size="11" fill="#c0392b" text-anchor="middle">• Захисти OVP, OCP, Reverse</text>
+  <text x="555" y="480" font-size="11" fill="#1a1a1a" text-anchor="middle">• Керування вентилятором</text>
+  <text x="555" y="500" font-size="11" fill="#6b7280" text-anchor="middle">• ПК-інтерфейс USB (ПО)</text>
+
+  <!-- Box 6: Battery Pack -->
+  <rect x="700" y="340" width="230" height="190" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2" rx="6"/>
+  <text x="815" y="363" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Акумуляторна батарея</text>
+  <text x="815" y="385" font-size="12" fill="#6b7280" text-anchor="middle">LiPo / LiFe / LiIon / Pb / NiMH</text>
+
+  <rect x="715" y="400" width="200" height="115" fill="#ffffff" stroke="#d0d7de" rx="4"/>
+  <text x="815" y="420" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Силові клеми (+ / -)</text>
+  <text x="815" y="440" font-size="11" fill="#1a1a1a" text-anchor="middle">Порт JST-XH (комірки 1S..6S)</text>
+  <text x="815" y="460" font-size="11" fill="#2457d6" text-anchor="middle">Вимірювання R_int (мОм)</text>
+  <text x="815" y="480" font-size="11" fill="#c0392b" text-anchor="middle">Порт термодатчика NTC</text>
+  <text x="815" y="500" font-size="11" fill="#6b7280" text-anchor="middle">Режими Charge / Storage</text>
+
+  <!-- Power Lines and Signal Connections -->
+  <!-- 1. Input Power Line -->
+  <line x1="200" y1="150" x2="228" y2="150" stroke="#2457d6" stroke-width="3" marker-end="url(#arr-main)"/>
+  <text x="214" y="140" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">U_in</text>
+
+  <!-- 2. Buck-Boost Output Line -->
+  <line x1="670" y1="150" x2="698" y2="150" stroke="#2457d6" stroke-width="3" marker-end="url(#arr-main)"/>
+  <text x="684" y="140" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">U_sw</text>
+
+  <!-- 3. Output Main Power Line -->
+  <line x1="815" y1="285" x2="815" y2="336" stroke="#27ae60" stroke-width="3" marker-end="url(#arr-green)"/>
+  <text x="835" y="315" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="start">Силовий струм I_chg</text>
+
+  <!-- 4. Current Sense Feedback Line -->
+  <path d="M715,148 L685,148 L685,328 L342,328 L342,336" stroke="#27ae60" stroke-width="2" stroke-dasharray="5,3" fill="none" marker-end="url(#arr-green)"/>
+  <text x="420" y="323" font-size="11" fill="#27ae60" text-anchor="middle">Зворотний зв'язок I_sense</text>
+
+  <!-- 5. PWM Drive Signal Line -->
+  <line x1="555" y1="340" x2="555" y2="274" stroke="#2457d6" stroke-width="2" stroke-dasharray="5,3" marker-end="url(#arr-main)"/>
+  <text x="565" y="306" font-size="11" fill="#2457d6" text-anchor="start">ШІМ PWM</text>
+
+  <!-- 6. JST-XH Balancing Cell Sensing Bus -->
+  <path d="M700,440 L685,440 L685,302 L115,302 L115,336" stroke="#1a1a1a" stroke-width="1.5" stroke-dasharray="4,3" fill="none" marker-end="url(#arr-dark)"/>
+  <path d="M342,302 L342,336" stroke="#1a1a1a" stroke-width="1.5" stroke-dasharray="4,3" fill="none" marker-end="url(#arr-dark)"/>
+  <text x="230" y="297" font-size="11" fill="#1a1a1a" text-anchor="middle">Шина JST-XH (V_cell 1S..6S)</text>
+
+  <!-- 7. Balancing Control Line -->
+  <line x1="230" y1="450" x2="202" y2="450" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+  <text x="215" y="442" font-size="11" fill="#6b7280" text-anchor="middle">Керування</text>
+
+  <!-- 8. NTC Temperature Sensor Feedback Line -->
+  <path d="M700,480 L685,480 L685,538 L342,538 L342,532" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,3" fill="none" marker-end="url(#arr-red)"/>
+  <text x="513" y="555" font-size="11" fill="#c0392b" text-anchor="middle">Дані температури NTC / Захист OTP</text>
+</svg>

@@ -1,0 +1,243 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- White Background -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Definitions for Markers -->
+  <defs>
+    <marker id="arr-accent" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-danger" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-success" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="30" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Характеристики сонячної панелі 6 В / 2 Вт при різній інсоляції</text>
+  <text x="480" y="48" font-size="13" fill="#6b7280" text-anchor="middle">Залежність I-V та P-V від інсоляції: зміщення точок MPP, напруги Voc та струму Isc</text>
+
+  <!-- ==================== LEFT PANEL: I-V CURVES ==================== -->
+  <rect x="30" y="65" width="435" height="415" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <text x="247.5" y="88" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Вольт-амперні криві (I-V)</text>
+  <text x="247.5" y="104" font-size="12" fill="#6b7280" text-anchor="middle">Залежність вихідного струму I від напруги V</text>
+
+  <!-- Left Plot Canvas & Grid -->
+  <rect x="85" y="140" width="355" height="270" fill="white" stroke="#d0d7de" stroke-width="1"/>
+
+  <text x="85" y="130" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">Струм I (mA)</text>
+
+  <!-- Y Grid & Ticks (Current I) -->
+  <line x1="85" y1="150" x2="440" y2="150" stroke="#e1e4e8" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="77" y="154" font-size="12" fill="#6b7280" text-anchor="end">400</text>
+
+  <line x1="85" y1="215" x2="440" y2="215" stroke="#e1e4e8" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="77" y="219" font-size="12" fill="#6b7280" text-anchor="end">300</text>
+
+  <line x1="85" y1="280" x2="440" y2="280" stroke="#e1e4e8" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="77" y="284" font-size="12" fill="#6b7280" text-anchor="end">200</text>
+
+  <line x1="85" y1="345" x2="440" y2="345" stroke="#e1e4e8" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="77" y="349" font-size="12" fill="#6b7280" text-anchor="end">100</text>
+
+  <text x="77" y="414" font-size="12" fill="#6b7280" text-anchor="end">0</text>
+
+  <!-- X Grid & Ticks (Voltage V) -->
+  <line x1="170" y1="140" x2="170" y2="410" stroke="#e1e4e8" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="170" y="426" font-size="12" fill="#6b7280" text-anchor="middle">2</text>
+
+  <line x1="255" y1="140" x2="255" y2="410" stroke="#e1e4e8" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="255" y="426" font-size="12" fill="#6b7280" text-anchor="middle">4</text>
+
+  <line x1="340" y1="140" x2="340" y2="410" stroke="#2457d6" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="340" y="426" font-size="12" fill="#2457d6" font-weight="bold" text-anchor="middle">6 V</text>
+
+  <line x1="391" y1="140" x2="391" y2="410" stroke="#c0392b" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="391" y="426" font-size="12" fill="#c0392b" font-weight="bold" text-anchor="middle">7.2 V</text>
+
+  <line x1="425" y1="140" x2="425" y2="410" stroke="#e1e4e8" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="425" y="426" font-size="12" fill="#6b7280" text-anchor="middle">8</text>
+
+  <text x="85" y="426" font-size="12" fill="#6b7280" text-anchor="middle">0</text>
+
+  <text x="262.5" y="448" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Напруга V (V)</text>
+
+  <!-- Left Plot Legend Box -->
+  <rect x="93" y="145" width="332" height="24" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="100" y1="157" x2="115" y2="157" stroke="#2457d6" stroke-width="2.5"/>
+  <text x="119" y="161" font-size="12" fill="#1a1a1a">1000 W/m²</text>
+
+  <line x1="186" y1="157" x2="201" y2="157" stroke="#27ae60" stroke-width="2.5"/>
+  <text x="205" y="161" font-size="12" fill="#1a1a1a">800 W/m²</text>
+
+  <line x1="266" y1="157" x2="281" y2="157" stroke="#e67e22" stroke-width="2.5"/>
+  <text x="285" y="161" font-size="12" fill="#1a1a1a">500 W/m²</text>
+
+  <line x1="346" y1="157" x2="361" y2="157" stroke="#8e44ad" stroke-width="2.5"/>
+  <text x="365" y="161" font-size="12" fill="#1a1a1a">200 W/m²</text>
+
+  <!-- I-V Curves -->
+  <!-- 1000 W/m² -->
+  <path d="M 85,182.5 L 260,182.5 C 310,182.5 330,185 340,193.55 C 360,210 380,310 391,410" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+
+  <!-- 800 W/m² -->
+  <path d="M 85,228 L 260,228 C 305,228 325,230 335.75,235.8 C 355,250 372,320 382.5,410" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+
+  <!-- 500 W/m² -->
+  <path d="M 85,296.25 L 250,296.25 C 295,296.25 315,297 327.25,301.45 C 345,315 360,340 369.75,410" fill="none" stroke="#e67e22" stroke-width="2.5"/>
+
+  <!-- 200 W/m² -->
+  <path d="M 85,364.5 L 240,364.5 C 280,364.5 300,365 310.25,367.1 C 325,373 340,385 348.5,410" fill="none" stroke="#8e44ad" stroke-width="2.5"/>
+
+  <!-- MPP Locus Line (Left Plot) -->
+  <path d="M 340,193.55 Q 333,250 310.25,367.1" fill="none" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,3"/>
+
+  <!-- MPP Points (Left Plot) -->
+  <circle cx="340" cy="193.55" r="4" fill="#2457d6" stroke="white" stroke-width="1.5"/>
+  <circle cx="335.75" cy="235.8" r="4" fill="#27ae60" stroke="white" stroke-width="1.5"/>
+  <circle cx="327.25" cy="301.45" r="4" fill="#e67e22" stroke="white" stroke-width="1.5"/>
+  <circle cx="310.25" cy="367.1" r="4" fill="#8e44ad" stroke="white" stroke-width="1.5"/>
+
+  <!-- Isc Marker & Callout -->
+  <circle cx="85" cy="182.5" r="4" fill="#2457d6"/>
+  <rect x="93" y="194" width="95" height="22" rx="3" fill="white" stroke="#2457d6" stroke-width="1"/>
+  <text x="97" y="209" font-size="12" font-weight="bold" fill="#2457d6">Isc = 350 mA</text>
+
+  <!-- MPP Trajectory Badge & Arrow -->
+  <rect x="205" y="230" width="110" height="36" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="210" y="244" font-size="12" font-weight="bold" fill="#c0392b">Траєкторія MPP</text>
+  <text x="210" y="258" font-size="12" fill="#c0392b">Зсув при зміні G</text>
+  <line x1="315" y1="248" x2="330" y2="248" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-danger)"/>
+
+  <!-- MPP1 Parameter Badge -->
+  <rect x="348" y="182" width="85" height="36" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="352" y="196" font-size="12" font-weight="bold" fill="#2457d6">MPP1: 2.0 W</text>
+  <text x="352" y="210" font-size="12" fill="#1a1a1a">6.0 V / 333 mA</text>
+
+  <!-- Voc Callout Badge -->
+  <circle cx="391" cy="410" r="4" fill="#c0392b"/>
+  <rect x="392" y="358" width="32" height="34" rx="3" fill="white" stroke="#c0392b" stroke-width="1"/>
+  <text x="393" y="372" font-size="12" font-weight="bold" fill="#c0392b">Voc</text>
+  <text x="393" y="387" font-size="12" font-weight="bold" fill="#c0392b">7.2V</text>
+
+
+  <!-- ==================== RIGHT PANEL: P-V CURVES ==================== -->
+  <rect x="495" y="65" width="435" height="415" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <text x="712.5" y="88" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Вольт-ватні криві (P-V)</text>
+  <text x="712.5" y="104" font-size="12" fill="#6b7280" text-anchor="middle">Залежність вихідної потужності P від напруги V</text>
+
+  <!-- Right Plot Canvas & Grid -->
+  <rect x="550" y="140" width="355" height="270" fill="white" stroke="#d0d7de" stroke-width="1"/>
+
+  <text x="550" y="130" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">Потужність P (W)</text>
+
+  <!-- Y Grid & Ticks (Power P) -->
+  <line x1="550" y1="150" x2="905" y2="150" stroke="#e1e4e8" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="542" y="154" font-size="12" fill="#6b7280" text-anchor="end">2.5</text>
+
+  <line x1="550" y1="202" x2="905" y2="202" stroke="#e1e4e8" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="542" y="206" font-size="12" fill="#6b7280" text-anchor="end">2.0</text>
+
+  <line x1="550" y1="254" x2="905" y2="254" stroke="#e1e4e8" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="542" y="258" font-size="12" fill="#6b7280" text-anchor="end">1.5</text>
+
+  <line x1="550" y1="306" x2="905" y2="306" stroke="#e1e4e8" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="542" y="310" font-size="12" fill="#6b7280" text-anchor="end">1.0</text>
+
+  <line x1="550" y1="358" x2="905" y2="358" stroke="#e1e4e8" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="542" y="362" font-size="12" fill="#6b7280" text-anchor="end">0.5</text>
+
+  <text x="542" y="414" font-size="12" fill="#6b7280" text-anchor="end">0.0</text>
+
+  <!-- X Grid & Ticks (Voltage V) -->
+  <line x1="635" y1="140" x2="635" y2="410" stroke="#e1e4e8" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="635" y="426" font-size="12" fill="#6b7280" text-anchor="middle">2</text>
+
+  <line x1="720" y1="140" x2="720" y2="410" stroke="#e1e4e8" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="720" y="426" font-size="12" fill="#6b7280" text-anchor="middle">4</text>
+
+  <line x1="805" y1="140" x2="805" y2="410" stroke="#2457d6" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="805" y="426" font-size="12" fill="#2457d6" font-weight="bold" text-anchor="middle">6 V</text>
+
+  <line x1="856" y1="140" x2="856" y2="410" stroke="#c0392b" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="856" y="426" font-size="12" fill="#c0392b" font-weight="bold" text-anchor="middle">7.2 V</text>
+
+  <line x1="890" y1="140" x2="890" y2="410" stroke="#e1e4e8" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="890" y="426" font-size="12" fill="#6b7280" text-anchor="middle">8</text>
+
+  <text x="550" y="426" font-size="12" fill="#6b7280" text-anchor="middle">0</text>
+
+  <text x="727.5" y="448" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Напруга V (V)</text>
+
+  <!-- Right Plot Legend Box -->
+  <rect x="558" y="145" width="332" height="24" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="565" y1="157" x2="580" y2="157" stroke="#2457d6" stroke-width="2.5"/>
+  <text x="584" y="161" font-size="12" fill="#1a1a1a">1000 W/m²</text>
+
+  <line x1="651" y1="157" x2="666" y2="157" stroke="#27ae60" stroke-width="2.5"/>
+  <text x="670" y="161" font-size="12" fill="#1a1a1a">800 W/m²</text>
+
+  <line x1="731" y1="157" x2="746" y2="157" stroke="#e67e22" stroke-width="2.5"/>
+  <text x="750" y="161" font-size="12" fill="#1a1a1a">500 W/m²</text>
+
+  <line x1="811" y1="157" x2="826" y2="157" stroke="#8e44ad" stroke-width="2.5"/>
+  <text x="830" y="161" font-size="12" fill="#1a1a1a">200 W/m²</text>
+
+  <!-- P-V Curves -->
+  <!-- 1000 W/m² -->
+  <path d="M 550,410 C 635,365 720,290 805,202 C 830,202 848,310 856,410" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+
+  <!-- 800 W/m² -->
+  <path d="M 550,410 C 635,375 715,315 800.75,245.68 C 823,246 840,330 847.5,410" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+
+  <!-- 500 W/m² -->
+  <path d="M 550,410 C 630,390 705,350 792.25,311.2 C 813,312 828,360 834.75,410" fill="none" stroke="#e67e22" stroke-width="2.5"/>
+
+  <!-- 200 W/m² -->
+  <path d="M 550,410 C 620,402 690,388 775.25,373.6 C 793,374 807,392 813.5,410" fill="none" stroke="#8e44ad" stroke-width="2.5"/>
+
+  <!-- MPP Locus Line (Right Plot) -->
+  <path d="M 805,202 Q 798,270 775.25,373.6" fill="none" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,3"/>
+
+  <!-- MPP Points (Right Plot) -->
+  <circle cx="805" cy="202" r="4" fill="#2457d6" stroke="white" stroke-width="1.5"/>
+  <circle cx="800.75" cy="245.68" r="4" fill="#27ae60" stroke="white" stroke-width="1.5"/>
+  <circle cx="792.25" cy="311.2" r="4" fill="#e67e22" stroke="white" stroke-width="1.5"/>
+  <circle cx="775.25" cy="373.6" r="4" fill="#8e44ad" stroke="white" stroke-width="1.5"/>
+
+  <!-- Peak Power Pmpp Badge -->
+  <rect x="755" y="172" width="100" height="24" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="805" y="188" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Pmpp = 2.00 W</text>
+
+  <!-- Fixed 5V Direct Connection Warning Callout -->
+  <line x1="762.5" y1="140" x2="762.5" y2="410" stroke="#c0392b" stroke-width="1" stroke-dasharray="2,2"/>
+  <circle cx="762.5" cy="237" r="4" fill="#c0392b"/>
+
+  <rect x="568" y="204" width="190" height="48" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="575" y="217" font-size="12" font-weight="bold" fill="#c0392b">Пряме живлення 5V (без MPPT)</text>
+  <text x="575" y="231" font-size="12" fill="#c0392b">Втрата потужності ~17%</text>
+  <text x="575" y="245" font-size="12" fill="#6b7280">Робоча точка зсунута від MPP</text>
+  <line x1="758" y1="228" x2="762" y2="236" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-danger)"/>
+
+  <!-- Voc Marker (Right Plot) -->
+  <circle cx="856" cy="410" r="4" fill="#c0392b"/>
+  <rect x="857" y="360" width="32" height="34" rx="3" fill="white" stroke="#c0392b" stroke-width="1"/>
+  <text x="858" y="372" font-size="12" font-weight="bold" fill="#c0392b">Voc</text>
+  <text x="858" y="387" font-size="12" font-weight="bold" fill="#c0392b">7.2V</text>
+
+  <!-- ==================== BOTTOM SUMMARY BAR ==================== -->
+  <rect x="30" y="496" width="900" height="48" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+
+  <text x="45" y="515" font-size="12" font-weight="bold" fill="#2457d6">Параметри панелі (1000 W/m²):</text>
+  <text x="252" y="515" font-size="12" fill="#1a1a1a">Voc = 7.2 V  |  Isc = 350 mA  |  Vmpp = 6.0 V  |  Impp = 333 mA  |  Pmpp = 2.0 W</text>
+
+  <text x="45" y="533" font-size="12" font-weight="bold" fill="#27ae60">Практичний висновок:</text>
+  <text x="186" y="533" font-size="12" fill="#1a1a1a">Для максимальної ефективності та безпечного заряджання акумуляторів потрібен MPPT / DC-DC контролер</text>
+</svg>

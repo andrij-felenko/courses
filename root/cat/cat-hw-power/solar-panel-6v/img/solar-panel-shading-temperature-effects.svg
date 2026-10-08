@@ -1,0 +1,144 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <!-- Arrow marker for default dark lines -->
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <!-- Arrow marker for blue signal / flow -->
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <!-- Arrow marker for red warning / shift -->
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <!-- Arrow marker for green bypass / solution flow -->
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <!-- Main Title and Subtitle -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="700" fill="#1a1a1a">Вплив температури та затінення на послідовний ланцюг сонячної панелі</text>
+  <text x="480" y="52" text-anchor="middle" font-size="13" fill="#6b7280">Нагрів кремнію знижує напругу Voc, а часткове затінення обмежує струм Iph та спричиняє Hot-Spot</text>
+
+  <!-- Panel 1: Temperature Effect (Left) -->
+  <rect x="30" y="70" width="435" height="385" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="45" y="82" width="405" height="28" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="247" y="101" text-anchor="middle" font-size="13" font-weight="700" fill="#2457d6">1. Температурний ефект: ВАХ при 25 °C та 60 °C</text>
+
+  <!-- Panel 1: V-I Curves Graph -->
+  <!-- Graph Axes -->
+  <line x1="90" y1="340" x2="410" y2="340" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <line x1="90" y1="340" x2="90" y2="130" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <text x="78" y="125" text-anchor="end" font-size="12" font-weight="700" fill="#1a1a1a">I (А)</text>
+  <text x="420" y="344" text-anchor="start" font-size="12" font-weight="700" fill="#1a1a1a">V (В)</text>
+
+  <!-- Axis Ticks & Labels -->
+  <text x="86" y="356" text-anchor="end" font-size="11" fill="#6b7280">0</text>
+  
+  <line x1="85" y1="150" x2="90" y2="150" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="80" y="154" text-anchor="end" font-size="11" font-weight="700" fill="#1a1a1a">Isc</text>
+
+  <line x1="320" y1="340" x2="320" y2="345" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="315" y="358" text-anchor="middle" font-size="11" font-weight="700" fill="#c0392b">Voc(60°C)</text>
+
+  <line x1="380" y1="340" x2="380" y2="345" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="385" y="358" text-anchor="middle" font-size="11" font-weight="700" fill="#2457d6">Voc(25°C)</text>
+
+  <!-- V-I Curve 1: 25 °C (STC) -->
+  <path d="M 90,150 L 290,153 C 335,155 365,185 380,340" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+  <circle cx="345" cy="185" r="4" fill="#2457d6"/>
+  <text x="352" y="172" text-anchor="start" font-size="11" font-weight="700" fill="#2457d6">MPP (1.86 Вт)</text>
+  <text x="110" y="165" text-anchor="start" font-size="12" font-weight="700" fill="#2457d6">T = 25 °C (STC)</text>
+
+  <!-- V-I Curve 2: 60 °C (Heating) -->
+  <path d="M 90,146 L 230,149 C 275,152 305,190 320,340" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+  <circle cx="285" cy="200" r="4" fill="#c0392b"/>
+  <text x="235" y="190" text-anchor="end" font-size="11" font-weight="700" fill="#c0392b">MPP (1.57 Вт)</text>
+  <text x="110" y="210" text-anchor="start" font-size="12" font-weight="700" fill="#c0392b">T = 60 °C (Розігрів)</text>
+
+  <!-- Voltage Drop Indicator Line & Arrow (No overlapping text) -->
+  <line x1="375" y1="325" x2="328" y2="325" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr-red)"/>
+
+  <!-- Callout Box 1: Temperature Summary -->
+  <rect x="45" y="375" width="405" height="65" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="247" y="393" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">Температурний коефіцієнт: γ_Voc ≈ -0.35 %/°C (ΔVoc = -1.1 В)</text>
+  <text x="247" y="411" text-anchor="middle" font-size="12" fill="#1a1a1a">Нагрів на +35 °C зменшує Voc на 1.1 В, а Pmax — на 15.5%</text>
+  <text x="247" y="427" text-anchor="middle" font-size="11" fill="#6b7280">Потрібен запас напруги для заряджання Li-Ion при +60 °C</text>
+
+  <!-- Panel 2: Shading & Bypass Diode (Right) -->
+  <rect x="495" y="70" width="435" height="385" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="510" y="82" width="405" height="28" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="712" y="101" text-anchor="middle" font-size="13" font-weight="700" fill="#2457d6">2. Часткове затінення та робота байпасного діода</text>
+
+  <!-- Solar Cells Diagram -->
+  <!-- Cell 1 (Sunlit) -->
+  <rect x="515" y="140" width="80" height="60" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="555" y="132" text-anchor="middle" font-size="11" fill="#2457d6">1000 Вт/м²</text>
+  <text x="555" y="162" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">Комірка 1</text>
+  <text x="555" y="180" text-anchor="middle" font-size="11" fill="#27ae60">0.5 В / 0.33 А</text>
+
+  <!-- Cell 2 (Sunlit) -->
+  <rect x="615" y="140" width="80" height="60" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="655" y="132" text-anchor="middle" font-size="11" fill="#2457d6">1000 Вт/м²</text>
+  <text x="655" y="162" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">Комірка 2</text>
+  <text x="655" y="180" text-anchor="middle" font-size="11" fill="#27ae60">0.5 В / 0.33 А</text>
+
+  <!-- Cell 3 (SHADED / Hot-Spot Risk) -->
+  <rect x="715" y="140" width="90" height="60" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="2"/>
+  <text x="760" y="132" text-anchor="middle" font-size="11" font-weight="700" fill="#c0392b">ТІНЬ 100 Вт/м²</text>
+  <text x="760" y="162" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">Комірка 3</text>
+  <text x="760" y="180" text-anchor="middle" font-size="11" font-weight="700" fill="#c0392b">Hot-Spot (R ↑)</text>
+
+  <!-- Cell 4 (Sunlit) -->
+  <rect x="825" y="140" width="80" height="60" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="865" y="132" text-anchor="middle" font-size="11" fill="#2457d6">1000 Вт/м²</text>
+  <text x="865" y="162" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">Комірка 4</text>
+  <text x="865" y="180" text-anchor="middle" font-size="11" fill="#27ae60">0.5 В / 0.33 А</text>
+
+  <!-- Series Wires between Cells -->
+  <line x1="502" y1="170" x2="515" y2="170" stroke="#2457d6" stroke-width="2"/>
+  <line x1="595" y1="170" x2="615" y2="170" stroke="#2457d6" stroke-width="2"/>
+  <line x1="695" y1="170" x2="715" y2="170" stroke="#2457d6" stroke-width="2"/>
+  <line x1="805" y1="170" x2="825" y2="170" stroke="#2457d6" stroke-width="2"/>
+  <line x1="905" y1="170" x2="918" y2="170" stroke="#2457d6" stroke-width="2"/>
+
+  <!-- Junction Dots for Bypass Branch -->
+  <circle cx="705" cy="170" r="3" fill="#27ae60"/>
+  <circle cx="815" cy="170" r="3" fill="#27ae60"/>
+
+  <!-- Bypass Diode Circuit Branch -->
+  <line x1="705" y1="170" x2="705" y2="245" stroke="#27ae60" stroke-width="2"/>
+  <line x1="705" y1="245" x2="738" y2="245" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <line x1="815" y1="170" x2="815" y2="245" stroke="#27ae60" stroke-width="2"/>
+  <line x1="815" y1="245" x2="765" y2="245" stroke="#27ae60" stroke-width="2"/>
+
+  <!-- Schottky Bypass Diode Symbol -->
+  <polygon points="742,235 762,245 742,255" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="762" y1="233" x2="762" y2="257" stroke="#27ae60" stroke-width="2"/>
+  <line x1="758" y1="233" x2="762" y2="233" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="762" y1="257" x2="766" y2="257" stroke="#27ae60" stroke-width="1.5"/>
+
+  <!-- Bypass Flow Labels (Placed cleanly between x=705 and x=815) -->
+  <text x="760" y="215" text-anchor="middle" font-size="11" font-weight="700" fill="#27ae60">Обхідний струм I_string</text>
+  <text x="760" y="272" text-anchor="middle" font-size="11" font-weight="700" fill="#27ae60">Байпасний діод Шотткі</text>
+
+  <!-- Problem Callout Box -->
+  <rect x="510" y="285" width="405" height="65" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="712" y="303" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">Без байпасного діода: струм всієї панелі падає до 0.03 А</text>
+  <text x="712" y="321" text-anchor="middle" font-size="12" fill="#1a1a1a">Затінений осередок розсіює тепло і перегрівається (Hot-Spot)</text>
+  <text x="712" y="337" text-anchor="middle" font-size="11" fill="#6b7280">Ризик деструкції покриття та незворотного виходу з ладу</text>
+
+  <!-- Solution Callout Box -->
+  <rect x="510" y="360" width="405" height="65" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="712" y="378" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">З діодом Шотткі: збереження 75% потужності панелі</text>
+  <text x="712" y="396" text-anchor="middle" font-size="12" fill="#1a1a1a">Діод відкривається при V_rev > 0.3 В і шунтує опір комірки 3</text>
+  <text x="712" y="412" text-anchor="middle" font-size="11" fill="#6b7280">Освітлені комірки продовжують працювати у штатному режимі</text>
+
+</svg>

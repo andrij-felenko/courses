@@ -1,0 +1,137 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="38" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Часові затримки та пороги спрацьовування захистів BMS</text>
+  <text x="480" y="56" text-anchor="middle" font-size="13" fill="#6b7280">Алгоритм часової затримки t_delay фільтрує імпульсні завади й запобігає хибним вимкненням</text>
+
+  <!-- PANEL 1: Voltage U(t) -->
+  <rect x="25" y="72" width="910" height="218" rx="8" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="40" y="94" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="start">Канал напруги U(t): захисти OVP (перезаряд) та UVP (перерозряд)</text>
+
+  <!-- Panel 1 Shaded Event Regions -->
+  <rect x="180" y="125" width="40" height="125" fill="#e9f7ef" opacity="0.65"/>
+  <rect x="285" y="125" width="80" height="125" fill="#fdecea" opacity="0.65"/>
+  <rect x="565" y="185" width="100" height="65" fill="#fdecea" opacity="0.65"/>
+
+  <!-- Panel 1 Threshold Lines -->
+  <path d="M120,135 L870,135" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <path d="M120,160 L870,160" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <path d="M120,220 L870,220" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,4"/>
+
+  <!-- Panel 1 Axes -->
+  <path d="M120,250 L880,250" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <path d="M120,250 L120,110" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- Panel 1 Axis & Threshold Text Labels -->
+  <text x="105" y="108" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">U, В</text>
+  <text x="885" y="250" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">Час, t</text>
+  <text x="115" y="131" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="end">V_OVP (4.25 В)</text>
+  <text x="115" y="156" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="end">V_REL (4.15 В)</text>
+  <text x="115" y="216" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="end">V_UVP (2.80 В)</text>
+
+  <!-- Panel 1 Waveform U(t) -->
+  <path d="M120,185 L180,185 L185,125 L215,125 L220,185 L285,185 L290,125 L365,125 L425,125 L465,185 L560,185 L565,240 L665,240 L685,195 L870,195" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+
+  <!-- Panel 1 Timer Indicators & Lines -->
+  <path d="M180,114 L220,114" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <text x="200" y="106" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Δt₁ &lt; t_OVP</text>
+
+  <path d="M285,114 L365,114" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <text x="325" y="106" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Затримка t_OVP</text>
+
+  <path d="M565,178 L665,178" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <text x="615" y="170" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Затримка t_UVP</text>
+
+  <!-- Panel 1 Vertical Cutoff Event Markers -->
+  <path d="M365,125 L365,250" stroke="#c0392b" stroke-width="1" stroke-dasharray="3,3"/>
+  <path d="M665,240 L665,250" stroke="#c0392b" stroke-width="1" stroke-dasharray="3,3"/>
+
+  <!-- Panel 1 Status Boxes (Bottom) -->
+  <rect x="145" y="258" width="110" height="22" rx="4" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="200" y="273" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Хибна завада (ОК)</text>
+
+  <rect x="305" y="258" width="115" height="22" rx="4" fill="#fdecea" stroke="#c0392b"/>
+  <text x="362" y="273" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Відсічка CHG OFF</text>
+
+  <rect x="440" y="258" width="115" height="22" rx="4" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="497" y="273" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Скидання (CHG ON)</text>
+
+  <rect x="605" y="258" width="115" height="22" rx="4" fill="#fdecea" stroke="#c0392b"/>
+  <text x="662" y="273" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Відсічка DSG OFF</text>
+
+  <rect x="735" y="258" width="130" height="22" rx="4" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="800" y="273" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Гістерезис ΔV_hys</text>
+
+  <!-- PANEL 2: Current I(t) -->
+  <rect x="25" y="302" width="910" height="222" rx="8" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="40" y="324" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="start">Канал струму I(t): захисти OCP (надструм) та SCP (коротке замикання)</text>
+
+  <!-- Panel 2 Shaded Event Regions -->
+  <rect x="180" y="355" width="50" height="125" fill="#eaf0fd" opacity="0.65"/>
+  <rect x="335" y="365" width="100" height="115" fill="#fdecea" opacity="0.65"/>
+  <rect x="583" y="330" width="30" height="150" fill="#fdecea" opacity="0.8"/>
+
+  <!-- Panel 2 Threshold Lines -->
+  <path d="M120,350 L690,350" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <path d="M120,390 L690,390" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <path d="M120,445 L690,445" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4,4"/>
+
+  <!-- Panel 2 Axes -->
+  <path d="M120,480 L880,480" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <path d="M120,480 L120,340" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- Panel 2 Axis & Threshold Text Labels -->
+  <text x="105" y="338" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">I, А</text>
+  <text x="885" y="480" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">Час, t</text>
+  <text x="115" y="346" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="end">I_SCP (100 А)</text>
+  <text x="115" y="386" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="end">I_OCP (30 А)</text>
+  <text x="115" y="441" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="end">I_NOM (10 А)</text>
+
+  <!-- Panel 2 Waveform I(t) -->
+  <path d="M120,445 L180,445 L185,355 L225,355 L230,445 L330,445 L335,365 L435,365 L435,480 L540,480 L555,445 L580,445 L583,330 L613,330 L613,480 L870,480" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+
+  <!-- Panel 2 Timer Indicators -->
+  <path d="M185,344 L225,344" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="205" y="336" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Δt &lt; t_OCP</text>
+
+  <path d="M335,344 L435,344" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <text x="385" y="336" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Затримка t_OCP</text>
+
+  <path d="M583,322 L613,322" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <text x="598" y="314" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">t_SCP</text>
+
+  <!-- Panel 2 Status Boxes (Bottom) -->
+  <rect x="145" y="488" width="125" height="22" rx="4" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="207" y="503" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Пусковий сплеск (ОК)</text>
+
+  <rect x="305" y="488" width="155" height="22" rx="4" fill="#fdecea" stroke="#c0392b"/>
+  <text x="382" y="503" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Перевантаження (DSG OFF)</text>
+
+  <rect x="525" y="488" width="150" height="22" rx="4" fill="#fdecea" stroke="#c0392b"/>
+  <text x="600" y="503" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Коротке замикання (SCP)</text>
+
+  <!-- Panel 2 Summary Card -->
+  <rect x="705" y="335" width="215" height="140" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="715" y="353" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">Логіка відсічки BMS:</text>
+  <text x="715" y="373" font-size="12" fill="#27ae60" text-anchor="start">• Сплеск &lt; t_delay: фільтрація</text>
+  <text x="715" y="393" font-size="12" fill="#c0392b" text-anchor="start">• Сплеск ≥ t_delay: відсічка</text>
+  <text x="715" y="413" font-size="12" fill="#2457d6" text-anchor="start">• t_SCP (мкс) &lt;&lt; t_OCP (мс)</text>
+  <text x="715" y="433" font-size="12" fill="#6b7280" text-anchor="start">• Гістерезис ΔV усуває</text>
+  <text x="715" y="453" font-size="12" fill="#6b7280" text-anchor="start">  повторні клацання</text>
+</svg>

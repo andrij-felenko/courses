@@ -1,0 +1,176 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Маркери стрілок -->
+  <defs>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="35" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Внутрішня рулонна структура та багатотабова конструкція EVE INR21700-40P</text>
+  <text x="480" y="57" font-size="13" fill="#6b7280" text-anchor="middle">Множинні токознімні таби розпаралелюють шлях струму, знижують опір R_dc та усувають перегрів</text>
+
+  <!-- ПАНЕЛЬ 1: Класична схема (1-2 таби) -->
+  <rect x="30" y="80" width="435" height="440" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="247.5" y="105" font-size="15" font-weight="bold" fill="#c0392b" text-anchor="middle">Класична схема: 1-2 таби (Одиночний токознім)</text>
+  <text x="247.5" y="123" font-size="12" fill="#6b7280" text-anchor="middle">Струм тече вздовж усієї довжини електрода (L ≈ 1.8 м)</text>
+
+  <!-- Схема внутрішнього рулону (Класика) -->
+  <rect x="45" y="135" width="405" height="195" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+
+  <!-- Макет елемента 21700 (Cutaway) -->
+  <rect x="65" y="155" width="90" height="155" rx="10" fill="white" stroke="#6b7280" stroke-width="1.5"/>
+  <rect x="90" y="145" width="40" height="10" rx="2" fill="#d0d7de" stroke="#6b7280" stroke-width="1.5"/>
+  
+  <!-- Рулон усередині 1-таб -->
+  <ellipse cx="110" cy="232" rx="32" ry="60" fill="none" stroke="#d0d7de" stroke-width="1.5"/>
+  <ellipse cx="110" cy="232" rx="22" ry="42" fill="none" stroke="#d0d7de" stroke-width="1.5"/>
+  <ellipse cx="110" cy="232" rx="12" ry="24" fill="none" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Одиничний таб -->
+  <line x1="110" y1="172" x2="110" y2="155" stroke="#c0392b" stroke-width="3"/>
+  <circle cx="110" cy="172" r="4" fill="#c0392b"/>
+  <text x="110" y="236" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">1 таб</text>
+
+  <!-- Розгорнута фольга (Класика) -->
+  <rect x="175" y="180" width="260" height="18" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="185" y="193" font-size="11" fill="#2457d6">Катод (Al фольга)</text>
+  
+  <rect x="175" y="202" width="260" height="18" fill="#fef3c7" stroke="#d97706" stroke-width="1"/>
+  <text x="185" y="215" font-size="11" fill="#d97706">Анод (Cu фольга)</text>
+
+  <!-- Таб 1 на фользі -->
+  <rect x="180" y="163" width="12" height="17" fill="#c0392b"/>
+  <text x="186" y="156" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">Таб 1</text>
+
+  <!-- Лінія довгого шляху струму -->
+  <path d="M 425 189 H 197" fill="none" stroke="#c0392b" stroke-width="2" stroke-dasharray="4,2" marker-end="url(#arr-red)"/>
+  <text x="315" y="156" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">Довгий шлях струму L (до 1.8 м)</text>
+
+  <!-- Зона хотспоту -->
+  <circle cx="186" cy="189" r="16" fill="none" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="2,2"/>
+
+  <!-- Блок опису недоліків -->
+  <rect x="175" y="242" width="260" height="75" rx="4" fill="white" stroke="#c0392b"/>
+  <text x="305" y="260" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Недоліки однотабової схеми:</text>
+  <text x="185" y="280" font-size="11" fill="#1a1a1a">• Високий омічний опір фольги R_foil</text>
+  <text x="185" y="297" font-size="11" fill="#c0392b">• Локальний перегрів біля токознімача</text>
+
+  <!-- Блок параметрів 1-таб -->
+  <rect x="45" y="340" width="405" height="165" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="247.5" y="362" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Електрофізичні параметри (1-таб)</text>
+
+  <text x="60" y="387" font-size="12" fill="#1a1a1a" font-weight="bold">• Внутрішній опір (R_dc):</text>
+  <text x="435" y="387" font-size="12" fill="#c0392b" font-weight="bold" text-anchor="end">22 ... 30 мОм</text>
+
+  <text x="60" y="410" font-size="12" fill="#1a1a1a" font-weight="bold">• Падіння напруги (ΔV при 30A):</text>
+  <text x="435" y="410" font-size="12" fill="#c0392b" font-weight="bold" text-anchor="end">0.66 ... 0.90 В</text>
+
+  <text x="60" y="433" font-size="12" fill="#1a1a1a" font-weight="bold">• Теплова потужність (P = I²·R):</text>
+  <text x="435" y="433" font-size="12" fill="#c0392b" font-weight="bold" text-anchor="end">19.8 ... 27.0 Вт</text>
+
+  <text x="60" y="456" font-size="12" fill="#1a1a1a" font-weight="bold">• Температурний град. ΔT:</text>
+  <text x="435" y="456" font-size="12" fill="#c0392b" font-weight="bold" text-anchor="end">&gt; 35 °C (хотспот)</text>
+
+  <text x="60" y="479" font-size="12" fill="#1a1a1a" font-weight="bold">• Макс. тривалий струм:</text>
+  <text x="435" y="479" font-size="12" fill="#6b7280" font-weight="bold" text-anchor="end">10 ... 15 А</text>
+
+  <text x="247.5" y="497" font-size="11" fill="#c0392b" text-anchor="middle">Обмеження струму через ризик перегріву та деградації</text>
+
+  <!-- ПАНЕЛЬ 2: EVE INR21700-40P Multi-Tab -->
+  <rect x="495" y="80" width="435" height="440" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="712.5" y="105" font-size="15" font-weight="bold" fill="#27ae60" text-anchor="middle">Конструкція EVE 40P: Multi-Tab (Багатотабова)</text>
+  <text x="712.5" y="123" font-size="12" fill="#6b7280" text-anchor="middle">Множинні таби по всій довжині рулону (L_eff = L / n)</text>
+
+  <!-- Схема внутрішнього рулону (Multi-Tab) -->
+  <rect x="510" y="135" width="405" height="195" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+
+  <!-- Макет елемента EVE 40P (Cutaway) -->
+  <rect x="530" y="155" width="90" height="155" rx="10" fill="white" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="555" y="145" width="40" height="10" rx="2" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+
+  <!-- Рулон усередині Multi-Tab -->
+  <ellipse cx="575" cy="232" rx="32" ry="60" fill="none" stroke="#27ae60" stroke-dasharray="3,2" stroke-width="1.5"/>
+  <ellipse cx="575" cy="232" rx="22" ry="42" fill="none" stroke="#27ae60" stroke-dasharray="3,2" stroke-width="1.5"/>
+  <ellipse cx="575" cy="232" rx="12" ry="24" fill="none" stroke="#27ae60" stroke-dasharray="3,2" stroke-width="1.5"/>
+
+  <!-- Множинні таби на графіці елемента -->
+  <line x1="550" y1="175" x2="563" y2="155" stroke="#27ae60" stroke-width="2"/>
+  <line x1="565" y1="175" x2="572" y2="155" stroke="#27ae60" stroke-width="2"/>
+  <line x1="585" y1="175" x2="582" y2="155" stroke="#27ae60" stroke-width="2"/>
+  <line x1="600" y1="175" x2="592" y2="155" stroke="#27ae60" stroke-width="2"/>
+
+  <line x1="550" y1="289" x2="563" y2="310" stroke="#2457d6" stroke-width="2"/>
+  <line x1="565" y1="289" x2="572" y2="310" stroke="#2457d6" stroke-width="2"/>
+  <line x1="585" y1="289" x2="582" y2="310" stroke="#2457d6" stroke-width="2"/>
+  <line x1="600" y1="289" x2="592" y2="310" stroke="#2457d6" stroke-width="2"/>
+
+  <text x="575" y="225" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">Багатотабовий</text>
+  <text x="575" y="240" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">рулон EVE 40P</text>
+
+  <!-- Розгорнута фольга (Multi-Tab) -->
+  <rect x="640" y="180" width="260" height="18" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="648" y="193" font-size="11" fill="#2457d6">Катод (Al фольга)</text>
+
+  <rect x="640" y="202" width="260" height="18" fill="#fef3c7" stroke="#d97706" stroke-width="1"/>
+  <text x="648" y="215" font-size="11" fill="#d97706">Анод (Cu фольга)</text>
+
+  <!-- Множинні таби на фользі -->
+  <rect x="650" y="163" width="8" height="17" fill="#27ae60"/>
+  <rect x="700" y="163" width="8" height="17" fill="#27ae60"/>
+  <rect x="750" y="163" width="8" height="17" fill="#27ae60"/>
+  <rect x="800" y="163" width="8" height="17" fill="#27ae60"/>
+  <rect x="850" y="163" width="8" height="17" fill="#27ae60"/>
+
+  <text x="765" y="156" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">Множинні таби (n = 5...8+)</text>
+
+  <!-- Короткі паралельні вектори струму -->
+  <path d="M 680 189 H 661" fill="none" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <path d="M 681 189 H 697" fill="none" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <path d="M 730 189 H 711" fill="none" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <path d="M 731 189 H 747" fill="none" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <path d="M 780 189 H 761" fill="none" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <path d="M 781 189 H 797" fill="none" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <!-- Блок опису переваг -->
+  <rect x="640" y="242" width="260" height="75" rx="4" fill="white" stroke="#27ae60"/>
+  <text x="770" y="260" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Переваги Multi-Tab у 40P:</text>
+  <text x="650" y="280" font-size="11" fill="#1a1a1a">• Короткий омічний шлях L_eff = L / n</text>
+  <text x="650" y="297" font-size="11" fill="#27ae60">• Рівномірний струм → Немає хотспотів</text>
+
+  <!-- Блок параметрів EVE 40P -->
+  <rect x="510" y="340" width="405" height="165" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="712.5" y="362" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Електрофізичні параметри (EVE 40P)</text>
+
+  <text x="525" y="387" font-size="12" fill="#1a1a1a" font-weight="bold">• Внутрішній опір (R_dc):</text>
+  <text x="900" y="387" font-size="12" fill="#27ae60" font-weight="bold" text-anchor="end">&lt; 8.5 мОм (AC ~ 7.5 мОм)</text>
+
+  <text x="525" y="410" font-size="12" fill="#1a1a1a" font-weight="bold">• Падіння напруги (ΔV при 30A):</text>
+  <text x="900" y="410" font-size="12" fill="#27ae60" font-weight="bold" text-anchor="end">0.24 ... 0.26 В (-68%)</text>
+
+  <text x="525" y="433" font-size="12" fill="#1a1a1a" font-weight="bold">• Теплова потужність (P = I²·R):</text>
+  <text x="900" y="433" font-size="12" fill="#27ae60" font-weight="bold" text-anchor="end">~7.6 Вт (-65% тепла)</text>
+
+  <text x="525" y="456" font-size="12" fill="#1a1a1a" font-weight="bold">• Температурний град. ΔT:</text>
+  <text x="900" y="456" font-size="12" fill="#27ae60" font-weight="bold" text-anchor="end">&lt; 12 °C (рівномірно)</text>
+
+  <text x="525" y="479" font-size="12" fill="#1a1a1a" font-weight="bold">• Макс. тривалий струм:</text>
+  <text x="900" y="479" font-size="12" fill="#2457d6" font-weight="bold" text-anchor="end">45 А (імпульс 65 А)</text>
+
+  <text x="712.5" y="497" font-size="11" fill="#27ae60" text-anchor="middle">Висока енергоефективність та максимальний ресурс комірки</text>
+</svg>

@@ -1,0 +1,196 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Definitions for Arrow Markers -->
+  <defs>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">MH-CD42: Логіка кнопки KEY, режими сну та LED-індикація</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Коротке натискання вмикає 5 В, подвійне — вимикає; струм &lt; 50 мА переводить у сон</text>
+
+  <!-- LEFT PANEL: STATE DIAGRAM & KEY CONTROL -->
+  <rect x="25" y="70" width="445" height="470" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="40" y="95" font-size="14" font-weight="bold" fill="#1a1a1a">Логіка станів та керування кнопкою KEY</text>
+
+  <!-- State 1: Sleep -->
+  <rect x="45" y="115" width="405" height="95" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="2"/>
+  <text x="60" y="136" font-size="13" font-weight="bold" fill="#6b7280">РЕЖИМ СНУ (SLEEP MODE)</text>
+  <text x="60" y="158" font-size="12" fill="#1a1a1a">• Вихід 5 В вимкнено (V_out = 0 В)</text>
+  <text x="60" y="178" font-size="12" fill="#6b7280">• Власне споживання модуля: I_q ≈ 50 мкА</text>
+  <text x="60" y="198" font-size="12" fill="#6b7280">• Активація кнопкою KEY або підключенням USB</text>
+
+  <!-- Transitions 1 & 2 (Sleep <-> Boost) -->
+  <line x1="70" y1="210" x2="70" y2="260" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="80" y="240" font-size="12" font-weight="bold" fill="#2457d6">1× натискання KEY</text>
+
+  <line x1="415" y1="260" x2="415" y2="210" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="405" y="230" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="end">2× клік KEY</text>
+  <text x="405" y="246" font-size="12" fill="#c0392b" text-anchor="end">I_out &lt; 50 мА (~32 с)</text>
+
+  <!-- State 2: Boost 5V ON -->
+  <rect x="45" y="265" width="405" height="115" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="60" y="286" font-size="13" font-weight="bold" fill="#2457d6">РОБОЧИЙ РЕЖИМ (BOOST 5V ON)</text>
+  <text x="60" y="308" font-size="12" fill="#1a1a1a">• Вихід 5 В увімкнено (струм до 2 А)</text>
+  <text x="60" y="328" font-size="12" fill="#1a1a1a">• LED показують рівень заряду АКБ</text>
+  <text x="60" y="348" font-size="12" fill="#c0392b">• Автосон при I_out &lt; 50 мА (~32 с)</text>
+  <text x="60" y="366" font-size="12" fill="#27ae60">• Живлення навантаження під час заряду</text>
+
+  <!-- Transitions 3 & 4 (Boost <-> CHG) -->
+  <line x1="70" y1="380" x2="70" y2="430" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="80" y="408" font-size="12" font-weight="bold" fill="#27ae60">Підключення USB 5 В</text>
+
+  <line x1="415" y1="430" x2="415" y2="380" stroke="#6b7280" stroke-width="2" marker-end="url(#arr-gray)"/>
+  <text x="405" y="408" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="end">Відключення USB 5 В</text>
+
+  <!-- State 3: Charging -->
+  <rect x="45" y="435" width="405" height="95" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <text x="60" y="456" font-size="13" font-weight="bold" fill="#27ae60">РЕЖИМ ЗАРЯДЖАННЯ (CHARGING)</text>
+  <text x="60" y="478" font-size="12" fill="#1a1a1a">• Заряд АКБ струмом до 2.1 А (CC/CV)</text>
+  <text x="60" y="498" font-size="12" fill="#1a1a1a">• Блимання LED показує фазу заряду</text>
+  <text x="60" y="518" font-size="12" fill="#27ae60">• 100% (4.2 В): всі 4 LED горять постійно</text>
+
+  <!-- RIGHT PANEL: LED LEVEL INDICATOR -->
+  <rect x="490" y="70" width="445" height="470" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="505" y="93" font-size="14" font-weight="bold" fill="#1a1a1a">Світлодіодна індикація рівня заряду (4× LED)</text>
+
+  <!-- Section A: Discharge -->
+  <rect x="505" y="105" width="415" height="24" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="515" y="121" font-size="12" font-weight="bold" fill="#2457d6">РЕЖИМ РОЗРЯДУ (Робота від батареї 5 В)</text>
+
+  <!-- Headers A -->
+  <text x="505" y="139" font-size="12" font-weight="bold" fill="#6b7280">Напруга (Заряд)</text>
+  <text x="635" y="139" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">L1</text>
+  <text x="653" y="139" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">L2</text>
+  <text x="671" y="139" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">L3</text>
+  <text x="689" y="139" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">L4</text>
+  <text x="705" y="139" font-size="12" font-weight="bold" fill="#6b7280">Стан індикації</text>
+
+  <!-- Row D1: < 3.3V -->
+  <text x="505" y="157" font-size="12" fill="#c0392b" font-weight="bold">&lt; 3.3 В (0–25%)</text>
+  <!-- L1 Blink -->
+  <circle cx="635" cy="153" r="8" fill="none" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="3 2"/>
+  <circle cx="635" cy="153" r="5" fill="#58d68d" stroke="#27ae60" stroke-width="1.5"/>
+  <!-- L2..L4 Off -->
+  <circle cx="653" cy="153" r="6" fill="#e5e7eb" stroke="#9ca3af" stroke-width="1"/>
+  <circle cx="671" cy="153" r="6" fill="#e5e7eb" stroke="#9ca3af" stroke-width="1"/>
+  <circle cx="689" cy="153" r="6" fill="#e5e7eb" stroke="#9ca3af" stroke-width="1"/>
+  <text x="705" y="157" font-size="12" fill="#c0392b">L1 блимає (критичний рівень)</text>
+
+  <!-- Row D2: 3.3–3.6V -->
+  <text x="505" y="177" font-size="12" fill="#1a1a1a">3.3–3.6 В (25-50%)</text>
+  <circle cx="635" cy="173" r="6" fill="#27ae60" stroke="#1e8449" stroke-width="1.5"/>
+  <circle cx="653" cy="173" r="6" fill="#e5e7eb" stroke="#9ca3af" stroke-width="1"/>
+  <circle cx="671" cy="173" r="6" fill="#e5e7eb" stroke="#9ca3af" stroke-width="1"/>
+  <circle cx="689" cy="173" r="6" fill="#e5e7eb" stroke="#9ca3af" stroke-width="1"/>
+  <text x="705" y="177" font-size="12" fill="#1a1a1a">L1 горить, L2–L4 вимкнені</text>
+
+  <!-- Row D3: 3.6–3.9V -->
+  <text x="505" y="197" font-size="12" fill="#1a1a1a">3.6–3.9 В (50-75%)</text>
+  <circle cx="635" cy="193" r="6" fill="#27ae60" stroke="#1e8449" stroke-width="1.5"/>
+  <circle cx="653" cy="193" r="6" fill="#27ae60" stroke="#1e8449" stroke-width="1.5"/>
+  <circle cx="671" cy="193" r="6" fill="#e5e7eb" stroke="#9ca3af" stroke-width="1"/>
+  <circle cx="689" cy="193" r="6" fill="#e5e7eb" stroke="#9ca3af" stroke-width="1"/>
+  <text x="705" y="197" font-size="12" fill="#1a1a1a">L1–L2 горять, L3–L4 вимкнені</text>
+
+  <!-- Row D4: 3.9–4.2V -->
+  <text x="505" y="217" font-size="12" fill="#1a1a1a">3.9–4.2 В (75-100%)</text>
+  <circle cx="635" cy="213" r="6" fill="#27ae60" stroke="#1e8449" stroke-width="1.5"/>
+  <circle cx="653" cy="213" r="6" fill="#27ae60" stroke="#1e8449" stroke-width="1.5"/>
+  <circle cx="671" cy="213" r="6" fill="#27ae60" stroke="#1e8449" stroke-width="1.5"/>
+  <circle cx="689" cy="213" r="6" fill="#27ae60" stroke="#1e8449" stroke-width="1.5"/>
+  <text x="705" y="217" font-size="12" fill="#27ae60" font-weight="bold">L1–L4 горять (повний заряд)</text>
+
+  <!-- Section B: Charge -->
+  <rect x="505" y="235" width="415" height="24" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="515" y="251" font-size="12" font-weight="bold" fill="#27ae60">РЕЖИМ ЗАРЯДЖАННЯ (Вхід USB 5 В)</text>
+
+  <!-- Headers B -->
+  <text x="505" y="269" font-size="12" font-weight="bold" fill="#6b7280">Прогрес (Напруга)</text>
+  <text x="635" y="269" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">L1</text>
+  <text x="653" y="269" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">L2</text>
+  <text x="671" y="269" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">L3</text>
+  <text x="689" y="269" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">L4</text>
+  <text x="705" y="269" font-size="12" font-weight="bold" fill="#6b7280">Стан індикації</text>
+
+  <!-- Row C1: 0-25% -->
+  <text x="505" y="287" font-size="12" fill="#1a1a1a">0–25% (&lt; 3.3 В)</text>
+  <circle cx="635" cy="283" r="8" fill="none" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="3 2"/>
+  <circle cx="635" cy="283" r="5" fill="#58d68d" stroke="#27ae60" stroke-width="1.5"/>
+  <circle cx="653" cy="283" r="6" fill="#e5e7eb" stroke="#9ca3af" stroke-width="1"/>
+  <circle cx="671" cy="283" r="6" fill="#e5e7eb" stroke="#9ca3af" stroke-width="1"/>
+  <circle cx="689" cy="283" r="6" fill="#e5e7eb" stroke="#9ca3af" stroke-width="1"/>
+  <text x="705" y="287" font-size="12" fill="#1a1a1a">L1 блимає, L2–L4 вимкнені</text>
+
+  <!-- Row C2: 25-50% -->
+  <text x="505" y="307" font-size="12" fill="#1a1a1a">25–50% (3.3–3.6 В)</text>
+  <circle cx="635" cy="303" r="6" fill="#27ae60" stroke="#1e8449" stroke-width="1.5"/>
+  <circle cx="653" cy="303" r="8" fill="none" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="3 2"/>
+  <circle cx="653" cy="303" r="5" fill="#58d68d" stroke="#27ae60" stroke-width="1.5"/>
+  <circle cx="671" cy="303" r="6" fill="#e5e7eb" stroke="#9ca3af" stroke-width="1"/>
+  <circle cx="689" cy="303" r="6" fill="#e5e7eb" stroke="#9ca3af" stroke-width="1"/>
+  <text x="705" y="307" font-size="12" fill="#1a1a1a">L1 горить, L2 блимає</text>
+
+  <!-- Row C3: 50-75% -->
+  <text x="505" y="327" font-size="12" fill="#1a1a1a">50–75% (3.6–3.9 В)</text>
+  <circle cx="635" cy="323" r="6" fill="#27ae60" stroke="#1e8449" stroke-width="1.5"/>
+  <circle cx="653" cy="323" r="6" fill="#27ae60" stroke="#1e8449" stroke-width="1.5"/>
+  <circle cx="671" cy="323" r="8" fill="none" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="3 2"/>
+  <circle cx="671" cy="323" r="5" fill="#58d68d" stroke="#27ae60" stroke-width="1.5"/>
+  <circle cx="689" cy="323" r="6" fill="#e5e7eb" stroke="#9ca3af" stroke-width="1"/>
+  <text x="705" y="327" font-size="12" fill="#1a1a1a">L1–L2 горять, L3 блимає</text>
+
+  <!-- Row C4: 75-99% -->
+  <text x="505" y="347" font-size="12" fill="#1a1a1a">75–99% (3.9–4.15 В)</text>
+  <circle cx="635" cy="343" r="6" fill="#27ae60" stroke="#1e8449" stroke-width="1.5"/>
+  <circle cx="653" cy="343" r="6" fill="#27ae60" stroke="#1e8449" stroke-width="1.5"/>
+  <circle cx="671" cy="343" r="6" fill="#27ae60" stroke="#1e8449" stroke-width="1.5"/>
+  <circle cx="689" cy="343" r="8" fill="none" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="3 2"/>
+  <circle cx="689" cy="343" r="5" fill="#58d68d" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="705" y="347" font-size="12" fill="#1a1a1a">L1–L3 горять, L4 блимає</text>
+
+  <!-- Row C5: 100% -->
+  <text x="505" y="367" font-size="12" fill="#27ae60" font-weight="bold">100% (4.2 В, Full)</text>
+  <circle cx="635" cy="363" r="6" fill="#27ae60" stroke="#1e8449" stroke-width="1.5"/>
+  <circle cx="653" cy="363" r="6" fill="#27ae60" stroke="#1e8449" stroke-width="1.5"/>
+  <circle cx="671" cy="363" r="6" fill="#27ae60" stroke="#1e8449" stroke-width="1.5"/>
+  <circle cx="689" cy="363" r="6" fill="#27ae60" stroke="#1e8449" stroke-width="1.5"/>
+  <text x="705" y="367" font-size="12" fill="#27ae60" font-weight="bold">L1–L4 горять (заряджено)</text>
+
+  <!-- Section C: Legend Box -->
+  <rect x="505" y="390" width="415" height="135" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="515" y="410" font-size="12" font-weight="bold" fill="#1a1a1a">Умовні позначення індикаторів:</text>
+
+  <!-- Legend 1 -->
+  <circle cx="525" cy="428" r="6" fill="#27ae60" stroke="#1e8449" stroke-width="1.5"/>
+  <text x="535" y="432" font-size="12" fill="#1a1a1a">Горить безперервно — фаза завершена / рівень є</text>
+
+  <!-- Legend 2 -->
+  <circle cx="525" cy="450" r="8" fill="none" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="3 2"/>
+  <circle cx="525" cy="450" r="5" fill="#58d68d" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="535" y="454" font-size="12" fill="#1a1a1a">Блимає — поточна фаза заряджання або розряд</text>
+
+  <!-- Legend 3 -->
+  <circle cx="525" cy="472" r="6" fill="#e5e7eb" stroke="#9ca3af" stroke-width="1"/>
+  <text x="535" y="476" font-size="12" fill="#6b7280">Вимкнено — напруга нижче даного порогу</text>
+
+  <!-- Legend 4 -->
+  <circle cx="525" cy="494" r="3" fill="#2457d6"/>
+  <text x="535" y="498" font-size="12" fill="#2457d6">При споживанні &lt; 50 мА індикація гасне через ~32 с</text>
+</svg>

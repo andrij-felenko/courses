@@ -1,0 +1,139 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 490" width="960" height="490" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-accent" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка полотна -->
+  <rect x="0" y="0" width="960" height="490" fill="white"/>
+
+  <!-- Заголовок та підзаголовок -->
+  <text x="480" y="30" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Схема узгодження сонячної панелі з акумулятором</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Блокувальний діод зупиняє зворотний струм вночі, а контролер узгоджує V_MPP з профілем CC/CV</text>
+
+  <!-- БЛОК 1: Сонячний модуль -->
+  <rect x="30" y="72" width="200" height="270" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="40" y="84" width="180" height="28" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="130" y="103" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Сонячний модуль 6 В</text>
+  <text x="130" y="124" font-size="12" fill="#6b7280" text-anchor="middle">Джерело струму (P_max = 2 Вт)</text>
+
+  <!-- Графіка панелі та сонця -->
+  <circle cx="50" cy="146" r="8" fill="#f39c12"/>
+  <line x1="56" y1="150" x2="68" y2="158" stroke="#f39c12" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+  <rect x="75" y="136" width="120" height="64" rx="4" fill="#2457d6" opacity="0.9" stroke="#1a1a1a" stroke-width="1"/>
+  <line x1="75" y1="157" x2="195" y2="157" stroke="#ffffff" stroke-width="1" opacity="0.6"/>
+  <line x1="75" y1="179" x2="195" y2="179" stroke="#ffffff" stroke-width="1" opacity="0.6"/>
+  <line x1="115" y1="136" x2="115" y2="200" stroke="#ffffff" stroke-width="1" opacity="0.6"/>
+  <line x1="155" y1="136" x2="155" y2="200" stroke="#ffffff" stroke-width="1" opacity="0.6"/>
+
+  <!-- Параметри панелі -->
+  <rect x="40" y="212" width="180" height="118" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="48" y="230" font-size="12" fill="#1a1a1a">V_OC = 7.2 В (холостий хід)</text>
+  <text x="48" y="250" font-size="12" fill="#1a1a1a">V_MPP = 6.0 В (роб. точка)</text>
+  <text x="48" y="270" font-size="12" fill="#1a1a1a">I_SC = 0.36 А (струм КЗ)</text>
+  <text x="48" y="290" font-size="12" fill="#1a1a1a">I_MPP = 0.33 А (роб. струм)</text>
+  <text x="48" y="316" font-size="12" fill="#6b7280">Нелінійна ВАХ джерела</text>
+
+  <!-- БЛОК 2: Діод Шотткі -->
+  <rect x="250" y="72" width="200" height="270" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="260" y="84" width="180" height="28" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="350" y="103" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Діод Шотткі D_block</text>
+  <text x="350" y="124" font-size="12" fill="#6b7280" text-anchor="middle">Захист від зворотного струму</text>
+
+  <!-- Схема діода -->
+  <text x="350" y="146" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">D_block (1N5819)</text>
+  <line x1="260" y1="165" x2="330" y2="165" stroke="#2457d6" stroke-width="2"/>
+  <path d="M330,153 L355,165 L330,177 Z" fill="#2457d6" stroke="#2457d6" stroke-width="1"/>
+  <line x1="355" y1="153" x2="355" y2="177" stroke="#2457d6" stroke-width="2.5"/>
+  <line x1="355" y1="165" x2="440" y2="165" stroke="#2457d6" stroke-width="2"/>
+
+  <!-- Пояснення діода -->
+  <rect x="260" y="185" width="180" height="145" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="268" y="204" font-size="12" font-weight="bold" fill="#27ae60">Удень (Освітлення):</text>
+  <text x="268" y="222" font-size="12" fill="#1a1a1a">• Прямий струм I_chg</text>
+  <text x="268" y="240" font-size="12" fill="#1a1a1a">• Падіння V_f ≈ 0.3 В</text>
+  <text x="268" y="264" font-size="12" font-weight="bold" fill="#c0392b">Уночі (Темрява):</text>
+  <text x="268" y="282" font-size="12" fill="#1a1a1a">• Блокування I_rev = 0</text>
+  <text x="268" y="300" font-size="12" fill="#1a1a1a">• Без розряду батареї</text>
+  <text x="268" y="320" font-size="12" fill="#6b7280">Високий ККД системи</text>
+
+  <!-- БЛОК 3: Контролер заряджання -->
+  <rect x="470" y="72" width="220" height="270" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="480" y="84" width="200" height="28" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="580" y="103" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Контролер заряджання</text>
+  <text x="580" y="124" font-size="12" fill="#6b7280" text-anchor="middle">CN3791 (MPPT) / TP4056</text>
+
+  <!-- Блок мікросхеми -->
+  <rect x="490" y="138" width="180" height="62" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="580" y="156" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Узгоджувальний каскад</text>
+  <text x="580" y="174" font-size="12" fill="#1a1a1a" text-anchor="middle">V_MPPT Tracking (6.0 В)</text>
+  <text x="580" y="190" font-size="11" fill="#6b7280" text-anchor="middle">Контроль фаз CC / CV</text>
+
+  <!-- Пояснення контролера -->
+  <rect x="480" y="208" width="200" height="122" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="488" y="226" font-size="12" fill="#1a1a1a">• Вхідна напруга 6.0 В</text>
+  <text x="488" y="246" font-size="12" fill="#1a1a1a">• Фаза CC: постійний струм</text>
+  <text x="488" y="266" font-size="12" fill="#1a1a1a">• Фаза CV: відсічка на 4.2 В</text>
+  <text x="488" y="286" font-size="12" fill="#1a1a1a">• ККД перетворення: 88-94%</text>
+  <text x="488" y="310" font-size="12" fill="#6b7280">Захист від перезаряджання</text>
+
+  <!-- БЛОК 4: Акумулятор та Навантаження -->
+  <rect x="710" y="72" width="220" height="270" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="720" y="84" width="200" height="28" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="820" y="103" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Акумулятор та Навантаження</text>
+  <text x="820" y="124" font-size="12" fill="#6b7280" text-anchor="middle">Li-Ion 1S (3.7 В) + MCU</text>
+
+  <!-- Графіка батареї та навантаження -->
+  <rect x="722" y="138" width="85" height="62" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="764" y="160" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Li-Ion</text>
+  <text x="764" y="178" font-size="11" fill="#1a1a1a" text-anchor="middle">3.7 В / 1S</text>
+  <text x="764" y="192" font-size="11" fill="#6b7280" text-anchor="middle">4.2 В max</text>
+
+  <rect x="823" y="138" width="97" height="62" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="871" y="160" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Навантаження</text>
+  <text x="871" y="178" font-size="11" fill="#6b7280" text-anchor="middle">ESP32 / Дисплей</text>
+
+  <!-- Пояснення батареї -->
+  <rect x="720" y="208" width="200" height="122" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="728" y="226" font-size="12" fill="#1a1a1a">• Робоча V_bat: 3.0...4.2 В</text>
+  <text x="728" y="246" font-size="12" fill="#1a1a1a">• Вбудована плата BMS 1S</text>
+  <text x="728" y="266" font-size="12" fill="#1a1a1a">• Живлення V_OUT = 3.3 В</text>
+  <text x="728" y="286" font-size="12" fill="#1a1a1a">• Безперервний режим</text>
+  <text x="728" y="310" font-size="12" fill="#6b7280">Буферизація сонячної енергії</text>
+
+  <!-- Лінії зв'язку між блоками -->
+  <!-- Струм панелі (+) -> Діод -->
+  <line x1="230" y1="165" x2="242" y2="165" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-accent)"/>
+  <!-- Діод -> Контролер VIN (+) -->
+  <line x1="440" y1="165" x2="462" y2="165" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-accent)"/>
+  <!-- Контролер BAT (+) -> Акумулятор -->
+  <line x1="690" y1="165" x2="702" y2="165" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- Лінія Землі (GND) -->
+  <line x1="230" y1="188" x2="470" y2="188" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <line x1="690" y1="188" x2="710" y2="188" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4,3"/>
+
+  <!-- Нижній порівняльний блок (Проблема / Розв'язок) -->
+  <!-- Ліворуч: Небезпека прямого підключення -->
+  <rect x="30" y="355" width="440" height="120" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="45" y="375" font-size="13" font-weight="bold" fill="#c0392b">⛔ Пряме підключення (без узгодження):</text>
+  <text x="45" y="395" font-size="12" fill="#1a1a1a">• Уночі: Акумулятор розряджається на сонячну панель (струм I_rev)</text>
+  <text x="45" y="415" font-size="12" fill="#1a1a1a">• Удень: Небезпека перезаряду понад 4.2 В та пошкодження Li-Ion</text>
+  <text x="45" y="435" font-size="12" fill="#1a1a1a">• Робота поза точкою максимальної потужності (втрата до 40% P_max)</text>
+  <text x="45" y="457" font-size="12" font-weight="bold" fill="#c0392b">Результат: Швидка деградація батареї та низький ККД пристрою</text>
+
+  <!-- Праворуч: Переваги схеми узгодження -->
+  <rect x="490" y="355" width="440" height="120" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="505" y="375" font-size="13" font-weight="bold" fill="#27ae60">✓ Схема з діодом Шотткі та контролером:</text>
+  <text x="505" y="395" font-size="12" fill="#1a1a1a">• Блокування I_rev: D_block повністю зупиняє розряд у темряві</text>
+  <text x="505" y="415" font-size="12" fill="#1a1a1a">• Точний контроль CC/CV: Безпечна відсічка напруги на рівні 4.2 В</text>
+  <text x="505" y="435" font-size="12" fill="#1a1a1a">• Оптимізація MPPT: Відбір до 95% доступної сонячної енергії</text>
+  <text x="505" y="457" font-size="12" font-weight="bold" fill="#27ae60">Результат: Максимальний ресурс акумулятора та стабільна робота</text>
+</svg>

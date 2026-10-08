@@ -1,0 +1,153 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 525" width="960" height="525" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <!-- Arrow Markers -->
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- White Background -->
+  <rect x="0" y="0" width="960" height="525" fill="white"/>
+
+  <!-- Title and Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Схема підключення плати BMS до акумулятора 18650 та навантаження</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Плата BMS керує силовою шиною через MOSFET-ключі, розмикаючи мінусовий провідник при аварійних режимах</text>
+
+  <!-- COLUMN 1: BATTERY CELL 18650 -->
+  <rect x="40" y="80" width="170" height="330" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="50" y="90" width="150" height="30" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="125" y="110" font-size="13" font-weight="700" fill="#2457d6" text-anchor="middle">Елемент 18650</text>
+
+  <!-- Battery Body -->
+  <rect x="68" y="145" width="114" height="175" rx="8" fill="#ffffff" stroke="#2457d6" stroke-width="2"/>
+  <rect x="110" y="136" width="30" height="9" rx="2" fill="#2457d6"/>
+  <text x="125" y="195" font-size="14" font-weight="700" fill="#1a1a1a" text-anchor="middle">Li-ion 18650</text>
+  <text x="125" y="220" font-size="12" fill="#6b7280" text-anchor="middle">U_nom = 3.7 V</text>
+  <text x="125" y="240" font-size="12" fill="#6b7280" text-anchor="middle">U_max = 4.2 V</text>
+  <text x="125" y="260" font-size="12" fill="#6b7280" text-anchor="middle">U_min = 2.5 V</text>
+  <text x="125" y="280" font-size="12" fill="#6b7280" text-anchor="middle">Струм до 20A</text>
+
+  <!-- Battery Terminals -->
+  <circle cx="185" cy="160" r="12" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="185" y="164" font-size="13" font-weight="700" fill="#2457d6" text-anchor="middle">+</text>
+
+  <circle cx="185" cy="340" r="12" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="185" y="344" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">-</text>
+
+  <!-- Wires from Battery to BMS -->
+  <line x1="197" y1="160" x2="280" y2="160" stroke="#2457d6" stroke-width="3" marker-end="url(#arr-blue)"/>
+  <text x="240" y="148" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">+3.7V..4.2V</text>
+
+  <line x1="197" y1="340" x2="280" y2="340" stroke="#1a1a1a" stroke-width="3" marker-end="url(#arr-dark)"/>
+  <text x="240" y="365" font-size="12" fill="#1a1a1a" text-anchor="middle">GND_bat</text>
+
+
+  <!-- COLUMN 2: BMS PCB -->
+  <rect x="270" y="80" width="420" height="330" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="280" y="90" width="400" height="30" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="480" y="110" font-size="14" font-weight="700" fill="#1a1a1a" text-anchor="middle">Плата захисту (BMS / Protection PCB)</text>
+
+  <!-- BMS Pads -->
+  <rect x="280" y="145" width="45" height="30" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="302" y="165" font-size="13" font-weight="700" fill="#2457d6" text-anchor="middle">B+</text>
+
+  <rect x="280" y="325" width="45" height="30" rx="4" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="302" y="345" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">B-</text>
+
+  <rect x="635" y="145" width="45" height="30" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="657" y="165" font-size="13" font-weight="700" fill="#2457d6" text-anchor="middle">P+</text>
+
+  <rect x="635" y="325" width="45" height="30" rx="4" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="657" y="345" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">P-</text>
+
+  <!-- Positive Bus inside BMS -->
+  <line x1="325" y1="160" x2="635" y2="160" stroke="#2457d6" stroke-width="3"/>
+  <text x="480" y="148" font-size="12" fill="#2457d6" text-anchor="middle">Пряма позитивна шина (B+ = P+)</text>
+
+  <!-- BMS Controller IC -->
+  <rect x="395" y="185" width="170" height="75" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="480" y="206" font-size="13" font-weight="700" fill="#2457d6" text-anchor="middle">Контролер BMS (IC)</text>
+  <text x="480" y="226" font-size="12" fill="#6b7280" text-anchor="middle">Моніторинг U та I</text>
+  <text x="480" y="244" font-size="12" fill="#6b7280" text-anchor="middle">Керування ключами K1, K2</text>
+
+  <!-- Sensing Lines -->
+  <line x1="480" y1="160" x2="480" y2="185" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <text x="515" y="176" font-size="12" fill="#2457d6" text-anchor="middle">V_sense</text>
+
+  <!-- MOSFET K1 (CHG) -->
+  <rect x="340" y="300" width="115" height="85" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="397" y="318" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">MOSFET K1 (CHG)</text>
+  <text x="397" y="335" font-size="12" fill="#1a1a1a" text-anchor="middle">Ключ заряду</text>
+  <text x="397" y="352" font-size="12" fill="#6b7280" text-anchor="middle">U &gt; 4.25 V</text>
+  <text x="397" y="369" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">[Перезаряд]</text>
+
+  <!-- MOSFET K2 (DSG) -->
+  <rect x="505" y="300" width="115" height="85" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="562" y="318" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">MOSFET K2 (DSG)</text>
+  <text x="562" y="335" font-size="12" fill="#1a1a1a" text-anchor="middle">Ключ розряду</text>
+  <text x="562" y="352" font-size="12" fill="#6b7280" text-anchor="middle">U &lt; 2.5V / КЗ</text>
+  <text x="562" y="369" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">[Перерозряд/КЗ]</text>
+
+  <!-- Negative Line Traces inside BMS -->
+  <line x1="325" y1="340" x2="340" y2="340" stroke="#1a1a1a" stroke-width="2.5"/>
+  <line x1="455" y1="340" x2="505" y2="340" stroke="#1a1a1a" stroke-width="2.5"/>
+  <line x1="620" y1="340" x2="635" y2="340" stroke="#1a1a1a" stroke-width="2.5"/>
+
+  <!-- Gate Control Lines -->
+  <line x1="440" y1="260" x2="440" y2="300" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <text x="425" y="283" font-size="12" font-weight="700" fill="#c0392b" text-anchor="end">G1</text>
+
+  <line x1="520" y1="260" x2="520" y2="300" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <text x="535" y="283" font-size="12" font-weight="700" fill="#c0392b" text-anchor="start">G2</text>
+
+
+  <!-- COLUMN 3: LOAD AND CHARGER -->
+  <rect x="750" y="80" width="170" height="330" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="760" y="90" width="150" height="30" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="835" y="110" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">Зовнішнє коло</text>
+
+  <!-- Load Sub-box -->
+  <rect x="765" y="140" width="140" height="95" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="835" y="165" font-size="13" font-weight="700" fill="#27ae60" text-anchor="middle">Навантаження</text>
+  <text x="835" y="187" font-size="12" fill="#6b7280" text-anchor="middle">Споживач струму</text>
+  <text x="835" y="207" font-size="12" fill="#27ae60" text-anchor="middle">Струм розряду I_dsg</text>
+
+  <!-- Charger Sub-box -->
+  <rect x="765" y="255" width="140" height="95" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="835" y="280" font-size="13" font-weight="700" fill="#2457d6" text-anchor="middle">Зарядний пристрій</text>
+  <text x="835" y="302" font-size="12" fill="#6b7280" text-anchor="middle">Джерело 4.2 V (CC/CV)</text>
+  <text x="835" y="322" font-size="12" fill="#2457d6" text-anchor="middle">Струм заряду I_chg</text>
+
+  <!-- Wires from BMS to Load/Charger -->
+  <line x1="680" y1="160" x2="750" y2="160" stroke="#2457d6" stroke-width="3" marker-end="url(#arr-blue)"/>
+  <text x="715" y="148" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">+V_out</text>
+
+  <line x1="680" y1="340" x2="750" y2="340" stroke="#1a1a1a" stroke-width="3" marker-end="url(#arr-dark)"/>
+  <text x="715" y="365" font-size="12" fill="#1a1a1a" text-anchor="middle">GND_out</text>
+
+
+  <!-- BOTTOM CARDS: PROTECTION MODES -->
+  <!-- Card 1: Overcharge -->
+  <rect x="40" y="430" width="280" height="75" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="180" y="450" font-size="13" font-weight="700" fill="#c0392b" text-anchor="middle">1. Захист від перезаряду</text>
+  <text x="180" y="470" font-size="12" fill="#1a1a1a" text-anchor="middle">U &gt; 4.25 V → Розмикання K1 (CHG)</text>
+  <text x="180" y="488" font-size="12" fill="#6b7280" text-anchor="middle">Блокування струму заряду I_chg</text>
+
+  <!-- Card 2: Overdischarge -->
+  <rect x="340" y="430" width="280" height="75" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="480" y="450" font-size="13" font-weight="700" fill="#c0392b" text-anchor="middle">2. Захист від перерозряду</text>
+  <text x="480" y="470" font-size="12" fill="#1a1a1a" text-anchor="middle">U &lt; 2.50 V → Розмикання K2 (DSG)</text>
+  <text x="480" y="488" font-size="12" fill="#6b7280" text-anchor="middle">Відключення споживача від кола</text>
+
+  <!-- Card 3: Short Circuit -->
+  <rect x="640" y="430" width="280" height="75" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="780" y="450" font-size="13" font-weight="700" fill="#c0392b" text-anchor="middle">3. Захист від КЗ / струму</text>
+  <text x="780" y="470" font-size="12" fill="#1a1a1a" text-anchor="middle">I &gt; I_max / КЗ → Розмикання K2</text>
+  <text x="780" y="488" font-size="12" fill="#6b7280" text-anchor="middle">Миттєве відсікання (&lt; 1 мс)</text>
+</svg>

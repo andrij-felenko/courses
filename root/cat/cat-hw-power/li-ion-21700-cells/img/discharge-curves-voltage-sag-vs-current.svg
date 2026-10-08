@@ -1,0 +1,159 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- White Background -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Definitions for Markers -->
+  <defs>
+    <marker id="arr-main" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-accent" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-danger" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Криві розряду та просідання напруги Li-ion комірки EVE INR21700-40P</text>
+  <text x="480" y="50" font-size="13" fill="#6b7280" text-anchor="middle">Збільшення струму знижує робочу напругу через внутрішній опір (ΔV = I · R_DC) та підвищує тепловиділення</text>
+
+  <!-- ==================== LEFT PANEL: DISCHARGE CURVES ==================== -->
+  <rect x="30" y="68" width="580" height="408" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <text x="320" y="90" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Сімейство розрядних кривих V(Q) при струмах 5 А — 45 А</text>
+  <text x="320" y="107" font-size="12" fill="#6b7280" text-anchor="middle">Температура навколишнього середовища T = 25 °C, напруга відсічки V_cut = 2.5 В</text>
+
+  <!-- Plot Area Background -->
+  <rect x="90" y="140" width="500" height="266" fill="white" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Y-Axis Title & Ticks -->
+  <text x="90" y="130" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">Напруга V (В)</text>
+
+  <!-- Y-Gridlines & Labels -->
+  <text x="82" y="144" font-size="12" fill="#6b7280" text-anchor="end">4.2 В</text>
+
+  <line x1="90" y1="171" x2="590" y2="171" stroke="#e1e4e8" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="82" y="175" font-size="12" fill="#6b7280" text-anchor="end">4.0 В</text>
+
+  <line x1="90" y1="203" x2="590" y2="203" stroke="#e1e4e8" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="82" y="207" font-size="12" fill="#6b7280" text-anchor="end">3.8 В</text>
+
+  <line x1="90" y1="234" x2="590" y2="234" stroke="#e1e4e8" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="82" y="238" font-size="12" fill="#6b7280" text-anchor="end">3.6 В</text>
+
+  <line x1="90" y1="265" x2="590" y2="265" stroke="#e1e4e8" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="82" y="269" font-size="12" fill="#6b7280" text-anchor="end">3.4 В</text>
+
+  <line x1="90" y1="297" x2="590" y2="297" stroke="#e1e4e8" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="82" y="301" font-size="12" fill="#6b7280" text-anchor="end">3.2 В</text>
+
+  <line x1="90" y1="328" x2="590" y2="328" stroke="#e1e4e8" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="82" y="332" font-size="12" fill="#6b7280" text-anchor="end">3.0 В</text>
+
+  <line x1="90" y1="359" x2="590" y2="359" stroke="#e1e4e8" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="82" y="363" font-size="12" fill="#6b7280" text-anchor="end">2.8 В</text>
+
+  <!-- Cutoff Line 2.5 V -->
+  <line x1="90" y1="406" x2="590" y2="406" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <text x="82" y="410" font-size="12" fill="#c0392b" font-weight="bold" text-anchor="end">2.5 В</text>
+
+  <!-- X-Gridlines & Labels -->
+  <text x="90" y="422" font-size="12" fill="#6b7280" text-anchor="middle">0.0</text>
+
+  <line x1="215" y1="140" x2="215" y2="406" stroke="#e1e4e8" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="215" y="422" font-size="12" fill="#6b7280" text-anchor="middle">1.0</text>
+
+  <line x1="340" y1="140" x2="340" y2="406" stroke="#e1e4e8" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="340" y="422" font-size="12" fill="#6b7280" text-anchor="middle">2.0</text>
+
+  <line x1="465" y1="140" x2="465" y2="406" stroke="#e1e4e8" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="465" y="422" font-size="12" fill="#6b7280" text-anchor="middle">3.0</text>
+
+  <line x1="590" y1="140" x2="590" y2="406" stroke="#e1e4e8" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="590" y="422" font-size="12" fill="#6b7280" text-anchor="middle">4.0</text>
+
+  <!-- X-Axis Title -->
+  <text x="340" y="448" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Віддана ємність Q (А·год)</text>
+
+  <!-- Curves -->
+  <!-- 5 A Curve -->
+  <path d="M 90,140 L 96,146 C 140,165 180,180 215,188 C 275,202 300,215 340,222 C 400,233 430,242 465,248 C 510,256 545,268 570,305 C 582,325 588,360 590,406" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+
+  <!-- 15 A Curve -->
+  <path d="M 90,140 L 96,161 C 140,180 180,196 215,204 C 275,218 300,231 340,238 C 400,249 430,258 465,264 C 510,272 540,283 565,320 C 576,338 582,368 584,406" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+
+  <!-- 30 A Curve -->
+  <path d="M 90,140 L 96,181 C 140,202 180,218 215,226 C 275,240 300,252 340,259 C 400,270 430,277 465,283 C 505,290 535,300 555,335 C 566,355 572,378 575,406" fill="none" stroke="#d97706" stroke-width="2.5"/>
+
+  <!-- 45 A Curve -->
+  <path d="M 90,140 L 96,200 C 140,222 180,238 215,246 C 275,260 300,271 340,278 C 400,289 430,296 465,302 C 500,309 530,318 545,350 C 556,370 562,388 565,406" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+
+  <!-- Instantaneous Sag Marker & Callout -->
+  <line x1="96" y1="140" x2="96" y2="200" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="2,2"/>
+  <line x1="92" y1="140" x2="100" y2="140" stroke="#c0392b" stroke-width="1.5"/>
+  <line x1="92" y1="200" x2="100" y2="200" stroke="#c0392b" stroke-width="1.5"/>
+
+  <!-- Sag Callout Box -->
+  <rect x="115" y="300" width="205" height="68" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <line x1="160" y1="300" x2="99" y2="170" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-danger)"/>
+  <text x="125" y="318" font-size="12" font-weight="bold" fill="#c0392b">Миттєве просідання ΔV = I · R_DC</text>
+  <text x="125" y="336" font-size="12" fill="#1a1a1a">ΔV_45A ≈ 0.38 В (4.20 В → 3.82 В)</text>
+  <text x="125" y="354" font-size="12" fill="#6b7280">R_DC ≈ 8.5 мОм (за 25 °C)</text>
+
+  <!-- Plot Legend Box -->
+  <rect x="370" y="148" width="210" height="80" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+
+  <line x1="380" y1="160" x2="400" y2="160" stroke="#27ae60" stroke-width="2.5"/>
+  <circle cx="390" cy="160" r="3" fill="#27ae60"/>
+  <text x="408" y="164" font-size="12" fill="#1a1a1a">5 А (0.125C) — 4.00 А·год</text>
+
+  <line x1="380" y1="178" x2="400" y2="178" stroke="#2457d6" stroke-width="2.5"/>
+  <circle cx="390" cy="178" r="3" fill="#2457d6"/>
+  <text x="408" y="182" font-size="12" fill="#1a1a1a">15 А (3.75C) — 3.95 А·год</text>
+
+  <line x1="380" y1="196" x2="400" y2="196" stroke="#d97706" stroke-width="2.5"/>
+  <circle cx="390" cy="196" r="3" fill="#d97706"/>
+  <text x="408" y="200" font-size="12" fill="#1a1a1a">30 А (7.50C) — 3.88 А·год</text>
+
+  <line x1="380" y1="214" x2="400" y2="214" stroke="#c0392b" stroke-width="2.5"/>
+  <circle cx="390" cy="214" r="3" fill="#c0392b"/>
+  <text x="408" y="218" font-size="12" fill="#1a1a1a">45 А (11.25C) — 3.80 А·год</text>
+
+  <!-- ==================== RIGHT PANEL: CELL PARAMETERS & ANALYSIS ==================== -->
+  <rect x="630" y="68" width="300" height="408" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <text x="780" y="90" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Параметри та аналіз комірки</text>
+  <text x="780" y="107" font-size="12" fill="#6b7280" text-anchor="middle">Електрофізичні та теплові номінали</text>
+
+  <!-- Card 1: Passport Specs -->
+  <rect x="645" y="125" width="270" height="95" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="657" y="143" font-size="13" font-weight="bold" fill="#2457d6">Паспортні дані EVE 21700-40P</text>
+  <text x="657" y="163" font-size="12" fill="#1a1a1a">Формат / Хімія: 21700 / NMC</text>
+  <text x="657" y="181" font-size="12" fill="#1a1a1a">Номінальна ємність Q_nom: 4.0 А·год</text>
+  <text x="657" y="199" font-size="12" fill="#1a1a1a">Внутрішній опір R_DC: ~8.5 мОм</text>
+
+  <!-- Card 2: Capacity Efficiency -->
+  <rect x="645" y="232" width="270" height="108" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="657" y="250" font-size="13" font-weight="bold" fill="#1a1a1a">Ефективність віддачі ємності</text>
+  <text x="657" y="270" font-size="12" fill="#27ae60">I = 5 А: 4.00 А·год (100.0% ємності)</text>
+  <text x="657" y="288" font-size="12" fill="#2457d6">I = 15 А: 3.95 А·год (98.8% ємності)</text>
+  <text x="657" y="306" font-size="12" fill="#d97706">I = 30 А: 3.88 А·год (97.0% ємності)</text>
+  <text x="657" y="324" font-size="12" fill="#c0392b">I = 45 А: 3.80 А·год (95.0% ємності)</text>
+
+  <!-- Card 3: Thermal Losses -->
+  <rect x="645" y="352" width="270" height="108" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="657" y="370" font-size="13" font-weight="bold" fill="#c0392b">Теплова потужність P_loss = I² · R_DC</text>
+  <text x="657" y="390" font-size="12" fill="#1a1a1a">P_5A = 5² · 0.0085 = 0.21 Вт (пасивне)</text>
+  <text x="657" y="408" font-size="12" fill="#c0392b" font-weight="bold">P_45A = 45² · 0.0085 = 17.2 Вт (активне!)</text>
+  <text x="657" y="426" font-size="12" fill="#6b7280">Вимагає активного обдуву збірки</text>
+
+  <!-- ==================== BOTTOM SUMMARY BAR ==================== -->
+  <rect x="30" y="492" width="900" height="48" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="45" y="511" font-size="12" font-weight="bold" fill="#2457d6">Аналітичний висновок:</text>
+  <text x="180" y="511" font-size="12" fill="#1a1a1a">Внутрішній опір R_DC спричиняє миттєве просідання напруги ΔV = I · R_DC на початку розряду.</text>
+
+  <text x="45" y="528" font-size="12" font-weight="bold" fill="#c0392b">Тепловий режим:</text>
+  <text x="180" y="528" font-size="12" fill="#1a1a1a">При 45 А джоулеві втрати сягають 17.2 Вт на комірку — обдув та масивні токознімні шини обов'язкові.</text>
+</svg>

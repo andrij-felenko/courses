@@ -1,0 +1,191 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- White Background -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Definitions -->
+  <defs>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-accent" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-success" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-danger" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Профіль та фази заряду TP5100 (1S/2S Li-ion)</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Контролер реалізує трифазний алгоритм Trickle-CC-CV з програмуванням струму шунтом R_sense</text>
+
+  <!-- ==================== LEFT PANEL: TIMING DIAGRAM ==================== -->
+  <rect x="30" y="70" width="600" height="400" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <text x="330" y="94" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Часова діаграма напруги V_CELL та струму I_CHG</text>
+  <text x="330" y="112" font-size="12" fill="#6b7280" text-anchor="middle">Перехід між фазами визначається порогами V_TRK, V_REG та струмом відсічки I_TERM</text>
+
+  <!-- Plot Background & Phase Regions -->
+  <!-- Plot Frame: x=120, y=145, w=450, h=250 -->
+  <rect x="120" y="145" width="450" height="250" fill="white" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Phase 1 Background: Trickle (x=120..195, w=75) -->
+  <rect x="120" y="145" width="75" height="250" fill="#fdecea" opacity="0.45"/>
+
+  <!-- Phase 2 Background: CC (x=195..385, w=190) -->
+  <rect x="195" y="145" width="190" height="250" fill="#eaf0fd" opacity="0.55"/>
+
+  <!-- Phase 3 Background: CV (x=385..515, w=130) -->
+  <rect x="385" y="145" width="130" height="250" fill="#e9f7ef" opacity="0.55"/>
+
+  <!-- Phase 4 Background: Standby (x=515..570, w=55) -->
+  <rect x="515" y="145" width="55" height="250" fill="#f4f6f8" opacity="0.7"/>
+
+  <!-- Phase Separator Lines (Dashed Vertical) -->
+  <line x1="195" y1="145" x2="195" y2="395" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <line x1="385" y1="145" x2="385" y2="395" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <line x1="515" y1="145" x2="515" y2="395" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="4,4"/>
+
+  <!-- Phase Headers Inside Plot -->
+  <!-- Phase 1: Trickle -->
+  <text x="157.5" y="165" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Trickle</text>
+  <text x="157.5" y="180" font-size="12" fill="#c0392b" text-anchor="middle">(Крапельний)</text>
+
+  <!-- Phase 2: CC -->
+  <text x="290" y="165" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Фаза CC</text>
+  <text x="290" y="180" font-size="12" fill="#2457d6" text-anchor="middle">Струм I_CC</text>
+
+  <!-- Phase 3: CV -->
+  <text x="450" y="165" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Фаза CV</text>
+  <text x="450" y="180" font-size="12" fill="#27ae60" text-anchor="middle">Напруга V_REG</text>
+
+  <!-- Phase 4: Standby -->
+  <text x="542.5" y="165" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">ГОТОВО</text>
+  <text x="542.5" y="180" font-size="12" fill="#6b7280" text-anchor="middle">(Standby)</text>
+
+  <!-- Horizontal Reference Level Lines & Y Axis Ticks -->
+  <!-- V_REG Level (y=210) -->
+  <line x1="120" y1="210" x2="570" y2="210" stroke="#27ae60" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="112" y="206" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="end">V_REG</text>
+  <text x="112" y="220" font-size="12" fill="#27ae60" text-anchor="end">4.2V / 8.4V</text>
+
+  <!-- V_TRK Level (y=330) -->
+  <line x1="120" y1="330" x2="570" y2="330" stroke="#c0392b" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="112" y="326" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="end">V_TRK</text>
+  <text x="112" y="340" font-size="12" fill="#c0392b" text-anchor="end">2.9V / 5.8V</text>
+
+  <!-- I_CC Level (y=220) -->
+  <line x1="120" y1="220" x2="570" y2="220" stroke="#2457d6" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="578" y="216" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="start">I_CC</text>
+  <text x="578" y="230" font-size="12" fill="#2457d6" text-anchor="start">(100%)</text>
+
+  <!-- I_TERM Level (y=370) -->
+  <line x1="120" y1="370" x2="570" y2="370" stroke="#2457d6" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="578" y="366" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="start">I_TERM</text>
+  <text x="578" y="380" font-size="12" fill="#2457d6" text-anchor="start">(10%)</text>
+
+  <!-- 0 A Level (y=395) -->
+  <text x="578" y="399" font-size="12" fill="#6b7280" text-anchor="start">0 A</text>
+
+  <!-- Curve 1: Cell Voltage V_CELL (Green #27ae60) -->
+  <path d="M 120,370 L 195,330 L 385,210 L 570,210" fill="none" stroke="#27ae60" stroke-width="3"/>
+
+  <!-- Curve 2: Charge Current I_CHG (Blue #2457d6) -->
+  <path d="M 120,370 L 195,370 L 195,220 L 385,220 C 430,220 480,360 515,370 L 515,395 L 570,395" fill="none" stroke="#2457d6" stroke-width="3"/>
+
+  <!-- Curve Event Dots & Transition Badges -->
+  <!-- Point 1 (x=195): V_TRK transition (Badge inside CC region x=202..288, y=342..362) -->
+  <circle cx="195" cy="330" r="4" fill="#27ae60" stroke="white" stroke-width="1.5"/>
+  <rect x="202" y="342" width="86" height="20" rx="3" fill="white" stroke="#27ae60" stroke-width="1"/>
+  <text x="245" y="356" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">V_CELL = V_TRK</text>
+
+  <!-- Point 2 (x=385): V_REG transition (Badge inside CV region x=390..478, y=188..206) -->
+  <circle cx="385" cy="210" r="4" fill="#27ae60" stroke="white" stroke-width="1.5"/>
+  <circle cx="385" cy="220" r="4" fill="#2457d6" stroke="white" stroke-width="1.5"/>
+  <rect x="390" y="188" width="88" height="18" rx="3" fill="white" stroke="#27ae60" stroke-width="1"/>
+  <text x="434" y="201" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">V_CELL = V_REG</text>
+
+  <!-- Point 3 (x=515): I_TERM cutoff (Badge inside CV region x=415..505, y=228..248) -->
+  <circle cx="515" cy="370" r="4" fill="#2457d6" stroke="white" stroke-width="1.5"/>
+  <rect x="415" y="228" width="90" height="20" rx="3" fill="white" stroke="#2457d6" stroke-width="1"/>
+  <text x="460" y="242" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">I_CHG = I_TERM</text>
+
+  <!-- Plot Legend Box (inside CC region, fill="none", clear of all lines) -->
+  <rect x="202" y="228" width="80" height="46" rx="4" fill="none" stroke="#d0d7de"/>
+  <line x1="208" y1="242" x2="228" y2="242" stroke="#27ae60" stroke-width="3"/>
+  <circle cx="218" cy="242" r="3" fill="#27ae60"/>
+  <text x="233" y="246" font-size="12" font-weight="bold" fill="#1a1a1a">V_CELL</text>
+
+  <line x1="208" y1="262" x2="228" y2="262" stroke="#2457d6" stroke-width="3"/>
+  <circle cx="218" cy="262" r="3" fill="#2457d6"/>
+  <text x="233" y="266" font-size="12" font-weight="bold" fill="#1a1a1a">I_CHG</text>
+
+  <!-- Time Axis (X-axis) & Ticks -->
+  <line x1="120" y1="395" x2="570" y2="395" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+
+  <text x="120" y="412" font-size="12" fill="#6b7280" text-anchor="middle">t0 (Старт)</text>
+  <text x="195" y="412" font-size="12" fill="#6b7280" text-anchor="middle">t1</text>
+  <text x="385" y="412" font-size="12" fill="#6b7280" text-anchor="middle">t2</text>
+  <text x="515" y="412" font-size="12" fill="#6b7280" text-anchor="middle">t3 (Відсічка)</text>
+  <text x="345" y="430" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Час заряджання (t)</text>
+
+  <!-- Left Panel Footer Info Banner -->
+  <rect x="120" y="442" width="450" height="20" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="345" y="456" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">ККД Buck-топології до 92% — відсутній перегрів при струмах до 2 А</text>
+
+  <!-- ==================== RIGHT PANEL: CARD 1 (R_SENSE) ==================== -->
+  <rect x="650" y="70" width="280" height="190" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <text x="790" y="92" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Формула струму CC (R_sense)</text>
+
+  <rect x="665" y="104" width="250" height="34" rx="5" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="790" y="125" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">I_CC = 0.1 В / R_sense</text>
+
+  <rect x="665" y="146" width="250" height="102" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="665" y="146" width="250" height="24" fill="#f4f6f8"/>
+  <text x="722" y="162" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">Шунт R_sense</text>
+  <text x="845" y="162" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">Струм I_CC</text>
+  <line x1="665" y1="170" x2="915" y2="170" stroke="#d0d7de" stroke-width="1"/>
+
+  <text x="722" y="188" font-size="12" fill="#1a1a1a" text-anchor="middle">0.05 Ом (R050)</text>
+  <text x="845" y="188" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">2.0 А (Максимум)</text>
+
+  <text x="722" y="208" font-size="12" fill="#1a1a1a" text-anchor="middle">0.10 Ом (R100)</text>
+  <text x="845" y="208" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">1.0 А (За замовч.)</text>
+
+  <text x="722" y="228" font-size="12" fill="#1a1a1a" text-anchor="middle">0.20 Ом (R200)</text>
+  <text x="845" y="228" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">0.5 А (Низький)</text>
+
+  <!-- ==================== RIGHT PANEL: CARD 2 (LED STATUS) ==================== -->
+  <rect x="650" y="270" width="280" height="200" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <text x="790" y="292" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Статусна індикація (LED)</text>
+
+  <!-- Status 1: Charging -->
+  <rect x="665" y="304" width="250" height="44" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <circle cx="682" cy="326" r="6" fill="#c0392b"/>
+  <text x="696" y="321" font-size="12" font-weight="bold" fill="#c0392b">Заряджання (Trickle/CC/CV)</text>
+  <text x="696" y="337" font-size="12" fill="#1a1a1a">Червоний: УВІМК | Синій: ВИМК</text>
+
+  <!-- Status 2: Standby -->
+  <rect x="665" y="356" width="250" height="44" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <circle cx="682" cy="378" r="6" fill="#2457d6"/>
+  <text x="696" y="373" font-size="12" font-weight="bold" fill="#2457d6">Заряд завершено (Standby)</text>
+  <text x="696" y="389" font-size="12" fill="#1a1a1a">Синій: УВІМК | Червоний: ВИМК</text>
+
+  <!-- Status 3: Fault / Missing -->
+  <rect x="665" y="408" width="250" height="50" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <circle cx="682" cy="433" r="6" fill="#f39c12"/>
+  <text x="696" y="426" font-size="12" font-weight="bold" fill="#1a1a1a">Відсутній акумулятор / Аварія</text>
+  <text x="696" y="441" font-size="12" fill="#6b7280">Блимання світлодіодів або</text>
+  <text x="696" y="454" font-size="12" fill="#6b7280">високий імпеданс CHRG/STDBY</text>
+
+  <!-- ==================== BOTTOM SUMMARY BAR ==================== -->
+  <rect x="30" y="485" width="900" height="55" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+
+  <text x="45" y="506" font-size="12" font-weight="bold" fill="#2457d6">Конфігурація режиму 1S / 2S (вивід SET):</text>
+  <text x="45" y="525" font-size="12" fill="#1a1a1a">1S (4.2 В): SET відкритий / GND (V_IN = 5...18 В)  |  2S (8.4 В): SET з'єднаний з VCC (V_IN = 10...18 В)</text>
+</svg>

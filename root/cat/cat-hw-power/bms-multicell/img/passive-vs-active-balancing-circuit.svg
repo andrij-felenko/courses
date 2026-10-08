@@ -1,0 +1,154 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 530" width="960" height="530" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="530" fill="white"/>
+
+  <!-- Defs / Markers -->
+  <defs>
+    <marker id="arr-accent" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-danger" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-success" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Header Title & Subtitle -->
+  <text x="480" y="28" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Порівняння пасивного та активного балансування комірок в платах @@en|BMS@@</text>
+  <text x="480" y="48" font-size="13" fill="#6b7280" text-anchor="middle">Пасивне балансування розсіює надлишок енергії в тепло, активне — перерозподіляє заряд між комірками</text>
+
+  <!-- ==================== LEFT PANEL: PASSIVE BALANCING ==================== -->
+  <rect x="30" y="65" width="435" height="390" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Subheader Box (Danger / Passive) -->
+  <rect x="42" y="75" width="411" height="46" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="247.5" y="93" font-size="14" font-weight="bold" fill="#c0392b" text-anchor="middle">Пасивне балансування (@@en|Resistive Shunt@@)</text>
+  <text x="247.5" y="110" font-size="12" fill="#c0392b" text-anchor="middle">Розсіювання надлишку заряду гарячої комірки в тепло</text>
+
+  <!-- Schematic Area: Battery Cell Stack (Passive) -->
+  <!-- Cell 1 (Overcharged) -->
+  <rect x="55" y="135" width="125" height="75" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="2"/>
+  <text x="117.5" y="158" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">Комірка 1 (4.25 V)</text>
+  <text x="117.5" y="177" font-size="12" fill="#c0392b" text-anchor="middle">@@uk|перезаряд|перезаряджена@@</text>
+  <text x="117.5" y="195" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">U1 &gt; U_bal (4.20 V)</text>
+
+  <!-- Cell 2 (Normal) -->
+  <rect x="55" y="245" width="125" height="75" rx="6" fill="white" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="117.5" y="268" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Комірка 2 (3.80 V)</text>
+  <text x="117.5" y="287" font-size="12" fill="#6b7280" text-anchor="middle">нормальний рівень</text>
+  <text x="117.5" y="305" font-size="12" fill="#6b7280" text-anchor="middle">U2 &lt; U_bal</text>
+
+  <!-- Series Connection Wire -->
+  <line x1="117.5" y1="210" x2="117.5" y2="245" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Cell 1 Shunt Circuit -->
+  <path d="M 117.5,135 H 227.5 V 148" fill="none" stroke="#c0392b" stroke-width="1.5"/>
+  <path d="M 117.5,227.5 H 227.5 V 214" fill="none" stroke="#c0392b" stroke-width="1.5"/>
+  <line x1="227.5" y1="174" x2="227.5" y2="188" stroke="#c0392b" stroke-width="1.5"/>
+
+  <!-- FET1 Switch Box -->
+  <rect x="205" y="148" width="45" height="26" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="227.5" y="165" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">FET1</text>
+
+  <!-- R_bal1 Resistor Box -->
+  <rect x="205" y="188" width="45" height="26" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="227.5" y="205" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">R_bal</text>
+
+  <!-- Shunt Labels & Heat Output -->
+  <text x="258" y="150" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="start">I_bal ≈ 100 mA (Струм розряду)</text>
+  <text x="258" y="168" font-size="12" fill="#c0392b" text-anchor="start">FET1: Замкнено (ON)</text>
+  <text x="258" y="198" font-size="12" fill="#6b7280" text-anchor="start">R_bal: Шунтуючий резистор</text>
+  <text x="258" y="216" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="start">Виділення тепла Q = I² · R</text>
+
+  <!-- Cell 2 Shunt Circuit (Inactive) -->
+  <path d="M 117.5,227.5 H 227.5 V 250" fill="none" stroke="#6b7280" stroke-width="1"/>
+  <path d="M 117.5,320 H 227.5 V 309" fill="none" stroke="#6b7280" stroke-width="1"/>
+  <line x1="227.5" y1="274" x2="227.5" y2="285" stroke="#6b7280" stroke-width="1"/>
+
+  <!-- FET2 Switch Box (OFF) -->
+  <rect x="205" y="250" width="45" height="24" rx="3" fill="white" stroke="#6b7280" stroke-width="1"/>
+  <text x="227.5" y="266" font-size="12" fill="#6b7280" text-anchor="middle">FET2</text>
+
+  <!-- R_bal2 Resistor Box -->
+  <rect x="205" y="285" width="45" height="24" rx="3" fill="white" stroke="#6b7280" stroke-width="1"/>
+  <text x="227.5" y="301" font-size="12" fill="#6b7280" text-anchor="middle">R_bal</text>
+
+  <!-- FET2 Labels -->
+  <text x="258" y="265" font-size="12" fill="#6b7280" text-anchor="start">FET2: Розімкнено (OFF)</text>
+  <text x="258" y="298" font-size="12" fill="#6b7280" text-anchor="start">I_bal2 = 0 mA (Не гріється)</text>
+
+  <!-- Summary Box (Passive) -->
+  <rect x="42" y="338" width="411" height="105" rx="6" fill="white" stroke="#cbd5e1" stroke-width="1"/>
+  <text x="54" y="356" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="start">Характеристики пасивного балансування:</text>
+  <text x="54" y="374" font-size="12" fill="#1a1a1a" text-anchor="start">• Проста схема: @@en|MOSFET@@ + резистор @@en|R_bal@@</text>
+  <text x="54" y="392" font-size="12" fill="#1a1a1a" text-anchor="start">• Малий струм балансування (типово 50...200 mA)</text>
+  <text x="54" y="410" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="start">• ККД ≈ 0% (енергія розсіюється у вигляді тепла)</text>
+  <text x="54" y="428" font-size="12" fill="#6b7280" text-anchor="start">• Працює лише наприкінці заряду (фаза @@en|CV@@)</text>
+
+  <!-- ==================== RIGHT PANEL: ACTIVE BALANCING ==================== -->
+  <rect x="495" y="65" width="435" height="390" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Subheader Box (Success / Active) -->
+  <rect x="507" y="75" width="411" height="46" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="712.5" y="93" font-size="14" font-weight="bold" fill="#27ae60" text-anchor="middle">Активне балансування (@@en|Inductive / DC-DC@@)</text>
+  <text x="712.5" y="110" font-size="12" fill="#27ae60" text-anchor="middle">Перерозподіл заряду між комірками з високим ККД</text>
+
+  <!-- Schematic Area: Battery Cell Stack (Active) -->
+  <!-- Cell 1 (Source) -->
+  <rect x="520" y="135" width="125" height="75" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <text x="582.5" y="158" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Комірка 1 (4.25 V)</text>
+  <text x="582.5" y="177" font-size="12" fill="#27ae60" text-anchor="middle">надлишок заряду</text>
+  <text x="582.5" y="195" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Джерело енергії</text>
+
+  <!-- Cell 2 (Target) -->
+  <rect x="520" y="245" width="125" height="75" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="582.5" y="268" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Комірка 2 (3.80 V)</text>
+  <text x="582.5" y="287" font-size="12" fill="#2457d6" text-anchor="middle">дефіцит заряду</text>
+  <text x="582.5" y="305" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Приймач енергії</text>
+
+  <!-- Series Connection Wire -->
+  <line x1="582.5" y1="210" x2="582.5" y2="245" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Active Converter Unit Box -->
+  <rect x="675" y="155" width="130" height="140" rx="8" fill="white" stroke="#2457d6" stroke-width="2"/>
+  <text x="740" y="177" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Активний</text>
+  <text x="740" y="195" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">конвертер</text>
+
+  <!-- Storage Element Sub-box -->
+  <rect x="695" y="210" width="90" height="36" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="740" y="232" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">@@en|DC-DC@@ / L-C</text>
+
+  <text x="740" y="268" font-size="12" fill="#6b7280" text-anchor="middle">Ключі + Контролер</text>
+
+  <!-- Energy Flow Arrows -->
+  <!-- 1. From Cell 1 to Converter -->
+  <line x1="645" y1="175" x2="675" y2="175" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arr-success)"/>
+  <text x="655" y="148" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="start">1. Відбір заряду</text>
+
+  <!-- 2. From Converter to Cell 2 -->
+  <line x1="675" y1="260" x2="645" y2="260" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-accent)"/>
+  <text x="655" y="290" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="start">2. Передача заряду</text>
+
+  <!-- High Efficiency Badge -->
+  <rect x="820" y="190" width="90" height="70" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="865" y="212" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">ККД</text>
+  <text x="865" y="232" font-size="14" font-weight="bold" fill="#27ae60" text-anchor="middle">85–95%</text>
+  <text x="865" y="249" font-size="12" fill="#6b7280" text-anchor="middle">Без тепла</text>
+
+  <!-- Summary Box (Active) -->
+  <rect x="507" y="338" width="411" height="105" rx="6" fill="white" stroke="#cbd5e1" stroke-width="1"/>
+  <text x="519" y="356" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="start">Характеристики активного балансування:</text>
+  <text x="519" y="374" font-size="12" fill="#1a1a1a" text-anchor="start">• Перенесення енергії через @@en|DC-DC@@ / дросель / конденсатор</text>
+  <text x="519" y="392" font-size="12" fill="#1a1a1a" text-anchor="start">• Високий струм балансування (типово 1...6 A)</text>
+  <text x="519" y="410" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="start">• Висока ефективність (ККД 85–95%, мінімум тепла)</text>
+  <text x="519" y="428" font-size="12" fill="#6b7280" text-anchor="start">• Працює у всіх режимах: заряд, розряд та спокій</text>
+
+  <!-- ==================== BOTTOM SUMMARY BAR ==================== -->
+  <rect x="30" y="465" width="900" height="42" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="45" y="482" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="start">Практичний вибір:</text>
+  <text x="165" y="482" font-size="12" fill="#1a1a1a" text-anchor="start">Пасивне — для бюджетних 2S–4S збірок; Активне — для ємних батарей (LiFePO4, ESS)</text>
+  <text x="45" y="498" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="start">Ключова різниця:</text>
+  <text x="165" y="498" font-size="12" fill="#1a1a1a" text-anchor="start">Пасивне розсіює надлишок у тепло; Активне зберігає енергію в збірці з ККД &gt; 85%</text>
+</svg>

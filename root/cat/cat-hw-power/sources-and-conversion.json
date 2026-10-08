@@ -52,31 +52,89 @@
           "slug": "li-ion-18650-cells",
           "title": "Li-ion 18650 (LiitoKala HG2, NCR18650B)",
           "basic": {
-            "status": "empty"
+            "status": "done"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "done"
+          },
+          "api": [
+            {
+              "file": "api-18650-hardware-specs.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-18650-electrical-char-calc.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-18650-battery-pack-design.md",
+              "status": "done"
+            }
+          ]
         },
         {
           "slug": "li-ion-21700-cells",
           "title": "Li-ion 21700 (EVE INR21700-40P)",
           "basic": {
-            "status": "empty"
+            "status": "done"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "done"
+          },
+          "api": [
+            {
+              "file": "api-eve-inr21700-40p-hardware-spec.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-eve-40p-thermal-and-electrical-load.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-high-current-6s1p-fpv-pack.md",
+              "status": "done"
+            }
+          ]
         },
         {
           "slug": "solar-panel-6v",
           "title": "Сонячна панель 6 В / 2 Вт",
           "basic": {
-            "status": "empty"
+            "status": "done"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "done"
+          },
+          "api": [
+            {
+              "file": "api-solar-panel-6v-hardware-interface.md",
+              "status": "done"
+            }
+          ],
+          "hist": [
+            {
+              "file": "hist-silicon-photovoltaics.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-insolation-energy-balance.md",
+              "status": "done"
+            },
+            {
+              "file": "math-solar-iv-curve-model.md",
+              "status": "done"
+            }
+          ]
         }
       ]
     },
@@ -149,21 +207,67 @@
           "slug": "imax-b6-charger",
           "title": "SkyRC iMAX B6 Mini — зарядний пристрій-балансир",
           "basic": {
-            "status": "empty"
+            "status": "done"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "done"
+          },
+          "api": [
+            {
+              "file": "api-imax-b6-hardware-interface.md",
+              "status": "done"
+            },
+            {
+              "file": "api-imax-b6-usb-telemetry-protocol.md",
+              "status": "done"
+            }
+          ],
+          "hist": [
+            {
+              "file": "hist-imax-b6-evolution.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-imax-b6-charging-and-balancing-calculations.md",
+              "status": "done"
+            }
+          ]
         },
         {
           "slug": "tp5100-charger",
           "title": "TP5100 — заряд 1S/2S",
           "basic": {
-            "status": "empty"
+            "status": "done"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "done"
+          },
+          "api": [
+            {
+              "file": "api-tp5100-hardware.md",
+              "status": "done"
+            }
+          ],
+          "hist": [
+            {
+              "file": "hist-lithium-charger-evolution.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-tp5100-calculations.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-tp5100-dual-mode-charger.md",
+              "status": "done"
+            }
+          ]
         },
         {
           "slug": "mh-cd42-charger",
@@ -172,18 +276,66 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "done"
+          },
+          "api": [
+            {
+              "file": "api-mh-cd42-hardware-spec.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-mh-cd42-power-efficiency-calc.md",
+              "status": "done"
+            }
+          ]
         },
         {
           "slug": "bms-multicell",
           "title": "BMS 2S/3S/4S із балансуванням",
           "basic": {
-            "status": "empty"
+            "status": "done"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "done"
+          },
+          "api": [
+            {
+              "file": "api-bms-2s-4s-wiring-hw.md",
+              "status": "done"
+            },
+            {
+              "file": "api-smart-bms-uart-smbus.md",
+              "status": "done"
+            }
+          ],
+          "hist": [
+            {
+              "file": "hist-bms-evolution.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-cell-imbalance-degradation.md",
+              "status": "done"
+            },
+            {
+              "file": "math-passive-balancing-calc.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-active-balancer-retrofit.md",
+              "status": "done"
+            },
+            {
+              "file": "proj-bms-4s-assembly.md",
+              "status": "done"
+            }
+          ]
         },
         {
           "slug": "pcb-1s-protection",
@@ -192,7 +344,7 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
+            "status": "done"
           }
         }
       ]
@@ -254,7 +406,7 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
+            "status": "done"
           }
         },
         {
@@ -264,7 +416,7 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
+            "status": "done"
           }
         },
         {
@@ -274,7 +426,7 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
+            "status": "done"
           }
         },
         {
@@ -284,7 +436,7 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
+            "status": "done"
           }
         },
         {
@@ -294,7 +446,7 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
+            "status": "done"
           }
         },
         {
@@ -338,7 +490,7 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
+            "status": "done"
           }
         },
         {
@@ -348,7 +500,7 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
+            "status": "done"
           }
         },
         {
@@ -358,7 +510,7 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
+            "status": "done"
           }
         },
         {
@@ -402,7 +554,7 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
+            "status": "done"
           }
         }
       ]
@@ -444,7 +596,7 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
+            "status": "done"
           }
         }
       ]
@@ -460,7 +612,7 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
+            "status": "done"
           }
         },
         {
@@ -470,7 +622,7 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
+            "status": "done"
           }
         },
         {
@@ -480,7 +632,7 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
+            "status": "done"
           }
         },
         {
@@ -490,7 +642,7 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
+            "status": "done"
           }
         },
         {
@@ -500,7 +652,7 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
+            "status": "done"
           }
         }
       ]

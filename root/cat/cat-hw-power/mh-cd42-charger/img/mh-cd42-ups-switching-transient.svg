@@ -1,0 +1,118 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Canvas background -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <defs>
+    <!-- Arrow marker black -->
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <!-- Arrow marker blue -->
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Header -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Перехідний процес V_OUT при перемиканні MH-CD42 з VIN на BAT</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Затримка активації Boost-конвертера спричиняє короткочасне просідання вихідної напруги</text>
+
+  <!-- Graph Panel -->
+  <rect x="30" y="75" width="580" height="425" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Shaded Region for Transient Dip -->
+  <polygon points="230,160 310,310 410,160" fill="#fdecea" opacity="0.65"/>
+
+  <!-- Horizontal Reference Voltage Lines -->
+  <!-- 5.0V Nominal -->
+  <line x1="100" y1="160" x2="570" y2="160" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <text x="93" y="164" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">5.0 В</text>
+
+  <!-- 3.7V Battery level -->
+  <line x1="100" y1="260" x2="570" y2="260" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="93" y="264" font-size="12" fill="#6b7280" text-anchor="end">3.7 В</text>
+
+  <!-- V_min (~3.1V) -->
+  <line x1="100" y1="310" x2="330" y2="310" stroke="#c0392b" stroke-width="1" stroke-dasharray="2,2" opacity="0.7"/>
+  <text x="93" y="314" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="end">V_min</text>
+
+  <!-- 2.7V MCU BOD Reset threshold -->
+  <line x1="100" y1="370" x2="570" y2="370" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="5,4"/>
+  <text x="93" y="374" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="end">2.7 В</text>
+  <text x="560" y="362" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="end">Поріг скидання МК (2.7 В)</text>
+
+  <!-- 0V Level -->
+  <text x="93" y="434" font-size="12" fill="#6b7280" text-anchor="end">0 В</text>
+
+  <!-- Vertical Time Lines -->
+  <!-- t_0 (VIN disconnect) -->
+  <line x1="230" y1="120" x2="230" y2="430" stroke="#6b7280" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="230" y="450" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">t_0</text>
+  <text x="230" y="466" font-size="12" fill="#6b7280" text-anchor="middle">(Втрата VIN)</text>
+
+  <!-- t_rec (Boost recovers 5V) -->
+  <line x1="410" y1="120" x2="410" y2="430" stroke="#6b7280" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="410" y="450" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">t_rec</text>
+  <text x="410" y="466" font-size="12" fill="#6b7280" text-anchor="middle">(Boost 5 В)</text>
+
+  <!-- Dimension Interval for Reaction Time dt_sw -->
+  <line x1="230" y1="110" x2="410" y2="110" stroke="#2457d6" stroke-width="1.5" marker-start="url(#arr-blue)" marker-end="url(#arr-blue)"/>
+  <text x="320" y="102" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Δt_sw ≈ 100–500 мкс (Час реакції Boost)</text>
+
+  <!-- Signal Curves -->
+  <!-- V_IN (Input mains voltage dropping at t_0) -->
+  <path d="M 100,160 L 230,160 L 245,430 L 570,430" fill="none" stroke="#9ca3af" stroke-width="2"/>
+  <text x="160" y="145" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">V_IN (Мережа 5 В)</text>
+
+  <!-- Deep Dip Curve (Without C_OUT) -->
+  <path d="M 100,160 L 230,160 Q 270,160 310,310 Q 350,310 410,160 L 570,160" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+
+  <!-- Smooth Dip Curve (With C_OUT buffer) -->
+  <path d="M 230,160 Q 280,160 320,210 Q 360,210 410,160" fill="none" stroke="#27ae60" stroke-width="2.5" stroke-dasharray="6,4"/>
+
+  <!-- Dip Annotation Text -->
+  <text x="310" y="335" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Критичне просідання</text>
+
+  <!-- Axes -->
+  <!-- Y Axis -->
+  <line x1="100" y1="430" x2="100" y2="95" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+  <text x="100" y="88" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Напруга V_OUT (В)</text>
+
+  <!-- X Axis -->
+  <line x1="100" y1="430" x2="575" y2="430" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+  <text x="575" y="455" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="end">t (час)</text>
+
+  <!-- Legend Box Inside Graph -->
+  <rect x="375" y="185" width="220" height="65" rx="6" fill="white" stroke="#d0d7de" stroke-width="1.5"/>
+  <line x1="387" y1="202" x2="413" y2="202" stroke="#c0392b" stroke-width="2.5"/>
+  <text x="420" y="206" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">Без додаткового C_OUT</text>
+  <line x1="387" y1="230" x2="413" y2="230" stroke="#27ae60" stroke-width="2.5" stroke-dasharray="5,3"/>
+  <text x="420" y="234" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">З буферним C_OUT</text>
+
+  <!-- Right Cards -->
+  <!-- Card 1: Problem -->
+  <rect x="630" y="75" width="300" height="125" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <rect x="642" y="87" width="276" height="26" rx="4" fill="#c0392b"/>
+  <text x="780" y="104" font-size="13" font-weight="bold" fill="white" text-anchor="middle">Причина просідання V_OUT</text>
+  <text x="645" y="132" font-size="12" fill="#1a1a1a">• Затримка вмикання Boost (~100–500 мкс)</text>
+  <text x="645" y="152" font-size="12" fill="#1a1a1a">• Розряд ємності C_OUT струмом навантаження</text>
+  <text x="645" y="172" font-size="12" fill="#1a1a1a">• Ризик перезавантаження МК (Brown-out)</text>
+
+  <!-- Card 2: Solution -->
+  <rect x="630" y="215" width="300" height="140" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="642" y="227" width="276" height="26" rx="4" fill="#27ae60"/>
+  <text x="780" y="244" font-size="13" font-weight="bold" fill="white" text-anchor="middle">Рішення для стабілізації UPS</text>
+  <text x="645" y="272" font-size="12" fill="#1a1a1a">• Буферний C_OUT = 470–1000 мкФ на виході</text>
+  <text x="645" y="292" font-size="12" fill="#1a1a1a">• Low-ESR конденсатор (кераміка + тантал)</text>
+  <text x="645" y="312" font-size="12" fill="#1a1a1a">• Утримує V_OUT > V_BOD під час Δt_sw</text>
+  <text x="645" y="332" font-size="12" fill="#1a1a1a">• Захисний діод Шотткі у колі VIN</text>
+
+  <!-- Card 3: Key Parameters -->
+  <rect x="630" y="370" width="300" height="130" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="642" y="382" width="276" height="26" rx="4" fill="#2457d6"/>
+  <text x="780" y="399" font-size="13" font-weight="bold" fill="white" text-anchor="middle">Ключові параметри перемикання</text>
+  <text x="645" y="427" font-size="12" fill="#1a1a1a">• Вхід VIN: 4.5–5.5 В (струм заряду ~1 А)</text>
+  <text x="645" y="447" font-size="12" fill="#1a1a1a">• Вихід V_OUT: 5.0 В (струм Boost до 2.0 А)</text>
+  <text x="645" y="467" font-size="12" fill="#1a1a1a">• Поріг Auto-Off: струм нижче 45–50 мА</text>
+  <text x="645" y="487" font-size="12" fill="#1a1a1a">• Час перемикання Boost: ~100–500 мкс</text>
+</svg>

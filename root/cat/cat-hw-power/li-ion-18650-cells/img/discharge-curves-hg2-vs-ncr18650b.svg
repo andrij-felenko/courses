@@ -1,0 +1,146 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Markers -->
+  <defs>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="34" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Порівняння розрядних кривих Li-ion 18650: HG2 vs NCR18650B</text>
+  <text x="480" y="56" font-size="13" fill="#6b7280" text-anchor="middle">При струмі 15 A високоємнісний елемент просідає через опір, а високострумовий зберігає робочу напругу</text>
+
+  <!-- Plot Background Grid Panel -->
+  <rect x="90" y="95" width="570" height="335" fill="#f4f6f8" rx="6" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Y-Axis Title -->
+  <text x="25" y="82" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="start">Напруга U (В)</text>
+
+  <!-- Horizontal Grid Lines (Voltage) -->
+  <line x1="90" y1="110" x2="660" y2="110" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3 3"/>
+  <line x1="90" y1="148" x2="660" y2="148" stroke="#e1e4e8" stroke-width="1" stroke-dasharray="3 3"/>
+  <line x1="90" y1="242" x2="660" y2="242" stroke="#e1e4e8" stroke-width="1" stroke-dasharray="3 3"/>
+  <line x1="90" y1="336" x2="660" y2="336" stroke="#e1e4e8" stroke-width="1" stroke-dasharray="3 3"/>
+
+  <!-- Vertical Grid Lines (Capacity in mAh) - Split to prevent intersecting text labels -->
+  <!-- 500 mAh (171): split around y=295..335 to avoid intersecting label text -->
+  <line x1="171" y1="95" x2="171" y2="295" stroke="#e1e4e8" stroke-width="1" stroke-dasharray="3 3"/>
+  <line x1="171" y1="335" x2="171" y2="405" stroke="#e1e4e8" stroke-width="1" stroke-dasharray="3 3"/>
+
+  <!-- 1000 mAh (253) -->
+  <line x1="253" y1="95" x2="253" y2="430" stroke="#e1e4e8" stroke-width="1" stroke-dasharray="3 3"/>
+
+  <!-- 1500 mAh (334), 2000 mAh (416), 2500 mAh (497): end at y=336 to clear unusable capacity box -->
+  <line x1="334" y1="95" x2="334" y2="336" stroke="#e1e4e8" stroke-width="1" stroke-dasharray="3 3"/>
+  <line x1="416" y1="95" x2="416" y2="336" stroke="#e1e4e8" stroke-width="1" stroke-dasharray="3 3"/>
+  <line x1="497" y1="95" x2="497" y2="336" stroke="#e1e4e8" stroke-width="1" stroke-dasharray="3 3"/>
+
+  <!-- 3000 mAh (579) -->
+  <line x1="579" y1="95" x2="579" y2="430" stroke="#e1e4e8" stroke-width="1" stroke-dasharray="3 3"/>
+
+  <!-- Y-Axis Tick Labels -->
+  <text x="82" y="114" font-size="12" fill="#1a1a1a" text-anchor="end">4.2 В</text>
+  <text x="82" y="152" font-size="12" fill="#1a1a1a" text-anchor="end">4.0 В</text>
+  <text x="82" y="246" font-size="12" fill="#1a1a1a" text-anchor="end">3.5 В</text>
+  <text x="82" y="340" font-size="12" fill="#1a1a1a" text-anchor="end">3.0 В</text>
+  <text x="82" y="434" font-size="12" fill="#1a1a1a" text-anchor="end">2.5 В</text>
+
+  <!-- X-Axis Tick Labels -->
+  <text x="90" y="452" font-size="12" fill="#1a1a1a" text-anchor="middle">0</text>
+  <text x="171" y="452" font-size="12" fill="#1a1a1a" text-anchor="middle">500</text>
+  <text x="253" y="452" font-size="12" fill="#1a1a1a" text-anchor="middle">1000</text>
+  <text x="334" y="452" font-size="12" fill="#1a1a1a" text-anchor="middle">1500</text>
+  <text x="416" y="452" font-size="12" fill="#1a1a1a" text-anchor="middle">2000</text>
+  <text x="497" y="452" font-size="12" fill="#1a1a1a" text-anchor="middle">2500</text>
+  <text x="579" y="452" font-size="12" fill="#1a1a1a" text-anchor="middle">3000</text>
+  <text x="660" y="452" font-size="12" fill="#1a1a1a" text-anchor="middle">3500</text>
+
+  <!-- X-Axis Title -->
+  <text x="375" y="480" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Віддана ємність Q (мА·год)</text>
+
+  <!-- Unusable / Lost Capacity Zone for NCR18650B @ 15A -->
+  <rect x="318" y="336" width="200" height="94" fill="#fdecea" rx="4" opacity="0.75" stroke="#c0392b" stroke-dasharray="3 3" stroke-width="1"/>
+  <text x="418" y="373" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Невикористана ємність</text>
+  <text x="418" y="391" font-size="12" fill="#c0392b" text-anchor="middle">NCR18650B (15 A: -1450 мА·год)</text>
+
+  <!-- Cut-off Voltage Line (2.5V) -->
+  <line x1="90" y1="430" x2="660" y2="430" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="5 4"/>
+  <rect x="95" y="408" width="135" height="18" fill="white" rx="3" stroke="#c0392b" stroke-width="1"/>
+  <text x="162" y="421" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Поріг U_cut = 2.5 В</text>
+
+  <!-- Discharge Curves -->
+  <!-- 1. NCR18650B @ 2A (Solid Crimson) -->
+  <path d="M 90,110 C 95,135 120,140 171,150 C 253,165 334,200 416,220 C 497,240 550,260 579,280 C 610,300 630,340 644,430" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+
+  <!-- 2. LiitoKala HG2 @ 2A (Solid Green) -->
+  <path d="M 90,110 C 95,125 120,130 171,142 C 253,158 334,190 416,212 C 480,230 520,255 538,280 C 555,305 570,350 579,430" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+
+  <!-- 3. LiitoKala HG2 @ 15A (Dashed Green) -->
+  <path d="M 90,110 C 93,160 120,185 171,204 C 253,235 334,258 416,270 C 480,285 514,305 530,336 C 545,365 550,400 554,430" fill="none" stroke="#27ae60" stroke-width="2.5" stroke-dasharray="7 4"/>
+
+  <!-- 4. NCR18650B @ 15A (Dashed Crimson - Heavy IR Drop) -->
+  <path d="M 90,110 C 93,225 110,250 171,317 C 215,350 253,374 285,395 C 300,408 310,420 318,430" fill="none" stroke="#c0392b" stroke-width="3" stroke-dasharray="5 4"/>
+
+  <!-- Curve Labels & Annotations - Placed safely outside curve paths and grid lines -->
+  <text x="262" y="210" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="start">HG2 (15 A)</text>
+
+  <text x="258" y="354" font-size="11" fill="#c0392b" text-anchor="start">
+    <tspan x="258" dy="0" font-weight="bold">NCR18650B</tspan>
+    <tspan x="258" dy="13" font-weight="bold">(15 A)</tspan>
+  </text>
+
+  <text x="94" y="330" font-size="10" fill="#c0392b" text-anchor="start">Різке IR-просідання</text>
+
+  <!-- Legend Card (Right Side Top) -->
+  <rect x="680" y="95" width="260" height="150" fill="#f4f6f8" rx="8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="695" y="118" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="start">Легенда кривих розряду</text>
+
+  <line x1="695" y1="140" x2="725" y2="140" stroke="#27ae60" stroke-width="3"/>
+  <text x="735" y="144" font-size="12" fill="#1a1a1a" text-anchor="start">HG2 — 2 A (мале навант.)</text>
+
+  <line x1="695" y1="165" x2="725" y2="165" stroke="#27ae60" stroke-width="3" stroke-dasharray="6 3"/>
+  <text x="735" y="169" font-size="12" fill="#1a1a1a" text-anchor="start">HG2 — 15 A (високе навант.)</text>
+
+  <line x1="695" y1="190" x2="725" y2="190" stroke="#c0392b" stroke-width="3"/>
+  <text x="735" y="194" font-size="12" fill="#1a1a1a" text-anchor="start">NCR18650B — 2 A</text>
+
+  <line x1="695" y1="215" x2="725" y2="215" stroke="#c0392b" stroke-width="3" stroke-dasharray="6 3"/>
+  <text x="735" y="219" font-size="12" fill="#1a1a1a" text-anchor="start">NCR18650B — 15 A (провал)</text>
+
+  <!-- Cell Specifications Comparison Card (Right Side Bottom) -->
+  <rect x="680" y="260" width="260" height="155" fill="#f4f6f8" rx="8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="695" y="282" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="start">Характеристики осередків</text>
+
+  <!-- HG2 Subpanel -->
+  <rect x="692" y="294" width="112" height="110" fill="#e9f7ef" rx="6" stroke="#27ae60" stroke-width="1"/>
+  <text x="748" y="312" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">LiitoKala HG2</text>
+  <text x="700" y="330" font-size="12" fill="#1a1a1a" text-anchor="start">C: 3000 мА·год</text>
+  <text x="700" y="348" font-size="12" fill="#1a1a1a" text-anchor="start">R_int: ~15 мОм</text>
+  <text x="700" y="366" font-size="12" fill="#1a1a1a" text-anchor="start">I_max: 20 A</text>
+  <text x="700" y="392" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="start">High-Drain</text>
+
+  <!-- NCR18650B Subpanel -->
+  <rect x="816" y="294" width="112" height="110" fill="#fdecea" rx="6" stroke="#c0392b" stroke-width="1"/>
+  <text x="872" y="312" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">NCR18650B</text>
+  <text x="824" y="330" font-size="12" fill="#1a1a1a" text-anchor="start">C: 3400 мА·год</text>
+  <text x="824" y="348" font-size="12" fill="#1a1a1a" text-anchor="start">R_int: ~40 мОм</text>
+  <text x="824" y="366" font-size="12" fill="#1a1a1a" text-anchor="start">I_max: 4.9 A</text>
+  <text x="824" y="392" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="start">High-Cap</text>
+
+  <!-- Bottom Analysis Banner -->
+  <rect x="90" y="498" width="850" height="50" fill="#eaf0fd" rx="6" stroke="#2457d6" stroke-width="1"/>
+  <text x="105" y="527" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="start">Висновки:</text>
+  <text x="180" y="518" font-size="12" fill="#1a1a1a">
+    <tspan x="180" dy="0">При I = 15 A просідання ΔU = I · R_int дорівнює 0.60 В для NCR18650B проти 0.225 В для HG2.</tspan>
+    <tspan x="180" dy="16">NCR18650B швидко падає до порогу 2.5 В і втрачає &gt;50% ємності, а HG2 забезпечує стабільну роботу.</tspan>
+  </text>
+</svg>

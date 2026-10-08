@@ -1,0 +1,217 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Маркери стрілок -->
+  <defs>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок та підзаголовок -->
+  <text x="480" y="32" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Імпульсна топологія Buck у TP5100: шляхи зарядного струму</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Накопичення енергії в дроселі від Vin (фаза ON) та її розряд через діод Шотткі D в батарею (фаза OFF)</text>
+
+  <!-- ПАНЕЛЬ 1: ЛІВА (ФАЗА ON) -->
+  <rect x="25" y="70" width="445" height="465" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="40" y="85" width="415" height="32" rx="5" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="247" y="106" font-size="13" font-weight="700" fill="#2457d6" text-anchor="middle">ФАЗА 1: Ключ ВВІМКНЕНО (ON)</text>
+
+  <!-- Вхідні підписи Vin 1 -->
+  <text x="42" y="185" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Vin</text>
+  <text x="42" y="200" font-size="11" fill="#6b7280" text-anchor="middle">(5–18V)</text>
+
+  <!-- Корпус мікросхеми TP5100 Панель 1 -->
+  <rect x="65" y="145" width="85" height="150" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="107" y="165" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">TP5100 IC</text>
+  <text x="107" y="195" font-size="11" font-weight="700" fill="#2457d6" text-anchor="middle">PMOS (ON)</text>
+  
+  <!-- Замкнений ключ PMOS -->
+  <line x1="65" y1="210" x2="150" y2="210" stroke="#2457d6" stroke-width="2.5"/>
+  <circle cx="75" cy="210" r="3" fill="#2457d6"/>
+  <circle cx="140" cy="210" r="3" fill="#2457d6"/>
+
+  <text x="72" y="225" font-size="10" fill="#6b7280">VIN</text>
+  <text x="128" y="225" font-size="10" fill="#6b7280">SW</text>
+
+  <!-- Лінія живлення від Vin до IC -->
+  <line x1="42" y1="210" x2="65" y2="210" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Вузол SW 1 -->
+  <line x1="150" y1="210" x2="175" y2="210" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="175" cy="210" r="3" fill="#1a1a1a"/>
+  <text x="175" y="165" font-size="11" font-weight="700" fill="#1a1a1a" text-anchor="middle">Вузол SW</text>
+
+  <!-- Гілка діода Шотткі D 1 -->
+  <line x1="175" y1="210" x2="175" y2="255" stroke="#1a1a1a" stroke-width="1.5"/>
+  <!-- Діод Шотткі symbol -->
+  <path d="M163,255 L187,255 M163,259 L163,255 M187,255 L187,251" stroke="#1a1a1a" stroke-width="2" fill="none"/>
+  <polygon points="175,255 163,275 187,275" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="175" y1="275" x2="175" y2="340" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <text x="145" y="265" font-size="11" font-weight="700" fill="#c0392b" text-anchor="end">D (Шотткі)</text>
+  <text x="145" y="280" font-size="10" fill="#c0392b" text-anchor="end">Запертий (0V)</text>
+
+  <!-- Дросель L 1 -->
+  <line x1="175" y1="210" x2="190" y2="210" stroke="#1a1a1a" stroke-width="1.5"/>
+  <path d="M190,210 A9,9 0 0,1 208,210 A9,9 0 0,1 226,210 A9,9 0 0,1 244,210 A9,9 0 0,1 262,210" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="262" y1="210" x2="275" y2="210" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="226" y="182" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">L (10 мкГн)</text>
+
+  <!-- Токовимірювальний резистор RSEN 1 -->
+  <circle cx="275" cy="210" r="3" fill="#1a1a1a"/>
+  <line x1="275" y1="210" x2="290" y2="210" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="290" y="202" width="50" height="16" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="340" y1="210" x2="365" y2="210" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="315" y="165" font-size="11" font-weight="700" fill="#1a1a1a" text-anchor="middle">RSEN (0.05 Ом)</text>
+  <text x="315" y="180" font-size="10" fill="#6b7280" text-anchor="middle">Струм 2А</text>
+
+  <!-- Вузол VBAT 1 -->
+  <circle cx="365" cy="210" r="3" fill="#1a1a1a"/>
+  <text x="365" y="182" font-size="11" font-weight="700" fill="#1a1a1a" text-anchor="middle">VBAT</text>
+
+  <!-- Конденсатор COUT 1 -->
+  <line x1="365" y1="210" x2="365" y2="260" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="353" y1="260" x2="377" y2="260" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="353" y1="268" x2="377" y2="268" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="365" y1="268" x2="365" y2="340" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="345" y="267" font-size="10" fill="#6b7280" text-anchor="end">COUT</text>
+
+  <!-- Батарея VBAT 1 -->
+  <line x1="365" y1="210" x2="415" y2="210" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="415" y1="210" x2="415" y2="260" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="400" y1="260" x2="430" y2="260" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="407" y1="268" x2="423" y2="268" stroke="#1a1a1a" stroke-width="3.5"/>
+  <line x1="415" y1="268" x2="415" y2="340" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="435" y="258" font-size="10" font-weight="700" fill="#1a1a1a" text-anchor="start">1S / 2S</text>
+  <text x="435" y="272" font-size="10" fill="#6b7280" text-anchor="start">Li-Ion</text>
+
+  <!-- Шина Земля GND 1 -->
+  <line x1="175" y1="340" x2="415" y2="340" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="275" y1="340" x2="275" y2="348" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="265" y1="348" x2="285" y2="348" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="269" y1="352" x2="281" y2="352" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="272" y1="356" x2="278" y2="356" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="275" y="370" font-size="11" fill="#6b7280" text-anchor="middle">GND</text>
+
+  <!-- Шлях струму Панель 1 (Синій провідник струму) -->
+  <path d="M35,210 L175,210 L365,210 L415,210 L415,340 L275,340" fill="none" stroke="#2457d6" stroke-width="2.5" stroke-dasharray="6,4" marker-end="url(#arr-blue)"/>
+  <rect x="205" y="222" width="100" height="20" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="255" y="236" font-size="11" font-weight="700" fill="#2457d6" text-anchor="middle">Струм I_ON →</text>
+
+  <!-- Текстова картка опису Панель 1 -->
+  <rect x="40" y="390" width="415" height="130" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="55" y="412" font-size="12" font-weight="700" fill="#2457d6">Режим роботи фази ON (Ключ замкнено):</text>
+  <text x="55" y="433" font-size="11" fill="#1a1a1a">• Енергія подається від Vin через PMOS і дросель L до батареї</text>
+  <text x="55" y="453" font-size="11" fill="#1a1a1a">• Магнітне поле дроселя накопичує енергію: dI/dt = (Vin - Vbat)/L</text>
+  <text x="55" y="473" font-size="11" fill="#1a1a1a">• Діод D перебуває під зворотною напругою Vin і закритий</text>
+  <text x="55" y="493" font-size="11" fill="#1a1a1a">• Струм заряду лінійно зростає до пікового значення</text>
+
+
+  <!-- ПАНЕЛЬ 2: ПРАВА (ФАЗА OFF) -->
+  <rect x="490" y="70" width="445" height="465" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="505" y="85" width="415" height="32" rx="5" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="712" y="106" font-size="13" font-weight="700" fill="#27ae60" text-anchor="middle">ФАЗА 2: Ключ ВИМКНЕНО (OFF)</text>
+
+  <!-- Вхідні підписи Vin 2 -->
+  <text x="507" y="185" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Vin</text>
+  <text x="507" y="200" font-size="11" fill="#6b7280" text-anchor="middle">(5–18V)</text>
+
+  <!-- Корпус мікросхеми TP5100 Панель 2 -->
+  <rect x="530" y="145" width="85" height="150" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="572" y="165" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">TP5100 IC</text>
+  <text x="572" y="183" font-size="11" font-weight="700" fill="#c0392b" text-anchor="middle">PMOS (OFF)</text>
+
+  <!-- Розімкнений ключ PMOS -->
+  <line x1="540" y1="210" x2="595" y2="192" stroke="#c0392b" stroke-width="2.5"/>
+  <circle cx="540" cy="210" r="3" fill="#c0392b"/>
+  <circle cx="605" cy="210" r="3" fill="#c0392b"/>
+
+  <text x="537" y="225" font-size="10" fill="#6b7280">VIN</text>
+  <text x="593" y="225" font-size="10" fill="#6b7280">SW</text>
+
+  <!-- Лінія від Vin до IC 2 -->
+  <line x1="507" y1="210" x2="530" y2="210" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Вузол SW 2 -->
+  <line x1="605" y1="210" x2="640" y2="210" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="640" cy="210" r="3" fill="#1a1a1a"/>
+  <text x="640" y="165" font-size="11" font-weight="700" fill="#1a1a1a" text-anchor="middle">Вузол SW</text>
+
+  <!-- Гілка діода Шотткі D 2 -->
+  <line x1="640" y1="210" x2="640" y2="255" stroke="#27ae60" stroke-width="1.5"/>
+  <path d="M628,255 L652,255 M628,259 L628,255 M652,255 L652,251" stroke="#27ae60" stroke-width="2" fill="none"/>
+  <polygon points="640,255 628,275 652,275" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <line x1="640" y1="275" x2="640" y2="340" stroke="#27ae60" stroke-width="1.5"/>
+
+  <text x="610" y="265" font-size="11" font-weight="700" fill="#27ae60" text-anchor="end">D (Шотткі)</text>
+  <text x="610" y="280" font-size="10" font-weight="700" fill="#27ae60" text-anchor="end">Провідний (~0.4V)</text>
+
+  <!-- Дросель L 2 -->
+  <line x1="640" y1="210" x2="655" y2="210" stroke="#1a1a1a" stroke-width="1.5"/>
+  <path d="M655,210 A9,9 0 0,1 673,210 A9,9 0 0,1 691,210 A9,9 0 0,1 709,210 A9,9 0 0,1 727,210" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="727" y1="210" x2="740" y2="210" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="691" y="182" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">L (10 мкГн)</text>
+
+  <!-- Токовимірювальний резистор RSEN 2 -->
+  <circle cx="740" cy="210" r="3" fill="#1a1a1a"/>
+  <line x1="740" y1="210" x2="755" y2="210" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="755" y="202" width="50" height="16" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="805" y1="210" x2="830" y2="210" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="780" y="165" font-size="11" font-weight="700" fill="#1a1a1a" text-anchor="middle">RSEN (0.05 Ом)</text>
+  <text x="780" y="180" font-size="10" fill="#6b7280" text-anchor="middle">Струм 2А</text>
+
+  <!-- Вузол VBAT 2 -->
+  <circle cx="830" cy="210" r="3" fill="#1a1a1a"/>
+  <text x="830" y="182" font-size="11" font-weight="700" fill="#1a1a1a" text-anchor="middle">VBAT</text>
+
+  <!-- Конденсатор COUT 2 -->
+  <line x1="830" y1="210" x2="830" y2="260" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="818" y1="260" x2="842" y2="260" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="818" y1="268" x2="842" y2="268" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="830" y1="268" x2="830" y2="340" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="810" y="267" font-size="10" fill="#6b7280" text-anchor="end">COUT</text>
+
+  <!-- Батарея VBAT 2 -->
+  <line x1="830" y1="210" x2="880" y2="210" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="880" y1="210" x2="880" y2="260" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="865" y1="260" x2="895" y2="260" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="872" y1="268" x2="888" y2="268" stroke="#1a1a1a" stroke-width="3.5"/>
+  <line x1="880" y1="268" x2="880" y2="340" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="900" y="258" font-size="10" font-weight="700" fill="#1a1a1a" text-anchor="start">1S / 2S</text>
+  <text x="900" y="272" font-size="10" fill="#6b7280" text-anchor="start">Li-Ion</text>
+
+  <!-- Шина Земля GND 2 -->
+  <line x1="640" y1="340" x2="880" y2="340" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="740" y1="340" x2="740" y2="348" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="730" y1="348" x2="750" y2="348" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="734" y1="352" x2="746" y2="352" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="737" y1="356" x2="743" y2="356" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="740" y="370" font-size="11" fill="#6b7280" text-anchor="middle">GND</text>
+
+  <!-- Замкнений контур струму розряду (Зелений провідник струму) -->
+  <path d="M640,340 L640,210 L830,210 L880,210 L880,340 L640,340" fill="none" stroke="#27ae60" stroke-width="2.5" stroke-dasharray="6,4" marker-end="url(#arr-green)"/>
+  <rect x="670" y="222" width="100" height="20" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="720" y="236" font-size="11" font-weight="700" fill="#27ae60" text-anchor="middle">Струм I_OFF →</text>
+
+  <!-- Текстова картка опису Панель 2 -->
+  <rect x="505" y="390" width="415" height="130" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="520" y="412" font-size="12" font-weight="700" fill="#27ae60">Режим роботи фази OFF (Ключ розімкнено):</text>
+  <text x="520" y="433" font-size="11" fill="#1a1a1a">• PMOS-ключ розімкнений, джерело Vin від'єднано від котушки</text>
+  <text x="520" y="453" font-size="11" fill="#1a1a1a">• Дросель L віддає накопичену енергію: dI/dt = -Vbat/L</text>
+  <text x="520" y="473" font-size="11" fill="#1a1a1a">• Діод Шотткі D відкривається під дією ЕРС самоіндукції</text>
+  <text x="520" y="493" font-size="11" fill="#1a1a1a">• Струм продовжує безперервно підтримувати заряд батареї</text>
+</svg>

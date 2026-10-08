@@ -1,0 +1,103 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+  
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Title and Subtitle -->
+  <text x="480" y="40" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Вимірювання внутрішнього опору імпульсним методом</text>
+  <text x="480" y="62" font-size="13" fill="#6b7280" text-anchor="middle">Падіння напруги ΔV під час стрибка струму ΔI визначає опір: R_int = ΔV / ΔI</text>
+
+  <!-- Left Panel: Timing Diagram Container -->
+  <rect x="30" y="80" width="610" height="375" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="6"/>
+
+  <!-- Pulse Area Highlight -->
+  <rect x="250" y="80" width="220" height="375" fill="#eaf0fd" opacity="0.4"/>
+
+  <!-- Pulse Duration Dimension Δt -->
+  <line x1="250" y1="110" x2="320" y2="110" stroke="#1a1a1a" stroke-width="1.2" marker-start="url(#arr)"/>
+  <line x1="400" y1="110" x2="470" y2="110" stroke="#1a1a1a" stroke-width="1.2" marker-end="url(#arr)"/>
+  <text x="360" y="105" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Δt ≈ 10 мс (короткий імпульс)</text>
+
+  <!-- Time Axis t1 and t2 Dashed Guide Lines -->
+  <line x1="250" y1="110" x2="250" y2="400" stroke="#6b7280" stroke-width="1" stroke-dasharray="4 4"/>
+  <line x1="470" y1="110" x2="470" y2="400" stroke="#6b7280" stroke-width="1" stroke-dasharray="4 4"/>
+
+  <!-- Voltage Graph V(t) -->
+  <line x1="110" y1="240" x2="110" y2="115" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="105" y="120" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="end">Напруга, V</text>
+  <text x="105" y="149" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="end">V0</text>
+  <text x="105" y="209" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="end">V1</text>
+  <line x1="110" y1="240" x2="610" y2="240" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Voltage Helper Lines -->
+  <line x1="250" y1="145" x2="360" y2="145" stroke="#c0392b" stroke-width="1" stroke-dasharray="3 3"/>
+  <line x1="250" y1="207" x2="360" y2="207" stroke="#c0392b" stroke-width="1" stroke-dasharray="3 3"/>
+
+  <!-- Voltage Drop Dimension ΔV -->
+  <line x1="360" y1="168" x2="360" y2="147" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <line x1="360" y1="184" x2="360" y2="205" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <text x="370" y="180" font-size="14" font-weight="bold" fill="#c0392b" text-anchor="start">ΔV = V0 - V1</text>
+
+  <!-- Voltage Curve V(t) Path -->
+  <path d="M 110,145 L 250,145 L 250,207 L 470,210 L 470,145 L 590,145" fill="none" stroke="#c0392b" stroke-width="3"/>
+
+  <!-- Current Graph I(t) -->
+  <line x1="110" y1="400" x2="110" y2="275" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <line x1="110" y1="400" x2="610" y2="400" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="105" y="285" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="end">Струм, I</text>
+  <text x="105" y="314" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">I1</text>
+  <text x="105" y="389" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">I0</text>
+  <text x="605" y="422" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="end">Час t</text>
+
+  <!-- Current Helper Lines -->
+  <line x1="250" y1="310" x2="360" y2="310" stroke="#2457d6" stroke-width="1" stroke-dasharray="3 3"/>
+  <line x1="250" y1="385" x2="360" y2="385" stroke="#2457d6" stroke-width="1" stroke-dasharray="3 3"/>
+
+  <!-- Current Jump Dimension ΔI -->
+  <line x1="360" y1="338" x2="360" y2="312" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <line x1="360" y1="357" x2="360" y2="383" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="370" y="352" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="start">ΔI = I1 - I0</text>
+
+  <!-- Current Curve I(t) Path -->
+  <path d="M 110,385 L 250,385 L 250,310 L 470,310 L 470,385 L 590,385" fill="none" stroke="#2457d6" stroke-width="3"/>
+
+  <!-- Time Labels t1 and t2 -->
+  <text x="250" y="420" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">t1</text>
+  <text x="250" y="438" font-size="12" fill="#6b7280" text-anchor="middle">(початок імпульсу)</text>
+  <text x="470" y="420" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">t2</text>
+  <text x="470" y="438" font-size="12" fill="#6b7280" text-anchor="middle">(кінець імпульсу)</text>
+
+  <!-- Right Panel: Calculation and Explanation -->
+  <rect x="660" y="80" width="270" height="375" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="6"/>
+
+  <!-- Card 1: Formula -->
+  <rect x="675" y="95" width="240" height="100" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <text x="795" y="116" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">РОЗРАХУНОК ОПОРУ</text>
+  <text x="795" y="148" font-size="20" font-weight="bold" fill="#1a1a1a" text-anchor="middle">R_int = ΔV / ΔI</text>
+  <text x="795" y="175" font-size="13" fill="#6b7280" text-anchor="middle">= (V0 - V1) / (I1 - I0)</text>
+
+  <!-- Card 2: Physical Explanation -->
+  <rect x="675" y="210" width="240" height="115" fill="white" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="690" y="230" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="start">ФІЗИЧНИЙ ЗМІСТ</text>
+  <text x="690" y="250" font-size="12" fill="#1a1a1a" text-anchor="start">• ΔV — падіння напруги на</text>
+  <text x="690" y="266" font-size="12" fill="#c0392b" font-weight="bold" text-anchor="start">  внутрішньому опорі R_int</text>
+  <text x="690" y="288" font-size="12" fill="#1a1a1a" text-anchor="start">• ΔI — імпульс струму</text>
+  <text x="690" y="304" font-size="12" fill="#2457d6" font-weight="bold" text-anchor="start">  навантаження зарядного</text>
+
+  <!-- Card 3: Battery Health Diagnostic (SOH) -->
+  <rect x="675" y="340" width="240" height="100" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="6"/>
+  <text x="795" y="360" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">ОЦІНКА СТАНУ АКБ (SOH)</text>
+  <text x="795" y="385" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Низький R_int → Висока якість</text>
+  <text x="795" y="408" font-size="12" fill="#6b7280" text-anchor="middle">Зростання R_int свідчить про</text>
+  <text x="795" y="424" font-size="12" fill="#6b7280" text-anchor="middle">деградацію та старіння комірки</text>
+</svg>

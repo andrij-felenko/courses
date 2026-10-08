@@ -1,0 +1,147 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 500" width="960" height="500" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Background Canvas -->
+  <rect x="0" y="0" width="960" height="500" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="700" fill="#1a1a1a">Конфігурація виводу SET контролера TP5100</text>
+  <text x="480" y="54" text-anchor="middle" font-size="13" fill="#6b7280">Стан контакту SET визначає напругу заряду (4.2 В / 8.4 В) та вимоги до вхідної напруги VIN</text>
+
+  <!-- ==================== LEFT PANEL: 1S MODE ==================== -->
+  <rect x="35" y="75" width="425" height="395" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Header Card 1S -->
+  <rect x="50" y="90" width="395" height="36" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="247.5" y="113" text-anchor="middle" font-size="15" font-weight="700" fill="#2457d6">Режим 1S — Заряд 1 акумулятора (4.2 В)</text>
+
+  <!-- TP5100 IC Block 1S -->
+  <rect x="60" y="145" width="160" height="120" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="2"/>
+  <text x="140" y="172" text-anchor="middle" font-size="15" font-weight="700" fill="#1a1a1a">TP5100</text>
+  <text x="140" y="192" text-anchor="middle" font-size="12" fill="#6b7280">Імпульсний контролер</text>
+
+  <!-- IC Pins & Pin Labels 1S -->
+  <rect x="50" y="210" width="10" height="16" fill="#2457d6" rx="2"/>
+  <text x="70" y="222" font-size="12" font-weight="700" fill="#1a1a1a">VIN</text>
+
+  <rect x="210" y="210" width="10" height="16" fill="#2457d6" rx="2"/>
+  <text x="200" y="222" text-anchor="end" font-size="12" font-weight="700" fill="#1a1a1a">BAT</text>
+
+  <rect x="132" y="255" width="16" height="10" fill="#2457d6" rx="2"/>
+  <text x="140" y="250" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">SET</text>
+
+  <!-- Power Input Label & Wire 1S -->
+  <text x="45" y="130" font-size="12" font-weight="700" fill="#1a1a1a">VIN = 5...18 В</text>
+  <path d="M 45,138 L 45,218 L 50,218" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Output Wire 1S -->
+  <path d="M 220,218 L 285,218" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="252.5" y="210" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">VBAT = 4.2 В</text>
+
+  <!-- Wire SET 1S -->
+  <path d="M 140,265 L 140,280" fill="none" stroke="#2457d6" stroke-width="2"/>
+
+  <!-- SET Pads Box 1S -->
+  <rect x="60" y="280" width="160" height="65" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="140" y="298" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">Контакт SET</text>
+  <circle cx="120" cy="316" r="6" fill="#ffffff" stroke="#c0392b" stroke-width="2"/>
+  <circle cx="160" cy="316" r="6" fill="#ffffff" stroke="#c0392b" stroke-width="2"/>
+  <text x="140" y="337" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">Розімкнено (OPEN)</text>
+
+  <!-- Battery 1S Box -->
+  <rect x="285" y="145" width="160" height="200" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="365" y="172" text-anchor="middle" font-size="14" font-weight="700" fill="#1a1a1a">Батарея 1S</text>
+
+  <!-- Single Cell Graphic 1S -->
+  <rect x="330" y="195" width="70" height="90" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="355" y="187" width="20" height="8" rx="2" fill="#2457d6"/>
+  <text x="365" y="235" text-anchor="middle" font-size="14" font-weight="700" fill="#2457d6">1S Cell</text>
+  <text x="365" y="255" text-anchor="middle" font-size="13" font-weight="700" fill="#2457d6">3.7 В / 4.2 В</text>
+
+  <text x="365" y="315" text-anchor="middle" font-size="12" fill="#6b7280">1 елемент Li-Ion</text>
+  <text x="365" y="333" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">Заряд до 4.20 В</text>
+
+  <!-- Status Callout Box 1S -->
+  <rect x="50" y="360" width="395" height="95" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="65" y="382" font-size="13" font-weight="700" fill="#2457d6">Особливості режиму 1S:</text>
+  <text x="65" y="402" font-size="12" fill="#1a1a1a">• Вхідна напруга VIN: від 5.0 В (сумісно з USB 5 В)</text>
+  <text x="65" y="422" font-size="12" fill="#1a1a1a">• Напруга відсічки заряду: строго 4.20 В (±1%)</text>
+  <text x="65" y="442" font-size="12" font-weight="700" fill="#27ae60">• Оптимально для 1-елементних живильних схем</text>
+
+  <!-- ==================== RIGHT PANEL: 2S MODE ==================== -->
+  <rect x="500" y="75" width="425" height="395" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Header Card 2S -->
+  <rect x="515" y="90" width="395" height="36" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="712.5" y="113" text-anchor="middle" font-size="15" font-weight="700" fill="#27ae60">Режим 2S — Заряд 2 акумуляторів (8.4 В)</text>
+
+  <!-- TP5100 IC Block 2S -->
+  <rect x="525" y="145" width="160" height="120" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="2"/>
+  <text x="605" y="172" text-anchor="middle" font-size="15" font-weight="700" fill="#1a1a1a">TP5100</text>
+  <text x="605" y="192" text-anchor="middle" font-size="12" fill="#6b7280">Імпульсний контролер</text>
+
+  <!-- IC Pins & Pin Labels 2S -->
+  <rect x="515" y="210" width="10" height="16" fill="#27ae60" rx="2"/>
+  <text x="535" y="222" font-size="12" font-weight="700" fill="#1a1a1a">VIN</text>
+
+  <rect x="675" y="210" width="10" height="16" fill="#27ae60" rx="2"/>
+  <text x="665" y="222" text-anchor="end" font-size="12" font-weight="700" fill="#1a1a1a">BAT</text>
+
+  <rect x="597" y="255" width="16" height="10" fill="#27ae60" rx="2"/>
+  <text x="605" y="250" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">SET</text>
+
+  <!-- Power Input Label & Wire 2S -->
+  <text x="510" y="130" font-size="12" font-weight="700" fill="#1a1a1a">VIN = 10...18 В</text>
+  <path d="M 510,138 L 510,218 L 515,218" fill="none" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- Output Wire 2S -->
+  <path d="M 685,218 L 750,218" fill="none" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="717.5" y="210" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">VBAT = 8.4 В</text>
+
+  <!-- Wire SET 2S -->
+  <path d="M 605,265 L 605,280" fill="none" stroke="#27ae60" stroke-width="2"/>
+
+  <!-- SET Pads Box 2S -->
+  <rect x="525" y="280" width="160" height="65" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="605" y="298" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">Контакт SET</text>
+  <circle cx="585" cy="316" r="6" fill="#27ae60"/>
+  <circle cx="625" cy="316" r="6" fill="#27ae60"/>
+  <rect x="585" y="313" width="40" height="6" fill="#27ae60" rx="2"/>
+  <text x="605" y="337" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">Замкнено (SHORT)</text>
+
+  <!-- Battery 2S Box -->
+  <rect x="750" y="145" width="160" height="200" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="830" y="172" text-anchor="middle" font-size="14" font-weight="700" fill="#1a1a1a">Батарея 2S</text>
+
+  <!-- Dual Cell Graphic 2S -->
+  <rect x="795" y="195" width="70" height="40" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="820" y="189" width="20" height="6" rx="2" fill="#27ae60"/>
+  <text x="830" y="220" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">Cell 1 (4.2 В)</text>
+
+  <rect x="795" y="245" width="70" height="40" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="830" y="270" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">Cell 2 (4.2 В)</text>
+  <path d="M 830,235 L 830,245" fill="none" stroke="#27ae60" stroke-width="2"/>
+
+  <text x="830" y="315" text-anchor="middle" font-size="12" fill="#6b7280">2 елементи послідовно</text>
+  <text x="830" y="333" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">Заряд до 8.40 В max</text>
+
+  <!-- Status Callout Box 2S -->
+  <rect x="515" y="360" width="395" height="95" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="530" y="382" font-size="13" font-weight="700" fill="#27ae60">Особливості режиму 2S:</text>
+  <text x="530" y="402" font-size="12" fill="#1a1a1a">• Вхідна напруга VIN: від 10.0 В до 18.0 В (наприклад 12 В)</text>
+  <text x="530" y="422" font-size="12" fill="#1a1a1a">• Напруга відсічки заряду: строго 8.40 В (±1%)</text>
+  <text x="530" y="442" font-size="12" font-weight="700" fill="#c0392b">• Увага: живлення 5 В (USB) недостатнє для 2S!</text>
+</svg>
