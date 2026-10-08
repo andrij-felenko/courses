@@ -1,0 +1,107 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-accent" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-problem" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-solution" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="30" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Фізична структура та захист пам'яті eFuse в ESP32-S3</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Регістри BLK0–BLK10 зберігають конфігурації й ключі, а маски RD_DIS та WR_DIS незворотно блокують доступ</text>
+
+  <!-- ЛІВА ПАНЕЛЬ: Карта блоків eFuse -->
+  <rect x="24" y="75" width="430" height="445" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="239" y="98" font-size="14" font-weight="700" fill="#1a1a1a" text-anchor="middle">Карта блоків eFuse (256 біт / 32 байти кожен)</text>
+
+  <!-- EFUSE_BLK0 -->
+  <rect x="40" y="112" width="398" height="88" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="52" y="130" font-size="13" font-weight="700" fill="#2457d6">EFUSE_BLK0 — Системні параметри та маски</text>
+  
+  <rect x="52" y="142" width="180" height="48" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="142" y="160" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">WR_DIS (32 біти)</text>
+  <text x="142" y="177" font-size="11" fill="#1a1a1a" text-anchor="middle">Захист від запису</text>
+
+  <rect x="244" y="142" width="180" height="48" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="334" y="160" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">RD_DIS (8 бітів)</text>
+  <text x="334" y="177" font-size="11" fill="#1a1a1a" text-anchor="middle">Захист від читання</text>
+
+  <!-- EFUSE_BLK1 – BLK2 -->
+  <rect x="40" y="210" width="398" height="52" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="52" y="230" font-size="13" font-weight="700" fill="#1a1a1a">EFUSE_BLK1 – BLK2 — Системні дані</text>
+  <text x="52" y="248" font-size="11" fill="#6b7280">MAC-адреса, калібрування АЦП, конфігурація SPI/USB</text>
+
+  <!-- EFUSE_BLK3 -->
+  <rect x="40" y="270" width="398" height="52" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="52" y="290" font-size="13" font-weight="700" fill="#1a1a1a">EFUSE_BLK3 — Дані користувача (USER_DATA)</text>
+  <text x="52" y="308" font-size="11" fill="#6b7280">256 бітів для довільних даних або призначених ключів</text>
+
+  <!-- EFUSE_BLK4…BLK9 -->
+  <rect x="40" y="330" width="398" height="124" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="52" y="350" font-size="13" font-weight="700" fill="#c0392b">EFUSE_BLK4…BLK9 — Ключі шифрування (KEY0…KEY5)</text>
+  <text x="52" y="370" font-size="11" fill="#1a1a1a">• Flash Encryption Key (XTS-AES-128 / XTS-AES-256)</text>
+  <text x="52" y="388" font-size="11" fill="#1a1a1a">• Secure Boot Digest (RSA-3072 / ECDSA-P256)</text>
+  <text x="52" y="406" font-size="11" fill="#1a1a1a">• HMAC / Digital Signature (DS) Master Keys</text>
+  <text x="52" y="430" font-size="12" font-weight="700" fill="#c0392b">🔒 Доступ на читання закривається бітами RD_DIS</text>
+
+  <!-- EFUSE_BLK10 -->
+  <rect x="40" y="462" width="398" height="48" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="52" y="482" font-size="13" font-weight="700" fill="#1a1a1a">EFUSE_BLK10 — SYS_DATA_PART2 / KEY_PURPOSE</text>
+  <text x="52" y="499" font-size="11" fill="#6b7280">Допоміжні системні конфігурації та призначення ключів</text>
+
+  <!-- ПРАВА ВЕРХНЯ ПАНЕЛЬ: Апаратний захист -->
+  <rect x="474" y="75" width="462" height="225" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="705" y="98" font-size="14" font-weight="700" fill="#1a1a1a" text-anchor="middle">Логіка апаратного захисту eFuse Controller</text>
+
+  <!-- WR_DIS картка -->
+  <rect x="490" y="112" width="430" height="80" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="502" y="132" font-size="13" font-weight="700" fill="#27ae60">WR_DIS (32 біти в BLK0) — Захист від запису</text>
+  <text x="502" y="151" font-size="11" fill="#1a1a1a">• Блокує незворотно випалювання бітів у вибраних регістрах</text>
+  <text x="502" y="168" font-size="11" fill="#1a1a1a">• Захищає конфігурації завантаження (Boot, SPI) від змін</text>
+  <text x="502" y="184" font-size="11" font-weight="700" fill="#27ae60">Результат: Фіксація стану eFuse на апаратному рівні</text>
+
+  <!-- RD_DIS картка -->
+  <rect x="490" y="202" width="430" height="86" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="502" y="222" font-size="13" font-weight="700" fill="#c0392b">RD_DIS (8 бітів в BLK0) — Захист від читання</text>
+  <text x="502" y="241" font-size="11" fill="#1a1a1a">• Блокує зчитування секретних ключів з BLK4–BLK10</text>
+  <text x="502" y="258" font-size="11" fill="#1a1a1a">• Спроба зчитування через CPU/espefuse повертає нулі (0x00)</text>
+  <text x="502" y="275" font-size="11" font-weight="700" fill="#c0392b">Результат: Апаратні криптоакселератори мають доступ, CPU — ні</text>
+
+  <!-- ПРАВА НИЖНЯ ПАНЕЛЬ: Випалювання біта -->
+  <rect x="474" y="312" width="462" height="208" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="705" y="333" font-size="14" font-weight="700" fill="#1a1a1a" text-anchor="middle">Принцип фізичного випалювання біта (OTP Cell)</text>
+
+  <!-- Стан 0 -->
+  <rect x="490" y="348" width="185" height="72" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="582" y="367" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Початковий стан: '0'</text>
+  <text x="582" y="385" font-size="11" fill="#6b7280" text-anchor="middle">Перемичка ціла (Unburned)</text>
+  <text x="582" y="403" font-size="11" font-weight="700" fill="#27ae60" text-anchor="middle">Можливо випалити (0 → 1)</text>
+
+  <!-- Стрілка -->
+  <path d="M 683 384 L 725 384" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-accent)"/>
+  <text x="704" y="366" font-size="11" font-weight="700" fill="#2457d6" text-anchor="middle">espefuse.py</text>
+  <text x="704" y="402" font-size="11" font-weight="700" fill="#2457d6" text-anchor="middle">burn_efuse</text>
+
+  <!-- Стан 1 -->
+  <rect x="733" y="348" width="187" height="72" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="826" y="367" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">Запечений стан: '1'</text>
+  <text x="826" y="385" font-size="11" fill="#c0392b" text-anchor="middle">Перемичка випалена (Burned)</text>
+  <text x="826" y="403" font-size="11" font-weight="700" fill="#c0392b" text-anchor="middle">Зміна 1 → 0 НЕМОЖЛИВА</text>
+
+  <!-- Застереження -->
+  <rect x="490" y="432" width="430" height="76" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="502" y="451" font-size="11" font-weight="700" fill="#2457d6">⚠️ Застереження при схемотехніці та прошивці ESP32-S3:</text>
+  <text x="502" y="469" font-size="11" fill="#1a1a1a">• Для випалювання eFuse потрібна стабільна живлення VDD_SPI = 3.3 В.</text>
+  <text x="502" y="487" font-size="11" fill="#1a1a1a">• Помилкове встановлення WR_DIS чи RD_DIS може заблокувати чип назавжди.</text>
+</svg>

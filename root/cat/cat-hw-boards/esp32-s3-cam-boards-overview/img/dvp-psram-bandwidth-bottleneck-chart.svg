@@ -1,0 +1,136 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Marker definition -->
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Canvas Background -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="30" font-size="18" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Залежність пропускної здатності DVP від роздільної здатності та FPS</text>
+  <text x="480" y="50" font-size="13" text-anchor="middle" fill="#6b7280">Межа шини Octal SPI PSRAM (~80 МБ/с) відокремлює зону стабільної роботи від області помилок overrun</text>
+
+  <!-- Background Zones in Chart (X: 100..670) -->
+  <!-- Overrun Zone (Red background) -->
+  <rect x="100" y="100" width="570" height="107" fill="#fdecea"/>
+  <!-- Stable Zone (Green background) -->
+  <rect x="100" y="207" width="570" height="213" fill="#e9f7ef"/>
+
+  <!-- Zone Text Labels -->
+  <!-- Overrun Zone Header -->
+  <text x="510" y="130" font-size="14" font-weight="bold" text-anchor="middle" fill="#c0392b">КРИТИЧНА ОБЛАСТЬ OVERRUN (ВТРАТА КАДРІВ)</text>
+  <text x="510" y="146" font-size="12" text-anchor="middle" fill="#c0392b">Швидкість потоку перевищує пропускну здатність шини PSRAM</text>
+
+  <!-- Stable Zone Header -->
+  <text x="490" y="236" font-size="14" font-weight="bold" text-anchor="middle" fill="#27ae60">ЗОНА СТАБІЛЬНОЇ РОБОТИ (БЕЗ ВТРАТ)</text>
+  <text x="490" y="252" font-size="12" text-anchor="middle" fill="#27ae60">Запис кадру в PSRAM встигає до приходу наступного кадру</text>
+
+  <!-- Horizontal Grid Lines -->
+  <line x1="100" y1="153" x2="670" y2="153" stroke="#d0d7de" stroke-dasharray="4,4" stroke-width="1"/>
+  <line x1="100" y1="260" x2="670" y2="260" stroke="#d0d7de" stroke-dasharray="4,4" stroke-width="1"/>
+  <line x1="100" y1="313" x2="670" y2="313" stroke="#d0d7de" stroke-dasharray="4,4" stroke-width="1"/>
+  <line x1="100" y1="367" x2="670" y2="367" stroke="#d0d7de" stroke-dasharray="4,4" stroke-width="1"/>
+
+  <!-- Bottleneck Limit Line (Octal SPI PSRAM 80 MB/s) -->
+  <line x1="100" y1="207" x2="670" y2="207" stroke="#c0392b" stroke-width="2.5" stroke-dasharray="6,4"/>
+  <text x="110" y="195" font-size="12" font-weight="bold" fill="#c0392b">Межа шини Octal SPI PSRAM: B_max = 80 МБ/с</text>
+
+  <!-- Plot Curves -->
+  <!-- Line 1: UXGA RGB565 (Red, overrun) -->
+  <path d="M 100,420 L 195,318 L 290,215 L 397,100" fill="none" stroke="#c0392b" stroke-width="3"/>
+  <!-- Line 2: VGA RGB565 (Blue) -->
+  <path d="M 100,420 L 385,371 L 670,322" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+  <!-- Line 3: UXGA JPEG ~1:10 (Green) -->
+  <path d="M 100,420 L 385,389 L 670,359" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+  <!-- Line 4: QVGA RGB565 (Gray dashed) -->
+  <path d="M 100,420 L 670,396" fill="none" stroke="#6b7280" stroke-width="2" stroke-dasharray="5,3"/>
+
+  <!-- Curve Labels -->
+  <text x="120" y="172" font-size="12" font-weight="bold" fill="#c0392b">UXGA RGB565</text>
+  <text x="520" y="304" font-size="12" font-weight="bold" fill="#2457d6">VGA RGB565</text>
+  <text x="520" y="384" font-size="12" font-weight="bold" fill="#27ae60">UXGA JPEG (1:10)</text>
+  <text x="520" y="412" font-size="12" fill="#6b7280">QVGA RGB565</text>
+
+  <!-- Overrun Intersection Mark -->
+  <circle cx="298" cy="207" r="5" fill="#c0392b"/>
+  <circle cx="337" cy="164" r="5" fill="#c0392b"/>
+  <text x="350" y="168" font-size="12" font-weight="bold" fill="#c0392b">Overrun (96 МБ/с)</text>
+
+  <!-- Axes & Ticks -->
+  <line x1="100" y1="420" x2="680" y2="420" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+  <line x1="100" y1="420" x2="100" y2="85" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+
+  <!-- Axis Titles -->
+  <text x="100" y="72" font-size="13" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Пропускна здатність B (МБ/с)</text>
+  <text x="385" y="458" font-size="13" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Частота кадрів f (кадрів/с, FPS)</text>
+
+  <!-- Y-axis Ticks & Labels -->
+  <line x1="95" y1="100" x2="100" y2="100" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="90" y="104" font-size="12" text-anchor="end" fill="#6b7280">120</text>
+
+  <line x1="95" y1="153" x2="100" y2="153" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="90" y="157" font-size="12" text-anchor="end" fill="#6b7280">100</text>
+
+  <line x1="95" y1="207" x2="100" y2="207" stroke="#c0392b" stroke-width="2"/>
+  <text x="90" y="211" font-size="12" font-weight="bold" text-anchor="end" fill="#c0392b">80</text>
+
+  <line x1="95" y1="260" x2="100" y2="260" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="90" y="264" font-size="12" text-anchor="end" fill="#6b7280">60</text>
+
+  <line x1="95" y1="313" x2="100" y2="313" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="90" y="317" font-size="12" text-anchor="end" fill="#6b7280">40</text>
+
+  <line x1="95" y1="367" x2="100" y2="367" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="90" y="371" font-size="12" text-anchor="end" fill="#6b7280">20</text>
+
+  <text x="90" y="424" font-size="12" text-anchor="end" fill="#6b7280">0</text>
+
+  <!-- X-axis Ticks & Labels -->
+  <line x1="100" y1="420" x2="100" y2="425" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="100" y="438" font-size="12" text-anchor="middle" fill="#6b7280">0</text>
+
+  <line x1="195" y1="420" x2="195" y2="425" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="195" y="438" font-size="12" text-anchor="middle" fill="#6b7280">10</text>
+
+  <line x1="290" y1="420" x2="290" y2="425" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="290" y="438" font-size="12" text-anchor="middle" fill="#6b7280">20</text>
+
+  <line x1="385" y1="420" x2="385" y2="425" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="385" y="438" font-size="12" text-anchor="middle" fill="#6b7280">30</text>
+
+  <line x1="480" y1="420" x2="480" y2="425" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="480" y="438" font-size="12" text-anchor="middle" fill="#6b7280">40</text>
+
+  <line x1="575" y1="420" x2="575" y2="425" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="575" y="438" font-size="12" text-anchor="middle" fill="#6b7280">50</text>
+
+  <line x1="670" y1="420" x2="670" y2="425" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="670" y="438" font-size="12" text-anchor="middle" fill="#6b7280">60</text>
+
+  <!-- Side Panels (X: 700 to 930) -->
+  <!-- Card 1: Stable Modes (Green panel) -->
+  <rect x="700" y="100" width="230" height="115" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="712" y="122" font-size="13" font-weight="bold" fill="#27ae60">Режими без втрат (B &lt; 80)</text>
+  <text x="712" y="142" font-size="12" fill="#1a1a1a">• UXGA JPEG 30 FPS: 11.5 МБ/с</text>
+  <text x="712" y="160" font-size="12" fill="#1a1a1a">• VGA RGB565 30 FPS: 18.4 МБ/с</text>
+  <text x="712" y="178" font-size="12" fill="#1a1a1a">• VGA RGB565 60 FPS: 36.9 МБ/с</text>
+  <text x="712" y="196" font-size="12" fill="#1a1a1a">• QVGA RGB565 60 FPS: 9.2 МБ/с</text>
+
+  <!-- Card 2: Overrun Modes (Red panel) -->
+  <rect x="700" y="230" width="230" height="100" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="712" y="252" font-size="13" font-weight="bold" fill="#c0392b">Критичні режими (Overrun)</text>
+  <text x="712" y="272" font-size="12" fill="#1a1a1a">• UXGA RGB565 25 FPS: 96.0 МБ/с</text>
+  <text x="712" y="290" font-size="12" fill="#1a1a1a">• UXGA RGB565 30 FPS: 115.2 МБ/с</text>
+  <text x="712" y="308" font-size="12" fill="#c0392b" font-weight="bold">Помилка: Overrun DMA буфера!</text>
+
+  <!-- Card 3: Formula & Calculations (Gray panel) -->
+  <rect x="700" y="345" width="230" height="115" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="712" y="367" font-size="13" font-weight="bold" fill="#1a1a1a">Розрахунок пропускності</text>
+  <text x="712" y="387" font-size="12" font-weight="bold" fill="#2457d6">B = W × H × bpp × FPS</text>
+  <text x="712" y="407" font-size="12" fill="#6b7280">• RGB565 / YUV422: bpp = 2 B</text>
+  <text x="712" y="425" font-size="12" fill="#6b7280">• JPEG (стиснення 1:10): bpp ≈ 0.2 B</text>
+  <text x="712" y="443" font-size="12" fill="#6b7280">• PSRAM limit: Octal SPI 80 МГц</text>
+</svg>

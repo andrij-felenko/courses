@@ -1,0 +1,134 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="480" fill="#ffffff"/>
+
+  <defs>
+    <marker id="arr-blue" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="36" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Потік даних кадрового буфера в ESP32-S3</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Передача пікселів з камери OV2640 через DVP та DMA в PSRAM без навантаження CPU</text>
+
+  <!-- COLUMN 1: Camera OV2640 -->
+  <rect x="30" y="85" width="160" height="370" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="40" y="97" width="140" height="32" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="110" y="118" font-size="14" font-weight="700" fill="#2457d6" text-anchor="middle">Камера OV2640</text>
+
+  <!-- Camera Graphic -->
+  <rect x="40" y="140" width="140" height="75" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <circle cx="110" cy="177" r="22" fill="#f4f6f8" stroke="#2457d6" stroke-width="2"/>
+  <circle cx="110" cy="177" r="10" fill="#2457d6"/>
+
+  <!-- Camera Signals -->
+  <rect x="40" y="225" width="140" height="217" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="110" y="246" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">Сигнали DVP</text>
+  <text x="50" y="271" font-size="12" fill="#1a1a1a" text-anchor="start">• PCLK (Тактування)</text>
+  <text x="50" y="293" font-size="12" fill="#1a1a1a" text-anchor="start">• VSYNC (Кадр)</text>
+  <text x="50" y="315" font-size="12" fill="#1a1a1a" text-anchor="start">• HREF (Рядок)</text>
+  <text x="50" y="337" font-size="12" fill="#1a1a1a" text-anchor="start">• D0–D7 (Дані 8-біт)</text>
+  <text x="50" y="375" font-size="12" fill="#6b7280" text-anchor="start">Потік пікселів</text>
+  <text x="50" y="395" font-size="12" fill="#6b7280" text-anchor="start">(JPEG / YUV422)</text>
+  <text x="50" y="423" font-size="11" font-weight="700" fill="#2457d6" text-anchor="start">8-біт паралельний</text>
+
+  <!-- DVP BUS CONNECTION -->
+  <rect x="202" y="152" width="86" height="34" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="245" y="167" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">Шина DVP</text>
+  <text x="245" y="180" font-size="10" fill="#6b7280" text-anchor="middle">8 біт + PCLK</text>
+  <line x1="190" y1="197" x2="300" y2="197" stroke="#2457d6" stroke-width="3.5" marker-end="url(#arr-blue)"/>
+
+  <!-- COLUMN 3: ESP32-S3 SoC -->
+  <rect x="290" y="85" width="380" height="370" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="302" y="97" width="356" height="32" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="480" y="118" font-size="14" font-weight="700" fill="#2457d6" text-anchor="middle">Мікроконтролер ESP32-S3</text>
+
+  <!-- Sub-block 1: CAM Interface -->
+  <rect x="302" y="140" width="168" height="115" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="386" y="160" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">CAM Інтерфейс</text>
+  <text x="312" y="182" font-size="12" fill="#1a1a1a" text-anchor="start">• Прийом DVP шини</text>
+  <text x="312" y="204" font-size="12" fill="#1a1a1a" text-anchor="start">• Вхідний Rx FIFO</text>
+  <text x="312" y="226" font-size="12" fill="#1a1a1a" text-anchor="start">• Синхронізація</text>
+  <text x="312" y="244" font-size="11" font-weight="700" fill="#27ae60" text-anchor="start">Апаратний прийом</text>
+
+  <!-- Internal ESP32 Connection: CAM -> GDMA -->
+  <line x1="470" y1="197" x2="482" y2="197" stroke="#27ae60" stroke-width="3" marker-end="url(#arr-green)"/>
+
+  <!-- Sub-block 2: GDMA Controller -->
+  <rect x="490" y="140" width="168" height="115" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="574" y="160" font-size="13" font-weight="700" fill="#27ae60" text-anchor="middle">Контролер GDMA</text>
+  <text x="500" y="182" font-size="12" fill="#1a1a1a" text-anchor="start">• Забір даних з FIFO</text>
+  <text x="500" y="204" font-size="12" fill="#1a1a1a" text-anchor="start">• Опис дескрипторів</text>
+  <text x="500" y="226" font-size="12" fill="#27ae60" font-weight="700" text-anchor="start">• Прямий запис в RAM</text>
+  <text x="500" y="244" font-size="11" font-weight="700" fill="#27ae60" text-anchor="start">Без участі CPU!</text>
+
+  <!-- Sub-block 3: CPU Section (Bottom Panel inside ESP32) -->
+  <rect x="302" y="282" width="356" height="160" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Left side of CPU: Free CPU status -->
+  <rect x="312" y="292" width="158" height="140" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="391" y="312" font-size="13" font-weight="700" fill="#27ae60" text-anchor="middle">CPU ВІЛЬНИЙ</text>
+  <text x="391" y="332" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">0% CPU на копіювання</text>
+  <text x="320" y="356" font-size="11" fill="#1a1a1a" text-anchor="start">• Не кодує байти</text>
+  <text x="320" y="376" font-size="11" fill="#1a1a1a" text-anchor="start">• Не перекачує пікселі</text>
+  <text x="320" y="396" font-size="11" fill="#1a1a1a" text-anchor="start">• DMA робить все сама</text>
+  <text x="320" y="418" font-size="11" font-weight="700" fill="#27ae60" text-anchor="start">Стабільний FPS</text>
+
+  <!-- Right side of CPU: CPU Tasks -->
+  <rect x="482" y="292" width="166" height="140" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="565" y="312" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">Задачі CPU</text>
+  <text x="490" y="334" font-size="12" fill="#1a1a1a" text-anchor="start">• Налаштування DMA</text>
+  <text x="490" y="354" font-size="12" fill="#1a1a1a" text-anchor="start">• Переривання кадру</text>
+  <text x="490" y="374" font-size="12" fill="#1a1a1a" text-anchor="start">• HTTP / WebSocket</text>
+  <text x="490" y="394" font-size="12" fill="#1a1a1a" text-anchor="start">• Передача MJPEG</text>
+  <text x="490" y="414" font-size="11" fill="#2457d6" font-weight="700" text-anchor="start">  мережевим клієнтам</text>
+
+  <!-- Control Arrow: CPU to GDMA -->
+  <line x1="565" y1="292" x2="565" y2="259" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#arr-gray)"/>
+  <rect x="572" y="260" width="76" height="20" rx="3" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="610" y="274" font-size="10" fill="#6b7280" text-anchor="middle">Конфіг / ISR</text>
+
+  <!-- COLUMN 4: External PSRAM -->
+  <rect x="710" y="85" width="220" height="370" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="722" y="97" width="196" height="32" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="820" y="118" font-size="14" font-weight="700" fill="#2457d6" text-anchor="middle">Зовнішня PSRAM</text>
+
+  <!-- Frame Buffer 0 (Active DMA Write) -->
+  <rect x="722" y="140" width="196" height="115" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="820" y="160" font-size="13" font-weight="700" fill="#27ae60" text-anchor="middle">Frame Buffer 0</text>
+  <rect x="732" y="168" width="176" height="22" rx="3" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="820" y="183" font-size="11" font-weight="700" fill="#27ae60" text-anchor="middle">АКТИВНИЙ ЗАПИС GDMA</text>
+  <text x="732" y="208" font-size="12" fill="#1a1a1a" text-anchor="start">• Прямий потік пикселів</text>
+  <text x="732" y="228" font-size="12" fill="#1a1a1a" text-anchor="start">• Накопичення кадру</text>
+  <text x="732" y="246" font-size="11" font-weight="700" fill="#27ae60" text-anchor="start">Оновлюється GDMA</text>
+
+  <!-- Frame Buffer 1 (Ready for CPU / Network) -->
+  <rect x="722" y="270" width="196" height="172" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="820" y="292" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">Frame Buffer 1</text>
+  <rect x="732" y="300" width="176" height="22" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="820" y="315" font-size="11" font-weight="700" fill="#2457d6" text-anchor="middle">ГОТОВИЙ КАДР (READ)</text>
+  <text x="732" y="340" font-size="12" fill="#1a1a1a" text-anchor="start">• Зчитування CPU</text>
+  <text x="732" y="360" font-size="12" fill="#1a1a1a" text-anchor="start">• Відправка у Wi-Fi</text>
+  <text x="732" y="380" font-size="12" fill="#1a1a1a" text-anchor="start">• Подвійна буферизація</text>
+  <text x="732" y="405" font-size="11" fill="#6b7280" text-anchor="start">  (Ping-Pong Buffer)</text>
+  <text x="732" y="425" font-size="11" font-weight="700" fill="#2457d6" text-anchor="start">Передається мережі</text>
+
+  <!-- CONNECTIONS BETWEEN GDMA/CPU & PSRAM -->
+  <!-- Direct DMA Write Connection -->
+  <rect x="662" y="152" width="52" height="34" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="688" y="167" font-size="11" font-weight="700" fill="#27ae60" text-anchor="middle">DMA</text>
+  <text x="688" y="180" font-size="10" fill="#27ae60" text-anchor="middle">Запис</text>
+  <line x1="658" y1="197" x2="720" y2="197" stroke="#27ae60" stroke-width="4" marker-end="url(#arr-green)"/>
+
+  <!-- CPU Read Connection -->
+  <rect x="662" y="322" width="52" height="30" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="688" y="335" font-size="10" font-weight="700" fill="#2457d6" text-anchor="middle">CPU</text>
+  <text x="688" y="346" font-size="10" fill="#2457d6" text-anchor="middle">Читання</text>
+  <line x1="722" y1="356" x2="650" y2="356" stroke="#2457d6" stroke-width="2" stroke-dasharray="5,3" marker-end="url(#arr-blue)"/>
+</svg>

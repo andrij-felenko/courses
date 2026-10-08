@@ -1,0 +1,135 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Markers -->
+  <defs>
+    <marker id="arr-accent" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="30" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Архітектурна модель доменів живлення та PMU в ESP32-P4</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">PMU вимикає HP-домен у Deep-sleep, зберігаючи LP-домен і LP SRAM активними для автономних задач</text>
+
+  <!-- HP Domain Container -->
+  <rect x="25" y="70" width="360" height="445" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="8"/>
+  <path d="M 25,120 L 385,120" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="26" y="71" width="358" height="48" fill="#eaf0fd" rx="7"/>
+  <text x="205" y="91" font-size="14" font-weight="700" fill="#2457d6" text-anchor="middle">High-Performance (HP) Домен</text>
+  <text x="205" y="109" font-size="12" fill="#c0392b" text-anchor="middle">(Живлення вимикається у Deep-sleep)</text>
+
+  <!-- HP Sub-boxes -->
+  <rect x="40" y="130" width="155" height="75" fill="white" stroke="#d0d7de" stroke-width="1.5" rx="6"/>
+  <text x="117" y="153" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">HP RISC-V Cores</text>
+  <text x="117" y="171" font-size="12" fill="#6b7280" text-anchor="middle">Dual-Core (400 MHz)</text>
+  <text x="117" y="189" font-size="12" fill="#2457d6" text-anchor="middle">Основна програма</text>
+
+  <rect x="215" y="130" width="155" height="75" fill="white" stroke="#d0d7de" stroke-width="1.5" rx="6"/>
+  <text x="292" y="153" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">HP SRAM &amp; L2 Cache</text>
+  <text x="292" y="171" font-size="12" fill="#6b7280" text-anchor="middle">Шини AXI / AHB</text>
+  <text x="292" y="189" font-size="12" fill="#2457d6" text-anchor="middle">Основний стек/дані</text>
+
+  <rect x="40" y="220" width="330" height="75" fill="white" stroke="#d0d7de" stroke-width="1.5" rx="6"/>
+  <text x="205" y="243" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">Високопродуктивна периферія</text>
+  <text x="205" y="261" font-size="12" fill="#6b7280" text-anchor="middle">MIPI DSI/CSI, USB OTG, Ethernet, H.264</text>
+  <text x="205" y="279" font-size="12" fill="#6b7280" text-anchor="middle">Криптоприскорювачі (AES, SHA, RSA)</text>
+
+  <rect x="40" y="310" width="330" height="75" fill="white" stroke="#d0d7de" stroke-width="1.5" rx="6"/>
+  <text x="205" y="333" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">Тактування HP &amp; Керування DFS</text>
+  <text x="205" y="351" font-size="12" fill="#6b7280" text-anchor="middle">HP PLL, Main XTAL, Clock Gating</text>
+  <text x="205" y="369" font-size="12" fill="#2457d6" text-anchor="middle">Динамічна зміна частоти за вимогою</text>
+
+  <rect x="40" y="400" width="330" height="95" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="5,4" rx="6"/>
+  <text x="205" y="423" font-size="13" font-weight="700" fill="#c0392b" text-anchor="middle">HP Power Gate &amp; HP LDO</text>
+  <text x="205" y="442" font-size="12" fill="#c0392b" text-anchor="middle">Ключі живлення HP-домену</text>
+  <text x="205" y="461" font-size="12" fill="#6b7280" text-anchor="middle">Light-sleep: Clock Gating | Active: On</text>
+  <text x="205" y="480" font-size="12" fill="#c0392b" text-anchor="middle">Deep-sleep: Повне знеструмлення HP</text>
+
+  <!-- Center PMU Box -->
+  <rect x="400" y="70" width="160" height="210" fill="#eaf0fd" stroke="#2457d6" stroke-width="2" rx="8"/>
+  <text x="480" y="93" font-size="15" font-weight="700" fill="#2457d6" text-anchor="middle">Контролер PMU</text>
+  <text x="480" y="111" font-size="12" fill="#6b7280" text-anchor="middle">Power Management Unit</text>
+  <line x1="415" y1="120" x2="545" y2="120" stroke="#2457d6" stroke-opacity="0.3" stroke-width="1"/>
+  <text x="480" y="139" font-size="12" fill="#1a1a1a" text-anchor="middle">FSM режимів сну</text>
+  <text x="480" y="159" font-size="12" fill="#1a1a1a" text-anchor="middle">Керування HP LDO</text>
+  <text x="480" y="179" font-size="12" fill="#1a1a1a" text-anchor="middle">Обробка Wakeup</text>
+  <text x="480" y="199" font-size="12" fill="#1a1a1a" text-anchor="middle">Контроль Ізоляції</text>
+  <text x="480" y="219" font-size="12" fill="#1a1a1a" text-anchor="middle">Налаштування DFS</text>
+  <text x="480" y="244" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">Центр керування</text>
+
+  <!-- Inter-Domain Bridge Box -->
+  <rect x="400" y="295" width="160" height="220" fill="#e9f7ef" stroke="#27ae60" stroke-width="2" rx="8"/>
+  <text x="480" y="318" font-size="14" font-weight="700" fill="#27ae60" text-anchor="middle">Міждоменна зона</text>
+  <text x="480" y="335" font-size="12" fill="#6b7280" text-anchor="middle">IPC &amp; Ізоляція</text>
+  <line x1="415" y1="344" x2="545" y2="344" stroke="#27ae60" stroke-opacity="0.3" stroke-width="1"/>
+
+  <rect x="410" y="352" width="140" height="44" fill="white" stroke="#27ae60" stroke-width="1.2" rx="4"/>
+  <text x="480" y="370" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Спільна LP SRAM</text>
+  <text x="480" y="386" font-size="12" fill="#6b7280" text-anchor="middle">Обмін даними HP ↔ LP</text>
+
+  <rect x="410" y="404" width="140" height="44" fill="white" stroke="#27ae60" stroke-width="1.2" rx="4"/>
+  <text x="480" y="422" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Апаратні семафори</text>
+  <text x="480" y="438" font-size="12" fill="#6b7280" text-anchor="middle">Синхронізація ядер</text>
+
+  <rect x="410" y="456" width="140" height="48" fill="#fdecea" stroke="#c0392b" stroke-width="1.2" rx="4"/>
+  <text x="480" y="474" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">Ізоляційні ключі</text>
+  <text x="480" y="492" font-size="12" fill="#c0392b" text-anchor="middle">Запобігають витоку струму</text>
+
+  <!-- LP Domain Container -->
+  <rect x="575" y="70" width="360" height="445" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="8"/>
+  <path d="M 575,120 L 935,120" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="576" y="71" width="358" height="48" fill="#e9f7ef" rx="7"/>
+  <text x="755" y="91" font-size="14" font-weight="700" fill="#27ae60" text-anchor="middle">Low-Power (LP) Домен</text>
+  <text x="755" y="109" font-size="12" fill="#27ae60" text-anchor="middle">(Завжди активний / Always-On Domain)</text>
+
+  <!-- LP Sub-boxes -->
+  <rect x="590" y="130" width="155" height="75" fill="white" stroke="#d0d7de" stroke-width="1.5" rx="6"/>
+  <text x="667" y="153" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">LP-Core RISC-V</text>
+  <text x="667" y="171" font-size="12" fill="#6b7280" text-anchor="middle">Співпроцесор LP</text>
+  <text x="667" y="189" font-size="12" fill="#27ae60" text-anchor="middle">esp_lp_core_* API</text>
+
+  <rect x="765" y="130" width="155" height="75" fill="white" stroke="#d0d7de" stroke-width="1.5" rx="6"/>
+  <text x="842" y="153" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">LP Mem / RTC Regs</text>
+  <text x="842" y="171" font-size="12" fill="#6b7280" text-anchor="middle">Пам'ять прошивки LP</text>
+  <text x="842" y="189" font-size="12" fill="#27ae60" text-anchor="middle">Контекст для сну</text>
+
+  <rect x="590" y="220" width="330" height="75" fill="white" stroke="#d0d7de" stroke-width="1.5" rx="6"/>
+  <text x="755" y="243" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">Низькоспоживаюча периферія</text>
+  <text x="755" y="261" font-size="12" fill="#6b7280" text-anchor="middle">LP I2C, LP UART, LP SPI, LP GPIO</text>
+  <text x="755" y="279" font-size="12" fill="#27ae60" text-anchor="middle">Автономна сенсорна обробка</text>
+
+  <rect x="590" y="310" width="330" height="75" fill="white" stroke="#d0d7de" stroke-width="1.5" rx="6"/>
+  <text x="755" y="333" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">Джерела пробудження (Wakeup)</text>
+  <text x="755" y="351" font-size="12" fill="#6b7280" text-anchor="middle">LP Timers, RTC IO, Touch Sensor, Ext Pin</text>
+  <text x="755" y="369" font-size="12" fill="#27ae60" text-anchor="middle">Реєстрація подій пробудження</text>
+
+  <rect x="590" y="400" width="330" height="95" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="6"/>
+  <text x="755" y="423" font-size="13" font-weight="700" fill="#27ae60" text-anchor="middle">LP LDO &amp; LP Clocks (Always-On)</text>
+  <text x="755" y="442" font-size="12" fill="#27ae60" text-anchor="middle">Безперервне живлення VDD_LP</text>
+  <text x="755" y="461" font-size="12" fill="#6b7280" text-anchor="middle">Тактування 32.768 kHz XTAL / RC_FAST</text>
+  <text x="755" y="480" font-size="12" fill="#27ae60" text-anchor="middle">Забезпечує роботу у Deep-sleep</text>
+
+  <!-- Connectors & Signal Flow Lines -->
+  <!-- 1. PMU Power Control to HP Power Gate -->
+  <path d="M 400,210 L 388,210 L 388,448 L 370,448" stroke="#c0392b" stroke-width="1.8" fill="none" marker-end="url(#arr-red)" stroke-dasharray="4,3"/>
+
+  <!-- 2. PMU Control to Inter-Domain Bridge -->
+  <path d="M 480,280 L 480,295" stroke="#2457d6" stroke-width="1.8" fill="none" marker-end="url(#arr-accent)"/>
+
+  <!-- 3. LP Wakeup Trigger to PMU -->
+  <path d="M 590,348 L 568,348 L 568,185 L 560,185" stroke="#27ae60" stroke-width="1.8" fill="none" marker-end="url(#arr-green)"/>
+
+  <!-- 4. HP Bus to Shared LP SRAM -->
+  <path d="M 370,167 L 382,167 L 382,374 L 410,374" stroke="#2457d6" stroke-width="1.5" fill="none" marker-end="url(#arr-accent)"/>
+
+  <!-- 5. LP Core Bus to Shared LP SRAM -->
+  <path d="M 590,167 L 578,167 L 578,374 L 550,374" stroke="#27ae60" stroke-width="1.5" fill="none" marker-end="url(#arr-green)"/>
+</svg>

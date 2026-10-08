@@ -1,0 +1,116 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="460" fill="#ffffff"/>
+
+  <!-- Defs for arrow markers -->
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Header -->
+  <text x="480" y="32" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Апаратний відеоконвеєр ESP32-P4: від MIPI-CSI2 до DMA-пам'яті</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Апаратна обробка кадрів у модулі ISP без навантаження на ядра процесора</text>
+
+  <!-- External Camera Sensor -->
+  <rect x="25" y="75" width="130" height="360" fill="#f4f6f8" stroke="#d0d7de" rx="8" ry="8"/>
+  <text x="90" y="98" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">Камера</text>
+
+  <rect x="37" y="115" width="106" height="100" fill="#eaf0fd" stroke="#2457d6" rx="6" ry="6"/>
+  <text x="90" y="145" font-size="13" font-weight="700" fill="#2457d6" text-anchor="middle">MIPI-CSI2</text>
+  <text x="90" y="165" font-size="12" fill="#2457d6" text-anchor="middle">Сенсор</text>
+  <text x="90" y="185" font-size="12" fill="#6b7280" text-anchor="middle">(RAW8 / RAW10)</text>
+
+  <rect x="37" y="240" width="106" height="80" fill="#ffffff" stroke="#d0d7de" rx="6" ry="6"/>
+  <text x="90" y="265" font-size="12" fill="#1a1a1a" text-anchor="middle">Потік даних</text>
+  <text x="90" y="285" font-size="12" fill="#6b7280" text-anchor="middle">2-lane D-PHY</text>
+
+  <!-- Arrow Camera -> ESP32-P4 -->
+  <line x1="155" y1="165" x2="195" y2="165" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="175" y="152" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">CSI-2 Bus</text>
+
+  <!-- ESP32-P4 SoC Container -->
+  <rect x="195" y="75" width="740" height="360" fill="#f4f6f8" stroke="#d0d7de" rx="10" ry="10"/>
+  <text x="210" y="98" font-size="14" font-weight="700" fill="#1a1a1a">Мікроконтролер ESP32-P4 (SoC)</text>
+
+  <!-- 1. MIPI-CSI2 Host -->
+  <rect x="210" y="115" width="115" height="130" fill="#ffffff" stroke="#d0d7de" rx="6" ry="6"/>
+  <text x="267" y="138" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">MIPI-CSI2 Host</text>
+  <text x="267" y="163" font-size="12" fill="#1a1a1a" text-anchor="middle">Прийом пакетів</text>
+  <text x="267" y="183" font-size="12" fill="#1a1a1a" text-anchor="middle">D-PHY Декодер</text>
+  <text x="267" y="213" font-size="12" fill="#6b7280" text-anchor="middle">Піксельний потік</text>
+
+  <!-- Arrow MIPI-CSI -> ISP -->
+  <line x1="325" y1="180" x2="355" y2="180" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="340" y="167" font-size="12" fill="#6b7280" text-anchor="middle">RAW</text>
+
+  <!-- 2. ISP Hardware Module -->
+  <rect x="355" y="115" width="330" height="130" fill="#eaf0fd" stroke="#2457d6" rx="8" ry="8"/>
+  <text x="520" y="136" font-size="13" font-weight="700" fill="#2457d6" text-anchor="middle">Апаратний модуль ISP (Image Signal Processor)</text>
+
+  <rect x="365" y="148" width="145" height="55" fill="#ffffff" stroke="#2457d6" rx="4" ry="4"/>
+  <text x="437" y="168" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Demosaic &amp; 3A</text>
+  <text x="437" y="187" font-size="12" fill="#6b7280" text-anchor="middle">AWB / AE / Gamma / Noise</text>
+
+  <line x1="510" y1="175" x2="525" y2="175" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <rect x="525" y="148" width="150" height="55" fill="#ffffff" stroke="#2457d6" rx="4" ry="4"/>
+  <text x="600" y="168" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Масштабування &amp; CSC</text>
+  <text x="600" y="187" font-size="12" fill="#6b7280" text-anchor="middle">Resize / RGB↔YUV</text>
+
+  <rect x="365" y="210" width="310" height="27" fill="#e9f7ef" stroke="#27ae60" rx="4" ry="4"/>
+  <text x="520" y="228" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">Апаратне формування кадрів — 0% навантаження CPU</text>
+
+  <!-- Arrow ISP -> DMA -->
+  <line x1="685" y1="180" x2="715" y2="180" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="700" y="167" font-size="12" fill="#6b7280" text-anchor="middle">YUV/RGB</text>
+
+  <!-- 3. 2D-DMA Controller -->
+  <rect x="715" y="115" width="205" height="130" fill="#e9f7ef" stroke="#27ae60" rx="6" ry="6"/>
+  <text x="817" y="138" font-size="13" font-weight="700" fill="#27ae60" text-anchor="middle">ISP 2D-DMA Контролер</text>
+  <text x="817" y="163" font-size="12" fill="#1a1a1a" text-anchor="middle">Апаратний прямий доступ</text>
+  <text x="817" y="183" font-size="12" fill="#1a1a1a" text-anchor="middle">Запис кадрів без участі CPU</text>
+  <text x="817" y="213" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">Передача в пам'ять (AXI)</text>
+
+  <!-- Arrow DMA -> Memory -->
+  <line x1="817" y1="245" x2="817" y2="265" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="825" y="258" font-size="12" font-weight="700" fill="#27ae60">AXI Bus</text>
+
+  <!-- 4. Frame Memory (SRAM/PSRAM) -->
+  <rect x="650" y="265" width="270" height="155" fill="#ffffff" stroke="#d0d7de" rx="6" ry="6"/>
+  <text x="785" y="286" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">Пам'ять кадрів (SRAM / PSRAM)</text>
+
+  <rect x="660" y="298" width="250" height="34" fill="#eaf0fd" stroke="#2457d6" rx="4" ry="4"/>
+  <text x="785" y="320" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">DMA Буфер #0: Запис нового кадру</text>
+
+  <rect x="660" y="340" width="250" height="34" fill="#e9f7ef" stroke="#27ae60" rx="4" ry="4"/>
+  <text x="785" y="362" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">DMA Буфер #1: Готовий для TinyML</text>
+
+  <text x="785" y="402" font-size="12" fill="#6b7280" text-anchor="middle">Подвійна буферизація (Ping-Pong)</text>
+
+  <!-- 5. CPU Cores & Vector Accelerators -->
+  <rect x="210" y="265" width="420" height="155" fill="#ffffff" stroke="#d0d7de" rx="6" ry="6"/>
+  <text x="420" y="286" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">Процесорні ядра (HP Dual-Core RISC-V)</text>
+
+  <rect x="220" y="298" width="190" height="76" fill="#e9f7ef" stroke="#27ae60" rx="4" ry="4"/>
+  <text x="315" y="320" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">0% Навантаження CPU</text>
+  <text x="315" y="340" font-size="12" fill="#1a1a1a" text-anchor="middle">Ядра повністю вільні під</text>
+  <text x="315" y="360" font-size="12" fill="#1a1a1a" text-anchor="middle">час зйомки та ISP-обробки</text>
+
+  <rect x="425" y="298" width="195" height="76" fill="#f4f6f8" stroke="#d0d7de" rx="4" ry="4"/>
+  <text x="522" y="320" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">ESP-NN + Vector Ext.</text>
+  <text x="522" y="340" font-size="12" fill="#1a1a1a" text-anchor="middle">Паралельний інференс</text>
+  <text x="522" y="360" font-size="12" fill="#6b7280" text-anchor="middle">квантованих AI-моделей</text>
+
+  <text x="420" y="402" font-size="12" fill="#6b7280" text-anchor="middle">Обробка нейромереж тільки після готовності кадру в DMA</text>
+
+  <!-- Arrow Memory -> CPU -->
+  <line x1="660" y1="357" x2="620" y2="357" stroke="#27ae60" stroke-width="2" stroke-dasharray="4,4" marker-end="url(#arr-green)"/>
+  <text x="640" y="348" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">Кадр</text>
+</svg>

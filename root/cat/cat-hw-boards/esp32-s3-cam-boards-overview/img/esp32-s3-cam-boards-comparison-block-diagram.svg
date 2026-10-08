@@ -1,0 +1,144 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Header -->
+  <text x="480" y="32" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Порівняння апаратної обв'язки плат відеозахоплення ESP32-S3</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">XIAO Sense об'єднує PDM-мікрофон і USB CDC/JTAG; Freenove надає подвійний USB; ESP32-S3-CAM — максимум вільних GPIO</text>
+
+  <!-- Panel 1: ESP32-S3-CAM (Generic) -->
+  <rect x="24" y="70" width="294" height="430" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="34" y="80" width="274" height="36" rx="6" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="171" y="96" font-size="14" font-weight="700" fill="#2457d6" text-anchor="middle">ESP32-S3-CAM</text>
+  <text x="171" y="109" font-size="11" fill="#6b7280" text-anchor="middle">Базова плата (DIP / Pin-header)</text>
+
+  <!-- Row 1: SoC & PSRAM -->
+  <rect x="34" y="124" width="274" height="52" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="44" y="141" font-size="12" font-weight="700" fill="#1a1a1a">SoC &amp; PSRAM:</text>
+  <text x="44" y="156" font-size="12" fill="#1a1a1a">ESP32-S3 (Xtensa LX7 240MHz)</text>
+  <text x="44" y="169" font-size="11" fill="#6b7280">8 MB Octal SPI PSRAM (high speed)</text>
+
+  <!-- Row 2: Camera Sensor -->
+  <rect x="34" y="184" width="274" height="52" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="44" y="201" font-size="12" font-weight="700" fill="#1a1a1a">Сенсор камери:</text>
+  <text x="44" y="216" font-size="12" fill="#1a1a1a">OV2640 / OV5640 (DVP 8-bit)</text>
+  <text x="44" y="229" font-size="11" fill="#6b7280">Паралельна шина DVP + SCCB (I2C)</text>
+
+  <!-- Row 3: USB & CDC/JTAG -->
+  <rect x="34" y="244" width="274" height="52" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="44" y="261" font-size="12" font-weight="700" fill="#1a1a1a">USB &amp; CDC/JTAG:</text>
+  <text x="44" y="276" font-size="12" fill="#1a1a1a">USB-to-UART (CH340) або Native</text>
+  <text x="44" y="289" font-size="11" fill="#6b7280">Потребує програматора / Type-C</text>
+
+  <!-- Row 4: PDM Microphone -->
+  <rect x="34" y="304" width="274" height="52" rx="6" fill="#fdecea" stroke="#c0392b"/>
+  <text x="44" y="321" font-size="12" font-weight="700" fill="#c0392b">PDM-мікрофон:</text>
+  <text x="44" y="336" font-size="12" font-weight="700" fill="#c0392b">❌ Відсутній на платі</text>
+  <text x="44" y="349" font-size="11" fill="#6b7280">Потрібен зовнішній I2S/PDM модуль</text>
+
+  <!-- Row 5: microSD Slot -->
+  <rect x="34" y="364" width="274" height="52" rx="6" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="44" y="381" font-size="12" font-weight="700" fill="#27ae60">Слот microSD:</text>
+  <text x="44" y="396" font-size="12" fill="#1a1a1a">Вбудований на зворотній стороні</text>
+  <text x="44" y="409" font-size="11" fill="#6b7280">SDMMC 1-bit / SPI (буферизація)</text>
+
+  <!-- Row 6: Features -->
+  <rect x="34" y="424" width="274" height="66" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="44" y="441" font-size="12" font-weight="700" fill="#1a1a1a">Особливості конструкції:</text>
+  <text x="44" y="456" font-size="11" fill="#1a1a1a">• Одноплатне виконання з гребінками</text>
+  <text x="44" y="469" font-size="11" fill="#1a1a1a">• Прямий доступ до 8-bit DVP шини</text>
+  <text x="44" y="482" font-size="11" fill="#6b7280">• Багато вільних GPIO для периферії</text>
+
+
+  <!-- Panel 2: XIAO ESP32S3 Sense -->
+  <rect x="333" y="70" width="294" height="430" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="343" y="80" width="274" height="36" rx="6" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="480" y="96" font-size="14" font-weight="700" fill="#2457d6" text-anchor="middle">XIAO ESP32S3 Sense</text>
+  <text x="480" y="109" font-size="11" fill="#6b7280" text-anchor="middle">Двоповерхова модульна плата</text>
+
+  <!-- Row 1: SoC & PSRAM -->
+  <rect x="343" y="124" width="274" height="52" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="353" y="141" font-size="12" font-weight="700" fill="#1a1a1a">SoC &amp; PSRAM:</text>
+  <text x="353" y="156" font-size="12" fill="#1a1a1a">ESP32-S3FN8 (8MB Flash)</text>
+  <text x="353" y="169" font-size="11" fill="#6b7280">8 MB Octal SPI PSRAM (вбудована)</text>
+
+  <!-- Row 2: Camera Sensor -->
+  <rect x="343" y="184" width="274" height="52" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="353" y="201" font-size="12" font-weight="700" fill="#1a1a1a">Сенсор камери:</text>
+  <text x="353" y="216" font-size="12" fill="#1a1a1a">OV2640 (знімний модуль)</text>
+  <text x="353" y="229" font-size="11" fill="#6b7280">Розташована на Expansion Board</text>
+
+  <!-- Row 3: USB & CDC/JTAG -->
+  <rect x="343" y="244" width="274" height="52" rx="6" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="353" y="261" font-size="12" font-weight="700" fill="#27ae60">USB &amp; CDC/JTAG:</text>
+  <text x="353" y="276" font-size="12" font-weight="700" fill="#1a1a1a">Native USB Type-C (CDC/JTAG)</text>
+  <text x="353" y="289" font-size="11" fill="#6b7280">Пряме підключення до GPIO19/GPIO20</text>
+
+  <!-- Row 4: PDM Microphone -->
+  <rect x="343" y="304" width="274" height="52" rx="6" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="353" y="321" font-size="12" font-weight="700" fill="#27ae60">PDM-мікрофон:</text>
+  <text x="353" y="336" font-size="12" font-weight="700" fill="#27ae60">✅ Вбудований цифровий PDM</text>
+  <text x="353" y="349" font-size="11" fill="#6b7280">MSM261D3526 на дочірній платі</text>
+
+  <!-- Row 5: microSD Slot -->
+  <rect x="343" y="364" width="274" height="52" rx="6" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="353" y="381" font-size="12" font-weight="700" fill="#27ae60">Слот microSD:</text>
+  <text x="353" y="396" font-size="12" fill="#1a1a1a">На дочірній платі Expansion</text>
+  <text x="353" y="409" font-size="11" fill="#6b7280">FAT32 / SDMMC (буфер запису)</text>
+
+  <!-- Row 6: Features -->
+  <rect x="343" y="424" width="274" height="66" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="353" y="441" font-size="12" font-weight="700" fill="#1a1a1a">Особливості конструкції:</text>
+  <text x="353" y="456" font-size="11" fill="#1a1a1a">• Ультракомпактний розмір (21×17.5 мм)</text>
+  <text x="353" y="469" font-size="11" fill="#1a1a1a">• Двошарове з'єднання через B2B</text>
+  <text x="353" y="482" font-size="11" fill="#6b7280">• Ідеально для локального Edge AI</text>
+
+
+  <!-- Panel 3: Freenove ESP32-S3 -->
+  <rect x="642" y="70" width="294" height="430" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="652" y="80" width="274" height="36" rx="6" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="789" y="96" font-size="14" font-weight="700" fill="#2457d6" text-anchor="middle">Freenove ESP32-S3</text>
+  <text x="789" y="109" font-size="11" fill="#6b7280" text-anchor="middle">Плата з розширеним програматором</text>
+
+  <!-- Row 1: SoC & PSRAM -->
+  <rect x="652" y="124" width="274" height="52" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="662" y="141" font-size="12" font-weight="700" fill="#1a1a1a">SoC &amp; PSRAM:</text>
+  <text x="662" y="156" font-size="12" fill="#1a1a1a">ESP32-S3-WROOM-1 (N8R8)</text>
+  <text x="662" y="169" font-size="11" fill="#6b7280">8 MB Octal SPI PSRAM (вбудована)</text>
+
+  <!-- Row 2: Camera Sensor -->
+  <rect x="652" y="184" width="274" height="52" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="662" y="201" font-size="12" font-weight="700" fill="#1a1a1a">Сенсор камери:</text>
+  <text x="662" y="216" font-size="12" fill="#1a1a1a">OV2640 / OV5640 (FPC роз'єм)</text>
+  <text x="662" y="229" font-size="11" fill="#6b7280">DVP 8-bit паралельний інтерфейс</text>
+
+  <!-- Row 3: USB & CDC/JTAG -->
+  <rect x="652" y="244" width="274" height="52" rx="6" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="662" y="261" font-size="12" font-weight="700" fill="#27ae60">USB &amp; CDC/JTAG:</text>
+  <text x="662" y="276" font-size="12" font-weight="700" fill="#1a1a1a">Подвійний USB Type-C</text>
+  <text x="662" y="289" font-size="11" fill="#6b7280">USB Native (CDC/JTAG) + USB-UART</text>
+
+  <!-- Row 4: PDM Microphone -->
+  <rect x="652" y="304" width="274" height="52" rx="6" fill="#fdecea" stroke="#c0392b"/>
+  <text x="662" y="321" font-size="12" font-weight="700" fill="#c0392b">PDM-мікрофон:</text>
+  <text x="662" y="336" font-size="12" font-weight="700" fill="#c0392b">❌ Відсутній на платі</text>
+  <text x="662" y="349" font-size="11" fill="#6b7280">Вільні GPIO для підключення I2S</text>
+
+  <!-- Row 5: microSD Slot -->
+  <rect x="652" y="364" width="274" height="52" rx="6" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="662" y="381" font-size="12" font-weight="700" fill="#27ae60">Слот microSD:</text>
+  <text x="662" y="396" font-size="12" fill="#1a1a1a">Інтегрований слот microSD</text>
+  <text x="662" y="409" font-size="11" fill="#6b7280">SDMMC 1-bit (збереження кадрів)</text>
+
+  <!-- Row 6: Features -->
+  <rect x="652" y="424" width="274" height="66" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="662" y="441" font-size="12" font-weight="700" fill="#1a1a1a">Особливості конструкції:</text>
+  <text x="662" y="456" font-size="11" fill="#1a1a1a">• Автоматична схема скидання / BOOT</text>
+  <text x="662" y="469" font-size="11" fill="#1a1a1a">• Вбудовані кнопки Reset &amp; Boot</text>
+  <text x="662" y="482" font-size="11" fill="#6b7280">• Зручна для макетування та тестів</text>
+</svg>

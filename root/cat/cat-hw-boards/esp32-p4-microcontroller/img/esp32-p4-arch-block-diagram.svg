@@ -1,0 +1,120 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+  
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <text x="480" y="32" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Архітектура системи на чипі ESP32-P4</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Дводоменна структура HP/LP, мультимедійний комплекс та зовнішні розширення пам'яті й бездротового зв'язку</text>
+
+  <!-- Чип ESP32-P4 SoC (Контур) -->
+  <rect x="25" y="65" width="680" height="455" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="10"/>
+  <rect x="35" y="73" width="140" height="22" rx="4" fill="#d0d7de"/>
+  <text x="105" y="88" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Чип ESP32-P4 SoC</text>
+
+  <!-- High-Performance (HP) Домен -->
+  <rect x="35" y="102" width="660" height="250" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="8"/>
+  <rect x="45" y="110" width="220" height="24" rx="4" fill="#2457d6"/>
+  <text x="155" y="126" font-size="12" font-weight="700" fill="#ffffff" text-anchor="middle">High-Performance (HP) Домен</text>
+
+  <!-- HP Блок 1: CPU -->
+  <rect x="48" y="142" width="205" height="138" fill="#ffffff" stroke="#2457d6" stroke-width="1" rx="6"/>
+  <text x="150" y="160" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">2× RISC-V CPU (400 MHz)</text>
+  <line x1="58" y1="168" x2="243" y2="168" stroke="#d0d7de" stroke-width="1"/>
+  <text x="150" y="186" font-size="12" fill="#1a1a1a" text-anchor="middle">Векторні розширення (AI)</text>
+  <text x="150" y="208" font-size="12" fill="#1a1a1a" text-anchor="middle">L1 I-Cache / D-Cache</text>
+  <text x="150" y="230" font-size="12" fill="#1a1a1a" text-anchor="middle">FPU / DSP прискорення</text>
+  <text x="150" y="252" font-size="12" fill="#6b7280" text-anchor="middle">Двоядерний HP-комплекс</text>
+
+  <!-- HP Блок 2: Пам'ять та шина -->
+  <rect x="263" y="142" width="205" height="138" fill="#ffffff" stroke="#2457d6" stroke-width="1" rx="6"/>
+  <text x="365" y="160" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Пам'ять &amp; Кешування</text>
+  <line x1="273" y1="168" x2="458" y2="168" stroke="#d0d7de" stroke-width="1"/>
+  <text x="365" y="186" font-size="12" fill="#1a1a1a" text-anchor="middle">768 KB HP L2 SRAM</text>
+  <text x="365" y="208" font-size="12" fill="#1a1a1a" text-anchor="middle">L2 Cache + Prefetch</text>
+  <text x="365" y="230" font-size="12" fill="#1a1a1a" text-anchor="middle">AXI Bus Controller</text>
+  <text x="365" y="252" font-size="12" fill="#6b7280" text-anchor="middle">Контролер PSRAM / Flash</text>
+
+  <!-- HP Блок 3: Мультимедіа та безпека -->
+  <rect x="478" y="142" width="207" height="138" fill="#ffffff" stroke="#2457d6" stroke-width="1" rx="6"/>
+  <text x="581" y="160" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Мультимедіа &amp; Безпека</text>
+  <line x1="488" y1="168" x2="675" y2="168" stroke="#d0d7de" stroke-width="1"/>
+  <text x="581" y="186" font-size="12" fill="#1a1a1a" text-anchor="middle">MIPI-CSI / MIPI-DSI</text>
+  <text x="581" y="208" font-size="12" fill="#1a1a1a" text-anchor="middle">H.264 Encoder &amp; 2D PPA</text>
+  <text x="581" y="230" font-size="12" fill="#1a1a1a" text-anchor="middle">AES / SHA / RSA / ECC</text>
+  <text x="581" y="252" font-size="12" fill="#6b7280" text-anchor="middle">USB OTG / Ethernet MAC</text>
+
+  <!-- HP Центральна шина -->
+  <rect x="48" y="292" width="637" height="50" rx="6" fill="#2457d6"/>
+  <text x="366" y="312" font-size="12" font-weight="700" fill="#ffffff" text-anchor="middle">Високошвидкісна шинна матриця HP AXI / AHB Interconnect</text>
+  <text x="366" y="331" font-size="12" fill="#eaf0fd" text-anchor="middle">Об'єднує HP CPU, L2 SRAM, PSRAM контролер та мультимедійні периферійні блоки</text>
+
+  <!-- Low-Power (LP) Домен -->
+  <rect x="35" y="360" width="660" height="150" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="8"/>
+  <rect x="45" y="368" width="200" height="24" rx="4" fill="#27ae60"/>
+  <text x="145" y="384" font-size="12" font-weight="700" fill="#ffffff" text-anchor="middle">Low-Power (LP) Домен</text>
+
+  <!-- LP Блок 1: CPU -->
+  <rect x="48" y="400" width="205" height="98" fill="#ffffff" stroke="#27ae60" stroke-width="1" rx="6"/>
+  <text x="150" y="420" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">1× RISC-V LP CPU (40 MHz)</text>
+  <line x1="58" y1="428" x2="243" y2="428" stroke="#d0d7de" stroke-width="1"/>
+  <text x="150" y="446" font-size="12" fill="#1a1a1a" text-anchor="middle">Ультранизьке споживання</text>
+  <text x="150" y="466" font-size="12" fill="#1a1a1a" text-anchor="middle">Автономний моніторинг</text>
+  <text x="150" y="486" font-size="12" fill="#6b7280" text-anchor="middle">Режими Deep Sleep</text>
+
+  <!-- LP Блок 2: Пам'ять та живлення -->
+  <rect x="263" y="400" width="205" height="98" fill="#ffffff" stroke="#27ae60" stroke-width="1" rx="6"/>
+  <text x="365" y="420" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">LP Пам'ять &amp; Живлення</text>
+  <line x1="273" y1="428" x2="458" y2="428" stroke="#d0d7de" stroke-width="1"/>
+  <text x="365" y="446" font-size="12" fill="#1a1a1a" text-anchor="middle">8 KB LP SRAM</text>
+  <text x="365" y="466" font-size="12" fill="#1a1a1a" text-anchor="middle">PMU (Power Management)</text>
+  <text x="365" y="486" font-size="12" fill="#6b7280" text-anchor="middle">RTC таймери &amp; Керування</text>
+
+  <!-- LP Блок 3: Периферія -->
+  <rect x="478" y="400" width="207" height="98" fill="#ffffff" stroke="#27ae60" stroke-width="1" rx="6"/>
+  <text x="581" y="420" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">LP Периферійний комплекс</text>
+  <line x1="488" y1="428" x2="675" y2="428" stroke="#d0d7de" stroke-width="1"/>
+  <text x="581" y="446" font-size="12" fill="#1a1a1a" text-anchor="middle">LP I2C / LP UART</text>
+  <text x="581" y="466" font-size="12" fill="#1a1a1a" text-anchor="middle">Touch Sensor / LP ADC</text>
+  <text x="581" y="486" font-size="12" fill="#6b7280" text-anchor="middle">Низькочастотний ввід/вивід</text>
+
+  <!-- Зовнішні блоки справа -->
+  <!-- Зовнішня пам'ять -->
+  <rect x="730" y="102" width="205" height="118" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5" rx="8"/>
+  <rect x="740" y="110" width="185" height="24" rx="4" fill="#2457d6"/>
+  <text x="832" y="126" font-size="12" font-weight="700" fill="#ffffff" text-anchor="middle">Зовнішня пам'ять</text>
+  <text x="832" y="152" font-size="12" fill="#1a1a1a" text-anchor="middle">High-Speed PSRAM</text>
+  <text x="832" y="174" font-size="12" fill="#1a1a1a" text-anchor="middle">Nor Flash (Обирається)</text>
+  <text x="832" y="198" font-size="12" fill="#2457d6" text-anchor="middle">Інтерфейс Octal SPI / SPI</text>
+
+  <!-- Дисплей та камера -->
+  <rect x="730" y="236" width="205" height="118" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5" rx="8"/>
+  <rect x="740" y="244" width="185" height="24" rx="4" fill="#2457d6"/>
+  <text x="832" y="260" font-size="12" font-weight="700" fill="#ffffff" text-anchor="middle">Дисплей &amp; Камера</text>
+  <text x="832" y="286" font-size="12" fill="#1a1a1a" text-anchor="middle">MIPI-DSI (Дисплеї HMI)</text>
+  <text x="832" y="308" font-size="12" fill="#1a1a1a" text-anchor="middle">MIPI-CSI (Відеокамери)</text>
+  <text x="832" y="332" font-size="12" fill="#2457d6" text-anchor="middle">Графічний комплекс</text>
+
+  <!-- Зовнішній бездротовий модуль -->
+  <rect x="730" y="370" width="205" height="140" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" rx="8"/>
+  <rect x="740" y="378" width="185" height="24" rx="4" fill="#c0392b"/>
+  <text x="832" y="394" font-size="12" font-weight="700" fill="#ffffff" text-anchor="middle">Бездротовий зв'язок</text>
+  <text x="832" y="420" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">Немає вбудованого Wi-Fi/BT!</text>
+  <text x="832" y="442" font-size="12" fill="#1a1a1a" text-anchor="middle">Зовнішній співпроцесор</text>
+  <text x="832" y="462" font-size="12" fill="#1a1a1a" text-anchor="middle">(ESP32-C6 / C2 / C3)</text>
+  <text x="832" y="486" font-size="12" fill="#6b7280" text-anchor="middle">Шина SDIO / SPI / UART</text>
+
+  <!-- З'єднувальні стрілки між SoC та зовнішніми блоками -->
+  <line x1="705" y1="161" x2="730" y2="161" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)" marker-start="url(#arr-blue)"/>
+  <line x1="705" y1="295" x2="730" y2="295" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)" marker-start="url(#arr-blue)"/>
+  <line x1="705" y1="440" x2="730" y2="440" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)" marker-start="url(#arr-red)"/>
+</svg>

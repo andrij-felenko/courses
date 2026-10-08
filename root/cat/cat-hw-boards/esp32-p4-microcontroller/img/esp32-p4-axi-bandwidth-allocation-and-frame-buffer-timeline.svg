@@ -1,0 +1,90 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="460" fill="#ffffff"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="34" font-size="18" font-weight="700" text-anchor="middle" fill="#1a1a1a">Розподіл пропускної здатності AXI та часова діаграма фреймбуфера в ESP32-P4</text>
+  <text x="480" y="53" font-size="13" text-anchor="middle" fill="#6b7280">Сумарне навантаження MIPI-CSI, PPA та дисплея не повинно перевищувати межу PSRAM (B_MAX) для запобігання опустошенню FIFO</text>
+
+  <!-- Vertical Time Alignment Lines between Panel 1 and Panel 2 -->
+  <line x1="230" y1="225" x2="230" y2="410" stroke="#d0d7de" stroke-dasharray="3,3"/>
+  <line x1="320" y1="225" x2="320" y2="410" stroke="#d0d7de" stroke-dasharray="3,3"/>
+  <line x1="510" y1="225" x2="510" y2="410" stroke="#d0d7de" stroke-dasharray="3,3"/>
+  <line x1="560" y1="225" x2="560" y2="410" stroke="#d0d7de" stroke-dasharray="3,3"/>
+
+  <!-- PANEL 1: DMA Masters Activity Timeline -->
+  <rect x="30" y="65" width="900" height="165" fill="#f4f6f8" stroke="#d0d7de" rx="6"/>
+  <text x="45" y="85" font-size="13" font-weight="700" fill="#1a1a1a">Активність DMA-майстрів AXI (Кадри, блендинг та VSYNC)</text>
+
+  <!-- Track 1: MIPI-CSI Camera Capture -->
+  <text x="45" y="112" font-size="12" font-weight="700" fill="#1a1a1a">MIPI-CSI (Камера)</text>
+  <text x="45" y="125" font-size="11" fill="#6b7280">Кадри камери DMA</text>
+  <rect x="210" y="102" width="680" height="20" fill="#ffffff" stroke="#d0d7de" rx="4"/>
+  <rect x="230" y="102" width="280" height="20" fill="#eaf0fd" stroke="#2457d6" rx="3"/>
+  <text x="370" y="116" font-size="11" font-weight="700" text-anchor="middle" fill="#2457d6">Захоплення кадру N (B_CSI)</text>
+  <rect x="590" y="102" width="280" height="20" fill="#eaf0fd" stroke="#2457d6" rx="3"/>
+  <text x="730" y="116" font-size="11" font-weight="700" text-anchor="middle" fill="#2457d6">Захоплення кадру N+1</text>
+
+  <!-- Track 2: PPA 2D Accelerator -->
+  <text x="45" y="152" font-size="12" font-weight="700" fill="#1a1a1a">2D-прискорювач PPA</text>
+  <text x="45" y="165" font-size="11" fill="#6b7280">Блендинг та конвертація</text>
+  <rect x="210" y="142" width="680" height="20" fill="#ffffff" stroke="#d0d7de" rx="4"/>
+  <rect x="320" y="142" width="190" height="20" fill="#e9f7ef" stroke="#27ae60" rx="3"/>
+  <text x="415" y="156" font-size="11" font-weight="700" text-anchor="middle" fill="#27ae60">Рендеринг / Блендинг PPA (B_PPA)</text>
+
+  <!-- Track 3: Display Controller -->
+  <text x="45" y="192" font-size="12" font-weight="700" fill="#1a1a1a">Дисплейний контролер</text>
+  <text x="45" y="205" font-size="11" fill="#6b7280">Зчитування фреймбуфера</text>
+  <rect x="210" y="182" width="680" height="20" fill="#ffffff" stroke="#d0d7de" rx="4"/>
+  <rect x="210" y="182" width="250" height="20" fill="#eaf0fd" stroke="#2457d6" rx="3"/>
+  <text x="335" y="196" font-size="11" font-weight="700" text-anchor="middle" fill="#2457d6">Виведення кадру N (B_DISP)</text>
+  <rect x="460" y="182" width="100" height="20" fill="#fdecea" stroke="#c0392b" stroke-dasharray="2,2" rx="3"/>
+  <text x="510" y="196" font-size="11" font-weight="700" text-anchor="middle" fill="#c0392b">VSYNC</text>
+  <rect x="560" y="182" width="310" height="20" fill="#eaf0fd" stroke="#2457d6" rx="3"/>
+  <text x="715" y="196" font-size="11" font-weight="700" text-anchor="middle" fill="#2457d6">Виведення кадру N+1</text>
+
+  <!-- Time Ticks on Timeline -->
+  <text x="230" y="222" font-size="11" text-anchor="middle" fill="#6b7280">t0</text>
+  <text x="320" y="222" font-size="11" text-anchor="middle" fill="#6b7280">t1</text>
+  <text x="510" y="222" font-size="11" text-anchor="middle" fill="#6b7280">t2</text>
+  <text x="560" y="222" font-size="11" text-anchor="middle" fill="#6b7280">t3</text>
+
+  <!-- PANEL 2: Total AXI Bandwidth Graph -->
+  <rect x="30" y="245" width="900" height="195" fill="#f4f6f8" stroke="#d0d7de" rx="6"/>
+  <text x="45" y="265" font-size="13" font-weight="700" fill="#1a1a1a">Сумарна пропускна здатність шини AXI (B_total = B_CSI + B_PPA + B_DISP)</text>
+
+  <!-- Graph Area & Axes -->
+  <polygon points="210,410 230,410 230,365 320,365 320,325 510,325 510,375 560,375 560,365 870,365 870,410" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  
+  <line x1="210" y1="410" x2="210" y2="280" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <line x1="210" y1="410" x2="890" y2="410" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <text x="195" y="282" font-size="11" font-weight="700" text-anchor="end" fill="#1a1a1a">B_AXI (МБ/с)</text>
+  <text x="885" y="425" font-size="11" font-weight="700" text-anchor="end" fill="#1a1a1a">Час (t)</text>
+
+  <!-- Limit Line (PSRAM B_MAX) -->
+  <line x1="210" y1="300" x2="870" y2="300" stroke="#c0392b" stroke-width="2" stroke-dasharray="5,4"/>
+  <text x="218" y="295" font-size="11" font-weight="700" fill="#c0392b">Межа PSRAM (B_MAX)</text>
+
+  <!-- Bandwidth Margin Zone & Peak Highlight -->
+  <rect x="320" y="300" width="190" height="25" fill="#e9f7ef" stroke="#27ae60" stroke-dasharray="2,2"/>
+  <text x="415" y="316" font-size="11" font-weight="700" text-anchor="middle" fill="#27ae60">Запас ΔB_margin</text>
+  <text x="415" y="345" font-size="11" font-weight="700" text-anchor="middle" fill="#2457d6">Пік: CSI + PPA + Дисплей</text>
+
+  <!-- Legend Box -->
+  <rect x="585" y="272" width="310" height="68" fill="#ffffff" stroke="#d0d7de" rx="4"/>
+  <rect x="595" y="280" width="12" height="12" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="615" y="290" font-size="11" fill="#1a1a1a">ΔB_margin — резерв проти опустошення FIFO</text>
+
+  <line x1="595" y1="304" x2="607" y2="304" stroke="#c0392b" stroke-width="2" stroke-dasharray="3,2"/>
+  <text x="615" y="308" font-size="11" fill="#1a1a1a">B_MAX — границя пропускної здатності PSRAM</text>
+
+  <rect x="595" y="320" width="12" height="10" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="615" y="328" font-size="11" fill="#1a1a1a">Сумарне споживання AXI при паралельному DMA</text>
+</svg>

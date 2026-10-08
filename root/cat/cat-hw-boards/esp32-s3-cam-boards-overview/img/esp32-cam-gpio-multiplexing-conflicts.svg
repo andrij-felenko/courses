@@ -1,0 +1,111 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="520" fill="#ffffff"/>
+
+  <!-- Header -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Конфлікти мультиплексування GPIO на модулі AI-Thinker ESP32-CAM</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Спільне використання ліній GPIO між OV2640, MicroSD та Flash-підсвіткою спричиняє апаратні збої</text>
+
+  <!-- Panel 1: OV2640 Camera (Left) -->
+  <rect x="25" y="80" width="250" height="415" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="25" y="80" width="250" height="36" rx="8" fill="#eaf0fd" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="150" y="103" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">Сенсор OV2640 (DVP)</text>
+
+  <!-- Camera details -->
+  <rect x="40" y="130" width="220" height="70" rx="5" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="50" y="150" font-size="12" font-weight="bold" fill="#1a1a1a">Шина керування (SCCB/DVP):</text>
+  <text x="50" y="168" font-size="12" fill="#6b7280">PCLK (22), VSYNC (25), HREF (23)</text>
+  <text x="50" y="186" font-size="12" fill="#6b7280">SIOD/SIOC (26, 27), PWDN (32)</text>
+
+  <rect x="40" y="213" width="220" height="80" rx="5" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="50" y="233" font-size="12" font-weight="bold" fill="#1a1a1a">Шина даних Y2–Y9 (8-bit):</text>
+  <text x="50" y="251" font-size="12" fill="#6b7280">Y2–Y7, Y9: GPIO 5, 18, 19, 21, 36, 39, 35</text>
+  <text x="50" y="275" font-size="12" font-weight="bold" fill="#c0392b">Y8: GPIO 4 (Конфліктна лінія!)</text>
+
+  <rect x="40" y="306" width="220" height="60" rx="5" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="50" y="326" font-size="12" font-weight="bold" fill="#1a1a1a">Тактовий сигнал XCLK:</text>
+  <text x="50" y="348" font-size="12" font-weight="bold" fill="#c0392b">GPIO 0 (Тактування 20 MHz)</text>
+
+  <!-- Camera Note -->
+  <rect x="40" y="379" width="220" height="100" rx="5" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="150" y="399" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Вплив конфліктів:</text>
+  <text x="50" y="419" font-size="12" fill="#1a1a1a">• Спотворення даних кадру</text>
+  <text x="50" y="437" font-size="12" fill="#1a1a1a">• Збої завантаження при 20MHz</text>
+  <text x="50" y="455" font-size="12" fill="#1a1a1a">• Артефакти при записі на SD</text>
+
+  <!-- Panel 2: Central MCU ESP32 & Memory (Middle Top) -->
+  <rect x="305" y="80" width="350" height="175" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="305" y="80" width="350" height="36" rx="8" fill="#eaf0fd" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="480" y="103" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">Мікроконтролер ESP32-D0WD &amp; QSPI PSRAM</text>
+
+  <rect x="320" y="130" width="320" height="50" rx="5" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="330" y="150" font-size="12" font-weight="bold" fill="#1a1a1a">Внутрішня шина QSPI (GPIO 6–11):</text>
+  <text x="330" y="168" font-size="12" fill="#6b7280">Спільне використання між NOR Flash та PSRAM (4MB)</text>
+
+  <rect x="320" y="190" width="320" height="50" rx="5" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="330" y="210" font-size="12" font-weight="bold" fill="#1a1a1a">PSRAM CS / CLK (GPIO 16, 17):</text>
+  <text x="330" y="228" font-size="12" fill="#6b7280">Блокує периферію UART2 (конфлікт виводів)</text>
+
+  <!-- Panel 3: Critical Conflict Hub (Middle Bottom) -->
+  <rect x="305" y="270" width="350" height="225" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <rect x="305" y="270" width="350" height="36" rx="8" fill="#c0392b"/>
+  <text x="480" y="293" font-size="14" font-weight="bold" fill="#ffffff" text-anchor="middle">Ключові конфлікти мультиплексування</text>
+
+  <text x="320" y="325" font-size="12" font-weight="bold" fill="#c0392b">GPIO 4 (Потрійне накладання):</text>
+  <text x="320" y="343" font-size="12" fill="#1a1a1a">MicroSD SD_D1 + OV2640 Y8 (D6) + Flash LED</text>
+
+  <text x="320" y="367" font-size="12" font-weight="bold" fill="#c0392b">GPIO 0 (Strapping Pin &amp; XCLK):</text>
+  <text x="320" y="385" font-size="12" fill="#1a1a1a">Сигнал Boot mode + Генератор такту OV2640</text>
+
+  <text x="320" y="409" font-size="12" font-weight="bold" fill="#c0392b">GPIO 2 (Strapping Pin &amp; SD_D0):</text>
+  <text x="320" y="427" font-size="12" fill="#1a1a1a">MicroSD SD_D0 + Режим прошивки + Синій LED</text>
+
+  <text x="320" y="451" font-size="12" font-weight="bold" fill="#c0392b">GPIO 12 (Strapping MTDI / SD_D2):</text>
+  <text x="320" y="469" font-size="12" fill="#1a1a1a">Вимагає High під час завантаження Flash (1.8V/3.3V)</text>
+
+  <!-- Panel 4: Flash LED (Right Top) -->
+  <rect x="685" y="80" width="250" height="110" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="685" y="80" width="250" height="36" rx="8" fill="#eaf0fd" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="810" y="103" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">Flash-підсвітка (LED)</text>
+
+  <rect x="700" y="128" width="220" height="50" rx="5" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="710" y="148" font-size="12" font-weight="bold" fill="#c0392b">Керування: GPIO 4</text>
+  <text x="710" y="166" font-size="12" fill="#1a1a1a">Блимає при імпульсах SD/камери</text>
+
+  <!-- Panel 5: MicroSD Card Slot (Right Bottom) -->
+  <rect x="685" y="205" width="250" height="290" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="685" y="205" width="250" height="36" rx="8" fill="#eaf0fd" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="810" y="228" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">Слот MicroSD (SD/MMC)</text>
+
+  <rect x="700" y="253" width="220" height="60" rx="5" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="710" y="273" font-size="12" font-weight="bold" fill="#1a1a1a">Шина керування:</text>
+  <text x="710" y="291" font-size="12" fill="#6b7280">CLK: GPIO 14, CMD: GPIO 15</text>
+
+  <rect x="700" y="323" width="220" height="85" rx="5" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="710" y="343" font-size="12" font-weight="bold" fill="#1a1a1a">Лінії даних (4-bit mode):</text>
+  <text x="710" y="361" font-size="12" fill="#6b7280">SD_D0: GPIO 2 (LED/Strapping)</text>
+  <text x="710" y="379" font-size="12" fill="#6b7280">SD_D2: GPIO 12, SD_D3: GPIO 13</text>
+
+  <rect x="700" y="418" width="220" height="60" rx="5" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="710" y="438" font-size="12" font-weight="bold" fill="#c0392b">SD_D1: GPIO 4</text>
+  <text x="710" y="456" font-size="12" fill="#1a1a1a">Конфлікт із Y8 та Flash LED</text>
+
+  <!-- Interconnect Lines / Conflict Paths -->
+  <path d="M 260 275 L 305 335" fill="none" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr-red)"/>
+  <path d="M 700 153 L 655 335" fill="none" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr-red)"/>
+  <path d="M 700 448 L 655 345" fill="none" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr-red)"/>
+  <path d="M 260 348 L 305 375" fill="none" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr-red)"/>
+
+</svg>

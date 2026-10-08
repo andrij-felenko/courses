@@ -1,0 +1,77 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 530" width="960" height="530" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="530" fill="white"/>
+
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="34" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Архітектурна еволюція: монолітний ESP32 vs обчислювач ESP32-P4</text>
+  <text x="480" y="56" font-size="13" fill="#6b7280" text-anchor="middle">Винесення радіотракту вивільняє кристал під двоядерний RISC-V з векторними розширеннями, кеш L2 та мультимедіа</text>
+
+  <!-- LEFT PANEL: Monolithic SoC -->
+  <rect x="30" y="78" width="435" height="425" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="30" y="78" width="435" height="38" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="247" y="102" font-size="14" font-weight="700" fill="#c0392b" text-anchor="middle">Монолітний SoC (ESP32 / S3 / C6)</text>
+
+  <!-- Left Block 1: Radio (Problem) -->
+  <rect x="50" y="130" width="395" height="85" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="65" y="152" font-size="13" font-weight="700" fill="#c0392b">Вбудований радіотракт (Wi-Fi / Bluetooth)</text>
+  <text x="65" y="172" font-size="12" fill="#1a1a1a">• Займає суттєву площу кремнієвого кристала</text>
+  <text x="65" y="190" font-size="12" fill="#1a1a1a">• Радіочастотні (RF) завади на ядра та АЦП</text>
+
+  <!-- Left Block 2: Compute -->
+  <rect x="50" y="227" width="395" height="72" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="65" y="249" font-size="13" font-weight="700" fill="#1a1a1a">Обчислювальні ядра (Xtensa / RISC-V)</text>
+  <text x="65" y="269" font-size="12" fill="#6b7280">• 160–240 МГц, базові SIMD-інструкції</text>
+  <text x="65" y="286" font-size="12" fill="#6b7280">• Відсутні векторні розширення для TinyML</text>
+
+  <!-- Left Block 3: Memory -->
+  <rect x="50" y="311" width="395" height="72" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="65" y="333" font-size="13" font-weight="700" fill="#1a1a1a">Пам'ять та внутрішні шини</text>
+  <text x="65" y="353" font-size="12" fill="#6b7280">• SRAM 512 КБ, спільна внутрішня шина</text>
+  <text x="65" y="370" font-size="12" fill="#6b7280">• Обмежена пропускна здатність для відео</text>
+
+  <!-- Left Block 4: Peripherals -->
+  <rect x="50" y="395" width="395" height="92" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="65" y="417" font-size="13" font-weight="700" fill="#1a1a1a">Базова периферія</text>
+  <text x="65" y="437" font-size="12" fill="#6b7280">• LCD (SPI / Parallel RGB), 8-bit DVP Camera</text>
+  <text x="65" y="454" font-size="12" fill="#6b7280">• Програмна обробка графіки й стиснення</text>
+  <text x="65" y="471" font-size="12" fill="#6b7280">• Обмеження для складних HMI-інтерфейсів</text>
+
+  <!-- RIGHT PANEL: ESP32-P4 Split Architecture -->
+  <rect x="495" y="78" width="435" height="425" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="495" y="78" width="435" height="38" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="712" y="102" font-size="14" font-weight="700" fill="#27ae60" text-anchor="middle">Двочіпова архітектура ESP32-P4</text>
+
+  <!-- Right Block 1: HP Cores & Vector -->
+  <rect x="515" y="130" width="395" height="85" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="530" y="152" font-size="13" font-weight="700" fill="#27ae60">2× RISC-V HP cores (400 МГц) + Vector</text>
+  <text x="530" y="172" font-size="12" fill="#1a1a1a">• Апаратне векторне розширення (TinyML / AI)</text>
+  <text x="530" y="190" font-size="12" fill="#1a1a1a">• Вся площа кристала віддана обчислювачу</text>
+
+  <!-- Right Block 2: LP Core & Memory L1/L2 -->
+  <rect x="515" y="227" width="395" height="72" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="530" y="249" font-size="13" font-weight="700" fill="#1a1a1a">LP-ядро (40 МГц) + Кеш L1/L2 (768 КБ)</text>
+  <text x="530" y="269" font-size="12" fill="#6b7280">• 768 КБ L2 SRAM, окремі I/D кеші L1</text>
+  <text x="530" y="286" font-size="12" fill="#6b7280">• Дводоменне живлення (High/Low Power)</text>
+
+  <!-- Right Block 3: Multimedia & HMI -->
+  <rect x="515" y="311" width="395" height="72" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="530" y="333" font-size="13" font-weight="700" fill="#1a1a1a">Мультимедійний комплекс (HMI &amp; Video)</text>
+  <text x="530" y="353" font-size="12" fill="#6b7280">• MIPI-DSI, MIPI-CSI, H.264 Encoder, 2D PPA</text>
+  <text x="530" y="370" font-size="12" fill="#6b7280">• Апаратний прискорювач 2D-графіки та дисплеїв</text>
+
+  <!-- Right Block 4: External Companion Radio -->
+  <rect x="515" y="395" width="395" height="92" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="530" y="417" font-size="13" font-weight="700" fill="#2457d6">Винесений радіомодуль (ESP32-C3 / C6)</text>
+  <text x="530" y="437" font-size="12" fill="#1a1a1a">• Підключення через SDIO / SPI / UART</text>
+  <text x="530" y="454" font-size="12" fill="#1a1a1a">• Wi-Fi 6, Bluetooth 5 (LE), 802.15.4 (Zigbee/Thread)</text>
+  <text x="530" y="471" font-size="12" fill="#1a1a1a">• Повна відсутність завад на обчислювач</text>
+</svg>

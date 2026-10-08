@@ -1,0 +1,169 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <!-- Arrowhead Blue -->
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <!-- Arrowhead Green -->
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <!-- Arrowhead Dark -->
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="28" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Апаратне підключення ESP8266 / ESP32 до ПК через USB-UART</text>
+  <text x="480" y="48" font-size="13" fill="#6b7280" text-anchor="middle">Перехресні сигнальні лінії (TX-RX), спільна земля (GND), підтяжка виводів та живлення 3.3 В</text>
+
+  <!-- ==================== PANEL 1: ПК ==================== -->
+  <rect x="24" y="68" width="160" height="270" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="8"/>
+  <rect x="34" y="78" width="140" height="28" fill="#eaf0fd" rx="4"/>
+  <text x="104" y="97" font-size="13" font-weight="700" fill="#2457d6" text-anchor="middle">ПК (Термінал)</text>
+
+  <!-- PC Monitor Graphic -->
+  <rect x="42" y="118" width="124" height="84" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2" rx="4"/>
+  <text x="104" y="142" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Термінальне ПЗ</text>
+  <text x="104" y="162" font-size="12" fill="#2457d6" text-anchor="middle">AT ➔ OK</text>
+  <text x="104" y="180" font-size="12" fill="#6b7280" text-anchor="middle">115200, CR+LF</text>
+
+  <!-- USB Connector on PC -->
+  <rect x="54" y="218" width="100" height="40" fill="#ffffff" stroke="#d0d7de" rx="4"/>
+  <text x="104" y="243" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">USB Порт (5V)</text>
+
+  <!-- USB Cable Connection to Adapter -->
+  <path d="M 154 238 L 214 238" stroke="#6b7280" stroke-width="3" stroke-dasharray="4,2"/>
+  <text x="184" y="230" font-size="12" fill="#6b7280" text-anchor="middle">USB Кабель</text>
+
+
+  <!-- ==================== PANEL 2: USB-UART Адаптер ==================== -->
+  <rect x="214" y="68" width="210" height="270" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="8"/>
+  <rect x="224" y="78" width="190" height="28" fill="#eaf0fd" rx="4"/>
+  <text x="319" y="97" font-size="13" font-weight="700" fill="#2457d6" text-anchor="middle">USB-UART Адаптер</text>
+  <text x="319" y="118" font-size="12" fill="#6b7280" text-anchor="middle">(CP2102 / FT232 / CH340)</text>
+
+  <!-- Adapter Board Inner -->
+  <rect x="230" y="130" width="178" height="196" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2" rx="6"/>
+
+  <!-- USB Interface chip -->
+  <rect x="269" y="142" width="100" height="34" fill="#1a1a1a" rx="3"/>
+  <text x="319" y="163" font-size="12" font-weight="700" fill="#ffffff" text-anchor="middle">Bridge IC</text>
+
+  <!-- Adapter Pin Outlets (Right Edge at x=408) -->
+  <!-- Pin 3.3V (y=195) -->
+  <rect x="378" y="186" width="30" height="18" fill="#e9f7ef" stroke="#27ae60" rx="3"/>
+  <text x="370" y="200" font-size="12" font-weight="700" fill="#27ae60" text-anchor="end">3.3V</text>
+
+  <!-- Pin TXD (y=230) -->
+  <rect x="378" y="221" width="30" height="18" fill="#eaf0fd" stroke="#2457d6" rx="3"/>
+  <text x="370" y="235" font-size="12" font-weight="700" fill="#2457d6" text-anchor="end">TXD</text>
+
+  <!-- Pin RXD (y=265) -->
+  <rect x="378" y="256" width="30" height="18" fill="#eaf0fd" stroke="#2457d6" rx="3"/>
+  <text x="370" y="270" font-size="12" font-weight="700" fill="#2457d6" text-anchor="end">RXD</text>
+
+  <!-- Pin GND (y=300) -->
+  <rect x="378" y="291" width="30" height="18" fill="#f4f6f8" stroke="#1a1a1a" rx="3"/>
+  <text x="370" y="305" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="end">GND</text>
+
+
+  <!-- ==================== INTER-MODULE WIRES ==================== -->
+  <!-- Wire 1: 3.3V Power Line (from x=408 y=195 to x=530 y=195) -->
+  <line x1="408" y1="195" x2="530" y2="195" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arr-green)"/>
+  <text x="469" y="187" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">3.3V VCC</text>
+
+  <!-- Wire 2: TXD -> RXD (from x=408 y=230 to x=530 y=230) -->
+  <line x1="408" y1="230" x2="530" y2="230" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="469" y="222" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">TXD ➔ RXD</text>
+
+  <!-- Wire 3: RXD <- TXD (from x=530 y=265 to x=408 y=265) -->
+  <line x1="530" y1="265" x2="408" y2="265" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="469" y="257" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">RXD 🠔 TXD</text>
+
+  <!-- Wire 4: GND - GND (from x=408 y=300 to x=530 y=300) -->
+  <line x1="408" y1="300" x2="530" y2="300" stroke="#1a1a1a" stroke-width="2.5" stroke-dasharray="5,3"/>
+  <text x="469" y="292" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Спільна GND</text>
+
+
+  <!-- ==================== PANEL 3: ESP-модуль ==================== -->
+  <rect x="510" y="68" width="426" height="270" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="8"/>
+  <rect x="520" y="78" width="406" height="28" fill="#eaf0fd" rx="4"/>
+  <text x="723" y="97" font-size="13" font-weight="700" fill="#2457d6" text-anchor="middle">Модуль ESP8266 / ESP32 (3.3V Логіка)</text>
+
+  <!-- ESP Board Inner -->
+  <rect x="530" y="118" width="386" height="208" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2" rx="6"/>
+
+  <!-- ESP Module Pins (Left Edge at x=530) -->
+  <!-- Pin VCC (y=195) -->
+  <rect x="530" y="186" width="30" height="18" fill="#e9f7ef" stroke="#27ae60" rx="3"/>
+  <text x="566" y="200" font-size="12" font-weight="700" fill="#27ae60" text-anchor="start">VCC (3.3V)</text>
+
+  <!-- Pin RXD (y=230) -->
+  <rect x="530" y="221" width="30" height="18" fill="#eaf0fd" stroke="#2457d6" rx="3"/>
+  <text x="566" y="235" font-size="12" font-weight="700" fill="#2457d6" text-anchor="start">RXD</text>
+
+  <!-- Pin TXD (y=265) -->
+  <rect x="530" y="256" width="30" height="18" fill="#eaf0fd" stroke="#2457d6" rx="3"/>
+  <text x="566" y="270" font-size="12" font-weight="700" fill="#2457d6" text-anchor="start">TXD</text>
+
+  <!-- Pin GND (y=300) -->
+  <rect x="530" y="291" width="30" height="18" fill="#f4f6f8" stroke="#1a1a1a" rx="3"/>
+  <text x="566" y="305" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="start">GND</text>
+
+  <!-- SoC Metal Shield Graphic (Center of ESP Board) -->
+  <rect x="635" y="132" width="100" height="70" fill="#d0d7de" stroke="#b0b7be" rx="4"/>
+  <text x="685" y="162" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">ESP-WROOM</text>
+  <text x="685" y="180" font-size="12" fill="#6b7280" text-anchor="middle">AT-Firmware</text>
+
+  <!-- Pull-Up Resistors Circuit (Right side of ESP Board) -->
+  <rect x="746" y="132" width="160" height="184" fill="#f4f6f8" stroke="#d0d7de" rx="4"/>
+  <text x="826" y="148" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Підтяжка виводів (Pull-up)</text>
+
+  <!-- Internal 3.3V Rail line -->
+  <line x1="760" y1="162" x2="892" y2="162" stroke="#27ae60" stroke-width="2"/>
+  <text x="826" y="159" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">+3.3V Rail</text>
+
+  <!-- Resistor 1: EN / CH_PD (center x=780) -->
+  <rect x="758" y="176" width="44" height="22" fill="#ffffff" stroke="#2457d6" stroke-width="1.2" rx="3"/>
+  <text x="780" y="191" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">10 kΩ</text>
+  <line x1="780" y1="162" x2="780" y2="176" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="780" y1="198" x2="780" y2="212" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="780" y="226" font-size="12" fill="#1a1a1a" text-anchor="middle">EN / CH_PD</text>
+  <text x="780" y="242" font-size="12" fill="#27ae60" text-anchor="middle">(Active High)</text>
+
+  <!-- Resistor 2: GPIO0 (BOOT) (center x=872) -->
+  <rect x="850" y="176" width="44" height="22" fill="#ffffff" stroke="#2457d6" stroke-width="1.2" rx="3"/>
+  <text x="872" y="191" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">10 kΩ</text>
+  <line x1="872" y1="162" x2="872" y2="176" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="872" y1="198" x2="872" y2="212" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="872" y="226" font-size="12" fill="#1a1a1a" text-anchor="middle">GPIO0</text>
+  <text x="872" y="242" font-size="12" fill="#27ae60" text-anchor="middle">(Run Mode)</text>
+
+
+  <!-- ==================== LOWER INFORMATIONAL CALLOUTS ==================== -->
+  <!-- Callout 1: Warning 3.3V (Red / Problem) -->
+  <rect x="24" y="352" width="280" height="88" fill="#fdecea" stroke="#c0392b" stroke-width="1.2" rx="6"/>
+  <text x="36" y="374" font-size="12" font-weight="700" fill="#c0392b">⛔ Небезпека: Напруга 5 В</text>
+  <text x="36" y="394" font-size="12" fill="#1a1a1a">ESP-модулі працюють ВИКЛЮЧНО</text>
+  <text x="36" y="412" font-size="12" fill="#1a1a1a">від 3.3 В (струм до 500 мА). Пряме</text>
+  <text x="36" y="430" font-size="12" fill="#1a1a1a">живлення 5 В виведе чип з ладу!</text>
+
+  <!-- Callout 2: Signal Crossing (Green / Solution) -->
+  <rect x="318" y="352" width="310" height="88" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2" rx="6"/>
+  <text x="330" y="374" font-size="12" font-weight="700" fill="#27ae60">✔ Перехресне з'єднання UART</text>
+  <text x="330" y="394" font-size="12" fill="#1a1a1a">TXD Адаптера ➔ RXD ESP-модуля</text>
+  <text x="330" y="412" font-size="12" fill="#1a1a1a">RXD Адаптера 🠔 TXD ESP-модуля</text>
+  <text x="330" y="430" font-size="12" fill="#6b7280">(передача від одного йде на прийом іншого)</text>
+
+  <!-- Callout 3: Pull-up & GND Notes (Blue / Accent) -->
+  <rect x="642" y="352" width="294" height="88" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2" rx="6"/>
+  <text x="654" y="374" font-size="12" font-weight="700" fill="#2457d6">ℹ Умови стабільного запуску</text>
+  <text x="654" y="394" font-size="12" fill="#1a1a1a">• Спільна GND вирівнює потенціали</text>
+  <text x="654" y="412" font-size="12" fill="#1a1a1a">• EN/CH_PD = HIGH для ввімкнення</text>
+  <text x="654" y="430" font-size="12" fill="#1a1a1a">• GPIO0 = HIGH для нормальної роботи</text>
+</svg>

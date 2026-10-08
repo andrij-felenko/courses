@@ -1,0 +1,175 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-accent" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="700" text-anchor="middle" fill="#1a1a1a">Трасування диференціальних ліній MIPI-CSI/DSI в ESP32-P4</text>
+  <text x="480" y="54" font-size="13" text-anchor="middle" fill="#6b7280">Узгодження імпедансу 100 Ом, компенсація довжини ліній та розв'язка живлення</text>
+
+  <!-- Panel 1: ESP32-P4 Chip & Power -->
+  <rect x="30" y="80" width="240" height="430" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Panel 1 Header Banner -->
+  <rect x="42" y="92" width="216" height="32" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="150" y="113" font-size="14" font-weight="700" text-anchor="middle" fill="#2457d6">Мікроконтролер ESP32-P4</text>
+
+  <!-- Block 1A: MIPI PHY Transceiver -->
+  <rect x="42" y="134" width="216" height="152" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="150" y="154" font-size="13" font-weight="700" text-anchor="middle" fill="#1a1a1a">MIPI D-PHY / C-PHY</text>
+  <text x="150" y="172" font-size="12" text-anchor="middle" fill="#6b7280">Апаратний трансивер</text>
+
+  <!-- Output Pins on PHY -->
+  <circle cx="248" cy="230" r="3" fill="#2457d6"/>
+  <text x="240" y="222" font-size="12" font-weight="700" text-anchor="end" fill="#2457d6">MIPI_CLK_P</text>
+
+  <circle cx="248" cy="246" r="3" fill="#2457d6"/>
+  <text x="240" y="258" font-size="12" font-weight="700" text-anchor="end" fill="#2457d6">MIPI_CLK_N</text>
+
+  <circle cx="248" cy="290" r="3" fill="#27ae60"/>
+  <text x="240" y="282" font-size="12" font-weight="700" text-anchor="end" fill="#27ae60">MIPI_DATA_P</text>
+
+  <circle cx="248" cy="310" r="3" fill="#27ae60"/>
+  <text x="240" y="322" font-size="12" font-weight="700" text-anchor="end" fill="#27ae60">MIPI_DATA_N</text>
+
+  <!-- Block 1B: Power Domain & Decoupling -->
+  <rect x="42" y="336" width="216" height="162" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="150" y="354" font-size="13" font-weight="700" text-anchor="middle" fill="#1a1a1a">Домен живлення MIPI</text>
+
+  <!-- Rail 1: VDDA_MIPI (1.2V) -->
+  <text x="54" y="374" font-size="12" font-weight="700" fill="#1a1a1a">VDDA_MIPI (1.2V PHY)</text>
+  <line x1="54" y1="380" x2="246" y2="380" stroke="#2457d6" stroke-width="2"/>
+
+  <!-- Decoupling Cap C1 & C2 Schematics -->
+  <!-- C1 (100nF) at x=90 -->
+  <line x1="90" y1="380" x2="90" y2="394" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="80" y1="394" x2="100" y2="394" stroke="#2457d6" stroke-width="2"/>
+  <line x1="80" y1="399" x2="100" y2="399" stroke="#2457d6" stroke-width="2"/>
+  <line x1="90" y1="399" x2="90" y2="412" stroke="#2457d6" stroke-width="1.5"/>
+  <circle cx="90" cy="412" r="3" fill="#1a1a1a"/>
+  <text x="106" y="400" font-size="12" fill="#2457d6">C1: 100 nF</text>
+
+  <!-- C2 (10pF) at x=175 -->
+  <line x1="175" y1="380" x2="175" y2="394" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="165" y1="394" x2="185" y2="394" stroke="#2457d6" stroke-width="2"/>
+  <line x1="165" y1="399" x2="185" y2="399" stroke="#2457d6" stroke-width="2"/>
+  <line x1="175" y1="399" x2="175" y2="412" stroke="#2457d6" stroke-width="1.5"/>
+  <circle cx="175" cy="412" r="3" fill="#1a1a1a"/>
+  <text x="191" y="400" font-size="12" fill="#2457d6">C2: 10 pF</text>
+
+  <!-- Rail 2: VDD_MIPI (2.5V) -->
+  <text x="54" y="434" font-size="12" font-weight="700" fill="#1a1a1a">VDD_MIPI (2.5V I/O)</text>
+  <line x1="54" y1="440" x2="246" y2="440" stroke="#27ae60" stroke-width="2"/>
+
+  <!-- Decoupling Cap C3 & C4 Schematics -->
+  <!-- C3 (100nF) at x=90 -->
+  <line x1="90" y1="440" x2="90" y2="454" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="80" y1="454" x2="100" y2="454" stroke="#27ae60" stroke-width="2"/>
+  <line x1="80" y1="459" x2="100" y2="459" stroke="#27ae60" stroke-width="2"/>
+  <line x1="90" y1="459" x2="90" y2="472" stroke="#27ae60" stroke-width="1.5"/>
+  <circle cx="90" cy="472" r="3" fill="#1a1a1a"/>
+  <text x="106" y="460" font-size="12" fill="#27ae60">C3: 100 nF</text>
+
+  <!-- C4 (10pF) at x=175 -->
+  <line x1="175" y1="440" x2="175" y2="454" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="165" y1="454" x2="185" y2="454" stroke="#27ae60" stroke-width="2"/>
+  <line x1="165" y1="459" x2="185" y2="459" stroke="#27ae60" stroke-width="2"/>
+  <line x1="175" y1="459" x2="175" y2="472" stroke="#27ae60" stroke-width="1.5"/>
+  <circle cx="175" cy="472" r="3" fill="#1a1a1a"/>
+  <text x="191" y="460" font-size="12" fill="#27ae60">C4: 10 pF</text>
+
+  <!-- Panel 2: PCB Routing Topology -->
+  <rect x="290" y="80" width="410" height="430" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Panel 2 Header Banner -->
+  <rect x="302" y="92" width="386" height="32" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="495" y="113" font-size="14" font-weight="700" text-anchor="middle" fill="#2457d6">Топологія трасування дифпар на ДП</text>
+
+  <!-- Ground Reference Plane background representation -->
+  <rect x="302" y="134" width="386" height="240" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1" stroke-dasharray="4,4"/>
+  <text x="495" y="152" font-size="12" font-weight="700" text-anchor="middle" fill="#27ae60">Суцільний опорний шар заземлення (Continuous GND Plane)</text>
+  <text x="495" y="168" font-size="12" text-anchor="middle" fill="#27ae60">Без вирізів та слотів під високочастотними лініями</text>
+
+  <!-- Impedance Callout Badge -->
+  <rect x="420" y="180" width="150" height="34" rx="4" fill="white" stroke="#2457d6" stroke-width="1"/>
+  <text x="495" y="201" font-size="12" font-weight="700" text-anchor="middle" fill="#2457d6">Z_diff = 100 Ом ± 10%</text>
+
+  <!-- Differential CLK Traces (MIPI_CLK_P and MIPI_CLK_N) -->
+  <path d="M 248 230 L 310 230 L 665 230" fill="none" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-accent)"/>
+  <path d="M 248 246 L 310 246 L 665 246" fill="none" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-accent)"/>
+  <text x="315" y="222" font-size="12" font-weight="700" fill="#2457d6">CLK_P</text>
+  <text x="315" y="258" font-size="12" font-weight="700" fill="#2457d6">CLK_N</text>
+
+  <!-- Differential DATA Traces (MIPI_DATA_P and MIPI_DATA_N) -->
+  <path d="M 248 290 L 310 290 L 350 290 Q 370 280 390 290 L 665 290" fill="none" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arr-green)"/>
+  <text x="315" y="282" font-size="12" font-weight="700" fill="#27ae60">DATA_P (довший шлях)</text>
+
+  <path d="M 248 310 L 310 310 L 430 310 L 435 300 L 445 320 L 455 300 L 465 320 L 475 300 L 485 320 L 490 310 L 665 310" fill="none" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arr-green)"/>
+  <text x="315" y="324" font-size="12" font-weight="700" fill="#27ae60">DATA_N</text>
+
+  <!-- Meander Callout Box -->
+  <rect x="375" y="332" width="240" height="36" rx="4" fill="white" stroke="#27ae60" stroke-width="1"/>
+  <text x="495" y="354" font-size="12" font-weight="700" text-anchor="middle" fill="#27ae60">Меандр компенсації фазового зсуву</text>
+
+  <!-- Bottom Box in Panel 2: Cross-Section Stackup Diagram -->
+  <rect x="302" y="388" width="386" height="110" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="495" y="406" font-size="13" font-weight="700" text-anchor="middle" fill="#1a1a1a">Поперечний зріз друкованої плати (Stackup)</text>
+
+  <!-- Layer 1 Microstrip Traces -->
+  <rect x="475" y="416" width="18" height="10" fill="#2457d6"/>
+  <rect x="510" y="416" width="18" height="10" fill="#2457d6"/>
+  <text x="484" y="414" font-size="12" font-weight="700" text-anchor="middle" fill="#2457d6">D+</text>
+  <text x="519" y="414" font-size="12" font-weight="700" text-anchor="middle" fill="#2457d6">D-</text>
+
+  <!-- Dielectric FR-4 layer -->
+  <rect x="325" y="426" width="340" height="32" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="335" y="446" font-size="12" fill="#6b7280">Діелектрик (FR-4, h)</text>
+  <text x="545" y="446" font-size="12" font-weight="700" fill="#2457d6">Z_diff = 100 Ом</text>
+
+  <!-- Solid GND Plane layer -->
+  <rect x="325" y="458" width="340" height="30" fill="#27ae60" opacity="0.3"/>
+  <text x="335" y="478" font-size="12" font-weight="700" fill="#27ae60">Суцільний шар заземлення (GND)</text>
+  <text x="545" y="478" font-size="12" fill="#6b7280">S = 2W, S_iso ≥ 3W</text>
+
+  <!-- Panel 3: Guidelines -->
+  <rect x="720" y="80" width="210" height="430" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Panel 3 Header Banner -->
+  <rect x="732" y="92" width="186" height="32" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="825" y="113" font-size="14" font-weight="700" text-anchor="middle" fill="#27ae60">Правила трасування</text>
+
+  <!-- Card 1: Impedance -->
+  <rect x="732" y="134" width="186" height="112" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="825" y="154" font-size="13" font-weight="700" text-anchor="middle" fill="#27ae60">1. Імпеданс 100 Ом</text>
+  <text x="742" y="174" font-size="12" fill="#1a1a1a">• Z_diff = 100 Ом (±10%)</text>
+  <text x="742" y="192" font-size="12" fill="#1a1a1a">• Однакова ширина W</text>
+  <text x="742" y="210" font-size="12" fill="#1a1a1a">• Постійний зазор S = 2W</text>
+  <text x="742" y="228" font-size="12" fill="#1a1a1a">• Без кутів 90° (лише 45°)</text>
+
+  <!-- Card 2: Phase Skew -->
+  <rect x="732" y="256" width="186" height="112" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="825" y="276" font-size="13" font-weight="700" text-anchor="middle" fill="#2457d6">2. Компенсація фази</text>
+  <text x="742" y="296" font-size="12" fill="#1a1a1a">• ΔL ≤ 0.15 мм для MIPI</text>
+  <text x="742" y="314" font-size="12" fill="#1a1a1a">• Меандр у точці зсуву</text>
+  <text x="742" y="332" font-size="12" fill="#1a1a1a">• Висота меандру ≤ 4W</text>
+  <text x="742" y="350" font-size="12" fill="#1a1a1a">• Радіус вигину R ≥ 3W</text>
+
+  <!-- Card 3: Power & GND -->
+  <rect x="732" y="378" width="186" height="120" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="825" y="398" font-size="13" font-weight="700" text-anchor="middle" fill="#27ae60">3. Живлення та GND</text>
+  <text x="742" y="418" font-size="12" fill="#1a1a1a">• C_dec &lt; 2 мм від BGA</text>
+  <text x="742" y="436" font-size="12" fill="#1a1a1a">• Короткі переходи GND</text>
+  <text x="742" y="454" font-size="12" fill="#1a1a1a">• Суцільний екран GND</text>
+  <text x="742" y="472" font-size="12" fill="#1a1a1a">• Ніяких розрізів під дифпарою</text>
+</svg>

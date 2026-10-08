@@ -1,0 +1,124 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="560" fill="#ffffff"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Розподіл і мультиплексування GPIO в ESP32-S3-CAM</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Використання Octal PSRAM та DVP камери обмежує вільні піни й вимагає 1-bit SDMMC або SPI</text>
+
+  <!-- Left Column: Peripherals -->
+  <!-- 1. Camera Module DVP -->
+  <rect x="30" y="85" width="270" height="115" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="165" y="110" font-size="14" font-weight="700" fill="#2457d6" text-anchor="middle">Модуль камери DVP (OV2640)</text>
+  <text x="165" y="132" font-size="12" fill="#1a1a1a" text-anchor="middle">Дані: D0–D7 (8 ліній)</text>
+  <text x="165" y="150" font-size="12" fill="#1a1a1a" text-anchor="middle">Строби: PCLK, VSYNC, HREF, XCLK</text>
+  <text x="165" y="168" font-size="12" fill="#1a1a1a" text-anchor="middle">Шина SCCB: SIOC, SIOD</text>
+  <text x="165" y="186" font-size="12" fill="#6b7280" text-anchor="middle">[Виділені GPIO4..18, GPIO38]</text>
+
+  <!-- 2. Octal SPI PSRAM -->
+  <rect x="30" y="215" width="270" height="115" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="165" y="240" font-size="14" font-weight="700" fill="#2457d6" text-anchor="middle">Octal SPI PSRAM (8 МБ)</text>
+  <text x="165" y="262" font-size="12" fill="#1a1a1a" text-anchor="middle">8-бітна паралельна шина OPI</text>
+  <text x="165" y="280" font-size="12" fill="#1a1a1a" text-anchor="middle">Лінії: GPIO33–37, GPIO39–42</text>
+  <text x="165" y="298" font-size="12" fill="#1a1a1a" text-anchor="middle">Тактування й вибір: CLK, CS</text>
+  <text x="165" y="316" font-size="12" fill="#6b7280" text-anchor="middle">[Конфлікт із 4-bit SDMMC та PDM]</text>
+
+  <!-- 3. Free GPIOs -->
+  <rect x="30" y="345" width="270" height="130" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="165" y="370" font-size="14" font-weight="700" fill="#27ae60" text-anchor="middle">Вільні GPIO (Периферія)</text>
+  <text x="165" y="392" font-size="12" fill="#1a1a1a" text-anchor="middle">GPIO1, GPIO2 (ADC / I2C Датчики)</text>
+  <text x="165" y="410" font-size="12" fill="#1a1a1a" text-anchor="middle">GPIO43, GPIO44 (UART0 Console)</text>
+  <text x="165" y="428" font-size="12" fill="#1a1a1a" text-anchor="middle">GPIO0 (Boot button / Режим завантаження)</text>
+  <text x="165" y="446" font-size="12" fill="#1a1a1a" text-anchor="middle">GPIO3 (Вільний вхід/вихід)</text>
+  <text x="165" y="464" font-size="12" fill="#27ae60" text-anchor="middle">[Доступні для розширення системи]</text>
+
+  <!-- Center Column: MCU Core -->
+  <rect x="345" y="85" width="270" height="390" rx="8" fill="#f4f6f8" stroke="#2457d6" stroke-width="2"/>
+  <text x="480" y="115" font-size="16" font-weight="700" fill="#2457d6" text-anchor="middle">ESP32-S3 SoC</text>
+  <text x="480" y="135" font-size="12" fill="#6b7280" text-anchor="middle">Мікроконтролерний модуль</text>
+
+  <!-- Inner Section 1: DVP Camera -->
+  <rect x="360" y="148" width="240" height="55" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="480" y="168" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">DVP &amp; SCCB Інтерфейси</text>
+  <text x="480" y="188" font-size="12" fill="#6b7280" text-anchor="middle">Захищений тракт PCLK і даних</text>
+
+  <!-- Inner Section 2: Octal PSRAM -->
+  <rect x="360" y="213" width="240" height="55" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="480" y="233" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Octal SPI Controller</text>
+  <text x="480" y="253" font-size="12" fill="#6b7280" text-anchor="middle">Займає GPIO33–37, GPIO39–42</text>
+
+  <!-- Inner Section 3: USB CDC/JTAG -->
+  <rect x="360" y="278" width="240" height="55" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="480" y="298" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">USB PHY Controller</text>
+  <text x="480" y="318" font-size="12" fill="#6b7280" text-anchor="middle">GPIO19 (D-), GPIO20 (D+)</text>
+
+  <!-- Inner Section 4: SDMMC / PDM conflict -->
+  <rect x="360" y="343" width="240" height="55" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="480" y="363" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">SDMMC / PDM Мультиплексор</text>
+  <text x="480" y="383" font-size="12" fill="#c0392b" text-anchor="middle">Обмеження: перемикання режимів</text>
+
+  <!-- Inner Section 5: Free GPIO Pins -->
+  <rect x="360" y="408" width="240" height="55" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="480" y="428" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">Вільна периферія (GPIO Matrix)</text>
+  <text x="480" y="448" font-size="12" fill="#27ae60" text-anchor="middle">GPIO0, 1, 2, 3, 43, 44</text>
+
+  <!-- Right Column: Peripherals -->
+  <!-- 1. USB CDC / JTAG -->
+  <rect x="660" y="85" width="270" height="115" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="795" y="110" font-size="14" font-weight="700" fill="#2457d6" text-anchor="middle">USB CDC / JTAG (Нативний)</text>
+  <text x="795" y="132" font-size="12" fill="#1a1a1a" text-anchor="middle">Нативний USB 2.0 Full Speed</text>
+  <text x="795" y="150" font-size="12" fill="#1a1a1a" text-anchor="middle">Лінії: GPIO19 (D-), GPIO20 (D+)</text>
+  <text x="795" y="168" font-size="12" fill="#1a1a1a" text-anchor="middle">Прошивка та відлагодження</text>
+  <text x="795" y="186" font-size="12" fill="#6b7280" text-anchor="middle">[Не потребує зовнішнього UART]</text>
+
+  <!-- 2. SD Card (SDMMC / SPI) -->
+  <rect x="660" y="215" width="270" height="115" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="795" y="240" font-size="14" font-weight="700" fill="#c0392b" text-anchor="middle">Слот SD-карти (SDMMC / SPI)</text>
+  <text x="795" y="262" font-size="12" fill="#c0392b" text-anchor="middle">⛔ 4-bit SDMMC блоковано PSRAM</text>
+  <text x="795" y="280" font-size="12" fill="#1a1a1a" text-anchor="middle">Рекомендовано: 1-bit SDMMC або SPI</text>
+  <text x="795" y="298" font-size="12" fill="#1a1a1a" text-anchor="middle">Підключення через вільні GPIO</text>
+  <text x="795" y="316" font-size="12" fill="#27ae60" text-anchor="middle">[Збереження працездатності PSRAM]</text>
+
+  <!-- 3. PDM Microphone -->
+  <rect x="660" y="345" width="270" height="130" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="795" y="370" font-size="14" font-weight="700" fill="#c0392b" text-anchor="middle">PDM Цифровий мікрофон</text>
+  <text x="795" y="392" font-size="12" fill="#1a1a1a" text-anchor="middle">Аудіовхід: CLK, DAT</text>
+  <text x="795" y="410" font-size="12" fill="#c0392b" text-anchor="middle">⚠️ Спільні піни: GPIO41, GPIO42</text>
+  <text x="795" y="428" font-size="12" fill="#1a1a1a" text-anchor="middle">Потрібне розділення в часі</text>
+  <text x="795" y="446" font-size="12" fill="#1a1a1a" text-anchor="middle">Або перехід на I2S на вільних пінах</text>
+  <text x="795" y="464" font-size="12" fill="#6b7280" text-anchor="middle">[Вимагає обережності в коді]</text>
+
+  <!-- Connectors / Lines -->
+  <!-- Left to Center -->
+  <line x1="300" y1="142" x2="345" y2="175" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <line x1="300" y1="272" x2="345" y2="240" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <line x1="300" y1="410" x2="345" y2="435" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <!-- Center to Right -->
+  <line x1="615" y1="305" x2="660" y2="142" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <line x1="615" y1="370" x2="660" y2="272" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <line x1="615" y1="370" x2="660" y2="410" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+
+  <!-- Legend Panel -->
+  <rect x="30" y="490" width="900" height="50" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="45" y="507" width="16" height="16" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="68" y="520" font-size="12" fill="#1a1a1a">Виділені шини (DVP / PSRAM / USB)</text>
+
+  <rect x="330" y="507" width="16" height="16" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="353" y="520" font-size="12" fill="#1a1a1a">Конфлікт пінів (Octal PSRAM ↔ SDMMC / PDM)</text>
+
+  <rect x="670" y="507" width="16" height="16" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="693" y="520" font-size="12" fill="#1a1a1a">Вільні GPIO / 1-bit розв'язок</text>
+</svg>

@@ -1,0 +1,117 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-blue-rev" markerWidth="9" markerHeight="9" refX="1.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <text x="480" y="35" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Топологія ESP-Hosted: підключення бездротового співпроцесора до ESP32-P4</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Хост ESP32-P4 виконує застосунок та стек LwIP, а ESP32-C3/C6 керує Wi-Fi/Bluetooth через SDIO/SPI</text>
+
+  <!-- LEFT PANEL: ESP32-P4 (HOST) -->
+  <rect x="30" y="85" width="360" height="345" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2" rx="8"/>
+  <text x="210" y="112" font-size="15" font-weight="700" fill="#1a1a1a" text-anchor="middle">ESP32-P4 (Хост-контролер)</text>
+  <text x="210" y="130" font-size="12" fill="#6b7280" text-anchor="middle">High-Performance MCU (двоядерне RISC-V HP-ядро)</text>
+
+  <!-- Sub-block 1 (Host Application) -->
+  <rect x="48" y="145" width="324" height="48" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="5"/>
+  <text x="210" y="165" font-size="13" font-weight="700" fill="#2457d6" text-anchor="middle">Прикладне ПЗ / HMI / TinyML</text>
+  <text x="210" y="181" font-size="12" fill="#2457d6" text-anchor="middle">Застосунок користувача та бізнес-логіка (ESP-IDF)</text>
+
+  <!-- Down arrow 1 -->
+  <line x1="210" y1="193" x2="210" y2="204" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Sub-block 2 (Host Network Stack) -->
+  <rect x="48" y="205" width="324" height="72" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5" rx="5"/>
+  <text x="210" y="224" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">Мережевий стек Хоста (ESP-HOSTED Driver)</text>
+  <text x="210" y="243" font-size="12" fill="#1a1a1a" text-anchor="middle">Стек TCP/IP (LwIP) + Віртуальний netif (esp_netif)</text>
+  <text x="210" y="261" font-size="12" fill="#6b7280" text-anchor="middle">Драйвер транспорту та упакування RPC/Protobuf</text>
+
+  <!-- Down arrow 2 -->
+  <line x1="210" y1="277" x2="210" y2="288" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Sub-block 3 (Host Peripherals) -->
+  <rect x="48" y="289" width="324" height="125" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5" rx="5"/>
+  <text x="210" y="308" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">Апаратний інтерфейс Хоста</text>
+
+  <!-- Inner Box 3a: GPIO Control -->
+  <rect x="60" y="318" width="140" height="50" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="4"/>
+  <text x="130" y="338" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">GPIO Handshake</text>
+  <text x="130" y="355" font-size="12" fill="#2457d6" text-anchor="middle">Interrupt / EN / Reset</text>
+
+  <!-- Inner Box 3b: SDIO / SPI Host Controller -->
+  <rect x="212" y="318" width="148" height="50" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="4"/>
+  <text x="286" y="338" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">SDIO 2.0 / SPI Host</text>
+  <text x="286" y="355" font-size="12" fill="#2457d6" text-anchor="middle">Контролер шини (Master)</text>
+
+  <!-- Host note bottom -->
+  <text x="210" y="398" font-size="12" fill="#6b7280" text-anchor="middle">Обробка бездротового трафіку без навантаження на CPU</text>
+
+
+  <!-- RIGHT PANEL: ESP32-C3 / ESP32-C6 (SLAVE) -->
+  <rect x="570" y="85" width="360" height="345" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2" rx="8"/>
+  <text x="750" y="112" font-size="15" font-weight="700" fill="#1a1a1a" text-anchor="middle">ESP32-C3 / ESP32-C6 (Співпроцесор)</text>
+  <text x="750" y="130" font-size="12" fill="#6b7280" text-anchor="middle">Wireless Coprocessor (Slave Firmware)</text>
+
+  <!-- Sub-block 1 (Radio RF & Subsystem) -->
+  <rect x="588" y="145" width="324" height="48" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="5"/>
+  <text x="750" y="165" font-size="13" font-weight="700" fill="#27ae60" text-anchor="middle">Радіомодуль Wi-Fi 6 / Bluetooth 5 (LE)</text>
+  <text x="750" y="181" font-size="12" fill="#27ae60" text-anchor="middle">RF Transceiver, 802.15.4 (Zigbee/Thread) та антена</text>
+
+  <!-- Up arrow 1 -->
+  <line x1="750" y1="205" x2="750" y2="194" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <!-- Sub-block 2 (Slave Stack / Firmware) -->
+  <rect x="588" y="205" width="324" height="72" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5" rx="5"/>
+  <text x="750" y="224" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">Прошивка ESP-Hosted Slave</text>
+  <text x="750" y="243" font-size="12" fill="#1a1a1a" text-anchor="middle">802.11 MAC/PHY Driver + HCI Controller (Bluetooth)</text>
+  <text x="750" y="261" font-size="12" fill="#6b7280" text-anchor="middle">Трансляція кадрів між шиною та радіоефіром</text>
+
+  <!-- Up arrow 2 -->
+  <line x1="750" y1="289" x2="750" y2="278" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <!-- Sub-block 3 (Slave Peripherals) -->
+  <rect x="588" y="289" width="324" height="125" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5" rx="5"/>
+  <text x="750" y="308" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">Апаратний інтерфейс Співпроцесора</text>
+
+  <!-- Inner Box 3a: SDIO / SPI Slave Controller -->
+  <rect x="600" y="318" width="148" height="50" fill="#e9f7ef" stroke="#27ae60" stroke-width="1" rx="4"/>
+  <text x="674" y="338" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">SDIO / SPI Slave</text>
+  <text x="674" y="355" font-size="12" fill="#27ae60" text-anchor="middle">Контролер шини (Slave)</text>
+
+  <!-- Inner Box 3b: Data Ready / GPIO -->
+  <rect x="760" y="318" width="140" height="50" fill="#e9f7ef" stroke="#27ae60" stroke-width="1" rx="4"/>
+  <text x="830" y="338" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">GPIO Data Ready</text>
+  <text x="830" y="355" font-size="12" fill="#27ae60" text-anchor="middle">Сигнал готовності даних</text>
+
+  <!-- Slave note bottom -->
+  <text x="750" y="398" font-size="12" fill="#6b7280" text-anchor="middle">Апаратна обробка зв'язку та шифрування WPA3</text>
+
+
+  <!-- MIDDLE INTERCONNECT AREA (x=390 to 570) -->
+
+  <!-- Interconnect Bus 1: High Speed SDIO/SPI Bus Data Line -->
+  <text x="480" y="312" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">Шина SDIO 2.0 / SPI</text>
+  <text x="480" y="328" font-size="12" fill="#6b7280" text-anchor="middle">CLK, CMD, D0-D3 / MOSI, MISO, CS</text>
+  
+  <line x1="360" y1="343" x2="600" y2="343" stroke="#2457d6" stroke-width="2.5" marker-start="url(#arr-blue-rev)" marker-end="url(#arr-blue)"/>
+
+  <!-- Interconnect Bus 2: GPIO Handshake & Interrupt Line -->
+  <line x1="200" y1="368" x2="200" y2="380" stroke="#1a1a1a" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <line x1="200" y1="380" x2="760" y2="380" stroke="#1a1a1a" stroke-width="1.5" stroke-dasharray="3,3" marker-start="url(#arr-dark)" marker-end="url(#arr-dark)"/>
+  <line x1="760" y1="380" x2="760" y2="368" stroke="#1a1a1a" stroke-width="1.5" stroke-dasharray="3,3"/>
+
+  <text x="480" y="373" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Handshake &amp; Control (GPIO / EN)</text>
+  <text x="480" y="396" font-size="12" fill="#6b7280" text-anchor="middle">Data Ready Interrupts + Chip Reset</text>
+</svg>

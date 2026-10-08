@@ -1032,7 +1032,7 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
+            "status": "done"
           }
         },
         {
@@ -1042,7 +1042,7 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
+            "status": "done"
           }
         },
         {
@@ -1052,7 +1052,7 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
+            "status": "done"
           }
         },
         {
@@ -1069,21 +1069,73 @@
           "slug": "esp32-p4-microcontroller",
           "title": "Мікроконтролер ESP32-P4",
           "basic": {
-            "status": "empty"
+            "status": "done"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "done"
+          },
+          "api": [
+            {
+              "file": "api-esp32-p4-mipi-driver-and-isp-hal.md",
+              "status": "done"
+            },
+            {
+              "file": "api-esp32-p4-pinout-and-hardware-interface.md",
+              "status": "done"
+            },
+            {
+              "file": "api-esp32-p4-power-management-and-lp-core.md",
+              "status": "done"
+            }
+          ],
+          "hist": [
+            {
+              "file": "hist-esp32-p4-architecture-evolution.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-esp32-p4-memory-bandwidth-and-frame-buffer.md",
+              "status": "done"
+            },
+            {
+              "file": "math-esp32-p4-riscv-vector-tinyml-throughput.md",
+              "status": "done"
+            }
+          ]
         },
         {
           "slug": "esp32-s3-cam-boards-overview",
           "title": "Плати відеозахоплення нового покоління на базі ESP32-S3",
           "basic": {
-            "status": "empty"
+            "status": "done"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "done"
+          },
+          "api": [
+            {
+              "file": "api-esp-camera-driver.md",
+              "status": "done"
+            },
+            {
+              "file": "api-esp32-s3-cam-hardware-interface.md",
+              "status": "done"
+            }
+          ],
+          "hist": [
+            {
+              "file": "hist-esp32-cam-evolution.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-dvp-frame-buffer-bandwidth.md",
+              "status": "done"
+            }
+          ]
         },
         {
           "slug": "esp32-s3-octal-spi-bus-layout",
@@ -1092,18 +1144,36 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
+            "status": "done"
           }
         },
         {
           "slug": "esp32-s3-efuse-and-boot-configuration",
           "title": "Конфігурація eFuse та апаратне завантаження ESP32-S3",
           "basic": {
-            "status": "empty"
+            "status": "done"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "done"
+          },
+          "api": [
+            {
+              "file": "api-esp32s3-efuse-esp-idf-hal-api.md",
+              "status": "done"
+            }
+          ],
+          "hist": [
+            {
+              "file": "hist-esp32-boot-efuse-evolution.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-strapping-pins-rc-timing-budget.md",
+              "status": "done"
+            }
+          ]
         }
       ]
     },
@@ -1894,21 +1964,69 @@
           "slug": "esp-at-command-set-overview",
           "title": "Огляд базового командного інтерфейсу ESP-AT",
           "basic": {
-            "status": "empty"
+            "status": "done"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "done"
+          },
+          "api": [
+            {
+              "file": "api-esp-at-basic-commands.md",
+              "status": "done"
+            },
+            {
+              "file": "api-esp-at-hardware-interface.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-uart-timing-and-timeouts.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-esp-at-host-parser-fsm.md",
+              "status": "done"
+            },
+            {
+              "file": "proj-esp-at-terminal-config.md",
+              "status": "done"
+            }
+          ]
         },
         {
           "slug": "lwip-architecture-esp8266",
           "title": "Архітектура мережевого стека lwIP у ESP8266",
           "basic": {
-            "status": "empty"
+            "status": "done"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "done"
+          },
+          "api": [
+            {
+              "file": "api-esp8266-netif-driver.md",
+              "status": "done"
+            },
+            {
+              "file": "api-lwip-raw-api.md",
+              "status": "done"
+            }
+          ],
+          "hist": [
+            {
+              "file": "hist-lwip-esp8266-evolution.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-lwip-memory-and-window-math.md",
+              "status": "done"
+            }
+          ]
         },
         {
           "slug": "esp8266-at-firmware-architecture",
@@ -1917,8 +2035,34 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "done"
+          },
+          "api": [
+            {
+              "file": "api-esp8266-at-hardware-uart-pinout-interface.md",
+              "status": "done"
+            },
+            {
+              "file": "api-esp8266-at-system-and-socket-commands-api.md",
+              "status": "done"
+            }
+          ],
+          "hist": [
+            {
+              "file": "hist-esp8266-at-firmware-evolution.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-esp8266-at-dram-heap-budget-and-sockets.md",
+              "status": "done"
+            },
+            {
+              "file": "math-esp8266-at-uart-wifi-buffer-throughput.md",
+              "status": "done"
+            }
+          ]
         },
         {
           "slug": "mbedtls-embedded-crypto-library",
@@ -1977,7 +2121,7 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
+            "status": "done"
           }
         },
         {
@@ -1987,7 +2131,7 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
+            "status": "done"
           }
         }
       ]
@@ -2118,7 +2262,7 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
+            "status": "done"
           }
         }
       ]
@@ -2474,7 +2618,7 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
+            "status": "done"
           }
         },
         {
@@ -2484,7 +2628,7 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
+            "status": "done"
           }
         }
       ]
@@ -2593,7 +2737,7 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
+            "status": "done"
           }
         }
       ]

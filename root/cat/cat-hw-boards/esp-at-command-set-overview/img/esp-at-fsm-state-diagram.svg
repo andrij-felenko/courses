@@ -1,0 +1,105 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="8" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="8" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="8" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="8" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Canvas Background -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Header and Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Скінченний автомат (FSM) парсингу AT-відповідей ESP</text>
+  <text x="480" y="52" font-size="13" text-anchor="middle" fill="#6b7280">Потокова обробка символів з буфера з відстеженням термінаторів \r\n та виявленням таймауту</text>
+
+  <!-- Workspace Container Panel -->
+  <rect x="30" y="70" width="900" height="425" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Transitions (Lines & Paths) -->
+  
+  <!-- 0. Start / Reset -> IDLE -->
+  <path d="M 45,187.5 H 70" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="57" y="173" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Старт</text>
+
+  <!-- 1. IDLE -> SEARCH_CR -->
+  <path d="M 210,187.5 H 290" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="250" y="173" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">rx_len &gt; 0</text>
+
+  <!-- 2. SEARCH_CR Self-Loop (non-CR characters) -->
+  <path d="M 345,150 V 115 H 375 V 150" stroke="#1a1a1a" stroke-width="2" fill="none" marker-end="url(#arr-dark)"/>
+  <text x="360" y="103" font-size="12" fill="#1a1a1a" text-anchor="middle">ch != &apos;\r&apos;</text>
+
+  <!-- 3. SEARCH_CR -> SEARCH_LF -->
+  <path d="M 430,187.5 H 510" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="470" y="173" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">ch == &apos;\r&apos;</text>
+
+  <!-- 4. SEARCH_LF -> PROCESS_LINE -->
+  <path d="M 650,187.5 H 730" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="690" y="173" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">ch == &apos;\n&apos;</text>
+
+  <!-- 5. SEARCH_LF -> SEARCH_CR (Fail LF) -->
+  <path d="M 560,225 V 265 H 400 V 225" stroke="#c0392b" stroke-width="2" stroke-dasharray="4,4" fill="none" marker-end="url(#arr-red)"/>
+  <text x="480" y="280" font-size="12" fill="#c0392b" text-anchor="middle">ch != &apos;\n&apos;</text>
+
+  <!-- 6. PROCESS_LINE -> IDLE (Reset after process) -->
+  <path d="M 810,150 V 95 H 140 V 150" stroke="#27ae60" stroke-width="2" fill="none" marker-end="url(#arr-green)"/>
+  <text x="475" y="83" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Рядок оброблено / Скидання буфера</text>
+
+  <!-- 7a. SEARCH_CR -> TIMEOUT -->
+  <path d="M 330,225 V 340 H 430 V 380" stroke="#c0392b" stroke-width="2" stroke-dasharray="4,4" fill="none" marker-end="url(#arr-red)"/>
+
+  <!-- 7b. SEARCH_LF -> TIMEOUT -->
+  <path d="M 610,225 V 340 H 530 V 380" stroke="#c0392b" stroke-width="2" stroke-dasharray="4,4" fill="none" marker-end="url(#arr-red)"/>
+  <text x="480" y="330" font-size="12" fill="#c0392b" text-anchor="middle">timer_expired (таймаут)</text>
+
+  <!-- 8. TIMEOUT -> IDLE -->
+  <path d="M 360,417.5 H 140 V 225" stroke="#c0392b" stroke-width="2" fill="none" marker-end="url(#arr-red)"/>
+  <text x="250" y="433" font-size="12" fill="#c0392b" text-anchor="middle">Скидання за помилкою</text>
+
+  <!-- State Nodes (Rectangles & Text) -->
+  
+  <!-- Node 1: IDLE -->
+  <rect x="70" y="150" width="140" height="75" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="140" y="180" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">IDLE</text>
+  <text x="140" y="200" font-size="12" fill="#6b7280" text-anchor="middle">Очікування даних</text>
+
+  <!-- Node 2: SEARCH_CR -->
+  <rect x="290" y="150" width="140" height="75" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="2"/>
+  <text x="360" y="180" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">SEARCH_CR</text>
+  <text x="360" y="200" font-size="12" fill="#6b7280" text-anchor="middle">Пошук &apos;\r&apos;</text>
+
+  <!-- Node 3: SEARCH_LF -->
+  <rect x="510" y="150" width="140" height="75" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="2"/>
+  <text x="580" y="180" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">SEARCH_LF</text>
+  <text x="580" y="200" font-size="12" fill="#6b7280" text-anchor="middle">Очікування &apos;\n&apos;</text>
+
+  <!-- Node 4: PROCESS_LINE -->
+  <rect x="730" y="150" width="160" height="75" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <text x="810" y="180" font-size="14" font-weight="bold" fill="#27ae60" text-anchor="middle">PROCESS_LINE</text>
+  <text x="810" y="200" font-size="12" fill="#6b7280" text-anchor="middle">Парсинг OK/ERROR</text>
+
+  <!-- Node 5: TIMEOUT -->
+  <rect x="360" y="380" width="240" height="75" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="2"/>
+  <text x="480" y="410" font-size="14" font-weight="bold" fill="#c0392b" text-anchor="middle">TIMEOUT</text>
+  <text x="480" y="430" font-size="12" fill="#6b7280" text-anchor="middle">Перевищення часу очікування</text>
+
+  <!-- Legend Panel -->
+  <rect x="650" y="375" width="250" height="90" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="665" y="395" font-size="12" font-weight="bold" fill="#1a1a1a">Умовні позначення:</text>
+  <rect x="665" y="407" width="10" height="10" rx="2" fill="#27ae60"/>
+  <text x="682" y="416" font-size="12" fill="#1a1a1a">Успішне виділення рядка</text>
+  <rect x="665" y="425" width="10" height="10" rx="2" fill="#c0392b"/>
+  <text x="682" y="434" font-size="12" fill="#1a1a1a">Помилка / Таймаут таймера</text>
+  <rect x="665" y="443" width="10" height="10" rx="2" fill="#2457d6"/>
+  <text x="682" y="452" font-size="12" fill="#1a1a1a">Основний потік парсингу</text>
+
+</svg>

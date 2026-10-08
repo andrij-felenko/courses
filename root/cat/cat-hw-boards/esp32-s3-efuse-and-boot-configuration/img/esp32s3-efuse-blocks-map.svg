@@ -1,0 +1,96 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Заголовок та підзаголовок -->
+  <text x="480" y="38" text-anchor="middle" font-size="18" font-weight="700" fill="#1a1a1a">Карта блоків eFuse в ESP32-S3: від фізичних комірок BLK0–BLK10 до API</text>
+  <text x="480" y="60" text-anchor="middle" font-size="13" fill="#6b7280">Фізична OTP-пам'ять розділена на 11 блоків: BLK0 регулює захист, а BLK1–BLK10 містять дані й ключі</text>
+
+  <!-- Легенда -->
+  <rect x="30" y="80" width="900" height="36" rx="6" fill="#f4f6f8" stroke="#d0d7de"/>
+  <rect x="45" y="90" width="16" height="16" rx="3" fill="#fdecea" stroke="#c0392b"/>
+  <text x="68" y="103" font-size="12" fill="#1a1a1a">Захист (RD/WR_DIS)</text>
+
+  <rect x="240" y="90" width="16" height="16" rx="3" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="263" y="103" font-size="12" fill="#1a1a1a">Система (SYS_DATA)</text>
+
+  <rect x="440" y="90" width="16" height="16" rx="3" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="463" y="103" font-size="12" fill="#1a1a1a">Користувач (USER_DATA)</text>
+
+  <rect x="660" y="90" width="16" height="16" rx="3" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="683" y="103" font-size="12" fill="#1a1a1a">Ключі (KEY0..KEY6 / Secure Boot)</text>
+
+  <!-- Ліва панель: Фізичні блоки -->
+  <rect x="30" y="130" width="435" height="400" rx="8" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="247" y="155" text-anchor="middle" font-size="14" font-weight="700" fill="#1a1a1a">Фізичні блоки OTP (EFUSE_BLK0 – BLK10)</text>
+
+  <!-- BLK0 -->
+  <rect x="45" y="170" width="405" height="72" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="58" y="190" font-size="13" font-weight="700" fill="#c0392b">EFUSE_BLK0 (256 біт) — Захист та системний контроль</text>
+  <text x="58" y="210" font-size="12" fill="#1a1a1a">• RD_DIS (8 біт): Заборона читання блоків KEY0..KEY5</text>
+  <text x="58" y="228" font-size="12" fill="#1a1a1a">• WR_DIS (32 біт): Заборона випалювання комірок пам'яті</text>
+
+  <!-- BLK1-BLK2 -->
+  <rect x="45" y="254" width="405" height="56" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="58" y="274" font-size="13" font-weight="700" fill="#2457d6">EFUSE_BLK1 – BLK2 — Системні дані (SYS_DATA)</text>
+  <text x="58" y="294" font-size="12" fill="#1a1a1a">Заводський MAC-адрес, калібрування ADC, SPI Flash pins</text>
+
+  <!-- BLK3 -->
+  <rect x="45" y="322" width="405" height="56" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="58" y="342" font-size="13" font-weight="700" fill="#1a1a1a">EFUSE_BLK3 — Користувацькі дані (USER_DATA)</text>
+  <text x="58" y="362" font-size="12" fill="#6b7280">256 біт для користувацьких даних і серійних номерів</text>
+
+  <!-- BLK4-BLK10 -->
+  <rect x="45" y="390" width="405" height="128" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="58" y="410" font-size="13" font-weight="700" fill="#27ae60">EFUSE_BLK4 – BLK10 (6 × 256 біт) — Ключі безпеки</text>
+  <text x="58" y="430" font-size="12" fill="#1a1a1a">• KEY0 .. KEY5: Flash Encryption &amp; Secure Boot Digest</text>
+  <text x="58" y="448" font-size="12" fill="#1a1a1a">• KEY_PURPOSE0..5: Назначення ключів (HMAC, DS, FE)</text>
+  <text x="58" y="466" font-size="12" fill="#1a1a1a">• Одноразовий запис (OTP): 0 → 1 є незворотним</text>
+  <text x="58" y="490" font-size="12" font-weight="700" fill="#c0392b">⚠️ При встановленому RD_DIS читання повертає 0x00</text>
+
+  <!-- Права панель: ESP-IDF API -->
+  <rect x="495" y="130" width="435" height="400" rx="8" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="712" y="155" text-anchor="middle" font-size="14" font-weight="700" fill="#1a1a1a">Логіка доступу ESP-IDF C-API (esp_efuse.h)</text>
+
+  <!-- API Cards -->
+  <rect x="510" y="170" width="405" height="106" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="523" y="190" font-size="13" font-weight="700" fill="#2457d6">C-API фреймворку ESP-IDF (esp_efuse.h)</text>
+  <text x="523" y="210" font-size="12" font-weight="700" fill="#1a1a1a">esp_efuse_read_field_blob(ESP_EFUSE_..., buf, len)</text>
+  <text x="523" y="230" font-size="12" font-weight="700" fill="#1a1a1a">esp_efuse_write_field_blob(ESP_EFUSE_..., buf, len)</text>
+  <text x="523" y="252" font-size="12" fill="#6b7280">Автоматичне мапування полів у таблиці esp_efuse_table.h</text>
+
+  <!-- Security Logic Card -->
+  <rect x="510" y="288" width="405" height="110" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="523" y="308" font-size="13" font-weight="700" fill="#c0392b">Механізм апаратного захисту при доступі</text>
+  <text x="523" y="328" font-size="12" fill="#1a1a1a">1. Читання: RD_DIS = 1 ➔ Блокування (повертає нулі)</text>
+  <text x="523" y="348" font-size="12" fill="#1a1a1a">2. Запис: WR_DIS = 1 ➔ Помилка ESP_ERR_EFUSE_CNT_IS_FULL</text>
+  <text x="523" y="368" font-size="12" fill="#1a1a1a">3. Спроба зміни 1 ➔ 0: Ігнорується контролером eFuse</text>
+  <text x="523" y="386" font-size="12" font-weight="700" fill="#c0392b">⚠️ Операції випалювання незворотні та верифікуються</text>
+
+  <!-- Boot Integration Card -->
+  <rect x="510" y="410" width="405" height="108" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="523" y="430" font-size="13" font-weight="700" fill="#27ae60">Інтеграція з Апаратним Завантаженням</text>
+  <text x="523" y="450" font-size="12" fill="#1a1a1a">• ROM Bootloader звіряє хеш прошивки з Secure Boot Key</text>
+  <text x="523" y="470" font-size="12" fill="#1a1a1a">• Контролер Flash Encryption апаратно шифрує шину SPI</text>
+  <text x="523" y="490" font-size="12" fill="#6b7280">• Ключі HMAC та Digital Signature недоступні з CPU</text>
+
+  <!-- Стрілки зв'язку -->
+  <line x1="450" y1="210" x2="502" y2="210" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <line x1="450" y1="340" x2="502" y2="340" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <line x1="450" y1="464" x2="502" y2="464" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+</svg>

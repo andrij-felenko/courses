@@ -1,0 +1,124 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 500" width="960" height="500" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="500" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="700" text-anchor="middle" fill="#1a1a1a">Структура кодування Reed-Solomon у блоках eFuse ESP32-S3</text>
+  <text x="480" y="54" font-size="13" text-anchor="middle" fill="#6b7280">Схеми RS(12, 8) та RS(3, 1) формують перевірочні байти ECC для захисту даних у полях GF(2⁸)</text>
+
+  <!-- Panel 1: RS(12, 8) Scheme -->
+  <rect x="30" y="75" width="900" height="200" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="50" y="98" font-size="14" font-weight="700" fill="#1a1a1a">Схема RS(12, 8): 8 байтів даних + 4 контрольні байти ECC (N = 12, K = 8)</text>
+  <text x="50" y="118" font-size="12" fill="#6b7280">Автоматичне виправлення до 2 спотворених байтів або виявлення до 4 помилок у слові</text>
+
+  <!-- Data Bytes D0..D7 -->
+  <rect x="52" y="135" width="64" height="48" rx="4" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="84" y="156" font-size="13" font-weight="700" text-anchor="middle" fill="#1a1a1a">D₀</text>
+  <text x="84" y="173" font-size="11" text-anchor="middle" fill="#6b7280">Байт 0</text>
+
+  <rect x="124" y="135" width="64" height="48" rx="4" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="156" y="156" font-size="13" font-weight="700" text-anchor="middle" fill="#1a1a1a">D₁</text>
+  <text x="156" y="173" font-size="11" text-anchor="middle" fill="#6b7280">Байт 1</text>
+
+  <rect x="196" y="135" width="64" height="48" rx="4" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="228" y="156" font-size="13" font-weight="700" text-anchor="middle" fill="#1a1a1a">D₂</text>
+  <text x="228" y="173" font-size="11" text-anchor="middle" fill="#6b7280">Байт 2</text>
+
+  <rect x="268" y="135" width="64" height="48" rx="4" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="300" y="156" font-size="13" font-weight="700" text-anchor="middle" fill="#1a1a1a">D₃</text>
+  <text x="300" y="173" font-size="11" text-anchor="middle" fill="#6b7280">Байт 3</text>
+
+  <rect x="340" y="135" width="64" height="48" rx="4" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="372" y="156" font-size="13" font-weight="700" text-anchor="middle" fill="#1a1a1a">D₄</text>
+  <text x="372" y="173" font-size="11" text-anchor="middle" fill="#6b7280">Байт 4</text>
+
+  <rect x="412" y="135" width="64" height="48" rx="4" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="444" y="156" font-size="13" font-weight="700" text-anchor="middle" fill="#1a1a1a">D₅</text>
+  <text x="444" y="173" font-size="11" text-anchor="middle" fill="#6b7280">Байт 5</text>
+
+  <rect x="484" y="135" width="64" height="48" rx="4" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="516" y="156" font-size="13" font-weight="700" text-anchor="middle" fill="#1a1a1a">D₆</text>
+  <text x="516" y="173" font-size="11" text-anchor="middle" fill="#6b7280">Байт 6</text>
+
+  <rect x="556" y="135" width="64" height="48" rx="4" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="588" y="156" font-size="13" font-weight="700" text-anchor="middle" fill="#1a1a1a">D₇</text>
+  <text x="588" y="173" font-size="11" text-anchor="middle" fill="#6b7280">Байт 7</text>
+
+  <!-- ECC Bytes C0..C3 -->
+  <rect x="636" y="135" width="64" height="48" rx="4" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="668" y="156" font-size="13" font-weight="700" text-anchor="middle" fill="#1a1a1a">C₀</text>
+  <text x="668" y="173" font-size="11" text-anchor="middle" fill="#6b7280">ECC 0</text>
+
+  <rect x="708" y="135" width="64" height="48" rx="4" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="740" y="156" font-size="13" font-weight="700" text-anchor="middle" fill="#1a1a1a">C₁</text>
+  <text x="740" y="173" font-size="11" text-anchor="middle" fill="#6b7280">ECC 1</text>
+
+  <rect x="780" y="135" width="64" height="48" rx="4" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="812" y="156" font-size="13" font-weight="700" text-anchor="middle" fill="#1a1a1a">C₂</text>
+  <text x="812" y="173" font-size="11" text-anchor="middle" fill="#6b7280">ECC 2</text>
+
+  <rect x="852" y="135" width="64" height="48" rx="4" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="884" y="156" font-size="13" font-weight="700" text-anchor="middle" fill="#1a1a1a">C₃</text>
+  <text x="884" y="173" font-size="11" text-anchor="middle" fill="#6b7280">ECC 3</text>
+
+  <!-- Labels for Data vs ECC Groups -->
+  <rect x="52" y="192" width="568" height="22" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-dasharray="3,3"/>
+  <text x="336" y="207" font-size="12" font-weight="700" text-anchor="middle" fill="#2457d6">8 Інформаційних байтів (K = 8, 64 біти)</text>
+
+  <rect x="636" y="192" width="280" height="22" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-dasharray="3,3"/>
+  <text x="776" y="207" font-size="12" font-weight="700" text-anchor="middle" fill="#27ae60">4 Контрольні байти ECC (2t = 4, 32 біти)</text>
+
+  <!-- Footer bar RS(12,8) -->
+  <rect x="52" y="224" width="864" height="34" rx="4" fill="white" stroke="#d0d7de"/>
+  <text x="68" y="245" font-size="12" fill="#1a1a1a">Довжина слова N = 12 B (96 бітів)  |  Надлишковість: (12 - 8) / 8 = 50%  |  Поле Галуа: GF(2⁸)</text>
+
+  <!-- Panel 2: RS(3, 1) Scheme -->
+  <rect x="30" y="290" width="435" height="190" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="50" y="313" font-size="14" font-weight="700" fill="#1a1a1a">Схема RS(3, 1): Потроєний захист байта</text>
+  <text x="50" y="331" font-size="12" fill="#6b7280">1 байт даних (K = 1) + 2 байти ECC (2t = 2)</text>
+
+  <rect x="52" y="346" width="110" height="50" rx="4" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="107" y="368" font-size="14" font-weight="700" text-anchor="middle" fill="#1a1a1a">D₀</text>
+  <text x="107" y="386" font-size="11" text-anchor="middle" fill="#2457d6">Дані (1 B)</text>
+
+  <rect x="174" y="346" width="110" height="50" rx="4" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="229" y="368" font-size="14" font-weight="700" text-anchor="middle" fill="#1a1a1a">C₀</text>
+  <text x="229" y="386" font-size="11" text-anchor="middle" fill="#27ae60">ECC 0 (1 B)</text>
+
+  <rect x="296" y="346" width="110" height="50" rx="4" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="351" y="368" font-size="14" font-weight="700" text-anchor="middle" fill="#1a1a1a">C₁</text>
+  <text x="351" y="386" font-size="11" text-anchor="middle" fill="#27ae60">ECC 1 (1 B)</text>
+
+  <rect x="52" y="410" width="354" height="56" rx="4" fill="white" stroke="#d0d7de"/>
+  <text x="64" y="430" font-size="12" font-weight="700" fill="#1a1a1a">Надлишковість 200% (потроєний обсяг)</text>
+  <text x="64" y="451" font-size="11" fill="#6b7280">Виправлення 1 спотвореного байта у кодовому триплеті</text>
+
+  <!-- Panel 3: Layout in eFuse Blocks EFUSE_BLK1..BLK10 -->
+  <rect x="480" y="290" width="450" height="190" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="500" y="313" font-size="14" font-weight="700" fill="#1a1a1a">Структурний блок eFuse (EFUSE_BLK1–BLK10)</text>
+  <text x="500" y="331" font-size="12" fill="#6b7280">Загальний обсяг блока eFuse з урахуванням RS ECC: 48 байтів</text>
+
+  <rect x="500" y="346" width="255" height="50" rx="4" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="627" y="368" font-size="13" font-weight="700" text-anchor="middle" fill="#1a1a1a">Дані: 256 бітів (32 B)</text>
+  <text x="627" y="386" font-size="11" text-anchor="middle" fill="#2457d6">4 групи по 8 байтів даних (4 × K=8)</text>
+
+  <rect x="765" y="346" width="150" height="50" rx="4" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="840" y="368" font-size="13" font-weight="700" text-anchor="middle" fill="#1a1a1a">ECC: 128 бітів (16 B)</text>
+  <text x="840" y="386" font-size="11" text-anchor="middle" fill="#27ae60">4 × 4 байти ECC (4 × 2t=4)</text>
+
+  <rect x="500" y="410" width="415" height="56" rx="4" fill="white" stroke="#d0d7de"/>
+  <text x="512" y="430" font-size="12" font-weight="700" fill="#1a1a1a">Разом 48 байтів (384 біти) OTP-осередків на блок</text>
+  <text x="512" y="451" font-size="11" fill="#6b7280">Автоматична верифікація та виправлення при boot ESP32-S3</text>
+</svg>

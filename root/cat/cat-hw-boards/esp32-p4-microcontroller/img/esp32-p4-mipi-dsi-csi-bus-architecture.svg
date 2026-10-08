@@ -1,0 +1,141 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="36" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Апаратна архітектура MIPI-CSI та MIPI-DSI в ESP32-P4</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Відеопоток проходить від камери через D-PHY/CSI, ISP, PPA та DSI до дисплея через PSRAM без копіювання (Zero-Copy)</text>
+
+  <!-- COLUMN 1: MIPI-CSI Receiver -->
+  <rect x="24" y="85" width="216" height="370" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="8"/>
+  <text x="132" y="108" font-size="14" font-weight="700" fill="#1a1a1a" text-anchor="middle">1. Прийом MIPI-CSI</text>
+
+  <!-- Col 1 Sub-block 1: Camera Sensor -->
+  <rect x="40" y="122" width="184" height="72" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <text x="132" y="142" font-size="13" font-weight="700" fill="#2457d6" text-anchor="middle">Камера (OV5640)</text>
+  <text x="132" y="160" font-size="12" fill="#1a1a1a" text-anchor="middle">D-PHY 2x Data + Clock</text>
+  <text x="132" y="178" font-size="12" fill="#6b7280" text-anchor="middle">Формат: Raw Bayer / YUV</text>
+
+  <line x1="132" y1="194" x2="132" y2="212" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Col 1 Sub-block 2: CSI Controller -->
+  <rect x="40" y="214" width="184" height="106" fill="white" stroke="#d0d7de" stroke-width="1.5" rx="6"/>
+  <text x="132" y="234" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">MIPI-CSI Controller</text>
+  <text x="132" y="252" font-size="12" fill="#2457d6" text-anchor="middle">esp_cam_ctlr_csi</text>
+  <text x="132" y="270" font-size="12" fill="#6b7280" text-anchor="middle">esp_cam_ctlr_csi_config_t</text>
+  <text x="132" y="288" font-size="12" fill="#6b7280" text-anchor="middle">2-lane D-PHY @ 800 Mbps</text>
+  <text x="132" y="306" font-size="12" fill="#27ae60" text-anchor="middle">Обробка пакетів кадру</text>
+
+  <line x1="132" y1="320" x2="132" y2="338" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+
+  <!-- Col 1 Sub-block 3: CSI DMA -->
+  <rect x="40" y="340" width="184" height="92" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <text x="132" y="360" font-size="13" font-weight="700" fill="#2457d6" text-anchor="middle">DMA-канал CSI</text>
+  <text x="132" y="378" font-size="12" fill="#1a1a1a" text-anchor="middle">Запис у PSRAM (Zero-Copy)</text>
+  <text x="132" y="396" font-size="12" fill="#6b7280" text-anchor="middle">Без участі ядра CPU</text>
+  <text x="132" y="414" font-size="12" fill="#6b7280" text-anchor="middle">Прямий фоновий потік</text>
+
+
+  <!-- COLUMN 2: ISP & PSRAM -->
+  <rect x="256" y="85" width="216" height="370" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="8"/>
+  <text x="364" y="108" font-size="14" font-weight="700" fill="#1a1a1a" text-anchor="middle">2. ISP та PSRAM</text>
+
+  <!-- Col 2 Sub-block 1: ISP Processor -->
+  <rect x="272" y="122" width="184" height="106" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="6"/>
+  <text x="364" y="142" font-size="13" font-weight="700" fill="#27ae60" text-anchor="middle">Апаратний ISP</text>
+  <text x="364" y="160" font-size="12" fill="#1a1a1a" text-anchor="middle">Demosaic / AWB / AE</text>
+  <text x="364" y="178" font-size="12" fill="#6b7280" text-anchor="middle">esp_isp_processor_t</text>
+  <text x="364" y="196" font-size="12" fill="#6b7280" text-anchor="middle">esp_isp_hist_config_t</text>
+  <text x="364" y="214" font-size="12" fill="#27ae60" text-anchor="middle">Корекція кольорів/гамми</text>
+
+  <line x1="364" y1="228" x2="364" y2="246" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- Col 2 Sub-block 2: PSRAM Framebuffers -->
+  <rect x="272" y="248" width="184" height="184" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <text x="364" y="268" font-size="13" font-weight="700" fill="#2457d6" text-anchor="middle">PSRAM Буфери Кадрів</text>
+  <text x="364" y="286" font-size="12" fill="#1a1a1a" text-anchor="middle">Подвійна/потрійна буферизація</text>
+  <text x="364" y="304" font-size="12" fill="#2457d6" text-anchor="middle">MALLOC_CAP_SPIRAM</text>
+  <text x="364" y="322" font-size="12" fill="#6b7280" text-anchor="middle">Вирівнювання: 64-byte</text>
+  <text x="364" y="340" font-size="12" fill="#6b7280" text-anchor="middle">Zero-Copy DMA буфери</text>
+  <text x="364" y="358" font-size="12" fill="#6b7280" text-anchor="middle">esp_cache_msync()</text>
+  <text x="364" y="376" font-size="12" fill="#27ae60" text-anchor="middle">Синхронізація кєш-пам'яті</text>
+  <text x="364" y="394" font-size="12" fill="#1a1a1a" text-anchor="middle">YUV422 / RGB565 / RGB888</text>
+  <text x="364" y="412" font-size="12" fill="#6b7280" text-anchor="middle">Прямий доступ для PPA</text>
+
+
+  <!-- COLUMN 3: 2D Accelerator PPA -->
+  <rect x="488" y="85" width="216" height="370" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="8"/>
+  <text x="596" y="108" font-size="14" font-weight="700" fill="#1a1a1a" text-anchor="middle">3. 2D-Прискорювач PPA</text>
+
+  <!-- Col 3 Sub-block 1: PPA Core Engine -->
+  <rect x="504" y="122" width="184" height="124" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="6"/>
+  <text x="596" y="142" font-size="13" font-weight="700" fill="#27ae60" text-anchor="middle">Двигун PPA (esp_ppa)</text>
+  <text x="596" y="160" font-size="12" fill="#1a1a1a" text-anchor="middle">Масштабування та поворот</text>
+  <text x="596" y="178" font-size="12" fill="#1a1a1a" text-anchor="middle">Альфа-блендинг кадру</text>
+  <text x="596" y="196" font-size="12" fill="#6b7280" text-anchor="middle">ppa_client_handle_t</text>
+  <text x="596" y="214" font-size="12" fill="#6b7280" text-anchor="middle">ppa_srm_oper_config_t</text>
+  <text x="596" y="232" font-size="12" fill="#6b7280" text-anchor="middle">ppa_blend_oper_config_t</text>
+
+  <line x1="596" y1="246" x2="596" y2="264" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- Col 3 Sub-block 2: PPA DMA & Callbacks -->
+  <rect x="504" y="266" width="184" height="166" fill="white" stroke="#d0d7de" stroke-width="1.5" rx="6"/>
+  <text x="596" y="286" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">PPA DMA & Callbacks</text>
+  <text x="596" y="304" font-size="12" fill="#1a1a1a" text-anchor="middle">Апаратний рендеринг</text>
+  <text x="596" y="322" font-size="12" fill="#2457d6" text-anchor="middle">ppa_register_event_callbacks</text>
+  <text x="596" y="340" font-size="12" fill="#6b7280" text-anchor="middle">Подія: PPA_SRM_COLOR</text>
+  <text x="596" y="358" font-size="12" fill="#6b7280" text-anchor="middle">Подія: PPA_BLEND</text>
+  <text x="596" y="376" font-size="12" fill="#27ae60" text-anchor="middle">Перетворення YUV -> RGB</text>
+  <text x="596" y="394" font-size="12" fill="#6b7280" text-anchor="middle">Запис готового кадру</text>
+  <text x="596" y="412" font-size="12" fill="#6b7280" text-anchor="middle">в буфер виводу DSI</text>
+
+
+  <!-- COLUMN 4: MIPI-DSI Display Output -->
+  <rect x="720" y="85" width="216" height="370" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="8"/>
+  <text x="828" y="108" font-size="14" font-weight="700" fill="#1a1a1a" text-anchor="middle">4. Вивід MIPI-DSI</text>
+
+  <!-- Col 4 Sub-block 1: DSI Controller -->
+  <rect x="736" y="122" width="184" height="142" fill="white" stroke="#d0d7de" stroke-width="1.5" rx="6"/>
+  <text x="828" y="142" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">MIPI-DSI Controller</text>
+  <text x="828" y="160" font-size="12" fill="#2457d6" text-anchor="middle">esp_lcd_mipi_dsi</text>
+  <text x="828" y="178" font-size="12" fill="#6b7280" text-anchor="middle">esp_lcd_dsi_bus_config_t</text>
+  <text x="828" y="196" font-size="12" fill="#6b7280" text-anchor="middle">esp_lcd_dbi_config_t</text>
+  <text x="828" y="214" font-size="12" fill="#6b7280" text-anchor="middle">2-lane D-PHY Video Mode</text>
+  <text x="828" y="232" font-size="12" fill="#27ae60" text-anchor="middle">VSYNC / DPI Callbacks</text>
+  <text x="828" y="250" font-size="12" fill="#6b7280" text-anchor="middle">esp_lcd_dpi_panel_config_t</text>
+
+  <line x1="828" y1="264" x2="828" y2="282" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+
+  <!-- Col 4 Sub-block 2: Display Panel -->
+  <rect x="736" y="284" width="184" height="148" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <text x="828" y="304" font-size="13" font-weight="700" fill="#2457d6" text-anchor="middle">Дисплей (DSI Panel)</text>
+  <text x="828" y="322" font-size="12" fill="#1a1a1a" text-anchor="middle">D-PHY Clock + 2x Data</text>
+  <text x="828" y="340" font-size="12" fill="#1a1a1a" text-anchor="middle">Роздільна здатність: 1024x600</text>
+  <text x="828" y="358" font-size="12" fill="#6b7280" text-anchor="middle">esp_lcd_panel_draw_bitmap</text>
+  <text x="828" y="376" font-size="12" fill="#6b7280" text-anchor="middle">DMA безперервний потік</text>
+  <text x="828" y="394" font-size="12" fill="#27ae60" text-anchor="middle">Відображення кадрового буфера</text>
+  <text x="828" y="412" font-size="12" fill="#6b7280" text-anchor="middle">без розривів (No Tearing)</text>
+
+
+  <!-- Inter-column Flow Connections (Arrows) -->
+  <!-- Col 1 DMA to Col 2 PSRAM -->
+  <line x1="224" y1="386" x2="270" y2="386" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Col 2 PSRAM to Col 3 PPA -->
+  <line x1="456" y1="340" x2="502" y2="340" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Col 3 PPA DMA to Col 4 DSI Panel -->
+  <line x1="688" y1="394" x2="734" y2="394" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+</svg>

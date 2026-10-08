@@ -1,0 +1,125 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+  
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="30" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Конвеєр нейромережевого інференсу ESP-WHO на ESP32-S3</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Захоплення кадру в PSRAM, SIMD-прискорення Xtensa LX7 та локальна детекція об'єктів</text>
+
+  <!-- STAGE 1 -->
+  <rect x="30" y="80" width="210" height="365" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="40" y="92" width="190" height="32" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="135" y="113" font-size="13" font-weight="700" fill="#2457d6" text-anchor="middle">1. Вхідний кадровий потік</text>
+
+  <rect x="42" y="138" width="186" height="80" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="135" y="160" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Сенсор OV2640 / OV5640</text>
+  <text x="135" y="178" font-size="12" fill="#6b7280" text-anchor="middle">Інтерфейс DVP / 8 біт</text>
+  <text x="135" y="196" font-size="12" fill="#6b7280" text-anchor="middle">Формат RGB565 / JPEG</text>
+
+  <line x1="135" y1="220" x2="135" y2="238" stroke="#2457d6" stroke-width="2" marker-end="url(#arr)"/>
+
+  <rect x="42" y="240" width="186" height="90" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="135" y="262" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">DMA Контролер</text>
+  <text x="135" y="280" font-size="12" fill="#1a1a1a" text-anchor="middle">Прямий запис у PSRAM</text>
+  <text x="135" y="298" font-size="12" fill="#6b7280" text-anchor="middle">Подвійна буферизація</text>
+  <text x="135" y="316" font-size="12" fill="#6b7280" text-anchor="middle">Без навантаження CPU</text>
+
+  <rect x="42" y="344" width="186" height="86" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="135" y="366" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Кадровий буфер</text>
+  <text x="135" y="384" font-size="12" fill="#6b7280" text-anchor="middle">Зовнішня PSRAM (Octal)</text>
+  <text x="135" y="402" font-size="12" fill="#6b7280" text-anchor="middle">Розмір: 320×240 RGB</text>
+
+  <!-- Arrow 1 -> 2 -->
+  <line x1="242" y1="285" x2="258" y2="285" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr)"/>
+
+  <!-- STAGE 2 -->
+  <rect x="260" y="80" width="210" height="365" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="270" y="92" width="190" height="32" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="365" y="113" font-size="13" font-weight="700" fill="#2457d6" text-anchor="middle">2. Препроцесинг кадру</text>
+
+  <rect x="272" y="138" width="186" height="80" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="365" y="160" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Resizing &amp; Cropping</text>
+  <text x="365" y="178" font-size="12" fill="#6b7280" text-anchor="middle">Масштаб до 96×96 px</text>
+  <text x="365" y="196" font-size="12" fill="#6b7280" text-anchor="middle">Конвертація в Grayscale/RGB</text>
+
+  <line x1="365" y1="220" x2="365" y2="238" stroke="#2457d6" stroke-width="2" marker-end="url(#arr)"/>
+
+  <rect x="272" y="240" width="186" height="90" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="365" y="262" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">INT8 Квантування</text>
+  <text x="365" y="280" font-size="12" fill="#1a1a1a" text-anchor="middle">Нормалізація [0..255] → INT8</text>
+  <text x="365" y="298" font-size="12" fill="#6b7280" text-anchor="middle">Масштабування scale / zero_point</text>
+  <text x="365" y="316" font-size="12" fill="#6b7280" text-anchor="middle">Підготовка вхідного тензора</text>
+
+  <rect x="272" y="344" width="186" height="86" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="365" y="366" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Tensor Arena SRAM</text>
+  <text x="365" y="384" font-size="12" fill="#6b7280" text-anchor="middle">Вхідний буфер моделі</text>
+  <text x="365" y="402" font-size="12" fill="#6b7280" text-anchor="middle">Виділення в SRAM / PSRAM</text>
+
+  <!-- Arrow 2 -> 3 -->
+  <line x1="472" y1="285" x2="488" y2="285" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr)"/>
+
+  <!-- STAGE 3 -->
+  <rect x="490" y="80" width="210" height="365" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="500" y="92" width="190" height="32" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="595" y="113" font-size="13" font-weight="700" fill="#2457d6" text-anchor="middle">3. Нейромережевий інференс</text>
+
+  <rect x="502" y="138" width="186" height="80" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="595" y="160" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Модель Human Detection</text>
+  <text x="595" y="178" font-size="12" fill="#6b7280" text-anchor="middle">ESP-WHO / TFLite Micro</text>
+  <text x="595" y="196" font-size="12" fill="#6b7280" text-anchor="middle">INT8 quantized MobileNet/Pico</text>
+
+  <line x1="595" y1="220" x2="595" y2="238" stroke="#2457d6" stroke-width="2" marker-end="url(#arr)"/>
+
+  <rect x="502" y="240" width="186" height="90" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="595" y="262" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">Ядро Xtensa LX7 (SIMD)</text>
+  <text x="595" y="280" font-size="12" fill="#1a1a1a" text-anchor="middle">Прискорення ESP-NN S3</text>
+  <text x="595" y="298" font-size="12" fill="#6b7280" text-anchor="middle">Векторні інструкції (PIE)</text>
+  <text x="595" y="316" font-size="12" fill="#6b7280" text-anchor="middle">Паралельне MAC 8-біт</text>
+
+  <rect x="502" y="344" width="186" height="86" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="595" y="366" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Вихідні тензори</text>
+  <text x="595" y="384" font-size="12" fill="#6b7280" text-anchor="middle">Масив оцінок (Score map)</text>
+  <text x="595" y="402" font-size="12" fill="#6b7280" text-anchor="middle">Координати рамок (Boxes)</text>
+
+  <!-- Arrow 3 -> 4 -->
+  <line x1="702" y1="285" x2="718" y2="285" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arr-green)"/>
+
+  <!-- STAGE 4 -->
+  <rect x="720" y="80" width="210" height="365" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="730" y="92" width="190" height="32" rx="4" fill="white" stroke="#27ae60" stroke-width="1"/>
+  <text x="825" y="113" font-size="13" font-weight="700" fill="#27ae60" text-anchor="middle">4. Постпроцесинг і дія</text>
+
+  <rect x="732" y="138" width="186" height="80" rx="6" fill="white" stroke="#27ae60" stroke-width="1"/>
+  <text x="825" y="160" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Декодування виходу</text>
+  <text x="825" y="178" font-size="12" fill="#6b7280" text-anchor="middle">NMS / Пороги ймовірності</text>
+  <text x="825" y="196" font-size="12" fill="#6b7280" text-anchor="middle">Виділення Bounding Boxes</text>
+
+  <line x1="825" y1="220" x2="825" y2="238" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <rect x="732" y="240" width="186" height="90" rx="6" fill="white" stroke="#27ae60" stroke-width="1"/>
+  <text x="825" y="262" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">Виконавча логіка</text>
+  <text x="825" y="280" font-size="12" fill="#1a1a1a" text-anchor="middle">Детекція людини: Є / Нема</text>
+  <text x="825" y="298" font-size="12" fill="#6b7280" text-anchor="middle">Низький latency (&lt;50 ms)</text>
+  <text x="825" y="316" font-size="12" fill="#6b7280" text-anchor="middle">Автономний Edge AI</text>
+
+  <rect x="732" y="344" width="186" height="86" rx="6" fill="white" stroke="#27ae60" stroke-width="1"/>
+  <text x="825" y="366" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Реагування Edge</text>
+  <text x="825" y="384" font-size="12" fill="#6b7280" text-anchor="middle">Активація GPIO / Alarm</text>
+  <text x="825" y="402" font-size="12" fill="#6b7280" text-anchor="middle">Запис на SD / Display</text>
+
+  <!-- Bottom Legend / Context Summary Bar -->
+  <rect x="30" y="460" width="900" height="40" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="45" y="484" font-size="12" font-weight="700" fill="#2457d6">Апаратний стек:</text>
+  <text x="160" y="484" font-size="12" fill="#1a1a1a">ESP32-S3 (Xtensa Dual-Core LX7 @ 240MHz + SIMD) + Octal PSRAM + DVP Camera</text>
+  <text x="680" y="484" font-size="12" font-weight="700" fill="#27ae60">Режим:</text>
+  <text x="735" y="484" font-size="12" fill="#1a1a1a">100% Локальний інференс</text>
+
+</svg>

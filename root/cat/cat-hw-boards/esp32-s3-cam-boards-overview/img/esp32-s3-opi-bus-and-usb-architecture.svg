@@ -1,0 +1,118 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <defs>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="30" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Архітектура шин: ESP32 (Quad SPI) проти ESP32-S3 (Octal SPI &amp; USB)</text>
+  <text x="480" y="50" font-size="13" fill="#6b7280" text-anchor="middle">Перехід на OPI подвоює пропускну здатність PSRAM, а вбудований USB CDC/JTAG відокремлює передачу кадрів</text>
+
+  <!-- ЛІВА ПАНЕЛЬ: ESP32 -->
+  <rect x="25" y="65" width="445" height="455" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="6"/>
+  <rect x="40" y="78" width="415" height="34" fill="#fdecea" stroke="#c0392b" stroke-width="1" rx="4"/>
+  <text x="247" y="100" font-size="14" font-weight="700" fill="#c0392b" text-anchor="middle">ESP32 (D0WD) — Quad SPI &amp; Зовнішній USB</text>
+
+  <!-- Блок CPU ESP32 -->
+  <rect x="45" y="130" width="180" height="70" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="4"/>
+  <text x="135" y="155" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">Xtensa LX6 CPU</text>
+  <text x="135" y="175" font-size="12" fill="#6b7280" text-anchor="middle">240 МГц, 2 ядра</text>
+
+  <!-- Блок Quad SPI PSRAM -->
+  <rect x="45" y="235" width="180" height="75" fill="#fdecea" stroke="#c0392b" stroke-width="1" rx="4"/>
+  <text x="135" y="257" font-size="13" font-weight="700" fill="#c0392b" text-anchor="middle">Quad SPI (4-bit)</text>
+  <text x="135" y="275" font-size="12" fill="#1a1a1a" text-anchor="middle">Спільна шина PSRAM</text>
+  <text x="135" y="293" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">~40 МБ/с (вузьке місце)</text>
+
+  <!-- Блок конфлікту GPIO ESP32 -->
+  <rect x="250" y="130" width="205" height="180" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="4"/>
+  <text x="352" y="152" font-size="13" font-weight="700" fill="#c0392b" text-anchor="middle">Мультиплексування GPIO</text>
+
+  <rect x="262" y="165" width="181" height="42" fill="#fdecea" stroke="#c0392b" stroke-width="1" rx="3"/>
+  <text x="352" y="183" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">Камера D0..D7 &amp; SD-карта</text>
+  <text x="352" y="199" font-size="12" fill="#6b7280" text-anchor="middle">Спільний вивід GPIO4/12/13</text>
+
+  <rect x="262" y="217" width="181" height="42" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="3"/>
+  <text x="352" y="235" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Конфлікт шини HS2</text>
+  <text x="352" y="251" font-size="12" fill="#6b7280" text-anchor="middle">Падіння FPS / збої SD</text>
+
+  <text x="352" y="295" font-size="12" fill="#c0392b" text-anchor="middle">Гострий дефіцит GPIO</text>
+
+  <!-- Блок зовнішнього USB-UART -->
+  <rect x="45" y="335" width="410" height="60" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="4"/>
+  <text x="250" y="358" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">Зовнішній USB-UART міст (CP2102)</text>
+  <text x="250" y="378" font-size="12" fill="#6b7280" text-anchor="middle">Обмеження UART, відсутність вбудованого USB CDC</text>
+
+  <!-- Картка резюме ESP32 -->
+  <rect x="45" y="415" width="410" height="90" fill="#fdecea" stroke="#c0392b" stroke-width="1" rx="4"/>
+  <text x="60" y="437" font-size="12" font-weight="700" fill="#c0392b">⚠️ Проблеми першого покоління ESP32-CAM:</text>
+  <text x="60" y="457" font-size="12" fill="#1a1a1a">• 4-bit Quad SPI створює затримки при зчитуванні кадрів</text>
+  <text x="60" y="475" font-size="12" fill="#1a1a1a">• Накладання шини MicroSD на виводи відеосенсора</text>
+  <text x="60" y="493" font-size="12" fill="#1a1a1a">• Потреба в зовнішньому мості для завантаження</text>
+
+  <!-- ПРАВА ПАНЕЛЬ: ESP32-S3 -->
+  <rect x="490" y="65" width="445" height="455" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="6"/>
+  <rect x="505" y="78" width="415" height="34" fill="#e9f7ef" stroke="#27ae60" stroke-width="1" rx="4"/>
+  <text x="712" y="100" font-size="14" font-weight="700" fill="#27ae60" text-anchor="middle">ESP32-S3 — Octal SPI (OPI) &amp; Вбудований USB</text>
+
+  <!-- Блок CPU ESP32-S3 -->
+  <rect x="510" y="130" width="180" height="70" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="4"/>
+  <text x="600" y="153" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">Xtensa LX7 CPU</text>
+  <text x="600" y="171" font-size="12" fill="#2457d6" text-anchor="middle">Векторні інструкції S3</text>
+  <text x="600" y="188" font-size="12" fill="#6b7280" text-anchor="middle">Прискорення TinyML</text>
+
+  <!-- Блок Octal SPI PSRAM -->
+  <rect x="510" y="235" width="180" height="75" fill="#e9f7ef" stroke="#27ae60" stroke-width="1" rx="4"/>
+  <text x="600" y="257" font-size="13" font-weight="700" fill="#27ae60" text-anchor="middle">Octal SPI (8-bit DDR)</text>
+  <text x="600" y="275" font-size="12" fill="#1a1a1a" text-anchor="middle">Виділена шина OPI</text>
+  <text x="600" y="293" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">80–160 МБ/с (2×–4×)</text>
+
+  <!-- Блок відокремленої периферії ESP32-S3 -->
+  <rect x="715" y="130" width="205" height="180" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="4"/>
+  <text x="817" y="152" font-size="13" font-weight="700" fill="#27ae60" text-anchor="middle">Відокремлена периферія</text>
+
+  <rect x="727" y="165" width="181" height="42" fill="#e9f7ef" stroke="#27ae60" stroke-width="1" rx="3"/>
+  <text x="817" y="183" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">DVP Camera (8-bit)</text>
+  <text x="817" y="199" font-size="12" fill="#6b7280" text-anchor="middle">Незалежна шина даних</text>
+
+  <rect x="727" y="217" width="181" height="42" fill="#e9f7ef" stroke="#27ae60" stroke-width="1" rx="3"/>
+  <text x="817" y="235" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">SDMMC / MicroSD</text>
+  <text x="817" y="251" font-size="12" fill="#6b7280" text-anchor="middle">Окремий контролер</text>
+
+  <text x="817" y="295" font-size="12" fill="#27ae60" text-anchor="middle">Вільні GPIO для датчиків</text>
+
+  <!-- Блок вбудованого USB -->
+  <rect x="510" y="335" width="410" height="60" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="4"/>
+  <text x="715" y="358" font-size="13" font-weight="700" fill="#2457d6" text-anchor="middle">Вбудований USB CDC / JTAG контролер</text>
+  <text x="715" y="378" font-size="12" fill="#1a1a1a" text-anchor="middle">Пряма передача MJPEG-потоку та апаратне налагодження</text>
+
+  <!-- Картка резюме ESP32-S3 -->
+  <rect x="510" y="415" width="410" height="90" fill="#e9f7ef" stroke="#27ae60" stroke-width="1" rx="4"/>
+  <text x="525" y="437" font-size="12" font-weight="700" fill="#27ae60">✅ Переваги нової архітектури ESP32-S3:</text>
+  <text x="525" y="457" font-size="12" fill="#1a1a1a">• OPI PSRAM гарантує вищу частоту кадрів (FPS)</text>
+  <text x="525" y="475" font-size="12" fill="#1a1a1a">• Повна відсутність конфліктів між SD-картою та камерою</text>
+  <text x="525" y="493" font-size="12" fill="#1a1a1a">• Нативний USB CDC забезпечує швидкий вивід відео</text>
+
+  <!-- З'єднувальні лінії / стрілки в лівій панелі -->
+  <line x1="135" y1="200" x2="135" y2="230" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <line x1="225" y1="165" x2="245" y2="165" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+  <line x1="135" y1="310" x2="135" y2="330" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+
+  <!-- З'єднувальні лінії / стрілки в правій панелі -->
+  <line x1="600" y1="200" x2="600" y2="230" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <line x1="690" y1="165" x2="710" y2="165" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <line x1="600" y1="310" x2="600" y2="330" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+</svg>

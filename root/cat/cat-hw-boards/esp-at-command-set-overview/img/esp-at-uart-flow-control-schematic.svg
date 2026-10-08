@@ -1,0 +1,110 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Підкладка -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Заголовок та підзаголовок -->
+  <text x="480" y="36" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Схема апаратного керування потоком UART (Hardware Flow Control)</text>
+  <text x="480" y="56" text-anchor="middle" font-size="13" fill="#6b7280">Крос-підключення RTS/CTS узгоджує готовність буферів і запобігає втраті даних</text>
+
+  <!-- Панель Host MCU -->
+  <rect x="40" y="78" width="330" height="306" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <text x="205" y="101" text-anchor="middle" font-size="15" font-weight="bold" fill="#1a1a1a">Хост-мікроконтролер (Host MCU)</text>
+
+  <!-- Приймальний буфер Host MCU -->
+  <rect x="55" y="115" width="300" height="32" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="205" y="135" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Приймальний буфер (RX Buffer)</text>
+
+  <!-- Піни Host MCU -->
+  <!-- TX -->
+  <text x="60" y="177" font-size="12" fill="#6b7280">Передача даних</text>
+  <rect x="230" y="156" width="125" height="34" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="292" y="177" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">TX (Вихід)</text>
+
+  <!-- RX -->
+  <text x="60" y="233" font-size="12" fill="#6b7280">Прийом даних</text>
+  <rect x="230" y="212" width="125" height="34" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="292" y="233" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">RX (Вхід)</text>
+
+  <!-- RTS -->
+  <text x="60" y="289" font-size="12" fill="#6b7280">Готовність приймати</text>
+  <rect x="230" y="268" width="125" height="34" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="292" y="289" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">RTS (Вихід)</text>
+
+  <!-- CTS -->
+  <text x="60" y="345" font-size="12" fill="#6b7280">Дозвіл передачі</text>
+  <rect x="230" y="324" width="125" height="34" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="292" y="345" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">CTS (Вхід)</text>
+
+
+  <!-- Панель ESP-AT Module -->
+  <rect x="590" y="78" width="330" height="306" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <text x="755" y="101" text-anchor="middle" font-size="15" font-weight="bold" fill="#1a1a1a">Модуль ESP-AT (ESP32 / ESP8266)</text>
+
+  <!-- Приймальний буфер ESP-AT -->
+  <rect x="605" y="115" width="300" height="32" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="755" y="135" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Приймальний буфер (RX Buffer)</text>
+
+  <!-- Піни ESP-AT -->
+  <!-- RX -->
+  <rect x="605" y="156" width="125" height="34" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="667" y="177" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">RX (Вхід)</text>
+  <text x="745" y="177" font-size="12" fill="#6b7280">Прийом даних</text>
+
+  <!-- TX -->
+  <rect x="605" y="212" width="125" height="34" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="667" y="233" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">TX (Вихід)</text>
+  <text x="745" y="233" font-size="12" fill="#6b7280">Передача даних</text>
+
+  <!-- CTS -->
+  <rect x="605" y="268" width="125" height="34" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="667" y="289" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">CTS (Вхід)</text>
+  <text x="745" y="289" font-size="12" fill="#6b7280">Дозвіл передачі</text>
+
+  <!-- RTS -->
+  <rect x="605" y="324" width="125" height="34" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="667" y="345" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">RTS (Вихід)</text>
+  <text x="745" y="345" font-size="12" fill="#6b7280">Готовність приймати</text>
+
+
+  <!-- Лінії зв'язку між модулями -->
+  <!-- 1. TX -> RX -->
+  <text x="480" y="162" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">TX → RX (Дані до ESP)</text>
+  <line x1="355" y1="173" x2="605" y2="173" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+
+  <!-- 2. RX <- TX -->
+  <text x="480" y="218" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">RX ← TX (Дані від ESP)</text>
+  <line x1="605" y1="229" x2="355" y2="229" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+
+  <!-- 3. RTS -> CTS -->
+  <text x="480" y="274" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">RTS → CTS (Хост готовий приймати)</text>
+  <line x1="355" y1="285" x2="605" y2="285" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arr-green)"/>
+
+  <!-- 4. CTS <- RTS -->
+  <text x="480" y="330" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">CTS ← RTS (ESP готовий приймати)</text>
+  <line x1="605" y1="341" x2="355" y2="341" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arr-green)"/>
+
+
+  <!-- Нижні інформаційні картки -->
+  <!-- Пояснення RTS/CTS logic -->
+  <rect x="40" y="398" width="430" height="42" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="50" y="416" font-size="12" font-weight="bold" fill="#27ae60">RTS = LOW (0V):</text>
+  <text x="155" y="416" font-size="12" fill="#1a1a1a">Буфер вільний, пристрій готовий приймати дані</text>
+  <text x="50" y="432" font-size="12" font-weight="bold" fill="#c0392b">RTS = HIGH (3.3V):</text>
+  <text x="170" y="432" font-size="12" fill="#1a1a1a">Буфер заповнений, передавач призупиняє потік</text>
+
+  <!-- Пояснення електричних рівнів -->
+  <rect x="490" y="398" width="430" height="42" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="500" y="416" font-size="12" font-weight="bold" fill="#2457d6">Рівні напруги:</text>
+  <text x="595" y="416" font-size="12" fill="#1a1a1a">3.3V TTL (для 5V MCU необхідний конвертер)</text>
+  <text x="500" y="432" font-size="12" font-weight="bold" fill="#2457d6">Підключення:</text>
+  <text x="585" y="432" font-size="12" fill="#1a1a1a">Крос-з'єднання ліній (TX-RX, RX-TX, RTS-CTS, CTS-RTS)</text>
+</svg>

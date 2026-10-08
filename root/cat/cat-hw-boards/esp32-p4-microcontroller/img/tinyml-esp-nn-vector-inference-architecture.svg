@@ -1,0 +1,132 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <!-- Header and Subtitle -->
+  <text x="480" y="30" font-size="18" font-weight="700" text-anchor="middle" fill="#1a1a1a">Архітектура векторного інференсу TinyML на ESP32-P4</text>
+  <text x="480" y="52" font-size="13" text-anchor="middle" fill="#6b7280">Апаратний ISP та DMA забезпечують zero-copy передачу кадру в ESP-NN із прискоренням RISC-V Vector</text>
+
+  <!-- Panel 1: Camera & MIPI-CSI -->
+  <rect x="30" y="75" width="170" height="380" rx="8" ry="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="115" y="98" font-size="14" font-weight="700" text-anchor="middle" fill="#1a1a1a">Камера &amp; MIPI-CSI</text>
+
+  <!-- Box 1.1: Image Sensor -->
+  <rect x="42" y="115" width="146" height="135" rx="6" ry="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="115" y="140" font-size="13" font-weight="700" text-anchor="middle" fill="#1a1a1a">Сенсор зображення</text>
+  <text x="115" y="165" font-size="12" text-anchor="middle" fill="#6b7280">Кадр 1920×1080</text>
+  <text x="115" y="185" font-size="12" text-anchor="middle" fill="#6b7280">Формат RAW / YUV</text>
+  <text x="115" y="210" font-size="12" font-weight="700" text-anchor="middle" fill="#2457d6">30 кадрів/с</text>
+
+  <!-- Arrow inside Panel 1 -->
+  <path d="M 115 250 L 115 270" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- Box 1.2: MIPI-CSI Interface -->
+  <rect x="42" y="275" width="146" height="155" rx="6" ry="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="115" y="300" font-size="13" font-weight="700" text-anchor="middle" fill="#1a1a1a">Інтерфейс MIPI-CSI</text>
+  <text x="115" y="325" font-size="12" text-anchor="middle" fill="#6b7280">2-Lane PHY</text>
+  <text x="115" y="350" font-size="12" text-anchor="middle" fill="#6b7280">Апаратний прийом</text>
+  <text x="115" y="375" font-size="12" text-anchor="middle" fill="#6b7280">Висока пропускна</text>
+  <text x="115" y="395" font-size="12" text-anchor="middle" fill="#6b7280">здатність</text>
+
+  <!-- Arrow Panel 1 -> Panel 2 -->
+  <path d="M 188 182 L 232 182" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="210" y="170" font-size="12" font-weight="700" text-anchor="middle" fill="#2457d6">RAW</text>
+
+  <!-- Panel 2: Hardware ISP & DMA -->
+  <rect x="235" y="75" width="205" height="380" rx="8" ry="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="337.5" y="98" font-size="14" font-weight="700" text-anchor="middle" fill="#1a1a1a">Апаратний ISP &amp; DMA</text>
+
+  <!-- Box 2.1: ISP Processor -->
+  <rect x="247" y="115" width="181" height="155" rx="6" ry="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="337.5" y="138" font-size="13" font-weight="700" text-anchor="middle" fill="#1a1a1a">Прискорювач ISP</text>
+  <text x="337.5" y="160" font-size="12" text-anchor="middle" fill="#6b7280">Debayer &amp; Автобаланс</text>
+  <text x="337.5" y="180" font-size="12" text-anchor="middle" fill="#6b7280">Масштабування &amp; Crop</text>
+  <text x="337.5" y="200" font-size="12" text-anchor="middle" fill="#6b7280">Конверсія у RGB888</text>
+  <rect x="267.5" y="215" width="140" height="24" rx="4" ry="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="337.5" y="231" font-size="12" font-weight="700" text-anchor="middle" fill="#27ae60">0% навантаження CPU</text>
+
+  <!-- Arrow inside Panel 2 -->
+  <path d="M 337.5 270 L 337.5 290" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Box 2.2: 2D-DMA Controller -->
+  <rect x="247" y="295" width="181" height="135" rx="6" ry="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="337.5" y="320" font-size="13" font-weight="700" text-anchor="middle" fill="#1a1a1a">Контролер 2D-DMA</text>
+  <text x="337.5" y="345" font-size="12" text-anchor="middle" fill="#6b7280">Апаратний трансфер</text>
+  <text x="337.5" y="367" font-size="12" text-anchor="middle" fill="#6b7280">Прямий запис в ОЗП</text>
+  <rect x="267.5" y="382" width="140" height="24" rx="4" ry="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="337.5" y="398" font-size="12" font-weight="700" text-anchor="middle" fill="#2457d6">Прямий доступ</text>
+
+  <!-- Arrow Panel 2 -> Panel 3 -->
+  <path d="M 428 360 L 445 360 L 445 182 L 457 182" stroke="#2457d6" stroke-width="1.5" fill="none" marker-end="url(#arr-blue)"/>
+  <text x="445" y="270" font-size="12" font-weight="700" text-anchor="end" fill="#2457d6">DMA</text>
+
+  <!-- Panel 3: System Memory PSRAM -->
+  <rect x="460" y="75" width="185" height="380" rx="8" ry="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="552.5" y="98" font-size="14" font-weight="700" text-anchor="middle" fill="#1a1a1a">Пам'ять PSRAM / SRAM</text>
+
+  <!-- Box 3.1: DMA Frame Buffer -->
+  <rect x="472" y="115" width="161" height="135" rx="6" ry="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="552.5" y="138" font-size="13" font-weight="700" text-anchor="middle" fill="#1a1a1a">DMA Буфер кадру</text>
+  <text x="552.5" y="160" font-size="12" text-anchor="middle" fill="#6b7280">Ping-Pong / Ring buffer</text>
+  <text x="552.5" y="180" font-size="12" text-anchor="middle" fill="#6b7280">Вирівняна адреса</text>
+  <text x="552.5" y="200" font-size="12" text-anchor="middle" fill="#6b7280">Формат RGB888</text>
+  <rect x="487.5" y="215" width="130" height="24" rx="4" ry="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="552.5" y="231" font-size="12" font-weight="700" text-anchor="middle" fill="#2457d6">Заповнений кадр</text>
+
+  <!-- Arrow inside Panel 3 -->
+  <path d="M 552.5 250 L 552.5 270" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <!-- Box 3.2: Zero-Copy Pipeline -->
+  <rect x="472" y="275" width="161" height="155" rx="6" ry="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="552.5" y="300" font-size="13" font-weight="700" text-anchor="middle" fill="#27ae60">Zero-Copy Шлях</text>
+  <text x="552.5" y="325" font-size="12" text-anchor="middle" fill="#1a1a1a">Передача вказівника</text>
+  <text x="552.5" y="347" font-size="12" text-anchor="middle" fill="#1a1a1a">Без memcpy()</text>
+  <text x="552.5" y="369" font-size="12" text-anchor="middle" fill="#1a1a1a">Прямий вхід у модель</text>
+  <rect x="487.5" y="385" width="130" height="24" rx="4" ry="4" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="552.5" y="401" font-size="12" font-weight="700" text-anchor="middle" fill="#27ae60">0 мс затримки</text>
+
+  <!-- Arrow Panel 3 -> Panel 4 -->
+  <path d="M 633 352 L 652 352 L 652 155 L 667 155" stroke="#27ae60" stroke-width="1.5" fill="none" marker-end="url(#arr-green)"/>
+
+  <!-- Panel 4: Vector Inference ESP-NN -->
+  <rect x="670" y="75" width="260" height="380" rx="8" ry="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="800" y="98" font-size="14" font-weight="700" text-anchor="middle" fill="#1a1a1a">Векторний інференс (ESP-NN)</text>
+
+  <!-- Box 4.1: Input Tensor -->
+  <rect x="682" y="115" width="236" height="80" rx="6" ry="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="800" y="138" font-size="13" font-weight="700" text-anchor="middle" fill="#2457d6">Вхідний тензор (ESP-DL)</text>
+  <text x="800" y="160" font-size="12" text-anchor="middle" fill="#1a1a1a">Формат: [1, H, W, C] int8</text>
+  <text x="800" y="180" font-size="12" text-anchor="middle" fill="#6b7280">Квантовані дані кадру</text>
+
+  <!-- Arrow inside Panel 4 -->
+  <path d="M 800 195 L 800 210" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Box 4.2: RISC-V Vector Core -->
+  <rect x="682" y="215" width="236" height="135" rx="6" ry="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="800" y="238" font-size="13" font-weight="700" text-anchor="middle" fill="#1a1a1a">Ядро RISC-V Vector (zve32x)</text>
+  <text x="800" y="260" font-size="12" text-anchor="middle" fill="#6b7280">ESP-NN Оптимізовані ядра</text>
+  <text x="800" y="280" font-size="12" text-anchor="middle" fill="#6b7280">128-bit SIMD Conv2D / Depthwise</text>
+  <text x="800" y="300" font-size="12" text-anchor="middle" fill="#6b7280">Паралельна int8 MAC арифметика</text>
+  <rect x="720" y="315" width="160" height="24" rx="4" ry="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="800" y="331" font-size="12" font-weight="700" text-anchor="middle" fill="#2457d6">Прискорення 3x–5x</text>
+
+  <!-- Arrow inside Panel 4 -->
+  <path d="M 800 350 L 800 365" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- Box 4.3: Classification Output -->
+  <rect x="682" y="370" width="236" height="60" rx="6" ry="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="800" y="393" font-size="13" font-weight="700" text-anchor="middle" fill="#27ae60">Результат класифікації</text>
+  <text x="800" y="415" font-size="12" text-anchor="middle" fill="#1a1a1a">Об'єкт / BBox (Real-time FPS)</text>
+</svg>

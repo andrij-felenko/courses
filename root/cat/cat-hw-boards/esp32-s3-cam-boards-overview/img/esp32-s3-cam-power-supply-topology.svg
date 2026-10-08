@@ -1,0 +1,125 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 510" width="960" height="510" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="510" fill="white"/>
+  
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="30" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Топологія підсистеми живлення плати ESP32-S3-CAM</text>
+  <text x="480" y="50" font-size="13" fill="#6b7280" text-anchor="middle">Окремі LDO регулятори, фільтрація завад та схема заряджання акумулятора</text>
+
+  <!-- СЕКЦІЯ 1: Вхідні джерела живлення -->
+  <rect x="30" y="75" width="185" height="365" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="122.5" y="96" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">Вхідні джерела</text>
+
+  <!-- Блок 1.1: USB -->
+  <rect x="42" y="110" width="161" height="55" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="122.5" y="131" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">USB Type-C</text>
+  <text x="122.5" y="149" font-size="12" fill="#1a1a1a" text-anchor="middle">5V VBUS (до 2A)</text>
+
+  <!-- Блок 1.2: Battery -->
+  <rect x="42" y="180" width="161" height="55" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="122.5" y="201" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">Li-Ion / LiPo BAT</text>
+  <text x="122.5" y="219" font-size="12" fill="#1a1a1a" text-anchor="middle">3.7V - 4.2V VBAT</text>
+
+  <!-- Блок 1.3: Charger -->
+  <rect x="42" y="250" width="161" height="75" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="122.5" y="271" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Контролер зарядки</text>
+  <text x="122.5" y="289" font-size="12" fill="#6b7280" text-anchor="middle">TP4056 / Auto-Switch</text>
+  <text x="122.5" y="307" font-size="12" fill="#27ae60" text-anchor="middle">Захист BAT + CC/CV</text>
+
+  <!-- Лінії від джерел до вхідної шини -->
+  <line x1="203" y1="137.5" x2="245" y2="137.5" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <line x1="203" y1="287.5" x2="245" y2="287.5" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- СЕКЦІЯ 2: Загальна шина V_SYS та C_in -->
+  <text x="245" y="105" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">V_SYS (3.7V-5V)</text>
+  <line x1="245" y1="120" x2="245" y2="390" stroke="#2457d6" stroke-width="3"/>
+  
+  <line x1="245" y1="390" x2="245" y2="405" stroke="#6b7280" stroke-width="1.5"/>
+  <rect x="220" y="405" width="50" height="30" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="245" y="424" font-size="12" fill="#6b7280" text-anchor="middle">10 мкФ</text>
+
+  <!-- СЕКЦІЯ 3: Канали регуляторів LDO -->
+  <rect x="285" y="75" width="305" height="365" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="437.5" y="96" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">Канали регуляторів живлення (LDO)</text>
+
+  <!-- Канал 1: LDO1 -->
+  <line x1="245" y1="142.5" x2="300" y2="142.5" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <rect x="300" y="115" width="150" height="55" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="375" y="136" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">LDO1 (MCU 3.3V)</text>
+  <text x="375" y="154" font-size="12" fill="#6b7280" text-anchor="middle">3.3V / 800mA Peak</text>
+
+  <line x1="450" y1="142.5" x2="475" y2="142.5" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <rect x="475" y="115" width="100" height="55" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="525" y="136" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">Фільтр MCU</text>
+  <text x="525" y="154" font-size="12" fill="#1a1a1a" text-anchor="middle">10мкФ + 0.1мкФ</text>
+  <line x1="575" y1="142.5" x2="625" y2="142.5" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- Канал 2: LDO2 -->
+  <line x1="245" y1="242.5" x2="300" y2="242.5" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <rect x="300" y="215" width="150" height="55" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="375" y="236" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">LDO2 (Periph 3.3V)</text>
+  <text x="375" y="254" font-size="12" fill="#6b7280" text-anchor="middle">3.3V / 300mA Low-Noise</text>
+
+  <line x1="450" y1="242.5" x2="475" y2="242.5" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <rect x="475" y="215" width="100" height="55" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="525" y="236" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">Фільтр SD/Mic</text>
+  <text x="525" y="254" font-size="12" fill="#1a1a1a" text-anchor="middle">10мкФ + 0.1мкФ</text>
+  <line x1="575" y1="242.5" x2="625" y2="242.5" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- Канал 3: LDO3 -->
+  <line x1="245" y1="342.5" x2="300" y2="342.5" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <rect x="300" y="315" width="150" height="55" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="375" y="336" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">LDO3 (CAM 2.8V)</text>
+  <text x="375" y="354" font-size="12" fill="#6b7280" text-anchor="middle">Ultra-Low-Noise AVDD</text>
+
+  <line x1="450" y1="342.5" x2="475" y2="342.5" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <rect x="475" y="315" width="100" height="55" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="525" y="336" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">LC-Фільтр AVDD</text>
+  <text x="525" y="354" font-size="12" fill="#1a1a1a" text-anchor="middle">Ferrite + 10мкФ</text>
+  <line x1="575" y1="342.5" x2="625" y2="342.5" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- Пояснювальний блок LDO -->
+  <rect x="300" y="385" width="275" height="40" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="437.5" y="401" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">Роздільні шини запобігають завадам</text>
+  <text x="437.5" y="417" font-size="12" fill="#6b7280" text-anchor="middle">Імпульси Wi-Fi не впливають на аналог камери</text>
+
+  <!-- СЕКЦІЯ 4: Підсистеми-споживачі -->
+  <rect x="610" y="75" width="320" height="365" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="770" y="96" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">Підсистеми-споживачі</text>
+
+  <!-- Блок 4.1: MCU -->
+  <rect x="625" y="115" width="290" height="75" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="770" y="136" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">ESP32-S3 SoC (MCU + PSRAM / Flash)</text>
+  <text x="770" y="154" font-size="12" fill="#1a1a1a" text-anchor="middle">Живлення: 3.3V (до 500 мА у піку Wi-Fi)</text>
+  <text x="770" y="172" font-size="12" fill="#6b7280" text-anchor="middle">Xtensa LX7, DVP/DMA буферизація кадрів</text>
+
+  <!-- Блок 4.2: Periph -->
+  <rect x="625" y="215" width="290" height="75" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="770" y="236" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">microSD Slot &amp; I2S/PDM Мікрофон</text>
+  <text x="770" y="254" font-size="12" fill="#1a1a1a" text-anchor="middle">Живлення: 3.3V (LDO2)</text>
+  <text x="770" y="272" font-size="12" fill="#6b7280" text-anchor="middle">Сплески струму під час запису фото/відео</text>
+
+  <!-- Блок 4.3: Camera Sensor -->
+  <rect x="625" y="315" width="290" height="110" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="770" y="334" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">Камера (OV2640 / OV5640 Sensor)</text>
+  <text x="770" y="352" font-size="12" fill="#1a1a1a" text-anchor="middle">AVDD 2.8V (Аналог — матриця й пікселі)</text>
+  <text x="770" y="370" font-size="12" fill="#1a1a1a" text-anchor="middle">DVDD 1.2V-1.8V / DOVDD 2.8V-3.3V (Цифра/IO)</text>
+  <text x="770" y="388" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">Чисте AVDD = відсутність шумів і смуг</text>
+  <text x="770" y="406" font-size="12" fill="#6b7280" text-anchor="middle">Передача даних через паралельний DVP</text>
+
+  <!-- СЕКЦІЯ 5: Нижня панель підсумку -->
+  <rect x="30" y="450" width="900" height="45" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="480" y="467" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">Ключове правило топології ESP32-S3-CAM:</text>
+  <text x="480" y="485" font-size="12" fill="#1a1a1a" text-anchor="middle">Розділення аналогової й цифрової шин живлення + локальна фільтрація біля ніжок IC усуває падіння напруги та перешкоди</text>
+</svg>

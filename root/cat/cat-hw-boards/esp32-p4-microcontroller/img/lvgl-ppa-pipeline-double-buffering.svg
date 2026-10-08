@@ -1,0 +1,131 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="30" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Асинхронний графічний пайплайн ESP32-P4: LVGL, PPA та MIPI-DSI</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Паралельний рендеринг кадру N у PSRAM та передача кадру N-1 через DMA без навантаження CPU</text>
+
+  <!-- Outer Panel 1: LVGL & CPU -->
+  <rect x="25" y="75" width="190" height="425" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="120" y="98" font-size="14" font-weight="700" fill="#1a1a1a" text-anchor="middle">1. Рендеринг (LVGL)</text>
+
+  <!-- Outer Panel 2: PPA 2D Accelerator -->
+  <rect x="265" y="75" width="190" height="425" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="360" y="98" font-size="14" font-weight="700" fill="#1a1a1a" text-anchor="middle">2. Прискорювач PPA</text>
+
+  <!-- Outer Panel 3: PSRAM Dual Buffer -->
+  <rect x="505" y="75" width="200" height="425" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="605" y="98" font-size="14" font-weight="700" fill="#1a1a1a" text-anchor="middle">3. High-Speed PSRAM</text>
+
+  <!-- Outer Panel 4: MIPI-DSI & Display -->
+  <rect x="745" y="75" width="190" height="425" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="840" y="98" font-size="14" font-weight="700" fill="#1a1a1a" text-anchor="middle">4. MIPI-DSI / Дисплей</text>
+
+  <!-- Panel 1 Sub-block 1A -->
+  <rect x="38" y="115" width="164" height="155" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="120" y="138" font-size="13" font-weight="700" fill="#2457d6" text-anchor="middle">LVGL Task (CPU)</text>
+  <text x="120" y="162" font-size="12" fill="#1a1a1a" text-anchor="middle">Розрахунок геометрії</text>
+  <text x="120" y="182" font-size="12" fill="#1a1a1a" text-anchor="middle">та виджетів кадру N</text>
+  <line x1="48" y1="198" x2="192" y2="198" stroke="#2457d6" stroke-opacity="0.3" stroke-width="1"/>
+  <text x="120" y="220" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">disp_flush_cb()</text>
+  <text x="120" y="242" font-size="12" fill="#6b7280" text-anchor="middle">Передача опису PPA</text>
+
+  <!-- Panel 1 Sub-block 1B -->
+  <rect x="38" y="315" width="164" height="155" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="120" y="338" font-size="13" font-weight="700" fill="#27ae60" text-anchor="middle">Статус CPU Cores</text>
+  <text x="120" y="362" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">ВІЛЬНИЙ ДЛЯ ЗАДАЧ</text>
+  <text x="120" y="388" font-size="12" fill="#1a1a1a" text-anchor="middle">Обробка Wi-Fi / BLE,</text>
+  <text x="120" y="408" font-size="12" fill="#1a1a1a" text-anchor="middle">сенсорів та логіки</text>
+  <text x="120" y="434" font-size="12" fill="#27ae60" text-anchor="middle">Без очікування DMA!</text>
+
+  <!-- Panel 2 Sub-block 2A -->
+  <rect x="278" y="115" width="164" height="155" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="360" y="138" font-size="13" font-weight="700" fill="#2457d6" text-anchor="middle">PPA 2D Hardware</text>
+  <text x="360" y="162" font-size="12" fill="#1a1a1a" text-anchor="middle">Апаратні операції:</text>
+  <text x="360" y="184" font-size="12" fill="#1a1a1a" text-anchor="middle">• Alpha Blending</text>
+  <text x="360" y="204" font-size="12" fill="#1a1a1a" text-anchor="middle">• Fill / Scaling / Rot</text>
+  <text x="360" y="224" font-size="12" fill="#1a1a1a" text-anchor="middle">• Color Conv (RGB/YUV)</text>
+  <text x="360" y="248" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">Запис у Frame N</text>
+
+  <!-- Panel 2 Sub-block 2B -->
+  <rect x="278" y="315" width="164" height="155" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="360" y="338" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">PPA ISR / Callback</text>
+  <text x="360" y="364" font-size="12" fill="#1a1a1a" text-anchor="middle">Сигнал завершення</text>
+  <text x="360" y="386" font-size="12" fill="#1a1a1a" text-anchor="middle">рендерингу кадру N</text>
+  <text x="360" y="414" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">lv_disp_flush_ready()</text>
+  <text x="360" y="436" font-size="12" fill="#6b7280" text-anchor="middle">Розблокування LVGL</text>
+
+  <!-- Panel 3 Sub-block 3A -->
+  <rect x="518" y="115" width="174" height="155" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="605" y="138" font-size="13" font-weight="700" fill="#2457d6" text-anchor="middle">Буфер A (Frame N)</text>
+  <text x="605" y="162" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">АКТИВНИЙ ЗАПИС</text>
+  <text x="605" y="188" font-size="12" fill="#1a1a1a" text-anchor="middle">Заповнення PPA</text>
+  <text x="605" y="208" font-size="12" fill="#1a1a1a" text-anchor="middle">новими пікселями</text>
+  <text x="605" y="234" font-size="12" fill="#6b7280" text-anchor="middle">Адреса: FB_ADDR_0</text>
+  <text x="605" y="254" font-size="12" fill="#6b7280" text-anchor="middle">PSRAM (High-Speed)</text>
+
+  <!-- Panel 3 Sub-block 3B -->
+  <rect x="518" y="315" width="174" height="155" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="605" y="338" font-size="13" font-weight="700" fill="#27ae60" text-anchor="middle">Буфер B (Frame N-1)</text>
+  <text x="605" y="362" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">АКТИВНЕ ЗЧИТУВАННЯ</text>
+  <text x="605" y="388" font-size="12" fill="#1a1a1a" text-anchor="middle">MIPI-DSI DMA виводить</text>
+  <text x="605" y="408" font-size="12" fill="#1a1a1a" text-anchor="middle">попередній кадр</text>
+  <text x="605" y="434" font-size="12" fill="#6b7280" text-anchor="middle">Адреса: FB_ADDR_1</text>
+  <text x="605" y="454" font-size="12" fill="#6b7280" text-anchor="middle">PSRAM (High-Speed)</text>
+
+  <!-- Panel 4 Sub-block 4A -->
+  <rect x="758" y="115" width="164" height="155" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="840" y="138" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">MIPI-DSI Controller</text>
+  <text x="840" y="162" font-size="12" fill="#1a1a1a" text-anchor="middle">2-Lane DSI PHY</text>
+  <text x="840" y="184" font-size="12" fill="#1a1a1a" text-anchor="middle">Прямий зсув DMA</text>
+  <text x="840" y="204" font-size="12" fill="#1a1a1a" text-anchor="middle">без участі CPU</text>
+  <text x="840" y="232" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">Потік даних 60 FPS</text>
+
+  <!-- Panel 4 Sub-block 4B -->
+  <rect x="758" y="315" width="164" height="155" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="840" y="338" font-size="13" font-weight="700" fill="#27ae60" text-anchor="middle">TFT Дисплей (LCD)</text>
+  <text x="840" y="362" font-size="12" fill="#1a1a1a" text-anchor="middle">TE / VSYNC імпульс</text>
+  <text x="840" y="384" font-size="12" fill="#1a1a1a" text-anchor="middle">Апаратна синхрон.</text>
+  <text x="840" y="408" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">Без розривів (Tearing)</text>
+  <text x="840" y="434" font-size="12" fill="#6b7280" text-anchor="middle">Swap FB_0 &#x2194; FB_1</text>
+
+  <!-- Flow 1: 1A -> 2A -->
+  <line x1="202" y1="192" x2="278" y2="192" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="240" y="184" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">1. PPA Run</text>
+
+  <!-- Flow 2: 2A -> 3A -->
+  <line x1="442" y1="192" x2="518" y2="192" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="480" y="184" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">2. Write N</text>
+
+  <!-- Flow 3: 3B -> 4B -->
+  <line x1="692" y1="392" x2="758" y2="392" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="725" y="384" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">3. DMA N-1</text>
+
+  <!-- Flow 4: 1A -> 1B -->
+  <line x1="120" y1="270" x2="120" y2="315" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="128" y="296" font-size="12" font-weight="700" fill="#27ae60" text-anchor="start">4. CPU Free</text>
+
+  <!-- Flow 5: 2A -> 2B -->
+  <line x1="360" y1="270" x2="360" y2="315" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr-gray)"/>
+  <text x="368" y="296" font-size="12" fill="#6b7280" text-anchor="start">5. ISR Event</text>
+
+  <!-- Flow 6: 4B -> 3B (VSYNC Sync) -->
+  <line x1="758" y1="440" x2="692" y2="440" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr-green)"/>
+  <text x="725" y="432" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">6. TE VSYNC</text>
+</svg>

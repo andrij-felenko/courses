@@ -1,0 +1,117 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Заголовок та підзаголовок -->
+  <text x="480" y="32" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Життєвий цикл кадрового буфера camera_fb_t у драйвері esp_camera</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Перенесення даних через DMA та обов'язкове повернення буфера за допомогою esp_camera_fb_return()</text>
+
+  <!-- Блок 1: Сенсор і DVP шина -->
+  <rect x="30" y="85" width="190" height="295" fill="#f4f6f8" stroke="#d0d7de" rx="6"/>
+  <text x="125" y="110" font-size="14" font-weight="700" fill="#1a1a1a" text-anchor="middle">Сенсор і DVP шина</text>
+  
+  <rect x="45" y="130" width="160" height="230" fill="#eaf0fd" stroke="#2457d6" rx="4"/>
+  <text x="125" y="152" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">Сигнали камери</text>
+  <text x="60" y="180" font-size="12" fill="#1a1a1a">• XCLK (Тактування)</text>
+  <text x="60" y="210" font-size="12" fill="#1a1a1a">• PCLK (Піксельний такт)</text>
+  <text x="60" y="240" font-size="12" fill="#1a1a1a">• VSYNC (Синхр. кадру)</text>
+  <text x="60" y="270" font-size="12" fill="#1a1a1a">• HREF (Синхр. рядка)</text>
+  <text x="60" y="300" font-size="12" fill="#1a1a1a">• D[0..7] (Дані пікселів)</text>
+  <text x="60" y="330" font-size="12" fill="#6b7280">Паралельний потік</text>
+
+  <!-- Стрілка від DVP до DMA -->
+  <path d="M220,245 L260,245" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="240" y="232" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">DMA In</text>
+
+  <!-- Блок 2: Кільце DMA буферів у пам'яті -->
+  <rect x="270" y="85" width="400" height="295" fill="#f4f6f8" stroke="#d0d7de" rx="6"/>
+  <text x="470" y="110" font-size="14" font-weight="700" fill="#1a1a1a" text-anchor="middle">DMA-дескриптори та кільце буферів</text>
+
+  <!-- Буфер 0: Заповнення DMA -->
+  <rect x="290" y="130" width="170" height="105" fill="#eaf0fd" stroke="#2457d6" rx="4"/>
+  <text x="375" y="152" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">Буфер 0 (DMA Active)</text>
+  <text x="300" y="175" font-size="12" fill="#1a1a1a">• Заповнення з DVP</text>
+  <text x="300" y="197" font-size="12" fill="#1a1a1a">• DMA дескриптор</text>
+  <text x="300" y="220" font-size="12" fill="#6b7280">Стан: WRITING</text>
+
+  <!-- Буфер 1: Черга готових -->
+  <rect x="480" y="130" width="170" height="105" fill="#e9f7ef" stroke="#27ae60" rx="4"/>
+  <text x="565" y="152" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">Буфер 1 (Ready Queue)</text>
+  <text x="490" y="175" font-size="12" fill="#1a1a1a">• Кадр повністю знято</text>
+  <text x="490" y="197" font-size="12" fill="#1a1a1a">• В черзі на видачу</text>
+  <text x="490" y="220" font-size="12" fill="#6b7280">Стан: QUEUED</text>
+
+  <!-- Стрілка 0 -> 1 -->
+  <path d="M460,182 L470,182" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- Буфер 3: Вільний -->
+  <rect x="290" y="255" width="170" height="105" fill="#ffffff" stroke="#d0d7de" stroke-dasharray="4,4" rx="4"/>
+  <text x="375" y="277" font-size="12" font-weight="700" fill="#6b7280" text-anchor="middle">Буфер 3 (Free)</text>
+  <text x="300" y="300" font-size="12" fill="#1a1a1a">• Вільний дескриптор</text>
+  <text x="300" y="322" font-size="12" fill="#1a1a1a">• Очікує новий кадр</text>
+  <text x="300" y="345" font-size="12" fill="#6b7280">Стан: IDLE</text>
+
+  <!-- Буфер 2: Утриманння застосунком -->
+  <rect x="480" y="255" width="170" height="105" fill="#eaf0fd" stroke="#2457d6" rx="4"/>
+  <text x="565" y="277" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">Буфер 2 (In Use)</text>
+  <text x="490" y="300" font-size="12" fill="#1a1a1a">• Захоплено кодом</text>
+  <text x="490" y="322" font-size="12" fill="#1a1a1a">• camera_fb_t*</text>
+  <text x="490" y="345" font-size="12" fill="#6b7280">Стан: LOCKED</text>
+
+  <!-- Стрілка 3 -> 0 -->
+  <path d="M375,255 L375,245" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Стрілка від готового буфера до застосунку -->
+  <path d="M650,182 L690,182" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="670" y="170" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">fb_get()</text>
+
+  <!-- Блок 3: Користувацький застосунок -->
+  <rect x="700" y="85" width="230" height="295" fill="#f4f6f8" stroke="#d0d7de" rx="6"/>
+  <text x="815" y="110" font-size="14" font-weight="700" fill="#1a1a1a" text-anchor="middle">Користувацький застосунок</text>
+
+  <rect x="715" y="130" width="200" height="65" fill="#e9f7ef" stroke="#27ae60" rx="4"/>
+  <text x="815" y="150" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">1. esp_camera_fb_get()</text>
+  <text x="815" y="172" font-size="12" fill="#1a1a1a" text-anchor="middle">Отримання camera_fb_t*</text>
+
+  <rect x="715" y="210" width="200" height="65" fill="#eaf0fd" stroke="#2457d6" rx="4"/>
+  <text x="815" y="230" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">2. Обробка кадру</text>
+  <text x="815" y="252" font-size="12" fill="#1a1a1a" text-anchor="middle">HTTP stream / SD / AI</text>
+
+  <rect x="715" y="290" width="200" height="65" fill="#e9f7ef" stroke="#27ae60" rx="4"/>
+  <text x="815" y="310" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">3. esp_camera_fb_return()</text>
+  <text x="815" y="332" font-size="12" fill="#1a1a1a" text-anchor="middle">Обов'язковий виклик!</text>
+
+  <!-- Внутрішні стрілки застосунку -->
+  <path d="M815,195 L815,208" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <path d="M815,275 L815,288" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- Стрілка повернення буфера в кільце -->
+  <path d="M715,322 L660,322 L660,395 L375,395 L375,370" fill="none" stroke="#27ae60" stroke-width="2" stroke-dasharray="6,3" marker-end="url(#arr-green)"/>
+  <text x="517.5" y="412" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">Повернення буфера в кільце DMA (запобігає витоку пам'яті)</text>
+
+  <!-- Нижні панелі порівняння -->
+  <rect x="30" y="430" width="435" height="90" fill="#fdecea" stroke="#c0392b" rx="6"/>
+  <text x="247.5" y="452" font-size="13" font-weight="700" fill="#c0392b" text-anchor="middle">⛔ Помилка: Пропущено esp_camera_fb_return()</text>
+  <text x="247.5" y="474" font-size="12" fill="#1a1a1a" text-anchor="middle">Буфери DMA блокуються і не повертаються у кільце</text>
+  <text x="247.5" y="496" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">Результат: esp_camera_fb_get() == NULL, потік зупиняється</text>
+
+  <rect x="495" y="430" width="435" height="90" fill="#e9f7ef" stroke="#27ae60" rx="6"/>
+  <text x="712.5" y="452" font-size="13" font-weight="700" fill="#27ae60" text-anchor="middle">✓ Правильно: Завжди викликати esp_camera_fb_return()</text>
+  <text x="712.5" y="474" font-size="12" fill="#1a1a1a" text-anchor="middle">Буфер миттєво стає IDLE та готовим для нових кадрів</text>
+  <text x="712.5" y="496" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">Результат: Стабільна робота 30 FPS без витоків пам'яті</text>
+</svg>

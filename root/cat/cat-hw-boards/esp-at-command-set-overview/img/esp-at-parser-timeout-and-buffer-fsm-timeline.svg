@@ -1,0 +1,149 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Підкладка -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="30" text-anchor="middle" font-size="18" font-weight="700" fill="#1a1a1a">Часова діаграма міжсимвольних пауз та вікна таймауту парсера ESP-AT</text>
+  <text x="480" y="50" text-anchor="middle" font-size="13" fill="#6b7280">Таймер FSM t_timeout перевищує міжсимвольну паузу t_gap, а RX-буфер накопичує кадр до термінатора \r\n</text>
+
+  <!-- Вертикальні пунктирні лінії подій (проходять крізь треки) -->
+  <!-- Термінатор \r\n прибув (x = 475) -->
+  <line x1="475" y1="110" x2="475" y2="465" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="4,4"/>
+
+  <!-- Таймаут t_timeout спрацював (x = 822) -->
+  <line x1="822" y1="205" x2="822" y2="465" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,4"/>
+
+  <!-- ТРЕК 1: UART RX -->
+  <rect x="30" y="68" width="900" height="118" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="45" y="98" font-weight="700" font-size="13" fill="#1a1a1a">
+    <tspan x="45" dy="0">Лінія UART RX</tspan>
+    <tspan x="45" dy="16" font-weight="400" font-size="12" fill="#6b7280">(кадри й символи)</tspan>
+  </text>
+
+  <!-- Нульовий рівень UART RX -->
+  <line x1="175" y1="148" x2="890" y2="148" stroke="#9ca3af" stroke-width="1.5" stroke-dasharray="4,4"/>
+
+  <!-- Символи на лінії UART -->
+  <!-- 'A' -->
+  <rect x="195" y="116" width="45" height="32" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="4"/>
+  <text x="217.5" y="137" text-anchor="middle" font-size="13" font-weight="700" fill="#2457d6">A</text>
+  <!-- 'T' -->
+  <rect x="250" y="116" width="45" height="32" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="4"/>
+  <text x="272.5" y="137" text-anchor="middle" font-size="13" font-weight="700" fill="#2457d6">T</text>
+  <!-- '\r' -->
+  <rect x="375" y="116" width="45" height="32" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="4"/>
+  <text x="397.5" y="137" text-anchor="middle" font-size="13" font-weight="700" fill="#2457d6">\r</text>
+  <!-- '\n' -->
+  <rect x="430" y="116" width="45" height="32" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="4"/>
+  <text x="452.5" y="137" text-anchor="middle" font-size="13" font-weight="700" fill="#2457d6">\n</text>
+  <!-- 'D' -->
+  <rect x="610" y="116" width="45" height="32" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="4"/>
+  <text x="632.5" y="137" text-anchor="middle" font-size="13" font-weight="700" fill="#2457d6">D</text>
+  <!-- 'A' -->
+  <rect x="665" y="116" width="45" height="32" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="4"/>
+  <text x="687.5" y="137" text-anchor="middle" font-size="13" font-weight="700" fill="#2457d6">A</text>
+
+  <!-- Розмірні лінії на Треку 1 -->
+  <!-- T_char -->
+  <line x1="195" y1="98" x2="240" y2="98" stroke="#2457d6" stroke-width="1.2" marker-start="url(#arr-blue)" marker-end="url(#arr-blue)"/>
+  <text x="217.5" y="90" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">T_char</text>
+  <!-- t_gap -->
+  <line x1="295" y1="98" x2="375" y2="98" stroke="#6b7280" stroke-width="1.2" marker-start="url(#arr-gray)" marker-end="url(#arr-gray)"/>
+  <text x="335" y="90" text-anchor="middle" font-size="12" fill="#6b7280">t_gap (пауза)</text>
+  <!-- T_frame -->
+  <line x1="195" y1="164" x2="475" y2="164" stroke="#2457d6" stroke-width="1.5" marker-start="url(#arr-blue)" marker-end="url(#arr-blue)"/>
+  <text x="335" y="178" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">T_frame (кадр AT-команди)</text>
+  <!-- \r\n позначка -->
+  <text x="475" y="90" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">\r\n (термінатор)</text>
+
+  <!-- ТРЕК 2: FSM TIMER -->
+  <rect x="30" y="198" width="900" height="132" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="45" y="218" font-weight="700" font-size="13" fill="#1a1a1a">
+    <tspan x="45" dy="0">Таймер FSM</tspan>
+    <tspan x="45" dy="14" font-weight="400" font-size="12" fill="#6b7280">(t_timer)</tspan>
+  </text>
+
+  <!-- Поріг таймауту t_timeout -->
+  <line x1="175" y1="240" x2="890" y2="240" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="5,4"/>
+  <text x="170" y="244" text-anchor="end" font-size="12" font-weight="700" fill="#c0392b">Поріг t_timeout</text>
+
+  <!-- Базова лінія 0 -->
+  <line x1="175" y1="310" x2="890" y2="310" stroke="#d0d7de" stroke-width="1"/>
+  <text x="170" y="314" text-anchor="end" font-size="12" fill="#6b7280">0</text>
+
+  <!-- Зафарбований трикутник таймауту -->
+  <polygon points="710,310 822,240 822,310" fill="#fdecea" opacity="0.7"/>
+
+  <!-- Крива таймера FSM -->
+  <path d="M 175,310 L 195,310 L 240,310 L 250,301 L 250,310 L 295,310 L 375,260 L 375,310 L 420,310 L 430,301 L 430,310 L 475,310 L 610,310 L 655,310 L 665,301 L 665,310 L 710,310 L 822,240 L 822,310 L 890,310" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+
+  <!-- Пояснення на Треку 2 -->
+  <text x="335" y="226" text-anchor="middle" font-size="12" fill="#2457d6">t_timer &lt; t_timeout (пауза в межах норми)</text>
+
+  <text x="385" y="270" font-size="12" fill="#2457d6">
+    <tspan x="385" dy="0">Скидання</tspan>
+    <tspan x="385" dy="14">за байтом</tspan>
+  </text>
+
+  <text x="485" y="285" text-anchor="start" font-size="12" fill="#27ae60">Таймер вимкнено (кадр ОК)</text>
+  
+  <!-- Позначка таймауту -->
+  <text x="812" y="224" text-anchor="end" font-size="12" font-weight="700" fill="#c0392b">Спрацювання t_timeout (таймаут!)</text>
+
+  <!-- ТРЕК 3: RX BUFFER -->
+  <rect x="30" y="342" width="900" height="128" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="45" y="372" font-weight="700" font-size="13" fill="#1a1a1a">
+    <tspan x="45" dy="0">Обсяг RX-буфера</tspan>
+    <tspan x="45" dy="16" font-weight="400" font-size="12" fill="#6b7280">(V_RX, байти)</tspan>
+  </text>
+
+  <!-- Рівні буфера -->
+  <line x1="175" y1="440" x2="890" y2="440" stroke="#d0d7de" stroke-width="1"/>
+  <text x="170" y="444" text-anchor="end" font-size="12" fill="#6b7280">0</text>
+  <line x1="175" y1="422" x2="890" y2="422" stroke="#e5e7eb" stroke-width="1" stroke-dasharray="2,2"/>
+  <text x="170" y="426" text-anchor="end" font-size="12" fill="#6b7280">1 B</text>
+  <line x1="175" y1="404" x2="890" y2="404" stroke="#e5e7eb" stroke-width="1" stroke-dasharray="2,2"/>
+  <text x="170" y="408" text-anchor="end" font-size="12" fill="#6b7280">2 B</text>
+  <line x1="175" y1="386" x2="890" y2="386" stroke="#e5e7eb" stroke-width="1" stroke-dasharray="2,2"/>
+  <text x="170" y="390" text-anchor="end" font-size="12" fill="#6b7280">3 B</text>
+  <line x1="175" y1="368" x2="890" y2="368" stroke="#e5e7eb" stroke-width="1" stroke-dasharray="2,2"/>
+  <text x="170" y="372" text-anchor="end" font-size="12" fill="#6b7280">4 B</text>
+
+  <!-- Заповнені площі буфера -->
+  <polygon points="240,440 240,422 295,422 295,404 420,404 420,386 475,386 475,368 475,440" fill="#eaf0fd" opacity="0.6"/>
+  <polygon points="655,440 655,422 710,422 710,404 822,404 822,440" fill="#fdecea" opacity="0.6"/>
+
+  <!-- Сходинкова крива заповнення RX-буфера -->
+  <path d="M 175,440 L 240,440 L 240,422 L 295,422 L 295,404 L 420,404 L 420,386 L 475,386 L 475,368 L 475,440 L 655,440 L 655,422 L 710,422 L 710,404 L 822,404 L 822,440 L 890,440" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+
+  <!-- Плашки подій очищення буфера (100% всередині треку 3, над лінією 368) -->
+  <!-- Очищення за \r\n -->
+  <rect x="485" y="348" width="155" height="18" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2" rx="4"/>
+  <text x="562.5" y="361" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">Зчитування за \r\n</text>
+
+  <!-- Очищення за таймаутом -->
+  <rect x="662" y="348" width="155" height="18" fill="#fdecea" stroke="#c0392b" stroke-width="1.2" rx="4"/>
+  <text x="740" y="361" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">Скидання за таймаутом</text>
+
+  <!-- НИЖНІ ПІДСУМКОВІ КАРТКИ -->
+  <rect x="30" y="484" width="435" height="36" fill="#e9f7ef" stroke="#27ae60" stroke-width="1" rx="6"/>
+  <text x="247.5" y="506" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">Режим термінатора: t_gap &lt; t_timeout → парсинг за \r\n</text>
+
+  <rect x="495" y="484" width="435" height="36" fill="#fdecea" stroke="#c0392b" stroke-width="1" rx="6"/>
+  <text x="712.5" y="506" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">Режим таймауту: t_pause ≥ t_timeout → обробка за таймаутом</text>
+</svg>

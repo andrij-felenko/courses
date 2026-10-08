@@ -1,0 +1,154 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Canvas Background -->
+  <rect x="0" y="0" width="960" height="540" fill="#ffffff"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="34" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">FSM розбору вихідного потоку відповідей та URC модуля ESP-AT</text>
+  <text x="480" y="56" font-size="13" fill="#6b7280" text-anchor="middle">Демільтиплексування UART-кадрів на фінальні статуси виконання, дані та асинхронні події</text>
+
+  <!-- PANEL 1: UART RX STREAM (LEFT) -->
+  <rect x="20" y="80" width="220" height="435" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="8"/>
+  <text x="130" y="106" font-size="14" font-weight="700" fill="#1a1a1a" text-anchor="middle">Вхідний потік UART</text>
+  <text x="130" y="124" font-size="11" fill="#6b7280" text-anchor="middle">(послідовний прийом кадрів)</text>
+
+  <!-- Frame 1: Payload -->
+  <rect x="35" y="138" width="190" height="44" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="45" y="156" font-size="12" font-weight="700" fill="#1a1a1a">+CWLAP:(3,"SSID",-65)</text>
+  <text x="45" y="172" font-size="11" fill="#6b7280">Дані відповіді (Payload)</text>
+
+  <!-- Frame 2: OK Status -->
+  <rect x="35" y="192" width="190" height="44" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="45" y="210" font-size="12" font-weight="700" fill="#27ae60">OK\r\n</text>
+  <text x="45" y="226" font-size="11" fill="#6b7280">Фінальний маркер успіху</text>
+
+  <!-- Frame 3: URC Event -->
+  <rect x="35" y="246" width="190" height="44" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="45" y="264" font-size="12" font-weight="700" fill="#2457d6">WIFI CONNECTED\r\n</text>
+  <text x="45" y="280" font-size="11" fill="#6b7280">Асинхронне сповіщення URC</text>
+
+  <!-- Frame 4: ERROR Status -->
+  <rect x="35" y="300" width="190" height="44" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="45" y="318" font-size="12" font-weight="700" fill="#c0392b">ERROR\r\n</text>
+  <text x="45" y="334" font-size="11" fill="#6b7280">Фінальний маркер помилки</text>
+
+  <!-- Frame 5: BUSY Status -->
+  <rect x="35" y="354" width="190" height="44" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="45" y="372" font-size="12" font-weight="700" fill="#d97706">BUSY p...\r\n</text>
+  <text x="45" y="388" font-size="11" fill="#6b7280">Фінальний маркер зайнятості</text>
+
+  <!-- Frame 6: URC Network Data -->
+  <rect x="35" y="408" width="190" height="44" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="45" y="426" font-size="12" font-weight="700" fill="#2457d6">+IPD,0,14:hello</text>
+  <text x="45" y="442" font-size="11" fill="#6b7280">Мережевий пакет URC</text>
+
+  <text x="130" y="485" font-size="11" fill="#6b7280" text-anchor="middle">Буферизація символів до \r\n</text>
+
+  <!-- ARROW from Rx Stream to Parser FSM State 1 -->
+  <path d="M 240,190 L 268,190" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="254" y="180" font-size="10" font-weight="700" fill="#2457d6" text-anchor="middle">UART RX</text>
+
+  <!-- PANEL 2: HOST PARSER FSM (MIDDLE) -->
+  <rect x="260" y="80" width="210" height="435" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="8"/>
+  <text x="365" y="106" font-size="14" font-weight="700" fill="#1a1a1a" text-anchor="middle">FSM хоста</text>
+  <text x="365" y="124" font-size="11" fill="#6b7280" text-anchor="middle">(обробка буфера)</text>
+
+  <!-- State 1: IDLE -->
+  <rect x="272" y="138" width="186" height="104" fill="#eaf0fd" stroke="#2457d6" stroke-width="2" rx="8"/>
+  <text x="365" y="162" font-size="13" font-weight="700" fill="#2457d6" text-anchor="middle">Стан 1: IDLE / Прийом</text>
+  <text x="365" y="182" font-size="12" fill="#1a1a1a" text-anchor="middle">Накопичення в буфер</text>
+  <text x="365" y="200" font-size="11" fill="#6b7280" text-anchor="middle">Очікування термінатора \r\n</text>
+  <text x="365" y="218" font-size="11" fill="#6b7280" text-anchor="middle">Контроль таймауту відгуку</text>
+
+  <!-- Arrow State 1 -> State 2 -->
+  <path d="M 365,242 L 365,313" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr-dark)"/>
+  <text x="357" y="272" font-size="11" font-weight="700" fill="#1a1a1a" text-anchor="end">Кадр сформовано</text>
+  <text x="357" y="288" font-size="11" fill="#6b7280" text-anchor="end">маркер \r\n</text>
+
+  <!-- Loopback Arrow State 2 -> State 1 -->
+  <path d="M 458,375 L 464,375 L 464,190 L 460,190" fill="none" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr-gray)"/>
+  <text x="461" y="272" font-size="10" fill="#6b7280" text-anchor="end">Скидання</text>
+  <text x="461" y="285" font-size="10" fill="#6b7280" text-anchor="end">до IDLE</text>
+
+  <!-- State 2: CLASSIFY -->
+  <rect x="272" y="318" width="186" height="114" fill="#ffffff" stroke="#2457d6" stroke-width="2" rx="8"/>
+  <text x="365" y="342" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">Стан 2: Класифікація</text>
+  <text x="365" y="362" font-size="12" fill="#1a1a1a" text-anchor="middle">Аналіз префікса кадру</text>
+  <text x="365" y="380" font-size="11" fill="#6b7280" text-anchor="middle">Зіставлення з масивом URC</text>
+  <text x="365" y="398" font-size="11" fill="#6b7280" text-anchor="middle">та словником статусів</text>
+  <text x="365" y="416" font-size="11" font-weight="700" fill="#2457d6" text-anchor="middle">Демільтиплексування гілок</text>
+
+  <!-- PANEL 3: BRANCHES & HANDLERS (RIGHT) -->
+  <rect x="535" y="80" width="405" height="435" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="8"/>
+  <text x="737" y="106" font-size="14" font-weight="700" fill="#1a1a1a" text-anchor="middle">Гілки демільтиплексування та обробники</text>
+
+  <!-- Branch 1: URC Event Handler -->
+  <rect x="548" y="125" width="378" height="85" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="8"/>
+  <text x="562" y="146" font-size="13" font-weight="700" fill="#2457d6">1. Асинхронне сповіщення (URC / Event)</text>
+  <text x="562" y="166" font-size="12" fill="#1a1a1a">Кадри: READY, WIFI CONNECTED, +IPD...</text>
+  <text x="562" y="184" font-size="11" font-weight="700" fill="#2457d6">-> Виклик системного Event Callback хоста</text>
+  <text x="562" y="200" font-size="11" fill="#6b7280">Не змінює стан команди; FSM повертається в IDLE</text>
+
+  <!-- Path to Branch 1 -->
+  <path d="M 470,345 L 515,345 L 515,167 L 543,167" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="510" y="337" font-size="10" font-weight="700" fill="#2457d6" text-anchor="end">URC</text>
+
+  <!-- Branch 2: Data Payload Handler -->
+  <rect x="548" y="222" width="378" height="72" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5" rx="8"/>
+  <text x="562" y="243" font-size="13" font-weight="700" fill="#1a1a1a">2. Інформаційний рядок даних (Payload)</text>
+  <text x="562" y="263" font-size="12" fill="#1a1a1a">Кадри: +CWLAP:(...), +GMR:..., +CWJAP:...</text>
+  <text x="562" y="281" font-size="11" fill="#6b7280">-> Запис у буфер накопичення відповіді (Rx Buffer)</text>
+
+  <!-- Path to Branch 2 -->
+  <path d="M 470,375 L 522,375 L 522,258 L 543,258" fill="none" stroke="#6b7280" stroke-width="2" marker-end="url(#arr-gray)"/>
+  <text x="517" y="367" font-size="10" fill="#6b7280" text-anchor="end">Дані</text>
+
+  <!-- Branch 3: Final Command Status Handler -->
+  <rect x="548" y="306" width="378" height="195" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5" rx="8"/>
+  <text x="562" y="326" font-size="13" font-weight="700" fill="#1a1a1a">3. Фінальний маркер виконання AT-команди</text>
+
+  <!-- Path to Branch 3 -->
+  <path d="M 470,405 L 528,405 L 528,403 L 543,403" fill="none" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr-dark)"/>
+  <text x="523" y="397" font-size="10" font-weight="700" fill="#1a1a1a" text-anchor="end">Статус</text>
+
+  <!-- Sub-box 3A: OK -->
+  <rect x="558" y="336" width="110" height="154" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="6"/>
+  <text x="613" y="358" font-size="16" font-weight="700" fill="#27ae60" text-anchor="middle">OK</text>
+  <text x="613" y="374" font-size="11" font-weight="700" fill="#27ae60" text-anchor="middle">УСПІХ</text>
+  <text x="564" y="396" font-size="11" fill="#1a1a1a">• Успішна дія</text>
+  <text x="564" y="413" font-size="11" fill="#1a1a1a">• Фіксація даних</text>
+  <text x="564" y="430" font-size="11" fill="#1a1a1a">• Сигнал SUCCESS</text>
+  <text x="564" y="447" font-size="11" fill="#1a1a1a">• Стоп-таймаут</text>
+  <text x="564" y="475" font-size="11" font-weight="700" fill="#27ae60">• FSM -> IDLE</text>
+
+  <!-- Sub-box 3B: ERROR -->
+  <rect x="680" y="336" width="110" height="154" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" rx="6"/>
+  <text x="735" y="358" font-size="16" font-weight="700" fill="#c0392b" text-anchor="middle">ERROR</text>
+  <text x="735" y="374" font-size="11" font-weight="700" fill="#c0392b" text-anchor="middle">ПОМИЛКА</text>
+  <text x="686" y="396" font-size="11" fill="#1a1a1a">• Збій синтаксису</text>
+  <text x="686" y="413" font-size="11" fill="#1a1a1a">• Хибний параметр</text>
+  <text x="686" y="430" font-size="11" fill="#1a1a1a">• Сигнал ERROR</text>
+  <text x="686" y="447" font-size="11" fill="#1a1a1a">• Скидання буфера</text>
+  <text x="686" y="475" font-size="11" font-weight="700" fill="#c0392b">• FSM -> IDLE</text>
+
+  <!-- Sub-box 3C: BUSY -->
+  <rect x="802" y="336" width="110" height="154" fill="#fef3c7" stroke="#d97706" stroke-width="1.5" rx="6"/>
+  <text x="857" y="358" font-size="14" font-weight="700" fill="#d97706" text-anchor="middle">BUSY p...</text>
+  <text x="857" y="374" font-size="11" font-weight="700" fill="#d97706" text-anchor="middle">ЗАЙНЯТИЙ</text>
+  <text x="808" y="396" font-size="11" fill="#1a1a1a">• Триває операція</text>
+  <text x="808" y="413" font-size="11" fill="#1a1a1a">• Нова відхилена</text>
+  <text x="808" y="430" font-size="11" fill="#1a1a1a">• Сигнал RETRY</text>
+  <text x="808" y="447" font-size="11" fill="#1a1a1a">• Повтор пізніше</text>
+  <text x="808" y="475" font-size="11" font-weight="700" fill="#d97706">• FSM -> IDLE</text>
+</svg>

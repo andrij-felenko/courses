@@ -1,0 +1,107 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Маркери стрілок -->
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="36" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Модель Roofline продуктивності SIMD/DSP векторного ядра ESP32-P4</text>
+  <text x="480" y="56" text-anchor="middle" font-size="13" fill="#6b7280">Обмеження пропускною здатністю пам'яті (Memory-Bound) проти обчислювального піку INT8/INT16 (Compute-Bound)</text>
+
+  <!-- Назви осей -->
+  <text x="70" y="92" font-size="13" font-weight="bold" fill="#1a1a1a">Продуктивність P [MAC / такт]</text>
+  <text x="385" y="468" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Арифметична інтенсивність I [MAC / байт]</text>
+
+  <!-- Сітка та допоміжні лінії -->
+  <line x1="130" y1="280" x2="620" y2="280" stroke="#d0d7de" stroke-dasharray="3,3" stroke-width="1"/>
+  <line x1="130" y1="160" x2="620" y2="160" stroke="#d0d7de" stroke-dasharray="3,3" stroke-width="1"/>
+
+  <!-- Позначки осі Y -->
+  <text x="120" y="164" text-anchor="end" font-size="12" font-weight="bold" fill="#27ae60">16 MAC/т</text>
+  <text x="120" y="284" text-anchor="end" font-size="12" font-weight="bold" fill="#2457d6">8 MAC/т</text>
+  <text x="120" y="424" text-anchor="end" font-size="12" fill="#6b7280">0</text>
+
+  <!-- Вертикальні лінії точок переходу (Knee points) -->
+  <line x1="280" y1="285" x2="280" y2="415" stroke="#2457d6" stroke-dasharray="4,4" stroke-width="1.5"/>
+  <line x1="430" y1="165" x2="430" y2="415" stroke="#27ae60" stroke-dasharray="4,4" stroke-width="1.5"/>
+
+  <!-- Позначки осі X -->
+  <line x1="130" y1="420" x2="130" y2="426" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="280" y1="420" x2="280" y2="426" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="430" y1="420" x2="430" y2="426" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <text x="130" y="442" text-anchor="middle" font-size="12" fill="#6b7280">0</text>
+  <text x="280" y="442" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">I_knee (INT16) = 0.5</text>
+  <text x="430" y="442" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">I_knee (INT8) = 1.0</text>
+
+  <!-- Лінії Roofline -->
+  <!-- Спільна похила лінія (Memory Bandwidth limit) -->
+  <line x1="130" y1="420" x2="430" y2="160" stroke="#6b7280" stroke-width="4"/>
+  <!-- INT16 Roofline ceiling -->
+  <line x1="280" y1="280" x2="620" y2="280" stroke="#2457d6" stroke-width="3"/>
+  <!-- INT8 Roofline ceiling -->
+  <line x1="430" y1="160" x2="620" y2="160" stroke="#27ae60" stroke-width="3"/>
+  <!-- INT8/INT16 slope overlays for clear coloring -->
+  <line x1="130" y1="420" x2="280" y2="280" stroke="#2457d6" stroke-width="2.5"/>
+  <line x1="280" y1="280" x2="430" y2="160" stroke="#27ae60" stroke-width="2.5"/>
+
+  <!-- Точки переходу (Knee points) -->
+  <circle cx="280" cy="280" r="6" fill="#2457d6" stroke="white" stroke-width="1.5"/>
+  <circle cx="430" cy="160" r="6" fill="#27ae60" stroke="white" stroke-width="1.5"/>
+
+  <!-- Підписи ліній -->
+  <text x="180" y="215" font-size="12" font-weight="bold" fill="#1a1a1a">Схил пропускної здатності шини пам'яті</text>
+  <text x="180" y="232" font-size="12" fill="#6b7280">B_mem = 16 байт/такт (SRAM / L1)</text>
+  <text x="180" y="249" font-size="12" fill="#6b7280">P = I × B_mem</text>
+
+  <text x="385" y="268" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Пік INT16: 8 MAC / такт (128-bit SIMD)</text>
+  <text x="525" y="148" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Пік INT8: 16 MAC / такт (128-bit SIMD)</text>
+
+  <!-- Картки областей (Memory-bound & Compute-bound) -->
+  <rect x="150" y="325" width="115" height="72" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="207" y="346" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Memory-bound</text>
+  <text x="207" y="364" text-anchor="middle" font-size="12" fill="#c0392b">Обмеження пропускною</text>
+  <text x="207" y="380" text-anchor="middle" font-size="12" fill="#c0392b">здатністю пам'яті</text>
+
+  <rect x="460" y="325" width="145" height="72" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="532" y="346" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Compute-bound</text>
+  <text x="532" y="364" text-anchor="middle" font-size="12" fill="#27ae60">Обмеження обчислювальною</text>
+  <text x="532" y="380" text-anchor="middle" font-size="12" fill="#532" fill="#27ae60">потужністю ALU</text>
+
+  <!-- Оси (над сіткою) -->
+  <line x1="130" y1="420" x2="130" y2="105" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+  <line x1="130" y1="420" x2="645" y2="420" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+
+  <!-- Права панель з інформаційними картками -->
+  <!-- Картка 1: Параметри ядра -->
+  <rect x="660" y="100" width="270" height="185" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="678" y="124" font-size="13" font-weight="bold" fill="#1a1a1a">Параметри ядра ESP32-P4</text>
+  <text x="678" y="148" font-size="12" fill="#1a1a1a">• Двоядерний RISC-V @ 400 МГц</text>
+  <text x="678" y="168" font-size="12" fill="#1a1a1a">• 128-бітний векторний SIMD/DSP</text>
+  <text x="678" y="188" font-size="12" fill="#1a1a1a">• INT8: 16 MAC/такт (піковий)</text>
+  <text x="678" y="208" font-size="12" fill="#1a1a1a">• INT16: 8 MAC/такт (піковий)</text>
+  <text x="678" y="228" font-size="12" fill="#1a1a1a">• Пам'ять L1/SRAM: 16 байт/такт</text>
+  <text x="678" y="248" font-size="12" fill="#6b7280">• P_max(INT8) = 2 × P_max(INT16)</text>
+  <text x="678" y="268" font-size="12" fill="#6b7280">• I_knee = P_max / B_mem</text>
+
+  <!-- Картка 2: TinyML Аналіз -->
+  <rect x="660" y="300" width="270" height="185" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="678" y="324" font-size="13" font-weight="bold" fill="#2457d6">Аналіз інференсу TinyML</text>
+  <text x="678" y="348" font-size="12" fill="#1a1a1a">• Квантування float32 → INT8</text>
+  <text x="678" y="366" font-size="12" fill="#1a1a1a">  зменшує обсяг даних у 4 рази</text>
+  <text x="678" y="386" font-size="12" fill="#1a1a1a">• Зсув I_knee: 0.5 → 1.0 MAC/байт</text>
+  <text x="678" y="406" font-size="12" fill="#1a1a1a">• При I &lt; 0.5 (згортки 1x1):</text>
+  <text x="678" y="424" font-size="12" fill="#6b7280">  обмеження шиною пам'яті</text>
+  <text x="678" y="444" font-size="12" fill="#1a1a1a">• При I &gt; 1.0 (згортки 3x3/5x5):</text>
+  <text x="678" y="462" font-size="12" fill="#27ae60">  INT8 дає 2x прискорення</text>
+
+  <!-- Нижня підсумкова панель -->
+  <rect x="130" y="495" width="800" height="45" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="530" y="514" text-anchor="middle" font-size="12" fill="#1a1a1a"><tspan font-weight="bold">Висновок:</tspan> Для досягнення пікової продуктивності INT8 (16 MAC/такт) на ESP32-P4 алгоритм має забезпечити</text>
+  <text x="530" y="530" text-anchor="middle" font-size="12" fill="#1a1a1a">арифметичну інтенсивність <tspan font-weight="bold" fill="#27ae60">I ≥ 1.0 MAC/байт</tspan> (повторне використання операндів у регістрах SIMD).</text>
+</svg>

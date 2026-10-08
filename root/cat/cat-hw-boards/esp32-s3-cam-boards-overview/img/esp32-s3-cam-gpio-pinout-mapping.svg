@@ -1,0 +1,115 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-red" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="35" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Розподіл GPIO мікроконтролера ESP32-S3-CAM</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">DVP-камера та Octal PSRAM займають більшість GPIO, залишаючи для периферії користувача обмежену кількість пінів</text>
+
+  <!-- MCU Central Bar -->
+  <rect x="25" y="85" width="910" height="50" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="480" y="107" font-size="15" font-weight="bold" fill="#1a1a1a" text-anchor="middle">ESP32-S3 MCU (Всього GPIO: 45)</text>
+  <text x="480" y="125" font-size="12" fill="#6b7280" text-anchor="middle">Вбудований USB CDC/JTAG (GPIO 19, 20) звільняє UART • Векторні інструкції Xtensa LX7 (Edge AI)</text>
+
+  <!-- Arrows from MCU Bar to Panels -->
+  <line x1="132" y1="135" x2="132" y2="153" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <line x1="362" y1="135" x2="362" y2="153" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <line x1="592" y1="135" x2="592" y2="153" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <line x1="825" y1="135" x2="825" y2="153" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- Column 1: DVP Camera (Reserved) -->
+  <rect x="25" y="150" width="215" height="345" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <rect x="35" y="160" width="195" height="30" rx="4" fill="#c0392b"/>
+  <text x="132" y="180" font-size="13" font-weight="bold" fill="white" text-anchor="middle">DVP Камера (14 GPIO)</text>
+
+  <text x="132" y="215" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Лінії даних D0–D7</text>
+  <text x="132" y="236" font-size="12" fill="#1a1a1a" text-anchor="middle">GPIO 11, 9, 8, 10</text>
+  <text x="132" y="257" font-size="12" fill="#1a1a1a" text-anchor="middle">GPIO 12, 18, 17, 16</text>
+
+  <text x="132" y="288" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Синхронізація DVP</text>
+  <text x="132" y="309" font-size="12" fill="#1a1a1a" text-anchor="middle">PCLK (13), VSYNC (6)</text>
+  <text x="132" y="330" font-size="12" fill="#1a1a1a" text-anchor="middle">HREF (7), XCLK (15)</text>
+
+  <text x="132" y="361" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Керування SCCB</text>
+  <text x="132" y="382" font-size="12" fill="#1a1a1a" text-anchor="middle">SIOC/SCL (GPIO 5)</text>
+  <text x="132" y="403" font-size="12" fill="#1a1a1a" text-anchor="middle">SIOD/SDA (GPIO 4)</text>
+
+  <line x1="35" y1="425" x2="230" y2="425" stroke="#d0d7de" stroke-width="1"/>
+  <text x="132" y="448" font-size="12" fill="#c0392b" text-anchor="middle">Паралельна шина DVP</text>
+  <text x="132" y="469" font-size="12" fill="#c0392b" text-anchor="middle">Прямий доступ DMA</text>
+
+  <!-- Column 2: Octal PSRAM (Reserved Memory) -->
+  <rect x="255" y="150" width="215" height="345" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <rect x="265" y="160" width="195" height="30" rx="4" fill="#c0392b"/>
+  <text x="362" y="180" font-size="13" font-weight="bold" fill="white" text-anchor="middle">Octal PSRAM (8-10 GPIO)</text>
+
+  <text x="362" y="215" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Високошвидкісна шина</text>
+  <text x="362" y="236" font-size="12" fill="#1a1a1a" text-anchor="middle">Octal SPI (8-bit data)</text>
+  <text x="362" y="257" font-size="12" fill="#1a1a1a" text-anchor="middle">Тактування DQS / CS</text>
+
+  <text x="362" y="288" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Зарезервовані піни</text>
+  <text x="362" y="309" font-size="12" fill="#1a1a1a" text-anchor="middle">GPIO 33, 34, 35, 36</text>
+  <text x="362" y="330" font-size="12" fill="#1a1a1a" text-anchor="middle">GPIO 37 (внутрішні)</text>
+
+  <text x="362" y="361" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Призначення в системі</text>
+  <text x="362" y="382" font-size="12" fill="#1a1a1a" text-anchor="middle">Frame Buffer для DVP</text>
+  <text x="362" y="403" font-size="12" fill="#1a1a1a" text-anchor="middle">Пам'ять під Edge AI</text>
+
+  <line x1="265" y1="425" x2="460" y2="425" stroke="#d0d7de" stroke-width="1"/>
+  <text x="362" y="448" font-size="12" fill="#c0392b" text-anchor="middle">Апаратно недоступні</text>
+  <text x="362" y="469" font-size="12" fill="#c0392b" text-anchor="middle">для зовнішніх схем</text>
+
+  <!-- Column 3: MicroSD / SDMMC (Peripheral) -->
+  <rect x="485" y="150" width="215" height="345" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="495" y="160" width="195" height="30" rx="4" fill="#2457d6"/>
+  <text x="592" y="180" font-size="13" font-weight="bold" fill="white" text-anchor="middle">MicroSD / SDMMC (4-6 GPIO)</text>
+
+  <text x="592" y="215" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Шина картки пам'яті</text>
+  <text x="592" y="236" font-size="12" fill="#1a1a1a" text-anchor="middle">CLK (39), CMD (38)</text>
+  <text x="592" y="257" font-size="12" fill="#1a1a1a" text-anchor="middle">D0 (40), D1-D3 (41,42,21)</text>
+
+  <text x="592" y="288" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Режими роботи</text>
+  <text x="592" y="309" font-size="12" fill="#1a1a1a" text-anchor="middle">1-bit / 4-bit SDMMC</text>
+  <text x="592" y="330" font-size="12" fill="#1a1a1a" text-anchor="middle">Альтернатива: SPI mode</text>
+
+  <text x="592" y="361" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Функціонал</text>
+  <text x="592" y="382" font-size="12" fill="#1a1a1a" text-anchor="middle">Збереження кадрів</text>
+  <text x="592" y="403" font-size="12" fill="#1a1a1a" text-anchor="middle">Логування даних</text>
+
+  <line x1="495" y1="425" x2="690" y2="425" stroke="#d0d7de" stroke-width="1"/>
+  <text x="592" y="448" font-size="12" fill="#2457d6" text-anchor="middle">Займає лінії SDMMC</text>
+  <text x="592" y="469" font-size="12" fill="#2457d6" text-anchor="middle">при 4-бітному режимі</text>
+
+  <!-- Column 4: Free User GPIOs (Available) -->
+  <rect x="715" y="150" width="220" height="345" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="725" y="160" width="200" height="30" rx="4" fill="#27ae60"/>
+  <text x="825" y="180" font-size="13" font-weight="bold" fill="white" text-anchor="middle">Вільні GPIO (Доступні)</text>
+
+  <text x="825" y="215" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Доступні піни IO</text>
+  <text x="825" y="236" font-size="12" fill="#1a1a1a" text-anchor="middle">GPIO 1, GPIO 2, GPIO 42</text>
+  <text x="825" y="257" font-size="12" fill="#1a1a1a" text-anchor="middle">GPIO 43 (TX0), 44 (RX0)</text>
+
+  <text x="825" y="288" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Підключення периферії</text>
+  <text x="825" y="309" font-size="12" fill="#1a1a1a" text-anchor="middle">I2S / PDM мікрофони</text>
+  <text x="825" y="330" font-size="12" fill="#1a1a1a" text-anchor="middle">I2C сенсори, реле, LED</text>
+
+  <text x="825" y="361" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Перевага ESP32-S3</text>
+  <text x="825" y="382" font-size="12" fill="#1a1a1a" text-anchor="middle">USB CDC/JTAG (19, 20)</text>
+  <text x="825" y="403" font-size="12" fill="#1a1a1a" text-anchor="middle">звільняє UART (43, 44)</text>
+
+  <line x1="725" y1="425" x2="920" y2="425" stroke="#d0d7de" stroke-width="1"/>
+  <text x="825" y="448" font-size="12" fill="#27ae60" text-anchor="middle">Безпечні для датчиків</text>
+  <text x="825" y="469" font-size="12" fill="#27ae60" text-anchor="middle">без конфлікту з DVP</text>
+</svg>

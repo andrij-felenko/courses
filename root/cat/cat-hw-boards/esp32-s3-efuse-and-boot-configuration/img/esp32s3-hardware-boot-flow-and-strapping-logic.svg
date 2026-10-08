@@ -1,0 +1,140 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-accent" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="30" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Алгоритм апаратного завантаження та фіксації strapping-пінів ESP32-S3</text>
+  <text x="480" y="56" font-size="13" fill="#6b7280" text-anchor="middle">Фіксація станів GPIO0/45/46 під час скидання CHIP_PU визначає режим Flash або Download</text>
+
+  <!-- Row 1: Hardware Reset & Sampling -->
+  <!-- Box 1: Power-On Reset -->
+  <rect x="40" y="85" width="240" height="55" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="160" y="107" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">1. Подача напруги CHIP_PU</text>
+  <text x="160" y="127" font-size="12" fill="#6b7280" text-anchor="middle">Скидання (Power-On Reset)</text>
+
+  <!-- Arrow 1 -->
+  <line x1="280" y1="112" x2="304" y2="112" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+
+  <!-- Box 2: Strapping Latch -->
+  <rect x="310" y="85" width="300" height="55" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="460" y="107" font-size="13" font-weight="700" fill="#2457d6" text-anchor="middle">2. Фіксація strapping-пінів (t_latch)</text>
+  <text x="460" y="127" font-size="12" fill="#1a1a1a" text-anchor="middle">Засувка станів GPIO0, GPIO45, GPIO46</text>
+
+  <!-- Arrow 2 -->
+  <line x1="610" y1="112" x2="634" y2="112" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+
+  <!-- Box 3: Read eFuse -->
+  <rect x="640" y="85" width="280" height="55" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="780" y="107" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">3. Зчитування eFuse (BLK0)</text>
+  <text x="780" y="127" font-size="12" fill="#6b7280" text-anchor="middle">Налаштування VDD_SPI та Secure Boot</text>
+
+  <!-- Flow to Decision Node -->
+  <line x1="460" y1="140" x2="460" y2="169" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-accent)"/>
+
+  <!-- Row 2: Decision Node -->
+  <rect x="310" y="175" width="300" height="65" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="460" y="202" font-size="14" font-weight="700" fill="#1a1a1a" text-anchor="middle">Перевірка стану GPIO0 при скиданні</text>
+  <text x="460" y="224" font-size="12" fill="#6b7280" text-anchor="middle">(Вибір режиму завантаження)</text>
+
+  <!-- Branch Left: GPIO0 = 1 -->
+  <line x1="310" y1="207.5" x2="246" y2="207.5" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="278" y="197" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">GPIO0 = 1 (High)</text>
+
+  <!-- Box L1: SPI Flash Mode -->
+  <rect x="40" y="175" width="200" height="65" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="140" y="202" font-size="13" font-weight="700" fill="#27ae60" text-anchor="middle">SPI Flash Boot Mode</text>
+  <text x="140" y="224" font-size="12" fill="#1a1a1a" text-anchor="middle">Нормальний запуск прошивки</text>
+
+  <line x1="140" y1="240" x2="140" y2="269" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- Box L2: Hardware Checks -->
+  <rect x="40" y="275" width="200" height="65" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="140" y="307" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Контроль VDD_SPI (GPIO45)</text>
+  <text x="140" y="327" font-size="12" fill="#6b7280" text-anchor="middle">Secure Boot V2 &amp; Encryption</text>
+
+  <line x1="140" y1="340" x2="140" y2="369" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- Box L3: App Execution -->
+  <rect x="40" y="375" width="200" height="65" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="140" y="402" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">Передача контролю App</text>
+  <text x="140" y="424" font-size="12" fill="#1a1a1a" text-anchor="middle">Виконання прошивки користувача</text>
+
+  <!-- Branch Right: GPIO0 = 0 -->
+  <line x1="610" y1="207.5" x2="714" y2="207.5" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="662" y="197" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">GPIO0 = 0 (Low)</text>
+
+  <!-- Box R1: Download Mode -->
+  <rect x="720" y="175" width="200" height="65" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="820" y="202" font-size="13" font-weight="700" fill="#c0392b" text-anchor="middle">UART / USB Download Mode</text>
+  <text x="820" y="224" font-size="12" fill="#1a1a1a" text-anchor="middle">Режим програмування ROM</text>
+
+  <line x1="820" y1="240" x2="820" y2="269" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+
+  <!-- Box R2: Interface Select -->
+  <rect x="720" y="275" width="200" height="65" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="820" y="307" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">UART0 / USB CDC/JTAG</text>
+  <text x="820" y="327" font-size="12" fill="#6b7280" text-anchor="middle">Статус логів ROM (GPIO46)</text>
+
+  <line x1="820" y1="340" x2="820" y2="369" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+
+  <!-- Box R3: Flashing & eFuse -->
+  <rect x="720" y="375" width="200" height="65" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="820" y="402" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">Очікування esptool.py</text>
+  <text x="820" y="424" font-size="12" fill="#1a1a1a" text-anchor="middle">Запис Flash / Випалювання eFuse</text>
+
+  <!-- Central Panel: Timing Diagram -->
+  <rect x="265" y="265" width="430" height="175" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="480" y="285" font-size="13" font-weight="700" fill="#2457d6" text-anchor="middle">Часова діаграма засувки станів (CHIP_PU Reset)</text>
+
+  <!-- Latch vertical line -->
+  <line x1="480" y1="310" x2="480" y2="385" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4 3"/>
+  <text x="480" y="303" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">Точка засувки (t_latch)</text>
+
+  <!-- CHIP_PU signal -->
+  <text x="280" y="335" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="start">CHIP_PU</text>
+  <polyline points="390,340 430,340 435,322 660,322" fill="none" stroke="#2457d6" stroke-width="2"/>
+
+  <!-- GPIOs signal -->
+  <text x="280" y="375" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="start">GPIO0/45/46</text>
+  <line x1="390" y1="365" x2="660" y2="365" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="390" y1="385" x2="660" y2="385" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Latch notes -->
+  <text x="480" y="405" font-size="12" fill="#6b7280" text-anchor="middle">Стани виводів фіксуються під час підйому CHIP_PU</text>
+  <line x1="285" y1="424" x2="670" y2="424" stroke="#6b7280" stroke-width="1" marker-end="url(#arr)"/>
+  <text x="678" y="428" font-size="12" font-weight="700" fill="#6b7280" text-anchor="start">t</text>
+
+  <!-- Bottom Panel: Strapping Pin Reference -->
+  <rect x="40" y="460" width="880" height="88" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="480" y="476" font-size="13" font-weight="700" fill="#2457d6" text-anchor="middle">Призначення strapping-виводів ESP32-S3 під час скидання</text>
+
+  <!-- Column 1: GPIO0 -->
+  <text x="190" y="496" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">GPIO0: Вибір режиму Boot</text>
+  <text x="190" y="515" font-size="12" fill="#27ae60" text-anchor="middle">1 (Pull-Up) = SPI Flash Boot</text>
+  <text x="190" y="534" font-size="12" fill="#c0392b" text-anchor="middle">0 (Pull-Down) = Download Mode</text>
+
+  <!-- Column 2: GPIO45 -->
+  <text x="480" y="496" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">GPIO45: Напруга VDD_SPI</text>
+  <text x="480" y="515" font-size="12" fill="#1a1a1a" text-anchor="middle">0 = 3.3V (За замовчуванням)</text>
+  <text x="480" y="534" font-size="12" fill="#c0392b" text-anchor="middle">1 = 1.8V (Небезпека bricking!)</text>
+
+  <!-- Column 3: GPIO46 -->
+  <text x="770" y="496" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">GPIO46: Друк логів ROM</text>
+  <text x="770" y="515" font-size="12" fill="#1a1a1a" text-anchor="middle">0 = Лог ввімкнено у UART</text>
+  <text x="770" y="534" font-size="12" fill="#6b7280" text-anchor="middle">1 = Приглушення логів UART</text>
+</svg>

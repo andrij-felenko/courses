@@ -1,0 +1,122 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 500" width="960" height="500" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Canvas Background -->
+  <rect x="0" y="0" width="960" height="500" fill="#ffffff"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Декодування Ріда-Соломона та відновлення даних eFuse в ESP32-S3</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Алгоритм обчислення синдромів S_i, локації помилок та межі корекції t_err ≤ t_max під час boot</text>
+
+  <!-- Stage Panel 1: Syndrome Calculation -->
+  <rect x="25" y="75" width="910" height="135" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="40" y="93" font-size="12" font-weight="bold" fill="#6b7280">ФАЗА 1: ЗЧИТУВАННЯ ТА ПЕРЕВІРКА СИНДРОМІВ S_i</text>
+
+  <!-- Block 1: OTP Read -->
+  <rect x="35" y="105" width="175" height="85" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="122" y="125" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Зчитування eFuse</text>
+  <text x="122" y="145" font-size="12" fill="#6b7280" text-anchor="middle">Вектор r(x) = c(x) + e(x)</text>
+  <text x="122" y="163" font-size="12" fill="#6b7280" text-anchor="middle">Блоки EFUSE_BLK1..10</text>
+  <text x="122" y="180" font-size="12" fill="#6b7280" text-anchor="middle">Поле Галуа GF(2^8)</text>
+
+  <!-- Arrow 1: Block 1 -> Block 2 -->
+  <line x1="210" y1="147.5" x2="250" y2="147.5" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- Block 2: Syndrome Calc -->
+  <rect x="250" y="105" width="185" height="85" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="342" y="125" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Обчислення синдромів</text>
+  <text x="342" y="145" font-size="12" fill="#1a1a1a" text-anchor="middle">S_i = r(α^i), i = 1..2t</text>
+  <text x="342" y="163" font-size="12" fill="#6b7280" text-anchor="middle">Перевірка парності</text>
+  <text x="342" y="180" font-size="12" fill="#6b7280" text-anchor="middle">RS(12,8) / RS(3,1)</text>
+
+  <!-- Arrow 2: Block 2 -> Block 3 -->
+  <line x1="435" y1="147.5" x2="470" y2="147.5" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- Block 3: Decision 1 (Zero Syndromes?) -->
+  <rect x="470" y="105" width="185" height="85" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="562" y="130" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Чи всі S_i = 0 ?</text>
+  <text x="562" y="152" font-size="12" fill="#6b7280" text-anchor="middle">Перевірка відсутності</text>
+  <text x="562" y="170" font-size="12" fill="#6b7280" text-anchor="middle">спотворень у бітах</text>
+
+  <!-- Arrow 3a: Branch YES (Right to Success 1) -->
+  <line x1="655" y1="147.5" x2="695" y2="147.5" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="675" y="133" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">ТАК (S=0)</text>
+
+  <!-- Block 4: Success 1 (Direct Output) -->
+  <rect x="695" y="105" width="220" height="85" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="805" y="130" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Дані чисті (Без помилок)</text>
+  <text x="805" y="152" font-size="12" fill="#1a1a1a" text-anchor="middle">Видача c(x) без змін</text>
+  <text x="805" y="170" font-size="12" fill="#6b7280" text-anchor="middle">Успішний старт контролера</text>
+
+  <!-- Arrow 3b: Branch NO (Down to Phase 2) -->
+  <line x1="562" y1="190" x2="562" y2="255" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="575" y="225" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="start">НІ (S ≠ 0)</text>
+
+  <!-- Stage Panel 2: Error Reconstruction -->
+  <rect x="25" y="225" width="910" height="250" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="40" y="243" font-size="12" font-weight="bold" fill="#6b7280">ФАЗА 2: ЛОКАЛІЗАЦІЯ, ВИПРАВЛЕННЯ ПОМИЛОК ТА МЕЖА НАДЛИШКОВОСТІ</text>
+
+  <!-- Block 5: Error Locator -->
+  <rect x="470" y="255" width="185" height="90" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="562" y="277" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Локалізація помилок</text>
+  <text x="562" y="297" font-size="12" fill="#1a1a1a" text-anchor="middle">Алгоритм Берлекампа-Мессі</text>
+  <text x="562" y="315" font-size="12" fill="#6b7280" text-anchor="middle">Поліном локації Λ(x)</text>
+  <text x="562" y="332" font-size="12" fill="#6b7280" text-anchor="middle">Визначення числа t_err</text>
+
+  <!-- Arrow 4: Block 5 -> Decision 2 -->
+  <line x1="470" y1="300" x2="435" y2="300" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- Block 6: Decision 2 (Capacity Threshold Check) -->
+  <rect x="245" y="255" width="190" height="90" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="340" y="277" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Перевірка t_err ≤ t_max ?</text>
+  <text x="340" y="297" font-size="12" fill="#1a1a1a" text-anchor="middle">RS(12,8): t_max = 2 байти</text>
+  <text x="340" y="315" font-size="12" fill="#6b7280" text-anchor="middle">RS(3,1): t_max = 1 байт</text>
+  <text x="340" y="332" font-size="12" fill="#6b7280" text-anchor="middle">Межа спроможності ECC</text>
+
+  <!-- Arrow 5a: Branch NO (Left to Uncorrectable Error) -->
+  <line x1="245" y1="300" x2="215" y2="300" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="230" y="290" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">НІ</text>
+
+  <!-- Block 7: Failure Result (Uncorrectable Error) -->
+  <rect x="35" y="255" width="180" height="205" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="125" y="280" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">Невиправна помилка</text>
+  <text x="125" y="302" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">EFUSE_ERR_INT</text>
+  <line x1="50" y1="315" x2="200" y2="315" stroke="#c0392b" stroke-width="0.5" stroke-dasharray="2,2"/>
+  <text x="125" y="335" font-size="12" fill="#1a1a1a" text-anchor="middle">t_err > t_max (перевищення)</text>
+  <text x="125" y="357" font-size="12" fill="#6b7280" text-anchor="middle">Пошкоджено забагато бітів</text>
+  <text x="125" y="379" font-size="12" fill="#6b7280" text-anchor="middle">або неповне випалення</text>
+  <text x="125" y="410" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Блокування boot і секретів!</text>
+  <text x="125" y="432" font-size="12" fill="#6b7280" text-anchor="middle">Апаратна зупинка системи</text>
+
+  <!-- Arrow 5b: Branch YES (Down to Correction) -->
+  <line x1="340" y1="345" x2="340" y2="370" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="352" y="360" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="start">ТАК (t ≤ t_max)</text>
+
+  <!-- Block 8: Forney & Chien Correction -->
+  <rect x="242.5" y="370" width="195" height="90" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="340" y="392" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Обчислення &amp; Корекція</text>
+  <text x="340" y="412" font-size="12" fill="#1a1a1a" text-anchor="middle">Пошук Чіня &amp; Алгоритм Форні</text>
+  <text x="340" y="430" font-size="12" fill="#6b7280" text-anchor="middle">Вектор помилок e(x)</text>
+  <text x="340" y="447" font-size="12" fill="#6b7280" text-anchor="middle">Корекція c(x) = r(x) ⊕ e(x)</text>
+
+  <!-- Arrow 6: Block 8 -> Block 9 -->
+  <line x1="437.5" y1="415" x2="695" y2="415" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="566" y="403" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Успішне відновлення c(x)</text>
+
+  <!-- Block 9: Success 2 (Corrected Output) -->
+  <rect x="695" y="370" width="220" height="90" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="805" y="392" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Дані відновлено (OK)</text>
+  <text x="805" y="412" font-size="12" fill="#1a1a1a" text-anchor="middle">Автоматична корекція бітів</text>
+  <text x="805" y="430" font-size="12" fill="#6b7280" text-anchor="middle">Передача c(x) в системні модулі</text>
+  <text x="805" y="447" font-size="12" fill="#6b7280" text-anchor="middle">Прозоро для процесора ESP32-S3</text>
+</svg>

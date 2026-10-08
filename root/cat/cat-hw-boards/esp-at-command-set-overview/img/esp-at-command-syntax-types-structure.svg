@@ -1,0 +1,144 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Біла підкладка на все полотно -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок та підзаголовок -->
+  <text x="480" y="36" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Чотири синтаксичні типи AT-команд ESP-AT</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Оператори =, ? та наявність параметрів визначають режим: оцінку значень, опитування, запис чи виконання</text>
+
+  <!-- 1. ТЕСТОВА КОМАНДА -->
+  <rect x="35" y="75" width="890" height="104" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  
+  <!-- Опис типу -->
+  <text x="50" y="98" font-size="13" font-weight="bold" fill="#2457d6">ТЕСТОВА КОМАНДА (TEST)</text>
+  <text x="50" y="118" font-size="13" font-weight="bold" fill="#1a1a1a">AT+COMMAND=?</text>
+  <text x="50" y="138" font-size="12" fill="#6b7280">Опитує можливі параметри</text>
+  <text x="50" y="154" font-size="12" fill="#6b7280">та їх допустимі діапазони</text>
+
+  <!-- Синтаксичні блочки -->
+  <rect x="250" y="94" width="115" height="34" rx="5" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="307" y="116" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">AT+CWMODE</text>
+  <text x="307" y="148" font-size="12" fill="#1a1a1a" text-anchor="middle">Префікс + команда</text>
+
+  <rect x="375" y="94" width="70" height="34" rx="5" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="410" y="116" font-size="14" font-weight="bold" fill="#c0392b" text-anchor="middle">=?</text>
+  <text x="410" y="148" font-size="12" fill="#c0392b" text-anchor="middle">Тест =?</text>
+
+  <rect x="455" y="94" width="75" height="34" rx="5" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="492" y="116" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">\r\n</text>
+  <text x="492" y="148" font-size="12" fill="#6b7280" text-anchor="middle">Термінатор</text>
+
+  <line x1="532" y1="111" x2="540" y2="111" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Блок відповіді -->
+  <rect x="545" y="87" width="365" height="80" rx="5" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="557" y="106" font-size="12" font-weight="bold" fill="#1a1a1a">Очікувана відповідь:</text>
+  <text x="557" y="127" font-size="12" font-weight="bold" fill="#2457d6">+CWMODE:(1-3)</text>
+  <text x="660" y="127" font-size="12" fill="#6b7280">— діапазон значень</text>
+  <text x="557" y="147" font-size="12" font-weight="bold" fill="#27ae60">OK</text>
+
+
+  <!-- 2. ОПИТУВАЛЬНА КОМАНДА -->
+  <rect x="35" y="190" width="890" height="104" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="6"/>
+
+  <!-- Опис типу -->
+  <text x="50" y="213" font-size="13" font-weight="bold" fill="#2457d6">ОПИТУВАЛЬНА КОМАНДА (QUERY)</text>
+  <text x="50" y="233" font-size="13" font-weight="bold" fill="#1a1a1a">AT+COMMAND?</text>
+  <text x="50" y="253" font-size="12" fill="#6b7280">Повертає поточні значення</text>
+  <text x="50" y="269" font-size="12" fill="#6b7280">параметрів модуля</text>
+
+  <!-- Синтаксичні блочки -->
+  <rect x="250" y="209" width="115" height="34" rx="5" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="307" y="231" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">AT+CWMODE</text>
+  <text x="307" y="263" font-size="12" fill="#1a1a1a" text-anchor="middle">Префікс + команда</text>
+
+  <rect x="375" y="209" width="70" height="34" rx="5" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="410" y="231" font-size="14" font-weight="bold" fill="#c0392b" text-anchor="middle">?</text>
+  <text x="410" y="263" font-size="12" fill="#c0392b" text-anchor="middle">Опитування ?</text>
+
+  <rect x="455" y="209" width="75" height="34" rx="5" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="492" y="231" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">\r\n</text>
+  <text x="492" y="263" font-size="12" fill="#6b7280" text-anchor="middle">Термінатор</text>
+
+  <line x1="532" y1="226" x2="540" y2="226" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Блок відповіді -->
+  <rect x="545" y="202" width="365" height="80" rx="5" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="557" y="221" font-size="12" font-weight="bold" fill="#1a1a1a">Очікувана відповідь:</text>
+  <text x="557" y="242" font-size="12" font-weight="bold" fill="#2457d6">+CWMODE:1</text>
+  <text x="640" y="242" font-size="12" fill="#6b7280">— поточний режим</text>
+  <text x="557" y="262" font-size="12" font-weight="bold" fill="#27ae60">OK</text>
+
+
+  <!-- 3. ВСТАНОВЛЮВАЛЬНА КОМАНДА -->
+  <rect x="35" y="305" width="890" height="104" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="6"/>
+
+  <!-- Опис типу -->
+  <text x="50" y="328" font-size="13" font-weight="bold" fill="#2457d6">ВСТАНОВЛЮВАЛЬНА КОМАНДА (SET)</text>
+  <text x="50" y="348" font-size="13" font-weight="bold" fill="#1a1a1a">AT+COMMAND=&lt;param...&gt;</text>
+  <text x="50" y="368" font-size="12" fill="#6b7280">Встановлює нові значення</text>
+  <text x="50" y="384" font-size="12" fill="#6b7280">параметрів конфігурації</text>
+
+  <!-- Синтаксичні блочки -->
+  <rect x="250" y="324" width="95" height="34" rx="5" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="297" y="346" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">AT+CWMODE</text>
+  <text x="297" y="378" font-size="12" fill="#1a1a1a" text-anchor="middle">Команда</text>
+
+  <rect x="353" y="324" width="36" height="34" rx="5" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="371" y="346" font-size="14" font-weight="bold" fill="#c0392b" text-anchor="middle">=</text>
+  <text x="371" y="378" font-size="12" fill="#c0392b" text-anchor="middle">Запис =</text>
+
+  <rect x="397" y="324" width="60" height="34" rx="5" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="427" y="346" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">1</text>
+  <text x="427" y="378" font-size="12" fill="#27ae60" text-anchor="middle">Параметр</text>
+
+  <rect x="465" y="324" width="65" height="34" rx="5" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="497" y="346" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">\r\n</text>
+  <text x="497" y="378" font-size="12" fill="#6b7280" text-anchor="middle">Термінатор</text>
+
+  <line x1="532" y1="341" x2="540" y2="341" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Блок відповіді -->
+  <rect x="545" y="317" width="365" height="80" rx="5" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="557" y="336" font-size="12" font-weight="bold" fill="#1a1a1a">Очікувана відповідь:</text>
+  <text x="557" y="357" font-size="12" font-weight="bold" fill="#27ae60">OK</text>
+  <text x="585" y="357" font-size="12" fill="#6b7280">(або ERROR при некоректному параметрі)</text>
+
+
+  <!-- 4. ВИКОНУВАЛЬНА КОМАНДА -->
+  <rect x="35" y="420" width="890" height="104" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="6"/>
+
+  <!-- Опис типу -->
+  <text x="50" y="443" font-size="13" font-weight="bold" fill="#2457d6">ВИКОНУВАЛЬНА КОМАНДА (EXECUTE)</text>
+  <text x="50" y="463" font-size="13" font-weight="bold" fill="#1a1a1a">AT+COMMAND</text>
+  <text x="50" y="483" font-size="12" fill="#6b7280">Запускає дію без параметрів</text>
+  <text x="50" y="499" font-size="12" fill="#6b7280">(скид, збереження тощо)</text>
+
+  <!-- Синтаксичні блочки -->
+  <rect x="250" y="439" width="115" height="34" rx="5" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="307" y="461" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">AT+RST</text>
+  <text x="307" y="493" font-size="12" fill="#1a1a1a" text-anchor="middle">Префікс + команда</text>
+
+  <rect x="375" y="439" width="70" height="34" rx="5" fill="#ffffff" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3 3"/>
+  <text x="410" y="461" font-size="12" fill="#6b7280" text-anchor="middle">(немає)</text>
+  <text x="410" y="493" font-size="12" fill="#6b7280" text-anchor="middle">Без параметрів</text>
+
+  <rect x="455" y="439" width="75" height="34" rx="5" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="492" y="461" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">\r\n</text>
+  <text x="492" y="493" font-size="12" fill="#6b7280" text-anchor="middle">Термінатор</text>
+
+  <line x1="532" y1="456" x2="540" y2="456" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Блок відповіді -->
+  <rect x="545" y="432" width="365" height="80" rx="5" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="557" y="451" font-size="12" font-weight="bold" fill="#1a1a1a">Очікувана відповідь:</text>
+  <text x="557" y="472" font-size="12" font-weight="bold" fill="#27ae60">OK</text>
+  <text x="557" y="492" font-size="12" font-weight="bold" fill="#2457d6">ready</text>
+  <text x="605" y="492" font-size="12" fill="#6b7280">— системний статус після скиду</text>
+</svg>

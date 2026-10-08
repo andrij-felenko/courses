@@ -1,0 +1,120 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Canvas Background -->
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <!-- Titles -->
+  <text x="480" y="32" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Апаратний конвеєр 2D-прискорювача PPA в ESP32-P4</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Послідовність перетворення YUV→RGB, масштабування, повороту та альфа-блендингу шарів</text>
+
+  <!-- Panel 1: Input Layers -->
+  <rect x="24" y="75" width="220" height="385" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="8"/>
+  <text x="134" y="96" font-size="14" font-weight="700" fill="#1a1a1a" text-anchor="middle">Вхідні шари (PSRAM)</text>
+
+  <!-- Card 1.1: FG Layer -->
+  <rect x="36" y="108" width="196" height="156" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="6"/>
+  <text x="134" y="126" font-size="13" font-weight="700" fill="#2457d6" text-anchor="middle">Передній шар (FG)</text>
+  <text x="134" y="145" font-size="12" fill="#1a1a1a" text-anchor="middle">Формат: YUV420p / YUV422</text>
+  <text x="134" y="163" font-size="12" fill="#6b7280" text-anchor="middle">Розмірність: W_in × H_in</text>
+  <text x="134" y="181" font-size="12" fill="#6b7280" text-anchor="middle">Канал DMA: MIPI-CSI / CAM</text>
+  <rect x="50" y="194" width="168" height="58" fill="#ffffff" stroke="#2457d6" stroke-width="1" stroke-dasharray="3,3" rx="4"/>
+  <text x="134" y="216" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">Кадр з камери</text>
+  <text x="134" y="236" font-size="12" fill="#6b7280" text-anchor="middle">S_fg (YUV420/422)</text>
+
+  <!-- Card 1.2: BG Layer -->
+  <rect x="36" y="276" width="196" height="170" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="134" y="294" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">Задній шар (BG)</text>
+  <text x="134" y="313" font-size="12" fill="#1a1a1a" text-anchor="middle">Формат: ARGB8888 / RGB565</text>
+  <text x="134" y="331" font-size="12" fill="#6b7280" text-anchor="middle">Розмірність: W_out × H_out</text>
+  <text x="134" y="349" font-size="12" fill="#6b7280" text-anchor="middle">Графічний інтерфейс (UI)</text>
+  <rect x="50" y="362" width="168" height="72" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="4"/>
+  <text x="134" y="384" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Буфер GUI</text>
+  <text x="134" y="402" font-size="12" fill="#6b7280" text-anchor="middle">S_bg (RGB/Альфа)</text>
+  <text x="134" y="420" font-size="12" fill="#6b7280" text-anchor="middle">Тло інтерфейсу</text>
+
+  <!-- Panel 2: PPA Accelerator -->
+  <rect x="268" y="75" width="424" height="385" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="8"/>
+  <text x="480" y="96" font-size="14" font-weight="700" fill="#1a1a1a" text-anchor="middle">2D-прискорювач ESP32-P4 PPA (esp_ppa)</text>
+
+  <!-- Stage 2.1: CSC Stage -->
+  <rect x="282" y="108" width="396" height="92" fill="#ffffff" stroke="#2457d6" stroke-width="1" rx="6"/>
+  <text x="480" y="127" font-size="13" font-weight="700" fill="#2457d6" text-anchor="middle">1. Блок перетворення колірного простору (CSC)</text>
+  <text x="480" y="146" font-size="12" fill="#1a1a1a" text-anchor="middle">Матрична конвертація: YUV420/422 → RGB888 / ARGB8888</text>
+  <text x="480" y="164" font-size="12" fill="#6b7280" text-anchor="middle">R,G,B = f(Y, U, V) з корекцією яскравості й контрасту</text>
+  <text x="480" y="182" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">Zero-copy обробка вхідного DMA-потоку</text>
+
+  <!-- Stage 2.2: Scale & Rotate Stage -->
+  <rect x="282" y="214" width="396" height="94" fill="#ffffff" stroke="#2457d6" stroke-width="1" rx="6"/>
+  <text x="480" y="233" font-size="13" font-weight="700" fill="#2457d6" text-anchor="middle">2. Блок масштабування та повороту (Scale &amp; Rotate)</text>
+  <text x="480" y="252" font-size="12" fill="#1a1a1a" text-anchor="middle">Масштабування: (W_in, H_in) → (W_out, H_out) (білінійна)</text>
+  <text x="480" y="270" font-size="12" fill="#1a1a1a" text-anchor="middle">Апаратний поворот: θ ∈ {0°, 90°, 180°, 270°} + Mirror</text>
+  <text x="480" y="288" font-size="12" fill="#6b7280" text-anchor="middle">Трансформація геометрії без навантаження на CPU</text>
+
+  <!-- Stage 2.3: Blend Stage -->
+  <rect x="282" y="322" width="396" height="124" fill="#e9f7ef" stroke="#27ae60" stroke-width="1" rx="6"/>
+  <text x="480" y="341" font-size="13" font-weight="700" fill="#27ae60" text-anchor="middle">3. Блок альфа-блендингу та змішування шарів</text>
+  <text x="480" y="360" font-size="12" fill="#1a1a1a" text-anchor="middle">Формула: C_out = α_fg · C_fg + (1 - α_fg) · C_bg</text>
+  <text x="480" y="378" font-size="12" fill="#1a1a1a" text-anchor="middle">Режими: Pixel Alpha, Fix Alpha, Color Key (прозорість)</text>
+  <text x="480" y="396" font-size="12" fill="#6b7280" text-anchor="middle">Синхронізація DMA та генерація переривання completion</text>
+  <text x="480" y="414" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">Суміщення обробленого FG із фоновим шаром BG</text>
+  <text x="480" y="432" font-size="12" fill="#6b7280" text-anchor="middle">Апаратне прискорення 2D-композитингу</text>
+
+  <!-- Panel 3: Output & Display -->
+  <rect x="708" y="75" width="228" height="385" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="8"/>
+  <text x="822" y="96" font-size="14" font-weight="700" fill="#1a1a1a" text-anchor="middle">Вихідний шар та дисплей</text>
+
+  <!-- Card 3.1: MIPI-DSI Display -->
+  <rect x="724" y="108" width="196" height="156" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="822" y="126" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">Дисплейний модуль</text>
+  <text x="822" y="145" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">Драйвер esp_lcd_mipi_dsi</text>
+  <text x="822" y="163" font-size="12" fill="#6b7280" text-anchor="middle">Апаратний інтерфейс MIPI-DSI</text>
+  <text x="822" y="181" font-size="12" fill="#6b7280" text-anchor="middle">Синхронізація кадру VSYNC</text>
+  <rect x="738" y="194" width="168" height="58" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="4"/>
+  <text x="822" y="216" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">Відображення на екрані</text>
+  <text x="822" y="236" font-size="12" fill="#6b7280" text-anchor="middle">Прямий вивід без затримок</text>
+
+  <!-- Card 3.2: Output Framebuffer -->
+  <rect x="724" y="276" width="196" height="170" fill="#e9f7ef" stroke="#27ae60" stroke-width="1" rx="6"/>
+  <text x="822" y="294" font-size="13" font-weight="700" fill="#27ae60" text-anchor="middle">Вихідний буфер (PSRAM)</text>
+  <text x="822" y="313" font-size="12" fill="#1a1a1a" text-anchor="middle">Суміщений кадр: FG + BG</text>
+  <text x="822" y="331" font-size="12" fill="#1a1a1a" text-anchor="middle">Формат: RGB565 / RGB888</text>
+  <text x="822" y="349" font-size="12" fill="#6b7280" text-anchor="middle">Розмірність: W_out × H_out</text>
+  <rect x="738" y="362" width="168" height="72" fill="#ffffff" stroke="#27ae60" stroke-width="1" rx="4"/>
+  <text x="822" y="384" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">Готовий графічний кадр</text>
+  <text x="822" y="402" font-size="12" fill="#6b7280" text-anchor="middle">S_out (PSRAM DMA)</text>
+  <text x="822" y="420" font-size="12" fill="#6b7280" text-anchor="middle">Zero-copy передача</text>
+
+  <!-- Connecting Flows / Arrows -->
+  <!-- Arrow 1: FG Input Card -> CSC Stage -->
+  <path d="M232,154 L282,154" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="257" y="144" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">YUV</text>
+
+  <!-- Arrow 2: CSC Stage -> Scale & Rotate Stage -->
+  <path d="M480,200 L480,214" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Arrow 3: Scale & Rotate Stage -> Blend Stage -->
+  <path d="M480,308 L480,322" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Arrow 4: BG Input Card -> Blend Stage -->
+  <path d="M232,370 L282,370" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr-dark)"/>
+  <text x="257" y="360" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">BG</text>
+
+  <!-- Arrow 5: Blend Stage -> Output Framebuffer -->
+  <path d="M678,370 L724,370" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="701" y="360" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">S_out</text>
+
+  <!-- Arrow 6: Output Framebuffer -> MIPI-DSI Display -->
+  <path d="M822,276 L822,264" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="834" y="273" font-size="12" font-weight="700" fill="#2457d6" text-anchor="start">DMA</text>
+</svg>

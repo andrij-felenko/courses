@@ -1,0 +1,94 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 500" width="960" height="500" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="500" fill="#ffffff"/>
+  <defs>
+    <marker id="arr-accent" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-success" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-danger" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок та підзаголовок -->
+  <text x="480" y="30" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Міжпроцесорна взаємодія HP-ядер та LP-Core в ESP32-P4</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Апаратний семафор та LP SRAM забезпечують безпечний обмін даними й пробудження HP-домену через IPC-переривання</text>
+
+  <!-- Ліва панель: LP-Домен -->
+  <rect x="25" y="70" width="280" height="405" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="40" y="83" width="250" height="32" rx="5" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="165" y="104" font-size="14" font-weight="700" fill="#2457d6" text-anchor="middle">LP-Домен (Low-Power Core)</text>
+
+  <rect x="40" y="128" width="250" height="62" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="165" y="153" font-size="14" font-weight="700" fill="#1a1a1a" text-anchor="middle">LP-Core (RISC-V Coprocessor)</text>
+  <text x="165" y="173" font-size="12" fill="#6b7280" text-anchor="middle">Співпроцесор автономного моніторингу</text>
+
+  <rect x="40" y="210" width="250" height="62" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="165" y="235" font-size="13" font-weight="700" fill="#27ae60" text-anchor="middle">Крок 1: Захоплення HW Sem</text>
+  <text x="165" y="255" font-size="12" fill="#1a1a1a" text-anchor="middle">Запит токена в SEMA_TOKEN_REG</text>
+
+  <rect x="40" y="292" width="250" height="62" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="165" y="317" font-size="13" font-weight="700" fill="#2457d6" text-anchor="middle">Крок 2: Запис у LP SRAM</text>
+  <text x="165" y="337" font-size="12" fill="#1a1a1a" text-anchor="middle">Заповнення спільного буфера даних</text>
+
+  <rect x="40" y="374" width="250" height="62" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="165" y="399" font-size="13" font-weight="700" fill="#c0392b" text-anchor="middle">Крок 3: Сигнал IPC IRQ</text>
+  <text x="165" y="419" font-size="12" fill="#1a1a1a" text-anchor="middle">Встановлення прапора IPC_INT</text>
+
+  <line x1="165" y1="190" x2="165" y2="210" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-accent)"/>
+  <line x1="165" y1="272" x2="165" y2="292" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-accent)"/>
+  <line x1="165" y1="354" x2="165" y2="374" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-accent)"/>
+
+  <!-- Центральна панель: Спільні ресурси IPC -->
+  <rect x="340" y="70" width="280" height="405" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="355" y="83" width="250" height="32" rx="5" fill="#f4f6f8" stroke="#6b7280" stroke-width="1"/>
+  <text x="480" y="104" font-size="14" font-weight="700" fill="#1a1a1a" text-anchor="middle">Спільний блок IPC та LP SRAM</text>
+
+  <rect x="355" y="210" width="250" height="62" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="480" y="235" font-size="13" font-weight="700" fill="#27ae60" text-anchor="middle">Hardware Semaphore</text>
+  <text x="480" y="255" font-size="12" fill="#1a1a1a" text-anchor="middle">Апаратне розмежування доступу (Mutex)</text>
+
+  <rect x="355" y="292" width="250" height="62" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="480" y="317" font-size="13" font-weight="700" fill="#2457d6" text-anchor="middle">LP SRAM (Shared RAM Buffer)</text>
+  <text x="480" y="337" font-size="12" fill="#1a1a1a" text-anchor="middle">Спільне оперативне сховище даних</text>
+
+  <rect x="355" y="374" width="250" height="62" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="480" y="399" font-size="13" font-weight="700" fill="#c0392b" text-anchor="middle">IPC Interrupt &amp; Status Flags</text>
+  <text x="480" y="419" font-size="12" fill="#1a1a1a" text-anchor="middle">Формувач переривань пробудження HP</text>
+
+  <!-- Права панель: HP-Домен -->
+  <rect x="655" y="70" width="280" height="405" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="670" y="83" width="250" height="32" rx="5" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="795" y="104" font-size="14" font-weight="700" fill="#2457d6" text-anchor="middle">HP-Домен (High-Performance)</text>
+
+  <rect x="670" y="128" width="250" height="62" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="795" y="153" font-size="14" font-weight="700" fill="#1a1a1a" text-anchor="middle">HP Dual-Core RISC-V</text>
+  <text x="795" y="173" font-size="12" fill="#6b7280" text-anchor="middle">Основні ядра (Sleep / Active State)</text>
+
+  <rect x="670" y="210" width="250" height="62" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="795" y="235" font-size="13" font-weight="700" fill="#27ae60" text-anchor="middle">Крок 6: Звільнення HW Sem</text>
+  <text x="795" y="255" font-size="12" fill="#1a1a1a" text-anchor="middle">Відпускання токена семафора</text>
+
+  <rect x="670" y="292" width="250" height="62" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="795" y="317" font-size="13" font-weight="700" fill="#2457d6" text-anchor="middle">Крок 5: Вичитання буфера</text>
+  <text x="795" y="337" font-size="12" fill="#1a1a1a" text-anchor="middle">Зчитування даних із LP SRAM</text>
+
+  <rect x="670" y="374" width="250" height="62" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="795" y="399" font-size="13" font-weight="700" fill="#c0392b" text-anchor="middle">Крок 4: Пробудження HP</text>
+  <text x="795" y="419" font-size="12" fill="#1a1a1a" text-anchor="middle">Прийом IRQ від PMU / IPC</text>
+
+  <line x1="795" y1="374" x2="795" y2="354" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-accent)"/>
+  <line x1="795" y1="292" x2="795" y2="272" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-success)"/>
+  <line x1="795" y1="210" x2="795" y2="190" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-accent)"/>
+
+  <!-- Горизонтальні міжпроцесорні зв'язки -->
+  <line x1="290" y1="241" x2="355" y2="241" stroke="#27ae60" stroke-width="2" stroke-dasharray="4,3" marker-end="url(#arr-success)"/>
+  <line x1="290" y1="323" x2="355" y2="323" stroke="#2457d6" stroke-width="2" stroke-dasharray="4,3" marker-end="url(#arr-accent)"/>
+  <line x1="290" y1="405" x2="355" y2="405" stroke="#c0392b" stroke-width="2" stroke-dasharray="4,3" marker-end="url(#arr-danger)"/>
+
+  <line x1="605" y1="405" x2="670" y2="405" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-danger)"/>
+  <line x1="670" y1="323" x2="605" y2="323" stroke="#2457d6" stroke-width="2" stroke-dasharray="4,3" marker-end="url(#arr-accent)"/>
+  <line x1="670" y1="241" x2="605" y2="241" stroke="#27ae60" stroke-width="2" stroke-dasharray="4,3" marker-end="url(#arr-success)"/>
+</svg>

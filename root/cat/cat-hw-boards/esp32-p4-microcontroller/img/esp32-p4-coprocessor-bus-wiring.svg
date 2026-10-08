@@ -1,0 +1,130 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-blue-start" markerWidth="8" markerHeight="8" refX="1" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M7,1 L0,4 L7,7 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-green-start" markerWidth="8" markerHeight="8" refX="1" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M7,1 L0,4 L7,7 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Заголовок та підзаголовок -->
+  <text x="480" y="35" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Підключення шини зв'язку ESP32-P4 та співпроцесора ESP-HOSTED</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Транспорт SDIO/SPI передає дані, а лінії DAT_RDY та HANDSHAKE забезпечують переривання</text>
+
+  <!-- Шина живлення VDD_3V3 для підтяжки -->
+  <line x1="310" y1="130" x2="650" y2="130" stroke="#c0392b" stroke-width="2"/>
+  <text x="480" y="122" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Шина живлення VDD_3V3 (для підтягуючих резисторів)</text>
+
+  <!-- Провідники підтяжки з резисторами -->
+  <!-- Резистор #1 (CMD / MOSI) -->
+  <line x1="320" y1="130" x2="320" y2="230" stroke="#c0392b" stroke-width="1.5"/>
+  <rect x="312" y="165" width="16" height="28" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="334" y="183" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="start">10 kΩ</text>
+  <circle cx="320" cy="130" r="3" fill="#c0392b"/>
+  <circle cx="320" cy="230" r="3" fill="#c0392b"/>
+
+  <!-- Резистор #2 (DAT0..3 / MISO) -->
+  <line x1="640" y1="130" x2="640" y2="285" stroke="#c0392b" stroke-width="1.5"/>
+  <rect x="632" y="195" width="16" height="28" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="626" y="213" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="end">10 kΩ ×4</text>
+  <circle cx="640" cy="130" r="3" fill="#c0392b"/>
+  <circle cx="640" cy="285" r="3" fill="#c0392b"/>
+
+  <!-- Сигнальні лінії зв'язку -->
+  <!-- 1. CLK -->
+  <line x1="270" y1="175" x2="688" y2="175" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="480" y="160" font-size="12" fill="#1a1a1a" text-anchor="middle">Тактова частота шини (CLK)</text>
+
+  <!-- 2. CMD / MOSI -->
+  <line x1="272" y1="230" x2="688" y2="230" stroke="#2457d6" stroke-width="2" marker-start="url(#arr-blue-start)" marker-end="url(#arr-blue)"/>
+  <text x="480" y="213" font-size="12" fill="#1a1a1a" text-anchor="middle">Лінія команд (CMD / MOSI)</text>
+
+  <!-- 3. DAT / MISO -->
+  <line x1="272" y1="285" x2="688" y2="285" stroke="#2457d6" stroke-width="3" marker-start="url(#arr-blue-start)" marker-end="url(#arr-blue)"/>
+  <text x="480" y="268" font-size="12" fill="#1a1a1a" text-anchor="middle">Шина даних (DAT[0..3] / MISO)</text>
+
+  <!-- 4. DAT_RDY (INT) -->
+  <line x1="690" y1="345" x2="272" y2="345" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="480" y="328" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Data Ready (INT) — сповіщення про готовність даних</text>
+
+  <!-- 5. HANDSHAKE -->
+  <line x1="272" y1="400" x2="688" y2="400" stroke="#27ae60" stroke-width="2" marker-start="url(#arr-green-start)" marker-end="url(#arr-green)"/>
+  <text x="480" y="383" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Handshake (HS) — керування потоком / двостороннє</text>
+
+  <!-- 6. RESET -->
+  <line x1="270" y1="455" x2="688" y2="455" stroke="#6b7280" stroke-width="2" stroke-dasharray="5 3" marker-end="url(#arr-gray)"/>
+  <text x="480" y="438" font-size="12" fill="#6b7280" text-anchor="middle">Апаратне скидання (EN / CHIP_PU)</text>
+
+  <!-- 7. GND -->
+  <line x1="270" y1="500" x2="690" y2="500" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="480" y="487" font-size="12" fill="#1a1a1a" text-anchor="middle">Спільна земля (GND)</text>
+
+  <!-- Ведучий модуль: ESP32-P4 (Host) -->
+  <rect x="30" y="80" width="240" height="450" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="40" y="92" width="220" height="44" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+  <text x="150" y="112" font-size="15" font-weight="bold" fill="#2457d6" text-anchor="middle">ESP32-P4 (Host MCU)</text>
+  <text x="150" y="128" font-size="12" fill="#6b7280" text-anchor="middle">Ведучий контролер (LwIP)</text>
+
+  <!-- Піни ESP32-P4 -->
+  <text x="255" y="179" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="end">SDIO_CLK / SPI_CLK</text>
+  <circle cx="270" cy="175" r="4" fill="#2457d6"/>
+
+  <text x="255" y="234" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="end">SDIO_CMD / SPI_MOSI</text>
+  <circle cx="270" cy="230" r="4" fill="#2457d6"/>
+
+  <text x="255" y="289" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="end">SDIO_DAT[0..3] / MISO</text>
+  <circle cx="270" cy="285" r="4" fill="#2457d6"/>
+
+  <text x="255" y="349" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="end">GPIO_INT (DAT_RDY)</text>
+  <circle cx="270" cy="345" r="4" fill="#27ae60"/>
+
+  <text x="255" y="404" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="end">GPIO_HS (HANDSHAKE)</text>
+  <circle cx="270" cy="400" r="4" fill="#27ae60"/>
+
+  <text x="255" y="459" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="end">GPIO_RST (EN_CTRL)</text>
+  <circle cx="270" cy="455" r="4" fill="#6b7280"/>
+
+  <text x="255" y="504" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="end">GND</text>
+  <circle cx="270" cy="500" r="4" fill="#1a1a1a"/>
+
+  <!-- Ведений модуль: ESP32-C3 / C6 (Slave) -->
+  <rect x="690" y="80" width="240" height="450" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="700" y="92" width="220" height="44" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="810" y="112" font-size="15" font-weight="bold" fill="#1a1a1a" text-anchor="middle">ESP32-C3 / C6 (Slave)</text>
+  <text x="810" y="128" font-size="12" fill="#6b7280" text-anchor="middle">Співпроцесор (Wi-Fi / BT)</text>
+
+  <!-- Піни ESP32-C3/C6 -->
+  <text x="705" y="179" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="start">SD_CLK / SPI_CLK</text>
+  <circle cx="690" cy="175" r="4" fill="#2457d6"/>
+
+  <text x="705" y="234" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="start">SD_CMD / SPI_MOSI</text>
+  <circle cx="690" cy="230" r="4" fill="#2457d6"/>
+
+  <text x="705" y="289" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="start">SD_DAT[0..3] / MISO</text>
+  <circle cx="690" cy="285" r="4" fill="#2457d6"/>
+
+  <text x="705" y="349" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="start">GPIO_DAT_RDY</text>
+  <circle cx="690" cy="345" r="4" fill="#27ae60"/>
+
+  <text x="705" y="404" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="start">GPIO_HANDSHAKE</text>
+  <circle cx="690" cy="400" r="4" fill="#27ae60"/>
+
+  <text x="705" y="459" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="start">CHIP_PU (EN)</text>
+  <circle cx="690" cy="455" r="4" fill="#6b7280"/>
+
+  <text x="705" y="504" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="start">GND</text>
+  <circle cx="690" cy="500" r="4" fill="#1a1a1a"/>
+</svg>

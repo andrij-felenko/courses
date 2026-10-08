@@ -1,0 +1,153 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <defs>
+    <!-- Маркери стрілок -->
+    <marker id="arr-dark" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-left-dark" markerWidth="8" markerHeight="8" refX="1" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M7,1 L0,4 L7,7 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-left-blue" markerWidth="8" markerHeight="8" refX="1" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M7,1 L0,4 L7,7 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-left-green" markerWidth="8" markerHeight="8" refX="1" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M7,1 L0,4 L7,7 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок та підзаголовок -->
+  <text x="480" y="32" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Конвеєризація інференсу TinyML на двоядерному ESP32-P4</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Паралельні SIMD-обчислення та DMA-передача кадрів між PSRAM і L2 SRAM визначають T_infer та граничний FPS</text>
+
+  <!-- Головна панель часових доріжок -->
+  <rect x="30" y="75" width="900" height="335" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="6"/>
+
+  <!-- Розділювач колонки назв доріжок -->
+  <line x1="210" y1="75" x2="210" y2="410" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Горизонтальні розділювачі доріжок -->
+  <line x1="30" y1="152" x2="930" y2="152" stroke="#e0e6ed" stroke-width="1" stroke-dasharray="4,4"/>
+  <line x1="30" y1="214" x2="930" y2="214" stroke="#e0e6ed" stroke-width="1" stroke-dasharray="4,4"/>
+  <line x1="30" y1="276" x2="930" y2="276" stroke="#e0e6ed" stroke-width="1" stroke-dasharray="4,4"/>
+
+  <!-- Назви доріжок (ліва колонка) -->
+  <text x="45" y="115" font-size="13" font-weight="700" fill="#1a1a1a">DMA (PSRAM ↔ L2)</text>
+  <text x="45" y="132" font-size="11" fill="#6b7280">Завантаження кадрів</text>
+
+  <text x="45" y="177" font-size="13" font-weight="700" fill="#1a1a1a">Ядро Core 0 (RISC-V)</text>
+  <text x="45" y="194" font-size="11" fill="#6b7280">SIMD INT8/16 MAC</text>
+
+  <text x="45" y="239" font-size="13" font-weight="700" fill="#1a1a1a">Ядро Core 1 (RISC-V)</text>
+  <text x="45" y="256" font-size="11" fill="#6b7280">SIMD INT8/16 MAC</text>
+
+  <text x="45" y="301" font-size="13" font-weight="700" fill="#1a1a1a">Буфери L2 SRAM</text>
+  <text x="45" y="318" font-size="11" fill="#6b7280">Double Buffering</text>
+
+  <!-- Вертикальні часові лінії (пунктир) -->
+  <line x1="230" y1="85" x2="230" y2="355" stroke="#9ca3af" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="350" y1="85" x2="350" y2="355" stroke="#9ca3af" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="510" y1="155" x2="510" y2="270" stroke="#9ca3af" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="590" y1="85" x2="590" y2="355" stroke="#9ca3af" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="750" y1="155" x2="750" y2="270" stroke="#9ca3af" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="830" y1="85" x2="830" y2="355" stroke="#9ca3af" stroke-width="1" stroke-dasharray="3,3"/>
+
+  <!-- ДОРІЖКА 1: DMA (PSRAM ↔ L2) -->
+  <rect x="230" y="105" width="120" height="36" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="4"/>
+  <text x="290" y="127" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">DMA: Кадр k</text>
+
+  <rect x="440" y="105" width="120" height="36" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="4"/>
+  <text x="500" y="127" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">DMA: Кадр k+1</text>
+
+  <rect x="680" y="105" width="120" height="36" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="4"/>
+  <text x="740" y="127" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">DMA: Кадр k+2</text>
+
+  <!-- ДОРІЖКА 2: Core 0 (RISC-V) -->
+  <rect x="350" y="167" width="155" height="36" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="4"/>
+  <text x="427" y="189" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">Conv 1..M (SIMD)</text>
+
+  <rect x="510" y="167" width="80" height="36" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="4"/>
+  <text x="550" y="189" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">FC шар</text>
+
+  <rect x="590" y="167" width="155" height="36" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="4"/>
+  <text x="667" y="189" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">Conv 1..M (SIMD)</text>
+
+  <rect x="750" y="167" width="80" height="36" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="4"/>
+  <text x="790" y="189" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">FC шар</text>
+
+  <!-- ДОРІЖКА 3: Core 1 (RISC-V) -->
+  <rect x="350" y="229" width="155" height="36" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="4"/>
+  <text x="427" y="251" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">Conv M+1..N (SIMD)</text>
+
+  <rect x="510" y="229" width="80" height="36" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="4"/>
+  <text x="550" y="251" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">Post-proc</text>
+
+  <rect x="590" y="229" width="155" height="36" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="4"/>
+  <text x="667" y="251" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">Conv M+1..N (SIMD)</text>
+
+  <rect x="750" y="229" width="80" height="36" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="4"/>
+  <text x="790" y="251" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">Post-proc</text>
+
+  <!-- ДОРІЖКА 4: L2 SRAM Buffers (Double Buffering) -->
+  <rect x="230" y="283" width="120" height="22" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2" stroke-dasharray="3,3" rx="3"/>
+  <text x="290" y="298" font-size="11" fill="#2457d6" text-anchor="middle">Buf 0: DMA (k)</text>
+
+  <rect x="350" y="283" width="240" height="22" fill="#fdecea" stroke="#c0392b" stroke-width="1.2" rx="3"/>
+  <text x="470" y="298" font-size="11" font-weight="700" fill="#c0392b" text-anchor="middle">Buf 0: Інференс (Кадр k)</text>
+
+  <rect x="680" y="283" width="120" height="22" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2" stroke-dasharray="3,3" rx="3"/>
+  <text x="740" y="298" font-size="11" fill="#2457d6" text-anchor="middle">Buf 0: DMA (k+2)</text>
+
+  <rect x="440" y="309" width="120" height="22" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2" stroke-dasharray="3,3" rx="3"/>
+  <text x="500" y="324" font-size="11" fill="#2457d6" text-anchor="middle">Buf 1: DMA (k+1)</text>
+
+  <rect x="590" y="309" width="240" height="22" fill="#fdecea" stroke="#c0392b" stroke-width="1.2" rx="3"/>
+  <text x="710" y="324" font-size="11" font-weight="700" fill="#c0392b" text-anchor="middle">Buf 1: Інференс (Кадр k+1)</text>
+
+  <!-- РОЗМІРНІ СТРІЛКИ ТА МЕТРИКИ ЧАСУ -->
+  <line x1="230" y1="362" x2="350" y2="362" stroke="#2457d6" stroke-width="1.5" marker-start="url(#arr-left-blue)" marker-end="url(#arr-blue)"/>
+  <text x="290" y="356" font-size="11" font-weight="700" fill="#2457d6" text-anchor="middle">t_dma</text>
+
+  <line x1="350" y1="362" x2="590" y2="362" stroke="#2457d6" stroke-width="1.5" marker-start="url(#arr-left-blue)" marker-end="url(#arr-blue)"/>
+  <text x="470" y="356" font-size="11" font-weight="700" fill="#2457d6" text-anchor="middle">t_calc (Обчислення Conv + FC)</text>
+
+  <line x1="230" y1="392" x2="590" y2="392" stroke="#1a1a1a" stroke-width="1.5" marker-start="url(#arr-left-dark)" marker-end="url(#arr-dark)"/>
+  <text x="410" y="385" font-size="11" font-weight="700" fill="#1a1a1a" text-anchor="middle">T_infer = t_dma + t_calc (Затримка кадру)</text>
+
+  <line x1="590" y1="392" x2="830" y2="392" stroke="#27ae60" stroke-width="1.5" marker-start="url(#arr-left-green)" marker-end="url(#arr-green)"/>
+  <text x="710" y="385" font-size="11" font-weight="700" fill="#27ae60" text-anchor="middle">T_frame = t_calc = 1 / FPS (Період)</text>
+
+  <text x="230" y="348" font-size="11" font-weight="700" fill="#6b7280" text-anchor="middle">t₀</text>
+  <text x="350" y="348" font-size="11" font-weight="700" fill="#6b7280" text-anchor="middle">t₁</text>
+  <text x="590" y="348" font-size="11" font-weight="700" fill="#6b7280" text-anchor="middle">t₂</text>
+  <text x="830" y="348" font-size="11" font-weight="700" fill="#6b7280" text-anchor="middle">t₃</text>
+
+  <!-- НИЖНЯ ПАНЕЛЬ: Формули та математична модель -->
+  <rect x="30" y="425" width="900" height="75" fill="white" stroke="#d0d7de" stroke-width="1.5" rx="6"/>
+
+  <line x1="320" y1="433" x2="320" y2="492" stroke="#e0e6ed" stroke-width="1"/>
+  <line x1="620" y1="433" x2="620" y2="492" stroke="#e0e6ed" stroke-width="1"/>
+
+  <!-- Колонка 1: SIMD -->
+  <text x="45" y="443" font-size="12" font-weight="700" fill="#2457d6">1. Векторна SIMD-продуктивність</text>
+  <text x="45" y="463" font-size="11" fill="#1a1a1a">MAC/такт = 8 × INT8 (Core 0) + 8 × INT8 (Core 1)</text>
+  <text x="45" y="481" font-size="11" fill="#6b7280">Теоретичний пік: 16 MAC/такт (32 OP/такт)</text>
+
+  <!-- Колонка 2: Затримка та пропускна здатність -->
+  <text x="335" y="443" font-size="12" font-weight="700" fill="#2457d6">2. Модель часових затримок</text>
+  <text x="335" y="463" font-size="11" fill="#1a1a1a">T_infer = t_dma + t_calc (затримка 1 кадру)</text>
+  <text x="335" y="481" font-size="11" fill="#6b7280">T_frame = max(t_dma, t_calc) = t_calc</text>
+
+  <!-- Колонка 3: Граничний FPS -->
+  <text x="635" y="443" font-size="12" font-weight="700" fill="#27ae60">3. Гранична частота кадрів</text>
+  <text x="635" y="463" font-size="11" fill="#1a1a1a">FPS_max = 1 / T_frame = f_cpu / N_cycles</text>
+  <text x="635" y="481" font-size="11" fill="#6b7280">Затримка DMA прихована за буферизацією</text>
+</svg>

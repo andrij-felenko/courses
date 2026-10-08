@@ -1,0 +1,115 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+  
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Header -->
+  <text x="480" y="34" text-anchor="middle" font-size="18" font-weight="700" fill="#1a1a1a">Вибір режимів завантаження ESP8266 за сигналами Strapping Pins</text>
+  <text x="480" y="58" text-anchor="middle" font-size="13" fill="#6b7280">Низький рівень GPIO0 під час скидання запускає UART Download Mode без апаратної перевірки</text>
+
+  <!-- Column 1: Input Pins -->
+  <rect x="30" y="90" width="230" height="400" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="42" y="102" width="206" height="32" rx="4" fill="#2457d6"/>
+  <text x="145" y="123" text-anchor="middle" font-size="13" font-weight="700" fill="white">Апаратні виводи (Pins)</text>
+
+  <!-- GPIO15 Card -->
+  <rect x="42" y="146" width="206" height="98" rx="6" fill="white" stroke="#d0d7de"/>
+  <text x="145" y="168" text-anchor="middle" font-size="13" font-weight="700" fill="#1a1a1a">GPIO15 (MTDO)</text>
+  <text x="145" y="190" text-anchor="middle" font-size="12" fill="#6b7280">Визначає джерело boot:</text>
+  <text x="145" y="210" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">0 = SPI Flash / UART</text>
+  <text x="145" y="228" text-anchor="middle" font-size="12" fill="#6b7280">1 = SDIO Boot Mode</text>
+
+  <!-- GPIO0 Card -->
+  <rect x="42" y="254" width="206" height="114" rx="6" fill="white" stroke="#d0d7de"/>
+  <text x="145" y="276" text-anchor="middle" font-size="13" font-weight="700" fill="#1a1a1a">GPIO0 (BOOT)</text>
+  <text x="145" y="298" text-anchor="middle" font-size="12" fill="#6b7280">Переключає режим:</text>
+  <text x="145" y="318" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">1 = SPI Flash Boot (Run)</text>
+  <text x="145" y="338" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">0 = UART Download Mode</text>
+  <text x="145" y="356" text-anchor="middle" font-size="12" fill="#6b7280">(без eFuse-перевірок)</text>
+
+  <!-- GPIO2 Card -->
+  <rect x="42" y="378" width="206" height="98" rx="6" fill="white" stroke="#d0d7de"/>
+  <text x="145" y="400" text-anchor="middle" font-size="13" font-weight="700" fill="#1a1a1a">GPIO2 (TXD1)</text>
+  <text x="145" y="422" text-anchor="middle" font-size="12" fill="#6b7280">Умова завантаження:</text>
+  <text x="145" y="442" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">Мусить бути 1 (Pull-Up)</text>
+  <text x="145" y="460" text-anchor="middle" font-size="12" fill="#6b7280">0 = Зарезервовано</text>
+
+  <!-- Column 2: ROM Flow -->
+  <rect x="285" y="90" width="375" height="400" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="297" y="102" width="351" height="32" rx="4" fill="#2457d6"/>
+  <text x="472" y="123" text-anchor="middle" font-size="13" font-weight="700" fill="white">Апаратний процес у ROM Bootloader</text>
+
+  <!-- Step 1 -->
+  <rect x="315" y="146" width="315" height="70" rx="6" fill="white" stroke="#d0d7de"/>
+  <text x="472" y="168" text-anchor="middle" font-size="13" font-weight="700" fill="#1a1a1a">Крок 1: Опитування GPIO15</text>
+  <text x="472" y="190" text-anchor="middle" font-size="12" fill="#6b7280">Якщо GPIO15 == 0 -&gt; перехід до GPIO0</text>
+  <text x="472" y="206" text-anchor="middle" font-size="12" fill="#6b7280">Якщо GPIO15 == 1 -&gt; SDIO Boot</text>
+
+  <!-- Step 2 -->
+  <rect x="315" y="246" width="315" height="90" rx="6" fill="white" stroke="#d0d7de"/>
+  <text x="472" y="268" text-anchor="middle" font-size="13" font-weight="700" fill="#1a1a1a">Крок 2: Опитування GPIO0 та GPIO2</text>
+  <text x="472" y="290" text-anchor="middle" font-size="12" fill="#6b7280">GPIO2 == 1: активний вибір режиму</text>
+  <text x="472" y="310" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">GPIO0 = 1 -&gt; Flash Boot</text>
+  <text x="472" y="328" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">GPIO0 = 0 -&gt; UART Download</text>
+
+  <!-- Step 3 (Security Warning) -->
+  <rect x="315" y="358" width="315" height="118" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="472" y="380" text-anchor="middle" font-size="13" font-weight="700" fill="#c0392b">Крок 3: Перевірка захисту (eFuse)</text>
+  <text x="472" y="402" text-anchor="middle" font-size="13" font-weight="700" fill="#c0392b">⚠️ ВІДСУТНЯ КРИПТОГРАФІЧНА ПЕРЕВІРКА</text>
+  <text x="472" y="424" text-anchor="middle" font-size="12" fill="#1a1a1a">ROM не перевіряє цифровий підпис</text>
+  <text x="472" y="442" text-anchor="middle" font-size="12" fill="#1a1a1a">Немає механізму вимкнення UART Download</text>
+  <text x="472" y="460" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">Низький рівень GPIO0 завжди дає доступ!</text>
+
+  <!-- Column 3: Outcomes -->
+  <rect x="685" y="90" width="245" height="400" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="697" y="102" width="221" height="32" rx="4" fill="#2457d6"/>
+  <text x="807" y="123" text-anchor="middle" font-size="13" font-weight="700" fill="white">Кінцевий режим чипа</text>
+
+  <!-- Outcome 1 -->
+  <rect x="697" y="146" width="221" height="100" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="807" y="168" text-anchor="middle" font-size="13" font-weight="700" fill="#27ae60">SPI Flash Boot</text>
+  <text x="807" y="190" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">GPIO15=0, GPIO0=1, GPIO2=1</text>
+  <text x="807" y="210" text-anchor="middle" font-size="12" fill="#6b7280">Нормальний запуск:</text>
+  <text x="807" y="230" text-anchor="middle" font-size="12" fill="#1a1a1a">Виконання коду з Flash</text>
+
+  <!-- Outcome 2 -->
+  <rect x="697" y="258" width="221" height="125" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="807" y="280" text-anchor="middle" font-size="13" font-weight="700" fill="#c0392b">UART Download Mode</text>
+  <text x="807" y="302" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">GPIO15=0, GPIO0=0, GPIO2=1</text>
+  <text x="807" y="322" text-anchor="middle" font-size="12" fill="#6b7280">Режим програмування:</text>
+  <text x="807" y="342" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">Читання / запис RAM і Flash</text>
+  <text x="807" y="362" text-anchor="middle" font-size="12" fill="#c0392b">Ризик дампу / заміни коду</text>
+
+  <!-- Outcome 3 -->
+  <rect x="697" y="394" width="221" height="82" rx="6" fill="white" stroke="#d0d7de"/>
+  <text x="807" y="416" text-anchor="middle" font-size="13" font-weight="700" fill="#1a1a1a">SDIO Boot Mode</text>
+  <text x="807" y="438" text-anchor="middle" font-size="12" font-weight="700" fill="#6b7280">GPIO15 = 1</text>
+  <text x="807" y="458" text-anchor="middle" font-size="12" fill="#6b7280">Boot через SDIO slave</text>
+
+  <!-- Arrows Input -> Middle -->
+  <line x1="248" y1="195" x2="315" y2="195" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <line x1="248" y1="311" x2="315" y2="291" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <line x1="248" y1="427" x2="315" y2="315" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Vertical Arrows inside Middle Column -->
+  <line x1="472" y1="216" x2="472" y2="246" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr)"/>
+  <line x1="472" y1="336" x2="472" y2="358" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+
+  <!-- Orthogonal Connectors Middle -> Outcome -->
+  <path d="M 630,275 L 662,275 L 662,196 L 697,196" fill="none" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <path d="M 630,417 L 675,417 L 675,320 L 697,320" fill="none" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <path d="M 630,181 L 670,181 L 670,435 L 697,435" fill="none" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr)"/>
+</svg>

@@ -1,0 +1,108 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Title and Subtitle -->
+  <text x="480" y="34" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Потік даних DVP та конвеєр DMA в ESP32-S3</text>
+  <text x="480" y="56" font-size="13" fill="#6b7280" text-anchor="middle">Співвідношення піксельного такту PCLK, Ping-Pong буферів SRAM та вивантаження в Octal PSRAM</text>
+
+  <!-- Panel 1: DVP Sensor -->
+  <rect x="25" y="85" width="185" height="230" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="117" y="110" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Матриця камери</text>
+  <text x="117" y="128" font-size="12" fill="#6b7280" text-anchor="middle">DVP-інтерфейс</text>
+
+  <rect x="37" y="145" width="161" height="60" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="117" y="168" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">PCLK (8..20 MHz)</text>
+  <text x="117" y="188" font-size="12" fill="#1a1a1a" text-anchor="middle">D[7:0] + VSYNC/HREF</text>
+
+  <rect x="37" y="218" width="161" height="82" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="117" y="238" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Вхідний потік:</text>
+  <text x="117" y="258" font-size="12" fill="#1a1a1a" text-anchor="middle">B_in = 2 × f_PCLK</text>
+  <text x="117" y="278" font-size="12" fill="#6b7280" text-anchor="middle">(~32 МБ/с при 16 МГц)</text>
+
+  <!-- Arrow P1 -> P2 -->
+  <line x1="210" y1="175" x2="238" y2="175" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="225" y="160" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">DVP</text>
+
+  <!-- Panel 2: LCD/CAM Controller -->
+  <rect x="240" y="85" width="190" height="230" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="335" y="110" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Контролер LCD/CAM</text>
+  <text x="335" y="128" font-size="12" fill="#6b7280" text-anchor="middle">GDMA Engine</text>
+
+  <rect x="252" y="145" width="166" height="52" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="335" y="166" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">DVP RX FIFO</text>
+  <text x="335" y="184" font-size="12" fill="#6b7280" text-anchor="middle">Асинхронний буфер</text>
+
+  <rect x="252" y="208" width="166" height="92" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="335" y="228" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">DMA Описувачі</text>
+  <text x="335" y="246" font-size="12" fill="#2457d6" text-anchor="middle">Auto-reload (ping-pong)</text>
+  <text x="335" y="264" font-size="12" fill="#6b7280" text-anchor="middle">Перемикання по EOF</text>
+  <text x="335" y="282" font-size="12" fill="#6b7280" text-anchor="middle">Переривання CPU</text>
+
+  <!-- Arrow P2 -> P3 -->
+  <line x1="430" y1="175" x2="470" y2="175" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="445" y="160" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">GDMA</text>
+
+  <!-- Panel 3: Internal SRAM -->
+  <rect x="460" y="85" width="230" height="230" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="575" y="110" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Внутрішня SRAM</text>
+  <text x="575" y="128" font-size="12" fill="#6b7280" text-anchor="middle">Ping-Pong Двобуферна схема</text>
+
+  <rect x="472" y="145" width="206" height="72" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="575" y="164" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Буфер A (DMA Запис)</text>
+  <text x="575" y="184" font-size="12" fill="#1a1a1a" text-anchor="middle">Прийом активного рядка</text>
+  <text x="575" y="202" font-size="12" fill="#6b7280" text-anchor="middle">Статус: Active RX</text>
+
+  <rect x="472" y="226" width="206" height="72" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="575" y="245" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Буфер B (EDMA Зчитування)</text>
+  <text x="575" y="265" font-size="12" fill="#1a1a1a" text-anchor="middle">Передавання в PSRAM</text>
+  <text x="575" y="283" font-size="12" fill="#6b7280" text-anchor="middle">Статус: Flush to PSRAM</text>
+
+  <!-- Arrow P3 -> P4 -->
+  <line x1="690" y1="262" x2="718" y2="262" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="705" y="247" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">SPI</text>
+
+  <!-- Panel 4: External PSRAM -->
+  <rect x="720" y="85" width="215" height="230" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="827" y="110" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Зовнішня PSRAM</text>
+  <text x="827" y="128" font-size="12" fill="#6b7280" text-anchor="middle">Octal SPI 80/120 MHz</text>
+
+  <rect x="732" y="145" width="191" height="72" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="827" y="164" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Фреймбуфер Кадру</text>
+  <text x="827" y="184" font-size="12" fill="#1a1a1a" text-anchor="middle">Повний кадр (VGA/UXGA)</text>
+  <text x="827" y="202" font-size="12" fill="#6b7280" text-anchor="middle">RGB565 / JPEG Stream</text>
+
+  <rect x="732" y="226" width="191" height="72" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="827" y="245" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">B_PSRAM ≥ B_in</text>
+  <text x="827" y="264" font-size="12" fill="#1a1a1a" text-anchor="middle">До 80–120 МБ/с (Octal)</text>
+  <text x="827" y="282" font-size="12" fill="#27ae60" text-anchor="middle">Без втрати кадрів</text>
+
+  <!-- Lower Section: Mode Comparison -->
+  <!-- Left Panel: Stable Mode -->
+  <rect x="25" y="335" width="440" height="160" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="45" y="360" font-size="14" font-weight="bold" fill="#27ae60">✓ Умова стабільного конвеєра (B_PSRAM ≥ B_in)</text>
+  <text x="45" y="388" font-size="13" fill="#1a1a1a">1. Швидкість Octal SPI PSRAM перевищує вхідний потік PCLK.</text>
+  <text x="45" y="413" font-size="13" fill="#1a1a1a">2. Буфер B повністю вивантажується, поки DMA заповнює Буфер A.</text>
+  <text x="45" y="438" font-size="13" fill="#1a1a1a">3. Розрахунок PCLK: f_PCLK ≤ B_PSRAM / (2 × K_margin)</text>
+  <text x="45" y="470" font-size="12" font-weight="bold" fill="#27ae60">Результат: 0% втрат кадрів, стабільне потокове відео</text>
+
+  <!-- Right Panel: Overrun Mode -->
+  <rect x="495" y="335" width="440" height="160" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="515" y="360" font-size="14" font-weight="bold" fill="#c0392b">⚠ Переповнення буфера / Overrun (B_PSRAM &lt; B_in)</text>
+  <text x="515" y="388" font-size="13" fill="#1a1a1a">1. Затримки на шині SPI або завищена частота PCLK.</text>
+  <text x="515" y="413" font-size="13" fill="#1a1a1a">2. DMA починає запис у Буфер A до звільнення Буфера B.</text>
+  <text x="515" y="438" font-size="13" fill="#1a1a1a">3. Причина: f_PCLK &gt; f_PSRAM_eff або арбітраж шини CPU.</text>
+  <text x="515" y="470" font-size="12" font-weight="bold" fill="#c0392b">Результат: Переповнення SRAM, зсув/втрата кадрів</text>
+</svg>

@@ -1,0 +1,144 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Підкладка -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="36" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Формат кадрів відповідей ESP-AT та асинхронних сповіщень URC</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Статусні відповіді (OK, ERROR, BUSY) завершують сесію, а URC надходять асинхронно</text>
+
+  <!-- Панель 1: Часовий потік UART -->
+  <rect x="24" y="80" width="912" height="260" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="8"/>
+  <text x="40" y="104" font-size="14" font-weight="700" fill="#1a1a1a">1. Часова послідовність обміну кадрами по послідовному порту UART</text>
+
+  <!-- Канали UART -->
+  <text x="40" y="157" font-size="12" font-weight="700" fill="#1a1a1a">Хост (TX):</text>
+  <line x1="115" y1="175" x2="910" y2="175" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4,4"/>
+
+  <text x="40" y="237" font-size="12" font-weight="700" fill="#1a1a1a">ESP-AT (TX):</text>
+  <line x1="115" y1="210" x2="910" y2="210" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4,4"/>
+
+  <!-- Фаза 1: Успішна сесія -->
+  <text x="215" y="127" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">Сесія 1: Успішне виконання</text>
+  
+  <!-- Команда Хоста 1 -->
+  <rect x="130" y="140" width="110" height="26" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="4"/>
+  <text x="185" y="157" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">AT+CWJAP=...</text>
+
+  <!-- Стрілка обробки 1 -->
+  <path d="M 240 175 L 245 205" stroke="#2457d6" stroke-width="1.2" stroke-dasharray="3,3" marker-end="url(#arr-blue)"/>
+
+  <!-- Відповідь ESP 1 (Дані + OK) -->
+  <rect x="245" y="220" width="75" height="26" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="4"/>
+  <text x="282" y="237" font-size="12" fill="#1a1a1a" text-anchor="middle">+CWJAP:...</text>
+
+  <rect x="328" y="220" width="45" height="26" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="4"/>
+  <text x="350" y="237" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">OK</text>
+  <text x="350" y="262" font-size="12" fill="#27ae60" text-anchor="middle">Фінал сесії</text>
+
+  <!-- Роздільник Фаза 1 / Фаза 2 -->
+  <line x1="395" y1="115" x2="395" y2="280" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2,2"/>
+
+  <!-- Фаза 2: Зайнятість / Помилка -->
+  <text x="510" y="127" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">Сесія 2: Зайнятість / Помилка</text>
+
+  <!-- Команда Хоста 2 -->
+  <rect x="415" y="140" width="105" height="26" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="4"/>
+  <text x="467" y="157" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">AT+CIPSEND</text>
+
+  <!-- Стрілка обробки 2 -->
+  <path d="M 520 175 L 525 205" stroke="#c0392b" stroke-width="1.2" stroke-dasharray="3,3" marker-end="url(#arr-red)"/>
+
+  <!-- Відповідь ESP 2 (BUSY / ERROR) -->
+  <rect x="525" y="220" width="65" height="26" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" rx="4"/>
+  <text x="557" y="237" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">BUSY p...</text>
+
+  <rect x="598" y="220" width="60" height="26" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" rx="4"/>
+  <text x="628" y="237" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">ERROR</text>
+  <text x="593" y="262" font-size="12" fill="#c0392b" text-anchor="middle">Відмова сесії</text>
+
+  <!-- Роздільник Фаза 2 / Фаза 3 -->
+  <line x1="675" y1="115" x2="675" y2="280" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2,2"/>
+
+  <!-- Фаза 3: Асинхронне URC -->
+  <text x="795" y="127" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">Спонтанна подія (URC)</text>
+
+  <!-- Хост пасивний -->
+  <text x="795" y="157" font-size="12" fill="#6b7280" text-anchor="middle">[Немає запиту від хоста]</text>
+
+  <!-- ESP надсилає URC -->
+  <rect x="695" y="220" width="205" height="26" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="5,3" rx="4"/>
+  <text x="797" y="237" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">WIFI DISCONNECT / +IPD,...</text>
+  <text x="797" y="262" font-size="12" fill="#2457d6" text-anchor="middle">Без підтвердження OK/ERROR</text>
+
+  <!-- Вісь часу -->
+  <line x1="130" y1="300" x2="890" y2="300" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="510" y="322" font-size="12" fill="#6b7280" text-anchor="middle">Час (напрямок потоку послідовних даних UART)</text>
+
+
+  <!-- Панель 2: Синтаксична структура кадрів -->
+  <rect x="24" y="355" width="912" height="185" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="8"/>
+  <text x="40" y="378" font-size="14" font-weight="700" fill="#1a1a1a">2. Анатомія структурних елементів у кадрах ESP-AT</text>
+
+  <!-- Рядок A: Кадр Запиту -->
+  <text x="40" y="415" font-size="12" font-weight="700" fill="#1a1a1a">Запит (Host):</text>
+  
+  <rect x="130" y="398" width="45" height="26" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="4"/>
+  <text x="152" y="415" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">AT+</text>
+
+  <rect x="181" y="398" width="85" height="26" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="4"/>
+  <text x="223" y="415" font-size="12" fill="#1a1a1a" text-anchor="middle">КОМАНДА</text>
+
+  <rect x="272" y="398" width="105" height="26" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="4"/>
+  <text x="324" y="415" font-size="12" fill="#1a1a1a" text-anchor="middle">=параметри</text>
+
+  <rect x="383" y="398" width="60" height="26" fill="#fdecea" stroke="#c0392b" stroke-width="1" rx="4"/>
+  <text x="413" y="415" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">\r\n</text>
+
+  <text x="455" y="415" font-size="12" fill="#6b7280">Термінатор &lt;CR&gt;&lt;LF&gt; (0x0D 0x0A) обов'язково завершує кожен запит</text>
+
+  <!-- Рядок B: Кадр Відповіді -->
+  <text x="40" y="460" font-size="12" font-weight="700" fill="#1a1a1a">Відповідь:</text>
+
+  <rect x="130" y="443" width="105" height="26" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="4"/>
+  <text x="182" y="460" font-size="12" fill="#1a1a1a" text-anchor="middle">[Текст / Дані]</text>
+
+  <rect x="241" y="443" width="45" height="26" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="4"/>
+  <text x="263" y="460" font-size="12" fill="#6b7280" text-anchor="middle">\r\n</text>
+
+  <rect x="292" y="443" width="160" height="26" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="4"/>
+  <text x="372" y="460" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">OK | ERROR | BUSY</text>
+
+  <rect x="458" y="443" width="45" height="26" fill="#fdecea" stroke="#c0392b" stroke-width="1" rx="4"/>
+  <text x="480" y="460" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">\r\n</text>
+
+  <text x="515" y="460" font-size="12" fill="#6b7280">Фінальний статус сигналізує готовність модуля до наступної команди</text>
+
+  <!-- Рядок C: Кадр URC -->
+  <text x="40" y="505" font-size="12" font-weight="700" fill="#1a1a1a">Кадр URC:</text>
+
+  <rect x="130" y="488" width="45" height="26" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="4"/>
+  <text x="152" y="505" font-size="12" fill="#6b7280" text-anchor="middle">\r\n</text>
+
+  <rect x="181" y="488" width="160" height="26" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4,2" rx="4"/>
+  <text x="261" y="505" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">+ПОДІЯ:параметри</text>
+
+  <rect x="347" y="488" width="45" height="26" fill="#fdecea" stroke="#c0392b" stroke-width="1" rx="4"/>
+  <text x="369" y="505" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">\r\n</text>
+
+  <rect x="398" y="488" width="105" height="26" fill="#f4f6f8" stroke="#6b7280" stroke-width="1" stroke-dasharray="3,3" rx="4"/>
+  <text x="450" y="505" font-size="12" fill="#6b7280" text-anchor="middle">(Без статусу)</text>
+
+  <text x="515" y="505" font-size="12" fill="#6b7280">Асинхронне сповіщення про мережеву подію без очікування запиту</text>
+</svg>

@@ -1,0 +1,126 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Проходження мережевого кадру в lwIP на ESP8266</text>
+  <text x="480" y="60" font-size="13" fill="#6b7280" text-anchor="middle">Передача буфера pbuf від Wi-Fi MAC через low_level_input та netif до ip_input</text>
+
+  <!-- Column 1: Wi-Fi MAC -->
+  <rect x="30" y="85" width="200" height="405" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="130" y="112" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">1. Wi-Fi MAC-рівень</text>
+
+  <rect x="42" y="130" width="176" height="80" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="130" y="152" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Радіокадр 802.11</text>
+  <text x="130" y="172" font-size="12" fill="#6b7280" text-anchor="middle">Прийом через антену</text>
+  <text x="130" y="192" font-size="12" fill="#6b7280" text-anchor="middle">Декапсуляція в Ethernet</text>
+
+  <rect x="42" y="225" width="176" height="80" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="130" y="248" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Апаратне переривання</text>
+  <text x="130" y="268" font-size="12" fill="#1a1a1a" text-anchor="middle">MAC Rx ISR (ppRxPkt)</text>
+  <text x="130" y="288" font-size="12" fill="#2457d6" text-anchor="middle">Генерація події RX</text>
+
+  <rect x="42" y="320" width="176" height="150" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="130" y="343" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Кадр у HW буфері</text>
+  <text x="130" y="363" font-size="12" fill="#6b7280" text-anchor="middle">Заголовок 802.3/II</text>
+  <text x="130" y="383" font-size="12" fill="#6b7280" text-anchor="middle">Поле тип/довжина</text>
+  <text x="130" y="403" font-size="12" fill="#6b7280" text-anchor="middle">Корисне навантаження</text>
+  <text x="130" y="435" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Готовий до зчитування</text>
+  <text x="130" y="455" font-size="12" fill="#6b7280" text-anchor="middle">в оперативну пам'ять</text>
+
+  <!-- Column 2: ethernetif.c / low_level_input -->
+  <rect x="255" y="85" width="220" height="405" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="365" y="112" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">2. Драйвер low_level_input</text>
+
+  <rect x="267" y="130" width="196" height="90" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="365" y="152" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">low_level_input(netif)</text>
+  <text x="365" y="172" font-size="12" fill="#6b7280" text-anchor="middle">Визначення довжини len</text>
+  <text x="365" y="194" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">pbuf_alloc(PBUF_RAW,...)</text>
+  <text x="365" y="211" font-size="12" fill="#6b7280" text-anchor="middle">Виділення PBUF_POOL</text>
+
+  <rect x="267" y="235" width="196" height="115" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="365" y="258" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Буфер pbuf у DRAM</text>
+  <text x="365" y="278" font-size="12" fill="#1a1a1a" text-anchor="middle">Структура pbuf</text>
+  <text x="365" y="298" font-size="12" fill="#1a1a1a" text-anchor="middle">Копіювання кадру з MAC</text>
+  <text x="365" y="320" font-size="12" fill="#6b7280" text-anchor="middle">Заповнення p-&gt;payload</text>
+  <text x="365" y="340" font-size="12" fill="#27ae60" font-weight="bold" text-anchor="middle">Сформовано pbuf *p</text>
+
+  <rect x="267" y="365" width="196" height="105" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="365" y="388" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">ethernetif_input(netif)</text>
+  <text x="365" y="408" font-size="12" fill="#6b7280" text-anchor="middle">Отримання вказівника p</text>
+  <text x="365" y="430" font-size="12" fill="#2457d6" font-weight="bold" text-anchor="middle">netif-&gt;input(p, netif)</text>
+  <text x="365" y="452" font-size="12" fill="#6b7280" text-anchor="middle">Передача кадру в стек</text>
+
+  <!-- Column 3: netif interface -->
+  <rect x="500" y="85" width="200" height="405" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="600" y="112" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">3. Інтерфейс netif</text>
+
+  <rect x="512" y="130" width="176" height="185" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="600" y="152" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">struct netif (esp8266)</text>
+  <text x="600" y="174" font-size="12" fill="#6b7280" text-anchor="middle">hwaddr[6] (MAC-адреса)</text>
+  <text x="600" y="194" font-size="12" fill="#6b7280" text-anchor="middle">ip_addr, netmask, gw</text>
+  <text x="600" y="214" font-size="12" fill="#6b7280" text-anchor="middle">flags (NETIF_FLAG_UP)</text>
+  <text x="600" y="240" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Вказівник netif-&gt;input</text>
+  <text x="600" y="262" font-size="12" fill="#27ae60" font-weight="bold" text-anchor="middle">= ethernet_input</text>
+  <text x="600" y="282" font-size="12" fill="#6b7280" text-anchor="middle">(обробка Ethernet II)</text>
+  <text x="600" y="302" font-size="12" fill="#6b7280" text-anchor="middle">або = ip_input (RAW)</text>
+
+  <rect x="512" y="330" width="176" height="140" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="600" y="353" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Передача власності pbuf</text>
+  <text x="600" y="375" font-size="12" fill="#1a1a1a" text-anchor="middle">Драйвер віддає pbuf</text>
+  <text x="600" y="395" font-size="12" fill="#1a1a1a" text-anchor="middle">lwIP стає власником</text>
+  <text x="600" y="420" font-size="12" fill="#2457d6" font-weight="bold" text-anchor="middle">Без копіювання даних!</text>
+  <text x="600" y="440" font-size="12" fill="#6b7280" text-anchor="middle">Передається лише</text>
+  <text x="600" y="458" font-size="12" fill="#6b7280" text-anchor="middle">вказівник struct pbuf*</text>
+
+  <!-- Column 4: lwIP Core -->
+  <rect x="725" y="85" width="205" height="405" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="827" y="112" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">4. Ядро lwIP (L2/L3/L4)</text>
+
+  <rect x="737" y="130" width="181" height="95" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="827" y="152" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">ethernet_input(p, netif)</text>
+  <text x="827" y="172" font-size="12" fill="#6b7280" text-anchor="middle">Аналіз MAC і EtherType</text>
+  <text x="827" y="192" font-size="12" fill="#2457d6" font-weight="bold" text-anchor="middle">pbuf_header(p, -14)</text>
+  <text x="827" y="211" font-size="12" fill="#6b7280" text-anchor="middle">Зсув вказівника payload</text>
+
+  <rect x="737" y="240" width="181" height="95" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="827" y="262" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">ip_input(p, netif)</text>
+  <text x="827" y="282" font-size="12" fill="#1a1a1a" text-anchor="middle">Перевірка КС та IP</text>
+  <text x="827" y="302" font-size="12" fill="#6b7280" text-anchor="middle">Визначення протоколу L4</text>
+  <text x="827" y="321" font-size="12" fill="#6b7280" text-anchor="middle">(TCP, UDP або ICMP)</text>
+
+  <rect x="737" y="350" width="181" height="120" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="827" y="372" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">tcp_input / udp_input</text>
+  <text x="827" y="392" font-size="12" fill="#1a1a1a" text-anchor="middle">Пошук активного PCB</text>
+  <text x="827" y="412" font-size="12" fill="#1a1a1a" text-anchor="middle">Передача у сокет/cb</text>
+  <text x="827" y="437" font-size="12" fill="#27ae60" font-weight="bold" text-anchor="middle">pbuf_free(p)</text>
+  <text x="827" y="457" font-size="12" fill="#6b7280" text-anchor="middle">Звільнення пам'яті DRAM</text>
+
+  <!-- Internal Column Arrows -->
+  <path d="M 130,210 L 130,225" fill="none" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr)"/>
+  <path d="M 130,305 L 130,320" fill="none" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <path d="M 365,220 L 365,235" fill="none" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <path d="M 365,350 L 365,365" fill="none" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <path d="M 827,225 L 827,240" fill="none" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <path d="M 827,335 L 827,350" fill="none" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <!-- Connecting Inter-column Arrows -->
+  <path d="M 218,265 L 267,175" fill="none" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <path d="M 218,395 L 267,292" fill="none" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr-blue)"/>
+  <path d="M 463,417 L 512,400" fill="none" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <path d="M 688,262 L 737,177" fill="none" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+</svg>

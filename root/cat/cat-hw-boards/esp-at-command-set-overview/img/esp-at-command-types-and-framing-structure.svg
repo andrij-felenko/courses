@@ -1,0 +1,157 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <!-- Arrow marker for blue request flow -->
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <!-- Arrow marker for green response flow -->
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <!-- Standard dark arrow marker -->
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Canvas Background -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Diagram Header -->
+  <text x="480" y="28" text-anchor="middle" font-size="18" font-weight="700" fill="#1a1a1a">Структура кадру та 4 типи команд послідовного інтерфейсу ESP-AT</text>
+  <text x="480" y="48" text-anchor="middle" font-size="13" fill="#6b7280">Парсер ESP8266 розпізнає синтаксичні формати за термінатором \r\n та повертає відповідь OK або ERROR</text>
+
+  <!-- Left Column: Host Controller Panel -->
+  <rect x="25" y="70" width="165" height="440" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="107.5" y="94" text-anchor="middle" font-size="14" font-weight="700" fill="#1a1a1a">Хост-контролер</text>
+  <text x="107.5" y="112" text-anchor="middle" font-size="12" fill="#6b7280">(Host MCU / PC)</text>
+
+  <!-- Host sub-block 1: TX Generator -->
+  <rect x="35" y="130" width="145" height="72" fill="#ffffff" stroke="#d0d7de" rx="4"/>
+  <text x="107.5" y="152" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">Генератор запитів</text>
+  <text x="107.5" y="170" text-anchor="middle" font-size="11" fill="#1a1a1a">Формування AT-команд</text>
+  <text x="107.5" y="187" text-anchor="middle" font-size="11" fill="#6b7280">Додавання \r\n (CRLF)</text>
+
+  <!-- Host sub-block 2: UART Interface -->
+  <rect x="35" y="217" width="145" height="155" fill="#ffffff" stroke="#d0d7de" rx="4"/>
+  <text x="107.5" y="238" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">Інтерфейс UART</text>
+  <text x="107.5" y="257" text-anchor="middle" font-size="11" fill="#6b7280">Baud rate: 115200</text>
+  <text x="107.5" y="274" text-anchor="middle" font-size="11" fill="#6b7280">Data bits: 8</text>
+  <text x="107.5" y="291" text-anchor="middle" font-size="11" fill="#6b7280">Parity: None</text>
+  <text x="107.5" y="308" text-anchor="middle" font-size="11" fill="#6b7280">Stop bits: 1</text>
+  <text x="107.5" y="325" text-anchor="middle" font-size="11" fill="#6b7280">Flow control: None/RTS</text>
+  <text x="107.5" y="347" text-anchor="middle" font-size="11" font-weight="700" fill="#2457d6">TXD / RXD Лінії</text>
+
+  <!-- Host sub-block 3: RX Handler -->
+  <rect x="35" y="387" width="145" height="108" fill="#ffffff" stroke="#d0d7de" rx="4"/>
+  <text x="107.5" y="410" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">Обробник відповідей</text>
+  <text x="107.5" y="430" text-anchor="middle" font-size="11" fill="#1a1a1a">Очікування "OK" / "ERROR"</text>
+  <text x="107.5" y="448" text-anchor="middle" font-size="11" fill="#1a1a1a">Парсинг даних (+IPD)</text>
+  <text x="107.5" y="466" text-anchor="middle" font-size="11" fill="#6b7280">Обробка тайм-аутів</text>
+
+  <!-- Right Column: ESP8266 Module Panel -->
+  <rect x="770" y="70" width="165" height="440" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="852.5" y="94" text-anchor="middle" font-size="14" font-weight="700" fill="#1a1a1a">Модуль ESP8266</text>
+  <text x="852.5" y="112" text-anchor="middle" font-size="12" fill="#6b7280">(ESP-AT Core)</text>
+
+  <!-- ESP sub-block 1: RX Parser -->
+  <rect x="780" y="130" width="145" height="85" fill="#eaf0fd" stroke="#2457d6" rx="4"/>
+  <text x="852.5" y="152" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">Синтаксичний парсер</text>
+  <text x="852.5" y="170" text-anchor="middle" font-size="11" fill="#1a1a1a">Буферизація символів</text>
+  <text x="852.5" y="187" text-anchor="middle" font-size="11" fill="#1a1a1a">Детекція \r\n та префіксу</text>
+  <text x="852.5" y="204" text-anchor="middle" font-size="11" fill="#6b7280">Перевірка аргументів</text>
+
+  <!-- ESP sub-block 2: Command Engine -->
+  <rect x="780" y="228" width="145" height="142" fill="#ffffff" stroke="#d0d7de" rx="4"/>
+  <text x="852.5" y="249" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">Ядро обробки AT</text>
+  <text x="852.5" y="269" text-anchor="middle" font-size="11" fill="#1a1a1a">Системні (RST, GMR)</text>
+  <text x="852.5" y="286" text-anchor="middle" font-size="11" fill="#1a1a1a">Wi-Fi (CWMODE, CWJAP)</text>
+  <text x="852.5" y="303" text-anchor="middle" font-size="11" fill="#1a1a1a">TCP/IP (CIPSTART, CIPSEND)</text>
+  <text x="852.5" y="320" text-anchor="middle" font-size="11" fill="#1a1a1a">GPIO &amp; NVS Flash</text>
+  <text x="852.5" y="343" text-anchor="middle" font-size="11" fill="#6b7280">Конфігурація (CUR/DEF)</text>
+
+  <!-- ESP sub-block 3: TX Response Generator -->
+  <rect x="780" y="383" width="145" height="112" fill="#e9f7ef" stroke="#27ae60" rx="4"/>
+  <text x="852.5" y="405" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">Генератор відповідей</text>
+  <text x="852.5" y="425" text-anchor="middle" font-size="11" fill="#1a1a1a">Вивід payload-даних</text>
+  <text x="852.5" y="443" text-anchor="middle" font-size="11" font-weight="700" fill="#27ae60">Термінатор OK</text>
+  <text x="852.5" y="461" text-anchor="middle" font-size="11" font-weight="700" fill="#c0392b">Код помилки ERROR</text>
+  <text x="852.5" y="479" text-anchor="middle" font-size="11" fill="#6b7280">Асинхронне сповіщення URC</text>
+
+  <!-- Middle Section: Request Arrow Line -->
+  <path d="M 190,142 L 762,142" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="480" y="134" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">ПОТІК ЗАПИТІВ (TXD → RXD): Команда завершується термінатором \r\n (0x0D 0x0A)</text>
+
+  <!-- Middle Section: 4 Command Types Box -->
+  <rect x="205" y="152" width="550" height="240" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="480" y="172" text-anchor="middle" font-size="13" font-weight="700" fill="#1a1a1a">Синтаксичні формати чотирьох типів команд ESP-AT</text>
+
+  <!-- Row 1: Test -->
+  <rect x="215" y="182" width="530" height="44" fill="#ffffff" stroke="#d0d7de" rx="4"/>
+  <rect x="221" y="190" width="70" height="28" fill="#eaf0fd" stroke="#2457d6" rx="3"/>
+  <text x="256" y="208" text-anchor="middle" font-size="11" font-weight="700" fill="#2457d6">1. Test</text>
+  <text x="298" y="208" font-size="12" font-family="Courier New, monospace" font-weight="700" fill="#1a1a1a">AT+&lt;cmd&gt;=?</text>
+  <rect x="385" y="193" width="40" height="22" fill="#fdecea" stroke="#c0392b" rx="3"/>
+  <text x="405" y="208" text-anchor="middle" font-size="11" font-weight="700" fill="#c0392b">\r\n</text>
+  <text x="433" y="208" font-size="11" fill="#6b7280">Запит допустимих параметрів і діапазонів</text>
+
+  <!-- Row 2: Query -->
+  <rect x="215" y="232" width="530" height="44" fill="#ffffff" stroke="#d0d7de" rx="4"/>
+  <rect x="221" y="240" width="70" height="28" fill="#eaf0fd" stroke="#2457d6" rx="3"/>
+  <text x="256" y="258" text-anchor="middle" font-size="11" font-weight="700" fill="#2457d6">2. Query</text>
+  <text x="298" y="258" font-size="12" font-family="Courier New, monospace" font-weight="700" fill="#1a1a1a">AT+&lt;cmd&gt;?</text>
+  <rect x="385" y="243" width="40" height="22" fill="#fdecea" stroke="#c0392b" rx="3"/>
+  <text x="405" y="258" text-anchor="middle" font-size="11" font-weight="700" fill="#c0392b">\r\n</text>
+  <text x="433" y="258" font-size="11" fill="#6b7280">Отримання поточних налаштувань модуля</text>
+
+  <!-- Row 3: Set -->
+  <rect x="215" y="282" width="530" height="44" fill="#ffffff" stroke="#d0d7de" rx="4"/>
+  <rect x="221" y="290" width="70" height="28" fill="#eaf0fd" stroke="#2457d6" rx="3"/>
+  <text x="256" y="308" text-anchor="middle" font-size="11" font-weight="700" fill="#2457d6">3. Set</text>
+  <text x="298" y="308" font-size="12" font-family="Courier New, monospace" font-weight="700" fill="#1a1a1a">AT+&lt;cmd&gt;=&lt;v&gt;</text>
+  <rect x="385" y="293" width="40" height="22" fill="#fdecea" stroke="#c0392b" rx="3"/>
+  <text x="405" y="308" text-anchor="middle" font-size="11" font-weight="700" fill="#c0392b">\r\n</text>
+  <text x="433" y="308" font-size="11" fill="#6b7280">Записування нових параметрів у модуль</text>
+
+  <!-- Row 4: Execute -->
+  <rect x="215" y="332" width="530" height="44" fill="#ffffff" stroke="#d0d7de" rx="4"/>
+  <rect x="221" y="340" width="70" height="28" fill="#eaf0fd" stroke="#2457d6" rx="3"/>
+  <text x="256" y="358" text-anchor="middle" font-size="11" font-weight="700" fill="#2457d6">4. Execute</text>
+  <text x="298" y="358" font-size="12" font-family="Courier New, monospace" font-weight="700" fill="#1a1a1a">AT+&lt;cmd&gt;</text>
+  <rect x="385" y="343" width="40" height="22" fill="#fdecea" stroke="#c0392b" rx="3"/>
+  <text x="405" y="358" text-anchor="middle" font-size="11" font-weight="700" fill="#c0392b">\r\n</text>
+  <text x="433" y="358" font-size="11" fill="#6b7280">Запуск виконання дії (AT+RST, AT+GMR)</text>
+
+  <!-- Middle Section: Parsing Order Box -->
+  <rect x="205" y="402" width="550" height="68" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" stroke-dasharray="4,3" rx="6"/>
+  <text x="480" y="418" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">Порядок розбору елементів кадру синтаксичним парсером ESP-AT</text>
+
+  <!-- Steps inside Parsing Order -->
+  <!-- Step 1 -->
+  <rect x="213" y="428" width="90" height="32" fill="#ffffff" stroke="#2457d6" rx="4"/>
+  <text x="258" y="448" text-anchor="middle" font-size="11" font-weight="700" fill="#2457d6">1. Префікс AT</text>
+  <path d="M 304,444 L 314,444" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Step 2 -->
+  <rect x="317" y="428" width="100" height="32" fill="#ffffff" stroke="#2457d6" rx="4"/>
+  <text x="367" y="448" text-anchor="middle" font-size="11" font-weight="700" fill="#2457d6">2. Назва +CMD</text>
+  <path d="M 418,444 L 428,444" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Step 3 -->
+  <rect x="431" y="428" width="112" height="32" fill="#ffffff" stroke="#2457d6" rx="4"/>
+  <text x="487" y="448" text-anchor="middle" font-size="11" font-weight="700" fill="#2457d6">3. Оператор</text>
+  <path d="M 544,444 L 554,444" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Step 4 -->
+  <rect x="557" y="428" width="85" height="32" fill="#ffffff" stroke="#2457d6" rx="4"/>
+  <text x="599.5" y="448" text-anchor="middle" font-size="11" font-weight="700" fill="#2457d6">4. Параметри</text>
+  <path d="M 643,444 L 653,444" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Step 5 -->
+  <rect x="656" y="428" width="88" height="32" fill="#fdecea" stroke="#c0392b" rx="4"/>
+  <text x="700" y="448" text-anchor="middle" font-size="11" font-weight="700" fill="#c0392b">5. \r\n (CRLF)</text>
+
+  <!-- Middle Section: Response Arrow Line -->
+  <path d="M 770,492 L 198,492" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="480" y="484" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">ПОТІК ВІДПОВІДЕЙ (TXD → RXD):  \r\n&lt;payload&gt;\r\n  +  \r\nOK\r\n / \r\nERROR\r\n</text>
+</svg>

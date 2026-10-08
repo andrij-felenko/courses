@@ -1,0 +1,96 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-main" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Ієрархія підсистеми пам'яті ESP32-P4 та медіапотоки</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Дворівневе кешування L1/L2, 2D DMA та префетчер оптимізують роботу з PSRAM</text>
+
+  <!-- Layer 1: High-Performance Domain (Cores & Multimedia) -->
+  <!-- Left Panel: Cores -->
+  <rect x="30" y="75" width="435" height="110" fill="#f4f6f8" stroke="#d0d7de" rx="6"/>
+  <text x="45" y="95" font-size="13" font-weight="700" fill="#1a1a1a">Обчислювальний домен (HP RISC-V)</text>
+
+  <rect x="45" y="108" width="195" height="65" fill="#ffffff" stroke="#d0d7de" rx="4"/>
+  <text x="142" y="126" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">HP Core 0 (RISC-V)</text>
+  <text x="142" y="144" font-size="12" fill="#2457d6" text-anchor="middle">L1 I-Cache &amp; D-Cache</text>
+  <text x="142" y="162" font-size="12" fill="#6b7280" text-anchor="middle">Низькі затримки (1 такт)</text>
+
+  <rect x="255" y="108" width="195" height="65" fill="#ffffff" stroke="#d0d7de" rx="4"/>
+  <text x="352" y="126" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">HP Core 1 (RISC-V)</text>
+  <text x="352" y="144" font-size="12" fill="#2457d6" text-anchor="middle">L1 I-Cache &amp; D-Cache</text>
+  <text x="352" y="162" font-size="12" fill="#6b7280" text-anchor="middle">Низькі затримки (1 такт)</text>
+
+  <!-- Right Panel: Multimedia -->
+  <rect x="495" y="75" width="435" height="110" fill="#f4f6f8" stroke="#d0d7de" rx="6"/>
+  <text x="510" y="95" font-size="13" font-weight="700" fill="#1a1a1a">Мультимедійні модулі (MIPI / PPA / 2D DMA)</text>
+
+  <rect x="510" y="108" width="195" height="65" fill="#eaf0fd" stroke="#2457d6" rx="4"/>
+  <text x="607" y="126" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">MIPI-CSI / DSI</text>
+  <text x="607" y="144" font-size="12" fill="#2457d6" text-anchor="middle">Камера та Дисплей</text>
+  <text x="607" y="162" font-size="12" fill="#6b7280" text-anchor="middle">Вхідний/вихідний відеопотік</text>
+
+  <rect x="720" y="108" width="195" height="65" fill="#eaf0fd" stroke="#2457d6" rx="4"/>
+  <text x="817" y="126" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">2D DMA &amp; PPA</text>
+  <text x="817" y="144" font-size="12" fill="#2457d6" text-anchor="middle">Прискорювач графіки</text>
+  <text x="817" y="162" font-size="12" fill="#6b7280" text-anchor="middle">Пряме копіювання кадрів</text>
+
+  <!-- Layer 2: High-Speed Internal Bus & L2 Subsystem -->
+  <rect x="30" y="220" width="900" height="145" fill="#f4f6f8" stroke="#d0d7de" rx="6"/>
+  <text x="480" y="238" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">Внутрішня матриця шин (AXI/AHB Crossbar) та підсистема L2</text>
+
+  <!-- Left Sub-block: L2 Cache & Prefetcher -->
+  <rect x="45" y="250" width="425" height="100" fill="#ffffff" stroke="#2457d6" stroke-width="1.5" rx="4"/>
+  <text x="60" y="270" font-size="12" font-weight="700" fill="#1a1a1a">Підсистема L2 Cache</text>
+
+  <rect x="60" y="280" width="395" height="58" fill="#eaf0fd" stroke="#2457d6" rx="4"/>
+  <text x="257" y="300" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">Апаратний префетчер (Hardware Prefetcher)</text>
+  <text x="257" y="322" font-size="12" fill="#1a1a1a" text-anchor="middle">Автоматична вибірка блоків даних з PSRAM</text>
+
+  <!-- Right Sub-block: Internal SRAM -->
+  <rect x="490" y="250" width="425" height="100" fill="#ffffff" stroke="#d0d7de" rx="4"/>
+  <text x="505" y="270" font-size="12" font-weight="700" fill="#1a1a1a">Внутрішня SRAM (L2 Memory Pool)</text>
+  <text x="505" y="295" font-size="12" fill="#1a1a1a">768 KB L2 SRAM для кадр-буферів та дескрипторів</text>
+  <text x="505" y="322" font-size="12" font-weight="700" fill="#27ae60">Прямий доступ 2D DMA без навантаження на CPU</text>
+
+  <!-- Layer 3: External Memory Subsystem -->
+  <rect x="30" y="395" width="900" height="110" fill="#f4f6f8" stroke="#d0d7de" rx="6"/>
+  <text x="480" y="413" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">Контролер зовнішньої пам'яті (MSPI) та High-Speed PSRAM</text>
+
+  <rect x="45" y="425" width="425" height="68" fill="#ffffff" stroke="#d0d7de" rx="4"/>
+  <text x="257" y="447" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Контролер MSPI (Octal / Hexal SPI)</text>
+  <text x="257" y="468" font-size="12" fill="#6b7280" text-anchor="middle">Високошвидкісний шинний інтерфейс обміну</text>
+
+  <rect x="490" y="425" width="425" height="68" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="4"/>
+  <text x="702" y="447" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">Зовнішня High-Speed PSRAM</text>
+  <text x="702" y="468" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">Збереження кадрів високої роздільної здатності</text>
+
+  <!-- Interconnect Arrows -->
+  <!-- Arrow 1: CPU Cores to L2 Cache -->
+  <line x1="257" y1="185" x2="257" y2="245" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-main)"/>
+  <text x="267" y="212" font-size="12" fill="#6b7280">L1 Miss → L2 Access</text>
+
+  <!-- Arrow 2: Multimedia DMA to Internal SRAM -->
+  <line x1="702" y1="185" x2="702" y2="245" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="712" y="212" font-size="12" font-weight="700" fill="#2457d6">2D DMA Відеопотік</text>
+
+  <!-- Arrow 3: Prefetcher to MSPI Controller -->
+  <line x1="257" y1="338" x2="257" y2="420" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="267" y="380" font-size="12" font-weight="700" fill="#2457d6">Prefetch з PSRAM</text>
+
+  <!-- Arrow 4: MSPI Controller to External PSRAM -->
+  <line x1="470" y1="459" x2="485" y2="459" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+</svg>

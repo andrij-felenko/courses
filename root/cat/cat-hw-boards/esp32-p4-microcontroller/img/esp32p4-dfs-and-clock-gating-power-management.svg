@@ -1,0 +1,115 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- White Background -->
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="30" font-size="18" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Динамічне масштабування частоти (DFS) та Clock-Gating в ESP32-P4</text>
+  <text x="480" y="50" font-size="13" text-anchor="middle" fill="#6b7280">Автоматичне зниження частоти CPU та вимкнення тактування неактивних периферійних блоків</text>
+
+  <!-- Container Panel -->
+  <rect x="25" y="65" width="910" height="395" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="8"/>
+
+  <!-- Phase Column Dashed Gridlines & Phase Titles -->
+  <line x1="370" y1="82" x2="370" y2="448" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <line x1="560" y1="82" x2="560" y2="448" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <line x1="740" y1="82" x2="740" y2="448" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="4,4"/>
+
+  <!-- Phase Header Titles -->
+  <text x="275" y="82" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Фаза 1: Max навантаження</text>
+  <text x="465" y="82" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Фаза 2: Регулювання DFS</text>
+  <text x="650" y="82" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Фаза 3: Clock-Gating / Sleep</text>
+  <text x="830" y="82" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Фаза 4: Пробудження</text>
+
+  <!-- ================= LANE 1: CPU FREQUENCY ================= -->
+  <rect x="40" y="94" width="880" height="114" fill="white" stroke="#d0d7de" rx="6"/>
+
+  <!-- Left Header for Lane 1 -->
+  <text x="50" y="118" font-size="13" font-weight="bold" fill="#1a1a1a">Частота CPU (HP)</text>
+  <text x="50" y="136" font-size="11" fill="#6b7280">400 МГц (Max)</text>
+  <text x="50" y="162" font-size="11" fill="#6b7280">160 МГц (DFS)</text>
+  <text x="50" y="188" font-size="11" fill="#6b7280">0 МГц (Sleep)</text>
+
+  <!-- Baseline gridlines inside Lane 1 plot area -->
+  <line x1="180" y1="131" x2="905" y2="131" stroke="#f0f0f0" stroke-width="1"/>
+  <line x1="180" y1="157" x2="905" y2="157" stroke="#f0f0f0" stroke-width="1"/>
+  <line x1="180" y1="183" x2="905" y2="183" stroke="#f0f0f0" stroke-width="1"/>
+
+  <!-- CPU Frequency Shaded Area -->
+  <path d="M 180,183 L 180,131 L 350,131 L 370,157 L 480,157 L 510,183 L 560,183 L 570,183 L 740,183 L 755,131 L 905,131 L 905,183 Z" fill="#eaf0fd" opacity="0.7"/>
+
+  <!-- CPU Frequency Step Line -->
+  <path d="M 180,131 L 350,131 L 370,157 L 480,157 L 510,183 L 560,183 L 570,183 L 740,183 L 755,131 L 905,131" fill="none" stroke="#2457d6" stroke-width="3"/>
+
+  <!-- CPU Badges / Annotations -->
+  <rect x="210" y="106" width="115" height="18" fill="#2457d6" rx="4"/>
+  <text x="267" y="119" font-size="11" font-weight="bold" fill="white" text-anchor="middle">400 МГц (PM Lock)</text>
+
+  <rect x="395" y="133" width="130" height="18" fill="#eaf0fd" stroke="#2457d6" rx="4"/>
+  <text x="460" y="146" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">DFS: Зниження f_CPU</text>
+
+  <rect x="585" y="161" width="130" height="18" fill="#fdecea" stroke="#c0392b" rx="4"/>
+  <text x="650" y="174" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">HP Core Sleep (0 МГц)</text>
+
+  <rect x="775" y="106" width="115" height="18" fill="#e9f7ef" stroke="#27ae60" rx="4"/>
+  <text x="832" y="119" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">DFS: Пробудження</text>
+
+  <!-- ================= LANE 2: PERIPHERAL CLOCK GATING ================= -->
+  <rect x="40" y="215" width="880" height="115" fill="white" stroke="#d0d7de" rx="6"/>
+
+  <!-- Left Header for Lane 2 -->
+  <text x="50" y="237" font-size="13" font-weight="bold" fill="#1a1a1a">Периферія HP-домену</text>
+  <text x="50" y="253" font-size="11" fill="#6b7280">(Clock Gating)</text>
+  <text x="50" y="277" font-size="11" fill="#1a1a1a">Модуль A (Crypto/DMA)</text>
+  <text x="50" y="307" font-size="11" fill="#1a1a1a">Модуль B (UART/SPI)</text>
+
+  <!-- Module A status bars -->
+  <rect x="180" y="265" width="140" height="20" fill="#e9f7ef" stroke="#27ae60" rx="4"/>
+  <text x="250" y="279" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">Тактується (Активний)</text>
+
+  <rect x="328" y="265" width="577" height="20" fill="#fdecea" stroke="#c0392b" stroke-dasharray="3,3" rx="4"/>
+  <text x="616" y="279" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">Clock-Gated (Тактування вимкнено для економії енергії)</text>
+
+  <!-- Module B status bars -->
+  <rect x="180" y="295" width="270" height="20" fill="#e9f7ef" stroke="#27ae60" rx="4"/>
+  <text x="315" y="309" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">Тактується (Обробка даних)</text>
+
+  <rect x="458" y="295" width="274" height="20" fill="#fdecea" stroke="#c0392b" stroke-dasharray="3,3" rx="4"/>
+  <text x="595" y="309" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">Clock-Gated (Модуль неактивний)</text>
+
+  <rect x="740" y="295" width="165" height="20" fill="#e9f7ef" stroke="#27ae60" rx="4"/>
+  <text x="822" y="309" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">Тактування відновлено</text>
+
+  <!-- ================= LANE 3: LP SUBSYSTEM & LP-CORE ================= -->
+  <rect x="40" y="337" width="880" height="110" fill="white" stroke="#d0d7de" rx="6"/>
+
+  <!-- Left Header for Lane 3 -->
+  <text x="50" y="360" font-size="13" font-weight="bold" fill="#1a1a1a">LP-Subsystem (PMU)</text>
+  <text x="50" y="376" font-size="11" fill="#6b7280">(Low-Power Domain)</text>
+  <text x="50" y="403" font-size="11" fill="#1a1a1a">Співпроцесор LP-Core</text>
+
+  <!-- LP-Core status bars -->
+  <rect x="180" y="388" width="372" height="24" fill="#f4f6f8" stroke="#d0d7de" rx="4"/>
+  <text x="366" y="404" font-size="11" fill="#6b7280" text-anchor="middle">Очікування / Низьке навантаження</text>
+
+  <rect x="560" y="388" width="172" height="24" fill="#eaf0fd" stroke="#2457d6" rx="4"/>
+  <text x="646" y="404" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">Автономний збір даних</text>
+
+  <rect x="740" y="388" width="165" height="24" fill="#e9f7ef" stroke="#27ae60" rx="4"/>
+  <text x="822" y="404" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">Сигнал пробудження HP</text>
+
+  <!-- Bottom PM Driver Note -->
+  <text x="180" y="432" font-size="11" fill="#1a1a1a"><tspan font-weight="bold">Драйвер Power Management (PMU):</tspan> керує DFS-замками (PM locks), автоматом знижує f_CPU та вимикає тактування (Clock-Gating)</text>
+
+</svg>

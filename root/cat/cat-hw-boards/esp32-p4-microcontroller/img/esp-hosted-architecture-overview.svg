@@ -1,0 +1,112 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-black" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="30" font-size="18" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Архітектура ESP-Hosted: ESP32-P4 (Host) + ESP32-C3/C6 (Slave)</text>
+  <text x="480" y="52" font-size="13" text-anchor="middle" fill="#6b7280">Мережевий стек LwIP передає кадри через SDIO/SPI до радіотракту співпроцесора</text>
+
+  <!-- Panel 1: Host MCU (ESP32-P4) -->
+  <rect x="35" y="75" width="380" height="365" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="55" y="102" font-size="15" font-weight="bold" fill="#1a1a1a">ESP32-P4 (Host MCU)</text>
+  <text x="55" y="120" font-size="12" fill="#6b7280">Обробка додатків та мережевий стек LwIP</text>
+
+  <!-- Host Layer 1: App -->
+  <rect x="55" y="135" width="340" height="48" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="225" y="164" font-size="13" font-weight="bold" text-anchor="middle" fill="#1a1a1a">User Application (HTTPS / MQTT / Sockets)</text>
+
+  <!-- Arrow App -> LwIP -->
+  <line x1="225" y1="183" x2="225" y2="198" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Host Layer 2: LwIP Stack -->
+  <rect x="55" y="198" width="340" height="52" rx="6" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="225" y="220" font-size="13" font-weight="bold" text-anchor="middle" fill="#2457d6">Стек LwIP / Virtual Netif (esp_netif)</text>
+  <text x="225" y="239" font-size="12" text-anchor="middle" fill="#6b7280">Формування IP-пакетів (TCP/UDP, ARP)</text>
+
+  <!-- Arrow LwIP -> Host Driver -->
+  <line x1="225" y1="250" x2="225" y2="265" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Host Layer 3: ESP-Hosted Host Driver -->
+  <rect x="55" y="265" width="340" height="52" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="225" y="287" font-size="13" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Драйвер ESP-HOSTED (Host Transport)</text>
+  <text x="225" y="306" font-size="12" text-anchor="middle" fill="#6b7280">Серіалізація Protobuf, черги DMA, IRQ-хендлер</text>
+
+  <!-- Arrow Host Driver -> Hardware Bus -->
+  <line x1="225" y1="317" x2="225" y2="340" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Host Layer 4: Hardware Bus Peripheral -->
+  <rect x="55" y="340" width="340" height="85" rx="6" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="225" y="367" font-size="13" font-weight="bold" text-anchor="middle" fill="#27ae60">Контролер SDIO Master / SPI Host</text>
+  <text x="225" y="388" font-size="12" text-anchor="middle" fill="#1a1a1a">SDIO High-Speed 4-bit (до 50 МГц) або SPI</text>
+  <text x="225" y="407" font-size="12" text-anchor="middle" fill="#6b7280">Обробка лінії асинхронного переривання GPIO IRQ</text>
+
+  <!-- Central Inter-chip Bus Panel -->
+  <rect x="425" y="335" width="110" height="95" rx="6" fill="#ffffff" stroke="#27ae60" stroke-dasharray="4 4"/>
+  <text x="480" y="357" font-size="12" font-weight="bold" text-anchor="middle" fill="#27ae60">Шина зв'язку</text>
+  <text x="480" y="376" font-size="12" text-anchor="middle" fill="#1a1a1a">SDIO / SPI</text>
+  <text x="480" y="394" font-size="12" text-anchor="middle" fill="#6b7280">+ Data Ready</text>
+  <text x="480" y="412" font-size="12" text-anchor="middle" fill="#6b7280">(Handshake IRQ)</text>
+
+  <!-- Inter-chip Bus Arrows -->
+  <!-- Data TX: Host -> Bus Box -> Slave -->
+  <line x1="395" y1="365" x2="425" y2="365" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <line x1="535" y1="365" x2="565" y2="365" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- IRQ / RX: Slave -> Bus Box -> Host -->
+  <line x1="565" y1="405" x2="535" y2="405" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr-black)"/>
+  <line x1="425" y1="405" x2="395" y2="405" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr-black)"/>
+
+  <!-- Panel 2: Slave / Co-processor (ESP32-C3/C6) -->
+  <rect x="545" y="75" width="380" height="365" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="565" y="102" font-size="15" font-weight="bold" fill="#1a1a1a">ESP32-C3 / ESP32-C6 (Slave)</text>
+  <text x="565" y="120" font-size="12" fill="#6b7280">Бездротовий співпроцесор (Wi-Fi 6 / BLE 5)</text>
+
+  <!-- Antenna Header on top right of Slave Panel -->
+  <line x1="885" y1="135" x2="885" y2="108" stroke="#2457d6" stroke-width="2"/>
+  <path d="M 877,108 L 885,96 L 893,108 Z" fill="#2457d6"/>
+  <path d="M 899,95 A 10 10 0 0 1 899,109" fill="none" stroke="#2457d6" stroke-width="2"/>
+  <path d="M 904,90 A 16 16 0 0 1 904,114" fill="none" stroke="#2457d6" stroke-width="2"/>
+  <text x="835" y="93" font-size="12" font-weight="bold" fill="#2457d6">Ефір (Wi-Fi / BT)</text>
+
+  <!-- Slave Layer 1: RF Transceiver -->
+  <rect x="565" y="135" width="340" height="48" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="735" y="164" font-size="13" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Радіотракт RF Front-End (2.4 ГГц / 5 ГГц)</text>
+
+  <!-- Arrow MAC -> RF -->
+  <line x1="735" y1="198" x2="735" y2="183" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Slave Layer 2: Wi-Fi / BT Controller -->
+  <rect x="565" y="198" width="340" height="52" rx="6" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="735" y="220" font-size="13" font-weight="bold" text-anchor="middle" fill="#2457d6">Контролер Wi-Fi MAC / Bluetooth Link Layer</text>
+  <text x="735" y="239" font-size="12" text-anchor="middle" fill="#6b7280">Формування 802.11 кадрів та HCI команд</text>
+
+  <!-- Arrow Slave FW -> MAC -->
+  <line x1="735" y1="265" x2="735" y2="250" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Slave Layer 3: ESP-Hosted Slave Firmware -->
+  <rect x="565" y="265" width="340" height="52" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="735" y="287" font-size="13" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Мікропрограма ESP-HOSTED (Slave FW)</text>
+  <text x="735" y="306" font-size="12" text-anchor="middle" fill="#6b7280">Десеріалізація пакетів, трансляція команд</text>
+
+  <!-- Arrow Hardware -> Slave FW -->
+  <line x1="735" y1="340" x2="735" y2="317" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Slave Layer 4: Hardware Bus Slave Peripheral -->
+  <rect x="565" y="340" width="340" height="85" rx="6" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="735" y="367" font-size="13" font-weight="bold" text-anchor="middle" fill="#27ae60">Контролер SDIO Slave / SPI Slave</text>
+  <text x="735" y="388" font-size="12" text-anchor="middle" fill="#1a1a1a">Апаратні буфери DMA для приймання/передачі</text>
+  <text x="735" y="407" font-size="12" text-anchor="middle" fill="#6b7280">Генерація сигналів Data Ready для Host MCU</text>
+
+  <!-- Bottom Summary Banner -->
+  <rect x="35" y="455" width="890" height="42" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="480" y="481" font-size="13" font-weight="bold" text-anchor="middle" fill="#27ae60">Перевага: ESP32-P4 звільнено від обробки Wi-Fi/BT стека, забезпечуючи максимальну продуктивність для GUI та обчислень</text>
+</svg>

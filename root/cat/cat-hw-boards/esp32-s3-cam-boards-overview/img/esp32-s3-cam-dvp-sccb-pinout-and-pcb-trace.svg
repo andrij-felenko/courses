@@ -1,0 +1,144 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Маркери стрілок -->
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок та підзаголовок -->
+  <text x="480" y="30" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Інтерфейси DVP / SCCB та трасування PCLK у ESP32-S3-CAM</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Екранування сигнальної лінії PCLK провідниками GND запобігає перехресним наведенням та спотворенню кадрів</text>
+
+  <!-- ВІДПРАВНИК: Модуль камери OV2640 -->
+  <rect x="25" y="75" width="225" height="445" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="8"/>
+  <rect x="35" y="85" width="205" height="32" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="5"/>
+  <text x="137" y="106" font-size="14" font-weight="700" fill="#2457d6" text-anchor="middle">Модуль камери OV2640</text>
+
+  <!-- Блок SCCB (Камера) -->
+  <rect x="35" y="125" width="205" height="80" fill="white" stroke="#d0d7de" rx="5"/>
+  <text x="137" y="143" font-size="12" font-weight="700" fill="#6b7280" text-anchor="middle">Шина керування (SCCB)</text>
+  <text x="45" y="166" font-size="12" fill="#1a1a1a">SIOC (SCL)</text>
+  <text x="45" y="191" font-size="12" fill="#1a1a1a">SIOD (SDA)</text>
+
+  <!-- Блок тактування (Камера) -->
+  <rect x="35" y="213" width="205" height="80" fill="white" stroke="#d0d7de" rx="5"/>
+  <text x="137" y="231" font-size="12" font-weight="700" fill="#6b7280" text-anchor="middle">Тактові сигнали (Clock)</text>
+  <text x="45" y="254" font-size="12" fill="#1a1a1a">XCLK (Вхід 24 МГц)</text>
+  <text x="45" y="279" font-size="12" font-weight="700" fill="#2457d6">PCLK (Вихід стробу)</text>
+
+  <!-- Блок DVP даних (Камера) -->
+  <rect x="35" y="301" width="205" height="210" fill="white" stroke="#d0d7de" rx="5"/>
+  <text x="137" y="319" font-size="12" font-weight="700" fill="#6b7280" text-anchor="middle">Паралельна шина DVP</text>
+  <text x="45" y="342" font-size="12" fill="#1a1a1a">VSYNC (Кадрова)</text>
+  <text x="45" y="367" font-size="12" fill="#1a1a1a">HREF (Рядкова)</text>
+  <text x="45" y="407" font-size="12" fill="#1a1a1a">D0–D7 (8-біт дані)</text>
+  <text x="45" y="457" font-size="12" font-weight="700" fill="#27ae60">GND (Земля екрану)</text>
+  <text x="45" y="492" font-size="12" font-weight="700" fill="#27ae60">GND (Земля екрану)</text>
+
+  <!-- ОДЕРЖУВАЧ: ESP32-S3 -->
+  <rect x="710" y="75" width="225" height="445" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="8"/>
+  <rect x="720" y="85" width="205" height="32" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="5"/>
+  <text x="822" y="106" font-size="14" font-weight="700" fill="#2457d6" text-anchor="middle">ESP32-S3 SoC</text>
+
+  <!-- Блок SCCB (ESP32-S3) -->
+  <rect x="720" y="125" width="205" height="80" fill="white" stroke="#d0d7de" rx="5"/>
+  <text x="822" y="143" font-size="12" font-weight="700" fill="#6b7280" text-anchor="middle">SCCB контролер (I2C)</text>
+  <text x="915" y="166" font-size="12" fill="#1a1a1a" text-anchor="end">GPIO SIOC</text>
+  <text x="915" y="191" font-size="12" fill="#1a1a1a" text-anchor="end">GPIO SIOD</text>
+
+  <!-- Блок тактування (ESP32-S3) -->
+  <rect x="720" y="213" width="205" height="80" fill="white" stroke="#d0d7de" rx="5"/>
+  <text x="822" y="231" font-size="12" font-weight="700" fill="#6b7280" text-anchor="middle">Генератор XCLK (LEDC)</text>
+  <text x="915" y="254" font-size="12" fill="#1a1a1a" text-anchor="end">GPIO XCLK Out</text>
+  <text x="915" y="279" font-size="12" font-weight="700" fill="#2457d6" text-anchor="end">PCLK In (I2S CLK)</text>
+
+  <!-- Блок DVP Cam DMA (ESP32-S3) -->
+  <rect x="720" y="301" width="205" height="210" fill="white" stroke="#d0d7de" rx="5"/>
+  <text x="822" y="319" font-size="12" font-weight="700" fill="#6b7280" text-anchor="middle">DVP Cam DMA / I2S</text>
+  <text x="915" y="342" font-size="12" fill="#1a1a1a" text-anchor="end">GPIO VSYNC</text>
+  <text x="915" y="367" font-size="12" fill="#1a1a1a" text-anchor="end">GPIO HREF</text>
+  <text x="915" y="407" font-size="12" fill="#1a1a1a" text-anchor="end">GPIO D0–D7</text>
+  <text x="915" y="457" font-size="12" font-weight="700" fill="#27ae60" text-anchor="end">GND Plane</text>
+  <text x="915" y="492" font-size="12" font-weight="700" fill="#27ae60" text-anchor="end">GND Plane</text>
+
+  <!-- ЦЕНТРАЛЬНА ПАНЕЛЬ: ТРАСУВАННЯ ТА ЕКРАНУВАННЯ -->
+  <rect x="265" y="75" width="430" height="445" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="8"/>
+  <text x="480" y="100" font-size="14" font-weight="700" fill="#1a1a1a" text-anchor="middle">Топологія друкованої плати (PCB Traces)</text>
+
+  <!-- Pull-up резистори для SCCB -->
+  <text x="344" y="123" font-size="12" font-weight="700" fill="#6b7280" text-anchor="middle">R_pullup 4.7kΩ (3.3V)</text>
+  <line x1="324" y1="128" x2="324" y2="137" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="364" y1="128" x2="364" y2="137" stroke="#6b7280" stroke-width="1.5"/>
+  <rect x="319" y="137" width="10" height="16" fill="white" stroke="#6b7280" stroke-width="1.5"/>
+  <rect x="359" y="137" width="10" height="16" fill="white" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="324" y1="153" x2="324" y2="162" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="364" y1="153" x2="364" y2="187" stroke="#6b7280" stroke-width="1.5"/>
+
+  <!-- Лінії SCCB -->
+  <line x1="240" y1="162" x2="720" y2="162" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="240" y1="187" x2="720" y2="187" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Лінія XCLK (ESP32-S3 -> OV2640) -->
+  <line x1="720" y1="250" x2="240" y2="250" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+
+  <!-- ЕКРАНОВАНА ЗОНА PCLK (Зелена панель) -->
+  <rect x="278" y="265" width="404" height="105" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="6"/>
+  <rect x="360" y="272" width="240" height="20" fill="#27ae60" rx="4"/>
+  <text x="480" y="286" font-size="12" font-weight="700" fill="white" text-anchor="middle">Зона захищеного стробу PCLK</text>
+
+  <!-- Верхній GND екран -->
+  <line x1="240" y1="298" x2="720" y2="298" stroke="#27ae60" stroke-width="3"/>
+  <circle cx="310" cy="298" r="3" fill="#27ae60" stroke="white" stroke-width="1"/>
+  <circle cx="370" cy="298" r="3" fill="#27ae60" stroke="white" stroke-width="1"/>
+  <circle cx="430" cy="298" r="3" fill="#27ae60" stroke="white" stroke-width="1"/>
+  <circle cx="490" cy="298" r="3" fill="#27ae60" stroke="white" stroke-width="1"/>
+  <circle cx="550" cy="298" r="3" fill="#27ae60" stroke="white" stroke-width="1"/>
+  <circle cx="610" cy="298" r="3" fill="#27ae60" stroke="white" stroke-width="1"/>
+  <circle cx="670" cy="298" r="3" fill="#27ae60" stroke="white" stroke-width="1"/>
+  <text x="300" y="294" font-size="12" font-weight="700" fill="#27ae60">GND Guard</text>
+
+  <!-- Центральний сигнал PCLK -->
+  <line x1="240" y1="320" x2="720" y2="320" stroke="#2457d6" stroke-width="4" marker-end="url(#arr-blue)"/>
+  <text x="480" y="316" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">PCLK Signal (10–24 МГц)</text>
+
+  <!-- Нижній GND екран -->
+  <line x1="240" y1="342" x2="720" y2="342" stroke="#27ae60" stroke-width="3"/>
+  <circle cx="310" cy="342" r="3" fill="#27ae60" stroke="white" stroke-width="1"/>
+  <circle cx="370" cy="342" r="3" fill="#27ae60" stroke="white" stroke-width="1"/>
+  <circle cx="430" cy="342" r="3" fill="#27ae60" stroke="white" stroke-width="1"/>
+  <circle cx="490" cy="342" r="3" fill="#27ae60" stroke="white" stroke-width="1"/>
+  <circle cx="550" cy="342" r="3" fill="#27ae60" stroke="white" stroke-width="1"/>
+  <circle cx="610" cy="342" r="3" fill="#27ae60" stroke="white" stroke-width="1"/>
+  <circle cx="670" cy="342" r="3" fill="#27ae60" stroke="white" stroke-width="1"/>
+  <text x="300" y="358" font-size="12" font-weight="700" fill="#27ae60">GND Guard</text>
+
+  <!-- Пояснення в зеленій зоні -->
+  <text x="480" y="365" font-size="12" fill="#1a1a1a" text-anchor="middle">Паралельні провідники GND з переходами (Via Stitching) ізолюють строб PCLK</text>
+
+  <!-- Лінія VSYNC -->
+  <line x1="240" y1="385" x2="720" y2="385" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+  <text x="330" y="381" font-size="12" fill="#1a1a1a">VSYNC (Кадрова синхронізація)</text>
+
+  <!-- Лінія HREF -->
+  <line x1="240" y1="410" x2="720" y2="410" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+  <text x="330" y="406" font-size="12" fill="#1a1a1a">HREF (Рядкова синхронізація)</text>
+
+  <!-- Шина D0–D7 -->
+  <line x1="240" y1="435" x2="720" y2="435" stroke="#1a1a1a" stroke-width="5" marker-end="url(#arr)"/>
+  <text x="480" y="430" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Шина даних D0–D7 (8 паралельних ліній)</text>
+
+  <!-- Нижній блок живлення та декуплажу -->
+  <rect x="280" y="458" width="400" height="50" fill="white" stroke="#d0d7de" rx="6"/>
+  <text x="480" y="476" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Підсистема живлення та фільтрація</text>
+  <text x="480" y="496" font-size="12" fill="#6b7280" text-anchor="middle">Окремі LDO (3.3V/1.8V) + керамічні конденсатори 0.1 мкФ біля OV2640</text>
+</svg>

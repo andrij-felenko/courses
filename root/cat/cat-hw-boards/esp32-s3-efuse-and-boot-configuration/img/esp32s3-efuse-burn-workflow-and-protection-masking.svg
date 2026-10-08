@@ -1,0 +1,100 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-accent" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Title and Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Безпечний регламент програмування бітів eFuse у ESP32-S3</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Етапи espefuse.py: перевірка напруги, тестова симуляція та фіксація бітів захисту</text>
+
+  <!-- PANEL 1: Step 1 -->
+  <rect x="30" y="75" width="276" height="360" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="8" ry="8"/>
+  <rect x="30" y="75" width="276" height="36" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="6" ry="6"/>
+  <text x="168" y="98" font-size="13" font-weight="700" fill="#2457d6" text-anchor="middle">КРОК 1. Підготовка ключів</text>
+
+  <!-- Panel 1 - Card 1 -->
+  <rect x="42" y="123" width="252" height="88" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="4" ry="4"/>
+  <text x="54" y="143" font-size="12" font-weight="700" fill="#1a1a1a">Генерація файлів ключів</text>
+  <text x="54" y="163" font-size="12" fill="#6b7280">espsecure.py generate_key</text>
+  <text x="54" y="183" font-size="12" fill="#6b7280">Ключі: FEK, Secure Boot</text>
+
+  <!-- Panel 1 - Card 2 -->
+  <rect x="42" y="223" width="252" height="88" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="4" ry="4"/>
+  <text x="54" y="243" font-size="12" font-weight="700" fill="#1a1a1a">Дамп таблиці eFuse</text>
+  <text x="54" y="263" font-size="12" fill="#2457d6">espefuse.py summary</text>
+  <text x="54" y="283" font-size="12" fill="#6b7280">Аналіз блоків BLK1-BLK10</text>
+
+  <!-- Panel 1 - Card 3 -->
+  <rect x="42" y="323" width="252" height="100" fill="#e9f7ef" stroke="#27ae60" stroke-width="1" rx="4" ry="4"/>
+  <text x="54" y="343" font-size="12" font-weight="700" fill="#27ae60">Перевірка VDD_SPI та живлення</text>
+  <text x="54" y="363" font-size="12" fill="#1a1a1a">Стабільні 3.3 В на VDD</text>
+  <text x="54" y="383" font-size="12" fill="#6b7280">Узгодження напруги Flash</text>
+  <text x="54" y="403" font-size="12" fill="#c0392b">Просадка = пошкодження!</text>
+
+  <!-- Flow Arrow 1 -> 2 -->
+  <line x1="308" y1="255" x2="338" y2="255" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-accent)"/>
+
+  <!-- PANEL 2: Step 2 -->
+  <rect x="342" y="75" width="276" height="360" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="8" ry="8"/>
+  <rect x="342" y="75" width="276" height="36" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="6" ry="6"/>
+  <text x="480" y="98" font-size="13" font-weight="700" fill="#2457d6" text-anchor="middle">КРОК 2. Симуляція (--dry-run)</text>
+
+  <!-- Panel 2 - Card 1 -->
+  <rect x="354" y="123" width="252" height="88" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="4" ry="4"/>
+  <text x="366" y="143" font-size="12" font-weight="700" fill="#1a1a1a">Тестове записування ключів</text>
+  <text x="366" y="163" font-size="12" fill="#2457d6">burn_key ... --dry-run</text>
+  <text x="366" y="183" font-size="12" fill="#6b7280">Симуляція без запису чипа</text>
+
+  <!-- Panel 2 - Card 2 -->
+  <rect x="354" y="223" width="252" height="88" fill="#fdecea" stroke="#c0392b" stroke-width="1" rx="4" ry="4"/>
+  <text x="366" y="243" font-size="12" font-weight="700" fill="#c0392b">Перевірка масок захисту</text>
+  <text x="366" y="263" font-size="12" fill="#1a1a1a">Перевірка бітів WR_DIS</text>
+  <text x="366" y="283" font-size="12" fill="#c0392b">Заблоковані біти = помилка</text>
+
+  <!-- Panel 2 - Card 3 -->
+  <rect x="354" y="323" width="252" height="100" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="4" ry="4"/>
+  <text x="366" y="343" font-size="12" font-weight="700" fill="#1a1a1a">Аналіз логу змін</text>
+  <text x="366" y="363" font-size="12" fill="#1a1a1a">Перевірка зміни бітів 0 -&gt; 1</text>
+  <text x="366" y="383" font-size="12" fill="#27ae60">✓ Підтвердження маски</text>
+  <text x="366" y="403" font-size="12" fill="#6b7280">Готовність до випалювання</text>
+
+  <!-- Flow Arrow 2 -> 3 -->
+  <line x1="620" y1="255" x2="650" y2="255" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-accent)"/>
+
+  <!-- PANEL 3: Step 3 -->
+  <rect x="654" y="75" width="276" height="360" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="8" ry="8"/>
+  <rect x="654" y="75" width="276" height="36" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="6" ry="6"/>
+  <text x="792" y="98" font-size="13" font-weight="700" fill="#2457d6" text-anchor="middle">КРОК 3. Остаточне випалювання</text>
+
+  <!-- Panel 3 - Card 1 -->
+  <rect x="666" y="123" width="252" height="88" fill="#fdecea" stroke="#c0392b" stroke-width="1" rx="4" ry="4"/>
+  <text x="678" y="143" font-size="12" font-weight="700" fill="#c0392b">Незворотне випалювання</text>
+  <text x="678" y="163" font-size="12" fill="#c0392b">espefuse.py burn_efuse</text>
+  <text x="678" y="183" font-size="12" fill="#c0392b">Фізична зміна стану 0 -&gt; 1</text>
+
+  <!-- Panel 3 - Card 2 -->
+  <rect x="666" y="223" width="252" height="88" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="4" ry="4"/>
+  <text x="678" y="243" font-size="12" font-weight="700" fill="#1a1a1a">Запікання RD_DIS та WR_DIS</text>
+  <text x="678" y="263" font-size="12" fill="#2457d6">Захист ключів від читання</text>
+  <text x="678" y="283" font-size="12" fill="#6b7280">Блокування повторного запису</text>
+
+  <!-- Panel 3 - Card 3 -->
+  <rect x="666" y="323" width="252" height="100" fill="#e9f7ef" stroke="#27ae60" stroke-width="1" rx="4" ry="4"/>
+  <text x="678" y="343" font-size="12" font-weight="700" fill="#27ae60">Фінальна верифікація</text>
+  <text x="678" y="363" font-size="12" fill="#27ae60">espefuse.py summary</text>
+  <text x="678" y="383" font-size="12" fill="#1a1a1a">✓ Перевірка прапорів захисту</text>
+  <text x="678" y="403" font-size="12" fill="#6b7280">Захищене завантаження готове</text>
+
+  <!-- Footer Banner -->
+  <rect x="30" y="452" width="900" height="52" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="6" ry="6"/>
+  <text x="480" y="472" font-size="13" font-weight="700" fill="#2457d6" text-anchor="middle">Правило послідовності захисту eFuse:</text>
+  <text x="480" y="491" font-size="12" fill="#1a1a1a" text-anchor="middle">Записати значення та ключі -&gt; Перевірити прапорці -&gt; Випалити біти блокування WR_DIS / RD_DIS</text>
+</svg>

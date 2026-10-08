@@ -1,0 +1,131 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 530" width="960" height="530" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="530" fill="white"/>
+
+  <defs>
+    <marker id="arr-main" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Title and Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Діаграма станів PMU в ESP32-P4: переходи між Active, Light-sleep та Deep-sleep</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">PMU послідовно виконує clock-gating, керує живленням HP L2/ядер та активує джерела пробудження</text>
+
+  <!-- 1. LEFT CONTAINER: HP ACTIVE STATE -->
+  <rect x="30" y="80" width="260" height="410" fill="#eaf0fd" stroke="#2457d6" stroke-width="2" rx="8"/>
+  
+  <rect x="45" y="95" width="230" height="32" fill="#2457d6" rx="5"/>
+  <text x="160" y="116" font-size="14" font-weight="700" fill="white" text-anchor="middle">HP ACTIVE (Активний режим)</text>
+
+  <rect x="45" y="140" width="230" height="95" fill="white" stroke="#d0d7de" rx="6"/>
+  <text x="57" y="160" font-size="12" font-weight="700" fill="#1a1a1a">Ядра HP CPU &amp; L2 Пам'ять</text>
+  <text x="57" y="180" font-size="12" fill="#2457d6">• HP CPU: Активні (High-Freq)</text>
+  <text x="57" y="200" font-size="12" fill="#1a1a1a">• HP L2 RAM: Увімкнена (Power ON)</text>
+  <text x="57" y="220" font-size="12" fill="#6b7280">• Повнофункціональна шина</text>
+
+  <rect x="45" y="248" width="230" height="95" fill="white" stroke="#d0d7de" rx="6"/>
+  <text x="57" y="268" font-size="12" font-weight="700" fill="#1a1a1a">Тактування &amp; Периферія HP</text>
+  <text x="57" y="288" font-size="12" fill="#1a1a1a">• Сигнали тактування: Active</text>
+  <text x="57" y="308" font-size="12" fill="#1a1a1a">• DFS: динамічне масштабування</text>
+  <text x="57" y="328" font-size="12" fill="#6b7280">• Clock-gated периферія за вимогами</text>
+
+  <rect x="45" y="356" width="230" height="120" fill="white" stroke="#d0d7de" rx="6"/>
+  <text x="57" y="376" font-size="12" font-weight="700" fill="#1a1a1a">Підсистема LP Домену</text>
+  <text x="57" y="396" font-size="12" fill="#1a1a1a">• LP-Core: Активний / Standby</text>
+  <text x="57" y="416" font-size="12" fill="#1a1a1a">• LP SRAM: Спільний доступ HP/LP</text>
+  <text x="57" y="436" font-size="12" fill="#6b7280">• Семафори міжпроцесорні</text>
+  <text x="57" y="456" font-size="12" fill="#2457d6">• Контролер PMU FSM: Готовий</text>
+
+  <!-- 2. CENTER TOP CONTAINER: LIGHT-SLEEP PMU SEQUENCE -->
+  <rect x="345" y="80" width="280" height="185" fill="#f4f6f8" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="5 5" rx="8"/>
+  
+  <rect x="355" y="92" width="260" height="26" fill="#e9f7ef" stroke="#27ae60" rx="4"/>
+  <text x="485" y="109" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">Послідовність PMU: Light-sleep</text>
+
+  <rect x="355" y="125" width="260" height="38" fill="white" stroke="#d0d7de" rx="4"/>
+  <text x="365" y="140" font-size="12" font-weight="700" fill="#1a1a1a">1. Clock-gating (Тактування)</text>
+  <text x="365" y="155" font-size="12" fill="#6b7280">Зупинення тактування HP CPU/периферії</text>
+
+  <rect x="355" y="170" width="260" height="38" fill="white" stroke="#d0d7de" rx="4"/>
+  <text x="365" y="185" font-size="12" font-weight="700" fill="#1a1a1a">2. Збереження L2 квоти</text>
+  <text x="365" y="200" font-size="12" fill="#2457d6">HP L2 RAM у режим retention (пам'ять ON)</text>
+
+  <rect x="355" y="215" width="260" height="38" fill="white" stroke="#d0d7de" rx="4"/>
+  <text x="365" y="230" font-size="12" font-weight="700" fill="#1a1a1a">3. Активація джерел пробудження</text>
+  <text x="365" y="245" font-size="12" fill="#27ae60">Запуск лічильників PMU, LP GPIO &amp; LP-Core</text>
+
+  <!-- 3. CENTER BOTTOM CONTAINER: DEEP-SLEEP PMU SEQUENCE -->
+  <rect x="345" y="305" width="280" height="185" fill="#f4f6f8" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="5 5" rx="8"/>
+  
+  <rect x="355" y="317" width="260" height="26" fill="#fdecea" stroke="#c0392b" rx="4"/>
+  <text x="485" y="334" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">Послідовність PMU: Deep-sleep</text>
+
+  <rect x="355" y="350" width="260" height="38" fill="white" stroke="#d0d7de" rx="4"/>
+  <text x="365" y="365" font-size="12" font-weight="700" fill="#1a1a1a">1. Clock-gating HP тактування</text>
+  <text x="365" y="380" font-size="12" fill="#6b7280">Повне відключення генераторів HP</text>
+
+  <rect x="355" y="395" width="260" height="38" fill="white" stroke="#d0d7de" rx="4"/>
+  <text x="365" y="410" font-size="12" font-weight="700" fill="#1a1a1a">2. Знеструмлення HP квоти &amp; ядер</text>
+  <text x="365" y="425" font-size="12" fill="#c0392b">Повне вимкнення живлення HP CPU &amp; L2</text>
+
+  <rect x="355" y="440" width="260" height="38" fill="white" stroke="#d0d7de" rx="4"/>
+  <text x="365" y="455" font-size="12" font-weight="700" fill="#1a1a1a">3. Реєстрація LP джерел</text>
+  <text x="365" y="470" font-size="12" fill="#6b7280">Активація таймерів PMU &amp; LP переривань</text>
+
+  <!-- 4. RIGHT TOP CONTAINER: LIGHT-SLEEP STATE -->
+  <rect x="670" y="80" width="260" height="185" fill="#e9f7ef" stroke="#27ae60" stroke-width="2" rx="8"/>
+  
+  <rect x="685" y="95" width="230" height="32" fill="#27ae60" rx="5"/>
+  <text x="800" y="116" font-size="14" font-weight="700" fill="white" text-anchor="middle">LIGHT-SLEEP (Легкий сон)</text>
+
+  <rect x="685" y="140" width="230" height="110" fill="white" stroke="#d0d7de" rx="6"/>
+  <text x="697" y="160" font-size="12" font-weight="700" fill="#27ae60">Характеристики стану</text>
+  <text x="697" y="180" font-size="12" fill="#1a1a1a">• HP CPU: Clock-gated (зупинені)</text>
+  <text x="697" y="200" font-size="12" fill="#2457d6">• HP L2 RAM: Retention (дані є)</text>
+  <text x="697" y="220" font-size="12" fill="#1a1a1a">• LP-Core: Автономна робота</text>
+  <text x="697" y="240" font-size="12" fill="#27ae60">• Вихід: Швидке відновлення</text>
+
+  <!-- 5. RIGHT BOTTOM CONTAINER: DEEP-SLEEP STATE -->
+  <rect x="670" y="305" width="260" height="185" fill="#f4f6f8" stroke="#6b7280" stroke-width="2" rx="8"/>
+  
+  <rect x="685" y="320" width="230" height="32" fill="#6b7280" rx="5"/>
+  <text x="800" y="341" font-size="14" font-weight="700" fill="white" text-anchor="middle">DEEP-SLEEP (Глибокий сон)</text>
+
+  <rect x="685" y="365" width="230" height="110" fill="white" stroke="#d0d7de" rx="6"/>
+  <text x="697" y="385" font-size="12" font-weight="700" fill="#c0392b">Характеристики стану</text>
+  <text x="697" y="405" font-size="12" fill="#c0392b">• HP CPU: Power-down (вимкнені)</text>
+  <text x="697" y="425" font-size="12" fill="#c0392b">• HP L2 RAM: Знеструмлена (PD)</text>
+  <text x="697" y="445" font-size="12" fill="#1a1a1a">• LP SRAM: Збереження стану</text>
+  <text x="697" y="465" font-size="12" fill="#6b7280">• Вихід: Скидання (HP Reset)</text>
+
+  <!-- TRANSITIONS & ARROWS -->
+
+  <!-- Active -> Light-sleep Entry -->
+  <line x1="290" y1="115" x2="345" y2="115" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <line x1="625" y1="115" x2="670" y2="115" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- Light-sleep Return Path -->
+  <polyline points="670,245 645,245 645,288 315,288 315,245 290,245" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="480" y="281" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">Пробудження (LP GPIO / Timer / LP-Core) ➔ Un-gating тактування &amp; Resume</text>
+
+  <!-- Active -> Deep-sleep Entry -->
+  <line x1="290" y1="340" x2="345" y2="340" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <line x1="625" y1="340" x2="670" y2="340" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+
+  <!-- Deep-sleep Return Path -->
+  <polyline points="670,465 645,465 645,502 315,502 315,465 290,465" fill="none" stroke="#6b7280" stroke-width="2" marker-end="url(#arr-gray)"/>
+  <text x="480" y="495" font-size="12" font-weight="700" fill="#6b7280" text-anchor="middle">Пробудження (LP GPIO / RTC Timer) ➔ HP Power ON &amp; Cold/Warm Reset</text>
+
+</svg>

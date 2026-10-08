@@ -1,0 +1,129 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-right" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-left" markerWidth="8" markerHeight="8" refX="1" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-down" markerWidth="8" markerHeight="8" refX="4" refY="7" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,0 L4,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Заголовок та підзаголовок -->
+  <text x="480" y="32" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Часова діаграма живлення VDD та скиду CHIP_PU в ESP32-S3</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Фіксація strapping-виводів відбувається під час зняття скиду CHIP_PU після стабілізації VDD</text>
+
+  <!-- Головна панель -->
+  <rect x="25" y="68" width="910" height="455" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Текстові мітки сигналів зліва (X = 40..190) -->
+  <text x="40" y="125" font-size="14" font-weight="700" fill="#1a1a1a">VDD (3.3 V)</text>
+  <text x="40" y="142" font-size="12" fill="#6b7280">Основне живлення</text>
+
+  <text x="40" y="215" font-size="14" font-weight="700" fill="#1a1a1a">CHIP_PU (EN)</text>
+  <text x="40" y="232" font-size="12" fill="#6b7280">Сигнал скиду</text>
+
+  <text x="40" y="305" font-size="14" font-weight="700" fill="#1a1a1a">Strapping Pins</text>
+  <text x="40" y="322" font-size="12" fill="#6b7280">GPIO0, 45, 46</text>
+
+  <text x="40" y="395" font-size="14" font-weight="700" fill="#1a1a1a">Внутрішній скид</text>
+  <text x="40" y="412" font-size="12" fill="#6b7280">System Reset</text>
+
+  <!-- Підкладка/виділення вікна засувки (Latch Window) -->
+  <rect x="585" y="80" width="70" height="350" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" stroke-dasharray="3,3" rx="4"/>
+  <rect x="585" y="80" width="70" height="22" rx="4" fill="#2457d6"/>
+  <text x="620" y="95" font-size="12" font-weight="700" fill="white" text-anchor="middle">Засувка</text>
+
+  <!-- Вертикальні пунктирні лінії часових відліків -->
+  <!-- T0: Початок подачі живлення (X = 240) -->
+  <line x1="240" y1="105" x2="240" y2="430" stroke="#bdc3c7" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="240" y="442" font-size="12" font-weight="700" fill="#6b7280" text-anchor="middle">t0</text>
+
+  <!-- T1: VDD досягає робочого рівня (X = 420) -->
+  <line x1="420" y1="105" x2="420" y2="430" stroke="#bdc3c7" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="420" y="442" font-size="12" font-weight="700" fill="#6b7280" text-anchor="middle">t1</text>
+
+  <!-- T2: Момент зняття скиду CHIP_PU (X = 620) -->
+  <line x1="620" y1="105" x2="620" y2="430" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <text x="620" y="442" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">t2 (Latch)</text>
+
+  <!-- T3: Готовність системи (X = 690) -->
+  <line x1="690" y1="365" x2="690" y2="430" stroke="#bdc3c7" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="690" y="442" font-size="12" font-weight="700" fill="#6b7280" text-anchor="middle">t3</text>
+
+  <!-- 1. Сигнал VDD -->
+  <!-- Горизонтальні рівні 0V та 3.3V -->
+  <line x1="210" y1="115" x2="880" y2="115" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="210" y1="155" x2="880" y2="155" stroke="#e5e7eb" stroke-width="1"/>
+  <!-- Форма сигналу VDD -->
+  <polyline points="210,155 240,155 420,115 880,115" fill="none" stroke="#2457d6" stroke-width="3"/>
+  <text x="888" y="119" font-size="12" font-weight="700" fill="#2457d6">3.3 V</text>
+  <text x="888" y="159" font-size="12" fill="#6b7280">0 V</text>
+
+  <!-- Інтервал t_VDD_RAMP -->
+  <line x1="240" y1="96" x2="420" y2="96" stroke="#2457d6" stroke-width="1.5" marker-start="url(#arr-left)" marker-end="url(#arr-right)"/>
+  <text x="330" y="92" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">t_VDD_RAMP</text>
+  <text x="330" y="109" font-size="12" fill="#1a1a1a" text-anchor="middle">Час наростання (0.05..50 ms)</text>
+
+  <!-- 2. Сигнал CHIP_PU -->
+  <!-- Горизонтальний рівень порогу V_IH_nRST -->
+  <line x1="210" y1="208" x2="880" y2="208" stroke="#c0392b" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="888" y="212" font-size="12" fill="#c0392b">V_IH_nRST</text>
+  <line x1="210" y1="245" x2="880" y2="245" stroke="#e5e7eb" stroke-width="1"/>
+  <text x="888" y="249" font-size="12" fill="#6b7280">0 V</text>
+
+  <!-- Форма сигналу CHIP_PU -->
+  <polyline points="210,245 420,245 600,245 620,195 880,195" fill="none" stroke="#1a1a1a" stroke-width="3"/>
+
+  <!-- Інтервал t_RESET_RELEASE -->
+  <line x1="420" y1="180" x2="620" y2="180" stroke="#2457d6" stroke-width="1.5" marker-start="url(#arr-left)" marker-end="url(#arr-right)"/>
+  <text x="520" y="176" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">t_RESET_RELEASE</text>
+  <text x="510" y="235" font-size="12" fill="#1a1a1a" text-anchor="middle">Затримка зняття скиду (≥ 50 μs)</text>
+
+  <!-- 3. Сигнал Strapping Pins -->
+  <!-- Шина сигналів -->
+  <line x1="210" y1="290" x2="530" y2="290" stroke="#9ca3af" stroke-width="1.5"/>
+  <line x1="210" y1="325" x2="530" y2="325" stroke="#9ca3af" stroke-width="1.5"/>
+  <!-- Перехресні штрихи невизначеності -->
+  <line x1="230" y1="290" x2="260" y2="325" stroke="#d1d5db" stroke-width="1"/>
+  <line x1="270" y1="290" x2="300" y2="325" stroke="#d1d5db" stroke-width="1"/>
+  <line x1="440" y1="290" x2="470" y2="325" stroke="#d1d5db" stroke-width="1"/>
+  <line x1="480" y1="290" x2="510" y2="325" stroke="#d1d5db" stroke-width="1"/>
+  <text x="370" y="312" font-size="12" fill="#6b7280" text-anchor="middle">Невизначений рівень</text>
+
+  <!-- Стабільний стан вхідних сигналів (X = 530..660) -->
+  <polygon points="530,290 545,280 660,280 670,290 670,325 660,335 545,335 530,325" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="600" y="312" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">Стабільні значення</text>
+
+  <!-- Перехід страпінг-виводів у режим GPIO після завантаження -->
+  <line x1="670" y1="290" x2="880" y2="290" stroke="#9ca3af" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <line x1="670" y1="325" x2="880" y2="325" stroke="#9ca3af" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <text x="775" y="312" font-size="12" fill="#6b7280" text-anchor="middle">Використання як GPIO</text>
+
+  <!-- Стрілка моменту фіксації (Latch point) -->
+  <line x1="620" y1="230" x2="620" y2="272" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-down)"/>
+
+  <!-- 4. Внутрішній скид (Internal Reset) -->
+  <polyline points="210,415 670,415 690,365 880,365" fill="none" stroke="#c0392b" stroke-width="3"/>
+  <text x="445" y="402" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">Скид активний (Reset)</text>
+  <text x="785" y="352" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">Робота / Bootloader</text>
+
+  <!-- Нижні картки з поясненнями режимів завантаження -->
+  <!-- Картка 1: GPIO0 (Режим завантаження) -->
+  <rect x="40" y="460" width="425" height="52" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="52" y="476" font-size="12" font-weight="700" fill="#1a1a1a">Режим завантаження (GPIO0):</text>
+  <text x="52" y="492" font-size="12" fill="#27ae60">GPIO0 = 1: SPI Flash Boot (Нормальний запуск)</text>
+  <text x="52" y="505" font-size="12" fill="#2457d6">GPIO0 = 0: Download Boot (Завантаження прошивки через UART/USB)</text>
+
+  <!-- Картка 2: GPIO45 та GPIO46 (VDD_SPI та Логи) -->
+  <rect x="480" y="460" width="440" height="52" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="492" y="476" font-size="12" font-weight="700" fill="#1a1a1a">Напруга VDD_SPI та друк логів (GPIO45, GPIO46):</text>
+  <text x="492" y="492" font-size="12" fill="#1a1a1a">GPIO45 = 0: VDD_SPI = 3.3 V  |  GPIO45 = 1: VDD_SPI = 1.8 V</text>
+  <text x="492" y="505" font-size="12" fill="#1a1a1a">GPIO46 = 0: Друк логів ROM увімкнено (при GPIO0 = 0)</text>
+
+</svg>

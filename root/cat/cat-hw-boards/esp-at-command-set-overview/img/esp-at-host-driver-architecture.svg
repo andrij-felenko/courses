@@ -1,0 +1,176 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <!-- Arrow marker for blue flow -->
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <!-- Arrow marker for green flow -->
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <!-- Arrow marker for red flow -->
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <!-- Standard dark arrow marker -->
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Canvas Background -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Header -->
+  <text x="480" y="28" text-anchor="middle" font-size="18" font-weight="700" fill="#1a1a1a">Архітектура неблокуючого драйвера хост-контролера ESP-AT</text>
+  <text x="480" y="48" text-anchor="middle" font-size="13" fill="#6b7280">Потоковий ISR кільцевий буфер та FSM обробляють байти без блокування основного циклу</text>
+
+  <!-- Panel 1: Апаратний UART -->
+  <rect x="24" y="70" width="186" height="455" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="117" y="93" text-anchor="middle" font-size="14" font-weight="700" fill="#1a1a1a">1. Апаратний UART</text>
+  <text x="117" y="110" text-anchor="middle" font-size="12" fill="#6b7280">(Hardware UART &amp; ISR)</text>
+
+  <!-- Sub-block 1.1: RX Flow -->
+  <rect x="34" y="125" width="166" height="80" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="4"/>
+  <text x="117" y="146" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">Вхідний потік RX</text>
+  <text x="117" y="165" text-anchor="middle" font-size="11" fill="#1a1a1a">Послідовні байти від ESP</text>
+  <text x="117" y="184" text-anchor="middle" font-size="11" fill="#6b7280">Baud rate: 115200 8N1</text>
+
+  <!-- Sub-block 1.2: UART RX ISR -->
+  <rect x="34" y="220" width="166" height="115" fill="#ffffff" stroke="#2457d6" stroke-width="1" rx="4"/>
+  <text x="117" y="241" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">UART RX ISR</text>
+  <text x="117" y="261" text-anchor="middle" font-size="11" fill="#1a1a1a">Переривання по байту</text>
+  <text x="117" y="280" text-anchor="middle" font-size="11" fill="#1a1a1a">Зчитування DR регістру</text>
+  <text x="117" y="299" text-anchor="middle" font-size="11" fill="#1a1a1a">Запис у ring_buf[head]</text>
+  <text x="117" y="320" text-anchor="middle" font-size="11" fill="#6b7280">Час виконання &lt; 1 мкс</text>
+
+  <!-- Sub-block 1.3: TX Transmitter -->
+  <rect x="34" y="395" width="166" height="115" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="4"/>
+  <text x="117" y="417" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">Передавач TXD</text>
+  <text x="117" y="438" text-anchor="middle" font-size="11" fill="#1a1a1a">Вивід AT-команд</text>
+  <text x="117" y="457" text-anchor="middle" font-size="11" fill="#1a1a1a">Буферизована передача</text>
+  <text x="117" y="476" text-anchor="middle" font-size="11" font-weight="700" fill="#2457d6">Лінія TXD → ESP</text>
+  <text x="117" y="495" text-anchor="middle" font-size="11" fill="#6b7280">Апаратне керування (RTS)</text>
+
+  <!-- Panel 2: Кільцевий буфер -->
+  <rect x="226" y="70" width="210" height="455" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="331" y="93" text-anchor="middle" font-size="14" font-weight="700" fill="#1a1a1a">2. Кільцевий буфер</text>
+  <text x="331" y="110" text-anchor="middle" font-size="12" fill="#6b7280">(Ring Buffer FIFO)</text>
+
+  <!-- Sub-block 2.1: FIFO Buffer RAM -->
+  <rect x="236" y="125" width="190" height="210" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="4"/>
+  <text x="331" y="146" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">Буфер RAM (FIFO)</text>
+
+  <!-- Buffer cells array -->
+  <rect x="260" y="156" width="22" height="22" fill="#e9f7ef" stroke="#27ae60" rx="3"/>
+  <text x="271" y="171" text-anchor="middle" font-size="11" font-weight="700" fill="#27ae60">O</text>
+
+  <rect x="284" y="156" width="22" height="22" fill="#e9f7ef" stroke="#27ae60" rx="3"/>
+  <text x="295" y="171" text-anchor="middle" font-size="11" font-weight="700" fill="#27ae60">K</text>
+
+  <rect x="308" y="156" width="22" height="22" fill="#eaf0fd" stroke="#2457d6" rx="3"/>
+  <text x="319" y="171" text-anchor="middle" font-size="11" font-weight="700" fill="#2457d6">
+</text>
+
+  <rect x="332" y="156" width="22" height="22" fill="#eaf0fd" stroke="#2457d6" rx="3"/>
+  <text x="343" y="171" text-anchor="middle" font-size="11" font-weight="700" fill="#2457d6">
+</text>
+
+  <rect x="356" y="156" width="22" height="22" fill="#ffffff" stroke="#d0d7de" rx="3"/>
+  <text x="367" y="171" text-anchor="middle" font-size="11" fill="#6b7280">•</text>
+
+  <rect x="380" y="156" width="22" height="22" fill="#ffffff" stroke="#d0d7de" rx="3"/>
+  <text x="391" y="171" text-anchor="middle" font-size="11" fill="#6b7280">•</text>
+
+  <text x="271" y="194" text-anchor="middle" font-size="11" font-weight="700" fill="#27ae60">tail</text>
+  <text x="367" y="194" text-anchor="middle" font-size="11" font-weight="700" fill="#2457d6">head</text>
+
+  <text x="331" y="220" text-anchor="middle" font-size="11" fill="#1a1a1a">Потокові head/tail вказівники</text>
+  <text x="331" y="239" text-anchor="middle" font-size="11" fill="#1a1a1a">Atomic / Volatile вказівники</text>
+  <text x="331" y="258" text-anchor="middle" font-size="11" fill="#1a1a1a">Розмір буфера: 256–1024 B</text>
+  <text x="331" y="280" text-anchor="middle" font-size="11" font-weight="700" fill="#27ae60">Неблокуюче читання O(1)</text>
+  <text x="331" y="299" text-anchor="middle" font-size="11" fill="#6b7280">Без критичних секцій</text>
+  <text x="331" y="318" text-anchor="middle" font-size="11" fill="#6b7280">(Single Producer / Consumer)</text>
+
+  <!-- Sub-block 2.2: Overrun Protection -->
+  <rect x="236" y="350" width="190" height="160" fill="#fdecea" stroke="#c0392b" stroke-width="1" rx="4"/>
+  <text x="331" y="372" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">Детекція переповнення</text>
+  <text x="331" y="393" text-anchor="middle" font-size="11" fill="#1a1a1a">Сценарій: tail наздоганяє head</text>
+  <text x="331" y="412" text-anchor="middle" font-size="11" fill="#1a1a1a">Прапорець: OVERRUN_ERR</text>
+  <text x="331" y="431" text-anchor="middle" font-size="11" fill="#1a1a1a">Відкидання старих байтів</text>
+  <text x="331" y="454" text-anchor="middle" font-size="11" font-weight="700" fill="#c0392b">Захист пам'яті від збою</text>
+  <text x="331" y="475" text-anchor="middle" font-size="11" fill="#1a1a1a">Скидання після помилки</text>
+  <text x="331" y="495" text-anchor="middle" font-size="11" fill="#6b7280">Сигналізація про втрату</text>
+
+  <!-- Panel 3: Модуль FSM парсера -->
+  <rect x="452" y="70" width="240" height="455" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="572" y="93" text-anchor="middle" font-size="14" font-weight="700" fill="#1a1a1a">3. Модуль FSM парсера</text>
+  <text x="572" y="110" text-anchor="middle" font-size="12" fill="#6b7280">(Non-blocking FSM &amp; Timer)</text>
+
+  <!-- Sub-block 3.1: FSM State Machine -->
+  <rect x="462" y="125" width="220" height="225" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="4"/>
+  <text x="572" y="146" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">Потоковий FSM автомат</text>
+  <text x="572" y="166" text-anchor="middle" font-size="11" font-weight="700" fill="#1a1a1a">Стани обробки символів:</text>
+  <text x="472" y="189" font-size="11" fill="#1a1a1a">• STATE_IDLE: Очікування байтів</text>
+  <text x="472" y="209" font-size="11" fill="#1a1a1a">• STATE_FILTER_ECHO: Фільтр луни</text>
+  <text x="472" y="229" font-size="11" fill="#1a1a1a">• STATE_FIND_CRLF: Детекція 
+
+</text>
+  <text x="472" y="249" font-size="11" font-weight="700" fill="#27ae60">• STATE_MATCH_OK: Статус OK/ERR</text>
+  <text x="472" y="269" font-size="11" font-weight="700" fill="#2457d6">• STATE_PARSE_URC: +IPD / Події</text>
+  <text x="572" y="295" text-anchor="middle" font-size="11" font-weight="700" fill="#2457d6">Посимвольний аналіз без delay()</text>
+  <text x="572" y="315" text-anchor="middle" font-size="11" fill="#1a1a1a">Обробка статусів BUSY/ERROR</text>
+  <text x="572" y="334" text-anchor="middle" font-size="11" fill="#6b7280">Викликається з at_process()</text>
+
+  <!-- Sub-block 3.2: Timeout Mechanism -->
+  <rect x="462" y="360" width="220" height="150" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="4"/>
+  <text x="572" y="382" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">Контроль таймауту</text>
+  <text x="472" y="403" font-size="11" fill="#1a1a1a">• Старт: t_start = get_tick()</text>
+  <text x="472" y="422" font-size="11" fill="#1a1a1a">• Перевірка: (now - t_start) &gt; T_out</text>
+  <text x="472" y="441" font-size="11" font-weight="700" fill="#c0392b">• Подія: ERR_TIMEOUT</text>
+  <text x="472" y="460" font-size="11" fill="#1a1a1a">• Скидання FSM у STATE_IDLE</text>
+  <text x="572" y="485" text-anchor="middle" font-size="11" fill="#6b7280">Захист від зависання шини</text>
+
+  <!-- Panel 4: Програма користувача -->
+  <rect x="708" y="70" width="228" height="455" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="822" y="93" text-anchor="middle" font-size="14" font-weight="700" fill="#1a1a1a">4. Програма користувача</text>
+  <text x="822" y="110" text-anchor="middle" font-size="12" fill="#6b7280">(User App &amp; Main Loop)</text>
+
+  <!-- Sub-block 4.1: Send Command -->
+  <rect x="718" y="125" width="208" height="110" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="4"/>
+  <text x="822" y="146" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">Ініціація запиту</text>
+  <text x="822" y="166" text-anchor="middle" font-size="11" font-family="Courier New, monospace" font-weight="700" fill="#1a1a1a">esp_at_cmd_send("...")</text>
+  <text x="822" y="185" text-anchor="middle" font-size="11" fill="#1a1a1a">Запуск таймера відгуку</text>
+  <text x="822" y="204" text-anchor="middle" font-size="11" fill="#1a1a1a">Реєстрація callback</text>
+  <text x="822" y="223" text-anchor="middle" font-size="11" fill="#6b7280">Передача в TXD драйвер</text>
+
+  <!-- Sub-block 4.2: Main Loop -->
+  <rect x="718" y="245" width="208" height="95" fill="#e9f7ef" stroke="#27ae60" stroke-width="1" rx="4"/>
+  <text x="822" y="265" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">Головний цикл (Main Loop)</text>
+  <text x="822" y="285" text-anchor="middle" font-size="11" font-family="Courier New, monospace" font-weight="700" fill="#1a1a1a">while(1) { at_process(); }</text>
+  <text x="822" y="305" text-anchor="middle" font-size="11" font-weight="700" fill="#27ae60">0% блокування CPU!</text>
+  <text x="822" y="324" text-anchor="middle" font-size="11" fill="#6b7280">Паралельні задачі MCU</text>
+
+  <!-- Sub-block 4.3: Result Callbacks -->
+  <rect x="718" y="350" width="208" height="160" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="4"/>
+  <text x="822" y="370" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">Обробка результатів</text>
+  <text x="728" y="392" font-size="11" font-weight="700" fill="#27ae60">• Callbacks: on_cmd_ok()</text>
+  <text x="728" y="411" font-size="11" font-weight="700" fill="#c0392b">• Callbacks: on_cmd_err()</text>
+  <text x="728" y="430" font-size="11" font-weight="700" fill="#2457d6">• Callbacks: on_urc_data()</text>
+  <text x="728" y="450" font-size="11" fill="#1a1a1a">• Event Flags / Queues</text>
+  <text x="822" y="476" text-anchor="middle" font-size="11" font-weight="700" fill="#27ae60">Повернення даних додатку</text>
+  <text x="822" y="495" text-anchor="middle" font-size="11" fill="#6b7280">Реакція на URC події</text>
+
+  <!-- Flow Arrows -->
+  <!-- Arrow 1: ISR Push (Col 1 to Col 2) -->
+  <path d="M 200,277 L 228,277" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Arrow 2: FSM Pop (Col 2 to Col 3) -->
+  <path d="M 426,230 L 444,230" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- Arrow 3: FSM Notify (Col 3 to Col 4) -->
+  <path d="M 682,245 L 710,245" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- Arrow 4: Command TX Flow (Col 4 Send Cmd -> Col 1 TXD) -->
+  <path d="M 718,180 L 700,180 L 700,538 L 117,538 L 117,518" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+</svg>

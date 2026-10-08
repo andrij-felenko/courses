@@ -1,0 +1,107 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Скінченний автомат (FSM) парсера AT-команд ESP-AT</text>
+  <text x="480" y="52" text-anchor="middle" font-size="13" fill="#6b7280">Посимвольний аналіз UART-потоку виділяє термінатор \r\n, накопичує буфер та визначає OK / ERROR</text>
+
+  <!-- Transitions Paths -->
+  <!-- Reset STATUS_ERROR to IDLE -->
+  <path d="M 825,150 L 825,75 L 170,75 L 170,148" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,3" fill="none" marker-end="url(#arr-red)"/>
+  <text x="490" y="67" text-anchor="middle" font-size="12" fill="#c0392b">Скид помилки / Готовий до нової команди</text>
+
+  <!-- Syntax error CHECK_LF to IDLE -->
+  <path d="M 620,150 L 620,115 L 130,115 L 130,148" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,3" fill="none" marker-end="url(#arr-red)"/>
+  <text x="375" y="107" text-anchor="middle" font-size="12" fill="#c0392b">ch != '\n' (помилка термінатора -&gt; скид)</text>
+
+  <!-- Self-loop ACCUMULATE -->
+  <path d="M 350,150 C 350,105 400,105 400,148" stroke="#2457d6" stroke-width="1.5" fill="none" marker-end="url(#arr-blue)"/>
+  <text x="375" y="95" text-anchor="middle" font-size="12" fill="#2457d6">ch != '\r' (накопичення)</text>
+
+  <!-- UART Rx Input -->
+  <path d="M 15,195 L 48,195" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="30" y="180" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">UART Rx</text>
+
+  <!-- IDLE -> ACCUMULATE -->
+  <path d="M 210,180 L 288,180" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="250" y="168" text-anchor="middle" font-size="12" fill="#1a1a1a">ch != '\r'</text>
+
+  <!-- ACCUMULATE -> CHECK_LF -->
+  <path d="M 460,195 L 538,195" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="500" y="180" text-anchor="middle" font-size="12" fill="#1a1a1a">ch == '\r'</text>
+
+  <!-- IDLE -> CHECK_LF -->
+  <path d="M 130,240 L 130,270 L 620,270 L 620,240" stroke="#6b7280" stroke-width="1.5" fill="none" marker-end="url(#arr)"/>
+  <text x="300" y="288" text-anchor="middle" font-size="12" fill="#6b7280">ch == '\r' (порожній рядок)</text>
+
+  <!-- CHECK_LF -> PARSE_LINE -->
+  <path d="M 600,240 L 600,385 L 562,385" stroke="#27ae60" stroke-width="2" fill="none" marker-end="url(#arr-green)"/>
+  <text x="612" y="315" text-anchor="start" font-size="12" font-weight="bold" fill="#27ae60">ch == '\n' (\r\n знайдено)</text>
+
+  <!-- PARSE_LINE -> STATUS_ERROR -->
+  <path d="M 560,355 L 720,355 L 720,195 L 738,195" stroke="#c0392b" stroke-width="2" fill="none" marker-end="url(#arr-red)"/>
+  <text x="710" y="270" text-anchor="end" font-size="12" font-weight="bold" fill="#c0392b">buf == &quot;ERROR&quot; / &quot;FAIL&quot;</text>
+
+  <!-- PARSE_LINE -> STATUS_OK -->
+  <path d="M 560,385 L 738,385" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="650" y="372" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">buf == &quot;OK&quot;</text>
+
+  <!-- PARSE_LINE -> IDLE -->
+  <path d="M 380,385 L 130,385 L 130,242" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4,3" fill="none" marker-end="url(#arr)"/>
+  <text x="255" y="372" text-anchor="middle" font-size="12" fill="#6b7280">URC / Дані (обробка та новий рядок)</text>
+
+  <!-- STATUS_OK -> IDLE -->
+  <path d="M 825,430 L 825,480 L 90,480 L 90,242" stroke="#27ae60" stroke-width="1.5" fill="none" marker-end="url(#arr-green)"/>
+  <text x="460" y="468" text-anchor="middle" font-size="12" fill="#27ae60">Скид прапорця / Готовий до нової команди</text>
+
+  <!-- State Boxes -->
+  <!-- IDLE -->
+  <rect x="50" y="150" width="160" height="90" rx="8" ry="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <text x="130" y="175" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">IDLE</text>
+  <text x="130" y="196" text-anchor="middle" font-size="12" fill="#6b7280">Очікування байта</text>
+  <text x="130" y="216" text-anchor="middle" font-size="12" fill="#6b7280">Скидання rx_buf</text>
+
+  <!-- ACCUMULATE -->
+  <rect x="290" y="150" width="170" height="90" rx="8" ry="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="375" y="175" text-anchor="middle" font-size="14" font-weight="bold" fill="#2457d6">ACCUMULATE</text>
+  <text x="375" y="196" text-anchor="middle" font-size="12" fill="#1a1a1a">Запис у буфер</text>
+  <text x="375" y="216" text-anchor="middle" font-size="12" fill="#6b7280">rx_buf[idx++] = ch</text>
+
+  <!-- CHECK_LF -->
+  <rect x="540" y="150" width="160" height="90" rx="8" ry="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <text x="620" y="175" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">CHECK_LF</text>
+  <text x="620" y="196" text-anchor="middle" font-size="12" fill="#6b7280">Перевірка \n після \r</text>
+  <text x="620" y="216" text-anchor="middle" font-size="12" fill="#6b7280">Термінатор \r\n</text>
+
+  <!-- STATUS_ERROR -->
+  <rect x="740" y="150" width="170" height="90" rx="8" ry="8" fill="#fdecea" stroke="#c0392b" stroke-width="2"/>
+  <text x="825" y="175" text-anchor="middle" font-size="14" font-weight="bold" fill="#c0392b">STATUS_ERROR</text>
+  <text x="825" y="196" text-anchor="middle" font-size="12" fill="#1a1a1a">Помилка виконання</text>
+  <text x="825" y="216" text-anchor="middle" font-size="12" fill="#c0392b">Прапорець: Error</text>
+
+  <!-- PARSE_LINE -->
+  <rect x="380" y="340" width="180" height="90" rx="8" ry="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <text x="470" y="365" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">PARSE_LINE</text>
+  <text x="470" y="386" text-anchor="middle" font-size="12" fill="#6b7280">Аналіз рядка буфера</text>
+  <text x="470" y="406" text-anchor="middle" font-size="12" fill="#6b7280">Перевірка OK / ERROR</text>
+
+  <!-- STATUS_OK -->
+  <rect x="740" y="340" width="170" height="90" rx="8" ry="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <text x="825" y="365" text-anchor="middle" font-size="14" font-weight="bold" fill="#27ae60">STATUS_OK</text>
+  <text x="825" y="386" text-anchor="middle" font-size="12" fill="#1a1a1a">Успішне виконання</text>
+  <text x="825" y="406" text-anchor="middle" font-size="12" fill="#27ae60">Прапорець: Success</text>
+</svg>

@@ -1,0 +1,119 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 530" width="960" height="530" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="530" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="34" font-size="18" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Матриця декодування strapping-виводів ESP32-S3</text>
+  <text x="480" y="56" font-size="13" text-anchor="middle" fill="#6b7280">Комбінації логічних рівнів GPIO0, GPIO46 та GPIO45 визначають режим завантаження й VDD_SPI</text>
+
+  <!-- ЛІВА ПАНЕЛЬ: Вхідні strapping-виводи -->
+  <rect x="30" y="80" width="280" height="425" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="170" y="105" font-size="14" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Виводи конфігурації (Strapping)</text>
+  <text x="170" y="123" font-size="12" text-anchor="middle" fill="#6b7280">Зчитування під час фронту CHIP_PU</text>
+
+  <!-- Картка GPIO0 -->
+  <rect x="42" y="138" width="256" height="105" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="54" y="160" font-size="14" font-weight="bold" fill="#2457d6">GPIO0</text>
+  <text x="115" y="160" font-size="12" fill="#1a1a1a">Вибір режиму завантаження</text>
+  <text x="54" y="180" font-size="12" font-weight="bold" fill="#27ae60">HIGH (1):</text>
+  <text x="120" y="180" font-size="12" fill="#1a1a1a">SPI Flash Boot (Нормальний)</text>
+  <text x="54" y="200" font-size="12" font-weight="bold" fill="#2457d6">LOW (0):</text>
+  <text x="120" y="200" font-size="12" fill="#1a1a1a">Download Boot (Прошивка)</text>
+  <text x="54" y="222" font-size="12" fill="#6b7280">За замовчуванням: Pull-up (1)</text>
+
+  <!-- Картка GPIO46 -->
+  <rect x="42" y="255" width="256" height="105" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="54" y="277" font-size="14" font-weight="bold" fill="#2457d6">GPIO46</text>
+  <text x="115" y="277" font-size="12" fill="#1a1a1a">Селектор Download / ROM log</text>
+  <text x="54" y="297" font-size="12" font-weight="bold" fill="#27ae60">LOW (0):</text>
+  <text x="120" y="297" font-size="12" fill="#1a1a1a">Дозволено Download Boot</text>
+  <text x="54" y="317" font-size="12" font-weight="bold" fill="#c0392b">HIGH (1):</text>
+  <text x="120" y="317" font-size="12" fill="#c0392b">Заборонено (при GPIO0=0)</text>
+  <text x="54" y="339" font-size="12" fill="#6b7280">За замовчуванням: Pull-down (0)</text>
+
+  <!-- Картка GPIO45 -->
+  <rect x="42" y="372" width="256" height="121" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="54" y="394" font-size="14" font-weight="bold" fill="#2457d6">GPIO45</text>
+  <text x="115" y="394" font-size="12" fill="#1a1a1a">Живлення flash VDD_SPI</text>
+  <text x="54" y="414" font-size="12" font-weight="bold" fill="#27ae60">LOW (0):</text>
+  <text x="120" y="414" font-size="12" fill="#1a1a1a">VDD_SPI = 3.3 V (Стандарт)</text>
+  <text x="54" y="434" font-size="12" font-weight="bold" fill="#c0392b">HIGH (1):</text>
+  <text x="120" y="434" font-size="12" fill="#1a1a1a">VDD_SPI = 1.8 V (Знижена)</text>
+  <text x="54" y="456" font-size="12" fill="#6b7280">За замовчуванням: Pull-down (0)</text>
+  <text x="54" y="476" font-size="12" fill="#c0392b">⚠️ Хібний рівень пошкоджує flash</text>
+
+  <!-- ЗВ'ЯЗУВАЛЬНІ СТРІЛКИ В ЦЕНТРІ -->
+  <line x1="298" y1="190" x2="350" y2="190" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+  <line x1="298" y1="307" x2="350" y2="307" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+  <line x1="298" y1="432" x2="350" y2="432" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+
+  <!-- ПРАВА ПАНЕЛЬ: Матриця декодованих режимів -->
+  <rect x="360" y="80" width="570" height="425" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="645" y="105" font-size="14" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Декодований стан системи</text>
+  <text x="645" y="123" font-size="12" text-anchor="middle" fill="#6b7280">Залежність підсумкового режиму від комбінації сигналів</text>
+
+  <!-- Шапка таблиці -->
+  <rect x="372" y="138" width="546" height="30" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="400" y="158" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">GPIO0</text>
+  <text x="450" y="158" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">GPIO46</text>
+  <text x="500" y="158" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">GPIO45</text>
+  <text x="535" y="158" font-size="12" font-weight="bold" fill="#1a1a1a">Режим завантаження</text>
+  <text x="725" y="158" font-size="12" font-weight="bold" fill="#1a1a1a">Інтерфейс</text>
+  <text x="875" y="158" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">VDD_SPI</text>
+
+  <!-- Рядок 1: SPI Boot 3.3V (Нормальний) -->
+  <rect x="372" y="176" width="546" height="70" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="400" y="216" font-size="14" font-weight="bold" text-anchor="middle" fill="#27ae60">1</text>
+  <text x="450" y="216" font-size="13" text-anchor="middle" fill="#1a1a1a">0 / 1</text>
+  <text x="500" y="216" font-size="14" font-weight="bold" text-anchor="middle" fill="#27ae60">0</text>
+  <text x="535" y="202" font-size="13" font-weight="bold" fill="#27ae60">SPI Flash Boot (3.3V)</text>
+  <text x="535" y="222" font-size="12" fill="#1a1a1a">Основний старт з 3.3V Flash</text>
+  <text x="725" y="202" font-size="12" fill="#1a1a1a">Internal SPI / Octal</text>
+  <text x="725" y="222" font-size="12" fill="#6b7280">Робочий режим (Default)</text>
+  <text x="875" y="216" font-size="13" font-weight="bold" text-anchor="middle" fill="#27ae60">3.3 V</text>
+
+  <!-- Рядок 2: SPI Boot 1.8V -->
+  <rect x="372" y="254" width="546" height="70" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="400" y="294" font-size="14" font-weight="bold" text-anchor="middle" fill="#2457d6">1</text>
+  <text x="450" y="294" font-size="13" text-anchor="middle" fill="#1a1a1a">0 / 1</text>
+  <text x="500" y="294" font-size="14" font-weight="bold" text-anchor="middle" fill="#c0392b">1</text>
+  <text x="535" y="280" font-size="13" font-weight="bold" fill="#1a1a1a">SPI Flash Boot (1.8V)</text>
+  <text x="535" y="300" font-size="12" fill="#1a1a1a">Виконання з 1.8V Flash</text>
+  <text x="725" y="280" font-size="12" fill="#1a1a1a">Internal SPI / Octal</text>
+  <text x="725" y="300" font-size="12" fill="#c0392b">Для 1.8V Flash/PSRAM</text>
+  <text x="875" y="294" font-size="13" font-weight="bold" text-anchor="middle" fill="#c0392b">1.8 V</text>
+
+  <!-- Рядок 3: Download Boot -->
+  <rect x="372" y="332" width="546" height="70" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="400" y="372" font-size="14" font-weight="bold" text-anchor="middle" fill="#2457d6">0</text>
+  <text x="450" y="372" font-size="14" font-weight="bold" text-anchor="middle" fill="#27ae60">0</text>
+  <text x="500" y="372" font-size="13" text-anchor="middle" fill="#1a1a1a">0 / 1</text>
+  <text x="535" y="358" font-size="13" font-weight="bold" fill="#2457d6">Download Boot</text>
+  <text x="535" y="378" font-size="12" fill="#1a1a1a">Завантаження прошивки</text>
+  <text x="725" y="358" font-size="12" font-weight="bold" fill="#2457d6">USB Serial/JTAG</text>
+  <text x="725" y="378" font-size="12" fill="#1a1a1a">UART0 (TXD0 / RXD0)</text>
+  <text x="875" y="372" font-size="12" text-anchor="middle" fill="#1a1a1a">3.3V / 1.8V</text>
+
+  <!-- Рядок 4: Invalid Combination -->
+  <rect x="372" y="410" width="546" height="70" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="400" y="450" font-size="14" font-weight="bold" text-anchor="middle" fill="#c0392b">0</text>
+  <text x="450" y="450" font-size="14" font-weight="bold" text-anchor="middle" fill="#c0392b">1</text>
+  <text x="500" y="450" font-size="13" text-anchor="middle" fill="#6b7280">X</text>
+  <text x="535" y="436" font-size="13" font-weight="bold" fill="#c0392b">Заборонений режим (Invalid)</text>
+  <text x="535" y="456" font-size="12" fill="#c0392b">Збій старту ROM-коду</text>
+  <text x="725" y="436" font-size="12" fill="#c0392b">Інтерфейси недоступні</text>
+  <text x="725" y="456" font-size="12" fill="#6b7280">Заблоковано chip ROM</text>
+  <text x="875" y="450" font-size="12" text-anchor="middle" fill="#6b7280">—</text>
+</svg>

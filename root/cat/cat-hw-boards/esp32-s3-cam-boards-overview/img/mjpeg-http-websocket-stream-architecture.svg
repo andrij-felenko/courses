@@ -1,0 +1,131 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 510" width="960" height="510" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="510" fill="white"/>
+
+  <!-- Заголовок та підзаголовок -->
+  <text x="480" y="32" font-size="18" font-weight="700" text-anchor="middle" fill="#1a1a1a">Архітектура передачі MJPEG-відеопотоку з PSRAM через HTTP та WebSocket</text>
+  <text x="480" y="52" font-size="13" text-anchor="middle" fill="#6b7280">HTTP додає текстовий multipart-заголовок до кожного кадру; WebSocket передає чисті бінарні кадри через чергу</text>
+
+  <!-- ЛІВА ПАНЕЛЬ: Джерело кадрів ESP32-S3 -->
+  <rect x="25" y="70" width="230" height="415" fill="#f4f6f8" stroke="#d0d7de" rx="6"/>
+  <text x="140" y="93" font-size="14" font-weight="700" text-anchor="middle" fill="#1a1a1a">Джерело кадрів (ESP32-S3)</text>
+
+  <!-- Драйвер esp_camera -->
+  <rect x="40" y="105" width="200" height="85" fill="#ffffff" stroke="#d0d7de" rx="4"/>
+  <text x="140" y="125" font-size="13" font-weight="700" text-anchor="middle" fill="#1a1a1a">esp_camera драйвер</text>
+  <text x="140" y="147" font-size="12" text-anchor="middle" fill="#6b7280">Захоплення кадру (DMA)</text>
+  <text x="140" y="167" font-size="12" text-anchor="middle" fill="#6b7280">Стиснення JPEG у HW</text>
+
+  <!-- Стрілка з 1 в 2 -->
+  <line x1="140" y1="190" x2="140" y2="208" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- Буфер PSRAM -->
+  <rect x="40" y="210" width="200" height="135" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="4"/>
+  <text x="140" y="232" font-size="13" font-weight="700" text-anchor="middle" fill="#2457d6">Буфер кадрів у PSRAM</text>
+  <text x="50" y="253" font-size="12" font-weight="700" fill="#1a1a1a">camera_fb_t:</text>
+  <text x="55" y="273" font-size="12" fill="#1a1a1a">• buf: адреса в PSRAM</text>
+  <text x="55" y="293" font-size="12" fill="#1a1a1a">• len: розмір даних (Б)</text>
+  <text x="55" y="313" font-size="12" fill="#1a1a1a">• format: PIXFORMAT_JPEG</text>
+  <text x="55" y="333" font-size="12" fill="#6b7280">Виділяється в зовнішній RAM</text>
+
+  <!-- Стрілка з 2 в 3 -->
+  <line x1="140" y1="345" x2="140" y2="358" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- Диспетчер кадрів -->
+  <rect x="40" y="360" width="200" height="110" fill="#ffffff" stroke="#d0d7de" rx="4"/>
+  <text x="140" y="382" font-size="13" font-weight="700" text-anchor="middle" fill="#1a1a1a">Диспетчер кадрів (Task)</text>
+  <text x="140" y="404" font-size="12" text-anchor="middle" fill="#2457d6">esp_camera_fb_get()</text>
+  <text x="140" y="424" font-size="12" text-anchor="middle" fill="#1a1a1a">Передача до серверів</text>
+  <text x="140" y="444" font-size="12" text-anchor="middle" fill="#6b7280">esp_camera_fb_return()</text>
+
+
+  <!-- ВЕРХНЯ ПАНЕЛЬ: HTTP Stream -->
+  <rect x="275" y="70" width="660" height="195" fill="#f4f6f8" stroke="#d0d7de" rx="6"/>
+  <text x="290" y="93" font-size="14" font-weight="700" fill="#1a1a1a">Потік HTTP: multipart/x-mixed-replace (Синхронний)</text>
+
+  <!-- HTTP Stream Handler -->
+  <rect x="290" y="105" width="195" height="145" fill="#ffffff" stroke="#d0d7de" rx="4"/>
+  <text x="387" y="127" font-size="13" font-weight="700" text-anchor="middle" fill="#1a1a1a">HTTP Stream Handler</text>
+  <text x="387" y="149" font-size="12" text-anchor="middle" fill="#6b7280">Синхронна відправка</text>
+  <text x="387" y="170" font-size="12" text-anchor="middle" fill="#2457d6">Content-Type: multipart/</text>
+  <text x="387" y="188" font-size="12" text-anchor="middle" fill="#2457d6">x-mixed-replace; boundary</text>
+  <text x="387" y="210" font-size="12" text-anchor="middle" fill="#c0392b">Повільний клієнт</text>
+  <text x="387" y="230" font-size="12" text-anchor="middle" fill="#c0392b">пропускає кадри (drop)</text>
+
+  <!-- Стрілка A1 в A2 -->
+  <line x1="485" y1="177" x2="513" y2="177" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- HTTP Frame Structure -->
+  <rect x="515" y="105" width="250" height="145" fill="#fdecea" stroke="#c0392b" stroke-width="1" rx="4"/>
+  <text x="640" y="127" font-size="13" font-weight="700" text-anchor="middle" fill="#c0392b">Формат HTTP-кадру</text>
+  <text x="525" y="149" font-size="12" fill="#1a1a1a">--frame_boundary\r\n</text>
+  <text x="525" y="169" font-size="12" fill="#1a1a1a">Content-Type: image/jpeg\r\n</text>
+  <text x="525" y="189" font-size="12" fill="#1a1a1a">Content-Length: 14520\r\n\r\n</text>
+  <text x="525" y="211" font-size="12" font-weight="700" fill="#2457d6">[JPEG бінарні дані]</text>
+  <text x="525" y="231" font-size="12" fill="#6b7280">(Високий оверхед заголовків)</text>
+
+  <!-- Стрілка A2 в A3 -->
+  <line x1="765" y1="177" x2="793" y2="177" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- HTTP Client -->
+  <rect x="795" y="105" width="125" height="145" fill="#ffffff" stroke="#d0d7de" rx="4"/>
+  <text x="857" y="127" font-size="13" font-weight="700" text-anchor="middle" fill="#1a1a1a">HTTP Клієнт</text>
+  <text x="857" y="152" font-size="12" text-anchor="middle" fill="#2457d6">&lt;img src="..."&gt;</text>
+  <text x="857" y="177" font-size="12" text-anchor="middle" fill="#6b7280">Вбудований</text>
+  <text x="857" y="197" font-size="12" text-anchor="middle" fill="#6b7280">рендеринг</text>
+  <text x="857" y="222" font-size="12" text-anchor="middle" fill="#1a1a1a">MJPEG Stream</text>
+
+
+  <!-- НИЖНЯ ПАНЕЛЬ: WebSocket Stream -->
+  <rect x="275" y="285" width="660" height="200" fill="#f4f6f8" stroke="#d0d7de" rx="6"/>
+  <text x="290" y="308" font-size="14" font-weight="700" fill="#1a1a1a">Потік WebSocket: Async Binary Frames (Асинхронний)</text>
+
+  <!-- FreeRTOS Async Queue -->
+  <rect x="290" y="320" width="195" height="150" fill="#ffffff" stroke="#d0d7de" rx="4"/>
+  <text x="387" y="342" font-size="13" font-weight="700" text-anchor="middle" fill="#1a1a1a">Черга кадрів FreeRTOS</text>
+  <text x="387" y="364" font-size="12" text-anchor="middle" fill="#2457d6">xQueue (Async Buffer)</text>
+  <text x="387" y="386" font-size="12" text-anchor="middle" fill="#6b7280">Передача вказівників</text>
+  <text x="387" y="408" font-size="12" text-anchor="middle" fill="#27ae60">Мінімальна затримка</text>
+  <text x="387" y="428" font-size="12" text-anchor="middle" fill="#27ae60">Не блокує DMA-потік</text>
+  <text x="387" y="448" font-size="12" text-anchor="middle" fill="#27ae60">Буферизація в PSRAM</text>
+
+  <!-- Стрілка B1 в B2 -->
+  <line x1="485" y1="395" x2="513" y2="395" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <!-- WS Frame Structure -->
+  <rect x="515" y="320" width="250" height="150" fill="#e9f7ef" stroke="#27ae60" stroke-width="1" rx="4"/>
+  <text x="640" y="342" font-size="13" font-weight="700" text-anchor="middle" fill="#27ae60">Формат бінарного WS-кадру</text>
+  <text x="525" y="364" font-size="12" font-weight="700" fill="#1a1a1a">WS Header (Opcode 0x2 Binary)</text>
+  <text x="525" y="386" font-size="12" fill="#1a1a1a">Payload Length (2..8 байти)</text>
+  <text x="525" y="408" font-size="12" font-weight="700" fill="#2457d6">[JPEG бінарні дані]</text>
+  <text x="525" y="430" font-size="12" fill="#27ae60">• Без текстових заголовків</text>
+  <text x="525" y="450" font-size="12" fill="#27ae60">• Мінімальний оверхед (2-10 Б)</text>
+
+  <!-- Стрілка B2 в B3 -->
+  <line x1="765" y1="395" x2="793" y2="395" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- WS Client -->
+  <rect x="795" y="320" width="125" height="150" fill="#ffffff" stroke="#d0d7de" rx="4"/>
+  <text x="857" y="342" font-size="13" font-weight="700" text-anchor="middle" fill="#1a1a1a">WebSocket JS</text>
+  <text x="857" y="366" font-size="12" text-anchor="middle" fill="#2457d6">new WebSocket()</text>
+  <text x="857" y="388" font-size="12" text-anchor="middle" fill="#6b7280">binaryType="blob"</text>
+  <text x="857" y="410" font-size="12" text-anchor="middle" fill="#6b7280">HTML5 Canvas</text>
+  <text x="857" y="432" font-size="12" text-anchor="middle" fill="#27ae60">Максимальний</text>
+  <text x="857" y="450" font-size="12" font-weight="700" text-anchor="middle" fill="#27ae60">FPS (30+)</text>
+
+  <!-- З'єднувальні лінії від Диспетчера (Left Container) до HTTP та WebSocket -->
+  <path d="M 240 415 L 260 415 L 260 177 L 290 177" fill="none" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <path d="M 240 415 L 260 415 L 260 395 L 290 395" fill="none" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+</svg>

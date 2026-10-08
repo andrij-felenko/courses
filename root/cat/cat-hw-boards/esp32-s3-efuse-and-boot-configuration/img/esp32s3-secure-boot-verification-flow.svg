@@ -1,0 +1,114 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-black" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="36" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Передавання управління та верифікація Bootloader і додатка в ESP32-S3</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Кожен етап прошивки перевіряється за RSA-3072 до виконання, а Flash Encryption розшифровує Flash</text>
+
+  <!-- Етап 1: ROM Bootloader -->
+  <rect x="30" y="90" width="270" height="260" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="42" y="102" width="246" height="28" rx="4" fill="#2457d6"/>
+  <text x="165" y="120" font-size="13" font-weight="700" fill="#ffffff" text-anchor="middle">1. ROM Bootloader (ROM)</text>
+  <text x="52" y="150" font-size="12" fill="#1a1a1a">• Скидання та старт з ROM</text>
+  <text x="52" y="168" font-size="12" fill="#1a1a1a">• Зчитування ключів з eFuse</text>
+
+  <rect x="42" y="185" width="246" height="75" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="165" y="205" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">Перевірка RSA-3072</text>
+  <text x="165" y="223" font-size="12" fill="#1a1a1a" text-anchor="middle">Верифікація підпису</text>
+  <text x="165" y="241" font-size="12" fill="#1a1a1a" text-anchor="middle">Secure Bootloader</text>
+
+  <rect x="42" y="275" width="246" height="60" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="165" y="295" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">Невдача: Скидання / Блок</text>
+  <text x="165" y="315" font-size="12" fill="#6b7280" text-anchor="middle">Підпис Bootloader недійсний</text>
+
+  <!-- Стрілка від Верифікації ROM до Блокування при помилці -->
+  <line x1="165" y1="260" x2="165" y2="271" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+
+  <!-- Стрілка передачі управління: Етап 1 -> Етап 2 -->
+  <line x1="300" y1="222" x2="340" y2="222" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="320" y="214" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">OK</text>
+
+  <!-- Етап 2: Secure Bootloader -->
+  <rect x="345" y="90" width="270" height="260" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="357" y="102" width="246" height="28" rx="4" fill="#2457d6"/>
+  <text x="480" y="120" font-size="13" font-weight="700" fill="#ffffff" text-anchor="middle">2. Secure Bootloader (IRAM)</text>
+  <text x="367" y="150" font-size="12" fill="#1a1a1a">• Ініціалізація IRAM та HW</text>
+  <text x="367" y="168" font-size="12" fill="#1a1a1a">• Читання таблиці розділів</text>
+
+  <rect x="357" y="185" width="246" height="75" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="480" y="205" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">Перевірка RSA-3072</text>
+  <text x="480" y="223" font-size="12" fill="#1a1a1a" text-anchor="middle">Верифікація підпису</text>
+  <text x="480" y="241" font-size="12" fill="#1a1a1a" text-anchor="middle">Основного Додатка (App)</text>
+
+  <rect x="357" y="275" width="246" height="60" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="480" y="295" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">Невдача: Security Panic</text>
+  <text x="480" y="315" font-size="12" fill="#6b7280" text-anchor="middle">Підпис App недійсний / зупинка</text>
+
+  <!-- Стрілка від Верифікації App до Блокування при помилці -->
+  <line x1="480" y1="260" x2="480" y2="271" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+
+  <!-- Стрілка передачі управління: Етап 2 -> Етап 3 -->
+  <line x1="615" y1="222" x2="655" y2="222" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="635" y="214" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">OK</text>
+
+  <!-- Етап 3: Main Application -->
+  <rect x="660" y="90" width="270" height="260" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="672" y="102" width="246" height="28" rx="4" fill="#27ae60"/>
+  <text x="795" y="120" font-size="13" font-weight="700" fill="#ffffff" text-anchor="middle">3. Main Application (Flash/MMU)</text>
+
+  <rect x="672" y="145" width="246" height="90" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="795" y="166" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">Прозоре розшифрування</text>
+  <text x="795" y="184" font-size="12" fill="#1a1a1a" text-anchor="middle">Flash Encryption (XTS-AES)</text>
+  <text x="795" y="202" font-size="12" fill="#1a1a1a" text-anchor="middle">Апаратне читання через Cache</text>
+  <text x="795" y="220" font-size="12" fill="#6b7280" text-anchor="middle">Виконання інструкцій CPU</text>
+
+  <rect x="672" y="248" width="246" height="87" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="795" y="267" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Захист середовища</text>
+  <text x="682" y="285" font-size="12" fill="#1a1a1a">• JTAG налагодження: ВИМКН</text>
+  <text x="682" y="303" font-size="12" fill="#1a1a1a">• UART Download Mode: ОБМЕЖ</text>
+  <text x="682" y="321" font-size="12" fill="#1a1a1a">• Прямий Flash доступ: БЛОК</text>
+
+  <!-- Нижня панель: eFuse Hardware Root of Trust -->
+  <rect x="30" y="375" width="900" height="125" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="42" y="385" width="876" height="24" rx="4" fill="#6b7280"/>
+  <text x="480" y="401" font-size="12" font-weight="700" fill="#ffffff" text-anchor="middle">Апаратний корінь довіри — OTP eFuse (Запобіжники ESP32-S3)</text>
+
+  <!-- Блок eFuse 1: RSA Public Key Digest -->
+  <rect x="42" y="417" width="276" height="73" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+  <text x="180" y="435" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">eFuse BLOCK4-8: RSA Digest</text>
+  <text x="180" y="453" font-size="12" fill="#1a1a1a" text-anchor="middle">Дайджест ключа RSA-3072</text>
+  <text x="180" y="471" font-size="12" fill="#6b7280" text-anchor="middle">Верифікація Stage 1 та Stage 2</text>
+
+  <!-- Блок eFuse 2: Flash Encryption Key -->
+  <rect x="342" y="417" width="276" height="73" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="480" y="435" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">eFuse BLOCK9-10: FE Key</text>
+  <text x="480" y="453" font-size="12" fill="#1a1a1a" text-anchor="middle">Ключ шифрування (XTS-AES)</text>
+  <text x="480" y="471" font-size="12" fill="#6b7280" text-anchor="middle">Розшифрування Flash "на льоту"</text>
+
+  <!-- Блок eFuse 3: Security Control Flags -->
+  <rect x="642" y="417" width="276" height="73" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+  <text x="780" y="435" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">eFuse Security Flags</text>
+  <text x="780" y="453" font-size="12" fill="#1a1a1a" text-anchor="middle">SECURE_BOOT_EN, SPI_BOOT_CRYPT</text>
+  <text x="780" y="471" font-size="12" fill="#6b7280" text-anchor="middle">DIS_PAD_JTAG, DIS_DOWNLOAD_MODE</text>
+
+  <!-- Пунктирні лінії зв'язку ключів eFuse з етапами завантаження -->
+  <line x1="180" y1="375" x2="180" y2="354" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4 3" marker-end="url(#arr-blue)"/>
+  <line x1="480" y1="375" x2="480" y2="354" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4 3" marker-end="url(#arr-blue)"/>
+  <line x1="780" y1="375" x2="780" y2="354" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="4 3" marker-end="url(#arr-green)"/>
+</svg>

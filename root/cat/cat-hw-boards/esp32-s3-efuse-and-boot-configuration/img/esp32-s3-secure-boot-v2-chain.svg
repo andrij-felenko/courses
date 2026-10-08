@@ -1,0 +1,136 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Заголовок та підзаголовок -->
+  <text x="480" y="32" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Ланцюжок довіреного завантаження Secure Boot V2 в ESP32-S3</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Верифікація публічного ключа через eFuse (Reed-Solomon) та цифрових підписів Bootloader і App</text>
+
+  <!-- ==================== ПАНЕЛЬ 1: eFuse Пам'ять ==================== -->
+  <rect x="30" y="80" width="260" height="435" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="160" y="106" font-size="14" font-weight="700" fill="#1a1a1a" text-anchor="middle">Пам'ять eFuse (BLK0–BLK10)</text>
+  <text x="160" y="125" font-size="12" fill="#6b7280" text-anchor="middle">Апаратний корінь довіри</text>
+
+  <!-- Блок 1A: BLK0 Системний -->
+  <rect x="45" y="140" width="230" height="75" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="160" y="162" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">Системний блок BLK0</text>
+  <text x="160" y="182" font-size="12" fill="#1a1a1a" text-anchor="middle">SECURE_BOOT_EN = 1</text>
+  <text x="160" y="200" font-size="12" fill="#6b7280" text-anchor="middle">KEY_PURPOSE = SECURE_BOOT</text>
+
+  <!-- Блок 1B: BLK4 Дайджест ключа -->
+  <rect x="45" y="230" width="230" height="110" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="160" y="252" font-size="13" font-weight="700" fill="#2457d6" text-anchor="middle">Ключовий блок BLK4 (KEY0)</text>
+  <text x="160" y="274" font-size="12" fill="#1a1a1a" text-anchor="middle">SHA-256 дайджест PubKey (32 B)</text>
+  <text x="160" y="296" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">Кодування Ріда-Соломона</text>
+  <text x="160" y="318" font-size="12" fill="#6b7280" text-anchor="middle">(32 B даних + 12 B RS-коду)</text>
+
+  <!-- Блок 1C: Апаратне блокування -->
+  <rect x="45" y="355" width="230" height="85" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="160" y="377" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Апаратний захист бітів</text>
+  <text x="160" y="397" font-size="12" fill="#6b7280" text-anchor="middle">RD_DIS / WR_DIS випалено</text>
+  <text x="160" y="417" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">Випалювання незворотне!</text>
+
+  <!-- Пояснення внизу Панелі 1 -->
+  <text x="160" y="468" font-size="12" fill="#6b7280" text-anchor="middle">Автоматична корекція</text>
+  <text x="160" y="488" font-size="12" fill="#6b7280" text-anchor="middle">помилок через RS-код</text>
+
+
+  <!-- ==================== ПАНЕЛЬ 2: ROM Bootloader ==================== -->
+  <rect x="320" y="80" width="310" height="435" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="475" y="106" font-size="14" font-weight="700" fill="#1a1a1a" text-anchor="middle">Етап 1: ROM Bootloader (ПЗУ)</text>
+  <text x="475" y="125" font-size="12" fill="#6b7280" text-anchor="middle">Апаратний ПЗУ код (Read-Only)</text>
+
+  <!-- Крок 2A: Зчитування дайджесту -->
+  <rect x="340" y="140" width="270" height="55" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="475" y="162" font-size="13" font-weight="700" fill="#2457d6" text-anchor="middle">1. Читання eFuse BLK4</text>
+  <text x="475" y="180" font-size="12" fill="#1a1a1a" text-anchor="middle">Декодування та верифікація RS</text>
+
+  <!-- Стрілка 2A -> 2B -->
+  <line x1="475" y1="195" x2="475" y2="208" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Крок 2B: Зчитування 2nd Bootloader -->
+  <rect x="340" y="210" width="270" height="55" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="475" y="232" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">2. Завантаження 2nd Bootloader</text>
+  <text x="475" y="250" font-size="12" fill="#6b7280" text-anchor="middle">Зчитування образу та Signature Block</text>
+
+  <!-- Стрілка 2B -> 2C -->
+  <line x1="475" y1="265" x2="475" y2="278" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+
+  <!-- Крок 2C: Перевірка підпису Bootloader -->
+  <rect x="340" y="280" width="270" height="85" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="475" y="302" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">3. Перевірка RSA-3072 / ECC</text>
+  <text x="475" y="322" font-size="12" fill="#1a1a1a" text-anchor="middle">а) SHA-256(PubKey) == BLK4 Digest</text>
+  <text x="475" y="342" font-size="12" fill="#1a1a1a" text-anchor="middle">б) Перевірка підпису образу</text>
+
+  <!-- Розгалуження результатів 2C -->
+  <!-- Валідний підпис (Зелений) -->
+  <line x1="410" y1="365" x2="410" y2="393" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <rect x="340" y="395" width="135" height="55" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="407" y="417" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">Підпис дійсний</text>
+  <text x="407" y="437" font-size="12" fill="#27ae60" text-anchor="middle">Запуск 2nd Boot</text>
+
+  <!-- Невалідний підпис (Червоний) -->
+  <line x1="540" y1="365" x2="540" y2="393" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <rect x="485" y="395" width="125" height="55" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="547" y="417" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">Помилка підпису</text>
+  <text x="547" y="437" font-size="12" fill="#c0392b" text-anchor="middle">Зупинка / Reset</text>
+
+
+  <!-- ==================== ПАНЕЛЬ 3: 2nd Stage Bootloader & App ==================== -->
+  <rect x="650" y="80" width="280" height="435" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="790" y="106" font-size="14" font-weight="700" fill="#1a1a1a" text-anchor="middle">Етап 2: Запуск застосунку</text>
+  <text x="790" y="125" font-size="12" fill="#6b7280" text-anchor="middle">Програмний 2nd Bootloader</text>
+
+  <!-- Крок 3A: Зчитування App -->
+  <rect x="665" y="140" width="250" height="55" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="790" y="162" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">1. Зчитати App Partition</text>
+  <text x="790" y="180" font-size="12" fill="#6b7280" text-anchor="middle">Завантаження образу користувача</text>
+
+  <!-- Стрілка 3A -> 3B -->
+  <line x1="790" y1="195" x2="790" y2="208" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+
+  <!-- Крок 3B: Верифікація підпису App -->
+  <rect x="665" y="210" width="250" height="85" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="790" y="232" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">2. Перевірити підпис App</text>
+  <text x="790" y="252" font-size="12" fill="#1a1a1a" text-anchor="middle">а) Перевірка PubKey за eFuse</text>
+  <text x="790" y="272" font-size="12" fill="#1a1a1a" text-anchor="middle">б) Верифікація RSA/ECC App</text>
+
+  <!-- Розгалуження результатів 3B -->
+  <!-- Успіх App (Зелений) -->
+  <line x1="725" y1="295" x2="725" y2="323" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <rect x="665" y="325" width="120" height="75" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="725" y="347" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">Успішна перевірка</text>
+  <text x="725" y="367" font-size="12" fill="#27ae60" text-anchor="middle">Передача керування</text>
+  <text x="725" y="387" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">на app_main()</text>
+
+  <!-- Помилка App (Червоний) -->
+  <line x1="855" y1="295" x2="855" y2="323" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <rect x="795" y="325" width="120" height="75" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="855" y="347" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">Помилка App</text>
+  <text x="855" y="367" font-size="12" fill="#c0392b" text-anchor="middle">Спроба Rollback</text>
+  <text x="855" y="387" font-size="12" fill="#c0392b" text-anchor="middle">або блокування</text>
+
+
+  <!-- ==================== МІЖПАНЕЛЬНІ ЗВ'ЯЗКИ ==================== -->
+  <!-- Зв'язок 1: eFuse BLK4 (x=275, y=285) -> Крок 2A (x=340, y=167) -->
+  <path d="M 275,285 L 305,285 L 305,167 L 332,167" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Зв'язок 2: 2nd Bootloader Success (x=475, y=422) -> Step 3A (x=665, y=167) -->
+  <path d="M 475,422 L 635,422 L 635,167 L 657,167" fill="none" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+</svg>

@@ -1,0 +1,131 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Canvas Background -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Алгоритм конфігурації UART та режиму ехо в ESP-AT</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Команда AT+UART_CUR змінює параметри лише в RAM, а AT+UART_DEF зберігає їх у SPI Flash</text>
+
+  <!-- Panel 1: Input Commands -->
+  <rect x="30" y="80" width="230" height="430" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="40" y="90" width="210" height="32" rx="4" fill="#2457d6"/>
+  <text x="145" y="111" font-size="13" font-weight="700" fill="#ffffff" text-anchor="middle">Командний потік з хоста</text>
+
+  <!-- Command Box 1: ATE0 / ATE1 -->
+  <rect x="45" y="135" width="200" height="70" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="145" y="157" font-size="14" font-weight="700" fill="#2457d6" text-anchor="middle">ATE0 / ATE1</text>
+  <text x="145" y="176" font-size="12" fill="#6b7280" text-anchor="middle">Керування ехо-режимом</text>
+  <text x="145" y="193" font-size="11" fill="#1a1a1a" text-anchor="middle">Символьний повтор в UART</text>
+
+  <!-- Command Box 2: AT+UART_CUR -->
+  <rect x="45" y="225" width="200" height="70" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="145" y="247" font-size="13" font-weight="700" fill="#2457d6" text-anchor="middle">AT+UART_CUR=...</text>
+  <text x="145" y="266" font-size="12" fill="#6b7280" text-anchor="middle">Поточні налаштування</text>
+  <text x="145" y="283" font-size="11" fill="#c0392b" font-weight="700" text-anchor="middle">Тільки в RAM (тимчасово)</text>
+
+  <!-- Command Box 3: AT+UART_DEF -->
+  <rect x="45" y="315" width="200" height="70" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="145" y="337" font-size="13" font-weight="700" fill="#2457d6" text-anchor="middle">AT+UART_DEF=...</text>
+  <text x="145" y="356" font-size="12" fill="#6b7280" text-anchor="middle">Дефолтна конфігурація</text>
+  <text x="145" y="373" font-size="11" fill="#27ae60" font-weight="700" text-anchor="middle">RAM + SPI Flash (постійно)</text>
+
+  <!-- Command Box 4: AT+RST -->
+  <rect x="45" y="405" width="200" height="70" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="145" y="427" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">AT+RST / Reboot</text>
+  <text x="145" y="446" font-size="12" fill="#6b7280" text-anchor="middle">Перезавантаження модуля</text>
+  <text x="145" y="463" font-size="11" fill="#6b7280" text-anchor="middle">Відновлення з Flash</text>
+
+  <!-- Panel 2: Processing Logic -->
+  <rect x="280" y="80" width="340" height="430" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="290" y="90" width="320" height="32" rx="4" fill="#2457d6"/>
+  <text x="450" y="111" font-size="13" font-weight="700" fill="#ffffff" text-anchor="middle">Логіка обробки ESP-AT</text>
+
+  <!-- Process Box 1: Echo Buffer -->
+  <rect x="295" y="135" width="310" height="70" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="450" y="156" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Обробник ехо-режиму (Echo Buffer)</text>
+  <text x="450" y="174" font-size="12" fill="#1a1a1a" text-anchor="middle">Увімкнення (1) або вимкнення (0) дублювання</text>
+  <text x="450" y="191" font-size="11" fill="#6b7280" text-anchor="middle">вхідних TX-символів у зворотному напрямку RX</text>
+
+  <!-- Process Box 2: RAM Update -->
+  <rect x="295" y="225" width="310" height="70" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="450" y="246" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">Модифікація регістрів UART в RAM</text>
+  <text x="450" y="264" font-size="12" fill="#1a1a1a" text-anchor="middle">Негайне переналаштування дільника бодрейту</text>
+  <text x="450" y="281" font-size="11" fill="#6b7280" text-anchor="middle">Без запису в флеш-пам'ять (зникає при скиді)</text>
+
+  <!-- Process Box 3: Flash + RAM Update -->
+  <rect x="295" y="315" width="310" height="70" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="450" y="336" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">Запис у RAM та SPI Flash (NVS Sector)</text>
+  <text x="450" y="354" font-size="12" fill="#1a1a1a" text-anchor="middle">Зміна поточного бодрейту + збереження в Flash</text>
+  <text x="450" y="371" font-size="11" fill="#6b7280" text-anchor="middle">Використовується за замовчуванням після стартів</text>
+
+  <!-- Process Box 4: Reboot Reset -->
+  <rect x="295" y="405" width="310" height="70" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1"/>
+  <text x="450" y="426" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Очищення RAM та ініціалізація</text>
+  <text x="450" y="444" font-size="12" fill="#1a1a1a" text-anchor="middle">Скидання RAM-конфігурацій (CUR втрачається)</text>
+  <text x="450" y="461" font-size="11" fill="#6b7280" text-anchor="middle">Зчитування профілю DEF із NVS в Flash</text>
+
+  <!-- Panel 3: ESP8266 Memory -->
+  <rect x="640" y="80" width="290" height="430" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="650" y="90" width="270" height="32" rx="4" fill="#2457d6"/>
+  <text x="785" y="111" font-size="13" font-weight="700" fill="#ffffff" text-anchor="middle">Пам'ять модуля ESP8266</text>
+
+  <!-- RAM Box -->
+  <rect x="655" y="135" width="260" height="160" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="665" y="145" width="240" height="26" rx="4" fill="#2457d6"/>
+  <text x="785" y="162" font-size="12" font-weight="700" fill="#ffffff" text-anchor="middle">RAM (Оперативна пам'ять)</text>
+  <text x="785" y="184" font-size="11" font-weight="700" fill="#c0392b" text-anchor="middle">Волатильна (очищається при скиді)</text>
+
+  <rect x="665" y="195" width="240" height="42" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="785" y="211" font-size="11" font-weight="700" fill="#1a1a1a" text-anchor="middle">Поточні регістри UART (Baud, Bits...)</text>
+  <text x="785" y="227" font-size="11" fill="#6b7280" text-anchor="middle">Встановлюються через CUR або DEF</text>
+
+  <rect x="665" y="243" width="240" height="42" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="785" y="259" font-size="11" font-weight="700" fill="#1a1a1a" text-anchor="middle">Буфер ехо-сигналу (ATE0 / ATE1)</text>
+  <text x="785" y="275" font-size="11" fill="#6b7280" text-anchor="middle">Поточний стан відображення команд</text>
+
+  <!-- SPI Flash Box -->
+  <rect x="655" y="315" width="260" height="160" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="665" y="325" width="240" height="26" rx="4" fill="#27ae60"/>
+  <text x="785" y="342" font-size="12" font-weight="700" fill="#ffffff" text-anchor="middle">SPI FLASH (NVS Сектор)</text>
+  <text x="785" y="364" font-size="11" font-weight="700" fill="#27ae60" text-anchor="middle">Энергонезалежна (постійне збереження)</text>
+
+  <rect x="665" y="375" width="240" height="42" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="785" y="391" font-size="11" font-weight="700" fill="#1a1a1a" text-anchor="middle">Конфігурація UART за замовчуванням</text>
+  <text x="785" y="407" font-size="11" fill="#6b7280" text-anchor="middle">Записується ТІЛЬКИ через AT+UART_DEF</text>
+
+  <rect x="665" y="423" width="240" height="42" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="785" y="439" font-size="11" font-weight="700" fill="#1a1a1a" text-anchor="middle">Системний профіль завантаження</text>
+  <text x="785" y="455" font-size="11" fill="#6b7280" text-anchor="middle">Зчитується під час подачі живлення</text>
+
+  <!-- Arrows: Flow 1 (ATE0/ATE1) -->
+  <line x1="245" y1="170" x2="295" y2="170" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <polyline points="605,170 630,170 630,264 655,264" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Arrows: Flow 2 (AT+UART_CUR) -->
+  <line x1="245" y1="260" x2="295" y2="260" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <polyline points="605,260 620,260 620,216 655,216" fill="none" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+
+  <!-- Arrows: Flow 3 (AT+UART_DEF) -->
+  <line x1="245" y1="350" x2="295" y2="350" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <polyline points="605,340 635,340 635,216 655,216" fill="none" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <polyline points="605,360 635,360 635,396 655,396" fill="none" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- Arrows: Flow 4 (AT+RST) -->
+  <line x1="245" y1="440" x2="295" y2="440" stroke="#6b7280" stroke-width="2" marker-end="url(#arr-gray)"/>
+  <line x1="655" y1="440" x2="605" y2="440" stroke="#6b7280" stroke-width="2" stroke-dasharray="4,3" marker-end="url(#arr-gray)"/>
+</svg>

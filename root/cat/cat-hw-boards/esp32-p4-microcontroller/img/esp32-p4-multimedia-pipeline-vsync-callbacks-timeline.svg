@@ -1,0 +1,146 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 490" width="960" height="490" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="960" height="490" fill="#ffffff"/>
+
+  <!-- Заголовок та підзаголовок -->
+  <text x="480" y="32" font-size="18" font-weight="700" text-anchor="middle" fill="#1a1a1a">Синхронізація асинхронного відеоконвеєра ESP32-P4</text>
+  <text x="480" y="52" font-size="13" text-anchor="middle" fill="#6b7280">DMA-передачі та апаратна обробка PPA працюють фоново без залучення ядер CPU</text>
+
+  <!-- Панель назв треків -->
+  <rect x="20" y="70" width="200" height="375" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="6"/>
+
+  <text x="32" y="100" font-size="13" font-weight="700" fill="#1a1a1a">1. MIPI-CSI Сенсор</text>
+  <text x="32" y="116" font-size="12" fill="#6b7280">Вхідний відеопотік</text>
+
+  <text x="32" y="160" font-size="13" font-weight="700" fill="#1a1a1a">2. ISP &amp; DMA Вхід</text>
+  <text x="32" y="176" font-size="12" fill="#6b7280">Запис кадру у PSRAM</text>
+
+  <text x="32" y="220" font-size="13" font-weight="700" fill="#1a1a1a">3. ISR &amp; Зворотні виклики</text>
+  <text x="32" y="236" font-size="12" fill="#6b7280">on_vsync / FreeRTOS</text>
+
+  <text x="32" y="280" font-size="13" font-weight="700" fill="#1a1a1a">4. 2D-прискорювач PPA</text>
+  <text x="32" y="296" font-size="12" fill="#6b7280">Масштабування / Blending</text>
+
+  <text x="32" y="340" font-size="13" font-weight="700" fill="#1a1a1a">5. MIPI-DSI Дисплей</text>
+  <text x="32" y="356" font-size="12" fill="#6b7280">Вивід кадру на екран</text>
+
+  <text x="32" y="400" font-size="13" font-weight="700" fill="#1a1a1a">6. Стан ядер CPU</text>
+  <text x="32" y="416" font-size="12" fill="#6b7280">Навантаження процесора</text>
+
+  <!-- Панель діаграми -->
+  <rect x="230" y="70" width="710" height="375" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="6"/>
+
+  <!-- Розділювачі треків -->
+  <line x1="230" y1="130" x2="940" y2="130" stroke="#f0f2f5" stroke-width="1"/>
+  <line x1="230" y1="190" x2="940" y2="190" stroke="#f0f2f5" stroke-width="1"/>
+  <line x1="230" y1="250" x2="940" y2="250" stroke="#f0f2f5" stroke-width="1"/>
+  <line x1="230" y1="310" x2="940" y2="310" stroke="#f0f2f5" stroke-width="1"/>
+  <line x1="230" y1="370" x2="940" y2="370" stroke="#f0f2f5" stroke-width="1"/>
+
+  <!-- Вертикальні сітки часу (часові мітки) -->
+  <line x1="260" y1="75" x2="260" y2="440" stroke="#e5e7eb" stroke-width="1" stroke-dasharray="4,4"/>
+  <line x1="520" y1="75" x2="520" y2="440" stroke="#fca5a5" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <line x1="570" y1="75" x2="570" y2="440" stroke="#e5e7eb" stroke-width="1" stroke-dasharray="4,4"/>
+  <line x1="680" y1="75" x2="680" y2="440" stroke="#e5e7eb" stroke-width="1" stroke-dasharray="4,4"/>
+  <line x1="900" y1="75" x2="900" y2="440" stroke="#e5e7eb" stroke-width="1" stroke-dasharray="4,4"/>
+
+  <!-- Трек 1: MIPI-CSI Сенсор -->
+  <rect x="240" y="82" width="70" height="36" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="4"/>
+  <text x="275" y="104" font-size="12" fill="#6b7280" text-anchor="middle">Кадр N-1</text>
+
+  <rect x="320" y="82" width="195" height="36" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="4"/>
+  <text x="417" y="104" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">Зйомка кадру N (CSI)</text>
+
+  <rect x="525" y="82" width="195" height="36" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="4"/>
+  <text x="622" y="104" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">Зйомка кадру N+1</text>
+
+  <rect x="730" y="82" width="200" height="36" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="4"/>
+  <text x="830" y="104" font-size="12" fill="#6b7280" text-anchor="middle">Зйомка кадру N+2</text>
+
+  <!-- Трек 2: ISP & DMA Вхід -->
+  <rect x="240" y="142" width="70" height="36" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="4"/>
+  <text x="275" y="164" font-size="12" fill="#6b7280" text-anchor="middle">Буфер N-1</text>
+
+  <rect x="320" y="142" width="195" height="36" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="4"/>
+  <text x="417" y="164" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">DMA Запис кадру N у PSRAM</text>
+
+  <rect x="525" y="142" width="195" height="36" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="4"/>
+  <text x="622" y="164" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">DMA Запис кадру N+1 у PSRAM</text>
+
+  <rect x="730" y="142" width="200" height="36" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="4"/>
+  <text x="830" y="164" font-size="12" fill="#6b7280" text-anchor="middle">DMA Запис N+2</text>
+
+  <!-- Стрілка події VSYNC / DMA_EOF -->
+  <line x1="520" y1="178" x2="520" y2="198" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="450" y="193" font-size="12" font-weight="700" fill="#c0392b" text-anchor="end">DMA_EOF</text>
+
+  <!-- Трек 3: ISR & Callbacks -->
+  <rect x="510" y="202" width="45" height="36" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" rx="4"/>
+  <text x="532" y="224" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">ISR</text>
+
+  <line x1="555" y1="220" x2="565" y2="220" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <rect x="570" y="202" width="105" height="36" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="4"/>
+  <text x="622" y="217" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">on_vsync CB</text>
+  <text x="622" y="231" font-size="12" fill="#27ae60" text-anchor="middle">Старт PPA</text>
+
+  <!-- Стрілка запуску PPA -->
+  <line x1="622" y1="238" x2="622" y2="258" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Трек 4: PPA 2D Accelerator -->
+  <rect x="570" y="262" width="105" height="36" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="4"/>
+  <text x="622" y="277" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">PPA 2D Blending</text>
+  <text x="622" y="291" font-size="12" fill="#2457d6" text-anchor="middle">Апаратна обробка</text>
+
+  <!-- Стрілка передачі на DSI -->
+  <path d="M 675,280 L 680,280 L 680,318" fill="none" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Трек 5: MIPI-DSI Display Output -->
+  <rect x="240" y="322" width="275" height="36" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="4"/>
+  <text x="377" y="344" font-size="12" fill="#6b7280" text-anchor="middle">Вивід попереднього кадру N-1 на екран</text>
+
+  <rect x="685" y="322" width="245" height="36" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="4"/>
+  <text x="807" y="337" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">MIPI-DSI DMA Вивід</text>
+  <text x="807" y="351" font-size="12" fill="#2457d6" text-anchor="middle">Відображення кадру N</text>
+
+  <!-- Трек 6: CPU Load / Status -->
+  <rect x="240" y="382" width="265" height="36" fill="#e9f7ef" stroke="#27ae60" stroke-width="1" rx="4"/>
+  <text x="372" y="404" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">CPU IDLE (0% — апаратний DMA-запис)</text>
+
+  <rect x="510" y="382" width="165" height="36" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" rx="4"/>
+  <text x="592" y="404" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">CPU (~1-2%): ISR &amp; Обробка</text>
+
+  <rect x="680" y="382" width="250" height="36" fill="#e9f7ef" stroke="#27ae60" stroke-width="1" rx="4"/>
+  <text x="805" y="404" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">CPU IDLE (Фоновий PPA &amp; DSI вивід)</text>
+
+  <!-- Вісь часу (Внизу) -->
+  <line x1="230" y1="455" x2="915" y2="455" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <line x1="260" y1="450" x2="260" y2="460" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="260" y="474" font-size="12" fill="#6b7280" text-anchor="middle">t0 (Початок N)</text>
+
+  <line x1="520" y1="450" x2="520" y2="460" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="520" y="474" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">t1 (VSYNC/EOF)</text>
+
+  <line x1="680" y1="450" x2="680" y2="460" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="680" y="474" font-size="12" fill="#6b7280" text-anchor="middle">t2 (PPA Готово)</text>
+
+  <line x1="900" y1="450" x2="900" y2="460" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="900" y="474" font-size="12" fill="#6b7280" text-anchor="middle">t3 (DSI Завершено)</text>
+
+  <text x="915" y="443" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="end">Час (t)</text>
+</svg>

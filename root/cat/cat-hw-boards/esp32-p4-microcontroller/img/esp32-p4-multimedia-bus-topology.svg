@@ -1,0 +1,92 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Header -->
+  <text x="480" y="32" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Топологія шин та мультимедійного конвеєра ESP32-P4</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Мультимедійні прискорювачі працюють через L2/PSRAM напряму без блокування системної шини та ядер</text>
+
+  <!-- Section 1: CPU Subsystem -->
+  <rect x="25" y="72" width="435" height="175" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="40" y="94" font-size="14" font-weight="700" fill="#1a1a1a">Обчислювальний комплекс (HP CPU Subsystem)</text>
+
+  <rect x="40" y="106" width="195" height="65" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="137" y="128" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">RISC-V HP Core 0</text>
+  <text x="137" y="148" font-size="12" fill="#6b7280" text-anchor="middle">Vector Extension &amp; FPU</text>
+
+  <rect x="250" y="106" width="195" height="65" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="347" y="128" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">RISC-V HP Core 1</text>
+  <text x="347" y="148" font-size="12" fill="#6b7280" text-anchor="middle">Vector Extension &amp; FPU</text>
+
+  <rect x="40" y="181" width="405" height="52" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="242" y="201" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">Кеш-пам'ять L1 (I-Cache 32KB + D-Cache 32KB)</text>
+  <text x="242" y="221" font-size="12" fill="#6b7280" text-anchor="middle">Локальний кеш високої швидкодії ядер</text>
+
+  <!-- Section 2: Multimedia Subsystem -->
+  <rect x="480" y="72" width="455" height="175" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="495" y="94" font-size="14" font-weight="700" fill="#2457d6">Мультимедійна периферія та прискорювачі</text>
+
+  <rect x="495" y="106" width="98" height="65" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+  <text x="544" y="128" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">MIPI-CSI</text>
+  <text x="544" y="148" font-size="12" fill="#6b7280" text-anchor="middle">Вхід камери</text>
+
+  <rect x="605" y="106" width="98" height="65" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+  <text x="654" y="128" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">2D PPA</text>
+  <text x="654" y="148" font-size="12" fill="#6b7280" text-anchor="middle">2D-графіка</text>
+
+  <rect x="715" y="106" width="98" height="65" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+  <text x="764" y="128" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">H.264</text>
+  <text x="764" y="148" font-size="12" fill="#6b7280" text-anchor="middle">Відеокодек</text>
+
+  <rect x="825" y="106" width="98" height="65" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+  <text x="874" y="128" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">MIPI-DSI</text>
+  <text x="874" y="148" font-size="12" fill="#6b7280" text-anchor="middle">Дисплей</text>
+
+  <rect x="495" y="181" width="428" height="52" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+  <text x="709" y="201" font-size="13" font-weight="700" fill="#2457d6" text-anchor="middle">Мультимедійний DMA-контролер (Direct Stream)</text>
+  <text x="709" y="221" font-size="12" fill="#6b7280" text-anchor="middle">Передача відеопотоків без проміжних копіювань процесором</text>
+
+  <!-- Vertical Connections (Top to Middle) -->
+  <line x1="150" y1="233" x2="150" y2="260" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr-dark)"/>
+  <line x1="800" y1="233" x2="800" y2="260" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Section 3: Bus Interconnect Matrix -->
+  <rect x="25" y="267" width="435" height="65" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="242" y="292" font-size="14" font-weight="700" fill="#1a1a1a" text-anchor="middle">Основна системна шина AXI / AHB Matrix</text>
+  <text x="242" y="314" font-size="12" fill="#6b7280" text-anchor="middle">Службові команди, переривання та загальна периферія</text>
+
+  <rect x="480" y="267" width="455" height="65" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="707" y="292" font-size="14" font-weight="700" fill="#2457d6" text-anchor="middle">Виділена мультимедійна шина (High-Bandwidth)</text>
+  <text x="707" y="314" font-size="12" fill="#6b7280" text-anchor="middle">Прямий високошвидкісний трафік кадрових буферів</text>
+
+  <!-- Vertical Connections (Middle to Bottom) -->
+  <line x1="150" y1="332" x2="150" y2="380" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr-dark)"/>
+  <line x1="800" y1="332" x2="800" y2="380" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Section 4: Memory Subsystem -->
+  <rect x="25" y="352" width="910" height="152" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="480" y="372" font-size="13" font-weight="700" fill="#27ae60" text-anchor="middle">Паралельний доступ до системної пам'яті L2 SRAM та зовнішньої PSRAM</text>
+
+  <rect x="40" y="386" width="420" height="60" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="250" y="408" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">Внутрішня пам'ять L2 SRAM (768 KB)</text>
+  <text x="250" y="428" font-size="12" fill="#6b7280" text-anchor="middle">Двопортовий доступ (Dual-Port) без очікування</text>
+
+  <rect x="495" y="386" width="425" height="60" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="707" y="408" font-size="13" font-weight="700" fill="#27ae60" text-anchor="middle">Контролер MSPI / Зовнішня PSRAM</text>
+  <text x="707" y="428" font-size="12" fill="#6b7280" text-anchor="middle">Кадрові буфери (Frame Buffers) та великі масиви TinyML</text>
+
+  <rect x="40" y="458" width="880" height="32" rx="4" fill="#ffffff" stroke="#27ae60" stroke-dasharray="3 3" stroke-width="1"/>
+  <text x="480" y="478" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">Результат: Відеопотік (CSI → PPA → PSRAM → DSI) та обчислення RISC-V ядер виконуються 100% паралельно</text>
+</svg>

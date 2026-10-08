@@ -1,0 +1,123 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Title and Subtitle -->
+  <text x="480" y="28" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Архітектура адресного простору та MMU-трансляції ESP32-P4</text>
+  <text x="480" y="48" text-anchor="middle" font-size="13" fill="#6b7280">Віртуальні сторінки адресації ЦП транслюються через таблиці MMU у фізичні адреси PSRAM та Flash</text>
+
+  <!-- Panel 1: CPU Virtual Address Space -->
+  <rect x="35" y="70" width="260" height="425" fill="#f4f6f8" stroke="#d0d7de" rx="6"/>
+  <text x="165" y="95" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Віртуальний простір ЦП</text>
+
+  <!-- Panel 1 Block 1: Peripheral Registers -->
+  <rect x="55" y="115" width="220" height="65" fill="white" stroke="#d0d7de" rx="4"/>
+  <text x="165" y="138" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Регістри периферії</text>
+  <text x="165" y="158" text-anchor="middle" font-size="12" fill="#6b7280">0x5000_0000 – 0x57FF_FFFF</text>
+
+  <!-- Panel 1 Block 2: Internal L2 SRAM -->
+  <rect x="55" y="195" width="220" height="65" fill="white" stroke="#d0d7de" rx="4"/>
+  <text x="165" y="218" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Внутрішній L2 SRAM</text>
+  <text x="165" y="238" text-anchor="middle" font-size="12" fill="#6b7280">0x4FF0_0000 – 0x4FFF_FFFF</text>
+
+  <!-- Panel 1 Block 3: PSRAM Virtual Window -->
+  <rect x="55" y="275" width="220" height="90" fill="#e9f7ef" stroke="#27ae60" stroke-width="2" rx="4"/>
+  <text x="165" y="298" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">Вікно PSRAM (Віртуальне)</text>
+  <text x="165" y="320" text-anchor="middle" font-size="12" fill="#1a1a1a">0x4800_0000 – 0x4FFF_FFFF</text>
+  <text x="165" y="342" text-anchor="middle" font-size="12" fill="#6b7280">Сторінки кешу (64 КБ)</text>
+
+  <!-- Panel 1 Block 4: Flash Virtual Window -->
+  <rect x="55" y="380" width="220" height="95" fill="#eaf0fd" stroke="#2457d6" stroke-width="2" rx="4"/>
+  <text x="165" y="403" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Вікно Flash (Віртуальне)</text>
+  <text x="165" y="425" text-anchor="middle" font-size="12" fill="#1a1a1a">0x4000_0000 – 0x47FF_FFFF</text>
+  <text x="165" y="447" text-anchor="middle" font-size="12" fill="#6b7280">Інструкції та дані I/D</text>
+
+  <!-- Panel 2: Cache & MMU Controller -->
+  <rect x="335" y="70" width="290" height="425" fill="#f4f6f8" stroke="#d0d7de" rx="6"/>
+  <text x="480" y="95" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Кеш L1/L2 та механізм MMU</text>
+
+  <!-- Panel 2 Block 1: L1 Cache -->
+  <rect x="355" y="115" width="250" height="65" fill="white" stroke="#d0d7de" rx="4"/>
+  <text x="480" y="138" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Кеш L1 (I-Cache / D-Cache)</text>
+  <text x="480" y="158" text-anchor="middle" font-size="12" fill="#6b7280">Теги та рядки прямого кешування</text>
+
+  <!-- Panel 2 Block 2: MMU Page Tables -->
+  <rect x="355" y="195" width="250" height="170" fill="white" stroke="#2457d6" stroke-width="2" rx="4"/>
+  <text x="480" y="217" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Таблиця сторінок MMU</text>
+
+  <!-- MMU Entry 1 (PSRAM) -->
+  <rect x="370" y="230" width="220" height="44" fill="#e9f7ef" stroke="#27ae60" rx="3"/>
+  <text x="480" y="247" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Запис MMU N: PSRAM</text>
+  <text x="480" y="263" text-anchor="middle" font-size="12" fill="#1a1a1a">V-Page 0x4800 ➔ P-Frame 0x0040</text>
+
+  <!-- MMU Entry 2 (Flash) -->
+  <rect x="370" y="282" width="220" height="44" fill="#eaf0fd" stroke="#2457d6" rx="3"/>
+  <text x="480" y="299" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Запис MMU M: Flash</text>
+  <text x="480" y="315" text-anchor="middle" font-size="12" fill="#1a1a1a">V-Page 0x4000 ➔ P-Frame 0x0010</text>
+
+  <text x="480" y="352" text-anchor="middle" font-size="12" fill="#6b7280">Розмір сторінки трансляції: 64 КБ</text>
+
+  <!-- Panel 2 Block 3: MSPI Controller -->
+  <rect x="355" y="380" width="250" height="95" fill="white" stroke="#d0d7de" rx="4"/>
+  <text x="480" y="403" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Контролер шини MSPI</text>
+  <text x="480" y="425" text-anchor="middle" font-size="12" fill="#1a1a1a">Арбітраж та фізичний доступ</text>
+  <text x="480" y="447" text-anchor="middle" font-size="12" fill="#6b7280">Octal / Hexa PSRAM &amp; Flash</text>
+
+  <!-- Panel 3: Physical Memory -->
+  <rect x="665" y="70" width="260" height="425" fill="#f4f6f8" stroke="#d0d7de" rx="6"/>
+  <text x="795" y="95" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Фізична пам'ять</text>
+
+  <!-- Panel 3 Block 1: Internal Peripherals & SRAM -->
+  <rect x="685" y="115" width="220" height="145" fill="white" stroke="#d0d7de" rx="4"/>
+
+  <rect x="695" y="125" width="200" height="55" fill="#f4f6f8" stroke="#d0d7de" rx="3"/>
+  <text x="795" y="146" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">HP/LP Периферія</text>
+  <text x="795" y="164" text-anchor="middle" font-size="12" fill="#6b7280">Фізичні регістри</text>
+
+  <rect x="695" y="190" width="200" height="60" fill="#f4f6f8" stroke="#d0d7de" rx="3"/>
+  <text x="795" y="211" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Internal L2 SRAM</text>
+  <text x="795" y="230" text-anchor="middle" font-size="12" fill="#6b7280">768 КБ (TCM / L2)</text>
+
+  <!-- Panel 3 Block 2: Physical Ext PSRAM -->
+  <rect x="685" y="275" width="220" height="90" fill="#e9f7ef" stroke="#27ae60" stroke-width="2" rx="4"/>
+  <text x="795" y="298" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">Фізична PSRAM</text>
+  <text x="795" y="320" text-anchor="middle" font-size="12" fill="#1a1a1a">Фізичні кадри пам'яті</text>
+  <text x="795" y="342" text-anchor="middle" font-size="12" fill="#6b7280">Високошвидкісний доступ</text>
+
+  <!-- Panel 3 Block 3: Physical Ext Flash -->
+  <rect x="685" y="380" width="220" height="95" fill="#eaf0fd" stroke="#2457d6" stroke-width="2" rx="4"/>
+  <text x="795" y="403" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Фізична NOR Flash</text>
+  <text x="795" y="425" text-anchor="middle" font-size="12" fill="#1a1a1a">Фізичні блоки прошивки</text>
+  <text x="795" y="447" text-anchor="middle" font-size="12" fill="#6b7280">Енергонезалежна пам'ять</text>
+
+  <!-- Connectors / Arrows -->
+  <!-- Direct Internal Access (Bypass MMU): Peripherals & L2 SRAM -->
+  <path d="M 275 147 L 310 147 L 310 78 L 650 78 L 650 152 L 695 152" fill="none" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4,4" marker-end="url(#arr-dark)"/>
+
+  <!-- PSRAM Virtual Window -> MMU Entry N -->
+  <path d="M 275 320 L 315 320 L 315 252 L 370 252" fill="none" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- Flash Virtual Window -> MMU Entry M -->
+  <path d="M 275 427 L 305 427 L 305 304 L 370 304" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- MMU -> MSPI Controller -->
+  <path d="M 480 365 L 480 380" fill="none" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr-dark)"/>
+
+  <!-- MSPI -> Physical PSRAM -->
+  <path d="M 605 415 L 645 415 L 645 320 L 685 320" fill="none" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- MSPI -> Physical Flash -->
+  <path d="M 605 440 L 655 440 L 655 427 L 685 427" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+</svg>
