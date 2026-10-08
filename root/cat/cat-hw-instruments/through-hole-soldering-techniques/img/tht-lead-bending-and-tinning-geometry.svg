@@ -1,0 +1,165 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Background Canvas -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="36" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Геометрія вигину виводів THT-компонентів та підготовка до монтажу</text>
+  <text x="480" y="58" text-anchor="middle" font-size="13" fill="#6b7280">Норми радіусів вигину (R ≥ 2d), технологічні зазори та вимоги до лудження</text>
+
+  <!-- COLUMN 1: BENDING GEOMETRY -->
+  <rect x="35" y="85" width="430" height="410" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="55" y="112" font-size="15" font-weight="bold" fill="#1a1a1a">1. Геометрія вигину виводів THT</text>
+
+  <!-- Component Body -->
+  <rect x="200" y="165" width="100" height="30" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <rect x="215" y="165" width="6" height="30" fill="#e07a5f"/>
+  <rect x="230" y="165" width="6" height="30" fill="#1a1a1a"/>
+  <rect x="245" y="165" width="6" height="30" fill="#c0392b"/>
+  <rect x="275" y="165" width="6" height="30" fill="#d97706"/>
+  <text x="260" y="184" font-size="10" fill="#6b7280">Корпус</text>
+
+  <!-- Component Leads -->
+  <path d="M 200,180 L 160,180 A 20,20 0 0,0 140,200 L 140,260" fill="none" stroke="#475569" stroke-width="5" stroke-linecap="round"/>
+  <path d="M 300,180 L 340,180 A 20,20 0 0,1 360,200 L 360,260" fill="none" stroke="#475569" stroke-width="5" stroke-linecap="round"/>
+
+  <!-- PCB Cross-section -->
+  <rect x="85" y="250" width="330" height="12" fill="#e2e8f0" stroke="#94a3b8" stroke-width="1"/>
+  <rect x="133" y="248" width="14" height="16" fill="#f1f5f9" stroke="#d97706" stroke-width="2"/>
+  <rect x="353" y="248" width="14" height="16" fill="#f1f5f9" stroke="#d97706" stroke-width="2"/>
+  <text x="95" y="242" font-size="11" fill="#6b7280">Плата (PCB)</text>
+
+  <!-- Dimension L_s -->
+  <line x1="200" y1="165" x2="200" y2="148" stroke="#94a3b8" stroke-dasharray="2,2"/>
+  <line x1="160" y1="180" x2="160" y2="148" stroke="#94a3b8" stroke-dasharray="2,2"/>
+  <line x1="160" y1="154" x2="200" y2="154" stroke="#2457d6" stroke-width="1.5" marker-start="url(#arr-blue)" marker-end="url(#arr-blue)"/>
+  <text x="180" y="132" text-anchor="middle" font-size="11" fill="#6b7280">Пряма ділянка</text>
+  <text x="180" y="146" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">L_s ≥ 2d</text>
+
+  <!-- Radius R Callout -->
+  <line x1="160" y1="200" x2="146" y2="186" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="45" y="182" font-size="12" font-weight="bold" fill="#2457d6">R ≥ 2d</text>
+  <text x="45" y="196" font-size="11" fill="#6b7280">(радіус вигину)</text>
+
+  <!-- Lead Diameter d Callout -->
+  <line x1="375" y1="220" x2="375" y2="230" stroke="#2457d6" stroke-width="1.5" marker-start="url(#arr-blue)" marker-end="url(#arr-blue)"/>
+  <text x="382" y="228" font-size="11" font-weight="bold" fill="#2457d6">d (діаметр)</text>
+
+  <!-- Pitch Dimension P -->
+  <line x1="140" y1="266" x2="140" y2="290" stroke="#94a3b8" stroke-dasharray="2,2"/>
+  <line x1="360" y1="266" x2="360" y2="290" stroke="#94a3b8" stroke-dasharray="2,2"/>
+  <line x1="140" y1="282" x2="360" y2="282" stroke="#1a1a1a" stroke-width="1.5" marker-start="url(#arr)" marker-end="url(#arr)"/>
+  <text x="250" y="297" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a1a">Відстань між отворами P (Pitch)</text>
+
+  <!-- Sub-card 1: BAD -->
+  <rect x="55" y="320" width="185" height="155" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="147" y="342" text-anchor="middle" font-size="13" font-weight="bold" fill="#c0392b">⛔ НЕПРАВИЛЬНО</text>
+  
+  <rect x="75" y="360" width="45" height="28" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+  <path d="M 120,374 L 120,398" fill="none" stroke="#475569" stroke-width="4"/>
+  <circle cx="120" cy="374" r="5" fill="#c0392b"/>
+  <text x="132" y="372" font-size="10" font-weight="bold" fill="#c0392b">L_s = 0, R = 0</text>
+  <text x="132" y="386" font-size="10" fill="#c0392b">Тріщини біля шва!</text>
+
+  <text x="63" y="425" font-size="10.5" fill="#1a1a1a">• Вигин від корпусу (L_s = 0)</text>
+  <text x="63" y="441" font-size="10.5" fill="#1a1a1a">• Гострий злам (R &lt; d)</text>
+  <text x="63" y="457" font-size="10.5" fill="#1a1a1a">• Ризик тріщин корпусу</text>
+
+  <!-- Sub-card 2: GOOD -->
+  <rect x="260" y="320" width="185" height="155" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="352" y="342" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">✓ ПРАВИЛЬНО</text>
+  
+  <rect x="275" y="360" width="45" height="28" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <path d="M 320,374 L 332,374 A 8,8 0 0,1 340,382 L 340,398" fill="none" stroke="#475569" stroke-width="4"/>
+  <circle cx="332" cy="374" r="5" fill="#27ae60"/>
+  <text x="348" y="372" font-size="10" font-weight="bold" fill="#27ae60">L_s ≥ 2d</text>
+  <text x="348" y="386" font-size="10" font-weight="bold" fill="#27ae60">R ≥ 2d</text>
+
+  <text x="268" y="425" font-size="10.5" fill="#1a1a1a">• Зазор L_s ≥ 2d від корпусу</text>
+  <text x="268" y="441" font-size="10.5" fill="#1a1a1a">• Плавний радіус R ≥ 2d</text>
+  <text x="268" y="457" font-size="10.5" fill="#1a1a1a">• Збережена герметичність</text>
+
+
+  <!-- COLUMN 2: PRE-TINNING & HEAT SAFETY -->
+  <rect x="495" y="85" width="430" height="410" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="515" y="112" font-size="15" font-weight="bold" fill="#1a1a1a">2. Попереднє лудження та термозахист</text>
+
+  <!-- Component Body -->
+  <rect x="515" y="150" width="45" height="70" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="537" y="190" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">Корпус</text>
+
+  <!-- Bare Lead (Safety Gap L_t) -->
+  <rect x="560" y="180" width="70" height="8" fill="#d97706" rx="1"/>
+
+  <!-- Tinned Lead Surface -->
+  <rect x="630" y="177" width="260" height="14" fill="#cbd5e1" stroke="#2457d6" stroke-width="1.5" rx="3"/>
+  <path d="M 630,177 Q 625,184 630,191 Z" fill="#2457d6"/>
+
+  <!-- Safety Gap Dimension L_t -->
+  <line x1="560" y1="150" x2="560" y2="138" stroke="#94a3b8" stroke-dasharray="2,2"/>
+  <line x1="630" y1="150" x2="630" y2="138" stroke="#94a3b8" stroke-dasharray="2,2"/>
+  <line x1="560" y1="144" x2="630" y2="144" stroke="#2457d6" stroke-width="1.5" marker-start="url(#arr-blue)" marker-end="url(#arr-blue)"/>
+  <text x="595" y="126" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">L_t ≥ 1.0–1.5 мм</text>
+  <text x="595" y="139" text-anchor="middle" font-size="10" fill="#6b7280">(зазор захисту)</text>
+
+  <!-- Tinned Length Dimension -->
+  <line x1="890" y1="177" x2="890" y2="138" stroke="#94a3b8" stroke-dasharray="2,2"/>
+  <line x1="630" y1="144" x2="890" y2="144" stroke="#27ae60" stroke-width="1.5" marker-start="url(#arr-green)" marker-end="url(#arr-green)"/>
+  <text x="760" y="134" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">Залуджена ділянка виводу</text>
+
+  <!-- Labels Under Lead -->
+  <text x="595" y="206" text-anchor="middle" font-size="10" fill="#6b7280">Без припаю</text>
+  <text x="760" y="206" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a1a">Дзеркальний шар припаю Sn-Pb / Sn-Cu</text>
+
+  <!-- Detail Inset: Layer Structure -->
+  <rect x="515" y="238" width="390" height="65" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="525" y="254" font-size="11" font-weight="bold" fill="#1a1a1a">Структура покриття:</text>
+
+  <!-- Layer graphics inside inset -->
+  <rect x="665" y="278" width="225" height="12" rx="2" fill="#e07a5f"/>
+  <rect x="665" y="272" width="225" height="6" fill="#d97706"/>
+  <rect x="665" y="264" width="225" height="8" rx="2" fill="#94a3b8" stroke="#2457d6" stroke-width="1"/>
+
+  <text x="525" y="272" font-size="10" font-weight="bold" fill="#2457d6">Припай Sn (2–10 мкм)</text>
+  <text x="525" y="284" font-size="10" fill="#d97706">Інтерметалід IMC (Cu₃Sn)</text>
+  <text x="525" y="296" font-size="10" fill="#e07a5f">Мідна жила виводу (Cu)</text>
+
+  <!-- Sub-card 3: DEFECTS -->
+  <rect x="515" y="320" width="185" height="155" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="607" y="342" text-anchor="middle" font-size="13" font-weight="bold" fill="#c0392b">⚠️ ДЕФЕКТИ ЛУДЖЕННЯ</text>
+  
+  <line x1="535" y1="375" x2="680" y2="375" stroke="#475569" stroke-width="4"/>
+  <circle cx="590" cy="375" r="7" fill="#c0392b"/>
+  <circle cx="630" cy="375" r="4" fill="#d97706"/>
+  <text x="607" y="398" text-anchor="middle" font-size="10" font-weight="bold" fill="#c0392b">Напливи / Незмочування</text>
+
+  <text x="523" y="425" font-size="10.5" fill="#1a1a1a">• Напливи та оксидні плівки</text>
+  <text x="523" y="441" font-size="10.5" fill="#1a1a1a">• Тепловий шок корпусу</text>
+  <text x="523" y="457" font-size="10.5" fill="#1a1a1a">• Підсос флюсу під компаунд</text>
+
+  <!-- Sub-card 4: STANDARDS -->
+  <rect x="720" y="320" width="185" height="155" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="812" y="342" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">✓ НОРМИ ТЕХНОЛОГІЇ</text>
+  
+  <line x1="740" y1="375" x2="884" y2="375" stroke="#475569" stroke-width="4"/>
+  <rect x="750" y="371" width="124" height="8" rx="3" fill="#27ae60"/>
+  <text x="812" y="398" text-anchor="middle" font-size="10" font-weight="bold" fill="#27ae60">Дзеркальне покриття 360°</text>
+
+  <text x="728" y="425" font-size="10.5" fill="#1a1a1a">• T = 245–260°C (2–3 сек)</text>
+  <text x="728" y="441" font-size="10.5" fill="#1a1a1a">• Суцільне змочування 360°</text>
+  <text x="728" y="457" font-size="10.5" fill="#1a1a1a">• Товщина шару: 2–10 мкм</text>
+</svg>

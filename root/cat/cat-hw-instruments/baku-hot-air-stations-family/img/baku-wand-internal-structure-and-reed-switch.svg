@@ -1,0 +1,206 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 550" width="960" height="550" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <!-- Arrowhead markers -->
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-purple" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#7c3aed"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="550" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="34" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Внутрішня будова ручки фена BAKU та принцип герконового вимикача</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Взаємодія геркона з магнітом підставки переводить фен у режим автоматичного продування та охолодження</text>
+
+  <!-- PANEL A: Main Wand Cutaway & Holder -->
+  <rect x="20" y="75" width="615" height="330" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="8"/>
+  <text x="35" y="96" font-size="14" font-weight="bold" fill="#1a1a1a">Конструкція ручки фена та підставки</text>
+
+  <!-- Top Callout Lines & Labels inside Panel A -->
+  <!-- Callout 1: Turbine -->
+  <text x="105" y="120" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Безщіткова турбіна</text>
+  <text x="105" y="135" font-size="12" fill="#6b7280" text-anchor="middle">(вхід повітря)</text>
+  <line x1="105" y1="140" x2="105" y2="175" stroke="#6b7280" stroke-width="1" stroke-dasharray="2,2"/>
+
+  <!-- Callout 2: Reed Switch -->
+  <text x="245" y="120" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Герконовий вимикач</text>
+  <text x="245" y="135" font-size="12" fill="#0284c7" text-anchor="middle">(вбудований у ручку)</text>
+  <line x1="245" y1="140" x2="245" y2="238" stroke="#0284c7" stroke-width="1" stroke-dasharray="2,2"/>
+
+  <!-- Callout 3: Ceramic Heater -->
+  <text x="395" y="120" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Керамічний нагрівач</text>
+  <text x="395" y="135" font-size="12" fill="#d97706" text-anchor="middle">(зі спіраллю ніхрому)</text>
+  <line x1="395" y1="140" x2="395" y2="185" stroke="#d97706" stroke-width="1" stroke-dasharray="2,2"/>
+
+  <!-- Callout 4: Thermocouple -->
+  <text x="540" y="120" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Вбудована термопара</text>
+  <text x="540" y="135" font-size="12" fill="#9333ea" text-anchor="middle">(сенсор K-типу)</text>
+  <line x1="540" y1="140" x2="515" y2="200" stroke="#9333ea" stroke-width="1" stroke-dasharray="2,2"/>
+
+  <!-- WAND DRAWING -->
+  <!-- Wand Rear Cap & Cable Inlet -->
+  <path d="M45,190 L80,165 L80,255 L45,230 Z" fill="#334155" stroke="#1e293b" stroke-width="1.5"/>
+  <rect x="30" y="202" width="15" height="16" rx="2" fill="#64748b"/>
+
+  <!-- Wand Plastic Handle Casing (Cutaway view, translucent lower part or window) -->
+  <rect x="80" y="160" width="300" height="100" rx="6" fill="#f8fafc" stroke="#475569" stroke-width="2"/>
+  <!-- Handle Grip Ridges -->
+  <line x1="160" y1="163" x2="160" y2="173" stroke="#94a3b8" stroke-width="2"/>
+  <line x1="170" y1="163" x2="170" y2="173" stroke="#94a3b8" stroke-width="2"/>
+  <line x1="180" y1="163" x2="180" y2="173" stroke="#94a3b8" stroke-width="2"/>
+
+  <!-- Turbine Fan Unit (inside handle) -->
+  <rect x="88" y="175" width="40" height="70" rx="4" fill="#e2e8f0" stroke="#64748b" stroke-width="1.5"/>
+  <circle cx="108" cy="210" r="14" fill="#cbd5e1" stroke="#475569" stroke-width="1.5"/>
+  <!-- Fan Blades -->
+  <path d="M108,198 L108,222 M96,210 L120,210 M100,202 L116,218 M100,218 L116,202" stroke="#334155" stroke-width="1.5"/>
+  <!-- Air Flow Arrows inside handle -->
+  <path d="M135,200 L155,200" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <path d="M135,220 L155,220" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Wiring bundle running through handle -->
+  <path d="M45,210 L88,210 M128,235 L375,235" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="3,2"/>
+
+  <!-- Reed Switch inside Wand handle (Bottom part) -->
+  <rect x="215" y="240" width="60" height="16" rx="4" fill="#e0f2fe" stroke="#0284c7" stroke-width="1.5"/>
+  <!-- Reed switch metallic contacts inside capsule -->
+  <line x1="218" y1="248" x2="242" y2="248" stroke="#334155" stroke-width="1.5"/>
+  <line x1="272" y1="248" x2="244" y2="246" stroke="#334155" stroke-width="1.5"/>
+  <circle cx="218" cy="248" r="1.5" fill="#0284c7"/>
+  <circle cx="272" cy="248" r="1.5" fill="#0284c7"/>
+
+  <!-- Wand Metal Shield Barrel -->
+  <rect x="380" y="175" width="145" height="70" rx="2" fill="#e2e8f0" stroke="#64748b" stroke-width="2"/>
+  <rect x="380" y="178" width="145" height="64" fill="none" stroke="#94a3b8" stroke-width="1"/>
+
+  <!-- Ceramic Heating Element (inside metal barrel) -->
+  <rect x="390" y="186" width="120" height="48" rx="3" fill="#fffbe6" stroke="#d97706" stroke-width="1.5"/>
+  <!-- Heating Coil Winding (Orange/Red Zigzag Spiral) -->
+  <path d="M400,210 Q405,194 410,210 T420,210 T430,210 T440,210 T450,210 T460,210 T470,210 T480,210 T490,210" fill="none" stroke="#c0392b" stroke-width="2"/>
+  <!-- Inner ceramic core line -->
+  <line x1="390" y1="210" x2="510" y2="210" stroke="#f59e0b" stroke-width="1" stroke-dasharray="4,2"/>
+
+  <!-- Thermocouple Sensor Junction at Front Tip -->
+  <line x1="390" y1="205" x2="510" y2="205" stroke="#9333ea" stroke-width="1.2"/>
+  <line x1="390" y1="215" x2="510" y2="215" stroke="#2563eb" stroke-width="1.2"/>
+  <circle cx="512" cy="210" r="4.5" fill="#9333ea" stroke="#581c87" stroke-width="1.5"/>
+
+  <!-- Removable Nozzle (Сопло) -->
+  <path d="M525,185 L565,193 L565,227 L525,235 Z" fill="#94a3b8" stroke="#475569" stroke-width="1.5"/>
+
+  <!-- Hot Air Flow Arrows Exiting Nozzle -->
+  <path d="M572,204 L592,204" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <path d="M572,216 L592,216" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+
+  <!-- Hot Air Label -->
+  <text x="560" y="270" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Гаряче повітря</text>
+  <text x="560" y="285" font-size="11" fill="#6b7280" text-anchor="middle">(до +480 °C)</text>
+
+  <!-- HOLDER & MAGNET (Under Handle) -->
+  <!-- Wand Holder Base -->
+  <rect x="190" y="280" width="130" height="85" rx="8" fill="#e2e8f0" stroke="#94a3b8" stroke-width="2"/>
+  <!-- Holder Cradle Notch -->
+  <path d="M205,280 Q255,295 305,280" fill="none" stroke="#64748b" stroke-width="2"/>
+
+  <!-- Permanent Magnet inside Holder -->
+  <rect x="215" y="305" width="40" height="30" fill="#ef4444" stroke="#b91c1c" stroke-width="1.5"/>
+  <text x="235" y="325" font-size="14" font-weight="bold" fill="white" text-anchor="middle">N</text>
+  <rect x="255" y="305" width="40" height="30" fill="#3b82f6" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="275" y="325" font-size="14" font-weight="bold" fill="white" text-anchor="middle">S</text>
+
+  <!-- Holder Text Label -->
+  <text x="255" y="388" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Підставка з магнітом</text>
+
+  <!-- Magnetic Field Lines (Purple dashed curves from Magnet to Reed Switch) -->
+  <path d="M235,305 Q220,270 235,258" fill="none" stroke="#7c3aed" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#arr-purple)"/>
+  <path d="M275,305 Q290,270 255,258" fill="none" stroke="#7c3aed" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#arr-purple)"/>
+
+  <!-- Magnetic Field Text Label -->
+  <text x="110" y="325" font-size="12" font-weight="bold" fill="#7c3aed" text-anchor="middle">Магнітне поле</text>
+  <text x="110" y="340" font-size="11" fill="#6b7280" text-anchor="middle">(дія на геркон)</text>
+  <path d="M152,325 Q180,315 222,285" fill="none" stroke="#7c3aed" stroke-width="1" stroke-dasharray="2,2" marker-end="url(#arr-purple)"/>
+
+
+  <!-- PANEL B: Reed Switch States & Principles -->
+  <rect x="655" y="75" width="285" height="330" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="8"/>
+  <text x="797.5" y="96" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Стани геркового вимикача</text>
+
+  <!-- Card 1: Work Mode (Off Stand) -->
+  <rect x="670" y="112" width="255" height="132" fill="#ffffff" stroke="#27ae60" stroke-width="1.5" rx="6"/>
+  <text x="680" y="130" font-size="12" font-weight="bold" fill="#27ae60">1. Ручка в руках (без магніту)</text>
+
+  <!-- Reed Switch OPEN Drawing -->
+  <rect x="680" y="148" width="60" height="20" rx="4" fill="#f0fdf4" stroke="#27ae60" stroke-width="1"/>
+  <line x1="682" y1="158" x2="706" y2="158" stroke="#334155" stroke-width="1.5"/>
+  <line x1="738" y1="158" x2="708" y2="154" stroke="#334155" stroke-width="1.5"/>
+  <circle cx="682" cy="158" r="1.5" fill="#27ae60"/>
+  <circle cx="738" cy="158" r="1.5" fill="#27ae60"/>
+
+  <text x="755" y="152" font-size="12" font-weight="bold" fill="#c0392b">Контакти РОЗМИКНУТІ</text>
+  <text x="755" y="172" font-size="12" font-weight="bold" fill="#27ae60">Нагрів УВІМКНЕНО</text>
+  <text x="755" y="192" font-size="11" fill="#6b7280">Підтримка робочої t°</text>
+  <text x="755" y="212" font-size="11" font-weight="bold" fill="#27ae60">● Робочий режим</text>
+
+  <!-- Card 2: Cool / Standby Mode (On Stand) -->
+  <rect x="670" y="256" width="255" height="136" fill="#ffffff" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <text x="680" y="274" font-size="12" font-weight="bold" fill="#2457d6">2. Ручка на підставці (з магнітом)</text>
+
+  <!-- Reed Switch CLOSED Drawing -->
+  <rect x="680" y="292" width="60" height="20" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <line x1="682" y1="302" x2="708" y2="302" stroke="#334155" stroke-width="1.5"/>
+  <line x1="738" y1="302" x2="706" y2="302" stroke="#334155" stroke-width="1.5"/>
+  <circle cx="682" cy="302" r="1.5" fill="#2457d6"/>
+  <circle cx="738" cy="302" r="1.5" fill="#2457d6"/>
+
+  <text x="755" y="296" font-size="12" font-weight="bold" fill="#2457d6">Контакти ЗАМКНУТІ</text>
+  <text x="755" y="316" font-size="12" font-weight="bold" fill="#c0392b">Нагрів ВИМКНЕНО</text>
+  <text x="755" y="336" font-size="11" fill="#6b7280">Продування до &lt;100 °C</text>
+  <text x="755" y="356" font-size="11" font-weight="bold" fill="#2457d6">● Авто-охолодження</text>
+  <text x="755" y="374" font-size="11" fill="#27ae60">→ Далі Стендбай (сон)</text>
+
+
+  <!-- PANEL C: Step-by-Step Auto-Cooling Cycle -->
+  <rect x="20" y="415" width="920" height="115" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="8"/>
+  <text x="480" y="432" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Алгоритм автоматичного охолодження та збереження нагрівального елемента</text>
+
+  <!-- Step 1 -->
+  <rect x="35" y="445" width="195" height="70" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="132.5" y="462" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="middle">1. Посадка на підставку</text>
+  <text x="132.5" y="479" font-size="11" fill="#6b7280" text-anchor="middle">Магніт підставки</text>
+  <text x="132.5" y="496" font-size="11" fill="#2457d6" text-anchor="middle">замикає геркон</text>
+
+  <path d="M233,480 L254,480" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Step 2 -->
+  <rect x="260" y="445" width="195" height="70" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="357.5" y="462" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="middle">2. Зняття живлення</text>
+  <text x="357.5" y="479" font-size="11" fill="#6b7280" text-anchor="middle">Плата станції вимикає</text>
+  <text x="357.5" y="496" font-size="11" fill="#c0392b" text-anchor="middle">нагрівальний елемент</text>
+
+  <path d="M458,480 L479,480" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Step 3 -->
+  <rect x="485" y="445" width="195" height="70" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="582.5" y="462" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="middle">3. Активне продування</text>
+  <text x="582.5" y="479" font-size="11" fill="#6b7280" text-anchor="middle">Турбіна охолоджує</text>
+  <text x="582.5" y="496" font-size="11" fill="#2457d6" text-anchor="middle">спіраль до &lt;100 °C</text>
+
+  <path d="M683,480 L704,480" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Step 4 -->
+  <rect x="710" y="445" width="195" height="70" fill="#ffffff" stroke="#27ae60" stroke-width="1.5" rx="6"/>
+  <text x="807.5" y="462" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="middle">4. Стендбай (режим сну)</text>
+  <text x="807.5" y="479" font-size="11" fill="#6b7280" text-anchor="middle">Вимкнення турбіни,</text>
+  <text x="807.5" y="496" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">захист від термошоку</text>
+
+</svg>

@@ -1,0 +1,118 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Canvas Background -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="34" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Будова та елементи термоусадкової обтискної гільзи з термоклеєм</text>
+  <text x="480" y="56" font-size="13" fill="#6b7280" text-anchor="middle">Електричне з'єднання забезпечується опресованою гільзою, а герметичність — усадкою полімеру та адгезивом</text>
+
+  <!-- Panel 1: Longitudinal Section -->
+  <rect x="30" y="80" width="570" height="415" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="315" y="106" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Поздовжній розріз гільзи (неусаджений стан)</text>
+
+  <!-- Panel 1: Top Callouts -->
+  <text x="135" y="128" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Зовнішня оболонка</text>
+  <text x="135" y="143" font-size="12" fill="#6b7280" text-anchor="middle">Термоусадний поліолефін</text>
+  <line x1="135" y1="149" x2="135" y2="195" stroke="#2457d6" stroke-width="1.2" marker-end="url(#arr-blue)"/>
+
+  <text x="315" y="128" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Шар термоклею</text>
+  <text x="315" y="143" font-size="12" fill="#6b7280" text-anchor="middle">Герметизуючий адгезив</text>
+  <line x1="315" y1="149" x2="315" y2="215" stroke="#27ae60" stroke-width="1.2" marker-end="url(#arr-green)"/>
+
+  <text x="495" y="128" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Металева гільза</text>
+  <text x="495" y="143" font-size="12" fill="#6b7280" text-anchor="middle">Лудена мідна трубка</text>
+  <line x1="495" y1="149" x2="435" y2="230" stroke="#1a1a1a" stroke-width="1.2" marker-end="url(#arr)"/>
+
+  <!-- Connector Geometry -->
+  <!-- Outer Polyolefin Sheath -->
+  <rect x="75" y="195" width="480" height="20" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="75" y="335" width="480" height="20" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+
+  <!-- Inner Adhesive Glue Layer -->
+  <rect x="75" y="215" width="480" height="15" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="75" y="320" width="480" height="15" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+
+  <!-- Inner Metallic Sleeve -->
+  <!-- Top metal wall -->
+  <path d="M 185,230 L 445,230 L 445,242 L 325,242 L 325,265 L 305,265 L 305,242 L 185,242 Z" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1.5"/>
+  <!-- Bottom metal wall -->
+  <path d="M 185,320 L 445,320 L 445,308 L 325,308 L 325,285 L 305,285 L 305,308 L 185,308 Z" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Chamfer lines on sleeve entry -->
+  <line x1="185" y1="230" x2="195" y2="242" stroke="#1a1a1a" stroke-width="1.2"/>
+  <line x1="185" y1="320" x2="195" y2="308" stroke="#1a1a1a" stroke-width="1.2"/>
+  <line x1="445" y1="230" x2="435" y2="242" stroke="#1a1a1a" stroke-width="1.2"/>
+  <line x1="445" y1="320" x2="435" y2="308" stroke="#1a1a1a" stroke-width="1.2"/>
+
+  <!-- Axis Line -->
+  <line x1="55" y1="275" x2="575" y2="275" stroke="#6b7280" stroke-width="0.8" stroke-dasharray="8,4,2,4"/>
+
+  <!-- Crimp Zones Indications -->
+  <rect x="200" y="230" width="90" height="90" fill="none" stroke="#2457d6" stroke-width="1" stroke-dasharray="4,3"/>
+  <rect x="340" y="230" width="90" height="90" fill="none" stroke="#2457d6" stroke-width="1" stroke-dasharray="4,3"/>
+
+  <!-- Dimension Lines -->
+  <!-- Total Length L_tot -->
+  <line x1="75" y1="375" x2="555" y2="375" stroke="#6b7280" stroke-width="1"/>
+  <line x1="75" y1="370" x2="75" y2="380" stroke="#6b7280" stroke-width="1"/>
+  <line x1="555" y1="370" x2="555" y2="380" stroke="#6b7280" stroke-width="1"/>
+  <text x="315" y="368" font-size="12" fill="#6b7280" text-anchor="middle">L_tot</text>
+
+  <!-- Panel 1: Bottom Callouts -->
+  <text x="135" y="425" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Канал вводу жил</text>
+  <text x="135" y="440" font-size="12" fill="#6b7280" text-anchor="middle">Вхідні фаски для монтажу</text>
+  <line x1="135" y1="413" x2="175" y2="275" stroke="#1a1a1a" stroke-width="1.2" marker-end="url(#arr)"/>
+
+  <text x="315" y="425" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Обмежувач вводу</text>
+  <text x="315" y="440" font-size="12" fill="#6b7280" text-anchor="middle">Центральний стопор дротів</text>
+  <line x1="215" y1="413" x2="315" y2="285" stroke="#1a1a1a" stroke-width="1.2" marker-end="url(#arr)"/>
+
+  <text x="495" y="425" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Зони опресування</text>
+  <text x="495" y="440" font-size="12" fill="#6b7280" text-anchor="middle">Опресування матрицею</text>
+  <line x1="495" y1="413" x2="410" y2="320" stroke="#2457d6" stroke-width="1.2" marker-end="url(#arr-blue)"/>
+
+
+  <!-- Panel 2: Cross Section -->
+  <rect x="620" y="80" width="310" height="415" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="775" y="106" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Поперечний розріз A-A</text>
+
+  <!-- Cross section concentric circles -->
+  <!-- 1. Polyolefin outer -->
+  <circle cx="775" cy="245" r="80" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.8"/>
+  <!-- 2. Glue layer -->
+  <circle cx="775" cy="245" r="60" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.8"/>
+  <!-- 3. Copper sleeve -->
+  <circle cx="775" cy="245" r="44" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1.8"/>
+  <!-- 4. Inner wire cavity -->
+  <circle cx="775" cy="245" r="30" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.2" stroke-dasharray="4,3"/>
+
+  <!-- Center axes -->
+  <line x1="665" y1="245" x2="885" y2="245" stroke="#6b7280" stroke-width="0.8" stroke-dasharray="8,4,2,4"/>
+  <line x1="775" y1="135" x2="775" y2="355" stroke="#6b7280" stroke-width="0.8" stroke-dasharray="8,4,2,4"/>
+
+  <!-- Section A-A label -->
+  <text x="650" y="240" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">A</text>
+  <text x="900" y="240" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">A</text>
+
+  <!-- Panel 2 Callouts -->
+  <text x="775" y="380" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">1. Зовнішня поліолефінова трубка</text>
+  <text x="775" y="395" font-size="12" fill="#6b7280" text-anchor="middle">Зовнішній діаметр D_ext</text>
+
+  <text x="775" y="420" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">2. Шар термоклею (адгезиву)</text>
+  <text x="775" y="435" font-size="12" fill="#6b7280" text-anchor="middle">Термопластичний розплав</text>
+
+  <text x="775" y="460" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">3. Металевий циліндр</text>
+  <text x="775" y="475" font-size="12" fill="#6b7280" text-anchor="middle">Внутрішній діаметр d_in</text>
+</svg>

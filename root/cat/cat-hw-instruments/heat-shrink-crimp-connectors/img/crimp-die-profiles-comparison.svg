@@ -1,0 +1,125 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- White Background -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <defs>
+    <!-- Arrow Markers -->
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Header Section -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Порівняння профілів матриць для обтискання термоусадкових гільз</text>
+  <text x="480" y="52" text-anchor="middle" font-size="13" fill="#6b7280">Точкова матриця пробиває ізоляцію, а овальний профіль зберігає герметичність полімеру</text>
+
+  <!-- Left Panel: Problem / Incorrect Crimping -->
+  <rect x="30" y="68" width="435" height="372" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="48" y="94" font-size="14" font-weight="bold" fill="#c0392b">❌ Точкова / клиноподібна матриця (Single Indent)</text>
+  <text x="48" y="114" font-size="12" fill="#6b7280">Використання матриці для неозольованих наконечників</text>
+
+  <!-- Left Force Arrow & Label -->
+  <line x1="245" y1="125" x2="245" y2="145" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="255" y="138" font-size="12" font-weight="bold" fill="#c0392b">F</text>
+
+  <!-- Left Upper Die Jaw (Tooth profile) -->
+  <path d="M 200,148 L 290,148 L 290,165 L 255,165 L 245,192 L 235,165 L 200,165 Z" fill="#d0d7de" stroke="#6b7280" stroke-width="1.5"/>
+
+  <!-- Left Lower Die Jaw (Anvil) -->
+  <path d="M 200,280 L 290,280 L 290,250 L 275,250 C 260,262 230,262 215,250 L 200,250 Z" fill="#d0d7de" stroke="#6b7280" stroke-width="1.5"/>
+
+  <!-- Left Connector Cross-Section (Indented / Punctured) -->
+  <!-- Outer Heat-Shrink Sheath -->
+  <path d="M 180,225 C 180,205 210,205 232,212 L 245,232 L 258,212 C 280,205 310,205 310,225 C 310,245 280,252 245,252 C 210,252 180,245 180,225 Z" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <!-- Inner Adhesive Layer -->
+  <path d="M 186,225 C 186,210 210,210 234,217 L 245,234 L 256,217 C 280,210 304,210 304,225 C 304,241 280,247 245,247 C 210,247 186,241 186,225 Z" fill="#fef9e7" stroke="#f39c12" stroke-width="1.5"/>
+  <!-- Metallic Sleeve -->
+  <path d="M 195,225 C 195,216 215,216 235,221 L 245,235 L 255,221 C 275,216 295,216 295,225 C 295,236 275,241 245,241 C 215,241 195,236 195,225 Z" fill="#e67e22" stroke="#d35400" stroke-width="1.5"/>
+  <!-- Wire Strands -->
+  <circle cx="215" cy="225" r="3.5" fill="#b87333" stroke="#8c4600" stroke-width="0.8"/>
+  <circle cx="225" cy="225" r="3.5" fill="#b87333" stroke="#8c4600" stroke-width="0.8"/>
+  <circle cx="235" cy="228" r="3.5" fill="#b87333" stroke="#8c4600" stroke-width="0.8"/>
+  <circle cx="245" cy="237" r="3.5" fill="#b87333" stroke="#8c4600" stroke-width="0.8"/>
+  <circle cx="255" cy="228" r="3.5" fill="#b87333" stroke="#8c4600" stroke-width="0.8"/>
+  <circle cx="265" cy="225" r="3.5" fill="#b87333" stroke="#8c4600" stroke-width="0.8"/>
+  <circle cx="275" cy="225" r="3.5" fill="#b87333" stroke="#8c4600" stroke-width="0.8"/>
+  <!-- Puncture Marker -->
+  <circle cx="245" cy="232" r="5" fill="#c0392b"/>
+  <line x1="238" y1="232" x2="252" y2="232" stroke="#ffffff" stroke-width="1.5"/>
+  <line x1="245" y1="225" x2="245" y2="239" stroke="#ffffff" stroke-width="1.5"/>
+
+  <!-- Left Diagram Callouts -->
+  <line x1="140" y1="190" x2="238" y2="212" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <text x="48" y="165" font-size="12" font-weight="bold" fill="#c0392b">Глибока вм'ятина / прокол</text>
+  <text x="48" y="180" font-size="12" fill="#c0392b">зовнішньої ізоляції</text>
+
+  <line x1="330" y1="190" x2="258" y2="215" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <text x="320" y="165" font-size="12" font-weight="bold" fill="#c0392b">Розрив термоусадки</text>
+  <text x="320" y="180" font-size="12" fill="#6b7280">і витискання клею</text>
+
+  <!-- Left Bottom Card -->
+  <rect x="45" y="305" width="405" height="120" rx="6" fill="#ffffff" stroke="#f5c6cb" stroke-width="1"/>
+  <text x="60" y="325" font-size="13" font-weight="bold" fill="#c0392b">Наслідки використання точкового профілю:</text>
+  <text x="60" y="347" font-size="12" fill="#1a1a1a">• Механічне пробивання полімерної оболонки зубом</text>
+  <text x="60" y="367" font-size="12" fill="#1a1a1a">• Порушення цілісності внутрішнього шару клею</text>
+  <text x="60" y="387" font-size="12" fill="#1a1a1a">• Втрата герметичності та корозія мідних жил</text>
+  <text x="60" y="407" font-size="12" font-weight="bold" fill="#c0392b">⛔ Непридатна для термоусадкових гільз</text>
+
+  <!-- Right Panel: Solution / Correct Crimping -->
+  <rect x="495" y="68" width="435" height="372" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="513" y="94" font-size="14" font-weight="bold" fill="#27ae60">✓ Гладка овальна матриця (Smooth Oval Crimp)</text>
+  <text x="513" y="114" font-size="12" fill="#6b7280">Спеціальна матриця для ізольованих термоусадкових гільз</text>
+
+  <!-- Right Force Arrows & Label -->
+  <line x1="690" y1="125" x2="690" y2="145" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <line x1="730" y1="125" x2="730" y2="145" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="745" y="138" font-size="12" font-weight="bold" fill="#27ae60">F_доб</text>
+
+  <!-- Right Upper Die Jaw (Smooth Oval profile) -->
+  <path d="M 665,148 L 755,148 L 755,170 Q 710,195 665,170 Z" fill="#d0d7de" stroke="#27ae60" stroke-width="1.5"/>
+
+  <!-- Right Lower Die Jaw (Smooth Oval profile) -->
+  <path d="M 665,280 L 755,280 L 755,245 Q 710,220 665,245 Z" fill="#d0d7de" stroke="#27ae60" stroke-width="1.5"/>
+
+  <!-- Right Connector Cross-Section (Smooth Oval deformation) -->
+  <!-- Outer Sheath -->
+  <ellipse cx="710" cy="207.5" rx="65" ry="24" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <!-- Adhesive Layer -->
+  <ellipse cx="710" cy="207.5" rx="57" ry="18" fill="#fef9e7" stroke="#f39c12" stroke-width="1.5"/>
+  <!-- Metallic Sleeve -->
+  <ellipse cx="710" cy="207.5" rx="47" ry="12" fill="#e67e22" stroke="#d35400" stroke-width="1.5"/>
+  <!-- Wire Strands -->
+  <circle cx="680" cy="207.5" r="3.5" fill="#b87333" stroke="#8c4600" stroke-width="0.8"/>
+  <circle cx="690" cy="207.5" r="3.5" fill="#b87333" stroke="#8c4600" stroke-width="0.8"/>
+  <circle cx="700" cy="207.5" r="3.5" fill="#b87333" stroke="#8c4600" stroke-width="0.8"/>
+  <circle cx="710" cy="207.5" r="3.5" fill="#b87333" stroke="#8c4600" stroke-width="0.8"/>
+  <circle cx="720" cy="207.5" r="3.5" fill="#b87333" stroke="#8c4600" stroke-width="0.8"/>
+  <circle cx="730" cy="207.5" r="3.5" fill="#b87333" stroke="#8c4600" stroke-width="0.8"/>
+  <circle cx="740" cy="207.5" r="3.5" fill="#b87333" stroke="#8c4600" stroke-width="0.8"/>
+
+  <!-- Right Diagram Callouts -->
+  <line x1="580" y1="190" x2="645" y2="205" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <text x="513" y="165" font-size="12" font-weight="bold" fill="#27ae60">Гладка деформація</text>
+  <text x="513" y="180" font-size="12" fill="#27ae60">ізоляції без надрізів</text>
+
+  <line x1="830" y1="190" x2="772" y2="205" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <text x="780" y="165" font-size="12" font-weight="bold" fill="#27ae60">Збережений клей</text>
+  <text x="780" y="180" font-size="12" fill="#6b7280">для герметизації</text>
+
+  <!-- Right Bottom Card -->
+  <rect x="510" y="305" width="405" height="120" rx="6" fill="#ffffff" stroke="#c3e6cb" stroke-width="1"/>
+  <text x="525" y="325" font-size="13" font-weight="bold" fill="#27ae60">Переваги гладкого овального профілю:</text>
+  <text x="525" y="347" font-size="12" fill="#1a1a1a">• Рівномірне стиснення металевої гільзи та жил</text>
+  <text x="525" y="367" font-size="12" fill="#1a1a1a">• Збереження цілісності трубки та клейового шару</text>
+  <text x="525" y="387" font-size="12" fill="#1a1a1a">• Гарантована герметичність IP67 після усадки</text>
+  <text x="525" y="407" font-size="12" font-weight="bold" fill="#27ae60">✓ Обов'язковий стандарт для термоусадки</text>
+</svg>

@@ -1,0 +1,121 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-accent" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Background canvas -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Фазова діаграма сплаву Sn-Pb та порівняння з SAC305</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Евтектика кристалізується миттєво при фіксованій T, а неевтектичні сплави мають пастоподібний інтервал (солідус–ліквідус)</text>
+
+  <!-- LEFT PANEL: Diagram Container -->
+  <rect x="30" y="70" width="540" height="445" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="300" y="94" font-size="14" font-weight="700" fill="#1a1a1a" text-anchor="middle">Діаграма стану Pb-Sn (Температура — Концентрація)</text>
+
+  <!-- Grid lines & Temperature Guidelines -->
+  <!-- Eutectic Temp 183°C line -->
+  <line x1="65" y1="340" x2="535" y2="340" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <text x="60" y="344" font-size="12" font-weight="700" fill="#c0392b" text-anchor="end">183 °C</text>
+
+  <!-- Melting point Pb 327°C line -->
+  <line x1="85" y1="165" x2="115" y2="165" stroke="#6b7280" stroke-width="1" stroke-dasharray="2,2"/>
+  <text x="60" y="169" font-size="12" fill="#6b7280" text-anchor="end">327 °C</text>
+
+  <!-- Melting point Sn 232°C line -->
+  <line x1="85" y1="280" x2="535" y2="280" stroke="#6b7280" stroke-width="1" stroke-dasharray="2,2"/>
+  <text x="60" y="284" font-size="12" fill="#6b7280" text-anchor="end">232 °C</text>
+
+  <!-- SAC305 Ref Temp 217°C line -->
+  <line x1="85" y1="298" x2="535" y2="298" stroke="#2457d6" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="60" y="302" font-size="12" font-weight="700" fill="#2457d6" text-anchor="end">217 °C</text>
+
+  <!-- Main Axes -->
+  <!-- Y axis (Temperature) -->
+  <line x1="100" y1="440" x2="100" y2="135" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+  <text x="100" y="122" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">Температура T (°C)</text>
+
+  <!-- X axis (Concentration % Sn) -->
+  <line x1="100" y1="440" x2="535" y2="440" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+  <text x="317" y="502" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">Вміст олова Sn (мас. %)</text>
+
+  <!-- X axis Ticks & Labels -->
+  <!-- 0% Sn -->
+  <line x1="100" y1="440" x2="100" y2="446" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="100" y="458" font-size="12" fill="#1a1a1a" text-anchor="middle">0% Sn</text>
+  <text x="100" y="472" font-size="11" fill="#6b7280" text-anchor="middle">(100% Pb)</text>
+
+  <!-- 19% Sn -->
+  <line x1="180" y1="440" x2="180" y2="446" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="180" y1="340" x2="180" y2="440" stroke="#6b7280" stroke-width="1" stroke-dasharray="2,2"/>
+  <text x="180" y="458" font-size="12" fill="#1a1a1a" text-anchor="middle">19%</text>
+
+  <!-- 63% Sn (Eutectic) -->
+  <line x1="374" y1="440" x2="374" y2="446" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="374" y1="340" x2="374" y2="440" stroke="#2457d6" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="374" y="458" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">63% Sn</text>
+  <text x="374" y="472" font-size="11" font-weight="700" fill="#2457d6" text-anchor="middle">(Sn63Pb37)</text>
+
+  <!-- 100% Sn -->
+  <line x1="525" y1="440" x2="525" y2="446" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="525" y="458" font-size="12" fill="#1a1a1a" text-anchor="middle">100% Sn</text>
+  <text x="525" y="472" font-size="11" fill="#6b7280" text-anchor="middle">(0% Pb)</text>
+
+  <!-- Liquidus Curves -->
+  <!-- Left liquidus -->
+  <path d="M 100,165 Q 225,265 374,340" fill="none" stroke="#2457d6" stroke-width="3"/>
+  <!-- Right liquidus -->
+  <path d="M 374,340 Q 445,315 525,280" fill="none" stroke="#2457d6" stroke-width="3"/>
+  <text x="270" y="215" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">Лінія ліквідусу (T_liq)</text>
+
+  <!-- Solidus Line -->
+  <line x1="180" y1="340" x2="525" y2="340" stroke="#c0392b" stroke-width="3"/>
+  <line x1="100" y1="165" x2="180" y2="340" stroke="#c0392b" stroke-width="2"/>
+  <text x="260" y="360" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">Лінія солідусу (T_sol = 183 °C)</text>
+
+  <!-- Phase Region Text Labels -->
+  <text x="280" y="175" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">Рідка фаза (L)</text>
+  <text x="215" y="265" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">Пастоподібна фаза (L + α)</text>
+  <text x="445" y="312" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">Пастоподібна фаза (L + β)</text>
+  <text x="260" y="405" font-size="13" font-weight="700" fill="#27ae60" text-anchor="middle">Тверда фаза (α + β)</text>
+
+  <!-- Eutectic Point Highlight -->
+  <circle cx="374" cy="340" r="5" fill="#2457d6" stroke="white" stroke-width="2"/>
+  <line x1="374" y1="340" x2="425" y2="365" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="430" y="370" font-size="12" font-weight="700" fill="#2457d6" text-anchor="start">Евтектика (63% Sn, 183 °C)</text>
+
+  <!-- RIGHT PANEL: Cards Container -->
+  <!-- Card 1: Sn63Pb37 -->
+  <rect x="585" y="70" width="345" height="135" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="600" y="93" font-size="14" font-weight="700" fill="#27ae60">1. Евтектичний сплав (Sn63Pb37)</text>
+  <text x="600" y="115" font-size="12" fill="#1a1a1a">• T_sol = T_liq = 183 °C (ΔT = 0 °C)</text>
+  <text x="600" y="133" font-size="12" fill="#1a1a1a">• Миттєва кристалізація рідкий ↔ твердий</text>
+  <text x="600" y="151" font-size="12" fill="#1a1a1a">• Нульова пастоподібна фаза при паянні</text>
+  <text x="600" y="169" font-size="12" fill="#1a1a1a">• Запобігає зсуву SMT-компонентів</text>
+
+  <!-- Card 2: SAC305 -->
+  <rect x="585" y="225" width="345" height="140" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="600" y="248" font-size="14" font-weight="700" fill="#2457d6">2. Безсвинцевий SAC305 (SnAgCu)</text>
+  <text x="600" y="270" font-size="12" fill="#1a1a1a">• T_sol = 217 °C, T_liq = 220 °C</text>
+  <text x="600" y="288" font-size="12" fill="#1a1a1a">• Вузький пастоподібний інтервал ΔT = 3 °C</text>
+  <text x="600" y="306" font-size="12" fill="#1a1a1a">• Близький за властивостями до евтектики</text>
+  <text x="600" y="324" font-size="12" fill="#1a1a1a">• Мінімізує ризик дефекту "надгробка"</text>
+
+  <!-- Card 3: Non-Eutectic -->
+  <rect x="585" y="380" width="345" height="135" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="600" y="403" font-size="14" font-weight="700" fill="#c0392b">3. Неевтектичний сплав (Sn60Pb40)</text>
+  <text x="600" y="425" font-size="12" fill="#1a1a1a">• T_sol = 183 °C, T_liq = 191 °C (ΔT = 8 °C)</text>
+  <text x="600" y="443" font-size="12" fill="#1a1a1a">• Широкий пастоподібний стан (пластичний)</text>
+  <text x="600" y="461" font-size="12" fill="#1a1a1a">• Потребує знерухомлення при охолодженні</text>
+  <text x="600" y="479" font-size="12" fill="#1a1a1a">• Ризик появи мікротріщин при вібраціях</text>
+
+</svg>

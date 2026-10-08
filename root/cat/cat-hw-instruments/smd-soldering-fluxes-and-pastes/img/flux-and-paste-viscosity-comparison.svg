@@ -1,0 +1,186 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 500" width="960" height="500" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <!-- Arrow Markers -->
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Background Canvas -->
+  <rect x="0" y="0" width="960" height="500" fill="white"/>
+
+  <!-- Main Header -->
+  <text x="480" y="30" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Порівняння в'язкості та формоутворення паяльних матеріалів</text>
+  <text x="480" y="50" font-size="13" fill="#6b7280" text-anchor="middle">Поведінка матеріалу на контактній площадці та утримання SMD-компонента</text>
+
+  <!-- ==================== PANEL 1: LIQUID FLUX ==================== -->
+  <rect x="30" y="65" width="286" height="415" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="8"/>
+  
+  <!-- Panel 1 Header Box -->
+  <rect x="42" y="77" width="262" height="48" fill="#fdecea" stroke="#c0392b" stroke-width="1" rx="6"/>
+  <text x="173" y="96" font-size="14" font-weight="bold" fill="#c0392b" text-anchor="middle">1. Рідкий флюс</text>
+  <text x="173" y="114" font-size="12" fill="#1a1a1a" text-anchor="middle">Низька в'язкість (Liquid Flux)</text>
+
+  <!-- Viscosity Badge -->
+  <rect x="103" y="133" width="140" height="22" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="11"/>
+  <text x="173" y="148" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">η = 1 – 10 mPa·s</text>
+
+  <!-- Diagram Area Panel 1 -->
+  <!-- PCB Substrate -->
+  <rect x="53" y="245" width="240" height="18" fill="#2d3748" stroke="#1a202c" stroke-width="1" rx="2"/>
+  <text x="61" y="258" font-size="12" fill="#94a3b8" text-anchor="start">FR-4</text>
+
+  <!-- Copper Pad -->
+  <rect x="93" y="237" width="160" height="8" fill="#b45309" stroke="#78350f" stroke-width="1"/>
+
+  <!-- Liquid Puddle -->
+  <path d="M 83,237 Q 88,231 173,231 Q 258,231 263,237 Z" fill="#fef08a" fill-opacity="0.8" stroke="#eab308" stroke-width="1.5"/>
+
+  <!-- SMD Component (Shifted / Sliding) -->
+  <rect x="105" y="210" width="70" height="20" fill="#334155" stroke="#1e293b" stroke-width="1" rx="2"/>
+  <rect x="105" y="210" width="12" height="20" fill="#94a3b8"/>
+  <rect x="163" y="210" width="12" height="20" fill="#94a3b8"/>
+
+  <!-- Movement Arrow -->
+  <path d="M 180,220 L 220,220" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <text x="226" y="216" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="start">Зсув</text>
+  <text x="226" y="228" font-size="12" fill="#c0392b" text-anchor="start">деталі</text>
+
+  <!-- Contact Angle Label -->
+  <text x="173" y="278" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">Кут змочування θ &lt; 15° (розтікання)</text>
+
+  <!-- Panel 1 Summary Box -->
+  <rect x="42" y="292" width="262" height="176" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="173" y="312" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Характеристики рідкого флюсу:</text>
+  <text x="52" y="334" font-size="12" fill="#1a1a1a" text-anchor="start">• Стан: рідкий спиртовий розчин</text>
+  <text x="52" y="356" font-size="12" fill="#1a1a1a" text-anchor="start">• Форма: розтікається тонкою плівкою</text>
+  <text x="52" y="378" font-size="12" fill="#c0392b" text-anchor="start">• Утримання: відсутнє (деталь зсувається)</text>
+  <text x="52" y="400" font-size="12" fill="#1a1a1a" text-anchor="start">• Нанесення: пензель, маркер, спрей</text>
+  <text x="52" y="422" font-size="12" fill="#6b7280" text-anchor="start">• Застосування: вивідний монтаж, ремонт,</text>
+  <text x="52" y="440" font-size="12" fill="#6b7280" text-anchor="start">  очищення окислів при паянні</text>
+
+  <!-- ==================== PANEL 2: GEL FLUX ==================== -->
+  <rect x="337" y="65" width="286" height="415" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="8"/>
+
+  <!-- Panel 2 Header Box -->
+  <rect x="349" y="77" width="262" height="48" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="6"/>
+  <text x="480" y="96" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">2. Гель-флюс</text>
+  <text x="480" y="114" font-size="12" fill="#1a1a1a" text-anchor="middle">Висока липкість (Gel / Tacky Flux)</text>
+
+  <!-- Viscosity Badge -->
+  <rect x="405" y="133" width="150" height="22" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="11"/>
+  <text x="480" y="148" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">η = 50 – 200 Pa·s</text>
+
+  <!-- Diagram Area Panel 2 -->
+  <!-- PCB Substrate -->
+  <rect x="360" y="245" width="240" height="18" fill="#2d3748" stroke="#1a202c" stroke-width="1" rx="2"/>
+  <text x="368" y="258" font-size="12" fill="#94a3b8" text-anchor="start">FR-4</text>
+
+  <!-- Copper Pad -->
+  <rect x="400" y="237" width="160" height="8" fill="#b45309" stroke="#78350f" stroke-width="1"/>
+
+  <!-- Gel Dome Drop -->
+  <path d="M 415,237 C 415,202 545,202 545,237 Z" fill="#f59e0b" fill-opacity="0.85" stroke="#d97706" stroke-width="1.5"/>
+
+  <!-- Sticky Force Arrow & Label -->
+  <path d="M 480,174 L 480,188" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <text x="480" y="168" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Липка фіксація</text>
+
+  <!-- SMD Component (Stably Embedded) -->
+  <rect x="435" y="192" width="90" height="22" fill="#334155" stroke="#1e293b" stroke-width="1" rx="2"/>
+  <rect x="435" y="192" width="14" height="22" fill="#94a3b8"/>
+  <rect x="511" y="192" width="14" height="22" fill="#94a3b8"/>
+
+  <!-- Contact Angle Label -->
+  <text x="480" y="278" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">Кут краплі θ ≈ 60°–80° (утримання дози)</text>
+
+  <!-- Panel 2 Summary Box -->
+  <rect x="349" y="292" width="262" height="176" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="480" y="312" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Характеристики гель-флюсу:</text>
+  <text x="359" y="334" font-size="12" fill="#1a1a1a" text-anchor="start">• Стан: вазеліноподібний гелевий флюс</text>
+  <text x="359" y="356" font-size="12" fill="#1a1a1a" text-anchor="start">• Форма: тримає опуклу краплю / валик</text>
+  <text x="359" y="378" font-size="12" fill="#27ae60" text-anchor="start">• Утримання: надійна фіксація SMD/BGA</text>
+  <text x="359" y="400" font-size="12" fill="#1a1a1a" text-anchor="start">• Нанесення: дозатор, шприц, шпатель</text>
+  <text x="359" y="422" font-size="12" fill="#6b7280" text-anchor="start">• Застосування: реболлінг BGA, монтаж</text>
+  <text x="359" y="440" font-size="12" fill="#6b7280" text-anchor="start">  складних SMD-корпусів феном</text>
+
+  <!-- ==================== PANEL 3: SOLDER PASTE ==================== -->
+  <rect x="644" y="65" width="286" height="415" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="8"/>
+
+  <!-- Panel 3 Header Box -->
+  <rect x="656" y="77" width="262" height="48" fill="#e9f7ef" stroke="#27ae60" stroke-width="1" rx="6"/>
+  <text x="787" y="96" font-size="14" font-weight="bold" fill="#27ae60" text-anchor="middle">3. Паяльна паста</text>
+  <text x="787" y="114" font-size="12" fill="#1a1a1a" text-anchor="middle">Тиксотропна суспензія (Solder Paste)</text>
+
+  <!-- Viscosity Badge -->
+  <rect x="707" y="133" width="160" height="22" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="11"/>
+  <text x="787" y="148" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">η = 300 – 900 Pa·s</text>
+
+  <!-- Diagram Area Panel 3 -->
+  <!-- PCB Substrate -->
+  <rect x="667" y="245" width="240" height="18" fill="#2d3748" stroke="#1a202c" stroke-width="1" rx="2"/>
+  <text x="675" y="258" font-size="12" fill="#94a3b8" text-anchor="start">FR-4</text>
+
+  <!-- Copper Pad -->
+  <rect x="707" y="237" width="160" height="8" fill="#b45309" stroke="#78350f" stroke-width="1"/>
+
+  <!-- Solder Paste Deposit -->
+  <rect x="722" y="207" width="130" height="30" fill="#cbd5e1" stroke="#64748b" stroke-width="1.5" rx="3"/>
+  
+  <!-- Solder Alloy Spheres Matrix -->
+  <circle cx="734" cy="214" r="3" fill="#64748b"/>
+  <circle cx="748" cy="214" r="3" fill="#64748b"/>
+  <circle cx="762" cy="214" r="3" fill="#64748b"/>
+  <circle cx="776" cy="214" r="3" fill="#64748b"/>
+  <circle cx="790" cy="214" r="3" fill="#64748b"/>
+  <circle cx="804" cy="214" r="3" fill="#64748b"/>
+  <circle cx="818" cy="214" r="3" fill="#64748b"/>
+  <circle cx="832" cy="214" r="3" fill="#64748b"/>
+
+  <circle cx="741" cy="222" r="3" fill="#64748b"/>
+  <circle cx="755" cy="222" r="3" fill="#64748b"/>
+  <circle cx="769" cy="222" r="3" fill="#64748b"/>
+  <circle cx="783" cy="222" r="3" fill="#64748b"/>
+  <circle cx="797" cy="222" r="3" fill="#64748b"/>
+  <circle cx="811" cy="222" r="3" fill="#64748b"/>
+  <circle cx="825" cy="222" r="3" fill="#64748b"/>
+
+  <circle cx="734" cy="230" r="3" fill="#64748b"/>
+  <circle cx="748" cy="230" r="3" fill="#64748b"/>
+  <circle cx="762" cy="230" r="3" fill="#64748b"/>
+  <circle cx="776" cy="230" r="3" fill="#64748b"/>
+  <circle cx="790" cy="230" r="3" fill="#64748b"/>
+  <circle cx="804" cy="230" r="3" fill="#64748b"/>
+  <circle cx="818" cy="230" r="3" fill="#64748b"/>
+  <circle cx="832" cy="230" r="3" fill="#64748b"/>
+
+  <!-- Paste Label above component -->
+  <text x="787" y="168" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Доза + припой (SAC305)</text>
+
+  <!-- SMD Component (Resting on Paste) -->
+  <rect x="742" y="187" width="90" height="20" fill="#334155" stroke="#1e293b" stroke-width="1" rx="2"/>
+  <rect x="742" y="187" width="14" height="20" fill="#94a3b8"/>
+  <rect x="818" y="187" width="14" height="20" fill="#94a3b8"/>
+
+  <!-- Contact Angle / Shape Label -->
+  <text x="787" y="278" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">Трафаретний відбиток (без розтікання)</text>
+
+  <!-- Panel 3 Summary Box -->
+  <rect x="656" y="292" width="262" height="176" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="787" y="312" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Характеристики паяльної пасти:</text>
+  <text x="666" y="334" font-size="12" fill="#1a1a1a" text-anchor="start">• Стан: припой у гелевому флюсі</text>
+  <text x="666" y="356" font-size="12" fill="#1a1a1a" text-anchor="start">• Форма: чіткий циліндр / трафарет</text>
+  <text x="666" y="378" font-size="12" fill="#27ae60" text-anchor="start">• Утримання: повна фіксація вагових SMD</text>
+  <text x="666" y="400" font-size="12" fill="#1a1a1a" text-anchor="start">• Нанесення: трафаретний друк, шприц</text>
+  <text x="666" y="422" font-size="12" fill="#6b7280" text-anchor="start">• Застосування: серійний SMD-монтаж,</text>
+  <text x="666" y="440" font-size="12" fill="#6b7280" text-anchor="start">  оплавлення гарячим повітрям/піччю</text>
+</svg>

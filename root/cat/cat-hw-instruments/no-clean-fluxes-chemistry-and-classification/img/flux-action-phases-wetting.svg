@@ -1,0 +1,152 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Canvas Background -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Header -->
+  <text x="480" y="36" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Послідовні фази дії флюсу при паянні</text>
+  <text x="480" y="58" text-anchor="middle" font-size="13" fill="#6b7280">Очищення металу від оксидів, зниження поверхневого натягу та розтікання припою</text>
+
+  <!-- CARD 1: Активація та деоксидація -->
+  <rect x="25" y="75" width="270" height="365" rx="8" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <path d="M 25,83 A 8,8 0 0,1 33,75 L 287,75 A 8,8 0 0,1 295,83 L 295,113 L 25,113 Z" fill="#fdecea"/>
+  <line x1="25" y1="113" x2="295" y2="113" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="160" y="98" text-anchor="middle" font-size="13" font-weight="bold" fill="#c0392b">1. Активація та деоксидація</text>
+
+  <!-- Temperature Badge 1 -->
+  <rect x="35" y="125" width="115" height="24" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="92.5" y="141" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">T: 100–180 °C</text>
+
+  <!-- Diagram Area 1 -->
+  <rect x="40" y="158" width="240" height="116" rx="4" fill="#fef08a" fill-opacity="0.35" stroke="#ca8a04" stroke-dasharray="4,3"/>
+  <text x="160" y="176" text-anchor="middle" font-size="12" font-weight="bold" fill="#92400e">Рідкий флюс (активатори)</text>
+
+  <!-- R-COOH Acid Molecules -->
+  <rect x="45" y="186" width="56" height="24" rx="12" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="73" y="202" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">R-COOH</text>
+  <line x1="73" y1="210" x2="73" y2="240" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#arr-red)"/>
+
+  <rect x="219" y="186" width="56" height="24" rx="12" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="247" y="202" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">R-COOH</text>
+  <line x1="247" y1="210" x2="247" y2="240" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#arr-red)"/>
+
+  <text x="160" y="226" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Розчинення плівки CuO</text>
+
+  <!-- Oxide layer -->
+  <rect x="40" y="246" width="240" height="8" fill="#78350f" rx="1"/>
+  <line x1="73" y1="246" x2="73" y2="254" stroke="#ffffff" stroke-width="3"/>
+  <line x1="247" y1="246" x2="247" y2="254" stroke="#ffffff" stroke-width="3"/>
+
+  <!-- Copper Substrate 1 -->
+  <rect x="40" y="254" width="240" height="20" fill="#d97736" stroke="#b85c14" stroke-width="1.5" rx="2"/>
+  <text x="160" y="269" text-anchor="middle" font-size="12" font-weight="bold" fill="#ffffff">Мідний контакт (Cu)</text>
+
+  <!-- Description Box 1 -->
+  <rect x="33" y="305" width="254" height="122" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="43" y="324" font-size="12" font-weight="bold" fill="#1a1a1a">Хімічна реакція:</text>
+  <text x="43" y="344" font-size="12" font-weight="bold" fill="#c0392b">CuO + 2RCOOH → Cu(RCOO)₂ + H₂O</text>
+  <text x="43" y="366" font-size="12" fill="#1a1a1a">• Активатори розчиняють</text>
+  <text x="43" y="386" font-size="12" fill="#1a1a1a">  оксиди на поверхні Cu</text>
+  <text x="43" y="408" font-size="12" fill="#6b7280">• Очищається метал під паяння</text>
+
+  <!-- Transition Arrow 1 -> 2 -->
+  <line x1="298" y1="235" x2="338" y2="235" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+  <text x="318" y="220" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Нагрів</text>
+
+  <!-- CARD 2: Зниження поверхневого натягу -->
+  <rect x="345" y="75" width="270" height="365" rx="8" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <path d="M 345,83 A 8,8 0 0,1 353,75 L 607,75 A 8,8 0 0,1 615,83 L 615,113 L 345,113 Z" fill="#eaf0fd"/>
+  <line x1="345" y1="113" x2="615" y2="113" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="480" y="98" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">2. Зниження натягу (γ_SL)</text>
+
+  <!-- Temperature Badge 2 -->
+  <rect x="355" y="125" width="115" height="24" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="412.5" y="141" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">T: 180–220 °C</text>
+
+  <!-- Diagram Area 2 -->
+  <rect x="360" y="158" width="240" height="116" rx="4" fill="#fef08a" fill-opacity="0.35" stroke="#ca8a04" stroke-dasharray="4,3"/>
+  <text x="480" y="176" text-anchor="middle" font-size="12" font-weight="bold" fill="#92400e">Середовище рідкого флюсу</text>
+
+  <text x="480" y="196" text-anchor="middle" font-size="12" font-weight="bold" fill="#1e293b">Крапля припою</text>
+
+  <!-- Solder Droplet Dome -->
+  <path d="M 425,254 C 425,212 535,212 535,254 Z" fill="#cbd5e1" stroke="#475569" stroke-width="2"/>
+
+  <!-- Contact Angle θ indicator -->
+  <path d="M 443,254 A 18,18 0 0,0 436,241" fill="none" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="450" y="250" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">θ</text>
+
+  <!-- Surface Tension Vectors -->
+  <line x1="425" y1="238" x2="375" y2="238" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="382" y="224" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">γ_SF</text>
+
+  <line x1="535" y1="238" x2="495" y2="238" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="518" y="224" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">γ_SL</text>
+
+  <!-- Copper Substrate 2 -->
+  <rect x="360" y="254" width="240" height="20" fill="#d97736" stroke="#b85c14" stroke-width="1.5" rx="2"/>
+  <text x="480" y="269" text-anchor="middle" font-size="12" font-weight="bold" fill="#ffffff">Очищена поверхня Cu</text>
+
+  <!-- Description Box 2 -->
+  <rect x="353" y="305" width="254" height="122" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="363" y="324" font-size="12" font-weight="bold" fill="#1a1a1a">Фізичний механізм:</text>
+  <text x="363" y="344" font-size="12" font-weight="bold" fill="#2457d6">cos θ = (γ_SF - γ_SL) / γ_LF</text>
+  <text x="363" y="366" font-size="12" fill="#1a1a1a">• Флюс зменшує міжфазний</text>
+  <text x="363" y="386" font-size="12" fill="#1a1a1a">  поверхневий натяг γ_SL</text>
+  <text x="363" y="408" font-size="12" fill="#6b7280">• Кут змочування θ зменшується</text>
+
+  <!-- Transition Arrow 2 -> 3 -->
+  <line x1="618" y1="235" x2="658" y2="235" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arr-green)"/>
+  <text x="638" y="220" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Паяння</text>
+
+  <!-- CARD 3: Змочування та IMC -->
+  <rect x="665" y="75" width="270" height="365" rx="8" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <path d="M 665,83 A 8,8 0 0,1 673,75 L 927,75 A 8,8 0 0,1 935,83 L 935,113 L 665,113 Z" fill="#e9f7ef"/>
+  <line x1="665" y1="113" x2="935" y2="113" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="800" y="98" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">3. Змочування та IMC</text>
+
+  <!-- Temperature Badge 3 -->
+  <rect x="675" y="125" width="115" height="24" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="732.5" y="141" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">T: 230–250 °C</text>
+
+  <!-- Diagram Area 3 -->
+  <rect x="680" y="158" width="240" height="116" rx="4" fill="#fef08a" fill-opacity="0.2" stroke="#ca8a04" stroke-dasharray="4,3"/>
+  <path d="M 695,198 Q 698,186 695,174" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="2,2" fill="none" marker-end="url(#arr)"/>
+  <path d="M 905,198 Q 908,186 905,174" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="2,2" fill="none" marker-end="url(#arr)"/>
+  <text x="800" y="174" text-anchor="middle" font-size="12" font-weight="bold" fill="#6b7280">Пасивація / випаровування</text>
+
+  <text x="800" y="198" text-anchor="middle" font-size="12" font-weight="bold" fill="#1e293b">Розлитий припій (θ &lt; 30°)</text>
+
+  <!-- Spread Solder Meniscus -->
+  <path d="M 680,248 L 680,230 Q 680,224 685,224 L 915,224 Q 920,224 920,230 L 920,248 Z" fill="#cbd5e1" stroke="#475569" stroke-width="2"/>
+  <text x="800" y="240" text-anchor="middle" font-size="12" font-weight="bold" fill="#059669">Інтерметалід Cu₆Sn₅ (IMC)</text>
+
+  <!-- IMC Layer -->
+  <rect x="680" y="248" width="240" height="6" fill="#059669"/>
+
+  <!-- Copper Substrate 3 -->
+  <rect x="680" y="254" width="240" height="20" fill="#d97736" stroke="#b85c14" stroke-width="1.5" rx="2"/>
+  <text x="800" y="269" text-anchor="middle" font-size="12" font-weight="bold" fill="#ffffff">Підкладка Cu</text>
+
+  <!-- Description Box 3 -->
+  <rect x="673" y="305" width="254" height="122" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="683" y="324" font-size="12" font-weight="bold" fill="#1a1a1a">Утворення зв'язку:</text>
+  <text x="683" y="344" font-size="12" font-weight="bold" fill="#27ae60">6Cu + 5Sn → Cu₆Sn₅ (IMC)</text>
+  <text x="683" y="366" font-size="12" fill="#1a1a1a">• Повне розтікання припою</text>
+  <text x="683" y="386" font-size="12" fill="#1a1a1a">  та дифузія Cu-Sn</text>
+  <text x="683" y="408" font-size="12" fill="#6b7280">• Залишки флюсу пасивуються</text>
+</svg>

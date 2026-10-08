@@ -1,0 +1,114 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="34" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Топологія макету: хаотичний монтаж проти плоского (U-подібного)</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Охайне прилягання перемичок і блокираторні конденсатори зменшують паразитні контури й спрощують перевірку</text>
+
+  <!-- LEFT PANEL: Chaotic Wiring (Bad) -->
+  <rect x="35" y="85" width="430" height="435" rx="8" ry="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+
+  <!-- Left Header Badge -->
+  <rect x="50" y="98" width="400" height="30" rx="4" ry="4" fill="#c0392b"/>
+  <text x="250" y="118" font-size="13" font-weight="700" fill="#ffffff" text-anchor="middle">Хаотичний об'ємний монтаж (Довгі петлі)</text>
+
+  <!-- Left Breadboard Surface -->
+  <rect x="50" y="138" width="400" height="220" rx="6" ry="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Left Power Rails -->
+  <line x1="60" y1="152" x2="440" y2="152" stroke="#c0392b" stroke-width="2"/>
+  <line x1="60" y1="164" x2="440" y2="164" stroke="#2457d6" stroke-width="2"/>
+  <line x1="60" y1="332" x2="440" y2="332" stroke="#2457d6" stroke-width="2"/>
+  <line x1="60" y1="344" x2="440" y2="344" stroke="#c0392b" stroke-width="2"/>
+
+  <!-- Left Rail Labels -->
+  <text x="65" y="148" font-size="10" font-weight="700" fill="#c0392b">VCC</text>
+  <text x="65" y="176" font-size="10" font-weight="700" fill="#2457d6">GND</text>
+  <text x="65" y="328" font-size="10" font-weight="700" fill="#2457d6">GND</text>
+  <text x="65" y="356" font-size="10" font-weight="700" fill="#c0392b">VCC</text>
+
+  <!-- Left Central DIP Slot -->
+  <rect x="50" y="244" width="400" height="8" fill="#e2e8f0"/>
+
+  <!-- Left DIP IC Chip -->
+  <rect x="210" y="228" width="80" height="40" rx="3" ry="3" fill="#2c3e50" stroke="#1a1a1a"/>
+  <text x="250" y="252" font-size="11" font-weight="700" fill="#ffffff" text-anchor="middle">DIP-14 IC</text>
+
+  <!-- Left Messy Wires -->
+  <path d="M 220,228 C 220,180 340,180 340,152" stroke="#c0392b" stroke-width="2.5" fill="none"/>
+  <path d="M 280,268 C 280,316 160,316 160,332" stroke="#2457d6" stroke-width="2.5" fill="none"/>
+  <path d="M 230,228 C 230,170 370,170 370,228" stroke="#e67e22" stroke-width="2" fill="none"/>
+  <path d="M 260,268 C 260,310 190,310 190,268" stroke="#8e44ad" stroke-width="2" fill="none"/>
+
+  <!-- Left Callout Box -->
+  <rect x="50" y="370" width="400" height="135" rx="6" ry="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="65" y="392" font-size="13" font-weight="700" fill="#c0392b">Характеристики та проблеми:</text>
+  <text x="65" y="416" font-size="12" fill="#1a1a1a">• Довгі висячі дроти утворюють великі антенні контури</text>
+  <text x="65" y="438" font-size="12" fill="#1a1a1a">• Висока паразитна індуктивність L_par погіршує фронти</text>
+  <text x="65" y="460" font-size="12" fill="#1a1a1a">• Сильні перехресні завади (наводки між провідниками)</text>
+  <text x="65" y="482" font-size="12" font-weight="700" fill="#c0392b">• Складний пошук помилок і ризик випадкового замикання</text>
+
+  <!-- RIGHT PANEL: Flat Wiring (Good) -->
+  <rect x="495" y="85" width="430" height="435" rx="8" ry="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+
+  <!-- Right Header Badge -->
+  <rect x="510" y="98" width="400" height="30" rx="4" ry="4" fill="#27ae60"/>
+  <text x="710" y="118" font-size="13" font-weight="700" fill="#ffffff" text-anchor="middle">Охайний плоский монтаж (U-перемички)</text>
+
+  <!-- Right Breadboard Surface -->
+  <rect x="510" y="138" width="400" height="220" rx="6" ry="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Right Power Rails -->
+  <line x1="520" y1="152" x2="900" y2="152" stroke="#c0392b" stroke-width="2"/>
+  <line x1="520" y1="164" x2="900" y2="164" stroke="#2457d6" stroke-width="2"/>
+  <line x1="520" y1="332" x2="900" y2="332" stroke="#2457d6" stroke-width="2"/>
+  <line x1="520" y1="344" x2="900" y2="344" stroke="#c0392b" stroke-width="2"/>
+
+  <!-- Right Rail Labels -->
+  <text x="525" y="148" font-size="10" font-weight="700" fill="#c0392b">VCC</text>
+  <text x="525" y="176" font-size="10" font-weight="700" fill="#2457d6">GND</text>
+  <text x="525" y="328" font-size="10" font-weight="700" fill="#2457d6">GND</text>
+  <text x="525" y="356" font-size="10" font-weight="700" fill="#c0392b">VCC</text>
+
+  <!-- Right Central DIP Slot -->
+  <rect x="510" y="244" width="400" height="8" fill="#e2e8f0"/>
+
+  <!-- Right DIP IC Chip -->
+  <rect x="670" y="228" width="80" height="40" rx="3" ry="3" fill="#2c3e50" stroke="#1a1a1a"/>
+  <text x="710" y="252" font-size="11" font-weight="700" fill="#ffffff" text-anchor="middle">DIP-14 IC</text>
+
+  <!-- Decoupling Capacitor -->
+  <rect x="630" y="208" width="16" height="26" rx="3" ry="3" fill="#f39c12" stroke="#d35400" stroke-width="1.5"/>
+  <line x1="635" y1="216" x2="635" y2="226" stroke="#ffffff" stroke-width="1.5"/>
+  <line x1="641" y1="216" x2="641" y2="226" stroke="#ffffff" stroke-width="1.5"/>
+  <path d="M 638,208 V 152" stroke="#c0392b" stroke-width="2"/>
+  <path d="M 638,234 H 670" stroke="#c0392b" stroke-width="2"/>
+  <text x="622" y="224" font-size="11" font-weight="700" fill="#27ae60" text-anchor="end">C_dec 100nF</text>
+
+  <!-- Right Flat U-Wires -->
+  <path d="M 680,228 V 152" stroke="#c0392b" stroke-width="2.5" fill="none"/>
+  <path d="M 740,268 V 332" stroke="#2457d6" stroke-width="2.5" fill="none"/>
+  <path d="M 690,228 V 190 H 830 V 228" stroke="#27ae60" stroke-width="2" fill="none"/>
+  <path d="M 720,268 V 300 H 650 V 268" stroke="#27ae60" stroke-width="2" fill="none"/>
+
+  <!-- Right Callout Box -->
+  <rect x="510" y="370" width="400" height="135" rx="6" ry="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="525" y="392" font-size="13" font-weight="700" fill="#27ae60">Переваги та рішення:</text>
+  <text x="525" y="416" font-size="12" fill="#1a1a1a">• Короткі U-перемички щільно прилягають до плати</text>
+  <text x="525" y="438" font-size="12" fill="#1a1a1a">• Конденсатор C_dec шунтує високочастотні імпульси</text>
+  <text x="525" y="460" font-size="12" fill="#1a1a1a">• Мінімальна паразитна індуктивність та відсутність наводок</text>
+  <text x="525" y="482" font-size="12" font-weight="700" fill="#27ae60">• Прозорий контроль схеми та висока надійність контакту</text>
+</svg>

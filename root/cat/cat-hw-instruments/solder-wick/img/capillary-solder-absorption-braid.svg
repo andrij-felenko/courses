@@ -1,0 +1,179 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <!-- Arrow markers -->
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-amber" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#d97706"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="34" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Мікрофізика капілярного всотування припаю мідним плетінням</text>
+  <text x="480" y="56" text-anchor="middle" font-size="13" fill="#6b7280">Флюсове очищення знижує поверхневий натяг, спрямовуючи рідкий припай у міжниткові капіляри під дією тиску Δp</text>
+
+  <!-- LEFT PANEL: Cross Section -->
+  <rect x="25" y="75" width="550" height="440" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="8"/>
+  <text x="300" y="100" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Переріз контактної зони: плетіння, флюс та рідкий припай</text>
+
+  <!-- Soldering Iron Tip -->
+  <path d="M 210,118 L 390,118 L 365,170 L 235,170 Z" fill="#475569" stroke="#334155" stroke-width="1.5"/>
+  <text x="300" y="142" text-anchor="middle" font-size="13" font-weight="bold" fill="#ffffff">Жало паяльника (Джерело тепла Q)</text>
+  <text x="300" y="160" text-anchor="middle" font-size="12" fill="#cbd5e1">Притиск передає тепловий потік</text>
+
+  <!-- Heat Flow Arrows -->
+  <line x1="260" y1="173" x2="260" y2="192" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <line x1="300" y1="173" x2="300" y2="192" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <line x1="340" y1="173" x2="340" y2="192" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+
+  <!-- PCB Substrate FR-4 -->
+  <rect x="55" y="455" width="490" height="30" fill="#1e4620" stroke="#143415" stroke-width="1.5" rx="4"/>
+  <text x="300" y="475" text-anchor="middle" font-size="12" font-weight="bold" fill="#ffffff">Склотекстолітна основа друкованої плати (FR-4)</text>
+
+  <!-- PCB Copper Pad -->
+  <rect x="90" y="405" width="420" height="25" fill="#b45309" stroke="#78350f" stroke-width="1.5" rx="2"/>
+  <text x="300" y="422" text-anchor="middle" font-size="12" font-weight="bold" fill="#ffffff">Контактна площадка плати (Cu)</text>
+
+  <!-- Liquid Solder Pool on Pad & Rising inside Braid -->
+  <path d="M 120,405 L 480,405 Q 490,390 470,370 Q 450,350 430,340 Q 400,310 380,280 Q 350,250 300,245 Q 250,250 220,280 Q 200,310 170,340 Q 150,350 130,370 Q 110,390 120,405 Z" fill="#94a3b8" fill-opacity="0.5" stroke="#64748b" stroke-width="1.5"/>
+
+  <!-- Copper Wire Strands Array -->
+  <!-- Row 1 (y=215) -->
+  <circle cx="240" cy="215" r="13" fill="#d97706" stroke="#92400e" stroke-width="1.5"/>
+  <circle cx="275" cy="215" r="13" fill="#d97706" stroke="#92400e" stroke-width="1.5"/>
+  <circle cx="310" cy="215" r="13" fill="#d97706" stroke="#92400e" stroke-width="1.5"/>
+  <circle cx="345" cy="215" r="13" fill="#d97706" stroke="#92400e" stroke-width="1.5"/>
+  <circle cx="380" cy="215" r="13" fill="#d97706" stroke="#92400e" stroke-width="1.5"/>
+
+  <!-- Row 2 (y=255) -->
+  <circle cx="222" cy="255" r="13" fill="#d97706" stroke="#92400e" stroke-width="1.5"/>
+  <circle cx="257" cy="255" r="13" fill="#d97706" stroke="#92400e" stroke-width="1.5"/>
+  <circle cx="292" cy="255" r="13" fill="#d97706" stroke="#92400e" stroke-width="1.5"/>
+  <circle cx="327" cy="255" r="13" fill="#d97706" stroke="#92400e" stroke-width="1.5"/>
+  <circle cx="362" cy="255" r="13" fill="#d97706" stroke="#92400e" stroke-width="1.5"/>
+  <circle cx="397" cy="255" r="13" fill="#d97706" stroke="#92400e" stroke-width="1.5"/>
+
+  <!-- Row 3 (y=295) -->
+  <circle cx="205" cy="295" r="13" fill="#d97706" stroke="#92400e" stroke-width="1.5"/>
+  <circle cx="240" cy="295" r="13" fill="#d97706" stroke="#92400e" stroke-width="1.5"/>
+  <circle cx="275" cy="295" r="13" fill="#d97706" stroke="#92400e" stroke-width="1.5"/>
+  <circle cx="310" cy="295" r="13" fill="#d97706" stroke="#92400e" stroke-width="1.5"/>
+  <circle cx="345" cy="295" r="13" fill="#d97706" stroke="#92400e" stroke-width="1.5"/>
+  <circle cx="380" cy="295" r="13" fill="#d97706" stroke="#92400e" stroke-width="1.5"/>
+  <circle cx="415" cy="295" r="13" fill="#d97706" stroke="#92400e" stroke-width="1.5"/>
+
+  <!-- Row 4 (y=335) -->
+  <circle cx="187" cy="335" r="13" fill="#d97706" stroke="#92400e" stroke-width="1.5"/>
+  <circle cx="222" cy="335" r="13" fill="#d97706" stroke="#92400e" stroke-width="1.5"/>
+  <circle cx="257" cy="335" r="13" fill="#d97706" stroke="#92400e" stroke-width="1.5"/>
+  <circle cx="292" cy="335" r="13" fill="#d97706" stroke="#92400e" stroke-width="1.5"/>
+  <circle cx="327" cy="335" r="13" fill="#d97706" stroke="#92400e" stroke-width="1.5"/>
+  <circle cx="362" cy="335" r="13" fill="#d97706" stroke="#92400e" stroke-width="1.5"/>
+  <circle cx="397" cy="335" r="13" fill="#d97706" stroke="#92400e" stroke-width="1.5"/>
+  <circle cx="432" cy="335" r="13" fill="#d97706" stroke="#92400e" stroke-width="1.5"/>
+
+  <!-- Row 5 (y=375) -->
+  <circle cx="170" cy="375" r="13" fill="#d97706" stroke="#92400e" stroke-width="1.5"/>
+  <circle cx="205" cy="375" r="13" fill="#d97706" stroke="#92400e" stroke-width="1.5"/>
+  <circle cx="240" cy="375" r="13" fill="#d97706" stroke="#92400e" stroke-width="1.5"/>
+  <circle cx="275" cy="375" r="13" fill="#d97706" stroke="#92400e" stroke-width="1.5"/>
+  <circle cx="310" cy="375" r="13" fill="#d97706" stroke="#92400e" stroke-width="1.5"/>
+  <circle cx="345" cy="375" r="13" fill="#d97706" stroke="#92400e" stroke-width="1.5"/>
+  <circle cx="380" cy="375" r="13" fill="#d97706" stroke="#92400e" stroke-width="1.5"/>
+  <circle cx="415" cy="375" r="13" fill="#d97706" stroke="#92400e" stroke-width="1.5"/>
+
+  <!-- Annotations / Callout Labels on Left Panel -->
+  <!-- Label 1: Heat flow -->
+  <text x="40" y="135" font-size="12" font-weight="bold" fill="#1a1a1a">Тепловий потік Q</text>
+  <text x="40" y="151" font-size="12" fill="#6b7280">Розігрів припаю</text>
+  <line x1="140" y1="145" x2="195" y2="145" stroke="#6b7280" stroke-width="1" stroke-dasharray="3,3" marker-end="url(#arr)"/>
+
+  <!-- Label 2: Flux effect -->
+  <text x="40" y="240" font-size="12" font-weight="bold" fill="#d97706">Флюсове просочення</text>
+  <text x="40" y="256" font-size="12" fill="#6b7280">Руйнує оксиди міді</text>
+  <text x="40" y="272" font-size="12" fill="#6b7280">і зменшує натяг γ</text>
+  <line x1="155" y1="255" x2="195" y2="255" stroke="#d97706" stroke-width="1" stroke-dasharray="3,3" marker-end="url(#arr-amber)"/>
+
+  <!-- Label 3: Capillary suction -->
+  <text x="440" y="235" font-size="12" font-weight="bold" fill="#2457d6">Всотування F_c</text>
+  <text x="440" y="251" font-size="12" fill="#6b7280">Рух рідкого припаю</text>
+  <text x="440" y="267" font-size="12" fill="#6b7280">у міжниткові капіляри</text>
+  <line x1="435" y1="250" x2="400" y2="235" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Label 4: Solder absorption result -->
+  <text x="40" y="360" font-size="12" font-weight="bold" fill="#27ae60">Очищення площадки</text>
+  <text x="40" y="376" font-size="12" fill="#6b7280">Припай повністю</text>
+  <text x="40" y="392" font-size="12" fill="#6b7280">іде в плетіння</text>
+  <line x1="145" y1="375" x2="165" y2="390" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+
+  <!-- RIGHT TOP PANEL: Capillary pressure & meniscus -->
+  <rect x="595" y="75" width="340" height="215" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="8"/>
+  <text x="765" y="100" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Капілярний тиск та угнутий меніск</text>
+
+  <!-- Two Wires with Capillary gap -->
+  <circle cx="675" cy="160" r="28" fill="#d97706" stroke="#92400e" stroke-width="2"/>
+  <text x="675" y="164" text-anchor="middle" font-size="12" font-weight="bold" fill="#ffffff">Нить 1</text>
+
+  <circle cx="785" cy="160" r="28" fill="#d97706" stroke="#92400e" stroke-width="2"/>
+  <text x="785" y="164" text-anchor="middle" font-size="12" font-weight="bold" fill="#ffffff">Нить 2</text>
+
+  <!-- Liquid Solder forming concave meniscus between Wire 1 and Wire 2 -->
+  <path d="M 701,150 Q 730,178 759,150 L 763,185 Q 730,195 697,185 Z" fill="#94a3b8" stroke="#475569" stroke-width="1.5"/>
+
+  <!-- Meniscus label -->
+  <text x="730" y="136" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Угнутий меніск</text>
+  <line x1="730" y1="140" x2="730" y2="158" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Capillary pressure formula card -->
+  <rect x="615" y="215" width="300" height="60" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="4"/>
+  <text x="765" y="236" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Формула тиску: Δp = (2 · γ · cos θ) / r</text>
+  <text x="765" y="258" text-anchor="middle" font-size="12" fill="#1a1a1a">γ — натяг;  θ — кут змочування (&lt; 90°);  r — радіус</text>
+
+
+  <!-- RIGHT BOTTOM PANEL: Flux role & oxide layer -->
+  <rect x="595" y="305" width="210" height="210" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="8"/>
+  <!-- Wait rect width 340 -->
+  <rect x="595" y="305" width="340" height="210" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="8"/>
+  <text x="765" y="330" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Вплив флюсу на поверхневе змочування</text>
+
+  <!-- Sub-card Left: Without Flux -->
+  <rect x="612" y="348" width="146" height="152" fill="#fdecea" stroke="#c0392b" stroke-width="1" rx="6"/>
+  <text x="685" y="368" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Без флюсу (Оксид)</text>
+
+  <!-- Copper base with oxide layer -->
+  <rect x="625" y="445" width="120" height="14" fill="#b45309" stroke="#78350f" stroke-width="1"/>
+  <rect x="625" y="441" width="120" height="4" fill="#991b1b"/>
+
+  <!-- Non-wetting solder droplet (theta > 90) -->
+  <path d="M 660,441 A 25,25 0 1,1 710,441 Z" fill="#94a3b8" stroke="#c0392b" stroke-width="1.5"/>
+
+  <text x="685" y="475" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">θ &gt; 90° (Окклюзія)</text>
+  <text x="685" y="492" text-anchor="middle" font-size="12" fill="#1a1a1a">Всотування відсутнє</text>
+
+  <!-- Sub-card Right: With Flux -->
+  <rect x="772" y="348" width="146" height="152" fill="#e9f7ef" stroke="#27ae60" stroke-width="1" rx="6"/>
+  <text x="845" y="368" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">З флюсом (Очищення)</text>
+
+  <!-- Clean copper base -->
+  <rect x="785" y="445" width="120" height="14" fill="#b45309" stroke="#78350f" stroke-width="1"/>
+
+  <!-- Wetting solder film (theta < 90) -->
+  <path d="M 795,445 Q 845,432 895,445 Z" fill="#94a3b8" stroke="#27ae60" stroke-width="1.5"/>
+
+  <text x="845" y="475" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">θ &lt; 90° (Змочування)</text>
+  <text x="845" y="492" text-anchor="middle" font-size="12" fill="#1a1a1a">Капілярний всмоктувач</text>
+</svg>

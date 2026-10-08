@@ -1,0 +1,169 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 530" width="960" height="530" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <!-- Arrow marker for blue airflow -->
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <!-- Arrow marker for red hot air flow -->
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <!-- Dark arrow marker -->
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <!-- Green arrow marker -->
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Canvas background -->
+  <rect x="0" y="0" width="960" height="530" fill="white"/>
+
+  <!-- Title and Subtitle -->
+  <text x="480" y="36" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Порівняння схем нагнітання повітря: турбінна vs компресорна станція</text>
+  <text x="480" y="56" text-anchor="middle" font-size="13" fill="#6b7280">Турбінний нагнітач розміщено в ручці з легким шнуром, а компресор — у блоці з товстим шлангом</text>
+
+  <!-- ================= LEFT PANEL: TURBINE STATION ================= -->
+  <rect x="25" y="75" width="445" height="435" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Left Header Badge -->
+  <rect x="40" y="90" width="415" height="32" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="247.5" y="111" text-anchor="middle" font-size="14" font-weight="bold" fill="#2457d6">ТУРБІННА СТАНЦІЯ (нагнітач у ручці)</text>
+
+  <!-- Annotations on Top of Handle (Left Panel) -->
+  <text x="295" y="142" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Турбінний нагнітач</text>
+  <text x="295" y="157" text-anchor="middle" font-size="12" fill="#6b7280">безколекторний вентилятор</text>
+  <line x1="295" y1="165" x2="295" y2="235" stroke="#2457d6" stroke-width="1" stroke-dasharray="2,2"/>
+
+  <text x="360" y="180" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Керамічний нагрівач</text>
+  <text x="360" y="195" text-anchor="middle" font-size="12" fill="#6b7280">з термопарою</text>
+  <line x1="360" y1="203" x2="360" y2="247" stroke="#c0392b" stroke-width="1" stroke-dasharray="2,2"/>
+
+  <!-- Station Base Unit (Left) -->
+  <rect x="45" y="210" width="125" height="115" rx="6" fill="white" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="107.5" y="228" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Блок станції</text>
+  <!-- Digital Display -->
+  <rect x="55" y="236" width="105" height="24" rx="3" fill="#1a1a1a"/>
+  <text x="107.5" y="252" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">350 °C</text>
+  <!-- Knobs -->
+  <circle cx="77" cy="270" r="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <circle cx="138" cy="270" r="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="107.5" y="290" text-anchor="middle" font-size="12" fill="#6b7280">Регулятори</text>
+  <!-- PID & Power Board box inside base -->
+  <rect x="55" y="296" width="105" height="22" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="107.5" y="311" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Плата PID / БЖ</text>
+
+  <!-- Air Intake Label & Arrow -->
+  <text x="222.5" y="245" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Забір повітря</text>
+  <path d="M 190,256 L 268,256" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Electrical Cable -->
+  <path d="M 170,285 C 190,285 190,325 210,325 C 235,325 260,300 275,275" fill="none" stroke="#4b5563" stroke-width="3"/>
+  <!-- Cable annotation box -->
+  <rect x="160" y="338" width="200" height="40" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="260" y="354" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Тонкий електричний дріт</text>
+  <text x="260" y="370" text-anchor="middle" font-size="12" fill="#6b7280">(висока гнучкість, мала вага)</text>
+
+  <!-- Handle with Turbine -->
+  <rect x="275" y="235" width="150" height="50" rx="8" fill="white" stroke="#1a1a1a" stroke-width="1.5"/>
+  <!-- Fan Blower Shell inside Handle -->
+  <rect x="280" y="240" width="45" height="40" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <circle cx="302.5" cy="260" r="14" fill="#2457d6" fill-opacity="0.15" stroke="#2457d6" stroke-width="1.2"/>
+  <!-- Fan blades -->
+  <line x1="302.5" y1="248" x2="302.5" y2="272" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="290.5" y1="260" x2="314.5" y2="260" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="294" y1="251.5" x2="311" y2="268.5" stroke="#2457d6" stroke-width="1.2"/>
+  <line x1="294" y1="268.5" x2="311" y2="251.5" stroke="#2457d6" stroke-width="1.2"/>
+
+  <!-- Air Channel & Ceramic Heater -->
+  <rect x="330" y="247" width="55" height="26" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="334" y="251" width="47" height="18" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <path d="M 338,260 L 342,255 L 346,265 L 350,255 L 354,265 L 358,255 L 362,265 L 366,255 L 370,265 L 374,260" fill="none" stroke="#c0392b" stroke-width="1.5"/>
+
+  <!-- Nozzle Cone -->
+  <path d="M 385,247 L 410,253 L 410,267 L 385,273 Z" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Hot Air Flow Arrow -->
+  <path d="M 410,260 L 440,260" fill="none" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arr-red)"/>
+
+  <!-- Airflow Annotation below Nozzle Output -->
+  <text x="405" y="295" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Широкий м'який</text>
+  <text x="405" y="310" text-anchor="middle" font-size="12" fill="#c0392b">повітряний потік</text>
+
+  <!-- Left Features Box -->
+  <rect x="40" y="390" width="415" height="105" rx="6" fill="white" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="55" y="411" text-anchor="start" font-size="13" font-weight="bold" fill="#27ae60">Особливості турбінної станції:</text>
+  <text x="55" y="430" text-anchor="start" font-size="12" fill="#1a1a1a">• Низький рівень шуму та вібрацій при роботі</text>
+  <text x="55" y="448" text-anchor="start" font-size="12" fill="#1a1a1a">• М'який та легкий кабель живлення ручки</text>
+  <text x="55" y="466" text-anchor="start" font-size="12" fill="#1a1a1a">• Рівномірне прогрівання великої площі SMD</text>
+  <text x="55" y="484" text-anchor="start" font-size="12" fill="#1a1a1a">• Трохи більший діаметр та вага ручки</text>
+
+
+  <!-- ================= RIGHT PANEL: COMPRESSOR STATION ================= -->
+  <rect x="490" y="75" width="445" height="435" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Right Header Badge -->
+  <rect x="505" y="90" width="415" height="32" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="712.5" y="111" text-anchor="middle" font-size="14" font-weight="bold" fill="#2457d6">КОМПРЕСОРНА СТАНЦІЯ (нагнітач у блоці)</text>
+
+  <!-- Annotations on Top of Handle (Right Panel) -->
+  <text x="740" y="142" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Легка вузька ручка</text>
+  <text x="740" y="157" text-anchor="middle" font-size="12" fill="#6b7280">(без мотора всередині)</text>
+  <line x1="755" y1="165" x2="755" y2="235" stroke="#27ae60" stroke-width="1" stroke-dasharray="2,2"/>
+
+  <text x="835" y="180" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Керамічний нагрівач</text>
+  <text x="835" y="195" text-anchor="middle" font-size="12" fill="#6b7280">з термопарою</text>
+  <line x1="785" y1="203" x2="785" y2="247" stroke="#c0392b" stroke-width="1" stroke-dasharray="2,2"/>
+
+  <!-- Station Base Unit (Right) -->
+  <rect x="510" y="210" width="155" height="115" rx="6" fill="white" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="587.5" y="228" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Блок станції</text>
+  <!-- Digital Display -->
+  <rect x="520" y="236" width="135" height="24" rx="3" fill="#1a1a1a"/>
+  <text x="587.5" y="252" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">350 °C</text>
+
+  <!-- Diaphragm Compressor Box inside Base -->
+  <rect x="515" y="266" width="145" height="52" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <!-- Pump visual / Diaphragm schematics -->
+  <circle cx="544" cy="285" r="11" fill="white" stroke="#2457d6" stroke-width="1.5"/>
+  <path d="M 537,285 Q 544,279 551,285" fill="none" stroke="#2457d6" stroke-width="1.8"/>
+  <rect x="562" y="276" width="86" height="18" rx="3" fill="#f4f6f8" stroke="#6b7280" stroke-width="1"/>
+  <line x1="566" y1="281" x2="642" y2="281" stroke="#2457d6" stroke-width="1.2" stroke-dasharray="2,2"/>
+  <line x1="566" y1="289" x2="642" y2="289" stroke="#2457d6" stroke-width="1.2" stroke-dasharray="2,2"/>
+  <text x="587.5" y="309" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Діафрагмовий компресор</text>
+
+  <!-- Thick Air Hose -->
+  <path d="M 665,290 C 695,290 685,325 715,325 C 735,325 740,305 745,275" fill="none" stroke="#6b7280" stroke-width="8"/>
+  <path d="M 665,290 C 695,290 685,325 715,325 C 735,325 740,305 745,275" fill="none" stroke="#eaf0fd" stroke-width="4"/>
+
+  <!-- Hose annotation box -->
+  <rect x="625" y="338" width="190" height="40" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="720" y="354" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Товстий повітряний шланг</text>
+  <text x="720" y="370" text-anchor="middle" font-size="12" fill="#6b7280">(повітря під тиском + дріт)</text>
+
+  <!-- Slim Handle without Fan -->
+  <rect x="745" y="235" width="135" height="50" rx="8" fill="white" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="755" y="247" width="60" height="26" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="760" y="251" width="50" height="18" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <path d="M 764,260 L 768,255 L 772,265 L 776,255 L 780,265 L 784,255 L 788,265 L 792,255 L 796,265 L 800,260" fill="none" stroke="#c0392b" stroke-width="1.5"/>
+
+  <!-- Nozzle Cone (Compressor) -->
+  <path d="M 815,247 L 845,253 L 845,267 L 815,273 Z" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Air Flow Arrow -->
+  <path d="M 845,260 L 875,260" fill="none" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arr-red)"/>
+
+  <!-- Annotations below Nozzle Output (Right) -->
+  <text x="865" y="295" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Сфокусований потік</text>
+  <text x="865" y="310" text-anchor="middle" font-size="12" fill="#6b7280">під високим тиском</text>
+
+  <!-- Right Features Box -->
+  <rect x="505" y="390" width="415" height="105" rx="6" fill="white" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="520" y="411" text-anchor="start" font-size="13" font-weight="bold" fill="#2457d6">Особливості компресорної станції:</text>
+  <text x="520" y="430" text-anchor="start" font-size="12" fill="#1a1a1a">• Високий тиск повітря (вузькі точкові насадки)</text>
+  <text x="520" y="448" text-anchor="start" font-size="12" fill="#1a1a1a">• Дуже легка та компактна ручка фена</text>
+  <text x="520" y="466" text-anchor="start" font-size="12" fill="#1a1a1a">• Товстий та менш гнучкий повітряний шланг</text>
+  <text x="520" y="484" text-anchor="start" font-size="12" fill="#1a1a1a">• Вібрації та додатковий шум від блоку</text>
+</svg>

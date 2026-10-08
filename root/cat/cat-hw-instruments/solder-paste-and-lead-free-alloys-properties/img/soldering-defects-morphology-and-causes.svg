@@ -1,0 +1,190 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Заголовок та підзаголовок -->
+  <text x="480" y="36" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Мікроструктура та фізичні причини дефектів паяння (Tombstoning, Voiding, Bridging)</text>
+  <text x="480" y="56" font-size="13" fill="#6b7280" text-anchor="middle">Зв'язок нерівномірного змочування, залимків газів і реології з фазами термопрофілю</text>
+
+  <!-- ==================== ПАНЕЛЬ 1: НАДГРОБКОВИЙ ЕФЕКТ (TOMBSTONING) ==================== -->
+  <rect x="25" y="75" width="290" height="245" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="35" y="83" width="270" height="26" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="170" y="100" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">1. @@en|Tombstoning|Надгробковий ефект@@</text>
+
+  <!-- Схема дефекту Panel 1 -->
+  <!-- Плата PCB -->
+  <rect x="40" y="185" width="260" height="10" fill="#15803d" stroke="#166534" stroke-width="1"/>
+  <!-- Лівий контактний пад A -->
+  <rect x="60" y="180" width="55" height="5" fill="#d97706"/>
+  <!-- Правий контактний пад B -->
+  <rect x="195" y="180" width="55" height="5" fill="#d97706"/>
+
+  <!-- Поворот компонента: прямокутник та виводи -->
+  <!-- Керамічний корпус 0805 під кутом -->
+  <polygon points="75,135 195,162 190,182 70,155" fill="#334155" stroke="#1e293b" stroke-width="1"/>
+  <!-- Лівий металевий вивід (відірваний) -->
+  <polygon points="65,132 85,137 80,157 60,152" fill="#94a3b8" stroke="#475569" stroke-width="1"/>
+  <!-- Правий металевий вивід (припаяний) -->
+  <polygon points="180,158 200,163 195,183 175,178" fill="#94a3b8" stroke="#475569" stroke-width="1"/>
+
+  <!-- Меніск припою на правому паді B -->
+  <path d="M 195,180 L 250,180 C 235,180 205,168 200,163 Z" fill="#64748b" stroke="#475569" stroke-width="1"/>
+  <!-- Стрілка поверхневого натягу F_wet2 -->
+  <line x1="210" y1="158" x2="225" y2="173" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="230" y="156" font-size="12" font-weight="bold" fill="#2457d6">F_wet2</text>
+
+  <!-- Суха або окислена паста на лівому паді A -->
+  <rect x="60" y="177" width="55" height="3" fill="#fca5a5" stroke="#c0392b" stroke-width="0.5"/>
+  <text x="45" y="125" font-size="12" fill="#c0392b" text-anchor="start">F_wet1 ≈ 0 (θ_1 > 90°)</text>
+
+  <!-- Стрілка перекидання/обертання -->
+  <path d="M 105,135 A 25,25 0 0,1 125,120" fill="none" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <text x="135" y="120" font-size="12" fill="#1a1a1a">Момент M_t</text>
+
+  <!-- Блок пояснення під схемою Panel 1 -->
+  <rect x="35" y="212" width="270" height="100" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="45" y="230" font-size="12" fill="#1a1a1a">• Причина: дисбаланс сил змочування</text>
+  <text x="45" y="248" font-size="12" fill="#1a1a1a">• Перевага: F_wet2 > F_wet1 + F_gravity</text>
+  <text x="45" y="266" font-size="12" fill="#c0392b">• Фактор: високий dT/dt у зоні @@en|Ramp@@</text>
+  <text x="45" y="284" font-size="12" fill="#6b7280">• Умова: різне тепловідведення падів</text>
+  <text x="45" y="302" font-size="12" fill="#27ae60">• Захист: вирівнювання @@uk|термопрофілю@@</text>
+
+  <!-- ==================== ПАНЕЛЬ 2: ПОРОУТВОРЕННЯ (VOIDING) ==================== -->
+  <rect x="335" y="75" width="290" height="245" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="345" y="83" width="270" height="26" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="480" y="100" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">2. @@en|Voiding|Пороутворення у з'єднанні@@</text>
+
+  <!-- Схема дефекту Panel 2 -->
+  <!-- BGA / QFN контакт верхній -->
+  <rect x="360" y="132" width="240" height="8" rx="2" fill="#475569"/>
+  <text x="480" y="125" font-size="12" font-weight="bold" fill="#475569" text-anchor="middle">Вивід компонента / BGA</text>
+
+  <!-- Паяне з'єднання (масив розплаву SAC305) -->
+  <rect x="370" y="140" width="220" height="42" fill="#94a3b8" stroke="#64748b" stroke-width="1.5"/>
+
+  <!-- Газові пори (Voids) -->
+  <circle cx="420" cy="162" r="10" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <circle cx="480" cy="158" r="13" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <circle cx="540" cy="165" r="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+
+  <text x="480" y="162" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Пори (Гази VOC)</text>
+
+  <!-- Стрілки виходу газів -->
+  <path d="M 540,140 Q 542,130 540,122" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="2,2" marker-end="url(#arr-red)" fill="none"/>
+  <text x="548" y="135" font-size="12" fill="#c0392b" text-anchor="start">Вихід газів</text>
+
+  <!-- Нижня плата Pad -->
+  <rect x="360" y="182" width="240" height="8" rx="2" fill="#d97706"/>
+  <text x="480" y="202" font-size="12" fill="#6b7280" text-anchor="middle">Контактна площадка PCB</text>
+
+  <!-- Блок пояснення під схемою Panel 2 -->
+  <rect x="345" y="212" width="270" height="100" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="355" y="230" font-size="12" fill="#1a1a1a">• Причина: затримка газів флюсу</text>
+  <text x="355" y="248" font-size="12" fill="#1a1a1a">• Короткий @@en|Soak@@ (VOC не випарувався)</text>
+  <text x="355" y="266" font-size="12" fill="#c0392b">• Окислення пудри припайної пасти</text>
+  <text x="355" y="284" font-size="12" fill="#6b7280">• Втрата механічної/теплової міцності</text>
+  <text x="355" y="302" font-size="12" fill="#27ae60">• Захист: подовження ізотерми @@en|Soak@@</text>
+
+  <!-- ==================== ПАНЕЛЬ 3: ПРИПАЙНІ МІСТКИ (BRIDGING) ==================== -->
+  <rect x="645" y="75" width="290" height="245" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="655" y="83" width="270" height="26" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="790" y="100" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">3. @@en|Bridging|Припайні містки між виводами@@</text>
+
+  <!-- Схема дефекту Panel 3 -->
+  <!-- Плата PCB -->
+  <rect x="660" y="185" width="260" height="10" fill="#15803d" stroke="#166534" stroke-width="1"/>
+
+  <!-- Три контактні пади -->
+  <rect x="675" y="180" width="50" height="5" fill="#d97706"/>
+  <rect x="745" y="180" width="50" height="5" fill="#d97706"/>
+  <rect x="815" y="180" width="50" height="5" fill="#d97706"/>
+
+  <!-- Нижні виводи IC -->
+  <rect x="690" y="130" width="20" height="35" fill="#475569"/>
+  <rect x="760" y="130" width="20" height="35" fill="#475569"/>
+  <rect x="830" y="130" width="20" height="35" fill="#475569"/>
+  <text x="790" y="123" font-size="12" fill="#475569" text-anchor="middle">Виводи QFP / SOIC</text>
+
+  <!-- Нормальна галтель на Pad 1 -->
+  <path d="M 675,180 Q 700,155 710,180 Z" fill="#94a3b8" stroke="#64748b"/>
+  <text x="685" y="202" font-size="12" fill="#27ae60" text-anchor="middle">Норма</text>
+
+  <!-- Замикаючий місток припою між Pad 2 та Pad 3 -->
+  <path d="M 745,180 C 745,155 865,155 865,180 Z" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="805" y="165" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Місток (КЗ)</text>
+  <text x="805" y="202" font-size="12" fill="#c0392b" text-anchor="middle">Опливання (Slump)</text>
+
+  <!-- Блок пояснення під схемою Panel 3 -->
+  <rect x="655" y="212" width="270" height="100" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="665" y="230" font-size="12" fill="#1a1a1a">• Причина: опливання пасти (@@en|Hot Slump@@)</text>
+  <text x="665" y="248" font-size="12" fill="#1a1a1a">• Надлишковий об'єм пасти у вхідний час</text>
+  <text x="665" y="266" font-size="12" fill="#c0392b">• Перегрів у @@en|Reflow@@ / високий T_peak</text>
+  <text x="665" y="284" font-size="12" fill="#6b7280">• Зсув компонентів при розставлянні</text>
+  <text x="665" y="302" font-size="12" fill="#27ae60">• Захист: зменшення апертури трафарету</text>
+
+  <!-- ==================== ПАНЕЛЬ 4: ТЕРМОПРОФІЛЬ ТА КОРЕЛЯЦІЯ ==================== -->
+  <rect x="25" y="335" width="910" height="185" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="35" y="343" width="890" height="24" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="480" y="359" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Зв'язок дефектів паяння з температурними зонами термопрофілю оплавлення (Reflow Profile)</text>
+
+  <!-- Графік термопрофілю -->
+  <!-- Горизонтальні пунктирні лінії температур -->
+  <!-- T_liquidus (217°C) -->
+  <line x1="90" y1="415" x2="870" y2="415" stroke="#cbd5e1" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="85" y="419" font-size="12" fill="#6b7280" text-anchor="end">217°C</text>
+
+  <!-- T_soak (150°C) -->
+  <line x1="90" y1="450" x2="870" y2="450" stroke="#cbd5e1" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="85" y="454" font-size="12" fill="#6b7280" text-anchor="end">150°C</text>
+
+  <!-- Вертикальні розділювачі зон -->
+  <line x1="250" y1="375" x2="250" y2="490" stroke="#e2e8f0" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="490" y1="375" x2="490" y2="490" stroke="#e2e8f0" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="710" y1="375" x2="710" y2="490" stroke="#e2e8f0" stroke-width="1" stroke-dasharray="2,2"/>
+
+  <!-- Осі координат -->
+  <line x1="90" y1="490" x2="880" y2="490" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+  <line x1="90" y1="490" x2="90" y2="375" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+  <text x="880" y="508" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">Час t (с)</text>
+  <text x="85" y="375" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">T (°C)</text>
+
+  <!-- Крива термопрофілю (темно-синя) -->
+  <path d="M 90,485 C 160,470 200,452 250,450 C 330,446 410,442 490,435 C 540,425 570,388 600,388 C 630,388 670,405 710,420 C 760,450 820,475 870,482" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+
+  <!-- Назви зон та дефектів внизу графіка -->
+  <!-- Зона 1: Ramp -->
+  <text x="170" y="392" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Зона 1: Ramp (1-3 °C/s)</text>
+  <text x="170" y="475" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Tombstoning (dT/dt ↑)</text>
+
+  <!-- Зона 2: Soak -->
+  <text x="370" y="392" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Зона 2: Soak (60-120 с, 150-180 °C)</text>
+  <text x="370" y="475" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Voiding (залишки розчинників)</text>
+
+  <!-- Зона 3: Reflow -->
+  <text x="600" y="375" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Зона 3: Reflow (T_peak = 245 °C)</text>
+  <text x="600" y="475" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Bridging (Hot Slump &amp; перегрів)</text>
+
+  <!-- Зона 4: Cooling -->
+  <text x="790" y="392" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Зона 4: Cooling (2-4 °C/s)</text>
+  <text x="790" y="475" font-size="12" fill="#6b7280" text-anchor="middle">Формування IMC</text>
+
+  <!-- Лінії зв'язку від верхніх панелей до термопрофілю -->
+  <line x1="170" y1="320" x2="170" y2="335" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#arr-red)"/>
+  <line x1="480" y1="320" x2="370" y2="335" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#arr-red)"/>
+  <line x1="790" y1="320" x2="600" y2="335" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#arr-red)"/>
+</svg>

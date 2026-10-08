@@ -1,0 +1,121 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Біла підкладка полотна -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Маркери стрілок -->
+  <defs>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок та підзаголовок -->
+  <text x="480" y="28" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Двошарова оксидна плівка міді (Cu₂O/CuO) та її руйнування флюсом</text>
+  <text x="480" y="47" font-size="13" fill="#6b7280" text-anchor="middle">Термічна активація R-COOH розчиняє CuO та Cu₂O, оголюючи чисту Cu для змочування</text>
+
+  <!-- ==================== ЛІВА ПАНЕЛЬ: СТРУКТУРА ОКСИДІВ (ДО ПАЯННЯ) ==================== -->
+  <rect x="30" y="65" width="435" height="390" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="247.5" y="88" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">1. Структура оксидного шару (до паяння, 25 °C)</text>
+  <text x="247.5" y="105" font-size="12" fill="#6b7280" text-anchor="middle">Оксиди CuO / Cu₂O блокують контактування з припоєм</text>
+
+  <!-- Контейнер зрізу провідника 1 -->
+  <rect x="50" y="120" width="395" height="200" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Зона повітря -->
+  <rect x="50" y="120" width="395" height="40" fill="#f8fafc"/>
+  <text x="60" y="135" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="start">Повітряне середовище (O₂)</text>
+
+  <!-- Незмочувана крапля припою -->
+  <path d="M 330,160 C 330,135 345,125 360,125 C 375,125 390,135 390,160 Z" fill="#95a5a6" stroke="#7f8c8d" stroke-width="1.5"/>
+  <!-- Кут змочування індикатор -->
+  <path d="M 320,160 L 330,160 L 342,142" fill="none" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="60" y="152" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="start">Припой (не змочує, θ &gt; 90°)</text>
+
+  <!-- Зовнішній шар оксиду CuO -->
+  <rect x="50" y="160" width="395" height="35" fill="#34495e"/>
+  <text x="60" y="182" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="start">Зовнішній шар: CuO (Купрум(II) оксид, 5–20 нм)</text>
+
+  <!-- Внутрішній шар оксиду Cu2O -->
+  <rect x="50" y="195" width="395" height="45" fill="#b03a2e"/>
+  <text x="60" y="222" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="start">Внутрішній шар: Cu₂O (Купрум(I) оксид, 10–50 нм)</text>
+
+  <!-- Основа чистої міді Cu -->
+  <rect x="50" y="240" width="395" height="80" fill="#d35400"/>
+  <text x="60" y="270" font-size="13" font-weight="bold" fill="#ffffff" text-anchor="start">Основа: металева мідь (Cu)</text>
+  <text x="60" y="292" font-size="12" fill="#fef5e7" text-anchor="start">Кристалічна ґратка Cu, висока електро- та теплопровідність</text>
+
+  <!-- Картка проблеми (Panel 1) -->
+  <rect x="50" y="332" width="395" height="110" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="62" y="352" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="start">Проблема: Пасивний оксидний бар'єр</text>
+  <text x="62" y="372" font-size="12" fill="#1a1a1a" text-anchor="start">• Висока енергія зв'язку Cu-O перешкоджає дифузії припою</text>
+  <text x="62" y="392" font-size="12" fill="#1a1a1a" text-anchor="start">• Контактний кут змочування θ &gt; 90° (адгезія відсутня)</text>
+  <text x="62" y="412" font-size="12" fill="#c0392b" text-anchor="start">• Результат: холодний спай, непропай, відшарування контакту</text>
+  <text x="62" y="432" font-size="12" fill="#6b7280" text-anchor="start">• Плівка наростає під час термообробки та зберігання</text>
+
+  <!-- ==================== МІЖПАНЕЛЬНИЙ ПЕРЕХІД (ТЕРМОАКТИВАЦІЯ) ==================== -->
+  <line x1="468" y1="215" x2="490" y2="215" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+  <text x="480" y="195" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">+ Флюс</text>
+  <text x="480" y="210" font-size="12" fill="#2457d6" text-anchor="middle">150..250°C</text>
+
+  <!-- ==================== ПРАВА ПАНЕЛЬ: МЕХАНІЗМ ВІДНОВЛЕННЯ (ПІД ЧАС ПАЯННЯ) ==================== -->
+  <rect x="495" y="65" width="435" height="390" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="712.5" y="88" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">2. Механізм відновлення та змочування (150–250 °C)</text>
+  <text x="712.5" y="105" font-size="12" fill="#6b7280" text-anchor="middle">Деструкція оксидів активаторами R-COOH та утворення IMC</text>
+
+  <!-- Контейнер зрізу провідника 2 -->
+  <rect x="515" y="120" width="395" height="200" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Зона активного флюсу -->
+  <rect x="515" y="120" width="395" height="50" fill="#eaf0fd"/>
+  <text x="525" y="140" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="start">Рідкий флюс (активатори R-COOH)</text>
+  <text x="525" y="158" font-size="12" fill="#6b7280" text-anchor="start">Випаровування H₂O↑ та мила Cu(R-COO)₂</text>
+
+  <!-- Змочуючий розтікаючий припой -->
+  <path d="M 720,170 C 730,152 770,148 830,150 L 910,170 Z" fill="#7f8c8d" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="750" y="142" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="start">Припой (θ → 0°)</text>
+
+  <!-- Зона хімічної реакції деструкції оксидів -->
+  <rect x="515" y="170" width="395" height="50" fill="#fdecea"/>
+  <!-- Гранули/фрагменти оксидів, що розчиняються -->
+  <circle cx="810" cy="185" r="4" fill="#34495e" opacity="0.6"/>
+  <circle cx="835" cy="195" r="3" fill="#b03a2e" opacity="0.6"/>
+  <circle cx="860" cy="182" r="5" fill="#34495e" opacity="0.5"/>
+  <text x="525" y="188" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="start">CuO + 2 R-COOH → Cu(R-COO)₂ + H₂O↑</text>
+  <text x="525" y="208" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="start">Cu₂O + 4 R-COOH → 2 Cu(R-COO)₂ + H₂O↑ + H₂↑</text>
+
+  <!-- Міжметалевий шар IMC -->
+  <rect x="515" y="220" width="395" height="20" fill="#f39c12"/>
+  <text x="525" y="235" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">Міжметалевий шар IMC (Cu₆Sn₅) — металевий зв'язок</text>
+
+  <!-- Основа чистої міді Cu -->
+  <rect x="515" y="240" width="395" height="80" fill="#d35400"/>
+  <text x="525" y="270" font-size="13" font-weight="bold" fill="#ffffff" text-anchor="start">Оголена металева мідь (чиста поверхня Cu)</text>
+  <text x="525" y="292" font-size="12" fill="#fef5e7" text-anchor="start">Оголений метал Cu без оксидного бар'єру, чистий контакт</text>
+
+  <!-- Картка розв'язку (Panel 2) -->
+  <rect x="515" y="332" width="395" height="110" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="527" y="352" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="start">Розв'язок: Відновлення поверхні та якісна пайка</text>
+  <text x="527" y="372" font-size="12" fill="#1a1a1a" text-anchor="start">• Кислотні протони H⁺ розривають міцні зв'язки Cu-O</text>
+  <text x="527" y="392" font-size="12" fill="#1a1a1a" text-anchor="start">• Солі Cu(R-COO)₂ розчиняються та спливають у флюс</text>
+  <text x="527" y="412" font-size="12" fill="#27ae60" text-anchor="start">• Рідкий флюс захищає мідь від повторного окиснення</text>
+  <text x="527" y="432" font-size="12" fill="#6b7280" text-anchor="start">• Залишки флюсу полімеризуються в інертний шар</text>
+
+  <!-- ==================== НИЖНЯ ПІДСУМКОВА ПАНЕЛЬ ==================== -->
+  <rect x="30" y="465" width="900" height="43" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="45" y="482" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="start">Хімічна підсумкова фаза:</text>
+  <text x="205" y="482" font-size="12" fill="#1a1a1a" text-anchor="start">CuO / Cu₂O (тв) + 2..4 R-COOH (рід) → 2 Cu(R-COO)₂ (солюб) + H₂O (газ) ↑</text>
+  <text x="45" y="499" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="start">Технологічний висновок:</text>
+  <text x="205" y="499" font-size="12" fill="#1a1a1a" text-anchor="start">Безодмивний флюс зв'язує оксиди міді в інертні мила, забезпечуючи чистий IMC контакт Cu₆Sn₅.</text>
+</svg>

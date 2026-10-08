@@ -1,0 +1,157 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Markers -->
+  <defs>
+    <marker id="arr-accent" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-danger" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Main Title & Subtitle -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Паразитна ємність та перехресні завади безпаяльних макетних плат</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Паралельні металеві затискачі у диелектрику утворюють ємність Cp ≈ 2...5 пФ, що передає ВЧ-завади</text>
+
+  <!-- ==================== LEFT PANEL: PHYSICAL STRUCTURE ==================== -->
+  <rect x="30" y="68" width="435" height="395" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <text x="247.5" y="90" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Геометрія контактів і паразитні параметри</text>
+  <text x="247.5" y="107" font-size="13" fill="#6b7280" text-anchor="middle">Поперечний розріз двох сусідніх контактних рейок</text>
+
+  <!-- Breadboard Plastic Body -->
+  <rect x="55" y="122" width="385" height="240" rx="8" fill="#e2e8f0" stroke="#cbd5e1" stroke-width="1.5"/>
+
+  <!-- Slot 1 (Track A - Active) -->
+  <rect x="100" y="152" width="105" height="185" rx="4" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+  <text x="152.5" y="136" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Доріжка A</text>
+
+  <!-- Slot 2 (Track B - Victim) -->
+  <rect x="290" y="152" width="105" height="185" rx="4" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+  <text x="342.5" y="136" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Доріжка B</text>
+
+  <!-- Dielectric Plastic Center -->
+  <text x="247.5" y="136" font-size="12" font-weight="bold" fill="#475569" text-anchor="middle">Пластик (ABS)</text>
+  <text x="247.5" y="150" font-size="12" fill="#64748b" text-anchor="middle">εr ≈ 2.8...3.2</text>
+
+  <!-- Metal Spring Clips: Track A -->
+  <rect x="112" y="172" width="24" height="145" rx="3" fill="#dbeafe" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="169" y="172" width="24" height="145" rx="3" fill="#dbeafe" stroke="#2457d6" stroke-width="1.5"/>
+  <path d="M143,140 L162,140 L162,260 L152.5,272 L143,260 Z" fill="#94a3b8" stroke="#334155" stroke-width="1"/>
+
+  <!-- Metal Spring Clips: Track B -->
+  <rect x="302" y="172" width="24" height="145" rx="3" fill="#fee2e2" stroke="#c0392b" stroke-width="1.5"/>
+  <rect x="359" y="172" width="24" height="145" rx="3" fill="#fee2e2" stroke="#c0392b" stroke-width="1.5"/>
+  <path d="M333,140 L352,140 L352,260 L342.5,272 L333,260 Z" fill="#94a3b8" stroke="#334155" stroke-width="1"/>
+
+  <!-- Electric Field / Inter-Track Capacitance Lines -->
+  <line x1="193" y1="205" x2="302" y2="205" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <line x1="193" y1="290" x2="302" y2="290" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4,3"/>
+
+  <!-- Capacitor Badge -->
+  <rect x="212" y="226" width="71" height="40" rx="4" fill="white" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="247.5" y="242" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Cp</text>
+  <text x="247.5" y="258" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">2...5 пФ</text>
+
+  <!-- Gap Dimension Line -->
+  <line x1="193" y1="345" x2="205" y2="345" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="290" y1="345" x2="302" y2="345" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="247.5" y="349" font-size="12" fill="#6b7280" text-anchor="middle">d ≈ 2.54 мм</text>
+
+  <!-- Left Bottom Boxes -->
+  <rect x="55" y="375" width="185" height="75" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="147.5" y="394" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Контактний опір Rk</text>
+  <text x="147.5" y="412" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Rk ≈ 0.1 ... 0.3 Ом</text>
+  <text x="147.5" y="430" font-size="12" fill="#6b7280" text-anchor="middle">Окислення збільшує Rk</text>
+
+  <rect x="255" y="375" width="185" height="75" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="347.5" y="394" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Індуктивність Lp</text>
+  <text x="347.5" y="412" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Lp ≈ 5 ... 10 нГн</text>
+  <text x="347.5" y="430" font-size="12" fill="#6b7280" text-anchor="middle">Спричиняє дзвін фронтів</text>
+
+  <!-- ==================== RIGHT PANEL: EQUIVALENT CIRCUIT & CROSSTALK ==================== -->
+  <rect x="495" y="68" width="435" height="395" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <text x="712.5" y="90" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Еквівалентна схема та перехресні завади</text>
+  <text x="712.5" y="107" font-size="13" fill="#6b7280" text-anchor="middle">Механізм ємнісного наведення завад (Crosstalk)</text>
+
+  <!-- Track A: Signal Source Generator -->
+  <circle cx="535" cy="170" r="15" fill="white" stroke="#2457d6" stroke-width="1.5"/>
+  <path d="M527,175 L532,175 L532,165 L542,165" fill="none" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="535" y="148" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Vin(t)</text>
+
+  <!-- Track A Conductor Line -->
+  <line x1="550" y1="170" x2="825" y2="170" stroke="#2457d6" stroke-width="2.5"/>
+  <text x="765" y="162" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Активна лінія (Доріжка A)</text>
+
+  <!-- Waveform Box Vin -->
+  <rect x="565" y="118" width="105" height="42" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="617.5" y="132" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">dV/dt > 1 В/нс</text>
+  <path d="M573,152 L588,152 L593,140 L628,140 L633,152 L662,152" fill="none" stroke="#2457d6" stroke-width="2"/>
+
+  <!-- Terminating Resistor RL1 -->
+  <line x1="825" y1="170" x2="825" y2="180" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="818" y="180" width="14" height="24" rx="2" fill="white" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="825" y1="204" x2="825" y2="218" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="817" y1="218" x2="833" y2="218" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="820" y1="222" x2="830" y2="222" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="823" y1="226" x2="827" y2="226" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="840" y="196" font-size="12" fill="#2457d6" text-anchor="start">RL = 50 Ом</text>
+
+  <!-- Coupling Capacitor Cp -->
+  <line x1="665" y1="170" x2="665" y2="200" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="650" y1="200" x2="680" y2="200" stroke="#1a1a1a" stroke-width="2.5"/>
+  <line x1="650" y1="210" x2="680" y2="210" stroke="#1a1a1a" stroke-width="2.5"/>
+  <line x1="665" y1="210" x2="665" y2="290" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-danger)"/>
+
+  <text x="692" y="208" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">Cp ≈ 2...5 пФ</text>
+
+  <!-- Current Flow Box -->
+  <rect x="692" y="222" width="180" height="38" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="700" y="236" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="start">Струм наведення:</text>
+  <text x="700" y="252" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="start">ip = Cp · (dVin / dt)</text>
+
+  <!-- Track B: Victim Line -->
+  <line x1="535" y1="290" x2="805" y2="290" stroke="#c0392b" stroke-width="2.5"/>
+  <text x="750" y="282" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Чутлива лінія (Доріжка B)</text>
+
+  <!-- Source Resistor Rs -->
+  <line x1="535" y1="290" x2="535" y2="300" stroke="#6b7280" stroke-width="1.5"/>
+  <rect x="528" y="300" width="14" height="24" rx="2" fill="white" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="535" y1="324" x2="535" y2="338" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="527" y1="338" x2="543" y2="338" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="530" y1="342" x2="540" y2="342" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="533" y1="346" x2="537" y2="346" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="548" y="316" font-size="12" fill="#6b7280" text-anchor="start">Rs = 10 кОм</text>
+
+  <!-- Receiver Buffer Icon -->
+  <polygon points="805,278 835,290 805,302" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="840" y="294" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="start">Rin = 100 кОм</text>
+
+  <!-- Crosstalk Noise Waveform Box -->
+  <rect x="625" y="304" width="135" height="48" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="692.5" y="318" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Завада Vspike</text>
+  <path d="M633,340 L653,340 L656,326 L661,346 L665,340 L695,340 L698,346 L703,326 L707,340 L753,340" fill="none" stroke="#c0392b" stroke-width="2"/>
+
+  <!-- Lower Formula Box Right -->
+  <rect x="515" y="375" width="395" height="75" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="528" y="394" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">Опір ємності на високих частотах (Zc):</text>
+  <text x="528" y="412" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="start">Zc = 1 / (2π · f · Cp)  →  при 50 МГц: Zc ≈ 1.0 кОм</text>
+  <text x="528" y="430" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="start">Низький Zc спричиняє імпульсні збої цифрових кіл</text>
+
+  <!-- ==================== BOTTOM SUMMARY BANNER ==================== -->
+  <rect x="30" y="475" width="900" height="50" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="45" y="494" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="start">Небезпека:</text>
+  <text x="120" y="494" font-size="12" fill="#1a1a1a" text-anchor="start">При f > 10 МГц або dV/dt > 1 В/нс паразитна ємність Cp створює стійкі перехресні завади.</text>
+  <text x="45" y="512" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="start">Рішення:</text>
+  <text x="120" y="512" font-size="12" fill="#1a1a1a" text-anchor="start">Екрануйте доріжки заземленими провідниками (GND shield) або переходьте на друковані плати (PCB).</text>
+</svg>

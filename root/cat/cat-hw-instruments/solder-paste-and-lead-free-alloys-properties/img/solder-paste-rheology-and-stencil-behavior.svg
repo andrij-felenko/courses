@@ -1,0 +1,152 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-accent" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Заголовок та підзаголовок -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Реологія припайної пасти: тиксотропія при друку та механізми опливання</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Зсувне напруження τ знижує в'язкість η для заповнення апертури; швидка релаксація запобігає опливанню</text>
+
+  <!-- ==================== ПАНЕЛЬ 1: ДРУК ТА ЗСУВНЕ НАПРУЖЕННЯ ==================== -->
+  <rect x="25" y="70" width="445" height="240" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="35" y="78" width="425" height="26" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="247" y="95" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">1. Друк: зсувний рух ракеля @@en|squeegee@@ та заповнення</text>
+
+  <!-- Схема друку -->
+  <!-- Контактна площадка (PCB Pad) -->
+  <rect x="40" y="202" width="415" height="24" fill="#d97706" stroke="#b45309" stroke-width="1.5"/>
+  <text x="135" y="218" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">Контактна площадка (PCB Pad)</text>
+
+  <!-- Трафарет (Stencil) -->
+  <!-- Лівий блок трафарету -->
+  <rect x="40" y="172" width="190" height="30" fill="#94a3b8" stroke="#475569" stroke-width="1.5"/>
+  <!-- Правий блок трафарету -->
+  <rect x="310" y="172" width="145" height="30" fill="#94a3b8" stroke="#475569" stroke-width="1.5"/>
+  <text x="382" y="191" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">Трафарет (Stencil)</text>
+
+  <!-- Паста в апертурі (низька в'язкість під зсувом) -->
+  <rect x="230" y="172" width="80" height="30" fill="#2457d6" stroke="#1d4ed8" stroke-width="1"/>
+  <text x="270" y="191" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">η_s (рідка)</text>
+
+  <!-- Лезо ракеля (Squeegee) -->
+  <polygon points="175,120 215,170 228,170 188,120" fill="#475569" stroke="#1e293b" stroke-width="1.5"/>
+  <text x="45" y="124" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">Ракель (Squeegee)</text>
+
+  <!-- Стрілка швидкості ракеля v_print -->
+  <line x1="55" y1="152" x2="140" y2="152" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-accent)"/>
+  <text x="97" y="144" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">v_print</text>
+
+  <!-- Рулон пасти перед ракелем -->
+  <path d="M 210,170 C 195,140 225,125 255,130 C 285,135 300,160 295,170 Z" fill="#cbd5e1" stroke="#64748b" stroke-width="1.5"/>
+  <!-- Обертальна стрілка перемішування пасти -->
+  <path d="M 240,143 A 15,15 0 0,1 270,153" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-accent)"/>
+  <text x="250" y="120" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Рулон пасти</text>
+
+  <!-- Картка пояснення реології 1 -->
+  <rect x="35" y="232" width="425" height="74" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="45" y="248" font-size="12" fill="#1a1a1a">• @@uk|зсувне напруження@@ τ = F/A створює градієнт γ̇</text>
+  <text x="45" y="266" font-size="12" fill="#2457d6">• Руйнування сітки флюсу: в'язкість падає η_0 → η_s</text>
+  <text x="45" y="284" font-size="12" fill="#2457d6">• Тіксотропія (@@en|thixotropy@@) полегшує плинність</text>
+  <text x="45" y="300" font-size="12" fill="#27ae60">• Забезпечує вільне заповнення мікроапертур без пустот</text>
+
+  <!-- ==================== ПАНЕЛЬ 2: РЕЛАКСАЦІЯ В'ЯЗКОСТІ ТА ВІДНОВЛЕННЯ ==================== -->
+  <rect x="490" y="70" width="445" height="240" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="500" y="78" width="425" height="26" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="712" y="95" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">2. Релаксація в'язкості та формоутворення (Recovery)</text>
+
+  <!-- Контактна площадка на панелі 2 -->
+  <rect x="505" y="202" width="200" height="24" fill="#d97706" stroke="#b45309" stroke-width="1.5"/>
+
+  <!-- Сформований відбиток пасти (ідеальна прямокутна доза) -->
+  <rect x="550" y="162" width="110" height="40" rx="2" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <text x="605" y="186" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Відбиток (h ≈ t_st)</text>
+
+  <!-- Трафарет, що піднімається вгору -->
+  <rect x="505" y="130" width="40" height="20" fill="#94a3b8" stroke="#475569" stroke-width="1" opacity="0.6"/>
+  <rect x="665" y="130" width="40" height="20" fill="#94a3b8" stroke="#475569" stroke-width="1" opacity="0.6"/>
+  <line x1="525" y1="168" x2="525" y2="138" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-accent)"/>
+  <text x="505" y="122" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="start">Зняття (v_sep)</text>
+
+  <!-- Вставка: Графік в'язкості η(t) -->
+  <rect x="715" y="112" width="210" height="114" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="820" y="127" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">В'язкість η(t)</text>
+  <!-- Осі координат -->
+  <line x1="750" y1="210" x2="750" y2="138" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <line x1="750" y1="210" x2="910" y2="210" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="740" y="144" font-size="12" fill="#1a1a1a" text-anchor="end">η</text>
+  <text x="912" y="224" font-size="12" fill="#1a1a1a" text-anchor="end">t</text>
+  <!-- Позначки рівнів в'язкості -->
+  <text x="742" y="158" font-size="12" fill="#6b7280" text-anchor="end">η_0</text>
+  <text x="742" y="204" font-size="12" fill="#6b7280" text-anchor="end">η_s</text>
+  <line x1="745" y1="156" x2="750" y2="156" stroke="#6b7280" stroke-width="1"/>
+  <line x1="745" y1="202" x2="750" y2="202" stroke="#6b7280" stroke-width="1"/>
+  <!-- Крива тиксотропного циклу -->
+  <path d="M 750,156 Q 760,202 775,202 L 800,202 Q 830,202 870,160" fill="none" stroke="#2457d6" stroke-width="2"/>
+
+  <!-- Картка пояснення реології 2 -->
+  <rect x="500" y="232" width="425" height="74" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="510" y="248" font-size="12" fill="#1a1a1a">• При τ = 0 починається відновлення сітки флюсу</text>
+  <text x="510" y="266" font-size="12" fill="#27ae60">• Швидка релаксація (t_rec &lt; 5 с) фіксує геометрію</text>
+  <text x="510" y="284" font-size="12" fill="#1a1a1a">• Запобігає розпливанню та розмиванню країв</text>
+  <text x="510" y="300" font-size="12" fill="#2457d6">• Забезпечує високу чіткість відбитка на платі</text>
+
+  <!-- ==================== ПАНЕЛЬ 3: МЕХАНІЗМИ ДЕФЕКТІВ ОПЛИВАННЯ (SLUMP) ==================== -->
+  <rect x="25" y="322" width="910" height="205" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="35" y="330" width="890" height="26" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="480" y="347" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">3. Фізико-хімічні механізми дефектів опливання пасти (Cold Slump та Hot Slump)</text>
+
+  <!-- Субкартка 1: Холодне опливання (Cold Slump) -->
+  <rect x="35" y="362" width="430" height="155" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="250" y="379" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">Холодне опливання (Cold Slump, T = 25 °C)</text>
+
+  <!-- Схема Cold Slump -->
+  <rect x="50" y="470" width="35" height="15" fill="#d97706" stroke="#b45309" stroke-width="1"/>
+  <rect x="110" y="470" width="35" height="15" fill="#d97706" stroke="#b45309" stroke-width="1"/>
+  <!-- Оплила паста -->
+  <path d="M 45,470 C 45,448 72,450 97.5,453 C 123,450 150,448 150,470 Z" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="97.5" y="444" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">@@en|bridging@@</text>
+
+  <!-- Пункти Cold Slump -->
+  <text x="175" y="398" font-size="12" fill="#1a1a1a">• Час: Одразу після зняття трафарету</text>
+  <text x="175" y="416" font-size="12" fill="#c0392b">• Причина: Низька в'язкість η_0 або</text>
+  <text x="175" y="434" font-size="12" fill="#c0392b">  повільне відновлення (t_rec)</text>
+  <text x="175" y="452" font-size="12" fill="#6b7280">• Фактори: Вологість, тиск ракеля,</text>
+  <text x="175" y="470" font-size="12" fill="#6b7280">  довгий простій на досці</text>
+  <text x="175" y="488" font-size="12" font-weight="bold" fill="#c0392b">• Наслідок: Замикання контактів</text>
+
+  <!-- Субкартка 2: Гаряче опливання (Hot Slump) -->
+  <rect x="495" y="362" width="430" height="155" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="710" y="379" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">Гаряче опливання (Hot Slump, T = 120–170 °C)</text>
+
+  <!-- Схема Hot Slump -->
+  <line x1="520" y1="395" x2="520" y2="413" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <line x1="610" y1="395" x2="610" y2="413" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <text x="565" y="390" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Нагрів (Soak)</text>
+  <rect x="520" y="470" width="35" height="15" fill="#d97706" stroke="#b45309" stroke-width="1"/>
+  <rect x="575" y="470" width="35" height="15" fill="#d97706" stroke="#b45309" stroke-width="1"/>
+  <!-- Оплила паста від тепла -->
+  <path d="M 515,470 C 515,448 542,450 565,453 C 588,450 615,448 615,470 Z" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="565" y="444" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">@@en|solder beads@@</text>
+
+  <!-- Пункти Hot Slump -->
+  <text x="640" y="398" font-size="12" fill="#1a1a1a">• Час: У зоні нагріву (Soak zone)</text>
+  <text x="640" y="416" font-size="12" fill="#c0392b">• Причина: Термічне розм'якшення</text>
+  <text x="640" y="434" font-size="12" fill="#c0392b">  каніфольних компонентів флюсу</text>
+  <text x="640" y="452" font-size="12" fill="#6b7280">• Фактори: Висока T_soak, повільний</text>
+  <text x="640" y="470" font-size="12" fill="#6b7280">  нагрів, слабка флюс-матриця</text>
+  <text x="640" y="488" font-size="12" font-weight="bold" fill="#c0392b">• Наслідок: Кульки припою та містки</text>
+</svg>

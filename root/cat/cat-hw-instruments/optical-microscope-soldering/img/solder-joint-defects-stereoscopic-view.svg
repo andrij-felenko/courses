@@ -1,0 +1,245 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 550" width="960" height="550" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Canvas Background -->
+  <rect x="0" y="0" width="960" height="550" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Профілі паяльних галтелей SMD-компонентів під мікроскопом</text>
+  <text x="480" y="60" font-size="13" fill="#6b7280" text-anchor="middle">Порівняльний аналіз форми галтелі, кута змочування та характерних дефектів</text>
+
+  <!-- CARD 1: IDEAL -->
+  <g id="card-ideal">
+    <!-- Card Frame -->
+    <rect x="36" y="78" width="210" height="444" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+    <!-- Status Header -->
+    <rect x="46" y="88" width="190" height="32" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+    <text x="141" y="109" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Ідеал (Норма)</text>
+
+    <!-- Drawing Box -->
+    <rect x="46" y="128" width="190" height="185" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+
+    <!-- Microscope Reticle & Reticle Info -->
+    <circle cx="141" cy="220" r="80" fill="none" stroke="#e0e6ed" stroke-width="1" stroke-dasharray="3,3"/>
+    <text x="54" y="146" font-size="12" fill="#9ca3af">20× Stereo</text>
+
+    <!-- PCB & Copper Pad -->
+    <rect x="54" y="275" width="174" height="28" fill="#2e7d32" rx="2"/>
+    <text x="62" y="293" font-size="12" fill="#ffffff" opacity="0.8">FR-4</text>
+    <rect x="62" y="270" width="158" height="5" fill="#d4af37"/>
+
+    <!-- SMD Component Body & Termination -->
+    <rect x="54" y="195" width="55" height="75" fill="#37474f" rx="2"/>
+    <text x="81" y="235" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">SMD</text>
+    <path d="M102,195 H120 V270 H102 Z" fill="#b0bec5" stroke="#78909c"/>
+
+    <!-- Ideal Meniscus Fillet -->
+    <path d="M120,220 Q128,265 212,270 L120,270 Z" fill="#90a4ae" stroke="#455a64" stroke-width="1.5"/>
+    <path d="M123,228 Q131,262 202,268" fill="none" stroke="#ffffff" stroke-width="1.5" opacity="0.7"/>
+
+    <!-- Meniscus Label & Arrow -->
+    <text x="141" y="166" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Угнутий меніск</text>
+    <line x1="141" y1="172" x2="145" y2="232" stroke="#2457d6" stroke-width="1.2" marker-end="url(#arr-blue)"/>
+
+    <!-- Wetting Angle Notation -->
+    <line x1="212" y1="270" x2="170" y2="245" stroke="#27ae60" stroke-width="1.2" stroke-dasharray="2,2"/>
+    <line x1="212" y1="270" x2="160" y2="270" stroke="#27ae60" stroke-width="1.2" stroke-dasharray="2,2"/>
+    <path d="M185,270 A27,27 0 0,0 188,256" fill="none" stroke="#27ae60" stroke-width="1.5"/>
+    <text x="175" y="240" font-size="12" font-weight="bold" fill="#27ae60">θ &lt; 30°</text>
+
+    <!-- Description Panel -->
+    <rect x="46" y="321" width="190" height="143" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+    <text x="56" y="340" font-size="12" font-weight="bold" fill="#1a1a1a">Ознаки якісного монтажу:</text>
+    <text x="56" y="360" font-size="12" fill="#1a1a1a">• Змочування: <tspan font-weight="bold" fill="#27ae60">відмінне</tspan></text>
+    <text x="56" y="380" font-size="12" fill="#1a1a1a">• Кут змочування: <tspan font-weight="bold" fill="#27ae60">θ &lt; 30°</tspan></text>
+    <text x="56" y="400" font-size="12" fill="#1a1a1a">• Меніск: <tspan font-weight="bold">плавно угнутий</tspan></text>
+    <text x="56" y="420" font-size="12" fill="#1a1a1a">• Поверхня: <tspan font-weight="bold">гладка, чиста</tspan></text>
+    <text x="56" y="440" font-size="12" fill="#1a1a1a">• Контакт: <tspan font-weight="bold">повне охоплення</tspan></text>
+
+    <!-- Result Badge -->
+    <rect x="46" y="472" width="190" height="34" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+    <text x="141" y="493" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">✓ НАДІЙНЕ З'ЄДНАННЯ</text>
+  </g>
+
+  <!-- CARD 2: COLD JOINT -->
+  <g id="card-cold">
+    <!-- Card Frame -->
+    <rect x="262" y="78" width="210" height="444" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+    <!-- Status Header -->
+    <rect x="272" y="88" width="190" height="32" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+    <text x="367" y="109" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">Холодне паяння</text>
+
+    <!-- Drawing Box -->
+    <rect x="272" y="128" width="190" height="185" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+
+    <!-- Microscope Reticle & Reticle Info -->
+    <circle cx="367" cy="220" r="80" fill="none" stroke="#e0e6ed" stroke-width="1" stroke-dasharray="3,3"/>
+    <text x="280" y="146" font-size="12" fill="#9ca3af">20× Stereo</text>
+
+    <!-- PCB & Copper Pad -->
+    <rect x="280" y="275" width="174" height="28" fill="#2e7d32" rx="2"/>
+    <text x="288" y="293" font-size="12" fill="#ffffff" opacity="0.8">FR-4</text>
+    <rect x="288" y="270" width="158" height="5" fill="#d4af37"/>
+
+    <!-- SMD Component Body & Termination -->
+    <rect x="280" y="195" width="55" height="75" fill="#37474f" rx="2"/>
+    <text x="307" y="235" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">SMD</text>
+    <path d="M328,195 H346 V270 H328 Z" fill="#b0bec5" stroke="#78909c"/>
+
+    <!-- Cold Solder Blob (Convex) -->
+    <path d="M346,215 C385,215 435,240 420,270 L346,270 Z" fill="#78909c" stroke="#37474f" stroke-width="1.5"/>
+
+    <!-- Grainy Surface Texture Dots -->
+    <circle cx="370" cy="240" r="1.5" fill="#37474f"/>
+    <circle cx="382" cy="248" r="1.5" fill="#37474f"/>
+    <circle cx="395" cy="255" r="1.5" fill="#37474f"/>
+    <circle cx="360" cy="252" r="1.5" fill="#37474f"/>
+    <circle cx="375" cy="260" r="1.5" fill="#37474f"/>
+    <circle cx="405" cy="262" r="1.5" fill="#37474f"/>
+
+    <!-- Non-wetting gap red line -->
+    <line x1="390" y1="270" x2="430" y2="270" stroke="#c0392b" stroke-width="2" stroke-dasharray="3,2"/>
+
+    <!-- Convex Meniscus Label & Arrow -->
+    <text x="367" y="166" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Опуклість / зерна</text>
+    <line x1="367" y1="172" x2="375" y2="228" stroke="#c0392b" stroke-width="1.2" marker-end="url(#arr-red)"/>
+
+    <!-- Wetting Angle Notation (Obtuse) -->
+    <line x1="420" y1="270" x2="385" y2="235" stroke="#c0392b" stroke-width="1.2" stroke-dasharray="2,2"/>
+    <line x1="420" y1="270" x2="450" y2="270" stroke="#c0392b" stroke-width="1.2" stroke-dasharray="2,2"/>
+    <path d="M400,270 A20,20 0 0,1 402,252" fill="none" stroke="#c0392b" stroke-width="1.5"/>
+    <text x="400" y="226" font-size="12" font-weight="bold" fill="#c0392b">θ &gt; 90°</text>
+
+    <!-- Description Panel -->
+    <rect x="272" y="321" width="190" height="143" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+    <text x="282" y="340" font-size="12" font-weight="bold" fill="#1a1a1a">Ознаки дефекту:</text>
+    <text x="282" y="360" font-size="12" fill="#1a1a1a">• Змочування: <tspan font-weight="bold" fill="#c0392b">відсутнє</tspan></text>
+    <text x="282" y="380" font-size="12" fill="#1a1a1a">• Кут змочування: <tspan font-weight="bold" fill="#c0392b">θ &gt; 90°</tspan></text>
+    <text x="282" y="400" font-size="12" fill="#1a1a1a">• Форма: <tspan font-weight="bold">опукла крапля</tspan></text>
+    <text x="282" y="420" font-size="12" fill="#1a1a1a">• Поверхня: <tspan font-weight="bold">зерниста</tspan></text>
+    <text x="282" y="440" font-size="12" fill="#1a1a1a">• Причина: <tspan font-weight="bold">недогрів / окис</tspan></text>
+
+    <!-- Result Badge -->
+    <rect x="272" y="472" width="190" height="34" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+    <text x="367" y="493" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">✕ ВІДСУТНІЙ КОНТАКТ</text>
+  </g>
+
+  <!-- CARD 3: SOLDER BRIDGE -->
+  <g id="card-bridge">
+    <!-- Card Frame -->
+    <rect x="488" y="78" width="210" height="444" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+    <!-- Status Header -->
+    <rect x="498" y="88" width="190" height="32" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+    <text x="593" y="109" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">Перемичка припаю</text>
+
+    <!-- Drawing Box -->
+    <rect x="498" y="128" width="190" height="185" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+
+    <!-- Microscope Reticle & Reticle Info -->
+    <circle cx="593" cy="220" r="80" fill="none" stroke="#e0e6ed" stroke-width="1" stroke-dasharray="3,3"/>
+    <text x="506" y="146" font-size="12" fill="#9ca3af">20× Stereo</text>
+
+    <!-- PCB & Copper Pads -->
+    <rect x="506" y="275" width="174" height="28" fill="#2e7d32" rx="2"/>
+    <text x="514" y="293" font-size="12" fill="#ffffff" opacity="0.8">FR-4</text>
+    <rect x="512" y="270" width="60" height="5" fill="#d4af37"/>
+    <rect x="614" y="270" width="60" height="5" fill="#d4af37"/>
+
+    <!-- Adjacent Component Pins -->
+    <rect x="526" y="200" width="32" height="70" fill="#b0bec5" stroke="#78909c" rx="1"/>
+    <text x="542" y="222" font-size="12" font-weight="bold" fill="#37474f" text-anchor="middle">Pin 1</text>
+
+    <rect x="628" y="200" width="32" height="70" fill="#b0bec5" stroke="#78909c" rx="1"/>
+    <text x="644" y="222" font-size="12" font-weight="bold" fill="#37474f" text-anchor="middle">Pin 2</text>
+
+    <!-- Solder Bridge Mass -->
+    <path d="M515,270 Q510,240 535,240 Q593,225 651,240 Q676,240 671,270 Z" fill="#90a4ae" stroke="#455a64" stroke-width="1.5"/>
+    <path d="M525,248 Q593,233 661,248" fill="none" stroke="#ffffff" stroke-width="1.5" opacity="0.7"/>
+
+    <!-- Short Circuit Red Box -->
+    <rect x="560" y="226" width="66" height="46" rx="4" fill="none" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3,2"/>
+
+    <!-- Bridge Label & Arrow -->
+    <text x="593" y="166" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Перемичка (КЗ)</text>
+    <line x1="593" y1="172" x2="593" y2="221" stroke="#c0392b" stroke-width="1.2" marker-end="url(#arr-red)"/>
+
+    <!-- Description Panel -->
+    <rect x="498" y="321" width="190" height="143" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+    <text x="508" y="340" font-size="12" font-weight="bold" fill="#1a1a1a">Ознаки дефекту:</text>
+    <text x="508" y="360" font-size="12" fill="#1a1a1a">• Об'єм припаю: <tspan font-weight="bold" fill="#c0392b">надлишковий</tspan></text>
+    <text x="508" y="380" font-size="12" fill="#1a1a1a">• Зазор між виводами: <tspan font-weight="bold" fill="#c0392b">КЗ</tspan></text>
+    <text x="508" y="400" font-size="12" fill="#1a1a1a">• Стан: <tspan font-weight="bold">коротке замикання</tspan></text>
+    <text x="508" y="420" font-size="12" fill="#1a1a1a">• Контроль: <tspan font-weight="bold">чітко в стерео</tspan></text>
+    <text x="508" y="440" font-size="12" fill="#1a1a1a">• Усунення: <tspan font-weight="bold">оплітка/флюс</tspan></text>
+
+    <!-- Result Badge -->
+    <rect x="498" y="472" width="190" height="34" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+    <text x="593" y="493" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">✕ КОРОТКЕ ЗАМИКАННЯ</text>
+  </g>
+
+  <!-- CARD 4: MICROCRACK -->
+  <g id="card-crack">
+    <!-- Card Frame -->
+    <rect x="714" y="78" width="210" height="444" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+    <!-- Status Header -->
+    <rect x="724" y="88" width="190" height="32" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+    <text x="819" y="109" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">Мікротріщина галтелі</text>
+
+    <!-- Drawing Box -->
+    <rect x="724" y="128" width="190" height="185" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+
+    <!-- Microscope Reticle & Reticle Info -->
+    <circle cx="819" cy="220" r="80" fill="none" stroke="#e0e6ed" stroke-width="1" stroke-dasharray="3,3"/>
+    <text x="732" y="146" font-size="12" fill="#9ca3af">20× Stereo</text>
+
+    <!-- PCB & Copper Pad -->
+    <rect x="732" y="275" width="174" height="28" fill="#2e7d32" rx="2"/>
+    <text x="740" y="293" font-size="12" fill="#ffffff" opacity="0.8">FR-4</text>
+    <rect x="740" y="270" width="158" height="5" fill="#d4af37"/>
+
+    <!-- SMD Component Body & Termination -->
+    <rect x="732" y="195" width="55" height="75" fill="#37474f" rx="2"/>
+    <text x="759" y="235" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">SMD</text>
+    <path d="M780,195 H798 V270 H780 Z" fill="#b0bec5" stroke="#78909c"/>
+
+    <!-- Solder Fillet -->
+    <path d="M798,220 Q806,265 890,270 L798,270 Z" fill="#90a4ae" stroke="#455a64" stroke-width="1.5"/>
+    <path d="M801,228 Q809,262 880,268" fill="none" stroke="#ffffff" stroke-width="1.5" opacity="0.7"/>
+
+    <!-- Microcrack Path -->
+    <path d="M805,268 L815,258 L812,248 L820,238" fill="none" stroke="#c0392b" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="813" cy="253" r="18" fill="none" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3,2"/>
+
+    <!-- Crack Label & Arrow -->
+    <text x="819" y="166" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Мікротріщина</text>
+    <line x1="819" y1="172" x2="816" y2="232" stroke="#c0392b" stroke-width="1.2" marker-end="url(#arr-red)"/>
+    <text x="845" y="250" font-size="12" font-weight="bold" fill="#c0392b">Тріщина</text>
+
+    <!-- Description Panel -->
+    <rect x="724" y="321" width="190" height="143" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+    <text x="734" y="340" font-size="12" font-weight="bold" fill="#1a1a1a">Ознаки дефекту:</text>
+    <text x="734" y="360" font-size="12" fill="#1a1a1a">• Структура: <tspan font-weight="bold" fill="#c0392b">мікротріщина</tspan></text>
+    <text x="734" y="380" font-size="12" fill="#1a1a1a">• Причина: <tspan font-weight="bold">термовтома/удар</tspan></text>
+    <text x="734" y="400" font-size="12" fill="#1a1a1a">• Контакт: <tspan font-weight="bold">нестабільний</tspan></text>
+    <text x="734" y="420" font-size="12" fill="#1a1a1a">• Виявлення: <tspan font-weight="bold">кутове стерео</tspan></text>
+    <text x="734" y="440" font-size="12" fill="#1a1a1a">• Ризик: <tspan font-weight="bold">раптова відмова</tspan></text>
+
+    <!-- Result Badge -->
+    <rect x="724" y="472" width="190" height="34" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+    <text x="819" y="493" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">✕ ПРИХОВАНИЙ ДЕФЕКТ</text>
+  </g>
+</svg>

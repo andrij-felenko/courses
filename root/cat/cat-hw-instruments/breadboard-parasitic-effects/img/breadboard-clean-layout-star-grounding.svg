@@ -1,0 +1,154 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Компонування макетної плати: мінімізація паразитних індуктивностей і ємностей</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Порівняння хаотичного макету з великими петлями струму та впорядкованої схеми зі зоряним заземленням</text>
+
+  <!-- LEFT PANEL: BAD LAYOUT -->
+  <rect x="30" y="75" width="435" height="445" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" rx="8"/>
+  <text x="247.5" y="102" font-size="15" font-weight="700" fill="#c0392b" text-anchor="middle">⛔ Неправильно: Хаотичне трасування ("Павутина")</text>
+  <text x="247.5" y="122" font-size="12" fill="#6b7280" text-anchor="middle">Довгі джампери, спільний дріт заземлення та відсутність C_dec</text>
+
+  <!-- Left Breadboard Container -->
+  <rect x="55" y="138" width="385" height="195" fill="#ffffff" stroke="#d0d7de" rx="6"/>
+
+  <!-- Left Power Rails -->
+  <line x1="75" y1="152" x2="420" y2="152" stroke="#c0392b" stroke-width="2.5"/>
+  <text x="63" y="156" font-size="10" font-weight="700" fill="#c0392b" text-anchor="end">+VCC</text>
+  <line x1="75" y1="164" x2="420" y2="164" stroke="#2457d6" stroke-width="2.5"/>
+  <text x="63" y="168" font-size="10" font-weight="700" fill="#2457d6" text-anchor="end">GND</text>
+
+  <!-- Left Center Ravine (Top & Bottom segments to avoid IC block overlap) -->
+  <rect x="237.5" y="180" width="20" height="30" fill="#f4f6f8" stroke="#d0d7de"/>
+  <rect x="237.5" y="290" width="20" height="30" fill="#f4f6f8" stroke="#d0d7de"/>
+
+  <!-- Left IC Package -->
+  <rect x="225" y="210" width="45" height="80" fill="#2c3e50" rx="3"/>
+  <circle cx="247.5" cy="217" r="3" fill="#1a252f"/>
+  <text x="247.5" y="254" font-size="11" font-weight="700" fill="#ffffff" text-anchor="middle">IC 14</text>
+
+  <!-- Left IC Pins -->
+  <line x1="213" y1="225" x2="225" y2="225" stroke="#7f8c8d" stroke-width="2"/>
+  <line x1="213" y1="240" x2="225" y2="240" stroke="#7f8c8d" stroke-width="2"/>
+  <line x1="213" y1="255" x2="225" y2="255" stroke="#7f8c8d" stroke-width="2"/>
+  <line x1="213" y1="270" x2="225" y2="270" stroke="#7f8c8d" stroke-width="2"/>
+
+  <line x1="270" y1="225" x2="282" y2="225" stroke="#7f8c8d" stroke-width="2"/>
+  <line x1="270" y1="240" x2="282" y2="240" stroke="#7f8c8d" stroke-width="2"/>
+  <line x1="270" y1="255" x2="282" y2="255" stroke="#7f8c8d" stroke-width="2"/>
+  <line x1="270" y1="270" x2="282" y2="270" stroke="#7f8c8d" stroke-width="2"/>
+
+  <!-- Bad Wires (Loops & Spikes) -->
+  <!-- Wire 1: Long high arc signal loop -->
+  <text x="247.5" y="145" font-size="10" font-weight="700" fill="#c0392b" text-anchor="middle">Петля джампера (висока L_par)</text>
+  <path d="M95,225 C95,115 400,115 400,225" fill="none" stroke="#c0392b" stroke-width="2.5" stroke-dasharray="6,3"/>
+
+  <!-- Wire 2: Long daisy-chained ground loop -->
+  <path d="M85,164 C85,308 410,308 410,164" fill="none" stroke="#2457d6" stroke-width="2"/>
+  <text x="247.5" y="322" font-size="10" font-weight="700" fill="#2457d6" text-anchor="middle">Довгий спільний дріт GND (земляна петля)</text>
+
+  <!-- Parallel Wires Cross-talk -->
+  <text x="247.5" y="175" font-size="10" font-weight="700" fill="#e67e22" text-anchor="middle">Суміжні провідники (ємність C_par)</text>
+  <path d="M120,260 C155,215 340,215 375,260" fill="none" stroke="#e67e22" stroke-width="2"/>
+  <path d="M120,270 C155,225 340,225 375,270" fill="none" stroke="#e67e22" stroke-width="2"/>
+
+  <!-- Left Callout Boxes -->
+  <rect x="55" y="348" width="385" height="46" fill="#ffffff" stroke="#c0392b" stroke-width="1.2" rx="5"/>
+  <text x="70" y="366" font-size="12" font-weight="700" fill="#c0392b">• Довгі висячі джампери</text>
+  <text x="70" y="384" font-size="11" fill="#1a1a1a">Створюють великі петлі струму й випромінюють/вловлюють завади (L_par)</text>
+
+  <rect x="55" y="402" width="385" height="46" fill="#ffffff" stroke="#c0392b" stroke-width="1.2" rx="5"/>
+  <text x="70" y="420" font-size="12" font-weight="700" fill="#c0392b">• Послідовне ("шлейфове") заземлення</text>
+  <text x="70" y="438" font-size="11" fill="#1a1a1a">Викликає спільний імпедансний зв'язок та зсув потенціалів Землі</text>
+
+  <rect x="55" y="456" width="385" height="52" fill="#ffffff" stroke="#c0392b" stroke-width="1.2" rx="5"/>
+  <text x="70" y="474" font-size="12" font-weight="700" fill="#c0392b">• Відсутній блокиратор C_dec біля мікросхеми</text>
+  <text x="70" y="494" font-size="11" fill="#1a1a1a">Імпульсні кидки струму живлення спричиняють просідання VCC</text>
+
+
+  <!-- RIGHT PANEL: GOOD LAYOUT -->
+  <rect x="495" y="75" width="435" height="445" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="8"/>
+  <text x="712.5" y="102" font-size="15" font-weight="700" fill="#27ae60" text-anchor="middle">✓ Правильно: Впорядковане зоряне заземлення</text>
+  <text x="712.5" y="122" font-size="12" fill="#6b7280" text-anchor="middle">Короткі джампери врівень, зоряна точка GND та C_dec поруч з IC</text>
+
+  <!-- Right Breadboard Container -->
+  <rect x="520" y="138" width="385" height="195" fill="#ffffff" stroke="#d0d7de" rx="6"/>
+
+  <!-- Right Power Rails -->
+  <line x1="540" y1="152" x2="885" y2="152" stroke="#c0392b" stroke-width="2.5"/>
+  <text x="528" y="156" font-size="10" font-weight="700" fill="#c0392b" text-anchor="end">+VCC</text>
+  <line x1="540" y1="164" x2="885" y2="164" stroke="#2457d6" stroke-width="2.5"/>
+  <text x="528" y="168" font-size="10" font-weight="700" fill="#2457d6" text-anchor="end">GND</text>
+
+  <!-- Right Center Ravine (Top & Bottom segments) -->
+  <rect x="702.5" y="180" width="20" height="30" fill="#f4f6f8" stroke="#d0d7de"/>
+  <rect x="702.5" y="290" width="20" height="30" fill="#f4f6f8" stroke="#d0d7de"/>
+
+  <!-- Right IC Package -->
+  <rect x="690" y="210" width="45" height="80" fill="#2c3e50" rx="3"/>
+  <circle cx="712.5" cy="217" r="3" fill="#1a252f"/>
+  <text x="712.5" y="254" font-size="11" font-weight="700" fill="#ffffff" text-anchor="middle">IC 14</text>
+
+  <!-- Right IC Pins -->
+  <line x1="678" y1="225" x2="690" y2="225" stroke="#7f8c8d" stroke-width="2"/>
+  <line x1="678" y1="240" x2="690" y2="240" stroke="#7f8c8d" stroke-width="2"/>
+  <line x1="678" y1="255" x2="690" y2="255" stroke="#7f8c8d" stroke-width="2"/>
+  <line x1="678" y1="270" x2="690" y2="270" stroke="#7f8c8d" stroke-width="2"/>
+
+  <line x1="735" y1="225" x2="747" y2="225" stroke="#7f8c8d" stroke-width="2"/>
+  <line x1="735" y1="240" x2="747" y2="240" stroke="#7f8c8d" stroke-width="2"/>
+  <line x1="735" y1="255" x2="747" y2="255" stroke="#7f8c8d" stroke-width="2"/>
+  <line x1="735" y1="270" x2="747" y2="270" stroke="#7f8c8d" stroke-width="2"/>
+
+  <!-- Good Wires & Components -->
+  <!-- Short straight flush jumper (Signal) -->
+  <line x1="570" y1="225" x2="678" y2="225" stroke="#27ae60" stroke-width="3"/>
+  <text x="624" y="217" font-size="10" font-weight="700" fill="#27ae60" text-anchor="middle">Джампер врівень</text>
+
+  <!-- Decoupling Cap C_dec -->
+  <rect x="650" y="203" width="16" height="26" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="2"/>
+  <text x="658" y="220" font-size="10" font-weight="700" fill="#2457d6" text-anchor="middle">C_dec</text>
+  <!-- Wire from C_dec to VCC pin -->
+  <line x1="658" y1="203" x2="658" y2="152" stroke="#c0392b" stroke-width="2"/>
+  <line x1="666" y1="225" x2="678" y2="225" stroke="#2457d6" stroke-width="2"/>
+  <text x="600" y="185" font-size="10" font-weight="700" fill="#2457d6" text-anchor="middle">100 nF біля VCC</text>
+
+  <!-- Star Ground Central Node -->
+  <circle cx="780" cy="270" r="8" fill="#27ae60"/>
+  <text x="780" y="293" font-size="11" font-weight="700" fill="#27ae60" text-anchor="middle">Зоряна точка GND</text>
+
+  <!-- Separate ground connections radiating to Star GND -->
+  <line x1="747" y1="270" x2="772" y2="270" stroke="#27ae60" stroke-width="2.5"/>
+  <line x1="860" y1="230" x2="776" y2="264" stroke="#27ae60" stroke-width="2.5"/>
+  <line x1="780" y1="164" x2="780" y2="262" stroke="#27ae60" stroke-width="2.5"/>
+
+  <!-- Right Callout Boxes -->
+  <rect x="520" y="348" width="385" height="46" fill="#ffffff" stroke="#27ae60" stroke-width="1.2" rx="5"/>
+  <text x="535" y="366" font-size="12" font-weight="700" fill="#27ae60">• Прямі джампери притиснуті до плати</text>
+  <text x="535" y="384" font-size="11" fill="#1a1a1a">Мінімізують індуктивність L_par та виключають перехресні завади</text>
+
+  <rect x="520" y="402" width="385" height="46" fill="#ffffff" stroke="#27ae60" stroke-width="1.2" rx="5"/>
+  <text x="535" y="420" font-size="12" font-weight="700" fill="#27ae60">• Зоряне заземлення в одній точці</text>
+  <text x="535" y="438" font-size="11" fill="#1a1a1a">Усуває земляні петлі струму й гарантує стабільний потенціал 0 В</text>
+
+  <rect x="520" y="456" width="385" height="52" fill="#ffffff" stroke="#27ae60" stroke-width="1.2" rx="5"/>
+  <text x="535" y="474" font-size="12" font-weight="700" fill="#27ae60">• Локальне розв'язування C_dec (100 nF)</text>
+  <text x="535" y="494" font-size="11" fill="#1a1a1a">Шунтує високочастотний шум безпосередньо біля виводу VCC</text>
+</svg>

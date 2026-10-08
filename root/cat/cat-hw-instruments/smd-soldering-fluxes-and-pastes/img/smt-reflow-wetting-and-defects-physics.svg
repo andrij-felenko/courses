@@ -1,0 +1,226 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <!-- Arrow Markers -->
+    <marker id="arr-accent" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Background Canvas -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Title and Subtitle -->
+  <text x="480" y="28" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Етапи термоповітряного оплавлення пасти та фізика дефектів</text>
+  <text x="480" y="48" font-size="13" fill="#6b7280" text-anchor="middle">Поверхневий натяг F_γ забезпечує самовирівнювання, а швидкий нагрів створює кульки</text>
+
+  <!-- ================= ROW 1: THREE PROCESS STAGES ================= -->
+
+  <!-- CARD 1: Dosage & Placement -->
+  <g transform="translate(30, 68)">
+    <rect x="0" y="0" width="285" height="217" rx="6" ry="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+    <!-- Header bar -->
+    <path d="M0,6 Q0,0 6,0 L279,0 Q285,0 285,6 L285,30 L0,30 Z" fill="#eaf0fd"/>
+    <text x="142.5" y="20" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">1. Нанесення пасти (зсув Δx)</text>
+
+    <!-- Offset indicator -->
+    <line x1="95" y1="42" x2="95" y2="114" stroke="#2457d6" stroke-dasharray="3,2" stroke-width="1"/>
+    <line x1="109" y1="42" x2="109" y2="100" stroke="#c0392b" stroke-dasharray="3,2" stroke-width="1"/>
+    <line x1="95" y1="48" x2="109" y2="48" stroke="#c0392b" stroke-width="1.5"/>
+    <text x="102" y="44" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Δx</text>
+
+    <!-- PCB & Pads -->
+    <rect x="15" y="122" width="255" height="10" fill="#e2ebd9" stroke="#4a7c59" stroke-width="1.5" rx="1"/>
+    <rect x="35" y="114" width="60" height="8" fill="#d97706" rx="1"/>
+    <rect x="190" y="114" width="60" height="8" fill="#d97706" rx="1"/>
+
+    <!-- Solder Paste Bricks -->
+    <rect x="35" y="100" width="60" height="14" fill="#94a3b8" rx="2"/>
+    <rect x="190" y="100" width="60" height="14" fill="#94a3b8" rx="2"/>
+
+    <!-- Paste texture dots -->
+    <circle cx="45" cy="107" r="1.5" fill="#475569"/>
+    <circle cx="60" cy="105" r="1.5" fill="#475569"/>
+    <circle cx="75" cy="108" r="1.5" fill="#475569"/>
+    <circle cx="200" cy="106" r="1.5" fill="#475569"/>
+    <circle cx="215" cy="108" r="1.5" fill="#475569"/>
+    <circle cx="235" cy="105" r="1.5" fill="#475569"/>
+
+    <!-- Component (Shifted right by Δx = 14px) -->
+    <rect x="99" y="67" width="140" height="33" fill="#334155" rx="3"/>
+    <rect x="84" y="67" width="18" height="33" fill="#cbd5e1" rx="2"/>
+    <rect x="236" y="67" width="18" height="33" fill="#cbd5e1" rx="2"/>
+
+    <!-- Annotations -->
+    <text x="142.5" y="152" font-size="12" fill="#1a1a1a" text-anchor="middle">Паяльна паста під терміналами</text>
+    <text x="142.5" y="170" font-size="12" fill="#6b7280" text-anchor="middle">Деталь встановлено неточно</text>
+    <text x="142.5" y="188" font-size="12" fill="#6b7280" text-anchor="middle">(первинний зсув відносно контакту)</text>
+  </g>
+
+  <!-- Flow Arrow 1 -> 2 -->
+  <line x1="317" y1="175" x2="333" y2="175" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-accent)"/>
+
+  <!-- CARD 2: Preheat & Flux Activation -->
+  <g transform="translate(337, 68)">
+    <rect x="0" y="0" width="285" height="217" rx="6" ry="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+    <!-- Header bar -->
+    <path d="M0,6 Q0,0 6,0 L279,0 Q285,0 285,6 L285,30 L0,30 Z" fill="#eaf0fd"/>
+    <text x="142.5" y="20" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">2. Прогрів та активація флюсу</text>
+
+    <!-- Hot Air Flow Arrows -->
+    <path d="M 95,36 L 95,52" fill="none" stroke="#d97706" stroke-width="2" marker-end="url(#arr-accent)"/>
+    <path d="M 142.5,36 L 142.5,52" fill="none" stroke="#d97706" stroke-width="2" marker-end="url(#arr-accent)"/>
+    <path d="M 190,36 L 190,52" fill="none" stroke="#d97706" stroke-width="2" marker-end="url(#arr-accent)"/>
+    <text x="142.5" y="46" font-size="12" fill="#6b7280" text-anchor="middle">Гаряче повітря (150-180°C)</text>
+
+    <!-- PCB & Pads -->
+    <rect x="15" y="122" width="255" height="10" fill="#e2ebd9" stroke="#4a7c59" stroke-width="1.5" rx="1"/>
+    <rect x="35" y="114" width="60" height="8" fill="#d97706" rx="1"/>
+    <rect x="190" y="114" width="60" height="8" fill="#d97706" rx="1"/>
+
+    <!-- Flux Layer Spreading -->
+    <rect x="30" y="106" width="70" height="8" fill="#fef3c7" stroke="#f59e0b" stroke-width="1" rx="2"/>
+    <rect x="185" y="106" width="70" height="8" fill="#fef3c7" stroke="#f59e0b" stroke-width="1" rx="2"/>
+
+    <!-- Component -->
+    <rect x="99" y="67" width="140" height="33" fill="#334155" rx="3"/>
+    <rect x="84" y="67" width="18" height="33" fill="#cbd5e1" rx="2"/>
+    <rect x="236" y="67" width="18" height="33" fill="#cbd5e1" rx="2"/>
+
+    <!-- Annotations -->
+    <text x="142.5" y="152" font-size="12" fill="#1a1a1a" text-anchor="middle">Флюс плавиться та активується</text>
+    <text x="142.5" y="170" font-size="12" fill="#6b7280" text-anchor="middle">Видалення оксидів з металу</text>
+    <text x="142.5" y="188" font-size="12" fill="#6b7280" text-anchor="middle">Випаровування легких фракцій</text>
+  </g>
+
+  <!-- Flow Arrow 2 -> 3 -->
+  <line x1="624" y1="175" x2="641" y2="175" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-accent)"/>
+
+  <!-- CARD 3: Reflow & Surface Tension -->
+  <g transform="translate(645, 68)">
+    <rect x="0" y="0" width="285" height="217" rx="6" ry="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+    <!-- Header bar -->
+    <path d="M0,6 Q0,0 6,0 L279,0 Q285,0 285,6 L285,30 L0,30 Z" fill="#eaf0fd"/>
+    <text x="142.5" y="20" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">3. Оплавлення припою (T > T_m)</text>
+
+    <!-- Hot Air Flow Peak -->
+    <path d="M 142.5,36 L 142.5,52" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-accent)"/>
+    <text x="142.5" y="46" font-size="12" fill="#2457d6" text-anchor="middle">Пік оплавлення (T ≥ 217°C)</text>
+
+    <!-- PCB & Pads -->
+    <rect x="15" y="122" width="255" height="10" fill="#e2ebd9" stroke="#4a7c59" stroke-width="1.5" rx="1"/>
+    <rect x="35" y="114" width="60" height="8" fill="#d97706" rx="1"/>
+    <rect x="190" y="114" width="60" height="8" fill="#d97706" rx="1"/>
+
+    <!-- Molten Solder Fillet Meniscus -->
+    <path d="M 35,114 L 84,114 L 84,80 Q 55,102 35,114 Z" fill="#64748b" stroke="#2457d6" stroke-width="1"/>
+    <path d="M 250,114 L 201,114 L 201,80 Q 230,102 250,114 Z" fill="#64748b" stroke="#2457d6" stroke-width="1"/>
+
+    <!-- Force Vector Arrow F_γ -->
+    <line x1="72" y1="88" x2="52" y2="104" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-accent)"/>
+    <text x="76" y="86" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">F_γ</text>
+
+    <!-- Component (Shifted closer to center under tension) -->
+    <rect x="91" y="67" width="140" height="33" fill="#334155" rx="3"/>
+    <rect x="76" y="67" width="18" height="33" fill="#cbd5e1" rx="2"/>
+    <rect x="228" y="67" width="18" height="33" fill="#cbd5e1" rx="2"/>
+
+    <!-- Annotations -->
+    <text x="142.5" y="152" font-size="12" fill="#1a1a1a" text-anchor="middle">Припой переходить у рідку фазу</text>
+    <text x="142.5" y="170" font-size="12" fill="#6b7280" text-anchor="middle">Формування рідкого меніска</text>
+    <text x="142.5" y="188" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Виникнення сил натягу F_γ</text>
+  </g>
+
+  <!-- ================= ROW 2: COMPARISON OF OUTCOMES ================= -->
+
+  <!-- PANEL LEFT: SUCCESS / SELF-ALIGNMENT -->
+  <g transform="translate(30, 295)">
+    <rect x="0" y="0" width="442" height="240" rx="8" ry="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+    <!-- Header bar -->
+    <path d="M0,8 Q0,0 8,0 L434,0 Q442,0 442,8 L442,32 L0,32 Z" fill="#27ae60"/>
+    <text x="221" y="21" font-size="13" font-weight="bold" fill="#ffffff" text-anchor="middle">РЕЖИМ А: САМОВИРІВНЮВАННЯ (РІВНОВАГА СИЛ F_γ)</text>
+
+    <!-- Force Balance Badge -->
+    <rect x="116" y="43" width="210" height="24" fill="#ffffff" stroke="#27ae60" stroke-width="1.5" rx="4"/>
+    <text x="221" y="59" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">F_γ1 = F_γ2  ⇒  ΣF_x = 0</text>
+
+    <!-- Vector arrows & labels -->
+    <line x1="145" y1="90" x2="115" y2="115" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arr-green)"/>
+    <text x="115" y="85" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">F_γ1</text>
+
+    <line x1="297" y1="90" x2="327" y2="115" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arr-green)"/>
+    <text x="327" y="85" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">F_γ2</text>
+
+    <!-- PCB & Pads -->
+    <rect x="20" y="135" width="402" height="10" fill="#e2ebd9" stroke="#4a7c59" stroke-width="1.5" rx="1"/>
+    <rect x="60" y="127" width="75" height="8" fill="#d97706" rx="1"/>
+    <rect x="307" y="127" width="75" height="8" fill="#d97706" rx="1"/>
+
+    <!-- Component (Perfectly centered on pads) -->
+    <rect x="135" y="70" width="172" height="40" fill="#334155" rx="4"/>
+    <rect x="105" y="70" width="30" height="40" fill="#cbd5e1" rx="2"/>
+    <rect x="307" y="70" width="30" height="40" fill="#cbd5e1" rx="2"/>
+
+    <!-- Solder Fillets -->
+    <path d="M 60,127 L 105,127 L 105,80 Q 82,110 60,127 Z" fill="#64748b" stroke="#27ae60" stroke-width="1.5"/>
+    <path d="M 382,127 L 337,127 L 337,80 Q 360,110 382,127 Z" fill="#64748b" stroke="#27ae60" stroke-width="1.5"/>
+
+    <!-- Explanatory Bullets -->
+    <text x="25" y="177" font-size="12" fill="#1a1a1a" text-anchor="start">✓ Двостороннє змочування створює однакові сили натягу</text>
+    <text x="25" y="197" font-size="12" fill="#1a1a1a" text-anchor="start">✓ Рідкий припой самостійно центрує деталь на майданчиках</text>
+    <text x="25" y="217" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="start">✓ Формується правильний увігнутий галтель припою</text>
+  </g>
+
+  <!-- PANEL RIGHT: DEFECT / SOLDER BALLING -->
+  <g transform="translate(488, 295)">
+    <rect x="0" y="0" width="442" height="240" rx="8" ry="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+    <!-- Header bar -->
+    <path d="M0,8 Q0,0 8,0 L434,0 Q442,0 442,8 L442,32 L0,32 Z" fill="#c0392b"/>
+    <text x="221" y="21" font-size="13" font-weight="bold" fill="#ffffff" text-anchor="middle">РЕЖИМ Б: ДЕФЕКТ КУЛЬКУВАННЯ (SOLDER BALLING)</text>
+
+    <!-- Rapid Heat Warning -->
+    <text x="221" y="53" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Швидкий нагрів (dT/dt >> norm)</text>
+
+    <!-- Explosive Outgassing Label -->
+    <text x="221" y="100" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Вибухове кипіння флюсу</text>
+
+    <!-- Gas Burst Waves -->
+    <path d="M 80,122 C 70,110 90,100 80,90" fill="none" stroke="#c0392b" stroke-dasharray="2,2" stroke-width="1.5"/>
+    <path d="M 360,122 C 370,110 350,100 360,90" fill="none" stroke="#c0392b" stroke-dasharray="2,2" stroke-width="1.5"/>
+
+    <!-- PCB & Pads -->
+    <rect x="20" y="135" width="402" height="10" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" rx="1"/>
+    <rect x="60" y="127" width="75" height="8" fill="#d97706" rx="1"/>
+    <rect x="307" y="127" width="75" height="8" fill="#d97706" rx="1"/>
+
+    <!-- Component -->
+    <rect x="135" y="70" width="172" height="40" fill="#334155" rx="4"/>
+    <rect x="105" y="70" width="30" height="40" fill="#cbd5e1" rx="2"/>
+    <rect x="307" y="70" width="30" height="40" fill="#cbd5e1" rx="2"/>
+
+    <!-- Ejected Solder Balls (кульки припою) -->
+    <circle cx="32" cy="130" r="4.5" fill="#94a3b8" stroke="#c0392b" stroke-width="1.5"/>
+    <circle cx="48" cy="132" r="3" fill="#94a3b8" stroke="#c0392b" stroke-width="1.5"/>
+    <circle cx="195" cy="131" r="3.5" fill="#94a3b8" stroke="#c0392b" stroke-width="1.5"/>
+    <circle cx="215" cy="133" r="4" fill="#94a3b8" stroke="#c0392b" stroke-width="1.5"/>
+    <circle cx="397" cy="131" r="4.5" fill="#94a3b8" stroke="#c0392b" stroke-width="1.5"/>
+    <circle cx="412" cy="130" r="3" fill="#94a3b8" stroke="#c0392b" stroke-width="1.5"/>
+
+    <!-- Ball annotation arrow & text -->
+    <line x1="387" y1="105" x2="397" y2="122" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+    <text x="387" y="100" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Кульки припою</text>
+
+    <!-- Explanatory Bullets -->
+    <text x="20" y="177" font-size="12" fill="#1a1a1a" text-anchor="start">✗ Занадто швидкий нагрів викликає закипання розчинника</text>
+    <text x="20" y="197" font-size="12" fill="#1a1a1a" text-anchor="start">✗ Газові бульбашки виштовхують частки припою за пад</text>
+    <text x="20" y="217" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="start">✗ Окиснені кульки припою залишаються на масці плати</text>
+  </g>
+</svg>

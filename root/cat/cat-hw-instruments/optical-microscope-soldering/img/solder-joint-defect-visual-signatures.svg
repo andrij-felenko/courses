@@ -1,0 +1,115 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+  <defs>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Візуальні ознаки дефектів паяних з'єднань під мікроскопом</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Мікроскопічний контроль: нормальний меніск у порівнянні з характерними вадами монтажу</text>
+
+  <!-- КАРТКА 1: НОРМАЛЬНЕ З'ЄДНАННЯ -->
+  <rect x="25" y="75" width="210" height="360" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <rect x="40" y="90" width="180" height="32" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="4"/>
+  <text x="130" y="110" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Нормальна галтель</text>
+
+  <circle cx="130" cy="200" r="55" fill="#ffffff" stroke="#27ae60" stroke-width="2"/>
+  <line x1="130" y1="148" x2="130" y2="252" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="78" y1="200" x2="182" y2="200" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <rect x="85" y="215" width="90" height="8" fill="#d0d7de" rx="1"/>
+  <rect x="95" y="212" width="70" height="3" fill="#d97706"/>
+  <rect x="110" y="170" width="40" height="42" fill="#64748b"/>
+  <rect x="110" y="185" width="22" height="27" fill="#94a3b8" stroke="#475569" stroke-width="1"/>
+  <path d="M 95,212 L 132,212 C 132,205 125,190 120,185 L 110,185 L 110,212 Z" fill="#27ae60" opacity="0.85"/>
+  <path d="M 132,212 Q 124,204 120,185" fill="none" stroke="#27ae60" stroke-width="2"/>
+  <text x="138" y="208" font-size="12" font-weight="bold" fill="#27ae60">θ</text>
+
+  <text x="40" y="282" font-size="13" font-weight="bold" fill="#1a1a1a">Увігнутий меніск</text>
+  <text x="40" y="306" font-size="12" fill="#1a1a1a">• Кут змочування θ &lt; 30°</text>
+  <text x="40" y="328" font-size="12" fill="#1a1a1a">• Рівномірний блиск</text>
+  <text x="40" y="350" font-size="12" fill="#1a1a1a">• Чітка межа контактів</text>
+
+  <rect x="45" y="378" width="170" height="26" fill="#e9f7ef" stroke="#27ae60" stroke-width="1" rx="4"/>
+  <text x="130" y="395" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">ЯКІСНЕ З'ЄДНАННЯ</text>
+
+  <!-- КАРТКА 2: МІКРОТРІЩИНА -->
+  <rect x="255" y="75" width="210" height="360" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <rect x="270" y="90" width="180" height="32" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" rx="4"/>
+  <text x="360" y="110" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">Мікротріщина</text>
+
+  <circle cx="360" cy="200" r="55" fill="#ffffff" stroke="#c0392b" stroke-width="2"/>
+  <line x1="360" y1="148" x2="360" y2="252" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="308" y1="200" x2="412" y2="200" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <rect x="315" y="215" width="90" height="8" fill="#d0d7de" rx="1"/>
+  <rect x="325" y="212" width="70" height="3" fill="#d97706"/>
+  <rect x="340" y="170" width="40" height="42" fill="#64748b"/>
+  <rect x="340" y="185" width="22" height="27" fill="#94a3b8" stroke="#475569" stroke-width="1"/>
+  <path d="M 325,212 L 362,212 C 362,205 355,190 350,185 L 340,185 L 340,212 Z" fill="#94a3b8" opacity="0.7"/>
+  <path d="M 348,208 L 344,202 L 347,196 L 342,190" fill="none" stroke="#c0392b" stroke-width="2.5" stroke-linecap="round"/>
+  <circle cx="345" cy="199" r="14" fill="none" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="2,2"/>
+
+  <text x="270" y="282" font-size="13" font-weight="bold" fill="#1a1a1a">Втомний розрив</text>
+  <text x="270" y="306" font-size="12" fill="#1a1a1a">• Лінія розлому галтелі</text>
+  <text x="270" y="328" font-size="12" fill="#1a1a1a">• Термоциклічний стрес</text>
+  <text x="270" y="350" font-size="12" fill="#1a1a1a">• Нестабільний контакт</text>
+
+  <rect x="275" y="378" width="170" height="26" fill="#fdecea" stroke="#c0392b" stroke-width="1" rx="4"/>
+  <text x="360" y="395" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">РИЗИК ВТРАТИ СИГНАЛУ</text>
+
+  <!-- КАРТКА 3: ПЕРЕМИЧКА ПРИПАЮ -->
+  <rect x="485" y="75" width="210" height="360" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <rect x="500" y="90" width="180" height="32" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" rx="4"/>
+  <text x="590" y="110" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">Перемичка припаю</text>
+
+  <circle cx="590" cy="200" r="55" fill="#ffffff" stroke="#c0392b" stroke-width="2"/>
+  <line x1="590" y1="148" x2="590" y2="252" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="538" y1="200" x2="642" y2="200" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <rect x="545" y="215" width="90" height="8" fill="#d0d7de" rx="1"/>
+  <rect x="555" y="212" width="28" height="3" fill="#d97706"/>
+  <rect x="597" y="212" width="28" height="3" fill="#d97706"/>
+  <rect x="562" y="180" width="14" height="32" fill="#94a3b8" stroke="#475569" stroke-width="1"/>
+  <rect x="604" y="180" width="14" height="32" fill="#94a3b8" stroke="#475569" stroke-width="1"/>
+  <path d="M 558,212 C 558,195 570,192 590,192 C 610,192 622,195 622,212 Z" fill="#c0392b" opacity="0.85"/>
+  <path d="M 558,212 C 558,192 622,192 622,212" fill="none" stroke="#c0392b" stroke-width="2"/>
+
+  <text x="500" y="282" font-size="13" font-weight="bold" fill="#1a1a1a">Припайний місток</text>
+  <text x="500" y="306" font-size="12" fill="#1a1a1a">• Замикання виводів</text>
+  <text x="500" y="328" font-size="12" fill="#1a1a1a">• Надлишок припаю/флюсу</text>
+  <text x="500" y="350" font-size="12" fill="#1a1a1a">• Порушення зазору SMD</text>
+
+  <rect x="505" y="378" width="170" height="26" fill="#fdecea" stroke="#c0392b" stroke-width="1" rx="4"/>
+  <text x="590" y="395" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">КОРОТКЕ ЗАМИКАННЯ</text>
+
+  <!-- КАРТКА 4: ХОЛОДНЕ ПАЯННЯ -->
+  <rect x="715" y="75" width="210" height="360" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <rect x="730" y="90" width="180" height="32" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" rx="4"/>
+  <text x="820" y="110" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">Холодне паяння</text>
+
+  <circle cx="820" cy="200" r="55" fill="#ffffff" stroke="#c0392b" stroke-width="2"/>
+  <line x1="820" y1="148" x2="820" y2="252" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="768" y1="200" x2="872" y2="200" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <rect x="775" y="215" width="90" height="8" fill="#d0d7de" rx="1"/>
+  <rect x="785" y="212" width="70" height="3" fill="#d97706"/>
+  <rect x="800" y="170" width="40" height="42" fill="#64748b"/>
+  <rect x="800" y="185" width="22" height="27" fill="#94a3b8" stroke="#475569" stroke-width="1"/>
+  <path d="M 808,212 C 785,210 780,190 800,186 C 815,183 825,200 822,212 Z" fill="#c0392b" opacity="0.75"/>
+  <path d="M 808,212 C 780,208 780,185 800,186 C 820,187 824,208 822,212" fill="none" stroke="#c0392b" stroke-width="2"/>
+  <circle cx="798" cy="198" r="1.5" fill="#7f1d1d"/>
+  <circle cx="806" cy="194" r="1.5" fill="#7f1d1d"/>
+  <circle cx="812" cy="202" r="1.5" fill="#7f1d1d"/>
+  <circle cx="792" cy="204" r="1.5" fill="#7f1d1d"/>
+  <text x="773" y="206" font-size="12" font-weight="bold" fill="#c0392b">θ</text>
+
+  <!-- Опис 4 -->
+  <text x="730" y="282" font-size="13" font-weight="bold" fill="#1a1a1a">Зерниста поверхня</text>
+  <text x="730" y="306" font-size="12" fill="#1a1a1a">• Опукла крапля (θ &gt; 90°)</text>
+  <text x="730" y="328" font-size="12" fill="#1a1a1a">• Тьмяний матовий колір</text>
+  <text x="730" y="350" font-size="12" fill="#1a1a1a">• Недостатній прогрів</text>
+
+  <rect x="720" y="378" width="200" height="26" fill="#fdecea" stroke="#c0392b" stroke-width="1" rx="4"/>
+  <text x="820" y="395" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">ПЕРЕХІДНИЙ ОПІР</text>
+</svg>

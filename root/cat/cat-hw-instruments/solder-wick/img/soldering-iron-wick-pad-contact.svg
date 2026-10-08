@@ -1,0 +1,115 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- White Background -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- SVG Definitions: Arrow Markers -->
+  <defs>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#dc2626"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="40" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Передача тепла та капілярне всотування при паянні мідним плетінням</text>
+  <text x="480" y="60" text-anchor="middle" font-size="13" fill="#6b7280">Плоский контакт жала забезпечує максимальну зону прогріву та швидкий відбір припаю</text>
+
+  <!-- LEFT PANEL: Main Cross-Section Diagram -->
+  <rect x="35" y="80" width="560" height="355" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="55" y="104" font-size="14" font-weight="bold" fill="#1a1a1a">Схема розміщення плаского жала та зони контакту</text>
+
+  <!-- Flux Info Card inside Left Panel -->
+  <rect x="55" y="120" width="210" height="52" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="65" y="138" font-size="12" font-weight="bold" fill="#2457d6">Флюсове просочення:</text>
+  <text x="65" y="158" font-size="12" fill="#1a1a1a">Руйнує оксиди та знижує σ</text>
+  <path d="M 160,172 L 175,320" stroke="#2457d6" stroke-width="1.2" stroke-dasharray="3,3" marker-end="url(#arr-blue)"/>
+
+  <!-- Heat Transfer Callout text inside Left Panel -->
+  <rect x="55" y="182" width="210" height="52" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="65" y="200" font-size="12" font-weight="bold" fill="#2457d6">Зона передачі тепла S_ct</text>
+  <text x="65" y="220" font-size="12" fill="#6b7280">(плоский контакт поверхні)</text>
+  <path d="M 195,234 L 250,317" stroke="#2457d6" stroke-width="1.2" stroke-dasharray="3,3" marker-end="url(#arr-blue)"/>
+
+  <!-- Angle text card -->
+  <rect x="440" y="120" width="135" height="52" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="450" y="138" font-size="12" font-weight="bold" fill="#c0392b">Кут θ ≈ 30°–45°</text>
+  <text x="450" y="158" font-size="12" fill="#6b7280">нахил осі жала</text>
+
+  <!-- Dashed Angle Reference Lines -->
+  <line x1="160" y1="322" x2="520" y2="322" stroke="#94a3b8" stroke-width="1.2" stroke-dasharray="4,4"/>
+  <line x1="300" y1="322" x2="430" y2="180" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <path d="M 350,322 A 50,50 0 0,0 340,278" fill="none" stroke="#c0392b" stroke-width="1.8"/>
+
+  <!-- Heat Flow Arrows (Q_heat) -->
+  <text x="235" y="250" font-size="12" font-weight="bold" fill="#dc2626">Потік тепла Q_heat</text>
+  <line x1="270" y1="258" x2="270" y2="314" stroke="#dc2626" stroke-width="2" marker-end="url(#arr-red)"/>
+  <line x1="300" y1="258" x2="300" y2="314" stroke="#dc2626" stroke-width="2" marker-end="url(#arr-red)"/>
+  <line x1="330" y1="258" x2="330" y2="314" stroke="#dc2626" stroke-width="2" marker-end="url(#arr-red)"/>
+
+  <!-- Soldering Iron Tip (Chisel / Wedge Tip) -->
+  <polygon points="210,322 390,322 450,257 380,135 320,200" fill="#64748b" stroke="#334155" stroke-width="2"/>
+  <!-- Bevel Face Accent -->
+  <polygon points="210,322 390,322 320,200" fill="#94a3b8" stroke="#475569" stroke-width="1"/>
+  <text x="365" y="175" text-anchor="middle" font-size="12" font-weight="bold" fill="#ffffff">Жало паяльника</text>
+
+  <!-- Heat Transfer Surface Bar (S_ct) -->
+  <rect x="210" y="318" width="180" height="6" rx="2" fill="#2457d6"/>
+
+  <!-- Copper Braid (Мідне плетіння) -->
+  <rect x="140" y="324" width="380" height="16" rx="3" fill="#ea580c" stroke="#c2410c" stroke-width="1.5"/>
+  <!-- Braid Weave Lines -->
+  <path d="M 150,324 L 160,340 M 170,324 L 180,340 M 190,324 L 200,340 M 390,324 L 400,340 M 410,324 L 420,340 M 430,324 L 440,340 M 450,324 L 460,340 M 470,324 L 480,340 M 490,324 L 500,340" stroke="#b45309" stroke-width="1.2"/>
+  
+  <text x="50" y="336" font-size="12" font-weight="bold" fill="#c2410c">Мідне плетіння</text>
+
+  <!-- Capillary Flow Arrows (F_cap) -->
+  <line x1="210" y1="332" x2="155" y2="332" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <line x1="390" y1="332" x2="445" y2="332" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="455" y="315" font-size="12" font-weight="bold" fill="#2457d6">Всотування F_cap</text>
+
+  <!-- Molten Solder Layer -->
+  <rect x="180" y="342" width="270" height="16" rx="2" fill="#cbd5e1" stroke="#64748b" stroke-width="1.5"/>
+  <text x="315" y="354" text-anchor="middle" font-size="12" font-weight="bold" fill="#334155">Рідкий припай</text>
+
+  <!-- Contact Pad (Cu) -->
+  <rect x="160" y="360" width="310" height="22" rx="2" fill="#d97706" stroke="#b45309" stroke-width="1.5"/>
+  <text x="315" y="376" text-anchor="middle" font-size="12" font-weight="bold" fill="#ffffff">Контактний майданчик (Cu)</text>
+
+  <!-- PCB Substrate (FR-4) -->
+  <rect x="55" y="384" width="520" height="32" rx="3" fill="#15803d" stroke="#166534" stroke-width="1.5"/>
+  <text x="70" y="405" font-size="12" font-weight="bold" fill="#ffffff">Друкована плата (FR-4)</text>
+
+
+  <!-- RIGHT PANEL: Parameters & Technical Rules -->
+  <rect x="615" y="80" width="310" height="355" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="630" y="104" font-size="14" font-weight="bold" fill="#1a1a1a">Параметри й техніка видалення</text>
+
+  <!-- Card 1: Contact Geometry -->
+  <rect x="630" y="120" width="280" height="88" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="642" y="140" font-size="12" font-weight="bold" fill="#2457d6">1. Площина контакту (S_ct ↑)</text>
+  <text x="642" y="160" font-size="12" fill="#1a1a1a">• Притискання всією фаскою жала</text>
+  <text x="642" y="180" font-size="12" fill="#1a1a1a">• Швидка передача тепла без перегріву</text>
+  <text x="642" y="200" font-size="12" fill="#1a1a1a">• Запобігання приварюванню плетіння</text>
+
+  <!-- Card 2: Capillary Action & Flux -->
+  <rect x="630" y="218" width="280" height="88" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="642" y="238" font-size="12" font-weight="bold" fill="#27ae60">2. Капілярний ефект (P_cap)</text>
+  <text x="642" y="258" font-size="12" fill="#1a1a1a">• Всотування рідкого припаю в пори</text>
+  <text x="642" y="278" font-size="12" fill="#1a1a1a">• Флюс очищує оксиди та знижує σ</text>
+  <text x="642" y="298" font-size="12" fill="#1a1a1a">• Захист мідних жил від окиснення</text>
+
+  <!-- Card 3: Practical Rules -->
+  <rect x="630" y="316" width="280" height="96" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2"/>
+  <text x="642" y="336" font-size="12" font-weight="bold" fill="#1a1a1a">3. Рекомендації та застереження</text>
+  <text x="642" y="356" font-size="12" fill="#1a1a1a">• Час контакту: не більше 2–3 сек</text>
+  <text x="642" y="376" font-size="12" fill="#1a1a1a">• Відрізання насиченої ділянки</text>
+  <text x="642" y="396" font-size="12" fill="#1a1a1a">• Помірне зусилля (безпека майданчика)</text>
+</svg>

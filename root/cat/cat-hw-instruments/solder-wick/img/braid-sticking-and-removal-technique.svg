@@ -1,0 +1,267 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="100%" height="100%">
+  <defs>
+    <style>
+      .bg { fill: #f8fafc; }
+      .main-title { fill: #0f172a; font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif; font-size: 18px; font-weight: 800; text-anchor: middle; }
+      .subtitle { fill: #475569; font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif; font-size: 12px; font-weight: 500; text-anchor: middle; }
+
+      .panel-card { fill: #ffffff; stroke: #cbd5e1; stroke-width: 1.5; rx: 10px; }
+      
+      .panel-header-red { fill: #fee2e2; stroke: #fca5a5; stroke-width: 1; rx: 8px; }
+      .panel-header-blue { fill: #e0f2fe; stroke: #93c5fd; stroke-width: 1; rx: 8px; }
+      .panel-header-green { fill: #dcfce7; stroke: #86efac; stroke-width: 1; rx: 8px; }
+
+      .title-red { fill: #991b1b; font-family: system-ui, -apple-system, sans-serif; font-size: 12px; font-weight: 800; text-anchor: middle; }
+      .title-blue { fill: #0369a1; font-family: system-ui, -apple-system, sans-serif; font-size: 12px; font-weight: 800; text-anchor: middle; }
+      .title-green { fill: #15803d; font-family: system-ui, -apple-system, sans-serif; font-size: 12px; font-weight: 800; text-anchor: middle; }
+
+      .inner-box { fill: #f8fafc; stroke: #e2e8f0; stroke-width: 1.2; rx: 6px; }
+      .rule-card { fill: #ffffff; stroke: #e2e8f0; stroke-width: 1.2; rx: 6px; }
+
+      .txt-head-red { fill: #991b1b; font-family: system-ui, -apple-system, sans-serif; font-size: 11px; font-weight: 800; }
+      .txt-head-blue { fill: #0369a1; font-family: system-ui, -apple-system, sans-serif; font-size: 11px; font-weight: 800; }
+      
+      .txt-bold { fill: #0f172a; font-family: system-ui, -apple-system, sans-serif; font-size: 11px; font-weight: 700; }
+      .txt-main { fill: #334155; font-family: system-ui, -apple-system, sans-serif; font-size: 11px; font-weight: 400; }
+      .txt-sub { fill: #64748b; font-family: system-ui, -apple-system, sans-serif; font-size: 10px; font-weight: 400; }
+      .txt-danger { fill: #dc2626; font-family: system-ui, -apple-system, sans-serif; font-size: 10px; font-weight: 700; }
+      .txt-ok { fill: #16a34a; font-family: system-ui, -apple-system, sans-serif; font-size: 10px; font-weight: 700; }
+    </style>
+
+    <!-- Copper Mesh Pattern -->
+    <pattern id="copperMesh" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+      <rect width="8" height="8" fill="#d97706" />
+      <path d="M 0 4 L 8 4 M 4 0 L 4 8" stroke="#b45309" stroke-width="1.2" />
+      <path d="M 0 0 L 8 8 M 8 0 L 0 8" stroke="#f59e0b" stroke-dasharray="2 2" stroke-width="0.8" />
+    </pattern>
+
+    <!-- Heat Radial Glow -->
+    <radialGradient id="heatGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#ef4444" stop-opacity="0.8" />
+      <stop offset="50%" stop-color="#f97316" stop-opacity="0.4" />
+      <stop offset="100%" stop-color="#ef4444" stop-opacity="0" />
+    </radialGradient>
+
+    <!-- Liquid Flux Gradient -->
+    <linearGradient id="fluxGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fef08a" />
+      <stop offset="50%" stop-color="#f59e0b" />
+      <stop offset="100%" stop-color="#b45309" />
+    </linearGradient>
+
+    <!-- Molten Solder Gradient -->
+    <radialGradient id="solderMolten" cx="40%" cy="30%" r="70%">
+      <stop offset="0%" stop-color="#ffffff" />
+      <stop offset="35%" stop-color="#e2e8f0" />
+      <stop offset="70%" stop-color="#cbd5e1" />
+      <stop offset="100%" stop-color="#f59e0b" />
+    </radialGradient>
+
+    <!-- Soldering Iron Gradient -->
+    <linearGradient id="ironGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#475569" />
+      <stop offset="40%" stop-color="#94a3b8" />
+      <stop offset="70%" stop-color="#cbd5e1" />
+      <stop offset="100%" stop-color="#475569" />
+    </linearGradient>
+
+    <!-- Arrow Markers -->
+    <marker id="arr-red" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#dc2626" />
+    </marker>
+    <marker id="arr-green" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#16a34a" />
+    </marker>
+    <marker id="arr-blue" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#0284c7" />
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="960" height="460" class="bg" />
+
+  <!-- Main Header -->
+  <g transform="translate(0, 0)">
+    <text class="main-title" x="480" y="26">ТЕХНІКА РОБОТИ З МІДНИМ ПЛЕТІННЯМ (SOLDER WICK)</text>
+    <text class="subtitle" x="480" y="44">Запобігання залипанню (Freeze) та алгоритм безпечного вивільнення привареної оплітки</text>
+  </g>
+
+  <!-- CARD 1: FREEZE DANGER -->
+  <rect x="16" y="56" width="298" height="388" class="panel-card" />
+  <rect x="16" y="56" width="298" height="34" class="panel-header-red" />
+  <text class="title-red" x="165" y="78">1. ПРИЧИНА ЗАЛИПАННЯ (FREEZE)</text>
+
+  <!-- Card 1 Graphic -->
+  <rect x="26" y="96" width="278" height="168" class="inner-box" />
+
+  <!-- PCB Base -->
+  <rect x="36" y="222" width="258" height="26" fill="#166534" rx="3" />
+  <line x1="36" y1="228" x2="294" y2="228" stroke="#15803d" stroke-width="1" />
+  <rect x="65" y="217" width="200" height="6" fill="#d97706" />
+  <rect x="115" y="211" width="110" height="7" fill="#cbd5e1" stroke="#94a3b8" stroke-width="1" rx="1" />
+  <rect x="163" y="165" width="14" height="52" fill="#94a3b8" stroke="#475569" stroke-width="1.2" rx="1" />
+  <line x1="167" y1="166" x2="167" y2="216" stroke="#e2e8f0" stroke-width="1" />
+
+  <!-- Braid stuck -->
+  <path d="M 45 130 L 135 212 L 215 212 L 215 204 L 142 204 L 56 122 Z" fill="url(#copperMesh)" stroke="#b45309" stroke-width="1" />
+
+  <!-- Solidified Solder encapsulating braid -->
+  <path d="M 130 213 C 130 190 150 186 170 186 C 190 186 210 190 210 213 Z" fill="#94a3b8" stroke="#475569" stroke-width="1.2" />
+  <path d="M 142 200 L 152 206 M 185 195 L 195 202 M 160 190 L 175 198" stroke="#64748b" stroke-width="1" />
+  <ellipse cx="132" cy="212" rx="6" ry="3" fill="#78350f" opacity="0.8" />
+  <ellipse cx="208" cy="212" rx="7" ry="3" fill="#78350f" opacity="0.8" />
+
+  <!-- Lifting Cold Iron Tip -->
+  <g transform="translate(205, 104) rotate(-30)">
+    <rect x="0" y="0" width="12" height="35" fill="#334155" rx="2" />
+    <rect x="2" y="35" width="8" height="20" fill="url(#ironGrad)" stroke="#475569" stroke-width="0.8" />
+    <polygon points="2,55 10,55 8,72 4,72" fill="#cbd5e1" stroke="#64748b" stroke-width="0.8" />
+  </g>
+  <path d="M 170 180 C 180 150 190 130 205 115" stroke="#94a3b8" stroke-dasharray="3 3" stroke-width="1.5" fill="none" marker-end="url(#arr-blue)" />
+
+  <!-- Violent Pull Force Arrow -->
+  <path d="M 70 128 L 38 88" stroke="#dc2626" stroke-width="3" fill="none" marker-end="url(#arr-red)" />
+  <text x="32" y="82" fill="#dc2626" font-family="system-ui, sans-serif" font-size="10" font-weight="800">Силовий ривок (F)</text>
+
+  <!-- Danger Callout Badge -->
+  <rect x="145" y="104" width="150" height="48" fill="#fef2f2" stroke="#fca5a5" stroke-width="1" rx="6" />
+  <path d="M 157 128 L 165 112 L 173 128 Z" fill="#dc2626" />
+  <text x="165" y="125" fill="#ffffff" font-family="system-ui, sans-serif" font-size="9" font-weight="800" text-anchor="middle">!</text>
+  <text x="178" y="117" fill="#991b1b" font-family="system-ui, sans-serif" font-size="10" font-weight="800">НЕБЕЗПЕКА ВІДРИВУ!</text>
+  <text x="178" y="130" fill="#991b1b" font-family="system-ui, sans-serif" font-size="9">Ризик відшарування</text>
+  <text x="178" y="142" fill="#991b1b" font-family="system-ui, sans-serif" font-size="9">контактного п'ятачка (Pad)</text>
+
+  <!-- Card 1 Text Details -->
+  <text class="txt-head-red" x="26" y="282">МЕХАНІЗМ ЗАПОБІГАННЯ ЗАЛИПАННЮ:</text>
+  
+  <text class="txt-bold" x="26" y="300">• Фізика процесу:</text>
+  <text class="txt-main" x="26" y="315">Мідна оплітка виступає потужним</text>
+  <text class="txt-main" x="26" y="329">тепловідводом. Флюс швидко вигорає,</text>
+  <text class="txt-main" x="26" y="343">а припай кристалізується в сітці.</text>
+
+  <text class="txt-bold" x="26" y="367">• Головна помилка оператора:</text>
+  <text class="txt-danger" x="26" y="382">❌ Спроба висмикнути приварене</text>
+  <text class="txt-danger" x="26" y="396">плетіння силою відриває мідний</text>
+  <text class="txt-danger" x="26" y="410">п'ятачок (Pad) разом із доріжкою плати!</text>
+
+  <!-- CARD 2: SAFE RELEASE ALGORITHM -->
+  <rect x="331" y="56" width="298" height="388" class="panel-card" />
+  <rect x="331" y="56" width="298" height="34" class="panel-header-blue" />
+  <text class="title-blue" x="480" y="78">2. АЛГОРИТМ ВИВІЛЬНЕННЯ</text>
+
+  <!-- Card 2 Graphic -->
+  <rect x="341" y="96" width="278" height="168" class="inner-box" />
+
+  <!-- PCB Base -->
+  <rect x="351" y="222" width="258" height="26" fill="#166534" rx="3" />
+  <line x1="351" y1="228" x2="609" y2="228" stroke="#15803d" stroke-width="1" />
+  <rect x="380" y="217" width="200" height="6" fill="#d97706" />
+  <rect x="430" y="211" width="110" height="7" fill="#cbd5e1" stroke="#94a3b8" stroke-width="1" rx="1" />
+  <rect x="478" y="165" width="14" height="52" fill="#94a3b8" stroke="#475569" stroke-width="1.2" rx="1" />
+  <line x1="482" y1="166" x2="482" y2="216" stroke="#e2e8f0" stroke-width="1" />
+
+  <!-- Braid -->
+  <path d="M 360 145 L 450 212 L 530 212 L 530 204 L 457 204 L 371 137 Z" fill="url(#copperMesh)" stroke="#b45309" stroke-width="1" />
+
+  <!-- Liquid Flux Droplet -->
+  <path d="M 432 135 C 426 145 422 154 430 168 C 436 177 446 177 449 168 C 454 154 438 145 432 135 Z" fill="url(#fluxGrad)" stroke="#d97706" opacity="0.95" />
+  <ellipse cx="485" cy="210" rx="38" ry="7" fill="#f59e0b" opacity="0.45" stroke="#d97706" stroke-width="0.8" />
+  
+  <rect x="350" y="104" width="105" height="20" fill="#fef3c7" stroke="#fcd34d" rx="4" />
+  <text x="402" y="118" fill="#b45309" font-family="system-ui, sans-serif" font-size="9" font-weight="800" text-anchor="middle">1. Рідкий флюс</text>
+
+  <!-- Active Heat Glow & Molten Solder -->
+  <circle cx="485" cy="208" r="30" fill="url(#heatGlow)" />
+  <ellipse cx="485" cy="210" rx="28" ry="8" fill="url(#solderMolten)" stroke="#fbbf24" stroke-width="1.5" />
+  <path d="M 470 208 Q 485 204 500 208" stroke="#ffffff" stroke-width="1.5" fill="none" opacity="0.8" />
+
+  <!-- Heat Waves -->
+  <path d="M 465 192 Q 472 186 480 192 T 495 192" stroke="#ef4444" stroke-width="1.5" fill="none" />
+
+  <!-- Iron Tip 45 deg -->
+  <g transform="translate(515, 120) rotate(-38)">
+    <rect x="0" y="0" width="14" height="50" fill="url(#ironGrad)" stroke="#475569" stroke-width="1" rx="1" />
+    <polygon points="0,50 14,50 11,72 3,72" fill="#e2e8f0" stroke="#64748b" stroke-width="1" />
+    <polygon points="3,70 11,70 10,72 4,72" fill="#ef4444" />
+  </g>
+  <text x="565" y="152" fill="#ef4444" font-family="system-ui, sans-serif" font-size="9" font-weight="800">2. Прогрів</text>
+
+  <!-- Simultaneous Lift Arrows -->
+  <path d="M 385 130 L 362 92" stroke="#16a34a" stroke-width="2.8" fill="none" marker-end="url(#arr-green)" />
+  <path d="M 545 105 L 568 68" stroke="#16a34a" stroke-width="2.8" fill="none" marker-end="url(#arr-green)" />
+
+  <rect x="460" y="104" width="150" height="22" fill="#dcfce7" stroke="#86efac" stroke-width="1" rx="4" />
+  <text x="535" y="119" fill="#15803d" font-family="system-ui, sans-serif" font-size="9" font-weight="800" text-anchor="middle">3. Зйом РАЗОМ у рідкій фазі!</text>
+
+  <!-- Card 2 Text Details -->
+  <text class="txt-head-blue" x="341" y="282">ПОКРОКОВА ТЕХНІКА ВИВІЛЬНЕННЯ:</text>
+
+  <g transform="translate(341, 300)">
+    <!-- Step 1 -->
+    <rect x="0" y="0" width="18" height="18" fill="#e0f2fe" rx="3" />
+    <text x="9" y="13" fill="#0369a1" font-family="system-ui, sans-serif" font-size="11" font-weight="800" text-anchor="middle">1</text>
+    <text class="txt-bold" x="26" y="13">Додайте флюс:</text>
+    <text class="txt-main" x="26" y="27">Крапля рідкого/гель флюсу на місце</text>
+    <text class="txt-main" x="26" y="40">приварення відновлює теплопередачу.</text>
+
+    <!-- Step 2 -->
+    <rect x="0" y="48" width="18" height="18" fill="#e0f2fe" rx="3" />
+    <text x="9" y="61" fill="#0369a1" font-family="system-ui, sans-serif" font-size="11" font-weight="800" text-anchor="middle">2</text>
+    <text class="txt-bold" x="26" y="61">Повторний прогрів:</text>
+    <text class="txt-main" x="26" y="75">Прикладіть широке жало (350–380°C)</text>
+    <text class="txt-main" x="26" y="88">поверх оплітки до розплавлення припаю.</text>
+
+    <!-- Step 3 -->
+    <rect x="0" y="96" width="18" height="18" fill="#dcfce7" rx="3" />
+    <text x="9" y="109" fill="#15803d" font-family="system-ui, sans-serif" font-size="11" font-weight="800" text-anchor="middle">3</text>
+    <text class="txt-bold" x="26" y="109">Синхронний зйом:</text>
+    <text class="txt-ok" x="26" y="123">Підніміть оплітку ТА паяльник одночасно,</text>
+    <text class="txt-ok" x="26" y="136">НЕ чекаючи охолодження ані секунди!</text>
+  </g>
+
+  <!-- CARD 3: PREVENTION BEST PRACTICES -->
+  <rect x="646" y="56" width="298" height="388" class="panel-card" />
+  <rect x="646" y="56" width="298" height="34" class="panel-header-green" />
+  <text class="title-green" x="795" y="78">3. ПРАВИЛА ТА ЗАПОБІГАННЯ</text>
+
+  <!-- Rule 1 -->
+  <rect x="656" y="96" width="278" height="76" class="rule-card" />
+  <rect x="656" y="96" width="4" height="76" fill="#16a34a" rx="2" />
+  <circle cx="682" cy="134" r="14" fill="#dcfce7" />
+  <path d="M 682 125 C 677 132 674 137 682 143 C 690 137 687 132 682 125 Z" fill="#d97706" />
+  <text class="title-green" x="706" y="114" text-anchor="start">1. Попереднє флюсування</text>
+  <text class="txt-main" x="706" y="130">Змочуйте оплітку флюсом перед</text>
+  <text class="txt-main" x="706" y="144">паянням. Суха оплітка приварюється!</text>
+  <text class="txt-sub" x="706" y="158">Покращує капілярне всмоктування</text>
+
+  <!-- Rule 2 -->
+  <rect x="656" y="178" width="278" height="76" class="rule-card" />
+  <rect x="656" y="178" width="4" height="76" fill="#0284c7" rx="2" />
+  <circle cx="682" cy="216" r="14" fill="#e0f2fe" />
+  <polygon points="677,207 687,207 685,223 679,223" fill="#0284c7" />
+  <text class="title-blue" x="706" y="196" text-anchor="start">2. Плоске жало (Chisel) &amp; Temp</text>
+  <text class="txt-main" x="706" y="212">Широке жало (2.4–3.2 мм), t = 350–380°C.</text>
+  <text class="txt-main" x="706" y="226">Точкове жало миттєво вихолоджується.</text>
+  <text class="txt-sub" x="706" y="240">Максимальна площа контактного прогріву</text>
+
+  <!-- Rule 3 -->
+  <rect x="656" y="260" width="278" height="76" class="rule-card" />
+  <rect x="656" y="260" width="4" height="76" fill="#d97706" rx="2" />
+  <circle cx="682" cy="298" r="14" fill="#fef3c7" />
+  <path d="M 676 292 L 688 304 M 676 304 L 688 292 M 674 290 A 2 2 0 1 1 678 294 M 674 306 A 2 2 0 1 1 678 302" stroke="#b45309" stroke-width="1.5" fill="none" />
+  <text font-family="system-ui, sans-serif" font-size="11" font-weight="800" fill="#b45309" x="706" y="278">3. Обрізайте використану мідь</text>
+  <text class="txt-main" x="706" y="294">Видаляйте насичену припаєм ділянку.</text>
+  <text class="txt-main" x="706" y="308">Паяйте тільки чистою мідною сіткою.</text>
+  <text class="txt-sub" x="706" y="322">Старий припай блокує всмоктування</text>
+
+  <!-- Rule 4 -->
+  <rect x="656" y="342" width="278" height="92" class="rule-card" />
+  <rect x="656" y="342" width="4" height="92" fill="#9333ea" rx="2" />
+  <circle cx="682" cy="388" r="14" fill="#f3e8ff" />
+  <path d="M 676 394 Q 682 378 688 380 T 682 396 Z" fill="#9333ea" />
+  <text font-family="system-ui, sans-serif" font-size="11" font-weight="800" fill="#7e22ce" x="706" y="360">4. Контроль тиску та часу</text>
+  <text class="txt-main" x="706" y="376">Не тисніть силою на паяльник!</text>
+  <text class="txt-main" x="706" y="390">Олово піднімається капілярними силами.</text>
+  <text class="txt-main" x="706" y="404">Тримайте прогрів не довше 2–4 секунд.</text>
+  <text class="txt-sub" x="706" y="418">Надмірний тиск витискає флюс та деформує плату</text>
+</svg>

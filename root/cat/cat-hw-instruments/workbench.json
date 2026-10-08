@@ -111,21 +111,45 @@
           "slug": "solderless-breadboard-prototyping",
           "title": "Безпайкові макетні плати (Breadboard)",
           "basic": {
-            "status": "empty"
+            "status": "done"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "done"
+          },
+          "api": [
+            {
+              "file": "api-solderless-breadboard-pinout-geometry.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-breadboard-parasitic-effects.md",
+              "status": "done"
+            }
+          ]
         },
         {
           "slug": "breadboard-parasitic-effects",
           "title": "Паразитна ємність та опір контактів безпаяльних макетних плат",
           "basic": {
-            "status": "empty"
+            "status": "done"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "done"
+          },
+          "api": [
+            {
+              "file": "api-solderless-breadboard-hardware-specifications.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-breadboard-parasitics-modeling.md",
+              "status": "done"
+            }
+          ]
         }
       ]
     },
@@ -471,31 +495,71 @@
           "slug": "no-clean-fluxes-chemistry-and-classification",
           "title": "Хімічна класифікація та механізм дії безвідмивних флюсів (RO, OR, RE)",
           "basic": {
-            "status": "empty"
+            "status": "done"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-no-clean-flux-evolution.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-flux-surface-chemistry-kinetics.md",
+              "status": "done"
+            }
+          ]
         },
         {
           "slug": "solder-paste-and-lead-free-alloys-properties",
           "title": "Властивості та термопрофілі трубчастих припоїв і припайних паст",
           "basic": {
-            "status": "empty"
+            "status": "done"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "done"
+          },
+          "math": [
+            {
+              "file": "math-solder-paste-rheology-and-thermal-profiles.md",
+              "status": "done"
+            },
+            {
+              "file": "math-wetting-dynamics-and-intermetallic-growth.md",
+              "status": "done"
+            }
+          ]
         },
         {
           "slug": "heat-shrink-crimp-connectors",
           "title": "Термоусадкові обтискні гільзи з термоклеєм",
           "basic": {
-            "status": "empty"
+            "status": "done"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "done"
+          },
+          "api": [
+            {
+              "file": "api-crimp-sleeve-specifications.md",
+              "status": "done"
+            }
+          ],
+          "hist": [
+            {
+              "file": "hist-heat-shrink-connectors.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-crimp-fill-ratio-calculation.md",
+              "status": "done"
+            }
+          ]
         },
         {
           "slug": "solder-wick",
@@ -504,28 +568,82 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "done"
+          },
+          "math": [
+            {
+              "file": "math-capillary-and-thermal-dynamics-in-wicking.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-smd-pad-cleaning-and-debridging.md",
+              "status": "done"
+            }
+          ]
         },
         {
           "slug": "optical-microscope-soldering",
           "title": "Оптичний мікроскоп для паяння",
           "basic": {
-            "status": "empty"
+            "status": "done"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "done"
+          },
+          "api": [
+            {
+              "file": "api-c-mount-interface-standards.md",
+              "status": "done"
+            },
+            {
+              "file": "api-microscope-camera-sdk-interface.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-optical-microscope-geometry.md",
+              "status": "done"
+            }
+          ]
         },
         {
           "slug": "baku-hot-air-stations-family",
           "title": "Термоповітряні паяльні станції та фени BAKU",
           "basic": {
-            "status": "empty"
+            "status": "done"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "done"
+          },
+          "api": [
+            {
+              "file": "api-baku-station-firmware-error-codes.md",
+              "status": "done"
+            },
+            {
+              "file": "api-baku-wand-connector-pinout.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-hot-air-thermodynamics-and-pid.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-baku-heater-diagnostics-and-replacement.md",
+              "status": "done"
+            },
+            {
+              "file": "proj-qfp-bga-hot-air-rework.md",
+              "status": "done"
+            }
+          ]
         },
         {
           "slug": "smd-soldering-fluxes-and-pastes",
@@ -534,8 +652,26 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-soldering-flux-paste-evolution.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-solder-paste-rheology-and-wetting-physics.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-bga-reballing-and-smd-reflow-practice.md",
+              "status": "done"
+            }
+          ]
         },
         {
           "slug": "through-hole-soldering-techniques",
@@ -544,7 +680,7 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
+            "status": "done"
           }
         },
         {
@@ -554,7 +690,7 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
+            "status": "done"
           }
         },
         {
@@ -564,7 +700,7 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
+            "status": "done"
           }
         },
         {
@@ -574,7 +710,7 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
+            "status": "done"
           }
         },
         {
@@ -584,7 +720,7 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
+            "status": "done"
           }
         },
         {
@@ -594,7 +730,7 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
+            "status": "done"
           }
         }
       ]
@@ -709,7 +845,7 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
+            "status": "done"
           }
         },
         {
@@ -719,7 +855,7 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
+            "status": "done"
           }
         }
       ]
@@ -887,7 +1023,7 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
+            "status": "done"
           }
         },
         {
@@ -897,7 +1033,7 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
+            "status": "done"
           }
         },
         {
@@ -907,7 +1043,7 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
+            "status": "done"
           }
         },
         {
@@ -917,7 +1053,7 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
+            "status": "done"
           }
         },
         {
@@ -927,7 +1063,7 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
+            "status": "done"
           }
         },
         {
@@ -937,7 +1073,7 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
+            "status": "done"
           }
         }
       ]

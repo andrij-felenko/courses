@@ -1,0 +1,264 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- White Background -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Marker Definitions -->
+  <defs>
+    <marker id="arr-accent" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-danger" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-success" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Title and Subtitle -->
+  <text x="480" y="28" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Матриця класифікації флюсів за стандартом J-STD-004</text>
+  <text x="480" y="48" font-size="13" fill="#6b7280" text-anchor="middle">Безодмивна зона (No-Clean) охоплює класи L0, L1 та M0 з пасивними некорозійними залишками</text>
+
+  <!-- LEFT PANEL: CODE STRUCTURE & LEGEND -->
+  <rect x="30" y="65" width="190" height="420" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  
+  <text x="125" y="88" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Кодування J-STD-004</text>
+  <text x="125" y="104" font-size="12" fill="#6b7280" text-anchor="middle">Структура позначення</text>
+
+  <!-- Code Structure Box -->
+  <rect x="42" y="118" width="166" height="58" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="125" y="142" font-size="16" font-weight="bold" fill="#2457d6" text-anchor="middle">RO L 0</text>
+  <text x="68" y="163" font-size="11" fill="#6b7280" text-anchor="middle">Основа</text>
+  <text x="125" y="163" font-size="11" fill="#6b7280" text-anchor="middle">Активність</text>
+  <text x="182" y="163" font-size="11" fill="#6b7280" text-anchor="middle">Галогени</text>
+
+  <!-- Legend 1: Base Material -->
+  <rect x="42" y="188" width="166" height="115" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="52" y="206" font-size="12" font-weight="bold" fill="#1a1a1a">1. Основа флюсу</text>
+  <text x="52" y="226" font-size="11"><tspan font-weight="bold" fill="#2457d6">RO:</tspan><tspan fill="#1a1a1a"> Каніфольні (Rosin)</tspan></text>
+  <text x="52" y="244" font-size="11"><tspan font-weight="bold" fill="#2457d6">RE:</tspan><tspan fill="#1a1a1a"> Синт. смоли (Resin)</tspan></text>
+  <text x="52" y="262" font-size="11"><tspan font-weight="bold" fill="#2457d6">OR:</tspan><tspan fill="#1a1a1a"> Органічні (Organic)</tspan></text>
+  <text x="52" y="280" font-size="11"><tspan font-weight="bold" fill="#2457d6">WO:</tspan><tspan fill="#1a1a1a"> Водозмивні (Water)</tspan></text>
+
+  <!-- Legend 2: Activity & Halides -->
+  <rect x="42" y="315" width="166" height="158" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="52" y="333" font-size="12" font-weight="bold" fill="#1a1a1a">2. Рівень активності</text>
+  <text x="52" y="351" font-size="11"><tspan font-weight="bold" fill="#27ae60">L:</tspan><tspan fill="#1a1a1a"> Низька (Low)</tspan></text>
+  <text x="52" y="369" font-size="11"><tspan font-weight="bold" fill="#2457d6">M:</tspan><tspan fill="#1a1a1a"> Середня (Mod.)</tspan></text>
+  <text x="52" y="387" font-size="11"><tspan font-weight="bold" fill="#c0392b">H:</tspan><tspan fill="#1a1a1a"> Висока (High)</tspan></text>
+  
+  <text x="52" y="410" font-size="12" font-weight="bold" fill="#1a1a1a">3. Вміст галогенідів</text>
+  <text x="52" y="428" font-size="11"><tspan font-weight="bold" fill="#27ae60">0:</tspan><tspan fill="#1a1a1a"> 0.0% (Безгалогенні)</tspan></text>
+  <text x="52" y="446" font-size="11"><tspan font-weight="bold" fill="#c0392b">1:</tspan><tspan fill="#1a1a1a"> &lt;0.5% / ≥0.5% (З галог.)</tspan></text>
+
+  <!-- RIGHT PANEL: CLASSIFICATION MATRIX -->
+  <rect x="235" y="65" width="695" height="420" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <text x="582" y="88" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Класифікаційна матриця флюсів за J-STD-004</text>
+  <text x="582" y="104" font-size="12" fill="#6b7280" text-anchor="middle">Розподіл за основами, рівнями активності та вмістом галогенідів</text>
+
+  <!-- Column Headers: Activity Levels (Row 1) -->
+  <rect x="340" y="118" width="184" height="30" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="432" y="138" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">L (Низька активність)</text>
+
+  <rect x="524" y="118" width="184" height="30" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="616" y="138" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">M (Середня активність)</text>
+
+  <rect x="708" y="118" width="184" height="30" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="800" y="138" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">H (Висока активність)</text>
+
+  <!-- Column Headers: Halide Designation (Row 2) -->
+  <rect x="340" y="148" width="92" height="30" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="386" y="164" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">L0</text>
+  <text x="386" y="174" font-size="10" fill="#27ae60" text-anchor="middle">0.0% галог.</text>
+
+  <rect x="432" y="148" width="92" height="30" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="478" y="164" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">L1</text>
+  <text x="478" y="174" font-size="10" fill="#27ae60" text-anchor="middle">&lt;0.5% галог.</text>
+
+  <rect x="524" y="148" width="92" height="30" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="570" y="164" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">M0</text>
+  <text x="570" y="174" font-size="10" fill="#2457d6" text-anchor="middle">0.0% галог.</text>
+
+  <rect x="616" y="148" width="92" height="30" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="662" y="164" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">M1</text>
+  <text x="662" y="174" font-size="10" fill="#c0392b" text-anchor="middle">≥0.5% галог.</text>
+
+  <rect x="708" y="148" width="92" height="30" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="754" y="164" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">H0</text>
+  <text x="754" y="174" font-size="10" fill="#c0392b" text-anchor="middle">0.0% галог.</text>
+
+  <rect x="800" y="148" width="92" height="30" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="846" y="164" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">H1</text>
+  <text x="846" y="174" font-size="10" fill="#c0392b" text-anchor="middle">≥0.5% галог.</text>
+
+  <!-- Row Headers: Base Materials -->
+  <!-- Row 1: RO -->
+  <rect x="250" y="178" width="90" height="54" fill="#eaf0fd" stroke="#d0d7de" stroke-width="1"/>
+  <text x="295" y="199" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">RO</text>
+  <text x="295" y="215" font-size="11" fill="#6b7280" text-anchor="middle">Каніфольні</text>
+
+  <!-- Row 2: RE -->
+  <rect x="250" y="232" width="90" height="54" fill="#eaf0fd" stroke="#d0d7de" stroke-width="1"/>
+  <text x="295" y="253" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">RE</text>
+  <text x="295" y="269" font-size="11" fill="#6b7280" text-anchor="middle">Синт. смоли</text>
+
+  <!-- Row 3: OR -->
+  <rect x="250" y="286" width="90" height="54" fill="#eaf0fd" stroke="#d0d7de" stroke-width="1"/>
+  <text x="295" y="307" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">OR</text>
+  <text x="295" y="323" font-size="11" fill="#6b7280" text-anchor="middle">Органічні</text>
+
+  <!-- Row 4: WO -->
+  <rect x="250" y="340" width="90" height="54" fill="#eaf0fd" stroke="#d0d7de" stroke-width="1"/>
+  <text x="295" y="361" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">WO</text>
+  <text x="295" y="377" font-size="11" fill="#6b7280" text-anchor="middle">Водозмивні</text>
+
+  <!-- GRID CELLS (24 CELLS) -->
+
+  <!-- ROW 1: RO (Y: 178..232) -->
+  <!-- ROL0 (Safe No-Clean) -->
+  <rect x="340" y="178" width="92" height="54" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="386" y="201" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">ROL0</text>
+  <text x="386" y="217" font-size="11" fill="#27ae60" text-anchor="middle">Безпечний</text>
+
+  <!-- ROL1 (Safe No-Clean) -->
+  <rect x="432" y="178" width="92" height="54" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="478" y="201" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">ROL1</text>
+  <text x="478" y="217" font-size="11" fill="#27ae60" text-anchor="middle">Безпечний</text>
+
+  <!-- ROM0 (Safe No-Clean) -->
+  <rect x="524" y="178" width="92" height="54" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="570" y="201" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">ROM0</text>
+  <text x="570" y="217" font-size="11" fill="#27ae60" text-anchor="middle">Безпечний</text>
+
+  <!-- ROM1 (Must Clean) -->
+  <rect x="616" y="178" width="92" height="54" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="662" y="201" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">ROM1</text>
+  <text x="662" y="217" font-size="11" fill="#c0392b" text-anchor="middle">Відмити</text>
+
+  <!-- ROH0 (Must Clean) -->
+  <rect x="708" y="178" width="92" height="54" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="754" y="201" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">ROH0</text>
+  <text x="754" y="217" font-size="11" fill="#c0392b" text-anchor="middle">Відмити</text>
+
+  <!-- ROH1 (Must Clean) -->
+  <rect x="800" y="178" width="92" height="54" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="846" y="201" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">ROH1</text>
+  <text x="846" y="217" font-size="11" fill="#c0392b" text-anchor="middle">Відмити</text>
+
+  <!-- ROW 2: RE (Y: 232..286) -->
+  <!-- REL0 (Safe No-Clean) -->
+  <rect x="340" y="232" width="92" height="54" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="386" y="255" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">REL0</text>
+  <text x="386" y="271" font-size="11" fill="#27ae60" text-anchor="middle">Безпечний</text>
+
+  <!-- REL1 (Safe No-Clean) -->
+  <rect x="432" y="232" width="92" height="54" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="478" y="255" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">REL1</text>
+  <text x="478" y="271" font-size="11" fill="#27ae60" text-anchor="middle">Безпечний</text>
+
+  <!-- REM0 (Safe No-Clean) -->
+  <rect x="524" y="232" width="92" height="54" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="570" y="255" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">REM0</text>
+  <text x="570" y="271" font-size="11" fill="#27ae60" text-anchor="middle">Безпечний</text>
+
+  <!-- REM1 (Must Clean) -->
+  <rect x="616" y="232" width="92" height="54" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="662" y="255" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">REM1</text>
+  <text x="662" y="271" font-size="11" fill="#c0392b" text-anchor="middle">Відмити</text>
+
+  <!-- REH0 (Must Clean) -->
+  <rect x="708" y="232" width="92" height="54" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="754" y="255" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">REH0</text>
+  <text x="754" y="271" font-size="11" fill="#c0392b" text-anchor="middle">Відмити</text>
+
+  <!-- REH1 (Must Clean) -->
+  <rect x="800" y="232" width="92" height="54" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="846" y="255" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">REH1</text>
+  <text x="846" y="271" font-size="11" fill="#c0392b" text-anchor="middle">Відмити</text>
+
+  <!-- ROW 3: OR (Y: 286..340) -->
+  <!-- ORL0 (No-Clean if fully volatilized) -->
+  <rect x="340" y="286" width="92" height="54" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="386" y="309" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">ORL0</text>
+  <text x="386" y="325" font-size="11" fill="#27ae60" text-anchor="middle">Безпечний*</text>
+
+  <!-- ORL1 (Must Clean) -->
+  <rect x="432" y="286" width="92" height="54" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="478" y="309" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">ORL1</text>
+  <text x="478" y="325" font-size="11" fill="#c0392b" text-anchor="middle">Відмити</text>
+
+  <!-- ORM0 (Must Clean) -->
+  <rect x="524" y="286" width="92" height="54" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="570" y="309" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">ORM0</text>
+  <text x="570" y="325" font-size="11" fill="#c0392b" text-anchor="middle">Відмити</text>
+
+  <!-- ORM1 (Must Clean) -->
+  <rect x="616" y="286" width="92" height="54" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="662" y="309" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">ORM1</text>
+  <text x="662" y="325" font-size="11" fill="#c0392b" text-anchor="middle">Відмити</text>
+
+  <!-- ORH0 (Must Clean) -->
+  <rect x="708" y="286" width="92" height="54" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="754" y="309" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">ORH0</text>
+  <text x="754" y="325" font-size="11" fill="#c0392b" text-anchor="middle">Відмити</text>
+
+  <!-- ORH1 (Must Clean) -->
+  <rect x="800" y="286" width="92" height="54" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="846" y="309" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">ORH1</text>
+  <text x="846" y="325" font-size="11" fill="#c0392b" text-anchor="middle">Відмити</text>
+
+  <!-- ROW 4: WO (Y: 340..394) -->
+  <!-- WOL0 (Must Clean) -->
+  <rect x="340" y="340" width="92" height="54" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="386" y="363" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">WOL0</text>
+  <text x="386" y="379" font-size="11" fill="#c0392b" text-anchor="middle">Відмити</text>
+
+  <!-- WOL1 (Must Clean) -->
+  <rect x="432" y="340" width="92" height="54" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="478" y="363" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">WOL1</text>
+  <text x="478" y="379" font-size="11" fill="#c0392b" text-anchor="middle">Відмити</text>
+
+  <!-- WOM0 (Must Clean) -->
+  <rect x="524" y="340" width="92" height="54" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="570" y="363" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">WOM0</text>
+  <text x="570" y="379" font-size="11" fill="#c0392b" text-anchor="middle">Відмити</text>
+
+  <!-- WOM1 (Must Clean) -->
+  <rect x="616" y="340" width="92" height="54" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="662" y="363" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">WOM1</text>
+  <text x="662" y="379" font-size="11" fill="#c0392b" text-anchor="middle">Відмити</text>
+
+  <!-- WOH0 (Must Clean) -->
+  <rect x="708" y="340" width="92" height="54" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="754" y="363" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">WOH0</text>
+  <text x="754" y="379" font-size="11" fill="#c0392b" text-anchor="middle">Відмити</text>
+
+  <!-- WOH1 (Must Clean) -->
+  <rect x="800" y="340" width="92" height="54" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="846" y="363" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">WOH1</text>
+  <text x="846" y="379" font-size="11" fill="#c0392b" text-anchor="middle">Відмити</text>
+
+  <!-- Highlights & Status Banners inside Right Panel -->
+  <!-- Safe Zone Status Banner -->
+  <rect x="340" y="408" width="276" height="30" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="478" y="427" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">✓ БЕЗОДМИВНА ЗОНА (SIR &gt; 100 МОм)</text>
+
+  <!-- Must Clean Status Banner -->
+  <rect x="628" y="408" width="264" height="30" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="760" y="427" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">⚠ ОБОВ'ЯЗКОВЕ ВІДМИВАННЯ (Ризик корозії)</text>
+
+  <!-- Footnote inside right panel -->
+  <text x="582" y="462" font-size="11" fill="#6b7280" text-anchor="middle">* ORL0 безпечний тільки за умови повного розкладу/випаровування органічних кислот під час пайку</text>
+
+  <!-- BOTTOM SUMMARY BAR -->
+  <rect x="30" y="496" width="900" height="50" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <rect x="40" y="502" width="435" height="38" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="50" y="517" font-size="11" font-weight="bold" fill="#27ae60">✓ Безодмивні (No-Clean): ROL0, ROL1, ROM0, REL0, REL1, REM0, ORL0</text>
+  <text x="50" y="532" font-size="11" fill="#1a1a1a">Залишки інертні, SIR &gt; 100 МОм, не потребують вилучення</text>
+
+  <rect x="485" y="502" width="435" height="38" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="495" y="517" font-size="11" font-weight="bold" fill="#c0392b">⚠ Обов'язкове відмивання: M1, H0, H1 та всі водозмивні (WO)</text>
+  <text x="495" y="532" font-size="11" fill="#1a1a1a">Активні залишки та галогеніди спричиняють корозію і дендрити</text>
+</svg>

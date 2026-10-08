@@ -1,0 +1,153 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 500" width="960" height="500" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="500" fill="white"/>
+
+  <!-- Маркери стрілок -->
+  <defs>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок та підзаголовок -->
+  <text x="480" y="36" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Еквівалентна паразитна схема двох контактних рейок breadboard</text>
+  <text x="480" y="56" font-size="13" fill="#6b7280" text-anchor="middle">Паразитні C_p, L_w та R_c обмежують частоту, викликають падіння напруги та взаємні завади</text>
+
+  <!-- ПАНЕЛЬ 1: Фізична та електрична схема двох рейок -->
+  <rect x="30" y="85" width="460" height="390" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="260" y="112" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Схема паразитичних елементів рейок A та B</text>
+  <text x="260" y="129" font-size="12" fill="#6b7280" text-anchor="middle">Заміщення фізичних контактів та міжелектродного простору</text>
+
+  <!-- Підкладка під Шину A -->
+  <rect x="52" y="146" width="396" height="58" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="60" y="166" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="start">L_w1 (дріт)</text>
+  <text x="135" y="166" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="start">R_c1 (контакт)</text>
+  <text x="435" y="166" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">Шина A (5 контактів)</text>
+
+  <!-- Провідник та елементи Шини A -->
+  <path d="M 40,190 H 50" stroke="#2457d6" stroke-width="2"/>
+  <!-- Індуктивність L_w1 -->
+  <path d="M 50,190 h 4 a 4.5,4.5 0 0 0 9,0 a 4.5,4.5 0 0 0 9,0 a 4.5,4.5 0 0 0 9,0 h 4" fill="none" stroke="#2457d6" stroke-width="2"/>
+  <path d="M 85,190 H 95" stroke="#2457d6" stroke-width="2"/>
+  <!-- Опір R_c1 -->
+  <path d="M 95,190 h 5 l 3,-6 l 5,12 l 5,-12 l 5,12 l 5,-12 l 5,12 l 2,-6 h 5" fill="none" stroke="#c0392b" stroke-width="2"/>
+  <!-- Металева шина A -->
+  <line x1="135" y1="190" x2="430" y2="190" stroke="#2457d6" stroke-width="2.5"/>
+
+  <!-- Вузли контактів A1-A5 -->
+  <circle cx="140" cy="190" r="4" fill="#2457d6" stroke="#ffffff" stroke-width="1.5"/>
+  <circle cx="210" cy="190" r="4" fill="#2457d6" stroke="#ffffff" stroke-width="1.5"/>
+  <circle cx="280" cy="190" r="4" fill="#2457d6" stroke="#ffffff" stroke-width="1.5"/>
+  <circle cx="350" cy="190" r="4" fill="#2457d6" stroke="#ffffff" stroke-width="1.5"/>
+  <circle cx="420" cy="190" r="4" fill="#2457d6" stroke="#ffffff" stroke-width="1.5"/>
+
+  <text x="146" y="210" font-size="11" fill="#6b7280" text-anchor="start">A1</text>
+  <text x="216" y="210" font-size="11" fill="#6b7280" text-anchor="start">A2</text>
+  <text x="286" y="210" font-size="11" fill="#6b7280" text-anchor="start">A3</text>
+  <text x="356" y="210" font-size="11" fill="#6b7280" text-anchor="start">A4</text>
+  <text x="426" y="210" font-size="11" fill="#6b7280" text-anchor="start">A5</text>
+
+  <!-- Пластиковий ізолятор між рейками -->
+  <rect x="52" y="222" width="396" height="76" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-dasharray="4,3"/>
+  <text x="62" y="242" font-size="11" fill="#6b7280" text-anchor="start">Пластикова основа</text>
+  <text x="62" y="258" font-size="11" fill="#6b7280" text-anchor="start">зазор d = 2.54 мм</text>
+  <text x="62" y="274" font-size="11" fill="#6b7280" text-anchor="start">ε_r ≈ 2.2 (ABS)</text>
+
+  <!-- Паразитна ємність C_p1 між вузлами A2 та B2 -->
+  <line x1="210" y1="190" x2="210" y2="253" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="195" y1="253" x2="225" y2="253" stroke="#2457d6" stroke-width="2.5"/>
+  <line x1="195" y1="263" x2="225" y2="263" stroke="#2457d6" stroke-width="2.5"/>
+  <line x1="210" y1="263" x2="210" y2="330" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="232" y="262" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="start">C_p1</text>
+
+  <!-- Паразитна ємність C_p2 між вузлами A4 та B4 -->
+  <line x1="350" y1="190" x2="350" y2="253" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="335" y1="253" x2="365" y2="253" stroke="#2457d6" stroke-width="2.5"/>
+  <line x1="335" y1="263" x2="365" y2="263" stroke="#2457d6" stroke-width="2.5"/>
+  <line x1="350" y1="263" x2="350" y2="330" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="372" y="262" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="start">C_p2</text>
+
+  <!-- Підкладка під Шину B -->
+  <rect x="52" y="310" width="396" height="58" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="60" y="356" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="start">L_w2 (дріт)</text>
+  <text x="135" y="356" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="start">R_c2 (контакт)</text>
+  <text x="435" y="356" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="end">Шина B (5 контактів)</text>
+
+  <!-- Провідник та елементи Шини B -->
+  <path d="M 40,330 H 50" stroke="#2457d6" stroke-width="2"/>
+  <!-- Індуктивність L_w2 -->
+  <path d="M 50,330 h 4 a 4.5,4.5 0 0 0 9,0 a 4.5,4.5 0 0 0 9,0 a 4.5,4.5 0 0 0 9,0 h 4" fill="none" stroke="#2457d6" stroke-width="2"/>
+  <path d="M 85,330 H 95" stroke="#2457d6" stroke-width="2"/>
+  <!-- Опір R_c2 -->
+  <path d="M 95,330 h 5 l 3,-6 l 5,12 l 5,-12 l 5,12 l 5,-12 l 5,12 l 2,-6 h 5" fill="none" stroke="#c0392b" stroke-width="2"/>
+  <!-- Металева шина B -->
+  <line x1="135" y1="330" x2="430" y2="330" stroke="#c0392b" stroke-width="2.5"/>
+
+  <!-- Вузли контактів B1-B5 -->
+  <circle cx="140" cy="330" r="4" fill="#c0392b" stroke="#ffffff" stroke-width="1.5"/>
+  <circle cx="210" cy="330" r="4" fill="#c0392b" stroke="#ffffff" stroke-width="1.5"/>
+  <circle cx="280" cy="330" r="4" fill="#c0392b" stroke="#ffffff" stroke-width="1.5"/>
+  <circle cx="350" cy="330" r="4" fill="#c0392b" stroke="#ffffff" stroke-width="1.5"/>
+  <circle cx="420" cy="330" r="4" fill="#c0392b" stroke="#ffffff" stroke-width="1.5"/>
+
+  <text x="146" y="310" font-size="11" fill="#6b7280" text-anchor="start">B1</text>
+  <text x="216" y="310" font-size="11" fill="#6b7280" text-anchor="start">B2</text>
+  <text x="286" y="310" font-size="11" fill="#6b7280" text-anchor="start">B3</text>
+  <text x="356" y="310" font-size="11" fill="#6b7280" text-anchor="start">B4</text>
+  <text x="426" y="310" font-size="11" fill="#6b7280" text-anchor="start">B5</text>
+
+  <!-- Блок підсумкових параметрів Панелі 1 -->
+  <rect x="40" y="402" width="440" height="58" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="260" y="423" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Сумарна паразитна ємність між сусідніми рейками: C_p = 2..5 пФ</text>
+  <text x="260" y="443" font-size="11" fill="#6b7280" text-anchor="middle">Паразитний опір R_c = 0.1..0.5 Ом | Індуктивність дротів L_w ≈ 15 нГн/см</text>
+
+
+  <!-- ПАНЕЛЬ 2: Вплив паразитичних параметрів -->
+  <rect x="510" y="85" width="420" height="390" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="720" y="112" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Вплив паразитичних параметрів</text>
+  <text x="720" y="129" font-size="12" fill="#6b7280" text-anchor="middle">Критичні фактори для ВЧ кіл та сильних струмів</text>
+
+  <!-- Картка 1: Опір контактів R_c -->
+  <rect x="525" y="146" width="390" height="94" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <rect x="537" y="156" width="110" height="22" rx="4" fill="#c0392b"/>
+  <text x="592" y="171" font-size="11" font-weight="bold" fill="white" text-anchor="middle">R_c ≈ 0.1..0.5 Ом</text>
+  <text x="660" y="172" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="start">Перехідний опір контакту</text>
+  <text x="537" y="194" font-size="12" fill="#1a1a1a" text-anchor="start">• Падіння напруги: ΔV = I · R_c (до 0.5 В при струмі 1 А)</text>
+  <text x="537" y="211" font-size="12" fill="#1a1a1a" text-anchor="start">• Окислення та знос пружин підвищують R_c до кількох Ом</text>
+  <text x="537" y="227" font-size="11" fill="#6b7280" text-anchor="start">• Викликає нестабільність живлення та хибні скидання MCU</text>
+
+  <!-- Картка 2: Паразитна ємність C_p -->
+  <rect x="525" y="252" width="390" height="94" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <rect x="537" y="262" width="110" height="22" rx="4" fill="#2457d6"/>
+  <text x="592" y="277" font-size="11" font-weight="bold" fill="white" text-anchor="middle">C_p ≈ 2..5 пФ</text>
+  <text x="660" y="278" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="start">Паразитна ємність між рейками</text>
+  <text x="537" y="300" font-size="12" fill="#1a1a1a" text-anchor="start">• Перехресні завади (Crosstalk) між сусідніми лініями</text>
+  <text x="537" y="317" font-size="12" fill="#1a1a1a" text-anchor="start">• Витоки на високих частотах (Z_C = 1 / (2π · f · C_p))</text>
+  <text x="537" y="333" font-size="11" fill="#6b7280" text-anchor="start">• Спотворення фронтів прямокутних сигналів (CLK, SPI)</text>
+
+  <!-- Картка 3: Індуктивність дротів L_w -->
+  <rect x="525" y="358" width="390" height="102" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <rect x="537" y="368" width="110" height="22" rx="4" fill="#27ae60"/>
+  <text x="592" y="383" font-size="11" font-weight="bold" fill="white" text-anchor="middle">L_w ≈ 10..20 нГн/см</text>
+  <text x="660" y="384" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="start">Паразитна індуктивність дротів</text>
+  <text x="537" y="406" font-size="12" fill="#1a1a1a" text-anchor="start">• Індуктивні викиди напруги: V_spike = L_w · (di/dt)</text>
+  <text x="537" y="423" font-size="12" fill="#1a1a1a" text-anchor="start">• Резонансний «дзвін» (ringing) разом із ємністю C_p</text>
+  <text x="537" y="441" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="start">• Рекомендація: коротка плоска розводка та блокиратор C</text>
+
+  <!-- З'єднувальні лінії зв'язку між панелями -->
+  <path d="M 475,190 H 510" fill="none" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr-red)"/>
+  <path d="M 475,260 H 495 V 299 H 510" fill="none" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr-blue)"/>
+  <path d="M 475,330 H 495 V 409 H 510" fill="none" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr-green)"/>
+</svg>
