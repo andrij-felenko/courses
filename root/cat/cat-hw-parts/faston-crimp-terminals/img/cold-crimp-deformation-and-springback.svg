@@ -1,0 +1,131 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background Canvas -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="36" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Холодне обтискання: пластична деформація та пружне повернення металу</text>
+  <text x="480" y="58" text-anchor="middle" font-size="13" fill="#6b7280">Монолітизація жил утворює газонепроникні зони, а пружне повернення (Springback) створює залишкове стискання</text>
+
+  <!-- Panel 1: Cross-Section Diagram -->
+  <rect x="30" y="85" width="445" height="435" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="48" y="112" text-anchor="start" font-size="15" font-weight="bold" fill="#1a1a1a">1. Поперечний розріз та механіка сил</text>
+
+  <!-- Springback force labels (top) -->
+  <text x="250" y="142" text-anchor="middle" font-size="13" font-weight="bold" fill="#c0392b">F_springback</text>
+  <text x="250" y="158" text-anchor="middle" font-size="12" fill="#c0392b">(пружне повернення хвостовика)</text>
+
+  <!-- Outer Barrel Wall (Brass/Copper terminal sleeve) -->
+  <path d="M 160,200 C 145,260 145,345 175,370 C 200,388 300,388 325,370 C 355,345 355,260 340,200 C 325,155 285,170 250,230 C 215,170 175,155 160,200 Z" fill="#d9a05b" stroke="#8c5a18" stroke-width="2"/>
+  <!-- Inner shell boundary (pocket) -->
+  <path d="M 172,210 C 160,260 160,335 185,356 C 205,372 295,372 315,356 C 340,335 340,260 328,210 C 315,175 280,188 250,240 C 220,188 185,175 172,210 Z" fill="#fceade" stroke="#8c5a18" stroke-width="1.5"/>
+
+  <!-- Tightly Compacted Wire Strands (Deformed Hexagonal Polygons) -->
+  <!-- Layer 1: Bottom row -->
+  <polygon points="182,332 196,328 208,336 205,350 192,354 180,344" fill="#e07a5f" stroke="#802815" stroke-width="1.2"/>
+  <polygon points="208,336 222,332 235,338 234,354 220,358 205,350" fill="#e07a5f" stroke="#802815" stroke-width="1.2"/>
+  <polygon points="235,338 250,334 265,338 264,358 248,362 234,354" fill="#e07a5f" stroke="#802815" stroke-width="1.2"/>
+  <polygon points="265,338 280,332 292,336 295,350 282,358 264,358" fill="#e07a5f" stroke="#802815" stroke-width="1.2"/>
+  <polygon points="292,336 306,328 318,334 320,346 308,354 295,350" fill="#e07a5f" stroke="#802815" stroke-width="1.2"/>
+
+  <!-- Layer 2: Lower-middle row -->
+  <polygon points="173,300 188,296 198,304 196,320 182,332 170,316" fill="#e07a5f" stroke="#802815" stroke-width="1.2"/>
+  <polygon points="198,304 214,298 226,306 224,324 208,336 196,320" fill="#e07a5f" stroke="#802815" stroke-width="1.2"/>
+  <polygon points="226,306 242,302 254,310 252,328 235,338 224,324" fill="#e07a5f" stroke="#27ae60" stroke-width="2"/>
+  <polygon points="254,310 270,302 284,306 285,324 265,338 252,328" fill="#e07a5f" stroke="#27ae60" stroke-width="2"/>
+  <polygon points="284,306 298,298 312,304 314,320 292,336 285,324" fill="#e07a5f" stroke="#802815" stroke-width="1.2"/>
+  <polygon points="312,304 326,296 335,302 332,318 318,334 314,320" fill="#e07a5f" stroke="#802815" stroke-width="1.2"/>
+
+  <!-- Layer 3: Upper-middle row -->
+  <polygon points="174,264 188,260 198,268 198,288 188,296 173,300" fill="#e07a5f" stroke="#802815" stroke-width="1.2"/>
+  <polygon points="198,268 214,264 226,272 226,294 214,298 198,288" fill="#e07a5f" stroke="#802815" stroke-width="1.2"/>
+  <polygon points="226,272 242,268 254,276 254,298 242,302 226,294" fill="#e07a5f" stroke="#27ae60" stroke-width="2"/>
+  <polygon points="254,276 268,268 282,272 284,294 270,302 254,298" fill="#e07a5f" stroke="#802815" stroke-width="1.2"/>
+  <polygon points="282,272 296,264 310,268 312,288 298,298 284,294" fill="#e07a5f" stroke="#802815" stroke-width="1.2"/>
+  <polygon points="310,268 324,260 332,264 332,292 326,296 312,288" fill="#e07a5f" stroke="#802815" stroke-width="1.2"/>
+
+  <!-- Layer 4: Top row (under wings) -->
+  <polygon points="180,234 194,230 206,238 206,256 198,268 184,252" fill="#e07a5f" stroke="#802815" stroke-width="1.2"/>
+  <polygon points="206,238 222,234 234,242 234,260 226,272 206,256" fill="#e07a5f" stroke="#802815" stroke-width="1.2"/>
+  <polygon points="234,242 250,244 266,242 266,260 254,276 234,260" fill="#e07a5f" stroke="#802815" stroke-width="1.2"/>
+  <polygon points="266,242 280,234 294,238 294,256 282,272 266,260" fill="#e07a5f" stroke="#802815" stroke-width="1.2"/>
+  <polygon points="294,238 308,230 320,234 318,252 310,268 294,256" fill="#e07a5f" stroke="#802815" stroke-width="1.2"/>
+
+  <!-- Gas-tight micro-welded interface highlights (Green lines) -->
+  <path d="M 226,306 L 254,310 L 252,328" stroke="#27ae60" stroke-width="2.5" fill="none"/>
+  <path d="M 254,276 L 254,298 L 270,302" stroke="#27ae60" stroke-width="2.5" fill="none"/>
+
+  <!-- Force Vectors: Springback (Outward Red Arrows) -->
+  <line x1="175" y1="180" x2="155" y2="155" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <line x1="325" y1="180" x2="345" y2="155" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <line x1="150" y1="270" x2="120" y2="270" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <line x1="350" y1="270" x2="380" y2="270" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+
+  <!-- Force Vectors: Inward Compression (Accent Blue Arrows & Label) -->
+  <line x1="210" y1="188" x2="225" y2="215" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <line x1="290" y1="188" x2="275" y2="215" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <line x1="250" y1="395" x2="250" y2="375" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="250" y="210" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">F_стиску</text>
+
+  <!-- Callout Lines & Annotations at Bottom of Panel 1 -->
+  <!-- Callout A: Sleeve -->
+  <line x1="165" y1="360" x2="105" y2="420" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="3,3" marker-start="url(#arr)"/>
+  <rect x="42" y="420" width="125" height="42" rx="4" fill="white" stroke="#d0d7de"/>
+  <text x="105" y="437" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Хвостовик клеми</text>
+  <text x="105" y="453" text-anchor="middle" font-size="12" fill="#6b7280">Латунь / мідь</text>
+
+  <!-- Callout B: Deformed Strands -->
+  <line x1="250" y1="340" x2="250" y2="420" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="3,3" marker-start="url(#arr)"/>
+  <rect x="180" y="420" width="140" height="42" rx="4" fill="white" stroke="#d0d7de"/>
+  <text x="250" y="437" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Деформовані жили</text>
+  <text x="250" y="453" text-anchor="middle" font-size="12" fill="#6b7280">Без зазорів (&gt;85%)</text>
+
+  <!-- Callout C: Gas-Tight Zone -->
+  <line x1="265" y1="305" x2="397" y2="420" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="3,3" marker-start="url(#arr-green)"/>
+  <rect x="332" y="420" width="130" height="42" rx="4" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="397" y="437" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Газонепроникний</text>
+  <text x="397" y="453" text-anchor="middle" font-size="12" fill="#1a1a1a">Контакт метал-метал</text>
+
+  <!-- Panel 2: Physical Mechanisms & Features -->
+  <rect x="495" y="85" width="435" height="435" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="515" y="112" text-anchor="start" font-size="15" font-weight="bold" fill="#1a1a1a">2. Механізми формування надійного контакту</text>
+
+  <!-- Card 1: Plastic Deformation -->
+  <rect x="510" y="130" width="405" height="110" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="522" y="142" width="185" height="24" rx="4" fill="#2457d6"/>
+  <text x="614.5" y="158" text-anchor="middle" font-size="12" font-weight="bold" fill="white">Пластична деформація жил</text>
+  <text x="525" y="184" text-anchor="start" font-size="12" fill="#1a1a1a">• Зминання круглих жил у щільні багатокутники</text>
+  <text x="525" y="202" text-anchor="start" font-size="12" fill="#1a1a1a">• Витіснення повітря (коефіцієнт стискання &gt; 85–90%)</text>
+  <text x="525" y="222" text-anchor="start" font-size="12" fill="#1a1a1a">• Максимізація площі фактичного дотику металу</text>
+
+  <!-- Card 2: Gas-Tight Contact -->
+  <rect x="510" y="255" width="405" height="110" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="522" y="267" width="210" height="24" rx="4" fill="#27ae60"/>
+  <text x="627" y="283" text-anchor="middle" font-size="12" font-weight="bold" fill="white">Газонепроникність (Gas-tight)</text>
+  <text x="525" y="309" text-anchor="start" font-size="12" fill="#1a1a1a">• Руйнування оксидних плівок під високим тиском</text>
+  <text x="525" y="327" text-anchor="start" font-size="12" fill="#1a1a1a">• Утворення прямих атомних зв'язків (холодне зварювання)</text>
+  <text x="525" y="347" text-anchor="start" font-size="12" fill="#1a1a1a">• Захист контактних точок від корозії та вологи</text>
+
+  <!-- Card 3: Springback Mechanics -->
+  <rect x="510" y="380" width="405" height="125" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <rect x="522" y="392" width="220" height="24" rx="4" fill="#c0392b"/>
+  <text x="632" y="408" text-anchor="middle" font-size="12" font-weight="bold" fill="white">Пружне повернення (Springback)</text>
+  <text x="525" y="434" text-anchor="start" font-size="12" fill="#1a1a1a">• Хвостовик пружно розширюється сильніше ніж мідь</text>
+  <text x="525" y="452" text-anchor="start" font-size="12" fill="#1a1a1a">• Оптимальна висота опресування (Crimp Height)</text>
+  <text x="525" y="470" text-anchor="start" font-size="12" fill="#1a1a1a">• Залишковий тиск збережено: довговічне з'єднання</text>
+  <text x="525" y="488" text-anchor="start" font-size="12" fill="#c0392b">• Помилки: недотискання = зазори; перетискання = тріщини</text>
+</svg>

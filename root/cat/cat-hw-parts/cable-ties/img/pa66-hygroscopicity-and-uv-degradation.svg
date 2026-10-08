@@ -1,0 +1,183 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Вплив вологи та УФ-випромінювання на механічні властивості PA66</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Залежність розривної міцності та ударної в'язкості нейлонових хомутів від умов довкілля</text>
+
+  <!-- PANEL 1: HYGROSCOPICITY -->
+  <rect x="20" y="74" width="450" height="446" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="32" y="86" width="426" height="30" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="245" y="106" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">1. ГІГРОСКОПІЧНІСТЬ: ВПЛИВ ВМІСТУ ВОЛОГИ (H₂O)</text>
+
+  <!-- Panel 1 Chart Background -->
+  <rect x="70" y="150" width="370" height="220" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Panel 1 Zones -->
+  <rect x="70" y="150" width="74" height="220" fill="#fdecea" opacity="0.6"/>
+  <rect x="144" y="150" width="111" height="220" fill="#e9f7ef" opacity="0.6"/>
+  
+  <!-- Zone Tags -->
+  <rect x="74" y="154" width="66" height="18" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="107" y="167" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">Сухий (~0%)</text>
+
+  <rect x="154" y="154" width="91" height="18" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="199" y="167" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">Норма (~2.5%)</text>
+
+  <rect x="300" y="154" width="105" height="18" rx="3" fill="#f4f6f8" stroke="#6b7280" stroke-width="1"/>
+  <text x="352" y="167" font-size="11" font-weight="bold" fill="#6b7280" text-anchor="middle">Насичення (&gt;5%)</text>
+
+  <!-- Panel 1 Grid Lines -->
+  <line x1="70" y1="190" x2="440" y2="190" stroke="#e2e8f0" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="70" y1="240" x2="440" y2="240" stroke="#e2e8f0" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="70" y1="290" x2="440" y2="290" stroke="#e2e8f0" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="70" y1="340" x2="440" y2="340" stroke="#e2e8f0" stroke-width="1" stroke-dasharray="3,3"/>
+
+  <line x1="144" y1="150" x2="144" y2="370" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <line x1="255" y1="150" x2="255" y2="370" stroke="#cbd5e1" stroke-width="1" stroke-dasharray="3,3"/>
+
+  <!-- Panel 1 Axes -->
+  <line x1="70" y1="370" x2="440" y2="370" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="70" y1="150" x2="70" y2="370" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <text x="70" y="140" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">Властивості (%)</text>
+  <text x="62" y="174" font-size="12" fill="#6b7280" text-anchor="end">100%</text>
+  <text x="62" y="274" font-size="12" fill="#6b7280" text-anchor="end">50%</text>
+  <text x="62" y="374" font-size="12" fill="#6b7280" text-anchor="end">0%</text>
+
+  <text x="70" y="388" font-size="12" fill="#6b7280" text-anchor="middle">0%</text>
+  <text x="144" y="388" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">2.5%</text>
+  <text x="255" y="388" font-size="12" fill="#6b7280" text-anchor="middle">5.0%</text>
+  <text x="390" y="388" font-size="12" fill="#6b7280" text-anchor="middle">8.0%</text>
+  <text x="440" y="402" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">Вологість (% H₂O)</text>
+
+  <!-- Panel 1 Curves -->
+  <!-- Curve 1: Tensile Strength (Blue) -->
+  <path d="M 70 180 C 100 210 120 235 144 246 C 180 260 220 275 255 280 C 300 286 350 291 390 294" fill="none" stroke="#2457d6" stroke-width="3"/>
+  <circle cx="70" cy="180" r="4" fill="#2457d6"/>
+  <circle cx="144" cy="246" r="4" fill="#2457d6"/>
+  <circle cx="255" cy="280" r="4" fill="#2457d6"/>
+  <circle cx="390" cy="294" r="4" fill="#2457d6"/>
+
+  <!-- Curve 2: Impact Strength (Green) -->
+  <path d="M 70 340 C 95 305 125 210 144 190 C 180 195 220 198 255 200 C 300 204 350 207 390 210" fill="none" stroke="#27ae60" stroke-width="3"/>
+  <circle cx="70" cy="340" r="4" fill="#27ae60"/>
+  <circle cx="144" cy="190" r="4" fill="#27ae60"/>
+  <circle cx="255" cy="200" r="4" fill="#27ae60"/>
+  <circle cx="390" cy="210" r="4" fill="#27ae60"/>
+
+  <!-- Panel 1 Legend Box -->
+  <rect x="240" y="185" width="190" height="48" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="248" y1="201" x2="268" y2="201" stroke="#2457d6" stroke-width="3"/>
+  <circle cx="258" cy="201" r="3" fill="#2457d6"/>
+  <text x="274" y="205" font-size="12" font-weight="bold" fill="#2457d6">Розривна міцність (σ)</text>
+
+  <line x1="248" y1="221" x2="268" y2="221" stroke="#27ae60" stroke-width="3"/>
+  <circle cx="258" cy="221" r="3" fill="#27ae60"/>
+  <text x="274" y="225" font-size="12" font-weight="bold" fill="#27ae60">Ударна в'язкість (KCV)</text>
+
+  <!-- Panel 1 Note Box -->
+  <rect x="32" y="412" width="426" height="44" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <circle cx="44" cy="427" r="3.5" fill="#c0392b"/>
+  <text x="54" y="431" font-size="12" fill="#1a1a1a"><tspan font-weight="bold" fill="#c0392b">Сухий PA66 (0% H₂O):</tspan> висока міцність, але крихкість</text>
+  <circle cx="44" cy="445" r="3.5" fill="#27ae60"/>
+  <text x="54" y="449" font-size="12" fill="#1a1a1a"><tspan font-weight="bold" fill="#27ae60">Норма (2.5% H₂O):</tspan> баланс міцності та ударної гнучкості</text>
+
+  <!-- Panel 1 Alert Box -->
+  <rect x="32" y="464" width="426" height="46" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="44" y="482" font-size="12" font-weight="bold" fill="#c0392b">⚠️ Ризик пересихання нейлону в сухих умовах / взимку:</text>
+  <text x="44" y="499" font-size="12" fill="#1a1a1a">Зберігати хомути в закритих пакетах з краплею води!</text>
+
+
+  <!-- PANEL 2: UV DEGRADATION -->
+  <rect x="490" y="74" width="450" height="446" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="502" y="86" width="426" height="30" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="715" y="106" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">2. УФ-ДЕГРАДАЦІЯ: ТРИВАЛИЙ ВПЛИВ СОНЦЯ</text>
+
+  <!-- Panel 2 Chart Background -->
+  <rect x="540" y="150" width="370" height="220" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Panel 2 Grid Lines -->
+  <line x1="540" y1="190" x2="910" y2="190" stroke="#e2e8f0" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="540" y1="240" x2="910" y2="240" stroke="#e2e8f0" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="540" y1="290" x2="910" y2="290" stroke="#e2e8f0" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="540" y1="340" x2="910" y2="340" stroke="#e2e8f0" stroke-width="1" stroke-dasharray="3,3"/>
+
+  <line x1="632.5" y1="150" x2="632.5" y2="370" stroke="#cbd5e1" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="725" y1="150" x2="725" y2="370" stroke="#cbd5e1" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="817.5" y1="150" x2="817.5" y2="370" stroke="#cbd5e1" stroke-width="1" stroke-dasharray="3,3"/>
+
+  <!-- Panel 2 Axes -->
+  <line x1="540" y1="370" x2="910" y2="370" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="540" y1="150" x2="540" y2="370" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <text x="540" y="140" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">Збереження міцності (%)</text>
+  <text x="532" y="174" font-size="12" fill="#6b7280" text-anchor="end">100%</text>
+  <text x="532" y="274" font-size="12" fill="#6b7280" text-anchor="end">50%</text>
+  <text x="532" y="374" font-size="12" fill="#6b7280" text-anchor="end">0%</text>
+
+  <text x="540" y="388" font-size="12" fill="#6b7280" text-anchor="middle">0</text>
+  <text x="632.5" y="388" font-size="12" fill="#6b7280" text-anchor="middle">1 рік</text>
+  <text x="725" y="388" font-size="12" fill="#6b7280" text-anchor="middle">3 роки</text>
+  <text x="817.5" y="388" font-size="12" fill="#6b7280" text-anchor="middle">5 років</text>
+  <text x="910" y="388" font-size="12" fill="#6b7280" text-anchor="middle">10+ років</text>
+  <text x="910" y="402" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">Час на сонці</text>
+
+  <!-- Panel 2 Curves -->
+  <!-- Curve D: UV-Stabilized PA66 (Green) -->
+  <path d="M 540 170 L 632.5 176 L 725 182 L 817.5 188 L 910 194" fill="none" stroke="#27ae60" stroke-width="3"/>
+  <circle cx="540" cy="170" r="4" fill="#27ae60"/>
+  <circle cx="632.5" cy="176" r="4" fill="#27ae60"/>
+  <circle cx="725" cy="182" r="4" fill="#27ae60"/>
+  <circle cx="817.5" cy="188" r="4" fill="#27ae60"/>
+  <circle cx="910" cy="194" r="4" fill="#27ae60"/>
+
+  <!-- Curve C: Standard PA66 (Red) -->
+  <path d="M 540 170 C 570 200 600 250 632.5 290 C 660 325 690 350 725 360 L 910 368" fill="none" stroke="#c0392b" stroke-width="3"/>
+  <circle cx="540" cy="170" r="4" fill="#c0392b"/>
+  <circle cx="632.5" cy="290" r="4" fill="#c0392b"/>
+  <circle cx="725" cy="360" r="4" fill="#c0392b"/>
+
+  <!-- Callout Box on Standard PA66 Curve -->
+  <rect x="580" y="305" width="135" height="22" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="647.5" y="320" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">Руйнування (&gt;60% втрат)</text>
+  <line x1="632.5" y1="305" x2="632.5" y2="294" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+
+  <!-- Panel 2 Legend Box -->
+  <rect x="670" y="185" width="230" height="48" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="678" y1="201" x2="698" y2="201" stroke="#27ae60" stroke-width="3"/>
+  <circle cx="688" cy="201" r="3" fill="#27ae60"/>
+  <text x="704" y="205" font-size="12" font-weight="bold" fill="#27ae60">УФ-стабілізований (чорний)</text>
+
+  <line x1="678" y1="221" x2="698" y2="221" stroke="#c0392b" stroke-width="3"/>
+  <circle cx="688" cy="221" r="3" fill="#c0392b"/>
+  <text x="704" y="225" font-size="12" font-weight="bold" fill="#c0392b">Стандартний PA66 (білий)</text>
+
+  <!-- Panel 2 Note Box -->
+  <rect x="502" y="412" width="426" height="44" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <circle cx="514" cy="427" r="3.5" fill="#c0392b"/>
+  <text x="524" y="431" font-size="12" fill="#1a1a1a"><tspan font-weight="bold" fill="#c0392b">Білі стяжки на сонці:</tspan> фотохімічний розрив ланцюгів PA66</text>
+  <circle cx="514" cy="445" r="3.5" fill="#27ae60"/>
+  <text x="524" y="449" font-size="12" fill="#1a1a1a"><tspan font-weight="bold" fill="#27ae60">Чорні стяжки (2% сажі):</tspan> поглинають УФ без руйнування нейлону</text>
+
+  <!-- Panel 2 Alert Box -->
+  <rect x="502" y="464" width="426" height="46" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="514" y="482" font-size="12" font-weight="bold" fill="#27ae60">✅ Правило монтажу на відкритому повітрі (Outdoor):</text>
+  <text x="514" y="499" font-size="12" fill="#1a1a1a">Для вуличних робіт застосовувати чорні УФ-стійкі стяжки!</text>
+</svg>

@@ -1,0 +1,199 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Маркери стрілок -->
+  <defs>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок та підзаголовок -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Схема механічного монтажу капсульного ковзного кільця</text>
+  <text x="480" y="60" font-size="13" fill="#6b7280" text-anchor="middle">Гнучке антиротаційне плече компенсує радіальне биття валу й захищає підшипники</text>
+
+  <!-- ==================== ПАНЕЛЬ 1: ЖОРСТКИЙ МОНТАЖ (ПОМИЛКА) ==================== -->
+  <rect x="30" y="85" width="435" height="435" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+
+  <!-- Заголовок панелі 1 -->
+  <rect x="45" y="100" width="405" height="42" rx="6" fill="white" stroke="#c0392b" stroke-width="1"/>
+  <text x="247.5" y="118" font-size="14" font-weight="bold" fill="#c0392b" text-anchor="middle">Жорстке кріплення статора (ПОМИЛКА)</text>
+  <text x="247.5" y="134" font-size="12" fill="#6b7280" text-anchor="middle">Обидва елементи (ротор і статор) жорстко прикручені</text>
+
+  <!-- Схема 1: Елементи механіки -->
+  <!-- Нерухома станина -->
+  <rect x="60" y="165" width="15" height="210" fill="#d0d7de" stroke="#6b7280"/>
+  <line x1="60" y1="180" x2="50" y2="190" stroke="#6b7280" stroke-width="1"/>
+  <line x1="60" y1="210" x2="50" y2="220" stroke="#6b7280" stroke-width="1"/>
+  <line x1="60" y1="240" x2="50" y2="250" stroke="#6b7280" stroke-width="1"/>
+  <line x1="60" y1="270" x2="50" y2="280" stroke="#6b7280" stroke-width="1"/>
+  <line x1="60" y1="300" x2="50" y2="310" stroke="#6b7280" stroke-width="1"/>
+  <line x1="60" y1="330" x2="50" y2="340" stroke="#6b7280" stroke-width="1"/>
+  <line x1="60" y1="360" x2="50" y2="370" stroke="#6b7280" stroke-width="1"/>
+  <text x="67.5" y="158" font-size="12" fill="#6b7280" text-anchor="middle">Станина</text>
+
+  <!-- Обертовий вал -->
+  <line x1="247.5" y1="150" x2="247.5" y2="390" stroke="#2457d6" stroke-width="1" stroke-dasharray="6,4"/>
+  <rect x="227.5" y="165" width="40" height="50" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="227.5" y="325" width="40" height="50" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="247.5" y="158" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Обертовий вал</text>
+
+  <!-- Позначення обертання та биття -->
+  <path d="M 205,180 A 12,12 0 0,1 220,172" fill="none" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="200" y="190" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">ω (Обертання)</text>
+
+  <line x1="230" y1="195" x2="265" y2="195" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <line x1="265" y1="190" x2="325" y2="190" stroke="#c0392b" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="335" y="190" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="start">Биття валу Δr</text>
+
+  <!-- Корпус статора (Жорсткий) -->
+  <rect x="170" y="215" width="25" height="110" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <rect x="300" y="215" width="25" height="110" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="335" y="240" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="start">Корпус статора</text>
+
+  <!-- Ротор струмознімача -->
+  <rect x="215" y="215" width="65" height="110" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="247.5" y="270" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Ротор</text>
+  <!-- Гвинти фіксації ротора на валу -->
+  <circle cx="230" cy="225" r="3" fill="#1a1a1a"/>
+  <circle cx="265" cy="225" r="3" fill="#1a1a1a"/>
+
+  <!-- Внутрішні підшипники (Верхні й нижні) -->
+  <!-- Верхній лівий підшипник -->
+  <rect x="195" y="225" width="20" height="18" fill="white" stroke="#c0392b" stroke-width="1"/>
+  <circle cx="205" cy="234" r="4" fill="#c0392b"/>
+  <!-- Верхній правий підшипник -->
+  <rect x="280" y="225" width="20" height="18" fill="white" stroke="#c0392b" stroke-width="1"/>
+  <circle cx="290" cy="234" r="4" fill="#c0392b"/>
+  <!-- Нижній лівий підшипник -->
+  <rect x="195" y="297" width="20" height="18" fill="white" stroke="#c0392b" stroke-width="1"/>
+  <circle cx="205" cy="306" r="4" fill="#c0392b"/>
+  <!-- Нижній правий підшипник -->
+  <rect x="280" y="297" width="20" height="18" fill="white" stroke="#c0392b" stroke-width="1"/>
+  <circle cx="290" cy="306" r="4" fill="#c0392b"/>
+
+  <!-- Жорстке бовтове кріплення статора до станини -->
+  <rect x="75" y="263" width="95" height="14" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" rx="2"/>
+  <circle cx="95" cy="270" r="4" fill="#c0392b"/>
+  <line x1="95" y1="266" x2="95" y2="274" stroke="white" stroke-width="1.5"/>
+  <circle cx="120" cy="270" r="4" fill="#c0392b"/>
+  <line x1="120" y1="266" x2="120" y2="274" stroke="white" stroke-width="1.5"/>
+  <text x="122.5" y="254" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Жорсткий болт</text>
+
+  <!-- Деструктивні реактивні сили F_rad на підшипниках -->
+  <path d="M 162,234 L 190,234" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <path d="M 333,234 L 305,234" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="335" y="280" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="start">Сили Fr, Fa &gt; 0</text>
+  <text x="335" y="298" font-size="12" fill="#c0392b" text-anchor="start">Затиск підшипників</text>
+
+  <!-- Блок опису наслідків помилки -->
+  <rect x="45" y="405" width="405" height="100" rx="6" fill="white" stroke="#c0392b" stroke-width="1"/>
+  <text x="247.5" y="425" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">Наслідки жорсткого кріплення:</text>
+  <text x="55" y="445" font-size="12" fill="#1a1a1a" text-anchor="start">• Биття валу (Δr) передається на підшипники</text>
+  <text x="55" y="465" font-size="12" fill="#1a1a1a" text-anchor="start">• Перекіс щіток спричиняє електричний шум</text>
+  <text x="55" y="485" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="start">• Швидкий знос контактів та збій сигналів</text>
+
+
+  <!-- ==================== ПАНЕЛЬ 2: ГНУЧКИЙ МОНТАЖ (ПРАВИЛЬНО) ==================== -->
+  <rect x="495" y="85" width="435" height="435" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+
+  <!-- Заголовок панелі 2 -->
+  <rect x="510" y="100" width="405" height="42" rx="6" fill="white" stroke="#27ae60" stroke-width="1"/>
+  <text x="712.5" y="118" font-size="14" font-weight="bold" fill="#27ae60" text-anchor="middle">Гнучке антиротаційне плече (ПРАВИЛЬНО)</text>
+  <text x="712.5" y="134" font-size="12" fill="#6b7280" text-anchor="middle">Ротор фіксується на валу, а статор утримується поводком</text>
+
+  <!-- Схема 2: Елементи механіки -->
+  <!-- Нерухома станина -->
+  <rect x="525" y="165" width="15" height="210" fill="#d0d7de" stroke="#6b7280"/>
+  <line x1="525" y1="180" x2="515" y2="190" stroke="#6b7280" stroke-width="1"/>
+  <line x1="525" y1="210" x2="515" y2="220" stroke="#6b7280" stroke-width="1"/>
+  <line x1="525" y1="240" x2="515" y2="250" stroke="#6b7280" stroke-width="1"/>
+  <line x1="525" y1="270" x2="515" y2="280" stroke="#6b7280" stroke-width="1"/>
+  <line x1="525" y1="300" x2="515" y2="310" stroke="#6b7280" stroke-width="1"/>
+  <line x1="525" y1="330" x2="515" y2="340" stroke="#6b7280" stroke-width="1"/>
+  <line x1="525" y1="360" x2="515" y2="370" stroke="#6b7280" stroke-width="1"/>
+  <text x="532.5" y="158" font-size="12" fill="#6b7280" text-anchor="middle">Станина</text>
+
+  <!-- Обертовий вал -->
+  <line x1="712.5" y1="150" x2="712.5" y2="390" stroke="#2457d6" stroke-width="1" stroke-dasharray="6,4"/>
+  <rect x="692.5" y="165" width="40" height="50" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="692.5" y="325" width="40" height="50" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="712.5" y="158" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Обертовий вал</text>
+
+  <!-- Позначення обертання та компенсованого биття -->
+  <path d="M 670,180 A 12,12 0 0,1 685,172" fill="none" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="665" y="190" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">ω (Обертання)</text>
+
+  <line x1="695" y1="195" x2="730" y2="195" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <line x1="730" y1="190" x2="770" y2="190" stroke="#27ae60" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="780" y="190" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="start">Биття Δr поглинуто</text>
+
+  <!-- Корпус статора (Розвантажений) -->
+  <rect x="635" y="215" width="25" height="110" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="765" y="215" width="25" height="110" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="795" y="240" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="start">Корпус статора</text>
+
+  <!-- Ротор струмознімача -->
+  <rect x="680" y="215" width="65" height="110" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="712.5" y="270" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Ротор</text>
+  <!-- Гвинти фіксації ротора на валу -->
+  <circle cx="695" cy="225" r="3" fill="#1a1a1a"/>
+  <circle cx="730" cy="225" r="3" fill="#1a1a1a"/>
+
+  <!-- Внутрішні підшипники (Розвантажені) -->
+  <!-- Верхній лівий підшипник -->
+  <rect x="660" y="225" width="20" height="18" fill="white" stroke="#27ae60" stroke-width="1"/>
+  <circle cx="670" cy="234" r="4" fill="#27ae60"/>
+  <!-- Верхній правий підшипник -->
+  <rect x="745" y="225" width="20" height="18" fill="white" stroke="#27ae60" stroke-width="1"/>
+  <circle cx="755" cy="234" r="4" fill="#27ae60"/>
+  <!-- Нижній лівий підшипник -->
+  <rect x="660" y="297" width="20" height="18" fill="white" stroke="#27ae60" stroke-width="1"/>
+  <circle cx="670" cy="306" r="4" fill="#27ae60"/>
+  <!-- Нижній правий підшипник -->
+  <rect x="745" y="297" width="20" height="18" fill="white" stroke="#27ae60" stroke-width="1"/>
+  <circle cx="755" cy="306" r="4" fill="#27ae60"/>
+
+  <!-- Гнучке антиротаційне плече (Поводок) і стопорний штифт -->
+  <!-- Штифт на станині -->
+  <line x1="540" y1="270" x2="562" y2="270" stroke="#6b7280" stroke-width="2.5"/>
+  <circle cx="562" cy="270" r="5" fill="#6b7280"/>
+
+  <!-- Пружна пластина / поводок з вилкою (зазором) -->
+  <path d="M 635,270 C 615,262 595,278 575,270" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+  <path d="M 575,263 L 558,263 C 553,263 553,277 558,277 L 575,277" fill="none" stroke="#27ae60" stroke-width="2"/>
+
+  <text x="590" y="245" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">
+    <tspan x="590" dy="0">Гнучке плече</tspan>
+    <tspan x="590" dy="14">(поводок)</tspan>
+  </text>
+
+  <text x="590" y="295" font-size="12" fill="#6b7280" text-anchor="middle">
+    <tspan x="590" dy="0">Стопор</tspan>
+    <tspan x="590" dy="14">із зазором</tspan>
+  </text>
+
+  <!-- Показник нульового навантаження -->
+  <text x="795" y="280" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="start">Fr = 0, Fa = 0</text>
+  <text x="795" y="298" font-size="12" fill="#27ae60" text-anchor="start">Підшипники вільні</text>
+
+  <!-- Блок опису переваг рішення -->
+  <rect x="510" y="405" width="405" height="100" rx="6" fill="white" stroke="#27ae60" stroke-width="1"/>
+  <text x="712.5" y="425" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Переваги гнучкої розв'язки:</text>
+  <text x="520" y="445" font-size="12" fill="#1a1a1a" text-anchor="start">• Пружне плече повністю поглинає биття валу (Δr)</text>
+  <text x="520" y="465" font-size="12" fill="#1a1a1a" text-anchor="start">• Внутрішні підшипники працюють без навантажень</text>
+  <text x="520" y="485" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="start">• Стабільна передача сигналів і максимум ресурсу</text>
+</svg>

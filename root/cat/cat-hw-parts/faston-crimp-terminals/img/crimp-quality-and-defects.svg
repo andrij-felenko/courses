@@ -1,0 +1,254 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <!-- Arrow markers -->
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Canvas Background -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Опресування Faston-клем: еталон та типові дефекти</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Еталонний крімп забезпечує розтруби bellmouth та 100% ущільнення жил без порушення манжети</text>
+
+  <!-- ==================== ROW 1 ==================== -->
+
+  <!-- Panel 1: Longitudinal Section -->
+  <rect x="30" y="70" width="435" height="210" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <!-- Header Badge Panel 1 -->
+  <rect x="40" y="80" width="415" height="26" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="247" y="97" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">1. Поздовжній переріз: розтруби (Bellmouth)</text>
+
+  <!-- Diagram Panel 1 -->
+  <g id="panel1-drawing">
+    <!-- Cable Insulation (left) -->
+    <rect x="50" y="165" width="65" height="40" rx="3" fill="#2980b9" stroke="#1b4f72" stroke-width="1.5"/>
+    <rect x="50" y="177" width="65" height="16" fill="#3498db"/>
+
+    <!-- Insulation Crimp Barrel -->
+    <path d="M 110,160 L 165,160 C 170,160 170,210 165,210 L 110,210 Z" fill="#b2bec3" stroke="#47535e" stroke-width="1.5"/>
+
+    <!-- Conductor Cable Core exposed from insulation -->
+    <rect x="115" y="173" width="70" height="24" fill="#e67e22" stroke="#d35400" stroke-width="1"/>
+
+    <!-- Rear Bellmouth (Flared Entry) -->
+    <path d="M 170,160 C 177,163 182,168 185,170 L 185,200 C 182,202 177,207 170,210 Z" fill="#95a5a6" stroke="#47535e" stroke-width="1.5"/>
+
+    <!-- Conductor Crimp Barrel (Main compressed zone) -->
+    <rect x="185" y="170" width="135" height="30" fill="#b2bec3" stroke="#47535e" stroke-width="1.5"/>
+    <!-- Compressed copper wire bundle inside barrel -->
+    <rect x="185" y="173" width="135" height="24" fill="#d35400" stroke="#a04000" stroke-width="1"/>
+    <!-- Internal strand lines -->
+    <line x1="185" y1="179" x2="320" y2="179" stroke="#e67e22" stroke-width="1"/>
+    <line x1="185" y1="185" x2="320" y2="185" stroke="#e67e22" stroke-width="1"/>
+    <line x1="185" y1="191" x2="320" y2="191" stroke="#e67e22" stroke-width="1"/>
+
+    <!-- Front Bellmouth (Flared Exit) -->
+    <path d="M 320,170 C 323,168 327,163 332,160 L 332,210 C 327,207 323,202 320,200 Z" fill="#95a5a6" stroke="#47535e" stroke-width="1.5"/>
+
+    <!-- Wire Brush (protruding strands) -->
+    <path d="M 332,173 Q 345,170 352,167 M 332,179 L 355,179 M 332,185 L 356,185 M 332,191 L 354,191 M 332,197 Q 345,200 352,203" stroke="#d35400" stroke-width="2" stroke-linecap="round"/>
+
+    <!-- Faston mating tab base extending right -->
+    <path d="M 332,205 L 435,205 L 435,210 L 332,210 Z" fill="#7f8c8d" stroke="#47535e" stroke-width="1"/>
+
+    <!-- Callouts & Leader Lines Panel 1 -->
+    <!-- Rear Bellmouth arrow & text -->
+    <line x1="140" y1="133" x2="175" y2="157" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+    <text x="140" y="128" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Задній розтруб</text>
+
+    <!-- Front Bellmouth arrow & text -->
+    <line x1="340" y1="133" x2="326" y2="157" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+    <text x="340" y="128" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Передній розтруб</text>
+
+    <!-- Insulation Crimp text -->
+    <line x1="110" y1="240" x2="135" y2="213" stroke="#6b7280" stroke-width="1" stroke-dasharray="3,3"/>
+    <text x="110" y="255" font-size="12" fill="#6b7280" text-anchor="middle">Фіксатор ізоляції</text>
+
+    <!-- Conductor Crimp text -->
+    <line x1="245" y1="240" x2="245" y2="203" stroke="#1a1a1a" stroke-width="1" stroke-dasharray="3,3"/>
+    <text x="245" y="255" font-size="12" fill="#1a1a1a" text-anchor="middle">Зона обтиску жили</text>
+
+    <!-- Wire Brush text -->
+    <line x1="380" y1="240" x2="348" y2="198" stroke="#6b7280" stroke-width="1" stroke-dasharray="3,3"/>
+    <text x="380" y="255" font-size="12" fill="#6b7280" text-anchor="middle">Вихід жил («щітка»)</text>
+  </g>
+
+  <!-- Panel 2: Transverse B-Crimp Section -->
+  <rect x="495" y="70" width="435" height="210" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <!-- Header Badge Panel 2 -->
+  <rect x="505" y="80" width="415" height="26" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="712" y="97" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">2. Поперечний переріз: B-crimp ущільнення</text>
+
+  <!-- Diagram Panel 2 -->
+  <g id="panel2-drawing">
+    <!-- Top Text -->
+    <text x="712" y="122" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Крила згорнуті симетрично</text>
+
+    <!-- B-Crimp Outer Shell -->
+    <path d="M 645,150 C 645,215 660,225 712,225 C 764,225 779,215 779,150 C 779,135 750,135 735,160 C 725,177 714,185 712,185 C 710,185 699,177 689,160 C 674,135 645,135 645,150 Z" fill="#b2bec3" stroke="#47535e" stroke-width="2"/>
+
+    <!-- Compacted Copper Strands inside (Hexagonal packing fill) -->
+    <g fill="#e67e22" stroke="#a04000" stroke-width="1">
+      <!-- Row 1 (bottom) -->
+      <polygon points="675,210 683,206 691,210 691,218 683,222 675,218"/>
+      <polygon points="691,210 699,206 707,210 707,218 699,222 691,218"/>
+      <polygon points="707,210 715,206 723,210 723,218 715,222 707,218"/>
+      <polygon points="723,210 731,206 739,210 739,218 731,222 723,218"/>
+      <polygon points="739,210 747,206 755,210 755,218 747,222 739,218"/>
+
+      <!-- Row 2 -->
+      <polygon points="667,196 675,192 683,196 683,204 675,208 667,204"/>
+      <polygon points="683,196 691,192 699,196 699,204 691,208 683,204"/>
+      <polygon points="699,196 707,192 715,196 715,204 707,208 699,204"/>
+      <polygon points="715,196 723,192 731,196 731,204 723,208 715,204"/>
+      <polygon points="731,196 739,192 747,196 747,204 739,208 731,204"/>
+      <polygon points="747,196 755,192 763,196 763,204 755,208 747,204"/>
+
+      <!-- Row 3 -->
+      <polygon points="660,182 668,178 676,182 676,190 668,194 660,190"/>
+      <polygon points="676,182 684,178 692,182 692,190 684,194 676,190"/>
+      <polygon points="692,182 700,178 708,182 708,190 700,194 692,190"/>
+      <polygon points="708,182 716,178 724,182 724,190 716,194 708,190"/>
+      <polygon points="724,182 732,178 740,182 740,190 732,194 724,190"/>
+      <polygon points="740,182 748,178 756,182 756,190 748,194 740,190"/>
+      <polygon points="756,182 764,178 772,182 772,190 764,194 756,190"/>
+
+      <!-- Row 4 -->
+      <polygon points="668,168 676,164 684,168 684,176 676,180 668,176"/>
+      <polygon points="684,168 692,164 700,168 700,176 692,180 684,176"/>
+      <polygon points="724,168 732,164 740,168 740,176 732,180 724,176"/>
+      <polygon points="740,168 748,164 756,168 756,176 748,180 740,176"/>
+    </g>
+
+    <!-- Height dimension line (left) -->
+    <line x1="615" y1="135" x2="615" y2="225" stroke="#2457d6" stroke-width="1.5" marker-start="url(#arr-blue)" marker-end="url(#arr-blue)"/>
+    <text x="605" y="184" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">h_c</text>
+
+    <!-- Width dimension line (bottom) -->
+    <line x1="645" y1="240" x2="779" y2="240" stroke="#2457d6" stroke-width="1.5" marker-start="url(#arr-blue)" marker-end="url(#arr-blue)"/>
+    <text x="712" y="255" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">w_c</text>
+
+    <!-- Right Callout for 100% Compaction -->
+    <line x1="790" y1="175" x2="745" y2="185" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+    <text x="795" y="172" font-size="12" fill="#1a1a1a" text-anchor="start">100% ущільнення</text>
+    <text x="795" y="187" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="start">без зазорів</text>
+  </g>
+
+  <!-- ==================== ROW 2 (DEFECTS) ==================== -->
+
+  <!-- Panel 3: Under-crimped -->
+  <rect x="30" y="295" width="286" height="225" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <!-- Header Badge Panel 3 -->
+  <rect x="38" y="305" width="270" height="26" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="173" y="322" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">3. Недотискання (Under-crimp)</text>
+
+  <!-- Diagram Panel 3 -->
+  <g id="panel3-drawing">
+    <!-- Outer Shell (Taller h_c, wings loose) -->
+    <path d="M 118,350 C 118,430 130,445 173,445 C 216,445 228,430 228,350 C 228,340 205,340 195,365 C 188,380 174,388 173,388 C 172,388 158,380 151,365 C 141,340 118,340 118,350 Z" fill="#b2bec3" stroke="#c0392b" stroke-width="2"/>
+
+    <!-- Loose Round Wire Strands with Voids -->
+    <g fill="#e67e22" stroke="#d35400" stroke-width="1">
+      <circle cx="142" cy="432" r="7"/>
+      <circle cx="158" cy="432" r="7"/>
+      <circle cx="174" cy="432" r="7"/>
+      <circle cx="190" cy="432" r="7"/>
+      <circle cx="204" cy="432" r="7"/>
+
+      <circle cx="136" cy="416" r="7"/>
+      <circle cx="151" cy="416" r="7"/>
+      <circle cx="166" cy="416" r="7"/>
+      <circle cx="181" cy="416" r="7"/>
+      <circle cx="196" cy="416" r="7"/>
+      <circle cx="210" cy="416" r="7"/>
+
+      <circle cx="144" cy="400" r="7"/>
+      <circle cx="159" cy="400" r="7"/>
+      <circle cx="174" cy="400" r="7"/>
+      <circle cx="189" cy="400" r="7"/>
+      <circle cx="202" cy="400" r="7"/>
+    </g>
+
+    <!-- Height dimension arrow (left) showing h_c too high -->
+    <line x1="75" y1="340" x2="75" y2="445" stroke="#c0392b" stroke-width="1.5" marker-start="url(#arr-red)" marker-end="url(#arr-red)"/>
+    <text x="70" y="398" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="end">h_c ↑</text>
+
+    <!-- Labels Panel 3 -->
+    <text x="173" y="472" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Повітряні зазори між жилами</text>
+    <text x="173" y="495" font-size="12" fill="#6b7280" text-anchor="middle">Слабка фіксація • високий R_c</text>
+  </g>
+
+  <!-- Panel 4: Over-crimped -->
+  <rect x="337" y="295" width="286" height="225" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <!-- Header Badge Panel 4 -->
+  <rect x="345" y="305" width="270" height="26" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="480" y="322" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">4. Перетискання (Over-crimp)</text>
+
+  <!-- Diagram Panel 4 -->
+  <g id="panel4-drawing">
+    <!-- Outer Shell Crushed Flattened with Extrusion Flash at Bottom Corners -->
+    <path d="M 415,385 C 415,435 410,442 400,446 L 400,448 L 418,446 C 450,446 510,446 542,446 L 560,448 L 560,446 C 550,442 545,435 545,385 C 545,365 520,365 500,400 C 490,418 482,425 480,425 C 478,425 470,418 460,400 C 440,365 415,365 415,385 Z" fill="#b2bec3" stroke="#c0392b" stroke-width="2"/>
+
+    <!-- Severed and over-flattened copper strands -->
+    <g fill="#d35400" stroke="#a04000" stroke-width="1">
+      <rect x="420" y="432" width="120" height="10" rx="2"/>
+      <rect x="425" y="420" width="110" height="10" rx="2"/>
+      <rect x="435" y="408" width="90" height="10" rx="2"/>
+    </g>
+
+    <!-- Red cut marks on strands -->
+    <line x1="432" y1="416" x2="442" y2="436" stroke="#c0392b" stroke-width="2"/>
+    <line x1="520" y1="416" x2="528" y2="436" stroke="#c0392b" stroke-width="2"/>
+
+    <!-- Flash arrows pointing to bottom corners -->
+    <path d="M 395,447 L 385,447" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+    <path d="M 565,447 L 575,447" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+
+    <!-- Height dimension arrow (left) showing h_c too low -->
+    <line x1="365" y1="365" x2="365" y2="446" stroke="#c0392b" stroke-width="1.5" marker-start="url(#arr-red)" marker-end="url(#arr-red)"/>
+    <text x="360" y="411" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="end">h_c ↓</text>
+
+    <!-- Labels Panel 4 -->
+    <text x="480" y="472" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Облой (flash) та зрізані жилки</text>
+    <text x="480" y="495" font-size="12" fill="#6b7280" text-anchor="middle">Тріщини металу • втрата міцності</text>
+  </g>
+
+  <!-- Panel 5: Damaged Insulation Sleeve -->
+  <rect x="644" y="295" width="286" height="225" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <!-- Header Badge Panel 5 -->
+  <rect x="652" y="305" width="270" height="26" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="787" y="322" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">5. Пошкодження манжети</text>
+
+  <!-- Diagram Panel 5 -->
+  <g id="panel5-drawing">
+    <!-- Insulation Sleeve Profile Cross Section -->
+    <path d="M 727,400 C 727,355 750,345 777,345 L 777,355 C 760,355 742,365 742,400 C 742,430 760,440 787,440 C 814,440 832,430 832,400 C 832,365 814,355 797,355 L 797,345 C 824,345 847,355 847,400 C 847,448 820,452 787,452 C 754,452 727,448 727,400 Z" fill="#2980b9" stroke="#1b4f72" stroke-width="1.5"/>
+
+    <!-- Sharp tear/crack at the top exposing metal barrel -->
+    <polygon points="775,345 782,362 787,350 792,365 799,345" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+
+    <!-- Bare Metal Barrel inside visible under insulation -->
+    <ellipse cx="787" cy="400" rx="35" ry="25" fill="#b2bec3" stroke="#47535e" stroke-width="1.5"/>
+    <!-- Wire Core inside metal barrel -->
+    <ellipse cx="787" cy="400" rx="20" ry="14" fill="#e67e22" stroke="#d35400" stroke-width="1"/>
+
+    <!-- Warning arrow pointing directly to puncture site -->
+    <line x1="787" y1="385" x2="787" y2="367" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+
+    <!-- Labels Panel 5 -->
+    <text x="787" y="472" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Пробиття чи надріз ізоляції</text>
+    <text x="787" y="495" font-size="12" fill="#6b7280" text-anchor="middle">Втрата захисту • КЗ на корпус</text>
+  </g>
+</svg>

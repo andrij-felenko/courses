@@ -1,0 +1,272 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <!-- Arrow Markers -->
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-orange" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#ea580c"/>
+    </marker>
+    
+    <!-- Gradients -->
+    <linearGradient id="brass-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#b45309"/>
+      <stop offset="30%" stop-color="#f59e0b"/>
+      <stop offset="70%" stop-color="#fef3c7"/>
+      <stop offset="100%" stop-color="#d97706"/>
+    </linearGradient>
+
+    <linearGradient id="tip-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#374151"/>
+      <stop offset="50%" stop-color="#6b7280"/>
+      <stop offset="100%" stop-color="#4b5563"/>
+    </linearGradient>
+
+    <linearGradient id="tip-heat-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#b91c1c"/>
+      <stop offset="50%" stop-color="#ef4444"/>
+      <stop offset="100%" stop-color="#dc2626"/>
+    </linearGradient>
+
+    <linearGradient id="plastic-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#94a3b8"/>
+      <stop offset="50%" stop-color="#cbd5e1"/>
+      <stop offset="100%" stop-color="#e2e8f0"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background Canvas -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Main Header -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Послідовність термічного впаювання нарізної втулки (Heat-Set Insert)</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Стадії позиціонування, формування розплаву, збереження соосності та захисту різьби</text>
+
+  <!-- ==================== PANEL 1 ==================== -->
+  <rect x="30" y="70" width="285" height="445" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="8"/>
+  
+  <!-- Panel 1 Header Box -->
+  <rect x="42" y="80" width="261" height="46" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="172.5" y="99" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">1. Позиціонування та соосність</text>
+  <text x="172.5" y="116" font-size="12" fill="#6b7280" text-anchor="middle">Установка втулки на фаску босу</text>
+
+  <!-- Panel 1 Centerline -->
+  <line x1="172.5" y1="135" x2="172.5" y2="390" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="6,4"/>
+
+  <!-- Panel 1 Soldering Tip -->
+  <rect x="160.5" y="140" width="24" height="28" fill="url(#tip-grad)" stroke="#374151" stroke-width="1"/>
+  <polygon points="160.5,168 184.5,168 178.5,198 166.5,198" fill="url(#tip-grad)" stroke="#374151" stroke-width="1"/>
+  <rect x="167.5" y="198" width="10" height="30" fill="url(#tip-grad)" stroke="#374151" stroke-width="1"/>
+
+  <!-- Panel 1 Insert -->
+  <rect x="150.5" y="230" width="14" height="38" fill="url(#brass-grad)" stroke="#b45309" stroke-width="1"/>
+  <rect x="180.5" y="230" width="14" height="38" fill="url(#brass-grad)" stroke="#b45309" stroke-width="1"/>
+  <line x1="150.5" y1="240" x2="164.5" y2="240" stroke="#78350f" stroke-width="1.5"/>
+  <line x1="150.5" y1="250" x2="164.5" y2="250" stroke="#78350f" stroke-width="1.5"/>
+  <line x1="150.5" y1="260" x2="164.5" y2="260" stroke="#78350f" stroke-width="1.5"/>
+  <line x1="180.5" y1="240" x2="194.5" y2="240" stroke="#78350f" stroke-width="1.5"/>
+  <line x1="180.5" y1="250" x2="194.5" y2="250" stroke="#78350f" stroke-width="1.5"/>
+  <line x1="180.5" y1="260" x2="194.5" y2="260" stroke="#78350f" stroke-width="1.5"/>
+  <polygon points="150.5,268 164.5,268 161.5,275 153.5,275" fill="url(#brass-grad)" stroke="#b45309" stroke-width="1"/>
+  <polygon points="180.5,268 194.5,268 191.5,275 183.5,275" fill="url(#brass-grad)" stroke="#b45309" stroke-width="1"/>
+
+  <!-- Panel 1 Thermoplastic Boss -->
+  <path d="M 102.5,275 L 148.5,275 L 155.5,285 L 155.5,390 L 102.5,390 Z" fill="url(#plastic-grad)" stroke="#64748b" stroke-width="1.5"/>
+  <path d="M 242.5,275 L 196.5,275 L 189.5,285 L 189.5,390 L 242.5,390 Z" fill="url(#plastic-grad)" stroke="#64748b" stroke-width="1.5"/>
+  <line x1="102.5" y1="305" x2="155.5" y2="305" stroke="#94a3b8" stroke-width="0.75" stroke-dasharray="4,2"/>
+  <line x1="102.5" y1="325" x2="155.5" y2="325" stroke="#94a3b8" stroke-width="0.75" stroke-dasharray="4,2"/>
+  <line x1="102.5" y1="345" x2="155.5" y2="345" stroke="#94a3b8" stroke-width="0.75" stroke-dasharray="4,2"/>
+  <line x1="102.5" y1="365" x2="155.5" y2="365" stroke="#94a3b8" stroke-width="0.75" stroke-dasharray="4,2"/>
+  <line x1="189.5" y1="305" x2="242.5" y2="305" stroke="#94a3b8" stroke-width="0.75" stroke-dasharray="4,2"/>
+  <line x1="189.5" y1="325" x2="242.5" y2="325" stroke="#94a3b8" stroke-width="0.75" stroke-dasharray="4,2"/>
+  <line x1="189.5" y1="345" x2="242.5" y2="345" stroke="#94a3b8" stroke-width="0.75" stroke-dasharray="4,2"/>
+  <line x1="189.5" y1="365" x2="242.5" y2="365" stroke="#94a3b8" stroke-width="0.75" stroke-dasharray="4,2"/>
+
+  <!-- Panel 1 Labels & Leader lines -->
+  <text x="98" y="154" font-size="12" font-weight="600" fill="#1a1a1a" text-anchor="end">
+    <tspan x="98" y="154">Термо-</tspan>
+    <tspan x="98" y="168">насадка</tspan>
+  </text>
+  <path d="M 104,161 L 158,161" stroke="#1a1a1a" stroke-width="1" marker-end="url(#arr-dark)"/>
+
+  <text x="247" y="244" font-size="12" font-weight="600" fill="#1a1a1a" text-anchor="start">
+    <tspan x="247" y="244">Нарізна</tspan>
+    <tspan x="247" y="258">втулка</tspan>
+  </text>
+  <path d="M 242,251 L 198,251" stroke="#1a1a1a" stroke-width="1" marker-end="url(#arr-dark)"/>
+
+  <text x="98" y="272" font-size="12" fill="#1a1a1a" text-anchor="end">
+    <tspan x="98" y="272">Фаска</tspan>
+    <tspan x="98" y="286">босу</tspan>
+  </text>
+  <path d="M 104,278 L 146,278" stroke="#1a1a1a" stroke-width="1" marker-end="url(#arr-dark)"/>
+
+  <!-- Panel 1 Summary Box -->
+  <rect x="42" y="410" width="261" height="90" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="172.5" y="428" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Вимоги до стадії 1:</text>
+  <text x="172.5" y="447" font-size="12" fill="#1a1a1a" text-anchor="middle">• Соосність насадки та босу</text>
+  <text x="172.5" y="465" font-size="12" fill="#1a1a1a" text-anchor="middle">• Діаметр отвору d_hole &lt; D_out</text>
+  <text x="172.5" y="483" font-size="12" fill="#6b7280" text-anchor="middle">• Вхідна фаска під кутом 8°–15°</text>
+
+  <!-- ==================== PANEL 2 ==================== -->
+  <rect x="338" y="70" width="284" height="445" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="8"/>
+
+  <!-- Panel 2 Header Box -->
+  <rect x="350" y="80" width="260" height="46" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="6"/>
+  <text x="480" y="99" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">2. Термічний нагрів і впаювання</text>
+  <text x="480" y="116" font-size="12" fill="#1a1a1a" text-anchor="middle">Плавлення полімеру та занурення</text>
+
+  <!-- Panel 2 Centerline -->
+  <line x1="480" y1="135" x2="480" y2="390" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="6,4"/>
+
+  <!-- Downward Force Arrow -->
+  <path d="M 480,135 L 480,160" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+  <text x="492" y="148" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="start">Зусилля F</text>
+
+  <!-- Panel 2 Heated Soldering Tip -->
+  <rect x="468" y="165" width="24" height="28" fill="url(#tip-heat-grad)" stroke="#b91c1c" stroke-width="1"/>
+  <polygon points="468,193 492,193 486,223 474,223" fill="url(#tip-heat-grad)" stroke="#b91c1c" stroke-width="1"/>
+  <rect x="475" y="223" width="10" height="30" fill="url(#tip-heat-grad)" stroke="#b91c1c" stroke-width="1"/>
+
+  <!-- Panel 2 Insert -->
+  <rect x="458" y="250" width="14" height="42" fill="url(#brass-grad)" stroke="#b45309" stroke-width="1"/>
+  <rect x="488" y="250" width="14" height="42" fill="url(#brass-grad)" stroke="#b45309" stroke-width="1"/>
+  <line x1="458" y1="260" x2="472" y2="260" stroke="#78350f" stroke-width="1.5"/>
+  <line x1="458" y1="270" x2="472" y2="270" stroke="#78350f" stroke-width="1.5"/>
+  <line x1="458" y1="280" x2="472" y2="280" stroke="#78350f" stroke-width="1.5"/>
+  <line x1="488" y1="260" x2="502" y2="260" stroke="#78350f" stroke-width="1.5"/>
+  <line x1="488" y1="270" x2="502" y2="270" stroke="#78350f" stroke-width="1.5"/>
+  <line x1="488" y1="280" x2="502" y2="280" stroke="#78350f" stroke-width="1.5"/>
+
+  <!-- Panel 2 Polymer Melt Zone -->
+  <rect x="450" y="250" width="8" height="42" fill="#ea580c" opacity="0.85" rx="2"/>
+  <rect x="502" y="250" width="8" height="42" fill="#ea580c" opacity="0.85" rx="2"/>
+
+  <!-- Panel 2 Thermoplastic Boss -->
+  <path d="M 410,275 L 450,275 L 450,250 L 458,250 L 458,390 L 410,390 Z" fill="url(#plastic-grad)" stroke="#64748b" stroke-width="1.5"/>
+  <path d="M 550,275 L 510,275 L 510,250 L 502,250 L 502,390 L 550,390 Z" fill="url(#plastic-grad)" stroke="#64748b" stroke-width="1.5"/>
+
+  <!-- Layer lines -->
+  <line x1="410" y1="305" x2="458" y2="305" stroke="#94a3b8" stroke-width="0.75" stroke-dasharray="4,2"/>
+  <line x1="410" y1="325" x2="458" y2="325" stroke="#94a3b8" stroke-width="0.75" stroke-dasharray="4,2"/>
+  <line x1="410" y1="345" x2="458" y2="345" stroke="#94a3b8" stroke-width="0.75" stroke-dasharray="4,2"/>
+  <line x1="410" y1="365" x2="458" y2="365" stroke="#94a3b8" stroke-width="0.75" stroke-dasharray="4,2"/>
+  <line x1="502" y1="305" x2="550" y2="305" stroke="#94a3b8" stroke-width="0.75" stroke-dasharray="4,2"/>
+  <line x1="502" y1="325" x2="550" y2="325" stroke="#94a3b8" stroke-width="0.75" stroke-dasharray="4,2"/>
+  <line x1="502" y1="345" x2="550" y2="345" stroke="#94a3b8" stroke-width="0.75" stroke-dasharray="4,2"/>
+  <line x1="502" y1="365" x2="550" y2="365" stroke="#94a3b8" stroke-width="0.75" stroke-dasharray="4,2"/>
+
+  <!-- Panel 2 Labels & Leader lines -->
+  <text x="402" y="210" font-size="12" font-weight="600" fill="#c0392b" text-anchor="end">
+    <tspan x="402" y="210">Нагрів</tspan>
+    <tspan x="402" y="224">(T_melt)</tspan>
+  </text>
+  <path d="M 408,217 L 466,217" stroke="#c0392b" stroke-width="1" marker-end="url(#arr-red)"/>
+
+  <text x="558" y="258" font-size="12" font-weight="600" fill="#ea580c" text-anchor="start">
+    <tspan x="558" y="258">Фронт</tspan>
+    <tspan x="558" y="272">розплаву</tspan>
+  </text>
+  <path d="M 552,265 L 512,265" stroke="#ea580c" stroke-width="1" marker-end="url(#arr-orange)"/>
+
+  <text x="404" y="312" font-size="12" fill="#1a1a1a" text-anchor="end">
+    <tspan x="404" y="312">Вхід у</tspan>
+    <tspan x="404" y="326">насічки</tspan>
+  </text>
+  <path d="M 410,319 L 456,319" stroke="#1a1a1a" stroke-width="1" marker-end="url(#arr-dark)"/>
+
+  <!-- Panel 2 Summary Box -->
+  <rect x="350" y="410" width="260" height="90" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="480" y="428" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Параметри процесу:</text>
+  <text x="480" y="447" font-size="12" fill="#1a1a1a" text-anchor="middle">• T_насадки = T_melt + 30–50°C</text>
+  <text x="480" y="465" font-size="12" fill="#1a1a1a" text-anchor="middle">• Рівномірний притиск без перекосу</text>
+  <text x="480" y="483" font-size="12" fill="#6b7280" text-anchor="middle">• Швидкість занурення 2–5 мм/с</text>
+
+  <!-- ==================== PANEL 3 ==================== -->
+  <rect x="645" y="70" width="285" height="445" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="8"/>
+
+  <!-- Panel 3 Header Box -->
+  <rect x="657" y="80" width="261" height="46" fill="#e9f7ef" stroke="#27ae60" stroke-width="1" rx="6"/>
+  <text x="787.5" y="99" font-size="14" font-weight="bold" fill="#27ae60" text-anchor="middle">3. Фіксація та захист різьби</text>
+  <text x="787.5" y="116" font-size="12" fill="#1a1a1a" text-anchor="middle">Охолодження та полімерний замок</text>
+
+  <!-- Panel 3 Centerline -->
+  <line x1="787.5" y1="135" x2="787.5" y2="390" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="6,4"/>
+
+  <!-- Upward Retraction Arrow -->
+  <path d="M 787.5,210 L 787.5,182" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arr-green)"/>
+  <text x="798" y="196" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="start">Відведення</text>
+
+  <!-- Panel 3 Retracted Tip -->
+  <rect x="775.5" y="138" width="24" height="25" fill="url(#tip-grad)" stroke="#374151" stroke-width="1"/>
+  <polygon points="775.5,163 799.5,163 793.5,188 781.5,188" fill="url(#tip-grad)" stroke="#374151" stroke-width="1"/>
+  <rect x="782.5" y="188" width="10" height="18" fill="url(#tip-grad)" stroke="#374151" stroke-width="1"/>
+
+  <!-- Panel 3 Fully Seated Insert -->
+  <rect x="765.5" y="280" width="14" height="42" fill="url(#brass-grad)" stroke="#b45309" stroke-width="1"/>
+  <rect x="795.5" y="280" width="14" height="42" fill="url(#brass-grad)" stroke="#b45309" stroke-width="1"/>
+  <line x1="765.5" y1="290" x2="779.5" y2="290" stroke="#78350f" stroke-width="1.5"/>
+  <line x1="765.5" y1="300" x2="779.5" y2="300" stroke="#78350f" stroke-width="1.5"/>
+  <line x1="765.5" y1="310" x2="779.5" y2="310" stroke="#78350f" stroke-width="1.5"/>
+  <line x1="795.5" y1="290" x2="809.5" y2="290" stroke="#78350f" stroke-width="1.5"/>
+  <line x1="795.5" y1="300" x2="809.5" y2="300" stroke="#78350f" stroke-width="1.5"/>
+  <line x1="795.5" y1="310" x2="809.5" y2="310" stroke="#78350f" stroke-width="1.5"/>
+
+  <!-- Internal Thread Protection Zone -->
+  <rect x="779.5" y="280" width="16" height="42" fill="#eaf0fd" stroke="#2457d6" stroke-width="0.75" stroke-dasharray="2,2"/>
+  <path d="M 779.5,286 L 782.5,290 L 779.5,294 M 779.5,298 L 782.5,302 L 779.5,306 M 779.5,310 L 782.5,314 L 779.5,318" stroke="#2457d6" stroke-width="1.2" fill="none"/>
+  <path d="M 795.5,286 L 792.5,290 L 795.5,294 M 795.5,298 L 792.5,302 L 795.5,306 M 795.5,310 L 792.5,314 L 795.5,318" stroke="#2457d6" stroke-width="1.2" fill="none"/>
+
+  <!-- Solidified Polymer Mechanical Interlock -->
+  <rect x="757.5" y="280" width="8" height="42" fill="#27ae60" opacity="0.9" rx="2"/>
+  <rect x="809.5" y="280" width="8" height="42" fill="#27ae60" opacity="0.9" rx="2"/>
+
+  <!-- Panel 3 Thermoplastic Boss -->
+  <path d="M 717.5,280 L 757.5,280 L 757.5,322 L 765.5,322 L 765.5,390 L 717.5,390 Z" fill="url(#plastic-grad)" stroke="#64748b" stroke-width="1.5"/>
+  <path d="M 857.5,280 L 817.5,280 L 817.5,322 L 809.5,322 L 809.5,390 L 857.5,390 Z" fill="url(#plastic-grad)" stroke="#64748b" stroke-width="1.5"/>
+
+  <!-- Layer lines -->
+  <line x1="717.5" y1="305" x2="757.5" y2="305" stroke="#94a3b8" stroke-width="0.75" stroke-dasharray="4,2"/>
+  <line x1="717.5" y1="325" x2="765.5" y2="325" stroke="#94a3b8" stroke-width="0.75" stroke-dasharray="4,2"/>
+  <line x1="717.5" y1="345" x2="765.5" y2="345" stroke="#94a3b8" stroke-width="0.75" stroke-dasharray="4,2"/>
+  <line x1="717.5" y1="365" x2="765.5" y2="365" stroke="#94a3b8" stroke-width="0.75" stroke-dasharray="4,2"/>
+  <line x1="817.5" y1="305" x2="857.5" y2="305" stroke="#94a3b8" stroke-width="0.75" stroke-dasharray="4,2"/>
+  <line x1="809.5" y1="325" x2="857.5" y2="325" stroke="#94a3b8" stroke-width="0.75" stroke-dasharray="4,2"/>
+  <line x1="809.5" y1="345" x2="857.5" y2="345" stroke="#94a3b8" stroke-width="0.75" stroke-dasharray="4,2"/>
+  <line x1="809.5" y1="365" x2="857.5" y2="365" stroke="#94a3b8" stroke-width="0.75" stroke-dasharray="4,2"/>
+
+  <!-- Panel 3 Labels & Leader lines -->
+  <text x="710" y="272" font-size="12" font-weight="600" fill="#1a1a1a" text-anchor="end">
+    <tspan x="710" y="272">Посадка</tspan>
+    <tspan x="710" y="286">врівень</tspan>
+  </text>
+  <path d="M 716,279 L 762,279" stroke="#1a1a1a" stroke-width="1" marker-end="url(#arr-dark)"/>
+
+  <text x="864" y="296" font-size="12" font-weight="600" fill="#2457d6" text-anchor="start">
+    <tspan x="864" y="296">Чиста</tspan>
+    <tspan x="864" y="310">різьба</tspan>
+  </text>
+  <path d="M 858,303 L 798,303" stroke="#2457d6" stroke-width="1" marker-end="url(#arr-blue)"/>
+
+  <text x="710" y="332" font-size="12" font-weight="600" fill="#27ae60" text-anchor="end">
+    <tspan x="710" y="332">Замок</tspan>
+    <tspan x="710" y="346">полімеру</tspan>
+  </text>
+  <path d="M 716,339 L 755,339" stroke="#27ae60" stroke-width="1" marker-end="url(#arr-green)"/>
+
+  <!-- Panel 3 Summary Box -->
+  <rect x="657" y="410" width="261" height="90" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="787.5" y="428" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Результат з'єднання:</text>
+  <text x="787.5" y="447" font-size="12" fill="#1a1a1a" text-anchor="middle">• 100% заповнення насічок</text>
+  <text x="787.5" y="465" font-size="12" fill="#1a1a1a" text-anchor="middle">• Захист різьби від затікання</text>
+  <text x="787.5" y="483" font-size="12" fill="#6b7280" text-anchor="middle">• Максимальний опір вириву</text>
+</svg>

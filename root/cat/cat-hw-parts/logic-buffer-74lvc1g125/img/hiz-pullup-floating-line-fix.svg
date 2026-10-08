@@ -1,0 +1,146 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 510" width="960" height="510" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="510" fill="white"/>
+
+  <!-- Markers -->
+  <defs>
+    <marker id="arr-accent" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-danger" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-success" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="36" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Формування стабільного логічного рівня у стані Hi-Z буфера 74LVC1G125</text>
+  <text x="480" y="56" font-size="13" fill="#6b7280" text-anchor="middle">Підтягувальний резистор R_pullup усуває плаваючий стан виходу та гарантує рівень HIGH (VCC)</text>
+
+  <!-- ==================== LEFT PANEL: WITHOUT PULL-UP ==================== -->
+  <rect x="30" y="75" width="435" height="345" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Panel Header Box (Danger) -->
+  <rect x="42" y="87" width="411" height="38" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="247.5" y="103" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">Без підтяжки: Вихід у стані Hi-Z</text>
+  <text x="247.5" y="119" font-size="11" fill="#c0392b" text-anchor="middle">OE = HIGH, ключі виходу розімкнено</text>
+
+  <!-- OE Control Input -->
+  <text x="147.5" y="145" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">OE = 1 (VCC)</text>
+  <line x1="147.5" y1="148" x2="147.5" y2="164" stroke="#c0392b" stroke-width="1.5"/>
+  <circle cx="147.5" cy="168" r="4" fill="white" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="147.5" y1="172" x2="147.5" y2="174" stroke="#2457d6" stroke-width="1.5"/>
+
+  <!-- Buffer Symbol -->
+  <path d="M 115,172 L 115,236 L 180,204 Z" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="118" y="200" font-size="10" font-weight="bold" fill="#2457d6">74LVC</text>
+
+  <!-- Internal Open Switch -->
+  <line x1="115" y1="204" x2="132" y2="204" stroke="#2457d6" stroke-width="2"/>
+  <line x1="132" y1="204" x2="150" y2="194" stroke="#c0392b" stroke-width="2"/>
+  <line x1="158" y1="204" x2="180" y2="204" stroke="#c0392b" stroke-width="2"/>
+
+  <!-- Input Line A -->
+  <line x1="50" y1="204" x2="115" y2="204" stroke="#2457d6" stroke-width="2"/>
+  <circle cx="50" cy="204" r="3" fill="#2457d6"/>
+  <text x="82.5" y="192" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Вхід A</text>
+
+  <!-- Output Line Y -->
+  <line x1="180" y1="204" x2="365" y2="204" stroke="#c0392b" stroke-width="2" stroke-dasharray="6,3"/>
+  <text x="190" y="192" font-size="11" font-weight="bold" fill="#c0392b">Вихід Y</text>
+
+  <!-- Noise / Interference -->
+  <text x="300" y="152" font-size="11" fill="#c0392b" text-anchor="middle">Електромагнітний шум</text>
+  <line x1="300" y1="156" x2="300" y2="194" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#arr-danger)"/>
+
+  <!-- Output State Labels -->
+  <text x="190" y="224" font-size="11" font-weight="bold" fill="#c0392b">Hi-Z (Вимкнуто)</text>
+  <text x="190" y="240" font-size="11" font-weight="bold" fill="#c0392b">VY = ? (Плаває)</text>
+
+  <!-- Receiver Box -->
+  <rect x="365" y="176" width="76" height="56" rx="4" fill="white" stroke="#64748b" stroke-width="1.5"/>
+  <text x="403" y="197" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Приймач</text>
+  <text x="403" y="215" font-size="11" fill="#c0392b" text-anchor="middle">(Шум / ?)</text>
+
+  <!-- Summary Box (Left) -->
+  <rect x="42" y="258" width="411" height="150" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="55" y="278" font-size="12" font-weight="bold" fill="#c0392b">Проблема: Висячий / плаваючий стан</text>
+  <text x="55" y="299" font-size="11" fill="#1a1a1a">• P-MOS та N-MOS закриті (вихід відключено)</text>
+  <text x="55" y="319" font-size="11" fill="#1a1a1a">• Вихідний імпеданс Z_out &gt; 10 МОм (кола немає)</text>
+  <text x="55" y="339" font-size="11" fill="#c0392b">• Перешкоди накопичують заряд на паразитній C</text>
+  <text x="55" y="359" font-size="11" font-weight="bold" fill="#c0392b">• Ризик скрізних струмів та хибних спрацьовувань</text>
+  <text x="55" y="379" font-size="11" fill="#6b7280">• Напруга на вході між V_IL та V_IH (невизначеність)</text>
+
+  <!-- ==================== RIGHT PANEL: WITH PULL-UP ==================== -->
+  <rect x="495" y="75" width="435" height="345" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Panel Header Box (Success) -->
+  <rect x="507" y="87" width="411" height="38" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="712.5" y="103" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">З підтяжкою: Фіксація рівня Hi-Z</text>
+  <text x="712.5" y="119" font-size="11" fill="#27ae60" text-anchor="middle">OE = HIGH, резистор R_pullup підтягує лінію до VCC</text>
+
+  <!-- VCC Rail & Resistor -->
+  <text x="715" y="143" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">VCC (+3.3V / +5V)</text>
+  <line x1="695" y1="148" x2="735" y2="148" stroke="#27ae60" stroke-width="2"/>
+  <line x1="715" y1="148" x2="715" y2="155" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="707" y="155" width="16" height="30" rx="2" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="715" y1="185" x2="715" y2="204" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-success)"/>
+  <circle cx="715" cy="204" r="3.5" fill="#27ae60"/>
+
+  <text x="731" y="166" font-size="11" font-weight="bold" fill="#27ae60">R_pullup</text>
+  <text x="731" y="180" font-size="11" fill="#6b7280">1 ... 10 кОм</text>
+
+  <!-- OE Control Input -->
+  <text x="612.5" y="145" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">OE = 1 (VCC)</text>
+  <line x1="612.5" y1="148" x2="612.5" y2="164" stroke="#2457d6" stroke-width="1.5"/>
+  <circle cx="612.5" cy="168" r="4" fill="white" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="612.5" y1="172" x2="612.5" y2="174" stroke="#2457d6" stroke-width="1.5"/>
+
+  <!-- Buffer Symbol -->
+  <path d="M 580,172 L 580,236 L 645,204 Z" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="583" y="200" font-size="10" font-weight="bold" fill="#2457d6">74LVC</text>
+
+  <!-- Internal Open Switch -->
+  <line x1="580" y1="204" x2="597" y2="204" stroke="#2457d6" stroke-width="2"/>
+  <line x1="597" y1="204" x2="615" y2="194" stroke="#6b7280" stroke-width="2"/>
+  <line x1="623" y1="204" x2="645" y2="204" stroke="#27ae60" stroke-width="2"/>
+
+  <!-- Input Line A -->
+  <line x1="515" y1="204" x2="580" y2="204" stroke="#2457d6" stroke-width="2"/>
+  <circle cx="515" cy="204" r="3" fill="#2457d6"/>
+  <text x="547.5" y="192" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Вхід A</text>
+
+  <!-- Output Line Y -->
+  <line x1="645" y1="204" x2="840" y2="204" stroke="#27ae60" stroke-width="2"/>
+  <text x="652" y="192" font-size="11" font-weight="bold" fill="#27ae60">Вихід Y</text>
+
+  <!-- Output State Labels -->
+  <text x="652" y="224" font-size="11" font-weight="bold" fill="#27ae60">Hi-Z (Підтяжка активна)</text>
+  <text x="652" y="240" font-size="11" font-weight="bold" fill="#27ae60">VY = VCC (HIGH)</text>
+
+  <!-- Receiver Box -->
+  <rect x="840" y="176" width="76" height="56" rx="4" fill="white" stroke="#64748b" stroke-width="1.5"/>
+  <text x="878" y="197" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Приймач</text>
+  <text x="878" y="215" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">(HIGH / VCC)</text>
+
+  <!-- Summary Box (Right) -->
+  <rect x="507" y="258" width="411" height="150" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="520" y="278" font-size="12" font-weight="bold" fill="#27ae60">Розв'язок: Гарантована підтяжка до VCC</text>
+  <text x="520" y="299" font-size="11" fill="#1a1a1a">• R_pullup утримує потенціал VCC під час стану Hi-Z</text>
+  <text x="520" y="319" font-size="11" fill="#1a1a1a">• Струм витоку I_off / I_OZ душить шум через низький R</text>
+  <text x="520" y="339" font-size="11" fill="#27ae60">• Повна толерантність вхідних кіл LVC до 5V (I_off захист)</text>
+  <text x="520" y="359" font-size="11" font-weight="bold" fill="#27ae60">• Стабільне та надійне зчитування для мікроконтролера</text>
+  <text x="520" y="379" font-size="11" fill="#6b7280">• Виключено скрізні струми у вхідному каскаді MCU</text>
+
+  <!-- ==================== BOTTOM SUMMARY BAR ==================== -->
+  <rect x="30" y="432" width="900" height="56" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="45" y="452" font-size="11" font-weight="bold" fill="#2457d6">Інженерний висновок:</text>
+  <text x="175" y="452" font-size="11" fill="#1a1a1a">Зовнішня підтяжка (Pull-up) є обов'язковою для розділюваних шин у стані Hi-Z.</text>
+  <text x="45" y="472" font-size="11" font-weight="bold" fill="#2457d6">Правило розрахунку:</text>
+  <text x="175" y="472" font-size="11" fill="#1a1a1a">R_pullup(max) &lt;= (VCC - V_IH) / I_leak; R_pullup(min) &gt;= (VCC - V_OL) / I_OL (24 mA max)</text>
+</svg>

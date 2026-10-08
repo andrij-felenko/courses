@@ -1,0 +1,103 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="32" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Механічне напруження та втомне руйнування джгута при обертанні осі</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Скручування жил у поворотному вузлі створює втомні мікротріщини та обмежує кут повороту осі</text>
+
+  <!-- Панель 1 (Ліва): Початковий та скручений стан -->
+  <rect x="30" y="75" width="435" height="360" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="45" y="87" width="405" height="28" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="247" y="105" font-size="13" font-weight="700" fill="#2457d6" text-anchor="middle">ПОЧАТКОВИЙ ТА СКРУЧЕНИЙ СТАН КАБЕЛЮ В ОСІ</text>
+
+  <!-- Стан 1: Нейтральний -->
+  <rect x="45" y="125" width="405" height="135" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="55" y="145" font-size="12" font-weight="700" fill="#1a1a1a">Стан 1: Нейтральне положення кабелю (φ = 0°)</text>
+
+  <!-- Елементи Стану 1 -->
+  <rect x="60" y="160" width="75" height="65" rx="4" fill="#f4f6f8" stroke="#6b7280" stroke-width="1"/>
+  <text x="97" y="187" font-size="11" font-weight="700" fill="#1a1a1a" text-anchor="middle">СТАТОР</text>
+  <text x="97" y="202" font-size="10" fill="#6b7280" text-anchor="middle">(нерухомий)</text>
+
+  <rect x="360" y="160" width="75" height="65" rx="4" fill="#f4f6f8" stroke="#6b7280" stroke-width="1"/>
+  <text x="397" y="187" font-size="11" font-weight="700" fill="#1a1a1a" text-anchor="middle">РОТОР</text>
+  <text x="397" y="202" font-size="10" fill="#6b7280" text-anchor="middle">(обертання)</text>
+
+  <line x1="135" y1="168" x2="360" y2="168" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3 3"/>
+  <line x1="135" y1="217" x2="360" y2="217" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3 3"/>
+
+  <path d="M135,182 L360,182" stroke="#c0392b" stroke-width="2.5"/>
+  <path d="M135,192.5 L360,192.5" stroke="#27ae60" stroke-width="2.5"/>
+  <path d="M135,203 L360,203" stroke="#2457d6" stroke-width="2.5"/>
+
+  <text x="247" y="247" font-size="11" fill="#27ae60" font-weight="700" text-anchor="middle">Прямолінійне положення жил: тангенціальне напруження τ = 0 МПа</text>
+
+  <!-- Стан 2: Скручений -->
+  <rect x="45" y="270" width="405" height="155" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="55" y="290" font-size="12" font-weight="700" fill="#c0392b">Стан 2: Критичне скручування (φ = 360°...720°)</text>
+
+  <!-- Елементи Стану 2 -->
+  <rect x="60" y="305" width="75" height="70" rx="4" fill="#f4f6f8" stroke="#6b7280" stroke-width="1"/>
+  <text x="97" y="335" font-size="11" font-weight="700" fill="#1a1a1a" text-anchor="middle">СТАТОР</text>
+  <text x="97" y="350" font-size="10" fill="#6b7280" text-anchor="middle">Фіксатор A</text>
+
+  <rect x="360" y="305" width="75" height="70" rx="4" fill="#f4f6f8" stroke="#6b7280" stroke-width="1"/>
+  <text x="397" y="327" font-size="11" font-weight="700" fill="#1a1a1a" text-anchor="middle">РОТОР</text>
+  <text x="397" y="342" font-size="10" fill="#6b7280" text-anchor="middle">Фіксатор B</text>
+  <text x="397" y="360" font-size="11" font-weight="700" fill="#c0392b" text-anchor="middle">φ = +360°</text>
+
+  <line x1="135" y1="313" x2="360" y2="313" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3 3"/>
+  <line x1="135" y1="367" x2="360" y2="367" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3 3"/>
+
+  <path d="M135,325 C 180,310 210,370 247,340 C 285,310 315,370 360,325" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+  <path d="M135,340 C 180,370 210,310 247,340 C 285,370 315,310 360,340" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+  <path d="M135,355 C 180,330 210,360 247,340 C 285,320 315,350 360,355" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+
+  <circle cx="135" cy="340" r="7" fill="#fdecea" stroke="#c0392b" stroke-width="2"/>
+  <circle cx="135" cy="340" r="2.5" fill="#c0392b"/>
+
+  <circle cx="360" cy="340" r="7" fill="#fdecea" stroke="#c0392b" stroke-width="2"/>
+  <circle cx="360" cy="340" r="2.5" fill="#c0392b"/>
+
+  <text x="247" y="390" font-size="11" fill="#c0392b" font-weight="700" text-anchor="middle">Точка накопичення напруження скручування τ_max</text>
+  <text x="247" y="407" font-size="10" fill="#6b7280" text-anchor="middle">Зріз фіксатора спричиняє циклічний втомний злам жил</text>
+
+  <!-- Панель 2 (Права): Накопичення зламу жил -->
+  <rect x="495" y="75" width="435" height="360" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="510" y="87" width="405" height="28" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="712" y="105" font-size="13" font-weight="700" fill="#c0392b" text-anchor="middle">НАКОПИЧЕННЯ ЗЛАМУ ЖИЛ ТА ОБМЕЖЕННЯ КУТА</text>
+
+  <!-- Блок 2A -->
+  <rect x="510" y="125" width="405" height="95" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="520" y="135" width="385" height="24" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="712" y="151" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">1. Точка накопичення втомного зламу (Fatigue Point)</text>
+  <text x="530" y="177" font-size="12" fill="#1a1a1a">• Максимальний зсув і згибання жил виникають на зрізі фіксаторів.</text>
+  <text x="530" y="197" font-size="12" fill="#1a1a1a">• Циклічне скручування формує мікротріщини мідних провідників.</text>
+
+  <!-- Блок 2B -->
+  <rect x="510" y="230" width="405" height="95" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="520" y="240" width="385" height="24" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="712" y="256" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">2. Деградація електричного з'єднання</text>
+  <text x="530" y="282" font-size="12" fill="#1a1a1a">• Перетирання диелектрика (PVC/Teflon) → коротке замикання.</text>
+  <text x="530" y="302" font-size="12" fill="#1a1a1a">• Зсув екрану спричиняє нестабільність хвильового опору Z_0.</text>
+
+  <!-- Блок 2C -->
+  <rect x="510" y="335" width="405" height="90" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="520" y="345" width="385" height="24" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="712" y="361" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">3. Обмеження кута та потреба в Slip Ring</text>
+  <text x="530" y="387" font-size="12" fill="#1a1a1a">• Механічний ліміт прямого кабелю: кут повороту φ_max &lt; ±360°.</text>
+  <text x="530" y="407" font-size="12" font-weight="700" fill="#27ae60">• Для безперервного обертання N×360° необхідне ковзне кільце.</text>
+</svg>

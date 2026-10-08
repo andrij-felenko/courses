@@ -1,0 +1,169 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-black" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="34" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Поведінка віبروізолятора при досягненні граничного ходу (@@en|bottoming out@@)</text>
+  <text x="480" y="56" font-size="13" fill="#6b7280" text-anchor="middle">Перевищення розрахункового ходу s_max призводить до контакту жорстких упорів та стрибка сили F_trans</text>
+
+  <!-- Card 1: Normal Elastic Mode -->
+  <rect x="25" y="75" width="290" height="445" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="37" y="87" width="266" height="36" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="170" y="110" text-anchor="middle" font-size="13" font-weight="700" fill="#27ae60">1. Номінальний хід (s &lt; s_max)</text>
+
+  <!-- Diagram Box 1 -->
+  <rect x="37" y="133" width="266" height="175" rx="6" fill="#ffffff" stroke="#e1e4e8" stroke-width="1"/>
+
+  <!-- Shock Force Arrow 1 -->
+  <line x1="170" y1="138" x2="170" y2="154" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="182" y="148" font-size="12" font-weight="700" fill="#2457d6">F_shock</text>
+
+  <!-- Equipment Base (Top Plate 1) -->
+  <rect x="55" y="158" width="230" height="20" rx="3" fill="#cbd5e1" stroke="#64748b" stroke-width="1"/>
+  <text x="170" y="172" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">Захищуване обладнання (m)</text>
+
+  <!-- Ground Base (Bottom Plate 1) -->
+  <rect x="55" y="266" width="230" height="16" rx="2" fill="#94a3b8" stroke="#475569" stroke-width="1"/>
+
+  <!-- Mount Block & Bumpers 1 -->
+  <rect x="140" y="178" width="60" height="14" fill="#94a3b8" stroke="#475569" stroke-width="1"/>
+  <rect x="152" y="192" width="36" height="20" rx="2" fill="#c0392b" stroke="#900C3F" stroke-width="1"/>
+  <rect x="152" y="246" width="36" height="20" rx="2" fill="#c0392b" stroke="#900C3F" stroke-width="1"/>
+
+  <!-- Gap Delta s > 0 indication -->
+  <line x1="115" y1="214" x2="115" y2="244" stroke="#27ae60" stroke-width="1.5" marker-start="url(#arr-green)" marker-end="url(#arr-green)"/>
+  <text x="170" y="233" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">Δs &gt; 0</text>
+
+  <!-- Wire Rope Loops 1 -->
+  <path d="M 140,185 C 75,190 75,260 140,266" fill="none" stroke="#2457d6" stroke-width="3"/>
+  <path d="M 200,185 C 265,190 265,260 200,266" fill="none" stroke="#2457d6" stroke-width="3"/>
+
+  <!-- Summary Box 1 -->
+  <rect x="37" y="318" width="266" height="187" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="50" y="338" font-size="12" font-weight="700" fill="#27ae60">✔ Еластичне демпфування</text>
+  <text x="50" y="358" font-size="12" fill="#1a1a1a">• Реакція: F_trans = k_linear · s</text>
+  <text x="50" y="378" font-size="12" fill="#1a1a1a">• Гасіння: гістерезис троса/силікону</text>
+  <text x="50" y="398" font-size="12" fill="#1a1a1a">• Проміжок упорів: збережено (Δs &gt; 0)</text>
+  <line x1="48" y1="412" x2="292" y2="412" stroke="#e1e4e8" stroke-width="1"/>
+  <text x="50" y="430" font-size="12" font-weight="700" fill="#2457d6">Передане перевантаження:</text>
+  <text x="50" y="450" font-size="12" font-weight="700" fill="#27ae60">Низьке (безпечна робота)</text>
+  <text x="50" y="470" font-size="12" fill="#6b7280">Амплітуда в межах допуску</text>
+
+
+  <!-- Card 2: Bottoming Out Mode -->
+  <rect x="335" y="75" width="290" height="445" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="347" y="87" width="266" height="36" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="480" y="110" text-anchor="middle" font-size="13" font-weight="700" fill="#c0392b">2. Пробивання (s ≥ s_max)</text>
+
+  <!-- Diagram Box 2 -->
+  <rect x="347" y="133" width="266" height="175" rx="6" fill="#ffffff" stroke="#e1e4e8" stroke-width="1"/>
+  <text x="480" y="148" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">Піковий удар (F_shock &gt;&gt; F_nom)</text>
+
+  <!-- Heavy Shock Force Arrow 2 -->
+  <line x1="480" y1="153" x2="480" y2="173" stroke="#c0392b" stroke-width="3" marker-end="url(#arr-red)"/>
+
+  <!-- Equipment Base (Top Plate 2 Displaced Downward) -->
+  <rect x="365" y="177" width="230" height="18" rx="2" fill="#cbd5e1" stroke="#64748b" stroke-width="1"/>
+  <text x="480" y="190" text-anchor="middle" font-size="11" font-weight="700" fill="#1a1a1a">Захищуване обладнання (m)</text>
+
+  <!-- Mount Block & Bumpers 2 (Contact established!) -->
+  <rect x="450" y="195" width="60" height="12" fill="#94a3b8" stroke="#475569" stroke-width="1"/>
+  <rect x="462" y="207" width="36" height="29" rx="2" fill="#c0392b" stroke="#900C3F" stroke-width="1"/>
+  <rect x="462" y="236" width="36" height="29" rx="2" fill="#c0392b" stroke="#900C3F" stroke-width="1"/>
+
+  <!-- Ground Base (Bottom Plate 2) -->
+  <rect x="365" y="265" width="230" height="16" rx="2" fill="#94a3b8" stroke="#475569" stroke-width="1"/>
+
+  <!-- Contact Line y=236 -->
+  <line x1="450" y1="236" x2="520" y2="236" stroke="#c0392b" stroke-width="2" stroke-dasharray="3,3"/>
+
+  <!-- Contact label formatted to avoid loop intersection -->
+  <text x="410" y="227" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">
+    <tspan x="410" dy="0">Δs = 0</tspan>
+    <tspan x="410" dy="14">(Удар!)</tspan>
+  </text>
+
+  <!-- Wire Rope Loops 2 (Flattened / Bulging) -->
+  <path d="M 450,200 C 375,205 375,260 450,265" fill="none" stroke="#c0392b" stroke-width="3.5"/>
+  <path d="M 510,200 C 585,205 585,260 510,265" fill="none" stroke="#c0392b" stroke-width="3.5"/>
+
+  <!-- Summary Box 2 -->
+  <rect x="347" y="318" width="266" height="187" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="360" y="338" font-size="12" font-weight="700" fill="#c0392b">✖ Жорсткий ударний контакт</text>
+  <text x="360" y="358" font-size="12" fill="#1a1a1a">• Зростання жорсткості: k_contact &gt;&gt; k_linear</text>
+  <text x="360" y="378" font-size="12" fill="#1a1a1a">• Пряма передача удару на корпус</text>
+  <text x="360" y="398" font-size="12" fill="#1a1a1a">• Вичерпано хід демпфування (s ≥ s_max)</text>
+  <line x1="358" y1="412" x2="602" y2="412" stroke="#e1e4e8" stroke-width="1"/>
+  <text x="360" y="430" font-size="12" font-weight="700" fill="#c0392b">Передане перевантаження:</text>
+  <text x="360" y="450" font-size="12" font-weight="700" fill="#c0392b">Критичне (Ударний імпульс)</text>
+  <text x="360" y="470" font-size="12" fill="#6b7280">Небезпека пошкодження вузлів</text>
+
+
+  <!-- Card 3: Force-Deflection Curve Graph -->
+  <rect x="645" y="75" width="290" height="445" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="657" y="87" width="266" height="36" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="790" y="110" text-anchor="middle" font-size="13" font-weight="700" fill="#2457d6">Залежність F_trans(s)</text>
+
+  <!-- Graph Box -->
+  <rect x="657" y="133" width="266" height="235" rx="6" fill="#ffffff" stroke="#e1e4e8" stroke-width="1"/>
+
+  <!-- Zone Shading inside Graph -->
+  <rect x="695" y="155" width="85" height="165" fill="#e9f7ef" opacity="0.6"/>
+  <rect x="780" y="155" width="125" height="165" fill="#fdecea" opacity="0.6"/>
+
+  <!-- Limit Stroke Threshold Vertical Dashed Line s_max -->
+  <line x1="780" y1="155" x2="780" y2="320" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <text x="780" y="338" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">s_max</text>
+
+  <!-- Axes -->
+  <!-- X-Axis -->
+  <line x1="695" y1="320" x2="910" y2="320" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-black)"/>
+  <text x="915" y="324" font-size="12" font-weight="700" fill="#1a1a1a">s</text>
+  <text x="800" y="352" text-anchor="middle" font-size="12" fill="#6b7280">Деформація / Хід s</text>
+
+  <!-- Y-Axis (line ends at y=154, text sits cleanly at y=146 above line) -->
+  <line x1="695" y1="320" x2="695" y2="154" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-black)"/>
+  <text x="695" y="146" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">F_trans</text>
+
+  <!-- Curve: Linear/Progressive Zone (s < s_max) and Impact Spike (s >= s_max) -->
+  <path d="M 695,320 Q 740,310 780,260" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+  <path d="M 780,260 Q 790,190 805,155" fill="none" stroke="#c0392b" stroke-width="3"/>
+  <circle cx="780" cy="260" r="4" fill="#c0392b"/>
+
+  <!-- Slope labels on curve -->
+  <text x="710" y="285" font-size="12" font-weight="700" fill="#27ae60">k_linear</text>
+  <text x="808" y="185" font-size="12" font-weight="700" fill="#c0392b">
+    <tspan x="808" dy="0">k_contact</tspan>
+    <tspan x="808" dy="14">&gt;&gt; k_linear</tspan>
+  </text>
+
+  <!-- Callout box for Force Jump -->
+  <rect x="698" y="158" width="82" height="36" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+  <text x="739" y="172" text-anchor="middle" font-size="11" font-weight="700" fill="#c0392b">Стрибок сили</text>
+  <text x="739" y="186" text-anchor="middle" font-size="11" fill="#c0392b">при ударі</text>
+  <line x1="780" y1="177" x2="790" y2="192" stroke="#c0392b" stroke-width="1" stroke-dasharray="2,2"/>
+
+  <!-- Summary Box 3 -->
+  <rect x="657" y="380" width="266" height="125" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="670" y="400" font-size="12" font-weight="700" fill="#2457d6">Конструктивні вимоги:</text>
+  <text x="670" y="420" font-size="12" fill="#1a1a1a">• s &lt; s_max: еластична віبروізоляція</text>
+  <text x="670" y="440" font-size="12" fill="#1a1a1a">• s ≥ s_max: жорсткий удар по вузлах</text>
+  <text x="670" y="460" font-size="12" fill="#1a1a1a">• Запас ходу: s_робочий ≤ 0.7 · s_max</text>
+  <text x="670" y="480" font-size="12" font-weight="700" fill="#c0392b">• Уникати пробивання демпфера</text>
+
+</svg>

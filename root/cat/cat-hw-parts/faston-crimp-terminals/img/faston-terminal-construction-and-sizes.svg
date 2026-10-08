@@ -1,0 +1,144 @@
+<svg width="960" height="560" viewBox="0 0 960 560" xmlns="http://www.w3.org/2000/svg" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Top Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Конструктивна будова та типорозміри наконечників Faston</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Подвійне опресування по жилі та ізоляції забезпечує електричний контакт і механічну міцність</text>
+
+  <!-- Panel 1: Main Construction Diagram -->
+  <rect x="25" y="70" width="910" height="255" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="40" y="94" font-size="14" font-weight="bold" fill="#1a1a1a">1. Конструктивні елементи та подвійний обтиск (жила + ізоляція)</text>
+
+  <!-- Callout Labels Top -->
+  <!-- Callout 1: Insulation Crimp -->
+  <text x="130" y="118" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Обтиск по ізоляції</text>
+  <text x="130" y="133" font-size="11" fill="#6b7280" text-anchor="middle">(механічний затиск)</text>
+  <line x1="130" y1="140" x2="145" y2="170" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="2 2"/>
+
+  <!-- Callout 2: Wire Crimp -->
+  <text x="245" y="118" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Обтиск по жилі</text>
+  <text x="245" y="133" font-size="11" fill="#6b7280" text-anchor="middle">(газонепроникний)</text>
+  <line x1="245" y1="140" x2="225" y2="176" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="2 2"/>
+
+  <!-- Callout 3: Locking Tab -->
+  <text x="365" y="118" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Фіксувальний язичок</text>
+  <text x="365" y="133" font-size="11" fill="#6b7280" text-anchor="middle">(фіксація в колодці)</text>
+  <line x1="365" y1="140" x2="315" y2="166" stroke="#2457d6" stroke-width="1.2" stroke-dasharray="2 2"/>
+
+  <!-- Callout 4: Female Socket -->
+  <text x="495" y="118" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Гніздовий контакт</text>
+  <text x="495" y="133" font-size="11" fill="#6b7280" text-anchor="middle">(пружинна губка)</text>
+  <line x1="495" y1="140" x2="440" y2="170" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="2 2"/>
+
+  <!-- Callout 5: Male Blade -->
+  <text x="630" y="118" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Штекерне лезо</text>
+  <text x="630" y="133" font-size="11" fill="#6b7280" text-anchor="middle">(отвір для фіксатора)</text>
+  <line x1="630" y1="140" x2="590" y2="193" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="2 2"/>
+
+  <!-- Diagram Elements inside Panel 1 -->
+  <!-- Left Wire Insulation Entry -->
+  <rect x="50" y="180" width="85" height="40" rx="4" fill="#95a5a6" stroke="#34495e" stroke-width="1.5"/>
+  <text x="92" y="204" font-size="11" font-weight="bold" fill="#ffffff" text-anchor="middle">Ізоляція</text>
+
+  <!-- Exposed Stranded Wires -->
+  <path d="M 135 190 L 275 190 M 135 195 L 275 195 M 135 200 L 275 200 M 135 205 L 275 205 M 135 210 L 275 210" stroke="#e67e22" stroke-width="2"/>
+
+  <!-- Female Insulation Crimp Barrel -->
+  <path d="M 125 174 C 135 168 155 168 165 174 L 165 226 C 155 232 135 232 125 226 Z" fill="#b2bec3" stroke="#2c3e50" stroke-width="1.5"/>
+  <line x1="145" y1="170" x2="145" y2="230" stroke="#2c3e50" stroke-width="1" stroke-dasharray="2 2"/>
+
+  <!-- Crimp Transition -->
+  <path d="M 165 182 L 195 186 L 195 214 L 165 218 Z" fill="#b2bec3" stroke="#2c3e50" stroke-width="1.5"/>
+
+  <!-- Female Wire Crimp Barrel (B-Crimp) -->
+  <path d="M 195 180 C 210 174 240 174 255 180 L 255 220 C 240 226 210 226 195 220 Z" fill="#95a5a6" stroke="#2c3e50" stroke-width="1.5"/>
+  <line x1="225" y1="176" x2="225" y2="224" stroke="#2c3e50" stroke-width="1.5"/>
+
+  <!-- Terminal Middle Body with Locking Tab -->
+  <rect x="255" y="184" width="90" height="32" fill="#b2bec3" stroke="#2c3e50" stroke-width="1.5"/>
+  <rect x="288" y="186" width="30" height="8" fill="#7f8c8d" opacity="0.4"/>
+  <path d="M 285 184 L 315 166 L 325 184 Z" fill="#7f8c8d" stroke="#2c3e50" stroke-width="1.5"/>
+
+  <!-- Female Socket Lips / Cage -->
+  <path d="M 345 184 L 475 184 C 485 184 485 170 475 170 L 345 170 C 335 170 335 184 345 184 Z" fill="#bdc3c7" stroke="#2c3e50" stroke-width="1.5"/>
+  <path d="M 345 216 L 475 216 C 485 216 485 230 475 230 L 345 230 C 335 230 335 216 345 216 Z" fill="#bdc3c7" stroke="#2c3e50" stroke-width="1.5"/>
+  <rect x="345" y="193" width="130" height="14" fill="#636e72" opacity="0.25" stroke="#2c3e50" stroke-dasharray="3 2"/>
+
+  <!-- Connection Indicator Arrow -->
+  <line x1="535" y1="200" x2="485" y2="200" stroke="#2457d6" stroke-width="2.5" stroke-dasharray="4 3" marker-end="url(#arr-blue)"/>
+  <text x="510" y="188" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">З'єднання</text>
+
+  <!-- Male Terminal (Plug) -->
+  <rect x="545" y="193" width="95" height="14" rx="2" fill="#d5dbdb" stroke="#2c3e50" stroke-width="1.5"/>
+  <circle cx="575" cy="200" r="3.5" fill="#f4f6f8" stroke="#2c3e50" stroke-width="1.5"/>
+  <path d="M 640 193 L 665 184 L 665 216 L 640 207 Z" fill="#b2bec3" stroke="#2c3e50" stroke-width="1.5"/>
+  <rect x="665" y="182" width="45" height="36" rx="2" fill="#95a5a6" stroke="#2c3e50" stroke-width="1.5"/>
+  <rect x="715" y="176" width="45" height="48" rx="3" fill="#b2bec3" stroke="#2c3e50" stroke-width="1.5"/>
+  <rect x="760" y="180" width="115" height="40" rx="4" fill="#95a5a6" stroke="#34495e" stroke-width="1.5"/>
+  <text x="817" y="204" font-size="11" font-weight="bold" fill="#ffffff" text-anchor="middle">Кабель</text>
+
+  <!-- Bottom Explanatory Badges inside Panel 1 -->
+  <rect x="60" y="258" width="370" height="48" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="245" y="277" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">Подвійне опресування: обтиск по жилі створює контакт,</text>
+  <text x="245" y="293" font-size="11" fill="#1a1a1a" text-anchor="middle">а обтиск по ізоляції розвантажує дріт від вібрацій</text>
+
+  <rect x="450" y="258" width="430" height="48" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="665" y="277" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">Пружинні губки та язичок: гарантують надійну фіксацію</text>
+  <text x="665" y="293" font-size="11" fill="#1a1a1a" text-anchor="middle">штекера у гнізді й запобігають самовільному роз'єднанню</text>
+
+  <!-- Panel 2: Standard Sizes (Bottom Left) -->
+  <rect x="25" y="340" width="445" height="195" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="40" y="362" font-size="14" font-weight="bold" fill="#1a1a1a">2. Стандартні типорозміри леза (ширина × товщина)</text>
+
+  <!-- Size 6.3 mm -->
+  <rect x="40" y="375" width="415" height="44" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <rect x="52" y="384" width="44" height="26" rx="2" fill="#d5dbdb" stroke="#2c3e50" stroke-width="1.5"/>
+  <circle cx="68" cy="397" r="3" fill="#ffffff" stroke="#2c3e50"/>
+  <text x="110" y="393" font-size="13" font-weight="bold" fill="#1a1a1a">6,3 мм (0,250")</text>
+  <text x="110" y="409" font-size="11" fill="#6b7280">Товщина 0,8 мм | Струм до 24 А (силові кола, побутова техніка)</text>
+
+  <!-- Size 4.8 mm -->
+  <rect x="40" y="427" width="415" height="44" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <rect x="52" y="436" width="34" height="26" rx="2" fill="#d5dbdb" stroke="#2c3e50" stroke-width="1.5"/>
+  <circle cx="64" cy="449" r="2.5" fill="#ffffff" stroke="#2c3e50"/>
+  <text x="110" y="445" font-size="13" font-weight="bold" fill="#1a1a1a">4,8 мм (0,187")</text>
+  <text x="110" y="461" font-size="11" fill="#6b7280">Товщина 0,5 / 0,8 мм | Струм до 15 А (автоелектроніка)</text>
+
+  <!-- Size 2.8 mm -->
+  <rect x="40" y="479" width="415" height="44" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <rect x="52" y="488" width="24" height="26" rx="2" fill="#d5dbdb" stroke="#2c3e50" stroke-width="1.5"/>
+  <circle cx="60" cy="501" r="2" fill="#ffffff" stroke="#2c3e50"/>
+  <text x="110" y="497" font-size="13" font-weight="bold" fill="#1a1a1a">2,8 мм (0,110")</text>
+  <text x="110" y="513" font-size="11" fill="#6b7280">Товщина 0,5 / 0,8 мм | Струм до 10 А (слабострумові реле)</text>
+
+  <!-- Panel 3: Color Codes (Bottom Right) -->
+  <rect x="490" y="340" width="445" height="195" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="505" y="362" font-size="14" font-weight="bold" fill="#1a1a1a">3. Колірне маркування за перерізом провідника</text>
+
+  <!-- Red Code -->
+  <rect x="505" y="375" width="415" height="44" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <circle cx="527" cy="397" r="12" fill="#e74c3c" stroke="#c0392b" stroke-width="1.5"/>
+  <circle cx="527" cy="397" r="4" fill="#ffffff"/>
+  <text x="550" y="393" font-size="13" font-weight="bold" fill="#c0392b">Червона манжета (Red)</text>
+  <text x="550" y="409" font-size="11" fill="#1a1a1a">Переріз: 0,5 – 1,5 мм² (AWG 22–16) | Для малих струмів</text>
+
+  <!-- Blue Code -->
+  <rect x="505" y="427" width="415" height="44" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <circle cx="527" cy="449" r="12" fill="#2980b9" stroke="#1f618d" stroke-width="1.5"/>
+  <circle cx="527" cy="449" r="4" fill="#ffffff"/>
+  <text x="550" y="445" font-size="13" font-weight="bold" fill="#2457d6">Синя манжета (Blue)</text>
+  <text x="550" y="461" font-size="11" fill="#1a1a1a">Переріз: 1,5 – 2,5 мм² (AWG 16–14) | Середні силові кола</text>
+
+  <!-- Yellow Code -->
+  <rect x="505" y="479" width="415" height="44" rx="4" fill="#fef9e7" stroke="#f39c12" stroke-width="1"/>
+  <circle cx="527" cy="501" r="12" fill="#f1c40f" stroke="#d68910" stroke-width="1.5"/>
+  <circle cx="527" cy="501" r="4" fill="#ffffff"/>
+  <text x="550" y="497" font-size="13" font-weight="bold" fill="#d68910">Жовта манжета (Yellow)</text>
+  <text x="550" y="513" font-size="11" fill="#1a1a1a">Переріз: 4,0 – 6,0 мм² (AWG 12–10) | Високострумові кола</text>
+</svg>

@@ -1,0 +1,141 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Markers for arrows -->
+  <defs>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Механізм фіксації хомута з металевим зубом</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Плавний вступ стрічки та заклинювання сталевого зуба в поліаміді при зворотному натягу</text>
+
+  <!-- LEFT PANEL: Insertion -->
+  <rect x="30" y="75" width="435" height="445" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="42" y="87" width="411" height="32" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="247" y="108" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">1. Прямий хід: протягування стрічки</text>
+
+  <!-- Left Drawing Graphics -->
+  <!-- Top Housing Body (Polyamide PA66) -->
+  <path d="M 120,165 L 340,165 L 340,245 L 295,245 L 295,185 L 205,185 L 205,245 L 120,245 Z" fill="#e2e8f0" stroke="#475569" stroke-width="2"/>
+  <!-- Housing Cavity Hatch/Detail -->
+  <path d="M 205,185 L 295,185 L 295,245" fill="none" stroke="#cbd5e1" stroke-width="1.5" stroke-dasharray="4,4"/>
+
+  <!-- Bottom Housing Body (Polyamide PA66) -->
+  <rect x="120" y="275" width="220" height="45" fill="#e2e8f0" stroke="#475569" stroke-width="2"/>
+
+  <!-- Smooth Strap (PA66) -->
+  <rect x="45" y="245" width="410" height="30" fill="#ffffff" stroke="#334155" stroke-width="2"/>
+  <!-- Top Strap Surface Highlight Line -->
+  <line x1="45" y1="245" x2="455" y2="245" stroke="#2457d6" stroke-width="1.5"/>
+
+  <!-- Steel Barb (AISI 316) in Insertion Mode (flexed upwards) -->
+  <polygon points="210,185 220,185 278,242 270,244" fill="#3b82f6" stroke="#1d4ed8" stroke-width="1.5"/>
+  <!-- Steel Barb Base Anchor Pin -->
+  <rect x="205" y="180" width="12" height="10" fill="#1e293b" rx="2"/>
+
+  <!-- Flexion motion arrow (Green) -->
+  <path d="M 262,228 Q 274,216 282,208" fill="none" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- Force & Motion Arrow: Insertion Force (Green) -->
+  <line x1="355" y1="260" x2="445" y2="260" stroke="#27ae60" stroke-width="3" marker-end="url(#arr-green)"/>
+
+  <!-- Pointer line for Barb -->
+  <line x1="247" y1="142" x2="225" y2="175" stroke="#2457d6" stroke-width="1" stroke-dasharray="3,3"/>
+
+  <!-- Text Annotations for Left Panel -->
+  <text x="247" y="138" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Сталевий зуб AISI 316</text>
+  <text x="55" y="265" font-size="12" fill="#334155" text-anchor="start">Гладка стрічка PA66</text>
+  <text x="365" y="200" font-size="12" fill="#27ae60" text-anchor="start">
+    <tspan x="365" dy="0">Вільно</tspan>
+    <tspan x="365" dy="14">відгинається</tspan>
+  </text>
+  <text x="405" y="222" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">
+    <tspan x="405" dy="0">Зусилля</tspan>
+    <tspan x="405" dy="14">затягування</tspan>
+  </text>
+  <text x="405" y="295" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">F_ins (низьке)</text>
+  <text x="230" y="302" font-size="12" fill="#475569" text-anchor="middle">Корпус (поліамід PA66)</text>
+
+  <!-- Left Bottom Summary Card -->
+  <rect x="42" y="365" width="411" height="135" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="247" y="387" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Особливості прямого ходу:</text>
+  <text x="60" y="412" font-size="12" fill="#1a1a1a" text-anchor="start">• Мінімальне зусилля вводу стрічки</text>
+  <text x="60" y="434" font-size="12" fill="#1a1a1a" text-anchor="start">• Зуб пружно відхиляється у внутрішню нішу</text>
+  <text x="60" y="456" font-size="12" fill="#1a1a1a" text-anchor="start">• Відсутній характерний тріск храповика</text>
+  <text x="60" y="478" font-size="12" fill="#1a1a1a" text-anchor="start">• Плавне ковзання без зносу матеріалу</text>
+
+  <!-- RIGHT PANEL: Locking -->
+  <rect x="495" y="75" width="435" height="445" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="507" y="87" width="411" height="32" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="712" y="108" font-size="14" font-weight="bold" fill="#c0392b" text-anchor="middle">2. Зворотний хід: заклинювання та врізання</text>
+
+  <!-- Right Drawing Graphics -->
+  <!-- Top Housing Body (Polyamide PA66) -->
+  <path d="M 585,165 L 805,165 L 805,245 L 740,245 L 740,185 L 670,185 L 670,245 L 585,245 Z" fill="#e2e8f0" stroke="#475569" stroke-width="2"/>
+  <!-- Housing Cavity Hatch/Detail -->
+  <path d="M 670,185 L 740,185 L 740,245" fill="none" stroke="#cbd5e1" stroke-width="1.5" stroke-dasharray="4,4"/>
+
+  <!-- Bottom Housing Body (Polyamide PA66) -->
+  <rect x="585" y="275" width="220" height="45" fill="#e2e8f0" stroke="#475569" stroke-width="2"/>
+
+  <!-- Strap with Cut Indentation / Notch -->
+  <path d="M 510,245 L 726,245 L 733,253 L 740,245 L 920,245 L 920,275 L 510,275 Z" fill="#ffffff" stroke="#334155" stroke-width="2"/>
+  <path d="M 510,245 L 726,245 L 733,253 L 740,245 L 920,245" fill="none" stroke="#c0392b" stroke-width="1.5"/>
+
+  <!-- Steel Barb (AISI 316) in Locked State -->
+  <polygon points="675,185 685,185 738,252 728,255" fill="#1d4ed8" stroke="#1e293b" stroke-width="1.5"/>
+  <!-- Steel Barb Base Anchor Pin -->
+  <rect x="670" y="180" width="12" height="10" fill="#1e293b" rx="2"/>
+
+  <!-- Cut Angle Arc (\alpha ~ 45 deg) -->
+  <path d="M 760,245 A 30,30 0 0,0 750,224" fill="none" stroke="#2457d6" stroke-width="2"/>
+  <line x1="733" y1="245" x2="775" y2="245" stroke="#2457d6" stroke-width="1" stroke-dasharray="3,3"/>
+
+  <!-- Force Vector: Normal Force N along barb -->
+  <line x1="645" y1="195" x2="695" y2="225" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Force & Motion Arrow: Tension / Pull Force (Red) -->
+  <line x1="575" y1="260" x2="505" y2="260" stroke="#c0392b" stroke-width="3" marker-end="url(#arr-red)"/>
+
+  <!-- Pointer line for Barb Title -->
+  <line x1="712" y1="142" x2="725" y2="180" stroke="#c0392b" stroke-width="1" stroke-dasharray="3,3"/>
+
+  <!-- Text Annotations for Right Panel -->
+  <text x="712" y="138" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">Зуб врізається в PA66</text>
+  <text x="628" y="200" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">
+    <tspan x="628" dy="0">Нормальне</tspan>
+    <tspan x="628" dy="14">зусилля N</tspan>
+  </text>
+  <text x="815" y="200" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="start">
+    <tspan x="815" dy="0">Кут врізання</tspan>
+    <tspan x="815" dy="14">α ≈ 45°</tspan>
+  </text>
+  <text x="505" y="208" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="start">
+    <tspan x="505" dy="0">Зусилля</tspan>
+    <tspan x="505" dy="14">зворотної</tspan>
+    <tspan x="505" dy="28">тяги</tspan>
+  </text>
+  <text x="540" y="295" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">F_pull (натяг)</text>
+  <text x="695" y="302" font-size="12" fill="#6b7280" text-anchor="middle">Місцева деформація</text>
+
+  <!-- Right Bottom Summary Card -->
+  <rect x="507" y="365" width="411" height="135" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="712" y="387" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">Особливості зворотного заклинювання:</text>
+  <text x="525" y="412" font-size="12" fill="#1a1a1a" text-anchor="start">• Врізання гострої кромки сталі в поліамід</text>
+  <text x="525" y="434" font-size="12" fill="#1a1a1a" text-anchor="start">• Безступінчасте фіксування в будь-якій точці</text>
+  <text x="525" y="456" font-size="12" fill="#1a1a1a" text-anchor="start">• Ефект самозаклинювання: N зростає з F_pull</text>
+  <text x="525" y="478" font-size="12" fill="#1a1a1a" text-anchor="start">• Висока міцність на розрив без зворотного ходу</text>
+</svg>

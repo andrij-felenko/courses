@@ -1,0 +1,161 @@
+<svg viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Background Canvas -->
+  <rect x="0" y="0" width="960" height="560" fill="#ffffff"/>
+
+  <!-- Main Title & Subtitle -->
+  <text x="480" y="30" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Мікроструктурний механізм задирання (@@en|galling@@) та клинення різьби</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Руйнування пасивної плівки Cr2O3 спричиняє адгезійне схплювання металу під тиском</text>
+
+  <!-- STAGE 1 COLUMN -->
+  <rect x="24" y="70" width="216" height="470" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="34" y="80" width="196" height="34" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="132" y="95" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">СТАДІЯ 1: Вихідний контакт</text>
+  <text x="132" y="108" font-size="11" fill="#6b7280" text-anchor="middle">Суцільна плівка @@en|Cr2O3@@</text>
+
+  <rect x="34" y="126" width="196" height="200" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <!-- Stage 1 Diagram Content -->
+  <path d="M 44 140 L 220 140 L 220 175 Q 190 185 160 172 Q 132 162 104 178 Q 74 192 44 175 Z" fill="#e2e8f0" stroke="#64748b" stroke-width="1.5"/>
+  <path d="M 44 175 Q 190 185 160 172 Q 132 162 104 178 Q 74 192 44 175" fill="none" stroke="#2457d6" stroke-width="4"/>
+  <path d="M 44 286 L 220 286 L 220 250 Q 190 240 160 252 Q 132 262 104 246 Q 74 232 44 250 Z" fill="#e2e8f0" stroke="#64748b" stroke-width="1.5"/>
+  <path d="M 44 250 Q 190 240 160 252 Q 132 262 104 246 Q 74 232 44 250" fill="none" stroke="#2457d6" stroke-width="4"/>
+  <line x1="132" y1="142" x2="132" y2="160" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="142" y="154" font-size="11" font-weight="bold" fill="#2457d6">F_N</text>
+  <text x="132" y="138" font-size="11" font-weight="bold" fill="#475569" text-anchor="middle">Гвинт (нержавіюка)</text>
+  <text x="132" y="214" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">Пасивний оксид Cr2O3</text>
+  <text x="132" y="300" font-size="11" font-weight="bold" fill="#475569" text-anchor="middle">Гайка (нержавіюка)</text>
+
+  <rect x="34" y="338" width="196" height="192" rx="6" fill="#ffffff" stroke="#e2e8f0" stroke-width="1"/>
+  <text x="44" y="355" font-size="11" fill="#1a1a1a">• Пасивна плівка Cr2O3</text>
+  <text x="54" y="370" font-size="11" fill="#6b7280">запобігає контакту</text>
+  <text x="54" y="385" font-size="11" fill="#6b7280">чистих металів.</text>
+  <text x="44" y="405" font-size="11" fill="#1a1a1a">• Навантаження F_N</text>
+  <text x="54" y="420" font-size="11" fill="#6b7280">сприймається вершинами</text>
+  <text x="54" y="435" font-size="11" fill="#6b7280">мікронерівностей</text>
+  <text x="54" y="450" font-size="11" fill="#6b7280">(@@en|asperities@@).</text>
+  <text x="44" y="470" font-size="11" fill="#1a1a1a">• Пружна деформація</text>
+  <text x="54" y="485" font-size="11" fill="#6b7280">в межах міцності</text>
+  <text x="54" y="500" font-size="11" fill="#6b7280">оксидного шару.</text>
+
+
+  <!-- STAGE 2 COLUMN -->
+  <rect x="256" y="70" width="216" height="470" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="266" y="80" width="196" height="34" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="364" y="95" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">СТАДІЯ 2: Прорив плівки</text>
+  <text x="364" y="108" font-size="11" fill="#6b7280" text-anchor="middle">Пластична деформація p &gt; σ_y</text>
+
+  <rect x="266" y="126" width="196" height="200" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <!-- Stage 2 Diagram Content -->
+  <path d="M 276 140 L 452 140 L 452 188 Q 422 195 392 185 Q 364 180 336 195 Q 306 205 276 188 Z" fill="#e2e8f0" stroke="#64748b" stroke-width="1.5"/>
+  <path d="M 276 286 L 452 286 L 452 238 Q 422 230 392 240 Q 364 245 336 230 Q 306 220 276 238 Z" fill="#e2e8f0" stroke="#64748b" stroke-width="1.5"/>
+  <!-- Broken oxide lines -->
+  <path d="M 276 188 Q 306 205 320 198" fill="none" stroke="#c0392b" stroke-width="3" stroke-dasharray="3,2"/>
+  <path d="M 350 182 Q 364 180 375 183" fill="none" stroke="#c0392b" stroke-width="3" stroke-dasharray="3,2"/>
+  <path d="M 405 187 Q 422 195 452 188" fill="none" stroke="#c0392b" stroke-width="3" stroke-dasharray="3,2"/>
+  <!-- Exposed Bare Metal spots -->
+  <ellipse cx="334" cy="196" rx="12" ry="6" fill="#d97706"/>
+  <ellipse cx="392" cy="190" rx="10" ry="5" fill="#d97706"/>
+
+  <line x1="286" y1="150" x2="316" y2="150" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="322" y="154" font-size="11" font-weight="bold" fill="#c0392b">τ (зсув)</text>
+  <text x="364" y="174" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">Тріщини плівки Cr2O3</text>
+  <text x="364" y="214" font-size="11" font-weight="bold" fill="#d97706" text-anchor="middle">Ювенільний метал</text>
+  <text x="364" y="300" font-size="11" font-weight="bold" fill="#475569" text-anchor="middle">Пластичне сплющення</text>
+
+  <rect x="266" y="338" width="196" height="192" rx="6" fill="#ffffff" stroke="#e2e8f0" stroke-width="1"/>
+  <text x="276" y="355" font-size="11" fill="#1a1a1a">• Контактний тиск p</text>
+  <text x="286" y="370" font-size="11" fill="#6b7280">перевищує межу</text>
+  <text x="286" y="385" font-size="11" fill="#6b7280">плинності (p &gt; σ_y).</text>
+  <text x="276" y="405" font-size="11" fill="#1a1a1a">• Крихка оксидна плівка</text>
+  <text x="286" y="420" font-size="11" fill="#6b7280">руйнується при зсуві.</text>
+  <text x="276" y="440" font-size="11" fill="#1a1a1a">• Оголюються активні</text>
+  <text x="286" y="455" font-size="11" fill="#6b7280">металеві атоми</text>
+  <text x="286" y="470" font-size="11" fill="#6b7280">без захисного шару.</text>
+  <text x="276" y="490" font-size="11" fill="#c0392b" font-weight="bold">• Висока адгезійна</text>
+  <text x="286" y="505" font-size="11" fill="#c0392b" font-weight="bold">активність сталей A2/A4.</text>
+
+
+  <!-- STAGE 3 COLUMN -->
+  <rect x="488" y="70" width="216" height="470" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="498" y="80" width="196" height="34" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="596" y="95" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">СТАДІЯ 3: Схоплювання</text>
+  <text x="596" y="108" font-size="11" fill="#6b7280" text-anchor="middle">@@en|cold welding@@ (зварка)</text>
+
+  <rect x="498" y="126" width="196" height="200" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <!-- Stage 3 Diagram Content -->
+  <path d="M 508 140 L 684 140 L 684 190 L 508 190 Z" fill="#e2e8f0" stroke="#64748b" stroke-width="1.5"/>
+  <path d="M 508 236 L 684 236 L 684 286 L 508 286 Z" fill="#e2e8f0" stroke="#64748b" stroke-width="1.5"/>
+  <!-- Micro-weld bridges zone -->
+  <rect x="538" y="190" width="116" height="46" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <!-- Atomic grid dots -->
+  <circle cx="566" cy="213" r="3" fill="#c0392b"/>
+  <circle cx="586" cy="213" r="3" fill="#c0392b"/>
+  <circle cx="606" cy="213" r="3" fill="#c0392b"/>
+  <circle cx="626" cy="213" r="3" fill="#c0392b"/>
+
+  <text x="596" y="165" font-size="11" font-weight="bold" fill="#475569" text-anchor="middle">Міжатомне притягання</text>
+  <text x="596" y="206" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">Мікрозварні містки</text>
+  <text x="596" y="265" font-size="11" font-weight="bold" fill="#475569" text-anchor="middle">Наклеп (зміцнення зони)</text>
+
+  <rect x="498" y="338" width="196" height="192" rx="6" fill="#ffffff" stroke="#e2e8f0" stroke-width="1"/>
+  <text x="508" y="355" font-size="11" fill="#1a1a1a">• Прямий контакт ювенільних</text>
+  <text x="518" y="370" font-size="11" fill="#6b7280">поверхонь під тиском.</text>
+  <text x="508" y="390" font-size="11" fill="#1a1a1a">• Утворення вузлів</text>
+  <text x="518" y="405" font-size="11" fill="#6b7280">холодного зварювання</text>
+  <text x="518" y="420" font-size="11" fill="#6b7280">(@@en|cold welding@@).</text>
+  <text x="508" y="440" font-size="11" fill="#1a1a1a">• Інтенсивний наклеп</text>
+  <text x="518" y="455" font-size="11" fill="#6b7280">(нагартовування) робить</text>
+  <text x="518" y="470" font-size="11" fill="#6b7280">місток міцнішим за</text>
+  <text x="518" y="485" font-size="11" fill="#6b7280">основний метал!</text>
+
+
+  <!-- STAGE 4 COLUMN -->
+  <rect x="720" y="70" width="216" height="470" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <rect x="730" y="80" width="196" height="34" rx="6" fill="#c0392b" stroke="#c0392b" stroke-width="1"/>
+  <text x="828" y="95" font-size="13" font-weight="bold" fill="#ffffff" text-anchor="middle">СТАДІЯ 4: Глибоке задирання</text>
+  <text x="828" y="108" font-size="11" fill="#fdecea" text-anchor="middle">Виривання металу та клинення</text>
+
+  <rect x="730" y="126" width="196" height="200" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+  <!-- Stage 4 Diagram Content -->
+  <!-- Torn metal geometry -->
+  <path d="M 740 140 L 916 140 L 916 175 Q 876 170 856 195 Q 836 210 816 175 L 740 175 Z" fill="#e2e8f0" stroke="#64748b" stroke-width="1.5"/>
+  <path d="M 740 286 L 916 286 L 916 250 L 856 250 Q 836 210 816 250 L 740 250 Z" fill="#e2e8f0" stroke="#64748b" stroke-width="1.5"/>
+  <!-- Torn lump highlight -->
+  <path d="M 856 250 Q 836 210 816 250 Z" fill="#c0392b" opacity="0.3"/>
+  <!-- Warning Jammed Icon/Text -->
+  <circle cx="828" cy="225" r="14" fill="#c0392b"/>
+  <line x1="820" y1="217" x2="836" y2="233" stroke="#ffffff" stroke-width="3"/>
+  <line x1="836" y1="217" x2="820" y2="233" stroke="#ffffff" stroke-width="3"/>
+
+  <text x="828" y="165" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">Розрив по тілу металу</text>
+  <text x="828" y="275" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">Наростоутворення</text>
+  <text x="828" y="304" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">ПОВНЕ КЛИНЕННЯ (SEIZURE)</text>
+
+  <rect x="730" y="338" width="196" height="192" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+  <text x="740" y="355" font-size="11" font-weight="bold" fill="#c0392b">• Зріз іде не по шву,</text>
+  <text x="750" y="370" font-size="11" fill="#1a1a1a">а в глибині витка</text>
+  <text x="750" y="385" font-size="11" fill="#1a1a1a">через зміцнення містка.</text>
+  <text x="740" y="405" font-size="11" fill="#1a1a1a">• Виривання фрагментів</text>
+  <text x="750" y="420" font-size="11" fill="#1a1a1a">металу (@@en|galling@@)</text>
+  <text x="750" y="435" font-size="11" fill="#1a1a1a">та наростоутворення.</text>
+  <text x="740" y="455" font-size="11" font-weight="bold" fill="#c0392b">• Механічне клинення:</text>
+  <text x="750" y="470" font-size="11" fill="#1a1a1a">неможливо ані</text>
+  <text x="750" y="485" font-size="11" fill="#1a1a1a">докрутити, ані зняти</text>
+  <text x="750" y="500" font-size="11" fill="#1a1a1a">кріплення без зрізання.</text>
+
+  <!-- Flow Arrows between columns -->
+  <line x1="241" y1="226" x2="253" y2="226" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <line x1="473" y1="226" x2="485" y2="226" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <line x1="705" y1="226" x2="717" y2="226" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+</svg>

@@ -1,0 +1,191 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- White Background -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Markers -->
+  <defs>
+    <marker id="arr-power" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="36" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Розподіл каналів та екранування в капсульному ковзному кільці</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Міжканальна ізоляція, екрануючі бар'єри та парне розміщення дифліній мінімізують наводки</text>
+
+  <!-- UPPER MAIN PANEL: RING TRACK LAYOUT -->
+  <rect x="30" y="80" width="900" height="235" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Upper Panel Header -->
+  <text x="45" y="102" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="start">Конструктивний порядок кілець вздовж осі обертання (Канальний план)</text>
+  <text x="875" y="102" font-size="12" font-weight="bold" fill="#d97706" text-anchor="end">▲ Щітки статора (золотий сплав)</text>
+
+  <!-- Shaft Center Axis Line -->
+  <line x1="90" y1="192.5" x2="860" y2="192.5" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="6,4"/>
+
+  <!-- Category Group Badges (Top of Tracks) -->
+  <!-- T1-T2 Power -->
+  <rect x="120" y="120" width="128" height="20" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="184" y="134" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Силовий блок</text>
+
+  <!-- T3 Shield -->
+  <rect x="268" y="120" width="51" height="20" rx="4" fill="#e2e8f0" stroke="#475569" stroke-width="1"/>
+  <text x="293.5" y="134" font-size="12" font-weight="bold" fill="#334155" text-anchor="middle">Екран</text>
+
+  <!-- T4 Signal -->
+  <rect x="341" y="120" width="51" height="20" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="366.5" y="134" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Сигнал</text>
+
+  <!-- T5 Shield -->
+  <rect x="414" y="120" width="51" height="20" rx="4" fill="#e2e8f0" stroke="#475569" stroke-width="1"/>
+  <text x="439.5" y="134" font-size="12" font-weight="bold" fill="#334155" text-anchor="middle">Екран</text>
+
+  <!-- T6-T7 Diff Pair ETH TX -->
+  <rect x="487" y="120" width="124" height="20" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="549" y="134" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Пара ETH TX</text>
+
+  <!-- T8 Cable Shield -->
+  <rect x="633" y="120" width="51" height="20" rx="4" fill="#f3e8ff" stroke="#8e44ad" stroke-width="1"/>
+  <text x="658.5" y="134" font-size="12" font-weight="bold" fill="#8e44ad" text-anchor="middle">Екран</text>
+
+  <!-- T9-T10 Diff Pair ETH RX -->
+  <rect x="706" y="120" width="124" height="20" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="768" y="134" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Пара ETH RX</text>
+
+
+  <!-- ROTOR RINGS & STATOR BRUSHES -->
+
+  <!-- Track 1: Power +24V -->
+  <path d="M 147.5,145 L 147.5,165" stroke="#d97706" stroke-width="2.5"/>
+  <circle cx="147.5" cy="165" r="3" fill="#d97706"/>
+  <rect x="120" y="165" width="55" height="55" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="2"/>
+  <text x="147.5" y="187" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">T1</text>
+  <text x="147.5" y="205" font-size="12" fill="#1a1a1a" text-anchor="middle">+24V</text>
+
+  <!-- Track 2: Power GND -->
+  <path d="M 220.5,145 L 220.5,165" stroke="#d97706" stroke-width="2.5"/>
+  <circle cx="220.5" cy="165" r="3" fill="#d97706"/>
+  <rect x="193" y="165" width="55" height="55" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="2"/>
+  <text x="220.5" y="187" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">T2</text>
+  <text x="220.5" y="205" font-size="12" fill="#1a1a1a" text-anchor="middle">GND</text>
+
+  <!-- Track 3: Shield GND Barrier -->
+  <path d="M 293.5,145 L 293.5,165" stroke="#475569" stroke-width="2.5"/>
+  <circle cx="293.5" cy="165" r="3" fill="#475569"/>
+  <rect x="266" y="165" width="55" height="55" rx="4" fill="#e2e8f0" stroke="#475569" stroke-width="2" stroke-dasharray="4,2"/>
+  <text x="293.5" y="187" font-size="12" font-weight="bold" fill="#475569" text-anchor="middle">T3</text>
+  <text x="293.5" y="205" font-size="12" fill="#475569" text-anchor="middle">GND-S</text>
+
+  <!-- Track 4: Sensor Signal -->
+  <path d="M 366.5,145 L 366.5,165" stroke="#d97706" stroke-width="2.5"/>
+  <circle cx="366.5" cy="165" r="3" fill="#d97706"/>
+  <rect x="339" y="165" width="55" height="55" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <text x="366.5" y="187" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">T4</text>
+  <text x="366.5" y="205" font-size="12" fill="#1a1a1a" text-anchor="middle">SENS</text>
+
+  <!-- Track 5: Shield GND Barrier -->
+  <path d="M 439.5,145 L 439.5,165" stroke="#475569" stroke-width="2.5"/>
+  <circle cx="439.5" cy="165" r="3" fill="#475569"/>
+  <rect x="412" y="165" width="55" height="55" rx="4" fill="#e2e8f0" stroke="#475569" stroke-width="2" stroke-dasharray="4,2"/>
+  <text x="439.5" y="187" font-size="12" font-weight="bold" fill="#475569" text-anchor="middle">T5</text>
+  <text x="439.5" y="205" font-size="12" fill="#475569" text-anchor="middle">GND-S</text>
+
+  <!-- Track 6: ETH TX+ -->
+  <path d="M 512.5,145 L 512.5,165" stroke="#d97706" stroke-width="2.5"/>
+  <circle cx="512.5" cy="165" r="3" fill="#d97706"/>
+  <rect x="485" y="165" width="55" height="55" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="512.5" y="187" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">T6</text>
+  <text x="512.5" y="205" font-size="12" fill="#1a1a1a" text-anchor="middle">TX+</text>
+
+  <!-- Track 7: ETH TX- -->
+  <path d="M 585.5,145 L 585.5,165" stroke="#d97706" stroke-width="2.5"/>
+  <circle cx="585.5" cy="165" r="3" fill="#d97706"/>
+  <rect x="558" y="165" width="55" height="55" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="585.5" y="187" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">T7</text>
+  <text x="585.5" y="205" font-size="12" fill="#1a1a1a" text-anchor="middle">TX-</text>
+
+  <!-- Track 8: Cable Shield Drain -->
+  <path d="M 658.5,145 L 658.5,165" stroke="#8e44ad" stroke-width="2.5"/>
+  <circle cx="658.5" cy="165" r="3" fill="#8e44ad"/>
+  <rect x="631" y="165" width="55" height="55" rx="4" fill="#f3e8ff" stroke="#8e44ad" stroke-width="2"/>
+  <text x="658.5" y="187" font-size="12" font-weight="bold" fill="#8e44ad" text-anchor="middle">T8</text>
+  <text x="658.5" y="205" font-size="12" fill="#8e44ad" text-anchor="middle">SHLD</text>
+
+  <!-- Track 9: ETH RX+ -->
+  <path d="M 731.5,145 L 731.5,165" stroke="#d97706" stroke-width="2.5"/>
+  <circle cx="731.5" cy="165" r="3" fill="#d97706"/>
+  <rect x="704" y="165" width="55" height="55" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="731.5" y="187" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">T9</text>
+  <text x="731.5" y="205" font-size="12" fill="#1a1a1a" text-anchor="middle">RX+</text>
+
+  <!-- Track 10: ETH RX- -->
+  <path d="M 804.5,145 L 804.5,165" stroke="#d97706" stroke-width="2.5"/>
+  <circle cx="804.5" cy="165" r="3" fill="#d97706"/>
+  <rect x="777" y="165" width="55" height="55" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="804.5" y="187" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">T10</text>
+  <text x="804.5" y="205" font-size="12" fill="#1a1a1a" text-anchor="middle">RX-</text>
+
+  <!-- Diff Pair Brackets Below T6-T7 and T9-T10 -->
+  <path d="M 512.5,224 L 512.5,232 L 585.5,232 L 585.5,224" fill="none" stroke="#2457d6" stroke-width="1.5"/>
+  <path d="M 731.5,224 L 731.5,232 L 804.5,232 L 804.5,224" fill="none" stroke="#2457d6" stroke-width="1.5"/>
+
+  <!-- Track Bottom Annotations (Line 1) -->
+  <text x="184" y="250" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Живлення</text>
+  <text x="293.5" y="250" font-size="12" font-weight="bold" fill="#475569" text-anchor="middle">Бар'єр (GND)</text>
+  <text x="366.5" y="250" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Сенсор</text>
+  <text x="439.5" y="250" font-size="12" font-weight="bold" fill="#475569" text-anchor="middle">Бар'єр (GND)</text>
+  <text x="549" y="250" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Z0 = 100 Ом</text>
+  <text x="658.5" y="250" font-size="12" font-weight="bold" fill="#8e44ad" text-anchor="middle">Екран STP</text>
+  <text x="768" y="250" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Z0 = 100 Ом</text>
+
+  <!-- Track Bottom Annotations (Line 2) -->
+  <text x="184" y="275" font-size="12" fill="#c0392b" text-anchor="middle">Джерело завад</text>
+  <text x="366.5" y="275" font-size="12" fill="#27ae60" text-anchor="middle">Захищений канал</text>
+  <text x="549" y="275" font-size="12" fill="#2457d6" text-anchor="middle">Синфазне пригнічення</text>
+  <text x="768" y="275" font-size="12" fill="#8e44ad" text-anchor="middle">Зливний провід</text>
+
+
+  <!-- LOWER THREE DESIGN RULE CARDS -->
+
+  <!-- Card 1: Power Isolation -->
+  <rect x="30" y="335" width="280" height="195" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <rect x="42" y="347" width="256" height="26" rx="4" fill="#c0392b"/>
+  <text x="170" y="364" font-size="13" font-weight="bold" fill="white" text-anchor="middle">1. Фізична ізоляція силого блоку</text>
+
+  <text x="48" y="393" font-size="12" fill="#1a1a1a" text-anchor="start">• Силові лінії (V+, GND) групують</text>
+  <text x="48" y="413" font-size="12" fill="#6b7280" text-anchor="start">  скраю контактного барабана.</text>
+  <text x="48" y="440" font-size="12" fill="#1a1a1a" text-anchor="start">• Між силою та сигналами обов'язково</text>
+  <text x="48" y="460" font-size="12" fill="#6b7280" text-anchor="start">  виділяють заземлене кільце (GND).</text>
+  <text x="48" y="492" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="start">Результат: усунення наводок</text>
+  <text x="48" y="512" font-size="12" fill="#c0392b" text-anchor="start">від комутації струмів двигунів.</text>
+
+  <!-- Card 2: Differential Pairs -->
+  <rect x="340" y="335" width="280" height="195" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="352" y="347" width="256" height="26" rx="4" fill="#2457d6"/>
+  <text x="480" y="364" font-size="13" font-weight="bold" fill="white" text-anchor="middle">2. Топологія диференційних пар</text>
+
+  <text x="358" y="393" font-size="12" fill="#1a1a1a" text-anchor="start">• Лінії TX+/TX- або D+/D- розміщують</text>
+  <text x="358" y="413" font-size="12" fill="#6b7280" text-anchor="start">  на двох суміжних доріжках.</text>
+  <text x="358" y="440" font-size="12" fill="#1a1a1a" text-anchor="start">• Зберігають однаковий радіус та</text>
+  <text x="358" y="460" font-size="12" fill="#6b7280" text-anchor="start">  довжину провідників щіток.</text>
+  <text x="358" y="492" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="start">Результат: збереження хвильового</text>
+  <text x="358" y="512" font-size="12" fill="#2457d6" text-anchor="start">опору Z0 та високе пригнічення.</text>
+
+  <!-- Card 3: Continuous Shielding -->
+  <rect x="650" y="335" width="280" height="195" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="662" y="347" width="256" height="26" rx="4" fill="#27ae60"/>
+  <text x="790" y="364" font-size="13" font-weight="bold" fill="white" text-anchor="middle">3. Екранування та заземлення</text>
+
+  <text x="668" y="393" font-size="12" fill="#1a1a1a" text-anchor="start">• Екрани витої пари (Shield/Drain)</text>
+  <text x="668" y="413" font-size="12" fill="#6b7280" text-anchor="start">  підключають до окремого кільця.</text>
+  <text x="668" y="440" font-size="12" fill="#1a1a1a" text-anchor="start">• Екранний провідник під'єднують</text>
+  <text x="668" y="460" font-size="12" fill="#6b7280" text-anchor="start">  без довгих індуктивних петель.</text>
+  <text x="668" y="492" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="start">Результат: мінімізація завад</text>
+  <text x="668" y="512" font-size="12" fill="#27ae60" text-anchor="start">та випромінювання на ВЧ.</text>
+</svg>

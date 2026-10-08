@@ -1,0 +1,127 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 550" width="960" height="550" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="550" fill="white"/>
+
+  <!-- Markers -->
+  <defs>
+    <marker id="arr-accent" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-danger" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-success" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="28" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Схема дії @@en|Anti-Seize@@ мастила в різьбовому з'єднанні</text>
+  <text x="480" y="48" font-size="13" fill="#6b7280" text-anchor="middle">Тверді мікрочастинки розділяють металеві поверхні під високим тиском, запобігаючи @@uk|задирання|задиранню@@ різьби</text>
+
+  <!-- ==================== LEFT PANEL: WITHOUT ANTI-SEIZE ==================== -->
+  <rect x="25" y="65" width="440" height="400" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Subheader Box Danger -->
+  <rect x="35" y="75" width="420" height="46" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="245" y="92" font-size="14" font-weight="bold" fill="#c0392b" text-anchor="middle">Без мастила: Сухий контакт і @@en|galling@@-ефект</text>
+  <text x="245" y="109" font-size="12" fill="#c0392b" text-anchor="middle">Пряме змикання ювенільних поверхонь та @@uk|холодне зварювання@@</text>
+
+  <!-- Force & Torque Labels & Downward Arrows -->
+  <text x="145" y="133" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Навантаження FN</text>
+  <line x1="145" y1="138" x2="145" y2="150" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-danger)"/>
+
+  <text x="345" y="133" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Момент затягування MA</text>
+  <line x1="345" y1="138" x2="345" y2="150" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-danger)"/>
+
+  <!-- Upper Thread Block -->
+  <rect x="45" y="152" width="400" height="42" rx="4" fill="#e2e8f0" stroke="#64748b" stroke-width="1.5"/>
+  <text x="245" y="178" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Виток болта (@@en|A2/A4, Ti Gr5, сталь 10.9/12.9@@)</text>
+
+  <!-- Inset Micro-Contact Area -->
+  <rect x="45" y="206" width="400" height="96" rx="4" fill="white" stroke="#cbd5e1" stroke-width="1"/>
+  <text x="245" y="224" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Зони мікрозварювання (містки адгезії)</text>
+
+  <!-- Surface Profiles Dry -->
+  <path d="M 55,246 L 110,246 L 130,253 L 160,253 L 180,246 L 230,246 L 250,253 L 280,253 L 300,246 L 360,246 L 380,253 L 435,253" fill="none" stroke="#475569" stroke-width="2"/>
+  <path d="M 55,253 L 110,253 L 130,253 L 160,253 L 180,253 L 230,253 L 250,253 L 280,253 L 300,253 L 360,253 L 380,253 L 435,253" fill="none" stroke="#475569" stroke-width="2"/>
+
+  <!-- Micro-welding Spots -->
+  <circle cx="145" cy="253" r="6" fill="#c0392b"/>
+  <circle cx="265" cy="253" r="6" fill="#c0392b"/>
+  <circle cx="380" cy="253" r="6" fill="#c0392b"/>
+
+  <text x="245" y="286" font-size="12" fill="#6b7280" text-anchor="middle">Руйнування оксидної плівки Cr2O3 / TiO2 під зсувом τ</text>
+
+  <!-- Lower Thread Block -->
+  <rect x="45" y="314" width="400" height="42" rx="4" fill="#e2e8f0" stroke="#64748b" stroke-width="1.5"/>
+  <text x="245" y="340" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Виток корпусу / гайки</text>
+
+  <!-- Physical Consequences Box -->
+  <rect x="35" y="368" width="420" height="84" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="50" y="385" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="start">Фізичні наслідки сухого контакту:</text>
+  <text x="50" y="403" font-size="12" fill="#1a1a1a" text-anchor="start">• Коефіцієнт тертя: μ = 0.50...0.80 (високий та нестабільний)</text>
+  <text x="50" y="421" font-size="12" fill="#1a1a1a" text-anchor="start">• Неконтрольований момент затягування MA та зріз витків</text>
+  <text x="50" y="439" font-size="12" fill="#c0392b" font-weight="bold" text-anchor="start">• Незворотне клинення та руйнування різьби при демонтажі</text>
+
+  <!-- ==================== RIGHT PANEL: WITH ANTI-SEIZE ==================== -->
+  <rect x="495" y="65" width="440" height="400" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Subheader Box Success -->
+  <rect x="505" y="75" width="420" height="46" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="715" y="92" font-size="14" font-weight="bold" fill="#27ae60" text-anchor="middle">З мастилом: @@en|Anti-Seize@@ бар'єрний захист</text>
+  <text x="715" y="109" font-size="12" fill="#27ae60" text-anchor="middle">Розділення поверхонь мікрочастинками міді / кераміки</text>
+
+  <!-- Force & Torque Labels & Downward Arrows -->
+  <text x="615" y="133" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Навантаження FN</text>
+  <line x1="615" y1="138" x2="615" y2="150" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-success)"/>
+
+  <text x="815" y="133" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Момент затягування MA</text>
+  <line x1="815" y1="138" x2="815" y2="150" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-success)"/>
+
+  <!-- Upper Thread Block -->
+  <rect x="515" y="152" width="400" height="42" rx="4" fill="#e2e8f0" stroke="#64748b" stroke-width="1.5"/>
+  <text x="715" y="178" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Виток болта (@@en|A2/A4, Ti Gr5, сталь 10.9/12.9@@)</text>
+
+  <!-- Inset Micro-Contact Area -->
+  <rect x="515" y="206" width="400" height="96" rx="4" fill="white" stroke="#cbd5e1" stroke-width="1"/>
+  <text x="715" y="224" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Тверді мікрочастинки Cu / Ni / кераміка (1–10 мкм)</text>
+
+  <!-- Carrier Fluid Matrix -->
+  <rect x="525" y="238" width="380" height="24" fill="#fef9c3" opacity="0.9"/>
+
+  <!-- Surface Profiles Lubricated -->
+  <path d="M 525,238 L 575,238 L 595,243 L 615,243 L 635,238 L 685,238 L 705,243 L 735,243 L 755,238 L 805,238 L 825,243 L 875,243" fill="none" stroke="#475569" stroke-width="2"/>
+  <path d="M 525,262 L 575,262 L 595,257 L 615,257 L 635,262 L 685,262 L 705,257 L 735,257 L 755,262 L 805,262 L 825,257 L 875,257" fill="none" stroke="#475569" stroke-width="2"/>
+
+  <!-- Solid Microparticles -->
+  <circle cx="605" cy="250" r="5.5" fill="#b45309" stroke="#78350f" stroke-width="1"/>
+  <circle cx="720" cy="250" r="5.5" fill="#b45309" stroke="#78350f" stroke-width="1"/>
+  <circle cx="835" cy="250" r="5.5" fill="#b45309" stroke="#78350f" stroke-width="1"/>
+  <circle cx="555" cy="250" r="4" fill="#64748b"/>
+  <circle cx="665" cy="250" r="4.5" fill="#64748b"/>
+  <circle cx="780" cy="250" r="4" fill="#64748b"/>
+
+  <text x="715" y="286" font-size="12" fill="#6b7280" text-anchor="middle">Механічний бар'єр унеможливлює адгезію при p &gt; p_yield</text>
+
+  <!-- Lower Thread Block -->
+  <rect x="515" y="314" width="400" height="42" rx="4" fill="#e2e8f0" stroke="#64748b" stroke-width="1.5"/>
+  <text x="715" y="340" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Виток корпусу / гайки</text>
+
+  <!-- Physical Advantages Box -->
+  <rect x="505" y="368" width="420" height="84" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="520" y="385" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="start">Переваги використання Anti-Seize:</text>
+  <text x="520" y="403" font-size="12" fill="#1a1a1a" text-anchor="start">• Коефіцієнт тертя: μ ≈ 0.10...0.15 (стабільний і прогнозований)</text>
+  <text x="520" y="421" font-size="12" fill="#1a1a1a" text-anchor="start">• Точний розрахунок сили попереднього затягування F_preload</text>
+  <text x="520" y="439" font-size="12" fill="#27ae60" font-weight="bold" text-anchor="start">• Легкий демонтаж з'єднання навіть після високих T та корозії</text>
+
+  <!-- ==================== BOTTOM SUMMARY BAR ==================== -->
+  <rect x="25" y="478" width="910" height="56" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="40" y="495" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="start">Інженерний висновок:</text>
+  <text x="40" y="513" font-size="12" fill="#1a1a1a" text-anchor="start">
+    <tspan x="40" dy="0">Застосування @@en|Anti-Seize@@ мастила є обов'язковим для</tspan>
+    <tspan x="40" dy="16">кріплення з нержавіючих сталей A2/A4 та титану Gr5</tspan>
+  </text>
+  <text x="590" y="495" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="start">Монтажний регламент:</text>
+  <text x="590" y="513" font-size="12" fill="#1a1a1a" text-anchor="start">Контроль витку, низькі оберти v_nut &lt; 30 об/хв</text>
+</svg>

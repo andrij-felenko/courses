@@ -1,0 +1,166 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- White Background -->
+  <rect x="0" y="0" width="960" height="560" fill="#ffffff"/>
+
+  <!-- Definitions for Markers -->
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Title and Subtitle -->
+  <text x="480" y="38" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Зіставлення механізмів фіксації та ключування роз'ємів JST-SM і JST-SYP</text>
+  <text x="480" y="60" text-anchor="middle" font-size="13" fill="#6b7280">Клямковий замок SM забезпечує стійкість до вібрацій, а фрикційний зачіп SYP мінімізує габарити</text>
+
+  <!-- ==================== LEFT PANEL: JST-SM ==================== -->
+  <rect x="30" y="80" width="435" height="460" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="8"/>
+
+  <!-- Header Banner JST-SM -->
+  <rect x="45" y="92" width="405" height="28" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="6"/>
+  <text x="247" y="111" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Роз'єм JST-SM (2.5 мм pitch, клямкове замкнення)</text>
+
+  <!-- Diagram Container JST-SM -->
+  <rect x="45" y="134" width="405" height="206" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="6"/>
+
+  <!-- Unmating / Action Arrow & Label -->
+  <path d="M 310 148 L 310 156" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="310" y="144" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">Натиск на важіль</text>
+
+  <!-- Receptacle Body (Left side housing) -->
+  <rect x="75" y="190" width="120" height="110" fill="#f4f6f8" stroke="#2457d6" stroke-width="1.5" rx="3"/>
+
+  <!-- Receptacle Locking Window / Receiver -->
+  <path d="M 140 190 L 140 174 L 185 174 L 185 190 Z" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <path d="M 178 190 L 185 174 L 185 190 Z" fill="#2457d6"/>
+
+  <!-- Plug Body (Right side housing) -->
+  <rect x="180" y="196" width="140" height="98" fill="#ffffff" stroke="#2457d6" stroke-width="1.5" rx="3"/>
+
+  <!-- Latch Lever Arm (Flexible spring arm with hook) -->
+  <path d="M 300 196 L 300 168 L 172 168 L 172 178 L 195 178 L 285 178 L 285 196 Z" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <!-- Latch Hook engaging into window -->
+  <path d="M 172 178 L 182 178 L 182 190 L 172 190 Z" fill="#2457d6"/>
+
+  <!-- Latch Press Tab -->
+  <rect x="290" y="158" width="40" height="10" fill="#2457d6" rx="2"/>
+
+  <!-- Polarization Keying Rib (Bottom channel & rib) -->
+  <rect x="180" y="282" width="100" height="12" fill="#2457d6" rx="1"/>
+  <rect x="75" y="282" width="105" height="18" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" stroke-dasharray="2,2"/>
+
+  <!-- Wires & Contacts JST-SM Receptacle (Left) -->
+  <line x1="50" y1="216" x2="75" y2="216" stroke="#c0392b" stroke-width="3"/>
+  <line x1="50" y1="266" x2="75" y2="266" stroke="#1a1a1a" stroke-width="3"/>
+  <rect x="85" y="210" width="45" height="12" fill="#d0d7de" stroke="#1a1a1a" rx="2"/>
+  <rect x="85" y="260" width="45" height="12" fill="#d0d7de" stroke="#1a1a1a" rx="2"/>
+
+  <!-- Wires & Contacts JST-SM Plug (Right) -->
+  <line x1="320" y1="216" x2="345" y2="216" stroke="#c0392b" stroke-width="3"/>
+  <line x1="320" y1="266" x2="345" y2="266" stroke="#1a1a1a" stroke-width="3"/>
+  <rect x="215" y="210" width="95" height="12" fill="#d0d7de" stroke="#1a1a1a" rx="2"/>
+  <rect x="215" y="260" width="95" height="12" fill="#d0d7de" stroke="#1a1a1a" rx="2"/>
+
+  <!-- Diagram Annotations Left -->
+  <!-- Latch Hook Annotation Line & Text -->
+  <line x1="172" y1="168" x2="120" y2="152" stroke="#2457d6" stroke-width="1" stroke-dasharray="2,2"/>
+  <text x="120" y="144" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">Гачок клямки (Latch Hook)</text>
+
+  <!-- Pitch Marker -->
+  <line x1="73" y1="216" x2="73" y2="266" stroke="#6b7280" stroke-width="1" stroke-dasharray="2,2"/>
+  <text x="70" y="244" text-anchor="end" font-size="11" fill="#6b7280">2.5 мм</text>
+
+  <!-- Keying Rib Annotation -->
+  <line x1="230" y1="294" x2="230" y2="315" stroke="#1a1a1a" stroke-width="1" stroke-dasharray="2,2" marker-end="url(#arr)"/>
+  <text x="230" y="328" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a1a">Напрямні пази ключування (Polarization)</text>
+
+  <!-- Specifications Card Left -->
+  <rect x="45" y="352" width="405" height="175" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="60" y="370" font-size="13" font-weight="bold" fill="#1a1a1a">Особливості конструкції JST-SM:</text>
+  <text x="60" y="392" font-size="12" fill="#1a1a1a">• Фіксація: Зовнішній важільний замок (Positive Latch)</text>
+  <text x="60" y="412" font-size="12" fill="#1a1a1a">• Стійкість: Витримує вібрації та натяг кабелю</text>
+  <text x="60" y="432" font-size="12" fill="#1a1a1a">• Навантаження: Струм до 3 А, напруга до 250 В (AWG 22–28)</text>
+  <text x="60" y="452" font-size="12" fill="#1a1a1a">• Ключування: Напрямні ребра проти протилежного вставлення</text>
+
+  <!-- Solution Badge Left -->
+  <rect x="60" y="468" width="375" height="44" fill="#e9f7ef" stroke="#27ae60" stroke-width="1" rx="4"/>
+  <text x="247" y="486" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">ПЕРЕВАГА: Максимальна стійкість до вібрацій та натягу</text>
+  <text x="247" y="502" text-anchor="middle" font-size="11" fill="#27ae60">(Вимагає вільного простору зверху для важеля)</text>
+
+  <!-- ==================== RIGHT PANEL: JST-SYP ==================== -->
+  <rect x="495" y="80" width="435" height="460" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="8"/>
+
+  <!-- Header Banner JST-SYP -->
+  <rect x="510" y="92" width="405" height="28" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="6"/>
+  <text x="712" y="111" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Роз'єм JST-SYP (2.5 мм pitch, фрикційне замкнення)</text>
+
+  <!-- Diagram Container JST-SYP -->
+  <rect x="510" y="134" width="405" height="206" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="6"/>
+
+  <!-- Receptacle Body SYP (Inner housing sliding into plug) -->
+  <rect x="540" y="196" width="130" height="98" fill="#f4f6f8" stroke="#2457d6" stroke-width="1.5" rx="2"/>
+
+  <!-- Top Friction Bump -->
+  <path d="M 645 196 C 650 188, 660 188, 665 196 Z" fill="#2457d6" stroke="#2457d6"/>
+  <!-- Bottom Friction Bump -->
+  <path d="M 645 294 C 650 302, 660 302, 665 294 Z" fill="#2457d6" stroke="#2457d6"/>
+
+  <!-- Plug Body SYP (Outer compact sleeve) -->
+  <rect x="640" y="190" width="140" height="110" fill="#ffffff" stroke="#2457d6" stroke-width="1.5" rx="2"/>
+
+  <!-- Top Friction Recess Window -->
+  <path d="M 645 190 L 645 196 L 665 196 L 665 190 Z" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <!-- Bottom Friction Recess Window -->
+  <path d="M 645 300 L 645 294 L 665 294 L 665 300 Z" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+
+  <!-- Asymmetric Chamfer Keying Ribs SYP -->
+  <path d="M 670 190 L 760 190 L 760 195 L 670 195 Z" fill="#2457d6"/>
+  <path d="M 670 300 L 760 300 L 760 295 L 670 295 Z" fill="#2457d6"/>
+
+  <!-- Wires & Contacts JST-SYP Receptacle (Left) -->
+  <line x1="515" y1="216" x2="540" y2="216" stroke="#c0392b" stroke-width="3"/>
+  <line x1="515" y1="266" x2="540" y2="266" stroke="#1a1a1a" stroke-width="3"/>
+  <rect x="550" y="210" width="45" height="12" fill="#d0d7de" stroke="#1a1a1a" rx="2"/>
+  <rect x="550" y="260" width="45" height="12" fill="#d0d7de" stroke="#1a1a1a" rx="2"/>
+
+  <!-- Wires & Contacts JST-SYP Plug (Right) -->
+  <line x1="780" y1="216" x2="805" y2="216" stroke="#c0392b" stroke-width="3"/>
+  <line x1="780" y1="266" x2="805" y2="266" stroke="#1a1a1a" stroke-width="3"/>
+  <rect x="675" y="210" width="95" height="12" fill="#d0d7de" stroke="#1a1a1a" rx="2"/>
+  <rect x="675" y="260" width="95" height="12" fill="#d0d7de" stroke="#1a1a1a" rx="2"/>
+
+  <!-- Diagram Annotations Right -->
+  <!-- Friction Bump Annotation -->
+  <line x1="655" y1="188" x2="655" y2="162" stroke="#2457d6" stroke-width="1" stroke-dasharray="2,2" marker-end="url(#arr-blue)"/>
+  <text x="655" y="148" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">Фрикційний зачіп (Friction Lock)</text>
+
+  <!-- Pitch Marker Right -->
+  <line x1="538" y1="216" x2="538" y2="266" stroke="#6b7280" stroke-width="1" stroke-dasharray="2,2"/>
+  <text x="535" y="244" text-anchor="end" font-size="11" fill="#6b7280">2.5 мм</text>
+
+  <!-- Keying Chamfer Annotation -->
+  <line x1="715" y1="300" x2="715" y2="315" stroke="#1a1a1a" stroke-width="1" stroke-dasharray="2,2" marker-end="url(#arr)"/>
+  <text x="715" y="328" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a1a">Асиметричний профіль корпусу (Keying)</text>
+
+  <!-- Specifications Card Right -->
+  <rect x="510" y="352" width="405" height="175" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="525" y="370" font-size="13" font-weight="bold" fill="#1a1a1a">Особливості конструкції JST-SYP:</text>
+  <text x="525" y="392" font-size="12" fill="#1a1a1a">• Фіксація: Внутрішній фрикційний зачіп (Friction Lock)</text>
+  <text x="525" y="412" font-size="12" fill="#1a1a1a">• Профіль: Ультракомпактний (без виступаючих важелів)</text>
+  <text x="525" y="432" font-size="12" fill="#1a1a1a">• Навантаження: Струм до 3 А, напруга до 250 В (AWG 22–28)</text>
+  <text x="525" y="452" font-size="12" fill="#1a1a1a">• Ключування: Скошені фаски корпусу унеможливлюють помилки</text>
+
+  <!-- Solution/Warning Badge Right -->
+  <rect x="525" y="468" width="375" height="44" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="4"/>
+  <text x="712" y="486" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">ПЕРЕВАГА: Мінімальний розмір для обмеженого простору</text>
+  <text x="712" y="502" text-anchor="middle" font-size="11" fill="#6b7280">(Менше зусилля утримання при сильних вібраціях)</text>
+</svg>

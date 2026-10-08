@@ -1,0 +1,165 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="28" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Внутрішня двотранзисторна структура та режим Hi-Z буфера 74LVC1G125</text>
+  <text x="480" y="48" text-anchor="middle" font-size="13" fill="#6b7280">При OE = 1 логіка керування розмикає обидва ключі (PMOS та NMOS), ізолюючи вихід Y</text>
+
+  <!-- ==================== LEFT PANEL: ACTIVE MODE (OE = 0) ==================== -->
+  <rect x="20" y="68" width="445" height="432" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="35" y="80" width="415" height="30" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="242" y="100" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">1. Активний режим (OE = 0, Передача сигналу)</text>
+
+  <!-- Input Lines & Labels -->
+  <line x1="30" y1="180" x2="110" y2="180" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr-gray)"/>
+  <text x="35" y="168" text-anchor="start" font-size="12" fill="#1a1a1a">A (Дані = H)</text>
+
+  <line x1="30" y1="260" x2="110" y2="260" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="35" y="248" text-anchor="start" font-size="12" font-weight="bold" fill="#27ae60">OE = 0 (L)</text>
+
+  <!-- Control Logic Block -->
+  <rect x="110" y="150" width="80" height="140" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="150" y="175" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Логіка</text>
+  <text x="150" y="193" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">керування</text>
+  <text x="150" y="215" text-anchor="middle" font-size="12" fill="#6b7280">дешифратор</text>
+  <text x="150" y="233" text-anchor="middle" font-size="12" fill="#6b7280">затворів</text>
+
+  <!-- Gate Signal Wires -->
+  <line x1="190" y1="180" x2="250" y2="180" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="220" y="168" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">G_P = 0</text>
+
+  <line x1="190" y1="260" x2="250" y2="260" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+  <text x="220" y="280" text-anchor="middle" font-size="12" fill="#6b7280">G_N = 0</text>
+
+  <!-- Power Rails & Ground -->
+  <line x1="310" y1="130" x2="350" y2="130" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="330" y1="130" x2="330" y2="155" stroke="#27ae60" stroke-width="2.5"/>
+  <text x="330" y="120" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">V_CC (+3.3V)</text>
+
+  <line x1="310" y1="310" x2="350" y2="310" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="330" y1="285" x2="330" y2="310" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="330" y="328" text-anchor="middle" font-size="12" fill="#6b7280">GND (0V)</text>
+
+  <!-- PMOS Box (ON / Closed Switch) -->
+  <rect x="250" y="155" width="100" height="50" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <text x="285" y="175" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">PMOS: ON</text>
+  <text x="285" y="193" text-anchor="middle" font-size="12" fill="#27ae60">(Замкнено)</text>
+  <line x1="330" y1="155" x2="330" y2="205" stroke="#27ae60" stroke-width="3"/>
+
+  <!-- NMOS Box (OFF / Open Switch) -->
+  <rect x="250" y="235" width="100" height="50" rx="4" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="285" y="255" text-anchor="middle" font-size="12" font-weight="bold" fill="#6b7280">NMOS: OFF</text>
+  <text x="285" y="273" text-anchor="middle" font-size="12" fill="#6b7280">(Розімкнено)</text>
+  <circle cx="330" cy="285" r="2.5" fill="#6b7280"/>
+  <circle cx="330" cy="235" r="2.5" fill="#6b7280"/>
+  <line x1="330" y1="285" x2="322" y2="250" stroke="#6b7280" stroke-width="2"/>
+
+  <!-- Output Node & Wire -->
+  <line x1="330" y1="205" x2="330" y2="220" stroke="#27ae60" stroke-width="2.5"/>
+  <line x1="330" y1="220" x2="435" y2="220" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+  <circle cx="330" cy="220" r="4" fill="#2457d6"/>
+
+  <path d="M 330,135 L 330,220 L 420,220" fill="none" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="4,3"/>
+
+  <!-- Output Status Label & Badge -->
+  <text x="385" y="210" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Вихід Y = H</text>
+  <rect x="355" y="228" width="60" height="20" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="385" y="242" text-anchor="middle" font-size="12" fill="#2457d6">Активний</text>
+
+  <!-- Card 1: Bottom Description -->
+  <rect x="35" y="348" width="415" height="138" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="50" y="356" width="385" height="24" rx="4" fill="#eaf0fd"/>
+  <text x="242" y="372" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Режим передачі сигналу (Низький вихідний опір)</text>
+  <text x="55" y="398" text-anchor="start" font-size="12" fill="#1a1a1a">• Сигнал OE = 0 дозволяє роботу push-pull каскаду</text>
+  <text x="55" y="420" text-anchor="start" font-size="12" fill="#1a1a1a">• Верхній PMOS замкнений (при A=1), проводити струм</text>
+  <text x="55" y="442" text-anchor="start" font-size="12" fill="#1a1a1a">• Вихід Y чітко відтворює вхідний рівень A (H або L)</text>
+  <text x="55" y="464" text-anchor="start" font-size="12" fill="#1a1a1a">• Низький вихідний опір забезпечує струм до ±24 mA</text>
+
+
+  <!-- ==================== RIGHT PANEL: HI-Z MODE (OE = 1) ==================== -->
+  <rect x="495" y="68" width="445" height="432" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="510" y="80" width="415" height="30" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="717" y="100" text-anchor="middle" font-size="13" font-weight="bold" fill="#c0392b">2. Високоімпедансний стан (OE = 1, Режим Hi-Z)</text>
+
+  <!-- Input Lines & Labels -->
+  <line x1="505" y1="180" x2="585" y2="180" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#arr-gray)"/>
+  <text x="510" y="168" text-anchor="start" font-size="12" fill="#6b7280">A (Дані = X)</text>
+
+  <line x1="505" y1="260" x2="585" y2="260" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="510" y="248" text-anchor="start" font-size="12" font-weight="bold" fill="#c0392b">OE = 1 (H)</text>
+
+  <!-- Control Logic Block (Blocking state) -->
+  <rect x="585" y="150" width="80" height="140" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="625" y="175" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Логіка</text>
+  <text x="625" y="193" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">керування</text>
+  <text x="625" y="215" text-anchor="middle" font-size="12" fill="#c0392b">Блокування</text>
+  <text x="625" y="233" text-anchor="middle" font-size="12" fill="#c0392b">виходу</text>
+
+  <!-- Gate Signal Wires -->
+  <line x1="665" y1="180" x2="725" y2="180" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="695" y="168" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">G_P = 1</text>
+
+  <line x1="665" y1="260" x2="725" y2="260" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="695" y="280" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">G_N = 0</text>
+
+  <!-- Power Rails & Ground -->
+  <line x1="785" y1="130" x2="825" y2="130" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="805" y1="130" x2="805" y2="155" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="805" y="120" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">V_CC (+3.3V)</text>
+
+  <line x1="785" y1="310" x2="825" y2="310" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="805" y1="285" x2="805" y2="310" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="805" y="328" text-anchor="middle" font-size="12" fill="#6b7280">GND (0V)</text>
+
+  <!-- PMOS Box (OFF / Open Switch) -->
+  <rect x="725" y="155" width="100" height="50" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="2" stroke-dasharray="4,2"/>
+  <text x="760" y="175" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">PMOS: OFF</text>
+  <text x="760" y="193" text-anchor="middle" font-size="12" fill="#c0392b">(Розімкнено)</text>
+  <circle cx="805" cy="155" r="2.5" fill="#c0392b"/>
+  <circle cx="805" cy="205" r="2.5" fill="#c0392b"/>
+  <line x1="805" y1="155" x2="797" y2="190" stroke="#c0392b" stroke-width="2"/>
+
+  <!-- NMOS Box (OFF / Open Switch) -->
+  <rect x="725" y="235" width="100" height="50" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="2" stroke-dasharray="4,2"/>
+  <text x="760" y="255" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">NMOS: OFF</text>
+  <text x="760" y="273" text-anchor="middle" font-size="12" fill="#c0392b">(Розімкнено)</text>
+  <circle cx="805" cy="285" r="2.5" fill="#c0392b"/>
+  <circle cx="805" cy="235" r="2.5" fill="#c0392b"/>
+  <line x1="805" y1="285" x2="797" y2="250" stroke="#c0392b" stroke-width="2"/>
+
+  <!-- Isolated Node & Output Line -->
+  <circle cx="805" cy="220" r="4" fill="#6b7280"/>
+  <line x1="805" y1="220" x2="910" y2="220" stroke="#c0392b" stroke-width="2" stroke-dasharray="4,3" marker-end="url(#arr-red)"/>
+
+  <line x1="800" y1="210" x2="810" y2="214" stroke="#c0392b" stroke-width="2"/>
+  <line x1="800" y1="226" x2="810" y2="230" stroke="#c0392b" stroke-width="2"/>
+
+  <!-- Output Status Label & Badge -->
+  <text x="860" y="210" text-anchor="middle" font-size="13" font-weight="bold" fill="#c0392b">Вихід Y = Hi-Z</text>
+  <rect x="825" y="228" width="70" height="20" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="860" y="242" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Ізольовано</text>
+
+  <!-- Card 2: Bottom Description -->
+  <rect x="510" y="348" width="415" height="138" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="525" y="356" width="385" height="24" rx="4" fill="#fdecea"/>
+  <text x="717" y="372" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Режим вимкненого виходу (Високий імпеданс Hi-Z)</text>
+  <text x="530" y="398" text-anchor="start" font-size="12" fill="#1a1a1a">• Сигнал OE = 1 подає G_P = H та G_N = L</text>
+  <text x="530" y="420" text-anchor="start" font-size="12" fill="#1a1a1a">• Обидва ключі (PMOS та NMOS) відкриті (OFF)</text>
+  <text x="530" y="442" text-anchor="start" font-size="12" fill="#1a1a1a">• Вихід Y від'єднаний від V_CC та GND (I_off ≈ 0)</text>
+  <text x="530" y="464" text-anchor="start" font-size="12" fill="#1a1a1a">• Стан шини визначають зовнішні Pull-up/down</text>
+</svg>

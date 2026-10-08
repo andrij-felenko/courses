@@ -1,0 +1,147 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="560" fill="#ffffff"/>
+
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="34" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Внутрішня механіка притиску Pogo Pin та формування контакту</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Косий зріз та кулька-упор створюють радіальну силу F_r для пуску струму в обхід пружини</text>
+
+  <!-- CARD 1: Flat Cut -->
+  <rect x="30" y="80" width="284" height="450" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="42" y="94" width="260" height="30" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="172" y="114" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Прямий зріз (Flat Cut)</text>
+  
+  <rect x="62" y="132" width="220" height="24" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="172" y="148" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">НЕСТАБІЛЬНИЙ КОНТАКТ</text>
+
+  <!-- Card 1 Diagram -->
+  <rect x="137" y="200" width="10" height="155" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1"/>
+  <rect x="197" y="200" width="10" height="155" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1"/>
+  <rect x="137" y="355" width="70" height="10" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1"/>
+
+  <path d="M164,195 L172,172 L180,195 Z" fill="#2457d6" stroke="#1a1a1a" stroke-width="1"/>
+  <rect x="150" y="195" width="44" height="45" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+
+  <path d="M155,240 L189,252 L155,264 L189,276 L155,288 L189,300 L155,312 L189,324 L155,336 L172,355" fill="none" stroke="#6b7280" stroke-width="2"/>
+  <path d="M172,172 L172,240 L189,252 L155,264 L189,276 L155,288 L189,300 L155,312 L189,324 L155,336 L172,355" fill="none" stroke="#c0392b" stroke-width="2" stroke-dasharray="4,3"/>
+
+  <text x="38" y="205" font-size="12" fill="#6b7280" text-anchor="start">Зазор гільзи</text>
+  <text x="38" y="220" font-size="12" fill="#6b7280" text-anchor="start">(50–100 мкм)</text>
+  <path d="M118,212 L144,212" stroke="#6b7280" stroke-width="1" stroke-dasharray="2,2"/>
+
+  <text x="218" y="265" font-size="12" fill="#c0392b" text-anchor="start">Струм тече</text>
+  <text x="218" y="280" font-size="12" fill="#c0392b" text-anchor="start">через пружину</text>
+  <text x="218" y="295" font-size="12" fill="#c0392b" text-anchor="start">(високий R)</text>
+  <path d="M212,310 L191,310" stroke="#c0392b" stroke-width="1" marker-end="url(#arr-red)"/>
+
+  <text x="172" y="168" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">F_r ≈ 0</text>
+
+  <!-- Card 1 Summary Box -->
+  <rect x="42" y="380" width="260" height="135" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="50" y="402" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="start">• Радіальна сила відсутня (F_r = 0)</text>
+  <text x="50" y="422" font-size="12" fill="#1a1a1a" text-anchor="start">• Плунжер вільно плаває в гільзі</text>
+  <text x="50" y="442" font-size="12" fill="#1a1a1a" text-anchor="start">• Точковий нестабільний контакт</text>
+  <text x="50" y="462" font-size="12" fill="#1a1a1a" text-anchor="start">• Високий опір: R &gt; 100 мОм</text>
+  <text x="50" y="482" font-size="12" fill="#c0392b" text-anchor="start">• Ризик фретинг-корозії</text>
+  <text x="50" y="502" font-size="12" fill="#c0392b" text-anchor="start">• Мікророзриви при вібраціях</text>
+
+  <!-- CARD 2: Bevel Cut -->
+  <rect x="338" y="80" width="284" height="450" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="350" y="94" width="260" height="30" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="480" y="114" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Косий зріз (Bevel Cut)</text>
+  
+  <rect x="370" y="132" width="220" height="24" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="480" y="148" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">СТАНДАРТНИЙ БІАС</text>
+
+  <!-- Card 2 Diagram -->
+  <rect x="445" y="200" width="10" height="155" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1"/>
+  <rect x="505" y="200" width="10" height="155" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1"/>
+  <rect x="445" y="355" width="70" height="10" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1"/>
+
+  <path d="M472,195 L480,172 L488,195 Z" fill="#2457d6" stroke="#1a1a1a" stroke-width="1"/>
+  <polygon points="461,195 505,195 505,245 461,228" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+
+  <path d="M465,230 L499,242 L465,254 L499,266 L465,278 L499,290 L465,302 L499,314 L465,326 L480,355" fill="none" stroke="#6b7280" stroke-width="2"/>
+  
+  <path d="M472,218 L498,218" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="480" y="208" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">F_r</text>
+
+  <path d="M480,172 L480,190 L508,205 L508,355" fill="none" stroke="#2457d6" stroke-width="3"/>
+
+  <text x="348" y="230" font-size="12" fill="#1a1a1a" text-anchor="start">Косий кут</text>
+  <text x="348" y="245" font-size="12" fill="#6b7280" text-anchor="start">(18°–30°)</text>
+  <path d="M412,260 L458,245" stroke="#6b7280" stroke-width="1" stroke-dasharray="2,2"/>
+
+  <text x="524" y="208" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="start">Контакт із</text>
+  <text x="524" y="222" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="start">стінкою гільзи</text>
+  <path d="M520,236 L506,236" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="524" y="258" font-size="12" fill="#27ae60" text-anchor="start">Низький опір</text>
+  <text x="524" y="272" font-size="12" fill="#27ae60" text-anchor="start">R &lt; 30 мОм</text>
+
+  <!-- Card 2 Summary Box -->
+  <rect x="350" y="380" width="260" height="135" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="358" y="402" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="start">• Гарантована радіальна сила F_r</text>
+  <text x="358" y="422" font-size="12" fill="#1a1a1a" text-anchor="start">• Постійний притиск до гільзи</text>
+  <text x="358" y="442" font-size="12" fill="#1a1a1a" text-anchor="start">• Струм іде в обхід пружини</text>
+  <text x="358" y="462" font-size="12" fill="#1a1a1a" text-anchor="start">• Стабільний опір: R &lt; 30 мОм</text>
+  <text x="358" y="482" font-size="12" fill="#27ae60" text-anchor="start">• Значно менший фретинг-знос</text>
+  <text x="358" y="502" font-size="12" fill="#27ae60" text-anchor="start">• Стандарт для високої надійності</text>
+
+  <!-- CARD 3: Ball Bias -->
+  <rect x="646" y="80" width="284" height="450" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="658" y="94" width="260" height="30" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="788" y="114" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Кулька-упор (Ball Bias)</text>
+  
+  <rect x="678" y="132" width="220" height="24" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="788" y="148" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">МАКСИМАЛЬНА НАДІЙНІСТЬ</text>
+
+  <!-- Card 3 Diagram -->
+  <rect x="753" y="200" width="10" height="155" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1"/>
+  <rect x="813" y="200" width="10" height="155" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1"/>
+  <rect x="753" y="355" width="70" height="10" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1"/>
+
+  <path d="M780,195 L788,172 L796,195 Z" fill="#27ae60" stroke="#1a1a1a" stroke-width="1"/>
+  <polygon points="769,195 813,195 813,243 769,227" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <circle cx="788" cy="250" r="9" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <path d="M773,260 L803,271 L773,282 L803,293 L773,304 L803,315 L773,326 L803,337 L773,348 L788,355" fill="none" stroke="#6b7280" stroke-width="2"/>
+
+  <path d="M778,218 L804,218" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="784" y="206" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">F_r max</text>
+
+  <path d="M788,172 L788,190 L816,205 L816,355" fill="none" stroke="#27ae60" stroke-width="3"/>
+
+  <text x="655" y="236" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">Прецизійна</text>
+  <text x="655" y="250" font-size="12" fill="#6b7280" text-anchor="start">кулька-упор</text>
+  <path d="M734,250 L777,250" stroke="#1a1a1a" stroke-width="1" marker-end="url(#arr)"/>
+
+  <text x="830" y="208" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="start">Контакт 100%</text>
+  <text x="830" y="222" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="start">площі стінки</text>
+  <path d="M826,236 L812,236" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <text x="830" y="258" font-size="12" fill="#1a1a1a" text-anchor="start">Наднизький опір</text>
+  <text x="830" y="272" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="start">R &lt; 15 мОм</text>
+  <text x="830" y="286" font-size="12" fill="#27ae60" text-anchor="start">(струм до 5 А)</text>
+
+  <!-- Card 3 Summary Box -->
+  <rect x="658" y="380" width="260" height="135" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="666" y="402" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="start">• Максимальна радіальна сила F_r</text>
+  <text x="666" y="422" font-size="12" fill="#1a1a1a" text-anchor="start">• Кулька усуває перекіс та тертя</text>
+  <text x="666" y="442" font-size="12" fill="#1a1a1a" text-anchor="start">• Повний захист від мікророзривів</text>
+  <text x="666" y="462" font-size="12" fill="#1a1a1a" text-anchor="start">• Наднизький опір: R &lt; 15 мОм</text>
+  <text x="666" y="482" font-size="12" fill="#27ae60" text-anchor="start">• Струмове навантаження до 5–10 А</text>
+  <text x="666" y="502" font-size="12" fill="#27ae60" text-anchor="start">• Висока вібростійкість</text>
+</svg>

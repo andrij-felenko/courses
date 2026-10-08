@@ -1,0 +1,132 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+  
+  <defs>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-main" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- ЗАГОЛОВОК І ПІДЗАГОЛОВОК -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Механіка зчеплення нарізної втулки з полімерною матрицею</text>
+  <text x="480" y="60" font-size="13" fill="#6b7280" text-anchor="middle">Розподіл векторів сил та зсувних напружень (τ) на рельєфі насічок, канавок і фланця</text>
+
+  <!-- ЛІВА ПАНЕЛЬ: ПОПЕРЕЧНИЙ РОЗРІЗ ТА ОСЬОВІ СИЛИ -->
+  <rect x="30" y="75" width="435" height="460" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="247" y="92" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Розподіл сил при осьовому навантаженні (Вирив)</text>
+
+  <!-- Вектор вириву F_ax та векторний підпис -->
+  <text x="247" y="112" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">F_ax (Виривне зусилля)</text>
+  <line x1="247" y1="150" x2="247" y2="116" stroke="#c0392b" stroke-width="3" marker-end="url(#arr-red)"/>
+
+  <!-- Вектори реакції фланця -->
+  <line x1="142" y1="138" x2="142" y2="150" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <line x1="352" y1="138" x2="352" y2="150" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="135" y="136" font-size="12" fill="#2457d6" text-anchor="end">Реакція фланця</text>
+  <text x="359" y="136" font-size="12" fill="#2457d6" text-anchor="start">Реакція фланця</text>
+
+  <!-- Графічний блок полімерної матриці (босу) -->
+  <rect x="115" y="150" width="264" height="270" rx="4" fill="#f8fafc" stroke="#d0d7de" stroke-width="1.5"/>
+  <line x1="247" y1="150" x2="247" y2="420" stroke="#9ca3af" stroke-width="1" stroke-dasharray="5,4"/>
+
+  <!-- Фланець втулки -->
+  <path d="M172,150 L322,150 L322,170 L172,170 Z" fill="#cbd5e1" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Верхня насічка (профіль зубців) -->
+  <path d="M182,170 L194,180 L182,190 L194,200 L182,210 L194,220 L182,225 L312,225 L300,220 L312,210 L300,200 L312,190 L300,180 L312,170 Z" fill="#e2e8f0" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Кільцева канавка (підріз з полімерними замками) -->
+  <path d="M182,225 L206,225 L206,265 L182,265 L182,225 M312,225 L288,225 L288,265 L312,265 L312,225" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <path d="M206,225 L288,225 L288,265 L206,265 Z" fill="#cbd5e1" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Нижня насічка -->
+  <path d="M182,265 L194,275 L182,285 L194,295 L182,305 L194,315 L182,320 L312,320 L300,315 L312,305 L300,295 L312,285 L300,275 L312,265 Z" fill="#e2e8f0" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Західний конус (пілот) -->
+  <path d="M182,320 L202,355 L292,355 L312,320 Z" fill="#cbd5e1" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Внутрішній різьбовий канал -->
+  <path d="M222,150 L272,150 L272,355 L222,355 Z" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <path d="M222,160 L226,165 L222,170 M222,180 L226,185 L222,190 M222,200 L226,205 L222,210 M222,220 L226,225 L222,230 M222,240 L226,245 L222,250 M222,260 L226,265 L222,270 M222,280 L226,285 L222,290 M222,300 L226,305 L222,310 M222,320 L226,325 L222,330 M222,340 L226,345 L222,350" stroke="#1a1a1a" stroke-width="1" fill="none"/>
+  <path d="M272,160 L268,165 L272,170 M272,180 L268,185 L272,190 M272,200 L268,205 L272,210 M272,220 L268,225 L272,230 M272,240 L268,245 L272,250 M272,260 L268,265 L272,270 M272,280 L268,285 L272,290 M272,300 L268,305 L272,310 M272,320 L268,325 L272,330 M272,340 L268,345 L272,350" stroke="#1a1a1a" stroke-width="1" fill="none"/>
+
+  <!-- Вектори зсувних напружень в канавці -->
+  <line x1="194" y1="260" x2="194" y2="232" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <line x1="300" y1="260" x2="300" y2="232" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Виносні лінії та підписи лівої панелі -->
+  <line x1="115" y1="190" x2="150" y2="190" stroke="#6b7280" stroke-width="1" stroke-dasharray="2,2"/>
+  <text x="110" y="180" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">Полімерна</text>
+  <text x="110" y="194" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">матриця</text>
+  <text x="110" y="208" font-size="12" fill="#6b7280" text-anchor="end">(пласт. бос)</text>
+
+  <line x1="110" y1="245" x2="194" y2="245" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="110" y="240" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">Зсув τ_ax</text>
+  <text x="110" y="254" font-size="12" fill="#1a1a1a" text-anchor="end">в канавці</text>
+
+  <line x1="312" y1="292" x2="365" y2="292" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-main)"/>
+  <text x="370" y="288" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">Похилі насічки</text>
+  <text x="370" y="302" font-size="12" fill="#6b7280" text-anchor="start">сітка насічок</text>
+
+  <text x="247" y="375" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Різьбовий канал (M5)</text>
+  <text x="247" y="405" font-size="12" fill="#6b7280" text-anchor="middle">Вхідний конус (пілот)</text>
+
+  <!-- Нижня картка лівої панелі -->
+  <rect x="45" y="435" width="405" height="85" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="60" y="456" font-size="12" font-weight="bold" fill="#2457d6">Механіка опору осьовому вириванню:</text>
+  <text x="60" y="476" font-size="12" fill="#1a1a1a">• Фланець розподіляє основне виривне зусилля F_ax</text>
+  <text x="60" y="496" font-size="12" fill="#1a1a1a">• Кільцева канавка змушує полімер працювати на зсув (τ_ax)</text>
+
+  <!-- ПРАВА ПАНЕЛЬ: КРУТИЛЬНА МЕХАНІКА ТА ПРОФІЛЬ ЗУБЦІВ -->
+  <rect x="495" y="75" width="435" height="460" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="712" y="98" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Крутильна механіка та профіль зубців (Торсій)</text>
+
+  <!-- Круговий зріз втулки (поперечний переріз насічки) -->
+  <circle cx="610" cy="210" r="75" fill="#f8fafc" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <circle cx="610" cy="210" r="50" fill="#eaf0fd"/>
+  <polygon points="660,210 649,220 653,235 638,238 635,253 620,249 610,260 600,249 585,253 582,238 567,235 571,220 560,210 571,200 567,185 582,182 585,167 600,171 610,160 620,171 635,167 638,182 653,185 649,200" fill="#e2e8f0" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="610" cy="210" r="26" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Вектор крутильного моменту T_rot -->
+  <path d="M 585.3,185.3 A 35,35 0 1,1 610,245" fill="none" stroke="#2457d6" stroke-width="3" marker-end="url(#arr-blue)"/>
+  <text x="610" y="125" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Крутильний момент T_rot</text>
+
+  <!-- Вектори напружень на гранях зубців -->
+  <line x1="662" y1="240" x2="646" y2="232" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <line x1="654" y1="212" x2="644" y2="224" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Виносні написи правої верхньої частини -->
+  <line x1="660" y1="210" x2="700" y2="160" stroke="#1a1a1a" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="705" y="152" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">Хрестоподібна насічка</text>
+  <text x="705" y="167" font-size="12" fill="#6b7280" text-anchor="start">(протилежні канавки)</text>
+
+  <line x1="662" y1="240" x2="700" y2="205" stroke="#c0392b" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="705" y="200" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="start">Напруження зминання σ_b</text>
+  <text x="705" y="215" font-size="12" fill="#1a1a1a" text-anchor="start">перпендикулярно до граней</text>
+
+  <line x1="654" y1="212" x2="700" y2="255" stroke="#2457d6" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="705" y="250" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="start">Зсувні напруження τ_rot</text>
+  <text x="705" y="265" font-size="12" fill="#1a1a1a" text-anchor="start">зріз полімеру між зубцями</text>
+
+  <!-- Нижні порівняльні картки правої панелі -->
+  <rect x="510" y="315" width="405" height="56" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="522" y="335" font-size="12" font-weight="bold" fill="#1e8449">Ромбічна / хрестоподібна накатка (Diamond Knurl)</text>
+  <text x="522" y="355" font-size="12" fill="#1a1a1a">Забезпечує опір прокручуванню (T_rot) та вириванню (F_ax)</text>
+
+  <rect x="510" y="385" width="405" height="56" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="522" y="405" font-size="12" font-weight="bold" fill="#2457d6">Прямі зубці + кільцеві канавки (Straight + Groove)</text>
+  <text x="522" y="425" font-size="12" fill="#1a1a1a">Роздільне сприйняття: зубці — кручення, канавка — вирив</text>
+
+  <rect x="510" y="455" width="405" height="56" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="522" y="475" font-size="12" font-weight="bold" fill="#c0392b">Правило стінки босу (Товщина полімерного босу)</text>
+  <text x="522" y="495" font-size="12" fill="#1a1a1a">Мінімальна товщина t ≥ 0.8...1.0 × D запобігає тріщинам</text>
+</svg>

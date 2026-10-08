@@ -1,0 +1,179 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 510" width="960" height="510" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="dot-blue" markerWidth="6" markerHeight="6" refX="3" refY="3">
+      <circle cx="3" cy="3" r="2.5" fill="#2457d6"/>
+    </marker>
+    <marker id="dot-red" markerWidth="6" markerHeight="6" refX="3" refY="3">
+      <circle cx="3" cy="3" r="2.5" fill="#c0392b"/>
+    </marker>
+    <marker id="dot-dark" markerWidth="6" markerHeight="6" refX="3" refY="3">
+      <circle cx="3" cy="3" r="2.5" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="510" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Конструкція підвісного кабелю пульта оператора</text>
+  <text x="480" y="54" text-anchor="middle" font-size="13" fill="#6b7280">Механічне розвантаження натягу, 360° EMC-екранування та розділення кіл</text>
+
+  <!-- ==================== CABLE CROSS-SECTION DIAGRAM ==================== -->
+
+  <!-- Outer Sheath (PUR) -->
+  <circle cx="360" cy="270" r="130" fill="#2c3e50" stroke="#1a252f" stroke-width="3"/>
+  <circle cx="360" cy="270" r="116" fill="#34495e"/>
+
+  <!-- PTFE Separation Layer -->
+  <circle cx="360" cy="270" r="111" fill="#fef9e7" stroke="#f39c12" stroke-width="2.5"/>
+
+  <!-- Overall Braid Shield (360° EMC) -->
+  <circle cx="360" cy="270" r="105" fill="#ecf0f1" stroke="#7f8c8d" stroke-width="5" stroke-dasharray="4,3"/>
+
+  <!-- Internal Bedding / Cable Filler Area -->
+  <circle cx="360" cy="270" r="100" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Filler Elements (4 Cords) -->
+  <circle cx="407" cy="223" r="8.5" fill="#e2e8f0" stroke="#cbd5e1" stroke-width="1"/>
+  <circle cx="313" cy="223" r="8.5" fill="#e2e8f0" stroke="#cbd5e1" stroke-width="1"/>
+  <circle cx="313" cy="317" r="8.5" fill="#e2e8f0" stroke="#cbd5e1" stroke-width="1"/>
+  <circle cx="407" cy="317" r="8.5" fill="#e2e8f0" stroke="#cbd5e1" stroke-width="1"/>
+
+  <!-- Central Steel Strain-Relief Core -->
+  <circle cx="360" cy="270" r="26" fill="#e2e8f0" stroke="#707d8a" stroke-width="2"/>
+  <circle cx="360" cy="270" r="19" fill="#cbd5e1" stroke="#475569" stroke-width="1.5"/>
+  <!-- 7 Steel Strands -->
+  <circle cx="360" cy="270" r="5" fill="#94a3b8" stroke="#334155" stroke-width="1"/>
+  <circle cx="370" cy="270" r="5" fill="#94a3b8" stroke="#334155" stroke-width="1"/>
+  <circle cx="365" cy="261.3" r="5" fill="#94a3b8" stroke="#334155" stroke-width="1"/>
+  <circle cx="355" cy="261.3" r="5" fill="#94a3b8" stroke="#334155" stroke-width="1"/>
+  <circle cx="350" cy="270" r="5" fill="#94a3b8" stroke="#334155" stroke-width="1"/>
+  <circle cx="355" cy="278.7" r="5" fill="#94a3b8" stroke="#334155" stroke-width="1"/>
+  <circle cx="365" cy="278.7" r="5" fill="#94a3b8" stroke="#334155" stroke-width="1"/>
+
+  <!-- Power Conductors (Top Group) -->
+  <g>
+    <!-- L1 Brown -->
+    <circle cx="345" cy="200" r="13" fill="#b35900" stroke="#5c2e00" stroke-width="1.5"/>
+    <circle cx="345" cy="200" r="7" fill="#d97706" stroke="#78350f" stroke-width="1"/>
+    <!-- L2 Blue -->
+    <circle cx="375" cy="200" r="13" fill="#2457d6" stroke="#1d4ed8" stroke-width="1.5"/>
+    <circle cx="375" cy="200" r="7" fill="#d97706" stroke="#78350f" stroke-width="1"/>
+    <!-- PE Green -->
+    <circle cx="360" cy="221" r="10.5" fill="#27ae60" stroke="#15803d" stroke-width="1.5"/>
+    <circle cx="360" cy="221" r="5.5" fill="#d97706" stroke="#78350f" stroke-width="1"/>
+  </g>
+
+  <!-- Left Shielded Signal Twisted Pair -->
+  <g>
+    <circle cx="296" cy="270" r="24" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4,2"/>
+    <!-- Wire 1 Blue -->
+    <circle cx="286" cy="270" r="9" fill="#2563eb" stroke="#1d4ed8" stroke-width="1.2"/>
+    <circle cx="286" cy="270" r="4" fill="#d97706"/>
+    <!-- Wire 2 White/Blue -->
+    <circle cx="306" cy="270" r="9" fill="#ffffff" stroke="#2563eb" stroke-width="1.8"/>
+    <circle cx="306" cy="270" r="4" fill="#d97706"/>
+    <!-- Drain wire -->
+    <circle cx="296" cy="286" r="3" fill="#64748b" stroke="#334155" stroke-width="1"/>
+  </g>
+
+  <!-- Right Shielded Signal Twisted Pair -->
+  <g>
+    <circle cx="424" cy="270" r="24" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4,2"/>
+    <!-- Wire 1 Green -->
+    <circle cx="414" cy="270" r="9" fill="#16a34a" stroke="#15803d" stroke-width="1.2"/>
+    <circle cx="414" cy="270" r="4" fill="#d97706"/>
+    <!-- Wire 2 White/Green -->
+    <circle cx="434" cy="270" r="9" fill="#ffffff" stroke="#16a34a" stroke-width="1.8"/>
+    <circle cx="434" cy="270" r="4" fill="#d97706"/>
+    <!-- Drain wire -->
+    <circle cx="424" cy="286" r="3" fill="#64748b" stroke="#334155" stroke-width="1"/>
+  </g>
+
+  <!-- Control Conductors (Bottom Group) -->
+  <g>
+    <!-- Wire 1 Black -->
+    <circle cx="346" cy="338" r="10.5" fill="#334155" stroke="#0f172a" stroke-width="1.5"/>
+    <circle cx="346" cy="338" r="5" fill="#d97706"/>
+    <!-- Wire 2 Red -->
+    <circle cx="374" cy="338" r="10.5" fill="#dc2626" stroke="#991b1b" stroke-width="1.5"/>
+    <circle cx="374" cy="338" r="5" fill="#d97706"/>
+    <!-- Wire 3 Purple -->
+    <circle cx="360" cy="319" r="10.5" fill="#7c3aed" stroke="#5b21b6" stroke-width="1.5"/>
+    <circle cx="360" cy="319" r="5" fill="#d97706"/>
+  </g>
+
+  <!-- ==================== CALLOUT POINTERS AND LABELS ==================== -->
+
+  <!-- Callout 1: Outer PUR Sheath -->
+  <path d="M 210,88 L 310,88 L 310,144" fill="none" stroke="#6b7280" stroke-width="1.5" marker-end="url(#dot-dark)"/>
+  <text x="30" y="80" text-anchor="start" font-size="12" font-weight="bold" fill="#1a1a1a">1. Зовнішня PUR-оболонка</text>
+  <text x="30" y="95" text-anchor="start" font-size="12" fill="#6b7280">(зносостійкий поліуретан)</text>
+
+  <!-- Callout 2: Power Conductors -->
+  <path d="M 220,143 L 280,143 L 345,200" fill="none" stroke="#6b7280" stroke-width="1.5" marker-end="url(#dot-dark)"/>
+  <text x="30" y="135" text-anchor="start" font-size="12" font-weight="bold" fill="#1a1a1a">2. Силові жили (L1/L2/PE)</text>
+  <text x="30" y="150" text-anchor="start" font-size="12" fill="#6b7280">(живлення двигунів)</text>
+
+  <!-- Callout 3: Braid Shield 360° -->
+  <path d="M 200,198 L 245,198 L 275,215" fill="none" stroke="#2457d6" stroke-width="1.5" marker-end="url(#dot-blue)"/>
+  <text x="30" y="190" text-anchor="start" font-size="12" font-weight="bold" fill="#2457d6">3. Плетений 360° екран</text>
+  <text x="30" y="205" text-anchor="start" font-size="12" fill="#6b7280">(луджена мідь, EMC)</text>
+
+  <!-- Callout 4: PTFE Film -->
+  <path d="M 200,253 L 235,253 L 252,245" fill="none" stroke="#6b7280" stroke-width="1.5" marker-end="url(#dot-dark)"/>
+  <text x="30" y="245" text-anchor="start" font-size="12" font-weight="bold" fill="#1a1a1a">4. Плівка ковзання PTFE</text>
+  <text x="30" y="260" text-anchor="start" font-size="12" fill="#6b7280">(зменшення тертя жил)</text>
+
+  <!-- Callout 5: Signal Data Pairs -->
+  <path d="M 200,308 L 260,308 L 296,270" fill="none" stroke="#2457d6" stroke-width="1.5" marker-end="url(#dot-blue)"/>
+  <text x="30" y="300" text-anchor="start" font-size="12" font-weight="bold" fill="#2457d6">5. Сигнальні пари даних</text>
+  <text x="30" y="315" text-anchor="start" font-size="12" fill="#6b7280">(кручена пара + фольга)</text>
+
+  <!-- Callout 6: Central Steel Core -->
+  <path d="M 205,363 L 275,363 L 345,280" fill="none" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3,2" marker-end="url(#dot-red)"/>
+  <text x="30" y="355" text-anchor="start" font-size="12" font-weight="bold" fill="#c0392b">6. Несучий трос (сталевий)</text>
+  <text x="30" y="370" text-anchor="start" font-size="12" fill="#6b7280">(розвантаження натягу)</text>
+
+  <!-- Callout 7: Inner Filler Cord -->
+  <path d="M 200,418 L 260,418 L 313,322" fill="none" stroke="#6b7280" stroke-width="1.5" marker-end="url(#dot-dark)"/>
+  <text x="30" y="410" text-anchor="start" font-size="12" font-weight="bold" fill="#1a1a1a">7. Внутрішній кордель</text>
+  <text x="30" y="425" text-anchor="start" font-size="12" fill="#6b7280">(фіксація круглості)</text>
+
+  <!-- Callout 8: Control / E-Stop Wires -->
+  <path d="M 210,473 L 290,473 L 346,338" fill="none" stroke="#6b7280" stroke-width="1.5" marker-end="url(#dot-dark)"/>
+  <text x="30" y="465" text-anchor="start" font-size="12" font-weight="bold" fill="#1a1a1a">8. Жили керування / E-Stop</text>
+  <text x="30" y="480" text-anchor="start" font-size="12" fill="#6b7280">(кола безпеки 24 В)</text>
+
+  <!-- ==================== RIGHT-SIDE CARDS ==================== -->
+
+  <!-- Card 1: Mechanical Load & Wear -->
+  <g>
+    <rect x="530" y="80" width="400" height="125" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+    <text x="545" y="103" font-size="13" font-weight="bold" fill="#1a1a1a">1. Механічне розвантаження та знос</text>
+    <text x="545" y="125" font-size="12" fill="#1a1a1a">• Сталевий трос сприймає весь вертикальний натяг</text>
+    <text x="545" y="143" font-size="12" fill="#6b7280">• Мідні жили вільно укладені без натягування</text>
+    <text x="545" y="161" font-size="12" fill="#6b7280">• PTFE-плівка запобігає перетиранню жил</text>
+    <text x="545" y="179" font-size="12" fill="#6b7280">• Зовнішня PUR-оболонка стійка до мастил і згинів</text>
+  </g>
+
+  <!-- Card 2: EMC & Grounding -->
+  <g>
+    <rect x="530" y="218" width="400" height="125" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+    <text x="545" y="241" font-size="13" font-weight="bold" fill="#2457d6">2. Захист від завад (EMC / Заземлення)</text>
+    <text x="545" y="263" font-size="12" fill="#1a1a1a">• Суцільний 360° плетений екран (покриття ≥85%)</text>
+    <text x="545" y="281" font-size="12" fill="#6b7280">• Кручена пара + фольга для ліній даних (CAN/RS485)</text>
+    <text x="545" y="299" font-size="12" fill="#6b7280">• Екрани заземлюються з двох боків (360° EMC)</text>
+    <text x="545" y="317" font-size="12" fill="#6b7280">• Запобігання утворенню земляних петель</text>
+  </g>
+
+  <!-- Card 3: Installation & Bending -->
+  <g>
+    <rect x="530" y="356" width="400" height="125" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+    <text x="545" y="379" font-size="13" font-weight="bold" fill="#27ae60">3. Параметри монтажу та вигину</text>
+    <text x="545" y="401" font-size="12" fill="#1a1a1a">• Мін. радіус вигину: R ≥ 10...12 · D кабелю</text>
+    <text x="545" y="419" font-size="12" fill="#6b7280">• Фіксація троса в пульті: затискач розвантаження</text>
+    <text x="545" y="437" font-size="12" fill="#6b7280">• Відокремлення силових (380V) та сигнальних кіл</text>
+    <text x="545" y="455" font-size="12" fill="#6b7280">• Робочий температурний діапазон: -40°C ... +80°C</text>
+  </g>
+</svg>

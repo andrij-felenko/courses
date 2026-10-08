@@ -1,0 +1,152 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Background (MUST be first child of <svg>) -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <defs>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Захист від земляних петель та вирівнювання потенціалів</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Провідник PEC (≥ 6 мм²) відводить струми I_eq від екрана, зберігаючи 360° EMC-захист</text>
+
+  <!-- ==================== LEFT PANEL: INCORRECT ==================== -->
+  <rect x="25" y="75" width="440" height="425" fill="#ffffff" stroke="#c0392b" stroke-width="1.5" rx="8"/>
+  <rect x="25" y="75" width="440" height="36" fill="#fdecea" stroke="#c0392b" stroke-width="1" rx="8"/>
+  <text x="245" y="98" font-size="14" font-weight="bold" fill="#c0392b" text-anchor="middle">Неправильно: земляна петля через екран</text>
+
+  <!-- Cabinet A -->
+  <rect x="45" y="125" width="100" height="210" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="6"/>
+  <text x="95" y="148" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Шафа A</text>
+  <text x="95" y="165" font-size="12" fill="#6b7280" text-anchor="middle">(стаціонарна)</text>
+
+  <!-- Cabinet A PE Bus & Ground -->
+  <text x="95" y="268" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">PE_1</text>
+  <rect x="75" y="275" width="40" height="8" fill="#d0d7de" stroke="#6b7280" rx="2"/>
+  <line x1="95" y1="283" x2="95" y2="295" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="83" y1="295" x2="107" y2="295" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="87" y1="299" x2="103" y2="299" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="91" y1="303" x2="99" y2="303" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="95" y="320" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">V_G1</text>
+
+  <!-- Pendant B -->
+  <rect x="345" y="125" width="100" height="210" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="6"/>
+  <text x="395" y="148" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Пульт B</text>
+  <text x="395" y="165" font-size="12" fill="#6b7280" text-anchor="middle">(підвісний)</text>
+
+  <!-- Pendant B PE Bus & Ground -->
+  <text x="395" y="268" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">PE_2</text>
+  <rect x="375" y="275" width="40" height="8" fill="#d0d7de" stroke="#6b7280" rx="2"/>
+  <line x1="395" y1="283" x2="395" y2="295" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="383" y1="295" x2="407" y2="295" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="387" y1="299" x2="403" y2="299" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="391" y1="303" x2="399" y2="303" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="395" y="320" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">V_G2</text>
+
+  <!-- Signal Cable Shield (Left) -->
+  <rect x="160" y="180" width="170" height="38" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4 2" rx="4"/>
+  <text x="245" y="172" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Сигнальний екран</text>
+
+  <!-- Internal Signal Wires -->
+  <line x1="145" y1="191" x2="345" y2="191" stroke="#2457d6" stroke-width="2"/>
+  <line x1="145" y1="207" x2="345" y2="207" stroke="#2457d6" stroke-width="2"/>
+  <text x="245" y="202" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Завади V_noise</text>
+
+  <!-- Shield Grounding Connections -->
+  <path d="M 160,199 L 95,199 L 95,268" fill="none" stroke="#c0392b" stroke-width="1.5"/>
+  <path d="M 330,199 L 395,199 L 395,268" fill="none" stroke="#c0392b" stroke-width="1.5"/>
+
+  <!-- Loop Current Path Arrow -->
+  <line x1="320" y1="240" x2="170" y2="240" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="245" y="234" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Струм петлі I_loop</text>
+
+  <!-- Earth Potential Gradient -->
+  <line x1="95" y1="335" x2="395" y2="335" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3 3"/>
+  <text x="245" y="352" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Різниця потенціалів ΔV = V_G1 - V_G2 ≠ 0</text>
+
+  <!-- Result Box Left -->
+  <rect x="45" y="368" width="400" height="115" fill="#fdecea" stroke="#c0392b" stroke-width="1" rx="6"/>
+  <text x="245" y="388" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Екран заземлено з двох боків без PEC</text>
+  <text x="245" y="410" font-size="12" fill="#1a1a1a" text-anchor="middle">Паразитний струм I_loop протікає через екран</text>
+  <text x="245" y="432" font-size="12" fill="#6b7280" text-anchor="middle">Спричиняє падіння напруги та наведені завади</text>
+  <text x="245" y="454" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Ризик збоїв датчиків та інтерфейсів</text>
+
+  <!-- ==================== RIGHT PANEL: CORRECT ==================== -->
+  <rect x="495" y="75" width="440" height="425" fill="#ffffff" stroke="#27ae60" stroke-width="1.5" rx="8"/>
+  <rect x="495" y="75" width="440" height="36" fill="#e9f7ef" stroke="#27ae60" stroke-width="1" rx="8"/>
+  <text x="715" y="98" font-size="14" font-weight="bold" fill="#27ae60" text-anchor="middle">Правильно: провідник PEC + 360° EMC</text>
+
+  <!-- Cabinet A -->
+  <rect x="515" y="125" width="95" height="210" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="6"/>
+  <text x="562" y="148" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Шафа A</text>
+  <text x="562" y="165" font-size="12" fill="#6b7280" text-anchor="middle">(стаціонарна)</text>
+
+  <!-- EMC Gland Left -->
+  <rect x="622" y="183" width="24" height="32" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="3"/>
+  <text x="634" y="172" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">EMC 360°</text>
+
+  <!-- Cabinet A PE Bus & Ground -->
+  <text x="562" y="268" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">PE_1</text>
+  <rect x="542" y="275" width="40" height="8" fill="#d0d7de" stroke="#6b7280" rx="2"/>
+  <line x1="562" y1="283" x2="562" y2="295" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="550" y1="295" x2="574" y2="295" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="554" y1="299" x2="570" y2="299" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="558" y1="303" x2="566" y2="303" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="562" y="320" font-size="12" fill="#6b7280" text-anchor="middle">V_G1</text>
+
+  <!-- Pendant B -->
+  <rect x="820" y="125" width="95" height="210" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="6"/>
+  <text x="867" y="148" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Пульт B</text>
+  <text x="867" y="165" font-size="12" fill="#6b7280" text-anchor="middle">(підвісний)</text>
+
+  <!-- EMC Gland Right -->
+  <rect x="784" y="183" width="24" height="32" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="3"/>
+  <text x="796" y="172" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">EMC 360°</text>
+
+  <!-- Pendant B PE Bus & Ground -->
+  <text x="867" y="268" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">PE_2</text>
+  <rect x="847" y="275" width="40" height="8" fill="#d0d7de" stroke="#6b7280" rx="2"/>
+  <line x1="867" y1="283" x2="867" y2="295" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="855" y1="295" x2="879" y2="295" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="859" y1="299" x2="875" y2="299" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="863" y1="303" x2="871" y2="303" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="867" y="320" font-size="12" fill="#6b7280" text-anchor="middle">V_G2</text>
+
+  <!-- Signal Cable Shield (Right) -->
+  <rect x="658" y="180" width="114" height="38" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="4"/>
+  <text x="715" y="172" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Сигнальний екран</text>
+
+  <!-- Internal Clean Wires -->
+  <line x1="610" y1="191" x2="820" y2="191" stroke="#2457d6" stroke-width="2"/>
+  <line x1="610" y1="207" x2="820" y2="207" stroke="#2457d6" stroke-width="2"/>
+  <text x="715" y="202" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">I_shield ≈ 0 (чистий сигнал)</text>
+
+  <!-- Equipotential Bonding Conductor Labels & Wire (PEC) -->
+  <text x="715" y="234" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Провідник PEC (≥ 6 мм²)</text>
+  <text x="715" y="249" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">Струм I_eq іде через PEC</text>
+
+  <path d="M 562,275 L 562,260 L 867,260 L 867,275" fill="none" stroke="#27ae60" stroke-width="3"/>
+  <line x1="800" y1="260" x2="630" y2="260" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <!-- Earth Potential Gradient -->
+  <line x1="562" y1="335" x2="867" y2="335" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="3 3"/>
+  <text x="715" y="352" font-size="12" fill="#6b7280" text-anchor="middle">Різниця потенціалів ΔV = V_G1 - V_G2</text>
+
+  <!-- Result Box Right -->
+  <rect x="515" y="368" width="400" height="115" fill="#e9f7ef" stroke="#27ae60" stroke-width="1" rx="6"/>
+  <text x="715" y="388" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">R_PEC &lt;&lt; R_screen відводить струм від екрана</text>
+  <text x="715" y="410" font-size="12" fill="#1a1a1a" text-anchor="middle">Зрівнювальний струм I_eq обходить сигнальні жили</text>
+  <text x="715" y="432" font-size="12" fill="#6b7280" text-anchor="middle">EMC 360° муфти забезпечують ВЧ-екранування</text>
+  <text x="715" y="454" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Повна завадозахищеність та відсутність петель</text>
+</svg>

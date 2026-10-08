@@ -1,0 +1,203 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Маркери стрілок -->
+  <defs>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок та підзаголовок -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Конструкція та принцип дії капсульного ковзного кільця (Slip Ring)</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Подвійні золоті щітки забезпечують безперервний ковзний контакт із кільцевими доріжками ротора</text>
+
+  <!-- ПАНЕЛЬ 1: Головний конструктивний розріз -->
+  <rect x="30" y="85" width="540" height="435" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="300" y="110" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">1. Конструктивний розріз капсульного ковзного кільця</text>
+  <text x="300" y="127" font-size="12" fill="#6b7280" text-anchor="middle">Співвісне розташування ротора, статора, контактних кілець і щіток</text>
+
+  <!-- Кабелі статора (ліворуч вгорі) -->
+  <path d="M 155,175 V 158 H 45" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+  <path d="M 310,175 V 152 H 45" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+  <text x="45" y="132" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">Кабелі статора</text>
+  <text x="45" y="146" font-size="12" fill="#6b7280" text-anchor="start">(нерухомі)</text>
+
+  <!-- Статорний корпус (нерухома зовнішня гільза) -->
+  <rect x="140" y="175" width="285" height="35" rx="2" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="140" y="390" width="285" height="35" rx="2" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="282.5" y="152" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Статорний корпус (нерухомий)</text>
+  <line x1="282.5" y1="156" x2="282.5" y2="173" stroke="#6b7280" stroke-width="1" stroke-dasharray="3,2"/>
+
+  <!-- Кріпильний фланець статора (ліворуч) -->
+  <rect x="75" y="150" width="25" height="300" rx="4" fill="#d0d7de" stroke="#6b7280" stroke-width="1.5"/>
+  <circle cx="87.5" cy="170" r="5" fill="white" stroke="#6b7280" stroke-width="1.5"/>
+  <circle cx="87.5" cy="430" r="5" fill="white" stroke="#6b7280" stroke-width="1.5"/>
+
+  <!-- Підшипники ротора (лівий і правий) -->
+  <rect x="100" y="210" width="30" height="180" rx="3" fill="white" stroke="#6b7280" stroke-width="1.5"/>
+  <circle cx="115" cy="230" r="7" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1"/>
+  <circle cx="115" cy="370" r="7" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1"/>
+
+  <rect x="425" y="210" width="30" height="180" rx="3" fill="white" stroke="#6b7280" stroke-width="1.5"/>
+  <circle cx="440" cy="230" r="7" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1"/>
+  <circle cx="440" cy="370" r="7" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1"/>
+
+  <!-- Вал ротора (внутрішня вісь - намальовано через path) -->
+  <path d="M 100,288 H 520 V 312 H 100 Z" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="50" y1="300" x2="540" y2="300" stroke="#6b7280" stroke-width="1" stroke-dasharray="6,4"/>
+  <text x="52" y="293" font-size="12" fill="#6b7280" text-anchor="start">Вісь обертання</text>
+
+  <!-- Диелектричний барабан ротора (втулка під кільця) -->
+  <rect x="160" y="232" width="245" height="136" rx="2" fill="white" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Кільцеві доріжки ротора (Power & Signal Rings) -->
+  <!-- Силові доріжки (широкі) -->
+  <rect x="175" y="240" width="35" height="120" rx="2" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="220" y="240" width="35" height="120" rx="2" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+
+  <!-- Перегородки-ізолятори між кільцями -->
+  <rect x="212" y="232" width="6" height="136" fill="#d0d7de"/>
+  <rect x="257" y="232" width="6" height="136" fill="#d0d7de"/>
+  <rect x="298" y="232" width="6" height="136" fill="#d0d7de"/>
+  <rect x="339" y="232" width="6" height="136" fill="#d0d7de"/>
+
+  <!-- Сигнальні доріжки (вужчі) -->
+  <rect x="265" y="248" width="31" height="104" rx="2" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="306" y="248" width="31" height="104" rx="2" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="347" y="248" width="31" height="104" rx="2" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+
+  <!-- Подвійні золоті щітки (верхній блок статора) -->
+  <path d="M 187,210 Q 180,225 187,240" fill="none" stroke="#27ae60" stroke-width="2"/>
+  <path d="M 197,210 Q 204,225 197,240" fill="none" stroke="#27ae60" stroke-width="2"/>
+
+  <path d="M 232,210 Q 225,225 232,240" fill="none" stroke="#27ae60" stroke-width="2"/>
+  <path d="M 242,210 Q 249,225 242,240" fill="none" stroke="#27ae60" stroke-width="2"/>
+
+  <path d="M 275,210 Q 269,227 275,248" fill="none" stroke="#27ae60" stroke-width="2"/>
+  <path d="M 285,210 Q 291,227 285,248" fill="none" stroke="#27ae60" stroke-width="2"/>
+
+  <path d="M 316,210 Q 310,227 316,248" fill="none" stroke="#27ae60" stroke-width="2"/>
+  <path d="M 326,210 Q 332,227 326,248" fill="none" stroke="#27ae60" stroke-width="2"/>
+
+  <path d="M 357,210 Q 351,227 357,248" fill="none" stroke="#27ae60" stroke-width="2"/>
+  <path d="M 367,210 Q 373,227 367,248" fill="none" stroke="#27ae60" stroke-width="2"/>
+
+  <!-- Подвійні золоті щітки (нижній блок статора) -->
+  <path d="M 187,390 Q 180,375 187,360" fill="none" stroke="#27ae60" stroke-width="2"/>
+  <path d="M 197,390 Q 204,375 197,360" fill="none" stroke="#27ae60" stroke-width="2"/>
+
+  <path d="M 232,390 Q 225,375 232,360" fill="none" stroke="#27ae60" stroke-width="2"/>
+  <path d="M 242,390 Q 249,375 242,360" fill="none" stroke="#27ae60" stroke-width="2"/>
+
+  <path d="M 275,390 Q 269,373 275,352" fill="none" stroke="#27ae60" stroke-width="2"/>
+  <path d="M 285,390 Q 291,373 285,352" fill="none" stroke="#27ae60" stroke-width="2"/>
+
+  <path d="M 316,390 Q 310,373 316,352" fill="none" stroke="#27ae60" stroke-width="2"/>
+  <path d="M 326,390 Q 332,373 326,352" fill="none" stroke="#27ae60" stroke-width="2"/>
+
+  <path d="M 357,390 Q 351,373 357,352" fill="none" stroke="#27ae60" stroke-width="2"/>
+  <path d="M 367,390 Q 373,373 367,352" fill="none" stroke="#27ae60" stroke-width="2"/>
+
+  <!-- Підписи щіток (праворуч вгорі від статора) -->
+  <text x="440" y="160" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="start">Подвійні золоті щітки</text>
+  <text x="440" y="175" font-size="12" fill="#6b7280" text-anchor="start">(Gold-on-Gold Wire)</text>
+  <path d="M 435,168 L 375,205" fill="none" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <!-- Кабелі ротора (праворуч від вала) -->
+  <rect x="455" y="293" width="90" height="14" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="455" y1="297" x2="545" y2="297" stroke="#c0392b" stroke-width="1.5"/>
+  <line x1="455" y1="303" x2="545" y2="303" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="480" y="265" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Кабелі ротора</text>
+  <text x="480" y="280" font-size="12" fill="#6b7280" text-anchor="middle">(обертаються)</text>
+
+  <!-- Стрілка обертання ротора -->
+  <path d="M 535,280 A 18 18 0 1 1 535,320" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="548" y="304" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="start">ω (обертання)</text>
+
+  <!-- Виносні підписи елементів знизу -->
+  <text x="115" y="440" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Підшипник</text>
+  <line x1="115" y1="427" x2="115" y2="392" stroke="#6b7280" stroke-width="1" stroke-dasharray="3,2"/>
+
+  <text x="210" y="440" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Силові кільця</text>
+  <line x1="210" y1="427" x2="210" y2="362" stroke="#27ae60" stroke-width="1" stroke-dasharray="3,2"/>
+
+  <text x="290" y="440" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">Ізолятор</text>
+  <line x1="290" y1="427" x2="290" y2="368" stroke="#6b7280" stroke-width="1" stroke-dasharray="3,2"/>
+
+  <text x="365" y="440" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Сигнальні кільця</text>
+  <line x1="365" y1="427" x2="365" y2="354" stroke="#2457d6" stroke-width="1" stroke-dasharray="3,2"/>
+
+  <!-- Підсумкова плашка внизу панелі 1 -->
+  <rect x="45" y="462" width="510" height="46" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="300" y="481" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Безперервний ковзний контакт при нескінченному обертанні 360°</text>
+  <text x="300" y="497" font-size="12" fill="#1a1a1a" text-anchor="middle">Запобігає скручуванню та зношуванню провідників у поворотних вузлах</text>
+
+  <!-- ПАНЕЛЬ 2: Деталізація контакта Gold-on-Gold -->
+  <rect x="590" y="85" width="340" height="210" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="760" y="108" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">2. Деталізація контакту "Gold-on-Gold"</text>
+  <text x="760" y="125" font-size="12" fill="#6b7280" text-anchor="middle">Конструкція V-подібного канавки та золотих щіток</text>
+
+  <!-- Креслення V-канавки та щіток -->
+  <path d="M 610,170 H 635 L 655,210 L 675,170 H 700 V 260 H 610 Z" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <path d="M 635,170 L 655,210 L 675,170" fill="none" stroke="#27ae60" stroke-width="3"/>
+
+  <!-- Золоті дротяні щітки -->
+  <line x1="630" y1="145" x2="648" y2="194" stroke="#27ae60" stroke-width="2.5"/>
+  <circle cx="648" cy="194" r="3" fill="#27ae60"/>
+
+  <line x1="680" y1="145" x2="662" y2="194" stroke="#27ae60" stroke-width="2.5"/>
+  <circle cx="662" cy="194" r="3" fill="#27ae60"/>
+
+  <text x="655" y="140" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Золотий дріт</text>
+  <text x="655" y="235" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">V-канавка Au</text>
+
+  <!-- Інформаційні бейджі панелі 2 -->
+  <rect x="715" y="140" width="203" height="42" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="816.5" y="157" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Подвійний контакт (2x Wire)</text>
+  <text x="816.5" y="173" font-size="12" fill="#1a1a1a" text-anchor="middle">Резервування проти вібрацій</text>
+
+  <rect x="715" y="188" width="203" height="42" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="816.5" y="205" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Стабільний опір R_cont</text>
+  <text x="816.5" y="221" font-size="12" fill="#6b7280" text-anchor="middle">Шум / флуктуація ΔR &lt; 1 мОм</text>
+
+  <rect x="715" y="236" width="203" height="42" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="816.5" y="253" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Високий ресурс пристрою</text>
+  <text x="816.5" y="269" font-size="12" fill="#1a1a1a" text-anchor="middle">Понад 10 млн обертів</text>
+
+
+  <!-- ПАНЕЛЬ 3: Сигнали та захист від завад -->
+  <rect x="590" y="307" width="340" height="213" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="760" y="330" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">3. Передача сигналів та захист від завад</text>
+  <text x="760" y="347" font-size="12" fill="#6b7280" text-anchor="middle">Вимоги до екранування та розділення кіл</text>
+
+  <!-- Блок 3.1: Силові канали -->
+  <rect x="602" y="360" width="152" height="92" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="678" y="380" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Силові канали</text>
+  <text x="612" y="400" font-size="12" fill="#1a1a1a" text-anchor="start">• Струм: 2 А – 10 А</text>
+  <text x="612" y="418" font-size="12" fill="#1a1a1a" text-anchor="start">• Широкі доріжки</text>
+  <text x="612" y="436" font-size="12" fill="#6b7280" text-anchor="start">• Низький опір R</text>
+
+  <!-- Блок 3.2: Сигнальні канали -->
+  <rect x="764" y="360" width="156" height="92" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="842" y="380" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Сигнальні канали</text>
+  <text x="774" y="400" font-size="12" fill="#1a1a1a" text-anchor="start">• Ethernet / CAN / USB</text>
+  <text x="774" y="418" font-size="12" fill="#1a1a1a" text-anchor="start">• Кручена пара</text>
+  <text x="774" y="436" font-size="12" fill="#6b7280" text-anchor="start">• Захисний екран</text>
+
+  <!-- Блок 3.3: Захист від завад -->
+  <rect x="602" y="460" width="318" height="48" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="761" y="479" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Захист від перехресних завад (Crosstalk)</text>
+  <text x="761" y="496" font-size="12" fill="#1a1a1a" text-anchor="middle">Міжкільцеві диелектрики та одноточкове заземлення</text>
+
+</svg>

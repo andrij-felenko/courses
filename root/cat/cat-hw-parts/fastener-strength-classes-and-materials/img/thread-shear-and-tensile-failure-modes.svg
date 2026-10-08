@@ -1,0 +1,157 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Background Canvas -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Title Block -->
+  <text x="480" y="34" text-anchor="middle" font-size="18" font-weight="700" fill="#1a1a1a">Механічні види руйнування різьбового з'єднання</text>
+  <text x="480" y="56" text-anchor="middle" font-size="13" fill="#6b7280">Локалізація напружень, механізми руйнування та критичні зони: зріз витків, шийка розтягу, втомна тріщина</text>
+
+  <!-- ==================== PANEL 1: THREAD SHEAR FAILURE ==================== -->
+  <rect x="20" y="75" width="296" height="425" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  
+  <!-- Header Card 1 -->
+  <rect x="28" y="83" width="280" height="42" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="168" y="101" text-anchor="middle" font-size="14" font-weight="700" fill="#c0392b">1. Зріз витків різьби</text>
+  <text x="168" y="118" text-anchor="middle" font-size="12" fill="#6b7280">Зріз по циліндру зрощення (τ_max)</text>
+
+  <!-- Graphic Box 1 -->
+  <rect x="28" y="135" width="280" height="205" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Graphic 1: Thread profile & shear plane -->
+  <!-- Bolt core -->
+  <path d="M 60,150 L 110,150 L 110,160 L 135,170 L 110,180 L 110,190 L 135,200 L 110,210 L 110,220 L 135,230 L 110,240 L 110,265 L 60,265 Z" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <!-- Nut body -->
+  <path d="M 236,150 L 155,150 L 155,160 L 135,170 L 155,180 L 155,190 L 135,200 L 155,210 L 155,220 L 135,230 L 155,240 L 155,265 L 236,265 Z" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.5"/>
+  
+  <!-- Shear failure planes (dashed red) along base of bolt teeth -->
+  <line x1="135" y1="162" x2="135" y2="238" stroke="#c0392b" stroke-width="2" stroke-dasharray="4 3"/>
+  <path d="M 130,167 L 140,173 M 130,197 L 140,203 M 130,227 L 140,233" stroke="#c0392b" stroke-width="2"/>
+
+  <!-- Stress distribution bar on 1st thread -->
+  <path d="M 245,165 Q 275,170 245,240" fill="none" stroke="#c0392b" stroke-width="2"/>
+  <line x1="245" y1="165" x2="272" y2="165" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+
+  <!-- Load force arrows -->
+  <line x1="85" y1="260" x2="85" y2="242" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <line x1="195" y1="155" x2="195" y2="173" stroke="#6b7280" stroke-width="2" marker-end="url(#arr)"/>
+
+  <!-- Labels Graphic 1 -->
+  <text x="168" y="285" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">Площина зрізу витків (τ_max)</text>
+  <text x="168" y="305" text-anchor="middle" font-size="12" fill="#1a1a1a">Найбільше навантаження на 1-му витку</text>
+  <text x="168" y="325" text-anchor="middle" font-size="12" fill="#6b7280">F_болт (вгору)  │  F_гайка (вниз)</text>
+
+  <!-- Bullets Box 1 -->
+  <rect x="28" y="348" width="280" height="142" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="38" y="366" font-size="12" font-weight="700" fill="#1a1a1a">Характеристики та причини:</text>
+  <text x="38" y="386" font-size="12" fill="#1a1a1a">• Умова: τ_діюче > τ_в (межа зрізу)</text>
+  <text x="38" y="406" font-size="12" fill="#1a1a1a">• Причина: м'яка гайка / мала H_k</text>
+  <text x="38" y="426" font-size="12" fill="#1a1a1a">• H_k &lt; 0.8d (недостатньо витків)</text>
+
+  <!-- Status Badge 1 -->
+  <rect x="38" y="454" width="260" height="24" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="168" y="470" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">Тип: Пластично-зсувне руйнування</text>
+
+  <!-- ==================== PANEL 2: TENSILE NECKING FAILURE ==================== -->
+  <rect x="332" y="75" width="296" height="425" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Header Card 2 -->
+  <rect x="340" y="83" width="280" height="42" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="480" y="101" text-anchor="middle" font-size="14" font-weight="700" fill="#2457d6">2. В'язкий розрив (Шийка)</text>
+  <text x="480" y="118" text-anchor="middle" font-size="12" fill="#6b7280">Пластичний розтяг стержня (σ_t > R_m)</text>
+
+  <!-- Graphic Box 2 -->
+  <rect x="340" y="135" width="280" height="205" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Graphic 2: Necking profile -->
+  <!-- Top shank -->
+  <path d="M 455,150 L 505,150 L 505,180 C 505,195 492,200 492,207 C 492,215 505,220 505,235 L 505,265 L 455,265 L 455,235 C 455,220 468,215 468,207 C 468,200 455,195 455,180 Z" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+
+  <!-- Iso-stress lines in necking area -->
+  <path d="M 464,198 C 472,203 488,203 496,198" fill="none" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3 2"/>
+  <path d="M 468,207 C 474,211 486,211 492,207" fill="none" stroke="#c0392b" stroke-width="2"/>
+  <path d="M 464,216 C 472,211 488,211 496,216" fill="none" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3 2"/>
+
+  <!-- Neck dimension indicator -->
+  <line x1="468" y1="207" x2="492" y2="207" stroke="#1a1a1a" stroke-width="1" stroke-dasharray="2 2"/>
+
+  <!-- Tension Force Arrows -->
+  <line x1="480" y1="145" x2="480" y2="162" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <line x1="480" y1="270" x2="480" y2="253" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Labels Graphic 2 -->
+  <text x="480" y="285" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">Локальне звуження (Шийка d_neck)</text>
+  <text x="480" y="305" text-anchor="middle" font-size="12" fill="#1a1a1a">Значне пластичне видовження A > 12%</text>
+  <text x="480" y="325" text-anchor="middle" font-size="12" fill="#6b7280">Чашкоподібний в'язкий злам</text>
+
+  <!-- Bullets Box 2 -->
+  <rect x="340" y="348" width="280" height="142" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="350" y="366" font-size="12" font-weight="700" fill="#1a1a1a">Характеристики та причини:</text>
+  <text x="350" y="386" font-size="12" fill="#1a1a1a">• Умова: σ_осьове > R_m (межа міцності)</text>
+  <text x="350" y="406" font-size="12" fill="#1a1a1a">• Причина: перетягування (M_z > M_max)</text>
+  <text x="350" y="426" font-size="12" fill="#1a1a1a">• Руйнування по гладкому стержню/d3</text>
+
+  <!-- Status Badge 2 -->
+  <rect x="350" y="454" width="260" height="24" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="480" y="470" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">Тип: Статичне перевантаження</text>
+
+  <!-- ==================== PANEL 3: FATIGUE CRACK FAILURE ==================== -->
+  <rect x="644" y="75" width="296" height="425" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Header Card 3 -->
+  <rect x="652" y="83" width="280" height="42" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="792" y="101" text-anchor="middle" font-size="14" font-weight="700" fill="#c0392b">3. Втомна тріщина в корінні</text>
+  <text x="792" y="118" text-anchor="middle" font-size="12" fill="#6b7280">Циклічні навантаження (σ_cyc > σ_-1)</text>
+
+  <!-- Graphic Box 3 -->
+  <rect x="652" y="135" width="280" height="205" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Graphic 3: Thread root notch close-up -->
+  <!-- Thread profile with root notch -->
+  <path d="M 670,150 L 715,200 Q 735,222 755,200 L 800,150 L 890,150 L 890,265 L 670,265 Z" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.5"/>
+
+  <!-- Stress concentration arcs at root notch Q(735,222) -->
+  <path d="M 723,212 Q 735,202 747,212" fill="none" stroke="#c0392b" stroke-width="2"/>
+  <path d="M 718,206 Q 735,192 752,206" fill="none" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3 2"/>
+  <path d="M 713,200 Q 735,182 757,200" fill="none" stroke="#2457d6" stroke-width="1"/>
+
+  <!-- Fatigue Crack propagating from root notch rightwards -->
+  <path d="M 735,217 L 765,217 L 770,215 L 785,217" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+
+  <!-- Beach marks (втомні борозни) -->
+  <path d="M 750,210 Q 753,217 750,224 M 762,208 Q 766,217 762,226 M 774,206 Q 779,217 774,228" fill="none" stroke="#6b7280" stroke-width="1.2"/>
+
+  <!-- Fast fracture area indicator -->
+  <path d="M 785,217 L 820,217" fill="none" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="2 2"/>
+
+  <!-- Cyclic force indicator -->
+  <line x1="860" y1="170" x2="860" y2="185" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <line x1="860" y1="210" x2="860" y2="195" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+
+  <!-- Labels Graphic 3 -->
+  <text x="792" y="285" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">Осередок тріщини у западині різьби</text>
+  <text x="792" y="305" text-anchor="middle" font-size="12" fill="#1a1a1a">Концентрація напружень K_t = 3.0...5.0</text>
+  <text x="792" y="325" text-anchor="middle" font-size="12" fill="#6b7280">Розвиток втомних борозен (пляжних ліній)</text>
+
+  <!-- Bullets Box 3 -->
+  <rect x="652" y="348" width="280" height="142" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="662" y="366" font-size="12" font-weight="700" fill="#1a1a1a">Характеристики та причини:</text>
+  <text x="662" y="386" font-size="12" fill="#1a1a1a">• Умова: σ_цикл > σ_-1 (витривалість)</text>
+  <text x="662" y="406" font-size="12" fill="#1a1a1a">• Причина: згинальні/вібраційні сили</text>
+  <text x="662" y="426" font-size="12" fill="#1a1a1a">• Відсутність пластичних деформацій</text>
+
+  <!-- Status Badge 3 -->
+  <rect x="652" y="454" width="260" height="24" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="792" y="470" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">Тип: Циклічна втомна руйнація</text>
+</svg>

@@ -1,0 +1,184 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- White Background -->
+  <rect x="0" y="0" width="960" height="560" fill="#ffffff"/>
+
+  <defs>
+    <!-- Arrow Markers -->
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-orange" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#f97316"/>
+    </marker>
+
+    <!-- Hatch Pattern for Plastic Matrix -->
+    <pattern id="hatch-plastic" width="10" height="10" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+      <line x1="0" y1="0" x2="0" y2="10" stroke="#cbd5e1" stroke-width="1.2"/>
+    </pattern>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Геометрія посадкового отвору та босу під термовтулку</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Критичні розміри фаски, конусності, товщини стінок та резервуара розплаву</text>
+
+  <!-- LEFT PANEL: DIAGRAM -->
+
+  <!-- Boss Polymer Body (Left & Right halves) -->
+  <path d="M 190 420 Q 190 440 170 440 L 90 440 L 90 475 L 290 475 L 290 425 L 256 410 L 253 175 L 245 160 L 190 160 Z" fill="#f1f5f9" stroke="#64748b" stroke-width="1.5"/>
+  <path d="M 190 420 Q 190 440 170 440 L 90 440 L 90 475 L 290 475 L 290 425 L 256 410 L 253 175 L 245 160 L 190 160 Z" fill="url(#hatch-plastic)" opacity="0.5"/>
+
+  <path d="M 390 420 Q 390 440 410 440 L 490 440 L 490 475 L 290 475 L 290 425 L 324 410 L 327 175 L 335 160 L 390 160 Z" fill="#f1f5f9" stroke="#64748b" stroke-width="1.5"/>
+  <path d="M 390 420 Q 390 440 410 440 L 490 440 L 490 475 L 290 475 L 290 425 L 324 410 L 327 175 L 335 160 L 390 160 Z" fill="url(#hatch-plastic)" opacity="0.5"/>
+
+  <!-- Symmetry Center Line -->
+  <line x1="290" y1="70" x2="290" y2="485" stroke="#94a3b8" stroke-width="1.2" stroke-dasharray="8,4,2,4"/>
+
+  <!-- Threaded Insert Body (Brass) -->
+  <path d="M 248 160 L 332 160 L 332 168 L 329 168 L 329 225 L 322 237 L 329 250 L 329 310 L 325 340 L 255 340 L 251 310 L 251 250 L 258 237 L 251 225 L 251 168 L 248 168 Z" fill="#d97706" stroke="#78350f" stroke-width="1.5"/>
+
+  <!-- Knurling Textures on Insert -->
+  <!-- Upper Knurling Left & Right -->
+  <path d="M 251 172 L 268 185 M 251 185 L 268 198 M 251 198 L 268 211 M 251 211 L 268 224" stroke="#fef08a" stroke-width="1"/>
+  <path d="M 268 172 L 251 185 M 268 185 L 251 198 M 268 198 L 251 211 M 268 211 L 251 224" stroke="#fef08a" stroke-width="1"/>
+
+  <path d="M 329 172 L 312 185 M 329 185 L 312 198 M 329 198 L 312 211 M 329 211 L 312 224" stroke="#fef08a" stroke-width="1"/>
+  <path d="M 312 172 L 329 185 M 312 185 L 329 198 M 312 198 L 329 211 M 312 211 L 329 224" stroke="#fef08a" stroke-width="1"/>
+
+  <!-- Lower Knurling Left & Right -->
+  <path d="M 251 254 L 268 267 M 251 267 L 268 280 M 251 280 L 268 293 M 251 293 L 268 306" stroke="#fef08a" stroke-width="1"/>
+  <path d="M 268 254 L 251 267 M 268 267 L 251 280 M 268 280 L 251 293 M 268 293 L 251 306" stroke="#fef08a" stroke-width="1"/>
+
+  <path d="M 329 254 L 312 267 M 329 267 L 312 280 M 329 280 L 312 293 M 312 293 L 329 306" stroke="#fef08a" stroke-width="1"/>
+  <path d="M 312 254 L 329 267 M 312 267 L 329 280 M 312 280 L 329 293 M 329 293 L 312 306" stroke="#fef08a" stroke-width="1"/>
+
+  <!-- Internal Thread Profile M5 (Center Bore) -->
+  <rect x="270" y="160" width="40" height="180" fill="#fffbeb" stroke="#78350f" stroke-width="1"/>
+  <!-- Thread teeth left side -->
+  <path d="M 270 165 L 274 170 L 270 175 L 274 180 L 270 185 L 274 190 L 270 195 L 274 200 L 270 205 L 274 210 L 270 215 L 274 220 L 270 225 L 274 230 L 270 235 L 274 240 L 270 245 L 274 250 L 270 255 L 274 260 L 270 265 L 274 270 L 270 275 L 274 280 L 270 285 L 274 290 L 270 295 L 274 300 L 270 305 L 274 310 L 270 315 L 274 320 L 270 325 L 274 330 L 270 335" fill="none" stroke="#78350f" stroke-width="1.2"/>
+  <!-- Thread teeth right side -->
+  <path d="M 310 165 L 306 170 L 310 175 L 306 180 L 310 185 L 306 190 L 310 195 L 306 200 L 310 205 L 306 210 L 310 215 L 306 220 L 310 225 L 306 230 L 310 235 L 306 240 L 310 245 L 306 250 L 310 255 L 306 260 L 310 265 L 306 270 L 310 275 L 306 280 L 310 285 L 306 290 L 310 295 L 306 300 L 310 305 L 306 310 L 310 315 L 306 320 L 310 325 L 306 330 L 310 335" fill="none" stroke="#78350f" stroke-width="1.2"/>
+
+  <!-- Melt Zone Overlays (Orange Reflow Region) -->
+  <rect x="245" y="168" width="9" height="142" rx="2" fill="#f97316" opacity="0.4"/>
+  <rect x="245" y="168" width="9" height="142" rx="2" stroke="#ea580c" stroke-width="1" stroke-dasharray="3,3" fill="none"/>
+
+  <rect x="326" y="168" width="9" height="142" rx="2" fill="#f97316" opacity="0.4"/>
+  <rect x="326" y="168" width="9" height="142" rx="2" stroke="#ea580c" stroke-width="1" stroke-dasharray="3,3" fill="none"/>
+
+  <!-- Overflow Plastic Melt at Bottom of Hole -->
+  <path d="M 256 375 Q 275 370 290 375 Q 305 380 324 375 L 324 410 L 290 425 L 256 410 Z" fill="#ea580c" opacity="0.5"/>
+  <path d="M 256 375 Q 275 370 290 375 Q 305 380 324 375" fill="none" stroke="#c0392b" stroke-width="1.2"/>
+
+  <!-- DIMENSIONS & CALLOUTS ON DIAGRAM -->
+
+  <!-- Top Dimension D_boss -->
+  <line x1="190" y1="160" x2="190" y2="92" stroke="#94a3b8" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="390" y1="160" x2="390" y2="92" stroke="#94a3b8" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="190" y1="95" x2="390" y2="95" stroke="#1a1a1a" stroke-width="1.2" marker-start="url(#arr-dark)" marker-end="url(#arr-dark)"/>
+  <text x="290" y="88" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Зовнішній діаметр босу D_boss</text>
+
+  <!-- Top Dimension d_hole -->
+  <line x1="253" y1="160" x2="253" y2="120" stroke="#94a3b8" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="327" y1="160" x2="327" y2="120" stroke="#94a3b8" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="253" y1="125" x2="327" y2="125" stroke="#2457d6" stroke-width="1.2" marker-start="url(#arr-blue)" marker-end="url(#arr-blue)"/>
+  <text x="290" y="118" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">d_hole (діаметр отвору)</text>
+
+  <!-- Left Callout 1: Chamfer -->
+  <path d="M 175 152 L 220 152 L 246 165" stroke="#2457d6" stroke-width="1.2" fill="none" marker-end="url(#arr-blue)"/>
+  <text x="175" y="142" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">Західна фаска</text>
+  <text x="175" y="158" font-size="12" fill="#6b7280" text-anchor="end">c × 45° (центрування)</text>
+
+  <!-- Left Callout 2: Wall Thickness t_wall -->
+  <line x1="190" y1="205" x2="253" y2="205" stroke="#1a1a1a" stroke-width="1.2" marker-start="url(#arr-dark)" marker-end="url(#arr-dark)"/>
+  <text x="175" y="195" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">Товщина стінки t_wall</text>
+  <text x="175" y="211" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">≥ 0.5 · d_insert</text>
+
+  <!-- Left Callout 3: Melt Zone -->
+  <path d="M 175 270 L 210 270 L 244 265" stroke="#f97316" stroke-width="1.2" fill="none" marker-end="url(#arr-orange)"/>
+  <text x="175" y="260" font-size="12" font-weight="bold" fill="#f97316" text-anchor="end">Зона розплаву</text>
+  <text x="175" y="276" font-size="12" fill="#6b7280" text-anchor="end">(заповнення накатки)</text>
+
+  <!-- Left Callout 4: Base Fillet R -->
+  <path d="M 175 435 L 188 435" stroke="#1a1a1a" stroke-width="1.2" fill="none" marker-end="url(#arr-dark)"/>
+  <text x="175" y="424" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">Галотель босу R</text>
+  <text x="175" y="440" font-size="12" fill="#6b7280" text-anchor="end">(зменшення напружень)</text>
+
+  <!-- Right Dimension 1: L_insert -->
+  <line x1="332" y1="160" x2="420" y2="160" stroke="#94a3b8" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="325" y1="340" x2="420" y2="340" stroke="#94a3b8" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="415" y1="160" x2="415" y2="340" stroke="#1a1a1a" stroke-width="1.2" marker-start="url(#arr-dark)" marker-end="url(#arr-dark)"/>
+  <text x="425" y="244" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">L_insert</text>
+  <text x="425" y="260" font-size="12" fill="#6b7280" text-anchor="start">(довжина втулки)</text>
+
+  <!-- Right Dimension 2: h_free -->
+  <line x1="324" y1="410" x2="420" y2="410" stroke="#94a3b8" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="415" y1="340" x2="415" y2="410" stroke="#2457d6" stroke-width="1.2" marker-start="url(#arr-blue)" marker-end="url(#arr-blue)"/>
+  <text x="425" y="370" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="start">h_free</text>
+  <text x="425" y="386" font-size="12" fill="#6b7280" text-anchor="start">(резервуар розплаву)</text>
+
+  <!-- Right Dimension 3: H_hole -->
+  <line x1="420" y1="160" x2="480" y2="160" stroke="#94a3b8" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="420" y1="410" x2="480" y2="410" stroke="#94a3b8" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="475" y1="160" x2="475" y2="410" stroke="#2457d6" stroke-width="1.2" marker-start="url(#arr-blue)" marker-end="url(#arr-blue)"/>
+  <text x="483" y="278" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="start">H_hole ≥ 1.2 L</text>
+  <text x="483" y="294" font-size="12" fill="#6b7280" text-anchor="start">глибина отвору</text>
+
+  <!-- RIGHT PANEL: TECHNICAL SPECIFICATIONS & CARDS -->
+
+  <!-- Box 1: Geometric Calculations -->
+  <rect x="590" y="85" width="350" height="215" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <path d="M 590 93 Q 590 85 598 85 L 932 85 Q 940 85 940 93 L 940 121 L 590 121 Z" fill="#eaf0fd" stroke="#d0d7de" stroke-width="1"/>
+  <text x="605" y="108" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="start">ГЕОМЕТРИЧНІ РОЗРАХУНКИ БОСУ</text>
+
+  <!-- Box 1 Item 1 -->
+  <rect x="605" y="130" width="60" height="20" rx="4" fill="#2457d6"/>
+  <text x="635" y="144" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">D_boss</text>
+  <text x="675" y="144" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="start">≥ 2.0 · d_insert</text>
+  <text x="605" y="164" font-size="12" fill="#6b7280" text-anchor="start">Запобігає радіальному розриву</text>
+
+  <!-- Box 1 Item 2 -->
+  <rect x="605" y="176" width="60" height="20" rx="4" fill="#2457d6"/>
+  <text x="635" y="190" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">t_wall</text>
+  <text x="675" y="190" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="start">≥ 0.5 · d_insert</text>
+  <text x="605" y="210" font-size="12" fill="#6b7280" text-anchor="start">Мінімальна товщина стінки босу</text>
+
+  <!-- Box 1 Item 3 -->
+  <rect x="605" y="222" width="60" height="20" rx="4" fill="#2457d6"/>
+  <text x="635" y="236" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">H_hole</text>
+  <text x="675" y="236" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="start">= L_insert + (0.15...0.20)L</text>
+  <text x="605" y="256" font-size="12" fill="#6b7280" text-anchor="start">Запас під надлишок розплаву h_free</text>
+
+  <!-- Box 1 Summary Line -->
+  <text x="605" y="280" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">Ухил θ: 0.5°...1.0° | Фаска c: 0.5–0.8 мм</text>
+
+  <!-- Box 2: Installation & Best Practices -->
+  <rect x="590" y="315" width="350" height="220" rx="8" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <path d="M 590 323 Q 590 315 598 315 L 932 315 Q 940 315 940 323 L 940 351 L 590 351 Z" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="605" y="338" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="start">ТЕХНОЛОГІЯ ТЕРМОМОНТАЖУ</text>
+
+  <!-- Box 2 Content -->
+  <text x="605" y="362" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="start">Режими нагріву матеріалу:</text>
+  <text x="615" y="380" font-size="12" fill="#1a1a1a" text-anchor="start">• PLA / PETG / ABS: 200°C – 250°C</text>
+  <text x="615" y="396" font-size="12" fill="#1a1a1a" text-anchor="start">• PA / PC / CF-композити: 270°C – 320°C</text>
+
+  <line x1="605" y1="408" x2="925" y2="408" stroke="#d0d7de" stroke-width="1"/>
+
+  <text x="605" y="426" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">Рекомендації з якості:</text>
+
+  <!-- Green Card "ПРАВИЛЬНО" -->
+  <rect x="605" y="436" width="155" height="86" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="615" y="454" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="start">✓ ПРАВИЛЬНО</text>
+  <text x="615" y="472" font-size="12" fill="#1a1a1a" text-anchor="start">• Західна фаска</text>
+  <text x="615" y="488" font-size="12" fill="#1a1a1a" text-anchor="start">• Запас h_free</text>
+  <text x="615" y="504" font-size="12" fill="#1a1a1a" text-anchor="start">• Галотель у босу</text>
+
+  <!-- Red Card "ДЕФЕКТИ" -->
+  <rect x="770" y="436" width="155" height="86" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="780" y="454" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="start">✗ ДЕФЕКТИ</text>
+  <text x="780" y="472" font-size="12" fill="#1a1a1a" text-anchor="start">• Перекіс втулки</text>
+  <text x="780" y="488" font-size="12" fill="#1a1a1a" text-anchor="start">• Заливання різьби</text>
+  <text x="780" y="504" font-size="12" fill="#1a1a1a" text-anchor="start">• Тріщини стінки</text>
+</svg>

@@ -1,0 +1,113 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 490" width="960" height="490" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="490" fill="white"/>
+
+  <!-- Header -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Конфлікт на шині (Bus Contention) та струм короткого замикання</text>
+  <text x="480" y="54" text-anchor="middle" font-size="13" fill="#6b7280">Одночасна активація двох виходів із протилежними рівнями створює шлях Vcc → GND</text>
+
+  <!-- Left Panel: Buffer A -->
+  <rect x="40" y="75" width="310" height="335" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="195" y="98" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Буфер A (Вихід HIGH)</text>
+  <text x="195" y="118" text-anchor="middle" font-size="12" fill="#6b7280">OE_A = 0 В (Увімкнено) | Вхід = 1</text>
+
+  <!-- Vcc A -->
+  <text x="140" y="142" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Vcc (+3.3 В)</text>
+  <line x1="125" y1="148" x2="155" y2="148" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="140" y1="148" x2="140" y2="165" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- PMOS A (ON) -->
+  <rect x="90" y="165" width="100" height="54" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="140" y="186" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">PMOS (ON)</text>
+  <text x="140" y="204" text-anchor="middle" font-size="11" fill="#1a1a1a">R_on ≈ 10 Ом</text>
+  <text x="205" y="195" text-anchor="start" font-size="11" font-weight="bold" fill="#27ae60">Провідний стан</text>
+
+  <!-- Wires A -->
+  <line x1="140" y1="219" x2="140" y2="285" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="140" cy="250" r="3.5" fill="#1a1a1a"/>
+  <line x1="140" y1="250" x2="350" y2="250" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="280" y="240" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Вихід Y_A = HIGH</text>
+
+  <!-- NMOS A (OFF) -->
+  <rect x="90" y="285" width="100" height="54" rx="4" fill="#ffffff" stroke="#9ca3af" stroke-width="1.5" stroke-dasharray="4 3"/>
+  <text x="140" y="306" text-anchor="middle" font-size="12" font-weight="bold" fill="#6b7280">NMOS (OFF)</text>
+  <text x="140" y="324" text-anchor="middle" font-size="11" fill="#6b7280">Закрито (Hi-Z)</text>
+
+  <!-- GND A -->
+  <line x1="140" y1="339" x2="140" y2="365" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="125" y1="365" x2="155" y2="365" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="130" y1="370" x2="150" y2="370" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="135" y1="375" x2="145" y2="375" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="140" y="395" text-anchor="middle" font-size="12" fill="#1a1a1a">GND (0 В)</text>
+
+  <!-- Right Panel: Buffer B -->
+  <rect x="610" y="75" width="310" height="335" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="765" y="98" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Буфер B (Вихід LOW)</text>
+  <text x="765" y="118" text-anchor="middle" font-size="12" fill="#6b7280">OE_B = 0 В (Увімкнено) | Вхід = 0</text>
+
+  <!-- Vcc B -->
+  <text x="820" y="142" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Vcc (+3.3 В)</text>
+  <line x1="805" y1="148" x2="835" y2="148" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="820" y1="148" x2="820" y2="165" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- PMOS B (OFF) -->
+  <rect x="770" y="165" width="100" height="54" rx="4" fill="#ffffff" stroke="#9ca3af" stroke-width="1.5" stroke-dasharray="4 3"/>
+  <text x="820" y="186" text-anchor="middle" font-size="12" font-weight="bold" fill="#6b7280">PMOS (OFF)</text>
+  <text x="820" y="204" text-anchor="middle" font-size="11" fill="#6b7280">Закрито (Hi-Z)</text>
+
+  <!-- Wires B -->
+  <line x1="820" y1="219" x2="820" y2="285" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="820" cy="250" r="3.5" fill="#1a1a1a"/>
+  <line x1="610" y1="250" x2="820" y2="250" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="680" y="240" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Вихід Y_B = LOW</text>
+
+  <!-- NMOS B (ON) -->
+  <rect x="770" y="285" width="100" height="54" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="820" y="306" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">NMOS (ON)</text>
+  <text x="820" y="324" text-anchor="middle" font-size="11" fill="#1a1a1a">R_on ≈ 10 Ом</text>
+  <text x="755" y="315" text-anchor="end" font-size="11" font-weight="bold" fill="#c0392b">Провідний стан</text>
+
+  <!-- GND B -->
+  <line x1="820" y1="339" x2="820" y2="365" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="805" y1="365" x2="835" y2="365" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="810" y1="370" x2="830" y2="370" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="815" y1="375" x2="825" y2="375" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="820" y="395" text-anchor="middle" font-size="12" fill="#1a1a1a">GND (0 В)</text>
+
+  <!-- Center Bus Line and Short Circuit Path -->
+  <line x1="350" y1="250" x2="610" y2="250" stroke="#1a1a1a" stroke-width="3"/>
+  
+  <!-- Red Short Circuit Current Flow Overlay (I_sc) -->
+  <line x1="140" y1="148" x2="140" y2="225" stroke="#c0392b" stroke-width="3.5" stroke-dasharray="6 4" marker-end="url(#arr-red)"/>
+  <line x1="140" y1="250" x2="350" y2="250" stroke="#c0392b" stroke-width="3.5" stroke-dasharray="6 4" marker-end="url(#arr-red)"/>
+  <line x1="350" y1="250" x2="610" y2="250" stroke="#c0392b" stroke-width="3.5" stroke-dasharray="6 4" marker-end="url(#arr-red)"/>
+  <line x1="610" y1="250" x2="820" y2="250" stroke="#c0392b" stroke-width="3.5" stroke-dasharray="6 4" marker-end="url(#arr-red)"/>
+  <line x1="820" y1="250" x2="820" y2="355" stroke="#c0392b" stroke-width="3.5" stroke-dasharray="6 4" marker-end="url(#arr-red)"/>
+
+  <text x="480" y="175" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Спільна шина даних</text>
+  <text x="480" y="193" text-anchor="middle" font-size="11" fill="#6b7280">(Одночасний доступ)</text>
+  <text x="480" y="236" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Шлях струму I_sc</text>
+
+  <!-- Problem Warning Box -->
+  <rect x="370" y="270" width="220" height="135" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="480" y="292" text-anchor="middle" font-size="13" font-weight="bold" fill="#c0392b">КОНФЛІКТ НА ШИНІ</text>
+  <line x1="385" y1="300" x2="575" y2="300" stroke="#f5c6cb" stroke-width="1"/>
+  <text x="385" y="318" text-anchor="start" font-size="11" fill="#1a1a1a">• U_bus ≈ 1.65 В (Невизначено)</text>
+  <text x="385" y="338" text-anchor="start" font-size="11" font-weight="bold" fill="#c0392b">• I_sc = 3.3В / 20Ом = 165 мА!</text>
+  <text x="385" y="358" text-anchor="start" font-size="11" fill="#1a1a1a">• Перегрів кристалу</text>
+  <text x="385" y="378" text-anchor="start" font-size="11" fill="#1a1a1a">• Падіння напруги живлення</text>
+
+  <!-- Solution Panel at Bottom -->
+  <rect x="40" y="425" width="880" height="45" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="55" y="452" text-anchor="start" font-size="13" font-weight="bold" fill="#27ae60">Правильне рішення:</text>
+  <text x="210" y="452" text-anchor="start" font-size="11" fill="#1a1a1a">Апаратне або часове блокування OE (Break-Before-Make): дозволяти вихід лише ОДНОГО буфера в кожен момент часу</text>
+</svg>

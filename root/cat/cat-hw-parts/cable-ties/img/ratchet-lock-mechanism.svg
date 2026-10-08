@@ -1,0 +1,132 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 500" width="960" height="500" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="500" fill="white"/>
+
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+    <pattern id="hatch" width="8" height="8" patternTransform="rotate(45 0 0)" patternUnits="userSpaceOnUse">
+      <line x1="0" y1="0" x2="0" y2="8" stroke="#cbd5e1" stroke-width="1.5"/>
+    </pattern>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="28" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Конструкція та механіка храпового замка пластикового хомута</text>
+  <text x="480" y="48" text-anchor="middle" font-size="13" fill="#6b7280">Асиметрія профілю зубців забезпечує вільне затягування та саморозклинювання при навантаженні</text>
+
+  <!-- LEFT PANEL: Insertion / Free Slide -->
+  <rect x="20" y="65" width="445" height="415" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="35" y="77" width="415" height="30" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="242" y="97" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">1. Прямий хід (Вільне затягування стрічки)</text>
+
+  <!-- Housing cutaway Top (Left) -->
+  <path d="M 35,130 L 430,130 L 430,165 L 175,165 L 135,180 L 35,180 Z" fill="#e2e8f0" stroke="#475569" stroke-width="2"/>
+  <path d="M 35,130 L 430,130 L 430,165 L 175,165 L 135,180 L 35,180 Z" fill="url(#hatch)"/>
+  <text x="35" y="123" text-anchor="start" font-size="12" font-weight="bold" fill="#1a1a1a">Корпус замка (PA66)</text>
+
+  <!-- Housing cutaway Bottom (Left) -->
+  <path d="M 35,295 L 430,295 L 430,325 L 35,325 Z" fill="#e2e8f0" stroke="#475569" stroke-width="2"/>
+  <path d="M 35,295 L 430,295 L 430,325 L 35,325 Z" fill="url(#hatch)"/>
+
+  <!-- Strap body & teeth (Panel 1: Lifted/Sliding State) -->
+  <path d="M 35,295 L 430,295 L 430,275 L 401,275 L 377,259 L 377,275 L 353,259 L 353,275 L 329,259 L 329,275 L 305,259 L 305,275 L 281,259 L 281,275 L 257,259 L 257,275 L 233,259 L 233,275 L 209,259 L 209,275 L 185,259 L 185,275 L 161,259 L 161,275 L 137,259 L 137,275 L 113,259 L 113,275 L 89,259 L 89,275 L 65,259 L 65,275 L 35,275 Z" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+
+  <!-- Strap label (Panel 1) -->
+  <rect x="42" y="303" width="126" height="18" rx="3" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+  <text x="105" y="316" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Зубчаста стрічка</text>
+
+  <!-- Flexed Pawl (Panel 1: Lifted Up) -->
+  <path d="M 135,165 L 175,165 L 265,225 L 265,248 L 247,248 L 231,258 L 231,248 L 215,258 L 215,248 L 195,200 Z" fill="#dbeafe" stroke="#2457d6" stroke-width="2"/>
+
+  <!-- Pawl Label & Pointer (Panel 1) -->
+  <text x="45" y="195" text-anchor="start" font-size="12" font-weight="bold" fill="#2457d6">Пружний засувок</text>
+  <line x1="148" y1="191" x2="185" y2="198" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#arr-blue)"/>
+
+  <!-- Flexion arrow & label -->
+  <path d="M 225,188 Q 235,172 245,162" fill="none" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#arr-blue)"/>
+  <text x="215" y="152" text-anchor="start" font-size="12" font-weight="bold" fill="#2457d6">Пружний вигин δ ↑</text>
+
+  <!-- Angle alpha pointer & label -->
+  <line x1="195" y1="236" x2="215" y2="264" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+  <text x="45" y="240" text-anchor="start" font-size="12" fill="#1a1a1a">Похила грань (α ≈ 35°)</text>
+
+  <!-- Insertion Force Arrow F_pull & label pill -->
+  <line x1="250" y1="310" x2="350" y2="310" stroke="#2457d6" stroke-width="3" marker-end="url(#arr-blue)"/>
+  <rect x="250" y="280" width="135" height="18" rx="3" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+  <text x="317" y="293" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Сила натягу F_pull →</text>
+
+  <!-- Panel 1 Bottom Card -->
+  <rect x="35" y="345" width="415" height="115" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="50" y="355" width="385" height="24" rx="4" fill="#eaf0fd"/>
+  <text x="242" y="371" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Вхідний кут ковзання α ≈ 30°...40° (легке затягування)</text>
+
+  <text x="55" y="395" text-anchor="start" font-size="12" fill="#1a1a1a">• Похила грань стрічки відштовхує засувок вгору</text>
+  <text x="55" y="417" text-anchor="start" font-size="12" fill="#1a1a1a">• Поліамід PA66 деформується в пружній зоні</text>
+  <text x="55" y="439" text-anchor="start" font-size="12" fill="#1a1a1a">• Мінімальний опір просуванню при монтажі</text>
+
+
+  <!-- RIGHT PANEL: Locking / Wedging -->
+  <rect x="495" y="65" width="445" height="415" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="510" y="77" width="415" height="30" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="717" y="97" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">2. Зворотний хід (Блокування та зачеплення)</text>
+
+  <!-- Housing cutaway Top (Right) -->
+  <path d="M 510,130 L 905,130 L 905,165 L 650,165 L 610,180 L 510,180 Z" fill="#e2e8f0" stroke="#475569" stroke-width="2"/>
+  <path d="M 510,130 L 905,130 L 905,165 L 650,165 L 610,180 L 510,180 Z" fill="url(#hatch)"/>
+  <text x="510" y="123" text-anchor="start" font-size="12" font-weight="bold" fill="#1a1a1a">Корпус замка (PA66)</text>
+
+  <!-- Housing cutaway Bottom (Right) -->
+  <path d="M 510,295 L 905,295 L 905,325 L 510,325 Z" fill="#e2e8f0" stroke="#475569" stroke-width="2"/>
+  <path d="M 510,295 L 905,295 L 905,325 L 510,325 Z" fill="url(#hatch)"/>
+
+  <!-- Strap body & teeth (Panel 2: Engaged State) -->
+  <path d="M 510,295 L 905,295 L 905,275 L 876,275 L 852,259 L 852,275 L 828,259 L 828,275 L 804,259 L 804,275 L 780,259 L 780,275 L 756,259 L 756,275 L 732,259 L 732,275 L 708,259 L 708,275 L 684,259 L 684,275 L 660,259 L 660,275 L 636,259 L 636,275 L 612,259 L 612,275 L 588,259 L 588,275 L 564,259 L 564,275 L 540,259 L 540,275 L 510,275 Z" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+
+  <!-- Strap label (Panel 2) -->
+  <rect x="800" y="303" width="100" height="18" rx="3" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+  <text x="850" y="316" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Стрічка хомута</text>
+
+  <!-- Engaged Pawl (Panel 2: Dropped down into notch) -->
+  <path d="M 610,165 L 650,165 L 740,225 L 756,275 L 732,275 L 732,259 L 708,275 L 708,259 L 684,275 L 684,259 L 660,210 Z" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+
+  <!-- Engaged Pawl Label & Pointer -->
+  <text x="520" y="172" text-anchor="start" font-size="12" font-weight="bold" fill="#27ae60">Засувок у зачепленні</text>
+  <line x1="656" y1="172" x2="685" y2="205" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#arr-green)"/>
+
+  <!-- Contact faces highlights (Thick green contact lines) -->
+  <line x1="684" y1="259" x2="684" y2="275" stroke="#27ae60" stroke-width="3.5"/>
+  <line x1="708" y1="259" x2="708" y2="275" stroke="#27ae60" stroke-width="3.5"/>
+  <line x1="732" y1="259" x2="732" y2="275" stroke="#27ae60" stroke-width="3.5"/>
+
+  <!-- Wedging Force Vector F_wedge & label pill -->
+  <line x1="720" y1="250" x2="640" y2="195" stroke="#27ae60" stroke-width="3" marker-end="url(#arr-green)"/>
+  <rect x="710" y="170" width="205" height="18" rx="3" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+  <text x="812" y="183" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Реакція розклинювання F_wedge</text>
+
+  <!-- Angle beta pointer & label -->
+  <line x1="740" y1="235" x2="710" y2="265" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+  <text x="745" y="235" text-anchor="start" font-size="12" font-weight="bold" fill="#c0392b">Упорні грані (β ≈ 85°...90°)</text>
+
+  <!-- Tensile Load Force Arrow F_tensile & label pill -->
+  <line x1="660" y1="310" x2="560" y2="310" stroke="#c0392b" stroke-width="3" marker-end="url(#arr-red)"/>
+  <rect x="545" y="280" width="195" height="18" rx="3" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+  <text x="642" y="293" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">← Розривне зусилля F_tensile</text>
+
+  <!-- Panel 2 Bottom Card -->
+  <rect x="510" y="345" width="415" height="115" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="525" y="355" width="385" height="24" rx="4" fill="#e9f7ef"/>
+  <text x="717" y="371" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Кут упору β ≈ 85°...90° (максимальна міцність)</text>
+
+  <text x="530" y="395" text-anchor="start" font-size="12" fill="#1a1a1a">• Упорні грані сприймають зсувне навантаження</text>
+  <text x="530" y="417" text-anchor="start" font-size="12" fill="#1a1a1a">• Засувок працює на стиск, передаючи силу на корпус</text>
+  <text x="530" y="439" text-anchor="start" font-size="12" fill="#1a1a1a">• Ефект саморозклинювання запобігає вискочуванню</text>
+</svg>

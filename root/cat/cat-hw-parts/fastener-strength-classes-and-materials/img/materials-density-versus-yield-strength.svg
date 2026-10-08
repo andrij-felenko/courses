@@ -1,0 +1,164 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- White background -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Definitions / Markers -->
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Title and Subtitle -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Порівняння питомої міцності та густини матеріалів кріплення</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Титан Grade 5 забезпечує високу міцність при низькій густині, досягаючи найвищої питомої міцності</text>
+
+  <!-- ==================== LEFT MAIN CHART PANEL ==================== -->
+  <rect x="30" y="75" width="590" height="380" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Panel Header -->
+  <text x="45" y="98" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="start">Параметри матеріалів кріплення</text>
+
+  <!-- Legend -->
+  <rect x="330" y="87" width="14" height="12" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" rx="2"/>
+  <text x="350" y="97" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="start">Густина ρ, г/см³</text>
+
+  <rect x="455" y="87" width="14" height="12" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="2"/>
+  <text x="475" y="97" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="start">σ_y/ρ, МПа·см³/г</text>
+
+  <!-- Grid lines & Left Y-axis (Density ρ) -->
+  <!-- Grid 0 (y=390) -->
+  <line x1="90" y1="390" x2="590" y2="390" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="82" y="394" font-size="11" fill="#6b7280" text-anchor="end">0</text>
+
+  <!-- Grid 2.5 (y=325) -->
+  <line x1="90" y1="325" x2="590" y2="325" stroke="#e5e7eb" stroke-dasharray="3,3"/>
+  <text x="82" y="329" font-size="11" fill="#6b7280" text-anchor="end">2.5</text>
+
+  <!-- Grid 5.0 (y=260) -->
+  <line x1="90" y1="260" x2="590" y2="260" stroke="#e5e7eb" stroke-dasharray="3,3"/>
+  <text x="82" y="264" font-size="11" fill="#6b7280" text-anchor="end">5.0</text>
+
+  <!-- Grid 7.5 (y=195) -->
+  <line x1="90" y1="195" x2="590" y2="195" stroke="#e5e7eb" stroke-dasharray="3,3"/>
+  <text x="82" y="199" font-size="11" fill="#6b7280" text-anchor="end">7.5</text>
+
+  <!-- Grid 10.0 (y=130) -->
+  <line x1="90" y1="130" x2="590" y2="130" stroke="#e5e7eb" stroke-dasharray="3,3"/>
+  <text x="82" y="134" font-size="11" fill="#6b7280" text-anchor="end">10.0</text>
+
+  <!-- Left Y-axis line -->
+  <line x1="90" y1="120" x2="90" y2="390" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="42" y="114" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="start">ρ (г/см³)</text>
+
+  <!-- Right Y-axis (Specific Strength σ_y/ρ) -->
+  <line x1="590" y1="120" x2="590" y2="390" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="542" y="114" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="start">σ_y/ρ (МПа·см³/г)</text>
+
+  <!-- Right Y-axis Ticks -->
+  <text x="598" y="394" font-size="11" fill="#2457d6" text-anchor="start">0</text>
+  <text x="598" y="329" font-size="11" fill="#2457d6" text-anchor="start">62.5</text>
+  <text x="598" y="264" font-size="11" fill="#2457d6" text-anchor="start">125</text>
+  <text x="598" y="199" font-size="11" fill="#2457d6" text-anchor="start">187.5</text>
+  <text x="598" y="134" font-size="11" fill="#2457d6" text-anchor="start">250</text>
+
+  <!-- ==================== BARS & VALUES ==================== -->
+
+  <!-- Group 1: Сталь 8.8 (X center: 152) -->
+  <!-- Density bar: h=204, y=186 -->
+  <rect x="125" y="186" width="24" height="204" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" rx="3"/>
+  <text x="137" y="176" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">7.85</text>
+
+  <!-- Specific Strength bar: h=85, y=305 -->
+  <rect x="155" y="305" width="24" height="85" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="3"/>
+  <text x="167" y="295" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">81.5</text>
+
+  <!-- Label Group 1 -->
+  <text x="152" y="410" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Сталь 8.8</text>
+  <text x="152" y="425" font-size="11" fill="#6b7280" text-anchor="middle">σ_y = 640 МПа</text>
+
+  <!-- Group 2: Сталь 10.9 (X center: 277) -->
+  <!-- Density bar: h=204, y=186 -->
+  <rect x="250" y="186" width="24" height="204" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" rx="3"/>
+  <text x="262" y="176" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">7.85</text>
+
+  <!-- Specific Strength bar: h=119, y=271 -->
+  <rect x="280" y="271" width="24" height="119" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="3"/>
+  <!-- Place text at y=248 to avoid grid line y=260 -->
+  <text x="292" y="248" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">114.6</text>
+
+  <!-- Label Group 2 -->
+  <text x="277" y="410" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Сталь 10.9</text>
+  <text x="277" y="425" font-size="11" fill="#6b7280" text-anchor="middle">σ_y = 900 МПа</text>
+
+  <!-- Group 3: A2 / A4-70 (X center: 402) -->
+  <!-- Density bar: h=205, y=185 -->
+  <rect x="375" y="185" width="24" height="205" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" rx="3"/>
+  <text x="387" y="175" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">7.90</text>
+
+  <!-- Specific Strength bar: h=59, y=331 -->
+  <rect x="405" y="331" width="24" height="59" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="3"/>
+  <text x="417" y="321" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">57.0</text>
+
+  <!-- Label Group 3 -->
+  <text x="402" y="410" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">A2 / A4-70</text>
+  <text x="402" y="425" font-size="11" fill="#6b7280" text-anchor="middle">σ_y = 450 МПа</text>
+
+  <!-- Group 4: Титан Grade 5 (X center: 527) -->
+  <!-- Density bar: h=115, y=275 -->
+  <rect x="500" y="275" width="24" height="115" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="3"/>
+  <!-- Place text at y=248 to avoid grid line y=260 -->
+  <text x="512" y="248" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">4.43</text>
+
+  <!-- Specific Strength bar: h=207, y=183 -->
+  <rect x="530" y="183" width="24" height="207" fill="#e9f7ef" stroke="#27ae60" stroke-width="2" rx="3"/>
+  <text x="542" y="173" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">198.6</text>
+
+  <!-- Highlight Badge for Titanium -->
+  <rect x="495" y="140" width="70" height="18" rx="3" fill="#27ae60"/>
+  <text x="530" y="153" font-size="11" font-weight="bold" fill="white" text-anchor="middle">+73% σ_y/ρ</text>
+
+  <!-- Label Group 4 -->
+  <text x="527" y="410" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Титан Gr5</text>
+  <text x="527" y="425" font-size="11" fill="#6b7280" text-anchor="middle">σ_y = 880 МПа</text>
+
+
+  <!-- ==================== RIGHT PANEL: CARDS ==================== -->
+
+  <!-- Card 1: Сталь 10.9 -->
+  <rect x="645" y="75" width="285" height="115" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="660" y="96" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="start">Вуглецева сталь 10.9</text>
+  <text x="660" y="116" font-size="12" fill="#1a1a1a" text-anchor="start">• Межа плинності σ_y = 900 МПа</text>
+  <text x="660" y="134" font-size="12" fill="#1a1a1a" text-anchor="start">• Велика густина (ρ = 7.85 г/см³)</text>
+  <text x="660" y="152" font-size="12" fill="#6b7280" text-anchor="start">Висока міцність при значній масі</text>
+  <text x="660" y="170" font-size="12" fill="#c0392b" text-anchor="start">Потребує покриття проти корозії</text>
+
+  <!-- Card 2: A2/A4-70 -->
+  <rect x="645" y="205" width="285" height="120" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="660" y="226" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="start">Нержавіючі сталі A2 / A4-70</text>
+  <text x="660" y="246" font-size="12" fill="#1a1a1a" text-anchor="start">• Помірні навантаження (σ_y = 450 МПа)</text>
+  <text x="660" y="264" font-size="12" fill="#1a1a1a" text-anchor="start">• Низька питома міцність (57 МПа·см³/г)</text>
+  <text x="660" y="282" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="start">Високий ризик задирання різьби</text>
+  <text x="660" y="304" font-size="11" fill="#6b7280" text-anchor="start">Монтаж із антизадирним мастилом</text>
+
+  <!-- Card 3: Титан Grade 5 -->
+  <rect x="645" y="340" width="285" height="115" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="660" y="361" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="start">Титановий сплав Grade 5</text>
+  <text x="660" y="381" font-size="12" fill="#1a1a1a" text-anchor="start">• Маса менша на 44% відносно сталі</text>
+  <text x="660" y="399" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="start">Питома міцність у 3.5 рази вища за A2</text>
+  <text x="660" y="417" font-size="12" fill="#1a1a1a" text-anchor="start">• Відмінна корозійна стійкість</text>
+  <text x="660" y="435" font-size="11" fill="#6b7280" text-anchor="start">Вимагає anti-seize змащування</text>
+
+
+  <!-- ==================== BOTTOM SUMMARY BAR ==================== -->
+  <rect x="30" y="475" width="900" height="65" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="45" y="496" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="start">Інженерний висновок:</text>
+  <text x="45" y="514" font-size="12" fill="#1a1a1a" text-anchor="start">Питома міцність σ_y/ρ визначає масову ефективність матеріалу: Титан Gr5 має найвищий показник (198.6 МПа·см³/г),</text>
+  <text x="45" y="531" font-size="12" fill="#1a1a1a" text-anchor="start">що на 73% перевищує сталь 10.9 (114.6 МПа·см³/г) та у 3.5 рази — нержавіючу сталь A2/A4-70 (57.0 МПа·см³/г).</text>
+</svg>

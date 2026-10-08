@@ -1,0 +1,140 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 500" width="960" height="500" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Canvas Background -->
+  <rect x="0" y="0" width="960" height="500" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="38" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Конструкція обтискного контакту JST-SM та механіка фіксації в корпусі</text>
+  <text x="480" y="60" text-anchor="middle" font-size="13" fill="#6b7280">Пружинний вусик-фіксатор замикається за упор корпусу, а подвійний обтиск забезпечує контакт і розвантаження</text>
+
+  <!-- Panel 1 (Left): Terminal Elements & Geometry -->
+  <rect x="30" y="80" width="435" height="395" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="45" y="105" font-size="14" font-weight="bold" fill="#1a1a1a">1. Елементи обтискного контакту (Pin / Socket)</text>
+
+  <!-- Graphic: Wire + Terminal Callout Graphic -->
+  <!-- Wire Insulation -->
+  <rect x="55" y="174" width="70" height="34" rx="3" fill="#9ca3af" stroke="#1a1a1a" stroke-width="1.5"/>
+  <!-- Copper Strands inside -->
+  <line x1="125" y1="184" x2="225" y2="184" stroke="#d97706" stroke-width="2.5"/>
+  <line x1="125" y1="191" x2="225" y2="191" stroke="#d97706" stroke-width="2.5"/>
+  <line x1="125" y1="198" x2="225" y2="198" stroke="#d97706" stroke-width="2.5"/>
+
+  <!-- Insulation Crimp Barrel (Zone 1) -->
+  <rect x="115" y="166" width="36" height="50" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+
+  <!-- Wire Crimp Barrel (Zone 2) -->
+  <rect x="180" y="176" width="38" height="30" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+
+  <!-- Stem / Body -->
+  <rect x="218" y="184" width="45" height="14" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+
+  <!-- Spring Retaining Tang (Locking Barb / Latch) -->
+  <path d="M 238 184 L 268 160 L 278 160 L 255 184 Z" fill="#c0392b" stroke="#1a1a1a" stroke-width="1"/>
+
+  <!-- Pin Extension Tip -->
+  <rect x="263" y="187" width="85" height="8" rx="2" fill="#2457d6" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Callout Lines and Labels for Panel 1 -->
+  <!-- Zone 1 Callout -->
+  <line x1="133" y1="166" x2="133" y2="150" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="133" y="130" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Обтиск ізоляції</text>
+  <text x="133" y="144" text-anchor="middle" font-size="12" fill="#6b7280">(Розвантаження)</text>
+
+  <!-- Zone 2 Callout -->
+  <line x1="199" y1="176" x2="199" y2="150" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="235" y="130" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Обтиск жили</text>
+  <text x="235" y="144" text-anchor="middle" font-size="12" fill="#6b7280">(Електричний контакт)</text>
+
+  <!-- Retaining Tang Callout -->
+  <line x1="273" y1="160" x2="310" y2="150" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="355" y="130" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Пружинний вусик</text>
+  <text x="355" y="144" text-anchor="middle" font-size="12" fill="#6b7280">(Locking Tang)</text>
+
+  <!-- Pin Tip Callout -->
+  <line x1="320" y1="195" x2="320" y2="220" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="365" y="235" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Штир (Pin)</text>
+
+  <!-- Summary Card Box in Panel 1 -->
+  <rect x="45" y="265" width="405" height="190" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="60" y="288" font-size="13" font-weight="bold" fill="#1a1a1a">Ключові параметри контакту JST-SM:</text>
+  <text x="60" y="312" font-size="12" fill="#1a1a1a">• Матеріал: фосфориста бронза / луджена латунь</text>
+  <text x="60" y="334" font-size="12" fill="#1a1a1a">• Сумісний дріт: AWG 28...22 (0,08...0,33 мм²)</text>
+  <text x="60" y="356" font-size="12" fill="#1a1a1a">• Подвійний обтиск B-crimp (жила + ізоляція)</text>
+  <text x="60" y="378" font-size="12" fill="#1a1a1a">• Номінальний струм: до 3 А (на контакт)</text>
+  <text x="60" y="400" font-size="12" font-weight="bold" fill="#2457d6">• Механізм retention: консольний вусик-фіксатор</text>
+  <text x="60" y="422" font-size="12" fill="#6b7280">• Крок між контактами: 2,5 мм</text>
+  <text x="60" y="444" font-size="12" fill="#6b7280">• Опір контакту: ≤ 10 мОм</text>
+
+  <!-- Panel 2 (Right): Insertion & Locking Mechanism -->
+  <rect x="495" y="80" width="435" height="395" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="510" y="105" font-size="14" font-weight="bold" fill="#1a1a1a">2. Процес вставляння та фіксації (Retention)</text>
+
+  <!-- State A: Insertion -->
+  <rect x="510" y="120" width="405" height="160" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="525" y="140" font-size="13" font-weight="bold" fill="#2457d6">А. Вставляння: вусик стискається в каналі</text>
+
+  <!-- Housing Wall Upper State A -->
+  <path d="M 525 152 L 675 152 L 675 172 L 720 172 L 720 152 L 895 152 L 895 144 L 525 144 Z" fill="#e5e7eb" stroke="#1a1a1a" stroke-width="1.5"/>
+  <!-- Housing Wall Lower State A -->
+  <rect x="525" y="214" width="370" height="10" fill="#e5e7eb" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Insertion Motion Arrow -->
+  <line x1="535" y1="193" x2="570" y2="193" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+  <text x="550" y="172" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Вставляння F_ins</text>
+
+  <!-- Terminal State A -->
+  <rect x="585" y="193" width="70" height="14" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <!-- Pressed Tang -->
+  <path d="M 615 193 L 650 180 L 660 180 L 638 193 Z" fill="#c0392b" stroke="#1a1a1a" stroke-width="1"/>
+  <!-- Pin Tip State A -->
+  <rect x="655" y="196" width="55" height="8" rx="2" fill="#2457d6" stroke="#1a1a1a" stroke-width="1"/>
+
+  <!-- Callout State A -->
+  <line x1="655" y1="180" x2="735" y2="190" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <text x="745" y="195" font-size="12" font-weight="bold" fill="#c0392b">Вусик стиснутий</text>
+  <text x="745" y="210" font-size="12" fill="#6b7280">стінкою каналу</text>
+
+  <text x="525" y="265" font-size="12" fill="#1a1a1a">Пружна деформація вусика дає контакту пройти звуження</text>
+
+  <!-- State B: Lock / Engaged -->
+  <rect x="510" y="295" width="405" height="170" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="525" y="315" font-size="13" font-weight="bold" fill="#27ae60">Б. Замикання: вусик розпрямляється за упором</text>
+
+  <!-- Housing Wall Upper State B -->
+  <path d="M 525 328 L 665 328 L 665 348 L 685 348 L 685 328 L 895 328 L 895 320 L 525 320 Z" fill="#d1fae5" stroke="#27ae60" stroke-width="1.5"/>
+  <!-- Housing Wall Lower State B -->
+  <rect x="525" y="388" width="370" height="10" fill="#d1fae5" stroke="#27ae60" stroke-width="1.5"/>
+
+  <!-- Pull Force Arrow (Resistance) -->
+  <line x1="585" y1="369" x2="545" y2="369" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="565" y="357" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Натяг F_pull</text>
+
+  <!-- Terminal State B -->
+  <rect x="595" y="367" width="70" height="14" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <!-- Released Tang engaging ledge -->
+  <path d="M 625 367 L 662 348 L 666 348 L 648 367 Z" fill="#27ae60" stroke="#1a1a1a" stroke-width="1"/>
+  <!-- Pin Tip State B -->
+  <rect x="665" y="370" width="65" height="8" rx="2" fill="#27ae60" stroke="#1a1a1a" stroke-width="1"/>
+
+  <!-- Latch Ledge Engagement Callout -->
+  <line x1="735" y1="352" x2="668" y2="348" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <text x="745" y="352" font-size="12" font-weight="bold" fill="#27ae60">Клацання! Зачеплення</text>
+  <text x="745" y="368" font-size="12" fill="#1a1a1a">Упор проти випадання</text>
+
+  <text x="525" y="432" font-size="12" font-weight="bold" fill="#1a1a1a">Зусилля утримання контакту (Retention Force): ≥ 15 N</text>
+  <text x="525" y="452" font-size="12" fill="#6b7280">Демонтаж: віджимання вусика екстрактором через вікно</text>
+</svg>

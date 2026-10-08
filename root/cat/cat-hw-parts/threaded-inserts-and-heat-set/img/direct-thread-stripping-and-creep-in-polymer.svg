@@ -1,0 +1,206 @@
+<svg viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="34" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Зрізання полімерної різьби та релаксація напружень у з'єднанні</text>
+  <text x="480" y="56" text-anchor="middle" font-size="13" fill="#6b7280">Низька зсувна міцність полімеру спричиняє зрізання витків, а повзучість — втрату натягу</text>
+
+  <!-- ==================== PANEL 1: THREAD STRIPPING ==================== -->
+  <rect x="30" y="80" width="438" height="435" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+
+  <!-- Panel 1 Header Badge -->
+  <rect x="42" y="92" width="414" height="34" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="249" y="114" text-anchor="middle" font-size="14" font-weight="bold" fill="#c0392b">1. Механічне зрізання витків (τ ≥ τ_yield)</text>
+
+  <!-- Panel 1 Graphic Area (Screw & Polymer) -->
+  <!-- Polymer Matrix Left Body -->
+  <rect x="50" y="200" width="75" height="260" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <!-- Polymer Layer Lines Left -->
+  <line x1="50" y1="230" x2="125" y2="230" stroke="#e2e8f0" stroke-width="1"/>
+  <line x1="50" y1="260" x2="125" y2="260" stroke="#e2e8f0" stroke-width="1"/>
+  <line x1="50" y1="290" x2="125" y2="290" stroke="#e2e8f0" stroke-width="1"/>
+  <line x1="50" y1="320" x2="125" y2="320" stroke="#e2e8f0" stroke-width="1"/>
+  <line x1="50" y1="350" x2="125" y2="350" stroke="#e2e8f0" stroke-width="1"/>
+  <line x1="50" y1="380" x2="125" y2="380" stroke="#e2e8f0" stroke-width="1"/>
+  <line x1="50" y1="410" x2="125" y2="410" stroke="#e2e8f0" stroke-width="1"/>
+  <line x1="50" y1="440" x2="125" y2="440" stroke="#e2e8f0" stroke-width="1"/>
+
+  <!-- Polymer Matrix Right Body -->
+  <rect x="195" y="200" width="75" height="260" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <!-- Polymer Layer Lines Right -->
+  <line x1="195" y1="230" x2="270" y2="230" stroke="#e2e8f0" stroke-width="1"/>
+  <line x1="195" y1="260" x2="270" y2="260" stroke="#e2e8f0" stroke-width="1"/>
+  <line x1="195" y1="290" x2="270" y2="290" stroke="#e2e8f0" stroke-width="1"/>
+  <line x1="195" y1="320" x2="270" y2="320" stroke="#e2e8f0" stroke-width="1"/>
+  <line x1="195" y1="350" x2="270" y2="350" stroke="#e2e8f0" stroke-width="1"/>
+  <line x1="195" y1="380" x2="270" y2="380" stroke="#e2e8f0" stroke-width="1"/>
+  <line x1="195" y1="410" x2="270" y2="410" stroke="#e2e8f0" stroke-width="1"/>
+  <line x1="195" y1="440" x2="270" y2="440" stroke="#e2e8f0" stroke-width="1"/>
+
+  <!-- Sheared Polymer Zone (Red Tinted Overlay at thread roots) -->
+  <rect x="115" y="210" width="10" height="240" fill="#fdecea" stroke="#c0392b" stroke-dasharray="2,2" stroke-width="1"/>
+  <rect x="195" y="210" width="10" height="240" fill="#fdecea" stroke="#c0392b" stroke-dasharray="2,2" stroke-width="1"/>
+
+  <!-- Shear Planes (Dashed Lines) -->
+  <line x1="125" y1="195" x2="125" y2="465" stroke="#c0392b" stroke-dasharray="4,3" stroke-width="2"/>
+  <line x1="195" y1="195" x2="195" y2="465" stroke="#c0392b" stroke-dasharray="4,3" stroke-width="2"/>
+
+  <!-- Steel Screw Shaft & Threads -->
+  <!-- Screw Head Top -->
+  <rect x="140" y="155" width="40" height="35" fill="#2457d6" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="160" y1="155" x2="160" y2="122" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arr-red)"/>
+  <text x="175" y="142" text-anchor="start" font-size="13" font-weight="bold" fill="#c0392b">F_ax</text>
+
+  <!-- Screw Core Cylinder -->
+  <rect x="135" y="195" width="50" height="260" fill="#2457d6" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Steel Thread Teeth (5 turns protruding outwards to shear polymer) -->
+  <path d="M 135,215 L 115,223 L 135,231
+           M 135,255 L 115,263 L 135,271
+           M 135,295 L 115,303 L 135,311
+           M 135,335 L 115,343 L 135,351
+           M 135,375 L 115,383 L 135,391" fill="none" stroke="#1a1a1a" stroke-width="1.5"/>
+  <path d="M 185,215 L 205,223 L 185,231
+           M 185,255 L 205,263 L 185,271
+           M 185,295 L 205,303 L 185,311
+           M 185,335 L 205,343 L 185,351
+           M 185,375 L 205,383 L 185,391" fill="none" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Shear Vectors (Small red reaction arrows) -->
+  <line x1="125" y1="235" x2="125" y2="250" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <line x1="125" y1="315" x2="125" y2="330" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <line x1="195" y1="235" x2="195" y2="250" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <line x1="195" y1="315" x2="195" y2="330" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+
+  <!-- Graphic Callout Labels (Left of Screw) -->
+  <line x1="112" y1="170" x2="122" y2="205" stroke="#c0392b" stroke-width="1"/>
+  <text x="108" y="166" text-anchor="end" font-size="12" font-weight="bold" fill="#c0392b">Площина зсуву</text>
+  <text x="108" y="182" text-anchor="end" font-size="12" fill="#c0392b">(d_shear)</text>
+
+  <!-- Bottom label under Screw -->
+  <text x="160" y="495" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Зрізання витків полімеру</text>
+
+  <!-- Panel 1 Right Cards -->
+  <!-- Card 1: Formula Box -->
+  <rect x="280" y="140" width="175" height="135" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="290" y="162" text-anchor="start" font-size="12" font-weight="bold" fill="#1a1a1a">Умова руйнування:</text>
+  <text x="290" y="182" text-anchor="start" font-size="13" font-weight="bold" fill="#c0392b">τ_max ≥ τ_yield</text>
+  <text x="290" y="206" text-anchor="start" font-size="12" fill="#6b7280">τ_max = F_ax / (π·d·P·z)</text>
+  <text x="290" y="226" text-anchor="start" font-size="12" fill="#6b7280">d — середній діаметр</text>
+  <text x="290" y="244" text-anchor="start" font-size="12" fill="#6b7280">P — крок різьби</text>
+  <text x="290" y="262" text-anchor="start" font-size="12" fill="#6b7280">z — кількість витків</text>
+
+  <!-- Card 2: Risk Factors Box -->
+  <rect x="280" y="290" width="175" height="210" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="290" y="310" text-anchor="start" font-size="12" font-weight="bold" fill="#c0392b">Фактори ризику:</text>
+  <text x="290" y="328" text-anchor="start" font-size="12" fill="#1a1a1a">• Низький мокромодуль</text>
+  <text x="290" y="346" text-anchor="start" font-size="12" fill="#1a1a1a">• Міжшарова анізотропія</text>
+  <text x="290" y="364" text-anchor="start" font-size="12" fill="#1a1a1a">• Концентрація напруг</text>
+  <text x="290" y="382" text-anchor="start" font-size="12" fill="#1a1a1a">• Зріз при моменті M_з</text>
+  <text x="290" y="408" text-anchor="start" font-size="12" font-weight="bold" fill="#c0392b">Наслідок:</text>
+  <text x="290" y="426" text-anchor="start" font-size="12" fill="#c0392b">Повне зрізання різьби</text>
+  <text x="290" y="444" text-anchor="start" font-size="12" fill="#c0392b">та виривання гвинта</text>
+  <text x="290" y="462" text-anchor="start" font-size="12" fill="#c0392b">без можливості затяги</text>
+
+
+  <!-- ==================== PANEL 2: STRESS RELAXATION & CREEP ==================== -->
+  <rect x="492" y="80" width="438" height="435" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+
+  <!-- Panel 2 Header Badge -->
+  <rect x="504" y="92" width="414" height="34" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="711" y="114" text-anchor="middle" font-size="14" font-weight="bold" fill="#c0392b">2. Релаксація напружень та повзучість (σ(t), ε(t))</text>
+
+  <!-- Panel 2 Top Card 2A (Initial State t=0) -->
+  <rect x="508" y="140" width="170" height="160" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="593" y="158" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Стан t = 0 (монтаж)</text>
+
+  <!-- Diagram 2A: Thread Flank Contact t=0 -->
+  <!-- Polymer Flank -->
+  <path d="M 528,240 L 593,180 L 658,240" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <!-- Steel Flank (Pressing down) -->
+  <path d="M 538,230 L 593,179 L 648,230" fill="none" stroke="#2457d6" stroke-width="3"/>
+  <!-- High Pressure Arrows -->
+  <line x1="565" y1="195" x2="553" y2="207" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <line x1="621" y1="195" x2="633" y2="207" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+
+  <text x="593" y="266" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Високе σ_0</text>
+  <text x="593" y="284" text-anchor="middle" font-size="12" fill="#6b7280">Пружне стискання</text>
+
+  <!-- Arrow of Time between 2A and 2B -->
+  <line x1="682" y1="210" x2="732" y2="210" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="707" y="192" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Час t &gt; 0</text>
+  <text x="707" y="232" text-anchor="middle" font-size="12" fill="#6b7280">Повзучість</text>
+
+  <!-- Panel 2 Top Card 2B (Deformed State t>0) -->
+  <rect x="736" y="140" width="182" height="160" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="827" y="158" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Стан t &gt; 0 (релаксація)</text>
+
+  <!-- Diagram 2B: Deformed Flank & Gap -->
+  <!-- Polymer Flank Crushed (Dented) -->
+  <path d="M 756,240 L 811,195 L 827,195 L 843,195 L 898,240" fill="#fdecea" stroke="#c0392b" stroke-dasharray="3,3" stroke-width="2"/>
+  <!-- Steel Flank Position -->
+  <path d="M 766,230 L 827,179 L 888,230" fill="none" stroke="#2457d6" stroke-width="3"/>
+  <!-- Gap / Low Stress -->
+  <line x1="800" y1="200" x2="794" y2="206" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <line x1="854" y1="200" x2="860" y2="206" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+
+  <text x="827" y="266" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">σ(t) ≪ σ_0</text>
+  <text x="827" y="284" text-anchor="middle" font-size="12" fill="#c0392b">Зминання та зазор</text>
+
+
+  <!-- Panel 2 Bottom Sub-card 1: Relaxation Graph -->
+  <rect x="508" y="315" width="197" height="190" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="606" y="333" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Крива релаксації σ(t)</text>
+
+  <!-- Axes -->
+  <line x1="538" y1="465" x2="538" y2="355" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+  <line x1="538" y1="465" x2="685" y2="465" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+  <text x="532" y="360" text-anchor="end" font-size="12" font-weight="bold" fill="#1a1a1a">σ</text>
+  <text x="685" y="482" text-anchor="end" font-size="12" fill="#6b7280">час t</text>
+
+  <!-- Initial stress reference line -->
+  <line x1="538" y1="375" x2="680" y2="375" stroke="#6b7280" stroke-dasharray="3,3" stroke-width="1"/>
+  <text x="532" y="379" text-anchor="end" font-size="12" font-weight="bold" fill="#c0392b">σ_0</text>
+
+  <!-- Curve -->
+  <path d="M 538,375 Q 568,442 675,448" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+
+  <!-- Stress Loss Drop Arrow -->
+  <line x1="660" y1="375" x2="660" y2="445" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+
+  <!-- Stress Loss Callout Badge (Positioned in clean space to prevent any line intersection!) -->
+  <rect x="545" y="385" width="105" height="22" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+  <text x="597.5" y="400" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">Втрата натягу ΔF</text>
+
+
+  <!-- Panel 2 Bottom Sub-card 2: Consequences & Solution -->
+  <rect x="721" y="315" width="197" height="190" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="731" y="335" text-anchor="start" font-size="12" font-weight="bold" fill="#1a1a1a">Наслідки повзучості:</text>
+  <text x="731" y="353" text-anchor="start" font-size="12" fill="#c0392b">• Релаксація натягу</text>
+  <text x="731" y="371" text-anchor="start" font-size="12" fill="#c0392b">• Саморозкручування</text>
+  <text x="731" y="389" text-anchor="start" font-size="12" fill="#c0392b">• Люфт у з'єднанні</text>
+
+  <line x1="731" y1="403" x2="906" y2="403" stroke="#d0d7de" stroke-width="1"/>
+
+  <text x="731" y="423" text-anchor="start" font-size="12" font-weight="bold" fill="#27ae60">Необхідне рішення:</text>
+  <text x="731" y="443" text-anchor="start" font-size="12" font-weight="bold" fill="#27ae60">• Металеві футорки</text>
+  <text x="731" y="461" text-anchor="start" font-size="12" fill="#1a1a1a">  (Heat-set / вклеювання)</text>
+  <text x="731" y="479" text-anchor="start" font-size="12" fill="#1a1a1a">• Розподіл навантаження</text>
+
+</svg>

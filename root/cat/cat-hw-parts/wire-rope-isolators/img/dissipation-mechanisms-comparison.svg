@@ -1,0 +1,132 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-black" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Canvas Background -->
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="700" fill="#1a1a1a">Порівняння механізмів дисипації: тросовий та силіконовий віброізолятори</text>
+  <text x="480" y="54" text-anchor="middle" font-size="13" fill="#6b7280">Тертя між жилами троса дає ширшу петлю згасання та вищу нелінійну жорсткість</text>
+
+  <!-- Left Panel: Plot Container -->
+  <rect x="30" y="75" width="540" height="385" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="55" y="98" font-size="14" font-weight="700" fill="#1a1a1a">Графік гістерезисних петель: Сила F [Н] — Зсув x [мм]</text>
+
+  <!-- Inner Plot Area -->
+  <rect x="55" y="115" width="490" height="325" rx="4" fill="#ffffff" stroke="#e1e4e8" stroke-width="1"/>
+
+  <!-- Grid Lines with Gaps for Axis Labels, Callouts, and Legend -->
+  <line x1="55" y1="185" x2="240" y2="185" stroke="#f0f2f5" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="305" y1="185" x2="545" y2="185" stroke="#f0f2f5" stroke-width="1" stroke-dasharray="3,3"/>
+
+  <line x1="55" y1="365" x2="240" y2="365" stroke="#f0f2f5" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="305" y1="365" x2="545" y2="365" stroke="#f0f2f5" stroke-width="1" stroke-dasharray="3,3"/>
+
+  <line x1="170" y1="115" x2="170" y2="130" stroke="#f0f2f5" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="170" y1="180" x2="170" y2="265" stroke="#f0f2f5" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="170" y1="305" x2="170" y2="375" stroke="#f0f2f5" stroke-width="1" stroke-dasharray="3,3"/>
+
+  <line x1="430" y1="115" x2="430" y2="265" stroke="#f0f2f5" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="430" y1="305" x2="430" y2="375" stroke="#f0f2f5" stroke-width="1" stroke-dasharray="3,3"/>
+
+  <!-- Axes -->
+  <line x1="80" y1="275" x2="515" y2="275" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-black)"/>
+  <line x1="300" y1="425" x2="300" y2="135" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-black)"/>
+
+  <!-- Axis Titles -->
+  <text x="515" y="298" text-anchor="end" font-size="12" font-weight="700" fill="#1a1a1a">Зсув x [мм]</text>
+  <text x="300" y="125" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">Сила F [Н]</text>
+
+  <!-- Ticks and Tick Labels -->
+  <line x1="170" y1="272" x2="170" y2="278" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="170" y="294" text-anchor="middle" font-size="12" fill="#6b7280">-x_max</text>
+
+  <text x="290" y="294" text-anchor="end" font-size="12" fill="#6b7280">0</text>
+
+  <line x1="430" y1="272" x2="430" y2="278" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="430" y="294" text-anchor="middle" font-size="12" fill="#6b7280">+x_max</text>
+
+  <line x1="297" y1="185" x2="303" y2="185" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="290" y="189" text-anchor="end" font-size="12" fill="#6b7280">+F_max</text>
+
+  <line x1="297" y1="365" x2="303" y2="365" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="290" y="369" text-anchor="end" font-size="12" fill="#6b7280">-F_max</text>
+
+  <!-- Backbone Curve -->
+  <path d="M 170,375 C 240,335 360,215 430,175" fill="none" stroke="#9ca3af" stroke-width="1.5" stroke-dasharray="4,4"/>
+
+  <!-- Wire Rope Hysteresis Loop (Dry Friction) -->
+  <path d="M 170,375 C 200,285 240,205 430,175 C 400,265 360,345 170,375 Z" fill="#eaf0fd" fill-opacity="0.75"/>
+  <path d="M 170,375 C 200,285 240,205 430,175 C 400,265 360,345 170,375 Z" fill="none" stroke="#2457d6" stroke-width="3"/>
+
+  <!-- Silicone Hysteresis Loop (Viscoelastic) -->
+  <path d="M 195,350 C 235,290 280,240 405,200 C 365,260 320,310 195,350 Z" fill="#e9f7ef" fill-opacity="0.65"/>
+  <path d="M 195,350 C 235,290 280,240 405,200 C 365,260 320,310 195,350 Z" fill="none" stroke="#27ae60" stroke-width="2.5" stroke-dasharray="7,3"/>
+
+  <!-- Callout 1: Wire Rope Area -->
+  <rect x="75" y="135" width="170" height="42" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="83" y="152" font-size="12" font-weight="700" fill="#2457d6">Площа ΔE (Трос)</text>
+  <text x="83" y="168" font-size="12" fill="#1a1a1a">Високе розсіяння (тертя)</text>
+
+  <!-- Callout 2: Silicone Area -->
+  <rect x="335" y="380" width="180" height="42" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="343" y="397" font-size="12" font-weight="700" fill="#27ae60">Площа ΔE (Силікон)</text>
+  <text x="343" y="413" font-size="12" fill="#1a1a1a">В'язкопружне згасання</text>
+
+  <!-- Plot Legend -->
+  <rect x="75" y="380" width="220" height="48" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="85" y1="396" x2="110" y2="396" stroke="#2457d6" stroke-width="3"/>
+  <text x="118" y="400" font-size="12" fill="#1a1a1a">Тросовий (сухе тертя)</text>
+  <line x1="85" y1="416" x2="110" y2="416" stroke="#27ae60" stroke-width="2.5" stroke-dasharray="5,3"/>
+  <text x="118" y="420" font-size="12" fill="#1a1a1a">Силікон (в'язкопружність)</text>
+
+  <!-- Right Panel 1: Mechanisms -->
+  <rect x="590" y="75" width="340" height="185" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="610" y="98" font-size="14" font-weight="700" fill="#1a1a1a">Механізми дисипації енергії</text>
+
+  <rect x="605" y="112" width="310" height="66" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="618" y="130" font-size="13" font-weight="700" fill="#2457d6">Тросовий демпфер (Wire Rope)</text>
+  <text x="618" y="148" font-size="12" fill="#1a1a1a">• Сухе тертя між жилами сталевого троса</text>
+  <text x="618" y="164" font-size="12" fill="#1a1a1a">• Високе розсіяння ΔE, стабільність f, T</text>
+
+  <rect x="605" y="186" width="310" height="66" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="618" y="204" font-size="13" font-weight="700" fill="#27ae60">Силіконовий еластомір</text>
+  <text x="618" y="222" font-size="12" fill="#1a1a1a">• В'язкопружна релаксація полімеру</text>
+  <text x="618" y="238" font-size="12" fill="#1a1a1a">• Залежність від частоти f та температури T</text>
+
+  <!-- Right Panel 2: Characteristics -->
+  <rect x="590" y="275" width="340" height="185" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="610" y="298" font-size="14" font-weight="700" fill="#1a1a1a">Ключові параметри та поведінка</text>
+
+  <rect x="605" y="310" width="310" height="32" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="615" y="330" font-size="12" font-weight="700" fill="#1a1a1a">Жорсткість k:</text>
+  <text x="700" y="330" font-size="12" font-weight="700" fill="#2457d6">Нелінійна (без пробою)</text>
+  <text x="845" y="330" font-size="12" fill="#27ae60">Квазілінійна</text>
+
+  <rect x="605" y="347" width="310" height="32" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="615" y="367" font-size="12" font-weight="700" fill="#1a1a1a">Температура T:</text>
+  <text x="710" y="367" font-size="12" fill="#2457d6">-100°C ... +300°C</text>
+  <text x="825" y="367" font-size="12" fill="#27ae60">-50°C ... +180°C</text>
+
+  <rect x="605" y="384" width="310" height="32" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="615" y="404" font-size="12" font-weight="700" fill="#1a1a1a">Напрямки захисту:</text>
+  <text x="735" y="404" font-size="12" fill="#2457d6">Стиск, зсув, крен (3D)</text>
+
+  <rect x="605" y="421" width="310" height="32" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="615" y="441" font-size="12" font-weight="700" fill="#1a1a1a">Коефіцієнт η:</text>
+  <text x="705" y="441" font-size="12" fill="#2457d6">η ≈ 0.15–0.25 (високий)</text>
+  <text x="840" y="441" font-size="12" fill="#27ae60">η ≈ 0.05–0.12</text>
+</svg>

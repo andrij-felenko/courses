@@ -1,0 +1,214 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="560" fill="#ffffff"/>
+  
+  <defs>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="dot-green" markerWidth="6" markerHeight="6" refX="3" refY="3" markerUnits="userSpaceOnUse">
+      <circle cx="3" cy="3" r="2.5" fill="#27ae60"/>
+    </marker>
+    <marker id="dot-red" markerWidth="6" markerHeight="6" refX="3" refY="3" markerUnits="userSpaceOnUse">
+      <circle cx="3" cy="3" r="2.5" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Якість опресування Faston-наконечників: еталон та дефекти</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Порівняння якісного В-подібного обтиску з типовими помилками опресування</text>
+
+  <!-- PANEL 1: Еталонний обтиск -->
+  <g id="panel-1">
+    <rect x="30" y="75" width="435" height="220" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="8"/>
+    <rect x="42" y="87" width="411" height="28" fill="#27ae60" rx="4"/>
+    <text x="247" y="106" font-size="13" font-weight="bold" fill="#ffffff" text-anchor="middle">ЕТАЛОННИЙ ОБТИСК (B-CRIMP) — ОК</text>
+
+    <!-- Graphic: B-crimp cross section -->
+    <!-- Outer Terminal Barrel -->
+    <path d="M 135,165 C 130,148 90,148 90,185 L 90,202 C 90,234 180,234 180,202 L 180,185 C 180,148 140,148 135,165 Z" fill="#d0d7de" stroke="#27ae60" stroke-width="2.5"/>
+    <path d="M 135,165 C 132,185 130,200 130,208 M 135,165 C 138,185 140,200 140,208" fill="none" stroke="#27ae60" stroke-width="2"/>
+
+    <!-- Wire Strands (Compressed Hexagonal Packing) -->
+    <g fill="#d97706" stroke="#92400e" stroke-width="1">
+      <circle cx="110" cy="218" r="6"/>
+      <circle cx="123" cy="220" r="6"/>
+      <circle cx="136" cy="221" r="6"/>
+      <circle cx="149" cy="220" r="6"/>
+      <circle cx="162" cy="218" r="6"/>
+
+      <circle cx="104" cy="205" r="6"/>
+      <circle cx="116" cy="207" r="6"/>
+      <circle cx="128" cy="208" r="6"/>
+      <circle cx="144" cy="208" r="6"/>
+      <circle cx="156" cy="207" r="6"/>
+      <circle cx="168" cy="205" r="6"/>
+
+      <circle cx="102" cy="191" r="6"/>
+      <circle cx="114" cy="193" r="6"/>
+      <circle cx="126" cy="195" r="6"/>
+      <circle cx="146" cy="195" r="6"/>
+      <circle cx="158" cy="193" r="6"/>
+      <circle cx="170" cy="191" r="6"/>
+
+      <circle cx="112" cy="178" r="5.5"/>
+      <circle cx="124" cy="180" r="5.5"/>
+      <circle cx="148" cy="180" r="5.5"/>
+      <circle cx="160" cy="178" r="5.5"/>
+    </g>
+
+    <!-- Pointer lines & Annotations -->
+    <line x1="232" y1="140" x2="140" y2="156" stroke="#27ae60" stroke-width="1.2" marker-end="url(#dot-green)"/>
+    <text x="240" y="145" font-size="12" font-weight="bold" fill="#1a1a1a">Правильна деформація</text>
+    <text x="240" y="161" font-size="11" fill="#6b7280">Симетричні крила B-профілю</text>
+
+    <line x1="232" y1="185" x2="145" y2="195" stroke="#27ae60" stroke-width="1.2" marker-end="url(#dot-green)"/>
+    <text x="240" y="190" font-size="12" font-weight="bold" fill="#1a1a1a">Газонепроникний контакт</text>
+    <text x="240" y="206" font-size="11" fill="#6b7280">Жили деформовані без зазорів</text>
+
+    <line x1="232" y1="230" x2="140" y2="225" stroke="#27ae60" stroke-width="1.2" marker-end="url(#dot-green)"/>
+    <text x="240" y="235" font-size="12" font-weight="bold" fill="#1a1a1a">Механічна міцність</text>
+    <text x="240" y="251" font-size="11" fill="#6b7280">Стійкість до вібрацій і розриву</text>
+  </g>
+
+  <!-- PANEL 2: Недотиснутий хвостовик -->
+  <g id="panel-2">
+    <rect x="495" y="75" width="435" height="220" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" rx="8"/>
+    <rect x="507" y="87" width="411" height="28" fill="#c0392b" rx="4"/>
+    <text x="712" y="106" font-size="13" font-weight="bold" fill="#ffffff" text-anchor="middle">НЕДОТИСНУТИЙ ХВОСТОВИК (UNDER-CRIMP)</text>
+
+    <!-- Graphic: Under-crimped cross section -->
+    <!-- Open Terminal Wings -->
+    <path d="M 570,150 C 545,155 545,190 545,202 C 545,234 645,234 645,202 C 645,190 645,155 620,150" fill="#fdecea" stroke="#c0392b" stroke-width="2.5"/>
+    
+    <!-- Gap indicator -->
+    <line x1="572" y1="148" x2="618" y2="148" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3,3"/>
+    <text x="595" y="142" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">Зазор</text>
+
+    <!-- Loose Wire Strands (Round, not compressed) -->
+    <g fill="#d97706" stroke="#92400e" stroke-width="1">
+      <circle cx="565" cy="216" r="6"/>
+      <circle cx="585" cy="218" r="6"/>
+      <circle cx="605" cy="218" r="6"/>
+      <circle cx="625" cy="216" r="6"/>
+
+      <circle cx="560" cy="198" r="6"/>
+      <circle cx="582" cy="200" r="6"/>
+      <circle cx="608" cy="200" r="6"/>
+      <circle cx="630" cy="198" r="6"/>
+
+      <circle cx="570" cy="180" r="6"/>
+      <circle cx="595" cy="182" r="6"/>
+      <circle cx="620" cy="180" r="6"/>
+    </g>
+
+    <!-- Pointer lines & Annotations -->
+    <line x1="697" y1="140" x2="622" y2="148" stroke="#c0392b" stroke-width="1.2" marker-end="url(#dot-red)"/>
+    <text x="705" y="145" font-size="12" font-weight="bold" fill="#c0392b">Неповний закрив крил</text>
+    <text x="705" y="161" font-size="11" fill="#6b7280">Вільний зазор між кінцями</text>
+
+    <line x1="697" y1="185" x2="600" y2="195" stroke="#c0392b" stroke-width="1.2" marker-end="url(#dot-red)"/>
+    <text x="705" y="190" font-size="12" font-weight="bold" fill="#c0392b">Повітряні порожнини</text>
+    <text x="705" y="206" font-size="11" fill="#6b7280">Відсутня деформація жил</text>
+
+    <line x1="697" y1="230" x2="600" y2="225" stroke="#c0392b" stroke-width="1.2" marker-end="url(#dot-red)"/>
+    <text x="705" y="235" font-size="12" font-weight="bold" fill="#c0392b">Наслідки дефекту</text>
+    <text x="705" y="251" font-size="11" fill="#6b7280">Високий опір та виривання</text>
+  </g>
+
+  <!-- PANEL 3: Перетиснутий метал -->
+  <g id="panel-3">
+    <rect x="30" y="310" width="435" height="220" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" rx="8"/>
+    <rect x="42" y="322" width="411" height="28" fill="#c0392b" rx="4"/>
+    <text x="247" y="341" font-size="13" font-weight="bold" fill="#ffffff" text-anchor="middle">ПЕРЕТИСНУТИЙ МЕТАЛ (OVER-CRIMP)</text>
+
+    <!-- Graphic: Over-crimped cross section with side flash -->
+    <!-- Extruded Flash / Overlapped wings -->
+    <path d="M 135,385 C 125,372 90,372 80,395 C 75,410 65,445 75,455 L 90,448 C 95,465 175,465 180,448 L 195,455 C 205,445 195,410 190,395 C 180,372 145,372 135,385 Z" fill="#fdecea" stroke="#c0392b" stroke-width="2.5"/>
+    <path d="M 135,385 L 128,425 M 135,385 L 142,425" fill="none" stroke="#c0392b" stroke-width="2"/>
+
+    <!-- Flattened / Crushed Strands -->
+    <g fill="#d97706" stroke="#92400e" stroke-width="1">
+      <ellipse cx="110" cy="442" rx="8" ry="4"/>
+      <ellipse cx="128" cy="444" rx="8" ry="4"/>
+      <ellipse cx="146" cy="444" rx="8" ry="4"/>
+      <ellipse cx="164" cy="442" rx="8" ry="4"/>
+
+      <ellipse cx="104" cy="430" rx="8" ry="4"/>
+      <ellipse cx="122" cy="432" rx="8" ry="4"/>
+      <ellipse cx="148" cy="432" rx="8" ry="4"/>
+      <ellipse cx="166" cy="430" rx="8" ry="4"/>
+
+      <ellipse cx="115" cy="418" rx="7" ry="3.5"/>
+      <ellipse cx="135" cy="420" rx="7" ry="3.5"/>
+      <ellipse cx="155" cy="418" rx="7" ry="3.5"/>
+    </g>
+
+    <!-- Flash Highlight Circles -->
+    <circle cx="74" cy="453" r="8" fill="none" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="2,2"/>
+    <circle cx="196" cy="453" r="8" fill="none" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="2,2"/>
+
+    <!-- Pointer lines & Annotations -->
+    <line x1="232" y1="375" x2="80" y2="450" stroke="#c0392b" stroke-width="1.2" marker-end="url(#dot-red)"/>
+    <text x="240" y="380" font-size="12" font-weight="bold" fill="#c0392b">Бічний облой (заусенці)</text>
+    <text x="240" y="396" font-size="11" fill="#6b7280">Видавлення металу в матрицю</text>
+
+    <line x1="232" y1="420" x2="135" y2="410" stroke="#c0392b" stroke-width="1.2" marker-end="url(#dot-red)"/>
+    <text x="240" y="425" font-size="12" font-weight="bold" fill="#c0392b">Перетискання жили</text>
+    <text x="240" y="441" font-size="11" fill="#6b7280">Мікротріщини та стоншення стінок</text>
+
+    <line x1="232" y1="465" x2="135" y2="460" stroke="#c0392b" stroke-width="1.2" marker-end="url(#dot-red)"/>
+    <text x="240" y="470" font-size="12" font-weight="bold" fill="#c0392b">Пошкодження манжети</text>
+    <text x="240" y="486" font-size="11" fill="#6b7280">Пробиття або розрив ізоляції</text>
+  </g>
+
+  <!-- PANEL 4: Підрізані жили -->
+  <g id="panel-4">
+    <rect x="495" y="310" width="435" height="220" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" rx="8"/>
+    <rect x="507" y="322" width="411" height="28" fill="#c0392b" rx="4"/>
+    <text x="712" y="341" font-size="13" font-weight="bold" fill="#ffffff" text-anchor="middle">ПІДРІЗАНІ АБО ЗМІЩЕНІ ЖИЛИ</text>
+
+    <!-- Graphic: Longitudinal Side View of Cut Strands -->
+    <!-- Insulation Sleeve -->
+    <rect x="520" y="410" width="45" height="46" rx="4" fill="#2457d6" stroke="#1d4ed8" stroke-width="1.5"/>
+    <text x="542" y="437" font-size="10" font-weight="bold" fill="#ffffff" text-anchor="middle">Ізол.</text>
+
+    <!-- Terminal Wire Barrel -->
+    <rect x="585" y="412" width="60" height="42" rx="3" fill="#f4f6f8" stroke="#c0392b" stroke-width="2"/>
+    <!-- Crimp indent mark -->
+    <path d="M 605,412 L 615,422 L 625,412" fill="none" stroke="#c0392b" stroke-width="1.5"/>
+
+    <!-- Wire Strands exiting insulation -->
+    <g stroke="#d97706" stroke-width="2.5" stroke-linecap="round">
+      <!-- Intact Strands entering barrel -->
+      <line x1="565" y1="418" x2="638" y2="418"/>
+      <line x1="565" y1="424" x2="638" y2="424"/>
+      <line x1="565" y1="430" x2="638" y2="430"/>
+
+      <!-- Severed / Cut Strands -->
+      <line x1="565" y1="436" x2="578" y2="436"/>
+      <line x1="565" y1="442" x2="576" y2="442"/>
+
+      <!-- Stray strand bent outside -->
+      <path d="M 565,448 L 575,454 L 570,462" fill="none"/>
+    </g>
+
+    <!-- Cut Indicator Marks -->
+    <path d="M 576,432 L 582,446 M 574,438 L 580,448" stroke="#c0392b" stroke-width="1.5"/>
+
+    <!-- Pointer lines & Annotations -->
+    <line x1="697" y1="375" x2="579" y2="438" stroke="#c0392b" stroke-width="1.2" marker-end="url(#dot-red)"/>
+    <text x="705" y="380" font-size="12" font-weight="bold" fill="#c0392b">Підрізання жил провідника</text>
+    <text x="705" y="396" font-size="11" fill="#6b7280">Пошкодження при зачищенні</text>
+
+    <line x1="697" y1="420" x2="610" y2="425" stroke="#c0392b" stroke-width="1.2" marker-end="url(#dot-red)"/>
+    <text x="705" y="425" font-size="12" font-weight="bold" fill="#c0392b">Зменшення перерізу</text>
+    <text x="705" y="441" font-size="11" fill="#6b7280">Втрата струмонесучої площі</text>
+
+    <line x1="697" y1="465" x2="573" y2="458" stroke="#c0392b" stroke-width="1.2" marker-end="url(#dot-red)"/>
+    <text x="705" y="470" font-size="12" font-weight="bold" fill="#c0392b">Локальний перегрів</text>
+    <text x="705" y="486" font-size="11" fill="#6b7280">Ризик вигорення під навантаженням</text>
+  </g>
+</svg>

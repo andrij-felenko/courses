@@ -1,0 +1,224 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <!-- Arrow Markers -->
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Canvas Background -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="34" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Етапи фретинг-зносу гальванічного покриття Pogo Pin</text>
+  <text x="480" y="55" font-size="13" fill="#6b7280" text-anchor="middle">Дія мікровібрацій стирає золотий шар Au, окислює нікель Ni та різко збільшує опір R_c</text>
+
+  <!-- ================= CARD 1: STAGE 1 ================= -->
+  <rect x="30" y="75" width="280" height="360" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  
+  <!-- Header Badge 1 -->
+  <rect x="40" y="85" width="260" height="36" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="170" y="99" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Етап 1: Стабільний контакт</text>
+  <text x="170" y="113" font-size="12" fill="#1a1a1a" text-anchor="middle">N = 0 – 10⁴ циклів мікровібрацій</text>
+
+  <!-- Force Indicator -->
+  <text x="170" y="130" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">F_c (сила притиску)</text>
+  <line x1="170" y1="133" x2="170" y2="141" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Pogo Pin Plunger Assembly -->
+  <!-- Base Metal (Cu alloy) -->
+  <rect x="70" y="144" width="200" height="20" rx="3" fill="#e5a93c" stroke="#b45309" stroke-width="1"/>
+  <text x="170" y="158" font-size="12" fill="#1a1a1a" text-anchor="middle">Основа плунжера (Cu-сплав)</text>
+
+  <!-- Nickel Layer (Ni) -->
+  <rect x="70" y="164" width="200" height="6" fill="#94a3b8" stroke="#64748b" stroke-width="0.75"/>
+  
+  <!-- Gold Plating Layer (Au) -->
+  <rect x="70" y="170" width="200" height="6" fill="#fbbf24" stroke="#d97706" stroke-width="0.75"/>
+
+  <!-- Plunger Tip Crown -->
+  <path d="M140,176 Q170,198 200,176 Z" fill="#fbbf24" stroke="#d97706" stroke-width="1.5"/>
+  <path d="M145,176 Q170,193 195,176 Z" fill="#94a3b8"/>
+
+  <!-- Target Pad Assembly -->
+  <!-- Gold Layer (Au) -->
+  <rect x="60" y="198" width="220" height="6" fill="#fbbf24" stroke="#d97706" stroke-width="0.75"/>
+  <!-- Nickel Layer (Ni) -->
+  <rect x="60" y="204" width="220" height="6" fill="#94a3b8" stroke="#64748b" stroke-width="0.75"/>
+  <!-- Base Metal (Cu Pad) -->
+  <rect x="60" y="210" width="220" height="18" fill="#e5a93c" stroke="#b45309" stroke-width="1"/>
+  <text x="170" y="223" font-size="12" fill="#1a1a1a" text-anchor="middle">Контактний майданчик (Target Pad)</text>
+
+  <!-- Callout / State Panel 1 -->
+  <rect x="40" y="236" width="260" height="44" rx="5" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="170" y="253" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Чистий контакт Au — Au</text>
+  <text x="170" y="270" font-size="12" fill="#6b7280" text-anchor="middle">Суцільне покриття, A_real = max</text>
+
+  <!-- Parameters Summary Box 1 -->
+  <rect x="40" y="290" width="260" height="135" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="52" y="310" font-size="12" font-weight="bold" fill="#1a1a1a">Перехідний опір R_c:</text>
+  <text x="195" y="310" font-size="12" font-weight="bold" fill="#27ae60">10 – 20 мОм</text>
+  
+  <text x="52" y="332" font-size="12" fill="#1a1a1a">Гальванічний шар:</text>
+  <text x="175" y="332" font-size="12" fill="#1a1a1a">Au (цілісне покриття)</text>
+
+  <text x="52" y="354" font-size="12" fill="#1a1a1a">Підшар нікелю:</text>
+  <text x="155" y="354" font-size="12" fill="#1a1a1a">Ni (захищений Au)</text>
+
+  <text x="52" y="376" font-size="12" fill="#1a1a1a">Оксидна плівка:</text>
+  <text x="160" y="376" font-size="12" fill="#1a1a1a">відсутня</text>
+
+  <text x="52" y="398" font-size="12" fill="#1a1a1a">Статус контакту:</text>
+  <text x="165" y="398" font-size="12" font-weight="bold" fill="#27ae60">Нормальна робота</text>
+
+  <!-- ================= CARD 2: STAGE 2 ================= -->
+  <rect x="340" y="75" width="280" height="360" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Header Badge 2 -->
+  <rect x="350" y="85" width="260" height="36" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="480" y="99" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Етап 2: Знос золота Au</text>
+  <text x="480" y="113" font-size="12" fill="#1a1a1a" text-anchor="middle">N = 10⁴ – 10⁵ циклів (стирання)</text>
+
+  <!-- Micro-vibration Vector -->
+  <text x="480" y="130" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">±Δx (мікровібрації 1–20 мкм)</text>
+  <line x1="420" y1="133" x2="400" y2="133" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <line x1="540" y1="133" x2="560" y2="133" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+
+  <!-- Pogo Pin Plunger Assembly Stage 2 -->
+  <rect x="380" y="144" width="200" height="20" rx="3" fill="#e5a93c" stroke="#b45309" stroke-width="1"/>
+  <text x="480" y="158" font-size="12" fill="#1a1a1a" text-anchor="middle">Основа плунжера (Cu-сплав)</text>
+
+  <!-- Nickel Layer (Ni) -->
+  <rect x="380" y="164" width="200" height="6" fill="#94a3b8" stroke="#64748b" stroke-width="0.75"/>
+
+  <!-- Worn Gold Layer (Au broken in center) -->
+  <rect x="380" y="170" width="80" height="6" fill="#fbbf24" stroke="#d97706" stroke-width="0.75"/>
+  <rect x="500" y="170" width="80" height="6" fill="#fbbf24" stroke="#d97706" stroke-width="0.75"/>
+  <rect x="460" y="170" width="40" height="6" fill="#94a3b8" stroke="#475569" stroke-width="0.75"/>
+
+  <!-- Plunger Tip Crown (Worn apex exposing Ni) -->
+  <path d="M450,176 Q480,198 510,176 Z" fill="#94a3b8" stroke="#64748b" stroke-width="1.5"/>
+  <path d="M450,176 Q460,188 465,180 L450,176 Z" fill="#fbbf24"/>
+  <path d="M510,176 Q500,188 495,180 L510,176 Z" fill="#fbbf24"/>
+
+  <!-- Target Pad Assembly Stage 2 -->
+  <!-- Worn Gold Layer on Pad -->
+  <rect x="370" y="198" width="90" height="6" fill="#fbbf24" stroke="#d97706" stroke-width="0.75"/>
+  <rect x="500" y="198" width="90" height="6" fill="#fbbf24" stroke="#d97706" stroke-width="0.75"/>
+  <!-- Exposed Ni spot in center -->
+  <rect x="460" y="198" width="40" height="6" fill="#94a3b8" stroke="#475569" stroke-width="0.75"/>
+
+  <!-- Gold wear debris particles -->
+  <circle cx="467" cy="196" r="1.8" fill="#d97706"/>
+  <circle cx="480" cy="195" r="2.2" fill="#b45309"/>
+  <circle cx="493" cy="196" r="1.8" fill="#d97706"/>
+
+  <!-- Nickel Layer (Ni) -->
+  <rect x="370" y="204" width="220" height="6" fill="#94a3b8" stroke="#64748b" stroke-width="0.75"/>
+  <!-- Base Metal (Cu Pad) -->
+  <rect x="370" y="210" width="220" height="18" fill="#e5a93c" stroke="#b45309" stroke-width="1"/>
+  <text x="480" y="223" font-size="12" fill="#1a1a1a" text-anchor="middle">Оголення підшару нікелю (Ni)</text>
+
+  <!-- Callout / State Panel 2 -->
+  <rect x="350" y="236" width="260" height="44" rx="5" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="480" y="253" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Абразивний знос шару Au</text>
+  <text x="480" y="270" font-size="12" fill="#6b7280" text-anchor="middle">Контакт Ni — Au / Ni — Ni, пил Au</text>
+
+  <!-- Parameters Summary Box 2 -->
+  <rect x="350" y="290" width="260" height="135" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="362" y="310" font-size="12" font-weight="bold" fill="#1a1a1a">Перехідний опір R_c:</text>
+  <text x="505" y="310" font-size="12" font-weight="bold" fill="#2457d6">30 – 100 мОм</text>
+
+  <text x="362" y="332" font-size="12" fill="#1a1a1a">Гальванічний шар:</text>
+  <text x="485" y="332" font-size="12" fill="#1a1a1a">Au частково зношено</text>
+
+  <text x="362" y="354" font-size="12" fill="#1a1a1a">Підшар нікелю:</text>
+  <text x="465" y="354" font-size="12" stroke="#c0392b" fill="#c0392b">Ni оголено на повітрі</text>
+
+  <text x="362" y="376" font-size="12" fill="#1a1a1a">Оксидна плівка:</text>
+  <text x="470" y="376" font-size="12" fill="#1a1a1a">початок окиснення Ni</text>
+
+  <text x="362" y="398" font-size="12" fill="#1a1a1a">Статус контакту:</text>
+  <text x="475" y="398" font-size="12" font-weight="bold" fill="#2457d6">Початок деградації</text>
+
+  <!-- ================= CARD 3: STAGE 3 ================= -->
+  <rect x="650" y="75" width="280" height="360" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Header Badge 3 -->
+  <rect x="660" y="85" width="260" height="36" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="790" y="99" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">Етап 3: Фретинг-корозія</text>
+  <text x="790" y="113" font-size="12" fill="#1a1a1a" text-anchor="middle">N &gt; 10⁵ циклів (Окислення NiO)</text>
+
+  <!-- Chemical reaction callout -->
+  <text x="790" y="130" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Ni + O₂ → NiO (диелектрик)</text>
+
+  <!-- Pogo Pin Plunger Assembly Stage 3 -->
+  <rect x="690" y="144" width="200" height="20" rx="3" fill="#e5a93c" stroke="#b45309" stroke-width="1"/>
+  <text x="790" y="158" font-size="12" fill="#1a1a1a" text-anchor="middle">Основа плунжера (Cu-сплав)</text>
+
+  <!-- Nickel Layer (Ni) -->
+  <rect x="690" y="164" width="200" height="6" fill="#94a3b8" stroke="#64748b" stroke-width="0.75"/>
+
+  <!-- Completely Worn Au / Thick Oxide Layer (NiO) -->
+  <rect x="690" y="170" width="30" height="6" fill="#fbbf24" stroke="#d97706" stroke-width="0.75"/>
+  <rect x="860" y="170" width="30" height="6" fill="#fbbf24" stroke="#d97706" stroke-width="0.75"/>
+  <rect x="720" y="170" width="140" height="6" fill="#c0392b" stroke="#7f1d1d" stroke-width="0.75"/>
+
+  <!-- Plunger Tip Crown (Oxidized tip) -->
+  <path d="M760,176 Q790,198 820,176 Z" fill="#c0392b" stroke="#7f1d1d" stroke-width="1.5"/>
+
+  <!-- Target Pad Assembly Stage 3 -->
+  <!-- Thick Oxide Layer on Pad -->
+  <rect x="680" y="198" width="220" height="6" fill="#c0392b" stroke="#7f1d1d" stroke-width="0.75"/>
+
+  <!-- Oxide Debris Debris Clusters -->
+  <circle cx="765" cy="195" r="2.2" fill="#7f1d1d"/>
+  <circle cx="777" cy="194" r="2.5" fill="#c0392b"/>
+  <circle cx="790" cy="196" r="3.0" fill="#7f1d1d"/>
+  <circle cx="803" cy="194" r="2.2" fill="#c0392b"/>
+  <circle cx="815" cy="195" r="2.5" fill="#7f1d1d"/>
+
+  <!-- Nickel Layer (Ni) -->
+  <rect x="680" y="204" width="220" height="6" fill="#94a3b8" stroke="#64748b" stroke-width="0.75"/>
+  <!-- Base Metal (Cu Pad) -->
+  <rect x="680" y="210" width="220" height="18" fill="#e5a93c" stroke="#b45309" stroke-width="1"/>
+  <text x="790" y="223" font-size="12" fill="#1a1a1a" text-anchor="middle">Накопичення оксидів NiO та сміття</text>
+
+  <!-- Callout / State Panel 3 -->
+  <rect x="660" y="236" width="260" height="44" rx="5" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+  <text x="790" y="253" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Ізолюючий шар NiO у зоні контакту</text>
+  <text x="790" y="270" font-size="12" fill="#6b7280" text-anchor="middle">Стрибки опору, мікророзриви кола</text>
+
+  <!-- Parameters Summary Box 3 -->
+  <rect x="660" y="290" width="260" height="135" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="672" y="310" font-size="12" font-weight="bold" fill="#1a1a1a">Перехідний опір R_c:</text>
+  <text x="815" y="310" font-size="12" font-weight="bold" fill="#c0392b">&gt; 1000 мОм</text>
+
+  <text x="672" y="332" font-size="12" fill="#1a1a1a">Гальванічний шар:</text>
+  <text x="795" y="332" font-size="12" fill="#1a1a1a">Au повністю зношено</text>
+
+  <text x="672" y="354" font-size="12" fill="#1a1a1a">Підшар нікелю:</text>
+  <text x="775" y="354" font-size="12" fill="#c0392b">окислений (плівка NiO)</text>
+
+  <text x="672" y="376" font-size="12" fill="#1a1a1a">Оксидна плівка:</text>
+  <text x="780" y="376" font-size="12" fill="#c0392b">товстий диелектрик</text>
+
+  <text x="672" y="398" font-size="12" fill="#1a1a1a">Статус контакту:</text>
+  <text x="785" y="398" font-size="12" font-weight="bold" fill="#c0392b">Відмова / Шум</text>
+
+  <!-- ================= PROCESS ARROWS BETWEEN CARDS ================= -->
+  <!-- Arrow Card 1 -> Card 2 -->
+  <line x1="312" y1="230" x2="336" y2="230" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="325" y="222" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Знос</text>
+
+  <!-- Arrow Card 2 -> Card 3 -->
+  <line x1="622" y1="230" x2="646" y2="230" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="635" y="222" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">NiO</text>
+
+</svg>

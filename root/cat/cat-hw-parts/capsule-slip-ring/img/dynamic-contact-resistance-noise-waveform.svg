@@ -1,0 +1,156 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- White Background -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Header Title & Subtitle -->
+  <text x="480" y="36" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Динамічний контактний опір та часові завади ковзного контакту</text>
+  <text x="480" y="60" font-size="13" fill="#6b7280" text-anchor="middle">Обертання викликає флуктуації опору R_c(t) та імпульсні завади, що спотворюють цифрові сигнали</text>
+
+  <!-- LEFT PANEL: Electrical Equivalent Circuit -->
+  <rect x="30" y="85" width="435" height="435" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="247" y="115" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Еквівалентна схема ковзного контакту</text>
+
+  <!-- Subtitle for Left Panel -->
+  <text x="247" y="135" font-size="12" fill="#6b7280" text-anchor="middle">Паразитна реактивність та змінний опір контакту</text>
+
+  <!-- Circuit Elements -->
+  <!-- Input Node V_in -->
+  <text x="65" y="195" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">V_in</text>
+  <circle cx="65" cy="220" r="4" fill="#2457d6"/>
+  <line x1="65" y1="220" x2="95" y2="220" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Stator Resistance R_s -->
+  <text x="120" y="195" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">R_s (статор)</text>
+  <path d="M95,220 L100,212 L108,228 L116,212 L124,228 L132,212 L140,228 L145,220" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="145" y1="220" x2="165" y2="220" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Contact Inductance L_c -->
+  <text x="195" y="195" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">L_c</text>
+  <path d="M165,220 C165,208 177,208 177,220 C177,208 189,208 189,220 C189,208 201,208 201,220 C201,208 213,208 213,220" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="213" y1="220" x2="245" y2="220" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Dynamic Contact Zone Box -->
+  <rect x="245" y="150" width="135" height="225" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <text x="312" y="172" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Контактна зона</text>
+
+  <!-- Inside Contact Zone: R_0 and R_c(t) -->
+  <!-- Base Resistance R_0 -->
+  <text x="275" y="195" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">R_0</text>
+  <path d="M245,220 L250,212 L258,228 L266,212 L274,228 L282,212 L290,228 L295,220" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="295" y1="220" x2="310" y2="220" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Node for Parasitic Capacitance -->
+  <circle cx="310" cy="220" r="3" fill="#1a1a1a"/>
+
+  <!-- Dynamic Resistance R_c(t) -->
+  <text x="345" y="195" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">R_c(t)</text>
+  <path d="M310,220 L320,212 L328,228 L336,212 L344,228 L352,212 L360,228 L365,220" fill="none" stroke="#c0392b" stroke-width="2"/>
+  <!-- Variable Arrow across R_c(t) -->
+  <line x1="322" y1="234" x2="358" y2="206" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <line x1="365" y1="220" x2="380" y2="220" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Branch for Parasitic Capacitance C_p -->
+  <line x1="310" y1="220" x2="310" y2="290" stroke="#1a1a1a" stroke-width="1.5"/>
+  <!-- Capacitor Plates -->
+  <line x1="298" y1="290" x2="322" y2="290" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="298" y1="298" x2="322" y2="298" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="310" y1="298" x2="310" y2="330" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="330" y="298" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">C_p</text>
+
+  <!-- Ground at C_p -->
+  <line x1="298" y1="330" x2="322" y2="330" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="303" y1="335" x2="317" y2="335" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="307" y1="340" x2="313" y2="340" stroke="#1a1a1a" stroke-width="1"/>
+
+  <!-- Output Node V_out -->
+  <line x1="380" y1="220" x2="425" y2="220" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="425" cy="220" r="4" fill="#2457d6"/>
+  <text x="425" y="195" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">V_out</text>
+
+  <!-- Load Resistance R_L -->
+  <line x1="425" y1="220" x2="425" y2="245" stroke="#1a1a1a" stroke-width="1.5"/>
+  <path d="M425,245 L417,250 L433,258 L417,266 L433,274 L417,282 L433,290 L425,295" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="425" y1="295" x2="425" y2="330" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="405" y="274" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">R_L</text>
+
+  <!-- Ground at R_L -->
+  <line x1="413" y1="330" x2="437" y2="330" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="418" y1="335" x2="432" y2="335" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="422" y1="340" x2="428" y2="340" stroke="#1a1a1a" stroke-width="1"/>
+
+  <!-- Left Panel Legend Box -->
+  <rect x="45" y="390" width="405" height="115" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="55" y="412" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">Позначення елементів схеми:</text>
+  <text x="55" y="434" font-size="12" fill="#1a1a1a" text-anchor="start">• R_0 — базовий опір контакту (0.01...0.05 Ом)</text>
+  <text x="55" y="456" font-size="12" fill="#c0392b" text-anchor="start">• R_c(t) — динамічні завади опору при обертанні</text>
+  <text x="55" y="478" font-size="12" fill="#1a1a1a" text-anchor="start">• C_p, L_c — паразитна ємність та індуктивність</text>
+  <text x="55" y="498" font-size="12" fill="#6b7280" text-anchor="start">• V_in, V_out — вхідний та вихідний сигнали</text>
+
+
+  <!-- RIGHT PANEL: Oscillograms -->
+  <rect x="495" y="85" width="435" height="435" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="712" y="115" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Часові осцилограми завад та сигналу</text>
+
+  <!-- TOP GRAPH: Resistance R_c(t) -->
+  <!-- Axes -->
+  <line x1="550" y1="140" x2="550" y2="240" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <line x1="550" y1="240" x2="905" y2="240" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="545" y="145" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">R_c (мОм)</text>
+  <text x="900" y="258" font-size="12" fill="#6b7280" text-anchor="end">Час t</text>
+
+  <!-- Reference lines -->
+  <line x1="550" y1="220" x2="895" y2="220" stroke="#27ae60" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="545" y="224" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="end">R_0</text>
+
+  <line x1="550" y1="170" x2="895" y2="170" stroke="#c0392b" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="895" y="165" font-size="12" fill="#c0392b" text-anchor="end">Поріг завад</text>
+
+  <!-- Resistance Waveform -->
+  <path d="M550,220 L580,220 Q590,218 600,222 T620,219 L640,218 L648,185 L654,220 L680,219 L692,150 L702,221 L720,218 L750,222 L780,219 L792,160 L804,175 L812,220 L850,218 L880,221 L900,220" fill="none" stroke="#c0392b" stroke-width="2"/>
+
+  <!-- Annotation Spike Label -->
+  <text x="692" y="138" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Сплеск ΔR (дребезг контакту)</text>
+
+
+  <!-- BOTTOM GRAPH: Digital Signal V(t) -->
+  <!-- Axes -->
+  <line x1="550" y1="275" x2="550" y2="395" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <line x1="550" y1="395" x2="905" y2="395" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="545" y="280" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">Сигнал V</text>
+  <text x="900" y="412" font-size="12" fill="#6b7280" text-anchor="end">Час t</text>
+
+  <!-- Legends for Signal Graph -->
+  <text x="560" y="296" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="start">— V_in (ідеальний)</text>
+  <text x="735" y="296" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="start">— V_out (спотворений)</text>
+
+  <!-- Ideal Input Square Wave (Green Dashed) -->
+  <path d="M550,380 L570,380 L570,315 L640,315 L640,380 L710,380 L710,315 L780,315 L780,380 L850,380 L850,315 L900,315" fill="none" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="4,3"/>
+
+  <!-- Actual Distorted Output Wave (Red Solid) -->
+  <path d="M550,380 L570,380 L570,315 L620,315 L625,335 L632,320 L640,380 L688,380 L692,345 L698,385 L705,380 L710,380 L710,315 L780,315 L780,380 L790,380 L795,350 L802,385 L810,380 L850,380 L850,315 L900,315" fill="none" stroke="#c0392b" stroke-width="2"/>
+
+  <!-- Annotation Glitch Label -->
+  <text x="675" y="325" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">
+    <tspan x="675" dy="0">Завада ΔV</tspan>
+    <tspan x="675" dy="14">(помилка біта)</tspan>
+  </text>
+
+  <!-- Right Panel Summary Box -->
+  <rect x="510" y="425" width="405" height="85" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="520" y="445" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="start">Вплив флуктуацій опору R_c(t) на сигнал:</text>
+  <text x="520" y="467" font-size="12" fill="#1a1a1a" text-anchor="start">• Падіння напруги: ΔV(t) = I × ΔR_c(t)</text>
+  <text x="520" y="489" font-size="12" fill="#1a1a1a" text-anchor="start">• Наслідки: фазовий джитер, втрата пакетів Ethernet/CAN</text>
+
+</svg>

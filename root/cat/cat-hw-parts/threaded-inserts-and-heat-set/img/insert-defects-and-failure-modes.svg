@@ -1,0 +1,146 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="540" fill="#ffffff"/>
+
+  <!-- Main Title & Subtitle -->
+  <text x="480" y="34" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Механічні дефекти та режими руйнування різьбових втулок</text>
+  <text x="480" y="54" text-anchor="middle" font-size="13" fill="#6b7280">Аналіз виривання (F_pull), прокручування (M_torque) та розтріскування босу (σ_r)</text>
+
+  <!-- ================= COLUMN 1: PULL-OUT ================= -->
+  <rect x="30" y="75" width="290" height="440" rx="8" ry="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="42" y="87" width="266" height="36" rx="4" ry="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="175" y="110" text-anchor="middle" font-size="14" font-weight="bold" fill="#c0392b">1. Осьове виривання (Pull-Out)</text>
+
+  <!-- Drawing Box 1 -->
+  <rect x="42" y="135" width="266" height="190" rx="4" ry="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  
+  <!-- Plastic Boss Cross-section -->
+  <rect x="60" y="190" width="65" height="120" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="225" y="190" width="65" height="120" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  
+  <!-- Torn Shear Zones -->
+  <rect x="125" y="210" width="10" height="80" fill="#fdecea" stroke="#c0392b" stroke-dasharray="3,2" stroke-width="1.5"/>
+  <rect x="215" y="210" width="10" height="80" fill="#fdecea" stroke="#c0392b" stroke-dasharray="3,2" stroke-width="1.5"/>
+
+  <!-- Pulled Brass Insert -->
+  <rect x="135" y="170" width="80" height="80" rx="2" ry="2" fill="#fef3c7" stroke="#b45309" stroke-width="1.5"/>
+  <path d="M 135,175 L 130,180 L 135,185 L 130,190 L 135,195 L 130,200 L 135,205 L 130,210 L 135,215 L 130,220 L 135,225 L 130,230 L 135,235 L 130,240 L 135,245" fill="none" stroke="#b45309" stroke-width="1.5"/>
+  <path d="M 215,175 L 220,180 L 215,185 L 220,190 L 215,195 L 220,200 L 215,205 L 220,210 L 215,215 L 220,220 L 215,225 L 220,230 L 215,235 L 220,240 L 215,245" fill="none" stroke="#b45309" stroke-width="1.5"/>
+  <rect x="155" y="170" width="40" height="80" fill="#ffffff" stroke="#b45309" stroke-width="1"/>
+
+  <!-- Bolt & Force -->
+  <rect x="167" y="142" width="16" height="28" fill="#94a3b8" stroke="#475569" stroke-width="1.5"/>
+  <line x1="175" y1="180" x2="175" y2="145" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arr-red)"/>
+  <text x="187" y="156" font-size="12" font-weight="bold" fill="#c0392b">F_pull</text>
+
+  <!-- Shear Labels -->
+  <text x="118" y="250" text-anchor="end" font-size="12" font-weight="bold" fill="#c0392b">τ_зрізу</text>
+  <text x="232" y="250" text-anchor="start" font-size="12" font-weight="bold" fill="#c0392b">τ_зрізу</text>
+
+  <!-- Card 1 -->
+  <rect x="42" y="337" width="266" height="166" rx="4" ry="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="54" y="354" font-size="12" font-weight="bold" fill="#1a1a1a">Причина та механіка:</text>
+  <text x="54" y="370" font-size="12" fill="#1a1a1a">• Зріз полімеру вздовж ребер втулки</text>
+  <text x="54" y="386" font-size="12" fill="#6b7280">• F_pull &gt; π · D_out · L · τ_зрізу</text>
+  <text x="54" y="402" font-size="12" fill="#6b7280">• Недостатня глибина L чи D_out</text>
+  <line x1="54" y1="412" x2="296" y2="412" stroke="#e5e7eb" stroke-width="1"/>
+  <rect x="54" y="418" width="242" height="76" rx="4" ry="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="64" y="434" font-size="12" font-weight="bold" fill="#27ae60">Запобігання дефекту:</text>
+  <text x="64" y="450" font-size="12" fill="#1a1a1a">✔ Втулка з фланцем (монтаж знизу)</text>
+  <text x="64" y="466" font-size="12" fill="#1a1a1a">✔ Довжина посадки L ≥ 1.5–2.0 D</text>
+  <text x="64" y="482" font-size="12" fill="#1a1a1a">✔ Оптимальний вибір кута накатки</text>
+
+  <!-- ================= COLUMN 2: TORSIONAL FAILURE ================= -->
+  <rect x="335" y="75" width="290" height="440" rx="8" ry="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="347" y="87" width="266" height="36" rx="4" ry="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="480" y="110" text-anchor="middle" font-size="14" font-weight="bold" fill="#c0392b">2. Прокручування (Torsional)</text>
+
+  <!-- Drawing Box 2 -->
+  <rect x="347" y="135" width="266" height="190" rx="4" ry="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+
+  <circle cx="480" cy="225" r="68" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <circle cx="480" cy="225" r="46" fill="#fdecea" stroke="#c0392b" stroke-dasharray="3,2" stroke-width="1.5"/>
+  <circle cx="480" cy="225" r="40" fill="#fef3c7" stroke="#b45309" stroke-width="1.5"/>
+  <circle cx="480" cy="225" r="22" fill="#ffffff" stroke="#b45309" stroke-width="1.5"/>
+  <circle cx="480" cy="225" r="18" fill="none" stroke="#b45309" stroke-dasharray="2,2" stroke-width="1"/>
+
+  <!-- Knurling Ticks -->
+  <line x1="520" y1="225" x2="526" y2="225" stroke="#b45309" stroke-width="1.5"/>
+  <line x1="440" y1="225" x2="434" y2="225" stroke="#b45309" stroke-width="1.5"/>
+  <line x1="480" y1="185" x2="480" y2="179" stroke="#b45309" stroke-width="1.5"/>
+  <line x1="480" y1="265" x2="480" y2="271" stroke="#b45309" stroke-width="1.5"/>
+
+  <!-- Torque Arc & Arrows -->
+  <path d="M 444,188 A 46,46 0 0,1 516,188" fill="none" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arr-red)"/>
+  <text x="480" y="152" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">M_torque</text>
+
+  <path d="M 532,210 A 52,52 0 0,1 532,240" fill="none" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="540" y="229" text-anchor="start" font-size="12" font-weight="bold" fill="#c0392b">τ_θ (зсув)</text>
+  <text x="480" y="312" text-anchor="middle" font-size="12" font-weight="bold" fill="#6b7280">Зріз полімеру по контуру</text>
+
+  <!-- Card 2 -->
+  <rect x="347" y="337" width="266" height="166" rx="4" ry="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="359" y="354" font-size="12" font-weight="bold" fill="#1a1a1a">Причина та механіка:</text>
+  <text x="359" y="370" font-size="12" fill="#1a1a1a">• Перетяжка болта при закручуванні</text>
+  <text x="359" y="386" font-size="12" fill="#6b7280">• M_torque &gt; M_max опору втулки</text>
+  <text x="359" y="402" font-size="12" fill="#6b7280">• Пряма насічка без кутового опору</text>
+  <line x1="359" y1="412" x2="601" y2="412" stroke="#e5e7eb" stroke-width="1"/>
+  <rect x="359" y="418" width="242" height="76" rx="4" ry="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="369" y="434" font-size="12" font-weight="bold" fill="#27ae60">Запобігання дефекту:</text>
+  <text x="369" y="450" font-size="12" fill="#1a1a1a">✔ Алмазна (сітчаста) накатка</text>
+  <text x="369" y="466" font-size="12" fill="#1a1a1a">✔ Багатогранний контур (Hex)</text>
+  <text x="369" y="482" font-size="12" fill="#1a1a1a">✔ Контроль моменту затяжки M</text>
+
+  <!-- ================= COLUMN 3: RADIAL WALL SPLITTING ================= -->
+  <rect x="640" y="75" width="290" height="440" rx="8" ry="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="652" y="87" width="266" height="36" rx="4" ry="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="785" y="110" text-anchor="middle" font-size="14" font-weight="bold" fill="#c0392b">3. Розтріскування босу (Splitting)</text>
+
+  <!-- Drawing Box 3 -->
+  <rect x="652" y="135" width="266" height="190" rx="4" ry="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+
+  <circle cx="785" cy="225" r="65" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <circle cx="785" cy="225" r="40" fill="#fef3c7" stroke="#b45309" stroke-width="1.5"/>
+  <circle cx="785" cy="225" r="22" fill="#ffffff" stroke="#b45309" stroke-width="1.5"/>
+
+  <!-- Crack Path -->
+  <path d="M 825,223 L 833,220 L 840,226 L 850,222 L 850,228 L 840,230 L 833,224 L 825,227 Z" fill="#c0392b" stroke="#c0392b" stroke-width="1"/>
+  <text x="854" y="212" text-anchor="start" font-size="12" font-weight="bold" fill="#c0392b">Тріщина</text>
+
+  <!-- Radial & Hoop Stress Arrows -->
+  <line x1="785" y1="185" x2="785" y2="165" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <line x1="785" y1="265" x2="785" y2="288" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <line x1="745" y1="225" x2="722" y2="225" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+
+  <line x1="770" y1="154" x2="748" y2="154" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <line x1="800" y1="154" x2="822" y2="154" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+
+  <text x="785" y="148" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">σ_θ (розтяг)</text>
+  <text x="718" y="229" text-anchor="end" font-size="12" font-weight="bold" fill="#c0392b">σ_r (натяг)</text>
+  <text x="785" y="312" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Дефект при t_wall &lt; 1.5 D_in</text>
+
+  <!-- Card 3 -->
+  <rect x="652" y="337" width="266" height="166" rx="4" ry="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="664" y="354" font-size="12" font-weight="bold" fill="#1a1a1a">Причина та механіка:</text>
+  <text x="664" y="370" font-size="12" fill="#1a1a1a">• Розрив стінки радіальним натягом</text>
+  <text x="664" y="386" font-size="12" fill="#6b7280">• Тангенціальне σ_θ &gt; σ_міцності</text>
+  <text x="664" y="402" font-size="12" fill="#6b7280">• Затонка стінка t_wall &lt; 1.5 D_in</text>
+  <line x1="664" y1="412" x2="906" y2="412" stroke="#e5e7eb" stroke-width="1"/>
+  <rect x="664" y="418" width="242" height="76" rx="4" ry="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="674" y="434" font-size="12" font-weight="bold" fill="#27ae60">Запобігання дефекту:</text>
+  <text x="674" y="450" font-size="12" fill="#1a1a1a">✔ Товщина стінки t_wall ≥ 2.0 D</text>
+  <text x="674" y="466" font-size="12" fill="#1a1a1a">✔ Точний отвір й вхідна фаска</text>
+  <text x="674" y="482" font-size="12" fill="#1a1a1a">✔ Контроль температури впаювання</text>
+</svg>

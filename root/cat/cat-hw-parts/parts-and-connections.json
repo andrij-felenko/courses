@@ -120,41 +120,87 @@
           "slug": "capsule-slip-ring",
           "title": "Капсульне ковзне кільце (Slip Ring): передача живлення й швидкісних сигналів крізь обертові осі",
           "basic": {
-            "status": "empty"
+            "status": "done"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-capsule-slip-ring-gold-contacts.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-slip-ring-dynamics-impedance.md",
+              "status": "done"
+            }
+          ]
         },
         {
           "slug": "pogo-pins",
           "title": "Пружинні контакти Pogo Pins: механіка притиску, фретинг-корозія та вібростійкість",
           "basic": {
-            "status": "empty"
+            "status": "done"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "done"
+          },
+          "api": [
+            {
+              "file": "api-pogo-pins-footprint-and-landing-pads.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-pogo-pin-mechanics-and-contact-resistance.md",
+              "status": "done"
+            }
+          ]
         },
         {
           "slug": "wire-rope-isolators",
           "title": "Тросові та еластомірні віброізолятори: Wire Rope, силіконові демпфери та поглинання ударів",
           "basic": {
-            "status": "empty"
+            "status": "done"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "done"
+          },
+          "math": [
+            {
+              "file": "math-vibration-isolation-dynamics.md",
+              "status": "done"
+            },
+            {
+              "file": "math-wire-rope-hysteresis-models.md",
+              "status": "done"
+            }
+          ]
         },
         {
           "slug": "threaded-inserts-and-heat-set",
           "title": "Нарізні втулки та футорки: монтаж різьби в карбон, композити та термопласти 3D-друку",
           "basic": {
-            "status": "empty"
+            "status": "done"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "done"
+          },
+          "api": [
+            {
+              "file": "api-threaded-inserts-hardware-spec.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-insert-pullout-and-torque-mechanics.md",
+              "status": "done"
+            }
+          ]
         },
         {
           "slug": "fastener-strength-classes-and-materials",
@@ -163,18 +209,42 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-fastener-standards.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-fastener-torque-and-preload.md",
+              "status": "done"
+            }
+          ]
         },
         {
           "slug": "jst-sm-connectors",
           "title": "Розʼєми JST-SM і JST-SYP (сигнальні)",
           "basic": {
-            "status": "empty"
+            "status": "recheck"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "done"
+          },
+          "api": [
+            {
+              "file": "api-jst-sm-specifications.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-jst-contact-derating-and-resistance.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "slug": "hookup-wire",
@@ -193,38 +263,114 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-usb-connectors-evolution.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-usb-cable-voltage-drop-and-awg.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "slug": "cable-ties",
           "title": "Хомути пластикові",
           "basic": {
-            "status": "empty"
+            "status": "done"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-cable-tie-invention.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-cable-tie-mechanics-and-clamping.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-cable-harness-bundling-and-installation.md",
+              "status": "done"
+            }
+          ]
         },
         {
           "slug": "faston-crimp-terminals",
           "title": "Ізольовані наконечники Faston та технологія обтискання",
           "basic": {
-            "status": "empty"
+            "status": "done"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "done"
+          },
+          "api": [
+            {
+              "file": "api-faston-geometric-electrical-spec.md",
+              "status": "done"
+            }
+          ],
+          "hist": [
+            {
+              "file": "hist-faston-history.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-crimp-mechanics-and-pullout.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-faston-crimp-harness-assembly.md",
+              "status": "done"
+            }
+          ]
         },
         {
           "slug": "industrial-pendant-cable-harnessing-and-shielding",
           "title": "Кабельні шлейфи та заземлення пультів оператора",
           "basic": {
-            "status": "empty"
+            "status": "done"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "done"
+          },
+          "api": [
+            {
+              "file": "api-pendant-harness-pinout-and-emc-gland-specs.md",
+              "status": "done"
+            }
+          ],
+          "hist": [
+            {
+              "file": "hist-pendant-cables-evolution.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-pendant-cable-strain-and-bending-radius.md",
+              "status": "done"
+            },
+            {
+              "file": "math-pendant-shield-transfer-impedance.md",
+              "status": "done"
+            }
+          ]
         }
       ]
     },
@@ -369,8 +515,14 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "done"
+          },
+          "api": [
+            {
+              "file": "api-74lvc1g125-hardware-spec.md",
+              "status": "done"
+            }
+          ]
         },
         {
           "slug": "logic-level-converter",
@@ -379,7 +531,17 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
+            "status": "done"
+          }
+        },
+        {
+          "slug": "74ahct-logic-family",
+          "title": "Логіка серії 74AHCT у системній схемотехніці",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
           }
         }
       ]
@@ -395,7 +557,7 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
+            "status": "done"
           }
         },
         {
@@ -405,7 +567,7 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
+            "status": "done"
           }
         },
         {
@@ -415,7 +577,7 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
+            "status": "done"
           }
         },
         {
@@ -425,7 +587,7 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
+            "status": "done"
           }
         },
         {
@@ -435,7 +597,7 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
+            "status": "done"
           }
         },
         {
@@ -445,7 +607,7 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
+            "status": "done"
           }
         },
         {
@@ -455,7 +617,7 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
+            "status": "done"
           }
         },
         {
@@ -465,7 +627,7 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
+            "status": "done"
           }
         }
       ]
