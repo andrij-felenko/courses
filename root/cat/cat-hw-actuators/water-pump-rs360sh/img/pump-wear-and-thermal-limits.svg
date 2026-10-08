@@ -1,0 +1,150 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <!-- Arrow Markers -->
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="30" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Водяна помпа RS-360SH: вузли втомного та термічного зношування</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Тривала робота під навантаженням обмежується ресурсом щіток і перегрівом мембрани</text>
+
+  <!-- LEFT PANEL: Scheme of Wear Zones -->
+  <rect x="30" y="70" width="440" height="445" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="250" y="96" font-size="14" font-weight="700" fill="#1a1a1a" text-anchor="middle">Схема вузлів деградації та зношування</text>
+
+  <!-- Motor Body -->
+  <rect x="50" y="140" width="130" height="170" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="115" y="162" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">DC-мотор RS-360SH</text>
+
+  <!-- Motor Shaft -->
+  <rect x="180" y="215" width="30" height="20" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Eccentric Crank Mechanism -->
+  <rect x="210" y="180" width="45" height="90" rx="4" fill="#ffffff" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="232" cy="225" r="14" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <circle cx="232" cy="220" r="4" fill="#1a1a1a"/>
+  <text x="232" y="125" font-size="12" fill="#1a1a1a" text-anchor="middle">Ексцентрик</text>
+  <path d="M232,132 L232,175" stroke="#1a1a1a" stroke-width="1" stroke-dasharray="3,3" marker-end="url(#arr-dark)"/>
+
+  <!-- Pump Head Housing -->
+  <rect x="270" y="130" width="180" height="190" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="2"/>
+  <text x="360" y="152" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">Головка помпи</text>
+
+  <!-- Diaphragm (Rubber/Silicone) -->
+  <path d="M275,170 Q295,225 275,280" fill="none" stroke="#c0392b" stroke-width="5"/>
+  <text x="290" y="305" font-size="12" font-weight="700" fill="#c0392b" text-anchor="start">Мембрана</text>
+
+  <!-- Valves Chamber & Flow -->
+  <!-- Inlet -->
+  <path d="M360,320 L360,265" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <rect x="345" y="260" width="30" height="8" fill="#27ae60"/>
+  <text x="360" y="338" font-size="12" fill="#2457d6" text-anchor="middle">Вхід (In)</text>
+
+  <!-- Outlet -->
+  <path d="M390,195 L390,140" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <rect x="375" y="195" width="30" height="8" fill="#27ae60"/>
+  <text x="390" y="125" font-size="12" fill="#2457d6" text-anchor="middle">Вихід (Out)</text>
+
+  <!-- Valve label -->
+  <text x="420" y="232" font-size="12" fill="#27ae60" text-anchor="middle">Пелюсткові</text>
+  <text x="420" y="246" font-size="12" fill="#27ae60" text-anchor="middle">клапани</text>
+
+  <!-- Brush/Collector Wear Warning Box -->
+  <rect x="50" y="340" width="180" height="75" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="140" y="358" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">1. Колекторний вузол</text>
+  <text x="140" y="375" font-size="12" fill="#1a1a1a" text-anchor="middle">Термічне деградування</text>
+  <text x="140" y="392" font-size="12" fill="#1a1a1a" text-anchor="middle">і знос графітових щіток</text>
+  <path d="M115,335 L115,315" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+
+  <!-- Diaphragm Fatigue Rupture Warning Box -->
+  <rect x="250" y="340" width="205" height="75" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="352.5" y="358" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">2. Еластомерна мембрана</text>
+  <text x="352.5" y="375" font-size="12" fill="#1a1a1a" text-anchor="middle">Втомний розрив еластомеру</text>
+  <text x="352.5" y="392" font-size="12" fill="#1a1a1a" text-anchor="middle">при циклічному вигині</text>
+  <path d="M300,335 L285,260" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+
+  <!-- Valve Contamination Warning Box -->
+  <rect x="50" y="430" width="405" height="65" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="252.5" y="450" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">3. Клапанна камера</text>
+  <text x="252.5" y="468" font-size="12" fill="#1a1a1a" text-anchor="middle">Втрата герметичності клапанів через механічні домішки</text>
+
+  <!-- RIGHT PANEL: Graphs -->
+  <rect x="490" y="70" width="440" height="445" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="710" y="96" font-size="14" font-weight="700" fill="#1a1a1a" text-anchor="middle">Графіки термічних та ресурсових обмежень</text>
+
+  <!-- Upper Graph: Temperature vs Duty Cycle -->
+  <rect x="515" y="115" width="395" height="175" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="712.5" y="133" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Нагрів щіткового вузла T (°C) від часу роботи t (хв)</text>
+
+  <!-- Axes -->
+  <line x1="555" y1="260" x2="850" y2="260" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="555" y1="150" x2="555" y2="260" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Y Ticks & Labels -->
+  <text x="548" y="264" font-size="12" fill="#6b7280" text-anchor="end">20°</text>
+  <text x="548" y="224" font-size="12" fill="#6b7280" text-anchor="end">50°</text>
+  <text x="548" y="184" font-size="12" fill="#6b7280" text-anchor="end">80°</text>
+  <line x1="555" y1="180" x2="850" y2="180" stroke="#c0392b" stroke-width="1" stroke-dasharray="4,4"/>
+  <text x="845" y="172" font-size="12" fill="#c0392b" text-anchor="end">T_max = 80 °C</text>
+
+  <!-- X Ticks & Labels -->
+  <text x="555" y="276" font-size="12" fill="#6b7280" text-anchor="middle">0</text>
+  <text x="625" y="276" font-size="12" fill="#6b7280" text-anchor="middle">5</text>
+  <text x="695" y="276" font-size="12" fill="#6b7280" text-anchor="middle">10</text>
+  <text x="765" y="276" font-size="12" fill="#6b7280" text-anchor="middle">15</text>
+  <text x="835" y="276" font-size="12" fill="#6b7280" text-anchor="middle">20 хв</text>
+
+  <!-- Curves -->
+  <!-- Continuous S1 (Red curve) -->
+  <path d="M555,260 Q620,210 695,175 T835,155" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+  <text x="570" y="152" font-size="12" font-weight="700" fill="#c0392b" text-anchor="start">100% S1 (безперервний)</text>
+
+  <!-- Intermittent S3 (Green curve) -->
+  <path d="M555,260 Q640,240 695,230 T835,225" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+  <text x="710" y="248" font-size="12" font-weight="700" fill="#27ae60" text-anchor="start">30% S3 (короткочасний)</text>
+
+  <!-- Lower Graph: Diaphragm Integrity vs Cycles -->
+  <rect x="515" y="310" width="395" height="185" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="712.5" y="330" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Ресурс мембрани (%) від кількості циклів N (×10⁶)</text>
+
+  <!-- Axes -->
+  <line x1="555" y1="455" x2="850" y2="455" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="555" y1="345" x2="555" y2="455" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Y Ticks -->
+  <text x="548" y="459" font-size="12" fill="#6b7280" text-anchor="end">0%</text>
+  <text x="548" y="407" font-size="12" fill="#6b7280" text-anchor="end">50%</text>
+  <text x="548" y="355" font-size="12" fill="#6b7280" text-anchor="end">100%</text>
+
+  <!-- X Ticks -->
+  <text x="555" y="471" font-size="12" fill="#6b7280" text-anchor="middle">0</text>
+  <text x="625" y="471" font-size="12" fill="#6b7280" text-anchor="middle">0.5</text>
+  <text x="695" y="471" font-size="12" fill="#6b7280" text-anchor="middle">1.0</text>
+  <text x="765" y="471" font-size="12" fill="#6b7280" text-anchor="middle">1.5</text>
+  <text x="835" y="471" font-size="12" fill="#6b7280" text-anchor="middle">2.0 млн</text>
+
+  <!-- Danger Zone Box -->
+  <rect x="715" y="350" width="130" height="95" fill="#fdecea" opacity="0.6"/>
+  
+  <!-- Degradation curve -->
+  <path d="M555,350 L650,355 Q680,360 705,430 T835,450" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+
+  <!-- Text inside danger zone -->
+  <text x="780" y="375" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">Зона ризику втомного</text>
+  <text x="780" y="390" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">розриву еластомеру</text>
+
+</svg>

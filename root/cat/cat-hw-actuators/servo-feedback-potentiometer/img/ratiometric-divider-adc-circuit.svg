@@ -1,0 +1,134 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <!-- Arrow markers -->
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-accent" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Background Canvas -->
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="34" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Логометрична схема потенціометричного зворотного зв'язку АЦП</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Спільне джерело V_CC для дільника та V_REF усуває вплив нестабільності живлення</text>
+
+  <!-- PANEL 1: Джерело живлення та потенціометричний дільник -->
+  <rect x="40" y="80" width="430" height="260" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="60" y="104" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="start">1. Джерело живлення та дільник напруги</text>
+
+  <!-- VCC Rail line in Panel 1 -->
+  <path d="M 90,130 L 200,130 L 200,160" fill="none" stroke="#c0392b" stroke-width="2"/>
+  <path d="M 200,130 L 470,130" fill="none" stroke="#c0392b" stroke-width="2"/>
+  <circle cx="90" cy="130" r="4" fill="#c0392b"/>
+  <circle cx="200" cy="130" r="4" fill="#c0392b"/>
+  <text x="90" y="122" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">V_CC (+5 В)</text>
+
+  <!-- Mechanical Shaft Connection & Rotation Arc -->
+  <path d="M 70,205 L 185,205" fill="none" stroke="#2457d6" stroke-width="2" stroke-dasharray="4 2"/>
+  <path d="M 90,185 A 18,18 0 0,1 115,185" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-accent)"/>
+  <text x="105" y="165" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Кут вала θ</text>
+  <text x="125" y="210" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Повзунок</text>
+
+  <!-- Potentiometer Resistors R2(theta) and R1(theta) -->
+  <!-- Upper Resistor R2 -->
+  <rect x="185" y="160" width="30" height="45" fill="#ffffff" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="175" y="186" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="end">R_2(θ)</text>
+
+  <!-- Lower Resistor R1 -->
+  <rect x="185" y="205" width="30" height="45" fill="#ffffff" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="175" y="231" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">R_1(θ)</text>
+
+  <!-- Wiper Contact Junction Point -->
+  <circle cx="200" cy="205" r="4" fill="#2457d6"/>
+
+  <!-- Ground Wire & Symbol -->
+  <path d="M 200,250 L 200,280" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+  <path d="M 80,280 L 470,280" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="200" cy="280" r="4" fill="#1a1a1a"/>
+
+  <line x1="188" y1="280" x2="212" y2="280" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="192" y1="285" x2="208" y2="285" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="196" y1="290" x2="204" y2="290" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="200" y="315" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">GND (0 В)</text>
+
+  <!-- Formula Box inside Panel 1 -->
+  <rect x="250" y="235" width="200" height="85" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="350" y="255" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Рівняння дільника:</text>
+  <text x="350" y="278" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">V_out = V_CC · (θ / θ_max)</text>
+  <text x="350" y="300" font-size="12" fill="#6b7280" text-anchor="middle">де R_1 / R_total = θ / θ_max</text>
+
+  <!-- INTER-PANEL CONNECTIONS -->
+  <!-- Shared VCC Wire crossing to Panel 2 -->
+  <path d="M 470,130 L 630,130 L 630,166 L 640,166" fill="none" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="450" y="122" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">V_REF = V_CC (Спільне живлення)</text>
+
+  <!-- Signal Vout Wire crossing to Panel 2 -->
+  <path d="M 215,205 L 630,205 M 630,205 L 640,205" fill="none" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-accent)"/>
+  <text x="450" y="198" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Сигнал V_out(θ)</text>
+
+  <!-- Ground Wire crossing to Panel 2 -->
+  <path d="M 470,280 L 640,280" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- PANEL 2: АЦП мікроконтролера та логометрична компенсація -->
+  <rect x="490" y="80" width="430" height="260" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="510" y="104" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="start">2. АЦП мікроконтролера та логометрична компенсація</text>
+
+  <!-- ADC Microcontroller Chip Box -->
+  <rect x="630" y="130" width="270" height="195" rx="6" fill="#ffffff" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Chip Header -->
+  <rect x="630" y="130" width="270" height="28" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="765" y="149" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Модуль АЦП (ADC Core)</text>
+
+  <!-- ADC Chip Pin Labels -->
+  <text x="640" y="172" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="start">V_REF</text>
+  <text x="640" y="209" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="start">AIN (V_out)</text>
+  <text x="640" y="284" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">GND</text>
+
+  <!-- ADC Internal Logic Formulas -->
+  <text x="765" y="184" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Цифровий код АЦП:</text>
+  <text x="765" y="204" font-size="12" fill="#6b7280" text-anchor="middle">N_ADC = N_max · (V_out / V_REF)</text>
+
+  <!-- Highlight Box: Ratiometric Cancellation of VCC -->
+  <rect x="642" y="218" width="246" height="54" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="765" y="237" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">N_ADC = N_max · (θ / θ_max)</text>
+  <text x="765" y="258" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">V_CC скорочується! (Логометрія)</text>
+
+  <!-- Bottom Chip Label -->
+  <text x="765" y="304" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Код N_ADC не залежить від V_CC</text>
+
+  <!-- PANEL 3: Математичні параметри логометричної системи -->
+  <rect x="40" y="355" width="880" height="105" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="60" y="377" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="start">Математичні параметри логометричної системи зворотного зв'язку:</text>
+
+  <!-- Column 1: Angle range -->
+  <text x="60" y="400" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">Робочий кут потенціометра:</text>
+  <text x="60" y="420" font-size="12" fill="#1a1a1a" text-anchor="start">θ ∈ [0, θ_max], де θ_max = 270°</text>
+  <text x="60" y="440" font-size="12" fill="#6b7280" text-anchor="start">Лінійність: V_out / V_CC = θ / θ_max</text>
+
+  <!-- Vertical Separator 1 -->
+  <line x1="330" y1="385" x2="330" y2="448" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Column 2: Resolution -->
+  <text x="350" y="400" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">Кутова розрізнена здатність:</text>
+  <text x="350" y="420" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="start">Δθ = θ_max / (2^N - 1)</text>
+  <text x="350" y="440" font-size="12" fill="#6b7280" text-anchor="start">При N=10 біт і 270°: Δθ ≈ 0.264°</text>
+
+  <!-- Vertical Separator 2 -->
+  <line x1="630" y1="385" x2="630" y2="448" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Column 3: Error signal & Filtering -->
+  <text x="645" y="400" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">Сигнал помилки e(θ):</text>
+  <text x="645" y="420" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="start">e(θ) = N_target - N_ADC</text>
+  <text x="645" y="440" font-size="12" fill="#6b7280" text-anchor="start">Зона нечутливості ±ε й ФНЧ усувають шум</text>
+</svg>

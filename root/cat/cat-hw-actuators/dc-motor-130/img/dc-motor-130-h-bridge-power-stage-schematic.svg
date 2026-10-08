@@ -1,0 +1,246 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- White Background -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Marker Definitions -->
+  <defs>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="28" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Силовий ступінь H-мосту для DC-двигуна 130</text>
+  <text x="480" y="48" font-size="13" fill="#6b7280" text-anchor="middle">Комутація діагональних пар ключів для зміни напрямку та ШІМ-регулювання</text>
+
+  <!-- ================= PANEL 1: FORWARD MODE ================= -->
+  <rect x="25" y="65" width="440" height="385" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  
+  <!-- Panel 1 Header -->
+  <rect x="37" y="73" width="416" height="42" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="245" y="90" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Прямий хід: ввімкнено Q1 та Q4</text>
+  <text x="245" y="106" font-size="12" fill="#1a1a1a" text-anchor="middle">Полярність: A (+) / B (–) • Струм тече зліва направо</text>
+
+  <!-- Top Power Rail VCC -->
+  <line x1="95" y1="135" x2="395" y2="135" stroke="#c0392b" stroke-width="2"/>
+  <text x="245" y="130" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">+VCC (+5V...+12V)</text>
+
+  <!-- Diode D1 -->
+  <polygon points="55,168 49,178 61,178" fill="#6b7280"/>
+  <line x1="49" y1="168" x2="61" y2="168" stroke="#6b7280" stroke-width="2"/>
+  <line x1="55" y1="135" x2="55" y2="168" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="55" y1="178" x2="55" y2="260" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="55" y1="260" x2="120" y2="260" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="45" y="176" font-size="12" fill="#6b7280" text-anchor="end">D1</text>
+
+  <!-- Transistor Q1 (ON) -->
+  <rect x="85" y="155" width="70" height="36" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <text x="120" y="170" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Q1 (ON)</text>
+  <text x="120" y="184" font-size="12" fill="#27ae60" text-anchor="middle">PWM / 1</text>
+
+  <!-- Transistor Q2 (OFF) -->
+  <rect x="335" y="155" width="70" height="36" rx="4" fill="#ffffff" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4,2"/>
+  <text x="370" y="170" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">Q2 (OFF)</text>
+  <text x="370" y="184" font-size="12" fill="#6b7280" text-anchor="middle">IN2 = 0</text>
+
+  <!-- Diode D2 -->
+  <polygon points="435,168 429,178 441,178" fill="#6b7280"/>
+  <line x1="429" y1="168" x2="441" y2="168" stroke="#6b7280" stroke-width="2"/>
+  <line x1="435" y1="135" x2="435" y2="168" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="435" y1="178" x2="435" y2="260" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="435" y1="260" x2="370" y2="260" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="445" y="176" font-size="12" fill="#6b7280" text-anchor="start">D2</text>
+
+  <!-- Circuit Wires (Base) -->
+  <line x1="120" y1="135" x2="120" y2="155" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="370" y1="135" x2="370" y2="155" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="120" y1="191" x2="120" y2="328" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="370" y1="191" x2="370" y2="328" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="120" y1="260" x2="219" y2="260" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="271" y1="260" x2="370" y2="260" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Current Flow Path 1 (Green) -->
+  <path d="M 120,135 L 120,155" stroke="#27ae60" stroke-width="3"/>
+  <path d="M 120,191 L 120,260" stroke="#27ae60" stroke-width="3" marker-end="url(#arr-green)"/>
+  <path d="M 120,260 L 370,260" stroke="#27ae60" stroke-width="3" marker-end="url(#arr-green)"/>
+  <path d="M 370,260 L 370,328" stroke="#27ae60" stroke-width="3"/>
+  <path d="M 370,364 L 370,395" stroke="#27ae60" stroke-width="3" marker-end="url(#arr-green)"/>
+  <text x="126" y="235" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="start">I_run</text>
+
+  <!-- Motor Rotation Indicator (CW) -->
+  <path d="M 230,224 A 20,20 0 0,1 260,224" fill="none" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="245" y="216" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">↻ CW (Вперед)</text>
+
+  <!-- Motor Circle -->
+  <circle cx="245" cy="260" r="26" fill="#ffffff" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="245" y="256" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">M</text>
+  <text x="245" y="271" font-size="12" fill="#6b7280" text-anchor="middle">130</text>
+  <text x="208" y="253" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="end">+ A</text>
+  <text x="282" y="253" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="start">– B</text>
+
+  <!-- Capacitor C1 -->
+  <line x1="170" y1="260" x2="170" y2="295" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="320" y1="260" x2="320" y2="295" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="170" y1="295" x2="237" y2="295" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="253" y1="295" x2="320" y2="295" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="237" y1="288" x2="237" y2="302" stroke="#1a1a1a" stroke-width="2.5"/>
+  <line x1="253" y1="288" x2="253" y2="302" stroke="#1a1a1a" stroke-width="2.5"/>
+  <text x="245" y="316" font-size="12" fill="#6b7280" text-anchor="middle">C1 = 100 nF (фільтр)</text>
+
+  <!-- Transistor Q3 (OFF) -->
+  <rect x="85" y="328" width="70" height="36" rx="4" fill="#ffffff" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4,2"/>
+  <text x="120" y="343" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">Q3 (OFF)</text>
+  <text x="120" y="357" font-size="12" fill="#6b7280" text-anchor="middle">IN3 = 0</text>
+
+  <!-- Transistor Q4 (ON) -->
+  <rect x="335" y="328" width="70" height="36" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <text x="370" y="343" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Q4 (ON)</text>
+  <text x="370" y="357" font-size="12" fill="#27ae60" text-anchor="middle">IN4 = 1</text>
+
+  <!-- Diode D3 -->
+  <polygon points="55,341 49,351 61,351" fill="#6b7280"/>
+  <line x1="49" y1="341" x2="61" y2="341" stroke="#6b7280" stroke-width="2"/>
+  <line x1="55" y1="260" x2="55" y2="341" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="55" y1="351" x2="55" y2="395" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="45" y="349" font-size="12" fill="#6b7280" text-anchor="end">D3</text>
+
+  <!-- Diode D4 -->
+  <polygon points="435,341 429,351 441,351" fill="#6b7280"/>
+  <line x1="429" y1="341" x2="441" y2="341" stroke="#6b7280" stroke-width="2"/>
+  <line x1="435" y1="260" x2="435" y2="341" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="435" y1="351" x2="435" y2="395" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="445" y="349" font-size="12" fill="#6b7280" text-anchor="start">D4</text>
+
+  <!-- Bottom Ground Rail GND -->
+  <line x1="95" y1="395" x2="395" y2="395" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="120" y1="364" x2="120" y2="395" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="370" y1="364" x2="370" y2="395" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="245" y1="395" x2="245" y2="405" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="233" y1="405" x2="257" y2="405" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="237" y1="409" x2="253" y2="409" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="241" y1="413" x2="249" y2="413" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="263" y="412" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">GND</text>
+
+
+  <!-- ================= PANEL 2: REVERSE MODE ================= -->
+  <rect x="495" y="65" width="440" height="385" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  
+  <!-- Panel 2 Header -->
+  <rect x="507" y="73" width="416" height="42" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="715" y="90" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Реверс: ввімкнено Q2 та Q3</text>
+  <text x="715" y="106" font-size="12" fill="#1a1a1a" text-anchor="middle">Полярність: A (–) / B (+) • Струм тече справа наліво</text>
+
+  <!-- Top Power Rail VCC -->
+  <line x1="565" y1="135" x2="865" y2="135" stroke="#c0392b" stroke-width="2"/>
+  <text x="715" y="130" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">+VCC (+5V...+12V)</text>
+
+  <!-- Diode D1 -->
+  <polygon points="525,168 519,178 531,178" fill="#6b7280"/>
+  <line x1="519" y1="168" x2="531" y2="168" stroke="#6b7280" stroke-width="2"/>
+  <line x1="525" y1="135" x2="525" y2="168" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="525" y1="178" x2="525" y2="260" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="525" y1="260" x2="590" y2="260" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="515" y="176" font-size="12" fill="#6b7280" text-anchor="end">D1</text>
+
+  <!-- Transistor Q1 (OFF) -->
+  <rect x="555" y="155" width="70" height="36" rx="4" fill="#ffffff" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4,2"/>
+  <text x="590" y="170" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">Q1 (OFF)</text>
+  <text x="590" y="184" font-size="12" fill="#6b7280" text-anchor="middle">IN1 = 0</text>
+
+  <!-- Transistor Q2 (ON) -->
+  <rect x="805" y="155" width="70" height="36" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="840" y="170" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Q2 (ON)</text>
+  <text x="840" y="184" font-size="12" fill="#2457d6" text-anchor="middle">PWM / 1</text>
+
+  <!-- Diode D2 -->
+  <polygon points="905,168 899,178 911,178" fill="#6b7280"/>
+  <line x1="899" y1="168" x2="911" y2="168" stroke="#6b7280" stroke-width="2"/>
+  <line x1="905" y1="135" x2="905" y2="168" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="905" y1="178" x2="905" y2="260" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="905" y1="260" x2="840" y2="260" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="915" y="176" font-size="12" fill="#6b7280" text-anchor="start">D2</text>
+
+  <!-- Circuit Wires (Base) -->
+  <line x1="590" y1="135" x2="590" y2="155" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="840" y1="135" x2="840" y2="155" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="590" y1="191" x2="590" y2="328" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="840" y1="191" x2="840" y2="328" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="590" y1="260" x2="689" y2="260" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="741" y1="260" x2="840" y2="260" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Current Flow Path 2 (Blue) -->
+  <path d="M 840,135 L 840,155" stroke="#2457d6" stroke-width="3"/>
+  <path d="M 840,191 L 840,260" stroke="#2457d6" stroke-width="3" marker-end="url(#arr-blue)"/>
+  <path d="M 840,260 L 590,260" stroke="#2457d6" stroke-width="3" marker-end="url(#arr-blue)"/>
+  <path d="M 590,260 L 590,328" stroke="#2457d6" stroke-width="3"/>
+  <path d="M 590,364 L 590,395" stroke="#2457d6" stroke-width="3" marker-end="url(#arr-blue)"/>
+  <text x="846" y="235" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="start">I_run</text>
+
+  <!-- Motor Rotation Indicator (CCW) -->
+  <path d="M 730,224 A 20,20 0 0,0 700,224" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="715" y="216" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">↺ CCW (Назад)</text>
+
+  <!-- Motor Circle -->
+  <circle cx="715" cy="260" r="26" fill="#ffffff" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="715" y="256" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">M</text>
+  <text x="715" y="271" font-size="12" fill="#6b7280" text-anchor="middle">130</text>
+  <text x="678" y="253" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">– A</text>
+  <text x="752" y="253" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="start">+ B</text>
+
+  <!-- Capacitor C2 -->
+  <line x1="640" y1="260" x2="640" y2="295" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="790" y1="260" x2="790" y2="295" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="640" y1="295" x2="707" y2="295" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="723" y1="295" x2="790" y2="295" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="707" y1="288" x2="707" y2="302" stroke="#1a1a1a" stroke-width="2.5"/>
+  <line x1="723" y1="288" x2="723" y2="302" stroke="#1a1a1a" stroke-width="2.5"/>
+  <text x="715" y="316" font-size="12" fill="#6b7280" text-anchor="middle">C2 = 100 nF (фільтр)</text>
+
+  <!-- Transistor Q3 (ON) -->
+  <rect x="555" y="328" width="70" height="36" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="590" y="343" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Q3 (ON)</text>
+  <text x="590" y="357" font-size="12" fill="#2457d6" text-anchor="middle">IN3 = 1</text>
+
+  <!-- Transistor Q4 (OFF) -->
+  <rect x="805" y="328" width="70" height="36" rx="4" fill="#ffffff" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4,2"/>
+  <text x="840" y="343" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">Q4 (OFF)</text>
+  <text x="840" y="357" font-size="12" fill="#6b7280" text-anchor="middle">IN4 = 0</text>
+
+  <!-- Diode D3 -->
+  <polygon points="525,341 519,351 531,351" fill="#6b7280"/>
+  <line x1="519" y1="341" x2="531" y2="341" stroke="#6b7280" stroke-width="2"/>
+  <line x1="525" y1="260" x2="525" y2="341" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="525" y1="351" x2="525" y2="395" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="515" y="349" font-size="12" fill="#6b7280" text-anchor="end">D3</text>
+
+  <!-- Diode D4 -->
+  <polygon points="905,341 899,351 911,351" fill="#6b7280"/>
+  <line x1="899" y1="341" x2="911" y2="341" stroke="#6b7280" stroke-width="2"/>
+  <line x1="905" y1="260" x2="905" y2="341" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="905" y1="351" x2="905" y2="395" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="915" y="349" font-size="12" fill="#6b7280" text-anchor="start">D4</text>
+
+  <!-- Bottom Ground Rail GND -->
+  <line x1="565" y1="395" x2="865" y2="395" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="590" y1="364" x2="590" y2="395" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="840" y1="364" x2="840" y2="395" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="715" y1="395" x2="715" y2="405" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="703" y1="405" x2="727" y2="405" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="707" y1="409" x2="723" y2="409" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="711" y1="413" x2="719" y2="413" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="733" y="412" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">GND</text>
+
+
+  <!-- ================= BOTTOM PROTECTION & WARNING BOX ================= -->
+  <rect x="25" y="465" width="910" height="50" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  
+  <text x="45" y="483" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="start">⚠️ Захист від скрізного струму (Shoot-Through):</text>
+  <text x="350" y="483" font-size="12" fill="#1a1a1a" text-anchor="start">Одночасне ввімкнення Q1+Q3 або Q2+Q4 створює коротке замикання VCC на GND!</text>
+  
+  <text x="45" y="502" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="start">🛡️ Захист від індуктивних викидів та завад:</text>
+  <text x="350" y="502" font-size="12" fill="#1a1a1a" text-anchor="start">Діоди D1–D4 гасять викиди самоіндукції, а C1, C2 пригнічують іскрові завади щіток.</text>
+
+</svg>

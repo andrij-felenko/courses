@@ -1,0 +1,120 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Canvas background -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Main Title & Subtitle -->
+  <text x="480" y="30" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Методи калібрування нейтралі сервопривода постійного обертання</text>
+  <text x="480" y="52" text-anchor="middle" font-size="13" fill="#6b7280">Усунення дрейфу вала при нульовій заданій швидкості (1,5 мс ШІМ)</text>
+
+  <!-- ================= PANEL 1: HARDWARE CALIBRATION ================= -->
+  <rect x="30" y="75" width="435" height="425" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="247.5" y="100" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">1. Апаратне калібрування (Hardware Trim)</text>
+  <text x="247.5" y="118" text-anchor="middle" font-size="12" fill="#6b7280">Механічне підлаштування потенціометра викруткою</text>
+
+  <!-- MCU Box -->
+  <rect x="50" y="140" width="110" height="70" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="105" y="163" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Мікроконтролер</text>
+  <text x="105" y="181" text-anchor="middle" font-size="12" fill="#1a1a1a">ШІМ: 1500 мкс</text>
+  <text x="105" y="196" text-anchor="middle" font-size="12" fill="#6b7280">(фіксований)</text>
+
+  <!-- PWM Line to Servo -->
+  <line x1="160" y1="175" x2="223" y2="175" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="191.5" y="163" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">1500 мкс</text>
+
+  <!-- Servo Box Hardware -->
+  <rect x="225" y="140" width="225" height="170" rx="8" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="337.5" y="162" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Сервопривод</text>
+
+  <!-- Potentiometer Hole & Circle -->
+  <circle cx="295" cy="225" r="18" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="288" y1="225" x2="302" y2="225" stroke="#2457d6" stroke-width="2.5"/>
+  <text x="295" y="258" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Потенціометр R_pot</text>
+  <text x="295" y="274" text-anchor="middle" font-size="12" fill="#6b7280">(отвір калібрування)</text>
+
+  <!-- Screwdriver Illustration Area -->
+  <rect x="385" y="235" width="16" height="35" rx="3" fill="#6b7280" stroke="#1a1a1a"/>
+  <rect x="391" y="205" width="4" height="30" fill="#d0d7de" stroke="#1a1a1a"/>
+  <text x="393" y="195" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Викрутка</text>
+
+  <!-- Action Arrow Screwdriver to Pot -->
+  <path d="M 385,220 Q 355,200 320,220" fill="none" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#arr-blue)"/>
+
+  <!-- Before Trim State (Problem) -->
+  <rect x="50" y="330" width="190" height="70" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="145" y="350" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">До калібрування</text>
+  <text x="145" y="368" text-anchor="middle" font-size="12" fill="#1a1a1a">R_pot ≠ 1500 мкс</text>
+  <text x="145" y="386" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">⚠ Дрейф вала</text>
+
+  <!-- After Trim State (Solution) -->
+  <rect x="260" y="330" width="190" height="70" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="355" y="350" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Після калібрування</text>
+  <text x="355" y="368" text-anchor="middle" font-size="12" fill="#1a1a1a">R_pot = 1500 мкс</text>
+  <text x="355" y="386" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">✓ Вал зупинено</text>
+
+  <!-- Panel 1 Summary -->
+  <rect x="50" y="415" width="400" height="65" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="250" y="437" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Принцип: Апаратна зміна опору R_pot</text>
+  <text x="250" y="457" text-anchor="middle" font-size="12" fill="#6b7280">Підгонка фізичної нейтралі під 1500 мкс</text>
+
+
+  <!-- ================= PANEL 2: SOFTWARE CALIBRATION ================= -->
+  <rect x="495" y="75" width="435" height="425" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="712.5" y="100" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">2. Програмне калібрування (Software Trim)</text>
+  <text x="712.5" y="118" text-anchor="middle" font-size="12" fill="#6b7280">Зсув тривалості імпульсу в керуючому коді</text>
+
+  <!-- MCU Code Box -->
+  <rect x="515" y="140" width="170" height="170" rx="8" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="600" y="162" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Програма МК (код)</text>
+
+  <!-- Code Block background inside MCU -->
+  <rect x="523" y="172" width="154" height="125" rx="4" fill="#eaf0fd" stroke="#d0d7de" stroke-width="1"/>
+  <text x="530" y="191" font-size="12" fill="#6b7280">// Зсув нейтралі:</text>
+  <text x="530" y="210" font-size="12" font-weight="bold" fill="#1a1a1a">offset = +20 мкс;</text>
+  <text x="530" y="233" font-size="12" fill="#6b7280">// Розрахунок ШІМ:</text>
+  <text x="530" y="252" font-size="12" font-weight="bold" fill="#2457d6">t_neutr = 1500 + 20;</text>
+  <text x="530" y="275" font-size="12" font-weight="bold" fill="#27ae60">servo.write(1520);</text>
+
+  <!-- PWM Line to Servo Software -->
+  <line x1="685" y1="235" x2="743" y2="235" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <text x="714" y="223" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">1520 мкс</text>
+
+  <!-- Servo Box Software -->
+  <rect x="745" y="140" width="170" height="170" rx="8" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="830" y="162" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Сервопривод</text>
+
+  <!-- Potentiometer Circle Fixed -->
+  <circle cx="830" cy="220" r="18" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="823" y1="220" x2="837" y2="220" stroke="#6b7280" stroke-width="2.5"/>
+  <text x="830" y="255" text-anchor="middle" font-size="12" fill="#6b7280">Фіксований R_pot</text>
+  <text x="830" y="273" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">(еквів. 1520 мкс)</text>
+
+  <!-- Standard 1500us State (Problem) -->
+  <rect x="515" y="330" width="190" height="70" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="610" y="350" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Без компенсації</text>
+  <text x="610" y="368" text-anchor="middle" font-size="12" fill="#1a1a1a">1500 мкс ≠ R_pot</text>
+  <text x="610" y="386" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">⚠ Дрейф вала</text>
+
+  <!-- Calibrated State (Solution) -->
+  <rect x="725" y="330" width="190" height="70" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="820" y="350" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">З компенсацією</text>
+  <text x="820" y="368" text-anchor="middle" font-size="12" fill="#1a1a1a">1520 мкс = R_pot</text>
+  <text x="820" y="386" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">✓ Вал зупинено</text>
+
+  <!-- Panel 2 Summary -->
+  <rect x="515" y="415" width="400" height="65" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="715" y="437" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Принцип: Програмне зміщення ШІМ-сигналу</text>
+  <text x="715" y="457" text-anchor="middle" font-size="12" fill="#6b7280">Підгонка імпульсу під фізичну нейтраль R_pot</text>
+
+</svg>

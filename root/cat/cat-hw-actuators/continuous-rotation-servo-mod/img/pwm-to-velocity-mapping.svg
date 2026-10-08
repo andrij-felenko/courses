@@ -1,0 +1,113 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Canvas Background -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Залежність кутової швидкості сервоприводу від тривалості ШІМ-імпульсу</text>
+  <text x="480" y="60" font-size="13" fill="#6b7280" text-anchor="middle">Ширина імпульсу визначає напрямок і швидкість обертання ω; мертва зона (1480–1520 мкс) гарантує зупинку</text>
+
+  <!-- Main Chart Background Panel -->
+  <rect x="40" y="80" width="880" height="305" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Deadband Zone Background Highlight -->
+  <rect x="466" y="80" width="28" height="305" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" stroke-dasharray="4,3"/>
+
+  <!-- Horizontal Grid Lines -->
+  <line x1="140" y1="130" x2="820" y2="130" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4,4"/>
+  <line x1="140" y1="360" x2="820" y2="360" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4,4"/>
+
+  <!-- Vertical Grid Lines -->
+  <line x1="140" y1="130" x2="140" y2="360" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4,4"/>
+  <line x1="820" y1="130" x2="820" y2="360" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4,4"/>
+  <line x1="480" y1="130" x2="480" y2="360" stroke="#2457d6" stroke-width="1" stroke-dasharray="3,3"/>
+
+  <!-- Characteristic Curve -->
+  <path d="M 140,360 L 466,245 L 494,245 L 820,130" fill="none" stroke="#2457d6" stroke-width="3.5" stroke-linejoin="round" stroke-linecap="round"/>
+
+  <!-- Key Points -->
+  <circle cx="140" cy="360" r="5" fill="#c0392b"/>
+  <circle cx="466" cy="245" r="4" fill="#2457d6"/>
+  <circle cx="480" cy="245" r="5" fill="#2457d6"/>
+  <circle cx="494" cy="245" r="4" fill="#2457d6"/>
+  <circle cx="820" cy="130" r="5" fill="#27ae60"/>
+
+  <!-- Axes -->
+  <line x1="125" y1="245" x2="845" y2="245" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <line x1="140" y1="375" x2="140" y2="100" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- Y Axis Ticks & Labels -->
+  <text x="140" y="93" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">ω (рад/с)</text>
+  <line x1="135" y1="130" x2="145" y2="130" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="132" y="134" font-size="12" fill="#1a1a1a" text-anchor="end">+ω_max</text>
+
+  <line x1="135" y1="245" x2="145" y2="245" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="132" y="249" font-size="12" fill="#1a1a1a" text-anchor="end">0</text>
+
+  <line x1="135" y1="360" x2="145" y2="360" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="132" y="364" font-size="12" fill="#1a1a1a" text-anchor="end">-ω_max</text>
+
+  <!-- X Axis Ticks & Labels -->
+  <text x="850" y="240" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="start">t_pulse (мкс)</text>
+
+  <line x1="140" y1="241" x2="140" y2="249" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="140" y="264" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">1000 мкс</text>
+  <text x="140" y="278" font-size="12" fill="#6b7280" text-anchor="middle">(Мін. ШІМ)</text>
+
+  <line x1="480" y1="241" x2="480" y2="249" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="480" y="264" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">1500 мкс</text>
+  <text x="480" y="278" font-size="12" fill="#2457d6" text-anchor="middle">(Нейтраль)</text>
+
+  <line x1="820" y1="241" x2="820" y2="249" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="820" y="264" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">2000 мкс</text>
+  <text x="820" y="278" font-size="12" fill="#6b7280" text-anchor="middle">(Макс. ШІМ)</text>
+
+  <!-- Deadband Indicator Callout -->
+  <line x1="466" y1="210" x2="494" y2="210" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="466" y1="205" x2="466" y2="215" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="494" y1="205" x2="494" y2="215" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="480" y="202" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">40 мкс</text>
+
+  <!-- Badges / Callout Panels -->
+  <!-- Top Center Deadband Badge -->
+  <rect x="395" y="86" width="170" height="38" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="480" y="101" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Мертва зона (Deadband)</text>
+  <text x="480" y="116" font-size="12" fill="#6b7280" text-anchor="middle">1480–1520 мкс (ω = 0)</text>
+
+  <!-- Upper Left Reverse Badge -->
+  <rect x="165" y="142" width="230" height="54" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="280" y="162" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">Реверс (проти годинникової)</text>
+  <text x="280" y="181" font-size="12" fill="#6b7280" text-anchor="middle">Швидкість: від -100% до 0%</text>
+
+  <!-- Lower Right Forward Badge -->
+  <rect x="565" y="295" width="230" height="54" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="680" y="315" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Прямий хід (за годинниковою)</text>
+  <text x="680" y="334" font-size="12" fill="#6b7280" text-anchor="middle">Швидкість: від 0% до +100%</text>
+
+  <!-- Bottom Info Cards -->
+  <!-- Card 1: Reverse -->
+  <rect x="40" y="405" width="275" height="90" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="55" y="425" font-size="13" font-weight="bold" fill="#c0392b">Реверсний режим</text>
+  <text x="55" y="445" font-size="12" fill="#1a1a1a">writeMicroseconds(1000 .. 1480)</text>
+  <text x="55" y="463" font-size="12" fill="#6b7280">Менший імпульс = вища швидкість</text>
+  <text x="55" y="481" font-size="12" fill="#6b7280">проти годинникової стрілки (CW/CCW)</text>
+
+  <!-- Card 2: Neutral / Deadband -->
+  <rect x="342" y="405" width="276" height="90" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="357" y="425" font-size="13" font-weight="bold" fill="#2457d6">Зупинка та мертва зона</text>
+  <text x="357" y="445" font-size="12" fill="#1a1a1a">writeMicroseconds(1500) / detach()</text>
+  <text x="357" y="463" font-size="12" fill="#6b7280">Гарантована зупинка ротора (ω = 0)</text>
+  <text x="357" y="481" font-size="12" fill="#6b7280">Захист від дрейфу потенціометра</text>
+
+  <!-- Card 3: Forward -->
+  <rect x="645" y="405" width="275" height="90" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="660" y="425" font-size="13" font-weight="bold" fill="#27ae60">Прямий режим</text>
+  <text x="660" y="445" font-size="12" fill="#1a1a1a">writeMicroseconds(1520 .. 2000)</text>
+  <text x="660" y="463" font-size="12" fill="#6b7280">Більший імпульс = вища швидкість</text>
+  <text x="660" y="481" font-size="12" fill="#6b7280">за годинниковою стрілкою</text>
+</svg>

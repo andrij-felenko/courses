@@ -1,0 +1,126 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 500" width="960" height="500" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="500" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Динаміка пуску двигуна RS-360SH: струм якоря i(t) та швидкість ω(t)</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Зростання проти-ЕРС E(t) = k_e · ω(t) обмежує пусковий пік струму I_start до I_0</text>
+
+  <!-- Main Background Panel -->
+  <rect x="30" y="68" width="900" height="348" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Right Info Panel -->
+  <rect x="685" y="80" width="230" height="324" rx="6" fill="white" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <text x="800" y="100" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Фізика процесів</text>
+  <line x1="700" y1="110" x2="900" y2="110" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Block 1: Peak Stall Current -->
+  <rect x="697" y="118" width="206" height="78" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="0.5"/>
+  <text x="707" y="135" font-size="12" font-weight="bold" fill="#c0392b">1. Пусковий пік струму</text>
+  <text x="707" y="150" font-size="12" fill="#1a1a1a">I_start = U / R_a  (при ω = 0)</text>
+  <text x="707" y="165" font-size="12" fill="#6b7280">Макс. пусковий момент</text>
+  <text x="707" y="180" font-size="12" fill="#6b7280">M_start = k_m · I_start</text>
+
+  <!-- Block 2: Back-EMF Growth -->
+  <rect x="697" y="204" width="206" height="78" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="0.5"/>
+  <text x="707" y="221" font-size="12" font-weight="bold" fill="#27ae60">2. Зростання проти-ЕРС</text>
+  <text x="707" y="236" font-size="12" fill="#1a1a1a">E(t) = k_e · ω(t)</text>
+  <text x="707" y="251" font-size="12" fill="#1a1a1a">i(t) = (U - E(t)) / R_a</text>
+  <text x="707" y="266" font-size="12" fill="#6b7280">Струм спадає з ростом ω</text>
+
+  <!-- Block 3: Steady State -->
+  <rect x="697" y="290" width="206" height="104" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="0.5"/>
+  <text x="707" y="307" font-size="12" font-weight="bold" fill="#2457d6">3. Усталений режим</text>
+  <text x="707" y="323" font-size="12" fill="#1a1a1a">ω → ω_max ,  i → I_0</text>
+  <text x="707" y="339" font-size="12" fill="#1a1a1a">M_elem = M_opp (навантаження)</text>
+  <text x="707" y="355" font-size="12" fill="#6b7280">Баланс напруги:</text>
+  <text x="707" y="371" font-size="12" fill="#6b7280">U = E + I_0 · R_a</text>
+
+  <!-- Horizontal Reference Lines (Dashed) -->
+  <!-- I_start level Y=130 -->
+  <line x1="110" y1="130" x2="630" y2="130" stroke="#c0392b" stroke-dasharray="4,4" stroke-width="1"/>
+  <!-- omega_max level Y=145 -->
+  <line x1="110" y1="145" x2="630" y2="145" stroke="#27ae60" stroke-dasharray="4,4" stroke-width="1"/>
+  <!-- I_0 level Y=295 -->
+  <line x1="110" y1="295" x2="630" y2="295" stroke="#2457d6" stroke-dasharray="4,4" stroke-width="1"/>
+
+  <!-- Vertical Reference Lines (Dashed) -->
+  <!-- tau_e vertical line at X=150 -->
+  <line x1="150" y1="130" x2="150" y2="355" stroke="#6b7280" stroke-dasharray="3,3" stroke-width="1"/>
+  <!-- tau_m vertical line at X=340 -->
+  <line x1="340" y1="145" x2="340" y2="355" stroke="#6b7280" stroke-dasharray="3,3" stroke-width="1"/>
+  <!-- 3..4 tau_m vertical line at X=560 -->
+  <line x1="560" y1="145" x2="560" y2="355" stroke="#6b7280" stroke-dasharray="3,3" stroke-width="1"/>
+
+  <!-- Plot Curves -->
+  <!-- i(t) Curve (Blue) -->
+  <path d="M 110 355 C 120 230, 135 130, 150 130 C 210 130, 260 230, 340 260 C 420 288, 500 295, 560 295 L 630 295" fill="none" stroke="#2457d6" stroke-width="3"/>
+
+  <!-- omega(t) Curve (Green) -->
+  <path d="M 110 355 L 150 355 C 210 355, 270 270, 340 222 C 420 167, 500 147, 560 145 L 630 145" fill="none" stroke="#27ae60" stroke-width="3"/>
+
+  <!-- Axes -->
+  <!-- X Axis (Time) -->
+  <line x1="95" y1="355" x2="645" y2="355" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+  <text x="652" y="359" font-size="13" fill="#1a1a1a" text-anchor="start">Час t</text>
+
+  <!-- Left Y Axis (Current) -->
+  <line x1="110" y1="365" x2="110" y2="95" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="110" y="83" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Струм i(t) [A]</text>
+
+  <!-- Right Y Axis (Speed) -->
+  <line x1="630" y1="365" x2="630" y2="95" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="630" y="83" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Швидкість ω(t) [рад/с]</text>
+
+  <!-- Y-Axis Level Labels -->
+  <!-- I_start label on Y-axis -->
+  <text x="102" y="125" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="end">I_start</text>
+
+  <!-- I_0 label on Y-axis -->
+  <text x="102" y="291" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">I_0</text>
+
+  <!-- omega_max label on Y-axis -->
+  <text x="638" y="141" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="start">ω_max</text>
+
+  <!-- Peak Stall Current Text Annotation (Top-Left Open Region) -->
+  <text x="230" y="104" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">I_start = U / R_a</text>
+  <text x="230" y="118" font-size="12" fill="#6b7280" text-anchor="middle">(пусковий пік струму)</text>
+
+  <!-- Speed Curve Text Annotation (Middle-Right Open Region) -->
+  <text x="450" y="218" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">ω(t) — швидкість ротора</text>
+  <text x="450" y="232" font-size="12" fill="#6b7280" text-anchor="middle">ω(t) = ω_max · (1 - e^-t/τ_m)</text>
+
+  <!-- Current Curve Text Annotation (Bottom-Right Open Region) -->
+  <text x="450" y="320" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">i(t) — струм якоря</text>
+  <text x="450" y="334" font-size="12" fill="#6b7280" text-anchor="middle">(електромеханічний спад)</text>
+
+  <!-- Time Axis Tick Labels -->
+  <text x="110" y="373" font-size="12" fill="#1a1a1a" text-anchor="middle">0</text>
+
+  <text x="150" y="373" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">τ_e</text>
+  <text x="150" y="388" font-size="12" fill="#6b7280" text-anchor="middle">L/R_a</text>
+
+  <text x="340" y="373" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">τ_m</text>
+  <text x="340" y="388" font-size="12" fill="#6b7280" text-anchor="middle">механічна</text>
+
+  <text x="560" y="373" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">3..4 τ_m</text>
+  <text x="560" y="388" font-size="12" fill="#6b7280" text-anchor="middle">усталений стан</text>
+
+  <!-- Bottom Summary Bar -->
+  <rect x="30" y="430" width="900" height="45" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="45" y="457" font-size="12" font-weight="bold" fill="#2457d6">ВИСНОВОК:</text>
+  <text x="125" y="457" font-size="12" fill="#1a1a1a">При вмиканні RS-360SH струм сягає піку I_start = U/R_a, після чого спадає до I_0 завдяки зростанню проти-ЕРС E = k_e · ω.</text>
+</svg>

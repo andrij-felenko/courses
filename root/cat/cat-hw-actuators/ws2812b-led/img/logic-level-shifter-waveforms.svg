@@ -1,0 +1,99 @@
+<svg viewBox="0 0 960 520" width="960" height="520" xmlns="http://www.w3.org/2000/svg" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Header -->
+  <text x="480" y="32" font-size="18" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Порівняння сигналів рівнів 3.3 В та перетворювачів для WS2812B</text>
+  <text x="480" y="54" font-size="13" text-anchor="middle" fill="#6b7280">Пасивні I²C перетворювачі завалюють фронти імпульсів; для 800 кГц WS2812B потрібен push-pull буфер (74AHCT125)</text>
+
+  <!-- Vertical Timing Reference Lines -->
+  <line x1="300" y1="85" x2="300" y2="480" stroke="#e0e0e0" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="460" y1="85" x2="460" y2="480" stroke="#e0e0e0" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="520" y1="85" x2="520" y2="480" stroke="#e0e0e0" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="575" y1="85" x2="575" y2="480" stroke="#e0e0e0" stroke-width="1" stroke-dasharray="2,2"/>
+
+  <!-- Track 1: MCU 3.3V Signal -->
+  <rect x="24" y="75" width="912" height="125" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="40" y="87" width="185" height="24" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="132" y="103" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">1. Вихід МК (GPIO 3.3 В)</text>
+  <text x="40" y="130" font-size="12" fill="#1a1a1a">Прямий 3.3В CMOS вихід</text>
+  <text x="40" y="148" font-size="12" fill="#6b7280">Амплітуда: V_OH = 3.3 В</text>
+  <text x="40" y="172" font-size="12" font-weight="bold" fill="#c0392b">⚠️ Ніжче V_IH,min (3.5 В)</text>
+
+  <!-- Track 1 Grid & Waveform -->
+  <line x1="260" y1="170" x2="910" y2="170" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="260" y1="118" x2="910" y2="118" stroke="#2457d6" stroke-width="1" stroke-dasharray="4,4"/>
+  <line x1="260" y1="92" x2="910" y2="92" stroke="#6b7280" stroke-width="1" stroke-dasharray="2,4"/>
+
+  <text x="252" y="96" font-size="12" text-anchor="end" fill="#6b7280">5.0 В</text>
+  <text x="252" y="122" font-size="12" font-weight="bold" text-anchor="end" fill="#2457d6">3.3 В</text>
+  <text x="252" y="174" font-size="12" text-anchor="end" fill="#6b7280">0.0 В</text>
+
+  <text x="380" y="108" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">T1H = 800 нс (Бит 1)</text>
+  <text x="547" y="108" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">T0H = 400 нс (Бит 0)</text>
+
+  <path d="M 260,170 L 300,170 L 300,118 L 460,118 L 460,170 L 520,170 L 520,118 L 575,118 L 575,170 L 735,170 L 735,118 L 895,118 L 895,170 L 910,170" stroke="#2457d6" stroke-width="2.5" fill="none"/>
+
+  <!-- Track 2: I2C Level Shifter (Problem) -->
+  <rect x="24" y="215" width="912" height="135" rx="6" fill="#fdecea" stroke="#f5c6cb" stroke-width="1.5"/>
+  <rect x="40" y="227" width="185" height="24" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+  <text x="132" y="243" font-size="12" font-weight="bold" text-anchor="middle" fill="#c0392b">2. Пасивний I²C FET (BSS138)</text>
+  <text x="40" y="270" font-size="12" fill="#1a1a1a">Відкритий тік + R_pullup</text>
+  <text x="40" y="288" font-size="12" fill="#6b7280">RC-затримка фронту (t_r ≈ 300 нс)</text>
+  <text x="40" y="312" font-size="12" font-weight="bold" fill="#c0392b">❌ НЕ ПІДХОДИТЬ</text>
+
+  <!-- Track 2 Grid & Waveform -->
+  <line x1="260" y1="315" x2="910" y2="315" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="260" y1="258" x2="910" y2="258" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <line x1="260" y1="235" x2="910" y2="235" stroke="#6b7280" stroke-width="1" stroke-dasharray="2,4"/>
+
+  <text x="252" y="239" font-size="12" text-anchor="end" fill="#6b7280">5.0 В</text>
+  <text x="252" y="262" font-size="12" font-weight="bold" text-anchor="end" fill="#c0392b">3.5 В (V_IH)</text>
+  <text x="252" y="319" font-size="12" text-anchor="end" fill="#6b7280">0.0 В</text>
+
+  <text x="320" y="230" font-size="12" font-weight="bold" fill="#c0392b">Повільний розряд/заряд RC (t_r &gt; 250 нс)</text>
+  <text x="610" y="230" font-size="12" font-weight="bold" fill="#c0392b">⚠️ T0H спотворюється або не досягає V_IH</text>
+
+  <path d="M 260,315 L 300,315 C 330,315 360,242 430,235 L 460,235 L 460,315 L 520,315 C 540,315 560,270 575,255 L 575,315 L 735,315 C 765,315 795,242 865,235 L 895,235 L 895,315 L 910,315" stroke="#c0392b" stroke-width="2.5" fill="none"/>
+
+  <!-- Track 3: Push-Pull 74AHCT125 (Solution) -->
+  <rect x="24" y="365" width="912" height="135" rx="6" fill="#e9f7ef" stroke="#c3e6cb" stroke-width="1.5"/>
+  <rect x="40" y="377" width="185" height="24" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="132" y="393" font-size="12" font-weight="bold" text-anchor="middle" fill="#27ae60">3. Push-Pull (74AHCT125)</text>
+  <text x="40" y="420" font-size="12" fill="#1a1a1a">Активний CMOS вихід 5 В</text>
+  <text x="40" y="438" font-size="12" fill="#6b7280">Круті фронти (t_r &lt; 10 нс)</text>
+  <text x="40" y="462" font-size="12" font-weight="bold" fill="#27ae60">✓ РЕКОМЕНДОВАНО</text>
+
+  <!-- Track 3 Grid & Waveform -->
+  <line x1="260" y1="465" x2="910" y2="465" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="260" y1="408" x2="910" y2="408" stroke="#6b7280" stroke-width="1" stroke-dasharray="4,4"/>
+  <line x1="260" y1="385" x2="910" y2="385" stroke="#27ae60" stroke-width="1" stroke-dasharray="2,4"/>
+
+  <text x="252" y="389" font-size="12" font-weight="bold" text-anchor="end" fill="#27ae60">5.0 В</text>
+  <text x="252" y="412" font-size="12" text-anchor="end" fill="#6b7280">3.5 В (V_IH)</text>
+  <text x="252" y="469" font-size="12" text-anchor="end" fill="#6b7280">0.0 В</text>
+
+  <text x="380" y="378" font-size="12" font-weight="bold" text-anchor="middle" fill="#27ae60">V_OH = 5.0 В (&gt; 3.5 В)</text>
+  <text x="547" y="378" font-size="12" font-weight="bold" text-anchor="middle" fill="#27ae60">Чіткий T0H</text>
+  <text x="780" y="378" font-size="12" font-weight="bold" text-anchor="middle" fill="#27ae60">Стабільний сигнал 800 кГц</text>
+
+  <path d="M 260,465 L 300,465 L 300,385 L 460,385 L 460,465 L 520,465 L 520,385 L 575,385 L 575,465 L 735,465 L 735,385 L 895,385 L 895,465 L 910,465" stroke="#27ae60" stroke-width="2.5" fill="none"/>
+</svg>

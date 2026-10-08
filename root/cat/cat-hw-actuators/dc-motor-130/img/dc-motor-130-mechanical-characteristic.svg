@@ -1,0 +1,135 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Canvas Background -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <defs>
+    <!-- Arrow Markers -->
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Title and Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Механічна характеристика та ККД двигуна 130</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Зона максимальної ефективності становить 15–30% від моменту заклинювання</text>
+
+  <!-- Optimal Efficiency Region Background -->
+  <rect x="195" y="105" width="75" height="295" fill="#e9f7ef" opacity="0.65" rx="4"/>
+
+  <!-- Horizontal Grid Lines -->
+  <line x1="120" y1="326" x2="620" y2="326" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4,4"/>
+  <line x1="120" y1="252" x2="620" y2="252" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4,4"/>
+  <line x1="120" y1="178" x2="620" y2="178" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4,4"/>
+
+  <!-- Vertical Grid Lines -->
+  <line x1="220" y1="225" x2="220" y2="400" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <line x1="620" y1="105" x2="620" y2="400" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,4"/>
+
+  <!-- Axes -->
+  <!-- Left Y-Axis: Speed n -->
+  <line x1="120" y1="400" x2="120" y2="98" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr-dark)"/>
+  <!-- Right Y-Axis: Efficiency eta -->
+  <line x1="620" y1="400" x2="620" y2="98" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr-dark)"/>
+  <!-- X-Axis: Torque M -->
+  <line x1="120" y1="400" x2="628" y2="400" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr-dark)"/>
+
+  <!-- Axes Titles -->
+  <text x="120" y="80" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Швидкість n [об/хв]</text>
+  <text x="620" y="80" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">ККД η [%]</text>
+  <text x="370" y="464" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Момент навантаження M [мН·м]</text>
+
+  <!-- Left Y-Axis Ticks -->
+  <text x="110" y="110" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">n₀</text>
+  <text x="110" y="256" font-size="12" fill="#6b7280" text-anchor="end">0.5 n₀</text>
+  <text x="110" y="404" font-size="12" fill="#6b7280" text-anchor="end">0</text>
+
+  <!-- Right Y-Axis Ticks -->
+  <text x="635" y="110" font-size="12" fill="#6b7280" text-anchor="start">100%</text>
+  <text x="635" y="224" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="start">η_max</text>
+  <text x="635" y="404" font-size="12" fill="#6b7280" text-anchor="start">0%</text>
+
+  <!-- X-Axis Ticks & Labels -->
+  <text x="120" y="420" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">0</text>
+  <text x="120" y="438" font-size="12" fill="#6b7280" text-anchor="middle">Холостий хід</text>
+
+  <text x="220" y="420" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">M_opt</text>
+  <text x="220" y="438" font-size="12" fill="#27ae60" text-anchor="middle">~0.2 M_s</text>
+
+  <text x="370" y="420" font-size="12" fill="#6b7280" text-anchor="middle">0.5 M_s</text>
+
+  <text x="620" y="420" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">M_stall</text>
+  <text x="620" y="438" font-size="12" fill="#c0392b" text-anchor="middle">Заклинювання</text>
+
+  <!-- Curves -->
+  <!-- Linear Speed Characteristic n(M) -->
+  <line x1="120" y1="105" x2="620" y2="400" stroke="#2457d6" stroke-width="3.5" stroke-linecap="round"/>
+
+  <!-- Parabolic Efficiency Curve eta(M) -->
+  <path d="M 120 400 C 150 270 190 220 220 220 C 270 220 420 320 620 400" fill="none" stroke="#27ae60" stroke-width="3.5" stroke-linecap="round"/>
+
+  <!-- Annotations on Chart -->
+  <!-- Optimal Zone Top Text -->
+  <text x="232" y="122" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Зона макс. ККД</text>
+  <text x="232" y="138" font-size="12" fill="#27ae60" text-anchor="middle">15% – 30% M_s</text>
+
+  <!-- No-Load Point Annotation -->
+  <circle cx="120" cy="105" r="5" fill="#2457d6" stroke="white" stroke-width="1.5"/>
+  <line x1="120" y1="105" x2="205" y2="78" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="2,2"/>
+  <text x="210" y="75" font-size="12" font-weight="bold" fill="#2457d6">Точка холостого ходу (n = n₀, I = I₀, η = 0%)</text>
+
+  <!-- Peak Efficiency Point Annotation -->
+  <circle cx="220" cy="220" r="5" fill="#27ae60" stroke="white" stroke-width="1.5"/>
+  <text x="215" y="198" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="end">η_max ≈ 50–65%</text>
+
+  <!-- Curve Labels -->
+  <text x="460" y="288" font-size="13" font-weight="bold" fill="#2457d6">Швидкість n(M)</text>
+  <text x="310" y="350" font-size="13" font-weight="bold" fill="#27ae60">ККД η(M)</text>
+
+  <!-- Stall Point Annotation -->
+  <circle cx="620" cy="400" r="6" fill="#c0392b" stroke="white" stroke-width="1.5"/>
+  <text x="495" y="366" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="end">Точка заклинювання</text>
+  <text x="495" y="382" font-size="12" fill="#6b7280" text-anchor="end">n = 0,  I = I_stall,  η = 0%</text>
+  <line x1="503" y1="374" x2="610" y2="396" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+
+  <!-- Bottom Summary Bar -->
+  <rect x="120" y="480" width="520" height="30" rx="6" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="380" y="500" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan font-weight="bold" fill="#2457d6">Висновок:</tspan> Розрахунковий режим — <tspan font-weight="bold" fill="#27ae60">15–30% M_stall</tspan> (зона максимального ККД)</text>
+
+  <!-- Right Side Panel: Operating Modes Analysis -->
+  <rect x="680" y="90" width="260" height="390" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="680" y="90" width="260" height="36" rx="8" fill="#eaf0fd"/>
+  <text x="810" y="113" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Аналіз режимів роботи</text>
+
+  <!-- Mode 1: No-load -->
+  <rect x="692" y="138" width="236" height="72" rx="6" fill="white" stroke="#d0d7de"/>
+  <text x="704" y="156" font-size="12" font-weight="bold" fill="#2457d6">1. Холостий хід (M = 0)</text>
+  <text x="704" y="174" font-size="12" fill="#1a1a1a">• Швидкість максимальна (n₀)</text>
+  <text x="704" y="192" font-size="12" fill="#6b7280">• Струм I₀ іде на тертя (η = 0%)</text>
+
+  <!-- Mode 2: Optimal -->
+  <rect x="692" y="222" width="236" height="72" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="704" y="240" font-size="12" font-weight="bold" fill="#27ae60">2. Оптимум (15–30% M_s)</text>
+  <text x="704" y="258" font-size="12" fill="#1a1a1a">• Максимальний ККД (η_max)</text>
+  <text x="704" y="276" font-size="12" fill="#1a1a1a">• Безпечний тепловий режим</text>
+
+  <!-- Mode 3: Stall -->
+  <rect x="692" y="306" width="236" height="72" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="704" y="324" font-size="12" font-weight="bold" fill="#c0392b">3. Заклинювання (M_stall)</text>
+  <text x="704" y="342" font-size="12" fill="#1a1a1a">• Максимальний струм I_stall</text>
+  <text x="704" y="360" font-size="12" font-weight="bold" fill="#c0392b">• Ризик згоряння обмотки!</text>
+
+  <!-- Mode 4: Formula Box -->
+  <rect x="692" y="390" width="236" height="76" rx="6" fill="white" stroke="#d0d7de"/>
+  <text x="704" y="408" font-size="12" font-weight="bold" fill="#1a1a1a">Рівняння характеристики:</text>
+  <text x="704" y="426" font-size="12" font-weight="bold" fill="#2457d6">n(M) = n₀ · (1 - M / M_s)</text>
+  <text x="704" y="444" font-size="12" fill="#6b7280">P_мех = M · ω  |  P_ел = U · I</text>
+</svg>

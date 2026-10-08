@@ -1,0 +1,180 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-black" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Схема підключення силового живлення, фаз та гальмівного чопера BLDC</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Розділення силової й сигнальної земель та шлях рекуперативного струму I_regen</text>
+
+  <!-- Panel 1: Power Input & Bus Capacitors -->
+  <rect x="30" y="75" width="250" height="465" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="155" y="98" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">ДЖЕРЕЛО ЖИВЛЕННЯ (VBUS)</text>
+  <text x="155" y="116" font-size="12" fill="#6b7280" text-anchor="middle">Фільтр та розв'язка шини</text>
+
+  <!-- VBUS & PGND Bus Lines in Box 1 -->
+  <path d="M 90,160 L 300,160" stroke="#c0392b" stroke-width="3" fill="none"/>
+  <text x="185" y="148" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Шина живлення +VBUS</text>
+
+  <path d="M 90,490 L 315,490" stroke="#1a1a1a" stroke-width="3" fill="none"/>
+  <text x="185" y="512" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Силова земля PGND</text>
+
+  <!-- VBUS Terminal block -->
+  <rect x="45" y="145" width="45" height="28" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="67.5" y="163" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">+VBUS</text>
+
+  <!-- PGND Terminal block -->
+  <rect x="45" y="475" width="45" height="28" rx="4" fill="#eef0f2" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="67.5" y="493" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">PGND</text>
+
+  <!-- Capacitor C_bus -->
+  <path d="M 125,160 L 125,275" stroke="#c0392b" stroke-width="2" fill="none"/>
+  <rect x="110" y="275" width="30" height="4" fill="#c0392b"/>
+  <rect x="110" y="290" width="30" height="4" fill="#1a1a1a"/>
+  <path d="M 125,294 L 125,360" stroke="#1a1a1a" stroke-width="2" fill="none"/>
+  <path d="M 125,440 L 125,490" stroke="#1a1a1a" stroke-width="2" fill="none"/>
+  <text x="104" y="235" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">C_bus (470 µF)</text>
+  <text x="104" y="252" font-size="12" fill="#6b7280" text-anchor="end">Низький ESR</text>
+
+  <!-- Capacitor C_hf -->
+  <path d="M 200,160 L 200,275" stroke="#c0392b" stroke-width="2" fill="none"/>
+  <rect x="188" y="275" width="24" height="4" fill="#2457d6"/>
+  <rect x="188" y="290" width="24" height="4" fill="#1a1a1a"/>
+  <path d="M 200,294 L 200,360" stroke="#1a1a1a" stroke-width="2" fill="none"/>
+  <path d="M 200,440 L 200,490" stroke="#1a1a1a" stroke-width="2" fill="none"/>
+  <text x="208" y="235" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">C_hf (1 µF)</text>
+  <text x="208" y="252" font-size="12" fill="#6b7280" text-anchor="start">ВЧ поглинач</text>
+
+  <!-- Explanatory Box 1 Bottom -->
+  <rect x="45" y="360" width="220" height="80" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="55" y="382" font-size="12" fill="#1a1a1a">• Поглинання пульсацій</text>
+  <text x="55" y="402" font-size="12" fill="#6b7280">• Локальний буфер струму</text>
+  <text x="55" y="422" font-size="12" fill="#6b7280">• Захист від імпульсів L</text>
+
+  <!-- Panel 2: Servo Controller & Brake Chopper -->
+  <rect x="300" y="75" width="370" height="465" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="485" y="98" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">ІНТЕГРАЛЬНИЙ СЕРВОКОНТРОЛЕР</text>
+
+  <!-- Sub-panel 2A: Brake Chopper -->
+  <rect x="315" y="115" width="165" height="300" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="397.5" y="133" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Brake Chopper</text>
+
+  <!-- Resistor R_brk -->
+  <rect x="372" y="152" width="51" height="24" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="397.5" y="168" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">R_brk</text>
+
+  <!-- Transistor Q_brk -->
+  <rect x="372" y="205" width="51" height="30" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="397.5" y="224" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Q_brk</text>
+
+  <!-- Line connecting VBUS to R_brk to Q_brk to PGND -->
+  <path d="M 397.5,160 L 397.5,152" stroke="#c0392b" stroke-width="2" fill="none"/>
+  <path d="M 397.5,176 L 397.5,205" stroke="#2457d6" stroke-width="2" fill="none"/>
+  <path d="M 397.5,235 L 397.5,490" stroke="#1a1a1a" stroke-width="2" fill="none"/>
+
+  <!-- Comparator Block -->
+  <rect x="323" y="250" width="82" height="26" rx="4" fill="#f4f6f8" stroke="#6b7280"/>
+  <text x="364" y="267" font-size="12" fill="#1a1a1a" text-anchor="middle">Компаратор</text>
+  <path d="M 364,250 L 364,220 L 372,220" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="3,3" fill="none" marker-end="url(#arr-black)"/>
+
+  <!-- Chopper Info Card -->
+  <rect x="322" y="295" width="151" height="105" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="328" y="315" font-size="12" font-weight="bold" fill="#2457d6">Скидання I_regen:</text>
+  <text x="328" y="335" font-size="12" fill="#1a1a1a">При VBUS &gt; V_porog</text>
+  <text x="328" y="355" font-size="12" fill="#1a1a1a">Q_brk відкривається,</text>
+  <text x="328" y="375" font-size="12" fill="#6b7280">енергія → R_brk</text>
+  <text x="328" y="391" font-size="12" fill="#6b7280">(розсіюється у тепло)</text>
+
+  <!-- Sub-panel 2B: 3-Phase Inverter -->
+  <rect x="495" y="115" width="160" height="300" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="575" y="133" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">3-Фазний Інвертор</text>
+
+  <path d="M 300,160 L 640,160" stroke="#c0392b" stroke-width="2" fill="none"/>
+  <path d="M 315,490 L 485,490" stroke="#1a1a1a" stroke-width="3" fill="none"/>
+
+  <!-- Half-Bridge Blocks U, V, W -->
+  <rect x="508" y="152" width="38" height="83" rx="4" fill="#eef0f2" stroke="#1a1a1a"/>
+  <text x="527" y="198" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">U</text>
+
+  <rect x="556" y="152" width="38" height="83" rx="4" fill="#eef0f2" stroke="#1a1a1a"/>
+  <text x="575" y="198" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">V</text>
+
+  <rect x="604" y="152" width="38" height="83" rx="4" fill="#eef0f2" stroke="#1a1a1a"/>
+  <text x="623" y="198" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">W</text>
+
+  <path d="M 527,160 L 527,152" stroke="#c0392b" stroke-width="2" fill="none"/>
+  <path d="M 575,160 L 575,152" stroke="#c0392b" stroke-width="2" fill="none"/>
+  <path d="M 623,160 L 623,152" stroke="#c0392b" stroke-width="2" fill="none"/>
+
+  <path d="M 527,235 L 527,270 L 778,270 L 778,212" stroke="#d97706" stroke-width="2" fill="none"/>
+  <path d="M 575,235 L 575,260 L 810,260 L 810,212" stroke="#27ae60" stroke-width="2" fill="none"/>
+  <path d="M 623,235 L 623,250 L 842,250 L 842,212" stroke="#2457d6" stroke-width="2" fill="none"/>
+
+  <path d="M 527,235 L 527,245 L 485,245 L 485,468" stroke="#1a1a1a" stroke-width="1.5" fill="none"/>
+  <path d="M 575,235 L 575,245 L 485,245" stroke="#1a1a1a" stroke-width="1.5" fill="none"/>
+  <path d="M 623,235 L 623,245 L 485,245" stroke="#1a1a1a" stroke-width="1.5" fill="none"/>
+
+  <!-- Inverter Info Card -->
+  <rect x="503" y="295" width="144" height="105" rx="4" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="510" y="315" font-size="12" font-weight="bold" fill="#1a1a1a">Зворотні діоди:</text>
+  <text x="510" y="335" font-size="12" fill="#6b7280">Спрямовують струм</text>
+  <text x="510" y="355" font-size="12" fill="#6b7280">гальмування мотора</text>
+  <text x="510" y="375" font-size="12" fill="#6b7280">з фаз U/V/W на VBUS</text>
+  <text x="510" y="391" font-size="12" fill="#6b7280">під час рекуперації</text>
+
+  <!-- Sub-panel 2C: Star Ground Junction -->
+  <rect x="315" y="430" width="340" height="95" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="485" y="448" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">ЗІРКОВА ТОЧКА ЗАЗЕМЛЕННЯ (Star Grounding Point)</text>
+  <circle cx="485" cy="468" r="5" fill="#27ae60"/>
+
+  <text x="485" y="484" font-size="12" fill="#1a1a1a" text-anchor="middle">PGND (силова) та SGND (сигнальна) землі</text>
+  <text x="485" y="500" font-size="12" fill="#1a1a1a" text-anchor="middle">з'єднуються суворо в одній точці на платі</text>
+  <text x="485" y="516" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Запобігає наведенню завад di/dt на енкодер</text>
+
+  <!-- Panel 3: Motor & Signal Interfaces -->
+  <rect x="690" y="75" width="240" height="465" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="810" y="98" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">ДВИГУН ТА СИНХРОНІЗАЦІЯ</text>
+
+  <!-- Sub-block 3A: Motor -->
+  <rect x="705" y="115" width="210" height="145" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="810" y="133" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">BLDC Двигун</text>
+
+  <circle cx="810" cy="180" r="32" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="810" y="185" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">M 3~</text>
+
+  <!-- Phase Lines (U, V, W) label -->
+  <text x="635" y="242" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">Фази U, V, W</text>
+
+  <!-- Sub-block 3B: Encoder & Signal Interfaces -->
+  <rect x="705" y="270" width="210" height="145" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="810" y="288" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Сигнальні інтерфейси</text>
+  <text x="715" y="310" font-size="12" fill="#1a1a1a">• Енкодер: SPI / BiSS-C / ABZ</text>
+  <text x="715" y="330" font-size="12" fill="#1a1a1a">• Шина: CAN / RS485 / ШІМ</text>
+  <text x="715" y="350" font-size="12" fill="#1a1a1a">• Живлення: 5V / 3.3V DC</text>
+  <text x="715" y="370" font-size="12" font-weight="bold" fill="#27ae60">• Земля: SGND (сигнальна)</text>
+  <text x="725" y="388" font-size="12" fill="#6b7280">(окремий провідник)</text>
+
+  <!-- Signal Ground Wire from 3B to Star Point 2C -->
+  <path d="M 705,366 L 670,366 L 670,468 L 490,468" stroke="#27ae60" stroke-width="2" stroke-dasharray="5,4" fill="none" marker-end="url(#arr-green)"/>
+
+  <!-- Sub-block 3C: Protection & Shielding -->
+  <rect x="705" y="430" width="210" height="95" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="810" y="448" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Екранування та захист</text>
+  <text x="715" y="468" font-size="12" fill="#1a1a1a">• Екрановані фазні кабелі</text>
+  <text x="715" y="488" font-size="12" fill="#1a1a1a">• Заземлення екрана 360°</text>
+  <text x="715" y="508" font-size="12" fill="#6b7280">• Вита пара для сигналів</text>
+</svg>

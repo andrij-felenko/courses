@@ -1,0 +1,105 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 500" width="960" height="500" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="500" fill="white"/>
+  <defs>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Стандарти роз'ємів RC-сервоприводів: JR та Futaba</text>
+  <text x="480" y="60" font-size="13" fill="#6b7280" text-anchor="middle">Призначення контактів (Pinout), колірна маркування провідників та ключові відмінності</text>
+
+  <!-- Left Panel: JR Standard -->
+  <rect x="40" y="85" width="420" height="300" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="250" y="110" font-size="16" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Роз'єм JR / Spektrum / Hitec</text>
+
+  <!-- JR Housing -->
+  <path d="M 80,135 L 420,135 L 420,205 L 408,220 L 92,220 L 80,205 Z" fill="#2b2d30" stroke="#1a1a1a" stroke-width="1.5"/>
+  
+  <!-- JR Sockets -->
+  <rect x="100" y="145" width="60" height="60" rx="4" fill="#1e2022" stroke="#4a4d52"/>
+  <rect x="220" y="145" width="60" height="60" rx="4" fill="#1e2022" stroke="#4a4d52"/>
+  <rect x="340" y="145" width="60" height="60" rx="4" fill="#1e2022" stroke="#4a4d52"/>
+
+  <!-- JR Pin Contacts -->
+  <rect x="120" y="160" width="20" height="30" rx="2" fill="#f1c40f" stroke="#d4ac0d"/>
+  <rect x="240" y="160" width="20" height="30" rx="2" fill="#f1c40f" stroke="#d4ac0d"/>
+  <rect x="360" y="160" width="20" height="30" rx="2" fill="#f1c40f" stroke="#d4ac0d"/>
+
+  <!-- Chamfer Callout -->
+  <text x="48" y="210" font-size="11" font-weight="bold" fill="#27ae60">Фаски</text>
+  <path d="M 75,207 L 85,212" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <!-- JR Wires -->
+  <line x1="130" y1="220" x2="130" y2="260" stroke="#e67e22" stroke-width="16" stroke-linecap="round"/>
+  <line x1="250" y1="220" x2="250" y2="260" stroke="#e74c3c" stroke-width="16" stroke-linecap="round"/>
+  <line x1="370" y1="220" x2="370" y2="260" stroke="#795548" stroke-width="16" stroke-linecap="round"/>
+
+  <!-- JR Pin Function Labels -->
+  <text x="130" y="280" font-size="12" font-weight="bold" fill="#d35400" text-anchor="middle">Signal (ШІМ)</text>
+  <text x="250" y="280" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">VCC (+4.8..8.4V)</text>
+  <text x="370" y="280" font-size="12" font-weight="bold" fill="#5d4037" text-anchor="middle">GND (0V)</text>
+
+  <!-- JR Wire Color Labels -->
+  <text x="130" y="298" font-size="12" fill="#6b7280" text-anchor="middle">Помаранчевий</text>
+  <text x="250" y="298" font-size="12" fill="#6b7280" text-anchor="middle">Червоний</text>
+  <text x="370" y="298" font-size="12" fill="#6b7280" text-anchor="middle">Коричневий</text>
+
+  <!-- JR Feature Box -->
+  <rect x="70" y="318" width="360" height="34" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="250" y="340" font-size="12" font-weight="bold" fill="#1e8449" text-anchor="middle">Універсальний корпус зі зрізаними фасками</text>
+
+
+  <!-- Right Panel: Futaba Standard -->
+  <rect x="500" y="85" width="420" height="300" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="710" y="110" font-size="16" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Роз'єм Futaba J</text>
+
+  <!-- Futaba Housing & Key -->
+  <rect x="540" y="135" width="340" height="85" rx="4" fill="#2b2d30" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="526" y="152.5" width="14" height="50" rx="2" fill="#1a1a1a" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Futaba Sockets -->
+  <rect x="560" y="145" width="60" height="60" rx="4" fill="#1e2022" stroke="#4a4d52"/>
+  <rect x="680" y="145" width="60" height="60" rx="4" fill="#1e2022" stroke="#4a4d52"/>
+  <rect x="800" y="145" width="60" height="60" rx="4" fill="#1e2022" stroke="#4a4d52"/>
+
+  <!-- Futaba Pin Contacts -->
+  <rect x="580" y="160" width="20" height="30" rx="2" fill="#f1c40f" stroke="#d4ac0d"/>
+  <rect x="700" y="160" width="20" height="30" rx="2" fill="#f1c40f" stroke="#d4ac0d"/>
+  <rect x="820" y="160" width="20" height="30" rx="2" fill="#f1c40f" stroke="#d4ac0d"/>
+
+  <!-- Key Callout -->
+  <text x="508" y="140" font-size="11" font-weight="bold" fill="#2457d6">Ключ</text>
+  <path d="M 522,143 L 530,152" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Futaba Wires -->
+  <line x1="590" y1="220" x2="590" y2="260" stroke="#78909c" stroke-width="18" stroke-linecap="round"/>
+  <line x1="590" y1="220" x2="590" y2="260" stroke="#ffffff" stroke-width="14" stroke-linecap="round"/>
+  <line x1="710" y1="220" x2="710" y2="260" stroke="#e74c3c" stroke-width="16" stroke-linecap="round"/>
+  <line x1="830" y1="220" x2="830" y2="260" stroke="#2c3e50" stroke-width="16" stroke-linecap="round"/>
+
+  <!-- Futaba Pin Function Labels -->
+  <text x="590" y="280" font-size="12" font-weight="bold" fill="#2c3e50" text-anchor="middle">Signal (ШІМ)</text>
+  <text x="710" y="280" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">VCC (+4.8..8.4V)</text>
+  <text x="830" y="280" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">GND (0V)</text>
+
+  <!-- Futaba Wire Color Labels -->
+  <text x="590" y="298" font-size="12" fill="#6b7280" text-anchor="middle">Білий</text>
+  <text x="710" y="298" font-size="12" fill="#6b7280" text-anchor="middle">Червоний</text>
+  <text x="830" y="298" font-size="12" fill="#6b7280" text-anchor="middle">Чорний</text>
+
+  <!-- Futaba Feature Box -->
+  <rect x="530" y="318" width="360" height="34" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="710" y="340" font-size="12" font-weight="bold" fill="#1b4f72" text-anchor="middle">Поляризаційний виступ (ключ) від переполюсовки</text>
+
+
+  <!-- Bottom Summary Panel -->
+  <rect x="40" y="398" width="880" height="76" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="480" y="420" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Захисна архітектура: центральний контакт завжди VCC (+)</text>
+  <text x="480" y="441" font-size="12" fill="#2457d6" text-anchor="middle">При випадковому розвертанні роз'єму на 180° міняються місцями лише Signal та GND.</text>
+  <text x="480" y="460" font-size="12" font-weight="bold" fill="#1e8449" text-anchor="middle">Напруга живлення не міняє полярність, що запобігає вигоранню електроніки сервоприводу.</text>
+</svg>

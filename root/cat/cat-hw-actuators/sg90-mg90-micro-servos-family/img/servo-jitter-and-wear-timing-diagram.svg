@@ -1,0 +1,138 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- White Background -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Definitions for Markers -->
+  <defs>
+    <marker id="arr-black" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Title and Subtitle -->
+  <text x="480" y="28" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Часова діаграма брязкання (jitter) та зношування сервопривода</text>
+  <text x="480" y="48" font-size="13" fill="#6b7280" text-anchor="middle">Співвідношення сигналів ШІМ, струму живлення та відгуку енкодера для нового й зношеного редукторів</text>
+
+  <!-- ==================== LEFT COLUMN: SIGNAL LABELS ==================== -->
+  <!-- Channel 1 Label Box -->
+  <rect x="35" y="70" width="190" height="95" rx="6" fill="#eaf0fd" stroke="#d0d7de" stroke-width="1"/>
+  <text x="45" y="94" font-size="13" font-weight="bold" fill="#2457d6">1. ШІМ-сигнал V_PWM</text>
+  <text x="45" y="114" font-size="12" fill="#6b7280">Вхідне керування</text>
+  <text x="45" y="132" font-size="12" fill="#6b7280">Частота: 50 Гц (T = 20 мс)</text>
+  <text x="45" y="150" font-size="12" fill="#c0392b">Завади: Δt_jitter на фронті</text>
+
+  <!-- Channel 2 Label Box -->
+  <rect x="35" y="180" width="190" height="95" rx="6" fill="#fdecea" stroke="#d0d7de" stroke-width="1"/>
+  <text x="45" y="204" font-size="13" font-weight="bold" fill="#c0392b">2. Струм живлення I_VCC</text>
+  <text x="45" y="224" font-size="12" fill="#6b7280">Споживання мотора</text>
+  <text x="45" y="242" font-size="12" fill="#6b7280">I_idle ≈ 10–15 мА</text>
+  <text x="45" y="260" font-size="12" fill="#c0392b">I_peak ≈ 500–800 мА</text>
+
+  <!-- Channel 3 Label Box -->
+  <rect x="35" y="290" width="190" height="100" rx="6" fill="#e9f7ef" stroke="#d0d7de" stroke-width="1"/>
+  <text x="45" y="314" font-size="13" font-weight="bold" fill="#27ae60">3. Кут вала θ(t) [Новий]</text>
+  <text x="45" y="336" font-size="12" fill="#6b7280">SG90 / MG90S (новий)</text>
+  <text x="45" y="354" font-size="12" fill="#6b7280">Мінімальний люфт (Δθ &lt; 0.5°)</text>
+  <text x="45" y="372" font-size="12" fill="#27ae60">Швидке заспокоєння t_set</text>
+
+  <!-- Channel 4 Label Box -->
+  <rect x="35" y="405" width="190" height="110" rx="6" fill="#fdecea" stroke="#d0d7de" stroke-width="1"/>
+  <text x="45" y="429" font-size="13" font-weight="bold" fill="#c0392b">4. Кут вала θ(t) [Знос]</text>
+  <text x="45" y="451" font-size="12" fill="#6b7280">Деградація редуктора</text>
+  <text x="45" y="469" font-size="12" fill="#c0392b">Амплітуда jitter: Δθ</text>
+  <text x="45" y="487" font-size="12" fill="#c0392b">Затримка відгуку: Δt_lag</text>
+
+
+  <!-- ==================== CENTER COLUMN: WAVEFORM LANES ==================== -->
+  <!-- Vertical Timing Alignment Guide Lines (dashed, avoiding text boxes) -->
+  <line x1="280" y1="105" x2="280" y2="230" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3 3"/>
+  <line x1="280" y1="285" x2="280" y2="298" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3 3"/>
+  <line x1="280" y1="318" x2="280" y2="370" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3 3"/>
+  <line x1="280" y1="395" x2="280" y2="418" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3 3"/>
+  <line x1="280" y1="436" x2="280" y2="470" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3 3"/>
+
+  <line x1="340" y1="105" x2="340" y2="210" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3 3"/>
+  <line x1="340" y1="260" x2="340" y2="340" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3 3"/>
+  <line x1="340" y1="395" x2="340" y2="520" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3 3"/>
+
+  <line x1="670" y1="70" x2="670" y2="520" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3 3"/>
+
+  <!-- Lane 1: PWM Control Waveform -->
+  <rect x="240" y="70" width="440" height="95" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="444" y="95" width="16" height="65" fill="#fdecea" opacity="0.6"/>
+  <path d="M 240,145 L 280,145 L 280,105 L 340,105 L 340,145 L 450,145 L 452,125 L 455,140 L 458,105 L 520,105 L 520,145 L 610,145 L 610,105 L 670,105 L 670,145 L 680,145" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+  <line x1="282" y1="96" x2="338" y2="96" stroke="#2457d6" stroke-width="1.2" marker-start="url(#arr-blue)" marker-end="url(#arr-blue)"/>
+  <text x="310" y="90" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">t_PWM = 1.5 мс</text>
+  <text x="452" y="88" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Δt_jitter</text>
+
+  <!-- Lane 2: Supply Current Waveform -->
+  <rect x="240" y="180" width="440" height="95" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="240" y1="255" x2="680" y2="255" stroke="#d0d7de" stroke-width="1"/>
+  <text x="246" y="270" font-size="12" fill="#6b7280">I_idle ≈ 10 мА</text>
+  <path d="M 240,255 L 280,255 C 282,220 285,220 290,220 L 335,220 C 345,220 350,255 360,255 L 445,255 L 448,255 L 452,195 L 456,250 L 460,195 L 464,245 L 468,195 L 472,250 L 476,195 L 480,255 L 515,255 L 520,195 L 524,250 L 528,195 L 532,255 L 680,255" fill="none" stroke="#c0392b" stroke-width="2"/>
+  <text x="495" y="193" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Стрибки струму (jitter)</text>
+
+  <!-- Lane 3: Angle Waveform (New Servo) -->
+  <rect x="240" y="290" width="440" height="100" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="240" y1="315" x2="680" y2="315" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4 4"/>
+  <text x="248" y="310" font-size="12" font-weight="bold" fill="#2457d6">θ_ref (90°)</text>
+  <path d="M 240,375 L 280,375 C 300,375 320,315 350,315 L 360,312 L 370,316 L 380,315 L 680,315" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+  <line x1="282" y1="368" x2="378" y2="368" stroke="#27ae60" stroke-width="1.2" marker-start="url(#arr-green)" marker-end="url(#arr-green)"/>
+  <text x="330" y="384" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">t_set (час позиціонування)</text>
+
+  <!-- Lane 4: Angle Waveform (Worn Servo) -->
+  <rect x="240" y="405" width="440" height="110" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="240" y1="435" x2="680" y2="435" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4 4"/>
+  <text x="248" y="430" font-size="12" font-weight="bold" fill="#2457d6">θ_ref (90°)</text>
+  <path d="M 240,495 L 295,495 C 330,495 370,445 400,435 L 410,422 L 420,448 L 430,422 L 440,448 L 450,422 L 460,448 L 470,420 L 480,450 L 490,420 L 500,450 L 510,422 L 520,448 L 530,420 L 540,450 L 550,422 L 560,448 L 570,420 L 580,450 L 590,422 L 600,448 L 610,420 L 620,450 L 630,422 L 640,448 L 650,420 L 660,448 L 670,435 L 680,435" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+  <line x1="282" y1="485" x2="293" y2="485" stroke="#c0392b" stroke-width="1.2" marker-start="url(#arr-red)" marker-end="url(#arr-red)"/>
+  <text x="287" y="478" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Δt_lag</text>
+  <line x1="635" y1="422" x2="635" y2="448" stroke="#c0392b" stroke-width="1.2" marker-start="url(#arr-red)" marker-end="url(#arr-red)"/>
+  <text x="635" y="416" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Δθ_jitter</text>
+
+  <!-- Time Axis Markers -->
+  <text x="280" y="535" font-size="12" fill="#6b7280" text-anchor="middle">t₀ = 0</text>
+  <text x="340" y="535" font-size="12" fill="#6b7280" text-anchor="middle">t₁ = 1.5 мс</text>
+  <text x="450" y="535" font-size="12" fill="#6b7280" text-anchor="middle">t₂ = 20 мс</text>
+  <text x="670" y="535" font-size="12" fill="#6b7280" text-anchor="end">Час t →</text>
+
+
+  <!-- ==================== RIGHT COLUMN: INFO CARDS ==================== -->
+  <!-- Card 1: Jitter Causes -->
+  <rect x="695" y="70" width="235" height="130" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="707" y="92" font-size="13" font-weight="bold" fill="#1a1a1a">Причини брязкання (jitter)</text>
+  <text x="707" y="112" font-size="12" fill="#1a1a1a">• Наводки на лінії ШІМ</text>
+  <text x="707" y="130" font-size="12" fill="#1a1a1a">• Падіння VCC під навантаженням</text>
+  <text x="707" y="148" font-size="12" fill="#1a1a1a">• Знос доріжки потенціометра</text>
+  <text x="707" y="180" font-size="12" font-weight="bold" fill="#c0392b">→ Викликає саморозгойдування</text>
+
+  <!-- Card 2: Mechanical Wear -->
+  <rect x="695" y="215" width="235" height="140" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="707" y="237" font-size="13" font-weight="bold" fill="#c0392b">Зношування редуктора</text>
+  <text x="707" y="258" font-size="12" fill="#1a1a1a">• SG90: злизування зубів (нейлон)</text>
+  <text x="707" y="276" font-size="12" fill="#1a1a1a">• SG92R: зріз зубів (carbon)</text>
+  <text x="707" y="294" font-size="12" fill="#1a1a1a">• MG90S: люфт латунної пари</text>
+  <text x="707" y="312" font-size="12" fill="#1a1a1a">• MG90D: перегрів МК та ключів</text>
+  <text x="707" y="338" font-size="12" font-weight="bold" fill="#c0392b">→ Втрата точності позиції</text>
+
+  <!-- Card 3: Prevention / Solutions -->
+  <rect x="695" y="370" width="235" height="145" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="707" y="392" font-size="13" font-weight="bold" fill="#27ae60">Методи усунення jitter</text>
+  <text x="707" y="414" font-size="12" fill="#1a1a1a">• Окреме живлення VCC (5V, 2A)</text>
+  <text x="707" y="432" font-size="12" fill="#1a1a1a">• Конденсатор C ≥ 470 мкФ</text>
+  <text x="707" y="450" font-size="12" fill="#1a1a1a">• Пул-даун 10 кОм на ШІМ</text>
+  <text x="707" y="468" font-size="12" fill="#1a1a1a">• Soft-start / RC-фільтр</text>
+  <text x="707" y="496" font-size="12" font-weight="bold" fill="#27ae60">→ Зменшення зносу в рази</text>
+</svg>

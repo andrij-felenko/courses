@@ -1,0 +1,132 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- White Background -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Definitions -->
+  <defs>
+    <marker id="arr" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-start" markerWidth="8" markerHeight="8" refX="1" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M7,1 L0,4 L7,7 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-accent" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-gray-start" markerWidth="8" markerHeight="8" refX="1" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M7,1 L0,4 L7,7 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Title and Subtitle -->
+  <text x="480" y="30" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Часові інтервали бітів та структура 24-бітного кадру WS2812B</text>
+  <text x="480" y="49" text-anchor="middle" font-size="13" fill="#6b7280">Тривалість високого рівня кодує «0» та «1», а 24 біти даних передаються в порядку G → R → B (MSB first)</text>
+
+  <!-- PANEL 1: Bit Timing Diagram -->
+  <rect x="30" y="66" width="900" height="200" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="45" y="86" font-size="14" font-weight="bold" fill="#1a1a1a">1. Часові параметри кодування бітів «0» та «1» (NRZ протокол)</text>
+
+  <!-- Bit 0 Section -->
+  <text x="260" y="106" text-anchor="middle" font-size="13" font-weight="bold" fill="#c0392b">Біт «0» (T0H &lt; T0L)</text>
+  <text x="155" y="125" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">T0H: 0.4 µs ±150 ns</text>
+  <text x="305" y="125" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">T0L: 0.85 µs ±150 ns</text>
+  <line x1="110" y1="134" x2="200" y2="134" stroke="#1a1a1a" stroke-width="1.5" marker-start="url(#arr-start)" marker-end="url(#arr)"/>
+  <line x1="200" y1="134" x2="410" y2="134" stroke="#1a1a1a" stroke-width="1.5" marker-start="url(#arr-start)" marker-end="url(#arr)"/>
+
+  <!-- Bit 1 Section -->
+  <text x="700" y="106" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">Біт «1» (T1H &gt; T1L)</text>
+  <text x="655" y="125" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">T1H: 0.8 µs ±150 ns</text>
+  <text x="805" y="125" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">T1L: 0.45 µs ±150 ns</text>
+  <line x1="550" y1="134" x2="760" y2="134" stroke="#1a1a1a" stroke-width="1.5" marker-start="url(#arr-start)" marker-end="url(#arr)"/>
+  <line x1="760" y1="134" x2="850" y2="134" stroke="#1a1a1a" stroke-width="1.5" marker-start="url(#arr-start)" marker-end="url(#arr)"/>
+
+  <!-- Voltage Level Labels -->
+  <text x="100" y="156" text-anchor="end" font-size="11" fill="#6b7280">HIGH (VDD)</text>
+  <text x="100" y="216" text-anchor="end" font-size="11" fill="#6b7280">LOW (GND)</text>
+  <text x="540" y="156" text-anchor="end" font-size="11" fill="#6b7280">HIGH</text>
+  <text x="540" y="216" text-anchor="end" font-size="11" fill="#6b7280">LOW</text>
+
+  <!-- Reference Dashed Lines -->
+  <line x1="105" y1="152" x2="425" y2="152" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="105" y1="212" x2="425" y2="212" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="545" y1="152" x2="865" y2="152" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="545" y1="212" x2="865" y2="212" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+
+  <!-- Vertical Timing Alignment Ticks -->
+  <line x1="110" y1="134" x2="110" y2="238" stroke="#b0b8c0" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="200" y1="134" x2="200" y2="212" stroke="#b0b8c0" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="410" y1="134" x2="410" y2="238" stroke="#b0b8c0" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="550" y1="134" x2="550" y2="238" stroke="#b0b8c0" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="760" y1="134" x2="760" y2="212" stroke="#b0b8c0" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="850" y1="134" x2="850" y2="238" stroke="#b0b8c0" stroke-width="1" stroke-dasharray="2,2"/>
+
+  <!-- Waveforms -->
+  <path d="M 105 212 H 110 V 152 H 200 V 212 H 425" stroke="#2457d6" stroke-width="2.5" fill="none"/>
+  <path d="M 545 212 H 550 V 152 H 760 V 212 H 865" stroke="#2457d6" stroke-width="2.5" fill="none"/>
+
+  <!-- Period T Dimension Lines & Labels -->
+  <line x1="110" y1="234" x2="410" y2="234" stroke="#6b7280" stroke-width="1.5" marker-start="url(#arr-gray-start)" marker-end="url(#arr-gray)"/>
+  <text x="260" y="250" text-anchor="middle" font-size="12" fill="#6b7280">Період T = 1.25 µs ±600 ns</text>
+
+  <line x1="550" y1="234" x2="850" y2="234" stroke="#6b7280" stroke-width="1.5" marker-start="url(#arr-gray-start)" marker-end="url(#arr-gray)"/>
+  <text x="700" y="250" text-anchor="middle" font-size="12" fill="#6b7280">Період T = 1.25 µs ±600 ns</text>
+
+  <!-- PANEL 2: Frame Structure and Cascade Sequence -->
+  <rect x="30" y="278" width="900" height="242" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="45" y="298" font-size="14" font-weight="bold" fill="#1a1a1a">2. Структура 24-бітного колірного кадру (GRB) та сигналу RESET</text>
+  <text x="480" y="315" text-anchor="middle" font-size="11" font-style="italic" fill="#6b7280">Порядок передачі: MSB first (спочатку G7, наприкінці B0). Кожен колірний канал містить 8 біт (0..255)</text>
+
+  <!-- Channel G Block -->
+  <rect x="55" y="325" width="260" height="48" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <text x="185" y="343" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">Зелений канал (G) — 8 біт</text>
+  <text x="185" y="361" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a1a">G7 (MSB)  G6  G5  G4  G3  G2  G1  G0 (LSB)</text>
+
+  <!-- Channel R Block -->
+  <rect x="350" y="325" width="260" height="48" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="2"/>
+  <text x="480" y="343" text-anchor="middle" font-size="13" font-weight="bold" fill="#c0392b">Червоний канал (R) — 8 біт</text>
+  <text x="480" y="361" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a1a">R7 (MSB)  R6  R5  R4  R3  R2  R1  R0 (LSB)</text>
+
+  <!-- Channel B Block -->
+  <rect x="645" y="325" width="260" height="48" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="775" y="343" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Синій канал (B) — 8 біт</text>
+  <text x="775" y="361" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a1a">B7 (MSB)  B6  B5  B4  B3  B2  B1  B0 (LSB)</text>
+
+  <!-- Cascade Subhead -->
+  <text x="45" y="390" font-size="12" font-weight="bold" fill="#1a1a1a">Передавання даних у ланцюжку (DOUT → DIN) та пауза фіксації (RESET):</text>
+
+  <!-- Packet Stream Packets -->
+  <rect x="55" y="402" width="165" height="36" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="137.5" y="424" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">1-й кадр: LED1 (24b)</text>
+
+  <line x1="225" y1="420" x2="245" y2="420" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-accent)"/>
+
+  <rect x="250" y="402" width="165" height="36" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="332.5" y="424" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">2-й кадр: LED2 (24b)</text>
+
+  <line x1="420" y1="420" x2="440" y2="420" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-accent)"/>
+
+  <rect x="445" y="402" width="165" height="36" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="527.5" y="424" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">3-й кадр: LED3 (24b)</text>
+
+  <line x1="615" y1="420" x2="635" y2="420" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+
+  <rect x="640" y="402" width="265" height="36" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="772.5" y="417" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">Пауза RESET (T_reset &gt; 50 µs)</text>
+  <text x="772.5" y="430" text-anchor="middle" font-size="10" fill="#6b7280">LOW level → фіксація та оновлення</text>
+
+  <!-- Explanatory Notes Cards -->
+  <rect x="55" y="450" width="465" height="56" rx="5" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="68" y="470" font-size="11" font-weight="bold" fill="#1a1a1a">Каскадне ретранслювання:</text>
+  <text x="220" y="470" font-size="11" fill="#6b7280">LED1 споживає 24 біти, решту передає далі</text>
+  <text x="68" y="490" font-size="11" fill="#6b7280">Кожен наступний світлодіод у гірлянді зрізає перші 24 біти зі входу DIN</text>
+
+  <rect x="535" y="450" width="370" height="56" rx="5" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="548" y="470" font-size="11" font-weight="bold" fill="#c0392b">Пауза скидання (RESET):</text>
+  <text x="548" y="490" font-size="11" fill="#6b7280">Сигнал LOW &gt; 50 µs оновлює ШІМ-виходи всіх LED одночасно</text>
+</svg>

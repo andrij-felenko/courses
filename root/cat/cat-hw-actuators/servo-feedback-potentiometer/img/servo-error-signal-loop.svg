@@ -1,0 +1,159 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Маркери стрілок -->
+  <defs>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок та підзаголовок -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Математика потенціометричного зворотного зв'язку сервоприводу</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Формування сигналу помилки e(t) = θ_ref - θ_act для керування сервомотором</text>
+
+  <!-- ПАНЕЛЬ 1: Задання кута -->
+  <rect x="30" y="85" width="205" height="420" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="132.5" y="110" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">1. Задання кута</text>
+  <text x="132.5" y="127" font-size="12" fill="#6b7280" text-anchor="middle">Команда θ_ref (PWM / DAC)</text>
+
+  <!-- Блок 1.1: PWM імпульс -->
+  <rect x="42" y="140" width="181" height="82" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="132.5" y="162" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Вхідний PWM імпульс</text>
+  <text x="132.5" y="182" font-size="12" fill="#1a1a1a" text-anchor="middle">t_pulse = 1.0 ... 2.0 мс</text>
+  <text x="132.5" y="202" font-size="12" fill="#6b7280" text-anchor="middle">Період T = 20 мс (50 Гц)</text>
+
+  <!-- Блок 1.2: Декодер V_ref -->
+  <rect x="42" y="234" width="181" height="120" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="132.5" y="256" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Декодер / ЦАП (V_ref)</text>
+  <text x="132.5" y="276" font-size="12" fill="#1a1a1a" text-anchor="middle">θ_ref = k_p · (t_p - 1.5)</text>
+  <text x="132.5" y="296" font-size="12" fill="#1a1a1a" text-anchor="middle">V_ref = V_cc · θ_ref / θ_max</text>
+  <text x="132.5" y="316" font-size="12" fill="#6b7280" text-anchor="middle">Опорна напруга задання</text>
+  <text x="132.5" y="336" font-size="12" fill="#6b7280" text-anchor="middle">Діапазон: 0 ... V_cc</text>
+
+  <!-- Блок 1.3: Логометричне V_cc -->
+  <rect x="42" y="366" width="181" height="124" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="132.5" y="388" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Логометричне V_cc</text>
+  <text x="132.5" y="408" font-size="12" fill="#1a1a1a" text-anchor="middle">Одне V_cc для V_ref і V_fb</text>
+  <text x="132.5" y="428" font-size="12" fill="#27ae60" text-anchor="middle">Скасування пульсацій V_cc</text>
+  <text x="132.5" y="448" font-size="12" fill="#6b7280" text-anchor="middle">V_ref / V_cc = f(θ_ref)</text>
+  <text x="132.5" y="468" font-size="12" fill="#6b7280" text-anchor="middle">Компенсація просідань</text>
+
+
+  <!-- ПАНЕЛЬ 2: Формування помилки -->
+  <rect x="255" y="85" width="220" height="420" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="365" y="110" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">2. Формування помилки</text>
+  <text x="365" y="127" font-size="12" fill="#6b7280" text-anchor="middle">Суматор та сигнал e(t)</text>
+
+  <!-- Блок 2.1: Суматор Σ -->
+  <rect x="267" y="140" width="196" height="105" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="365" y="162" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Суматор сигналу Σ</text>
+  <text x="365" y="183" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">e(t) = θ_ref - θ_act</text>
+  <text x="365" y="204" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">V_err = V_ref - V_fb</text>
+  <text x="365" y="224" font-size="12" fill="#6b7280" text-anchor="middle">Різниця заданого й факту</text>
+
+  <!-- Блок 2.2: Знак помилки -->
+  <rect x="267" y="257" width="196" height="120" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="365" y="278" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Аналіз знака і величини</text>
+  <text x="277" y="299" font-size="12" fill="#27ae60" text-anchor="start">• e &gt; 0: Обертання CW</text>
+  <text x="277" y="319" font-size="12" fill="#c0392b" text-anchor="start">• e &lt; 0: Обертання CCW</text>
+  <text x="277" y="339" font-size="12" fill="#1a1a1a" text-anchor="start">• |e| → 0: Гальмування</text>
+  <text x="277" y="359" font-size="12" fill="#6b7280" text-anchor="start">• V_m = K_p · V_err</text>
+
+  <!-- Блок 2.3: Зона нечутливості -->
+  <rect x="267" y="389" width="196" height="101" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="365" y="410" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">Нечутливість та люфт</text>
+  <text x="365" y="430" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">|e| &lt; Δe_dead → V_m = 0</text>
+  <text x="365" y="450" font-size="12" fill="#1a1a1a" text-anchor="middle">Запобігання автоколиванням</text>
+  <text x="365" y="470" font-size="12" fill="#6b7280" text-anchor="middle">Люфт редуктора: Δθ_play</text>
+
+
+  <!-- ПАНЕЛЬ 3: Драйвер і мотор -->
+  <rect x="495" y="85" width="210" height="420" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="600" y="110" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">3. Драйвер та мотор</text>
+  <text x="600" y="127" font-size="12" fill="#6b7280" text-anchor="middle">Підсилювач і редуктор</text>
+
+  <!-- Блок 3.1: Підсилювач & H-Міст -->
+  <rect x="507" y="140" width="186" height="112" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="600" y="162" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Підсилювач та H-Міст</text>
+  <text x="600" y="183" font-size="12" fill="#1a1a1a" text-anchor="middle">Вхід: Сигнал V_err</text>
+  <text x="600" y="203" font-size="12" fill="#2457d6" text-anchor="middle">ШІМ модуляція моста</text>
+  <text x="600" y="223" font-size="12" fill="#1a1a1a" text-anchor="middle">Зміна полярності CW/CCW</text>
+  <text x="600" y="242" font-size="12" fill="#6b7280" text-anchor="middle">V_m = ± K_amp · V_err</text>
+
+  <!-- Блок 3.2: DC Мотор & Редуктор -->
+  <rect x="507" y="264" width="186" height="113" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="600" y="286" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">DC Мотор і Редуктор</text>
+  <text x="600" y="306" font-size="12" fill="#1a1a1a" text-anchor="middle">Високі оберти ω_m</text>
+  <text x="600" y="326" font-size="12" fill="#1a1a1a" text-anchor="middle">Редуктор: передача N:1</text>
+  <text x="600" y="346" font-size="12" fill="#2457d6" text-anchor="middle">Збільшення моменту T_out</text>
+  <text x="600" y="365" font-size="12" fill="#6b7280" text-anchor="middle">Вал повороту θ_act</text>
+
+  <!-- Блок 3.3: Динаміка вала -->
+  <rect x="507" y="389" width="186" height="101" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="600" y="410" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Динаміка вихідного вала</text>
+  <text x="600" y="430" font-size="12" fill="#1a1a1a" text-anchor="middle">Кут вала θ_act(t)</text>
+  <text x="600" y="450" font-size="12" fill="#27ae60" text-anchor="middle">Швидкість dθ/dt ~ e(t)</text>
+  <text x="600" y="470" font-size="12" fill="#6b7280" text-anchor="middle">Зупинка при e(t) = 0</text>
+
+
+  <!-- ПАНЕЛЬ 4: Потенціометр ЗЗ -->
+  <rect x="725" y="85" width="205" height="420" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="827.5" y="110" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">4. Потенціометр ЗЗ</text>
+  <text x="827.5" y="127" font-size="12" fill="#6b7280" text-anchor="middle">Дільник і напруга V_fb</text>
+
+  <!-- Блок 4.1: Дільник напруги -->
+  <rect x="737" y="140" width="181" height="130" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="827.5" y="162" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Дільник напруги R_pot</text>
+  <text x="827.5" y="182" font-size="12" fill="#1a1a1a" text-anchor="middle">R_fb = R_t · (θ_act / θ_max)</text>
+  <text x="827.5" y="202" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">V_fb = V_cc · (θ_act / θ_max)</text>
+  <text x="827.5" y="222" font-size="12" fill="#1a1a1a" text-anchor="middle">Лінійна характеристика</text>
+  <text x="827.5" y="242" font-size="12" fill="#6b7280" text-anchor="middle">Крутизна K_p = V_cc/θ_max</text>
+  <text x="827.5" y="260" font-size="12" fill="#6b7280" text-anchor="middle">Сигнал факту θ_act</text>
+
+  <!-- Блок 4.2: АЦП розрізнення -->
+  <rect x="737" y="282" width="181" height="98" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="827.5" y="304" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Розрізнення АЦП (ADC)</text>
+  <text x="827.5" y="324" font-size="12" fill="#1a1a1a" text-anchor="middle">N_adc = 10 біт (1024 крок)</text>
+  <text x="827.5" y="344" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Δθ_min = θ_max / 2^N</text>
+  <text x="827.5" y="364" font-size="12" fill="#6b7280" text-anchor="middle">Напр. 180° / 1024 ≈ 0.176°</text>
+
+  <!-- Блок 4.3: Калібрування & Фільтр -->
+  <rect x="737" y="392" width="181" height="98" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="827.5" y="414" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Калібрування &amp; Фільтр</text>
+  <text x="827.5" y="434" font-size="12" fill="#1a1a1a" text-anchor="middle">Калібрування 2-ма точками</text>
+  <text x="827.5" y="454" font-size="12" fill="#1a1a1a" text-anchor="middle">Фільтрація шуму ковзним</text>
+  <text x="827.5" y="474" font-size="12" fill="#6b7280" text-anchor="middle">Компенсація зносу ковзача</text>
+
+
+  <!-- СТРІЛКИ ПОТОКУ ЗВ'ЯЗКІВ -->
+
+  <!-- 1. V_ref з Панелі 1 у Панель 2 -->
+  <path d="M 223 294 H 245 V 192 H 264" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="245" y="178" font-size="12" fill="#2457d6" text-anchor="middle">V_ref</text>
+
+  <!-- 2. V_err з Панелі 2 у Панель 3 -->
+  <path d="M 463 317 H 485 V 192 H 504" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="485" y="178" font-size="12" fill="#2457d6" text-anchor="middle">V_err</text>
+
+  <!-- 3. Механічний вал θ_act з Панелі 3 у Панель 4 -->
+  <path d="M 693 320 H 715 V 192 H 734" fill="none" stroke="#1a1a1a" stroke-width="2" stroke-dasharray="5,3" marker-end="url(#arr-dark)"/>
+  <text x="715" y="178" font-size="12" fill="#1a1a1a" text-anchor="middle">θ_act</text>
+
+  <!-- 4. Лінія негативного зворотного зв'язку V_fb з Панелі 4 у Панель 2 -->
+  <path d="M 827 270 V 535 H 365 V 248" fill="none" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="596" y="528" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Зворотний зв'язок: V_fb = V_cc · (θ_act / θ_max)</text>
+</svg>

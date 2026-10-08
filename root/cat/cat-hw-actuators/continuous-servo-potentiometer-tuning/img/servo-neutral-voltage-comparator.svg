@@ -1,0 +1,127 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- White Background -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Marker Definitions -->
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-accent" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-danger" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-success" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Внутрішній компаратор напруги та калібрування нейтралі сервопривода</text>
+  <text x="480" y="56" font-size="13" fill="#6b7280" text-anchor="middle">Зміщення V_pot відносно V_ref (1500 мкс) поза зоною нечутливості генерує сигнал помилки та дрейф мотора</text>
+
+  <!-- ==================== LEFT PANEL: FUNCTIONAL DIAGRAM ==================== -->
+  <rect x="30" y="75" width="435" height="460" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <text x="247.5" y="100" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Схема внутрішнього порівняння напруг</text>
+  <text x="247.5" y="118" font-size="12" fill="#6b7280" text-anchor="middle">Формування сигналу помилки e = V_ref - V_pot</text>
+
+  <!-- Block 1: PWM Converter -->
+  <rect x="50" y="135" width="165" height="75" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="132.5" y="156" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Вхідний ШІМ-сигнал</text>
+  <text x="132.5" y="175" font-size="12" fill="#1a1a1a" text-anchor="middle">t_pulse = 1500 мкс</text>
+  <text x="132.5" y="193" font-size="12" fill="#6b7280" text-anchor="middle">V_ref = 2.50 В</text>
+
+  <!-- Block 2: Potentiometer / Trimmer -->
+  <rect x="50" y="245" width="165" height="90" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="132.5" y="266" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Підстроювач нейтралі</text>
+  <text x="132.5" y="285" font-size="12" fill="#1a1a1a" text-anchor="middle">Потенціометр R1 / R2</text>
+  <text x="132.5" y="304" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Тример VR1</text>
+  <text x="132.5" y="322" font-size="12" fill="#6b7280" text-anchor="middle">Вихід V_pot</text>
+
+  <!-- Block 3: Comparator with Deadband -->
+  <rect x="250" y="145" width="195" height="150" rx="6" fill="white" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="347.5" y="170" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Внутрішній компаратор</text>
+  <text x="347.5" y="190" font-size="12" fill="#6b7280" text-anchor="middle">Зона нечутливості</text>
+  <text x="347.5" y="210" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">+-ΔV_db = +-15 мВ</text>
+  <text x="347.5" y="240" font-size="12" fill="#27ae60" text-anchor="middle">|ΔV| &lt;= ΔV_db =&gt; e = 0</text>
+  <text x="347.5" y="265" font-size="12" fill="#c0392b" text-anchor="middle">|ΔV| &gt; ΔV_db =&gt; e != 0</text>
+
+  <!-- Signal Lines to Comparator -->
+  <line x1="215" y1="170" x2="250" y2="170" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-accent)"/>
+  <text x="232.5" y="161" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">V_ref</text>
+
+  <path d="M 215,290 L 232.5,290 L 232.5,250 L 250,250" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-accent)"/>
+  <text x="232.5" y="306" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">V_pot</text>
+
+  <!-- Block 4: H-Bridge Motor Driver -->
+  <rect x="250" y="335" width="195" height="60" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="347.5" y="358" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Мостова схема (H-Bridge)</text>
+  <text x="347.5" y="378" font-size="12" fill="#6b7280" text-anchor="middle">Керування мотором</text>
+
+  <!-- Connection Comparator to H-Bridge -->
+  <line x1="347.5" y1="295" x2="347.5" y2="335" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+  <text x="356" y="318" font-size="12" fill="#1a1a1a" text-anchor="start">Сигнал e</text>
+
+  <!-- Block 5: DC Motor & Output Shaft -->
+  <rect x="100" y="435" width="345" height="80" rx="6" fill="white" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="272.5" y="458" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Двигун і редуктор вала</text>
+  <text x="272.5" y="478" font-size="12" fill="#27ae60" text-anchor="middle">e = 0: Повна зупинка вала</text>
+  <text x="272.5" y="498" font-size="12" fill="#c0392b" text-anchor="middle">e != 0: Дрейф / обертання</text>
+
+  <!-- Path H-Bridge to Motor -->
+  <line x1="347.5" y1="395" x2="347.5" y2="435" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+  <text x="356" y="418" font-size="12" fill="#6b7280" text-anchor="start">V_out мотора</text>
+
+  <!-- ==================== RIGHT PANEL: PHYSICAL STATES & TUNING ==================== -->
+  <rect x="495" y="75" width="435" height="460" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <text x="712.5" y="100" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Фізика дрейфу нейтралі та калібрування</text>
+  <text x="712.5" y="118" font-size="12" fill="#6b7280" text-anchor="middle">Вплив зміщення V_pot відносно V_ref на вихід компаратора</text>
+
+  <!-- Top Sub-block: Uncalibrated Drift State -->
+  <rect x="515" y="135" width="395" height="175" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="712.5" y="155" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">СТАН 1: Самовільний дрейф вала (V_pot != V_ref)</text>
+
+  <!-- Voltage Strip 1 -->
+  <rect x="535" y="180" width="355" height="40" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="600" y="184" width="40" height="32" fill="#fdecea" stroke="#c0392b" stroke-width="1" stroke-dasharray="3,2"/>
+  <line x1="620" y1="180" x2="620" y2="220" stroke="#c0392b" stroke-width="2.5"/>
+  <text x="560" y="174" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="start">V_pot = 2.42 В</text>
+
+  <line x1="712.5" y1="180" x2="712.5" y2="220" stroke="#2457d6" stroke-width="2.5"/>
+  <text x="712.5" y="174" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="start">V_ref = 2.50 В</text>
+
+  <line x1="625" y1="205" x2="707.5" y2="205" stroke="#c0392b" stroke-width="1.5" marker-start="url(#arr-danger)" marker-end="url(#arr-danger)"/>
+  <text x="666.25" y="198" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">ΔV = +80 мВ</text>
+
+  <!-- Callout Box Top -->
+  <rect x="535" y="230" width="355" height="70" rx="4" fill="white" stroke="#c0392b" stroke-width="1"/>
+  <text x="545" y="248" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="start">Помилка:</text>
+  <text x="615" y="248" font-size="12" fill="#1a1a1a" text-anchor="start">ΔV (80 мВ) &gt; Зона нечутливості (15 мВ)</text>
+  <text x="545" y="268" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="start">Режим:</text>
+  <text x="615" y="268" font-size="12" fill="#1a1a1a" text-anchor="start">Вихідний сигнал e != 0 генерує струм мотора</text>
+  <text x="545" y="288" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="start">Ефект:</text>
+  <text x="615" y="288" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="start">Паразитарне «повзання» вала в нейтралі</text>
+
+  <!-- Bottom Sub-block: Calibrated Neutral State -->
+  <rect x="515" y="330" width="395" height="175" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="712.5" y="350" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">СТАН 2: Відкалібрована нейтраль (V_pot = V_ref)</text>
+
+  <!-- Voltage Strip 2 -->
+  <rect x="535" y="375" width="355" height="40" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="688" y="379" width="48" height="32" fill="#e9f7ef" stroke="#27ae60" stroke-width="1" stroke-dasharray="3,2"/>
+  <line x1="712.5" y1="375" x2="712.5" y2="415" stroke="#27ae60" stroke-width="2.5"/>
+  <text x="712.5" y="369" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">V_pot = V_ref = 2.50 В (Повний збіг)</text>
+
+  <!-- Callout Box Bottom -->
+  <rect x="535" y="425" width="355" height="70" rx="4" fill="white" stroke="#27ae60" stroke-width="1"/>
+  <text x="545" y="443" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="start">Зона V_db:</text>
+  <text x="620" y="443" font-size="12" fill="#1a1a1a" text-anchor="start">V_ref в межах зони [2.485 В ... 2.515 В]</text>
+  <text x="545" y="463" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="start">Режим:</text>
+  <text x="620" y="463" font-size="12" fill="#1a1a1a" text-anchor="start">Сигнал e = 0, мостова схема вимкнена</text>
+  <text x="545" y="483" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="start">Ефект:</text>
+  <text x="620" y="483" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="start">Повна механічна зупинка вала (нейтраль)</text>
+</svg>

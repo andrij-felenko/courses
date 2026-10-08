@@ -1,0 +1,133 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-left" markerWidth="8" markerHeight="8" refX="1" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M 7 1 L 1 4 L 7 7 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-right" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M 1 1 L 7 4 L 1 7 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Title block -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Часова діаграма ШІМ-керування RC-сервоприводом</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Тривалість імпульсу (1.0–2.0 мс) визначає кут вала, а період (20 мс) задає частоту 50 Гц</text>
+
+  <!-- PANEL 1: 1.0 ms -->
+  <rect x="30" y="78" width="900" height="138" rx="8" ry="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="50" y="100" font-size="14" font-weight="bold" fill="#1a1a1a">Мінімальний кут: t = 1.0 мс (Положення −90° / 0°)</text>
+
+  <!-- Panel 1 Waveform -->
+  <rect x="110" y="135" width="25" height="35" fill="#eaf0fd"/>
+  <rect x="490" y="135" width="25" height="35" fill="#eaf0fd"/>
+  <path d="M 80 170 L 110 170 L 110 135 L 135 135 L 135 170 L 490 170 L 490 135 L 515 135 L 515 170 L 550 170" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+
+  <text x="72" y="139" font-size="12" fill="#6b7280" text-anchor="end">5V</text>
+  <text x="72" y="174" font-size="12" fill="#6b7280" text-anchor="end">0V</text>
+
+  <text x="122.5" y="122" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">1.0 мс</text>
+
+  <line x1="110" y1="170" x2="110" y2="198" stroke="#6b7280" stroke-dasharray="2,2"/>
+  <line x1="490" y1="170" x2="490" y2="198" stroke="#6b7280" stroke-dasharray="2,2"/>
+  <line x1="110" y1="193" x2="490" y2="193" stroke="#6b7280" stroke-width="1.5" marker-start="url(#arr-left)" marker-end="url(#arr-right)"/>
+  <text x="300" y="207" font-size="12" fill="#6b7280" text-anchor="middle">Період T = 20 мс (Частота 50 Гц)</text>
+
+  <!-- Panel 1 Divider & Right Diagram -->
+  <line x1="570" y1="90" x2="570" y2="204" stroke="#d0d7de" stroke-dasharray="3,3"/>
+
+  <rect x="655" y="112" width="160" height="76" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <path d="M 705 150 A 35 35 0 0 1 775 150" fill="none" stroke="#9ca3af" stroke-width="1.5" stroke-dasharray="2,2"/>
+  <circle cx="740" cy="150" r="20" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <circle cx="740" cy="150" r="5" fill="#2457d6"/>
+  <line x1="740" y1="150" x2="695" y2="150" stroke="#2457d6" stroke-width="7" stroke-linecap="round"/>
+  <circle cx="698" cy="150" r="2.5" fill="white"/>
+
+  <text x="682" y="172" font-size="12" fill="#6b7280" text-anchor="middle">−90°</text>
+  <text x="740" y="125" font-size="12" fill="#9ca3af" text-anchor="middle">0°</text>
+  <text x="798" y="172" font-size="12" fill="#6b7280" text-anchor="middle">+90°</text>
+
+  <rect x="830" y="122" width="85" height="50" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="872.5" y="142" font-size="14" font-weight="bold" fill="#c0392b" text-anchor="middle">−90°</text>
+  <text x="872.5" y="160" font-size="12" fill="#c0392b" text-anchor="middle">(0° мін)</text>
+
+
+  <!-- PANEL 2: 1.5 ms -->
+  <rect x="30" y="228" width="900" height="138" rx="8" ry="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="50" y="250" font-size="14" font-weight="bold" fill="#1a1a1a">Нейтральне положення: t = 1.5 мс (Кут 0° / 90°)</text>
+
+  <!-- Panel 2 Waveform -->
+  <rect x="110" y="285" width="38" height="35" fill="#eaf0fd"/>
+  <rect x="490" y="285" width="38" height="35" fill="#eaf0fd"/>
+  <path d="M 80 320 L 110 320 L 110 285 L 148 285 L 148 320 L 490 320 L 490 285 L 528 285 L 528 320 L 550 320" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+
+  <text x="72" y="289" font-size="12" fill="#6b7280" text-anchor="end">5V</text>
+  <text x="72" y="324" font-size="12" fill="#6b7280" text-anchor="end">0V</text>
+
+  <text x="129" y="272" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">1.5 мс</text>
+
+  <line x1="110" y1="320" x2="110" y2="348" stroke="#6b7280" stroke-dasharray="2,2"/>
+  <line x1="490" y1="320" x2="490" y2="348" stroke="#6b7280" stroke-dasharray="2,2"/>
+  <line x1="110" y1="343" x2="490" y2="343" stroke="#6b7280" stroke-width="1.5" marker-start="url(#arr-left)" marker-end="url(#arr-right)"/>
+  <text x="300" y="357" font-size="12" fill="#6b7280" text-anchor="middle">Період T = 20 мс (Частота 50 Гц)</text>
+
+  <!-- Panel 2 Divider & Right Diagram -->
+  <line x1="570" y1="240" x2="570" y2="354" stroke="#d0d7de" stroke-dasharray="3,3"/>
+
+  <rect x="655" y="262" width="160" height="76" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <path d="M 705 300 A 35 35 0 0 1 775 300" fill="none" stroke="#9ca3af" stroke-width="1.5" stroke-dasharray="2,2"/>
+  <circle cx="740" cy="300" r="20" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <circle cx="740" cy="300" r="5" fill="#27ae60"/>
+  <line x1="740" y1="300" x2="740" y2="255" stroke="#27ae60" stroke-width="7" stroke-linecap="round"/>
+  <circle cx="740" cy="258" r="2.5" fill="white"/>
+
+  <text x="682" y="322" font-size="12" fill="#6b7280" text-anchor="middle">−90°</text>
+  <text x="740" y="246" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">0°</text>
+  <text x="798" y="322" font-size="12" fill="#6b7280" text-anchor="middle">+90°</text>
+
+  <rect x="830" y="272" width="85" height="50" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="872.5" y="292" font-size="14" font-weight="bold" fill="#27ae60" text-anchor="middle">0°</text>
+  <text x="872.5" y="310" font-size="12" fill="#27ae60" text-anchor="middle">(центр)</text>
+
+
+  <!-- PANEL 3: 2.0 ms -->
+  <rect x="30" y="378" width="900" height="138" rx="8" ry="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="50" y="400" font-size="14" font-weight="bold" fill="#1a1a1a">Максимальний кут: t = 2.0 мс (Положення +90° / 180°)</text>
+
+  <!-- Panel 3 Waveform -->
+  <rect x="110" y="435" width="50" height="35" fill="#eaf0fd"/>
+  <rect x="490" y="435" width="50" height="35" fill="#eaf0fd"/>
+  <path d="M 80 470 L 110 470 L 110 435 L 160 435 L 160 470 L 490 470 L 490 435 L 540 435 L 540 470 L 550 470" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+
+  <text x="72" y="439" font-size="12" fill="#6b7280" text-anchor="end">5V</text>
+  <text x="72" y="474" font-size="12" fill="#6b7280" text-anchor="end">0V</text>
+
+  <text x="135" y="422" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">2.0 мс</text>
+
+  <line x1="110" y1="470" x2="110" y2="498" stroke="#6b7280" stroke-dasharray="2,2"/>
+  <line x1="490" y1="470" x2="490" y2="498" stroke="#6b7280" stroke-dasharray="2,2"/>
+  <line x1="110" y1="493" x2="490" y2="493" stroke="#6b7280" stroke-width="1.5" marker-start="url(#arr-left)" marker-end="url(#arr-right)"/>
+  <text x="300" y="507" font-size="12" fill="#6b7280" text-anchor="middle">Період T = 20 мс (Частота 50 Гц)</text>
+
+  <!-- Panel 3 Divider & Right Diagram -->
+  <line x1="570" y1="390" x2="570" y2="504" stroke="#d0d7de" stroke-dasharray="3,3"/>
+
+  <rect x="655" y="412" width="160" height="76" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <path d="M 705 450 A 35 35 0 0 1 775 450" fill="none" stroke="#9ca3af" stroke-width="1.5" stroke-dasharray="2,2"/>
+  <circle cx="740" cy="450" r="20" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <circle cx="740" cy="450" r="5" fill="#2457d6"/>
+  <line x1="740" y1="450" x2="785" y2="450" stroke="#2457d6" stroke-width="7" stroke-linecap="round"/>
+  <circle cx="782" cy="450" r="2.5" fill="white"/>
+
+  <text x="682" y="472" font-size="12" fill="#6b7280" text-anchor="middle">−90°</text>
+  <text x="740" y="404" font-size="12" fill="#9ca3af" text-anchor="middle">0°</text>
+  <text x="798" y="472" font-size="12" fill="#6b7280" text-anchor="middle">+90°</text>
+
+  <rect x="830" y="422" width="85" height="50" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="872.5" y="442" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">+90°</text>
+  <text x="872.5" y="460" font-size="12" fill="#2457d6" text-anchor="middle">(180° макс)</text>
+
+  <!-- Footer note -->
+  <text x="480" y="542" font-size="12" fill="#6b7280" text-anchor="middle">Частота керування f = 1 / T = 50 Гц. Базовий рівень сигналу — 0 В (LOW), активний рівень — 5 В (HIGH).</text>
+</svg>

@@ -1,0 +1,168 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Схема узгодження рівнів для WS2812B на базі 74AHCT125</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Буфер 74AHCT125 перетворює 3,3 В у 5 В (V_IH ≥ 2,0 В), а резистор R_d пригнічує дзвін у лінії DIN</text>
+
+  <!-- MAIN FUNCTIONAL BLOCKS -->
+
+  <!-- Block 1: Microcontroller (ESP32) -->
+  <rect x="30" y="80" width="180" height="300" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="120" y="106" font-size="14" font-weight="700" fill="#1a1a1a" text-anchor="middle">Мікроконтролер</text>
+  <text x="120" y="124" font-size="12" fill="#6b7280" text-anchor="middle">(ESP32 / STM32)</text>
+  <text x="120" y="142" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">Вихід: 3,3 В</text>
+
+  <!-- MCU GPIO Pin Terminal -->
+  <rect x="150" y="195" width="50" height="30" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="175" y="214" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">GPIO</text>
+
+  <!-- MCU GND Terminal -->
+  <rect x="150" y="335" width="50" height="30" rx="4" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="175" y="354" font-size="12" font-weight="700" fill="#6b7280" text-anchor="middle">GND</text>
+
+
+  <!-- Block 2: Level Shifter (74AHCT125) -->
+  <rect x="230" y="80" width="430" height="300" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="445" y="106" font-size="14" font-weight="700" fill="#1a1a1a" text-anchor="middle">Узгоджувач рівнів (74AHCT125)</text>
+  <text x="445" y="124" font-size="12" fill="#6b7280" text-anchor="middle">Поріг входу: V_IH(min) = 2,0 В при VCC = 5 В</text>
+
+  <!-- IC Chip Body -->
+  <rect x="270" y="150" width="150" height="190" rx="6" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="345" y="170" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">74AHCT125</text>
+
+  <!-- Logic Buffer Triangle (Non-inverting gate) -->
+  <polygon points="315,185 315,235 365,210" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+
+  <!-- Buffer Pin Labels inside IC -->
+  <text x="290" y="195" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">1A (Pin 2)</text>
+  <text x="400" y="195" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">1Y (Pin 3)</text>
+
+  <!-- Enable Pin (/1OE Pin 1) -->
+  <circle cx="340" cy="242" r="4" fill="white" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="340" y1="246" x2="340" y2="350" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="330" y="315" font-size="12" fill="#6b7280" text-anchor="end">/1OE (Pin 1)</text>
+
+  <!-- IC VCC (Pin 14) and GND (Pin 7) -->
+  <line x1="385" y1="150" x2="385" y2="160" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="385" y="142" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">VCC (Pin 14)</text>
+
+  <line x1="385" y1="340" x2="385" y2="350" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="385" y="325" font-size="12" fill="#6b7280" text-anchor="middle">GND (Pin 7)</text>
+
+  <!-- C1 Decoupling Capacitor (0.1 uF ceramic) -->
+  <line x1="455" y1="160" x2="455" y2="200" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="445" y1="200" x2="465" y2="200" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="445" y1="208" x2="465" y2="208" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="455" y1="208" x2="455" y2="350" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="472" y="202" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="start">C1 = 0,1 мкФ</text>
+  <text x="472" y="218" font-size="12" fill="#6b7280" text-anchor="start">(кераміка ВЧ)</text>
+
+  <!-- Damping Resistor R_d (330 Ohm) -->
+  <rect x="540" y="200" width="50" height="20" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="565" y="185" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">R_d = 330 Ом</text>
+  <text x="565" y="235" font-size="12" fill="#6b7280" text-anchor="middle">Антидзвін</text>
+
+
+  <!-- Block 3: WS2812B LED / Strip -->
+  <rect x="680" y="80" width="250" height="300" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="805" y="106" font-size="14" font-weight="700" fill="#1a1a1a" text-anchor="middle">WS2812B (Перший LED)</text>
+  <text x="805" y="124" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">Вхід DIN: V_IH(min) = 3,5 В</text>
+  <text x="805" y="142" font-size="12" fill="#6b7280" text-anchor="middle">(0,7 × VCC при VCC = 5 В)</text>
+
+  <!-- WS2812B Terminals -->
+  <rect x="680" y="145" width="45" height="30" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="702" y="164" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">+5V</text>
+
+  <rect x="680" y="195" width="45" height="30" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="702" y="214" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">DIN</text>
+
+  <rect x="680" y="335" width="45" height="30" rx="4" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="702" y="354" font-size="12" font-weight="700" fill="#6b7280" text-anchor="middle">GND</text>
+
+  <!-- Electrolytic Capacitor C_el (470 uF) -->
+  <line x1="750" y1="160" x2="750" y2="200" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="740" y1="200" x2="760" y2="200" stroke="#1a1a1a" stroke-width="2"/>
+  <path d="M740,208 Q750,212 760,208" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="750" y1="208" x2="750" y2="350" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="735" y="195" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">+</text>
+  <text x="765" y="202" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="start">C_el = 470 мкФ</text>
+  <text x="765" y="218" font-size="12" fill="#6b7280" text-anchor="start">(струмові піки)</text>
+
+  <!-- Ceramic Capacitor C2 (0.1 uF) -->
+  <line x1="860" y1="160" x2="860" y2="200" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="850" y1="200" x2="870" y2="200" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="850" y1="208" x2="870" y2="208" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="860" y1="208" x2="860" y2="350" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="872" y="202" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="start">C2 = 0,1 мкФ</text>
+  <text x="872" y="218" font-size="12" fill="#6b7280" text-anchor="start">(кераміка)</text>
+
+
+  <!-- POWER AND SIGNAL LINES -->
+
+  <!-- +5V Power Rail -->
+  <line x1="385" y1="160" x2="680" y2="160" stroke="#c0392b" stroke-width="2"/>
+  <text x="540" y="146" font-size="13" font-weight="700" fill="#c0392b" text-anchor="middle">Шина живлення +5 В</text>
+
+  <!-- GND Common Ground Rail -->
+  <line x1="200" y1="350" x2="680" y2="350" stroke="#1a1a1a" stroke-width="2.5"/>
+  <text x="540" y="372" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">Спільна шина заземлення (GND, 0 В)</text>
+
+  <!-- Ground Symbol Node -->
+  <line x1="540" y1="350" x2="540" y2="357" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="532" y1="357" x2="548" y2="357" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="535" y1="360" x2="545" y2="360" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="538" y1="363" x2="542" y2="363" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Signal Line 1: MCU GPIO to IC Pin 2 (1A) -->
+  <line x1="200" y1="210" x2="270" y2="210" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+  <text x="235" y="190" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">3,3 В логіка</text>
+
+  <!-- Line inside IC from Pin 2 to Buffer Input -->
+  <line x1="270" y1="210" x2="315" y2="210" stroke="#2457d6" stroke-width="2"/>
+
+  <!-- Line inside IC from Buffer Output Pin 3 to IC edge -->
+  <line x1="365" y1="210" x2="420" y2="210" stroke="#27ae60" stroke-width="2"/>
+
+  <!-- Signal Line 2: IC Pin 3 (1Y) to Resistor R_d -->
+  <line x1="420" y1="210" x2="540" y2="210" stroke="#27ae60" stroke-width="2.5"/>
+  <text x="480" y="190" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">5 В логіка</text>
+
+  <!-- Signal Line 3: Resistor R_d to WS2812B DIN -->
+  <line x1="590" y1="210" x2="680" y2="210" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arr-green)"/>
+  <text x="635" y="190" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">DIN (5 В)</text>
+
+
+  <!-- BOTTOM SUMMARY CARDS -->
+
+  <!-- Card 1 -->
+  <rect x="30" y="395" width="280" height="65" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="170" y="415" font-size="13" font-weight="700" fill="#2457d6" text-anchor="middle">1. Сумісність рівнів</text>
+  <text x="170" y="433" font-size="12" fill="#1a1a1a" text-anchor="middle">74AHCT125 надійно сприймає 3,3 В</text>
+  <text x="170" y="449" font-size="12" fill="#6b7280" text-anchor="middle">(V_IH min = 2,0 В &lt; 3,3 В)</text>
+
+  <!-- Card 2 -->
+  <rect x="340" y="395" width="280" height="65" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="480" y="415" font-size="13" font-weight="700" fill="#27ae60" text-anchor="middle">2. Повноцінний 5 В вихід</text>
+  <text x="480" y="433" font-size="12" fill="#1a1a1a" text-anchor="middle">Забезпечує V_OH ≈ 5 В для WS2812B</text>
+  <text x="480" y="449" font-size="12" fill="#6b7280" text-anchor="middle">(поріг WS2812B V_IH = 3,5 В)</text>
+
+  <!-- Card 3 -->
+  <rect x="650" y="395" width="280" height="65" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="790" y="415" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">3. Захист та демпфування</text>
+  <text x="790" y="433" font-size="12" fill="#1a1a1a" text-anchor="middle">R_d (330 Ом) гасить відбиття сигналу,</text>
+  <text x="790" y="449" font-size="12" fill="#6b7280" text-anchor="middle">а C1, C2 та C_el згладжують шум і піки</text>
+</svg>

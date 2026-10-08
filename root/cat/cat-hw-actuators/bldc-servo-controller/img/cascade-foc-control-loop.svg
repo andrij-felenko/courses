@@ -1,0 +1,222 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <!-- Arrow heads -->
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Header & Subheader -->
+  <text x="480" y="30" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Каскадна схема векторного керування (FOC) BLDC-двигуном</text>
+  <text x="480" y="50" text-anchor="middle" font-size="13" fill="#6b7280">Послідовність контурів: Положення → Швидкість → Струм (Iq, Id) → Перетворення Кларк/Парка → ШІМ</text>
+
+  <!-- 1. CAN Bus Container -->
+  <rect x="20" y="70" width="80" height="230" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="60" y="92" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Шина CAN</text>
+  <text x="60" y="110" text-anchor="middle" font-size="12" fill="#6b7280">Команди</text>
+  <text x="60" y="175" text-anchor="middle" font-size="14" font-weight="bold" fill="#2457d6">θ_ref</text>
+  <text x="60" y="193" text-anchor="middle" font-size="12" fill="#6b7280">Задане</text>
+  <text x="60" y="208" text-anchor="middle" font-size="12" fill="#6b7280">положення</text>
+
+  <!-- 2. Position Loop Container -->
+  <rect x="135" y="70" width="125" height="230" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="197.5" y="92" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">1. Контур положення</text>
+
+  <!-- Summing Node 1 -->
+  <circle cx="155" cy="185" r="12" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="149" y="181" font-size="12" font-weight="bold" fill="#27ae60">+</text>
+  <text x="150" y="193" font-size="12" font-weight="bold" fill="#c0392b">-</text>
+
+  <!-- Position Regulator P/PI -->
+  <rect x="185" y="155" width="60" height="60" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="215" y="180" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">P / PI</text>
+  <text x="215" y="198" text-anchor="middle" font-size="12" fill="#6b7280">Положення</text>
+
+  <!-- 3. Velocity Loop Container -->
+  <rect x="295" y="70" width="125" height="230" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="357.5" y="92" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">2. Контур швидкості</text>
+
+  <!-- Summing Node 2 -->
+  <circle cx="320" cy="185" r="12" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="314" y="181" font-size="12" font-weight="bold" fill="#27ae60">+</text>
+  <text x="315" y="193" font-size="12" font-weight="bold" fill="#c0392b">-</text>
+
+  <!-- Velocity Regulator PI -->
+  <rect x="350" y="155" width="60" height="60" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="380" y="180" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">PI</text>
+  <text x="380" y="198" text-anchor="middle" font-size="12" fill="#6b7280">Швидкість</text>
+
+  <!-- 4. Current Loops & FOC Container -->
+  <rect x="455" y="70" width="250" height="230" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="580" y="90" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">3. Контури струму та FOC</text>
+  <text x="580" y="106" text-anchor="middle" font-size="12" fill="#6b7280">(струми Iq, Id та перетворення)</text>
+
+  <!-- Iq Branch -->
+  <circle cx="478" cy="155" r="12" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="472" y="151" font-size="12" font-weight="bold" fill="#27ae60">+</text>
+  <text x="473" y="163" font-size="12" font-weight="bold" fill="#c0392b">-</text>
+
+  <rect x="502" y="135" width="55" height="40" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="529.5" y="151" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">PI (Iq)</text>
+  <text x="529.5" y="165" text-anchor="middle" font-size="12" fill="#6b7280">Момент</text>
+
+  <!-- Id Branch -->
+  <circle cx="478" cy="230" r="12" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="472" y="226" font-size="12" font-weight="bold" fill="#27ae60">+</text>
+  <text x="473" y="238" font-size="12" font-weight="bold" fill="#c0392b">-</text>
+
+  <rect x="502" y="210" width="55" height="40" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="529.5" y="226" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">PI (Id)</text>
+  <text x="529.5" y="240" text-anchor="middle" font-size="12" fill="#6b7280">Потік = 0</text>
+
+  <!-- Inverse Park Transform Block -->
+  <rect x="580" y="135" width="60" height="115" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="610" y="168" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Park⁻¹</text>
+  <text x="610" y="188" text-anchor="middle" font-size="12" fill="#1a1a1a">dq → αβ</text>
+  <text x="610" y="206" text-anchor="middle" font-size="12" fill="#6b7280">обернена</text>
+
+  <!-- SVPWM Block -->
+  <rect x="655" y="135" width="45" height="115" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="677.5" y="183" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">SVPWM</text>
+  <text x="677.5" y="201" text-anchor="middle" font-size="12" fill="#6b7280">ШІМ</text>
+
+  <!-- Power Inverter -->
+  <rect x="725" y="130" width="60" height="125" rx="4" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="755" y="165" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Інвертор</text>
+  <text x="755" y="185" text-anchor="middle" font-size="12" fill="#6b7280">6 MOSFET</text>
+  <text x="755" y="205" text-anchor="middle" font-size="12" fill="#2457d6">3-фазний</text>
+
+  <!-- Motor -->
+  <text x="835" y="130" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Двигун</text>
+  <circle cx="835" cy="190" r="22" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <circle cx="835" cy="190" r="13" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="835" y="186" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a1a">M</text>
+  <text x="835" y="198" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">BLDC</text>
+
+  <!-- Shaft -->
+  <line x1="857" y1="190" x2="878" y2="190" stroke="#1a1a1a" stroke-width="3"/>
+
+  <!-- Magnetic Encoder -->
+  <rect x="878" y="145" width="67" height="90" rx="4" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="911.5" y="170" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Енкодер</text>
+  <text x="911.5" y="188" text-anchor="middle" font-size="12" fill="#6b7280">Магнітний</text>
+  <text x="911.5" y="206" text-anchor="middle" font-size="12" fill="#2457d6">SPI / BiSS</text>
+
+  <!-- FORWARD SIGNAL LINES -->
+  <!-- CAN to Sum 1 -->
+  <line x1="100" y1="185" x2="141" y2="185" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="117.5" y="170" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">θ_ref</text>
+
+  <!-- Sum 1 to Pos PI -->
+  <line x1="167" y1="185" x2="183" y2="185" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="175" y="170" text-anchor="middle" font-size="12" fill="#6b7280">e_θ</text>
+
+  <!-- Pos PI to Sum 2 -->
+  <line x1="245" y1="185" x2="306" y2="185" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="275" y="170" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">ω_ref</text>
+
+  <!-- Sum 2 to Vel PI -->
+  <line x1="332" y1="185" x2="348" y2="185" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="340" y="170" text-anchor="middle" font-size="12" fill="#6b7280">e_ω</text>
+
+  <!-- Vel PI to Sum 3a (Iq) -->
+  <path d="M 410,185 L 435,185 L 435,155 L 464,155" fill="none" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="435" y="142" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">I_q_ref</text>
+
+  <!-- Id_ref command = 0 -->
+  <line x1="435" y1="230" x2="464" y2="230" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+  <text x="452" y="217" text-anchor="end" font-size="12" font-weight="bold" fill="#6b7280">I_d_ref = 0</text>
+
+  <!-- Sum 3a to PI (Iq) & Sum 3b to PI (Id) -->
+  <line x1="490" y1="155" x2="500" y2="155" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="490" y1="230" x2="500" y2="230" stroke="#6b7280" stroke-width="1.5"/>
+
+  <!-- PI (Iq) & PI (Id) to Park⁻¹ -->
+  <line x1="557" y1="155" x2="578" y2="155" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="567.5" y="142" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">V_q</text>
+
+  <line x1="557" y1="230" x2="578" y2="230" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+  <text x="567.5" y="217" text-anchor="middle" font-size="12" font-weight="bold" fill="#6b7280">V_d</text>
+
+  <!-- Park⁻¹ to SVPWM -->
+  <line x1="640" y1="165" x2="653" y2="165" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="646.5" y="152" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">V_α</text>
+
+  <line x1="640" y1="220" x2="653" y2="220" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="646.5" y="207" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">V_β</text>
+
+  <!-- SVPWM to Inverter -->
+  <line x1="700" y1="190" x2="723" y2="190" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="711.5" y="175" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">6x PWM</text>
+
+  <!-- Inverter to Motor Phase Lines -->
+  <line x1="785" y1="184" x2="811" y2="184" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="785" y1="190" x2="811" y2="190" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="785" y1="196" x2="811" y2="196" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="798" y="168" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">u, v, w</text>
+
+  <!-- BOTTOM FEEDBACK TRACK -->
+  <!-- Clarke Transform -->
+  <rect x="650" y="370" width="90" height="60" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="695" y="394" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Clarke</text>
+  <text x="695" y="414" text-anchor="middle" font-size="12" fill="#2457d6">abc → αβ</text>
+
+  <!-- Park Transform -->
+  <rect x="495" y="370" width="90" height="60" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="540" y="394" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Park</text>
+  <text x="540" y="414" text-anchor="middle" font-size="12" fill="#2457d6">αβ → dq</text>
+
+  <!-- Encoder Signal Processing -->
+  <rect x="180" y="370" width="220" height="60" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="290" y="394" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Обробка сигналу енкодера</text>
+  <text x="290" y="414" text-anchor="middle" font-size="12" fill="#1a1a1a">Розрахунок: θ_el, ω, θ</text>
+
+  <!-- FEEDBACK LINES -->
+  <!-- Current sensing to Clarke -->
+  <path d="M 785,196 L 785,400 L 742,400" fill="none" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <text x="795" y="300" text-anchor="start" font-size="12" font-weight="bold" fill="#27ae60">i_a, i_b, i_c</text>
+
+  <!-- Clarke to Park -->
+  <line x1="650" y1="400" x2="587" y2="400" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <text x="618.5" y="388" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">I_α, I_β</text>
+
+  <!-- Park Iq output to Sum 3a -->
+  <path d="M 495,390 L 430,390 L 430,167 L 464,167" fill="none" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <text x="412" y="265" text-anchor="end" font-size="12" font-weight="bold" fill="#27ae60">
+    <tspan x="412" dy="0">I_q (зворотний</tspan>
+    <tspan x="412" dy="14">зв'язок)</tspan>
+  </text>
+
+  <!-- Park Id output to Sum 3b -->
+  <path d="M 495,415 L 440,415 L 440,242 L 464,242" fill="none" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <text x="445" y="450" text-anchor="start" font-size="12" font-weight="bold" fill="#27ae60">I_d (зворотний)</text>
+
+  <!-- Encoder raw signal to Processing -->
+  <path d="M 911,235 L 911,475 L 290,475 L 290,432" fill="none" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <text x="600" y="462" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Сигнал енкодера (SPI / BiSS-C)</text>
+
+  <!-- Processing theta_el to Park and Park-1 -->
+  <path d="M 370,370 L 370,330 L 540,330 L 540,368" fill="none" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr-gray)"/>
+  <path d="M 540,330 L 610,330 L 610,252" fill="none" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr-gray)"/>
+  <text x="455" y="320" text-anchor="middle" font-size="12" font-weight="bold" fill="#6b7280">θ_el (кут ротора)</text>
+
+  <!-- Processing omega to Sum 2 -->
+  <path d="M 320,370 L 320,199" fill="none" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <text x="328" y="315" text-anchor="start" font-size="12" font-weight="bold" fill="#27ae60">ω (швидкість)</text>
+
+  <!-- Processing theta to Sum 1 -->
+  <path d="M 200,370 L 155,370 L 155,199" fill="none" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <text x="163" y="310" text-anchor="start" font-size="12" font-weight="bold" fill="#27ae60">
+    <tspan x="163" dy="0">θ (зворотний</tspan>
+    <tspan x="163" dy="14">зв'язок)</tspan>
+  </text>
+</svg>

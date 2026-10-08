@@ -1,0 +1,187 @@
+<svg viewBox="0 0 960 500" width="960" height="500" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif" xmlns="http://www.w3.org/2000/svg">
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="500" fill="white"/>
+
+  <!-- Маркери стрілок -->
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок та підзаголовок -->
+  <text x="480" y="40" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Схема фільтрації завад та захисту двигуна 130</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Конденсатори C1–C3 придушують ВЧ-завади, а діод D1 гасить індуктивну проти-ЕРС</text>
+
+  <!-- ЛІВА ПАНЕЛЬ: ПРИНЦИПОВА СХЕМА -->
+  <g id="schematic-panel">
+    <!-- Зовнішня рамка схеми -->
+    <rect x="20" y="75" width="555" height="405" rx="10" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+    
+    <!-- Шапка панелі -->
+    <path d="M 20 85 A 10 10 0 0 1 30 75 L 565 75 A 10 10 0 0 1 575 75 L 575 109 L 20 109 Z" fill="#f4f6f8"/>
+    <line x1="20" y1="109" x2="575" y2="109" stroke="#d0d7de" stroke-width="1.5"/>
+    <text x="300" y="97" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Принципова схема підключення та фільтрації</text>
+
+    <!-- Шина живлення VCC -->
+    <text x="35" y="125" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="start">VCC (+1.5...6 В)</text>
+    <line x1="150" y1="135" x2="495" y2="135" stroke="#c0392b" stroke-width="2.5"/>
+    <circle cx="150" cy="135" r="4" fill="#c0392b"/>
+
+    <!-- Шина заземлення GND -->
+    <text x="35" y="438" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">GND (0 В)</text>
+    <line x1="150" y1="445" x2="495" y2="445" stroke="#1a1a1a" stroke-width="2.5"/>
+    <circle cx="150" cy="445" r="4" fill="#1a1a1a"/>
+    <!-- Символ заземлення -->
+    <line x1="495" y1="445" x2="495" y2="453" stroke="#1a1a1a" stroke-width="1.5"/>
+    <line x1="485" y1="453" x2="505" y2="453" stroke="#1a1a1a" stroke-width="2"/>
+    <line x1="489" y1="457" x2="501" y2="457" stroke="#1a1a1a" stroke-width="1.5"/>
+    <line x1="493" y1="461" x2="497" y2="461" stroke="#1a1a1a" stroke-width="1"/>
+
+    <!-- Лінія заземлення корпусу двигуна -->
+    <path d="M 250 260 L 135 260 L 135 445" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4 2" fill="none"/>
+    <circle cx="135" cy="445" r="3" fill="#6b7280"/>
+    <text x="125" y="345" font-size="12" fill="#6b7280" text-anchor="end">Екран корпусу</text>
+
+    <!-- Конденсатор C1 (диференційний фільтр між M+ та M-) -->
+    <line x1="155" y1="135" x2="155" y2="235" stroke="#1a1a1a" stroke-width="1.5"/>
+    <line x1="155" y1="245" x2="155" y2="370" stroke="#1a1a1a" stroke-width="1.5"/>
+    <line x1="155" y1="370" x2="305" y2="370" stroke="#1a1a1a" stroke-width="1.5"/>
+    <circle cx="155" cy="135" r="3" fill="#1a1a1a"/>
+    <circle cx="305" cy="370" r="3" fill="#1a1a1a"/>
+    <line x1="145" y1="235" x2="165" y2="235" stroke="#2457d6" stroke-width="2.5"/>
+    <line x1="145" y1="245" x2="165" y2="245" stroke="#2457d6" stroke-width="2.5"/>
+    <text x="170" y="244" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="start">C1 (100 nF)</text>
+
+    <!-- Вузол двигуна 130 -->
+    <rect x="250" y="185" width="110" height="150" rx="10" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="6 3"/>
+    <text x="305" y="205" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">Корпус двигуна</text>
+    <rect x="244" y="255" width="6" height="10" fill="#6b7280"/>
+
+    <circle cx="305" cy="260" r="25" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+    <text x="305" y="266" font-size="16" font-weight="bold" fill="#2457d6" text-anchor="middle">M</text>
+
+    <!-- Клема M+ -->
+    <line x1="305" y1="135" x2="305" y2="185" stroke="#c0392b" stroke-width="2"/>
+    <circle cx="305" cy="135" r="3.5" fill="#c0392b"/>
+    <circle cx="305" cy="185" r="3.5" fill="#c0392b"/>
+    <text x="315" y="165" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="start">M+</text>
+
+    <!-- C2 (10-47 nF) від M+ до корпусу -->
+    <line x1="305" y1="135" x2="375" y2="135" stroke="#1a1a1a" stroke-width="1.5"/>
+    <line x1="375" y1="135" x2="375" y2="175" stroke="#1a1a1a" stroke-width="1.5"/>
+    <line x1="367" y1="175" x2="383" y2="175" stroke="#2457d6" stroke-width="2.5"/>
+    <line x1="367" y1="185" x2="383" y2="185" stroke="#2457d6" stroke-width="2.5"/>
+    <line x1="375" y1="185" x2="375" y2="230" stroke="#1a1a1a" stroke-width="1.5"/>
+    <line x1="360" y1="230" x2="375" y2="230" stroke="#1a1a1a" stroke-width="1.5"/>
+    <circle cx="360" cy="230" r="3" fill="#6b7280"/>
+    <text x="388" y="184" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="start">C2 (10–47 nF)</text>
+
+    <!-- Клема M- -->
+    <line x1="305" y1="335" x2="305" y2="370" stroke="#2457d6" stroke-width="2"/>
+    <circle cx="305" cy="335" r="3.5" fill="#2457d6"/>
+    <circle cx="305" cy="370" r="3.5" fill="#2457d6"/>
+    <text x="315" y="355" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="start">M-</text>
+
+    <!-- C3 (10-47 nF) від M- до корпусу -->
+    <line x1="360" y1="290" x2="375" y2="290" stroke="#1a1a1a" stroke-width="1.5"/>
+    <circle cx="360" cy="290" r="3" fill="#6b7280"/>
+    <line x1="375" y1="290" x2="375" y2="315" stroke="#1a1a1a" stroke-width="1.5"/>
+    <line x1="367" y1="315" x2="383" y2="315" stroke="#2457d6" stroke-width="2.5"/>
+    <line x1="367" y1="325" x2="383" y2="325" stroke="#2457d6" stroke-width="2.5"/>
+    <line x1="375" y1="325" x2="375" y2="370" stroke="#1a1a1a" stroke-width="1.5"/>
+    <line x1="305" y1="370" x2="375" y2="370" stroke="#1a1a1a" stroke-width="1.5"/>
+    <text x="388" y="324" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="start">C3 (10–47 nF)</text>
+
+    <!-- Захисний діод D1 -->
+    <line x1="495" y1="135" x2="495" y2="245" stroke="#1a1a1a" stroke-width="1.5"/>
+    <line x1="495" y1="265" x2="495" y2="370" stroke="#1a1a1a" stroke-width="1.5"/>
+    <line x1="375" y1="370" x2="495" y2="370" stroke="#1a1a1a" stroke-width="1.5"/>
+    <circle cx="495" cy="135" r="3" fill="#1a1a1a"/>
+    <circle cx="495" cy="370" r="3" fill="#1a1a1a"/>
+
+    <line x1="483" y1="245" x2="507" y2="245" stroke="#27ae60" stroke-width="2.5"/>
+    <polygon points="495,245 483,265 507,265" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+
+    <text x="505" y="242" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="start">D1 (діод)</text>
+    <text x="505" y="258" font-size="12" fill="#6b7280" text-anchor="start">1N4007</text>
+    <text x="505" y="274" font-size="12" fill="#27ae60" text-anchor="start">гасить ЕРС</text>
+
+    <!-- Стрілка струму самоіндукції -->
+    <path d="M 478 330 L 478 155" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="4 3" marker-end="url(#arr-green)" fill="none"/>
+    <text x="472" y="245" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="end">I_ЕРС</text>
+
+    <!-- Силовий транзисторний ключ Q1 -->
+    <line x1="305" y1="370" x2="305" y2="385" stroke="#1a1a1a" stroke-width="2"/>
+    <line x1="297" y1="385" x2="297" y2="415" stroke="#1a1a1a" stroke-width="2"/>
+    <line x1="289" y1="385" x2="289" y2="415" stroke="#1a1a1a" stroke-width="2"/>
+    <line x1="265" y1="405" x2="289" y2="405" stroke="#1a1a1a" stroke-width="2"/>
+    <line x1="305" y1="385" x2="297" y2="385" stroke="#1a1a1a" stroke-width="2"/>
+    <line x1="305" y1="415" x2="297" y2="415" stroke="#1a1a1a" stroke-width="2"/>
+    <line x1="305" y1="415" x2="305" y2="445" stroke="#1a1a1a" stroke-width="2"/>
+    <circle cx="305" cy="445" r="3" fill="#1a1a1a"/>
+    <polygon points="297,405 291,402 291,408" fill="#1a1a1a"/>
+
+    <text x="320" y="400" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">Q1 (MOSFET)</text>
+    <text x="320" y="416" font-size="12" fill="#6b7280" text-anchor="start">N-Channel</text>
+
+    <!-- Коло керування затвором -->
+    <circle cx="35" cy="405" r="3.5" fill="#2457d6"/>
+    <text x="35" y="400" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="start">VIN (від МК)</text>
+    <line x1="118" y1="405" x2="165" y2="405" stroke="#2457d6" stroke-width="1.5"/>
+    
+    <rect x="165" y="399" width="30" height="12" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+    <line x1="195" y1="405" x2="280" y2="405" stroke="#1a1a1a" stroke-width="1.5"/>
+    <text x="180" y="392" font-size="12" fill="#6b7280" text-anchor="middle">R1 100 Ω</text>
+
+    <circle cx="235" cy="405" r="3" fill="#1a1a1a"/>
+    <line x1="235" y1="405" x2="235" y2="415" stroke="#1a1a1a" stroke-width="1.5"/>
+    <rect x="229" y="415" width="12" height="20" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+    <line x1="235" y1="435" x2="235" y2="445" stroke="#1a1a1a" stroke-width="1.5"/>
+    <circle cx="235" cy="445" r="3" fill="#1a1a1a"/>
+    <text x="247" y="430" font-size="12" fill="#6b7280" text-anchor="start">R2 10 kΩ</text>
+  </g>
+
+  <!-- ПРАВА ПАНЕЛЬ: ПОЯСНЕННЯ ТА ПРИНЦИПИ -->
+  <g id="info-panel">
+    <!-- ВЕРХНЯ КАРТКА: ФІЛЬТРАЦІЯ ВЧ-ЗАВАД -->
+    <rect x="590" y="75" width="340" height="190" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+    <path d="M 590 83 A 8 8 0 0 1 598 75 L 922 75 A 8 8 0 0 1 930 83 L 930 107 L 590 107 Z" fill="#eaf0fd"/>
+    <line x1="590" y1="107" x2="930" y2="107" stroke="#d0d7de" stroke-width="1.5"/>
+    <text x="605" y="96" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="start">1. Фільтрація ВЧ-завади щіток</text>
+
+    <text x="605" y="125" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">• C1 (100 nF кераміка):</text>
+    <text x="605" y="142" font-size="12" fill="#6b7280" text-anchor="start">  шунтує диференційні ВЧ-завади</text>
+    <text x="605" y="159" font-size="12" fill="#6b7280" text-anchor="start">  від іскріння щіток на колекторі.</text>
+
+    <text x="605" y="187" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">• C2, C3 (10–47 nF):</text>
+    <text x="605" y="204" font-size="12" fill="#6b7280" text-anchor="start">  скидають синфазні завади з клем</text>
+    <text x="605" y="221" font-size="12" fill="#6b7280" text-anchor="start">  на металевий корпус двигуна (GND).</text>
+
+    <rect x="605" y="232" width="310" height="24" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+    <text x="760" y="248" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">✓ Захищає мікроконтролер від сбоїв</text>
+
+    <!-- НИЖНЯ КАРТКА: ГАСІННЯ ПРОТИ-ЕРС -->
+    <rect x="590" y="280" width="340" height="200" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+    <path d="M 590 288 A 8 8 0 0 1 598 280 L 922 280 A 8 8 0 0 1 930 288 L 930 312 L 590 312 Z" fill="#e9f7ef"/>
+    <line x1="590" y1="312" x2="930" y2="312" stroke="#d0d7de" stroke-width="1.5"/>
+    <text x="605" y="301" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="start">2. Гасіння індуктивної проти-ЕРС</text>
+
+    <text x="605" y="330" font-size="12" fill="#1a1a1a" text-anchor="start">• При вимкненні Q1 обмотка ротора</text>
+    <text x="605" y="347" font-size="12" fill="#c0392b" text-anchor="start">  генерує сплеск проти-ЕРС (V &gt; 50 В),</text>
+    <text x="605" y="364" font-size="12" fill="#c0392b" text-anchor="start">  що може пробити силовий транзистор.</text>
+
+    <text x="605" y="392" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="start">• Діод D1 (Schottky / 1N4007):</text>
+    <text x="605" y="409" font-size="12" fill="#6b7280" text-anchor="start">  замикає струм самоіндукції I_ЕРС</text>
+    <text x="605" y="426" font-size="12" fill="#6b7280" text-anchor="start">  на обмотку, фіксуючи V_DS на V_CC + V_F.</text>
+
+    <rect x="605" y="442" width="310" height="24" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+    <text x="760" y="458" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">✓ Захищає силовий ключ Q1 від пробою</text>
+  </g>
+</svg>

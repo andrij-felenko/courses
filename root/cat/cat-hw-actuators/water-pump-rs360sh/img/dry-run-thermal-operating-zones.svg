@@ -1,0 +1,130 @@
+<svg viewBox="0 0 960 530" width="960" height="530" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="530" fill="white"/>
+
+  <!-- Заголовок та підзаголовок -->
+  <text x="480" y="38" font-size="18" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Режими експлуатації та теплові зони помпи RS-360SH</text>
+  <text x="480" y="58" font-size="13" text-anchor="middle" fill="#6b7280">Сухий хід без охолодження рідиною та високе навантаження призводять до кавітації й перегріву</text>
+
+  <!-- ЛІВА ПАНЕЛЬ: Графік нагріву двигуна -->
+  <rect x="30" y="75" width="460" height="435" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="50" y="98" font-size="14" font-weight="bold" fill="#1a1a1a">Динаміка нагріву корпусу двигуна T_m(t)</text>
+
+  <!-- Зони графіку -->
+  <!-- Більша за 60°C - Зона перегріву -->
+  <rect x="90" y="150" width="370" height="140" fill="#fdecea" opacity="0.7"/>
+  <!-- Менша або рівна 60°C - Безпечна зона -->
+  <rect x="90" y="290" width="370" height="140" fill="#e9f7ef" opacity="0.7"/>
+
+  <!-- Текстові позначки зон на графіку (розміщені у вільних областях) -->
+  <text x="98" y="172" font-size="12" font-weight="bold" fill="#c0392b">ЗОНА ПЕРЕГРІВУ (T &gt; 60°C)</text>
+  <text x="310" y="318" font-size="12" font-weight="bold" fill="#27ae60">БЕЗПЕЧНА ЗОНА (S1)</text>
+
+  <!-- Сітка графіку (горизонтальні лінії) -->
+  <!-- 100°C -->
+  <line x1="90" y1="150" x2="460" y2="150" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="82" y="154" font-size="12" text-anchor="end" fill="#6b7280">100°</text>
+
+  <!-- 85°C - T_crit -->
+  <line x1="90" y1="203" x2="460" y2="203" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <text x="82" y="207" font-size="12" font-weight="bold" text-anchor="end" fill="#c0392b">85°</text>
+  <text x="455" y="193" font-size="12" font-weight="bold" text-anchor="end" fill="#c0392b">T_crit = 85°C</text>
+
+  <!-- 60°C - T_safe -->
+  <line x1="90" y1="290" x2="460" y2="290" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <text x="82" y="294" font-size="12" font-weight="bold" text-anchor="end" fill="#27ae60">60°</text>
+  <text x="455" y="282" font-size="12" font-weight="bold" text-anchor="end" fill="#27ae60">T_safe = 60°C</text>
+
+  <!-- 40°C -->
+  <line x1="90" y1="360" x2="460" y2="360" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="82" y="364" font-size="12" text-anchor="end" fill="#6b7280">40°</text>
+
+  <!-- 20°C - T_amb -->
+  <line x1="90" y1="430" x2="460" y2="430" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="82" y="434" font-size="12" text-anchor="end" fill="#6b7280">20°</text>
+
+  <!-- Вертикальна вісь Y -->
+  <line x1="90" y1="430" x2="90" y2="128" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="90" y="115" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">T_m (°C)</text>
+
+  <!-- Горизонтальна вісь X -->
+  <line x1="90" y1="430" x2="470" y2="430" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- Позначки часу X -->
+  <line x1="182.5" y1="430" x2="182.5" y2="435" stroke="#6b7280" stroke-width="1"/>
+  <text x="182.5" y="448" font-size="12" text-anchor="middle" fill="#6b7280">3 хв</text>
+
+  <line x1="275" y1="430" x2="275" y2="435" stroke="#6b7280" stroke-width="1"/>
+  <text x="275" y="448" font-size="12" text-anchor="middle" fill="#6b7280">6 хв</text>
+
+  <line x1="367.5" y1="430" x2="367.5" y2="435" stroke="#6b7280" stroke-width="1"/>
+  <text x="367.5" y="448" font-size="12" text-anchor="middle" fill="#6b7280">9 хв</text>
+
+  <line x1="460" y1="430" x2="460" y2="435" stroke="#6b7280" stroke-width="1"/>
+  <text x="460" y="448" font-size="12" text-anchor="middle" fill="#6b7280">12 хв</text>
+
+  <text x="90" y="448" font-size="12" text-anchor="middle" fill="#6b7280">0</text>
+  <text x="275" y="468" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Час безперервної роботи t (хв)</text>
+
+  <!-- Криві температур -->
+  <!-- 1. З рідиною (норма) -->
+  <path d="M 90 430 Q 180 353 460 353" stroke="#2457d6" stroke-width="3" fill="none"/>
+  <text x="190" y="340" font-size="12" font-weight="bold" fill="#2457d6">З рідиною (Q &gt; 0, охолодження)</text>
+
+  <!-- 2. Кавітаційний режим -->
+  <path d="M 90 430 Q 170 262 460 262" stroke="#c0392b" stroke-width="2" stroke-dasharray="4,4" fill="none"/>
+  <text x="280" y="250" font-size="12" font-weight="bold" fill="#c0392b">Кавітація (Pin &lt; Psat)</text>
+
+  <!-- 3. Сухий хід -->
+  <path d="M 90 430 Q 160 270 367 150" stroke="#c0392b" stroke-width="3" stroke-dasharray="7,3" fill="none"/>
+  <circle cx="367" cy="150" r="5" fill="#c0392b"/>
+  <text x="250" y="135" font-size="12" font-weight="bold" fill="#c0392b">Сухий хід (Q = 0)</text>
+
+  <!-- Легенда графіку у нижній частині лівої панелі -->
+  <line x1="55" y1="492" x2="80" y2="492" stroke="#2457d6" stroke-width="3"/>
+  <text x="85" y="496" font-size="12" fill="#1a1a1a">Норма</text>
+
+  <line x1="170" y1="492" x2="195" y2="492" stroke="#c0392b" stroke-width="3" stroke-dasharray="7,3"/>
+  <text x="200" y="496" font-size="12" fill="#1a1a1a">Сухий хід</text>
+
+  <line x1="310" y1="492" x2="335" y2="492" stroke="#c0392b" stroke-width="2" stroke-dasharray="4,4"/>
+  <text x="340" y="496" font-size="12" fill="#1a1a1a">Кавітація</text>
+
+
+  <!-- ПРАВА ПАНЕЛЬ: 3 картки режимів -->
+
+  <!-- Картка 1: Нормальний режим -->
+  <rect x="510" y="75" width="420" height="125" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="525" y="87" width="390" height="26" rx="4" fill="#27ae60"/>
+  <text x="720" y="104" font-size="13" font-weight="bold" text-anchor="middle" fill="#ffffff">НОРМАЛЬНИЙ РЕЖИМ (З РІДИНОЮ)</text>
+
+  <text x="530" y="132" font-size="12" fill="#1a1a1a">• Охолодження: потік води Q &gt; 0 відводить тепло</text>
+  <text x="530" y="152" font-size="12" fill="#1a1a1a">• Температура: T_m ≤ 60°C (тривалий режим S1)</text>
+  <text x="530" y="172" font-size="12" fill="#1a1a1a">• Електрика: I_nom = 0.8–1.5 A; мінімальний знос</text>
+
+  <!-- Картка 2: Сухий хід -->
+  <rect x="510" y="215" width="420" height="135" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <rect x="525" y="227" width="390" height="26" rx="4" fill="#c0392b"/>
+  <text x="720" y="244" font-size="13" font-weight="bold" text-anchor="middle" fill="#ffffff">РИЗИК 1: СУХИЙ ХІД (DRY RUN)</text>
+
+  <text x="530" y="270" font-size="12" fill="#1a1a1a">• Причина: відсутність рідини (Q = 0), повітря в камері</text>
+  <text x="530" y="290" font-size="12" fill="#1a1a1a">• Нагрів: тертя "насухо" → T_m &gt; 85°C за t &gt; 3–5 хв</text>
+  <text x="530" y="310" font-size="12" fill="#1a1a1a">• Наслідки: деформація клапанів, підгорення колектора</text>
+  <text x="530" y="330" font-size="12" font-weight="bold" fill="#c0392b">• Захист: t_dry ≤ 30 с або автоматичний датчик протоку</text>
+
+  <!-- Картка 3: Кавітація та заклинювання -->
+  <rect x="510" y="365" width="420" height="145" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <rect x="525" y="377" width="390" height="26" rx="4" fill="#c0392b"/>
+  <text x="720" y="394" font-size="13" font-weight="bold" text-anchor="middle" fill="#ffffff">РИЗИК 2: КАВІТАЦІЯ ТА ЗАКЛИНИВАННЯ</text>
+
+  <text x="530" y="418" font-size="12" fill="#1a1a1a">• Кавітація: Pin &lt; Psat → схлопування бульбашок і гідроудари</text>
+  <text x="530" y="438" font-size="12" fill="#1a1a1a">• Заклинювання: I_stall ≈ 4–5 A → термічний пробій</text>
+  <text x="530" y="458" font-size="12" fill="#1a1a1a">• Захист: діод Flyback D_f, ШІМ-розгін, запобіжник</text>
+  <text x="530" y="480" font-size="12" font-weight="bold" fill="#27ae60">• Рекомендація: повторно-короткочасний режим S3</text>
+</svg>

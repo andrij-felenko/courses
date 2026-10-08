@@ -1,0 +1,134 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Markers -->
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Карта регістрів та структура кадрів (Modbus RTU / CANopen SDO)</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Розподіл адресного простору приводу та байтове компонування командних кадрів</text>
+
+  <!-- Top Panel: Register Map -->
+  <rect x="20" y="70" width="920" height="165" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="35" y="93" font-size="14" font-weight="bold" fill="#1a1a1a">Карта регістрів та об'єктний словник приводу (16-bit / Object Dictionary)</text>
+
+  <!-- Register Card 1: Telemetry -->
+  <rect x="35" y="105" width="212" height="115" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="35" y="105" width="212" height="24" rx="4" fill="#eaf0fd"/>
+  <text x="141" y="121" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">0x0000..0x000F | Телеметрія</text>
+  <text x="43" y="143" font-size="12" fill="#1a1a1a">0x0001 (6041h): Statusword</text>
+  <text x="43" y="161" font-size="12" fill="#1a1a1a">0x0002 (606Ch): Act.Speed</text>
+  <text x="43" y="179" font-size="12" fill="#1a1a1a">0x0004 (6064h): Act.Position</text>
+  <text x="43" y="197" font-size="12" fill="#6b7280">0x0006 (2001h): I_phase, Temp</text>
+
+  <!-- Register Card 2: Control & Targets -->
+  <rect x="261" y="105" width="212" height="115" rx="4" fill="white" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="261" y="105" width="212" height="24" rx="4" fill="#eaf0fd"/>
+  <text x="367" y="121" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">0x0100..0x010F | Уставки</text>
+  <text x="269" y="143" font-size="12" fill="#1a1a1a">0x0100 (6040h): Controlword</text>
+  <text x="269" y="161" font-size="12" fill="#1a1a1a">0x0101 (6060h): Op Mode</text>
+  <text x="269" y="179" font-size="12" font-weight="bold" fill="#2457d6">0x0102 (607Ah): Target Pos</text>
+  <text x="269" y="197" font-size="12" fill="#6b7280">0x0104 (60FFh): Target Vel</text>
+
+  <!-- Register Card 3: PID & Limits -->
+  <rect x="487" y="105" width="212" height="115" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="487" y="105" width="212" height="24" rx="4" fill="#eaf0fd"/>
+  <text x="593" y="121" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">0x0200..0x020F | PID &amp; Limits</text>
+  <text x="495" y="143" font-size="12" fill="#1a1a1a">0x0200 (6090h): I_max Limit</text>
+  <text x="495" y="161" font-size="12" fill="#1a1a1a">0x0201 (6091h): U_max Limit</text>
+  <text x="495" y="179" font-size="12" fill="#1a1a1a">0x0202 (60F4h): Kp, Ki, Kd</text>
+  <text x="495" y="197" font-size="12" fill="#6b7280">0x0205 (6083h): Profile Accel</text>
+
+  <!-- Register Card 4: System & Alarms -->
+  <rect x="713" y="105" width="212" height="115" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="713" y="105" width="212" height="24" rx="4" fill="#fdecea"/>
+  <text x="819" y="121" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">0x0300..0x030F | Аварії &amp; Sys</text>
+  <text x="721" y="143" font-size="12" fill="#1a1a1a">0x0300 (603Fh): Error Code</text>
+  <text x="721" y="161" font-size="12" fill="#c0392b">0x0301 (1001h): Error Flags</text>
+  <text x="721" y="179" font-size="12" fill="#1a1a1a">0x0302 (1018h): Node ID / Baud</text>
+  <text x="721" y="197" font-size="12" fill="#6b7280">0x0303 (1010h): Save EEPROM</text>
+
+  <!-- Bottom Left Panel: Modbus RTU Frame -->
+  <rect x="20" y="250" width="450" height="290" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="35" y="273" font-size="14" font-weight="bold" fill="#1a1a1a">Структура кадру Modbus RTU (RS-485)</text>
+  <text x="35" y="291" font-size="12" fill="#6b7280">Запит / Відповідь (Read/Write Single Register)</text>
+
+  <!-- Modbus Frame Fields -->
+  <rect x="35" y="305" width="60" height="45" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="65" y="323" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Addr</text>
+  <text x="65" y="340" font-size="12" fill="#1a1a1a" text-anchor="middle">1 Byte</text>
+
+  <rect x="98" y="305" width="65" height="45" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="130" y="323" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Function</text>
+  <text x="130" y="340" font-size="12" fill="#1a1a1a" text-anchor="middle">1 Byte</text>
+
+  <rect x="166" y="305" width="105" height="45" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="218" y="323" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Reg Addr (H/L)</text>
+  <text x="218" y="340" font-size="12" fill="#1a1a1a" text-anchor="middle">2 Bytes</text>
+
+  <rect x="274" y="305" width="105" height="45" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="326" y="323" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Data (Hi/Lo)</text>
+  <text x="326" y="340" font-size="12" fill="#1a1a1a" text-anchor="middle">2 Bytes</text>
+
+  <rect x="382" y="305" width="68" height="45" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="416" y="323" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">CRC16</text>
+  <text x="416" y="340" font-size="12" fill="#1a1a1a" text-anchor="middle">2 Bytes</text>
+
+  <!-- Modbus Frame Example -->
+  <rect x="35" y="365" width="415" height="26" rx="4" fill="white" stroke="#d0d7de"/>
+  <text x="43" y="382" font-size="12" font-weight="bold" fill="#1a1a1a">Приклад (Write Target Pos):</text>
+  <text x="220" y="382" font-size="12" fill="#2457d6" font-family="monospace">01  06  01 02  03 E8  69 82</text>
+
+  <!-- Modbus Field Explanations -->
+  <text x="35" y="410" font-size="12" fill="#1a1a1a"><tspan font-weight="bold" fill="#2457d6">• Addr (0x01):</tspan> Адреса веденого вузла в мережі RS-485</text>
+  <text x="35" y="432" font-size="12" fill="#1a1a1a"><tspan font-weight="bold" fill="#2457d6">• Func (0x03/0x06):</tspan> Read Holding / Write Single Reg</text>
+  <text x="35" y="454" font-size="12" fill="#1a1a1a"><tspan font-weight="bold" fill="#2457d6">• Reg (0x0102):</tspan> Цільова позиція Target Position</text>
+  <text x="35" y="476" font-size="12" fill="#1a1a1a"><tspan font-weight="bold" fill="#2457d6">• Data (0x03E8):</tspan> Уставка = 1000 імпульсів / RPM</text>
+  <text x="35" y="498" font-size="12" fill="#1a1a1a"><tspan font-weight="bold" fill="#27ae60">• CRC16 (0x6982):</tspan> Поліном 0xA001 (LO byte першим)</text>
+
+  <!-- Bottom Right Panel: CANopen SDO Frame -->
+  <rect x="490" y="250" width="450" height="290" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="505" y="273" font-size="14" font-weight="bold" fill="#1a1a1a">Структура кадру CANopen SDO (CAN 2.0B)</text>
+  <text x="505" y="291" font-size="12" fill="#6b7280">Service Data Object (Expedited Transfer, 8 Bytes DLC)</text>
+
+  <!-- CANopen Frame Fields -->
+  <rect x="505" y="305" width="70" height="45" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="540" y="323" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">COB-ID</text>
+  <text x="540" y="340" font-size="12" fill="#1a1a1a" text-anchor="middle">0x600+ID</text>
+
+  <rect x="578" y="305" width="65" height="45" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="610" y="323" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Cmd (CS)</text>
+  <text x="610" y="340" font-size="12" fill="#1a1a1a" text-anchor="middle">Byte 0</text>
+
+  <rect x="646" y="305" width="85" height="45" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="688" y="323" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Index (16b)</text>
+  <text x="688" y="340" font-size="12" fill="#1a1a1a" text-anchor="middle">Bytes 1-2</text>
+
+  <rect x="734" y="305" width="65" height="45" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="766" y="323" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Subindex</text>
+  <text x="766" y="340" font-size="12" fill="#1a1a1a" text-anchor="middle">Byte 3</text>
+
+  <rect x="802" y="305" width="123" height="45" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="863" y="323" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Data Payload</text>
+  <text x="863" y="340" font-size="12" fill="#1a1a1a" text-anchor="middle">Bytes 4-7 (32-bit)</text>
+
+  <!-- CANopen Frame Example -->
+  <rect x="505" y="365" width="420" height="26" rx="4" fill="white" stroke="#d0d7de"/>
+  <text x="513" y="382" font-size="12" font-weight="bold" fill="#1a1a1a">Приклад (SDO Download):</text>
+  <text x="680" y="382" font-size="12" fill="#2457d6" font-family="monospace">601: 23 7A 60 00 E8 03 00 00</text>
+
+  <!-- CANopen Field Explanations -->
+  <text x="505" y="410" font-size="12" fill="#1a1a1a"><tspan font-weight="bold" fill="#2457d6">• COB-ID (0x601):</tspan> RxSDO для вузла Node ID = 1</text>
+  <text x="505" y="432" font-size="12" fill="#1a1a1a"><tspan font-weight="bold" fill="#2457d6">• CS (0x23):</tspan> Write 4 bytes expedited (e=1, s=1, n=0)</text>
+  <text x="505" y="454" font-size="12" fill="#1a1a1a"><tspan font-weight="bold" fill="#2457d6">• Index (0x607A):</tspan> Target Position в Object Dictionary</text>
+  <text x="505" y="476" font-size="12" fill="#1a1a1a"><tspan font-weight="bold" fill="#2457d6">• Subindex (0x00):</tspan> Допоміжний елемент об'єкта</text>
+  <text x="505" y="498" font-size="12" fill="#1a1a1a"><tspan font-weight="bold" fill="#27ae60">• Data (0x000003E8):</tspan> 32-bit значення (Little-Endian)</text>
+</svg>

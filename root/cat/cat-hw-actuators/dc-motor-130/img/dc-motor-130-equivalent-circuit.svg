@@ -1,0 +1,128 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- White Background -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Definitions for Arrow Markers -->
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Title and Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Еквівалентна електрична схема ротора DC-двигуна 130</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Напруга живлення V розподіляється між опором R, індуктивністю L та проти-ЕРС E_b</text>
+
+  <!-- Left Panel: Equivalent Circuit Schematic -->
+  <rect x="30" y="85" width="580" height="215" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="50" y="110" font-size="14" font-weight="bold" fill="#1a1a1a">Схема заміщення ротора</text>
+
+  <!-- Input Voltage V Section -->
+  <line x1="95" y1="255" x2="95" y2="165" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr-blue)"/>
+  <text x="95" y="152" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">+</text>
+  <text x="95" y="278" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">−</text>
+  <text x="68" y="204" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">V</text>
+  <text x="68" y="220" font-size="12" fill="#6b7280" text-anchor="middle">(живлення)</text>
+
+  <!-- Circuit Wires -->
+  <!-- Terminals -->
+  <circle cx="130" cy="155" r="4" fill="#2457d6"/>
+  <circle cx="130" cy="265" r="4" fill="#2457d6"/>
+
+  <!-- Top Wire & Current I -->
+  <line x1="130" y1="155" x2="175" y2="155" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="140" y="137" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Струм I</text>
+
+  <!-- Resistor R -->
+  <rect x="175" y="143" width="80" height="24" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="215" y="122" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">R</text>
+  <text x="215" y="136" font-size="12" fill="#6b7280" text-anchor="middle">(опір R)</text>
+  <line x1="175" y1="178" x2="255" y2="178" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#arr-blue)"/>
+  <text x="215" y="195" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">V_R = I · R</text>
+
+  <!-- Wire R to L -->
+  <line x1="255" y1="155" x2="285" y2="155" stroke="#2457d6" stroke-width="2"/>
+
+  <!-- Inductor L -->
+  <path d="M 285 155 A 10 10 0 0 1 305 155 A 10 10 0 0 1 325 155 A 10 10 0 0 1 345 155 A 10 10 0 0 1 365 155" fill="none" stroke="#2457d6" stroke-width="2"/>
+  <text x="325" y="122" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">L</text>
+  <text x="325" y="136" font-size="12" fill="#6b7280" text-anchor="middle">(індуктивність)</text>
+  <line x1="285" y1="178" x2="365" y2="178" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#arr-blue)"/>
+  <text x="325" y="195" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">V_L = L · (dI/dt)</text>
+
+  <!-- Wire L to Rotor -->
+  <line x1="365" y1="155" x2="455" y2="155" stroke="#2457d6" stroke-width="2"/>
+
+  <!-- Rotor Circle / Back-EMF Source -->
+  <line x1="455" y1="155" x2="455" y2="175" stroke="#2457d6" stroke-width="2"/>
+  <circle cx="455" cy="210" r="35" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <line x1="455" y1="245" x2="455" y2="265" stroke="#2457d6" stroke-width="2"/>
+  <line x1="455" y1="265" x2="130" y2="265" stroke="#2457d6" stroke-width="2"/>
+
+  <!-- Rotor Symbols inside Circle -->
+  <text x="455" y="194" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">+</text>
+  <text x="455" y="214" font-size="15" font-weight="bold" fill="#2457d6" text-anchor="middle">E_b</text>
+  <text x="455" y="232" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">−</text>
+
+  <!-- Mechanical Shaft & Labels to the right of Rotor -->
+  <rect x="490" y="206" width="20" height="8" rx="2" fill="#d0d7de" stroke="#6b7280" stroke-width="1"/>
+  <path d="M 495 198 A 10 10 0 0 1 508 206" fill="none" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="515" y="195" font-size="13" font-weight="bold" fill="#1a1a1a">Проти-ЕРС E_b</text>
+  <text x="515" y="213" font-size="12" fill="#2457d6">E_b = k_e · ω</text>
+  <text x="515" y="231" font-size="12" fill="#6b7280">Обертання ω</text>
+
+
+  <!-- Right Panel: Equations & Physical Relations -->
+  <rect x="630" y="85" width="300" height="215" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="645" y="110" font-size="14" font-weight="bold" fill="#1a1a1a">Рівняння стану та зв'язки</text>
+
+  <!-- Formula Box 1: Full Voltage Balance -->
+  <rect x="645" y="122" width="270" height="48" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="780" y="142" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">V = I·R + L·(dI/dt) + E_b</text>
+  <text x="780" y="158" font-size="12" fill="#6b7280" text-anchor="middle">Повний підсумковий баланс напруг</text>
+
+  <!-- Formula Box 2: Static Current Balance -->
+  <rect x="645" y="178" width="270" height="48" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="780" y="198" font-size="14" font-weight="bold" fill="#27ae60" text-anchor="middle">I = (V − E_b) / R</text>
+  <text x="780" y="214" font-size="12" fill="#1a1a1a" text-anchor="middle">Усталений режим  (dI/dt = 0)</text>
+
+  <!-- Electromechanical Relations Text -->
+  <text x="645" y="244" font-size="12" font-weight="bold" fill="#1a1a1a">Електромеханічний зв'язок:</text>
+  <text x="645" y="262" font-size="12" fill="#6b7280">• Проти-ЕРС: E_b = k_e · ω</text>
+  <text x="645" y="280" font-size="12" fill="#6b7280">• Моторний момент: M = k_m · I</text>
+
+
+  <!-- Bottom Section: 3 Operating Regimes Cards -->
+  <!-- Card 1: Stall / Startup (Red / Problem Case) -->
+  <rect x="30" y="315" width="290" height="125" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="45" y="338" font-size="13" font-weight="bold" fill="#c0392b">1. Пуск / Заклинювання (ω = 0)</text>
+  <text x="45" y="360" font-size="12" fill="#1a1a1a">• Проти-ЕРС відсутня: E_b = 0</text>
+  <text x="45" y="380" font-size="12" font-weight="bold" fill="#c0392b">• Струм максимальний: I_stall = V / R</text>
+  <text x="45" y="400" font-size="12" fill="#6b7280">• Двигун 130: I_stall ≈ 1.5 – 3.0 A</text>
+  <text x="45" y="420" font-size="12" fill="#c0392b">• Ризик перегріву та виходу з ладу</text>
+
+  <!-- Card 2: Rated Operation (Green / Optimal Case) -->
+  <rect x="335" y="315" width="290" height="125" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="350" y="338" font-size="13" font-weight="bold" fill="#27ae60">2. Робочий режим (Навантаження)</text>
+  <text x="350" y="360" font-size="12" fill="#1a1a1a">• Ротор обертається з робочою ω</text>
+  <text x="350" y="380" font-size="12" font-weight="bold" fill="#27ae60">• Струм помірний: I = (V − E_b) / R</text>
+  <text x="350" y="400" font-size="12" fill="#6b7280">• Двигун 130: I_work ≈ 0.3 – 0.8 A</text>
+  <text x="350" y="420" font-size="12" fill="#27ae60">• Оптимальний ККД та баланс моменту</text>
+
+  <!-- Card 3: No-Load Operation (Blue / High Speed Case) -->
+  <rect x="640" y="315" width="290" height="125" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="655" y="338" font-size="13" font-weight="bold" fill="#2457d6">3. Холостий хід (M_load ≈ 0)</text>
+  <text x="655" y="360" font-size="12" fill="#1a1a1a">• Максимальна швидкість ω_max</text>
+  <text x="655" y="380" font-size="12" font-weight="bold" fill="#2457d6">• E_b майже дорівнює V (E_b ≈ V)</text>
+  <text x="655" y="400" font-size="12" fill="#6b7280">• Струм мінімальний: I_0 ≈ 0.1 A</text>
+  <text x="655" y="420" font-size="12" fill="#2457d6">• Енергія лише на тертя в підшипниках</text>
+</svg>

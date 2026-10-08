@@ -1,0 +1,251 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <!-- Arrow Markers -->
+    <marker id="arr-black" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+
+    <!-- Metallic Gradient for Motor Body -->
+    <linearGradient id="bodyGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#cbd5e1"/>
+      <stop offset="20%" stop-color="#f1f5f9"/>
+      <stop offset="50%" stop-color="#e2e8f0"/>
+      <stop offset="80%" stop-color="#cbd5e1"/>
+      <stop offset="100%" stop-color="#94a3b8"/>
+    </linearGradient>
+
+    <!-- Metallic Gradient for Shaft -->
+    <linearGradient id="shaftGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#94a3b8"/>
+      <stop offset="50%" stop-color="#f8fafc"/>
+      <stop offset="100%" stop-color="#64748b"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background Canvas -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Title Section -->
+  <text x="480" y="36" font-size="18" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Колекторний двигун типорозміру 130: габарити та цокольовка</text>
+  <text x="480" y="58" font-size="13" text-anchor="middle" fill="#6b7280">Геометричні параметри корпуса, підключення клем та напрямок обертання ротора</text>
+
+  <!-- LEFT PANEL: Mechanical Dimensions -->
+  <rect x="25" y="75" width="445" height="445" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Panel 1 Header Box -->
+  <rect x="40" y="90" width="415" height="32" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="247" y="111" font-size="14" font-weight="bold" text-anchor="middle" fill="#2457d6">Механічні габарити двигуна 130</text>
+
+  <!-- SIDE VIEW OF MOTOR -->
+  <!-- Shaft -->
+  <rect x="85" y="204" width="40" height="12" rx="1" fill="url(#shaftGradient)" stroke="#475569" stroke-width="1"/>
+
+  <!-- Shaft Collar / Bushing -->
+  <rect x="125" y="196" width="12" height="28" rx="1" fill="#94a3b8" stroke="#475569" stroke-width="1"/>
+
+  <!-- Main Metallic Body -->
+  <rect x="137" y="170" width="145" height="80" rx="4" fill="url(#bodyGradient)" stroke="#475569" stroke-width="1.5"/>
+  <!-- Flat Cuts Indication Lines -->
+  <line x1="137" y1="182" x2="282" y2="182" stroke="#94a3b8" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="137" y1="238" x2="282" y2="238" stroke="#94a3b8" stroke-width="1" stroke-dasharray="2,2"/>
+
+  <!-- Rear Plastic End-Cap -->
+  <rect x="282" y="175" width="22" height="70" rx="2" fill="#cbd5e1" stroke="#475569" stroke-width="1.5"/>
+
+  <!-- Solder Terminals -->
+  <rect x="304" y="185" width="18" height="6" rx="1" fill="#d97706" stroke="#92400e" stroke-width="1"/>
+  <circle cx="317" cy="188" r="1.5" fill="white"/>
+  <rect x="304" y="229" width="18" height="6" rx="1" fill="#d97706" stroke="#92400e" stroke-width="1"/>
+  <circle cx="317" cy="232" r="1.5" fill="white"/>
+
+  <!-- Dimension Lines & Annotations (Side View) -->
+  <!-- Shaft Length Dimension: 8 mm -->
+  <line x1="85" y1="148" x2="137" y2="148" stroke="#1a1a1a" stroke-width="1"/>
+  <line x1="85" y1="143" x2="85" y2="153" stroke="#1a1a1a" stroke-width="1"/>
+  <line x1="137" y1="143" x2="137" y2="153" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="111" y="142" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">8 мм</text>
+
+  <!-- Body Length Dimension: 25 mm -->
+  <line x1="137" y1="148" x2="304" y2="148" stroke="#1a1a1a" stroke-width="1"/>
+  <line x1="304" y1="143" x2="304" y2="153" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="220" y="142" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">25 мм (корпус)</text>
+
+  <!-- Total Length Dimension: ~38 mm -->
+  <line x1="85" y1="280" x2="322" y2="280" stroke="#6b7280" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="85" y1="275" x2="85" y2="285" stroke="#6b7280" stroke-width="1"/>
+  <line x1="322" y1="275" x2="322" y2="285" stroke="#6b7280" stroke-width="1"/>
+  <text x="203" y="298" font-size="12" font-weight="bold" text-anchor="middle" fill="#6b7280">Загальна довжина: ~38 мм</text>
+
+  <!-- Shaft Diameter Callout: Ø 2.0 mm -->
+  <polyline points="105,210 70,245 40,245" fill="none" stroke="#2457d6" stroke-width="1.2"/>
+  <circle cx="105" cy="210" r="2.5" fill="#2457d6"/>
+  <text x="40" y="260" font-size="12" font-weight="bold" text-anchor="start" fill="#2457d6">Ø 2.0 мм (вал)</text>
+
+  <!-- Body Diameter Dimension: Ø 20 mm -->
+  <line x1="340" y1="170" x2="340" y2="250" stroke="#1a1a1a" stroke-width="1"/>
+  <line x1="335" y1="170" x2="345" y2="170" stroke="#1a1a1a" stroke-width="1"/>
+  <line x1="335" y1="250" x2="345" y2="250" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="350" y="205" font-size="12" font-weight="bold" text-anchor="start" fill="#1a1a1a">Ø 20 мм</text>
+  <text x="350" y="222" font-size="12" text-anchor="start" fill="#6b7280">(сплющення 15 мм)</text>
+
+  <!-- Section Divider in Left Panel -->
+  <line x1="40" y1="320" x2="455" y2="320" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4,4"/>
+
+  <!-- END VIEWS (Bottom Half of Left Panel) -->
+  <!-- 1. Front View (Shaft Side) -->
+  <g>
+    <!-- Flat-sided cylinder profile path -->
+    <path d="M 120,376 L 160,376 A 32,32 0 0,1 160,424 L 120,424 A 32,32 0 0,1 120,376 Z" fill="url(#bodyGradient)" stroke="#475569" stroke-width="1.5"/>
+    <!-- Collar -->
+    <circle cx="140" cy="400" r="10" fill="#94a3b8" stroke="#475569" stroke-width="1"/>
+    <!-- Shaft Center -->
+    <circle cx="140" cy="400" r="4" fill="url(#shaftGradient)" stroke="#475569" stroke-width="1"/>
+    <!-- Mounting Holes (M2, 10mm pitch) -->
+    <circle cx="123" cy="400" r="2.5" fill="#cbd5e1" stroke="#475569" stroke-width="1"/>
+    <circle cx="157" cy="400" r="2.5" fill="#cbd5e1" stroke="#475569" stroke-width="1"/>
+
+    <!-- Labels for Front View -->
+    <text x="140" y="462" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Вигляд спереду</text>
+    <text x="140" y="478" font-size="12" text-anchor="middle" fill="#6b7280">Отвори M2 (відстань 10 мм)</text>
+  </g>
+
+  <!-- 2. Rear View (Terminal Side) -->
+  <g>
+    <!-- Outer Plastic Cap Profile -->
+    <path d="M 310,376 L 350,376 A 32,32 0 0,1 350,424 L 310,424 A 32,32 0 0,1 310,376 Z" fill="#cbd5e1" stroke="#475569" stroke-width="1.5"/>
+    <!-- Solder Terminals -->
+    <rect x="318" y="380" width="24" height="8" rx="2" fill="#d97706" stroke="#92400e" stroke-width="1"/>
+    <circle cx="330" cy="384" r="2" fill="white"/>
+    <rect x="318" y="412" width="24" height="8" rx="2" fill="#d97706" stroke="#92400e" stroke-width="1"/>
+    <circle cx="330" cy="416" r="2" fill="white"/>
+
+    <!-- Polarity Dot (+) Mark -->
+    <circle cx="298" cy="384" r="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+    <text x="298" y="388" font-size="11" font-weight="bold" text-anchor="middle" fill="#2457d6">+</text>
+
+    <!-- Terminal Labels -->
+    <text x="350" y="388" font-size="12" font-weight="bold" text-anchor="start" fill="#2457d6">Клема (+)</text>
+    <text x="350" y="420" font-size="12" font-weight="bold" text-anchor="start" fill="#1a1a1a">Клема (-)</text>
+
+    <!-- Labels for Rear View -->
+    <text x="330" y="462" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Вигляд ззаду (клеми)</text>
+    <text x="330" y="478" font-size="12" text-anchor="middle" fill="#6b7280">Мітка полярності «+»</text>
+  </g>
+
+  <!-- RIGHT PANEL: Polarity & Rotation -->
+  <rect x="490" y="75" width="445" height="445" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Panel 2 Header Box -->
+  <rect x="505" y="90" width="415" height="32" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="712" y="111" font-size="14" font-weight="bold" text-anchor="middle" fill="#2457d6">Принцип реверсування та схема живлення</text>
+
+  <!-- STATE A: Forward Rotation (CW) -->
+  <rect x="505" y="135" width="200" height="200" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="605" y="155" font-size="13" font-weight="bold" text-anchor="middle" fill="#27ae60">Пряме обертання (CW)</text>
+
+  <!-- Voltage Supply Connections CW -->
+  <text x="605" y="178" font-size="12" font-weight="bold" text-anchor="middle" fill="#c0392b">+V (1.5–6 В)</text>
+  <line x1="605" y1="182" x2="605" y2="195" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+
+  <!-- Motor Symbol CW -->
+  <circle cx="605" cy="220" r="25" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <circle cx="605" cy="220" r="4" fill="#1a1a1a"/>
+  <text x="605" y="224" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">M</text>
+
+  <!-- CW Rotation Arrows -->
+  <path d="M 590,192 A 32,32 0 0,1 640,215" fill="none" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <path d="M 620,248 A 32,32 0 0,1 570,225" fill="none" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- Ground Connection CW -->
+  <line x1="605" y1="245" x2="605" y2="254" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr-black)"/>
+  <text x="605" y="266" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">GND (0 В)</text>
+
+  <!-- Rotation Description CW -->
+  <text x="605" y="298" font-size="12" font-weight="bold" text-anchor="middle" fill="#27ae60">За годинниковою</text>
+  <text x="605" y="314" font-size="12" text-anchor="middle" fill="#6b7280">стрілкою (CW)</text>
+
+  <!-- STATE B: Reverse Rotation (CCW) -->
+  <rect x="720" y="135" width="200" height="200" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="820" y="155" font-size="13" font-weight="bold" text-anchor="middle" fill="#2457d6">Зворотне обертання (CCW)</text>
+
+  <!-- Ground Connection CCW (Top) -->
+  <text x="820" y="178" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">GND (0 В)</text>
+  <line x1="820" y1="182" x2="820" y2="195" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr-black)"/>
+
+  <!-- Motor Symbol CCW -->
+  <circle cx="820" cy="220" r="25" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <circle cx="820" cy="220" r="4" fill="#1a1a1a"/>
+  <text x="820" y="224" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">M</text>
+
+  <!-- CCW Rotation Arrows -->
+  <path d="M 835,192 A 32,32 0 0,0 785,215" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <path d="M 805,248 A 32,32 0 0,0 855,225" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Voltage Supply Connections CCW (Bottom) -->
+  <line x1="820" y1="245" x2="820" y2="254" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="820" y="266" font-size="12" font-weight="bold" text-anchor="middle" fill="#c0392b">+V (1.5–6 В)</text>
+
+  <!-- Rotation Description CCW -->
+  <text x="820" y="298" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">Проти годинникової</text>
+  <text x="820" y="314" font-size="12" text-anchor="middle" fill="#6b7280">стрілки (CCW)</text>
+
+  <!-- BOTTOM SUBPANEL: Noise Suppression Schematics -->
+  <rect x="505" y="350" width="415" height="155" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="712" y="370" font-size="13" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Схема придушення комутаційних завад (RF)</text>
+
+  <!-- Motor Circuit Wires & Symbol -->
+  <!-- Top Rail (+) -->
+  <line x1="660" y1="395" x2="765" y2="395" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="645" y="399" font-size="12" font-weight="bold" text-anchor="end" fill="#c0392b">Клема (+)</text>
+
+  <!-- Bottom Rail (-) -->
+  <line x1="660" y1="465" x2="765" y2="465" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="645" y="469" font-size="12" font-weight="bold" text-anchor="end" fill="#1a1a1a">Клема (-)</text>
+
+  <!-- Motor Center Connection -->
+  <line x1="712" y1="395" x2="712" y2="413" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="712" y1="457" x2="712" y2="465" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="712" cy="435" r="22" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="712" y="439" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">M</text>
+
+  <!-- Capacitor C1 Across Terminals -->
+  <line x1="660" y1="395" x2="660" y2="426" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="660" y1="444" x2="660" y2="465" stroke="#2457d6" stroke-width="1.5"/>
+  <!-- C1 Plates -->
+  <line x1="652" y1="426" x2="668" y2="426" stroke="#2457d6" stroke-width="2"/>
+  <line x1="652" y1="444" x2="668" y2="444" stroke="#2457d6" stroke-width="2"/>
+  <text x="620" y="428" font-size="12" font-weight="bold" text-anchor="end" fill="#2457d6">C1 = 100 нФ</text>
+  <text x="620" y="444" font-size="12" text-anchor="end" fill="#6b7280">(між клемами)</text>
+
+  <!-- Capacitors C2 and C3 to Motor Metal Case -->
+  <!-- Top branch (C2) -->
+  <line x1="765" y1="395" x2="765" y2="416" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="757" y1="416" x2="773" y2="416" stroke="#2457d6" stroke-width="2"/>
+  <line x1="757" y1="424" x2="773" y2="424" stroke="#2457d6" stroke-width="2"/>
+  <line x1="765" y1="424" x2="765" y2="430" stroke="#2457d6" stroke-width="1.5"/>
+
+  <!-- Bottom branch (C3) -->
+  <line x1="765" y1="465" x2="765" y2="444" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="757" y1="444" x2="773" y2="444" stroke="#2457d6" stroke-width="2"/>
+  <line x1="757" y1="436" x2="773" y2="436" stroke="#2457d6" stroke-width="2"/>
+  <line x1="765" y1="436" x2="765" y2="430" stroke="#2457d6" stroke-width="1.5"/>
+
+  <!-- Connection line to Motor Metal Shell -->
+  <line x1="734" y1="430" x2="765" y2="430" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <circle cx="734" cy="430" r="3" fill="#6b7280"/>
+
+  <text x="795" y="428" font-size="12" font-weight="bold" text-anchor="start" fill="#2457d6">C2, C3 = 100 нФ</text>
+  <text x="795" y="444" font-size="12" text-anchor="start" fill="#6b7280">(на корпус)</text>
+
+  <!-- Summary Note at Bottom of Box C -->
+  <text x="712" y="490" font-size="12" text-anchor="middle" fill="#27ae60">Фільтрація усуває комутаційні завади колектора</text>
+</svg>

@@ -1,0 +1,116 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Компенсація нейтралі та мертва зона (Deadband) сервоприводу</text>
+  <text x="480" y="55" text-anchor="middle" font-size="13" fill="#6b7280">Програмне калібрування t_zero та зона ±Δt_db усувають дрейф і гарантують зупинку ротора</text>
+
+  <!-- Left Panel: Without compensation -->
+  <rect x="30" y="75" width="435" height="425" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <rect x="45" y="90" width="405" height="32" rx="4" fill="#c0392b"/>
+  <text x="247" y="111" text-anchor="middle" font-size="13" font-weight="bold" fill="white">БЕЗ КОМПЕНСАЦІЇ: Дрейф ротора при t = 1500 мкс</text>
+
+  <!-- Left Graph Axes -->
+  <line x1="75" y1="270" x2="410" y2="270" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="418" y="274" font-size="12" fill="#1a1a1a">t_PWM</text>
+
+  <line x1="247" y1="390" x2="247" y2="155" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="247" y="145" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Швидкість ω</text>
+
+  <text x="237" y="170" text-anchor="end" font-size="11" fill="#6b7280">+ω (CCW)</text>
+  <text x="237" y="380" text-anchor="end" font-size="11" fill="#6b7280">-ω (CW)</text>
+
+  <!-- Grid lines / ticks -->
+  <line x1="247" y1="160" x2="247" y2="400" stroke="#6b7280" stroke-width="1" stroke-dasharray="3 3"/>
+  <line x1="247" y1="266" x2="247" y2="274" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <line x1="310" y1="200" x2="310" y2="340" stroke="#c0392b" stroke-width="1" stroke-dasharray="3 3"/>
+  <line x1="310" y1="266" x2="310" y2="274" stroke="#c0392b" stroke-width="1.5"/>
+
+  <!-- Characteristic Curve 1 -->
+  <path d="M 110,370 L 400,210" stroke="#c0392b" stroke-width="2.5"/>
+  <circle cx="247" cy="310" r="5" fill="#c0392b"/>
+
+  <!-- Left Callout Box -->
+  <rect x="60" y="325" width="150" height="42" rx="4" fill="white" stroke="#c0392b" stroke-width="1"/>
+  <text x="135" y="342" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">Дрейф при 1500 мкс</text>
+  <text x="135" y="357" text-anchor="middle" font-size="10" fill="#c0392b">(ротор самовільно крутиться)</text>
+  <path d="M 210,342 L 238,318" stroke="#c0392b" stroke-width="1.2" marker-end="url(#arr-red)"/>
+
+  <!-- Left Labels -->
+  <text x="247" y="415" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a1a">1500 мкс</text>
+  <text x="247" y="428" text-anchor="middle" font-size="10" fill="#6b7280">(команда &quot;Стоп&quot;)</text>
+
+  <text x="320" y="285" text-anchor="start" font-size="11" font-weight="bold" fill="#c0392b">t_phys (реальний нуль)</text>
+  <text x="320" y="298" text-anchor="start" font-size="10" fill="#c0392b">зсув +40 мкс</text>
+  <path d="M 335,275 L 315,271" stroke="#c0392b" stroke-width="1" marker-end="url(#arr-red)"/>
+
+  <!-- Left Footer Box -->
+  <rect x="45" y="445" width="405" height="40" rx="4" fill="white" stroke="#c0392b" stroke-width="1"/>
+  <text x="247" y="462" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">ПРОБЛЕМА: Фізичний зсув потенціометра</text>
+  <text x="247" y="476" text-anchor="middle" font-size="11" fill="#1a1a1a">При подачі 1500 мкс вал обертається, оскільки нуль зміщено.</text>
+
+  <!-- Right Panel: With compensation -->
+  <rect x="495" y="75" width="435" height="425" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="510" y="90" width="405" height="32" rx="4" fill="#27ae60"/>
+  <text x="712" y="111" text-anchor="middle" font-size="13" font-weight="bold" fill="white">З КОМПЕНСАЦІЄЮ: Гарантована зупинка ротора (ω = 0)</text>
+
+  <!-- Right Graph Axes -->
+  <line x1="540" y1="270" x2="875" y2="270" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="883" y="274" font-size="12" fill="#1a1a1a">t_PWM</text>
+
+  <line x1="712" y1="390" x2="712" y2="155" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="712" y="145" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Швидкість ω</text>
+
+  <text x="702" y="170" text-anchor="end" font-size="11" fill="#6b7280">+ω (CCW)</text>
+  <text x="702" y="380" text-anchor="end" font-size="11" fill="#6b7280">-ω (CW)</text>
+
+  <!-- Deadband Zone Rect -->
+  <rect x="710" y="190" width="60" height="150" fill="#27ae60" fill-opacity="0.18" stroke="#27ae60" stroke-width="1" stroke-dasharray="4 3"/>
+
+  <line x1="670" y1="200" x2="670" y2="400" stroke="#6b7280" stroke-width="1" stroke-dasharray="3 3"/>
+  <line x1="740" y1="190" x2="740" y2="400" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="4 2"/>
+
+  <!-- Characteristic Curve 2 -->
+  <path d="M 570,360 L 710,270" stroke="#27ae60" stroke-width="2.5"/>
+  <path d="M 710,270 L 770,270" stroke="#27ae60" stroke-width="4"/>
+  <path d="M 770,270 L 850,180" stroke="#27ae60" stroke-width="2.5"/>
+  <circle cx="740" cy="270" r="5" fill="#27ae60"/>
+
+  <!-- Right Annotations -->
+  <text x="740" y="175" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">Мертва зона ±Δt_db</text>
+  <text x="740" y="186" text-anchor="middle" font-size="10" fill="#27ae60">(зони нечутливості: ω = 0)</text>
+
+  <rect x="785" y="315" width="135" height="42" rx="4" fill="white" stroke="#27ae60" stroke-width="1"/>
+  <text x="852" y="332" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">Дрейф заблоковано</text>
+  <text x="852" y="347" text-anchor="middle" font-size="10" fill="#27ae60">сигнал у межах зони</text>
+  <path d="M 800,315 L 760,278" stroke="#27ae60" stroke-width="1.2" marker-end="url(#arr-green)"/>
+
+  <!-- Right Labels -->
+  <text x="670" y="415" text-anchor="middle" font-size="10" fill="#6b7280">1500 мкс</text>
+
+  <text x="740" y="415" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">t_zero</text>
+  <text x="740" y="428" text-anchor="middle" font-size="10" fill="#27ae60">(1540 мкс)</text>
+
+  <line x1="710" y1="266" x2="710" y2="274" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="702" y="398" text-anchor="end" font-size="10" fill="#27ae60">t_zero - Δt</text>
+
+  <line x1="770" y1="266" x2="770" y2="274" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="778" y="398" text-anchor="start" font-size="10" fill="#27ae60">t_zero + Δt</text>
+
+  <!-- Right Footer Box -->
+  <rect x="510" y="445" width="405" height="40" rx="4" fill="white" stroke="#27ae60" stroke-width="1"/>
+  <text x="712" y="462" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">РІШЕННЯ: Програмне усунення дрейфу</text>
+  <text x="712" y="476" text-anchor="middle" font-size="11" fill="#1a1a1a">Зсув t_zero зміщує нуль, а зона ±Δt блокує шуми ШІМ.</text>
+</svg>

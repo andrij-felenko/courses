@@ -1,0 +1,153 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Background Canvas -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Внутрішня структура та каскадування сигналу WS2812B</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Контролер фіксує 24 біти (GRB) для ШІМ-драйверів, а решту регенерує та передає на DOUT</text>
+
+  <!-- IC 5050 Outer Package -->
+  <rect x="110" y="70" width="740" height="465" rx="12" ry="12" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <text x="480" y="92" font-size="13" font-weight="bold" fill="#6b7280" text-anchor="middle">ІНТЕГРОВАНИЙ КОРПУС 5050 (ВНУТРІШНЯ СХЕМА WS2812B)</text>
+
+  <!-- External Pins & Sub-labels -->
+  <!-- DIN Pin -->
+  <rect x="20" y="135" width="90" height="36" rx="4" ry="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="65" y="157" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">DIN</text>
+  <text x="65" y="188" font-size="12" fill="#6b7280" text-anchor="middle">Вхід даних</text>
+  <line x1="110" y1="153" x2="150" y2="153" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+
+  <!-- VDD Pin -->
+  <rect x="20" y="255" width="90" height="36" rx="4" ry="4" fill="#fdecea" stroke="#c0392b" stroke-width="2"/>
+  <text x="65" y="277" font-size="14" font-weight="bold" fill="#c0392b" text-anchor="middle">VDD</text>
+  <text x="65" y="308" font-size="12" fill="#6b7280" text-anchor="middle">+5 В (Живлення)</text>
+  <line x1="110" y1="273" x2="130" y2="273" stroke="#c0392b" stroke-width="2.5"/>
+
+  <!-- VSS Pin -->
+  <rect x="20" y="375" width="90" height="36" rx="4" ry="4" fill="#f4f6f8" stroke="#6b7280" stroke-width="2"/>
+  <text x="65" y="397" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">VSS</text>
+  <text x="65" y="428" font-size="12" fill="#6b7280" text-anchor="middle">0 В (Земля)</text>
+  <line x1="110" y1="393" x2="130" y2="393" stroke="#6b7280" stroke-width="2.5"/>
+
+  <!-- DOUT Pin -->
+  <rect x="850" y="135" width="90" height="36" rx="4" ry="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="895" y="157" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">DOUT</text>
+  <text x="895" y="188" font-size="12" fill="#6b7280" text-anchor="middle">Вихід даних</text>
+  <line x1="810" y1="153" x2="850" y2="153" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Top Panel Container: Signal Processing Track -->
+  <rect x="135" y="105" width="690" height="150" rx="8" ry="8" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="150" y="122" font-size="12" font-weight="bold" fill="#2457d6">ТРАКТ ОБРОБКИ СИГНАЛУ ТА РЕГЕНЕРАЦІЇ</text>
+
+  <!-- Sub-block 1: 24-bit Shift Register -->
+  <rect x="150" y="132" width="205" height="112" rx="6" ry="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="252.5" y="152" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">24-бітний зсувний регістр</text>
+  <text x="252.5" y="171" font-size="12" fill="#1a1a1a" text-anchor="middle">Прийом колірного кадру</text>
+  <text x="252.5" y="190" font-size="12" fill="#6b7280" text-anchor="middle">Формат: 8G + 8R + 8B</text>
+  <text x="252.5" y="210" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Затримує перші 24 біти</text>
+  <text x="252.5" y="230" font-size="12" fill="#6b7280" text-anchor="middle">[ G7..G0 | R7..R0 | B7..B0 ]</text>
+
+  <!-- Sub-block 2: RESET Detector -->
+  <rect x="377.5" y="132" width="205" height="112" rx="6" ry="6" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="480" y="152" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Детектор паузи RESET</text>
+  <text x="480" y="171" font-size="12" fill="#6b7280" text-anchor="middle">Пауза t_reset &gt; 50 мкс</text>
+  <text x="480" y="195" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Сигнал Latch (Засувка)</text>
+  <text x="480" y="218" font-size="12" fill="#1a1a1a" text-anchor="middle">Оновлює виходи ШІМ</text>
+
+  <!-- Sub-block 3: Reshaping Circuit -->
+  <rect x="605" y="132" width="205" height="112" rx="6" ry="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="707.5" y="152" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Регенератор сигналу</text>
+  <text x="707.5" y="171" font-size="12" fill="#6b7280" text-anchor="middle">Відновлення фронтів</text>
+  <text x="707.5" y="195" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Трансляція на DOUT</text>
+  <text x="707.5" y="218" font-size="12" fill="#1a1a1a" text-anchor="middle">Дані для наступних LED</text>
+
+  <!-- Cascade Signal Path (Over Sub-block 2 gap) -->
+  <path d="M 355 152 L 368 152 L 368 125 L 592 125 L 592 152 L 605 152" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="480" y="118" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Трансляція даних 25-го біта і далі (каскад)</text>
+
+  <!-- Inter-Panel Control Signals in Gap y=255..275 -->
+  <!-- 8-bit Data Bus Lines from Shift Reg to Channel Drivers -->
+  <line x1="180" y1="244" x2="180" y2="275" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <text x="215" y="265" font-size="12" font-weight="bold" fill="#1a1a1a">8-бітні дані кольорів (GRB)</text>
+
+  <!-- Latch Signal from RESET Detector to Channel Drivers -->
+  <line x1="480" y1="244" x2="480" y2="268" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <text x="490" y="265" font-size="12" font-weight="bold" fill="#27ae60">Сигнал Latch (фіксація кадрів)</text>
+
+  <!-- Three Horizontal Color Channels (G, R, B) -->
+
+  <!-- Row 1: Green Channel (G) -->
+  <!-- Green PWM Driver Box -->
+  <rect x="150" y="275" width="310" height="68" rx="6" ry="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="165" y="297" font-size="13" font-weight="bold" fill="#27ae60">ШІМ-драйвер Зеленого каналу (G)</text>
+  <text x="165" y="323" font-size="12" fill="#1a1a1a">8 біт (256 рівнів) • I_const = 12 мА • f = 1.2 кГц</text>
+
+  <!-- Green Current Arrow to Crystal -->
+  <line x1="460" y1="309" x2="520" y2="309" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="490" y="301" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">12 мА</text>
+
+  <!-- Green LED Crystal Box -->
+  <rect x="520" y="275" width="305" height="68" rx="6" ry="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <circle cx="550" cy="309" r="16" fill="#27ae60" fill-opacity="0.2" stroke="#27ae60" stroke-width="1.5"/>
+  <polygon points="544,303 544,315 554,309" fill="#27ae60"/>
+  <line x1="554" y1="303" x2="554" y2="315" stroke="#27ae60" stroke-width="2"/>
+  <line x1="538" y1="309" x2="544" y2="309" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="554" y1="309" x2="562" y2="309" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="580" y="297" font-size="13" font-weight="bold" fill="#27ae60">Кристал G (Зелений світлодіод)</text>
+  <text x="580" y="323" font-size="12" fill="#6b7280">Довжина хвилі випромінювання λ = 525 нм</text>
+
+  <!-- Row 2: Red Channel (R) -->
+  <!-- Red PWM Driver Box -->
+  <rect x="150" y="355" width="310" height="68" rx="6" ry="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="165" y="377" font-size="13" font-weight="bold" fill="#c0392b">ШІМ-драйвер Червоного каналу (R)</text>
+  <text x="165" y="403" font-size="12" fill="#1a1a1a">8 біт (256 рівнів) • I_const = 12 мА • f = 1.2 кГц</text>
+
+  <!-- Red Current Arrow to Crystal -->
+  <line x1="460" y1="389" x2="520" y2="389" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="490" y="381" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">12 мА</text>
+
+  <!-- Red LED Crystal Box -->
+  <rect x="520" y="355" width="305" height="68" rx="6" ry="6" fill="#fdecea" stroke="#c0392b" stroke-width="2"/>
+  <circle cx="550" cy="389" r="16" fill="#c0392b" fill-opacity="0.2" stroke="#c0392b" stroke-width="1.5"/>
+  <polygon points="544,383 544,395 554,389" fill="#c0392b"/>
+  <line x1="554" y1="383" x2="554" y2="395" stroke="#c0392b" stroke-width="2"/>
+  <line x1="538" y1="389" x2="544" y2="389" stroke="#c0392b" stroke-width="1.5"/>
+  <line x1="554" y1="389" x2="562" y2="389" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="580" y="377" font-size="13" font-weight="bold" fill="#c0392b">Кристал R (Червоний світлодіод)</text>
+  <text x="580" y="403" font-size="12" fill="#6b7280">Довжина хвилі випромінювання λ = 630 нм</text>
+
+  <!-- Row 3: Blue Channel (B) -->
+  <!-- Blue PWM Driver Box -->
+  <rect x="150" y="435" width="310" height="68" rx="6" ry="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="165" y="457" font-size="13" font-weight="bold" fill="#2457d6">ШІМ-драйвер Синього каналу (B)</text>
+  <text x="165" y="483" font-size="12" fill="#1a1a1a">8 біт (256 рівнів) • I_const = 12 мА • f = 1.2 кГц</text>
+
+  <!-- Blue Current Arrow to Crystal -->
+  <line x1="460" y1="469" x2="520" y2="469" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="490" y="461" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">12 мА</text>
+
+  <!-- Blue LED Crystal Box -->
+  <rect x="520" y="435" width="305" height="68" rx="6" ry="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <circle cx="550" cy="469" r="16" fill="#2457d6" fill-opacity="0.2" stroke="#2457d6" stroke-width="1.5"/>
+  <polygon points="544,463 544,475 554,469" fill="#2457d6"/>
+  <line x1="554" y1="463" x2="554" y2="475" stroke="#2457d6" stroke-width="2"/>
+  <line x1="538" y1="469" x2="544" y2="469" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="554" y1="469" x2="562" y2="469" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="580" y="457" font-size="13" font-weight="bold" fill="#2457d6">Кристал B (Синій світлодіод)</text>
+  <text x="580" y="483" font-size="12" fill="#6b7280">Довжина хвилі випромінювання λ = 470 нм</text>
+</svg>

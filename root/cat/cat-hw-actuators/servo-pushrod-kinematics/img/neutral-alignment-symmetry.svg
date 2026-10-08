@@ -1,0 +1,215 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="540" fill="#ffffff"/>
+
+  <!-- Header -->
+  <text x="480" y="36" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Геометричне юстування нейтралі важільної передачі</text>
+  <text x="480" y="58" text-anchor="middle" font-size="13" fill="#6b7280">Перпендикулярність плеча тязі у нейтралі забезпечує однаковий кутовий хід та симетричне зусилля</text>
+
+  <!-- Markers -->
+  <defs>
+    <marker id="arr-black" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="dim-red-left" markerWidth="6" markerHeight="6" refX="1" refY="3" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M5,1 L1,3 L5,5 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="dim-red-right" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M1,1 L5,3 L1,5 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="dim-green-left" markerWidth="6" markerHeight="6" refX="1" refY="3" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M5,1 L1,3 L5,5 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="dim-green-right" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M1,1 L5,3 L1,5 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- LEFT PANEL (PROBLEM / INCORRECT) -->
+  <g id="left-panel">
+    <!-- Panel Background -->
+    <rect x="20" y="80" width="450" height="435" rx="10" ry="10" fill="#fdecea" stroke="#f5c6cb" stroke-width="1.5"/>
+
+    <!-- Header Badge -->
+    <rect x="35" y="95" width="420" height="32" rx="6" fill="#c0392b"/>
+    <text x="245" y="116" text-anchor="middle" font-size="14" font-weight="bold" fill="#ffffff">НЕПРАВИЛЬНО: Асиметрична нейтраль (α ≠ 90°)</text>
+    <text x="245" y="142" text-anchor="middle" font-size="12" fill="#c0392b">Кут між качалкою та тягою в нейтралі відхилений від 90°</text>
+
+    <!-- Kinematic Diagram Left -->
+    <!-- Servo Body & Mounting Ears (Non-overlapping) -->
+    <rect x="65" y="235" width="90" height="10" rx="2" fill="#94a3b8"/>
+    <rect x="65" y="335" width="90" height="10" rx="2" fill="#94a3b8"/>
+    <rect x="70" y="245" width="80" height="90" rx="5" fill="#f1f5f9" stroke="#64748b" stroke-width="1.5"/>
+    <circle cx="110" cy="270" r="10" fill="#cbd5e1" stroke="#64748b" stroke-width="1.5"/>
+
+    <!-- Reference Line for Pushrod Neutral Height -->
+    <line x1="60" y1="218" x2="420" y2="218" stroke="#cbd5e1" stroke-dasharray="4,4" stroke-width="1"/>
+
+    <!-- Vertical Neutral Reference Line at Servo Pivot -->
+    <line x1="140" y1="165" x2="140" y2="230" stroke="#94a3b8" stroke-dasharray="2,2" stroke-width="1"/>
+
+    <!-- Stroke Dimension Lines (Top of Servo) -->
+    <!-- Left Stroke Delta s1 (35px) -->
+    <line x1="106" y1="175" x2="139" y2="175" stroke="#c0392b" stroke-width="1.5" marker-start="url(#dim-red-left)" marker-end="url(#dim-red-right)"/>
+    <text x="122.5" y="166" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Δs₁</text>
+
+    <!-- Right Stroke Delta s2 (24px) -->
+    <line x1="141" y1="175" x2="163" y2="175" stroke="#c0392b" stroke-width="1.5" marker-start="url(#dim-red-left)" marker-end="url(#dim-red-right)"/>
+    <text x="152" y="166" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Δs₂</text>
+
+    <!-- Rotation Arc -->
+    <path d="M 164.35 244.64 A 60 60 0 0 0 104.78 210.21" fill="none" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3,3"/>
+
+    <!-- Deflected Servo Horn Positions -->
+    <!-- Position +35 deg -->
+    <line x1="110" y1="270" x2="105" y2="210" stroke="#c0392b" stroke-width="2" stroke-dasharray="4,3" opacity="0.6"/>
+    <circle cx="105" cy="210" r="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+    <text x="98" y="192" text-anchor="end" font-size="12" fill="#c0392b">+35°</text>
+
+    <!-- Position -35 deg -->
+    <line x1="110" y1="270" x2="164" y2="245" stroke="#c0392b" stroke-width="2" stroke-dasharray="4,3" opacity="0.6"/>
+    <circle cx="164" cy="245" r="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+    <text x="175" y="230" text-anchor="start" font-size="12" fill="#c0392b">-35°</text>
+
+    <!-- Neutral Angle Arc alpha = 60 deg -->
+    <line x1="110" y1="270" x2="160" y2="270" stroke="#94a3b8" stroke-dasharray="3,3" stroke-width="1"/>
+    <path d="M 135 270 A 25 25 0 0 0 122.5 248.35" fill="none" stroke="#c0392b" stroke-width="1.5"/>
+    <text x="148" y="255" text-anchor="start" font-size="12" font-weight="bold" fill="#c0392b">α = 60°</text>
+
+    <!-- Main Neutral Servo Arm -->
+    <line x1="110" y1="270" x2="140" y2="218" stroke="#c0392b" stroke-width="7" stroke-linecap="round"/>
+    <line x1="110" y1="270" x2="140" y2="218" stroke="#e74c3c" stroke-width="3" stroke-linecap="round"/>
+    <circle cx="110" cy="270" r="4" fill="#ffffff" stroke="#64748b" stroke-width="1.5"/>
+    <circle cx="140" cy="218" r="4" fill="#ffffff" stroke="#c0392b" stroke-width="2"/>
+
+    <!-- Driven Arm (Right Side of Left Panel) -->
+    <!-- Ground Support Base -->
+    <polygon points="370,270 360,285 380,285" fill="#cbd5e1" stroke="#64748b" stroke-width="1"/>
+    <line x1="355" y1="285" x2="385" y2="285" stroke="#64748b" stroke-width="1.5"/>
+
+    <!-- Neutral Driven Arm -->
+    <line x1="370" y1="270" x2="340" y2="218" stroke="#64748b" stroke-width="6" stroke-linecap="round"/>
+    <line x1="370" y1="270" x2="340" y2="218" stroke="#94a3b8" stroke-width="2" stroke-linecap="round"/>
+    <circle cx="370" cy="270" r="4" fill="#ffffff" stroke="#64748b" stroke-width="1.5"/>
+    <circle cx="340" cy="218" r="4" fill="#ffffff" stroke="#64748b" stroke-width="2"/>
+
+    <!-- Pushrod -->
+    <line x1="140" y1="218" x2="340" y2="218" stroke="#1a1a1a" stroke-width="3" stroke-linecap="round"/>
+    <!-- Clevises -->
+    <rect x="135" y="214" width="10" height="8" rx="2" fill="#475569"/>
+    <rect x="335" y="214" width="10" height="8" rx="2" fill="#475569"/>
+    <text x="240" y="202" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Тяга</text>
+
+    <!-- Component Labels -->
+    <text x="110" y="358" text-anchor="middle" font-size="12" fill="#1a1a1a">Качалка серво</text>
+    <text x="370" y="358" text-anchor="middle" font-size="12" fill="#1a1a1a">Керований важіль</text>
+
+    <!-- Result Callout Badge -->
+    <rect x="80" y="375" width="310" height="32" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+    <text x="235" y="396" text-anchor="middle" font-size="13" font-weight="bold" fill="#c0392b">Δs₁ ≠ Δs₂ → Асиметричний хід!</text>
+
+    <!-- Bullet Points Box -->
+    <rect x="35" y="420" width="420" height="80" rx="6" fill="#ffffff" stroke="#f5c6cb" stroke-width="1"/>
+    <text x="48" y="442" font-size="12" fill="#1a1a1a">• Неоднакові кути повороту рульової поверхні (+Δβ₁ ≠ -Δβ₂)</text>
+    <text x="48" y="463" font-size="12" fill="#1a1a1a">• Зміна плеча сили: ризик втрати зусилля у крайньому стані</text>
+    <text x="48" y="484" font-size="12" fill="#1a1a1a">• Нелінійна та несиметрична реакція на джойстик/MCU</text>
+  </g>
+
+  <!-- RIGHT PANEL (SOLUTION / CORRECT) -->
+  <g id="right-panel">
+    <!-- Panel Background -->
+    <rect x="490" y="80" width="450" height="435" rx="10" ry="10" fill="#e9f7ef" stroke="#c3e6cb" stroke-width="1.5"/>
+
+    <!-- Header Badge -->
+    <rect x="505" y="95" width="420" height="32" rx="6" fill="#27ae60"/>
+    <text x="715" y="116" text-anchor="middle" font-size="14" font-weight="bold" fill="#ffffff">ПРАВИЛЬНО: Перпендикулярна нейтраль (α = 90°)</text>
+    <text x="715" y="142" text-anchor="middle" font-size="12" fill="#27ae60">Качалка сервоприводу та важіль у нейтралі перпендикулярні до тяги</text>
+
+    <!-- Kinematic Diagram Right -->
+    <!-- Servo Body & Mounting Ears (Non-overlapping) -->
+    <rect x="535" y="235" width="90" height="10" rx="2" fill="#94a3b8"/>
+    <rect x="535" y="335" width="90" height="10" rx="2" fill="#94a3b8"/>
+    <rect x="540" y="245" width="80" height="90" rx="5" fill="#f1f5f9" stroke="#64748b" stroke-width="1.5"/>
+    <circle cx="580" cy="270" r="10" fill="#cbd5e1" stroke="#64748b" stroke-width="1.5"/>
+
+    <!-- Reference Line for Pushrod Neutral Height -->
+    <line x1="530" y1="210" x2="890" y2="210" stroke="#cbd5e1" stroke-dasharray="4,4" stroke-width="1"/>
+
+    <!-- Vertical Neutral Reference Line at Servo Pivot -->
+    <line x1="580" y1="165" x2="580" y2="210" stroke="#94a3b8" stroke-dasharray="2,2" stroke-width="1"/>
+
+    <!-- Stroke Dimension Lines (Top of Servo) -->
+    <!-- Left Stroke Delta s1 (34.4px) -->
+    <line x1="547" y1="175" x2="579" y2="175" stroke="#27ae60" stroke-width="1.5" marker-start="url(#dim-green-left)" marker-end="url(#dim-green-right)"/>
+    <text x="562.8" y="166" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Δs₁</text>
+
+    <!-- Right Stroke Delta s2 (34.4px) -->
+    <line x1="581" y1="175" x2="613" y2="175" stroke="#27ae60" stroke-width="1.5" marker-start="url(#dim-green-left)" marker-end="url(#dim-green-right)"/>
+    <text x="597.2" y="166" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Δs₂</text>
+
+    <!-- Rotation Arc -->
+    <path d="M 614.41 220.87 A 60 60 0 0 0 545.59 220.87" fill="none" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="3,3"/>
+
+    <!-- Deflected Servo Horn Positions -->
+    <!-- Position +35 deg -->
+    <line x1="580" y1="270" x2="545.6" y2="220.9" stroke="#27ae60" stroke-width="2" stroke-dasharray="4,3" opacity="0.6"/>
+    <circle cx="545.6" cy="220.9" r="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+    <text x="538" y="192" text-anchor="end" font-size="12" fill="#27ae60">+35°</text>
+
+    <!-- Position -35 deg -->
+    <line x1="580" y1="270" x2="614.4" y2="220.9" stroke="#27ae60" stroke-width="2" stroke-dasharray="4,3" opacity="0.6"/>
+    <circle cx="614.4" cy="220.9" r="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+    <text x="622" y="192" text-anchor="start" font-size="12" fill="#27ae60">-35°</text>
+
+    <!-- Right Angle Square Indicator at Servo Arm -->
+    <path d="M 580 220 L 590 220 L 590 210" fill="none" stroke="#27ae60" stroke-width="1.5"/>
+    <text x="595" y="245" text-anchor="start" font-size="12" font-weight="bold" fill="#27ae60">α = 90°</text>
+
+    <!-- Main Neutral Servo Arm -->
+    <line x1="580" y1="270" x2="580" y2="210" stroke="#27ae60" stroke-width="7" stroke-linecap="round"/>
+    <line x1="580" y1="270" x2="580" y2="210" stroke="#2ecc71" stroke-width="3" stroke-linecap="round"/>
+    <circle cx="580" cy="270" r="4" fill="#ffffff" stroke="#64748b" stroke-width="1.5"/>
+    <circle cx="580" cy="210" r="4" fill="#ffffff" stroke="#27ae60" stroke-width="2"/>
+
+    <!-- Driven Arm (Right Side of Right Panel) -->
+    <!-- Ground Support Base -->
+    <polygon points="840,270 830,285 850,285" fill="#cbd5e1" stroke="#64748b" stroke-width="1"/>
+    <line x1="825" y1="285" x2="855" y2="285" stroke="#64748b" stroke-width="1.5"/>
+
+    <!-- Neutral Driven Arm -->
+    <line x1="840" y1="270" x2="840" y2="210" stroke="#27ae60" stroke-width="6" stroke-linecap="round"/>
+    <line x1="840" y1="270" x2="840" y2="210" stroke="#2ecc71" stroke-width="2" stroke-linecap="round"/>
+    <circle cx="840" cy="270" r="4" fill="#ffffff" stroke="#64748b" stroke-width="1.5"/>
+    <circle cx="840" cy="210" r="4" fill="#ffffff" stroke="#27ae60" stroke-width="2"/>
+
+    <!-- Right Angle Square Indicator at Driven Arm -->
+    <path d="M 840 220 L 830 220 L 830 210" fill="none" stroke="#27ae60" stroke-width="1.5"/>
+
+    <!-- Pushrod -->
+    <line x1="580" y1="210" x2="840" y2="210" stroke="#1a1a1a" stroke-width="3" stroke-linecap="round"/>
+    <!-- Clevises -->
+    <rect x="575" y="206" width="10" height="8" rx="2" fill="#475569"/>
+    <rect x="835" y="206" width="10" height="8" rx="2" fill="#475569"/>
+    <text x="710" y="194" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Тяга</text>
+
+    <!-- Component Labels -->
+    <text x="580" y="358" text-anchor="middle" font-size="12" fill="#1a1a1a">Качалка серво</text>
+    <text x="840" y="358" text-anchor="middle" font-size="12" fill="#1a1a1a">Керований важіль</text>
+
+    <!-- Result Callout Badge -->
+    <rect x="550" y="375" width="330" height="32" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+    <text x="715" y="396" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">Δs₁ = Δs₂ → Симетричний хід!</text>
+
+    <!-- Bullet Points Box -->
+    <rect x="505" y="420" width="420" height="80" rx="6" fill="#ffffff" stroke="#c3e6cb" stroke-width="1"/>
+    <text x="518" y="442" font-size="12" fill="#1a1a1a">• Відхилення керма симетричне в обох напрямках (+Δβ = -Δβ)</text>
+    <text x="518" y="463" font-size="12" fill="#1a1a1a">• Максимальний передавальний момент у нейтральному стані</text>
+    <text x="518" y="484" font-size="12" fill="#1a1a1a">• Лінійна та передбачувана передача керуючого зусилля</text>
+  </g>
+</svg>

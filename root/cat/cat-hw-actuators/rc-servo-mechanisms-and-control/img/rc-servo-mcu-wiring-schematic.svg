@@ -1,0 +1,156 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 580" width="960" height="580" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Canvas Background -->
+  <rect x="0" y="0" width="960" height="580" fill="white"/>
+
+  <defs>
+    <marker id="arr-orange" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#d97706"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-black" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="40" font-size="18" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Схема підключення RC-сервоприводу до мікроконтролера</text>
+  <text x="480" y="62" font-size="13" text-anchor="middle" fill="#6b7280">Розділення силового й сигнального кіл, фільтрація живильної лінії та спільне заземлення (Common GND)</text>
+
+  <!-- MCU Panel -->
+  <rect x="35" y="85" width="220" height="230" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <text x="145" y="112" font-size="14" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Мікроконтролер (MCU)</text>
+  <text x="145" y="130" font-size="12" text-anchor="middle" fill="#6b7280">(STM32 / ESP32 / Arduino)</text>
+
+  <rect x="50" y="145" width="190" height="52" rx="5" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="145" y="166" font-size="12" text-anchor="middle" fill="#1a1a1a">Логіка: 3.3V / 5V LVTTL</text>
+  <text x="145" y="185" font-size="12" text-anchor="middle" fill="#2457d6">Вихід ШІМ: 50 Гц (20 мс)</text>
+
+  <!-- MCU Pins -->
+  <rect x="195" y="218" width="60" height="24" rx="4" fill="#2457d6"/>
+  <text x="225" y="234" font-size="12" font-weight="bold" text-anchor="middle" fill="#ffffff">PWM Out</text>
+
+  <rect x="195" y="268" width="60" height="24" rx="4" fill="#4b5563"/>
+  <text x="225" y="284" font-size="12" font-weight="bold" text-anchor="middle" fill="#ffffff">GND Pin</text>
+
+  <!-- External Power Supply Panel -->
+  <rect x="35" y="340" width="220" height="170" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <text x="145" y="366" font-size="14" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Джерело живлення</text>
+  <text x="145" y="384" font-size="12" text-anchor="middle" fill="#6b7280">4.8V – 6.0V (HV: 7.4V–8.4V)</text>
+
+  <rect x="50" y="395" width="190" height="42" rx="5" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="145" y="412" font-size="12" font-weight="bold" text-anchor="middle" fill="#c0392b">Окреме живлення</text>
+  <text x="145" y="428" font-size="12" text-anchor="middle" fill="#c0392b">Пусковий струм 1.5–3 A</text>
+
+  <!-- Power Supply Pins -->
+  <rect x="195" y="440" width="60" height="24" rx="4" fill="#c0392b"/>
+  <text x="225" y="456" font-size="12" font-weight="bold" text-anchor="middle" fill="#ffffff">VCC (+)</text>
+
+  <rect x="195" y="473" width="60" height="24" rx="4" fill="#1a1a1a"/>
+  <text x="225" y="489" font-size="12" font-weight="bold" text-anchor="middle" fill="#ffffff">GND (-)</text>
+
+  <!-- PWM Signal Callout Box (Top Center) -->
+  <rect x="305" y="85" width="330" height="125" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="470" y="107" font-size="13" font-weight="bold" text-anchor="middle" fill="#2457d6">Параметри сигналу керування (ШІМ)</text>
+  <path d="M 330,160 L 360,160 L 360,132 L 430,132 L 430,160 L 560,160 L 560,132 L 590,132 L 590,160 L 610,160" fill="none" stroke="#2457d6" stroke-width="2"/>
+  <text x="395" y="124" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">t_pulse = 1.0 – 2.0 ms</text>
+  <text x="470" y="178" font-size="12" text-anchor="middle" fill="#1a1a1a">1.5 ms = 0° (Центральне положення)</text>
+  <text x="470" y="196" font-size="12" text-anchor="middle" fill="#6b7280">Період кадрів T = 20 ms (Частота 50 Hz)</text>
+
+  <!-- Filtering & Protection Panel (Center Bottom) -->
+  <rect x="305" y="225" width="330" height="290" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="470" y="247" font-size="13" font-weight="bold" text-anchor="middle" fill="#27ae60">Модуль фільтрації та захисту кіл</text>
+
+  <!-- Resistor R_s -->
+  <text x="365" y="258" font-size="12" text-anchor="middle" fill="#1a1a1a">R_s (Захист)</text>
+  <rect x="335" y="265" width="60" height="24" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="365" y="281" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">220 Ω</text>
+
+  <!-- Wires Routing & Labels -->
+  <!-- Signal Wire (Orange / Amber) -->
+  <path d="M 255,230 L 275,230 L 275,277 L 335,277" fill="none" stroke="#d97706" stroke-width="2.5"/>
+  <path d="M 395,277 L 650,277 L 650,336 L 692,336" fill="none" stroke="#d97706" stroke-width="2.5" marker-end="url(#arr-orange)"/>
+  <text x="520" y="265" font-size="12" font-weight="bold" text-anchor="middle" fill="#d97706">Сигнальний дріт (PWM)</text>
+
+  <!-- VCC Wire (Red) -->
+  <path d="M 255,452 L 270,452 L 270,345 L 660,345 L 660,391 L 692,391" fill="none" stroke="#c0392b" stroke-width="3" marker-end="url(#arr-red)"/>
+  <text x="470" y="333" font-size="12" font-weight="bold" text-anchor="middle" fill="#c0392b">Силова лінія VCC (+4.8V...8.4V)</text>
+
+  <!-- C1 (Bulk Capacitor 100-470 uF) -->
+  <line x1="415" y1="345" x2="415" y2="385" stroke="#c0392b" stroke-width="2"/>
+  <circle cx="415" cy="345" r="3.5" fill="#c0392b"/>
+  <rect x="400" y="385" width="30" height="40" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="415" y1="425" x2="415" y2="485" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="415" cy="485" r="3.5" fill="#1a1a1a"/>
+  <text x="404" y="375" font-size="13" font-weight="bold" text-anchor="end" fill="#c0392b">+</text>
+  <text x="438" y="396" font-size="12" font-weight="bold" text-anchor="start" fill="#1a1a1a">C1: 100–470 µF</text>
+  <text x="438" y="412" font-size="12" text-anchor="start" fill="#6b7280">(Електроліт)</text>
+  <text x="438" y="428" font-size="12" text-anchor="start" fill="#27ae60">Фільтр струму</text>
+
+  <!-- C2 (Ceramic Capacitor 0.1 uF) -->
+  <line x1="535" y1="345" x2="535" y2="385" stroke="#c0392b" stroke-width="2"/>
+  <circle cx="535" cy="345" r="3.5" fill="#c0392b"/>
+  <rect x="520" y="385" width="30" height="40" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="535" y1="425" x2="535" y2="485" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="535" cy="485" r="3.5" fill="#1a1a1a"/>
+  <text x="558" y="396" font-size="12" font-weight="bold" text-anchor="start" fill="#1a1a1a">C2: 0.1 µF</text>
+  <text x="558" y="412" font-size="12" text-anchor="start" fill="#6b7280">(Кераміка)</text>
+  <text x="558" y="428" font-size="12" text-anchor="start" fill="#27ae60">ВЧ-завади</text>
+
+  <!-- GND Lines & Star Junction Point -->
+  <path d="M 255,280 L 285,280 L 285,485" fill="none" stroke="#1a1a1a" stroke-width="3"/>
+  <path d="M 255,485 L 285,485" fill="none" stroke="#1a1a1a" stroke-width="3"/>
+  <circle cx="285" cy="485" r="5" fill="#1a1a1a"/>
+  <text x="295" y="475" font-size="12" font-weight="bold" text-anchor="start" fill="#2457d6">Спільна точка GND</text>
+
+  <path d="M 285,485 L 660,485 L 660,446 L 692,446" fill="none" stroke="#1a1a1a" stroke-width="3" marker-end="url(#arr-black)"/>
+  <text x="470" y="500" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Спільний провідник заземлення (GND)</text>
+
+  <!-- Servo Panel (Right Side) -->
+  <rect x="665" y="85" width="260" height="425" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <text x="795" y="112" font-size="15" font-weight="bold" text-anchor="middle" fill="#1a1a1a">RC-Сервопривод</text>
+  <text x="795" y="130" font-size="12" text-anchor="middle" fill="#6b7280">Стандартний 3-піновий привод</text>
+
+  <!-- Servo Motor Body Diagram -->
+  <rect x="680" y="145" width="230" height="125" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <circle cx="725" cy="205" r="20" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <path d="M 725,195 L 775,188 L 775,222 L 725,215 Z" fill="#2457d6"/>
+  <circle cx="745" cy="202" r="2" fill="#ffffff"/>
+  <circle cx="757" cy="203" r="2" fill="#ffffff"/>
+  <circle cx="769" cy="204" r="2" fill="#ffffff"/>
+
+  <text x="845" y="170" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Мотор + Редуктор</text>
+  <text x="845" y="188" font-size="12" text-anchor="middle" fill="#6b7280">Потенціометр (ЗЗ)</text>
+  <text x="845" y="206" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">ПІД-контролер + H-міст</text>
+  <text x="845" y="226" font-size="12" text-anchor="middle" fill="#c0392b">Імпульсний струм!</text>
+  <text x="845" y="244" font-size="12" text-anchor="middle" fill="#6b7280">Корпус (Standard / Mini)</text>
+
+  <!-- Servo 3-Pin Connector Box -->
+  <rect x="680" y="285" width="230" height="210" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="795" y="305" font-size="13" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Роз'єм (JR / Futaba)</text>
+
+  <!-- Pin 1 Signal -->
+  <rect x="692" y="318" width="18" height="36" rx="3" fill="#d97706"/>
+  <text x="718" y="333" font-size="12" font-weight="bold" text-anchor="start" fill="#d97706">1. SIGNAL (ШІМ)</text>
+  <text x="718" y="348" font-size="12" text-anchor="start" fill="#6b7280">Оранжевий / Жовтий</text>
+
+  <!-- Pin 2 VCC -->
+  <rect x="692" y="373" width="18" height="36" rx="3" fill="#c0392b"/>
+  <text x="718" y="388" font-size="12" font-weight="bold" text-anchor="start" fill="#c0392b">2. VCC (+4.8...8.4V)</text>
+  <text x="718" y="403" font-size="12" text-anchor="start" fill="#6b7280">Червоний дріт</text>
+
+  <!-- Pin 3 GND -->
+  <rect x="692" y="428" width="18" height="36" rx="3" fill="#1a1a1a"/>
+  <text x="718" y="443" font-size="12" font-weight="bold" text-anchor="start" fill="#1a1a1a">3. GND (Маса)</text>
+  <text x="718" y="458" font-size="12" text-anchor="start" fill="#6b7280">Коричневий / Чорний</text>
+
+  <text x="795" y="484" font-size="12" text-anchor="middle" fill="#2457d6">Стандартний крок 2.54 мм</text>
+
+  <!-- Bottom Callout Warning Box -->
+  <rect x="35" y="525" width="890" height="34" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="480" y="547" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">ГОЛОВНЕ ПРАВИЛО: Спільна точка GND об'єднує мікроконтролер та джерело живлення для стабільного відліку ШІМ!</text>
+</svg>

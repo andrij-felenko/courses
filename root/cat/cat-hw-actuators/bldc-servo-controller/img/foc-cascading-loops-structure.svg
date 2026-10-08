@@ -1,0 +1,204 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 535" width="960" height="535" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <!-- Arrow Markers -->
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="8" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="8" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="8" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="8" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background Canvas -->
+  <rect x="0" y="0" width="960" height="535" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Каскадна структура FOC: контури позиції, швидкості та струму</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Підпорядковане регулювання забезпечує високу динаміку та точність сервоприводу</text>
+
+  <!-- Stage Panels (Visual Loop Groupings) -->
+  <!-- Panel 1: Position Loop -->
+  <rect x="20" y="70" width="175" height="395" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="4 4"/>
+  <text x="107.5" y="92" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Контур позиції</text>
+  <text x="107.5" y="110" font-size="12" fill="#6b7280" text-anchor="middle">(f_s ≈ 10–50 Гц)</text>
+
+  <!-- Panel 2: Speed Loop -->
+  <rect x="210" y="70" width="175" height="395" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="4 4"/>
+  <text x="297.5" y="92" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Контур швидкості</text>
+  <text x="297.5" y="110" font-size="12" fill="#6b7280" text-anchor="middle">(f_s ≈ 100–500 Гц)</text>
+
+  <!-- Panel 3: Current & FOC Loops -->
+  <rect x="400" y="70" width="540" height="395" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="4 4"/>
+  <text x="670" y="92" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Внутрішній контур: Струми (i_d, i_q) та FOC</text>
+  <text x="670" y="110" font-size="12" fill="#6b7280" text-anchor="middle">(f_s ≈ 1–10 кГц, найвища динаміка)</text>
+
+  <!-- 1. Position Loop Elements -->
+  <!-- Target Position Input Arrow -->
+  <path d="M25,170 L53,170" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="38" y="154" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">θ*</text>
+
+  <!-- Position Summator -->
+  <circle cx="65" cy="170" r="12" fill="white" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="57" y="165" font-size="12" font-weight="bold" fill="#1a1a1a">+</text>
+  <text x="62" y="178" font-size="12" font-weight="bold" fill="#c0392b">-</text>
+
+  <!-- Position PID Controller -->
+  <path d="M77,170 L95,170" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+  <rect x="95" y="145" width="85" height="50" rx="5" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="137.5" y="164" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">ПІД</text>
+  <text x="137.5" y="182" font-size="12" fill="#1a1a1a" text-anchor="middle">позиції</text>
+
+  <!-- 2. Velocity Loop Elements -->
+  <!-- Speed Reference Signal -->
+  <path d="M180,170 L238,170" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="208" y="154" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">ω*</text>
+
+  <!-- Speed Summator -->
+  <circle cx="250" cy="170" r="12" fill="white" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="242" y="165" font-size="12" font-weight="bold" fill="#1a1a1a">+</text>
+  <text x="247" y="178" font-size="12" font-weight="bold" fill="#c0392b">-</text>
+
+  <!-- Speed PID Controller -->
+  <path d="M262,170 L280,170" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+  <rect x="280" y="145" width="85" height="50" rx="5" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="322.5" y="164" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">ПІД</text>
+  <text x="322.5" y="182" font-size="12" fill="#1a1a1a" text-anchor="middle">швидкості</text>
+
+  <!-- 3. Current & FOC Loops Elements -->
+  <!-- d-axis reference i_d* = 0 -->
+  <path d="M395,145 L413,145" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="395" y="133" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="start">i_d* = 0</text>
+
+  <!-- q-axis reference i_q* from Speed Controller -->
+  <path d="M365,170 L390,170 L390,225 L413,225" fill="none" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="393" y="213" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="start">i_q*</text>
+
+  <!-- d-axis Current Summator -->
+  <circle cx="425" cy="145" r="12" fill="white" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="417" y="140" font-size="12" font-weight="bold" fill="#1a1a1a">+</text>
+  <text x="422" y="153" font-size="12" font-weight="bold" fill="#c0392b">-</text>
+
+  <!-- q-axis Current Summator -->
+  <circle cx="425" cy="225" r="12" fill="white" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="417" y="220" font-size="12" font-weight="bold" fill="#1a1a1a">+</text>
+  <text x="422" y="233" font-size="12" font-weight="bold" fill="#c0392b">-</text>
+
+  <!-- d-axis PI Controller -->
+  <path d="M437,145 L465,145" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+  <rect x="465" y="125" width="80" height="40" rx="5" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="505" y="149" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">ПІ i_d</text>
+
+  <!-- q-axis PI Controller -->
+  <path d="M437,225 L465,225" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+  <rect x="465" y="205" width="80" height="40" rx="5" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="505" y="229" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">ПІ i_q</text>
+
+  <!-- Voltage references v_d*, v_q* to Park⁻¹ -->
+  <path d="M545,145 L575,145" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="559" y="133" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">v_d*</text>
+
+  <path d="M545,225 L575,225" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="559" y="213" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">v_q*</text>
+
+  <!-- Inverse Park Transform Block -->
+  <rect x="575" y="120" width="85" height="130" rx="6" fill="white" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="617.5" y="145" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Park⁻¹</text>
+  <text x="617.5" y="165" font-size="12" fill="#6b7280" text-anchor="middle">dq → αβ</text>
+  <text x="617.5" y="185" font-size="12" fill="#6b7280" text-anchor="middle">Зворотний</text>
+  <text x="617.5" y="200" font-size="12" fill="#6b7280" text-anchor="middle">Парк</text>
+  <text x="617.5" y="238" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">θ</text>
+
+  <!-- Voltage references v_α*, v_β* to SVPWM -->
+  <path d="M660,145 L690,145" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="674" y="133" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">v_α*</text>
+
+  <path d="M660,225 L690,225" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="674" y="213" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">v_β*</text>
+
+  <!-- SVPWM & Inverter Block -->
+  <rect x="690" y="120" width="95" height="130" rx="6" fill="white" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="737.5" y="148" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">SVPWM</text>
+  <text x="737.5" y="168" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">+ Інвертор</text>
+  <text x="737.5" y="188" font-size="12" fill="#6b7280" text-anchor="middle">(3-фазний)</text>
+
+  <!-- 3-Phase AC Output Lines to Motor -->
+  <path d="M785,150 L830,150" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+  <text x="806.5" y="142" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">u_a</text>
+
+  <path d="M785,185 L830,185" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+  <text x="806.5" y="177" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">u_b</text>
+
+  <path d="M785,220 L830,220" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+  <text x="806.5" y="212" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">u_c</text>
+
+  <!-- Motor Block -->
+  <rect x="830" y="120" width="90" height="130" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="875" y="148" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Двигун</text>
+  <text x="875" y="168" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">BLDC/PMSM</text>
+  <circle cx="875" cy="205" r="12" fill="white" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="875" y="209" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">M</text>
+
+  <!-- Motor Rotor Shaft to Encoder -->
+  <path d="M875,250 L875,295" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="3 3" marker-end="url(#arr-gray)"/>
+  <text x="882" y="275" font-size="12" fill="#6b7280" text-anchor="start">Вал</text>
+
+  <!-- Encoder / Position Sensor Block -->
+  <rect x="820" y="295" width="110" height="50" rx="5" fill="white" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="875" y="315" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Енкодер / ДПР</text>
+  <text x="875" y="333" font-size="12" fill="#6b7280" text-anchor="middle">(θ, ω сенсор)</text>
+
+  <!-- Feedback Path & Transforms -->
+  <!-- Phase Current Sensing Lines to Clarke -->
+  <path d="M806.5,220 L806.5,430 L755,430" fill="none" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+  <circle cx="806.5" cy="220" r="3" fill="#6b7280"/>
+  <text x="812" y="385" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">i_a, i_b, i_c</text>
+
+  <!-- Clarke Transform Block -->
+  <rect x="670" y="405" width="85" height="50" rx="5" fill="white" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="712.5" y="425" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Clarke</text>
+  <text x="712.5" y="443" font-size="12" fill="#6b7280" text-anchor="middle">abc → αβ</text>
+
+  <!-- Currents i_α, i_β to Park -->
+  <path d="M670,430 L600,430" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="636" y="418" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">i_α, i_β</text>
+
+  <!-- Park Transform Block -->
+  <rect x="515" y="405" width="85" height="50" rx="5" fill="white" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="557.5" y="425" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Park</text>
+  <text x="557.5" y="443" font-size="12" fill="#6b7280" text-anchor="middle">αβ → dq</text>
+
+  <!-- Current Feedback i_d to Σ_id -->
+  <path d="M515,415 L445,415 L445,175 L425,175 L425,157" fill="none" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="450" y="395" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="start">i_d</text>
+
+  <!-- Current Feedback i_q to Σ_iq -->
+  <path d="M515,440 L425,440 L425,237" fill="none" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="430" y="448" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="start">i_q</text>
+
+  <!-- Position Angle θ Feedback Routing -->
+  <path d="M820,315 L65,315 L65,182" fill="none" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="140" y="303" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">θ (зворотний зв'язок)</text>
+
+  <!-- Branch from θ to Inverse Park -->
+  <path d="M617.5,315 L617.5,250" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <circle cx="617.5" cy="315" r="3" fill="#2457d6"/>
+
+  <!-- Branch from θ to Forward Park -->
+  <path d="M557.5,315 L557.5,405" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <circle cx="557.5" cy="315" r="3" fill="#2457d6"/>
+  <text x="564" y="380" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="start">θ</text>
+
+  <!-- Speed ω Feedback Routing -->
+  <path d="M820,335 L250,335 L250,182" fill="none" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="310" y="328" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">ω (зворотний зв'язок)</text>
+
+  <!-- Bottom Summary / Principle Banner -->
+  <rect x="20" y="478" width="920" height="34" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="480" y="499" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Принцип підпорядкування: частота дискретизації f_s(струм) ≫ f_s(швидкість) ≫ f_s(позиція)</text>
+</svg>

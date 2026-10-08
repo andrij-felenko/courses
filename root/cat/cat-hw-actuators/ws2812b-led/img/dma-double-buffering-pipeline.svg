@@ -1,0 +1,83 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="40" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Подвійна буферизація DMA для драйвера WS2812B</text>
+  <text x="480" y="62" text-anchor="middle" font-size="13" fill="#6b7280">Безперервна генерація ШІМ/SPI-сигналу завдяки паралельній обробці подій HT та TC у CPU</text>
+
+  <!-- Upper Panel: RAM Buffer Layout -->
+  <rect x="40" y="82" width="880" height="148" fill="#f4f6f8" stroke="#d0d7de" rx="8"/>
+  <text x="60" y="104" font-size="14" font-weight="bold" fill="#1a1a1a">Кільцевий буфер DMA в RAM (Circular Buffer)</text>
+
+  <!-- Half Buffer 1 -->
+  <rect x="60" y="120" width="365" height="96" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <text x="242.5" y="139" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Напівбуфер 1 (0 ... N/2 - 1)</text>
+  <text x="242.5" y="158" text-anchor="middle" font-size="12" fill="#1a1a1a">Дані імпульсів T0H/T1H для LED 1..K/2</text>
+  <rect x="75" y="174" width="335" height="26" fill="#ffffff" stroke="#2457d6" stroke-width="1" rx="4"/>
+  <text x="242.5" y="191" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Вивантажується в ШІМ/SPI через DMA</text>
+
+  <!-- Center HT Divider & Badge -->
+  <line x1="480" y1="120" x2="480" y2="152" stroke="#6b7280" stroke-dasharray="4 3" stroke-width="1.5"/>
+  <line x1="480" y1="184" x2="480" y2="216" stroke="#6b7280" stroke-dasharray="4 3" stroke-width="1.5"/>
+  <rect x="440" y="155" width="80" height="26" fill="#ffffff" stroke="#2457d6" stroke-width="1.5" rx="13"/>
+  <text x="480" y="172" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">HT IRQ</text>
+
+  <!-- Half Buffer 2 -->
+  <rect x="535" y="120" width="365" height="96" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="6"/>
+  <text x="717.5" y="139" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">Напівбуфер 2 (N/2 ... N - 1)</text>
+  <text x="717.5" y="158" text-anchor="middle" font-size="12" fill="#1a1a1a">Дані імпульсів T0H/T1H для LED K/2+1..K</text>
+  <rect x="550" y="174" width="335" height="26" fill="#ffffff" stroke="#27ae60" stroke-width="1" rx="4"/>
+  <text x="717.5" y="191" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Заповнюється CPU (під час обробки HT)</text>
+
+  <!-- Lower Left Panel: Phase 1 -->
+  <rect x="40" y="248" width="425" height="240" fill="#f4f6f8" stroke="#d0d7de" rx="8"/>
+  <rect x="55" y="260" width="395" height="26" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="4"/>
+  <text x="252.5" y="278" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">КРОК 1: Передача 1-ї половини буфера (HT)</text>
+
+  <rect x="55" y="300" width="395" height="46" fill="#ffffff" stroke="#d0d7de" rx="5"/>
+  <text x="70" y="317" font-size="12" font-weight="bold" fill="#2457d6">1. Апаратний вивід (DMA → Периферія)</text>
+  <text x="70" y="335" font-size="12" fill="#1a1a1a">DMA передає Напівбуфер 1 у ШІМ без участі CPU</text>
+
+  <rect x="55" y="360" width="395" height="46" fill="#ffffff" stroke="#d0d7de" rx="5"/>
+  <text x="70" y="377" font-size="12" font-weight="bold" fill="#2457d6">2. Подія Half-Transfer (HT Interrupt)</text>
+  <text x="70" y="395" font-size="12" fill="#1a1a1a">DMA викликає IRQ → CPU виконує обробник ISR</text>
+
+  <rect x="55" y="420" width="395" height="56" fill="#e9f7ef" stroke="#27ae60" rx="5"/>
+  <text x="70" y="437" font-size="12" font-weight="bold" fill="#27ae60">3. Фонова підготовка (CPU ISR)</text>
+  <text x="70" y="454" font-size="12" fill="#1a1a1a">CPU розраховує колір наступних світлодіодів</text>
+  <text x="70" y="469" font-size="12" fill="#1a1a1a">та кодує біти T0H/T1H у Напівбуфер 2</text>
+
+  <!-- Lower Right Panel: Phase 2 -->
+  <rect x="495" y="248" width="425" height="240" fill="#f4f6f8" stroke="#d0d7de" rx="8"/>
+  <rect x="510" y="260" width="395" height="26" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="4"/>
+  <text x="707.5" y="278" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">КРОК 2: Передача 2-ї половини буфера (TC)</text>
+
+  <rect x="510" y="300" width="395" height="46" fill="#ffffff" stroke="#d0d7de" rx="5"/>
+  <text x="525" y="317" font-size="12" font-weight="bold" fill="#2457d6">1. Апаратний вивід (DMA → Периферія)</text>
+  <text x="525" y="335" font-size="12" fill="#1a1a1a">DMA передає Напівбуфер 2 у ШІМ без зупинки</text>
+
+  <rect x="510" y="360" width="395" height="46" fill="#ffffff" stroke="#d0d7de" rx="5"/>
+  <text x="525" y="377" font-size="12" font-weight="bold" fill="#2457d6">2. Подія Transfer-Complete (TC Interrupt)</text>
+  <text x="525" y="395" font-size="12" fill="#1a1a1a">DMA досягає кінця буфера → генерує TC IRQ</text>
+
+  <rect x="510" y="420" width="395" height="56" fill="#e9f7ef" stroke="#27ae60" rx="5"/>
+  <text x="525" y="437" font-size="12" font-weight="bold" fill="#27ae60">3. Фонова підготовка (CPU ISR)</text>
+  <text x="525" y="454" font-size="12" fill="#1a1a1a">CPU перезавантажує кільце: розраховує колір</text>
+  <text x="525" y="469" font-size="12" fill="#1a1a1a">та кодує нові біти в Напівбуфер 1 для циклу</text>
+
+  <!-- Inter-panel flow arrow -->
+  <line x1="452" y1="273" x2="491" y2="273" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <!-- Cyclic return path -->
+  <path d="M 495 448 C 475 448, 475 322, 455 322" fill="none" stroke="#27ae60" stroke-width="2" stroke-dasharray="5 3" marker-end="url(#arr-green)"/>
+</svg>

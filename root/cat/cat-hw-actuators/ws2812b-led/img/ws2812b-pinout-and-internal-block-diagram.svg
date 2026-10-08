@@ -1,0 +1,144 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 500" width="960" height="500" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="500" fill="white"/>
+
+  <!-- Header -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Цокольовка та внутрішня блок-схема WS2812B (корпус 5050)</text>
+  <text x="480" y="56" text-anchor="middle" font-size="13" fill="#6b7280">Вхідний сигнал DIN обробляється внутрішнім контролером, а решта даних регенерується на DOUT</text>
+
+  <!-- Left Panel: Package Pinout -->
+  <rect x="40" y="85" width="300" height="385" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="190" y="112" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Цокольовка корпусу 5050 (Top View)</text>
+
+  <!-- IC Outer Body -->
+  <rect x="105" y="140" width="170" height="170" rx="10" fill="#ffffff" stroke="#1a1a1a" stroke-width="2"/>
+  <path d="M 105 160 L 125 140" stroke="#d0d7de" stroke-width="2"/>
+  <circle cx="120" cy="155" r="4" fill="#6b7280"/>
+
+  <!-- Optical Window & Dies -->
+  <circle cx="190" cy="225" r="42" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="162" y="208" width="16" height="16" rx="2" fill="#2ecc71"/>
+  <rect x="182" y="208" width="16" height="16" rx="2" fill="#e74c3c"/>
+  <rect x="202" y="208" width="16" height="16" rx="2" fill="#3498db"/>
+  <rect x="160" y="232" width="60" height="20" rx="3" fill="#1a1a1a"/>
+  <text x="190" y="246" text-anchor="middle" font-size="12" font-weight="bold" fill="#ffffff">WS2812B</text>
+
+  <!-- Pin Pads -->
+  <!-- Pin 1: VDD (Top Left) -->
+  <text x="87.5" y="148" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">1</text>
+  <rect x="70" y="155" width="35" height="30" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="87.5" y="175" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">VDD</text>
+
+  <!-- Pin 2: DOUT (Top Right) -->
+  <text x="292.5" y="148" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">2</text>
+  <rect x="275" y="155" width="35" height="30" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="292.5" y="175" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">DOUT</text>
+
+  <!-- Pin 3: VSS (Bottom Right) -->
+  <rect x="275" y="265" width="35" height="30" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="292.5" y="285" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">VSS</text>
+  <text x="292.5" y="310" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">3</text>
+
+  <!-- Pin 4: DIN (Bottom Left) -->
+  <rect x="70" y="265" width="35" height="30" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="87.5" y="285" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">DIN</text>
+  <text x="87.5" y="310" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">4</text>
+
+  <!-- Pin Description Table -->
+  <rect x="55" y="325" width="270" height="130" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="68" y="347" text-anchor="start" font-size="12" font-weight="bold" fill="#2457d6">1. VDD</text>
+  <text x="115" y="347" text-anchor="start" font-size="12" fill="#1a1a1a">: Живлення (+3.5...5.3 В)</text>
+  <text x="68" y="372" text-anchor="start" font-size="12" font-weight="bold" fill="#2457d6">2. DOUT</text>
+  <text x="122" y="372" text-anchor="start" font-size="12" fill="#1a1a1a">: Каскадний вихід даних</text>
+  <text x="68" y="397" text-anchor="start" font-size="12" font-weight="bold" fill="#2457d6">3. VSS</text>
+  <text x="115" y="397" text-anchor="start" font-size="12" fill="#1a1a1a">: Спільний провід (GND)</text>
+  <text x="68" y="422" text-anchor="start" font-size="12" font-weight="bold" fill="#2457d6">4. DIN</text>
+  <text x="115" y="422" text-anchor="start" font-size="12" fill="#1a1a1a">: Вхід серійних даних</text>
+  <text x="190" y="444" text-anchor="middle" font-size="12" fill="#6b7280">Вбудована обв'язка RGB 5050</text>
+
+  <!-- Right Panel: Internal Block Diagram -->
+  <rect x="360" y="85" width="560" height="385" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="640" y="112" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Внутрішня функціональна блок-схема WS2812B</text>
+
+  <!-- Signal DOUT Line & Label -->
+  <text x="740" y="134" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">DOUT (регенерований сигнал до наступного чипа)</text>
+  <path d="M 570 195 L 590 195 L 590 142 L 890 142" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Signal DIN Line & Label -->
+  <text x="387.5" y="184" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">DIN</text>
+  <path d="M 365 195 L 410 195" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Block 1: Signal Reshaping & Latch -->
+  <rect x="410" y="160" width="160" height="70" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="490" y="188" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Схема відновлення</text>
+  <text x="490" y="206" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">сигналу та фіксатор</text>
+
+  <!-- Vertical Connection: Latch to Shift Register -->
+  <path d="M 490 230 L 490 270" fill="none" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="498" y="253" text-anchor="start" font-size="12" fill="#6b7280">24 біти</text>
+
+  <!-- Block 2: 24-bit Shift Register -->
+  <rect x="410" y="270" width="160" height="70" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="490" y="298" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">24-бітний зсувний</text>
+  <text x="490" y="316" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">регістр (8b×3)</text>
+
+  <!-- Horizontal Connection: Shift Register to PWM -->
+  <path d="M 570 305 L 615 305" fill="none" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="592.5" y="297" text-anchor="middle" font-size="12" fill="#6b7280">Дані</text>
+
+  <!-- Block 3: 3-Channel PWM Driver -->
+  <rect x="615" y="270" width="150" height="70" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="690" y="298" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">3-канальний</text>
+  <text x="690" y="316" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">ШІМ-контролер</text>
+
+  <!-- PWM Output Lines to LEDs -->
+  <path d="M 765 295 L 785 295 L 785 187.5 L 805 187.5" fill="none" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <path d="M 765 305 L 805 305" fill="none" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <path d="M 765 315 L 785 315 L 785 327.5 L 805 327.5" fill="none" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="775" y="280" text-anchor="middle" font-size="12" fill="#6b7280">ШІМ</text>
+
+  <!-- LED Dies -->
+  <!-- LED Green -->
+  <rect x="805" y="165" width="95" height="45" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="852.5" y="185" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">LED Green</text>
+  <text x="852.5" y="200" text-anchor="middle" font-size="12" fill="#27ae60">(520 nm)</text>
+
+  <!-- LED Red -->
+  <rect x="805" y="235" width="95" height="45" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="852.5" y="255" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">LED Red</text>
+  <text x="852.5" y="270" text-anchor="middle" font-size="12" fill="#c0392b">(620 nm)</text>
+
+  <!-- LED Blue -->
+  <rect x="805" y="305" width="95" height="45" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="852.5" y="325" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">LED Blue</text>
+  <text x="852.5" y="340" text-anchor="middle" font-size="12" fill="#2457d6">(465 nm)</text>
+
+  <!-- Internal Oscillator & Regulator Block -->
+  <rect x="410" y="370" width="355" height="40" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="587.5" y="395" text-anchor="middle" font-size="12" fill="#6b7280">Внутрішній тактовий генератор та регулятор напруги</text>
+
+  <!-- Power Lines VDD / VSS -->
+  <text x="390" y="374" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">VDD</text>
+  <path d="M 370 380 L 410 380" fill="none" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <text x="390" y="414" text-anchor="middle" font-size="12" font-weight="bold" fill="#6b7280">VSS</text>
+  <path d="M 370 400 L 410 400" fill="none" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+
+  <!-- Data Summary Bar -->
+  <rect x="410" y="425" width="490" height="30" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="655" y="444" text-anchor="middle" font-size="12" fill="#1a1a1a">Формат пакету даних (24 біти): 8 біт Green + 8 біт Red + 8 біт Blue</text>
+</svg>

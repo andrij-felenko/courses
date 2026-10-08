@@ -1,0 +1,174 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 550" width="960" height="550" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="550" fill="white"/>
+
+  <defs>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Прямий пуск vs Плавний пуск (Soft Start) помпи RS-360SH</text>
+  <text x="480" y="60" font-size="13" fill="#6b7280" text-anchor="middle">Алгоритм Soft Start усуває піковий пусковий струм і просідання живлення при запуску електродвигуна</text>
+
+  <!-- Left Panel: Direct Start -->
+  <rect x="30" y="90" width="435" height="325" rx="8" ry="8" fill="#fdecea" stroke="#f5c6cb" stroke-width="1.5"/>
+  <rect x="45" y="105" width="405" height="34" rx="4" fill="#c0392b"/>
+  <text x="247" y="127" font-size="14" font-weight="bold" fill="white" text-anchor="middle">Прямий пуск (Пряме подання 100% ШІМ)</text>
+
+  <!-- Left Plot Area -->
+  <rect x="50" y="155" width="395" height="190" rx="4" fill="white" stroke="#d0d7de"/>
+
+  <!-- Plot 1 Axes -->
+  <line x1="115" y1="315" x2="115" y2="170" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+  <line x1="115" y1="315" x2="430" y2="315" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+  <text x="125" y="170" font-size="12" fill="#6b7280">I, D</text>
+  <text x="430" y="333" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">t (мс)</text>
+
+  <!-- Plot 1 Y Ticks -->
+  <line x1="110" y1="315" x2="115" y2="315" stroke="#6b7280"/>
+  <text x="106" y="319" font-size="12" fill="#6b7280" text-anchor="end">0</text>
+
+  <line x1="110" y1="265" x2="115" y2="265" stroke="#6b7280"/>
+  <text x="106" y="269" font-size="12" fill="#6b7280" text-anchor="end">1.0 А / 50%</text>
+
+  <line x1="110" y1="215" x2="115" y2="215" stroke="#6b7280"/>
+  <text x="106" y="219" font-size="12" fill="#6b7280" text-anchor="end">2.0 А / 100%</text>
+
+  <line x1="110" y1="180" x2="115" y2="180" stroke="#c0392b"/>
+  <text x="106" y="184" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="end">3.8 А</text>
+
+  <!-- Plot 1 Grid dashed lines -->
+  <line x1="115" y1="265" x2="420" y2="265" stroke="#e0e0e0" stroke-dasharray="3,3"/>
+  <line x1="115" y1="215" x2="420" y2="215" stroke="#e0e0e0" stroke-dasharray="3,3"/>
+
+  <!-- Plot 1 Curves -->
+  <!-- PWM step: from 0 to 100% at x=145 -->
+  <path d="M 115,315 L 145,315 L 145,215 L 415,215" fill="none" stroke="#2457d6" stroke-width="2" stroke-dasharray="4,3"/>
+
+  <!-- Current curve: spike at x=155 (y=180), then decay to y=280 -->
+  <path d="M 115,315 L 145,315 C 147,230 150,180 155,180 C 170,180 190,280 230,280 L 415,280" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+
+  <!-- Peak Indicator -->
+  <circle cx="155" cy="180" r="4" fill="#c0392b"/>
+  <line x1="155" y1="180" x2="155" y2="315" stroke="#c0392b" stroke-dasharray="2,2"/>
+
+  <!-- Plot 1 Peak Callout Box -->
+  <rect x="200" y="160" width="220" height="42" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="210" y="176" font-size="12" font-weight="bold" fill="#c0392b">⚠️ Пусковий кидок I_start ≈ 3.8 A</text>
+  <text x="210" y="193" font-size="12" fill="#6b7280">(Просідання VCC, зношування)</text>
+  <line x1="162" y1="180" x2="198" y2="180" stroke="#c0392b" stroke-width="1" marker-end="url(#arr-red)"/>
+
+  <!-- Plot 1 X Ticks -->
+  <line x1="145" y1="315" x2="145" y2="320" stroke="#6b7280"/>
+  <text x="145" y="333" font-size="12" fill="#6b7280" text-anchor="middle">0</text>
+
+  <line x1="185" y1="315" x2="185" y2="320" stroke="#c0392b"/>
+  <text x="185" y="333" font-size="12" fill="#c0392b" text-anchor="middle">30 мс</text>
+
+  <line x1="260" y1="315" x2="260" y2="320" stroke="#6b7280"/>
+  <text x="260" y="333" font-size="12" fill="#6b7280" text-anchor="middle">150 мс</text>
+
+  <!-- Left Panel Bottom Note -->
+  <rect x="50" y="355" width="395" height="48" rx="4" fill="white" stroke="#f5c6cb"/>
+  <text x="60" y="373" font-size="12" font-weight="bold" fill="#c0392b">❌ Недоліки прямого пуску:</text>
+  <text x="60" y="391" font-size="12" fill="#1a1a1a">Пусковий струм до 5.5×I_nom → просідання VCC і знос</text>
+
+  <!-- Right Panel: Soft Start -->
+  <rect x="495" y="90" width="435" height="325" rx="8" ry="8" fill="#e9f7ef" stroke="#c3e6cb" stroke-width="1.5"/>
+  <rect x="510" y="105" width="405" height="34" rx="4" fill="#27ae60"/>
+  <text x="712" y="127" font-size="14" font-weight="bold" fill="white" text-anchor="middle">Плавний пуск (Soft Start PWM Ramp)</text>
+
+  <!-- Right Plot Area -->
+  <rect x="515" y="155" width="395" height="190" rx="4" fill="white" stroke="#d0d7de"/>
+
+  <!-- Plot 2 Axes -->
+  <line x1="580" y1="315" x2="580" y2="170" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+  <line x1="580" y1="315" x2="895" y2="315" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+  <text x="590" y="170" font-size="12" fill="#6b7280">I, D</text>
+  <text x="895" y="333" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">t (мс)</text>
+
+  <!-- Plot 2 Y Ticks -->
+  <line x1="575" y1="315" x2="580" y2="315" stroke="#6b7280"/>
+  <text x="571" y="319" font-size="12" fill="#6b7280" text-anchor="end">0</text>
+
+  <line x1="575" y1="265" x2="580" y2="265" stroke="#6b7280"/>
+  <text x="571" y="269" font-size="12" fill="#6b7280" text-anchor="end">1.0 А / 50%</text>
+
+  <line x1="575" y1="215" x2="580" y2="215" stroke="#6b7280"/>
+  <text x="571" y="219" font-size="12" fill="#6b7280" text-anchor="end">2.0 А / 100%</text>
+
+  <line x1="575" y1="180" x2="580" y2="180" stroke="#6b7280"/>
+  <text x="571" y="184" font-size="12" fill="#6b7280" text-anchor="end">3.8 А</text>
+
+  <!-- Plot 2 Grid dashed lines -->
+  <line x1="580" y1="265" x2="885" y2="265" stroke="#e0e0e0" stroke-dasharray="3,3"/>
+  <line x1="580" y1="215" x2="885" y2="215" stroke="#e0e0e0" stroke-dasharray="3,3"/>
+
+  <!-- Plot 2 Curves -->
+  <!-- PWM ramp: from 0% at x=610 to 100% at x=770 -->
+  <path d="M 580,315 L 610,315 L 770,215 L 880,215" fill="none" stroke="#2457d6" stroke-width="2" stroke-dasharray="4,3"/>
+
+  <!-- Current curve: smooth rise to y=280 at x=770 -->
+  <path d="M 580,315 L 610,315 C 650,310 710,282 770,280 L 880,280" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+
+  <!-- Ramp helper line -->
+  <line x1="770" y1="215" x2="770" y2="315" stroke="#2457d6" stroke-dasharray="2,2"/>
+
+  <!-- Plot 2 Ramp Label -->
+  <text x="690" y="235" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">t_ramp = 300 мс</text>
+
+  <!-- Plot 2 Callout Box -->
+  <rect x="645" y="160" width="230" height="42" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="655" y="176" font-size="12" font-weight="bold" fill="#27ae60">✓ Пусковий струм I_max &lt; 0.9 A</text>
+  <text x="655" y="193" font-size="12" fill="#6b7280">(Плавний наріст, без сплеску)</text>
+
+  <!-- Plot 2 X Ticks -->
+  <line x1="610" y1="315" x2="610" y2="320" stroke="#6b7280"/>
+  <text x="610" y="333" font-size="12" fill="#6b7280" text-anchor="middle">0</text>
+
+  <line x1="770" y1="315" x2="770" y2="320" stroke="#2457d6"/>
+  <text x="770" y="333" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">300 мс</text>
+
+  <!-- Right Panel Bottom Note -->
+  <rect x="515" y="355" width="395" height="48" rx="4" fill="white" stroke="#c3e6cb"/>
+  <text x="525" y="373" font-size="12" font-weight="bold" fill="#27ae60">✓ Переваги Soft Start:</text>
+  <text x="525" y="391" font-size="12" fill="#1a1a1a">Відсутність кидка струму, захист ключа та прошивки</text>
+
+  <!-- Bottom Summary Table -->
+  <rect x="30" y="430" width="900" height="95" rx="8" ry="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Summary Table Header -->
+  <text x="45" y="449" font-size="13" font-weight="bold" fill="#1a1a1a">Порівняння параметрів пуску водяної помпи RS-360SH:</text>
+
+  <!-- Legend items -->
+  <line x1="540" y1="445" x2="565" y2="445" stroke="#2457d6" stroke-width="2" stroke-dasharray="4,3"/>
+  <text x="572" y="449" font-size="12" fill="#1a1a1a">ШІМ заповнення D (%)</text>
+
+  <line x1="715" y1="445" x2="740" y2="445" stroke="#1a1a1a" stroke-width="2.5"/>
+  <text x="747" y="449" font-size="12" fill="#1a1a1a">Струм мотора I (А)</text>
+
+  <!-- Table dividers -->
+  <line x1="40" y1="460" x2="920" y2="460" stroke="#d0d7de"/>
+  <line x1="300" y1="460" x2="300" y2="520" stroke="#d0d7de"/>
+  <line x1="610" y1="460" x2="610" y2="520" stroke="#d0d7de"/>
+
+  <!-- Row 1 -->
+  <text x="45" y="478" font-size="12" fill="#6b7280">Пусковий струм I_max:</text>
+  <text x="315" y="478" font-size="12" font-weight="bold" fill="#c0392b">3.5 ... 4.0 А  (Піковий кидок)</text>
+  <text x="625" y="478" font-size="12" font-weight="bold" fill="#27ae60">&lt; 0.9 А  (Обмежений графіком ШІМ)</text>
+
+  <!-- Row 2 -->
+  <text x="45" y="503" font-size="12" fill="#6b7280">Навантаження на VCC:</text>
+  <text x="315" y="503" font-size="12" fill="#1a1a1a">Просідання до 1.5–2 В (ризик reset МК)</text>
+  <text x="625" y="503" font-size="12" fill="#1a1a1a">Стабільна напруга, м'який пуск</text>
+</svg>

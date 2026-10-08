@@ -1,0 +1,121 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-black" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background Canvas -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Top Title & Subtitle -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Розділення силового (PGND) та сигнального (AGND) заземлення BLDC-контролера</text>
+  <text x="480" y="60" font-size="13" fill="#6b7280" text-anchor="middle">Зіркове з'єднання (Net-Tie) запобігає проникненню імпульсних завад ШІМ у чутливі кола MCU та датчиків</text>
+
+  <!-- Main PCB Outer Panel -->
+  <rect x="30" y="78" width="900" height="442" rx="10" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <text x="50" y="100" font-size="14" font-weight="bold" fill="#1a1a1a">Друкована плата сервоконтролера (PCB Layer: Ground Planes)</text>
+
+  <!-- AGND / DGND Signal Plane Panel -->
+  <rect x="50" y="114" width="375" height="264" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="2" stroke-dasharray="6,3"/>
+  <text x="65" y="136" font-size="13" font-weight="bold" fill="#2457d6">Сигнальна земля (AGND / DGND Plane)</text>
+  <text x="65" y="152" font-size="12" fill="#6b7280">Низьковольтні сигнальні та логічні кола</text>
+
+  <!-- Component 1: MCU -->
+  <rect x="65" y="168" width="165" height="90" rx="6" fill="white" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="147.5" y="191" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Мікроконтролер (MCU)</text>
+  <text x="147.5" y="209" font-size="12" fill="#2457d6" text-anchor="middle">FOC / PWM / ADC</text>
+  <text x="147.5" y="227" font-size="12" fill="#6b7280" text-anchor="middle">Зворотний зв'язок</text>
+  <text x="147.5" y="245" font-size="12" fill="#27ae60" text-anchor="middle">Чиста земля (AGND)</text>
+
+  <!-- Component 2: Position Sensor / Encoder -->
+  <rect x="65" y="273" width="165" height="90" rx="6" fill="white" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="147.5" y="296" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Інтерфейс датчика</text>
+  <text x="147.5" y="314" font-size="12" fill="#2457d6" text-anchor="middle">Encoder / Hall / SPI</text>
+  <text x="147.5" y="332" font-size="12" fill="#6b7280" text-anchor="middle">Висока точність</text>
+  <text x="147.5" y="350" font-size="12" fill="#27ae60" text-anchor="middle">Без завад ШІМ</text>
+
+  <!-- Component 3: OpAmp Current Sense -->
+  <rect x="245" y="168" width="165" height="90" rx="6" fill="white" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="327.5" y="191" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Підсилювач струму</text>
+  <text x="327.5" y="209" font-size="12" fill="#2457d6" text-anchor="middle">OpAmp Current Sense</text>
+  <text x="327.5" y="227" font-size="12" fill="#6b7280" text-anchor="middle">Диференційний вхід</text>
+  <text x="327.5" y="245" font-size="12" fill="#27ae60" text-anchor="middle">Опора на AGND</text>
+
+  <!-- Component 4: Gate Driver Signal Logic -->
+  <rect x="245" y="273" width="165" height="90" rx="6" fill="white" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="327.5" y="296" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Драйвер затворів</text>
+  <text x="327.5" y="314" font-size="12" fill="#2457d6" text-anchor="middle">Gate Driver Logic</text>
+  <text x="327.5" y="332" font-size="12" fill="#6b7280" text-anchor="middle">Вхідні УО / Оптопара</text>
+  <text x="327.5" y="350" font-size="12" fill="#27ae60" text-anchor="middle">Розділені землі</text>
+
+  <!-- Isolation Slot Channel -->
+  <rect x="433" y="114" width="94" height="264" rx="4" fill="#e5e7eb" opacity="0.5"/>
+  <text x="480" y="136" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">Розріз шару</text>
+  <text x="480" y="152" font-size="12" fill="#6b7280" text-anchor="middle">землі (Slot)</text>
+
+  <!-- Star Ground Point (Net-Tie) -->
+  <line x1="425" y1="260" x2="445" y2="260" stroke="#27ae60" stroke-width="4"/>
+  <line x1="515" y1="260" x2="535" y2="260" stroke="#27ae60" stroke-width="4"/>
+  <rect x="445" y="220" width="70" height="95" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <circle cx="480" cy="238" r="9" fill="#27ae60"/>
+  <text x="480" y="242" font-size="12" font-weight="bold" fill="white" text-anchor="middle">★</text>
+  <text x="480" y="262" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Net-Tie</text>
+  <text x="480" y="278" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Точка 1:1</text>
+  <text x="480" y="294" font-size="12" fill="#6b7280" text-anchor="middle">(Зірка)</text>
+
+  <!-- PGND Power Plane Panel -->
+  <rect x="535" y="114" width="375" height="264" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="2" stroke-dasharray="6,3"/>
+  <text x="550" y="136" font-size="13" font-weight="bold" fill="#c0392b">Силове заземлення (PGND Plane)</text>
+  <text x="550" y="152" font-size="12" fill="#6b7280">Високострумові імпульсні кола комутації ШІМ</text>
+
+  <!-- Component 5: Power & C_in -->
+  <rect x="550" y="168" width="165" height="90" rx="6" fill="white" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="632.5" y="191" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Живлення &amp; C_in</text>
+  <text x="632.5" y="209" font-size="12" fill="#c0392b" text-anchor="middle">Вхід V_bus (12-48V)</text>
+  <text x="632.5" y="227" font-size="12" fill="#6b7280" text-anchor="middle">Силовий фільтр C_in</text>
+  <text x="632.5" y="245" font-size="12" fill="#27ae60" text-anchor="middle">Вузол зірки землі</text>
+
+  <!-- Component 6: Shunt Resistors -->
+  <rect x="550" y="273" width="165" height="90" rx="6" fill="white" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="632.5" y="296" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Шунти струму R_s</text>
+  <text x="632.5" y="314" font-size="12" fill="#c0392b" text-anchor="middle">Low-side Shunts</text>
+  <text x="632.5" y="332" font-size="12" fill="#6b7280" text-anchor="middle">Струм фаз U, V, W</text>
+  <text x="632.5" y="350" font-size="12" fill="#c0392b" text-anchor="middle">Імпульсне di/dt</text>
+
+  <!-- Component 7: 3-Phase Inverter Bridge -->
+  <rect x="730" y="168" width="165" height="195" rx="6" fill="white" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="812.5" y="191" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">Силовий інвертор</text>
+  <text x="812.5" y="209" font-size="12" fill="#1a1a1a" text-anchor="middle">6× MOSFET H-Міст</text>
+  <text x="812.5" y="227" font-size="12" fill="#6b7280" text-anchor="middle">Комутація ШІМ</text>
+  <text x="812.5" y="245" font-size="12" fill="#c0392b" text-anchor="middle">f_pwm = 20-100 kHz</text>
+  <text x="812.5" y="268" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">Вихід на двигун:</text>
+  <text x="812.5" y="286" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Фази U, V, W ➔</text>
+  <text x="812.5" y="318" font-size="12" fill="#c0392b" text-anchor="middle">Джерело імпульсних</text>
+  <text x="812.5" y="336" font-size="12" fill="#c0392b" text-anchor="middle">струмів завад (PGND)</text>
+
+  <!-- Bottom Left Panel: Correct / Physical Principle -->
+  <rect x="50" y="392" width="415" height="115" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="65" y="414" font-size="13" font-weight="bold" fill="#27ae60">✓ Фізичний принцип Star Grounding (Net-Tie):</text>
+  <text x="65" y="434" font-size="12" fill="#1a1a1a">1. Високий dI/dt силових ключів створює заваду V_noise = L · (di/dt)</text>
+  <text x="65" y="452" font-size="12" fill="#1a1a1a">2. Net-Tie з'єднує AGND і PGND в 1 точці на C_in (без завад)</text>
+  <text x="65" y="470" font-size="12" fill="#1a1a1a">3. Імпульсний струм ШІМ НЕ протікає через дорожки AGND і АЦП</text>
+  <text x="65" y="490" font-size="12" font-weight="bold" fill="#27ae60">Результат: Висока точність FOC, відсутність джиттеру енкодера</text>
+
+  <!-- Bottom Right Panel: Incorrect / Ground Loop -->
+  <rect x="495" y="392" width="415" height="115" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="510" y="414" font-size="13" font-weight="bold" fill="#c0392b">✕ Типові помилки та наслідки суцільної землі:</text>
+  <text x="510" y="434" font-size="12" fill="#1a1a1a">1. Спільний шар землі ➔ силовий струм ШІМ тече під MCU та АЦП</text>
+  <text x="510" y="452" font-size="12" fill="#1a1a1a">2. Земляний відскок (Ground Bounce) спотворює виміри I_phase</text>
+  <text x="510" y="470" font-size="12" fill="#1a1a1a">3. Виникають помилки комунікації SPI/Encoder, зриви комутації</text>
+  <text x="510" y="490" font-size="12" font-weight="bold" fill="#c0392b">Результат: Посмикування мотора, перегрів ключових транзисторів</text>
+</svg>

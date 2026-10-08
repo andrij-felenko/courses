@@ -1,0 +1,152 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 500" width="960" height="500" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <!-- Arrow Markers -->
+    <marker id="arr-black" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="500" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Схема регенеративного гальмування та Brake Chopper</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Скидання енергії зворотної ЕРС на резисторі R_brake при перевищенні напруги V_BUS &gt; V_brake</text>
+
+  <!-- PANEL 1: Джерело живлення та C_BUS -->
+  <rect x="25" y="75" width="200" height="410" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="8"/>
+  <text x="125" y="98" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Джерело живлення</text>
+
+  <!-- PSU Unit -->
+  <rect x="45" y="115" width="160" height="55" fill="white" stroke="#d0d7de" stroke-width="1.5" rx="6"/>
+  <text x="125" y="135" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">DC Power Supply</text>
+  <text x="125" y="154" font-size="12" fill="#6b7280" text-anchor="middle">V_DC = +48 В (ном)</text>
+
+  <!-- PSU Wires -->
+  <line x1="125" y1="170" x2="125" y2="190" stroke="#2457d6" stroke-width="2.5"/>
+  <path d="M 45,142.5 L 35,142.5 L 35,380 L 65,380" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Capacitor C_BUS -->
+  <line x1="90" y1="190" x2="90" y2="240" stroke="#2457d6" stroke-width="2.5"/>
+  <line x1="68" y1="240" x2="112" y2="240" stroke="#2457d6" stroke-width="3"/>
+  <line x1="68" y1="260" x2="112" y2="260" stroke="#1a1a1a" stroke-width="3"/>
+  <line x1="90" y1="260" x2="90" y2="380" stroke="#1a1a1a" stroke-width="2.5"/>
+
+  <text x="120" y="238" font-size="14" font-weight="bold" fill="#2457d6">+</text>
+  <text x="120" y="265" font-size="13" font-weight="bold" fill="#1a1a1a">C_BUS (Буфер)</text>
+  <text x="120" y="285" font-size="12" fill="#6b7280">4700 мкФ / 63 В</text>
+
+  <!-- Panel 1 Status Box -->
+  <rect x="45" y="415" width="160" height="60" fill="white" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="125" y="432" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Напруга шини V_BUS:</text>
+  <text x="125" y="449" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">48 В ... 54 В</text>
+  <text x="125" y="465" font-size="12" fill="#6b7280" text-anchor="middle">(робоче вікно)</text>
+
+
+  <!-- PANEL 2: Модуль Brake Chopper -->
+  <rect x="250" y="75" width="420" height="410" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="8"/>
+  <text x="460" y="98" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">Модуль гальмівного переривача (Brake Chopper)</text>
+
+  <!-- Sub-block 2A: Comparator Circuit -->
+  <rect x="268" y="210" width="180" height="145" fill="white" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <text x="358" y="231" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Схема порівняння</text>
+  <text x="358" y="252" font-size="12" fill="#1a1a1a" text-anchor="middle">Вхід: вимірювання V_BUS</text>
+  <text x="358" y="272" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Поріг V_brake = 54 В</text>
+  <text x="358" y="292" font-size="12" fill="#6b7280" text-anchor="middle">Гістерезис ΔV = 2 В</text>
+  <text x="358" y="338" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">ШІМ керування Q1</text>
+
+  <!-- Voltage Sensing Line -->
+  <path d="M 358,190 L 358,210" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="350" y="204" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">V_BUS Сенсинг</text>
+
+  <!-- Sub-block 2B: Transistor Switch Q1 -->
+  <rect x="495" y="210" width="155" height="55" fill="white" stroke="#1a1a1a" stroke-width="1.5" rx="6"/>
+  <text x="572.5" y="228" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Ключ Q_brake (Q1)</text>
+  <text x="572.5" y="244" font-size="12" fill="#6b7280" text-anchor="middle">Power MOSFET / IGBT</text>
+  <text x="572.5" y="259" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">СТАН: ВІДКРИТИЙ</text>
+
+  <!-- Gate Drive Signal Line -->
+  <path d="M 448,338 L 471,338 L 471,237.5 L 495,237.5" fill="none" stroke="#2457d6" stroke-width="2" stroke-dasharray="4,2" marker-end="url(#arr-blue)"/>
+  <text x="471" y="226" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Gate PWM</text>
+
+  <!-- Sub-block 2C: Resistor R_brake -->
+  <rect x="495" y="300" width="155" height="65" fill="#e9f7ef" stroke="#27ae60" stroke-width="2" rx="6"/>
+  <text x="572.5" y="319" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">R_brake (4.7 Ом)</text>
+  <text x="572.5" y="337" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">P = U² / R (100 Вт)</text>
+  <text x="572.5" y="354" font-size="12" fill="#6b7280" text-anchor="middle">(Баластне розсіювання)</text>
+
+  <!-- Transistor & Resistor Branch Wires -->
+  <line x1="572.5" y1="190" x2="572.5" y2="210" stroke="#27ae60" stroke-width="2.5"/>
+  <line x1="572.5" y1="265" x2="572.5" y2="300" stroke="#27ae60" stroke-width="2.5"/>
+  <line x1="572.5" y1="365" x2="572.5" y2="380" stroke="#27ae60" stroke-width="2.5"/>
+
+  <!-- I_brake Dissipation Indicator -->
+  <path d="M 572.5,265 L 572.5,295" fill="none" stroke="#27ae60" stroke-width="3" marker-end="url(#arr-green)"/>
+  <rect x="585" y="271" width="60" height="22" fill="#e9f7ef" stroke="#27ae60" stroke-width="1" rx="4"/>
+  <text x="615" y="286" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">I_brake</text>
+
+  <!-- Panel 2 Status Box -->
+  <rect x="268" y="415" width="384" height="60" fill="white" stroke="#27ae60" stroke-width="1.5" rx="6"/>
+  <text x="460" y="432" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Умова спрацьовування: V_BUS ≥ 54 В (V_brake)</text>
+  <text x="460" y="449" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Q1 відкривається → I_brake скидає енергію в тепло</text>
+  <text x="460" y="465" font-size="12" fill="#6b7280" text-anchor="middle">Захист блоку інвертора від перенапруги (OVP)</text>
+
+
+  <!-- PANEL 3: BLDC Двигун та Інвертор -->
+  <rect x="695" y="75" width="240" height="410" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" rx="8"/>
+  <text x="815" y="98" font-size="14" font-weight="bold" fill="#c0392b" text-anchor="middle">BLDC Привод (Генератор)</text>
+
+  <!-- Inverter Unit -->
+  <rect x="715" y="115" width="200" height="105" fill="white" stroke="#c0392b" stroke-width="1.5" rx="6"/>
+  <text x="815" y="135" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">3-фазний інвертор</text>
+  <text x="815" y="153" font-size="12" fill="#1a1a1a" text-anchor="middle">Зворотні діоди ключів</text>
+  <text x="815" y="170" font-size="12" fill="#6b7280" text-anchor="middle">(Діодний міст)</text>
+  <text x="815" y="195" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Випрямлення ЕРС → I_regen</text>
+
+  <!-- Phase Wires (U, V, W) -->
+  <line x1="795" y1="220" x2="795" y2="284" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="815" y1="220" x2="815" y2="284" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="835" y1="220" x2="835" y2="284" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="850" y="256" font-size="12" fill="#6b7280">Фази U,V,W</text>
+
+  <!-- BLDC Motor Circle -->
+  <circle cx="815" cy="310" r="26" fill="#fdecea" stroke="#c0392b" stroke-width="2"/>
+  <text x="815" y="315" font-size="15" font-weight="bold" fill="#c0392b" text-anchor="middle">M 3~</text>
+
+  <text x="815" y="355" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">Режим сповільнення</text>
+  <text x="815" y="372" font-size="12" fill="#6b7280" text-anchor="middle">Кінетична енергія → ЕРС</text>
+
+  <!-- Panel 3 Status Box -->
+  <rect x="715" y="415" width="200" height="60" fill="white" stroke="#c0392b" stroke-width="1.5" rx="6"/>
+  <text x="815" y="438" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Джерело рекуперації</text>
+  <text x="815" y="456" font-size="12" fill="#6b7280" text-anchor="middle">(Генераторний режим)</text>
+
+
+  <!-- POWER BUS RAILS & WIRES -->
+
+  <!-- Top Power Rail (+V_BUS) -->
+  <line x1="125" y1="190" x2="715" y2="190" stroke="#2457d6" stroke-width="3"/>
+  <text x="135" y="184" font-size="12" font-weight="bold" fill="#2457d6">+V_BUS</text>
+
+  <!-- Bottom Ground Rail (GND) -->
+  <line x1="65" y1="380" x2="725" y2="380" stroke="#1a1a1a" stroke-width="3"/>
+  <text x="135" y="374" font-size="12" fill="#6b7280">GND (0 В)</text>
+
+  <!-- Connection from Inverter to GND -->
+  <path d="M 725,220 L 725,380" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- RED Regenerative Current I_regen Indicator along +V_BUS rail -->
+  <path d="M 715,180 L 650,180 L 650,190 L 460,190" fill="none" stroke="#c0392b" stroke-width="2.5" stroke-dasharray="6,3" marker-end="url(#arr-red)"/>
+  <rect x="520" y="145" width="135" height="24" fill="#fdecea" stroke="#c0392b" stroke-width="1" rx="4"/>
+  <text x="587.5" y="161" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">I_regen (Зворотний)</text>
+
+</svg>

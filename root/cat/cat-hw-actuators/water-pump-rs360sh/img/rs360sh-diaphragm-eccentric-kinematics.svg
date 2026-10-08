@@ -1,0 +1,124 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 530" width="960" height="530" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="960" height="530" fill="white"/>
+
+  <!-- Заголовок та підзаголовок -->
+  <text x="480" y="38" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Кінематика ексцентрика та розклад сил у помпі RS-360SH</text>
+  <text x="480" y="58" text-anchor="middle" font-size="13" fill="#6b7280">Тиск рідини створює момент опору M = F_t · r та радіальне навантаження F_r на вал двигуна</text>
+
+  <!-- ЛІВА ПАНЕЛЬ: Схема механізму та векторний розклад сил -->
+  <rect x="20" y="78" width="580" height="425" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="40" y="102" font-size="14" font-weight="bold" fill="#1a1a1a">Схема механізму витіснення помпи</text>
+
+  <!-- Камера стискання з рідиною та тиском -->
+  <rect x="300" y="90" width="270" height="55" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="302" y="92" width="266" height="20" fill="#d9e6fc" rx="4"/>
+  <text x="435" y="106" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Камера стискання рідини</text>
+  <text x="435" y="132" text-anchor="middle" font-size="12" fill="#2457d6">Тиск ΔP = P_out - P_in</text>
+
+  <!-- Стрілки тиску на мембрану (розміщені з боків від тексту тиску) -->
+  <line x1="335" y1="116" x2="335" y2="136" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <line x1="535" y1="116" x2="535" y2="136" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Еластична мембрана -->
+  <path d="M 300 145 Q 435 158 570 145" fill="none" stroke="#2457d6" stroke-width="4"/>
+
+  <!-- Шток мембрани -->
+  <rect x="426" y="152" width="8" height="117" fill="#94a3b8" stroke="#505763" stroke-width="1.5"/>
+  <text x="445" y="195" font-size="12" fill="#6b7280">Шток мембрани</text>
+
+  <!-- Осі координат та крива ексцентрика -->
+  <circle cx="360" cy="318" r="85" fill="none" stroke="#bdc3c7" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <line x1="360" y1="145" x2="360" y2="410" stroke="#94a3b8" stroke-width="1" stroke-dasharray="4,4"/>
+  <line x1="260" y1="318" x2="460" y2="318" stroke="#94a3b8" stroke-width="1" stroke-dasharray="4,4"/>
+
+  <!-- Плече ексцентрика (О-Е) та центральний вал -->
+  <line x1="360" y1="318" x2="430" y2="269" stroke="#1a1a1a" stroke-width="3"/>
+  <circle cx="360" cy="318" r="14" fill="#d0d7de" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="360" cy="318" r="3" fill="#1a1a1a"/>
+  <text x="350" y="338" text-anchor="end" font-size="12" font-weight="bold" fill="#1a1a1a">O (вал)</text>
+  <text x="350" y="352" text-anchor="end" font-size="11" fill="#6b7280">двигуна</text>
+  <text x="390" y="278" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">r</text>
+
+  <!-- Палець ексцентрика E -->
+  <circle cx="430" cy="269" r="9" fill="#ffffff" stroke="#1a1a1a" stroke-width="2.5"/>
+  <text x="448" y="255" font-size="13" font-weight="bold" fill="#1a1a1a">E (палець)</text>
+
+  <!-- Дуга кута theta та дуга обертання omega -->
+  <path d="M 360 268 A 50 50 0 0 1 389 277" fill="none" stroke="#2457d6" stroke-width="2"/>
+  <text x="375" y="248" font-size="14" font-weight="bold" fill="#2457d6">θ</text>
+  <path d="M 325 318 A 35 35 0 0 1 348 285" fill="none" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="210" y="270" text-anchor="end" font-size="12" font-weight="bold" fill="#27ae60">ω (напрямок обертання)</text>
+
+  <!-- Векторний паралелограм та сили в точці E -->
+  <line x1="383" y1="302" x2="430" y2="369" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <line x1="477" y1="336" x2="430" y2="369" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="3,3"/>
+
+  <!-- Вектори сил F_p, F_r, F_t -->
+  <line x1="430" y1="269" x2="430" y2="369" stroke="#c0392b" stroke-width="3.5" marker-end="url(#arr-red)"/>
+  <text x="440" y="388" font-size="13" font-weight="bold" fill="#c0392b">F_p = ΔP · A_eff</text>
+
+  <line x1="430" y1="269" x2="383" y2="302" stroke="#6b7280" stroke-width="2.5" marker-end="url(#arr-gray)"/>
+  <text x="265" y="295" text-anchor="end" font-size="12" font-weight="bold" fill="#6b7280">F_r = F_p · cos(θ)</text>
+
+  <line x1="430" y1="269" x2="477" y2="336" stroke="#27ae60" stroke-width="3" marker-end="url(#arr-green)"/>
+  <text x="482" y="325" font-size="12" font-weight="bold" fill="#27ae60">F_t = F_p · sin(θ)</text>
+
+  <!-- Легенда / Пояснення внизу лівої панелі -->
+  <rect x="40" y="420" width="540" height="70" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="55" y="440" font-size="12" fill="#c0392b" font-weight="bold">• Сила протитиску F_p діє проти напрямку ходу штока</text>
+  <text x="55" y="458" font-size="12" fill="#27ae60" font-weight="bold">• Тангенціальна F_t створює момент опору M_опор = F_t · r</text>
+  <text x="55" y="476" font-size="12" fill="#6b7280" font-weight="bold">• Радіальна F_r створює згинальне навантаження вала двигуна</text>
+
+  <!-- ПРАВА ПАНЕЛЬ: Верхній блок формул -->
+  <rect x="620" y="78" width="320" height="172" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="635" y="100" font-size="14" font-weight="bold" fill="#1a1a1a">Формули векторних складових</text>
+
+  <rect x="635" y="110" width="290" height="36" rx="5" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="648" y="133" font-size="12" font-weight="bold" fill="#c0392b">F_p = ΔP · A_eff</text>
+  <text x="760" y="133" font-size="12" fill="#1a1a1a">(Сила протитиску)</text>
+
+  <rect x="635" y="152" width="290" height="36" rx="5" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="648" y="175" font-size="12" font-weight="bold" fill="#27ae60">F_t = F_p · sin(θ)</text>
+  <text x="772" y="175" font-size="12" fill="#1a1a1a">(Тангенціальна)</text>
+
+  <rect x="635" y="194" width="290" height="36" rx="5" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="648" y="217" font-size="12" font-weight="bold" fill="#6b7280">F_r = F_p · cos(θ)</text>
+  <text x="775" y="217" font-size="12" fill="#1a1a1a">(Радіальна)</text>
+
+  <!-- ПРАВА ПАНЕЛЬ: Нижній блок аналізу моменту -->
+  <rect x="620" y="262" width="320" height="241" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="635" y="284" font-size="14" font-weight="bold" fill="#1a1a1a">Момент опору на валу M_опор</text>
+
+  <rect x="635" y="295" width="290" height="40" rx="5" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="780" y="320" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">M_опор(θ) = ΔP · A_eff · r · sin(θ)</text>
+
+  <text x="635" y="353" font-size="12" font-weight="bold" fill="#1a1a1a">Характерні точки циклу:</text>
+
+  <text x="635" y="371" font-size="12" fill="#1a1a1a">• θ = 0° (ВМТ) та 180° (НМТ):</text>
+  <text x="647" y="387" font-size="12" fill="#6b7280">sin(θ)=0  ⇒  M_опор = 0, F_r = F_p</text>
+
+  <text x="635" y="405" font-size="12" fill="#1a1a1a">• θ = 90° та 270° (середина ходу):</text>
+  <text x="647" y="421" font-size="12" fill="#27ae60" font-weight="bold">sin(θ)=1  ⇒  M_опор = M_макс = F_p · r</text>
+
+  <rect x="635" y="435" width="290" height="52" rx="5" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="645" y="455" font-size="12" font-weight="bold" fill="#27ae60">Вимога до моменту двигуна:</text>
+  <text x="645" y="473" font-size="12" fill="#1a1a1a">RS-360SH розраховують за M_макс</text>
+</svg>

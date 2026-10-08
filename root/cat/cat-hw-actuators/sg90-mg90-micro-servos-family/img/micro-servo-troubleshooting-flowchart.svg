@@ -1,0 +1,131 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-accent" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="38" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Діагностика несправностей мікросервопривода</text>
+  <text x="480" y="60" text-anchor="middle" font-size="13" fill="#6b7280">Покроковий алгоритм локалізації відмов за механічними, термічними та сигнальними проявами</text>
+
+  <!-- Start Block -->
+  <rect x="340" y="85" width="280" height="40" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="480" y="109" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Збій у роботі мікросервопривода</text>
+
+  <!-- Branch lines from Start to Categories -->
+  <path d="M 480,125 L 170,125 L 170,150" fill="none" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-accent)"/>
+  <path d="M 480,125 L 480,150" fill="none" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-accent)"/>
+  <path d="M 480,125 L 790,125 L 790,150" fill="none" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-accent)"/>
+
+  <!-- ================= COLUMN 1: MECHANICAL ================= -->
+  <!-- Header Card 1 -->
+  <rect x="30" y="150" width="280" height="40" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="170" y="175" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">1. Механічні прояви</text>
+
+  <!-- Connector Header -> Symptom -->
+  <line x1="170" y1="190" x2="170" y2="210" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+
+  <!-- Symptom Box 1 (Problem) -->
+  <rect x="30" y="210" width="280" height="70" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="45" y="230" font-size="12" font-weight="bold" fill="#c0392b">Симптом:</text>
+  <text x="45" y="250" font-size="12" fill="#1a1a1a">Мотор гуде, але вал</text>
+  <text x="45" y="268" font-size="12" fill="#1a1a1a">не повертається чи проскакує</text>
+
+  <!-- Connector Symptom -> Cause -->
+  <line x1="170" y1="280" x2="170" y2="305" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+
+  <!-- Cause Box 1 -->
+  <rect x="30" y="305" width="280" height="70" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="45" y="325" font-size="12" font-weight="bold" fill="#1a1a1a">Причина: Зрізані зубці</text>
+  <text x="45" y="345" font-size="12" fill="#6b7280">Ударне навантаження або знос</text>
+  <text x="45" y="363" font-size="12" fill="#6b7280">нейлонових шестерень (SG90)</text>
+
+  <!-- Connector Cause -> Solution -->
+  <line x1="170" y1="375" x2="170" y2="400" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <!-- Solution Box 1 (Fix) -->
+  <rect x="30" y="400" width="280" height="130" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="45" y="425" font-size="12" font-weight="bold" fill="#27ae60">Рішення та профілактика:</text>
+  <text x="45" y="446" font-size="12" fill="#1a1a1a">• Заміна редуктора</text>
+  <text x="45" y="467" font-size="12" fill="#1a1a1a">• Перехід на металевий</text>
+  <text x="45" y="488" font-size="12" fill="#1a1a1a">  редуктор (MG90S / MG90D)</text>
+  <text x="45" y="509" font-size="12" fill="#1a1a1a">• Демпфування / важелі</text>
+
+  <!-- ================= COLUMN 2: THERMAL ================= -->
+  <!-- Header Card 2 -->
+  <rect x="340" y="150" width="280" height="40" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="480" y="175" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">2. Термічні прояви</text>
+
+  <!-- Connector Header -> Symptom -->
+  <line x1="480" y1="190" x2="480" y2="210" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+
+  <!-- Symptom Box 2 (Problem) -->
+  <rect x="340" y="210" width="280" height="70" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="355" y="230" font-size="12" font-weight="bold" fill="#c0392b">Симптом:</text>
+  <text x="355" y="250" font-size="12" fill="#1a1a1a">Сильний нагрів корпуса,</text>
+  <text x="355" y="268" font-size="12" fill="#1a1a1a">запах гару, втрата моменту</text>
+
+  <!-- Connector Symptom -> Cause -->
+  <line x1="480" y1="280" x2="480" y2="305" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+
+  <!-- Cause Box 2 -->
+  <rect x="340" y="305" width="280" height="70" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="355" y="325" font-size="12" font-weight="bold" fill="#1a1a1a">Причина: Заклинювання</text>
+  <text x="355" y="345" font-size="12" fill="#6b7280">Робота у режимі stall current</text>
+  <text x="355" y="363" font-size="12" fill="#6b7280">(500-700 mA) та перегрів</text>
+
+  <!-- Connector Cause -> Solution -->
+  <line x1="480" y1="375" x2="480" y2="400" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <!-- Solution Box 2 (Fix) -->
+  <rect x="340" y="400" width="280" height="130" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="355" y="425" font-size="12" font-weight="bold" fill="#27ae60">Рішення та профілактика:</text>
+  <text x="355" y="446" font-size="12" fill="#1a1a1a">• Вимкнути живлення</text>
+  <text x="355" y="467" font-size="12" fill="#1a1a1a">• Усунути механічні упори</text>
+  <text x="355" y="488" font-size="12" fill="#1a1a1a">• Програмне відключення ШІМ</text>
+  <text x="355" y="509" font-size="12" fill="#6b7280">  при утриманні (detach)</text>
+
+  <!-- ================= COLUMN 3: SIGNAL & ELECTRICAL ================= -->
+  <!-- Header Card 3 -->
+  <rect x="650" y="150" width="280" height="40" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="790" y="175" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">3. Сигнальні та електричні</text>
+
+  <!-- Connector Header -> Symptom -->
+  <line x1="790" y1="190" x2="790" y2="210" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+
+  <!-- Symptom Box 3 (Problem) -->
+  <rect x="650" y="210" width="280" height="70" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="665" y="230" font-size="12" font-weight="bold" fill="#c0392b">Симптом:</text>
+  <text x="665" y="250" font-size="12" fill="#1a1a1a">Брязкання (jitter), хаотичний</text>
+  <text x="665" y="268" font-size="12" fill="#1a1a1a">рух вала, перезапуски МК</text>
+
+  <!-- Connector Symptom -> Cause -->
+  <line x1="790" y1="280" x2="790" y2="305" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+
+  <!-- Cause Box 3 -->
+  <rect x="650" y="305" width="280" height="70" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="665" y="325" font-size="12" font-weight="bold" fill="#1a1a1a">Причина: Просідання Vcc</text>
+  <text x="665" y="345" font-size="12" fill="#6b7280">Спільне живлення з МК,</text>
+  <text x="665" y="363" font-size="12" fill="#6b7280">відсутність GND або завади</text>
+
+  <!-- Connector Cause -> Solution -->
+  <line x1="790" y1="375" x2="790" y2="400" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <!-- Solution Box 3 (Fix) -->
+  <rect x="650" y="400" width="280" height="130" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="665" y="425" font-size="12" font-weight="bold" fill="#27ae60">Рішення та профілактика:</text>
+  <text x="665" y="446" font-size="12" fill="#1a1a1a">• Окреме джерело 5V (&gt;=1A)</text>
+  <text x="665" y="467" font-size="12" fill="#1a1a1a">• Спільний дріт землі (GND)</text>
+  <text x="665" y="488" font-size="12" fill="#1a1a1a">• Конденсатор 100-470 мкФ</text>
+  <text x="665" y="509" font-size="12" fill="#6b7280">• Фільтрація / перехід MG90D</text>
+</svg>

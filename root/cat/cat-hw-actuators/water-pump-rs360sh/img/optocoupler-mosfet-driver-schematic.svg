@@ -1,0 +1,196 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Визначення маркерів стрілок -->
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок та підзаголовок -->
+  <text x="480" y="35" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Схема силового драйвера з оптичною розв'язкою для помпи RS-360SH</text>
+  <text x="480" y="56" font-size="13" fill="#6b7280" text-anchor="middle">Гальванічна розв'язка, захисний діод Шотткі та топологічне розділення земель</text>
+
+  <!-- ЗОНА 1: Сигнальний контур (MCU) -->
+  <rect x="30" y="75" width="190" height="340" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="8"/>
+  <text x="125" y="98" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">Сигнальний контур</text>
+  <text x="125" y="116" font-size="12" fill="#6b7280" text-anchor="middle">(Мікроконтролер 3.3V / 5V)</text>
+
+  <!-- Блок мікроконтролера MCU -->
+  <rect x="45" y="185" width="65" height="50" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="4"/>
+  <text x="77.5" y="205" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">MCU GPIO</text>
+  <text x="77.5" y="222" font-size="12" fill="#1a1a1a" text-anchor="middle">ШІМ (PWM)</text>
+
+  <!-- Провідник від MCU до Rin -->
+  <line x1="110" y1="210" x2="135" y2="210" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Обмежувальний резистор Rin -->
+  <rect x="135" y="202" width="35" height="16" fill="white" stroke="#1a1a1a" stroke-width="1.5" rx="2"/>
+  <text x="152.5" y="190" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">R_in = 220 Ω</text>
+  <text x="152.5" y="235" font-size="12" fill="#6b7280" text-anchor="middle">Обмеження струму</text>
+
+  <!-- Провідник від Rin до оптопари (Pin 1) -->
+  <line x1="170" y1="210" x2="255" y2="210" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Провідник від катода оптопари (Pin 2) до GND_SIG -->
+  <polyline points="255,290 95,290 95,320" fill="none" stroke="#2457d6" stroke-width="2"/>
+
+  <!-- Символ сигнальної землі GND_SIG -->
+  <line x1="83" y1="320" x2="107" y2="320" stroke="#2457d6" stroke-width="2"/>
+  <line x1="87" y1="325" x2="103" y2="325" stroke="#2457d6" stroke-width="2"/>
+  <line x1="91" y1="330" x2="99" y2="330" stroke="#2457d6" stroke-width="2"/>
+  <text x="115" y="325" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="start">GND_SIG</text>
+  <text x="115" y="341" font-size="12" fill="#6b7280" text-anchor="start">Сигнальна земля</text>
+
+  <!-- ЗОНА 2: Оптична розв'язка (PC817) -->
+  <rect x="235" y="75" width="210" height="340" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="6 4" rx="8"/>
+  <text x="340" y="98" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">Оптична розв'язка</text>
+  <text x="340" y="116" font-size="12" fill="#6b7280" text-anchor="middle">Гальванічний бар'єр</text>
+
+  <!-- Корпус оптопари PC817 -->
+  <rect x="255" y="145" width="170" height="200" fill="white" stroke="#2457d6" stroke-width="2" rx="6"/>
+  <text x="340" y="168" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Оптопара PC817</text>
+
+  <!-- Світлодіод оптопари -->
+  <line x1="255" y1="210" x2="285" y2="210" stroke="#1a1a1a" stroke-width="2"/>
+  <polygon points="285,202 285,218 301,210" fill="#2457d6"/>
+  <line x1="301" y1="202" x2="301" y2="218" stroke="#2457d6" stroke-width="2"/>
+  <polyline points="301,210 315,210 315,290 255,290" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Стрілки оптичного випромінювання -->
+  <line x1="308" y1="202" x2="328" y2="214" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <line x1="311" y1="214" x2="331" y2="226" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="340" y="250" font-size="12" font-style="italic" fill="#2457d6" text-anchor="middle">Оптичний канал</text>
+
+  <!-- Фототранзистор оптопари -->
+  <line x1="375" y1="225" x2="375" y2="275" stroke="#2457d6" stroke-width="2.5"/>
+  <line x1="375" y1="235" x2="395" y2="210" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="395" y1="210" x2="425" y2="210" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="375" y1="265" x2="395" y2="290" stroke="#1a1a1a" stroke-width="2"/>
+  <polygon points="393,290 395,281 386,285" fill="#1a1a1a"/>
+  <line x1="395" y1="290" x2="425" y2="290" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Позначення виводів оптопари -->
+  <text x="260" y="205" font-size="12" fill="#1a1a1a" text-anchor="start">1 (A)</text>
+  <text x="260" y="285" font-size="12" fill="#1a1a1a" text-anchor="start">2 (K)</text>
+  <text x="420" y="205" font-size="12" fill="#1a1a1a" text-anchor="end">4 (C)</text>
+  <text x="420" y="285" font-size="12" fill="#1a1a1a" text-anchor="end">3 (E)</text>
+
+  <!-- Пояснення під оптопарою -->
+  <text x="340" y="375" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Захист від завад</text>
+  <text x="340" y="393" font-size="12" fill="#6b7280" text-anchor="middle">Гальванічна розв'язка</text>
+
+  <!-- ЗОНА 3: Силовий контур (12V, MOSFET, Помпа) -->
+  <rect x="460" y="75" width="470" height="340" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="8"/>
+  <text x="695" y="98" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Силовий контур та керування помпою</text>
+
+  <!-- Клема живлення +12V -->
+  <text x="475" y="120" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="start">+12V (V_PWR)</text>
+
+  <!-- З'єднання колектора оптопари (Pin 4) з +12V -->
+  <polyline points="425,210 450,210 450,130 475,130" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Індуктивність LC-фільтра L1 -->
+  <line x1="475" y1="130" x2="520" y2="130" stroke="#c0392b" stroke-width="2.5"/>
+  <path d="M 520,130 Q 525,116 530,130 Q 535,116 540,130 Q 545,116 550,130 Q 555,116 560,130" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="540" y="112" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">L1 = 10 µH</text>
+
+  <!-- Силова шина +12V після L1 -->
+  <line x1="560" y1="130" x2="865" y2="130" stroke="#c0392b" stroke-width="2.5"/>
+
+  <!-- Конденсатор C1 -->
+  <line x1="585" y1="130" x2="585" y2="150" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="575" y1="150" x2="595" y2="150" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="575" y1="156" x2="595" y2="156" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="585" y1="156" x2="585" y2="390" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="570" y="156" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">C1 = 100 µF</text>
+
+  <!-- Конденсатор C2 -->
+  <line x1="635" y1="130" x2="635" y2="150" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="625" y1="150" x2="645" y2="150" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="625" y1="156" x2="645" y2="156" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="635" y1="156" x2="635" y2="390" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="650" y="156" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">C2 = 0.1 µF</text>
+
+  <!-- Затворний резистор RG (від Pin 3 оптопари до затвора MOSFET) -->
+  <line x1="425" y1="290" x2="475" y2="290" stroke="#1a1a1a" stroke-width="2"/>
+  <rect x="475" y="282" width="35" height="16" fill="white" stroke="#1a1a1a" stroke-width="1.5" rx="2"/>
+  <text x="492.5" y="270" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">R_G = 100 Ω</text>
+  <text x="492.5" y="312" font-size="12" fill="#6b7280" text-anchor="middle">Затворний R</text>
+
+  <!-- Провідник від RG до затвора MOSFET -->
+  <line x1="510" y1="290" x2="660" y2="290" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Підтягувальний резистор R_GS -->
+  <line x1="585" y1="290" x2="585" y2="315" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="577" y="315" width="16" height="30" fill="white" stroke="#1a1a1a" stroke-width="1.5" rx="2"/>
+  <text x="570" y="330" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">R_GS = 10 kΩ</text>
+  <text x="570" y="346" font-size="12" fill="#6b7280" text-anchor="end">Підтяжка до GND</text>
+
+  <!-- Транзистор MOSFET VT1 -->
+  <!-- Затвор (Gate) -->
+  <line x1="660" y1="278" x2="660" y2="302" stroke="#2457d6" stroke-width="2"/>
+  <text x="652" y="286" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">G</text>
+  <!-- Канал -->
+  <line x1="668" y1="278" x2="668" y2="302" stroke="#1a1a1a" stroke-width="2.5" stroke-dasharray="5 3"/>
+  <!-- Сток (Drain) -->
+  <line x1="668" y1="282" x2="680" y2="282" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="680" y1="282" x2="680" y2="240" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="680" y1="240" x2="865" y2="240" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="690" y="248" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="start">D</text>
+  <!-- Істок (Source) -->
+  <line x1="668" y1="298" x2="680" y2="298" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="680" y1="298" x2="680" y2="390" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="690" y="382" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="start">S</text>
+
+  <!-- Підписи MOSFET -->
+  <text x="695" y="288" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="start">VT1 (IRLZ44N)</text>
+  <text x="695" y="304" font-size="12" fill="#6b7280" text-anchor="start">N-Ch MOSFET</text>
+
+  <!-- Захисний діод Шотткі VD1 (1N5819 / SS34) -->
+  <line x1="775" y1="130" x2="775" y2="172" stroke="#27ae60" stroke-width="2"/>
+  <line x1="775" y1="190" x2="775" y2="240" stroke="#27ae60" stroke-width="2"/>
+  <!-- Трикутник діода катодом догори -->
+  <polygon points="765,190 785,190 775,172" fill="#27ae60"/>
+  <!-- Планка катода Шотткі -->
+  <path d="M 763,168 L 767,172 L 783,172 L 787,176" fill="none" stroke="#27ae60" stroke-width="2"/>
+  <text x="760" y="170" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="end">VD1 (Шотткі)</text>
+  <text x="760" y="186" font-size="12" fill="#27ae60" text-anchor="end">1N5819 / SS34</text>
+  <text x="760" y="202" font-size="12" fill="#27ae60" text-anchor="end">Захист від ЕРС</text>
+
+  <!-- Двигун помпи RS-360SH -->
+  <line x1="865" y1="130" x2="865" y2="161" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="865" y1="209" x2="865" y2="240" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="865" cy="185" r="24" fill="#eaf0fd" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="865" y="191" font-size="16" font-weight="bold" fill="#1a1a1a" text-anchor="middle">M</text>
+  <text x="865" y="112" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">RS-360SH</text>
+  <text x="865" y="260" font-size="12" fill="#c0392b" text-anchor="middle">Індуктивна помпа</text>
+
+  <!-- Шина силової землі GND_PWR -->
+  <line x1="475" y1="390" x2="905" y2="390" stroke="#c0392b" stroke-width="2.5"/>
+  <!-- Символ силової землі GND_PWR -->
+  <line x1="750" y1="390" x2="750" y2="395" stroke="#c0392b" stroke-width="2"/>
+  <line x1="738" y1="395" x2="762" y2="395" stroke="#c0392b" stroke-width="2"/>
+  <line x1="742" y1="400" x2="758" y2="400" stroke="#c0392b" stroke-width="2"/>
+  <line x1="746" y1="405" x2="754" y2="405" stroke="#c0392b" stroke-width="2"/>
+  <text x="840" y="407" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">GND_PWR (Силова земля)</text>
+
+  <!-- З'єднання земель у єдиній точці (Star Ground) -->
+  <polyline points="95,330 95,452 425,452" fill="none" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="4 3"/>
+  <polyline points="750,405 750,452 535,452" fill="none" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="4 3"/>
+  <rect x="425" y="440" width="110" height="25" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="4"/>
+  <text x="480" y="457" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Star GND</text>
+
+  <!-- Нижній блок з підсумковим правилом -->
+  <rect x="30" y="485" width="900" height="50" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="6"/>
+  <text x="480" y="505" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Топологічне розділення земель (Star Ground):</text>
+  <text x="480" y="523" font-size="12" fill="#1a1a1a" text-anchor="middle">GND_SIG та GND_PWR з'єднуються виключно в ОДНІЙ точці на клемі живлення для виключення петлі завад</text>
+</svg>

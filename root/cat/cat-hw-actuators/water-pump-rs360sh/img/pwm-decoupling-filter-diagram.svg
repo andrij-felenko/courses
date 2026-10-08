@@ -1,0 +1,221 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-black" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Background Canvas -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Main Title & Subtitle -->
+  <text x="480" y="28" font-size="18" font-weight="700" text-anchor="middle" fill="#1a1a1a">Вплив розв'язувального LC-фільтра на напругу живлення MCU при ШІМ-керуванні помпою</text>
+  <text x="480" y="48" font-size="13" text-anchor="middle" fill="#6b7280">Імпульсний струм мотора RS-360SH просаджує незахищену шину V_MCU, LC-фільтр підтримує стабільне живлення</text>
+
+  <!-- LEFT PANEL: Without Decoupling Filter (Problem) -->
+  <rect x="25" y="65" width="445" height="475" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <rect x="35" y="75" width="425" height="28" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+  <text x="247" y="94" font-size="14" font-weight="700" text-anchor="middle" fill="#c0392b">Без розв'язувального фільтра (Спільна шина V_PWR)</text>
+
+  <!-- Schematic 1 Box -->
+  <rect x="35" y="112" width="425" height="195" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  
+  <!-- Rails Schem 1 -->
+  <line x1="50" y1="130" x2="430" y2="130" stroke="#c0392b" stroke-width="2"/>
+  <text x="55" y="124" font-size="12" font-weight="700" fill="#c0392b">+5V (V_PWR)</text>
+
+  <line x1="50" y1="285" x2="430" y2="285" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="55" y="300" font-size="12" font-weight="700" fill="#1a1a1a">GND</text>
+
+  <!-- MCU Box Schem 1 -->
+  <rect x="55" y="155" width="90" height="115" rx="4" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="100" y="185" font-size="13" font-weight="700" text-anchor="middle" fill="#1a1a1a">MCU</text>
+  <line x1="80" y1="130" x2="80" y2="155" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="88" y="148" font-size="12" fill="#c0392b">V_CC</text>
+  <line x1="80" y1="270" x2="80" y2="285" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- PWM Trace -->
+  <line x1="145" y1="210" x2="225" y2="210" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="185" y="204" font-size="12" font-weight="700" text-anchor="middle" fill="#2457d6">PWM</text>
+
+  <!-- MOSFET Schem 1 -->
+  <line x1="225" y1="195" x2="225" y2="225" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="230" y1="190" x2="230" y2="230" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="230" y1="195" x2="245" y2="195" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="245" y1="195" x2="245" y2="175" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="230" y1="225" x2="245" y2="225" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="245" y1="225" x2="245" y2="285" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="230" y1="210" x2="245" y2="210" stroke="#1a1a1a" stroke-width="1.5"/>
+  <polygon points="245,210 237,206 237,214" fill="#1a1a1a"/>
+  <text x="255" y="245" font-size="12" fill="#1a1a1a">MOSFET</text>
+
+  <!-- Pump Motor RS-360SH Schem 1 -->
+  <line x1="330" y1="130" x2="330" y2="155" stroke="#c0392b" stroke-width="2"/>
+  <circle cx="330" cy="175" r="20" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="330" y="180" font-size="13" font-weight="700" text-anchor="middle" fill="#2457d6">M</text>
+  <text x="355" y="178" font-size="12" font-weight="700" fill="#2457d6">RS-360SH</text>
+  <line x1="330" y1="195" x2="330" y2="225" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="330" y1="225" x2="245" y2="225" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Flyback Diode D_fly Schem 1 -->
+  <line x1="410" y1="130" x2="410" y2="155" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="330" y1="145" x2="410" y2="145" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="330" y1="215" x2="410" y2="215" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="410" y1="215" x2="410" y2="185" stroke="#27ae60" stroke-width="1.5"/>
+  <polygon points="410,165 400,185 420,185" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="400" y1="165" x2="420" y2="165" stroke="#27ae60" stroke-width="2"/>
+  <line x1="410" y1="165" x2="410" y2="145" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="418" y="178" font-size="12" fill="#27ae60">D_fly</text>
+
+  <!-- Problem annotation on Schem 1 -->
+  <text x="235" y="160" font-size="12" font-weight="700" text-anchor="middle" fill="#c0392b">Сплеск I просаджує шину!</text>
+  <line x1="235" y1="148" x2="235" y2="135" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+
+  <!-- Timing Diagram 1 Box -->
+  <rect x="35" y="318" width="425" height="212" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="45" y="336" font-size="12" font-weight="700" fill="#1a1a1a">Діаграма напруги V_MCU без фільтрація:</text>
+
+  <!-- Axes Graph 1 -->
+  <line x1="85" y1="465" x2="435" y2="465" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-black)"/>
+  <text x="435" y="482" font-size="12" text-anchor="end" fill="#6b7280">Час t</text>
+
+  <line x1="85" y1="465" x2="85" y2="350" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-black)"/>
+  <text x="78" y="350" font-size="12" text-anchor="end" fill="#6b7280">V</text>
+
+  <!-- Voltage reference lines Graph 1 -->
+  <line x1="85" y1="370" x2="420" y2="370" stroke="#6b7280" stroke-width="1" stroke-dasharray="4,4"/>
+  <text x="78" y="374" font-size="12" text-anchor="end" fill="#6b7280">5.0V</text>
+
+  <line x1="85" y1="420" x2="420" y2="420" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <text x="90" y="412" font-size="12" font-weight="700" fill="#c0392b">V_POR</text>
+  <text x="415" y="412" font-size="12" font-weight="700" text-anchor="end" fill="#c0392b">3.8V</text>
+
+  <!-- PWM pulses background trace Graph 1 -->
+  <path d="M 85,460 L 140,460 L 140,445 L 210,445 L 210,460 L 270,460 L 270,445 L 340,445 L 340,460 L 410,460" fill="none" stroke="#2457d6" stroke-width="1" stroke-dasharray="2,2"/>
+  <text x="175" y="440" font-size="12" text-anchor="middle" fill="#2457d6">ШІМ ON</text>
+
+  <!-- Red Voltage Sag Curve Graph 1 -->
+  <path d="M 85,370 L 140,370 Q 143,440 150,442 L 205,438 Q 210,380 220,370 L 270,370 Q 273,440 280,442 L 335,438 Q 340,380 350,370 L 410,370" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+
+  <!-- Sag Area Warning Callout above 5V line -->
+  <text x="245" y="356" font-size="12" font-weight="700" text-anchor="middle" fill="#c0392b">Просідання V_MCU нижче V_POR!</text>
+
+  <!-- Bottom status bar 1 -->
+  <rect x="75" y="495" width="345" height="24" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="247" y="511" font-size="12" font-weight="700" text-anchor="middle" fill="#c0392b">⚠️ Результат: циклічний Reset мікроконтролера</text>
+
+
+  <!-- RIGHT PANEL: With LC Decoupling Filter (Solution) -->
+  <rect x="490" y="65" width="445" height="475" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="500" y="75" width="425" height="28" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="712" y="94" font-size="14" font-weight="700" text-anchor="middle" fill="#27ae60">З розв'язувальним LC-фільтром (L1 + C_dec)</text>
+
+  <!-- Schematic 2 Box -->
+  <rect x="500" y="112" width="425" height="195" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- V_PWR Rail Schem 2 -->
+  <line x1="515" y1="130" x2="600" y2="130" stroke="#c0392b" stroke-width="2"/>
+  <text x="520" y="124" font-size="12" font-weight="700" fill="#c0392b">+5V (V_PWR)</text>
+
+  <!-- Inductor L1 -->
+  <path d="M 600,130 Q 606,118 612,130 Q 618,118 624,130 Q 630,118 636,130 Q 642,118 648,130" fill="none" stroke="#27ae60" stroke-width="2"/>
+  <text x="624" y="148" font-size="12" font-weight="700" text-anchor="middle" fill="#27ae60">L1 10µH</text>
+
+  <!-- Clean V_MCU Rail Schem 2 -->
+  <line x1="648" y1="130" x2="770" y2="130" stroke="#27ae60" stroke-width="2"/>
+  <text x="670" y="124" font-size="12" font-weight="700" fill="#27ae60">V_MCU</text>
+
+  <!-- Filter Capacitor C_dec -->
+  <line x1="675" y1="130" x2="675" y2="195" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="663" y1="195" x2="687" y2="195" stroke="#27ae60" stroke-width="2"/>
+  <line x1="663" y1="202" x2="687" y2="202" stroke="#27ae60" stroke-width="2"/>
+  <line x1="675" y1="202" x2="675" y2="285" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="693" y="195" font-size="12" font-weight="700" fill="#27ae60">C_dec</text>
+  <text x="693" y="210" font-size="12" fill="#6b7280">470µF</text>
+
+  <line x1="515" y1="285" x2="895" y2="285" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="520" y="300" font-size="12" font-weight="700" fill="#1a1a1a">GND</text>
+
+  <!-- MCU Box Schem 2 -->
+  <rect x="745" y="155" width="90" height="115" rx="4" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="790" y="185" font-size="13" font-weight="700" text-anchor="middle" fill="#1a1a1a">MCU</text>
+  <line x1="770" y1="130" x2="770" y2="155" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="778" y="148" font-size="12" fill="#27ae60">V_CC</text>
+  <line x1="770" y1="270" x2="770" y2="285" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- PWM Trace Schem 2 -->
+  <line x1="745" y1="210" x2="575" y2="210" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="630" y="204" font-size="12" font-weight="700" text-anchor="middle" fill="#2457d6">PWM</text>
+
+  <!-- MOSFET Schem 2 -->
+  <line x1="575" y1="195" x2="575" y2="225" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="570" y1="190" x2="570" y2="230" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="570" y1="195" x2="555" y2="195" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="555" y1="195" x2="555" y2="175" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="570" y1="225" x2="555" y2="225" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="555" y1="225" x2="555" y2="285" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="570" y1="210" x2="555" y2="210" stroke="#1a1a1a" stroke-width="1.5"/>
+  <polygon points="555,210 563,206 563,214" fill="#1a1a1a"/>
+  <text x="575" y="245" font-size="12" fill="#1a1a1a">MOSFET</text>
+
+  <!-- Pump Motor RS-360SH Schem 2 -->
+  <line x1="555" y1="130" x2="555" y2="155" stroke="#c0392b" stroke-width="2"/>
+  <circle cx="555" cy="175" r="20" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="555" y="180" font-size="13" font-weight="700" text-anchor="middle" fill="#2457d6">M</text>
+  <line x1="555" y1="195" x2="555" y2="225" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Flyback Diode D_fly Schem 2 -->
+  <line x1="520" y1="130" x2="520" y2="155" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="555" y1="145" x2="520" y2="145" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="555" y1="215" x2="520" y2="215" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="520" y1="215" x2="520" y2="185" stroke="#27ae60" stroke-width="1.5"/>
+  <polygon points="520,165 510,185 530,185" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="510" y1="165" x2="530" y2="165" stroke="#27ae60" stroke-width="2"/>
+  <line x1="520" y1="165" x2="520" y2="145" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="528" y="148" font-size="12" fill="#27ae60">D_fly</text>
+
+  <!-- Solution annotation inside MCU box -->
+  <text x="790" y="235" font-size="12" font-weight="700" text-anchor="middle" fill="#27ae60">V_CC стабільна</text>
+
+  <!-- Timing Diagram 2 Box -->
+  <rect x="500" y="318" width="425" height="212" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="510" y="336" font-size="12" font-weight="700" fill="#1a1a1a">Діаграма напруги V_MCU з LC-фільтром:</text>
+
+  <!-- Axes Graph 2 -->
+  <line x1="550" y1="465" x2="900" y2="465" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-black)"/>
+  <text x="900" y="482" font-size="12" text-anchor="end" fill="#6b7280">Час t</text>
+
+  <line x1="550" y1="465" x2="550" y2="350" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-black)"/>
+  <text x="545" y="350" font-size="12" text-anchor="end" fill="#6b7280">V</text>
+
+  <!-- Voltage reference lines Graph 2 -->
+  <line x1="550" y1="370" x2="885" y2="370" stroke="#6b7280" stroke-width="1" stroke-dasharray="4,4"/>
+  <text x="545" y="374" font-size="12" text-anchor="end" fill="#6b7280">5.0V</text>
+
+  <line x1="550" y1="420" x2="885" y2="420" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <text x="557" y="415" font-size="12" font-weight="700" fill="#c0392b">V_POR (3.8V)</text>
+
+  <!-- PWM pulses background trace Graph 2 -->
+  <path d="M 550,460 L 605,460 L 605,445 L 675,445 L 675,460 L 735,460 L 735,445 L 805,445 L 805,460 L 875,460" fill="none" stroke="#2457d6" stroke-width="1" stroke-dasharray="2,2"/>
+  <text x="640" y="440" font-size="12" text-anchor="middle" fill="#2457d6">ШІМ ON</text>
+
+  <!-- Green Smooth Voltage Curve Graph 2 -->
+  <path d="M 550,370 L 605,370 Q 608,374 615,374 L 670,373 Q 675,370 685,370 L 735,370 Q 738,374 745,374 L 800,373 Q 805,370 815,370 L 875,370" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+
+  <!-- Smooth Ripple Callout -->
+  <text x="735" y="395" font-size="12" font-weight="700" text-anchor="middle" fill="#27ae60">Пульсації &lt; 0.1V, V_MCU стабільна</text>
+  <line x1="735" y1="390" x2="640" y2="376" stroke="#27ae60" stroke-width="1" marker-end="url(#arr-green)"/>
+
+  <!-- Bottom status bar 2 -->
+  <rect x="540" y="495" width="345" height="24" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="712" y="511" font-size="12" font-weight="700" text-anchor="middle" fill="#27ae60">✓ Результат: безперебійна робота мікроконтролера</text>
+</svg>

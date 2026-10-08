@@ -1,0 +1,110 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Outer Canvas Background -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Outer Card Container -->
+  <rect x="20" y="15" width="920" height="510" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="10"/>
+
+  <!-- Header: Title and Subtitle -->
+  <text x="480" y="44" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Водяна помпа RS-360SH: Залежність Q та I від напруги U</text>
+  <text x="480" y="65" font-size="13" fill="#6b7280" text-anchor="middle">Підвищення живлення з 3.7V до 12V збільшує потік Q, але зростає струм I та нагрів двигуна</text>
+
+  <!-- Region Status Pills Above Grid -->
+  <rect x="150" y="84" width="185" height="26" fill="#fdecea" stroke="#c0392b" stroke-width="1.2" rx="4"/>
+  <text x="242" y="101" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">Нестійкий пуск (&lt; 3.7 V)</text>
+
+  <rect x="340" y="84" width="255" height="26" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2" rx="4"/>
+  <text x="467" y="101" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">Рекомендована зона (3.7 V – 9 V)</text>
+
+  <rect x="600" y="84" width="150" height="26" fill="#fff7ed" stroke="#d97706" stroke-width="1.2" rx="4"/>
+  <text x="675" y="101" font-size="11" font-weight="bold" fill="#d97706" text-anchor="middle">Макс. режим (9 V – 12 V)</text>
+
+  <!-- Chart Grid Area -->
+  <rect x="150" y="125" width="600" height="285" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Zone Background Shading -->
+  <rect x="150" y="125" width="185" height="285" fill="#fdecea" opacity="0.35"/>
+  <rect x="335" y="125" width="265" height="285" fill="#e9f7ef" opacity="0.35"/>
+  <rect x="600" y="125" width="150" height="285" fill="#fff7ed" opacity="0.35"/>
+
+  <!-- Horizontal Grid Lines -->
+  <line x1="150" y1="338.75" x2="750" y2="338.75" stroke="#e5e7eb" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="150" y1="267.5" x2="750" y2="267.5" stroke="#e5e7eb" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="150" y1="196.25" x2="750" y2="196.25" stroke="#e5e7eb" stroke-width="1" stroke-dasharray="3,3"/>
+
+  <!-- Vertical Zone Boundaries (Dashed) -->
+  <line x1="335" y1="125" x2="335" y2="410" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <line x1="600" y1="125" x2="600" y2="410" stroke="#d97706" stroke-width="1.5" stroke-dasharray="4,4"/>
+
+  <!-- X-Axis Tick Marks -->
+  <line x1="150" y1="410" x2="150" y2="416" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="250" y1="410" x2="250" y2="416" stroke="#6b7280" stroke-width="1"/>
+  <line x1="335" y1="410" x2="335" y2="416" stroke="#c0392b" stroke-width="1.5"/>
+  <line x1="450" y1="410" x2="450" y2="416" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="600" y1="410" x2="600" y2="416" stroke="#d97706" stroke-width="1.5"/>
+  <line x1="750" y1="410" x2="750" y2="416" stroke="#c0392b" stroke-width="1.5"/>
+
+  <!-- Axis Titles & Tick Labels -->
+  <!-- Left Y-Axis (Flow Q) -->
+  <text x="140" y="118" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">Q (л/хв)</text>
+  <text x="140" y="129" font-size="12" fill="#2457d6" text-anchor="end">2.0</text>
+  <text x="140" y="200" font-size="12" fill="#2457d6" text-anchor="end">1.5</text>
+  <text x="140" y="271" font-size="12" fill="#2457d6" text-anchor="end">1.0</text>
+  <text x="140" y="342" font-size="12" fill="#2457d6" text-anchor="end">0.5</text>
+  <text x="140" y="414" font-size="12" fill="#2457d6" text-anchor="end">0.0</text>
+
+  <!-- Right Y-Axis (Current I) -->
+  <text x="760" y="118" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="start">I (А)</text>
+  <text x="760" y="129" font-size="12" fill="#c0392b" text-anchor="start">1.6</text>
+  <text x="760" y="200" font-size="12" fill="#c0392b" text-anchor="start">1.2</text>
+  <text x="760" y="271" font-size="12" fill="#c0392b" text-anchor="start">0.8</text>
+  <text x="760" y="342" font-size="12" fill="#c0392b" text-anchor="start">0.4</text>
+  <text x="760" y="414" font-size="12" fill="#c0392b" text-anchor="start">0.0</text>
+
+  <!-- Bottom X-Axis Ticks & Title -->
+  <text x="150" y="432" font-size="12" fill="#6b7280" text-anchor="middle">0 V</text>
+  <text x="250" y="432" font-size="12" fill="#6b7280" text-anchor="middle">2 V</text>
+  <text x="335" y="432" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">3.7 V</text>
+  <text x="450" y="432" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">6 V (ном.)</text>
+  <text x="600" y="432" font-size="12" font-weight="bold" fill="#d97706" text-anchor="middle">9 V</text>
+  <text x="750" y="432" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">12 V (макс.)</text>
+  <text x="450" y="454" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Напруга живлення U (В, DC)</text>
+
+  <!-- Flow Rate Curve Q (Solid Blue) -->
+  <path d="M 150,410 L 335,410 L 335,346 C 380,315 420,287 450,270 C 500,242 550,217 600,196 C 675,171 710,160 750,151" fill="none" stroke="#2457d6" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <!-- Current Curve I (Dashed Red) -->
+  <path d="M 150,410 L 335,410 L 335,353 C 380,334 420,315 450,303 C 500,278 550,248 600,223 C 675,185 710,164 750,146" fill="none" stroke="#c0392b" stroke-width="3" stroke-dasharray="6,3" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <!-- Data Point Circles for Q -->
+  <circle cx="335" cy="346" r="4" fill="#2457d6" stroke="white" stroke-width="1.5"/>
+  <circle cx="450" cy="270" r="4" fill="#2457d6" stroke="white" stroke-width="1.5"/>
+  <circle cx="600" cy="196" r="4" fill="#2457d6" stroke="white" stroke-width="1.5"/>
+  <circle cx="750" cy="151" r="4" fill="#2457d6" stroke="white" stroke-width="1.5"/>
+
+  <!-- Data Point Circles for I -->
+  <circle cx="335" cy="353" r="4" fill="#c0392b" stroke="white" stroke-width="1.5"/>
+  <circle cx="450" cy="303" r="4" fill="#c0392b" stroke="white" stroke-width="1.5"/>
+  <circle cx="600" cy="223" r="4" fill="#c0392b" stroke="white" stroke-width="1.5"/>
+  <circle cx="750" cy="146" r="4" fill="#c0392b" stroke="white" stroke-width="1.5"/>
+
+  <!-- On-Chart Annotations -->
+  <text x="242" y="310" font-size="11" fill="#c0392b" text-anchor="middle">Поріг пуску U ≥ 3.7V</text>
+  <text x="450" y="252" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">Q = 0.98 л/хв (6V)</text>
+  <text x="450" y="325" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">I = 0.60 А (6V)</text>
+  <text x="675" y="214" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">Q = 1.50 л/хв (9V)</text>
+  <text x="675" y="250" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">I = 1.05 А (9V)</text>
+
+  <!-- Legend Box Below Chart -->
+  <rect x="150" y="482" width="600" height="34" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <line x1="175" y1="499" x2="205" y2="499" stroke="#2457d6" stroke-width="3"/>
+  <circle cx="190" cy="499" r="4" fill="#2457d6"/>
+  <text x="213" y="503" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">Продуктивність Q (л/хв)</text>
+
+  <line x1="395" y1="499" x2="425" y2="499" stroke="#c0392b" stroke-width="3" stroke-dasharray="6,3"/>
+  <circle cx="410" cy="499" r="4" fill="#c0392b"/>
+  <text x="433" y="503" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">Струм споживання I (А)</text>
+
+  <line x1="605" y1="499" x2="630" y2="499" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <text x="637" y="503" font-size="12" fill="#6b7280" text-anchor="start">Межа режимів</text>
+</svg>

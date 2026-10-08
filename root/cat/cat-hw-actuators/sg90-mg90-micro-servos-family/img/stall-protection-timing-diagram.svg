@@ -1,0 +1,146 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-left-red" markerWidth="9" markerHeight="9" refX="0.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-left-green" markerWidth="9" markerHeight="9" refX="0.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Заголовок та підзаголовок -->
+  <text x="480" y="26" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Діаграма захисту сервоприводу від заклинювання</text>
+  <text x="480" y="46" font-size="13" fill="#6b7280" text-anchor="middle">Короткий пусковий кидок ігнорується, а тривале заклинювання вимикає ШІМ</text>
+
+  <!-- Вертикальні роздільники фаз -->
+  <line x1="330" y1="90" x2="330" y2="475" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <line x1="490" y1="90" x2="490" y2="475" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <line x1="700" y1="90" x2="700" y2="475" stroke="#c0392b" stroke-width="2" stroke-dasharray="6,4"/>
+
+  <!-- Шапки фаз -->
+  <rect x="190" y="60" width="135" height="24" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="257" y="76" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">1. Робочий рух</text>
+
+  <rect x="335" y="60" width="150" height="24" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="410" y="76" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">2. Пусковий кидок</text>
+
+  <rect x="495" y="60" width="200" height="24" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="595" y="76" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">3. Заклинювання редуктора</text>
+
+  <rect x="705" y="60" width="220" height="24" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="815" y="76" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">4. Спрацьовування захисту</text>
+
+  <!-- ТРЕК 1: Струм сервоприводу -->
+  <rect x="25" y="95" width="905" height="175" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="35" y="110" font-size="13" font-weight="bold" fill="#1a1a1a">Струм I_серво</text>
+
+  <!-- Горизонтальні рівні струму -->
+  <line x1="190" y1="125" x2="915" y2="125" stroke="#d0d7de" stroke-dasharray="3,3"/>
+  <text x="182" y="129" font-size="12" fill="#6b7280" text-anchor="end">I_stall (750 mA)</text>
+
+  <line x1="190" y1="155" x2="915" y2="155" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="6,4"/>
+  <text x="182" y="159" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="end">I_thresh (500 mA)</text>
+
+  <line x1="190" y1="215" x2="915" y2="215" stroke="#d0d7de" stroke-dasharray="3,3"/>
+  <text x="182" y="219" font-size="12" fill="#6b7280" text-anchor="end">I_work (150 mA)</text>
+
+  <line x1="190" y1="250" x2="915" y2="250" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="182" y="254" font-size="12" fill="#6b7280" text-anchor="end">0 mA</text>
+
+  <!-- Затінення зони заклинювання у Треку 1 -->
+  <rect x="510" y="135" width="175" height="25" rx="3" fill="#fdecea" stroke="#c0392b" stroke-dasharray="3,3"/>
+  <text x="597" y="152" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">ПЕРЕВАНТАЖЕННЯ (STALL)</text>
+
+  <!-- Графік струму I(t) -->
+  <path d="M 190,245 L 195,215 L 210,210 L 225,218 L 240,212 L 255,217 L 270,213 L 285,218 L 300,214 L 315,216 L 330,215 L 350,215 L 365,125 L 415,125 L 435,215 L 490,215 L 495,215 L 505,125 L 700,125 L 705,246 L 915,246" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+
+  <!-- Анотації у Треку 1 -->
+  <!-- Пусковий кидок -->
+  <line x1="365" y1="111" x2="415" y2="111" stroke="#27ae60" stroke-width="1.5" marker-start="url(#arr-left-green)" marker-end="url(#arr-green)"/>
+  <text x="390" y="107" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">t_surge &lt; t_delay</text>
+  <text x="390" y="185" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">✓ Пуск дозволено</text>
+
+  <!-- Затримка заклинювання -->
+  <line x1="495" y1="111" x2="700" y2="111" stroke="#c0392b" stroke-width="1.5" marker-start="url(#arr-left-red)" marker-end="url(#arr-red)"/>
+  <text x="597" y="107" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Час затримки t_delay (500 мс)</text>
+
+  <!-- Струм спокою -->
+  <rect x="740" y="210" width="160" height="24" rx="4" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="820" y="226" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Струм спокою (~15 mA)</text>
+
+  <!-- ТРЕК 2: Таймер захисту -->
+  <rect x="25" y="280" width="905" height="95" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="35" y="294" font-size="13" font-weight="bold" fill="#1a1a1a">Таймер захисту</text>
+
+  <!-- Горизонтальні рівні таймера -->
+  <line x1="190" y1="310" x2="700" y2="310" stroke="#c0392b" stroke-dasharray="4,4" stroke-width="1.5"/>
+  <text x="182" y="310" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="end">Поріг t_delay</text>
+
+  <line x1="190" y1="360" x2="915" y2="360" stroke="#6b7280" stroke-width="1"/>
+  <text x="182" y="364" font-size="12" fill="#6b7280" text-anchor="end">0</text>
+
+  <!-- Наповнення таймера для пуску (скидання) -->
+  <polygon points="365,360 415,330 430,360" fill="#eaf0fd"/>
+  <path d="M 190,360 L 365,360 L 415,330 L 430,360 L 490,360" fill="none" stroke="#2457d6" stroke-width="2"/>
+  <text x="455" y="325" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Скидання</text>
+  <text x="455" y="340" font-size="12" fill="#2457d6" text-anchor="middle">(t &lt; t_delay)</text>
+
+  <!-- Наповнення таймера для заклинювання (спрацьовування) -->
+  <polygon points="505,360 700,310 700,360" fill="#fdecea"/>
+  <path d="M 490,360 L 505,360 L 700,310 L 700,360 L 915,360" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+  <text x="535" y="322" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Накопичення t</text>
+  <text x="535" y="336" font-size="12" fill="#6b7280" text-anchor="middle">(t → t_delay)</text>
+
+  <rect x="740" y="310" width="160" height="26" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="820" y="327" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">СПРАЦЬОВУВАННЯ (TRIP)</text>
+
+  <!-- ТРЕК 3: Сигнал ШІМ -->
+  <rect x="25" y="385" width="905" height="85" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="35" y="398" font-size="13" font-weight="bold" fill="#1a1a1a">Сигнал ШІМ</text>
+
+  <!-- Затінення станів ШІМ -->
+  <rect x="190" y="405" width="510" height="50" fill="#e9f7ef" opacity="0.4"/>
+  <rect x="700" y="405" width="215" height="50" fill="#fdecea" opacity="0.5"/>
+
+  <!-- Горизонтальні рівні ШІМ -->
+  <line x1="190" y1="410" x2="700" y2="410" stroke="#d0d7de" stroke-dasharray="3,3"/>
+  <text x="182" y="412" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="end">АКТИВНИЙ</text>
+
+  <line x1="190" y1="450" x2="915" y2="450" stroke="#6b7280" stroke-width="1"/>
+  <text x="182" y="452" font-size="12" fill="#6b7280" text-anchor="end">0 V (ВИМК)</text>
+
+  <!-- Лінія стану ШІМ -->
+  <path d="M 190,410 L 700,410" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+  <path d="M 700,410 L 700,450 L 915,450" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+
+  <!-- Текст анотацій ШІМ -->
+  <text x="445" y="434" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">ШІМ-сигнал активний (двигун працює)</text>
+  <text x="807" y="434" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">ШІМ ВИМКНЕНО (захист)</text>
+
+  <!-- Легенда внизу -->
+  <rect x="25" y="485" width="905" height="40" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <line x1="45" y1="505" x2="70" y2="505" stroke="#c0392b" stroke-width="2" stroke-dasharray="4,2"/>
+  <text x="76" y="509" font-size="12" fill="#1a1a1a">Поріг струму (I_thresh)</text>
+
+  <line x1="255" y1="505" x2="280" y2="505" stroke="#2457d6" stroke-width="2.5"/>
+  <text x="286" y="509" font-size="12" fill="#1a1a1a">Струм серво (I_серво)</text>
+
+  <line x1="450" y1="505" x2="475" y2="505" stroke="#27ae60" stroke-width="2.5"/>
+  <text x="481" y="509" font-size="12" fill="#1a1a1a">Сигнал ШІМ (PWM)</text>
+
+  <rect x="615" y="499" width="16" height="12" rx="2" fill="#fdecea" stroke="#c0392b"/>
+  <text x="637" y="509" font-size="12" fill="#1a1a1a">Захисне вимкнення (t &gt; t_delay)</text>
+</svg>

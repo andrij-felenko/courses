@@ -1,0 +1,242 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#7f8c8d"/>
+    </marker>
+    <linearGradient id="stator-grad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#e67e22"/>
+      <stop offset="100%" stop-color="#d35400"/>
+    </linearGradient>
+    <linearGradient id="housing-grad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#455a64"/>
+      <stop offset="100%" stop-color="#263238"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="36" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Конструкція коаксіального сервомодуля (вибух-схема в розрізі)</text>
+  <text x="480" y="55" text-anchor="middle" font-size="13" fill="#6b7280">Монолітне інтегрування безкорпусного BLDC, редуктора, енкодерів та FOC-драйвера</text>
+
+  <!-- Upper Leader Lines -->
+  <line x1="110" y1="96" x2="110" y2="115" stroke="#94a3b8" stroke-width="1.2" stroke-dasharray="3 3"/>
+  <line x1="250" y1="96" x2="250" y2="105" stroke="#94a3b8" stroke-width="1.2" stroke-dasharray="3 3"/>
+  <line x1="570" y1="96" x2="570" y2="100" stroke="#94a3b8" stroke-width="1.2" stroke-dasharray="3 3"/>
+  <line x1="720" y1="96" x2="720" y2="115" stroke="#94a3b8" stroke-width="1.2" stroke-dasharray="3 3"/>
+  <line x1="855" y1="96" x2="855" y2="110" stroke="#94a3b8" stroke-width="1.2" stroke-dasharray="3 3"/>
+
+  <!-- Upper Component Labels -->
+  <!-- Col 1 -->
+  <text x="110" y="78" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Вихідний фланець</text>
+  <text x="110" y="92" text-anchor="middle" font-size="11" fill="#6b7280">та підшипник</text>
+
+  <!-- Col 2 -->
+  <text x="250" y="78" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Хвильовий редуктор</text>
+  <text x="250" y="92" text-anchor="middle" font-size="11" fill="#6b7280">низький люфт</text>
+
+  <!-- Col 3 -->
+  <text x="410" y="78" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Безкорпусний BLDC</text>
+  <text x="410" y="92" text-anchor="middle" font-size="11" fill="#6b7280">статор і ротор</text>
+
+  <!-- Col 4 -->
+  <text x="570" y="78" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Монолітний корпус</text>
+  <text x="570" y="92" text-anchor="middle" font-size="11" fill="#6b7280">з тепловідводом</text>
+
+  <!-- Col 5 -->
+  <text x="720" y="78" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Магнітний енкодер</text>
+  <text x="720" y="92" text-anchor="middle" font-size="11" fill="#6b7280">абсолютна позиція</text>
+
+  <!-- Col 6 -->
+  <text x="855" y="78" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Плата FOC-драйвера</text>
+  <text x="855" y="92" text-anchor="middle" font-size="11" fill="#6b7280">керування струмом</text>
+
+  <!-- Exploded Assembly Axis Lines (Upper Section) -->
+  <line x1="140" y1="170" x2="204" y2="170" stroke="#94a3b8" stroke-width="1" stroke-dasharray="4 3" marker-end="url(#arr-gray)"/>
+  <line x1="288" y1="170" x2="352" y2="170" stroke="#94a3b8" stroke-width="1" stroke-dasharray="4 3" marker-end="url(#arr-gray)"/>
+  <line x1="460" y1="170" x2="517" y2="170" stroke="#94a3b8" stroke-width="1" stroke-dasharray="4 3" marker-end="url(#arr-gray)"/>
+  <line x1="615" y1="170" x2="680" y2="170" stroke="#94a3b8" stroke-width="1" stroke-dasharray="4 3" marker-end="url(#arr-gray)"/>
+  <line x1="752" y1="170" x2="817" y2="170" stroke="#94a3b8" stroke-width="1" stroke-dasharray="4 3" marker-end="url(#arr-gray)"/>
+
+  <!-- Exploded Assembly Axis Lines (Lower Section) -->
+  <line x1="140" y1="330" x2="204" y2="330" stroke="#94a3b8" stroke-width="1" stroke-dasharray="4 3" marker-end="url(#arr-gray)"/>
+  <line x1="288" y1="330" x2="352" y2="330" stroke="#94a3b8" stroke-width="1" stroke-dasharray="4 3" marker-end="url(#arr-gray)"/>
+  <line x1="460" y1="330" x2="517" y2="330" stroke="#94a3b8" stroke-width="1" stroke-dasharray="4 3" marker-end="url(#arr-gray)"/>
+  <line x1="615" y1="330" x2="680" y2="330" stroke="#94a3b8" stroke-width="1" stroke-dasharray="4 3" marker-end="url(#arr-gray)"/>
+  <line x1="752" y1="330" x2="817" y2="330" stroke="#94a3b8" stroke-width="1" stroke-dasharray="4 3" marker-end="url(#arr-gray)"/>
+
+  <!-- CENTRAL HOLLOW CABLE CHANNEL -->
+  <rect x="45" y="236" width="870" height="28" rx="14" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="6 3"/>
+  <!-- Axis Line segments split to ensure clear space around central text -->
+  <line x1="30" y1="250" x2="300" y2="250" stroke="#2457d6" stroke-width="1" stroke-dasharray="8 4" opacity="0.6"/>
+  <line x1="660" y1="250" x2="930" y2="250" stroke="#2457d6" stroke-width="1" stroke-dasharray="8 4" opacity="0.6"/>
+
+  <!-- Cable Flow Direction Arrows -->
+  <path d="M 60,250 L 70,246 L 70,254 Z" fill="#2457d6"/>
+  <path d="M 260,250 L 270,246 L 270,254 Z" fill="#2457d6"/>
+  <path d="M 690,250 L 700,246 L 700,254 Z" fill="#2457d6"/>
+  <path d="M 890,250 L 900,246 L 900,254 Z" fill="#2457d6"/>
+
+  <!-- White background badge for text to ensure no contour/line intersection -->
+  <rect x="310" y="240" width="340" height="20" rx="4" fill="#ffffff" stroke="none"/>
+  <text x="480" y="254" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Порожнистий кабельний канал (наскрізна вісь)</text>
+
+  <!-- COMPONENT CUTAWAY DRAWINGS -->
+
+  <!-- Column 1: Front Flange & Bearing -->
+  <!-- Upper Section -->
+  <path d="M 80,120 L 140,120 L 140,220 L 110,220 L 110,140 L 80,140 Z" fill="#b0bec5" stroke="#37474f" stroke-width="1.5"/>
+  <rect x="85" y="145" width="50" height="18" fill="#90a4ae" stroke="#37474f" stroke-width="1"/>
+  <circle cx="98" cy="154" r="6" fill="#c0392b"/>
+  <circle cx="122" cy="154" r="6" fill="#c0392b"/>
+  <rect x="86" y="125" width="8" height="10" fill="#e2e8f0" stroke="#475569" stroke-width="1" stroke-dasharray="2 1"/>
+  <!-- Lower Section -->
+  <path d="M 80,375 L 140,375 L 140,280 L 110,280 L 110,355 L 80,355 Z" fill="#b0bec5" stroke="#37474f" stroke-width="1.5"/>
+  <rect x="85" y="332" width="50" height="18" fill="#90a4ae" stroke="#37474f" stroke-width="1"/>
+  <circle cx="98" cy="341" r="6" fill="#c0392b"/>
+  <circle cx="122" cy="341" r="6" fill="#c0392b"/>
+  <rect x="86" y="360" width="8" height="10" fill="#e2e8f0" stroke="#475569" stroke-width="1" stroke-dasharray="2 1"/>
+
+  <!-- Column 2: Harmonic Drive Gearbox -->
+  <!-- Upper Section -->
+  <rect x="212" y="110" width="76" height="25" fill="#4a6572" stroke="#232f34" stroke-width="1.5"/>
+  <line x1="220" y1="130" x2="280" y2="130" stroke="#ffffff" stroke-width="1" stroke-dasharray="2 2"/>
+  <path d="M 220,135 L 280,135 L 280,220 L 265,220 L 265,150 L 220,150 Z" fill="#8e44ad" stroke="#4a148c" stroke-width="1.5"/>
+  <rect x="235" y="155" width="40" height="60" rx="3" fill="#9b59b6" stroke="#4a148c" stroke-width="1.2"/>
+  <circle cx="255" cy="170" r="5" fill="#f39c12"/>
+  <circle cx="255" cy="200" r="5" fill="#f39c12"/>
+  <!-- Lower Section -->
+  <rect x="212" y="355" width="76" height="25" fill="#4a6572" stroke="#232f34" stroke-width="1.5"/>
+  <line x1="220" y1="360" x2="280" y2="360" stroke="#ffffff" stroke-width="1" stroke-dasharray="2 2"/>
+  <path d="M 220,355 L 280,355 L 280,280 L 265,280 L 265,340 L 220,340 Z" fill="#8e44ad" stroke="#4a148c" stroke-width="1.5"/>
+  <rect x="235" y="285" width="40" height="60" rx="3" fill="#9b59b6" stroke="#4a148c" stroke-width="1.2"/>
+  <circle cx="255" cy="300" r="5" fill="#f39c12"/>
+  <circle cx="255" cy="330" r="5" fill="#f39c12"/>
+
+  <!-- Column 3: Frameless BLDC Motor -->
+  <!-- Upper Section -->
+  <rect x="360" y="102" width="100" height="33" rx="2" fill="#78909c" stroke="#37474f" stroke-width="1.5"/>
+  <rect x="365" y="135" width="90" height="28" rx="3" fill="url(#stator-grad)" stroke="#a04000" stroke-width="1.2"/>
+  <line x1="380" y1="135" x2="380" y2="163" stroke="#f5b041" stroke-width="1"/>
+  <line x1="400" y1="135" x2="400" y2="163" stroke="#f5b041" stroke-width="1"/>
+  <line x1="420" y1="135" x2="420" y2="163" stroke="#f5b041" stroke-width="1"/>
+  <line x1="440" y1="135" x2="440" y2="163" stroke="#f5b041" stroke-width="1"/>
+  <rect x="370" y="170" width="80" height="50" rx="2" fill="#1f618d" stroke="#154360" stroke-width="1.5"/>
+  <rect x="375" y="175" width="15" height="40" fill="#c0392b"/>
+  <rect x="395" y="175" width="15" height="40" fill="#2980b9"/>
+  <rect x="415" y="175" width="15" height="40" fill="#c0392b"/>
+  <rect x="435" y="175" width="15" height="40" fill="#2980b9"/>
+  <!-- Lower Section -->
+  <rect x="360" y="360" width="100" height="20" rx="2" fill="#78909c" stroke="#37474f" stroke-width="1.5"/>
+  <rect x="365" y="335" width="90" height="25" rx="3" fill="url(#stator-grad)" stroke="#a04000" stroke-width="1.2"/>
+  <line x1="380" y1="335" x2="380" y2="360" stroke="#f5b041" stroke-width="1"/>
+  <line x1="400" y1="335" x2="400" y2="360" stroke="#f5b041" stroke-width="1"/>
+  <line x1="420" y1="335" x2="420" y2="360" stroke="#f5b041" stroke-width="1"/>
+  <line x1="440" y1="335" x2="440" y2="360" stroke="#f5b041" stroke-width="1"/>
+  <rect x="370" y="280" width="80" height="50" rx="2" fill="#1f618d" stroke="#154360" stroke-width="1.5"/>
+  <rect x="375" y="285" width="15" height="40" fill="#2980b9"/>
+  <rect x="395" y="285" width="15" height="40" fill="#c0392b"/>
+  <rect x="415" y="285" width="15" height="40" fill="#2980b9"/>
+  <rect x="435" y="285" width="15" height="40" fill="#c0392b"/>
+
+  <!-- Column 4: Housing & Shaft -->
+  <!-- Upper Section -->
+  <rect x="525" y="112" width="90" height="48" rx="3" fill="url(#housing-grad)" stroke="#1c2833" stroke-width="1.5"/>
+  <rect x="535" y="104" width="6" height="8" fill="#5d6d7e"/>
+  <rect x="550" y="104" width="6" height="8" fill="#5d6d7e"/>
+  <rect x="565" y="104" width="6" height="8" fill="#5d6d7e"/>
+  <rect x="580" y="104" width="6" height="8" fill="#5d6d7e"/>
+  <rect x="595" y="104" width="6" height="8" fill="#5d6d7e"/>
+  <rect x="535" y="165" width="70" height="55" fill="#bdc3c7" stroke="#7f8c8d" stroke-width="1.2"/>
+  <!-- Lower Section -->
+  <rect x="525" y="335" width="90" height="40" rx="3" fill="url(#housing-grad)" stroke="#1c2833" stroke-width="1.5"/>
+  <rect x="535" y="375" width="6" height="8" fill="#5d6d7e"/>
+  <rect x="550" y="375" width="6" height="8" fill="#5d6d7e"/>
+  <rect x="565" y="375" width="6" height="8" fill="#5d6d7e"/>
+  <rect x="580" y="375" width="6" height="8" fill="#5d6d7e"/>
+  <rect x="595" y="375" width="6" height="8" fill="#5d6d7e"/>
+  <rect x="535" y="280" width="70" height="55" fill="#bdc3c7" stroke="#7f8c8d" stroke-width="1.2"/>
+
+  <!-- Column 5: Magnetic Encoder -->
+  <!-- Upper Section -->
+  <rect x="688" y="120" width="20" height="100" fill="#c0392b" stroke="#7b241c" stroke-width="1.2"/>
+  <line x1="688" y1="145" x2="708" y2="145" stroke="#ffffff" stroke-width="1"/>
+  <line x1="688" y1="170" x2="708" y2="170" stroke="#ffffff" stroke-width="1"/>
+  <line x1="688" y1="195" x2="708" y2="195" stroke="#ffffff" stroke-width="1"/>
+  <rect x="718" y="130" width="14" height="80" fill="#16a085" stroke="#0e6251" stroke-width="1.2"/>
+  <rect x="736" y="160" width="12" height="20" rx="1" fill="#1a252f"/>
+  <!-- Lower Section -->
+  <rect x="688" y="280" width="20" height="95" fill="#c0392b" stroke="#7b241c" stroke-width="1.2"/>
+  <line x1="688" y1="305" x2="708" y2="305" stroke="#ffffff" stroke-width="1"/>
+  <line x1="688" y1="330" x2="708" y2="330" stroke="#ffffff" stroke-width="1"/>
+  <line x1="688" y1="355" x2="708" y2="355" stroke="#ffffff" stroke-width="1"/>
+  <rect x="718" y="290" width="14" height="75" fill="#16a085" stroke="#0e6251" stroke-width="1.2"/>
+  <rect x="736" y="318" width="12" height="20" rx="1" fill="#1a252f"/>
+
+  <!-- Column 6: Integrated FOC Driver PCB -->
+  <!-- Upper Section -->
+  <rect x="825" y="115" width="14" height="105" fill="#27ae60" stroke="#1e8449" stroke-width="1.5"/>
+  <rect x="844" y="125" width="18" height="25" rx="1" fill="#2c3e50" stroke="#1a252f" stroke-width="1"/>
+  <rect x="844" y="160" width="18" height="25" rx="1" fill="#2c3e50" stroke="#1a252f" stroke-width="1"/>
+  <rect x="867" y="135" width="18" height="60" rx="2" fill="#f39c12" stroke="#d68910" stroke-width="1.2"/>
+  <!-- Lower Section -->
+  <rect x="825" y="280" width="14" height="100" fill="#27ae60" stroke="#1e8449" stroke-width="1.5"/>
+  <rect x="844" y="290" width="18" height="25" rx="1" fill="#2c3e50" stroke="#1a252f" stroke-width="1"/>
+  <rect x="844" y="325" width="18" height="25" rx="1" fill="#2c3e50" stroke="#1a252f" stroke-width="1"/>
+  <rect x="867" y="300" width="18" height="55" rx="2" fill="#f39c12" stroke="#d68910" stroke-width="1.2"/>
+
+  <!-- Lower Leader Lines -->
+  <line x1="110" y1="382" x2="110" y2="391" stroke="#94a3b8" stroke-width="1.2" stroke-dasharray="3 3"/>
+  <line x1="250" y1="382" x2="250" y2="391" stroke="#94a3b8" stroke-width="1.2" stroke-dasharray="3 3"/>
+  <line x1="410" y1="382" x2="410" y2="391" stroke="#94a3b8" stroke-width="1.2" stroke-dasharray="3 3"/>
+  <line x1="570" y1="385" x2="570" y2="391" stroke="#94a3b8" stroke-width="1.2" stroke-dasharray="3 3"/>
+  <line x1="720" y1="382" x2="720" y2="391" stroke="#94a3b8" stroke-width="1.2" stroke-dasharray="3 3"/>
+  <line x1="855" y1="382" x2="855" y2="391" stroke="#94a3b8" stroke-width="1.2" stroke-dasharray="3 3"/>
+
+  <!-- Lower Component Labels -->
+  <!-- Col 1 -->
+  <text x="110" y="405" text-anchor="middle" font-size="11" fill="#6b7280">Подвійний підшипник</text>
+  <text x="110" y="419" text-anchor="middle" font-size="11" fill="#6b7280">радіальне навантаж.</text>
+
+  <!-- Col 2 -->
+  <text x="250" y="405" text-anchor="middle" font-size="11" fill="#6b7280">Безлюфтова передача</text>
+  <text x="250" y="419" text-anchor="middle" font-size="11" fill="#6b7280">передавальне число i</text>
+
+  <!-- Col 3 -->
+  <text x="410" y="405" text-anchor="middle" font-size="11" fill="#6b7280">Обмотка з високим</text>
+  <text x="410" y="419" text-anchor="middle" font-size="11" fill="#6b7280">заповненням пазів</text>
+
+  <!-- Col 4 -->
+  <text x="570" y="405" text-anchor="middle" font-size="11" fill="#6b7280">Алюмінієвий радіатор</text>
+  <text x="570" y="419" text-anchor="middle" font-size="11" fill="#6b7280">відведення тепла фаз</text>
+
+  <!-- Col 5 -->
+  <text x="720" y="405" text-anchor="middle" font-size="11" fill="#6b7280">14-бітний сенсор</text>
+  <text x="720" y="419" text-anchor="middle" font-size="11" fill="#6b7280">прямий вимір кута</text>
+
+  <!-- Col 6 -->
+  <text x="855" y="405" text-anchor="middle" font-size="11" fill="#6b7280">Контур струму FOC</text>
+  <text x="855" y="419" text-anchor="middle" font-size="11" fill="#6b7280">оцінка M за струмом</text>
+
+  <!-- BOTTOM SUMMARY CARDS -->
+  <!-- Card 1 -->
+  <rect x="30" y="442" width="285" height="73" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="45" y="462" font-size="12" font-weight="bold" fill="#2457d6">1. Зворотно прозорий привод</text>
+  <text x="45" y="480" font-size="11" fill="#1a1a1a">Низьке тертя дозволяє оцінювати</text>
+  <text x="45" y="496" font-size="11" fill="#1a1a1a">зовнішній момент M за струмом.</text>
+
+  <!-- Card 2 -->
+  <rect x="337" y="442" width="285" height="73" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="352" y="462" font-size="12" font-weight="bold" fill="#2457d6">2. Порожниста коаксіальна вісь</text>
+  <text x="352" y="480" font-size="11" fill="#1a1a1a">Кабелі живлення й CAN-шини проходять</text>
+  <text x="352" y="496" font-size="11" fill="#1a1a1a">всередині вала без скручування.</text>
+
+  <!-- Card 3 -->
+  <rect x="645" y="442" width="285" height="73" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="660" y="462" font-size="12" font-weight="bold" fill="#2457d6">3. Монолітна FOC-інтеграція</text>
+  <text x="660" y="480" font-size="11" fill="#1a1a1a">Векторний контролер та енкодери</text>
+  <text x="660" y="496" font-size="11" fill="#1a1a1a">розміщені безпосередньо в корпусі.</text>
+</svg>

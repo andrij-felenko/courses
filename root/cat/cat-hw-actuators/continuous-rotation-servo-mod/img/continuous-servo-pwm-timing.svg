@@ -1,0 +1,144 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-gray-end" markerWidth="8" markerHeight="8" refX="7" refY="3.5" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L7,3.5 L0,7 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-gray-start" markerWidth="8" markerHeight="8" refX="0" refY="3.5" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M7,0 L0,3.5 L7,7 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-red-end" markerWidth="7" markerHeight="7" refX="6" refY="3" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L6,3 L0,6 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-red-start" markerWidth="7" markerHeight="7" refX="0" refY="3" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M6,0 L0,3 L6,6 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-blue-end" markerWidth="7" markerHeight="7" refX="6" refY="3" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L6,3 L0,6 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-blue-start" markerWidth="7" markerHeight="7" refX="0" refY="3" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M6,0 L0,3 L6,6 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green-end" markerWidth="7" markerHeight="7" refX="6" refY="3" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L6,3 L0,6 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-green-start" markerWidth="7" markerHeight="7" refX="0" refY="3" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M6,0 L0,3 L6,6 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Main Header -->
+  <text x="480" y="38" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Часова діаграма ШІМ-сигналу керування сервоприводом</text>
+  <text x="480" y="58" text-anchor="middle" font-size="13" fill="#6b7280">Напрямок і швидкість обертання вала залежать від тривалості імпульсу при сталому періоді T = 20 мс (50 Гц)</text>
+
+  <!-- PANEL 1: CCW Rotation (1000 us) -->
+  <g id="panel-ccw">
+    <rect x="30" y="85" width="900" height="120" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+    <text x="45" y="101" font-size="13" font-weight="bold" fill="#1a1a1a">Імпульс 1000 мкс (1.0 мс) — Максимальна швидкість проти годинникової стрілки</text>
+
+    <!-- Pulse Fill & Waveform -->
+    <rect x="120" y="135" width="80" height="33" fill="#fdecea" opacity="0.7"/>
+    <path d="M 70,168 L 120,168 L 120,135 L 200,135 L 200,168 L 520,168 M 545,168 L 560,168 L 560,135 L 640,135 L 640,168" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+
+    <!-- Axis Break Lines -->
+    <line x1="528" y1="160" x2="534" y2="176" stroke="#6b7280" stroke-width="1.5"/>
+    <line x1="534" y1="160" x2="540" y2="176" stroke="#6b7280" stroke-width="1.5"/>
+
+    <!-- Pulse Dimension -->
+    <line x1="120" y1="122" x2="120" y2="168" stroke="#c0392b" stroke-width="1" stroke-dasharray="3,3"/>
+    <line x1="200" y1="122" x2="200" y2="168" stroke="#c0392b" stroke-width="1" stroke-dasharray="3,3"/>
+    <line x1="120" y1="124" x2="200" y2="124" stroke="#c0392b" stroke-width="1.5" marker-start="url(#arr-red-start)" marker-end="url(#arr-red-end)"/>
+    <text x="160" y="117" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">t = 1000 мкс</text>
+
+    <!-- Period Dimension -->
+    <line x1="120" y1="168" x2="120" y2="190" stroke="#6b7280" stroke-width="1" stroke-dasharray="3,3"/>
+    <line x1="560" y1="168" x2="560" y2="190" stroke="#6b7280" stroke-width="1" stroke-dasharray="3,3"/>
+    <line x1="120" y1="186" x2="560" y2="186" stroke="#6b7280" stroke-width="1.5" marker-start="url(#arr-gray-start)" marker-end="url(#arr-gray-end)"/>
+    <text x="340" y="198" text-anchor="middle" font-size="12" fill="#6b7280">Період T = 20 мс (50 Гц)</text>
+
+    <!-- Status Card -->
+    <rect x="660" y="97" width="250" height="96" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+    <rect x="672" y="107" width="110" height="22" rx="4" fill="#c0392b"/>
+    <text x="727" y="122" text-anchor="middle" font-size="12" font-weight="bold" fill="white">ОБЕРТАННЯ CCW</text>
+    <text x="672" y="148" font-size="13" font-weight="bold" fill="#c0392b">&#x21BA; Проти годинникової</text>
+    <text x="672" y="167" font-size="12" fill="#1a1a1a">Швидкість: Максимальна (100%)</text>
+    <text x="672" y="183" font-size="12" fill="#6b7280">Діапазон: 1000 мкс ... &lt;1500 мкс</text>
+  </g>
+
+  <!-- PANEL 2: Neutral / Stop (1500 us) -->
+  <g id="panel-neutral">
+    <rect x="30" y="217" width="900" height="120" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+    <text x="45" y="231" font-size="13" font-weight="bold" fill="#1a1a1a">Імпульс 1500 мкс (1.5 мс) — Нейтральна позиція (вал нерухомий)</text>
+
+    <!-- Pulse Fill & Waveform -->
+    <rect x="120" y="267" width="120" height="33" fill="#eaf0fd" opacity="0.7"/>
+    <path d="M 70,300 L 120,300 L 120,267 L 240,267 L 240,300 L 520,300 M 545,300 L 560,300 L 560,267 L 640,267 L 640,300" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+
+    <!-- Axis Break Lines -->
+    <line x1="528" y1="292" x2="534" y2="308" stroke="#6b7280" stroke-width="1.5"/>
+    <line x1="534" y1="292" x2="540" y2="308" stroke="#6b7280" stroke-width="1.5"/>
+
+    <!-- Pulse Dimension -->
+    <line x1="120" y1="254" x2="120" y2="300" stroke="#2457d6" stroke-width="1" stroke-dasharray="3,3"/>
+    <line x1="240" y1="254" x2="240" y2="300" stroke="#2457d6" stroke-width="1" stroke-dasharray="3,3"/>
+    <line x1="120" y1="256" x2="240" y2="256" stroke="#2457d6" stroke-width="1.5" marker-start="url(#arr-blue-start)" marker-end="url(#arr-blue-end)"/>
+    <text x="180" y="249" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">t = 1500 мкс</text>
+
+    <!-- Period Dimension -->
+    <line x1="120" y1="300" x2="120" y2="322" stroke="#6b7280" stroke-width="1" stroke-dasharray="3,3"/>
+    <line x1="560" y1="300" x2="560" y2="322" stroke="#6b7280" stroke-width="1" stroke-dasharray="3,3"/>
+    <line x1="120" y1="318" x2="560" y2="318" stroke="#6b7280" stroke-width="1.5" marker-start="url(#arr-gray-start)" marker-end="url(#arr-gray-end)"/>
+    <text x="340" y="330" text-anchor="middle" font-size="12" fill="#6b7280">Період T = 20 мс (50 Гц)</text>
+
+    <!-- Status Card -->
+    <rect x="660" y="229" width="250" height="96" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+    <rect x="672" y="239" width="100" height="22" rx="4" fill="#2457d6"/>
+    <text x="722" y="254" text-anchor="middle" font-size="12" font-weight="bold" fill="white">НЕЙТРАЛЬ</text>
+    <text x="672" y="280" font-size="13" font-weight="bold" fill="#2457d6">&#x23F9; Вал зупинено (0 про/хв)</text>
+    <text x="672" y="299" font-size="12" fill="#1a1a1a">Швидкість: 0 (утримання/стоп)</text>
+    <text x="672" y="315" font-size="12" fill="#6b7280">Точна нейтраль: 1500 мкс</text>
+  </g>
+
+  <!-- PANEL 3: CW Rotation (2000 us) -->
+  <g id="panel-cw">
+    <rect x="30" y="349" width="900" height="120" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+    <text x="45" y="363" font-size="13" font-weight="bold" fill="#1a1a1a">Імпульс 2000 мкс (2.0 мс) — Максимальна швидкість за годинниковою стрілкою</text>
+
+    <!-- Pulse Fill & Waveform -->
+    <rect x="120" y="399" width="160" height="33" fill="#e9f7ef" opacity="0.7"/>
+    <path d="M 70,432 L 120,432 L 120,399 L 280,399 L 280,432 L 520,432 M 545,432 L 560,432 L 560,399 L 640,399 L 640,432" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+
+    <!-- Axis Break Lines -->
+    <line x1="528" y1="424" x2="534" y2="440" stroke="#6b7280" stroke-width="1.5"/>
+    <line x1="534" y1="424" x2="540" y2="440" stroke="#6b7280" stroke-width="1.5"/>
+
+    <!-- Pulse Dimension -->
+    <line x1="120" y1="386" x2="120" y2="432" stroke="#27ae60" stroke-width="1" stroke-dasharray="3,3"/>
+    <line x1="280" y1="386" x2="280" y2="432" stroke="#27ae60" stroke-width="1" stroke-dasharray="3,3"/>
+    <line x1="120" y1="388" x2="280" y2="388" stroke="#27ae60" stroke-width="1.5" marker-start="url(#arr-green-start)" marker-end="url(#arr-green-end)"/>
+    <text x="200" y="381" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">t = 2000 мкс</text>
+
+    <!-- Period Dimension -->
+    <line x1="120" y1="432" x2="120" y2="454" stroke="#6b7280" stroke-width="1" stroke-dasharray="3,3"/>
+    <line x1="560" y1="432" x2="560" y2="454" stroke="#6b7280" stroke-width="1" stroke-dasharray="3,3"/>
+    <line x1="120" y1="450" x2="560" y2="450" stroke="#6b7280" stroke-width="1.5" marker-start="url(#arr-gray-start)" marker-end="url(#arr-gray-end)"/>
+    <text x="340" y="462" text-anchor="middle" font-size="12" fill="#6b7280">Період T = 20 мс (50 Гц)</text>
+
+    <!-- Status Card -->
+    <rect x="660" y="361" width="250" height="96" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+    <rect x="672" y="371" width="105" height="22" rx="4" fill="#27ae60"/>
+    <text x="724.5" y="386" text-anchor="middle" font-size="12" font-weight="bold" fill="white">ОБЕРТАННЯ CW</text>
+    <text x="672" y="412" font-size="13" font-weight="bold" fill="#27ae60">&#x21BB; За годинниковою</text>
+    <text x="672" y="431" font-size="12" fill="#1a1a1a">Швидкість: Максимальна (100%)</text>
+    <text x="672" y="447" font-size="12" fill="#6b7280">Діапазон: &gt;1500 мкс ... 2000 мкс</text>
+  </g>
+
+  <!-- Bottom Note Bar -->
+  <rect x="30" y="480" width="900" height="26" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="480" y="497" text-anchor="middle" font-size="12" fill="#1a1a1a">Примітка: Проміжні значення імпульсу (напр. 1250 мкс або 1750 мкс) задають пропорційну часткову швидкість обертання (50%).</text>
+</svg>

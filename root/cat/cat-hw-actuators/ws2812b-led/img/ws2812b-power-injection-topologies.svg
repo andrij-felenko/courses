@@ -1,0 +1,288 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <!-- Arrowhead markers -->
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Canvas background -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="30" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Топології інжекції живлення 5V для масивів WS2812B</text>
+  <text x="480" y="50" text-anchor="middle" font-size="13" fill="#6b7280">Порівняння розподілу напруги U(x) та ефективності зниження падіння напруги</text>
+
+  <!-- ==================== PANEL 1: SINGLE-SIDED INJECTION ==================== -->
+  <rect x="20" y="70" width="296" height="470" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Panel 1 Header -->
+  <text x="168" y="94" text-anchor="middle" font-size="15" font-weight="bold" fill="#1a1a1a">1. Однобічна інжекція</text>
+  <text x="168" y="112" text-anchor="middle" font-size="12" font-weight="600" fill="#c0392b">Живлення тільки з початку</text>
+
+  <!-- Panel 1 Schematic -->
+  <!-- PSU Box -->
+  <rect x="35" y="154" width="55" height="44" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="62.5" y="173" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">БЖ 5V</text>
+  <text x="62.5" y="188" text-anchor="middle" font-size="11" fill="#6b7280">(PSU)</text>
+
+  <!-- Strip Body & Title -->
+  <text x="210" y="148" text-anchor="middle" font-size="12" fill="#6b7280">Світлодіодна стрічка</text>
+  <rect x="120" y="160" width="180" height="36" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- LED Modules -->
+  <rect x="130" y="166" width="24" height="24" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="142" y="182" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">D1</text>
+
+  <rect x="175" y="166" width="24" height="24" rx="3" fill="#fff9e6" stroke="#f39c12" stroke-width="1.5"/>
+  <text x="187" y="182" text-anchor="middle" font-size="12" font-weight="bold" fill="#f39c12">D2</text>
+
+  <rect x="220" y="166" width="24" height="24" rx="3" fill="#fdecea" stroke="#e74c3c" stroke-width="1.5"/>
+  <text x="232" y="182" text-anchor="middle" font-size="12" font-weight="bold" fill="#e74c3c">D3</text>
+
+  <rect x="265" y="166" width="24" height="24" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="2"/>
+  <text x="277" y="182" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">DN</text>
+
+  <!-- Wires -->
+  <path d="M 90 164 L 120 164" stroke="#c0392b" stroke-width="2.5" fill="none"/>
+  <text x="105" y="156" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">+5V</text>
+
+  <path d="M 90 188 L 120 188" stroke="#4b5563" stroke-width="2.5" fill="none"/>
+  <text x="105" y="203" text-anchor="middle" font-size="11" font-weight="bold" fill="#4b5563">GND</text>
+
+  <!-- Distance axis markers under strip -->
+  <line x1="120" y1="224" x2="300" y2="224" stroke="#9ca3af" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="120" y1="220" x2="120" y2="228" stroke="#9ca3af" stroke-width="1"/>
+  <line x1="210" y1="220" x2="210" y2="228" stroke="#9ca3af" stroke-width="1"/>
+  <line x1="300" y1="220" x2="300" y2="228" stroke="#9ca3af" stroke-width="1"/>
+  <text x="120" y="244" text-anchor="middle" font-size="12" fill="#6b7280">x = 0</text>
+  <text x="210" y="244" text-anchor="middle" font-size="12" fill="#6b7280">L / 2</text>
+  <text x="300" y="244" text-anchor="middle" font-size="12" fill="#6b7280">x = L</text>
+
+  <!-- Graph U(x) Panel 1 -->
+  <text x="65" y="262" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">U (В)</text>
+
+  <!-- Grid lines & Y ticks -->
+  <line x1="65" y1="280" x2="300" y2="280" stroke="#e5e7eb" stroke-width="1"/>
+  <text x="58" y="284" text-anchor="end" font-size="12" fill="#1a1a1a">5.0V</text>
+
+  <line x1="65" y1="312.5" x2="300" y2="312.5" stroke="#e5e7eb" stroke-width="1"/>
+  <text x="58" y="316.5" text-anchor="end" font-size="12" fill="#6b7280">4.5V</text>
+
+  <line x1="65" y1="377.5" x2="300" y2="377.5" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <text x="58" y="381.5" text-anchor="end" font-size="12" font-weight="bold" fill="#c0392b">3.5V</text>
+  <text x="298" y="370" text-anchor="end" font-size="11" font-weight="bold" fill="#c0392b">U_min = 3.5В</text>
+
+  <line x1="65" y1="410" x2="300" y2="410" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="58" y="414" text-anchor="end" font-size="12" fill="#6b7280">3.0V</text>
+
+  <!-- Shaded danger area below 3.5V -->
+  <path d="M 210 377.5 Q 255 410, 300 422 L 300 410 L 210 410 Z" fill="#fdecea" opacity="0.7"/>
+
+  <!-- Curve U(x) -->
+  <path d="M 65 280 Q 182 340, 300 422" stroke="#c0392b" stroke-width="3" fill="none"/>
+  <circle cx="65" cy="280" r="4" fill="#c0392b"/>
+
+  <circle cx="300" cy="422" r="4" fill="#c0392b"/>
+  <text x="298" y="402" text-anchor="end" font-size="12" font-weight="bold" fill="#c0392b">~2.9В</text>
+
+  <!-- X Axis -->
+  <line x1="65" y1="410" x2="300" y2="410" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="182" y="432" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Відстань x (м)</text>
+
+  <!-- Panel 1 Bottom Summary Box -->
+  <rect x="30" y="452" width="276" height="76" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="168" y="473" text-anchor="middle" font-size="13" font-weight="bold" fill="#c0392b">⚠️ Просідання U(x) &gt; 2.0 V</text>
+  <text x="168" y="493" text-anchor="middle" font-size="12" fill="#1a1a1a">• Зміщення кольору (червоніння)</text>
+  <text x="168" y="511" text-anchor="middle" font-size="12" fill="#1a1a1a">• Стрічка &gt; 2-3 м збоїть і висне</text>
+
+  <!-- ==================== PANEL 2: DOUBLE-SIDED INJECTION ==================== -->
+  <rect x="332" y="70" width="296" height="470" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Panel 2 Header -->
+  <text x="480" y="94" text-anchor="middle" font-size="15" font-weight="bold" fill="#1a1a1a">2. Двобічна інжекція</text>
+  <text x="480" y="112" text-anchor="middle" font-size="12" font-weight="600" fill="#2457d6">Живлення з обох кінців</text>
+
+  <!-- Panel 2 Schematic -->
+  <!-- Trunk Line +5V -->
+  <path d="M 402 164 L 402 130 L 612 130 L 612 164" stroke="#2457d6" stroke-width="2.5" fill="none"/>
+  <text x="522" y="122" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">+5V силова лінія</text>
+
+  <!-- PSU Box -->
+  <rect x="347" y="154" width="55" height="44" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="374.5" y="173" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">БЖ 5V</text>
+  <text x="374.5" y="188" text-anchor="middle" font-size="11" fill="#6b7280">(PSU)</text>
+
+  <!-- Strip Title & Body -->
+  <text x="522" y="149" text-anchor="middle" font-size="12" fill="#6b7280">Світлодіодна стрічка</text>
+  <rect x="432" y="160" width="180" height="36" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- LED Modules -->
+  <rect x="442" y="166" width="24" height="24" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="454" y="182" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">D1</text>
+
+  <rect x="487" y="166" width="24" height="24" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="499" y="182" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">D2</text>
+
+  <rect x="532" y="166" width="24" height="24" rx="3" fill="#fff9e6" stroke="#f39c12" stroke-width="1.5"/>
+  <text x="544" y="182" text-anchor="middle" font-size="12" font-weight="bold" fill="#f39c12">D3</text>
+
+  <rect x="577" y="166" width="24" height="24" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="589" y="182" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">DN</text>
+
+  <!-- Wires -->
+  <path d="M 402 164 L 432 164" stroke="#2457d6" stroke-width="2.5" fill="none"/>
+  <text x="417" y="156" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">+5V</text>
+
+  <path d="M 402 188 L 432 188" stroke="#4b5563" stroke-width="2.5" fill="none"/>
+  <text x="417" y="199" text-anchor="middle" font-size="11" font-weight="bold" fill="#4b5563">GND</text>
+
+  <!-- Trunk Line GND -->
+  <path d="M 402 188 L 402 204 L 612 204 L 612 188" stroke="#4b5563" stroke-width="2.5" fill="none"/>
+  <text x="522" y="218" text-anchor="middle" font-size="11" fill="#4b5563">GND силова лінія</text>
+
+  <!-- Distance axis markers under strip -->
+  <line x1="432" y1="232" x2="612" y2="232" stroke="#9ca3af" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="432" y1="228" x2="432" y2="236" stroke="#9ca3af" stroke-width="1"/>
+  <line x1="522" y1="228" x2="522" y2="236" stroke="#9ca3af" stroke-width="1"/>
+  <line x1="612" y1="228" x2="612" y2="236" stroke="#9ca3af" stroke-width="1"/>
+  <text x="432" y="248" text-anchor="middle" font-size="12" fill="#6b7280">x = 0</text>
+  <text x="522" y="248" text-anchor="middle" font-size="12" fill="#6b7280">L / 2</text>
+  <text x="612" y="248" text-anchor="middle" font-size="12" fill="#6b7280">x = L</text>
+
+  <!-- Graph U(x) Panel 2 -->
+  <text x="377" y="262" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">U (В)</text>
+
+  <!-- Grid lines & Y ticks -->
+  <line x1="377" y1="280" x2="612" y2="280" stroke="#e5e7eb" stroke-width="1"/>
+  <text x="370" y="284" text-anchor="end" font-size="12" fill="#1a1a1a">5.0V</text>
+
+  <line x1="377" y1="312.5" x2="612" y2="312.5" stroke="#e5e7eb" stroke-width="1"/>
+  <text x="370" y="316.5" text-anchor="end" font-size="12" fill="#6b7280">4.5V</text>
+
+  <line x1="377" y1="377.5" x2="612" y2="377.5" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <text x="370" y="381.5" text-anchor="end" font-size="12" font-weight="bold" fill="#c0392b">3.5V</text>
+  <text x="610" y="370" text-anchor="end" font-size="11" font-weight="bold" fill="#c0392b">U_min = 3.5В</text>
+
+  <line x1="377" y1="410" x2="612" y2="410" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="370" y="414" text-anchor="end" font-size="12" fill="#6b7280">3.0V</text>
+
+  <!-- Curve U(x) -->
+  <path d="M 377 280 Q 494 396, 612 280" stroke="#2457d6" stroke-width="3" fill="none"/>
+
+  <circle cx="377" cy="280" r="4" fill="#2457d6"/>
+  <circle cx="612" cy="280" r="4" fill="#2457d6"/>
+
+  <circle cx="494" cy="338" r="4" fill="#2457d6"/>
+  <text x="494" y="327" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">~4.1V (мін.)</text>
+
+  <!-- X Axis -->
+  <line x1="377" y1="410" x2="612" y2="410" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="494" y="432" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Відстань x (м)</text>
+
+  <!-- Panel 2 Bottom Summary Box -->
+  <rect x="342" y="452" width="276" height="76" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="480" y="473" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">⚡ Зменшення опору в 4 рази</text>
+  <text x="480" y="493" text-anchor="middle" font-size="12" fill="#1a1a1a">• Напруга &gt; 3.5 V по всій довжині</text>
+  <text x="480" y="511" text-anchor="middle" font-size="12" fill="#1a1a1a">• Ефективно для стрічок до 5 м</text>
+
+  <!-- ==================== PANEL 3: MULTI-POINT INJECTION ==================== -->
+  <rect x="644" y="70" width="296" height="470" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Panel 3 Header -->
+  <text x="792" y="94" text-anchor="middle" font-size="15" font-weight="bold" fill="#1a1a1a">3. Багатоточкова інжекція</text>
+  <text x="792" y="108" text-anchor="middle" font-size="12" font-weight="600" fill="#27ae60">Паралельна магістраль (через 2-3 м)</text>
+
+  <!-- Panel 3 Schematic -->
+  <!-- Trunk Line +5V & T-taps -->
+  <path d="M 714 164 L 714 126 L 924 126" stroke="#27ae60" stroke-width="2.5" fill="none"/>
+  <path d="M 744 126 L 744 158" stroke="#27ae60" stroke-width="2.5" fill="none" marker-end="url(#arr-green)"/>
+  <path d="M 834 126 L 834 158" stroke="#27ae60" stroke-width="2.5" fill="none" marker-end="url(#arr-green)"/>
+  <path d="M 924 126 L 924 158" stroke="#27ae60" stroke-width="2.5" fill="none" marker-end="url(#arr-green)"/>
+  <text x="834" y="118" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">Точки інжекції 5V</text>
+
+  <!-- PSU Box -->
+  <rect x="659" y="154" width="55" height="44" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="686.5" y="173" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">БЖ 5V</text>
+  <text x="686.5" y="188" text-anchor="middle" font-size="11" fill="#6b7280">(PSU)</text>
+
+  <!-- Strip Title & Body -->
+  <text x="789" y="142" text-anchor="middle" font-size="11" fill="#6b7280"><tspan x="789" dy="0">Світлодіодна</tspan><tspan x="789" dy="13">стрічка</tspan></text>
+  <rect x="744" y="160" width="180" height="36" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- LED Modules -->
+  <rect x="754" y="166" width="24" height="24" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="766" y="182" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">D1</text>
+
+  <rect x="822" y="166" width="24" height="24" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="834" y="182" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">D2</text>
+
+  <rect x="889" y="166" width="24" height="24" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="901" y="182" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">DN</text>
+
+  <!-- Wires -->
+  <path d="M 714 164 L 744 164" stroke="#27ae60" stroke-width="2.5" fill="none"/>
+  <text x="729" y="156" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">+5V</text>
+
+  <path d="M 714 188 L 744 188" stroke="#4b5563" stroke-width="2.5" fill="none"/>
+  <text x="729" y="199" text-anchor="middle" font-size="11" font-weight="bold" fill="#4b5563">GND</text>
+
+  <!-- Trunk Line GND -->
+  <path d="M 714 188 L 714 204 L 924 204" stroke="#4b5563" stroke-width="2.5" fill="none"/>
+  <path d="M 744 204 L 744 196" stroke="#4b5563" stroke-width="2" fill="none"/>
+  <path d="M 834 204 L 834 196" stroke="#4b5563" stroke-width="2" fill="none"/>
+  <path d="M 924 204 L 924 196" stroke="#4b5563" stroke-width="2" fill="none"/>
+  <text x="834" y="218" text-anchor="middle" font-size="11" fill="#4b5563">GND силова магістраль</text>
+
+  <!-- Distance axis markers under strip -->
+  <line x1="744" y1="232" x2="924" y2="232" stroke="#9ca3af" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="744" y1="228" x2="744" y2="236" stroke="#9ca3af" stroke-width="1"/>
+  <line x1="834" y1="228" x2="834" y2="236" stroke="#9ca3af" stroke-width="1"/>
+  <line x1="924" y1="228" x2="924" y2="236" stroke="#9ca3af" stroke-width="1"/>
+  <text x="744" y="248" text-anchor="middle" font-size="12" fill="#6b7280">x = 0</text>
+  <text x="834" y="248" text-anchor="middle" font-size="12" fill="#6b7280">L / 2</text>
+  <text x="924" y="248" text-anchor="middle" font-size="12" fill="#6b7280">x = L</text>
+
+  <!-- Graph U(x) Panel 3 -->
+  <text x="689" y="262" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">U (В)</text>
+
+  <!-- Grid lines & Y ticks -->
+  <line x1="689" y1="280" x2="924" y2="280" stroke="#e5e7eb" stroke-width="1"/>
+  <text x="682" y="284" text-anchor="end" font-size="12" fill="#1a1a1a">5.0V</text>
+
+  <line x1="689" y1="312.5" x2="924" y2="312.5" stroke="#e5e7eb" stroke-width="1"/>
+  <text x="682" y="316.5" text-anchor="end" font-size="12" fill="#6b7280">4.5V</text>
+
+  <line x1="689" y1="377.5" x2="924" y2="377.5" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <text x="682" y="381.5" text-anchor="end" font-size="12" font-weight="bold" fill="#c0392b">3.5V</text>
+  <text x="922" y="370" text-anchor="end" font-size="11" font-weight="bold" fill="#c0392b">U_min = 3.5В</text>
+
+  <line x1="689" y1="410" x2="924" y2="410" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="682" y="414" text-anchor="end" font-size="12" fill="#6b7280">3.0V</text>
+
+  <!-- Curve U(x) Waveform -->
+  <path d="M 689 280 Q 746 312, 806 280 Q 865 312, 924 280" stroke="#27ae60" stroke-width="3" fill="none"/>
+
+  <circle cx="689" cy="280" r="4" fill="#27ae60"/>
+  <circle cx="806" cy="280" r="4" fill="#27ae60"/>
+  <circle cx="924" cy="280" r="4" fill="#27ae60"/>
+
+  <circle cx="746" cy="296" r="3" fill="#27ae60"/>
+  <text x="746" y="328" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">~4.75V (мін.)</text>
+
+  <!-- X Axis -->
+  <line x1="689" y1="410" x2="924" y2="410" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="806" y="432" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Відстань x (м)</text>
+
+  <!-- Panel 3 Bottom Summary Box -->
+  <rect x="654" y="452" width="276" height="76" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="792" y="473" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">✅ Ідеальна передача кольору</text>
+  <text x="792" y="493" text-anchor="middle" font-size="12" fill="#1a1a1a">• Просідання ΔU &lt; 0.25 V по всій лінії</text>
+  <text x="792" y="511" text-anchor="middle" font-size="12" fill="#1a1a1a">• Для довгих проєктів (10+ м)</text>
+</svg>

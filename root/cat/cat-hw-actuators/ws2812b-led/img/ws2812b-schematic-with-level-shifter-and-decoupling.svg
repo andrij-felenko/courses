@@ -1,0 +1,124 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок та підзаголовок -->
+  <text x="480" y="36" font-size="18" font-weight="700" text-anchor="middle" fill="#1a1a1a">Схема підключення WS2812B до 3.3 В мікроконтролера</text>
+  <text x="480" y="58" font-size="13" text-anchor="middle" fill="#6b7280">Узгодження рівнів 3.3 В → 5 В, захисний резистор RIN та шунтувальний конденсатор C1</text>
+
+  <!-- Живлення +5V -->
+  <path d="M 335,95 L 700,95 L 700,132" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+  <rect x="340" y="72" width="150" height="22" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="415" y="87" font-size="12" font-weight="700" text-anchor="middle" fill="#c0392b">+5 В Живлення (VDD)</text>
+
+  <!-- Блок 1: Мікроконтролер -->
+  <rect x="40" y="110" width="160" height="240" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="120" y="138" font-size="14" font-weight="700" text-anchor="middle" fill="#1a1a1a">Мікроконтролер</text>
+  <text x="120" y="158" font-size="12" text-anchor="middle" fill="#6b7280">ESP32 / STM32</text>
+  <text x="120" y="178" font-size="12" text-anchor="middle" fill="#2457d6">Логіка 3.3 В</text>
+
+  <text x="188" y="244" font-size="12" font-weight="700" text-anchor="end" fill="#2457d6">GPIO (3.3V)</text>
+  <text x="188" y="334" font-size="12" font-weight="700" text-anchor="end" fill="#6b7280">GND</text>
+
+  <!-- Сигнал 3.3V від МК до рівнеузгоджувача -->
+  <path d="M 200,240 L 250,240" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="225" y="226" font-size="12" font-weight="700" text-anchor="middle" fill="#2457d6">3.3 В</text>
+
+  <!-- Блок 2: Перетворювач рівнів -->
+  <rect x="260" y="140" width="150" height="210" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="335" y="165" font-size="14" font-weight="700" text-anchor="middle" fill="#2457d6">Рівнеузгоджувач</text>
+  <text x="335" y="183" font-size="12" text-anchor="middle" fill="#6b7280">74AHCT125 / 1T34</text>
+
+  <rect x="275" y="196" width="120" height="24" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+  <text x="335" y="212" font-size="12" font-weight="700" text-anchor="middle" fill="#2457d6">3.3 В → 5.0 В</text>
+
+  <text x="272" y="244" font-size="12" font-weight="700" text-anchor="start" fill="#1a1a1a">A (IN)</text>
+  <text x="398" y="244" font-size="12" font-weight="700" text-anchor="end" fill="#1a1a1a">Y (OUT)</text>
+
+  <path d="M 335,95 L 335,140" fill="none" stroke="#c0392b" stroke-width="2"/>
+  <text x="335" y="272" font-size="12" text-anchor="middle" fill="#c0392b">VCC = 5 В</text>
+  <text x="335" y="332" font-size="12" text-anchor="middle" fill="#6b7280">GND</text>
+
+  <!-- Сигнал 5.0V від рівнеузгоджувача до резистора -->
+  <path d="M 410,240 L 440,240" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="425" y="226" font-size="12" font-weight="700" text-anchor="middle" fill="#2457d6">5.0 В</text>
+
+  <!-- Блок 3: Резистор RIN -->
+  <rect x="450" y="225" width="60" height="30" rx="4" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="480" y="244" font-size="12" font-weight="700" text-anchor="middle" fill="#1a1a1a">470 Ω</text>
+  <text x="480" y="206" font-size="13" font-weight="700" text-anchor="middle" fill="#1a1a1a">RIN = 470 Ом</text>
+  <text x="480" y="274" font-size="12" text-anchor="middle" fill="#6b7280">Захист від сплесків</text>
+
+  <!-- Лінія від резистора до WS2812B DIN -->
+  <path d="M 510,240 L 682,240" fill="none" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr-dark)"/>
+
+  <!-- Блок 4: Конденсатор C1 (x=575) -->
+  <path d="M 575,95 L 575,225" fill="none" stroke="#c0392b" stroke-width="2"/>
+  <!-- Обкладки конденсатора C1 -->
+  <path d="M 557,225 L 593,225" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+  <path d="M 557,233 L 593,233" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+  <path d="M 575,233 L 575,370" fill="none" stroke="#6b7280" stroke-width="2"/>
+
+  <text x="600" y="224" font-size="13" font-weight="700" text-anchor="start" fill="#27ae60">C1 = 100 nF</text>
+  <text x="600" y="242" font-size="12" text-anchor="start" fill="#6b7280">Керамічний шунт</text>
+
+  <!-- Блок 5: WS2812B -->
+  <rect x="700" y="110" width="220" height="240" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="810" y="136" font-size="14" font-weight="700" text-anchor="middle" fill="#1a1a1a">WS2812B (LED 5050)</text>
+  <text x="810" y="154" font-size="12" text-anchor="middle" fill="#6b7280">Адресний світлодіод</text>
+
+  <rect x="725" y="168" width="170" height="170" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="810" y="186" font-size="12" font-weight="700" text-anchor="middle" fill="#6b7280">Внутрішня схема WS2812B</text>
+  <text x="810" y="204" font-size="12" text-anchor="middle" fill="#1a1a1a">Контролер ШІМ + Драйвер</text>
+
+  <!-- 3 LED кристали -->
+  <circle cx="760" cy="245" r="13" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="760" y="249" font-size="12" font-weight="700" text-anchor="middle" fill="#c0392b">R</text>
+
+  <circle cx="810" cy="245" r="13" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="810" y="249" font-size="12" font-weight="700" text-anchor="middle" fill="#27ae60">G</text>
+
+  <circle cx="860" cy="245" r="13" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="860" y="249" font-size="12" font-weight="700" text-anchor="middle" fill="#2457d6">B</text>
+
+  <!-- Піни WS2812B -->
+  <text x="712" y="144" font-size="12" font-weight="700" text-anchor="start" fill="#c0392b">VDD (+5V)</text>
+  <text x="712" y="244" font-size="12" font-weight="700" text-anchor="start" fill="#2457d6">DIN</text>
+  <text x="712" y="334" font-size="12" font-weight="700" text-anchor="start" fill="#6b7280">VSS (GND)</text>
+  <text x="908" y="244" font-size="12" font-weight="700" text-anchor="end" fill="#1a1a1a">DOUT</text>
+
+  <path d="M 920,240 L 942,240" fill="none" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr-dark)"/>
+
+  <!-- Заземлення GND -->
+  <path d="M 200,330 L 200,370 L 700,370" fill="none" stroke="#6b7280" stroke-width="2"/>
+  <path d="M 335,340 L 335,370" fill="none" stroke="#6b7280" stroke-width="2"/>
+  <path d="M 700,338 L 700,370" fill="none" stroke="#6b7280" stroke-width="2"/>
+
+  <text x="415" y="392" font-size="12" font-weight="700" text-anchor="middle" fill="#6b7280">Спільна шина заземлення (Common GND)</text>
+
+  <!-- Картки-пояснення внизу -->
+  <rect x="40" y="415" width="270" height="90" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="175" y="438" font-size="13" font-weight="700" text-anchor="middle" fill="#2457d6">1. Перетворювач рівнів (3.3В → 5В)</text>
+  <text x="175" y="458" font-size="12" text-anchor="middle" fill="#1a1a1a">Піднімає амплітуду сигналу GPIO</text>
+  <text x="175" y="476" font-size="12" text-anchor="middle" fill="#6b7280">Забезпечує VIH ≥ 0.7 × VDD (3.5 В)</text>
+  <text x="175" y="494" font-size="12" text-anchor="middle" fill="#6b7280">Запобігає збоям зчитування даних</text>
+
+  <rect x="345" y="415" width="270" height="90" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="480" y="438" font-size="13" font-weight="700" text-anchor="middle" fill="#1a1a1a">2. Резистор RIN (300–500 Ом)</text>
+  <text x="480" y="458" font-size="12" text-anchor="middle" fill="#1a1a1a">Узгоджує імпеданс лінії передачі</text>
+  <text x="480" y="476" font-size="12" text-anchor="middle" fill="#6b7280">Гасить відбиття та викиди напруги</text>
+  <text x="480" y="494" font-size="12" text-anchor="middle" fill="#6b7280">Захищає перший світлодіод у колажі</text>
+
+  <rect x="650" y="415" width="270" height="90" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="785" y="438" font-size="13" font-weight="700" text-anchor="middle" fill="#27ae60">3. Конденсатор C1 (100 нФ)</text>
+  <text x="785" y="458" font-size="12" text-anchor="middle" fill="#1a1a1a">Встановлюється поруч із VDD і VSS</text>
+  <text x="785" y="476" font-size="12" text-anchor="middle" fill="#6b7280">Фільтрує високочастотні завади ШІМ</text>
+  <text x="785" y="494" font-size="12" text-anchor="middle" fill="#6b7280">Згладжує піки споживання струму</text>
+</svg>

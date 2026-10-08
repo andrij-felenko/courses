@@ -1,0 +1,137 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <!-- Markers -->
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Залежність моменту опору та струму помпи RS-360SH від параметрів навантаження</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Гідродинамічний момент росте квадратично від швидкості, а струм двигуна — лінійно від тиску рідини</text>
+
+  <!-- PANEL 1: Hydrodynamic Torque M = f(n) -->
+  <g id="panel-hydrodynamics">
+    <rect x="30" y="75" width="435" height="380" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="8"/>
+    <text x="247" y="100" font-size="15" font-weight="bold" fill="#1a1a1a" text-anchor="middle">1. Гідродинамічний момент опору M = f(n)</text>
+    <text x="247" y="120" font-size="12" fill="#6b7280" text-anchor="middle">Квадратична залежність моменту від частоти обертання вала</text>
+
+    <!-- Plot 1 Area: (90,390) origin -->
+    <!-- Shaded area under curve -->
+    <path d="M 90 330 Q 270 330 410 170 L 410 390 L 90 390 Z" fill="#eaf0fd" opacity="0.6"/>
+
+    <!-- Grid lines -->
+    <line x1="90" y1="310" x2="410" y2="310" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+    <line x1="90" y1="250" x2="410" y2="250" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+    <line x1="90" y1="170" x2="410" y2="170" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+    <line x1="250" y1="170" x2="250" y2="390" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+    <line x1="410" y1="170" x2="410" y2="390" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+
+    <!-- Axes -->
+    <line x1="90" y1="390" x2="430" y2="390" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+    <line x1="90" y1="390" x2="90" y2="155" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+
+    <!-- Axis Labels -->
+    <text x="90" y="145" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Момент M (мН·м)</text>
+    <text x="430" y="442" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="end">Частота n (об/хв)</text>
+
+    <!-- Ticks & Values -->
+    <!-- X ticks -->
+    <line x1="90" y1="390" x2="90" y2="395" stroke="#1a1a1a" stroke-width="1.5"/>
+    <text x="90" y="412" font-size="12" fill="#6b7280" text-anchor="middle">0</text>
+
+    <line x1="250" y1="390" x2="250" y2="395" stroke="#1a1a1a" stroke-width="1.5"/>
+    <text x="250" y="412" font-size="12" fill="#6b7280" text-anchor="middle">n_ном</text>
+
+    <line x1="410" y1="390" x2="410" y2="395" stroke="#1a1a1a" stroke-width="1.5"/>
+    <text x="410" y="412" font-size="12" fill="#6b7280" text-anchor="middle">n_max</text>
+
+    <!-- Y ticks -->
+    <line x1="85" y1="310" x2="90" y2="310" stroke="#1a1a1a" stroke-width="1.5"/>
+    <text x="82" y="314" font-size="12" fill="#6b7280" text-anchor="end">M_0</text>
+
+    <line x1="85" y1="250" x2="90" y2="250" stroke="#1a1a1a" stroke-width="1.5"/>
+    <text x="82" y="254" font-size="12" fill="#6b7280" text-anchor="end">M_ном</text>
+
+    <line x1="85" y1="170" x2="90" y2="170" stroke="#1a1a1a" stroke-width="1.5"/>
+    <text x="82" y="174" font-size="12" fill="#6b7280" text-anchor="end">M_max</text>
+
+    <!-- Quadratic Curve M(n) -->
+    <path d="M 90 330 Q 270 330 410 170" fill="none" stroke="#2457d6" stroke-width="3"/>
+    <circle cx="250" cy="290" r="5" fill="#2457d6"/>
+
+    <!-- Callout Badge 1 -->
+    <rect x="110" y="176" width="120" height="60" fill="white" stroke="#2457d6" stroke-width="1" rx="6"/>
+    <text x="170" y="196" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">M ∝ n²</text>
+    <text x="170" y="214" font-size="12" fill="#1a1a1a" text-anchor="middle">Квадратичний</text>
+    <text x="170" y="230" font-size="12" fill="#6b7280" text-anchor="middle">ріст опору</text>
+  </g>
+
+  <!-- PANEL 2: Electrical Current I = f(P) -->
+  <g id="panel-electrical">
+    <rect x="495" y="75" width="435" height="380" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="8"/>
+    <text x="712" y="100" font-size="15" font-weight="bold" fill="#1a1a1a" text-anchor="middle">2. Струм двигуна I = f(P)</text>
+    <text x="712" y="120" font-size="12" fill="#6b7280" text-anchor="middle">Лінійне зростання струму від напірного тиску рідини</text>
+
+    <!-- Plot 2 Area: (555,390) origin -->
+    <!-- Danger zone overlay -->
+    <rect x="715" y="180" width="160" height="80" fill="#fdecea" opacity="0.6"/>
+
+    <!-- Grid lines -->
+    <line x1="555" y1="340" x2="715" y2="340" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+    <line x1="555" y1="260" x2="875" y2="260" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+    <line x1="715" y1="180" x2="875" y2="180" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+    <line x1="715" y1="180" x2="715" y2="390" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+    <line x1="875" y1="180" x2="875" y2="390" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+
+    <!-- Axes -->
+    <line x1="555" y1="390" x2="895" y2="390" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+    <line x1="555" y1="390" x2="555" y2="155" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+
+    <!-- Axis Labels -->
+    <text x="555" y="145" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Струм I (А)</text>
+    <text x="895" y="442" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="end">Тиск P (кПа)</text>
+
+    <!-- Ticks & Values -->
+    <!-- X ticks -->
+    <line x1="555" y1="390" x2="555" y2="395" stroke="#1a1a1a" stroke-width="1.5"/>
+    <text x="555" y="412" font-size="12" fill="#6b7280" text-anchor="middle">0</text>
+
+    <line x1="715" y1="390" x2="715" y2="395" stroke="#1a1a1a" stroke-width="1.5"/>
+    <text x="715" y="412" font-size="12" fill="#6b7280" text-anchor="middle">P_ном</text>
+
+    <line x1="875" y1="390" x2="875" y2="395" stroke="#1a1a1a" stroke-width="1.5"/>
+    <text x="875" y="412" font-size="12" fill="#6b7280" text-anchor="middle">P_max</text>
+
+    <!-- Y ticks -->
+    <line x1="550" y1="340" x2="555" y2="340" stroke="#1a1a1a" stroke-width="1.5"/>
+    <text x="547" y="344" font-size="12" fill="#6b7280" text-anchor="end">I_xx</text>
+
+    <line x1="550" y1="260" x2="555" y2="260" stroke="#1a1a1a" stroke-width="1.5"/>
+    <text x="547" y="264" font-size="12" fill="#6b7280" text-anchor="end">I_ном</text>
+
+    <line x1="550" y1="180" x2="555" y2="180" stroke="#c0392b" stroke-width="1.5"/>
+    <text x="547" y="184" font-size="12" fill="#c0392b" font-weight="bold" text-anchor="end">I_пуск</text>
+
+    <!-- Linear Curve I(P) -->
+    <path d="M 555 340 L 875 180" fill="none" stroke="#c0392b" stroke-width="3"/>
+    <circle cx="555" cy="340" r="5" fill="#2457d6"/>
+    <circle cx="715" cy="260" r="5" fill="#27ae60"/>
+    <circle cx="875" cy="180" r="5" fill="#c0392b"/>
+
+    <!-- Callout Badge 1 (Good/Linear Zone) -->
+    <rect x="725" y="280" width="140" height="75" fill="#e9f7ef" stroke="#27ae60" stroke-width="1" rx="6"/>
+    <text x="795" y="302" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">I = I_xx + K_e · P</text>
+    <text x="795" y="322" font-size="12" fill="#1a1a1a" text-anchor="middle">Лінійний ріст струму</text>
+    <text x="795" y="340" font-size="12" fill="#6b7280" text-anchor="middle">при збільшенні тиску</text>
+
+    <!-- Callout Badge 2 (Danger/Peak Current Zone) -->
+    <rect x="565" y="172" width="140" height="76" fill="#fdecea" stroke="#c0392b" stroke-width="1" rx="6"/>
+    <text x="635" y="192" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Пускові піки струму</text>
+    <text x="635" y="210" font-size="12" fill="#c0392b" text-anchor="middle">I_пуск ≈ (3..5)I_ном</text>
+    <text x="635" y="230" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Ризик ресету MCU!</text>
+  </g>
+</svg>

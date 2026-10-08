@@ -1,0 +1,135 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="540" fill="#ffffff"/>
+
+  <defs>
+    <!-- Маркери стрілок -->
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-red-rev" markerWidth="9" markerHeight="9" refX="0.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Часова діаграма дозування помпою RS-360SH: ШІМ, потік та об'єм</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Плавний пуск запобігає гідроударам, а врахування затримок t_start і t_coast забезпечує точність порції</text>
+
+  <!-- ==================== ГРАФІК 1: ШІМ D(t) ==================== -->
+  <rect x="140" y="70" width="700" height="110" fill="#f4f6f8" rx="4" ry="4" stroke="#d0d7de" stroke-width="1"/>
+  
+  <text x="155" y="90" font-size="13" font-weight="bold" fill="#1a1a1a">1. Електричний сигнал: Кероване заповнення ШІМ D(t)</text>
+
+  <!-- Вертикальні лінії фаз (всередині панелі 1) -->
+  <line x1="180" y1="95" x2="180" y2="165" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="240" y1="95" x2="240" y2="165" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="380" y1="95" x2="380" y2="165" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="680" y1="95" x2="680" y2="165" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="780" y1="95" x2="780" y2="165" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+
+  <!-- Вісь Y1 та позначки (зліва від панелі) -->
+  <text x="132" y="112" font-size="12" fill="#6b7280" text-anchor="end">100%</text>
+  <text x="132" y="159" font-size="12" fill="#6b7280" text-anchor="end">0%</text>
+
+  <!-- Заповнення під кривою ШІМ -->
+  <polygon points="180,155 380,108 680,108 680,155" fill="#eaf0fd" opacity="0.8"/>
+
+  <!-- Лінія ШІМ -->
+  <polyline points="150,155 180,155 380,108 680,108 680,155 820,155" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+
+  <!-- Позначка рампи Soft Start -->
+  <text x="280" y="104" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Soft Start (t_ramp)</text>
+
+
+  <!-- ==================== ГРАФІК 2: Витрата Q(t) ==================== -->
+  <rect x="140" y="195" width="700" height="120" fill="#f4f6f8" rx="4" ry="4" stroke="#d0d7de" stroke-width="1"/>
+
+  <text x="155" y="215" font-size="13" font-weight="bold" fill="#1a1a1a">2. Гідравлічна відповідь: Реальна витрата рідини Q(t)</text>
+
+  <!-- Вертикальні лінії фаз (всередині панелі 2) -->
+  <line x1="180" y1="220" x2="180" y2="295" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="240" y1="220" x2="240" y2="295" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="380" y1="220" x2="380" y2="295" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="680" y1="220" x2="680" y2="295" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="780" y1="220" x2="780" y2="295" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+
+  <!-- Вісь Y2 та позначки -->
+  <text x="132" y="238" font-size="12" fill="#6b7280" text-anchor="end">Q_nom</text>
+  <text x="132" y="289" font-size="12" fill="#6b7280" text-anchor="end">0</text>
+
+  <!-- Заповнення під кривою Витрати -->
+  <path d="M 240 285 C 280 285, 330 234, 380 234 L 680 234 C 720 234, 750 285, 780 285 Z" fill="#e9f7ef" opacity="0.8"/>
+
+  <!-- Лінія Витрати Q(t) -->
+  <path d="M 150 285 L 240 285 C 280 285, 330 234, 380 234 L 680 234 C 720 234, 750 285, 780 285 L 820 285" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+
+  <!-- Стрілки та текстові позначки затримок t_start і t_coast -->
+  <!-- t_start позначка -->
+  <line x1="184" y1="262" x2="236" y2="262" stroke="#c0392b" stroke-width="1.2" marker-start="url(#arr-red-rev)" marker-end="url(#arr-red)"/>
+  <text x="210" y="254" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">t_start</text>
+
+  <!-- t_coast позначка -->
+  <line x1="684" y1="225" x2="776" y2="225" stroke="#c0392b" stroke-width="1.2" marker-start="url(#arr-red-rev)" marker-end="url(#arr-red)"/>
+  <text x="730" y="217" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">t_coast</text>
+
+
+  <!-- ==================== ГРАФІК 3: Об'єм V(t) ==================== -->
+  <rect x="140" y="328" width="700" height="130" fill="#f4f6f8" rx="4" ry="4" stroke="#d0d7de" stroke-width="1"/>
+
+  <text x="155" y="348" font-size="13" font-weight="bold" fill="#1a1a1a">3. Накопичений об'єм дози: Інтеграл V(t) = ∫ Q(t) dt</text>
+
+  <!-- Вертикальні лінії фаз (всередині панелі 3) -->
+  <line x1="180" y1="353" x2="180" y2="445" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="240" y1="353" x2="240" y2="445" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="380" y1="353" x2="380" y2="445" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="680" y1="353" x2="680" y2="445" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="780" y1="353" x2="780" y2="445" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+
+  <!-- Пунктир Цільового Об'єму V_target -->
+  <line x1="150" y1="388" x2="820" y2="388" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="5,3"/>
+  <text x="132" y="392" font-size="12" fill="#6b7280" text-anchor="end">V_target</text>
+  <text x="132" y="372" font-size="12" fill="#c0392b" text-anchor="end">V_real</text>
+  <text x="132" y="444" font-size="12" fill="#6b7280" text-anchor="end">0</text>
+
+  <!-- Заповнення під кривою об'єму -->
+  <path d="M 240 440 C 290 440, 330 412, 380 412 L 680 388 C 720 388, 750 368, 780 368 L 820 368 L 820 440 Z" fill="#eaf0fd" opacity="0.6"/>
+
+  <!-- Зона надлишкового об'єму вибігу ΔV_coast -->
+  <path d="M 680 388 C 720 388, 750 368, 780 368 L 820 368 L 820 388 Z" fill="#fdecea" opacity="0.8"/>
+
+  <!-- Лінія Об'єму V(t) -->
+  <path d="M 150 440 L 240 440 C 290 440, 330 412, 380 412 L 680 388 C 720 388, 750 368, 780 368 L 820 368" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+
+  <!-- Позначка надлишку ΔV_coast -->
+  <text x="755" y="381" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">+ΔV_coast</text>
+
+  <!-- Точка early cutoff для компенсації -->
+  <circle cx="680" cy="388" r="4" fill="#c0392b"/>
+  <text x="670" y="405" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="end">Вимкнення ШІМ</text>
+
+
+  <!-- ==================== ОСЬ ЧАСУ ТА ПОЗНАЧКИ ==================== -->
+  <line x1="140" y1="472" x2="865" y2="472" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="875" y="476" font-size="12" font-weight="bold" fill="#1a1a1a">t [мс]</text>
+
+  <!-- Позначки часу на осі -->
+  <text x="180" y="488" font-size="12" fill="#1a1a1a" text-anchor="middle">t₀ (0 ms)</text>
+  <text x="240" y="488" font-size="12" fill="#1a1a1a" text-anchor="middle">t_start</text>
+  <text x="380" y="488" font-size="12" fill="#1a1a1a" text-anchor="middle">t₁ (ramp end)</text>
+  <text x="680" y="488" font-size="12" fill="#1a1a1a" text-anchor="middle">t₂ (PWM off)</text>
+  <text x="780" y="488" font-size="12" fill="#1a1a1a" text-anchor="middle">t₃ (stop)</text>
+
+  <!-- Нижня панель висновку / компенсації -->
+  <rect x="140" y="500" width="700" height="28" fill="#e9f7ef" rx="4" ry="4" stroke="#27ae60" stroke-width="1"/>
+  <text x="490" y="519" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Формула компенсації: t_off = t_target - t_coast + t_start  ⇒  V_actual = V_target</text>
+</svg>

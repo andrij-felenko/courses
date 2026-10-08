@@ -1,0 +1,115 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Амплітудно-частотна характеристика та дія режекторного фільтра</text>
+  <text x="480" y="54" text-anchor="middle" font-size="13" fill="#6b7280">Notch-фільтр пригнічує механічний резонанс f₀ без втрати фазового запасу в робочій смузі</text>
+
+  <!-- Plot Panel -->
+  <rect x="90" y="95" width="570" height="325" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="6"/>
+
+  <!-- Y-Axis Grid Lines -->
+  <line x1="90" y1="140" x2="105" y2="140" stroke="#e5e7eb" stroke-dasharray="4 4"/>
+  <line x1="285" y1="140" x2="340" y2="140" stroke="#e5e7eb" stroke-dasharray="4 4"/>
+  <line x1="520" y1="140" x2="660" y2="140" stroke="#e5e7eb" stroke-dasharray="4 4"/>
+
+  <line x1="90" y1="200" x2="660" y2="200" stroke="#9ca3af" stroke-width="1.5"/>
+
+  <line x1="90" y1="280" x2="340" y2="280" stroke="#e5e7eb" stroke-dasharray="4 4"/>
+  <line x1="520" y1="280" x2="660" y2="280" stroke="#e5e7eb" stroke-dasharray="4 4"/>
+
+  <line x1="90" y1="360" x2="660" y2="360" stroke="#e5e7eb" stroke-dasharray="4 4"/>
+
+  <!-- X-Axis Grid Lines -->
+  <line x1="140" y1="147" x2="140" y2="420" stroke="#e5e7eb" stroke-dasharray="4 4"/>
+  <line x1="230" y1="147" x2="230" y2="420" stroke="#e5e7eb" stroke-dasharray="4 4"/>
+  <line x1="310" y1="95" x2="310" y2="420" stroke="#e5e7eb" stroke-dasharray="4 4"/>
+  <line x1="430" y1="139" x2="430" y2="295" stroke="#c0392b" stroke-dasharray="3 3" stroke-width="1.5"/>
+  <line x1="430" y1="329" x2="430" y2="420" stroke="#c0392b" stroke-dasharray="3 3" stroke-width="1.5"/>
+  <line x1="530" y1="95" x2="530" y2="420" stroke="#e5e7eb" stroke-dasharray="4 4"/>
+  <line x1="620" y1="95" x2="620" y2="420" stroke="#e5e7eb" stroke-dasharray="4 4"/>
+
+  <!-- Axis Title Labels -->
+  <text x="90" y="83" text-anchor="start" font-size="12" font-weight="bold" fill="#1a1a1a">Амплітуда A (дБ)</text>
+  <text x="375" y="456" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Частота f (Гц, логарифмічний масштаб)</text>
+
+  <!-- Y-Axis Labels -->
+  <text x="80" y="144" text-anchor="end" font-size="12" fill="#6b7280">+20 дБ</text>
+  <text x="80" y="204" text-anchor="end" font-size="12" fill="#1a1a1a" font-weight="bold">0 дБ</text>
+  <text x="80" y="284" text-anchor="end" font-size="12" fill="#6b7280">-20 дБ</text>
+  <text x="80" y="364" text-anchor="end" font-size="12" fill="#6b7280">-40 дБ</text>
+
+  <!-- X-Axis Labels -->
+  <text x="140" y="437" text-anchor="middle" font-size="12" fill="#6b7280">10 Гц</text>
+  <text x="230" y="437" text-anchor="middle" font-size="12" fill="#6b7280">50 Гц</text>
+  <text x="310" y="437" text-anchor="middle" font-size="12" fill="#6b7280">100 Гц</text>
+  <text x="430" y="437" text-anchor="middle" font-size="12" fill="#c0392b" font-weight="bold">f₀ = 240 Гц</text>
+  <text x="530" y="437" text-anchor="middle" font-size="12" fill="#6b7280">500 Гц</text>
+  <text x="620" y="437" text-anchor="middle" font-size="12" fill="#6b7280">1 кГц</text>
+
+  <!-- Curves -->
+  <!-- Red Curve: Unfiltered Mechanical System -->
+  <path d="M 90,200 L 280,200 Q 370,198 400,180 Q 420,160 430,146 Q 440,160 460,200 Q 520,280 650,340" fill="none" stroke="#c0392b" stroke-width="2" stroke-dasharray="5 3"/>
+
+  <!-- Blue Curve: Notch Filter Transfer Function -->
+  <path d="M 90,200 L 310,200 Q 390,202 415,230 Q 425,270 430,280 Q 435,270 445,230 Q 470,202 550,200 L 650,200" fill="none" stroke="#2457d6" stroke-width="2" stroke-dasharray="6 3"/>
+
+  <!-- Green Curve: Filtered Closed-Loop System -->
+  <path d="M 90,200 L 310,200 Q 380,200 430,202 Q 480,215 650,340" fill="none" stroke="#27ae60" stroke-width="3.5"/>
+
+  <!-- Peak and Dip Dots -->
+  <circle cx="430" cy="146" r="4" fill="#c0392b"/>
+  <circle cx="430" cy="280" r="4" fill="#2457d6"/>
+
+  <!-- Plot Badges -->
+  <rect x="105" y="105" width="180" height="42" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="4"/>
+  <text x="195" y="122" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Робоча смуга (0 дБ)</text>
+  <text x="195" y="138" text-anchor="middle" font-size="12" fill="#6b7280">f &lt; 100 Гц (запас фази)</text>
+
+  <rect x="340" y="105" width="180" height="34" fill="#fdecea" stroke="#c0392b" stroke-width="1" rx="4"/>
+  <text x="430" y="126" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Механічний пік (+18 дБ)</text>
+
+  <rect x="340" y="295" width="180" height="34" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="4"/>
+  <text x="430" y="316" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Глибина режекції (-20 дБ)</text>
+
+  <!-- Side Panel -->
+  <rect x="685" y="95" width="255" height="325" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="812" y="120" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Компоненти АЧХ</text>
+  <line x1="700" y1="130" x2="925" y2="130" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Side Box 1 -->
+  <rect x="700" y="142" width="225" height="74" fill="#fdecea" stroke="#c0392b" stroke-width="1" rx="4"/>
+  <text x="712" y="162" font-size="13" font-weight="bold" fill="#c0392b">Без фільтра (Резонанс)</text>
+  <text x="712" y="181" font-size="12" fill="#1a1a1a">Пік +18 дБ на f₀ = 240 Гц</text>
+  <text x="712" y="199" font-size="12" fill="#6b7280">Викликає самозбудження</text>
+
+  <!-- Side Box 2 -->
+  <rect x="700" y="228" width="225" height="74" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="4"/>
+  <text x="712" y="248" font-size="13" font-weight="bold" fill="#2457d6">Notch-фільтр (Режекція)</text>
+  <text x="712" y="267" font-size="12" fill="#1a1a1a">Пригнічення -20 дБ на f₀</text>
+  <text x="712" y="285" font-size="12" fill="#6b7280">Ширина смуги регулюється Q</text>
+
+  <!-- Side Box 3 -->
+  <rect x="700" y="314" width="225" height="92" fill="#e9f7ef" stroke="#27ae60" stroke-width="1" rx="4"/>
+  <text x="712" y="334" font-size="13" font-weight="bold" fill="#27ae60">З фільтром (Скоррегована)</text>
+  <text x="712" y="353" font-size="12" fill="#1a1a1a">Резонанс пригнічено повністю</text>
+  <text x="712" y="371" font-size="12" fill="#1a1a1a">Низькочастотна смуга 0 дБ</text>
+  <text x="712" y="389" font-size="12" fill="#27ae60" font-weight="bold">Фазовий запас збережено</text>
+
+  <!-- Bottom Panel -->
+  <rect x="90" y="472" width="850" height="38" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="515" y="496" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Ключовий висновок: Notch-фільтр пригнічує механічний пік резонансу без погіршення запасу стійкості контуру стабілізації.</text>
+</svg>

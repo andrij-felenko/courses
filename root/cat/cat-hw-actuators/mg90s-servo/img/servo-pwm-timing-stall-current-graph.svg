@@ -1,0 +1,148 @@
+<svg viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-blue-start" markerWidth="9" markerHeight="9" refX="0.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-green-start" markerWidth="9" markerHeight="9" refX="0.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-red-start" markerWidth="9" markerHeight="9" refX="0.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Background Canvas -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">ШІМ-керування та струм споживання мікросерво MG90S V2</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Перевищення межі t_max призводить до упертості в механічний упор і стрибка струму I_stall</text>
+
+  <!-- Background Zone Panels -->
+  <!-- Zone 1 & 2 Panel (Allowed Range) -->
+  <rect x="25" y="80" width="535" height="370" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="6"/>
+  <!-- Zone 3 Panel (Stall Hazard Zone) -->
+  <rect x="575" y="80" width="350" height="370" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" rx="6"/>
+
+  <!-- Zone Headers -->
+  <rect x="40" y="90" width="505" height="28" fill="#27ae60" rx="4"/>
+  <text x="292" y="109" font-size="13" font-weight="bold" fill="white" text-anchor="middle">ДОПУСТИМИЙ ДІАПАЗОН РОБОТИ (0° ... 180°)</text>
+
+  <rect x="590" y="90" width="320" height="28" fill="#c0392b" rx="4"/>
+  <text x="750" y="109" font-size="13" font-weight="bold" fill="white" text-anchor="middle">НЕБЕЗПЕЧНА ЗОНА (t &gt; t_max)</text>
+
+  <!-- Vertical Divider Line -->
+  <line x1="330" y1="148" x2="330" y2="435" stroke="#b0c4de" stroke-width="1.5" stroke-dasharray="4,4"/>
+
+  <!-- ==================== PLOT 1: PWM SIGNAL ==================== -->
+  <!-- PWM Y-Axis -->
+  <line x1="90" y1="130" x2="90" y2="235" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+  <text x="87" y="132" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">U_ШІМ [В]</text>
+
+  <!-- Ticks for PWM Axis -->
+  <line x1="86" y1="155" x2="90" y2="155" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="82" y="159" font-size="12" fill="#6b7280" text-anchor="end">5 В</text>
+
+  <line x1="86" y1="225" x2="90" y2="225" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="82" y="229" font-size="12" fill="#6b7280" text-anchor="end">0 В</text>
+
+  <!-- PWM Baseline -->
+  <line x1="90" y1="225" x2="905" y2="225" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- PWM Waveform 1: 1.5 ms (Zone 1) -->
+  <polyline points="90,225 130,225 130,155 200,155 200,225 330,225" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+  <!-- Dimension 1 -->
+  <line x1="130" y1="143" x2="200" y2="143" stroke="#2457d6" stroke-width="1.2" marker-start="url(#arr-blue-start)" marker-end="url(#arr-blue)"/>
+  <text x="165" y="137" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">t_1 = 1.5 мс (90°)</text>
+
+  <!-- PWM Waveform 2: 2.4 ms (Zone 2) -->
+  <polyline points="330,225 360,225 360,155 470,155 470,225 560,225" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+  <!-- Dimension 2 -->
+  <line x1="360" y1="143" x2="470" y2="143" stroke="#27ae60" stroke-width="1.2" marker-start="url(#arr-green-start)" marker-end="url(#arr-green)"/>
+  <text x="415" y="137" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">t_2 = 2.4 мс (180° = t_max)</text>
+
+  <!-- PWM Waveform 3: 2.8 ms (Zone 3) -->
+  <polyline points="560,225 600,225 600,155 710,155 710,225 905,225" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+  <!-- Dimension 3 -->
+  <line x1="600" y1="143" x2="710" y2="143" stroke="#c0392b" stroke-width="1.2" marker-start="url(#arr-red-start)" marker-end="url(#arr-red)"/>
+  <text x="655" y="137" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">t_3 = 2.8 мс (&gt; t_max)</text>
+
+  <!-- ==================== PLOT 2: CURRENT CONSUMPTION ==================== -->
+  <!-- Current Y-Axis -->
+  <line x1="90" y1="265" x2="90" y2="435" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+  <text x="82" y="265" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">I [мА]</text>
+
+  <!-- Current Reference Grid Lines -->
+  <!-- Stall reference line -->
+  <line x1="575" y1="295" x2="905" y2="295" stroke="#c0392b" stroke-width="1" stroke-dasharray="3,3" opacity="0.6"/>
+  <!-- Idle reference line -->
+  <line x1="90" y1="415" x2="905" y2="415" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2,2"/>
+
+  <!-- Ticks for Current Axis -->
+  <line x1="86" y1="295" x2="90" y2="295" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="82" y="299" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="end">850 мА</text>
+
+  <line x1="86" y1="365" x2="90" y2="365" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="82" y="369" font-size="12" fill="#6b7280" text-anchor="end">200 мА</text>
+
+  <line x1="86" y1="415" x2="90" y2="415" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="82" y="419" font-size="12" fill="#6b7280" text-anchor="end">15 мА</text>
+
+  <line x1="86" y1="430" x2="90" y2="430" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="82" y="434" font-size="12" fill="#6b7280" text-anchor="end">0</text>
+
+  <!-- Current Curve Zone 1 (Normal 1.5 ms) -->
+  <path d="M 90,415 L 130,415 C 133,365 137,365 140,365 C 145,380 170,380 180,380 C 190,415 200,415 205,415 L 330,415" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+  <text x="210" y="340" font-size="12" fill="#2457d6" text-anchor="middle">Пусковий пік та рух (~150 мА)</text>
+  <text x="260" y="400" font-size="12" fill="#6b7280" text-anchor="middle">I_idle ≈ 15 мА</text>
+
+  <!-- Current Curve Zone 2 (Limit 2.4 ms) -->
+  <path d="M 330,415 L 360,415 C 363,360 367,360 370,360 C 375,378 430,378 445,378 C 455,415 465,415 470,415 L 560,415" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+  <text x="450" y="340" font-size="12" fill="#27ae60" text-anchor="middle">Зупинка на 180° (I → I_idle)</text>
+
+  <!-- Current Curve Zone 3 (STALL > 2.4 ms) -->
+  <path d="M 560,415 L 600,415 C 602,295 605,295 610,295 L 710,295 C 715,415 718,415 720,415 L 905,415" fill="none" stroke="#c0392b" stroke-width="3"/>
+  <text x="655" y="268" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">СТРУМ БЛОКУВАННЯ</text>
+  <text x="655" y="283" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">I_stall ≈ 850 мА</text>
+
+  <!-- Stall Callout Box in Zone 3 -->
+  <rect x="730" y="315" width="175" height="90" fill="white" stroke="#c0392b" stroke-width="1.2" rx="4"/>
+  <text x="738" y="333" font-size="12" font-weight="bold" fill="#c0392b">⚠️ Заклинювання серво</text>
+  <text x="738" y="351" font-size="12" fill="#1a1a1a">• Серво уперлось в упор</text>
+  <text x="738" y="369" font-size="12" fill="#1a1a1a">• Ризик зрізання зубців</text>
+  <text x="738" y="387" font-size="12" fill="#6b7280">• Просідання Vcc та збій</text>
+
+  <!-- ==================== BOTTOM SUMMARY CARDS ==================== -->
+  <!-- Card 1 -->
+  <rect x="25" y="465" width="290" height="75" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <circle cx="43" cy="483" r="5" fill="#27ae60"/>
+  <text x="57" y="487" font-size="12" font-weight="bold" fill="#1a1a1a">Робочий діапазон ШІМ</text>
+  <text x="57" y="505" font-size="12" fill="#6b7280">t_pulse: 1.0–2.4 мс (0°–180°)</text>
+  <text x="57" y="523" font-size="12" fill="#27ae60">Номінальний струм: 120–200 мА</text>
+
+  <!-- Card 2 -->
+  <rect x="330" y="465" width="290" height="75" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <circle cx="348" cy="483" r="5" fill="#2457d6"/>
+  <text x="362" y="487" font-size="12" font-weight="bold" fill="#1a1a1a">Зона нечутливості (Deadband)</text>
+  <text x="362" y="505" font-size="12" fill="#6b7280">Ширина deadband: 5 мкс (MG90S)</text>
+  <text x="362" y="523" font-size="12" fill="#2457d6">Точність позиціонування кута</text>
+
+  <!-- Card 3 -->
+  <rect x="635" y="465" width="290" height="75" fill="#fdecea" stroke="#c0392b" stroke-width="1" rx="6"/>
+  <circle cx="653" cy="483" r="5" fill="#c0392b"/>
+  <text x="667" y="487" font-size="12" font-weight="bold" fill="#c0392b">Струм блокування I_stall</text>
+  <text x="667" y="505" font-size="12" fill="#1a1a1a">Пік струму: до 850–900 мА</text>
+  <text x="667" y="523" font-size="12" fill="#c0392b">Потрібна програма обмежень t</text>
+</svg>

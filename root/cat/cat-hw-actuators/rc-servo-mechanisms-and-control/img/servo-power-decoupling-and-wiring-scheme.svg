@@ -1,0 +1,159 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <!-- Arrow Markers -->
+    <marker id="arr-sig" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#d97706"/>
+    </marker>
+    <marker id="arr-pwr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-gnd" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Схема підключення RC-сервоприводу з силовою розв'язкою</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Окреме живлення, згладжувальні конденсатори та спільна земля захищають мікроконтролер</text>
+
+  <!-- PANEL 1A: MCU -->
+  <rect x="25" y="75" width="230" height="255" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="140" y="96" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Мікроконтролер (MCU)</text>
+  <text x="140" y="113" font-size="12" fill="#6b7280" text-anchor="middle">Плата керування (Arduino / ESP)</text>
+
+  <rect x="45" y="130" width="140" height="95" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="115" y="152" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">MCU / Плата</text>
+  <text x="115" y="170" font-size="12" fill="#6b7280" text-anchor="middle">Логіка 3.3V / 5V</text>
+  <text x="115" y="188" font-size="12" fill="#2457d6" text-anchor="middle">Стабільне VCC</text>
+  <text x="115" y="206" font-size="12" fill="#27ae60" text-anchor="middle">✓ Захищено</text>
+
+  <!-- MCU Pin Connectors & Labels -->
+  <circle cx="255" cy="140" r="5" fill="#d97706"/>
+  <text x="245" y="135" font-size="12" font-weight="bold" fill="#d97706" text-anchor="end">Pin ШІМ</text>
+
+  <circle cx="255" cy="275" r="5" fill="#1a1a1a"/>
+  <text x="245" y="270" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">GND MCU</text>
+
+  <text x="140" y="295" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Без перезавантажень MCU</text>
+  <text x="140" y="312" font-size="11" fill="#6b7280" text-anchor="middle">від просідань живлення</text>
+
+  <!-- PANEL 1B: Rules (Bottom Left) -->
+  <rect x="25" y="345" width="230" height="170" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <text x="140" y="368" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Ключові правила схемотехніки</text>
+  <text x="37" y="392" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">1. Окреме БЖ (5.0–7.4 В)</text>
+  <text x="47" y="408" font-size="11" fill="#6b7280" text-anchor="start">не живити від 5V MCU</text>
+  <text x="37" y="430" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">2. Конденсатори C1 + C2</text>
+  <text x="47" y="446" font-size="11" fill="#6b7280" text-anchor="start">C1: 470–1000мкФ, C2: 0.1мкФ</text>
+  <text x="37" y="468" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="start">3. Спільна земля «Зіркою»</text>
+  <text x="47" y="484" font-size="11" fill="#27ae60" text-anchor="start">з'єднання в 1 точці біля C1</text>
+
+  <!-- PANEL 2A: Decoupling Block (Middle Top) -->
+  <rect x="285" y="75" width="390" height="255" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="2" stroke-dasharray="6 3"/>
+  <text x="480" y="96" font-size="14" font-weight="bold" fill="#27ae60" text-anchor="middle">Блок фільтрації та силової розв'язки</text>
+  <text x="480" y="113" font-size="12" fill="#6b7280" text-anchor="middle">Розміщується біля роз'єму сервоприводу</text>
+
+  <!-- Signal & Rail Labels inside Decoupling Block -->
+  <text x="300" y="131" font-size="12" font-weight="bold" fill="#d97706" text-anchor="start">ШІМ-сигнал (1–2 мс, 50 Гц)</text>
+
+  <!-- Capacitor C1 Labels (above V+ rail at X=400) -->
+  <text x="400" y="166" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">C1: 470–1000 мкФ</text>
+  <text x="400" y="180" font-size="11" fill="#6b7280" text-anchor="middle">електролітичний 10V</text>
+
+  <!-- C1 Component Body -->
+  <rect x="388" y="210" width="24" height="36" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="2"/>
+  <text x="400" y="223" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">+</text>
+  <text x="400" y="240" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">-</text>
+
+  <!-- Power Line Center Text -->
+  <text x="495" y="215" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Силова лінія V+</text>
+  <text x="495" y="230" font-size="11" fill="#6b7280" text-anchor="middle">+5.0V ... +7.4V (до 4A)</text>
+
+  <!-- Capacitor C2 Labels (above V+ rail at X=600) -->
+  <text x="600" y="166" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">C2: 0.1 мкФ (100 нФ)</text>
+  <text x="600" y="180" font-size="11" fill="#6b7280" text-anchor="middle">керамічний (ВЧ-завади)</text>
+
+  <!-- C2 Component Symbol -->
+  <line x1="590" y1="222" x2="610" y2="222" stroke="#27ae60" stroke-width="3"/>
+  <line x1="590" y1="230" x2="610" y2="230" stroke="#27ae60" stroke-width="3"/>
+
+  <!-- Star Ground Node & Labels -->
+  <text x="485" y="295" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">Спільна земля GND</text>
+  <text x="485" y="312" font-size="11" fill="#6b7280" text-anchor="end">розділення струмів</text>
+
+  <text x="515" y="295" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="start">★ Точка «Зірка» біля C1</text>
+  <text x="515" y="312" font-size="11" fill="#6b7280" text-anchor="start">захист MCU від завад</text>
+
+  <!-- Wires & Connections inside & across Decoupling Block -->
+  <!-- Signal Wire (PWM) -->
+  <path d="M 255 140 H 705" stroke="#d97706" stroke-width="3" fill="none" marker-end="url(#arr-sig)"/>
+
+  <!-- Power V+ Lines -->
+  <path d="M 340 345 V 190" stroke="#c0392b" stroke-width="3" fill="none"/>
+  <path d="M 340 190 H 705" stroke="#c0392b" stroke-width="3" fill="none" marker-end="url(#arr-pwr)"/>
+  <!-- C1 V+ connection -->
+  <line x1="400" y1="190" x2="400" y2="210" stroke="#c0392b" stroke-width="2"/>
+  <circle cx="400" cy="190" r="3.5" fill="#c0392b"/>
+  <!-- C2 V+ connection -->
+  <line x1="600" y1="190" x2="600" y2="222" stroke="#c0392b" stroke-width="2"/>
+  <circle cx="600" cy="190" r="3.5" fill="#c0392b"/>
+  <circle cx="340" cy="190" r="3.5" fill="#c0392b"/>
+
+  <!-- GND Lines -->
+  <path d="M 255 275 H 500" stroke="#1a1a1a" stroke-width="3" fill="none"/>
+  <path d="M 500 345 V 275" stroke="#1a1a1a" stroke-width="3" fill="none"/>
+  <path d="M 500 275 H 705" stroke="#1a1a1a" stroke-width="3" fill="none" marker-end="url(#arr-gnd)"/>
+  <!-- C1 GND connection -->
+  <line x1="400" y1="246" x2="400" y2="275" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="400" cy="275" r="3.5" fill="#1a1a1a"/>
+  <!-- C2 GND connection -->
+  <line x1="600" y1="230" x2="600" y2="275" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="600" cy="275" r="3.5" fill="#1a1a1a"/>
+  <!-- Star Ground Junction Circle -->
+  <circle cx="500" cy="275" r="7" fill="#27ae60" stroke="#ffffff" stroke-width="2"/>
+
+  <!-- PANEL 2B: External Power Supply (Middle Bottom) -->
+  <rect x="285" y="345" width="390" height="170" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <text x="480" y="368" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Окреме джерело живлення (V_ext)</text>
+  <text x="480" y="386" font-size="12" fill="#6b7280" text-anchor="middle">Блок живлення / LiPo акумулятор / BEC (5.0–7.4 В)</text>
+
+  <circle cx="340" cy="345" r="5" fill="#c0392b"/>
+  <text x="340" y="415" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">+ V_ext (2–4 A)</text>
+
+  <circle cx="500" cy="345" r="5" fill="#1a1a1a"/>
+  <text x="500" y="415" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">- GND power (силова)</text>
+
+  <rect x="305" y="455" width="350" height="48" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="480" y="474" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">⛔ НЕ живити силову частину від 5V MCU!</text>
+  <text x="480" y="491" font-size="11" fill="#c0392b" text-anchor="middle">Стрибки струму викличуть перезавантаження мікроконтролера</text>
+
+  <!-- PANEL 3: Servo Motor (Right Side) -->
+  <rect x="705" y="75" width="230" height="440" rx="8" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="820" y="96" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">RC-сервопривод</text>
+  <text x="820" y="113" font-size="12" fill="#6b7280" text-anchor="middle">Виконавчий механізм</text>
+
+  <circle cx="705" cy="140" r="5" fill="#d97706"/>
+  <text x="718" y="135" font-size="12" font-weight="bold" fill="#d97706" text-anchor="start">Вхід ШІМ</text>
+
+  <circle cx="705" cy="190" r="5" fill="#c0392b"/>
+  <text x="718" y="185" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="start">Живлення V+</text>
+
+  <circle cx="705" cy="275" r="5" fill="#1a1a1a"/>
+  <text x="718" y="270" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">Земля GND</text>
+
+  <!-- Internal Servo Components -->
+  <rect x="720" y="295" width="200" height="55" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="820" y="316" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Плата керування та Н-міст</text>
+  <text x="820" y="334" font-size="11" fill="#6b7280" text-anchor="middle">ШІМ-декодер і силові ключі</text>
+
+  <rect x="720" y="362" width="200" height="72" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="820" y="382" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Колекторний DC-двигун</text>
+  <text x="820" y="400" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Пускові струми I_stall = 1–3 А</text>
+  <text x="820" y="418" font-size="11" fill="#6b7280" text-anchor="middle">джерело ВЧ-завад та просідань</text>
+
+  <rect x="720" y="445" width="200" height="52" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="820" y="466" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Редуктор і потенціометр</text>
+  <text x="820" y="484" font-size="11" fill="#6b7280" text-anchor="middle">Зворотний зв'язок за кутом</text>
+</svg>

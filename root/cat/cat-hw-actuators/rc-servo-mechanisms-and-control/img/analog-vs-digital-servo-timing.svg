@@ -1,0 +1,136 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-dark" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-dark-rev" markerWidth="8" markerHeight="8" refX="1" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M7,1 L0,4 L7,7 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-blue-rev" markerWidth="8" markerHeight="8" refX="1" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M7,1 L0,4 L7,7 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-green-rev" markerWidth="8" markerHeight="8" refX="1" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M7,1 L0,4 L7,7 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="34" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Часові діаграми керування: аналоговий vs цифровий сервопривід</text>
+  <text x="480" y="56" font-size="13" fill="#6b7280" text-anchor="middle">Вхідний сигнал однаковий (50 Гц), але цифровий МК живить мотор на частоті 300+ Гц</text>
+
+  <!-- PANEL 1: Analog Servo -->
+  <rect x="30" y="74" width="900" height="225" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Badge Panel 1 -->
+  <rect x="46" y="86" width="250" height="26" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="171" y="103" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">Аналоговий сервопривід (50 Гц)</text>
+  <text x="312" y="103" font-size="12" fill="#6b7280">Частота підживлення двигуна дорівнює вхідній частоті (50 Гц)</text>
+
+  <!-- Track 1 Labels Panel 1 -->
+  <text x="46" y="140" font-size="13" font-weight="bold" fill="#1a1a1a">Вхідний ШІМ</text>
+  <text x="46" y="156" font-size="12" fill="#6b7280">кадр 50 Гц (T = 20 мс)</text>
+
+  <!-- Pulse width annotation Panel 1 -->
+  <line x1="270" y1="116" x2="300" y2="116" stroke="#2457d6" stroke-width="1.2" marker-start="url(#arr-blue-rev)" marker-end="url(#arr-blue)"/>
+  <text x="285" y="110" font-size="12" fill="#2457d6" text-anchor="middle">1.5 мс</text>
+
+  <!-- Track 1 Waveform Panel 1 -->
+  <line x1="230" y1="146" x2="690" y2="146" stroke="#d0d7de" stroke-dasharray="3,3" stroke-width="1"/>
+  <path d="M 270,146 L 270,126 L 300,126 L 300,146 Z" fill="#eaf0fd"/>
+  <path d="M 670,146 L 670,126 L 690,126 L 690,146 Z" fill="#eaf0fd"/>
+  <path d="M 230,146 L 270,146 L 270,126 L 300,126 L 300,146 L 670,146 L 670,126 L 690,126" stroke="#2457d6" stroke-width="2.5" fill="none"/>
+
+  <!-- Vertical grid reference lines Panel 1 -->
+  <line x1="270" y1="120" x2="270" y2="228" stroke="#cbd5e1" stroke-dasharray="3,3" stroke-width="1"/>
+  <line x1="670" y1="120" x2="670" y2="228" stroke="#cbd5e1" stroke-dasharray="3,3" stroke-width="1"/>
+
+  <!-- Frame period dimension line Panel 1 -->
+  <line x1="270" y1="160" x2="670" y2="160" stroke="#1a1a1a" stroke-width="1.2" stroke-dasharray="4,3" marker-start="url(#arr-dark-rev)" marker-end="url(#arr-dark)"/>
+  <text x="470" y="177" font-size="12" fill="#1a1a1a" text-anchor="middle">Період кадру T = 20 мс (50 Гц)</text>
+
+  <!-- Track 2 Labels Panel 1 -->
+  <text x="46" y="204" font-size="13" font-weight="bold" fill="#c0392b">Моторний ШІМ</text>
+  <text x="46" y="220" font-size="12" fill="#6b7280">1 імпульс / 20 мс</text>
+
+  <!-- Track 2 Waveform Panel 1 -->
+  <line x1="230" y1="214" x2="690" y2="214" stroke="#d0d7de" stroke-dasharray="3,3" stroke-width="1"/>
+  <path d="M 270,214 L 270,194 L 295,194 L 295,214 Z" fill="#fdecea"/>
+  <path d="M 670,214 L 670,194 L 690,194 L 690,214 Z" fill="#fdecea"/>
+  <path d="M 230,214 L 270,214 L 270,194 L 295,194 L 295,214 L 670,214 L 670,194 L 690,194" stroke="#c0392b" stroke-width="2.5" fill="none"/>
+
+  <!-- Track 2 Annotation Text Panel 1 -->
+  <text x="270" y="246" font-size="12" font-weight="bold" fill="#c0392b">Імпульс підживлення 1 раз на 20 мс</text>
+  <text x="270" y="262" font-size="12" fill="#6b7280">(Між імпульсами мотор 18.5 мс без струму → слабке утримання)</text>
+
+  <!-- Right summary box Panel 1 -->
+  <rect x="710" y="184" width="205" height="95" rx="6" fill="#ffffff" stroke="#f5c6cb" stroke-width="1"/>
+  <text x="722" y="204" font-size="12" font-weight="bold" fill="#c0392b">Властивості аналогового:</text>
+  <text x="722" y="224" font-size="12" fill="#1a1a1a">• Реакція: затримка 20 мс</text>
+  <text x="722" y="244" font-size="12" fill="#1a1a1a">• Мертва зона: 8–12 мкс</text>
+  <text x="722" y="264" font-size="12" fill="#1a1a1a">• Утримання: низьке</text>
+
+  <!-- PANEL 2: Digital Servo -->
+  <rect x="30" y="314" width="900" height="230" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Badge Panel 2 -->
+  <rect x="46" y="326" width="250" height="26" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="171" y="343" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Цифровий сервопривід (300+ Гц)</text>
+  <text x="312" y="343" font-size="12" fill="#6b7280">Мікроконтролер (MCU) живить мотор з власною високою частотою</text>
+
+  <!-- Track 1 Labels Panel 2 -->
+  <text x="46" y="380" font-size="13" font-weight="bold" fill="#1a1a1a">Вхідний ШІМ</text>
+  <text x="46" y="396" font-size="12" fill="#6b7280">той самий кадр 50 Гц</text>
+
+  <!-- Track 1 Waveform Panel 2 -->
+  <line x1="230" y1="386" x2="690" y2="386" stroke="#d0d7de" stroke-dasharray="3,3" stroke-width="1"/>
+  <path d="M 270,386 L 270,366 L 300,366 L 300,386 Z" fill="#eaf0fd"/>
+  <path d="M 670,386 L 670,366 L 690,366 L 690,386 Z" fill="#eaf0fd"/>
+  <path d="M 230,386 L 270,386 L 270,366 L 300,366 L 300,386 L 670,386 L 670,366 L 690,366" stroke="#2457d6" stroke-width="2.5" fill="none"/>
+
+  <!-- Vertical grid reference lines Panel 2 -->
+  <line x1="270" y1="355" x2="270" y2="475" stroke="#cbd5e1" stroke-dasharray="3,3" stroke-width="1"/>
+  <line x1="670" y1="355" x2="670" y2="475" stroke="#cbd5e1" stroke-dasharray="3,3" stroke-width="1"/>
+
+  <!-- Frame period dimension line Panel 2 -->
+  <line x1="270" y1="400" x2="670" y2="400" stroke="#1a1a1a" stroke-width="1.2" stroke-dasharray="4,3" marker-start="url(#arr-dark-rev)" marker-end="url(#arr-dark)"/>
+  <text x="470" y="417" font-size="12" fill="#1a1a1a" text-anchor="middle">Вхідний період T = 20 мс (50 Гц)</text>
+
+  <!-- Track 2 Labels Panel 2 -->
+  <text x="46" y="444" font-size="13" font-weight="bold" fill="#27ae60">Моторний ШІМ</text>
+  <text x="46" y="460" font-size="12" fill="#6b7280">300+ імпульсів / сек</text>
+
+  <!-- Track 2 Waveform Panel 2 -->
+  <line x1="230" y1="454" x2="690" y2="454" stroke="#d0d7de" stroke-dasharray="3,3" stroke-width="1"/>
+  <path d="M 270,454 L 270,434 L 285,434 L 285,454 Z 
+           M 336.6,454 L 336.6,434 L 351.6,434 L 351.6,454 Z 
+           M 403.3,454 L 403.3,434 L 418.3,434 L 418.3,454 Z 
+           M 470,454 L 470,434 L 485,434 L 485,454 Z 
+           M 536.6,454 L 536.6,434 L 551.6,434 L 551.6,454 Z 
+           M 603.3,454 L 603.3,434 L 618.3,434 L 618.3,454 Z 
+           M 670,454 L 670,434 L 685,434 L 685,454 Z" fill="#e9f7ef"/>
+  <path d="M 230,454 L 270,454 L 270,434 L 285,434 L 285,454 L 336.6,454 L 336.6,434 L 351.6,434 L 351.6,454 L 403.3,454 L 403.3,434 L 418.3,434 L 418.3,454 L 470,454 L 470,434 L 485,434 L 485,454 L 536.6,454 L 536.6,434 L 551.6,434 L 551.6,454 L 603.3,454 L 603.3,434 L 618.3,434 L 618.3,454 L 670,454 L 670,434 L 685,434 L 685,454 L 690,454" stroke="#27ae60" stroke-width="2.5" fill="none"/>
+
+  <!-- Digital internal period dimension line -->
+  <line x1="270" y1="426" x2="336.6" y2="426" stroke="#27ae60" stroke-width="1.2" marker-start="url(#arr-green-rev)" marker-end="url(#arr-green)"/>
+  <text x="303" y="420" font-size="12" fill="#27ae60" text-anchor="middle">T_m ≈ 3.3 мс</text>
+
+  <!-- Track 2 Annotation Text Panel 2 -->
+  <text x="270" y="486" font-size="12" font-weight="bold" fill="#27ae60">Часті імпульси (300+ Гц): 6+ порцій енергії за кадр</text>
+  <text x="270" y="502" font-size="12" fill="#6b7280">(Миттєве реагування на найменші відхилення вала серви)</text>
+
+  <!-- Right summary box Panel 2 -->
+  <rect x="710" y="424" width="205" height="95" rx="6" fill="#ffffff" stroke="#c3e6cb" stroke-width="1"/>
+  <text x="722" y="444" font-size="12" font-weight="bold" fill="#27ae60">Властивості цифрового:</text>
+  <text x="722" y="464" font-size="12" fill="#1a1a1a">• Реакція: миттєва (~3.3 мс)</text>
+  <text x="722" y="484" font-size="12" fill="#1a1a1a">• Мертва зона: 1–2 мкс</text>
+  <text x="722" y="504" font-size="12" fill="#1a1a1a">• Утримання: високе</text>
+</svg>

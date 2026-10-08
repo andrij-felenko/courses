@@ -1,0 +1,160 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 570" width="960" height="570" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-blue-rev" markerWidth="9" markerHeight="9" refX="0.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-black" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="570" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Підключення інкрементального та абсолютного енкодерів до контролера</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Диференціальні пари RS-422/BiSS-C, термінатори 120 Ом та екранування для захисту від завад</text>
+
+  <!-- SECTION 1: Incremental Encoder (ABZ / RS-422) -->
+  <rect x="30" y="75" width="900" height="225" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="8"/>
+  <text x="45" y="96" font-size="14" font-weight="bold" fill="#1a1a1a">1. Інкрементальний енкодер (RS-422 / ABZ)</text>
+
+  <!-- Encoder 1 Block -->
+  <rect x="45" y="110" width="160" height="180" fill="white" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="125" y="130" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Енкодер ABZ</text>
+  <text x="125" y="146" font-size="12" fill="#6b7280" text-anchor="middle">(RS-422 Передавач)</text>
+
+  <!-- Cable 1 Shield Box -->
+  <rect x="240" y="110" width="450" height="180" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" stroke-dasharray="4 4" rx="6"/>
+  <text x="465" y="128" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Екранований кабель (Виті пари RS-422)</text>
+
+  <!-- Controller 1 Block -->
+  <rect x="715" y="110" width="200" height="180" fill="white" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="815" y="130" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Роз'єм контролера</text>
+  <text x="815" y="146" font-size="12" fill="#6b7280" text-anchor="middle">(Приймач ABZ / MCU)</text>
+
+  <!-- Wires & Signal Lines Panel 1 -->
+  <!-- VCC +5V Wire -->
+  <line x1="205" y1="165" x2="715" y2="165" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <text x="255" y="158" font-size="12" fill="#c0392b">+5V VCC</text>
+  <text x="195" y="169" font-size="12" fill="#6b7280" text-anchor="end">+5V</text>
+  <text x="725" y="169" font-size="12" fill="#6b7280">5V_OUT</text>
+
+  <!-- Pair A (A+ / A-) -->
+  <line x1="205" y1="185" x2="715" y2="185" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <line x1="205" y1="197" x2="715" y2="197" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="255" y="180" font-size="12" fill="#2457d6">Пара A+/A-</text>
+  <text x="195" y="189" font-size="12" fill="#6b7280" text-anchor="end">A+</text>
+  <text x="195" y="201" font-size="12" fill="#6b7280" text-anchor="end">A-</text>
+  <text x="725" y="189" font-size="12" fill="#6b7280">ENC_A+</text>
+  <text x="725" y="201" font-size="12" fill="#6b7280">ENC_A-</text>
+  <!-- Termination 120 Ohm Pair A -->
+  <line x1="625" y1="185" x2="625" y2="197" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="620" y="186" width="10" height="10" fill="white" stroke="#2457d6" stroke-width="1"/>
+  <text x="625" y="177" font-size="12" fill="#2457d6" text-anchor="middle">120 Ω</text>
+
+  <!-- Pair B (B+ / B-) -->
+  <line x1="205" y1="215" x2="715" y2="215" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <line x1="205" y1="227" x2="715" y2="227" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="255" y="210" font-size="12" fill="#2457d6">Пара B+/B-</text>
+  <text x="195" y="219" font-size="12" fill="#6b7280" text-anchor="end">B+</text>
+  <text x="195" y="231" font-size="12" fill="#6b7280" text-anchor="end">B-</text>
+  <text x="725" y="219" font-size="12" fill="#6b7280">ENC_B+</text>
+  <text x="725" y="231" font-size="12" fill="#6b7280">ENC_B-</text>
+  <!-- Termination 120 Ohm Pair B -->
+  <line x1="625" y1="215" x2="625" y2="227" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="620" y="216" width="10" height="10" fill="white" stroke="#2457d6" stroke-width="1"/>
+  <text x="625" y="207" font-size="12" fill="#2457d6" text-anchor="middle">120 Ω</text>
+
+  <!-- Pair Z (Z+ / Z-) -->
+  <line x1="205" y1="245" x2="715" y2="245" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <line x1="205" y1="257" x2="715" y2="257" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="255" y="240" font-size="12" fill="#2457d6">Пара Z+/Z-</text>
+  <text x="195" y="249" font-size="12" fill="#6b7280" text-anchor="end">Z+</text>
+  <text x="195" y="261" font-size="12" fill="#6b7280" text-anchor="end">Z-</text>
+  <text x="725" y="249" font-size="12" fill="#6b7280">ENC_Z+</text>
+  <text x="725" y="261" font-size="12" fill="#6b7280">ENC_Z-</text>
+  <!-- Termination 120 Ohm Pair Z -->
+  <line x1="625" y1="245" x2="625" y2="257" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="620" y="246" width="10" height="10" fill="white" stroke="#2457d6" stroke-width="1"/>
+  <text x="625" y="237" font-size="12" fill="#2457d6" text-anchor="middle">120 Ω</text>
+
+  <!-- GND Wire -->
+  <line x1="205" y1="270" x2="715" y2="270" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-black)"/>
+  <text x="255" y="266" font-size="12" fill="#1a1a1a">GND (Спільний дріт)</text>
+  <text x="195" y="274" font-size="12" fill="#6b7280" text-anchor="end">GND</text>
+  <text x="725" y="274" font-size="12" fill="#6b7280">GND_ISO</text>
+
+  <!-- Shield Grounding Connection Panel 1 -->
+  <path d="M 685 270 L 685 282 M 678 282 L 692 282 M 681 285 L 689 285 M 683 288 L 687 288" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="300" y="273" width="330" height="15" fill="#e9f7ef" rx="3"/>
+  <text x="465" y="285" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Екран заземлено на роз'ємі контролера (360°)</text>
+
+  <!-- SECTION 2: Absolute Encoder (BiSS-C / SPI) -->
+  <rect x="30" y="315" width="900" height="230" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="8"/>
+  <text x="45" y="336" font-size="14" font-weight="bold" fill="#1a1a1a">2. Абсолютний енкодер (BiSS-C / SSI / SPI)</text>
+
+  <!-- Encoder 2 Block -->
+  <rect x="45" y="350" width="160" height="185" fill="white" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="125" y="370" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Абсолютний енкодер</text>
+  <text x="125" y="386" font-size="12" fill="#6b7280" text-anchor="middle">(BiSS-C / SPI Слейв)</text>
+
+  <!-- Cable 2 Shield Box -->
+  <rect x="240" y="350" width="450" height="185" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" stroke-dasharray="4 4" rx="6"/>
+  <text x="465" y="368" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Екранований кабель сигналів синхронізації та даних</text>
+
+  <!-- Controller 2 Block -->
+  <rect x="715" y="350" width="200" height="185" fill="white" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="815" y="370" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Роз'єм контролера</text>
+  <text x="815" y="386" font-size="12" fill="#6b7280" text-anchor="middle">(BiSS-C / SPI Мастер)</text>
+
+  <!-- Wires & Signal Lines Panel 2 -->
+  <!-- VCC Wire Panel 2 -->
+  <line x1="205" y1="405" x2="715" y2="405" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <text x="255" y="400" font-size="12" fill="#c0392b">+5V / +3.3V VCC</text>
+  <text x="195" y="409" font-size="12" fill="#6b7280" text-anchor="end">VCC</text>
+  <text x="725" y="409" font-size="12" fill="#6b7280">VCC_OUT</text>
+
+  <!-- Clock Pair (MA+ / MA-) Controller -> Encoder -->
+  <line x1="715" y1="425" x2="205" y2="425" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue-rev)"/>
+  <line x1="715" y1="437" x2="205" y2="437" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue-rev)"/>
+  <text x="465" y="420" font-size="12" fill="#2457d6" text-anchor="middle">Тактовий сигнал MA+ / MA- (від контролера)</text>
+  <text x="195" y="429" font-size="12" fill="#6b7280" text-anchor="end">MA+</text>
+  <text x="195" y="441" font-size="12" fill="#6b7280" text-anchor="end">MA-</text>
+  <text x="725" y="429" font-size="12" fill="#6b7280">MA_CLK+</text>
+  <text x="725" y="441" font-size="12" fill="#6b7280">MA_CLK-</text>
+  <!-- Termination 120 Ohm Clock at Encoder side -->
+  <line x1="275" y1="425" x2="275" y2="437" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="270" y="426" width="10" height="10" fill="white" stroke="#2457d6" stroke-width="1"/>
+  <text x="275" y="417" font-size="12" fill="#2457d6" text-anchor="middle">120 Ω</text>
+
+  <!-- Data Pair (SLO+ / SLO-) Encoder -> Controller -->
+  <line x1="205" y1="458" x2="715" y2="458" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <line x1="205" y1="470" x2="715" y2="470" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="465" y="453" font-size="12" fill="#2457d6" text-anchor="middle">Канал даних SLO+ / SLO- (від енкодера)</text>
+  <text x="195" y="462" font-size="12" fill="#6b7280" text-anchor="end">SLO+</text>
+  <text x="195" y="474" font-size="12" fill="#6b7280" text-anchor="end">SLO-</text>
+  <text x="725" y="462" font-size="12" fill="#6b7280">SLO_DATA+</text>
+  <text x="725" y="474" font-size="12" fill="#6b7280">SLO_DATA-</text>
+  <!-- Termination 120 Ohm Data at Controller side -->
+  <line x1="625" y1="458" x2="625" y2="470" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="620" y="459" width="10" height="10" fill="white" stroke="#2457d6" stroke-width="1"/>
+  <text x="625" y="450" font-size="12" fill="#2457d6" text-anchor="middle">120 Ω</text>
+
+  <!-- GND Wire Panel 2 -->
+  <line x1="205" y1="492" x2="715" y2="492" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-black)"/>
+  <text x="255" y="487" font-size="12" fill="#1a1a1a">GND (Спільна земля)</text>
+  <text x="195" y="496" font-size="12" fill="#6b7280" text-anchor="end">GND</text>
+  <text x="725" y="496" font-size="12" fill="#6b7280">GND_ISO</text>
+
+  <!-- Shield Grounding Connection Panel 2 -->
+  <path d="M 685 492 L 685 520 M 678 520 L 692 520 M 681 523 L 689 523 M 683 526 L 687 526" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="290" y="513" width="350" height="15" fill="#e9f7ef" rx="3"/>
+  <text x="465" y="525" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">360° заземлення екрана на PE / корпус контролера</text>
+</svg>

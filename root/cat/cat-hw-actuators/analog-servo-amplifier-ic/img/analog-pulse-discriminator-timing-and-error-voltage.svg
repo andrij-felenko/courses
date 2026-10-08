@@ -1,0 +1,180 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-blue-start" markerWidth="8" markerHeight="8" refX="1" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-gray-start" markerWidth="8" markerHeight="8" refX="1" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-green" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-green-start" markerWidth="8" markerHeight="8" refX="1" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-red-start" markerWidth="8" markerHeight="8" refX="1" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Canvas Background -->
+  <rect x="0" y="0" width="960" height="520" fill="#ffffff"/>
+
+  <!-- Main Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Часова діаграма аналогового дискримінатора імпульсів сервопідсилювача</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Формування імпульсів заряду/розряду та напруги помилки Verr залежно від різниці Δt = tin - tfb</text>
+
+  <!-- PANEL 1: Positive Error (tin > tfb) -->
+  <rect x="25" y="72" width="445" height="355" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="25" y="72" width="445" height="36" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="247" y="95" font-size="14" font-weight="700" fill="#2457d6" text-anchor="middle">1. Позитивне розсогласування (tin &gt; tfb)</text>
+
+  <!-- Panel 1 Reference Lines -->
+  <line x1="160" y1="115" x2="160" y2="385" stroke="#9ca3af" stroke-width="1" stroke-dasharray="4 3"/>
+  <line x1="310" y1="175" x2="310" y2="260" stroke="#9ca3af" stroke-width="1" stroke-dasharray="4 3"/>
+  <line x1="325" y1="225" x2="325" y2="385" stroke="#c0392b" stroke-width="1" stroke-dasharray="3 3"/>
+  <line x1="410" y1="115" x2="410" y2="385" stroke="#9ca3af" stroke-width="1" stroke-dasharray="4 3"/>
+
+  <!-- Panel 1 Signal Labels -->
+  <text x="35" y="142" font-size="12" font-weight="700" fill="#1a1a1a">tin (Вхід)</text>
+  <text x="35" y="194" font-size="12" font-weight="700" fill="#1a1a1a">tfb (ОС)</text>
+  <text x="35" y="246" font-size="12" font-weight="700" fill="#27ae60">Імп. заряду</text>
+  <text x="35" y="298" font-size="12" font-weight="700" fill="#2457d6">Напруга Verr</text>
+  <text x="35" y="362" font-size="12" font-weight="700" fill="#27ae60">OUT_A (CW)</text>
+
+  <!-- Panel 1 Waveforms -->
+  <!-- Signal 1: tin -->
+  <line x1="145" y1="148" x2="455" y2="148" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2 2"/>
+  <polygon points="160,148 160,128 410,128 410,148" fill="#eaf0fd" opacity="0.7"/>
+  <polyline points="145,148 160,148 160,128 410,128 410,148 455,148" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+
+  <!-- Signal 2: tfb -->
+  <line x1="145" y1="200" x2="455" y2="200" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2 2"/>
+  <polygon points="160,200 160,180 310,180 310,200" fill="#e5e7eb" opacity="0.7"/>
+  <polyline points="145,200 160,200 160,180 310,180 310,200 455,200" fill="none" stroke="#6b7280" stroke-width="2.5"/>
+
+  <!-- Signal 3: Charge Pulse -->
+  <line x1="145" y1="252" x2="455" y2="252" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2 2"/>
+  <polygon points="325,252 325,232 410,232 410,252" fill="#e9f7ef" opacity="0.9"/>
+  <polyline points="145,252 325,252 325,232 410,232 410,252 455,252" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+
+  <!-- Signal 4: Verr -->
+  <line x1="145" y1="304" x2="455" y2="304" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2 2"/>
+  <polyline points="145,304 325,304 410,280 455,280" fill="none" stroke="#2457d6" stroke-width="3"/>
+
+  <!-- Signal 5: OUT_A (CW) -->
+  <line x1="145" y1="370" x2="455" y2="370" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2 2"/>
+  <polygon points="330,370 330,350 430,350 430,370" fill="#e9f7ef" opacity="0.9"/>
+  <polyline points="145,370 330,370 330,350 430,350 430,370 455,370" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+
+  <!-- Panel 1 Annotations & Measurement Lines -->
+  <!-- tin dimension -->
+  <line x1="160" y1="120" x2="235" y2="120" stroke="#2457d6" stroke-width="1.5" marker-start="url(#arr-blue-start)"/>
+  <text x="285" y="117" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">tin = 1.8 мс</text>
+  <line x1="335" y1="120" x2="410" y2="120" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- tfb dimension -->
+  <line x1="160" y1="172" x2="195" y2="172" stroke="#6b7280" stroke-width="1.5" marker-start="url(#arr-gray-start)"/>
+  <text x="235" y="169" font-size="12" font-weight="700" fill="#6b7280" text-anchor="middle">tfb = 1.5 мс</text>
+  <line x1="275" y1="172" x2="310" y2="172" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+
+  <!-- tdb & Δt - tdb annotations -->
+  <text x="317" y="224" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">tdb</text>
+  <line x1="330" y1="228" x2="340" y2="228" stroke="#27ae60" stroke-width="1.5" marker-start="url(#arr-green-start)"/>
+  <text x="367" y="224" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">Δt - tdb</text>
+  <line x1="395" y1="228" x2="410" y2="228" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <!-- Verr delta label -->
+  <text x="420" y="275" font-size="12" font-weight="700" fill="#2457d6">+ΔVerr</text>
+
+  <!-- CW action note -->
+  <text x="380" y="345" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">Обертання CW</text>
+
+
+  <!-- PANEL 2: Negative Error (tin < tfb) -->
+  <rect x="490" y="72" width="445" height="355" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="490" y="72" width="445" height="36" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="712" y="95" font-size="14" font-weight="700" fill="#c0392b" text-anchor="middle">2. Негативне розсогласування (tin &lt; tfb)</text>
+
+  <!-- Panel 2 Reference Lines -->
+  <line x1="625" y1="115" x2="625" y2="385" stroke="#9ca3af" stroke-width="1" stroke-dasharray="4 3"/>
+  <line x1="745" y1="115" x2="745" y2="260" stroke="#9ca3af" stroke-width="1" stroke-dasharray="4 3"/>
+  <line x1="760" y1="225" x2="760" y2="385" stroke="#c0392b" stroke-width="1" stroke-dasharray="3 3"/>
+  <line x1="875" y1="175" x2="875" y2="385" stroke="#9ca3af" stroke-width="1" stroke-dasharray="4 3"/>
+
+  <!-- Panel 2 Signal Labels -->
+  <text x="500" y="142" font-size="12" font-weight="700" fill="#1a1a1a">tin (Вхід)</text>
+  <text x="500" y="194" font-size="12" font-weight="700" fill="#1a1a1a">tfb (ОС)</text>
+  <text x="500" y="246" font-size="12" font-weight="700" fill="#c0392b">Імп. розряду</text>
+  <text x="500" y="298" font-size="12" font-weight="700" fill="#2457d6">Напруга Verr</text>
+  <text x="500" y="362" font-size="12" font-weight="700" fill="#c0392b">OUT_B (CCW)</text>
+
+  <!-- Panel 2 Waveforms -->
+  <!-- Signal 1: tin -->
+  <line x1="610" y1="148" x2="920" y2="148" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2 2"/>
+  <polygon points="625,148 625,128 745,128 745,148" fill="#eaf0fd" opacity="0.7"/>
+  <polyline points="610,148 625,148 625,128 745,128 745,148 920,148" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+
+  <!-- Signal 2: tfb -->
+  <line x1="610" y1="200" x2="920" y2="200" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2 2"/>
+  <polygon points="625,200 625,180 875,180 875,200" fill="#e5e7eb" opacity="0.7"/>
+  <polyline points="610,200 625,200 625,180 875,180 875,200 920,200" fill="none" stroke="#6b7280" stroke-width="2.5"/>
+
+  <!-- Signal 3: Discharge Pulse -->
+  <line x1="610" y1="252" x2="920" y2="252" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2 2"/>
+  <polygon points="760,252 760,232 875,232 875,252" fill="#fdecea" opacity="0.9"/>
+  <polyline points="610,252 760,252 760,232 875,232 875,252 920,252" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+
+  <!-- Signal 4: Verr -->
+  <line x1="610" y1="304" x2="920" y2="304" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2 2"/>
+  <polyline points="610,304 760,304 875,328 920,328" fill="none" stroke="#c0392b" stroke-width="3"/>
+
+  <!-- Signal 5: OUT_B (CCW) -->
+  <line x1="610" y1="370" x2="920" y2="370" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2 2"/>
+  <polygon points="765,370 765,350 895,350 895,370" fill="#fdecea" opacity="0.9"/>
+  <polyline points="610,370 765,370 765,350 895,350 895,370 920,370" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+
+  <!-- Panel 2 Annotations & Measurement Lines -->
+  <!-- tin dimension -->
+  <line x1="625" y1="120" x2="650" y2="120" stroke="#2457d6" stroke-width="1.5" marker-start="url(#arr-blue-start)"/>
+  <text x="685" y="117" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">tin = 1.2 мс</text>
+  <line x1="720" y1="120" x2="745" y2="120" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- tfb dimension -->
+  <line x1="625" y1="172" x2="770" y2="172" stroke="#6b7280" stroke-width="1.5" marker-start="url(#arr-gray-start)"/>
+  <text x="810" y="169" font-size="12" font-weight="700" fill="#6b7280" text-anchor="middle">tfb = 1.5 мс</text>
+  <line x1="850" y1="172" x2="875" y2="172" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+
+  <!-- tdb & |Δt| - tdb annotations -->
+  <text x="752" y="224" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">tdb</text>
+  <line x1="765" y1="228" x2="780" y2="228" stroke="#c0392b" stroke-width="1.5" marker-start="url(#arr-red-start)"/>
+  <text x="817" y="224" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">|Δt| - tdb</text>
+  <line x1="855" y1="228" x2="875" y2="228" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+
+  <!-- Verr delta label -->
+  <text x="885" y="340" font-size="12" font-weight="700" fill="#c0392b">-ΔVerr</text>
+
+  <!-- CCW action note -->
+  <text x="830" y="345" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">Обертання CCW</text>
+
+
+  <!-- BOTTOM PANEL: Deadband & Formula Summary -->
+  <rect x="25" y="440" width="910" height="65" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <rect x="35" y="448" width="425" height="49" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="247" y="466" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Зона спокою (Deadband): |tin - tfb| &le; tdb (3...10 мкс)</text>
+  <text x="247" y="484" font-size="12" fill="#27ae60" text-anchor="middle">Струмові ключі вимкнені &rarr; Verr константа &rarr; двигун у спокої</text>
+
+  <rect x="500" y="448" width="425" height="49" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="712" y="466" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Формування напруги розсогласування та моста</text>
+  <text x="712" y="484" font-size="12" fill="#2457d6" text-anchor="middle">ΔVerr = (I_ch / C_flt) · (|Δt| - tdb); ШІМ керування мостом</text>
+</svg>

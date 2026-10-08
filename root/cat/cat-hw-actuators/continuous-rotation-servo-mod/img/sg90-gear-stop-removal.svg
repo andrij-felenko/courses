@@ -1,0 +1,149 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 500" width="960" height="500" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-red-rev" markerWidth="9" markerHeight="9" refX="0.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-grey" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Canvas Background -->
+  <rect x="0" y="0" width="960" height="500" fill="white"/>
+
+  <!-- Main Title & Subtitle -->
+  <text x="480" y="34" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Вилучення механічного обмежувача вихідної шестерні SG90</text>
+  <text x="480" y="56" text-anchor="middle" font-size="13" fill="#6b7280">Зрізання пластикового виступу забезпечує вільне обертання вала на 360°</text>
+
+  <!-- LEFT PANEL: BEFORE MODIFICATION -->
+  <rect x="30" y="75" width="435" height="405" rx="10" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="45" y="90" width="405" height="32" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="247.5" y="111" text-anchor="middle" font-size="13" font-weight="bold" fill="#c0392b">1. СТАН ДО МОДИФІКАЦІЇ (ОБМЕЖЕННЯ ~180°)</text>
+
+  <!-- Housing outline (Left) -->
+  <circle cx="247.5" cy="250" r="90" fill="#ffffff" stroke="#94a3b8" stroke-dasharray="4 4" stroke-width="1.5"/>
+
+  <!-- 180 deg Limit Arc (Left) -->
+  <path d="M 177.5,250 A 70,70 0 0,1 317.5,250" fill="none" stroke="#c0392b" stroke-width="2" stroke-dasharray="5 4" marker-start="url(#arr-red-rev)" marker-end="url(#arr-red)"/>
+  <rect x="140" y="132" width="215" height="24" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="247.5" y="148" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Кут обертання обмежено: ~180°</text>
+
+  <!-- Gear Body (Left) -->
+  <circle cx="247.5" cy="250" r="48" fill="#e2e8f0" stroke="#475569" stroke-width="1.5"/>
+
+  <!-- Gear Teeth (8 teeth) -->
+  <g stroke="#475569" stroke-width="1.5" fill="#e2e8f0">
+    <rect x="242.5" y="192" width="10" height="10" rx="2"/>
+    <rect x="242.5" y="298" width="10" height="10" rx="2"/>
+    <rect x="295.5" y="245" width="10" height="10" rx="2"/>
+    <rect x="189.5" y="245" width="10" height="10" rx="2"/>
+    <rect x="280" y="207" width="10" height="10" rx="2"/>
+    <rect x="195" y="207" width="10" height="10" rx="2"/>
+    <rect x="195" y="283" width="10" height="10" rx="2"/>
+    <rect x="280" y="283" width="10" height="10" rx="2"/>
+  </g>
+
+  <!-- Gear Central Hub & Splines -->
+  <circle cx="247.5" cy="250" r="22" fill="#cbd5e1" stroke="#334155" stroke-width="1.5"/>
+  <circle cx="247.5" cy="250" r="12" fill="#64748b" stroke="#334155" stroke-width="1"/>
+  <path d="M 242,245 A 7,7 0 1,1 253,250 L 253,255 L 242,255 Z" fill="#334155"/>
+
+  <!-- Mechanical Stop & Housing Pin (Left) -->
+  <rect x="220" y="314" width="24" height="22" rx="3" fill="#c0392b" stroke="#900c3f" stroke-width="1.5"/>
+  <rect x="248" y="314" width="24" height="24" rx="3" fill="#64748b" stroke="#334155" stroke-width="1.5"/>
+  <!-- Impact Spark -->
+  <path d="M 243,310 L 246,316 L 252,313 L 248,320 L 254,325 L 247,323 L 243,329 L 241,322 L 235,324 L 238,318 L 234,313 L 240,315 Z" fill="#f1c40f" stroke="#c0392b" stroke-width="1"/>
+
+  <!-- Callouts & Labels (Left Panel) -->
+  <!-- Callout 1: Gear Rim -->
+  <line x1="162" y1="230" x2="188" y2="245" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-grey)"/>
+  <text x="45" y="222" text-anchor="start" font-size="12" font-weight="bold" fill="#1a1a1a">Вихідна шестерня</text>
+  <text x="45" y="237" text-anchor="start" font-size="12" fill="#6b7280">з зубами редуктора</text>
+
+  <!-- Callout 2: Shaft -->
+  <line x1="345" y1="230" x2="272" y2="248" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-grey)"/>
+  <text x="448" y="222" text-anchor="end" font-size="12" font-weight="bold" fill="#1a1a1a">Вал зі шліцами</text>
+  <text x="448" y="237" text-anchor="end" font-size="12" fill="#6b7280">(для насадки)</text>
+
+  <!-- Callout 3: Housing Pin -->
+  <line x1="172" y1="342" x2="246" y2="332" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-grey)"/>
+  <text x="45" y="342" text-anchor="start" font-size="12" font-weight="bold" fill="#475569">Штифт корпусу</text>
+  <text x="45" y="357" text-anchor="start" font-size="12" fill="#6b7280">(нерухомий стопор)</text>
+
+  <!-- Callout 4: Mechanical Stop Tab -->
+  <line x1="322" y1="342" x2="242" y2="332" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <text x="448" y="342" text-anchor="end" font-size="12" font-weight="bold" fill="#c0392b">Пластиковий стопор</text>
+  <text x="448" y="357" text-anchor="end" font-size="12" fill="#c0392b">(обмежувач ходу)</text>
+
+  <!-- Left Bottom Summary Box -->
+  <rect x="45" y="405" width="405" height="54" rx="8" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="247.5" y="426" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">БЛОКУВАННЯ: стопор ударяється об штифт</text>
+  <text x="247.5" y="444" text-anchor="middle" font-size="12" fill="#6b7280">і фізично не дає валу обертатися далі ~180°</text>
+
+  <!-- RIGHT PANEL: AFTER MODIFICATION -->
+  <rect x="495" y="75" width="435" height="405" rx="10" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="510" y="90" width="405" height="32" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="712.5" y="111" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">2. МОДИФІКАЦІЯ ТА ВІЛЬНЕ ОБЕРТАННЯ 360°</text>
+
+  <!-- Housing outline (Right) -->
+  <circle cx="712.5" cy="250" r="90" fill="#ffffff" stroke="#94a3b8" stroke-dasharray="4 4" stroke-width="1.5"/>
+
+  <!-- 360 deg Continuous Rotation Arc (Right) -->
+  <path d="M 712.5,180 A 70,70 0 1,1 711.5,180" fill="none" stroke="#27ae60" stroke-width="2.5" stroke-dasharray="6 4" marker-end="url(#arr-green)"/>
+  <rect x="595" y="132" width="235" height="24" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="712.5" y="148" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Повне безперервне обертання 360°</text>
+
+  <!-- Gear Body (Right) -->
+  <circle cx="712.5" cy="250" r="48" fill="#e2e8f0" stroke="#475569" stroke-width="1.5"/>
+
+  <!-- Gear Teeth (8 teeth) -->
+  <g stroke="#475569" stroke-width="1.5" fill="#e2e8f0">
+    <rect x="707.5" y="192" width="10" height="10" rx="2"/>
+    <rect x="707.5" y="298" width="10" height="10" rx="2"/>
+    <rect x="760.5" y="245" width="10" height="10" rx="2"/>
+    <rect x="654.5" y="245" width="10" height="10" rx="2"/>
+    <rect x="745" y="207" width="10" height="10" rx="2"/>
+    <rect x="660" y="207" width="10" height="10" rx="2"/>
+    <rect x="660" y="283" width="10" height="10" rx="2"/>
+    <rect x="745" y="283" width="10" height="10" rx="2"/>
+  </g>
+
+  <!-- Gear Central Hub & Splines -->
+  <circle cx="712.5" cy="250" r="22" fill="#cbd5e1" stroke="#334155" stroke-width="1.5"/>
+  <circle cx="712.5" cy="250" r="12" fill="#64748b" stroke="#334155" stroke-width="1"/>
+  <path d="M 707,245 A 7,7 0 1,1 718,250 L 718,255 L 707,255 Z" fill="#334155"/>
+
+  <!-- Modified Stop Area & Housing Pin (Right) -->
+  <rect x="713" y="314" width="24" height="24" rx="3" fill="#94a3b8" stroke="#64748b" stroke-width="1.5" opacity="0.5"/>
+  <!-- Cut-off Tab Ghost Contour -->
+  <rect x="685" y="314" width="24" height="22" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="3 3"/>
+  <!-- Red Cut Line -->
+  <line x1="680" y1="314" x2="711" y2="314" stroke="#c0392b" stroke-width="2" stroke-dasharray="4 2"/>
+  <!-- Smooth Edge Line Highlight -->
+  <path d="M 685,314 L 709,314" stroke="#27ae60" stroke-width="3" stroke-linecap="round"/>
+
+  <!-- Callouts & Labels (Right Panel) -->
+  <!-- Callout 5: Cut Action -->
+  <line x1="656" y1="342" x2="692" y2="320" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <text x="510" y="342" text-anchor="start" font-size="12" font-weight="bold" fill="#27ae60">Зрізати стопор</text>
+  <text x="510" y="357" text-anchor="start" font-size="12" fill="#6b7280">в один рівень з диском</text>
+
+  <!-- Callout 6: Tools & Finish -->
+  <line x1="776" y1="338" x2="730" y2="320" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-grey)"/>
+  <text x="912" y="342" text-anchor="end" font-size="12" font-weight="bold" fill="#1a1a1a">Інструмент: бокорізи</text>
+  <text x="912" y="357" text-anchor="end" font-size="12" fill="#6b7280">або ніж / макетник</text>
+
+  <!-- Right Bottom Summary Box -->
+  <rect x="510" y="405" width="405" height="54" rx="8" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="712.5" y="426" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">РЕЗУЛЬТАТ: відсутність механічного бар'єра</text>
+  <text x="712.5" y="444" text-anchor="middle" font-size="12" fill="#6b7280">дозволяє валу нескінченно обертатися 360°</text>
+</svg>

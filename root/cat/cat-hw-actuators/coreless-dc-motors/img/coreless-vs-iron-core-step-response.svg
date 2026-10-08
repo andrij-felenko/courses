@@ -1,0 +1,127 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Marker Definitions -->
+  <defs>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Background Canvas -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="30" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Перехідна характеристика: безсердечниковий vs класичний DC-двигун</text>
+  <text x="480" y="48" font-size="13" fill="#6b7280" text-anchor="middle">Малий момент інерції J та низька індуктивність L забезпечують у рази швидший відгук струму й обертів</text>
+
+  <!-- PANEL 1: Speed Response (Left) -->
+  <rect x="30" y="65" width="435" height="360" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="8"/>
+  <text x="247.5" y="88" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">1. Реакція кутової швидкості ω(t) на стрибок U</text>
+  <text x="247.5" y="105" font-size="12" fill="#6b7280" text-anchor="middle">Розгін ротора від 0 до номінальної швидкості ω₀</text>
+
+  <!-- Panel 1 Axes -->
+  <!-- Y-Axis -->
+  <line x1="85" y1="135" x2="85" y2="325" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+  <text x="78" y="130" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">ω [рад/с]</text>
+
+  <!-- X-Axis -->
+  <line x1="85" y1="325" x2="440" y2="325" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+  <text x="440" y="345" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">t [мс]</text>
+
+  <!-- Reference Line: Nominal Speed omega_0 -->
+  <line x1="85" y1="170" x2="430" y2="170" stroke="#94a3b8" stroke-width="1.2" stroke-dasharray="4,3"/>
+  <text x="78" y="174" font-size="12" font-weight="bold" fill="#475569" text-anchor="end">ω₀ ном</text>
+
+  <!-- Voltage Step Marker at t=0 -->
+  <line x1="85" y1="135" x2="85" y2="325" stroke="#27ae60" stroke-width="1" stroke-dasharray="2,2"/>
+  <text x="85" y="345" font-size="12" fill="#27ae60" text-anchor="middle">t=0 (U ON)</text>
+
+  <!-- Curve 1: Coreless Motor Speed (Blue) -->
+  <path d="M 85 325 C 95 240, 115 175, 175 170 H 430" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+
+  <!-- Curve 2: Iron-Core Motor Speed (Red) -->
+  <path d="M 85 325 C 140 310, 220 250, 335 227 C 375 210, 400 185, 430 175" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+
+  <!-- Time Constant Markers Panel 1 -->
+  <!-- Coreless tau_m1 vertical line & label -->
+  <line x1="115" y1="227" x2="115" y2="325" stroke="#2457d6" stroke-width="1.2" stroke-dasharray="3,3"/>
+  <circle cx="115" cy="227" r="3.5" fill="#2457d6"/>
+  <text x="122" y="245" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="start">τ_m1 = 3 мс</text>
+
+  <!-- Iron-Core tau_m2 vertical line & label -->
+  <line x1="335" y1="227" x2="335" y2="325" stroke="#c0392b" stroke-width="1.2" stroke-dasharray="3,3"/>
+  <circle cx="335" cy="227" r="3.5" fill="#c0392b"/>
+  <text x="342" y="245" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="start">τ_m2 = 25 мс</text>
+
+  <!-- Panel 1 Legend Box -->
+  <rect x="225" y="122" width="205" height="42" fill="white" stroke="#d0d7de" stroke-width="1" rx="4"/>
+  <text x="233" y="138" font-size="12" font-weight="bold" fill="#2457d6">Безсердечниковий: τ_m = 3 мс</text>
+  <text x="233" y="154" font-size="12" font-weight="bold" fill="#c0392b">З осердям: τ_m = 25 мс</text>
+
+  <!-- Panel 1 Bottom Highlight Box -->
+  <rect x="45" y="372" width="405" height="38" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="4"/>
+  <text x="247.5" y="395" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Безсердечниковий мотор реагує у 5–10 разів швидше</text>
+
+  <!-- PANEL 2: Current Dynamics (Right) -->
+  <rect x="495" y="65" width="435" height="360" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="8"/>
+  <text x="712.5" y="88" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">2. Динаміка струму I(t) та електрична константа τ_e</text>
+  <text x="712.5" y="105" font-size="12" fill="#6b7280" text-anchor="middle">Пусковий кидок струму I_пуск та згасання до I₀</text>
+
+  <!-- Panel 2 Axes -->
+  <!-- Y-Axis -->
+  <line x1="550" y1="135" x2="550" y2="325" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+  <text x="543" y="130" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">I [А]</text>
+
+  <!-- X-Axis -->
+  <line x1="550" y1="325" x2="905" y2="325" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+  <text x="905" y="345" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">t [мс]</text>
+
+  <!-- Reference Line: I_start (Peak Current) -->
+  <line x1="550" y1="150" x2="670" y2="150" stroke="#94a3b8" stroke-width="1.2" stroke-dasharray="4,3"/>
+  <text x="543" y="154" font-size="12" font-weight="bold" fill="#475569" text-anchor="end">I_пуск</text>
+
+  <!-- Reference Line: I_0 (No-load Current) -->
+  <line x1="550" y1="290" x2="895" y2="290" stroke="#94a3b8" stroke-width="1.2" stroke-dasharray="4,3"/>
+  <text x="543" y="294" font-size="12" font-weight="bold" fill="#475569" text-anchor="end">I₀</text>
+
+  <!-- Voltage Step Marker at t=0 -->
+  <line x1="550" y1="135" x2="550" y2="325" stroke="#27ae60" stroke-width="1" stroke-dasharray="2,2"/>
+  <text x="550" y="345" font-size="12" fill="#27ae60" text-anchor="middle">t=0 (U ON)</text>
+
+  <!-- Curve 1: Coreless Motor Current (Blue) -->
+  <path d="M 550 325 L 554 150 C 565 170, 590 280, 640 290 H 895" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+
+  <!-- Curve 2: Iron-Core Motor Current (Red) -->
+  <path d="M 550 325 C 558 220, 565 150, 580 150 C 650 165, 750 240, 860 290 H 895" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+
+  <!-- Panel 2 Legend Box -->
+  <rect x="680" y="122" width="220" height="42" fill="white" stroke="#d0d7de" stroke-width="1" rx="4"/>
+  <text x="688" y="138" font-size="12" font-weight="bold" fill="#2457d6">Безсердечниковий: τ_e ≈ 0.02 мс</text>
+  <text x="688" y="154" font-size="12" font-weight="bold" fill="#c0392b">З осердям: τ_e ≈ 1.0 мс</text>
+
+  <!-- Panel 2 Bottom Highlight Box -->
+  <rect x="510" y="372" width="405" height="38" fill="#fdecea" stroke="#c0392b" stroke-width="1" rx="4"/>
+  <text x="712.5" y="387" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Високі вимоги до ШІМ: f &gt; 20–40 кГц</text>
+  <text x="712.5" y="401" font-size="11" fill="#c0392b" text-anchor="middle">Мала індуктивність L вимагає високої частоти для запобігання пульсаціям</text>
+
+  <!-- BOTTOM 3 FEATURE CARDS -->
+  <!-- Card 1: Mechanical constant -->
+  <rect x="30" y="440" width="280" height="60" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="170" y="462" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Механічна константа τ_m</text>
+  <text x="170" y="482" font-size="12" fill="#6b7280" text-anchor="middle">τ_m = J·R / k_M² (у 5–10 разів менша)</text>
+
+  <!-- Card 2: Drive dynamics -->
+  <rect x="340" y="440" width="280" height="60" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="480" y="462" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Динаміка та прискорення</text>
+  <text x="480" y="482" font-size="12" fill="#6b7280" text-anchor="middle">Високе dω/dt для точних сервоприводів</text>
+
+  <!-- Card 3: Electrical constant -->
+  <rect x="650" y="440" width="280" height="60" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="790" y="462" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Електрична константа τ_e</text>
+  <text x="790" y="482" font-size="12" fill="#6b7280" text-anchor="middle">τ_e = L / R (мала індуктивність L)</text>
+</svg>

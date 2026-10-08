@@ -1,0 +1,129 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Canvas background -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Header -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Передача зворотного моменту (Backdrivability) у сервоприводах</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Мале відношення N ≤ 10:1 пропускає зворотне зусилля на ротор для FOC-вимірювання струму</text>
+
+  <!-- Left Panel: High Ratio Servo -->
+  <rect x="25" y="72" width="440" height="445" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Left Header Badge -->
+  <rect x="40" y="85" width="410" height="32" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="245" y="106" font-size="14" font-weight="bold" fill="#c0392b" text-anchor="middle">Високоредукторний сервопривід (N > 50:1)</text>
+
+  <!-- Left Schematic Diagram -->
+  <rect x="40" y="129" width="410" height="82" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <circle cx="100" cy="170" r="20" fill="#f4f6f8" stroke="#c0392b" stroke-width="2"/>
+  <text x="100" y="174" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">τ_ext</text>
+  
+  <rect x="160" y="145" width="110" height="50" rx="4" fill="#fdecea" stroke="#c0392b" stroke-dasharray="3,3"/>
+  <text x="215" y="164" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Редуктор N=100:1</text>
+  <text x="215" y="182" font-size="12" fill="#c0392b" text-anchor="middle">високе тертя τ_f</text>
+
+  <line x1="285" y1="150" x2="305" y2="190" stroke="#c0392b" stroke-width="3"/>
+  <line x1="305" y1="150" x2="285" y2="190" stroke="#c0392b" stroke-width="3"/>
+
+  <rect x="325" y="145" width="105" height="50" rx="4" fill="#f4f6f8" stroke="#6b7280"/>
+  <text x="377" y="164" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Ротор BLDC</text>
+  <text x="377" y="182" font-size="12" fill="#c0392b" text-anchor="middle">ω = 0 (стоп)</text>
+
+  <!-- Left Block 1: External Load -->
+  <rect x="40" y="223" width="410" height="46" rx="6" fill="white" stroke="#d0d7de"/>
+  <text x="245" y="241" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">1. Зовнішній момент τ_ext на вихідному валу</text>
+  <text x="245" y="259" font-size="12" fill="#6b7280" text-anchor="middle">Зовнішня сила намагається повернути вихідну ланку</text>
+
+  <!-- Left Arrow 1 -->
+  <path d="M 245,271 L 245,291" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="260" y="285" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="start">Зворотний потік τ_ext</text>
+
+  <!-- Left Block 2: Friction & Inertia -->
+  <rect x="40" y="293" width="410" height="70" rx="6" fill="#fdecea" stroke="#c0392b"/>
+  <text x="55" y="311" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="start">2. Поглинання моменту в редукторі</text>
+  <text x="55" y="330" font-size="12" fill="#1a1a1a" text-anchor="start">• Зведена інерція ротора: J_ref = N² · J_m  (х 2500...10000)</text>
+  <text x="55" y="349" font-size="12" fill="#1a1a1a" text-anchor="start">• Момент тертя зубців: τ_fric = N · τ_f  (блокує рух)</text>
+
+  <!-- Left Arrow 2 -->
+  <path d="M 245,365 L 245,385" stroke="#c0392b" stroke-width="2" stroke-dasharray="3,3"/>
+  <text x="260" y="379" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="start">До ротора доходить τ_m ≈ 0</text>
+
+  <!-- Left Block 3: FOC sensing issue -->
+  <rect x="40" y="387" width="410" height="60" rx="6" fill="white" stroke="#d0d7de"/>
+  <text x="55" y="404" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="start">3. Вимірювання моменту за струмом</text>
+  <text x="55" y="422" font-size="12" fill="#c0392b" text-anchor="start">• Ротор не обертається → немає зміни проти-ЕРС</text>
+  <text x="55" y="438" font-size="12" fill="#6b7280" text-anchor="start">• Струм фаз I_phase НЕ відображає зовнішній момент τ_ext</text>
+
+  <!-- Left Bottom Badge -->
+  <rect x="40" y="461" width="410" height="36" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="245" y="484" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">❌ Відсутня зворотна прозорість (Non-backdrivable)</text>
+
+  <!-- Right Panel: QDD Servo -->
+  <rect x="495" y="72" width="440" height="445" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Right Header Badge -->
+  <rect x="510" y="85" width="410" height="32" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="715" y="106" font-size="14" font-weight="bold" fill="#27ae60" text-anchor="middle">Квазіпрямий сервомодуль QDD (N ≤ 10:1)</text>
+
+  <!-- Right Schematic Diagram -->
+  <rect x="510" y="129" width="410" height="82" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <circle cx="570" cy="170" r="20" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <text x="570" y="174" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">τ_ext</text>
+  
+  <rect x="630" y="145" width="110" height="50" rx="4" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="685" y="164" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Редуктор N=6:1</text>
+  <text x="685" y="182" font-size="12" fill="#27ae60" text-anchor="middle">ККД > 95%</text>
+
+  <path d="M 745,170 L 790,170" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arr-green)"/>
+
+  <rect x="795" y="145" width="105" height="50" rx="4" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="847" y="164" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Ротор BLDC</text>
+  <text x="847" y="182" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">I_q ∝ τ_ext</text>
+
+  <!-- Right Block 1: External Load -->
+  <rect x="510" y="223" width="410" height="46" rx="6" fill="white" stroke="#d0d7de"/>
+  <text x="715" y="241" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">1. Зовнішній момент τ_ext на вихідному валу</text>
+  <text x="715" y="259" font-size="12" fill="#6b7280" text-anchor="middle">Зовнішнє зусилля вільно обертає вихідну ланку</text>
+
+  <!-- Right Arrow 1 -->
+  <path d="M 715,271 L 715,291" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="730" y="285" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="start">Пряма передача τ_ext</text>
+
+  <!-- Right Block 2: Low Resistance -->
+  <rect x="510" y="293" width="410" height="70" rx="6" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="525" y="311" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="start">2. Низька інерція та високий ККД</text>
+  <text x="525" y="330" font-size="12" fill="#1a1a1a" text-anchor="start">• Зведена інерція: J_ref = N² · J_m  (лише в 36...81 разів)</text>
+  <text x="525" y="349" font-size="12" fill="#1a1a1a" text-anchor="start">• Низьке тертя: ККД планетарної передачі > 95%</text>
+
+  <!-- Right Arrow 2 -->
+  <path d="M 715,365 L 715,385" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="730" y="379" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="start">Момент ротора: τ_m = τ_ext / N</text>
+
+  <!-- Right Block 3: FOC Direct Current Sensing -->
+  <rect x="510" y="387" width="410" height="60" rx="6" fill="white" stroke="#d0d7de"/>
+  <text x="525" y="404" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="start">3. Вимірювання моменту за струмом</text>
+  <text x="525" y="422" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="start">• Точна відповідність фазного струму: I_q = τ_ext / (N · K_t)</text>
+  <text x="525" y="438" font-size="12" fill="#6b7280" text-anchor="start">• Вимірювання та регулювання зусилля БЕЗ тензодатчиків</text>
+
+  <!-- Right Bottom Badge -->
+  <rect x="510" y="461" width="410" height="36" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="715" y="484" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">✓ Повна зворотна прозорість (Backdrivable)</text>
+</svg>

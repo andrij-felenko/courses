@@ -1,0 +1,196 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Canvas Background -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="36" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Схема підключення сервопривода з розділеним живленням</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Спільна шина GND та розв'язувальні конденсатори захищають контролер від пікових завад</text>
+
+  <!-- BLOCK 1: MCU / Controller -->
+  <g id="mcu-block">
+    <rect x="40" y="90" width="230" height="300" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2" rx="8"/>
+    <path d="M 40 98 A 8 8 0 0 1 48 90 L 262 90 A 8 8 0 0 1 270 98 L 270 124 L 40 124 Z" fill="#eaf0fd"/>
+    <text x="155" y="110" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">Мікроконтролер (MCU)</text>
+    <text x="155" y="142" font-size="12" fill="#6b7280" text-anchor="middle">(Логічна частина)</text>
+
+    <!-- MCU Internal Chip Icon -->
+    <rect x="75" y="155" width="160" height="34" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="4"/>
+    <text x="155" y="176" font-size="12" fill="#6b7280" text-anchor="middle">Живлення 5V (USB/Вхід)</text>
+
+    <!-- MCU Terminals & Labels -->
+    <text x="240" y="219" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">ШІМ-вихід (D9)</text>
+    <rect x="248" y="205" width="22" height="20" fill="#2457d6" rx="3"/>
+
+    <text x="240" y="279" font-size="12" fill="#6b7280" text-anchor="end">Логічний VCC (+5V)</text>
+    <rect x="248" y="265" width="22" height="20" fill="#6b7280" rx="3"/>
+
+    <text x="240" y="349" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">GND (Земля MCU)</text>
+    <rect x="248" y="335" width="22" height="20" fill="#1a1a1a" rx="3"/>
+  </g>
+
+  <!-- BLOCK 2 TOP: Power Supply -->
+  <g id="power-supply">
+    <rect x="330" y="90" width="300" height="95" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2" rx="8"/>
+    <path d="M 330 98 A 8 8 0 0 1 338 90 L 622 90 A 8 8 0 0 1 630 98 L 630 118 L 330 118 Z" fill="#e9f7ef"/>
+    <text x="480" y="111" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Силове джерело живлення</text>
+    <text x="480" y="136" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">V_SERVO = 4.8В – 6.0В DC</text>
+    <text x="480" y="156" font-size="12" fill="#6b7280" text-anchor="middle">(Окремий акумулятор або БП)</text>
+
+    <!-- Power Supply Terminals -->
+    <text x="360" y="180" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">+ V_SERVO</text>
+    <circle cx="360" cy="185" r="4" fill="#c0392b"/>
+
+    <text x="600" y="180" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">GND</text>
+    <circle cx="600" cy="185" r="4" fill="#1a1a1a"/>
+  </g>
+
+  <!-- SIGNAL WIRE & LABEL -->
+  <g id="signal-line">
+    <!-- Path from MCU D9 (270, 215) to Servo PWM Pin 1 (690, 278) -->
+    <path d="M 270 215 L 665 215 L 665 278 L 690 278" fill="none" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+    <text x="480" y="195" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">
+      <tspan x="480" dy="0">ШІМ-сигнал 50 Гц</tspan>
+      <tspan x="480" dy="13">(1000–2000 мкс)</tspan>
+    </text>
+  </g>
+
+  <!-- POWER SUPPLY DROPS TO DECOUPLING BOX -->
+  <g id="power-drops">
+    <!-- +V_SERVO drop from (360, 185) to Decoupling top rail at (360, 275) -->
+    <line x1="360" y1="185" x2="360" y2="275" stroke="#c0392b" stroke-width="2.5"/>
+    <!-- GND drop from (600, 185) to Decoupling bottom rail at (600, 365) -->
+    <line x1="600" y1="185" x2="600" y2="365" stroke="#1a1a1a" stroke-width="2.5"/>
+  </g>
+
+  <!-- BLOCK 2 BOTTOM: Decoupling Capacitors -->
+  <g id="decoupling-capacitors">
+    <rect x="330" y="240" width="300" height="150" fill="#ffffff" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="6 4" rx="8"/>
+    <text x="480" y="260" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Розв'язувальні конденсатори</text>
+
+    <!-- Filter Top Positive Rail -->
+    <line x1="350" y1="275" x2="610" y2="275" stroke="#c0392b" stroke-width="2.5"/>
+    <!-- Filter Bottom GND Rail -->
+    <line x1="350" y1="365" x2="610" y2="365" stroke="#1a1a1a" stroke-width="2.5"/>
+
+    <!-- Capacitor C1 (470 uF Electrolytic) at X=420 -->
+    <text x="405" y="316" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">C₁ = 470 мкФ</text>
+    <text x="405" y="332" font-size="12" fill="#6b7280" text-anchor="end">(електроліт)</text>
+    <text x="426" y="306" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="start">+</text>
+    <!-- C1 leads and plates -->
+    <line x1="420" y1="275" x2="420" y2="312" stroke="#c0392b" stroke-width="1.5"/>
+    <rect x="412" y="312" width="16" height="4" fill="#1a1a1a"/>
+    <rect x="412" y="324" width="16" height="4" fill="#1a1a1a"/>
+    <line x1="420" y1="328" x2="420" y2="365" stroke="#1a1a1a" stroke-width="1.5"/>
+
+    <!-- Capacitor C2 (0.1 uF Ceramic) at X=530 -->
+    <text x="515" y="316" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">C₂ = 0.1 мкФ</text>
+    <text x="515" y="332" font-size="12" fill="#6b7280" text-anchor="end">(кераміка)</text>
+    <!-- C2 leads and ceramic plates -->
+    <line x1="530" y1="275" x2="530" y2="314" stroke="#c0392b" stroke-width="1.5"/>
+    <line x1="522" y1="314" x2="538" y2="314" stroke="#1a1a1a" stroke-width="2"/>
+    <line x1="522" y1="322" x2="538" y2="322" stroke="#1a1a1a" stroke-width="2"/>
+    <line x1="530" y1="322" x2="530" y2="365" stroke="#1a1a1a" stroke-width="1.5"/>
+
+    <text x="480" y="383" font-size="12" fill="#2457d6" text-anchor="middle">Захист від просідань та ВЧ-завад</text>
+  </g>
+
+  <!-- POWER V_SERVO WIRE TO SERVO -->
+  <g id="power-to-servo">
+    <path d="M 610 275 L 650 275 L 650 308 L 690 308" fill="none" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arr-red)"/>
+  </g>
+
+  <!-- BLOCK 3: Servo Motor -->
+  <g id="servo-block">
+    <rect x="690" y="90" width="230" height="300" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2" rx="8"/>
+    <path d="M 690 98 A 8 8 0 0 1 698 90 L 912 90 A 8 8 0 0 1 920 98 L 920 124 L 690 124 Z" fill="#eaf0fd"/>
+    <text x="805" y="112" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">Сервопривод (Servo)</text>
+
+    <!-- Motor Housing Illustration -->
+    <rect x="745" y="136" width="120" height="70" fill="#2c3e50" rx="6"/>
+    <circle cx="805" cy="171" r="18" fill="#ecf0f1" stroke="#7f8c8d" stroke-width="2"/>
+    <path d="M 789 159 A 20 20 0 1 1 821 159" fill="none" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arr-green)"/>
+    <text x="805" y="175" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">360°</text>
+    <text x="805" y="224" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Постійне обертання 360°</text>
+
+    <!-- 3-Pin Connector Box -->
+    <rect x="702" y="238" width="206" height="142" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="6"/>
+    <text x="805" y="256" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Розпіновка 3-pin кабелю:</text>
+
+    <!-- Pin 1: PWM -->
+    <rect x="715" y="271" width="14" height="14" fill="#e67e22" rx="2"/>
+    <text x="735" y="283" font-size="12" fill="#1a1a1a" text-anchor="start">PWM: помаранч. / білий</text>
+
+    <!-- Pin 2: VCC -->
+    <rect x="715" y="301" width="14" height="14" fill="#c0392b" rx="2"/>
+    <text x="735" y="313" font-size="12" fill="#1a1a1a" text-anchor="start">VCC: червоний / червоний</text>
+
+    <!-- Pin 3: GND -->
+    <rect x="715" y="331" width="14" height="14" fill="#7f8c8d" rx="2"/>
+    <text x="735" y="343" font-size="12" fill="#1a1a1a" text-anchor="start">GND: коричневий / чорний</text>
+  </g>
+
+  <!-- COMMON GND BUS & CONNECTIONS -->
+  <g id="gnd-system">
+    <!-- MCU GND to Bus -->
+    <path d="M 270 345 L 285 345 L 285 415" fill="none" stroke="#1a1a1a" stroke-width="2.5"/>
+    <!-- Filter GND to Bus -->
+    <line x1="600" y1="365" x2="600" y2="415" stroke="#1a1a1a" stroke-width="2.5"/>
+    <!-- Servo GND to Bus -->
+    <path d="M 690 338 L 665 338 L 665 415" fill="none" stroke="#1a1a1a" stroke-width="2.5" marker-end="url(#arr)"/>
+
+    <!-- Common GND Bus Line -->
+    <line x1="120" y1="415" x2="820" y2="415" stroke="#1a1a1a" stroke-width="3.5"/>
+
+    <!-- Ground Symbols at junctions -->
+    <!-- Junction 1: MCU GND -->
+    <line x1="275" y1="415" x2="295" y2="415" stroke="#1a1a1a" stroke-width="3"/>
+    <line x1="279" y1="419" x2="291" y2="419" stroke="#1a1a1a" stroke-width="2"/>
+    <line x1="283" y1="423" x2="287" y2="423" stroke="#1a1a1a" stroke-width="2"/>
+
+    <!-- Junction 2: Filter/Power GND -->
+    <line x1="590" y1="415" x2="610" y2="415" stroke="#1a1a1a" stroke-width="3"/>
+    <line x1="594" y1="419" x2="606" y2="419" stroke="#1a1a1a" stroke-width="2"/>
+    <line x1="598" y1="423" x2="602" y2="423" stroke="#1a1a1a" stroke-width="2"/>
+
+    <!-- Junction 3: Servo GND -->
+    <line x1="655" y1="415" x2="675" y2="415" stroke="#1a1a1a" stroke-width="3"/>
+    <line x1="659" y1="419" x2="671" y2="419" stroke="#1a1a1a" stroke-width="2"/>
+    <line x1="663" y1="423" x2="667" y2="423" stroke="#1a1a1a" stroke-width="2"/>
+  </g>
+
+  <!-- BOTTOM SUMMARY & WARNING CARDS -->
+  <g id="bottom-notes">
+    <!-- Left Card: Warning without common GND -->
+    <rect x="40" y="445" width="250" height="70" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" rx="6"/>
+    <text x="52" y="465" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="start">⛔ Без спільного GND:</text>
+    <text x="52" y="483" font-size="12" fill="#1a1a1a" text-anchor="start">ШІМ-сигнал не має опорного</text>
+    <text x="52" y="500" font-size="12" fill="#6b7280" text-anchor="start">потенціалу (схема не працює)</text>
+
+    <!-- Center Badge: Common GND Confirmation -->
+    <rect x="315" y="445" width="330" height="70" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="6"/>
+    <text x="480" y="465" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">✓ СПІЛЬНА ШИНА ЗЕМЛІ (COMMON GND)</text>
+    <text x="480" y="483" font-size="12" fill="#1a1a1a" text-anchor="middle">Об'єднує мінуси MCU та силового джерела</text>
+    <text x="480" y="500" font-size="12" fill="#6b7280" text-anchor="middle">Захищає логіку від кидків струму та завад</text>
+
+    <!-- Right Card: Decoupling Note -->
+    <rect x="670" y="445" width="250" height="70" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+    <text x="682" y="465" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="start">💡 Без конденсаторів (C):</text>
+    <text x="682" y="483" font-size="12" fill="#1a1a1a" text-anchor="start">Просідання напруги V_SERVO при</text>
+    <text x="682" y="500" font-size="12" fill="#6b7280" text-anchor="start">старті спричиняють перезапуск MCU</text>
+  </g>
+</svg>

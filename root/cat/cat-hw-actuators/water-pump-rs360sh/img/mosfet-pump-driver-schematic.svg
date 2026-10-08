@@ -1,0 +1,164 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-black" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background Canvas -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="700" text-anchor="middle" fill="#1a1a1a">Схема силового каскаду керування помпою RS-360SH на MOSFET</text>
+  <text x="480" y="52" font-size="13" text-anchor="middle" fill="#6b7280">Оптична розв'язка ізолює MCU, а зворотний діод гасить індуктивні сплески напруги</text>
+
+  <!-- Galvanic Isolation Barrier Line -->
+  <line x1="230" y1="75" x2="230" y2="385" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="6,6"/>
+  <text x="230" y="70" font-size="12" text-anchor="middle" fill="#6b7280">Гальванічна ізоляція</text>
+
+  <!-- MCU Block -->
+  <rect x="30" y="85" width="170" height="300" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="115" y="110" font-size="14" font-weight="700" text-anchor="middle" fill="#1a1a1a">Мікроконтролер</text>
+  <text x="115" y="128" font-size="12" text-anchor="middle" fill="#6b7280">(MCU / 3.3V або 5V)</text>
+
+  <rect x="45" y="150" width="140" height="35" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="115" y="172" font-size="13" font-weight="700" text-anchor="middle" fill="#2457d6">GPIO (PWM)</text>
+
+  <rect x="45" y="335" width="140" height="35" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="115" y="357" font-size="13" font-weight="700" text-anchor="middle" fill="#1a1a1a">GND_MCU</text>
+
+  <!-- Optocoupler PC817 Box -->
+  <rect x="250" y="125" width="150" height="220" rx="8" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="325" y="148" font-size="14" font-weight="700" text-anchor="middle" fill="#2457d6">Оптопара PC817</text>
+
+  <!-- Opto LED inside (Anode/Cathode) -->
+  <!-- LED Symbol -->
+  <polygon points="285,160 285,180 300,170" fill="#2457d6"/>
+  <line x1="300" y1="160" x2="300" y2="180" stroke="#2457d6" stroke-width="2"/>
+  <line x1="270" y1="170" x2="285" y2="170" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="300" y1="170" x2="315" y2="170" stroke="#1a1a1a" stroke-width="1.5"/>
+  <!-- LED arrows -->
+  <line x1="288" y1="155" x2="294" y2="147" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <line x1="294" y1="159" x2="300" y2="151" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Phototransistor inside -->
+  <line x1="345" y1="160" x2="345" y2="190" stroke="#1a1a1a" stroke-width="2.5"/> <!-- Base bar -->
+  <line x1="345" y1="165" x2="365" y2="150" stroke="#1a1a1a" stroke-width="1.5"/> <!-- Collector -->
+  <line x1="345" y1="185" x2="365" y2="200" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-black)"/> <!-- Emitter -->
+
+  <!-- Phototransistor pins out -->
+  <line x1="365" y1="150" x2="385" y2="150" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="365" y1="200" x2="385" y2="200" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Signal connection MCU GPIO -> Resistor R1 -> Opto Anode -->
+  <line x1="185" y1="167" x2="195" y2="167" stroke="#1a1a1a" stroke-width="1.5"/>
+  <!-- Resistor R1 -->
+  <rect x="195" y="160" width="30" height="15" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="210" y="154" font-size="12" text-anchor="middle" fill="#1a1a1a">R1 220Ω</text>
+  <line x1="225" y1="167" x2="270" y2="167" stroke="#1a1a1a" stroke-width="1.5"/>
+  <!-- Opto Cathode -> GND_MCU -->
+  <line x1="315" y1="170" x2="325" y2="170" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="325" y1="170" x2="325" y2="352" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="325" y1="352" x2="185" y2="352" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Power Rails: +12V and GND_PWR -->
+  <!-- +12V Rail -->
+  <line x1="385" y1="95" x2="920" y2="95" stroke="#c0392b" stroke-width="2.5"/>
+  <text x="420" y="88" font-size="13" font-weight="700" fill="#c0392b">+12V DC (Шина живлення помпи)</text>
+
+  <!-- GND_PWR Rail -->
+  <line x1="385" y1="375" x2="920" y2="375" stroke="#1a1a1a" stroke-width="2.5"/>
+  <text x="420" y="392" font-size="13" font-weight="700" fill="#1a1a1a">GND_PWR (Силова земля)</text>
+
+  <!-- Collector to +12V -->
+  <line x1="385" y1="150" x2="410" y2="150" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="410" y1="150" x2="410" y2="95" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Emitter (Pin 3) to Gate Node -->
+  <line x1="385" y1="200" x2="440" y2="200" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Pull-down resistor R_GS between Gate Node and GND_PWR -->
+  <line x1="440" y1="200" x2="440" y2="230" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="432" y="230" width="16" height="35" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="455" y="252" font-size="12" fill="#1a1a1a">R_GS 10kΩ</text>
+  <line x1="440" y1="265" x2="440" y2="375" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Series Gate Resistor R_G -->
+  <line x1="440" y1="200" x2="465" y2="200" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="465" y="192" width="30" height="16" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="480" y="186" font-size="12" text-anchor="middle" fill="#1a1a1a">R_G 47Ω</text>
+  <line x1="495" y1="200" x2="520" y2="200" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- N-Channel MOSFET Symbol -->
+  <!-- Gate line -->
+  <line x1="520" y1="180" x2="520" y2="220" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="526" y1="175" x2="526" y2="225" stroke="#1a1a1a" stroke-width="1.5"/>
+  <!-- Drain connection -->
+  <line x1="526" y1="180" x2="545" y2="180" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="545" y1="180" x2="545" y2="135" stroke="#1a1a1a" stroke-width="1.5"/>
+  <!-- Source connection -->
+  <line x1="526" y1="220" x2="545" y2="220" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="545" y1="220" x2="545" y2="375" stroke="#1a1a1a" stroke-width="1.5"/>
+  <!-- Center channel bar -->
+  <line x1="526" y1="200" x2="545" y2="200" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="545" y1="200" x2="545" y2="220" stroke="#1a1a1a" stroke-width="1.5"/>
+  <!-- Substrate arrow pointing in (N-channel) -->
+  <polygon points="540,200 530,195 530,205" fill="#1a1a1a"/>
+
+  <!-- MOSFET Label -->
+  <text x="555" y="195" font-size="13" font-weight="700" fill="#1a1a1a">MOSFET</text>
+  <text x="555" y="212" font-size="12" fill="#6b7280">N-Chan (IRF540N)</text>
+
+  <!-- Decoupling Capacitor C1 / C2 near power rails -->
+  <line x1="680" y1="95" x2="680" y2="215" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="670" y1="215" x2="690" y2="215" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="670" y1="223" x2="690" y2="223" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="680" y1="223" x2="680" y2="375" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="696" y="215" font-size="12" fill="#1a1a1a">C1 470µF</text>
+  <text x="696" y="230" font-size="12" fill="#6b7280">(Електроліт)</text>
+
+  <!-- Water Pump RS-360SH Motor Load -->
+  <line x1="760" y1="95" x2="760" y2="143" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+  <circle cx="760" cy="175" r="32" fill="#eaf0fd" stroke="#2457d6" stroke-width="2.5"/>
+  <text x="760" y="172" font-size="18" font-weight="700" text-anchor="middle" fill="#2457d6">M</text>
+  <text x="760" y="190" font-size="12" font-weight="700" text-anchor="middle" fill="#2457d6">RS-360SH</text>
+  <line x1="760" y1="207" x2="760" y2="260" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+  <line x1="760" y1="260" x2="545" y2="260" stroke="#2457d6" stroke-width="2.5"/>
+  <line x1="545" y1="260" x2="545" y2="135" stroke="#2457d6" stroke-width="2.5"/>
+
+  <!-- Flyback Diode D1 across Motor -->
+  <line x1="860" y1="135" x2="860" y2="95" stroke="#27ae60" stroke-width="2"/>
+  <line x1="860" y1="260" x2="860" y2="195" stroke="#27ae60" stroke-width="2"/>
+  <!-- Diode Symbol (Cathode up, Anode down) -->
+  <polygon points="860,145 848,165 872,165" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <line x1="848" y1="145" x2="872" y2="145" stroke="#27ae60" stroke-width="2.5"/>
+  <line x1="860" y1="165" x2="860" y2="195" stroke="#27ae60" stroke-width="2"/>
+  <!-- Diode connection to Motor terminals -->
+  <line x1="760" y1="135" x2="860" y2="135" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="760" y1="260" x2="860" y2="260" stroke="#1a1a1a" stroke-width="1.5"/>
+  <!-- Diode Label -->
+  <text x="878" y="150" font-size="13" font-weight="700" fill="#27ae60">Діод D1</text>
+  <text x="878" y="166" font-size="12" fill="#6b7280">1N5819 / SS34</text>
+  <text x="878" y="182" font-size="12" fill="#27ae60">(Schottky)</text>
+
+  <!-- Legend / Explication Panels at Bottom -->
+  <!-- Blue Legend Box: ON State & Inrush Current -->
+  <rect x="30" y="415" width="430" height="100" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="45" y="438" font-size="13" font-weight="700" fill="#2457d6">Шлях пускового струму (MOSFET увімкнено):</text>
+  <text x="45" y="460" font-size="12" fill="#1a1a1a">• Струм протікає: +12V → Помпа RS-360SH → MOSFET (D→S) → GND</text>
+  <text x="45" y="480" font-size="12" fill="#1a1a1a">• Пусковий сплеск I_start сягає 3–5 А (викликає просідання шини)</text>
+  <text x="45" y="500" font-size="12" fill="#1a1a1a">• Опторозв'язка запобігає передачі завад і просідань на MCU</text>
+
+  <!-- Green Legend Box: OFF State & Inductive Dissipation Loop -->
+  <rect x="480" y="415" width="450" height="100" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="495" y="438" font-size="13" font-weight="700" fill="#27ae60">Контур десипації індукції (MOSFET вимкнено):</text>
+  <text x="495" y="460" font-size="12" fill="#1a1a1a">• При вимкненні індуктивність обмотки створює викид -L(di/dt)</text>
+  <text x="495" y="480" font-size="12" fill="#1a1a1a">• Зворотний діод D1 замикає струм I_ind у безпечний контур</text>
+  <text x="495" y="500" font-size="12" fill="#1a1a1a">• Обмежує напругу на стоку: V_drain ≈ V_PWR + V_F (без пробою)</text>
+</svg>

@@ -1,0 +1,240 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Markers -->
+  <defs>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="38" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Схема H-мосту та захисту DC-двигуна 130</text>
+  <text x="480" y="60" text-anchor="middle" font-size="13" fill="#6b7280">Розділення живлення V_LOGIC / V_MOTOR, діоди Шотткі D1–D4 та EMC-фільтрація C1–C3</text>
+
+  <!-- PANEL 1: CONTROLLER & ISOLATION -->
+  <rect x="25" y="85" width="210" height="430" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="130" y="108" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Логіка та розв'язка</text>
+
+  <!-- MCU Box -->
+  <rect x="35" y="125" width="190" height="115" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="130" y="147" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Мікроконтролер (MCU)</text>
+  <text x="130" y="168" text-anchor="middle" font-size="12" fill="#1a1a1a">Живлення: V_LOGIC (+3.3V)</text>
+  <text x="130" y="188" text-anchor="middle" font-size="12" fill="#6b7280">ШІМ з Dead-Time (t_dead)</text>
+  <text x="130" y="208" text-anchor="middle" font-size="12" fill="#1a1a1a">Сигнали: IN1, IN2, EN</text>
+  <text x="130" y="228" text-anchor="middle" font-size="12" fill="#6b7280">Спільна логічна земля</text>
+
+  <!-- Isolation / Driver Box -->
+  <rect x="35" y="252" width="190" height="120" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="130" y="274" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Оптопари / Драйвер</text>
+  <text x="130" y="295" text-anchor="middle" font-size="12" fill="#2457d6">Гальванічна розв'язка</text>
+  <text x="130" y="315" text-anchor="middle" font-size="12" fill="#1a1a1a">Формування затворного V_GS</text>
+  <text x="130" y="335" text-anchor="middle" font-size="12" fill="#6b7280">Ізоляція імпульсних завад</text>
+  <text x="130" y="355" text-anchor="middle" font-size="12" fill="#27ae60">Виходи керування Q1–Q4</text>
+
+  <!-- Protection Note Box -->
+  <rect x="35" y="384" width="190" height="115" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="130" y="406" text-anchor="middle" font-size="13" font-weight="bold" fill="#c0392b">Захист Shoot-Through</text>
+  <text x="130" y="427" text-anchor="middle" font-size="12" fill="#1a1a1a">Апаратний Dead Time</text>
+  <text x="130" y="447" text-anchor="middle" font-size="12" fill="#6b7280">Запобігає K.З. плеча мосту</text>
+  <text x="130" y="467" text-anchor="middle" font-size="12" fill="#c0392b">Q1 та Q3 не замкнені разом</text>
+
+  <!-- PANEL 2: MAIN H-BRIDGE & MOTOR CIRCUIT -->
+  <rect x="250" y="85" width="455" height="430" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="477" y="108" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Силовий H-міст та фільтрація двигуна 130</text>
+
+  <!-- Power Rail (+V_MOTOR) -->
+  <line x1="290" y1="138" x2="665" y2="138" stroke="#c0392b" stroke-width="2.5"/>
+  <text x="477" y="130" text-anchor="middle" font-size="13" font-weight="bold" fill="#c0392b">+V_MOTOR (+7.4V ... +12V)</text>
+
+  <!-- Bulk Power Decoupling Cap C_PWR -->
+  <line x1="305" y1="138" x2="305" y2="156" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="295" y1="156" x2="315" y2="156" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="295" y1="162" x2="315" y2="162" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="305" y1="162" x2="305" y2="465" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="285" y="155" text-anchor="end" font-size="12" font-weight="bold" fill="#2457d6">C_PWR</text>
+  <text x="285" y="170" text-anchor="end" font-size="12" fill="#6b7280">100 µF</text>
+
+  <!-- Ground Rail (GND_MOTOR) -->
+  <line x1="290" y1="465" x2="665" y2="465" stroke="#1a1a1a" stroke-width="2.5"/>
+  <circle cx="305" cy="465" r="3" fill="#1a1a1a"/>
+
+  <!-- GND symbol under ground rail -->
+  <line x1="477" y1="465" x2="477" y2="476" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="465" y1="476" x2="489" y2="476" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="469" y1="481" x2="485" y2="481" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="473" y1="486" x2="481" y2="486" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="477" y="504" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">GND_MOTOR (Силова земля)</text>
+
+  <!-- LEFT ARM: Q1 (High), Q3 (Low), D1, D3 -->
+  <line x1="362" y1="138" x2="362" y2="168" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="362" cy="138" r="3" fill="#c0392b"/>
+
+  <rect x="330" y="168" width="64" height="44" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="362" y="186" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Q1 (VT1)</text>
+  <text x="362" y="203" text-anchor="middle" font-size="12" fill="#6b7280">High-Side</text>
+
+  <!-- Gate drive wire to Q1 -->
+  <path d="M 225 290 L 240 290 L 240 190 L 330 190" fill="none" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Diode D1 anti-parallel to Q1 -->
+  <line x1="362" y1="138" x2="410" y2="138" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="410" cy="138" r="3" fill="#c0392b"/>
+  <line x1="410" y1="138" x2="410" y2="172" stroke="#1a1a1a" stroke-width="1.5"/>
+  <polygon points="410,172 402,188 418,188" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="400" y1="172" x2="420" y2="172" stroke="#27ae60" stroke-width="2"/>
+  <line x1="410" y1="188" x2="410" y2="230" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="426" y="184" text-anchor="start" font-size="12" font-weight="bold" fill="#27ae60">D1</text>
+
+  <line x1="362" y1="212" x2="362" y2="390" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="410" y1="230" x2="362" y2="230" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="362" cy="230" r="3" fill="#1a1a1a"/>
+
+  <rect x="330" y="390" width="64" height="44" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="362" y="408" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Q3 (VT3)</text>
+  <text x="362" y="425" text-anchor="middle" font-size="12" fill="#6b7280">Low-Side</text>
+
+  <line x1="362" y1="434" x2="362" y2="465" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="362" cy="465" r="3" fill="#1a1a1a"/>
+
+  <!-- Gate drive wire to Q3 -->
+  <path d="M 225 345 L 240 345 L 240 412 L 330 412" fill="none" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Diode D3 anti-parallel to Q3 -->
+  <line x1="410" y1="370" x2="362" y2="370" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="362" cy="370" r="3" fill="#1a1a1a"/>
+  <line x1="410" y1="370" x2="410" y2="382" stroke="#1a1a1a" stroke-width="1.5"/>
+  <polygon points="410,382 402,398 418,398" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="400" y1="382" x2="420" y2="382" stroke="#27ae60" stroke-width="2"/>
+  <line x1="410" y1="398" x2="410" y2="465" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="410" cy="465" r="3" fill="#1a1a1a"/>
+  <text x="428" y="394" text-anchor="start" font-size="12" font-weight="bold" fill="#27ae60">D3</text>
+
+  <circle cx="362" cy="300" r="4" fill="#1a1a1a"/>
+  <text x="325" y="292" text-anchor="end" font-size="12" font-weight="bold" fill="#1a1a1a">OUT_A</text>
+
+  <!-- RIGHT ARM: Q2 (High), Q4 (Low), D2, D4 -->
+  <line x1="597" y1="138" x2="597" y2="168" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="597" cy="138" r="3" fill="#c0392b"/>
+
+  <rect x="565" y="168" width="64" height="44" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="597" y="186" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Q2 (VT2)</text>
+  <text x="597" y="203" text-anchor="middle" font-size="12" fill="#6b7280">High-Side</text>
+
+  <!-- Diode D2 anti-parallel to Q2 -->
+  <line x1="597" y1="138" x2="545" y2="138" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="545" cy="138" r="3" fill="#c0392b"/>
+  <line x1="545" y1="138" x2="545" y2="172" stroke="#1a1a1a" stroke-width="1.5"/>
+  <polygon points="545,172 537,188 553,188" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="535" y1="172" x2="555" y2="172" stroke="#27ae60" stroke-width="2"/>
+  <line x1="545" y1="188" x2="545" y2="230" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="529" y="184" text-anchor="end" font-size="12" font-weight="bold" fill="#27ae60">D2</text>
+
+  <line x1="597" y1="212" x2="597" y2="390" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="545" y1="230" x2="597" y2="230" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="597" cy="230" r="3" fill="#1a1a1a"/>
+
+  <rect x="565" y="390" width="64" height="44" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="597" y="408" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Q4 (VT4)</text>
+  <text x="597" y="425" text-anchor="middle" font-size="12" fill="#6b7280">Low-Side</text>
+
+  <line x1="597" y1="434" x2="597" y2="465" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="597" cy="465" r="3" fill="#1a1a1a"/>
+
+  <line x1="545" y1="370" x2="597" y2="370" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="597" cy="370" r="3" fill="#1a1a1a"/>
+  <line x1="545" y1="370" x2="545" y2="382" stroke="#1a1a1a" stroke-width="1.5"/>
+  <polygon points="545,382 537,398 553,398" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="535" y1="382" x2="555" y2="382" stroke="#27ae60" stroke-width="2"/>
+  <line x1="545" y1="398" x2="545" y2="465" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="545" cy="465" r="3" fill="#1a1a1a"/>
+  <text x="529" y="394" text-anchor="end" font-size="12" font-weight="bold" fill="#27ae60">D4</text>
+
+  <circle cx="597" cy="300" r="4" fill="#1a1a1a"/>
+  <text x="634" y="292" text-anchor="start" font-size="12" font-weight="bold" fill="#1a1a1a">OUT_B</text>
+
+  <!-- MOTOR & EMC FILTERING NETWORK -->
+  <text x="480" y="175" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">DC-двигун 130</text>
+
+  <!-- L1 Inductor -->
+  <line x1="362" y1="300" x2="380" y2="300" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="380" y="293" width="24" height="14" rx="2" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="392" y="285" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">L1</text>
+  <line x1="404" y1="300" x2="425" y2="300" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="425" cy="300" r="3" fill="#1a1a1a"/>
+
+  <!-- L2 Inductor -->
+  <line x1="597" y1="300" x2="580" y2="300" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="556" y="293" width="24" height="14" rx="2" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="568" y="285" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">L2</text>
+  <line x1="556" y1="300" x2="535" y2="300" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="535" cy="300" r="3" fill="#1a1a1a"/>
+
+  <!-- Motor connections -->
+  <line x1="425" y1="300" x2="448" y2="300" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="535" y1="300" x2="512" y2="300" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Motor Body & Grounded Casing -->
+  <circle cx="480" cy="300" r="32" fill="none" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4 3"/>
+  <circle cx="480" cy="300" r="24" fill="#ffffff" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="480" y="305" text-anchor="middle" font-size="16" font-weight="bold" fill="#1a1a1a">M</text>
+
+  <!-- Differential Capacitor C1 (below motor) -->
+  <line x1="425" y1="300" x2="425" y2="370" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="535" y1="300" x2="535" y2="370" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="425" y1="370" x2="474" y2="370" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="535" y1="370" x2="486" y2="370" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="474" y1="360" x2="474" y2="380" stroke="#27ae60" stroke-width="2.5"/>
+  <line x1="486" y1="360" x2="486" y2="380" stroke="#27ae60" stroke-width="2.5"/>
+  <text x="480" y="396" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">C1 (100 nF)</text>
+  <text x="480" y="412" text-anchor="middle" font-size="12" fill="#6b7280">Диференціальний фільтр</text>
+
+  <!-- Common-Mode Capacitors C2 & C3 (above motor) -->
+  <line x1="425" y1="300" x2="425" y2="230" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="535" y1="300" x2="535" y2="230" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="425" y1="230" x2="445" y2="230" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="445" y1="222" x2="445" y2="238" stroke="#27ae60" stroke-width="2.5"/>
+  <line x1="453" y1="222" x2="453" y2="238" stroke="#27ae60" stroke-width="2.5"/>
+  <line x1="453" y1="230" x2="480" y2="230" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <line x1="535" y1="230" x2="515" y2="230" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="515" y1="222" x2="515" y2="238" stroke="#27ae60" stroke-width="2.5"/>
+  <line x1="507" y1="222" x2="507" y2="238" stroke="#27ae60" stroke-width="2.5"/>
+  <line x1="507" y1="230" x2="480" y2="230" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <circle cx="480" cy="230" r="3" fill="#1a1a1a"/>
+  <line x1="480" y1="230" x2="480" y2="268" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="2 2"/>
+  <text x="435" y="210" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">C2 (10 nF)</text>
+  <text x="525" y="210" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">C3 (10 nF)</text>
+
+  <!-- PANEL 3: PROTECTION ANALYSIS -->
+  <rect x="720" y="85" width="215" height="430" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="827" y="108" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Аналіз систем захисту</text>
+
+  <rect x="732" y="125" width="190" height="115" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="827" y="147" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">1. Гасіння сплесків</text>
+  <text x="827" y="168" text-anchor="middle" font-size="12" fill="#1a1a1a">Діоди Шотткі D1–D4</text>
+  <text x="827" y="188" text-anchor="middle" font-size="12" fill="#6b7280">Гасять ЕРС самоіндукції</text>
+  <text x="827" y="208" text-anchor="middle" font-size="12" fill="#6b7280">e = -L · (di/dt) при ШІМ</text>
+  <text x="827" y="228" text-anchor="middle" font-size="12" fill="#27ae60">Скидання струму в V_MOTOR</text>
+
+  <rect x="732" y="252" width="190" height="120" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="827" y="274" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">2. Фільтрація завад (EMC)</text>
+  <text x="827" y="295" text-anchor="middle" font-size="12" fill="#1a1a1a">C1 пригнічує іскріння щіток</text>
+  <text x="827" y="315" text-anchor="middle" font-size="12" fill="#1a1a1a">C2, C3 — ВЧ на корпус</text>
+  <text x="827" y="335" text-anchor="middle" font-size="12" fill="#6b7280">L1, L2 гасять радіозавади</text>
+  <text x="827" y="355" text-anchor="middle" font-size="12" fill="#2457d6">Захист від випромінювання</text>
+
+  <rect x="732" y="384" width="190" height="115" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="827" y="406" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">3. Розділення живлення</text>
+  <text x="827" y="427" text-anchor="middle" font-size="12" fill="#1a1a1a">V_LOGIC окремо від V_MOTOR</text>
+  <text x="827" y="447" text-anchor="middle" font-size="12" fill="#6b7280">Буферний C_PWR (100 µF)</text>
+  <text x="827" y="467" text-anchor="middle" font-size="12" fill="#c0392b">Запобігає просіданню MCU</text>
+</svg>

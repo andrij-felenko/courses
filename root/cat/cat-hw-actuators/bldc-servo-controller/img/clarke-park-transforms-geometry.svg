@@ -1,0 +1,150 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="560" fill="#ffffff"/>
+
+  <!-- Markers -->
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Геометрія перетворень Кларк (abc → αβ) та Парка (αβ → dq)</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Розкладання трифазних струмів статора на нерухомі (i_α, i_β) та обертові (i_d, i_q) компоненти</text>
+
+  <!-- LEFT PANEL: Vector Diagram Container -->
+  <rect x="30" y="75" width="540" height="455" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="8"/>
+
+  <!-- Inner Canvas for Vector Diagram -->
+  <rect x="45" y="90" width="510" height="328" fill="#ffffff" stroke="#e0e0e0" stroke-width="1" rx="6"/>
+
+  <!-- VECTOR DIAGRAM (Center at X=300, Y=245) -->
+
+  <!-- 3-Phase Stationary Axes (abc) -->
+  <!-- Phase B Axis (+120 deg) -->
+  <line x1="300" y1="245" x2="235" y2="132" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="5,4" marker-end="url(#arr-gray)"/>
+  <text x="225" y="142" font-size="14" font-weight="bold" fill="#6b7280" text-anchor="end">b</text>
+
+  <!-- Phase C Axis (+240 deg) -->
+  <line x1="300" y1="245" x2="235" y2="358" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="5,4" marker-end="url(#arr-gray)"/>
+  <text x="225" y="370" font-size="14" font-weight="bold" fill="#6b7280" text-anchor="end">c</text>
+
+  <!-- 2-Phase Stationary Axes (αβ) -->
+  <!-- α Axis (aligned with Phase A, 0 deg) -->
+  <line x1="300" y1="245" x2="440" y2="245" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="448" y="249" font-size="14" font-weight="bold" fill="#2457d6">a, α</text>
+
+  <!-- β Axis (+90 deg) -->
+  <line x1="300" y1="245" x2="300" y2="115" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="300" y="106" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">β</text>
+
+  <!-- 2-Phase Rotating Axes (dq at angle θ = 25 deg) -->
+  <!-- d Axis (Direct axis, 25 deg) -->
+  <line x1="300" y1="245" x2="422" y2="188" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="430" y="184" font-size="14" font-weight="bold" fill="#27ae60">d</text>
+
+  <!-- q Axis (Quadrature axis, 115 deg) -->
+  <line x1="300" y1="245" x2="243" y2="123" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="238" y="113" font-size="14" font-weight="bold" fill="#27ae60" text-anchor="end">q</text>
+
+  <!-- Angle θ (Rotor Angle Arc) -->
+  <path d="M 355 245 A 55 55 0 0 0 350 222" fill="none" stroke="#27ae60" stroke-width="1.8"/>
+  <text x="358" y="238" font-size="13" font-weight="bold" fill="#27ae60">θ</text>
+
+  <!-- Angle 120° Arc (Phase A to B) -->
+  <path d="M 345 245 A 45 45 0 0 0 277 222" fill="none" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="3,2"/>
+  <text x="312" y="180" font-size="12" fill="#6b7280">120°</text>
+
+  <!-- Projections of Stator Current Vector Is (at 55 deg, tip at X=375, Y=138) -->
+
+  <!-- Projection onto α axis (X=375, Y=245) -->
+  <line x1="375" y1="138" x2="375" y2="245" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <line x1="300" y1="245" x2="375" y2="245" stroke="#2457d6" stroke-width="3.5"/>
+  <text x="338" y="267" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">i_α</text>
+
+  <!-- Projection onto β axis (X=300, Y=138) -->
+  <line x1="375" y1="138" x2="300" y2="138" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <line x1="300" y1="245" x2="300" y2="138" stroke="#2457d6" stroke-width="3.5"/>
+  <text x="288" y="190" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="end">i_β</text>
+
+  <!-- Projection onto d axis (X=403, Y=197) -->
+  <line x1="375" y1="138" x2="403" y2="197" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <line x1="300" y1="245" x2="403" y2="197" stroke="#27ae60" stroke-width="3.5"/>
+  <text x="345" y="202" font-size="13" font-weight="bold" fill="#27ae60">i_d</text>
+
+  <!-- Projection onto q axis (X=272, Y=186) -->
+  <line x1="375" y1="138" x2="272" y2="186" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <line x1="300" y1="245" x2="272" y2="186" stroke="#27ae60" stroke-width="3.5"/>
+  <text x="262" y="215" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="end">i_q</text>
+
+  <!-- Stator Current Vector Is -->
+  <line x1="300" y1="245" x2="375" y2="138" stroke="#c0392b" stroke-width="3" marker-end="url(#arr-red)"/>
+  <circle cx="375" cy="138" r="3.5" fill="#c0392b"/>
+  <text x="385" y="134" font-size="14" font-weight="bold" fill="#c0392b">I_s</text>
+
+  <!-- Bottom Legend Box inside Left Panel -->
+  <rect x="45" y="430" width="510" height="85" fill="#ffffff" stroke="#e0e0e0" stroke-width="1" rx="6"/>
+  <text x="60" y="448" font-size="12" font-weight="bold" fill="#1a1a1a">Позначення систем координат:</text>
+
+  <!-- Legend Column 1 -->
+  <line x1="60" y1="468" x2="77" y2="468" stroke="#6b7280" stroke-width="2" stroke-dasharray="4,2"/>
+  <text x="83" y="472" font-size="12" font-weight="bold" fill="#1a1a1a">Система abc (3 фази)</text>
+  <text x="83" y="492" font-size="12" fill="#6b7280">Нерухомий статор</text>
+
+  <!-- Legend Column 2 -->
+  <line x1="225" y1="468" x2="242" y2="468" stroke="#2457d6" stroke-width="2.5"/>
+  <text x="248" y="472" font-size="12" font-weight="bold" fill="#1a1a1a">Система αβ (Кларк)</text>
+  <text x="248" y="492" font-size="12" fill="#6b7280">2-фазна нерухома</text>
+
+  <!-- Legend Column 3 -->
+  <line x1="380" y1="468" x2="397" y2="468" stroke="#27ae60" stroke-width="2.5"/>
+  <text x="403" y="472" font-size="12" font-weight="bold" fill="#1a1a1a">Система dq (Парк)</text>
+  <text x="403" y="492" font-size="12" fill="#6b7280">2-фазна обертова</text>
+
+
+  <!-- RIGHT PANEL 1: Clarke Transform Panel -->
+  <rect x="590" y="75" width="340" height="215" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="8"/>
+  <text x="605" y="98" font-size="14" font-weight="bold" fill="#2457d6">Пряме перетворення Кларк (abc → αβ)</text>
+  <text x="605" y="116" font-size="12" fill="#6b7280">Перехід від 3 фаз до нерухомої 2-фазної системи</text>
+
+  <!-- Equations Box 1 -->
+  <rect x="605" y="126" width="310" height="74" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="620" y="146" font-size="13" font-weight="bold" fill="#1a1a1a">i_α = i_a</text>
+  <text x="620" y="167" font-size="13" font-weight="bold" fill="#1a1a1a">i_β = (i_a + 2·i_b) / √3</text>
+  <text x="620" y="187" font-size="12" fill="#6b7280">За умови i_a + i_b + i_c = 0 (симетрія)</text>
+
+  <!-- Insight Badge 1 -->
+  <rect x="605" y="204" width="310" height="68" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="6"/>
+  <text x="620" y="222" font-size="12" font-weight="bold" fill="#2457d6">Фізичний зміст перетворення:</text>
+  <text x="620" y="240" font-size="12" fill="#1a1a1a">Проектування 3 фазних струмів на дві</text>
+  <text x="620" y="258" font-size="12" fill="#1a1a1a">перпендикулярні нерухомі осі α та β</text>
+
+
+  <!-- RIGHT PANEL 2: Park Transform Panel -->
+  <rect x="590" y="305" width="340" height="225" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="8"/>
+  <text x="605" y="328" font-size="14" font-weight="bold" fill="#27ae60">Пряме перетворення Парка (αβ → dq)</text>
+  <text x="605" y="346" font-size="12" fill="#6b7280">Поворот осей на кут ротора θ в обертову систему</text>
+
+  <!-- Equations Box 2 -->
+  <rect x="605" y="356" width="310" height="74" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="620" y="376" font-size="13" font-weight="bold" fill="#1a1a1a">i_d =  i_α·cos(θ) + i_β·sin(θ)</text>
+  <text x="620" y="396" font-size="13" font-weight="bold" fill="#1a1a1a">i_q = -i_α·sin(θ) + i_β·cos(θ)</text>
+  <text x="620" y="416" font-size="12" fill="#6b7280">де θ — електричний кут ротора</text>
+
+  <!-- Insight Badge 2 -->
+  <rect x="605" y="438" width="310" height="77" fill="#e9f7ef" stroke="#27ae60" stroke-width="1" rx="6"/>
+  <text x="620" y="456" font-size="12" font-weight="bold" fill="#27ae60">Головний результат FOC:</text>
+  <text x="620" y="473" font-size="12" fill="#1a1a1a">i_d — регулює магнітний потік (d)</text>
+  <text x="620" y="490" font-size="12" fill="#1a1a1a">i_q — незалежно регулює момент (q)</text>
+  <text x="620" y="506" font-size="12" fill="#6b7280">Струми розчеплені як у двигуні ДПС</text>
+</svg>

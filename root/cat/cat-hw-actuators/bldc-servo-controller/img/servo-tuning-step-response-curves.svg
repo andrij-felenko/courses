@@ -1,0 +1,117 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-start-green" markerWidth="9" markerHeight="9" refX="0.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-amber" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#d97706"/>
+    </marker>
+  </defs>
+
+  <!-- Canvas Background -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Header and Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Перехідні характеристики позиціонування сервоприводу</text>
+  <text x="480" y="52" font-size="13" text-anchor="middle" fill="#6b7280">Реакція на ступенчасте завдання θ_ref та збурення навантаження T_L за різних налаштувань ПІД</text>
+
+  <!-- Top Cards / Legend -->
+  <!-- Card 1: Red / Oscillatory -->
+  <rect x="110" y="62" width="250" height="44" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="125" y="79" font-size="12" font-weight="bold" fill="#c0392b">Недодемпфований (з коливаннями)</text>
+  <text x="125" y="96" font-size="12" fill="#6b7280">Мале K_d — тривалі коливання</text>
+
+  <!-- Card 2: Blue / Overshoot -->
+  <rect x="380" y="62" width="250" height="44" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="395" y="79" font-size="12" font-weight="bold" fill="#2457d6">Недодемпфований (з овершутом)</text>
+  <text x="395" y="96" font-size="12" fill="#6b7280">Велике K_p — овершут σ_max</text>
+
+  <!-- Card 3: Green / Optimal -->
+  <rect x="650" y="62" width="255" height="44" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="665" y="79" font-size="12" font-weight="bold" fill="#27ae60">Оптимальний (критичне демпф.)</text>
+  <text x="665" y="96" font-size="12" fill="#6b7280">Швидкість без перерегулювання</text>
+
+  <!-- Plot Area Panel Background -->
+  <rect x="110" y="120" width="795" height="330" fill="#f8fafc" stroke="#d0d7de" stroke-width="1" rx="4"/>
+
+  <!-- Horizontal Grid Lines -->
+  <line x1="110" y1="240" x2="905" y2="240" stroke="#cbd5e1" stroke-width="1" stroke-dasharray="4,4"/>
+  <line x1="110" y1="410" x2="905" y2="410" stroke="#cbd5e1" stroke-width="1"/>
+
+  <!-- Vertical Event Lines -->
+  <line x1="180" y1="120" x2="180" y2="410" stroke="#cbd5e1" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <line x1="540" y1="120" x2="540" y2="410" stroke="#cbd5e1" stroke-width="1.5" stroke-dasharray="4,4"/>
+
+  <!-- Setpoint Line -->
+  <path d="M 110,410 L 180,410 L 180,240 L 905,240" fill="none" stroke="#64748b" stroke-width="1.5" stroke-dasharray="6,4"/>
+
+  <!-- Response Curves -->
+  <!-- Curve 1: Red - Underdamped with Oscillations -->
+  <path d="M 110,410 L 180,410 C 195,410 210,160 225,160 C 245,160 255,295 270,295 C 288,295 300,200 315,200 C 330,200 345,262 360,262 C 375,262 390,228 405,228 C 420,228 435,246 450,246 C 470,246 490,240 515,240 L 540,240 C 552,240 562,330 575,330 C 595,330 605,200 620,200 C 640,200 650,265 665,265 C 682,265 695,225 710,225 C 730,225 750,240 780,240 L 905,240" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+
+  <!-- Curve 2: Blue - Underdamped with Overshoot -->
+  <path d="M 110,410 L 180,410 C 200,410 220,190 245,190 C 270,190 280,252 300,252 C 320,252 330,238 350,238 C 370,238 385,240 405,240 L 540,240 C 560,240 570,285 585,285 C 605,285 615,232 635,232 C 655,232 675,240 700,240 L 905,240" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+
+  <!-- Curve 3: Green - Optimal Critically Damped -->
+  <path d="M 110,410 L 180,410 C 210,410 240,240 310,240 L 540,240 C 555,240 565,262 580,262 C 600,262 615,240 640,240 L 905,240" fill="none" stroke="#27ae60" stroke-width="3"/>
+
+  <!-- Setpoint Label Pill -->
+  <rect x="425" y="210" width="110" height="22" rx="4" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+  <text x="480" y="225" font-size="12" font-weight="bold" text-anchor="middle" fill="#4b5563">Завдання θ_ref</text>
+
+  <!-- Load Disturbance Label Pill & Arrow -->
+  <rect x="475" y="135" width="130" height="24" rx="4" fill="#fff3cd" stroke="#d97706" stroke-width="1.5"/>
+  <text x="540" y="151" font-size="12" font-weight="bold" text-anchor="middle" fill="#92400e">Збурення T_L ↓</text>
+  <line x1="540" y1="159" x2="540" y2="232" stroke="#d97706" stroke-width="2" marker-end="url(#arr-amber)"/>
+
+  <!-- Callouts & Annotations -->
+  <!-- Overshoot Callout Badge & Arrow -->
+  <rect x="170" y="130" width="110" height="22" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="225" y="145" font-size="12" font-weight="bold" text-anchor="middle" fill="#c0392b">Овершут σ_max</text>
+  <line x1="225" y1="240" x2="225" y2="162" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#arr-red)"/>
+
+  <!-- Settling Time Bracket -->
+  <line x1="180" y1="240" x2="180" y2="362" stroke="#27ae60" stroke-width="1" stroke-dasharray="3,3" opacity="0.6"/>
+  <line x1="310" y1="240" x2="310" y2="362" stroke="#27ae60" stroke-width="1" stroke-dasharray="3,3" opacity="0.6"/>
+  <line x1="182" y1="355" x2="308" y2="355" stroke="#27ae60" stroke-width="1.5" marker-start="url(#arr-start-green)" marker-end="url(#arr-green)"/>
+  <text x="245" y="373" font-size="12" font-weight="bold" text-anchor="middle" fill="#27ae60">Час t_s</text>
+
+  <!-- Load Position Deviation Callout Badge -->
+  <line x1="575" y1="240" x2="575" y2="330" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#arr-red)"/>
+  <rect x="590" y="345" width="125" height="22" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="652" y="360" font-size="12" font-weight="bold" text-anchor="middle" fill="#c0392b">Відхилення Δθ_L</text>
+  <line x1="575" y1="330" x2="590" y2="356" stroke="#c0392b" stroke-width="1" stroke-dasharray="2,2"/>
+
+  <!-- Plot Axes -->
+  <line x1="110" y1="415" x2="110" y2="128" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+  <line x1="105" y1="410" x2="900" y2="410" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+
+  <!-- Axis Titles & Ticks -->
+  <text x="110" y="114" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Позиція θ(t)</text>
+  <text x="100" y="244" font-size="12" font-weight="bold" text-anchor="end" fill="#1a1a1a">θ_ref</text>
+  <text x="100" y="414" font-size="12" font-weight="bold" text-anchor="end" fill="#6b7280">0</text>
+
+  <text x="900" y="430" font-size="12" font-weight="bold" text-anchor="end" fill="#1a1a1a">Час t</text>
+  <text x="110" y="430" font-size="12" text-anchor="middle" fill="#6b7280">t = 0</text>
+
+  <text x="180" y="430" font-size="12" font-weight="bold" text-anchor="middle" fill="#4b5563">t_0</text>
+  <text x="180" y="444" font-size="12" text-anchor="middle" fill="#6b7280">(Ступінь)</text>
+
+  <text x="540" y="430" font-size="12" font-weight="bold" text-anchor="middle" fill="#92400e">t_L</text>
+  <text x="540" y="444" font-size="12" text-anchor="middle" fill="#6b7280">(Навантаження T_L)</text>
+
+  <!-- Bottom Takeaway Panel -->
+  <rect x="110" y="462" width="795" height="64" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="125" y="480" font-size="12" font-weight="bold" fill="#1a1a1a">Аналіз динаміки сервоприводу при налаштуванні ПІД-контуру:</text>
+  <text x="125" y="497" font-size="12" fill="#1a1a1a">• <tspan font-weight="bold" fill="#27ae60">Критичне демпфування:</tspan> найшвидша відповідь без овершуту та мінімальне відхилення Δθ_L під навантаженням.</text>
+  <text x="125" y="514" font-size="12" fill="#1a1a1a">• <tspan font-weight="bold" fill="#c0392b">Недостатнє демпфування:</tspan> викликає коливання, резонанс механіки, перевитрату струму та перегрів BLDC.</text>
+</svg>

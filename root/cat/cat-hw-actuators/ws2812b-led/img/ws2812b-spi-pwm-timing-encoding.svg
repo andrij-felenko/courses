@@ -1,0 +1,159 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Canvas Background -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="30" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Часова діаграма сигналів WS2812B та їх апаратне кодування</text>
+  <text x="480" y="50" text-anchor="middle" font-size="13" fill="#6b7280">Формування часових інтервалів T0H/T1H за допомогою послідовностей SPI або ШІМ-таймера з DMA</text>
+
+  <!-- PANEL 1: Physical Signal Specifications -->
+  <rect x="25" y="70" width="910" height="155" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="40" y="90" text-anchor="start" font-size="13" font-weight="bold" fill="#1a1a1a">1. Фізичний шар WS2812B: формування біта «0» та біта «1»</text>
+
+  <!-- Panel 1 - Bit 0 Card -->
+  <rect x="40" y="98" width="430" height="118" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="55" y="114" text-anchor="start" font-size="12" font-weight="bold" fill="#1a1a1a">Біт «0» (T0H = 0.4 мкс, T0L = 0.85 мкс)</text>
+
+  <!-- Bit 0 Timing Labels -->
+  <text x="120" y="138" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">T0H: 400 нс</text>
+  <text x="245" y="138" text-anchor="middle" font-size="12" fill="#6b7280">T0L: 850 нс</text>
+
+  <!-- Bit 0 Waveform -->
+  <path d="M 65,180 L 80,180 L 80,145 L 160,145 L 160,180 L 330,180 L 330,145 L 345,145" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+
+  <!-- Bit 0 Guides & T_BIT -->
+  <line x1="80" y1="145" x2="80" y2="190" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="160" y1="145" x2="160" y2="190" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="330" y1="180" x2="330" y2="190" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="80" y1="188" x2="330" y2="188" stroke="#1a1a1a" stroke-width="1" marker-start="url(#arr)" marker-end="url(#arr)"/>
+  <text x="205" y="202" text-anchor="middle" font-size="12" fill="#1a1a1a">T_BIT = 1.25 мкс (800 кГц)</text>
+
+  <!-- Panel 1 - Bit 1 Card -->
+  <rect x="485" y="98" width="430" height="118" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="500" y="114" text-anchor="start" font-size="12" font-weight="bold" fill="#1a1a1a">Біт «1» (T1H = 0.8 мкс, T1L = 0.45 мкс)</text>
+
+  <!-- Bit 1 Timing Labels -->
+  <text x="605" y="138" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">T1H: 800 нс</text>
+  <text x="730" y="138" text-anchor="middle" font-size="12" fill="#6b7280">T1L: 450 нс</text>
+
+  <!-- Bit 1 Waveform -->
+  <path d="M 510,180 L 525,180 L 525,145 L 685,145 L 685,180 L 775,180 L 775,145 L 790,145" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+
+  <!-- Bit 1 Guides & T_BIT -->
+  <line x1="525" y1="145" x2="525" y2="190" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="685" y1="145" x2="685" y2="190" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="775" y1="180" x2="775" y2="190" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="525" y1="188" x2="775" y2="188" stroke="#1a1a1a" stroke-width="1" marker-start="url(#arr)" marker-end="url(#arr)"/>
+  <text x="650" y="202" text-anchor="middle" font-size="12" fill="#1a1a1a">T_BIT = 1.25 мкс (800 кГц)</text>
+
+  <!-- PANEL 2: SPI MOSI Generation -->
+  <rect x="25" y="238" width="910" height="150" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="40" y="256" text-anchor="start" font-size="13" font-weight="bold" fill="#1a1a1a">2. Апаратне формування через SPI MOSI (2.4 МГц, 1 WS-біт = 3 SPI-біти)</text>
+
+  <!-- Panel 2 - Left Card (Bit 0 via SPI) -->
+  <rect x="40" y="268" width="430" height="112" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="55" y="282" text-anchor="start" font-size="12" font-weight="bold" fill="#2457d6">Біт «0» → послідовність [ 1 0 0 ]</text>
+
+  <!-- SPI Cells Left -->
+  <rect x="65" y="292" width="70" height="24" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="100" y="308" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">1 (417 нс)</text>
+
+  <rect x="140" y="292" width="70" height="24" rx="3" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="175" y="308" text-anchor="middle" font-size="12" fill="#6b7280">0 (417 нс)</text>
+
+  <rect x="215" y="292" width="70" height="24" rx="3" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="250" y="308" text-anchor="middle" font-size="12" fill="#6b7280">0 (417 нс)</text>
+
+  <!-- MOSI Waveform Left -->
+  <path d="M 55,360 L 65,360 L 65,335 L 135,335 L 135,360 L 285,360" fill="none" stroke="#2457d6" stroke-width="2"/>
+  <text x="100" y="375" text-anchor="middle" font-size="12" fill="#2457d6">MOSI Вихід</text>
+
+  <!-- Left Explanatory Box -->
+  <rect x="295" y="278" width="165" height="94" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="305" y="296" text-anchor="start" font-size="12" fill="#1a1a1a">Дані: біт 0</text>
+  <text x="305" y="318" text-anchor="start" font-size="12" font-weight="bold" fill="#2457d6">SPI-байт: 100b</text>
+  <text x="305" y="340" text-anchor="start" font-size="12" fill="#6b7280">T0H = 417 нс</text>
+  <text x="305" y="360" text-anchor="start" font-size="12" fill="#6b7280">T0L = 833 нс</text>
+
+  <!-- Panel 2 - Right Card (Bit 1 via SPI) -->
+  <rect x="485" y="268" width="430" height="112" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="500" y="282" text-anchor="start" font-size="12" font-weight="bold" fill="#27ae60">Біт «1» → послідовність [ 1 1 0 ]</text>
+
+  <!-- SPI Cells Right -->
+  <rect x="510" y="292" width="70" height="24" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="545" y="308" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">1 (417 нс)</text>
+
+  <rect x="585" y="292" width="70" height="24" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="620" y="308" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">1 (417 нс)</text>
+
+  <rect x="660" y="292" width="70" height="24" rx="3" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="695" y="308" text-anchor="middle" font-size="12" fill="#6b7280">0 (417 нс)</text>
+
+  <!-- MOSI Waveform Right -->
+  <path d="M 500,360 L 510,360 L 510,335 L 655,335 L 655,360 L 730,360" fill="none" stroke="#27ae60" stroke-width="2"/>
+  <text x="580" y="375" text-anchor="middle" font-size="12" fill="#27ae60">MOSI Вихід</text>
+
+  <!-- Right Explanatory Box -->
+  <rect x="740" y="278" width="165" height="94" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="750" y="296" text-anchor="start" font-size="12" fill="#1a1a1a">Дані: біт 1</text>
+  <text x="750" y="318" text-anchor="start" font-size="12" font-weight="bold" fill="#27ae60">SPI-байт: 110b</text>
+  <text x="750" y="340" text-anchor="start" font-size="12" fill="#6b7280">T1H = 833 нс</text>
+  <text x="750" y="360" text-anchor="start" font-size="12" fill="#6b7280">T1L = 417 нс</text>
+
+  <!-- PANEL 3: PWM Timer + DMA Generation -->
+  <rect x="25" y="401" width="910" height="144" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="40" y="418" text-anchor="start" font-size="13" font-weight="bold" fill="#1a1a1a">3. Формування через ШІМ-таймер + DMA (зміна реєстру CCR кожен період таймера)</text>
+
+  <!-- Panel 3 - Left Card (PWM Waveforms) -->
+  <rect x="40" y="428" width="530" height="106" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Period Titles -->
+  <text x="125" y="444" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Період 1: Біт «0»</text>
+  <text x="275" y="444" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Період 2: Біт «1»</text>
+  <text x="425" y="444" text-anchor="middle" font-size="12" font-weight="bold" fill="#6b7280">Період 3: RESET</text>
+
+  <!-- Sawtooth Waves (TIM_CNT) -->
+  <path d="M 55,480 L 195,452 L 195,480 M 205,480 L 345,452 L 345,480 M 355,480 L 495,452 L 495,480" fill="none" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="4,3"/>
+
+  <!-- CCR Threshold Lines -->
+  <line x1="55" y1="471" x2="100" y2="471" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="205" y1="462" x2="295" y2="462" stroke="#27ae60" stroke-width="1.5"/>
+
+  <!-- PWM Output Waveforms -->
+  <path d="M 55,515 L 55,495 L 100,495 L 100,515 L 195,515 L 205,515 L 205,495 L 295,495 L 295,515 L 345,515 L 355,515 L 495,515" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Timing annotations for PWM -->
+  <text x="125" y="527" text-anchor="middle" font-size="12" fill="#2457d6">T0H = 400 нс</text>
+  <text x="275" y="527" text-anchor="middle" font-size="12" fill="#27ae60">T1H = 800 нс</text>
+  <text x="425" y="527" text-anchor="middle" font-size="12" fill="#6b7280">LOW (&gt;50 мкс)</text>
+
+  <!-- Panel 3 - Right Card (SRAM DMA Buffer) -->
+  <rect x="585" y="428" width="335" height="106" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="600" y="445" text-anchor="start" font-size="12" font-weight="bold" fill="#1a1a1a">Буфер DMA в SRAM (значення CCR):</text>
+
+  <!-- DMA Buffer Cells -->
+  <rect x="600" y="453" width="95" height="26" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="647" y="470" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">CCR_0 (32%)</text>
+
+  <rect x="705" y="453" width="95" height="26" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="752" y="470" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">CCR_1 (64%)</text>
+
+  <rect x="810" y="453" width="95" height="26" rx="4" fill="#f4f6f8" stroke="#6b7280" stroke-width="1"/>
+  <text x="857" y="470" text-anchor="middle" font-size="12" fill="#6b7280">0 (RESET)</text>
+
+  <!-- DMA Explanatory Notes -->
+  <text x="600" y="496" text-anchor="start" font-size="12" fill="#1a1a1a">DMA автоматично оновлює TIMx-&gt;CCR1</text>
+  <text x="600" y="518" text-anchor="start" font-size="12" font-weight="bold" fill="#27ae60">Без залучення CPU (0% процесорного часу)</text>
+</svg>

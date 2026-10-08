@@ -1,0 +1,167 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-left" markerWidth="9" markerHeight="9" refX="0.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-left-blue" markerWidth="9" markerHeight="9" refX="0.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Header -->
+  <text x="480" y="38" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Часова діаграма ШІМ та відповідність ширини імпульсу куту вала</text>
+  <text x="480" y="58" text-anchor="middle" font-size="13" fill="#6b7280">Фіксований період T = 20 мс (50 Гц); ширина імпульсу t_w (1.0–2.0 мс) пропорційно задає кут θ (0°–180°)</text>
+
+  <!-- Vertical Guide Lines across waveforms -->
+  <!-- Pulse Start Line (x=260) -->
+  <line x1="260" y1="115" x2="260" y2="455" stroke="#2457d6" stroke-dasharray="3,3" stroke-width="1" opacity="0.35"/>
+  <!-- Period End Line (x=860) -->
+  <line x1="860" y1="115" x2="860" y2="455" stroke="#6b7280" stroke-dasharray="3,3" stroke-width="1" opacity="0.35"/>
+
+  <!-- ==================== PANEL 1: 0 DEGREES ==================== -->
+  <rect x="30" y="80" width="900" height="118" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Left Servo Horn Subpanel -->
+  <rect x="45" y="88" width="170" height="102" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="130" y="108" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Кут: θ = 0° (Мін.)</text>
+  <!-- Protractor Guide Arc -->
+  <path d="M 102 148 A 28 28 0 0 1 158 148" stroke="#d0d7de" stroke-dasharray="2,2" fill="none" stroke-width="1.5"/>
+  <!-- Servo Body & Shaft -->
+  <rect x="110" y="140" width="40" height="26" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <circle cx="130" cy="148" r="6" fill="#2457d6"/>
+  <!-- Horn pointing left -->
+  <line x1="130" y1="148" x2="104" y2="148" stroke="#2457d6" stroke-width="4.5" stroke-linecap="round"/>
+  <circle cx="104" cy="148" r="3" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="130" y="181" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">t_w = 1.0 мс</text>
+
+  <!-- Right Waveform Subpanel -->
+  <rect x="230" y="88" width="685" height="102" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Pulse Width Dimension (1.0 ms) -->
+  <line x1="260" y1="106" x2="260" y2="112" stroke="#2457d6" stroke-width="1"/>
+  <line x1="290" y1="106" x2="290" y2="112" stroke="#2457d6" stroke-width="1"/>
+  <line x1="260" y1="109" x2="290" y2="109" stroke="#2457d6" stroke-width="1"/>
+  <text x="275" y="103" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">1.0 мс</text>
+
+  <!-- Voltage Axis Labels -->
+  <text x="246" y="122" text-anchor="end" font-size="11" fill="#6b7280">5V</text>
+  <text x="246" y="157" text-anchor="end" font-size="11" fill="#6b7280">0V</text>
+
+  <!-- Grid lines -->
+  <line x1="250" y1="118" x2="905" y2="118" stroke="#e5e7eb" stroke-dasharray="3,3" stroke-width="1"/>
+  <line x1="250" y1="153" x2="905" y2="153" stroke="#e5e7eb" stroke-dasharray="3,3" stroke-width="1"/>
+
+  <!-- High Pulse Highlight -->
+  <rect x="260" y="118" width="30" height="35" fill="#eaf0fd" opacity="0.8"/>
+
+  <!-- Waveform Signal Line -->
+  <path d="M 250 153 H 260 V 118 H 290 V 153 H 860 V 118 H 890 V 153 H 905" fill="none" stroke="#2457d6" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
+
+  <!-- Low Level Text -->
+  <text x="575" y="142" text-anchor="middle" font-size="12" fill="#6b7280">Низький рівень: 19.0 мс</text>
+
+  <!-- Period T Dimension -->
+  <line x1="260" y1="172" x2="860" y2="172" stroke="#1a1a1a" stroke-width="1.2" marker-start="url(#arr-left)" marker-end="url(#arr)"/>
+  <text x="560" y="168" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Період T = 20.0 мс (50 Гц)</text>
+
+
+  <!-- ==================== PANEL 2: 90 DEGREES ==================== -->
+  <rect x="30" y="212" width="900" height="118" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Left Servo Horn Subpanel -->
+  <rect x="45" y="220" width="170" height="102" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="130" y="238" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Кут: θ = 90° (Центр)</text>
+  <!-- Protractor Guide Arc -->
+  <path d="M 102 280 A 28 28 0 0 1 158 280" stroke="#d0d7de" stroke-dasharray="2,2" fill="none" stroke-width="1.5"/>
+  <!-- Servo Body & Shaft -->
+  <rect x="110" y="272" width="40" height="26" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <circle cx="130" cy="280" r="6" fill="#2457d6"/>
+  <!-- Horn pointing up -->
+  <line x1="130" y1="280" x2="130" y2="254" stroke="#2457d6" stroke-width="4.5" stroke-linecap="round"/>
+  <circle cx="130" cy="254" r="3" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="130" y="313" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">t_w = 1.5 мс</text>
+
+  <!-- Right Waveform Subpanel -->
+  <rect x="230" y="220" width="685" height="102" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Pulse Width Dimension (1.5 ms) -->
+  <line x1="260" y1="238" x2="260" y2="244" stroke="#2457d6" stroke-width="1"/>
+  <line x1="305" y1="238" x2="305" y2="244" stroke="#2457d6" stroke-width="1"/>
+  <line x1="260" y1="241" x2="305" y2="241" stroke="#2457d6" stroke-width="1"/>
+  <text x="282.5" y="235" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">1.5 мс</text>
+
+  <!-- Voltage Axis Labels -->
+  <text x="246" y="254" text-anchor="end" font-size="11" fill="#6b7280">5V</text>
+  <text x="246" y="289" text-anchor="end" font-size="11" fill="#6b7280">0V</text>
+
+  <!-- Grid lines -->
+  <line x1="250" y1="250" x2="905" y2="250" stroke="#e5e7eb" stroke-dasharray="3,3" stroke-width="1"/>
+  <line x1="250" y1="285" x2="905" y2="285" stroke="#e5e7eb" stroke-dasharray="3,3" stroke-width="1"/>
+
+  <!-- High Pulse Highlight -->
+  <rect x="260" y="250" width="45" height="35" fill="#eaf0fd" opacity="0.8"/>
+
+  <!-- Waveform Signal Line -->
+  <path d="M 250 285 H 260 V 250 H 305 V 285 H 860 V 250 H 905 V 285 H 905" fill="none" stroke="#2457d6" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
+
+  <!-- Low Level Text -->
+  <text x="582.5" y="274" text-anchor="middle" font-size="12" fill="#6b7280">Низький рівень: 18.5 мс</text>
+
+
+  <!-- ==================== PANEL 3: 180 DEGREES ==================== -->
+  <rect x="30" y="344" width="900" height="118" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Left Servo Horn Subpanel -->
+  <rect x="45" y="352" width="170" height="102" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="130" y="370" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Кут: θ = 180° (Макс.)</text>
+  <!-- Protractor Guide Arc -->
+  <path d="M 102 412 A 28 28 0 0 1 158 412" stroke="#d0d7de" stroke-dasharray="2,2" fill="none" stroke-width="1.5"/>
+  <!-- Servo Body & Shaft -->
+  <rect x="110" y="404" width="40" height="26" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <circle cx="130" cy="412" r="6" fill="#2457d6"/>
+  <!-- Horn pointing right -->
+  <line x1="130" y1="412" x2="156" y2="412" stroke="#2457d6" stroke-width="4.5" stroke-linecap="round"/>
+  <circle cx="156" cy="412" r="3" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="130" y="445" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">t_w = 2.0 мс</text>
+
+  <!-- Right Waveform Subpanel -->
+  <rect x="230" y="352" width="685" height="102" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Pulse Width Dimension (2.0 ms) -->
+  <line x1="260" y1="370" x2="260" y2="376" stroke="#2457d6" stroke-width="1"/>
+  <line x1="320" y1="370" x2="320" y2="376" stroke="#2457d6" stroke-width="1"/>
+  <line x1="260" y1="373" x2="320" y2="373" stroke="#2457d6" stroke-width="1"/>
+  <text x="290" y="367" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">2.0 мс</text>
+
+  <!-- Voltage Axis Labels -->
+  <text x="246" y="386" text-anchor="end" font-size="11" fill="#6b7280">5V</text>
+  <text x="246" y="421" text-anchor="end" font-size="11" fill="#6b7280">0V</text>
+
+  <!-- Grid lines -->
+  <line x1="250" y1="382" x2="905" y2="382" stroke="#e5e7eb" stroke-dasharray="3,3" stroke-width="1"/>
+  <line x1="250" y1="417" x2="905" y2="417" stroke="#e5e7eb" stroke-dasharray="3,3" stroke-width="1"/>
+
+  <!-- High Pulse Highlight -->
+  <rect x="260" y="382" width="60" height="35" fill="#eaf0fd" opacity="0.8"/>
+
+  <!-- Waveform Signal Line -->
+  <path d="M 250 417 H 260 V 382 H 320 V 417 H 860 V 382 H 920 V 417 H 905" fill="none" stroke="#2457d6" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
+
+  <!-- Low Level Text -->
+  <text x="590" y="406" text-anchor="middle" font-size="12" fill="#6b7280">Низький рівень: 18.0 мс</text>
+
+
+  <!-- ==================== BOTTOM SUMMARY & FORMULA PANEL ==================== -->
+  <rect x="30" y="476" width="900" height="66" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="480" y="500" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Формула кутового розрахунку: t_w(θ) = t_min + (θ / 180°) · (t_max - t_min)</text>
+  <text x="480" y="524" text-anchor="middle" font-size="12" fill="#2457d6">Для SG90 / MG90S: t_min = 1.0 мс (0°), t_neutral = 1.5 мс (90°), t_max = 2.0 мс (180°)</text>
+</svg>

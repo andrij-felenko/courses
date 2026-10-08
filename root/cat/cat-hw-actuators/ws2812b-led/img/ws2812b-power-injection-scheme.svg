@@ -1,0 +1,211 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 600" width="960" height="600" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-black" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="960" height="600" fill="white"/>
+
+  <!-- Header -->
+  <text x="480" y="34" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Схема додаткової інжекції живлення світлодіодної стрічки WS2812B</text>
+  <text x="480" y="56" font-size="13" fill="#6b7280" text-anchor="middle">Паралельна інжекція 5 V компенсує омічне падіння напруги (ΔV) та запобігає викривленню кольорів</text>
+
+  <!-- PANEL A -->
+  <rect x="24" y="74" width="912" height="212" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="40" y="98" font-size="14" font-weight="bold" fill="#c0392b">А. Одностороннє живлення (просідання напруги ΔV на опорі доріжок)</text>
+  
+  <rect x="645" y="82" width="275" height="24" rx="4" fill="#c0392b"/>
+  <text x="782" y="98" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">Проблема: просідання V_DD, зміна кольорів</text>
+
+  <!-- Panel A PSU -->
+  <rect x="40" y="118" width="80" height="150" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="80" y="138" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">БЖ 5V</text>
+  <text x="80" y="156" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">5.0 V DC</text>
+  <circle cx="115" cy="188" r="4" fill="#c0392b"/>
+  <text x="106" y="192" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="end">+5V</text>
+  <circle cx="115" cy="238" r="4" fill="#1a1a1a"/>
+  <text x="106" y="242" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">GND</text>
+
+  <!-- Panel A Main Wires -->
+  <line x1="115" y1="188" x2="195" y2="188" stroke="#c0392b" stroke-width="3"/>
+  <text x="125" y="176" font-size="12" font-weight="bold" fill="#c0392b">I_total = 3 A</text>
+  <line x1="115" y1="238" x2="195" y2="238" stroke="#1a1a1a" stroke-width="3"/>
+  <text x="125" y="254" font-size="12" fill="#6b7280">GND повернення</text>
+
+  <!-- Panel A Strip Panel -->
+  <rect x="195" y="118" width="725" height="150" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <line x1="195" y1="146" x2="910" y2="146" stroke="#c0392b" stroke-width="3"/>
+  <text x="315" y="135" font-size="12" font-weight="bold" fill="#c0392b">V_DD (+5 V)</text>
+  <line x1="195" y1="245" x2="910" y2="245" stroke="#1a1a1a" stroke-width="3"/>
+  <text x="315" y="259" font-size="12" font-weight="bold" fill="#1a1a1a">Доріжка GND</text>
+
+  <!-- Panel A Data Line -->
+  <path d="M195,193 L830,193" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <text x="202" y="176" font-size="12" font-weight="bold" fill="#2457d6">DIN</text>
+
+  <!-- Panel A Node 1 -->
+  <rect x="220" y="122" width="65" height="18" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="252" y="135" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">5.0 V</text>
+  <rect x="235" y="170" width="40" height="46" rx="3" fill="#2457d6" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="255" y="188" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">LED 1</text>
+  <text x="255" y="206" font-size="12" fill="#eaf0fd" text-anchor="middle">5050</text>
+  <!-- C1 -->
+  <line x1="287" y1="146" x2="287" y2="189" stroke="#1a1a1a" stroke-width="1"/>
+  <line x1="281" y1="189" x2="293" y2="189" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="281" y1="195" x2="293" y2="195" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="287" y1="195" x2="287" y2="245" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="296" y="212" font-size="12" fill="#6b7280">C1</text>
+
+  <text x="360" y="160" font-size="12" fill="#c0392b" text-anchor="middle">ΔV_1 = -0.7 V</text>
+
+  <!-- Panel A Node 2 -->
+  <rect x="420" y="122" width="65" height="18" rx="3" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="452" y="135" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">4.3 V</text>
+  <rect x="435" y="170" width="40" height="46" rx="3" fill="#2457d6" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="455" y="188" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">LED 30</text>
+  <text x="455" y="206" font-size="12" fill="#eaf0fd" text-anchor="middle">5050</text>
+  <!-- C30 -->
+  <line x1="487" y1="146" x2="487" y2="189" stroke="#1a1a1a" stroke-width="1"/>
+  <line x1="481" y1="189" x2="493" y2="189" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="481" y1="195" x2="493" y2="195" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="487" y1="195" x2="487" y2="245" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="496" y="212" font-size="12" fill="#6b7280">C30</text>
+
+  <text x="560" y="160" font-size="12" fill="#c0392b" text-anchor="middle">ΔV_2 = -0.5 V</text>
+
+  <!-- Panel A Node 3 -->
+  <rect x="620" y="122" width="65" height="18" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="652" y="135" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">3.8 V</text>
+  <rect x="635" y="170" width="40" height="46" rx="3" fill="#2457d6" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="655" y="188" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">LED 60</text>
+  <text x="655" y="206" font-size="12" fill="#eaf0fd" text-anchor="middle">5050</text>
+  <!-- C60 -->
+  <line x1="687" y1="146" x2="687" y2="189" stroke="#1a1a1a" stroke-width="1"/>
+  <line x1="681" y1="189" x2="693" y2="189" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="681" y1="195" x2="693" y2="195" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="687" y1="195" x2="687" y2="245" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="696" y="212" font-size="12" fill="#6b7280">C60</text>
+
+  <text x="760" y="160" font-size="12" fill="#c0392b" text-anchor="middle">ΔV_3 = -0.6 V</text>
+
+  <!-- Panel A Node 4 -->
+  <rect x="815" y="122" width="80" height="18" rx="3" fill="#c0392b" stroke="#c0392b" stroke-width="1"/>
+  <text x="855" y="135" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">3.2 V ⚠️</text>
+  <rect x="835" y="170" width="40" height="46" rx="3" fill="#c0392b" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="855" y="188" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">LED 100</text>
+  <text x="855" y="206" font-size="12" fill="#fdecea" text-anchor="middle">Червоніє</text>
+  <!-- C100 -->
+  <line x1="887" y1="146" x2="887" y2="189" stroke="#1a1a1a" stroke-width="1"/>
+  <line x1="881" y1="189" x2="893" y2="189" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="881" y1="195" x2="893" y2="195" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="887" y1="195" x2="887" y2="245" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="893" y="212" font-size="12" fill="#6b7280">C100</text>
+
+
+  <!-- PANEL B -->
+  <rect x="24" y="304" width="912" height="238" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="40" y="328" font-size="14" font-weight="bold" fill="#27ae60">Б. Живлення з додатковою інжекцією (двостороннє підключення +5V та GND)</text>
+
+  <rect x="645" y="312" width="275" height="24" rx="4" fill="#27ae60"/>
+  <text x="782" y="328" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">Розв'язок: V_DD ≥ 4.8 V, стабільний колір</text>
+
+  <!-- Panel B PSU -->
+  <rect x="40" y="348" width="80" height="140" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="80" y="368" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">БЖ 5V</text>
+  <text x="80" y="386" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">5.0 V DC</text>
+  <circle cx="115" cy="418" r="4" fill="#c0392b"/>
+  <text x="106" y="422" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="end">+5V</text>
+  <circle cx="115" cy="468" r="4" fill="#1a1a1a"/>
+  <text x="106" y="472" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">GND</text>
+
+  <!-- Panel B Main Wires -->
+  <line x1="115" y1="418" x2="195" y2="418" stroke="#c0392b" stroke-width="3"/>
+  <text x="125" y="406" font-size="12" font-weight="bold" fill="#c0392b">I_1 = 1.5 A</text>
+  <line x1="115" y1="468" x2="195" y2="468" stroke="#1a1a1a" stroke-width="3"/>
+
+  <!-- Panel B Strip Panel -->
+  <rect x="195" y="348" width="725" height="145" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <line x1="195" y1="376" x2="910" y2="376" stroke="#c0392b" stroke-width="3"/>
+  <text x="315" y="365" font-size="12" font-weight="bold" fill="#c0392b">V_DD (+5 V)</text>
+  <line x1="195" y1="468" x2="910" y2="468" stroke="#1a1a1a" stroke-width="3"/>
+  <text x="315" y="482" font-size="12" font-weight="bold" fill="#1a1a1a">Доріжка GND</text>
+
+  <!-- Panel B Node 1 -->
+  <rect x="220" y="352" width="65" height="18" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="252" y="365" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">5.0 V</text>
+  <rect x="235" y="400" width="40" height="46" rx="3" fill="#2457d6" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="255" y="418" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">LED 1</text>
+  <text x="255" y="436" font-size="12" fill="#eaf0fd" text-anchor="middle">5050</text>
+  <!-- C1 -->
+  <line x1="287" y1="376" x2="287" y2="419" stroke="#1a1a1a" stroke-width="1"/>
+  <line x1="281" y1="419" x2="293" y2="419" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="281" y1="425" x2="293" y2="425" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="287" y1="425" x2="287" y2="468" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="296" y="442" font-size="12" fill="#6b7280">C1</text>
+
+  <text x="360" y="390" font-size="12" fill="#27ae60" text-anchor="middle">ΔV ≈ -0.15 V</text>
+
+  <!-- Panel B Node 2 -->
+  <rect x="420" y="352" width="65" height="18" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="452" y="365" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">4.85 V</text>
+  <rect x="435" y="400" width="40" height="46" rx="3" fill="#2457d6" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="455" y="418" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">LED 30</text>
+  <text x="455" y="436" font-size="12" fill="#eaf0fd" text-anchor="middle">5050</text>
+  <!-- C30 -->
+  <line x1="487" y1="376" x2="487" y2="419" stroke="#1a1a1a" stroke-width="1"/>
+  <line x1="481" y1="419" x2="493" y2="419" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="481" y1="425" x2="493" y2="425" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="487" y1="425" x2="487" y2="468" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="496" y="442" font-size="12" fill="#6b7280">C30</text>
+
+  <text x="560" y="390" font-size="12" fill="#27ae60" text-anchor="middle">Мінімальне просідання</text>
+
+  <!-- Panel B Node 3 -->
+  <rect x="620" y="352" width="65" height="18" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="652" y="365" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">4.85 V</text>
+  <rect x="635" y="400" width="40" height="46" rx="3" fill="#2457d6" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="655" y="418" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">LED 60</text>
+  <text x="655" y="436" font-size="12" fill="#eaf0fd" text-anchor="middle">5050</text>
+  <!-- C60 -->
+  <line x1="687" y1="376" x2="687" y2="419" stroke="#1a1a1a" stroke-width="1"/>
+  <line x1="681" y1="419" x2="693" y2="419" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="681" y1="425" x2="693" y2="425" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="687" y1="425" x2="687" y2="468" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="696" y="442" font-size="12" fill="#6b7280">C60</text>
+
+  <text x="760" y="390" font-size="12" fill="#27ae60" text-anchor="middle">ΔV ≈ -0.15 V</text>
+
+  <!-- Panel B Node 4 (Injection Node) -->
+  <rect x="800" y="352" width="112" height="18" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="856" y="365" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">5.0 V (Інжекція) ✓</text>
+  <rect x="835" y="400" width="40" height="46" rx="3" fill="#2457d6" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="855" y="418" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">LED 100</text>
+  <text x="855" y="436" font-size="12" fill="#eaf0fd" text-anchor="middle">5050</text>
+  <!-- C100 -->
+  <line x1="887" y1="376" x2="887" y2="419" stroke="#1a1a1a" stroke-width="1"/>
+  <line x1="881" y1="419" x2="893" y2="419" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="881" y1="425" x2="893" y2="425" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="887" y1="425" x2="887" y2="468" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="893" y="442" font-size="12" fill="#6b7280">C100</text>
+
+  <!-- Power Injection Lines -->
+  <path d="M115,418 V508 H885 V376" fill="none" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arr-red)"/>
+  <text x="505" y="502" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Додаткова лінія інжекції +5V (провід 18 AWG, I_inj = 1.5 A)</text>
+
+  <path d="M115,468 V526 H885 V468" fill="none" stroke="#1a1a1a" stroke-width="2.5" marker-end="url(#arr-black)"/>
+  <text x="505" y="534" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Додаткова лінія інжекції GND (зменшує загальний опір шлейфу)</text>
+
+  <!-- Legend Bar -->
+  <rect x="24" y="556" width="912" height="24" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="480" y="572" font-size="12" fill="#6b7280" text-anchor="middle"><tspan font-weight="bold" fill="#1a1a1a">Примітка:</tspan> C_bypass = 100 nF біля кожного LED  •  Рекомендовано інжекцію кожні 5 м (150 LED / 9 A)</text>
+</svg>

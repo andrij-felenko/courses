@@ -1,0 +1,210 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- White Background -->
+  <rect x="0" y="0" width="960" height="540" fill="#ffffff"/>
+
+  <defs>
+    <!-- Arrow markers -->
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+
+    <!-- Radial gradient for sphere in ball joint -->
+    <radialGradient id="ball-grad" cx="35%" cy="35%" r="65%">
+      <stop offset="0%" stop-color="#86efac"/>
+      <stop offset="60%" stop-color="#27ae60"/>
+      <stop offset="100%" stop-color="#14532d"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Порівняння наконечників тяг: точки люфту та пружної деформації</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Вплив типу шарнірного з'єднання на точність, жорсткість та ступені вільності</text>
+
+  <!-- ================= COLUMN 1: Z-ВИГИН ================= -->
+  <rect x="30" y="72" width="280" height="448" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  
+  <!-- Col 1 Header Card -->
+  <rect x="42" y="82" width="256" height="50" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="170" y="101" font-size="14" font-weight="bold" fill="#c0392b" text-anchor="middle">Z-вигин (Дротяна тяга)</text>
+  <text x="170" y="121" font-size="12" font-weight="600" fill="#c0392b" text-anchor="middle">Низька точність / Великий люфт</text>
+
+  <!-- Col 1 Upper Callout -->
+  <text x="170" y="156" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Радіальний люфт Δd</text>
+  <text x="170" y="171" font-size="12" fill="#6b7280" text-anchor="middle">(зазор між дротом і отвором)</text>
+
+  <!-- Col 1 Schematics Drawing Area (y=180 to 270) -->
+  <!-- Servo Horn / Lever Plate -->
+  <rect x="158" y="190" width="24" height="80" rx="4" fill="#e2e8f0" stroke="#64748b" stroke-width="1.5"/>
+  <circle cx="170" cy="210" r="9" fill="#ffffff" stroke="#64748b" stroke-width="1.5"/>
+  
+  <!-- Clear Radial Clearance Ring -->
+  <circle cx="170" cy="210" r="11" fill="none" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3,2"/>
+
+  <!-- Z-bent pushrod -->
+  <!-- Main pushrod line -->
+  <path d="M 55 235 L 148 235" stroke="#334155" stroke-width="4" stroke-linecap="round"/>
+  <!-- Bent front vertical leg -->
+  <path d="M 148 235 L 148 210" stroke="#334155" stroke-width="3.5" stroke-linecap="round"/>
+  <!-- Pin segment through horn hole -->
+  <path d="M 148 210 L 192 210" stroke="#2457d6" stroke-width="3.5" stroke-linecap="round"/>
+  <!-- Rear vertical leg -->
+  <path d="M 192 210 L 192 245" stroke="#334155" stroke-width="3.5" stroke-linecap="round"/>
+
+  <!-- Elastic bending flex curve (dashed red) -->
+  <path d="M 55 235 Q 105 244 148 235" stroke="#c0392b" stroke-width="2" stroke-dasharray="4,2" fill="none"/>
+
+  <!-- Force F arrow -->
+  <line x1="60" y1="254" x2="100" y2="254" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arr-blue)"/>
+  <text x="110" y="258" font-size="12" font-weight="bold" fill="#2457d6">F</text>
+
+  <!-- Col 1 Lower Callout -->
+  <text x="170" y="286" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Пружна деформація</text>
+  <text x="170" y="301" font-size="12" fill="#6b7280" text-anchor="middle">(вигин Z-коліна від F)</text>
+  <text x="170" y="338" font-size="12" fill="#1a1a1a" text-anchor="middle">Кутовий люфт при перекосі</text>
+
+  <!-- Col 1 Characteristics Table Card -->
+  <rect x="42" y="358" width="256" height="150" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="42" y="358" width="256" height="26" rx="6" fill="#fdecea"/>
+  <text x="170" y="375" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Характеристики Z-вигину</text>
+  
+  <text x="52" y="398" font-size="12" fill="#6b7280">Величина люфту:</text>
+  <text x="288" y="398" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="end">0.2 – 0.5 мм</text>
+  
+  <text x="52" y="420" font-size="12" fill="#6b7280">Пружна жорсткість:</text>
+  <text x="288" y="420" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="end">Низька (вигин)</text>
+
+  <text x="52" y="442" font-size="12" fill="#6b7280">Ступені вільності:</text>
+  <text x="288" y="442" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">1-осьовий + кут</text>
+
+  <text x="52" y="464" font-size="12" fill="#6b7280">Складність монтажу:</text>
+  <text x="288" y="464" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="end">Дуже проста</text>
+
+  <text x="52" y="486" font-size="12" fill="#6b7280">Застосування:</text>
+  <text x="288" y="486" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">Легкі / бюджетні</text>
+
+
+  <!-- ================= COLUMN 2: ВИЛКА / КЛЕВІС ================= -->
+  <rect x="340" y="72" width="280" height="448" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  
+  <!-- Col 2 Header Card -->
+  <rect x="352" y="82" width="256" height="50" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="480" y="101" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">Вилка / Клевіс (Clevis)</text>
+  <text x="480" y="121" font-size="12" font-weight="600" fill="#2457d6" text-anchor="middle">Середня точність / 1-осьовий</text>
+
+  <!-- Col 2 Upper Callout -->
+  <text x="480" y="156" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Люфт штифта й зазор</text>
+  <text x="480" y="171" font-size="12" fill="#6b7280" text-anchor="middle">(радіальний та осьовий)</text>
+
+  <!-- Col 2 Schematics Drawing Area (y=180 to 270) -->
+  <!-- Horn plate in middle -->
+  <rect x="472" y="190" width="16" height="80" fill="#e2e8f0" stroke="#64748b" stroke-width="1.5"/>
+
+  <!-- Main pushrod -->
+  <path d="M 365 230 L 435 230" stroke="#334155" stroke-width="4" stroke-linecap="round"/>
+
+  <!-- Clevis Body -->
+  <rect x="435" y="200" width="15" height="60" rx="3" fill="#cbd5e1" stroke="#334155" stroke-width="1.5"/>
+  <rect x="450" y="200" width="55" height="12" rx="3" fill="#cbd5e1" stroke="#334155" stroke-width="1.5"/>
+  <rect x="450" y="248" width="55" height="12" rx="3" fill="#cbd5e1" stroke="#334155" stroke-width="1.5"/>
+
+  <!-- Clevis Pin -->
+  <rect x="475" y="194" width="10" height="72" rx="2" fill="#2457d6" stroke="#1d4ed8" stroke-width="1.5"/>
+  <rect x="471" y="190" width="18" height="5" rx="2" fill="#1d4ed8"/>
+
+  <!-- Red flexing arrows on ears -->
+  <line x1="490" y1="196" x2="490" y2="186" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <line x1="490" y1="264" x2="490" y2="274" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+
+  <!-- Col 2 Lower Callout -->
+  <text x="480" y="286" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Розтискання вушок</text>
+  <text x="480" y="301" font-size="12" fill="#6b7280" text-anchor="middle">(пружний вигин при F_side)</text>
+  <text x="480" y="338" font-size="12" fill="#1a1a1a" text-anchor="middle">Плоский рух без перекосу</text>
+
+  <!-- Col 2 Characteristics Table Card -->
+  <rect x="352" y="358" width="256" height="150" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="352" y="358" width="256" height="26" rx="6" fill="#eaf0fd"/>
+  <text x="480" y="375" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Характеристики вилки</text>
+  
+  <text x="362" y="398" font-size="12" fill="#6b7280">Величина люфту:</text>
+  <text x="598" y="398" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">0.05 – 0.2 мм</text>
+  
+  <text x="362" y="420" font-size="12" fill="#6b7280">Пружна жорсткість:</text>
+  <text x="598" y="420" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">Середня</text>
+
+  <text x="362" y="442" font-size="12" fill="#6b7280">Ступені вільності:</text>
+  <text x="598" y="442" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">Strict 1-осьовий</text>
+
+  <text x="362" y="464" font-size="12" fill="#6b7280">Складність монтажу:</text>
+  <text x="598" y="464" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">Середня</text>
+
+  <text x="362" y="486" font-size="12" fill="#6b7280">Застосування:</text>
+  <text x="598" y="486" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">Прямолінійні тяги</text>
+
+
+  <!-- ================= COLUMN 3: КУЛЬОВИЙ ШАРНІР ================= -->
+  <rect x="650" y="72" width="280" height="448" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  
+  <!-- Col 3 Header Card -->
+  <rect x="662" y="82" width="256" height="50" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="790" y="101" font-size="14" font-weight="bold" fill="#27ae60" text-anchor="middle">Кульовий шарнір (Ball Joint)</text>
+  <text x="790" y="121" font-size="12" font-weight="600" fill="#27ae60" text-anchor="middle">Висока точність / Безлюфтовий 3D</text>
+
+  <!-- Col 3 Upper Callout -->
+  <text x="790" y="156" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Мікрокліренс сфери (≈ 0)</text>
+  <text x="790" y="171" font-size="12" fill="#6b7280" text-anchor="middle">(безлюфтове з'єднання)</text>
+
+  <!-- Col 3 Schematics Drawing Area (y=180 to 270) -->
+  <!-- Servo Horn Mount Plate -->
+  <rect x="782" y="235" width="16" height="40" fill="#e2e8f0" stroke="#64748b" stroke-width="1.5"/>
+  <rect x="786" y="222" width="8" height="20" fill="#64748b" stroke="#334155" stroke-width="1"/>
+
+  <!-- Main Pushrod -->
+  <path d="M 675 210 L 762 210" stroke="#334155" stroke-width="4" stroke-linecap="round"/>
+
+  <!-- Socket Ring Housing -->
+  <path d="M 755 200 L 770 200 C 775 200 778 204 778 210 C 778 216 775 220 770 220 L 755 220 Z" fill="#94a3b8" stroke="#334155" stroke-width="1.5"/>
+  <circle cx="790" cy="210" r="22" fill="#ffffff" stroke="#27ae60" stroke-width="3.5"/>
+  <circle cx="790" cy="210" r="17" fill="none" stroke="#86efac" stroke-width="2" stroke-dasharray="5,2"/>
+
+  <!-- Ball Sphere -->
+  <circle cx="790" cy="210" r="14" fill="url(#ball-grad)" stroke="#15803d" stroke-width="1.5"/>
+
+  <!-- 3D Rotation Arcs -->
+  <path d="M 773 200 A 19 19 0 0 1 807 200" fill="none" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arr-green)"/>
+  <path d="M 806 220 A 18 18 0 0 1 774 220" fill="none" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arr-green)"/>
+
+  <!-- Col 3 Lower Callout -->
+  <text x="790" y="286" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Мінімальна деформація</text>
+  <text x="790" y="301" font-size="12" fill="#6b7280" text-anchor="middle">(жорстка металева обойма)</text>
+  <text x="790" y="338" font-size="12" fill="#1a1a1a" text-anchor="middle">Просторовий 3D-поворот</text>
+
+  <!-- Col 3 Characteristics Table Card -->
+  <rect x="662" y="358" width="256" height="150" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="662" y="358" width="256" height="26" rx="6" fill="#e9f7ef"/>
+  <text x="790" y="375" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Характеристики кульового</text>
+  
+  <text x="672" y="398" font-size="12" fill="#6b7280">Величина люфту:</text>
+  <text x="908" y="398" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="end">&lt; 0.02 мм (≈ 0)</text>
+  
+  <text x="672" y="420" font-size="12" fill="#6b7280">Пружна жорсткість:</text>
+  <text x="908" y="420" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="end">Висока</text>
+
+  <text x="672" y="442" font-size="12" fill="#6b7280">Ступені вільності:</text>
+  <text x="908" y="442" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="end">3D (просторовий)</text>
+
+  <text x="672" y="464" font-size="12" fill="#6b7280">Складність монтажу:</text>
+  <text x="908" y="464" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">Висока (різьба)</text>
+
+  <text x="672" y="486" font-size="12" fill="#6b7280">Застосування:</text>
+  <text x="908" y="486" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="end">Прецизійні / БПЛА</text>
+
+</svg>

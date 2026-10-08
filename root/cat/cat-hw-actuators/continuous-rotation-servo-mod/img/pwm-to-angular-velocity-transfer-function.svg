@@ -1,0 +1,135 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-axis" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Canvas Background -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="28" font-size="18" font-weight="700" text-anchor="middle" fill="#1a1a1a">Передавальна характеристика: тривалість ШІМ-імпульсу t_w → кутова швидкість ω</text>
+  <text x="480" y="48" font-size="13" text-anchor="middle" fill="#6b7280">Центральна мертва зона забезпечує спокій у нейтралі, а зони насичення обмежують швидкість ±ω_max</text>
+
+  <!-- Shaded Region Panels -->
+  <!-- Saturation CCW (Left) -->
+  <rect x="160" y="75" width="80" height="330" fill="#fdecea" fill-opacity="0.5"/>
+  <!-- Proportional CCW -->
+  <rect x="240" y="75" width="220" height="330" fill="#eaf0fd" fill-opacity="0.3"/>
+  <!-- Deadband (Center) -->
+  <rect x="460" y="75" width="80" height="330" fill="#f4f6f8"/>
+  <!-- Proportional CW -->
+  <rect x="540" y="75" width="220" height="330" fill="#eaf0fd" fill-opacity="0.3"/>
+  <!-- Saturation CW (Right) -->
+  <rect x="760" y="75" width="80" height="330" fill="#fdecea" fill-opacity="0.5"/>
+
+  <!-- Grid & Saturation Limits -->
+  <line x1="130" y1="110" x2="860" y2="110" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4,4"/>
+  <line x1="130" y1="390" x2="860" y2="390" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4,4"/>
+
+  <!-- Vertical Zone Boundaries -->
+  <line x1="240" y1="75" x2="240" y2="405" stroke="#c0392b" stroke-width="1" stroke-dasharray="4,4"/>
+  <line x1="460" y1="75" x2="460" y2="405" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <line x1="540" y1="75" x2="540" y2="405" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <line x1="760" y1="75" x2="760" y2="405" stroke="#c0392b" stroke-width="1" stroke-dasharray="4,4"/>
+
+  <!-- Main Coordinate Axes -->
+  <!-- Horizontal Axis t_w -->
+  <line x1="130" y1="250" x2="875" y2="250" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-axis)"/>
+  <text x="870" y="274" font-size="13" font-weight="700" text-anchor="end" fill="#1a1a1a">t_w (мкс)</text>
+
+  <!-- Vertical Axis w -->
+  <line x1="500" y1="415" x2="500" y2="68" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-axis)"/>
+  <text x="512" y="68" font-size="13" font-weight="700" fill="#1a1a1a">ω (рад/с)</text>
+
+  <!-- Y-Axis Ticks & Labels -->
+  <line x1="495" y1="110" x2="505" y2="110" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="490" y="114" font-size="12" font-weight="700" text-anchor="end" fill="#2457d6">+ω_max</text>
+
+  <text x="490" y="242" font-size="12" font-weight="700" text-anchor="end" fill="#1a1a1a">0</text>
+
+  <line x1="495" y1="390" x2="505" y2="390" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="490" y="394" font-size="12" font-weight="700" text-anchor="end" fill="#2457d6">-ω_max</text>
+
+  <!-- X-Axis Ticks & Labels -->
+  <line x1="160" y1="245" x2="160" y2="255" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="160" y="423" font-size="12" text-anchor="middle" fill="#1a1a1a">1000 мкс</text>
+  <text x="160" y="437" font-size="12" text-anchor="middle" fill="#6b7280">(мін)</text>
+
+  <line x1="240" y1="245" x2="240" y2="255" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="240" y="423" font-size="12" text-anchor="middle" fill="#6b7280">1100 мкс</text>
+
+  <line x1="460" y1="245" x2="460" y2="255" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="445" y="423" font-size="12" text-anchor="end" fill="#c0392b">1470 мкс</text>
+
+  <line x1="500" y1="245" x2="500" y2="255" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="500" y="423" font-size="12" font-weight="700" text-anchor="middle" fill="#1a1a1a">1500 мкс</text>
+  <text x="500" y="437" font-size="12" text-anchor="middle" fill="#6b7280">(нейтраль)</text>
+
+  <line x1="540" y1="245" x2="540" y2="255" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="555" y="423" font-size="12" text-anchor="start" fill="#c0392b">1530 мкс</text>
+
+  <line x1="760" y1="245" x2="760" y2="255" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="760" y="423" font-size="12" text-anchor="middle" fill="#6b7280">1900 мкс</text>
+
+  <line x1="840" y1="245" x2="840" y2="255" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="840" y="423" font-size="12" text-anchor="middle" fill="#1a1a1a">2000 мкс</text>
+  <text x="840" y="437" font-size="12" text-anchor="middle" fill="#6b7280">(макс)</text>
+
+  <!-- Zone Header Labels Inside Graph -->
+  <!-- Saturation CCW -->
+  <text x="200" y="95" font-size="12" font-weight="700" text-anchor="middle" fill="#c0392b">Насичення CCW</text>
+
+  <!-- Proportional CCW (placed above curve at y=135) -->
+  <text x="350" y="135" font-size="13" font-weight="700" text-anchor="middle" fill="#2457d6">Пропорційне регулювання CCW</text>
+  <text x="350" y="153" font-size="12" text-anchor="middle" fill="#1a1a1a">ω = K_v · (t_w - 1470 мкс)</text>
+  <text x="350" y="169" font-size="12" text-anchor="middle" fill="#6b7280">Реверс (проти годинникової)</text>
+
+  <!-- Deadband Center -->
+  <text x="500" y="135" font-size="12" font-weight="700" text-anchor="middle" fill="#1a1a1a">Мертва зона</text>
+  <text x="500" y="151" font-size="12" text-anchor="middle" fill="#6b7280">(Deadband)</text>
+  <text x="500" y="167" font-size="12" text-anchor="middle" fill="#27ae60">ω = 0</text>
+
+  <!-- Proportional CW (placed below curve at y=325) -->
+  <text x="650" y="325" font-size="13" font-weight="700" text-anchor="middle" fill="#2457d6">Пропорційне регулювання CW</text>
+  <text x="650" y="343" font-size="12" text-anchor="middle" fill="#1a1a1a">ω = K_v · (t_w - 1530 мкс)</text>
+  <text x="650" y="359" font-size="12" text-anchor="middle" fill="#6b7280">Пряме (за годинниковою)</text>
+
+  <!-- Saturation CW -->
+  <text x="800" y="325" font-size="12" font-weight="700" text-anchor="middle" fill="#c0392b">Насичення CW</text>
+
+  <!-- Piecewise Transfer Curve -->
+  <path d="M 160 390 L 240 390 L 460 250 L 540 250 L 760 110 L 840 110" fill="none" stroke="#2457d6" stroke-width="3.5" stroke-linejoin="round"/>
+
+  <!-- Key Points (Knee points of curve) -->
+  <circle cx="240" cy="390" r="5" fill="#2457d6"/>
+  <circle cx="460" cy="250" r="5" fill="#2457d6"/>
+  <circle cx="540" cy="250" r="5" fill="#2457d6"/>
+  <circle cx="760" cy="110" r="5" fill="#2457d6"/>
+
+  <!-- Summary Panels at Bottom -->
+  <!-- Panel 1: Deadband & Neutral -->
+  <rect x="30" y="448" width="290" height="62" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="45" y="467" font-size="13" font-weight="700" fill="#1a1a1a">1. Нейтраль та Deadband</text>
+  <text x="45" y="484" font-size="12" fill="#6b7280">При t_w = 1500 ± 30 мкс мост вимкнено.</text>
+  <text x="45" y="499" font-size="12" fill="#6b7280">Усуває тремтіння вала при завадах.</text>
+
+  <!-- Panel 2: Proportional Mode -->
+  <rect x="335" y="448" width="290" height="62" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="350" y="467" font-size="13" font-weight="700" fill="#2457d6">2. Пропорційна зона</text>
+  <text x="350" y="484" font-size="12" fill="#1a1a1a">Швидкість ω лінійно залежить від Δt_w.</text>
+  <text x="350" y="499" font-size="12" fill="#1a1a1a">Крутизна регулюється підсилювачем K_v.</text>
+
+  <!-- Panel 3: Saturation Mode -->
+  <rect x="640" y="448" width="290" height="62" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="655" y="467" font-size="13" font-weight="700" fill="#c0392b">3. Зона насичення</text>
+  <text x="655" y="484" font-size="12" fill="#1a1a1a">При t_w ≤ 1100 або ≥ 1900 мкс ключі</text>
+  <text x="655" y="499" font-size="12" fill="#1a1a1a">H-моста повністю відкриті (U = U_max).</text>
+</svg>

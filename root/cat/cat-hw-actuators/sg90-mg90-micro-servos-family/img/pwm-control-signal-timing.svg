@@ -1,0 +1,143 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 550" width="960" height="550" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-start-gray" markerWidth="9" markerHeight="9" refX="1.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-start-blue" markerWidth="9" markerHeight="9" refX="1.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="550" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Часові параметри ШІМ-сигналу керування мікросервоприводом (50 Гц)</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Кут повороту вала θ (0°–180°) пропорційний тривалості імпульсу t_pulse (0,5–2,5 мс) за періоду T = 20 мс</text>
+
+  <!-- Panel 1: 0 degrees -->
+  <rect x="35" y="75" width="890" height="120" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="6"/>
+
+  <!-- Panel 1 Left: Servo Horn Visualizer -->
+  <rect x="50" y="85" width="180" height="22" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="4"/>
+  <text x="140" y="100" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Кут θ = 0° (t = 0.5 мс)</text>
+
+  <rect x="87" y="131" width="8" height="14" fill="#ffffff" stroke="#6b7280" stroke-width="1.5" rx="1"/>
+  <rect x="185" y="131" width="8" height="14" fill="#ffffff" stroke="#6b7280" stroke-width="1.5" rx="1"/>
+  <rect x="95" y="118" width="90" height="40" fill="#ffffff" stroke="#6b7280" stroke-width="1.5" rx="3"/>
+  <circle cx="140" cy="138" r="12" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <path d="M104,138 A 36 36 0 0 1 176,138" fill="none" stroke="#6b7280" stroke-width="1" stroke-dasharray="2 2"/>
+  <path d="M140,134 L104,136 A 3 3 0 0 0 104,140 L140,142 Z" fill="#2457d6"/>
+  <circle cx="106" cy="138" r="1.5" fill="#ffffff"/>
+  <circle cx="140" cy="138" r="4" fill="#1a1a1a"/>
+  <text x="140" y="182" font-size="12" fill="#6b7280" text-anchor="middle">Крайнє ліве положення</text>
+
+  <line x1="245" y1="85" x2="245" y2="185" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3 3"/>
+
+  <!-- Panel 1 Right: PWM Waveform -->
+  <text x="310" y="114" font-size="12" fill="#6b7280" text-anchor="end">HIGH</text>
+  <text x="310" y="149" font-size="12" fill="#6b7280" text-anchor="end">LOW (0V)</text>
+
+  <rect x="320" y="110" width="15" height="35" fill="#eaf0fd"/>
+  <path d="M320,145 L320,110 L335,110 L335,145 L920,145 L920,110 L935,110" fill="none" stroke="#2457d6" stroke-width="2.5" stroke-linejoin="round"/>
+
+  <line x1="320" y1="110" x2="320" y2="92" stroke="#6b7280" stroke-width="1"/>
+  <line x1="335" y1="110" x2="335" y2="92" stroke="#6b7280" stroke-width="1"/>
+  <line x1="320" y1="95" x2="335" y2="95" stroke="#2457d6" stroke-width="1" marker-start="url(#arr-start-blue)" marker-end="url(#arr-blue)"/>
+  <text x="327.5" y="90" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">t_pulse = 0.5 мс</text>
+
+  <line x1="320" y1="145" x2="320" y2="173" stroke="#6b7280" stroke-width="1"/>
+  <line x1="920" y1="145" x2="920" y2="173" stroke="#6b7280" stroke-width="1"/>
+  <line x1="320" y1="168" x2="920" y2="168" stroke="#6b7280" stroke-width="1" marker-start="url(#arr-start-gray)" marker-end="url(#arr-gray)"/>
+  <text x="620" y="184" font-size="12" fill="#6b7280" text-anchor="middle">Період T = 20 мс (50 Гц)</text>
+
+  <!-- Panel 2: 90 degrees -->
+  <rect x="35" y="210" width="890" height="120" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="6"/>
+
+  <!-- Panel 2 Left: Servo Horn Visualizer -->
+  <rect x="50" y="220" width="180" height="22" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="4"/>
+  <text x="140" y="235" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Кут θ = 90° (t = 1.5 мс)</text>
+
+  <rect x="87" y="266" width="8" height="14" fill="#ffffff" stroke="#6b7280" stroke-width="1.5" rx="1"/>
+  <rect x="185" y="266" width="8" height="14" fill="#ffffff" stroke="#6b7280" stroke-width="1.5" rx="1"/>
+  <rect x="95" y="253" width="90" height="40" fill="#ffffff" stroke="#6b7280" stroke-width="1.5" rx="3"/>
+  <circle cx="140" cy="273" r="12" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <path d="M104,273 A 36 36 0 0 1 176,273" fill="none" stroke="#6b7280" stroke-width="1" stroke-dasharray="2 2"/>
+  <path d="M104,273 A 36 36 0 0 1 140,237" fill="none" stroke="#2457d6" stroke-width="2"/>
+  <path d="M136,273 L138,237 A 3 3 0 0 1 142,237 L144,273 Z" fill="#2457d6"/>
+  <circle cx="140" cy="239" r="1.5" fill="#ffffff"/>
+  <circle cx="140" cy="273" r="4" fill="#1a1a1a"/>
+  <text x="140" y="317" font-size="12" fill="#6b7280" text-anchor="middle">Нейтральне положення</text>
+
+  <line x1="245" y1="220" x2="245" y2="320" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3 3"/>
+
+  <!-- Panel 2 Right: PWM Waveform -->
+  <text x="310" y="249" font-size="12" fill="#6b7280" text-anchor="end">HIGH</text>
+  <text x="310" y="284" font-size="12" fill="#6b7280" text-anchor="end">LOW (0V)</text>
+
+  <rect x="320" y="245" width="45" height="35" fill="#eaf0fd"/>
+  <path d="M320,280 L320,245 L365,245 L365,280 L920,280 L920,245 L935,245" fill="none" stroke="#2457d6" stroke-width="2.5" stroke-linejoin="round"/>
+
+  <line x1="320" y1="245" x2="320" y2="227" stroke="#6b7280" stroke-width="1"/>
+  <line x1="365" y1="245" x2="365" y2="227" stroke="#6b7280" stroke-width="1"/>
+  <line x1="320" y1="230" x2="365" y2="230" stroke="#2457d6" stroke-width="1" marker-start="url(#arr-start-blue)" marker-end="url(#arr-blue)"/>
+  <text x="342.5" y="225" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">t_pulse = 1.5 мс</text>
+
+  <line x1="320" y1="280" x2="320" y2="308" stroke="#6b7280" stroke-width="1"/>
+  <line x1="920" y1="280" x2="920" y2="308" stroke="#6b7280" stroke-width="1"/>
+  <line x1="320" y1="303" x2="920" y2="303" stroke="#6b7280" stroke-width="1" marker-start="url(#arr-start-gray)" marker-end="url(#arr-gray)"/>
+  <text x="620" y="319" font-size="12" fill="#6b7280" text-anchor="middle">Період T = 20 мс (50 Гц)</text>
+
+  <!-- Panel 3: 180 degrees -->
+  <rect x="35" y="345" width="890" height="120" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="6"/>
+
+  <!-- Panel 3 Left: Servo Horn Visualizer -->
+  <rect x="50" y="355" width="180" height="22" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="4"/>
+  <text x="140" y="370" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Кут θ = 180° (t = 2.5 мс)</text>
+
+  <rect x="87" y="401" width="8" height="14" fill="#ffffff" stroke="#6b7280" stroke-width="1.5" rx="1"/>
+  <rect x="185" y="401" width="8" height="14" fill="#ffffff" stroke="#6b7280" stroke-width="1.5" rx="1"/>
+  <rect x="95" y="388" width="90" height="40" fill="#ffffff" stroke="#6b7280" stroke-width="1.5" rx="3"/>
+  <circle cx="140" cy="408" r="12" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <path d="M104,408 A 36 36 0 0 1 176,408" fill="none" stroke="#6b7280" stroke-width="1" stroke-dasharray="2 2"/>
+  <path d="M104,408 A 36 36 0 0 1 176,408" fill="none" stroke="#2457d6" stroke-width="2"/>
+  <path d="M140,404 L176,406 A 3 3 0 0 1 176,410 L140,412 Z" fill="#2457d6"/>
+  <circle cx="174" cy="408" r="1.5" fill="#ffffff"/>
+  <circle cx="140" cy="408" r="4" fill="#1a1a1a"/>
+  <text x="140" y="452" font-size="12" fill="#6b7280" text-anchor="middle">Крайнє праве положення</text>
+
+  <line x1="245" y1="355" x2="245" y2="455" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3 3"/>
+
+  <!-- Panel 3 Right: PWM Waveform -->
+  <text x="310" y="384" font-size="12" fill="#6b7280" text-anchor="end">HIGH</text>
+  <text x="310" y="419" font-size="12" fill="#6b7280" text-anchor="end">LOW (0V)</text>
+
+  <rect x="320" y="380" width="75" height="35" fill="#eaf0fd"/>
+  <path d="M320,415 L320,380 L395,380 L395,415 L920,415 L920,380 L935,380" fill="none" stroke="#2457d6" stroke-width="2.5" stroke-linejoin="round"/>
+
+  <line x1="320" y1="380" x2="320" y2="362" stroke="#6b7280" stroke-width="1"/>
+  <line x1="395" y1="380" x2="395" y2="362" stroke="#6b7280" stroke-width="1"/>
+  <line x1="320" y1="365" x2="395" y2="365" stroke="#2457d6" stroke-width="1" marker-start="url(#arr-start-blue)" marker-end="url(#arr-blue)"/>
+  <text x="357.5" y="360" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">t_pulse = 2.5 мс</text>
+
+  <line x1="320" y1="415" x2="320" y2="443" stroke="#6b7280" stroke-width="1"/>
+  <line x1="920" y1="415" x2="920" y2="443" stroke="#6b7280" stroke-width="1"/>
+  <line x1="320" y1="438" x2="920" y2="438" stroke="#6b7280" stroke-width="1" marker-start="url(#arr-start-gray)" marker-end="url(#arr-gray)"/>
+  <text x="620" y="454" font-size="12" fill="#6b7280" text-anchor="middle">Період T = 20 мс (50 Гц)</text>
+
+  <!-- Bottom Summary Card -->
+  <rect x="35" y="480" width="890" height="48" fill="#e9f7ef" stroke="#27ae60" stroke-width="1" rx="6"/>
+  <text x="50" y="498" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="start">Розрахунок тривалості імпульсу:</text>
+  <text x="910" y="498" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="end">Специфікація Tower Pro (SG90 / MG90S)</text>
+  <text x="50" y="516" font-size="12" fill="#1a1a1a" text-anchor="start">t_pulse(θ) = 0.5 мс + (θ / 180°) × 2.0 мс</text>
+  <text x="910" y="516" font-size="12" fill="#6b7280" text-anchor="end">Період T = 20 мс (f = 50 Гц) | Мертва зона (deadband): 1–5 мкс</text>
+</svg>

@@ -1,0 +1,109 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-red" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="35" text-anchor="middle" font-size="18" font-weight="700" fill="#1a1a1a">Вплив частоти ШІМ на пульсації струму та нагрівання безсердечникового мотора</text>
+  <text x="480" y="58" text-anchor="middle" font-size="13" fill="#6b7280">Низька індуктивність L обмотки вимагає високої частоти ШІМ для запобігання пульсаціям струму ΔI та перегріву</text>
+
+  <!-- Left Card: Low PWM Frequency (Problem) -->
+  <rect x="25" y="80" width="445" height="420" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+
+  <rect x="40" y="95" width="415" height="30" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+  <text x="247" y="115" text-anchor="middle" font-size="14" font-weight="700" fill="#c0392b">Низька частота ШІМ (f_PWM = 8 кГц)</text>
+
+  <rect x="40" y="135" width="415" height="235" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="40" y1="230" x2="455" y2="230" stroke="#f0f0f0" stroke-width="1"/>
+
+  <!-- Left Graph 1: Voltage u(t) -->
+  <line x1="85" y1="150" x2="85" y2="220" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr)"/>
+  <line x1="85" y1="215" x2="440" y2="215" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="77" y="153" text-anchor="end" font-size="12" font-weight="700" fill="#1a1a1a">u(t)</text>
+  <text x="435" y="228" text-anchor="end" font-size="12" fill="#6b7280">t</text>
+  <text x="77" y="172" text-anchor="end" font-size="11" fill="#6b7280">V_in</text>
+
+  <path d="M 85,168 L 155,168 L 155,215 L 225,215 L 225,168 L 295,168 L 295,215 L 365,215 L 365,168 L 425,168" fill="none" stroke="#2457d6" stroke-width="2"/>
+  <line x1="85" y1="155" x2="225" y2="155" stroke="#2457d6" stroke-width="1" stroke-dasharray="2,2"/>
+  <text x="155" y="150" text-anchor="middle" font-size="11" font-weight="700" fill="#2457d6">T_PWM = 125 мкс</text>
+
+  <!-- Left Graph 2: Current i(t) -->
+  <line x1="85" y1="240" x2="85" y2="355" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr)"/>
+  <line x1="85" y1="345" x2="440" y2="345" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="77" y="245" text-anchor="end" font-size="12" font-weight="700" fill="#1a1a1a">i(t)</text>
+  <text x="435" y="358" text-anchor="end" font-size="12" fill="#6b7280">t</text>
+
+  <line x1="85" y1="295" x2="425" y2="295" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <text x="425" y="288" text-anchor="end" font-size="11" font-weight="700" fill="#6b7280">I_avg</text>
+
+  <line x1="85" y1="260" x2="155" y2="260" stroke="#c0392b" stroke-width="1" stroke-dasharray="2,2"/>
+  <text x="77" y="264" text-anchor="end" font-size="11" fill="#c0392b">I_max</text>
+
+  <line x1="85" y1="330" x2="225" y2="330" stroke="#c0392b" stroke-width="1" stroke-dasharray="2,2"/>
+  <text x="77" y="334" text-anchor="end" font-size="11" fill="#c0392b">I_min</text>
+
+  <path d="M 85,330 C 105,285 130,263 155,260 C 180,305 205,327 225,330 C 250,285 275,263 295,260 C 320,305 345,327 365,330 C 390,285 410,273 425,270" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+
+  <line x1="305" y1="260" x2="305" y2="330" stroke="#c0392b" stroke-width="1.5" marker-start="url(#arr-red)" marker-end="url(#arr-red)"/>
+  <text x="315" y="248" font-size="12" font-weight="700" fill="#c0392b">ΔI (велике)</text>
+
+  <!-- Left Info Panel -->
+  <rect x="40" y="380" width="415" height="110" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+  <text x="52" y="400" font-size="13" font-weight="700" fill="#c0392b">Наслідки низької частоти ШІМ (8 кГц):</text>
+  <text x="52" y="422" font-size="12" fill="#1a1a1a">• Великі пульсації струму: ΔI = (V_in · D · (1-D)) / (L · f_PWM)</text>
+  <text x="52" y="442" font-size="12" fill="#c0392b">• Зростання діючого струму: I_rms = √(I_avg² + ΔI²/12) &gt; I_avg</text>
+  <text x="52" y="462" font-size="12" font-weight="700" fill="#c0392b">• Надмірне нагрівання обмотки: P_втрат = I_rms² · R_обм</text>
+  <text x="52" y="480" font-size="11" fill="#6b7280">• Акустичний писк у чутному діапазоні (&lt; 20 кГц)</text>
+
+  <!-- Right Card: High PWM Frequency (Solution) -->
+  <rect x="490" y="80" width="445" height="420" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+
+  <rect x="505" y="95" width="415" height="30" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="712" y="115" text-anchor="middle" font-size="14" font-weight="700" fill="#27ae60">Висока частота ШІМ (f_PWM = 80 кГц)</text>
+
+  <rect x="505" y="135" width="415" height="235" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="505" y1="230" x2="920" y2="230" stroke="#f0f0f0" stroke-width="1"/>
+
+  <!-- Right Graph 1: Voltage u(t) -->
+  <line x1="550" y1="150" x2="550" y2="220" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr)"/>
+  <line x1="550" y1="215" x2="905" y2="215" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="542" y="153" text-anchor="end" font-size="12" font-weight="700" fill="#1a1a1a">u(t)</text>
+  <text x="900" y="228" text-anchor="end" font-size="12" fill="#6b7280">t</text>
+  <text x="542" y="172" text-anchor="end" font-size="11" fill="#6b7280">V_in</text>
+
+  <path d="M 550,168 L 562.5,168 L 562.5,215 L 575,215 L 575,168 L 587.5,168 L 587.5,215 L 600,215 L 600,168 L 612.5,168 L 612.5,215 L 625,215 L 625,168 L 637.5,168 L 637.5,215 L 650,215 L 650,168 L 662.5,168 L 662.5,215 L 675,215 L 675,168 L 687.5,168 L 687.5,215 L 700,215 L 700,168 L 712.5,168 L 712.5,215 L 725,215 L 725,168 L 737.5,168 L 737.5,215 L 750,215 L 750,168 L 762.5,168 L 762.5,215 L 775,215 L 775,168 L 787.5,168 L 787.5,215 L 800,215 L 800,168 L 812.5,168 L 812.5,215 L 825,215 L 825,168 L 837.5,168 L 837.5,215 L 850,215 L 850,168 L 862.5,168 L 862.5,215 L 875,215 L 875,168 L 887.5,168 L 887.5,215 L 895,215" fill="none" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="550" y1="155" x2="575" y2="155" stroke="#2457d6" stroke-width="1" stroke-dasharray="2,2"/>
+  <text x="630" y="150" font-size="11" font-weight="700" fill="#2457d6">T_PWM = 12.5 мкс</text>
+
+  <!-- Right Graph 2: Current i(t) -->
+  <line x1="550" y1="240" x2="550" y2="355" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr)"/>
+  <line x1="550" y1="345" x2="905" y2="345" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="542" y="245" text-anchor="end" font-size="12" font-weight="700" fill="#1a1a1a">i(t)</text>
+  <text x="900" y="358" text-anchor="end" font-size="12" fill="#6b7280">t</text>
+
+  <line x1="550" y1="295" x2="890" y2="295" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <text x="890" y="288" text-anchor="end" font-size="11" font-weight="700" fill="#6b7280">I_avg</text>
+  <text x="542" y="299" text-anchor="end" font-size="11" fill="#27ae60">I_rms ≈ I_avg</text>
+
+  <path d="M 550,298 L 562.5,292 L 575,298 L 587.5,292 L 600,298 L 612.5,292 L 625,298 L 637.5,292 L 650,298 L 662.5,292 L 675,298 L 687.5,292 L 700,298 L 712.5,292 L 725,298 L 737.5,292 L 750,298 L 762.5,292 L 775,298 L 787.5,292 L 800,298 L 812.5,292 L 825,298 L 837.5,292 L 850,298 L 862.5,292 L 875,298 L 887.5,292 L 895,298" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+  <text x="720" y="275" font-size="12" font-weight="700" fill="#27ae60">ΔI ≈ 0 (згладжений струм)</text>
+
+  <!-- Right Info Panel -->
+  <rect x="505" y="380" width="415" height="110" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="517" y="400" font-size="13" font-weight="700" fill="#27ae60">Переваги високої частоти ШІМ (80 кГц):</text>
+  <text x="517" y="422" font-size="12" fill="#1a1a1a">• Мінімальні пульсації струму: ΔI ≈ 0 (період T_PWM &lt;&lt; τ)</text>
+  <text x="517" y="442" font-size="12" fill="#27ae60">• Згладжена форма струму: I_rms ≈ I_avg</text>
+  <text x="517" y="462" font-size="12" font-weight="700" fill="#27ae60">• Мінімальне нагрівання обмотки: P_втрат = I_avg² · R_обм</text>
+  <text x="517" y="480" font-size="11" fill="#6b7280">• Повна безшумність робочих режимів (&gt; 20 кГц)</text>
+</svg>

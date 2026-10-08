@@ -1,0 +1,151 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-cyan" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#0284c7"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-purple" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#8b5cf6"/>
+    </marker>
+    <marker id="arr-dim-start" markerWidth="9" markerHeight="9" refX="0.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-dim-end" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-dim-blue-start" markerWidth="9" markerHeight="9" refX="0.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-dim-blue-end" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Кінематика диференціального приводу мобільного робота</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Співвідношення швидкостей коліс v_L та v_R визначає центр повороту (ICC) і кутову швидкість ω</text>
+
+  <!-- Velocity gradient shaded zone -->
+  <polygon points="220,330 720,330 720,142.5" fill="#eaf0fd" opacity="0.45"/>
+
+  <!-- Trajectory Arcs (Concentric paths centered at ICC (220, 330)) -->
+  <path d="M 460 330 A 240 240 0 0 0 435 215" fill="none" stroke="#0284c7" stroke-width="1.5" stroke-dasharray="6,4" opacity="0.45"/>
+  <path d="M 590 330 A 370 370 0 0 0 550 185" fill="none" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="6,4" opacity="0.45"/>
+  <path d="M 720 330 A 500 500 0 0 0 665 110" fill="none" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="6,4" opacity="0.45"/>
+
+  <!-- Robot Chassis Base -->
+  <rect x="480" y="230" width="220" height="200" rx="28" fill="#f8fafc" stroke="#cbd5e1" stroke-width="2"/>
+  <rect x="530" y="275" width="120" height="110" rx="10" fill="#f1f5f9" stroke="#e2e8f0" stroke-width="1"/>
+
+  <!-- Longitudinal Axis (Robot Center Line) -->
+  <line x1="590" y1="240" x2="590" y2="410" stroke="#cbd5e1" stroke-width="1.5" stroke-dasharray="4,4"/>
+
+  <!-- Transverse Axis (Wheel Axis Line) segments -->
+  <line x1="220" y1="330" x2="448" y2="330" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <line x1="472" y1="330" x2="484" y2="330" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <line x1="516" y1="330" x2="568" y2="330" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <line x1="590" y1="330" x2="664" y2="330" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <line x1="696" y1="330" x2="708" y2="330" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="4,4"/>
+
+  <!-- Front Castor Wheel -->
+  <rect x="578" y="236" width="24" height="24" rx="5" fill="#e2e8f0" stroke="#94a3b8" stroke-width="1.5"/>
+  <circle cx="590" cy="248" r="7" fill="#64748b"/>
+  <text x="565" y="242" font-size="12" fill="#6b7280" text-anchor="end">Опорне</text>
+  <text x="565" y="256" font-size="12" fill="#6b7280" text-anchor="end">коліщатко</text>
+
+  <!-- Left Servo & Wheel Assembly -->
+  <rect x="484" y="310" width="32" height="40" rx="4" fill="#e2e8f0" stroke="#94a3b8" stroke-width="1.5"/>
+  <rect x="448" y="295" width="24" height="70" rx="6" fill="#334155" stroke="#1e293b" stroke-width="2"/>
+  <line x1="472" y1="330" x2="484" y2="330" stroke="#94a3b8" stroke-width="2"/>
+  <!-- Left Wheel Spin Arc -->
+  <path d="M 434 345 A 16 16 0 0 1 434 315" fill="none" stroke="#0284c7" stroke-width="1.5" marker-end="url(#arr-cyan)"/>
+  <text x="415" y="310" font-size="12" font-weight="bold" fill="#0284c7" text-anchor="end">ω_L</text>
+
+  <!-- Right Servo & Wheel Assembly -->
+  <rect x="664" y="310" width="32" height="40" rx="4" fill="#e2e8f0" stroke="#94a3b8" stroke-width="1.5"/>
+  <rect x="708" y="295" width="24" height="70" rx="6" fill="#334155" stroke="#1e293b" stroke-width="2"/>
+  <line x1="696" y1="330" x2="708" y2="330" stroke="#94a3b8" stroke-width="2"/>
+  <!-- Right Wheel Spin Arc -->
+  <path d="M 746 345 A 16 16 0 0 0 746 315" fill="none" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="768" y="310" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="start">ω_R</text>
+
+  <!-- Linear Velocity Gradient Line (ICC to v_R tip) -->
+  <line x1="220" y1="330" x2="720" y2="142.5" stroke="#64748b" stroke-width="1.5" stroke-dasharray="5,4"/>
+  <text x="240" y="175" font-size="12" fill="#6b7280" text-anchor="start">Пряма розподілу швидкостей</text>
+
+  <!-- Velocity Vectors -->
+  <!-- Left Wheel Velocity v_L -->
+  <line x1="460" y1="330" x2="460" y2="240" stroke="#0284c7" stroke-width="3" marker-end="url(#arr-cyan)"/>
+  <circle cx="460" cy="330" r="4" fill="#0284c7"/>
+  <text x="445" y="195" font-size="14" font-weight="bold" fill="#0284c7" text-anchor="end">v_L</text>
+  <text x="445" y="212" font-size="12" fill="#6b7280" text-anchor="end">(ліве колесо)</text>
+
+  <!-- Right Wheel Velocity v_R -->
+  <line x1="720" y1="330" x2="720" y2="142.5" stroke="#2457d6" stroke-width="3" marker-end="url(#arr-blue)"/>
+  <circle cx="720" cy="330" r="4" fill="#2457d6"/>
+  <text x="735" y="132" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="start">v_R</text>
+  <text x="735" y="148" font-size="12" fill="#6b7280" text-anchor="start">(праве колесо)</text>
+
+  <!-- Center Velocity v_C -->
+  <line x1="590" y1="330" x2="590" y2="191.25" stroke="#27ae60" stroke-width="3" marker-end="url(#arr-green)"/>
+  <circle cx="590" cy="330" r="5" fill="#27ae60"/>
+  <text x="575" y="158" font-size="14" font-weight="bold" fill="#27ae60" text-anchor="end">v_C</text>
+  <text x="575" y="174" font-size="12" fill="#6b7280" text-anchor="end">(центр платформи C)</text>
+  <text x="578" y="325" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="end">C</text>
+
+  <!-- Instantaneous Center of Rotation (ICC) -->
+  <circle cx="220" cy="330" r="8" fill="#ffffff" stroke="#2457d6" stroke-width="2"/>
+  <circle cx="220" cy="330" r="3" fill="#2457d6"/>
+  <text x="205" y="325" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="end">ICC</text>
+  <text x="205" y="341" font-size="12" fill="#6b7280" text-anchor="end">(центр повороту)</text>
+
+  <!-- Angular Velocity Arc omega around ICC -->
+  <path d="M 255 269.4 A 70 70 0 0 1 285.8 306.1" fill="none" stroke="#8b5cf6" stroke-width="2" marker-end="url(#arr-purple)"/>
+  <text x="250" y="215" font-size="14" font-weight="bold" fill="#8b5cf6" text-anchor="middle">ω</text>
+  <text x="250" y="231" font-size="12" fill="#8b5cf6" text-anchor="middle">(кутова швидкість)</text>
+
+  <!-- Extension Lines for Dimensions -->
+  <!-- Radius R extensions -->
+  <line x1="220" y1="342" x2="220" y2="418" stroke="#cbd5e1" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="590" y1="342" x2="590" y2="418" stroke="#cbd5e1" stroke-width="1" stroke-dasharray="3,3"/>
+  <!-- Radius R Dimension Line -->
+  <line x1="220" y1="405" x2="590" y2="405" stroke="#2457d6" stroke-width="1.5" marker-start="url(#arr-dim-blue-start)" marker-end="url(#arr-dim-blue-end)"/>
+  <text x="340" y="398" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">R (радіус повороту до C)</text>
+
+  <!-- Wheelbase L extensions -->
+  <line x1="460" y1="360" x2="460" y2="455" stroke="#cbd5e1" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="720" y1="360" x2="720" y2="455" stroke="#cbd5e1" stroke-width="1" stroke-dasharray="3,3"/>
+  <!-- Wheelbase L Dimension Line -->
+  <line x1="460" y1="445" x2="720" y2="445" stroke="#1a1a1a" stroke-width="1.5" marker-start="url(#arr-dim-start)" marker-end="url(#arr-dim-end)"/>
+  <text x="590" y="438" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">L (колісна база)</text>
+
+  <!-- Summary & Formula Panel at Bottom -->
+  <rect x="40" y="470" width="880" height="72" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  
+  <!-- Panel Dividers -->
+  <line x1="330" y1="478" x2="330" y2="534" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="630" y1="478" x2="630" y2="534" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Column 1: Servos -->
+  <text x="60" y="490" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">1. Швидкості коліс (серво):</text>
+  <text x="60" y="508" font-size="12" fill="#0284c7" text-anchor="start">v_L = ω_L · r</text>
+  <text x="60" y="526" font-size="12" fill="#2457d6" text-anchor="start">v_R = ω_R · r</text>
+
+  <!-- Column 2: Platform Motion -->
+  <text x="350" y="490" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">2. Кінцевий рух платформи:</text>
+  <text x="350" y="508" font-size="12" fill="#27ae60" text-anchor="start">v = (v_R + v_L) / 2  (лінійна)</text>
+  <text x="350" y="526" font-size="12" fill="#8b5cf6" text-anchor="start">ω = (v_R - v_L) / L  (кутова)</text>
+
+  <!-- Column 3: Geometry & ICC -->
+  <text x="650" y="490" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">3. Геометрія повороту (ICC):</text>
+  <text x="650" y="508" font-size="12" fill="#2457d6" text-anchor="start">R = (L / 2) · (v_R + v_L) / (v_R - v_L)</text>
+  <text x="650" y="526" font-size="12" fill="#6b7280" text-anchor="start">v_R &gt; v_L  ⇒  поворот ліворуч</text>
+</svg>

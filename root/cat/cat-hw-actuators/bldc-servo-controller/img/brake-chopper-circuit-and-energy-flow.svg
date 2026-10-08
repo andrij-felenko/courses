@@ -1,0 +1,166 @@
+<svg viewBox="0 0 960 520" width="960" height="520" xmlns="http://www.w3.org/2000/svg" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- White Background -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Definitions for Markers -->
+  <defs>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Title and Subtitle -->
+  <text x="480" y="30" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Схема гальмівного ключа (Brake Chopper) та скидання енергії</text>
+  <text x="480" y="52" text-anchor="middle" font-size="13" fill="#6b7280">Обмеження стрибка напруги V_BUS шляхом скидання регенеративної енергії на R_brake</text>
+
+  <!-- LEFT PANEL: Schematic Diagram -->
+  <rect x="40" y="75" width="430" height="425" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="255" y="102" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Схема силового кола з гальмівним ключем</text>
+
+  <!-- Regeneration Flow Arrow & Label -->
+  <path d="M 365,125 L 265,125" fill="none" stroke="#c0392b" stroke-width="2" stroke-dasharray="5,3" marker-end="url(#arr-red)"/>
+  <text x="315" y="117" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">I_regen (Регенеративна енергія)</text>
+
+  <!-- Main Bus Lines -->
+  <!-- V_BUS Line -->
+  <line x1="110" y1="145" x2="365" y2="145" stroke="#2457d6" stroke-width="2.5"/>
+  <text x="48" y="149" text-anchor="start" font-size="13" font-weight="bold" fill="#2457d6">+ V_BUS</text>
+
+  <!-- GND Line -->
+  <line x1="110" y1="450" x2="365" y2="450" stroke="#1a1a1a" stroke-width="2.5"/>
+  <text x="48" y="454" text-anchor="start" font-size="13" font-weight="bold" fill="#6b7280">GND (0 V)</text>
+
+  <!-- DC Link Capacitor C_BUS -->
+  <line x1="115" y1="145" x2="115" y2="270" stroke="#2457d6" stroke-width="2"/>
+  <line x1="100" y1="270" x2="130" y2="270" stroke="#2457d6" stroke-width="3"/>
+  <line x1="100" y1="282" x2="130" y2="282" stroke="#2457d6" stroke-width="3"/>
+  <line x1="115" y1="282" x2="115" y2="450" stroke="#2457d6" stroke-width="2"/>
+  <text x="55" y="280" text-anchor="start" font-size="13" font-weight="bold" fill="#2457d6">C_BUS</text>
+
+  <!-- Sensing Line -->
+  <line x1="152.5" y1="145" x2="152.5" y2="365" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <text x="158" y="162" text-anchor="start" font-size="11" fill="#6b7280">Замір V_BUS</text>
+
+  <!-- Brake Chopper Branch -->
+  <!-- Wire down to resistor -->
+  <line x1="250" y1="145" x2="250" y2="180" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Resistor R_brake -->
+  <rect x="235" y="180" width="30" height="70" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <path d="M 250,185 L 243,195 L 257,205 L 243,215 L 257,225 L 243,235 L 250,245" fill="none" stroke="#27ae60" stroke-width="2"/>
+  <text x="275" y="202" text-anchor="start" font-size="13" font-weight="bold" fill="#27ae60">R_brake</text>
+  <text x="275" y="218" text-anchor="start" font-size="11" fill="#6b7280">Баластний</text>
+  <text x="275" y="232" text-anchor="start" font-size="11" fill="#6b7280">резистор</text>
+
+  <!-- Current Arrow I_brake -->
+  <line x1="222" y1="190" x2="222" y2="240" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <text x="215" y="218" text-anchor="end" font-size="12" font-weight="bold" fill="#27ae60">I_brake</text>
+
+  <!-- Wire from Resistor to MOSFET -->
+  <line x1="250" y1="250" x2="250" y2="290" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- MOSFET Box -->
+  <rect x="225" y="290" width="50" height="65" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="2"/>
+  <circle cx="250" cy="298" r="3" fill="#1a1a1a"/>
+  <circle cx="250" cy="347" r="3" fill="#1a1a1a"/>
+  <line x1="250" y1="347" x2="238" y2="305" stroke="#27ae60" stroke-width="2.5"/>
+  <text x="282" y="316" text-anchor="start" font-size="12" font-weight="bold" fill="#27ae60">MOSFET</text>
+  <text x="282" y="332" text-anchor="start" font-size="11" fill="#6b7280">(Chopper)</text>
+
+  <!-- Wire from MOSFET to GND -->
+  <line x1="250" y1="355" x2="250" y2="450" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Controller / Comparator Block -->
+  <rect x="95" y="365" width="115" height="55" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="152.5" y="387" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Контролер /</text>
+  <text x="152.5" y="404" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Компаратор</text>
+
+  <!-- Gate Drive Wire -->
+  <path d="M 210,390 L 218,390 L 218,322 L 225,322" fill="none" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <text x="212" y="314" text-anchor="end" font-size="11" font-weight="bold" fill="#27ae60">ШІМ Gate</text>
+
+  <!-- Inverter & Motor Block -->
+  <rect x="365" y="180" width="90" height="235" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="365" y1="145" x2="410" y2="145" stroke="#2457d6" stroke-width="2.5"/>
+  <line x1="410" y1="145" x2="410" y2="180" stroke="#2457d6" stroke-width="2.5"/>
+  <line x1="365" y1="450" x2="410" y2="450" stroke="#1a1a1a" stroke-width="2.5"/>
+  <line x1="410" y1="450" x2="410" y2="415" stroke="#1a1a1a" stroke-width="2.5"/>
+
+  <text x="410" y="212" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">3-фазний</text>
+  <text x="410" y="230" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">інвертор</text>
+  <text x="410" y="255" text-anchor="middle" font-size="12" fill="#1a1a1a">і BLDC</text>
+  <text x="410" y="273" text-anchor="middle" font-size="12" fill="#1a1a1a">двигун</text>
+  <text x="410" y="335" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Генератор</text>
+  <text x="410" y="353" text-anchor="middle" font-size="12" fill="#c0392b">під час</text>
+  <text x="410" y="371" text-anchor="middle" font-size="12" fill="#c0392b">гальмування</text>
+
+
+  <!-- RIGHT PANEL: Timing Diagrams -->
+  <rect x="495" y="75" width="430" height="425" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="710" y="102" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Часові діаграми напруги та струму</text>
+
+  <!-- Vertical Phase Guide Lines across graphs -->
+  <line x1="625" y1="230" x2="625" y2="440" stroke="#6b7280" stroke-width="1" stroke-dasharray="2,3"/>
+  <line x1="670" y1="185" x2="670" y2="440" stroke="#27ae60" stroke-width="1" stroke-dasharray="2,3"/>
+  <line x1="810" y1="185" x2="810" y2="440" stroke="#27ae60" stroke-width="1" stroke-dasharray="2,3"/>
+
+  <!-- UPPER GRAPH: Voltage V_BUS(t) -->
+  <!-- Axes -->
+  <line x1="555" y1="260" x2="895" y2="260" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+  <line x1="555" y1="265" x2="555" y2="125" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="895" y="278" text-anchor="end" font-size="12" font-weight="bold" fill="#1a1a1a">Час (t)</text>
+  <text x="550" y="125" text-anchor="end" font-size="12" font-weight="bold" fill="#2457d6">V_BUS</text>
+
+  <!-- Threshold Reference Lines -->
+  <!-- V_max -->
+  <line x1="555" y1="150" x2="885" y2="150" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <text x="550" y="154" text-anchor="end" font-size="12" font-weight="bold" fill="#c0392b">V_max</text>
+
+  <!-- V_chop -->
+  <line x1="555" y1="185" x2="885" y2="185" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <text x="550" y="189" text-anchor="end" font-size="12" font-weight="bold" fill="#27ae60">V_chop</text>
+
+  <!-- V_nom -->
+  <line x1="555" y1="230" x2="885" y2="230" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <text x="550" y="234" text-anchor="end" font-size="12" fill="#6b7280">V_nom</text>
+
+  <!-- Unprotected Voltage Curve (Without Brake Chopper) -->
+  <path d="M 625,230 Q 675,185 725,142" fill="none" stroke="#c0392b" stroke-width="2" stroke-dasharray="6,4"/>
+  <text x="735" y="124" text-anchor="start" font-size="11" font-weight="bold" fill="#c0392b">Без ключа:</text>
+  <text x="735" y="137" text-anchor="start" font-size="11" font-weight="bold" fill="#c0392b">Перенапруга!</text>
+
+  <!-- Protected Voltage Curve (With Brake Chopper) -->
+  <path d="M 555,230 L 625,230 L 670,185 L 685,180 L 700,188 L 715,180 L 730,188 L 745,180 L 760,188 L 775,180 L 790,188 L 810,185 L 850,230 L 885,230" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+  <text x="670" y="168" text-anchor="start" font-size="12" font-weight="bold" fill="#27ae60">З ключем: Напруга обмежена</text>
+
+
+  <!-- LOWER GRAPH: Chopper Current I_brake(t) -->
+  <!-- Axes -->
+  <line x1="555" y1="440" x2="895" y2="440" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+  <line x1="555" y1="445" x2="555" y2="315" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <text x="895" y="458" text-anchor="end" font-size="12" font-weight="bold" fill="#1a1a1a">Час (t)</text>
+  <text x="550" y="315" text-anchor="end" font-size="12" font-weight="bold" fill="#27ae60">I_brake</text>
+
+  <!-- Peak Current Reference Line -->
+  <line x1="555" y1="355" x2="885" y2="355" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <text x="550" y="359" text-anchor="end" font-size="12" font-weight="bold" fill="#27ae60">I_peak</text>
+
+  <!-- Pulse Train Rectangles -->
+  <rect x="670" y="355" width="15" height="85" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="700" y="355" width="15" height="85" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="730" y="355" width="15" height="85" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="760" y="355" width="15" height="85" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="790" y="355" width="15" height="85" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+
+  <!-- Pulse Train Label -->
+  <text x="740" y="338" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Імпульсне скидання енергії (ШІМ)</text>
+</svg>

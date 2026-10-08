@@ -1,0 +1,135 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Header & Subtitle -->
+  <text x="480" y="30" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Автомат станів приводу CiA 402 та маски Controlword / Statusword</text>
+  <text x="480" y="52" text-anchor="middle" font-size="13" fill="#6b7280">Логіка керування серводвигуном, прапорці стану та реакція на апаратні тривоги</text>
+
+  <!-- Start / Reset Marker -->
+  <circle cx="155" cy="80" r="6" fill="#2457d6"/>
+  <text x="168" y="84" text-anchor="start" font-size="12" fill="#6b7280">Скидання / Старт</text>
+  <line x1="155" y1="86" x2="155" y2="108" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Box 1: Switch On Disabled (State 2) -->
+  <rect x="40" y="108" width="230" height="58" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <text x="155" y="128" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">1. Switch On Disabled</text>
+  <text x="155" y="148" text-anchor="middle" font-size="12" fill="#6b7280">Statusword: x1xx 0000 (0x0040)</text>
+
+  <!-- Transition T2: Shutdown -->
+  <line x1="155" y1="166" x2="155" y2="208" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="168" y="191" text-anchor="start" font-size="12" fill="#2457d6">Shutdown (0x0006)</text>
+
+  <!-- Box 2: Ready to Switch On (State 3) -->
+  <rect x="40" y="208" width="230" height="58" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="155" y="228" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">2. Ready to Switch On</text>
+  <text x="155" y="248" text-anchor="middle" font-size="12" fill="#6b7280">Statusword: x01x 0021 (0x0021)</text>
+
+  <!-- Transition T3: Switch On -->
+  <line x1="155" y1="266" x2="155" y2="308" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="168" y="291" text-anchor="start" font-size="12" fill="#2457d6">Switch On (0x0007)</text>
+
+  <!-- Box 3: Switched On (State 4) -->
+  <rect x="40" y="308" width="230" height="58" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="155" y="328" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">3. Switched On</text>
+  <text x="155" y="348" text-anchor="middle" font-size="12" fill="#6b7280">Statusword: x01x 0023 (0x0023)</text>
+
+  <!-- Transition T4: Enable Operation -->
+  <line x1="155" y1="366" x2="155" y2="408" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="168" y="391" text-anchor="start" font-size="12" font-weight="bold" fill="#27ae60">Enable Operation (0x000F)</text>
+
+  <!-- Box 4: Operation Enabled (State 5) -->
+  <rect x="40" y="408" width="230" height="64" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="2.5"/>
+  <text x="155" y="427" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">4. Operation Enabled</text>
+  <text x="155" y="444" text-anchor="middle" font-size="12" fill="#1a1a1a">Мотор керований (PWM ON)</text>
+  <text x="155" y="461" text-anchor="middle" font-size="12" fill="#6b7280">Statusword: x01x 0027 (0x0027)</text>
+
+  <!-- Transition T11: Quick Stop Command (Box 4 to Box 5) -->
+  <line x1="270" y1="440" x2="380" y2="440" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="325" y="432" text-anchor="middle" font-size="12" fill="#c0392b">Quick Stop</text>
+  <text x="325" y="454" text-anchor="middle" font-size="12" fill="#6b7280">(0x0002)</text>
+
+  <!-- Box 5: Quick Stop Active (State 6) -->
+  <rect x="380" y="408" width="230" height="64" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="2"/>
+  <text x="495" y="427" text-anchor="middle" font-size="13" font-weight="bold" fill="#c0392b">5. Quick Stop Active</text>
+  <text x="495" y="444" text-anchor="middle" font-size="12" fill="#1a1a1a">Швидке гальмування вала</text>
+  <text x="495" y="461" text-anchor="middle" font-size="12" fill="#6b7280">Statusword: x00x 0007 (0x0007)</text>
+
+  <!-- Transition to Fault (Box 5 up to Box 6) -->
+  <line x1="495" y1="408" x2="495" y2="272" stroke="#c0392b" stroke-width="1.8" stroke-dasharray="5,4" marker-end="url(#arr-red)"/>
+  <text x="505" y="334" text-anchor="start" font-size="12" fill="#c0392b">Аварійна подія</text>
+  <text x="505" y="348" text-anchor="start" font-size="12" fill="#6b7280">(Overcurrent / Fault)</text>
+
+  <!-- Box 6: Fault (State 7) -->
+  <rect x="380" y="208" width="230" height="64" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="2"/>
+  <text x="495" y="227" text-anchor="middle" font-size="13" font-weight="bold" fill="#c0392b">6. Fault (Аварійний стан)</text>
+  <text x="495" y="244" text-anchor="middle" font-size="12" fill="#1a1a1a">Вимкнення силових ключів</text>
+  <text x="495" y="261" text-anchor="middle" font-size="12" fill="#6b7280">Statusword: x0xx 1000 (0x0008)</text>
+
+  <!-- Transition T15: Fault Reset (Box 6 to Box 1) -->
+  <path d="M 380,225 L 325,225 L 325,136 L 270,136" fill="none" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="333" y="175" text-anchor="start" font-size="12" font-weight="bold" fill="#27ae60">Fault Reset</text>
+  <text x="333" y="190" text-anchor="start" font-size="12" fill="#6b7280">(Bit 7: 0→1)</text>
+
+  <!-- Right Panel Card A: Statusword (0x6041) Bitmask -->
+  <rect x="645" y="85" width="285" height="225" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="645" y="85" width="285" height="32" rx="8" fill="#eaf0fd"/>
+  <rect x="645" y="105" width="285" height="12" fill="#eaf0fd"/>
+  <text x="787" y="105" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Statusword (0x6041) — Маска станів</text>
+  <line x1="645" y1="117" x2="930" y2="117" stroke="#d0d7de" stroke-width="1"/>
+
+  <text x="660" y="133" text-anchor="start" font-size="12" fill="#1a1a1a">Bit 0: Ready to Switch On (Готовий)</text>
+  <text x="660" y="151" text-anchor="start" font-size="12" fill="#1a1a1a">Bit 1: Switched On (Сила увімкнена)</text>
+  <text x="660" y="169" text-anchor="start" font-size="12" font-weight="bold" fill="#27ae60">Bit 2: Operation Enabled (Робота)</text>
+  <text x="660" y="187" text-anchor="start" font-size="12" font-weight="bold" fill="#c0392b">Bit 3: Fault (1 = Аварійний стан)</text>
+  <text x="660" y="205" text-anchor="start" font-size="12" fill="#1a1a1a">Bit 4: Voltage Enabled (DC шина)</text>
+  <text x="660" y="223" text-anchor="start" font-size="12" fill="#1a1a1a">Bit 5: Quick Stop (0 = Активно)</text>
+  <text x="660" y="241" text-anchor="start" font-size="12" fill="#1a1a1a">Bit 6: Switch On Disabled (Блок)</text>
+  <text x="660" y="259" text-anchor="start" font-size="12" fill="#6b7280">Bit 7: Warning (1 = Попередження)</text>
+  <text x="660" y="277" text-anchor="start" font-size="12" fill="#6b7280">Bit 10: Target Reached (Досягнуто)</text>
+  <text x="660" y="295" text-anchor="start" font-size="12" fill="#6b7280">Bit 12/13: Mode Specific / Limit</text>
+
+  <!-- Right Panel Card B: Controlword (0x6040) Commands -->
+  <rect x="645" y="325" width="285" height="210" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="645" y="325" width="285" height="32" rx="8" fill="#eaf0fd"/>
+  <rect x="645" y="345" width="285" height="12" fill="#eaf0fd"/>
+  <text x="787" y="345" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Controlword (0x6040) — Команди</text>
+  <line x1="645" y1="357" x2="930" y2="357" stroke="#d0d7de" stroke-width="1"/>
+
+  <text x="660" y="375" text-anchor="start" font-size="12" fill="#1a1a1a">Shutdown</text>
+  <text x="915" y="375" text-anchor="end" font-size="12" fill="#2457d6">0x0006 (маска x110)</text>
+
+  <text x="660" y="396" text-anchor="start" font-size="12" fill="#1a1a1a">Switch On</text>
+  <text x="915" y="396" text-anchor="end" font-size="12" fill="#2457d6">0x0007 (маска x111)</text>
+
+  <text x="660" y="417" text-anchor="start" font-size="12" font-weight="bold" fill="#27ae60">Enable Operation</text>
+  <text x="915" y="417" text-anchor="end" font-size="12" font-weight="bold" fill="#27ae60">0x000F (маска 1111)</text>
+
+  <text x="660" y="438" text-anchor="start" font-size="12" fill="#1a1a1a">Disable Voltage</text>
+  <text x="915" y="438" text-anchor="end" font-size="12" fill="#6b7280">0x0000 (маска xx0x)</text>
+
+  <text x="660" y="459" text-anchor="start" font-size="12" fill="#c0392b">Quick Stop</text>
+  <text x="915" y="459" text-anchor="end" font-size="12" fill="#c0392b">0x0002 (маска x01x)</text>
+
+  <text x="660" y="480" text-anchor="start" font-size="12" fill="#27ae60">Fault Reset</text>
+  <text x="915" y="480" text-anchor="end" font-size="12" fill="#27ae60">0x0080 (Bit 7: 0→1)</text>
+
+  <text x="660" y="501" text-anchor="start" font-size="12" fill="#6b7280">Halt (Зупинка)</text>
+  <text x="915" y="501" text-anchor="end" font-size="12" fill="#6b7280">Bit 8 (0x0100)</text>
+
+  <text x="787" y="522" text-anchor="middle" font-size="11" fill="#6b7280">Режими: Position / Velocity / Torque</text>
+</svg>

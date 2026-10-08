@@ -1,0 +1,123 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 550" width="960" height="550" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="550" fill="white"/>
+
+  <defs>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Title Block -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Перетворення Кларк — Парка у FOC-керуванні BLDC</text>
+  <text x="480" y="60" font-size="13" fill="#6b7280" text-anchor="middle">Перехід від 3-фазних струмів статора до нерухомих (α, β) та обертових (d, q) осей</text>
+
+  <!-- Left Panel: Clarke Transform -->
+  <rect x="30" y="80" width="435" height="370" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="247" y="105" font-size="15" font-weight="bold" fill="#1a1a1a" text-anchor="middle">1. Перетворення Кларк (a, b, c → α, β)</text>
+  <text x="247" y="123" font-size="12" fill="#6b7280" text-anchor="middle">Нерухома система координат статора</text>
+
+  <!-- Panel 1 Axes -->
+  <!-- Axis a / alpha -->
+  <line x1="230" y1="270" x2="370" y2="270" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+  <text x="376" y="274" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="start">a, α</text>
+
+  <!-- Axis beta -->
+  <line x1="230" y1="270" x2="230" y2="150" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+  <text x="230" y="143" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">β</text>
+
+  <!-- Axis b (120 deg) -->
+  <line x1="230" y1="270" x2="175" y2="175" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr-gray)"/>
+  <text x="168" y="170" font-size="13" font-weight="bold" fill="#6b7280" text-anchor="end">b</text>
+
+  <!-- Axis c (240 deg) -->
+  <line x1="230" y1="270" x2="175" y2="365" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr-gray)"/>
+  <text x="168" y="377" font-size="13" font-weight="bold" fill="#6b7280" text-anchor="end">c</text>
+
+  <!-- 120 degree angle arc between a and b -->
+  <path d="M 265,270 A 35,35 0 0,0 212.5,239.7" fill="none" stroke="#6b7280" stroke-width="1" stroke-dasharray="2,2"/>
+  <text x="238" y="245" font-size="11" fill="#6b7280">120°</text>
+
+  <!-- Projection lines in Panel 1 -->
+  <line x1="318" y1="196" x2="318" y2="270" stroke="#2457d6" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="318" y1="196" x2="230" y2="196" stroke="#2457d6" stroke-width="1" stroke-dasharray="3,3"/>
+
+  <!-- Ialpha component along alpha axis -->
+  <line x1="230" y1="270" x2="318" y2="270" stroke="#2457d6" stroke-width="3.5"/>
+  <text x="274" y="290" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Iα</text>
+
+  <!-- Ibeta component along beta axis -->
+  <line x1="230" y1="270" x2="230" y2="196" stroke="#2457d6" stroke-width="3.5"/>
+  <text x="222" y="237" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="end">Iβ</text>
+
+  <!-- Current vector Is -->
+  <line x1="230" y1="270" x2="318" y2="196" stroke="#2457d6" stroke-width="3" marker-end="url(#arr-blue)"/>
+  <text x="326" y="191" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="start">Is (вектор струму)</text>
+
+  <!-- Panel 1 Formula Box -->
+  <rect x="50" y="395" width="395" height="44" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="247" y="421" font-size="12" fill="#1a1a1a" text-anchor="middle">Iα = Ia   |   Iβ = (Ia + 2·Ib) / √3</text>
+
+
+  <!-- Right Panel: Park Transform -->
+  <rect x="495" y="80" width="435" height="370" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="712" y="105" font-size="15" font-weight="bold" fill="#1a1a1a" text-anchor="middle">2. Перетворення Парка (α, β → d, q)</text>
+  <text x="712" y="123" font-size="12" fill="#6b7280" text-anchor="middle">Обертова система координат ротора (кут θ)</text>
+
+  <!-- Panel 2 Stationary Axes alpha, beta (dashed gray reference) -->
+  <line x1="690" y1="270" x2="825" y2="270" stroke="#9ca3af" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr-gray)"/>
+  <text x="832" y="274" font-size="13" font-weight="bold" fill="#6b7280" text-anchor="start">α</text>
+
+  <line x1="690" y1="270" x2="690" y2="150" stroke="#9ca3af" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr-gray)"/>
+  <text x="690" y="143" font-size="13" font-weight="bold" fill="#6b7280" text-anchor="middle">β</text>
+
+  <!-- Rotor angle theta arc -->
+  <path d="M 725,270 A 35,35 0 0,0 720.3,252.5" fill="none" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="730" y="260" font-size="13" font-weight="bold" fill="#c0392b">θ</text>
+
+  <!-- Rotating d-axis (Direct, Red) -->
+  <line x1="690" y1="270" x2="794" y2="210" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="802" y="208" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="start">d (потік)</text>
+
+  <!-- Rotating q-axis (Quadrature, Green) -->
+  <line x1="690" y1="270" x2="630" y2="166" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="622" y="159" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="end">q (момент)</text>
+
+  <!-- Projections onto d and q axes -->
+  <line x1="739" y1="166" x2="772" y2="218" stroke="#9ca3af" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="739" y1="166" x2="657" y2="208" stroke="#9ca3af" stroke-width="1" stroke-dasharray="3,3"/>
+
+  <!-- Id vector highlight along d-axis -->
+  <line x1="690" y1="270" x2="772" y2="218" stroke="#c0392b" stroke-width="3.5"/>
+  <text x="770" y="245" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="start">Id</text>
+
+  <!-- Iq vector highlight along q-axis -->
+  <line x1="690" y1="270" x2="657" y2="208" stroke="#27ae60" stroke-width="3.5"/>
+  <text x="650" y="237" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="end">Iq</text>
+
+  <!-- Current vector Is -->
+  <line x1="690" y1="270" x2="739" y2="166" stroke="#2457d6" stroke-width="3" marker-end="url(#arr-blue)"/>
+  <text x="745" y="161" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="start">Is</text>
+
+  <!-- Panel 2 Formula Box -->
+  <rect x="515" y="395" width="395" height="44" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="712" y="412" font-size="12" fill="#1a1a1a" text-anchor="middle">Id = Iα·cos(θ) + Iβ·sin(θ)</text>
+  <text x="712" y="429" font-size="12" fill="#1a1a1a" text-anchor="middle">Iq = -Iα·sin(θ) + Iβ·cos(θ)</text>
+
+  <!-- Bottom Summary Panel -->
+  <rect x="30" y="465" width="900" height="65" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="480" y="484" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Результат: Незалежне (ортогональне) керування струмами</text>
+  <text x="480" y="502" font-size="12" fill="#1a1a1a" text-anchor="middle">Id (Direct) — керує реактивним магнітним полем (для BLDC зазвичай Id = 0)</text>
+  <text x="480" y="518" font-size="12" fill="#1a1a1a" text-anchor="middle">Iq (Quadrature) — прямо пропорційний активному механічному моменту мотора</text>
+</svg>

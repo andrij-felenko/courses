@@ -1,0 +1,188 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 570" width="960" height="570" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-r" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-l" markerWidth="9" markerHeight="9" refX="0.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-r-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-l-blue" markerWidth="9" markerHeight="9" refX="0.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-r-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-l-green" markerWidth="9" markerHeight="9" refX="0.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="570" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Часова діаграма керуючого сигналу RC-сервоприводу (PWM)</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Кут повороту вала залежить від тривалості імпульсу τ (1.0–2.0 мс) при періоді T = 20 мс (50 Гц)</text>
+
+  <!-- ================= ROW 1: τ = 1.0 ms (0°) ================= -->
+  <g id="row1">
+    <rect x="30" y="75" width="900" height="145" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+    <!-- Left Sub-panel: Servo Position 0° -->
+    <rect x="42" y="85" width="195" height="125" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+    <text x="139" y="103" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Кут 0° (Мінімум)</text>
+
+    <!-- Angle Scale -->
+    <path d="M 105 168 A 34 34 0 0 1 173 168" fill="none" stroke="#95a5a6" stroke-width="1.5" stroke-dasharray="3,3"/>
+    <text x="96" y="172" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">0°</text>
+    <text x="139" y="125" font-size="12" fill="#6b7280" text-anchor="middle">90°</text>
+    <text x="182" y="172" font-size="12" fill="#6b7280" text-anchor="start">180°</text>
+
+    <!-- Servo Body & Gear -->
+    <rect x="109" y="152" width="60" height="42" rx="4" fill="#34495e" stroke="#2c3e50" stroke-width="1.5"/>
+    <circle cx="139" cy="168" r="14" fill="#bdc3c7" stroke="#7f8c8d" stroke-width="1.5"/>
+
+    <!-- Servo Arm (0° - Pointing Left) -->
+    <path d="M 139,164 L 110,166 L 106,168 L 110,170 L 139,172 Z" fill="#2457d6" stroke="#1d4ed8" stroke-width="1"/>
+    <circle cx="139" cy="168" r="4" fill="#1d4ed8"/>
+
+    <!-- Right Sub-panel: Waveform 1.0 ms -->
+    <rect x="247" y="85" width="671" height="125" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+
+    <text x="257" y="131" font-size="12" fill="#6b7280" text-anchor="start">HIGH (5V)</text>
+    <text x="257" y="171" font-size="12" fill="#6b7280" text-anchor="start">LOW (0V)</text>
+
+    <!-- Pulse Shading & Waveform Line -->
+    <rect x="330" y="127" width="70" height="40" fill="#eaf0fd" opacity="0.8"/>
+    <path d="M 320,167 L 330,167 L 330,127 L 400,127 L 400,167 L 680,167 M 700,167 L 840,167 L 840,127 L 850,127" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+
+    <!-- Break Symbol -->
+    <line x1="685" y1="161" x2="691" y2="173" stroke="#6b7280" stroke-width="2"/>
+    <line x1="691" y1="161" x2="697" y2="173" stroke="#6b7280" stroke-width="2"/>
+
+    <!-- Pulse Width Dimension -->
+    <line x1="330" y1="127" x2="330" y2="103" stroke="#2457d6" stroke-width="1" stroke-dasharray="2,2"/>
+    <line x1="400" y1="127" x2="400" y2="103" stroke="#2457d6" stroke-width="1" stroke-dasharray="2,2"/>
+    <line x1="330" y1="107" x2="400" y2="107" stroke="#2457d6" stroke-width="1.5" marker-start="url(#arr-l-blue)" marker-end="url(#arr-r-blue)"/>
+    <text x="365" y="101" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">τ = 1.0 мс</text>
+
+    <!-- Period Dimension -->
+    <line x1="330" y1="167" x2="330" y2="193" stroke="#6b7280" stroke-width="1" stroke-dasharray="2,2"/>
+    <line x1="840" y1="167" x2="840" y2="193" stroke="#6b7280" stroke-width="1" stroke-dasharray="2,2"/>
+    <line x1="330" y1="189" x2="840" y2="189" stroke="#1a1a1a" stroke-width="1.5" marker-start="url(#arr-l)" marker-end="url(#arr-r)"/>
+    <text x="545" y="184" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Період T = 20 мс (50 Гц)</text>
+
+    <!-- Duty Cycle -->
+    <text x="908" y="149" font-size="12" fill="#6b7280" text-anchor="end">D = 5%</text>
+  </g>
+
+  <!-- ================= ROW 2: τ = 1.5 ms (90° Center) ================= -->
+  <g id="row2">
+    <rect x="30" y="235" width="900" height="145" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+
+    <!-- Left Sub-panel: Servo Position 90° -->
+    <rect x="42" y="245" width="195" height="125" rx="6" fill="white" stroke="#27ae60" stroke-width="1"/>
+    <text x="139" y="263" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Кут 90° (Центр)</text>
+
+    <!-- Angle Scale -->
+    <path d="M 105 328 A 34 34 0 0 1 173 328" fill="none" stroke="#95a5a6" stroke-width="1.5" stroke-dasharray="3,3"/>
+    <text x="96" y="332" font-size="12" fill="#6b7280" text-anchor="end">0°</text>
+    <text x="139" y="285" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">90°</text>
+    <text x="182" y="332" font-size="12" fill="#6b7280" text-anchor="start">180°</text>
+
+    <!-- Servo Body & Gear -->
+    <rect x="109" y="312" width="60" height="42" rx="4" fill="#34495e" stroke="#2c3e50" stroke-width="1.5"/>
+    <circle cx="139" cy="328" r="14" fill="#bdc3c7" stroke="#7f8c8d" stroke-width="1.5"/>
+
+    <!-- Servo Arm (90° - Pointing Up) -->
+    <path d="M 135,328 L 137,298 L 139,294 L 141,298 L 143,328 Z" fill="#27ae60" stroke="#1e8449" stroke-width="1"/>
+    <circle cx="139" cy="328" r="4" fill="#1e8449"/>
+
+    <!-- Right Sub-panel: Waveform 1.5 ms -->
+    <rect x="247" y="245" width="671" height="125" rx="6" fill="white" stroke="#27ae60" stroke-width="1"/>
+
+    <text x="257" y="291" font-size="12" fill="#6b7280" text-anchor="start">HIGH (5V)</text>
+    <text x="257" y="331" font-size="12" fill="#6b7280" text-anchor="start">LOW (0V)</text>
+
+    <!-- Pulse Shading & Waveform Line -->
+    <rect x="330" y="287" width="105" height="40" fill="#e9f7ef" opacity="0.8"/>
+    <path d="M 320,327 L 330,327 L 330,287 L 435,287 L 435,327 L 680,327 M 700,327 L 840,327 L 840,287 L 850,287" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+
+    <!-- Break Symbol -->
+    <line x1="685" y1="321" x2="691" y2="333" stroke="#6b7280" stroke-width="2"/>
+    <line x1="691" y1="321" x2="697" y2="333" stroke="#6b7280" stroke-width="2"/>
+
+    <!-- Pulse Width Dimension -->
+    <line x1="330" y1="287" x2="330" y2="263" stroke="#27ae60" stroke-width="1" stroke-dasharray="2,2"/>
+    <line x1="435" y1="287" x2="435" y2="263" stroke="#27ae60" stroke-width="1" stroke-dasharray="2,2"/>
+    <line x1="330" y1="267" x2="435" y2="267" stroke="#27ae60" stroke-width="1.5" marker-start="url(#arr-l-green)" marker-end="url(#arr-r-green)"/>
+    <text x="382.5" y="261" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">τ = 1.5 мс</text>
+
+    <!-- Period Dimension -->
+    <line x1="330" y1="327" x2="330" y2="353" stroke="#6b7280" stroke-width="1" stroke-dasharray="2,2"/>
+    <line x1="840" y1="327" x2="840" y2="353" stroke="#6b7280" stroke-width="1" stroke-dasharray="2,2"/>
+    <line x1="330" y1="349" x2="840" y2="349" stroke="#1a1a1a" stroke-width="1.5" marker-start="url(#arr-l)" marker-end="url(#arr-r)"/>
+    <text x="545" y="344" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Період T = 20 мс (50 Гц)</text>
+
+    <!-- Duty Cycle -->
+    <text x="908" y="309" font-size="12" fill="#6b7280" text-anchor="end">D = 7.5%</text>
+  </g>
+
+  <!-- ================= ROW 3: τ = 2.0 ms (180°) ================= -->
+  <g id="row3">
+    <rect x="30" y="395" width="900" height="145" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+    <!-- Left Sub-panel: Servo Position 180° -->
+    <rect x="42" y="405" width="195" height="125" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+    <text x="139" y="423" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Кут 180° (Максимум)</text>
+
+    <!-- Angle Scale -->
+    <path d="M 105 488 A 34 34 0 0 1 173 488" fill="none" stroke="#95a5a6" stroke-width="1.5" stroke-dasharray="3,3"/>
+    <text x="96" y="492" font-size="12" fill="#6b7280" text-anchor="end">0°</text>
+    <text x="139" y="445" font-size="12" fill="#6b7280" text-anchor="middle">90°</text>
+    <text x="182" y="492" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="start">180°</text>
+
+    <!-- Servo Body & Gear -->
+    <rect x="109" y="472" width="60" height="42" rx="4" fill="#34495e" stroke="#2c3e50" stroke-width="1.5"/>
+    <circle cx="139" cy="488" r="14" fill="#bdc3c7" stroke="#7f8c8d" stroke-width="1.5"/>
+
+    <!-- Servo Arm (180° - Pointing Right) -->
+    <path d="M 139,484 L 168,486 L 172,488 L 168,490 L 139,492 Z" fill="#2457d6" stroke="#1d4ed8" stroke-width="1"/>
+    <circle cx="139" cy="488" r="4" fill="#1d4ed8"/>
+
+    <!-- Right Sub-panel: Waveform 2.0 ms -->
+    <rect x="247" y="405" width="671" height="125" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+
+    <text x="257" y="451" font-size="12" fill="#6b7280" text-anchor="start">HIGH (5V)</text>
+    <text x="257" y="491" font-size="12" fill="#6b7280" text-anchor="start">LOW (0V)</text>
+
+    <!-- Pulse Shading & Waveform Line -->
+    <rect x="330" y="447" width="140" height="40" fill="#eaf0fd" opacity="0.8"/>
+    <path d="M 320,487 L 330,487 L 330,447 L 470,447 L 470,487 L 680,487 M 700,487 L 840,487 L 840,447 L 850,447" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+
+    <!-- Break Symbol -->
+    <line x1="685" y1="481" x2="691" y2="493" stroke="#6b7280" stroke-width="2"/>
+    <line x1="691" y1="481" x2="697" y2="493" stroke="#6b7280" stroke-width="2"/>
+
+    <!-- Pulse Width Dimension -->
+    <line x1="330" y1="447" x2="330" y2="423" stroke="#2457d6" stroke-width="1" stroke-dasharray="2,2"/>
+    <line x1="470" y1="447" x2="470" y2="423" stroke="#2457d6" stroke-width="1" stroke-dasharray="2,2"/>
+    <line x1="330" y1="427" x2="470" y2="427" stroke="#2457d6" stroke-width="1.5" marker-start="url(#arr-l-blue)" marker-end="url(#arr-r-blue)"/>
+    <text x="400" y="421" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">τ = 2.0 мс</text>
+
+    <!-- Period Dimension -->
+    <line x1="330" y1="487" x2="330" y2="513" stroke="#6b7280" stroke-width="1" stroke-dasharray="2,2"/>
+    <line x1="840" y1="487" x2="840" y2="513" stroke="#6b7280" stroke-width="1" stroke-dasharray="2,2"/>
+    <line x1="330" y1="509" x2="840" y2="509" stroke="#1a1a1a" stroke-width="1.5" marker-start="url(#arr-l)" marker-end="url(#arr-r)"/>
+    <text x="545" y="504" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Період T = 20 мс (50 Гц)</text>
+
+    <!-- Duty Cycle -->
+    <text x="908" y="469" font-size="12" fill="#6b7280" text-anchor="end">D = 10%</text>
+  </g>
+
+  <!-- Footer Legend -->
+  <text x="480" y="558" font-size="12" fill="#6b7280" text-anchor="middle">Стандарт керування: T = 20 мс (50 Гц)  •  τ_min = 1.0 мс (0°)  •  τ_center = 1.5 мс (90°)  •  τ_max = 2.0 мс (180°)</text>
+</svg>

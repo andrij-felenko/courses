@@ -1,0 +1,192 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- White Background -->
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <!-- Definitions for Markers -->
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-orange" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#d35400"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="34" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Схема виділеної лінії живлення та розв'язки сервоприводу</text>
+  <text x="480" y="56" text-anchor="middle" font-size="13" fill="#6b7280">DC-DC перетворювач, електроліт 470 мкФ, кераміка 0.1 мкФ та діод захищають МК від просідань</text>
+
+  <!-- 1. Power Source Panel -->
+  <rect x="30" y="90" width="115" height="340" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="87" y="115" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Джерело Vin</text>
+  <text x="87" y="133" text-anchor="middle" font-size="12" fill="#6b7280">7.4–12 В (АКБ)</text>
+
+  <!-- Battery Symbol -->
+  <text x="87" y="180" text-anchor="middle" font-size="13" font-weight="bold" fill="#c0392b">+ Vin</text>
+  <line x1="67" y1="195" x2="107" y2="195" stroke="#c0392b" stroke-width="3"/>
+  <line x1="77" y1="208" x2="97" y2="208" stroke="#1a1a1a" stroke-width="4"/>
+  <line x1="67" y1="221" x2="107" y2="221" stroke="#c0392b" stroke-width="3"/>
+  <line x1="77" y1="234" x2="97" y2="234" stroke="#1a1a1a" stroke-width="4"/>
+  <text x="87" y="255" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">- GND</text>
+
+  <text x="132" y="165" text-anchor="end" font-size="12" font-weight="bold" fill="#c0392b">+ Vin</text>
+  <circle cx="145" cy="170" r="4" fill="#c0392b"/>
+
+  <text x="132" y="395" text-anchor="end" font-size="12" font-weight="bold" fill="#1a1a1a">- GND</text>
+  <circle cx="145" cy="400" r="4" fill="#1a1a1a"/>
+
+  <!-- 2. MCU Panel -->
+  <rect x="180" y="90" width="140" height="140" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="250" y="112" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Мікроконтролер</text>
+  <text x="250" y="128" text-anchor="middle" font-size="12" fill="#2457d6">(MCU / Arduino)</text>
+
+  <!-- MCU Pins -->
+  <circle cx="180" cy="150" r="3.5" fill="#c0392b"/>
+  <text x="190" y="154" text-anchor="start" font-size="12" font-weight="bold" fill="#c0392b">VIN</text>
+
+  <circle cx="320" cy="165" r="3.5" fill="#d35400"/>
+  <text x="310" y="169" text-anchor="end" font-size="12" font-weight="bold" fill="#d35400">PWM Out</text>
+
+  <circle cx="320" cy="200" r="3.5" fill="#27ae60"/>
+  <text x="310" y="204" text-anchor="end" font-size="12" font-weight="bold" fill="#27ae60">ADC In</text>
+
+  <circle cx="250" cy="230" r="3.5" fill="#1a1a1a"/>
+  <text x="250" y="220" text-anchor="middle" font-size="12" fill="#1a1a1a">GND</text>
+
+  <!-- 3. DC-DC Step-Down Panel -->
+  <rect x="180" y="260" width="140" height="170" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="250" y="282" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">DC-DC Step-Down</text>
+  <text x="250" y="298" text-anchor="middle" font-size="12" fill="#27ae60">(5В / 3А Силове)</text>
+
+  <!-- DC-DC Pins -->
+  <circle cx="180" cy="340" r="3.5" fill="#c0392b"/>
+  <text x="190" y="344" text-anchor="start" font-size="12" font-weight="bold" fill="#c0392b">IN+</text>
+
+  <circle cx="180" cy="400" r="3.5" fill="#1a1a1a"/>
+  <text x="190" y="404" text-anchor="start" font-size="12" font-weight="bold" fill="#1a1a1a">IN-</text>
+
+  <circle cx="320" cy="340" r="3.5" fill="#c0392b"/>
+  <text x="310" y="344" text-anchor="end" font-size="12" font-weight="bold" fill="#c0392b">OUT+ (5V)</text>
+
+  <circle cx="320" cy="400" r="3.5" fill="#1a1a1a"/>
+  <text x="310" y="404" text-anchor="end" font-size="12" font-weight="bold" fill="#1a1a1a">OUT- (GND)</text>
+
+  <!-- Wires from Vin Power Source -->
+  <!-- Vin + to MCU VIN and DC-DC IN+ -->
+  <path d="M145,170 L165,170 L165,150 L180,150" fill="none" stroke="#c0392b" stroke-width="2"/>
+  <path d="M165,170 L165,340 L180,340" fill="none" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <circle cx="165" cy="170" r="3" fill="#c0392b"/>
+
+  <!-- GND - to DC-DC IN- -->
+  <line x1="145" y1="400" x2="180" y2="400" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+
+  <!-- 4. Decoupling & Protection Rail Zone -->
+  <rect x="350" y="90" width="368" height="340" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="534" y="112" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Шина живлення та розв'язки сервоприводу</text>
+  <text x="534" y="128" text-anchor="middle" font-size="12" fill="#6b7280">Згладжування імпульсів струму та придушення завад</text>
+
+  <!-- PWM Line (MCU -> Servo) -->
+  <line x1="320" y1="165" x2="735" y2="165" stroke="#d35400" stroke-width="2.5" marker-end="url(#arr-orange)"/>
+  <text x="534" y="154" text-anchor="middle" font-size="12" font-weight="bold" fill="#d35400">Сигнал PWM (50 Гц)</text>
+
+  <!-- ADC Current Sense Wire (Shunt node -> MCU ADC) -->
+  <path d="M640,400 L640,380 L705,380 L705,200 L320,200" fill="none" stroke="#27ae60" stroke-width="2" stroke-dasharray="4,3" marker-end="url(#arr-green)"/>
+  <circle cx="640" cy="400" r="3.5" fill="#27ae60"/>
+  <text x="485" y="190" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Моніторинг струму I_stall на ADC</text>
+
+  <!-- 5V Power Rail -->
+  <path d="M320,340 L340,340 L340,250 L735,250" fill="none" stroke="#c0392b" stroke-width="3.5" marker-end="url(#arr-red)"/>
+  <text x="360" y="240" text-anchor="start" font-size="12" font-weight="bold" fill="#c0392b">Силова шина +5 В</text>
+
+  <!-- Common GND Rail -->
+  <!-- MCU GND to Common GND -->
+  <path d="M250,230 L250,245 L340,245 L340,400" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="340" cy="400" r="3.5" fill="#1a1a1a"/>
+  <!-- DC-DC OUT- to Rs to Servo GND -->
+  <path d="M320,400 L650,400 M680,400 L735,400" stroke="#1a1a1a" stroke-width="3.5" marker-end="url(#arr)"/>
+  <text x="360" y="420" text-anchor="start" font-size="12" font-weight="bold" fill="#1a1a1a">Спільна земля (GND)</text>
+
+  <!-- Component C1: Bulk Electrolytic Capacitor (470 uF) -->
+  <line x1="410" y1="250" x2="410" y2="272" stroke="#c0392b" stroke-width="2"/>
+  <circle cx="410" cy="250" r="3" fill="#c0392b"/>
+  <!-- C1 Symbol -->
+  <text x="394" y="272" text-anchor="end" font-size="13" font-weight="bold" fill="#c0392b">+</text>
+  <rect x="398" y="272" width="24" height="6" fill="#c0392b"/>
+  <path d="M398,288 Q410,292 422,288" fill="none" stroke="#1a1a1a" stroke-width="2.5"/>
+  <line x1="410" y1="288" x2="410" y2="400" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="410" cy="400" r="3" fill="#1a1a1a"/>
+  <!-- C1 Labels -->
+  <text x="403" y="280" text-anchor="end" font-size="13" font-weight="bold" fill="#1a1a1a">C1</text>
+  <text x="403" y="296" text-anchor="end" font-size="12" font-weight="bold" fill="#2457d6">470 мкФ</text>
+  <text x="420" y="335" text-anchor="start" font-size="12" fill="#6b7280">Згладжування</text>
+  <text x="420" y="350" text-anchor="start" font-size="12" fill="#6b7280">кидків I_peak</text>
+
+  <!-- Component C2: High-Frequency Ceramic Capacitor (0.1 uF) -->
+  <line x1="510" y1="250" x2="510" y2="276" stroke="#c0392b" stroke-width="2"/>
+  <circle cx="510" cy="250" r="3" fill="#c0392b"/>
+  <!-- C2 Symbol -->
+  <line x1="498" y1="276" x2="522" y2="276" stroke="#1a1a1a" stroke-width="2.5"/>
+  <line x1="498" y1="284" x2="522" y2="284" stroke="#1a1a1a" stroke-width="2.5"/>
+  <line x1="510" y1="284" x2="510" y2="400" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="510" cy="400" r="3" fill="#1a1a1a"/>
+  <!-- C2 Labels -->
+  <text x="498" y="280" text-anchor="end" font-size="13" font-weight="bold" fill="#1a1a1a">C2</text>
+  <text x="498" y="296" text-anchor="end" font-size="12" font-weight="bold" fill="#2457d6">0.1 мкФ</text>
+  <text x="520" y="335" text-anchor="start" font-size="12" fill="#6b7280">Придушення</text>
+  <text x="520" y="350" text-anchor="start" font-size="12" fill="#6b7280">ВЧ завад</text>
+
+  <!-- Component D1: Flyback / Reverse EMF Schottky Diode (1N5819) -->
+  <line x1="600" y1="250" x2="600" y2="275" stroke="#c0392b" stroke-width="2"/>
+  <circle cx="600" cy="250" r="3" fill="#c0392b"/>
+  <!-- D1 Symbol (Cathode UP at 5V, Anode DOWN at GND) -->
+  <line x1="588" y1="275" x2="612" y2="275" stroke="#c0392b" stroke-width="2.5"/>
+  <polygon points="588,295 612,295 600,275" fill="#eaf0fd" stroke="#c0392b" stroke-width="1.5"/>
+  <line x1="600" y1="295" x2="600" y2="400" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="600" cy="400" r="3" fill="#1a1a1a"/>
+  <!-- D1 Labels -->
+  <text x="588" y="280" text-anchor="end" font-size="13" font-weight="bold" fill="#1a1a1a">D1 (Шотткі)</text>
+  <text x="588" y="296" text-anchor="end" font-size="12" font-weight="bold" fill="#c0392b">1N5819</text>
+  <text x="610" y="335" text-anchor="start" font-size="12" fill="#6b7280">Захист від</text>
+  <text x="610" y="350" text-anchor="start" font-size="12" fill="#6b7280">зворотної ЕРС</text>
+
+  <!-- Component Rs: Current Sensing Resistor (0.1 Ohm) -->
+  <rect x="650" y="392" width="30" height="16" fill="white" stroke="#1a1a1a" stroke-width="2" rx="2"/>
+  <text x="665" y="380" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Rs = 0.1 Ом</text>
+  <text x="665" y="415" text-anchor="middle" font-size="12" fill="#27ae60">Шунт струму</text>
+  <text x="665" y="427" text-anchor="middle" font-size="12" fill="#27ae60">заклинювання</text>
+
+  <!-- 5. Microservo Unit Panel -->
+  <rect x="735" y="90" width="200" height="340" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="835" y="112" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Мікросервопривід</text>
+  <text x="835" y="128" text-anchor="middle" font-size="12" fill="#2457d6">SG90 / MG90S / MG90D</text>
+
+  <!-- Servo Terminals -->
+  <circle cx="735" cy="165" r="4" fill="#d35400"/>
+  <text x="743" y="160" text-anchor="start" font-size="12" font-weight="bold" fill="#d35400">PWM (Сигнал)</text>
+
+  <circle cx="735" cy="250" r="4" fill="#c0392b"/>
+  <text x="743" y="242" text-anchor="start" font-size="12" font-weight="bold" fill="#c0392b">VCC (+5 В)</text>
+
+  <circle cx="735" cy="400" r="4" fill="#1a1a1a"/>
+  <text x="743" y="394" text-anchor="start" font-size="12" font-weight="bold" fill="#1a1a1a">GND (0 В)</text>
+
+  <!-- Inner Servo Components -->
+  <rect x="755" y="175" width="160" height="40" rx="4" fill="white" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="835" y="192" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Контролер + Н-міст</text>
+  <text x="835" y="206" text-anchor="middle" font-size="12" fill="#6b7280">Керування мотором</text>
+
+  <rect x="755" y="255" width="160" height="65" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="835" y="273" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Колекторний ДПТ</text>
+  <text x="835" y="289" text-anchor="middle" font-size="12" fill="#6b7280">Кидки I_stall до 800 мА</text>
+  <text x="835" y="304" text-anchor="middle" font-size="12" fill="#c0392b">Джерело зворотної ЕРС</text>
+
+  <rect x="755" y="330" width="160" height="40" rx="4" fill="white" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="835" y="347" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Редуктор + Потенціометр</text>
+  <text x="835" y="361" text-anchor="middle" font-size="12" fill="#6b7280">Зворотний зв'язок</text>
+</svg>

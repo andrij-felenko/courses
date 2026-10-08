@@ -1,0 +1,175 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="540" fill="#ffffff"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Еволюція двигунів та датчиків у радіокерованих сервоприводах</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Від механічних щіток і ковзного контакту до безколекторних BLDC-моторів та магнітних енкодерів</text>
+
+  <!-- Evolution Arrows between panels -->
+  <line x1="316" y1="108" x2="332" y2="108" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <line x1="628" y1="108" x2="644" y2="108" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- ==================== PANEL 1: CLASSIC ==================== -->
+  <rect x="24" y="80" width="288" height="440" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  
+  <!-- Panel 1 Header -->
+  <rect x="32" y="88" width="272" height="40" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="168" y="106" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">1. Колекторний + Потенціометр</text>
+  <text x="168" y="121" font-size="12" fill="#6b7280" text-anchor="middle">Класична аналогова схема</text>
+
+  <!-- Motor 1 Section -->
+  <rect x="32" y="136" width="272" height="148" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="42" y="151" font-size="12" font-weight="bold" fill="#6b7280">СИЛОВА ЧАСТИНА (МОТОР)</text>
+  
+  <!-- Motor 1 Graphic -->
+  <rect x="118" y="160" width="100" height="58" rx="6" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.5"/>
+  <rect x="122" y="164" width="18" height="50" rx="3" fill="#c0392b"/>
+  <text x="131" y="193" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">N</text>
+  <rect x="196" y="164" width="18" height="50" rx="3" fill="#2457d6"/>
+  <text x="205" y="193" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">S</text>
+  <circle cx="168" cy="189" r="16" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="168" cy="189" r="7" fill="#ffffff" stroke="#1a1a1a" stroke-width="1"/>
+  <rect x="146" y="185" width="10" height="8" rx="1" fill="#1a1a1a"/>
+  <rect x="180" y="185" width="10" height="8" rx="1" fill="#1a1a1a"/>
+  
+  <!-- Motor 1 Labels -->
+  <text x="168" y="238" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Колекторний DC-двигун</text>
+  <text x="168" y="254" font-size="12" fill="#c0392b" text-anchor="middle">Важке залізне осердя (ротор)</text>
+  <text x="168" y="270" font-size="12" fill="#6b7280" text-anchor="middle">Іскріння, тертя, знос щіток</text>
+
+  <!-- Sensor 1 Section -->
+  <rect x="32" y="292" width="272" height="148" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="42" y="307" font-size="12" font-weight="bold" fill="#6b7280">ЗВОРОТНИЙ ЗВ'ЯЗОК (ДАТЧИК)</text>
+  
+  <!-- Sensor 1 Graphic -->
+  <path d="M 138,355 A 30,30 0 1,1 198,355" fill="none" stroke="#d0d7de" stroke-width="8" stroke-linecap="round"/>
+  <path d="M 138,355 A 30,30 0 1,1 198,355" fill="none" stroke="#1a1a1a" stroke-width="2" stroke-linecap="round"/>
+  <circle cx="168" cy="355" r="4" fill="#6b7280"/>
+  <line x1="168" y1="355" x2="188" y2="335" stroke="#c0392b" stroke-width="2.5"/>
+  <circle cx="188" cy="335" r="3.5" fill="#c0392b"/>
+  <text x="168" y="376" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="bold">Механічний контакт</text>
+  
+  <!-- Sensor 1 Labels -->
+  <text x="168" y="394" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Аналоговий потенціометр</text>
+  <text x="168" y="410" font-size="12" fill="#c0392b" text-anchor="middle">Ковзний контакт по дорожці</text>
+  <text x="168" y="426" font-size="12" fill="#6b7280" text-anchor="middle">Дрейф нуля, шурхіт, знос</text>
+
+  <!-- Panel 1 Bottom Summary -->
+  <rect x="32" y="448" width="272" height="64" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="168" y="466" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">1-ше ПОКОЛІННЯ</text>
+  <text x="168" y="482" font-size="12" fill="#1a1a1a" text-anchor="middle">Низький ресурс, механічний знос,</text>
+  <text x="168" y="498" font-size="12" fill="#6b7280" text-anchor="middle">широка мертва зона (Deadband)</text>
+
+
+  <!-- ==================== PANEL 2: CORELESS ==================== -->
+  <rect x="336" y="80" width="288" height="440" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  
+  <!-- Panel 2 Header -->
+  <rect x="344" y="88" width="272" height="40" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="480" y="106" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">2. Coreless + Прецизійний датчик</text>
+  <text x="480" y="121" font-size="12" fill="#6b7280" text-anchor="middle">Беззалізний ротор (Coreless)</text>
+
+  <!-- Motor 2 Section -->
+  <rect x="344" y="136" width="272" height="148" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="354" y="151" font-size="12" font-weight="bold" fill="#6b7280">СИЛОВА ЧАСТИНА (МОТОР)</text>
+  
+  <!-- Motor 2 Graphic -->
+  <rect x="430" y="162" width="100" height="56" rx="6" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="480" y1="154" x2="480" y2="164" stroke="#1a1a1a" stroke-width="2.5"/>
+  <line x1="480" y1="216" x2="480" y2="226" stroke="#1a1a1a" stroke-width="2.5"/>
+  <rect x="450" y="166" width="60" height="48" rx="5" fill="none" stroke="#2457d6" stroke-width="2" stroke-dasharray="4 2"/>
+  <rect x="464" y="170" width="32" height="40" rx="4" fill="#2457d6"/>
+  <text x="480" y="194" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">N / S</text>
+
+  <!-- Motor 2 Labels -->
+  <text x="480" y="238" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Беззалізний мотор (Coreless)</text>
+  <text x="480" y="254" font-size="12" fill="#2457d6" text-anchor="middle">Мінімальний момент інерції</text>
+  <text x="480" y="270" font-size="12" fill="#6b7280" text-anchor="middle">Миттєве прискорення й відгук</text>
+
+  <!-- Sensor 2 Section -->
+  <rect x="344" y="292" width="272" height="148" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="354" y="307" font-size="12" font-weight="bold" fill="#6b7280">ЗВОРОТНИЙ ЗВ'ЯЗОК (ДАТЧИК)</text>
+  
+  <!-- Sensor 2 Graphic -->
+  <path d="M 452,355 A 30,30 0 1,1 508,355" fill="none" stroke="#d0d7de" stroke-width="8" stroke-linecap="round"/>
+  <path d="M 452,355 A 30,30 0 1,1 508,355" fill="none" stroke="#2457d6" stroke-width="4" stroke-linecap="round"/>
+  <circle cx="480" cy="355" r="4" fill="#6b7280"/>
+  <line x1="480" y1="355" x2="500" y2="335" stroke="#1a1a1a" stroke-width="2.5"/>
+  <circle cx="498" cy="333" r="2.5" fill="#f39c12"/>
+  <circle cx="503" cy="337" r="2.5" fill="#f39c12"/>
+  <text x="480" y="376" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="bold">Позолочений струмознімач</text>
+  
+  <!-- Sensor 2 Labels -->
+  <text x="480" y="394" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Потенціометр високого класу</text>
+  <text x="480" y="410" font-size="12" fill="#2457d6" text-anchor="middle">Зменшений опір та шуми</text>
+  <text x="480" y="426" font-size="12" fill="#6b7280" text-anchor="middle">Покращена точність позиціонування</text>
+
+  <!-- Panel 2 Bottom Summary -->
+  <rect x="344" y="448" width="272" height="64" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="480" y="466" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">2-ге ПОКОЛІННЯ</text>
+  <text x="480" y="482" font-size="12" fill="#1a1a1a" text-anchor="middle">Чудова динаміка та стрімкий відгук,</text>
+  <text x="480" y="498" font-size="12" fill="#6b7280" text-anchor="middle">проте збережено контактний знос</text>
+
+
+  <!-- ==================== PANEL 3: BLDC & MAGNETIC ENCODER ==================== -->
+  <rect x="648" y="80" width="288" height="440" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  
+  <!-- Panel 3 Header -->
+  <rect x="656" y="88" width="272" height="40" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="792" y="106" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">3. BLDC + Магнітний енкодер</text>
+  <text x="792" y="121" font-size="12" fill="#6b7280" text-anchor="middle">Безконтактна технологія</text>
+
+  <!-- Motor 3 Section -->
+  <rect x="656" y="136" width="272" height="148" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="666" y="151" font-size="12" font-weight="bold" fill="#6b7280">СИЛОВА ЧАСТИНА (МОТОР)</text>
+  
+  <!-- Motor 3 Graphic -->
+  <rect x="742" y="160" width="100" height="60" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="778" y="164" width="28" height="12" rx="3" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="778" y="204" width="28" height="12" rx="3" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="746" y="178" width="12" height="24" rx="3" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="826" y="178" width="12" height="24" rx="3" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="768" y="179" width="48" height="22" rx="4" fill="#27ae60"/>
+  <text x="792" y="195" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">N / S</text>
+
+  <!-- Motor 3 Labels -->
+  <text x="792" y="238" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Безколекторний мотор (BLDC)</text>
+  <text x="792" y="254" font-size="12" fill="#27ae60" text-anchor="middle">Електронна комутація (MCU)</text>
+  <text x="792" y="270" font-size="12" fill="#6b7280" text-anchor="middle">Нуль тертя, максимальний ККД</text>
+
+  <!-- Sensor 3 Section -->
+  <rect x="656" y="292" width="272" height="148" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="666" y="307" font-size="12" font-weight="bold" fill="#6b7280">ЗВОРОТНИЙ ЗВ'ЯЗОК (ДАТЧИК)</text>
+  
+  <!-- Sensor 3 Graphic -->
+  <rect x="747" y="315" width="90" height="16" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="792" y="327" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">БЕЗКОНТАКТНО</text>
+  <rect x="768" y="335" width="24" height="16" rx="3" fill="#c0392b"/>
+  <rect x="792" y="335" width="24" height="16" rx="3" fill="#2457d6"/>
+  <text x="780" y="348" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">N</text>
+  <text x="804" y="348" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">S</text>
+  <path d="M 776,351 C 776,361 808,361 808,351" fill="none" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="3 2"/>
+  <rect x="747" y="363" width="90" height="18" rx="3" fill="#1a1a1a"/>
+  <text x="792" y="376" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">IC HALL / AMR</text>
+
+  <!-- Sensor 3 Labels -->
+  <text x="792" y="394" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Магнітний енкодер (безконт.)</text>
+  <text x="792" y="410" font-size="12" fill="#27ae60" text-anchor="middle">Вимірювання напрямку поля</text>
+  <text x="792" y="426" font-size="12" fill="#6b7280" text-anchor="middle">Роздільна здатність 12–14 біт</text>
+
+  <!-- Panel 3 Bottom Summary -->
+  <rect x="656" y="448" width="272" height="64" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="792" y="466" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">3-тє ПОКОЛІННЯ</text>
+  <text x="792" y="482" font-size="12" fill="#1a1a1a" text-anchor="middle">Колосальний ресурс (&gt;5 млн циклів),</text>
+  <text x="792" y="498" font-size="12" fill="#6b7280" text-anchor="middle">абсолютна точність та нульовий знос</text>
+</svg>

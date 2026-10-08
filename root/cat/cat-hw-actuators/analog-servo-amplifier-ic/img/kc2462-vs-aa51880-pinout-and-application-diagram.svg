@@ -1,0 +1,211 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Підкладка -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Визначення маркерів стрілок -->
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок та підзаголовок -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Порівняльні схеми включення аналогових сервопідсилювачів KC2462 та AA51880</text>
+  <text x="480" y="54" text-anchor="middle" font-size="13" fill="#6b7280">KC2462 — 8-pin мікросхема з фіксованим підсиленням; AA51880 — 14-pin із зовнішньою PID-корекцією</text>
+
+  <!-- ЛІВА ПАНЕЛЬ: KC2462 (8-pin) -->
+  <rect x="20" y="70" width="450" height="470" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="35" y="82" width="420" height="28" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="245" y="100" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">KC2462 (8-Pin SOP/DIP) — Схема з внутрішнім підсилювачем</text>
+
+  <!-- Корпус KC2462 -->
+  <rect x="165" y="125" width="160" height="230" rx="6" fill="#1a1a1a" stroke="#374151" stroke-width="2"/>
+  <path d="M 235,125 A 10,10 0 0,0 255,125 Z" fill="#374151"/>
+  <text x="245" y="152" text-anchor="middle" font-size="16" font-weight="bold" fill="#ffffff">KC2462</text>
+  <text x="245" y="172" text-anchor="middle" font-size="11" fill="#9ca3af">8-Pin Servo Amp</text>
+
+  <!-- Виводи ліворуч (Pins 1..4) -->
+  <line x1="120" y1="195" x2="165" y2="195" stroke="#4b5563" stroke-width="3"/>
+  <circle cx="165" cy="195" r="3" fill="#60a5fa"/>
+  <text x="173" y="199" font-size="11" font-weight="bold" fill="#60a5fa">1: IN</text>
+  <path d="M 35,195 L 55,195 L 55,183 L 72,183 L 72,195 L 120,195" fill="none" stroke="#2457d6" stroke-width="2"/>
+  <text x="95" y="179" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">1...2 мс PWM</text>
+
+  <line x1="120" y1="235" x2="165" y2="235" stroke="#4b5563" stroke-width="3"/>
+  <circle cx="165" cy="235" r="3" fill="#60a5fa"/>
+  <text x="173" y="239" font-size="11" font-weight="bold" fill="#60a5fa">2: POT</text>
+  <rect x="70" y="220" width="10" height="30" fill="white" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="75" y1="210" x2="75" y2="220" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="75" y1="250" x2="75" y2="260" stroke="#1a1a1a" stroke-width="1.5"/>
+  <path d="M 80,235 L 120,235" fill="none" stroke="#1a1a1a" stroke-width="1.5" marker-start="url(#arr)"/>
+  <text x="55" y="239" text-anchor="end" font-size="11" fill="#1a1a1a">R_pot</text>
+  <text x="75" y="206" text-anchor="middle" font-size="10" fill="#c0392b">VCC</text>
+  <text x="75" y="272" text-anchor="middle" font-size="10" fill="#1a1a1a">GND</text>
+
+  <line x1="120" y1="275" x2="165" y2="275" stroke="#4b5563" stroke-width="3"/>
+  <circle cx="165" cy="275" r="3" fill="#60a5fa"/>
+  <text x="173" y="279" font-size="11" font-weight="bold" fill="#60a5fa">3: DB</text>
+  <line x1="120" y1="275" x2="120" y2="290" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="115" y="290" width="10" height="18" fill="white" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="105" y="303" text-anchor="end" font-size="10" fill="#1a1a1a">R_db</text>
+  <line x1="120" y1="308" x2="120" y2="318" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="110" y1="318" x2="130" y2="318" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="110" y1="322" x2="130" y2="322" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="120" y1="322" x2="120" y2="330" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="105" y="324" text-anchor="end" font-size="10" fill="#1a1a1a">C_db</text>
+  <path d="M 112,330 L 128,330 M 115,333 L 125,333 M 118,336 L 122,336" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <line x1="135" y1="315" x2="165" y2="315" stroke="#4b5563" stroke-width="3"/>
+  <circle cx="165" cy="315" r="3" fill="#60a5fa"/>
+  <text x="173" y="319" font-size="11" font-weight="bold" fill="#60a5fa">4: GND</text>
+
+  <!-- Виводи праворуч (Pins 8..5) -->
+  <line x1="325" y1="195" x2="365" y2="195" stroke="#4b5563" stroke-width="3"/>
+  <circle cx="325" cy="195" r="3" fill="#60a5fa"/>
+  <text x="317" y="199" text-anchor="end" font-size="11" font-weight="bold" fill="#60a5fa">8: COMP</text>
+  <rect x="365" y="187" width="24" height="16" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="377" y="199" text-anchor="middle" font-size="10" font-weight="bold" fill="#2457d6">RC</text>
+  <text x="395" y="199" text-anchor="start" font-size="11" fill="#1a1a1a">R_c, C_c (Gain)</text>
+
+  <line x1="325" y1="235" x2="365" y2="235" stroke="#4b5563" stroke-width="3"/>
+  <circle cx="325" cy="235" r="3" fill="#60a5fa"/>
+  <text x="317" y="239" text-anchor="end" font-size="11" font-weight="bold" fill="#60a5fa">7: VCC</text>
+  <text x="372" y="239" text-anchor="start" font-size="11" font-weight="bold" fill="#c0392b">+5V VCC</text>
+
+  <line x1="325" y1="275" x2="370" y2="275" stroke="#4b5563" stroke-width="3"/>
+  <circle cx="325" cy="275" r="3" fill="#60a5fa"/>
+  <text x="317" y="279" text-anchor="end" font-size="11" font-weight="bold" fill="#60a5fa">6: OUT2</text>
+
+  <line x1="325" y1="315" x2="370" y2="315" stroke="#4b5563" stroke-width="3"/>
+  <circle cx="325" cy="315" r="3" fill="#60a5fa"/>
+  <text x="317" y="319" text-anchor="end" font-size="11" font-weight="bold" fill="#60a5fa">5: OUT1</text>
+
+  <line x1="370" y1="275" x2="415" y2="275" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="415" y1="275" x2="415" y2="279" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="370" y1="315" x2="415" y2="315" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="415" y1="315" x2="415" y2="311" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="415" cy="295" r="16" fill="white" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="415" y="300" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">M</text>
+  <text x="415" y="268" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a1a">Двигун DC</text>
+
+  <!-- Пояснення KC2462 -->
+  <rect x="35" y="370" width="420" height="155" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="45" y="390" font-size="12" font-weight="bold" fill="#1a1a1a">Особливості схемотехніки KC2462 (8-pin):</text>
+  <text x="45" y="410" font-size="11" fill="#374151">• Зона спокою: внутрішня, з RC-підстройкою R_db/C_db (Pin 3)</text>
+  <text x="45" y="428" font-size="11" fill="#374151">• Підсилювач помилки: фіксована передавальна характеристика</text>
+  <text x="45" y="446" font-size="11" fill="#374151">• Силовий вихід: інтегрований H-міст (струм навантаження до 300 мА)</text>
+  <text x="45" y="464" font-size="11" fill="#374151">• Застосування: ультрабюджетні мікросервоприводи SG90, MG90S</text>
+  <rect x="45" y="482" width="400" height="28" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="245" y="500" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">✓ Компактність: мінімум зовнішніх компонентів</text>
+
+
+  <!-- ПРАВА ПАНЕЛЬ: AA51880 (14-pin) -->
+  <rect x="490" y="70" width="450" height="470" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="505" y="82" width="420" height="28" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="715" y="100" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">AA51880 (14-Pin SOP) — Схема з зовнішньою PID-корекцією</text>
+
+  <!-- Корпус AA51880 -->
+  <rect x="635" y="125" width="160" height="230" rx="6" fill="#1a1a1a" stroke="#374151" stroke-width="2"/>
+  <path d="M 705,125 A 10,10 0 0,0 725,125 Z" fill="#374151"/>
+  <text x="715" y="152" text-anchor="middle" font-size="16" font-weight="bold" fill="#ffffff">AA51880</text>
+  <text x="715" y="172" text-anchor="middle" font-size="11" fill="#9ca3af">14-Pin Precision Amp</text>
+
+  <!-- Виводи ліворуч (Pins 1..7) -->
+  <line x1="590" y1="188" x2="635" y2="188" stroke="#4b5563" stroke-width="3"/>
+  <circle cx="635" cy="188" r="3" fill="#60a5fa"/>
+  <text x="643" y="192" font-size="11" font-weight="bold" fill="#60a5fa">1: SIG_IN</text>
+  <path d="M 505,188 L 525,188 L 525,176 L 542,176 L 542,188 L 590,188" fill="none" stroke="#2457d6" stroke-width="2"/>
+  <text x="545" y="172" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">1...2 мс PWM</text>
+
+  <line x1="590" y1="214" x2="635" y2="214" stroke="#4b5563" stroke-width="3"/>
+  <circle cx="635" cy="214" r="3" fill="#60a5fa"/>
+  <text x="643" y="218" font-size="11" font-weight="bold" fill="#60a5fa">2: OSC</text>
+  <text x="583" y="218" text-anchor="end" font-size="11" fill="#1a1a1a">C_osc 33nF</text>
+
+  <line x1="590" y1="240" x2="635" y2="240" stroke="#4b5563" stroke-width="3"/>
+  <circle cx="635" cy="240" r="3" fill="#60a5fa"/>
+  <text x="643" y="244" font-size="11" font-weight="bold" fill="#60a5fa">3: DB</text>
+  <text x="583" y="244" text-anchor="end" font-size="11" fill="#1a1a1a">R_db / C_db</text>
+
+  <line x1="590" y1="266" x2="635" y2="266" stroke="#4b5563" stroke-width="3"/>
+  <circle cx="635" cy="266" r="3" fill="#60a5fa"/>
+  <text x="643" y="270" font-size="11" font-weight="bold" fill="#60a5fa">4: POT</text>
+  <text x="583" y="270" text-anchor="end" font-size="11" fill="#1a1a1a">R_pot (до VREF)</text>
+
+  <line x1="605" y1="292" x2="635" y2="292" stroke="#4b5563" stroke-width="3"/>
+  <circle cx="635" cy="292" r="3" fill="#60a5fa"/>
+  <text x="643" y="296" font-size="11" font-weight="bold" fill="#60a5fa">5: GND</text>
+
+  <!-- PID петля (Pins 6, 7) -->
+  <line x1="590" y1="318" x2="635" y2="318" stroke="#4b5563" stroke-width="3"/>
+  <circle cx="635" cy="318" r="3" fill="#27ae60"/>
+  <text x="643" y="322" font-size="11" font-weight="bold" fill="#27ae60">6: ERR_OUT</text>
+
+  <line x1="590" y1="344" x2="635" y2="344" stroke="#4b5563" stroke-width="3"/>
+  <circle cx="635" cy="344" r="3" fill="#27ae60"/>
+  <text x="643" y="348" font-size="11" font-weight="bold" fill="#27ae60">7: ERR_IN-</text>
+
+  <rect x="505" y="308" width="80" height="44" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="3 3"/>
+  <path d="M 635,318 L 587,318 L 587,344 L 635,344" fill="none" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="545" y="326" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">Петля PID</text>
+  <text x="545" y="342" text-anchor="middle" font-size="10" fill="#27ae60">R_f || C_f</text>
+
+  <!-- Виводи праворуч (Pins 8..14) -->
+  <line x1="795" y1="188" x2="830" y2="188" stroke="#4b5563" stroke-width="3"/>
+  <circle cx="795" cy="188" r="3" fill="#27ae60"/>
+  <text x="787" y="192" text-anchor="end" font-size="11" font-weight="bold" fill="#27ae60">14: VREF</text>
+  <rect x="830" y="180" width="32" height="16" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="846" y="192" text-anchor="middle" font-size="10" font-weight="bold" fill="#27ae60">2.5V</text>
+  <text x="868" y="192" text-anchor="start" font-size="11" fill="#1a1a1a">VREF опорне</text>
+
+  <line x1="795" y1="214" x2="835" y2="214" stroke="#4b5563" stroke-width="3"/>
+  <circle cx="795" cy="214" r="3" fill="#60a5fa"/>
+  <text x="787" y="218" text-anchor="end" font-size="11" font-weight="bold" fill="#60a5fa">13: VCC</text>
+  <text x="840" y="218" text-anchor="start" font-size="11" font-weight="bold" fill="#c0392b">+5...7.4V VCC</text>
+
+  <line x1="795" y1="240" x2="845" y2="240" stroke="#4b5563" stroke-width="3"/>
+  <circle cx="795" cy="240" r="3" fill="#60a5fa"/>
+  <text x="787" y="244" text-anchor="end" font-size="11" font-weight="bold" fill="#60a5fa">12: OUT1</text>
+
+  <line x1="795" y1="266" x2="845" y2="266" stroke="#4b5563" stroke-width="3"/>
+  <circle cx="795" cy="266" r="3" fill="#60a5fa"/>
+  <text x="787" y="270" text-anchor="end" font-size="11" font-weight="bold" fill="#60a5fa">11: OUT2</text>
+
+  <line x1="845" y1="240" x2="885" y2="240" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="885" y1="240" x2="885" y2="237" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="845" y1="266" x2="885" y2="266" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="885" y1="266" x2="885" y2="269" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="885" cy="253" r="16" fill="white" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="885" y="258" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">M</text>
+  <text x="885" y="284" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a1a">Двигун DC</text>
+
+  <line x1="795" y1="292" x2="830" y2="292" stroke="#4b5563" stroke-width="3"/>
+  <circle cx="795" cy="292" r="3" fill="#60a5fa"/>
+  <text x="787" y="296" text-anchor="end" font-size="11" font-weight="bold" fill="#60a5fa">10: DRV1</text>
+
+  <line x1="795" y1="318" x2="830" y2="318" stroke="#4b5563" stroke-width="3"/>
+  <circle cx="795" cy="318" r="3" fill="#60a5fa"/>
+  <text x="787" y="322" text-anchor="end" font-size="11" font-weight="bold" fill="#60a5fa">9: DRV2</text>
+  <text x="835" y="308" text-anchor="start" font-size="10" fill="#6b7280">Виходи DRIVE</text>
+
+  <line x1="795" y1="344" x2="830" y2="344" stroke="#4b5563" stroke-width="3"/>
+  <circle cx="795" cy="344" r="3" fill="#60a5fa"/>
+  <text x="787" y="348" text-anchor="end" font-size="11" font-weight="bold" fill="#60a5fa">8: ERR_IN+</text>
+  <text x="835" y="348" text-anchor="start" font-size="10" fill="#6b7280">(до VREF)</text>
+
+  <!-- Пояснення AA51880 -->
+  <rect x="505" y="370" width="420" height="155" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="515" y="390" font-size="12" font-weight="bold" fill="#1a1a1a">Особливості схемотехніки AA51880 (14-pin):</text>
+  <text x="515" y="410" font-size="11" fill="#374151">• Гнучка PID-корекція: виводи 6/7 для підбору ланцюга R_f || C_f</text>
+  <text x="515" y="428" font-size="11" fill="#374151">• Стабільний VREF: вивід 14 (2.5V) усуває залежність від завад VCC</text>
+  <text x="515" y="446" font-size="11" fill="#374151">• Задавальний генератор: точна настройка C_osc на виводі 2</text>
+  <text x="515" y="464" font-size="11" fill="#374151">• Силові ключі: підключення зовнішніх MOSFET (MG996R, Futaba)</text>
+  <rect x="515" y="482" width="400" height="28" rx="4" fill="#e9f7ef" stroke="#2457d6" stroke-width="1"/>
+  <text x="715" y="500" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">✓ Висока стійкість: усунення тремтіння й овершуту</text>
+</svg>

@@ -1,0 +1,275 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 570" width="960" height="570" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="570" fill="#ffffff"/>
+
+  <!-- Definitions -->
+  <defs>
+    <!-- Markers for dimension arrows -->
+    <marker id="arr-blue-right" markerWidth="9" markerHeight="9" refX="7.5" refY="4.5" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M1,1 L7.5,4.5 L1,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-blue-left" markerWidth="9" markerHeight="9" refX="1.5" refY="4.5" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,1 L1.5,4.5 L8,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-gray-right" markerWidth="9" markerHeight="9" refX="7.5" refY="4.5" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M1,1 L7.5,4.5 L1,8 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-gray-left" markerWidth="9" markerHeight="9" refX="1.5" refY="4.5" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,1 L1.5,4.5 L8,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Header -->
+  <text x="480" y="36" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Часова діаграма ШІМ-сигналу та мапування кута сервоприводу</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Тривалість керуючого імпульсу (1000–2000 мкс) при частоті 50 Гц задає кут повороту вала (0°–180°)</text>
+
+  <!-- PANEL 1: 0 degrees -->
+  <g id="panel-0deg">
+    <!-- Panel Background -->
+    <rect x="30" y="75" width="900" height="130" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+    
+    <!-- Title / Badge -->
+    <rect x="45" y="83" width="115" height="24" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+    <text x="102.5" y="99" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">θ = 0° (Мін.)</text>
+    <text x="170" y="99" font-size="12" fill="#6b7280" text-anchor="start">— тривалість імпульсу 1000 мкс (1.0 мс)</text>
+
+    <!-- Pulse Width Dimension Line -->
+    <line x1="130" y1="116" x2="130" y2="133" stroke="#2457d6" stroke-width="1" stroke-dasharray="2,2"/>
+    <line x1="210" y1="116" x2="210" y2="133" stroke="#2457d6" stroke-width="1" stroke-dasharray="2,2"/>
+    <line x1="130" y1="120" x2="210" y2="120" stroke="#2457d6" stroke-width="1.5" marker-start="url(#arr-blue-left)" marker-end="url(#arr-blue-right)"/>
+    <text x="170" y="115" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">t = 1000 мкс</text>
+
+    <!-- Waveform Labels -->
+    <text x="75" y="137" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="end">HIGH</text>
+    <text x="75" y="171" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="end">LOW</text>
+    
+    <!-- Waveform Lines -->
+    <!-- LOW segment 1 -->
+    <line x1="85" y1="167" x2="130" y2="167" stroke="#2457d6" stroke-width="2.5"/>
+    <!-- Rising edge -->
+    <line x1="130" y1="167" x2="130" y2="133" stroke="#2457d6" stroke-width="2.5"/>
+    <!-- HIGH level -->
+    <line x1="130" y1="133" x2="210" y2="133" stroke="#2457d6" stroke-width="2.5"/>
+    <!-- Falling edge -->
+    <line x1="210" y1="133" x2="210" y2="167" stroke="#2457d6" stroke-width="2.5"/>
+    <!-- LOW level before break -->
+    <line x1="210" y1="167" x2="350" y2="167" stroke="#6b7280" stroke-width="1.5"/>
+    <!-- Axis Break Symbol -->
+    <rect x="350" y="161" width="16" height="12" fill="#f4f6f8"/>
+    <line x1="354" y1="160" x2="358" y2="174" stroke="#6b7280" stroke-width="1.5"/>
+    <line x1="359" y1="160" x2="363" y2="174" stroke="#6b7280" stroke-width="1.5"/>
+    <!-- LOW level after break -->
+    <line x1="366" y1="167" x2="530" y2="167" stroke="#6b7280" stroke-width="1.5"/>
+    <!-- Rising edge 2 -->
+    <line x1="530" y1="167" x2="530" y2="133" stroke="#2457d6" stroke-width="2.5"/>
+    <!-- Next HIGH start -->
+    <line x1="530" y1="133" x2="560" y2="133" stroke="#2457d6" stroke-width="2.5"/>
+
+    <!-- Period Dimension Line -->
+    <line x1="130" y1="167" x2="130" y2="187" stroke="#6b7280" stroke-width="1" stroke-dasharray="2,2"/>
+    <line x1="530" y1="167" x2="530" y2="187" stroke="#6b7280" stroke-width="1" stroke-dasharray="2,2"/>
+    <line x1="130" y1="184" x2="530" y2="184" stroke="#6b7280" stroke-width="1.5" marker-start="url(#arr-gray-left)" marker-end="url(#arr-gray-right)"/>
+    <text x="330" y="198" font-size="12" fill="#6b7280" text-anchor="middle">Період T = 20 мс (50 Гц)</text>
+
+    <!-- Separator Line between Waveform and Servo -->
+    <line x1="615" y1="85" x2="615" y2="195" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4,4"/>
+
+    <!-- Servo Visual 0deg -->
+    <rect x="635" y="90" width="150" height="100" rx="8" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+    <circle cx="710" cy="147" r="20" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+    <circle cx="710" cy="147" r="4" fill="#1a1a1a"/>
+    
+    <!-- Reference Arc -->
+    <path d="M 678,147 A 32,32 0 0,1 742,147" fill="none" stroke="#9ca3af" stroke-width="1.5" stroke-dasharray="3,3"/>
+    
+    <!-- Ticks & Labels -->
+    <line x1="678" y1="147" x2="673" y2="147" stroke="#2457d6" stroke-width="1.5"/>
+    <text x="668" y="151" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">0°</text>
+
+    <line x1="710" y1="115" x2="710" y2="110" stroke="#6b7280" stroke-width="1.5"/>
+    <text x="710" y="106" font-size="12" fill="#6b7280" text-anchor="middle">90°</text>
+
+    <line x1="742" y1="147" x2="747" y2="147" stroke="#6b7280" stroke-width="1.5"/>
+    <text x="752" y="151" font-size="12" fill="#6b7280" text-anchor="start">180°</text>
+
+    <!-- Horn Arm pointing to 0° (Left) -->
+    <line x1="710" y1="147" x2="678" y2="147" stroke="#2457d6" stroke-width="4" stroke-linecap="round"/>
+    <circle cx="678" cy="147" r="4" fill="#2457d6"/>
+
+    <!-- Right Status Card -->
+    <rect x="805" y="110" width="110" height="60" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+    <text x="860" y="133" font-size="15" font-weight="bold" fill="#2457d6" text-anchor="middle">θ = 0°</text>
+    <text x="860" y="154" font-size="12" fill="#1a1a1a" text-anchor="middle">Мін. (ліве)</text>
+  </g>
+
+  <!-- PANEL 2: 90 degrees -->
+  <g id="panel-90deg">
+    <!-- Panel Background -->
+    <rect x="30" y="215" width="900" height="130" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+    
+    <!-- Title / Badge -->
+    <rect x="45" y="223" width="125" height="24" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+    <text x="107.5" y="239" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">θ = 90° (Нейтр.)</text>
+    <text x="180" y="239" font-size="12" fill="#6b7280" text-anchor="start">— тривалість імпульсу 1500 мкс (1.5 мс)</text>
+
+    <!-- Pulse Width Dimension Line -->
+    <line x1="130" y1="256" x2="130" y2="273" stroke="#2457d6" stroke-width="1" stroke-dasharray="2,2"/>
+    <line x1="250" y1="256" x2="250" y2="273" stroke="#2457d6" stroke-width="1" stroke-dasharray="2,2"/>
+    <line x1="130" y1="260" x2="250" y2="260" stroke="#2457d6" stroke-width="1.5" marker-start="url(#arr-blue-left)" marker-end="url(#arr-blue-right)"/>
+    <text x="190" y="255" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">t = 1500 мкс</text>
+
+    <!-- Waveform Labels -->
+    <text x="75" y="277" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="end">HIGH</text>
+    <text x="75" y="311" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="end">LOW</text>
+    
+    <!-- Waveform Lines -->
+    <!-- LOW segment 1 -->
+    <line x1="85" y1="307" x2="130" y2="307" stroke="#2457d6" stroke-width="2.5"/>
+    <!-- Rising edge -->
+    <line x1="130" y1="307" x2="130" y2="273" stroke="#2457d6" stroke-width="2.5"/>
+    <!-- HIGH level -->
+    <line x1="130" y1="273" x2="250" y2="273" stroke="#2457d6" stroke-width="2.5"/>
+    <!-- Falling edge -->
+    <line x1="250" y1="273" x2="250" y2="307" stroke="#2457d6" stroke-width="2.5"/>
+    <!-- LOW level before break -->
+    <line x1="250" y1="307" x2="370" y2="307" stroke="#6b7280" stroke-width="1.5"/>
+    <!-- Axis Break Symbol -->
+    <rect x="370" y="301" width="16" height="12" fill="#f4f6f8"/>
+    <line x1="374" y1="300" x2="378" y2="314" stroke="#6b7280" stroke-width="1.5"/>
+    <line x1="379" y1="300" x2="383" y2="314" stroke="#6b7280" stroke-width="1.5"/>
+    <!-- LOW level after break -->
+    <line x1="386" y1="307" x2="530" y2="307" stroke="#6b7280" stroke-width="1.5"/>
+    <!-- Rising edge 2 -->
+    <line x1="530" y1="307" x2="530" y2="273" stroke="#2457d6" stroke-width="2.5"/>
+    <!-- Next HIGH start -->
+    <line x1="530" y1="273" x2="560" y2="273" stroke="#2457d6" stroke-width="2.5"/>
+
+    <!-- Period Dimension Line -->
+    <line x1="130" y1="307" x2="130" y2="327" stroke="#6b7280" stroke-width="1" stroke-dasharray="2,2"/>
+    <line x1="530" y1="307" x2="530" y2="327" stroke="#6b7280" stroke-width="1" stroke-dasharray="2,2"/>
+    <line x1="130" y1="324" x2="530" y2="324" stroke="#6b7280" stroke-width="1.5" marker-start="url(#arr-gray-left)" marker-end="url(#arr-gray-right)"/>
+    <text x="330" y="338" font-size="12" fill="#6b7280" text-anchor="middle">Період T = 20 мс (50 Гц)</text>
+
+    <!-- Separator Line -->
+    <line x1="615" y1="225" x2="615" y2="335" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4,4"/>
+
+    <!-- Servo Visual 90deg -->
+    <rect x="635" y="230" width="150" height="100" rx="8" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+    <circle cx="710" cy="287" r="20" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+    <circle cx="710" cy="287" r="4" fill="#1a1a1a"/>
+    
+    <!-- Reference Arc -->
+    <path d="M 678,287 A 32,32 0 0,1 742,287" fill="none" stroke="#9ca3af" stroke-width="1.5" stroke-dasharray="3,3"/>
+    
+    <!-- Ticks & Labels -->
+    <line x1="678" y1="287" x2="673" y2="287" stroke="#6b7280" stroke-width="1.5"/>
+    <text x="668" y="291" font-size="12" fill="#6b7280" text-anchor="end">0°</text>
+
+    <line x1="710" y1="255" x2="710" y2="250" stroke="#2457d6" stroke-width="1.5"/>
+    <text x="710" y="246" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">90°</text>
+
+    <line x1="742" y1="287" x2="747" y2="287" stroke="#6b7280" stroke-width="1.5"/>
+    <text x="752" y="291" font-size="12" fill="#6b7280" text-anchor="start">180°</text>
+
+    <!-- Horn Arm pointing to 90° (Up) -->
+    <line x1="710" y1="287" x2="710" y2="255" stroke="#2457d6" stroke-width="4" stroke-linecap="round"/>
+    <circle cx="710" cy="255" r="4" fill="#2457d6"/>
+
+    <!-- Right Status Card -->
+    <rect x="805" y="250" width="110" height="60" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+    <text x="860" y="273" font-size="15" font-weight="bold" fill="#2457d6" text-anchor="middle">θ = 90°</text>
+    <text x="860" y="294" font-size="12" fill="#1a1a1a" text-anchor="middle">Нейтральне</text>
+  </g>
+
+  <!-- PANEL 3: 180 degrees -->
+  <g id="panel-180deg">
+    <!-- Panel Background -->
+    <rect x="30" y="355" width="900" height="130" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+    
+    <!-- Title / Badge -->
+    <rect x="45" y="363" width="125" height="24" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+    <text x="107.5" y="379" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">θ = 180° (Макс.)</text>
+    <text x="180" y="379" font-size="12" fill="#6b7280" text-anchor="start">— тривалість імпульсу 2000 мкс (2.0 мс)</text>
+
+    <!-- Pulse Width Dimension Line -->
+    <line x1="130" y1="396" x2="130" y2="413" stroke="#2457d6" stroke-width="1" stroke-dasharray="2,2"/>
+    <line x1="290" y1="396" x2="290" y2="413" stroke="#2457d6" stroke-width="1" stroke-dasharray="2,2"/>
+    <line x1="130" y1="400" x2="290" y2="400" stroke="#2457d6" stroke-width="1.5" marker-start="url(#arr-blue-left)" marker-end="url(#arr-blue-right)"/>
+    <text x="210" y="395" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">t = 2000 мкс</text>
+
+    <!-- Waveform Labels -->
+    <text x="75" y="417" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="end">HIGH</text>
+    <text x="75" y="451" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="end">LOW</text>
+    
+    <!-- Waveform Lines -->
+    <!-- LOW segment 1 -->
+    <line x1="85" y1="447" x2="130" y2="447" stroke="#2457d6" stroke-width="2.5"/>
+    <!-- Rising edge -->
+    <line x1="130" y1="447" x2="130" y2="413" stroke="#2457d6" stroke-width="2.5"/>
+    <!-- HIGH level -->
+    <line x1="130" y1="413" x2="290" y2="413" stroke="#2457d6" stroke-width="2.5"/>
+    <!-- Falling edge -->
+    <line x1="290" y1="413" x2="290" y2="447" stroke="#2457d6" stroke-width="2.5"/>
+    <!-- LOW level before break -->
+    <line x1="290" y1="447" x2="390" y2="447" stroke="#6b7280" stroke-width="1.5"/>
+    <!-- Axis Break Symbol -->
+    <rect x="390" y="441" width="16" height="12" fill="#f4f6f8"/>
+    <line x1="394" y1="440" x2="398" y2="454" stroke="#6b7280" stroke-width="1.5"/>
+    <line x1="399" y1="440" x2="403" y2="454" stroke="#6b7280" stroke-width="1.5"/>
+    <!-- LOW level after break -->
+    <line x1="406" y1="447" x2="530" y2="447" stroke="#6b7280" stroke-width="1.5"/>
+    <!-- Rising edge 2 -->
+    <line x1="530" y1="447" x2="530" y2="413" stroke="#2457d6" stroke-width="2.5"/>
+    <!-- Next HIGH start -->
+    <line x1="530" y1="413" x2="560" y2="413" stroke="#2457d6" stroke-width="2.5"/>
+
+    <!-- Period Dimension Line -->
+    <line x1="130" y1="447" x2="130" y2="467" stroke="#6b7280" stroke-width="1" stroke-dasharray="2,2"/>
+    <line x1="530" y1="447" x2="530" y2="467" stroke="#6b7280" stroke-width="1" stroke-dasharray="2,2"/>
+    <line x1="130" y1="464" x2="530" y2="464" stroke="#6b7280" stroke-width="1.5" marker-start="url(#arr-gray-left)" marker-end="url(#arr-gray-right)"/>
+    <text x="330" y="478" font-size="12" fill="#6b7280" text-anchor="middle">Період T = 20 мс (50 Гц)</text>
+
+    <!-- Separator Line -->
+    <line x1="615" y1="365" x2="615" y2="475" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4,4"/>
+
+    <!-- Servo Visual 180deg -->
+    <rect x="635" y="370" width="150" height="100" rx="8" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+    <circle cx="710" cy="427" r="20" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+    <circle cx="710" cy="427" r="4" fill="#1a1a1a"/>
+    
+    <!-- Reference Arc -->
+    <path d="M 678,427 A 32,32 0 0,1 742,427" fill="none" stroke="#9ca3af" stroke-width="1.5" stroke-dasharray="3,3"/>
+    
+    <!-- Ticks & Labels -->
+    <line x1="678" y1="427" x2="673" y2="427" stroke="#6b7280" stroke-width="1.5"/>
+    <text x="668" y="431" font-size="12" fill="#6b7280" text-anchor="end">0°</text>
+
+    <line x1="710" y1="395" x2="710" y2="390" stroke="#6b7280" stroke-width="1.5"/>
+    <text x="710" y="386" font-size="12" fill="#6b7280" text-anchor="middle">90°</text>
+
+    <line x1="742" y1="427" x2="747" y2="427" stroke="#2457d6" stroke-width="1.5"/>
+    <text x="752" y="431" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="start">180°</text>
+
+    <!-- Horn Arm pointing to 180° (Right) -->
+    <line x1="710" y1="427" x2="742" y2="427" stroke="#2457d6" stroke-width="4" stroke-linecap="round"/>
+    <circle cx="742" cy="427" r="4" fill="#2457d6"/>
+
+    <!-- Right Status Card -->
+    <rect x="805" y="390" width="110" height="60" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+    <text x="860" y="413" font-size="15" font-weight="bold" fill="#2457d6" text-anchor="middle">θ = 180°</text>
+    <text x="860" y="434" font-size="12" fill="#1a1a1a" text-anchor="middle">Макс. (праве)</text>
+  </g>
+
+  <!-- FOOTER PANEL -->
+  <g id="footer-panel">
+    <rect x="30" y="495" width="900" height="55" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+    
+    <!-- Info Icon Circle -->
+    <circle cx="56" cy="522.5" r="12" fill="#2457d6"/>
+    <text x="56" y="526.5" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">i</text>
+
+    <!-- Note Text -->
+    <text x="82" y="516" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">Формула мапування: t_pulse = 1000 + (θ / 180°) × 1000 [мкс]</text>
+    <text x="82" y="535" font-size="12" fill="#6b7280" text-anchor="start">Частота сигналу стала (f = 50 Гц, T = 20 мс). Кут повороту вала залежить тільки від тривалості імпульсу.</text>
+  </g>
+</svg>

@@ -1,0 +1,152 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <defs>
+    <marker id="arr-black" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="35" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Схема фільтрації завад DC-двигуна 130 з трьома конденсаторами</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Конденсатор C₁ пригнічує диференційну моду (DM), а C₂ і C₃ шунтують спільну моду (CM) на металевий корпус</text>
+
+  <!-- ЛІВА ПАНЕЛЬ: Принципова схема -->
+  <rect x="30" y="85" width="530" height="410" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="45" y="112" font-size="14" font-weight="700" fill="#1a1a1a">Принципова схема підключення та фільтрації</text>
+
+  <!-- Вхідна клемна колодка -->
+  <rect x="45" y="135" width="55" height="270" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="72" y="175" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">+Vcc</text>
+  <text x="72" y="193" font-size="11" fill="#6b7280" text-anchor="middle">(ШІМ+)</text>
+
+  <text x="72" y="345" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">GND</text>
+  <text x="72" y="363" font-size="11" fill="#6b7280" text-anchor="middle">(ШІМ-)</text>
+
+  <!-- Лінії живлення (Rails) -->
+  <!-- Верхня лінія (+Vcc) -->
+  <line x1="100" y1="160" x2="330" y2="160" stroke="#c0392b" stroke-width="2"/>
+  <!-- Нижня лінія (GND) -->
+  <line x1="100" y1="380" x2="330" y2="380" stroke="#2457d6" stroke-width="2"/>
+
+  <!-- Діод D1 (Flyback / TVS) -->
+  <line x1="150" y1="160" x2="150" y2="240" stroke="#1a1a1a" stroke-width="1.5"/>
+  <!-- Катод діода -->
+  <line x1="140" y1="240" x2="160" y2="240" stroke="#c0392b" stroke-width="2"/>
+  <!-- Анод трикутник -->
+  <polygon points="150,240 140,260 160,260" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <line x1="150" y1="260" x2="150" y2="380" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="150" cy="160" r="3.5" fill="#1a1a1a"/>
+  <circle cx="150" cy="380" r="3.5" fill="#1a1a1a"/>
+
+  <!-- Напис D1 та струм самоіндукції -->
+  <text x="133" y="244" font-size="12" font-weight="700" fill="#c0392b" text-anchor="end">D₁</text>
+  <text x="133" y="258" font-size="11" fill="#6b7280" text-anchor="end">1N4007</text>
+  <path d="M 160,340 L 160,180" fill="none" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#arr-red)"/>
+  <text x="133" y="325" font-size="11" fill="#c0392b" text-anchor="end">Струм D₁ (зріз E)</text>
+
+  <!-- Конденсатор C1 (DM) -->
+  <line x1="230" y1="160" x2="230" y2="250" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="218" y1="250" x2="242" y2="250" stroke="#27ae60" stroke-width="3"/>
+  <line x1="218" y1="260" x2="242" y2="260" stroke="#27ae60" stroke-width="3"/>
+  <line x1="230" y1="260" x2="230" y2="380" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="230" cy="160" r="3.5" fill="#1a1a1a"/>
+  <circle cx="230" cy="380" r="3.5" fill="#1a1a1a"/>
+
+  <!-- Напис C1 та контур DM -->
+  <text x="210" y="247" font-size="12" font-weight="700" fill="#27ae60" text-anchor="end">C₁</text>
+  <text x="210" y="263" font-size="11" fill="#27ae60" text-anchor="end">100 nF</text>
+  <path d="M 238,175 C 258,175 258,365 238,365" fill="none" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#arr-green)"/>
+  <text x="262" y="270" font-size="11" font-weight="700" fill="#27ae60">Контур DM</text>
+
+  <!-- Корпус двигуна (Металевий кожух) -->
+  <rect x="330" y="135" width="210" height="270" rx="10" fill="#ffffff" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="6,4"/>
+  <text x="435" y="153" font-size="12" font-weight="700" fill="#6b7280" text-anchor="middle">Металевий корпус двигуна 130</text>
+
+  <!-- Провідники живлення всередині корпусу -->
+  <line x1="330" y1="160" x2="360" y2="160" stroke="#c0392b" stroke-width="2"/>
+  <line x1="360" y1="160" x2="360" y2="195" stroke="#c0392b" stroke-width="2"/>
+  <circle cx="360" cy="195" r="4" fill="#c0392b"/>
+  <text x="350" y="190" font-size="12" font-weight="700" fill="#c0392b" text-anchor="end">M+</text>
+
+  <line x1="330" y1="380" x2="360" y2="380" stroke="#2457d6" stroke-width="2"/>
+  <line x1="360" y1="380" x2="360" y2="345" stroke="#2457d6" stroke-width="2"/>
+  <circle cx="360" cy="345" r="4" fill="#2457d6"/>
+  <text x="350" y="355" font-size="12" font-weight="700" fill="#2457d6" text-anchor="end">M-</text>
+
+  <!-- Двигун (Символ M) -->
+  <circle cx="410" cy="270" r="36" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="410" y="266" font-size="18" font-weight="700" fill="#2457d6" text-anchor="middle">M</text>
+  <text x="410" y="284" font-size="11" fill="#6b7280" text-anchor="middle">130 DC</text>
+
+  <!-- Провід від M+ до двигуна -->
+  <line x1="360" y1="195" x2="388" y2="240" stroke="#c0392b" stroke-width="1.5"/>
+  <!-- Провід від M- до двигуна -->
+  <line x1="360" y1="345" x2="388" y2="300" stroke="#2457d6" stroke-width="1.5"/>
+
+  <!-- Конденсатори C2 та C3 (CM) -->
+  <!-- C2 від M+ до корпусу -->
+  <line x1="360" y1="195" x2="480" y2="195" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="480" y1="195" x2="480" y2="220" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="468" y1="220" x2="492" y2="220" stroke="#2457d6" stroke-width="3"/>
+  <line x1="468" y1="230" x2="492" y2="230" stroke="#2457d6" stroke-width="3"/>
+  <text x="498" y="220" font-size="12" font-weight="700" fill="#2457d6">C₂</text>
+  <text x="498" y="235" font-size="11" fill="#6b7280">47 nF</text>
+
+  <!-- C3 від M- до корпусу -->
+  <line x1="360" y1="345" x2="480" y2="345" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="480" y1="345" x2="480" y2="320" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="468" y1="310" x2="492" y2="310" stroke="#2457d6" stroke-width="3"/>
+  <line x1="468" y1="320" x2="492" y2="320" stroke="#2457d6" stroke-width="3"/>
+  <text x="498" y="310" font-size="12" font-weight="700" fill="#2457d6">C₃</text>
+  <text x="498" y="325" font-size="11" fill="#6b7280">47 nF</text>
+
+  <!-- Вузол з'єднання C2 і C3 на корпус -->
+  <line x1="480" y1="230" x2="480" y2="310" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="480" cy="270" r="3.5" fill="#1a1a1a"/>
+  <line x1="480" y1="270" x2="520" y2="270" stroke="#1a1a1a" stroke-width="1.5"/>
+  <polygon points="520,264 528,270 520,276" fill="#6b7280"/>
+  <text x="525" y="258" font-size="11" font-weight="700" fill="#1a1a1a" text-anchor="end">Корпус</text>
+
+  <!-- Лінія заземлення корпусу та шлях CM завад -->
+  <line x1="480" y1="270" x2="480" y2="445" stroke="#1a1a1a" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <path d="M 480,380 L 480,435" fill="none" stroke="#2457d6" stroke-width="2" stroke-dasharray="4,3" marker-end="url(#arr-blue)"/>
+  <!-- Символ Землі -->
+  <line x1="465" y1="445" x2="495" y2="445" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="472" y1="449" x2="488" y2="449" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="477" y1="453" x2="483" y2="453" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="480" y="473" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Заземлення корпусу (GND/Chassis)</text>
+
+  <!-- ПРАВА ПАНЕЛЬ: Пояснювальні картки -->
+  <!-- Картка 1: Диференційна завада -->
+  <rect x="580" y="85" width="350" height="125" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="595" y="110" font-size="13" font-weight="700" fill="#27ae60">1. Диференційний фільтр C₁ (DM)</text>
+  <text x="595" y="132" font-size="12" fill="#1a1a1a">• Підключається паралельно виводам М+ та М-</text>
+  <text x="595" y="152" font-size="12" fill="#1a1a1a">• Шунтує високочастотне іскріння щіток ротора</text>
+  <text x="595" y="172" font-size="12" fill="#1a1a1a">• Номінал: 100 nF (керамічний, низький ESR)</text>
+
+  <!-- Картка 2: Синфазна завада -->
+  <rect x="580" y="225" width="350" height="125" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="595" y="250" font-size="13" font-weight="700" fill="#2457d6">2. Синфазний фільтр C₂–C₃ (CM)</text>
+  <text x="595" y="272" font-size="12" fill="#1a1a1a">• Підключаються від М+/М- на металевий корпус</text>
+  <text x="595" y="292" font-size="12" fill="#1a1a1a">• Відводять наведення з обмоток на заземлення</text>
+  <text x="595" y="312" font-size="12" fill="#1a1a1a">• Номінал: 10..47 nF (запобігають випромінюванню)</text>
+
+  <!-- Картка 3: Захист від індуктивного викиду -->
+  <rect x="580" y="365" width="350" height="130" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="595" y="390" font-size="13" font-weight="700" fill="#c0392b">3. Захисний діод D₁ (Flyback)</text>
+  <text x="595" y="412" font-size="12" fill="#1a1a1a">• Гасить індуктивні викиди E = ½ L·I² при ШІМ</text>
+  <text x="595" y="432" font-size="12" fill="#1a1a1a">• Захищає силовий ключ (MOSFET) від пробою</text>
+  <text x="595" y="452" font-size="12" fill="#1a1a1a">• Діод Шотткі 1N4007 або TVS-супресор</text>
+
+</svg>

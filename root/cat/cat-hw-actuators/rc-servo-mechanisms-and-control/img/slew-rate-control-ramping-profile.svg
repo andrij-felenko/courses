@@ -1,0 +1,126 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <defs>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Керування швидкістю нарощування (Slew Rate Control) та профілювання</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Обмеження похідної dT/dt усуває кидки струму живлення та пом'якшує механічний розгін</text>
+
+  <!-- Legend Panels -->
+  <g>
+    <rect x="60" y="68" width="400" height="46" rx="6" ry="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+    <line x1="75" y1="91" x2="105" y2="91" stroke="#c0392b" stroke-width="3"/>
+    <text x="115" y="86" font-size="12" font-weight="bold" fill="#c0392b">Без обмеження (Step Input)</text>
+    <text x="115" y="102" font-size="12" fill="#6b7280">dT/dt → ∞ : миттєвий стрибок заданого значення</text>
+  </g>
+
+  <g>
+    <rect x="500" y="68" width="400" height="46" rx="6" ry="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+    <line x1="515" y1="91" x2="545" y2="91" stroke="#27ae60" stroke-width="3"/>
+    <text x="555" y="86" font-size="12" font-weight="bold" fill="#27ae60">З обмеженням швидкості (Slew Rate Limit)</text>
+    <text x="555" y="102" font-size="12" fill="#6b7280">|dT/dt| ≤ S_max : лінійне розганяння траєкторії</text>
+  </g>
+
+  <!-- Upper Graph: Pulse Width -->
+  <g>
+    <rect x="40" y="130" width="880" height="195" rx="8" ry="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+    <text x="55" y="146" font-size="13" font-weight="bold" fill="#1a1a1a">Графік тривалості ШІМ-імпульсу T_pulse [мкс]</text>
+
+    <!-- Axes -->
+    <line x1="130" y1="290" x2="130" y2="165" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+    <text x="120" y="165" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">T_pulse</text>
+
+    <line x1="130" y1="290" x2="870" y2="290" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+    <text x="880" y="294" font-size="12" font-weight="bold" fill="#1a1a1a">t [мс]</text>
+
+    <!-- Grid lines Y -->
+    <line x1="130" y1="290" x2="840" y2="290" stroke="#d0d7de" stroke-dasharray="3,3"/>
+    <text x="120" y="294" font-size="12" fill="#6b7280" text-anchor="end">1000 мкс</text>
+
+    <line x1="130" y1="185" x2="840" y2="185" stroke="#d0d7de" stroke-dasharray="3,3"/>
+    <text x="120" y="189" font-size="12" fill="#6b7280" text-anchor="end">2000 мкс</text>
+
+    <!-- Time event lines -->
+    <line x1="300" y1="170" x2="300" y2="290" stroke="#d0d7de" stroke-dasharray="3,3"/>
+    <text x="300" y="308" font-size="12" fill="#1a1a1a" text-anchor="middle">t₁ (команда)</text>
+
+    <line x1="620" y1="170" x2="620" y2="290" stroke="#d0d7de" stroke-dasharray="3,3"/>
+    <text x="620" y="308" font-size="12" fill="#1a1a1a" text-anchor="middle">t₂ (досягнення уставки)</text>
+
+    <!-- Target Step Line (Blue dashed) -->
+    <path d="M 130,290 L 300,290 L 300,185 L 840,185" fill="none" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4,4"/>
+    <text x="310" y="177" font-size="12" fill="#2457d6">Задана уставка T_target</text>
+
+    <!-- Step Response Line (Red solid) -->
+    <path d="M 130,290 L 300,290 L 300,185 L 840,185" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+    <text x="150" y="235" font-size="12" font-weight="bold" fill="#c0392b">Миттєвий стрибок</text>
+    <text x="150" y="250" font-size="12" fill="#c0392b">(writeMicroseconds)</text>
+
+    <!-- Ramp Polygon & Line (Green solid) -->
+    <polygon points="300,290 620,290 620,185" fill="#e9f7ef" opacity="0.6"/>
+    <path d="M 130,290 L 300,290 L 620,185 L 840,185" fill="none" stroke="#27ae60" stroke-width="3.5"/>
+    <text x="460" y="258" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Плавна рамка S_max = ΔT / Δt</text>
+    <text x="630" y="240" font-size="12" fill="#27ae60">ΔT = 1000 мкс</text>
+    <text x="460" y="278" font-size="12" fill="#27ae60" text-anchor="middle">Δt = t₂ - t₁</text>
+  </g>
+
+  <!-- Lower Graph: Supply Current -->
+  <g>
+    <rect x="40" y="340" width="880" height="195" rx="8" ry="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+    <text x="55" y="356" font-size="13" font-weight="bold" fill="#1a1a1a">Графік споживання струму живлення I_supply [А]</text>
+
+    <!-- Axes -->
+    <line x1="130" y1="500" x2="130" y2="375" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+    <text x="120" y="375" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">I_supply</text>
+
+    <line x1="130" y1="500" x2="870" y2="500" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+    <text x="880" y="504" font-size="12" font-weight="bold" fill="#1a1a1a">t [мс]</text>
+
+    <!-- Grid lines Y -->
+    <line x1="130" y1="500" x2="840" y2="500" stroke="#d0d7de" stroke-dasharray="3,3"/>
+    <text x="120" y="504" font-size="12" fill="#6b7280" text-anchor="end">I_idle</text>
+
+    <line x1="130" y1="460" x2="620" y2="460" stroke="#d0d7de" stroke-dasharray="3,3"/>
+    <text x="120" y="464" font-size="12" fill="#27ae60" text-anchor="end">I_nom</text>
+
+    <line x1="130" y1="395" x2="310" y2="395" stroke="#fdecea" stroke-dasharray="3,3"/>
+    <text x="120" y="399" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="end">I_peak</text>
+
+    <!-- Time event lines -->
+    <line x1="300" y1="380" x2="300" y2="500" stroke="#d0d7de" stroke-dasharray="3,3"/>
+    <text x="300" y="518" font-size="12" fill="#1a1a1a" text-anchor="middle">t₁</text>
+
+    <line x1="620" y1="380" x2="620" y2="500" stroke="#d0d7de" stroke-dasharray="3,3"/>
+    <text x="620" y="518" font-size="12" fill="#1a1a1a" text-anchor="middle">t₂</text>
+
+    <!-- Red Current Curve & Area -->
+    <path d="M 130,500 L 300,500 L 300,395 C 310,395 325,410 340,460 C 370,460 410,460 440,460 C 450,495 455,500 460,500 L 840,500 L 130,500 Z" fill="#fdecea" opacity="0.75"/>
+    <path d="M 130,500 L 300,500 L 300,395 C 310,395 325,410 340,460 C 370,460 410,460 440,460 C 450,495 455,500 460,500 L 840,500" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+
+    <rect x="315" y="385" width="180" height="42" rx="5" ry="5" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+    <text x="325" y="402" font-size="12" font-weight="bold" fill="#c0392b">⚡ Кидок струму I_peak</text>
+    <text x="325" y="418" font-size="12" fill="#c0392b">Просідання Vcc, удар</text>
+
+    <!-- Green Current Curve & Area -->
+    <path d="M 130,500 L 300,500 C 315,460 330,460 340,460 L 600,460 C 615,460 625,500 640,500 L 840,500 L 130,500 Z" fill="#e9f7ef" opacity="0.6"/>
+    <path d="M 130,500 L 300,500 C 315,460 330,460 340,460 L 600,460 C 615,460 625,500 640,500 L 840,500" fill="none" stroke="#27ae60" stroke-width="3"/>
+
+    <rect x="630" y="430" width="195" height="42" rx="5" ry="5" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+    <text x="640" y="447" font-size="12" font-weight="bold" fill="#27ae60">✓ Помірний струм I_nom</text>
+    <text x="640" y="463" font-size="12" fill="#27ae60">Безпечний режим живлення</text>
+  </g>
+</svg>

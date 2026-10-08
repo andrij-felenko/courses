@@ -1,0 +1,175 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <!-- Markers for arrows -->
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="30" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Кінематика діафрагмової помпи RS-360SH: фази всмоктування та нагнітання</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Обертання ексцентрика переміщує мембрану, змінюючи об'єм камери та активуючи клапани</text>
+
+  <!-- ==================== LEFT PANEL: PHASE 1 ==================== -->
+  <rect x="25" y="70" width="445" height="430" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  
+  <!-- Panel 1 Header -->
+  <rect x="40" y="82" width="415" height="28" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="247" y="101" font-size="14" font-weight="700" fill="#2457d6" text-anchor="middle">ФАЗА 1: ВСМОКТУВАННЯ (Рух мембрани вниз)</text>
+
+  <!-- Flow Q_in Arrow and Label -->
+  <text x="65" y="122" font-size="12" font-weight="700" fill="#2457d6" text-anchor="start">Потік Q_in ↓</text>
+  <path d="M 138,106 L 138,131" stroke="#2457d6" stroke-width="2.5" fill="none" marker-end="url(#arr-blue)"/>
+
+  <!-- Inlet Port (Left) & Outlet Port (Right) -->
+  <rect x="120" y="135" width="36" height="35" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="338" y="135" width="36" height="35" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+
+  <text x="138" y="156" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">Вхід</text>
+  <text x="356" y="156" font-size="12" fill="#6b7280" text-anchor="middle">Вихід</text>
+
+  <!-- Valve Status Badges -->
+  <rect x="165" y="142" width="60" height="20" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="195" y="156" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">ВІДКР.</text>
+
+  <rect x="269" y="142" width="60" height="20" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="299" y="156" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">ЗАКР.</text>
+
+  <!-- Housing Outer Body -->
+  <rect x="110" y="170" width="274" height="65" rx="5" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+
+  <!-- Chamber Cavity -->
+  <rect x="125" y="178" width="244" height="48" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" stroke-dasharray="3 3"/>
+  <text x="247" y="206" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">P &lt; P_in (Розрідження в камері)</text>
+
+  <!-- Flap Valves (Left open, Right closed) -->
+  <!-- Inlet flap open (bent down) -->
+  <line x1="130" y1="178" x2="147" y2="196" stroke="#27ae60" stroke-width="3" stroke-linecap="round"/>
+  <!-- Outlet flap closed (flat) -->
+  <line x1="344" y1="178" x2="368" y2="178" stroke="#c0392b" stroke-width="3" stroke-linecap="round"/>
+
+  <!-- Diaphragm bowed DOWN -->
+  <path d="M 125,235 Q 247,268 369,235" stroke="#334155" stroke-width="4.5" fill="none"/>
+
+  <!-- Diaphragm Hub -->
+  <rect x="235" y="256" width="24" height="12" rx="2" fill="#64748b" stroke="#1e293b" stroke-width="1.5"/>
+
+  <!-- Diaphragm Label (Left side) -->
+  <text x="38" y="230" font-size="12" font-weight="700" fill="#1a1a1a">Еластомерна</text>
+  <text x="38" y="244" font-size="12" fill="#6b7280">мембрана</text>
+
+  <!-- Connecting Rod (Шатун) -->
+  <rect x="242" y="268" width="10" height="137" rx="3" fill="#e2e8f0" stroke="#475569" stroke-width="1.5"/>
+
+  <!-- Rod Motion Indicator -->
+  <path d="M 272,315 L 272,345" stroke="#27ae60" stroke-width="2" fill="none" marker-end="url(#arr-green)"/>
+  <text x="280" y="334" font-size="12" font-weight="700" fill="#27ae60">Рух вниз ↓</text>
+
+  <!-- Motor Axis & Eccentric Cam Drive -->
+  <!-- Shaft center at (247, 395) -->
+  <circle cx="247" cy="395" r="11" fill="#cbd5e1" stroke="#334155" stroke-width="1.5"/>
+  <circle cx="247" cy="395" r="2.5" fill="#1a1a1a"/>
+  
+  <!-- Eccentric Disc (Center shifted DOWN to 247, 407) -->
+  <circle cx="247" cy="407" r="26" fill="#ffffff" fill-opacity="0.5" stroke="#2457d6" stroke-width="2" stroke-dasharray="4 2"/>
+  <!-- Eccentric Pin BDC at (247, 405) -->
+  <circle cx="247" cy="405" r="4" fill="#2457d6"/>
+
+  <!-- Rotation Arrow -->
+  <path d="M 230,387 A 17 17 0 0 1 264,387" stroke="#1a1a1a" stroke-width="1.5" fill="none" marker-end="url(#arr)"/>
+  <text x="269" y="385" font-size="12" font-style="italic" fill="#1a1a1a">ω</text>
+
+  <!-- Lower Callout Labels -->
+  <text x="40" y="390" font-size="12" font-weight="700" fill="#1a1a1a">Вал RS-360SH</text>
+  <text x="40" y="405" font-size="12" fill="#2457d6" font-weight="700">Ексцентрик e</text>
+  
+  <text x="247" y="452" font-size="12" font-weight="700" fill="#6b7280" text-anchor="middle">НМТ: Нижня мертва точка (Всмоктування)</text>
+  <text x="247" y="480" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Повний хід мембрани: S = 2 · e</text>
+
+
+  <!-- ==================== RIGHT PANEL: PHASE 2 ==================== -->
+  <rect x="490" y="70" width="445" height="430" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  
+  <!-- Panel 2 Header -->
+  <rect x="505" y="82" width="415" height="28" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="712" y="101" font-size="14" font-weight="700" fill="#2457d6" text-anchor="middle">ФАЗА 2: НАГНІТАННЯ (Рух мембрани вгору)</text>
+
+  <!-- Flow Q_out Arrow and Label -->
+  <text x="845" y="122" font-size="12" font-weight="700" fill="#2457d6" text-anchor="start">Потік Q_out ↑</text>
+  <path d="M 821,131 L 821,106" stroke="#2457d6" stroke-width="2.5" fill="none" marker-end="url(#arr-blue)"/>
+
+  <!-- Inlet Port (Left) & Outlet Port (Right) -->
+  <rect x="585" y="135" width="36" height="35" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+  <rect x="803" y="135" width="36" height="35" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+
+  <text x="603" y="156" font-size="12" fill="#6b7280" text-anchor="middle">Вхід</text>
+  <text x="821" y="156" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">Вихід</text>
+
+  <!-- Valve Status Badges -->
+  <rect x="630" y="142" width="60" height="20" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="660" y="156" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">ЗАКР.</text>
+
+  <rect x="734" y="142" width="60" height="20" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="764" y="156" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">ВІДКР.</text>
+
+  <!-- Housing Outer Body -->
+  <rect x="575" y="170" width="274" height="65" rx="5" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+
+  <!-- Chamber Cavity -->
+  <rect x="590" y="178" width="244" height="48" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1" stroke-dasharray="3 3"/>
+  <text x="712" y="206" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">P &gt; P_out (Тиск стиснення в камері)</text>
+
+  <!-- Flap Valves (Left closed, Right open) -->
+  <!-- Inlet flap closed (flat) -->
+  <line x1="595" y1="178" x2="619" y2="178" stroke="#c0392b" stroke-width="3" stroke-linecap="round"/>
+  <!-- Outlet flap open (bent up) -->
+  <line x1="809" y1="178" x2="825" y2="158" stroke="#27ae60" stroke-width="3" stroke-linecap="round"/>
+
+  <!-- Diaphragm bowed UP -->
+  <path d="M 590,235 Q 712,198 834,235" stroke="#334155" stroke-width="4.5" fill="none"/>
+
+  <!-- Diaphragm Hub -->
+  <rect x="700" y="193" width="24" height="12" rx="2" fill="#64748b" stroke="#1e293b" stroke-width="1.5"/>
+
+  <!-- Diaphragm Label (Right side) -->
+  <text x="850" y="230" font-size="12" font-weight="700" fill="#1a1a1a">Зменшення</text>
+  <text x="850" y="244" font-size="12" fill="#6b7280">об'єму V</text>
+
+  <!-- Connecting Rod (Шатун) -->
+  <rect x="707" y="205" width="10" height="180" rx="3" fill="#e2e8f0" stroke="#475569" stroke-width="1.5"/>
+
+  <!-- Rod Motion Indicator -->
+  <path d="M 737,345 L 737,315" stroke="#27ae60" stroke-width="2" fill="none" marker-end="url(#arr-green)"/>
+  <text x="745" y="334" font-size="12" font-weight="700" fill="#27ae60">Рух вгору ↑</text>
+
+  <!-- Motor Axis & Eccentric Cam Drive -->
+  <!-- Shaft center at (712, 395) -->
+  <circle cx="712" cy="395" r="11" fill="#cbd5e1" stroke="#334155" stroke-width="1.5"/>
+  <circle cx="712" cy="395" r="2.5" fill="#1a1a1a"/>
+  
+  <!-- Eccentric Disc (Center shifted UP to 712, 383) -->
+  <circle cx="712" cy="383" r="26" fill="#ffffff" fill-opacity="0.5" stroke="#2457d6" stroke-width="2" stroke-dasharray="4 2"/>
+  <!-- Eccentric Pin TDC at (712, 385) -->
+  <circle cx="712" cy="385" r="4" fill="#2457d6"/>
+
+  <!-- Rotation Arrow -->
+  <path d="M 695,387 A 17 17 0 0 1 729,387" stroke="#1a1a1a" stroke-width="1.5" fill="none" marker-end="url(#arr)"/>
+  <text x="734" y="385" font-size="12" font-style="italic" fill="#1a1a1a">ω</text>
+
+  <!-- Lower Callout Labels -->
+  <text x="922" y="390" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="end">Вал RS-360SH</text>
+  <text x="922" y="405" font-size="12" fill="#2457d6" font-weight="700" text-anchor="end">Ексцентрик e</text>
+  
+  <text x="712" y="452" font-size="12" font-weight="700" fill="#6b7280" text-anchor="middle">ВМТ: Верхня мертва точка (Нагнітання)</text>
+  <text x="712" y="480" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Об'єм дози: V_stroke ≈ A_mem · S</text>
+
+</svg>

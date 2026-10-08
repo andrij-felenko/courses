@@ -1,0 +1,194 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-black" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Background Canvas -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="700" text-anchor="middle" fill="#1a1a1a">Часові інтервали та каскадна передача даних WS2812B</text>
+  <text x="480" y="52" font-size="13" text-anchor="middle" fill="#6b7280">Перший світлодіод фіксує перші 24 біти (GRB) для себе та транслює залишок кадру далі за ланцюжком</text>
+
+  <!-- Panel A: Timing Intervals -->
+  <rect x="20" y="70" width="920" height="175" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="35" y="92" font-size="14" font-weight="700" fill="#1a1a1a">1. Часові інтервали імпульсів протоколу (NZR)</text>
+
+  <!-- Card A1: Logic 0 -->
+  <rect x="35" y="102" width="270" height="130" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="170" y="122" font-size="13" font-weight="700" text-anchor="middle" fill="#2457d6">Логічний '0' (T0)</text>
+
+  <!-- Card A1 Waveform & Voltage Labels -->
+  <text x="48" y="160" font-size="11" font-weight="700" text-anchor="end" fill="#6b7280">5V</text>
+  <text x="48" y="195" font-size="11" font-weight="700" text-anchor="end" fill="#6b7280">0V</text>
+  
+  <path d="M 52,192 H 70 V 157 H 130 V 192 H 290" stroke="#2457d6" stroke-width="2.5" fill="none"/>
+  
+  <!-- Dashed timing guide lines -->
+  <line x1="70" y1="132" x2="70" y2="192" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="130" y1="132" x2="130" y2="192" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="250" y1="132" x2="250" y2="192" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2,2"/>
+
+  <!-- Dimension arrows -->
+  <line x1="72" y1="147" x2="128" y2="147" stroke="#2457d6" stroke-width="1"/>
+  <line x1="132" y1="147" x2="248" y2="147" stroke="#1a1a1a" stroke-width="1"/>
+
+  <!-- Timing text -->
+  <text x="100" y="142" font-size="12" font-weight="700" text-anchor="middle" fill="#2457d6">T0H: 0.4 мкс</text>
+  <text x="190" y="142" font-size="12" text-anchor="middle" fill="#1a1a1a">T0L: 0.85 мкс</text>
+  <text x="170" y="222" font-size="12" text-anchor="middle" fill="#6b7280">Період T = 1.25 мкс (±150 нс)</text>
+
+  <!-- Card A2: Logic 1 -->
+  <rect x="325" y="102" width="270" height="130" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="460" y="122" font-size="13" font-weight="700" text-anchor="middle" fill="#27ae60">Логічна '1' (T1)</text>
+
+  <!-- Card A2 Waveform & Voltage Labels -->
+  <text x="338" y="160" font-size="11" font-weight="700" text-anchor="end" fill="#6b7280">5V</text>
+  <text x="338" y="195" font-size="11" font-weight="700" text-anchor="end" fill="#6b7280">0V</text>
+
+  <path d="M 342,192 H 360 V 157 H 480 V 192 H 580" stroke="#27ae60" stroke-width="2.5" fill="none"/>
+
+  <!-- Dashed timing guide lines -->
+  <line x1="360" y1="132" x2="360" y2="192" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="480" y1="132" x2="480" y2="192" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="545" y1="132" x2="545" y2="192" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2,2"/>
+
+  <!-- Dimension arrows -->
+  <line x1="362" y1="147" x2="478" y2="147" stroke="#27ae60" stroke-width="1"/>
+  <line x1="482" y1="147" x2="543" y2="147" stroke="#1a1a1a" stroke-width="1"/>
+
+  <!-- Timing text -->
+  <text x="420" y="142" font-size="12" font-weight="700" text-anchor="middle" fill="#27ae60">T1H: 0.8 мкс</text>
+  <text x="512" y="142" font-size="12" text-anchor="middle" fill="#1a1a1a">T1L: 0.45 мкс</text>
+  <text x="460" y="222" font-size="12" text-anchor="middle" fill="#6b7280">Період T = 1.25 мкс (±150 нс)</text>
+
+  <!-- Card A3: RESET Pause -->
+  <rect x="615" y="102" width="310" height="130" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="770" y="122" font-size="13" font-weight="700" text-anchor="middle" fill="#c0392b">Пауза скидання (RESET)</text>
+
+  <text x="628" y="160" font-size="11" font-weight="700" text-anchor="end" fill="#6b7280">5V</text>
+  <text x="628" y="195" font-size="11" font-weight="700" text-anchor="end" fill="#6b7280">0V</text>
+
+  <path d="M 632,157 V 192 H 895" stroke="#c0392b" stroke-width="2.5" fill="none"/>
+  <path d="M 895,192 H 910" stroke="#c0392b" stroke-width="2.5" stroke-dasharray="3,3" fill="none"/>
+
+  <line x1="632" y1="132" x2="632" y2="192" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="634" y1="147" x2="893" y2="147" stroke="#c0392b" stroke-width="1"/>
+
+  <text x="770" y="142" font-size="12" font-weight="700" text-anchor="middle" fill="#c0392b">Treset > 50 мкс (WS2812B) / > 280 мкс (V5)</text>
+  <text x="770" y="175" font-size="12" text-anchor="middle" fill="#1a1a1a">Сигнал тримається на низькому рівні (0V)</text>
+  <text x="770" y="222" font-size="12" text-anchor="middle" fill="#6b7280">Фіксація даних у ШІМ + скидання лічильника</text>
+
+  <!-- Panel B: Cascade Shift Mechanism -->
+  <rect x="20" y="258" width="920" height="282" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="35" y="280" font-size="14" font-weight="700" fill="#1a1a1a">2. Каскадний зсув 24-бітних колірних пакетів (GRB)</text>
+
+  <!-- Top Block Diagram inside Panel B -->
+  <!-- MCU -->
+  <rect x="35" y="294" width="110" height="70" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="90" y="322" font-size="13" font-weight="700" text-anchor="middle" fill="#2457d6">Контролер</text>
+  <text x="90" y="342" font-size="12" text-anchor="middle" fill="#6b7280">(MCU / TX)</text>
+
+  <line x1="145" y1="329" x2="195" y2="329" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="170" y="321" font-size="12" font-weight="700" text-anchor="middle" fill="#2457d6">Кадр</text>
+
+  <!-- LED 1 -->
+  <rect x="195" y="294" width="150" height="70" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="270" y="315" font-size="13" font-weight="700" text-anchor="middle" fill="#1a1a1a">WS2812B №1</text>
+  <text x="270" y="333" font-size="12" font-weight="700" text-anchor="middle" fill="#2457d6">Зрізає 1-ші 24b</text>
+  <!-- Indicator circles -->
+  <circle cx="245" cy="350" r="6" fill="#27ae60"/>
+  <circle cx="270" cy="350" r="6" fill="#c0392b"/>
+  <circle cx="295" cy="350" r="6" fill="#2457d6"/>
+
+  <line x1="345" y1="329" x2="365" y2="329" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-black)"/>
+
+  <!-- LED 2 -->
+  <rect x="365" y="294" width="150" height="70" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="440" y="315" font-size="13" font-weight="700" text-anchor="middle" fill="#1a1a1a">WS2812B №2</text>
+  <text x="440" y="333" font-size="12" font-weight="700" text-anchor="middle" fill="#27ae60">Зрізає 2-гі 24b</text>
+  <!-- Indicator circles -->
+  <circle cx="415" cy="350" r="6" fill="#27ae60"/>
+  <circle cx="440" cy="350" r="6" fill="#c0392b"/>
+  <circle cx="465" cy="350" r="6" fill="#2457d6"/>
+
+  <line x1="515" y1="329" x2="535" y2="329" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-black)"/>
+
+  <!-- LED 3 -->
+  <rect x="535" y="294" width="150" height="70" rx="6" fill="#ffffff" stroke="#8e44ad" stroke-width="1.5"/>
+  <text x="610" y="315" font-size="13" font-weight="700" text-anchor="middle" fill="#1a1a1a">WS2812B №3</text>
+  <text x="610" y="333" font-size="12" font-weight="700" text-anchor="middle" fill="#8e44ad">Зрізає 3-ті 24b</text>
+  <!-- Indicator circles -->
+  <circle cx="585" cy="350" r="6" fill="#27ae60"/>
+  <circle cx="610" cy="350" r="6" fill="#c0392b"/>
+  <circle cx="635" cy="350" r="6" fill="#2457d6"/>
+
+  <line x1="685" y1="329" x2="705" y2="329" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-black)"/>
+
+  <!-- Latch block -->
+  <rect x="705" y="294" width="150" height="70" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="780" y="315" font-size="13" font-weight="700" text-anchor="middle" fill="#c0392b">Засувка (Latch)</text>
+  <text x="780" y="333" font-size="12" font-weight="700" text-anchor="middle" fill="#c0392b">Оновлення ШІМ</text>
+  <text x="780" y="350" font-size="12" text-anchor="middle" fill="#6b7280">по паузі RESET</text>
+
+  <!-- Signals Breakdown Grid -->
+
+  <!-- Signal Node 1: DIN -->
+  <text x="180" y="412" font-size="12" font-weight="700" text-anchor="end" fill="#1a1a1a">DIN (від MCU):</text>
+  
+  <rect x="195" y="395" width="150" height="26" rx="5" fill="#2457d6"/>
+  <text x="270" y="412" font-size="12" font-weight="700" text-anchor="middle" fill="#ffffff">LED1: 24 біти (GRB)</text>
+
+  <rect x="365" y="395" width="150" height="26" rx="5" fill="#27ae60"/>
+  <text x="440" y="412" font-size="12" font-weight="700" text-anchor="middle" fill="#ffffff">LED2: 24 біти (GRB)</text>
+
+  <rect x="535" y="395" width="150" height="26" rx="5" fill="#8e44ad"/>
+  <text x="610" y="412" font-size="12" font-weight="700" text-anchor="middle" fill="#ffffff">LED3: 24 біти (GRB)</text>
+
+  <rect x="705" y="395" width="150" height="26" rx="5" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="780" y="412" font-size="12" font-weight="700" text-anchor="middle" fill="#c0392b">RESET (>50 мкс)</text>
+
+  <!-- Signal Node 2: DOUT 1 / DIN 2 -->
+  <text x="180" y="454" font-size="12" font-weight="700" text-anchor="end" fill="#1a1a1a">DOUT 1 / DIN 2:</text>
+
+  <rect x="195" y="437" width="150" height="26" rx="5" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <text x="270" y="454" font-size="12" text-anchor="middle" fill="#6b7280">[Засвоєно LED1]</text>
+
+  <rect x="365" y="437" width="150" height="26" rx="5" fill="#27ae60"/>
+  <text x="440" y="454" font-size="12" font-weight="700" text-anchor="middle" fill="#ffffff">LED2: 24 біти (GRB)</text>
+
+  <rect x="535" y="437" width="150" height="26" rx="5" fill="#8e44ad"/>
+  <text x="610" y="454" font-size="12" font-weight="700" text-anchor="middle" fill="#ffffff">LED3: 24 біти (GRB)</text>
+
+  <rect x="705" y="437" width="150" height="26" rx="5" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="780" y="454" font-size="12" font-weight="700" text-anchor="middle" fill="#c0392b">RESET (>50 мкс)</text>
+
+  <!-- Signal Node 3: DOUT 2 / DIN 3 -->
+  <text x="180" y="496" font-size="12" font-weight="700" text-anchor="end" fill="#1a1a1a">DOUT 2 / DIN 3:</text>
+
+  <rect x="195" y="479" width="150" height="26" rx="5" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <text x="270" y="496" font-size="12" text-anchor="middle" fill="#6b7280">[Засвоєно LED1]</text>
+
+  <rect x="365" y="479" width="150" height="26" rx="5" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <text x="440" y="496" font-size="12" text-anchor="middle" fill="#6b7280">[Засвоєно LED2]</text>
+
+  <rect x="535" y="479" width="150" height="26" rx="5" fill="#8e44ad"/>
+  <text x="610" y="496" font-size="12" font-weight="700" text-anchor="middle" fill="#ffffff">LED3: 24 біти (GRB)</text>
+
+  <rect x="705" y="479" width="150" height="26" rx="5" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="780" y="496" font-size="12" font-weight="700" text-anchor="middle" fill="#c0392b">RESET (>50 мкс)</text>
+
+  <!-- Summary Legend at Bottom -->
+  <text x="480" y="525" font-size="12" font-weight="700" text-anchor="middle" fill="#1a1a1a">Кожен світлодіод вилучає перші 24 біти зі свого входу DIN, а решту кадру передає на DOUT з відновленням таймінгів</text>
+</svg>

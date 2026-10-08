@@ -1,0 +1,122 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Маркери стрілок -->
+  <defs>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок та підзаголовок -->
+  <text x="480" y="34" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Характеристика ШІМ-керування сервоприводом постійного обертання</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Апаратний зсув зміщує точку зупинки, а програмна зона нечутливості усуває дрейф</text>
+
+  <!-- ПАНЕЛЬ 1: Графік залежності швидкості від тривалості імпульсу -->
+  <rect x="30" y="75" width="580" height="435" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="320" y="98" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Залежність кутової швидкості ω від тривалості імпульсу t_pulse</text>
+
+  <!-- Назва осі Y -->
+  <text x="110" y="122" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Швидкість обертання ω</text>
+
+  <!-- Затінена зона нечутливості (Deadband) -->
+  <rect x="340" y="145" width="32" height="270" fill="#e9f7ef" stroke="#27ae60" stroke-width="1" stroke-dasharray="2,2"/>
+
+  <!-- Сітка та вертикальні лінії орієнтирів -->
+  <line x1="110" y1="145" x2="110" y2="425" stroke="#d0d7de" stroke-dasharray="3,3"/>
+  <line x1="225" y1="145" x2="225" y2="425" stroke="#d0d7de" stroke-dasharray="3,3"/>
+  <line x1="455" y1="145" x2="455" y2="425" stroke="#d0d7de" stroke-dasharray="3,3"/>
+  <line x1="570" y1="145" x2="570" y2="425" stroke="#d0d7de" stroke-dasharray="3,3"/>
+
+  <!-- Лінія номінальної нейтралі t_nom = 1500 мкс -->
+  <line x1="340" y1="145" x2="340" y2="430" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,4"/>
+
+  <!-- Лінія фактичної нейтралі t_act = 1535 мкс -->
+  <line x1="356" y1="145" x2="356" y2="430" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="4,4"/>
+
+  <!-- Позначення апаратного зсуву Δt_offset -->
+  <line x1="340" y1="210" x2="356" y2="210" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="348" y="202" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Δt_offset</text>
+
+  <!-- Блок виносного підпису паразитарного повзання -->
+  <rect x="135" y="150" width="165" height="42" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="217.5" y="168" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Паразитарне повзання</text>
+  <text x="217.5" y="184" font-size="12" fill="#c0392b" text-anchor="middle">ω_drift ≠ 0 при 1500 мкс</text>
+  <line x1="302" y1="192" x2="335" y2="288" stroke="#c0392b" stroke-width="1" marker-end="url(#arr-red)"/>
+
+  <!-- Осі координат -->
+  <!-- Горизонтальна вісь 0 (Зупинка) -->
+  <line x1="110" y1="280" x2="575" y2="280" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+  <!-- Вертикальна вісь Y -->
+  <line x1="110" y1="425" x2="110" y2="135" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+
+  <!-- Підписи на осі Y -->
+  <text x="105" y="146" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">+100% (CW)</text>
+  <text x="105" y="284" font-size="12" fill="#6b7280" text-anchor="end">0 (Зупинка)</text>
+  <text x="105" y="418" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">-100% (CCW)</text>
+
+  <!-- Підписи на осі X -->
+  <text x="110" y="445" font-size="12" fill="#1a1a1a" text-anchor="middle">1000 мкс</text>
+  <text x="225" y="445" font-size="12" fill="#6b7280" text-anchor="middle">1250 мкс</text>
+  <text x="340" y="445" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">1500 мкс (t_nom)</text>
+  <text x="356" y="465" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">1535 мкс (t_act)</text>
+  <text x="455" y="445" font-size="12" fill="#6b7280" text-anchor="middle">1750 мкс</text>
+  <text x="570" y="445" font-size="12" fill="#1a1a1a" text-anchor="middle">2000 мкс</text>
+  <text x="340" y="492" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Тривалість керуючого ШІМ-імпульсу t_pulse (мкс)</text>
+
+  <!-- Червона крива: Невідкалібрована система (паразитарне повзання) -->
+  <path d="M 110,400 L 270,335 L 340,295 L 356,280 L 430,230 L 570,160" fill="none" stroke="#c0392b" stroke-width="2" stroke-dasharray="5,4"/>
+  <circle cx="340" cy="295" r="4" fill="#c0392b"/>
+
+  <!-- Синя крива: Відкалібрована система з зоною нечутливості -->
+  <path d="M 110,415 L 310,295 L 340,280 L 372,280 L 410,255 L 570,145" fill="none" stroke="#2457d6" stroke-width="3"/>
+  <circle cx="356" cy="280" r="5" fill="#2457d6"/>
+
+  <!-- Легенда в графіку (нижній правий сектор) -->
+  <rect x="395" y="335" width="205" height="68" rx="5" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="405" y1="352" x2="435" y2="352" stroke="#c0392b" stroke-width="2" stroke-dasharray="4,3"/>
+  <text x="442" y="356" font-size="12" fill="#1a1a1a" text-anchor="start">Невідкалібрована (зсув)</text>
+  <line x1="405" y1="372" x2="435" y2="372" stroke="#2457d6" stroke-width="3"/>
+  <text x="442" y="376" font-size="12" fill="#1a1a1a" text-anchor="start">Відкалібрована (з deadband)</text>
+  <rect x="405" y="385" width="30" height="10" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="442" y="394" font-size="12" fill="#1a1a1a" text-anchor="start">Зона нечутливості Δt_db</text>
+
+  <!-- ПАНЕЛЬ 2: Методика налаштування та алгоритми -->
+  <rect x="625" y="75" width="305" height="435" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="777.5" y="98" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Методика налаштування нейтралі</text>
+
+  <!-- Блок 1: Апаратний зсув -->
+  <rect x="640" y="112" width="275" height="115" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="652" y="132" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="start">1. Апаратний зсув нейтралі</text>
+  <text x="652" y="152" font-size="12" fill="#1a1a1a" text-anchor="start">• Причина: зміщення потенціометра,</text>
+  <text x="652" y="168" font-size="12" fill="#1a1a1a" text-anchor="start">  дрейф опорів R1/R2 або темп-ра.</text>
+  <text x="652" y="184" font-size="12" fill="#1a1a1a" text-anchor="start">• Наслідок: при t = 1500 мкс виникає</text>
+  <text x="652" y="200" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="start">  паразитарний дрейф (@@en|creep@@) вала.</text>
+
+  <!-- Блок 2: Апаратне калібрування -->
+  <rect x="640" y="240" width="275" height="115" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="652" y="260" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="start">2. Апаратне калібрування</text>
+  <text x="652" y="280" font-size="12" fill="#1a1a1a" text-anchor="start">• Сигнал: подається t_nom = 1500 мкс.</text>
+  <text x="652" y="296" font-size="12" fill="#1a1a1a" text-anchor="start">• Дія: обертання підстроювального</text>
+  <text x="652" y="312" font-size="12" fill="#1a1a1a" text-anchor="start">  @@en|trimmer@@ до повної зупинки.</text>
+  <text x="652" y="328" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="start">• Результат: V_ref дорівнює ШІМ 1500 мкс.</text>
+
+  <!-- Блок 3: Програмне калібрування -->
+  <rect x="640" y="368" width="275" height="128" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="652" y="388" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="start">3. Програмна зона нечутливості</text>
+  <text x="652" y="408" font-size="12" fill="#1a1a1a" text-anchor="start">• Центрування: t_center = 1535 мкс.</text>
+  <text x="652" y="424" font-size="12" fill="#1a1a1a" text-anchor="start">• Умова: якщо |t - t_center| &lt; Δt_db,</text>
+  <text x="652" y="440" font-size="12" fill="#1a1a1a" text-anchor="start">  примусово призначається ω = 0.</text>
+  <text x="652" y="460" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="start">• Результат: блокування шуму та</text>
+  <text x="652" y="476" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="start">  гарантована стабільна зупинка.</text>
+</svg>

@@ -1,0 +1,123 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+  <defs>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="38" font-size="18" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Перехідні процеси RL-ланцюга ротора при ШІМ-керуванні</text>
+  <text x="480" y="60" font-size="13" text-anchor="middle" fill="#6b7280">Збільшення частоти f_pwm зменшує пульсації струму ΔI при постійній сталій часу τ = L/R</text>
+
+  <!-- LEFT PANEL: Low PWM Frequency -->
+  <rect x="30" y="80" width="435" height="435" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="40" y="90" width="415" height="42" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="247" y="108" font-size="14" font-weight="bold" text-anchor="middle" fill="#c0392b">Низька частота ШІМ (f_pwm1)</text>
+  <text x="247" y="124" font-size="12" text-anchor="middle" fill="#6b7280">Період T_pwm1 &gt;&gt; τ (велика тривалість імпульсу)</text>
+
+  <!-- Left Voltage Plot -->
+  <text x="247" y="150" font-size="13" font-weight="bold" text-anchor="middle" fill="#2457d6">Напруга ШІМ U_pwm(t)</text>
+  <line x1="80" y1="215" x2="445" y2="215" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+  <line x1="90" y1="225" x2="90" y2="155" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+  <line x1="90" y1="165" x2="435" y2="165" stroke="#2457d6" opacity="0.4" stroke-dasharray="3,3"/>
+
+  <text x="85" y="152" font-size="12" font-weight="bold" text-anchor="end" fill="#1a1a1a">U(t)</text>
+  <text x="85" y="167" font-size="12" text-anchor="end" fill="#2457d6">U_max</text>
+  <text x="85" y="219" font-size="12" text-anchor="end" fill="#6b7280">0</text>
+
+  <path d="M 90,215 L 90,165 L 170,165 L 170,215 Z M 250,215 L 250,165 L 330,165 L 330,215 Z M 410,215 L 410,165 L 435,165 L 435,215 Z" fill="#eaf0fd" opacity="0.5"/>
+  <path d="M 90,215 L 90,165 L 170,165 L 170,215 L 250,215 L 250,165 L 330,165 L 330,215 L 410,215 L 410,165 L 435,165" stroke="#2457d6" stroke-width="2.5" fill="none" stroke-linejoin="round"/>
+
+  <line x1="90" y1="185" x2="170" y2="185" stroke="#2457d6" stroke-width="1.2" marker-start="url(#arr-blue)" marker-end="url(#arr-blue)"/>
+  <text x="130" y="181" font-size="12" text-anchor="middle" fill="#2457d6">t_on = D·T1</text>
+
+  <line x1="90" y1="215" x2="90" y2="240" stroke="#6b7280" stroke-dasharray="2,2"/>
+  <line x1="250" y1="215" x2="250" y2="240" stroke="#6b7280" stroke-dasharray="2,2"/>
+  <line x1="90" y1="235" x2="250" y2="235" stroke="#1a1a1a" stroke-width="1.2" marker-start="url(#arr-dark)" marker-end="url(#arr-dark)"/>
+  <text x="170" y="231" font-size="12" text-anchor="middle" fill="#1a1a1a">Період T1</text>
+
+  <!-- Left Current Plot -->
+  <line x1="80" y1="470" x2="445" y2="470" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+  <line x1="90" y1="480" x2="90" y2="260" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+
+  <text x="85" y="263" font-size="12" font-weight="bold" text-anchor="end" fill="#1a1a1a">I(t)</text>
+  <text x="440" y="492" font-size="12" text-anchor="end" fill="#6b7280">t, час</text>
+
+  <rect x="90" y="310" width="345" height="130" fill="#fdecea" opacity="0.35"/>
+  <line x1="90" y1="310" x2="435" y2="310" stroke="#c0392b" stroke-dasharray="3,3" opacity="0.7"/>
+  <line x1="90" y1="375" x2="435" y2="375" stroke="#6b7280" stroke-dasharray="5,3"/>
+  <line x1="90" y1="440" x2="435" y2="440" stroke="#c0392b" stroke-dasharray="3,3" opacity="0.7"/>
+
+  <text x="85" y="314" font-size="12" text-anchor="end" fill="#c0392b">I_max</text>
+  <text x="85" y="379" font-size="12" text-anchor="end" fill="#6b7280">I_avg</text>
+  <text x="85" y="444" font-size="12" text-anchor="end" fill="#c0392b">I_min</text>
+
+  <path d="M 90,440 C 105,325 135,312 170,310 C 185,425 215,438 250,440 C 265,325 295,312 330,310 C 345,425 375,438 410,440 C 420,360 430,325 435,320" stroke="#c0392b" stroke-width="3" fill="none" stroke-linecap="round"/>
+
+  <line x1="170" y1="310" x2="170" y2="440" stroke="#c0392b" stroke-width="1.5" marker-start="url(#arr-red)" marker-end="url(#arr-red)"/>
+  <text x="180" y="328" font-size="12" font-weight="bold" text-anchor="start" fill="#c0392b">ΔI1 = I_max - I_min</text>
+
+  <rect x="85" y="476" width="250" height="24" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="210" y="492" font-size="12" font-weight="bold" text-anchor="middle" fill="#c0392b">Великі пульсації (широкий діапазон)</text>
+
+  <!-- RIGHT PANEL: High PWM Frequency -->
+  <rect x="495" y="80" width="435" height="435" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="505" y="90" width="415" height="42" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="712" y="108" font-size="14" font-weight="bold" text-anchor="middle" fill="#27ae60">Висока частота ШІМ (f_pwm2)</text>
+  <text x="712" y="124" font-size="12" text-anchor="middle" fill="#6b7280">Період T_pwm2 &lt;&lt; τ (згладжений струм у роторі)</text>
+
+  <!-- Right Voltage Plot -->
+  <text x="712" y="150" font-size="13" font-weight="bold" text-anchor="middle" fill="#2457d6">Напруга ШІМ U_pwm(t)</text>
+  <line x1="545" y1="215" x2="910" y2="215" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+  <line x1="555" y1="225" x2="555" y2="155" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+  <line x1="555" y1="165" x2="900" y2="165" stroke="#2457d6" opacity="0.4" stroke-dasharray="3,3"/>
+
+  <text x="550" y="152" font-size="12" font-weight="bold" text-anchor="end" fill="#1a1a1a">U(t)</text>
+  <text x="550" y="167" font-size="12" text-anchor="end" fill="#2457d6">U_max</text>
+  <text x="550" y="219" font-size="12" text-anchor="end" fill="#6b7280">0</text>
+
+  <path d="M 555,215 L 555,165 L 575,165 L 575,215 Z M 595,215 L 595,165 L 615,165 L 615,215 Z M 635,215 L 635,165 L 655,165 L 655,215 Z M 675,215 L 675,165 L 695,165 L 695,215 Z M 715,215 L 715,165 L 735,165 L 735,215 Z M 755,215 L 755,165 L 775,165 L 775,215 Z M 795,215 L 795,165 L 815,165 L 815,215 Z M 835,215 L 835,165 L 855,165 L 855,215 Z M 875,215 L 875,165 L 895,165 L 895,215 Z" fill="#eaf0fd" opacity="0.5"/>
+  <path d="M 555,215 L 555,165 L 575,165 L 575,215 L 595,215 L 595,165 L 615,165 L 615,215 L 635,215 L 635,165 L 655,165 L 655,215 L 675,215 L 675,165 L 695,165 L 695,215 L 715,215 L 715,165 L 735,165 L 735,215 L 755,215 L 755,165 L 775,165 L 775,215 L 795,215 L 795,165 L 815,165 L 815,215 L 835,215 L 835,165 L 855,165 L 855,215 L 875,215 L 875,165 L 895,165 L 895,215 L 900,215" stroke="#2457d6" stroke-width="2" fill="none" stroke-linejoin="round"/>
+
+  <line x1="595" y1="215" x2="595" y2="240" stroke="#6b7280" stroke-dasharray="2,2"/>
+  <line x1="635" y1="215" x2="635" y2="240" stroke="#6b7280" stroke-dasharray="2,2"/>
+  <line x1="595" y1="235" x2="635" y2="235" stroke="#1a1a1a" stroke-width="1.2" marker-start="url(#arr-dark)" marker-end="url(#arr-dark)"/>
+  <text x="615" y="231" font-size="12" text-anchor="middle" fill="#1a1a1a">T2 &lt;&lt; T1</text>
+
+  <!-- Right Current Plot -->
+  <line x1="545" y1="470" x2="910" y2="470" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+  <line x1="555" y1="480" x2="555" y2="260" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+
+  <text x="550" y="263" font-size="12" font-weight="bold" text-anchor="end" fill="#1a1a1a">I(t)</text>
+  <text x="905" y="492" font-size="12" text-anchor="end" fill="#6b7280">t, час</text>
+
+  <rect x="555" y="355" width="345" height="40" fill="#e9f7ef" opacity="0.5"/>
+  <line x1="555" y1="355" x2="900" y2="355" stroke="#27ae60" stroke-dasharray="3,3" opacity="0.7"/>
+  <line x1="555" y1="375" x2="900" y2="375" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="5,3"/>
+  <line x1="555" y1="395" x2="900" y2="395" stroke="#27ae60" stroke-dasharray="3,3" opacity="0.7"/>
+
+  <text x="550" y="359" font-size="12" text-anchor="end" fill="#27ae60">I_max2</text>
+  <text x="550" y="379" font-size="12" text-anchor="end" fill="#27ae60">I_avg</text>
+  <text x="550" y="399" font-size="12" text-anchor="end" fill="#27ae60">I_min2</text>
+
+  <path d="M 555,395 Q 565,355 575,355 Q 585,395 595,395 Q 605,355 615,355 Q 625,395 635,395 Q 645,355 655,355 Q 665,395 675,395 Q 685,355 695,355 Q 705,395 715,395 Q 725,355 735,355 Q 745,395 755,395 Q 765,355 775,355 Q 785,395 795,395 Q 805,355 815,355 Q 825,395 835,395 Q 845,355 855,355 Q 865,395 875,395 Q 885,355 895,355 Q 898,375 900,375" stroke="#27ae60" stroke-width="3" fill="none" stroke-linecap="round"/>
+
+  <line x1="885" y1="355" x2="885" y2="395" stroke="#27ae60" stroke-width="1.5" marker-start="url(#arr-green)" marker-end="url(#arr-green)"/>
+  <text x="815" y="345" font-size="12" font-weight="bold" text-anchor="start" fill="#27ae60">ΔI2 &lt;&lt; ΔI1</text>
+
+  <rect x="555" y="476" width="250" height="24" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="680" y="492" font-size="12" font-weight="bold" text-anchor="middle" fill="#27ae60">Малі пульсації (стабільний момент)</text>
+</svg>

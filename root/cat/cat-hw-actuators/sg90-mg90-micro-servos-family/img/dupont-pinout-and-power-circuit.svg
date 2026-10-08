@@ -1,0 +1,128 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <defs>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-orange" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#ea580c"/>
+    </marker>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1e293b"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="30" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Підключення мікросервоприводу SG90/MG90S</text>
+  <text x="480" y="52" text-anchor="middle" font-size="13" fill="#6b7280">Окреме джерело живлення 5 В із обов'язковим об'єднанням ліній заземлення (GND)</text>
+
+  <!-- Microcontroller Block -->
+  <rect x="30" y="75" width="210" height="185" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <rect x="31" y="76" width="208" height="36" rx="6" fill="#eaf0fd" stroke="#d0d7de" stroke-width="1"/>
+  <text x="135" y="99" text-anchor="middle" font-size="14" font-weight="bold" fill="#2457d6">Мікроконтролер</text>
+  <text x="135" y="132" text-anchor="middle" font-size="12" fill="#6b7280">(Arduino / ESP32)</text>
+
+  <text x="190" y="169" text-anchor="end" font-size="12" font-weight="bold" fill="#ea580c">PWM (D9)</text>
+  <circle cx="210" cy="165" r="5" fill="#ea580c"/>
+
+  <text x="190" y="229" text-anchor="end" font-size="12" font-weight="bold" fill="#1e293b">GND</text>
+  <circle cx="210" cy="225" r="5" fill="#1e293b"/>
+
+  <text x="135" y="248" text-anchor="middle" font-size="11" fill="#6b7280">Логіка ШІМ: 3.3 В / 5 В</text>
+
+  <!-- Power Supply Block -->
+  <rect x="30" y="275" width="210" height="110" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <rect x="31" y="276" width="208" height="28" rx="6" fill="#eaf0fd" stroke="#d0d7de" stroke-width="1"/>
+  <text x="135" y="295" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Джерело живлення 5 В</text>
+
+  <text x="190" y="329" text-anchor="end" font-size="12" font-weight="bold" fill="#c0392b">+5V (VCC)</text>
+  <circle cx="210" cy="325" r="5" fill="#c0392b"/>
+
+  <text x="190" y="364" text-anchor="end" font-size="12" font-weight="bold" fill="#1e293b">GND</text>
+  <circle cx="210" cy="360" r="5" fill="#1e293b"/>
+
+  <!-- Dupont Connector Block -->
+  <rect x="370" y="90" width="220" height="295" rx="8" fill="#ffffff" stroke="#2457d6" stroke-width="2"/>
+  <rect x="371" y="91" width="218" height="34" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="480" y="113" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Роз'єм Dupont (3 pin)</text>
+
+  <!-- Pin 1: Signal -->
+  <rect x="382" y="145" width="196" height="40" rx="4" fill="#fff7ed" stroke="#ea580c" stroke-width="1.5"/>
+  <circle cx="370" cy="165" r="4" fill="#ea580c"/>
+  <circle cx="590" cy="165" r="4" fill="#ea580c"/>
+  <text x="480" y="169" text-anchor="middle" font-size="12" font-weight="bold" fill="#c2410c">Signal (Помаранчевий)</text>
+
+  <!-- Pin 2: VCC -->
+  <rect x="382" y="198" width="196" height="40" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <circle cx="370" cy="218" r="4" fill="#c0392b"/>
+  <circle cx="590" cy="218" r="4" fill="#c0392b"/>
+  <text x="480" y="222" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">VCC +5V (Червоний)</text>
+
+  <!-- Pin 3: GND -->
+  <rect x="382" y="251" width="196" height="40" rx="4" fill="#f1f5f9" stroke="#475569" stroke-width="1.5"/>
+  <circle cx="370" cy="271" r="4" fill="#1e293b"/>
+  <circle cx="590" cy="271" r="4" fill="#1e293b"/>
+  <text x="480" y="275" text-anchor="middle" font-size="12" font-weight="bold" fill="#1e293b">GND 0V (Коричневий)</text>
+
+  <text x="480" y="325" text-anchor="middle" font-size="12" fill="#6b7280">Крок пінів: 2.54 мм</text>
+  <text x="480" y="355" text-anchor="middle" font-size="11" fill="#6b7280">Стандартний 3-pin шлейф</text>
+
+  <!-- Servo Motor Block -->
+  <rect x="700" y="90" width="230" height="295" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <rect x="701" y="91" width="228" height="34" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="815" y="113" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Сервопривод SG90 / MG90S</text>
+
+  <circle cx="700" cy="165" r="4" fill="#ea580c"/>
+  <circle cx="700" cy="218" r="4" fill="#c0392b"/>
+  <circle cx="700" cy="271" r="4" fill="#1e293b"/>
+
+  <!-- Servo Graphic (Single path for housing) -->
+  <path d="M 725,185 h 15 v -15 h 140 v 15 h 15 v 35 h -15 v 30 h -140 v -30 h -15 z" fill="#1e3a8a" stroke="#1d4ed8" stroke-width="1.5"/>
+  <circle cx="732.5" cy="202.5" r="3" fill="#ffffff"/>
+  <circle cx="887.5" cy="202.5" r="3" fill="#ffffff"/>
+  <circle cx="775" cy="210" r="18" fill="#cbd5e1" stroke="#475569" stroke-width="1.5"/>
+  <polygon points="775,200 855,193 855,227 775,220" fill="#f8fafc" stroke="#94a3b8" stroke-width="1.5"/>
+  <circle cx="775" cy="210" r="4" fill="#64748b"/>
+  <circle cx="800" cy="210" r="2.5" fill="#64748b"/>
+  <circle cx="820" cy="210" r="2.5" fill="#64748b"/>
+  <circle cx="840" cy="210" r="2.5" fill="#64748b"/>
+
+  <text x="815" y="305" text-anchor="middle" font-size="12" fill="#1a1a1a">ШІМ: 50 Гц (0.5–2.5 мс)</text>
+  <text x="815" y="330" text-anchor="middle" font-size="12" fill="#6b7280">Кут повороту: 0°...180°</text>
+  <text x="815" y="355" text-anchor="middle" font-size="11" fill="#6b7280">Внутрішній драйвер і редуктор</text>
+
+  <!-- Notice Box 1: Power Warning -->
+  <rect x="30" y="400" width="435" height="105" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="45" y="423" font-size="13" font-weight="bold" fill="#c0392b">⚠ Чому потрібне окреме джерело живлення 5 В:</text>
+  <text x="45" y="445" font-size="12" fill="#1a1a1a">• Струм у піку (до 800 мА) перевантажує МК.</text>
+  <text x="45" y="467" font-size="12" fill="#1a1a1a">• Провал напруги викликає перезавантаження.</text>
+  <text x="45" y="489" font-size="12" fill="#6b7280">• Окреме ДЖ (≥1 А) забезпечує стабільну роботу.</text>
+
+  <!-- Notice Box 2: Solution (Common GND) -->
+  <rect x="495" y="400" width="435" height="105" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="510" y="423" font-size="13" font-weight="bold" fill="#27ae60">✓ Обов'язкове об'єднання ліній землі (GND):</text>
+  <text x="510" y="445" font-size="12" fill="#1a1a1a">• Спільна земля створює 0 В для ШІМ-сигналу.</text>
+  <text x="510" y="467" font-size="12" fill="#1a1a1a">• Без спільної землі сервопривод тремтить.</text>
+  <text x="510" y="489" font-size="12" fill="#6b7280">• Гарантує точний кут повороту валу двигуна.</text>
+
+  <!-- Wiring Connections -->
+  <!-- Signal Wire (Orange) -->
+  <path d="M 240 165 H 370" stroke="#ea580c" stroke-width="3" fill="none" marker-end="url(#arr-orange)"/>
+  <path d="M 590 165 H 700" stroke="#ea580c" stroke-width="3" fill="none" marker-end="url(#arr-orange)"/>
+  <text x="312.5" y="152" text-anchor="middle" font-size="11" font-weight="bold" fill="#ea580c">ШІМ сигнал</text>
+
+  <!-- VCC Wire (Red) -->
+  <path d="M 240 325 H 270 V 218 H 370" stroke="#c0392b" stroke-width="3" fill="none" marker-end="url(#arr-red)"/>
+  <path d="M 590 218 H 700" stroke="#c0392b" stroke-width="3" fill="none" marker-end="url(#arr-red)"/>
+  <text x="312.5" y="206" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">+5V DC</text>
+
+  <!-- Common GND Lines & Junction -->
+  <path d="M 240 225 H 355" stroke="#1e293b" stroke-width="3" fill="none"/>
+  <path d="M 240 360 H 355" stroke="#1e293b" stroke-width="3" fill="none"/>
+  <path d="M 355 225 V 360" stroke="#1e293b" stroke-width="3" fill="none"/>
+  <circle cx="355" cy="271" r="5" fill="#1e293b"/>
+  <path d="M 355 271 H 370" stroke="#1e293b" stroke-width="3" fill="none" marker-end="url(#arr-dark)"/>
+  <path d="M 590 271 H 700" stroke="#1e293b" stroke-width="3" fill="none" marker-end="url(#arr-dark)"/>
+  <text x="312.5" y="255" text-anchor="middle" font-size="11" font-weight="bold" fill="#1e293b">Спільний GND</text>
+</svg>

@@ -1,0 +1,144 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- First child MUST be white background rect -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <defs>
+    <!-- Markers for arrows -->
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Main Title & Subtitle -->
+  <text x="480" y="38" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Мертва точка та кінематичне заклинювання важільного механізму</text>
+  <text x="480" y="62" text-anchor="middle" font-size="13" fill="#6b7280">Вирівнювання тяги з плечем качалки призводить до втрати моменту (M = 0) і радіального перевантаження вала</text>
+
+  <!-- LEFT PANEL: Normal State -->
+  <rect x="35" y="80" width="430" height="415" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="50" y="95" width="400" height="32" rx="5" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="250" y="116" text-anchor="middle" font-size="14" font-weight="bold" fill="#27ae60">1. Ефективна передача (Кут α = 90°)</text>
+
+  <!-- Left Diagram Elements -->
+  <!-- Servo Body -->
+  <rect x="70" y="235" width="75" height="95" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <text x="107" y="315" text-anchor="middle" font-size="11" fill="#2457d6">Сервопривод</text>
+
+  <!-- Servo Axis O1 -->
+  <circle cx="107" cy="255" r="12" fill="#2c3e50"/>
+  <circle cx="107" cy="255" r="4" fill="#ffffff"/>
+  <text x="85" y="274" text-anchor="end" font-size="12" font-weight="bold" fill="#1a1a1a">O1</text>
+
+  <!-- Horn Arm 1 (vertical up) -->
+  <path d="M 107,255 L 107,175" stroke="#2c3e50" stroke-width="6" stroke-linecap="round"/>
+  <circle cx="107" cy="175" r="7" fill="#2457d6"/>
+  <circle cx="107" cy="175" r="3" fill="#ffffff"/>
+  <text x="90" y="179" text-anchor="end" font-size="12" font-weight="bold" fill="#1a1a1a">A</text>
+  <text x="117" y="218" text-anchor="start" font-size="12" fill="#6b7280">плече r</text>
+
+  <!-- Angle arc α = 90° -->
+  <path d="M 125,175 A 18,18 0 0,1 107,193" fill="none" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="128" y="180" width="52" height="18" rx="3" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="154" y="193" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">α = 90°</text>
+
+  <!-- Pushrod 1 (horizontal to right) -->
+  <path d="M 107,175 L 310,175" stroke="#2457d6" stroke-width="4"/>
+  <text x="210" y="165" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Тяга (L)</text>
+
+  <!-- Driven Joint B1 & Lever -->
+  <path d="M 310,175 L 310,255" stroke="#2c3e50" stroke-width="6" stroke-linecap="round"/>
+  <circle cx="310" cy="175" r="7" fill="#2457d6"/>
+  <circle cx="310" cy="175" r="3" fill="#ffffff"/>
+  <text x="325" y="179" text-anchor="start" font-size="12" font-weight="bold" fill="#1a1a1a">B</text>
+
+  <circle cx="310" cy="255" r="12" fill="#2c3e50"/>
+  <circle cx="310" cy="255" r="4" fill="#ffffff"/>
+  <text x="330" y="274" text-anchor="start" font-size="12" font-weight="bold" fill="#1a1a1a">O2</text>
+  <text x="325" y="220" text-anchor="start" font-size="11" fill="#6b7280">Важіль</text>
+
+  <!-- Tangential Force Vector F_tan -->
+  <path d="M 107,175 L 165,175" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arr-green)"/>
+  <text x="140" y="153" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">F_tan = F</text>
+
+  <!-- Torque Arc -->
+  <path d="M 85,245 A 25,25 0 0,1 115,232" fill="none" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="65" y="222" text-anchor="end" font-size="12" font-weight="bold" fill="#27ae60">M &gt; 0</text>
+
+  <!-- Left Status Box -->
+  <rect x="50" y="395" width="400" height="85" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="65" y="417" font-size="13" font-weight="bold" fill="#27ae60">✓ Оптимальна передача зусилля</text>
+  <text x="65" y="438" font-size="12" fill="#1a1a1a">• Момент M = F × r × sin(90°) = F × r (максимум)</text>
+  <text x="65" y="456" font-size="12" fill="#1a1a1a">• Тангенціальне зусилля повертає важіль без заклинювання</text>
+  <text x="65" y="474" font-size="12" fill="#6b7280">• Радіальне навантаження на вал підшипника F_rad ≈ 0</text>
+
+
+  <!-- RIGHT PANEL: Dead Point Lockup -->
+  <rect x="495" y="80" width="430" height="415" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="510" y="95" width="400" height="32" rx="5" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="710" y="116" text-anchor="middle" font-size="14" font-weight="bold" fill="#c0392b">2. Мертва точка / Lockup (Кут α = 0°)</text>
+
+  <!-- Right Diagram Elements -->
+  <!-- Servo Body -->
+  <rect x="515" y="215" width="65" height="95" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <text x="547" y="295" text-anchor="middle" font-size="11" fill="#c0392b">Сервопривод</text>
+
+  <!-- Servo Axis O1 -->
+  <circle cx="547" cy="235" r="16" fill="#fdecea" stroke="#c0392b" stroke-width="2"/>
+  <circle cx="547" cy="235" r="10" fill="#c0392b"/>
+  <circle cx="547" cy="235" r="4" fill="#ffffff"/>
+  <text x="525" y="255" text-anchor="end" font-size="12" font-weight="bold" fill="#c0392b">O1</text>
+
+  <!-- Collinear Axis Line -->
+  <path d="M 520,235 L 905,235" stroke="#c0392b" stroke-width="1" stroke-dasharray="4,4" opacity="0.6"/>
+
+  <!-- Horn Arm 2 (horizontal aligned with pushrod) -->
+  <path d="M 547,235 L 647,235" stroke="#2c3e50" stroke-width="6" stroke-linecap="round"/>
+  <circle cx="647" cy="235" r="7" fill="#c0392b"/>
+  <circle cx="647" cy="235" r="3" fill="#ffffff"/>
+  <text x="647" y="218" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">A</text>
+  <text x="608" y="220" text-anchor="middle" font-size="12" fill="#6b7280">плече r</text>
+
+  <!-- Pushrod 2 (aligned in same straight line) -->
+  <path d="M 647,235 L 850,235" stroke="#c0392b" stroke-width="4"/>
+  <text x="755" y="218" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Тяга (на одній лінії)</text>
+
+  <!-- Driven Joint B2 & Lever -->
+  <path d="M 850,235 L 850,315" stroke="#2c3e50" stroke-width="6" stroke-linecap="round"/>
+  <circle cx="850" cy="235" r="7" fill="#c0392b"/>
+  <circle cx="850" cy="235" r="3" fill="#ffffff"/>
+  <text x="865" y="255" text-anchor="start" font-size="12" font-weight="bold" fill="#1a1a1a">B</text>
+
+  <circle cx="850" cy="315" r="12" fill="#2c3e50"/>
+  <circle cx="850" cy="315" r="4" fill="#ffffff"/>
+  <text x="870" y="334" text-anchor="start" font-size="12" font-weight="bold" fill="#1a1a1a">O2</text>
+  <text x="865" y="280" text-anchor="start" font-size="11" fill="#6b7280">Важіль</text>
+
+  <!-- Angle indication α = 0° -->
+  <rect x="590" y="260" width="54" height="18" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="617" y="273" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">α = 0°</text>
+
+  <!-- Radial Force Arrow F_rad pointing straight into O1 -->
+  <path d="M 780,190 L 575,190" stroke="#c0392b" stroke-width="3" marker-end="url(#arr-red)"/>
+  <rect x="655" y="152" width="170" height="24" rx="4" fill="#c0392b"/>
+  <text x="740" y="168" text-anchor="middle" font-size="11" font-weight="bold" fill="#ffffff">Радіальний удар F_rad = F</text>
+
+  <!-- Zero Torque indication -->
+  <rect x="515" y="335" width="130" height="22" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="580" y="350" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">Момент M = 0 !</text>
+
+  <!-- Right Status Box -->
+  <rect x="510" y="395" width="400" height="85" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="525" y="417" font-size="13" font-weight="bold" fill="#c0392b">✗ Механічне заклинювання та ризик поломки</text>
+  <text x="525" y="438" font-size="12" fill="#1a1a1a">• Плече моменту r_eff = r × sin(0°) = 0 (нульовий момент)</text>
+  <text x="525" y="456" font-size="12" fill="#1a1a1a">• 100% реактивного зусилля діє як радіальне навантаження</text>
+  <text x="525" y="474" font-size="12" fill="#c0392b">• Перевантаження вала, знос підшипника та вигинання тяги</text>
+
+</svg>

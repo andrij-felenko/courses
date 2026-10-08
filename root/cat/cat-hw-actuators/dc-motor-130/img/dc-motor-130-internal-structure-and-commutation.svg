@@ -1,0 +1,173 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Title and Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Внутрішня структура та комутація колекторного двигуна 130</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Перемикання ламелей щітками змінює напрямок струму в обмотках, а проти-ЕРС врівноважує напругу</text>
+
+  <!-- Left Main Panel: Motor Cross-Section -->
+  <rect x="30" y="75" width="490" height="455" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="275" y="98" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Конструкція статора, 3-полюсного ротора та щіток</text>
+  <text x="275" y="120" font-size="12" fill="#6b7280" text-anchor="middle">Металевий корпус (статор)</text>
+
+  <!-- Stator Outer Casing -->
+  <circle cx="275" cy="310" r="168" fill="#ffffff" stroke="#94a3b8" stroke-width="3.5"/>
+
+  <!-- Permanent Magnets (N and S) -->
+  <path d="M 125,185 A 165,165 0 0 1 125,435 L 155,410 A 135,135 0 0 0 155,210 Z" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="140" y="303" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Магніт N</text>
+  <text x="140" y="320" font-size="12" fill="#2457d6" text-anchor="middle">(Північ)</text>
+
+  <path d="M 425,185 A 165,165 0 0 0 425,435 L 395,410 A 135,135 0 0 1 395,210 Z" fill="#fdecea" stroke="#c0392b" stroke-width="2"/>
+  <text x="410" y="303" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">Магніт S</text>
+  <text x="410" y="320" font-size="12" fill="#c0392b" text-anchor="middle">(Південь)</text>
+
+  <!-- Magnetic Field Lines B -->
+  <line x1="160" y1="222" x2="388" y2="222" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="5,4" marker-end="url(#arr-blue)"/>
+  <text x="275" y="212" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Магнітний потік B</text>
+
+  <line x1="160" y1="398" x2="388" y2="398" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="5,4" marker-end="url(#arr-blue)"/>
+
+  <!-- Back-EMF Box -->
+  <rect x="180" y="142" width="124" height="35" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="242" y="157" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Проти-ЕРС (e_emf)</text>
+  <text x="242" y="172" font-size="12" fill="#2457d6" text-anchor="middle">e_emf = K_e · ω</text>
+
+  <!-- 3 Rotor Iron Poles -->
+  <!-- Pole 1 (Top) -->
+  <rect x="264" y="210" width="22" height="60" fill="#cbd5e1" stroke="#475569" stroke-width="2"/>
+  <path d="M 238,210 A 125,125 0 0 1 312,210 L 312,222 L 238,222 Z" fill="#cbd5e1" stroke="#475569" stroke-width="2"/>
+
+  <!-- Pole 2 (Bottom-Right, 120 deg) -->
+  <g transform="rotate(120, 275, 310)">
+    <rect x="264" y="210" width="22" height="60" fill="#cbd5e1" stroke="#475569" stroke-width="2"/>
+    <path d="M 238,210 A 125,125 0 0 1 312,210 L 312,222 L 238,222 Z" fill="#cbd5e1" stroke="#475569" stroke-width="2"/>
+  </g>
+
+  <!-- Pole 3 (Bottom-Left, 240 deg) -->
+  <g transform="rotate(240, 275, 310)">
+    <rect x="264" y="210" width="22" height="60" fill="#cbd5e1" stroke="#475569" stroke-width="2"/>
+    <path d="M 238,210 A 125,125 0 0 1 312,210 L 312,222 L 238,222 Z" fill="#cbd5e1" stroke="#475569" stroke-width="2"/>
+  </g>
+
+  <!-- Copper Coils (Windings) -->
+  <!-- Coil 1 (Top Pole) -->
+  <rect x="246" y="222" width="16" height="42" rx="3" fill="#f59e0b" stroke="#b45309" stroke-width="1.5"/>
+  <rect x="288" y="222" width="16" height="42" rx="3" fill="#f59e0b" stroke="#b45309" stroke-width="1.5"/>
+  <line x1="262" y1="230" x2="288" y2="230" stroke="#b45309" stroke-width="1.5"/>
+  <line x1="262" y1="242" x2="288" y2="242" stroke="#b45309" stroke-width="1.5"/>
+  <line x1="262" y1="254" x2="288" y2="254" stroke="#b45309" stroke-width="1.5"/>
+  <text x="275" y="245" font-size="12" font-weight="bold" fill="#78350f" text-anchor="middle">Обмотка 1</text>
+
+  <!-- Coil 2 (Bottom-Right Pole) -->
+  <g transform="rotate(120, 275, 310)">
+    <rect x="246" y="222" width="16" height="42" rx="3" fill="#f59e0b" stroke="#b45309" stroke-width="1.5"/>
+    <rect x="288" y="222" width="16" height="42" rx="3" fill="#f59e0b" stroke="#b45309" stroke-width="1.5"/>
+    <line x1="262" y1="230" x2="288" y2="230" stroke="#b45309" stroke-width="1.5"/>
+    <line x1="262" y1="242" x2="288" y2="242" stroke="#b45309" stroke-width="1.5"/>
+    <line x1="262" y1="254" x2="288" y2="254" stroke="#b45309" stroke-width="1.5"/>
+  </g>
+  <text x="345" y="362" font-size="12" font-weight="bold" fill="#78350f" text-anchor="middle">Обмотка 2</text>
+
+  <!-- Coil 3 (Bottom-Left Pole) -->
+  <g transform="rotate(240, 275, 310)">
+    <rect x="246" y="222" width="16" height="42" rx="3" fill="#f59e0b" stroke="#b45309" stroke-width="1.5"/>
+    <rect x="288" y="222" width="16" height="42" rx="3" fill="#f59e0b" stroke="#b45309" stroke-width="1.5"/>
+    <line x1="262" y1="230" x2="288" y2="230" stroke="#b45309" stroke-width="1.5"/>
+    <line x1="262" y1="242" x2="288" y2="242" stroke="#b45309" stroke-width="1.5"/>
+    <line x1="262" y1="254" x2="288" y2="254" stroke="#b45309" stroke-width="1.5"/>
+  </g>
+  <text x="205" y="362" font-size="12" font-weight="bold" fill="#78350f" text-anchor="middle">Обмотка 3</text>
+
+  <!-- Commutator Hub & Lamellas L1, L2, L3 -->
+  <circle cx="275" cy="310" r="38" fill="#ffffff" stroke="#475569" stroke-width="2"/>
+
+  <!-- Lamella L1 (Top) -->
+  <path d="M 243,289 A 36,36 0 0 1 307,289 L 297,295 A 24,24 0 0 0 253,295 Z" fill="#d97706" stroke="#78350f" stroke-width="1"/>
+  <text x="275" y="292" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">L1</text>
+
+  <!-- Lamella L2 (Bottom-Right) -->
+  <g transform="rotate(120, 275, 310)">
+    <path d="M 243,289 A 36,36 0 0 1 307,289 L 297,295 A 24,24 0 0 0 253,295 Z" fill="#d97706" stroke="#78350f" stroke-width="1"/>
+  </g>
+  <text x="294" y="324" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">L2</text>
+
+  <!-- Lamella L3 (Bottom-Left) -->
+  <g transform="rotate(240, 275, 310)">
+    <path d="M 243,289 A 36,36 0 0 1 307,289 L 297,295 A 24,24 0 0 0 253,295 Z" fill="#d97706" stroke="#78350f" stroke-width="1"/>
+  </g>
+  <text x="256" y="324" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">L3</text>
+
+  <!-- Shaft -->
+  <circle cx="275" cy="310" r="14" fill="#64748b" stroke="#334155" stroke-width="2"/>
+  <text x="275" y="314" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">Вал</text>
+
+  <!-- Leaf Brushes -->
+  <!-- Left Brush (-) -->
+  <line x1="95" y1="310" x2="160" y2="310" stroke="#2457d6" stroke-width="2.5"/>
+  <circle cx="160" cy="310" r="5" fill="#2457d6"/>
+  <path d="M 160,306 L 232,306 L 238,310 L 232,314 L 160,314 Z" fill="#475569" stroke="#1e293b" stroke-width="1.5"/>
+  <text x="125" y="295" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Щітка (–)</text>
+
+  <!-- Right Brush (+) -->
+  <line x1="455" y1="310" x2="390" y2="310" stroke="#c0392b" stroke-width="2.5"/>
+  <circle cx="390" cy="310" r="5" fill="#c0392b"/>
+  <path d="M 390,306 L 318,306 L 312,310 L 318,314 L 390,314 Z" fill="#475569" stroke="#1e293b" stroke-width="1.5"/>
+  <text x="425" y="295" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Щітка (+)</text>
+
+  <!-- Rotation Arc & Label -->
+  <path d="M 345,235 A 85,85 0 0 1 368,285" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="382" y="248" font-size="12" font-weight="bold" fill="#2457d6">ω (обертання)</text>
+
+  <!-- Bottom Callout in Left Panel -->
+  <rect x="45" y="445" width="460" height="72" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="60" y="465" font-size="12" font-weight="bold" fill="#1a1a1a">Принцип механічної комутації:</text>
+  <text x="60" y="484" font-size="12" fill="#6b7280">При обертанні ротора щітки ковзають по ламелях L1–L3,</text>
+  <text x="60" y="502" font-size="12" fill="#6b7280">почергово змінюючи напрямок струму в 3 обмотках.</text>
+
+  <!-- Right Side Cards -->
+  <!-- Card 1 -->
+  <rect x="540" y="75" width="390" height="140" rx="8" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="540" y="75" width="390" height="32" rx="6" fill="#eaf0fd"/>
+  <text x="555" y="96" font-size="14" font-weight="bold" fill="#2457d6">1. Механічна комутація та щітки</text>
+  <text x="555" y="122" font-size="12" fill="#1a1a1a">• Пружні металеві щітки торкаються ламелей ротора</text>
+  <text x="555" y="142" font-size="12" fill="#1a1a1a">• Полярність обмоток перемикається кожні 120°</text>
+  <text x="555" y="164" font-size="12" fill="#c0392b" font-weight="bold">⚠ Особливості та побічні ефекти:</text>
+  <text x="555" y="182" font-size="12" fill="#6b7280">Іскріння на контактах створює імпульсні ЕМЗ</text>
+  <text x="555" y="200" font-size="12" fill="#6b7280">та спричиняє механічне зношування щіток</text>
+
+  <!-- Card 2 -->
+  <rect x="540" y="227" width="390" height="145" rx="8" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="540" y="227" width="390" height="32" rx="6" fill="#eaf0fd"/>
+  <text x="555" y="248" font-size="14" font-weight="bold" fill="#2457d6">2. Фізика проти-ЕРС (e_emf) та струм</text>
+  <rect x="555" y="267" width="360" height="32" rx="4" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="735" y="288" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">I_mot = ( U_жив – e_emf ) / R_обм</text>
+  <text x="555" y="318" font-size="12" fill="#1a1a1a">• <tspan font-weight="bold">Пуск / Заклинювання (e_emf = 0):</tspan> надструм I_start = U/R</text>
+  <text x="555" y="338" font-size="12" fill="#1a1a1a">• <tspan font-weight="bold">Робочі оберти (e_emf ∝ ω):</tspan> проти-ЕРС зменшує струм</text>
+  <text x="555" y="358" font-size="12" fill="#27ae60" font-weight="bold">✓ Обертовий момент пропорційний струму: M = K_t · I</text>
+
+  <!-- Card 3 -->
+  <rect x="540" y="384" width="390" height="146" rx="8" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="540" y="384" width="390" height="32" rx="6" fill="#e9f7ef"/>
+  <text x="555" y="405" font-size="14" font-weight="bold" fill="#27ae60">3. Схемотехнічне керування та захист</text>
+  <text x="555" y="430" font-size="12" fill="#1a1a1a">• <tspan font-weight="bold">ШІМ-керування:</tspan> H-міст / MOSFET із запасом I_peak</text>
+  <text x="555" y="450" font-size="12" fill="#1a1a1a">• <tspan font-weight="bold">Фільтрація завад:</tspan> 3 керамічні конденсатори 0.1 мкФ</text>
+  <text x="555" y="468" font-size="12" fill="#6b7280">  (1 паралельно виводам, 2 на металевий корпус)</text>
+  <text x="555" y="488" font-size="12" fill="#1a1a1a">• <tspan font-weight="bold">Захист ключів:</tspan> зворотні діоди від викидів індуктивності</text>
+  <text x="555" y="508" font-size="12" fill="#c0392b">• <tspan font-weight="bold">Термічний ризик:</tspan> блокування вала швидко спалює обмотки</text>
+</svg>

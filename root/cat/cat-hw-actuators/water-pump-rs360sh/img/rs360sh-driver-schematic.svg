@@ -1,0 +1,225 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Схема силового драйвера для мікропомпи RS-360SH</text>
+  <text x="480" y="62" font-size="13" fill="#6b7280" text-anchor="middle">Захист від ЕРС самоіндукції (діод Шотткі) та керування напрямком і швидкістю (MOSFET / H-Міст)</text>
+
+  <!-- PANEL 1: Single direction N-MOSFET Driver -->
+  <g id="panel-mosfet">
+    <rect x="25" y="85" width="440" height="455" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+    <rect x="40" y="98" width="410" height="34" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+    <text x="245" y="120" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">Варіант А: Односпрямований драйвер (N-MOSFET)</text>
+
+    <!-- Power Rail +V_ext -->
+    <line x1="145" y1="155" x2="435" y2="155" stroke="#c0392b" stroke-width="2"/>
+    <circle cx="145" cy="155" r="4" fill="#c0392b"/>
+    <text x="290" y="145" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">+V_ext (3.7V – 12V DC)</text>
+
+    <!-- MCU Block -->
+    <rect x="40" y="230" width="90" height="70" rx="6" fill="white" stroke="#2457d6" stroke-width="1.5"/>
+    <text x="85" y="256" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">MCU (3.3V/5V)</text>
+    <text x="85" y="278" font-size="12" fill="#6b7280" text-anchor="middle">PWM вихід</text>
+
+    <!-- Gate Resistor R_g -->
+    <line x1="130" y1="265" x2="145" y2="265" stroke="#1a1a1a" stroke-width="2"/>
+    <rect x="145" y="257" width="32" height="16" fill="white" stroke="#1a1a1a" stroke-width="1.5"/>
+    <text x="161" y="247" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">R_g</text>
+    <text x="161" y="290" font-size="12" fill="#6b7280" text-anchor="middle">100 Ом</text>
+
+    <!-- Gate Node & Wire to MOSFET -->
+    <line x1="177" y1="265" x2="195" y2="265" stroke="#1a1a1a" stroke-width="2"/>
+    <circle cx="195" cy="265" r="3" fill="#1a1a1a"/>
+    <line x1="195" y1="265" x2="220" y2="265" stroke="#1a1a1a" stroke-width="2"/>
+
+    <!-- Pull-Down Resistor R_pd & Text -->
+    <line x1="195" y1="265" x2="195" y2="330" stroke="#1a1a1a" stroke-width="1.5"/>
+    <rect x="187" y="330" width="16" height="34" fill="white" stroke="#1a1a1a" stroke-width="1.5"/>
+    <line x1="195" y1="364" x2="195" y2="440" stroke="#1a1a1a" stroke-width="1.5"/>
+    <text x="180" y="344" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">R_pd (10 кОм)</text>
+    <text x="180" y="362" font-size="12" fill="#6b7280" text-anchor="end">Захист підтяжки</text>
+
+    <!-- N-Channel MOSFET Q1 Symbol -->
+    <line x1="220" y1="253" x2="220" y2="277" stroke="#1a1a1a" stroke-width="2.5"/>
+    <line x1="226" y1="253" x2="226" y2="259" stroke="#1a1a1a" stroke-width="2"/>
+    <line x1="226" y1="262" x2="226" y2="268" stroke="#1a1a1a" stroke-width="2"/>
+    <line x1="226" y1="271" x2="226" y2="277" stroke="#1a1a1a" stroke-width="2"/>
+    <line x1="226" y1="256" x2="240" y2="256" stroke="#1a1a1a" stroke-width="2"/>
+    <line x1="240" y1="256" x2="240" y2="230" stroke="#1a1a1a" stroke-width="2"/>
+    <line x1="226" y1="274" x2="240" y2="274" stroke="#1a1a1a" stroke-width="2"/>
+    <line x1="240" y1="274" x2="240" y2="440" stroke="#1a1a1a" stroke-width="2"/>
+    <line x1="240" y1="265" x2="228" y2="265" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+
+    <text x="215" y="261" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">G</text>
+    <text x="235" y="226" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">D</text>
+    <text x="235" y="294" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">S</text>
+    <text x="248" y="264" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="start">Q1 (IRLZ44N)</text>
+    <text x="248" y="282" font-size="12" fill="#6b7280" text-anchor="start">N-Channel</text>
+    <text x="248" y="298" font-size="12" fill="#6b7280" text-anchor="start">MOSFET</text>
+
+    <!-- Drain Wire -->
+    <line x1="240" y1="230" x2="385" y2="230" stroke="#1a1a1a" stroke-width="2"/>
+
+    <!-- Flyback Diode D1 -->
+    <line x1="335" y1="155" x2="335" y2="175" stroke="#27ae60" stroke-width="2"/>
+    <circle cx="335" cy="155" r="3" fill="#1a1a1a"/>
+    <line x1="327" y1="175" x2="343" y2="175" stroke="#27ae60" stroke-width="2.5"/>
+    <polygon points="335,175 327,195 343,195" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+    <line x1="335" y1="195" x2="335" y2="230" stroke="#27ae60" stroke-width="2"/>
+    <circle cx="335" cy="230" r="3" fill="#27ae60"/>
+
+    <text x="322" y="180" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="end">D1 (1N5819)</text>
+    <text x="322" y="196" font-size="12" fill="#6b7280" text-anchor="end">Діод Шотткі</text>
+    <text x="322" y="212" font-size="12" fill="#27ae60" text-anchor="end">Захист ЕРС</text>
+
+    <!-- Motor RS-360SH M1 -->
+    <line x1="385" y1="155" x2="385" y2="172.5" stroke="#1a1a1a" stroke-width="2"/>
+    <circle cx="385" cy="155" r="3" fill="#1a1a1a"/>
+    <line x1="385" y1="212.5" x2="385" y2="230" stroke="#1a1a1a" stroke-width="2"/>
+    <circle cx="385" cy="230" r="3" fill="#1a1a1a"/>
+
+    <circle cx="385" cy="192.5" r="20" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+    <text x="385" y="198" font-size="16" font-weight="bold" fill="#2457d6" text-anchor="middle">M</text>
+    <text x="395" y="168" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="start">+</text>
+    <text x="395" y="228" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="start">–</text>
+    <text x="385" y="252" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">RS-360SH</text>
+    <text x="385" y="268" font-size="12" fill="#6b7280" text-anchor="middle">Помпа DC</text>
+
+    <!-- Decoupling Capacitor C1 -->
+    <line x1="435" y1="155" x2="435" y2="300" stroke="#1a1a1a" stroke-width="1.5"/>
+    <circle cx="435" cy="155" r="3" fill="#1a1a1a"/>
+    <line x1="425" y1="300" x2="445" y2="300" stroke="#1a1a1a" stroke-width="2"/>
+    <line x1="425" y1="308" x2="445" y2="308" stroke="#1a1a1a" stroke-width="2"/>
+    <line x1="435" y1="308" x2="435" y2="440" stroke="#1a1a1a" stroke-width="1.5"/>
+    <text x="420" y="308" font-size="12" fill="#6b7280" text-anchor="end">C1 (100 мкФ)</text>
+
+    <!-- Flyback Recirculation Current Loop -->
+    <path d="M 370,218 C 360,233 335,228 335,208 L 335,173 C 335,158 360,158 370,168" fill="none" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr-green)"/>
+    <rect x="250" y="395" width="170" height="24" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+    <text x="335" y="411" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Струм самоіндукції I_L</text>
+
+    <!-- Ground Rail -->
+    <line x1="180" y1="440" x2="435" y2="440" stroke="#1a1a1a" stroke-width="2"/>
+    <line x1="230" y1="440" x2="250" y2="440" stroke="#1a1a1a" stroke-width="2"/>
+    <line x1="234" y1="444" x2="246" y2="444" stroke="#1a1a1a" stroke-width="1.5"/>
+    <line x1="238" y1="448" x2="242" y2="448" stroke="#1a1a1a" stroke-width="1"/>
+    <text x="240" y="465" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">GND (Спільна земля)</text>
+
+    <!-- Summary Box -->
+    <rect x="40" y="485" width="410" height="32" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+    <text x="245" y="505" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">✓ Односпрямований потік рідини, ШІМ-регулювання</text>
+  </g>
+
+  <!-- PANEL 2: Bidirectional H-Bridge Driver -->
+  <g id="panel-hbridge">
+    <rect x="495" y="85" width="440" height="455" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+    <rect x="510" y="98" width="410" height="34" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+    <text x="715" y="120" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">Варіант Б: Двоспрямований драйвер (H-Міст / L298N)</text>
+
+    <!-- Power Rail +V_ext -->
+    <line x1="630" y1="155" x2="905" y2="155" stroke="#c0392b" stroke-width="2"/>
+    <circle cx="630" cy="155" r="4" fill="#c0392b"/>
+    <text x="760" y="145" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">+V_ext (3.7V – 12V DC)</text>
+
+    <!-- MCU Signals Block -->
+    <rect x="510" y="230" width="110" height="115" rx="6" fill="white" stroke="#2457d6" stroke-width="1.5"/>
+    <text x="565" y="252" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">MCU Сигнали</text>
+    <text x="565" y="274" font-size="12" fill="#6b7280" text-anchor="middle">IN1 (Напрямок A)</text>
+    <text x="565" y="296" font-size="12" fill="#6b7280" text-anchor="middle">IN2 (Напрямок B)</text>
+    <text x="565" y="318" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">EN (ШІМ / PWM)</text>
+
+    <!-- Wires MCU -> IC -->
+    <line x1="620" y1="270" x2="650" y2="270" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+    <line x1="620" y1="292" x2="650" y2="292" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+    <line x1="620" y1="314" x2="650" y2="314" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+    <!-- H-Bridge IC -->
+    <rect x="650" y="180" width="130" height="215" rx="6" fill="white" stroke="#1a1a1a" stroke-width="2"/>
+    <text x="715" y="200" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">H-Bridge Driver</text>
+    <text x="715" y="216" font-size="12" fill="#6b7280" text-anchor="middle">(L298N / TB6612)</text>
+
+    <!-- Internal H-Bridge Switches Diagram -->
+    <line x1="715" y1="155" x2="715" y2="180" stroke="#c0392b" stroke-width="2"/>
+    <circle cx="715" cy="155" r="3" fill="#c0392b"/>
+    <line x1="715" y1="222" x2="715" y2="230" stroke="#c0392b" stroke-width="2"/>
+    <line x1="675" y1="230" x2="755" y2="230" stroke="#1a1a1a" stroke-width="1.5"/>
+
+    <line x1="675" y1="230" x2="675" y2="250" stroke="#1a1a1a" stroke-width="1.5"/>
+    <line x1="675" y1="250" x2="681" y2="265" stroke="#1a1a1a" stroke-width="1.5"/>
+    <circle cx="675" cy="280" r="3" fill="#2457d6"/>
+    <line x1="675" y1="295" x2="681" y2="310" stroke="#1a1a1a" stroke-width="1.5"/>
+    <line x1="675" y1="310" x2="675" y2="330" stroke="#1a1a1a" stroke-width="1.5"/>
+
+    <line x1="755" y1="230" x2="755" y2="250" stroke="#1a1a1a" stroke-width="1.5"/>
+    <line x1="755" y1="250" x2="749" y2="265" stroke="#1a1a1a" stroke-width="1.5"/>
+    <circle cx="755" cy="280" r="3" fill="#2457d6"/>
+    <line x1="755" y1="295" x2="749" y2="310" stroke="#1a1a1a" stroke-width="1.5"/>
+    <line x1="755" y1="310" x2="755" y2="330" stroke="#1a1a1a" stroke-width="1.5"/>
+
+    <line x1="675" y1="330" x2="755" y2="330" stroke="#1a1a1a" stroke-width="1.5"/>
+    <line x1="715" y1="395" x2="715" y2="440" stroke="#1a1a1a" stroke-width="2"/>
+
+    <text x="715" y="358" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Вбудований захист</text>
+    <text x="715" y="376" font-size="12" fill="#6b7280" text-anchor="middle">(4× Діоди ЕРС)</text>
+
+    <!-- IC Outputs to Motor -->
+    <line x1="675" y1="280" x2="695" y2="280" stroke="#2457d6" stroke-width="2"/>
+    <line x1="695" y1="280" x2="695" y2="250" stroke="#2457d6" stroke-width="2"/>
+    <line x1="695" y1="250" x2="865" y2="250" stroke="#2457d6" stroke-width="2"/>
+    <line x1="865" y1="250" x2="865" y2="270" stroke="#2457d6" stroke-width="2"/>
+    <text x="795" y="242" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">OUT1</text>
+
+    <line x1="755" y1="280" x2="780" y2="280" stroke="#2457d6" stroke-width="2"/>
+    <line x1="780" y1="280" x2="780" y2="330" stroke="#2457d6" stroke-width="2"/>
+    <line x1="780" y1="330" x2="865" y2="330" stroke="#2457d6" stroke-width="2"/>
+    <line x1="865" y1="330" x2="865" y2="310" stroke="#2457d6" stroke-width="2"/>
+    <text x="795" y="346" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">OUT2</text>
+
+    <!-- Motor RS-360SH M2 -->
+    <circle cx="865" cy="290" r="20" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+    <text x="865" y="296" font-size="16" font-weight="bold" fill="#2457d6" text-anchor="middle">M</text>
+    <text x="865" y="360" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">RS-360SH</text>
+    <text x="865" y="376" font-size="12" fill="#6b7280" text-anchor="middle">Помпа DC</text>
+
+    <!-- Decoupling Capacitor C2 -->
+    <line x1="905" y1="155" x2="905" y2="190" stroke="#1a1a1a" stroke-width="1.5"/>
+    <circle cx="905" cy="155" r="3" fill="#1a1a1a"/>
+    <line x1="895" y1="190" x2="915" y2="190" stroke="#1a1a1a" stroke-width="2"/>
+    <line x1="895" y1="198" x2="915" y2="198" stroke="#1a1a1a" stroke-width="2"/>
+    <line x1="905" y1="198" x2="905" y2="440" stroke="#1a1a1a" stroke-width="1.5"/>
+    <text x="890" y="198" font-size="12" fill="#6b7280" text-anchor="end">C2 (100 мкФ)</text>
+
+    <!-- Reversible Badges -->
+    <rect x="725" y="395" width="165" height="22" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+    <text x="807.5" y="410" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">IN1=1, IN2=0: Прямий потік</text>
+
+    <rect x="725" y="423" width="165" height="22" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+    <text x="807.5" y="438" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">IN1=0, IN2=1: Реверс потоку</text>
+
+    <!-- Ground Rail -->
+    <line x1="660" y1="440" x2="905" y2="440" stroke="#1a1a1a" stroke-width="2"/>
+    <line x1="705" y1="440" x2="725" y2="440" stroke="#1a1a1a" stroke-width="2"/>
+    <line x1="709" y1="444" x2="721" y2="444" stroke="#1a1a1a" stroke-width="1.5"/>
+    <line x1="713" y1="448" x2="717" y2="448" stroke="#1a1a1a" stroke-width="1"/>
+    <text x="630" y="465" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">GND (Спільна земля)</text>
+
+    <!-- Summary Box -->
+    <rect x="510" y="485" width="410" height="32" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+    <text x="715" y="505" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">✓ Повний реверс напрямку прокачування + ШІМ-контроль</text>
+  </g>
+</svg>

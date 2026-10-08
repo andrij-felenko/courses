@@ -1,0 +1,136 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-black" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background Canvas -->
+  <rect x="0" y="0" width="960" height="540" fill="#ffffff"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Каскадна структура контурів керування BLDC-сервоприводу</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Підпорядковане регулювання: Зовнішній контур позиції → Контур швидкості → Внутрішній контур струму (FOC)</text>
+
+  <!-- Outer Loop Panel: Position Loop -->
+  <rect x="30" y="74" width="900" height="433" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="8"/>
+  <rect x="42" y="82" width="220" height="24" fill="#ffffff" stroke="#d0d7de" rx="4"/>
+  <text x="50" y="98" font-size="12" font-weight="bold" fill="#1a1a1a">1. Контур позиції (~100 Hz)</text>
+
+  <!-- Middle Loop Panel: Speed Loop -->
+  <rect x="205" y="116" width="710" height="326" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="6 4" rx="6"/>
+  <rect x="217" y="124" width="225" height="24" fill="#ffffff" stroke="#2457d6" rx="4"/>
+  <text x="225" y="140" font-size="12" font-weight="bold" fill="#2457d6">2. Контур швидкості (~1 kHz)</text>
+
+  <!-- Inner Loop Panel: Current / FOC Loop -->
+  <rect x="370" y="158" width="530" height="208" fill="#ffffff" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="6 4" rx="6"/>
+  <rect x="382" y="166" width="270" height="24" fill="#e9f7ef" stroke="#27ae60" rx="4"/>
+  <text x="390" y="182" font-size="12" font-weight="bold" fill="#27ae60">3. Контур струму / FOC (~10–20 kHz)</text>
+
+  <!-- Forward Path Signal 1: Target Position -->
+  <path d="M45,236 L83,236" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-black)"/>
+  <text x="64" y="198" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">θ* (Задання)</text>
+
+  <!-- Summing Junction 1: Position Error -->
+  <circle cx="95" cy="236" r="12" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="84" y="231" font-size="11" fill="#1a1a1a">+</text>
+  <text x="87" y="244" font-size="11" fill="#1a1a1a">−</text>
+
+  <path d="M107,236 L130,236" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-black)"/>
+  <text x="118.5" y="198" font-size="12" fill="#1a1a1a" text-anchor="middle">Δθ</text>
+
+  <!-- Position Controller Box -->
+  <rect x="130" y="206" width="65" height="60" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5" rx="4"/>
+  <text x="162.5" y="230" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">P / PI</text>
+  <text x="162.5" y="248" font-size="11" fill="#6b7280" text-anchor="middle">позиції</text>
+
+  <!-- Forward Path Signal 2: Target Speed -->
+  <path d="M195,236 L243,236" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="219" y="198" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">ω* (Задання ω)</text>
+
+  <!-- Summing Junction 2: Speed Error -->
+  <circle cx="255" cy="236" r="12" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="244" y="231" font-size="11" fill="#2457d6">+</text>
+  <text x="247" y="244" font-size="11" fill="#2457d6">−</text>
+
+  <path d="M267,236 L290,236" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="278.5" y="198" font-size="12" fill="#2457d6" text-anchor="middle">Δω</text>
+
+  <!-- Speed Controller Box -->
+  <rect x="290" y="206" width="65" height="60" fill="#ffffff" stroke="#2457d6" stroke-width="1.5" rx="4"/>
+  <text x="322.5" y="230" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">PI</text>
+  <text x="322.5" y="248" font-size="11" fill="#2457d6" text-anchor="middle">швидкості</text>
+
+  <!-- Forward Path Signal 3: Target Torque / Current -->
+  <path d="M355,236 L408,236" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <text x="381.5" y="198" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Iq* (Момент)</text>
+
+  <!-- Summing Junction 3: Current Error -->
+  <circle cx="420" cy="236" r="12" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="409" y="231" font-size="11" fill="#27ae60">+</text>
+  <text x="412" y="244" font-size="11" fill="#27ae60">−</text>
+
+  <path d="M432,236 L455,236" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <text x="443.5" y="198" font-size="12" fill="#27ae60" text-anchor="middle">ΔIq</text>
+
+  <!-- Current Controller & FOC Box -->
+  <rect x="455" y="206" width="125" height="60" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="4"/>
+  <text x="517.5" y="230" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">PI регулятор</text>
+  <text x="517.5" y="248" font-size="11" fill="#27ae60" text-anchor="middle">FOC (Park / Clarke)</text>
+
+  <!-- Forward Path Signal 4: Voltage Command -->
+  <path d="M580,236 L605,236" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-black)"/>
+  <text x="592.5" y="198" font-size="12" fill="#1a1a1a" text-anchor="middle">Vdq*</text>
+
+  <!-- SVPWM & Inverter Box -->
+  <rect x="605" y="206" width="105" height="60" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5" rx="4"/>
+  <text x="657.5" y="230" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">SVPWM / ШІМ</text>
+  <text x="657.5" y="248" font-size="11" fill="#6b7280" text-anchor="middle">Інвертор (FET)</text>
+
+  <!-- Phase Output Lines (U, V, W) -->
+  <path d="M710,232 L760,232" stroke="#1a1a1a" stroke-width="1.2"/>
+  <path d="M710,236 L760,236" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-black)"/>
+  <path d="M710,240 L760,240" stroke="#1a1a1a" stroke-width="1.2"/>
+  <text x="735" y="198" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="middle">U, V, W</text>
+
+  <!-- BLDC Motor Box -->
+  <rect x="760" y="201" width="120" height="70" fill="#1a1a1a" stroke="#1a1a1a" stroke-width="1.5" rx="6"/>
+  <text x="820" y="231" font-size="13" font-weight="bold" fill="#ffffff" text-anchor="middle">Двигун BLDC</text>
+  <text x="820" y="250" font-size="11" fill="#eaf0fd" text-anchor="middle">+ Навантаження</text>
+
+  <!-- Motor Shaft to Encoder -->
+  <path d="M820,271 L820,305" stroke="#1a1a1a" stroke-width="1.5" stroke-dasharray="3 3" marker-end="url(#arr-black)"/>
+  <text x="828" y="291" font-size="11" fill="#6b7280">Вал (θ)</text>
+
+  <!-- Encoder Box -->
+  <rect x="760" y="305" width="120" height="50" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5" rx="4"/>
+  <text x="820" y="325" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Енкодер</text>
+  <text x="820" y="342" font-size="11" fill="#6b7280" text-anchor="middle">кута ротора (θ)</text>
+
+  <!-- Inner Loop Feedback: Current (Iq, Id) -->
+  <path d="M735,240 L735,288 L420,288 L420,248" fill="none" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <text x="577.5" y="282" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">Зворотний зв'язок струму фаз (Iq, Id)</text>
+
+  <!-- Angle Feed to FOC (Park / Clarke) -->
+  <path d="M760,325 L517.5,325 L517.5,266" fill="none" stroke="#27ae60" stroke-width="1.2" stroke-dasharray="4 3" marker-end="url(#arr-green)"/>
+  <text x="638.75" y="318" font-size="11" fill="#27ae60" text-anchor="middle">Кут ротора (θe) для трансформації Park</text>
+
+  <!-- Middle Loop Feedback: Speed Estimation & Loop -->
+  <rect x="580" y="378" width="125" height="45" fill="#ffffff" stroke="#2457d6" stroke-width="1.5" rx="4"/>
+  <text x="642.5" y="396" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">Обчислення швидкості</text>
+  <text x="642.5" y="411" font-size="11" fill="#2457d6" text-anchor="middle">ω = dθ / dt</text>
+
+  <path d="M760,340 L725,340 L725,400.5 L705,400.5" fill="none" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <path d="M580,400.5 L255,400.5 L255,248" fill="none" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="417.5" y="392" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">Зворотний зв'язок швидкості (ω)</text>
+
+  <!-- Outer Loop Feedback: Position -->
+  <path d="M820,355 L820,475 L95,475 L95,248" fill="none" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-black)"/>
+  <text x="457.5" y="467" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Зворотний зв'язок позиції (θ)</text>
+</svg>
