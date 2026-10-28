@@ -1,0 +1,91 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f172a"/>
+      <stop offset="100%" stop-color="#1e293b"/>
+    </linearGradient>
+    <filter id="shadow" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="0" dy="3" stdDeviation="4" flood-color="#000000" flood-opacity="0.5"/>
+    </filter>
+  </defs>
+
+  <rect width="960" height="520" fill="url(#bg)"/>
+
+  <!-- Title -->
+  <text x="480" y="36" text-anchor="middle" font-family="system-ui, sans-serif" font-size="20" font-weight="700" fill="#f8fafc">
+    Гранулярність лінії кешу 32 байти та катастрофа False Sharing
+  </text>
+  <text x="480" y="58" text-anchor="middle" font-family="system-ui, sans-serif" font-size="13" fill="#94a3b8">
+    Чому розмір та початкова адреса буферів DMA зобов'язані бути строго кратними 32 байтам
+  </text>
+
+  <!-- Left: The False Sharing Disaster Diagram -->
+  <g transform="translate(40, 90)">
+    <rect width="880" height="190" rx="10" fill="#1e293b" stroke="#f43f5e" stroke-width="1.5" filter="url(#shadow)"/>
+    <text x="25" y="30" font-family="system-ui, sans-serif" font-size="14" font-weight="700" fill="#f43f5e">
+      Катастрофічний випадок: Невирівняний буфер DMA ділить 32-байтову лінію з критичною змінною
+    </text>
+
+    <!-- Physical 32-byte Cache Line Representation -->
+    <g transform="translate(25, 55)">
+      <!-- 32-byte Line Box -->
+      <rect width="830" height="70" rx="6" fill="#0f172a" stroke="#cbd5e1" stroke-width="1.5"/>
+      <text x="415" y="20" text-anchor="middle" font-family="monospace" font-size="11" font-weight="700" fill="#cbd5e1">
+        Єдина неподільна 32-байтова лінія кешу L1 D-Cache (Адреса: 0x20000020 .. 0x2000003F)
+      </text>
+
+      <!-- Inside Line: 20 bytes DMA Buffer -->
+      <rect x="10" y="30" width="520" height="30" rx="4" fill="#064e3b" stroke="#34d399" stroke-width="1.2"/>
+      <text x="270" y="50" text-anchor="middle" font-family="monospace" font-size="11" fill="#ffffff">
+        DMA RX Буфер (наприклад, 20 байтів)
+      </text>
+
+      <!-- Inside Line: Adjacent Critical Variable -->
+      <rect x="540" y="30" width="280" height="30" rx="4" fill="#881337" stroke="#f43f5e" stroke-width="1.5"/>
+      <text x="680" y="50" text-anchor="middle" font-family="monospace" font-size="11" font-weight="700" fill="#fecdd3">
+        volatile uint32_t system_state;
+      </text>
+    </g>
+
+    <!-- Error Flow Text -->
+    <g transform="translate(25, 140)" font-family="system-ui, sans-serif" font-size="11" fill="#cbd5e1">
+      <text x="0" y="15" fill="#f87171">1. Процесор оновив system_state = 1 у D-Cache (лінія стала Dirty).</text>
+      <text x="0" y="35" fill="#f87171">2. DMA прийняв нові дані в буфер. Програма викликає SCB_InvalidateDCache_by_Addr(dma_buf).</text>
+      <text x="480" y="25" font-weight="700" fill="#f43f5e">
+        РЕЗУЛЬТАТ: Інвалідація викидає ВСЮ 32-байтову лінію!
+      </text>
+      <text x="480" y="42" font-weight="700" fill="#fecdd3">
+        Значення system_state знищено і відкочено до старого!
+      </text>
+    </g>
+  </g>
+
+  <!-- Right: Correct Production Solution Diagram -->
+  <g transform="translate(40, 305)">
+    <rect width="880" height="190" rx="10" fill="#1e293b" stroke="#10b981" stroke-width="1.5" filter="url(#shadow)"/>
+    <text x="25" y="30" font-family="system-ui, sans-serif" font-size="14" font-weight="700" fill="#34d399">
+      Виробниче рішення: Суворе вирівнювання на 32 байти та доповнення розміру (Padding)
+    </text>
+
+    <!-- Physical 32-byte Isolated Line Representation -->
+    <g transform="translate(25, 55)">
+      <!-- Line 1: DMA Only -->
+      <rect width="830" height="60" rx="6" fill="#064e3b" stroke="#34d399" stroke-width="1.5"/>
+      <text x="415" y="24" text-anchor="middle" font-family="monospace" font-size="11" font-weight="700" fill="#ffffff">
+        Вирівняний буфер DMA: __attribute__((aligned(32))) uint8_t dma_buf[64];
+      </text>
+      <text x="415" y="45" text-anchor="middle" font-family="system-ui, sans-serif" font-size="10" fill="#a7f3d0">
+        Повністю займає окремі лінії кешу. Жодні системні змінні не ділять цей простір!
+      </text>
+    </g>
+
+    <!-- Benefits list -->
+    <g transform="translate(25, 135)" font-family="system-ui, sans-serif" font-size="11" fill="#cbd5e1">
+      <text x="0" y="15" fill="#34d399">• Інвалідація лінії кешу є на 100% безпечною для сусідніх даних.</text>
+      <text x="0" y="35" fill="#34d399">• Повна відсутність спонтанних збоїв пам'яті (Heisenbugs), що проявляються раз на тисячу запусків.</text>
+      <text x="500" y="25" font-family="monospace" font-size="11" fill="#fbbf24">
+        alignas(32) uint8_t rx_buffer[BUF_SIZE_ALIGNED_32];
+      </text>
+    </g>
+  </g>
+</svg>

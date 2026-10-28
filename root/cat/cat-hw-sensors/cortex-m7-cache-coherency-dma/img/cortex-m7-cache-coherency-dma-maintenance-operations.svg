@@ -1,0 +1,121 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f172a"/>
+      <stop offset="100%" stop-color="#1e293b"/>
+    </linearGradient>
+    <marker id="arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#38bdf8"/>
+    </marker>
+    <filter id="shadow" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="0" dy="3" stdDeviation="4" flood-color="#000000" flood-opacity="0.5"/>
+    </filter>
+  </defs>
+
+  <rect width="960" height="520" fill="url(#bg)"/>
+
+  <!-- Title -->
+  <text x="480" y="36" text-anchor="middle" font-family="system-ui, sans-serif" font-size="20" font-weight="700" fill="#f8fafc">
+    Три базові операції обслуговування кешу (Cache Maintenance Operations)
+  </text>
+  <text x="480" y="58" text-anchor="middle" font-family="system-ui, sans-serif" font-size="13" fill="#94a3b8">
+    Стандартні виклики CMSIS Core для керування когерентністю: Clean, Invalidate та Clean &amp; Invalidate
+  </text>
+
+  <!-- 3 Columns -->
+  <!-- Col 1: Clean -->
+  <g transform="translate(40, 95)">
+    <rect width="270" height="400" rx="10" fill="#1e293b" stroke="#0ea5e9" stroke-width="1.5" filter="url(#shadow)"/>
+    <rect width="270" height="34" rx="10" fill="#0284c7"/>
+    <text x="135" y="22" text-anchor="middle" font-family="system-ui, sans-serif" font-size="13" font-weight="700" fill="#ffffff">
+      1. Очищення (Clean / Flush)
+    </text>
+
+    <g transform="translate(15, 50)" font-family="system-ui, sans-serif" font-size="11" fill="#cbd5e1">
+      <rect x="0" y="0" width="240" height="35" rx="4" fill="#0f172a" stroke="#0ea5e9" stroke-width="1"/>
+      <text x="120" y="22" text-anchor="middle" font-family="monospace" font-size="10" font-weight="700" fill="#38bdf8">
+        SCB_CleanDCache_by_Addr()
+      </text>
+
+      <text x="0" y="60" font-weight="700" fill="#f8fafc">Що робить:</text>
+      <text x="0" y="80">• Скидає «брудні» (Dirty) лінії</text>
+      <text x="0" y="98">  з D-Cache у фізичну пам'ять RAM.</text>
+      <text x="0" y="116">• Маркує лінію кешу як чисту.</text>
+      <text x="0" y="134">• Дані в кеші ЗБЕРІГАЮТЬСЯ.</text>
+
+      <text x="0" y="170" font-weight="700" fill="#38bdf8">Коли викликати:</text>
+      <text x="0" y="190" font-weight="700" fill="#ffffff">ПЕРЕД запуском передачі DMA TX</text>
+      <text x="0" y="208">(Memory-to-Peripheral).</text>
+      <text x="0" y="228">• Вивід на дисплей LTDC</text>
+      <text x="0" y="246">• Передача SPI / UART / Ethernet</text>
+
+      <rect x="0" y="280" width="240" height="55" rx="5" fill="#0f172a" stroke="#334155" stroke-width="1"/>
+      <text x="120" y="302" text-anchor="middle" font-size="10" fill="#94a3b8">Гарантує, що DMA прочитає</text>
+      <text x="120" y="320" text-anchor="middle" font-size="10" fill="#94a3b8">найостанніші дані з RAM.</text>
+    </g>
+  </g>
+
+  <!-- Col 2: Invalidate -->
+  <g transform="translate(345, 95)">
+    <rect width="270" height="400" rx="10" fill="#1e293b" stroke="#10b981" stroke-width="1.5" filter="url(#shadow)"/>
+    <rect width="270" height="34" rx="10" fill="#059669"/>
+    <text x="135" y="22" text-anchor="middle" font-family="system-ui, sans-serif" font-size="13" font-weight="700" fill="#ffffff">
+      2. Інвалідація (Invalidate)
+    </text>
+
+    <g transform="translate(15, 50)" font-family="system-ui, sans-serif" font-size="11" fill="#cbd5e1">
+      <rect x="0" y="0" width="240" height="35" rx="4" fill="#0f172a" stroke="#10b981" stroke-width="1"/>
+      <text x="120" y="22" text-anchor="middle" font-family="monospace" font-size="10" font-weight="700" fill="#34d399">
+        SCB_InvalidateDCache_by_Addr()
+      </text>
+
+      <text x="0" y="60" font-weight="700" fill="#f8fafc">Що робить:</text>
+      <text x="0" y="80">• Викидає вміст лінії кешу.</text>
+      <text x="0" y="98">• Скидає біт валідності (Valid = 0).</text>
+      <text x="0" y="116">• Наступне читання змусить ядро</text>
+      <text x="0" y="134">  прочитати свіжі дані з RAM!</text>
+
+      <text x="0" y="170" font-weight="700" fill="#34d399">Коли викликати:</text>
+      <text x="0" y="190" font-weight="700" fill="#ffffff">ПІСЛЯ завершення прийому DMA RX</text>
+      <text x="0" y="208">(Peripheral-to-Memory).</text>
+      <text x="0" y="228">• Прийом кадру камери DCMI</text>
+      <text x="0" y="246">• Прийом пакетів по Ethernet / USB</text>
+
+      <rect x="0" y="280" width="240" height="55" rx="5" fill="#0f172a" stroke="#334155" stroke-width="1"/>
+      <text x="120" y="302" text-anchor="middle" font-size="10" fill="#94a3b8">Виключає читання процесором</text>
+      <text x="120" y="320" text-anchor="middle" font-size="10" fill="#94a3b8">старого сміття з кешу.</text>
+    </g>
+  </g>
+
+  <!-- Col 3: Clean & Invalidate -->
+  <g transform="translate(650, 95)">
+    <rect width="270" height="400" rx="10" fill="#1e293b" stroke="#f59e0b" stroke-width="1.5" filter="url(#shadow)"/>
+    <rect width="270" height="34" rx="10" fill="#d97706"/>
+    <text x="135" y="22" text-anchor="middle" font-family="system-ui, sans-serif" font-size="13" font-weight="700" fill="#ffffff">
+      3. Clean &amp; Invalidate
+    </text>
+
+    <g transform="translate(15, 50)" font-family="system-ui, sans-serif" font-size="11" fill="#cbd5e1">
+      <rect x="0" y="0" width="240" height="35" rx="4" fill="#0f172a" stroke="#f59e0b" stroke-width="1"/>
+      <text x="120" y="22" text-anchor="middle" font-family="monospace" font-size="9" font-weight="700" fill="#fbbf24">
+        SCB_CleanInvalidateDCache...()
+      </text>
+
+      <text x="0" y="60" font-weight="700" fill="#f8fafc">Що робить:</text>
+      <text x="0" y="80">• Спочатку скидає брудні дані у RAM</text>
+      <text x="0" y="98">• Потім інвалідує лінію кешу.</text>
+      <text x="0" y="116">• Комбінована операція.</text>
+      <text x="0" y="134">• Найбільш універсальна.</text>
+
+      <text x="0" y="170" font-weight="700" fill="#fbbf24">Коли викликати:</text>
+      <text x="0" y="190" font-weight="700" fill="#ffffff">Двосторонній обмін (RX + TX):</text>
+      <text x="0" y="208">• Кільцеві буфери DMA</text>
+      <text x="0" y="228">• Спільні буфери між ядром</text>
+      <text x="0" y="246">  та прискорювачем DMA2D</text>
+
+      <rect x="0" y="280" width="240" height="55" rx="5" fill="#0f172a" stroke="#334155" stroke-width="1"/>
+      <text x="120" y="302" text-anchor="middle" font-size="10" fill="#94a3b8">Повний двосторонній бар'єр</text>
+      <text x="120" y="320" text-anchor="middle" font-size="10" fill="#94a3b8">когерентності даних.</text>
+    </g>
+  </g>
+</svg>
