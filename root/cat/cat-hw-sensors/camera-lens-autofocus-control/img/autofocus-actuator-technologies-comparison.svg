@@ -1,0 +1,134 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f172a"/>
+      <stop offset="100%" stop-color="#1e293b"/>
+    </linearGradient>
+    <filter id="shadow" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="0" dy="4" stdDeviation="5" flood-color="#000000" flood-opacity="0.4"/>
+    </filter>
+  </defs>
+
+  <rect width="960" height="540" fill="url(#bg)"/>
+
+  <!-- Title -->
+  <text x="480" y="38" text-anchor="middle" font-family="system-ui, sans-serif" font-size="20" font-weight="700" fill="#f8fafc">
+    Електромеханічні приводи автофокусування об'єктивів (Autofocus Actuators)
+  </text>
+  <text x="480" y="62" text-anchor="middle" font-family="system-ui, sans-serif" font-size="13" fill="#94a3b8">
+    Порівняння приводів: відкритий VCM, замкнений VCM з датчиком Холла, кроковий привід та рідка лінза
+  </text>
+
+  <!-- 4 Columns Grid -->
+  <!-- Col 1: Open-Loop VCM -->
+  <rect x="30" y="95" width="205" height="415" rx="8" fill="#1e293b" stroke="#0ea5e9" stroke-width="1.5" filter="url(#shadow)"/>
+  <rect x="30" y="95" width="205" height="34" rx="8" fill="#0284c7"/>
+  <text x="132" y="118" text-anchor="middle" font-family="system-ui, sans-serif" font-size="13" font-weight="700" fill="#ffffff">
+    1. Відкритий VCM
+  </text>
+  <g transform="translate(42, 145)" font-family="system-ui, sans-serif" font-size="11" fill="#e2e8f0">
+    <text x="0" y="0" font-weight="700" fill="#38bdf8">Конструкція:</text>
+    <text x="0" y="20" fill="#cbd5e1">• Звукова котушка в полі</text>
+    <text x="0" y="38" fill="#cbd5e1">  постійних неодимових магнітів</text>
+    <text x="0" y="56" fill="#cbd5e1">• Пружинний підвіс (Springs)</text>
+    <text x="0" y="74" fill="#cbd5e1">• Сила Лоренца F = B*I*L</text>
+
+    <text x="0" y="110" font-weight="700" fill="#38bdf8">Характеристики:</text>
+    <text x="0" y="130" fill="#cbd5e1">• Хід: 0.2 .. 0.4 мм</text>
+    <text x="0" y="148" fill="#cbd5e1">• Час фокусу: 30..80 мс</text>
+    <text x="0" y="166" fill="#cbd5e1">• Струм: 0 .. 100 мА</text>
+    <text x="0" y="184" fill="#cbd5e1">• Точність: середня (гістерезис)</text>
+
+    <text x="0" y="220" font-weight="700" fill="#fbbf24">Особливості:</text>
+    <text x="0" y="240" fill="#cbd5e1">• Гравітаційний зсув кадру</text>
+    <text x="0" y="258" fill="#cbd5e1">• Механічний резонанс</text>
+    <text x="0" y="276" fill="#cbd5e1">• Найдешевше рішення</text>
+  </g>
+  <rect x="42" y="445" width="180" height="45" rx="5" fill="#0f172a" stroke="#0ea5e9" stroke-width="1"/>
+  <text x="132" y="465" text-anchor="middle" font-family="system-ui, sans-serif" font-size="10" font-weight="700" fill="#38bdf8">Застосування:</text>
+  <text x="132" y="480" text-anchor="middle" font-family="system-ui, sans-serif" font-size="10" fill="#94a3b8">Бюджетні смартфони, вебкамери</text>
+
+  <!-- Col 2: Closed-Loop VCM (Hall) -->
+  <rect x="255" y="95" width="210" height="415" rx="8" fill="#1e293b" stroke="#10b981" stroke-width="1.5" filter="url(#shadow)"/>
+  <rect x="255" y="95" width="210" height="34" rx="8" fill="#059669"/>
+  <text x="360" y="118" text-anchor="middle" font-family="system-ui, sans-serif" font-size="13" font-weight="700" fill="#ffffff">
+    2. Closed-Loop VCM
+  </text>
+  <g transform="translate(268, 145)" font-family="system-ui, sans-serif" font-size="11" fill="#e2e8f0">
+    <text x="0" y="0" font-weight="700" fill="#34d399">Конструкція:</text>
+    <text x="0" y="20" fill="#cbd5e1">• Звукова котушка VCM</text>
+    <text x="0" y="38" fill="#cbd5e1">• Вбудований датчик Холла</text>
+    <text x="0" y="56" fill="#cbd5e1">• Апаратний ПІД у драйвері</text>
+    <text x="0" y="74" fill="#cbd5e1">• Зворотний зв'язок 10..12 біт</text>
+
+    <text x="0" y="110" font-weight="700" fill="#34d399">Характеристики:</text>
+    <text x="0" y="130" fill="#cbd5e1">• Хід: 0.3 .. 0.5 мм</text>
+    <text x="0" y="148" fill="#cbd5e1">• Час фокусу: 15..25 мс</text>
+    <text x="0" y="166" fill="#cbd5e1">• Похибка: &lt; 1 мкм</text>
+    <text x="0" y="184" fill="#cbd5e1">• Нульовий гістерезис</text>
+
+    <text x="0" y="220" font-weight="700" fill="#34d399">Особливості:</text>
+    <text x="0" y="240" fill="#cbd5e1">• Компенсація орієнтації</text>
+    <text x="0" y="258" fill="#cbd5e1">• Позиція відома миттєво</text>
+    <text x="0" y="276" fill="#cbd5e1">• Швидке наведення PDAF</text>
+  </g>
+  <rect x="268" y="445" width="185" height="45" rx="5" fill="#0f172a" stroke="#10b981" stroke-width="1"/>
+  <text x="360" y="465" text-anchor="middle" font-family="system-ui, sans-serif" font-size="10" font-weight="700" fill="#34d399">Застосування:</text>
+  <text x="360" y="480" text-anchor="middle" font-family="system-ui, sans-serif" font-size="10" fill="#94a3b8">Флагманські смартфони, дрони</text>
+
+  <!-- Col 3: Stepper Motor + Lead Screw -->
+  <rect x="485" y="95" width="215" height="415" rx="8" fill="#1e293b" stroke="#f59e0b" stroke-width="1.5" filter="url(#shadow)"/>
+  <rect x="485" y="95" width="215" height="34" rx="8" fill="#d97706"/>
+  <text x="592" y="118" text-anchor="middle" font-family="system-ui, sans-serif" font-size="13" font-weight="700" fill="#ffffff">
+    3. Кроковий привід
+  </text>
+  <g transform="translate(498, 145)" font-family="system-ui, sans-serif" font-size="11" fill="#e2e8f0">
+    <text x="0" y="0" font-weight="700" fill="#fbbf24">Конструкція:</text>
+    <text x="0" y="20" fill="#cbd5e1">• Мініатюрний кроковий двигун</text>
+    <text x="0" y="38" fill="#cbd5e1">• Прецизійний ходовий гвинт</text>
+    <text x="0" y="56" fill="#cbd5e1">• Оптичний датчик нуля (PI)</text>
+    <text x="0" y="74" fill="#cbd5e1">• Редукторний механізм</text>
+
+    <text x="0" y="110" font-weight="700" fill="#fbbf24">Характеристики:</text>
+    <text x="0" y="130" fill="#cbd5e1">• Хід: 5 .. 25 мм (довгий)</text>
+    <text x="0" y="148" fill="#cbd5e1">• Високий крутний момент</text>
+    <text x="0" y="166" fill="#cbd5e1">• Утримання позиції без струму</text>
+    <text x="0" y="184" fill="#cbd5e1">• Час фокусу: 150..500 мс</text>
+
+    <text x="0" y="220" font-weight="700" fill="#fbbf24">Особливості:</text>
+    <text x="0" y="240" fill="#cbd5e1">• Рухає важкі скляні лінзи</text>
+    <text x="0" y="258" fill="#cbd5e1">• Підтримує оптичний зум</text>
+    <text x="0" y="276" fill="#cbd5e1">• Висока надійність</text>
+  </g>
+  <rect x="498" y="445" width="190" height="45" rx="5" fill="#0f172a" stroke="#f59e0b" stroke-width="1"/>
+  <text x="592" y="465" text-anchor="middle" font-family="system-ui, sans-serif" font-size="10" font-weight="700" fill="#fbbf24">Застосування:</text>
+  <text x="592" y="480" text-anchor="middle" font-family="system-ui, sans-serif" font-size="10" fill="#94a3b8">PTZ камери, машинний зір, C-mount</text>
+
+  <!-- Col 4: Liquid Lens (Electrowetting) -->
+  <rect x="720" y="95" width="210" height="415" rx="8" fill="#1e293b" stroke="#c084fc" stroke-width="1.5" filter="url(#shadow)"/>
+  <rect x="720" y="95" width="210" height="34" rx="8" fill="#7e22ce"/>
+  <text x="825" y="118" text-anchor="middle" font-family="system-ui, sans-serif" font-size="13" font-weight="700" fill="#ffffff">
+    4. Рідка лінза
+  </text>
+  <g transform="translate(732, 145)" font-family="system-ui, sans-serif" font-size="11" fill="#e2e8f0">
+    <text x="0" y="0" font-weight="700" fill="#e879f9">Конструкція:</text>
+    <text x="0" y="20" fill="#cbd5e1">• Меніск вода / мастило</text>
+    <text x="0" y="38" fill="#cbd5e1">• Ефект електрозмочування</text>
+    <text x="0" y="56" fill="#cbd5e1">• Керування напругою 0..60 В</text>
+    <text x="0" y="74" fill="#cbd5e1">• Жодних рухомих деталей</text>
+
+    <text x="0" y="110" font-weight="700" fill="#e879f9">Характеристики:</text>
+    <text x="0" y="130" fill="#cbd5e1">• Діапазон: від -10 до +30 дптр</text>
+    <text x="0" y="148" fill="#cbd5e1">• Час реакції: &lt; 5..10 мс</text>
+    <text x="0" y="166" fill="#cbd5e1">• Ресурс: &gt; 100 млн циклів</text>
+    <text x="0" y="184" fill="#cbd5e1">• Споживання: мікровати</text>
+
+    <text x="0" y="220" font-weight="700" fill="#e879f9">Особливості:</text>
+    <text x="0" y="240" fill="#cbd5e1">• Миттєвий перефокус 100 Гц</text>
+    <text x="0" y="258" fill="#cbd5e1">• Повна стійкість до ударів</text>
+    <text x="0" y="276" fill="#cbd5e1">• Чутливість до температури</text>
+  </g>
+  <rect x="732" y="445" width="185" height="45" rx="5" fill="#0f172a" stroke="#c084fc" stroke-width="1"/>
+  <text x="825" y="465" text-anchor="middle" font-family="system-ui, sans-serif" font-size="10" font-weight="700" fill="#e879f9">Застосування:</text>
+  <text x="825" y="480" text-anchor="middle" font-family="system-ui, sans-serif" font-size="10" fill="#94a3b8">Сканери штрихкодів, медичні ендоскопи</text>
+</svg>
