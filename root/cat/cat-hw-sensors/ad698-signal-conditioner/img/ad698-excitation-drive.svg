@@ -1,0 +1,46 @@
+<svg viewBox="0 0 720 360" width="720" height="360" xmlns="http://www.w3.org/2000/svg" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+  <rect x="0" y="0" width="720" height="360" fill="white"/>
+
+  <!-- Заголовок -->
+  <text x="360" y="40" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Підключення драйвера збудження AD698</text>
+  <text x="360" y="60" text-anchor="middle" font-size="13" fill="#6b7280">Зовнішній конденсатор задає частоту, а виходи живлять первинну обмотку LVDT</text>
+
+  <!-- Мікросхема AD698 -->
+  <rect x="240" y="100" width="240" height="160" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <text x="360" y="125" text-anchor="middle" font-size="16" font-weight="bold" fill="#1a1a1a">AD698</text>
+
+  <!-- Внутрішні блоки -->
+  <rect x="260" y="140" width="90" height="80" rx="2" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="305" y="185" text-anchor="middle" font-size="14" fill="#1a1a1a">Генератор</text>
+
+  <rect x="370" y="140" width="90" height="80" rx="2" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="415" y="185" text-anchor="middle" font-size="14" fill="#1a1a1a">Драйвер</text>
+
+  <!-- Стрілка всередині -->
+  <line x1="350" y1="180" x2="368" y2="180" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- Підключення конденсатора -->
+  <line x1="260" y1="156" x2="160" y2="156" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="260" y1="204" x2="160" y2="204" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="160" y1="156" x2="160" y2="175" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="160" y1="204" x2="160" y2="185" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="140" y1="175" x2="180" y2="175" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="140" y1="185" x2="180" y2="185" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <text x="130" y="185" text-anchor="end" font-size="14" fill="#1a1a1a">C<tspan dy="3" font-size="12">EXC</tspan></text>
+
+  <!-- Підключення LVDT -->
+  <line x1="460" y1="156" x2="560" y2="156" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="460" y1="204" x2="560" y2="204" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <path d="M 560,156 C 580,156 580,172 560,172 C 580,172 580,188 560,188 C 580,188 580,204 560,204" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+
+  <text x="595" y="175" text-anchor="start" font-size="14" font-weight="bold" fill="#1a1a1a">LVDT</text>
+  <text x="595" y="195" text-anchor="start" font-size="13" fill="#6b7280">Первинна</text>
+  <text x="595" y="210" text-anchor="start" font-size="13" fill="#6b7280">обмотка</text>
+</svg>

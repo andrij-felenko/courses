@@ -1,0 +1,249 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="34" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Топологія друкованої плати AD698: розділення AGND/DGND та екранування</text>
+  <text x="480" y="56" font-size="13" fill="#6b7280" text-anchor="middle">Одноточкове з'єднання земель під AD698 та ізоляція екрана на боці датчика усувають завади</text>
+
+  <!-- 1. Давач LVDT (ліворуч) -->
+  <rect x="24" y="118" width="100" height="324" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="74" y="142" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Давач LVDT</text>
+  <text x="74" y="160" font-size="12" fill="#6b7280" text-anchor="middle">Виносний вузол</text>
+
+  <!-- Первинна обмотка (збудження) -->
+  <rect x="34" y="186" width="80" height="40" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="74" y="202" font-size="12" fill="#2457d6" text-anchor="middle">Первинна L1</text>
+  <text x="74" y="218" font-size="12" fill="#6b7280" text-anchor="middle">Збудження EXC</text>
+
+  <!-- Магнітне осердя -->
+  <rect x="44" y="236" width="60" height="12" rx="2" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="74" y="260" font-size="12" fill="#6b7280" text-anchor="middle">Осердя (рух ±x)</text>
+
+  <!-- Вторинна обмотка A (опорний канал) -->
+  <rect x="34" y="274" width="80" height="40" rx="4" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="74" y="290" font-size="12" fill="#1a1a1a" text-anchor="middle">Канал A (ref)</text>
+  <text x="74" y="306" font-size="12" fill="#6b7280" text-anchor="middle">Опорний сигнал</text>
+
+  <!-- Вторинна обмотка B (сигнальний канал) -->
+  <rect x="34" y="324" width="80" height="40" rx="4" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="74" y="340" font-size="12" fill="#1a1a1a" text-anchor="middle">Канал B (sig)</text>
+  <text x="74" y="356" font-size="12" fill="#6b7280" text-anchor="middle">Диференц. вихід</text>
+
+  <!-- Статус екрана на датчику -->
+  <text x="74" y="392" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">⛔ Без контакту</text>
+  <text x="74" y="410" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">з землею!</text>
+  <text x="74" y="428" font-size="12" fill="#6b7280" text-anchor="middle">Екран ізольовано</text>
+
+  <!-- 2. Екранований кабель (між LVDT та платою) -->
+  <rect x="134" y="174" width="86" height="206" rx="4" fill="#ffffff" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4 3"/>
+  <text x="177" y="142" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Екранований</text>
+  <text x="177" y="160" font-size="12" fill="#6b7280" text-anchor="middle">кабель (пари)</text>
+
+  <!-- Позначка ізоляції екрана (хрестик на стороні датчика) -->
+  <path d="M128,172 L138,182 M138,172 L128,182" stroke="#c0392b" stroke-width="2"/>
+
+  <!-- Лінії сигналів всередині кабелю -->
+  <!-- EXC пара -->
+  <line x1="114" y1="200" x2="134" y2="200" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="114" y1="214" x2="134" y2="214" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="134" y1="200" x2="220" y2="200" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="134" y1="214" x2="220" y2="214" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="220" y1="200" x2="246" y2="200" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="220" y1="214" x2="246" y2="214" stroke="#2457d6" stroke-width="1.5"/>
+
+  <!-- Канал A пара -->
+  <line x1="114" y1="286" x2="134" y2="286" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="114" y1="300" x2="134" y2="300" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="134" y1="286" x2="220" y2="286" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="134" y1="300" x2="220" y2="300" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="220" y1="286" x2="246" y2="286" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="220" y1="300" x2="246" y2="300" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Канал B пара -->
+  <line x1="114" y1="336" x2="134" y2="336" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="114" y1="350" x2="134" y2="350" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="134" y1="336" x2="220" y2="336" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="134" y1="350" x2="220" y2="350" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="220" y1="336" x2="246" y2="336" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="220" y1="350" x2="246" y2="350" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Провідник екрана від оболонки кабелю до контакту SHIELD розніму J1 -->
+  <path d="M220,182 L246,182" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+  <text x="177" y="404" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">✓ Заземлення</text>
+  <text x="177" y="422" font-size="12" fill="#27ae60" text-anchor="middle">лише на платі</text>
+
+  <!-- 3. Друкована плата (PCB Outline) -->
+  <rect x="236" y="84" width="700" height="368" rx="8" fill="none" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="248" y="106" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="start">Друкована плата (PCB модуля AD698)</text>
+
+  <!-- 4. Полігон AGND (Аналогова земля) -->
+  <rect x="242" y="118" width="368" height="324" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="420" y="138" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Полігон AGND (Аналогова земля)</text>
+  <text x="420" y="156" font-size="12" fill="#6b7280" text-anchor="middle">Суцільна площина міді під колами LVDT</text>
+
+  <!-- Рознім J1 на платі -->
+  <rect x="246" y="172" width="36" height="196" rx="4" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="264" y="164" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">J1</text>
+
+  <!-- Контакти J1 -->
+  <!-- Контакт екрана -->
+  <circle cx="264" cy="182" r="3.5" fill="#27ae60"/>
+  <line x1="268" y1="182" x2="288" y2="182" stroke="#27ae60" stroke-width="2.5"/>
+  <circle cx="288" cy="182" r="3" fill="#27ae60"/>
+  <text x="296" y="186" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="start">SHIELD → AGND</text>
+
+  <!-- Контакти EXC -->
+  <circle cx="264" cy="200" r="3.5" fill="#2457d6"/>
+  <circle cx="264" cy="214" r="3.5" fill="#2457d6"/>
+
+  <!-- Контакти сигналу A -->
+  <circle cx="264" cy="286" r="3.5" fill="#1a1a1a"/>
+  <circle cx="264" cy="300" r="3.5" fill="#1a1a1a"/>
+
+  <!-- Контакти сигналу B -->
+  <circle cx="264" cy="336" r="3.5" fill="#1a1a1a"/>
+  <circle cx="264" cy="350" r="3.5" fill="#1a1a1a"/>
+
+  <!-- Траси від розніму J1 до AD698 -->
+  <!-- EXC -->
+  <line x1="268" y1="200" x2="400" y2="200" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="268" y1="214" x2="400" y2="214" stroke="#2457d6" stroke-width="1.5"/>
+
+  <!-- A -->
+  <line x1="268" y1="286" x2="400" y2="286" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="268" y1="300" x2="400" y2="300" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- B -->
+  <line x1="268" y1="336" x2="400" y2="336" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="268" y1="350" x2="400" y2="350" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Анотації дифпар -->
+  <text x="340" y="234" font-size="12" fill="#2457d6" text-anchor="middle">EXC дифпара</text>
+  <text x="340" y="250" font-size="12" fill="#6b7280" text-anchor="middle">(генератор 2.5 кГц)</text>
+  <text x="340" y="320" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Дифпари A / B</text>
+  <text x="340" y="372" font-size="12" fill="#6b7280" text-anchor="middle">Мінімальна петля</text>
+
+  <!-- 5. Корпус мікросхеми AD698 -->
+  <rect x="400" y="176" width="120" height="216" rx="4" fill="#ffffff" stroke="#1a1a1a" stroke-width="2"/>
+  <path d="M454,176 A6,6 0 0,0 466,176" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="460" y="200" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">AD698</text>
+  <text x="460" y="216" font-size="12" fill="#6b7280" text-anchor="middle">LVDT ІМС</text>
+
+  <!-- Виводи AD698 ліворуч -->
+  <text x="406" y="210" font-size="12" fill="#2457d6" text-anchor="start">EXC</text>
+  <text x="406" y="296" font-size="12" fill="#1a1a1a" text-anchor="start">IN A</text>
+  <text x="406" y="346" font-size="12" fill="#1a1a1a" text-anchor="start">IN B</text>
+
+  <!-- Виводи AD698 праворуч -->
+  <text x="514" y="238" font-size="12" fill="#1a1a1a" text-anchor="end">±VS</text>
+  <text x="514" y="280" font-size="12" fill="#2457d6" text-anchor="end">AGND</text>
+  <text x="514" y="332" font-size="12" fill="#2457d6" text-anchor="end">VOUT</text>
+
+  <!-- Блокувальні конденсатори живлення ±VS -->
+  <rect x="536" y="218" width="64" height="40" rx="3" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="568" y="234" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">0.1 µF</text>
+  <text x="568" y="248" font-size="12" fill="#6b7280" text-anchor="middle">+ 10 µF</text>
+
+  <!-- Траси від ±VS до конденсаторів та перехідного отвору -->
+  <line x1="520" y1="234" x2="536" y2="234" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="568" y1="258" x2="568" y2="268" stroke="#2457d6" stroke-width="1.5"/>
+  <circle cx="568" cy="268" r="3.5" fill="#2457d6"/>
+  <text x="568" y="286" font-size="12" fill="#2457d6" text-anchor="middle">Via до AGND</text>
+  <text x="568" y="302" font-size="12" fill="#6b7280" text-anchor="middle">(&lt; 2 мм)</text>
+
+  <!-- Вивід AGND мікросхеми -->
+  <line x1="520" y1="276" x2="528" y2="276" stroke="#2457d6" stroke-width="1.5"/>
+  <circle cx="528" cy="276" r="3" fill="#2457d6"/>
+
+  <!-- Пасивна обв'язка симетрія -->
+  <text x="340" y="414" font-size="12" fill="#1a1a1a" text-anchor="middle">Симетрія пасивних кіл</text>
+  <text x="340" y="430" font-size="12" fill="#6b7280" text-anchor="middle">усуває градієнти термо-ЕРС</text>
+
+  <!-- 6. Ізоляційний зазор (Розріз площин / Moat) -->
+  <text x="630" y="146" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Зазор 2 мм</text>
+  <text x="630" y="164" font-size="12" fill="#6b7280" text-anchor="middle">без міді</text>
+
+  <!-- Star Ground (З'єднання зірка) -->
+  <!-- Місток заземлення через зазор -->
+  <path d="M604,318 L656,318 L656,338 L604,338 Z" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+
+  <!-- Траса сигналу VOUT від AD698 до АЦП прямо над містком -->
+  <line x1="520" y1="328" x2="604" y2="328" stroke="#2457d6" stroke-width="2"/>
+  <line x1="604" y1="328" x2="656" y2="328" stroke="#2457d6" stroke-width="2"/>
+  <line x1="656" y1="328" x2="710" y2="328" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="568" y="320" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">VOUT (0–10 В)</text>
+
+  <!-- Анотація Star Ground під містком -->
+  <text x="630" y="356" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Star Ground</text>
+  <text x="630" y="372" font-size="12" fill="#27ae60" text-anchor="middle">Net Tie (0 Ω)</text>
+  <text x="630" y="388" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">✓ Єдина точка</text>
+  <text x="630" y="404" font-size="12" fill="#27ae60" text-anchor="middle">з'єднання</text>
+  <text x="630" y="422" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">⛔ Без трас</text>
+
+  <!-- 7. Полігон DGND (Цифрова земля) -->
+  <rect x="650" y="118" width="278" height="324" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="790" y="138" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Полігон DGND (Цифрова земля)</text>
+  <text x="790" y="156" font-size="12" fill="#6b7280" text-anchor="middle">Окремий контур цифрових струмів</text>
+
+  <!-- Мікроконтролер / АЦП -->
+  <rect x="710" y="180" width="114" height="180" rx="4" fill="#ffffff" stroke="#1a1a1a" stroke-width="2"/>
+  <path d="M761,180 A6,6 0 0,0 773,180" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="767" y="206" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">АЦП / MCU</text>
+  <text x="767" y="224" font-size="12" fill="#6b7280" text-anchor="middle">24-біт обробка</text>
+
+  <!-- Вхід AIN -->
+  <text x="716" y="332" font-size="12" fill="#2457d6" text-anchor="start">AIN</text>
+
+  <!-- Виводи SPI -->
+  <text x="818" y="252" font-size="12" fill="#1a1a1a" text-anchor="end">SCLK</text>
+  <text x="818" y="274" font-size="12" fill="#1a1a1a" text-anchor="end">MOSI</text>
+  <text x="818" y="296" font-size="12" fill="#1a1a1a" text-anchor="end">MISO</text>
+  <text x="818" y="318" font-size="12" fill="#1a1a1a" text-anchor="end">CS</text>
+
+  <!-- Цифровий рознім J2 -->
+  <rect x="878" y="232" width="36" height="110" rx="4" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="896" y="222" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">J2 (SPI)</text>
+  <circle cx="896" cy="250" r="3" fill="#1a1a1a"/>
+  <circle cx="896" cy="272" r="3" fill="#1a1a1a"/>
+  <circle cx="896" cy="294" r="3" fill="#1a1a1a"/>
+  <circle cx="896" cy="316" r="3" fill="#1a1a1a"/>
+
+  <!-- Лінії SPI від MCU до J2 -->
+  <line x1="824" y1="250" x2="893" y2="250" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="824" y1="272" x2="893" y2="272" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="824" y1="294" x2="893" y2="294" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="824" y1="316" x2="893" y2="316" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Заземлення АЦП на DGND -->
+  <line x1="767" y1="360" x2="767" y2="376" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="767" cy="376" r="3.5" fill="#1a1a1a"/>
+  <text x="767" y="396" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Via до DGND</text>
+  <text x="790" y="424" font-size="12" fill="#6b7280" text-anchor="middle">Цифрові завади замкнені в DGND</text>
+
+  <!-- 8. Нижні підсумкові панелі -->
+  <rect x="24" y="466" width="286" height="50" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="167" y="486" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">✓ Односторонній екран кабелю</text>
+  <text x="167" y="504" font-size="12" fill="#1a1a1a" text-anchor="middle">Заземлено на AGND; ізоляція на датчику</text>
+
+  <rect x="326" y="466" width="308" height="50" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="480" y="486" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">✓ Одноточковий Star Ground</text>
+  <text x="480" y="504" font-size="12" fill="#1a1a1a" text-anchor="middle">З'єднання AGND та DGND суворо в одній точці</text>
+
+  <rect x="650" y="466" width="286" height="50" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="793" y="486" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">⛔ Заборона перетину розрізу</text>
+  <text x="793" y="504" font-size="12" fill="#1a1a1a" text-anchor="middle">Жодних сигнальних трас над зазором AGND/DGND</text>
+</svg>

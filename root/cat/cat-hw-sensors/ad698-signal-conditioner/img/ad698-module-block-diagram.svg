@@ -1,0 +1,146 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+  
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Структурна схема модуля кондиціонування на базі AD698</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Обчислення відношення B/A усуває вплив температурного дрейфу збудження LVDT</text>
+  
+  <!-- LVDT Sensor -->
+  <rect x="40" y="165" width="130" height="260" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <text x="105" y="190" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Давач LVDT</text>
+  
+  <rect x="65" y="225" width="85" height="70" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="2"/>
+  <text x="107" y="255" font-size="12" fill="#1a1a1a" text-anchor="middle">Вторинні</text>
+  <text x="107" y="270" font-size="12" fill="#1a1a1a" text-anchor="middle">обмотки</text>
+  <line x1="150" y1="250" x2="170" y2="250" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="150" y1="275" x2="170" y2="275" stroke="#1a1a1a" stroke-width="1.5"/>
+  
+  <rect x="102" y="300" width="10" height="20" fill="#1a1a1a"/>
+  <path d="M92,310 L92,290" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <path d="M92,310 L92,330" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  
+  <rect x="65" y="325" width="85" height="70" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="2"/>
+  <text x="107" y="355" font-size="12" fill="#1a1a1a" text-anchor="middle">Первинна</text>
+  <text x="107" y="370" font-size="12" fill="#1a1a1a" text-anchor="middle">обмотка</text>
+  <line x1="150" y1="365" x2="170" y2="365" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="150" y1="395" x2="170" y2="395" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- External Connections between LVDT and AD698 -->
+  <line x1="170" y1="250" x2="260" y2="250" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="170" y1="275" x2="260" y2="275" stroke="#1a1a1a" stroke-width="1.5"/>
+  
+  <line x1="170" y1="365" x2="260" y2="365" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="170" y1="395" x2="260" y2="395" stroke="#1a1a1a" stroke-width="1.5"/>
+  
+  <path d="M200,365 L200,175 L260,175" fill="none" stroke="#1a1a1a" stroke-width="1.5"/>
+  <path d="M215,395 L215,200 L260,200" fill="none" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="200" cy="365" r="3" fill="#1a1a1a"/>
+  <circle cx="215" cy="395" r="3" fill="#1a1a1a"/>
+
+  <!-- AD698 Box -->
+  <rect x="260" y="130" width="520" height="340" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <text x="520" y="155" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Мікросхема кондиціонування AD698</text>
+
+  <!-- Left Pins Inside AD698 -->
+  <text x="265" y="168" font-size="12" fill="#6b7280" text-anchor="start">A+</text>
+  <text x="265" y="193" font-size="12" fill="#6b7280" text-anchor="start">A-</text>
+  <text x="265" y="243" font-size="12" fill="#6b7280" text-anchor="start">B+</text>
+  <text x="265" y="268" font-size="12" fill="#6b7280" text-anchor="start">B-</text>
+  <text x="265" y="358" font-size="12" fill="#6b7280" text-anchor="start">EXC+</text>
+  <text x="265" y="388" font-size="12" fill="#6b7280" text-anchor="start">EXC-</text>
+
+  <line x1="260" y1="175" x2="290" y2="175" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="260" y1="200" x2="290" y2="200" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="260" y1="250" x2="290" y2="250" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="260" y1="275" x2="290" y2="275" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="260" y1="365" x2="290" y2="365" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="260" y1="395" x2="290" y2="395" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- AD698 Internal Blocks -->
+  <rect x="290" y="165" width="115" height="50" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="347" y="186" font-size="12" fill="#1a1a1a" text-anchor="middle">Амплітудний</text>
+  <text x="347" y="202" font-size="12" fill="#1a1a1a" text-anchor="middle">детектор A</text>
+
+  <rect x="290" y="240" width="115" height="50" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="347" y="261" font-size="12" fill="#1a1a1a" text-anchor="middle">Амплітудний</text>
+  <text x="347" y="277" font-size="12" fill="#1a1a1a" text-anchor="middle">детектор B</text>
+
+  <rect x="475" y="195" width="85" height="60" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="517" y="221" font-size="12" fill="#1a1a1a" text-anchor="middle">Дільник</text>
+  <text x="517" y="237" font-size="12" fill="#1a1a1a" text-anchor="middle">B / A</text>
+
+  <rect x="620" y="195" width="110" height="60" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="675" y="215" font-size="12" fill="#1a1a1a" text-anchor="middle">Вихідний</text>
+  <text x="675" y="230" font-size="12" fill="#1a1a1a" text-anchor="middle">підсилювач</text>
+  <text x="675" y="245" font-size="12" fill="#1a1a1a" text-anchor="middle">та фільтр</text>
+
+  <rect x="290" y="350" width="115" height="60" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="347" y="375" font-size="12" fill="#1a1a1a" text-anchor="middle">Генератор</text>
+  <text x="347" y="391" font-size="12" fill="#1a1a1a" text-anchor="middle">синусоїди</text>
+
+  <!-- Internal Connections -->
+  <path d="M405,190 L440,190 L440,213 L475,213" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <path d="M405,265 L440,265 L440,237 L475,237" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <path d="M560,225 L620,225" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Top Pins for Filter -->
+  <line x1="660" y1="195" x2="660" y2="130" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="700" y1="195" x2="700" y2="130" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="655" y="145" font-size="12" fill="#6b7280" text-anchor="end">F1</text>
+  <text x="705" y="145" font-size="12" fill="#6b7280" text-anchor="start">F2</text>
+  
+  <path d="M660,130 L660,105 L675,105" fill="none" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="675" y1="95" x2="675" y2="115" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="685" y1="95" x2="685" y2="115" stroke="#1a1a1a" stroke-width="2"/>
+  <path d="M685,105 L700,105 L700,130" fill="none" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="680" y="85" font-size="12" fill="#1a1a1a" text-anchor="middle">C<tspan baseline-shift="sub" font-size="10">FILT</tspan></text>
+
+  <!-- Bottom Pins for Generator -->
+  <line x1="330" y1="410" x2="330" y2="470" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="365" y1="410" x2="365" y2="470" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="325" y="460" font-size="12" fill="#6b7280" text-anchor="end">C1</text>
+  <text x="370" y="460" font-size="12" fill="#6b7280" text-anchor="start">C2</text>
+
+  <path d="M330,470 L330,495 L342,495" fill="none" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="342" y1="485" x2="342" y2="505" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="352" y1="485" x2="352" y2="505" stroke="#1a1a1a" stroke-width="2"/>
+  <path d="M352,495 L365,495 L365,470" fill="none" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="347" y="525" font-size="12" fill="#1a1a1a" text-anchor="middle">C<tspan baseline-shift="sub" font-size="10">EXC</tspan></text>
+
+  <!-- Right Pins of AD698 -->
+  <text x="775" y="198" font-size="12" fill="#6b7280" text-anchor="end">OFFSET</text>
+  <text x="775" y="218" font-size="12" fill="#6b7280" text-anchor="end">VOUT</text>
+  <text x="775" y="238" font-size="12" fill="#6b7280" text-anchor="end">GAIN</text>
+  
+  <line x1="730" y1="205" x2="780" y2="205" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="730" y1="225" x2="780" y2="225" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="730" y1="245" x2="780" y2="245" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Right External Components -->
+  <path d="M780,225 L875,225" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="830" y="215" font-size="12" fill="#1a1a1a" text-anchor="middle">Вихідний сигнал</text>
+
+  <!-- GAIN Resistor -->
+  <path d="M780,245 L820,245 L820,260" fill="none" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="815" y="260" width="10" height="30" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <path d="M820,290 L820,310" fill="none" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="810" y1="310" x2="830" y2="310" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="814" y1="314" x2="826" y2="314" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="818" y1="318" x2="822" y2="318" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="835" y="279" font-size="12" fill="#1a1a1a">R<tspan baseline-shift="sub" font-size="10">SCALE</tspan></text>
+
+  <!-- OFFSET Resistor -->
+  <path d="M780,205 L820,205 L820,190" fill="none" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="815" y="160" width="10" height="30" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <path d="M820,160 L820,135" fill="none" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="820" y="122" font-size="12" fill="#1a1a1a" text-anchor="middle">V<tspan baseline-shift="sub" font-size="10">REF</tspan></text>
+  <text x="835" y="179" font-size="12" fill="#1a1a1a">R<tspan baseline-shift="sub" font-size="10">OFFSET</tspan></text>
+
+</svg>

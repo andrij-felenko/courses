@@ -1,0 +1,101 @@
+<svg viewBox="0 0 960 460" width="960" height="460" xmlns="http://www.w3.org/2000/svg" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-bl" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Масштабування та зсув нуля AD698</text>
+  <text x="480" y="62" font-size="13" fill="#6b7280" text-anchor="middle">Схема підключення вихідного підсилювача для формування нормованого сигналу 0–10 В або 4–20 мА</text>
+
+  <!-- Блок AD698 -->
+  <rect x="50" y="90" width="300" height="340" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2" stroke-dasharray="6,6" rx="8"/>
+  <text x="70" y="120" font-size="15" font-weight="bold" fill="#2457d6">AD698</text>
+  <text x="125" y="120" font-size="12" fill="#6b7280">(аналоговий тракт LVDT)</text>
+
+  <!-- Внутрішній демодулятор A/B -->
+  <rect x="70" y="150" width="120" height="60" fill="#eaf0fd" stroke="#2457d6" stroke-width="2" rx="6"/>
+  <text x="130" y="176" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Демодулятор</text>
+  <text x="130" y="196" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">A / B</text>
+
+  <!-- З'єднання VDEMOD -->
+  <line x1="190" y1="180" x2="240" y2="180" stroke="#2457d6" stroke-width="2"/>
+  <text x="215" y="168" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">VDEMOD</text>
+
+  <!-- Операційний підсилювач -->
+  <path d="M 240 155 L 240 245 L 320 200 Z" fill="white" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="252" y="185" font-size="16" font-family="monospace" font-weight="bold" fill="#1a1a1a">+</text>
+  <text x="252" y="225" font-size="16" font-family="monospace" font-weight="bold" fill="#1a1a1a">−</text>
+
+  <!-- Вихід ОП до виводу VOUT -->
+  <line x1="320" y1="200" x2="350" y2="200" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="350" cy="200" r="4" fill="#1a1a1a"/>
+  <text x="340" y="190" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="end">VOUT</text>
+
+  <!-- Вхід -IN від ОП до виводу -->
+  <polyline points="240,225 215,225 215,270 350,270" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="350" cy="270" r="4" fill="#1a1a1a"/>
+  <text x="340" y="260" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="end">-IN</text>
+
+  <!-- Пояснення всередині AD698 -->
+  <rect x="70" y="325" width="260" height="85" fill="white" stroke="#d0d7de" stroke-width="1.5" rx="6"/>
+  <text x="200" y="350" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Внутрішній вихідний ОП</text>
+  <text x="200" y="372" font-size="12" fill="#6b7280" text-anchor="middle">Буферизує демодульоване відношення</text>
+  <text x="200" y="392" font-size="12" fill="#6b7280" text-anchor="middle">та задає вихідне масштабування</text>
+
+  <!-- Лінія виходу VOUT до АЦП -->
+  <line x1="350" y1="200" x2="720" y2="200" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-bl)"/>
+  <circle cx="530" cy="200" r="4" fill="#1a1a1a"/>
+  <text x="625" y="170" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">0...10 В  або  4...20 мА</text>
+  <text x="625" y="188" font-size="12" fill="#6b7280" text-anchor="middle">(нормований аналоговий вихід)</text>
+
+  <!-- Блок АЦП -->
+  <rect x="730" y="145" width="180" height="110" fill="#eaf0fd" stroke="#2457d6" stroke-width="2" rx="8"/>
+  <text x="820" y="176" font-size="15" font-weight="bold" fill="#2457d6" text-anchor="middle">АЦП / ПЛК</text>
+  <text x="820" y="200" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Аналоговий вхід</text>
+  <text x="820" y="220" font-size="12" fill="#6b7280" text-anchor="middle">0–10 В / 4–20 мА</text>
+  <text x="820" y="238" font-size="12" fill="#6b7280" text-anchor="middle">Оцифрування сигналу</text>
+
+  <!-- Зворотний зв'язок (Feedback RF) -->
+  <line x1="530" y1="200" x2="530" y2="270" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="530" y1="270" x2="480" y2="270" stroke="#1a1a1a" stroke-width="2"/>
+  
+  <!-- Резистор RF -->
+  <path d="M 480 270 L 475 264 L 465 276 L 455 264 L 445 276 L 440 270" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="445" y1="288" x2="470" y2="252" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+  <text x="460" y="240" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">RF (Gain)</text>
+  
+  <line x1="440" y1="270" x2="395" y2="270" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="395" y1="270" x2="350" y2="270" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="395" cy="270" r="4" fill="#1a1a1a"/>
+
+  <!-- Резистор RG та зсув Offset -->
+  <line x1="395" y1="270" x2="395" y2="305" stroke="#1a1a1a" stroke-width="2"/>
+  <path d="M 395 305 L 389 311 L 401 319 L 389 327 L 401 335 L 395 340" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="412" y="327" font-size="12" font-weight="bold" fill="#1a1a1a">RG</text>
+  
+  <polyline points="395,340 395,365 455,365" fill="none" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+
+  <!-- Потенціометр Offset -->
+  <line x1="465" y1="330" x2="465" y2="345" stroke="#1a1a1a" stroke-width="2"/>
+  <path d="M 465 345 L 459 351 L 471 359 L 459 367 L 471 375 L 465 380" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="465" y1="380" x2="465" y2="395" stroke="#1a1a1a" stroke-width="2"/>
+
+  <text x="465" y="322" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">+VS</text>
+  <text x="465" y="413" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">-VS</text>
+  <text x="485" y="360" font-size="13" font-weight="bold" fill="#1a1a1a">Offset</text>
+  <text x="485" y="378" font-size="12" fill="#6b7280">(зсув нуля)</text>
+
+  <!-- Підсумкова панель формул -->
+  <rect x="580" y="300" width="330" height="110" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="8"/>
+  <text x="600" y="325" font-size="13" font-weight="bold" fill="#1a1a1a">Параметри масштабування:</text>
+  <text x="600" y="348" font-size="12" fill="#1a1a1a">• Підсилення: регулюється резистором RF</text>
+  <text x="600" y="368" font-size="12" fill="#1a1a1a">• Зсув нуля: регулюється дільником Offset</text>
+  <text x="600" y="388" font-size="12" fill="#2457d6">• Вихід: калібрується в діапазон 0–10 В або 4–20 мА</text>
+</svg>

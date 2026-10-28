@@ -1,0 +1,74 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-bl" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <text x="480" y="40" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Функціональна блок-схема AD698</text>
+  <text x="480" y="65" text-anchor="middle" font-size="13" fill="#6b7280">Основні внутрішні вузли та групи виводів для підключення LVDT</text>
+
+  <!-- Корпус -->
+  <rect x="250" y="110" width="460" height="400" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2" rx="12"/>
+  <text x="480" y="135" text-anchor="middle" font-size="16" font-weight="bold" fill="#6b7280">AD698</text>
+
+  <!-- Oscillator -->
+  <rect x="280" y="160" width="160" height="70" fill="#eaf0fd" stroke="#2457d6" stroke-width="2" rx="6"/>
+  <text x="360" y="195" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Генератор</text>
+  <text x="360" y="215" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">збудження</text>
+
+  <!-- A Channel -->
+  <rect x="280" y="290" width="160" height="70" fill="#eaf0fd" stroke="#2457d6" stroke-width="2" rx="6"/>
+  <text x="360" y="325" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Демодулятор</text>
+  <text x="360" y="345" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">сигналу (A)</text>
+
+  <!-- B Channel -->
+  <rect x="280" y="390" width="160" height="70" fill="#eaf0fd" stroke="#2457d6" stroke-width="2" rx="6"/>
+  <text x="360" y="425" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Демодулятор</text>
+  <text x="360" y="445" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">опори (B)</text>
+
+  <!-- Filter & Amp -->
+  <rect x="520" y="290" width="160" height="170" fill="#eaf0fd" stroke="#2457d6" stroke-width="2" rx="6"/>
+  <text x="600" y="365" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Ділитель A/B</text>
+  <text x="600" y="385" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">та вихідний</text>
+  <text x="600" y="405" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">підсилювач</text>
+
+  <!-- Connections inside -->
+  <path d="M 360 230 L 360 290" stroke="#2457d6" stroke-width="2" fill="none" marker-end="url(#arr-bl)"/>
+  <path d="M 360 260 L 330 260 L 330 390 L 360 390" stroke="#2457d6" stroke-width="2" fill="none" marker-end="url(#arr-bl)"/>
+  
+  <path d="M 440 325 L 520 325" stroke="#2457d6" stroke-width="2" fill="none" marker-end="url(#arr-bl)"/>
+  <path d="M 440 425 L 480 425 L 480 410 L 520 410" stroke="#2457d6" stroke-width="2" fill="none" marker-end="url(#arr-bl)"/>
+
+  <!-- External Pins -->
+  <path d="M 160 175 L 280 175" stroke="#1a1a1a" stroke-width="2" fill="none" marker-end="url(#arr)"/>
+  <text x="150" y="180" text-anchor="end" font-size="14" fill="#1a1a1a">Задання частоти</text>
+
+  <path d="M 280 215 L 160 215" stroke="#1a1a1a" stroke-width="2" fill="none" marker-end="url(#arr)"/>
+  <text x="150" y="220" text-anchor="end" font-size="14" fill="#1a1a1a">Вихід збудження</text>
+
+  <path d="M 160 325 L 280 325" stroke="#1a1a1a" stroke-width="2" fill="none" marker-end="url(#arr)"/>
+  <text x="150" y="330" text-anchor="end" font-size="14" fill="#1a1a1a">Вхід сигналу A</text>
+
+  <path d="M 160 425 L 280 425" stroke="#1a1a1a" stroke-width="2" fill="none" marker-end="url(#arr)"/>
+  <text x="150" y="430" text-anchor="end" font-size="14" fill="#1a1a1a">Вхід опори B</text>
+
+  <!-- Output pins -->
+  <path d="M 680 345 L 800 345" stroke="#1a1a1a" stroke-width="2" fill="none" marker-end="url(#arr)"/>
+  <text x="810" y="350" text-anchor="start" font-size="14" fill="#1a1a1a">Аналоговий вихід</text>
+
+  <path d="M 680 405 L 800 405" stroke="#1a1a1a" stroke-width="2" fill="none" marker-end="url(#arr)"/>
+  <text x="810" y="410" text-anchor="start" font-size="14" fill="#1a1a1a">Фільтр</text>
+
+  <!-- Power pins -->
+  <path d="M 500 60 L 500 110" stroke="#1a1a1a" stroke-width="2" fill="none" marker-end="url(#arr)"/>
+  <text x="500" y="50" text-anchor="middle" font-size="14" fill="#1a1a1a">Живлення (±Vs)</text>
+
+  <path d="M 600 60 L 600 110" stroke="#1a1a1a" stroke-width="2" fill="none" marker-end="url(#arr)"/>
+  <text x="600" y="50" text-anchor="middle" font-size="14" fill="#1a1a1a">GND</text>
+</svg>

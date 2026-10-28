@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <text x="480" y="40" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Внутрішня архітектура генератора мікросхеми AD698</text>
+  <text x="480" y="60" font-size="13" fill="#6b7280" text-anchor="middle">Формування та посилення стабільного синусоїдального сигналу збудження LVDT</text>
+
+  <rect x="240" y="100" width="480" height="260" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <text x="255" y="125" font-size="14" font-weight="bold" fill="#6b7280">AD698</text>
+  <text x="255" y="145" font-size="12" fill="#6b7280">Тракт збудження</text>
+
+  <rect x="330" y="120" width="160" height="40" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="410" y="145" font-size="13" fill="#1a1a1a" text-anchor="middle">Опорне джерело</text>
+  
+  <path d="M 410 160 L 410 185" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="420" y="180" font-size="12" fill="#6b7280">Амплітуда</text>
+
+  <rect x="310" y="195" width="200" height="90" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="410" y="225" font-size="14" fill="#1a1a1a" font-weight="bold" text-anchor="middle">Генератор несучої</text>
+  <text x="410" y="245" font-size="13" fill="#1a1a1a" text-anchor="middle">(Sine Wave Oscillator)</text>
+  <path d="M 390 270 Q 400 255, 410 270 T 430 270" fill="none" stroke="#2457d6" stroke-width="2"/>
+
+  <path d="M 510 240 L 545 240" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <rect x="555" y="195" width="140" height="90" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="625" y="225" font-size="14" fill="#1a1a1a" font-weight="bold" text-anchor="middle">Силовий буфер</text>
+  <text x="625" y="245" font-size="13" fill="#1a1a1a" text-anchor="middle">(Power Amplifier)</text>
+  <path d="M 605 270 Q 615 250, 625 270 T 645 270" fill="none" stroke="#2457d6" stroke-width="2"/>
+
+  <path d="M 180 220 L 310 220" stroke="#1a1a1a" stroke-width="2"/>
+  <path d="M 180 260 L 310 260" stroke="#1a1a1a" stroke-width="2"/>
+  
+  <text x="245" y="215" font-size="12" fill="#6b7280" text-anchor="start">C1</text>
+  <text x="245" y="275" font-size="12" fill="#6b7280" text-anchor="start">C2</text>
+  <circle cx="240" cy="220" r="3" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <circle cx="240" cy="260" r="3" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  
+  <path d="M 180 220 L 180 235" stroke="#1a1a1a" stroke-width="2"/>
+  <path d="M 180 260 L 180 245" stroke="#1a1a1a" stroke-width="2"/>
+  <path d="M 165 235 L 195 235" stroke="#1a1a1a" stroke-width="2"/>
+  <path d="M 165 245 L 195 245" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="145" y="245" font-size="14" fill="#1a1a1a" font-weight="bold" text-anchor="end">C<tspan font-size="10" dy="4">FREQ</tspan></text>
+  <text x="145" y="265" font-size="12" fill="#6b7280" text-anchor="end">Задає частоту</text>
+
+  <path d="M 695 220 L 780 220" stroke="#1a1a1a" stroke-width="2"/>
+  <path d="M 695 260 L 780 260" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="715" y="215" font-size="12" fill="#6b7280" text-anchor="end">EXCA</text>
+  <text x="715" y="275" font-size="12" fill="#6b7280" text-anchor="end">EXCB</text>
+  <circle cx="720" cy="220" r="3" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <circle cx="720" cy="260" r="3" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  
+  <path d="M 780 220 C 805 220, 805 230, 780 230 C 805 230, 805 240, 780 240 C 805 240, 805 250, 780 250 C 805 250, 805 260, 780 260" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="815" y="230" font-size="14" fill="#1a1a1a" font-weight="bold" text-anchor="start">L<tspan font-size="10" dy="4">PRI</tspan></text>
+  <text x="815" y="250" font-size="12" fill="#1a1a1a" text-anchor="start">Первинна</text>
+  <text x="815" y="265" font-size="12" fill="#1a1a1a" text-anchor="start">обмотка LVDT</text>
+</svg>
