@@ -1,0 +1,124 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 500" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bg-grad3" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f172a"/>
+      <stop offset="100%" stop-color="#1e293b"/>
+    </linearGradient>
+    <filter id="shadow3" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="0" dy="3" stdDeviation="5" flood-color="#000000" flood-opacity="0.3"/>
+    </filter>
+  </defs>
+
+  <rect width="960" height="500" rx="12" fill="url(#bg-grad3)"/>
+
+  <text x="480" y="34" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="19" font-weight="700" fill="#f8fafc">
+    Частка безпечних відмов (SFF) та діагностичні рівні сигналу NAMUR NE 43
+  </text>
+  <text x="480" y="56" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="13" fill="#94a3b8">
+    Діагностичне виявлення відмов аналогової струмової петлі 4..20 мА для безпечних ПЛК
+  </text>
+
+  <!-- Left Card: SFF Math & Failure Classification -->
+  <g transform="translate(30, 80)">
+    <rect width="430" height="390" rx="8" fill="#1e293b" stroke="#38bdf8" stroke-width="1.5" filter="url(#shadow3)"/>
+    <text x="215" y="28" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="700" fill="#38bdf8">
+      Класифікація відмов та формула SFF
+    </text>
+
+    <!-- Formula Box -->
+    <g transform="translate(20, 45)">
+      <rect width="390" height="56" rx="6" fill="#0f172a" stroke="#0284c7" stroke-width="1"/>
+      <text x="195" y="26" text-anchor="middle" font-family="monospace" font-size="13" font-weight="700" fill="#facc15">
+        SFF = (λ_S + λ_DD) / (λ_S + λ_DD + λ_DU)
+      </text>
+      <text x="195" y="45" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="10" fill="#94a3b8">
+        Safe Failure Fraction (Частка безпечних відмов системи)
+      </text>
+    </g>
+
+    <!-- Failure breakdown -->
+    <g transform="translate(20, 115)">
+      <rect x="0" y="0" width="190" height="54" rx="4" fill="#065f46" stroke="#34d399" stroke-width="1"/>
+      <text x="15" y="22" font-family="monospace" font-size="11" font-weight="700" fill="#ffffff">λ_S (Safe)</text>
+      <text x="15" y="40" font-family="system-ui, -apple-system, sans-serif" font-size="10" fill="#a7f3d0">Безпечні відмови (перехід у стоп)</text>
+
+      <rect x="200" y="0" width="190" height="54" rx="4" fill="#1e3a8a" stroke="#60a5fa" stroke-width="1"/>
+      <text x="215" y="22" font-family="monospace" font-size="11" font-weight="700" fill="#ffffff">λ_DD (Dangerous Det.)</text>
+      <text x="215" y="40" font-family="system-ui, -apple-system, sans-serif" font-size="10" fill="#bfdbfe">Небезпечні виявлені діагностикою</text>
+
+      <rect x="0" y="64" width="390" height="54" rx="4" fill="#7f1d1d" stroke="#f87171" stroke-width="1"/>
+      <text x="15" y="86" font-family="monospace" font-size="11" font-weight="700" fill="#ffffff">λ_DU (Dangerous Undetected)</text>
+      <text x="15" y="104" font-family="system-ui, -apple-system, sans-serif" font-size="10" fill="#fecaca">
+        Небезпечні НЕВИЯВЛЕНІ відмови — головна загроза безпеці!
+      </text>
+    </g>
+
+    <!-- Diagnostic Coverage DC -->
+    <g transform="translate(20, 250)">
+      <rect width="390" height="120" rx="6" fill="#0f172a" stroke="#334155" stroke-width="1"/>
+      <text x="15" y="22" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="700" fill="#38bdf8">
+        Діагностичне охоплення (Diagnostic Coverage, DC):
+      </text>
+      <text x="15" y="44" font-family="monospace" font-size="12" fill="#cbd5e1">
+        DC = λ_DD / (λ_DD + λ_DU) × 100%
+      </text>
+      <text x="15" y="66" font-family="system-ui, -apple-system, sans-serif" font-size="10" fill="#cbd5e1">
+        • <tspan font-weight="600" fill="#facc15">Низьке DC:</tspan> 60% .. 90% (базові перевірки живлення)
+      </text>
+      <text x="15" y="84" font-family="system-ui, -apple-system, sans-serif" font-size="10" fill="#cbd5e1">
+        • <tspan font-weight="600" fill="#60a5fa">Середнє DC:</tspan> 90% .. 99% (тестові імпульси, перехресний контроль)
+      </text>
+      <text x="15" y="102" font-family="system-ui, -apple-system, sans-serif" font-size="10" fill="#cbd5e1">
+        • <tspan font-weight="600" fill="#34d399">Високе DC:</tspan> ≥ 99% (повноцінний Lockstep, RAM/Flash CRC, HART)
+      </text>
+    </g>
+  </g>
+
+  <!-- Right Card: NAMUR NE 43 Scale -->
+  <g transform="translate(490, 80)">
+    <rect width="440" height="390" rx="8" fill="#1e293b" stroke="#10b981" stroke-width="1.5" filter="url(#shadow3)"/>
+    <text x="220" y="28" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="700" fill="#34d399">
+      Стандарт NAMUR NE 43: діагностика струмової петлі 4-20 мА
+    </text>
+
+    <!-- Vertical / Horizontal scale representation -->
+    <g transform="translate(25, 55)">
+      <!-- Zone 1: Wire break / Failure Low -->
+      <rect x="0" y="0" width="390" height="48" rx="4" fill="#7f1d1d" stroke="#ef4444" stroke-width="1"/>
+      <text x="15" y="22" font-family="monospace" font-size="12" font-weight="700" fill="#ffffff">0.0 .. 3.6 мА</text>
+      <text x="150" y="22" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="600" fill="#fca5a5">АВАРІЯ НИЗЬКОГО РІВНЯ (Failure Low)</text>
+      <text x="15" y="38" font-family="system-ui, -apple-system, sans-serif" font-size="10" fill="#fecaca">Обрив лінії, знеструмлення давача, внутрішня відмова сенсора</text>
+
+      <!-- Zone 2: Under-range -->
+      <rect x="0" y="54" width="390" height="38" rx="4" fill="#78350f" stroke="#f59e0b" stroke-width="1"/>
+      <text x="15" y="74" font-family="monospace" font-size="11" font-weight="700" fill="#ffffff">3.6 .. 3.8 мА</text>
+      <text x="150" y="74" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#fde68a">Діапазон заниження (Under-range)</text>
+
+      <!-- Zone 3: Normal Measuring Range -->
+      <rect x="0" y="98" width="390" height="88" rx="6" fill="#065f46" stroke="#10b981" stroke-width="2"/>
+      <text x="15" y="128" font-family="monospace" font-size="15" font-weight="800" fill="#34d399">4.0 .. 20.0 мА</text>
+      <text x="150" y="124" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="700" fill="#ffffff">НОРМАЛЬНИЙ РОБОЧИЙ ДІАПАЗОН</text>
+      <text x="150" y="142" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#a7f3d0">Лінійна передача технологічного параметра (0 .. 100%)</text>
+      <text x="150" y="160" font-family="system-ui, -apple-system, sans-serif" font-size="10" fill="#cbd5e1">струм &gt; 3.8 мА і &lt; 20.5 мА сприймається як валідний сигнал</text>
+
+      <!-- Zone 4: Over-range -->
+      <rect x="0" y="192" width="390" height="38" rx="4" fill="#78350f" stroke="#f59e0b" stroke-width="1"/>
+      <text x="15" y="212" font-family="monospace" font-size="11" font-weight="700" fill="#ffffff">20.5 .. 21.0 мА</text>
+      <text x="150" y="212" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#fde68a">Діапазон перевищення (Over-range)</text>
+
+      <!-- Zone 5: Short circuit / Failure High -->
+      <rect x="0" y="236" width="390" height="48" rx="4" fill="#7f1d1d" stroke="#ef4444" stroke-width="1"/>
+      <text x="15" y="258" font-family="monospace" font-size="12" font-weight="700" fill="#ffffff">&gt; 21.0 .. 24 мА</text>
+      <text x="150" y="258" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="600" fill="#fca5a5">АВАРІЯ ВИСОКОГО РІВНЯ (Failure High)</text>
+      <text x="15" y="274" font-family="system-ui, -apple-system, sans-serif" font-size="10" fill="#fecaca">Коротке замикання на лінію живлення, вихід сенсора з ладу</text>
+    </g>
+
+    <!-- Summary Benefit -->
+    <g transform="translate(25, 348)">
+      <rect width="390" height="32" rx="4" fill="#0f172a" stroke="#334155" stroke-width="1"/>
+      <text x="195" y="20" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="10" fill="#cbd5e1">
+        Safety ПЛК миттєво відрізняє нульовий рівень вимірювання (4.0 мА) від обриву (0.0 мА).
+      </text>
+    </g>
+  </g>
+</svg>

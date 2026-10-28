@@ -1,0 +1,164 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bg-grad2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0b1329"/>
+      <stop offset="100%" stop-color="#1e293b"/>
+    </linearGradient>
+    <filter id="shadow2" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="0" dy="3" stdDeviation="5" flood-color="#000000" flood-opacity="0.3"/>
+    </filter>
+  </defs>
+
+  <rect width="960" height="520" rx="12" fill="url(#bg-grad2)"/>
+
+  <text x="480" y="34" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="19" font-weight="700" fill="#f8fafc">
+    Архітектури резервування давачів (MooN) та апаратна стійкість (HFT)
+  </text>
+  <text x="480" y="56" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="13" fill="#94a3b8">
+    Порівняння схем 1oo1, 1oo2, 2oo2 та 2oo3 (TMR): компроміс між безпекою та безперервністю роботи
+  </text>
+
+  <!-- 1oo1 Architecture -->
+  <g transform="translate(30, 80)">
+    <rect width="210" height="230" rx="8" fill="#1e293b" stroke="#64748b" stroke-width="1.5" filter="url(#shadow2)"/>
+    <text x="105" y="26" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="700" fill="#94a3b8">
+      1oo1 (Один з одного)
+    </text>
+
+    <!-- Block -->
+    <rect x="25" y="48" width="160" height="42" rx="4" fill="#334155" stroke="#94a3b8" stroke-width="1"/>
+    <text x="105" y="74" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="600" fill="#ffffff">Давач A</text>
+
+    <path d="M 105 90 L 105 125" stroke="#38bdf8" stroke-width="2" fill="none"/>
+
+    <!-- Logic block -->
+    <rect x="35" y="125" width="140" height="34" rx="4" fill="#0284c7" fill-opacity="0.3" stroke="#38bdf8" stroke-width="1"/>
+    <text x="105" y="147" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="600" fill="#38bdf8">Вихід на SIF</text>
+
+    <text x="15" y="180" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#cbd5e1">• Стійкість HFT = 0</text>
+    <text x="15" y="198" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#f87171">• Небезпечна відмова блокує захист</text>
+    <text x="15" y="216" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#94a3b8">• Досяжний рівень: SIL 1 / SIL 2</text>
+  </g>
+
+  <!-- 1oo2 Architecture -->
+  <g transform="translate(260, 80)">
+    <rect width="210" height="230" rx="8" fill="#1e293b" stroke="#38bdf8" stroke-width="1.5" filter="url(#shadow2)"/>
+    <text x="105" y="26" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="700" fill="#38bdf8">
+      1oo2 (Один з двох)
+    </text>
+
+    <!-- Sensors -->
+    <rect x="15" y="48" width="80" height="38" rx="4" fill="#334155" stroke="#38bdf8" stroke-width="1"/>
+    <text x="55" y="72" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="600" fill="#ffffff">Давач A</text>
+
+    <rect x="115" y="48" width="80" height="38" rx="4" fill="#334155" stroke="#38bdf8" stroke-width="1"/>
+    <text x="155" y="72" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="600" fill="#ffffff">Давач B</text>
+
+    <!-- OR Gate -->
+    <path d="M 55 86 L 55 105 L 90 105" stroke="#38bdf8" stroke-width="2" fill="none"/>
+    <path d="M 155 86 L 155 105 L 120 105" stroke="#38bdf8" stroke-width="2" fill="none"/>
+    <rect x="80" y="100" width="50" height="26" rx="4" fill="#2563eb"/>
+    <text x="105" y="117" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="700" fill="#ffffff">АБО</text>
+    <path d="M 105 126 L 105 135" stroke="#38bdf8" stroke-width="2" fill="none"/>
+
+    <text x="15" y="162" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#cbd5e1">• Стійкість HFT = 1</text>
+    <text x="15" y="180" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#34d399">• Максимальна безпека (SIL 3)</text>
+    <text x="15" y="198" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#facc15">• Ризик хибних спрацьовувань</text>
+    <text x="15" y="216" font-family="system-ui, -apple-system, sans-serif" font-size="10" fill="#94a3b8">(Spurious Trip rate зростає вдвічі)</text>
+  </g>
+
+  <!-- 2oo2 Architecture -->
+  <g transform="translate(490, 80)">
+    <rect width="210" height="230" rx="8" fill="#1e293b" stroke="#f59e0b" stroke-width="1.5" filter="url(#shadow2)"/>
+    <text x="105" y="26" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="700" fill="#facc15">
+      2oo2 (Два з двох)
+    </text>
+
+    <!-- Sensors -->
+    <rect x="15" y="48" width="80" height="38" rx="4" fill="#334155" stroke="#f59e0b" stroke-width="1"/>
+    <text x="55" y="72" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="600" fill="#ffffff">Давач A</text>
+
+    <rect x="115" y="48" width="80" height="38" rx="4" fill="#334155" stroke="#f59e0b" stroke-width="1"/>
+    <text x="155" y="72" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="600" fill="#ffffff">Давач B</text>
+
+    <!-- AND Gate -->
+    <path d="M 55 86 L 55 105 L 90 105" stroke="#f59e0b" stroke-width="2" fill="none"/>
+    <path d="M 155 86 L 155 105 L 120 105" stroke="#f59e0b" stroke-width="2" fill="none"/>
+    <rect x="80" y="100" width="50" height="26" rx="4" fill="#d97706"/>
+    <text x="105" y="117" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="700" fill="#ffffff">ТА</text>
+    <path d="M 105 126 L 105 135" stroke="#f59e0b" stroke-width="2" fill="none"/>
+
+    <text x="15" y="162" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#cbd5e1">• Стійкість HFT = 0</text>
+    <text x="15" y="180" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#34d399">• Мінімум хибних зупинок</text>
+    <text x="15" y="198" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#f87171">• Нижча безпека за 1oo2</text>
+    <text x="15" y="216" font-family="system-ui, -apple-system, sans-serif" font-size="10" fill="#94a3b8">(потрібні обидва сигнали для тривоги)</text>
+  </g>
+
+  <!-- 2oo3 TMR Architecture -->
+  <g transform="translate(720, 80)">
+    <rect width="210" height="230" rx="8" fill="#1e293b" stroke="#10b981" stroke-width="2" filter="url(#shadow2)"/>
+    <text x="105" y="26" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="700" fill="#34d399">
+      2oo3 (TMR — Два з трьох)
+    </text>
+
+    <!-- 3 Sensors -->
+    <rect x="8" y="48" width="58" height="34" rx="3" fill="#334155" stroke="#10b981" stroke-width="1"/>
+    <text x="37" y="70" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="10" font-weight="600" fill="#ffffff">Давач A</text>
+
+    <rect x="76" y="48" width="58" height="34" rx="3" fill="#334155" stroke="#10b981" stroke-width="1"/>
+    <text x="105" y="70" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="10" font-weight="600" fill="#ffffff">Давач B</text>
+
+    <rect x="144" y="48" width="58" height="34" rx="3" fill="#334155" stroke="#10b981" stroke-width="1"/>
+    <text x="173" y="70" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="10" font-weight="600" fill="#ffffff">Давач C</text>
+
+    <!-- Voting logic -->
+    <rect x="55" y="98" width="100" height="28" rx="4" fill="#059669"/>
+    <text x="105" y="116" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="700" fill="#ffffff">Мажоритар 2oo3</text>
+
+    <text x="12" y="152" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#cbd5e1">• Стійкість HFT = 1</text>
+    <text x="12" y="170" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="600" fill="#34d399">• Максимум безпеки (SIL 3)</text>
+    <text x="12" y="188" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="600" fill="#38bdf8">• Максимум доступності (Availability)</text>
+    <text x="12" y="206" font-family="system-ui, -apple-system, sans-serif" font-size="10" fill="#94a3b8">• Продовження роботи при відмові одного</text>
+  </g>
+
+  <!-- Comparison Summary Table -->
+  <g transform="translate(30, 325)">
+    <rect width="900" height="175" rx="8" fill="#1e293b" stroke="#334155" stroke-width="1.5" filter="url(#shadow2)"/>
+    <text x="20" y="26" font-family="system-ui, -apple-system, sans-serif" font-size="13" font-weight="700" fill="#38bdf8">
+      Зведена матриця вибору архітектури відповідно до вимог HFT (Hardware Fault Tolerance):
+    </text>
+
+    <g transform="translate(20, 42)">
+      <rect x="0" y="0" width="860" height="26" rx="4" fill="#0f172a"/>
+      <text x="80" y="18" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="700" fill="#ffffff">Архітектура</text>
+      <text x="210" y="18" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="700" fill="#ffffff">HFT (Стійкість)</text>
+      <text x="350" y="18" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="700" fill="#ffffff">Ймовірність PFD</text>
+      <text x="510" y="18" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="700" fill="#ffffff">Частота хибних спрацьовувань</text>
+      <text x="730" y="18" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="700" fill="#ffffff">Призначення</text>
+
+      <text x="80" y="44" text-anchor="middle" font-family="monospace" font-size="11" fill="#38bdf8">1oo1</text>
+      <text x="210" y="44" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#cbd5e1">0 (немає надлишковості)</text>
+      <text x="350" y="44" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#cbd5e1">Базова (PFD_0)</text>
+      <text x="510" y="44" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#cbd5e1">Базова (λ_S)</text>
+      <text x="730" y="44" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="10" fill="#94a3b8">Небезпека низького рівня (SIL 1/2)</text>
+
+      <text x="80" y="68" text-anchor="middle" font-family="monospace" font-size="11" fill="#38bdf8">1oo2</text>
+      <text x="210" y="68" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="600" fill="#34d399">1 відмова безпечна</text>
+      <text x="350" y="68" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="700" fill="#34d399">Знижується у 10-100 разів</text>
+      <text x="510" y="68" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#f87171">Зростає у 2 рази (2 × λ_S)</text>
+      <text x="730" y="68" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="10" fill="#94a3b8">Аварійна зупинка процесу (SIL 3)</text>
+
+      <text x="80" y="92" text-anchor="middle" font-family="monospace" font-size="11" fill="#facc15">2oo2</text>
+      <text x="210" y="92" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#cbd5e1">0 (відмова блокує спрацювання)</text>
+      <text x="350" y="92" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#f87171">Зростає у 2 рази (2 × PFD_0)</text>
+      <text x="510" y="92" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="700" fill="#34d399">Знижується майже до нуля</text>
+      <text x="730" y="92" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="10" fill="#94a3b8">Висока доступність (електрогенерація)</text>
+
+      <text x="80" y="116" text-anchor="middle" font-family="monospace" font-size="11" font-weight="700" fill="#34d399">2oo3 (TMR)</text>
+      <text x="210" y="116" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="600" fill="#34d399">1 відмова безпечна</text>
+      <text x="350" y="116" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="700" fill="#34d399">Знижується у десятки разів</text>
+      <text x="510" y="116" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="700" fill="#34d399">Знижується у десятки разів</text>
+      <text x="730" y="116" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="10" fill="#34d399">Критичні виробництва (SIL 3 + 24/7 Up)</text>
+    </g>
+  </g>
+</svg>

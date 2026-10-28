@@ -1,0 +1,99 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bg-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f172a"/>
+      <stop offset="100%" stop-color="#1e293b"/>
+    </linearGradient>
+    <linearGradient id="hdr-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#0284c7"/>
+      <stop offset="100%" stop-color="#2563eb"/>
+    </linearGradient>
+    <filter id="shadow" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#000000" flood-opacity="0.4"/>
+    </filter>
+  </defs>
+
+  <rect width="960" height="540" rx="12" fill="url(#bg-grad)"/>
+
+  <!-- Title -->
+  <text x="480" y="38" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="20" font-weight="700" fill="#f8fafc">
+    Рівні цілісності безпеки SIL за стандартами IEC 61508 / IEC 61511
+  </text>
+  <text x="480" y="60" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="13" fill="#94a3b8">
+    Ймовірнісні характеристики надійності, коефіцієнт зниження ризику (RRF) та сфери застосування
+  </text>
+
+  <!-- Table Header -->
+  <rect x="30" y="82" width="900" height="40" rx="6" fill="url(#hdr-grad)" filter="url(#shadow)"/>
+  <text x="90" y="107" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="700" fill="#ffffff">Рівень SIL</text>
+  <text x="230" y="107" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="700" fill="#ffffff">Режим низької частоти (PFDavg)</text>
+  <text x="390" y="107" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="700" fill="#ffffff">Зниження ризику (RRF)</text>
+  <text x="560" y="107" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="700" fill="#ffffff">Неперервний режим (PFH, 1/год)</text>
+  <text x="770" y="107" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="700" fill="#ffffff">Типове промислове застосування</text>
+
+  <!-- Row 1: SIL 1 -->
+  <rect x="30" y="128" width="900" height="74" fill="#1e293b" fill-opacity="0.8" rx="4"/>
+  <rect x="45" y="142" width="90" height="34" rx="4" fill="#0284c7" fill-opacity="0.3" stroke="#38bdf8" stroke-width="1.5"/>
+  <text x="90" y="164" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="800" fill="#38bdf8">SIL 1</text>
+  <text x="230" y="160" text-anchor="middle" font-family="monospace" font-size="13" font-weight="600" fill="#cbd5e1">10⁻² ≤ PFD &lt; 10⁻¹</text>
+  <text x="230" y="180" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="10" fill="#94a3b8">0.01 .. 0.1 відмов/запит</text>
+  <text x="390" y="160" text-anchor="middle" font-family="monospace" font-size="13" font-weight="700" fill="#34d399">10 .. 100</text>
+  <text x="390" y="180" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="10" fill="#94a3b8">Зниження ризику до 100 разів</text>
+  <text x="560" y="160" text-anchor="middle" font-family="monospace" font-size="13" font-weight="600" fill="#cbd5e1">10⁻⁶ ≤ PFH &lt; 10⁻⁵</text>
+  <text x="560" y="180" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="10" fill="#94a3b8">1 відмова на 10..100 років</text>
+  <text x="670" y="156" text-anchor="start" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#f1f5f9">Аварійна вентиляція, технологічна</text>
+  <text x="670" y="174" text-anchor="start" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#94a3b8">сигналізація низького пріоритету</text>
+
+  <!-- Row 2: SIL 2 -->
+  <rect x="30" y="208" width="900" height="74" fill="#0f172a" fill-opacity="0.6" rx="4"/>
+  <rect x="45" y="222" width="90" height="34" rx="4" fill="#059669" fill-opacity="0.3" stroke="#34d399" stroke-width="1.5"/>
+  <text x="90" y="244" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="800" fill="#34d399">SIL 2</text>
+  <text x="230" y="240" text-anchor="middle" font-family="monospace" font-size="13" font-weight="600" fill="#cbd5e1">10⁻³ ≤ PFD &lt; 10⁻²</text>
+  <text x="230" y="260" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="10" fill="#94a3b8">0.001 .. 0.01 відмов/запит</text>
+  <text x="390" y="240" text-anchor="middle" font-family="monospace" font-size="13" font-weight="700" fill="#34d399">100 .. 1 000</text>
+  <text x="390" y="260" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="10" fill="#94a3b8">Зниження ризику до 1000 разів</text>
+  <text x="560" y="240" text-anchor="middle" font-family="monospace" font-size="13" font-weight="600" fill="#cbd5e1">10⁻⁷ ≤ PFH &lt; 10⁻⁶</text>
+  <text x="560" y="260" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="10" fill="#94a3b8">1 відмова на 100..1000 років</text>
+  <text x="670" y="236" text-anchor="start" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#f1f5f9">Хімічні реактори, контроль полум'я</text>
+  <text x="670" y="254" text-anchor="start" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#94a3b8">пальників, насосні станції ПММ</text>
+
+  <!-- Row 3: SIL 3 -->
+  <rect x="30" y="288" width="900" height="74" fill="#1e293b" fill-opacity="0.8" rx="4"/>
+  <rect x="45" y="302" width="90" height="34" rx="4" fill="#d97706" fill-opacity="0.3" stroke="#facc15" stroke-width="1.5"/>
+  <text x="90" y="324" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="800" fill="#facc15">SIL 3</text>
+  <text x="230" y="320" text-anchor="middle" font-family="monospace" font-size="13" font-weight="600" fill="#cbd5e1">10⁻⁴ ≤ PFD &lt; 10⁻³</text>
+  <text x="230" y="340" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="10" fill="#94a3b8">0.0001 .. 0.001 відмов/запит</text>
+  <text x="390" y="320" text-anchor="middle" font-family="monospace" font-size="13" font-weight="700" fill="#34d399">1 000 .. 10 000</text>
+  <text x="390" y="340" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="10" fill="#94a3b8">Зниження ризику до 10 000 разів</text>
+  <text x="560" y="320" text-anchor="middle" font-family="monospace" font-size="13" font-weight="600" fill="#cbd5e1">10⁻⁸ ≤ PFH &lt; 10⁻⁷</text>
+  <text x="560" y="340" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="10" fill="#94a3b8">1 відмова на 1000..10000 років</text>
+  <text x="670" y="316" text-anchor="start" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#f1f5f9">Аварійна зупинка (ESD) на НПЗ,</text>
+  <text x="670" y="334" text-anchor="start" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#94a3b8">захист від вибуху газу та токсинів</text>
+
+  <!-- Row 4: SIL 4 -->
+  <rect x="30" y="368" width="900" height="74" fill="#0f172a" fill-opacity="0.6" rx="4"/>
+  <rect x="45" y="382" width="90" height="34" rx="4" fill="#dc2626" fill-opacity="0.3" stroke="#f87171" stroke-width="1.5"/>
+  <text x="90" y="404" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="800" fill="#f87171">SIL 4</text>
+  <text x="230" y="400" text-anchor="middle" font-family="monospace" font-size="13" font-weight="600" fill="#cbd5e1">10⁻⁵ ≤ PFD &lt; 10⁻⁴</text>
+  <text x="230" y="420" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="10" fill="#94a3b8">&lt; 0.0001 відмов/запит</text>
+  <text x="390" y="400" text-anchor="middle" font-family="monospace" font-size="13" font-weight="700" fill="#34d399">10 000 .. 100 000</text>
+  <text x="390" y="420" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="10" fill="#94a3b8">Зниження ризику понад 10 000 разів</text>
+  <text x="560" y="400" text-anchor="middle" font-family="monospace" font-size="13" font-weight="600" fill="#cbd5e1">10⁻⁹ ≤ PFH &lt; 10⁻⁸</text>
+  <text x="560" y="420" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="10" fill="#94a3b8">&lt; 1 відмова на 10000 років</text>
+  <text x="670" y="396" text-anchor="start" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#f1f5f9">Ядерні реактори АЕС, залізнична</text>
+  <text x="670" y="414" text-anchor="start" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#94a3b8">автоматика руху поїздів (ERTMS)</text>
+
+  <!-- Note Footer -->
+  <g transform="translate(30, 458)">
+    <rect width="900" height="66" rx="6" fill="#0f172a" stroke="#334155" stroke-width="1"/>
+    <text x="20" y="24" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="600" fill="#38bdf8">
+      Режими роботи:
+    </text>
+    <text x="120" y="24" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#cbd5e1">
+      • <tspan font-weight="700">Низька частота (Low Demand):</tspan> система безпеки викликається ≤ 1 разу на рік (наприклад, аварійне скидання тиску).
+    </text>
+    <text x="120" y="46" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#cbd5e1">
+      • <tspan font-weight="700">Неперервний режим (Continuous/High Demand):</tspan> функція безпеки працює безперервно або спрацьовує &gt; 1 разу на рік.
+    </text>
+  </g>
+</svg>
