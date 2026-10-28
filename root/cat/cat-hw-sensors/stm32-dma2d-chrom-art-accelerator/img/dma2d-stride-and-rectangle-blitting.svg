@@ -1,0 +1,98 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f172a"/>
+      <stop offset="100%" stop-color="#1e293b"/>
+    </linearGradient>
+    <filter id="shadow" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="0" dy="3" stdDeviation="4" flood-color="#000000" flood-opacity="0.5"/>
+    </filter>
+  </defs>
+
+  <rect width="960" height="520" fill="url(#bg)"/>
+
+  <!-- Title -->
+  <text x="480" y="36" text-anchor="middle" font-family="system-ui, sans-serif" font-size="20" font-weight="700" fill="#f8fafc">
+    Геометрія 2D-зміщення (Stride / Line Offset) у контролері DMA2D
+  </text>
+  <text x="480" y="58" text-anchor="middle" font-family="system-ui, sans-serif" font-size="13" fill="#94a3b8">
+    Апаратне вбудовування прямокутного кадру камери (320x240) у загальний фреймбуфер екрана (800x480)
+  </text>
+
+  <!-- Big Canvas Box (Total Framebuffer 800x480) -->
+  <g transform="translate(60, 90)">
+    <rect width="520" height="380" rx="10" fill="#1e293b" stroke="#475569" stroke-width="1.5" filter="url(#shadow)"/>
+    <text x="260" y="28" text-anchor="middle" font-family="system-ui, sans-serif" font-size="13" font-weight="700" fill="#94a3b8">
+      Повний фреймбуфер екрана (Total Canvas: W_buf = 800 пікселів)
+    </text>
+
+    <!-- Sub-rectangle (Blitted Camera Frame 320x240) -->
+    <g transform="translate(100, 60)">
+      <rect width="260" height="195" rx="6" fill="#064e3b" stroke="#34d399" stroke-width="2"/>
+      <text x="130" y="90" text-anchor="middle" font-family="system-ui, sans-serif" font-size="13" font-weight="700" fill="#ffffff">
+        Зона запису камери
+      </text>
+      <text x="130" y="115" text-anchor="middle" font-family="monospace" font-size="12" fill="#a7f3d0">
+        W_rect = 320, H_rect = 240
+      </text>
+      <text x="130" y="135" text-anchor="middle" font-family="system-ui, sans-serif" font-size="10" fill="#cbd5e1">
+        (NLR = 240 рядків x 320 пікс.)
+      </text>
+
+      <!-- Dimension arrows inside rectangle -->
+      <line x1="10" y1="20" x2="250" y2="20" stroke="#34d399" stroke-width="1.5"/>
+      <text x="130" y="16" text-anchor="middle" font-family="monospace" font-size="10" fill="#34d399">W_rect (320)</text>
+    </g>
+
+    <!-- Line Offset (Stride) representation -->
+    <line x1="360" y1="120" x2="500" y2="120" stroke="#f43f5e" stroke-dasharray="4" stroke-width="2"/>
+    <text x="430" y="112" text-anchor="middle" font-family="monospace" font-size="11" font-weight="700" fill="#f43f5e">
+      Line Offset (OOR)
+    </text>
+
+    <text x="260" y="350" text-anchor="middle" font-family="system-ui, sans-serif" font-size="12" fill="#cbd5e1">
+      Після завершення рядка DMA2D автоматично додає OOR до вказівника адреси
+    </text>
+  </g>
+
+  <!-- Right: Mathematical Formulas & Config Panel -->
+  <g transform="translate(615, 90)">
+    <rect width="305" height="380" rx="10" fill="#1e293b" stroke="#334155" stroke-width="1.5" filter="url(#shadow)"/>
+    <rect width="305" height="34" rx="10" fill="#0369a1"/>
+    <text x="152" y="22" text-anchor="middle" font-family="system-ui, sans-serif" font-size="13" font-weight="700" fill="#ffffff">
+      Розрахунок регістрів зсуву рядка
+    </text>
+
+    <!-- Formula 1: Output Offset Register -->
+    <g transform="translate(15, 50)" font-family="system-ui, sans-serif" font-size="11" fill="#cbd5e1">
+      <rect x="0" y="0" width="275" height="90" rx="6" fill="#0f172a" stroke="#0ea5e9" stroke-width="1"/>
+      <text x="15" y="22" font-weight="700" fill="#38bdf8">Вихідний зсув (Output Offset):</text>
+      <text x="15" y="45" font-family="monospace" font-size="11" fill="#ffffff">
+        DMA2D_OOR = W_buf - W_rect
+      </text>
+      <text x="15" y="70" font-family="monospace" font-size="11" fill="#38bdf8">
+        DMA2D_OOR = 800 - 320 = 480
+      </text>
+
+      <!-- Formula 2: Memory Address Start -->
+      <rect x="0" y="105" width="275" height="110" rx="6" fill="#0f172a" stroke="#10b981" stroke-width="1"/>
+      <text x="15" y="127" font-weight="700" fill="#34d399">Початкова адреса пікселя (X, Y):</text>
+      <text x="15" y="150" font-family="monospace" font-size="10" fill="#ffffff">
+        Addr = Base_Addr + (Y * W_buf + X) * Bpp
+      </text>
+      <text x="15" y="175" font-family="system-ui, sans-serif" font-size="10" fill="#cbd5e1">
+        Для точки X=100, Y=60 (RGB565, Bpp=2):
+      </text>
+      <text x="15" y="195" font-family="monospace" font-size="10" fill="#34d399">
+        Addr = Base + (60 * 800 + 100) * 2
+      </text>
+
+      <!-- Benefit Summary -->
+      <rect x="0" y="230" width="275" height="85" rx="6" fill="#0f172a" stroke="#f59e0b" stroke-width="1"/>
+      <text x="15" y="252" font-weight="700" fill="#fbbf24">Ключова перевага:</text>
+      <text x="15" y="272" font-size="10" fill="#cbd5e1">Апаратний 2D-контролер самостійно</text>
+      <text x="15" y="288" font-size="10" fill="#cbd5e1">перескакує на початок кожного рядка</text>
+      <text x="15" y="304" font-size="10" fill="#fbbf24">без жодного циклу for у процесорі!</text>
+    </g>
+  </g>
+</svg>

@@ -1,0 +1,134 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f172a"/>
+      <stop offset="100%" stop-color="#1e293b"/>
+    </linearGradient>
+    <filter id="shadow" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="0" dy="3" stdDeviation="4" flood-color="#000000" flood-opacity="0.5"/>
+    </filter>
+  </defs>
+
+  <rect width="960" height="520" fill="url(#bg)"/>
+
+  <!-- Title -->
+  <text x="480" y="36" text-anchor="middle" font-family="system-ui, sans-serif" font-size="20" font-weight="700" fill="#f8fafc">
+    Чотири режими функціонування контролера DMA2D (Регістр DMA2D_CR: MODE[1:0])
+  </text>
+  <text x="480" y="58" text-anchor="middle" font-family="system-ui, sans-serif" font-size="13" fill="#94a3b8">
+    Заповнення кольором, пряме 2D-копіювання, конвертація форматів та апаратний альфа-блендинг
+  </text>
+
+  <!-- 4 Cards Grid -->
+  <!-- Mode 1: Register-to-Memory (R2M) -->
+  <g transform="translate(40, 90)">
+    <rect width="205" height="400" rx="8" fill="#1e293b" stroke="#0ea5e9" stroke-width="1.5" filter="url(#shadow)"/>
+    <rect width="205" height="32" rx="8" fill="#0284c7"/>
+    <text x="102" y="21" text-anchor="middle" font-family="system-ui, sans-serif" font-size="12" font-weight="700" fill="#ffffff">
+      1. Register-to-Memory (R2M)
+    </text>
+    <g transform="translate(12, 45)" font-family="system-ui, sans-serif" font-size="11" fill="#cbd5e1">
+      <rect x="0" y="0" width="180" height="26" rx="4" fill="#0f172a"/>
+      <text x="90" y="17" text-anchor="middle" font-family="monospace" font-size="11" font-weight="700" fill="#38bdf8">MODE[1:0] = 11</text>
+
+      <text x="0" y="50" font-weight="700" fill="#f8fafc">Принцип дії:</text>
+      <text x="0" y="70">• Швидкісне заливання прямокутника</text>
+      <text x="0" y="88">• Колір береться з регістра</text>
+      <text x="0" y="104" font-family="monospace" fill="#38bdf8">  DMA2D_OCOLR</text>
+      <text x="0" y="124">• Нуль звернень до шини на читання!</text>
+
+      <text x="0" y="160" font-weight="700" fill="#f8fafc">Швидкодія:</text>
+      <text x="0" y="180">• 800x480 очищується за 0.9 мс</text>
+      <text x="0" y="198">• 100% звільнення CPU від memset</text>
+
+      <rect x="0" y="260" width="180" height="70" rx="5" fill="#0f172a" stroke="#0ea5e9" stroke-width="1"/>
+      <text x="90" y="285" text-anchor="middle" font-size="11" font-weight="700" fill="#38bdf8">Застосування:</text>
+      <text x="90" y="305" text-anchor="middle" font-size="10" fill="#cbd5e1">Очищення екрана, малювання</text>
+      <text x="90" y="320" text-anchor="middle" font-size="10" fill="#cbd5e1">суцільних плашок, вікон UI</text>
+    </g>
+  </g>
+
+  <!-- Mode 2: Memory-to-Memory (M2M) -->
+  <g transform="translate(265, 90)">
+    <rect width="205" height="400" rx="8" fill="#1e293b" stroke="#10b981" stroke-width="1.5" filter="url(#shadow)"/>
+    <rect width="205" height="32" rx="8" fill="#059669"/>
+    <text x="102" y="21" text-anchor="middle" font-family="system-ui, sans-serif" font-size="12" font-weight="700" fill="#ffffff">
+      2. Memory-to-Memory (M2M)
+    </text>
+    <g transform="translate(12, 45)" font-family="system-ui, sans-serif" font-size="11" fill="#cbd5e1">
+      <rect x="0" y="0" width="180" height="26" rx="4" fill="#0f172a"/>
+      <text x="90" y="17" text-anchor="middle" font-family="monospace" font-size="11" font-weight="700" fill="#34d399">MODE[1:0] = 00</text>
+
+      <text x="0" y="50" font-weight="700" fill="#f8fafc">Принцип дії:</text>
+      <text x="0" y="70">• Пряме 2D-копіювання блоку пікселів</text>
+      <text x="0" y="88">• Вхідний та вихідний формати</text>
+      <text x="0" y="104">  ідентичні (наприклад, RGB565)</text>
+      <text x="0" y="124">• Враховуються зсуви рядків (Stride)</text>
+
+      <text x="0" y="160" font-weight="700" fill="#f8fafc">Швидкодія:</text>
+      <text x="0" y="180">• Копіювання до 400 МБ/с</text>
+      <text x="0" y="198">• Замінює 2D-memcpy</text>
+
+      <rect x="0" y="260" width="180" height="70" rx="5" fill="#0f172a" stroke="#10b981" stroke-width="1"/>
+      <text x="90" y="285" text-anchor="middle" font-size="11" font-weight="700" fill="#34d399">Застосування:</text>
+      <text x="90" y="305" text-anchor="middle" font-size="10" fill="#cbd5e1">Перенесення готового кадру</text>
+      <text x="90" y="320" text-anchor="middle" font-size="10" fill="#cbd5e1">з буфера камери у відеопам'ять</text>
+    </g>
+  </g>
+
+  <!-- Mode 3: M2M with PFC -->
+  <g transform="translate(490, 90)">
+    <rect width="205" height="400" rx="8" fill="#1e293b" stroke="#f59e0b" stroke-width="1.5" filter="url(#shadow)"/>
+    <rect width="205" height="32" rx="8" fill="#d97706"/>
+    <text x="102" y="21" text-anchor="middle" font-family="system-ui, sans-serif" font-size="12" font-weight="700" fill="#ffffff">
+      3. M2M with PFC
+    </text>
+    <g transform="translate(12, 45)" font-family="system-ui, sans-serif" font-size="11" fill="#cbd5e1">
+      <rect x="0" y="0" width="180" height="26" rx="4" fill="#0f172a"/>
+      <text x="90" y="17" text-anchor="middle" font-family="monospace" font-size="11" font-weight="700" fill="#fbbf24">MODE[1:0] = 01</text>
+
+      <text x="0" y="50" font-weight="700" fill="#f8fafc">Принцип дії:</text>
+      <text x="0" y="70">• Копіювання з автоматичною</text>
+      <text x="0" y="88">  конвертацією пікселів на льоту</text>
+      <text x="0" y="106">• Наприклад: Вхід L8 (8 біт) -&gt;</text>
+      <text x="0" y="124">  Вихід RGB565 (16 біт) через CLUT</text>
+
+      <text x="0" y="160" font-weight="700" fill="#f8fafc">Економія пам'яті:</text>
+      <text x="0" y="180">• Зображення шрифтів у Flash</text>
+      <text x="0" y="198">  займають у 4 рази менше місця</text>
+
+      <rect x="0" y="260" width="180" height="70" rx="5" fill="#0f172a" stroke="#f59e0b" stroke-width="1"/>
+      <text x="90" y="285" text-anchor="middle" font-size="11" font-weight="700" fill="#fbbf24">Застосування:</text>
+      <text x="90" y="305" text-anchor="middle" font-size="10" fill="#cbd5e1">Вивід шрифтів (A4/A8), іконок</text>
+      <text x="90" y="320" text-anchor="middle" font-size="10" fill="#cbd5e1">та текстурованих елементів UI</text>
+    </g>
+  </g>
+
+  <!-- Mode 4: M2M with Blending -->
+  <g transform="translate(715, 90)">
+    <rect width="205" height="400" rx="8" fill="#1e293b" stroke="#ec4899" stroke-width="1.5" filter="url(#shadow)"/>
+    <rect width="205" height="32" rx="8" fill="#be185d"/>
+    <text x="102" y="21" text-anchor="middle" font-family="system-ui, sans-serif" font-size="12" font-weight="700" fill="#ffffff">
+      4. M2M with Blending
+    </text>
+    <g transform="translate(12, 45)" font-family="system-ui, sans-serif" font-size="11" fill="#cbd5e1">
+      <rect x="0" y="0" width="180" height="26" rx="4" fill="#0f172a"/>
+      <text x="90" y="17" text-anchor="middle" font-family="monospace" font-size="11" font-weight="700" fill="#f472b6">MODE[1:0] = 10</text>
+
+      <text x="0" y="50" font-weight="700" fill="#f8fafc">Принцип дії:</text>
+      <text x="0" y="70">• Одночасне читання FG та BG</text>
+      <text x="0" y="88">• Арифметичне змішування</text>
+      <text x="0" y="106">  за формулою альфа-каналу</text>
+      <text x="0" y="124">• Запис результуючого шару</text>
+
+      <text x="0" y="160" font-weight="700" fill="#f8fafc">Унікальна функція:</text>
+      <text x="0" y="180">• Підтримує різні формати FG і BG</text>
+      <text x="0" y="198">• Напівпрозорі вікна та тіні</text>
+
+      <rect x="0" y="260" width="180" height="70" rx="5" fill="#0f172a" stroke="#ec4899" stroke-width="1"/>
+      <text x="90" y="285" text-anchor="middle" font-size="11" font-weight="700" fill="#f472b6">Застосування:</text>
+      <text x="90" y="305" text-anchor="middle" font-size="10" fill="#cbd5e1">Накладання плаваючих меню,</text>
+      <text x="90" y="320" text-anchor="middle" font-size="10" fill="#cbd5e1">OSD та прицільних сіток камери</text>
+    </g>
+  </g>
+</svg>

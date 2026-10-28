@@ -1,0 +1,148 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f172a"/>
+      <stop offset="100%" stop-color="#1e293b"/>
+    </linearGradient>
+    <filter id="shadow" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="0" dy="4" stdDeviation="5" flood-color="#000000" flood-opacity="0.4"/>
+    </filter>
+    <marker id="arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#38bdf8"/>
+    </marker>
+    <marker id="arrGreen" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#34d399"/>
+    </marker>
+  </defs>
+
+  <rect width="960" height="540" fill="url(#bg)"/>
+
+  <!-- Title -->
+  <text x="480" y="38" text-anchor="middle" font-family="system-ui, sans-serif" font-size="20" font-weight="700" fill="#f8fafc">
+    Апаратна архітектура 2D-прискорювача DMA2D Chrom-ART у STM32
+  </text>
+  <text x="480" y="62" text-anchor="middle" font-family="system-ui, sans-serif" font-size="13" fill="#94a3b8">
+    Двоканальний графічний конвеєр (Foreground / Background) з апаратним PFC та змішуванням кольорів
+  </text>
+
+  <!-- Left Inputs -->
+  <g transform="translate(40, 95)">
+    <!-- FG Input Box -->
+    <rect width="210" height="195" rx="8" fill="#1e293b" stroke="#0ea5e9" stroke-width="1.5" filter="url(#shadow)"/>
+    <rect width="210" height="30" rx="8" fill="#0284c7"/>
+    <text x="105" y="20" text-anchor="middle" font-family="system-ui, sans-serif" font-size="12" font-weight="700" fill="#ffffff">
+      Передній план: Foreground (FG)
+    </text>
+    <g transform="translate(15, 45)" font-family="system-ui, sans-serif" font-size="11" fill="#cbd5e1">
+      <text x="0" y="15">• Адреса буфера: DMA2D_FGMAR</text>
+      <text x="0" y="35">• Зсув рядка: DMA2D_FGOR</text>
+      <text x="0" y="55">• Вхідний FIFO (16 слів)</text>
+      <text x="0" y="75">• Конвертер PFC (ARGB8888, RGB565)</text>
+      <text x="0" y="95">• Палітра CLUT (256 кольорів L8)</text>
+      <text x="0" y="115">• Альфа-фактор: DMA2D_FGPFCR</text>
+    </g>
+
+    <!-- BG Input Box -->
+    <g transform="translate(0, 215)">
+      <rect width="210" height="195" rx="8" fill="#1e293b" stroke="#f59e0b" stroke-width="1.5" filter="url(#shadow)"/>
+      <rect width="210" height="30" rx="8" fill="#d97706"/>
+      <text x="105" y="20" text-anchor="middle" font-family="system-ui, sans-serif" font-size="12" font-weight="700" fill="#ffffff">
+        Задній план: Background (BG)
+      </text>
+      <g transform="translate(15, 45)" font-family="system-ui, sans-serif" font-size="11" fill="#cbd5e1">
+        <text x="0" y="15">• Адреса буфера: DMA2D_BGMAR</text>
+        <text x="0" y="35">• Зсув рядка: DMA2D_BGOR</text>
+        <text x="0" y="55">• Вхідний FIFO (16 слів)</text>
+        <text x="0" y="75">• Конвертер PFC (RGB565, ARGB...)</text>
+        <text x="0" y="95">• Палітра CLUT</text>
+        <text x="0" y="115">• Альфа-фактор: DMA2D_BGPFCR</text>
+      </g>
+    </g>
+  </g>
+
+  <!-- Connectors to Central Stage -->
+  <line x1="250" y1="190" x2="310" y2="190" stroke="#38bdf8" stroke-width="2.5" marker-end="url(#arr)"/>
+  <line x1="250" y1="410" x2="310" y2="410" stroke="#fbbf24" stroke-width="2.5" marker-end="url(#arr)"/>
+
+  <!-- Center Stage: Blending & Formatting Engine -->
+  <g transform="translate(315, 95)">
+    <rect width="330" height="410" rx="10" fill="#1e293b" stroke="#334155" stroke-width="1.5" filter="url(#shadow)"/>
+    <rect width="330" height="34" rx="10" fill="#4338ca"/>
+    <text x="165" y="22" text-anchor="middle" font-family="system-ui, sans-serif" font-size="13" font-weight="700" fill="#ffffff">
+      Апаратний графічний конвеєр Chrom-ART
+    </text>
+
+    <!-- Internal Stages -->
+    <rect x="20" y="55" width="290" height="75" rx="6" fill="#0f172a" stroke="#818cf8" stroke-width="1.2"/>
+    <text x="145" y="78" text-anchor="middle" font-family="system-ui, sans-serif" font-size="12" font-weight="700" fill="#a5b4fc">
+      Pixel Format Converter (PFC)
+    </text>
+    <text x="145" y="100" text-anchor="middle" font-family="system-ui, sans-serif" font-size="11" fill="#cbd5e1">
+      Перетворення до 32-бітного ARGB8888 на льоту
+    </text>
+    <text x="145" y="116" text-anchor="middle" font-family="system-ui, sans-serif" font-size="10" fill="#94a3b8">
+      0 тактів простою процесора!
+    </text>
+
+    <!-- Blending Engine -->
+    <rect x="20" y="150" width="290" height="110" rx="6" fill="#064e3b" stroke="#10b981" stroke-width="1.5"/>
+    <text x="145" y="175" text-anchor="middle" font-family="system-ui, sans-serif" font-size="13" font-weight="700" fill="#34d399">
+      Арифметичний блок змішування
+    </text>
+    <text x="145" y="200" text-anchor="middle" font-family="monospace" font-size="11" fill="#ffffff">
+      C = (C_fg * A_fg) + (C_bg * (1 - A_fg))
+    </text>
+    <text x="145" y="225" text-anchor="middle" font-family="system-ui, sans-serif" font-size="11" fill="#cbd5e1">
+      Попіксельний розрахунок альфа-каналу
+    </text>
+    <text x="145" y="245" text-anchor="middle" font-family="system-ui, sans-serif" font-size="10" fill="#a7f3d0">
+      Швидкість: до 1 пікселя за 1 такт шини AXI
+    </text>
+
+    <!-- Output PFC Stage -->
+    <rect x="20" y="280" width="290" height="105" rx="6" fill="#0f172a" stroke="#ec4899" stroke-width="1.2"/>
+    <text x="145" y="305" text-anchor="middle" font-family="system-ui, sans-serif" font-size="12" font-weight="700" fill="#f472b6">
+      Вихідний перетворювач (Output PFC)
+    </text>
+    <text x="145" y="328" text-anchor="middle" font-family="system-ui, sans-serif" font-size="11" fill="#cbd5e1">
+      Конвертація ARGB8888 у вихідний формат:
+    </text>
+    <text x="145" y="348" text-anchor="middle" font-family="monospace" font-size="11" fill="#f472b6">
+      RGB565 / RGB888 / ARGB8888 / ARGB1555
+    </text>
+    <text x="145" y="368" text-anchor="middle" font-family="system-ui, sans-serif" font-size="10" fill="#94a3b8">
+      Запис у FIFO призначення
+    </text>
+  </g>
+
+  <!-- Connectors to Destination -->
+  <line x1="645" y1="300" x2="705" y2="300" stroke="#34d399" stroke-width="2.5" marker-end="url(#arrGreen)"/>
+
+  <!-- Right: Destination Memory -->
+  <g transform="translate(710, 95)">
+    <rect width="210" height="410" rx="10" fill="#1e293b" stroke="#10b981" stroke-width="1.5" filter="url(#shadow)"/>
+    <rect width="210" height="34" rx="10" fill="#059669"/>
+    <text x="105" y="22" text-anchor="middle" font-family="system-ui, sans-serif" font-size="13" font-weight="700" fill="#ffffff">
+      Буфер призначення (Output)
+    </text>
+
+    <g transform="translate(15, 55)" font-family="system-ui, sans-serif" font-size="11" fill="#cbd5e1">
+      <rect x="0" y="0" width="180" height="75" rx="5" fill="#0f172a" stroke="#10b981" stroke-width="1"/>
+      <text x="10" y="22" font-weight="700" fill="#34d399">Параметри виводу:</text>
+      <text x="10" y="42">• Адреса: DMA2D_OMAR</text>
+      <text x="10" y="60">• Зсув рядка: DMA2D_OOR</text>
+
+      <rect x="0" y="90" width="180" height="75" rx="5" fill="#0f172a" stroke="#38bdf8" stroke-width="1"/>
+      <text x="10" y="112" font-weight="700" fill="#38bdf8">Розмірність прямокутника:</text>
+      <text x="10" y="132">• DMA2D_NLR (Лінії та пікселі)</text>
+      <text x="10" y="150">• До 65535 x 65535 пікс.</text>
+
+      <rect x="0" y="180" width="180" height="150" rx="5" fill="#0f172a" stroke="#334155" stroke-width="1"/>
+      <text x="10" y="202" font-weight="700" fill="#cbd5e1">Цільові пристрої:</text>
+      <text x="10" y="224">• Зовнішня SDRAM (Фреймбуфер)</text>
+      <text x="10" y="244">• Внутрішня пам'ять SRAM1/AXI</text>
+      <text x="10" y="264">• Дисплейний буфер LTDC</text>
+      <text x="10" y="295" font-family="monospace" font-size="10" fill="#34d399">Швидкість: до 800 МБ/с</text>
+    </g>
+  </g>
+</svg>
