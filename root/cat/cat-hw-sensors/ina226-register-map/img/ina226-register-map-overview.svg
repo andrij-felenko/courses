@@ -1,0 +1,142 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 620" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bg-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f172a"/>
+      <stop offset="100%" stop-color="#1e293b"/>
+    </linearGradient>
+    <linearGradient id="header-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#0284c7"/>
+      <stop offset="100%" stop-color="#2563eb"/>
+    </linearGradient>
+    <filter id="shadow" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#000000" flood-opacity="0.4"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="960" height="620" rx="12" fill="url(#bg-grad)"/>
+
+  <!-- Title Section -->
+  <text x="480" y="38" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="20" font-weight="700" fill="#f8fafc">
+    Повна карта 16-бітних регістрів монітора живлення INA226
+  </text>
+  <text x="480" y="60" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="13" fill="#94a3b8">
+    Адресний простір покажчика (Register Pointer), тип доступу, роздільна здатність (LSB) та скидання
+  </text>
+
+  <!-- Table Header -->
+  <rect x="30" y="82" width="900" height="38" rx="6" fill="url(#header-grad)" filter="url(#shadow)"/>
+  <text x="75" y="106" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="700" fill="#ffffff">Адреса</text>
+  <text x="210" y="106" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="700" fill="#ffffff">Назва регістру</text>
+  <text x="345" y="106" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="700" fill="#ffffff">Доступ</text>
+  <text x="430" y="106" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="700" fill="#ffffff">Скидання</text>
+  <text x="545" y="106" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="700" fill="#ffffff">Ціна LSB / Формат</text>
+  <text x="760" y="106" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="700" fill="#ffffff">Призначення та опис</text>
+
+  <!-- Table Rows -->
+  <!-- Row 0: 00h Configuration -->
+  <rect x="30" y="126" width="900" height="42" fill="#1e293b" fill-opacity="0.8" rx="4"/>
+  <text x="75" y="152" text-anchor="middle" font-family="monospace" font-size="13" font-weight="700" fill="#38bdf8">0x00</text>
+  <text x="210" y="152" text-anchor="middle" font-family="monospace" font-size="13" font-weight="600" fill="#f1f5f9">Configuration</text>
+  <rect x="325" y="137" width="40" height="20" rx="4" fill="#0284c7" fill-opacity="0.3" stroke="#38bdf8" stroke-width="1"/>
+  <text x="345" y="151" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="700" fill="#38bdf8">R/W</text>
+  <text x="430" y="152" text-anchor="middle" font-family="monospace" font-size="12" fill="#cbd5e1">0x4127</text>
+  <text x="545" y="152" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#cbd5e1">Бітові поля</text>
+  <text x="655" y="152" text-anchor="start" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#94a3b8">Усереднення вибірок, час перетворення шунта/шини, режим роботи</text>
+
+  <!-- Row 1: 01h Shunt Voltage -->
+  <rect x="30" y="172" width="900" height="42" fill="#0f172a" fill-opacity="0.6" rx="4"/>
+  <text x="75" y="198" text-anchor="middle" font-family="monospace" font-size="13" font-weight="700" fill="#38bdf8">0x01</text>
+  <text x="210" y="198" text-anchor="middle" font-family="monospace" font-size="13" font-weight="600" fill="#f1f5f9">Shunt Voltage</text>
+  <rect x="328" y="183" width="34" height="20" rx="4" fill="#334155" fill-opacity="0.5" stroke="#64748b" stroke-width="1"/>
+  <text x="345" y="197" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="700" fill="#94a3b8">R</text>
+  <text x="430" y="198" text-anchor="middle" font-family="monospace" font-size="12" fill="#cbd5e1">0x0000</text>
+  <text x="545" y="198" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="600" fill="#34d399">2.5 мкВ / LSB (зі знаком)</text>
+  <text x="655" y="198" text-anchor="start" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#94a3b8">Падіння напруги на шунті V_SHUNT (доповняльний код, ±81.92 мВ)</text>
+
+  <!-- Row 2: 02h Bus Voltage -->
+  <rect x="30" y="218" width="900" height="42" fill="#1e293b" fill-opacity="0.8" rx="4"/>
+  <text x="75" y="244" text-anchor="middle" font-family="monospace" font-size="13" font-weight="700" fill="#38bdf8">0x02</text>
+  <text x="210" y="244" text-anchor="middle" font-family="monospace" font-size="13" font-weight="600" fill="#f1f5f9">Bus Voltage</text>
+  <rect x="328" y="229" width="34" height="20" rx="4" fill="#334155" fill-opacity="0.5" stroke="#64748b" stroke-width="1"/>
+  <text x="345" y="243" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="700" fill="#94a3b8">R</text>
+  <text x="430" y="244" text-anchor="middle" font-family="monospace" font-size="12" fill="#cbd5e1">0x0000</text>
+  <text x="545" y="244" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="600" fill="#34d399">1.25 мВ / LSB (без знаку)</text>
+  <text x="655" y="244" text-anchor="start" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#94a3b8">Напруга шини живлення V_BUS відносно GND (діапазон 0..36.00 В)</text>
+
+  <!-- Row 3: 03h Power -->
+  <rect x="30" y="264" width="900" height="42" fill="#0f172a" fill-opacity="0.6" rx="4"/>
+  <text x="75" y="290" text-anchor="middle" font-family="monospace" font-size="13" font-weight="700" fill="#38bdf8">0x03</text>
+  <text x="210" y="290" text-anchor="middle" font-family="monospace" font-size="13" font-weight="600" fill="#f1f5f9">Power</text>
+  <rect x="328" y="275" width="34" height="20" rx="4" fill="#334155" fill-opacity="0.5" stroke="#64748b" stroke-width="1"/>
+  <text x="345" y="289" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="700" fill="#94a3b8">R</text>
+  <text x="430" y="290" text-anchor="middle" font-family="monospace" font-size="12" fill="#cbd5e1">0x0000</text>
+  <text x="545" y="290" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="600" fill="#facc15">25 × Current_LSB</text>
+  <text x="655" y="290" text-anchor="start" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#94a3b8">Миттєва споживана потужність навантаження (без знаку)</text>
+
+  <!-- Row 4: 04h Current -->
+  <rect x="30" y="310" width="900" height="42" fill="#1e293b" fill-opacity="0.8" rx="4"/>
+  <text x="75" y="336" text-anchor="middle" font-family="monospace" font-size="13" font-weight="700" fill="#38bdf8">0x04</text>
+  <text x="210" y="336" text-anchor="middle" font-family="monospace" font-size="13" font-weight="600" fill="#f1f5f9">Current</text>
+  <rect x="328" y="321" width="34" height="20" rx="4" fill="#334155" fill-opacity="0.5" stroke="#64748b" stroke-width="1"/>
+  <text x="345" y="335" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="700" fill="#94a3b8">R</text>
+  <text x="430" y="336" text-anchor="middle" font-family="monospace" font-size="12" fill="#cbd5e1">0x0000</text>
+  <text x="545" y="336" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="600" fill="#facc15">Current_LSB (зі знаком)</text>
+  <text x="655" y="336" text-anchor="start" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#94a3b8">Розрахований струм навантаження (працює лише за записаного CAL != 0)</text>
+
+  <!-- Row 5: 05h Calibration -->
+  <rect x="30" y="356" width="900" height="42" fill="#0f172a" fill-opacity="0.6" rx="4"/>
+  <text x="75" y="382" text-anchor="middle" font-family="monospace" font-size="13" font-weight="700" fill="#38bdf8">0x05</text>
+  <text x="210" y="382" text-anchor="middle" font-family="monospace" font-size="13" font-weight="600" fill="#f1f5f9">Calibration</text>
+  <rect x="325" y="367" width="40" height="20" rx="4" fill="#0284c7" fill-opacity="0.3" stroke="#38bdf8" stroke-width="1"/>
+  <text x="345" y="381" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="700" fill="#38bdf8">R/W</text>
+  <text x="430" y="382" text-anchor="middle" font-family="monospace" font-size="12" fill="#cbd5e1">0x0000</text>
+  <text x="545" y="382" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#cbd5e1">0.00512 / (I_LSB × R_sh)</text>
+  <text x="655" y="382" text-anchor="start" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#94a3b8">Калібрувальний коефіцієнт для апаратного помножувача струму</text>
+
+  <!-- Row 6: 06h Mask/Enable -->
+  <rect x="30" y="402" width="900" height="42" fill="#1e293b" fill-opacity="0.8" rx="4"/>
+  <text x="75" y="428" text-anchor="middle" font-family="monospace" font-size="13" font-weight="700" fill="#38bdf8">0x06</text>
+  <text x="210" y="428" text-anchor="middle" font-family="monospace" font-size="13" font-weight="600" fill="#f1f5f9">Mask/Enable</text>
+  <rect x="325" y="413" width="40" height="20" rx="4" fill="#0284c7" fill-opacity="0.3" stroke="#38bdf8" stroke-width="1"/>
+  <text x="345" y="427" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="700" fill="#38bdf8">R/W</text>
+  <text x="430" y="428" text-anchor="middle" font-family="monospace" font-size="12" fill="#cbd5e1">0x0000</text>
+  <text x="545" y="428" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#cbd5e1">Маска прапорів</text>
+  <text x="655" y="428" text-anchor="start" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#94a3b8">Вибір умови переривання ALERT (SOL, SUL, BOL, BUL, POL, CNVR) та защіпка</text>
+
+  <!-- Row 7: 07h Alert Limit -->
+  <rect x="30" y="448" width="900" height="42" fill="#0f172a" fill-opacity="0.6" rx="4"/>
+  <text x="75" y="474" text-anchor="middle" font-family="monospace" font-size="13" font-weight="700" fill="#38bdf8">0x07</text>
+  <text x="210" y="474" text-anchor="middle" font-family="monospace" font-size="13" font-weight="600" fill="#f1f5f9">Alert Limit</text>
+  <rect x="325" y="459" width="40" height="20" rx="4" fill="#0284c7" fill-opacity="0.3" stroke="#38bdf8" stroke-width="1"/>
+  <text x="345" y="473" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="700" fill="#38bdf8">R/W</text>
+  <text x="430" y="474" text-anchor="middle" font-family="monospace" font-size="12" fill="#cbd5e1">0x0000</text>
+  <text x="545" y="474" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#cbd5e1">Відповідно до джерела</text>
+  <text x="655" y="474" text-anchor="start" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#94a3b8">Поріг спрацьовування апаратного компаратора переривання ALERT</text>
+
+  <!-- Row 8: FEh Manufacturer ID -->
+  <rect x="30" y="494" width="900" height="42" fill="#1e293b" fill-opacity="0.8" rx="4"/>
+  <text x="75" y="520" text-anchor="middle" font-family="monospace" font-size="13" font-weight="700" fill="#38bdf8">0xFE</text>
+  <text x="210" y="520" text-anchor="middle" font-family="monospace" font-size="13" font-weight="600" fill="#f1f5f9">Manufacturer ID</text>
+  <rect x="328" y="505" width="34" height="20" rx="4" fill="#334155" fill-opacity="0.5" stroke="#64748b" stroke-width="1"/>
+  <text x="345" y="519" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="700" fill="#94a3b8">R</text>
+  <text x="430" y="520" text-anchor="middle" font-family="monospace" font-size="12" font-weight="600" fill="#a78bfa">0x5449</text>
+  <text x="545" y="520" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#cbd5e1">ASCII 'TI'</text>
+  <text x="655" y="520" text-anchor="start" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#94a3b8">Ідентифікатор виробника Texas Instruments (ASCII 'T' = 0x54, 'I' = 0x49)</text>
+
+  <!-- Row 9: FFh Die ID -->
+  <rect x="30" y="540" width="900" height="42" fill="#0f172a" fill-opacity="0.6" rx="4"/>
+  <text x="75" y="566" text-anchor="middle" font-family="monospace" font-size="13" font-weight="700" fill="#38bdf8">0xFF</text>
+  <text x="210" y="566" text-anchor="middle" font-family="monospace" font-size="13" font-weight="600" fill="#f1f5f9">Die ID</text>
+  <rect x="328" y="551" width="34" height="20" rx="4" fill="#334155" fill-opacity="0.5" stroke="#64748b" stroke-width="1"/>
+  <text x="345" y="565" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="700" fill="#94a3b8">R</text>
+  <text x="430" y="566" text-anchor="middle" font-family="monospace" font-size="12" font-weight="600" fill="#a78bfa">0x2260</text>
+  <text x="545" y="566" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#cbd5e1">INA226 (Rev 0)</text>
+  <text x="655" y="566" text-anchor="start" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#94a3b8">Унікальний ідентифікатор кристала INA226 та ревізії кремнію</text>
+
+  <!-- Note Footer -->
+  <rect x="30" y="588" width="900" height="22" rx="4" fill="#0284c7" fill-opacity="0.1" stroke="#0284c7" stroke-width="1"/>
+  <text x="480" y="603" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#38bdf8">
+    * Усі регістри мають довжину 16 біт (2 байти). Передача через I2C завжди виконується у форматі Big-Endian (MSB першим).
+  </text>
+</svg>

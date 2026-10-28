@@ -1,0 +1,167 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bg-grad3" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f172a"/>
+      <stop offset="100%" stop-color="#1e293b"/>
+    </linearGradient>
+    <filter id="shadow3" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="0" dy="3" stdDeviation="5" flood-color="#000000" flood-opacity="0.3"/>
+    </filter>
+  </defs>
+
+  <rect width="960" height="540" rx="12" fill="url(#bg-grad3)"/>
+
+  <text x="480" y="34" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="19" font-weight="700" fill="#f8fafc">
+    Деталізація бітових полів конфігураційних регістрів INA226
+  </text>
+  <text x="480" y="56" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="13" fill="#94a3b8">
+    Розподіл бітів у Configuration Register (0x00) та Mask/Enable Register (0x06)
+  </text>
+
+  <!-- REGISTER 0x00: CONFIGURATION -->
+  <g transform="translate(30, 80)">
+    <rect width="900" height="200" rx="8" fill="#1e293b" stroke="#38bdf8" stroke-width="1.5" filter="url(#shadow3)"/>
+    <text x="20" y="26" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="700" fill="#38bdf8">
+      Configuration Register (Адреса: 0x00, За замовчуванням: 0x4127, Доступ: R/W)
+    </text>
+
+    <!-- Bit numbers 15 down to 0 -->
+    <g transform="translate(20, 42)">
+      <!-- Box 15: RST -->
+      <rect x="0" y="0" width="53" height="42" fill="#ef4444" rx="3"/>
+      <text x="26" y="18" text-anchor="middle" font-family="monospace" font-size="11" font-weight="700" fill="#ffffff">D15</text>
+      <text x="26" y="34" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="10" font-weight="700" fill="#ffffff">RST</text>
+
+      <!-- Box 14-12: Reserved -->
+      <rect x="55" y="0" width="161" height="42" fill="#334155" rx="3"/>
+      <text x="135" y="18" text-anchor="middle" font-family="monospace" font-size="11" font-weight="700" fill="#94a3b8">D14 .. D12</text>
+      <text x="135" y="34" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="10" fill="#94a3b8">Резерв (0)</text>
+
+      <!-- Box 11-9: AVG -->
+      <rect x="218" y="0" width="161" height="42" fill="#2563eb" rx="3"/>
+      <text x="298" y="18" text-anchor="middle" font-family="monospace" font-size="11" font-weight="700" fill="#ffffff">D11 .. D9</text>
+      <text x="298" y="34" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="10" font-weight="700" fill="#ffffff">AVG[2:0]</text>
+
+      <!-- Box 8-6: VBUSCT -->
+      <rect x="381" y="0" width="161" height="42" fill="#0284c7" rx="3"/>
+      <text x="461" y="18" text-anchor="middle" font-family="monospace" font-size="11" font-weight="700" fill="#ffffff">D8 .. D6</text>
+      <text x="461" y="34" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="10" font-weight="700" fill="#ffffff">VBUSCT[2:0]</text>
+
+      <!-- Box 5-3: VSHCT -->
+      <rect x="544" y="0" width="161" height="42" fill="#0d9488" rx="3"/>
+      <text x="624" y="18" text-anchor="middle" font-family="monospace" font-size="11" font-weight="700" fill="#ffffff">D5 .. D3</text>
+      <text x="624" y="34" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="10" font-weight="700" fill="#ffffff">VSHCT[2:0]</text>
+
+      <!-- Box 2-0: MODE -->
+      <rect x="707" y="0" width="153" height="42" fill="#8b5cf6" rx="3"/>
+      <text x="783" y="18" text-anchor="middle" font-family="monospace" font-size="11" font-weight="700" fill="#ffffff">D2 .. D0</text>
+      <text x="783" y="34" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="10" font-weight="700" fill="#ffffff">MODE[2:0]</text>
+    </g>
+
+    <!-- Field descriptions -->
+    <g transform="translate(20, 100)">
+      <text x="0" y="16" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#cbd5e1">
+        • <tspan font-weight="700" fill="#f87171">RST (bit 15):</tspan> Програмний скид (запис 1 повертає всі регістри у заводські значення).
+      </text>
+      <text x="0" y="34" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#cbd5e1">
+        • <tspan font-weight="700" fill="#60a5fa">AVG[2:0]:</tspan> Кількість усереднень (000 = 1, 001 = 4, 010 = 16, 011 = 64, 100 = 128, 101 = 256, 110 = 512, 111 = 1024 вибірок).
+      </text>
+      <text x="0" y="52" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#cbd5e1">
+        • <tspan font-weight="700" fill="#38bdf8">VBUSCT / VSHCT:</tspan> Час перетворення напруги шини та шунта (від 140 мкс до 8.244 мс; типово 0b100 = 1.1 мс).
+      </text>
+      <text x="0" y="70" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#cbd5e1">
+        • <tspan font-weight="700" fill="#c084fc">MODE[2:0]:</tspan> Режим роботи (0b000 = Power-Down, 0b011 = Shunt Cont., 0b101 = Bus Cont., 0b111 = Shunt+Bus Continuous).
+      </text>
+    </g>
+  </g>
+
+  <!-- REGISTER 0x06: MASK/ENABLE -->
+  <g transform="translate(30, 300)">
+    <rect width="900" height="220" rx="8" fill="#1e293b" stroke="#f59e0b" stroke-width="1.5" filter="url(#shadow3)"/>
+    <text x="20" y="26" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="700" fill="#f59e0b">
+      Mask/Enable Register (Адреса: 0x06, За замовчуванням: 0x0000, Доступ: R/W)
+    </text>
+
+    <!-- Bit boxes 15 down to 0 -->
+    <g transform="translate(20, 42)">
+      <!-- 15: SOL -->
+      <rect x="0" y="0" width="51" height="42" fill="#ea580c" rx="3"/>
+      <text x="25" y="18" text-anchor="middle" font-family="monospace" font-size="10" font-weight="700" fill="#ffffff">D15</text>
+      <text x="25" y="34" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="9" font-weight="700" fill="#ffffff">SOL</text>
+
+      <!-- 14: SUL -->
+      <rect x="53" y="0" width="51" height="42" fill="#ea580c" rx="3"/>
+      <text x="78" y="18" text-anchor="middle" font-family="monospace" font-size="10" font-weight="700" fill="#ffffff">D14</text>
+      <text x="78" y="34" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="9" font-weight="700" fill="#ffffff">SUL</text>
+
+      <!-- 13: BOL -->
+      <rect x="106" y="0" width="51" height="42" fill="#d97706" rx="3"/>
+      <text x="131" y="18" text-anchor="middle" font-family="monospace" font-size="10" font-weight="700" fill="#ffffff">D13</text>
+      <text x="131" y="34" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="9" font-weight="700" fill="#ffffff">BOL</text>
+
+      <!-- 12: BUL -->
+      <rect x="159" y="0" width="51" height="42" fill="#d97706" rx="3"/>
+      <text x="184" y="18" text-anchor="middle" font-family="monospace" font-size="10" font-weight="700" fill="#ffffff">D12</text>
+      <text x="184" y="34" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="9" font-weight="700" fill="#ffffff">BUL</text>
+
+      <!-- 11: POL -->
+      <rect x="212" y="0" width="51" height="42" fill="#ca8a04" rx="3"/>
+      <text x="237" y="18" text-anchor="middle" font-family="monospace" font-size="10" font-weight="700" fill="#ffffff">D11</text>
+      <text x="237" y="34" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="9" font-weight="700" fill="#ffffff">POL</text>
+
+      <!-- 10: CNVR -->
+      <rect x="265" y="0" width="51" height="42" fill="#16a34a" rx="3"/>
+      <text x="290" y="18" text-anchor="middle" font-family="monospace" font-size="10" font-weight="700" fill="#ffffff">D10</text>
+      <text x="290" y="34" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="9" font-weight="700" fill="#ffffff">CNVR</text>
+
+      <!-- 9-5: Reserved -->
+      <rect x="318" y="0" width="235" height="42" fill="#334155" rx="3"/>
+      <text x="435" y="18" text-anchor="middle" font-family="monospace" font-size="10" font-weight="700" fill="#94a3b8">D9 .. D5</text>
+      <text x="435" y="34" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="9" fill="#94a3b8">Резерв (0)</text>
+
+      <!-- 4: WEN -->
+      <rect x="555" y="0" width="51" height="42" fill="#475569" rx="3"/>
+      <text x="580" y="18" text-anchor="middle" font-family="monospace" font-size="10" font-weight="700" fill="#ffffff">D4</text>
+      <text x="580" y="34" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="9" font-weight="700" fill="#ffffff">WEN</text>
+
+      <!-- 3: APOL -->
+      <rect x="608" y="0" width="51" height="42" fill="#0284c7" rx="3"/>
+      <text x="633" y="18" text-anchor="middle" font-family="monospace" font-size="10" font-weight="700" fill="#ffffff">D3</text>
+      <text x="633" y="34" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="9" font-weight="700" fill="#ffffff">APOL</text>
+
+      <!-- 2: LEN -->
+      <rect x="661" y="0" width="51" height="42" fill="#2563eb" rx="3"/>
+      <text x="686" y="18" text-anchor="middle" font-family="monospace" font-size="10" font-weight="700" fill="#ffffff">D2</text>
+      <text x="686" y="34" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="9" font-weight="700" fill="#ffffff">LEN</text>
+
+      <!-- 1: AFF -->
+      <rect x="714" y="0" width="70" height="42" fill="#dc2626" rx="3"/>
+      <text x="749" y="18" text-anchor="middle" font-family="monospace" font-size="10" font-weight="700" fill="#ffffff">D1</text>
+      <text x="749" y="34" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="9" font-weight="700" fill="#ffffff">AFF (R)</text>
+
+      <!-- 0: CVRF -->
+      <rect x="786" y="0" width="74" height="42" fill="#15803d" rx="3"/>
+      <text x="823" y="18" text-anchor="middle" font-family="monospace" font-size="10" font-weight="700" fill="#ffffff">D0</text>
+      <text x="823" y="34" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="9" font-weight="700" fill="#ffffff">CVRF (R)</text>
+    </g>
+
+    <!-- Field descriptions -->
+    <g transform="translate(20, 100)">
+      <text x="0" y="16" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#cbd5e1">
+        • <tspan font-weight="700" fill="#fb923c">SOL / SUL (15, 14):</tspan> Перевищення / заниження напруги на шунті (Shunt Over/Under Voltage Alert).
+      </text>
+      <text x="0" y="34" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#cbd5e1">
+        • <tspan font-weight="700" fill="#fbbf24">BOL / BUL (13, 12):</tspan> Перевищення / заниження напруги на шині (Bus Over/Under Voltage Alert).
+      </text>
+      <text x="0" y="52" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#cbd5e1">
+        • <tspan font-weight="700" fill="#facc15">POL (11) / CNVR (10):</tspan> Перевищення потужності (Power Over-Limit) / Готовність вибірки перетворення (Conversion Ready).
+      </text>
+      <text x="0" y="70" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#cbd5e1">
+        • <tspan font-weight="700" fill="#38bdf8">APOL (3) / LEN (2):</tspan> Полярність виводу ALERT (0 = активний низький, 1 = високий) / Режим защіпки (1 = Latch до читання 0x06).
+      </text>
+      <text x="0" y="88" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#cbd5e1">
+        • <tspan font-weight="700" fill="#f87171">AFF (1) / CVRF (0):</tspan> Прапор спрацьовування тривоги (Alert Function Flag) / Прапор готовності вибірки (Conversion Ready Flag).
+      </text>
+    </g>
+  </g>
+</svg>
