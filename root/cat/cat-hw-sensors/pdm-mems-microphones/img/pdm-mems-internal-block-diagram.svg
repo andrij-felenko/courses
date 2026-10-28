@@ -1,0 +1,153 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bg-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f172a"/>
+      <stop offset="100%" stop-color="#1e293b"/>
+    </linearGradient>
+    <linearGradient id="mems-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0284c7"/>
+      <stop offset="100%" stop-color="#0369a1"/>
+    </linearGradient>
+    <linearGradient id="sd-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#d97706"/>
+      <stop offset="100%" stop-color="#b45309"/>
+    </linearGradient>
+    <filter id="shadow" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#000000" flood-opacity="0.4"/>
+    </filter>
+  </defs>
+
+  <rect width="960" height="520" rx="12" fill="url(#bg-grad)"/>
+
+  <!-- Title -->
+  <text x="480" y="38" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="20" font-weight="700" fill="#f8fafc">
+    Внутрішня архітектура цифрового PDM MEMS-мікрофона
+  </text>
+  <text x="480" y="60" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="13" fill="#94a3b8">
+    Акустичний сенсор MEMS, помпа заряду, 1-бітний сигма-дельта модулятор та вихідний буфер Hi-Z
+  </text>
+
+  <!-- Package Boundary -->
+  <rect x="40" y="80" width="880" height="360" rx="10" fill="#1e293b" fill-opacity="0.7" stroke="#334155" stroke-width="2" filter="url(#shadow)"/>
+  <text x="60" y="105" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="700" fill="#94a3b8">
+    Корпус мікрофона (LGA / QFN з акустичним отвором Sound Port)
+  </text>
+
+  <!-- 1. Acoustic MEMS Sensor Cell -->
+  <g transform="translate(65, 125)">
+    <rect width="180" height="240" rx="8" fill="url(#mems-grad)" filter="url(#shadow)"/>
+    <text x="90" y="30" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="13" font-weight="700" fill="#ffffff">
+      MEMS сенсор
+    </text>
+
+    <!-- Diaphragm & Backplate -->
+    <rect x="25" y="55" width="130" height="12" rx="3" fill="#38bdf8"/>
+    <text x="90" y="64" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="9" font-weight="700" fill="#0f172a">Рухома мембрана</text>
+
+    <text x="90" y="90" text-anchor="middle" font-family="monospace" font-size="11" fill="#facc15">C(t) ~ Звук</text>
+
+    <rect x="25" y="105" width="130" height="16" rx="3" fill="#64748b" stroke="#cbd5e1" stroke-width="1" stroke-dasharray="6,4"/>
+    <text x="90" y="117" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="9" fill="#ffffff">Нерухомий електрод</text>
+
+    <!-- Charge Pump -->
+    <rect x="20" y="145" width="140" height="42" rx="4" fill="#0f172a" stroke="#f59e0b" stroke-width="1"/>
+    <text x="90" y="163" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="10" font-weight="700" fill="#facc15">Помпа заряду</text>
+    <text x="90" y="178" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="9" fill="#cbd5e1">Поляризація 10..15 В</text>
+
+    <text x="90" y="215" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="10" fill="#e0f2fe">Акустичний отвір</text>
+  </g>
+
+  <!-- Arrow to Preamp -->
+  <path d="M 245 200 L 290 200" stroke="#38bdf8" stroke-width="2.5" fill="none"/>
+
+  <!-- 2. Preamp Buffer -->
+  <g transform="translate(290, 160)">
+    <polygon points="0,0 80,40 0,80" fill="#334155" stroke="#38bdf8" stroke-width="1.5" filter="url(#shadow)"/>
+    <text x="25" y="44" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="700" fill="#ffffff">Підсил.</text>
+    <text x="40" y="98" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="10" fill="#94a3b8">Високоомний буфер</text>
+  </g>
+
+  <!-- Arrow to Sigma-Delta -->
+  <path d="M 370 200 L 415 200" stroke="#38bdf8" stroke-width="2.5" fill="none"/>
+
+  <!-- 3. 1-bit Sigma-Delta Modulator -->
+  <g transform="translate(415, 125)">
+    <rect width="210" height="150" rx="8" fill="url(#sd-grad)" filter="url(#shadow)"/>
+    <text x="105" y="28" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="13" font-weight="700" fill="#ffffff">
+      1-біт Сигма-Дельта
+    </text>
+    <text x="105" y="46" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#fef3c7">
+      Модулятор (4-й порядок)
+    </text>
+
+    <rect x="20" y="60" width="170" height="32" rx="4" fill="#0f172a" fill-opacity="0.5"/>
+    <text x="105" y="81" text-anchor="middle" font-family="monospace" font-size="11" font-weight="600" fill="#facc15">
+      Noise Shaping
+    </text>
+
+    <text x="105" y="115" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="10" fill="#ffffff">
+      Витіснення шуму в ультразвук
+    </text>
+    <text x="105" y="132" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="9" fill="#fde68a">
+      f_clk = 1.0 .. 3.25 МГц
+    </text>
+  </g>
+
+  <!-- Arrow to Output Stage -->
+  <path d="M 625 200 L 670 200" stroke="#facc15" stroke-width="2.5" fill="none"/>
+
+  <!-- 4. L/R Select and Hi-Z Tri-State Buffer -->
+  <g transform="translate(670, 125)">
+    <rect width="190" height="150" rx="8" fill="#1e293b" stroke="#10b981" stroke-width="2" filter="url(#shadow)"/>
+    <text x="95" y="28" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="13" font-weight="700" fill="#34d399">
+      Вихідний буфер Hi-Z
+    </text>
+
+    <!-- Tri-state icon / logic -->
+    <rect x="30" y="50" width="130" height="34" rx="4" fill="#059669" fill-opacity="0.3" stroke="#34d399" stroke-width="1"/>
+    <text x="95" y="72" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="700" fill="#34d399">
+      Tri-State Driver
+    </text>
+
+    <text x="95" y="105" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="10" fill="#cbd5e1">
+      L/R = GND: активний фронт ↑
+    </text>
+    <text x="95" y="125" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="10" fill="#cbd5e1">
+      L/R = VDD: активний фронт ↓
+    </text>
+  </g>
+
+  <!-- External Pins Out -->
+  <!-- CLK Input -->
+  <g transform="translate(470, 340)">
+    <rect x="0" y="0" width="100" height="34" rx="4" fill="#2563eb" stroke="#38bdf8" stroke-width="1"/>
+    <text x="50" y="22" text-anchor="middle" font-family="monospace" font-size="12" font-weight="700" fill="#ffffff">CLK</text>
+    <path d="M 50 0 L 50 -65" stroke="#38bdf8" stroke-width="2" fill="none"/>
+  </g>
+
+  <!-- SELECT Input -->
+  <g transform="translate(715, 340)">
+    <rect x="0" y="0" width="100" height="34" rx="4" fill="#d97706" stroke="#facc15" stroke-width="1"/>
+    <text x="50" y="22" text-anchor="middle" font-family="monospace" font-size="12" font-weight="700" fill="#ffffff">SELECT (L/R)</text>
+    <path d="M 50 0 L 50 -65" stroke="#facc15" stroke-width="2" fill="none"/>
+  </g>
+
+  <!-- DATA Output -->
+  <path d="M 860 200 L 910 200" stroke="#34d399" stroke-width="3" fill="none"/>
+  <rect x="850" y="185" width="60" height="30" rx="4" fill="#059669"/>
+  <text x="880" y="205" text-anchor="middle" font-family="monospace" font-size="11" font-weight="700" fill="#ffffff">DATA</text>
+
+  <!-- Bottom Explanatory Bar -->
+  <g transform="translate(40, 455)">
+    <rect width="880" height="50" rx="6" fill="#0f172a" stroke="#334155" stroke-width="1"/>
+    <text x="20" y="22" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="700" fill="#38bdf8">
+      Ключова перевага PDM:
+    </text>
+    <text x="175" y="22" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#cbd5e1">
+      Оцифрування звуку виконується безпосередньо всередині екранованого металевого корпусу мікрофона.
+    </text>
+    <text x="20" y="38" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#cbd5e1">
+      По платі передається виключно цифровий 1-бітний сигнал, абсолютно несприйнятливий до наводок від GSM, Wi-Fi та силових шин.
+    </text>
+  </g>
+</svg>

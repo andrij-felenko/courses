@@ -1,0 +1,158 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 500" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bg-grad2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0b1329"/>
+      <stop offset="100%" stop-color="#1e293b"/>
+    </linearGradient>
+    <filter id="shadow2" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="0" dy="3" stdDeviation="5" flood-color="#000000" flood-opacity="0.3"/>
+    </filter>
+  </defs>
+
+  <rect width="960" height="500" rx="12" fill="url(#bg-grad2)"/>
+
+  <text x="480" y="34" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="19" font-weight="700" fill="#f8fafc">
+    Імпульсно-щільнісна модуляція (PDM) та стерео-мультиплексування на одній лінії
+  </text>
+  <text x="480" y="56" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="13" fill="#94a3b8">
+    Щільність імпульсів пропорційна тиску, передача лівого (Rising Edge) та правого (Falling Edge) каналів
+  </text>
+
+  <!-- Section 1: PDM Encoding Principle -->
+  <g transform="translate(40, 75)">
+    <rect width="880" height="175" rx="8" fill="#1e293b" stroke="#38bdf8" stroke-width="1.5" filter="url(#shadow2)"/>
+    <text x="20" y="24" font-family="system-ui, -apple-system, sans-serif" font-size="13" font-weight="700" fill="#38bdf8">
+      1. Принцип імпульсно-щільнісної модуляції (Pulse Density Modulation)
+    </text>
+
+    <!-- Analog Audio Sine Wave -->
+    <g transform="translate(140, 30)">
+      <text x="-120" y="35" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="600" fill="#cbd5e1">
+        Аналоговий звук:
+      </text>
+      <line x1="0" y1="30" x2="700" y2="30" stroke="#475569" stroke-width="1"/>
+      <path d="M 0 30 Q 87 -10 175 30 T 350 30 T 525 30 T 700 30" stroke="#38bdf8" stroke-width="2.5" fill="none"/>
+      <text x="87" y="10" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="10" fill="#f87171">+Максимум</text>
+      <text x="262" y="55" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="10" fill="#60a5fa">−Мінімум</text>
+    </g>
+
+    <!-- 1-bit PDM Bitstream -->
+    <g transform="translate(140, 95)">
+      <text x="-120" y="35" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="600" fill="#facc15">
+        1-бітний PDM потік:
+      </text>
+      
+      <!-- Pulse trains demonstrating density -->
+      <!-- High density zone (lots of 1s) -->
+      <g stroke="#facc15" stroke-width="2">
+        <!-- Low density near start -->
+        <line x1="10" y1="40" x2="10" y2="10"/><line x1="30" y1="40" x2="30" y2="10"/>
+        <!-- Dense at positive peak -->
+        <line x1="60" y1="40" x2="60" y2="10"/><line x1="70" y1="40" x2="70" y2="10"/>
+        <line x1="80" y1="40" x2="80" y2="10"/><line x1="90" y1="40" x2="90" y2="10"/>
+        <line x1="100" y1="40" x2="100" y2="10"/><line x1="110" y1="40" x2="110" y2="10"/>
+        <!-- Sparse at negative peak -->
+        <line x1="180" y1="40" x2="180" y2="10"/><line x1="260" y1="40" x2="260" y2="10"/>
+        <!-- Dense at next positive peak -->
+        <line x1="410" y1="40" x2="410" y2="10"/><line x1="420" y1="40" x2="420" y2="10"/>
+        <line x1="430" y1="40" x2="430" y2="10"/><line x1="440" y1="40" x2="440" y2="10"/>
+        <line x1="450" y1="40" x2="450" y2="10"/><line x1="460" y1="40" x2="460" y2="10"/>
+        <!-- Moderate near end -->
+        <line x1="600" y1="40" x2="600" y2="10"/><line x1="620" y1="40" x2="620" y2="10"/>
+        <line x1="640" y1="40" x2="640" y2="10"/>
+      </g>
+      <line x1="0" y1="40" x2="700" y2="40" stroke="#64748b" stroke-width="1"/>
+
+      <text x="85" y="60" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="10" font-weight="700" fill="#facc15">
+        Щільність одиниць ~100%
+      </text>
+      <text x="260" y="60" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="10" font-weight="700" fill="#94a3b8">
+        Щільність одиниць ~0%
+      </text>
+      <text x="525" y="60" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="10" fill="#34d399">
+        Тиша = 50% одиниць
+      </text>
+    </g>
+  </g>
+
+  <!-- Section 2: Stereo Multiplexing on Single DATA Line -->
+  <g transform="translate(40, 265)">
+    <rect width="880" height="215" rx="8" fill="#1e293b" stroke="#10b981" stroke-width="1.5" filter="url(#shadow2)"/>
+    <text x="20" y="24" font-family="system-ui, -apple-system, sans-serif" font-size="13" font-weight="700" fill="#34d399">
+      2. Стерео-підключення двох мікрофонів до однієї лінії DATA (TDM подвійний фронт)
+    </text>
+
+    <!-- Timing Diagram -->
+    <g transform="translate(140, 35)">
+      <!-- CLK Signal -->
+      <text x="-120" y="22" font-family="monospace" font-size="11" font-weight="700" fill="#38bdf8">CLK (Хост):</text>
+      <path d="M 0 30 L 40 30 L 40 0 L 80 0 L 80 30 L 120 30 L 120 0 L 160 0 L 160 30 L 200 30 L 200 0 L 240 0 L 240 30 L 280 30 L 280 0 L 320 0 L 320 30 L 360 30 L 360 0 L 400 0 L 400 30 L 440 30 L 440 0 L 480 0 L 480 30 L 520 30 L 520 0 L 560 0 L 560 30 L 600 30 L 600 0 L 640 0 L 640 30 L 680 30" 
+            stroke="#38bdf8" stroke-width="2" fill="none"/>
+
+      <!-- Rising Edge Markers (Left Mic) -->
+      <line x1="40" y1="-5" x2="40" y2="135" stroke="#34d399" stroke-width="1" stroke-dasharray="3,3"/>
+      <line x1="120" y1="-5" x2="120" y2="135" stroke="#34d399" stroke-width="1" stroke-dasharray="3,3"/>
+      <line x1="200" y1="-5" x2="200" y2="135" stroke="#34d399" stroke-width="1" stroke-dasharray="3,3"/>
+      <line x1="280" y1="-5" x2="280" y2="135" stroke="#34d399" stroke-width="1" stroke-dasharray="3,3"/>
+
+      <!-- Falling Edge Markers (Right Mic) -->
+      <line x1="80" y1="-5" x2="80" y2="135" stroke="#facc15" stroke-width="1" stroke-dasharray="3,3"/>
+      <line x1="160" y1="-5" x2="160" y2="135" stroke="#facc15" stroke-width="1" stroke-dasharray="3,3"/>
+      <line x1="240" y1="-5" x2="240" y2="135" stroke="#facc15" stroke-width="1" stroke-dasharray="3,3"/>
+      <line x1="320" y1="-5" x2="320" y2="135" stroke="#facc15" stroke-width="1" stroke-dasharray="3,3"/>
+
+      <!-- Shared DATA Bus -->
+      <text x="-120" y="80" font-family="monospace" font-size="11" font-weight="700" fill="#ffffff">DATA (Bus):</text>
+      
+      <!-- Blocks on DATA line -->
+      <!-- Left Mic Slot (green) -->
+      <rect x="40" y="60" width="38" height="30" rx="3" fill="#059669" stroke="#34d399" stroke-width="1"/>
+      <text x="59" y="80" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="10" font-weight="700" fill="#ffffff">L1</text>
+
+      <!-- Right Mic Slot (amber) -->
+      <rect x="80" y="60" width="38" height="30" rx="3" fill="#d97706" stroke="#facc15" stroke-width="1"/>
+      <text x="99" y="80" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="10" font-weight="700" fill="#ffffff">R1</text>
+
+      <!-- Left Mic Slot -->
+      <rect x="120" y="60" width="38" height="30" rx="3" fill="#059669" stroke="#34d399" stroke-width="1"/>
+      <text x="139" y="80" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="10" font-weight="700" fill="#ffffff">L2</text>
+
+      <!-- Right Mic Slot -->
+      <rect x="160" y="60" width="38" height="30" rx="3" fill="#d97706" stroke="#facc15" stroke-width="1"/>
+      <text x="179" y="80" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="10" font-weight="700" fill="#ffffff">R2</text>
+
+      <!-- Left Mic Slot -->
+      <rect x="200" y="60" width="38" height="30" rx="3" fill="#059669" stroke="#34d399" stroke-width="1"/>
+      <text x="219" y="80" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="10" font-weight="700" fill="#ffffff">L3</text>
+
+      <!-- Right Mic Slot -->
+      <rect x="240" y="60" width="38" height="30" rx="3" fill="#d97706" stroke="#facc15" stroke-width="1"/>
+      <text x="259" y="80" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="10" font-weight="700" fill="#ffffff">R3</text>
+
+      <!-- Left Mic Slot -->
+      <rect x="280" y="60" width="38" height="30" rx="3" fill="#059669" stroke="#34d399" stroke-width="1"/>
+      <text x="299" y="80" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="10" font-weight="700" fill="#ffffff">L4</text>
+
+      <!-- Right Mic Slot -->
+      <rect x="320" y="60" width="38" height="30" rx="3" fill="#d97706" stroke="#facc15" stroke-width="1"/>
+      <text x="339" y="80" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="10" font-weight="700" fill="#ffffff">R4</text>
+
+      <text x="420" y="78" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#cbd5e1">
+        ← Почерговий вихід мікрофонів з Hi-Z
+      </text>
+    </g>
+
+    <!-- Legend & Explanation -->
+    <g transform="translate(20, 150)">
+      <text x="0" y="16" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#cbd5e1">
+        • <tspan font-weight="700" fill="#34d399">Лівий мікрофон (L):</tspan> виставляє біт по наростанню CLK (↑) та переходить у Hi-Z по спаду CLK.
+      </text>
+      <text x="0" y="34" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#cbd5e1">
+        • <tspan font-weight="700" fill="#facc15">Правий мікрофон (R):</tspan> виставляє біт по спаду CLK (↓) та переходить у Hi-Z по наростанню CLK.
+      </text>
+      <text x="0" y="52" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#38bdf8">
+        • Результат: повноцінне стерео без додаткових проводів — потрібні лише 2 сигнальні лінії (CLK та DATA)!
+      </text>
+    </g>
+  </g>
+</svg>
