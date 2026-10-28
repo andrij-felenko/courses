@@ -1,0 +1,139 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bg-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f172a"/>
+      <stop offset="100%" stop-color="#1e293b"/>
+    </linearGradient>
+    <linearGradient id="adc-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0284c7"/>
+      <stop offset="100%" stop-color="#0369a1"/>
+    </linearGradient>
+    <linearGradient id="mul-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#d97706"/>
+      <stop offset="100%" stop-color="#b45309"/>
+    </linearGradient>
+    <filter id="shadow" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#000000" flood-opacity="0.4"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="960" height="520" rx="12" fill="url(#bg-grad)"/>
+
+  <!-- Title -->
+  <text x="480" y="38" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="20" font-weight="700" fill="#f8fafc">
+    Апаратний конвеєр математичних обчислень INA226
+  </text>
+  <text x="480" y="60" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="13" fill="#94a3b8">
+    Трансляція напруги шунта й шини в струм і потужність через внутрішній помножувач
+  </text>
+
+  <!-- Analog Inputs -->
+  <g transform="translate(30, 95)">
+    <!-- Shunt inputs -->
+    <rect x="0" y="0" width="110" height="70" rx="6" fill="#1e293b" stroke="#38bdf8" stroke-width="1.5" filter="url(#shadow)"/>
+    <text x="55" y="26" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="700" fill="#38bdf8">Входи IN+ / IN-</text>
+    <text x="55" y="44" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="10" fill="#cbd5e1">Падіння на шунті</text>
+    <text x="55" y="58" text-anchor="middle" font-family="monospace" font-size="11" font-weight="600" fill="#34d399">±81.92 мВ</text>
+
+    <!-- Bus input -->
+    <rect x="0" y="270" width="110" height="70" rx="6" fill="#1e293b" stroke="#38bdf8" stroke-width="1.5" filter="url(#shadow)"/>
+    <text x="55" y="296" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="700" fill="#38bdf8">Вхід VBUS</text>
+    <text x="55" y="314" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="10" fill="#cbd5e1">Напруга шини</text>
+    <text x="55" y="328" text-anchor="middle" font-family="monospace" font-size="11" font-weight="600" fill="#34d399">0 .. 36.00 В</text>
+  </g>
+
+  <!-- Arrows to ADCs -->
+  <path d="M 140 130 L 175 130" stroke="#38bdf8" stroke-width="2.5" fill="none" marker-end="url(#arrow)"/>
+  <path d="M 140 400 L 175 400" stroke="#38bdf8" stroke-width="2.5" fill="none"/>
+
+  <!-- ADCs -->
+  <g transform="translate(175, 95)">
+    <!-- Shunt ADC -->
+    <rect x="0" y="0" width="140" height="70" rx="6" fill="url(#adc-grad)" filter="url(#shadow)"/>
+    <text x="70" y="26" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="700" fill="#ffffff">16-біт Сигма-Дельта</text>
+    <text x="70" y="44" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#e0f2fe">АЦП Шунта</text>
+    <text x="70" y="58" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="9" fill="#bae6fd">140 мкс .. 8.24 мс</text>
+
+    <!-- Bus ADC -->
+    <rect x="0" y="270" width="140" height="70" rx="6" fill="url(#adc-grad)" filter="url(#shadow)"/>
+    <text x="70" y="296" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="700" fill="#ffffff">16-біт Сигма-Дельта</text>
+    <text x="70" y="314" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#e0f2fe">АЦП Шини</text>
+    <text x="70" y="328" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="9" fill="#bae6fd">140 мкс .. 8.24 мс</text>
+  </g>
+
+  <!-- Primary Registers -->
+  <g transform="translate(355, 95)">
+    <!-- Shunt Reg -->
+    <rect x="0" y="0" width="150" height="70" rx="6" fill="#1e293b" stroke="#10b981" stroke-width="2" filter="url(#shadow)"/>
+    <text x="75" y="24" text-anchor="middle" font-family="monospace" font-size="11" font-weight="700" fill="#34d399">0x01: Shunt Volt</text>
+    <text x="75" y="42" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="600" fill="#ffffff">LSB = 2.5 мкВ</text>
+    <text x="75" y="58" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="9" fill="#94a3b8">16 біт (доповн. код)</text>
+
+    <!-- Bus Reg -->
+    <rect x="0" y="270" width="150" height="70" rx="6" fill="#1e293b" stroke="#10b981" stroke-width="2" filter="url(#shadow)"/>
+    <text x="75" y="294" text-anchor="middle" font-family="monospace" font-size="11" font-weight="700" fill="#34d399">0x02: Bus Volt</text>
+    <text x="75" y="312" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="600" fill="#ffffff">LSB = 1.25 мВ</text>
+    <text x="75" y="328" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="9" fill="#94a3b8">16 біт (без знаку)</text>
+  </g>
+
+  <!-- Connectors -->
+  <path d="M 315 130 L 355 130" stroke="#38bdf8" stroke-width="2.5" fill="none"/>
+  <path d="M 315 400 L 355 400" stroke="#38bdf8" stroke-width="2.5" fill="none"/>
+
+  <!-- Calibration Register block -->
+  <g transform="translate(450, 190)">
+    <rect x="0" y="0" width="160" height="60" rx="6" fill="#1e293b" stroke="#f59e0b" stroke-width="2" filter="url(#shadow)"/>
+    <text x="80" y="24" text-anchor="middle" font-family="monospace" font-size="11" font-weight="700" fill="#facc15">0x05: Calibration</text>
+    <text x="80" y="42" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="10" fill="#cbd5e1">CAL = 0.00512 / (I_LSB × R)</text>
+  </g>
+
+  <!-- Multiplier 1: Current -->
+  <g transform="translate(560, 100)">
+    <rect x="0" y="0" width="150" height="60" rx="6" fill="url(#mul-grad)" filter="url(#shadow)"/>
+    <text x="75" y="24" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="700" fill="#ffffff">Помножувач</text>
+    <text x="75" y="44" text-anchor="middle" font-family="monospace" font-size="11" fill="#fef3c7">(V_sh × CAL) / 2048</text>
+  </g>
+
+  <!-- Multiplier connections -->
+  <path d="M 505 130 L 560 130" stroke="#34d399" stroke-width="2.5" fill="none"/>
+  <path d="M 530 190 L 530 145 L 560 145" stroke="#f59e0b" stroke-width="2" fill="none"/>
+
+  <!-- Current Register -->
+  <g transform="translate(750, 95)">
+    <rect x="0" y="0" width="170" height="70" rx="6" fill="#1e293b" stroke="#e11d48" stroke-width="2" filter="url(#shadow)"/>
+    <text x="85" y="24" text-anchor="middle" font-family="monospace" font-size="11" font-weight="700" fill="#fb7185">0x04: Current</text>
+    <text x="85" y="42" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="600" fill="#ffffff">LSB = Current_LSB</text>
+    <text x="85" y="58" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="9" fill="#94a3b8">16 біт зі знаком (int16_t)</text>
+  </g>
+  <path d="M 710 130 L 750 130" stroke="#fb7185" stroke-width="2.5" fill="none"/>
+
+  <!-- Multiplier 2: Power -->
+  <g transform="translate(650, 275)">
+    <rect x="0" y="0" width="150" height="60" rx="6" fill="url(#mul-grad)" filter="url(#shadow)"/>
+    <text x="75" y="24" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="700" fill="#ffffff">Помножувач потужності</text>
+    <text x="75" y="44" text-anchor="middle" font-family="monospace" font-size="11" fill="#fef3c7">(Current × V_bus) / 5000</text>
+  </g>
+
+  <!-- Connect current to power mul -->
+  <path d="M 835 165 L 835 240 L 725 240 L 725 275" stroke="#fb7185" stroke-width="2" fill="none"/>
+  <!-- Connect bus to power mul -->
+  <path d="M 505 400 L 580 400 L 580 305 L 650 305" stroke="#34d399" stroke-width="2" fill="none"/>
+
+  <!-- Power Register -->
+  <g transform="translate(750, 365)">
+    <rect x="0" y="0" width="170" height="70" rx="6" fill="#1e293b" stroke="#8b5cf6" stroke-width="2" filter="url(#shadow)"/>
+    <text x="85" y="24" text-anchor="middle" font-family="monospace" font-size="11" font-weight="700" fill="#c084fc">0x03: Power</text>
+    <text x="85" y="42" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="600" fill="#ffffff">LSB = 25 × Current_LSB</text>
+    <text x="85" y="58" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="9" fill="#94a3b8">16 біт без знаку (uint16_t)</text>
+  </g>
+  <path d="M 725 335 L 725 400 L 750 400" stroke="#8b5cf6" stroke-width="2.5" fill="none"/>
+
+  <!-- Bottom Explanatory Bar -->
+  <g transform="translate(30, 460)">
+    <rect width="900" height="42" rx="6" fill="#0f172a" stroke="#334155" stroke-width="1"/>
+    <text x="20" y="26" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#cbd5e1">
+      <tspan font-weight="700" fill="#38bdf8">Ключове правило:</tspan> Апаратний помножувач працює на кристалі в реальному часі. Якщо в регістр 0x05 записано 0, регістри 0x04 та 0x03 залишаються 0.
+    </text>
+  </g>
+</svg>

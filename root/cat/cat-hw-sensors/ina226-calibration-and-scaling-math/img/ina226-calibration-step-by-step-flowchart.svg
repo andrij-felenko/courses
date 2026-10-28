@@ -1,0 +1,129 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bg-grad2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f172a"/>
+      <stop offset="100%" stop-color="#1e293b"/>
+    </linearGradient>
+    <filter id="shadow2" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="0" dy="3" stdDeviation="5" flood-color="#000000" flood-opacity="0.3"/>
+    </filter>
+  </defs>
+
+  <rect width="960" height="520" rx="12" fill="url(#bg-grad2)"/>
+
+  <text x="480" y="36" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="19" font-weight="700" fill="#f8fafc">
+    Покроковий алгоритм розрахунку калібрування INA226
+  </text>
+  <text x="480" y="58" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="13" fill="#94a3b8">
+    Інженерна методика вибору Current_LSB, обчислення CAL та запобігання переповненню
+  </text>
+
+  <!-- Step 1 -->
+  <g transform="translate(40, 85)">
+    <rect width="160" height="150" rx="8" fill="#1e293b" stroke="#38bdf8" stroke-width="1.5" filter="url(#shadow2)"/>
+    <circle cx="24" cy="24" r="14" fill="#0284c7"/>
+    <text x="24" y="29" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="700" fill="#ffffff">1</text>
+    <text x="50" y="28" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="700" fill="#38bdf8">Вхідні дані</text>
+    
+    <text x="15" y="60" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#cbd5e1">• Опір шунта:</text>
+    <text x="25" y="78" font-family="monospace" font-size="12" font-weight="600" fill="#34d399">R_shunt (Ом)</text>
+    <text x="15" y="105" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#cbd5e1">• Макс. струм:</text>
+    <text x="25" y="123" font-family="monospace" font-size="12" font-weight="600" fill="#34d399">I_max (А)</text>
+  </g>
+
+  <path d="M 200 160 L 220 160" stroke="#38bdf8" stroke-width="2" fill="none"/>
+
+  <!-- Step 2 -->
+  <g transform="translate(220, 85)">
+    <rect width="160" height="150" rx="8" fill="#1e293b" stroke="#38bdf8" stroke-width="1.5" filter="url(#shadow2)"/>
+    <circle cx="24" cy="24" r="14" fill="#0284c7"/>
+    <text x="24" y="29" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="700" fill="#ffffff">2</text>
+    <text x="50" y="28" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="700" fill="#38bdf8">Мінімальний LSB</text>
+    
+    <text x="15" y="60" font-family="system-ui, -apple-system, sans-serif" font-size="10" fill="#cbd5e1">Ділимо I_max на 2^15:</text>
+    <text x="15" y="85" font-family="monospace" font-size="10" font-weight="600" fill="#facc15">I_LSB_min =</text>
+    <text x="15" y="102" font-family="monospace" font-size="11" font-weight="700" fill="#facc15">I_max / 32768</text>
+    <text x="15" y="128" font-family="system-ui, -apple-system, sans-serif" font-size="10" fill="#94a3b8">Отримуємо нижню межу роздільної здатності</text>
+  </g>
+
+  <path d="M 380 160 L 400 160" stroke="#38bdf8" stroke-width="2" fill="none"/>
+
+  <!-- Step 3 -->
+  <g transform="translate(400, 85)">
+    <rect width="160" height="150" rx="8" fill="#1e293b" stroke="#38bdf8" stroke-width="1.5" filter="url(#shadow2)"/>
+    <circle cx="24" cy="24" r="14" fill="#0284c7"/>
+    <text x="24" y="29" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="700" fill="#ffffff">3</text>
+    <text x="50" y="28" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="700" fill="#38bdf8">Округлення LSB</text>
+    
+    <text x="15" y="60" font-family="system-ui, -apple-system, sans-serif" font-size="10" fill="#cbd5e1">Обираємо зручне значення:</text>
+    <text x="15" y="82" font-family="monospace" font-size="11" font-weight="600" fill="#a78bfa">Current_LSB &gt;=</text>
+    <text x="15" y="100" font-family="monospace" font-size="11" font-weight="600" fill="#a78bfa">I_LSB_min</text>
+    <text x="15" y="125" font-family="system-ui, -apple-system, sans-serif" font-size="10" fill="#94a3b8">наприклад: 1 мА, 0.5 мА, 100 мкА на відлік</text>
+  </g>
+
+  <path d="M 560 160 L 580 160" stroke="#38bdf8" stroke-width="2" fill="none"/>
+
+  <!-- Step 4 -->
+  <g transform="translate(580, 85)">
+    <rect width="160" height="150" rx="8" fill="#1e293b" stroke="#38bdf8" stroke-width="1.5" filter="url(#shadow2)"/>
+    <circle cx="24" cy="24" r="14" fill="#0284c7"/>
+    <text x="24" y="29" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="700" fill="#ffffff">4</text>
+    <text x="50" y="28" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="700" fill="#38bdf8">Розрахунок CAL</text>
+    
+    <text x="15" y="58" font-family="system-ui, -apple-system, sans-serif" font-size="10" fill="#cbd5e1">Формула Texas Instr.:</text>
+    <text x="10" y="80" font-family="monospace" font-size="11" font-weight="700" fill="#fb7185">CAL = trunc(</text>
+    <text x="10" y="98" font-family="monospace" font-size="10" font-weight="700" fill="#fb7185">0.00512 / (I_LSB × R))</text>
+    <text x="15" y="125" font-family="system-ui, -apple-system, sans-serif" font-size="10" fill="#94a3b8">Округлення до цілого числа (uint16_t)</text>
+  </g>
+
+  <path d="M 740 160 L 760 160" stroke="#38bdf8" stroke-width="2" fill="none"/>
+
+  <!-- Step 5 -->
+  <g transform="translate(760, 85)">
+    <rect width="160" height="150" rx="8" fill="#1e293b" stroke="#10b981" stroke-width="2" filter="url(#shadow2)"/>
+    <circle cx="24" cy="24" r="14" fill="#059669"/>
+    <text x="24" y="29" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="700" fill="#ffffff">5</text>
+    <text x="50" y="28" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="700" fill="#34d399">Валідація &amp; Запис</text>
+    
+    <text x="15" y="58" font-family="system-ui, -apple-system, sans-serif" font-size="10" fill="#cbd5e1">Умова коректності:</text>
+    <text x="15" y="78" font-family="monospace" font-size="11" font-weight="700" fill="#34d399">CAL &lt;= 65535</text>
+    <text x="15" y="100" font-family="monospace" font-size="11" font-weight="700" fill="#34d399">CAL &gt; 0</text>
+    <text x="15" y="125" font-family="system-ui, -apple-system, sans-serif" font-size="10" fill="#cbd5e1">Запис у регістр 0x05</text>
+  </g>
+
+  <!-- Detailed Numerical Examples Container -->
+  <g transform="translate(40, 260)">
+    <rect width="880" height="235" rx="8" fill="#1e293b" fill-opacity="0.8" stroke="#334155" stroke-width="1.5" filter="url(#shadow2)"/>
+    <text x="20" y="28" font-family="system-ui, -apple-system, sans-serif" font-size="15" font-weight="700" fill="#facc15">
+      Практичний приклад: R_shunt = 0.01 Ом (10 мОм), максимальний очікуваний струм I_max = 8.0 А
+    </text>
+
+    <!-- Table of Calculations -->
+    <g transform="translate(20, 45)">
+      <!-- Line 1 -->
+      <rect x="0" y="0" width="840" height="32" rx="4" fill="#0f172a" fill-opacity="0.6"/>
+      <text x="15" y="20" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="600" fill="#38bdf8">1. Розрахунок мінімального LSB:</text>
+      <text x="280" y="20" font-family="monospace" font-size="11" fill="#cbd5e1">I_LSB_min = 8.0 А / 32768 = 0.00024414 А / LSB (244.14 мкА)</text>
+
+      <!-- Line 2 -->
+      <rect x="0" y="38" width="840" height="32" rx="4" fill="#0f172a" fill-opacity="0.3"/>
+      <text x="15" y="58" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="600" fill="#38bdf8">2. Вибір інженерного Current_LSB:</text>
+      <text x="280" y="58" font-family="monospace" font-size="11" font-weight="700" fill="#34d399">Current_LSB = 0.00025 А (250 мкА = 0.25 мА на відлік)</text>
+
+      <!-- Line 3 -->
+      <rect x="0" y="76" width="840" height="32" rx="4" fill="#0f172a" fill-opacity="0.6"/>
+      <text x="15" y="96" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="600" fill="#38bdf8">3. Обчислення коефіцієнта CAL:</text>
+      <text x="280" y="96" font-family="monospace" font-size="11" font-weight="700" fill="#facc15">CAL = trunc(0.00512 / (0.00025 × 0.01)) = trunc(2048) = 2048 (0x0800)</text>
+
+      <!-- Line 4 -->
+      <rect x="0" y="114" width="840" height="32" rx="4" fill="#0f172a" fill-opacity="0.3"/>
+      <text x="15" y="134" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="600" fill="#38bdf8">4. Ціна LSB регістра Power (0x03):</text>
+      <text x="280" y="134" font-family="monospace" font-size="11" fill="#c084fc">Power_LSB = 25 × Current_LSB = 25 × 0.00025 А = 0.00625 Вт (6.25 мВт)</text>
+
+      <!-- Line 5 -->
+      <rect x="0" y="152" width="840" height="32" rx="4" fill="#0f172a" fill-opacity="0.6"/>
+      <text x="15" y="172" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="600" fill="#38bdf8">5. Перевірка при струмі 4.0 А:</text>
+      <text x="280" y="172" font-family="monospace" font-size="11" fill="#cbd5e1">Код струму = 4.0 / 0.00025 = 16000 відліків (0x3E80) у регістрі 0x04</text>
+    </g>
+  </g>
+</svg>
