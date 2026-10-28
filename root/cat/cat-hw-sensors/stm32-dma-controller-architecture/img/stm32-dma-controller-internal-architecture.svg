@@ -1,0 +1,151 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f172a"/>
+      <stop offset="100%" stop-color="#1e293b"/>
+    </linearGradient>
+    <filter id="shadow" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="0" dy="4" stdDeviation="5" flood-color="#000000" flood-opacity="0.4"/>
+    </filter>
+    <marker id="arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#38bdf8"/>
+    </marker>
+    <marker id="arrGreen" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#34d399"/>
+    </marker>
+  </defs>
+
+  <rect width="960" height="540" fill="url(#bg)"/>
+
+  <!-- Title -->
+  <text x="480" y="38" text-anchor="middle" font-family="system-ui, sans-serif" font-size="20" font-weight="700" fill="#f8fafc">
+    Внутрішня архітектура контролера прямого доступу до пам'яті (STM32 DMA)
+  </text>
+  <text x="480" y="62" text-anchor="middle" font-family="system-ui, sans-serif" font-size="13" fill="#94a3b8">
+    Двопортовий контролер з 8 незалежними потоками (Streams), апаратними FIFO та пакуванням даних
+  </text>
+
+  <!-- Left: Peripheral AHB Port -->
+  <rect x="35" y="95" width="190" height="415" rx="10" fill="#1e293b" stroke="#0ea5e9" stroke-width="1.5" filter="url(#shadow)"/>
+  <rect x="35" y="95" width="190" height="34" rx="10" fill="#0284c7"/>
+  <text x="130" y="118" text-anchor="middle" font-family="system-ui, sans-serif" font-size="13" font-weight="700" fill="#ffffff">
+    Периферійний порт AHB
+  </text>
+
+  <g transform="translate(48, 145)" font-family="system-ui, sans-serif" font-size="11" fill="#cbd5e1">
+    <rect x="0" y="0" width="165" height="45" rx="5" fill="#0f172a" stroke="#0ea5e9" stroke-width="1"/>
+    <text x="82" y="20" text-anchor="middle" font-weight="700" fill="#38bdf8">DCMI (Камера)</text>
+    <text x="82" y="36" text-anchor="middle" font-size="10" fill="#94a3b8">DMA2 Stream 1 Ch 1</text>
+
+    <rect x="0" y="55" width="165" height="45" rx="5" fill="#0f172a" stroke="#334155" stroke-width="1"/>
+    <text x="82" y="75" text-anchor="middle" font-weight="700" fill="#f1f5f9">SPI / I2S / SAI</text>
+    <text x="82" y="91" text-anchor="middle" font-size="10" fill="#94a3b8">Аудіо та дисплеї</text>
+
+    <rect x="0" y="110" width="165" height="45" rx="5" fill="#0f172a" stroke="#334155" stroke-width="1"/>
+    <text x="82" y="130" text-anchor="middle" font-weight="700" fill="#f1f5f9">USART / UART</text>
+    <text x="82" y="146" text-anchor="middle" font-size="10" fill="#94a3b8">Кільцеві буфери</text>
+
+    <rect x="0" y="165" width="165" height="45" rx="5" fill="#0f172a" stroke="#334155" stroke-width="1"/>
+    <text x="82" y="185" text-anchor="middle" font-weight="700" fill="#f1f5f9">ADC1 / ADC2 / ADC3</text>
+    <text x="82" y="201" text-anchor="middle" font-size="10" fill="#94a3b8">Сканування сенсорів</text>
+
+    <rect x="0" y="220" width="165" height="45" rx="5" fill="#0f172a" stroke="#334155" stroke-width="1"/>
+    <text x="82" y="240" text-anchor="middle" font-weight="700" fill="#f1f5f9">SDMMC / SDIO</text>
+    <text x="82" y="256" text-anchor="middle" font-size="10" fill="#94a3b8">Карти пам'яті</text>
+  </g>
+
+  <rect x="48" y="445" width="165" height="45" rx="5" fill="#0f172a" stroke="#0ea5e9" stroke-width="1"/>
+  <text x="130" y="465" text-anchor="middle" font-family="system-ui, sans-serif" font-size="10" font-weight="700" fill="#38bdf8">Шина AHB Peripheral</text>
+  <text x="130" y="480" text-anchor="middle" font-family="system-ui, sans-serif" font-size="10" fill="#94a3b8">32-бітний майстер-порт</text>
+
+  <!-- Center: DMA Core Engine -->
+  <g transform="translate(255, 95)">
+    <rect width="450" height="415" rx="10" fill="#1e293b" stroke="#334155" stroke-width="1.5" filter="url(#shadow)"/>
+    <rect width="450" height="34" rx="10" fill="#4338ca"/>
+    <text x="225" y="22" text-anchor="middle" font-family="system-ui, sans-serif" font-size="13" font-weight="700" fill="#ffffff">
+      Ядро контролера DMA (8 незалежних потоків Stream 0 .. 7)
+    </text>
+
+    <!-- Detailed Single Stream Architecture (Stream x) -->
+    <rect x="20" y="50" width="410" height="280" rx="8" fill="#0f172a" stroke="#818cf8" stroke-width="1.5"/>
+    <text x="35" y="75" font-family="system-ui, sans-serif" font-size="13" font-weight="700" fill="#a5b4fc">
+      Архітектура потоку DMA Stream x:
+    </text>
+
+    <!-- Channel Selector MUX -->
+    <rect x="35" y="95" width="110" height="65" rx="6" fill="#1e293b" stroke="#38bdf8" stroke-width="1"/>
+    <text x="90" y="120" text-anchor="middle" font-family="system-ui, sans-serif" font-size="11" font-weight="700" fill="#38bdf8">Канальний MUX</text>
+    <text x="90" y="140" text-anchor="middle" font-family="system-ui, sans-serif" font-size="10" fill="#94a3b8">8 каналів (CHSEL)</text>
+
+    <!-- Arrow to FIFO -->
+    <line x1="145" y1="127" x2="175" y2="127" stroke="#38bdf8" stroke-width="2" marker-end="url(#arr)"/>
+
+    <!-- 4-Word Hardware FIFO -->
+    <rect x="180" y="95" width="130" height="65" rx="6" fill="#1e293b" stroke="#10b981" stroke-width="1.5"/>
+    <text x="245" y="118" text-anchor="middle" font-family="system-ui, sans-serif" font-size="11" font-weight="700" fill="#34d399">FIFO Буфер</text>
+    <text x="245" y="135" text-anchor="middle" font-family="monospace" font-size="10" fill="#f8fafc">4 слова x 32 біти</text>
+    <text x="245" y="150" text-anchor="middle" font-family="system-ui, sans-serif" font-size="9" fill="#94a3b8">(16 байтів ємності)</text>
+
+    <!-- Arrow to Packing/Burst -->
+    <line x1="310" y1="127" x2="335" y2="127" stroke="#38bdf8" stroke-width="2" marker-end="url(#arr)"/>
+
+    <!-- Data Packer & Burst Logic -->
+    <rect x="340" y="95" width="80" height="65" rx="6" fill="#1e293b" stroke="#f59e0b" stroke-width="1"/>
+    <text x="380" y="118" text-anchor="middle" font-family="system-ui, sans-serif" font-size="10" font-weight="700" fill="#fbbf24">Пакувальник</text>
+    <text x="380" y="135" text-anchor="middle" font-family="system-ui, sans-serif" font-size="9" fill="#cbd5e1">Pack/Unpack</text>
+    <text x="380" y="150" text-anchor="middle" font-family="system-ui, sans-serif" font-size="9" fill="#cbd5e1">Burst INC4</text>
+
+    <!-- Register Set -->
+    <rect x="35" y="175" width="385" height="140" rx="6" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+    <text x="50" y="195" font-family="system-ui, sans-serif" font-size="11" font-weight="700" fill="#cbd5e1">
+      Регістровий блок потоку (Stream Registers):
+    </text>
+    <text x="50" y="218" font-family="monospace" font-size="11" fill="#38bdf8">• DMA_SxCR:   Режим, пріоритет, розмірність слів (PSIZE/MSIZE)</text>
+    <text x="50" y="238" font-family="monospace" font-size="11" fill="#34d399">• DMA_SxNDTR: Лічильник елементів передачі (0..65535)</text>
+    <text x="50" y="258" font-family="monospace" font-size="11" fill="#fbbf24">• DMA_SxPAR:  Фізична адреса регістру периферії</text>
+    <text x="50" y="278" font-family="monospace" font-size="11" fill="#f472b6">• DMA_SxM0AR: Базова адреса пам'яті (Буфер 0)</text>
+    <text x="50" y="298" font-family="monospace" font-size="11" fill="#f472b6">• DMA_SxM1AR: Адреса пам'яті (Буфер 1 у Double-Buffer Mode)</text>
+
+    <!-- Internal Arbiter -->
+    <rect x="20" y="345" width="410" height="55" rx="6" fill="#0f172a" stroke="#10b981" stroke-width="1.5"/>
+    <text x="225" y="367" text-anchor="middle" font-family="system-ui, sans-serif" font-size="12" font-weight="700" fill="#34d399">
+      Внутрішній арбітр потоків (Internal Stream Arbiter)
+    </text>
+    <text x="225" y="387" text-anchor="middle" font-family="system-ui, sans-serif" font-size="10" fill="#94a3b8">
+      4 рівні: Very High &gt; High &gt; Medium &gt; Low. При рівних — пріоритет за меншим номером Stream
+    </text>
+  </g>
+
+  <!-- Right: Memory AHB Port -->
+  <rect x="735" y="95" width="190" height="415" rx="10" fill="#1e293b" stroke="#10b981" stroke-width="1.5" filter="url(#shadow)"/>
+  <rect x="735" y="95" width="190" height="34" rx="10" fill="#059669"/>
+  <text x="830" y="118" text-anchor="middle" font-family="system-ui, sans-serif" font-size="13" font-weight="700" fill="#ffffff">
+    Порт пам'яті AHB/AXI
+  </text>
+
+  <g transform="translate(748, 145)" font-family="system-ui, sans-serif" font-size="11" fill="#cbd5e1">
+    <rect x="0" y="0" width="165" height="45" rx="5" fill="#0f172a" stroke="#10b981" stroke-width="1"/>
+    <text x="82" y="20" text-anchor="middle" font-weight="700" fill="#34d399">SRAM1 (112..512 КБ)</text>
+    <text x="82" y="36" text-anchor="middle" font-size="10" fill="#94a3b8">Основний буфер камери</text>
+
+    <rect x="0" y="55" width="165" height="45" rx="5" fill="#0f172a" stroke="#334155" stroke-width="1"/>
+    <text x="82" y="75" text-anchor="middle" font-weight="700" fill="#f1f5f9">SRAM2 / SRAM3</text>
+    <text x="82" y="91" text-anchor="middle" font-size="10" fill="#94a3b8">Периферійні масиви</text>
+
+    <rect x="0" y="110" width="165" height="45" rx="5" fill="#0f172a" stroke="#334155" stroke-width="1"/>
+    <text x="82" y="130" text-anchor="middle" font-weight="700" fill="#f1f5f9">DTCM RAM</text>
+    <text x="82" y="146" text-anchor="middle" font-size="10" fill="#94a3b8">Стек ядра процесора</text>
+
+    <rect x="0" y="165" width="165" height="45" rx="5" fill="#0f172a" stroke="#334155" stroke-width="1"/>
+    <text x="82" y="185" text-anchor="middle" font-weight="700" fill="#f1f5f9">FMC / SDRAM</text>
+    <text x="82" y="201" text-anchor="middle" font-size="10" fill="#94a3b8">Зовнішня відеопам'ять</text>
+
+    <rect x="0" y="220" width="165" height="45" rx="5" fill="#0f172a" stroke="#334155" stroke-width="1"/>
+    <text x="82" y="240" text-anchor="middle" font-weight="700" fill="#f1f5f9">Internal Flash</text>
+    <text x="82" y="256" text-anchor="middle" font-size="10" fill="#94a3b8">Таблиці констант</text>
+  </g>
+
+  <rect x="748" y="445" width="165" height="45" rx="5" fill="#0f172a" stroke="#10b981" stroke-width="1"/>
+  <text x="830" y="465" text-anchor="middle" font-family="system-ui, sans-serif" font-size="10" font-weight="700" fill="#34d399">Шина AHB Memory</text>
+  <text x="830" y="480" text-anchor="middle" font-family="system-ui, sans-serif" font-size="10" fill="#94a3b8">Пакетний запис Burst</text>
+</svg>
