@@ -1,0 +1,149 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f172a"/>
+      <stop offset="100%" stop-color="#1e293b"/>
+    </linearGradient>
+    <filter id="shadow" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="0" dy="4" stdDeviation="5" flood-color="#000000" flood-opacity="0.4"/>
+    </filter>
+  </defs>
+
+  <rect width="960" height="540" fill="url(#bg)"/>
+
+  <!-- Title -->
+  <text x="480" y="38" text-anchor="middle" font-family="system-ui, sans-serif" font-size="20" font-weight="700" fill="#f8fafc">
+    Архітектура багатошарової матриці шин Multi-AHB / AXI в STM32
+  </text>
+  <text x="480" y="62" text-anchor="middle" font-family="system-ui, sans-serif" font-size="13" fill="#94a3b8">
+    Одночасний доступ кількох майстрів (DMA, CPU, LTDC) до незалежних ведених блоків пам'яті
+  </text>
+
+  <!-- Left: Bus Masters -->
+  <g transform="translate(40, 95)">
+    <rect width="210" height="415" rx="10" fill="#1e293b" stroke="#0ea5e9" stroke-width="1.5" filter="url(#shadow)"/>
+    <rect width="210" height="34" rx="10" fill="#0284c7"/>
+    <text x="105" y="22" text-anchor="middle" font-family="system-ui, sans-serif" font-size="13" font-weight="700" fill="#ffffff">
+      Майстри шини (Bus Masters)
+    </text>
+
+    <!-- Master 1: Cortex-M CPU -->
+    <rect x="15" y="48" width="180" height="42" rx="6" fill="#0f172a" stroke="#38bdf8" stroke-width="1"/>
+    <text x="105" y="68" text-anchor="middle" font-family="system-ui, sans-serif" font-size="12" font-weight="700" fill="#38bdf8">Cortex-M7 (D-Bus / AXI)</text>
+    <text x="105" y="83" text-anchor="middle" font-family="system-ui, sans-serif" font-size="10" fill="#94a3b8">Доступ до коду та даних</text>
+
+    <!-- Master 2: DMA2 (Camera DCMI) -->
+    <rect x="15" y="100" width="180" height="42" rx="6" fill="#0f172a" stroke="#10b981" stroke-width="1"/>
+    <text x="105" y="120" text-anchor="middle" font-family="system-ui, sans-serif" font-size="12" font-weight="700" fill="#34d399">DMA2 (Камера DCMI)</text>
+    <text x="105" y="135" text-anchor="middle" font-family="system-ui, sans-serif" font-size="10" fill="#94a3b8">Потік пікселів 24 МБ/с</text>
+
+    <!-- Master 3: DMA2D Chrom-ART -->
+    <rect x="15" y="152" width="180" height="42" rx="6" fill="#0f172a" stroke="#f59e0b" stroke-width="1"/>
+    <text x="105" y="172" text-anchor="middle" font-family="system-ui, sans-serif" font-size="12" font-weight="700" fill="#fbbf24">DMA2D (Chrom-ART)</text>
+    <text x="105" y="187" text-anchor="middle" font-family="system-ui, sans-serif" font-size="10" fill="#94a3b8">2D-акселератор графіки</text>
+
+    <!-- Master 4: LTDC Display -->
+    <rect x="15" y="204" width="180" height="42" rx="6" fill="#0f172a" stroke="#ec4899" stroke-width="1"/>
+    <text x="105" y="224" text-anchor="middle" font-family="system-ui, sans-serif" font-size="12" font-weight="700" fill="#f472b6">LTDC (Контролер РК)</text>
+    <text x="105" y="239" text-anchor="middle" font-family="system-ui, sans-serif" font-size="10" fill="#94a3b8">Неперервний DMA екрана</text>
+
+    <!-- Master 5: DMA1 (Периферія) -->
+    <rect x="15" y="256" width="180" height="42" rx="6" fill="#0f172a" stroke="#8b5cf6" stroke-width="1"/>
+    <text x="105" y="276" text-anchor="middle" font-family="system-ui, sans-serif" font-size="12" font-weight="700" fill="#c084fc">DMA1 (SPI / I2S / UART)</text>
+    <text x="105" y="291" text-anchor="middle" font-family="system-ui, sans-serif" font-size="10" fill="#94a3b8">Аудіо та датчики</text>
+
+    <!-- Master 6: Ethernet / USB -->
+    <rect x="15" y="308" width="180" height="42" rx="6" fill="#0f172a" stroke="#64748b" stroke-width="1"/>
+    <text x="105" y="328" text-anchor="middle" font-family="system-ui, sans-serif" font-size="12" font-weight="700" fill="#cbd5e1">Ethernet MAC / USB HS</text>
+    <text x="105" y="343" text-anchor="middle" font-family="system-ui, sans-serif" font-size="10" fill="#94a3b8">Мережевий DMA стрім</text>
+
+    <text x="105" y="385" text-anchor="middle" font-family="system-ui, sans-serif" font-size="11" fill="#94a3b8">Паралельні запити</text>
+  </g>
+
+  <!-- Center: Crossbar Interconnect Switch -->
+  <g transform="translate(300, 95)">
+    <rect width="360" height="415" rx="10" fill="#1e293b" stroke="#475569" stroke-width="1.5" filter="url(#shadow)"/>
+    <rect width="360" height="34" rx="10" fill="#334155"/>
+    <text x="180" y="22" text-anchor="middle" font-family="system-ui, sans-serif" font-size="13" font-weight="700" fill="#ffffff">
+      Crossbar Matrix &amp; Arbiters (Матриця шин)
+    </text>
+
+    <!-- Horizontal Bus Lines -->
+    <line x1="20" y1="69" x2="340" y2="69" stroke="#38bdf8" stroke-width="2"/>
+    <line x1="20" y1="121" x2="340" y2="121" stroke="#34d399" stroke-width="2"/>
+    <line x1="20" y1="173" x2="340" y2="173" stroke="#fbbf24" stroke-width="2"/>
+    <line x1="20" y1="225" x2="340" y2="225" stroke="#f472b6" stroke-width="2"/>
+    <line x1="20" y1="277" x2="340" y2="277" stroke="#c084fc" stroke-width="2"/>
+    <line x1="20" y1="329" x2="340" y2="329" stroke="#94a3b8" stroke-width="2"/>
+
+    <!-- Vertical Slave Port Columns -->
+    <line x1="60" y1="45" x2="60" y2="350" stroke="#475569" stroke-dasharray="2" stroke-width="1.5"/>
+    <line x1="120" y1="45" x2="120" y2="350" stroke="#475569" stroke-dasharray="2" stroke-width="1.5"/>
+    <line x1="180" y1="45" x2="180" y2="350" stroke="#475569" stroke-dasharray="2" stroke-width="1.5"/>
+    <line x1="240" y1="45" x2="240" y2="350" stroke="#475569" stroke-dasharray="2" stroke-width="1.5"/>
+    <line x1="300" y1="45" x2="300" y2="350" stroke="#475569" stroke-dasharray="2" stroke-width="1.5"/>
+
+    <!-- Matrix Switching Nodes (Crosspoints) -->
+    <!-- Concurrent Path 1: DMA2 -> SRAM1 -->
+    <circle cx="120" cy="121" r="6" fill="#34d399"/>
+    <circle cx="120" cy="121" r="10" fill="none" stroke="#34d399" stroke-width="1.5"/>
+
+    <!-- Concurrent Path 2: LTDC -> FMC (SDRAM) -->
+    <circle cx="240" cy="225" r="6" fill="#f472b6"/>
+    <circle cx="240" cy="225" r="10" fill="none" stroke="#f472b6" stroke-width="1.5"/>
+
+    <!-- Concurrent Path 3: CPU -> DTCM -->
+    <circle cx="60" cy="69" r="6" fill="#38bdf8"/>
+    <circle cx="60" cy="69" r="10" fill="none" stroke="#38bdf8" stroke-width="1.5"/>
+
+    <!-- Explanatory note -->
+    <rect x="20" y="360" width="320" height="42" rx="5" fill="#0f172a" stroke="#34d399" stroke-width="1"/>
+    <text x="180" y="377" text-anchor="middle" font-family="system-ui, sans-serif" font-size="10" font-weight="700" fill="#34d399">
+      Паралельний доступ без затримок:
+    </text>
+    <text x="180" y="392" text-anchor="middle" font-family="system-ui, sans-serif" font-size="10" fill="#cbd5e1">
+      Камера пише в SRAM1, дисплей читає з SDRAM одночасно!
+    </text>
+  </g>
+
+  <!-- Right: Slaves / Targets -->
+  <g transform="translate(710, 95)">
+    <rect width="210" height="415" rx="10" fill="#1e293b" stroke="#10b981" stroke-width="1.5" filter="url(#shadow)"/>
+    <rect width="210" height="34" rx="10" fill="#059669"/>
+    <text x="105" y="22" text-anchor="middle" font-family="system-ui, sans-serif" font-size="13" font-weight="700" fill="#ffffff">
+      Ведені пристрої (Slaves / RAM)
+    </text>
+
+    <!-- Slave 1: DTCM / ITCM -->
+    <rect x="15" y="48" width="180" height="42" rx="6" fill="#0f172a" stroke="#38bdf8" stroke-width="1"/>
+    <text x="105" y="68" text-anchor="middle" font-family="system-ui, sans-serif" font-size="12" font-weight="700" fill="#38bdf8">DTCM RAM (Tightly Coupled)</text>
+    <text x="105" y="83" text-anchor="middle" font-family="system-ui, sans-serif" font-size="10" fill="#94a3b8">0 wait-states для ядра CPU</text>
+
+    <!-- Slave 2: SRAM1 (112..512 КБ) -->
+    <rect x="15" y="100" width="180" height="42" rx="6" fill="#0f172a" stroke="#34d399" stroke-width="1"/>
+    <text x="105" y="120" text-anchor="middle" font-family="system-ui, sans-serif" font-size="12" font-weight="700" fill="#34d399">SRAM1 (AXI / AHB)</text>
+    <text x="105" y="135" text-anchor="middle" font-family="system-ui, sans-serif" font-size="10" fill="#94a3b8">Буфери DCMI камери</text>
+
+    <!-- Slave 3: SRAM2 (16..128 КБ) -->
+    <rect x="15" y="152" width="180" height="42" rx="6" fill="#0f172a" stroke="#cbd5e1" stroke-width="1"/>
+    <text x="105" y="172" text-anchor="middle" font-family="system-ui, sans-serif" font-size="12" font-weight="700" fill="#cbd5e1">SRAM2 / SRAM3</text>
+    <text x="105" y="187" text-anchor="middle" font-family="system-ui, sans-serif" font-size="10" fill="#94a3b8">Дані додатків та стеку</text>
+
+    <!-- Slave 4: FMC / SDRAM Interface -->
+    <rect x="15" y="204" width="180" height="42" rx="6" fill="#0f172a" stroke="#f472b6" stroke-width="1"/>
+    <text x="105" y="224" text-anchor="middle" font-family="system-ui, sans-serif" font-size="12" font-weight="700" fill="#f472b6">FMC (Зовнішня SDRAM)</text>
+    <text x="105" y="239" text-anchor="middle" font-family="system-ui, sans-serif" font-size="10" fill="#94a3b8">Відеопам'ять Framebuffers</text>
+
+    <!-- Slave 5: Flash пам'ять -->
+    <rect x="15" y="256" width="180" height="42" rx="6" fill="#0f172a" stroke="#c084fc" stroke-width="1"/>
+    <text x="105" y="276" text-anchor="middle" font-family="system-ui, sans-serif" font-size="12" font-weight="700" fill="#c084fc">Internal Flash</text>
+    <text x="105" y="291" text-anchor="middle" font-family="system-ui, sans-serif" font-size="10" fill="#94a3b8">Прошивка з ART Accelerator</text>
+
+    <!-- Slave 6: AHB1/AHB2 Peripherals -->
+    <rect x="15" y="308" width="180" height="42" rx="6" fill="#0f172a" stroke="#64748b" stroke-width="1"/>
+    <text x="105" y="328" text-anchor="middle" font-family="system-ui, sans-serif" font-size="12" font-weight="700" fill="#cbd5e1">Периферія AHB / APB</text>
+    <text x="105" y="343" text-anchor="middle" font-family="system-ui, sans-serif" font-size="10" fill="#94a3b8">Регістри DCMI, LTDC, GPIO</text>
+
+    <text x="105" y="385" text-anchor="middle" font-family="system-ui, sans-serif" font-size="11" fill="#94a3b8">Цільові пристрої</text>
+  </g>
+</svg>

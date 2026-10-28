@@ -1,0 +1,110 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f172a"/>
+      <stop offset="100%" stop-color="#1e293b"/>
+    </linearGradient>
+    <marker id="arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#38bdf8"/>
+    </marker>
+    <filter id="shadow" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="0" dy="3" stdDeviation="4" flood-color="#000000" flood-opacity="0.5"/>
+    </filter>
+  </defs>
+
+  <rect width="960" height="520" fill="url(#bg)"/>
+
+  <!-- Title -->
+  <text x="480" y="36" text-anchor="middle" font-family="system-ui, sans-serif" font-size="20" font-weight="700" fill="#f8fafc">
+    Алгоритми арбітражу матриці шин та колізії пам'яті (Bus Contention)
+  </text>
+  <text x="480" y="58" text-anchor="middle" font-family="system-ui, sans-serif" font-size="13" fill="#94a3b8">
+    Конфлікт одночасного доступу DMA камери та CPU до одного банку SRAM1: ризик переповнення FIFO (FOVR)
+  </text>
+
+  <!-- Left: Contention Scenario Diagram -->
+  <rect x="40" y="90" width="425" height="400" rx="10" fill="#1e293b" stroke="#334155" stroke-width="1.5" filter="url(#shadow)"/>
+  <rect x="40" y="90" width="425" height="34" rx="10" fill="#be123c"/>
+  <text x="252" y="113" text-anchor="middle" font-family="system-ui, sans-serif" font-size="14" font-weight="700" fill="#ffffff">
+    Сценарій конфлікту (Bus Bottleneck)
+  </text>
+
+  <!-- Competitors -->
+  <g transform="translate(60, 145)">
+    <!-- Master 1: DCMI DMA -->
+    <rect x="0" y="0" width="130" height="55" rx="6" fill="#0f172a" stroke="#10b981" stroke-width="1.5"/>
+    <text x="65" y="24" text-anchor="middle" font-family="system-ui, sans-serif" font-size="11" font-weight="700" fill="#34d399">DMA2 Stream 1</text>
+    <text x="65" y="42" text-anchor="middle" font-family="system-ui, sans-serif" font-size="10" fill="#94a3b8">Запис кадрів DCMI</text>
+
+    <!-- Master 2: CPU Data Bus -->
+    <rect x="0" y="80" width="130" height="55" rx="6" fill="#0f172a" stroke="#38bdf8" stroke-width="1.5"/>
+    <text x="65" y="104" text-anchor="middle" font-family="system-ui, sans-serif" font-size="11" font-weight="700" fill="#38bdf8">Cortex-M CPU</text>
+    <text x="65" y="122" text-anchor="middle" font-family="system-ui, sans-serif" font-size="10" fill="#94a3b8">Читання масиву int[]</text>
+
+    <!-- Master 3: Ethernet DMA -->
+    <rect x="0" y="160" width="130" height="55" rx="6" fill="#0f172a" stroke="#f59e0b" stroke-width="1.5"/>
+    <text x="65" y="184" text-anchor="middle" font-family="system-ui, sans-serif" font-size="11" font-weight="700" fill="#fbbf24">Ethernet DMA</text>
+    <text x="65" y="202" text-anchor="middle" font-family="system-ui, sans-serif" font-size="10" fill="#94a3b8">Прийом TCP пакетів</text>
+
+    <!-- Single Slave Arbiter Point -->
+    <rect x="220" y="70" width="145" height="75" rx="8" fill="#450a0a" stroke="#f43f5e" stroke-width="2"/>
+    <text x="292" y="98" text-anchor="middle" font-family="system-ui, sans-serif" font-size="12" font-weight="700" fill="#fecdd3">Арбітр SRAM1</text>
+    <text x="292" y="118" text-anchor="middle" font-family="monospace" font-size="11" fill="#f87171">КОЛІЗІЯ (Stall)</text>
+    <text x="292" y="133" text-anchor="middle" font-family="system-ui, sans-serif" font-size="9" fill="#fda4af">1 порт доступу</text>
+
+    <!-- Connectors -->
+    <path d="M 130 27 L 180 27 L 220 90" stroke="#10b981" stroke-width="2" fill="none"/>
+    <path d="M 130 107 L 220 107" stroke="#38bdf8" stroke-width="2" fill="none"/>
+    <path d="M 130 187 L 180 187 L 220 125" stroke="#f59e0b" stroke-width="2" fill="none"/>
+  </g>
+
+  <!-- Danger Alert Box -->
+  <rect x="60" y="385" width="385" height="90" rx="6" fill="#0f172a" stroke="#f43f5e" stroke-width="1.2"/>
+  <text x="75" y="408" font-family="system-ui, sans-serif" font-size="12" font-weight="700" fill="#f43f5e">
+    Аварія: DCMI FIFO Overrun Error (FOVR)
+  </text>
+  <text x="75" y="428" font-family="system-ui, sans-serif" font-size="11" fill="#cbd5e1">
+    Внутрішній FIFO DCMI вміщує лише 4 слова по 32 біти (16 байтів).
+  </text>
+  <text x="75" y="446" font-family="system-ui, sans-serif" font-size="11" fill="#cbd5e1">
+    Якщо шина заблокована на 4-6 тактів CPU, FIFO переповнюється,
+  </text>
+  <text x="75" y="464" font-family="system-ui, sans-serif" font-size="11" fill="#cbd5e1">
+    виникає помилка FOVR і кадр незворотно спотворюється.
+  </text>
+
+  <!-- Right: Arbitration Policy Analysis -->
+  <rect x="495" y="90" width="425" height="400" rx="10" fill="#1e293b" stroke="#334155" stroke-width="1.5" filter="url(#shadow)"/>
+  <rect x="495" y="90" width="425" height="34" rx="10" fill="#0369a1"/>
+  <text x="707" y="113" text-anchor="middle" font-family="system-ui, sans-serif" font-size="14" font-weight="700" fill="#ffffff">
+    Стратегії арбітражу та налаштування пріоритетів
+  </text>
+
+  <!-- Scheme 1: Round-Robin -->
+  <rect x="515" y="140" width="385" height="95" rx="6" fill="#0f172a" stroke="#0ea5e9" stroke-width="1"/>
+  <text x="530" y="162" font-family="system-ui, sans-serif" font-size="12" font-weight="700" fill="#38bdf8">
+    1. Карусельний арбітраж (Round-Robin):
+  </text>
+  <text x="530" y="182" font-family="system-ui, sans-serif" font-size="11" fill="#cbd5e1">• Кожен майстер отримує доступ по черзі на 1 такт/транзакцію.</text>
+  <text x="530" y="200" font-family="system-ui, sans-serif" font-size="11" fill="#cbd5e1">• Виключає «голодування» (Starvation) процесора або фонових задач.</text>
+  <text x="530" y="218" font-family="monospace" font-size="10" fill="#94a3b8">Недолік: фіксована латентність, небезпечна для камерного DMA.</text>
+
+  <!-- Scheme 2: Fixed Priority -->
+  <rect x="515" y="248" width="385" height="110" rx="6" fill="#0f172a" stroke="#10b981" stroke-width="1"/>
+  <text x="530" y="270" font-family="system-ui, sans-serif" font-size="12" font-weight="700" fill="#34d399">
+    2. Пріоритетний арбітраж (DMA Hardware Priority):
+  </text>
+  <text x="530" y="290" font-family="system-ui, sans-serif" font-size="11" fill="#cbd5e1">• Контролери DMA мають 4 рівні пріоритету: Low, Medium, High, Very High.</text>
+  <text x="530" y="308" font-family="system-ui, sans-serif" font-size="11" fill="#cbd5e1">• DCMI потоку обов'язково призначається пріоритет Very High.</text>
+  <text x="530" y="326" font-family="system-ui, sans-serif" font-size="11" fill="#cbd5e1">• Арбітр відразу перериває передачі CPU на користь камери.</text>
+  <text x="530" y="344" font-family="monospace" font-size="10" fill="#34d399">Рекомендовано: гарантує нуль втрачених пікселів у DCMI.</text>
+
+  <!-- Scheme 3: AXI QoS (STM32H7) -->
+  <rect x="515" y="370" width="385" height="105" rx="6" fill="#0f172a" stroke="#f59e0b" stroke-width="1"/>
+  <text x="530" y="392" font-family="system-ui, sans-serif" font-size="12" font-weight="700" fill="#fbbf24">
+    3. Шинний рівень сервісу AXI QoS (STM32H7 / NIC-400):
+  </text>
+  <text x="530" y="412" font-family="system-ui, sans-serif" font-size="11" fill="#cbd5e1">• 4-бітний пріоритет Quality of Service (0..15) для кожного AXI-майстра.</text>
+  <text x="530" y="430" font-family="system-ui, sans-serif" font-size="11" fill="#cbd5e1">• Регістри AXI_TARGx_FN_MOD регулюють ліміти затримок арбітражу.</text>
+  <text x="530" y="452" font-family="monospace" font-size="10" fill="#fbbf24">Пропускна здатність шини AXI: до 200 МГц * 64 біти = 1.6 ГБ/с!</text>
+</svg>
