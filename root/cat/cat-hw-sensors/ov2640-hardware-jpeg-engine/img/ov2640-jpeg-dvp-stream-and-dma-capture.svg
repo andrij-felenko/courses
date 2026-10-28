@@ -1,0 +1,133 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgGrad2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#090d16"/>
+      <stop offset="100%" stop-color="#111827"/>
+    </linearGradient>
+    <linearGradient id="panelGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#1e293b"/>
+      <stop offset="100%" stop-color="#0f172a"/>
+    </linearGradient>
+    <filter id="shadow2" x="-5%" y="-5%" width="110%" height="115%">
+      <feDropShadow dx="0" dy="4" stdDeviation="5" flood-color="#000" flood-opacity="0.5"/>
+    </filter>
+  </defs>
+
+  <rect width="960" height="520" fill="url(#bgGrad2)"/>
+
+  <!-- Title -->
+  <text x="480" y="35" font-family="system-ui, sans-serif" font-size="21" font-weight="700" fill="#f8fafc" text-anchor="middle">Передача змінного JPEG-кадру через DVP та захоплення DMA</text>
+  <text x="480" y="58" font-family="system-ui, sans-serif" font-size="13" fill="#94a3b8" text-anchor="middle">Часова діаграма сигналів DVP (VSYNC, HREF, PCLK, DATA) та виявлення меж SOI/EOI мікроконтролером</text>
+
+  <!-- DVP Timing Diagram Panel -->
+  <g transform="translate(40, 75)" filter="url(#shadow2)">
+    <rect width="880" height="235" rx="10" fill="url(#panelGrad)" stroke="#334155" stroke-width="1.5"/>
+    
+    <!-- Signal labels -->
+    <text x="25" y="42" font-family="monospace" font-size="13" font-weight="700" fill="#38bdf8">VSYNC</text>
+    <text x="25" y="87" font-family="monospace" font-size="13" font-weight="700" fill="#a855f7">HREF</text>
+    <text x="25" y="132" font-family="monospace" font-size="13" font-weight="700" fill="#fbbf24">PCLK</text>
+    <text x="25" y="187" font-family="monospace" font-size="13" font-weight="700" fill="#34d399">D[7:0]</text>
+
+    <!-- Signal Divider Lines -->
+    <line x1="100" y1="58" x2="860" y2="58" stroke="#1e293b" stroke-width="1"/>
+    <line x1="100" y1="103" x2="860" y2="103" stroke="#1e293b" stroke-width="1"/>
+    <line x1="100" y1="148" x2="860" y2="148" stroke="#1e293b" stroke-width="1"/>
+
+    <!-- VSYNC Waveform -->
+    <!-- Low active or high active depending on config, usually pulse high indicates frame start/end -->
+    <path d="M 110 48 L 160 48 L 160 25 L 210 25 L 210 48 L 810 48 L 810 25 L 850 25" stroke="#38bdf8" stroke-width="2.5" fill="none"/>
+    <text x="185" y="20" font-family="system-ui, sans-serif" font-size="10" fill="#38bdf8" text-anchor="middle">Frame Start</text>
+    <text x="830" y="20" font-family="system-ui, sans-serif" font-size="10" fill="#38bdf8" text-anchor="middle">Frame End</text>
+
+    <!-- HREF Waveform (Packet bursts for JPEG) -->
+    <path d="M 110 93 L 230 93 L 230 72 L 390 72 L 390 93 L 420 93 L 420 72 L 580 72 L 580 93 L 610 93 L 610 72 L 770 72 L 770 93 L 850 93" stroke="#a855f7" stroke-width="2.5" fill="none"/>
+    <text x="310" y="67" font-family="system-ui, sans-serif" font-size="10" fill="#c084fc" text-anchor="middle">Burst 1 (Valid Data)</text>
+    <text x="500" y="67" font-family="system-ui, sans-serif" font-size="10" fill="#c084fc" text-anchor="middle">Burst 2 (Valid Data)</text>
+    <text x="690" y="67" font-family="system-ui, sans-serif" font-size="10" fill="#c084fc" text-anchor="middle">Burst N (EOI Inside)</text>
+
+    <!-- PCLK Waveform (Clock burst train) -->
+    <path d="M 110 138 L 225 138 
+             L 230 138 L 235 120 L 240 138 L 245 120 L 250 138 L 255 120 L 260 138 L 265 120 L 270 138 L 275 120 L 280 138 L 285 120 L 290 138 L 295 120 L 300 138 L 305 120 L 310 138 L 315 120 L 320 138 L 325 120 L 330 138 L 335 120 L 340 138 L 345 120 L 350 138 L 355 120 L 360 138 L 365 120 L 370 138 L 375 120 L 380 138 L 385 120 L 390 138
+             L 420 138 L 425 120 L 430 138 L 435 120 L 440 138 L 445 120 L 450 138 L 455 120 L 460 138 L 465 120 L 470 138 L 475 120 L 480 138 L 485 120 L 490 138 L 495 120 L 500 138 L 505 120 L 510 138 L 515 120 L 520 138 L 525 120 L 530 138 L 535 120 L 540 138 L 545 120 L 550 138 L 555 120 L 560 138 L 565 120 L 570 138 L 575 120 L 580 138
+             L 610 138 L 615 120 L 620 138 L 625 120 L 630 138 L 635 120 L 640 138 L 645 120 L 650 138 L 655 120 L 660 138 L 665 120 L 670 138 L 675 120 L 680 138 L 685 120 L 690 138 L 695 120 L 700 138 L 705 120 L 710 138 L 715 120 L 720 138 L 725 120 L 730 138 L 735 120 L 740 138 L 745 120 L 750 138 L 755 120 L 760 138 L 765 120 L 770 138
+             L 850 138" stroke="#fbbf24" stroke-width="1.8" fill="none"/>
+
+    <!-- DATA D[7:0] Blocks -->
+    <!-- Idle state -->
+    <line x1="110" y1="187" x2="225" y2="187" stroke="#64748b" stroke-width="2"/>
+    
+    <!-- Burst 1 Block: Starts with SOI (FF D8) -->
+    <rect x="230" y="167" width="160" height="38" rx="4" fill="#065f46" stroke="#34d399" stroke-width="1.5"/>
+    <text x="250" y="184" font-family="monospace" font-size="11" font-weight="700" fill="#a7f3d0">FF D8</text>
+    <text x="250" y="197" font-family="system-ui, sans-serif" font-size="9" fill="#6ee7b7">SOI</text>
+    <text x="325" y="191" font-family="monospace" font-size="11" fill="#ecfdf5">JFIF / DQT / DHT ...</text>
+
+    <!-- Idle between bursts -->
+    <line x1="390" y1="187" x2="420" y2="187" stroke="#64748b" stroke-width="2"/>
+
+    <!-- Burst 2 Block: Entropy Coded Bitstream -->
+    <rect x="420" y="167" width="160" height="38" rx="4" fill="#1e3a8a" stroke="#60a5fa" stroke-width="1.5"/>
+    <text x="500" y="191" font-family="monospace" font-size="11" fill="#dbeafe" text-anchor="middle">JPEG Скан (Huffman Data)</text>
+
+    <!-- Idle between bursts -->
+    <line x1="580" y1="187" x2="610" y2="187" stroke="#64748b" stroke-width="2"/>
+
+    <!-- Burst N Block: Tail of frame ending with EOI (FF D9) -->
+    <rect x="610" y="167" width="160" height="38" rx="4" fill="#701a75" stroke="#f472b6" stroke-width="1.5"/>
+    <text x="665" y="191" font-family="monospace" font-size="11" fill="#fce7f3">... Payload</text>
+    <text x="745" y="184" font-family="monospace" font-size="11" font-weight="700" fill="#fbcfe8">FF D9</text>
+    <text x="745" y="197" font-family="system-ui, sans-serif" font-size="9" fill="#f472b6">EOI</text>
+
+    <!-- Trailing idle/padding -->
+    <rect x="770" y="174" width="75" height="24" rx="3" fill="#334155" stroke="#475569"/>
+    <text x="807" y="190" font-family="system-ui, sans-serif" font-size="10" fill="#94a3b8" text-anchor="middle">Dummy Pad</text>
+  </g>
+
+  <!-- MCU DMA Capture & Parsing Flow (Bottom section) -->
+  <g transform="translate(40, 325)">
+    <!-- Stage 1: Hardware DMA -->
+    <rect x="0" y="0" width="270" height="175" rx="8" fill="#1e293b" stroke="#3b82f6" stroke-width="2" filter="url(#shadow2)"/>
+    <rect x="0" y="0" width="270" height="28" rx="8" fill="#1d4ed8"/>
+    <text x="135" y="19" font-family="system-ui, sans-serif" font-size="12" font-weight="700" fill="#ffffff" text-anchor="middle">1. Кільцевий DMA Буфер (MCU)</text>
+    <text x="15" y="52" font-family="system-ui, sans-serif" font-size="11" fill="#cbd5e1">• Контролер DCMI (STM32) або I2S0 (ESP32)</text>
+    <text x="15" y="72" font-family="system-ui, sans-serif" font-size="11" fill="#cbd5e1">• Захоплення кожного такту PCLK по HREF</text>
+    <text x="15" y="92" font-family="system-ui, sans-serif" font-size="11" fill="#cbd5e1">• Передача слів (32-біт) у пам'ять SRAM/PSRAM</text>
+    <text x="15" y="112" font-family="system-ui, sans-serif" font-size="11" fill="#cbd5e1">• Фіксований макс. розмір буфера (напр. 128 КБ)</text>
+    <text x="15" y="132" font-family="system-ui, sans-serif" font-size="11" fill="#cbd5e1">• Переривання: Frame Complete (VSYNC Falling)</text>
+    <rect x="15" y="145" width="240" height="20" rx="4" fill="#0f172a"/>
+    <text x="135" y="159" font-family="monospace" font-size="10" fill="#60a5fa" text-anchor="middle">dma_buffer = malloc(MAX_JPG_SIZE);</text>
+
+    <!-- Arrow 1 -> 2 -->
+    <path d="M 275 88 L 300 88" stroke="#38bdf8" stroke-width="2.5" fill="none"/>
+    <polygon points="305,88 297,83 297,93" fill="#38bdf8"/>
+
+    <!-- Stage 2: Software Frame Extraction -->
+    <rect x="310" y="0" width="270" height="175" rx="8" fill="#1e293b" stroke="#10b981" stroke-width="2" filter="url(#shadow2)"/>
+    <rect x="0" y="0" width="270" height="28" rx="8" fill="#047857"/>
+    <text x="135" y="19" font-family="system-ui, sans-serif" font-size="12" font-weight="700" fill="#ffffff" text-anchor="middle">2. Пошук Маркерів та Відсікання</text>
+    <text x="15" y="52" font-family="system-ui, sans-serif" font-size="11" fill="#cbd5e1">• Сканування голови буфера: маркер 0xFF 0xD8 (SOI)</text>
+    <text x="15" y="72" font-family="system-ui, sans-serif" font-size="11" fill="#cbd5e1">• Пропуск сміття до SOI (якщо DMA почався раніше)</text>
+    <text x="15" y="92" font-family="system-ui, sans-serif" font-size="11" fill="#cbd5e1">• Сканування з кінця: пошук 0xFF 0xD9 (EOI)</text>
+    <text x="15" y="112" font-family="system-ui, sans-serif" font-size="11" fill="#cbd5e1">• Обчислення реальної довжини: len = EOI - SOI + 2</text>
+    <text x="15" y="132" font-family="system-ui, sans-serif" font-size="11" fill="#cbd5e1">• Захист від битих кадрів (відсутній EOI → drop)</text>
+    <rect x="15" y="145" width="240" height="20" rx="4" fill="#0f172a"/>
+    <text x="135" y="159" font-family="monospace" font-size="10" fill="#34d399" text-anchor="middle">actual_len = (p_eoi - p_soi) + 2;</text>
+
+    <!-- Arrow 2 -> 3 -->
+    <path d="M 585 88 L 610 88" stroke="#38bdf8" stroke-width="2.5" fill="none"/>
+    <polygon points="615,88 607,83 607,93" fill="#38bdf8"/>
+
+    <!-- Stage 3: Streaming & Consumer -->
+    <rect x="620" y="0" width="260" height="175" rx="8" fill="#1e293b" stroke="#f59e0b" stroke-width="2" filter="url(#shadow2)"/>
+    <rect x="0" y="0" width="260" height="28" rx="8" fill="#d97706"/>
+    <text x="130" y="19" font-family="system-ui, sans-serif" font-size="12" font-weight="700" fill="#ffffff" text-anchor="middle">3. Споживач (Wi-Fi / Flash / LCD)</text>
+    <text x="15" y="52" font-family="system-ui, sans-serif" font-size="11" fill="#cbd5e1">• Відправка по HTTP/MJPEG (multipart/x-mixed-replace)</text>
+    <text x="15" y="72" font-family="system-ui, sans-serif" font-size="11" fill="#cbd5e1">• Збереження на SD-карту або SPI Flash</text>
+    <text x="15" y="92" font-family="system-ui, sans-serif" font-size="11" fill="#cbd5e1">• Програмне TJpgDec декодування на TFT-екран</text>
+    <text x="15" y="112" font-family="system-ui, sans-serif" font-size="11" fill="#cbd5e1">• Нульове перекопіювання (Zero-copy network push)</text>
+    <text x="15" y="132" font-family="system-ui, sans-serif" font-size="11" fill="#cbd5e1">• Вивільнення / повернення буфера у чергу</text>
+    <rect x="15" y="145" width="230" height="20" rx="4" fill="#0f172a"/>
+    <text x="130" y="159" font-family="monospace" font-size="10" fill="#fbbf24" text-anchor="middle">httpd_resp_send_chunk(req, buf);</text>
+  </g>
+</svg>
