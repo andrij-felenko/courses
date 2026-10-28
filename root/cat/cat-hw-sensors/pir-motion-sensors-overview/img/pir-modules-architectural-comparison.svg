@@ -1,0 +1,123 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bg-grad2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0b1329"/>
+      <stop offset="100%" stop-color="#1e293b"/>
+    </linearGradient>
+    <filter id="shadow2" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="0" dy="3" stdDeviation="5" flood-color="#000000" flood-opacity="0.3"/>
+    </filter>
+  </defs>
+
+  <rect width="960" height="520" rx="12" fill="url(#bg-grad2)"/>
+
+  <text x="480" y="34" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="19" font-weight="700" fill="#f8fafc">
+    Еволюція та архітектурне порівняння модулів PIR-давачів
+  </text>
+  <text x="480" y="56" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="13" fill="#94a3b8">
+    Класичні аналогові модулі (HC-SR501), мікромініатюрні (HC-SR505/AM312) та інтелектуальні цифрові сенсори
+  </text>
+
+  <!-- Card 1: HC-SR501 -->
+  <g transform="translate(30, 75)">
+    <rect width="280" height="235" rx="8" fill="#1e293b" stroke="#38bdf8" stroke-width="1.5" filter="url(#shadow2)"/>
+    <text x="140" y="26" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="700" fill="#38bdf8">
+      HC-SR501 (Класичний ASIC)
+    </text>
+
+    <!-- Specs -->
+    <g transform="translate(15, 42)">
+      <text x="0" y="16" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#cbd5e1">• <tspan font-weight="600">Чіп:</tspan> BISS0001 (ASIC)</text>
+      <text x="0" y="36" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#cbd5e1">• <tspan font-weight="600">Живлення:</tspan> DC 4.5 .. 20 В</text>
+      <text x="0" y="56" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#cbd5e1">• <tspan font-weight="600">Струм споживання:</tspan> ~50 .. 65 мкА</text>
+      <text x="0" y="76" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#cbd5e1">• <tspan font-weight="600">Вихідний рівень:</tspan> 3.3 В TTL</text>
+      <text x="0" y="96" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#cbd5e1">• <tspan font-weight="600">Дальність:</tspan> 3 .. 7 м (регулюється)</text>
+      <text x="0" y="116" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#cbd5e1">• <tspan font-weight="600">Час затримки:</tspan> 0.5 с .. 200 с</text>
+      <text x="0" y="136" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#cbd5e1">• <tspan font-weight="600">Джампер режимів:</tspan> L (один) / H (тригер)</text>
+      
+      <rect x="0" y="150" width="250" height="32" rx="4" fill="#0284c7" fill-opacity="0.2" stroke="#0284c7" stroke-width="1"/>
+      <text x="125" y="170" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="10" font-weight="600" fill="#38bdf8">
+        Універсальний, з повною підстройкою
+      </text>
+    </g>
+  </g>
+
+  <!-- Card 2: HC-SR505 / AM312 -->
+  <g transform="translate(340, 75)">
+    <rect width="280" height="235" rx="8" fill="#1e293b" stroke="#10b981" stroke-width="1.5" filter="url(#shadow2)"/>
+    <text x="140" y="26" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="700" fill="#34d399">
+      HC-SR505 / AM312 (Mini)
+    </text>
+
+    <!-- Specs -->
+    <g transform="translate(15, 42)">
+      <text x="0" y="16" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#cbd5e1">• <tspan font-weight="600">Чіп:</tspan> Вбудований контролер в TO-5</text>
+      <text x="0" y="36" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#cbd5e1">• <tspan font-weight="600">Живлення:</tspan> DC 2.7 .. 12 В (AM312)</text>
+      <text x="0" y="56" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#cbd5e1">• <tspan font-weight="600">Струм споживання:</tspan> ~15 .. 20 мкА</text>
+      <text x="0" y="76" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#cbd5e1">• <tspan font-weight="600">Вихідний рівень:</tspan> 3.3 В Push-Pull</text>
+      <text x="0" y="96" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#cbd5e1">• <tspan font-weight="600">Дальність:</tspan> ~3 .. 5 м (фіксована)</text>
+      <text x="0" y="116" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#cbd5e1">• <tspan font-weight="600">Час затримки:</tspan> ~8 с (автоматичний)</text>
+      <text x="0" y="136" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#cbd5e1">• <tspan font-weight="600">Режим:</tspan> постійний перезапуск (H-mode)</text>
+      
+      <rect x="0" y="150" width="250" height="32" rx="4" fill="#059669" fill-opacity="0.2" stroke="#059669" stroke-width="1"/>
+      <text x="125" y="170" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="10" font-weight="600" fill="#34d399">
+        Мініатюрний, для батарейних IoT
+      </text>
+    </g>
+  </g>
+
+  <!-- Card 3: Digital Smart Sensors (DigiPyro / PaPIRs) -->
+  <g transform="translate(650, 75)">
+    <rect width="280" height="235" rx="8" fill="#1e293b" stroke="#f59e0b" stroke-width="1.5" filter="url(#shadow2)"/>
+    <text x="140" y="26" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="700" fill="#facc15">
+      DigiPyro / PaPIRs (Digital I2C)
+    </text>
+
+    <!-- Specs -->
+    <g transform="translate(15, 42)">
+      <text x="0" y="16" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#cbd5e1">• <tspan font-weight="600">Архітектура:</tspan> 14-біт АЦП + DSP ядро</text>
+      <text x="0" y="36" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#cbd5e1">• <tspan font-weight="600">Живлення:</tspan> DC 1.8 .. 3.6 В</text>
+      <text x="0" y="56" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#cbd5e1">• <tspan font-weight="600">Струм споживання:</tspan> 1 .. 6 мкА (Nano-power)</text>
+      <text x="0" y="76" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#cbd5e1">• <tspan font-weight="600">Інтерфейс:</tspan> I2C / Serial Bitstream / INT</text>
+      <text x="0" y="96" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#cbd5e1">• <tspan font-weight="600">Програмна конфігурація:</tspan> пороги, смуга</text>
+      <text x="0" y="116" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#cbd5e1">• <tspan font-weight="600">Вбудований термометр:</tspan> компенсація темп.</text>
+      <text x="0" y="136" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#cbd5e1">• <tspan font-weight="600">Wake-up MCU:</tspan> виведення зі сну по події</text>
+      
+      <rect x="0" y="150" width="250" height="32" rx="4" fill="#d97706" fill-opacity="0.2" stroke="#d97706" stroke-width="1"/>
+      <text x="125" y="170" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="10" font-weight="600" fill="#facc15">
+        Промисловий, прецизійний, Smart Home
+      </text>
+    </g>
+  </g>
+
+  <!-- Detailed Table Comparison Below -->
+  <g transform="translate(30, 325)">
+    <rect width="900" height="175" rx="8" fill="#1e293b" stroke="#334155" stroke-width="1.5" filter="url(#shadow2)"/>
+    <text x="20" y="24" font-family="system-ui, -apple-system, sans-serif" font-size="13" font-weight="700" fill="#38bdf8">
+      Критерії вибору PIR-давача під завдання розробника:
+    </text>
+
+    <g transform="translate(20, 38)">
+      <rect x="0" y="0" width="860" height="26" rx="4" fill="#0f172a"/>
+      <text x="90" y="18" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="700" fill="#ffffff">Сценарій використання</text>
+      <text x="260" y="18" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="700" fill="#ffffff">Рекомендований тип</text>
+      <text x="440" y="18" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="700" fill="#ffffff">Головна перевага</text>
+      <text x="680" y="18" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="700" fill="#ffffff">Ключові обмеження</text>
+
+      <text x="90" y="44" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#cbd5e1">Охоронна сигналізація 220В</text>
+      <text x="260" y="44" text-anchor="middle" font-family="monospace" font-size="11" font-weight="600" fill="#38bdf8">HC-SR501</text>
+      <text x="440" y="44" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#34d399">Ручне регулювання дальності й часу</text>
+      <text x="680" y="44" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="10" fill="#94a3b8">Великі габарити (32×24 мм), споживання 65 мкА</text>
+
+      <text x="90" y="68" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#cbd5e1">Компактні нічники, Zigbee датчики</text>
+      <text x="260" y="68" text-anchor="middle" font-family="monospace" font-size="11" font-weight="600" fill="#34d399">AM312 / HC-SR505</text>
+      <text x="440" y="68" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#34d399">Мініатюрний розмір, низька ціна</text>
+      <text x="680" y="68" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="10" fill="#94a3b8">Фіксована затримка (~8 с), чутливість не регулюється</text>
+
+      <text x="90" y="92" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#cbd5e1">Преміум IoT (робота від CR2032 5+ років)</text>
+      <text x="260" y="92" text-anchor="middle" font-family="monospace" font-size="11" font-weight="600" fill="#facc15">Panasonic PaPIRs</text>
+      <text x="440" y="92" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#34d399">Споживання 1..3 мкА, цифрове шумозаглушення</text>
+      <text x="680" y="92" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="10" fill="#94a3b8">Висока вартість ($5–12), чутливість до монтажу</text>
+    </g>
+  </g>
+</svg>

@@ -1,0 +1,149 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bg-grad3" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f172a"/>
+      <stop offset="100%" stop-color="#1e293b"/>
+    </linearGradient>
+    <filter id="shadow3" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="0" dy="3" stdDeviation="5" flood-color="#000000" flood-opacity="0.3"/>
+    </filter>
+  </defs>
+
+  <rect width="960" height="480" rx="12" fill="url(#bg-grad3)"/>
+
+  <text x="480" y="34" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="19" font-weight="700" fill="#f8fafc">
+    Часові режими повторного тригерування (L vs H) та підключення до MCU
+  </text>
+  <text x="480" y="56" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="13" fill="#94a3b8">
+    Діаграми роботи Non-retriggerable (L) та Retriggerable (H) режимів мікросхеми BISS0001
+  </text>
+
+  <!-- Left Side: Timing Diagrams -->
+  <g transform="translate(30, 75)">
+    <rect width="520" height="385" rx="8" fill="#1e293b" stroke="#38bdf8" stroke-width="1.5" filter="url(#shadow3)"/>
+    
+    <!-- Motion Events Track -->
+    <text x="20" y="26" font-family="system-ui, -apple-system, sans-serif" font-size="13" font-weight="700" fill="#facc15">
+      Фізичний рух людини (Motion events):
+    </text>
+    <g transform="translate(20, 36)">
+      <rect x="30" y="0" width="60" height="20" rx="3" fill="#f59e0b"/>
+      <text x="60" y="14" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="10" font-weight="700" fill="#ffffff">Рух 1</text>
+
+      <rect x="130" y="0" width="80" height="20" rx="3" fill="#f59e0b"/>
+      <text x="170" y="14" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="10" font-weight="700" fill="#ffffff">Рух 2</text>
+
+      <rect x="230" y="0" width="100" height="20" rx="3" fill="#f59e0b"/>
+      <text x="280" y="14" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="10" font-weight="700" fill="#ffffff">Тривалий рух</text>
+      
+      <line x1="0" y1="28" x2="480" y2="28" stroke="#475569" stroke-width="1"/>
+    </g>
+
+    <!-- Timing 1: L-mode (Non-retriggerable) -->
+    <g transform="translate(20, 80)">
+      <text x="0" y="18" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="700" fill="#38bdf8">
+        1. Режим L (Non-retriggerable, джампер у положенні L):
+      </text>
+      
+      <!-- Waveform -->
+      <path d="M 0 55 L 30 55 L 30 25 L 110 25 L 110 55 L 160 55 L 160 25 L 240 25 L 240 55 L 480 55" 
+            stroke="#38bdf8" stroke-width="2.5" fill="none"/>
+
+      <!-- Annotations -->
+      <line x1="30" y1="65" x2="110" y2="65" stroke="#38bdf8" stroke-width="1"/>
+      <text x="70" y="78" text-anchor="middle" font-family="monospace" font-size="10" fill="#38bdf8">Час Tx (затримка)</text>
+
+      <line x1="110" y1="65" x2="160" y2="65" stroke="#ef4444" stroke-width="1"/>
+      <text x="135" y="78" text-anchor="middle" font-family="monospace" font-size="10" fill="#ef4444">Час Ti (блокування)</text>
+
+      <text x="0" y="105" font-family="system-ui, -apple-system, sans-serif" font-size="10" fill="#cbd5e1">
+        • Навіть якщо людина продовжує рухатися під час Tx, вихід падає в 0 після вичерпання Tx.
+      </text>
+      <text x="0" y="122" font-family="system-ui, -apple-system, sans-serif" font-size="10" fill="#cbd5e1">
+        • Настає час блокування Ti (~2.5 с), протягом якого датчик повністю «сліпий».
+      </text>
+    </g>
+
+    <!-- Timing 2: H-mode (Retriggerable) -->
+    <g transform="translate(20, 220)">
+      <text x="0" y="18" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="700" fill="#34d399">
+        2. Режим H (Retriggerable, джампер у положенні H):
+      </text>
+      
+      <!-- Waveform: stays high until last motion stops + Tx -->
+      <path d="M 0 55 L 30 55 L 30 25 L 410 25 L 410 55 L 480 55" 
+            stroke="#34d399" stroke-width="2.5" fill="none"/>
+
+      <line x1="30" y1="65" x2="330" y2="65" stroke="#f59e0b" stroke-width="1"/>
+      <text x="180" y="78" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="10" fill="#fde68a">
+        Постійний перезапуск таймера рухом
+      </text>
+
+      <line x1="330" y1="65" x2="410" y2="65" stroke="#34d399" stroke-width="1"/>
+      <text x="370" y="78" text-anchor="middle" font-family="monospace" font-size="10" fill="#34d399">Tx після зупинки</text>
+
+      <text x="0" y="105" font-family="system-ui, -apple-system, sans-serif" font-size="10" fill="#cbd5e1">
+        • Кожен новий рух перезапускає відлік затримки Tx. Вихід залишається HIGH,
+      </text>
+      <text x="0" y="122" font-family="system-ui, -apple-system, sans-serif" font-size="10" fill="#cbd5e1">
+        доки людина перебуває в зоні огляду плюс час Tx після останнього руху.
+      </text>
+    </g>
+  </g>
+
+  <!-- Right Side: MCU Interface Circuit -->
+  <g transform="translate(570, 75)">
+    <rect width="360" height="385" rx="8" fill="#1e293b" stroke="#10b981" stroke-width="1.5" filter="url(#shadow3)"/>
+    <text x="180" y="26" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="700" fill="#34d399">
+      Підключення до GPIO мікроконтролера
+    </text>
+
+    <!-- Schematic box -->
+    <g transform="translate(20, 48)">
+      <!-- PIR module box -->
+      <rect x="0" y="0" width="120" height="150" rx="6" fill="#0f172a" stroke="#38bdf8" stroke-width="1.5"/>
+      <text x="60" y="24" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="700" fill="#38bdf8">PIR модуль</text>
+      
+      <text x="15" y="55" font-family="monospace" font-size="11" fill="#cbd5e1">VCC (5V)</text>
+      <text x="15" y="90" font-family="monospace" font-size="11" font-weight="700" fill="#34d399">OUT (3.3V)</text>
+      <text x="15" y="125" font-family="monospace" font-size="11" fill="#cbd5e1">GND</text>
+
+      <!-- MCU box -->
+      <rect x="200" y="0" width="120" height="150" rx="6" fill="#0f172a" stroke="#10b981" stroke-width="1.5"/>
+      <text x="260" y="24" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="700" fill="#34d399">MCU (ESP32/STM32)</text>
+
+      <text x="215" y="55" font-family="monospace" font-size="10" fill="#cbd5e1">3.3V / 5V</text>
+      <text x="215" y="90" font-family="monospace" font-size="10" font-weight="700" fill="#34d399">GPIO_EXTI</text>
+      <text x="215" y="125" font-family="monospace" font-size="10" fill="#cbd5e1">GND</text>
+
+      <!-- Connection line -->
+      <path d="M 120 85 L 200 85" stroke="#34d399" stroke-width="2.5" fill="none"/>
+
+      <!-- RC Anti-glitch filter (optional) -->
+      <g transform="translate(135, 60)">
+        <circle cx="25" cy="25" r="3" fill="#facc15"/>
+        <text x="25" y="14" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="9" fill="#fde68a">RC-фільтр</text>
+      </g>
+    </g>
+
+    <!-- Software handling notes -->
+    <g transform="translate(20, 220)">
+      <rect width="320" height="135" rx="6" fill="#0f172a" stroke="#334155" stroke-width="1"/>
+      <text x="15" y="20" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="700" fill="#38bdf8">
+        Вимоги до обробки у прошивці:
+      </text>
+      <text x="15" y="40" font-family="system-ui, -apple-system, sans-serif" font-size="10" fill="#cbd5e1">
+        • <tspan font-weight="600">Переривання EXTI:</tspan> налаштування по зростаючому фронту (Rising Edge).
+      </text>
+      <text x="15" y="60" font-family="system-ui, -apple-system, sans-serif" font-size="10" fill="#cbd5e1">
+        • <tspan font-weight="600">Прогрів сенсора (Warm-up):</tspan> перші 30–60 секунд після подачі живлення сенсор калібрує пірозаряд; читати вхід заборонено.
+      </text>
+      <text x="15" y="86" font-family="system-ui, -apple-system, sans-serif" font-size="10" fill="#cbd5e1">
+        • <tspan font-weight="600">Дебаунс / Антидребезг:</tspan> фільтрація коротких спайків тривалістю &lt; 50 мс від RF-завад (Wi-Fi / GSM).
+      </text>
+      <text x="15" y="112" font-family="system-ui, -apple-system, sans-serif" font-size="10" fill="#cbd5e1">
+        • <tspan font-weight="600">Pull-down:</tspan> внутрішній резистор підтяжки до GND (10..47 кОм).
+      </text>
+    </g>
+  </g>
+</svg>

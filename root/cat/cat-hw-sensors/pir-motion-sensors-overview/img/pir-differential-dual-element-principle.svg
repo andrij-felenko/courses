@@ -1,0 +1,132 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bg-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f172a"/>
+      <stop offset="100%" stop-color="#1e293b"/>
+    </linearGradient>
+    <linearGradient id="ir-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ef4444"/>
+      <stop offset="100%" stop-color="#f97316"/>
+    </linearGradient>
+    <filter id="shadow" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#000000" flood-opacity="0.4"/>
+    </filter>
+  </defs>
+
+  <rect width="960" height="520" rx="12" fill="url(#bg-grad)"/>
+
+  <!-- Title -->
+  <text x="480" y="38" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="20" font-weight="700" fill="#f8fafc">
+    Принцип диференціального двохелементного PIR-давача
+  </text>
+  <text x="480" y="60" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="13" fill="#94a3b8">
+    Зустрічне ввімкнення кристалів: придушення синфазного фонового тепла та генерація двополярного сигналу
+  </text>
+
+  <!-- Left Side: Physical Structure -->
+  <g transform="translate(40, 85)">
+    <rect width="380" height="340" rx="8" fill="#1e293b" stroke="#38bdf8" stroke-width="1.5" filter="url(#shadow)"/>
+    <text x="190" y="26" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="700" fill="#38bdf8">
+      Внутрішня топологія сенсора (TO-5)
+    </text>
+
+    <!-- TO-5 Can Border -->
+    <rect x="30" y="45" width="320" height="200" rx="10" fill="#0f172a" stroke="#64748b" stroke-width="1.5"/>
+    <text x="190" y="65" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#94a3b8">
+      Оптичний ІЧ-фільтр віконця (8 .. 14 мкм)
+    </text>
+
+    <!-- Dual Pyroelectric Crystals -->
+    <!-- Crystal A -->
+    <rect x="60" y="85" width="110" height="90" rx="6" fill="#334155" stroke="#ef4444" stroke-width="2"/>
+    <text x="115" y="115" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="700" fill="#ffffff">Елемент A</text>
+    <text x="115" y="135" text-anchor="middle" font-family="monospace" font-size="16" font-weight="700" fill="#f87171">( + )</text>
+    <text x="115" y="155" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="10" fill="#cbd5e1">Полярність +</text>
+
+    <!-- Crystal B -->
+    <rect x="210" y="85" width="110" height="90" rx="6" fill="#334155" stroke="#3b82f6" stroke-width="2"/>
+    <text x="265" y="115" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="700" fill="#ffffff">Елемент B</text>
+    <text x="265" y="135" text-anchor="middle" font-family="monospace" font-size="16" font-weight="700" fill="#60a5fa">( − )</text>
+    <text x="265" y="155" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="10" fill="#cbd5e1">Полярність −</text>
+
+    <!-- JFET / Internal Amplifier -->
+    <rect x="80" y="195" width="220" height="38" rx="4" fill="#0284c7" fill-opacity="0.3" stroke="#38bdf8" stroke-width="1"/>
+    <text x="190" y="218" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="600" fill="#e0f2fe">
+      Вбудований польовий транзистор (JFET)
+    </text>
+
+    <!-- Explanation -->
+    <text x="20" y="270" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#cbd5e1">
+      • <tspan font-weight="700" fill="#f87171">Синфазне тепло (сонце, повітря):</tspan> одночасно нагріває A та B. Заряди компенсуються: ΔQ = Q_A - Q_B ≈ 0.
+    </text>
+    <text x="20" y="295" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#cbd5e1">
+      • <tspan font-weight="700" fill="#34d399">Рух людини:</tspan> ІЧ-пляма перетинає спочатку елемент A, потім B, генеруючи змінний сигнал.
+    </text>
+  </g>
+
+  <!-- Right Side: Motion Waveforms -->
+  <g transform="translate(460, 85)">
+    <rect width="460" height="340" rx="8" fill="#1e293b" stroke="#10b981" stroke-width="1.5" filter="url(#shadow)"/>
+    <text x="230" y="26" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="700" fill="#34d399">
+      Форма сигналу на виході датчика при русі людини
+    </text>
+
+    <!-- Graph coordinate system -->
+    <g transform="translate(40, 50)">
+      <!-- Grid -->
+      <line x1="0" y1="20" x2="380" y2="20" stroke="#334155" stroke-dasharray="3,3"/>
+      <line x1="0" y1="60" x2="380" y2="60" stroke="#334155" stroke-dasharray="3,3"/>
+      <line x1="0" y1="100" x2="380" y2="100" stroke="#64748b" stroke-width="1.5"/> <!-- Zero line -->
+      <line x1="0" y1="140" x2="380" y2="140" stroke="#334155" stroke-dasharray="3,3"/>
+      <line x1="0" y1="180" x2="380" y2="180" stroke="#334155" stroke-dasharray="3,3"/>
+      
+      <line x1="0" y1="0" x2="0" y2="200" stroke="#64748b" stroke-width="1.5"/>
+      <text x="-10" y="24" text-anchor="end" font-family="monospace" font-size="10" fill="#cbd5e1">+V_th</text>
+      <text x="-10" y="104" text-anchor="end" font-family="monospace" font-size="10" fill="#94a3b8">0 В</text>
+      <text x="-10" y="184" text-anchor="end" font-family="monospace" font-size="10" fill="#cbd5e1">−V_th</text>
+
+      <!-- Waveform: human moves left to right -->
+      <!-- Flat -> Rise -> Fall below zero -> Flat -->
+      <path d="M 0 100 L 40 100 C 60 100, 70 30, 100 30 C 130 30, 140 170, 170 170 C 200 170, 210 100, 240 100 L 380 100" 
+            stroke="#facc15" stroke-width="3" fill="none"/>
+
+      <!-- Annotations on wave -->
+      <circle cx="100" cy="30" r="5" fill="#ef4444"/>
+      <text x="100" y="18" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="10" font-weight="700" fill="#f87171">
+        Вхід у зону A
+      </text>
+
+      <circle cx="170" cy="170" r="5" fill="#3b82f6"/>
+      <text x="170" y="195" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="10" font-weight="700" fill="#60a5fa">
+        Вхід у зону B
+      </text>
+
+      <line x1="0" y1="45" x2="380" y2="45" stroke="#ef4444" stroke-width="1" stroke-dasharray="4,4"/>
+      <text x="375" y="40" text-anchor="end" font-family="system-ui, -apple-system, sans-serif" font-size="9" fill="#ef4444">Поріг спрацьовування +</text>
+
+      <line x1="0" y1="155" x2="380" y2="155" stroke="#ef4444" stroke-width="1" stroke-dasharray="4,4"/>
+      <text x="375" y="150" text-anchor="end" font-family="system-ui, -apple-system, sans-serif" font-size="9" fill="#ef4444">Поріг спрацьовування −</text>
+    </g>
+
+    <text x="30" y="280" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#cbd5e1">
+      • Аналоговий інтерфейс BISS0001 або цифровий компаратор реєструє спрацювання
+    </text>
+    <text x="30" y="300" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#cbd5e1">
+      лише за умови перетину амплітудою сигналу обох порогів (+V_th та −V_th).
+    </text>
+  </g>
+
+  <!-- Bottom Tip -->
+  <g transform="translate(40, 440)">
+    <rect width="880" height="60" rx="6" fill="#0f172a" stroke="#334155" stroke-width="1"/>
+    <text x="20" y="24" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="700" fill="#38bdf8">
+      Фізичний закон:
+    </text>
+    <text x="130" y="24" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#cbd5e1">
+      Піроелектрик генерує струм тільки при зміні температури (I = p × A × dT/dt). Нерухома людина не випромінює змінного теплового потоку,
+    </text>
+    <text x="20" y="44" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#cbd5e1">
+      тому PIR-давач сприймає людину виключно під час її переміщення поперек оптичних зон лінзи Френеля.
+    </text>
+  </g>
+</svg>
