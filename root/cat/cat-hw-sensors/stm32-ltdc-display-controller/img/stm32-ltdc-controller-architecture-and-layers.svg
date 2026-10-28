@@ -1,0 +1,130 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f172a"/>
+      <stop offset="100%" stop-color="#1e293b"/>
+    </linearGradient>
+    <filter id="shadow" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="0" dy="4" stdDeviation="5" flood-color="#000000" flood-opacity="0.4"/>
+    </filter>
+    <marker id="arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#38bdf8"/>
+    </marker>
+    <marker id="arrPink" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#ec4899"/>
+    </marker>
+  </defs>
+
+  <rect width="960" height="540" fill="url(#bg)"/>
+
+  <!-- Title -->
+  <text x="480" y="38" text-anchor="middle" font-family="system-ui, sans-serif" font-size="20" font-weight="700" fill="#f8fafc">
+    Двошарова апаратна архітектура контролера дисплея LTDC у STM32
+  </text>
+  <text x="480" y="62" text-anchor="middle" font-family="system-ui, sans-serif" font-size="13" fill="#94a3b8">
+    Апаратне накладання шарів (Alpha Blending &amp; Color Keying) без навантаження на процесор
+  </text>
+
+  <!-- Left: Memory Sources (SDRAM / SRAM) -->
+  <g transform="translate(35, 95)">
+    <rect width="210" height="415" rx="10" fill="#1e293b" stroke="#0ea5e9" stroke-width="1.5" filter="url(#shadow)"/>
+    <rect width="210" height="34" rx="10" fill="#0284c7"/>
+    <text x="105" y="22" text-anchor="middle" font-family="system-ui, sans-serif" font-size="13" font-weight="700" fill="#ffffff">
+      Буфери кадрів (Memory)
+    </text>
+
+    <!-- Source 1: Video Framebuffer -->
+    <rect x="15" y="55" width="180" height="120" rx="6" fill="#0f172a" stroke="#10b981" stroke-width="1.5"/>
+    <text x="105" y="80" text-anchor="middle" font-family="system-ui, sans-serif" font-size="12" font-weight="700" fill="#34d399">Шар 1: Відеопотік</text>
+    <text x="105" y="105" text-anchor="middle" font-family="monospace" font-size="11" fill="#cbd5e1">0xC0000000 (SDRAM)</text>
+    <text x="105" y="125" text-anchor="middle" font-family="system-ui, sans-serif" font-size="10" fill="#94a3b8">Живе зображення камери</text>
+    <text x="105" y="145" text-anchor="middle" font-family="system-ui, sans-serif" font-size="10" fill="#38bdf8">Формат: RGB565 / YUV</text>
+
+    <!-- Source 2: UI Overlay Framebuffer -->
+    <rect x="15" y="210" width="180" height="120" rx="6" fill="#0f172a" stroke="#f59e0b" stroke-width="1.5"/>
+    <text x="105" y="235" text-anchor="middle" font-family="system-ui, sans-serif" font-size="12" font-weight="700" fill="#fbbf24">Шар 2: Графічний UI</text>
+    <text x="105" y="260" text-anchor="middle" font-family="monospace" font-size="11" fill="#cbd5e1">0xC0200000 (SDRAM)</text>
+    <text x="105" y="280" text-anchor="middle" font-family="system-ui, sans-serif" font-size="10" fill="#94a3b8">Кнопки, меню, OSD телеметрія</text>
+    <text x="105" y="300" text-anchor="middle" font-family="system-ui, sans-serif" font-size="10" fill="#f472b6">Формат: ARGB8888 (Альфа)</text>
+
+    <rect x="15" y="355" width="180" height="40" rx="5" fill="#0f172a" stroke="#334155" stroke-width="1"/>
+    <text x="105" y="378" text-anchor="middle" font-family="system-ui, sans-serif" font-size="10" fill="#94a3b8">
+      Пряме читання DMA LTDC
+    </text>
+  </g>
+
+  <!-- Connectors to LTDC -->
+  <path d="M 245 210 L 295 210" stroke="#34d399" stroke-width="2" marker-end="url(#arr)"/>
+  <path d="M 245 365 L 295 365" stroke="#fbbf24" stroke-width="2" marker-end="url(#arr)"/>
+
+  <!-- Center: LTDC Controller Processing Pipeline -->
+  <g transform="translate(300, 95)">
+    <rect width="360" height="415" rx="10" fill="#1e293b" stroke="#334155" stroke-width="1.5" filter="url(#shadow)"/>
+    <rect width="360" height="34" rx="10" fill="#4338ca"/>
+    <text x="180" y="22" text-anchor="middle" font-family="system-ui, sans-serif" font-size="13" font-weight="700" fill="#ffffff">
+      Контролер LTDC (Апаратні конвеєри)
+    </text>
+
+    <!-- Layer 1 Engine -->
+    <rect x="20" y="55" width="320" height="110" rx="6" fill="#0f172a" stroke="#10b981" stroke-width="1.2"/>
+    <text x="35" y="78" font-family="system-ui, sans-serif" font-size="12" font-weight="700" fill="#34d399">Конвеєр Layer 1 (Фон):</text>
+    <text x="35" y="100" font-family="system-ui, sans-serif" font-size="11" fill="#cbd5e1">• Апаратний FIFO буфер (64 слова)</text>
+    <text x="35" y="120" font-family="system-ui, sans-serif" font-size="11" fill="#cbd5e1">• Конвертер форматів Pixel Format Converter (PFC)</text>
+    <text x="35" y="140" font-family="system-ui, sans-serif" font-size="11" fill="#cbd5e1">• Палітра CLUT (256 кольорів L8)</text>
+
+    <!-- Layer 2 Engine -->
+    <rect x="20" y="180" width="320" height="110" rx="6" fill="#0f172a" stroke="#f59e0b" stroke-width="1.2"/>
+    <text x="35" y="203" font-family="system-ui, sans-serif" font-size="12" font-weight="700" fill="#fbbf24">Конвеєр Layer 2 (Оверлей):</text>
+    <text x="35" y="225" font-family="system-ui, sans-serif" font-size="11" fill="#cbd5e1">• Апаратний FIFO буфер (64 слова)</text>
+    <text x="35" y="245" font-family="system-ui, sans-serif" font-size="11" fill="#cbd5e1">• Декодер прозорості (Color Keying / Хромакей)</text>
+    <text x="35" y="265" font-family="system-ui, sans-serif" font-size="11" fill="#cbd5e1">• Програмоване вікно (Windowing X/Y)</text>
+
+    <!-- Hardware Blender Stage -->
+    <rect x="20" y="305" width="320" height="95" rx="6" fill="#064e3b" stroke="#34d399" stroke-width="1.5"/>
+    <text x="180" y="328" text-anchor="middle" font-family="system-ui, sans-serif" font-size="12" font-weight="700" fill="#ffffff">
+      Апаратний змішувач шарів (Alpha Blender)
+    </text>
+    <text x="180" y="350" text-anchor="middle" font-family="monospace" font-size="11" fill="#e0f2fe">
+      C = Layer2 * Alpha + Layer1 * (1 - Alpha)
+    </text>
+    <text x="180" y="375" text-anchor="middle" font-family="system-ui, sans-serif" font-size="10" fill="#cbd5e1">
+      Блок дизерингу (Dithering 24-bit -&gt; 18/16-bit)
+    </text>
+  </g>
+
+  <!-- Connectors to Panel -->
+  <line x1="660" y1="360" x2="710" y2="360" stroke="#ec4899" stroke-width="2.5" marker-end="url(#arrPink)"/>
+
+  <!-- Right: TFT Display Panel Interface -->
+  <g transform="translate(715, 95)">
+    <rect width="210" height="415" rx="10" fill="#1e293b" stroke="#ec4899" stroke-width="1.5" filter="url(#shadow)"/>
+    <rect width="210" height="34" rx="10" fill="#be185d"/>
+    <text x="105" y="22" text-anchor="middle" font-family="system-ui, sans-serif" font-size="13" font-weight="700" fill="#ffffff">
+      РК-панель (TFT LCD)
+    </text>
+
+    <!-- Digital Signals List -->
+    <g transform="translate(15, 55)" font-family="monospace" font-size="11" fill="#e2e8f0">
+      <rect x="0" y="0" width="180" height="95" rx="5" fill="#0f172a" stroke="#f472b6" stroke-width="1"/>
+      <text x="10" y="20" font-weight="700" fill="#f472b6">Кольорові шини:</text>
+      <text x="10" y="40" fill="#cbd5e1">• R[7:0] Червоний (8 біт)</text>
+      <text x="10" y="60" fill="#cbd5e1">• G[7:0] Зелений  (8 біт)</text>
+      <text x="10" y="80" fill="#cbd5e1">• B[7:0] Синій    (8 біт)</text>
+
+      <rect x="0" y="110" width="180" height="115" rx="5" fill="#0f172a" stroke="#38bdf8" stroke-width="1"/>
+      <text x="10" y="130" font-weight="700" fill="#38bdf8">Сигнали таймінгу:</text>
+      <text x="10" y="152" fill="#cbd5e1">• LCD_CLK (DOTCLK)</text>
+      <text x="10" y="172" fill="#cbd5e1">• LCD_HSYNC (Рядок)</text>
+      <text x="10" y="192" fill="#cbd5e1">• LCD_VSYNC (Кадр)</text>
+      <text x="10" y="212" fill="#cbd5e1">• LCD_DE (Data Enable)</text>
+    </g>
+
+    <rect x="15" y="300" width="180" height="95" rx="5" fill="#0f172a" stroke="#334155" stroke-width="1"/>
+    <text x="105" y="322" text-anchor="middle" font-family="system-ui, sans-serif" font-size="11" font-weight="700" fill="#cbd5e1">
+      Підтримувані панелі:
+    </text>
+    <text x="105" y="342" text-anchor="middle" font-family="system-ui, sans-serif" font-size="10" fill="#94a3b8">480x272 (4.3")</text>
+    <text x="105" y="360" text-anchor="middle" font-family="system-ui, sans-serif" font-size="10" fill="#94a3b8">800x480 (5.0" / 7.0")</text>
+    <text x="105" y="378" text-anchor="middle" font-family="system-ui, sans-serif" font-size="10" fill="#94a3b8">1024x600 (7.0" / 10.1")</text>
+  </g>
+</svg>

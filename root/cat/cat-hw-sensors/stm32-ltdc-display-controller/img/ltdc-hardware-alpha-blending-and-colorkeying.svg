@@ -1,0 +1,90 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f172a"/>
+      <stop offset="100%" stop-color="#1e293b"/>
+    </linearGradient>
+    <marker id="arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#38bdf8"/>
+    </marker>
+    <filter id="shadow" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="0" dy="3" stdDeviation="4" flood-color="#000000" flood-opacity="0.5"/>
+    </filter>
+  </defs>
+
+  <rect width="960" height="520" fill="url(#bg)"/>
+
+  <!-- Title -->
+  <text x="480" y="36" text-anchor="middle" font-family="system-ui, sans-serif" font-size="20" font-weight="700" fill="#f8fafc">
+    Апаратне альфа-змішування (Alpha Blending) та хромакей у LTDC
+  </text>
+  <text x="480" y="58" text-anchor="middle" font-family="system-ui, sans-serif" font-size="13" fill="#94a3b8">
+    Формули прозорості пікселів та апаратний дизеринг для 16-бітних панелей
+  </text>
+
+  <!-- Left: Blending Math Panel -->
+  <rect x="40" y="90" width="425" height="400" rx="10" fill="#1e293b" stroke="#334155" stroke-width="1.5" filter="url(#shadow)"/>
+  <rect x="40" y="90" width="425" height="34" rx="10" fill="#0369a1"/>
+  <text x="252" y="113" text-anchor="middle" font-family="system-ui, sans-serif" font-size="14" font-weight="700" fill="#ffffff">
+    1. Математика Alpha Blending
+  </text>
+
+  <g transform="translate(60, 145)" font-family="system-ui, sans-serif" font-size="11" fill="#e2e8f0">
+    <rect x="0" y="0" width="385" height="85" rx="6" fill="#0f172a" stroke="#0ea5e9" stroke-width="1"/>
+    <text x="192" y="24" text-anchor="middle" font-size="12" font-weight="700" fill="#38bdf8">
+      Базова формула змішування (RGB канали):
+    </text>
+    <text x="192" y="52" text-anchor="middle" font-family="monospace" font-size="13" font-weight="700" fill="#ffffff">
+      C_out = (C_fg * Alpha) + (C_bg * (1 - Alpha))
+    </text>
+    <text x="192" y="74" text-anchor="middle" font-size="10" fill="#94a3b8">
+      де Alpha нормалізована від 0.0 (прозоро) до 1.0 (непрозоро)
+    </text>
+
+    <text x="0" y="115" font-weight="700" fill="#34d399">Два режими альфа-коефіцієнта в LTDC:</text>
+    <rect x="0" y="125" width="385" height="95" rx="6" fill="#0f172a" stroke="#334155" stroke-width="1"/>
+    <text x="15" y="148" font-family="monospace" fill="#34d399">• Constant Alpha (LTDC_LxCACR):</text>
+    <text x="15" y="165" fill="#cbd5e1">  Глобальна прозорість усього шару від 0x00 до 0xFF.</text>
+    <text x="15" y="185" font-family="monospace" fill="#fbbf24">• Pixel Alpha (ARGB8888 / ARGB1555):</text>
+    <text x="15" y="205" fill="#cbd5e1">  Індивідуальна альфа для кожного окремого пікселя.</text>
+
+    <!-- Composite Factor -->
+    <rect x="0" y="235" width="385" height="75" rx="6" fill="#0f172a" stroke="#10b981" stroke-width="1.2"/>
+    <text x="15" y="258" font-weight="700" fill="#34d399">Комбінований фактор прозорості:</text>
+    <text x="15" y="280" font-family="monospace" font-size="12" fill="#ffffff">
+      Eff_Alpha = (Pixel_Alpha * Constant_Alpha) / 255
+    </text>
+  </g>
+
+  <!-- Right: Color Keying and Dithering Panel -->
+  <rect x="495" y="90" width="425" height="400" rx="10" fill="#1e293b" stroke="#334155" stroke-width="1.5" filter="url(#shadow)"/>
+  <rect x="495" y="90" width="425" height="34" rx="10" fill="#047857"/>
+  <text x="707" y="113" text-anchor="middle" font-family="system-ui, sans-serif" font-size="14" font-weight="700" fill="#ffffff">
+    2. Color Keying та Dithering
+  </text>
+
+  <g transform="translate(515, 145)" font-family="system-ui, sans-serif" font-size="11" fill="#e2e8f0">
+    <!-- Color Keying -->
+    <rect x="0" y="0" width="385" height="135" rx="6" fill="#0f172a" stroke="#10b981" stroke-width="1"/>
+    <text x="15" y="24" font-size="12" font-weight="700" fill="#34d399">
+      Апаратний Хромакей (Color Keying):
+    </text>
+    <text x="15" y="48" fill="#cbd5e1">• Регістр LTDC_LxCKCR задає 24-бітний ключовий колір.</text>
+    <text x="15" y="68" fill="#cbd5e1">• Якщо колір пікселя збігається з ключем (наприклад, 0x00FF00 зелений</text>
+    <text x="15" y="86" fill="#cbd5e1">  або 0xFF00FF маджента), він стає 100% прозорим.</text>
+    <text x="15" y="106" fill="#cbd5e1">• Наскрізний показ живого відео камери з фонового Layer 1!</text>
+    <text x="15" y="124" font-family="monospace" font-size="10" fill="#34d399">LTDC_LxCR: біт COLKEN = 1</text>
+
+    <!-- Dithering Engine -->
+    <rect x="0" y="150" width="385" height="160" rx="6" fill="#0f172a" stroke="#f59e0b" stroke-width="1"/>
+    <text x="15" y="174" font-size="12" font-weight="700" fill="#fbbf24">
+      Апаратний блок дизерингу (Dithering):
+    </text>
+    <text x="15" y="198" fill="#cbd5e1">• Внутрішній конвеєр LTDC завжди змішує кольори у 24 бітах (RGB888).</text>
+    <text x="15" y="218" fill="#cbd5e1">• Якщо зовнішня РК-панель має лише 16 біт (RGB565) або 18 біт (RGB666),</text>
+    <text x="15" y="236" fill="#cbd5e1">  звичайне відсікання молодших бітів викликає грубі колірні смуги (Banding).</text>
+    <text x="15" y="258" fill="#cbd5e1">• Алгоритм просторового розсіювання помилки (Dithering)</text>
+    <text x="15" y="276" fill="#cbd5e1">  створює візуальну ілюзію плавного градієнта 16 млн кольорів!</text>
+    <text x="15" y="298" font-family="monospace" font-size="10" fill="#fbbf24">LTDC_GCR: біт DEN = 1 (Dither Enable)</text>
+  </g>
+</svg>
