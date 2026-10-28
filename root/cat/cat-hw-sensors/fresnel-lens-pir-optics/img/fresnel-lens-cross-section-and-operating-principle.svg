@@ -1,0 +1,145 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bg-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f172a"/>
+      <stop offset="100%" stop-color="#1e293b"/>
+    </linearGradient>
+    <filter id="shadow" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#000000" flood-opacity="0.4"/>
+    </filter>
+  </defs>
+
+  <rect width="960" height="520" rx="12" fill="url(#bg-grad)"/>
+
+  <!-- Title -->
+  <text x="480" y="38" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="20" font-weight="700" fill="#f8fafc">
+    Оптичний принцип лінзи Френеля для інфрачервоного діапазону
+  </text>
+  <text x="480" y="60" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="13" fill="#94a3b8">
+    Усунення масивного тіла лінзи, мінімізація ІЧ-поглинання матеріалом HDPE та фокусування на піроелемент
+  </text>
+
+  <!-- Left: Classic vs Fresnel Profile -->
+  <g transform="translate(40, 85)">
+    <rect width="420" height="340" rx="8" fill="#1e293b" stroke="#38bdf8" stroke-width="1.5" filter="url(#shadow)"/>
+    <text x="210" y="26" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="700" fill="#38bdf8">
+      Еволюція: товста опукла лінза → лінза Френеля
+    </text>
+
+    <!-- Classic thick lens -->
+    <g transform="translate(30, 45)">
+      <path d="M 40 10 Q 120 70 40 130 Z" fill="#334155" stroke="#94a3b8" stroke-width="1.5"/>
+      <text x="40" y="155" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#cbd5e1">Звичайна лінза</text>
+      <text x="40" y="172" font-family="system-ui, -apple-system, sans-serif" font-size="10" fill="#f87171">Товщина &gt; 5 мм: повне</text>
+      <text x="40" y="188" font-family="system-ui, -apple-system, sans-serif" font-size="10" fill="#f87171">поглинання ІЧ 10 мкм</text>
+    </g>
+
+    <!-- Arrow -->
+    <path d="M 180 115 L 230 115" stroke="#38bdf8" stroke-width="2.5" fill="none"/>
+    <polygon points="230,110 242,115 230,120" fill="#38bdf8"/>
+
+    <!-- Fresnel stepped profile -->
+    <g transform="translate(250, 45)">
+      <!-- Stepped teeth -->
+      <path d="M 30 10 L 45 10 L 30 35 L 48 35 L 30 65 L 50 65 L 30 95 L 48 95 L 30 120 L 45 120 L 30 130 Z" 
+            fill="#0284c7" fill-opacity="0.4" stroke="#38bdf8" stroke-width="2"/>
+      <text x="65" y="65" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="700" fill="#38bdf8">
+        Ступінчастий
+      </text>
+      <text x="65" y="82" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="700" fill="#38bdf8">
+        профіль
+      </text>
+      <text x="30" y="155" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#34d399">Лінза Френеля</text>
+      <text x="30" y="172" font-family="system-ui, -apple-system, sans-serif" font-size="10" fill="#34d399">Товщина 0.3 .. 0.5 мм</text>
+      <text x="30" y="188" font-family="system-ui, -apple-system, sans-serif" font-size="10" fill="#34d399">Пропускання ІЧ &gt; 70%</text>
+    </g>
+
+    <!-- Principle description -->
+    <g transform="translate(20, 225)">
+      <rect width="380" height="95" rx="6" fill="#0f172a" stroke="#334155" stroke-width="1"/>
+      <text x="15" y="22" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="600" fill="#facc15">
+        Чому саме поліетилен високої густини (HDPE)?
+      </text>
+      <text x="15" y="42" font-family="system-ui, -apple-system, sans-serif" font-size="10" fill="#cbd5e1">
+        • Звичайне скло непрозоре для довжин хвиль понад 2.5 мкм.
+      </text>
+      <text x="15" y="60" font-family="system-ui, -apple-system, sans-serif" font-size="10" fill="#cbd5e1">
+        • Тонкий білий матовий поліетилен HDPE практично не має власних смуг
+      </text>
+      <text x="15" y="78" font-family="system-ui, -apple-system, sans-serif" font-size="10" fill="#cbd5e1">
+        поглинання в діапазоні теплового випромінювання тіла (8 .. 14 мкм).
+      </text>
+    </g>
+  </g>
+
+  <!-- Right: Ray Tracing onto Sensor -->
+  <g transform="translate(500, 85)">
+    <rect width="420" height="340" rx="8" fill="#1e293b" stroke="#10b981" stroke-width="1.5" filter="url(#shadow)"/>
+    <text x="210" y="26" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="700" fill="#34d399">
+      Фокусування ІЧ-променів у фокальну площину
+    </text>
+
+    <g transform="translate(30, 45)">
+      <!-- Incoming parallel IR rays from human -->
+      <line x1="0" y1="40" x2="110" y2="40" stroke="#f87171" stroke-width="2" stroke-dasharray="4,3"/>
+      <line x1="0" y1="75" x2="110" y2="75" stroke="#f87171" stroke-width="2" stroke-dasharray="4,3"/>
+      <line x1="0" y1="110" x2="110" y2="110" stroke="#f87171" stroke-width="2" stroke-dasharray="4,3"/>
+      <line x1="0" y1="145" x2="110" y2="145" stroke="#f87171" stroke-width="2" stroke-dasharray="4,3"/>
+      <line x1="0" y1="180" x2="110" y2="180" stroke="#f87171" stroke-width="2" stroke-dasharray="4,3"/>
+
+      <text x="10" y="25" font-family="system-ui, -apple-system, sans-serif" font-size="10" font-weight="600" fill="#f87171">
+        Теплове випромінювання (9.4 мкм)
+      </text>
+
+      <!-- Fresnel Lens vertical plane -->
+      <rect x="110" y="20" width="12" height="180" rx="3" fill="#38bdf8" stroke="#0284c7" stroke-width="1.5"/>
+      <text x="116" y="215" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="10" font-weight="700" fill="#38bdf8">
+        Лінза
+      </text>
+
+      <!-- Focused rays meeting at focal point -->
+      <line x1="122" y1="40" x2="280" y2="110" stroke="#facc15" stroke-width="2"/>
+      <line x1="122" y1="75" x2="280" y2="110" stroke="#facc15" stroke-width="2"/>
+      <line x1="122" y1="110" x2="280" y2="110" stroke="#facc15" stroke-width="2"/>
+      <line x1="122" y1="145" x2="280" y2="110" stroke="#facc15" stroke-width="2"/>
+      <line x1="122" y1="180" x2="280" y2="110" stroke="#facc15" stroke-width="2"/>
+
+      <!-- Focal Distance Dimension -->
+      <line x1="122" y1="195" x2="280" y2="195" stroke="#94a3b8" stroke-width="1"/>
+      <text x="201" y="212" text-anchor="middle" font-family="monospace" font-size="10" fill="#cbd5e1">f_0 ≈ 12..25 мм</text>
+
+      <!-- Sensor TO-5 at focal point -->
+      <rect x="280" y="70" width="55" height="80" rx="6" fill="#334155" stroke="#10b981" stroke-width="2"/>
+      <rect x="282" y="85" width="8" height="50" rx="2" fill="#ef4444"/>
+      <text x="312" y="105" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="10" font-weight="700" fill="#ffffff">PIR</text>
+      <text x="312" y="120" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="8" fill="#a7f3d0">TO-5</text>
+    </g>
+
+    <!-- Ray tracing notes -->
+    <g transform="translate(20, 255)">
+      <text x="0" y="16" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#cbd5e1">
+        • <tspan font-weight="700" fill="#34d399">Точність фокусування:</tspan> зміщення датчика вздовж оптичної осі
+      </text>
+      <text x="0" y="34" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#cbd5e1">
+        всього на ±1.0 мм знижує амплітуду корисного сигналу більш ніж на 40%.
+      </text>
+      <text x="0" y="52" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#cbd5e1">
+        • Завдяки малому радіусу кривизни лінза забезпечує високу світлосилу F/1.0.
+      </text>
+    </g>
+  </g>
+
+  <!-- Bottom Bar -->
+  <g transform="translate(40, 440)">
+    <rect width="880" height="60" rx="6" fill="#0f172a" stroke="#334155" stroke-width="1"/>
+    <text x="20" y="24" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="700" fill="#38bdf8">
+      Головний висновок:
+    </text>
+    <text x="145" y="24" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#cbd5e1">
+      Лінза Френеля вирішує дві задачі: фокусує слабкий тепловий потік людини на мініатюрний кристал (площею всього 2×1 мм)
+    </text>
+    <text x="20" y="44" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#cbd5e1">
+      та розбиває суцільне поле огляду на безліч оптичних секторів для модуляції амплітуди при русі.
+    </text>
+  </g>
+</svg>

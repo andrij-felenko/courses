@@ -1,0 +1,122 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bg-grad3" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f172a"/>
+      <stop offset="100%" stop-color="#1e293b"/>
+    </linearGradient>
+    <filter id="shadow3" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="0" dy="3" stdDeviation="5" flood-color="#000000" flood-opacity="0.3"/>
+    </filter>
+  </defs>
+
+  <rect width="960" height="480" rx="12" fill="url(#bg-grad3)"/>
+
+  <text x="480" y="34" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="19" font-weight="700" fill="#f8fafc">
+    Класифікація лінз Френеля за діаграмою спрямованості
+  </text>
+  <text x="480" y="56" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="13" fill="#94a3b8">
+    Чотири базові типи діаграм: ширококутна, стельова кругова, шторна та далекобійна коридорна
+  </text>
+
+  <!-- Type 1: Wide Angle -->
+  <g transform="translate(30, 80)">
+    <rect width="210" height="360" rx="8" fill="#1e293b" stroke="#38bdf8" stroke-width="1.5" filter="url(#shadow3)"/>
+    <text x="105" y="26" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="13" font-weight="700" fill="#38bdf8">
+      Ширококутна (Wide Angle)
+    </text>
+
+    <!-- Visual Diagram -->
+    <g transform="translate(105, 120)">
+      <polygon points="0,0 -80,-60 80,-60" fill="#0284c7" fill-opacity="0.3" stroke="#38bdf8" stroke-width="1.5"/>
+      <circle cx="0" cy="0" r="5" fill="#38bdf8"/>
+      <text x="0" y="-70" text-anchor="middle" font-family="monospace" font-size="11" font-weight="700" fill="#38bdf8">110° .. 140°</text>
+    </g>
+
+    <g transform="translate(15, 155)">
+      <text x="0" y="16" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#cbd5e1">• <tspan font-weight="600">Кут огляду:</tspan> 110° .. 140°</text>
+      <text x="0" y="34" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#cbd5e1">• <tspan font-weight="600">Дальність:</tspan> 6 .. 10 м</text>
+      <text x="0" y="52" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#cbd5e1">• <tspan font-weight="600">Яруси зон:</tspan> 3..4 ряди</text>
+      <text x="0" y="70" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#cbd5e1">• <tspan font-weight="600">Кількість зон:</tspan> 30 .. 64 фасетки</text>
+      <text x="0" y="98" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="600" fill="#34d399">Монтаж:</text>
+      <text x="0" y="116" font-family="system-ui, -apple-system, sans-serif" font-size="10" fill="#94a3b8">У кутку кімнати або на стіні (висота 2.0 .. 2.4 м)</text>
+      <text x="0" y="145" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="600" fill="#facc15">Застосування:</text>
+      <text x="0" y="163" font-family="system-ui, -apple-system, sans-serif" font-size="10" fill="#94a3b8">Житлові кімнати, офіси, сходові марші</text>
+    </g>
+  </g>
+
+  <!-- Type 2: 360 Ceiling Mount -->
+  <g transform="translate(260, 80)">
+    <rect width="210" height="360" rx="8" fill="#1e293b" stroke="#10b981" stroke-width="1.5" filter="url(#shadow3)"/>
+    <text x="105" y="26" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="13" font-weight="700" fill="#34d399">
+      Стельова кругова (360°)
+    </text>
+
+    <!-- Visual Diagram -->
+    <g transform="translate(105, 95)">
+      <circle cx="0" cy="0" r="38" fill="#059669" fill-opacity="0.3" stroke="#10b981" stroke-width="1.5"/>
+      <circle cx="0" cy="0" r="20" fill="none" stroke="#34d399" stroke-width="1" stroke-dasharray="3,3"/>
+      <circle cx="0" cy="0" r="5" fill="#10b981"/>
+      <text x="0" y="55" text-anchor="middle" font-family="monospace" font-size="11" font-weight="700" fill="#34d399">Коло 360°</text>
+    </g>
+
+    <g transform="translate(15, 175)">
+      <text x="0" y="16" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#cbd5e1">• <tspan font-weight="600">Кут огляду:</tspan> 360° (повне коло)</text>
+      <text x="0" y="34" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#cbd5e1">• <tspan font-weight="600">Діаметр зони:</tspan> 6 .. 12 м</text>
+      <text x="0" y="52" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#cbd5e1">• <tspan font-weight="600">Структура:</tspan> концентричні кільця</text>
+      <text x="0" y="80" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="600" fill="#34d399">Монтаж:</text>
+      <text x="0" y="98" font-family="system-ui, -apple-system, sans-serif" font-size="10" fill="#94a3b8">Центр стелі приміщення (висота 2.5 .. 4.0 м)</text>
+      <text x="0" y="125" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="600" fill="#facc15">Застосування:</text>
+      <text x="0" y="143" font-family="system-ui, -apple-system, sans-serif" font-size="10" fill="#94a3b8">Офісні open-space, склади, санвузли</text>
+    </g>
+  </g>
+
+  <!-- Type 3: Curtain Barrier -->
+  <g transform="translate(490, 80)">
+    <rect width="210" height="360" rx="8" fill="#1e293b" stroke="#f59e0b" stroke-width="1.5" filter="url(#shadow3)"/>
+    <text x="105" y="26" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="13" font-weight="700" fill="#facc15">
+      Шторна (Curtain / Barrier)
+    </text>
+
+    <!-- Visual Diagram -->
+    <g transform="translate(105, 120)">
+      <polygon points="0,0 -15,-65 15,-65" fill="#d97706" fill-opacity="0.3" stroke="#f59e0b" stroke-width="1.5"/>
+      <circle cx="0" cy="0" r="5" fill="#f59e0b"/>
+      <text x="0" y="-75" text-anchor="middle" font-family="monospace" font-size="10" font-weight="700" fill="#facc15">Вузький плоский промінь (5°)</text>
+    </g>
+
+    <g transform="translate(15, 155)">
+      <text x="0" y="16" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#cbd5e1">• <tspan font-weight="600">Кут по гориз.:</tspan> лише 5° .. 10°</text>
+      <text x="0" y="34" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#cbd5e1">• <tspan font-weight="600">Кут по верт.:</tspan> 90° .. 100°</text>
+      <text x="0" y="52" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#cbd5e1">• <tspan font-weight="600">Форма:</tspan> тонка вертикальна стіна</text>
+      <text x="0" y="80" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="600" fill="#34d399">Монтаж:</text>
+      <text x="0" y="98" font-family="system-ui, -apple-system, sans-serif" font-size="10" fill="#94a3b8">Над вікном, дверима або воротами</text>
+      <text x="0" y="125" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="600" fill="#facc15">Застосування:</text>
+      <text x="0" y="143" font-family="system-ui, -apple-system, sans-serif" font-size="10" fill="#94a3b8">Контроль перетину периметра, вітрини магазинів</text>
+    </g>
+  </g>
+
+  <!-- Type 4: Long-Range Corridor -->
+  <g transform="translate(720, 80)">
+    <rect width="210" height="360" rx="8" fill="#1e293b" stroke="#ef4444" stroke-width="1.5" filter="url(#shadow3)"/>
+    <text x="105" y="26" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="13" font-weight="700" fill="#f87171">
+      Коридорна (Long-Range)
+    </text>
+
+    <!-- Visual Diagram -->
+    <g transform="translate(105, 120)">
+      <polygon points="0,0 -20,-75 20,-75" fill="#dc2626" fill-opacity="0.3" stroke="#ef4444" stroke-width="1.5"/>
+      <circle cx="0" cy="0" r="5" fill="#ef4444"/>
+      <text x="0" y="-85" text-anchor="middle" font-family="monospace" font-size="11" font-weight="700" fill="#f87171">Дальність до 20 м</text>
+    </g>
+
+    <g transform="translate(15, 155)">
+      <text x="0" y="16" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#cbd5e1">• <tspan font-weight="600">Кут огляду:</tspan> вузький (15° .. 25°)</text>
+      <text x="0" y="34" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#cbd5e1">• <tspan font-weight="600">Дальність:</tspan> 15 .. 25 метрів</text>
+      <text x="0" y="52" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#cbd5e1">• <tspan font-weight="600">Фасетки:</tspan> висока оптична концентрація</text>
+      <text x="0" y="80" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="600" fill="#34d399">Монтаж:</text>
+      <text x="0" y="98" font-family="system-ui, -apple-system, sans-serif" font-size="10" fill="#94a3b8">В торці довгого коридору або проходу</text>
+      <text x="0" y="125" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="600" fill="#facc15">Застосування:</text>
+      <text x="0" y="143" font-family="system-ui, -apple-system, sans-serif" font-size="10" fill="#94a3b8">Готельні коридори, міжстелажні проходи складів</text>
+    </g>
+  </g>
+</svg>
