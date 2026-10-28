@@ -1,0 +1,127 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f172a"/>
+      <stop offset="100%" stop-color="#1e293b"/>
+    </linearGradient>
+    <marker id="arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#38bdf8"/>
+    </marker>
+    <filter id="shadow" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="0" dy="3" stdDeviation="4" flood-color="#000000" flood-opacity="0.5"/>
+    </filter>
+  </defs>
+
+  <rect width="960" height="520" fill="url(#bg)"/>
+
+  <!-- Title -->
+  <text x="480" y="36" text-anchor="middle" font-family="system-ui, sans-serif" font-size="20" font-weight="700" fill="#f8fafc">
+    Конвеєр обробки зображення та вихідні формати OV2640
+  </text>
+  <text x="480" y="58" text-anchor="middle" font-family="system-ui, sans-serif" font-size="13" fill="#94a3b8">
+    Трансформація від кремнієвої матриці UXGA (1600x1200) до потоку JPEG / RGB565 / YUV422
+  </text>
+
+  <!-- Flow Steps Horizontal Pipeline -->
+  <!-- Step 1: Pixel Array -->
+  <rect x="30" y="90" width="155" height="130" rx="8" fill="#1e293b" stroke="#0ea5e9" stroke-width="1.5" filter="url(#shadow)"/>
+  <rect x="30" y="90" width="155" height="28" rx="8" fill="#0284c7"/>
+  <text x="107" y="109" text-anchor="middle" font-family="system-ui, sans-serif" font-size="12" font-weight="700" fill="#ffffff">CMOS-матриця</text>
+  <text x="107" y="140" text-anchor="middle" font-family="monospace" font-size="12" font-weight="700" fill="#38bdf8">1600 x 1200</text>
+  <text x="107" y="160" text-anchor="middle" font-family="system-ui, sans-serif" font-size="11" fill="#94a3b8">UXGA 2 Мпікс</text>
+  <text x="107" y="180" text-anchor="middle" font-family="system-ui, sans-serif" font-size="10" fill="#cbd5e1">Bayer RGB фільтр</text>
+  <text x="107" y="200" text-anchor="middle" font-family="system-ui, sans-serif" font-size="10" fill="#64748b">10-бітний АЦП</text>
+
+  <line x1="185" y1="155" x2="215" y2="155" stroke="#38bdf8" stroke-width="2" marker-end="url(#arr)"/>
+
+  <!-- Step 2: ISP Sensor Core -->
+  <rect x="220" y="90" width="165" height="130" rx="8" fill="#1e293b" stroke="#10b981" stroke-width="1.5" filter="url(#shadow)"/>
+  <rect x="220" y="90" width="165" height="28" rx="8" fill="#059669"/>
+  <text x="302" y="109" text-anchor="middle" font-family="system-ui, sans-serif" font-size="12" font-weight="700" fill="#ffffff">Sensor Core ISP</text>
+  <text x="302" y="135" text-anchor="middle" font-family="system-ui, sans-serif" font-size="11" fill="#34d399">• Black Level Cal (BLC)</text>
+  <text x="302" y="155" text-anchor="middle" font-family="system-ui, sans-serif" font-size="11" fill="#34d399">• Lens Correction (LCC)</text>
+  <text x="302" y="175" text-anchor="middle" font-family="system-ui, sans-serif" font-size="11" fill="#34d399">• Auto Exposure (AEC)</text>
+  <text x="302" y="195" text-anchor="middle" font-family="system-ui, sans-serif" font-size="11" fill="#34d399">• Auto Gain (AGC)</text>
+
+  <line x1="385" y1="155" x2="415" y2="155" stroke="#38bdf8" stroke-width="2" marker-end="url(#arr)"/>
+
+  <!-- Step 3: DSP Image Processing -->
+  <rect x="420" y="90" width="165" height="130" rx="8" fill="#1e293b" stroke="#8b5cf6" stroke-width="1.5" filter="url(#shadow)"/>
+  <rect x="420" y="90" width="165" height="28" rx="8" fill="#6d28d9"/>
+  <text x="502" y="109" text-anchor="middle" font-family="system-ui, sans-serif" font-size="12" font-weight="700" fill="#ffffff">DSP Processor</text>
+  <text x="502" y="135" text-anchor="middle" font-family="system-ui, sans-serif" font-size="11" fill="#c084fc">• Demosaic (Дебайєризація)</text>
+  <text x="502" y="155" text-anchor="middle" font-family="system-ui, sans-serif" font-size="11" fill="#c084fc">• Auto White Balance</text>
+  <text x="502" y="175" text-anchor="middle" font-family="system-ui, sans-serif" font-size="11" fill="#c084fc">• Корекція гами та шумів</text>
+  <text x="502" y="195" text-anchor="middle" font-family="system-ui, sans-serif" font-size="11" fill="#c084fc">• Sharpness &amp; Saturation</text>
+
+  <line x1="585" y1="155" x2="615" y2="155" stroke="#38bdf8" stroke-width="2" marker-end="url(#arr)"/>
+
+  <!-- Step 4: Sizing & Windowing -->
+  <rect x="620" y="90" width="150" height="130" rx="8" fill="#1e293b" stroke="#f59e0b" stroke-width="1.5" filter="url(#shadow)"/>
+  <rect x="620" y="90" width="150" height="28" rx="8" fill="#d97706"/>
+  <text x="695" y="109" text-anchor="middle" font-family="system-ui, sans-serif" font-size="12" font-weight="700" fill="#ffffff">Масштабування</text>
+  <text x="695" y="135" text-anchor="middle" font-family="system-ui, sans-serif" font-size="11" fill="#fbbf24">• SVGA (800x600)</text>
+  <text x="695" y="155" text-anchor="middle" font-family="system-ui, sans-serif" font-size="11" fill="#fbbf24">• VGA (640x480)</text>
+  <text x="695" y="175" text-anchor="middle" font-family="system-ui, sans-serif" font-size="11" fill="#fbbf24">• CIF (352x288)</text>
+  <text x="695" y="195" text-anchor="middle" font-family="system-ui, sans-serif" font-size="11" fill="#fbbf24">• QVGA (320x240)</text>
+
+  <line x1="770" y1="155" x2="800" y2="155" stroke="#38bdf8" stroke-width="2" marker-end="url(#arr)"/>
+
+  <!-- Step 5: Format Multiplexer -->
+  <rect x="805" y="90" width="125" height="130" rx="8" fill="#0f172a" stroke="#ec4899" stroke-width="1.5" filter="url(#shadow)"/>
+  <rect x="805" y="90" width="125" height="28" rx="8" fill="#be185d"/>
+  <text x="867" y="109" text-anchor="middle" font-family="system-ui, sans-serif" font-size="12" font-weight="700" fill="#ffffff">Селектор</text>
+  <text x="867" y="145" text-anchor="middle" font-family="monospace" font-size="12" font-weight="700" fill="#f472b6">Регістр</text>
+  <text x="867" y="165" text-anchor="middle" font-family="monospace" font-size="12" font-weight="700" fill="#f472b6">0xDA</text>
+  <text x="867" y="195" text-anchor="middle" font-family="system-ui, sans-serif" font-size="10" fill="#cbd5e1">IMAGE_MODE</text>
+
+  <!-- Branching: 4 Output Streams -->
+  <!-- Split Paths -->
+  <path d="M 867 220 L 867 250 L 140 250 L 140 280" fill="none" stroke="#38bdf8" stroke-width="2" marker-end="url(#arr)"/>
+  <path d="M 867 220 L 867 250 L 380 250 L 380 280" fill="none" stroke="#34d399" stroke-width="2" marker-end="url(#arr)"/>
+  <path d="M 867 220 L 867 250 L 620 250 L 620 280" fill="none" stroke="#fbbf24" stroke-width="2" marker-end="url(#arr)"/>
+  <path d="M 867 220 L 867 280" fill="none" stroke="#ec4899" stroke-width="2" marker-end="url(#arr)"/>
+
+  <!-- Output Box 1: RAW Bayer -->
+  <rect x="40" y="285" width="200" height="205" rx="8" fill="#1e293b" stroke="#0ea5e9" stroke-width="1.5"/>
+  <rect x="40" y="285" width="200" height="28" rx="8" fill="#0284c7"/>
+  <text x="140" y="304" text-anchor="middle" font-family="system-ui, sans-serif" font-size="12" font-weight="700" fill="#ffffff">RAW RGB (Bayer)</text>
+  <text x="55" y="330" font-family="system-ui, sans-serif" font-size="11" fill="#cbd5e1">• Прямі дані фотодіодів</text>
+  <text x="55" y="350" font-family="system-ui, sans-serif" font-size="11" fill="#cbd5e1">• 8 або 10 біт на піксель</text>
+  <text x="55" y="370" font-family="system-ui, sans-serif" font-size="11" fill="#cbd5e1">• Мінімальна затримка сенсора</text>
+  <text x="55" y="390" font-family="system-ui, sans-serif" font-size="11" fill="#cbd5e1">• Потребує зовнішнього ISP</text>
+  <rect x="50" y="440" width="180" height="36" rx="4" fill="#0f172a" stroke="#0ea5e9" stroke-width="1"/>
+  <text x="140" y="463" text-anchor="middle" font-family="monospace" font-size="11" fill="#38bdf8">1 піксель = 1 байт</text>
+
+  <!-- Output Box 2: RGB565 -->
+  <rect x="280" y="285" width="200" height="205" rx="8" fill="#1e293b" stroke="#10b981" stroke-width="1.5"/>
+  <rect x="280" y="285" width="200" height="28" rx="8" fill="#059669"/>
+  <text x="380" y="304" text-anchor="middle" font-family="system-ui, sans-serif" font-size="12" font-weight="700" fill="#ffffff">RGB565 / RGB555</text>
+  <text x="295" y="330" font-family="system-ui, sans-serif" font-size="11" fill="#cbd5e1">• 16 біт кольору на піксель</text>
+  <text x="295" y="350" font-family="system-ui, sans-serif" font-size="11" fill="#cbd5e1">• 5R + 6G + 5B бітів</text>
+  <text x="295" y="370" font-family="system-ui, sans-serif" font-size="11" fill="#cbd5e1">• Ідеально для TFT дисплеїв</text>
+  <text x="295" y="390" font-family="system-ui, sans-serif" font-size="11" fill="#cbd5e1">• 2 байти передаються по 2 PCLK</text>
+  <rect x="290" y="440" width="180" height="36" rx="4" fill="#0f172a" stroke="#10b981" stroke-width="1"/>
+  <text x="380" y="463" text-anchor="middle" font-family="monospace" font-size="11" fill="#34d399">1 піксель = 2 байти</text>
+
+  <!-- Output Box 3: YUV422 -->
+  <rect x="520" y="285" width="200" height="205" rx="8" fill="#1e293b" stroke="#f59e0b" stroke-width="1.5"/>
+  <rect x="520" y="285" width="200" height="28" rx="8" fill="#d97706"/>
+  <text x="620" y="304" text-anchor="middle" font-family="system-ui, sans-serif" font-size="12" font-weight="700" fill="#ffffff">YUV422 / YCbCr</text>
+  <text x="535" y="330" font-family="system-ui, sans-serif" font-size="11" fill="#cbd5e1">• Яскравість Y + хрома U, V</text>
+  <text x="535" y="350" font-family="system-ui, sans-serif" font-size="11" fill="#cbd5e1">• Порядок YUYV або UYVY</text>
+  <text x="535" y="370" font-family="system-ui, sans-serif" font-size="11" fill="#cbd5e1">• Оптимально для комп'ютерного зору (OpenCV)</text>
+  <rect x="530" y="440" width="180" height="36" rx="4" fill="#0f172a" stroke="#f59e0b" stroke-width="1"/>
+  <text x="620" y="463" text-anchor="middle" font-family="monospace" font-size="11" fill="#fbbf24">2 пікселі = 4 байти</text>
+
+  <!-- Output Box 4: Hardware JPEG -->
+  <rect x="760" y="285" width="165" height="205" rx="8" fill="#1e293b" stroke="#ec4899" stroke-width="1.5"/>
+  <rect x="760" y="285" width="165" height="28" rx="8" fill="#be185d"/>
+  <text x="842" y="304" text-anchor="middle" font-family="system-ui, sans-serif" font-size="12" font-weight="700" fill="#ffffff">Апаратний JPEG</text>
+  <text x="772" y="330" font-family="system-ui, sans-serif" font-size="11" fill="#cbd5e1">• Вбудований компресор</text>
+  <text x="772" y="350" font-family="system-ui, sans-serif" font-size="11" fill="#cbd5e1">• Маркери 0xFFD8..0xFFD9</text>
+  <text x="772" y="370" font-family="system-ui, sans-serif" font-size="11" fill="#cbd5e1">• Стиснення у 10..20 разів</text>
+  <text x="772" y="390" font-family="system-ui, sans-serif" font-size="11" fill="#cbd5e1">• Передача через Wi-Fi/HTTP</text>
+  <rect x="770" y="440" width="145" height="36" rx="4" fill="#0f172a" stroke="#ec4899" stroke-width="1"/>
+  <text x="842" y="463" text-anchor="middle" font-family="monospace" font-size="11" fill="#f472b6">Потік стиснених байтів</text>
+</svg>

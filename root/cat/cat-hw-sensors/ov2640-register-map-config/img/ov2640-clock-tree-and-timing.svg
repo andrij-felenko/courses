@@ -1,0 +1,112 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f172a"/>
+      <stop offset="100%" stop-color="#1e293b"/>
+    </linearGradient>
+    <linearGradient id="clkGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#0369a1"/>
+      <stop offset="100%" stop-color="#0284c7"/>
+    </linearGradient>
+    <marker id="arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#38bdf8"/>
+    </marker>
+    <filter id="shadow" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="0" dy="3" stdDeviation="4" flood-color="#000000" flood-opacity="0.5"/>
+    </filter>
+  </defs>
+
+  <rect width="960" height="520" fill="url(#bg)"/>
+
+  <!-- Title -->
+  <text x="480" y="36" text-anchor="middle" font-family="system-ui, sans-serif" font-size="20" font-weight="700" fill="#f8fafc">
+    Дерево тактування та часові діаграми інтерфейсу DVP сенсора OV2640
+  </text>
+  <text x="480" y="58" text-anchor="middle" font-family="system-ui, sans-serif" font-size="13" fill="#94a3b8">
+    Формування PCLK з вхідного XVCLK та синхронізація паралельної шини D[9:0] / D[7:0]
+  </text>
+
+  <!-- Upper Half: Clock Tree Pipeline -->
+  <rect x="40" y="85" width="880" height="160" rx="10" fill="#1e293b" stroke="#334155" stroke-width="1.5" filter="url(#shadow)"/>
+  <text x="60" y="112" font-family="system-ui, sans-serif" font-size="14" font-weight="700" fill="#38bdf8">
+    Конвеєр синтезу тактових частот (Clock Synthesis Architecture)
+  </text>
+
+  <!-- Step 1: XVCLK -->
+  <rect x="60" y="130" width="130" height="90" rx="8" fill="#0f172a" stroke="#0ea5e9" stroke-width="1.5"/>
+  <text x="125" y="155" text-anchor="middle" font-family="system-ui, sans-serif" font-size="13" font-weight="700" fill="#f8fafc">XVCLK (Вхід)</text>
+  <text x="125" y="175" text-anchor="middle" font-family="monospace" font-size="11" fill="#38bdf8">10..24 МГц</text>
+  <text x="125" y="195" text-anchor="middle" font-family="system-ui, sans-serif" font-size="10" fill="#94a3b8">Кварц або таймер MCU</text>
+
+  <line x1="190" y1="175" x2="225" y2="175" stroke="#38bdf8" stroke-width="2" marker-end="url(#arr)"/>
+
+  <!-- Step 2: Prescaler CLKRC -->
+  <rect x="230" y="130" width="160" height="90" rx="8" fill="#0f172a" stroke="#f59e0b" stroke-width="1.5"/>
+  <text x="310" y="155" text-anchor="middle" font-family="system-ui, sans-serif" font-size="13" font-weight="700" fill="#f8fafc">Дільник CLKRC</text>
+  <text x="310" y="175" text-anchor="middle" font-family="monospace" font-size="11" fill="#fbbf24">CLKRC[5:0] + 1</text>
+  <text x="310" y="195" text-anchor="middle" font-family="system-ui, sans-serif" font-size="10" fill="#94a3b8">Bank 1, Reg 0x11 (1..64)</text>
+
+  <line x1="390" y1="175" x2="425" y2="175" stroke="#38bdf8" stroke-width="2" marker-end="url(#arr)"/>
+
+  <!-- Step 3: PLL Multiplier -->
+  <rect x="430" y="130" width="150" height="90" rx="8" fill="#0f172a" stroke="#8b5cf6" stroke-width="1.5"/>
+  <text x="505" y="155" text-anchor="middle" font-family="system-ui, sans-serif" font-size="13" font-weight="700" fill="#f8fafc">Множник PLL</text>
+  <text x="505" y="175" text-anchor="middle" font-family="monospace" font-size="11" fill="#c084fc">x2, x4 або Bypass</text>
+  <text x="505" y="195" text-anchor="middle" font-family="system-ui, sans-serif" font-size="10" fill="#94a3b8">Внутрішній множник</text>
+
+  <line x1="580" y1="175" x2="615" y2="175" stroke="#38bdf8" stroke-width="2" marker-end="url(#arr)"/>
+
+  <!-- Step 4: DSP Prescaler -->
+  <rect x="620" y="130" width="130" height="90" rx="8" fill="#0f172a" stroke="#10b981" stroke-width="1.5"/>
+  <text x="685" y="155" text-anchor="middle" font-family="system-ui, sans-serif" font-size="13" font-weight="700" fill="#f8fafc">DSP Divider</text>
+  <text x="685" y="175" text-anchor="middle" font-family="monospace" font-size="11" fill="#34d399">Bank 0, Reg 0xDA</text>
+  <text x="685" y="195" text-anchor="middle" font-family="system-ui, sans-serif" font-size="10" fill="#94a3b8">Дільник шини пікселів</text>
+
+  <line x1="750" y1="175" x2="785" y2="175" stroke="#38bdf8" stroke-width="2" marker-end="url(#arr)"/>
+
+  <!-- Step 5: Output PCLK -->
+  <rect x="790" y="130" width="115" height="90" rx="8" fill="#0369a1" stroke="#38bdf8" stroke-width="2"/>
+  <text x="847" y="155" text-anchor="middle" font-family="system-ui, sans-serif" font-size="13" font-weight="700" fill="#ffffff">PCLK Вихід</text>
+  <text x="847" y="175" text-anchor="middle" font-family="monospace" font-size="11" fill="#e0f2fe">До 24..36 МГц</text>
+  <text x="847" y="195" text-anchor="middle" font-family="system-ui, sans-serif" font-size="10" fill="#cbd5e1">Строб пікселів</text>
+
+  <!-- Lower Half: Video Interface Timing Waveforms -->
+  <rect x="40" y="260" width="880" height="240" rx="10" fill="#1e293b" stroke="#334155" stroke-width="1.5" filter="url(#shadow)"/>
+  <text x="60" y="287" font-family="system-ui, sans-serif" font-size="14" font-weight="700" fill="#f8fafc">
+    Часові діаграми сигналів інтерфейсу DVP (Parallel Camera Interface)
+  </text>
+
+  <!-- Waveform 1: VSYNC -->
+  <text x="60" y="325" font-family="monospace" font-size="12" font-weight="700" fill="#f43f5e">VSYNC</text>
+  <path d="M 120 320 L 180 320 L 180 305 L 340 305 L 340 320 L 880 320" fill="none" stroke="#f43f5e" stroke-width="2"/>
+  <text x="260" y="300" text-anchor="middle" font-family="system-ui, sans-serif" font-size="10" fill="#fda4af">Кадровий імпульс (Frame Active)</text>
+
+  <!-- Waveform 2: HREF / HSYNC -->
+  <text x="60" y="375" font-family="monospace" font-size="12" font-weight="700" fill="#38bdf8">HREF</text>
+  <path d="M 120 380 L 220 380 L 220 360 L 480 360 L 480 380 L 520 380 L 520 360 L 780 360 L 780 380 L 880 380" fill="none" stroke="#38bdf8" stroke-width="2"/>
+  <text x="350" y="355" text-anchor="middle" font-family="system-ui, sans-serif" font-size="10" fill="#7dd3fc">Рядок 1 (Active)</text>
+  <text x="650" y="355" text-anchor="middle" font-family="system-ui, sans-serif" font-size="10" fill="#7dd3fc">Рядок 2 (Active)</text>
+
+  <!-- Waveform 3: PCLK -->
+  <text x="60" y="425" font-family="monospace" font-size="12" font-weight="700" fill="#34d399">PCLK</text>
+  <path d="M 220 430 L 225 415 L 235 415 L 240 430 L 245 415 L 255 415 L 260 430 L 265 415 L 275 415 L 280 430 L 285 415 L 295 415 L 300 430 L 305 415 L 315 415 L 320 430 L 325 415 L 335 415 L 340 430 L 345 415 L 355 415 L 360 430 L 365 415 L 375 415 L 380 430 L 385 415 L 395 415 L 400 430 L 405 415 L 415 415 L 420 430 L 425 415 L 435 415 L 440 430 L 445 415 L 455 415 L 460 430 L 465 415 L 475 415 L 480 430" fill="none" stroke="#34d399" stroke-width="1.8"/>
+
+  <!-- Waveform 4: D[7:0] / D[9:0] Data Bus -->
+  <text x="60" y="475" font-family="monospace" font-size="12" font-weight="700" fill="#fbbf24">D[7:0]</text>
+  <!-- Data packets under HREF -->
+  <g transform="translate(220, 460)">
+    <polygon points="0,15 5,0 45,0 50,15 45,30 5,30" fill="#0f172a" stroke="#fbbf24" stroke-width="1.5"/>
+    <text x="25" y="20" text-anchor="middle" font-family="monospace" font-size="10" fill="#fbbf24">Байт 1</text>
+
+    <polygon points="50,15 55,0 95,0 100,15 95,30 55,30" fill="#0f172a" stroke="#fbbf24" stroke-width="1.5"/>
+    <text x="75" y="20" text-anchor="middle" font-family="monospace" font-size="10" fill="#fbbf24">Байт 2</text>
+
+    <polygon points="100,15 105,0 145,0 150,15 145,30 105,30" fill="#0f172a" stroke="#fbbf24" stroke-width="1.5"/>
+    <text x="125" y="20" text-anchor="middle" font-family="monospace" font-size="10" fill="#fbbf24">Байт 3</text>
+
+    <polygon points="150,15 155,0 195,0 200,15 195,30 155,30" fill="#0f172a" stroke="#fbbf24" stroke-width="1.5"/>
+    <text x="175" y="20" text-anchor="middle" font-family="monospace" font-size="10" fill="#fbbf24">Байт 4</text>
+
+    <text x="230" y="20" font-family="system-ui, sans-serif" font-size="11" fill="#94a3b8">... Неперервні байти пікселів під час HREF = High ...</text>
+  </g>
+</svg>

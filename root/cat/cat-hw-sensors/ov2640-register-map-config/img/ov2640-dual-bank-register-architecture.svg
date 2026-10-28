@@ -1,0 +1,147 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f172a"/>
+      <stop offset="100%" stop-color="#1e293b"/>
+    </linearGradient>
+    <linearGradient id="bank0Grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1e1b4b"/>
+      <stop offset="100%" stop-color="#312e81"/>
+    </linearGradient>
+    <linearGradient id="bank1Grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#064e3b"/>
+      <stop offset="100%" stop-color="#065f46"/>
+    </linearGradient>
+    <linearGradient id="swGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#d97706"/>
+      <stop offset="100%" stop-color="#b45309"/>
+    </linearGradient>
+    <filter id="shadow" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#000000" flood-opacity="0.4"/>
+    </filter>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#38bdf8"/>
+    </marker>
+    <marker id="arrowGreen" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#34d399"/>
+    </marker>
+    <marker id="arrowOrange" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#fbbf24"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="960" height="540" fill="url(#bg)"/>
+
+  <!-- Title -->
+  <text x="480" y="38" text-anchor="middle" font-family="system-ui, sans-serif" font-size="20" font-weight="700" fill="#f8fafc">
+    Двобанкова архітектура карти регістрів сенсора OV2640 (SCCB / I2C)
+  </text>
+  <text x="480" y="62" text-anchor="middle" font-family="system-ui, sans-serif" font-size="13" fill="#94a3b8">
+    Адресація 8-бітних підрегістрів із перемиканням через селектор банку RA_DLMT (регістр 0xFF)
+  </text>
+
+  <!-- SCCB Host Controller Interface Block -->
+  <rect x="40" y="100" width="220" height="390" rx="10" fill="#1e293b" stroke="#334155" stroke-width="1.5" filter="url(#shadow)"/>
+  <rect x="40" y="100" width="220" height="42" rx="10" fill="#0284c7"/>
+  <text x="150" y="126" text-anchor="middle" font-family="system-ui, sans-serif" font-size="14" font-weight="700" fill="#ffffff">
+    Хост (MCU / SCCB Master)
+  </text>
+  <text x="150" y="170" text-anchor="middle" font-family="system-ui, sans-serif" font-size="12" fill="#cbd5e1">Адреса пристрою на шині:</text>
+  <rect x="55" y="182" width="190" height="32" rx="6" fill="#0f172a" stroke="#0ea5e9" stroke-width="1"/>
+  <text x="150" y="203" text-anchor="middle" font-family="monospace" font-size="13" font-weight="700" fill="#38bdf8">0x60 (Write) / 0x61 (Read)</text>
+
+  <text x="150" y="245" text-anchor="middle" font-family="system-ui, sans-serif" font-size="12" fill="#94a3b8">Лінії зв'язку SCCB:</text>
+  <rect x="55" y="258" width="190" height="60" rx="6" fill="#0f172a" stroke="#334155" stroke-width="1"/>
+  <text x="68" y="280" font-family="monospace" font-size="12" fill="#f1f5f9">• SIOC: тактовий сигнал</text>
+  <text x="68" y="303" font-family="monospace" font-size="12" fill="#f1f5f9">• SIOD: двонаправлені дані</text>
+
+  <rect x="55" y="340" width="190" height="130" rx="6" fill="#0f172a" stroke="#334155" stroke-width="1"/>
+  <text x="150" y="362" text-anchor="middle" font-family="system-ui, sans-serif" font-size="12" font-weight="600" fill="#cbd5e1">Алгоритм перемикання:</text>
+  <text x="65" y="386" font-family="monospace" font-size="11" fill="#a5b4fc">1. Write(0x60, 0xFF, 0x01)</text>
+  <text x="65" y="405" font-family="system-ui, sans-serif" font-size="11" fill="#64748b">   -> Вибір Sensor Core</text>
+  <text x="65" y="428" font-family="monospace" font-size="11" fill="#38bdf8">2. Write(0x60, 0xFF, 0x00)</text>
+  <text x="65" y="447" font-family="system-ui, sans-serif" font-size="11" fill="#64748b">   -> Вибір DSP / JPEG</text>
+
+  <!-- Switcher in Middle -->
+  <rect x="310" y="215" width="200" height="160" rx="10" fill="url(#swGrad)" stroke="#f59e0b" stroke-width="1.5" filter="url(#shadow)"/>
+  <text x="410" y="244" text-anchor="middle" font-family="system-ui, sans-serif" font-size="14" font-weight="700" fill="#ffffff">
+    Регістр 0xFF: RA_DLMT
+  </text>
+  <text x="410" y="265" text-anchor="middle" font-family="system-ui, sans-serif" font-size="11" fill="#fef3c7">
+    Селектор адресного простору
+  </text>
+
+  <rect x="325" y="280" width="170" height="36" rx="6" fill="#0f172a" stroke="#fbbf24" stroke-width="1"/>
+  <text x="410" y="303" text-anchor="middle" font-family="monospace" font-size="12" font-weight="700" fill="#fbbf24">0xFF = 0x01 (Bank 1)</text>
+
+  <rect x="325" y="325" width="170" height="36" rx="6" fill="#0f172a" stroke="#fbbf24" stroke-width="1"/>
+  <text x="410" y="348" text-anchor="middle" font-family="monospace" font-size="12" font-weight="700" fill="#fbbf24">0xFF = 0x00 (Bank 0)</text>
+
+  <!-- Connection MCU -> Switcher -->
+  <line x1="260" y1="295" x2="310" y2="295" stroke="#38bdf8" stroke-width="2.5" marker-end="url(#arrow)"/>
+
+  <!-- Bank 1: Sensor Core / Analog Array -->
+  <rect x="560" y="100" width="360" height="185" rx="10" fill="url(#bank1Grad)" stroke="#10b981" stroke-width="1.5" filter="url(#shadow)"/>
+  <rect x="560" y="100" width="360" height="34" rx="10" fill="#047857"/>
+  <text x="740" y="123" text-anchor="middle" font-family="system-ui, sans-serif" font-size="14" font-weight="700" fill="#ffffff">
+    Банк 1 (0xFF = 0x01): Sensor Core &amp; Analog
+  </text>
+
+  <g transform="translate(575, 145)" font-family="monospace" font-size="11" fill="#e2e8f0">
+    <text x="0" y="15" fill="#6ee7b7" font-weight="700">0x0A, 0x0B:</text>
+    <text x="95" y="15">Ідентифікатори сенсора (PID=0x26, VER=0x42)</text>
+
+    <text x="0" y="35" fill="#6ee7b7" font-weight="700">0x12 (COM7):</text>
+    <text x="95" y="35">Скидання (Reset bit[7]), вибір UXGA/SVGA/CIF</text>
+
+    <text x="0" y="55" fill="#6ee7b7" font-weight="700">0x11 (CLKRC):</text>
+    <text x="95" y="55">Дільник вхідної частоти кварцу (Prescaler)</text>
+
+    <text x="0" y="75" fill="#6ee7b7" font-weight="700">0x04 (REG04):</text>
+    <text x="95" y="75">Дзеркальне відображення H-Mirror, V-Flip</text>
+
+    <text x="0" y="95" fill="#6ee7b7" font-weight="700">0x13, 0x14:</text>
+    <text x="95" y="95">Контроль автоекспозиції (AEC) та підсилення (AGC)</text>
+
+    <text x="0" y="115" fill="#6ee7b7" font-weight="700">0x2D, 0x2E:</text>
+    <text x="95" y="115">Опорні частоти та кадрове вікно (HREF / VSYNC)</text>
+  </g>
+
+  <!-- Bank 0: DSP / Image Processing / JPEG -->
+  <rect x="560" y="305" width="360" height="185" rx="10" fill="url(#bank0Grad)" stroke="#6366f1" stroke-width="1.5" filter="url(#shadow)"/>
+  <rect x="560" y="305" width="360" height="34" rx="10" fill="#4338ca"/>
+  <text x="740" y="328" text-anchor="middle" font-family="system-ui, sans-serif" font-size="14" font-weight="700" fill="#ffffff">
+    Банк 0 (0xFF = 0x00): DSP, Post-Processing &amp; JPEG
+  </text>
+
+  <g transform="translate(575, 350)" font-family="monospace" font-size="11" fill="#e2e8f0">
+    <text x="0" y="15" fill="#a5b4fc" font-weight="700">0xE0 (RESET):</text>
+    <text x="95" y="15">Скидання DSP та цифрового конвеєра</text>
+
+    <text x="0" y="35" fill="#a5b4fc" font-weight="700">0xDA (IMAGE_M):</text>
+    <text x="95" y="35">Вихідний формат: YUV422, RGB565, RAW, JPEG</text>
+
+    <text x="0" y="55" fill="#a5b4fc" font-weight="700">0x44 (QS):</text>
+    <text x="95" y="55">Коефіцієнт квантування JPEG (якість стиснення 0..63)</text>
+
+    <text x="0" y="75" fill="#a5b4fc" font-weight="700">0x50..0x5A:</text>
+    <text x="95" y="75">Таблиці автобалансу білого (AWB) та гама-криві</text>
+
+    <text x="0" y="95" fill="#a5b4fc" font-weight="700">0x5A..0x5F:</text>
+    <text x="95" y="95">Матриця корекції кольору та чіткості (Sharpness)</text>
+
+    <text x="0" y="115" fill="#a5b4fc" font-weight="700">0xC0..0xCF:</text>
+    <text x="95" y="115">Конфігурація вікна масштабування (DSP Sizing/Scale)</text>
+  </g>
+
+  <!-- Routing Lines from Switcher to Banks -->
+  <path d="M 495 298 L 525 298 L 525 190 L 560 190" fill="none" stroke="#34d399" stroke-width="2.5" marker-end="url(#arrowGreen)"/>
+  <path d="M 495 343 L 525 343 L 525 400 L 560 400" fill="none" stroke="#818cf8" stroke-width="2.5" marker-end="url(#arrow)"/>
+
+  <!-- Footer Info -->
+  <rect x="40" y="500" width="880" height="26" rx="4" fill="#0f172a" stroke="#334155" stroke-width="0.8"/>
+  <text x="480" y="518" text-anchor="middle" font-family="system-ui, sans-serif" font-size="11" fill="#94a3b8">
+    Увага: Запис значення 0xFF перемикає внутрішній покажчик сторінки. Невірний активний банк призводить до ігнорування або псування конфігурації.
+  </text>
+</svg>
