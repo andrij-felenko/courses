@@ -1,0 +1,110 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgGrad1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f172a"/>
+      <stop offset="100%" stop-color="#1e293b"/>
+    </linearGradient>
+    <linearGradient id="hdrGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#2563eb"/>
+      <stop offset="100%" stop-color="#3b82f6"/>
+    </linearGradient>
+    <filter id="shadow1" x="-5%" y="-5%" width="110%" height="115%">
+      <feDropShadow dx="0" dy="4" stdDeviation="5" flood-color="#000" flood-opacity="0.4"/>
+    </filter>
+  </defs>
+
+  <rect width="960" height="540" fill="url(#bgGrad1)"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="36" font-family="system-ui, sans-serif" font-size="22" font-weight="700" fill="#f8fafc" text-anchor="middle">Протокол передачі 16-бітних адрес SCCB для сенсора OV3640</text>
+  <text x="480" y="60" font-family="system-ui, sans-serif" font-size="13" fill="#94a3b8" text-anchor="middle">Структура транзакцій 3-фазного запису та комбінованого читання з двобайтними адресами регістрів</text>
+
+  <!-- Section 1: 3-Phase Write Transmission (Top Panel) -->
+  <g transform="translate(40, 85)" filter="url(#shadow1)">
+    <rect width="880" height="195" rx="10" fill="#111827" stroke="#334155" stroke-width="1.5"/>
+    <rect x="0" y="0" width="880" height="30" rx="10" fill="#1e3a8a"/>
+    <text x="440" y="20" font-family="system-ui, sans-serif" font-size="13" font-weight="700" fill="#ffffff" text-anchor="middle">3-Фазна Транзакція Запису (16-бітний Регістр + 8-бітні Дані)</text>
+
+    <!-- Start Condition -->
+    <rect x="25" y="55" width="45" height="50" rx="4" fill="#065f46" stroke="#10b981"/>
+    <text x="47" y="78" font-family="system-ui, sans-serif" font-size="11" font-weight="700" fill="#a7f3d0" text-anchor="middle">START</text>
+    <text x="47" y="93" font-family="system-ui, sans-serif" font-size="9" fill="#6ee7b7" text-anchor="middle">SIO_D ↓</text>
+
+    <!-- Phase 1: Device ID Write -->
+    <rect x="75" y="55" width="180" height="50" rx="4" fill="#1e293b" stroke="#3b82f6" stroke-width="1.5"/>
+    <text x="165" y="75" font-family="monospace" font-size="12" font-weight="700" fill="#60a5fa" text-anchor="middle">Фаза 1: 0x78 (ID+W)</text>
+    <text x="165" y="94" font-family="system-ui, sans-serif" font-size="10" fill="#94a3b8" text-anchor="middle">7 біт адреси (0x3C) + W(0) + X</text>
+
+    <!-- Phase 2A: Sub-address High -->
+    <rect x="260" y="55" width="185" height="50" rx="4" fill="#1e293b" stroke="#8b5cf6" stroke-width="1.5"/>
+    <text x="352" y="75" font-family="monospace" font-size="12" font-weight="700" fill="#c084fc" text-anchor="middle">Фаза 2A: SubAddr_H</text>
+    <text x="352" y="94" font-family="system-ui, sans-serif" font-size="10" fill="#94a3b8" text-anchor="middle">Старший байт A[15:8] + X</text>
+
+    <!-- Phase 2B: Sub-address Low -->
+    <rect x="450" y="55" width="185" height="50" rx="4" fill="#1e293b" stroke="#8b5cf6" stroke-width="1.5"/>
+    <text x="542" y="75" font-family="monospace" font-size="12" font-weight="700" fill="#c084fc" text-anchor="middle">Фаза 2B: SubAddr_L</text>
+    <text x="542" y="94" font-family="system-ui, sans-serif" font-size="10" fill="#94a3b8" text-anchor="middle">Молодший байт A[7:0] + X</text>
+
+    <!-- Phase 3: Data Byte -->
+    <rect x="640" y="55" width="165" height="50" rx="4" fill="#1e293b" stroke="#ec4899" stroke-width="1.5"/>
+    <text x="722" y="75" font-family="monospace" font-size="12" font-weight="700" fill="#f472b6" text-anchor="middle">Фаза 3: Write Data</text>
+    <text x="722" y="94" font-family="system-ui, sans-serif" font-size="10" fill="#94a3b8" text-anchor="middle">8 біт даних D[7:0] + X</text>
+
+    <!-- Stop Condition -->
+    <rect x="810" y="55" width="45" height="50" rx="4" fill="#7f1d1d" stroke="#ef4444"/>
+    <text x="832" y="78" font-family="system-ui, sans-serif" font-size="11" font-weight="700" fill="#fecaca" text-anchor="middle">STOP</text>
+    <text x="832" y="93" font-family="system-ui, sans-serif" font-size="9" fill="#fca5a5" text-anchor="middle">SIO_D ↑</text>
+
+    <!-- Details Box in Write Panel -->
+    <rect x="25" y="118" width="830" height="62" rx="6" fill="#0f172a" stroke="#1e293b"/>
+    <text x="40" y="138" font-family="system-ui, sans-serif" font-size="11" fill="#cbd5e1"><tspan fill="#f59e0b" font-weight="700">Особливість 9-го біта (X):</tspan> У специфікації OmniVision SCCB дев'ятий такт позначається як <tspan fill="#38bdf8" font-family="monospace">Don't-Care bit</tspan>. Ведучий відпускає шину SIO_D, а сенсор може не притискати її до нуля. Стандартний I2C-контролер сприймає це як ACK.</text>
+    <text x="40" y="162" font-family="system-ui, sans-serif" font-size="11" fill="#94a3b8">Приклад ініціалізації: Запис у регістр керування живленням <tspan fill="#c084fc" font-family="monospace">0x3008 = 0x02</tspan> (послідовність байтів: <tspan fill="#60a5fa" font-family="monospace">0x78</tspan>, <tspan fill="#c084fc" font-family="monospace">0x30</tspan>, <tspan fill="#c084fc" font-family="monospace">0x08</tspan>, <tspan fill="#f472b6" font-family="monospace">0x02</tspan>).</text>
+  </g>
+
+  <!-- Section 2: Combined Read Transmission (Bottom Panel) -->
+  <g transform="translate(40, 300)" filter="url(#shadow1)">
+    <rect width="880" height="215" rx="10" fill="#111827" stroke="#334155" stroke-width="1.5"/>
+    <rect x="0" y="0" width="880" height="30" rx="10" fill="#065f46"/>
+    <text x="440" y="20" font-family="system-ui, sans-serif" font-size="13" font-weight="700" fill="#ffffff" text-anchor="middle">Комбінована Транзакція Читання (Address Pointer Setup + Read Phase)</text>
+
+    <!-- Transmit A: Address Setup -->
+    <rect x="20" y="48" width="35" height="46" rx="4" fill="#065f46" stroke="#10b981"/>
+    <text x="37" y="75" font-family="system-ui, sans-serif" font-size="10" font-weight="700" fill="#a7f3d0" text-anchor="middle">START</text>
+
+    <rect x="60" y="48" width="115" height="46" rx="4" fill="#1e293b" stroke="#3b82f6"/>
+    <text x="117" y="68" font-family="monospace" font-size="11" font-weight="700" fill="#60a5fa" text-anchor="middle">0x78 (ID+W)</text>
+    <text x="117" y="84" font-family="system-ui, sans-serif" font-size="9" fill="#94a3b8" text-anchor="middle">Адресація запису</text>
+
+    <rect x="180" y="48" width="120" height="46" rx="4" fill="#1e293b" stroke="#8b5cf6"/>
+    <text x="240" y="68" font-family="monospace" font-size="11" font-weight="700" fill="#c084fc" text-anchor="middle">SubAddr_H</text>
+    <text x="240" y="84" font-family="system-ui, sans-serif" font-size="9" fill="#94a3b8" text-anchor="middle">A[15:8] (напр. 0x30)</text>
+
+    <rect x="305" y="48" width="120" height="46" rx="4" fill="#1e293b" stroke="#8b5cf6"/>
+    <text x="365" y="68" font-family="monospace" font-size="11" font-weight="700" fill="#c084fc" text-anchor="middle">SubAddr_L</text>
+    <text x="365" y="84" font-family="system-ui, sans-serif" font-size="9" fill="#94a3b8" text-anchor="middle">A[7:0] (напр. 0x0A)</text>
+
+    <rect x="430" y="48" width="35" height="46" rx="4" fill="#7f1d1d" stroke="#ef4444"/>
+    <text x="447" y="75" font-family="system-ui, sans-serif" font-size="10" font-weight="700" fill="#fecaca" text-anchor="middle">STOP</text>
+
+    <!-- Transmit B: Restart or Second Transaction -->
+    <rect x="475" y="48" width="35" height="46" rx="4" fill="#065f46" stroke="#10b981"/>
+    <text x="492" y="75" font-family="system-ui, sans-serif" font-size="10" font-weight="700" fill="#a7f3d0" text-anchor="middle">START</text>
+
+    <rect x="515" y="48" width="120" height="46" rx="4" fill="#1e293b" stroke="#10b981"/>
+    <text x="575" y="68" font-family="monospace" font-size="11" font-weight="700" fill="#34d399" text-anchor="middle">0x79 (ID+R)</text>
+    <text x="575" y="84" font-family="system-ui, sans-serif" font-size="9" fill="#94a3b8" text-anchor="middle">Читання (біт 0 = 1)</text>
+
+    <rect x="640" y="48" width="165" height="46" rx="4" fill="#1e293b" stroke="#f59e0b"/>
+    <text x="722" y="68" font-family="monospace" font-size="11" font-weight="700" fill="#fbbf24" text-anchor="middle">Read Data (0x36)</text>
+    <text x="722" y="84" font-family="system-ui, sans-serif" font-size="9" fill="#94a3b8" text-anchor="middle">Видача сенсором + NACK</text>
+
+    <rect x="810" y="48" width="45" height="46" rx="4" fill="#7f1d1d" stroke="#ef4444"/>
+    <text x="832" y="75" font-family="system-ui, sans-serif" font-size="10" font-weight="700" fill="#fecaca" text-anchor="middle">STOP</text>
+
+    <!-- Lower Explanation -->
+    <rect x="20" y="105" width="840" height="95" rx="6" fill="#0f172a" stroke="#1e293b"/>
+    <text x="35" y="125" font-family="system-ui, sans-serif" font-size="11" fill="#cbd5e1"><tspan fill="#38bdf8" font-weight="700">Читання Chip ID OV3640:</tspan> Регістр <tspan fill="#fbbf24" font-family="monospace">0x300A</tspan> повинен повертати <tspan fill="#34d399" font-family="monospace">0x36</tspan>, а регістр <tspan fill="#fbbf24" font-family="monospace">0x300B</tspan> — значення <tspan fill="#34d399" font-family="monospace">0x4C</tspan> або <tspan fill="#34d399" font-family="monospace">0x40</tspan>.</text>
+    <text x="35" y="147" font-family="system-ui, sans-serif" font-size="11" fill="#cbd5e1"><tspan fill="#f59e0b" font-weight="700">Помилка 8-бітної адресації:</tspan> Спроба читати OV3640 як класичний OV7670 або OV2640 з 8-бітною адресою призведе до апаратного NACK або зчитування непередбачуваних даних, оскільки сенсор очікує рівно 16 біт внутрішньої адреси регістру.</text>
+    <text x="35" y="169" font-family="system-ui, sans-serif" font-size="11" fill="#94a3b8">Вимога NACK перед STOP: Ведучий (MCU) зобов'язаний виставити високий рівень (NACK/1) на 9-му такті останнього прочитаного байта, сигналізуючи сенсору про завершення транзакції.</text>
+  </g>
+</svg>
