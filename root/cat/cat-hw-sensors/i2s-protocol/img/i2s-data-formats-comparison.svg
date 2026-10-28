@@ -1,0 +1,158 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bg-grad2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0b1329"/>
+      <stop offset="100%" stop-color="#1e293b"/>
+    </linearGradient>
+    <filter id="shadow2" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="0" dy="3" stdDeviation="5" flood-color="#000000" flood-opacity="0.3"/>
+    </filter>
+  </defs>
+
+  <rect width="960" height="520" rx="12" fill="url(#bg-grad2)"/>
+
+  <text x="480" y="34" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="19" font-weight="700" fill="#f8fafc">
+    Порівняння форматів вирівнювання даних: I2S Philips vs Left-Justified vs Right-Justified
+  </text>
+  <text x="480" y="56" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="13" fill="#94a3b8">
+    Затримка старшого біта (MSB), фаза лінії WS та полярність каналів
+  </text>
+
+  <!-- Format 1: Philips I2S Standard -->
+  <g transform="translate(30, 75)">
+    <rect width="900" height="130" rx="8" fill="#1e293b" stroke="#38bdf8" stroke-width="1.5" filter="url(#shadow2)"/>
+    <text x="20" y="24" font-family="system-ui, -apple-system, sans-serif" font-size="13" font-weight="700" fill="#38bdf8">
+      1. Стандартний формат Philips I2S (Стандарт за замовчуванням)
+    </text>
+
+    <!-- Timing Diagram -->
+    <g transform="translate(20, 38)">
+      <!-- WS Signal -->
+      <text x="0" y="22" font-family="monospace" font-size="11" font-weight="700" fill="#cbd5e1">WS:</text>
+      <!-- WS: Low for Left, High for Right -->
+      <path d="M 50 30 L 250 30 L 250 10 L 650 10 L 650 30 L 850 30" stroke="#34d399" stroke-width="2" fill="none"/>
+      <text x="150" y="25" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="10" font-weight="700" fill="#34d399">WS = 0 (Лівий канал)</text>
+      <text x="450" y="25" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="10" font-weight="700" fill="#facc15">WS = 1 (Правий канал)</text>
+
+      <!-- SCK Markers -->
+      <line x1="250" y1="5" x2="250" y2="75" stroke="#ef4444" stroke-width="1.5" stroke-dasharray="3,3"/>
+      <line x1="290" y1="5" x2="290" y2="75" stroke="#38bdf8" stroke-width="1.5" stroke-dasharray="3,3"/>
+
+      <!-- SD Signal -->
+      <text x="0" y="60" font-family="monospace" font-size="11" font-weight="700" fill="#cbd5e1">SD:</text>
+      
+      <!-- Prior LSB slot -->
+      <rect x="210" y="45" width="40" height="24" rx="2" fill="#334155"/>
+      <text x="230" y="61" text-anchor="middle" font-family="monospace" font-size="9" fill="#94a3b8">LSB</text>
+
+      <!-- Empty 1-bit delay slot -->
+      <rect x="250" y="45" width="40" height="24" rx="2" fill="#7f1d1d" fill-opacity="0.4" stroke="#ef4444" stroke-width="1"/>
+      <text x="270" y="61" text-anchor="middle" font-family="monospace" font-size="8" font-weight="700" fill="#f87171">1-bit</text>
+
+      <!-- MSB starts at 290! -->
+      <rect x="290" y="45" width="55" height="24" rx="2" fill="#0284c7" stroke="#38bdf8" stroke-width="1"/>
+      <text x="317" y="61" text-anchor="middle" font-family="monospace" font-size="10" font-weight="700" fill="#ffffff">MSB</text>
+
+      <rect x="345" y="45" width="45" height="24" rx="2" fill="#0284c7"/>
+      <text x="367" y="61" text-anchor="middle" font-family="monospace" font-size="9" fill="#ffffff">MSB-1</text>
+
+      <rect x="390" y="45" width="45" height="24" rx="2" fill="#0284c7"/>
+      <text x="412" y="61" text-anchor="middle" font-family="monospace" font-size="9" fill="#ffffff">MSB-2</text>
+
+      <text x="450" y="61" font-family="monospace" font-size="12" fill="#94a3b8">. . .</text>
+
+      <rect x="590" y="45" width="45" height="24" rx="2" fill="#0284c7"/>
+      <text x="612" y="61" text-anchor="middle" font-family="monospace" font-size="9" fill="#ffffff">LSB</text>
+
+      <text x="660" y="61" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="700" fill="#f87171">
+        ← Затримка MSB строго на 1 такт BCLK після зміни WS!
+      </text>
+    </g>
+  </g>
+
+  <!-- Format 2: Left-Justified (MSB-Justified) -->
+  <g transform="translate(30, 215)">
+    <rect width="900" height="130" rx="8" fill="#1e293b" stroke="#10b981" stroke-width="1.5" filter="url(#shadow2)"/>
+    <text x="20" y="24" font-family="system-ui, -apple-system, sans-serif" font-size="13" font-weight="700" fill="#34d399">
+      2. Формат Left-Justified (MSB-Justified / Японський стандарт)
+    </text>
+
+    <!-- Timing Diagram -->
+    <g transform="translate(20, 38)">
+      <!-- WS Signal -->
+      <text x="0" y="22" font-family="monospace" font-size="11" font-weight="700" fill="#cbd5e1">WS:</text>
+      <!-- In Left-Justified, WS = 1 is Left, WS = 0 is Right! -->
+      <path d="M 50 10 L 250 10 L 250 30 L 650 30 L 650 10 L 850 10" stroke="#facc15" stroke-width="2" fill="none"/>
+      <text x="150" y="25" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="10" font-weight="700" fill="#facc15">WS = 1 (Лівий канал)</text>
+      <text x="450" y="25" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="10" font-weight="700" fill="#34d399">WS = 0 (Правий канал)</text>
+
+      <!-- Sync line at 250 -->
+      <line x1="250" y1="5" x2="250" y2="75" stroke="#34d399" stroke-width="1.5" stroke-dasharray="3,3"/>
+
+      <!-- SD Signal -->
+      <text x="0" y="60" font-family="monospace" font-size="11" font-weight="700" fill="#cbd5e1">SD:</text>
+
+      <!-- MSB starts IMMEDIATELY at 250 (NO DELAY!) -->
+      <rect x="250" y="45" width="55" height="24" rx="2" fill="#059669" stroke="#34d399" stroke-width="1"/>
+      <text x="277" y="61" text-anchor="middle" font-family="monospace" font-size="10" font-weight="700" fill="#ffffff">MSB</text>
+
+      <rect x="305" y="45" width="45" height="24" rx="2" fill="#059669"/>
+      <text x="327" y="61" text-anchor="middle" font-family="monospace" font-size="9" fill="#ffffff">MSB-1</text>
+
+      <rect x="350" y="45" width="45" height="24" rx="2" fill="#059669"/>
+      <text x="372" y="61" text-anchor="middle" font-family="monospace" font-size="9" fill="#ffffff">MSB-2</text>
+
+      <text x="410" y="61" font-family="monospace" font-size="12" fill="#94a3b8">. . .</text>
+
+      <rect x="550" y="45" width="45" height="24" rx="2" fill="#059669"/>
+      <text x="572" y="61" text-anchor="middle" font-family="monospace" font-size="9" fill="#ffffff">LSB</text>
+
+      <!-- Unused trailing bits -->
+      <rect x="595" y="45" width="55" height="24" rx="2" fill="#334155" stroke="#64748b" stroke-dasharray="2,2"/>
+      <text x="622" y="61" text-anchor="middle" font-family="monospace" font-size="8" fill="#94a3b8">0 (pad)</text>
+
+      <text x="660" y="61" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="700" fill="#34d399">
+        ← Нульова затримка: MSB передається прямо на фронті WS!
+      </text>
+    </g>
+  </g>
+
+  <!-- Format 3: Right-Justified (Sony format) -->
+  <g transform="translate(30, 355)">
+    <rect width="900" height="145" rx="8" fill="#1e293b" stroke="#f59e0b" stroke-width="1.5" filter="url(#shadow2)"/>
+    <text x="20" y="24" font-family="system-ui, -apple-system, sans-serif" font-size="13" font-weight="700" fill="#facc15">
+      3. Формат Right-Justified (LSB-Justified / Sony Format)
+    </text>
+
+    <!-- Timing Diagram -->
+    <g transform="translate(20, 38)">
+      <text x="0" y="22" font-family="monospace" font-size="11" font-weight="700" fill="#cbd5e1">WS:</text>
+      <path d="M 50 10 L 250 10 L 250 30 L 650 30 L 650 10 L 850 10" stroke="#facc15" stroke-width="2" fill="none"/>
+
+      <line x1="650" y1="5" x2="650" y2="75" stroke="#facc15" stroke-width="1.5" stroke-dasharray="3,3"/>
+
+      <text x="0" y="60" font-family="monospace" font-size="11" font-weight="700" fill="#cbd5e1">SD:</text>
+      
+      <!-- Leading zero pad bits -->
+      <rect x="250" y="45" width="80" height="24" rx="2" fill="#334155" stroke="#64748b" stroke-dasharray="2,2"/>
+      <text x="290" y="61" text-anchor="middle" font-family="monospace" font-size="9" fill="#94a3b8">0...0 (pad)</text>
+
+      <rect x="330" y="45" width="55" height="24" rx="2" fill="#d97706" stroke="#facc15" stroke-width="1"/>
+      <text x="357" y="61" text-anchor="middle" font-family="monospace" font-size="10" font-weight="700" fill="#ffffff">MSB</text>
+
+      <text x="410" y="61" font-family="monospace" font-size="12" fill="#94a3b8">. . .</text>
+
+      <!-- LSB strictly at end before 650! -->
+      <rect x="595" y="45" width="55" height="24" rx="2" fill="#d97706" stroke="#facc15" stroke-width="1"/>
+      <text x="622" y="61" text-anchor="middle" font-family="monospace" font-size="10" font-weight="700" fill="#ffffff">LSB</text>
+
+      <text x="660" y="61" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="700" fill="#facc15">
+        ← Молодший біт (LSB) строго примикає до моменту перемикання WS
+      </text>
+
+      <text x="0" y="95" font-family="system-ui, -apple-system, sans-serif" font-size="10" fill="#cbd5e1">
+        • Недолік Right-Justified: передавач зобов'язаний заздалегідь знати точну розрядність слова (16/24 біти) приймача для правильного зсуву.
+      </text>
+    </g>
+  </g>
+</svg>

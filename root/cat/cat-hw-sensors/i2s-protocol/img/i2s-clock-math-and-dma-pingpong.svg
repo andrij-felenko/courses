@@ -1,0 +1,137 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bg-grad3" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f172a"/>
+      <stop offset="100%" stop-color="#1e293b"/>
+    </linearGradient>
+    <filter id="shadow3" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="0" dy="3" stdDeviation="5" flood-color="#000000" flood-opacity="0.3"/>
+    </filter>
+  </defs>
+
+  <rect width="960" height="480" rx="12" fill="url(#bg-grad3)"/>
+
+  <text x="480" y="34" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="19" font-weight="700" fill="#f8fafc">
+    Розрахунок тактових частот I2S та подвійна DMA буферизація (Ping-Pong)
+  </text>
+  <text x="480" y="56" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="13" fill="#94a3b8">
+    Співвідношення MCLK / BCLK / LRCLK та безперервне потокове відтворення без пропусків
+  </text>
+
+  <!-- Left: Clock Tree Calculation -->
+  <g transform="translate(30, 80)">
+    <rect width="420" height="360" rx="8" fill="#1e293b" stroke="#38bdf8" stroke-width="1.5" filter="url(#shadow3)"/>
+    <text x="210" y="26" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="700" fill="#38bdf8">
+      Розрахунок тактової сітки I2S
+    </text>
+
+    <!-- Calculation Steps -->
+    <g transform="translate(20, 48)">
+      <rect x="0" y="0" width="380" height="58" rx="6" fill="#0f172a" stroke="#0284c7" stroke-width="1"/>
+      <text x="15" y="22" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="700" fill="#ffffff">
+        Частота вибірки звуку (fs / LRCLK):
+      </text>
+      <text x="15" y="44" font-family="monospace" font-size="13" font-weight="700" fill="#34d399">
+        fs = 44.1 кГц  або  48.0 кГц
+      </text>
+    </g>
+
+    <g transform="translate(20, 116)">
+      <rect x="0" y="0" width="380" height="68" rx="6" fill="#0f172a" stroke="#0284c7" stroke-width="1"/>
+      <text x="15" y="22" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="700" fill="#ffffff">
+        Бітова тактова частота (BCLK / SCK):
+      </text>
+      <text x="15" y="42" font-family="monospace" font-size="12" font-weight="700" fill="#facc15">
+        BCLK = 2 × Bits_Per_Sample × fs
+      </text>
+      <text x="15" y="60" font-family="monospace" font-size="11" fill="#cbd5e1">
+        При 32 біт/слот: 2 × 32 × 48 кГц = 3.072 МГц
+      </text>
+    </g>
+
+    <g transform="translate(20, 194)">
+      <rect x="0" y="0" width="380" height="68" rx="6" fill="#0f172a" stroke="#0284c7" stroke-width="1"/>
+      <text x="15" y="22" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="700" fill="#ffffff">
+        Майстер-тактова частота (MCLK):
+      </text>
+      <text x="15" y="42" font-family="monospace" font-size="12" font-weight="700" fill="#c084fc">
+        MCLK = 256 × fs
+      </text>
+      <text x="15" y="60" font-family="monospace" font-size="11" fill="#cbd5e1">
+        Для 48 кГц: 256 × 48 000 = 12.288 МГц
+      </text>
+    </g>
+
+    <g transform="translate(20, 275)">
+      <text x="0" y="16" font-family="system-ui, -apple-system, sans-serif" font-size="10" fill="#94a3b8">
+        • Джитер MCLK повинен бути менше 50 пс для забезпечення THD+N &lt; -90 дБ.
+      </text>
+      <text x="0" y="32" font-family="system-ui, -apple-system, sans-serif" font-size="10" fill="#94a3b8">
+        • Для частот 44.1 кГц (кратних 11.2896 МГц) потрібен окремий кварцовий генератор!
+      </text>
+    </g>
+  </g>
+
+  <!-- Right: Ping-Pong DMA Buffer Flow -->
+  <g transform="translate(490, 80)">
+    <rect width="440" height="360" rx="8" fill="#1e293b" stroke="#10b981" stroke-width="1.5" filter="url(#shadow3)"/>
+    <text x="220" y="26" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="700" fill="#34d399">
+      Подвійний DMA буфер (Ping-Pong Ring Buffer)
+    </text>
+
+    <!-- Visual Ring Buffer -->
+    <g transform="translate(30, 48)">
+      <!-- Buffer 1 (Half A) -->
+      <rect x="0" y="0" width="180" height="75" rx="6" fill="#059669" fill-opacity="0.3" stroke="#34d399" stroke-width="2"/>
+      <text x="90" y="26" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="700" fill="#34d399">
+        Буфер A (Перша половина)
+      </text>
+      <text x="90" y="48" text-anchor="middle" font-family="monospace" font-size="11" fill="#ffffff">
+        DMA передає в I2S
+      </text>
+      <text x="90" y="66" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="9" fill="#a7f3d0">
+        (Апаратне відтворення)
+      </text>
+
+      <!-- Buffer 2 (Half B) -->
+      <rect x="200" y="0" width="180" height="75" rx="6" fill="#0284c7" fill-opacity="0.3" stroke="#38bdf8" stroke-width="2"/>
+      <text x="290" y="26" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="700" fill="#38bdf8">
+        Буфер B (Друга половина)
+      </text>
+      <text x="290" y="48" text-anchor="middle" font-family="monospace" font-size="11" fill="#ffffff">
+        CPU заповнює звуком
+      </text>
+      <text x="290" y="66" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="9" fill="#bfdbfe">
+        (Декодування з SD/Flash)
+      </text>
+    </g>
+
+    <!-- Interrupt Handlers Timeline -->
+    <g transform="translate(30, 145)">
+      <rect width="380" height="60" rx="4" fill="#0f172a" stroke="#f59e0b" stroke-width="1"/>
+      <text x="15" y="22" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="700" fill="#facc15">
+        Переривання DMA Half-Transfer (HT):
+      </text>
+      <text x="15" y="44" font-family="system-ui, -apple-system, sans-serif" font-size="10" fill="#cbd5e1">
+        Буфер A закінчився. DMA автоматично перемикається на Буфер B!
+      </text>
+    </g>
+
+    <g transform="translate(30, 215)">
+      <rect width="380" height="60" rx="4" fill="#0f172a" stroke="#10b981" stroke-width="1"/>
+      <text x="15" y="22" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="700" fill="#34d399">
+        Переривання DMA Transfer-Complete (TC):
+      </text>
+      <text x="15" y="44" font-family="system-ui, -apple-system, sans-serif" font-size="10" fill="#cbd5e1">
+        Буфер B закінчився. DMA циклічно повертається на Буфер A!
+      </text>
+    </g>
+
+    <text x="30" y="305" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#cbd5e1">
+      • Нульове завантаження процесора: CPU втручається лише 1 раз за буфер.
+    </text>
+    <text x="30" y="325" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#cbd5e1">
+      • Захист від пауз (Buffer Underrun) при роботі з FreeRTOS або файловою системою.
+    </text>
+  </g>
+</svg>
