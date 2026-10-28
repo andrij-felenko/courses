@@ -1,0 +1,101 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f172a"/>
+      <stop offset="100%" stop-color="#1e293b"/>
+    </linearGradient>
+    <marker id="arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#38bdf8"/>
+    </marker>
+    <marker id="arrGreen" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#34d399"/>
+    </marker>
+    <filter id="shadow" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="0" dy="3" stdDeviation="4" flood-color="#000000" flood-opacity="0.5"/>
+    </filter>
+  </defs>
+
+  <rect width="960" height="520" fill="url(#bg)"/>
+
+  <!-- Title -->
+  <text x="480" y="36" text-anchor="middle" font-family="system-ui, sans-serif" font-size="20" font-weight="700" fill="#f8fafc">
+    Електромеханічна схема та драйвер керування DC-Iris (Гальванометр)
+  </text>
+  <text x="480" y="58" text-anchor="middle" font-family="system-ui, sans-serif" font-size="13" fill="#94a3b8">
+    Двокотушкова система: котушка приводу Drive Coil та котушка демпфування Damping Coil
+  </text>
+
+  <!-- Left: Lens Electromechanics -->
+  <rect x="40" y="90" width="410" height="400" rx="10" fill="#1e293b" stroke="#334155" stroke-width="1.5" filter="url(#shadow)"/>
+  <rect x="40" y="90" width="410" height="34" rx="10" fill="#0369a1"/>
+  <text x="245" y="113" text-anchor="middle" font-family="system-ui, sans-serif" font-size="14" font-weight="700" fill="#ffffff">
+    Електромеханіка об'єктива (DC-Iris Lens)
+  </text>
+
+  <!-- Pinout 4-pin Connector -->
+  <rect x="60" y="140" width="370" height="85" rx="8" fill="#0f172a" stroke="#0ea5e9" stroke-width="1"/>
+  <text x="80" y="165" font-family="system-ui, sans-serif" font-size="12" font-weight="700" fill="#38bdf8">Стандартний роз'єм EIAJ 4-Pin:</text>
+  <text x="80" y="190" font-family="monospace" font-size="11" fill="#e2e8f0">Pin 1: Damp - (Damping Coil -)</text>
+  <text x="235" y="190" font-family="monospace" font-size="11" fill="#e2e8f0">Pin 2: Damp + (Damping Coil +)</text>
+  <text x="80" y="210" font-family="monospace" font-size="11" fill="#e2e8f0">Pin 3: Drive + (Drive Coil +)</text>
+  <text x="235" y="210" font-family="monospace" font-size="11" fill="#e2e8f0">Pin 4: Drive - (Drive Coil -)</text>
+
+  <!-- Physical Coils Diagram -->
+  <g transform="translate(60, 245)">
+    <!-- Drive Coil -->
+    <rect x="0" y="0" width="170" height="110" rx="8" fill="#0f172a" stroke="#f59e0b" stroke-width="1.5"/>
+    <text x="85" y="25" text-anchor="middle" font-family="system-ui, sans-serif" font-size="12" font-weight="700" fill="#fbbf24">Drive Coil (Привод)</text>
+    <text x="85" y="48" text-anchor="middle" font-family="monospace" font-size="12" fill="#f8fafc">R ≈ 190 Ом</text>
+    <text x="85" y="70" text-anchor="middle" font-family="system-ui, sans-serif" font-size="10" fill="#94a3b8">Створює магнітний момент</text>
+    <text x="85" y="90" text-anchor="middle" font-family="system-ui, sans-serif" font-size="10" fill="#94a3b8">для відкриття пелюсток</text>
+
+    <!-- Damping Coil -->
+    <rect x="200" y="0" width="170" height="110" rx="8" fill="#0f172a" stroke="#10b981" stroke-width="1.5"/>
+    <text x="285" y="25" text-anchor="middle" font-family="system-ui, sans-serif" font-size="12" font-weight="700" fill="#34d399">Damp Coil (Демпфер)</text>
+    <text x="285" y="48" text-anchor="middle" font-family="monospace" font-size="12" fill="#f8fafc">R ≈ 1150 Ом</text>
+    <text x="285" y="70" text-anchor="middle" font-family="system-ui, sans-serif" font-size="10" fill="#94a3b8">Генерує проти-ЕРС</text>
+    <text x="285" y="90" text-anchor="middle" font-family="system-ui, sans-serif" font-size="10" fill="#94a3b8">гасіння механічних коливань</text>
+  </g>
+
+  <!-- Spring return note -->
+  <rect x="60" y="375" width="370" height="95" rx="8" fill="#0f172a" stroke="#334155" stroke-width="1"/>
+  <text x="75" y="400" font-family="system-ui, sans-serif" font-size="12" font-weight="700" fill="#cbd5e1">Механіка пелюсток:</text>
+  <text x="75" y="420" font-family="system-ui, sans-serif" font-size="11" fill="#94a3b8">• Зворотна пружина (Return Spring): автоматично закриває</text>
+  <text x="75" y="438" font-family="system-ui, sans-serif" font-size="11" fill="#94a3b8">  діафрагму при вимкненні живлення (захист матриці від сонця).</text>
+  <text x="75" y="456" font-family="system-ui, sans-serif" font-size="11" fill="#94a3b8">• Кут повороту ротора пропорційний струму в Drive Coil.</text>
+
+  <!-- Right: MCU Closed Loop Control Architecture -->
+  <rect x="490" y="90" width="430" height="400" rx="10" fill="#1e293b" stroke="#334155" stroke-width="1.5" filter="url(#shadow)"/>
+  <rect x="490" y="90" width="430" height="34" rx="10" fill="#047857"/>
+  <text x="705" y="113" text-anchor="middle" font-family="system-ui, sans-serif" font-size="14" font-weight="700" fill="#ffffff">
+    Контур керування камери (Closed-Loop Driver)
+  </text>
+
+  <!-- MCU Block -->
+  <rect x="520" y="145" width="160" height="140" rx="8" fill="#0f172a" stroke="#0ea5e9" stroke-width="1.5"/>
+  <text x="600" y="172" text-anchor="middle" font-family="system-ui, sans-serif" font-size="13" font-weight="700" fill="#f8fafc">Камера / MCU</text>
+  <text x="600" y="195" text-anchor="middle" font-family="system-ui, sans-serif" font-size="11" fill="#38bdf8">Оцінка яскравості (ISP)</text>
+  <text x="600" y="215" text-anchor="middle" font-family="monospace" font-size="11" fill="#f59e0b">PID Регулятор</text>
+  <text x="600" y="235" text-anchor="middle" font-family="system-ui, sans-serif" font-size="10" fill="#94a3b8">ШІМ генератор 20 кГц</text>
+  <text x="600" y="255" text-anchor="middle" font-family="system-ui, sans-serif" font-size="10" fill="#94a3b8">АЦП зворотного зв'язку</text>
+
+  <!-- Driver Stage -->
+  <rect x="730" y="145" width="160" height="140" rx="8" fill="#0f172a" stroke="#f59e0b" stroke-width="1.5"/>
+  <text x="810" y="172" text-anchor="middle" font-family="system-ui, sans-serif" font-size="13" font-weight="700" fill="#f8fafc">H-міст / ОП Драйвер</text>
+  <text x="810" y="195" text-anchor="middle" font-family="system-ui, sans-serif" font-size="11" fill="#fbbf24">Фільтр ШІМ (LPF)</text>
+  <text x="810" y="215" text-anchor="middle" font-family="system-ui, sans-serif" font-size="10" fill="#cbd5e1">Диференційний вихід</text>
+  <text x="810" y="235" text-anchor="middle" font-family="system-ui, sans-serif" font-size="10" fill="#cbd5e1">струму 0..40 мА</text>
+  <text x="810" y="255" text-anchor="middle" font-family="system-ui, sans-serif" font-size="10" fill="#cbd5e1">для Drive Coil</text>
+
+  <!-- Connect MCU to Driver -->
+  <line x1="680" y1="215" x2="725" y2="215" stroke="#38bdf8" stroke-width="2" marker-end="url(#arr)"/>
+
+  <!-- Lower: Damping Circuit -->
+  <rect x="520" y="315" width="370" height="155" rx="8" fill="#0f172a" stroke="#10b981" stroke-width="1.5"/>
+  <text x="540" y="340" font-family="system-ui, sans-serif" font-size="12" font-weight="700" fill="#34d399">Диференційний підсилювач демпфування:</text>
+  <text x="540" y="365" font-family="system-ui, sans-serif" font-size="11" fill="#cbd5e1">• Damping Coil вимірює швидкість руху пелюсток: V_emf = -dPhi/dt.</text>
+  <text x="540" y="388" font-family="system-ui, sans-serif" font-size="11" fill="#cbd5e1">• Замикання котушки демпфування через резистор 1–3 кОм</text>
+  <text x="540" y="408" font-family="system-ui, sans-serif" font-size="11" fill="#cbd5e1">  або подача сигналу в аналоговий підсилювач зворотного зв'язку</text>
+  <text x="540" y="428" font-family="system-ui, sans-serif" font-size="11" fill="#cbd5e1">  створює силу Лоренца, що протидіє автоколиванням.</text>
+  <text x="540" y="452" font-family="monospace" font-size="11" fill="#34d399">Час позиціонування: 150..300 мс без дрижання кадру</text>
+</svg>

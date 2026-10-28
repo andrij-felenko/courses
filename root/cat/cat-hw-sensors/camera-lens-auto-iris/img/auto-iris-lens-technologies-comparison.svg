@@ -1,0 +1,118 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f172a"/>
+      <stop offset="100%" stop-color="#1e293b"/>
+    </linearGradient>
+    <linearGradient id="dcGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0369a1"/>
+      <stop offset="100%" stop-color="#075985"/>
+    </linearGradient>
+    <linearGradient id="videoGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#4338ca"/>
+      <stop offset="100%" stop-color="#3730a3"/>
+    </linearGradient>
+    <linearGradient id="pGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#065f46"/>
+      <stop offset="100%" stop-color="#047857"/>
+    </linearGradient>
+    <filter id="shadow" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="0" dy="4" stdDeviation="5" flood-color="#000000" flood-opacity="0.4"/>
+    </filter>
+  </defs>
+
+  <rect width="960" height="540" fill="url(#bg)"/>
+
+  <!-- Title -->
+  <text x="480" y="38" text-anchor="middle" font-family="system-ui, sans-serif" font-size="20" font-weight="700" fill="#f8fafc">
+    Порівняння технологій автоматичної діафрагми об'єктивів (Auto-Iris)
+  </text>
+  <text x="480" y="62" text-anchor="middle" font-family="system-ui, sans-serif" font-size="13" fill="#94a3b8">
+    Еволюція оптичного дозування світла: DC-Iris, Video-Iris та прецизійний кроковий P-Iris
+  </text>
+
+  <!-- 3 Columns Comparison Cards -->
+  <!-- Card 1: DC-Iris (Galvanometer) -->
+  <rect x="40" y="95" width="280" height="415" rx="10" fill="#1e293b" stroke="#0ea5e9" stroke-width="1.5" filter="url(#shadow)"/>
+  <rect x="40" y="95" width="280" height="38" rx="10" fill="url(#dcGrad)"/>
+  <text x="180" y="120" text-anchor="middle" font-family="system-ui, sans-serif" font-size="15" font-weight="700" fill="#ffffff">
+    1. DC-Iris (Гальванометр)
+  </text>
+
+  <g transform="translate(55, 150)" font-family="system-ui, sans-serif" font-size="12" fill="#e2e8f0">
+    <text x="0" y="0" font-weight="700" fill="#38bdf8">Принцип дії:</text>
+    <text x="0" y="20" fill="#cbd5e1">• Двокотушковий гальванометр</text>
+    <text x="0" y="40" fill="#cbd5e1">• Котушка приводу (Drive ~190 Ом)</text>
+    <text x="0" y="60" fill="#cbd5e1">• Котушка демпфування (Damp ~1150 Ом)</text>
+
+    <text x="0" y="95" font-weight="700" fill="#38bdf8">Роз'єм та керування:</text>
+    <text x="0" y="115" fill="#cbd5e1">• Стандартний 4-pin EIAJ штекер</text>
+    <text x="0" y="135" fill="#cbd5e1">• Керується ШІМ або напругою з камери</text>
+    <text x="0" y="155" fill="#cbd5e1">• Камера формує контур PID</text>
+
+    <text x="0" y="190" font-weight="700" fill="#f87171">Обмеження та недоліки:</text>
+    <text x="0" y="210" fill="#cbd5e1">• Немає зворотного зв'язку за положенням</text>
+    <text x="0" y="230" fill="#cbd5e1">• Схильність до перерегулювання (дзвін)</text>
+    <text x="0" y="250" fill="#cbd5e1">• Ризик дифракційного розмиття</text>
+  </g>
+
+  <rect x="55" y="430" width="250" height="60" rx="6" fill="#0f172a" stroke="#0ea5e9" stroke-width="1"/>
+  <text x="180" y="455" text-anchor="middle" font-family="system-ui, sans-serif" font-size="11" font-weight="700" fill="#38bdf8">Сфера застосування:</text>
+  <text x="180" y="475" text-anchor="middle" font-family="system-ui, sans-serif" font-size="11" fill="#94a3b8">Бюджетні аналогові та IP-камери CCTV</text>
+
+  <!-- Card 2: Video-Iris -->
+  <rect x="340" y="95" width="280" height="415" rx="10" fill="#1e293b" stroke="#818cf8" stroke-width="1.5" filter="url(#shadow)"/>
+  <rect x="340" y="95" width="280" height="38" rx="10" fill="url(#videoGrad)"/>
+  <text x="480" y="120" text-anchor="middle" font-family="system-ui, sans-serif" font-size="15" font-weight="700" fill="#ffffff">
+    2. Video-Iris (Аналоговий)
+  </text>
+
+  <g transform="translate(355, 150)" font-family="system-ui, sans-serif" font-size="12" fill="#e2e8f0">
+    <text x="0" y="0" font-weight="700" fill="#a5b4fc">Принцип дії:</text>
+    <text x="0" y="20" fill="#cbd5e1">• Вбудований в об'єктив підсилювач</text>
+    <text x="0" y="40" fill="#cbd5e1">• Об'єктив отримує відеосигнал CVBS</text>
+    <text x="0" y="60" fill="#cbd5e1">• Інтегратор яскравості всередині лінзи</text>
+
+    <text x="0" y="95" font-weight="700" fill="#a5b4fc">Роз'єм та живлення:</text>
+    <text x="0" y="115" fill="#cbd5e1">• 4-pin: Живлення, Земля, Відео, Iris</text>
+    <text x="0" y="135" fill="#cbd5e1">• Потенціометри ALC/Level на корпусі</text>
+    <text x="0" y="155" fill="#cbd5e1">• Автономна аналогова стабілізація</text>
+
+    <text x="0" y="190" font-weight="700" fill="#f87171">Обмеження та недоліки:</text>
+    <text x="0" y="210" fill="#cbd5e1">• Застарілий стандарт (Legacy)</text>
+    <text x="0" y="230" fill="#cbd5e1">• Потребує аналогового відеосигналу</text>
+    <text x="0" y="250" fill="#cbd5e1">• Складність калібрування на виробництві</text>
+  </g>
+
+  <rect x="355" y="430" width="250" height="60" rx="6" fill="#0f172a" stroke="#818cf8" stroke-width="1"/>
+  <text x="480" y="455" text-anchor="middle" font-family="system-ui, sans-serif" font-size="11" font-weight="700" fill="#a5b4fc">Сфера застосування:</text>
+  <text x="480" y="475" text-anchor="middle" font-family="system-ui, sans-serif" font-size="11" fill="#94a3b8">Класичні аналогові охоронні системи</text>
+
+  <!-- Card 3: P-Iris (Precise Iris) -->
+  <rect x="640" y="95" width="280" height="415" rx="10" fill="#1e293b" stroke="#34d399" stroke-width="1.5" filter="url(#shadow)"/>
+  <rect x="640" y="95" width="280" height="38" rx="10" fill="url(#pGrad)"/>
+  <text x="780" y="120" text-anchor="middle" font-family="system-ui, sans-serif" font-size="15" font-weight="700" fill="#ffffff">
+    3. P-Iris (Precise Iris)
+  </text>
+
+  <g transform="translate(655, 150)" font-family="system-ui, sans-serif" font-size="12" fill="#e2e8f0">
+    <text x="0" y="0" font-weight="700" fill="#6ee7b7">Принцип дії:</text>
+    <text x="0" y="20" fill="#cbd5e1">• Кроковий кроковий двигун (Stepper)</text>
+    <text x="0" y="40" fill="#cbd5e1">• Дискретне позиціонування (кроки 0..120)</text>
+    <text x="0" y="60" fill="#cbd5e1">• Таблиця калібрування F-stop для кожного кроку</text>
+
+    <text x="0" y="95" font-weight="700" fill="#6ee7b7">Роз'єм та керування:</text>
+    <text x="0" y="115" fill="#cbd5e1">• 4-pin: Двофазний кроковий двигун (A+, A-, B+, B-)</text>
+    <text x="0" y="135" fill="#cbd5e1">• Програмне керування драйвером двигуна</text>
+    <text x="0" y="155" fill="#cbd5e1">• Утримання в зоні оптичного оптимуму</text>
+
+    <text x="0" y="190" font-weight="700" fill="#34d399">Головні переваги:</text>
+    <text x="0" y="210" fill="#cbd5e1">• Запобігання дифракційному замиленню</text>
+    <text x="0" y="230" fill="#cbd5e1">• Максимальна глибина різкості (DoF)</text>
+    <text x="0" y="250" fill="#cbd5e1">• Абсолютна повторюваність діафрагми</text>
+  </g>
+
+  <rect x="655" y="430" width="250" height="60" rx="6" fill="#0f172a" stroke="#34d399" stroke-width="1"/>
+  <text x="780" y="455" text-anchor="middle" font-family="system-ui, sans-serif" font-size="11" font-weight="700" fill="#6ee7b7">Сфера застосування:</text>
+  <text x="780" y="475" text-anchor="middle" font-family="system-ui, sans-serif" font-size="11" fill="#94a3b8">Професійний машинний зір, Axis, Basler</text>
+</svg>
