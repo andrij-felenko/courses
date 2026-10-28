@@ -1,0 +1,141 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f172a"/>
+      <stop offset="100%" stop-color="#1e293b"/>
+    </linearGradient>
+    <marker id="arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#38bdf8"/>
+    </marker>
+    <filter id="shadow" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="0" dy="3" stdDeviation="4" flood-color="#000000" flood-opacity="0.5"/>
+    </filter>
+  </defs>
+
+  <rect width="960" height="520" fill="url(#bg)"/>
+
+  <!-- Title -->
+  <text x="480" y="36" text-anchor="middle" font-family="system-ui, sans-serif" font-size="20" font-weight="700" fill="#f8fafc">
+    Послідовність апаратної ініціалізації SDRAM контролером FMC
+  </text>
+  <text x="480" y="58" text-anchor="middle" font-family="system-ui, sans-serif" font-size="13" fill="#94a3b8">
+    Суворе виконання стандарту JEDEC: від старту тактування до переходу в Normal Mode
+  </text>
+
+  <!-- Flowchart Steps Horizontal 6 Steps -->
+  <!-- Step 1: Clock Config -->
+  <g transform="translate(30, 95)">
+    <rect width="135" height="180" rx="8" fill="#1e293b" stroke="#0ea5e9" stroke-width="1.5" filter="url(#shadow)"/>
+    <rect width="135" height="28" rx="8" fill="#0284c7"/>
+    <text x="67" y="19" text-anchor="middle" font-family="system-ui, sans-serif" font-size="11" font-weight="700" fill="#ffffff">Крок 1: Клок</text>
+    <text x="67" y="55" text-anchor="middle" font-family="system-ui, sans-serif" font-size="11" font-weight="700" fill="#38bdf8">CLK Config</text>
+    <text x="12" y="80" font-family="system-ui, sans-serif" font-size="10" fill="#cbd5e1">• SDCLK Enable</text>
+    <text x="12" y="98" font-family="system-ui, sans-serif" font-size="10" fill="#cbd5e1">• SDCKE = High</text>
+    <text x="12" y="116" font-family="system-ui, sans-serif" font-size="10" fill="#cbd5e1">• Пауза 100-200 мкс</text>
+    <text x="12" y="134" font-family="system-ui, sans-serif" font-size="10" fill="#94a3b8">  (стабілізація</text>
+    <text x="12" y="148" font-family="system-ui, sans-serif" font-size="10" fill="#94a3b8">   живлення)</text>
+    <rect x="10" y="155" width="115" height="18" rx="3" fill="#0f172a"/>
+    <text x="67" y="167" text-anchor="middle" font-family="monospace" font-size="9" fill="#38bdf8">FMC_SDCMR: 0x01</text>
+  </g>
+
+  <line x1="165" y1="185" x2="185" y2="185" stroke="#38bdf8" stroke-width="2" marker-end="url(#arr)"/>
+
+  <!-- Step 2: Precharge All -->
+  <g transform="translate(185, 95)">
+    <rect width="135" height="180" rx="8" fill="#1e293b" stroke="#f59e0b" stroke-width="1.5" filter="url(#shadow)"/>
+    <rect width="135" height="28" rx="8" fill="#d97706"/>
+    <text x="67" y="19" text-anchor="middle" font-family="system-ui, sans-serif" font-size="11" font-weight="700" fill="#ffffff">Крок 2: PALL</text>
+    <text x="67" y="55" text-anchor="middle" font-family="system-ui, sans-serif" font-size="11" font-weight="700" fill="#fbbf24">Precharge All</text>
+    <text x="12" y="80" font-family="system-ui, sans-serif" font-size="10" fill="#cbd5e1">• Команда PALL</text>
+    <text x="12" y="98" font-family="system-ui, sans-serif" font-size="10" fill="#cbd5e1">• Попередній заряд</text>
+    <text x="12" y="116" font-family="system-ui, sans-serif" font-size="10" fill="#cbd5e1">  усіх 4 банків</text>
+    <text x="12" y="134" font-family="system-ui, sans-serif" font-size="10" fill="#94a3b8">• Очікування tRP</text>
+    <text x="12" y="148" font-family="system-ui, sans-serif" font-size="10" fill="#94a3b8">  (типово 15-20 нс)</text>
+    <rect x="10" y="155" width="115" height="18" rx="3" fill="#0f172a"/>
+    <text x="67" y="167" text-anchor="middle" font-family="monospace" font-size="9" fill="#fbbf24">FMC_SDCMR: 0x02</text>
+  </g>
+
+  <line x1="320" y1="185" x2="340" y2="185" stroke="#38bdf8" stroke-width="2" marker-end="url(#arr)"/>
+
+  <!-- Step 3: Auto-Refresh -->
+  <g transform="translate(340, 95)">
+    <rect width="135" height="180" rx="8" fill="#1e293b" stroke="#8b5cf6" stroke-width="1.5" filter="url(#shadow)"/>
+    <rect width="135" height="28" rx="8" fill="#6d28d9"/>
+    <text x="67" y="19" text-anchor="middle" font-family="system-ui, sans-serif" font-size="11" font-weight="700" fill="#ffffff">Крок 3: Рефреш</text>
+    <text x="67" y="55" text-anchor="middle" font-family="system-ui, sans-serif" font-size="11" font-weight="700" fill="#c084fc">Auto-Refresh</text>
+    <text x="12" y="80" font-family="system-ui, sans-serif" font-size="10" fill="#cbd5e1">• Серія команд</text>
+    <text x="12" y="98" font-family="system-ui, sans-serif" font-size="10" fill="#cbd5e1">  Auto-Refresh</text>
+    <text x="12" y="116" font-family="system-ui, sans-serif" font-size="10" fill="#cbd5e1">• Мінімум 2 цикли</text>
+    <text x="12" y="134" font-family="system-ui, sans-serif" font-size="10" fill="#cbd5e1">  (типово 8 циклів)</text>
+    <text x="12" y="148" font-family="system-ui, sans-serif" font-size="10" fill="#94a3b8">• Очікування tRFC</text>
+    <rect x="10" y="155" width="115" height="18" rx="3" fill="#0f172a"/>
+    <text x="67" y="167" text-anchor="middle" font-family="monospace" font-size="9" fill="#c084fc">FMC_SDCMR: 0x03</text>
+  </g>
+
+  <line x1="475" y1="185" x2="495" y2="185" stroke="#38bdf8" stroke-width="2" marker-end="url(#arr)"/>
+
+  <!-- Step 4: Load Mode Register -->
+  <g transform="translate(495, 95)">
+    <rect width="135" height="180" rx="8" fill="#1e293b" stroke="#ec4899" stroke-width="1.5" filter="url(#shadow)"/>
+    <rect width="135" height="28" rx="8" fill="#be185d"/>
+    <text x="67" y="19" text-anchor="middle" font-family="system-ui, sans-serif" font-size="11" font-weight="700" fill="#ffffff">Крок 4: Режим</text>
+    <text x="67" y="55" text-anchor="middle" font-family="system-ui, sans-serif" font-size="11" font-weight="700" fill="#f472b6">Load Mode Reg</text>
+    <text x="12" y="80" font-family="system-ui, sans-serif" font-size="10" fill="#cbd5e1">• CAS Latency (2/3)</text>
+    <text x="12" y="98" font-family="system-ui, sans-serif" font-size="10" fill="#cbd5e1">• Burst Length = 1</text>
+    <text x="12" y="116" font-family="system-ui, sans-serif" font-size="10" fill="#cbd5e1">• Burst Type = Seq</text>
+    <text x="12" y="134" font-family="system-ui, sans-serif" font-size="10" fill="#cbd5e1">• Write Burst = Single</text>
+    <text x="12" y="148" font-family="system-ui, sans-serif" font-size="10" fill="#94a3b8">• Очікування tMRD</text>
+    <rect x="10" y="155" width="115" height="18" rx="3" fill="#0f172a"/>
+    <text x="67" y="167" text-anchor="middle" font-family="monospace" font-size="9" fill="#f472b6">FMC_SDCMR: 0x04</text>
+  </g>
+
+  <line x1="630" y1="185" x2="650" y2="185" stroke="#38bdf8" stroke-width="2" marker-end="url(#arr)"/>
+
+  <!-- Step 5: Refresh Rate Count -->
+  <g transform="translate(650, 95)">
+    <rect width="135" height="180" rx="8" fill="#1e293b" stroke="#10b981" stroke-width="1.5" filter="url(#shadow)"/>
+    <rect width="135" height="28" rx="8" fill="#059669"/>
+    <text x="67" y="19" text-anchor="middle" font-family="system-ui, sans-serif" font-size="11" font-weight="700" fill="#ffffff">Крок 5: Таймер</text>
+    <text x="67" y="55" text-anchor="middle" font-family="system-ui, sans-serif" font-size="11" font-weight="700" fill="#34d399">Refresh Timer</text>
+    <text x="12" y="80" font-family="system-ui, sans-serif" font-size="10" fill="#cbd5e1">• Запис лічильника</text>
+    <text x="12" y="98" font-family="system-ui, sans-serif" font-size="10" fill="#cbd5e1">  у FMC_SDRTR</text>
+    <text x="12" y="116" font-family="system-ui, sans-serif" font-size="10" fill="#cbd5e1">• Розрахунок формули</text>
+    <text x="12" y="134" font-family="system-ui, sans-serif" font-size="10" fill="#cbd5e1">  Count = T_ref/Rows</text>
+    <text x="12" y="148" font-family="system-ui, sans-serif" font-size="10" fill="#94a3b8">• Авторегенерація</text>
+    <rect x="10" y="155" width="115" height="18" rx="3" fill="#0f172a"/>
+    <text x="67" y="167" text-anchor="middle" font-family="monospace" font-size="9" fill="#34d399">FMC_SDRTR: Count</text>
+  </g>
+
+  <line x1="785" y1="185" x2="805" y2="185" stroke="#38bdf8" stroke-width="2" marker-end="url(#arr)"/>
+
+  <!-- Step 6: Normal Mode Ready -->
+  <g transform="translate(805, 95)">
+    <rect width="125" height="180" rx="8" fill="#064e3b" stroke="#34d399" stroke-width="2" filter="url(#shadow)"/>
+    <rect width="125" height="28" rx="8" fill="#047857"/>
+    <text x="62" y="19" text-anchor="middle" font-family="system-ui, sans-serif" font-size="11" font-weight="700" fill="#ffffff">Крок 6: Готово</text>
+    <text x="62" y="55" text-anchor="middle" font-family="system-ui, sans-serif" font-size="11" font-weight="700" fill="#ffffff">Normal Mode</text>
+    <text x="10" y="85" font-family="system-ui, sans-serif" font-size="10" fill="#e2e8f0">• Статус READY</text>
+    <text x="10" y="105" font-family="system-ui, sans-serif" font-size="10" fill="#e2e8f0">• Доступна пам'ять</text>
+    <text x="10" y="125" font-family="system-ui, sans-serif" font-size="10" fill="#e2e8f0">• Прямий доступ</text>
+    <text x="10" y="145" font-family="system-ui, sans-serif" font-size="10" fill="#e2e8f0">  CPU та DMA</text>
+    <rect x="10" y="155" width="105" height="18" rx="3" fill="#0f172a"/>
+    <text x="62" y="167" text-anchor="middle" font-family="monospace" font-size="9" fill="#34d399">FMC_SDSR = 0</text>
+  </g>
+
+  <!-- Detailed Warning and Formula Box at Bottom -->
+  <rect x="30" y="300" width="900" height="195" rx="10" fill="#1e293b" stroke="#334155" stroke-width="1.5" filter="url(#shadow)"/>
+  <text x="50" y="325" font-family="system-ui, sans-serif" font-size="13" font-weight="700" fill="#38bdf8">
+    Практичні особливості виконання послідовності ініціалізації:
+  </text>
+
+  <g transform="translate(50, 345)" font-family="system-ui, sans-serif" font-size="11" fill="#cbd5e1">
+    <text x="0" y="0">• Кожна команда записується у службовий регістр керування FMC_SDCMR із вибором цільового банку CTB1 або CTB2.</text>
+    <text x="0" y="20">• Після запису команди обов'язково опитується прапорець зайнятості контролера: while (FMC_Bank5_6-&gt;SDSR &amp; FMC_SDSR_BUSY);</text>
+    <text x="0" y="40">• Недотримання пауз tRP (Precharge) або tRFC (Auto-Refresh) призводить до пошкодження початкових конфігураційних комірок.</text>
+    <text x="0" y="60">• Поле MRD (Mode Register Definition) кодує CAS Latency (типово 2 або 3 такти) у бітах [6:4], що узгоджується з таймінгами FMC_SDTR.</text>
+    <text x="0" y="80">• Після встановлення регістра SDRTR контролер FMC повністю бере на себе періодичну генерацію регенераційних імпульсів.</text>
+    <text x="0" y="105" font-family="monospace" font-size="11" fill="#34d399">
+      Результат: Пам'ять SDRAM доступна як звичайний покажчик: volatile uint32_t *sdram = (uint32_t *)0xC0000000;
+    </text>
+  </g>
+</svg>

@@ -1,0 +1,90 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f172a"/>
+      <stop offset="100%" stop-color="#1e293b"/>
+    </linearGradient>
+    <filter id="shadow" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="0" dy="3" stdDeviation="4" flood-color="#000000" flood-opacity="0.5"/>
+    </filter>
+  </defs>
+
+  <rect width="960" height="520" fill="url(#bg)"/>
+
+  <!-- Title -->
+  <text x="480" y="36" text-anchor="middle" font-family="system-ui, sans-serif" font-size="20" font-weight="700" fill="#f8fafc">
+    Таймінги SDRAM та математика розрахунку лічильника регенерації (SDRTR)
+  </text>
+  <text x="480" y="58" text-anchor="middle" font-family="system-ui, sans-serif" font-size="13" fill="#94a3b8">
+    Формула розрахунку інтервалу авторегенерації та базові часові параметри: tRP, tRCD, CL, tRAS
+  </text>
+
+  <!-- Left: Timing Parameters & Waveform -->
+  <rect x="40" y="90" width="430" height="400" rx="10" fill="#1e293b" stroke="#334155" stroke-width="1.5" filter="url(#shadow)"/>
+  <rect x="40" y="90" width="430" height="34" rx="10" fill="#0369a1"/>
+  <text x="255" y="113" text-anchor="middle" font-family="system-ui, sans-serif" font-size="14" font-weight="700" fill="#ffffff">
+    Базові таймінги SDRAM (Регістр FMC_SDTR)
+  </text>
+
+  <!-- Table of Delays -->
+  <g transform="translate(60, 145)" font-family="system-ui, sans-serif" font-size="11" fill="#e2e8f0">
+    <rect x="0" y="0" width="390" height="50" rx="5" fill="#0f172a" stroke="#0ea5e9" stroke-width="1"/>
+    <text x="15" y="22" font-family="monospace" font-weight="700" fill="#38bdf8">tRCD (RAS to CAS Delay):</text>
+    <text x="15" y="40" fill="#94a3b8">Час від активації рядка (ACTIVE) до команди читання READ (15..20 нс, 2-3 такти)</text>
+
+    <rect x="0" y="60" width="390" height="50" rx="5" fill="#0f172a" stroke="#10b981" stroke-width="1"/>
+    <text x="15" y="82" font-family="monospace" font-weight="700" fill="#34d399">tRP (Row Precharge Delay):</text>
+    <text x="15" y="100" fill="#94a3b8">Час попереднього заряду банку між деактивацією і новим рядком (15..20 нс)</text>
+
+    <rect x="0" y="120" width="390" height="50" rx="5" fill="#0f172a" stroke="#f59e0b" stroke-width="1"/>
+    <text x="15" y="142" font-family="monospace" font-weight="700" fill="#fbbf24">tRAS (Row Active Time):</text>
+    <text x="15" y="160" fill="#94a3b8">Мінімальний час утримання рядка у відкритому стані (40..45 нс, 4-6 тактів)</text>
+
+    <rect x="0" y="180" width="390" height="50" rx="5" fill="#0f172a" stroke="#ec4899" stroke-width="1"/>
+    <text x="15" y="202" font-family="monospace" font-weight="700" fill="#f472b6">tWR (Recovery Delay / Write Recovery):</text>
+    <text x="15" y="220" fill="#94a3b8">Затримка між записом останнього байта і початком Precharge (2 такти)</text>
+
+    <rect x="0" y="240" width="390" height="50" rx="5" fill="#0f172a" stroke="#8b5cf6" stroke-width="1"/>
+    <text x="15" y="262" font-family="monospace" font-weight="700" fill="#c084fc">CAS Latency (CL):</text>
+    <text x="15" y="280" fill="#94a3b8">Затримка між стробом CAS і появою першого слова на шині даних (2 або 3 такти)</text>
+  </g>
+
+  <!-- Right: Mathematical Formula of SDRTR Refresh Rate -->
+  <rect x="490" y="90" width="430" height="400" rx="10" fill="#1e293b" stroke="#334155" stroke-width="1.5" filter="url(#shadow)"/>
+  <rect x="490" y="90" width="430" height="34" rx="10" fill="#047857"/>
+  <text x="705" y="113" text-anchor="middle" font-family="system-ui, sans-serif" font-size="14" font-weight="700" fill="#ffffff">
+    Математичний розрахунок Refresh Rate (SDRTR)
+  </text>
+
+  <!-- Formula Panel -->
+  <g transform="translate(510, 145)">
+    <rect width="390" height="80" rx="6" fill="#0f172a" stroke="#10b981" stroke-width="1.5"/>
+    <text x="195" y="28" text-anchor="middle" font-family="system-ui, sans-serif" font-size="12" font-weight="700" fill="#34d399">
+      Офіційна формула STM32 Reference Manual:
+    </text>
+    <text x="195" y="55" text-anchor="middle" font-family="monospace" font-size="13" font-weight="700" fill="#ffffff">
+      COUNT = (T_refresh / Rows) * F_sdclk - 20
+    </text>
+  </g>
+
+  <!-- Concrete Numerical Example -->
+  <rect x="510" y="240" width="390" height="235" rx="8" fill="#0f172a" stroke="#334155" stroke-width="1"/>
+  <text x="530" y="265" font-family="system-ui, sans-serif" font-size="12" font-weight="700" fill="#fbbf24">
+    Числовий приклад розрахунку (IS42S16400J):
+  </text>
+
+  <g transform="translate(530, 285)" font-family="system-ui, sans-serif" font-size="11" fill="#cbd5e1">
+    <text x="0" y="0">• Повний час регенерації T_refresh = 64 мс (0.064 с)</text>
+    <text x="0" y="20">• Кількість рядків матриці Rows = 4096 рядків (12 біт адреси)</text>
+    <text x="0" y="40">• Частота шини FMC SDCLK = 90 МГц (90 000 000 Гц)</text>
+
+    <text x="0" y="70" font-weight="700" fill="#38bdf8">1. Інтервал між регенераціями рядків:</text>
+    <text x="0" y="88" font-family="monospace" fill="#38bdf8">T_row = 64 мс / 4096 = 15.625 мкс</text>
+
+    <text x="0" y="115" font-weight="700" fill="#34d399">2. Розрахунок значення COUNT лічильника:</text>
+    <text x="0" y="133" font-family="monospace" fill="#34d399">COUNT = 15.625 мкс * 90 МГц - 20 = 1406.25 - 20 = 1386</text>
+
+    <text x="0" y="160" font-weight="700" fill="#f472b6">3. Запис у регістр FMC_SDRTR:</text>
+    <text x="0" y="178" font-family="monospace" fill="#f472b6">FMC_Bank5_6-&gt;SDRTR = (1386 &lt;&lt; 1);</text>
+  </g>
+</svg>
