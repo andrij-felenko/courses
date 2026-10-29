@@ -1,0 +1,88 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, -apple-system, BlinkMacSystemFont, Roboto, sans-serif">
+  <!-- Фон -->
+  <rect width="960" height="540" fill="#0d1117"/>
+  <rect x="15" y="15" width="930" height="510" rx="12" fill="none" stroke="#30363d" stroke-width="1.5"/>
+
+  <!-- Заголовок -->
+  <text x="480" y="42" fill="#f0f6fc" font-size="20" font-weight="700" text-anchor="middle">Вплив опору сполучних дротів: Чутливість Pt100 проти Pt1000</text>
+  <text x="480" y="66" fill="#8b949e" font-size="13" text-anchor="middle">Чому паразитний опір кабелю 1 Ом викликає вдесятеро більшу похибку у Pt100, ніж у Pt1000</text>
+
+  <!-- Схема порівняння (2 колонки) -->
+  <g transform="translate(40, 85)">
+    <!-- Блок Pt100 -->
+    <rect x="10" y="10" width="415" height="325" rx="8" fill="#161b22" stroke="#58a6ff" stroke-width="1.5"/>
+    <rect x="10" y="10" width="415" height="34" rx="8" fill="#21262d"/>
+    <circle cx="30" cy="27" r="7" fill="#58a6ff"/>
+    <text x="45" y="32" fill="#f0f6fc" font-size="14" font-weight="700">Pt100 (R₀ = 100 Ом при 0 °C)</text>
+
+    <!-- Характеристики чутливості Pt100 -->
+    <rect x="25" y="58" width="385" height="55" rx="6" fill="#0d1117" stroke="#30363d" stroke-width="1"/>
+    <text x="35" y="80" fill="#58a6ff" font-size="12" font-family="Consolas, monospace">dR / dT = 0.385 Ом / °C</text>
+    <text x="35" y="100" fill="#8b949e" font-size="11">Чутливість помірна: 1 °C відповідає лише 0.385 Ом</text>
+
+    <!-- Модель 2-провідного підключення з опором лінії R_lead = 1 Ом -->
+    <g transform="translate(25, 125)">
+      <rect width="385" height="85" rx="6" fill="#1f2937" stroke="#ff7b72" stroke-width="1.2"/>
+      <text x="15" y="24" fill="#ff7b72" font-size="11" font-weight="700">Паразитний опір кабелю (2 дроти по 0.5 Ом = 1.0 Ом):</text>
+      
+      <!-- Формула розрахунку похибки -->
+      <text x="15" y="48" fill="#f0f6fc" font-size="12" font-family="Consolas, monospace">
+        R_виміряний = 100 Ом + 1.0 Ом = 101.0 Ом
+      </text>
+      <text x="15" y="70" fill="#ff7b72" font-size="12" font-weight="700" font-family="Consolas, monospace">
+        Похибка: ΔT = 1.0 Ом / 0.385 Ом/°C ≈ +2.60 °C !
+      </text>
+    </g>
+
+    <!-- Висновок для Pt100 -->
+    <rect x="25" y="225" width="385" height="95" rx="6" fill="#0d1117" stroke="#30363d" stroke-width="1"/>
+    <text x="35" y="245" fill="#e3b341" font-size="11" font-weight="700">Вимоги до схемотехніки Pt100:</text>
+    <text x="35" y="265" fill="#c9d1d9" font-size="10">• 2-провідна схема НЕПРИДАТНА для точних вимірювань</text>
+    <text x="35" y="282" fill="#3fb950" font-size="10">• Обов'язкове використання 3-провідної або 4-провідної схеми</text>
+    <text x="35" y="300" fill="#8b949e" font-size="10">• Компенсація опору ліній вимагає додаткових мідних жил</text>
+
+    <!-- Блок Pt1000 -->
+    <rect x="455" y="10" width="415" height="325" rx="8" fill="#161b22" stroke="#3fb950" stroke-width="1.5"/>
+    <rect x="455" y="10" width="415" height="34" rx="8" fill="#21262d"/>
+    <circle cx="475" cy="27" r="7" fill="#3fb950"/>
+    <text x="490" y="32" fill="#f0f6fc" font-size="14" font-weight="700">Pt1000 (R₀ = 1000 Ом при 0 °C)</text>
+
+    <!-- Характеристики чутливості Pt1000 -->
+    <rect x="470" y="58" width="385" height="55" rx="6" fill="#0d1117" stroke="#30363d" stroke-width="1"/>
+    <text x="480" y="80" fill="#3fb950" font-size="12" font-family="Consolas, monospace">dR / dT = 3.850 Ом / °C</text>
+    <text x="480" y="100" fill="#8b949e" font-size="11">Чутливість у 10 разів вища: 1 °C відповідає 3.85 Ом</text>
+
+    <!-- Модель 2-провідного підключення з опором лінії R_lead = 1 Ом -->
+    <g transform="translate(470, 125)">
+      <rect width="385" height="85" rx="6" fill="#1f2937" stroke="#3fb950" stroke-width="1.2"/>
+      <text x="15" y="24" fill="#3fb950" font-size="11" font-weight="700">Паразитний опір кабелю (2 дроти по 0.5 Ом = 1.0 Ом):</text>
+
+      <!-- Формула розрахунку похибки -->
+      <text x="15" y="48" fill="#f0f6fc" font-size="12" font-family="Consolas, monospace">
+        R_виміряний = 1000 Ом + 1.0 Ом = 1001.0 Ом
+      </text>
+      <text x="15" y="70" fill="#3fb950" font-size="12" font-weight="700" font-family="Consolas, monospace">
+        Похибка: ΔT = 1.0 Ом / 3.850 Ом/°C ≈ +0.26 °C !
+      </text>
+    </g>
+
+    <!-- Висновок для Pt1000 -->
+    <rect x="470" y="225" width="385" height="95" rx="6" fill="#0d1117" stroke="#30363d" stroke-width="1"/>
+    <text x="480" y="245" fill="#3fb950" font-size="11" font-weight="700">Переваги Pt1000 для монтажу:</text>
+    <text x="480" y="265" fill="#c9d1d9" font-size="10">• Дозволяє просту 2-провідну схему при довжині кабелю до 10–20 м</text>
+    <text x="480" y="282" fill="#3fb950" font-size="10">• Економія на вартості кабелю (2 жили замість 4 жил)</text>
+    <text x="480" y="300" fill="#8b949e" font-size="10">• Нечутливість до опору контактів роз'ємів та клемників</text>
+  </g>
+
+  <!-- Підсумок внизу -->
+  <g transform="translate(40, 435)">
+    <rect width="870" height="70" rx="8" fill="#161b22" stroke="#30363d" stroke-width="1.2"/>
+    <text x="25" y="25" fill="#58a6ff" font-size="12" font-weight="700">ФУНДАМЕНТАЛЬНЕ ПРАВИЛО ЧУТЛИВОСТІ:</text>
+    <text x="25" y="47" fill="#f0f6fc" font-size="11">
+      • Завдяки десятикратному номіналу (1000 Ом проти 100 Ом) Pt1000 у 10 разів менш сприйнятливий до опору дротів та перехідного опору клем.
+    </text>
+    <text x="25" y="63" fill="#8b949e" font-size="11">
+      • Це робить Pt1000 ідеальним вибором для систем ОВіК (HVAC), розумного будинку та розгалужених ліній із дводротовим підключенням.
+    </text>
+  </g>
+</svg>

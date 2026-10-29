@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, -apple-system, BlinkMacSystemFont, Roboto, sans-serif">
+  <!-- Фон -->
+  <rect width="960" height="540" fill="#0d1117"/>
+  <rect x="15" y="15" width="930" height="510" rx="12" fill="none" stroke="#30363d" stroke-width="1.5"/>
+
+  <!-- Заголовок -->
+  <text x="480" y="42" fill="#f0f6fc" font-size="20" font-weight="700" text-anchor="middle">Вимоги до аналогового тракту (AFE) та АЦП: Pt100 проти Pt1000</text>
+  <text x="480" y="66" fill="#8b949e" font-size="13" text-anchor="middle">Порівняння динамічного діапазону сигналу, роздільної здатності LSB та вибору опорного резистора R_ref</text>
+
+  <!-- Схема порівняння тракту AFE -->
+  <g transform="translate(30, 85)">
+    <!-- Блок 1: Спеціалізований AFE (MAX31865 / ADS1220) для Pt100 та Pt1000 -->
+    <rect x="10" y="10" width="430" height="325" rx="8" fill="#161b22" stroke="#58a6ff" stroke-width="1.5"/>
+    <rect x="10" y="10" width="430" height="32" rx="8" fill="#21262d"/>
+    <circle cx="28" cy="26" r="6" fill="#58a6ff"/>
+    <text x="42" y="31" fill="#f0f6fc" font-size="13" font-weight="700">1. Прецизійне співвідносне перетворення (Ratiometric AFE)</text>
+
+    <!-- Схема включення R_ref + RTD -->
+    <g transform="translate(30, 55)">
+      <rect x="15" y="10" width="370" height="95" rx="6" fill="#0d1117" stroke="#30363d" stroke-width="1"/>
+      <text x="25" y="32" fill="#58a6ff" font-size="12" font-weight="700">Вибір опорного резистора R_REF (0.1% 25ppm):</text>
+      
+      <text x="25" y="55" fill="#f0f6fc" font-size="11">• Для Pt100:  R_REF = 400.0 Ом  (діапазон до +850 °C)</text>
+      <text x="25" y="73" fill="#3fb950" font-size="11">• Для Pt1000: R_REF = 4000.0 Ом (діапазон до +850 °C)</text>
+      <text x="25" y="92" fill="#8b949e" font-size="10">Співвідношення R_RTD / R_REF однакове у обох датчиків (~0.25 при 0 °C)</text>
+    </g>
+
+    <text x="25" y="185" fill="#f0f6fc" font-size="12" font-weight="600">Дискретність молодшого розряду (15-біт код ADC):</text>
+    
+    <rect x="25" y="198" width="400" height="75" rx="6" fill="#1f2937"/>
+    <text x="35" y="220" fill="#58a6ff" font-size="11" font-family="Consolas, monospace">Pt100:  1 LSB = 400 Ом / 32768 = 0.0122 Ом ≈ 0.0317 °C</text>
+    <text x="35" y="242" fill="#3fb950" font-size="11" font-family="Consolas, monospace">Pt1000: 1 LSB = 4000 Ом / 32768 = 0.1221 Ом ≈ 0.0317 °C</text>
+    <text x="35" y="262" fill="#8b949e" font-size="10">Температурна роздільна здатність на цифровому рівні абсолютно ідентична!</text>
+
+    <text x="25" y="295" fill="#c9d1d9" font-size="10">• Спеціалізовані мікросхеми MAX31865 однаково ефективно</text>
+    <text x="25" y="312" fill="#c9d1d9" font-size="10">  підтримують обидва типи — різниця полягає лише в номіналі R_REF.</text>
+
+    <!-- Блок 2: Пряме підключення до звичайного АЦП мікроконтролера -->
+    <rect x="460" y="10" width="440" height="325" rx="8" fill="#161b22" stroke="#3fb950" stroke-width="1.5"/>
+    <rect x="460" y="10" width="440" height="32" rx="8" fill="#21262d"/>
+    <circle cx="478" cy="26" r="6" fill="#3fb950"/>
+    <text x="492" y="31" fill="#f0f6fc" font-size="13" font-weight="700">2. Робота зі стандартним 12-бітним АЦП МК (STM32 / ESP32)</text>
+
+    <!-- Проблема Pt100 з простим АЦП -->
+    <g transform="translate(475, 55)">
+      <rect width="410" height="110" rx="6" fill="#0d1117" stroke="#ff7b72" stroke-width="1.2"/>
+      <text x="15" y="25" fill="#ff7b72" font-size="11" font-weight="700">Pt100 зі стандартним дільником напруги:</text>
+      <text x="15" y="47" fill="#8b949e" font-size="10">При струмі 1 мА зміна напруги становить лише 0.385 мВ/°C.</text>
+      <text x="15" y="65" fill="#f0f6fc" font-size="11" font-family="Consolas, monospace">Крок 12-біт АЦП: 3300 мВ / 4096 = 0.805 мВ/LSB</text>
+      <text x="15" y="85" fill="#ff7b72" font-size="11" font-weight="700">Похибка квантування &gt; 2.1 °C на 1 біт АЦП!</text>
+      <text x="15" y="102" fill="#8b949e" font-size="10">Pt100 НЕМОЖЛИВО читати напряму звичайним АЦП без дорогого підсилювача!</text>
+    </g>
+
+    <!-- Перевага Pt1000 з простим АЦП -->
+    <g transform="translate(475, 180)">
+      <rect width="410" height="115" rx="6" fill="#1f2937" stroke="#3fb950" stroke-width="1.2"/>
+      <text x="15" y="24" fill="#3fb950" font-size="11" font-weight="700">Pt1000 у дільнику з резистором 10 кОм (3.3 В):</text>
+      <text x="15" y="46" fill="#f0f6fc" font-size="10">Зміна напруги на дільнику: ~1.15 мВ/°C (утричі вище за крок АЦП).</text>
+      <text x="15" y="66" fill="#3fb950" font-size="11" font-weight="700">Роздільна здатність: ~0.7 °C/LSB без підсилювача!</text>
+      <text x="15" y="86" fill="#8b949e" font-size="10">А при використанні простого ОУ або 16-біт АЦП (ADS1115):</text>
+      <text x="15" y="104" fill="#3fb950" font-size="10" font-weight="700">Роздільна здатність краща за 0.05 °C за мінімальної ціни схеми.</text>
+    </g>
+  </g>
+
+  <!-- Підвал -->
+  <g transform="translate(30, 435)">
+    <rect width="900" height="70" rx="8" fill="#161b22" stroke="#30363d" stroke-width="1.2"/>
+    <text x="25" y="25" fill="#58a6ff" font-size="12" font-weight="700">ВИСНОВОК ЩОДО АНАЛОГОВОГО ТРАКТУ:</text>
+    <text x="25" y="47" fill="#f0f6fc" font-size="11">
+      • Pt100 вимагає високопрецизійного AFE з низьким дрейфом зсуву та 24-бітного АЦП через мікровольтовий масштаб сигналу.
+    </text>
+    <text x="25" y="63" fill="#8b949e" font-size="11">
+      • Pt1000 генерує вдесятеро більшу дельту напруги, дозволяючи будувати простіші та значно дешевші схеми зчитування.
+    </text>
+  </g>
+</svg>

@@ -1,0 +1,118 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, -apple-system, BlinkMacSystemFont, Roboto, sans-serif">
+  <!-- Фон -->
+  <rect width="960" height="540" fill="#0d1117"/>
+  <rect x="15" y="15" width="930" height="510" rx="12" fill="none" stroke="#30363d" stroke-width="1.5"/>
+
+  <!-- Заголовок -->
+  <text x="480" y="42" fill="#f0f6fc" font-size="20" font-weight="700" text-anchor="middle">Інженерна матриця та блок-схема вибору: Pt100 проти Pt1000</text>
+  <text x="480" y="66" fill="#8b949e" font-size="13" text-anchor="middle">Алгоритм прийняття рішень для промислових АСУТП, систем ОВіК (HVAC) та автономних приладів</text>
+
+  <!-- Блок-схема вибору (Зліва) та Таблиця галузей (Справа) -->
+  <g transform="translate(30, 85)">
+    <!-- Ліва панель: Блок-схема алгоритму -->
+    <rect x="10" y="10" width="415" height="335" rx="8" fill="#161b22" stroke="#58a6ff" stroke-width="1.5"/>
+    <rect x="10" y="10" width="415" height="30" rx="8" fill="#21262d"/>
+    <text x="217" y="30" fill="#58a6ff" font-size="12" font-weight="700" text-anchor="middle">Алгоритм вибору сенсора</text>
+
+    <!-- Крок 1: Питання про існуючий ПЛК -->
+    <g transform="translate(30, 50)">
+      <rect x="20" y="5" width="315" height="42" rx="6" fill="#0d1117" stroke="#30363d" stroke-width="1.2"/>
+      <text x="177" y="24" fill="#f0f6fc" font-size="11" text-anchor="middle">1. Чи підключається до існуючого ПЛК</text>
+      <text x="177" y="38" fill="#8b949e" font-size="10" text-anchor="middle">з фіксованими входами RTD?</text>
+
+      <line x1="335" y1="26" x2="360" y2="26" stroke="#58a6ff" stroke-width="2"/>
+      <text x="345" y="20" fill="#3fb950" font-size="9">ТАК</text>
+      <rect x="300" y="52" width="75" height="26" rx="4" fill="#1f2937" stroke="#58a6ff" stroke-width="1.5"/>
+      <text x="337" y="69" fill="#58a6ff" font-size="11" font-weight="700" text-anchor="middle">Pt100</text>
+
+      <!-- Лінія НІ вниз -->
+      <line x1="177" y1="47" x2="177" y2="70" stroke="#8b949e" stroke-width="1.5"/>
+      <text x="185" y="62" fill="#ff7b72" font-size="9">НІ</text>
+
+      <!-- Крок 2: Питання про батарейне живлення або 2 дроти -->
+      <rect x="20" y="70" width="315" height="42" rx="6" fill="#0d1117" stroke="#30363d" stroke-width="1.2"/>
+      <text x="177" y="89" fill="#f0f6fc" font-size="11" text-anchor="middle">2. Потрібне батарейне живлення (IoT)</text>
+      <text x="177" y="103" fill="#8b949e" font-size="10" text-anchor="middle">або дешевий 2-провідний монтаж?</text>
+
+      <line x1="335" y1="91" x2="360" y2="91" stroke="#3fb950" stroke-width="2"/>
+      <text x="345" y="85" fill="#3fb950" font-size="9">ТАК</text>
+      <rect x="300" y="118" width="75" height="26" rx="4" fill="#1f2937" stroke="#3fb950" stroke-width="1.5"/>
+      <text x="337" y="135" fill="#3fb950" font-size="11" font-weight="700" text-anchor="middle">Pt1000</text>
+
+      <!-- Лінія НІ вниз -->
+      <line x1="177" y1="112" x2="177" y2="135" stroke="#8b949e" stroke-width="1.5"/>
+      <text x="185" y="127" fill="#ff7b72" font-size="9">НІ</text>
+
+      <!-- Крок 3: Температура понад 500 °C -->
+      <rect x="20" y="135" width="315" height="42" rx="6" fill="#0d1117" stroke="#30363d" stroke-width="1.2"/>
+      <text x="177" y="154" fill="#f0f6fc" font-size="11" text-anchor="middle">3. Робоча температура &gt; 500 °C</text>
+      <text x="177" y="168" fill="#8b949e" font-size="10" text-anchor="middle">та екстремальні вібрації?</text>
+
+      <line x1="335" y1="156" x2="360" y2="156" stroke="#58a6ff" stroke-width="2"/>
+      <text x="345" y="150" fill="#3fb950" font-size="9">ТАК</text>
+      <rect x="300" y="182" width="75" height="26" rx="4" fill="#1f2937" stroke="#58a6ff" stroke-width="1.5"/>
+      <text x="337" y="199" fill="#58a6ff" font-size="11" font-weight="700" text-anchor="middle">Pt100</text>
+
+      <!-- Лінія НІ вниз -> Pt1000 за замовчуванням -->
+      <line x1="177" y1="177" x2="177" y2="210" stroke="#8b949e" stroke-width="1.5"/>
+      <text x="185" y="195" fill="#ff7b72" font-size="9">НІ</text>
+
+      <rect x="70" y="210" width="215" height="36" rx="6" fill="#1f2937" stroke="#3fb950" stroke-width="1.5"/>
+      <text x="177" y="233" fill="#3fb950" font-size="12" font-weight="700" text-anchor="middle">Рекомендовано: Pt1000</text>
+    </g>
+
+    <text x="25" y="325" fill="#8b949e" font-size="10">Сучасні нові розробки за замовчуванням орієнтуються на Pt1000.</text>
+
+    <!-- Права панель: Таблиця типових застосувань -->
+    <rect x="445" y="10" width="455" height="335" rx="8" fill="#161b22" stroke="#3fb950" stroke-width="1.5"/>
+    <rect x="445" y="10" width="455" height="30" rx="8" fill="#21262d"/>
+    <text x="672" y="30" fill="#3fb950" font-size="12" font-weight="700" text-anchor="middle">Галузевий розподіл стандартів</text>
+
+    <!-- Рядки таблиці -->
+    <g transform="translate(455, 48)">
+      <!-- 1. Нафтохімія / ТЕС -->
+      <rect x="5" y="0" width="425" height="50" rx="4" fill="#0d1117" stroke="#30363d" stroke-width="1"/>
+      <text x="15" y="20" fill="#58a6ff" font-size="11" font-weight="700">Нафтогаз, хімія, енергетика, ТЕС/АЕС</text>
+      <text x="15" y="38" fill="#8b949e" font-size="10">Стандартні ПЛК (Siemens S7, Yokogawa), 3/4 дроти</text>
+      <rect x="350" y="12" width="65" height="26" rx="4" fill="#1f2937" stroke="#58a6ff"/>
+      <text x="382" y="29" fill="#58a6ff" font-size="11" font-weight="700" text-anchor="middle">Pt100</text>
+
+      <!-- 2. ОВіК / HVAC / Будівлі -->
+      <rect x="5" y="56" width="425" height="50" rx="4" fill="#161b22" stroke="#30363d" stroke-width="1"/>
+      <text x="15" y="76" fill="#3fb950" font-size="11" font-weight="700">Вентиляція, кондиціювання (HVAC), BMS</text>
+      <text x="15" y="94" fill="#8b949e" font-size="10">Дводротовий монтаж на сотні метрів, кімнатні датчики</text>
+      <rect x="350" y="68" width="65" height="26" rx="4" fill="#1f2937" stroke="#3fb950"/>
+      <text x="382" y="85" fill="#3fb950" font-size="11" font-weight="700" text-anchor="middle">Pt1000</text>
+
+      <!-- 3. Теплолічильники -->
+      <rect x="5" y="112" width="425" height="50" rx="4" fill="#0d1117" stroke="#30363d" stroke-width="1"/>
+      <text x="15" y="132" fill="#3fb950" font-size="11" font-weight="700">Комерційні теплолічильники (EN 1434)</text>
+      <text x="15" y="150" fill="#8b949e" font-size="10">Автономна робота від літієвої батареї 10–12 років</text>
+      <rect x="350" y="124" width="65" height="26" rx="4" fill="#1f2937" stroke="#3fb950"/>
+      <text x="382" y="141" fill="#3fb950" font-size="11" font-weight="700" text-anchor="middle">Pt1000</text>
+
+      <!-- 4. Автомобільна та авіаційна техніка -->
+      <rect x="5" y="168" width="425" height="50" rx="4" fill="#161b22" stroke="#30363d" stroke-width="1"/>
+      <text x="15" y="188" fill="#e3b341" font-size="11" font-weight="700">Автомобільні датчики температури оливи/газів</text>
+      <text x="15" y="206" fill="#8b949e" font-size="10">Вібрації, бортова мережа 12/24 В, низька вага проводки</text>
+      <rect x="350" y="180" width="65" height="26" rx="4" fill="#1f2937" stroke="#3fb950"/>
+      <text x="382" y="197" fill="#3fb950" font-size="11" font-weight="700" text-anchor="middle">Pt1000</text>
+
+      <!-- 5. Лабораторні еталони -->
+      <rect x="5" y="224" width="425" height="50" rx="4" fill="#0d1117" stroke="#30363d" stroke-width="1"/>
+      <text x="15" y="244" fill="#d2a8ff" font-size="11" font-weight="700">Еталонні калібратори та термостати (SPRT)</text>
+      <text x="15" y="262" fill="#8b949e" font-size="10">Найвища стабільність дротової платини, 4-провідний міст</text>
+      <rect x="350" y="236" width="65" height="26" rx="4" fill="#1f2937" stroke="#58a6ff"/>
+      <text x="382" y="253" fill="#58a6ff" font-size="11" font-weight="700" text-anchor="middle">Pt100</text>
+    </g>
+  </g>
+
+  <!-- Підвал -->
+  <g transform="translate(30, 445)">
+    <rect width="900" height="60" rx="8" fill="#161b22" stroke="#30363d" stroke-width="1.2"/>
+    <text x="20" y="24" fill="#58a6ff" font-size="12" font-weight="700">РЕЗЮМЕ ДЛЯ ІНЖЕНЕРА-РОЗРОБНИКА:</text>
+    <text x="20" y="45" fill="#f0f6fc" font-size="11">
+      Pt100 домінує в класичній важкій промисловості через спадщину ПЛК. У всіх нових автономних, бездротових та HVAC проектах Pt1000 є технічно й економічно перевершуючим вибором.
+    </text>
+  </g>
+</svg>
