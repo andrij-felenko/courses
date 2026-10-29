@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 940 430" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif">
+<rect width="940" height="430" fill="#0d1117"/>
+<defs>
+  <marker id="ar_bl" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+    <path d="M0 0 L10 5 L0 10 z" fill="#58a6ff"/>
+  </marker>
+  <marker id="ar_gr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+    <path d="M0 0 L10 5 L0 10 z" fill="#3fb950"/>
+  </marker>
+  <marker id="ar_rd" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+    <path d="M0 0 L10 5 L0 10 z" fill="#f85149"/>
+  </marker>
+</defs>
+<text x="470" y="30" font-size="18" fill="#f0f6fc" text-anchor="middle" font-weight="700">Часоімпульсний метод (Transit-Time): диференціал часу проходження</text>
+
+<!-- Pipe Section -->
+<rect x="50" y="110" width="500" height="180" rx="4" fill="#161b22" stroke="#30363d" stroke-width="2"/>
+<rect x="55" y="130" width="490" height="140" fill="#1f3b5c" fill-opacity="0.4"/>
+
+<!-- Flow Direction Arrows -->
+<line x1="80" y1="200" x2="160" y2="200" stroke="#388bfd" stroke-width="3" marker-end="url(#ar_bl)"/>
+<line x1="220" y1="200" x2="300" y2="200" stroke="#388bfd" stroke-width="3" marker-end="url(#ar_bl)"/>
+<line x1="360" y1="200" x2="440" y2="200" stroke="#388bfd" stroke-width="3" marker-end="url(#ar_bl)"/>
+<text x="260" y="185" font-size="14" fill="#58a6ff" font-weight="700" text-anchor="middle">Швидкість потоку рідини v ->></text>
+
+<!-- Transducer A (Upstream, top left) -->
+<rect x="130" y="85" width="50" height="35" rx="3" fill="#21262d" stroke="#3fb950" stroke-width="2"/>
+<text x="155" y="107" font-size="12" fill="#3fb950" font-weight="700" text-anchor="middle">Датчик A</text>
+
+<!-- Transducer B (Downstream, bottom right) -->
+<rect x="380" y="280" width="50" height="35" rx="3" fill="#21262d" stroke="#f85149" stroke-width="2"/>
+<text x="405" y="302" font-size="12" fill="#f85149" font-weight="700" text-anchor="middle">Датчик B</text>
+
+<!-- Acoustic Beam Downstream (A -> B, Green) -->
+<line x1="165" y1="120" x2="395" y2="280" stroke="#3fb950" stroke-width="2.5" stroke-dasharray="6 4" marker-end="url(#ar_gr)"/>
+<text x="250" y="150" font-size="12" fill="#3fb950" font-weight="700">За течією: t_down = L / (c + v·cos θ)</text>
+
+<!-- Acoustic Beam Upstream (B -> A, Red) -->
+<line x1="395" y1="280" x2="165" y2="120" stroke="#f85149" stroke-width="2" stroke-dasharray="3 3"/>
+<text x="320" y="255" font-size="12" fill="#f85149" font-weight="700">Проти течії: t_up = L / (c − v·cos θ)</text>
+
+<!-- Angle theta arc -->
+<path d="M 200 120 A 30 30 0 0 1 215 145" fill="none" stroke="#d29922" stroke-width="1.8"/>
+<text x="225" y="138" font-size="12" fill="#d29922" font-weight="700">θ (кут)</text>
+
+<!-- Right Side Formulas & Analysis -->
+<rect x="580" y="70" width="330" height="320" rx="8" fill="#161b22" stroke="#30363d" stroke-width="1.5"/>
+<text x="745" y="105" font-size="15" fill="#58a6ff" font-weight="700" text-anchor="middle">Математика різниці часу</text>
+
+<rect x="600" y="125" width="290" height="65" rx="5" fill="#0d1117" stroke="#388bfd"/>
+<text x="745" y="150" font-size="13" fill="#f0f6fc" text-anchor="middle">Різниця часу проходження Δt:</text>
+<text x="745" y="174" font-size="15" fill="#3fb950" font-weight="700" text-anchor="middle">Δt = t_up − t_down ≈ (2 · L · v · cos θ) / c²</text>
+
+<rect x="600" y="205" width="290" height="65" rx="5" fill="#0d1117" stroke="#238636"/>
+<text x="745" y="230" font-size="13" fill="#f0f6fc" text-anchor="middle">Розрахунок лінійної швидкості v:</text>
+<text x="745" y="254" font-size="15" fill="#58a6ff" font-weight="700" text-anchor="middle">v = (L / 2 cos θ) · (Δt / (t_up · t_down))</text>
+
+<text x="605" y="300" font-size="12" fill="#d29922" font-weight="700">Критична інженерна перевага:</text>
+<text x="605" y="322" font-size="11" fill="#8b949e">Формула виключає швидкість звуку c!</text>
+<text x="605" y="340" font-size="11" fill="#8b949e">Зміна температури та тиску не спотворює</text>
+<text x="605" y="358" font-size="11" fill="#8b949e">розрахунок витрати при точному вимірі t_up та t_down.</text>
+
+<!-- Footer Banner -->
+<rect x="50" y="398" width="860" height="24" rx="4" fill="#21262d"/>
+<text x="480" y="415" font-size="11" fill="#8b949e" text-anchor="middle">Типовий зсув Δt становить від одиниць наносекунд до сотень пікосекунд, вимагаючи прецизійних АЦП або TDC</text>
+</svg>

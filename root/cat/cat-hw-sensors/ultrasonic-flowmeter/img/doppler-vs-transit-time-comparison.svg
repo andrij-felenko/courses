@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 940 430" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif">
+<rect width="940" height="430" fill="#0d1117"/>
+<text x="470" y="30" font-size="18" fill="#f0f6fc" text-anchor="middle" font-weight="700">Порівняння: Часопролітний метод vs Ефект Доплера</text>
+
+<!-- Left Column: Transit-Time Method -->
+<rect x="40" y="65" width="410" height="330" rx="8" fill="#161b22" stroke="#3fb950" stroke-width="1.8"/>
+<text x="245" y="95" font-size="16" fill="#3fb950" font-weight="700" text-anchor="middle">1. Часопролітний метод (Transit-Time)</text>
+
+<!-- Graphic illustration left -->
+<rect x="70" y="115" width="350" height="70" rx="4" fill="#0d1117" stroke="#30363d"/>
+<line x1="90" y1="150" x2="400" y2="150" stroke="#388bfd" stroke-width="2"/>
+<circle cx="150" cy="150" r="3" fill="#58a6ff"/>
+<circle cx="250" cy="150" r="3" fill="#58a6ff"/>
+<circle cx="350" cy="150" r="3" fill="#58a6ff"/>
+<text x="245" y="140" font-size="12" fill="#58a6ff" text-anchor="middle">Однорідна, абсолютно чиста рідина</text>
+<text x="245" y="172" font-size="11" fill="#3fb950" text-anchor="middle">Промінь проходить крізь чисте середовище</text>
+
+<text x="60" y="215" font-size="13" fill="#f0f6fc" font-weight="700">Вимоги до середовища:</text>
+<text x="75" y="235" font-size="12" fill="#8b949e">• Чисті рідини: питна вода, спирти, теплоносії</text>
+<text x="75" y="255" font-size="12" fill="#8b949e">• Вміст твердих часток або бульбашок &lt; 1–2%</text>
+
+<text x="60" y="285" font-size="13" fill="#3fb950" font-weight="700">Переваги:</text>
+<text x="75" y="305" font-size="12" fill="#8b949e">• Екстремальна точність (0.2% – 0.5%)</text>
+<text x="75" y="325" font-size="12" fill="#8b949e">• Незалежність від провідності середовища</text>
+<text x="75" y="345" font-size="12" fill="#8b949e">• Симетрична робота в обох напрямках потоку</text>
+<text x="75" y="375" font-size="11" fill="#f85149">Мінус: при великій кількості бульбашок промінь згасає</text>
+
+<!-- Right Column: Doppler Method -->
+<rect x="490" y="65" width="410" height="330" rx="8" fill="#161b22" stroke="#d29922" stroke-width="1.8"/>
+<text x="695" y="95" font-size="16" fill="#d29922" font-weight="700" text-anchor="middle">2. Доплерівський метод (Doppler)</text>
+
+<!-- Graphic illustration right -->
+<rect x="520" y="115" width="350" height="70" rx="4" fill="#0d1117" stroke="#30363d"/>
+<line x1="540" y1="150" x2="850" y2="150" stroke="#d29922" stroke-width="2"/>
+<!-- Suspended particles/bubbles -->
+<circle cx="580" cy="140" r="5" fill="#f0883e"/>
+<circle cx="630" cy="160" r="6" fill="#f0883e"/>
+<circle cx="710" cy="135" r="4" fill="#f0883e"/>
+<circle cx="780" cy="155" r="7" fill="#f0883e"/>
+<text x="695" y="140" font-size="12" fill="#f0883e" text-anchor="middle">Частки / пісок / бульбашки газу</text>
+<text x="695" y="172" font-size="11" fill="#d29922" text-anchor="middle">Відбиття звуку: Δf = 2 · f_0 · (v / c) · cos θ</text>
+
+<text x="510" y="215" font-size="13" fill="#f0f6fc" font-weight="700">Вимоги до середовища:</text>
+<text x="525" y="235" font-size="12" fill="#8b949e">• Забруднені рідини: каналізація, шлами, пульпа</text>
+<text x="525" y="255" font-size="12" fill="#8b949e">• Обов'язкова присутність відбивачів &gt; 100 ppm</text>
+
+<text x="510" y="285" font-size="13" fill="#d29922" font-weight="700">Переваги:</text>
+<text x="525" y="305" font-size="12" fill="#8b949e">• Працює там, де прохідний промінь блокується</text>
+<text x="525" y="325" font-size="12" fill="#8b949e">• Нечутливий до заростання стінок брудом</text>
+<text x="525" y="350" font-size="11" fill="#f85149">Мінус: нижча точність (1.0% – 3.0%), сліпий у чистій воді</text>
+<text x="525" y="375" font-size="11" fill="#f85149">Мінус: залежить від швидкості звуку c у середовищі</text>
+</svg>
