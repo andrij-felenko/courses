@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, -apple-system, BlinkMacSystemFont, Roboto, sans-serif">
+  <!-- Фон -->
+  <rect width="960" height="540" fill="#0d1117"/>
+  <rect x="15" y="15" width="930" height="510" rx="12" fill="none" stroke="#30363d" stroke-width="1.5"/>
+
+  <!-- Заголовок -->
+  <text x="480" y="45" fill="#f0f6fc" font-size="20" font-weight="700" text-anchor="middle">Архітектура драйвера ADXL345 та апаратного рівня HAL</text>
+  <text x="480" y="70" fill="#8b949e" font-size="13" text-anchor="middle">Ізоляція алгоритмічної логіки сенсора від низькорівневих шин I2C та SPI</text>
+
+  <!-- Блок 1: Прикладний рівень (Application Layer) -->
+  <g transform="translate(60, 95)">
+    <rect width="840" height="70" rx="8" fill="#161b22" stroke="#3fb950" stroke-width="2"/>
+    <rect x="0" y="0" width="840" height="26" rx="8" fill="#238636" fill-opacity="0.2"/>
+    <text x="20" y="18" fill="#3fb950" font-size="13" font-weight="600">ПРИКЛАДНИЙ РІВЕНЬ (APPLICATION LAYER)</text>
+    <text x="420" y="48" fill="#e6edf3" font-size="14" font-weight="500" text-anchor="middle">Задачі ОС / Головний цикл: adxl345_init(), adxl345_read_accel(), обробка подій та переривань</text>
+  </g>
+
+  <!-- Стрілка вниз -->
+  <path d="M 480 165 L 480 185" stroke="#3fb950" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- Блок 2: Драйвер сенсора (Sensor Driver Core) -->
+  <g transform="translate(60, 185)">
+    <rect width="840" height="90" rx="8" fill="#161b22" stroke="#58a6ff" stroke-width="2"/>
+    <rect x="0" y="0" width="840" height="26" rx="8" fill="#1f6feb" fill-opacity="0.2"/>
+    <text x="20" y="18" fill="#58a6ff" font-size="13" font-weight="600">ЯДРО ДРАЙВЕРА ADXL345 (DEVICE DRIVER CORE)</text>
+    <text x="40" y="48" fill="#c9d1d9" font-size="13">Керування регістрами: POWER_CTL, BW_RATE, DATA_FORMAT, FIFO_CTL, INT_ENABLE / INT_MAP</text>
+    <text x="40" y="70" fill="#8b949e" font-size="12">Конвертація одиниць (Full-Res 3.9 мг/LSB -> g), калібрування зсувів OFSX/Y/Z, розпізнавання жестів</text>
+  </g>
+
+  <!-- Стрілка вниз -->
+  <path d="M 480 275 L 480 295" stroke="#58a6ff" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Блок 3: Рівень абстракції шини (adxl345_hal_t) -->
+  <g transform="translate(60, 295)">
+    <rect width="840" height="75" rx="8" fill="#161b22" stroke="#bc8cff" stroke-width="2" stroke-dasharray="6,4"/>
+    <text x="20" y="24" fill="#bc8cff" font-size="13" font-weight="600">РІВЕНЬ АБСТРАКЦІЇ АПАРАТУРИ: adxl345_hal_t</text>
+    <text x="420" y="46" fill="#f0f6fc" font-size="13" font-family="Consolas, monospace" text-anchor="middle">int (*read)(void *handle, uint8_t reg, uint8_t *val, uint16_t len);</text>
+    <text x="420" y="64" fill="#f0f6fc" font-size="13" font-family="Consolas, monospace" text-anchor="middle">int (*write)(void *handle, uint8_t reg, const uint8_t *val, uint16_t len);  void *handle;</text>
+  </g>
+
+  <!-- Розгалуження на I2C та SPI -->
+  <path d="M 270 370 L 270 395" stroke="#d29922" stroke-width="2" marker-end="url(#arr-orange)"/>
+  <path d="M 690 370 L 690 395" stroke="#58a6ff" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Блок 4: Реалізація I2C -->
+  <g transform="translate(60, 395)">
+    <rect width="390" height="105" rx="8" fill="#161b22" stroke="#d29922" stroke-width="1.8"/>
+    <rect x="0" y="0" width="390" height="24" rx="8" fill="#d29922" fill-opacity="0.15"/>
+    <text x="15" y="17" fill="#d29922" font-size="12" font-weight="600">РЕАЛІЗАЦІЯ ШИНИ I2C (HAL ADAPTER)</text>
+    <text x="15" y="44" fill="#c9d1d9" font-size="12">Адресація: 0x53 (ALT=GND) або 0x1D (ALT=Vs)</text>
+    <text x="15" y="63" fill="#c9d1d9" font-size="12">Таймаути, виявлення блокування SDA</text>
+    <text x="15" y="82" fill="#8b949e" font-size="11">Процедура розблокування: 9 імпульсів SCL + STOP</text>
+    <text x="15" y="97" fill="#58a6ff" font-size="11" font-weight="500">Сигнали: SDA (двонапрямна), SCL</text>
+  </g>
+
+  <!-- Блок 5: Реалізація SPI -->
+  <g transform="translate(510, 395)">
+    <rect width="390" height="105" rx="8" fill="#161b22" stroke="#58a6ff" stroke-width="1.8"/>
+    <rect x="0" y="0" width="390" height="24" rx="8" fill="#58a6ff" fill-opacity="0.15"/>
+    <text x="15" y="17" fill="#58a6ff" font-size="12" font-weight="600">РЕАЛІЗАЦІЯ ШИНИ SPI (HAL ADAPTER)</text>
+    <text x="15" y="44" fill="#c9d1d9" font-size="12">Режим: 4-провідний або 3-провідний (SPI_MODE3/0)</text>
+    <text x="15" y="63" fill="#c9d1d9" font-size="12">Формування заголовка: R/W (біт 7) + MB (біт 6)</text>
+    <text x="15" y="82" fill="#8b949e" font-size="11">Підтримка DMA Burst-Read накопичених кадрів FIFO</text>
+    <text x="15" y="97" fill="#3fb950" font-size="11" font-weight="500">Сигнали: SCLK, MOSI/SDI, MISO/SDO, CSn</text>
+  </g>
+
+  <!-- Маркери стрілок -->
+  <defs>
+    <marker id="arr-green" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto">
+      <path d="M 1 1 L 7 4 L 1 7 Z" fill="#3fb950"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto">
+      <path d="M 1 1 L 7 4 L 1 7 Z" fill="#58a6ff"/>
+    </marker>
+    <marker id="arr-orange" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto">
+      <path d="M 1 1 L 7 4 L 1 7 Z" fill="#d29922"/>
+    </marker>
+  </defs>
+</svg>

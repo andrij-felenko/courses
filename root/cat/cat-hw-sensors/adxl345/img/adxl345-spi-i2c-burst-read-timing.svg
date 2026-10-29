@@ -1,0 +1,162 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="35" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Структура бітових фреймів ADXL345 (SPI та I2C)</text>
+  <text x="480" y="56" text-anchor="middle" font-size="13" fill="#6b7280">Напрямок R/W та автоінкремент адреси (біт MB у SPI, сигнал ACK у I2C) для одиночного й пакетного зчитання</text>
+
+  <!-- ПАНЕЛЬ 1: SPI Інтерфейс -->
+  <rect x="30" y="75" width="900" height="225" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="45" y="85" width="870" height="28" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="55" y="104" text-anchor="start" font-size="14" font-weight="bold" fill="#2457d6">1. SPI Інтерфейс: 8-бітний командний байт та режими зчитування</text>
+
+  <!-- Ліва частина Panel 1: Командний байт SPI -->
+  <text x="55" y="132" text-anchor="start" font-size="13" font-weight="bold" fill="#1a1a1a">Формат командного байта SPI:</text>
+  
+  <text x="77.5" y="142" text-anchor="middle" font-size="12" fill="#6b7280">7</text>
+  <text x="134.5" y="142" text-anchor="middle" font-size="12" fill="#6b7280">6</text>
+  <text x="289" y="142" text-anchor="middle" font-size="12" fill="#6b7280">5 .. 0</text>
+
+  <rect x="55" y="146" width="45" height="35" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="77.5" y="168" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">R/W</text>
+
+  <rect x="112" y="146" width="45" height="35" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="134.5" y="168" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">MB</text>
+
+  <rect x="169" y="146" width="240" height="35" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="289" y="168" text-anchor="middle" font-size="12" fill="#1a1a1a">A5  A4  A3  A2  A1  A0 (Адреса)</text>
+
+  <text x="55" y="200" text-anchor="start" font-size="12" fill="#2457d6">• R/W (біт 7): 1 = Читання, 0 = Запис</text>
+  <text x="55" y="222" text-anchor="start" font-size="12" fill="#27ae60">• MB (біт 6): 1 = Автоінкремент (Burst), 0 = Single</text>
+  <text x="55" y="244" text-anchor="start" font-size="12" fill="#6b7280">• A5..A0 (біти 5..0): 6-бітний адрес регістру</text>
+
+  <!-- Права частина Panel 1: Послідовності SPI -->
+  <text x="460" y="132" text-anchor="start" font-size="13" font-weight="bold" fill="#1a1a1a">Послідовності сигналів SPI:</text>
+  <text x="460" y="152" text-anchor="start" font-size="12" font-weight="bold" fill="#1a1a1a">Одиночне читання (MB = 0):</text>
+
+  <rect x="460" y="160" width="55" height="30" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="487.5" y="179" text-anchor="middle" font-size="12" fill="#1a1a1a">CS=0</text>
+  <line x1="516" y1="175" x2="526" y2="175" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <rect x="527" y="160" width="160" height="30" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="607" y="179" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Cmd [R/W=1, MB=0]</text>
+  <line x1="688" y1="175" x2="698" y2="175" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <rect x="699" y="160" width="115" height="30" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="756.5" y="179" text-anchor="middle" font-size="12" fill="#1a1a1a">Data Reg A</text>
+  <line x1="815" y1="175" x2="825" y2="175" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <rect x="826" y="160" width="55" height="30" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="853.5" y="179" text-anchor="middle" font-size="12" fill="#1a1a1a">CS=1</text>
+
+  <text x="460" y="215" text-anchor="start" font-size="12" font-weight="bold" fill="#1a1a1a">Пакетне читання (MB = 1):</text>
+
+  <rect x="460" y="223" width="50" height="30" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="485" y="242" text-anchor="middle" font-size="12" fill="#1a1a1a">CS=0</text>
+  <line x1="511" y1="238" x2="521" y2="238" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <rect x="522" y="223" width="155" height="30" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="599.5" y="242" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Cmd [R/W=1, MB=1]</text>
+  <line x1="678" y1="238" x2="688" y2="238" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <rect x="689" y="223" width="80" height="30" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="729" y="242" text-anchor="middle" font-size="12" fill="#1a1a1a">Reg A</text>
+  <line x1="770" y1="238" x2="780" y2="238" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <rect x="781" y="223" width="80" height="30" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="821" y="242" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Reg A+1</text>
+  <line x1="862" y1="238" x2="872" y2="238" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <rect x="873" y="223" width="50" height="30" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="898" y="242" text-anchor="middle" font-size="12" fill="#1a1a1a">CS=1</text>
+
+  <text x="460" y="275" text-anchor="start" font-size="12" fill="#27ae60">* Автоінкремент адреси (Reg A → Reg A+1) відбувається при MB = 1</text>
+
+  <!-- ПАНЕЛЬ 2: I2C Інтерфейс -->
+  <rect x="30" y="315" width="900" height="225" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="45" y="325" width="870" height="28" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="55" y="344" text-anchor="start" font-size="14" font-weight="bold" fill="#2457d6">2. I2C Інтерфейс: Адресні байти та автоінкремент за ACK від майстра</text>
+
+  <!-- Ліва частина Panel 2: Байт адреси I2C -->
+  <text x="55" y="372" text-anchor="start" font-size="13" font-weight="bold" fill="#1a1a1a">Формат байта адреси пристрою I2C:</text>
+
+  <text x="177.5" y="382" text-anchor="middle" font-size="12" fill="#6b7280">7 .. 1 (Адреса 0x53 / 0x1D)</text>
+  <text x="337.5" y="382" text-anchor="middle" font-size="12" fill="#6b7280">0</text>
+
+  <rect x="55" y="386" width="245" height="35" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="177.5" y="408" text-anchor="middle" font-size="12" fill="#1a1a1a">A6  A5  A4  A3  A2  A1  A0</text>
+
+  <rect x="315" y="386" width="45" height="35" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="337.5" y="408" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">R/W</text>
+
+  <text x="55" y="440" text-anchor="start" font-size="12" fill="#6b7280">• 7-бітна адреса ADXL345: 0x53 (ALT=GND) або 0x1D (ALT=VDD)</text>
+  <text x="55" y="462" text-anchor="start" font-size="12" fill="#2457d6">• R/W (біт 0): 0 = Запис адреси регістру, 1 = Читання даних</text>
+  <text x="55" y="484" text-anchor="start" font-size="12" fill="#6b7280">• Позначення: S-Start, Sr-ReStart, A-ACK, N-NACK, P-Stop</text>
+
+  <!-- Права частина Panel 2: Послідовності I2C -->
+  <text x="435" y="372" text-anchor="start" font-size="13" font-weight="bold" fill="#1a1a1a">Послідовності кадрів I2C:</text>
+  <text x="435" y="392" text-anchor="start" font-size="12" font-weight="bold" fill="#1a1a1a">Одиночне читання:</text>
+
+  <rect x="435" y="400" width="70" height="30" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="470" y="419" text-anchor="middle" font-size="12" fill="#2457d6">[S] Addr+W</text>
+  <line x1="506" y1="415" x2="516" y2="415" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <rect x="517" y="400" width="60" height="30" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="547" y="419" text-anchor="middle" font-size="12" fill="#1a1a1a">Reg A</text>
+  <line x1="578" y1="415" x2="588" y2="415" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <rect x="589" y="400" width="70" height="30" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="624" y="419" text-anchor="middle" font-size="12" fill="#2457d6">[Sr] Addr+R</text>
+  <line x1="660" y1="415" x2="670" y2="415" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <rect x="671" y="400" width="75" height="30" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="708.5" y="419" text-anchor="middle" font-size="12" fill="#1a1a1a">Data Reg A</text>
+  <line x1="747" y1="415" x2="757" y2="415" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <rect x="758" y="400" width="47" height="30" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="781.5" y="419" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">[N] [P]</text>
+
+  <text x="435" y="455" text-anchor="start" font-size="12" font-weight="bold" fill="#1a1a1a">Пакетне читання (автоінкремент за ACK):</text>
+
+  <rect x="435" y="463" width="65" height="30" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="467.5" y="482" text-anchor="middle" font-size="12" fill="#2457d6">[S] Addr+W</text>
+  <line x1="501" y1="478" x2="511" y2="478" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <rect x="512" y="463" width="55" height="30" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="539.5" y="482" text-anchor="middle" font-size="12" fill="#1a1a1a">Reg A</text>
+  <line x1="568" y1="478" x2="578" y2="478" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <rect x="579" y="463" width="65" height="30" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="611.5" y="482" text-anchor="middle" font-size="12" fill="#2457d6">[Sr] Addr+R</text>
+  <line x1="645" y1="478" x2="655" y2="478" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <rect x="656" y="463" width="70" height="30" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="691" y="482" text-anchor="middle" font-size="12" fill="#1a1a1a">Data Reg A</text>
+  <line x1="727" y1="478" x2="737" y2="478" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <rect x="738" y="463" width="65" height="30" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="770.5" y="482" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">ACK (Inc)</text>
+  <line x1="804" y1="478" x2="814" y2="478" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <rect x="815" y="463" width="80" height="30" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="855" y="482" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Data Reg A+1</text>
+  <line x1="896" y1="478" x2="906" y2="478" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <rect x="907" y="463" width="22" height="30" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="918" y="482" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">P</text>
+
+  <text x="435" y="515" text-anchor="start" font-size="12" fill="#27ae60">* Сигнал ACK автоматично збільшує адрес регістру (Reg A → Reg A+1)</text>
+</svg>
