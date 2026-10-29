@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 940 430" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif">
+<rect width="940" height="430" fill="#0d1117"/>
+<defs>
+  <marker id="ar_bench" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+    <path d="M0 0 L10 5 L0 10 z" fill="#58a6ff"/>
+  </marker>
+</defs>
+<text x="470" y="30" font-size="18" fill="#f0f6fc" text-anchor="middle" font-weight="700">Гравіметричний калібрувальний стенд (зважування маси води)</text>
+
+<!-- Water Supply Tank -->
+<rect x="40" y="75" width="130" height="180" rx="6" fill="#161b22" stroke="#30363d" stroke-width="2"/>
+<rect x="45" y="115" width="120" height="135" rx="3" fill="#1f3b5c" fill-opacity="0.5"/>
+<text x="105" y="100" font-size="13" fill="#58a6ff" font-weight="700" text-anchor="middle">Бак подачі води</text>
+<text x="105" y="180" font-size="11" fill="#f0f6fc" text-anchor="middle">Вода (ρ_води)</text>
+
+<!-- Flow Line Pipe -->
+<path d="M 170 210 L 250 210 L 250 150 L 320 150" fill="none" stroke="#388bfd" stroke-width="4" marker-end="url(#ar_bench)"/>
+
+<!-- Flowmeter Under Test (DUT) -->
+<rect x="320" y="125" width="100" height="50" rx="5" fill="#21262d" stroke="#3fb950" stroke-width="2.5"/>
+<text x="370" y="147" font-size="12" fill="#3fb950" font-weight="700" text-anchor="middle">Досліджуваний</text>
+<text x="370" y="163" font-size="11" fill="#f0f6fc" text-anchor="middle">витратомір (DUT)</text>
+
+<!-- Pipe Continuing to Diverter Valve -->
+<line x1="420" y1="150" x2="520" y2="150" stroke="#388bfd" stroke-width="4"/>
+
+<!-- Fast Diverter Valve (Перекидний клапан) -->
+<path d="M 520 135 L 560 150 L 520 165 Z" fill="#d29922" stroke="#ffffff"/>
+<text x="540" y="125" font-size="11" fill="#d29922" font-weight="700" text-anchor="middle">Клапан-відсікач</text>
+
+<!-- Pipe into Weighing Tank -->
+<path d="M 560 150 L 630 150 L 630 200" fill="none" stroke="#388bfd" stroke-width="4" marker-end="url(#ar_bench)"/>
+
+<!-- Collection Vessel on Precision Balance -->
+<rect x="580" y="200" width="140" height="120" rx="4" fill="#161b22" stroke="#8b949e" stroke-width="2"/>
+<rect x="585" y="240" width="130" height="75" fill="#1f3b5c" fill-opacity="0.5"/>
+<text x="650" y="230" font-size="12" fill="#58a6ff" font-weight="700" text-anchor="middle">Мірний бак</text>
+<text x="650" y="280" font-size="12" fill="#f0f6fc" text-anchor="middle">Маса води m</text>
+
+<!-- Precision Electronic Balance -->
+<rect x="560" y="325" width="180" height="45" rx="5" fill="#21262d" stroke="#f0883e" stroke-width="2"/>
+<text x="650" y="352" font-size="14" fill="#f0883e" font-weight="700" text-anchor="middle">Ваги (0.01% допуск)</text>
+
+<!-- Right Side Formulas & Analysis -->
+<rect x="760" y="75" width="150" height="295" rx="8" fill="#161b22" stroke="#30363d" stroke-width="1.5"/>
+<text x="835" y="105" font-size="13" fill="#58a6ff" font-weight="700" text-anchor="middle">Гравіметричний</text>
+<text x="835" y="122" font-size="13" fill="#58a6ff" font-weight="700" text-anchor="middle">розрахунок</text>
+
+<text x="770" y="155" font-size="11" fill="#f0f6fc">1. Маса води:</text>
+<text x="770" y="172" font-size="12" fill="#3fb950" font-weight="700">m = m_повний − m_тари</text>
+
+<text x="770" y="205" font-size="11" fill="#f0f6fc">2. Еталонний об'єм:</text>
+<text x="770" y="222" font-size="12" fill="#58a6ff" font-weight="700">V_ref = m / ρ(T)</text>
+
+<text x="770" y="255" font-size="11" fill="#f0f6fc">3. K-фактор:</text>
+<text x="770" y="275" font-size="13" fill="#e3b341" font-weight="700">K = N_імп / V_ref</text>
+
+<text x="770" y="315" font-size="11" fill="#8b949e">Найточніший метод</text>
+<text x="770" y="332" font-size="11" fill="#8b949e">(похибка стенду &lt; 0.05%)</text>
+
+<!-- Footer -->
+<rect x="40" y="385" width="870" height="26" rx="4" fill="#21262d"/>
+<text x="475" y="402" font-size="11" fill="#8b949e" text-anchor="middle">
+  Гравіметричний метод усуває оптичні похибки вимірювання меніска та враховує реальну густину рідини за температури заміру
+</text>
+</svg>

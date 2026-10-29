@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 940 430" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif">
+<rect width="940" height="430" fill="#0d1117"/>
+<text x="470" y="30" font-size="18" fill="#f0f6fc" text-anchor="middle" font-weight="700">Об'ємний метод калібрування за допомогою мірного циліндра</text>
+
+<!-- Measuring Cylinder Graphic on Left -->
+<rect x="140" y="80" width="120" height="270" rx="8" fill="#161b22" stroke="#58a6ff" stroke-width="2"/>
+<!-- Liquid inside up to mark -->
+<rect x="145" y="150" width="110" height="195" rx="4" fill="#1f3b5c" fill-opacity="0.6"/>
+
+<!-- Meniscus curve -->
+<path d="M 145 150 Q 200 156 255 150" fill="none" stroke="#58a6ff" stroke-width="2.5"/>
+
+<!-- Scale divisions on flask -->
+<line x1="140" y1="120" x2="165" y2="120" stroke="#8b949e" stroke-width="2"/>
+<text x="175" y="125" font-size="11" fill="#8b949e">10.0 л</text>
+
+<line x1="140" y1="150" x2="175" y2="150" stroke="#3fb950" stroke-width="2.5"/>
+<text x="185" y="155" font-size="13" fill="#3fb950" font-weight="700">5.0 л (Еталон)</text>
+
+<line x1="140" y1="200" x2="165" y2="200" stroke="#8b949e" stroke-width="2"/>
+<text x="175" y="205" font-size="11" fill="#8b949e">3.0 л</text>
+
+<line x1="140" y1="250" x2="165" y2="250" stroke="#8b949e" stroke-width="2"/>
+<text x="175" y="255" font-size="11" fill="#8b949e">1.0 л</text>
+
+<!-- Right Side Step-by-Step Procedure -->
+<rect x="330" y="65" width="570" height="320" rx="8" fill="#161b22" stroke="#30363d" stroke-width="1.5"/>
+<text x="615" y="98" font-size="15" fill="#58a6ff" font-weight="700" text-anchor="middle">Покроковий алгоритм калібрування в майстерні</text>
+
+<text x="355" y="135" font-size="13" fill="#3fb950" font-weight="700">Крок 1: Заповнення системи та видалення повітря</text>
+<text x="370" y="155" font-size="12" fill="#8b949e">• Прокачати воду через лічильник протягом 30 секунд для повного</text>
+<text x="370" y="172" font-size="12" fill="#8b949e">  витіснення повітряних бульбашок із крильчатки та шлангів.</text>
+
+<text x="355" y="205" font-size="13" fill="#e3b341" font-weight="700">Крок 2: Дозування контрольного об'єму</text>
+<text x="370" y="225" font-size="12" fill="#8b949e">• Скинути лічильник імпульсів у нуль (`pulse_counter = 0`).</text>
+<text x="370" y="242" font-size="12" fill="#8b949e">• Наповнити калібрувальну ємність строго до позначки 5.00 літрів.</text>
+<text x="370" y="260" font-size="12" fill="#8b949e">• Зафіксувати підсумкове значення зареєстрованих імпульсів N.</text>
+
+<text x="355" y="295" font-size="13" fill="#58a6ff" font-weight="700">Крок 3: Розрахунок реального K-фактора</text>
+<rect x="370" y="308" width="490" height="50" rx="4" fill="#0d1117" stroke="#388bfd"/>
+<text x="615" y="328" font-size="12" fill="#f0f6fc" text-anchor="middle">
+  Якщо для V = 5.0 л надійшло N = 2320 імпульсів:
+</text>
+<text x="615" y="348" font-size="13" fill="#3fb950" font-weight="700" text-anchor="middle">
+  K_л = 2320 / 5.0 = 464.0 імп/л  ==>  K_л_хв = 464.0 / 60 = 7.733 Гц/(л/хв)
+</text>
+
+<!-- Footer -->
+<rect x="40" y="398" width="860" height="22" rx="4" fill="#21262d"/>
+<text x="470" y="414" font-size="11" fill="#8b949e" text-anchor="middle">Рекомендується провести щонайменше 3–5 повторних проливок та взяти середнє арифметичне значення</text>
+</svg>

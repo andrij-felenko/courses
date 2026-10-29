@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 940 430" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif">
+<rect width="940" height="430" fill="#0d1117"/>
+<defs>
+  <marker id="ar_fsm" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+    <path d="M0 0 L10 5 L0 10 z" fill="#58a6ff"/>
+  </marker>
+</defs>
+<text x="470" y="30" font-size="18" fill="#f0f6fc" text-anchor="middle" font-weight="700">Кінцевий автомат інтерактивної прошивки автокалібрування (FSM)</text>
+
+<!-- State 1: IDLE -->
+<rect x="40" y="130" width="150" height="100" rx="8" fill="#161b22" stroke="#8b949e" stroke-width="2"/>
+<text x="115" y="165" font-size="14" fill="#8b949e" font-weight="700" text-anchor="middle">1. ОЧІКУВАННЯ</text>
+<text x="115" y="185" font-size="12" fill="#f0f6fc" text-anchor="middle">STATE_IDLE</text>
+<text x="115" y="205" font-size="11" fill="#3fb950" text-anchor="middle">Готовий до запуску</text>
+
+<line x1="190" y1="180" x2="250" y2="180" stroke="#58a6ff" stroke-width="2.5" marker-end="url(#ar_fsm)"/>
+<text x="220" y="170" font-size="10" fill="#58a6ff" text-anchor="middle">Команда 'S'</text>
+
+<!-- State 2: DISPENSING -->
+<rect x="250" y="130" width="160" height="100" rx="8" fill="#161b22" stroke="#388bfd" stroke-width="2"/>
+<text x="330" y="165" font-size="14" fill="#58a6ff" font-weight="700" text-anchor="middle">2. ПРОЛИВКА</text>
+<text x="330" y="185" font-size="12" fill="#f0f6fc" text-anchor="middle">STATE_DISPENSE</text>
+<text x="330" y="205" font-size="11" fill="#f85149" text-anchor="middle">Підрахунок імпульсів</text>
+
+<line x1="410" y1="180" x2="470" y2="180" stroke="#58a6ff" stroke-width="2.5" marker-end="url(#ar_fsm)"/>
+<text x="440" y="170" font-size="10" fill="#58a6ff" text-anchor="middle">Команда 'E'</text>
+
+<!-- State 3: ENTER_VOLUME -->
+<rect x="470" y="130" width="170" height="100" rx="8" fill="#161b22" stroke="#d29922" stroke-width="2"/>
+<text x="555" y="165" font-size="14" fill="#d29922" font-weight="700" text-anchor="middle">3. ВВЕДЕННЯ ОБ'ЄМУ</text>
+<text x="555" y="185" font-size="12" fill="#f0f6fc" text-anchor="middle">STATE_INPUT_VOL</text>
+<text x="555" y="205" font-size="11" fill="#f0f6fc" text-anchor="middle">Введення літрів / грам</text>
+
+<line x1="640" y1="180" x2="700" y2="180" stroke="#58a6ff" stroke-width="2.5" marker-end="url(#ar_fsm)"/>
+<text x="670" y="170" font-size="10" fill="#58a6ff" text-anchor="middle">Обчислення</text>
+
+<!-- State 4: SAVE_EEPROM -->
+<rect x="700" y="130" width="180" height="100" rx="8" fill="#161b22" stroke="#3fb950" stroke-width="2"/>
+<text x="790" y="165" font-size="14" fill="#3fb950" font-weight="700" text-anchor="middle">4. ЗБЕРЕЖЕННЯ</text>
+<text x="790" y="185" font-size="12" fill="#f0f6fc" text-anchor="middle">STATE_SAVE_EEPROM</text>
+<text x="790" y="205" font-size="11" fill="#3fb950" text-anchor="middle">Запис K-фактора у Flash</text>
+
+<!-- Return Loop back to IDLE -->
+<path d="M 790 230 L 790 290 L 115 290 L 115 230" fill="none" stroke="#8b949e" stroke-width="2" stroke-dasharray="5 5" marker-end="url(#ar_fsm)"/>
+<text x="450" y="310" font-size="12" fill="#8b949e" text-anchor="middle">Повернення в режим готовності (нове калібрування збережено)</text>
+
+<!-- Lower Panel Details -->
+<rect x="40" y="335" width="860" height="75" rx="6" fill="#161b22" stroke="#30363d" stroke-width="1.5"/>
+<text x="60" y="358" font-size="13" fill="#58a6ff" font-weight="700">Інтерактивний діалог через послідовний порт Serial (115200 бод):</text>
+<text x="60" y="380" font-size="11" fill="#8b949e">> [1] Надішліть 'S' для старту наповнення  |  > [2] Надішліть 'E' після наповнення  |  > [3] Введіть масу у грамах: "5020.5"</text>
+<text x="60" y="398" font-size="11" fill="#3fb950">> Розраховано: K = 7.741 Гц/(л/хв)  |  Успішно записано в енергонезалежну пам'ять EEPROM за адресою 0x00!</text>
+</svg>
