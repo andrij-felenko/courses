@@ -1,0 +1,77 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 850 520" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bg-grad1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0d1117"/>
+      <stop offset="100%" stop-color="#161b22"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="100%" height="100%" fill="url(#bg-grad1)"/>
+  <rect x="15" y="15" width="820" height="490" rx="10" fill="none" stroke="#30363d" stroke-width="1.5"/>
+
+  <text x="30" y="45" fill="#58a6ff" font-family="system-ui, sans-serif" font-size="18" font-weight="bold">Діапазони та інтерполяційні прилади міжнародної шкали ITS-90</text>
+  <text x="30" y="68" fill="#8b949e" font-family="system-ui, sans-serif" font-size="13">Чотири базові метрологічні зони від 0.65 K до оптичного пірометричного діапазону (&gt; 1358 K)</text>
+
+  <!-- 4 Zones Breakdown Horizontal -->
+  <g transform="translate(40, 110)">
+    <!-- Zone 1: Helium Vapor Pressure -->
+    <rect x="0" y="0" width="180" height="250" rx="8" fill="#161b22" stroke="#58a6ff" stroke-width="2"/>
+    <text x="90" y="30" fill="#58a6ff" font-family="system-ui" font-size="13" font-weight="bold" text-anchor="middle">Зона 1: Тиск парів He</text>
+    <text x="90" y="55" fill="#f0f6fc" font-family="monospace" font-size="12" font-weight="bold" text-anchor="middle">0.65 K .. 5.0 K</text>
+    <text x="90" y="75" fill="#8b949e" font-family="sans-serif" font-size="10" text-anchor="middle">(-272.5 .. -268.15 °C)</text>
+
+    <line x1="20" y1="90" x2="160" y2="90" stroke="#30363d" stroke-width="1"/>
+    <text x="90" y="115" fill="#7ee787" font-family="system-ui" font-size="11" font-weight="bold" text-anchor="middle">Інтерполяційний прилад:</text>
+    <text x="90" y="140" fill="#f0f6fc" font-family="sans-serif" font-size="10" text-anchor="middle">Манометр насиченої</text>
+    <text x="90" y="155" fill="#f0f6fc" font-family="sans-serif" font-size="10" text-anchor="middle">пари ізотопів</text>
+    <text x="90" y="175" fill="#58a6ff" font-family="monospace" font-size="11" text-anchor="middle">³He та ⁴He</text>
+    <text x="90" y="210" fill="#8b949e" font-family="sans-serif" font-size="9" text-anchor="middle">Рівняння стану пари</text>
+
+    <!-- Zone 2: Gas Thermometer (IGT) -->
+    <rect x="195" y="0" width="180" height="250" rx="8" fill="#161b22" stroke="#3fb950" stroke-width="2"/>
+    <text x="285" y="30" fill="#3fb950" font-family="system-ui" font-size="13" font-weight="bold" text-anchor="middle">Зона 2: Газовий IGT</text>
+    <text x="285" y="55" fill="#f0f6fc" font-family="monospace" font-size="12" font-weight="bold" text-anchor="middle">3.0 K .. 24.5561 K</text>
+    <text x="285" y="75" fill="#8b949e" font-family="sans-serif" font-size="10" text-anchor="middle">(-270.15 .. -248.59 °C)</text>
+
+    <line x1="215" y1="90" x2="355" y2="90" stroke="#30363d" stroke-width="1"/>
+    <text x="285" y="115" fill="#7ee787" font-family="system-ui" font-size="11" font-weight="bold" text-anchor="middle">Інтерполяційний прилад:</text>
+    <text x="285" y="140" fill="#f0f6fc" font-family="sans-serif" font-size="10" text-anchor="middle">Газовий термометр</text>
+    <text x="285" y="155" fill="#f0f6fc" font-family="sans-serif" font-size="10" text-anchor="middle">постійного об'єму</text>
+    <text x="285" y="175" fill="#3fb950" font-family="monospace" font-size="11" text-anchor="middle">Гелій (³He / ⁴He)</text>
+    <text x="285" y="210" fill="#8b949e" font-family="sans-serif" font-size="9" text-anchor="middle">Калібрування по 3 точкам</text>
+
+    <!-- Zone 3: Platinum SPRT (The Core Range) -->
+    <rect x="390" y="0" width="200" height="250" rx="8" fill="#1c2128" stroke="#e3b341" stroke-width="2.5"/>
+    <text x="490" y="30" fill="#e3b341" font-family="system-ui" font-size="14" font-weight="bold" text-anchor="middle">Зона 3: Еталонний SPRT</text>
+    <text x="490" y="55" fill="#f0f6fc" font-family="monospace" font-size="12" font-weight="bold" text-anchor="middle">13.8033 K .. 1234.93 K</text>
+    <text x="490" y="75" fill="#e3b341" font-family="sans-serif" font-size="10" text-anchor="middle">(-259.35 °C .. +961.78 °C)</text>
+
+    <line x1="410" y1="90" x2="570" y2="90" stroke="#30363d" stroke-width="1"/>
+    <text x="490" y="115" fill="#7ee787" font-family="system-ui" font-size="11" font-weight="bold" text-anchor="middle">Інтерполяційний прилад:</text>
+    <text x="490" y="140" fill="#f0f6fc" font-family="sans-serif" font-size="11" font-weight="bold" text-anchor="middle">Платиновий еталон</text>
+    <text x="490" y="158" fill="#e3b341" font-family="monospace" font-size="12" font-weight="bold" text-anchor="middle">SPRT (Pt 99.999%)</text>
+    <text x="490" y="180" fill="#8b949e" font-family="sans-serif" font-size="10" text-anchor="middle">Опір W(T90) = R/R(TPW)</text>
+    <text x="490" y="210" fill="#7ee787" font-family="sans-serif" font-size="9" text-anchor="middle">Поліноми опорних функцій</text>
+
+    <!-- Zone 4: Radiation Pyrometry -->
+    <rect x="605" y="0" width="165" height="250" rx="8" fill="#161b22" stroke="#f85149" stroke-width="2"/>
+    <text x="687" y="30" fill="#f85149" font-family="system-ui" font-size="13" font-weight="bold" text-anchor="middle">Зона 4: Пірометрія</text>
+    <text x="687" y="55" fill="#f0f6fc" font-family="monospace" font-size="12" font-weight="bold" text-anchor="middle">&gt; 1234.93 K</text>
+    <text x="687" y="75" fill="#8b949e" font-family="sans-serif" font-size="10" text-anchor="middle">(&gt; 961.78 °C .. ∞)</text>
+
+    <line x1="620" y1="90" x2="755" y2="90" stroke="#30363d" stroke-width="1"/>
+    <text x="687" y="115" fill="#7ee787" font-family="system-ui" font-size="11" font-weight="bold" text-anchor="middle">Інтерполяційний прилад:</text>
+    <text x="687" y="140" fill="#f0f6fc" font-family="sans-serif" font-size="10" text-anchor="middle">Оптичний спектральний</text>
+    <text x="687" y="155" fill="#f0f6fc" font-family="sans-serif" font-size="10" text-anchor="middle">пірометр випромінювання</text>
+    <text x="687" y="175" fill="#f85149" font-family="monospace" font-size="11" text-anchor="middle">Закон Планка</text>
+    <text x="687" y="210" fill="#8b949e" font-family="sans-serif" font-size="9" text-anchor="middle">Репери: Ag, Au або Cu</text>
+  </g>
+
+  <!-- Overlap and Transition Details -->
+  <g transform="translate(40, 390)">
+    <rect width="770" height="85" rx="6" fill="#161b22" stroke="#30363d" stroke-width="1.5"/>
+    <text x="20" y="25" fill="#58a6ff" font-family="system-ui" font-size="12" font-weight="bold">Особливості перекриття та наступності шкал:</text>
+    <text x="20" y="48" fill="#f0f6fc" font-family="sans-serif" font-size="11">• Між 3.0 K та 5.0 K визначення за парами He та газовим термометром IGT перекриваються з узгодженістю &lt; 0.5 мК</text>
+    <text x="20" y="68" fill="#7ee787" font-family="sans-serif" font-size="11">• Діапазон SPRT є найважливішим у промисловості, слугуючи метрологічною основою для калібрування всіх RTD (PT100/PT1000)</text>
+  </g>
+</svg>

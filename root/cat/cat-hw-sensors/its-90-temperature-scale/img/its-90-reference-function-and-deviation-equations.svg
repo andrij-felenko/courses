@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 850 520" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bg-grad4" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0d1117"/>
+      <stop offset="100%" stop-color="#161b22"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="100%" height="100%" fill="url(#bg-grad4)"/>
+  <rect x="15" y="15" width="820" height="490" rx="10" fill="none" stroke="#30363d" stroke-width="1.5"/>
+
+  <text x="30" y="45" fill="#58a6ff" font-family="system-ui, sans-serif" font-size="18" font-weight="bold">Математичний апарат ITS-90: опорна функція Wr та функція відхилення ΔW</text>
+  <text x="30" y="68" fill="#8b949e" font-family="system-ui, sans-serif" font-size="13">Нормування W(T90) = R(T90)/R(TPW) та поліноміальна інтерполяція між реперними точками</text>
+
+  <!-- Mathematical Pipeline Flow -->
+  <g transform="translate(40, 110)">
+    <!-- Block 1: Measurement -->
+    <rect x="0" y="0" width="220" height="110" rx="8" fill="#161b22" stroke="#58a6ff" stroke-width="1.5"/>
+    <text x="110" y="28" fill="#58a6ff" font-family="system-ui" font-size="12" font-weight="bold" text-anchor="middle">1. Вимірювання опору</text>
+    <text x="110" y="55" fill="#f0f6fc" font-family="monospace" font-size="13" font-weight="bold" text-anchor="middle">W(T90) = R(T90) / R_tpw</text>
+    <text x="110" y="80" fill="#8b949e" font-family="sans-serif" font-size="10" text-anchor="middle">R_tpw = опір при 273.16 K</text>
+    <text x="110" y="95" fill="#7ee787" font-family="sans-serif" font-size="9" text-anchor="middle">Безрозмірне відношення W</text>
+
+    <!-- Arrow 1 -> 2 -->
+    <path d="M 220 55 L 270 55" stroke="#8b949e" stroke-width="2" fill="none"/>
+
+    <!-- Block 2: Deviation Function -->
+    <rect x="270" y="0" width="240" height="110" rx="8" fill="#161b22" stroke="#bc8cff" stroke-width="1.5"/>
+    <text x="390" y="28" fill="#bc8cff" font-family="system-ui" font-size="12" font-weight="bold" text-anchor="middle">2. Функція відхилення ΔW</text>
+    <text x="390" y="55" fill="#f0f6fc" font-family="monospace" font-size="12" font-weight="bold" text-anchor="middle">ΔW = W(T90) - Wr(T90)</text>
+    <text x="390" y="80" fill="#bc8cff" font-family="monospace" font-size="10" text-anchor="middle">ΔW = a·(W-1) + b·(W-1)² + ...</text>
+    <text x="390" y="98" fill="#8b949e" font-family="sans-serif" font-size="9" text-anchor="middle">Коефіцієнти a, b за реперами</text>
+
+    <!-- Arrow 2 -> 3 -->
+    <path d="M 510 55 L 560 55" stroke="#8b949e" stroke-width="2" fill="none"/>
+
+    <!-- Block 3: Reference Function Wr -->
+    <rect x="560" y="0" width="210" height="110" rx="8" fill="#161b22" stroke="#e3b341" stroke-width="1.5"/>
+    <text x="665" y="28" fill="#e3b341" font-family="system-ui" font-size="12" font-weight="bold" text-anchor="middle">3. Обернення у Т90</text>
+    <text x="665" y="55" fill="#7ee787" font-family="monospace" font-size="13" font-weight="bold" text-anchor="middle">Wr = W - ΔW</text>
+    <text x="665" y="80" fill="#f0f6fc" font-family="monospace" font-size="12" text-anchor="middle">T90 = f_inverse(Wr)</text>
+    <text x="665" y="98" fill="#8b949e" font-family="sans-serif" font-size="9" text-anchor="middle">Поліном 9-го ступеня</text>
+  </g>
+
+  <!-- Mathematical Formula Detailed Card -->
+  <g transform="translate(40, 240)">
+    <rect width="770" height="235" rx="8" fill="#1c2128" stroke="#30363d" stroke-width="1.5"/>
+    <text x="25" y="30" fill="#58a6ff" font-family="system-ui" font-size="13" font-weight="bold">Офіційна опорна функція Wr(T90) для діапазону 0 °C .. +961.78 °C:</text>
+
+    <!-- Polynomial Representation -->
+    <g transform="translate(25, 45)">
+      <text x="0" y="20" fill="#7ee787" font-family="monospace" font-size="12" font-weight="bold">Wr(T90) = C0 + Σ [ Ci × ((T90 - 273.15 K) / 754 K)^i ]   (де i = 1 .. 9)</text>
+
+      <text x="0" y="50" fill="#f0f6fc" font-family="sans-serif" font-size="11">Коефіцієнти поліному розраховані Міжнародним комітетом мір і ваг (BIPM):</text>
+      <text x="0" y="75" fill="#8b949e" font-family="monospace" font-size="10">C0 = 0.183324722 | C1 = 0.240975303 | C2 = 0.209108771 | C3 = 0.190439972</text>
+      <text x="0" y="95" fill="#8b949e" font-family="monospace" font-size="10">C4 = 0.142648498 | C5 = 0.077993465 | C6 = 0.012475611 | C7 = -0.032267127</text>
+
+      <!-- Subranges and Non-uniqueness -->
+      <line x1="0" y1="115" x2="720" y2="115" stroke="#30363d" stroke-width="1"/>
+      <text x="0" y="140" fill="#e3b341" font-family="system-ui" font-size="12" font-weight="bold">Явище метрологічної неоднозначності (Subrange Non-Uniqueness):</text>
+      <text x="0" y="160" fill="#f0f6fc" font-family="sans-serif" font-size="11">ITS-90 дозволяє калібрування SPRT у кількох піддіапазонах (наприклад: 0..29 °C, 0..156 °C, 0..419 °C, 0..660 °C).</text>
+      <text x="0" y="178" fill="#8b949e" font-family="sans-serif" font-size="10">Різні піддіапазони дають розбіжність результату до 0.5–1.0 мК через вибір різних фіксованих точок.</text>
+    </g>
+  </g>
+</svg>
