@@ -1,0 +1,95 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 500" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgGrad3" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f172a"/>
+      <stop offset="100%" stop-color="#1e293b"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="880" height="500" fill="url(#bgGrad3)" rx="12" stroke="#334155" stroke-width="1.5"/>
+
+  <!-- Title -->
+  <text x="440" y="35" fill="#f8fafc" font-family="system-ui, sans-serif" font-size="18" font-weight="bold" text-anchor="middle">
+    Конструкція оптичного ущільнювача (Optical Rubber Gasket)
+  </text>
+  <text x="440" y="58" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="13" text-anchor="middle">
+    Непрозора перегородка між апертурами Tx/Rx та нормовані допуски зазору d_gap &lt; 0.5 мм
+  </text>
+
+  <!-- Left: Exploded Mechanical View -->
+  <g transform="translate(60, 95)">
+    <rect width="400" height="360" rx="8" fill="#111827" stroke="#374151" stroke-width="1.5"/>
+    <text x="200" y="28" fill="#f8fafc" font-family="system-ui" font-size="13" font-weight="bold" text-anchor="middle">
+      Пошарова механічна збірка вузла
+    </text>
+
+    <!-- Layer 1: Cover Glass -->
+    <rect x="40" y="55" width="320" height="25" rx="3" fill="#0284c7" fill-opacity="0.3" stroke="#38bdf8" stroke-width="1.5"/>
+    <text x="200" y="72" fill="#e0f2fe" font-family="system-ui" font-size="11" font-weight="bold" text-anchor="middle">
+      1. Захисне скло (Cover Glass)
+    </text>
+
+    <!-- Arrow down -->
+    <line x1="200" y1="85" x2="200" y2="115" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="3 2"/>
+
+    <!-- Layer 2: Rubber Gasket / Optical Seal -->
+    <g transform="translate(40, 120)">
+      <rect width="320" height="60" rx="4" fill="#334155" stroke="#94a3b8" stroke-width="1.5"/>
+      <!-- Left aperture for Tx -->
+      <rect x="30" y="10" width="70" height="40" rx="3" fill="#0f172a"/>
+      <text x="65" y="34" fill="#fca5a5" font-family="system-ui" font-size="10" text-anchor="middle">Вікно Tx</text>
+
+      <!-- Center Optical Barrier -->
+      <rect x="120" y="5" width="80" height="50" rx="2" fill="#020617" stroke="#facc15" stroke-width="1.5"/>
+      <text x="160" y="32" fill="#fde047" font-family="system-ui" font-size="10" font-weight="bold" text-anchor="middle">Бар&#39;єр</text>
+
+      <!-- Right aperture for Rx -->
+      <rect x="220" y="10" width="70" height="40" rx="3" fill="#0f172a"/>
+      <text x="255" y="34" fill="#7dd3fc" font-family="system-ui" font-size="10" text-anchor="middle">Вікно Rx</text>
+    </g>
+
+    <!-- Arrow down -->
+    <line x1="200" y1="185" x2="200" y2="215" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="3 2"/>
+
+    <!-- Layer 3: Sensor Package -->
+    <rect x="40" y="220" width="320" height="55" rx="5" fill="#1e293b" stroke="#10b981" stroke-width="1.5"/>
+    <text x="200" y="245" fill="#a7f3d0" font-family="system-ui" font-size="11.5" font-weight="bold" text-anchor="middle">
+      3. Модуль VL53L0X / VL53L1X на PCB
+    </text>
+    <text x="200" y="262" fill="#cbd5e1" font-family="monospace" font-size="10" text-anchor="middle">
+      LGA12 Footprint
+    </text>
+  </g>
+
+  <!-- Right: Design Rules Checklist -->
+  <g transform="translate(490, 95)">
+    <rect width="330" height="360" rx="8" fill="#1e293b" stroke="#334155" stroke-width="1.5"/>
+    <text x="165" y="28" fill="#f8fafc" font-family="system-ui" font-size="13" font-weight="bold" text-anchor="middle">
+      Інженерні правила оптичного монтажу:
+    </text>
+
+    <g transform="translate(20, 50)">
+      <rect width="290" height="60" rx="5" fill="#0f172a" stroke="#f59e0b" stroke-width="1"/>
+      <text x="15" y="25" fill="#fbbf24" font-family="system-ui" font-size="11.5" font-weight="bold">1. Зазор d_gap &lt; 0.5 мм</text>
+      <text x="15" y="45" fill="#cbd5e1" font-family="system-ui" font-size="10.5">При d_gap &gt; 1 мм конуси перетинаються в повітрі.</text>
+    </g>
+
+    <g transform="translate(20, 120)">
+      <rect width="290" height="60" rx="5" fill="#0f172a" stroke="#38bdf8" stroke-width="1"/>
+      <text x="15" y="25" fill="#38bdf8" font-family="system-ui" font-size="11.5" font-weight="bold">2. Щільний притиск перегородки</text>
+      <text x="15" y="45" fill="#cbd5e1" font-family="system-ui" font-size="10.5">Перегородка має на 100% торкатися скла.</text>
+    </g>
+
+    <g transform="translate(20, 190)">
+      <rect width="290" height="60" rx="5" fill="#0f172a" stroke="#10b981" stroke-width="1"/>
+      <text x="15" y="25" fill="#34d399" font-family="system-ui" font-size="11.5" font-weight="bold">3. AR-просвітлення скла</text>
+      <text x="15" y="45" fill="#cbd5e1" font-family="system-ui" font-size="10.5">Знижує коефіцієнт відбиття з 4% до 0.5%.</text>
+    </g>
+
+    <g transform="translate(20, 260)">
+      <rect width="290" height="60" rx="5" fill="#0f172a" stroke="#c084fc" stroke-width="1"/>
+      <text x="15" y="25" fill="#c084fc" font-family="system-ui" font-size="11.5" font-weight="bold">4. Непрозорий матеріал прокладки</text>
+      <text x="15" y="45" fill="#cbd5e1" font-family="system-ui" font-size="10.5">Чорний силікон/EPDM (не пропускає 940 нм).</text>
+    </g>
+  </g>
+</svg>
