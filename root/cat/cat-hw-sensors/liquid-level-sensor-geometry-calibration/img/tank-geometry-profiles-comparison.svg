@@ -1,0 +1,85 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 850 480" width="100%" height="100%">
+  <rect width="100%" height="100%" fill="#0d1117"/>
+  <rect x="25" y="25" width="800" height="430" rx="12" fill="#161b22" stroke="#30363d" stroke-width="2"/>
+  
+  <text x="425" y="55" text-anchor="middle" font-family="system-ui, sans-serif" font-size="20" font-weight="bold" fill="#f0f6fc">
+    Геометричні профілі резервуарів та характеристика V(h)
+  </text>
+
+  <!-- 1. Вертикальний циліндр (Лінійний) -->
+  <g transform="translate(45, 85)">
+    <rect width="175" height="345" rx="8" fill="#0d1117" stroke="#30363d"/>
+    <text x="87" y="28" text-anchor="middle" font-family="system-ui, sans-serif" font-size="13" font-weight="bold" fill="#58a6ff">Вертикальний</text>
+    <text x="87" y="46" text-anchor="middle" font-family="system-ui, sans-serif" font-size="11" fill="#8b949e">Лінійна пряма</text>
+    
+    <!-- Рисунок бака -->
+    <rect x="47" y="65" width="80" height="110" rx="4" fill="#161b22" stroke="#58a6ff" stroke-width="2"/>
+    <rect x="49" y="115" width="76" height="58" fill="#388bfd" opacity="0.3"/>
+    
+    <!-- Графік V(h) -->
+    <rect x="25" y="195" width="125" height="100" rx="4" fill="#161b22" stroke="#30363d"/>
+    <line x1="35" y1="285" x2="140" y2="285" stroke="#8b949e" stroke-width="1.5"/>
+    <line x1="35" y1="285" x2="35" y2="205" stroke="#8b949e" stroke-width="1.5"/>
+    <line x1="35" y1="285" x2="135" y2="215" stroke="#58a6ff" stroke-width="3"/>
+    
+    <text x="87" y="325" text-anchor="middle" font-family="system-ui, sans-serif" font-size="11" fill="#79c0ff">V = A * h</text>
+  </g>
+
+  <!-- 2. Горизонтальний циліндр (S-подібна) -->
+  <g transform="translate(235, 85)">
+    <rect width="175" height="345" rx="8" fill="#0d1117" stroke="#30363d"/>
+    <text x="87" y="28" text-anchor="middle" font-family="system-ui, sans-serif" font-size="13" font-weight="bold" fill="#3fb950">Горизонтальний</text>
+    <text x="87" y="46" text-anchor="middle" font-family="system-ui, sans-serif" font-size="11" fill="#8b949e">S-крива (Нелінійна)</text>
+
+    <!-- Рисунок бака -->
+    <rect x="35" y="80" width="105" height="75" rx="30" fill="#161b22" stroke="#3fb950" stroke-width="2"/>
+    <path d="M 37,120 L 138,120 A 30,30 0 0 1 110,154 L 65,154 A 30,30 0 0 1 37,120 Z" fill="#238636" opacity="0.4"/>
+
+    <!-- Графік V(h) -->
+    <rect x="25" y="195" width="125" height="100" rx="4" fill="#161b22" stroke="#30363d"/>
+    <line x1="35" y1="285" x2="140" y2="285" stroke="#8b949e" stroke-width="1.5"/>
+    <line x1="35" y1="285" x2="35" y2="205" stroke="#8b949e" stroke-width="1.5"/>
+    <path d="M 35,285 Q 60,280 85,250 T 135,215" fill="none" stroke="#3fb950" stroke-width="3"/>
+
+    <text x="87" y="325" text-anchor="middle" font-family="system-ui, sans-serif" font-size="11" fill="#7ee787">S-подібна нелінійність</text>
+  </g>
+
+  <!-- 3. Сферичний резервуар -->
+  <g transform="translate(425, 85)">
+    <rect width="175" height="345" rx="8" fill="#0d1117" stroke="#30363d"/>
+    <text x="87" y="28" text-anchor="middle" font-family="system-ui, sans-serif" font-size="13" font-weight="bold" fill="#f0883e">Сферичний</text>
+    <text x="87" y="46" text-anchor="middle" font-family="system-ui, sans-serif" font-size="11" fill="#8b949e">Кульовий сегмент</text>
+
+    <!-- Рисунок бака -->
+    <circle cx="87" cy="115" r="42" fill="#161b22" stroke="#f0883e" stroke-width="2"/>
+    <path d="M 48,125 A 42,42 0 0 0 126,125 Z" fill="#da3633" opacity="0.4"/>
+
+    <!-- Графік V(h) -->
+    <rect x="25" y="195" width="125" height="100" rx="4" fill="#161b22" stroke="#30363d"/>
+    <line x1="35" y1="285" x2="140" y2="285" stroke="#8b949e" stroke-width="1.5"/>
+    <line x1="35" y1="285" x2="35" y2="205" stroke="#8b949e" stroke-width="1.5"/>
+    <path d="M 35,285 Q 70,282 85,250 T 135,215" fill="none" stroke="#f0883e" stroke-width="3"/>
+
+    <text x="87" y="325" text-anchor="middle" font-family="system-ui, sans-serif" font-size="11" fill="#f2cc60">V = pi*h^2*(3R-h)/3</text>
+  </g>
+
+  <!-- 4. Конічне днище (Бункер) -->
+  <g transform="translate(615, 85)">
+    <rect width="175" height="345" rx="8" fill="#0d1117" stroke="#30363d"/>
+    <text x="87" y="28" text-anchor="middle" font-family="system-ui, sans-serif" font-size="13" font-weight="bold" fill="#bc8cff">Конічне днище</text>
+    <text x="87" y="46" text-anchor="middle" font-family="system-ui, sans-serif" font-size="11" fill="#8b949e">Двофазний злам</text>
+
+    <!-- Рисунок бака -->
+    <path d="M 50,65 L 125,65 L 125,120 L 87,165 L 50,120 Z" fill="#161b22" stroke="#bc8cff" stroke-width="2"/>
+    <path d="M 68,142 L 106,142 L 87,164 Z" fill="#bc8cff" opacity="0.3"/>
+
+    <!-- Графік V(h) -->
+    <rect x="25" y="195" width="125" height="100" rx="4" fill="#161b22" stroke="#30363d"/>
+    <line x1="35" y1="285" x2="140" y2="285" stroke="#8b949e" stroke-width="1.5"/>
+    <line x1="35" y1="285" x2="35" y2="205" stroke="#8b949e" stroke-width="1.5"/>
+    <!-- Кубічна частина конуса, потім лінійна -->
+    <path d="M 35,285 Q 55,275 70,255 L 135,215" fill="none" stroke="#bc8cff" stroke-width="3"/>
+
+    <text x="87" y="325" text-anchor="middle" font-family="system-ui, sans-serif" font-size="11" fill="#d2a8ff">Злам похідної dV/dh</text>
+  </g>
+</svg>

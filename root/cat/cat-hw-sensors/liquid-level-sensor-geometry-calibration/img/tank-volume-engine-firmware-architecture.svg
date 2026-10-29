@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 850 480" width="100%" height="100%">
+  <rect width="100%" height="100%" fill="#0d1117"/>
+  <rect x="25" y="25" width="800" height="430" rx="12" fill="#161b22" stroke="#30363d" stroke-width="2"/>
+  
+  <text x="425" y="55" text-anchor="middle" font-family="system-ui, sans-serif" font-size="20" font-weight="bold" fill="#f0f6fc">
+    Архітектура програмного модуля розрахунку об'єму (TankVolumeEngine)
+  </text>
+
+  <!-- Блок-схема конвеєра розрахунку -->
+  <g transform="translate(60, 95)">
+    <!-- Блок 1: Сирі висоти -->
+    <rect x="0" y="30" width="140" height="75" rx="8" fill="#21262d" stroke="#58a6ff" stroke-width="2"/>
+    <text x="70" y="62" text-anchor="middle" font-family="system-ui, sans-serif" font-size="12" font-weight="bold" fill="#58a6ff">Сирі рівні</text>
+    <text x="70" y="82" text-anchor="middle" font-family="system-ui, sans-serif" font-size="10" fill="#8b949e">h1, h2 (мм) + IMU</text>
+
+    <!-- Стрілка 1 -->
+    <path d="M 140,68 L 175,68" stroke="#8b949e" stroke-width="2"/>
+
+    <!-- Блок 2: Корекція крену -->
+    <rect x="175" y="30" width="140" height="75" rx="8" fill="#21262d" stroke="#3fb950" stroke-width="2"/>
+    <text x="245" y="62" text-anchor="middle" font-family="system-ui, sans-serif" font-size="12" font-weight="bold" fill="#3fb950">Корекція нахилу</text>
+    <text x="245" y="82" text-anchor="middle" font-family="system-ui, sans-serif" font-size="10" fill="#8b949e">h_eff = f(h1,h2,θ,φ)</text>
+
+    <!-- Стрілка 2 -->
+    <path d="M 315,68 L 350,68" stroke="#8b949e" stroke-width="2"/>
+
+    <!-- Блок 3: Геометрія LUT / Spline -->
+    <rect x="350" y="30" width="160" height="75" rx="8" fill="#21262d" stroke="#d29922" stroke-width="2"/>
+    <text x="430" y="62" text-anchor="middle" font-family="system-ui, sans-serif" font-size="12" font-weight="bold" fill="#d29922">Геометричний LUT</text>
+    <text x="430" y="82" text-anchor="middle" font-family="system-ui, sans-serif" font-size="10" fill="#8b949e">Сплайн V_geom(h)</text>
+
+    <!-- Стрілка 3 -->
+    <path d="M 510,68 L 545,68" stroke="#8b949e" stroke-width="2"/>
+
+    <!-- Блок 4: Термокомпенсація -->
+    <rect x="545" y="30" width="180" height="75" rx="8" fill="#1b4721" stroke="#3fb950" stroke-width="2"/>
+    <text x="635" y="62" text-anchor="middle" font-family="system-ui, sans-serif" font-size="12" font-weight="bold" fill="#3fb950">Термокомпенсація</text>
+    <text x="635" y="82" text-anchor="middle" font-family="system-ui, sans-serif" font-size="10" fill="#f0f6fc">V_20°C, Маса m = V*ρ(T)</text>
+  </g>
+
+  <!-- Нижня інформаційна панель -->
+  <g transform="translate(60, 220)">
+    <rect width="730" height="200" rx="8" fill="#0d1117" stroke="#30363d"/>
+    <text x="365" y="30" text-anchor="middle" font-family="system-ui, sans-serif" font-size="15" font-weight="bold" fill="#f0f6fc">
+      Метрологічні функції бортового ПЗ
+    </text>
+
+    <g transform="translate(30, 55)">
+      <rect width="205" height="120" rx="6" fill="#161b22" stroke="#30363d"/>
+      <text x="102" y="25" text-anchor="middle" font-family="system-ui, sans-serif" font-size="12" font-weight="bold" fill="#58a6ff">1. Облік форми днищ</text>
+      <text x="10" y="52" font-family="system-ui, sans-serif" font-size="11" fill="#c9d1d9">• Торосферичні днища</text>
+      <text x="10" y="74" font-family="system-ui, sans-serif" font-size="11" fill="#c9d1d9">• Еліптичні за ГОСТ/ASME</text>
+      <text x="10" y="96" font-family="system-ui, sans-serif" font-size="11" fill="#8b949e">• До 15% загального об'єму</text>
+    </g>
+
+    <g transform="translate(260, 55)">
+      <rect width="205" height="120" rx="6" fill="#161b22" stroke="#30363d"/>
+      <text x="102" y="25" text-anchor="middle" font-family="system-ui, sans-serif" font-size="12" font-weight="bold" fill="#3fb950">2. Температурний дрейф</text>
+      <text x="10" y="52" font-family="system-ui, sans-serif" font-size="11" fill="#c9d1d9">• Густина палива rho(T)</text>
+      <text x="10" y="74" font-family="system-ui, sans-serif" font-size="11" fill="#c9d1d9">• Теплове розширення сталі</text>
+      <text x="10" y="96" font-family="system-ui, sans-serif" font-size="11" fill="#8b949e">• Нормування до 15 °C / 20 °C</text>
+    </g>
+
+    <g transform="translate(490, 55)">
+      <rect width="205" height="120" rx="6" fill="#161b22" stroke="#30363d"/>
+      <text x="102" y="25" text-anchor="middle" font-family="system-ui, sans-serif" font-size="12" font-weight="bold" fill="#bc8cff">3. Детекція витоків</text>
+      <text x="10" y="52" font-family="system-ui, sans-serif" font-size="11" fill="#c9d1d9">• Похідна dV/dt (л/год)</text>
+      <text x="10" y="74" font-family="system-ui, sans-serif" font-size="11" fill="#c9d1d9">• Фільтр Калмана коливань</text>
+      <text x="10" y="96" font-family="system-ui, sans-serif" font-size="11" fill="#8b949e">• Сигналізація крадіжок палива</text>
+    </g>
+  </g>
+</svg>
