@@ -1,0 +1,120 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="540" fill="#ffffff"/>
+
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Порівняння реакції цифрових фільтрів (SMA та EMA) для LM35</text>
+  <text x="480" y="54" text-anchor="middle" font-size="13" fill="#6b7280">EMA швидше реагує на стрибок температури, а SMA сильніше придушує імпульсні завади</text>
+
+  <!-- Legend Panel -->
+  <rect x="90" y="72" width="780" height="44" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  
+  <line x1="110" y1="94" x2="135" y2="94" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <text x="145" y="98" font-size="12" fill="#1a1a1a">Сирі відліки (з шумом)</text>
+
+  <line x1="325" y1="94" x2="350" y2="94" stroke="#2457d6" stroke-width="3"/>
+  <text x="360" y="98" font-size="12" fill="#1a1a1a">SMA (N=8, просте ковзне)</text>
+
+  <line x1="555" y1="94" x2="580" y2="94" stroke="#27ae60" stroke-width="3"/>
+  <text x="590" y="98" font-size="12" fill="#1a1a1a">EMA (α=0.25, експоненційне)</text>
+
+  <line x1="785" y1="94" x2="805" y2="94" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="5,3"/>
+  <text x="815" y="98" font-size="12" fill="#6b7280">T_факт</text>
+
+  <!-- Chart Panel -->
+  <rect x="90" y="130" width="780" height="310" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="150" y="160" width="690" height="230" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Horizontal Grid Lines -->
+  <line x1="150" y1="170" x2="840" y2="170" stroke="#e2e8f0" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="150" y1="230" x2="840" y2="230" stroke="#e2e8f0" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="150" y1="290" x2="840" y2="290" stroke="#e2e8f0" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="150" y1="350" x2="840" y2="350" stroke="#e2e8f0" stroke-width="1" stroke-dasharray="2,2"/>
+
+  <!-- Vertical Grid Lines -->
+  <line x1="150" y1="160" x2="150" y2="390" stroke="#e2e8f0" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="288" y1="160" x2="288" y2="390" stroke="#e2e8f0" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="426" y1="160" x2="426" y2="390" stroke="#e2e8f0" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="564" y1="160" x2="564" y2="390" stroke="#e2e8f0" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="702" y1="160" x2="702" y2="390" stroke="#e2e8f0" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="840" y1="160" x2="840" y2="390" stroke="#e2e8f0" stroke-width="1" stroke-dasharray="2,2"/>
+
+  <!-- Step Change Indicator Line -->
+  <line x1="329.4" y1="160" x2="329.4" y2="390" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,3"/>
+
+  <!-- Y-Axis Labels -->
+  <text x="95" y="150" font-size="12" font-weight="bold" fill="#1a1a1a">Температура T (°C)</text>
+  <text x="140" y="174" text-anchor="end" font-size="12" fill="#6b7280">35 °C (350 mV)</text>
+  <text x="140" y="234" text-anchor="end" font-size="12" fill="#6b7280">30 °C (300 mV)</text>
+  <text x="140" y="294" text-anchor="end" font-size="12" fill="#6b7280">25 °C (250 mV)</text>
+  <text x="140" y="354" text-anchor="end" font-size="12" fill="#6b7280">20 °C (200 mV)</text>
+
+  <!-- Step Header Text -->
+  <text x="329.4" y="150" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Стрибок +10 °C (t=13)</text>
+
+  <!-- Physical Temperature (True baseline) -->
+  <path d="M 150 326 L 329.4 326 L 329.4 206 L 840 206" fill="none" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="5,3"/>
+
+  <!-- Raw Noisy ADC Signal -->
+  <path d="M 150.0 328.4 L 163.8 320.0 L 177.6 333.2 L 191.4 316.4 L 205.2 335.6 L 219.0 318.8 L 232.8 329.6 L 246.6 321.2 L 260.4 336.8 L 274.2 315.2 L 288.0 330.8 L 301.8 322.4 L 315.6 332.0 L 329.4 212.0 L 343.2 196.4 L 357.0 216.8 L 370.8 198.8 L 384.6 213.2 L 398.4 195.2 L 412.2 215.6 L 426.0 197.6 L 439.8 208.4 L 453.6 201.2 L 467.4 214.4 L 481.2 200.0 L 495.0 210.8 L 508.8 196.4 L 522.6 215.6 L 536.4 202.4 L 550.2 209.6 L 564.0 198.8 L 577.8 213.2 L 591.6 203.6 L 605.4 207.2 L 619.2 200.0 L 633.0 214.4 L 646.8 152.0 L 660.6 209.6 L 674.4 201.2 L 688.2 212.0 L 702.0 196.4 L 715.8 214.4 L 729.6 198.8 L 743.4 208.4 L 757.2 203.6 L 771.0 210.8 L 784.8 197.6 L 798.6 213.2 L 812.4 202.4 L 826.2 207.2 L 840.0 204.8" fill="none" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="3,3"/>
+
+  <!-- SMA Curve -->
+  <path d="M 150.0 326.0 L 163.8 326.0 L 177.6 326.0 L 191.4 326.0 L 205.2 326.0 L 219.0 326.0 L 232.8 326.0 L 246.6 326.0 L 260.4 326.0 L 274.2 326.0 L 288.0 326.0 L 301.8 326.0 L 315.6 326.0 L 329.4 311.0 L 343.2 296.0 L 357.0 281.0 L 370.8 266.0 L 384.6 251.0 L 398.4 236.0 L 412.2 221.0 L 426.0 206.0 L 439.8 206.0 L 453.6 206.0 L 467.4 206.0 L 481.2 206.0 L 495.0 206.0 L 508.8 206.0 L 522.6 206.0 L 536.4 206.0 L 550.2 206.0 L 564.0 206.0 L 577.8 206.0 L 591.6 206.0 L 605.4 206.0 L 619.2 206.0 L 633.0 206.0 L 646.8 199.3 L 660.6 199.3 L 674.4 199.3 L 688.2 199.3 L 702.0 199.3 L 715.8 199.3 L 729.6 199.3 L 743.4 199.3 L 757.2 206.0 L 771.0 206.0 L 784.8 206.0 L 798.6 206.0 L 812.4 206.0 L 826.2 206.0 L 840.0 206.0" fill="none" stroke="#2457d6" stroke-width="3"/>
+
+  <!-- EMA Curve -->
+  <path d="M 150.0 326.0 L 163.8 326.0 L 177.6 326.0 L 191.4 326.0 L 205.2 326.0 L 219.0 326.0 L 232.8 326.0 L 246.6 326.0 L 260.4 326.0 L 274.2 326.0 L 288.0 326.0 L 301.8 326.0 L 315.6 326.0 L 329.4 297.4 L 343.2 272.2 L 357.0 258.3 L 370.8 243.4 L 384.6 233.0 L 398.4 223.0 L 412.2 215.0 L 426.0 210.0 L 439.8 207.5 L 453.6 206.5 L 467.4 206.0 L 481.2 206.0 L 495.0 206.0 L 508.8 206.0 L 522.6 206.0 L 536.4 206.0 L 550.2 206.0 L 564.0 206.0 L 577.8 206.0 L 591.6 206.0 L 605.4 206.0 L 619.2 206.0 L 633.0 206.0 L 646.8 192.5 L 660.6 196.8 L 674.4 199.5 L 688.2 202.5 L 702.0 204.5 L 715.8 206.0 L 729.6 206.0 L 743.4 206.0 L 757.2 206.0 L 771.0 206.0 L 784.8 206.0 L 798.6 206.0 L 812.4 206.0 L 826.2 206.0 L 840.0 206.0" fill="none" stroke="#27ae60" stroke-width="3"/>
+
+  <!-- Impulse Spike Highlight Dot -->
+  <circle cx="646.8" cy="152.0" r="4.5" fill="#c0392b"/>
+
+  <!-- Chart Annotations -->
+  <!-- EMA Callout Box -->
+  <rect x="180" y="250" width="160" height="44" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="190" y="268" font-size="12" font-weight="bold" fill="#27ae60">EMA: швидший відгук</text>
+  <text x="190" y="284" font-size="12" fill="#1a1a1a">менша фазова затримка</text>
+  <line x1="340" y1="260" x2="355" y2="258" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <!-- SMA Callout Box -->
+  <rect x="430" y="300" width="175" height="44" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="440" y="318" font-size="12" font-weight="bold" fill="#2457d6">SMA: лінійний розгін</text>
+  <text x="440" y="334" font-size="12" fill="#1a1a1a">затримка N/2 = 4 крок.</text>
+  <line x1="430" y1="310" x2="390" y2="255" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Impulse Noise Callout Box -->
+  <rect x="575" y="235" width="170" height="44" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="585" y="253" font-size="12" font-weight="bold" fill="#c0392b">Подинока завада (+4.5 °C)</text>
+  <text x="585" y="269" font-size="12" fill="#1a1a1a">SMA зменшує пік у 8 разів</text>
+  <line x1="640" y1="235" x2="647" y2="158" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+
+  <!-- X-Axis Labels -->
+  <text x="150" y="412" text-anchor="middle" font-size="12" fill="#6b7280">t = 0</text>
+  <text x="288" y="412" text-anchor="middle" font-size="12" fill="#6b7280">t = 10</text>
+  <text x="426" y="412" text-anchor="middle" font-size="12" fill="#6b7280">t = 20</text>
+  <text x="564" y="412" text-anchor="middle" font-size="12" fill="#6b7280">t = 30</text>
+  <text x="702" y="412" text-anchor="middle" font-size="12" fill="#6b7280">t = 40</text>
+  <text x="840" y="412" text-anchor="middle" font-size="12" fill="#6b7280">t = 50</text>
+
+  <text x="495" y="434" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Час (номер дискретного відліку, n)</text>
+
+  <!-- Summary Panels -->
+  <rect x="90" y="455" width="380" height="65" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="105" y="475" font-size="13" font-weight="bold" fill="#27ae60">Швидка реакція EMA (експоненційне)</text>
+  <text x="105" y="493" font-size="12" fill="#1a1a1a">Зсув за фазою становить лише 1..2 відліки.</text>
+  <text x="105" y="509" font-size="12" fill="#6b7280">Швидше відстежує реальні зміни температури.</text>
+
+  <rect x="490" y="455" width="380" height="65" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="505" y="475" font-size="13" font-weight="bold" fill="#2457d6">Придушення піків та затримка SMA (N=8)</text>
+  <text x="505" y="493" font-size="12" fill="#1a1a1a">Лінійна затримка N/2 = 4 відліки при стрибку.</text>
+  <text x="505" y="509" font-size="12" fill="#6b7280">Подинока завада зменшується у N разів (до 1/8).</text>
+</svg>

@@ -1,0 +1,146 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="34" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Конвеєр обробки сигналу LM35 у драйвері АЦП</text>
+  <text x="480" y="56" font-size="13" fill="#6b7280" text-anchor="middle">Послідовна трансформація від сирого відліку АЦП до перевіреного значення температури</text>
+
+  <!-- BLOCK 1: 1. Оцифрування -->
+  <rect x="30" y="95" width="195" height="370" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <path d="M30,103 a8,8 0 0 1 8,-8 h179 a8,8 0 0 1 8,8 v32 h-195 z" fill="#eaf0fd" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="127.5" y="120" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">1. Оцифрування</text>
+
+  <!-- Block 1 Sub 1 -->
+  <rect x="40" y="145" width="175" height="65" rx="6" fill="white" stroke="#d0d7de"/>
+  <text x="48" y="165" font-size="12" font-weight="bold" fill="#1a1a1a">Вхід: V_out (LM35)</text>
+  <text x="48" y="183" font-size="12" fill="#6b7280">• 10 мВ/°C (0..1.5 В)</text>
+  <text x="48" y="199" font-size="12" fill="#6b7280">• N_ADC ∈ [0 .. 2^B-1]</text>
+
+  <!-- Block 1 Sub 2 -->
+  <rect x="40" y="220" width="175" height="85" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="127.5" y="240" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Перетворення в мВ</text>
+  <text x="127.5" y="262" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">V_in = N_ADC × V_step</text>
+  <text x="127.5" y="284" font-size="12" fill="#6b7280" text-anchor="middle">V_step = V_ref / (2^B-1)</text>
+
+  <!-- Block 1 Sub 3 -->
+  <rect x="40" y="315" width="175" height="135" rx="6" fill="white" stroke="#d0d7de"/>
+  <text x="48" y="335" font-size="12" font-weight="bold" fill="#1a1a1a">Параметри АЦП:</text>
+  <text x="48" y="357" font-size="12" fill="#1a1a1a">• V_ref = 1.1 В / 2.56 В</text>
+  <text x="48" y="377" font-size="12" fill="#1a1a1a">• Розрядність B = 10 біт</text>
+  <text x="48" y="397" font-size="12" fill="#1a1a1a">• Крок Q = V_ref / 1024</text>
+  <text x="48" y="432" font-size="12" font-weight="bold" fill="#2457d6">Вихід: V_in [мВ]</text>
+
+  <!-- Arrow 1: Block 1 -> 2 -->
+  <line x1="225" y1="262" x2="257" y2="262" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="245" y="248" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">V_in</text>
+
+  <!-- BLOCK 2: 2. Фільтрація -->
+  <rect x="265" y="95" width="195" height="370" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <path d="M265,103 a8,8 0 0 1 8,-8 h179 a8,8 0 0 1 8,8 v32 h-195 z" fill="#eaf0fd" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="362.5" y="120" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">2. Фільтрація</text>
+
+  <!-- Block 2 Sub 1 -->
+  <rect x="275" y="145" width="175" height="65" rx="6" fill="white" stroke="#d0d7de"/>
+  <text x="283" y="165" font-size="12" font-weight="bold" fill="#1a1a1a">Придушення шуму</text>
+  <text x="283" y="183" font-size="12" fill="#6b7280">• SMA: ковзне середнє</text>
+  <text x="283" y="199" font-size="12" fill="#6b7280">• EMA: експоненційне</text>
+
+  <!-- Block 2 Sub 2 -->
+  <rect x="275" y="220" width="175" height="85" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="362.5" y="240" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Алгоритм EMA</text>
+  <text x="362.5" y="262" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">y_k = α·V_in + (1-α)·y_k-1</text>
+  <text x="362.5" y="284" font-size="12" fill="#6b7280" text-anchor="middle">вага α ∈ (0.01 .. 0.5]</text>
+
+  <!-- Block 2 Sub 3 -->
+  <rect x="275" y="315" width="175" height="135" rx="6" fill="white" stroke="#d0d7de"/>
+  <text x="283" y="335" font-size="12" font-weight="bold" fill="#1a1a1a">Параметри фільтра:</text>
+  <text x="283" y="357" font-size="12" fill="#1a1a1a">• Вікно SMA: N = 4..16</text>
+  <text x="283" y="377" font-size="12" fill="#1a1a1a">• Коефіцієнт α = 0.1</text>
+  <text x="283" y="397" font-size="12" fill="#1a1a1a">• Згладжування завад</text>
+  <text x="283" y="432" font-size="12" font-weight="bold" fill="#2457d6">Вихід: V_flt [мВ]</text>
+
+  <!-- Arrow 2: Block 2 -> 3 -->
+  <line x1="460" y1="262" x2="492" y2="262" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="480" y="248" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">V_flt</text>
+
+  <!-- BLOCK 3: 3. Масштабування -->
+  <rect x="500" y="95" width="195" height="370" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <path d="M500,103 a8,8 0 0 1 8,-8 h179 a8,8 0 0 1 8,8 v32 h-195 z" fill="#eaf0fd" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="597.5" y="120" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">3. Масштабування</text>
+
+  <!-- Block 3 Sub 1 -->
+  <rect x="510" y="145" width="175" height="65" rx="6" fill="white" stroke="#d0d7de"/>
+  <text x="518" y="165" font-size="12" font-weight="bold" fill="#1a1a1a">Перерахунок у °C</text>
+  <text x="518" y="183" font-size="12" fill="#6b7280">• Ch: 10 мВ/°C (LM35)</text>
+  <text x="518" y="199" font-size="12" fill="#6b7280">• Лінійне масштабування</text>
+
+  <!-- Block 3 Sub 2 -->
+  <rect x="510" y="220" width="175" height="85" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="597.5" y="240" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Формула температури</text>
+  <text x="597.5" y="262" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">T_raw = V_flt / S_sensor</text>
+  <text x="597.5" y="284" font-size="12" fill="#6b7280" text-anchor="middle">T_cal = T_raw + T_offs</text>
+
+  <!-- Block 3 Sub 3 -->
+  <rect x="510" y="315" width="175" height="135" rx="6" fill="white" stroke="#d0d7de"/>
+  <text x="518" y="335" font-size="12" font-weight="bold" fill="#1a1a1a">Калібрування:</text>
+  <text x="518" y="357" font-size="12" fill="#1a1a1a">• S_sensor = 10 мВ/°C</text>
+  <text x="518" y="377" font-size="12" fill="#1a1a1a">• Зміщення ноля T_offs</text>
+  <text x="518" y="397" font-size="12" fill="#1a1a1a">• Корекція нахилу K_cal</text>
+  <text x="518" y="432" font-size="12" font-weight="bold" fill="#2457d6">Вихід: T_cal [°C]</text>
+
+  <!-- Arrow 3: Block 3 -> 4 -->
+  <line x1="695" y1="262" x2="727" y2="262" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="715" y="248" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">T_cal</text>
+
+  <!-- BLOCK 4: 4. Валідація і захист -->
+  <rect x="735" y="95" width="195" height="370" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <path d="M735,103 a8,8 0 0 1 8,-8 h179 a8,8 0 0 1 8,8 v32 h-195 z" fill="#eaf0fd" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="832.5" y="120" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">4. Валідація і захист</text>
+
+  <!-- Block 4 Sub 1 -->
+  <rect x="745" y="145" width="175" height="65" rx="6" fill="white" stroke="#d0d7de"/>
+  <text x="753" y="165" font-size="12" font-weight="bold" fill="#1a1a1a">Контроль меж</text>
+  <text x="753" y="183" font-size="12" fill="#6b7280">T_min ≤ T_cal ≤ T_max</text>
+  <text x="753" y="199" font-size="12" fill="#6b7280">(-55°C .. +150°C)</text>
+
+  <!-- Block 4 Sub 2A: Normal OK Mode -->
+  <rect x="745" y="220" width="175" height="90" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="753" y="240" font-size="12" font-weight="bold" fill="#27ae60">✓ Нормальний режим</text>
+  <text x="753" y="260" font-size="12" fill="#1a1a1a">• T_out = T_cal</text>
+  <text x="753" y="278" font-size="12" fill="#1a1a1a">• Статус: OK (0)</text>
+  <text x="753" y="298" font-size="12" font-weight="bold" fill="#27ae60">Вихід: T_out (°C)</text>
+
+  <!-- Block 4 Sub 2B: Fault/Error Mode -->
+  <rect x="745" y="320" width="175" height="130" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="753" y="340" font-size="12" font-weight="bold" fill="#c0392b">⚠ Обробка помилки</text>
+  <text x="753" y="360" font-size="12" fill="#1a1a1a">• Вихід за межі T</text>
+  <text x="753" y="378" font-size="12" fill="#1a1a1a">• Обрізка (Clamp)</text>
+  <text x="753" y="396" font-size="12" fill="#1a1a1a">• Флаг: ERR_RANGE</text>
+  <text x="753" y="432" font-size="12" font-weight="bold" fill="#c0392b">Вихід: ERR_VAL</text>
+
+  <!-- Legend Bar -->
+  <rect x="30" y="475" width="900" height="32" rx="6" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="45" y="495" font-size="12" fill="#6b7280">Позначення:</text>
+  <text x="135" y="495" font-size="12" font-weight="bold" fill="#1a1a1a">N_ADC</text>
+  <text x="172" y="495" font-size="12" fill="#6b7280">— код;</text>
+  <text x="225" y="495" font-size="12" font-weight="bold" fill="#1a1a1a">V_ref</text>
+  <text x="262" y="495" font-size="12" fill="#6b7280">— опора АЦП;</text>
+  <text x="355" y="495" font-size="12" font-weight="bold" fill="#1a1a1a">α</text>
+  <text x="367" y="495" font-size="12" fill="#6b7280">— вага EMA;</text>
+  <text x="455" y="495" font-size="12" font-weight="bold" fill="#1a1a1a">S_sensor</text>
+  <text x="513" y="495" font-size="12" fill="#6b7280">— 10 мВ/°C (LM35);</text>
+  <text x="645" y="495" font-size="12" fill="#6b7280">T_offs</text>
+  <text x="689" y="495" font-size="12" fill="#6b7280">— зміщення ноля;</text>
+  <text x="805" y="495" font-size="12" font-weight="bold" fill="#1a1a1a">B</text>
+  <text x="817" y="495" font-size="12" fill="#6b7280">— бітність</text>
+</svg>
