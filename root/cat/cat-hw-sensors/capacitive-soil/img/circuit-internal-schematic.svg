@@ -1,0 +1,90 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 420" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif">
+<rect width="920" height="420" fill="#ffffff"/>
+<defs>
+  <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+    <path d="M0 0 L10 5 L0 10 z" fill="#333333"/>
+  </marker>
+</defs>
+<text x="460" y="30" font-size="18" fill="#1a1a1a" text-anchor="middle" font-weight="700">Внутрішня принципова схема ємнісного давача v1.2</text>
+
+<!-- 1. Power Regulation block -->
+<rect x="30" y="60" width="180" height="310" rx="8" fill="#f8fafc" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="120" y="85" font-size="14" fill="#0f172a" font-weight="700" text-anchor="middle">Стабілізатор 3.3 В</text>
+<rect x="55" y="110" width="130" height="70" rx="5" fill="#fef3c7" stroke="#d97706" stroke-width="1.8"/>
+<text x="120" y="138" font-size="13" fill="#b45309" font-weight="700" text-anchor="middle">XC6206P332</text>
+<text x="120" y="156" font-size="12" fill="#78350f" text-anchor="middle">(код 662K, 3.3V)</text>
+<!-- Pins -->
+<text x="40" y="215" font-size="12" fill="#dc2626" font-weight="700">VCC (3.3-5.5V)</text>
+<line x1="20" y1="210" x2="55" y2="210" stroke="#dc2626" stroke-width="2.5"/>
+<text x="40" y="265" font-size="12" fill="#1e293b" font-weight="700">GND (Земля)</text>
+<line x1="20" y1="260" x2="55" y2="260" stroke="#1e293b" stroke-width="2.5"/>
+<rect x="55" y="295" width="130" height="55" rx="4" fill="#fff" stroke="#cbd5e1"/>
+<text x="120" y="318" font-size="11" fill="#475569" text-anchor="middle">C_in, C_out: 1 мкФ</text>
+<text x="120" y="334" font-size="11" fill="#64748b" text-anchor="middle">Керамічні SMD 0603</text>
+
+<!-- 2. High Frequency Oscillator (555) -->
+<rect x="235" y="60" width="220" height="310" rx="8" fill="#eff6ff" stroke="#3b82f6" stroke-width="1.8"/>
+<text x="345" y="85" font-size="14" fill="#1d4ed8" font-weight="700" text-anchor="middle">Генератор ≈1.5 МГц</text>
+<rect x="260" y="110" width="170" height="110" rx="6" fill="#1e293b" stroke="#0f172a" stroke-width="2"/>
+<text x="345" y="145" font-size="15" fill="#ffffff" font-weight="700" text-anchor="middle">TLC555 / 555</text>
+<text x="345" y="168" font-size="12" fill="#93c5fd" text-anchor="middle">CMOS астабільний</text>
+<text x="345" y="190" font-size="12" fill="#cbd5e1" text-anchor="middle">f ≈ 1.44 / ((R1+2R2)·C)</text>
+
+<!-- Timing components -->
+<rect x="260" y="240" width="170" height="110" rx="5" fill="#fff" stroke="#93c5fd"/>
+<text x="345" y="265" font-size="12" fill="#1e40af" font-weight="700" text-anchor="middle">Часозадавальні кола:</text>
+<text x="345" y="285" font-size="12" fill="#334155" text-anchor="middle">R1 = 1 кОм, R2 = 1 кОм</text>
+<text x="345" y="305" font-size="12" fill="#334155" text-anchor="middle">C_time ≈ 220 пФ</text>
+<text x="345" y="330" font-size="11" fill="#64748b" text-anchor="middle">Вихід Pin 3: Меандр 3.3V</text>
+
+<!-- Signal link to probe -->
+<line x1="430" y1="165" x2="480" y2="165" stroke="#2563eb" stroke-width="2.5" marker-end="url(#ar)"/>
+<text x="455" y="155" font-size="11" fill="#2563eb" font-weight="700" text-anchor="middle">1.5 МГц</text>
+
+<!-- 3. Capacitive Sensor Probe (Cx) -->
+<rect x="480" y="60" width="180" height="310" rx="8" fill="#f0fdf4" stroke="#22c55e" stroke-width="1.8"/>
+<text x="570" y="85" font-size="14" fill="#15803d" font-weight="700" text-anchor="middle">Щуп-конденсатор Cx</text>
+<rect x="505" y="110" width="130" height="150" rx="6" fill="#14532d" stroke="#052e16" stroke-width="2"/>
+<text x="570" y="135" font-size="13" fill="#bbf7d0" font-weight="700" text-anchor="middle">Копланарна мідь</text>
+<!-- Probe fingers representation -->
+<line x1="535" y1="150" x2="535" y2="240" stroke="#facc15" stroke-width="4"/>
+<line x1="560" y1="150" x2="560" y2="240" stroke="#facc15" stroke-width="4"/>
+<line x1="585" y1="150" x2="585" y2="240" stroke="#facc15" stroke-width="4"/>
+<line x1="605" y1="150" x2="605" y2="240" stroke="#facc15" stroke-width="4"/>
+<!-- Field lines -->
+<path d="M 535 190 Q 547 210 560 190" fill="none" stroke="#86efac" stroke-width="1.5"/>
+<path d="M 560 190 Q 572 210 585 190" fill="none" stroke="#86efac" stroke-width="1.5"/>
+<path d="M 585 190 Q 595 210 605 190" fill="none" stroke="#86efac" stroke-width="1.5"/>
+
+<rect x="505" y="275" width="130" height="75" rx="5" fill="#fff" stroke="#86efac"/>
+<text x="570" y="297" font-size="12" fill="#166534" font-weight="700" text-anchor="middle">Змінна ємність:</text>
+<text x="570" y="317" font-size="12" fill="#15803d" text-anchor="middle">Сухо: Cx ≈ 30 пФ</text>
+<text x="570" y="337" font-size="12" fill="#15803d" text-anchor="middle">Вода: Cx ≈ 350 пФ</text>
+
+<!-- Signal link to detector -->
+<line x1="660" y1="165" x2="700" y2="165" stroke="#059669" stroke-width="2.5" marker-end="url(#ar)"/>
+
+<!-- 4. Peak Detector & Low-Pass Filter -->
+<rect x="700" y="60" width="190" height="310" rx="8" fill="#fffbeb" stroke="#d97706" stroke-width="1.8"/>
+<text x="795" y="85" font-size="14" fill="#b45309" font-weight="700" text-anchor="middle">Детектор і ФНЧ</text>
+
+<rect x="720" y="110" width="150" height="85" rx="5" fill="#fff" stroke="#fcd34d" stroke-width="1.5"/>
+<text x="795" y="133" font-size="12" fill="#92400e" font-weight="700" text-anchor="middle">Випрямляч піків:</text>
+<text x="795" y="153" font-size="12" fill="#78350f" text-anchor="middle">Діод 1N4148 (D1)</text>
+<text x="795" y="173" font-size="11" fill="#a16207" text-anchor="middle">R_обмеження = 1 кОм</text>
+
+<rect x="720" y="210" width="150" height="85" rx="5" fill="#fff" stroke="#fcd34d" stroke-width="1.5"/>
+<text x="795" y="233" font-size="12" fill="#92400e" font-weight="700" text-anchor="middle">RC-інтегратор:</text>
+<text x="795" y="253" font-size="12" fill="#78350f" text-anchor="middle">R_load = 1 МОм</text>
+<text x="795" y="273" font-size="12" fill="#78350f" text-anchor="middle">C_filter = 1 мкФ</text>
+
+<!-- AOUT Terminal -->
+<circle cx="795" cy="335" r="8" fill="#d97706" stroke="#92400e" stroke-width="2"/>
+<text x="795" y="362" font-size="13" fill="#92400e" font-weight="700" text-anchor="middle">AOUT (0..3V)</text>
+
+<!-- Bottom Summary Footer -->
+<rect x="30" y="382" width="860" height="26" rx="4" fill="#f1f5f9" stroke="#cbd5e1"/>
+<text x="460" y="399" font-size="12" fill="#334155" text-anchor="middle">
+  Повний ланцюг перетворення: Живлення 3.3V → Меандр 1.5 МГц → Реактивний опір Xc(Cx) → Піковий діод → Рівна напруга AOUT
+</text>
+</svg>
