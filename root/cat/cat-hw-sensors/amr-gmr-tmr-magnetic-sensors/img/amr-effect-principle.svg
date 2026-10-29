@@ -1,0 +1,137 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 540" width="100%" height="100%">
+  <defs>
+    <style>
+      .bg { fill: #0f172a; }
+      .panel { fill: #1e293b; stroke: #334155; stroke-width: 1.5; rx: 8px; }
+      .panel-sub { fill: #0f172a; stroke: #334155; stroke-width: 1; rx: 6px; }
+      .title { font-family: system-ui, sans-serif; font-size: 20px; font-weight: 700; fill: #f8fafc; }
+      .subtitle { font-family: system-ui, sans-serif; font-size: 13px; fill: #94a3b8; }
+      .h2 { font-family: system-ui, sans-serif; font-size: 15px; font-weight: 600; fill: #38bdf8; }
+      .lbl { font-family: system-ui, sans-serif; font-size: 12px; fill: #f8fafc; }
+      .lbl-bold { font-family: system-ui, sans-serif; font-size: 12px; font-weight: 700; fill: #f8fafc; }
+      .lbl-dim { font-family: system-ui, sans-serif; font-size: 11px; fill: #94a3b8; }
+      .lbl-code { font-family: monospace, monospace; font-size: 12px; fill: #38bdf8; }
+      .arrow { stroke-width: 2; marker-end: url(#arr); }
+      .permalloy { fill: #334155; stroke: #64748b; stroke-width: 1.5; }
+      .barber-pole { fill: #fbbf24; stroke: #d97706; stroke-width: 1; }
+      .curve-amr { fill: none; stroke: #38bdf8; stroke-width: 3; }
+      .axis { stroke: #64748b; stroke-width: 1.5; }
+      .grid { stroke: #334155; stroke-dasharray: 4,4; stroke-width: 1; }
+    </style>
+    <marker id="arr" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 8 5 L 0 9 z" fill="#38bdf8" />
+    </marker>
+    <marker id="arr-mag" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 8 5 L 0 9 z" fill="#f43f5e" />
+    </marker>
+    <marker id="arr-gold" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 8 5 L 0 9 z" fill="#fbbf24" />
+    </marker>
+  </defs>
+
+  <rect width="100%" height="100%" class="bg" />
+
+  <!-- Title Block -->
+  <text x="30" y="38" class="title">Фізичний принцип анізотропного магнітоопору (AMR)</text>
+  <text x="30" y="60" class="subtitle">Квантове s-d розсіювання електронів у плівці пермалою Ni80Fe20 та топологія смуг Барбера</text>
+
+  <!-- Left: Permalloy Strip & Vector Geometry -->
+  <g transform="translate(30, 80)">
+    <rect width="415" height="260" class="panel" />
+    <text x="20" y="28" class="h2">1. Геометрія векторів у плівці пермалою</text>
+
+    <!-- Permalloy Strip -->
+    <rect x="40" y="65" width="335" height="110" class="permalloy" rx="4" />
+    <text x="50" y="85" class="lbl-dim">Тонка плівка Ni80Fe20 (товщина 10–30 нм)</text>
+
+    <!-- Current vector J -->
+    <line x1="45" y1="120" x2="260" y2="120" stroke="#38bdf8" stroke-width="3" marker-end="url(#arr)" />
+    <text x="170" y="112" class="lbl-bold" fill="#38bdf8">Струм J (вісь x)</text>
+
+    <!-- Magnetization vector M at angle theta -->
+    <line x1="120" y1="120" x2="230" y2="70" stroke="#f43f5e" stroke-width="3" marker-end="url(#arr-mag)" />
+    <text x="235" y="72" class="lbl-bold" fill="#f43f5e">Намагніченість M (H_ext)</text>
+
+    <!-- Angle theta arc -->
+    <path d="M 170 120 A 50 50 0 0 0 162 101" fill="none" stroke="#fbbf24" stroke-width="2" />
+    <text x="175" y="105" class="lbl-bold" fill="#fbbf24">θ</text>
+
+    <!-- States explanation below -->
+    <rect x="20" y="190" width="375" height="55" class="panel-sub" />
+    <text x="30" y="210" class="lbl">θ = 0° або 180° (M || J): <tspan fill="#f43f5e">ρ_max = ρ_∥</tspan> (макс. s-d розсіювання)</text>
+    <text x="30" y="232" class="lbl">θ = 90° або 270° (M ⊥ J): <tspan fill="#4ade80">ρ_min = ρ_⊥</tspan> (мін. розсіювання, Δρ/ρ ~ 2-4%)</text>
+  </g>
+
+  <!-- Right: Barber Poles Linearization -->
+  <g transform="translate(475, 80)">
+    <rect width="415" height="260" class="panel" />
+    <text x="20" y="28" class="h2">2. Лінеаризація смугами Барбера (Barber Poles)</text>
+
+    <!-- Strip with slanted gold stripes -->
+    <rect x="35" y="55" width="345" height="110" class="permalloy" rx="4" />
+    <!-- 45-degree gold stripes -->
+    <polygon points="50,165 75,165 145,55 120,55" class="barber-pole" />
+    <polygon points="120,165 145,165 215,55 190,55" class="barber-pole" />
+    <polygon points="190,165 215,165 285,55 260,55" class="barber-pole" />
+    <polygon points="260,165 285,165 355,55 330,55" class="barber-pole" />
+
+    <!-- Current deviation arrows -->
+    <path d="M 75 140 L 105 105" stroke="#fbbf24" stroke-width="2.5" marker-end="url(#arr-gold)" />
+    <path d="M 145 140 L 175 105" stroke="#fbbf24" stroke-width="2.5" marker-end="url(#arr-gold)" />
+    <path d="M 215 140 L 245 105" stroke="#fbbf24" stroke-width="2.5" marker-end="url(#arr-gold)" />
+
+    <text x="145" y="42" class="lbl-bold" fill="#fbbf24">Похилі смуги золота Au під кутом 45°</text>
+    <text x="260" y="150" class="lbl-dim">Струм повертає на 45°</text>
+
+    <!-- Note on barber poles -->
+    <rect x="20" y="180" width="375" height="65" class="panel-sub" />
+    <text x="30" y="200" class="lbl">Опір золота в сотні разів нижчий за пермалой.</text>
+    <text x="30" y="220" class="lbl">Струм прямує перпендикулярно до смуг: кут зміщується на <tspan fill="#fbbf24">45°</tspan>.</text>
+    <text x="30" y="238" class="lbl">Робоча точка в максимумі крутизни: <tspan fill="#38bdf8">V_out ~ sin(2θ)</tspan> біля 0°.</text>
+  </g>
+
+  <!-- Bottom: Characteristic Curve & Formula -->
+  <g transform="translate(30, 360)">
+    <rect width="860" height="155" class="panel" />
+
+    <!-- Graph on left of bottom panel -->
+    <g transform="translate(40, 15)">
+      <!-- Axes -->
+      <line x1="40" y1="105" x2="380" y2="105" class="axis" />
+      <line x1="40" y1="15" x2="40" y2="105" class="axis" />
+      <text x="390" y="110" class="lbl-dim">θ</text>
+      <text x="25" y="15" class="lbl-dim">ρ(θ)</text>
+
+      <!-- Grid lines -->
+      <line x1="40" y1="25" x2="380" y2="25" class="grid" />
+      <line x1="40" y1="65" x2="380" y2="65" class="grid" />
+      <line x1="125" y1="15" x2="125" y2="105" class="grid" />
+      <line x1="210" y1="15" x2="210" y2="105" class="grid" />
+      <line x1="295" y1="15" x2="295" y2="105" class="grid" />
+
+      <!-- Labels on axis -->
+      <text x="40" y="120" class="lbl-dim" text-anchor="middle">0°</text>
+      <text x="125" y="120" class="lbl-dim" text-anchor="middle">45°</text>
+      <text x="210" y="120" class="lbl-dim" text-anchor="middle">90°</text>
+      <text x="295" y="120" class="lbl-dim" text-anchor="middle">135°</text>
+      <text x="380" y="120" class="lbl-dim" text-anchor="middle">180°</text>
+
+      <text x="35" y="30" class="lbl-dim" text-anchor="end">ρ_∥</text>
+      <text x="35" y="70" class="lbl-dim" text-anchor="end">ρ_0</text>
+      <text x="35" y="105" class="lbl-dim" text-anchor="end">ρ_⊥</text>
+
+      <!-- Curve: cos(2θ) -->
+      <!-- (0, 25) -> (125, 65) -> (210, 105) -> (295, 65) -> (380, 25) -->
+      <path d="M 40 25 Q 85 25 125 65 T 210 105 Q 255 105 295 65 T 380 25" class="curve-amr" />
+    </g>
+
+    <!-- Mathematical Formula & Key Insights -->
+    <g transform="translate(460, 20)">
+      <text x="0" y="18" class="lbl-bold" fill="#38bdf8">Математична модель анізотропного магнітоопору:</text>
+      <text x="0" y="42" class="lbl-code">ρ(θ) = ρ_⊥ + Δρ · cos²(θ) = ρ_0 + (Δρ / 2) · cos(2θ)</text>
+      <text x="0" y="70" class="lbl">• <tspan fill="#fbbf24">Період 180°:</tspan> cos²(θ) = cos²(θ+180°). AMR має вроджену 180° двозначність.</text>
+      <text x="0" y="90" class="lbl">• <tspan fill="#4ade80">Максимальна чутливість:</tspan> |dρ/dθ| = Δρ · |sin(2θ)| досягає піку при θ = 45° та 135°.</text>
+      <text x="0" y="110" class="lbl">• <tspan fill="#a855f7">Режим магнітного насичення:</tspan> H_ext > 25 кА/м жорстко орієнтує вектор M.</text>
+    </g>
+  </g>
+</svg>

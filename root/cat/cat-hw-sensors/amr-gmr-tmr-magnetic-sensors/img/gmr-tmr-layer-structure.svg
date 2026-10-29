@@ -1,0 +1,117 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 540" width="100%" height="100%">
+  <defs>
+    <style>
+      .bg { fill: #0f172a; }
+      .panel { fill: #1e293b; stroke: #334155; stroke-width: 1.5; rx: 8px; }
+      .panel-sub { fill: #0f172a; stroke: #334155; stroke-width: 1; rx: 6px; }
+      .title { font-family: system-ui, sans-serif; font-size: 20px; font-weight: 700; fill: #f8fafc; }
+      .subtitle { font-family: system-ui, sans-serif; font-size: 13px; fill: #94a3b8; }
+      .h2 { font-family: system-ui, sans-serif; font-size: 15px; font-weight: 600; fill: #38bdf8; }
+      .lbl { font-family: system-ui, sans-serif; font-size: 12px; fill: #f8fafc; }
+      .lbl-bold { font-family: system-ui, sans-serif; font-size: 12px; font-weight: 700; fill: #f8fafc; }
+      .lbl-dim { font-family: system-ui, sans-serif; font-size: 11px; fill: #94a3b8; }
+      .lbl-code { font-family: monospace, monospace; font-size: 11px; fill: #38bdf8; }
+      
+      .layer-free { fill: #0284c7; stroke: #38bdf8; stroke-width: 1.5; }
+      .layer-cu { fill: #b45309; stroke: #f59e0b; stroke-width: 1.5; }
+      .layer-mgo { fill: #831843; stroke: #f43f5e; stroke-width: 1.5; stroke-dasharray: 4,2; }
+      .layer-pinned { fill: #1e40af; stroke: #60a5fa; stroke-width: 1.5; }
+      .layer-afm { fill: #374151; stroke: #9ca3af; stroke-width: 1.5; }
+      
+      .arrow { stroke-width: 2.5; marker-end: url(#arr); }
+    </style>
+    <marker id="arr-spin" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 8 5 L 0 9 z" fill="#38bdf8" />
+    </marker>
+    <marker id="arr-pinned" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 8 5 L 0 9 z" fill="#fbbf24" />
+    </marker>
+  </defs>
+
+  <rect width="100%" height="100%" class="bg" />
+
+  <!-- Title Block -->
+  <text x="30" y="38" class="title">Багатошарові наноструктури GMR (спіновий клапан) та TMR (тунельний перехід)</text>
+  <text x="30" y="60" class="subtitle">Порівняння фізичних механізмів спіново-залежного розсіювання та квантового тунелювання</text>
+
+  <!-- Left: GMR Spin Valve -->
+  <g transform="translate(30, 80)">
+    <rect width="415" height="340" class="panel" />
+    <text x="20" y="28" class="h2">1. GMR: Спіновий клапан (Spin Valve)</text>
+
+    <!-- Layers stack -->
+    <g transform="translate(30, 45)">
+      <!-- Free Layer -->
+      <rect x="0" y="0" width="355" height="42" class="layer-free" rx="4" />
+      <text x="15" y="26" class="lbl-bold">Вільний феромагнетик (CoFe / NiFe)</text>
+      <line x1="260" y1="21" x2="330" y2="21" stroke="#38bdf8" stroke-width="3" marker-end="url(#arr-spin)" />
+      <text x="280" y="15" class="lbl-dim" fill="#38bdf8">M_free (обертовий)</text>
+
+      <!-- Non-magnetic Spacer (Cu) -->
+      <rect x="0" y="47" width="355" height="24" class="layer-cu" rx="3" />
+      <text x="15" y="64" class="lbl-bold" fill="#fef3c7">Мідний прошарок Cu (провідник 2–3 нм)</text>
+
+      <!-- Pinned Layer -->
+      <rect x="0" y="76" width="355" height="42" class="layer-pinned" rx="4" />
+      <text x="15" y="102" class="lbl-bold">Зафіксований шар (Pinned CoFe)</text>
+      <line x1="260" y1="97" x2="330" y2="97" stroke="#fbbf24" stroke-width="3" marker-end="url(#arr-pinned)" />
+      <text x="270" y="90" class="lbl-dim" fill="#fbbf24">M_pin (фіксований)</text>
+
+      <!-- AFM Layer -->
+      <rect x="0" y="123" width="355" height="36" class="layer-afm" rx="4" />
+      <text x="15" y="146" class="lbl-bold" fill="#d1d5db">Антиферомагнетик IrMn (обмінний зсув)</text>
+    </g>
+
+    <!-- GMR Physics summary -->
+    <rect x="20" y="220" width="375" height="105" class="panel-sub" />
+    <text x="30" y="240" class="lbl">• <tspan fill="#38bdf8">Фізичний механізм:</tspan> Двоканальна модель Мотта.</text>
+    <text x="30" y="260" class="lbl">• <tspan fill="#4ade80">Паралельний стан (0°):</tspan> електрони без розсіювання → <tspan fill="#4ade80">R_min</tspan>.</text>
+    <text x="30" y="280" class="lbl">• <tspan fill="#f43f5e">Антипаралельний (180°):</tspan> сильне s-d розсіювання → <tspan fill="#f43f5e">R_max</tspan>.</text>
+    <text x="30" y="300" class="lbl">• <tspan fill="#fbbf24">Відносний ефект ΔR/R:</tspan> 10% – 20% (діапазон кута 360°).</text>
+  </g>
+
+  <!-- Right: TMR Magnetic Tunnel Junction -->
+  <g transform="translate(475, 80)">
+    <rect width="415" height="340" class="panel" />
+    <text x="20" y="28" class="h2">2. TMR: Тунельний перехід (MTJ)</text>
+
+    <!-- Layers stack -->
+    <g transform="translate(30, 45)">
+      <!-- Free Layer -->
+      <rect x="0" y="0" width="355" height="42" class="layer-free" rx="4" />
+      <text x="15" y="26" class="lbl-bold">Вільний шар CoFeB (вектор слідує за кутом)</text>
+      <line x1="260" y1="21" x2="330" y2="21" stroke="#38bdf8" stroke-width="3" marker-end="url(#arr-spin)" />
+
+      <!-- Tunnel Barrier (MgO) -->
+      <rect x="0" y="47" width="355" height="24" class="layer-mgo" rx="3" />
+      <text x="15" y="64" class="lbl-bold" fill="#fbcfe8">Бар'єр MgO (~1 нм, квантовий діелектрик)</text>
+
+      <!-- Pinned Layer -->
+      <rect x="0" y="76" width="355" height="42" class="layer-pinned" rx="4" />
+      <text x="15" y="102" class="lbl-bold">Зафіксований CoFeB (опорна вісь)</text>
+      <line x1="260" y1="97" x2="330" y2="97" stroke="#fbbf24" stroke-width="3" marker-end="url(#arr-pinned)" />
+
+      <!-- SAF / AFM -->
+      <rect x="0" y="123" width="355" height="36" class="layer-afm" rx="4" />
+      <text x="15" y="146" class="lbl-bold" fill="#d1d5db">Синтетичний антиферомагнетик (Ru / IrMn)</text>
+    </g>
+
+    <!-- TMR Physics summary -->
+    <rect x="20" y="220" width="375" height="105" class="panel-sub" />
+    <text x="30" y="240" class="lbl">• <tspan fill="#f43f5e">Фізичний механізм:</tspan> Спін-поляризоване тунелювання.</text>
+    <text x="30" y="260" class="lbl">• <tspan fill="#4ade80">Паралельний стан (0°):</tspan> максимальний тунельний струм → <tspan fill="#4ade80">R_min</tspan>.</text>
+    <text x="30" y="280" class="lbl">• <tspan fill="#f43f5e">Антипаралельний (180°):</tspan> заборона станів за спіном → <tspan fill="#f43f5e">R_max</tspan>.</text>
+    <text x="30" y="300" class="lbl">• <tspan fill="#fbbf24">Відносний ефект ΔR/R:</tspan> <tspan fill="#38bdf8">100% – 600%</tspan> (колосальний сигнал!)</text>
+  </g>
+
+  <!-- Bottom: Technology Comparison Bar -->
+  <g transform="translate(30, 435)">
+    <rect width="860" height="85" class="panel" />
+    <text x="25" y="26" class="lbl-bold" fill="#38bdf8">Порівняльна характеристика технологій магнітоопору для вимірювання кута:</text>
+    
+    <text x="25" y="52" class="lbl"><tspan fill="#94a3b8">AMR (пермалой):</tspan> ΔR/R ≈ 3% | Опір 1–5 кОм | Діапазон <tspan fill="#fbbf24">180°</tspan> | Точність до <tspan fill="#4ade80">±0.05°</tspan> (найнижчий шум)</text>
+    <text x="25" y="72" class="lbl"><tspan fill="#94a3b8">GMR (спіновий клапан):</tspan> ΔR/R ≈ 15% | Опір 5–20 кОм | Діапазон <tspan fill="#4ade80">360°</tspan> | Точність ±0.5° (помірний гістерезис)</text>
+    <text x="460" y="52" class="lbl"><tspan fill="#94a3b8">TMR (тунельний перехід):</tspan> ΔR/R ≈ <tspan fill="#38bdf8">200-500%</tspan> | Опір <tspan fill="#38bdf8">100 кОм–2 МОм</tspan> (струм мікроампери!)</text>
+    <text x="460" y="72" class="lbl">Діапазон <tspan fill="#4ade80">360°</tspan> | Точність до <tspan fill="#4ade80">±0.1°</tspan> | Ідеально для автономних сервоприводів</text>
+  </g>
+</svg>

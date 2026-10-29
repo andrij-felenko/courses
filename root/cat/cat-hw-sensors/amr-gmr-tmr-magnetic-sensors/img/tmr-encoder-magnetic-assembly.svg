@@ -1,0 +1,147 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 540" width="100%" height="100%">
+  <defs>
+    <style>
+      .bg { fill: #0f172a; }
+      .panel { fill: #1e293b; stroke: #334155; stroke-width: 1.5; rx: 8px; }
+      .panel-sub { fill: #0f172a; stroke: #334155; stroke-width: 1; rx: 6px; }
+      .title { font-family: system-ui, sans-serif; font-size: 20px; font-weight: 700; fill: #f8fafc; }
+      .subtitle { font-family: system-ui, sans-serif; font-size: 13px; fill: #94a3b8; }
+      .h2 { font-family: system-ui, sans-serif; font-size: 15px; font-weight: 600; fill: #38bdf8; }
+      .lbl { font-family: system-ui, sans-serif; font-size: 12px; fill: #f8fafc; }
+      .lbl-bold { font-family: system-ui, sans-serif; font-size: 12px; font-weight: 700; fill: #f8fafc; }
+      .lbl-dim { font-family: system-ui, sans-serif; font-size: 11px; fill: #94a3b8; }
+      .lbl-code { font-family: monospace, monospace; font-size: 11px; fill: #38bdf8; }
+      
+      .shaft { fill: #475569; stroke: #94a3b8; stroke-width: 1.5; }
+      .mag-north { fill: #ef4444; stroke: #b91c1c; stroke-width: 1.5; }
+      .mag-south { fill: #3b82f6; stroke: #1d4ed8; stroke-width: 1.5; }
+      .pcb { fill: #065f46; stroke: #10b981; stroke-width: 1.5; }
+      .ic-body { fill: #111827; stroke: #4b5563; stroke-width: 1.5; rx: 3px; }
+      .ic-lead { fill: #cbd5e1; }
+      .b-line { fill: none; stroke: #38bdf8; stroke-width: 1.5; stroke-dasharray: 4,3; }
+      .axis-rot { stroke: #fbbf24; stroke-width: 1.5; stroke-dasharray: 6,4; }
+      .shield { fill: none; stroke: #a855f7; stroke-width: 2.5; stroke-dasharray: 8,4; }
+    </style>
+    <marker id="arr-flux" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 8 5 L 0 9 z" fill="#38bdf8" />
+    </marker>
+    <marker id="dim-arrow" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 2 L 6 5 L 0 8 z" fill="#fbbf24" />
+    </marker>
+  </defs>
+
+  <rect width="100%" height="100%" class="bg" />
+
+  <!-- Title Block -->
+  <text x="30" y="38" class="title">Конструкція роторного вузла енкодера на базі TMR</text>
+  <text x="30" y="60" class="subtitle">Торцеве компонування (End-of-Shaft), діаметральний магніт NdFeB та захист від завад</text>
+
+  <!-- Left: Assembly Drawing -->
+  <g transform="translate(30, 80)">
+    <rect width="470" height="430" class="panel" />
+    <text x="20" y="28" class="h2">1. Торцева геометрія вузла (End-of-Shaft)</text>
+
+    <!-- Center axis of rotation -->
+    <line x1="235" y1="40" x2="235" y2="380" class="axis-rot" />
+    <text x="245" y="55" class="lbl-bold" fill="#fbbf24">Вісь обертання вала</text>
+
+    <!-- Motor Shaft -->
+    <g transform="translate(175, 70)">
+      <rect x="0" y="0" width="120" height="90" class="shaft" rx="2" />
+      <text x="60" y="50" class="lbl-bold" text-anchor="middle" fill="#f8fafc">Вал двигуна (сталь)</text>
+    </g>
+
+    <!-- Diametral Magnet on Shaft End -->
+    <g transform="translate(175, 160)">
+      <!-- Magnet divided in half: North (Red) and South (Blue) -->
+      <rect x="0" y="0" width="60" height="40" class="mag-north" />
+      <text x="30" y="25" class="lbl-bold" text-anchor="middle" fill="#ffffff">N</text>
+
+      <rect x="60" y="0" width="60" height="40" class="mag-south" />
+      <text x="90" y="25" class="lbl-bold" text-anchor="middle" fill="#ffffff">S</text>
+
+      <text x="60" y="-8" class="lbl-bold" text-anchor="middle" fill="#f8fafc">Магніт NdFeB (діаметральний)</text>
+    </g>
+
+    <!-- Magnetic Field Lines across air gap -->
+    <!-- Flux from North to South through the sensor plane -->
+    <path d="M 190 200 C 190 240, 160 250, 235 250 C 310 250, 280 240, 280 200" class="b-line" />
+    <path d="M 175 190 C 150 250, 130 270, 235 270 C 340 270, 320 250, 295 190" class="b-line" />
+    <line x1="180" y1="245" x2="290" y2="245" stroke="#38bdf8" stroke-width="2.5" marker-end="url(#arr-flux)" />
+    <text x="235" y="238" class="lbl-bold" text-anchor="middle" fill="#38bdf8">Вектор B_ext в площині сенсора (40–100 мТл)</text>
+
+    <!-- Air Gap Z_gap dimension line -->
+    <g transform="translate(325, 200)">
+      <line x1="0" y1="0" x2="0" y2="45" stroke="#fbbf24" stroke-width="2" />
+      <line x1="-8" y1="0" x2="8" y2="0" stroke="#fbbf24" stroke-width="2" />
+      <line x1="-8" y1="45" x2="8" y2="45" stroke="#fbbf24" stroke-width="2" />
+      <text x="15" y="27" class="lbl-bold" fill="#fbbf24">Z_gap (0.5–2.5 мм)</text>
+    </g>
+
+    <!-- Sensor IC (SOIC-8) -->
+    <g transform="translate(195, 245)">
+      <!-- IC Body -->
+      <rect x="0" y="0" width="80" height="25" class="ic-body" />
+      <text x="40" y="17" class="lbl-bold" text-anchor="middle" fill="#38bdf8">TMR IC</text>
+      <!-- Leads -->
+      <rect x="-10" y="3" width="10" height="4" class="ic-lead" />
+      <rect x="-10" y="10" width="10" height="4" class="ic-lead" />
+      <rect x="-10" y="17" width="10" height="4" class="ic-lead" />
+      <rect x="80" y="3" width="10" height="4" class="ic-lead" />
+      <rect x="80" y="10" width="10" height="4" class="ic-lead" />
+      <rect x="80" y="17" width="10" height="4" class="ic-lead" />
+    </g>
+
+    <!-- Sensor PCB -->
+    <g transform="translate(60, 270)">
+      <rect x="0" y="0" width="350" height="18" class="pcb" rx="2" />
+      <text x="30" y="13" class="lbl-bold" fill="#a7f3d0">Друкована плата енкодера (PCB)</text>
+    </g>
+
+    <!-- Magnetic Shielding can (Mu-metal) -->
+    <path d="M 120 310 L 120 135 C 120 120, 350 120, 350 135 L 350 310" class="shield" />
+    <text x="235" y="112" class="lbl-bold" text-anchor="middle" fill="#a855f7">Екран із мю-металу / пермалою (захист від статора)</text>
+
+    <!-- Tolerance summary box inside left panel -->
+    <rect x="20" y="340" width="430" height="70" class="panel-sub" />
+    <text x="30" y="360" class="lbl">• <tspan fill="#4ade80">Осьовий люфт вала (ΔZ):</tspan> Не викликає похибки кута (амплітуди скорочуються в atan2).</text>
+    <text x="30" y="380" class="lbl">• <tspan fill="#f43f5e">Радіальний ексцентриситет:</tspan> Вимагає співосності <tspan fill="#f43f5e">&lt; 0.1–0.2 мм</tspan> (інакше 1-ша гармоніка).</text>
+    <text x="30" y="400" class="lbl">• <tspan fill="#38bdf8">Режим насичення:</tspan> B_ext &gt; 40 мТл гарантує жорстку фіксацію вільного шару.</text>
+  </g>
+
+  <!-- Right: Key System Design Rules -->
+  <g transform="translate(520, 80)">
+    <rect width="370" height="430" class="panel" />
+    <text x="20" y="28" class="h2">2. Інженерні правила проектування</text>
+
+    <g transform="translate(20, 45)">
+      <!-- Rule 1: Magnet Material -->
+      <rect x="0" y="0" width="330" height="85" class="panel-sub" />
+      <text x="15" y="22" class="lbl-bold" fill="#38bdf8">1. Вибір магніту ротора:</text>
+      <text x="15" y="42" class="lbl">Сплав <tspan fill="#fbbf24">NdFeB марки N35H – N45H</tspan></text>
+      <text x="15" y="60" class="lbl">Термостійкість до +120°C...150°C</text>
+      <text x="15" y="78" class="lbl">Діаметральна (радіальна) намагніченість</text>
+
+      <!-- Rule 2: Air Gap Tuning -->
+      <rect x="0" y="95" width="330" height="85" class="panel-sub" />
+      <text x="15" y="117" class="lbl-bold" fill="#4ade80">2. Налаштування повітряного зазору:</text>
+      <text x="15" y="137" class="lbl">Оптимальний зазор: <tspan fill="#4ade80">1.0 – 2.0 мм</tspan></text>
+      <text x="15" y="155" class="lbl">Поле в кристалі: 40 – 80 мТл</text>
+      <text x="15" y="173" class="lbl">Повне насичення вільного шару TMR</text>
+
+      <!-- Rule 3: Shielding & Layout -->
+      <rect x="0" y="190" width="330" height="85" class="panel-sub" />
+      <text x="15" y="212" class="lbl-bold" fill="#a855f7">3. Електромагнітне екранування:</text>
+      <text x="15" y="232" class="lbl">Ковпачок з мю-металу товщиною 0.5 мм</text>
+      <text x="15" y="250" class="lbl">Пригнічення магнітних полів струмів статора</text>
+      <text x="15" y="268" class="lbl">Диференціальна топологія сигнальних трас</text>
+
+      <!-- Rule 4: Interface & Processing -->
+      <rect x="0" y="285" width="330" height="85" class="panel-sub" />
+      <text x="15" y="307" class="lbl-bold" fill="#fbbf24">4. Обробка та інтерфейс:</text>
+      <text x="15" y="327" class="lbl">Вбудований 14–18 бітовий АЦП та CORDIC</text>
+      <text x="15" y="345" class="lbl">Цифрові виходи: <tspan fill="#38bdf8">SPI, SSI, BiSS-C</tspan></text>
+      <text x="15" y="363" class="lbl">Частота оновлення координат до 100 кГц</text>
+    </g>
+  </g>
+</svg>
