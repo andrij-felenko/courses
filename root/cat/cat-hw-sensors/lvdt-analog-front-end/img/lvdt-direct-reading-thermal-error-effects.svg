@@ -1,0 +1,100 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 520" width="100%" height="100%">
+  <defs>
+    <style>
+      .bg { fill: #0f172a; }
+      .panel { fill: #1e293b; stroke: #334155; stroke-width: 1; rx: 8px; }
+      .box { fill: #0f172a; stroke: #475569; stroke-width: 1.5; rx: 6px; }
+      .title { fill: #f8fafc; font-family: system-ui, -apple-system, sans-serif; font-size: 16px; font-weight: bold; }
+      .subtitle { fill: #94a3b8; font-family: system-ui, -apple-system, sans-serif; font-size: 12px; }
+      .lbl { fill: #cbd5e1; font-family: system-ui, -apple-system, sans-serif; font-size: 12px; }
+      .lbl-bold { fill: #f1f5f9; font-family: system-ui, -apple-system, sans-serif; font-size: 12px; font-weight: bold; }
+      .axis { stroke: #64748b; stroke-width: 1.5; }
+      .grid { stroke: #334155; stroke-dasharray: 4,4; stroke-width: 1; }
+      .zero { stroke: #475569; stroke-dasharray: 2,2; stroke-width: 1; }
+      .w-cold { stroke: #38bdf8; stroke-width: 2.5; fill: none; }
+      .w-hot { stroke: #f43f5e; stroke-width: 2; stroke-dasharray: 5,3; fill: none; }
+      .w-rect { stroke: #fbbf24; stroke-width: 2.5; fill: none; }
+    </style>
+    <marker id="arr" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 8 5 L 0 9 z" fill="#64748b" />
+    </marker>
+  </defs>
+
+  <rect width="880" height="520" class="bg" />
+
+  <text x="440" y="28" text-anchor="middle" class="title">Похибки прямого нераціометричного зчитування сигналів LVDT</text>
+  <text x="440" y="48" text-anchor="middle" class="subtitle">Вплив температури на імпеданс обмоток та втрата знака напрямку переміщення при простому випрямленні</text>
+
+  <!-- Left Panel: Thermal Drift -->
+  <rect x="30" y="65" width="400" height="430" class="panel" />
+  <text x="50" y="90" class="lbl-bold" fill="#38bdf8">1. Температурний дрейф амплітуди (Scale Error)</text>
+  <text x="50" y="106" class="subtitle">При зростанні температури на +40 °C опір міді R_p росте на 16%</text>
+
+  <!-- Graph 1: Secondary Voltage Drift -->
+  <g transform="translate(50, 120)">
+    <line x1="0" y1="80" x2="350" y2="80" class="axis" marker-end="url(#arr)" />
+    <line x1="0" y1="10" x2="0" y2="150" class="axis" />
+    <line x1="0" y1="80" x2="340" y2="80" class="zero" />
+    <text x="355" y="83" class="lbl">t</text>
+    <text x="-5" y="10" class="lbl">V</text>
+
+    <!-- Wave at 20 deg C (Nominal, Amplitude 55) -->
+    <path d="M 0 80 C 20 25, 45 25, 65 80 C 85 135, 110 135, 130 80 C 150 25, 175 25, 195 80 C 215 135, 240 135, 260 80 C 280 25, 305 25, 325 80" class="w-cold" />
+
+    <!-- Wave at 60 deg C (Dropped by thermal impedance, Amplitude 42) -->
+    <path d="M 0 80 C 20 38, 45 38, 65 80 C 85 122, 110 122, 130 80 C 150 38, 175 38, 195 80 C 215 122, 240 122, 260 80 C 280 38, 305 38, 325 80" class="w-hot" />
+
+    <text x="140" y="20" class="lbl-bold" fill="#38bdf8">T = +20 °C (номінальна амплітуда)</text>
+    <text x="140" y="38" class="lbl-bold" fill="#f43f5e">T = +60 °C (падіння напруги на ~24%)</text>
+  </g>
+
+  <!-- Physics explanation box -->
+  <rect x="50" y="295" width="360" height="180" class="box" />
+  <text x="65" y="318" class="lbl-bold" fill="#fbbf24">Фізика температурної похибки:</text>
+  <text x="65" y="338" class="lbl">• ТКС міді: α = +0.00393 1/°C (+0.393% на 1 °C)</text>
+  <text x="65" y="356" class="lbl">• При ΔT = +40 °C активний опір R_p зростає на 16%</text>
+  <text x="65" y="374" class="lbl">• Струм первинної котушки I_p = V_ex / |Z_p| падає</text>
+  <text x="65" y="392" class="lbl">• Магнітний потік Φ ~ I_p слабшає по всій довжині</text>
+  <text x="65" y="412" class="lbl-bold" fill="#f43f5e">→ Виникає хибне "зміщення" нерухомого штока!</text>
+  <text x="65" y="430" class="subtitle">Похибка без компенсації: до 7000–10000 ppm</text>
+  <text x="65" y="450" class="subtitle" fill="#10b981">Розв'язок: Раціометричне ділення (V1-V2)/(V1+V2)</text>
+
+  <!-- Right Panel: Loss of Sign with Peak Rectifier -->
+  <rect x="450" y="65" width="400" height="430" class="panel" />
+  <text x="470" y="90" class="lbl-bold" fill="#f43f5e">2. Втрата знака напрямку (V-подібна характеристика)</text>
+  <text x="470" y="106" class="subtitle">Діодний випрямляч обчислює |V_diff|, втрачаючи фазовий знак</text>
+
+  <!-- Graph 2: Static Characteristic V_out vs Position x -->
+  <g transform="translate(470, 120)">
+    <line x1="20" y1="120" x2="350" y2="120" class="axis" marker-end="url(#arr)" />
+    <line x1="180" y1="10" x2="180" y2="140" class="axis" />
+    <text x="355" y="123" class="lbl">x</text>
+    <text x="175" y="10" class="lbl">V_out</text>
+
+    <!-- Center null mark -->
+    <text x="175" y="135" class="lbl">0</text>
+    <text x="60" y="135" class="lbl">-x (вліво)</text>
+    <text x="270" y="135" class="lbl">+x (вправо)</text>
+
+    <!-- Simple Rectifier: V-shape -->
+    <path d="M 40 25 L 180 120 L 320 25" class="w-rect" />
+    <circle cx="180" cy="120" r="4" fill="#fbbf24" />
+
+    <!-- Ideal Sign-Sensitive PSD characteristic: S-curve passing through zero -->
+    <path d="M 40 190 L 320 20" stroke="#10b981" stroke-width="2.5" fill="none" />
+
+    <text x="220" y="45" class="lbl-bold" fill="#fbbf24">|V_diff| (діодний міст)</text>
+    <text x="230" y="100" class="lbl-bold" fill="#10b981">V_psd (синхронний)</text>
+  </g>
+
+  <!-- V-shape explanation box -->
+  <rect x="470" y="295" width="360" height="180" class="box" />
+  <text x="485" y="318" class="lbl-bold" fill="#fbbf24">Наслідки несинхронного випрямлення:</text>
+  <text x="485" y="338" class="lbl">• V_out(+2 мм) = +1.5 В і V_out(-2 мм) = +1.5 В</text>
+  <text x="485" y="356" class="lbl">• Сервопривід не знає, в який бік змістився шток</text>
+  <text x="485" y="374" class="lbl">• Поріг відкривання діодів (0.3–0.6 В) створює dead-band</text>
+  <text x="485" y="392" class="lbl">• Квадратурна напруга (90°) утворює задирку в нулі</text>
+  <text x="485" y="412" class="lbl-bold" fill="#10b981">→ Вимагається синхронний аналоговий фронтенд:</text>
+  <text x="485" y="430" class="subtitle">1. Фазочутливий детектор (+1/-1) для збереження знаку</text>
+  <text x="485" y="448" class="subtitle">2. Фазокомпенсатор для повного пригнічення квадратури</text>
+</svg>

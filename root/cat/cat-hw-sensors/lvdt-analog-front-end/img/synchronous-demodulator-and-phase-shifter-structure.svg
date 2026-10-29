@@ -1,0 +1,96 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 500" width="100%" height="100%">
+  <defs>
+    <style>
+      .bg { fill: #0f172a; }
+      .panel { fill: #1e293b; stroke: #334155; stroke-width: 1; rx: 8px; }
+      .box { fill: #0f172a; stroke: #38bdf8; stroke-width: 1.5; rx: 6px; }
+      .box-sw { fill: #0f172a; stroke: #f43f5e; stroke-width: 1.5; rx: 6px; }
+      .box-ok { fill: #0f172a; stroke: #10b981; stroke-width: 1.5; rx: 6px; }
+      .title { fill: #f8fafc; font-family: system-ui, -apple-system, sans-serif; font-size: 16px; font-weight: bold; }
+      .subtitle { fill: #94a3b8; font-family: system-ui, -apple-system, sans-serif; font-size: 12px; }
+      .lbl { fill: #cbd5e1; font-family: system-ui, -apple-system, sans-serif; font-size: 12px; }
+      .lbl-bold { fill: #f1f5f9; font-family: system-ui, -apple-system, sans-serif; font-size: 12px; font-weight: bold; }
+      .wire { stroke: #94a3b8; stroke-width: 2; fill: none; }
+      .wire-purple { stroke: #a855f7; stroke-width: 2.5; fill: none; }
+      .wire-pink { stroke: #f43f5e; stroke-width: 2.5; fill: none; }
+    </style>
+    <marker id="marr4" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 8 5 L 0 9 z" fill="#a855f7" />
+    </marker>
+    <marker id="marr4-p" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 8 5 L 0 9 z" fill="#f43f5e" />
+    </marker>
+  </defs>
+
+  <rect width="880" height="500" class="bg" />
+
+  <text x="440" y="28" text-anchor="middle" class="title">Синхронний демодулятор з компенсатором фазового зсуву</text>
+  <text x="440" y="48" text-anchor="middle" class="subtitle">Повне пригнічення квадратурної завади та збереження знака переміщення LVDT</text>
+
+  <!-- Upper Branch: Reference & Phase Adjustment -->
+  <rect x="30" y="70" width="820" height="155" class="panel" />
+  <text x="50" y="95" class="lbl-bold" fill="#a855f7">Тракт опорної фази: Автопідлаштування та формування меандру</text>
+
+  <g transform="translate(50, 115)">
+    <!-- Ref Excitation Input -->
+    <rect x="0" y="10" width="130" height="65" class="box" />
+    <text x="65" y="32" text-anchor="middle" class="lbl-bold">Опорне збудження</text>
+    <text x="65" y="50" text-anchor="middle" class="subtitle">V_exc = sin(ω_c t)</text>
+    <text x="65" y="65" text-anchor="middle" class="subtitle">від генератора</text>
+    <line x1="130" y1="42" x2="185" y2="42" class="wire-purple" marker-end="url(#marr4)" />
+
+    <!-- All-Pass Phase Shifter -->
+    <rect x="185" y="10" width="165" height="65" class="box" style="stroke: #a855f7;" />
+    <text x="267" y="32" text-anchor="middle" class="lbl-bold" fill="#a855f7">Фазообертач (All-Pass)</text>
+    <text x="267" y="50" text-anchor="middle" class="subtitle">Δφ = -2·arctan(ω·R·C)</text>
+    <text x="267" y="65" text-anchor="middle" class="subtitle">компенсація кута котушок</text>
+    <line x1="350" y1="42" x2="415" y2="42" class="wire-purple" marker-end="url(#marr4)" />
+
+    <!-- Zero Crossing Comparator -->
+    <rect x="415" y="10" width="160" height="65" class="box" style="stroke: #fbbf24;" />
+    <text x="495" y="32" text-anchor="middle" class="lbl-bold" fill="#fbbf24">Компаратор нуля (ZCD)</text>
+    <text x="495" y="50" text-anchor="middle" class="subtitle">Швидкий компаратор</text>
+    <text x="495" y="65" text-anchor="middle" class="subtitle">Формує меандр 0/5 В</text>
+    <line x1="575" y1="42" x2="635" y2="42" class="wire-purple" marker-end="url(#marr4)" />
+
+    <!-- Gate Driver logic -->
+    <rect x="635" y="10" width="135" height="65" class="box" />
+    <text x="702" y="32" text-anchor="middle" class="lbl-bold">Драйвер ключів</text>
+    <text x="702" y="50" text-anchor="middle" class="subtitle">Плечі Q та /Q</text>
+    <text x="702" y="65" text-anchor="middle" class="subtitle">Non-overlapping</text>
+  </g>
+
+  <!-- Wire down to Switch Demodulator -->
+  <path d="M 750 200 L 750 280 L 520 280" class="wire-purple" marker-end="url(#marr4)" />
+
+  <!-- Lower Branch: Signal Demodulation -->
+  <rect x="30" y="245" width="820" height="235" class="panel" />
+  <text x="50" y="270" class="lbl-bold" fill="#f43f5e">Тракт демодуляції сигналу: Фазочутливе множення (+1 / -1)</text>
+
+  <g transform="translate(50, 290)">
+    <!-- V_diff input -->
+    <rect x="0" y="30" width="130" height="60" class="box" style="stroke: #38bdf8;" />
+    <text x="65" y="52" text-anchor="middle" class="lbl-bold" fill="#38bdf8">V_diff(t)</text>
+    <text x="65" y="70" text-anchor="middle" class="subtitle">від InAmp каскаду</text>
+    <line x1="130" y1="60" x2="190" y2="60" class="wire" />
+
+    <!-- Analog Switch Core (Switched Gain +1/-1) -->
+    <rect x="190" y="15" width="220" height="90" class="box-sw" />
+    <text x="300" y="38" text-anchor="middle" class="lbl-bold" fill="#f43f5e">Ключовий фазовий множник</text>
+    <text x="300" y="58" text-anchor="middle" class="subtitle">ADG719 / CD4053 / AD630</text>
+    <text x="300" y="76" text-anchor="middle" class="lbl">• Напівперіод (+): K = +1</text>
+    <text x="300" y="94" text-anchor="middle" class="lbl">• Напівперіод (-): K = -1</text>
+    <line x1="410" y1="60" x2="470" y2="60" class="wire-pink" marker-end="url(#marr4-p)" />
+
+    <!-- Math Output Result -->
+    <rect x="470" y="20" width="300" height="80" class="box-ok" />
+    <text x="620" y="42" text-anchor="middle" class="lbl-bold" fill="#10b981">Вихід демодулятора V_demod:</text>
+    <text x="620" y="62" text-anchor="middle" class="lbl">V_dc = (2/π) · A(x) · cos(Δφ) + 2·f_c</text>
+    <text x="620" y="80" text-anchor="middle" class="subtitle">При Δφ = 0: максимальний розмах; знак відповідає x</text>
+  </g>
+
+  <!-- Bottom Quadrature Suppression Note -->
+  <rect x="50" y="415" width="780" height="50" class="box" />
+  <text x="65" y="435" class="lbl-bold" fill="#fbbf24">Повне пригнічення квадратурної завади (90°):</text>
+  <text x="65" y="452" class="subtitle">Інтеграл за період ∫ V_quad · cos(ω_c t) · sgn(sin(ω_c t)) dt = 0. Залишкова напруга нуля повністю усувається!</text>
+</svg>

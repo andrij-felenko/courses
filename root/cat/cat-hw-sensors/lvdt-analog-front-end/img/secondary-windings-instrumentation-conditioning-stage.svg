@@ -1,0 +1,163 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 520" width="100%" height="100%">
+  <defs>
+    <style>
+      .bg { fill: #0f172a; }
+      .panel { fill: #1e293b; stroke: #334155; stroke-width: 1; rx: 8px; }
+      .box { fill: #0f172a; stroke: #475569; stroke-width: 1.5; rx: 6px; }
+      .title { fill: #f8fafc; font-family: system-ui, -apple-system, sans-serif; font-size: 16px; font-weight: bold; }
+      .subtitle { fill: #94a3b8; font-family: system-ui, -apple-system, sans-serif; font-size: 12px; }
+      .lbl { fill: #cbd5e1; font-family: system-ui, -apple-system, sans-serif; font-size: 12px; }
+      .lbl-bold { fill: #f1f5f9; font-family: system-ui, -apple-system, sans-serif; font-size: 12px; font-weight: bold; }
+      .wire { stroke: #94a3b8; stroke-width: 2; fill: none; }
+      .wire-diff { stroke: #38bdf8; stroke-width: 2.5; fill: none; }
+      .wire-sum { stroke: #fbbf24; stroke-width: 2.5; fill: none; }
+      .opamp { fill: #1e293b; stroke: #38bdf8; stroke-width: 2; }
+      .resistor { fill: #334155; stroke: #fbbf24; stroke-width: 1.5; }
+      .dot { fill: #38bdf8; }
+    </style>
+    <marker id="marr3" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 8 5 L 0 9 z" fill="#38bdf8" />
+    </marker>
+    <marker id="marr3-y" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 8 5 L 0 9 z" fill="#fbbf24" />
+    </marker>
+  </defs>
+
+  <rect width="880" height="520" class="bg" />
+
+  <text x="440" y="28" text-anchor="middle" class="title">Каскад нормування вторинних обмоток LVDT: виділення V_diff та V_sum</text>
+  <text x="440" y="48" text-anchor="middle" class="subtitle">Прецизійний інструментальний підсилювач (InAmp) з CMRR &gt; 100 дБ та прецизійний суматор</text>
+
+  <!-- LVDT Secondaries Input block (Left) -->
+  <rect x="30" y="70" width="160" height="420" class="panel" />
+  <text x="110" y="95" text-anchor="middle" class="lbl-bold" fill="#fbbf24">Вторинні обмотки</text>
+  <text x="110" y="112" text-anchor="middle" class="subtitle">Датчик LVDT</text>
+
+  <!-- Coil 1 (S1) -->
+  <g transform="translate(60, 140)">
+    <rect x="0" y="0" width="80" height="60" class="box" style="stroke: #38bdf8;" />
+    <text x="40" y="25" text-anchor="middle" class="lbl-bold">Котушка 1</text>
+    <text x="40" y="45" text-anchor="middle" class="subtitle">V1(t)</text>
+  </g>
+
+  <!-- Center Tap GND / Reference -->
+  <line x1="100" y1="200" x2="100" y2="240" class="wire" />
+  <circle cx="100" cy="220" r="3" class="dot" />
+  <text x="115" y="225" class="subtitle">Центр/GND</text>
+
+  <!-- Coil 2 (S2) -->
+  <g transform="translate(60, 240)">
+    <rect x="0" y="0" width="80" height="60" class="box" style="stroke: #f43f5e;" />
+    <text x="40" y="25" text-anchor="middle" class="lbl-bold">Котушка 2</text>
+    <text x="40" y="45" text-anchor="middle" class="subtitle">V2(t)</text>
+  </g>
+
+  <!-- Damping resistors info -->
+  <rect x="45" y="325" width="130" height="75" class="box" />
+  <text x="110" y="345" text-anchor="middle" class="lbl-bold" fill="#38bdf8">Демпфування R_d</text>
+  <text x="110" y="362" text-anchor="middle" class="subtitle">Паралельні шунти</text>
+  <text x="110" y="378" text-anchor="middle" class="subtitle">Пригнічення резонансу</text>
+  <text x="110" y="392" text-anchor="middle" class="subtitle">та зсуву фази кабелю</text>
+
+  <!-- Difference Channel (Top Middle: InAmp) -->
+  <rect x="220" y="70" width="370" height="200" class="panel" />
+  <text x="240" y="95" class="lbl-bold" fill="#38bdf8">Канал різниці: Інструментальний підсилювач (InAmp)</text>
+  <text x="240" y="112" class="subtitle">V_diff = G_diff · (V1 - V2) | CMRR = 100 дБ на 5 кГц</text>
+
+  <!-- InAmp Schematic representation (3 opamps) -->
+  <g transform="translate(250, 130)">
+    <!-- OpAmp A1 (top buffer) -->
+    <polygon points="0,0 0,50 45,25" class="opamp" />
+    <text x="5" y="15" class="lbl-bold" font-size="12">+</text>
+    <text x="5" y="42" class="lbl-bold" font-size="12">-</text>
+
+    <!-- OpAmp A2 (bottom buffer) -->
+    <polygon points="0,70 0,120 45,95" class="opamp" />
+    <text x="5" y="85" class="lbl-bold" font-size="12">-</text>
+    <text x="5" y="112" class="lbl-bold" font-size="12">+</text>
+
+    <!-- Gain Resistor R_g between inputs -->
+    <line x1="20" y1="35" x2="20" y2="50" class="wire" />
+    <rect x="12" y="50" width="16" height="25" class="resistor" />
+    <text x="35" y="66" class="lbl-bold">R_g</text>
+    <line x1="20" y1="75" x2="20" y2="85" class="wire" />
+
+    <!-- Connecting wires from buffers to difference OpAmp A3 -->
+    <line x1="45" y1="25" x2="110" y2="25" class="wire" />
+    <line x1="45" y1="95" x2="110" y2="95" class="wire" />
+
+    <!-- Difference OpAmp A3 -->
+    <polygon points="110,35 110,85 155,60" class="opamp" />
+    <line x1="155" y1="60" x2="210" y2="60" class="wire-diff" marker-end="url(#marr3)" />
+
+    <text x="220" y="65" class="lbl-bold" fill="#38bdf8">V_diff(t)</text>
+    <text x="220" y="82" class="subtitle">до демодулятора</text>
+  </g>
+
+  <!-- Wires from secondaries to InAmp -->
+  <path d="M 140 160 L 250 145" class="wire" />
+  <path d="M 140 270 L 210 270 L 210 240 L 250 240" class="wire" />
+
+  <!-- Sum Channel (Bottom Middle: Summing Amplifier) -->
+  <rect x="220" y="290" width="370" height="200" class="panel" />
+  <text x="240" y="315" class="lbl-bold" fill="#fbbf24">Канал суми: Прецизійний суматор на ОП</text>
+  <text x="240" y="332" class="subtitle">V_sum = G_sum · (V1 + V2) | Резистивна матриця 0.01%</text>
+
+  <!-- Summing Opamp Schematic -->
+  <g transform="translate(270, 360)">
+    <line x1="0" y1="20" x2="30" y2="20" class="wire" />
+    <rect x="30" y="13" width="35" height="14" class="resistor" />
+    <text x="47" y="8" text-anchor="middle" class="subtitle">R_s1</text>
+    <line x1="65" y1="20" x2="100" y2="40" class="wire" />
+
+    <line x1="0" y1="60" x2="30" y2="60" class="wire" />
+    <rect x="30" y="53" width="35" height="14" class="resistor" />
+    <text x="47" y="77" text-anchor="middle" class="subtitle">R_s2</text>
+    <line x1="65" y1="60" x2="100" y2="40" class="wire" />
+
+    <circle cx="100" cy="40" r="3" class="dot" />
+    <line x1="100" y1="40" x2="120" y2="40" class="wire" />
+
+    <!-- Sum OpAmp -->
+    <polygon points="120,20 120,70 165,45" class="opamp" />
+    <text x="125" y="38" class="lbl-bold" font-size="12">-</text>
+    <text x="125" y="60" class="lbl-bold" font-size="12">+</text>
+
+    <!-- Feedback R_f -->
+    <line x1="100" y1="40" x2="100" y2="5" class="wire" />
+    <line x1="100" y1="5" x2="135" y2="5" class="wire" />
+    <rect x="135" y="-2" width="30" height="14" class="resistor" />
+    <line x1="165" y1="5" x2="190" y2="5" class="wire" />
+    <line x1="190" y1="5" x2="190" y2="45" class="wire" />
+
+    <line x1="165" y1="45" x2="220" y2="45" class="wire-sum" marker-end="url(#marr3-y)" />
+    <text x="230" y="50" class="lbl-bold" fill="#fbbf24">V_sum(t)</text>
+    <text x="230" y="68" class="subtitle">до дільника</text>
+  </g>
+
+  <!-- Wires from coils down to Summing opamp -->
+  <path d="M 140 160 L 190 160 L 190 380 L 270 380" class="wire" />
+  <path d="M 140 270 L 180 270 L 180 420 L 270 420" class="wire" />
+
+  <!-- Right Side: Comparison & Diagnostic Info -->
+  <rect x="620" y="70" width="230" height="420" class="panel" />
+  <text x="635" y="95" class="lbl-bold" fill="#38bdf8">Призначення сигналів:</text>
+
+  <rect x="630" y="115" width="210" height="150" class="box" />
+  <text x="640" y="135" class="lbl-bold" fill="#38bdf8">1. Різниця (V1 - V2):</text>
+  <text x="640" y="155" class="lbl">• Амплітуда ~ зміщенню x</text>
+  <text x="640" y="173" class="lbl">• Фаза 0°: рух вправо (+x)</text>
+  <text x="640" y="191" class="lbl">• Фаза 180°: рух вліво (-x)</text>
+  <text x="640" y="209" class="lbl">• В нулі V_diff = 0 В</text>
+  <text x="640" y="235" class="subtitle" fill="#10b981">Основний вимірювальний канал</text>
+
+  <rect x="630" y="280" width="210" height="195" class="box" />
+  <text x="640" y="300" class="lbl-bold" fill="#fbbf24">2. Сума (V1 + V2):</text>
+  <text x="640" y="320" class="lbl">• Постійна амплітуда в зоні x</text>
+  <text x="640" y="338" class="lbl">• Відображає магнітний потік</text>
+  <text x="640" y="356" class="lbl">• Відстежує дрейф опору міді</text>
+  <text x="640" y="374" class="lbl">• Знаменник у раціометрії</text>
+  <text x="640" y="400" class="lbl-bold" fill="#f43f5e">Діагностика обриву:</text>
+  <text x="640" y="420" class="subtitle">Якщо V_sum &lt; V_threshold</text>
+  <text x="640" y="438" class="subtitle">→ Детектор втрати несучої (Loss)</text>
+</svg>
