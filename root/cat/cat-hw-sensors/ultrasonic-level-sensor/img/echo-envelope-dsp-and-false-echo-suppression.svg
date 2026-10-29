@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 850 480" width="100%" height="100%">
+  <rect width="100%" height="100%" fill="#0d1117"/>
+  <rect x="25" y="25" width="800" height="430" rx="12" fill="#161b22" stroke="#30363d" stroke-width="2"/>
+  
+  <text x="425" y="55" text-anchor="middle" font-family="system-ui, sans-serif" font-size="20" font-weight="bold" fill="#f0f6fc">
+    ЦОС обробка ехо-сигналу: Time-Varying Gain (TVG) та придушення завад
+  </text>
+
+  <!-- Схема обробки ехограми -->
+  <g transform="translate(60, 90)">
+    <rect width="730" height="340" rx="8" fill="#0d1117" stroke="#30363d"/>
+
+    <!-- Ехограма -->
+    <g transform="translate(40, 50)">
+      <rect width="650" height="180" rx="6" fill="#161b22" stroke="#30363d"/>
+      <text x="20" y="25" font-family="system-ui, sans-serif" font-size="12" font-weight="bold" fill="#8b949e">
+        Профіль огинаючої ехо-сигналу та крива TVG
+      </text>
+
+      <!-- Хибне ехо 1: Зварний шов бака -->
+      <path d="M 120,150 L 135,90 L 150,150" fill="none" stroke="#f85149" stroke-width="2"/>
+      <text x="135" y="80" text-anchor="middle" font-family="system-ui, sans-serif" font-size="10" fill="#f85149">Шов / Сходинка</text>
+
+      <!-- Хибне ехо 2: Лопать мішалки -->
+      <path d="M 280,150 L 295,110 L 310,150" fill="none" stroke="#f85149" stroke-width="2"/>
+      <text x="295" y="100" text-anchor="middle" font-family="system-ui, sans-serif" font-size="10" fill="#f85149">Мішалка</text>
+
+      <!-- Справжнє ехо від рідини -->
+      <path d="M 460,150 L 485,35 L 510,150" fill="none" stroke="#3fb950" stroke-width="3"/>
+      <text x="485" y="25" text-anchor="middle" font-family="system-ui, sans-serif" font-size="12" font-weight="bold" fill="#3fb950">Рівень рідини (Пік)</text>
+
+      <!-- Динамічний поріг TVG (Time-Varying Gain Threshold) -->
+      <path d="M 50,70 Q 200,85 350,105 T 620,120" fill="none" stroke="#bc8cff" stroke-width="2" stroke-dasharray="5,3"/>
+      <text x="580" y="110" font-family="system-ui, sans-serif" font-size="10" fill="#bc8cff">Поріг TVG (Маска)</text>
+    </g>
+
+    <!-- Пояснення етапів ЦОС унизу -->
+    <g transform="translate(40, 245)">
+      <g transform="translate(0, 0)">
+        <rect width="200" height="70" rx="4" fill="#21262d" stroke="#58a6ff"/>
+        <text x="100" y="25" text-anchor="middle" font-family="system-ui, sans-serif" font-size="11" font-weight="bold" fill="#58a6ff">1. TVG Компенсація</text>
+        <text x="10" y="48" font-family="system-ui, sans-serif" font-size="10" fill="#c9d1d9">Підсилення росте пропорційно часу t для компенсації згасання</text>
+      </g>
+      <g transform="translate(225, 0)">
+        <rect width="200" height="70" rx="4" fill="#21262d" stroke="#d29922"/>
+        <text x="100" y="25" text-anchor="middle" font-family="system-ui, sans-serif" font-size="11" font-weight="bold" fill="#d29922">2. Маска перешкод</text>
+        <text x="10" y="48" font-family="system-ui, sans-serif" font-size="10" fill="#c9d1d9">Запис статичних відбиттів порожнього бака в EEPROM</text>
+      </g>
+      <g transform="translate(450, 0)">
+        <rect width="200" height="70" rx="4" fill="#21262d" stroke="#3fb950"/>
+        <text x="100" y="25" text-anchor="middle" font-family="system-ui, sans-serif" font-size="11" font-weight="bold" fill="#3fb950">3. First / Max Echo</text>
+        <text x="10" y="48" font-family="system-ui, sans-serif" font-size="10" fill="#c9d1d9">Детекція першого піка, що перевищив динамічний поріг</text>
+      </g>
+    </g>
+  </g>
+</svg>

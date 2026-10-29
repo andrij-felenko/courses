@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 850 480" width="100%" height="100%">
+  <rect width="100%" height="100%" fill="#0d1117"/>
+  <rect x="25" y="25" width="800" height="430" rx="12" fill="#161b22" stroke="#30363d" stroke-width="2"/>
+  
+  <text x="425" y="55" text-anchor="middle" font-family="system-ui, sans-serif" font-size="20" font-weight="bold" fill="#f0f6fc">
+    Правила промислового монтажу та заспокійливі труби (Stillpipes)
+  </text>
+
+  <!-- Схема 1: Неправильний монтаж -->
+  <g transform="translate(50, 85)">
+    <rect width="345" height="345" rx="8" fill="#0d1117" stroke="#da3633"/>
+    <text x="172" y="28" text-anchor="middle" font-family="system-ui, sans-serif" font-size="14" font-weight="bold" fill="#f85149">
+      Помилки монтажу (Хибні ехо)
+    </text>
+
+    <!-- Бак -->
+    <rect x="30" y="45" width="285" height="280" rx="6" fill="#161b22" stroke="#8b949e"/>
+    
+    <!-- Давач надто близько до стінки або струменя -->
+    <rect x="45" y="35" width="45" height="30" fill="#21262d" stroke="#f85149" stroke-width="2"/>
+    <!-- Конус променя чіпляє стінку -->
+    <polygon points="67,65 30,170 120,170" fill="#da3633" opacity="0.2"/>
+    <text x="80" y="130" font-family="system-ui, sans-serif" font-size="10" fill="#f85149">Паразитне відбиття від стінки!</text>
+
+    <!-- Струмінь наливу прямо під променем -->
+    <line x1="140" y1="45" x2="140" y2="230" stroke="#58a6ff" stroke-width="6"/>
+    <text x="150" y="90" font-family="system-ui, sans-serif" font-size="10" fill="#f85149">Струмінь наливу</text>
+
+    <!-- Піна на поверхні -->
+    <rect x="32" y="230" width="281" height="20" fill="#d29922" opacity="0.4"/>
+    <text x="172" y="245" text-anchor="middle" font-family="system-ui, sans-serif" font-size="10" fill="#f2cc60">Густа піна поглинає звук (-30 дБ)</text>
+  </g>
+
+  <!-- Схема 2: Правильний монтаж із заспокійливою трубою -->
+  <g transform="translate(450, 85)">
+    <rect width="345" height="345" rx="8" fill="#0d1117" stroke="#238636"/>
+    <text x="172" y="28" text-anchor="middle" font-family="system-ui, sans-serif" font-size="14" font-weight="bold" fill="#3fb950">
+      Правильно: Заспокійлива труба (Stillpipe)
+    </text>
+
+    <!-- Бак -->
+    <rect x="30" y="45" width="285" height="280" rx="6" fill="#161b22" stroke="#8b949e"/>
+
+    <!-- Заспокійлива труба -->
+    <rect x="90" y="65" width="60" height="250" fill="#0d1117" stroke="#3fb950" stroke-width="2"/>
+    <rect x="100" y="35" width="40" height="30" fill="#21262d" stroke="#3fb950" stroke-width="2"/>
+
+    <!-- Вентиляційний отвір зверху труби -->
+    <circle cx="120" cy="80" r="4" fill="#f0883e"/>
+    <text x="155" y="83" font-family="system-ui, sans-serif" font-size="9" fill="#f0883e">Вирівнювач тиску</text>
+
+    <!-- Хвилевід всередині труби -->
+    <polygon points="120,65 95,200 145,200" fill="#238636" opacity="0.3"/>
+    
+    <text x="172" y="140" font-family="system-ui, sans-serif" font-size="11" fill="#c9d1d9">• Труба діє як акустичний хвилевід</text>
+    <text x="172" y="165" font-family="system-ui, sans-serif" font-size="11" fill="#c9d1d9">• Повне гасіння хвиль і піни</text>
+    <text x="172" y="190" font-family="system-ui, sans-serif" font-size="11" fill="#c9d1d9">• Захист від змішувачів</text>
+    <text x="172" y="215" font-family="system-ui, sans-serif" font-size="11" fill="#7ee787">• Підвищення дальності до 20 м</text>
+  </g>
+</svg>

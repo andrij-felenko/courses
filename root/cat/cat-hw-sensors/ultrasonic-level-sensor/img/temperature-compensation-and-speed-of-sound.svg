@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 850 480" width="100%" height="100%">
+  <rect width="100%" height="100%" fill="#0d1117"/>
+  <rect x="25" y="25" width="800" height="430" rx="12" fill="#161b22" stroke="#30363d" stroke-width="2"/>
+  
+  <text x="425" y="55" text-anchor="middle" font-family="system-ui, sans-serif" font-size="20" font-weight="bold" fill="#f0f6fc">
+    Температурна залежність швидкості звуку c(T) та термокомпенсація
+  </text>
+
+  <!-- Графік швидкості звуку -->
+  <g transform="translate(60, 90)">
+    <rect width="360" height="340" rx="8" fill="#0d1117" stroke="#30363d"/>
+    <text x="180" y="30" text-anchor="middle" font-family="system-ui, sans-serif" font-size="15" font-weight="bold" fill="#58a6ff">
+      Залежність c(T) у повітрі
+    </text>
+
+    <!-- Осі координат -->
+    <line x1="50" y1="280" x2="330" y2="280" stroke="#8b949e" stroke-width="2"/>
+    <text x="330" y="295" font-family="system-ui, sans-serif" font-size="11" fill="#8b949e">T (°C)</text>
+    <line x1="50" y1="280" x2="50" y2="60" stroke="#8b949e" stroke-width="2"/>
+    <text x="25" y="60" font-family="system-ui, sans-serif" font-size="11" fill="#8b949e">c (м/с)</text>
+
+    <!-- Відмітки осей -->
+    <text x="45" y="260" font-family="system-ui, sans-serif" font-size="10" fill="#8b949e">320</text>
+    <text x="45" y="170" font-family="system-ui, sans-serif" font-size="10" fill="#8b949e">340</text>
+    <text x="45" y="80" font-family="system-ui, sans-serif" font-size="10" fill="#8b949e">360</text>
+
+    <text x="90" y="295" font-family="system-ui, sans-serif" font-size="10" fill="#8b949e">-20</text>
+    <text x="170" y="295" font-family="system-ui, sans-serif" font-size="10" fill="#8b949e">0</text>
+    <text x="250" y="295" font-family="system-ui, sans-serif" font-size="10" fill="#8b949e">+20</text>
+    <text x="310" y="295" font-family="system-ui, sans-serif" font-size="10" fill="#8b949e">+40</text>
+
+    <!-- Крива c(T) -->
+    <line x1="90" y1="265" x2="310" y2="85" stroke="#3fb950" stroke-width="3"/>
+    <circle cx="250" cy="134" r="5" fill="#f2cc60"/>
+    <text x="235" y="125" font-family="system-ui, sans-serif" font-size="10" font-weight="bold" fill="#f2cc60">20°C = 343.4 м/с</text>
+  </g>
+
+  <!-- Схема компенсації -->
+  <g transform="translate(450, 90)">
+    <rect width="340" height="340" rx="8" fill="#0d1117" stroke="#30363d"/>
+    <text x="170" y="30" text-anchor="middle" font-family="system-ui, sans-serif" font-size="15" font-weight="bold" fill="#3fb950">
+      Методи термокомпенсації
+    </text>
+
+    <g transform="translate(25, 55)">
+      <text x="0" y="20" font-family="system-ui, sans-serif" font-size="12" font-weight="bold" fill="#f2cc60">Апроксимація швидкості:</text>
+      <text x="15" y="42" font-family="system-ui, sans-serif" font-size="12" fill="#c9d1d9">c(T) ≈ 331.3 + 0.606 * T (°C)</text>
+      <text x="15" y="65" font-family="system-ui, sans-serif" font-size="11" fill="#f85149">Похибка без датчика: ~1.8% на 10 °C!</text>
+
+      <text x="0" y="105" font-family="system-ui, sans-serif" font-size="12" font-weight="bold" fill="#58a6ff">1. Вбудований терморезистор NTC / PT100:</text>
+      <text x="15" y="128" font-family="system-ui, sans-serif" font-size="11" fill="#c9d1d9">• Вимірює температуру повітря біля фланця</text>
+      <text x="15" y="148" font-family="system-ui, sans-serif" font-size="11" fill="#8b949e">• Недолік: температурний градієнт по висоті</text>
+
+      <text x="0" y="188" font-family="system-ui, sans-serif" font-size="12" font-weight="bold" fill="#3fb950">2. Еталонний відбивач (Reference Bar):</text>
+      <text x="15" y="210" font-family="system-ui, sans-serif" font-size="11" fill="#c9d1d9">• Фіксована штанга на відстані d_ref = 200 мм</text>
+      <text x="15" y="230" font-family="system-ui, sans-serif" font-size="11" fill="#7ee787">• Безперервний самокалібр: c_real = 2*d_ref / t_ref</text>
+      <text x="15" y="250" font-family="system-ui, sans-serif" font-size="11" fill="#7ee787">• Компенсує температуру і склад газового середовища</text>
+    </g>
+  </g>
+</svg>
