@@ -1,0 +1,83 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 500" width="100%" height="100%">
+  <defs>
+    <style>
+      .bg { fill: #0f172a; }
+      .panel { fill: #1e293b; stroke: #334155; stroke-width: 1; rx: 8px; }
+      .title { fill: #f8fafc; font-family: system-ui, -apple-system, sans-serif; font-size: 16px; font-weight: bold; }
+      .subtitle { fill: #94a3b8; font-family: system-ui, -apple-system, sans-serif; font-size: 12px; }
+      .lbl { fill: #cbd5e1; font-family: system-ui, -apple-system, sans-serif; font-size: 12px; }
+      .lbl-bold { fill: #f1f5f9; font-family: system-ui, -apple-system, sans-serif; font-size: 12px; font-weight: bold; }
+      .axis { stroke: #64748b; stroke-width: 1.5; }
+      .grid { stroke: #334155; stroke-dasharray: 4,4; stroke-width: 1; }
+      .w-a { stroke: #38bdf8; stroke-width: 2.5; fill: none; }
+      .w-b { stroke: #fbbf24; stroke-width: 2.5; fill: none; }
+      .w-z { stroke: #10b981; stroke-width: 2.5; fill: none; }
+      .marker-line { stroke: #a855f7; stroke-dasharray: 4,4; stroke-width: 1.5; }
+    </style>
+  </defs>
+
+  <rect width="880" height="500" class="bg" />
+
+  <text x="440" y="28" text-anchor="middle" class="title">Емуляція квадратурного інкрементального енкодера в RDC (A, B, Z)</text>
+  <text x="440" y="48" text-anchor="middle" class="subtitle">Формування імпульсів напрямку (CW / CCW) та індексного імпульсу нуля з програмованою роздільністю 10–16 біт</text>
+
+  <!-- Section 1: CW Rotation (Forward) -->
+  <rect x="30" y="65" width="400" height="280" class="panel" />
+  <text x="50" y="90" class="lbl-bold" fill="#38bdf8">Обертання за стрілкою (CW): Канал A випереджає B на 90°</text>
+
+  <g transform="translate(50, 110)">
+    <!-- Channel A -->
+    <text x="0" y="25" class="lbl-bold" fill="#38bdf8">A</text>
+    <path d="M 30 30 L 70 30 L 70 0 L 130 0 L 130 30 L 190 30 L 190 0 L 250 0 L 250 30 L 310 30 L 310 0 L 350 0" class="w-a" />
+
+    <!-- Channel B (lagging by 90 deg / 30px) -->
+    <text x="0" y="75" class="lbl-bold" fill="#fbbf24">B</text>
+    <path d="M 30 80 L 100 80 L 100 50 L 160 50 L 160 80 L 220 80 L 220 50 L 280 50 L 280 80 L 340 80 L 340 50 L 350 50" class="w-b" />
+
+    <!-- Channel Z (Index pulse at zero position) -->
+    <text x="0" y="125" class="lbl-bold" fill="#10b981">Z</text>
+    <path d="M 30 130 L 190 130 L 190 100 L 250 100 L 250 130 L 350 130" class="w-z" />
+
+    <!-- Markers showing 90 deg phase lead -->
+    <line x1="70" y1="0" x2="70" y2="135" class="marker-line" />
+    <line x1="100" y1="0" x2="100" y2="135" class="marker-line" />
+    <text x="85" y="145" text-anchor="middle" class="subtitle" fill="#a855f7">Δφ = 90°</text>
+  </g>
+
+  <text x="50" y="290" class="lbl">• Стан квадратури: 00 → 10 → 11 → 01 (декодування x4)</text>
+  <text x="50" y="310" class="lbl">• Z-імпульс: активний рівно 1 такт стану 11 на оберт</text>
+  <text x="50" y="330" class="subtitle">Сумісно зі стандартними квадратурними входами ЧПУ</text>
+
+  <!-- Section 2: CCW Rotation (Reverse) -->
+  <rect x="450" y="65" width="400" height="280" class="panel" />
+  <text x="470" y="90" class="lbl-bold" fill="#fbbf24">Обертання проти стрілки (CCW): Канал B випереджає A на 90°</text>
+
+  <g transform="translate(470, 110)">
+    <!-- Channel A -->
+    <text x="0" y="25" class="lbl-bold" fill="#38bdf8">A</text>
+    <path d="M 30 30 L 100 30 L 100 0 L 160 0 L 160 30 L 220 30 L 220 0 L 280 0 L 280 30 L 340 30 L 340 0 L 350 0" class="w-a" />
+
+    <!-- Channel B (leading by 90 deg) -->
+    <text x="0" y="75" class="lbl-bold" fill="#fbbf24">B</text>
+    <path d="M 30 80 L 70 80 L 70 50 L 130 50 L 130 80 L 190 80 L 190 50 L 250 50 L 250 80 L 310 80 L 310 50 L 350 50" class="w-b" />
+
+    <!-- Channel Z -->
+    <text x="0" y="125" class="lbl-bold" fill="#10b981">Z</text>
+    <path d="M 30 130 L 190 130 L 190 100 L 250 100 L 250 130 L 350 130" class="w-z" />
+
+    <line x1="70" y1="0" x2="70" y2="135" class="marker-line" />
+    <line x1="100" y1="0" x2="100" y2="135" class="marker-line" />
+    <text x="85" y="145" text-anchor="middle" class="subtitle" fill="#a855f7">Δφ = -90°</text>
+  </g>
+
+  <text x="470" y="290" class="lbl">• Стан квадратури: 00 → 01 → 11 → 10 (реверс напрямку)</text>
+  <text x="470" y="310" class="lbl">• Вбудований цифровий гістерезис (1 LSB): усуває брязкіт</text>
+  <text x="470" y="330" class="subtitle">Повна відсутність тремтіння при нульовій швидкості</text>
+
+  <!-- Bottom Panel: Resolution & Output Frequency Configuration -->
+  <rect x="30" y="360" width="820" height="120" class="panel" />
+  <text x="50" y="385" class="lbl-bold" fill="#38bdf8">Конфігурація роздільної здатності (Programmable Resolution):</text>
+  <text x="50" y="408" class="lbl">• <tspan fill="#fbbf24">10 біт (1024 CPR):</tspan> Макс. швидкість до 3125 об/с (187500 об/хв), смуга контуру 1000 Гц.</text>
+  <text x="50" y="428" class="lbl">• <tspan fill="#38bdf8">12 біт (4096 CPR):</tspan> Стандарт сервоприводів: швидкість до 6000 об/хв, f_out = (6000/60)·4096 = 409.6 кГц.</text>
+  <text x="50" y="448" class="lbl">• <tspan fill="#10b981">16 біт (65536 CPR):</tspan> Прецизійні верстати ЧПК: роздільна здатність 0.0055°, макс. швидкість 125 об/с (7500 об/хв).</text>
+</svg>

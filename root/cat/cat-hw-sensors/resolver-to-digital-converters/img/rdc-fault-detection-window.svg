@@ -1,0 +1,85 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 480" width="100%" height="100%">
+  <defs>
+    <style>
+      .bg { fill: #0f172a; }
+      .panel { fill: #1e293b; stroke: #334155; stroke-width: 1; rx: 8px; }
+      .title { fill: #f8fafc; font-family: system-ui, -apple-system, sans-serif; font-size: 16px; font-weight: bold; }
+      .subtitle { fill: #94a3b8; font-family: system-ui, -apple-system, sans-serif; font-size: 12px; }
+      .lbl { fill: #cbd5e1; font-family: system-ui, -apple-system, sans-serif; font-size: 12px; }
+      .lbl-bold { fill: #f1f5f9; font-family: system-ui, -apple-system, sans-serif; font-size: 12px; font-weight: bold; }
+      .axis { stroke: #64748b; stroke-width: 1.5; }
+      .zone-ok { fill: #10b981; fill-opacity: 0.15; stroke: #10b981; stroke-dasharray: 4,4; stroke-width: 1.5; }
+      .zone-dos { fill: #fbbf24; fill-opacity: 0.15; stroke: #fbbf24; stroke-dasharray: 4,4; stroke-width: 1.5; }
+      .zone-los { fill: #f43f5e; fill-opacity: 0.15; stroke: #f43f5e; stroke-dasharray: 4,4; stroke-width: 1.5; }
+      .nominal-line { stroke: #38bdf8; stroke-width: 2.5; stroke-dasharray: 6,3; }
+    </style>
+  </defs>
+
+  <rect width="880" height="480" class="bg" />
+
+  <text x="440" y="28" text-anchor="middle" class="title">Амплітудне вікно самодіагностики LOS та DOS у перетворювачі RDC</text>
+  <text x="440" y="48" text-anchor="middle" class="subtitle">Пороги спрацьовування компараторів за величиною векторної амплітуди V_mag = √(V_SIN² + V_COS²)</text>
+
+  <!-- Left: Window Graph -->
+  <g transform="translate(60, 80)">
+    <!-- Vertical Voltage Axis -->
+    <line x1="80" y1="300" x2="80" y2="20" class="axis" />
+    <line x1="80" y1="300" x2="480" y2="300" class="axis" />
+    <text x="485" y="303" class="lbl">θ (кут 0°...360°)</text>
+    <text x="75" y="15" class="lbl">V_mag</text>
+
+    <!-- Zone: DOS High (Over-voltage / short circuit) -->
+    <rect x="80" y="30" width="380" height="50" class="zone-dos" />
+    <text x="270" y="60" text-anchor="middle" class="lbl-bold" fill="#fbbf24">ЗОНА DOS HIGH (Перевищення амплітуди &gt; +38%)</text>
+
+    <!-- Threshold DOS High line -->
+    <line x1="80" y1="80" x2="460" y2="80" stroke="#fbbf24" stroke-width="1.5" />
+    <text x="15" y="85" class="lbl-bold" fill="#fbbf24">V_DOS_high</text>
+
+    <!-- Zone: Normal Operating Window (OK) -->
+    <rect x="80" y="80" width="380" height="120" class="zone-ok" />
+    <text x="270" y="115" text-anchor="middle" class="lbl-bold" fill="#10b981">НОРМАЛЬНИЙ РОБОЧИЙ ДІАПАЗОН (НОМІНАЛ ±25%)</text>
+    <!-- Nominal vector sum line: 1.0 Vpp -->
+    <line x1="80" y1="140" x2="460" y2="140" class="nominal-line" />
+    <text x="270" y="155" text-anchor="middle" class="lbl-bold" fill="#38bdf8">Номінал: V_SIN² + V_COS² = V_nom² = const</text>
+    <text x="25" y="145" class="lbl-bold" fill="#38bdf8">V_nom</text>
+
+    <!-- Threshold DOS Low line -->
+    <line x1="80" y1="200" x2="460" y2="200" stroke="#fbbf24" stroke-width="1.5" />
+    <text x="18" y="205" class="lbl-bold" fill="#fbbf24">V_DOS_low</text>
+
+    <!-- Zone: DOS Low (Degradation / leakage) -->
+    <rect x="80" y="200" width="380" height="50" class="zone-dos" />
+    <text x="270" y="230" text-anchor="middle" class="lbl-bold" fill="#fbbf24">ЗОНА DOS LOW (Деградація сигналу: -25% ... -45%)</text>
+
+    <!-- Threshold LOS line -->
+    <line x1="80" y1="250" x2="460" y2="250" stroke="#f43f5e" stroke-width="2" />
+    <text x="20" y="255" class="lbl-bold" fill="#f43f5e">V_LOS_th</text>
+
+    <!-- Zone: LOS (Loss of Signal / Open circuit) -->
+    <rect x="80" y="250" width="380" height="50" class="zone-los" />
+    <text x="270" y="280" text-anchor="middle" class="lbl-bold" fill="#f43f5e">ЗОНА КРИТИЧНОГО ОБРИВУ: LOS (V_mag &lt; 0.55 V)</text>
+    <text x="45" y="303" class="lbl">0 В</text>
+  </g>
+
+  <!-- Right Details & Registers Panel -->
+  <rect x="560" y="80" width="290" height="370" class="panel" />
+  <text x="580" y="105" class="lbl-bold" fill="#38bdf8">Параметри вікна діагностики:</text>
+
+  <rect x="575" y="125" width="260" height="100" class="panel" style="fill: #0f172a; stroke: #f43f5e;" />
+  <text x="590" y="148" class="lbl-bold" fill="#f43f5e">1. Поріг LOS (Loss of Signal):</text>
+  <text x="590" y="168" class="lbl">• Регістр AD2S1210: LOS THRESHOLD</text>
+  <text x="590" y="186" class="lbl">• Крок налаштування: 38 мВ/LSB</text>
+  <text x="590" y="204" class="subtitle">Спрацьовує при обриві SIN, COS або REF</text>
+
+  <rect x="575" y="240" width="260" height="100" class="panel" style="fill: #0f172a; stroke: #fbbf24;" />
+  <text x="590" y="263" class="lbl-bold" fill="#fbbf24">2. Вікно DOS (Degradation):</text>
+  <text x="590" y="283" class="lbl">• Регістри DOS OVER / DOS UNDER</text>
+  <text x="590" y="301" class="lbl">• Допуск: типово ±20%...±40%</text>
+  <text x="590" y="319" class="subtitle">Виявляє міжвиткові замикання та перегрів</text>
+
+  <rect x="575" y="355" width="260" height="80" class="panel" style="fill: #0f172a; stroke: #10b981;" />
+  <text x="590" y="378" class="lbl-bold" fill="#10b981">3. Аварійний вихід:</text>
+  <text x="590" y="398" class="lbl">• Апаратна ніжка FAULT: активний LOW</text>
+  <text x="590" y="416" class="subtitle">Миттєвий захист інвертора (STO trip)</text>
+</svg>

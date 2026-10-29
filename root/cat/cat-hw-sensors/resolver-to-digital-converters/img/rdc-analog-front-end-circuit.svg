@@ -1,0 +1,123 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 500" width="100%" height="100%">
+  <defs>
+    <style>
+      .bg { fill: #0f172a; }
+      .panel { fill: #1e293b; stroke: #334155; stroke-width: 1; rx: 8px; }
+      .box { fill: #0f172a; stroke: #38bdf8; stroke-width: 1.5; rx: 6px; }
+      .title { fill: #f8fafc; font-family: system-ui, -apple-system, sans-serif; font-size: 16px; font-weight: bold; }
+      .subtitle { fill: #94a3b8; font-family: system-ui, -apple-system, sans-serif; font-size: 12px; }
+      .lbl { fill: #cbd5e1; font-family: system-ui, -apple-system, sans-serif; font-size: 12px; }
+      .lbl-bold { fill: #f1f5f9; font-family: system-ui, -apple-system, sans-serif; font-size: 12px; font-weight: bold; }
+      .wire { stroke: #94a3b8; stroke-width: 2; fill: none; }
+      .resistor { fill: #334155; stroke: #fbbf24; stroke-width: 1.5; }
+      .cap { stroke: #38bdf8; stroke-width: 2.5; fill: none; }
+      .dot { fill: #38bdf8; }
+    </style>
+    <marker id="m2" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 8 5 L 0 9 z" fill="#38bdf8" />
+    </marker>
+  </defs>
+
+  <rect width="880" height="500" class="bg" />
+
+  <text x="440" y="28" text-anchor="middle" class="title">Диференційний аналоговий фронтенд (AFE) та фільтрація сигналів резольвера</text>
+  <text x="440" y="48" text-anchor="middle" class="subtitle">Пасивний диференційний та синфазний ФНЧ, резистивний дільник амплітуди та захист від завад ШІМ</text>
+
+  <!-- Left: Resolver input terminals -->
+  <rect x="30" y="70" width="170" height="395" class="panel" />
+  <text x="115" y="95" text-anchor="middle" class="lbl-bold" fill="#38bdf8">Вхід від резольвера</text>
+  <text x="115" y="112" text-anchor="middle" class="subtitle">Екранована вита пара</text>
+
+  <circle cx="160" cy="160" r="4" class="dot" />
+  <text x="60" y="155" class="lbl-bold">SIN (+)</text>
+  <text x="60" y="172" class="subtitle">3.5 V peak</text>
+
+  <circle cx="160" cy="240" r="4" class="dot" />
+  <text x="60" y="235" class="lbl-bold">SINLO (-)</text>
+  <text x="60" y="252" class="subtitle">Диференційно</text>
+
+  <rect x="45" y="320" width="140" height="90" class="box" />
+  <text x="115" y="340" text-anchor="middle" class="lbl-bold" fill="#fbbf24">Захист TVS:</text>
+  <text x="115" y="360" text-anchor="middle" class="subtitle">Супресори ESD</text>
+  <text x="115" y="378" text-anchor="middle" class="subtitle">Обмеження імпульсів</text>
+  <text x="115" y="395" text-anchor="middle" class="subtitle">від силового ШІМ</text>
+
+  <!-- Middle: Differential Filter & Attenuator Schematic -->
+  <rect x="230" y="70" width="370" height="395" class="panel" />
+  <text x="250" y="95" class="lbl-bold" fill="#fbbf24">Диференційний ФНЧ та дільник амплітуди</text>
+  <text x="250" y="112" class="subtitle">f_cut = 7.5 кГц | R_in / (R_ext + R_in)</text>
+
+  <!-- Top Line (SIN+) -->
+  <line x1="200" y1="160" x2="270" y2="160" class="wire" />
+  <!-- Resistor R1 -->
+  <rect x="270" y="152" width="45" height="16" class="resistor" />
+  <text x="292" y="145" text-anchor="middle" class="subtitle">R1 (10k)</text>
+  <line x1="315" y1="160" x2="380" y2="160" class="wire" />
+  <circle cx="380" cy="160" r="4" class="dot" />
+
+  <!-- Bottom Line (SINLO-) -->
+  <line x1="200" y1="240" x2="270" y2="240" class="wire" />
+  <!-- Resistor R2 -->
+  <rect x="270" y="232" width="45" height="16" class="resistor" />
+  <text x="292" y="265" text-anchor="middle" class="subtitle">R2 (10k)</text>
+  <line x1="315" y1="240" x2="380" y2="240" class="wire" />
+  <circle cx="380" cy="240" r="4" class="dot" />
+
+  <!-- Differential Cap C_diff between lines -->
+  <line x1="380" y1="160" x2="380" y2="190" class="wire" />
+  <line x1="372" y1="190" x2="388" y2="190" class="cap" />
+  <line x1="372" y1="196" x2="388" y2="196" class="cap" />
+  <text x="410" y="196" class="subtitle">C_diff (1 нФ)</text>
+  <line x1="380" y1="196" x2="380" y2="240" class="wire" />
+
+  <!-- Common-mode caps C_cm to AGND -->
+  <line x1="380" y1="160" x2="480" y2="160" class="wire" />
+  <circle cx="480" cy="160" r="4" class="dot" />
+  <line x1="480" y1="160" x2="480" y2="185" class="wire" />
+  <line x1="472" y1="185" x2="488" y2="185" class="cap" />
+  <line x1="472" y1="191" x2="488" y2="191" class="cap" />
+  <line x1="480" y1="191" x2="480" y2="200" class="wire" />
+  <!-- GND mark -->
+  <line x1="470" y1="200" x2="490" y2="200" class="wire" />
+  <text x="500" y="192" class="subtitle">C_cm1 (100 пФ)</text>
+
+  <line x1="380" y1="240" x2="480" y2="240" class="wire" />
+  <circle cx="480" cy="240" r="4" class="dot" />
+  <line x1="480" y1="240" x2="480" y2="215" class="wire" />
+  <line x1="472" y1="215" x2="488" y2="215" class="cap" />
+  <line x1="472" y1="209" x2="488" y2="209" class="cap" />
+  <line x1="480" y1="209" x2="480" y2="200" class="wire" />
+  <text x="500" y="218" class="subtitle">C_cm2 (100 пФ)</text>
+
+  <!-- Output lines to RDC -->
+  <line x1="480" y1="160" x2="570" y2="160" class="wire" marker-end="url(#m2)" />
+  <line x1="480" y1="240" x2="570" y2="240" class="wire" marker-end="url(#m2)" />
+
+  <!-- Math box inside middle panel -->
+  <rect x="250" y="320" width="330" height="120" class="box" />
+  <text x="265" y="342" class="lbl-bold" fill="#38bdf8">Розрахунок частоти зрізу ФНЧ:</text>
+  <text x="265" y="362" class="lbl">f_c = 1 / (2π · R · (2·C_diff + C_cm))</text>
+  <text x="265" y="380" class="lbl">f_c = 1 / (2π · 10к · 2.1нФ) ≈ 7.58 кГц</text>
+  <text x="265" y="400" class="subtitle">• Пропускає несучу 5–10 кГц з мін. затримкою</text>
+  <text x="265" y="418" class="subtitle">• Пригнічує перемикання ШІМ &gt; 16 кГц на 20–40 дБ</text>
+
+  <!-- Right: RDC Chip Internal Stage -->
+  <rect x="630" y="70" width="220" height="395" class="panel" />
+  <text x="740" y="95" text-anchor="middle" class="lbl-bold" fill="#10b981">Вхідний каскад RDC</text>
+  <text x="740" y="112" text-anchor="middle" class="subtitle">AD2S1210 / AFE</text>
+
+  <rect x="650" y="140" width="180" height="130" class="box" style="stroke: #10b981;" />
+  <text x="740" y="165" text-anchor="middle" class="lbl-bold">Диференційний</text>
+  <text x="740" y="182" text-anchor="middle" class="lbl-bold">буфер RDC</text>
+  <text x="740" y="202" text-anchor="middle" class="subtitle">Діапазон входу:</text>
+  <text x="740" y="218" text-anchor="middle" class="lbl" fill="#10b981">3.15 Vpp ± 27%</text>
+  <text x="740" y="236" text-anchor="middle" class="subtitle">Високий CMRR &gt; 90 дБ</text>
+
+  <rect x="650" y="300" width="180" height="140" class="box" />
+  <text x="740" y="322" text-anchor="middle" class="lbl-bold" fill="#fbbf24">Вимоги трасування:</text>
+  <text x="740" y="342" text-anchor="middle" class="lbl">• Диф. пари 100 Ом</text>
+  <text x="740" y="360" text-anchor="middle" class="lbl">• Симетрія довжин</text>
+  <text x="740" y="378" text-anchor="middle" class="lbl">• Суцільний шар AGND</text>
+  <text x="740" y="396" text-anchor="middle" class="lbl">• Віддаль від ШІМ ліній</text>
+  <text x="740" y="420" text-anchor="middle" class="subtitle" fill="#38bdf8">Мінімізація фазового шуму</text>
+</svg>
