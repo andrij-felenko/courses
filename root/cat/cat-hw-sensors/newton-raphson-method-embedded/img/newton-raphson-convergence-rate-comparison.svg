@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="100%" height="100%">
+  <rect width="960" height="480" fill="#0d1117" rx="12"/>
+  <text x="480" y="38" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="20" font-weight="700" fill="#f0f6fc" text-anchor="middle">Порівняння швидкості збіжності чисельних методів</text>
+  <text x="480" y="62" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" fill="#8b949e" text-anchor="middle">Логарифмічна похибка log10|ε| залежно від номера ітерації для 16/32-бітних обчислень</text>
+
+  <!-- Chart Area -->
+  <g transform="translate(120, 95)">
+    <!-- Axes -->
+    <line x1="0" y1="280" x2="720" y2="280" stroke="#30363d" stroke-width="2"/>
+    <line x1="0" y1="20" x2="0" y2="280" stroke="#30363d" stroke-width="2"/>
+    <text x="710" y="305" font-family="sans-serif" font-size="12" fill="#8b949e">Ітерації (n)</text>
+    <text x="-15" y="25" font-family="sans-serif" font-size="11" fill="#8b949e" text-anchor="end">Похибка</text>
+
+    <!-- Y labels (log scale) -->
+    <text x="-15" y="50" font-family="sans-serif" font-size="10" fill="#8b949e" text-anchor="end">10^0 (1.0)</text>
+    <text x="-15" y="105" font-family="sans-serif" font-size="10" fill="#8b949e" text-anchor="end">10^-2</text>
+    <text x="-15" y="160" font-family="sans-serif" font-size="10" fill="#8b949e" text-anchor="end">10^-4</text>
+    <text x="-15" y="215" font-family="sans-serif" font-size="10" fill="#8b949e" text-anchor="end">10^-8</text>
+    <text x="-15" y="270" font-family="sans-serif" font-size="10" fill="#8b949e" text-anchor="end">10^-16 (FP64)</text>
+
+    <!-- Grid lines -->
+    <line x1="0" y1="100" x2="720" y2="100" stroke="#21262d" stroke-dasharray="4 4"/>
+    <line x1="0" y1="155" x2="720" y2="155" stroke="#21262d" stroke-dasharray="4 4"/>
+    <line x1="0" y1="210" x2="720" y2="210" stroke="#21262d" stroke-dasharray="4 4"/>
+    <line x1="0" y1="265" x2="720" y2="265" stroke="#21262d" stroke-dasharray="4 4"/>
+
+    <!-- X tick labels -->
+    <text x="80" y="298" font-family="sans-serif" font-size="11" fill="#8b949e" text-anchor="middle">1</text>
+    <text x="180" y="298" font-family="sans-serif" font-size="11" fill="#8b949e" text-anchor="middle">2</text>
+    <text x="280" y="298" font-family="sans-serif" font-size="11" fill="#8b949e" text-anchor="middle">3</text>
+    <text x="380" y="298" font-family="sans-serif" font-size="11" fill="#8b949e" text-anchor="middle">4</text>
+    <text x="480" y="298" font-family="sans-serif" font-size="11" fill="#8b949e" text-anchor="middle">5</text>
+    <text x="580" y="298" font-family="sans-serif" font-size="11" fill="#8b949e" text-anchor="middle">10</text>
+    <text x="680" y="298" font-family="sans-serif" font-size="11" fill="#8b949e" text-anchor="middle">16</text>
+
+    <!-- Curve 1: Bisection (Метод бісекції / дихотомії - повільна лінійна збіжність) -->
+    <!-- from (0, 50) slowly down to (680, 265) -->
+    <path d="M 0,50 L 80,63 L 180,80 L 280,95 L 380,110 L 480,126 L 580,190 L 680,265" 
+          fill="none" stroke="#f85149" stroke-width="2.5"/>
+    <text x="540" y="150" font-family="sans-serif" font-size="11" font-weight="bold" fill="#f85149">Бісекція (1 біт / ітер.)</text>
+
+    <!-- Curve 2: Secant Method (Метод січних - суперлінійна p=1.618) -->
+    <path d="M 0,50 L 80,75 L 180,110 L 280,165 L 380,240 L 440,265" 
+          fill="none" stroke="#d29922" stroke-width="2.5" stroke-dasharray="6 3"/>
+    <text x="340" y="190" font-family="sans-serif" font-size="11" font-weight="bold" fill="#d29922">Метод січних</text>
+
+    <!-- Curve 3: Newton-Raphson (Квадратична збіжність - 3-4 ітерації до float/double) -->
+    <!-- 0: 50, 1: 90, 2: 155, 3: 265 -->
+    <path d="M 0,50 L 80,85 L 180,150 L 280,265" 
+          fill="none" stroke="#3fb950" stroke-width="3.5"/>
+    <circle cx="80" cy="85" r="4" fill="#3fb950"/>
+    <circle cx="180" cy="150" r="4" fill="#3fb950"/>
+    <circle cx="280" cy="265" r="5" fill="#3fb950"/>
+    <text x="190" y="135" font-family="sans-serif" font-size="12" font-weight="bold" fill="#3fb950">Ньютон — Рафсон</text>
+    <text x="290" y="255" font-family="sans-serif" font-size="11" fill="#3fb950">3 ітерації до машинної точності!</text>
+  </g>
+
+  <!-- Bottom Legend / Summary -->
+  <g transform="translate(120, 395)">
+    <rect width="720" height="65" rx="6" fill="#161b22" stroke="#30363d"/>
+    <text x="20" y="25" font-family="sans-serif" font-size="11" fill="#f0f6fc">
+      <tspan font-weight="bold" fill="#3fb950">• Чому це критично для MCU:</tspan> Метод бісекції вимагає 16–24 обчислень функції для отримання 16 біт,
+    </text>
+    <text x="20" y="48" font-family="sans-serif" font-size="11" fill="#f0f6fc">
+      тоді як Ньютон — Рафсон досягає тієї ж точності всього за <tspan font-weight="bold" fill="#3fb950">2–3 ітерації</tspan>, заощаджуючи до 80% тактів процесора.
+    </text>
+  </g>
+</svg>

@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="100%" height="100%">
+  <rect width="960" height="480" fill="#0d1117" rx="12"/>
+  <text x="480" y="38" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="20" font-weight="700" fill="#f0f6fc" text-anchor="middle">Звернення рівняння Каллендара — Ван Дюзена для Pt100/Pt1000</text>
+  <text x="480" y="62" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" fill="#8b949e" text-anchor="middle">Розв'язання полінома 4-го степеня R(T) = R0(1 + AT + BT² + C(T-100)T³) для T &lt; 0 °C</text>
+
+  <!-- Flowchart Container -->
+  <g transform="translate(60, 85)">
+    <!-- Block 1: Input -->
+    <rect x="0" y="20" width="190" height="60" rx="6" fill="#161b22" stroke="#58a6ff" stroke-width="1.5"/>
+    <text x="95" y="45" font-family="sans-serif" font-size="12" font-weight="bold" fill="#58a6ff" text-anchor="middle">1. Вхідний опір R_meas</text>
+    <text x="95" y="65" font-family="sans-serif" font-size="11" fill="#8b949e" text-anchor="middle">Виміряний опір RTD</text>
+
+    <!-- Arrow 1 -> 2 -->
+    <line x1="190" y1="50" x2="230" y2="50" stroke="#58a6ff" stroke-width="2"/>
+    <polygon points="230,50 220,45 220,55" fill="#58a6ff"/>
+
+    <!-- Block 2: Seed Generation (Quadratic solution for T >= 0) -->
+    <rect x="230" y="10" width="230" height="80" rx="6" fill="#161b22" stroke="#3fb950" stroke-width="1.5"/>
+    <text x="345" y="35" font-family="sans-serif" font-size="12" font-weight="bold" fill="#3fb950" text-anchor="middle">2. Генерація Seed (T_0)</text>
+    <text x="345" y="55" font-family="sans-serif" font-size="11" fill="#f0f6fc" text-anchor="middle">Аналітичний корінь квадратичного</text>
+    <text x="345" y="73" font-family="monospace" font-size="10" fill="#8b949e" text-anchor="middle">T_0 = (-A + √(A²-4B(1-R/R0)))/(2B)</text>
+
+    <!-- Arrow 2 -> 3 -->
+    <line x1="460" y1="50" x2="500" y2="50" stroke="#3fb950" stroke-width="2"/>
+    <polygon points="500,50 490,45 490,55" fill="#3fb950"/>
+
+    <!-- Block 3: Decision: Is T_0 >= 0 °C? -->
+    <polygon points="580,10 660,50 580,90 500,50" fill="#161b22" stroke="#d29922" stroke-width="1.5"/>
+    <text x="580" y="47" font-family="sans-serif" font-size="11" font-weight="bold" fill="#d29922" text-anchor="middle">T_0 ≥ 0 °C?</text>
+    <text x="580" y="62" font-family="sans-serif" font-size="10" fill="#8b949e" text-anchor="middle">(C = 0)</text>
+
+    <!-- Branch YES -> Direct Output -->
+    <line x1="660" y1="50" x2="710" y2="50" stroke="#3fb950" stroke-width="2"/>
+    <polygon points="710,50 700,45 700,55" fill="#3fb950"/>
+    <text x="680" y="40" font-family="sans-serif" font-size="11" font-weight="bold" fill="#3fb950">ТАК</text>
+
+    <rect x="710" y="20" width="130" height="60" rx="6" fill="#238636" fill-opacity="0.2" stroke="#3fb950"/>
+    <text x="775" y="45" font-family="sans-serif" font-size="12" font-weight="bold" fill="#3fb950" text-anchor="middle">Готово!</text>
+    <text x="775" y="65" font-family="sans-serif" font-size="11" fill="#f0f6fc" text-anchor="middle">T = T_0 (точно)</text>
+
+    <!-- Branch NO (T < 0 °C) -> Down to Newton Iteration Loop -->
+    <line x1="580" y1="90" x2="580" y2="130" stroke="#f85149" stroke-width="2"/>
+    <polygon points="580,130 575,120 585,120" fill="#f85149"/>
+    <text x="595" y="115" font-family="sans-serif" font-size="11" font-weight="bold" fill="#f85149">НІ (T &lt; 0 °C)</text>
+
+    <!-- Newton Loop Card -->
+    <rect x="180" y="130" width="660" height="230" rx="8" fill="#161b22" stroke="#f85149" stroke-width="1.5"/>
+    <text x="510" y="155" font-family="sans-serif" font-size="13" font-weight="bold" fill="#f85149" text-anchor="middle">Ітераційний цикл Ньютона — Рафсона для полінома 4-го степеня</text>
+
+    <!-- Step 3.1: Calculate f(T) and f'(T) -->
+    <rect x="210" y="175" width="270" height="75" rx="6" fill="#0d1117" stroke="#30363d"/>
+    <text x="345" y="198" font-family="sans-serif" font-size="11" font-weight="bold" fill="#58a6ff" text-anchor="middle">Розрахунок нев'язки та похідної:</text>
+    <text x="345" y="220" font-family="monospace" font-size="10" fill="#c9d1d9" text-anchor="middle">f(T) = R_CVD(T) - R_meas</text>
+    <text x="345" y="238" font-family="monospace" font-size="10" fill="#c9d1d9" text-anchor="middle">f'(T) = R0*(A + 2BT + 4CT³ - 300CT²)</text>
+
+    <!-- Arrow 3.1 -> 3.2 -->
+    <line x1="480" y1="212" x2="520" y2="212" stroke="#58a6ff" stroke-width="2"/>
+    <polygon points="520,212 510,207 510,217" fill="#58a6ff"/>
+
+    <!-- Step 3.2: Update Step -->
+    <rect x="520" y="175" width="290" height="75" rx="6" fill="#0d1117" stroke="#30363d"/>
+    <text x="665" y="198" font-family="sans-serif" font-size="11" font-weight="bold" fill="#3fb950" text-anchor="middle">Оновлення наближення:</text>
+    <text x="665" y="222" font-family="monospace" font-size="11" fill="#3fb950" text-anchor="middle">Delta_T = f(T) / f'(T)</text>
+    <text x="665" y="240" font-family="monospace" font-size="11" fill="#f0f6fc" text-anchor="middle">T_{n+1} = T_n - Delta_T</text>
+
+    <!-- Convergence check -->
+    <rect x="340" y="275" width="340" height="65" rx="6" fill="#0d1117" stroke="#d29922"/>
+    <text x="510" y="298" font-family="sans-serif" font-size="11" font-weight="bold" fill="#d29922" text-anchor="middle">Критерій зупинки:</text>
+    <text x="510" y="322" font-family="monospace" font-size="11" fill="#f0f6fc" text-anchor="middle">|Delta_T| &lt; 0.001 °C  або  ітерацій &gt;= 4</text>
+  </g>
+</svg>

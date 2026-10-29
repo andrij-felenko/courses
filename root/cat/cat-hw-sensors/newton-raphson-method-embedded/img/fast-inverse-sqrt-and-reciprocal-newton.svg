@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="100%" height="100%">
+  <rect width="960" height="480" fill="#0d1117" rx="12"/>
+  <text x="480" y="38" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="20" font-weight="700" fill="#f0f6fc" text-anchor="middle">Безділильні обчислення: Обернення 1/D та Fast Inverse Sqrt</text>
+  <text x="480" y="62" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" fill="#8b949e" text-anchor="middle">Заміна апаратно повільного ділення множенням та ітерацією Ньютона — Рафсона</text>
+
+  <!-- Left: Reciprocal 1/D -->
+  <g transform="translate(60, 95)">
+    <rect width="390" height="340" rx="8" fill="#161b22" stroke="#58a6ff" stroke-width="1.5"/>
+    <rect width="390" height="32" rx="8" fill="#1f6feb" fill-opacity="0.2"/>
+    <text x="195" y="22" font-family="sans-serif" font-size="14" font-weight="bold" fill="#58a6ff" text-anchor="middle">Швидке обернення: y = 1 / D</text>
+    
+    <text x="20" y="60" font-family="sans-serif" font-size="12" font-weight="bold" fill="#f0f6fc">Постановка задачі:</text>
+    <text x="20" y="80" font-family="sans-serif" font-size="11" fill="#8b949e">Знайти нуль функції f(x) = (1/x) - D = 0</text>
+    <text x="20" y="98" font-family="sans-serif" font-size="11" fill="#8b949e">Похідна: f'(x) = -1 / x²</text>
+
+    <!-- Formula derivation card -->
+    <rect x="20" y="115" width="350" height="75" rx="6" fill="#0d1117" stroke="#30363d"/>
+    <text x="195" y="140" font-family="monospace" font-size="12" fill="#3fb950" text-anchor="middle">x_{n+1} = x_n - ((1/x_n - D) / (-1/x_n²))</text>
+    <text x="195" y="168" font-family="monospace" font-size="13" font-weight="bold" fill="#58a6ff" text-anchor="middle">x_{n+1} = x_n * (2 - D * x_n)</text>
+
+    <text x="20" y="215" font-family="sans-serif" font-size="11" font-weight="bold" fill="#3fb950">Головна перевага формули:</text>
+    <text x="20" y="235" font-family="sans-serif" font-size="11" fill="#f0f6fc">• У правій частині НЕМАЄ операції ділення!</text>
+    <text x="20" y="255" font-family="sans-serif" font-size="11" fill="#8b949e">• Тільки 2 множення та одне віднімання.</text>
+    <text x="20" y="275" font-family="sans-serif" font-size="11" fill="#8b949e">• Ідеально для DSP та Cortex-M0/M3 без FPU.</text>
+    
+    <rect x="20" y="295" width="350" height="30" rx="4" fill="#1f6feb" fill-opacity="0.15"/>
+    <text x="195" y="315" font-family="sans-serif" font-size="10" fill="#58a6ff" text-anchor="middle">Забезпечує 2x..4x прискорення фільтрів Калмана</text>
+  </g>
+
+  <!-- Right: Fast Inverse Square Root (1/sqrt(x)) -->
+  <g transform="translate(510, 95)">
+    <rect width="390" height="340" rx="8" fill="#161b22" stroke="#bc8cff" stroke-width="1.5"/>
+    <rect width="390" height="32" rx="8" fill="#8957e5" fill-opacity="0.2"/>
+    <text x="195" y="22" font-family="sans-serif" font-size="14" font-weight="bold" fill="#bc8cff" text-anchor="middle">Fast Inverse Square Root: 1 / √x</text>
+    
+    <text x="20" y="60" font-family="sans-serif" font-size="12" font-weight="bold" fill="#f0f6fc">Постановка задачі (IMU нормалізація):</text>
+    <text x="20" y="80" font-family="sans-serif" font-size="11" fill="#8b949e">Знайти нуль f(y) = (1/y²) - x = 0</text>
+    <text x="20" y="98" font-family="sans-serif" font-size="11" fill="#8b949e">Похідна: f'(y) = -2 / y³</text>
+
+    <!-- Formula derivation card -->
+    <rect x="20" y="115" width="350" height="75" rx="6" fill="#0d1117" stroke="#30363d"/>
+    <text x="195" y="140" font-family="monospace" font-size="11" fill="#d2a8ff" text-anchor="middle">y_{n+1} = y_n - ((1/y_n² - x) / (-2/y_n³))</text>
+    <text x="195" y="168" font-family="monospace" font-size="13" font-weight="bold" fill="#bc8cff" text-anchor="middle">y_{n+1} = y_n * (1.5 - 0.5 * x * y_n²)</text>
+
+    <text x="20" y="215" font-family="sans-serif" font-size="11" font-weight="bold" fill="#bc8cff">Легендарний алгоритм Quake III:</text>
+    <text x="20" y="235" font-family="monospace" font-size="10" fill="#f0f6fc">i = 0x5f3759df - (i &gt;&gt; 1); // Магічний seed</text>
+    <text x="20" y="255" font-family="sans-serif" font-size="11" fill="#8b949e">• Початкове наближення за 1 такт CPU!</text>
+    <text x="20" y="275" font-family="sans-serif" font-size="11" fill="#8b949e">• Лише 1 ітерація Ньютона дає похибку &lt; 0.17%</text>
+
+    <rect x="20" y="295" width="350" height="30" rx="4" fill="#8957e5" fill-opacity="0.15"/>
+    <text x="195" y="315" font-family="sans-serif" font-size="10" fill="#bc8cff" text-anchor="middle">Критично для квадрокоптерів та орієнтації AHRS</text>
+  </g>
+</svg>
