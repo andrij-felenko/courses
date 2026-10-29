@@ -1,0 +1,125 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="35" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Похибки лінеаризації платинового термоопору PT100</text>
+  <text x="480" y="55" font-size="13" fill="#6b7280" text-anchor="middle">Порівняння похибок Δt розрахунку температури відносно еталону Каллендара — Ван Дюзена (IEC 60751)</text>
+
+  <!-- Main Chart Area Panel -->
+  <rect x="75" y="70" width="845" height="360" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="8"/>
+
+  <!-- Horizontal Grid -->
+  <line x1="140" y1="100" x2="890" y2="100" stroke="#d0d7de" stroke-dasharray="4 4" stroke-width="1"/>
+  <line x1="140" y1="152.7" x2="890" y2="152.7" stroke="#d0d7de" stroke-dasharray="4 4" stroke-width="1"/>
+  <line x1="140" y1="179.1" x2="890" y2="179.1" stroke="#d0d7de" stroke-dasharray="4 4" stroke-width="1"/>
+  <line x1="140" y1="231.8" x2="890" y2="231.8" stroke="#d0d7de" stroke-dasharray="4 4" stroke-width="1"/>
+  <line x1="140" y1="284.5" x2="890" y2="284.5" stroke="#d0d7de" stroke-dasharray="4 4" stroke-width="1"/>
+  <line x1="140" y1="337.3" x2="890" y2="337.3" stroke="#d0d7de" stroke-dasharray="4 4" stroke-width="1"/>
+  <line x1="140" y1="390" x2="890" y2="390" stroke="#d0d7de" stroke-dasharray="4 4" stroke-width="1"/>
+
+  <!-- Vertical Grid -->
+  <line x1="140" y1="100" x2="140" y2="390" stroke="#d0d7de" stroke-dasharray="4 4" stroke-width="1"/>
+  <line x1="211.4" y1="100" x2="211.4" y2="390" stroke="#d0d7de" stroke-dasharray="4 4" stroke-width="1"/>
+  <line x1="282.9" y1="100" x2="282.9" y2="390" stroke="#d0d7de" stroke-dasharray="4 4" stroke-width="1"/>
+  <line x1="425.7" y1="100" x2="425.7" y2="390" stroke="#d0d7de" stroke-dasharray="4 4" stroke-width="1"/>
+  <line x1="568.6" y1="100" x2="568.6" y2="390" stroke="#d0d7de" stroke-dasharray="4 4" stroke-width="1"/>
+  <line x1="711.4" y1="100" x2="711.4" y2="390" stroke="#d0d7de" stroke-dasharray="4 4" stroke-width="1"/>
+  <line x1="890" y1="100" x2="890" y2="390" stroke="#d0d7de" stroke-dasharray="4 4" stroke-width="1"/>
+
+  <!-- Baseline (Zero Error) Line -->
+  <line x1="140" y1="126.4" x2="890" y2="126.4" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="5 3"/>
+
+  <!-- Axes Titles -->
+  <text x="85" y="86" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">Похибка Δt (°C)</text>
+  <text x="515" y="422" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Температура t (°C)</text>
+
+  <!-- Y-Axis Ticks -->
+  <text x="130" y="104" font-size="12" fill="#6b7280" text-anchor="end">+10 °C</text>
+  <text x="130" y="130" font-size="12" fill="#27ae60" font-weight="bold" text-anchor="end">0 °C</text>
+  <text x="130" y="183" font-size="12" fill="#6b7280" text-anchor="end">-20 °C</text>
+  <text x="130" y="236" font-size="12" fill="#6b7280" text-anchor="end">-40 °C</text>
+  <text x="130" y="289" font-size="12" fill="#6b7280" text-anchor="end">-60 °C</text>
+  <text x="130" y="341" font-size="12" fill="#6b7280" text-anchor="end">-80 °C</text>
+  <text x="130" y="394" font-size="12" fill="#6b7280" text-anchor="end">-100 °C</text>
+
+  <!-- X-Axis Ticks -->
+  <text x="140" y="408" font-size="12" fill="#6b7280" text-anchor="middle">-200 °C</text>
+  <text x="211" y="408" font-size="12" fill="#6b7280" text-anchor="middle">-100 °C</text>
+  <text x="283" y="408" font-size="12" fill="#27ae60" font-weight="bold" text-anchor="middle">0 °C</text>
+  <text x="426" y="408" font-size="12" fill="#6b7280" text-anchor="middle">+200 °C</text>
+  <text x="569" y="408" font-size="12" fill="#6b7280" text-anchor="middle">+400 °C</text>
+  <text x="711" y="408" font-size="12" fill="#6b7280" text-anchor="middle">+600 °C</text>
+  <text x="890" y="408" font-size="12" fill="#6b7280" text-anchor="middle">+850 °C</text>
+
+  <!-- Curves -->
+  <!-- Polynomial / Newton-Raphson (Zero Error Baseline) -->
+  <path d="M 140.0,126.4 L 147.1,126.4 L 154.3,126.4 L 161.4,126.4 L 168.6,126.4 L 175.7,126.4 L 182.9,126.4 L 190.0,126.4 L 197.1,126.4 L 204.3,126.4 L 211.4,126.4 L 218.6,126.4 L 225.7,126.4 L 232.9,126.4 L 240.0,126.4 L 247.1,126.4 L 254.3,126.4 L 261.4,126.4 L 268.6,126.4 L 275.7,126.4 L 282.9,126.4 L 290.0,126.4 L 297.1,126.4 L 304.3,126.4 L 311.4,126.4 L 318.6,126.4 L 325.7,126.4 L 332.9,126.4 L 340.0,126.4 L 347.1,126.4 L 354.3,126.4 L 361.4,126.4 L 368.6,126.4 L 375.7,126.4 L 382.9,126.4 L 390.0,126.4 L 397.1,126.4 L 404.3,126.4 L 411.4,126.4 L 418.6,126.4 L 425.7,126.4 L 432.9,126.4 L 440.0,126.4 L 447.1,126.4 L 454.3,126.4 L 461.4,126.4 L 468.6,126.4 L 475.7,126.4 L 482.9,126.4 L 490.0,126.4 L 497.1,126.4 L 504.3,126.4 L 511.4,126.4 L 518.6,126.4 L 525.7,126.4 L 532.9,126.4 L 540.0,126.4 L 547.1,126.4 L 554.3,126.4 L 561.4,126.4 L 568.6,126.4 L 575.7,126.4 L 582.9,126.4 L 590.0,126.4 L 597.1,126.4 L 604.3,126.4 L 611.4,126.4 L 618.6,126.4 L 625.7,126.4 L 632.9,126.4 L 640.0,126.4 L 647.1,126.4 L 654.3,126.4 L 661.4,126.4 L 668.6,126.4 L 675.7,126.4 L 682.9,126.4 L 690.0,126.4 L 697.1,126.4 L 704.3,126.4 L 711.4,126.4 L 718.6,126.4 L 725.7,126.4 L 732.9,126.4 L 740.0,126.4 L 747.1,126.4 L 754.3,126.4 L 761.4,126.4 L 768.6,126.4 L 775.7,126.4 L 782.9,126.4 L 790.0,126.4 L 797.1,126.4 L 804.3,126.4 L 811.4,126.4 L 818.6,126.4 L 825.7,126.4 L 832.9,126.4 L 840.0,126.4 L 847.1,126.4 L 854.3,126.4 L 861.4,126.4 L 868.6,126.4 L 875.7,126.4 L 882.9,126.4 L 890.0,126.4" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+
+  <!-- Quadratic Analytical Inverse Curve -->
+  <path d="M 140.0,132.8 L 147.1,131.7 L 154.3,130.7 L 161.4,129.9 L 168.6,129.2 L 175.7,128.6 L 182.9,128.1 L 190.0,127.7 L 197.1,127.4 L 204.3,127.1 L 211.4,126.9 L 218.6,126.7 L 225.7,126.6 L 232.9,126.5 L 240.0,126.5 L 247.1,126.4 L 254.3,126.4 L 261.4,126.4 L 268.6,126.4 L 275.7,126.4 L 282.9,126.4 L 290.0,126.4 L 297.1,126.4 L 304.3,126.4 L 311.4,126.4 L 318.6,126.4 L 325.7,126.4 L 332.9,126.4 L 340.0,126.4 L 347.1,126.4 L 354.3,126.4 L 361.4,126.4 L 368.6,126.4 L 375.7,126.4 L 382.9,126.4 L 390.0,126.4 L 397.1,126.4 L 404.3,126.4 L 411.4,126.4 L 418.6,126.4 L 425.7,126.4 L 432.9,126.4 L 440.0,126.4 L 447.1,126.4 L 454.3,126.4 L 461.4,126.4 L 468.6,126.4 L 475.7,126.4 L 482.9,126.4 L 490.0,126.4 L 497.1,126.4 L 504.3,126.4 L 511.4,126.4 L 518.6,126.4 L 525.7,126.4 L 532.9,126.4 L 540.0,126.4 L 547.1,126.4 L 554.3,126.4 L 561.4,126.4 L 568.6,126.4 L 575.7,126.4 L 582.9,126.4 L 590.0,126.4 L 597.1,126.4 L 604.3,126.4 L 611.4,126.4 L 618.6,126.4 L 625.7,126.4 L 632.9,126.4 L 640.0,126.4 L 647.1,126.4 L 654.3,126.4 L 661.4,126.4 L 668.6,126.4 L 675.7,126.4 L 682.9,126.4 L 690.0,126.4 L 697.1,126.4 L 704.3,126.4 L 711.4,126.4 L 718.6,126.4 L 725.7,126.4 L 732.9,126.4 L 740.0,126.4 L 747.1,126.4 L 754.3,126.4 L 761.4,126.4 L 768.6,126.4 L 775.7,126.4 L 782.9,126.4 L 790.0,126.4 L 797.1,126.4 L 804.3,126.4 L 811.4,126.4 L 818.6,126.4 L 825.7,126.4 L 832.9,126.4 L 840.0,126.4 L 847.1,126.4 L 854.3,126.4 L 861.4,126.4 L 868.6,126.4 L 875.7,126.4 L 882.9,126.4 L 890.0,126.4" fill="none" stroke="#2457d6" stroke-width="2.5" stroke-dasharray="6 3"/>
+
+  <!-- Linear Approximation Error Curve -->
+  <path d="M 140.0,157.0 L 147.1,153.8 L 154.3,151.0 L 161.4,148.3 L 168.6,145.9 L 175.7,143.6 L 182.9,141.5 L 190.0,139.6 L 197.1,137.9 L 204.3,136.3 L 211.4,134.8 L 218.6,133.5 L 225.7,132.3 L 232.9,131.2 L 240.0,130.3 L 247.1,129.4 L 254.3,128.6 L 261.4,127.9 L 268.6,127.3 L 275.7,126.8 L 282.9,126.4 L 290.0,126.0 L 297.1,125.7 L 304.3,125.5 L 311.4,125.4 L 318.6,125.4 L 325.7,125.4 L 332.9,125.5 L 340.0,125.7 L 347.1,126.0 L 354.3,126.4 L 361.4,126.8 L 368.6,127.3 L 375.7,127.9 L 382.9,128.6 L 390.0,129.3 L 397.1,130.2 L 404.3,131.1 L 411.4,132.1 L 418.6,133.1 L 425.7,134.3 L 432.9,135.5 L 440.0,136.8 L 447.1,138.2 L 454.3,139.6 L 461.4,141.2 L 468.6,142.8 L 475.7,144.5 L 482.9,146.3 L 490.0,148.2 L 497.1,150.1 L 504.3,152.1 L 511.4,154.2 L 518.6,156.4 L 525.7,158.6 L 532.9,161.0 L 540.0,163.4 L 547.1,165.9 L 554.3,168.4 L 561.4,171.1 L 568.6,173.8 L 575.7,176.6 L 582.9,179.5 L 590.0,182.5 L 597.1,185.5 L 604.3,188.6 L 611.4,191.8 L 618.6,195.1 L 625.7,198.5 L 632.9,201.9 L 640.0,205.4 L 647.1,209.0 L 654.3,212.7 L 661.4,216.5 L 668.6,220.3 L 675.7,224.2 L 682.9,228.2 L 690.0,232.3 L 697.1,236.4 L 704.3,240.7 L 711.4,245.0 L 718.6,249.4 L 725.7,253.8 L 732.9,258.4 L 740.0,263.0 L 747.1,267.7 L 754.3,272.5 L 761.4,277.4 L 768.6,282.3 L 775.7,287.3 L 782.9,292.4 L 790.0,297.6 L 797.1,302.9 L 804.3,308.2 L 811.4,313.6 L 818.6,319.1 L 825.7,324.7 L 832.9,330.3 L 840.0,336.1 L 847.1,341.9 L 854.3,347.8 L 861.4,353.8 L 868.6,359.8 L 875.7,365.9 L 882.9,372.1 L 890.0,378.4" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+
+  <!-- Inset Zoom Panel (For low temp range -200 °C to 0 °C) -->
+  <!-- Connectors from main plot -200 °C to inset box -->
+  <path d="M 140,157 L 270,325" stroke="#c0392b" stroke-width="1" stroke-dasharray="2 3" opacity="0.5"/>
+  <path d="M 140,133 L 270,275" stroke="#2457d6" stroke-width="1" stroke-dasharray="2 3" opacity="0.5"/>
+
+  <rect x="270" y="215" width="260" height="145" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5" rx="6"/>
+  <path d="M 270,221 A 6,6 0 0 1 276,215 L 524,215 A 6,6 0 0 1 530,221 L 530,241 L 270,241 Z" fill="#f4f6f8"/>
+  <line x1="270" y1="241" x2="530" y2="241" stroke="#d0d7de" stroke-width="1"/>
+  <text x="400" y="232" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Збільшений фрагмент (-200 °C ... 0 °C)</text>
+
+  <!-- Inset Plot Contents -->
+  <line x1="285" y1="258" x2="515" y2="258" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="3 3"/>
+  <path d="M 285,275 Q 380,263 515,258" fill="none" stroke="#2457d6" stroke-width="2" stroke-dasharray="5 3"/>
+  <path d="M 285,325 Q 380,295 515,258" fill="none" stroke="#c0392b" stroke-width="2"/>
+
+  <text x="515" y="253" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="end">Δt = 0,00 °C</text>
+  <circle cx="285" cy="275" r="3.5" fill="#2457d6"/>
+  <text x="294" y="278" font-size="11" font-weight="bold" fill="#2457d6">Δt = -2,43 °C</text>
+  <circle cx="285" cy="325" r="3.5" fill="#c0392b"/>
+  <text x="294" y="328" font-size="11" font-weight="bold" fill="#c0392b">Δt = -11,6 °C</text>
+
+  <!-- Annotations on Main Chart -->
+  <!-- Reference Line Label -->
+  <text x="145" y="120" font-size="12" font-weight="bold" fill="#27ae60">Еталон CVD / Поліном (Δt = 0 °C)</text>
+
+  <!-- Point +400 °C Annotation -->
+  <circle cx="568.6" cy="173.8" r="4" fill="#c0392b"/>
+  <text x="569" y="165" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">Δt = -18,0 °C</text>
+
+  <!-- Point +850 °C Annotation -->
+  <circle cx="890" cy="378.4" r="4" fill="#c0392b"/>
+  <rect x="740" y="352" width="138" height="34" fill="#fdecea" stroke="#c0392b" stroke-width="1" rx="4"/>
+  <text x="748" y="366" font-size="12" font-weight="bold" fill="#c0392b">Δt = -95,6 °C</text>
+  <text x="748" y="380" font-size="11" fill="#6b7280">(при t = +850 °C)</text>
+  <line x1="878" y1="369" x2="888" y2="376" stroke="#c0392b" stroke-width="1.2"/>
+
+  <!-- Bottom Cards (Legend & Method Details) -->
+  <!-- Card 1: Linear -->
+  <rect x="35" y="445" width="290" height="75" fill="#fdecea" stroke="#c0392b" stroke-width="1" rx="6"/>
+  <text x="47" y="465" font-size="13" font-weight="bold" fill="#c0392b">● Лінійна апроксимація</text>
+  <text x="47" y="484" font-size="12" fill="#1a1a1a">Формула: t = (R - R₀) / (α · R₀)</text>
+  <text x="47" y="503" font-size="12" fill="#6b7280">Похибка: до -95,6 °C на краях</text>
+
+  <!-- Card 2: Quadratic -->
+  <rect x="335" y="445" width="290" height="75" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="6"/>
+  <text x="347" y="465" font-size="13" font-weight="bold" fill="#2457d6">● Квадратичний розв'язок</text>
+  <text x="347" y="484" font-size="12" fill="#1a1a1a">Аналітичний розв'язок для t ≥ 0 °C</text>
+  <text x="347" y="503" font-size="12" fill="#6b7280">Похибка: Δt = 0 (t≥0), -2,43 °C (-200°C)</text>
+
+  <!-- Card 3: Polynomial / Numerical -->
+  <rect x="635" y="445" width="290" height="75" fill="#e9f7ef" stroke="#27ae60" stroke-width="1" rx="6"/>
+  <text x="647" y="465" font-size="13" font-weight="bold" fill="#27ae60">● Чисельні методи / Поліноми</text>
+  <text x="647" y="484" font-size="12" fill="#1a1a1a">Метод Ньютона або поліном 5-го ст.</text>
+  <text x="647" y="503" font-size="12" fill="#6b7280">Похибка: Δt &lt; 0,01 °C в усьому діапазоні</text>
+</svg>

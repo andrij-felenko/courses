@@ -1,0 +1,122 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, -apple-system, BlinkMacSystemFont, Roboto, sans-serif">
+  <!-- Фон -->
+  <rect width="960" height="540" fill="#0d1117"/>
+  <rect x="15" y="15" width="930" height="510" rx="12" fill="none" stroke="#30363d" stroke-width="1.5"/>
+
+  <!-- Заголовок -->
+  <text x="480" y="45" fill="#f0f6fc" font-size="20" font-weight="700" text-anchor="middle">Кольорове маркування PT100 за IEC 60751 та екранування кабелю</text>
+  <text x="480" y="70" fill="#8b949e" font-size="13" text-anchor="middle">Стандартизовані кольори жил (червоний/білий), 2/3/4-провідні конфігурації та захист від електромагнітних завад</text>
+
+  <!-- Секція 1: 2-провідне підключення -->
+  <g transform="translate(50, 95)">
+    <rect width="260" height="280" rx="8" fill="#161b22" stroke="#30363d" stroke-width="1.5"/>
+    <rect x="0" y="0" width="260" height="28" rx="8" fill="#21262d"/>
+    <text x="130" y="19" fill="#58a6ff" font-size="13" font-weight="600" text-anchor="middle">2-ПРОВІДНЕ (2-WIRE)</text>
+    
+    <!-- Сенсор -->
+    <rect x="100" y="50" width="60" height="30" rx="4" fill="#238636" stroke="#3fb950" stroke-width="1.5"/>
+    <text x="130" y="70" fill="#ffffff" font-size="11" font-weight="600" text-anchor="middle">PT100</text>
+
+    <!-- Жили -->
+    <line x1="110" y1="80" x2="110" y2="180" stroke="#f85149" stroke-width="4"/>
+    <line x1="150" y1="80" x2="150" y2="180" stroke="#f0f6fc" stroke-width="4"/>
+    
+    <!-- Підписи жил -->
+    <text x="95" y="140" fill="#f85149" font-size="11" font-weight="600" text-anchor="end">1× Червоний</text>
+    <text x="165" y="140" fill="#f0f6fc" font-size="11" font-weight="600" text-anchor="start">1× Білий</text>
+
+    <!-- Клеми -->
+    <circle cx="110" cy="180" r="5" fill="#f85149"/>
+    <circle cx="150" cy="180" r="5" fill="#f0f6fc"/>
+    <text x="110" y="205" fill="#c9d1d9" font-size="11" text-anchor="middle">Вивід 1</text>
+    <text x="150" y="205" fill="#c9d1d9" font-size="11" text-anchor="middle">Вивід 2</text>
+
+    <text x="130" y="240" fill="#8b949e" font-size="11" text-anchor="middle">Похибка: опір кабелю</text>
+    <text x="130" y="258" fill="#f85149" font-size="11" text-anchor="middle">додається до вимірювання</text>
+  </g>
+
+  <!-- Секція 2: 3-провідне підключення -->
+  <g transform="translate(350, 95)">
+    <rect width="260" height="280" rx="8" fill="#161b22" stroke="#30363d" stroke-width="1.5"/>
+    <rect x="0" y="0" width="260" height="28" rx="8" fill="#21262d"/>
+    <text x="130" y="19" fill="#58a6ff" font-size="13" font-weight="600" text-anchor="middle">3-ПРОВІДНЕ (3-WIRE)</text>
+    
+    <!-- Сенсор -->
+    <rect x="100" y="50" width="60" height="30" rx="4" fill="#238636" stroke="#3fb950" stroke-width="1.5"/>
+    <text x="130" y="70" fill="#ffffff" font-size="11" font-weight="600" text-anchor="middle">PT100</text>
+
+    <!-- Жили -->
+    <path d="M 110 80 L 110 110 L 80 140 L 80 180" fill="none" stroke="#f85149" stroke-width="3"/>
+    <path d="M 110 80 L 110 110 L 120 140 L 120 180" fill="none" stroke="#f85149" stroke-width="3"/>
+    <line x1="150" y1="80" x2="160" y2="180" stroke="#f0f6fc" stroke-width="3"/>
+    
+    <!-- Підписи жил -->
+    <text x="70" y="150" fill="#f85149" font-size="11" font-weight="600" text-anchor="end">2× Червоні</text>
+    <text x="175" y="150" fill="#f0f6fc" font-size="11" font-weight="600" text-anchor="start">1× Білий</text>
+
+    <!-- Клеми -->
+    <circle cx="80" cy="180" r="5" fill="#f85149"/>
+    <circle cx="120" cy="180" r="5" fill="#f85149"/>
+    <circle cx="160" cy="180" r="5" fill="#f0f6fc"/>
+    <text x="80" y="205" fill="#c9d1d9" font-size="10" text-anchor="middle">RL1 (Струм)</text>
+    <text x="120" y="205" fill="#c9d1d9" font-size="10" text-anchor="middle">RL2 (Сенс)</text>
+    <text x="160" y="205" fill="#c9d1d9" font-size="10" text-anchor="middle">RL3 (Заг.)</text>
+
+    <text x="130" y="240" fill="#8b949e" font-size="11" text-anchor="middle">Компенсація опору лінії</text>
+    <text x="130" y="258" fill="#3fb950" font-size="11" text-anchor="middle">за умови RL1 = RL2</text>
+  </g>
+
+  <!-- Секція 3: 4-провідне підключення -->
+  <g transform="translate(650, 95)">
+    <rect width="260" height="280" rx="8" fill="#161b22" stroke="#30363d" stroke-width="1.5"/>
+    <rect x="0" y="0" width="260" height="28" rx="8" fill="#21262d"/>
+    <text x="130" y="19" fill="#3fb950" font-size="13" font-weight="600" text-anchor="middle">4-ПРОВІДНЕ (4-WIRE KELVIN)</text>
+    
+    <!-- Сенсор -->
+    <rect x="100" y="50" width="60" height="30" rx="4" fill="#238636" stroke="#3fb950" stroke-width="1.5"/>
+    <text x="130" y="70" fill="#ffffff" font-size="11" font-weight="600" text-anchor="middle">PT100</text>
+
+    <!-- Жили -->
+    <path d="M 110 80 L 110 105 L 70 135 L 70 180" fill="none" stroke="#f85149" stroke-width="3"/>
+    <path d="M 110 80 L 110 105 L 105 135 L 105 180" fill="none" stroke="#f85149" stroke-width="3"/>
+    <path d="M 150 80 L 150 105 L 155 135 L 155 180" fill="none" stroke="#f0f6fc" stroke-width="3"/>
+    <path d="M 150 80 L 150 105 L 190 135 L 190 180" fill="none" stroke="#f0f6fc" stroke-width="3"/>
+    
+    <!-- Підписи жил -->
+    <text x="65" y="150" fill="#f85149" font-size="11" font-weight="600" text-anchor="end">Force+</text>
+    <text x="100" y="165" fill="#f85149" font-size="10" font-weight="600" text-anchor="end">Sense+</text>
+    <text x="160" y="165" fill="#f0f6fc" font-size="10" font-weight="600" text-anchor="start">Sense-</text>
+    <text x="195" y="150" fill="#f0f6fc" font-size="11" font-weight="600" text-anchor="start">Force-</text>
+
+    <!-- Клеми -->
+    <circle cx="70" cy="180" r="4.5" fill="#f85149"/>
+    <circle cx="105" cy="180" r="4.5" fill="#f85149"/>
+    <circle cx="155" cy="180" r="4.5" fill="#f0f6fc"/>
+    <circle cx="190" cy="180" r="4.5" fill="#f0f6fc"/>
+    <text x="70" y="205" fill="#c9d1d9" font-size="9" text-anchor="middle">Force+</text>
+    <text x="105" y="205" fill="#c9d1d9" font-size="9" text-anchor="middle">Sense+</text>
+    <text x="155" y="205" fill="#c9d1d9" font-size="9" text-anchor="middle">Sense-</text>
+    <text x="190" y="205" fill="#c9d1d9" font-size="9" text-anchor="middle">Force-</text>
+
+    <text x="130" y="240" fill="#3fb950" font-size="11" font-weight="600" text-anchor="middle">Повне усунення опору</text>
+    <text x="130" y="258" fill="#8b949e" font-size="11" text-anchor="middle">провідників і контакту</text>
+  </g>
+
+  <!-- Блок екранування кабелю (Нижня частина) -->
+  <g transform="translate(50, 395)">
+    <rect width="860" height="110" rx="8" fill="#161b22" stroke="#58a6ff" stroke-width="1.5"/>
+    <rect x="0" y="0" width="860" height="26" rx="8" fill="#1f6feb" fill-opacity="0.2"/>
+    <text x="20" y="18" fill="#58a6ff" font-size="12" font-weight="600">ПРАВИЛО ЕКРАНУВАННЯ СИГНАЛЬНОГО КАБЕЛЮ PT100 ТА ЗЕМЛЯНІ ПЕТЛІ</text>
+    
+    <text x="25" y="48" fill="#f0f6fc" font-size="12" font-weight="500">Захисний екран (мідне обплетення / алюмінієва фольга):</text>
+    <text x="25" y="68" fill="#c9d1d9" font-size="12">Підключається до захисного заземлення (PE) ВИКЛЮЧНО З ОДНОГО БОКУ (у шафі автоматики біля бар'єра або АЦП).</text>
+    <text x="25" y="88" fill="#8b949e" font-size="11">Двостороннє заземлення категорично заборонено: різниця потенціалів між заземлювачами створює паразитний струм у 50 Гц.</text>
+    
+    <!-- Позначка PE -->
+    <g transform="translate(750, 45)">
+      <circle cx="40" cy="25" r="22" fill="#21262d" stroke="#58a6ff" stroke-width="1.5"/>
+      <text x="40" y="24" fill="#58a6ff" font-size="13" font-weight="700" text-anchor="middle">PE</text>
+      <text x="40" y="38" fill="#3fb950" font-size="10" font-weight="600" text-anchor="middle">1 ТОЧКА</text>
+    </g>
+  </g>
+</svg>
