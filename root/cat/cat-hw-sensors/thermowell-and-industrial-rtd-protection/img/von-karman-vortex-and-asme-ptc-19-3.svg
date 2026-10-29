@@ -1,0 +1,113 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, -apple-system, BlinkMacSystemFont, Roboto, sans-serif">
+  <!-- Фон -->
+  <rect width="960" height="540" fill="#0d1117"/>
+  <rect x="15" y="15" width="930" height="510" rx="12" fill="none" stroke="#30363d" stroke-width="1.5"/>
+
+  <!-- Заголовок -->
+  <text x="480" y="42" fill="#f0f6fc" font-size="20" font-weight="700" text-anchor="middle">Гідродинамічні сили, вихровий зрив та розрахунок за ASME PTC 19.3 TW</text>
+  <text x="480" y="66" fill="#8b949e" font-size="13" text-anchor="middle">Утворення доріжки вихорів фон Кармана, ризик резонансної вібрації та втомного руйнування</text>
+
+  <!-- Схема обтікання та вихорів (Зверху) -->
+  <g transform="translate(40, 85)">
+    <!-- Блок труби та потоку -->
+    <rect x="10" y="10" width="530" height="235" rx="8" fill="#161b22" stroke="#30363d" stroke-width="1.5"/>
+    
+    <!-- Лінії потоку рідини/газу зліва -->
+    <path d="M 30 50 L 150 50 C 180 50, 190 70, 240 60 C 290 50, 360 80, 500 50" fill="none" stroke="#58a6ff" stroke-width="2"/>
+    <path d="M 30 90 L 150 90 C 170 85, 185 75, 200 75" fill="none" stroke="#58a6ff" stroke-width="2"/>
+    <path d="M 30 130 L 140 130" fill="none" stroke="#58a6ff" stroke-width="2.5"/>
+    <path d="M 30 170 L 150 170 C 170 175, 185 185, 200 185" fill="none" stroke="#58a6ff" stroke-width="2"/>
+    <path d="M 30 210 L 150 210 C 180 210, 190 190, 240 200 C 290 210, 360 180, 500 210" fill="none" stroke="#58a6ff" stroke-width="2"/>
+
+    <!-- Стрілки швидкості потоку -->
+    <text x="50" y="35" fill="#58a6ff" font-size="12" font-weight="700">Швидкість потоку V (м/с)</text>
+
+    <!-- Переріз гільзи (круглий циліндр d) -->
+    <circle cx="210" cy="130" r="28" fill="#21262d" stroke="#f0883e" stroke-width="3"/>
+    <text x="210" y="135" fill="#f0883e" font-size="13" font-weight="700" text-anchor="middle">d</text>
+    <text x="210" y="175" fill="#8b949e" font-size="10" text-anchor="middle">Гільза</text>
+
+    <!-- Вихори фон Кармана (спіралі чергування) -->
+    <!-- Верхній вихор (обертання проти год. стрілки) -->
+    <path d="M 270 95 C 290 75, 315 90, 305 110 C 295 125, 280 115, 285 100" fill="none" stroke="#ff7b72" stroke-width="2.5"/>
+    <circle cx="295" cy="100" r="4" fill="#ff7b72"/>
+
+    <!-- Нижній вихор (обертання за год. стрілкою) -->
+    <path d="M 350 165 C 370 185, 395 170, 385 150 C 375 135, 360 145, 365 160" fill="none" stroke="#ff7b72" stroke-width="2.5"/>
+    <circle cx="375" cy="160" r="4" fill="#ff7b72"/>
+
+    <!-- Наступний верхній вихор -->
+    <path d="M 430 95 C 450 75, 475 90, 465 110" fill="none" stroke="#ff7b72" stroke-width="2"/>
+    <circle cx="455" cy="98" r="3" fill="#ff7b72"/>
+
+    <text x="360" y="45" fill="#ff7b72" font-size="11" font-weight="700">Доріжка вихорів фон Кармана (f_s)</text>
+
+    <!-- Стрілки знакозмінної підйомної сили (Lift force) -->
+    <line x1="210" y1="90" x2="210" y2="60" stroke="#3fb950" stroke-width="3"/>
+    <polygon points="210,50 205,62 215,62" fill="#3fb950"/>
+    <line x1="210" y1="170" x2="210" y2="200" stroke="#3fb950" stroke-width="3"/>
+    <polygon points="210,210 205,198 215,198" fill="#3fb950"/>
+    <text x="218" y="70" fill="#3fb950" font-size="10" font-weight="700">F_lift (±)</text>
+
+    <!-- Права панель: Рівняння та фізичні параметри -->
+    <rect x="560" y="10" width="315" height="235" rx="8" fill="#161b22" stroke="#58a6ff" stroke-width="1.5"/>
+    <rect x="560" y="10" width="315" height="30" rx="8" fill="#21262d"/>
+    <text x="717" y="30" fill="#58a6ff" font-size="12" font-weight="700" text-anchor="middle">Частота зриву вихорів Струхаля (f_s)</text>
+
+    <text x="575" y="65" fill="#f0f6fc" font-size="12" font-family="Consolas, monospace">f_s = (St × V) / d</text>
+    <text x="575" y="85" fill="#8b949e" font-size="11">• St — число Струхаля (~0.22 для циліндра)</text>
+    <text x="575" y="102" fill="#8b949e" font-size="11">• V — лінійна швидкість потоку в трубі (м/с)</text>
+    <text x="575" y="119" fill="#8b949e" font-size="11">• d — зовнішній діаметр наконечника гільзи</text>
+
+    <line x1="575" y1="130" x2="860" y2="130" stroke="#30363d" stroke-width="1"/>
+
+    <text x="575" y="150" fill="#e3b341" font-size="12" font-weight="700">Власна резонансна частота гільзи (f_n):</text>
+    <text x="575" y="172" fill="#f0f6fc" font-size="11" font-family="Consolas, monospace">f_n = (lambda^2 / 2pi L^2) × sqrt(E×I / m)</text>
+    <text x="575" y="195" fill="#8b949e" font-size="10">f_n пропорційна (d / L^2). Довга тонка гільза</text>
+    <text x="575" y="210" fill="#ff7b72" font-size="10">має низьку частоту f_n і легко входить у резонанс!</text>
+  </g>
+
+  <!-- Нижня панель: 4 критерії перевірки за стандартом ASME PTC 19.3 TW-2016 -->
+  <g transform="translate(40, 345)">
+    <rect width="875" height="165" rx="8" fill="#161b22" stroke="#3fb950" stroke-width="1.5"/>
+    <rect width="875" height="28" rx="8" fill="#21262d"/>
+    <text x="437" y="19" fill="#3fb950" font-size="12" font-weight="700" text-anchor="middle">
+      4 ОБОВ'ЯЗКОВІ КРИТЕРІЇ ПЕРЕВІРКИ НА НАДІЙНІСТЬ ЗА СТАНДАРТОМ ASME PTC 19.3 TW-2016
+    </text>
+
+    <!-- 4 колонки перевірок -->
+    <g transform="translate(20, 40)">
+      <!-- 1. Frequency Limit -->
+      <rect x="0" y="0" width="195" height="110" rx="6" fill="#0d1117" stroke="#30363d" stroke-width="1"/>
+      <text x="12" y="22" fill="#58a6ff" font-size="11" font-weight="700">1. Частотний резонанс</text>
+      <text x="12" y="42" fill="#ff7b72" font-size="11" font-family="Consolas, monospace">f_s / f_n &lt; 0.8</text>
+      <text x="12" y="62" fill="#8b949e" font-size="10">Заборонено збіг частоти</text>
+      <text x="12" y="77" fill="#8b949e" font-size="10">зриву вихорів з власною</text>
+      <text x="12" y="92" fill="#8b949e" font-size="10">частотою гільзи (запас 20%).</text>
+
+      <!-- 2. Dynamic Stress -->
+      <rect x="210" y="0" width="195" height="110" rx="6" fill="#0d1117" stroke="#30363d" stroke-width="1"/>
+      <text x="222" y="22" fill="#3fb950" font-size="11" font-weight="700">2. Динамічна втома</text>
+      <text x="222" y="42" fill="#3fb950" font-size="11" font-family="Consolas, monospace">S_osc &lt; S_fatigue</text>
+      <text x="222" y="62" fill="#8b949e" font-size="10">Змінні напруження від</text>
+      <text x="222" y="77" fill="#8b949e" font-size="10">коливань не повинні</text>
+      <text x="222" y="92" fill="#8b949e" font-size="10">викликати втомні тріщини.</text>
+
+      <!-- 3. Static Bending Stress -->
+      <rect x="420" y="0" width="195" height="110" rx="6" fill="#0d1117" stroke="#30363d" stroke-width="1"/>
+      <text x="432" y="22" fill="#e3b341" font-size="11" font-weight="700">3. Статичний вигин</text>
+      <text x="432" y="42" fill="#e3b341" font-size="11" font-family="Consolas, monospace">sigma_bend &lt; S_allow</text>
+      <text x="432" y="62" fill="#8b949e" font-size="10">Лобовий гідравлічний опір</text>
+      <text x="432" y="77" fill="#8b949e" font-size="10">потоку рідини не має</text>
+      <text x="432" y="92" fill="#8b949e" font-size="10">згинати основу гільзи.</text>
+
+      <!-- 4. Hydrostatic Pressure -->
+      <rect x="630" y="0" width="195" height="110" rx="6" fill="#0d1117" stroke="#30363d" stroke-width="1"/>
+      <text x="642" y="22" fill="#d2a8ff" font-size="11" font-weight="700">4. Гідростатичний тиск</text>
+      <text x="642" y="42" fill="#d2a8ff" font-size="11" font-family="Consolas, monospace">P_process &lt; P_burst</text>
+      <text x="642" y="62" fill="#8b949e" font-size="10">Зовнішній тиск процесу</text>
+      <text x="642" y="77" fill="#8b949e" font-size="10">не повинен розчавити або</text>
+      <text x="642" y="92" fill="#8b949e" font-size="10">розірвати стінку гільзи.</text>
+    </g>
+  </g>
+</svg>

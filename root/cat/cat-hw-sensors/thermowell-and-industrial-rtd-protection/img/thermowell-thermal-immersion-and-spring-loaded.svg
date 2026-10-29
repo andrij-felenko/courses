@@ -1,0 +1,107 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, -apple-system, BlinkMacSystemFont, Roboto, sans-serif">
+  <!-- Фон -->
+  <rect width="960" height="540" fill="#0d1117"/>
+  <rect x="15" y="15" width="930" height="510" rx="12" fill="none" stroke="#30363d" stroke-width="1.5"/>
+
+  <!-- Заголовок -->
+  <text x="480" y="42" fill="#f0f6fc" font-size="20" font-weight="700" text-anchor="middle">Правила занурення в трубопровід та конструкція підпружиненої вставки</text>
+  <text x="480" y="66" fill="#8b949e" font-size="13" text-anchor="middle">Усунення похибки витоку тепла (Stem Conduction) та повітряного зазору за допомогою Spring-Loaded вставок</text>
+
+  <!-- Схема (Зліва: трубопровід та глибина занурення, Справа: конструкція підпружиненої вставки) -->
+  <g transform="translate(30, 85)">
+    <!-- Блок 1: Монтаж у трубу (Трубопровід) -->
+    <rect x="10" y="10" width="430" height="325" rx="8" fill="#161b22" stroke="#58a6ff" stroke-width="1.5"/>
+    <rect x="10" y="10" width="430" height="32" rx="8" fill="#21262d"/>
+    <circle cx="28" cy="26" r="6" fill="#58a6ff"/>
+    <text x="42" y="31" fill="#f0f6fc" font-size="13" font-weight="700">1. Глибина занурення у трубопровід (Immersion Depth)</text>
+
+    <!-- Стінки труби -->
+    <g transform="translate(30, 55)">
+      <!-- Верхня стінка труби -->
+      <rect x="0" y="70" width="370" height="18" fill="#30363d" stroke="#8b949e" stroke-width="1"/>
+      <text x="350" y="62" fill="#8b949e" font-size="10" text-anchor="end">Стінка труби</text>
+
+      <!-- Нижня стінка труби -->
+      <rect x="0" y="220" width="370" height="18" fill="#30363d" stroke="#8b949e" stroke-width="1"/>
+
+      <!-- Вісь потоку середовища (центральна лінія) -->
+      <line x1="0" y1="154" x2="370" y2="154" stroke="#58a6ff" stroke-width="1.2" stroke-dasharray="6,4"/>
+      <text x="15" y="145" fill="#58a6ff" font-size="11">Потік рідини/газу T_proc</text>
+
+      <!-- Бобишка на трубі -->
+      <rect x="145" y="40" width="60" height="30" fill="#21262d" stroke="#8b949e" stroke-width="1.2"/>
+
+      <!-- Гільза, занурена в трубу -->
+      <rect x="160" y="20" width="30" height="145" fill="#1f2937" stroke="#e3b341" stroke-width="2"/>
+      <path d="M 160 165 Q 175 175 190 165 Z" fill="#e3b341"/>
+
+      <!-- Центральна зона потоку (1/3 діаметра) -->
+      <rect x="0" y="130" width="370" height="50" fill="#58a6ff" fill-opacity="0.1" stroke="#388bfd" stroke-dasharray="4,2"/>
+      <text x="360" y="145" fill="#388bfd" font-size="10" text-anchor="end">Ядро потоку (T = max)</text>
+
+      <!-- Стрілка глибини занурення U -->
+      <line x1="205" y1="70" x2="205" y2="170" stroke="#3fb950" stroke-width="2"/>
+      <polygon points="205,70 201,80 209,80" fill="#3fb950"/>
+      <polygon points="205,170 201,160 209,160" fill="#3fb950"/>
+      <text x="215" y="125" fill="#3fb950" font-size="11" font-weight="700">U_занурення</text>
+
+      <!-- Стрілка витоку тепла (Stem Conduction Loss) -->
+      <path d="M 175 140 L 175 40" stroke="#ff7b72" stroke-width="2.5" stroke-dasharray="4,2"/>
+      <polygon points="175,30 170,42 180,42" fill="#ff7b72"/>
+      <text x="110" y="55" fill="#ff7b72" font-size="10" font-weight="700">Витік тепла Q</text>
+    </g>
+
+    <text x="25" y="295" fill="#f0f6fc" font-size="11" font-weight="600">Критерій глибини занурення для усунення витоку:</text>
+    <text x="25" y="315" fill="#3fb950" font-size="11" font-family="Consolas, monospace">U_min &gt;= 5...10 × D_зовнішній + L_активний_елемент</text>
+
+    <!-- Блок 2: Підпружинена вставка (Spring-Loaded Insert) -->
+    <rect x="460" y="10" width="440" height="325" rx="8" fill="#161b22" stroke="#3fb950" stroke-width="1.5"/>
+    <rect x="460" y="10" width="440" height="32" rx="8" fill="#21262d"/>
+    <circle cx="478" cy="26" r="6" fill="#3fb950"/>
+    <text x="492" y="31" fill="#f0f6fc" font-size="13" font-weight="700">2. Конструкція підпружиненої вставки (Spring-Loaded)</text>
+
+    <!-- Креслення вставки всередині гільзи -->
+    <g transform="translate(480, 55)">
+      <!-- Корпус гільзи розріз -->
+      <rect x="60" y="10" width="70" height="200" fill="#1f2937" stroke="#8b949e" stroke-width="1.5"/>
+      <rect x="72" y="10" width="46" height="190" fill="#0d1117" stroke="#30363d" stroke-width="1"/>
+
+      <!-- Клемна головка та пружини зверху -->
+      <rect x="45" y="10" width="100" height="30" rx="3" fill="#21262d" stroke="#58a6ff" stroke-width="1.5"/>
+      <!-- Пружина 1 -->
+      <path d="M 78 40 L 82 45 L 78 50 L 82 55 L 78 60 L 82 65 L 80 70" fill="none" stroke="#3fb950" stroke-width="2.5"/>
+      <!-- Пружина 2 -->
+      <path d="M 112 40 L 116 45 L 112 50 L 116 55 L 112 60 L 116 65 L 114 70" fill="none" stroke="#3fb950" stroke-width="2.5"/>
+
+      <!-- Тонкостінна захисна трубка сенсора (Inconel/SS 6 мм) -->
+      <rect x="87" y="40" width="16" height="160" fill="#30363d" stroke="#3fb950" stroke-width="1.5"/>
+      <!-- Чутливий елемент RTD на самому дні -->
+      <rect x="89" y="182" width="12" height="16" fill="#ff7b72" stroke="#ff7b72"/>
+      <text x="110" y="195" fill="#ff7b72" font-size="10" font-weight="700">Pt100</text>
+
+      <!-- Механічний притиск до дна -->
+      <line x1="87" y1="200" x2="103" y2="200" stroke="#3fb950" stroke-width="3"/>
+      <text x="110" y="165" fill="#3fb950" font-size="10" font-weight="700">F_притиску (пружина)</text>
+      
+      <!-- Позначка про відсутність повітряного зазору -->
+      <circle cx="95" cy="190" r="18" fill="none" stroke="#3fb950" stroke-width="1.5" stroke-dasharray="3,2"/>
+    </g>
+
+    <text x="475" y="275" fill="#f0f6fc" font-size="11" font-weight="600">Чому підпружинення є критично важливим:</text>
+    <text x="475" y="295" fill="#ff7b72" font-size="10">• Повітряний зазор 0.5 мм погіршує теплопередачу в 600 разів (k_air = 0.026 Вт/мК)!</text>
+    <text x="475" y="312" fill="#3fb950" font-size="10">• Пружини компенсують теплове лінійне розширення металу гільзи при 500 °C.</text>
+    <text x="475" y="328" fill="#8b949e" font-size="10">• Дозволяє швидку заміну вимірювальної вставки без розгерметизації труби.</text>
+  </g>
+
+  <!-- Підвал -->
+  <g transform="translate(30, 440)">
+    <rect width="900" height="65" rx="8" fill="#161b22" stroke="#30363d" stroke-width="1.2"/>
+    <text x="20" y="24" fill="#58a6ff" font-size="12" font-weight="700">ПРАВИЛО МОНТАЖУ У МАЛОГАБАРИТНІ ТРУБИ (DN &lt; 80 мм):</text>
+    <text x="20" y="45" fill="#f0f6fc" font-size="11">
+      Якщо діаметр труби менший за необхідну глибину занурення U_min, термогільзу встановлюють під кутом 45° назустріч потоку
+    </text>
+    <text x="20" y="59" fill="#8b949e" font-size="10">
+      або монтують у коліні трубопроводу (elbow mount), де вісь гільзи співпадає з вектором швидкості теплоносія.
+    </text>
+  </g>
+</svg>
