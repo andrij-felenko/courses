@@ -1,0 +1,114 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 850 520" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bg-grad4" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0d1117"/>
+      <stop offset="100%" stop-color="#161b22"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="100%" height="100%" fill="url(#bg-grad4)"/>
+  <rect x="15" y="15" width="820" height="490" rx="10" fill="none" stroke="#30363d" stroke-width="1.5"/>
+
+  <text x="30" y="45" fill="#58a6ff" font-family="system-ui, sans-serif" font-size="18" font-weight="bold">Конвеєр I2C-команд та структура статусного регістра AHT20</text>
+  <text x="30" y="68" fill="#8b949e" font-family="system-ui, sans-serif" font-size="13">Протокол запуску перетворення (0xAC, 0x33, 0x00), очікування зайнятості та парсинг 7-байтної відповіді</text>
+
+  <!-- Command Pipeline Flow -->
+  <g transform="translate(40, 100)">
+    <!-- Step 1: Init / Check Calibration -->
+    <rect width="180" height="90" rx="6" fill="#1c2128" stroke="#58a6ff" stroke-width="1.5"/>
+    <text x="90" y="25" fill="#58a6ff" font-family="system-ui" font-size="12" font-weight="bold" text-anchor="middle">1. Перевірка статусу</text>
+    <text x="90" y="45" fill="#f0f6fc" font-family="monospace" font-size="11" text-anchor="middle">Read Status (0x71)</text>
+    <text x="90" y="65" fill="#8b949e" font-family="sans-serif" font-size="9" text-anchor="middle">Якщо Bit[3] == 0:</text>
+    <text x="90" y="78" fill="#e3b341" font-family="monospace" font-size="9" text-anchor="middle">Надіслати 0xBE (Init)</text>
+
+    <!-- Arrow 1 -> 2 -->
+    <path d="M 180 45 L 230 45" stroke="#8b949e" stroke-width="2" fill="none"/>
+
+    <!-- Step 2: Trigger Measurement -->
+    <g transform="translate(230, 0)">
+      <rect width="180" height="90" rx="6" fill="#1c2128" stroke="#bc8cff" stroke-width="1.5"/>
+      <text x="90" y="25" fill="#bc8cff" font-family="system-ui" font-size="12" font-weight="bold" text-anchor="middle">2. Запуск вимірювання</text>
+      <text x="90" y="45" fill="#f0f6fc" font-family="monospace" font-size="11" text-anchor="middle">0xAC, 0x33, 0x00</text>
+      <text x="90" y="70" fill="#8b949e" font-family="sans-serif" font-size="9" text-anchor="middle">Трибайтна команда I2C</text>
+    </g>
+
+    <!-- Arrow 2 -> 3 -->
+    <path d="M 410 45 L 460 45" stroke="#8b949e" stroke-width="2" fill="none"/>
+
+    <!-- Step 3: Wait Measurement -->
+    <g transform="translate(460, 0)">
+      <rect width="140" height="90" rx="6" fill="#1c2128" stroke="#d29922" stroke-width="1.5"/>
+      <text x="70" y="25" fill="#d29922" font-family="system-ui" font-size="12" font-weight="bold" text-anchor="middle">3. Очікування</text>
+      <text x="70" y="50" fill="#7ee787" font-family="monospace" font-size="16" font-weight="bold" text-anchor="middle">80 мс</text>
+      <text x="70" y="72" fill="#8b949e" font-family="sans-serif" font-size="9" text-anchor="middle">Час перетворення</text>
+    </g>
+
+    <!-- Arrow 3 -> 4 -->
+    <path d="M 600 45 L 640 45" stroke="#8b949e" stroke-width="2" fill="none"/>
+
+    <!-- Step 4: Read 7 Bytes -->
+    <g transform="translate(640, 0)">
+      <rect width="130" height="90" rx="6" fill="#1c2128" stroke="#3fb950" stroke-width="1.5"/>
+      <text x="65" y="25" fill="#3fb950" font-family="system-ui" font-size="12" font-weight="bold" text-anchor="middle">4. Зчитування</text>
+      <text x="65" y="50" fill="#f0f6fc" font-family="monospace" font-size="13" font-weight="bold" text-anchor="middle">7 байтів</text>
+      <text x="65" y="72" fill="#8b949e" font-family="sans-serif" font-size="9" text-anchor="middle">Status + RH + T + CRC</text>
+    </g>
+  </g>
+
+  <!-- Detailed Status Byte Breakdown -->
+  <g transform="translate(40, 220)">
+    <rect width="770" height="150" rx="8" fill="#161b22" stroke="#30363d" stroke-width="1.5"/>
+    <text x="25" y="30" fill="#58a6ff" font-family="system-ui" font-size="14" font-weight="bold">Структура байта стану (Status Byte)</text>
+
+    <!-- 8 Bit Visualizer -->
+    <g transform="translate(30, 45)">
+      <!-- Bit 7: Busy -->
+      <rect x="0" y="0" width="85" height="50" fill="#1c2128" stroke="#f85149" stroke-width="1.5"/>
+      <text x="42" y="20" fill="#f85149" font-family="monospace" font-size="11" font-weight="bold" text-anchor="middle">Bit 7</text>
+      <text x="42" y="38" fill="#f0f6fc" font-family="sans-serif" font-size="10" text-anchor="middle">BUSY</text>
+
+      <!-- Bit 6-4: Mode / Reserved -->
+      <rect x="95" y="0" width="85" height="50" fill="#1c2128" stroke="#8b949e" stroke-width="1"/>
+      <text x="137" y="20" fill="#8b949e" font-family="monospace" font-size="11" text-anchor="middle">Bit 6</text>
+      <text x="137" y="38" fill="#8b949e" font-family="sans-serif" font-size="9" text-anchor="middle">Mode [1]</text>
+
+      <rect x="190" y="0" width="85" height="50" fill="#1c2128" stroke="#8b949e" stroke-width="1"/>
+      <text x="232" y="20" fill="#8b949e" font-family="monospace" font-size="11" text-anchor="middle">Bit 5</text>
+      <text x="232" y="38" fill="#8b949e" font-family="sans-serif" font-size="9" text-anchor="middle">Mode [0]</text>
+
+      <rect x="285" y="0" width="85" height="50" fill="#1c2128" stroke="#8b949e" stroke-width="1"/>
+      <text x="327" y="20" fill="#8b949e" font-family="monospace" font-size="11" text-anchor="middle">Bit 4</text>
+      <text x="327" y="38" fill="#8b949e" font-family="sans-serif" font-size="9" text-anchor="middle">Reserved</text>
+
+      <!-- Bit 3: CAL Enable -->
+      <rect x="380" y="0" width="85" height="50" fill="#1c2128" stroke="#7ee787" stroke-width="1.5"/>
+      <text x="422" y="20" fill="#7ee787" font-family="monospace" font-size="11" font-weight="bold" text-anchor="middle">Bit 3</text>
+      <text x="422" y="38" fill="#f0f6fc" font-family="sans-serif" font-size="10" text-anchor="middle">CAL_EN</text>
+
+      <!-- Bit 2-0: Reserved -->
+      <rect x="475" y="0" width="70" height="50" fill="#1c2128" stroke="#8b949e" stroke-width="1"/>
+      <text x="510" y="20" fill="#8b949e" font-family="monospace" font-size="10" text-anchor="middle">Bit 2</text>
+      <rect x="555" y="0" width="70" height="50" fill="#1c2128" stroke="#8b949e" stroke-width="1"/>
+      <text x="590" y="20" fill="#8b949e" font-family="monospace" font-size="10" text-anchor="middle">Bit 1</text>
+      <rect x="635" y="0" width="70" height="50" fill="#1c2128" stroke="#8b949e" stroke-width="1"/>
+      <text x="670" y="20" fill="#8b949e" font-family="monospace" font-size="10" text-anchor="middle">Bit 0</text>
+    </g>
+
+    <!-- Explanations -->
+    <g transform="translate(30, 110)">
+      <text x="0" y="15" fill="#f85149" font-family="system-ui" font-size="11" font-weight="bold">Bit[7] = 1 (BUSY):</text>
+      <text x="110" y="15" fill="#f0f6fc" font-family="sans-serif" font-size="11">Датчик зайнятий оцифруванням. Дані не готові, зчитувати результати заборонено!</text>
+
+      <text x="0" y="32" fill="#7ee787" font-family="system-ui" font-size="11" font-weight="bold">Bit[3] = 1 (CAL_EN):</text>
+      <text x="125" y="32" fill="#f0f6fc" font-family="sans-serif" font-size="11">Калібрувальні коефіцієнти завантажено з OTP. Якщо 0 — потрібна команда 0xBE.</text>
+    </g>
+  </g>
+
+  <!-- Mathematical 20-bit Unpacking Rule -->
+  <g transform="translate(40, 390)">
+    <rect width="770" height="85" rx="6" fill="#1c2128" stroke="#30363d" stroke-width="1.5"/>
+    <text x="20" y="26" fill="#58a6ff" font-family="system-ui" font-size="12" font-weight="bold">Формули декодування 20-бітних сирих слів:</text>
+    <text x="20" y="48" fill="#f0f6fc" font-family="monospace" font-size="11">RH (%) = (Raw_RH / 2^20) × 100% = (Raw_RH / 1048576) × 100%</text>
+    <text x="20" y="70" fill="#7ee787" font-family="monospace" font-size="11">T (°C) = ((Raw_T / 2^20) × 200) - 50 = ((Raw_T / 1048576) × 200) - 50</text>
+  </g>
+</svg>
