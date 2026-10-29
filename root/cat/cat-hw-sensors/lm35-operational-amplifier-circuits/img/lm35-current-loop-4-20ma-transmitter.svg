@@ -1,0 +1,99 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 850 520" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bg-grad4" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0d1117"/>
+      <stop offset="100%" stop-color="#161b22"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="100%" height="100%" fill="url(#bg-grad4)"/>
+  <rect x="15" y="15" width="820" height="490" rx="10" fill="none" stroke="#30363d" stroke-width="1.5"/>
+
+  <text x="30" y="45" fill="#58a6ff" font-family="system-ui, sans-serif" font-size="18" font-weight="bold">Промисловий передавач «Струмова петля 4-20 мА» на базі LM35 та ОП</text>
+  <text x="30" y="68" fill="#8b949e" font-family="system-ui, sans-serif" font-size="13">Перетворення температури 0..100 °C у струм 4..20 мА для передачі лініями понад 500 метрів</text>
+
+  <!-- Circuit Block -->
+  <g transform="translate(40, 110)">
+    <!-- LM35 -->
+    <rect x="0" y="80" width="90" height="90" rx="6" fill="#1c2128" stroke="#58a6ff" stroke-width="1.5"/>
+    <text x="45" y="120" fill="#58a6ff" font-family="sans-serif" font-size="12" font-weight="bold" text-anchor="middle">LM35</text>
+    <text x="45" y="140" fill="#8b949e" font-family="sans-serif" font-size="9" text-anchor="middle">0..1 В</text>
+
+    <!-- Op-Amp -->
+    <g transform="translate(160, 60)">
+      <path d="M 0 0 L 90 45 L 0 90 Z" fill="#1c2128" stroke="#bc8cff" stroke-width="2"/>
+      <text x="12" y="32" fill="#58a6ff" font-family="monospace" font-size="16" font-weight="bold">+</text>
+      <text x="12" y="68" fill="#d29922" font-family="monospace" font-size="16" font-weight="bold">−</text>
+      <text x="40" y="48" fill="#bc8cff" font-family="sans-serif" font-size="10">ОП</text>
+    </g>
+
+    <!-- Summing resistors: zero offset 4mA + signal span 16mA -->
+    <path d="M 90 125 L 120 125 L 120 85 L 160 85" stroke="#58a6ff" stroke-width="1.5" fill="none"/>
+    <rect x="120" y="78" width="30" height="14" fill="#161b22" stroke="#58a6ff" stroke-width="1.5"/>
+    <text x="135" y="73" fill="#58a6ff" font-family="sans-serif" font-size="9" text-anchor="middle">R_span</text>
+
+    <!-- N-Channel MOSFET inside loop -->
+    <g transform="translate(290, 80)">
+      <!-- Gate -->
+      <line x1="0" y1="25" x2="20" y2="25" stroke="#bc8cff" stroke-width="2"/>
+      <!-- Channel -->
+      <line x1="20" y1="10" x2="20" y2="40" stroke="#f0f6fc" stroke-width="2.5"/>
+      <line x1="28" y1="5" x2="28" y2="45" stroke="#f0f6fc" stroke-width="2"/>
+      <!-- Drain -->
+      <path d="M 28 10 L 40 10 L 40 -30" stroke="#f85149" stroke-width="2" fill="none"/>
+      <!-- Source -->
+      <path d="M 28 40 L 40 40 L 40 90" stroke="#3fb950" stroke-width="2" fill="none"/>
+      <text x="45" y="25" fill="#f0f6fc" font-family="sans-serif" font-size="11">IRF540</text>
+    </g>
+    <path d="M 250 105 L 290 105" stroke="#bc8cff" stroke-width="2" fill="none"/>
+
+    <!-- Sense Resistor R_sense to GND -->
+    <rect x="323" y="170" width="14" height="35" fill="#161b22" stroke="#d29922" stroke-width="1.5"/>
+    <text x="345" y="190" fill="#d29922" font-family="sans-serif" font-size="10">R_sense 25Ω</text>
+    <path d="M 330 205 L 330 225" stroke="#3fb950" stroke-width="1.5" fill="none"/>
+    <line x1="320" y1="225" x2="340" y2="225" stroke="#3fb950" stroke-width="2"/>
+
+    <!-- Feedback from Source to IN- -->
+    <path d="M 330 145 L 330 130 L 140 130 L 140 105 L 160 105" stroke="#d29922" stroke-width="1.5" fill="none"/>
+    <circle cx="330" cy="145" r="3" fill="#d29922"/>
+
+    <!-- Industrial Loop Lines -->
+    <path d="M 330 50 L 520 50" stroke="#f85149" stroke-width="2.5" fill="none"/>
+    <text x="420" y="40" fill="#f85149" font-family="sans-serif" font-size="11" font-weight="bold">I_loop (4..20 мА)</text>
+
+    <!-- PLC Receiver Unit -->
+    <g transform="translate(520, 20)">
+      <rect width="240" height="230" rx="8" fill="#1c2128" stroke="#30363d" stroke-width="2"/>
+      <text x="120" y="30" fill="#f0f6fc" font-family="system-ui" font-size="14" font-weight="bold" text-anchor="middle">Приймач ПЛК (Receiver)</text>
+      
+      <!-- 24V loop power supply -->
+      <circle cx="40" cy="60" r="15" fill="#161b22" stroke="#f85149" stroke-width="2"/>
+      <text x="40" y="65" fill="#f85149" font-family="monospace" font-size="11" text-anchor="middle">+24V</text>
+
+      <!-- Precision Shunt R_load 250 Ohm -->
+      <path d="M 40 75 L 40 100" stroke="#f85149" stroke-width="2" fill="none"/>
+      <rect x="33" y="100" width="14" height="45" fill="#161b22" stroke="#7ee787" stroke-width="2"/>
+      <text x="55" y="125" fill="#7ee787" font-family="sans-serif" font-size="10" font-weight="bold">R_load 250Ω (0.05%)</text>
+      <path d="M 40 145 L 40 170" stroke="#3fb950" stroke-width="2" fill="none"/>
+      <line x1="30" y1="170" x2="50" y2="170" stroke="#3fb950" stroke-width="2"/>
+
+      <!-- PLC ADC Sensing Across Shunt -->
+      <path d="M 40 100 L 150 100" stroke="#7ee787" stroke-width="1.5" stroke-dasharray="3,3" fill="none"/>
+      <path d="M 40 145 L 150 145" stroke="#7ee787" stroke-width="1.5" stroke-dasharray="3,3" fill="none"/>
+      <rect x="150" y="90" width="70" height="65" rx="4" fill="#161b22" stroke="#7ee787" stroke-width="1.5"/>
+      <text x="185" y="115" fill="#7ee787" font-family="system-ui" font-size="11" font-weight="bold" text-anchor="middle">АЦП ПЛК</text>
+      <text x="185" y="135" fill="#f0f6fc" font-family="monospace" font-size="11" text-anchor="middle">1.0..5.0 В</text>
+
+      <text x="120" y="195" fill="#8b949e" font-family="sans-serif" font-size="10" text-anchor="middle">4 мА × 250Ω = 1.0 В (0 °C)</text>
+      <text x="120" y="212" fill="#8b949e" font-family="sans-serif" font-size="10" text-anchor="middle">20 мА × 250Ω = 5.0 В (100 °C)</text>
+    </g>
+  </g>
+
+  <!-- Summary Table Card -->
+  <g transform="translate(60, 380)">
+    <rect width="730" height="95" rx="6" fill="#161b22" stroke="#30363d" stroke-width="1.5"/>
+    <text x="20" y="25" fill="#58a6ff" font-family="system-ui" font-size="12" font-weight="bold">Параметри петлі 4-20 мА на лініях зв'язку:</text>
+    <text x="20" y="50" fill="#f0f6fc" font-family="monospace" font-size="12">• Опір лінії (до 500 м крученої пари): не впливає на точність (струм не залежить від падіння напруги в кабелі)</text>
+    <text x="20" y="70" fill="#7ee787" font-family="monospace" font-size="12">• Діагностика обриву: струм 0 мА (нижче 3.6 мА) однозначно ідентифікує аварію / пошкодження дроту</text>
+  </g>
+</svg>

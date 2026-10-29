@@ -1,0 +1,113 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 850 520" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bg-grad5" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0d1117"/>
+      <stop offset="100%" stop-color="#161b22"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="100%" height="100%" fill="url(#bg-grad5)"/>
+  <rect x="15" y="15" width="820" height="490" rx="10" fill="none" stroke="#30363d" stroke-width="1.5"/>
+
+  <text x="30" y="45" fill="#58a6ff" font-family="system-ui, sans-serif" font-size="18" font-weight="bold">Апаратний термостат: тригер Шмітта з гістерезисом на LM393 / LM358</text>
+  <text x="30" y="68" fill="#8b949e" font-family="system-ui, sans-serif" font-size="13">Керування реле/вентилятором без МК з усуненням брязкоту контактів у точці спрацьовування</text>
+
+  <!-- Comparator Circuit -->
+  <g transform="translate(40, 110)">
+    <!-- LM35 -->
+    <rect x="0" y="60" width="90" height="90" rx="6" fill="#1c2128" stroke="#58a6ff" stroke-width="1.5"/>
+    <text x="45" y="100" fill="#58a6ff" font-family="sans-serif" font-size="13" font-weight="bold" text-anchor="middle">LM35</text>
+    <text x="45" y="120" fill="#8b949e" font-family="sans-serif" font-size="10" text-anchor="middle">10 мВ/°C</text>
+
+    <!-- Comparator Triangle -->
+    <g transform="translate(190, 50)">
+      <path d="M 0 0 L 110 55 L 0 110 Z" fill="#1c2128" stroke="#f85149" stroke-width="2"/>
+      <text x="15" y="40" fill="#58a6ff" font-family="monospace" font-size="18" font-weight="bold">+</text>
+      <text x="15" y="80" fill="#d29922" font-family="monospace" font-size="18" font-weight="bold">−</text>
+      <text x="50" y="60" fill="#f85149" font-family="sans-serif" font-size="12" font-weight="bold">LM393</text>
+    </g>
+
+    <!-- Wire LM35 to IN+ -->
+    <path d="M 90 105 L 140 105 L 140 85 L 190 85" stroke="#58a6ff" stroke-width="2" fill="none"/>
+
+    <!-- Setpoint Reference Divider to IN- -->
+    <path d="M 120 220 L 120 125 L 190 125" stroke="#d29922" stroke-width="2" fill="none"/>
+    <g transform="translate(70, 220)">
+      <rect width="100" height="60" rx="4" fill="#161b22" stroke="#d29922" stroke-width="1.5"/>
+      <text x="50" y="25" fill="#d29922" font-family="sans-serif" font-size="11" font-weight="bold" text-anchor="middle">Потенціометр</text>
+      <text x="50" y="45" fill="#f0f6fc" font-family="monospace" font-size="11" text-anchor="middle">V_set (400 мВ)</text>
+    </g>
+
+    <!-- Positive Feedback Resistor R_hys for hysteresis -->
+    <path d="M 300 105 L 340 105 L 340 20 L 160 20 L 160 85" stroke="#7ee787" stroke-width="2" fill="none"/>
+    <circle cx="340" cy="105" r="3" fill="#7ee787"/>
+    <circle cx="160" cy="85" r="3" fill="#7ee787"/>
+    <rect x="220" y="13" width="60" height="15" fill="#161b22" stroke="#7ee787" stroke-width="1.5"/>
+    <text x="250" y="24" fill="#7ee787" font-family="sans-serif" font-size="10" text-anchor="middle">R_hys 470kΩ</text>
+
+    <!-- Pull-up resistor for open collector LM393 -->
+    <path d="M 340 105 L 340 50" stroke="#f85149" stroke-width="1.5" fill="none"/>
+    <rect x="333" y="50" width="14" height="30" fill="#161b22" stroke="#f85149" stroke-width="1.5"/>
+    <text x="355" y="70" fill="#f85149" font-family="sans-serif" font-size="9">R_pull 10k</text>
+    <path d="M 340 80 L 340 105" stroke="#f85149" stroke-width="1.5" fill="none"/>
+
+    <!-- MOSFET driver -->
+    <path d="M 340 105 L 390 105" stroke="#f0f6fc" stroke-width="2" fill="none"/>
+    <g transform="translate(390, 80)">
+      <line x1="0" y1="25" x2="20" y2="25" stroke="#f0f6fc" stroke-width="2"/>
+      <line x1="20" y1="10" x2="20" y2="40" stroke="#f0f6fc" stroke-width="2.5"/>
+      <line x1="28" y1="5" x2="28" y2="45" stroke="#f0f6fc" stroke-width="2"/>
+      <path d="M 28 10 L 40 10 L 40 -10" stroke="#f85149" stroke-width="2" fill="none"/>
+      <path d="M 28 40 L 40 40 L 40 60" stroke="#3fb950" stroke-width="2" fill="none"/>
+      <line x1="30" y1="60" x2="50" y2="60" stroke="#3fb950" stroke-width="2"/>
+      <text x="45" y="25" fill="#f0f6fc" font-family="sans-serif" font-size="11">MOSFET 2N7002</text>
+    </g>
+
+    <!-- Relay / Fan Load -->
+    <g transform="translate(430, 20)">
+      <rect width="80" height="50" rx="4" fill="#1c2128" stroke="#d29922" stroke-width="1.5"/>
+      <text x="40" y="25" fill="#d29922" font-family="sans-serif" font-size="11" font-weight="bold" text-anchor="middle">РЕЛЕ / ВЕНТ.</text>
+      <text x="40" y="42" fill="#8b949e" font-family="sans-serif" font-size="9" text-anchor="middle">12V 500mA</text>
+    </g>
+  </g>
+
+  <!-- Hysteresis Graph -->
+  <g transform="translate(560, 130)">
+    <rect width="250" height="250" rx="8" fill="#161b22" stroke="#30363d" stroke-width="1.5"/>
+    <text x="125" y="25" fill="#58a6ff" font-family="system-ui" font-size="13" font-weight="bold" text-anchor="middle">Петля гістерезису термостата</text>
+
+    <!-- Axes -->
+    <line x1="40" y1="210" x2="230" y2="210" stroke="#8b949e" stroke-width="1.5"/>
+    <line x1="40" y1="60" x2="40" y2="210" stroke="#8b949e" stroke-width="1.5"/>
+    <text x="225" y="225" fill="#8b949e" font-family="system-ui" font-size="11">T (°C)</text>
+    <text x="35" y="55" fill="#8b949e" font-family="system-ui" font-size="11" text-anchor="end">V_out</text>
+
+    <!-- Hysteresis Square Cycle -->
+    <!-- Low output -->
+    <line x1="40" y1="200" x2="170" y2="200" stroke="#8b949e" stroke-width="2.5"/>
+    <!-- Transition up at T_on -->
+    <path d="M 170 200 L 170 80" stroke="#f85149" stroke-width="2.5" stroke-dasharray="4,2"/>
+    <circle cx="170" cy="200" r="4" fill="#f85149"/>
+    <!-- High output -->
+    <line x1="170" y1="80" x2="100" y2="80" stroke="#7ee787" stroke-width="2.5"/>
+    <line x1="170" y1="80" x2="210" y2="80" stroke="#7ee787" stroke-width="2.5"/>
+    <!-- Transition down at T_off -->
+    <path d="M 100 80 L 100 200" stroke="#58a6ff" stroke-width="2.5" stroke-dasharray="4,2"/>
+    <circle cx="100" cy="80" r="4" fill="#58a6ff"/>
+
+    <!-- Labels on Axis -->
+    <text x="100" y="225" fill="#58a6ff" font-family="monospace" font-size="10" text-anchor="middle">T_off (38°C)</text>
+    <text x="170" y="225" fill="#f85149" font-family="monospace" font-size="10" text-anchor="middle">T_on (42°C)</text>
+
+    <!-- Delta T bracket -->
+    <line x1="100" y1="140" x2="170" y2="140" stroke="#d29922" stroke-width="1.5"/>
+    <text x="135" y="135" fill="#d29922" font-family="system-ui" font-size="10" font-weight="bold" text-anchor="middle">ΔT = 4 °C</text>
+  </g>
+
+  <!-- Formula Card -->
+  <g transform="translate(60, 400)">
+    <rect width="730" height="75" rx="6" fill="#161b22" stroke="#30363d" stroke-width="1.5"/>
+    <text x="20" y="25" fill="#58a6ff" font-family="system-ui" font-size="12" font-weight="bold">Розрахунок ширини вікна гістерезису ΔV_hys:</text>
+    <text x="20" y="48" fill="#f0f6fc" font-family="monospace" font-size="12">ΔV_hys = V_cc × (R_in / R_hys) = 5 В × (3.9k / 470k) = 41.5 мВ  →  ΔT = 4.15 °C</text>
+  </g>
+</svg>
