@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 850 480" width="100%" height="100%">
+  <rect width="100%" height="100%" fill="#0d1117"/>
+  <text x="425" y="35" font-family="system-ui, -apple-system, sans-serif" font-size="20" font-weight="bold" fill="#f0f6fc" text-anchor="middle">Експоненційне згладжування (EMA / БІХ-фільтр 1-го порядку)</text>
+  <text x="425" y="58" font-family="system-ui, -apple-system, sans-serif" font-size="13" fill="#8b949e" text-anchor="middle">Мінімальні витрати RAM: один стан пам'яті та плавне регулювання постійної часу</text>
+
+  <!-- Block diagram of IIR filter -->
+  <rect x="40" y="85" width="770" height="200" rx="10" fill="#161b22" stroke="#30363d" stroke-width="1.5"/>
+  <text x="425" y="112" font-family="system-ui, -apple-system, sans-serif" font-size="15" font-weight="bold" fill="#58a6ff" text-anchor="middle">Структурна схема EMA: y[n] = α · x[n] + (1 - α) · y[n-1]</text>
+
+  <!-- Input x[n] -->
+  <text x="70" y="170" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="bold" fill="#f0f6fc">x[n]</text>
+  <line x1="100" y1="165" x2="160" y2="165" stroke="#58a6ff" stroke-width="2" marker-end="url(#arr-b3)"/>
+
+  <!-- Multiplier alpha -->
+  <circle cx="180" cy="165" r="20" fill="#21262d" stroke="#58a6ff" stroke-width="1.5"/>
+  <text x="180" y="170" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="bold" fill="#58a6ff" text-anchor="middle">α</text>
+
+  <line x1="200" y1="165" x2="330" y2="165" stroke="#58a6ff" stroke-width="2" marker-end="url(#arr-b3)"/>
+
+  <!-- Adder -->
+  <circle cx="350" cy="165" r="20" fill="#21262d" stroke="#3fb950" stroke-width="2"/>
+  <text x="350" y="171" font-family="system-ui, -apple-system, sans-serif" font-size="18" font-weight="bold" fill="#3fb950" text-anchor="middle">+</text>
+
+  <!-- Output y[n] -->
+  <line x1="370" y1="165" x2="680" y2="165" stroke="#3fb950" stroke-width="2" marker-end="url(#arr-g3)"/>
+  <text x="715" y="170" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="bold" fill="#3fb950">y[n]</text>
+
+  <!-- Feedback branch -->
+  <circle cx="500" cy="165" r="4" fill="#3fb950"/>
+  <line x1="500" y1="165" x2="500" y2="235" stroke="#3fb950" stroke-width="2"/>
+  <line x1="500" y1="235" x2="430" y2="235" stroke="#3fb950" stroke-width="2" marker-end="url(#arr-g3)"/>
+
+  <!-- Delay unit z^-1 -->
+  <rect x="370" y="215" width="60" height="40" rx="4" fill="#21262d" stroke="#bc8cff" stroke-width="1.5"/>
+  <text x="400" y="240" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="bold" fill="#bc8cff" text-anchor="middle">z⁻¹</text>
+
+  <line x1="370" y1="235" x2="280" y2="235" stroke="#bc8cff" stroke-width="2" marker-end="url(#arr-p3)"/>
+
+  <!-- Multiplier (1 - alpha) -->
+  <circle cx="260" cy="235" r="20" fill="#21262d" stroke="#d29922" stroke-width="1.5"/>
+  <text x="260" y="240" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="bold" fill="#d29922" text-anchor="middle">1 - α</text>
+
+  <line x1="260" y1="215" x2="260" y2="185" stroke="#d29922" stroke-width="2"/>
+  <line x1="260" y1="185" x2="335" y2="175" stroke="#d29922" stroke-width="2" marker-end="url(#arr-y3)"/>
+
+  <!-- Bottom cards: Physics & Integer math -->
+  <rect x="40" y="300" width="370" height="160" rx="10" fill="#161b22" stroke="#30363d" stroke-width="1.5"/>
+  <text x="225" y="325" font-family="system-ui, -apple-system, sans-serif" font-size="15" font-weight="bold" fill="#79c0ff" text-anchor="middle">Фізичний зв'язок з часом τ</text>
+  <text x="60" y="352" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#c9d1d9">• Постійна часу RC-еквівалента: τ = Δt / α</text>
+  <text x="60" y="376" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#c9d1d9">• Частота зрізу фільтра: f_c = α / (2π · Δt)</text>
+  <text x="60" y="400" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#c9d1d9">• При α = 0.1 та частоті 10 Гц (Δt = 0.1 с):</text>
+  <text x="75" y="420" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="bold" fill="#3fb950">  τ = 1.0 секунда (плавне приглушення)</text>
+  <text x="60" y="445" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#8b949e">Аналог аналогового RC-фільтра низьких частот</text>
+
+  <rect x="440" y="300" width="370" height="160" rx="10" fill="#161b22" stroke="#30363d" stroke-width="1.5"/>
+  <text x="625" y="325" font-family="system-ui, -apple-system, sans-serif" font-size="15" font-weight="bold" fill="#3fb950" text-anchor="middle">Цілочисельна реалізація (Fixed-point)</text>
+  <text x="460" y="352" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#c9d1d9">• Масштабування коефіцієнта: K = (uint16_t)(α · 256)</text>
+  <text x="460" y="376" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#c9d1d9">• Розрахунок у цілих числах:</text>
+  <text x="475" y="400" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="bold" fill="#7ee787">  y = (K * x + (256 - K) * y) &gt;&gt; 8;</text>
+  <text x="460" y="425" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#8b949e">• Потрібна лише 1 змінна пам'яті (4 байти RAM!)</text>
+  <text x="460" y="445" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#8b949e">• Вбудовано в сенсори Bosch (BME280 IIR filter config)</text>
+
+  <defs>
+    <marker id="arr-b3" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="#58a6ff"/></marker>
+    <marker id="arr-g3" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="#3fb950"/></marker>
+    <marker id="arr-p3" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="#bc8cff"/></marker>
+    <marker id="arr-y3" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="#d29922"/></marker>
+  </defs>
+</svg>

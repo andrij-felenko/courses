@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 850 480" width="100%" height="100%">
+  <rect width="100%" height="100%" fill="#0d1117"/>
+  <text x="425" y="35" font-family="system-ui, -apple-system, sans-serif" font-size="20" font-weight="bold" fill="#f0f6fc" text-anchor="middle">Одновимірний (1D) фільтр Калмана у вбудованих системах</text>
+  <text x="425" y="58" font-family="system-ui, -apple-system, sans-serif" font-size="13" fill="#8b949e" text-anchor="middle">Оптимальний баланс між коваріацією процесу Q та шумом датчика R</text>
+
+  <!-- Left: Algorithmic Loop -->
+  <rect x="40" y="85" width="370" height="365" rx="10" fill="#161b22" stroke="#30363d" stroke-width="1.5"/>
+  <text x="225" y="115" font-family="system-ui, -apple-system, sans-serif" font-size="16" font-weight="bold" fill="#58a6ff" text-anchor="middle">Ітераційний цикл Калмана</text>
+
+  <!-- Phase 1: Predict -->
+  <rect x="65" y="135" width="320" height="75" rx="6" fill="#21262d" stroke="#58a6ff" stroke-width="1.5"/>
+  <text x="225" y="158" font-family="system-ui, -apple-system, sans-serif" font-size="13" font-weight="bold" fill="#58a6ff" text-anchor="middle">1. Етап прогнозу (Time Update)</text>
+  <text x="225" y="178" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#c9d1d9" text-anchor="middle">x̂_pred = x̂;  (квазістатика d/dt ≈ 0)</text>
+  <text x="225" y="196" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#79c0ff" text-anchor="middle">P_pred = P + Q;</text>
+
+  <line x1="225" y1="210" x2="225" y2="235" stroke="#58a6ff" stroke-width="2" marker-end="url(#arr-k)"/>
+
+  <!-- Phase 2: Kalman Gain -->
+  <rect x="65" y="235" width="320" height="65" rx="6" fill="#21262d" stroke="#d29922" stroke-width="1.5"/>
+  <text x="225" y="258" font-family="system-ui, -apple-system, sans-serif" font-size="13" font-weight="bold" fill="#d29922" text-anchor="middle">2. Коефіцієнт підсилення (Kalman Gain)</text>
+  <text x="225" y="282" font-family="system-ui, -apple-system, sans-serif" font-size="13" font-weight="bold" fill="#f0f6fc" text-anchor="middle">K = P_pred / (P_pred + R);</text>
+
+  <line x1="225" y1="300" x2="225" y2="325" stroke="#d29922" stroke-width="2" marker-end="url(#arr-k)"/>
+
+  <!-- Phase 3: Update -->
+  <rect x="65" y="325" width="320" height="95" rx="6" fill="#21262d" stroke="#3fb950" stroke-width="1.5"/>
+  <text x="225" y="348" font-family="system-ui, -apple-system, sans-serif" font-size="13" font-weight="bold" fill="#3fb950" text-anchor="middle">3. Етап корекції (Measurement Update)</text>
+  <text x="225" y="370" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#c9d1d9" text-anchor="middle">x̂ = x̂_pred + K * (z - x̂_pred);</text>
+  <text x="225" y="392" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#7ee787" text-anchor="middle">P = (1.0 - K) * P_pred;</text>
+  <text x="225" y="410" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#8b949e" text-anchor="middle">де z — сирий відлік датчика</text>
+
+  <!-- Right: Parameter trade-off & Performance -->
+  <rect x="435" y="85" width="375" height="365" rx="10" fill="#161b22" stroke="#30363d" stroke-width="1.5"/>
+  <text x="622" y="115" font-family="system-ui, -apple-system, sans-serif" font-size="16" font-weight="bold" fill="#3fb950" text-anchor="middle">Тюнінг параметрів Q та R</text>
+
+  <rect x="460" y="135" width="325" height="95" rx="6" fill="#0d1117" stroke="#30363d" stroke-width="1"/>
+  <text x="475" y="160" font-family="system-ui, -apple-system, sans-serif" font-size="13" font-weight="bold" fill="#58a6ff">Q (Дисперсія процесу):</text>
+  <text x="475" y="182" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#c9d1d9">• Очікувана швидкість реальної зміни клімату</text>
+  <text x="475" y="200" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#8b949e">• Типово: Q = 0.001..0.01 (для кімнатної T)</text>
+  <text x="475" y="218" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#79c0ff">Мале Q → висока гладкість, більша затримка</text>
+
+  <rect x="460" y="240" width="325" height="95" rx="6" fill="#0d1117" stroke="#30363d" stroke-width="1"/>
+  <text x="475" y="265" font-family="system-ui, -apple-system, sans-serif" font-size="13" font-weight="bold" fill="#f85149">R (Дисперсія вимірювання сенсора):</text>
+  <text x="475" y="287" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#c9d1d9">• Власний шум АЦП (з даташита датчика)</text>
+  <text x="475" y="305" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#8b949e">• Типово: R = 0.05..0.5 (RMS шум сенсора²)</text>
+  <text x="475" y="323" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#f85149">Велике R → недовіра сенсору, сильна фільтрація</text>
+
+  <rect x="460" y="345" width="325" height="90" rx="6" fill="#1f242c" stroke="#3fb950" stroke-width="1.5"/>
+  <text x="622" y="370" font-family="system-ui, -apple-system, sans-serif" font-size="13" font-weight="bold" fill="#3fb950" text-anchor="middle">Переваги над простим EMA</text>
+  <text x="475" y="392" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#c9d1d9">• Динамічне підлаштування ваги K при старті</text>
+  <text x="475" y="410" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#c9d1d9">• Математично доведена мінімізація дисперсії похибки</text>
+  <text x="475" y="428" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#7ee787">• Потребує лише 2 змінні стану: x̂ та P</text>
+
+  <defs>
+    <marker id="arr-k" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#58a6ff"/>
+    </marker>
+  </defs>
+</svg>

@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 850 480" width="100%" height="100%">
+  <rect width="100%" height="100%" fill="#0d1117"/>
+  <text x="425" y="35" font-family="system-ui, -apple-system, sans-serif" font-size="20" font-weight="bold" fill="#f0f6fc" text-anchor="middle">Спектр шумів та артефактів кліматичних сенсорів</text>
+  <text x="425" y="58" font-family="system-ui, -apple-system, sans-serif" font-size="13" fill="#8b949e" text-anchor="middle">Квазістатичні фізичні зміни проти високочастотного шуму АЦП та одиничних спайків</text>
+
+  <!-- Oscillogram Frame -->
+  <rect x="40" y="80" width="770" height="260" rx="8" fill="#161b22" stroke="#30363d" stroke-width="1.5"/>
+
+  <!-- Grid lines -->
+  <line x1="40" y1="130" x2="810" y2="130" stroke="#21262d" stroke-width="1" stroke-dasharray="4 4"/>
+  <line x1="40" y1="180" x2="810" y2="180" stroke="#21262d" stroke-width="1" stroke-dasharray="4 4"/>
+  <line x1="40" y1="230" x2="810" y2="230" stroke="#21262d" stroke-width="1" stroke-dasharray="4 4"/>
+  <line x1="40" y1="280" x2="810" y2="280" stroke="#21262d" stroke-width="1" stroke-dasharray="4 4"/>
+
+  <!-- True physical trend (smooth green line) -->
+  <path d="M 60 270 Q 200 260 350 210 T 600 160 T 780 140" fill="none" stroke="#3fb950" stroke-width="3"/>
+  <text x="710" y="130" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="bold" fill="#3fb950">Істинний процес</text>
+
+  <!-- Noisy sensor signal (raw with high frequency ripple and spike) -->
+  <path d="M 60 272 L 80 265 L 100 275 L 120 262 L 140 268 L 160 255 L 180 263 L 200 248 L 220 252 
+           L 240 238 L 260 243 L 275 100 L 290 235 L 310 220 L 330 228 L 350 205 L 370 215 L 390 198
+           L 410 205 L 430 188 L 450 194 L 470 178 L 490 185 L 510 168 L 530 176 L 550 160 L 570 166
+           L 590 152 L 610 158 L 630 145 L 650 152 L 670 142 L 690 148 L 710 138 L 730 144 L 750 135 L 780 142" 
+        fill="none" stroke="#58a6ff" stroke-width="1.5"/>
+
+  <!-- Annotation for spike -->
+  <circle cx="275" cy="100" r="7" fill="none" stroke="#f85149" stroke-width="2"/>
+  <line x1="275" y1="90" x2="275" y2="70" stroke="#f85149" stroke-width="1.5"/>
+  <rect x="200" y="45" width="150" height="24" rx="4" fill="#f85149"/>
+  <text x="275" y="61" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="bold" fill="#ffffff" text-anchor="middle">Аномальний спайк (ESD / I2C)</text>
+
+  <!-- Three Info Cards below -->
+  <rect x="40" y="355" width="245" height="110" rx="8" fill="#161b22" stroke="#30363d" stroke-width="1"/>
+  <text x="162" y="378" font-family="system-ui, -apple-system, sans-serif" font-size="13" font-weight="bold" fill="#58a6ff" text-anchor="middle">Тепловий шум та квантування</text>
+  <text x="55" y="402" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#8b949e">• Білий гауссівський шум АЦП</text>
+  <text x="55" y="422" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#8b949e">• Невизначеність молодшого розряду LSB</text>
+  <text x="55" y="442" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#3fb950">• Лікується: SMA, EMA, IIR</text>
+
+  <rect x="302" y="355" width="245" height="110" rx="8" fill="#161b22" stroke="#30363d" stroke-width="1"/>
+  <text x="424" y="378" font-family="system-ui, -apple-system, sans-serif" font-size="13" font-weight="bold" fill="#f85149" text-anchor="middle">Імпульсні викиди (Spikes)</text>
+  <text x="317" y="402" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#8b949e">• Збої паритету та бітові колізії</text>
+  <text x="317" y="422" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#8b949e">• Індуктивні перешкоди живлення</text>
+  <text x="317" y="442" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#3fb950">• Лікується: Медіанний фільтр</text>
+
+  <rect x="565" y="355" width="245" height="110" rx="8" fill="#161b22" stroke="#30363d" stroke-width="1"/>
+  <text x="687" y="378" font-family="system-ui, -apple-system, sans-serif" font-size="13" font-weight="bold" fill="#d29922" text-anchor="middle">Фізичні збурення середовища</text>
+  <text x="580" y="402" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#8b949e">• Протяги, рух дверей (тиск/волога)</text>
+  <text x="580" y="422" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#8b949e">• Тепловий нагрів мікроконтролера</text>
+  <text x="580" y="442" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#3fb950">• Лікується: Адаптивний Калман</text>
+</svg>
