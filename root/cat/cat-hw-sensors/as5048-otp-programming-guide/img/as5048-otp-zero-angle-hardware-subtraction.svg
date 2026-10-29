@@ -1,0 +1,106 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 540" width="100%" height="100%">
+  <defs>
+    <style>
+      .bg { fill: #0f172a; }
+      .panel { fill: #1e293b; stroke: #334155; stroke-width: 1.5; rx: 8px; }
+      .panel-sub { fill: #0f172a; stroke: #334155; stroke-width: 1; rx: 6px; }
+      .title { font-family: system-ui, sans-serif; font-size: 20px; font-weight: 700; fill: #f8fafc; }
+      .subtitle { font-family: system-ui, sans-serif; font-size: 13px; fill: #94a3b8; }
+      .h2 { font-family: system-ui, sans-serif; font-size: 15px; font-weight: 600; fill: #38bdf8; }
+      .lbl { font-family: system-ui, sans-serif; font-size: 12px; fill: #f8fafc; }
+      .lbl-bold { font-family: system-ui, sans-serif; font-size: 12px; font-weight: 700; fill: #f8fafc; }
+      .lbl-dim { font-family: system-ui, sans-serif; font-size: 11px; fill: #94a3b8; }
+      .lbl-code { font-family: monospace, monospace; font-size: 12px; fill: #38bdf8; }
+      
+      .box-block { fill: #1e293b; stroke: #38bdf8; stroke-width: 1.5; rx: 6px; }
+      .box-otp { fill: #064e3b; stroke: #10b981; stroke-width: 2; rx: 6px; }
+      .box-sub { fill: #831843; stroke: #f43f5e; stroke-width: 2; rx: 6px; }
+      .wire-bus { stroke: #38bdf8; stroke-width: 3; fill: none; marker-end: url(#arr); }
+      .wire-otp { stroke: #10b981; stroke-width: 3; fill: none; marker-end: url(#arr-green); }
+    </style>
+    <marker id="arr" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 8 5 L 0 9 z" fill="#38bdf8" />
+    </marker>
+    <marker id="arr-green" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 8 5 L 0 9 z" fill="#10b981" />
+    </marker>
+  </defs>
+
+  <rect width="100%" height="100%" class="bg" />
+
+  <!-- Title Block -->
+  <text x="30" y="38" class="title">Апаратне віднімання зсуву нуля в цифровому ядрі CORDIC</text>
+  <text x="30" y="60" class="subtitle">Повна апаратна компенсація нуля в режимі реального часу: Angle_out = (Angle_raw - Zero_OTP) mod 16384</text>
+
+  <!-- Main Architecture Block Diagram -->
+  <g transform="translate(30, 85)">
+    <rect width="860" height="280" class="panel" />
+
+    <!-- 1. Hall Array + CORDIC -->
+    <g transform="translate(30, 40)">
+      <rect width="180" height="110" class="box-block" />
+      <text x="90" y="28" class="lbl-bold" text-anchor="middle" fill="#38bdf8">Масив 4-х Холлів</text>
+      <text x="90" y="48" class="lbl-dim" text-anchor="middle">+ 14-біт АЦП</text>
+      <text x="90" y="68" class="lbl-dim" text-anchor="middle">+ Процесор CORDIC</text>
+      <rect x="25" y="80" width="130" height="22" fill="#0f172a" rx="4" />
+      <text x="90" y="95" class="lbl-code" text-anchor="middle">Angle_raw [13:0]</text>
+    </g>
+
+    <!-- Bus from CORDIC to Subtractor -->
+    <line x1="210" y1="95" x2="365" y2="95" class="wire-bus" />
+    <text x="285" y="85" class="lbl-bold" text-anchor="middle" fill="#38bdf8">14 бітів</text>
+
+    <!-- 2. OTP Shadow Register -->
+    <g transform="translate(30, 175)">
+      <rect width="180" height="80" class="box-otp" />
+      <text x="90" y="28" class="lbl-bold" text-anchor="middle" fill="#4ade80">OTP Shadow Register</text>
+      <text x="90" y="48" class="lbl-dim" text-anchor="middle">Зсув нуля (0x0016 / 0x0017)</text>
+      <rect x="25" y="55" width="130" height="20" fill="#0f172a" rx="4" />
+      <text x="90" y="69" class="lbl-code" text-anchor="middle" fill="#4ade80">Zero_OTP [13:0]</text>
+    </g>
+
+    <!-- Bus from OTP to Subtractor -->
+    <path d="M 210 215 L 435 215 L 435 160" class="wire-otp" />
+    <text x="310" y="205" class="lbl-bold" text-anchor="middle" fill="#4ade80">Zero_OTP</text>
+
+    <!-- 3. Hardware Modulo-16384 Subtractor -->
+    <g transform="translate(370, 40)">
+      <rect width="130" height="110" class="box-sub" />
+      <text x="65" y="30" class="lbl-bold" text-anchor="middle" fill="#fb7185">Апаратний</text>
+      <text x="65" y="48" class="lbl-bold" text-anchor="middle" fill="#fb7185">Віднімач</text>
+      <text x="65" y="75" class="lbl-bold" text-anchor="middle" font-size="28" fill="#fbbf24">−</text>
+      <text x="65" y="98" class="lbl-dim" text-anchor="middle">mod 16384</text>
+    </g>
+
+    <!-- Bus from Subtractor to Output Registers -->
+    <line x1="500" y1="95" x2="625" y2="95" class="wire-bus" />
+    <text x="560" y="85" class="lbl-bold" text-anchor="middle" fill="#38bdf8">Angle_out</text>
+
+    <!-- 4. Output Interfaces -->
+    <g transform="translate(630, 40)">
+      <rect width="200" height="215" class="panel-sub" />
+      <text x="100" y="25" class="lbl-bold" text-anchor="middle" fill="#fbbf24">Вихідні канали AS5048</text>
+
+      <rect x="15" y="45" width="170" height="42" class="box-block" />
+      <text x="100" y="65" class="lbl-bold" text-anchor="middle">Регістр SPI / I2C</text>
+      <text x="100" y="80" class="lbl-code" text-anchor="middle">Адреса 0x3FFF</text>
+
+      <rect x="15" y="98" width="170" height="42" class="box-block" />
+      <text x="100" y="118" class="lbl-bold" text-anchor="middle">ШІМ-вихід (PWM)</text>
+      <text x="100" y="133" class="lbl-dim" text-anchor="middle">1 кГц / 14-біт розмах</text>
+
+      <rect x="15" y="152" width="170" height="42" class="box-block" />
+      <text x="100" y="172" class="lbl-bold" text-anchor="middle">Квадратура ABI</text>
+      <text x="100" y="187" class="lbl-dim" text-anchor="middle">Інкрементальні канали</text>
+    </g>
+  </g>
+
+  <!-- Bottom Formula & Engineering Notes -->
+  <g transform="translate(30, 385)">
+    <rect width="860" height="125" class="panel" />
+    <text x="25" y="26" class="lbl-bold" fill="#38bdf8">Математична модель апаратного зміщення в цифровому ядрі:</text>
+    <text x="25" y="52" class="lbl-code">Angle_out = (Angle_raw - Zero_OTP) &amp; 0x3FFF; // Циклічне віднімання по модулю 2^14 = 16384</text>
+    <text x="25" y="78" class="lbl">• <tspan fill="#4ade80">Збереження повної роздільності:</tspan> 14 бітів (0.0219° на крок) без переривань і без навантаження на CPU.</text>
+    <text x="25" y="98" class="lbl">• <tspan fill="#fbbf24">Синхронність усіх інтерфейсів:</tspan> І по шині SPI, і на виході PWM, і на імпульсах ABI нуль зсувається одночасно.</text>
+  </g>
+</svg>

@@ -1,0 +1,135 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 540" width="100%" height="100%">
+  <defs>
+    <style>
+      .bg { fill: #0f172a; }
+      .panel { fill: #1e293b; stroke: #334155; stroke-width: 1.5; rx: 8px; }
+      .panel-sub { fill: #0f172a; stroke: #334155; stroke-width: 1; rx: 6px; }
+      .title { font-family: system-ui, sans-serif; font-size: 20px; font-weight: 700; fill: #f8fafc; }
+      .subtitle { font-family: system-ui, sans-serif; font-size: 13px; fill: #94a3b8; }
+      .h2 { font-family: system-ui, sans-serif; font-size: 15px; font-weight: 600; fill: #38bdf8; }
+      .lbl { font-family: system-ui, sans-serif; font-size: 12px; fill: #f8fafc; }
+      .lbl-bold { font-family: system-ui, sans-serif; font-size: 12px; font-weight: 700; fill: #f8fafc; }
+      .lbl-dim { font-family: system-ui, sans-serif; font-size: 11px; fill: #94a3b8; }
+      
+      .step-box { fill: #1e293b; stroke: #38bdf8; stroke-width: 1.5; rx: 6px; }
+      .step-burn { fill: #881337; stroke: #f43f5e; stroke-width: 2; rx: 6px; }
+      .step-verify { fill: #064e3b; stroke: #10b981; stroke-width: 1.5; rx: 6px; }
+      .flow-arrow { stroke: #38bdf8; stroke-width: 2; marker-end: url(#arr-flow); fill: none; }
+      .warn-arrow { stroke: #f43f5e; stroke-width: 2; marker-end: url(#arr-warn); fill: none; }
+    </style>
+    <marker id="arr-flow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 8 5 L 0 9 z" fill="#38bdf8" />
+    </marker>
+    <marker id="arr-warn" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 8 5 L 0 9 z" fill="#f43f5e" />
+    </marker>
+  </defs>
+
+  <rect width="100%" height="100%" class="bg" />
+
+  <!-- Title Block -->
+  <text x="30" y="38" class="title">Покроковий алгоритм програмування та випалювання OTP в AS5048</text>
+  <text x="30" y="60" class="subtitle">Послідовність механічного позиціонування, попереднього тестування, пропалювання та Margin Read</text>
+
+  <!-- Flowchart Steps -->
+  <g transform="translate(30, 85)">
+    <!-- Row 1: Steps 1 to 4 -->
+    <!-- Step 1 -->
+    <g transform="translate(0, 0)">
+      <rect width="195" height="95" class="step-box" />
+      <text x="15" y="24" class="lbl-bold" fill="#38bdf8">КРОК 1: Механіка</text>
+      <text x="15" y="46" class="lbl">Фіксація вала двигуна</text>
+      <text x="15" y="64" class="lbl">у точному фізичному</text>
+      <text x="15" y="82" class="lbl-dim">нульовому положенні</text>
+    </g>
+
+    <line x1="195" y1="47" x2="225" y2="47" class="flow-arrow" />
+
+    <!-- Step 2 -->
+    <g transform="translate(225, 0)">
+      <rect width="195" height="95" class="step-box" />
+      <text x="15" y="24" class="lbl-bold" fill="#38bdf8">КРОК 2: Зчитування</text>
+      <text x="15" y="46" class="lbl">Читання регістру кута</text>
+      <text x="15" y="64" class="lbl">Angle_raw з 0x3FFF</text>
+      <text x="15" y="82" class="lbl-dim">по шині SPI / I2C</text>
+    </g>
+
+    <line x1="420" y1="47" x2="450" y2="47" class="flow-arrow" />
+
+    <!-- Step 3 -->
+    <g transform="translate(450, 0)">
+      <rect width="195" height="95" class="step-box" />
+      <text x="15" y="24" class="lbl-bold" fill="#38bdf8">КРОК 3: Shadow RAM</text>
+      <text x="15" y="46" class="lbl">Запис Angle_raw у</text>
+      <text x="15" y="64" class="lbl">0x0016 (High) та</text>
+      <text x="15" y="82" class="lbl-dim">0x0017 (Low) без burn</text>
+    </g>
+
+    <line x1="645" y1="47" x2="675" y2="47" class="flow-arrow" />
+
+    <!-- Step 4 -->
+    <g transform="translate(675, 0)">
+      <rect width="185" height="95" class="step-verify" />
+      <text x="15" y="24" class="lbl-bold" fill="#4ade80">КРОК 4: Тест нуля</text>
+      <text x="15" y="46" class="lbl">Зчитування 0x3FFF:</text>
+      <text x="15" y="64" class="lbl">кут має дорівнювати</text>
+      <text x="15" y="82" class="lbl-bold" fill="#4ade80">0x0000 (0.0°)</text>
+    </g>
+
+    <!-- Arrow down to Row 2 -->
+    <path d="M 767 95 L 767 135 L 767 145" class="flow-arrow" />
+
+    <!-- Row 2: Steps 5 to 8 (Right to Left) -->
+    <!-- Step 5 (Far Right) -->
+    <g transform="translate(675, 145)">
+      <rect width="185" height="95" class="step-box" stroke="#fbbf24" />
+      <text x="15" y="24" class="lbl-bold" fill="#fbbf24">КРОК 5: Живлення</text>
+      <text x="15" y="46" class="lbl">Стабілізація VDD5V:</text>
+      <text x="15" y="64" class="lbl-bold" fill="#fbbf24">5.0 В ± 0.1 В</text>
+      <text x="15" y="82" class="lbl-dim">Здатність I &gt; 100 мА</text>
+    </g>
+
+    <line x1="675" y1="192" x2="645" y2="192" class="flow-arrow" />
+
+    <!-- Step 6 (Burn Step) -->
+    <g transform="translate(450, 145)">
+      <rect width="195" height="95" class="step-burn" />
+      <text x="15" y="24" class="lbl-bold" fill="#fb7185">КРОК 6: ВИПАЛЮВАННЯ</text>
+      <text x="15" y="46" class="lbl">Команда в 0x0003:</text>
+      <text x="15" y="64" class="lbl">PROG_OTP та BURN</text>
+      <text x="15" y="82" class="lbl-bold" fill="#fb7185">Імпульс 3–5 мс</text>
+    </g>
+
+    <line x1="450" y1="192" x2="420" y2="192" class="flow-arrow" />
+
+    <!-- Step 7 -->
+    <g transform="translate(225, 145)">
+      <rect width="195" height="95" class="step-verify" />
+      <text x="15" y="24" class="lbl-bold" fill="#4ade80">КРОК 7: Margin Read</text>
+      <text x="15" y="46" class="lbl">Контрольне читання</text>
+      <text x="15" y="64" class="lbl">з маржинальними</text>
+      <text x="15" y="82" class="lbl-dim">порогами чутливості</text>
+    </g>
+
+    <line x1="225" y1="192" x2="195" y2="192" class="flow-arrow" />
+
+    <!-- Step 8 -->
+    <g transform="translate(0, 145)">
+      <rect width="195" height="95" class="step-box" stroke="#a855f7" />
+      <text x="15" y="24" class="lbl-bold" fill="#a855f7">КРОК 8: Lock Guard</text>
+      <text x="15" y="46" class="lbl">Встановлення біта</text>
+      <text x="15" y="64" class="lbl">Guard Bit для</text>
+      <text x="15" y="82" class="lbl-dim">блокування перепалу</text>
+    </g>
+  </g>
+
+  <!-- Bottom Detailed Insights Panel -->
+  <g transform="translate(30, 365)">
+    <rect width="860" height="145" class="panel" />
+    <text x="25" y="26" class="lbl-bold" fill="#f43f5e">Критичні правила безпеки при випалюванні перемичок OTP:</text>
+    <text x="25" y="52" class="lbl">1. <tspan fill="#fbbf24">Одноразовість операції:</tspan> Випалені перемички неможливо відновити. Помилковий нуль зміщує шкалу назавжди!</text>
+    <text x="25" y="74" class="lbl">2. <tspan fill="#38bdf8">Обов'язкове попереднє тестування (Крок 4):</tspan> Запис у Shadow RAM дозволяє перевірити нуль до фізичного випалу.</text>
+    <text x="25" y="96" class="lbl">3. <tspan fill="#f43f5e">Неприпустимість просідання VDD:</tspan> Якщо напруга живлення впаде нижче 4.75 В під час імпульсу струму, перемичка випалиться частково і відновиться з часом (ефект recrystallization).</text>
+    <text x="25" y="118" class="lbl">4. <tspan fill="#4ade80">Фіксація Guard Bit:</tspan> Запобігає випадковому пошкодженню пам'яті через збої прошивки мікроконтролера в роботі.</text>
+  </g>
+</svg>

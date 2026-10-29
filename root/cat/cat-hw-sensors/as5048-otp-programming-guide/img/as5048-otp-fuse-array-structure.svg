@@ -1,0 +1,126 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 540" width="100%" height="100%">
+  <defs>
+    <style>
+      .bg { fill: #0f172a; }
+      .panel { fill: #1e293b; stroke: #334155; stroke-width: 1.5; rx: 8px; }
+      .panel-sub { fill: #0f172a; stroke: #334155; stroke-width: 1; rx: 6px; }
+      .title { font-family: system-ui, sans-serif; font-size: 20px; font-weight: 700; fill: #f8fafc; }
+      .subtitle { font-family: system-ui, sans-serif; font-size: 13px; fill: #94a3b8; }
+      .h2 { font-family: system-ui, sans-serif; font-size: 15px; font-weight: 600; fill: #38bdf8; }
+      .lbl { font-family: system-ui, sans-serif; font-size: 12px; fill: #f8fafc; }
+      .lbl-bold { font-family: system-ui, sans-serif; font-size: 12px; font-weight: 700; fill: #f8fafc; }
+      .lbl-dim { font-family: system-ui, sans-serif; font-size: 11px; fill: #94a3b8; }
+      .lbl-code { font-family: monospace, monospace; font-size: 12px; fill: #38bdf8; }
+      
+      .fuse-intact { fill: #0284c7; stroke: #38bdf8; stroke-width: 2; }
+      .fuse-blown { fill: #f43f5e; stroke: #fb7185; stroke-width: 2; stroke-dasharray: 4,3; }
+      .wire { stroke: #64748b; stroke-width: 2; fill: none; }
+      .wire-bus { stroke: #38bdf8; stroke-width: 3; fill: none; }
+      .arrow { stroke-width: 2; marker-end: url(#arr); }
+    </style>
+    <marker id="arr" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 8 5 L 0 9 z" fill="#38bdf8" />
+    </marker>
+    <marker id="arr-gold" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 8 5 L 0 9 z" fill="#fbbf24" />
+    </marker>
+  </defs>
+
+  <rect width="100%" height="100%" class="bg" />
+
+  <!-- Title Block -->
+  <text x="30" y="38" class="title">Архітектура та організація пам'яті OTP в енкодерах AS5048</text>
+  <text x="30" y="60" class="subtitle">Матриця полікремнієвих плавких перемичок (Polysilicon Fuses), тіньові регістри та карта бітів</text>
+
+  <!-- Left: Physical Fuse Principle -->
+  <g transform="translate(30, 80)">
+    <rect width="415" height="300" class="panel" />
+    <text x="20" y="28" class="h2">1. Фізична комірка плавкої перемички</text>
+
+    <!-- Intact Fuse (Bit = 0) -->
+    <g transform="translate(35, 50)">
+      <rect width="160" height="110" class="panel-sub" />
+      <text x="80" y="22" class="lbl-bold" text-anchor="middle" fill="#38bdf8">Ціла перемичка (БІТ = 0)</text>
+
+      <!-- Fuse graphic -->
+      <line x1="25" y1="60" x2="60" y2="60" class="wire" />
+      <path d="M 60 60 Q 80 40 100 60" fill="none" stroke="#38bdf8" stroke-width="4" />
+      <line x1="100" y1="60" x2="135" y2="60" class="wire" />
+
+      <text x="80" y="85" class="lbl-dim" text-anchor="middle">Низький опір: R &lt; 100 Ом</text>
+      <text x="80" y="100" class="lbl-dim" text-anchor="middle">Струм протікає вільно</text>
+    </g>
+
+    <!-- Blown Fuse (Bit = 1) -->
+    <g transform="translate(220, 50)">
+      <rect width="160" height="110" class="panel-sub" />
+      <text x="80" y="22" class="lbl-bold" text-anchor="middle" fill="#f43f5e">Випалена (БІТ = 1)</text>
+
+      <!-- Fuse graphic blown -->
+      <line x1="25" y1="60" x2="60" y2="60" class="wire" />
+      <!-- Gap with open burn spark -->
+      <path d="M 60 60 L 72 50" stroke="#f43f5e" stroke-width="3" />
+      <circle cx="78" cy="55" r="4" fill="#fbbf24" />
+      <path d="M 88 70 L 100 60" stroke="#f43f5e" stroke-width="3" />
+      <line x1="100" y1="60" x2="135" y2="60" class="wire" />
+
+      <text x="80" y="85" class="lbl-dim" text-anchor="middle">Високий опір: R &gt; 1 МОм</text>
+      <text x="80" y="100" class="lbl-dim" text-anchor="middle">Ланцюг фізично розірвано</text>
+    </g>
+
+    <!-- Physics explanation -->
+    <rect x="25" y="180" width="365" height="100" class="panel-sub" />
+    <text x="35" y="202" class="lbl">• <tspan fill="#38bdf8">Матеріал:</tspan> Високолегований полікристалічний кремній.</text>
+    <text x="35" y="222" class="lbl">• <tspan fill="#fbbf24">Механізм випалювання:</tspan> Джоулеве нагрівання струмом I &gt; 80 мА.</text>
+    <text x="35" y="242" class="lbl">• <tspan fill="#f43f5e">Незворотність:</tspan> Електроміграція та термічний розрив перемички.</text>
+    <text x="35" y="262" class="lbl">• <tspan fill="#4ade80">Збереження:</tspan> Гарантована енергонезалежність &gt; 20 років.</text>
+  </g>
+
+  <!-- Right: OTP Register Map & Shadow RAM -->
+  <g transform="translate(475, 80)">
+    <rect width="415" height="300" class="panel" />
+    <text x="20" y="28" class="h2">2. Карта регістрів OTP та Shadow RAM</text>
+
+    <!-- Register Layout -->
+    <g transform="translate(25, 45)">
+      <!-- Reg 0x0016: Zero Position High -->
+      <rect x="0" y="0" width="365" height="45" class="panel-sub" />
+      <text x="15" y="20" class="lbl-bold" fill="#38bdf8">0x0016: OTP Zero Pos High</text>
+      <text x="15" y="36" class="lbl-dim">Біти [13:6] нульового кута (старші 8 розрядів)</text>
+      <rect x="260" y="10" width="90" height="25" fill="#1e293b" stroke="#38bdf8" rx="4" />
+      <text x="305" y="27" class="lbl-code" text-anchor="middle">Z[13:6]</text>
+
+      <!-- Reg 0x0017: Zero Position Low -->
+      <rect x="0" y="55" width="365" height="45" class="panel-sub" />
+      <text x="15" y="75" class="lbl-bold" fill="#38bdf8">0x0017: OTP Zero Pos Low</text>
+      <text x="15" y="91" class="lbl-dim">Біти [5:0] нульового кута (молодші 6 розрядів)</text>
+      <rect x="260" y="65" width="90" height="25" fill="#1e293b" stroke="#38bdf8" rx="4" />
+      <text x="305" y="82" class="lbl-code" text-anchor="middle">Z[5:0]</text>
+
+      <!-- Reg 0x0003: Programming Control -->
+      <rect x="0" y="110" width="365" height="45" class="panel-sub" />
+      <text x="15" y="130" class="lbl-bold" fill="#fbbf24">0x0003: Programming Control</text>
+      <text x="15" y="146" class="lbl-dim">Керування випалюванням: PROG, BURN, VERIFY</text>
+      <rect x="260" y="120" width="90" height="25" fill="#1e293b" stroke="#fbbf24" rx="4" />
+      <text x="305" y="137" class="lbl-code" text-anchor="middle" fill="#fbbf24">CTRL[7:0]</text>
+
+      <!-- Guard / Lock Bit -->
+      <rect x="0" y="165" width="365" height="50" class="panel-sub" />
+      <text x="15" y="185" class="lbl-bold" fill="#f43f5e">Guard Bit (Lock): Захист від перезапису</text>
+      <text x="15" y="202" class="lbl-dim">Після встановлення блокує будь-які операції випалювання</text>
+    </g>
+
+    <!-- Shadow RAM notice -->
+    <rect x="25" y="270" width="365" height="15" fill="none" />
+    <text x="25" y="280" class="lbl-dim">При ввімкненні (Power-On) дані з OTP автоматично копіюються в Shadow RAM.</text>
+  </g>
+
+  <!-- Bottom: Loading & Subtraction Flow -->
+  <g transform="translate(30, 400)">
+    <rect width="860" height="115" class="panel" />
+    <text x="25" y="26" class="lbl-bold" fill="#38bdf8">Архітектурна перевага апаратного OTP у порівнянні з програмним зсувом:</text>
+    <text x="25" y="52" class="lbl">• <tspan fill="#4ade80">Автономність:</tspan> Датчик самостійно видає вже зміщене значення кута у регістрах 0x3FFF та через PWM/ABI виходи.</text>
+    <text x="25" y="72" class="lbl">• <tspan fill="#fbbf24">Миттєвий старт:</tspan> Апаратний нуль готовий через 10 мс після подачі живлення без очікування ініціалізації контролера.</text>
+    <text x="25" y="92" class="lbl">• <tspan fill="#38bdf8">Уніфікація вузлів:</tspan> Модулі серводвигунів стають повністю взаємозамінними без необхідності індивідуального калібрування в ПЗ.</text>
+  </g>
+</svg>

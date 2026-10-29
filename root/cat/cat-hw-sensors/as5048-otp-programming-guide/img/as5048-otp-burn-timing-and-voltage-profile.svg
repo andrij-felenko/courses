@@ -1,0 +1,115 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 540" width="100%" height="100%">
+  <defs>
+    <style>
+      .bg { fill: #0f172a; }
+      .panel { fill: #1e293b; stroke: #334155; stroke-width: 1.5; rx: 8px; }
+      .panel-sub { fill: #0f172a; stroke: #334155; stroke-width: 1; rx: 6px; }
+      .title { font-family: system-ui, sans-serif; font-size: 20px; font-weight: 700; fill: #f8fafc; }
+      .subtitle { font-family: system-ui, sans-serif; font-size: 13px; fill: #94a3b8; }
+      .h2 { font-family: system-ui, sans-serif; font-size: 15px; font-weight: 600; fill: #38bdf8; }
+      .lbl { font-family: system-ui, sans-serif; font-size: 12px; fill: #f8fafc; }
+      .lbl-bold { font-family: system-ui, sans-serif; font-size: 12px; font-weight: 700; fill: #f8fafc; }
+      .lbl-dim { font-family: system-ui, sans-serif; font-size: 11px; fill: #94a3b8; }
+      .lbl-code { font-family: monospace, monospace; font-size: 11px; fill: #38bdf8; }
+      
+      .axis { stroke: #64748b; stroke-width: 1.5; }
+      .grid { stroke: #334155; stroke-dasharray: 4,4; stroke-width: 1; }
+      .trace-vdd { stroke: #fbbf24; stroke-width: 2.5; fill: none; }
+      .trace-spi { stroke: #38bdf8; stroke-width: 2; fill: none; }
+      .trace-current { stroke: #f43f5e; stroke-width: 3; fill: none; }
+      .shade-burn { fill: #f43f5e; fill-opacity: 0.15; }
+    </style>
+  </defs>
+
+  <rect width="100%" height="100%" class="bg" />
+
+  <!-- Title Block -->
+  <text x="30" y="38" class="title">Часова діаграма та профіль напруги випалювання OTP</text>
+  <text x="30" y="60" class="subtitle">Вимоги до стабільності напруги VDD5V = 5.0 В, імпульсу струму I_prog та пауз охолодження</text>
+
+  <!-- Left: Timing Waveforms Panel -->
+  <g transform="translate(30, 80)">
+    <rect width="530" height="430" class="panel" />
+    <text x="20" y="28" class="h2">1. Осцилограма сигналів випалювання</text>
+
+    <!-- Timing waveforms -->
+    <g transform="translate(70, 45)">
+      <!-- Channel 1: VDD5V Voltage -->
+      <text x="-60" y="35" class="lbl-bold" fill="#fbbf24">VDD5V</text>
+      <text x="-60" y="50" class="lbl-dim">(5.0 В)</text>
+      <line x1="0" y1="40" x2="430" y2="40" class="trace-vdd" />
+      <line x1="0" y1="40" x2="430" y2="40" stroke="#fbbf24" stroke-width="1" stroke-dasharray="2,4" />
+      <text x="435" y="44" class="lbl-bold" fill="#fbbf24">5.0 В ±0.1В</text>
+
+      <!-- Channel 2: SPI CSn / MOSI Command -->
+      <text x="-60" y="115" class="lbl-bold" fill="#38bdf8">SPI MOSI</text>
+      <text x="-60" y="130" class="lbl-dim">(Команда)</text>
+      <!-- idle high -> command burst -> idle high -->
+      <path d="M 0 100 L 40 100 L 40 130 L 60 100 L 75 130 L 90 100 L 110 130 L 130 100 L 430 100" class="trace-spi" />
+      <text x="50" y="92" class="lbl-dim" fill="#38bdf8">CMD 0x0003 (BURN)</text>
+
+      <!-- Channel 3: Programming Current I_prog -->
+      <text x="-60" y="210" class="lbl-bold" fill="#f43f5e">Струм</text>
+      <text x="-60" y="225" class="lbl-bold" fill="#f43f5e">I_prog</text>
+      <text x="-60" y="240" class="lbl-dim">(&gt;80 мА)</text>
+
+      <!-- Current baseline -> pulse 3.5 ms -> baseline -->
+      <line x1="0" y1="240" x2="160" y2="240" class="trace-current" />
+      <!-- Burn Pulse Area -->
+      <rect x="160" y="170" width="140" height="70" class="shade-burn" />
+      <path d="M 160 240 L 160 170 L 300 170 L 300 240 L 430 240" class="trace-current" />
+      <text x="230" y="162" class="lbl-bold" text-anchor="middle" fill="#f43f5e">Імпульс t_burn = 3.5 мс (I ≈ 90 мА)</text>
+
+      <!-- Grid vertical lines -->
+      <line x1="160" y1="20" x2="160" y2="280" class="grid" />
+      <line x1="300" y1="20" x2="300" y2="280" class="grid" />
+
+      <!-- Cooling pause t_cool -->
+      <g transform="translate(300, 260)">
+        <line x1="0" y1="0" x2="80" y2="0" stroke="#38bdf8" stroke-width="2" />
+        <line x1="0" y1="-6" x2="0" y2="6" stroke="#38bdf8" stroke-width="2" />
+        <line x1="80" y1="-6" x2="80" y2="6" stroke="#38bdf8" stroke-width="2" />
+        <text x="40" y="-10" class="lbl-dim" text-anchor="middle" fill="#38bdf8">t_cool &gt; 5 мс</text>
+      </g>
+    </g>
+
+    <!-- Notes on bottom of left panel -->
+    <rect x="25" y="335" width="480" height="75" class="panel-sub" />
+    <text x="35" y="357" class="lbl">• <tspan fill="#fbbf24">t_burn (тривалість імпульсу):</tspan> строго від 3.0 до 4.0 мс на один біт.</text>
+    <text x="35" y="377" class="lbl">• <tspan fill="#38bdf8">t_cool (пауза охолодження):</tspan> мінімум 5 мс перед наступним бітом.</text>
+    <text x="35" y="397" class="lbl">• <tspan fill="#f43f5e">Піковий струм:</tspan> блок живлення повинен забезпечувати до 100 мА без просадки.</text>
+  </g>
+
+  <!-- Right: Electrical Requirements Card -->
+  <g transform="translate(580, 80)">
+    <rect width="310" height="430" class="panel" />
+    <text x="20" y="28" class="h2">2. Електричні допуски</text>
+
+    <g transform="translate(20, 45)">
+      <!-- Item 1: VDD -->
+      <rect x="0" y="0" width="270" height="75" class="panel-sub" />
+      <text x="15" y="22" class="lbl-bold" fill="#fbbf24">Напруга живлення VDD5V:</text>
+      <text x="15" y="44" class="lbl-bold" fill="#4ade80">5.0 В (допустимо 4.85 – 5.15 В)</text>
+      <text x="15" y="62" class="lbl-dim">При VDD &lt; 4.75 В випалювання ЗАБОРОНЕНО!</text>
+
+      <!-- Item 2: Decoupling -->
+      <rect x="0" y="85" width="270" height="75" class="panel-sub" />
+      <text x="15" y="107" class="lbl-bold" fill="#38bdf8">Блокувальні конденсатори:</text>
+      <text x="15" y="129" class="lbl">10 мкФ (тантал/кераміка X7R)</text>
+      <text x="15" y="147" class="lbl">+ 100 нФ безпосередньо біля VDD</text>
+
+      <!-- Item 3: Temperature -->
+      <rect x="0" y="170" width="270" height="75" class="panel-sub" />
+      <text x="15" y="192" class="lbl-bold" fill="#f43f5e">Температура кристала:</text>
+      <text x="15" y="214" class="lbl">Рекомендовано: <tspan fill="#4ade80">+20°C ... +35°C</tspan></text>
+      <text x="15" y="232" class="lbl-dim">Не програмувати на гарячому двигуні (&gt;50°C)</text>
+
+      <!-- Item 4: Supply Source -->
+      <rect x="0" y="255" width="270" height="95" class="panel-sub" />
+      <text x="15" y="277" class="lbl-bold" fill="#a855f7">Джерело живлення:</text>
+      <text x="15" y="297" class="lbl">Лабораторний БЖ або LDO на 5.0 В.</text>
+      <text x="15" y="315" class="lbl-dim">Живлення від USB комп'ютера часто</text>
+      <text x="15" y="333" class="lbl-dim">просідає до 4.5 В, що псує кристал!</text>
+    </g>
+  </g>
+</svg>

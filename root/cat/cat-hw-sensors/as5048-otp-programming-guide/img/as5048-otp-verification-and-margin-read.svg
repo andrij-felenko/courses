@@ -1,0 +1,119 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 540" width="100%" height="100%">
+  <defs>
+    <style>
+      .bg { fill: #0f172a; }
+      .panel { fill: #1e293b; stroke: #334155; stroke-width: 1.5; rx: 8px; }
+      .panel-sub { fill: #0f172a; stroke: #334155; stroke-width: 1; rx: 6px; }
+      .title { font-family: system-ui, sans-serif; font-size: 20px; font-weight: 700; fill: #f8fafc; }
+      .subtitle { font-family: system-ui, sans-serif; font-size: 13px; fill: #94a3b8; }
+      .h2 { font-family: system-ui, sans-serif; font-size: 15px; font-weight: 600; fill: #38bdf8; }
+      .lbl { font-family: system-ui, sans-serif; font-size: 12px; fill: #f8fafc; }
+      .lbl-bold { font-family: system-ui, sans-serif; font-size: 12px; font-weight: 700; fill: #f8fafc; }
+      .lbl-dim { font-family: system-ui, sans-serif; font-size: 11px; fill: #94a3b8; }
+      .lbl-code { font-family: monospace, monospace; font-size: 11px; fill: #38bdf8; }
+      
+      .axis { stroke: #64748b; stroke-width: 1.5; }
+      .grid { stroke: #334155; stroke-dasharray: 4,4; stroke-width: 1; }
+      .thresh-norm { stroke: #fbbf24; stroke-width: 2; stroke-dasharray: 6,4; }
+      .thresh-margin { stroke: #f43f5e; stroke-width: 2; stroke-dasharray: 3,3; }
+      .bar-intact { fill: #0284c7; stroke: #38bdf8; stroke-width: 1.5; }
+      .bar-marginal { fill: #d97706; stroke: #fbbf24; stroke-width: 1.5; }
+      .bar-blown { fill: #4ade80; stroke: #22c55e; stroke-width: 1.5; }
+    </style>
+  </defs>
+
+  <rect width="100%" height="100%" class="bg" />
+
+  <!-- Title Block -->
+  <text x="30" y="38" class="title">Механізм контрольного зчитування з маржинальними порогами (Margin Read)</text>
+  <text x="30" y="60" class="subtitle">Перевірка надійності випалювання перемичок для гарантії збереження даних протягом понад 20 років</text>
+
+  <!-- Left: Resistance Spectrum & Margin Thresholds -->
+  <g transform="translate(30, 80)">
+    <rect width="470" height="430" class="panel" />
+    <text x="20" y="28" class="h2">1. Спектр опору перемичок та тестові пороги</text>
+
+    <!-- Graph: Resistance on logarithmic scale -->
+    <g transform="translate(60, 45)">
+      <!-- Axis -->
+      <line x1="40" y1="20" x2="40" y2="300" class="axis" />
+      <text x="25" y="20" class="lbl-dim">Опір R</text>
+
+      <!-- Resistance marks (log scale) -->
+      <line x1="35" y1="40" x2="45" y2="40" class="axis" />
+      <text x="30" y="44" class="lbl-bold" text-anchor="end" fill="#4ade80">10 МОм</text>
+      <text x="30" y="80" class="lbl-bold" text-anchor="end" fill="#4ade80">1 МОм</text>
+      <text x="30" y="140" class="lbl-bold" text-anchor="end" fill="#fbbf24">100 кОм</text>
+      <text x="30" y="200" class="lbl-bold" text-anchor="end" fill="#f43f5e">10 кОм</text>
+      <text x="30" y="260" class="lbl-bold" text-anchor="end" fill="#38bdf8">100 Ом</text>
+
+      <!-- Threshold Lines -->
+      <!-- Margin High Threshold -->
+      <line x1="40" y1="90" x2="380" y2="90" class="thresh-margin" />
+      <text x="385" y="94" class="lbl-bold" fill="#f43f5e">Поріг Margin High (R &gt; 500 кОм)</text>
+
+      <!-- Nominal Read Threshold -->
+      <line x1="40" y1="160" x2="380" y2="160" class="thresh-norm" />
+      <text x="385" y="164" class="lbl-bold" fill="#fbbf24">Номінальний поріг (R_nom ≈ 50 кОм)</text>
+
+      <!-- Margin Low Threshold -->
+      <line x1="40" y1="230" x2="380" y2="230" class="thresh-margin" />
+      <text x="385" y="234" class="lbl-bold" fill="#38bdf8">Поріг Margin Low (R &lt; 1 кОм)</text>
+
+      <!-- Bars showing actual states -->
+      <!-- Intact fuse bar -->
+      <rect x="80" y="260" width="55" height="40" class="bar-intact" rx="3" />
+      <text x="107" y="285" class="lbl-bold" text-anchor="middle" fill="#ffffff">0</text>
+      <text x="107" y="320" class="lbl-dim" text-anchor="middle">Ціла</text>
+
+      <!-- Marginal bad burn bar (danger zone!) -->
+      <rect x="180" y="130" width="55" height="170" class="bar-marginal" rx="3" />
+      <text x="207" y="150" class="lbl-bold" text-anchor="middle" fill="#ffffff">?</text>
+      <text x="207" y="320" class="lbl-dim" text-anchor="middle" fill="#fbbf24">БРАК</text>
+
+      <!-- Well-blown fuse bar -->
+      <rect x="280" y="50" width="55" height="250" class="bar-blown" rx="3" />
+      <text x="307" y="70" class="lbl-bold" text-anchor="middle" fill="#ffffff">1</text>
+      <text x="307" y="320" class="lbl-dim" text-anchor="middle" fill="#4ade80">ЯКІСНО</text>
+    </g>
+
+    <!-- Note at bottom of left panel -->
+    <rect x="25" y="375" width="420" height="40" class="panel-sub" />
+    <text x="35" y="392" class="lbl">Частково пропалена перемичка («БРАК») проходить звичайний тест,</text>
+    <text x="35" y="407" class="lbl">але <tspan fill="#f43f5e">відхиляється тестом Margin Read</tspan>, запобігаючи відмові в полі.</text>
+  </g>
+
+  <!-- Right: Verification Procedure Details -->
+  <g transform="translate(520, 80)">
+    <rect width="370" height="430" class="panel" />
+    <text x="20" y="28" class="h2">2. Процедура тестування Margin Read</text>
+
+    <g transform="translate(20, 45)">
+      <!-- Step A -->
+      <rect x="0" y="0" width="330" height="80" class="panel-sub" />
+      <text x="15" y="22" class="lbl-bold" fill="#38bdf8">1. Звичайне зчитування (Nominal):</text>
+      <text x="15" y="42" class="lbl">Перевірка рівнів 0 та 1 за стандартним</text>
+      <text x="15" y="60" class="lbl">порогом чутливості компаратора R_nom.</text>
+
+      <!-- Step B -->
+      <rect x="0" y="90" width="330" height="95" class="panel-sub" />
+      <text x="15" y="22" class="lbl-bold" fill="#f43f5e">2. Margin Read High (Жорсткий тест 1):</text>
+      <text x="15" y="42" class="lbl">Підвищення порогу компаратора до 500 кОм.</text>
+      <text x="15" y="60" class="lbl">Якщо опір випаленого біта нижчий,</text>
+      <text x="15" y="78" class="lbl" fill="#f43f5e">тест фіксує неповне випалювання!</text>
+
+      <!-- Step C -->
+      <rect x="0" y="195" width="330" height="95" class="panel-sub" />
+      <text x="15" y="22" class="lbl-bold" fill="#4ade80">3. Margin Read Low (Жорсткий тест 0):</text>
+      <text x="15" y="42" class="lbl">Зниження порогу компаратора до 1 кОм.</text>
+      <text x="15" y="60" class="lbl">Перевірка відсутності мікропробоїв</text>
+      <text x="15" y="78" class="lbl">на сусідніх невипалених перемичках.</text>
+
+      <!-- Step D -->
+      <rect x="0" y="300" width="330" height="70" class="panel-sub" />
+      <text x="15" y="22" class="lbl-bold" fill="#fbbf24">4. Фінальне блокування:</text>
+      <text x="15" y="42" class="lbl">Успішне проходження Margin Read</text>
+      <text x="15" y="60" class="lbl">дозволяє записати фінальний Guard Bit.</text>
+    </g>
+  </g>
+</svg>
