@@ -1,0 +1,113 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, -apple-system, BlinkMacSystemFont, Roboto, sans-serif">
+  <!-- Фон -->
+  <rect width="960" height="540" fill="#0d1117"/>
+  <rect x="15" y="15" width="930" height="510" rx="12" fill="none" stroke="#30363d" stroke-width="1.5"/>
+
+  <!-- Заголовок -->
+  <text x="480" y="42" fill="#f0f6fc" font-size="20" font-weight="700" text-anchor="middle">Конвеєр компенсації даних Bosch BME280: Калібрувальні коефіцієнти та t_fine</text>
+  <text x="480" y="66" fill="#8b949e" font-size="13" text-anchor="middle">Зчитування 24 регістрів NVM та розрахунок температури, тиску й вологості на мікроконтролері</text>
+
+  <!-- Блок-схема конвеєра (3 етапи зліва направо) -->
+  <g transform="translate(30, 85)">
+    <!-- Етап 1: Зчитування сирих регістрів та NVM -->
+    <rect x="10" y="10" width="260" height="325" rx="8" fill="#161b22" stroke="#58a6ff" stroke-width="1.5"/>
+    <rect x="10" y="10" width="260" height="32" rx="8" fill="#21262d"/>
+    <circle cx="28" cy="26" r="6" fill="#58a6ff"/>
+    <text x="42" y="31" fill="#f0f6fc" font-size="12" font-weight="700">1. Сирі дані та NVM регістри</text>
+
+    <!-- Регістри Burst Read (0xF7..0xFE) -->
+    <rect x="25" y="55" width="230" height="95" rx="6" fill="#0d1117" stroke="#30363d" stroke-width="1"/>
+    <text x="35" y="75" fill="#58a6ff" font-size="11" font-weight="700">Пакетне читання 8 байтів:</text>
+    <text x="35" y="93" fill="#f0f6fc" font-size="10">• 0xF7..0xF9: adc_P (20 біт)</text>
+    <text x="35" y="110" fill="#f0f6fc" font-size="10">• 0xFA..0xFC: adc_T (20 біт)</text>
+    <text x="35" y="127" fill="#f0f6fc" font-size="10">• 0xFD..0xFE: adc_H (16 біт)</text>
+
+    <!-- Коефіцієнти NVM Trimming -->
+    <rect x="25" y="160" width="230" height="110" rx="6" fill="#1f2937" stroke="#d2a8ff" stroke-width="1.2"/>
+    <text x="35" y="180" fill="#d2a8ff" font-size="11" font-weight="700">Коефіцієнти NVM (заводські):</text>
+    <text x="35" y="198" fill="#f0f6fc" font-size="10">• dig_T1...dig_T3 (3 регістри)</text>
+    <text x="35" y="215" fill="#f0f6fc" font-size="10">• dig_P1...dig_P9 (9 регістрів)</text>
+    <text x="35" y="232" fill="#f0f6fc" font-size="10">• dig_H1...dig_H6 (6 регістрів)</text>
+    <text x="35" y="252" fill="#8b949e" font-size="9">Зчитуються 1 раз при старті МК</text>
+
+    <text x="25" y="295" fill="#8b949e" font-size="10">• Безперервний I2C/SPI Burst Read</text>
+    <text x="25" y="312" fill="#8b949e" font-size="10">• Гарантує вибірку одного моменту</text>
+
+    <!-- Стрілка 1 -> 2 -->
+    <line x1="270" y1="172" x2="310" y2="172" stroke="#58a6ff" stroke-width="2.5"/>
+    <polygon points="310,172 300,167 300,177" fill="#58a6ff"/>
+
+    <!-- Етап 2: Компенсація температури та генерація t_fine -->
+    <rect x="310" y="10" width="280" height="325" rx="8" fill="#161b22" stroke="#e3b341" stroke-width="1.8"/>
+    <rect x="310" y="10" width="280" height="32" rx="8" fill="#21262d"/>
+    <circle cx="328" cy="26" r="6" fill="#e3b341"/>
+    <text x="342" y="31" fill="#f0f6fc" font-size="12" font-weight="700">2. Ключовий етап: ТЕМПЕРАТУРА</text>
+
+    <g transform="translate(325, 55)">
+      <rect width="250" height="120" rx="6" fill="#0d1117" stroke="#30363d" stroke-width="1"/>
+      <text x="15" y="24" fill="#e3b341" font-size="11" font-weight="700">Розрахунок t_fine (int32/double):</text>
+      
+      <text x="15" y="46" fill="#8b949e" font-size="10">var1 = (adc_T/16384 - T1/1024) * T2</text>
+      <text x="15" y="64" fill="#8b949e" font-size="10">var2 = ((adc_T/131072 - T1/8192)^2)*T3</text>
+      <text x="15" y="86" fill="#ff7b72" font-size="11" font-weight="700" font-family="Consolas, monospace">
+        t_fine = var1 + var2
+      </text>
+      <text x="15" y="108" fill="#3fb950" font-size="11" font-family="Consolas, monospace">
+        T [°C] = t_fine / 5120.0
+      </text>
+    </g>
+
+    <!-- Блок-висновок про залежність -->
+    <rect x="325" y="190" width="250" height="85" rx="6" fill="#1f2937" stroke="#ff7b72" stroke-width="1.2"/>
+    <text x="335" y="210" fill="#ff7b72" font-size="11" font-weight="700">КРИТИЧНА ЗАЛЕЖНІСТЬ:</text>
+    <text x="335" y="230" fill="#f0f6fc" font-size="10">Змінна t_fine є глобальною основою!</text>
+    <text x="335" y="248" fill="#8b949e" font-size="10">Температура ПОВИННА обчислюватися</text>
+    <text x="335" y="264" fill="#8b949e" font-size="10">першою, перед тиском та вологістю.</text>
+
+    <text x="325" y="305" fill="#3fb950" font-size="11" font-weight="700">Температура T: ±0.5 °C</text>
+
+    <!-- Стрілка 2 -> 3 -->
+    <line x1="590" y1="172" x2="630" y2="172" stroke="#e3b341" stroke-width="2.5"/>
+    <polygon points="630,172 620,167 620,177" fill="#e3b341"/>
+
+    <!-- Етап 3: Компенсація тиску та вологості з використанням t_fine -->
+    <rect x="630" y="10" width="265" height="325" rx="8" fill="#161b22" stroke="#3fb950" stroke-width="1.5"/>
+    <rect x="630" y="10" width="265" height="32" rx="8" fill="#21262d"/>
+    <circle cx="648" cy="26" r="6" fill="#3fb950"/>
+    <text x="662" y="31" fill="#f0f6fc" font-size="12" font-weight="700">3. Тиск P та Вологість RH</text>
+
+    <!-- Компенсація тиску -->
+    <g transform="translate(645, 55)">
+      <rect width="235" height="110" rx="6" fill="#0d1117" stroke="#30363d" stroke-width="1"/>
+      <text x="12" y="22" fill="#d2a8ff" font-size="11" font-weight="700">Компенсація тиску P (Па):</text>
+      <text x="12" y="40" fill="#8b949e" font-size="10">Вхід: adc_P + t_fine + dig_P1..P9</text>
+      <text x="12" y="58" fill="#8b949e" font-size="10">Усуває температурний зсув нуля</text>
+      <text x="12" y="74" fill="#8b949e" font-size="10">та нахил чутливості мембрани</text>
+      <text x="12" y="98" fill="#3fb950" font-size="11" font-weight="700">Точність: ±1.0 гПа (±1 метр)</text>
+    </g>
+
+    <!-- Компенсація вологості -->
+    <g transform="translate(645, 175)">
+      <rect width="235" height="110" rx="6" fill="#0d1117" stroke="#30363d" stroke-width="1"/>
+      <text x="12" y="22" fill="#3fb950" font-size="11" font-weight="700">Компенсація вологості RH (%):</text>
+      <text x="12" y="40" fill="#8b949e" font-size="10">Вхід: adc_H + t_fine + dig_H1..H6</text>
+      <text x="12" y="58" fill="#8b949e" font-size="10">Усуває температурну нелінійність</text>
+      <text x="12" y="74" fill="#8b949e" font-size="10">діелектричної проникності полімеру</text>
+      <text x="12" y="98" fill="#3fb950" font-size="11" font-weight="700">Точність: ±3.0 % RH</text>
+    </g>
+
+    <text x="645" y="312" fill="#8b949e" font-size="10">Результати готові для відображення</text>
+  </g>
+
+  <!-- Підвал -->
+  <g transform="translate(30, 435)">
+    <rect width="900" height="70" rx="8" fill="#161b22" stroke="#30363d" stroke-width="1.2"/>
+    <text x="25" y="25" fill="#58a6ff" font-size="12" font-weight="700">ОСОБЛИВОСТІ РОЗРАХУНКІВ ДЛЯ МК БЕЗ FPU (Cortex-M0):</text>
+    <text x="25" y="47" fill="#f0f6fc" font-size="11">
+      • Bosch надає офіційні формули у двох варіантах: з плаваючою крапкою (double) та 32/64-бітні цілочисельні зі зсувами (Q24.8 / Q16.16).
+    </text>
+    <text x="25" y="63" fill="#8b949e" font-size="11">
+      • Цілочисельна арифметика виконується в 10 разів швидше і не вимагає програмної емуляції soft-float.
+    </text>
+  </g>
+</svg>
