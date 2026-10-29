@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 940 430" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif">
+<rect width="940" height="430" fill="#0d1117"/>
+<text x="470" y="30" font-size="18" fill="#f0f6fc" text-anchor="middle" font-weight="700">Керування магнітним полем: Імпульсне DC (Pulsed DC) проти AC збудження</text>
+
+<!-- Left Side: Pulsed DC excitation (Modern Standard) -->
+<rect x="40" y="65" width="410" height="330" rx="8" fill="#161b22" stroke="#3fb950" stroke-width="1.8"/>
+<text x="245" y="95" font-size="15" fill="#3fb950" font-weight="700" text-anchor="middle">Низькочастотне імпульсне DC (3–25 Гц)</text>
+
+<!-- Oscillogram for Pulsed DC -->
+<rect x="65" y="115" width="360" height="120" rx="4" fill="#0d1117" stroke="#30363d"/>
+<!-- Zero line -->
+<line x1="75" y1="175" x2="415" y2="175" stroke="#21262d" stroke-width="1.5"/>
+<!-- Square wave with settle plateaus -->
+<path d="M 85 175 L 110 175 L 115 135 L 175 135 L 180 175 L 230 175 L 235 215 L 295 215 L 300 175 L 350 175 L 355 135 L 410 135" fill="none" stroke="#3fb950" stroke-width="2.5"/>
+
+<!-- Sample Window highlights -->
+<rect x="145" y="130" width="25" height="10" fill="#58a6ff" rx="2"/>
+<rect x="265" y="210" width="25" height="10" fill="#58a6ff" rx="2"/>
+<text x="245" y="125" font-size="11" fill="#58a6ff" text-anchor="middle">Вікно вибірки АЦП (стабільна полиця)</text>
+
+<text x="60" y="260" font-size="13" fill="#f0f6fc" font-weight="700">Переваги методу Pulsed DC:</text>
+<text x="75" y="280" font-size="12" fill="#8b949e">• Автоматичне віднімання електрохімічного дрейфу нуля:</text>
+<text x="75" y="297" font-size="12" fill="#3fb950" font-weight="700">  U_сигнал = (U_поличка_плюс − U_поличка_мінус) / 2</text>
+<text x="75" y="320" font-size="12" fill="#8b949e">• Нульовий фазовий трансформаторний шум (dФ/dt = 0)</text>
+<text x="75" y="340" font-size="12" fill="#8b949e">• Низьке енергоспоживання котушок (живлення від батареї)</text>
+<text x="75" y="365" font-size="11" fill="#58a6ff">Промисловий стандарт для комерційного обліку води</text>
+
+<!-- Right Side: Continuous AC 50 Hz Excitation (Legacy) -->
+<rect x="490" y="65" width="410" height="330" rx="8" fill="#161b22" stroke="#d29922" stroke-width="1.8"/>
+<text x="695" y="95" font-size="15" fill="#d29922" font-weight="700" text-anchor="middle">Змінне синусоїдальне AC (50 / 60 Гц)</text>
+
+<!-- Oscillogram for AC -->
+<rect x="515" y="115" width="360" height="120" rx="4" fill="#0d1117" stroke="#30363d"/>
+<!-- Zero line -->
+<line x1="525" y1="175" x2="865" y2="175" stroke="#21262d" stroke-width="1.5"/>
+<!-- Sine wave -->
+<path d="M 535 175 Q 565 115 595 175 T 655 175 T 715 175 T 775 175 T 835 175" fill="none" stroke="#d29922" stroke-width="2.5"/>
+
+<text x="510" y="260" font-size="13" fill="#f0f6fc" font-weight="700">Особливості змінного AC збудження:</text>
+<text x="525" y="280" font-size="12" fill="#8b949e">• Висока швидкість реакції (смуга відгуку до 50 Гц)</text>
+<text x="525" y="300" font-size="12" fill="#8b949e">• Неперевершене придушення шламового шуму в целюлозі</text>
+<text x="525" y="325" font-size="12" fill="#f85149" font-weight="700">• Недоліки:</text>
+<text x="540" y="345" font-size="11" fill="#8b949e">Постійний трансформаторний паразитний наведений сигнал</text>
+<text x="540" y="365" font-size="11" fill="#8b949e">Висока споживана потужність (потрібне мережеве живлення 220 В)</text>
+</svg>

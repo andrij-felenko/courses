@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 940 430" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif">
+<rect width="940" height="430" fill="#0d1117"/>
+<text x="470" y="30" font-size="18" fill="#f0f6fc" text-anchor="middle" font-weight="700">Конструктивний розріз та вузли електромагнітного витратоміра</text>
+
+<!-- Outer Stainless Flanged Pipe Body -->
+<rect x="100" y="75" width="380" height="310" rx="8" fill="#161b22" stroke="#8b949e" stroke-width="2.5"/>
+<!-- Flanges left and right -->
+<rect x="80" y="65" width="20" height="330" rx="3" fill="#30363d" stroke="#8b949e" stroke-width="2"/>
+<rect x="480" y="65" width="20" height="330" rx="3" fill="#30363d" stroke="#8b949e" stroke-width="2"/>
+
+<!-- Non-magnetic Stainless Pipe Tube (AISI 304/316) -->
+<rect x="130" y="110" width="320" height="240" fill="#21262d" stroke="#30363d"/>
+<text x="290" y="130" font-size="11" fill="#8b949e" text-anchor="middle">Немагнітна труба (Нержавіюча сталь 304/316)</text>
+
+<!-- Insulating Dielectric Liner (PTFE / Hard Rubber) -->
+<rect x="150" y="140" width="280" height="180" rx="6" fill="#0d1117" stroke="#3fb950" stroke-width="2.5"/>
+<text x="290" y="160" font-size="12" fill="#3fb950" font-weight="700" text-anchor="middle">Діелектричне футерування (PTFE / PFA / EPDM)</text>
+
+<!-- Fluid Bore inside liner -->
+<rect x="170" y="170" width="240" height="120" fill="#1f3b5c" fill-opacity="0.5"/>
+<text x="290" y="235" font-size="14" fill="#58a6ff" font-weight="700" text-anchor="middle">Провідна рідина (Вода, пульпа, розчин)</text>
+
+<!-- Top and Bottom Electromagnets Coils with Core -->
+<rect x="230" y="80" width="120" height="30" rx="3" fill="#d29922" stroke="#b08800"/>
+<text x="290" y="100" font-size="11" fill="#ffffff" font-weight="700" text-anchor="middle">Котушка збудження ВЕРХ</text>
+
+<rect x="230" y="350" width="120" height="30" rx="3" fill="#d29922" stroke="#b08800"/>
+<text x="290" y="370" font-size="11" fill="#ffffff" font-weight="700" text-anchor="middle">Котушка збудження НИЗ</text>
+
+<!-- Left & Right Measurement Electrodes (Flush with liner) -->
+<rect x="140" y="220" width="30" height="20" rx="2" fill="#f85149" stroke="#ffffff"/>
+<text x="125" y="205" font-size="12" fill="#f85149" font-weight="700" text-anchor="end">Електрод 1</text>
+
+<rect x="410" y="220" width="30" height="20" rx="2" fill="#58a6ff" stroke="#ffffff"/>
+<text x="455" y="205" font-size="12" fill="#58a6ff" font-weight="700" text-anchor="start">Електрод 2</text>
+
+<!-- Grounding Electrode (Bottom Center) -->
+<circle cx="290" cy="285" r="7" fill="#3fb950" stroke="#ffffff" stroke-width="1.5"/>
+<text x="290" y="310" font-size="11" fill="#3fb950" font-weight="700" text-anchor="middle">Електрод заземлення</text>
+
+<!-- Right Side Specifications Table -->
+<rect x="530" y="65" width="370" height="330" rx="8" fill="#161b22" stroke="#30363d" stroke-width="1.5"/>
+<text x="715" y="95" font-size="15" fill="#58a6ff" font-weight="700" text-anchor="middle">Функціональні компоненти конструкції</text>
+
+<text x="550" y="130" font-size="13" fill="#3fb950" font-weight="700">1. Діелектричне футерування (Liner):</text>
+<text x="565" y="150" font-size="11" fill="#8b949e">Ізолює індукований потенціал від металевої труби.</text>
+<text x="565" y="167" font-size="11" fill="#8b949e">Без футерування ЕРС закорочується через стінку!</text>
+
+<text x="550" y="195" font-size="13" fill="#f85149" font-weight="700">2. Сенсорні електроди (Hastelloy C):</text>
+<text x="565" y="215" font-size="11" fill="#8b949e">Знімають мікровольтовий сигнал (U_e ≈ 10–500 мкВ).</text>
+<text x="565" y="232" font-size="11" fill="#8b949e">Мають бути хімічно стійкими до корозії та кавітації.</text>
+
+<text x="550" y="260" font-size="13" fill="#3fb950" font-weight="700">3. Опорне заземлення (Grounding Ring):</text>
+<text x="565" y="280" font-size="11" fill="#8b949e">Усуває синфазні паразитні блукаючі струми в трубі.</text>
+<text x="565" y="297" font-size="11" fill="#8b949e">Для пластикових труб обов'язкові кільця заземлення.</text>
+
+<text x="550" y="325" font-size="13" fill="#d29922" font-weight="700">4. Повнопрохідний канал (Full Bore):</text>
+<text x="565" y="345" font-size="11" fill="#8b949e">Абсолютно гладка труба без звужень і виступів;</text>
+<text x="565" y="362" font-size="11" fill="#8b949e">нульовий спад тиску ΔP = 0, придатний для густих шламів.</text>
+</svg>
