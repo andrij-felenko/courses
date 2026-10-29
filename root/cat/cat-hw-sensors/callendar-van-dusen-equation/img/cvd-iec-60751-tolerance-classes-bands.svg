@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 850 480" width="100%" height="100%">
+  <rect width="100%" height="100%" fill="#0d1117"/>
+  <text x="425" y="35" font-family="system-ui, -apple-system, sans-serif" font-size="20" font-weight="bold" fill="#f0f6fc" text-anchor="middle">Класи допуску платинових RTD за IEC 60751</text>
+  <text x="425" y="58" font-family="system-ui, -apple-system, sans-serif" font-size="13" fill="#8b949e" text-anchor="middle">Допустимі межі абсолютної похибки ΔT (°C) в діапазоні від -200 °C до +600 °C</text>
+
+  <!-- Plot frame -->
+  <rect x="45" y="80" width="760" height="255" rx="8" fill="#161b22" stroke="#30363d" stroke-width="1.5"/>
+
+  <!-- Zero error line -->
+  <line x1="60" y1="205" x2="790" y2="205" stroke="#30363d" stroke-width="1.5"/>
+  <text x="70" y="200" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#8b949e">0.0 °C</text>
+
+  <!-- 0°C vertical line -->
+  <line x1="300" y1="90" x2="300" y2="320" stroke="#8b949e" stroke-width="1" stroke-dasharray="2 2"/>
+  <text x="300" y="325" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#8b949e" text-anchor="middle">0 °C</text>
+
+  <!-- Class C bands (Red) -->
+  <path d="M 120 120 L 300 170 L 760 90" fill="none" stroke="#f85149" stroke-width="1.5" stroke-dasharray="4 2"/>
+  <path d="M 120 290 L 300 240 L 760 320" fill="none" stroke="#f85149" stroke-width="1.5" stroke-dasharray="4 2"/>
+  <text x="750" y="85" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="bold" fill="#f85149">Клас C</text>
+
+  <!-- Class B bands (Yellow) -->
+  <path d="M 120 145 L 300 185 L 760 140" fill="none" stroke="#d29922" stroke-width="2"/>
+  <path d="M 120 265 L 300 225 L 760 270" fill="none" stroke="#d29922" stroke-width="2"/>
+  <text x="750" y="135" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="bold" fill="#d29922">Клас B</text>
+
+  <!-- Class A bands (Green) -->
+  <path d="M 180 170 L 300 195 L 650 165" fill="none" stroke="#3fb950" stroke-width="2.5"/>
+  <path d="M 180 240 L 300 215 L 650 245" fill="none" stroke="#3fb950" stroke-width="2.5"/>
+  <text x="650" y="160" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="bold" fill="#3fb950">Клас A</text>
+
+  <!-- Class AA bands (Blue) -->
+  <path d="M 230 190 L 300 200 L 550 180" fill="none" stroke="#58a6ff" stroke-width="2"/>
+  <path d="M 230 220 L 300 210 L 550 230" fill="none" stroke="#58a6ff" stroke-width="2"/>
+  <text x="550" y="175" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="bold" fill="#58a6ff">Клас AA</text>
+
+  <!-- Table of classes below -->
+  <rect x="45" y="345" width="760" height="120" rx="8" fill="#161b22" stroke="#30363d" stroke-width="1.5"/>
+
+  <!-- Row 1 -->
+  <text x="65" y="372" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="bold" fill="#58a6ff">Клас AA (1/3 DIN):</text>
+  <text x="210" y="372" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#f0f6fc">ΔT = ±(0.10 + 0.0017 · |T|) °C</text>
+  <text x="440" y="372" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#8b949e">Діапазон: 0 .. +150 °C (лабораторний)</text>
+
+  <!-- Row 2 -->
+  <text x="65" y="396" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="bold" fill="#3fb950">Клас A:</text>
+  <text x="210" y="396" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#f0f6fc">ΔT = ±(0.15 + 0.0020 · |T|) °C</text>
+  <text x="440" y="396" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#8b949e">Діапазон: -100 .. +450 °C (прецизійний)</text>
+
+  <!-- Row 3 -->
+  <text x="65" y="420" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="bold" fill="#d29922">Клас B:</text>
+  <text x="210" y="420" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#f0f6fc">ΔT = ±(0.30 + 0.0050 · |T|) °C</text>
+  <text x="440" y="420" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#8b949e">Діапазон: -196 .. +600 °C (промисловий стандарт)</text>
+
+  <!-- Row 4 -->
+  <text x="65" y="444" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="bold" fill="#f85149">Клас C:</text>
+  <text x="210" y="444" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#f0f6fc">ΔT = ±(0.60 + 0.0100 · |T|) °C</text>
+  <text x="440" y="444" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#8b949e">Діапазон: -196 .. +600 °C (грубі вимірювання)</text>
+</svg>

@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 850 480" width="100%" height="100%">
+  <rect width="100%" height="100%" fill="#0d1117"/>
+  <text x="425" y="35" font-family="system-ui, -apple-system, sans-serif" font-size="20" font-weight="bold" fill="#f0f6fc" text-anchor="middle">Аналітичний розв'язок для додатних температур (T ≥ 0 °C)</text>
+  <text x="425" y="58" font-family="system-ui, -apple-system, sans-serif" font-size="13" fill="#8b949e" text-anchor="middle">Точне зворотне перетворення T(R) через формулу коренів квадратного рівняння</text>
+
+  <!-- Math Step by Step Cards -->
+  <rect x="40" y="85" width="770" height="75" rx="8" fill="#161b22" stroke="#30363d" stroke-width="1.5"/>
+  <text x="60" y="112" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="bold" fill="#58a6ff">1. Зведення до стандартного квадратного вигляду:</text>
+  <text x="60" y="138" font-family="system-ui, -apple-system, sans-serif" font-size="13" fill="#c9d1d9">B · T² + A · T + (1 - R / R₀) = 0   де a = B, b = A, c = (1 - R / R₀)</text>
+
+  <rect x="40" y="170" width="770" height="90" rx="8" fill="#161b22" stroke="#3fb950" stroke-width="1.5"/>
+  <text x="60" y="197" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="bold" fill="#3fb950">2. Точна аналітична формула зворотного розрахунку T(R):</text>
+  <text x="60" y="230" font-family="system-ui, -apple-system, sans-serif" font-size="16" font-weight="bold" fill="#7ee787">T = (-A + sqrt(A² - 4 · B · (1 - R / R₀))) / (2 · B)</text>
+  <text x="560" y="230" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#8b949e">Знак «+» через від'ємність B &lt; 0</text>
+
+  <!-- Comparison of Linear vs Quadratic Error -->
+  <rect x="40" y="270" width="770" height="195" rx="8" fill="#161b22" stroke="#d29922" stroke-width="1.5"/>
+  <text x="425" y="295" font-family="system-ui, -apple-system, sans-serif" font-size="15" font-weight="bold" fill="#d29922" text-anchor="middle">Чому спрощена лінійна формула T = (R - R₀) / (R₀ · α) є неприпустимою?</text>
+
+  <!-- Table comparison -->
+  <g transform="translate(60, 315)">
+    <rect x="0" y="0" width="730" height="30" fill="#21262d" rx="4"/>
+    <text x="20" y="20" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="bold" fill="#79c0ff">Температура T</text>
+    <text x="170" y="20" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="bold" fill="#f0f6fc">Опір Pt100 R(T)</text>
+    <text x="350" y="20" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="bold" fill="#f85149">Лінійна оцінка T_lin</text>
+    <text x="550" y="20" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="bold" fill="#f85149">Похибка лінійності</text>
+
+    <line x1="0" y1="40" x2="730" y2="40" stroke="#30363d" stroke-width="1"/>
+    <text x="20" y="58" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#f0f6fc">+100.0 °C</text>
+    <text x="170" y="58" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#c9d1d9">138.51 Ом</text>
+    <text x="350" y="58" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#c9d1d9">100.00 °C</text>
+    <text x="550" y="58" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#3fb950">0.00 °C (реперна точка)</text>
+
+    <line x1="0" y1="70" x2="730" y2="70" stroke="#30363d" stroke-width="1"/>
+    <text x="20" y="88" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#f0f6fc">+300.0 °C</text>
+    <text x="170" y="88" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#c9d1d9">212.05 Ом</text>
+    <text x="350" y="88" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#c9d1d9">290.96 °C</text>
+    <text x="550" y="88" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="bold" fill="#f85149">-9.04 °C (величезна похибка!)</text>
+
+    <line x1="0" y1="100" x2="730" y2="100" stroke="#30363d" stroke-width="1"/>
+    <text x="20" y="118" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#f0f6fc">+600.0 °C</text>
+    <text x="170" y="118" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#c9d1d9">313.71 Ом</text>
+    <text x="350" y="118" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#c9d1d9">554.95 °C</text>
+    <text x="550" y="118" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="bold" fill="#f85149">-45.05 °C (фатальна похибка)</text>
+  </g>
+</svg>

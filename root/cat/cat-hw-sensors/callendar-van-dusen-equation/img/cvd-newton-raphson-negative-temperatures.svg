@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 850 480" width="100%" height="100%">
+  <rect width="100%" height="100%" fill="#0d1117"/>
+  <text x="425" y="35" font-family="system-ui, -apple-system, sans-serif" font-size="20" font-weight="bold" fill="#f0f6fc" text-anchor="middle">Метод Ньютона — Рафсона для від'ємних температур</text>
+  <text x="425" y="58" font-family="system-ui, -apple-system, sans-serif" font-size="13" fill="#8b949e" text-anchor="middle">Чисельне розв'язання рівняння 4-го ступеня Ван Дюзена за 3-4 ітерації</text>
+
+  <!-- Left: Geometric tangent convergence -->
+  <rect x="40" y="85" width="370" height="365" rx="10" fill="#161b22" stroke="#30363d" stroke-width="1.5"/>
+  <text x="225" y="115" font-family="system-ui, -apple-system, sans-serif" font-size="15" font-weight="bold" fill="#58a6ff" text-anchor="middle">Геометрична збіжність дотичних</text>
+
+  <!-- Curve f(T) -->
+  <path d="M 70 380 Q 200 360 380 160" fill="none" stroke="#3fb950" stroke-width="2.5"/>
+  <text x="350" y="150" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="bold" fill="#3fb950">f(T) = R(T) - R_meas</text>
+
+  <!-- Zero root line -->
+  <line x1="60" y1="280" x2="390" y2="280" stroke="#8b949e" stroke-width="1.5"/>
+  <text x="390" y="275" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#8b949e">f(T) = 0</text>
+
+  <!-- Iteration 0: T0 -->
+  <circle cx="340" cy="200" r="4" fill="#d29922"/>
+  <line x1="340" y1="200" x2="265" y2="280" stroke="#d29922" stroke-width="1.5" stroke-dasharray="3 3"/>
+  <text x="345" y="195" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#d29922">T₀ (початкове)</text>
+
+  <!-- Iteration 1: T1 -->
+  <circle cx="265" cy="280" r="4" fill="#58a6ff"/>
+  <line x1="265" y1="280" x2="265" y2="295" stroke="#58a6ff" stroke-width="1.5"/>
+  <text x="265" y="270" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="bold" fill="#58a6ff">T₁</text>
+
+  <!-- True root point -->
+  <circle cx="282" cy="280" r="5" fill="#f85149"/>
+  <text x="282" y="305" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="bold" fill="#f85149" text-anchor="middle">Точний корінь T*</text>
+
+  <rect x="60" y="380" width="330" height="55" rx="6" fill="#0d1117" stroke="#30363d" stroke-width="1"/>
+  <text x="225" y="405" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#7ee787" text-anchor="middle">Квадратична швидкість збіжності:</text>
+  <text x="225" y="425" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#8b949e">Похибка &lt; 0.0001 °C за 3 ітерації</text>
+
+  <!-- Right: Flowchart of Iteration Formula -->
+  <rect x="435" y="85" width="375" height="365" rx="10" fill="#161b22" stroke="#30363d" stroke-width="1.5"/>
+  <text x="622" y="115" font-family="system-ui, -apple-system, sans-serif" font-size="15" font-weight="bold" fill="#3fb950" text-anchor="middle">Алгоритмічна петля Ньютона</text>
+
+  <rect x="460" y="135" width="325" height="60" rx="6" fill="#21262d" stroke="#58a6ff" stroke-width="1"/>
+  <text x="622" y="158" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="bold" fill="#58a6ff" text-anchor="middle">1. Початкове наближення (T₀):</text>
+  <text x="622" y="180" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#f0f6fc" text-anchor="middle">T₀ = (R_meas - R₀) / (R₀ · A);</text>
+
+  <rect x="460" y="210" width="325" height="75" rx="6" fill="#21262d" stroke="#d29922" stroke-width="1"/>
+  <text x="622" y="233" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="bold" fill="#d29922" text-anchor="middle">2. Аналітична похідна f'(T):</text>
+  <text x="622" y="255" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#c9d1d9" text-anchor="middle">f'(T) = R₀ · [A + 2·B·T - 300·C·T² + 4·C·T³]</text>
+
+  <rect x="460" y="300" width="325" height="70" rx="6" fill="#1f242c" stroke="#3fb950" stroke-width="2"/>
+  <text x="622" y="323" font-family="system-ui, -apple-system, sans-serif" font-size="13" font-weight="bold" fill="#3fb950" text-anchor="middle">3. Крок уточнення стану:</text>
+  <text x="622" y="348" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="bold" fill="#7ee787" text-anchor="middle">T_{k+1} = T_k - f(T_k) / f'(T_k)</text>
+
+  <rect x="460" y="385" width="325" height="50" rx="6" fill="#0d1117" stroke="#30363d" stroke-width="1"/>
+  <text x="622" y="415" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#8b949e" text-anchor="middle">Умова зупинки: |T_{k+1} - T_k| &lt; 0.001 °C</text>
+</svg>
