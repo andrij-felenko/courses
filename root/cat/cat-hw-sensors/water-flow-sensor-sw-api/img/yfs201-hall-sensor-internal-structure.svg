@@ -1,0 +1,81 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 940 430" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif">
+<rect width="940" height="430" fill="#0d1117"/>
+<defs>
+  <marker id="ar_flow_yf" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+    <path d="M0 0 L10 5 L0 10 z" fill="#58a6ff"/>
+  </marker>
+</defs>
+<text x="470" y="30" font-size="18" fill="#f0f6fc" text-anchor="middle" font-weight="700">Конструкція турбінного давача витрати води YF-S201 (G1/2″)</text>
+
+<!-- Pipe Body Outer (Black plastic housing) -->
+<rect x="60" y="100" width="500" height="230" rx="8" fill="#161b22" stroke="#30363d" stroke-width="2.5"/>
+
+<!-- Threaded Ports G1/2" (Inlet and Outlet) -->
+<rect x="30" y="150" width="30" height="130" fill="#21262d" stroke="#58a6ff" stroke-width="2"/>
+<text x="45" y="220" font-size="12" fill="#58a6ff" font-weight="700" transform="rotate(-90 45 220)" text-anchor="middle">Вхід G1/2″</text>
+
+<rect x="560" y="150" width="30" height="130" fill="#21262d" stroke="#58a6ff" stroke-width="2"/>
+<text x="575" y="220" font-size="12" fill="#58a6ff" font-weight="700" transform="rotate(90 575 220)" text-anchor="middle">Вихід G1/2″</text>
+
+<!-- Fluid Chamber -->
+<circle cx="310" cy="215" r="95" fill="#1f3b5c" fill-opacity="0.4" stroke="#388bfd" stroke-width="1.8"/>
+
+<!-- Water Flow Arrows -->
+<line x1="80" y1="215" x2="200" y2="215" stroke="#388bfd" stroke-width="3" marker-end="url(#ar_flow_yf)"/>
+<line x1="420" y1="215" x2="540" y2="215" stroke="#388bfd" stroke-width="3" marker-end="url(#ar_flow_yf)"/>
+<text x="140" y="200" font-size="12" fill="#58a6ff" font-weight="700">Потік води</text>
+
+<!-- Rotor / Impeller Wheel with 6 blades -->
+<circle cx="310" cy="215" r="70" fill="none" stroke="#8b949e" stroke-width="1.5" stroke-dasharray="4 3"/>
+<!-- 6 Blades -->
+<line x1="310" y1="145" x2="310" y2="285" stroke="#8b949e" stroke-width="3"/>
+<line x1="250" y1="180" x2="370" y2="250" stroke="#8b949e" stroke-width="3"/>
+<line x1="250" y1="250" x2="370" y2="180" stroke="#8b949e" stroke-width="3"/>
+
+<!-- Embedded Permanent Magnet on one blade -->
+<circle cx="310" cy="155" r="9" fill="#f85149" stroke="#ffffff" stroke-width="1.5"/>
+<text x="310" y="159" font-size="10" fill="#ffffff" font-weight="700" text-anchor="middle">N</text>
+
+<!-- Center Axle (Stainless Steel Pin) -->
+<circle cx="310" cy="215" r="10" fill="#58a6ff"/>
+<text x="310" y="240" font-size="10" fill="#f0f6fc" text-anchor="middle">Вісь</text>
+
+<!-- Hall Effect Sensor (Outside fluid chamber, top sealed) -->
+<rect x="280" y="65" width="60" height="30" rx="3" fill="#238636" stroke="#3fb950" stroke-width="2"/>
+<text x="310" y="85" font-size="11" fill="#ffffff" font-weight="700" text-anchor="middle">Давач Холла</text>
+<text x="310" y="55" font-size="11" fill="#3fb950" text-anchor="middle">Мікросхема 3144</text>
+
+<!-- 3 Wires coming out of sensor -->
+<line x1="340" y1="80" x2="600" y2="80" stroke="#f85149" stroke-width="2.5"/>
+<line x1="340" y1="90" x2="600" y2="90" stroke="#1f242c" stroke-width="2.5"/>
+<line x1="340" y1="100" x2="600" y2="100" stroke="#e3b341" stroke-width="2.5"/>
+
+<!-- Right Side Specifications Table -->
+<rect x="620" y="70" width="290" height="325" rx="8" fill="#161b22" stroke="#30363d" stroke-width="1.5"/>
+<text x="765" y="100" font-size="15" fill="#58a6ff" font-weight="700" text-anchor="middle">Специфікація YF-S201</text>
+
+<text x="635" y="135" font-size="12" fill="#f0f6fc">
+  <tspan fill="#3fb950" font-weight="700">• Діапазон витрати:</tspan> 1 ... 30 л/хв
+</text>
+<text x="635" y="160" font-size="12" fill="#f0f6fc">
+  <tspan fill="#3fb950" font-weight="700">• Робочий тиск:</tspan> до 1.75 МПа (17.5 бар)
+</text>
+<text x="635" y="185" font-size="12" fill="#f0f6fc">
+  <tspan fill="#3fb950" font-weight="700">• Напруга живлення:</tspan> 5 В ... 18 В DC
+</text>
+<text x="635" y="210" font-size="12" fill="#f0f6fc">
+  <tspan fill="#3fb950" font-weight="700">• Струм споживання:</tspan> 15 мА (при 5 В)
+</text>
+<text x="635" y="235" font-size="12" fill="#f0f6fc">
+  <tspan fill="#3fb950" font-weight="700">• Вихідний сигнал:</tspan> 5 В меандр (NPN)
+</text>
+
+<rect x="635" y="260" width="260" height="70" rx="4" fill="#0d1117" stroke="#388bfd"/>
+<text x="765" y="283" font-size="12" fill="#58a6ff" font-weight="700" text-anchor="middle">Призначення дротів:</text>
+<text x="645" y="303" font-size="11" fill="#f85149">• Червоний: VCC (+5 В)</text>
+<text x="645" y="320" font-size="11" fill="#8b949e">• Чорний: GND (Земля)</text>
+<text x="770" y="303" font-size="11" fill="#e3b341">• Жовтий: Signal (OUT)</text>
+
+<text x="765" y="355" font-size="11" fill="#d29922" text-anchor="middle">Потрібна підтяжка до VCC: 4.7–10 кОм</text>
+<text x="765" y="375" font-size="11" fill="#8b949e" text-anchor="middle">Один оберт = 1 магнітний імпульс</text>
+</svg>

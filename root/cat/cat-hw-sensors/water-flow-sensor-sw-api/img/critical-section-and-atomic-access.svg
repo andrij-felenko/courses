@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 940 430" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif">
+<rect width="940" height="430" fill="#0d1117"/>
+<text x="470" y="30" font-size="18" fill="#f0f6fc" text-anchor="middle" font-weight="700">Потокобезпечний атомарний доступ до спільних змінних лічильника</text>
+
+<!-- Left Side: Hardware Interrupt ISR (Producer) -->
+<rect x="40" y="65" width="370" height="330" rx="8" fill="#161b22" stroke="#f85149" stroke-width="1.8"/>
+<text x="225" y="95" font-size="15" fill="#f85149" font-weight="700" text-anchor="middle">Обробник переривання (ISR)</text>
+<text x="225" y="115" font-size="11" fill="#8b949e" text-anchor="middle">Апаратне спрацьовування на кожен спад імпульсу</text>
+
+<rect x="65" y="130" width="320" height="90" rx="5" fill="#0d1117" stroke="#f85149"/>
+<text x="80" y="155" font-size="12" fill="#f85149" font-family="Consolas, monospace">// Тіло переривання має бути блискавичним:</text>
+<text x="80" y="175" font-size="13" fill="#3fb950" font-family="Consolas, monospace">void IRAM_ATTR isrPulseHandler() {</text>
+<text x="105" y="195" font-size="13" fill="#f0f6fc" font-family="Consolas, monospace">    pulse_counter++;</text>
+<text x="80" y="212" font-size="13" fill="#3fb950" font-family="Consolas, monospace">}</text>
+
+<text x="65" y="250" font-size="12" fill="#f0f6fc" font-weight="700">Ключові вимоги до ISR:</text>
+<text x="80" y="272" font-size="11" fill="#8b949e">1. Ніяких Serial.print(), delay() чи важкої математики!</text>
+<text x="80" y="295" font-size="11" fill="#8b949e">2. Змінна лічильника обов'язково:</text>
+<text x="100" y="315" font-size="12" fill="#d29922" font-family="Consolas, monospace">volatile uint32_t pulse_counter = 0;</text>
+<text x="80" y="340" font-size="11" fill="#8b949e">3. Для ESP32 функція розміщується в швидкій RAM:</text>
+<text x="100" y="360" font-size="12" fill="#58a6ff" font-family="Consolas, monospace">IRAM_ATTR</text>
+
+<!-- Right Side: Main Loop Critical Section (Consumer) -->
+<rect x="470" y="65" width="430" height="330" rx="8" fill="#161b22" stroke="#3fb950" stroke-width="1.8"/>
+<text x="685" y="95" font-size="15" fill="#3fb950" font-weight="700" text-anchor="middle">Головний цикл (Критична секція)</text>
+<text x="685" y="115" font-size="11" fill="#8b949e" text-anchor="middle">Атомарне копіювання 32-бітного лічильника</text>
+
+<rect x="495" y="130" width="380" height="150" rx="5" fill="#0d1117" stroke="#3fb950"/>
+<text x="510" y="152" font-size="12" fill="#8b949e" font-family="Consolas, monospace">// Атомарне зняття вибірки:</text>
+<text x="510" y="172" font-size="13" fill="#58a6ff" font-family="Consolas, monospace">uint32_t current_pulses = 0;</text>
+<text x="510" y="195" font-size="13" fill="#f85149" font-family="Consolas, monospace">noInterrupts(); // Заборона переривань</text>
+<text x="530" y="217" font-size="13" fill="#3fb950" font-family="Consolas, monospace">current_pulses = pulse_counter;</text>
+<text x="530" y="237" font-size="13" fill="#8b949e" font-family="Consolas, monospace">pulse_counter = 0; // Скидання для наступного вікна</text>
+<text x="510" y="260" font-size="13" fill="#f85149" font-family="Consolas, monospace">interrupts();   // Дозвіл переривань</text>
+
+<text x="495" y="305" font-size="12" fill="#f0883e" font-weight="700">Небезпека неатомарного доступу:</text>
+<text x="510" y="325" font-size="11" fill="#8b949e">На 8-бітних процесорах (Arduino AVR) читання uint32_t</text>
+<text x="510" y="342" font-size="11" fill="#8b949e">займає 4 машинні інструкції. Якщо переривання вклиниться</text>
+<text x="510" y="360" font-size="11" fill="#8b949e">між байтами, дані змішаються, викликавши дикий сплеск лічильника!</text>
+<text x="510" y="378" font-size="11" fill="#3fb950" font-weight="700">noInterrupts() запобігає цій критичній помилці.</text>
+</svg>

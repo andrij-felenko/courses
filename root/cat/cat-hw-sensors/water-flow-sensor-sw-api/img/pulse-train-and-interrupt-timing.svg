@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 940 430" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif">
+<rect width="940" height="430" fill="#0d1117"/>
+<text x="470" y="30" font-size="18" fill="#f0f6fc" text-anchor="middle" font-weight="700">Імпульсний сигнал давача Холла та апаратні переривання GPIO</text>
+
+<!-- Oscillogram Area -->
+<rect x="50" y="65" width="840" height="170" rx="6" fill="#161b22" stroke="#30363d" stroke-width="1.8"/>
+
+<!-- Waveform: 5V Digital Pulse Train -->
+<path d="M 70 180 L 120 180 L 120 100 L 170 100 L 170 180 L 220 180 L 220 100 L 270 100 L 270 180 L 320 180 L 320 100 L 370 100 L 370 180 L 420 180 L 420 100 L 470 100 L 470 180 L 520 180 L 520 100 L 570 100 L 570 180 L 620 180 L 620 100 L 670 100 L 670 180 L 720 180 L 720 100 L 770 100 L 770 180 L 820 180 L 820 100 L 870 100" fill="none" stroke="#3fb950" stroke-width="3"/>
+
+<!-- Labels for 5V and 0V -->
+<text x="60" y="105" font-size="12" fill="#58a6ff" text-anchor="end">5.0 В (HIGH)</text>
+<text x="60" y="185" font-size="12" fill="#8b949e" text-anchor="end">0.0 В (LOW)</text>
+
+<!-- Trigger Arrow on Falling Edge -->
+<circle cx="170" cy="140" r="6" fill="#f85149"/>
+<line x1="170" y1="210" x2="170" y2="155" stroke="#f85149" stroke-width="2"/>
+<text x="170" y="225" font-size="12" fill="#f85149" font-weight="700" text-anchor="middle">FALLING edge</text>
+<text x="170" y="240" font-size="10" fill="#8b949e" text-anchor="middle">Виклик ISR</text>
+
+<!-- Period T and Frequency f -->
+<line x1="120" y1="85" x2="220" y2="85" stroke="#d29922" stroke-width="1.8"/>
+<line x1="120" y1="80" x2="120" y2="90" stroke="#d29922" stroke-width="1.8"/>
+<line x1="220" y1="80" x2="220" y2="90" stroke="#d29922" stroke-width="1.8"/>
+<text x="170" y="78" font-size="11" fill="#d29922" font-weight="700" text-anchor="middle">Період T = 1 / f</text>
+
+<!-- Lower Panel: Equations & Processing Theory -->
+<rect x="50" y="260" width="840" height="145" rx="8" fill="#161b22" stroke="#30363d" stroke-width="1.5"/>
+
+<rect x="70" y="280" width="370" height="105" rx="5" fill="#0d1117" stroke="#388bfd"/>
+<text x="255" y="305" font-size="14" fill="#58a6ff" font-weight="700" text-anchor="middle">Розрахунок частоти f [Гц]:</text>
+<text x="255" y="332" font-size="16" fill="#3fb950" font-weight="700" text-anchor="middle">f = pulse_count / Δt_виміру</text>
+<text x="255" y="358" font-size="12" fill="#8b949e" text-anchor="middle">Якщо за 1.0 с надійшло 75 імпульсів, то f = 75 Гц</text>
+
+<rect x="480" y="280" width="390" height="105" rx="5" fill="#0d1117" stroke="#238636"/>
+<text x="675" y="305" font-size="14" fill="#3fb950" font-weight="700" text-anchor="middle">Зв'язок із витратою Q (л/хв):</text>
+<text x="675" y="332" font-size="16" fill="#e3b341" font-weight="700" text-anchor="middle">Q = f / K = pulse_count / (K · Δt)</text>
+<text x="675" y="358" font-size="12" fill="#8b949e" text-anchor="middle">Для YF-S201 номінальний K = 7.5 (75 Гц відповідає 10 л/хв)</text>
+</svg>
