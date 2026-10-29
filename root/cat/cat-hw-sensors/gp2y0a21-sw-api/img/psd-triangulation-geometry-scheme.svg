@@ -1,0 +1,90 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 500" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgGrad2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f172a"/>
+      <stop offset="100%" stop-color="#1e293b"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="880" height="500" fill="url(#bgGrad2)" rx="12" stroke="#334155" stroke-width="1.5"/>
+
+  <!-- Title -->
+  <text x="440" y="35" fill="#f8fafc" font-family="system-ui, sans-serif" font-size="18" font-weight="bold" text-anchor="middle">
+    Оптична геометрія триангуляції на позиційно-чутливому детекторі PSD
+  </text>
+  <text x="440" y="58" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="13" text-anchor="middle">
+    Подібність трикутників: співвідношення x / f = L / d та обернено пропорційне зміщення світлової плями
+  </text>
+
+  <!-- Sensor Base Plane -->
+  <rect x="80" y="380" width="720" height="70" rx="8" fill="#1e293b" stroke="#475569" stroke-width="1.5"/>
+  <text x="95" y="420" fill="#94a3b8" font-family="monospace" font-size="12" font-weight="bold">Корпус GP2Y0A21</text>
+
+  <!-- Emitter LED (Tx) -->
+  <circle cx="200" cy="380" r="16" fill="#ef4444" stroke="#fca5a5" stroke-width="2"/>
+  <text x="200" y="420" fill="#fca5a5" font-family="system-ui" font-size="11" font-weight="bold" text-anchor="middle">ІЧ-світлодіод</text>
+
+  <!-- Receiver Lens (Rx) -->
+  <ellipse cx="460" cy="380" rx="20" ry="8" fill="#0ea5e9" stroke="#7dd3fc" stroke-width="2"/>
+  <text x="460" y="420" fill="#7dd3fc" font-family="system-ui" font-size="11" font-weight="bold" text-anchor="middle">Приймальна лінза (f)</text>
+
+  <!-- Baseline L -->
+  <line x1="200" y1="360" x2="460" y2="360" stroke="#f59e0b" stroke-width="2"/>
+  <polygon points="200,360 210,356 210,364" fill="#f59e0b"/>
+  <polygon points="460,360 450,356 450,364" fill="#f59e0b"/>
+  <text x="330" y="352" fill="#fbbf24" font-family="system-ui" font-size="12" font-weight="bold" text-anchor="middle">Базова лінія L</text>
+
+  <!-- Target Object at distance d -->
+  <rect x="140" y="110" width="220" height="15" rx="3" fill="#cbd5e1" stroke="#f8fafc" stroke-width="1.5"/>
+  <text x="250" y="95" fill="#f8fafc" font-family="system-ui" font-size="13" font-weight="bold" text-anchor="middle">Відбивна поверхня цілі</text>
+
+  <!-- Emitted Beam (straight up) -->
+  <line x1="200" y1="380" x2="200" y2="125" stroke="#ef4444" stroke-width="3" stroke-dasharray="4 2"/>
+  <circle cx="200" cy="125" r="5" fill="#ef4444"/>
+
+  <!-- Distance d dimension -->
+  <line x1="120" y1="380" x2="120" y2="125" stroke="#38bdf8" stroke-width="1.5"/>
+  <polygon points="120,380 116,370 124,370" fill="#38bdf8"/>
+  <polygon points="120,125 116,135 124,135" fill="#38bdf8"/>
+  <text x="105" y="260" fill="#38bdf8" font-family="system-ui" font-size="13" font-weight="bold" text-anchor="middle" transform="rotate(-90 105 260)">Відстань d</text>
+
+  <!-- Reflected Ray to Lens and onto PSD -->
+  <line x1="200" y1="125" x2="460" y2="380" stroke="#38bdf8" stroke-width="2.5"/>
+  
+  <!-- Below Lens: PSD chip -->
+  <!-- Focal length f line: from y=380 down to y=430 -->
+  <line x1="460" y1="380" x2="520" y2="460" stroke="#38bdf8" stroke-width="2.5" stroke-dasharray="3 2"/>
+
+  <!-- PSD Sensor strip -->
+  <g transform="translate(430, 460)">
+    <rect x="0" y="0" width="160" height="14" rx="2" fill="#0284c7" stroke="#38bdf8" stroke-width="1.5"/>
+    <!-- Spot position -->
+    <circle cx="90" cy="7" r="5" fill="#f59e0b"/>
+    <!-- Center optical axis -->
+    <line x1="30" y1="-5" x2="30" y2="20" stroke="#94a3b8" stroke-width="1" stroke-dasharray="2 2"/>
+    <text x="30" y="-8" fill="#94a3b8" font-family="system-ui" font-size="9" text-anchor="middle">Оптична вісь</text>
+    <!-- Delta x -->
+    <line x1="30" y1="20" x2="90" y2="20" stroke="#f59e0b" stroke-width="1.5"/>
+    <text x="60" y="32" fill="#fbbf24" font-family="monospace" font-size="11" font-weight="bold" text-anchor="middle">Зсув x</text>
+  </g>
+
+  <!-- Math Explanation Box on Right -->
+  <g transform="translate(560, 95)">
+    <rect width="280" height="230" rx="8" fill="#111827" stroke="#334155" stroke-width="1.5"/>
+    <text x="140" y="25" fill="#f8fafc" font-family="system-ui" font-size="13" font-weight="bold" text-anchor="middle">
+      Геометрична пропорція:
+    </text>
+
+    <rect x="20" y="40" width="240" height="40" rx="4" fill="#1e293b"/>
+    <text x="140" y="65" fill="#38bdf8" font-family="monospace" font-size="14" font-weight="bold" text-anchor="middle">
+      x / f = L / d
+    </text>
+
+    <text x="25" y="105" fill="#cbd5e1" font-family="system-ui" font-size="11.5">• x = (L · f) / d (зсув плями)</text>
+    <text x="25" y="125" fill="#cbd5e1" font-family="system-ui" font-size="11.5">• U_out = k · x + U_0</text>
+    <text x="25" y="150" fill="#a7f3d0" font-family="monospace" font-size="12" font-weight="bold">U_out = (K / d) + U_0</text>
+
+    <text x="25" y="180" fill="#fca5a5" font-family="system-ui" font-size="11">• d = (K / (U - U_0)) - k</text>
+    <text x="25" y="200" fill="#94a3b8" font-family="system-ui" font-size="10.5">Гіперболічна залежність пояснює падіння роздільності на великих d.</text>
+  </g>
+</svg>
