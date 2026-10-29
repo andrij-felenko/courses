@@ -1,0 +1,106 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 520" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgGrad4" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f172a"/>
+      <stop offset="100%" stop-color="#1e293b"/>
+    </linearGradient>
+    <linearGradient id="glassGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#38bdf8" stop-opacity="0.2"/>
+      <stop offset="50%" stop-color="#38bdf8" stop-opacity="0.4"/>
+      <stop offset="100%" stop-color="#38bdf8" stop-opacity="0.2"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="900" height="520" fill="url(#bgGrad4)" rx="12" stroke="#334155" stroke-width="1.5"/>
+
+  <!-- Title -->
+  <text x="450" y="35" fill="#f8fafc" font-family="system-ui, sans-serif" font-size="18" font-weight="bold" text-anchor="middle">
+    Оптичний кростолк (Crosstalk) у захисному склі та ізоляція
+  </text>
+  <text x="450" y="58" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="13" text-anchor="middle">
+    Паразитне внутрішнє відбиття від поверхонь скла та його усунення за допомогою еластомерного бар&#39;єра
+  </text>
+
+  <!-- Panel A: WITHOUT Optical Seal -->
+  <g transform="translate(40, 85)">
+    <rect width="390" height="400" rx="8" fill="#111827" stroke="#ef4444" stroke-width="1.5"/>
+    <rect x="0" y="0" width="390" height="35" rx="8" fill="#7f1d1d" fill-opacity="0.6"/>
+    <text x="195" y="24" fill="#fca5a5" font-family="system-ui, sans-serif" font-size="13" font-weight="bold" text-anchor="middle">
+      ПОМИЛКОВО: Без ущільнювача (Високий Crosstalk)
+    </text>
+
+    <!-- Cover Glass -->
+    <rect x="30" y="60" width="330" height="25" fill="url(#glassGrad)" stroke="#38bdf8" stroke-width="1.5"/>
+    <text x="195" y="77" fill="#e0f2fe" font-family="system-ui" font-size="11" text-anchor="middle">Захисне скло (Cover Glass) t_glass ~1.0 мм</text>
+
+    <!-- Air gap label -->
+    <text x="350" y="115" fill="#f87171" font-family="system-ui" font-size="10.5" text-anchor="end">d_gap &gt; 1 мм (Критично!)</text>
+
+    <!-- Chip Module -->
+    <rect x="75" y="140" width="240" height="90" rx="6" fill="#1e293b" stroke="#64748b" stroke-width="1.5"/>
+    <rect x="95" y="155" width="80" height="40" fill="#991b1b" stroke="#f87171" rx="4"/>
+    <text x="135" y="180" fill="#ffffff" font-family="system-ui" font-size="11" font-weight="bold" text-anchor="middle">VCSEL Tx</text>
+
+    <rect x="215" y="155" width="80" height="40" fill="#0e7490" stroke="#38bdf8" rx="4"/>
+    <text x="255" y="180" fill="#ffffff" font-family="system-ui" font-size="11" font-weight="bold" text-anchor="middle">SPAD Rx</text>
+
+    <!-- Parasitic Reflection Path -->
+    <path d="M 135 155 L 175 85 L 255 155" fill="none" stroke="#ef4444" stroke-width="3" stroke-dasharray="4 2"/>
+    <polygon points="255,155 245,148 250,140" fill="#ef4444"/>
+    <text x="195" y="125" fill="#fca5a5" font-family="system-ui" font-size="11" font-weight="bold" text-anchor="middle">Паразитний Crosstalk</text>
+
+    <!-- Consequences box -->
+    <rect x="25" y="250" width="340" height="130" rx="6" fill="#1e1b4b" stroke="#ef4444" stroke-width="1"/>
+    <text x="35" y="272" fill="#f87171" font-family="system-ui" font-size="12" font-weight="bold">Наслідки відсутності ізоляції:</text>
+    <text x="35" y="295" fill="#e2e8f0" font-family="system-ui" font-size="11">• Сплеск відліків фотонів біля нульової позначки (t=0)</text>
+    <text x="35" y="318" fill="#e2e8f0" font-family="system-ui" font-size="11">• Заниження показів дистанції до 20–50 мм</text>
+    <text x="35" y="341" fill="#e2e8f0" font-family="system-ui" font-size="11">• Повна сліпота сенсора до об&#39;єктів далі 1 метра</text>
+    <text x="35" y="364" fill="#fca5a5" font-family="system-ui" font-size="11">• Перевищення калібрувального ліміту Mcps</text>
+  </g>
+
+  <!-- Panel B: WITH Optical Seal -->
+  <g transform="translate(470, 85)">
+    <rect width="390" height="400" rx="8" fill="#111827" stroke="#10b981" stroke-width="1.5"/>
+    <rect x="0" y="0" width="390" height="35" rx="8" fill="#064e3b" fill-opacity="0.6"/>
+    <text x="195" y="24" fill="#6ee7b7" font-family="system-ui, sans-serif" font-size="13" font-weight="bold" text-anchor="middle">
+      ПРАВИЛЬНО: З оптичним ущільнювачем (Rubber Gasket)
+    </text>
+
+    <!-- Cover Glass -->
+    <rect x="30" y="60" width="330" height="25" fill="url(#glassGrad)" stroke="#38bdf8" stroke-width="1.5"/>
+    <text x="195" y="77" fill="#e0f2fe" font-family="system-ui" font-size="11" text-anchor="middle">Захисне скло (Cover Glass) t_glass ~1.0 мм</text>
+
+    <!-- Rubber Gasket / Seal -->
+    <rect x="55" y="85" width="280" height="55" rx="3" fill="#334155" stroke="#94a3b8" stroke-width="1.5"/>
+    <!-- Cutouts in gasket for Tx and Rx -->
+    <rect x="85" y="85" width="70" height="55" fill="#0b0f19"/>
+    <rect x="235" y="85" width="70" height="55" fill="#0b0f19"/>
+    <!-- Center Barrier -->
+    <rect x="155" y="85" width="80" height="55" fill="#020617"/>
+    <text x="195" y="117" fill="#facc15" font-family="system-ui" font-size="10" font-weight="bold" text-anchor="middle">Ізолюючий бар&#39;єр</text>
+
+    <!-- Chip Module -->
+    <rect x="75" y="140" width="240" height="90" rx="6" fill="#1e293b" stroke="#10b981" stroke-width="1.5"/>
+    <rect x="85" y="155" width="70" height="40" fill="#991b1b" stroke="#f87171" rx="4"/>
+    <text x="120" y="180" fill="#ffffff" font-family="system-ui" font-size="11" font-weight="bold" text-anchor="middle">VCSEL Tx</text>
+
+    <rect x="235" y="155" width="70" height="40" fill="#0e7490" stroke="#38bdf8" rx="4"/>
+    <text x="270" y="180" fill="#ffffff" font-family="system-ui" font-size="11" font-weight="bold" text-anchor="middle">SPAD Rx</text>
+
+    <!-- Useful Beams Going Outside -->
+    <path d="M 120 155 L 120 45" fill="none" stroke="#ef4444" stroke-width="3"/>
+    <polygon points="120,40 115,50 125,50" fill="#ef4444"/>
+
+    <path d="M 270 40 L 270 155" fill="none" stroke="#22d3ee" stroke-width="3"/>
+    <polygon points="270,155 265,145 275,145" fill="#22d3ee"/>
+
+    <!-- Benefits box -->
+    <rect x="25" y="250" width="340" height="130" rx="6" fill="#064e3b" fill-opacity="0.4" stroke="#10b981" stroke-width="1"/>
+    <text x="35" y="272" fill="#34d399" font-family="system-ui" font-size="12" font-weight="bold">Інженерні стандарти монтажу:</text>
+    <text x="35" y="295" fill="#e2e8f0" font-family="system-ui" font-size="11">• d_gap &lt; 0.5 мм (прокладка щільно прилягає до скла)</text>
+    <text x="35" y="318" fill="#e2e8f0" font-family="system-ui" font-size="11">• Непрозора оптична перегородка між Tx та Rx</text>
+    <text x="35" y="341" fill="#e2e8f0" font-family="system-ui" font-size="11">• Просвітлювальне покриття скла (AR-coating &gt;90% 940нм)</text>
+    <text x="35" y="364" fill="#a7f3d0" font-family="system-ui" font-size="11">• Калібрування залишкового кростолку (Crosstalk Calib)</text>
+  </g>
+</svg>

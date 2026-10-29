@@ -1,0 +1,108 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 520" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgGrad5" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f172a"/>
+      <stop offset="100%" stop-color="#1e293b"/>
+    </linearGradient>
+    <linearGradient id="pcbGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#064e3b"/>
+      <stop offset="100%" stop-color="#022c22"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="900" height="520" fill="url(#bgGrad5)" rx="12" stroke="#334155" stroke-width="1.5"/>
+
+  <!-- Title -->
+  <text x="450" y="35" fill="#f8fafc" font-family="system-ui, sans-serif" font-size="18" font-weight="bold" text-anchor="middle">
+    Топологія друкованої плати та правила трасування VL53L0X
+  </text>
+  <text x="450" y="58" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="13" text-anchor="middle">
+    Полігон заземлення GND, локальне блокування 100 нФ та оптична зона заборони (Keep-Out) для FoV 25°
+  </text>
+
+  <!-- Left: PCB Top View -->
+  <g transform="translate(50, 90)">
+    <rect width="440" height="390" rx="8" fill="url(#pcbGrad)" stroke="#10b981" stroke-width="2"/>
+    <text x="220" y="30" fill="#a7f3d0" font-family="system-ui, sans-serif" font-size="13" font-weight="bold" text-anchor="middle">
+      Верхній шар друкованої плати (Top Layer PCB)
+    </text>
+
+    <!-- Keep-out Conical Zone for FoV 25 deg -->
+    <path d="M 170 190 L 70 80 L 370 80 Z" fill="#f59e0b" fill-opacity="0.15" stroke="#f59e0b" stroke-width="1" stroke-dasharray="4 2"/>
+    <text x="220" y="110" fill="#fde68a" font-family="system-ui" font-size="11" font-weight="bold" text-anchor="middle">
+      Зона конуса огляду FoV 25° (Keep-Out Zone)
+    </text>
+    <text x="220" y="125" fill="#fef3c7" font-family="system-ui" font-size="9.5" text-anchor="middle">
+      Заборонено високі деталі, що затінюють промінь
+    </text>
+
+    <!-- Chip Footprint -->
+    <rect x="140" y="180" width="160" height="90" rx="4" fill="#0f172a" stroke="#e2e8f0" stroke-width="2"/>
+    <text x="220" y="200" fill="#cbd5e1" font-family="monospace" font-size="11" font-weight="bold" text-anchor="middle">VL53L0X LGA12</text>
+
+    <!-- Optical apertures Tx & Rx -->
+    <circle cx="180" cy="235" r="14" fill="#991b1b" stroke="#f87171" stroke-width="1.5"/>
+    <text x="180" y="239" fill="#ffffff" font-family="system-ui" font-size="9" text-anchor="middle">Tx</text>
+
+    <circle cx="260" cy="235" r="14" fill="#0e7490" stroke="#38bdf8" stroke-width="1.5"/>
+    <text x="260" y="239" fill="#ffffff" font-family="system-ui" font-size="9" text-anchor="middle">Rx</text>
+
+    <!-- Decoupling Cap C1 directly adjacent (<1mm) -->
+    <rect x="150" y="285" width="40" height="20" rx="2" fill="#d97706" stroke="#fbbf24" stroke-width="1.5"/>
+    <text x="170" y="299" fill="#ffffff" font-family="monospace" font-size="9.5" font-weight="bold" text-anchor="middle">100нФ</text>
+    <text x="130" y="325" fill="#fde68a" font-family="system-ui" font-size="10" font-weight="bold">C1 &lt; 1 мм від виводів!</text>
+
+    <!-- Bulk Cap C2 -->
+    <rect x="230" y="285" width="55" height="24" rx="2" fill="#d97706" stroke="#fbbf24" stroke-width="1.5"/>
+    <text x="257.5" y="301" fill="#ffffff" font-family="monospace" font-size="9.5" font-weight="bold" text-anchor="middle">4.7мкФ</text>
+
+    <!-- Ground Vias -->
+    <circle cx="150" cy="350" r="5" fill="#64748b" stroke="#ffffff" stroke-width="1"/>
+    <circle cx="180" cy="350" r="5" fill="#64748b" stroke="#ffffff" stroke-width="1"/>
+    <circle cx="210" cy="350" r="5" fill="#64748b" stroke="#ffffff" stroke-width="1"/>
+    <text x="225" y="354" fill="#cbd5e1" font-family="system-ui" font-size="10">Суцільні перехідні отвори GND</text>
+
+    <!-- I2C Bus Routing Rule 3W -->
+    <path d="M 300 220 L 410 220" stroke="#34d399" stroke-width="2"/>
+    <path d="M 300 235 L 410 235" stroke="#34d399" stroke-width="2"/>
+    <text x="360" y="210" fill="#6ee7b7" font-family="system-ui" font-size="10">SDA/SCL (Правило 3W)</text>
+  </g>
+
+  <!-- Right: PCB Design Rules & Checklist -->
+  <g transform="translate(520, 90)">
+    <rect width="330" height="390" rx="8" fill="#111827" stroke="#374151" stroke-width="1.5"/>
+    <text x="165" y="30" fill="#f3f4f6" font-family="system-ui, sans-serif" font-size="14" font-weight="bold" text-anchor="middle">
+      Чек-лист інженерного трасування
+    </text>
+
+    <!-- Item 1 -->
+    <rect x="20" y="55" width="290" height="60" rx="5" fill="#1e293b" stroke="#f59e0b" stroke-width="1"/>
+    <text x="30" y="75" fill="#fbbf24" font-family="system-ui" font-size="11.5" font-weight="bold">1. Локальне блокування живлення</text>
+    <text x="30" y="93" fill="#cbd5e1" font-family="system-ui" font-size="10.5">Кераміка 100 нФ X7R на відстані ≤ 1 мм.</text>
+    <text x="30" y="108" fill="#cbd5e1" font-family="system-ui" font-size="10.5">Придушує наносекундні сплески di/dt лазера.</text>
+
+    <!-- Item 2 -->
+    <rect x="20" y="125" width="290" height="60" rx="5" fill="#1e293b" stroke="#38bdf8" stroke-width="1"/>
+    <text x="30" y="145" fill="#38bdf8" font-family="system-ui" font-size="11.5" font-weight="bold">2. Суцільний шар заземлення (GND)</text>
+    <text x="30" y="163" fill="#cbd5e1" font-family="system-ui" font-size="10.5">Під корпусом — неподільний Ground Plane.</text>
+    <text x="30" y="178" fill="#cbd5e1" font-family="system-ui" font-size="10.5">Знижує паразитну індуктивність L_trace.</text>
+
+    <!-- Item 3 -->
+    <rect x="20" y="195" width="290" height="60" rx="5" fill="#1e293b" stroke="#10b981" stroke-width="1"/>
+    <text x="30" y="215" fill="#34d399" font-family="system-ui" font-size="11.5" font-weight="bold">3. Захист ліній I2C від наводок</text>
+    <text x="30" y="233" fill="#cbd5e1" font-family="system-ui" font-size="10.5">Дистанція до силових трас та DC-DC котушок.</text>
+    <text x="30" y="248" fill="#cbd5e1" font-family="system-ui" font-size="10.5">Правило 3W між лініями SDA та SCL.</text>
+
+    <!-- Item 4 -->
+    <rect x="20" y="265" width="290" height="60" rx="5" fill="#1e293b" stroke="#c084fc" stroke-width="1"/>
+    <text x="30" y="285" fill="#c084fc" font-family="system-ui" font-size="11.5" font-weight="bold">4. Оптична Keep-Out зона</text>
+    <text x="30" y="303" fill="#cbd5e1" font-family="system-ui" font-size="10.5">Чистий конус 25° без виступаючих елементів.</text>
+    <text x="30" y="318" fill="#cbd5e1" font-family="system-ui" font-size="10.5">Виключає паразитарні затінення і бліки.</text>
+
+    <!-- Item 5 -->
+    <rect x="20" y="335" width="290" height="42" rx="5" fill="#1e1b4b" stroke="#818cf8" stroke-width="1"/>
+    <text x="30" y="352" fill="#c7d2fe" font-family="system-ui" font-size="10.5" font-weight="bold">5. Монтажна посадка ущільнювача</text>
+    <text x="30" y="368" fill="#e0e7ff" font-family="system-ui" font-size="10">Рамка для точної фіксації Rubber Gasket.</text>
+  </g>
+</svg>

@@ -1,0 +1,131 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 540" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f172a"/>
+      <stop offset="100%" stop-color="#1e293b"/>
+    </linearGradient>
+    <linearGradient id="vcselGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ef4444"/>
+      <stop offset="100%" stop-color="#b91c1c"/>
+    </linearGradient>
+    <linearGradient id="spadGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#06b6d4"/>
+      <stop offset="100%" stop-color="#0e7490"/>
+    </linearGradient>
+    <linearGradient id="mcuGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#8b5cf6"/>
+      <stop offset="100%" stop-color="#6d28d9"/>
+    </linearGradient>
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="4" result="blur"/>
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="880" height="540" fill="url(#bgGrad)" rx="12" stroke="#334155" stroke-width="1.5"/>
+
+  <!-- Title -->
+  <text x="440" y="35" fill="#f8fafc" font-family="system-ui, sans-serif" font-size="18" font-weight="bold" text-anchor="middle">
+    Внутрішня архітектура VL53L0X (ST FlightSense™)
+  </text>
+  <text x="440" y="58" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="13" text-anchor="middle">
+    Поєднання напівпровідникового VCSEL лазера 940 нм, референтного і приймального масивів SPAD та DSP
+  </text>
+
+  <!-- Outer Chip Boundary -->
+  <rect x="40" y="80" width="800" height="430" rx="10" fill="#090d16" fill-opacity="0.6" stroke="#475569" stroke-width="2" stroke-dasharray="6 4"/>
+  <text x="55" y="105" fill="#64748b" font-family="monospace" font-size="12" font-weight="bold">VL53L0X Монолітний корпус SoC (4.4 × 2.4 × 1.0 мм)</text>
+
+  <!-- Left Column: VCSEL & Driver -->
+  <rect x="65" y="130" width="220" height="240" rx="8" fill="#1e1b4b" fill-opacity="0.7" stroke="#818cf8" stroke-width="1.5"/>
+  <text x="175" y="155" fill="#c7d2fe" font-family="system-ui, sans-serif" font-size="14" font-weight="bold" text-anchor="middle">Оптичний передавач Tx</text>
+
+  <!-- VCSEL element -->
+  <rect x="85" y="175" width="180" height="60" rx="6" fill="url(#vcselGrad)" stroke="#fca5a5" stroke-width="1.5"/>
+  <text x="175" y="200" fill="#ffffff" font-family="system-ui, sans-serif" font-size="13" font-weight="bold" text-anchor="middle">VCSEL Лазер 940 нм</text>
+  <text x="175" y="220" fill="#fee2e2" font-family="system-ui, sans-serif" font-size="11" text-anchor="middle">Class 1 Невидимий ІЧ</text>
+
+  <!-- Laser Driver -->
+  <rect x="85" y="255" width="180" height="45" rx="6" fill="#312e81" stroke="#6366f1" stroke-width="1.5"/>
+  <text x="175" y="282" fill="#e0e7ff" font-family="system-ui, sans-serif" font-size="12" font-weight="bold" text-anchor="middle">Драйвер імпульсів накачки</text>
+  <text x="175" y="320" fill="#a5b4fc" font-family="monospace" font-size="11" text-anchor="middle">Піковий струм 30–40 мА</text>
+
+  <!-- Reference SPAD Array (Internal) -->
+  <rect x="85" y="335" width="180" height="25" rx="4" fill="#0284c7" stroke="#38bdf8" stroke-width="1"/>
+  <text x="175" y="352" fill="#ffffff" font-family="system-ui, sans-serif" font-size="10.5" font-weight="bold" text-anchor="middle">Опорний масив SPAD (t_start)</text>
+
+  <!-- Optical Beams Out -->
+  <path d="M 175 175 L 175 90" stroke="#ef4444" stroke-width="3" stroke-dasharray="4 2"/>
+  <circle cx="175" cy="90" r="5" fill="#ef4444" filter="url(#glow)"/>
+  <text x="180" y="83" fill="#f87171" font-family="system-ui, sans-serif" font-size="11" font-weight="bold">Зондувальний промінь</text>
+
+  <!-- Middle Column: Return Optics & SPAD Array -->
+  <rect x="315" y="130" width="230" height="240" rx="8" fill="#083344" fill-opacity="0.7" stroke="#22d3ee" stroke-width="1.5"/>
+  <text x="430" y="155" fill="#a5f3fc" font-family="system-ui, sans-serif" font-size="14" font-weight="bold" text-anchor="middle">Оптичний приймач Rx</text>
+
+  <!-- Optical Beam In -->
+  <path d="M 430 90 L 430 175" stroke="#22d3ee" stroke-width="3" stroke-dasharray="4 2"/>
+  <circle cx="430" cy="90" r="5" fill="#22d3ee" filter="url(#glow)"/>
+  <text x="435" y="83" fill="#38bdf8" font-family="system-ui, sans-serif" font-size="11" font-weight="bold">Відбиті фотони</text>
+
+  <!-- Return SPAD Grid -->
+  <rect x="335" y="175" width="190" height="95" rx="6" fill="url(#spadGrad)" stroke="#67e8f9" stroke-width="1.5"/>
+  <text x="430" y="198" fill="#ffffff" font-family="system-ui, sans-serif" font-size="13" font-weight="bold" text-anchor="middle">Матриця SPAD (Geiger)</text>
+  <text x="430" y="216" fill="#cffafe" font-family="system-ui, sans-serif" font-size="11" text-anchor="middle">Масив фотодіодів 10×10</text>
+  <text x="430" y="233" fill="#cffafe" font-family="system-ui, sans-serif" font-size="10.5" text-anchor="middle">Лавинний пробій за &lt;50 пс</text>
+  <text x="430" y="255" fill="#e0f2fe" font-family="monospace" font-size="10.5" text-anchor="middle">Active Quenching Circuit</text>
+
+  <!-- TDC & Histogram -->
+  <rect x="335" y="285" width="190" height="75" rx="6" fill="#155e75" stroke="#38bdf8" stroke-width="1.5"/>
+  <text x="430" y="305" fill="#f0fdfa" font-family="system-ui, sans-serif" font-size="12" font-weight="bold" text-anchor="middle">TDC Лічильник + ОЗП</text>
+  <text x="430" y="324" fill="#bae6fd" font-family="system-ui, sans-serif" font-size="11" text-anchor="middle">Квантування часу ~10 пс</text>
+  <text x="430" y="342" fill="#bae6fd" font-family="system-ui, sans-serif" font-size="11" text-anchor="middle">Гістограма прильоту фотонів</text>
+
+  <!-- Right Column: Microcontroller & FlightSense DSP -->
+  <rect x="575" y="130" width="240" height="240" rx="8" fill="url(#mcuGrad)" fill-opacity="0.85" stroke="#a78bfa" stroke-width="1.5"/>
+  <text x="695" y="155" fill="#f5f3ff" font-family="system-ui, sans-serif" font-size="14" font-weight="bold" text-anchor="middle">Обчислювальне ядро DSP</text>
+
+  <rect x="595" y="175" width="200" height="45" rx="5" fill="#4c1d95" stroke="#c4b5fd" stroke-width="1"/>
+  <text x="695" y="195" fill="#ffffff" font-family="system-ui, sans-serif" font-size="12" font-weight="bold" text-anchor="middle">32-бітний мікроконтролер</text>
+  <text x="695" y="211" fill="#ddd6fe" font-family="system-ui, sans-serif" font-size="10.5" text-anchor="middle">Пошук центру мас піка гістограми</text>
+
+  <rect x="595" y="230" width="200" height="45" rx="5" fill="#4c1d95" stroke="#c4b5fd" stroke-width="1"/>
+  <text x="695" y="250" fill="#ffffff" font-family="system-ui, sans-serif" font-size="12" font-weight="bold" text-anchor="middle">Блок калібрування Crosstalk</text>
+  <text x="695" y="266" fill="#ddd6fe" font-family="system-ui, sans-serif" font-size="10.5" text-anchor="middle">Віднімання завад скла (Mcps)</text>
+
+  <rect x="595" y="285" width="200" height="75" rx="5" fill="#4c1d95" stroke="#c4b5fd" stroke-width="1"/>
+  <text x="695" y="305" fill="#ffffff" font-family="system-ui, sans-serif" font-size="12" font-weight="bold" text-anchor="middle">OTP Пам&#39;ять фабричних даних</text>
+  <text x="695" y="322" fill="#ddd6fe" font-family="system-ui, sans-serif" font-size="10.5" text-anchor="middle">Таблиця температурного дрейфу</text>
+  <text x="695" y="338" fill="#ddd6fe" font-family="system-ui, sans-serif" font-size="10.5" text-anchor="middle">Фазовий зсув нуля (Offset)</text>
+
+  <!-- Connectors from components -->
+  <line x1="265" y1="347" x2="335" y2="322" stroke="#38bdf8" stroke-width="2" stroke-dasharray="3 3"/>
+  <line x1="525" y1="322" x2="575" y2="322" stroke="#38bdf8" stroke-width="2.5"/>
+  <polygon points="575,322 568,318 568,326" fill="#38bdf8"/>
+
+  <!-- Bottom: Interface & Pins -->
+  <rect x="65" y="390" width="750" height="100" rx="8" fill="#0f172a" stroke="#334155" stroke-width="1.5"/>
+  <text x="80" y="412" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="12" font-weight="bold">Зовнішні інтерфейси та виводи:</text>
+
+  <!-- Pins -->
+  <rect x="85" y="425" width="120" height="50" rx="5" fill="#1e293b" stroke="#f59e0b" stroke-width="1.5"/>
+  <text x="145" y="445" fill="#fbbf24" font-family="monospace" font-size="12" font-weight="bold" text-anchor="middle">AVDD / VDD_IO</text>
+  <text x="145" y="463" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="10" text-anchor="middle">2.6 В ... 3.5 В</text>
+
+  <rect x="225" y="425" width="110" height="50" rx="5" fill="#1e293b" stroke="#38bdf8" stroke-width="1.5"/>
+  <text x="280" y="445" fill="#38bdf8" font-family="monospace" font-size="12" font-weight="bold" text-anchor="middle">XSHUT</text>
+  <text x="280" y="463" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="10" text-anchor="middle">Вхід увімкнення / сон</text>
+
+  <rect x="355" y="425" width="110" height="50" rx="5" fill="#1e293b" stroke="#a855f7" stroke-width="1.5"/>
+  <text x="410" y="445" fill="#c084fc" font-family="monospace" font-size="12" font-weight="bold" text-anchor="middle">GPIO1</text>
+  <text x="410" y="463" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="10" text-anchor="middle">Апаратне переривання</text>
+
+  <rect x="485" y="425" width="150" height="50" rx="5" fill="#1e293b" stroke="#10b981" stroke-width="1.5"/>
+  <text x="560" y="445" fill="#34d399" font-family="monospace" font-size="12" font-weight="bold" text-anchor="middle">SDA / SCL (I2C)</text>
+  <text x="560" y="463" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="10" text-anchor="middle">До 400 кГц (0x29 замовч.)</text>
+
+  <rect x="655" y="425" width="140" height="50" rx="5" fill="#1e293b" stroke="#64748b" stroke-width="1.5"/>
+  <text x="725" y="445" fill="#94a3b8" font-family="monospace" font-size="12" font-weight="bold" text-anchor="middle">GND / AVSS</text>
+  <text x="725" y="463" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="10" text-anchor="middle">Суцільний Ground Plane</text>
+</svg>
