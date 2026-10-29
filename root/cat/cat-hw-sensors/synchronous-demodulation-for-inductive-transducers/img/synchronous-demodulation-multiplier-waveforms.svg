@@ -1,0 +1,95 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 540" width="100%" height="100%">
+  <defs>
+    <style>
+      .bg { fill: #0f172a; }
+      .grid { stroke: #334155; stroke-dasharray: 4,4; stroke-width: 1; }
+      .axis { stroke: #64748b; stroke-width: 1.5; }
+      .title { fill: #f8fafc; font-family: system-ui, -apple-system, sans-serif; font-size: 16px; font-weight: bold; }
+      .subtitle { fill: #94a3b8; font-family: system-ui, -apple-system, sans-serif; font-size: 12px; }
+      .lbl { fill: #cbd5e1; font-family: system-ui, -apple-system, sans-serif; font-size: 12px; }
+      .lbl-bold { fill: #f1f5f9; font-family: system-ui, -apple-system, sans-serif; font-size: 12px; font-weight: bold; }
+      .wave-ref { stroke: #38bdf8; stroke-width: 2.5; fill: none; }
+      .wave-sens { stroke: #fbbf24; stroke-width: 2.5; fill: none; }
+      .wave-mult { stroke: #f43f5e; stroke-width: 2.5; fill: none; }
+      .wave-dc { stroke: #10b981; stroke-width: 3; fill: none; }
+      .zero-line { stroke: #475569; stroke-width: 1; stroke-dasharray: 2,2; }
+      .region-box { fill: #1e293b; rx: 6px; stroke: #334155; stroke-width: 1; }
+      .marker-line { stroke: #a855f7; stroke-width: 1.5; stroke-dasharray: 4,4; opacity: 0.7; }
+    </style>
+    <marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 8 5 L 0 9 z" fill="#64748b" />
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="880" height="540" class="bg" />
+
+  <!-- Main Title -->
+  <text x="440" y="28" text-anchor="middle" class="title">Форми сигналів синхронної демодуляції індуктивних давачів</text>
+  <text x="440" y="46" text-anchor="middle" class="subtitle">Перемноження вихідного АМ-сигналу на опорну несучу та подальша низькочастотна фільтрація</text>
+
+  <!-- Region Labels: x > 0 (Зміщення вправо) vs x < 0 (Зміщення вліво) -->
+  <rect x="220" y="58" width="300" height="22" class="region-box" />
+  <text x="370" y="73" text-anchor="middle" class="lbl-bold" fill="#38bdf8">Зона додатного зміщення: x &gt; 0 (фаза Δφ = 0°)</text>
+
+  <rect x="540" y="58" width="300" height="22" class="region-box" />
+  <text x="690" y="73" text-anchor="middle" class="lbl-bold" fill="#f43f5e">Зона від'ємного зміщення: x &lt; 0 (фаза Δφ = 180°)</text>
+
+  <!-- Vertical separator between x>0 and x<0 -->
+  <line x1="530" y1="58" x2="530" y2="510" class="marker-line" />
+  <text x="530" y="525" text-anchor="middle" class="lbl" fill="#a855f7">Перехід через нуль (x = 0)</text>
+
+  <!-- ================= CHANNEL 1: Опорний сигнал збудження u_ref(t) ================= -->
+  <g transform="translate(0, 90)">
+    <text x="25" y="40" class="lbl-bold">1. Опорний сигнал збудження</text>
+    <text x="25" y="56" class="subtitle">u_ref(t) = U_ref · sin(ω_c t)</text>
+    <line x1="210" y1="45" x2="850" y2="45" class="axis" marker-end="url(#arrow)" />
+    <line x1="210" y1="10" x2="210" y2="80" class="axis" />
+    <line x1="210" y1="45" x2="840" y2="45" class="zero-line" />
+    <path d="M 290 15 L 290 75 M 370 15 L 370 75 M 450 15 L 450 75 M 530 15 L 530 75 M 610 15 L 610 75 M 690 15 L 690 75 M 770 15 L 770 75" class="grid" />
+    <path d="M 210 45 C 230 15, 270 15, 290 45 C 310 75, 350 75, 370 45 C 390 15, 430 15, 450 45 C 470 75, 510 75, 530 45 C 550 15, 590 15, 610 45 C 630 75, 670 75, 690 45 C 710 15, 750 15, 770 45 C 790 75, 830 75, 850 45" class="wave-ref" />
+    <text x="855" y="48" class="lbl">t</text>
+  </g>
+
+  <!-- ================= CHANNEL 2: Сигнал давача u_out(t) ================= -->
+  <g transform="translate(0, 195)">
+    <text x="25" y="40" class="lbl-bold">2. Вихід давача (LVDT / RVDT)</text>
+    <text x="25" y="56" class="subtitle">u_out(t) = K_s · x · sin(ω_c t)</text>
+    <line x1="210" y1="45" x2="850" y2="45" class="axis" marker-end="url(#arrow)" />
+    <line x1="210" y1="10" x2="210" y2="80" class="axis" />
+    <line x1="210" y1="45" x2="840" y2="45" class="zero-line" />
+    <path d="M 290 15 L 290 75 M 370 15 L 370 75 M 450 15 L 450 75 M 530 15 L 530 75 M 610 15 L 610 75 M 690 15 L 690 75 M 770 15 L 770 75" class="grid" />
+    <path d="M 210 45 C 230 18, 270 18, 290 45 C 310 72, 350 72, 370 45 C 390 18, 430 18, 450 45 C 470 72, 510 72, 530 45 C 550 72, 590 72, 610 45 C 630 18, 670 18, 690 45 C 710 72, 750 72, 770 45 C 790 18, 830 18, 850 45" class="wave-sens" />
+    <text x="855" y="48" class="lbl">t</text>
+    <text x="490" y="20" class="lbl" fill="#fbbf24">В фазі (0°)</text>
+    <text x="555" y="20" class="lbl" fill="#f59e0b">Інверсія (180°)</text>
+  </g>
+
+  <!-- ================= CHANNEL 3: Сигнал після перемножувача u_mult(t) ================= -->
+  <g transform="translate(0, 300)">
+    <text x="25" y="32" class="lbl-bold">3. Після перемножувача (PSD)</text>
+    <text x="25" y="48" class="subtitle">u_mult(t) = u_out · u_ref</text>
+    <text x="25" y="64" class="subtitle" fill="#f43f5e">Подвоєна частота 2·f_c + DC</text>
+    <line x1="210" y1="45" x2="850" y2="45" class="axis" marker-end="url(#arrow)" />
+    <line x1="210" y1="10" x2="210" y2="80" class="axis" />
+    <line x1="210" y1="45" x2="840" y2="45" class="zero-line" />
+    <path d="M 290 15 L 290 75 M 370 15 L 370 75 M 450 15 L 450 75 M 530 15 L 530 75 M 610 15 L 610 75 M 690 15 L 690 75 M 770 15 L 770 75" class="grid" />
+    <path d="M 210 45 C 225 15, 235 15, 250 15 C 265 15, 275 45, 290 45 C 305 15, 315 15, 330 15 C 345 15, 355 45, 370 45 C 385 15, 395 15, 410 15 C 425 15, 435 45, 450 45 C 465 15, 475 15, 490 15 C 505 15, 515 45, 530 45 C 545 75, 555 75, 570 75 C 585 75, 595 45, 610 45 C 625 75, 635 75, 650 75 C 665 75, 675 45, 690 45 C 705 75, 715 75, 730 75 C 745 75, 755 45, 770 45 C 785 75, 795 75, 810 75 C 825 75, 835 45, 850 45" class="wave-mult" />
+    <text x="855" y="48" class="lbl">t</text>
+  </g>
+
+  <!-- ================= CHANNEL 4: Вихідна постійна напруга U_dc після ФНЧ ================= -->
+  <g transform="translate(0, 410)">
+    <text x="25" y="32" class="lbl-bold">4. Постійна напруга після ФНЧ</text>
+    <text x="25" y="48" class="subtitle">U_dc = 0.5 · K · x · cos(Δφ)</text>
+    <text x="25" y="64" class="subtitle" fill="#10b981">Знакова величина переміщення</text>
+    <line x1="210" y1="45" x2="850" y2="45" class="axis" marker-end="url(#arrow)" />
+    <line x1="210" y1="10" x2="210" y2="80" class="axis" />
+    <line x1="210" y1="45" x2="840" y2="45" class="zero-line" />
+    <path d="M 290 15 L 290 75 M 370 15 L 370 75 M 450 15 L 450 75 M 530 15 L 530 75 M 610 15 L 610 75 M 690 15 L 690 75 M 770 15 L 770 75" class="grid" />
+    <path d="M 210 24 L 515 24 C 525 24, 535 66, 545 66 L 850 66" class="wave-dc" />
+    <text x="350" y="16" class="lbl-bold" fill="#10b981">+U_out (рух вправо)</text>
+    <text x="670" y="85" class="lbl-bold" fill="#f43f5e">-U_out (рух вліво)</text>
+    <text x="855" y="48" class="lbl">t</text>
+  </g>
+</svg>

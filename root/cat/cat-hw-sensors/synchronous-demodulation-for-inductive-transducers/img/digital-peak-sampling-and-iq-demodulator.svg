@@ -1,0 +1,118 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 540" width="100%" height="100%">
+  <defs>
+    <style>
+      .bg { fill: #0f172a; }
+      .panel { fill: #1e293b; stroke: #334155; stroke-width: 1; rx: 8px; }
+      .box { fill: #0f172a; stroke: #38bdf8; stroke-width: 1.5; rx: 6px; }
+      .box-dsp { fill: #0f172a; stroke: #a855f7; stroke-width: 1.5; rx: 6px; }
+      .box-out { fill: #0f172a; stroke: #10b981; stroke-width: 1.5; rx: 6px; }
+      .title { fill: #f8fafc; font-family: system-ui, -apple-system, sans-serif; font-size: 16px; font-weight: bold; }
+      .subtitle { fill: #94a3b8; font-family: system-ui, -apple-system, sans-serif; font-size: 12px; }
+      .lbl { fill: #cbd5e1; font-family: system-ui, -apple-system, sans-serif; font-size: 12px; }
+      .lbl-bold { fill: #f1f5f9; font-family: system-ui, -apple-system, sans-serif; font-size: 12px; font-weight: bold; }
+      .wire { stroke: #94a3b8; stroke-width: 2; fill: none; }
+      .wire-purple { stroke: #a855f7; stroke-width: 2; fill: none; }
+      .dot { fill: #38bdf8; }
+    </style>
+    <marker id="m-arr" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 8 5 L 0 9 z" fill="#94a3b8" />
+    </marker>
+    <marker id="m-arr-p" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 8 5 L 0 9 z" fill="#a855f7" />
+    </marker>
+  </defs>
+
+  <rect width="880" height="540" class="bg" />
+
+  <text x="440" y="28" text-anchor="middle" class="title">Цифрові архітектури синхронної демодуляції у DSP та FPGA</text>
+  <text x="440" y="48" text-anchor="middle" class="subtitle">Порівняння методів: стробування екстремумів АЦП (Peak Sampling) та ортогональна IQ-демодуляція</text>
+
+  <!-- ================= TOP SECTION: ADC PEAK SAMPLING ================= -->
+  <rect x="30" y="65" width="820" height="195" class="panel" />
+  <text x="50" y="90" class="lbl-bold" fill="#38bdf8">Метод 1: Синхронне стробування екстремумів АЦП (ADC Peak Sampling)</text>
+  <text x="50" y="106" class="subtitle">Економічний за ресурсами метод: запуск перетворення точно в моменти піків несучої</text>
+
+  <!-- Diagram blocks for Peak Sampling -->
+  <g transform="translate(50, 115)">
+    <rect x="0" y="15" width="130" height="55" class="box" />
+    <text x="65" y="38" text-anchor="middle" class="lbl-bold">Опорний генератор</text>
+    <text x="65" y="55" text-anchor="middle" class="subtitle">Таймер PWM / ШІМ</text>
+    <line x1="130" y1="42" x2="175" y2="42" class="wire" marker-end="url(#m-arr)" />
+
+    <rect x="175" y="15" width="140" height="55" class="box" style="stroke: #fbbf24;" />
+    <text x="245" y="38" text-anchor="middle" class="lbl-bold" fill="#fbbf24">Строб піку (TRGO)</text>
+    <text x="245" y="55" text-anchor="middle" class="subtitle">t_peak = T_c/4 + k·T_c/2</text>
+    <line x1="315" y1="42" x2="365" y2="42" class="wire" marker-end="url(#m-arr)" />
+
+    <rect x="365" y="15" width="120" height="55" class="box" />
+    <text x="425" y="38" text-anchor="middle" class="lbl-bold">Швидкий АЦП</text>
+    <text x="425" y="55" text-anchor="middle" class="subtitle">v_k = ±V_m·x·cos(Δφ)</text>
+    <line x1="485" y1="42" x2="535" y2="42" class="wire" marker-end="url(#m-arr)" />
+
+    <rect x="535" y="15" width="120" height="55" class="box-dsp" />
+    <text x="595" y="38" text-anchor="middle" class="lbl-bold" fill="#a855f7">Інверсія знаку</text>
+    <text x="595" y="55" text-anchor="middle" class="subtitle">(-1)^k · v_k</text>
+    <line x1="655" y1="42" x2="695" y2="42" class="wire" marker-end="url(#m-arr)" />
+
+    <rect x="695" y="15" width="85" height="55" class="box-out" />
+    <text x="737" y="38" text-anchor="middle" class="lbl-bold" fill="#10b981">Фільтр</text>
+    <text x="737" y="55" text-anchor="middle" class="subtitle">Moving Avg</text>
+  </g>
+
+  <text x="50" y="225" class="lbl">• <tspan fill="#10b981">Перевага:</tspan> Мінімальне обчислювальне навантаження (без перемноження точок вибірки, підходить для Cortex-M0/M3).</text>
+  <text x="50" y="245" class="lbl">• <tspan fill="#f43f5e">Недолік:</tspan> Критична чутливість до розфазування Δφ: вимагає програмного калібрування затримки запуску таймера АЦП.</text>
+
+  <!-- ================= BOTTOM SECTION: IQ QUADRATURE DEMODULATION ================= -->
+  <rect x="30" y="275" width="820" height="245" class="panel" />
+  <text x="50" y="300" class="lbl-bold" fill="#a855f7">Метод 2: Цифрова квадратурна IQ-демодуляція (In-phase / Quadrature)</text>
+  <text x="50" y="316" class="subtitle">Прецизійний метод: повна інваріантність до кабельного фазового зсуву та вимірювання як амплітуди, так і фази</text>
+
+  <!-- Diagram blocks for IQ Demodulator -->
+  <g transform="translate(50, 325)">
+    <rect x="0" y="45" width="110" height="65" class="box" />
+    <text x="55" y="70" text-anchor="middle" class="lbl-bold">АЦП (f_s &gt;&gt; f_c)</text>
+    <text x="55" y="88" text-anchor="middle" class="subtitle">Дискретизація</text>
+    <text x="55" y="102" text-anchor="middle" class="subtitle">сигналу v_in(n)</text>
+
+    <path d="M 110 77 L 150 77 L 150 30 L 180 30" class="wire" marker-end="url(#m-arr)" />
+    <path d="M 110 77 L 150 77 L 150 125 L 180 125" class="wire" marker-end="url(#m-arr)" />
+
+    <!-- Channel I (Top) -->
+    <rect x="180" y="5" width="125" height="50" class="box-dsp" />
+    <text x="242" y="27" text-anchor="middle" class="lbl-bold" fill="#38bdf8">Множник I</text>
+    <text x="242" y="44" text-anchor="middle" class="subtitle">× cos(ω_c · n·T_s)</text>
+    <line x1="305" y1="30" x2="335" y2="30" class="wire" marker-end="url(#m-arr)" />
+
+    <rect x="335" y="5" width="110" height="50" class="box" style="stroke: #38bdf8;" />
+    <text x="390" y="27" text-anchor="middle" class="lbl-bold">ФНЧ (FIR / IIR)</text>
+    <text x="390" y="44" text-anchor="middle" class="subtitle">I_out = x·cos(Δφ)</text>
+    <line x1="445" y1="30" x2="520" y2="70" class="wire-purple" marker-end="url(#m-arr-p)" />
+
+    <!-- Channel Q (Bottom) -->
+    <rect x="180" y="100" width="125" height="50" class="box-dsp" />
+    <text x="242" y="122" text-anchor="middle" class="lbl-bold" fill="#f43f5e">Множник Q</text>
+    <text x="242" y="139" text-anchor="middle" class="subtitle">× sin(ω_c · n·T_s)</text>
+    <line x1="305" y1="125" x2="335" y2="125" class="wire" marker-end="url(#m-arr)" />
+
+    <rect x="335" y="100" width="110" height="50" class="box" style="stroke: #f43f5e;" />
+    <text x="390" y="122" text-anchor="middle" class="lbl-bold">ФНЧ (FIR / IIR)</text>
+    <text x="390" y="139" text-anchor="middle" class="subtitle">Q_out = x·sin(Δφ)</text>
+    <line x1="445" y1="125" x2="520" y2="85" class="wire-purple" marker-end="url(#m-arr-p)" />
+
+    <!-- Vector Processing / CORDIC Engine -->
+    <rect x="520" y="45" width="150" height="65" class="box-dsp" />
+    <text x="595" y="68" text-anchor="middle" class="lbl-bold" fill="#a855f7">Алгоритм CORDIC</text>
+    <text x="595" y="85" text-anchor="middle" class="subtitle">Полярне перетворення</text>
+    <text x="595" y="100" text-anchor="middle" class="subtitle">A = √(I² + Q²)</text>
+    <line x1="670" y1="77" x2="700" y2="77" class="wire" marker-end="url(#m-arr)" />
+
+    <!-- Output Outputs -->
+    <rect x="700" y="30" width="115" height="95" class="box-out" />
+    <text x="757" y="52" text-anchor="middle" class="lbl-bold" fill="#10b981">Вихідні дані:</text>
+    <text x="757" y="72" text-anchor="middle" class="lbl" fill="#38bdf8">Позиція x(t)</text>
+    <text x="757" y="92" text-anchor="middle" class="lbl" fill="#fbbf24">Кут фази Δφ</text>
+    <text x="757" y="112" text-anchor="middle" class="subtitle">Діагностика ліній</text>
+  </g>
+
+  <text x="50" y="500" class="lbl">• <tspan fill="#a855f7">Головна перевага:</tspan> Амплітуда обчислюється як корінь суми квадратів (I² + Q²), повністю нівелюючи будь-який фазовий зсув у кабелі давача!</text>
+</svg>
