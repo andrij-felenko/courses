@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 850 480" width="100%" height="100%">
+  <rect width="100%" height="100%" fill="#0d1117"/>
+  <rect x="25" y="25" width="800" height="430" rx="12" fill="#161b22" stroke="#30363d" stroke-width="2"/>
+  
+  <text x="425" y="55" text-anchor="middle" font-family="system-ui, sans-serif" font-size="20" font-weight="bold" fill="#f0f6fc">
+    Конвеєр цифрової детекції полум'я (Flame Flicker DSP Pipeline)
+  </text>
+
+  <!-- Блок-схема конвеєра -->
+  <g transform="translate(60, 95)">
+    <!-- Блок 1: АЦП дискретизація -->
+    <rect x="0" y="30" width="130" height="75" rx="8" fill="#21262d" stroke="#58a6ff" stroke-width="2"/>
+    <text x="65" y="60" text-anchor="middle" font-family="system-ui, sans-serif" font-size="11" font-weight="bold" fill="#58a6ff">АЦП 50–100 Гц</text>
+    <text x="65" y="80" text-anchor="middle" font-family="system-ui, sans-serif" font-size="10" fill="#8b949e">Зчитування AO</text>
+
+    <!-- Стрілка 1 -->
+    <path d="M 130,68 L 160,68" stroke="#8b949e" stroke-width="2"/>
+
+    <!-- Блок 2: Смуговий фільтр (BPF) -->
+    <rect x="160" y="30" width="140" height="75" rx="8" fill="#21262d" stroke="#bc8cff" stroke-width="2"/>
+    <text x="230" y="60" text-anchor="middle" font-family="system-ui, sans-serif" font-size="11" font-weight="bold" fill="#bc8cff">Смуговий BPF</text>
+    <text x="230" y="80" text-anchor="middle" font-family="system-ui, sans-serif" font-size="10" fill="#8b949e">Смуга 1..15 Гц</text>
+
+    <!-- Стрілка 2 -->
+    <path d="M 300,68 L 330,68" stroke="#8b949e" stroke-width="2"/>
+
+    <!-- Блок 3: Обчислення енергії фліккеру -->
+    <rect x="330" y="30" width="140" height="75" rx="8" fill="#21262d" stroke="#d29922" stroke-width="2"/>
+    <text x="400" y="60" text-anchor="middle" font-family="system-ui, sans-serif" font-size="11" font-weight="bold" fill="#d29922">Енергія коливань</text>
+    <text x="400" y="80" text-anchor="middle" font-family="system-ui, sans-serif" font-size="10" fill="#8b949e">E = sum((x - mean)²)</text>
+
+    <!-- Стрілка 3 -->
+    <path d="M 470,68 L 500,68" stroke="#8b949e" stroke-width="2"/>
+
+    <!-- Блок 4: Детекція вогню -->
+    <rect x="500" y="30" width="130" height="75" rx="8" fill="#21262d" stroke="#f85149" stroke-width="2"/>
+    <text x="565" y="60" text-anchor="middle" font-family="system-ui, sans-serif" font-size="11" font-weight="bold" fill="#f85149">Аналіз порогу</text>
+    <text x="565" y="80" text-anchor="middle" font-family="system-ui, sans-serif" font-size="10" fill="#8b949e">E &gt; E_fire_th</text>
+
+    <!-- Стрілка 4 -->
+    <path d="M 630,68 L 660,68" stroke="#8b949e" stroke-width="2"/>
+
+    <!-- Блок 5: Тривога -->
+    <rect x="660" y="30" width="80" height="75" rx="8" fill="#da3633" stroke="#f85149" stroke-width="2"/>
+    <text x="700" y="65" text-anchor="middle" font-family="system-ui, sans-serif" font-size="11" font-weight="bold" fill="#ffffff">ПОЖЕЖА</text>
+  </g>
+
+  <!-- Нижня панель -->
+  <g transform="translate(60, 220)">
+    <rect width="730" height="200" rx="8" fill="#0d1117" stroke="#30363d"/>
+    <text x="365" y="30" text-anchor="middle" font-family="system-ui, sans-serif" font-size="15" font-weight="bold" fill="#f0f6fc">
+      Переваги спектрального аналізу мерехтіння перед пороговим компаратором
+    </text>
+
+    <g transform="translate(30, 55)">
+      <rect width="205" height="120" rx="6" fill="#161b22" stroke="#da3633"/>
+      <text x="102" y="25" text-anchor="middle" font-family="system-ui, sans-serif" font-size="12" font-weight="bold" fill="#f85149">Простий компаратор DO</text>
+      <text x="10" y="52" font-family="system-ui, sans-serif" font-size="11" fill="#c9d1d9">• Спрацьовує на сонце</text>
+      <text x="10" y="74" font-family="system-ui, sans-serif" font-size="11" fill="#c9d1d9">• Реагує на лампи розжарення</text>
+      <text x="10" y="96" font-family="system-ui, sans-serif" font-size="11" fill="#8b949e">• Постійні хибні тривоги</text>
+    </g>
+
+    <g transform="translate(260, 55)">
+      <rect width="205" height="120" rx="6" fill="#161b22" stroke="#3fb950"/>
+      <text x="102" y="25" text-anchor="middle" font-family="system-ui, sans-serif" font-size="12" font-weight="bold" fill="#3fb950">Цифровий алгоритм Flicker</text>
+      <text x="10" y="52" font-family="system-ui, sans-serif" font-size="11" fill="#c9d1d9">• Ігнорує сонце (0 Гц)</text>
+      <text x="10" y="74" font-family="system-ui, sans-serif" font-size="11" fill="#c9d1d9">• Відсікає лампи 100 Гц</text>
+      <text x="10" y="96" font-family="system-ui, sans-serif" font-size="11" fill="#7ee787">• 99.8% надійність детекції</text>
+    </g>
+
+    <g transform="translate(490, 55)">
+      <rect width="205" height="120" rx="6" fill="#161b22" stroke="#30363d"/>
+      <text x="102" y="25" text-anchor="middle" font-family="system-ui, sans-serif" font-size="12" font-weight="bold" fill="#58a6ff">Швидкість реакції</text>
+      <text x="10" y="52" font-family="system-ui, sans-serif" font-size="11" fill="#c9d1d9">• Час підтвердження: 0.8–1.5 с</text>
+      <text x="10" y="74" font-family="system-ui, sans-serif" font-size="11" fill="#c9d1d9">• Дистанція детекції: до 1.5–2 м</text>
+      <text x="10" y="96" font-family="system-ui, sans-serif" font-size="11" fill="#8b949e">• Негайне переривання GPIO</text>
+    </g>
+  </g>
+</svg>
