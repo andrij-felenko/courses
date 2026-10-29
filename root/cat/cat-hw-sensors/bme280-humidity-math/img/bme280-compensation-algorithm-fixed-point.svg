@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 850 480" width="100%" height="100%">
+  <rect width="100%" height="100%" fill="#0d1117"/>
+  <text x="425" y="32" font-family="system-ui, -apple-system, sans-serif" font-size="20" font-weight="bold" fill="#f0f6fc" text-anchor="middle">Алгоритм цілочисельної фіксованої крапки Bosch Q22.10</text>
+  <text x="425" y="54" font-family="system-ui, -apple-system, sans-serif" font-size="13" fill="#8b949e" text-anchor="middle">Покроковий розрахунок 32-бітного беззнакового результату без використання FPU</text>
+
+  <!-- Step 1: Base Offset -->
+  <rect x="40" y="75" width="770" height="65" rx="8" fill="#161b22" stroke="#30363d" stroke-width="1.5"/>
+  <rect x="55" y="88" width="35" height="35" rx="6" fill="#388bfd"/>
+  <text x="72" y="111" font-family="system-ui, -apple-system, sans-serif" font-size="16" font-weight="bold" fill="#ffffff" text-anchor="middle">1</text>
+  <text x="105" y="103" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="bold" fill="#58a6ff">Температурне зміщення:</text>
+  <text x="105" y="125" font-family="system-ui, -apple-system, sans-serif" font-size="13" fill="#c9d1d9">v_x1_u32r = t_fine - 76800;</text>
+  <text x="560" y="113" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#8b949e">Зсув відносно калібрувальної точки 15 °C</text>
+
+  <!-- Step 2: Intermediate Polynomial -->
+  <rect x="40" y="150" width="770" height="90" rx="8" fill="#161b22" stroke="#30363d" stroke-width="1.5"/>
+  <rect x="55" y="165" width="35" height="35" rx="6" fill="#bc8cff"/>
+  <text x="72" y="188" font-family="system-ui, -apple-system, sans-serif" font-size="16" font-weight="bold" fill="#ffffff" text-anchor="middle">2</text>
+  <text x="105" y="177" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="bold" fill="#bc8cff">Поліноміальне зважування (розрахунок вкладу dig_H4..H6):</text>
+  <text x="105" y="200" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#c9d1d9">v_x1 = (((((adc_H &lt;&lt; 14) - (((int32_t)dig_H4) &lt;&lt; 20) - (((int32_t)dig_H5) * v_x1)) + 16384) &gt;&gt; 15) *</text>
+  <text x="105" y="222" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#c9d1d9">         (((((((v_x1 * ((int32_t)dig_H6)) &gt;&gt; 10) * (((v_x1 * ((int32_t)dig_H3)) &gt;&gt; 11) + 32768)) &gt;&gt; 10) + 2097152) * ((int32_t)dig_H2) + 8192) &gt;&gt; 14));</text>
+
+  <!-- Step 3: Quadratic correction -->
+  <rect x="40" y="250" width="770" height="75" rx="8" fill="#161b22" stroke="#30363d" stroke-width="1.5"/>
+  <rect x="55" y="265" width="35" height="35" rx="6" fill="#d29922"/>
+  <text x="72" y="288" font-family="system-ui, -apple-system, sans-serif" font-size="16" font-weight="bold" fill="#ffffff" text-anchor="middle">3</text>
+  <text x="105" y="278" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="bold" fill="#d29922">Квадратична поправка за dig_H1:</text>
+  <text x="105" y="302" font-family="system-ui, -apple-system, sans-serif" font-size="13" fill="#c9d1d9">v_x1 = v_x1 - (((((v_x1 &gt;&gt; 15) * (v_x1 &gt;&gt; 15)) &gt;&gt; 7) * ((int32_t)dig_H1)) &gt;&gt; 4);</text>
+
+  <!-- Step 4: Clamping / Saturation -->
+  <rect x="40" y="335" width="770" height="65" rx="8" fill="#161b22" stroke="#30363d" stroke-width="1.5"/>
+  <rect x="55" y="348" width="35" height="35" rx="6" fill="#f85149"/>
+  <text x="72" y="371" font-family="system-ui, -apple-system, sans-serif" font-size="16" font-weight="bold" fill="#ffffff" text-anchor="middle">4</text>
+  <text x="105" y="360" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="bold" fill="#f85149">Сатурація (Clamping) діапазону 0..100%:</text>
+  <text x="105" y="383" font-family="system-ui, -apple-system, sans-serif" font-size="13" fill="#c9d1d9">v_x1 = (v_x1 &lt; 0 ? 0 : v_x1);  v_x1 = (v_x1 &gt; 419430400 ? 419430400 : v_x1);</text>
+
+  <!-- Step 5: Final output -->
+  <rect x="40" y="410" width="770" height="55" rx="8" fill="#1f242c" stroke="#3fb950" stroke-width="2"/>
+  <text x="70" y="442" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="bold" fill="#3fb950">Результат у форматі Q22.10:</text>
+  <text x="290" y="442" font-family="system-ui, -apple-system, sans-serif" font-size="13" font-weight="bold" fill="#f0f6fc">uint32_t humidity = (uint32_t)(v_x1 &gt;&gt; 12);</text>
+  <text x="640" y="442" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#7ee787">1024 = 1.0 %RH (0 .. 102400)</text>
+</svg>

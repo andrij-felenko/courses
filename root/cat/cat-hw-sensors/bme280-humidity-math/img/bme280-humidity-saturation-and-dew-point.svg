@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 850 480" width="100%" height="100%">
+  <rect width="100%" height="100%" fill="#0d1117"/>
+  <text x="425" y="35" font-family="system-ui, -apple-system, sans-serif" font-size="20" font-weight="bold" fill="#f0f6fc" text-anchor="middle">Розрахунок точки роси (Dew Point) та захист від конденсації</text>
+  <text x="425" y="58" font-family="system-ui, -apple-system, sans-serif" font-size="13" fill="#8b949e" text-anchor="middle">Зв'язок температури, відносної вологості RH та фазового переходу пари в росу</text>
+
+  <!-- Left: Psychrometric / Dew Point Chart -->
+  <rect x="40" y="85" width="410" height="365" rx="10" fill="#161b22" stroke="#30363d" stroke-width="1.5"/>
+  <text x="245" y="115" font-family="system-ui, -apple-system, sans-serif" font-size="16" font-weight="bold" fill="#58a6ff" text-anchor="middle">Крива насичення водяної пари</text>
+
+  <!-- Axes -->
+  <line x1="80" y1="390" x2="410" y2="390" stroke="#8b949e" stroke-width="1.5"/>
+  <line x1="80" y1="390" x2="80" y2="140" stroke="#8b949e" stroke-width="1.5"/>
+  <text x="245" y="415" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#8b949e" text-anchor="middle">Температура сухого термометра T (°C)</text>
+  <text x="60" y="135" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#8b949e" text-anchor="middle">p_sat</text>
+
+  <!-- 100% RH Saturation curve -->
+  <path d="M 80 375 Q 220 350 400 160" fill="none" stroke="#f85149" stroke-width="3"/>
+  <text x="350" y="150" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="bold" fill="#f85149">100% RH (Роса)</text>
+
+  <!-- 50% RH curve -->
+  <path d="M 80 382 Q 230 365 400 240" fill="none" stroke="#d29922" stroke-width="2" stroke-dasharray="4 2"/>
+  <text x="365" y="235" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#d29922">50% RH</text>
+
+  <!-- Operating point example -->
+  <circle cx="260" cy="275" r="6" fill="#3fb950"/>
+  <text x="270" y="270" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="bold" fill="#3fb950">Поточний стан (25°C, 50% RH)</text>
+
+  <!-- Horizontal drop to saturation curve: Dew point -->
+  <line x1="260" y1="275" x2="185" y2="275" stroke="#bc8cff" stroke-width="2" stroke-dasharray="3 3"/>
+  <circle cx="185" cy="275" r="5" fill="#bc8cff"/>
+  <line x1="185" y1="275" x2="185" y2="390" stroke="#bc8cff" stroke-width="1.5" stroke-dasharray="2 2"/>
+  <text x="185" y="405" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="bold" fill="#bc8cff" text-anchor="middle">T_dew ≈ 13.9°C</text>
+
+  <rect x="70" y="425" width="350" height="20" fill="none"/>
+  <text x="245" y="440" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#8b949e" text-anchor="middle">Зниження температури до 13.9°C викличе випадання роси</text>
+
+  <!-- Right: Magnus-Tetens formula & Sensor protection -->
+  <rect x="475" y="85" width="345" height="365" rx="10" fill="#161b22" stroke="#30363d" stroke-width="1.5"/>
+  <text x="647" y="115" font-family="system-ui, -apple-system, sans-serif" font-size="16" font-weight="bold" fill="#3fb950" text-anchor="middle">Формула Магнуса-Тетенса</text>
+
+  <rect x="495" y="135" width="305" height="100" rx="6" fill="#21262d" stroke="#30363d" stroke-width="1"/>
+  <text x="647" y="158" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="bold" fill="#58a6ff" text-anchor="middle">Апроксимація точки роси T_dew:</text>
+  <text x="647" y="180" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#c9d1d9" text-anchor="middle">γ(T, RH) = (a · T)/(b + T) + ln(RH/100)</text>
+  <text x="647" y="202" font-family="system-ui, -apple-system, sans-serif" font-size="13" font-weight="bold" fill="#3fb950" text-anchor="middle">T_dew = (b · γ) / (a - γ)</text>
+  <text x="647" y="222" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#8b949e" text-anchor="middle">де a = 17.27, b = 237.7 °C (похибка &lt; 0.4°C)</text>
+
+  <rect x="495" y="250" width="305" height="180" rx="6" fill="#0d1117" stroke="#d29922" stroke-width="1"/>
+  <text x="510" y="275" font-family="system-ui, -apple-system, sans-serif" font-size="13" font-weight="bold" fill="#d29922">Регламент догляду за сенсором:</text>
+  <text x="510" y="300" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#c9d1d9">• Уникати прямого контакту з рідкою водою</text>
+  <text x="510" y="322" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#c9d1d9">• Після конденсації потрібен час висихання</text>
+  <text x="510" y="344" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#c9d1d9">• Цикл випалу (Reconditioning):</text>
+  <text x="525" y="366" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#8b949e">  120 °C протягом 2 годин (десорбція)</text>
+  <text x="525" y="386" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#8b949e">  + 20..30 °C при 40..60% RH на 5 годин</text>
+  <text x="510" y="414" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="bold" fill="#3fb950">Відновлює початковий калібрувальний нуль</text>
+</svg>

@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 850 480" width="100%" height="100%">
+  <rect width="100%" height="100%" fill="#0d1117"/>
+  <text x="425" y="35" font-family="system-ui, -apple-system, sans-serif" font-size="20" font-weight="bold" fill="#f0f6fc" text-anchor="middle">Зв'язок розрахунку вологості з температурним фактором t_fine</text>
+  <text x="425" y="60" font-family="system-ui, -apple-system, sans-serif" font-size="13" fill="#8b949e" text-anchor="middle">Чому компенсацію вологості неможливо виконати без попереднього розрахунку температури</text>
+
+  <!-- Left block: Temperature reading & fine calculation -->
+  <rect x="40" y="90" width="360" height="360" rx="10" fill="#161b22" stroke="#58a6ff" stroke-width="1.5"/>
+  <text x="220" y="120" font-family="system-ui, -apple-system, sans-serif" font-size="16" font-weight="bold" fill="#58a6ff" text-anchor="middle">Крок 1: Термокомпенсація</text>
+
+  <rect x="65" y="145" width="310" height="45" rx="6" fill="#21262d" stroke="#30363d" stroke-width="1"/>
+  <text x="220" y="173" font-family="system-ui, -apple-system, sans-serif" font-size="13" fill="#f0f6fc" text-anchor="middle">Сирий 20-бітний код adc_T (0xFA..0xFC)</text>
+
+  <line x1="220" y1="190" x2="220" y2="215" stroke="#58a6ff" stroke-width="2" marker-end="url(#arr-b)"/>
+
+  <rect x="65" y="215" width="310" height="75" rx="6" fill="#21262d" stroke="#30363d" stroke-width="1"/>
+  <text x="220" y="238" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="bold" fill="#d29922" text-anchor="middle">Формула Bosch для var1 та var2:</text>
+  <text x="220" y="258" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#8b949e" text-anchor="middle">var1 = (((adc_T &gt;&gt; 3) - (dig_T1 &lt;&lt; 1)) * dig_T2) &gt;&gt; 11</text>
+  <text x="220" y="276" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#8b949e" text-anchor="middle">var2 = quadratic_term(dig_T3)</text>
+
+  <line x1="220" y1="290" x2="220" y2="315" stroke="#58a6ff" stroke-width="2" marker-end="url(#arr-b)"/>
+
+  <rect x="65" y="315" width="310" height="60" rx="6" fill="#1f242c" stroke="#3fb950" stroke-width="2"/>
+  <text x="220" y="340" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="bold" fill="#3fb950" text-anchor="middle">t_fine = var1 + var2</text>
+  <text x="220" y="360" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#7ee787" text-anchor="middle">Температура кристала в одиницях 1/5120 °C</text>
+
+  <rect x="65" y="390" width="310" height="45" rx="6" fill="#21262d" stroke="#30363d" stroke-width="1"/>
+  <text x="220" y="418" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#8b949e" text-anchor="middle">T_degC = (t_fine * 5 + 128) &gt;&gt; 8 / 100.0</text>
+
+  <!-- Arrow between blocks -->
+  <path d="M 400 345 L 440 345" stroke="#3fb950" stroke-width="3" fill="none" marker-end="url(#arr-g)"/>
+  <text x="420" y="335" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="bold" fill="#3fb950" text-anchor="middle">t_fine</text>
+
+  <!-- Right block: Humidity compensation with t_fine -->
+  <rect x="445" y="90" width="365" height="360" rx="10" fill="#161b22" stroke="#3fb950" stroke-width="1.5"/>
+  <text x="627" y="120" font-family="system-ui, -apple-system, sans-serif" font-size="16" font-weight="bold" fill="#3fb950" text-anchor="middle">Крок 2: Компенсація вологості</text>
+
+  <rect x="470" y="145" width="315" height="45" rx="6" fill="#21262d" stroke="#30363d" stroke-width="1"/>
+  <text x="627" y="173" font-family="system-ui, -apple-system, sans-serif" font-size="13" fill="#f0f6fc" text-anchor="middle">Сирий 16-бітний код adc_H (0xFD..0xFE)</text>
+
+  <line x1="627" y1="190" x2="627" y2="215" stroke="#3fb950" stroke-width="2" marker-end="url(#arr-g)"/>
+
+  <rect x="470" y="215" width="315" height="85" rx="6" fill="#21262d" stroke="#bc8cff" stroke-width="1"/>
+  <text x="627" y="238" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="bold" fill="#bc8cff" text-anchor="middle">Термодинамічне масштабування:</text>
+  <text x="627" y="260" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#f0f6fc" text-anchor="middle">v_x1 = t_fine - ((int32_t)76800)</text>
+  <text x="627" y="282" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#8b949e" text-anchor="middle">76800 відповідає точці відліку 15.0 °C</text>
+
+  <line x1="627" y1="300" x2="627" y2="325" stroke="#3fb950" stroke-width="2" marker-end="url(#arr-g)"/>
+
+  <rect x="470" y="325" width="315" height="60" rx="6" fill="#1f242c" stroke="#58a6ff" stroke-width="1.5"/>
+  <text x="627" y="350" font-family="system-ui, -apple-system, sans-serif" font-size="13" font-weight="bold" fill="#58a6ff" text-anchor="middle">Поліноміальна фільтрація за dig_H1..H6</text>
+  <text x="627" y="370" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#8b949e" text-anchor="middle">Корекція нелінійності чутливості та зміщення нуля</text>
+
+  <rect x="470" y="395" width="315" height="40" rx="6" fill="#21262d" stroke="#30363d" stroke-width="1"/>
+  <text x="627" y="420" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="bold" fill="#3fb950" text-anchor="middle">Результат: RH_compensated (% RH)</text>
+
+  <defs>
+    <marker id="arr-b" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#58a6ff"/>
+    </marker>
+    <marker id="arr-g" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#3fb950"/>
+    </marker>
+  </defs>
+</svg>

@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 850 480" width="100%" height="100%">
+  <rect width="100%" height="100%" fill="#0d1117"/>
+  <text x="425" y="35" font-family="system-ui, -apple-system, sans-serif" font-size="20" font-weight="bold" fill="#f0f6fc" text-anchor="middle">Карта та бітове упакування коефіцієнтів вологості dig_H1..dig_H6</text>
+  <text x="425" y="58" font-family="system-ui, -apple-system, sans-serif" font-size="13" fill="#8b949e" text-anchor="middle">Розподіл калібрувальної NVM-пам'яті BME280 та бітова арифметика розпакування</text>
+
+  <!-- Table header -->
+  <rect x="35" y="80" width="780" height="235" rx="8" fill="#161b22" stroke="#30363d" stroke-width="1.5"/>
+  <rect x="35" y="80" width="780" height="35" rx="8" fill="#21262d"/>
+  <text x="80" y="103" font-family="system-ui, -apple-system, sans-serif" font-size="13" font-weight="bold" fill="#79c0ff">Параметр</text>
+  <text x="210" y="103" font-family="system-ui, -apple-system, sans-serif" font-size="13" font-weight="bold" fill="#79c0ff">Регістр(и)</text>
+  <text x="330" y="103" font-family="system-ui, -apple-system, sans-serif" font-size="13" font-weight="bold" fill="#79c0ff">Розмір / Тип</text>
+  <text x="560" y="103" font-family="system-ui, -apple-system, sans-serif" font-size="13" font-weight="bold" fill="#79c0ff">Специфіка розпакування</text>
+
+  <!-- Row 1: dig_H1 -->
+  <line x1="35" y1="115" x2="815" y2="115" stroke="#30363d" stroke-width="1"/>
+  <text x="80" y="138" font-family="system-ui, -apple-system, sans-serif" font-size="13" font-weight="bold" fill="#58a6ff">dig_H1</text>
+  <text x="210" y="138" font-family="system-ui, -apple-system, sans-serif" font-size="13" fill="#f0f6fc">0xA1</text>
+  <text x="330" y="138" font-family="system-ui, -apple-system, sans-serif" font-size="13" fill="#3fb950">uint8_t (8 біт)</text>
+  <text x="470" y="138" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#8b949e">Пряме беззнакове зчитування 1 байта</text>
+
+  <!-- Row 2: dig_H2 -->
+  <line x1="35" y1="148" x2="815" y2="148" stroke="#30363d" stroke-width="1"/>
+  <text x="80" y="171" font-family="system-ui, -apple-system, sans-serif" font-size="13" font-weight="bold" fill="#58a6ff">dig_H2</text>
+  <text x="210" y="171" font-family="system-ui, -apple-system, sans-serif" font-size="13" fill="#f0f6fc">0xE1 (LSB), 0xE2 (MSB)</text>
+  <text x="330" y="171" font-family="system-ui, -apple-system, sans-serif" font-size="13" fill="#d29922">int16_t (16 біт)</text>
+  <text x="470" y="171" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#8b949e">Little-endian: (int16_t)((0xE2 &lt;&lt; 8) | 0xE1)</text>
+
+  <!-- Row 3: dig_H3 -->
+  <line x1="35" y1="181" x2="815" y2="181" stroke="#30363d" stroke-width="1"/>
+  <text x="80" y="204" font-family="system-ui, -apple-system, sans-serif" font-size="13" font-weight="bold" fill="#58a6ff">dig_H3</text>
+  <text x="210" y="204" font-family="system-ui, -apple-system, sans-serif" font-size="13" fill="#f0f6fc">0xE3</text>
+  <text x="330" y="204" font-family="system-ui, -apple-system, sans-serif" font-size="13" fill="#3fb950">uint8_t (8 біт)</text>
+  <text x="470" y="204" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#8b949e">Пряме беззнакове зчитування 1 байта</text>
+
+  <!-- Row 4: dig_H4 -->
+  <line x1="35" y1="214" x2="815" y2="214" stroke="#30363d" stroke-width="1"/>
+  <text x="80" y="237" font-family="system-ui, -apple-system, sans-serif" font-size="13" font-weight="bold" fill="#f85149">dig_H4</text>
+  <text x="210" y="237" font-family="system-ui, -apple-system, sans-serif" font-size="13" fill="#f0f6fc">0xE4 (MSB) + 0xE5[3:0]</text>
+  <text x="330" y="237" font-family="system-ui, -apple-system, sans-serif" font-size="13" fill="#bc8cff">int16_t (12 біт зі знаком)</text>
+  <text x="470" y="237" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#f0f6fc">((int16_t)reg[0xE4] &lt;&lt; 4) | (reg[0xE5] &amp; 0x0F)</text>
+
+  <!-- Row 5: dig_H5 -->
+  <line x1="35" y1="247" x2="815" y2="247" stroke="#30363d" stroke-width="1"/>
+  <text x="80" y="270" font-family="system-ui, -apple-system, sans-serif" font-size="13" font-weight="bold" fill="#f85149">dig_H5</text>
+  <text x="210" y="270" font-family="system-ui, -apple-system, sans-serif" font-size="13" fill="#f0f6fc">0xE6 (MSB) + 0xE5[7:4]</text>
+  <text x="330" y="270" font-family="system-ui, -apple-system, sans-serif" font-size="13" fill="#bc8cff">int16_t (12 біт зі знаком)</text>
+  <text x="470" y="270" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#f0f6fc">((int16_t)reg[0xE6] &lt;&lt; 4) | (reg[0xE5] &gt;&gt; 4)</text>
+
+  <!-- Row 6: dig_H6 -->
+  <line x1="35" y1="280" x2="815" y2="280" stroke="#30363d" stroke-width="1"/>
+  <text x="80" y="303" font-family="system-ui, -apple-system, sans-serif" font-size="13" font-weight="bold" fill="#58a6ff">dig_H6</text>
+  <text x="210" y="303" font-family="system-ui, -apple-system, sans-serif" font-size="13" fill="#f0f6fc">0xE7</text>
+  <text x="330" y="303" font-family="system-ui, -apple-system, sans-serif" font-size="13" fill="#d29922">int8_t (8 біт зі знаком)</text>
+  <text x="470" y="303" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#8b949e">Знакове зчитування байта зі збереженням знакового біта</text>
+
+  <!-- Focus on 0xE5 split -->
+  <rect x="35" y="330" width="780" height="135" rx="8" fill="#161b22" stroke="#d29922" stroke-width="1.5"/>
+  <text x="425" y="355" font-family="system-ui, -apple-system, sans-serif" font-size="15" font-weight="bold" fill="#d29922" text-anchor="middle">Критичний вузол розпакування: Розщеплення спільного байта 0xE5</text>
+
+  <!-- 8 bits of 0xE5 -->
+  <g transform="translate(145, 375)">
+    <!-- High nibble [7:4] -->
+    <rect x="0" y="0" width="280" height="35" fill="#bc8cff" opacity="0.25" stroke="#bc8cff" stroke-width="1.5"/>
+    <text x="140" y="23" font-family="system-ui, -apple-system, sans-serif" font-size="13" font-weight="bold" fill="#bc8cff" text-anchor="middle">Біти [7:4] → молодші 4 біти для dig_H5</text>
+
+    <!-- Low nibble [3:0] -->
+    <rect x="280" y="0" width="280" height="35" fill="#f85149" opacity="0.25" stroke="#f85149" stroke-width="1.5"/>
+    <text x="420" y="23" font-family="system-ui, -apple-system, sans-serif" font-size="13" font-weight="bold" fill="#f85149" text-anchor="middle">Біти [3:0] → молодші 4 біти для dig_H4</text>
+  </g>
+  <text x="425" y="445" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#8b949e" text-anchor="middle">Типова помилка драйверів: плутанина між зсувом вправо (>> 4) для H5 та бітовою маскою (&amp; 0x0F) для H4</text>
+</svg>
