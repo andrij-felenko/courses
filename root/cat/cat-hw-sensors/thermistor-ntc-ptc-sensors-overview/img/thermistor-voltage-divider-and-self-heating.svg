@@ -1,0 +1,99 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, -apple-system, BlinkMacSystemFont, Roboto, sans-serif">
+  <!-- Фон -->
+  <rect width="960" height="540" fill="#0d1117"/>
+  <rect x="15" y="15" width="930" height="510" rx="12" fill="none" stroke="#30363d" stroke-width="1.5"/>
+
+  <!-- Заголовок -->
+  <text x="480" y="42" fill="#f0f6fc" font-size="20" font-weight="700" text-anchor="middle">Схемотехніка підключення терморезисторів та ефект самопрогріву</text>
+  <text x="480" y="66" fill="#8b949e" font-size="13" text-anchor="middle">Аналоговий дільник напруги, вибір опорного резистора та мінімізація теплової похибки</text>
+
+  <!-- Блоки схемотехніки -->
+  <g transform="translate(30, 90)">
+    <!-- Блок 1: Схема мостового/подільникового підключення до АЦП -->
+    <rect x="10" y="10" width="415" height="315" rx="8" fill="#161b22" stroke="#58a6ff" stroke-width="1.5"/>
+    <rect x="10" y="10" width="415" height="32" rx="8" fill="#21262d"/>
+    <circle cx="28" cy="26" r="6" fill="#58a6ff"/>
+    <text x="42" y="31" fill="#f0f6fc" font-size="13" font-weight="700">1. Схема дільника напруги з АЦП</text>
+
+    <!-- Схема -->
+    <g transform="translate(40, 50)">
+      <!-- Лінія VDD (3.3 В) -->
+      <line x1="80" y1="20" x2="80" y2="40" stroke="#f0883e" stroke-width="2.5"/>
+      <circle cx="80" cy="20" r="4" fill="#f0883e"/>
+      <text x="90" y="24" fill="#f0883e" font-size="12" font-weight="700">V_REF = 3.3 В</text>
+
+      <!-- Верхній фіксований резистор R_fixed -->
+      <rect x="68" y="40" width="24" height="48" fill="#21262d" stroke="#58a6ff" stroke-width="1.5"/>
+      <text x="100" y="68" fill="#58a6ff" font-size="11" font-weight="600">R_fix (10 кОм 0.1%)</text>
+
+      <!-- Середня точка V_ADC -->
+      <line x1="80" y1="88" x2="80" y2="135" stroke="#f0f6fc" stroke-width="2.5"/>
+      <circle cx="80" cy="110" r="4" fill="#f0f6fc"/>
+      <line x1="80" y1="110" x2="160" y2="110" stroke="#3fb950" stroke-width="2"/>
+      
+      <!-- Фільтруючий конденсатор C_filt -->
+      <line x1="130" y1="110" x2="130" y2="155" stroke="#3fb950" stroke-width="1.5"/>
+      <rect x="122" y="155" width="16" height="12" fill="#1f2937" stroke="#3fb950" stroke-width="1.2"/>
+      <line x1="130" y1="167" x2="130" y2="185" stroke="#8b949e" stroke-width="1.5"/>
+      <line x1="120" y1="185" x2="140" y2="185" stroke="#8b949e" stroke-width="2"/>
+      <text x="145" y="165" fill="#8b949e" font-size="9">100 нФ</text>
+
+      <!-- АЦП вхід -->
+      <polygon points="160,95 160,125 190,110" fill="#21262d" stroke="#3fb950" stroke-width="1.5"/>
+      <text x="195" y="114" fill="#3fb950" font-size="11" font-weight="700">АЦП МК</text>
+
+      <!-- Нижній резистор NTC (R_therm) -->
+      <rect x="68" y="135" width="24" height="48" fill="#21262d" stroke="#f85149" stroke-width="1.5"/>
+      <line x1="60" y1="180" x2="100" y2="138" stroke="#ff7b72" stroke-width="1.5"/>
+      <text x="100" y="165" fill="#ff7b72" font-size="11" font-weight="600">R_NTC (10 кОм @ 25°C)</text>
+
+      <!-- Земля GND -->
+      <line x1="80" y1="183" x2="80" y2="205" stroke="#8b949e" stroke-width="2.5"/>
+      <line x1="70" y1="205" x2="90" y2="205" stroke="#8b949e" stroke-width="2"/>
+      <line x1="74" y1="209" x2="86" y2="209" stroke="#8b949e" stroke-width="1.5"/>
+      <text x="95" y="210" fill="#8b949e" font-size="11">GND</text>
+    </g>
+
+    <!-- Формула розрахунку V_ADC -->
+    <rect x="25" y="275" width="385" height="40" rx="6" fill="#0d1117" stroke="#30363d" stroke-width="1"/>
+    <text x="35" y="299" fill="#f0f6fc" font-size="11" font-family="Consolas, monospace">V_ADC = V_REF × [ R_NTC / (R_fix + R_NTC) ]</text>
+
+    <!-- Блок 2: Проблема самопрогріву (Self-Heating) -->
+    <rect x="445" y="10" width="445" height="315" rx="8" fill="#161b22" stroke="#ff7b72" stroke-width="1.5"/>
+    <rect x="445" y="10" width="445" height="32" rx="8" fill="#21262d"/>
+    <circle cx="463" cy="26" r="6" fill="#ff7b72"/>
+    <text x="477" y="31" fill="#f0f6fc" font-size="13" font-weight="700">2. Фізика та розрахунок самопрогріву (P = I²R)</text>
+
+    <text x="460" y="65" fill="#f0f6fc" font-size="12" font-weight="600">Механізм виникнення похибки:</text>
+    <text x="460" y="85" fill="#8b949e" font-size="11">
+      Струм, що протікає крізь термістор для вимірювання напруги,
+    </text>
+    <text x="460" y="102" fill="#8b949e" font-size="11">
+      виділяє джоулеве тепло P_diss, штучно нагріваючи сенсор вище T_навк!
+    </text>
+
+    <!-- Формула коефіцієнта розсіювання дельта -->
+    <rect x="460" y="118" width="415" height="72" rx="6" fill="#0d1117" stroke="#30363d" stroke-width="1"/>
+    <text x="475" y="142" fill="#ff7b72" font-size="12" font-family="Consolas, monospace">P_el = V_ntc² / R_ntc = I_meas² × R_ntc</text>
+    <text x="475" y="165" fill="#e3b341" font-size="12" font-family="Consolas, monospace">ΔT_похибка = P_el / δ  [°C]</text>
+    <text x="475" y="183" fill="#8b949e" font-size="10">де δ — коефіцієнт розсіювання тепла (типово 1...5 мВт/°C)</text>
+
+    <text x="460" y="215" fill="#f0f6fc" font-size="12" font-weight="600">Методи боротьби з самопрогрівом:</text>
+    <text x="460" y="235" fill="#3fb950" font-size="11">• Збільшення номіналу: вибір R25 = 10 кОм або 100 кОм замість 1 кОм</text>
+    <text x="460" y="255" fill="#3fb950" font-size="11">• Імпульсне живлення: подача V_REF лише на 100 мкс під час вибірки АЦП</text>
+    <text x="460" y="275" fill="#3fb950" font-size="11">• Обмеження струму вимірювання величиною менше 100 мкА</text>
+    <text x="460" y="295" fill="#3fb950" font-size="11">• Програмна компенсація похибки ΔT у мікроконтролері</text>
+  </g>
+
+  <!-- Блок рекомендацій внизу -->
+  <g transform="translate(30, 435)">
+    <rect width="895" height="70" rx="8" fill="#161b22" stroke="#30363d" stroke-width="1.2"/>
+    <text x="25" y="25" fill="#58a6ff" font-size="12" font-weight="700">ЗОЛОТЕ ПРАВИЛО ВИБОРУ ОПОРНОГО РЕЗИСТОРА R_FIXED:</text>
+    <text x="25" y="47" fill="#f0f6fc" font-size="11">
+      Максимальна чутливість дільника dV_ADC / dT досягається в точці, де опір R_fix точно дорівнює опору NTC при цільовій температурі.
+    </text>
+    <text x="25" y="63" fill="#8b949e" font-size="11">
+      Для контролю кімнатної температури (+25 °C) обирають R_fix = 10 кОм; для діапазону бойлера (+60 °C) — R_fix ≈ 2.5 кОм.
+    </text>
+  </g>
+</svg>

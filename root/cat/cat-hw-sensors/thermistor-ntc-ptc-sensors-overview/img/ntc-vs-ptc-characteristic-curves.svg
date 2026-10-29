@@ -1,0 +1,97 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, -apple-system, BlinkMacSystemFont, Roboto, sans-serif">
+  <!-- Фон -->
+  <rect width="960" height="540" fill="#0d1117"/>
+  <rect x="15" y="15" width="930" height="510" rx="12" fill="none" stroke="#30363d" stroke-width="1.5"/>
+
+  <!-- Заголовок -->
+  <text x="480" y="42" fill="#f0f6fc" font-size="20" font-weight="700" text-anchor="middle">Температурні характеристики терморезисторів: NTC проти PTC</text>
+  <text x="480" y="66" fill="#8b949e" font-size="13" text-anchor="middle">Залежність електричного опору R від температури T для напівпровідникових оксидів та кераміки</text>
+
+  <!-- Графік R(T) -->
+  <g transform="translate(60, 90)">
+    <!-- Координатна сітка та осі -->
+    <rect x="50" y="20" width="540" height="320" fill="#161b22" stroke="#30363d" stroke-width="1"/>
+    
+    <!-- Горизонтальні лінії сітки (логарифмічна шкала опору) -->
+    <line x1="50" y1="60" x2="590" y2="60" stroke="#21262d" stroke-width="1"/>
+    <line x1="50" y1="120" x2="590" y2="120" stroke="#21262d" stroke-width="1"/>
+    <line x1="50" y1="180" x2="590" y2="180" stroke="#21262d" stroke-width="1"/>
+    <line x1="50" y1="240" x2="590" y2="240" stroke="#21262d" stroke-width="1"/>
+    <line x1="50" y1="300" x2="590" y2="300" stroke="#21262d" stroke-width="1"/>
+
+    <!-- Вертикальні лінії сітки (температура) -->
+    <line x1="140" y1="20" x2="140" y2="340" stroke="#21262d" stroke-width="1"/>
+    <line x1="230" y1="20" x2="230" y2="340" stroke="#21262d" stroke-width="1"/>
+    <line x1="320" y1="20" x2="320" y2="340" stroke="#21262d" stroke-width="1"/>
+    <line x1="410" y1="20" x2="410" y2="340" stroke="#21262d" stroke-width="1"/>
+    <line x1="500" y1="20" x2="500" y2="340" stroke="#21262d" stroke-width="1"/>
+
+    <!-- Підписи осей -->
+    <!-- Вісь Y: Опір R (Log) -->
+    <text x="35" y="65" fill="#8b949e" font-size="11" text-anchor="end">100 кОм</text>
+    <text x="35" y="125" fill="#8b949e" font-size="11" text-anchor="end">10 кОм</text>
+    <text x="35" y="185" fill="#8b949e" font-size="11" text-anchor="end">1 кОм</text>
+    <text x="35" y="245" fill="#8b949e" font-size="11" text-anchor="end">100 Ом</text>
+    <text x="35" y="305" fill="#8b949e" font-size="11" text-anchor="end">10 Ом</text>
+    <text x="15" y="180" fill="#f0f6fc" font-size="12" font-weight="700" transform="rotate(-90 15 180)" text-anchor="middle">Опір R (Log-шкала)</text>
+
+    <!-- Вісь X: Температура T -->
+    <text x="50" y="360" fill="#8b949e" font-size="11" text-anchor="middle">-40°C</text>
+    <text x="140" y="360" fill="#8b949e" font-size="11" text-anchor="middle">0°C</text>
+    <text x="230" y="360" fill="#8b949e" font-size="11" text-anchor="middle">+25°C</text>
+    <text x="320" y="360" fill="#8b949e" font-size="11" text-anchor="middle">+60°C</text>
+    <text x="410" y="360" fill="#8b949e" font-size="11" text-anchor="middle">+100°C (Tc)</text>
+    <text x="500" y="360" fill="#8b949e" font-size="11" text-anchor="middle">+140°C</text>
+    <text x="320" y="385" fill="#f0f6fc" font-size="12" font-weight="700" text-anchor="middle">Температура навколишнього середовища T (°C)</text>
+
+    <!-- Крива 1: NTC (Червона лінія) -->
+    <path d="M 50 45 C 100 70, 160 95, 230 120 C 300 145, 420 220, 560 310" fill="none" stroke="#f85149" stroke-width="3.5"/>
+    <circle cx="230" cy="120" r="5" fill="#f85149"/>
+    <text x="245" y="115" fill="#ff7b72" font-size="11" font-weight="700">NTC: R₂₅ = 10 кОм</text>
+
+    <!-- Крива 2: Перемикальний PTC (Зелена лінія, стрибок у точці Кюрі) -->
+    <path d="M 50 285 C 150 280, 280 270, 360 260 C 390 255, 410 180, 425 70 C 435 50, 480 60, 560 85" fill="none" stroke="#3fb950" stroke-width="3.5"/>
+    <circle cx="410" cy="180" r="5" fill="#3fb950"/>
+    <text x="425" y="195" fill="#3fb950" font-size="11" font-weight="700">PTC: Точка Кюрі Tc (~100°C)</text>
+
+    <!-- Крива 3: Лінійний силістор PTC (Блакитна лінія) -->
+    <path d="M 50 290 L 560 160" fill="none" stroke="#58a6ff" stroke-width="2.5" stroke-dasharray="6,4"/>
+    <text x="490" y="150" fill="#58a6ff" font-size="11" font-weight="600">Силістор (кремній KTY)</text>
+
+    <!-- Легенда / Опис справа -->
+    <g transform="translate(615, 20)">
+      <!-- Картка NTC -->
+      <rect x="0" y="0" width="245" height="100" rx="8" fill="#161b22" stroke="#f85149" stroke-width="1.5"/>
+      <circle cx="20" cy="20" r="6" fill="#f85149"/>
+      <text x="35" y="24" fill="#ff7b72" font-size="13" font-weight="700">NTC (Негативний ТКС)</text>
+      <text x="15" y="46" fill="#f0f6fc" font-size="11">• Опір експоненційно ПАДАЄ</text>
+      <text x="15" y="64" fill="#8b949e" font-size="10">• Оксиди перехідних металів</text>
+      <text x="15" y="82" fill="#e3b341" font-size="10">• Застосування: точний вимір T</text>
+
+      <!-- Картка Switching PTC -->
+      <rect x="0" y="112" width="245" height="105" rx="8" fill="#161b22" stroke="#3fb950" stroke-width="1.5"/>
+      <circle cx="20" cy="132" r="6" fill="#3fb950"/>
+      <text x="35" y="136" fill="#3fb950" font-size="13" font-weight="700">PTC (Позитивний ТКС)</text>
+      <text x="15" y="158" fill="#f0f6fc" font-size="11">• Стрибок опору на 3..5 порядків</text>
+      <text x="15" y="176" fill="#8b949e" font-size="10">• Кераміка BaTiO3 / Полімери</text>
+      <text x="15" y="194" fill="#3fb950" font-size="10">• Застосування: самовідновний PolySwitch</text>
+
+      <!-- Картка Silistor -->
+      <rect x="0" y="228" width="245" height="92" rx="8" fill="#161b22" stroke="#58a6ff" stroke-width="1.5"/>
+      <circle cx="20" cy="248" r="6" fill="#58a6ff"/>
+      <text x="35" y="252" fill="#58a6ff" font-size="13" font-weight="700">Силістор (Кремнієвий PTC)</text>
+      <text x="15" y="274" fill="#f0f6fc" font-size="11">• Майже лінійний ТКС (+0.7 %/°C)</text>
+      <text x="15" y="292" fill="#8b949e" font-size="10">• Легований монокристал кремнію</text>
+      <text x="15" y="308" fill="#79c0ff" font-size="10">• Застосування: лінійний вимір T</text>
+    </g>
+  </g>
+
+  <!-- Математичний блок внизу -->
+  <g transform="translate(60, 440)">
+    <rect width="840" height="70" rx="8" fill="#161b22" stroke="#30363d" stroke-width="1.2"/>
+    <text x="20" y="25" fill="#58a6ff" font-size="12" font-weight="700">ТЕМПЕРАТУРНИЙ КОЕФІЦІЄНТ ОПОРУ (ТКС / TCR, альфа):</text>
+    <text x="20" y="48" fill="#f0f6fc" font-size="11" font-family="Consolas, monospace">
+      alpha = (1 / R) × (dR / dT)  ==>  NTC: alpha &lt; 0 (-3..-5 %/°C при 25°C);  PTC: alpha &gt;&gt; 0 (до +50 %/°C біля Tc)
+    </text>
+  </g>
+</svg>

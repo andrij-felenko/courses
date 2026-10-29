@@ -1,0 +1,104 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, -apple-system, BlinkMacSystemFont, Roboto, sans-serif">
+  <!-- Фон -->
+  <rect width="960" height="540" fill="#0d1117"/>
+  <rect x="15" y="15" width="930" height="510" rx="12" fill="none" stroke="#30363d" stroke-width="1.5"/>
+
+  <!-- Заголовок -->
+  <text x="480" y="42" fill="#f0f6fc" font-size="20" font-weight="700" text-anchor="middle">Застосування перемикальних PTC: Самовідновні запобіжники та нагрівачі</text>
+  <text x="480" y="66" fill="#8b949e" font-size="13" text-anchor="middle">Принцип дії полімерних PPTC (PolySwitch) та саморегульованих керамічних нагрівачів BaTiO3</text>
+
+  <!-- Блоки застосування (3 колонки) -->
+  <g transform="translate(30, 90)">
+    <!-- Блок 1: PolySwitch PPTC Запобіжник -->
+    <rect x="10" y="10" width="280" height="315" rx="8" fill="#161b22" stroke="#3fb950" stroke-width="1.5"/>
+    <rect x="10" y="10" width="280" height="32" rx="8" fill="#21262d"/>
+    <circle cx="28" cy="26" r="6" fill="#3fb950"/>
+    <text x="42" y="31" fill="#f0f6fc" font-size="13" font-weight="700">1. PolySwitch (PPTC запобіжник)</text>
+
+    <!-- Схема перемикання PPTC -->
+    <rect x="25" y="55" width="250" height="110" rx="6" fill="#0d1117" stroke="#30363d" stroke-width="1"/>
+    <text x="35" y="75" fill="#3fb950" font-size="11" font-weight="700">Норма: I &lt; I_hold</text>
+    <text x="35" y="92" fill="#8b949e" font-size="10">Кристалічний полімер, вуглецеві ланцюжки</text>
+    <text x="35" y="108" fill="#f0f6fc" font-size="10">Опір: R &lt; 0.1...0.5 Ом (мінімальні втрати)</text>
+
+    <line x1="25" y1="115" x2="275" y2="115" stroke="#30363d" stroke-width="1"/>
+
+    <text x="35" y="132" fill="#ff7b72" font-size="11" font-weight="700">Перевантаження: I &gt; I_trip</text>
+    <text x="35" y="148" fill="#8b949e" font-size="10">Джоулів нагрів P = I²R &gt; розсіювання</text>
+    <text x="35" y="162" fill="#f85149" font-size="10">Стрибок R у 10 000 разів! Струм падає до 0</text>
+
+    <text x="25" y="185" fill="#f0f6fc" font-size="11" font-weight="600">Ключові параметри:</text>
+    <text x="25" y="202" fill="#c9d1d9" font-size="10">• I_hold — струм гарантованого утримання</text>
+    <text x="25" y="218" fill="#c9d1d9" font-size="10">• I_trip — струм спрацювання (типово 2 × I_hold)</text>
+    <text x="25" y="234" fill="#c9d1d9" font-size="10">• V_max — максимальна робоча напруга</text>
+
+    <rect x="25" y="250" width="250" height="60" rx="6" fill="#1f2937"/>
+    <text x="35" y="270" fill="#3fb950" font-size="10" font-weight="700">Самовідновлення:</text>
+    <text x="35" y="285" fill="#8b949e" font-size="9">Після усунення КЗ та зняття напруги охолоджується</text>
+    <text x="35" y="299" fill="#8b949e" font-size="9">і автоматично повертається у низькоомний стан.</text>
+
+    <!-- Блок 2: Саморегульовані нагрівачі (PTC Heaters) -->
+    <rect x="310" y="10" width="280" height="315" rx="8" fill="#161b22" stroke="#f0883e" stroke-width="1.5"/>
+    <rect x="310" y="10" width="280" height="32" rx="8" fill="#21262d"/>
+    <circle cx="328" cy="26" r="6" fill="#f0883e"/>
+    <text x="342" y="31" fill="#f0f6fc" font-size="13" font-weight="700">2. Керамічні нагрівачі BaTiO3</text>
+
+    <!-- Схема нагрівача -->
+    <rect x="325" y="55" width="250" height="110" rx="6" fill="#0d1117" stroke="#30363d" stroke-width="1"/>
+    <text x="335" y="75" fill="#ffa657" font-size="11" font-weight="700">Ефект самостабілізації T</text>
+    <text x="335" y="92" fill="#8b949e" font-size="10">Потужність P = U² / R</text>
+    <text x="335" y="108" fill="#f0f6fc" font-size="10">При T &lt; Tc: R малий, потужність P максимальна</text>
+    <text x="335" y="125" fill="#3fb950" font-size="10">Швидкий вихід на робочу температуру</text>
+    <text x="335" y="142" fill="#ff7b72" font-size="10">При T &gt; Tc: R зростає, потужність P падає до нуля</text>
+
+    <text x="325" y="185" fill="#f0f6fc" font-size="11" font-weight="600">Переваги технології:</text>
+    <text x="325" y="202" fill="#c9d1d9" font-size="10">• Фізично неможливий перегрів або пожежа</text>
+    <text x="325" y="218" fill="#c9d1d9" font-size="10">• Не потрібен термостат та електронний ШІМ</text>
+    <text x="325" y="234" fill="#c9d1d9" font-size="10">• Робота при будь-якій напрузі 12 В / 230 В</text>
+
+    <rect x="325" y="250" width="250" height="60" rx="6" fill="#1f2937"/>
+    <text x="335" y="270" fill="#ffa657" font-size="10" font-weight="700">Галузі використання:</text>
+    <text x="335" y="285" fill="#8b949e" font-size="9">Автомобільні підігрівачі дизеля, клейові пістолети,</text>
+    <text x="335" y="299" fill="#8b949e" font-size="9">нагрівачі столів 3D-принтерів, сушарки взуття.</text>
+
+    <!-- Блок 3: Пускові термистори (Inrush Current Limiters) -->
+    <rect x="610" y="10" width="280" height="315" rx="8" fill="#161b22" stroke="#58a6ff" stroke-width="1.5"/>
+    <rect x="610" y="10" width="280" height="32" rx="8" fill="#21262d"/>
+    <circle cx="628" cy="26" r="6" fill="#58a6ff"/>
+    <text x="642" y="31" fill="#f0f6fc" font-size="13" font-weight="700">3. Обмеження пускових струмів (ICL)</text>
+
+    <!-- Порівняння NTC vs PTC ICL -->
+    <rect x="625" y="55" width="250" height="110" rx="6" fill="#0d1117" stroke="#30363d" stroke-width="1"/>
+    <text x="635" y="75" fill="#58a6ff" font-size="11" font-weight="700">NTC ICL (Імпульсні БЖ):</text>
+    <text x="635" y="92" fill="#8b949e" font-size="10">Холодний: 5..10 Ом — гасить пусковий удар заряду C</text>
+    <text x="635" y="108" fill="#3fb950" font-size="10">Гарячий: прогрівається до 0.1..0.5 Ом (високий ККД)</text>
+
+    <line x1="625" y1="115" x2="875" y2="115" stroke="#30363d" stroke-width="1"/>
+
+    <text x="635" y="132" fill="#d2a8ff" font-size="11" font-weight="700">PTC ICL (Захист розмагнічування):</text>
+    <text x="635" y="148" fill="#8b949e" font-size="10">Холодний: малий опір — потужний струм у котушці</text>
+    <text x="635" y="162" fill="#8b949e" font-size="10">Прогрівається — струм плавно згасає до нуля</text>
+
+    <text x="625" y="185" fill="#f0f6fc" font-size="11" font-weight="600">Особливості схемотехніки NTC ICL:</text>
+    <text x="625" y="202" fill="#c9d1d9" font-size="10">• Вимагає часу охолодження (30..60 с) після вимкнення</text>
+    <text x="625" y="218" fill="#c9d1d9" font-size="10">• У потужних БЖ шунтується реле після старту</text>
+    <text x="625" y="234" fill="#c9d1d9" font-size="10">• Працює при високих внутрішніх температурах (~120 °C)</text>
+
+    <rect x="625" y="250" width="250" height="60" rx="6" fill="#1f2937"/>
+    <text x="635" y="270" fill="#58a6ff" font-size="10" font-weight="700">Застосування:</text>
+    <text x="635" y="285" fill="#8b949e" font-size="9">Вхідні фільтри імпульсних блоків живлення, інвертори,</text>
+    <text x="635" y="299" fill="#8b949e" font-size="9">частотні приводи електродвигунів, зарядні станції.</text>
+  </g>
+
+  <!-- Підвал -->
+  <g transform="translate(40, 435)">
+    <rect width="880" height="70" rx="8" fill="#161b22" stroke="#30363d" stroke-width="1.2"/>
+    <text x="25" y="25" fill="#58a6ff" font-size="12" font-weight="700">ВИСНОВОК ЩОДО ПРИЗНАЧЕННЯ PTC ТА NTC У ЕНЕРГОСИСТЕМАХ:</text>
+    <text x="25" y="48" fill="#f0f6fc" font-size="11">
+      • NTC переважно застосовуються для вимірювання температури та обмеження струму першого заряду ємностей.
+    </text>
+    <text x="25" y="64" fill="#8b949e" font-size="11">
+      • PTC незамінні як самовідновні багаторазові запобіжники (PPTC) та безпечні безіскрові нагрівачі з внутрішнім зворотним зв'язком.
+    </text>
+  </g>
+</svg>
