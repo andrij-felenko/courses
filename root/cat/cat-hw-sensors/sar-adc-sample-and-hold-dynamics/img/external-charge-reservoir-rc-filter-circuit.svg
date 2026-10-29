@@ -1,0 +1,74 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 850 480" width="100%" height="100%">
+  <rect width="100%" height="100%" fill="#0d1117"/>
+  <text x="425" y="35" font-family="system-ui, -apple-system, sans-serif" font-size="20" font-weight="bold" fill="#f0f6fc" text-anchor="middle">Апаратні методи: Зовнішній резервуар заряду та буфер ОП</text>
+  <text x="425" y="58" font-family="system-ui, -apple-system, sans-serif" font-size="13" fill="#8b949e" text-anchor="middle">Узгодження імпедансу сенсора: RC-резервуар C_ext та повторювач напруги</text>
+
+  <!-- Solution 1: External RC Reservoir -->
+  <rect x="40" y="85" width="370" height="365" rx="10" fill="#161b22" stroke="#30363d" stroke-width="1.5"/>
+  <text x="225" y="115" font-family="system-ui, -apple-system, sans-serif" font-size="15" font-weight="bold" fill="#58a6ff" text-anchor="middle">Метод 1: Накопичувальний C_ext</text>
+
+  <rect x="60" y="140" width="330" height="150" rx="6" fill="#21262d" stroke="#30363d" stroke-width="1"/>
+  <text x="80" y="170" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#58a6ff">Сенсор</text>
+  <line x1="125" y1="165" x2="160" y2="165" stroke="#58a6ff" stroke-width="2"/>
+
+  <!-- R_flt -->
+  <rect x="160" y="155" width="45" height="20" fill="#161b22" stroke="#d29922" stroke-width="1.5"/>
+  <text x="182" y="170" font-family="system-ui, -apple-system, sans-serif" font-size="10" fill="#d29922" text-anchor="middle">R_flt</text>
+  <line x1="205" y1="165" x2="260" y2="165" stroke="#58a6ff" stroke-width="2"/>
+
+  <!-- Node to C_ext -->
+  <circle cx="260" cy="165" r="4" fill="#3fb950"/>
+  <line x1="260" y1="165" x2="260" y2="200" stroke="#3fb950" stroke-width="2"/>
+  <line x1="250" y1="200" x2="270" y2="200" stroke="#3fb950" stroke-width="2.5"/>
+  <line x1="250" y1="206" x2="270" y2="206" stroke="#3fb950" stroke-width="2.5"/>
+  <line x1="260" y1="206" x2="260" y2="235" stroke="#8b949e" stroke-width="2"/>
+  <text x="290" y="208" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="bold" fill="#3fb950">C_ext</text>
+  <text x="290" y="224" font-family="system-ui, -apple-system, sans-serif" font-size="10" fill="#8b949e">(1 .. 10 нФ)</text>
+
+  <!-- Line to MCU Pin -->
+  <line x1="260" y1="165" x2="360" y2="165" stroke="#58a6ff" stroke-width="2"/>
+  <text x="360" y="155" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#79c0ff" text-anchor="end">До піна АЦП →</text>
+
+  <!-- Rule for C_ext -->
+  <rect x="60" y="305" width="330" height="125" rx="6" fill="#0d1117" stroke="#3fb950" stroke-width="1"/>
+  <text x="75" y="330" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="bold" fill="#3fb950">Золоте правило ємності C_ext:</text>
+  <text x="75" y="355" font-family="system-ui, -apple-system, sans-serif" font-size="13" font-weight="bold" fill="#f0f6fc">C_ext ≥ 2^(N+1) · C_sample / (коефіцієнт)</text>
+  <text x="75" y="378" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#c9d1d9">Практично: C_ext ≥ 50 · C_sample (1..10 нФ)</text>
+  <text x="75" y="398" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#8b949e">Миттєво віддає заряд у C_sample</text>
+  <text x="75" y="415" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#7ee787">з просадкою напруги менше 0.5 LSB!</text>
+
+  <!-- Solution 2: OpAmp Buffer -->
+  <rect x="435" y="85" width="375" height="365" rx="10" fill="#161b22" stroke="#30363d" stroke-width="1.5"/>
+  <text x="622" y="115" font-family="system-ui, -apple-system, sans-serif" font-size="15" font-weight="bold" fill="#3fb950" text-anchor="middle">Метод 2: Активний буфер ОП</text>
+
+  <rect x="455" y="140" width="335" height="150" rx="6" fill="#21262d" stroke="#30363d" stroke-width="1"/>
+  <!-- OpAmp Triangle -->
+  <polygon points="540,165 540,265 620,215" fill="#161b22" stroke="#3fb950" stroke-width="2"/>
+  <text x="555" y="190" font-family="system-ui, -apple-system, sans-serif" font-size="14" fill="#3fb950">+</text>
+  <text x="555" y="245" font-family="system-ui, -apple-system, sans-serif" font-size="14" fill="#f85149">-</text>
+
+  <!-- Input from high-Z sensor -->
+  <line x1="475" y1="185" x2="540" y2="185" stroke="#58a6ff" stroke-width="2"/>
+  <text x="475" y="175" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#58a6ff">Високоомний сенсор</text>
+
+  <!-- Feedback loop (Unity Gain) -->
+  <line x1="620" y1="215" x2="650" y2="215" stroke="#3fb950" stroke-width="2"/>
+  <line x1="650" y1="215" x2="650" y2="265" stroke="#3fb950" stroke-width="2"/>
+  <line x1="650" y1="265" x2="520" y2="265" stroke="#3fb950" stroke-width="2"/>
+  <line x1="520" y1="265" x2="520" y2="240" stroke="#3fb950" stroke-width="2"/>
+  <line x1="520" y1="240" x2="540" y2="240" stroke="#3fb950" stroke-width="2"/>
+
+  <!-- Output to ADC -->
+  <line x1="650" y1="215" x2="750" y2="215" stroke="#3fb950" stroke-width="2.5"/>
+  <circle cx="750" cy="215" r="4" fill="#3fb950"/>
+  <text x="750" y="205" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="bold" fill="#3fb950">До АЦП</text>
+  <text x="750" y="235" font-family="system-ui, -apple-system, sans-serif" font-size="10" fill="#7ee787">R_out &lt; 0.1 Ом</text>
+
+  <!-- Buffer benefits -->
+  <rect x="455" y="305" width="335" height="125" rx="6" fill="#0d1117" stroke="#30363d" stroke-width="1"/>
+  <text x="470" y="330" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="bold" fill="#f0f6fc">Переваги повторювача напруги:</text>
+  <text x="470" y="355" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#c9d1d9">• Вихідний динамічний опір ОП &lt; 1 Ом</text>
+  <text x="470" y="375" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#c9d1d9">• Повне перезаряджання C_sample за &lt; 20 нс</text>
+  <text x="470" y="395" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#3fb950">• 100% захист від Ghosting при перемиканні МУКС</text>
+  <text x="470" y="415" font-family="system-ui, -apple-system, sans-serif" font-size="10" fill="#8b949e">Рекомендовано: OPA333, MCP6001, TLV333</text>
+</svg>

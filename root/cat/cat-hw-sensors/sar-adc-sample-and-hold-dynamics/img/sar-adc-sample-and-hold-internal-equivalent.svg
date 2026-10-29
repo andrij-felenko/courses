@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 850 480" width="100%" height="100%">
+  <rect width="100%" height="100%" fill="#0d1117"/>
+  <text x="425" y="35" font-family="system-ui, -apple-system, sans-serif" font-size="20" font-weight="bold" fill="#f0f6fc" text-anchor="middle">Еквівалентна схема вхідного каскаду SAR АЦП</text>
+  <text x="425" y="58" font-family="system-ui, -apple-system, sans-serif" font-size="13" fill="#8b949e" text-anchor="middle">Взаємодія опору датчика R_source, ключа вибірки R_switch та конденсатора вибірки C_sample</text>
+
+  <!-- External Sensor Zone -->
+  <rect x="40" y="85" width="230" height="270" rx="8" fill="#161b22" stroke="#30363d" stroke-width="1.5"/>
+  <text x="155" y="112" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="bold" fill="#58a6ff" text-anchor="middle">Зовнішній сенсор</text>
+
+  <!-- Ideal Voltage Source V_in -->
+  <circle cx="100" cy="190" r="22" fill="#21262d" stroke="#58a6ff" stroke-width="2"/>
+  <text x="100" y="196" font-family="system-ui, -apple-system, sans-serif" font-size="13" font-weight="bold" fill="#58a6ff" text-anchor="middle">V_IN</text>
+
+  <line x1="100" y1="212" x2="100" y2="280" stroke="#8b949e" stroke-width="2"/>
+  <line x1="90" y1="280" x2="110" y2="280" stroke="#8b949e" stroke-width="2"/>
+  <line x1="95" y1="285" x2="105" y2="285" stroke="#8b949e" stroke-width="1.5"/>
+
+  <!-- Output Impedance R_source -->
+  <line x1="122" y1="190" x2="160" y2="190" stroke="#58a6ff" stroke-width="2"/>
+  <rect x="160" y="178" width="55" height="24" fill="#21262d" stroke="#d29922" stroke-width="1.5"/>
+  <text x="187" y="195" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="bold" fill="#d29922" text-anchor="middle">R_source</text>
+
+  <line x1="215" y1="190" x2="270" y2="190" stroke="#58a6ff" stroke-width="2"/>
+
+  <!-- Boundary: MCU Pin -->
+  <line x1="295" y1="80" x2="295" y2="365" stroke="#f85149" stroke-width="1.5" stroke-dasharray="4 3"/>
+  <text x="295" y="75" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="bold" fill="#f85149" text-anchor="middle">Пін MCU (AINx)</text>
+
+  <!-- Internal MCU / ADC Zone -->
+  <rect x="320" y="85" width="490" height="270" rx="8" fill="#161b22" stroke="#30363d" stroke-width="1.5"/>
+  <text x="565" y="112" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="bold" fill="#3fb950" text-anchor="middle">Внутрішня структура SAR АЦП</text>
+
+  <!-- Pin capacitance C_pin -->
+  <line x1="360" y1="190" x2="360" y2="230" stroke="#8b949e" stroke-width="2"/>
+  <line x1="350" y1="230" x2="370" y2="230" stroke="#8b949e" stroke-width="2"/>
+  <line x1="350" y1="236" x2="370" y2="236" stroke="#8b949e" stroke-width="2"/>
+  <line x1="360" y1="236" x2="360" y2="280" stroke="#8b949e" stroke-width="2"/>
+  <line x1="350" y1="280" x2="370" y2="280" stroke="#8b949e" stroke-width="2"/>
+  <text x="360" y="300" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#8b949e" text-anchor="middle">C_pin (~5пФ)</text>
+
+  <line x1="270" y1="190" x2="400" y2="190" stroke="#58a6ff" stroke-width="2"/>
+
+  <!-- Switch Resistance R_switch -->
+  <rect x="400" y="178" width="55" height="24" fill="#21262d" stroke="#bc8cff" stroke-width="1.5"/>
+  <text x="427" y="195" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="bold" fill="#bc8cff" text-anchor="middle">R_switch</text>
+
+  <line x1="455" y1="190" x2="500" y2="190" stroke="#58a6ff" stroke-width="2"/>
+
+  <!-- Sampling Switch SW_sample -->
+  <circle cx="500" cy="190" r="4" fill="#3fb950"/>
+  <line x1="500" y1="190" x2="535" y2="175" stroke="#3fb950" stroke-width="2.5"/>
+  <circle cx="540" cy="190" r="4" fill="#3fb950"/>
+  <text x="520" y="165" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="bold" fill="#3fb950" text-anchor="middle">SW (t_sample)</text>
+
+  <!-- Sampling Capacitor C_sample -->
+  <line x1="540" y1="190" x2="620" y2="190" stroke="#58a6ff" stroke-width="2"/>
+  <line x1="620" y1="190" x2="620" y2="230" stroke="#3fb950" stroke-width="2"/>
+  <line x1="605" y1="230" x2="635" y2="230" stroke="#3fb950" stroke-width="2.5"/>
+  <line x1="605" y1="236" x2="635" y2="236" stroke="#3fb950" stroke-width="2.5"/>
+  <line x1="620" y1="236" x2="620" y2="280" stroke="#8b949e" stroke-width="2"/>
+  <line x1="610" y1="280" x2="630" y2="280" stroke="#8b949e" stroke-width="2"/>
+  <text x="670" y="235" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="bold" fill="#3fb950">C_sample</text>
+  <text x="670" y="252" font-family="system-ui, -apple-system, sans-serif" font-size="10" fill="#8b949e">(4 .. 15 пФ)</text>
+
+  <!-- Comparator & SAR Logic -->
+  <line x1="620" y1="190" x2="710" y2="190" stroke="#58a6ff" stroke-width="2"/>
+  <rect x="710" y="165" width="80" height="50" rx="4" fill="#21262d" stroke="#58a6ff" stroke-width="1.5"/>
+  <text x="750" y="195" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="bold" fill="#58a6ff" text-anchor="middle">SAR DAC</text>
+
+  <!-- Bottom Formula Card -->
+  <rect x="40" y="370" width="770" height="85" rx="8" fill="#161b22" stroke="#3fb950" stroke-width="1.5"/>
+  <text x="425" y="395" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="bold" fill="#3fb950" text-anchor="middle">Повна постійна часу зарядного RC-ланцюга:</text>
+  <text x="425" y="420" font-family="system-ui, -apple-system, sans-serif" font-size="13" font-weight="bold" fill="#f0f6fc" text-anchor="middle">τ = (R_source + R_switch) · (C_sample + C_pin)</text>
+  <text x="425" y="442" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#8b949e" text-anchor="middle">Якщо R_source занадто великий, C_sample не встигає зарядитися до V_in за час вибірки t_sample!</text>
+</svg>
