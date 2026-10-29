@@ -1,0 +1,98 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 500" width="100%" height="100%">
+  <defs>
+    <style>
+      .bg { fill: #0f172a; }
+      .panel { fill: #1e293b; stroke: #334155; stroke-width: 1; rx: 8px; }
+      .box { fill: #0f172a; stroke: #475569; stroke-width: 1.5; rx: 6px; }
+      .title { fill: #f8fafc; font-family: system-ui, -apple-system, sans-serif; font-size: 16px; font-weight: bold; }
+      .subtitle { fill: #94a3b8; font-family: system-ui, -apple-system, sans-serif; font-size: 12px; }
+      .lbl { fill: #cbd5e1; font-family: system-ui, -apple-system, sans-serif; font-size: 12px; }
+      .lbl-bold { fill: #f1f5f9; font-family: system-ui, -apple-system, sans-serif; font-size: 12px; font-weight: bold; }
+      .wire-par { stroke: #f43f5e; stroke-width: 1.5; fill: none; }
+      .wire-ser { stroke: #10b981; stroke-width: 2.5; fill: none; }
+    </style>
+  </defs>
+
+  <rect width="880" height="500" class="bg" />
+
+  <text x="440" y="28" text-anchor="middle" class="title">Порівняння підключення: Паралельна шина vs Послідовна лінія SSI / BiSS-C</text>
+  <text x="440" y="48" text-anchor="middle" class="subtitle">Радикальне скорочення провідників із понад 30 жил до 4 та усунення міжжильного перекосу фаз (Skew)</text>
+
+  <!-- Left: Parallel Bus (30+ wires) -->
+  <rect x="30" y="65" width="400" height="415" class="panel" />
+  <text x="50" y="90" class="lbl-bold" fill="#f43f5e">1. Традиційна паралельна шина (Parallel Bus)</text>
+  <text x="50" y="106" class="subtitle">16 біт однооберт + 12 біт багатооберт = 28 жил даних</text>
+
+  <g transform="translate(50, 120)">
+    <!-- Encoder Device -->
+    <rect x="0" y="20" width="85" height="150" class="box" style="stroke: #f43f5e;" />
+    <text x="42" y="85" text-anchor="middle" class="lbl-bold">Енкодер</text>
+    <text x="42" y="105" text-anchor="middle" class="subtitle">(Паралельний)</text>
+
+    <!-- Bundle of 28+ wires -->
+    <line x1="85" y1="35" x2="255" y2="35" class="wire-par" />
+    <line x1="85" y1="45" x2="255" y2="45" class="wire-par" />
+    <line x1="85" y1="55" x2="255" y2="55" class="wire-par" />
+    <line x1="85" y1="65" x2="255" y2="65" class="wire-par" />
+    <line x1="85" y1="75" x2="255" y2="75" class="wire-par" />
+    <line x1="85" y1="85" x2="255" y2="85" class="wire-par" />
+    <line x1="85" y1="95" x2="255" y2="95" class="wire-par" />
+    <line x1="85" y1="105" x2="255" y2="105" class="wire-par" />
+    <line x1="85" y1="115" x2="255" y2="115" class="wire-par" />
+    <line x1="85" y1="125" x2="255" y2="125" class="wire-par" />
+    <line x1="85" y1="135" x2="255" y2="135" class="wire-par" />
+    <line x1="85" y1="145" x2="255" y2="145" class="wire-par" />
+    <line x1="85" y1="155" x2="255" y2="155" class="wire-par" />
+
+    <text x="170" y="25" text-anchor="middle" class="lbl-bold" fill="#f43f5e">30–34 жили!</text>
+
+    <!-- Controller Device -->
+    <rect x="255" y="20" width="95" height="150" class="box" style="stroke: #f43f5e;" />
+    <text x="302" y="85" text-anchor="middle" class="lbl-bold">ПЛК / ЧПУ</text>
+    <text x="302" y="105" text-anchor="middle" class="subtitle">32 порти вводу</text>
+
+    <!-- Disadvantages box -->
+    <rect x="0" y="190" width="350" height="150" class="box" />
+    <text x="15" y="212" class="lbl-bold" fill="#f43f5e">Критичні недоліки паралельної шини:</text>
+    <text x="15" y="232" class="lbl">• Товстий, жорсткий та дорогий кабель</text>
+    <text x="15" y="250" class="lbl">• Неможливість укладання в рухомі кабель-канали</text>
+    <text x="15" y="268" class="lbl">• Міжкабельний перекіс фронтів (Skew delay):</text>
+    <text x="25" y="286" class="subtitle">фронти прибувають з різницею до кількох нс</text>
+    <text x="15" y="306" class="lbl">• Обмеження довжини лінії: не більше 2–3 метрів</text>
+    <text x="15" y="324" class="subtitle">Сплески помилкових координат на межах</text>
+  </g>
+
+  <!-- Right: Serial Point-to-Point (4 wires) -->
+  <rect x="450" y="65" width="400" height="415" class="panel" />
+  <text x="470" y="90" class="lbl-bold" fill="#10b981">2. Послідовна лінія RS-422 (SSI / BiSS-C)</text>
+  <text x="470" y="106" class="subtitle">Всього 2 екрановані виті пари (4 жили): CLK та DATA</text>
+
+  <g transform="translate(470, 120)">
+    <!-- Encoder Device -->
+    <rect x="0" y="20" width="85" height="150" class="box" style="stroke: #10b981;" />
+    <text x="42" y="85" text-anchor="middle" class="lbl-bold">Енкодер</text>
+    <text x="42" y="105" text-anchor="middle" class="subtitle">(SSI / BiSS)</text>
+
+    <!-- Serial lines: CLK pair & DATA pair -->
+    <line x1="85" y1="65" x2="255" y2="65" class="wire-ser" stroke="#38bdf8" />
+    <text x="170" y="55" text-anchor="middle" class="lbl-bold" fill="#38bdf8">Пара 1: CLK (+ / -)</text>
+
+    <line x1="85" y1="115" x2="255" y2="115" class="wire-ser" />
+    <text x="170" y="105" text-anchor="middle" class="lbl-bold" fill="#10b981">Пара 2: DATA (+ / -)</text>
+
+    <!-- Controller Device -->
+    <rect x="255" y="20" width="95" height="150" class="box" style="stroke: #10b981;" />
+    <text x="302" y="85" text-anchor="middle" class="lbl-bold">Серводрайвер</text>
+    <text x="302" y="105" text-anchor="middle" class="subtitle">RS-422 трансивер</text>
+
+    <!-- Advantages box -->
+    <rect x="0" y="190" width="350" height="150" class="box" />
+    <text x="15" y="212" class="lbl-bold" fill="#10b981">Переваги послідовного стандарту:</text>
+    <text x="15" y="232" class="lbl">• Тонкий, гнучкий кабель для роботів (кабель-канали)</text>
+    <text x="15" y="250" class="lbl">• Повна відсутність міжкабельного Skew:</text>
+    <text x="25" y="268" class="subtitle">всі біти йдуть один за одним по одній парі</text>
+    <text x="15" y="288" class="lbl">• Довжина лінії: до 100–500 метрів!</text>
+    <text x="15" y="306" class="lbl">• Синфазне пригнічення завад RS-422</text>
+    <text x="15" y="324" class="subtitle" fill="#10b981">Висока завадостійкість поряд з інвертором</text>
+  </g>
+</svg>

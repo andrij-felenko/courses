@@ -1,0 +1,74 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 500" width="100%" height="100%">
+  <defs>
+    <style>
+      .bg { fill: #0f172a; }
+      .panel { fill: #1e293b; stroke: #334155; stroke-width: 1; rx: 8px; }
+      .box { fill: #0f172a; stroke: #38bdf8; stroke-width: 1.5; rx: 6px; }
+      .box-ack { fill: #0f172a; stroke: #94a3b8; stroke-width: 1.5; rx: 6px; }
+      .box-pos { fill: #0f172a; stroke: #10b981; stroke-width: 1.5; rx: 6px; }
+      .box-diag { fill: #0f172a; stroke: #f43f5e; stroke-width: 1.5; rx: 6px; }
+      .box-crc { fill: #0f172a; stroke: #a855f7; stroke-width: 1.5; rx: 6px; }
+      .title { fill: #f8fafc; font-family: system-ui, -apple-system, sans-serif; font-size: 16px; font-weight: bold; }
+      .subtitle { fill: #94a3b8; font-family: system-ui, -apple-system, sans-serif; font-size: 12px; }
+      .lbl { fill: #cbd5e1; font-family: system-ui, -apple-system, sans-serif; font-size: 12px; }
+      .lbl-bold { fill: #f1f5f9; font-family: system-ui, -apple-system, sans-serif; font-size: 12px; font-weight: bold; }
+      .wire { stroke: #94a3b8; stroke-width: 2; fill: none; }
+    </style>
+  </defs>
+
+  <rect width="880" height="500" class="bg" />
+
+  <text x="440" y="28" text-anchor="middle" class="title">Структура кадру відкритого протоколу BiSS-C C-mode</text>
+  <text x="440" y="48" text-anchor="middle" class="subtitle">Поєднання даних положення, прямого каналу керування CDS, прапорців безпеки та апаратного захисту CRC-6</text>
+
+  <!-- Frame Layout Container -->
+  <rect x="30" y="70" width="820" height="230" class="panel" />
+  <text x="50" y="95" class="lbl-bold" fill="#38bdf8">Послідовність полів кадру BiSS-C (лінія SL):</text>
+
+  <!-- Sequence of Frame Fields -->
+  <g transform="translate(45, 115)">
+    <!-- 1. ACK bit -->
+    <rect x="0" y="0" width="65" height="90" class="box-ack" />
+    <text x="32" y="25" text-anchor="middle" class="lbl-bold" fill="#94a3b8">ACK</text>
+    <text x="32" y="45" text-anchor="middle" class="subtitle">LOW</text>
+    <text x="32" y="75" text-anchor="middle" class="subtitle">Вимір t_d</text>
+
+    <!-- 2. Start bit (ST) -->
+    <rect x="70" y="0" width="60" height="90" class="box" />
+    <text x="100" y="25" text-anchor="middle" class="lbl-bold" fill="#38bdf8">START</text>
+    <text x="100" y="45" text-anchor="middle" class="lbl">HIGH</text>
+    <text x="100" y="75" text-anchor="middle" class="subtitle">Синхро</text>
+
+    <!-- 3. CDS bit (Control Data Slave) -->
+    <rect x="135" y="0" width="70" height="90" class="box" style="stroke: #fbbf24;" />
+    <text x="170" y="25" text-anchor="middle" class="lbl-bold" fill="#fbbf24">CDS</text>
+    <text x="170" y="45" text-anchor="middle" class="lbl">1 біт</text>
+    <text x="170" y="75" text-anchor="middle" class="subtitle">Регістри</text>
+
+    <!-- 4. Position Data (Multiturn + Singleturn) -->
+    <rect x="210" y="0" width="310" height="90" class="box-pos" />
+    <text x="365" y="25" text-anchor="middle" class="lbl-bold" fill="#10b981">Дані положення (Position Data)</text>
+    <text x="365" y="48" text-anchor="middle" class="lbl">12–16 біт Singleturn + 12–16 біт Multiturn</text>
+    <text x="365" y="75" text-anchor="middle" class="subtitle">Передаються MSB-to-LSB у чистому двійковому коді</text>
+
+    <!-- 5. Error & Warning Flags -->
+    <rect x="525" y="0" width="115" height="90" class="box-diag" />
+    <text x="582" y="25" text-anchor="middle" class="lbl-bold" fill="#f43f5e">nE / nW</text>
+    <text x="582" y="48" text-anchor="middle" class="lbl">2 біти</text>
+    <text x="582" y="75" text-anchor="middle" class="subtitle">Діагностика</text>
+
+    <!-- 6. CRC-6 field -->
+    <rect x="645" y="0" width="145" height="90" class="box-crc" />
+    <text x="717" y="25" text-anchor="middle" class="lbl-bold" fill="#a855f7">CRC-6</text>
+    <text x="717" y="48" text-anchor="middle" class="lbl">6 бітів</text>
+    <text x="717" y="75" text-anchor="middle" class="subtitle">x⁶ + x + 1</text>
+  </g>
+
+  <!-- Bottom Detailed Insights Panel -->
+  <rect x="30" y="320" width="820" height="155" class="panel" />
+  <text x="50" y="345" class="lbl-bold" fill="#38bdf8">Переваги архітектури BiSS-C C-mode:</text>
+  <text x="50" y="370" class="lbl">1. <tspan fill="#38bdf8">Компенсація затримки лінії (Line Delay Compensation):</tspan> Під час ACK майстер вимірює t_ring та підлаштовує строб. Частота до 10 МГц на 100 м!</text>
+  <text x="50" y="392" class="lbl">2. <tspan fill="#fbbf24">Вбудований сервісний канал CDS:</tspan> Читання/запис внутрішніх регістрів, температури та паспорта енкодера без переривання передачі кута.</text>
+  <text x="50" y="414" class="lbl">3. <tspan fill="#f43f5e">Апаратні прапорці nERROR / nWARN:</tspan> Миттєве виявлення забруднення диска або перегріву ще до виникнення збою позиції.</text>
+  <text x="50" y="436" class="lbl">4. <tspan fill="#a855f7">Контрольна сума CRC-6:</tspan> Поліном P(x) = x^6 + x + 1 зі 100% гарантією виявляє поодинокі та пачкові завади в кабелі.</text>
+</svg>
