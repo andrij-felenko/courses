@@ -1,0 +1,77 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="100%" height="100%">
+  <rect width="960" height="480" fill="#0d1117" rx="12"/>
+  <text x="480" y="38" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="20" font-weight="700" fill="#f0f6fc" text-anchor="middle">Класифікація похибок: Систематичні проти Випадкових</text>
+  <text x="480" y="62" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" fill="#8b949e" text-anchor="middle">Різниця між правильністю (Accuracy) та прецизійністю (Precision)</text>
+
+  <!-- Left: Target 1 (Low Precision, High Bias) -->
+  <g transform="translate(100, 110)">
+    <circle cx="90" cy="90" r="85" fill="#161b22" stroke="#30363d" stroke-width="2"/>
+    <circle cx="90" cy="90" r="60" fill="none" stroke="#21262d" stroke-width="1.5"/>
+    <circle cx="90" cy="90" r="35" fill="none" stroke="#21262d" stroke-width="1.5"/>
+    <circle cx="90" cy="90" r="10" fill="#3fb950" opacity="0.4"/>
+
+    <!-- Hits: scattered and off-center -->
+    <circle cx="130" cy="50" r="4" fill="#f85149"/>
+    <circle cx="145" cy="65" r="4" fill="#f85149"/>
+    <circle cx="120" cy="70" r="4" fill="#f85149"/>
+    <circle cx="150" cy="40" r="4" fill="#f85149"/>
+    <circle cx="135" cy="80" r="4" fill="#f85149"/>
+
+    <text x="90" y="205" font-family="sans-serif" font-size="13" font-weight="bold" fill="#f85149" text-anchor="middle">Погано все</text>
+    <text x="90" y="225" font-family="sans-serif" font-size="11" fill="#8b949e" text-anchor="middle">Високий зсув (Bias)</text>
+    <text x="90" y="242" font-family="sans-serif" font-size="11" fill="#8b949e" text-anchor="middle">+ Великий розкид (Noise)</text>
+  </g>
+
+  <!-- Middle: Target 2 (High Precision, High Bias - Systematic Error) -->
+  <g transform="translate(390, 110)">
+    <circle cx="90" cy="90" r="85" fill="#161b22" stroke="#30363d" stroke-width="2"/>
+    <circle cx="90" cy="90" r="60" fill="none" stroke="#21262d" stroke-width="1.5"/>
+    <circle cx="90" cy="90" r="35" fill="none" stroke="#21262d" stroke-width="1.5"/>
+    <circle cx="90" cy="90" r="10" fill="#3fb950" opacity="0.4"/>
+
+    <!-- Hits: clustered tightly, but far from center -->
+    <circle cx="140" cy="50" r="4" fill="#d29922"/>
+    <circle cx="143" cy="53" r="4" fill="#d29922"/>
+    <circle cx="138" cy="48" r="4" fill="#d29922"/>
+    <circle cx="142" cy="47" r="4" fill="#d29922"/>
+    <circle cx="146" cy="51" r="4" fill="#d29922"/>
+
+    <text x="90" y="205" font-family="sans-serif" font-size="13" font-weight="bold" fill="#d29922" text-anchor="middle">Систематична похибка</text>
+    <text x="90" y="225" font-family="sans-serif" font-size="11" fill="#f0f6fc" text-anchor="middle">Купчасто, але зі зсувом!</text>
+    <text x="90" y="242" font-family="sans-serif" font-size="11" fill="#3fb950" text-anchor="middle">Виправляється калібруванням</text>
+  </g>
+
+  <!-- Right: Target 3 (Ideal: High Accuracy, High Precision) -->
+  <g transform="translate(680, 110)">
+    <circle cx="90" cy="90" r="85" fill="#161b22" stroke="#30363d" stroke-width="2"/>
+    <circle cx="90" cy="90" r="60" fill="none" stroke="#21262d" stroke-width="1.5"/>
+    <circle cx="90" cy="90" r="35" fill="none" stroke="#21262d" stroke-width="1.5"/>
+    <circle cx="90" cy="90" r="10" fill="#3fb950" opacity="0.6"/>
+
+    <!-- Hits: clustered dead center -->
+    <circle cx="91" cy="90" r="4" fill="#3fb950"/>
+    <circle cx="89" cy="92" r="4" fill="#3fb950"/>
+    <circle cx="92" cy="88" r="4" fill="#3fb950"/>
+    <circle cx="88" cy="89" r="4" fill="#3fb950"/>
+    <circle cx="90" cy="93" r="4" fill="#3fb950"/>
+
+    <text x="90" y="205" font-family="sans-serif" font-size="13" font-weight="bold" fill="#3fb950" text-anchor="middle">Ідеальний стан</text>
+    <text x="90" y="225" font-family="sans-serif" font-size="11" fill="#f0f6fc" text-anchor="middle">Калібрований нуль</text>
+    <text x="90" y="242" font-family="sans-serif" font-size="11" fill="#8b949e" text-anchor="middle">+ Фільтрація шумів</text>
+  </g>
+
+  <!-- Bottom Comparison Cards -->
+  <g transform="translate(80, 375)">
+    <rect width="380" height="75" rx="6" fill="#161b22" stroke="#d29922"/>
+    <text x="20" y="25" font-family="sans-serif" font-size="12" font-weight="bold" fill="#d29922">Систематичні похибки (Детерміновані):</text>
+    <text x="20" y="45" font-family="sans-serif" font-size="11" fill="#8b949e">• Offset, похибка коефіцієнта підсилення (Gain error)</text>
+    <text x="20" y="62" font-family="sans-serif" font-size="11" fill="#3fb950">• Ліквідуються 1- або 2-точковим калібруванням у ПЗ!</text>
+  </g>
+
+  <g transform="translate(500, 375)">
+    <rect width="380" height="75" rx="6" fill="#161b22" stroke="#58a6ff"/>
+    <text x="20" y="25" font-family="sans-serif" font-size="12" font-weight="bold" fill="#58a6ff">Випадкові похибки (Стохастичні):</text>
+    <text x="20" y="45" font-family="sans-serif" font-size="11" fill="#8b949e">• Тепловий шум Джонсона, 1/f флікер-шум, квантування</text>
+    <text x="20" y="62" font-family="sans-serif" font-size="11" fill="#bc8cff">• Знижуються усередненням, фільтрами та оверсемплінгом</text>
+  </g>
+</svg>

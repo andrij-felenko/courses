@@ -1,0 +1,92 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="100%" height="100%">
+  <rect width="960" height="480" fill="#0d1117" rx="12"/>
+  <text x="480" y="40" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="20" font-weight="700" fill="#f0f6fc" text-anchor="middle">Джерела похибок у наскрізному вимірювальному тракті</text>
+  <text x="480" y="66" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" fill="#8b949e" text-anchor="middle">Накопичення систематичних та випадкових похибок від первинного сенсора до цифрового коду АЦП</text>
+
+  <!-- Block 1: Sensor -->
+  <g transform="translate(40, 110)">
+    <rect width="190" height="260" rx="8" fill="#161b22" stroke="#58a6ff" stroke-width="1.5"/>
+    <rect width="190" height="32" rx="8" fill="#1f6feb" fill-opacity="0.2"/>
+    <text x="95" y="22" font-family="sans-serif" font-size="13" font-weight="bold" fill="#58a6ff" text-anchor="middle">1. Первинний сенсор</text>
+    <text x="15" y="55" font-family="sans-serif" font-size="11" fill="#f0f6fc">• Початковий допуск</text>
+    <text x="25" y="72" font-family="sans-serif" font-size="10" fill="#8b949e">(±0.5% або ±1 °C)</text>
+    <text x="15" y="95" font-family="sans-serif" font-size="11" fill="#f0f6fc">• Нелінійність шкали</text>
+    <text x="15" y="120" font-family="sans-serif" font-size="11" fill="#f0f6fc">• Температурний дрейф</text>
+    <text x="15" y="145" font-family="sans-serif" font-size="11" fill="#f0f6fc">• Ефект самонагріву</text>
+    <text x="25" y="162" font-family="sans-serif" font-size="10" fill="#f85149">P_diss = I^2 * R</text>
+    <text x="15" y="185" font-family="sans-serif" font-size="11" fill="#f0f6fc">• Термо-ЕРС спаїв</text>
+    <text x="15" y="210" font-family="sans-serif" font-size="11" fill="#f0f6fc">• Довготривале старіння</text>
+    <text x="95" y="245" font-family="sans-serif" font-size="10" font-weight="bold" fill="#58a6ff" text-anchor="middle">Δ_sensor ~ 0.5..2.0%</text>
+  </g>
+
+  <!-- Arrow 1 -> 2 -->
+  <g transform="translate(230, 230)">
+    <line x1="0" y1="0" x2="30" y2="0" stroke="#58a6ff" stroke-width="2"/>
+    <polygon points="30,0 22,-4 22,4" fill="#58a6ff"/>
+  </g>
+
+  <!-- Block 2: Conditioning (Op-Amp & Passives) -->
+  <g transform="translate(265, 110)">
+    <rect width="200" height="260" rx="8" fill="#161b22" stroke="#3fb950" stroke-width="1.5"/>
+    <rect width="200" height="32" rx="8" fill="#238636" fill-opacity="0.2"/>
+    <text x="100" y="22" font-family="sans-serif" font-size="13" font-weight="bold" fill="#3fb950" text-anchor="middle">2. Нормалізація сигналу</text>
+    <text x="15" y="55" font-family="sans-serif" font-size="11" fill="#f0f6fc">• Зсув нуля ОП (V_os)</text>
+    <text x="25" y="72" font-family="sans-serif" font-size="10" fill="#8b949e">(10 мкВ .. 3 мВ)</text>
+    <text x="15" y="95" font-family="sans-serif" font-size="11" fill="#f0f6fc">• Темп. дрейф dVos/dT</text>
+    <text x="15" y="120" font-family="sans-serif" font-size="11" fill="#f0f6fc">• Вхідний струм зсуву I_b</text>
+    <text x="15" y="145" font-family="sans-serif" font-size="11" fill="#f0f6fc">• Допуск резисторів R</text>
+    <text x="25" y="162" font-family="sans-serif" font-size="10" fill="#d29922">(0.1% проти 1.0%)</text>
+    <text x="15" y="185" font-family="sans-serif" font-size="11" fill="#f0f6fc">• ТКР резисторів (TCR)</text>
+    <text x="25" y="202" font-family="sans-serif" font-size="10" fill="#8b949e">(25..100 ppm/°C)</text>
+    <text x="100" y="245" font-family="sans-serif" font-size="10" font-weight="bold" fill="#3fb950" text-anchor="middle">Δ_amp ~ 0.1..0.8%</text>
+  </g>
+
+  <!-- Arrow 2 -> 3 -->
+  <g transform="translate(465, 230)">
+    <line x1="0" y1="0" x2="30" y2="0" stroke="#3fb950" stroke-width="2"/>
+    <polygon points="30,0 22,-4 22,4" fill="#3fb950"/>
+  </g>
+
+  <!-- Block 3: Reference Voltage Vref -->
+  <g transform="translate(495, 110)">
+    <rect width="190" height="260" rx="8" fill="#161b22" stroke="#d29922" stroke-width="1.5"/>
+    <rect width="190" height="32" rx="8" fill="#d29922" fill-opacity="0.2"/>
+    <text x="95" y="22" font-family="sans-serif" font-size="13" font-weight="bold" fill="#d29922" text-anchor="middle">3. Опорна напруга (VREF)</text>
+    <text x="15" y="55" font-family="sans-serif" font-size="11" fill="#f0f6fc">• Початкова точність</text>
+    <text x="25" y="72" font-family="sans-serif" font-size="10" fill="#8b949e">(±0.05% .. ±1.0%)</text>
+    <text x="15" y="95" font-family="sans-serif" font-size="11" fill="#f0f6fc">• Температурний дрейф</text>
+    <text x="25" y="112" font-family="sans-serif" font-size="10" fill="#d29922">(5..50 ppm/°C)</text>
+    <text x="15" y="135" font-family="sans-serif" font-size="11" fill="#f0f6fc">• Нестабільність живлення</text>
+    <text x="25" y="152" font-family="sans-serif" font-size="10" fill="#8b949e">(Line regulation PSRR)</text>
+    <text x="15" y="175" font-family="sans-serif" font-size="11" fill="#f0f6fc">• Навантажувальний дрейф</text>
+    <text x="15" y="200" font-family="sans-serif" font-size="11" fill="#f0f6fc">• Шуми опорного джерела</text>
+    <text x="95" y="245" font-family="sans-serif" font-size="10" font-weight="bold" fill="#d29922" text-anchor="middle">Δ_vref ~ 0.1..1.5%</text>
+  </g>
+
+  <!-- Arrow 3 -> 4 -->
+  <g transform="translate(685, 230)">
+    <line x1="0" y1="0" x2="30" y2="0" stroke="#d29922" stroke-width="2"/>
+    <polygon points="30,0 22,-4 22,4" fill="#d29922"/>
+  </g>
+
+  <!-- Block 4: ADC & DSP -->
+  <g transform="translate(715, 110)">
+    <rect width="200" height="260" rx="8" fill="#161b22" stroke="#bc8cff" stroke-width="1.5"/>
+    <rect width="200" height="32" rx="8" fill="#8957e5" fill-opacity="0.2"/>
+    <text x="100" y="22" font-family="sans-serif" font-size="13" font-weight="bold" fill="#bc8cff" text-anchor="middle">4. АЦП та обчислення</text>
+    <text x="15" y="55" font-family="sans-serif" font-size="11" fill="#f0f6fc">• Похибка квантування</text>
+    <text x="25" y="72" font-family="sans-serif" font-size="10" fill="#8b949e">(±0.5 LSB = 1/(2^(N+1)))</text>
+    <text x="15" y="95" font-family="sans-serif" font-size="11" fill="#f0f6fc">• Нелінійність INL та DNL</text>
+    <text x="15" y="120" font-family="sans-serif" font-size="11" fill="#f0f6fc">• Похибка підсилення (Gain)</text>
+    <text x="15" y="145" font-family="sans-serif" font-size="11" fill="#f0f6fc">• Зсув нуля АЦП (Offset)</text>
+    <text x="15" y="170" font-family="sans-serif" font-size="11" fill="#f0f6fc">• Час вибірки S&amp;H</text>
+    <text x="15" y="195" font-family="sans-serif" font-size="11" fill="#f0f6fc">• Округлення з фіксов. комою</text>
+    <text x="100" y="245" font-family="sans-serif" font-size="10" font-weight="bold" fill="#bc8cff" text-anchor="middle">Δ_adc ~ 0.05..0.5%</text>
+  </g>
+
+  <!-- Bottom banner -->
+  <rect x="40" y="395" width="875" height="50" rx="6" fill="#161b22" stroke="#30363d"/>
+  <text x="477" y="425" font-family="sans-serif" font-size="12" fill="#f0f6fc" text-anchor="middle">
+    Загальна похибка системи не дорівнює просто похибці АЦП: <tspan fill="#f85149">сенсор</tspan> та <tspan fill="#d29922">опорне джерело</tspan> зазвичай домінують у бюджеті похибок!
+  </text>
+</svg>

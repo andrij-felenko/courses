@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="100%" height="100%">
+  <rect width="960" height="480" fill="#0d1117" rx="12"/>
+  <text x="480" y="38" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="20" font-weight="700" fill="#f0f6fc" text-anchor="middle">Логометрична (раціометрична) архітектура вимірювання</text>
+  <text x="480" y="62" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" fill="#8b949e" text-anchor="middle">Повне усунення нестабільності напруги живлення та опорного джерела у мостових схемах</text>
+
+  <!-- Left Circuit: Non-ratiometric (Absolute VREF) -->
+  <g transform="translate(60, 95)">
+    <rect width="390" height="340" rx="8" fill="#161b22" stroke="#f85149" stroke-width="1.5"/>
+    <text x="195" y="28" font-family="sans-serif" font-size="14" font-weight="bold" fill="#f85149" text-anchor="middle">Абсолютне вимірювання (Нераціометричне)</text>
+    
+    <!-- Power supply Vcc -->
+    <rect x="30" y="55" width="90" height="45" rx="4" fill="#0d1117" stroke="#30363d"/>
+    <text x="75" y="78" font-family="sans-serif" font-size="11" fill="#f0f6fc" text-anchor="middle">Живлення Vcc</text>
+    <text x="75" y="92" font-family="sans-serif" font-size="9" fill="#f85149" text-anchor="middle">Шум / Дрейф ±5%</text>
+
+    <!-- Sensor / Divider -->
+    <rect x="30" y="130" width="120" height="70" rx="4" fill="#0d1117" stroke="#58a6ff"/>
+    <text x="90" y="155" font-family="sans-serif" font-size="11" font-weight="bold" fill="#58a6ff" text-anchor="middle">Резистивний міст</text>
+    <text x="90" y="175" font-family="sans-serif" font-size="10" fill="#8b949e" text-anchor="middle">V_in = k * Vcc</text>
+
+    <!-- Separate VREF -->
+    <rect x="230" y="55" width="130" height="45" rx="4" fill="#0d1117" stroke="#d29922"/>
+    <text x="295" y="78" font-family="sans-serif" font-size="11" fill="#d29922" text-anchor="middle">Окремий VREF</text>
+    <text x="295" y="92" font-family="sans-serif" font-size="9" fill="#8b949e" text-anchor="middle">Власний дрейф ±1%</text>
+
+    <!-- ADC block -->
+    <rect x="230" y="130" width="130" height="70" rx="4" fill="#0d1117" stroke="#bc8cff"/>
+    <text x="295" y="155" font-family="sans-serif" font-size="11" font-weight="bold" fill="#bc8cff" text-anchor="middle">АЦП (ADC)</text>
+    <text x="295" y="175" font-family="sans-serif" font-size="10" fill="#8b949e" text-anchor="middle">Code = (Vin / Vref)*2^N</text>
+
+    <!-- Formula -->
+    <rect x="20" y="235" width="350" height="80" rx="6" fill="#0d1117" stroke="#30363d"/>
+    <text x="195" y="260" font-family="sans-serif" font-size="12" fill="#f85149" text-anchor="middle">Код = (k * Vcc / Vref) * 2^N</text>
+    <text x="195" y="285" font-family="sans-serif" font-size="11" fill="#8b949e" text-anchor="middle">Будь-які коливання Vcc прямо змінюють код!</text>
+    <text x="195" y="303" font-family="sans-serif" font-size="11" fill="#f85149" text-anchor="middle">Похибка Vcc додається до похибки Vref!</text>
+  </g>
+
+  <!-- Right Circuit: Ratiometric (Vref = Vcc) -->
+  <g transform="translate(510, 95)">
+    <rect width="390" height="340" rx="8" fill="#161b22" stroke="#3fb950" stroke-width="1.5"/>
+    <text x="195" y="28" font-family="sans-serif" font-size="14" font-weight="bold" fill="#3fb950" text-anchor="middle">Логометричне вимірювання (Vref = Vcc)</text>
+    
+    <!-- Common Excitation V_exc -->
+    <rect x="130" y="55" width="130" height="45" rx="4" fill="#0d1117" stroke="#3fb950"/>
+    <text x="195" y="78" font-family="sans-serif" font-size="11" font-weight="bold" fill="#3fb950" text-anchor="middle">Спільне V_exc</text>
+    <text x="195" y="92" font-family="sans-serif" font-size="9" fill="#8b949e" text-anchor="middle">Єдине джерело живлення</text>
+
+    <!-- Sensor / Divider -->
+    <rect x="30" y="130" width="130" height="70" rx="4" fill="#0d1117" stroke="#58a6ff"/>
+    <text x="95" y="155" font-family="sans-serif" font-size="11" font-weight="bold" fill="#58a6ff" text-anchor="middle">Дільник / Сенсор</text>
+    <text x="95" y="175" font-family="sans-serif" font-size="10" fill="#8b949e" text-anchor="middle">V_in = k * V_exc</text>
+
+    <!-- ADC block -->
+    <rect x="230" y="130" width="130" height="70" rx="4" fill="#0d1117" stroke="#bc8cff"/>
+    <text x="295" y="155" font-family="sans-serif" font-size="11" font-weight="bold" fill="#bc8cff" text-anchor="middle">АЦП (Vref = V_exc)</text>
+    <text x="295" y="175" font-family="sans-serif" font-size="10" fill="#8b949e" text-anchor="middle">Опора підключена до V_exc</text>
+
+    <!-- Lines connecting V_exc to both -->
+    <line x1="160" y1="100" x2="95" y2="130" stroke="#3fb950" stroke-width="2"/>
+    <line x1="230" y1="100" x2="295" y2="130" stroke="#3fb950" stroke-width="2"/>
+
+    <!-- Formula -->
+    <rect x="20" y="235" width="350" height="80" rx="6" fill="#0d1117" stroke="#30363d"/>
+    <text x="195" y="260" font-family="sans-serif" font-size="12" font-weight="bold" fill="#3fb950" text-anchor="middle">Код = (k * V_exc / V_exc) * 2^N = k * 2^N</text>
+    <text x="195" y="285" font-family="sans-serif" font-size="11" fill="#f0f6fc" text-anchor="middle">V_exc повністю скорочується в рівнянні!</text>
+    <text x="195" y="303" font-family="sans-serif" font-size="11" fill="#3fb950" text-anchor="middle">Похибка джерела живлення стає рівною 0%!</text>
+  </g>
+</svg>
