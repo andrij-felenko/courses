@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 850 480" width="100%" height="100%">
+  <rect width="100%" height="100%" fill="#0d1117"/>
+  <rect x="25" y="25" width="800" height="430" rx="12" fill="#161b22" stroke="#30363d" stroke-width="2"/>
+  
+  <text x="425" y="55" text-anchor="middle" font-family="system-ui, sans-serif" font-size="20" font-weight="bold" fill="#f0f6fc">
+    Вимірювальна схема та оптимізація навантажувального резистора RL
+  </text>
+
+  <!-- Схема включення -->
+  <g transform="translate(60, 90)">
+    <rect width="360" height="340" rx="8" fill="#0d1117" stroke="#30363d"/>
+    <text x="180" y="30" text-anchor="middle" font-family="system-ui, sans-serif" font-size="15" font-weight="bold" fill="#58a6ff">
+      Схема підключення TGS 26xx
+    </text>
+
+    <!-- Живлення VH (Нагрівач) -->
+    <line x1="50" y1="60" x2="110" y2="60" stroke="#f0883e" stroke-width="3"/>
+    <text x="80" y="50" font-family="system-ui, sans-serif" font-size="11" font-weight="bold" fill="#f0883e">VH = 5.0V</text>
+    <rect x="110" y="50" width="40" height="20" fill="#21262d" stroke="#f0883e"/>
+    <text x="130" y="64" text-anchor="middle" font-family="system-ui, sans-serif" font-size="9" fill="#f0883e">RH</text>
+    <line x1="150" y1="60" x2="200" y2="60" stroke="#8b949e" stroke-width="2"/>
+    <text x="210" y="64" font-family="system-ui, sans-serif" font-size="10" fill="#8b949e">GND</text>
+
+    <!-- Вимірювальне коло VC -->
+    <line x1="50" y1="120" x2="110" y2="120" stroke="#f85149" stroke-width="3"/>
+    <text x="80" y="110" font-family="system-ui, sans-serif" font-size="11" font-weight="bold" fill="#f85149">VC = 5.0V</text>
+
+    <!-- Сенсор Rs -->
+    <rect x="110" y="105" width="40" height="30" fill="#1f2937" stroke="#58a6ff" stroke-width="2"/>
+    <text x="130" y="125" text-anchor="middle" font-family="system-ui, sans-serif" font-size="10" fill="#79c0ff">Rs</text>
+
+    <!-- Вихід V_RL -->
+    <line x1="150" y1="120" x2="240" y2="120" stroke="#3fb950" stroke-width="3"/>
+    <circle cx="240" cy="120" r="5" fill="#3fb950"/>
+    <text x="250" y="115" font-family="system-ui, sans-serif" font-size="12" font-weight="bold" fill="#3fb950">V_RL (АЦП)</text>
+
+    <!-- Навантажувальний резистор RL -->
+    <line x1="180" y1="120" x2="180" y2="170" stroke="#3fb950" stroke-width="2"/>
+    <rect x="170" y="170" width="20" height="40" fill="#d29922"/>
+    <text x="200" y="195" font-family="system-ui, sans-serif" font-size="11" fill="#d29922">RL (Прециз.)</text>
+    <line x1="180" y1="210" x2="180" y2="250" stroke="#8b949e" stroke-width="2"/>
+    <text x="180" y="270" text-anchor="middle" font-family="system-ui, sans-serif" font-size="11" fill="#8b949e">AGND (Аналогова земля)</text>
+  </g>
+
+  <!-- Розрахунок RL праворуч -->
+  <g transform="translate(450, 90)">
+    <rect width="340" height="340" rx="8" fill="#0d1117" stroke="#30363d"/>
+    <text x="170" y="30" text-anchor="middle" font-family="system-ui, sans-serif" font-size="15" font-weight="bold" fill="#3fb950">
+      Формула оптимального RL
+    </text>
+
+    <g transform="translate(25, 55)">
+      <text x="0" y="20" font-family="system-ui, sans-serif" font-size="12" font-weight="bold" fill="#f2cc60">Критерій чутливості:</text>
+      <text x="10" y="42" font-family="system-ui, sans-serif" font-size="11" fill="#c9d1d9">Максимум крутизни dV/d(Rs) досягається,</text>
+      <text x="10" y="62" font-family="system-ui, sans-serif" font-size="11" fill="#c9d1d9">коли опір RL дорівнює опору сенсора</text>
+      <text x="10" y="82" font-family="system-ui, sans-serif" font-size="11" font-weight="bold" fill="#7ee787">RL ≈ Rs_target (у точці порогу тривоги!)</text>
+
+      <text x="0" y="125" font-family="system-ui, sans-serif" font-size="12" font-weight="bold" fill="#58a6ff">Обмеження потужності датчика:</text>
+      <text x="10" y="148" font-family="system-ui, sans-serif" font-size="11" fill="#c9d1d9">P_sensor = V_s² / Rs &lt; 15 мВт</text>
+      <text x="10" y="170" font-family="system-ui, sans-serif" font-size="10" fill="#8b949e">Щоб виключити саморозігрів чутливого шару</text>
+      <text x="10" y="190" font-family="system-ui, sans-serif" font-size="10" fill="#8b949e">струмом вимірювання.</text>
+
+      <text x="0" y="235" font-family="system-ui, sans-serif" font-size="11" font-weight="bold" fill="#d29922">Рекомендовані значення даташита:</text>
+      <text x="10" y="255" font-family="system-ui, sans-serif" font-size="11" fill="#c9d1d9">• TGS 2611 (метан): RL = 1.0–4.7 кОм</text>
+      <text x="10" y="275" font-family="system-ui, sans-serif" font-size="11" fill="#c9d1d9">• TGS 2602 (VOC): RL = 10–50 кОм</text>
+    </g>
+  </g>
+</svg>

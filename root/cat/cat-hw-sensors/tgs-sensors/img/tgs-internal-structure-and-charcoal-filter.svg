@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 850 480" width="100%" height="100%">
+  <rect width="100%" height="100%" fill="#0d1117"/>
+  <rect x="25" y="25" width="800" height="430" rx="12" fill="#161b22" stroke="#30363d" stroke-width="2"/>
+  
+  <text x="425" y="55" text-anchor="middle" font-family="system-ui, sans-serif" font-size="20" font-weight="bold" fill="#f0f6fc">
+    Конструктивний розріз TGS 2611 з селективним вугільним фільтром
+  </text>
+
+  <!-- Схема розрізу давача -->
+  <g transform="translate(60, 90)">
+    <rect width="400" height="340" rx="8" fill="#0d1117" stroke="#30363d"/>
+
+    <!-- Корпус датчика з нержавіючої сталі -->
+    <path d="M 60,60 L 340,60 L 340,280 L 60,280 Z" fill="#161b22" stroke="#8b949e" stroke-width="2"/>
+    <!-- Верхня подвійна сітка вибухозахисту -->
+    <line x1="80" y1="60" x2="320" y2="60" stroke="#58a6ff" stroke-width="4" stroke-dasharray="4,2"/>
+    <text x="200" y="50" text-anchor="middle" font-family="system-ui, sans-serif" font-size="11" fill="#58a6ff">Подвійна сітка з нержавіючої сталі SUS316</text>
+
+    <!-- Шар активованого вугілля (Селективний фільтр) -->
+    <rect x="80" y="80" width="240" height="35" rx="4" fill="#30363d" stroke="#f0883e"/>
+    <text x="200" y="102" text-anchor="middle" font-family="system-ui, sans-serif" font-size="12" font-weight="bold" fill="#f0883e">
+      Фільтр активованого вугілля
+    </text>
+    <text x="200" y="130" text-anchor="middle" font-family="system-ui, sans-serif" font-size="10" fill="#f85149">
+      Поглинає пари етанолу (спирту) та важкі леткі гази
+    </text>
+
+    <!-- Чутливий кристал на Al2O3 ніжках -->
+    <g transform="translate(130, 160)">
+      <rect x="0" y="0" width="140" height="50" rx="4" fill="#21262d" stroke="#3fb950" stroke-width="2"/>
+      <rect x="15" y="8" width="110" height="15" fill="#388bfd" opacity="0.6"/>
+      <text x="70" y="20" text-anchor="middle" font-family="system-ui, sans-serif" font-size="10" fill="#f0f6fc">Плівка SnO2 + Pd/Pt</text>
+      <!-- Нагрівач знизу -->
+      <line x1="15" y1="38" x2="125" y2="38" stroke="#f0883e" stroke-width="3"/>
+      <text x="70" y="47" text-anchor="middle" font-family="system-ui, sans-serif" font-size="9" fill="#f0883e">Pt нагрівальний елемент</text>
+    </g>
+
+    <!-- Ніжки корпусу TO-5 -->
+    <line x1="120" y1="280" x2="120" y2="320" stroke="#f2cc60" stroke-width="3"/>
+    <line x1="160" y1="280" x2="160" y2="320" stroke="#f2cc60" stroke-width="3"/>
+    <line x1="240" y1="280" x2="240" y2="320" stroke="#f2cc60" stroke-width="3"/>
+    <line x1="280" y1="280" x2="280" y2="320" stroke="#f2cc60" stroke-width="3"/>
+    <text x="200" y="310" text-anchor="middle" font-family="system-ui, sans-serif" font-size="10" fill="#f2cc60">Позолочені виводи</text>
+  </g>
+
+  <!-- Пояснення праворуч -->
+  <g transform="translate(480, 90)">
+    <rect width="310" height="340" rx="8" fill="#0d1117" stroke="#30363d"/>
+    <text x="155" y="30" text-anchor="middle" font-family="system-ui, sans-serif" font-size="15" font-weight="bold" fill="#3fb950">
+      Чому TGS 2611 не бреше на спирт?
+    </text>
+
+    <g transform="translate(20, 55)">
+      <text x="0" y="20" font-family="system-ui, sans-serif" font-size="12" font-weight="bold" fill="#58a6ff">Проблема звичайних MQ:</text>
+      <text x="10" y="42" font-family="system-ui, sans-serif" font-size="11" fill="#8b949e">MQ-4 (метан) вмикає тривогу,</text>
+      <text x="10" y="62" font-family="system-ui, sans-serif" font-size="11" fill="#8b949e">якщо поруч розлили парфуми чи спирт.</text>
+
+      <text x="0" y="105" font-family="system-ui, sans-serif" font-size="12" font-weight="bold" fill="#3fb950">Рішення Figaro TGS 2611-C00:</text>
+      <text x="10" y="128" font-family="system-ui, sans-serif" font-size="11" fill="#c9d1d9">• Вугільний адсорбер вловлює спирт</text>
+      <text x="10" y="150" font-family="system-ui, sans-serif" font-size="11" fill="#c9d1d9">• Молекули метану CH4 проходять вільно</text>
+      <text x="10" y="172" font-family="system-ui, sans-serif" font-size="11" fill="#7ee787">• Селективність до метану &gt; 98%!</text>
+      <text x="10" y="194" font-family="system-ui, sans-serif" font-size="11" fill="#7ee787">• Сертифікація за стандартом UL1484</text>
+
+      <text x="0" y="235" font-family="system-ui, sans-serif" font-size="11" font-weight="bold" fill="#d29922">Вибухозахист ATEX:</text>
+      <text x="10" y="255" font-family="system-ui, sans-serif" font-size="10" fill="#8b949e">Подвійна полум'ягасна сітка виключає</text>
+      <text x="10" y="272" font-family="system-ui, sans-serif" font-size="10" fill="#8b949e">підпал суміші гарячою спіраллю.</text>
+    </g>
+  </g>
+</svg>
