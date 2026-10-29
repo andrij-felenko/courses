@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 850 480" width="100%" height="100%">
+  <rect width="100%" height="100%" fill="#0d1117"/>
+  <rect x="25" y="25" width="800" height="430" rx="12" fill="#161b22" stroke="#30363d" stroke-width="2"/>
+  
+  <text x="425" y="55" text-anchor="middle" font-family="system-ui, sans-serif" font-size="20" font-weight="bold" fill="#f0f6fc">
+    Часова діаграма стробування та алгоритм енергозбереження
+  </text>
+
+  <!-- Часові діаграми -->
+  <g transform="translate(60, 90)">
+    <rect width="730" height="340" rx="8" fill="#0d1117" stroke="#30363d"/>
+
+    <!-- Сигнал 1: Строб живлення LED (Duty Cycle 1%) -->
+    <g transform="translate(30, 40)">
+      <text x="0" y="20" font-family="system-ui, sans-serif" font-size="12" font-weight="bold" fill="#f85149">Строб LED (100 мкс)</text>
+      <line x1="160" y1="20" x2="220" y2="20" stroke="#f85149" stroke-width="3"/>
+      <line x1="220" y1="20" x2="220" y2="-10" stroke="#f85149" stroke-width="3"/>
+      <line x1="220" y1="-10" x2="260" y2="-10" stroke="#f85149" stroke-width="3"/>
+      <line x1="260" y1="-10" x2="260" y2="20" stroke="#f85149" stroke-width="3"/>
+      <line x1="260" y1="20" x2="520" y2="20" stroke="#f85149" stroke-width="3"/>
+      <line x1="520" y1="20" x2="520" y2="-10" stroke="#f85149" stroke-width="3"/>
+      <line x1="520" y1="-10" x2="560" y2="-10" stroke="#f85149" stroke-width="3"/>
+      <line x1="560" y1="-10" x2="560" y2="20" stroke="#f85149" stroke-width="3"/>
+      <line x1="560" y1="20" x2="650" y2="20" stroke="#f85149" stroke-width="3"/>
+
+      <text x="240" y="-18" text-anchor="middle" font-family="system-ui, sans-serif" font-size="10" fill="#f85149">15 мА</text>
+      <text x="390" y="35" text-anchor="middle" font-family="system-ui, sans-serif" font-size="10" fill="#8b949e">Період сну T_sleep = 50 мс (I_sleep &lt; 10 мкА)</text>
+    </g>
+
+    <!-- Сигнал 2: Вибірка АЦП (Sample Trigger) -->
+    <g transform="translate(30, 130)">
+      <text x="0" y="20" font-family="system-ui, sans-serif" font-size="12" font-weight="bold" fill="#3fb950">АЦП строб (ADC Sample)</text>
+      <circle cx="250" cy="5" r="5" fill="#3fb950"/>
+      <text x="250" y="-8" text-anchor="middle" font-family="system-ui, sans-serif" font-size="10" fill="#3fb950">Вибірка через 80 мкс</text>
+
+      <circle cx="550" cy="5" r="5" fill="#3fb950"/>
+      <text x="550" y="-8" text-anchor="middle" font-family="system-ui, sans-serif" font-size="10" fill="#3fb950">Вибірка</text>
+    </g>
+
+    <!-- Сигнал 3: Фільтрований вихід стану -->
+    <g transform="translate(30, 220)">
+      <text x="0" y="20" font-family="system-ui, sans-serif" font-size="12" font-weight="bold" fill="#58a6ff">Статус Рівня (Debounced)</text>
+      <!-- Стан СУХО -> ВОЛОГО -->
+      <line x1="160" y1="20" x2="400" y2="20" stroke="#58a6ff" stroke-width="3"/>
+      <line x1="400" y1="20" x2="400" y2="-10" stroke="#58a6ff" stroke-width="3"/>
+      <line x1="400" y1="-10" x2="650" y2="-10" stroke="#58a6ff" stroke-width="3"/>
+      <text x="280" y="38" text-anchor="middle" font-family="system-ui, sans-serif" font-size="11" fill="#8b949e">СУХО (HIGH)</text>
+      <text x="520" y="8" text-anchor="middle" font-family="system-ui, sans-serif" font-size="11" fill="#3fb950">ВОЛОГО (LOW)</text>
+    </g>
+  </g>
+</svg>

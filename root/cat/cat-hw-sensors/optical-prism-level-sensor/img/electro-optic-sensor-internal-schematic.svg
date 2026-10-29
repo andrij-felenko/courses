@@ -1,0 +1,93 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 850 480" width="100%" height="100%">
+  <rect width="100%" height="100%" fill="#0d1117"/>
+  <rect x="25" y="25" width="800" height="430" rx="12" fill="#161b22" stroke="#30363d" stroke-width="2"/>
+  
+  <text x="425" y="55" text-anchor="middle" font-family="system-ui, sans-serif" font-size="20" font-weight="bold" fill="#f0f6fc">
+    Внутрішня принципова схема оптичного давача рівня (Електронний модуль)
+  </text>
+
+  <!-- Схема AFE -->
+  <g transform="translate(60, 85)">
+    <rect width="730" height="345" rx="8" fill="#0d1117" stroke="#30363d"/>
+
+    <!-- Шина живлення VCC (+5V / +24V) -->
+    <line x1="50" y1="40" x2="680" y2="40" stroke="#f85149" stroke-width="3"/>
+    <text x="690" y="45" font-family="system-ui, sans-serif" font-size="13" font-weight="bold" fill="#f85149">VCC (+5..24V)</text>
+
+    <!-- Загальна шина GND -->
+    <line x1="50" y1="300" x2="680" y2="300" stroke="#8b949e" stroke-width="3"/>
+    <text x="690" y="305" font-family="system-ui, sans-serif" font-size="13" font-weight="bold" fill="#8b949e">GND (0V)</text>
+
+    <!-- 1. Коло передавача (ІЧ-світлодіод) -->
+    <g transform="translate(70, 40)">
+      <text x="30" y="30" text-anchor="middle" font-family="system-ui, sans-serif" font-size="12" font-weight="bold" fill="#da3633">ІЧ LED</text>
+      <!-- Струмообмежувальний резистор R1 -->
+      <line x1="30" y1="0" x2="30" y2="50" stroke="#f85149" stroke-width="2"/>
+      <rect x="20" y="50" width="20" height="35" fill="#d29922"/>
+      <text x="50" y="72" font-family="system-ui, sans-serif" font-size="11" fill="#d29922">R_led (330R)</text>
+      <!-- Світлодіод -->
+      <line x1="30" y1="85" x2="30" y2="120" stroke="#f85149" stroke-width="2"/>
+      <polygon points="15,120 45,120 30,150" fill="#da3633"/>
+      <line x1="15" y1="150" x2="45" y2="150" stroke="#da3633" stroke-width="2"/>
+      <!-- Стрілки випромінювання -->
+      <line x1="45" y1="130" x2="70" y2="145" stroke="#f2cc60" stroke-width="2"/>
+      <line x1="45" y1="140" x2="70" y2="155" stroke="#f2cc60" stroke-width="2"/>
+      <!-- До GND -->
+      <line x1="30" y1="150" x2="30" y2="260" stroke="#8b949e" stroke-width="2"/>
+    </g>
+
+    <!-- Оптична призма (умовне сполучення) -->
+    <polygon points="170,160 210,160 190,210" fill="#1f2937" stroke="#388bfd" stroke-width="2"/>
+    <text x="190" y="235" text-anchor="middle" font-family="system-ui, sans-serif" font-size="10" fill="#79c0ff">Призма</text>
+
+    <!-- 2. Коло приймача (Фототранзистор) -->
+    <g transform="translate(250, 40)">
+      <text x="30" y="30" text-anchor="middle" font-family="system-ui, sans-serif" font-size="12" font-weight="bold" fill="#3fb950">Фотоприймач</text>
+      <!-- Навантажувальний резистор R2 -->
+      <line x1="30" y1="0" x2="30" y2="50" stroke="#f85149" stroke-width="2"/>
+      <rect x="20" y="50" width="20" height="35" fill="#d29922"/>
+      <text x="50" y="72" font-family="system-ui, sans-serif" font-size="11" fill="#d29922">R_pullup (10k)</text>
+      <!-- Фототранзистор NPN -->
+      <line x1="30" y1="85" x2="30" y2="115" stroke="#58a6ff" stroke-width="2"/>
+      <circle cx="30" cy="135" r="20" fill="none" stroke="#58a6ff" stroke-width="2"/>
+      <!-- Колектор-Емітер -->
+      <line x1="30" y1="115" x2="30" y2="125" stroke="#58a6ff" stroke-width="2"/>
+      <line x1="30" y1="145" x2="30" y2="260" stroke="#8b949e" stroke-width="2"/>
+      <!-- Зняття напруги V_sense -->
+      <circle cx="30" cy="100" r="4" fill="#f0883e"/>
+      <line x1="30" y1="100" x2="110" y2="100" stroke="#f0883e" stroke-width="2"/>
+    </g>
+
+    <!-- 3. Компаратор / Тригер Шмітта -->
+    <g transform="translate(380, 110)">
+      <polygon points="0,0 80,40 0,80" fill="#161b22" stroke="#bc8cff" stroke-width="2"/>
+      <text x="25" y="45" font-family="system-ui, sans-serif" font-size="12" font-weight="bold" fill="#bc8cff">Компаратор</text>
+      <!-- Входи -->
+      <line x1="-20" y1="30" x2="0" y2="30" stroke="#f0883e" stroke-width="2"/>
+      <text x="-15" y="24" font-family="system-ui, sans-serif" font-size="10" fill="#f0883e">V_sens</text>
+      <line x1="-20" y1="55" x2="0" y2="55" stroke="#8b949e" stroke-width="2"/>
+      <text x="-15" y="68" font-family="system-ui, sans-serif" font-size="10" fill="#8b949e">V_ref</text>
+
+      <!-- Вихід компаратора -->
+      <line x1="80" y1="40" x2="130" y2="40" stroke="#bc8cff" stroke-width="2"/>
+    </g>
+
+    <!-- 4. Вихідний вихідний каскад (NPN Open Collector) -->
+    <g transform="translate(530, 110)">
+      <rect x="0" y="10" width="130" height="120" rx="6" fill="#161b22" stroke="#3fb950"/>
+      <text x="65" y="32" text-anchor="middle" font-family="system-ui, sans-serif" font-size="11" font-weight="bold" fill="#3fb950">NPN Відкритий колектор</text>
+      
+      <!-- Транзистор -->
+      <circle cx="65" cy="70" r="18" fill="none" stroke="#58a6ff" stroke-width="2"/>
+      <line x1="45" y1="70" x2="20" y2="70" stroke="#bc8cff" stroke-width="2"/>
+      
+      <!-- Вихідний пін -->
+      <line x1="65" y1="52" x2="150" y2="52" stroke="#3fb950" stroke-width="3"/>
+      <circle cx="150" cy="52" r="5" fill="#3fb950"/>
+      <text x="145" y="42" font-family="system-ui, sans-serif" font-size="12" font-weight="bold" fill="#3fb950">OUT (Цифровий)</text>
+
+      <!-- Емітер на GND -->
+      <line x1="65" y1="88" x2="65" y2="190" stroke="#8b949e" stroke-width="2"/>
+    </g>
+  </g>
+</svg>

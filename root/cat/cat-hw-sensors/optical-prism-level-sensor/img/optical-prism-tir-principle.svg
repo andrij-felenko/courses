@@ -1,0 +1,88 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 850 480" width="100%" height="100%">
+  <rect width="100%" height="100%" fill="#0d1117"/>
+  <rect x="25" y="25" width="800" height="430" rx="12" fill="#161b22" stroke="#30363d" stroke-width="2"/>
+  
+  <text x="425" y="55" text-anchor="middle" font-family="system-ui, sans-serif" font-size="20" font-weight="bold" fill="#f0f6fc">
+    Оптичний призматичний давач рівня: Повне внутрішнє відбиття (TIR)
+  </text>
+
+  <!-- Стан 1: У повітрі (Сухий стан) -->
+  <g transform="translate(60, 85)">
+    <rect width="340" height="345" rx="8" fill="#0d1117" stroke="#30363d"/>
+    <text x="170" y="30" text-anchor="middle" font-family="system-ui, sans-serif" font-size="16" font-weight="bold" fill="#58a6ff">
+      1. Стан «СУХО» (У повітрі, n ≈ 1.0)
+    </text>
+    <text x="170" y="50" text-anchor="middle" font-family="system-ui, sans-serif" font-size="12" fill="#8b949e">
+      Повне внутрішнє відбиття → Сигнал ON
+    </text>
+
+    <!-- Конічний наконечник (Полісульфон n = 1.63) -->
+    <polygon points="70,100 270,100 170,240" fill="#1f2937" stroke="#388bfd" stroke-width="3"/>
+    <text x="170" y="130" text-anchor="middle" font-family="system-ui, sans-serif" font-size="12" fill="#79c0ff">
+      Конус (n = 1.63)
+    </text>
+
+    <!-- ІЧ-світлодіод (ліворуч) -->
+    <rect x="90" y="75" width="30" height="20" rx="3" fill="#da3633"/>
+    <text x="105" y="89" text-anchor="middle" font-family="system-ui, sans-serif" font-size="9" fill="#ffffff">LED</text>
+
+    <!-- Фототранзистор (праворуч) -->
+    <rect x="220" y="75" width="30" height="20" rx="3" fill="#238636"/>
+    <text x="235" y="89" text-anchor="middle" font-family="system-ui, sans-serif" font-size="9" fill="#ffffff">PHOTO</text>
+
+    <!-- Траєкторія променя: подвійне повне відбиття в конусі -->
+    <path d="M 105,95 L 135,190 L 205,190 L 235,95" fill="none" stroke="#f2cc60" stroke-width="3" stroke-dasharray="6,3"/>
+    <polygon points="120,145 115,138 123,136" fill="#f2cc60"/>
+    <polygon points="220,145 215,152 223,150" fill="#f2cc60"/>
+
+    <rect x="40" y="270" width="260" height="55" rx="6" fill="#161b22" stroke="#30363d"/>
+    <text x="170" y="293" text-anchor="middle" font-family="system-ui, sans-serif" font-size="12" fill="#3fb950">
+      Кут падіння 45° &gt; Критичний 37.8°
+    </text>
+    <text x="170" y="312" text-anchor="middle" font-family="system-ui, sans-serif" font-size="11" fill="#c9d1d9">
+      Світло на 100% повертається в приймач
+    </text>
+  </g>
+
+  <!-- Стан 2: У рідині (Занурений стан) -->
+  <g transform="translate(450, 85)">
+    <rect width="340" height="345" rx="8" fill="#0d1117" stroke="#30363d"/>
+    <text x="170" y="30" text-anchor="middle" font-family="system-ui, sans-serif" font-size="16" font-weight="bold" fill="#3fb950">
+      2. Стан «ВОЛОГО» (У рідині, n ≈ 1.33)
+    </text>
+    <text x="170" y="50" text-anchor="middle" font-family="system-ui, sans-serif" font-size="12" fill="#8b949e">
+      Заломлення назовні → Сигнал OFF
+    </text>
+
+    <!-- Фон рідини -->
+    <path d="M 20,130 L 320,130 L 320,330 L 20,330 Z" fill="#0c2d6b" opacity="0.3"/>
+
+    <!-- Конічний наконечник -->
+    <polygon points="70,100 270,100 170,240" fill="#1f2937" stroke="#388bfd" stroke-width="3"/>
+    <text x="170" y="130" text-anchor="middle" font-family="system-ui, sans-serif" font-size="12" fill="#79c0ff">
+      Конус (n = 1.63)
+    </text>
+
+    <!-- LED & Photo -->
+    <rect x="90" y="75" width="30" height="20" rx="3" fill="#da3633"/>
+    <text x="105" y="89" text-anchor="middle" font-family="system-ui, sans-serif" font-size="9" fill="#ffffff">LED</text>
+
+    <rect x="220" y="75" width="30" height="20" rx="3" fill="#238636"/>
+    <text x="235" y="89" text-anchor="middle" font-family="system-ui, sans-serif" font-size="9" fill="#ffffff">PHOTO</text>
+
+    <!-- Траєкторія променя: вихід назовні в рідину -->
+    <path d="M 105,95 L 135,190 L 80,240" fill="none" stroke="#f2cc60" stroke-width="3" stroke-dasharray="6,3"/>
+    <polygon points="120,145 115,138 123,136" fill="#f2cc60"/>
+    <polygon points="100,220 92,216 97,211" fill="#f2cc60"/>
+
+    <path d="M 115,95 L 140,200 L 95,260" fill="none" stroke="#f2cc60" stroke-width="2" stroke-dasharray="4,2"/>
+
+    <rect x="40" y="270" width="260" height="55" rx="6" fill="#161b22" stroke="#30363d"/>
+    <text x="170" y="293" text-anchor="middle" font-family="system-ui, sans-serif" font-size="12" fill="#f85149">
+      Кут падіння 45° &lt; Критичний 54.7°
+    </text>
+    <text x="170" y="312" text-anchor="middle" font-family="system-ui, sans-serif" font-size="11" fill="#c9d1d9">
+      Світло розсіюється в рідині, приймач темний
+    </text>
+  </g>
+</svg>

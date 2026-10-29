@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 850 480" width="100%" height="100%">
+  <rect width="100%" height="100%" fill="#0d1117"/>
+  <rect x="25" y="25" width="800" height="430" rx="12" fill="#161b22" stroke="#30363d" stroke-width="2"/>
+  
+  <text x="425" y="55" text-anchor="middle" font-family="system-ui, sans-serif" font-size="20" font-weight="bold" fill="#f0f6fc">
+    Синхронна модуляція та захист від сонячного засвічення (Ambient Immunity)
+  </text>
+
+  <!-- Схема обробки сигналу -->
+  <g transform="translate(60, 85)">
+    <rect width="730" height="345" rx="8" fill="#0d1117" stroke="#30363d"/>
+
+    <!-- Генератор модулюючих імпульсів (10 кГц) -->
+    <rect x="40" y="40" width="160" height="70" rx="6" fill="#21262d" stroke="#58a6ff" stroke-width="2"/>
+    <text x="120" y="70" text-anchor="middle" font-family="system-ui, sans-serif" font-size="12" font-weight="bold" fill="#58a6ff">Генератор 10 кГц</text>
+    <text x="120" y="90" text-anchor="middle" font-family="system-ui, sans-serif" font-size="10" fill="#8b949e">Модуляція LED</text>
+
+    <!-- Стрілка до LED -->
+    <path d="M 200,75 L 250,75" stroke="#58a6ff" stroke-width="2"/>
+
+    <!-- Модульований LED -->
+    <rect x="250" y="50" width="100" height="50" rx="4" fill="#da3633"/>
+    <text x="300" y="80" text-anchor="middle" font-family="system-ui, sans-serif" font-size="12" font-weight="bold" fill="#ffffff">ІЧ LED 940nm</text>
+
+    <!-- Світловий потік + Паразитне сонячне світло -->
+    <path d="M 350,75 L 430,75" stroke="#f2cc60" stroke-width="3" stroke-dasharray="4,2"/>
+    <text x="390" y="65" text-anchor="middle" font-family="system-ui, sans-serif" font-size="10" fill="#f2cc60">ІЧ сигнал</text>
+
+    <!-- Сонце / лампа розжарювання -->
+    <circle cx="390" cy="130" r="16" fill="#d29922"/>
+    <text x="390" y="165" text-anchor="middle" font-family="system-ui, sans-serif" font-size="10" fill="#d29922">Засвічення 100 клк</text>
+    <path d="M 405,130 L 435,95" stroke="#d29922" stroke-width="2" stroke-dasharray="2,2"/>
+
+    <!-- Фотоприймач з оптичним фільтром -->
+    <rect x="440" y="50" width="120" height="50" rx="4" fill="#238636"/>
+    <text x="500" y="72" text-anchor="middle" font-family="system-ui, sans-serif" font-size="11" font-weight="bold" fill="#ffffff">Фотодіод + Фільтр</text>
+    <text x="500" y="88" text-anchor="middle" font-family="system-ui, sans-serif" font-size="9" fill="#c9d1d9">IR Cut / 940nm Band</text>
+
+    <!-- Смуговий фільтр (Bandpass) + Синхронний детектор -->
+    <g transform="translate(60, 190)">
+      <rect width="610" height="120" rx="6" fill="#161b22" stroke="#30363d"/>
+      <text x="305" y="25" text-anchor="middle" font-family="system-ui, sans-serif" font-size="13" font-weight="bold" fill="#bc8cff">
+        Аналогова селекція корисного сигналу
+      </text>
+
+      <!-- Блок смугового фільтра -->
+      <rect x="30" y="45" width="160" height="50" rx="4" fill="#21262d" stroke="#bc8cff"/>
+      <text x="110" y="75" text-anchor="middle" font-family="system-ui, sans-serif" font-size="11" fill="#c9d1d9">Active BPF (10 кГц)</text>
+
+      <path d="M 190,70 L 230,70" stroke="#8b949e" stroke-width="2"/>
+
+      <!-- Синхронний демодулятор -->
+      <rect x="230" y="45" width="160" height="50" rx="4" fill="#21262d" stroke="#3fb950"/>
+      <text x="310" y="75" text-anchor="middle" font-family="system-ui, sans-serif" font-size="11" fill="#7ee787">Синхронний детектор</text>
+
+      <path d="M 390,70 L 430,70" stroke="#8b949e" stroke-width="2"/>
+
+      <!-- Інтегратор / ФНЧ -->
+      <rect x="430" y="45" width="150" height="50" rx="4" fill="#21262d" stroke="#58a6ff"/>
+      <text x="505" y="75" text-anchor="middle" font-family="system-ui, sans-serif" font-size="11" fill="#79c0ff">ФНЧ (Постійний рівень)</text>
+    </g>
+  </g>
+</svg>
