@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="100%" height="100%">
+  <rect width="960" height="480" fill="#0d1117" rx="12"/>
+  <text x="480" y="40" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="20" font-weight="700" fill="#f0f6fc" text-anchor="middle">Внутрішня архітектура технології CMOSens®</text>
+  <text x="480" y="66" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" fill="#8b949e" text-anchor="middle">Монолітне об'єднання мікроємнісного полімерного сенсора, bandgap-термометра та CMOS-обчислювача</text>
+
+  <!-- Left block: Sensor Physical Cell -->
+  <g transform="translate(60, 95)">
+    <rect width="360" height="340" rx="8" fill="#161b22" stroke="#30363d" stroke-width="1.5"/>
+    <text x="180" y="30" font-family="sans-serif" font-size="15" font-weight="bold" fill="#58a6ff" text-anchor="middle">Первинний сенсорний шар (MEMS)</text>
+
+    <!-- Polymer Capacitive Layer Cross-section -->
+    <rect x="30" y="55" width="300" height="110" rx="6" fill="#0d1117" stroke="#58a6ff" stroke-dasharray="4 4"/>
+    <text x="45" y="78" font-family="sans-serif" font-size="12" font-weight="bold" fill="#79c0ff">Мікроємнісний полімерний сенсор RH</text>
+
+    <!-- Electrodes and dielectric -->
+    <rect x="50" y="90" width="260" height="15" fill="#388bfd" opacity="0.3"/>
+    <text x="180" y="102" font-family="sans-serif" font-size="10" fill="#c9d1d9" text-anchor="middle">Верхній пористий платиновий електрод (проникний для пари H2O)</text>
+    
+    <rect x="50" y="110" width="260" height="25" fill="#1f6feb" opacity="0.7"/>
+    <text x="180" y="126" font-family="sans-serif" font-size="11" font-weight="bold" fill="#ffffff" text-anchor="middle">Гігроскопічний полімерний діелектрик (C ~ ε_r)</text>
+
+    <rect x="50" y="140" width="260" height="12" fill="#30363d"/>
+    <text x="180" y="150" font-family="sans-serif" font-size="10" fill="#8b949e" text-anchor="middle">Нижній кремнієвий зустрічно-штирьовий електрод</text>
+
+    <!-- Bandgap and Heater -->
+    <rect x="30" y="180" width="300" height="65" rx="6" fill="#0d1117" stroke="#3fb950"/>
+    <text x="45" y="202" font-family="sans-serif" font-size="12" font-weight="bold" fill="#3fb950">Кремнієвий Bandgap сенсор температури</text>
+    <text x="45" y="222" font-family="sans-serif" font-size="11" fill="#8b949e">ΔVbe пропорційна абсолютній температурі (PTAT)</text>
+    <text x="45" y="237" font-family="sans-serif" font-size="10" fill="#3fb950">Використовується для термокомпенсації вологості</text>
+
+    <!-- On-chip microheater -->
+    <rect x="30" y="255" width="300" height="60" rx="6" fill="#0d1117" stroke="#f85149"/>
+    <text x="45" y="278" font-family="sans-serif" font-size="12" font-weight="bold" fill="#f85149">Вбудований мікронагрівач (Heater)</text>
+    <text x="45" y="298" font-family="sans-serif" font-size="11" fill="#8b949e">Полікремнієвий резистор розсіювання (до 200 мВт)</text>
+    <text x="45" y="312" font-family="sans-serif" font-size="10" fill="#f85149">Деконденсація вологи та десорбція летких сполук</text>
+  </g>
+
+  <!-- Middle connection arrow -->
+  <g transform="translate(430, 240)">
+    <line x1="0" y1="0" x2="60" y2="0" stroke="#58a6ff" stroke-width="3" marker-end="url(#arrow)"/>
+    <polygon points="60,0 50,-5 50,5" fill="#58a6ff"/>
+    <text x="30" y="-12" font-family="sans-serif" font-size="11" fill="#8b949e" text-anchor="middle">Аналогові</text>
+    <text x="30" y="20" font-family="sans-serif" font-size="11" fill="#8b949e" text-anchor="middle">сигнали</text>
+  </g>
+
+  <!-- Right block: CMOS Processing Core -->
+  <g transform="translate(500, 95)">
+    <rect width="400" height="340" rx="8" fill="#161b22" stroke="#30363d" stroke-width="1.5"/>
+    <text x="200" y="30" font-family="sans-serif" font-size="15" font-weight="bold" fill="#bc8cff" text-anchor="middle">Цифровий CMOS обчислювач</text>
+
+    <!-- AFE & ADC -->
+    <rect x="30" y="55" width="340" height="55" rx="6" fill="#0d1117" stroke="#bc8cff"/>
+    <text x="45" y="78" font-family="sans-serif" font-size="12" font-weight="bold" fill="#d2a8ff">AFE та 16-бітний дельта-сигма (ΔΣ) АЦП</text>
+    <text x="45" y="98" font-family="sans-serif" font-size="11" fill="#8b949e">Перетворення ємності C(RH) та напруги PTAT у цифрові коди</text>
+
+    <!-- DSP & Calibration ROM -->
+    <rect x="30" y="120" width="340" height="65" rx="6" fill="#0d1117" stroke="#d29922"/>
+    <text x="45" y="142" font-family="sans-serif" font-size="12" font-weight="bold" fill="#d29922">DSP процесор + Калібрувальне ПЗП (OTP ROM)</text>
+    <text x="45" y="162" font-family="sans-serif" font-size="11" fill="#8b949e">Корекція нелінійності полімеру та крос-температурна корекція</text>
+    <text x="45" y="177" font-family="sans-serif" font-size="10" fill="#f0f6fc">Калібрується індивідуально на заводі Sensirion</text>
+
+    <!-- Logic: ALERT / Periodic / I2C Core -->
+    <rect x="30" y="195" width="340" height="75" rx="6" fill="#0d1117" stroke="#30363d"/>
+    <text x="45" y="217" font-family="sans-serif" font-size="12" font-weight="bold" fill="#f0f6fc">Апаратний логічний контролер</text>
+    <text x="45" y="237" font-family="sans-serif" font-size="11" fill="#8b949e">• Генератор CRC-8 контрольних сум</text>
+    <text x="45" y="255" font-family="sans-serif" font-size="11" fill="#8b949e">• Компаратор ALERT (програмовані пороги RH/T)</text>
+
+    <!-- Interface pins -->
+    <rect x="30" y="280" width="340" height="45" rx="6" fill="#1f6feb" fill-opacity="0.2" stroke="#58a6ff"/>
+    <text x="45" y="302" font-family="sans-serif" font-size="12" font-weight="bold" fill="#58a6ff">Шина I2C (SDA, SCL, ALERT, ADDR)</text>
+    <text x="45" y="318" font-family="sans-serif" font-size="10" fill="#c9d1d9">Standard (100 кГц), Fast (400 кГц), Fast-mode Plus (1 МГц)</text>
+  </g>
+</svg>

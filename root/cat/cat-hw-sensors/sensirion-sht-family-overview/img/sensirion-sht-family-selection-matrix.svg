@@ -1,0 +1,80 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="100%" height="100%">
+  <rect width="960" height="480" fill="#0d1117" rx="12"/>
+  <text x="480" y="38" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="20" font-weight="700" fill="#f0f6fc" text-anchor="middle">Матриця вибору та інженерні компроміси родини Sensirion SHT</text>
+  <text x="480" y="62" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" fill="#8b949e" text-anchor="middle">Порівняння характеристик, інтерфейсів, точності та енергоспоживання моделей</text>
+
+  <!-- Table Container -->
+  <g transform="translate(50, 85)">
+    <rect width="860" height="360" rx="8" fill="#161b22" stroke="#30363d"/>
+
+    <!-- Table Header -->
+    <rect x="0" y="0" width="860" height="40" rx="8" fill="#21262d"/>
+    <text x="90" y="25" font-family="sans-serif" font-size="12" font-weight="bold" fill="#f0f6fc" text-anchor="middle">Модель</text>
+    <text x="210" y="25" font-family="sans-serif" font-size="12" font-weight="bold" fill="#f0f6fc" text-anchor="middle">Точність RH / T</text>
+    <text x="330" y="25" font-family="sans-serif" font-size="12" font-weight="bold" fill="#f0f6fc" text-anchor="middle">Живлення VDD</text>
+    <text x="450" y="25" font-family="sans-serif" font-size="12" font-weight="bold" fill="#f0f6fc" text-anchor="middle">Струм (avg/sleep)</text>
+    <text x="580" y="25" font-family="sans-serif" font-size="12" font-weight="bold" fill="#f0f6fc" text-anchor="middle">Інтерфейс / Фічі</text>
+    <text x="740" y="25" font-family="sans-serif" font-size="12" font-weight="bold" fill="#f0f6fc" text-anchor="middle">Головне застосування</text>
+
+    <!-- Row 1: SHT21 -->
+    <g transform="translate(0, 40)">
+      <line x1="0" y1="55" x2="860" y2="55" stroke="#30363d"/>
+      <text x="90" y="32" font-family="sans-serif" font-size="12" font-weight="bold" fill="#58a6ff" text-anchor="middle">SHT21</text>
+      <text x="210" y="32" font-family="sans-serif" font-size="11" fill="#c9d1d9" text-anchor="middle">±2.0% RH / ±0.3°C</text>
+      <text x="330" y="32" font-family="sans-serif" font-size="11" fill="#c9d1d9" text-anchor="middle">2.1 .. 3.6 В</text>
+      <text x="450" y="32" font-family="sans-serif" font-size="11" fill="#c9d1d9" text-anchor="middle">3.2 мкА / 0.15 мкА</text>
+      <text x="580" y="25" font-family="sans-serif" font-size="11" fill="#c9d1d9" text-anchor="middle">I2C (0x40 фіксована)</text>
+      <text x="580" y="42" font-family="sans-serif" font-size="10" fill="#8b949e" text-anchor="middle">Hold/No-Hold master</text>
+      <text x="740" y="32" font-family="sans-serif" font-size="11" fill="#8b949e" text-anchor="middle">Модернізація існуючих систем</text>
+    </g>
+
+    <!-- Row 2: SHT30 / SHT31 -->
+    <g transform="translate(0, 95)">
+      <line x1="0" y1="55" x2="860" y2="55" stroke="#30363d"/>
+      <text x="90" y="32" font-family="sans-serif" font-size="12" font-weight="bold" fill="#3fb950" text-anchor="middle">SHT30 / SHT31</text>
+      <text x="210" y="25" font-family="sans-serif" font-size="11" fill="#c9d1d9" text-anchor="middle">±2.0% (SHT30)</text>
+      <text x="210" y="42" font-family="sans-serif" font-size="11" fill="#3fb950" text-anchor="middle">±1.5% (SHT31)</text>
+      <text x="330" y="32" font-family="sans-serif" font-size="11" fill="#c9d1d9" text-anchor="middle">2.15 .. 5.5 В</text>
+      <text x="450" y="32" font-family="sans-serif" font-size="11" fill="#c9d1d9" text-anchor="middle">1.7 мкА / 0.2 мкА</text>
+      <text x="580" y="25" font-family="sans-serif" font-size="11" fill="#c9d1d9" text-anchor="middle">I2C 0x44 / 0x45 (ADDR)</text>
+      <text x="580" y="42" font-family="sans-serif" font-size="10" fill="#bc8cff" text-anchor="middle">ALERT pin, періодичний мод</text>
+      <text x="740" y="32" font-family="sans-serif" font-size="11" fill="#3fb950" text-anchor="middle">Smart Home, ОВіК (HVAC)</text>
+    </g>
+
+    <!-- Row 3: SHT35 -->
+    <g transform="translate(0, 150)">
+      <line x1="0" y1="55" x2="860" y2="55" stroke="#30363d"/>
+      <text x="90" y="32" font-family="sans-serif" font-size="12" font-weight="bold" fill="#bc8cff" text-anchor="middle">SHT35</text>
+      <text x="210" y="32" font-family="sans-serif" font-size="11" font-weight="bold" fill="#bc8cff" text-anchor="middle">±1.5% RH / ±0.1°C</text>
+      <text x="330" y="32" font-family="sans-serif" font-size="11" fill="#c9d1d9" text-anchor="middle">2.15 .. 5.5 В</text>
+      <text x="450" y="32" font-family="sans-serif" font-size="11" fill="#c9d1d9" text-anchor="middle">1.7 мкА / 0.2 мкА</text>
+      <text x="580" y="25" font-family="sans-serif" font-size="11" fill="#c9d1d9" text-anchor="middle">I2C + фільтр-мембрана IP67</text>
+      <text x="580" y="42" font-family="sans-serif" font-size="10" fill="#bc8cff" text-anchor="middle">ALERT pin, нагрівач</text>
+      <text x="740" y="32" font-family="sans-serif" font-size="11" fill="#bc8cff" text-anchor="middle">Медицина, фарм-склади, метео</text>
+    </g>
+
+    <!-- Row 4: SHT40 / SHT41 / SHT45 -->
+    <g transform="translate(0, 205)">
+      <line x1="0" y1="55" x2="860" y2="55" stroke="#30363d"/>
+      <text x="90" y="32" font-family="sans-serif" font-size="12" font-weight="bold" fill="#f85149" text-anchor="middle">SHT40 / 41 / 45</text>
+      <text x="210" y="25" font-family="sans-serif" font-size="11" fill="#c9d1d9" text-anchor="middle">±1.8% (SHT40)</text>
+      <text x="210" y="42" font-family="sans-serif" font-size="11" font-weight="bold" fill="#f85149" text-anchor="middle">±1.0% RH / 0.1°C (45)</text>
+      <text x="330" y="32" font-family="sans-serif" font-size="11" font-weight="bold" fill="#3fb950" text-anchor="middle">1.08 .. 3.6 В</text>
+      <text x="450" y="32" font-family="sans-serif" font-size="11" font-weight="bold" fill="#3fb950" text-anchor="middle">0.4 мкА / 0.08 мкА</text>
+      <text x="580" y="25" font-family="sans-serif" font-size="11" fill="#c9d1d9" text-anchor="middle">I2C Fast+ (1 МГц), DFN 1.5x1.5</text>
+      <text x="580" y="42" font-family="sans-serif" font-size="10" fill="#f85149" text-anchor="middle">Потужний імпульсний нагрівач</text>
+      <text x="740" y="32" font-family="sans-serif" font-size="11" fill="#f85149" text-anchor="middle">Нові ультра-low-power IoT пристрої</text>
+    </g>
+
+    <!-- Row 5: SHTC3 -->
+    <g transform="translate(0, 260)">
+      <text x="90" y="32" font-family="sans-serif" font-size="12" font-weight="bold" fill="#d29922" text-anchor="middle">SHTC3</text>
+      <text x="210" y="32" font-family="sans-serif" font-size="11" fill="#c9d1d9" text-anchor="middle">±2.0% RH / ±0.2°C</text>
+      <text x="330" y="32" font-family="sans-serif" font-size="11" fill="#c9d1d9" text-anchor="middle">1.62 .. 3.6 В</text>
+      <text x="450" y="32" font-family="sans-serif" font-size="11" fill="#d29922" text-anchor="middle">0.5 мкА / 0.05 мкА</text>
+      <text x="580" y="25" font-family="sans-serif" font-size="11" fill="#c9d1d9" text-anchor="middle">I2C (0x70), DFN 2x2 мм</text>
+      <text x="580" y="42" font-family="sans-serif" font-size="10" fill="#8b949e" text-anchor="middle">Режими Sleep / Wake-up</text>
+      <text x="740" y="32" font-family="sans-serif" font-size="11" fill="#d29922" text-anchor="middle">Носимі ґаджети, трекери з батареєю</text>
+    </g>
+  </g>
+</svg>

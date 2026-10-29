@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="100%" height="100%">
+  <rect width="960" height="480" fill="#0d1117" rx="12"/>
+  <text x="480" y="42" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="20" font-weight="700" fill="#f0f6fc" text-anchor="middle">Еволюція поколінь цифрових сенсорів Sensirion SHT</text>
+  <text x="480" y="68" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" fill="#8b949e" text-anchor="middle">Від пропрієтарного протоколу SHT1x до ультрапрецизійної 4-ї генерації SHT4x</text>
+
+  <!-- Timeline line -->
+  <line x1="80" y1="180" x2="880" y2="180" stroke="#30363d" stroke-width="4" stroke-dasharray="8 8"/>
+  <line x1="80" y1="180" x2="840" y2="180" stroke="#58a6ff" stroke-width="3"/>
+
+  <!-- Card 1: 1st Gen (SHT1x / SHT7x) -->
+  <g transform="translate(60, 110)">
+    <circle cx="65" cy="70" r="14" fill="#1f6feb" stroke="#58a6ff" stroke-width="3"/>
+    <text x="65" y="75" font-family="sans-serif" font-size="11" font-weight="bold" fill="#ffffff" text-anchor="middle">1G</text>
+    <rect x="0" y="110" width="170" height="200" rx="8" fill="#161b22" stroke="#30363d" stroke-width="1.5"/>
+    <rect x="0" y="110" width="170" height="28" rx="8" fill="#1f6feb" fill-opacity="0.2"/>
+    <text x="85" y="129" font-family="sans-serif" font-size="13" font-weight="bold" fill="#58a6ff" text-anchor="middle">SHT1x / SHT7x</text>
+    <text x="15" y="155" font-family="sans-serif" font-size="11" fill="#8b949e">Рік: ~2001</text>
+    <text x="15" y="175" font-family="sans-serif" font-size="11" fill="#f0f6fc">• Протокол: Sensirion 2-wire</text>
+    <text x="15" y="195" font-family="sans-serif" font-size="11" fill="#8b949e">  (несумісний з I2C!)</text>
+    <text x="15" y="215" font-family="sans-serif" font-size="11" fill="#f0f6fc">• Похибка: ±3.0..4.5% RH</text>
+    <text x="15" y="235" font-family="sans-serif" font-size="11" fill="#f0f6fc">• Живлення: 2.4 .. 5.5 В</text>
+    <text x="15" y="255" font-family="sans-serif" font-size="11" fill="#f0f6fc">• Корпус: SMD / штирьовий</text>
+    <text x="15" y="285" font-family="sans-serif" font-size="10" fill="#d29922">Застарілий стандарт</text>
+  </g>
+
+  <!-- Card 2: 2nd Gen (SHT2x) -->
+  <g transform="translate(270, 110)">
+    <circle cx="65" cy="70" r="14" fill="#238636" stroke="#3fb950" stroke-width="3"/>
+    <text x="65" y="75" font-family="sans-serif" font-size="11" font-weight="bold" fill="#ffffff" text-anchor="middle">2G</text>
+    <rect x="0" y="110" width="170" height="200" rx="8" fill="#161b22" stroke="#30363d" stroke-width="1.5"/>
+    <rect x="0" y="110" width="170" height="28" rx="8" fill="#238636" fill-opacity="0.2"/>
+    <text x="85" y="129" font-family="sans-serif" font-size="13" font-weight="bold" fill="#3fb950" text-anchor="middle">SHT20 / SHT21 / 25</text>
+    <text x="15" y="155" font-family="sans-serif" font-size="11" fill="#8b949e">Рік: ~2010</text>
+    <text x="15" y="175" font-family="sans-serif" font-size="11" fill="#f0f6fc">• Протокол: Стандартний I2C</text>
+    <text x="15" y="195" font-family="sans-serif" font-size="11" fill="#8b949e">  (Hold/No Hold Master)</text>
+    <text x="15" y="215" font-family="sans-serif" font-size="11" fill="#f0f6fc">• Похибка: ±2.0% RH (SHT21)</text>
+    <text x="15" y="235" font-family="sans-serif" font-size="11" fill="#f0f6fc">• Живлення: 2.1 .. 3.6 В</text>
+    <text x="15" y="255" font-family="sans-serif" font-size="11" fill="#f0f6fc">• DFN3x3 мм з відкритим полем</text>
+    <text x="15" y="285" font-family="sans-serif" font-size="10" fill="#3fb950">Класичний робочий коник</text>
+  </g>
+
+  <!-- Card 3: 3rd Gen (SHT3x) -->
+  <g transform="translate(480, 110)">
+    <circle cx="65" cy="70" r="14" fill="#8957e5" stroke="#bc8cff" stroke-width="3"/>
+    <text x="65" y="75" font-family="sans-serif" font-size="11" font-weight="bold" fill="#ffffff" text-anchor="middle">3G</text>
+    <rect x="0" y="110" width="170" height="200" rx="8" fill="#161b22" stroke="#30363d" stroke-width="1.5"/>
+    <rect x="0" y="110" width="170" height="28" rx="8" fill="#8957e5" fill-opacity="0.2"/>
+    <text x="85" y="129" font-family="sans-serif" font-size="13" font-weight="bold" fill="#bc8cff" text-anchor="middle">SHT30 / SHT31 / 35</text>
+    <text x="15" y="155" font-family="sans-serif" font-size="11" fill="#8b949e">Рік: ~2015</text>
+    <text x="15" y="175" font-family="sans-serif" font-size="11" fill="#f0f6fc">• I2C до 1 МГц, 2 адреси</text>
+    <text x="15" y="195" font-family="sans-serif" font-size="11" fill="#8b949e">  (0x44 або 0x45)</text>
+    <text x="15" y="215" font-family="sans-serif" font-size="11" fill="#f0f6fc">• Похибка: ±1.5% RH (SHT35)</text>
+    <text x="15" y="235" font-family="sans-serif" font-size="11" fill="#f0f6fc">• Переривання ALERT pin</text>
+    <text x="15" y="255" font-family="sans-serif" font-size="11" fill="#f0f6fc">• Періодичний авторежим</text>
+    <text x="15" y="285" font-family="sans-serif" font-size="10" fill="#bc8cff">Індустріальний стандарт</text>
+  </g>
+
+  <!-- Card 4: 4th Gen (SHT4x) -->
+  <g transform="translate(690, 110)">
+    <circle cx="65" cy="70" r="14" fill="#da3633" stroke="#f85149" stroke-width="3"/>
+    <text x="65" y="75" font-family="sans-serif" font-size="11" font-weight="bold" fill="#ffffff" text-anchor="middle">4G</text>
+    <rect x="0" y="110" width="180" height="200" rx="8" fill="#161b22" stroke="#30363d" stroke-width="1.5"/>
+    <rect x="0" y="110" width="180" height="28" rx="8" fill="#da3633" fill-opacity="0.2"/>
+    <text x="90" y="129" font-family="sans-serif" font-size="13" font-weight="bold" fill="#f85149" text-anchor="middle">SHT40 / SHT41 / 45</text>
+    <text x="15" y="155" font-family="sans-serif" font-size="11" fill="#8b949e">Рік: ~2020+</text>
+    <text x="15" y="175" font-family="sans-serif" font-size="11" fill="#f0f6fc">• Ультранизька напруга 1.08 В</text>
+    <text x="15" y="195" font-family="sans-serif" font-size="11" fill="#8b949e">  (1.08 .. 3.6 В живлення)</text>
+    <text x="15" y="215" font-family="sans-serif" font-size="11" fill="#f0f6fc">• Похибка: ±1.0% RH / 0.1°C</text>
+    <text x="15" y="235" font-family="sans-serif" font-size="11" fill="#f0f6fc">• Потужний мікронагрівач</text>
+    <text x="15" y="255" font-family="sans-serif" font-size="11" fill="#f0f6fc">• Споживання: 0.4 мкА сер.</text>
+    <text x="15" y="285" font-family="sans-serif" font-size="10" fill="#f85149">Сучасний флагман IoT</text>
+  </g>
+
+  <!-- Bottom summary bar -->
+  <rect x="60" y="420" width="840" height="40" rx="6" fill="#161b22" stroke="#30363d"/>
+  <text x="480" y="445" font-family="sans-serif" font-size="12" fill="#8b949e" text-anchor="middle">
+    Тенденція розвитку: <tspan fill="#58a6ff">зменшення розміру</tspan> (DFN 1.5x1.5 мм), <tspan fill="#3fb950">зниження напруги до 1.08 В</tspan>, вбудований захист <tspan fill="#d29922">IP67 мембранами</tspan> та самоочищення нагрівачем
+  </text>
+</svg>

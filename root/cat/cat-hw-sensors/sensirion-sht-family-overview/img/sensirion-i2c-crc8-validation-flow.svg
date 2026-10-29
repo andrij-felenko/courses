@@ -1,0 +1,81 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="100%" height="100%">
+  <rect width="960" height="480" fill="#0d1117" rx="12"/>
+  <text x="480" y="38" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="20" font-weight="700" fill="#f0f6fc" text-anchor="middle">Структура пакетів I2C та алгоритм верифікації CRC-8 Sensirion</text>
+  <text x="480" y="62" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" fill="#8b949e" text-anchor="middle">Кожні 2 байти даних супроводжуються обов'язковим байтом апаратної контрольної суми</text>
+
+  <!-- Frame Breakdown Top -->
+  <g transform="translate(60, 85)">
+    <text x="0" y="20" font-family="sans-serif" font-size="14" font-weight="bold" fill="#f0f6fc">Формат відповіді зчитування (6 байтів для T і RH):</text>
+    
+    <!-- Byte 1: Temp MSB -->
+    <rect x="0" y="35" width="130" height="50" rx="4" fill="#1f6feb" fill-opacity="0.3" stroke="#58a6ff" stroke-width="1.5"/>
+    <text x="65" y="58" font-family="sans-serif" font-size="12" font-weight="bold" fill="#58a6ff" text-anchor="middle">Temp MSB</text>
+    <text x="65" y="75" font-family="sans-serif" font-size="10" fill="#8b949e" text-anchor="middle">Байт 0 [15:8]</text>
+
+    <!-- Byte 2: Temp LSB -->
+    <rect x="135" y="35" width="130" height="50" rx="4" fill="#1f6feb" fill-opacity="0.3" stroke="#58a6ff" stroke-width="1.5"/>
+    <text x="200" y="58" font-family="sans-serif" font-size="12" font-weight="bold" fill="#58a6ff" text-anchor="middle">Temp LSB</text>
+    <text x="200" y="75" font-family="sans-serif" font-size="10" fill="#8b949e" text-anchor="middle">Байт 1 [7:0]</text>
+
+    <!-- Byte 3: CRC Temp -->
+    <rect x="270" y="35" width="120" height="50" rx="4" fill="#d29922" fill-opacity="0.3" stroke="#d29922" stroke-width="2"/>
+    <text x="330" y="58" font-family="sans-serif" font-size="12" font-weight="bold" fill="#d29922" text-anchor="middle">CRC-8 (T)</text>
+    <text x="330" y="75" font-family="sans-serif" font-size="10" fill="#f0f6fc" text-anchor="middle">Байт 2 (Поліном 0x31)</text>
+
+    <!-- Byte 4: RH MSB -->
+    <rect x="420" y="35" width="130" height="50" rx="4" fill="#238636" fill-opacity="0.3" stroke="#3fb950" stroke-width="1.5"/>
+    <text x="485" y="58" font-family="sans-serif" font-size="12" font-weight="bold" fill="#3fb950" text-anchor="middle">RH MSB</text>
+    <text x="485" y="75" font-family="sans-serif" font-size="10" fill="#8b949e" text-anchor="middle">Байт 3 [15:8]</text>
+
+    <!-- Byte 5: RH LSB -->
+    <rect x="555" y="35" width="130" height="50" rx="4" fill="#238636" fill-opacity="0.3" stroke="#3fb950" stroke-width="1.5"/>
+    <text x="620" y="58" font-family="sans-serif" font-size="12" font-weight="bold" fill="#3fb950" text-anchor="middle">RH LSB</text>
+    <text x="620" y="75" font-family="sans-serif" font-size="10" fill="#8b949e" text-anchor="middle">Байт 4 [7:0]</text>
+
+    <!-- Byte 6: CRC RH -->
+    <rect x="690" y="35" width="120" height="50" rx="4" fill="#d29922" fill-opacity="0.3" stroke="#d29922" stroke-width="2"/>
+    <text x="750" y="58" font-family="sans-serif" font-size="12" font-weight="bold" fill="#d29922" text-anchor="middle">CRC-8 (RH)</text>
+    <text x="750" y="75" font-family="sans-serif" font-size="10" fill="#f0f6fc" text-anchor="middle">Байт 5 (Поліном 0x31)</text>
+  </g>
+
+  <!-- CRC Calculation Flowchart -->
+  <g transform="translate(60, 200)">
+    <rect width="840" height="250" rx="8" fill="#161b22" stroke="#30363d"/>
+    <text x="420" y="30" font-family="sans-serif" font-size="15" font-weight="bold" fill="#bc8cff" text-anchor="middle">Алгоритм обчислення CRC-8 Sensirion (C-реалізація)</text>
+
+    <!-- Step 1 -->
+    <rect x="30" y="55" width="220" height="70" rx="6" fill="#0d1117" stroke="#58a6ff"/>
+    <text x="140" y="80" font-family="sans-serif" font-size="12" font-weight="bold" fill="#58a6ff" text-anchor="middle">1. Ініціалізація</text>
+    <text x="140" y="100" font-family="sans-serif" font-size="11" fill="#8b949e" text-anchor="middle">crc = 0xFF (початковий стан)</text>
+    <text x="140" y="115" font-family="sans-serif" font-size="10" fill="#8b949e" text-anchor="middle">poly = 0x31 (x^8+x^5+x^4+1)</text>
+
+    <!-- Arrow 1-2 -->
+    <polygon points="275,90 265,85 265,95" fill="#58a6ff"/>
+    <line x1="250" y1="90" x2="275" y2="90" stroke="#58a6ff" stroke-width="2"/>
+
+    <!-- Step 2 -->
+    <rect x="285" y="55" width="250" height="70" rx="6" fill="#0d1117" stroke="#3fb950"/>
+    <text x="410" y="80" font-family="sans-serif" font-size="12" font-weight="bold" fill="#3fb950" text-anchor="middle">2. Побітова обробка байтів</text>
+    <text x="410" y="100" font-family="sans-serif" font-size="11" fill="#f0f6fc" text-anchor="middle">crc ^= data[i]; для 8 бітів:</text>
+    <text x="410" y="115" font-family="sans-serif" font-size="10" fill="#8b949e" text-anchor="middle">if (crc &amp; 0x80) crc = (crc&lt;&lt;1) ^ 0x31</text>
+
+    <!-- Arrow 2-3 -->
+    <polygon points="560,90 550,85 550,95" fill="#3fb950"/>
+    <line x1="535" y1="90" x2="560" y2="90" stroke="#3fb950" stroke-width="2"/>
+
+    <!-- Step 3 -->
+    <rect x="570" y="55" width="240" height="70" rx="6" fill="#0d1117" stroke="#d29922"/>
+    <text x="690" y="80" font-family="sans-serif" font-size="12" font-weight="bold" fill="#d29922" text-anchor="middle">3. Порівняння з байтом пакета</text>
+    <text x="690" y="100" font-family="sans-serif" font-size="11" fill="#f0f6fc" text-anchor="middle">computed_crc == packet_crc?</text>
+    <text x="690" y="115" font-family="sans-serif" font-size="10" fill="#8b949e" text-anchor="middle">Ні розвороту бітів (no reflect)</text>
+
+    <!-- Branch Outcomes -->
+    <rect x="180" y="165" width="200" height="55" rx="6" fill="#238636" fill-opacity="0.2" stroke="#3fb950"/>
+    <text x="280" y="190" font-family="sans-serif" font-size="12" font-weight="bold" fill="#3fb950" text-anchor="middle">CRC ЗБІГНУВСЯ (OK)</text>
+    <text x="280" y="208" font-family="sans-serif" font-size="10" fill="#8b949e" text-anchor="middle">Дані валідні, розрахунок T та RH</text>
+
+    <rect x="460" y="165" width="200" height="55" rx="6" fill="#da3633" fill-opacity="0.2" stroke="#f85149"/>
+    <text x="560" y="190" font-family="sans-serif" font-size="12" font-weight="bold" fill="#f85149" text-anchor="middle">CRC ПОМИЛКА (FAIL)</text>
+    <text x="560" y="208" font-family="sans-serif" font-size="10" fill="#8b949e" text-anchor="middle">Відкидання пакету, повтор I2C</text>
+  </g>
+</svg>
