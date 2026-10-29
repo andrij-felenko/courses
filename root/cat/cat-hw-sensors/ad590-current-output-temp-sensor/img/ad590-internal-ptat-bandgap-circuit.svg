@@ -1,0 +1,110 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, -apple-system, BlinkMacSystemFont, Roboto, sans-serif">
+  <!-- Фон -->
+  <rect width="960" height="540" fill="#0d1117"/>
+  <rect x="15" y="15" width="930" height="510" rx="12" fill="none" stroke="#30363d" stroke-width="1.5"/>
+
+  <!-- Заголовок -->
+  <text x="480" y="42" fill="#f0f6fc" font-size="20" font-weight="700" text-anchor="middle">Внутрішня архітектура та принцип PTAT інтегрального датчика AD590</text>
+  <text x="480" y="66" fill="#8b949e" font-size="13" text-anchor="middle">Генерація струму, пропорційного абсолютній температурі (Proportional To Absolute Temperature, 1 мкА/К)</text>
+
+  <!-- Схема внутрішньої комірки PTAT -->
+  <g transform="translate(50, 85)">
+    <!-- Зовнішній корпус AD590 (TO-52 або SOIC-8) -->
+    <rect x="10" y="10" width="480" height="325" rx="10" fill="#161b22" stroke="#58a6ff" stroke-width="2"/>
+    <text x="35" y="34" fill="#58a6ff" font-size="14" font-weight="700">Внутрішній кристал AD590 (2 виводи)</text>
+
+    <!-- Вивід + (Живлення +4 В ... +30 В) -->
+    <circle cx="250" cy="5" r="7" fill="#f0883e"/>
+    <text x="250" y="-8" fill="#f0883e" font-size="12" font-weight="700" text-anchor="middle">Вивід + (V+)</text>
+    <line x1="250" y1="5" x2="250" y2="40" stroke="#f0883e" stroke-width="2.5"/>
+
+    <!-- Струмове дзеркало PNP (верхній рівень) -->
+    <g transform="translate(130, 40)">
+      <rect x="0" y="0" width="240" height="45" rx="4" fill="#21262d" stroke="#58a6ff" stroke-width="1.2"/>
+      <text x="120" y="27" fill="#58a6ff" font-size="11" font-weight="700" text-anchor="middle">Прецизійне струмове дзеркало 1:1</text>
+      <line x1="40" y1="45" x2="40" y2="80" stroke="#58a6ff" stroke-width="2"/>
+      <line x1="200" y1="45" x2="200" y2="80" stroke="#58a6ff" stroke-width="2"/>
+    </g>
+
+    <!-- Узгоджена пара транзисторів Q1 та Q2 -->
+    <g transform="translate(130, 120)">
+      <!-- Транзистор Q1 (площа емітера 1x) -->
+      <rect x="15" y="0" width="55" height="50" rx="4" fill="#1f2937" stroke="#3fb950" stroke-width="1.5"/>
+      <text x="42" y="22" fill="#3fb950" font-size="11" font-weight="700" text-anchor="middle">Q1</text>
+      <text x="42" y="38" fill="#8b949e" font-size="9" text-anchor="middle">Площа 1x</text>
+
+      <!-- Транзистор Q2 (площа емітера 8x, r = 8) -->
+      <rect x="170" y="0" width="60" height="50" rx="4" fill="#1f2937" stroke="#3fb950" stroke-width="1.5"/>
+      <text x="200" y="22" fill="#3fb950" font-size="11" font-weight="700" text-anchor="middle">Q2</text>
+      <text x="200" y="38" fill="#8b949e" font-size="9" text-anchor="middle">Площа 8x</text>
+
+      <!-- Базовий зв'язок -->
+      <line x1="70" y1="25" x2="170" y2="25" stroke="#3fb950" stroke-width="2"/>
+
+      <!-- Лазерно підігнаний резистор R_t під Q2 -->
+      <line x1="200" y1="50" x2="200" y2="80" stroke="#e3b341" stroke-width="2"/>
+      <rect x="188" y="80" width="24" height="40" fill="#0d1117" stroke="#e3b341" stroke-width="1.5"/>
+      <text x="220" y="104" fill="#e3b341" font-size="10" font-weight="700">R_trim</text>
+      <line x1="200" y1="120" x2="200" y2="150" stroke="#e3b341" stroke-width="2"/>
+
+      <!-- Прямий зв'язок емітера Q1 -->
+      <line x1="42" y1="50" x2="42" y2="150" stroke="#3fb950" stroke-width="2"/>
+
+      <!-- Загальна точка емітерів до виводу V- -->
+      <line x1="42" y1="150" x2="200" y2="150" stroke="#3fb950" stroke-width="2"/>
+      <line x1="121" y1="150" x2="121" y2="190" stroke="#f0883e" stroke-width="2.5"/>
+    </g>
+
+    <!-- Вивід - (V-) -->
+    <circle cx="251" cy="330" r="7" fill="#f0883e"/>
+    <text x="251" y="348" fill="#f0883e" font-size="12" font-weight="700" text-anchor="middle">Вивід - (V-)</text>
+    <line x1="251" y1="310" x2="251" y2="330" stroke="#f0883e" stroke-width="2.5"/>
+
+    <!-- Стрілка вихідного струму I_out -->
+    <path d="M 285 270 L 285 320" stroke="#3fb950" stroke-width="3"/>
+    <polygon points="285,325 280,313 290,313" fill="#3fb950"/>
+    <text x="300" y="300" fill="#3fb950" font-size="13" font-weight="700">I_out = 1 мкА / K</text>
+
+    <!-- Права панель: Фізика та математичний вивід -->
+    <g transform="translate(510, 10)">
+      <rect width="350" height="325" rx="8" fill="#161b22" stroke="#e3b341" stroke-width="1.5"/>
+      <rect width="350" height="32" rx="8" fill="#21262d"/>
+      <text x="175" y="21" fill="#e3b341" font-size="12" font-weight="700" text-anchor="middle">Математичний принцип PTAT</text>
+
+      <text x="20" y="55" fill="#f0f6fc" font-size="11" font-weight="600">Різниця напруг база-емітер ΔV_be:</text>
+      <rect x="15" y="65" width="320" height="42" rx="4" fill="#0d1117" stroke="#30363d"/>
+      <text x="25" y="90" fill="#e3b341" font-size="12" font-family="Consolas, monospace">
+        ΔV_be = (k_B × T / q) × ln(r)
+      </text>
+
+      <text x="20" y="125" fill="#8b949e" font-size="10">• k_B — стала Больцмана (1.38 × 10⁻²³ Дж/К)</text>
+      <text x="20" y="140" fill="#8b949e" font-size="10">• q — заряд електрона (1.602 × 10⁻¹⁹ Кл)</text>
+      <text x="20" y="155" fill="#8b949e" font-size="10">• r — відношення густин струму (r = 8)</text>
+      <text x="20" y="170" fill="#8b949e" font-size="10">• T — абсолютна температура в Кельвінах (K)</text>
+
+      <line x1="20" y1="182" x2="330" y2="182" stroke="#30363d" stroke-width="1"/>
+
+      <text x="20" y="202" fill="#f0f6fc" font-size="11" font-weight="600">Струм через лазерно підігнаний резистор:</text>
+      <rect x="15" y="212" width="320" height="42" rx="4" fill="#0d1117" stroke="#30363d"/>
+      <text x="25" y="238" fill="#3fb950" font-size="12" font-family="Consolas, monospace">
+        I_ptat = ΔV_be / R_trim = k × T
+      </text>
+
+      <text x="20" y="275" fill="#c9d1d9" font-size="10">Лазерна підгонка резистора на кремнії</text>
+      <text x="20" y="292" fill="#3fb950" font-size="10" font-weight="700">встановлює k = строго 1.000 мкА/К!</text>
+      <text x="20" y="310" fill="#8b949e" font-size="9">Не залежить від коливань напруги живлення V+ (4..30 В).</text>
+    </g>
+  </g>
+
+  <!-- Підвал -->
+  <g transform="translate(50, 435)">
+    <rect width="860" height="70" rx="8" fill="#161b22" stroke="#30363d" stroke-width="1.2"/>
+    <text x="25" y="25" fill="#58a6ff" font-size="12" font-weight="700">ЗНАЧЕННЯ СТРУМУ ДЛЯ ХАРАКТЕРНИХ ТЕМПЕРАТУР:</text>
+    <text x="25" y="47" fill="#f0f6fc" font-size="11" font-family="Consolas, monospace">
+      • При -55.0 °C (218.15 K)  ==>  I_out = 218.2 мкА      • При 0.0 °C (273.15 K)  ==>  I_out = 273.2 мкА
+    </text>
+    <text x="25" y="63" fill="#3fb950" font-size="11" font-family="Consolas, monospace">
+      • При +25.0 °C (298.15 K) ==>  I_out = 298.2 мкА      • При +150.0 °C (423.15 K) ==> I_out = 423.2 мкА
+    </text>
+  </g>
+</svg>

@@ -1,0 +1,98 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, -apple-system, BlinkMacSystemFont, Roboto, sans-serif">
+  <!-- Фон -->
+  <rect width="960" height="540" fill="#0d1117"/>
+  <rect x="15" y="15" width="930" height="510" rx="12" fill="none" stroke="#30363d" stroke-width="1.5"/>
+
+  <!-- Заголовок -->
+  <text x="480" y="42" fill="#f0f6fc" font-size="20" font-weight="700" text-anchor="middle">Базове підключення AD590 та передача сигналу на велику відстань</text>
+  <text x="480" y="66" fill="#8b949e" font-size="13" text-anchor="middle">Струмовий інтерфейс 1 мкА/К: нульова похибка від падіння напруги в кабелі довжиною понад 100 м</text>
+
+  <!-- Схема дводротової лінії -->
+  <g transform="translate(40, 85)">
+    <!-- Джерело живлення та приймач на стороні контролера -->
+    <rect x="10" y="20" width="250" height="305" rx="8" fill="#161b22" stroke="#58a6ff" stroke-width="1.5"/>
+    <rect x="10" y="20" width="250" height="30" rx="8" fill="#21262d"/>
+    <text x="135" y="40" fill="#58a6ff" font-size="12" font-weight="700" text-anchor="middle">Плата контролера / АЦП</text>
+
+    <!-- Джерело V+ (+5 В ... +15 В) -->
+    <circle cx="80" cy="85" r="5" fill="#f0883e"/>
+    <text x="95" y="90" fill="#f0883e" font-size="11" font-weight="700">V_CC (+5...15 В)</text>
+    <line x1="80" y1="85" x2="260" y2="85" stroke="#f0883e" stroke-width="2.5"/>
+
+    <!-- Навантажувальний резистор R_load до землі -->
+    <line x1="260" y1="230" x2="160" y2="230" stroke="#3fb950" stroke-width="2.5"/>
+    <circle cx="160" cy="230" r="4" fill="#3fb950"/>
+    <line x1="160" y1="230" x2="160" y2="245" stroke="#3fb950" stroke-width="2"/>
+    
+    <rect x="148" y="245" width="24" height="40" fill="#0d1117" stroke="#3fb950" stroke-width="1.5"/>
+    <text x="180" y="270" fill="#3fb950" font-size="11" font-weight="700">R_L (1 кОм 0.1%)</text>
+    
+    <line x1="160" y1="285" x2="160" y2="305" stroke="#8b949e" stroke-width="2"/>
+    <line x1="150" y1="305" x2="170" y2="305" stroke="#8b949e" stroke-width="2"/>
+    <text x="175" y="310" fill="#8b949e" font-size="10">GND</text>
+
+    <!-- Точка зняття напруги V_out до АЦП -->
+    <line x1="160" y1="230" x2="90" y2="230" stroke="#58a6ff" stroke-width="2"/>
+    <polygon points="80,230 92,225 92,235" fill="#58a6ff"/>
+    <text x="80" y="220" fill="#58a6ff" font-size="11" font-weight="700" text-anchor="middle">До АЦП МК</text>
+    <text x="80" y="250" fill="#f0f6fc" font-size="10" text-anchor="middle">V_out = 1 мВ / K</text>
+
+    <!-- Довгий кабель (кручена пара 100+ метрів) -->
+    <g transform="translate(260, 50)">
+      <rect x="20" y="0" width="280" height="250" rx="6" fill="#0d1117" stroke="#30363d" stroke-dasharray="4,2"/>
+      <text x="160" y="25" fill="#8b949e" font-size="11" text-anchor="middle">Кабельна лінія 100+ метрів (R_кабелю = 20..50 Ом)</text>
+
+      <!-- Лінія живлення з опором дроту -->
+      <line x1="0" y1="35" x2="300" y2="35" stroke="#f0883e" stroke-width="2"/>
+      <rect x="130" y="27" width="35" height="16" fill="#1f2937" stroke="#f0883e"/>
+      <text x="147" y="39" fill="#f0883e" font-size="9" text-anchor="middle">R_дріт</text>
+
+      <!-- Лінія струму I_out зі зворотним опором -->
+      <line x1="300" y1="180" x2="0" y2="180" stroke="#3fb950" stroke-width="2"/>
+      <rect x="130" y="172" width="35" height="16" fill="#1f2937" stroke="#3fb950"/>
+      <text x="147" y="184" fill="#3fb950" font-size="9" text-anchor="middle">R_дріт</text>
+
+      <!-- Стрілка струму в кабелі -->
+      <polygon points="80,180 92,175 92,185" fill="#3fb950"/>
+      <text x="160" y="155" fill="#3fb950" font-size="11" font-weight="700" text-anchor="middle">I_out = 1.0 мкА/К (струм строго константний!)</text>
+      <text x="160" y="215" fill="#ff7b72" font-size="10" text-anchor="middle">Падіння напруги на R_дріт НЕ ЗМІНЮЄ силу струму!</text>
+    </g>
+
+    <!-- Віддалений датчик AD590 на об'єкті контролю -->
+    <rect x="580" y="20" width="280" height="305" rx="8" fill="#161b22" stroke="#e3b341" stroke-width="1.8"/>
+    <rect x="580" y="20" width="280" height="30" rx="8" fill="#21262d"/>
+    <circle cx="598" cy="35" r="6" fill="#e3b341"/>
+    <text x="612" y="40" fill="#e3b341" font-size="12" font-weight="700">Віддалений зонд AD590</text>
+
+    <!-- Графічне позначення 2-вивідного генератора струму -->
+    <g transform="translate(640, 75)">
+      <circle cx="70" cy="50" r="32" fill="#21262d" stroke="#e3b341" stroke-width="2"/>
+      <circle cx="70" cy="80" r="32" fill="#21262d" stroke="#e3b341" stroke-width="2"/>
+      <line x1="70" y1="10" x2="70" y2="18" stroke="#f0883e" stroke-width="3"/>
+      <line x1="70" y1="112" x2="70" y2="155" stroke="#3fb950" stroke-width="3"/>
+
+      <!-- Стрілка всередині генератора струму -->
+      <path d="M 70 45 L 70 85" stroke="#3fb950" stroke-width="2.5"/>
+      <polygon points="70,90 66,78 74,78" fill="#3fb950"/>
+      <text x="120" y="65" fill="#e3b341" font-size="11" font-weight="700">AD590</text>
+      <text x="120" y="82" fill="#8b949e" font-size="10">2 виводи</text>
+    </g>
+
+    <text x="600" y="255" fill="#f0f6fc" font-size="11" font-weight="600">Параметри сенсора:</text>
+    <text x="600" y="275" fill="#c9d1d9" font-size="10">• Діапазон: -55 °C ... +150 °C</text>
+    <text x="600" y="292" fill="#3fb950" font-size="10">• Внутрішній опір: Z_out &gt; 10 МОм</text>
+    <text x="600" y="309" fill="#8b949e" font-size="10">• Корпус: TO-52 метал або SOIC-8</text>
+  </g>
+
+  <!-- Підвал -->
+  <g transform="translate(40, 435)">
+    <rect width="870" height="70" rx="8" fill="#161b22" stroke="#30363d" stroke-width="1.2"/>
+    <text x="25" y="25" fill="#58a6ff" font-size="12" font-weight="700">РОЗРАХУНОК НАПРУГИ ДЛЯ ШКАЛИ КЕЛЬВІНА (R_L = 1.000 кОм):</text>
+    <text x="25" y="47" fill="#f0f6fc" font-size="11" font-family="Consolas, monospace">
+      V_out = I_out × R_L = (1 мкА/К) × 1000 Ом × T_kelvin = 1.000 мВ / K
+    </text>
+    <text x="25" y="63" fill="#3fb950" font-size="11">
+      При 0 °C (273.15 K)  ==>  V_out = 273.2 мВ;    При +25 °C (298.15 K)  ==>  V_out = 298.2 мВ;    При +100 °C  ==>  V_out = 373.2 мВ.
+    </text>
+  </g>
+</svg>

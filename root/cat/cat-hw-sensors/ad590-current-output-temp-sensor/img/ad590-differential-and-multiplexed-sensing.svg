@@ -1,0 +1,120 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, -apple-system, BlinkMacSystemFont, Roboto, sans-serif">
+  <!-- Фон -->
+  <rect width="960" height="540" fill="#0d1117"/>
+  <rect x="15" y="15" width="930" height="510" rx="12" fill="none" stroke="#30363d" stroke-width="1.5"/>
+
+  <!-- Заголовок -->
+  <text x="480" y="42" fill="#f0f6fc" font-size="20" font-weight="700" text-anchor="middle">Диференційне вимірювання (ΔT = T₁ - T₂) та мультиплексування AD590</text>
+  <text x="480" y="66" fill="#8b949e" font-size="13" text-anchor="middle">Пряме апаратне віднімання струмів у вузлі та комутація сенсорів без похибки від опору ключів</text>
+
+  <!-- Схема (Зліва: Диференційне коло, Справа: Мультиплексор) -->
+  <g transform="translate(40, 85)">
+    <!-- Блок 1: Диференційне коло (T1 - T2) -->
+    <rect x="10" y="10" width="415" height="325" rx="8" fill="#161b22" stroke="#58a6ff" stroke-width="1.5"/>
+    <rect x="10" y="10" width="415" height="30" rx="8" fill="#21262d"/>
+    <circle cx="28" cy="25" r="6" fill="#58a6ff"/>
+    <text x="42" y="30" fill="#f0f6fc" font-size="13" font-weight="700">1. Диференційний вимір (ΔT = T₁ - T₂)</text>
+
+    <!-- Схема включення зустрічних датчиків -->
+    <g transform="translate(40, 50)">
+      <!-- Джерело +15 В -->
+      <line x1="80" y1="15" x2="80" y2="35" stroke="#f0883e" stroke-width="2.5"/>
+      <circle cx="80" cy="15" r="4" fill="#f0883e"/>
+      <text x="95" y="20" fill="#f0883e" font-size="11" font-weight="700">+15 В</text>
+
+      <!-- Датчик 1 (T1) -->
+      <rect x="55" y="35" width="50" height="40" rx="4" fill="#1f2937" stroke="#3fb950" stroke-width="1.5"/>
+      <text x="80" y="55" fill="#3fb950" font-size="10" font-weight="700" text-anchor="middle">AD590 #1</text>
+      <text x="80" y="68" fill="#8b949e" font-size="9" text-anchor="middle">(T₁)</text>
+
+      <!-- Вузол віднімання струмів (I1 - I2) -->
+      <line x1="80" y1="75" x2="80" y2="120" stroke="#3fb950" stroke-width="2.5"/>
+      <circle cx="80" cy="120" r="5" fill="#f0f6fc"/>
+      <text x="95" y="115" fill="#f0f6fc" font-size="11" font-weight="700">I_diff = I₁ - I₂</text>
+
+      <!-- Навантажувальний резистор R_L (10 кОм) вбік -->
+      <line x1="80" y1="120" x2="190" y2="120" stroke="#3fb950" stroke-width="2.5"/>
+      <rect x="190" y="108" width="45" height="24" fill="#0d1117" stroke="#3fb950" stroke-width="1.5"/>
+      <text x="212" y="124" fill="#3fb950" font-size="10" font-weight="700" text-anchor="middle">R_diff</text>
+      <text x="212" y="145" fill="#8b949e" font-size="9" text-anchor="middle">10.0 кОм</text>
+
+      <line x1="235" y1="120" x2="275" y2="120" stroke="#58a6ff" stroke-width="2.5"/>
+      <circle cx="275" cy="120" r="4" fill="#58a6ff"/>
+      <text x="285" y="125" fill="#58a6ff" font-size="11" font-weight="700">V_diff</text>
+
+      <!-- Датчик 2 (T2) до -15 В -->
+      <line x1="80" y1="120" x2="80" y2="165" stroke="#ff7b72" stroke-width="2.5"/>
+      <rect x="55" y="165" width="50" height="40" rx="4" fill="#1f2937" stroke="#ff7b72" stroke-width="1.5"/>
+      <text x="80" y="185" fill="#ff7b72" font-size="10" font-weight="700" text-anchor="middle">AD590 #2</text>
+      <text x="80" y="198" fill="#8b949e" font-size="9" text-anchor="middle">(T₂)</text>
+
+      <line x1="80" y1="205" x2="80" y2="230" stroke="#ff7b72" stroke-width="2.5"/>
+      <circle cx="80" cy="230" r="4" fill="#ff7b72"/>
+      <text x="95" y="235" fill="#ff7b72" font-size="11" font-weight="700">-15 В</text>
+    </g>
+
+    <text x="25" y="295" fill="#3fb950" font-size="11" font-weight="700">
+      V_diff = (T₁ - T₂) × (1 мкА/К) × 10 кОм = 10.0 мВ / °C
+    </text>
+    <text x="25" y="318" fill="#8b949e" font-size="10">
+      Пряме віднімання струмів за законом Кірхгофа без ОУ та мостів!
+    </text>
+
+    <!-- Блок 2: Мультиплексування каналів (Multiplexing) -->
+    <rect x="455" y="10" width="425" height="325" rx="8" fill="#161b22" stroke="#3fb950" stroke-width="1.5"/>
+    <rect x="455" y="10" width="425" height="30" rx="8" fill="#21262d"/>
+    <circle cx="473" cy="25" r="6" fill="#3fb950"/>
+    <text x="487" y="30" fill="#f0f6fc" font-size="13" font-weight="700">2. Багатоканальне мультиплексування</text>
+
+    <!-- Схема мультиплексора CD4051 / ADG508 -->
+    <g transform="translate(470, 55)">
+      <!-- 3 датчики зліва -->
+      <rect x="10" y="10" width="60" height="25" rx="3" fill="#1f2937" stroke="#e3b341"/>
+      <text x="40" y="26" fill="#e3b341" font-size="9" text-anchor="middle">Сенсор 1</text>
+      
+      <rect x="10" y="55" width="60" height="25" rx="3" fill="#1f2937" stroke="#e3b341"/>
+      <text x="40" y="71" fill="#e3b341" font-size="9" text-anchor="middle">Сенсор 2</text>
+
+      <rect x="10" y="100" width="60" height="25" rx="3" fill="#1f2937" stroke="#e3b341"/>
+      <text x="40" y="116" fill="#e3b341" font-size="9" text-anchor="middle">Сенсор N</text>
+
+      <!-- Лінії до ключів мультиплексора -->
+      <line x1="70" y1="22" x2="130" y2="22" stroke="#3fb950" stroke-width="1.5"/>
+      <line x1="70" y1="67" x2="130" y2="67" stroke="#3fb950" stroke-width="1.5"/>
+      <line x1="70" y1="112" x2="130" y2="112" stroke="#3fb950" stroke-width="1.5"/>
+
+      <!-- Блок CMOS Мультиплексора -->
+      <rect x="130" y="5" width="130" height="135" rx="6" fill="#0d1117" stroke="#58a6ff" stroke-width="1.5"/>
+      <text x="195" y="25" fill="#58a6ff" font-size="10" font-weight="700" text-anchor="middle">CMOS MUX</text>
+      <text x="195" y="40" fill="#8b949e" font-size="9" text-anchor="middle">(ADG508 / CD4051)</text>
+
+      <text x="195" y="75" fill="#f0f6fc" font-size="9" text-anchor="middle">R_on = 100..400 Ом</text>
+      <text x="195" y="90" fill="#3fb950" font-size="9" font-weight="700" text-anchor="middle">ПОХИБКА = 0.00 °C!</text>
+      <text x="195" y="115" fill="#8b949e" font-size="8" text-anchor="middle">Керування: Ch0..Ch7</text>
+
+      <!-- Вихід MUX до єдиного резистора R_load -->
+      <line x1="260" y1="70" x2="310" y2="70" stroke="#3fb950" stroke-width="2.5"/>
+      <rect x="310" y="55" width="20" height="35" fill="#1f2937" stroke="#3fb950"/>
+      <text x="340" y="75" fill="#3fb950" font-size="10" font-weight="700">R_L</text>
+      <text x="340" y="90" fill="#8b949e" font-size="8">1 кОм</text>
+    </g>
+
+    <text x="475" y="235" fill="#f0f6fc" font-size="11" font-weight="600">Чому опір ключа R_on не створює похибки:</text>
+    <text x="475" y="255" fill="#c9d1d9" font-size="10">• Оскільки AD590 має вихідний опір Z_out > 10 МОм,</text>
+    <text x="475" y="272" fill="#3fb950" font-size="10">  послідовний опір відкритого ключа 300 Ом змінює струм менше 0.003%!</text>
+    <text x="475" y="290" fill="#c9d1d9" font-size="10">• Не потрібні дорогі низькоомні реле або прецизійні аналогові комутатори.</text>
+    <text x="475" y="315" fill="#8b949e" font-size="10">Один АЦП обслуговує десятки віддалених точок вимірювання.</text>
+  </g>
+
+  <!-- Підвал -->
+  <g transform="translate(40, 435)">
+    <rect width="870" height="70" rx="8" fill="#161b22" stroke="#30363d" stroke-width="1.2"/>
+    <text x="25" y="25" fill="#58a6ff" font-size="12" font-weight="700">ГОЛОВНА СХЕМОТЕХНІЧНА ПЕРЕВАГА ДАТЧИКА AD590:</text>
+    <text x="25" y="47" fill="#f0f6fc" font-size="11">
+      • Струмовий сигнал єдиний дозволяє алгебраїчне додавання та віднімання безпосередньо за законом струмів Кірхгофа.
+    </text>
+    <text x="25" y="63" fill="#8b949e" font-size="11">
+      • Це спрощує контроль різниці температур радіаторів, теплообмінників та технологічних колон до двох деталей.
+    </text>
+  </g>
+</svg>
