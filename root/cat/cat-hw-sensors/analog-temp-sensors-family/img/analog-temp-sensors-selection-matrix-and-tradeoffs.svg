@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 850 480" width="100%" height="100%">
+  <rect width="100%" height="100%" fill="#0d1117"/>
+  <text x="425" y="35" font-family="system-ui, -apple-system, sans-serif" font-size="20" font-weight="bold" fill="#f0f6fc" text-anchor="middle">Матриця вибору аналогового датчика температури</text>
+  <text x="425" y="58" font-family="system-ui, -apple-system, sans-serif" font-size="13" fill="#8b949e" text-anchor="middle">Рекомендації інженера за критеріями живлення, струму спокою та складності підключення</text>
+
+  <!-- Table Box -->
+  <rect x="40" y="85" width="770" height="260" rx="8" fill="#161b22" stroke="#30363d" stroke-width="1.5"/>
+
+  <!-- Table Header -->
+  <rect x="40" y="85" width="770" height="35" rx="8" fill="#21262d"/>
+  <text x="110" y="108" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="bold" fill="#79c0ff">Сенсор</text>
+  <text x="230" y="108" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="bold" fill="#79c0ff">Живлення V_cc</text>
+  <text x="360" y="108" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="bold" fill="#79c0ff">Струм спокою</text>
+  <text x="490" y="108" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="bold" fill="#79c0ff">Шкала / Чутливість</text>
+  <text x="690" y="108" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="bold" fill="#79c0ff">Головна перевага</text>
+
+  <!-- Row 1: LM35 -->
+  <line x1="40" y1="120" x2="810" y2="120" stroke="#30363d" stroke-width="1"/>
+  <text x="110" y="145" font-family="system-ui, -apple-system, sans-serif" font-size="13" font-weight="bold" fill="#58a6ff">LM35</text>
+  <text x="230" y="145" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#f0f6fc">4.0 .. 30.0 В</text>
+  <text x="360" y="145" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#c9d1d9">~60 мкА</text>
+  <text x="490" y="145" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#c9d1d9">Цельсій (10 мВ/°C)</text>
+  <text x="690" y="145" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#8b949e">Прямий відлік у 5В схемах</text>
+
+  <!-- Row 2: TMP36 -->
+  <line x1="40" y1="165" x2="810" y2="165" stroke="#30363d" stroke-width="1"/>
+  <text x="110" y="190" font-family="system-ui, -apple-system, sans-serif" font-size="13" font-weight="bold" fill="#3fb950">TMP36</text>
+  <text x="230" y="190" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="bold" fill="#7ee787">2.7 .. 5.5 В</text>
+  <text x="360" y="190" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="bold" fill="#7ee787">~50 мкА</text>
+  <text x="490" y="190" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#3fb950">Цельсій (+500 мВ)</text>
+  <text x="690" y="190" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="bold" fill="#3fb950">Ідеальний для 3.3В MCU</text>
+
+  <!-- Row 3: LM335 -->
+  <line x1="40" y1="210" x2="810" y2="210" stroke="#30363d" stroke-width="1"/>
+  <text x="110" y="235" font-family="system-ui, -apple-system, sans-serif" font-size="13" font-weight="bold" fill="#bc8cff">LM335</text>
+  <text x="230" y="235" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#f0f6fc">Будь-яке (через R)</text>
+  <text x="360" y="235" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#f85149">400 мкА .. 5 мА</text>
+  <text x="490" y="235" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#c9d1d9">Кельвін (10 мВ/K)</text>
+  <text x="690" y="235" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#79c0ff">Двопровідне підключення</text>
+
+  <!-- Row 4: LM34 -->
+  <line x1="40" y1="255" x2="810" y2="255" stroke="#30363d" stroke-width="1"/>
+  <text x="110" y="280" font-family="system-ui, -apple-system, sans-serif" font-size="13" font-weight="bold" fill="#d29922">LM34</text>
+  <text x="230" y="280" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#f0f6fc">4.0 .. 30.0 В</text>
+  <text x="360" y="280" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#c9d1d9">~75 мкА</text>
+  <text x="490" y="280" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#c9d1d9">Фаренгейт (10 мВ/°F)</text>
+  <text x="690" y="280" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#8b949e">Вища крутизна (18мВ/°C)</text>
+
+  <!-- Bottom Guidance Box -->
+  <rect x="40" y="360" width="770" height="100" rx="8" fill="#161b22" stroke="#3fb950" stroke-width="1.5"/>
+  <text x="60" y="385" font-family="system-ui, -apple-system, sans-serif" font-size="13" font-weight="bold" fill="#3fb950">Фінальний вердикт інженера для сучасних проектів:</text>
+  <text x="60" y="410" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#c9d1d9">• Для систем на STM32 / ESP32 / Nordic nRF52 обирайте **TMP36** — він не вимагає схем зміщення для від'ємних температур.</text>
+  <text x="60" y="432" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#c9d1d9">• Для довгих польових кабелів або промислових терморегуляторів — обирайте **LM335** у режимі стабілітрона.</text>
+  <text x="60" y="452" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#8b949e">• Для старих 5-вольтових релейних плат — використовуйте класичний **LM35**.</text>
+</svg>
