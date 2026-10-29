@@ -1,0 +1,131 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 540" width="100%" height="100%">
+  <defs>
+    <style>
+      .bg { fill: #0f172a; }
+      .panel { fill: #1e293b; stroke: #334155; stroke-width: 1.5; rx: 8px; }
+      .panel-sub { fill: #0f172a; stroke: #334155; stroke-width: 1; rx: 6px; }
+      .title { font-family: system-ui, sans-serif; font-size: 20px; font-weight: 700; fill: #f8fafc; }
+      .subtitle { font-family: system-ui, sans-serif; font-size: 13px; fill: #94a3b8; }
+      .h2 { font-family: system-ui, sans-serif; font-size: 15px; font-weight: 600; fill: #38bdf8; }
+      .lbl { font-family: system-ui, sans-serif; font-size: 12px; fill: #f8fafc; }
+      .lbl-bold { font-family: system-ui, sans-serif; font-size: 12px; font-weight: 700; fill: #f8fafc; }
+      .lbl-dim { font-family: system-ui, sans-serif; font-size: 11px; fill: #94a3b8; }
+      .lbl-code { font-family: monospace, monospace; font-size: 11px; fill: #38bdf8; }
+      
+      .axis { stroke: #64748b; stroke-width: 1.5; }
+      .grid { stroke: #334155; stroke-dasharray: 4,4; stroke-width: 1; }
+      
+      .curve-steel { stroke: #38bdf8; stroke-width: 3; fill: none; }
+      .curve-al { stroke: #fbbf24; stroke-width: 2.5; fill: none; }
+      .curve-cu { stroke: #f43f5e; stroke-width: 2.5; fill: none; }
+      .curve-ss { stroke: #4ade80; stroke-width: 2.5; fill: none; }
+    </style>
+  </defs>
+
+  <rect width="100%" height="100%" class="bg" />
+
+  <!-- Title Block -->
+  <text x="30" y="38" class="title">Залежність чутливості від матеріалу та геометрії мішені</text>
+  <text x="30" y="60" class="subtitle">Калібрувальні криві вихідної напруги для феромагнітних та кольорових металів (Сталь 4140, Al, Cu, SS304)</text>
+
+  <!-- Left: Calibration Curves Graph -->
+  <g transform="translate(30, 85)">
+    <rect width="500" height="425" class="panel" />
+    <text x="20" y="28" class="h2">1. Статичні калібрувальні характеристики V_out(x)</text>
+
+    <!-- Graph area -->
+    <g transform="translate(50, 45)">
+      <!-- Axes -->
+      <line x1="30" y1="290" x2="420" y2="290" class="axis" />
+      <line x1="30" y1="20" x2="30" y2="290" class="axis" />
+      <text x="425" y="294" class="lbl-dim">Зазор x [мм]</text>
+      <text x="15" y="20" class="lbl-dim">V_out [В]</text>
+
+      <!-- Y levels (0, -2, -4, -6, -8, -10V or 0 to 10V) -->
+      <line x1="30" y1="50" x2="410" y2="50" class="grid" />
+      <line x1="30" y1="110" x2="410" y2="110" class="grid" />
+      <line x1="30" y1="170" x2="410" y2="170" class="grid" />
+      <line x1="30" y1="230" x2="410" y2="230" class="grid" />
+
+      <text x="22" y="54" class="lbl-dim" text-anchor="end">10 В</text>
+      <text x="22" y="114" class="lbl-dim" text-anchor="end">7.5 В</text>
+      <text x="22" y="174" class="lbl-dim" text-anchor="end">5.0 В</text>
+      <text x="22" y="234" class="lbl-dim" text-anchor="end">2.5 В</text>
+      <text x="22" y="294" class="lbl-dim" text-anchor="end">0 В</text>
+
+      <!-- X ticks (0.5, 1.0, 1.5, 2.0 mm) -->
+      <line x1="125" y1="30" x2="125" y2="290" class="grid" />
+      <line x1="220" y1="30" x2="220" y2="290" class="grid" />
+      <line x1="315" y1="30" x2="315" y2="290" class="grid" />
+      <line x1="410" y1="30" x2="410" y2="290" class="grid" />
+
+      <text x="30" y="310" class="lbl-dim" text-anchor="middle">0</text>
+      <text x="125" y="310" class="lbl-dim" text-anchor="middle">0.5</text>
+      <text x="220" y="310" class="lbl-dim" text-anchor="middle">1.0</text>
+      <text x="315" y="310" class="lbl-dim" text-anchor="middle">1.5</text>
+      <text x="410" y="310" class="lbl-dim" text-anchor="middle">2.0</text>
+
+      <!-- Calibration Curves -->
+      <!-- 1. AISI 4140 Steel (Standard API 670: 7.87 V/mm) -->
+      <path d="M 30 280 L 125 210 L 220 140 L 315 70 L 410 40" class="curve-steel" />
+
+      <!-- 2. Aluminum (Higher conductivity -> lower inductance change -> shallower slope) -->
+      <path d="M 30 280 L 125 235 L 220 185 L 315 130 L 410 85" class="curve-al" />
+
+      <!-- 3. Copper (Highest conductivity) -->
+      <path d="M 30 280 L 125 245 L 220 205 L 315 160 L 410 115" class="curve-cu" />
+
+      <!-- 4. Stainless Steel 304 (Low conductivity, mu_r ~ 1) -->
+      <path d="M 30 280 L 125 180 L 220 95 L 315 45 L 410 30" class="curve-ss" />
+    </g>
+
+    <!-- Legend inside Left Panel -->
+    <g transform="translate(60, 375)">
+      <line x1="0" y1="0" x2="25" y2="0" class="curve-steel" />
+      <text x="32" y="4" class="lbl-bold" fill="#38bdf8">Сталь 4140 (Еталон API 670)</text>
+
+      <line x1="220" y1="0" x2="245" y2="0" class="curve-al" />
+      <text x="252" y="4" class="lbl-bold" fill="#fbbf24">Алюміній (Al)</text>
+
+      <line x1="0" y1="20" x2="25" y2="20" class="curve-ss" />
+      <text x="32" y="24" class="lbl-bold" fill="#4ade80">Нерж. сталь SS304</text>
+
+      <line x1="220" y1="20" x2="245" y2="20" class="curve-cu" />
+      <text x="252" y="24" class="lbl-bold" fill="#f43f5e">Мідь (Cu)</text>
+    </g>
+  </g>
+
+  <!-- Right: Target Sizing & Geometric Constraints -->
+  <g transform="translate(550, 85)">
+    <rect width="340" height="425" class="panel" />
+    <text x="20" y="28" class="h2">2. Геометричні вимоги до мішені</text>
+
+    <g transform="translate(20, 45)">
+      <!-- Requirement 1: Diameter -->
+      <rect x="0" y="0" width="300" height="95" class="panel-sub" />
+      <text x="15" y="22" class="lbl-bold" fill="#38bdf8">1. Діаметр плями мішені:</text>
+      <text x="15" y="44" class="lbl-bold" fill="#fbbf24">D_target ≥ 2.5 ... 3.0 · D_coil</text>
+      <text x="15" y="64" class="lbl">Якщо діаметр вала менший, виникає</text>
+      <text x="15" y="80" class="lbl-dim">крайовий ефект розсіювання ліній поля.</text>
+
+      <!-- Requirement 2: Thickness -->
+      <rect x="0" y="105" width="300" height="95" class="panel-sub" />
+      <text x="15" y="22" class="lbl-bold" fill="#4ade80">2. Товщина стінки мішені:</text>
+      <text x="15" y="44" class="lbl-bold" fill="#4ade80">t_target ≥ 3 · δ (скін-глибин)</text>
+      <text x="15" y="64" class="lbl">Для сталі 4140 при f=1.5 МГц: &gt; 0.15 мм.</text>
+      <text x="15" y="80" class="lbl-dim">Для алюмінію при f=1.5 МГц: &gt; 0.25 мм.</text>
+
+      <!-- Requirement 3: Surface Finish -->
+      <rect x="0" y="210" width="300" height="95" class="panel-sub" />
+      <text x="15" y="22" class="lbl-bold" fill="#f43f5e">3. Шорсткість та биття (Runout):</text>
+      <text x="15" y="44" class="lbl">Шорсткість поверхні: <tspan fill="#fbbf24">Ra &lt; 0.8 мкм</tspan></text>
+      <text x="15" y="64" class="lbl">Залишкова намагніченість вала</text>
+      <text x="15" y="80" class="lbl-dim">повинна бути розмагнічена (&lt; 2 Гауси).</text>
+
+      <!-- Warning on recalibration -->
+      <rect x="0" y="315" width="300" height="55" fill="#881337" stroke="#f43f5e" rx="4" />
+      <text x="15" y="24" class="lbl-bold" fill="#fecdd3">УВАГА: Заміна марки металу</text>
+      <text x="15" y="42" class="lbl-dim" fill="#ffffff">вимагає обов'язкового перекалібрування!</text>
+    </g>
+  </g>
+</svg>

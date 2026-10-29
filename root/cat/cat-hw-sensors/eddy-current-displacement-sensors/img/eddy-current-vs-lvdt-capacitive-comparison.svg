@@ -1,0 +1,147 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 540" width="100%" height="100%">
+  <defs>
+    <style>
+      .bg { fill: #0f172a; }
+      .panel { fill: #1e293b; stroke: #334155; stroke-width: 1.5; rx: 8px; }
+      .panel-sub { fill: #0f172a; stroke: #334155; stroke-width: 1; rx: 6px; }
+      .title { font-family: system-ui, sans-serif; font-size: 20px; font-weight: 700; fill: #f8fafc; }
+      .subtitle { font-family: system-ui, sans-serif; font-size: 13px; fill: #94a3b8; }
+      .h2 { font-family: system-ui, sans-serif; font-size: 15px; font-weight: 600; fill: #38bdf8; }
+      .lbl { font-family: system-ui, sans-serif; font-size: 12px; fill: #f8fafc; }
+      .lbl-bold { font-family: system-ui, sans-serif; font-size: 12px; font-weight: 700; fill: #f8fafc; }
+      .lbl-dim { font-family: system-ui, sans-serif; font-size: 11px; fill: #94a3b8; }
+      .lbl-code { font-family: monospace, monospace; font-size: 11px; fill: #38bdf8; }
+      
+      .col-header { fill: #0f172a; stroke: #475569; stroke-width: 1.5; }
+      .card-eddy { fill: #1e293b; stroke: #38bdf8; stroke-width: 2; rx: 6px; }
+      .card-lvdt { fill: #1e293b; stroke: #a855f7; stroke-width: 1.5; rx: 6px; }
+      .card-cap { fill: #1e293b; stroke: #fbbf24; stroke-width: 1.5; rx: 6px; }
+      .card-opt { fill: #1e293b; stroke: #10b981; stroke-width: 1.5; rx: 6px; }
+    </style>
+  </defs>
+
+  <rect width="100%" height="100%" class="bg" />
+
+  <!-- Title Block -->
+  <text x="30" y="38" class="title">Системне порівняння безконтактних технологій вимірювання переміщення</text>
+  <text x="30" y="60" class="subtitle">Порівняльний аналіз вихрострумових датчиків, LVDT, ємнісних та лазерних оптичних вимірювачів</text>
+
+  <!-- 4 Technology Comparison Cards -->
+  <g transform="translate(30, 85)">
+    <!-- Card 1: Eddy Current (Highlighted Winner for Turbines/Dynamic) -->
+    <g transform="translate(0, 0)">
+      <rect width="205" height="310" class="card-eddy" />
+      <rect x="0" y="0" width="205" height="42" fill="#0284c7" rx="5" />
+      <text x="102" y="26" class="lbl-bold" text-anchor="middle" fill="#ffffff">Вихрострумові (Eddy)</text>
+
+      <g transform="translate(12, 55)">
+        <text x="0" y="16" class="lbl-bold" fill="#38bdf8">Діапазон ходу:</text>
+        <text x="0" y="32" class="lbl">0.2 ... 5.0 мм (малий)</text>
+
+        <text x="0" y="58" class="lbl-bold" fill="#38bdf8">Роздільна здатність:</text>
+        <text x="0" y="74" class="lbl-bold" fill="#4ade80">0.05 ... 0.1 мкм (нано)</text>
+
+        <text x="0" y="100" class="lbl-bold" fill="#38bdf8">Смуга частот:</text>
+        <text x="0" y="116" class="lbl-bold" fill="#4ade80">До 50–100 кГц (лідер!)</text>
+
+        <text x="0" y="142" class="lbl-bold" fill="#38bdf8">Стійкість до бруду:</text>
+        <text x="0" y="158" class="lbl-bold" fill="#4ade80">Ідеальна (мастило, вода)</text>
+
+        <text x="0" y="184" class="lbl-bold" fill="#38bdf8">Матеріал мішені:</text>
+        <text x="0" y="200" class="lbl">Тільки метал (електропровідний)</text>
+
+        <text x="0" y="226" class="lbl-bold" fill="#38bdf8">Головна ніша:</text>
+        <text x="0" y="242" class="lbl-dim">Вібрація валів турбін, шпинделі ЧПК, магнітні підшипники</text>
+      </g>
+    </g>
+
+    <!-- Card 2: LVDT -->
+    <g transform="translate(218, 0)">
+      <rect width="205" height="310" class="card-lvdt" />
+      <rect x="0" y="0" width="205" height="42" fill="#7e22ce" rx="5" />
+      <text x="102" y="26" class="lbl-bold" text-anchor="middle" fill="#ffffff">LVDT трансформатори</text>
+
+      <g transform="translate(12, 55)">
+        <text x="0" y="16" class="lbl-bold" fill="#a855f7">Діапазон ходу:</text>
+        <text x="0" y="32" class="lbl-bold" fill="#4ade80">±0.5 мм ... ±500 мм (великий)</text>
+
+        <text x="0" y="58" class="lbl-bold" fill="#a855f7">Роздільна здатність:</text>
+        <text x="0" y="74" class="lbl">0.1 ... 1.0 мкм</text>
+
+        <text x="0" y="100" class="lbl-bold" fill="#a855f7">Смуга частот:</text>
+        <text x="0" y="116" class="lbl">До 100–500 Гц (низька)</text>
+
+        <text x="0" y="142" class="lbl-bold" fill="#a855f7">Стійкість до бруду:</text>
+        <text x="0" y="158" class="lbl">Висока (герметичний)</text>
+
+        <text x="0" y="184" class="lbl-bold" fill="#a855f7">Матеріал мішені:</text>
+        <text x="0" y="200" class="lbl">Феримагнітний осердя-шток</text>
+
+        <text x="0" y="226" class="lbl-bold" fill="#a855f7">Головна ніша:</text>
+        <text x="0" y="242" class="lbl-dim">Гідроциліндри, клапани ТЕС, авіаційні приводи</text>
+      </g>
+    </g>
+
+    <!-- Card 3: Capacitive Sensors -->
+    <g transform="translate(436, 0)">
+      <rect width="205" height="310" class="card-cap" />
+      <rect x="0" y="0" width="205" height="42" fill="#b45309" rx="5" />
+      <text x="102" y="26" class="lbl-bold" text-anchor="middle" fill="#ffffff">Ємнісні (Capacitive)</text>
+
+      <g transform="translate(12, 55)">
+        <text x="0" y="16" class="lbl-bold" fill="#fbbf24">Діапазон ходу:</text>
+        <text x="0" y="32" class="lbl">0.05 ... 2.0 мм (дуже малий)</text>
+
+        <text x="0" y="58" class="lbl-bold" fill="#fbbf24">Роздільна здатність:</text>
+        <text x="0" y="74" class="lbl-bold" fill="#4ade80">0.01 мкм (субнано)</text>
+
+        <text x="0" y="100" class="lbl-bold" fill="#fbbf24">Смуга частот:</text>
+        <text x="0" y="116" class="lbl">До 10–20 кГц</text>
+
+        <text x="0" y="142" class="lbl-bold" fill="#fbbf24">Стійкість до бруду:</text>
+        <text x="0" y="158" class="lbl-bold" fill="#f43f5e">Вкрай низька (чутливий до вологи)</text>
+
+        <text x="0" y="184" class="lbl-bold" fill="#fbbf24">Матеріал мішені:</text>
+        <text x="0" y="200" class="lbl">Будь-який (метал / діелектрик)</text>
+
+        <text x="0" y="226" class="lbl-bold" fill="#fbbf24">Головна ніша:</text>
+        <text x="0" y="242" class="lbl-dim">Чисті кімнати, напівпровідникові степери, мікроскопи</text>
+      </g>
+    </g>
+
+    <!-- Card 4: Laser / Optical Triangulation -->
+    <g transform="translate(655, 0)">
+      <rect width="205" height="310" class="card-opt" />
+      <rect x="0" y="0" width="205" height="42" fill="#047857" rx="5" />
+      <text x="102" y="26" class="lbl-bold" text-anchor="middle" fill="#ffffff">Лазерна тріангуляція</text>
+
+      <g transform="translate(12, 55)">
+        <text x="0" y="16" class="lbl-bold" fill="#10b981">Діапазон ходу:</text>
+        <text x="0" y="32" class="lbl">10 мм ... 1000 мм (дуже великий)</text>
+
+        <text x="0" y="58" class="lbl-bold" fill="#10b981">Роздільна здатність:</text>
+        <text x="0" y="74" class="lbl">0.5 ... 5.0 мкм</text>
+
+        <text x="0" y="100" class="lbl-bold" fill="#10b981">Смуга частот:</text>
+        <text x="0" y="116" class="lbl">До 1–5 кГц</text>
+
+        <text x="0" y="142" class="lbl-bold" fill="#10b981">Стійкість до бруду:</text>
+        <text x="0" y="158" class="lbl-bold" fill="#f43f5e">Низька (пилозахист оптики)</text>
+
+        <text x="0" y="184" class="lbl-bold" fill="#10b981">Матеріал мішені:</text>
+        <text x="0" y="200" class="lbl">Будь-який непрозорий</text>
+
+        <text x="0" y="226" class="lbl-bold" fill="#10b981">Головна ніша:</text>
+        <text x="0" y="242" class="lbl-dim">Конвеєрний контроль деталей, габарити прокату</text>
+      </g>
+    </g>
+  </g>
+
+  <!-- Bottom Recommendation Banner -->
+  <g transform="translate(30, 415)">
+    <rect width="860" height="100" class="panel" />
+    <text x="25" y="26" class="lbl-bold" fill="#38bdf8">Висновок інженера щодо вибору вихрострумових датчиків:</text>
+    <text x="25" y="52" class="lbl">Вихрострумова технологія є абсолютним безальтернативним стандартом там, де потрібні <tspan fill="#4ade80">субмікронна роздільність</tspan>,</text>
+    <text x="25" y="72" class="lbl"><tspan fill="#38bdf8">смуга частот понад 50 кГц</tspan> та <tspan fill="#fbbf24">робота безпосередньо у важкому середовищі під тиском і в гарячому мастилі</tspan> (турбіни, компресори, шпинделі).</text>
+  </g>
+</svg>

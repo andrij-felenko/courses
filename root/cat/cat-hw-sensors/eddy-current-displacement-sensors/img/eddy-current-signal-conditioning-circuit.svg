@@ -1,0 +1,107 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 540" width="100%" height="100%">
+  <defs>
+    <style>
+      .bg { fill: #0f172a; }
+      .panel { fill: #1e293b; stroke: #334155; stroke-width: 1.5; rx: 8px; }
+      .panel-sub { fill: #0f172a; stroke: #334155; stroke-width: 1; rx: 6px; }
+      .title { font-family: system-ui, sans-serif; font-size: 20px; font-weight: 700; fill: #f8fafc; }
+      .subtitle { font-family: system-ui, sans-serif; font-size: 13px; fill: #94a3b8; }
+      .h2 { font-family: system-ui, sans-serif; font-size: 15px; font-weight: 600; fill: #38bdf8; }
+      .lbl { font-family: system-ui, sans-serif; font-size: 12px; fill: #f8fafc; }
+      .lbl-bold { font-family: system-ui, sans-serif; font-size: 12px; font-weight: 700; fill: #f8fafc; }
+      .lbl-dim { font-family: system-ui, sans-serif; font-size: 11px; fill: #94a3b8; }
+      .lbl-code { font-family: monospace, monospace; font-size: 11px; fill: #38bdf8; }
+      
+      .box-osc { fill: #0284c7; stroke: #38bdf8; stroke-width: 1.5; rx: 6px; }
+      .box-demod { fill: #065f46; stroke: #10b981; stroke-width: 1.5; rx: 6px; }
+      .box-linear { fill: #b45309; stroke: #fbbf24; stroke-width: 1.5; rx: 6px; }
+      .box-temp { fill: #881337; stroke: #f43f5e; stroke-width: 1.5; rx: 6px; }
+      .wire-sig { stroke: #38bdf8; stroke-width: 2.5; fill: none; marker-end: url(#arr); }
+      .wire-ref { stroke: #f43f5e; stroke-width: 2.5; fill: none; marker-end: url(#arr-red); }
+    </style>
+    <marker id="arr" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 8 5 L 0 9 z" fill="#38bdf8" />
+    </marker>
+    <marker id="arr-red" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 8 5 L 0 9 z" fill="#f43f5e" />
+    </marker>
+  </defs>
+
+  <rect width="100%" height="100%" class="bg" />
+
+  <!-- Title Block -->
+  <text x="30" y="38" class="title">Схемотехніка аналогового тракту кондиціонування вихрострумового давача</text>
+  <text x="30" y="60" class="subtitle">ВЧ-автогенератор Колпітца, амплітудний детектор, диференціальна термокомпенсація та вихідний лінеаризатор</text>
+
+  <!-- Block Diagram Row -->
+  <g transform="translate(30, 85)">
+    <rect width="860" height="255" class="panel" />
+
+    <!-- 1. Sensor Probe Coil -->
+    <g transform="translate(25, 35)">
+      <rect width="130" height="95" class="panel-sub" stroke="#38bdf8" />
+      <text x="65" y="24" class="lbl-bold" text-anchor="middle" fill="#38bdf8">Котушка давача</text>
+      <text x="65" y="44" class="lbl-dim" text-anchor="middle">L_sense (у наконечнику)</text>
+      <rect x="15" y="55" width="100" height="25" fill="#1e293b" stroke="#38bdf8" rx="3" />
+      <text x="65" y="72" class="lbl-code" text-anchor="middle">L_eq(x), R_eq(x)</text>
+    </g>
+
+    <line x1="155" y1="82" x2="195" y2="82" class="wire-sig" />
+
+    <!-- 2. High-Frequency LC Oscillator -->
+    <g transform="translate(200, 25)">
+      <rect width="155" height="115" class="box-osc" />
+      <text x="77" y="25" class="lbl-bold" text-anchor="middle" fill="#ffffff">ВЧ-генератор LC</text>
+      <text x="77" y="45" class="lbl-dim" text-anchor="middle" fill="#ffffff">(Схема Колпітца 2 МГц)</text>
+      <rect x="15" y="60" width="125" height="42" class="panel-sub" />
+      <text x="77" y="78" class="lbl-dim" text-anchor="middle">Амплітуда коливань</text>
+      <text x="77" y="94" class="lbl-bold" text-anchor="middle" fill="#38bdf8">V_osc ~ Z_eq(x)</text>
+    </g>
+
+    <line x1="355" y1="82" x2="395" y2="82" class="wire-sig" />
+
+    <!-- 3. Demodulator & Precision Peak Detector -->
+    <g transform="translate(400, 25)">
+      <rect width="155" height="115" class="box-demod" />
+      <text x="77" y="25" class="lbl-bold" text-anchor="middle" fill="#ffffff">Синхронний Детектор</text>
+      <text x="77" y="45" class="lbl-dim" text-anchor="middle" fill="#ffffff">Виділення обвідної (AM)</text>
+      <rect x="15" y="60" width="125" height="42" class="panel-sub" />
+      <text x="77" y="78" class="lbl-dim" text-anchor="middle">ФНЧ Баттерворта</text>
+      <text x="77" y="94" class="lbl-bold" text-anchor="middle" fill="#10b981">Смуга до 50 кГц</text>
+    </g>
+
+    <line x1="555" y1="82" x2="595" y2="82" class="wire-sig" />
+
+    <!-- 4. Linearizer & Calibration Stage -->
+    <g transform="translate(600, 25)">
+      <rect width="235" height="115" class="box-linear" />
+      <text x="117" y="25" class="lbl-bold" text-anchor="middle" fill="#ffffff">Блок Лінеаризації</text>
+      <text x="117" y="45" class="lbl-dim" text-anchor="middle" fill="#ffffff">Кусочно-лінійна апроксимація</text>
+      <rect x="15" y="58" width="205" height="45" class="panel-sub" />
+      <text x="117" y="76" class="lbl-bold" text-anchor="middle" fill="#fbbf24">Вихід: 0...10 В / 4...20 мА</text>
+      <text x="117" y="94" class="lbl-dim" text-anchor="middle">або цифровий АЦП 16-біт</text>
+    </g>
+
+    <!-- Temperature Compensation (Bottom of Block Diagram) -->
+    <g transform="translate(25, 155)">
+      <rect width="130" height="75" class="box-temp" />
+      <text x="65" y="24" class="lbl-bold" text-anchor="middle" fill="#ffffff">Опорна котушка</text>
+      <text x="65" y="42" class="lbl-dim" text-anchor="middle" fill="#ffffff">L_ref (екранована)</text>
+      <text x="65" y="62" class="lbl-dim" text-anchor="middle" fill="#fecdd3">Термокомпенсація</text>
+    </g>
+
+    <!-- Path from Temp coil to Demodulator -->
+    <path d="M 155 192 L 477 192 L 477 145" class="wire-ref" />
+    <text x="315" y="182" class="lbl-bold" text-anchor="middle" fill="#f43f5e">Диференціальне віднімання дрейфу міді</text>
+  </g>
+
+  <!-- Bottom Detailed Insights Panel -->
+  <g transform="translate(30, 355)">
+    <rect width="860" height="155" class="panel" />
+    <text x="25" y="26" class="lbl-bold" fill="#38bdf8">Особливості схемотехніки вихрострумових кондиціонерів (Proximitor):</text>
+    <text x="25" y="52" class="lbl">1. <tspan fill="#38bdf8">Смуга пропускання до 50–100 кГц:</tspan> Висока частота несучої (2–5 МГц) дозволяє миттєво відстежувати швидкі вібрації та биття вала.</text>
+    <text x="25" y="74" class="lbl">2. <tspan fill="#f43f5e">Термокомпенсація мідної котушки:</tspan> Температурний коефіцієнт опору міді становить +0.39%/°C. Без опорної котушки або термомоделі зсув нуля був би неприпустимим.</text>
+    <text x="25" y="96" class="lbl">3. <tspan fill="#fbbf24">Аналогова лінеаризація:</tspan> Залежність Z(x) є строго нелінійною (близькою до експоненти). Прецизійні помножувачі випрямляють характеристику в діапазоні 2–5 мм.</text>
+    <text x="25" y="118" class="lbl">4. <tspan fill="#4ade80">Гальванічна розв'язка:</tspan> Екранований кабель передає ВЧ-сигнал на виносний електронний блок (Proximitor) на відстань до 5–10 метрів.</text>
+  </g>
+</svg>
