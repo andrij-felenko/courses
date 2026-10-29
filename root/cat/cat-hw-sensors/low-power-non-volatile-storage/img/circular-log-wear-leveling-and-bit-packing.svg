@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 850 480" width="100%" height="100%">
+  <rect width="100%" height="100%" fill="#0d1117"/>
+  <text x="425" y="35" font-family="system-ui, -apple-system, sans-serif" font-size="20" font-weight="bold" fill="#f0f6fc" text-anchor="middle">Організація циклічного журналу та бітове пакування даних</text>
+  <text x="425" y="58" font-family="system-ui, -apple-system, sans-serif" font-size="13" fill="#8b949e" text-anchor="middle">Append-Only логер, рівномірне зношування (Wear-Leveling) та контроль цілісності CRC8</text>
+
+  <!-- Upper: Bit-packed 8-byte Record -->
+  <rect x="40" y="80" width="770" height="135" rx="8" fill="#161b22" stroke="#30363d" stroke-width="1.5"/>
+  <text x="425" y="105" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="bold" fill="#58a6ff" text-anchor="middle">Формат 8-байтного компактного запису відліку</text>
+
+  <!-- 8 bytes layout -->
+  <g transform="translate(60, 125)">
+    <!-- Bytes 0..3: Timestamp (32-bit uint32_t) -->
+    <rect x="0" y="0" width="280" height="40" rx="4" fill="#388bfd" opacity="0.3" stroke="#58a6ff" stroke-width="1.5"/>
+    <text x="140" y="25" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="bold" fill="#58a6ff" text-anchor="middle">Epoch Timestamp (4 байти, uint32_t)</text>
+
+    <!-- Bytes 4..5: Temperature (16-bit int16_t) -->
+    <rect x="290" y="0" width="170" height="40" rx="4" fill="#d29922" opacity="0.3" stroke="#d29922" stroke-width="1.5"/>
+    <text x="375" y="25" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="bold" fill="#d29922" text-anchor="middle">Температура (2 байти)</text>
+
+    <!-- Byte 6: Humidity (8-bit uint8_t) -->
+    <rect x="470" y="0" width="130" height="40" rx="4" fill="#3fb950" opacity="0.3" stroke="#3fb950" stroke-width="1.5"/>
+    <text x="535" y="25" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="bold" fill="#3fb950" text-anchor="middle">Волога (1 байт)</text>
+
+    <!-- Byte 7: Status + CRC8 -->
+    <rect x="610" y="0" width="120" height="40" rx="4" fill="#bc8cff" opacity="0.3" stroke="#bc8cff" stroke-width="1.5"/>
+    <text x="670" y="25" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="bold" fill="#bc8cff" text-anchor="middle">CRC8 (1 байт)</text>
+  </g>
+  <text x="425" y="195" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#8b949e" text-anchor="middle">У мікросхему 256 КБ поміщається 32 768 точок запису (понад 22 дні логування щохвилини)</text>
+
+  <!-- Lower: Circular Sector Map -->
+  <rect x="40" y="235" width="770" height="215" rx="8" fill="#161b22" stroke="#30363d" stroke-width="1.5"/>
+  <text x="425" y="260" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="bold" fill="#3fb950" text-anchor="middle">Циклічний журнал секторів (Append-Only Ring Log)</text>
+
+  <!-- Sectors representation -->
+  <g transform="translate(60, 280)">
+    <!-- Sector 0: Full -->
+    <rect x="0" y="0" width="135" height="70" rx="4" fill="#21262d" stroke="#3fb950" stroke-width="1.5"/>
+    <text x="67" y="25" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="bold" fill="#3fb950" text-anchor="middle">Сектор 0 (4 KB)</text>
+    <text x="67" y="45" font-family="system-ui, -apple-system, sans-serif" font-size="10" fill="#8b949e" text-anchor="middle">Заповнений [512/512]</text>
+    <text x="67" y="60" font-family="system-ui, -apple-system, sans-serif" font-size="9" fill="#7ee787" text-anchor="middle">СТАН: ЗАКРИТИЙ</text>
+
+    <!-- Sector 1: Full -->
+    <rect x="145" y="0" width="135" height="70" rx="4" fill="#21262d" stroke="#3fb950" stroke-width="1.5"/>
+    <text x="212" y="25" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="bold" fill="#3fb950" text-anchor="middle">Сектор 1 (4 KB)</text>
+    <text x="212" y="45" font-family="system-ui, -apple-system, sans-serif" font-size="10" fill="#8b949e" text-anchor="middle">Заповнений [512/512]</text>
+    <text x="212" y="60" font-family="system-ui, -apple-system, sans-serif" font-size="9" fill="#7ee787" text-anchor="middle">СТАН: ЗАКРИТИЙ</text>
+
+    <!-- Sector 2: Active Writing Head -->
+    <rect x="290" y="0" width="145" height="70" rx="4" fill="#388bfd" opacity="0.25" stroke="#58a6ff" stroke-width="2"/>
+    <text x="362" y="25" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="bold" fill="#58a6ff" text-anchor="middle">Сектор 2 [HEAD]</text>
+    <text x="362" y="45" font-family="system-ui, -apple-system, sans-serif" font-size="10" fill="#f0f6fc" text-anchor="middle">Запис [124/512]</text>
+    <text x="362" y="60" font-family="system-ui, -apple-system, sans-serif" font-size="9" font-weight="bold" fill="#58a6ff" text-anchor="middle">АКТИВНИЙ ПОТІК</text>
+
+    <!-- Sector 3: Erased / Empty -->
+    <rect x="445" y="0" width="135" height="70" rx="4" fill="#0d1117" stroke="#30363d" stroke-width="1"/>
+    <text x="512" y="25" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#8b949e" text-anchor="middle">Сектор 3 (4 KB)</text>
+    <text x="512" y="45" font-family="system-ui, -apple-system, sans-serif" font-size="10" fill="#8b949e" text-anchor="middle">Стертий (0xFF)</text>
+    <text x="512" y="60" font-family="system-ui, -apple-system, sans-serif" font-size="9" fill="#8b949e" text-anchor="middle">РЕЗЕРВ</text>
+
+    <!-- Sector N: Erased / Empty -->
+    <rect x="590" y="0" width="135" height="70" rx="4" fill="#0d1117" stroke="#30363d" stroke-width="1"/>
+    <text x="657" y="25" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#8b949e" text-anchor="middle">Сектор N-1 (4 KB)</text>
+    <text x="657" y="45" font-family="system-ui, -apple-system, sans-serif" font-size="10" fill="#8b949e" text-anchor="middle">Стертий (0xFF)</text>
+    <text x="657" y="60" font-family="system-ui, -apple-system, sans-serif" font-size="9" fill="#8b949e" text-anchor="middle">ГОТОВИЙ ДО ЗАПИСУ</text>
+  </g>
+
+  <!-- Explanations -->
+  <text x="70" y="380" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#c9d1d9">• Пошук точки відновлення при старті: двійковий пошук першого байта 0xFF</text>
+  <text x="70" y="405" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#c9d1d9">• Перезапис по колу (Circular Wrap): найстаріший сектор стирається блоком 4 КБ перед записом</text>
+  <text x="70" y="430" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="bold" fill="#3fb950">• Для FRAM стирання блоками взагалі не потрібне — прямий побайтовий перезапис</text>
+</svg>

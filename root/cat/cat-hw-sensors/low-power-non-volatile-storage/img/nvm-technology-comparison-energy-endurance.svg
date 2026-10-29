@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 850 480" width="100%" height="100%">
+  <rect width="100%" height="100%" fill="#0d1117"/>
+  <text x="425" y="35" font-family="system-ui, -apple-system, sans-serif" font-size="20" font-weight="bold" fill="#f0f6fc" text-anchor="middle">Порівняння енергонезалежної пам'яті для автономних систем</text>
+  <text x="425" y="58" font-family="system-ui, -apple-system, sans-serif" font-size="13" fill="#8b949e" text-anchor="middle">Фізика запису, питоме енергоспоживання, час очікування та ресурс витривалості</text>
+
+  <!-- 4 Technology Cards -->
+  <!-- 1. EEPROM -->
+  <rect x="35" y="80" width="180" height="370" rx="8" fill="#161b22" stroke="#30363d" stroke-width="1.5"/>
+  <rect x="35" y="80" width="180" height="35" rx="8" fill="#21262d"/>
+  <text x="125" y="103" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="bold" fill="#58a6ff" text-anchor="middle">EEPROM (I2C/SPI)</text>
+  <text x="50" y="140" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#8b949e">Фізика запису:</text>
+  <text x="50" y="158" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="bold" fill="#f0f6fc">Тунелювання F-N</text>
+  <text x="50" y="195" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#8b949e">Час запису сторінки:</text>
+  <text x="50" y="213" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="bold" fill="#f85149">3 .. 5 мс (помпа 18В)</text>
+  <text x="50" y="250" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#8b949e">Енергія на 1 байт:</text>
+  <text x="50" y="268" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="bold" fill="#d29922">~15 .. 40 нДж</text>
+  <text x="50" y="305" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#8b949e">Ресурс (циклів):</text>
+  <text x="50" y="323" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="bold" fill="#d29922">10⁶ (1 мільйон)</text>
+  <text x="50" y="360" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#8b949e">Питома вартість:</text>
+  <text x="50" y="378" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#3fb950">Низька</text>
+  <text x="50" y="415" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#8b949e">Потребує t_prog</text>
+
+  <!-- 2. NOR Flash -->
+  <rect x="230" y="80" width="180" height="370" rx="8" fill="#161b22" stroke="#30363d" stroke-width="1.5"/>
+  <rect x="230" y="80" width="180" height="35" rx="8" fill="#21262d"/>
+  <text x="320" y="103" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="bold" fill="#58a6ff" text-anchor="middle">NOR Flash (SPI/QSPI)</text>
+  <text x="245" y="140" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#8b949e">Фізика запису:</text>
+  <text x="245" y="158" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="bold" fill="#f0f6fc">Інжекція гарячих e⁻</text>
+  <text x="245" y="195" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#8b949e">Стирання сектора:</text>
+  <text x="245" y="213" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="bold" fill="#f85149">40 .. 200 мс (блок 4К)</text>
+  <text x="245" y="250" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#8b949e">Енергія на 1 байт:</text>
+  <text x="245" y="268" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="bold" fill="#d29922">~5 .. 15 нДж</text>
+  <text x="245" y="305" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#8b949e">Ресурс (циклів):</text>
+  <text x="245" y="323" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="bold" fill="#f85149">10⁵ (100 тисяч)</text>
+  <text x="245" y="360" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#8b949e">Питома вартість:</text>
+  <text x="245" y="378" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#3fb950">Мінімальна / MB</text>
+  <text x="245" y="415" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#8b949e">Потрібен Wear-Level</text>
+
+  <!-- 3. FRAM -->
+  <rect x="425" y="80" width="195" height="370" rx="8" fill="#161b22" stroke="#3fb950" stroke-width="2"/>
+  <rect x="425" y="80" width="195" height="35" rx="8" fill="#238636"/>
+  <text x="522" y="103" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="bold" fill="#ffffff" text-anchor="middle">FRAM (Сегнетоелектрик)</text>
+  <text x="440" y="140" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#8b949e">Фізика запису:</text>
+  <text x="440" y="158" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="bold" fill="#3fb950">Поляризація PZT</text>
+  <text x="440" y="195" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#8b949e">Час запису:</text>
+  <text x="440" y="213" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="bold" fill="#3fb950">&lt; 50 нс (Zero Delay)</text>
+  <text x="440" y="250" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#8b949e">Енергія на 1 байт:</text>
+  <text x="440" y="268" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="bold" fill="#3fb950">~0.05 нДж (у 100x менше!)</text>
+  <text x="440" y="305" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#8b949e">Ресурс (циклів):</text>
+  <text x="440" y="323" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="bold" fill="#3fb950">10¹⁴ (Практично вічна)</text>
+  <text x="440" y="360" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#8b949e">Питома вартість:</text>
+  <text x="440" y="378" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#d29922">Висока</text>
+  <text x="440" y="415" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="bold" fill="#7ee787">ІДЕАЛЬНО ДЛЯ ЛОГЕРІВ</text>
+
+  <!-- 4. MRAM -->
+  <rect x="635" y="80" width="180" height="370" rx="8" fill="#161b22" stroke="#30363d" stroke-width="1.5"/>
+  <rect x="635" y="80" width="180" height="35" rx="8" fill="#21262d"/>
+  <text x="725" y="103" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="bold" fill="#58a6ff" text-anchor="middle">STT-MRAM (Магнітна)</text>
+  <text x="650" y="140" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#8b949e">Фізика запису:</text>
+  <text x="650" y="158" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="bold" fill="#f0f6fc">Спіновий момент STT</text>
+  <text x="650" y="195" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#8b949e">Час запису:</text>
+  <text x="650" y="213" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="bold" fill="#3fb950">&lt; 35 нс (Zero Delay)</text>
+  <text x="650" y="250" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#8b949e">Енергія на 1 байт:</text>
+  <text x="650" y="268" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="bold" fill="#d29922">~1 .. 3 нДж</text>
+  <text x="650" y="305" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#8b949e">Ресурс (циклів):</text>
+  <text x="650" y="323" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="bold" fill="#3fb950">10¹⁴ (Необмежений)</text>
+  <text x="650" y="360" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#8b949e">Питома вартість:</text>
+  <text x="650" y="378" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#f85149">Дуже висока</text>
+  <text x="650" y="415" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#8b949e">Стійка до радіації</text>
+</svg>
