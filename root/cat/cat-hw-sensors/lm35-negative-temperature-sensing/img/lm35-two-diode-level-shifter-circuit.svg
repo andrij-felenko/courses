@@ -1,0 +1,80 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 850 480" width="100%" height="100%">
+  <rect width="100%" height="100%" fill="#0d1117"/>
+  <text x="425" y="35" font-family="system-ui, -apple-system, sans-serif" font-size="20" font-weight="bold" fill="#f0f6fc" text-anchor="middle">Схема зміщення рівня на двох діодах (однополярне живлення +5 В)</text>
+  <text x="425" y="58" font-family="system-ui, -apple-system, sans-serif" font-size="13" fill="#8b949e" text-anchor="middle">Формування штучної віртуальної землі ~1.2 В для прямого підключення до двох каналів АЦП</text>
+
+  <!-- Schematic Box -->
+  <rect x="40" y="85" width="460" height="365" rx="10" fill="#161b22" stroke="#30363d" stroke-width="1.5"/>
+  <text x="270" y="115" font-family="system-ui, -apple-system, sans-serif" font-size="15" font-weight="bold" fill="#58a6ff" text-anchor="middle">Принципова схема з діодним зміщенням</text>
+
+  <!-- LM35 Box -->
+  <rect x="130" y="150" width="150" height="130" rx="8" fill="#21262d" stroke="#58a6ff" stroke-width="2"/>
+  <text x="205" y="195" font-family="system-ui, -apple-system, sans-serif" font-size="16" font-weight="bold" fill="#58a6ff" text-anchor="middle">LM35</text>
+
+  <!-- Pin 1 (+Vs) to +5V -->
+  <line x1="205" y1="150" x2="205" y2="120" stroke="#f85149" stroke-width="2"/>
+  <circle cx="205" cy="120" r="4" fill="#f85149"/>
+  <text x="215" y="125" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="bold" fill="#f85149">+5.0 V</text>
+
+  <!-- Pin 3 (GND of sensor) lifted on 2 diodes -->
+  <line x1="130" y1="215" x2="80" y2="215" stroke="#d29922" stroke-width="2"/>
+  <line x1="80" y1="215" x2="80" y2="255" stroke="#d29922" stroke-width="2"/>
+  <circle cx="80" cy="255" r="4" fill="#d29922"/>
+
+  <!-- Tap to ADC Channel 2 (V_GND) -->
+  <line x1="80" y1="255" x2="40" y2="255" stroke="#d29922" stroke-width="2"/>
+  <circle cx="40" cy="255" r="4" fill="#d29922"/>
+  <text x="40" y="240" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="bold" fill="#d29922">ADC_CH2 (V_GND)</text>
+  <text x="40" y="280" font-family="system-ui, -apple-system, sans-serif" font-size="10" fill="#8b949e">~1.2 .. 1.4 В</text>
+
+  <!-- Diode 1 (1N4148) -->
+  <line x1="80" y1="255" x2="80" y2="295" stroke="#d29922" stroke-width="2"/>
+  <polygon points="70,295 90,295 80,315" fill="#d29922"/>
+  <line x1="70" y1="315" x2="90" y2="315" stroke="#d29922" stroke-width="2"/>
+  <text x="105" y="310" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#d29922">D1</text>
+
+  <!-- Diode 2 (1N4148) -->
+  <line x1="80" y1="315" x2="80" y2="345" stroke="#d29922" stroke-width="2"/>
+  <polygon points="70,345 90,345 80,365" fill="#d29922"/>
+  <line x1="70" y1="365" x2="90" y2="365" stroke="#d29922" stroke-width="2"/>
+  <text x="105" y="360" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#d29922">D2</text>
+
+  <!-- Real Ground -->
+  <line x1="80" y1="365" x2="80" y2="395" stroke="#8b949e" stroke-width="2"/>
+  <line x1="65" y1="395" x2="95" y2="395" stroke="#8b949e" stroke-width="2"/>
+  <line x1="70" y1="400" x2="90" y2="400" stroke="#8b949e" stroke-width="1.5"/>
+  <line x1="75" y1="405" x2="85" y2="405" stroke="#8b949e" stroke-width="1"/>
+  <text x="100" y="405" font-family="system-ui, -apple-system, sans-serif" font-size="10" fill="#8b949e">GND (0V)</text>
+
+  <!-- Output Pin 2 -->
+  <line x1="280" y1="215" x2="380" y2="215" stroke="#3fb950" stroke-width="2.5"/>
+  <circle cx="380" cy="215" r="4" fill="#3fb950"/>
+  <text x="390" y="210" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="bold" fill="#3fb950">ADC_CH1 (V_OUT)</text>
+  <text x="390" y="230" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#7ee787">+0.65В .. +2.7В</text>
+
+  <!-- Resistor R1 to Real Ground -->
+  <circle cx="330" cy="215" r="4" fill="#3fb950"/>
+  <line x1="330" y1="215" x2="330" y2="280" stroke="#bc8cff" stroke-width="2"/>
+  <rect x="320" y="280" width="20" height="45" fill="#21262d" stroke="#bc8cff" stroke-width="1.5"/>
+  <text x="350" y="307" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="bold" fill="#bc8cff">R1 (18k)</text>
+  <line x1="330" y1="325" x2="330" y2="395" stroke="#8b949e" stroke-width="2"/>
+  <line x1="330" y1="395" x2="80" y2="395" stroke="#8b949e" stroke-width="2"/>
+
+  <!-- Right: Differential Math explanation -->
+  <rect x="520" y="85" width="290" height="365" rx="10" fill="#161b22" stroke="#30363d" stroke-width="1.5"/>
+  <text x="665" y="115" font-family="system-ui, -apple-system, sans-serif" font-size="15" font-weight="bold" fill="#3fb950" text-anchor="middle">Псевдодиференційне зчитування</text>
+
+  <rect x="535" y="140" width="260" height="110" rx="6" fill="#21262d" stroke="#30363d" stroke-width="1"/>
+  <text x="545" y="165" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="bold" fill="#58a6ff">Розрахунок у прошивці:</text>
+  <text x="545" y="190" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#c9d1d9">V_diff = V_CH1 - V_CH2;</text>
+  <text x="545" y="215" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="bold" fill="#7ee787">T = V_diff * 100.0;</text>
+  <text x="545" y="235" font-family="system-ui, -apple-system, sans-serif" font-size="10" fill="#8b949e">(де V_diff в вольтах, 10мВ/°C)</text>
+
+  <rect x="535" y="265" width="260" height="170" rx="6" fill="#0d1117" stroke="#30363d" stroke-width="1"/>
+  <text x="545" y="290" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="bold" fill="#d29922">Приклад при -20 °C:</text>
+  <text x="545" y="315" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#c9d1d9">• V_CH2 = +1.24 В (діоди)</text>
+  <text x="545" y="335" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#c9d1d9">• V_CH1 = 1.24 - 0.20 = +1.04 В</text>
+  <text x="545" y="355" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#f0f6fc">• Обидві напруги &gt; 0 В (OK для АЦП)</text>
+  <text x="545" y="380" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#3fb950">• Різниця: 1.04 - 1.24 = -0.20 В</text>
+  <text x="545" y="405" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="bold" fill="#7ee787">• Результат: T = -20.0 °C</text>
+</svg>

@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 850 480" width="100%" height="100%">
+  <rect width="100%" height="100%" fill="#0d1117"/>
+  <text x="425" y="35" font-family="system-ui, -apple-system, sans-serif" font-size="20" font-weight="bold" fill="#f0f6fc" text-anchor="middle">Алгоритм обробки диференційного сигналу в прошивці MCU</text>
+  <text x="425" y="58" font-family="system-ui, -apple-system, sans-serif" font-size="13" fill="#8b949e" text-anchor="middle">Оцифрування CH1 та CH2, усунення синфазного зміщення та захист від'ємних значень</text>
+
+  <!-- Step 1: Oversampling -->
+  <rect x="40" y="85" width="770" height="70" rx="8" fill="#161b22" stroke="#30363d" stroke-width="1.5"/>
+  <circle cx="70" cy="120" r="15" fill="#388bfd"/>
+  <text x="70" y="125" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">1</text>
+  <text x="105" y="112" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="bold" fill="#58a6ff">Синхронне зчитування каналів АЦП з оверсемплінгом (16-кратне усереднення):</text>
+  <text x="105" y="138" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#c9d1d9">uint32_t adc_ch1 = adc_read_averaged(ADC_CH_VOUT, 16);  uint32_t adc_ch2 = adc_read_averaged(ADC_CH_VGND, 16);</text>
+
+  <!-- Step 2: Conversion to Millivolts -->
+  <rect x="40" y="165" width="770" height="70" rx="8" fill="#161b22" stroke="#30363d" stroke-width="1.5"/>
+  <circle cx="70" cy="200" r="15" fill="#d29922"/>
+  <text x="70" y="205" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">2</text>
+  <text x="105" y="192" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="bold" fill="#d29922">Перетворення кодів АЦП у мілівольти за фактичним V_ref:</text>
+  <text x="105" y="218" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#c9d1d9">float v_out_mv = (adc_ch1 * v_ref_mv) / 4096.0f;   float v_gnd_mv = (adc_ch2 * v_ref_mv) / 4096.0f;</text>
+
+  <!-- Step 3: Differential Math -->
+  <rect x="40" y="245" width="770" height="75" rx="8" fill="#161b22" stroke="#3fb950" stroke-width="1.5"/>
+  <circle cx="70" cy="282" r="15" fill="#238636"/>
+  <text x="70" y="287" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">3</text>
+  <text x="105" y="272" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="bold" fill="#3fb950">Диференційне віднімання та масштабування (10 мВ = 1 °C):</text>
+  <text x="105" y="298" font-family="system-ui, -apple-system, sans-serif" font-size="13" font-weight="bold" fill="#7ee787">float v_diff_mv = v_out_mv - v_gnd_mv;   float temp_celsius = v_diff_mv / 10.0f;</text>
+
+  <!-- Step 4: Sanity check & Fault tolerance -->
+  <rect x="40" y="330" width="770" height="70" rx="8" fill="#161b22" stroke="#f85149" stroke-width="1.5"/>
+  <circle cx="70" cy="365" r="15" fill="#f85149"/>
+  <text x="70" y="370" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">4</text>
+  <text x="105" y="357" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="bold" fill="#f85149">Контроль діапазону та захист від обриву:</text>
+  <text x="105" y="383" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#c9d1d9">if (temp_celsius &lt; -55.0f || temp_celsius &gt; 150.0f) { return SENSOR_ERROR_OUT_OF_RANGE; }</text>
+
+  <!-- Final status card -->
+  <rect x="40" y="410" width="770" height="55" rx="8" fill="#1f242c" stroke="#3fb950" stroke-width="2"/>
+  <text x="425" y="442" font-family="system-ui, -apple-system, sans-serif" font-size="13" font-weight="bold" fill="#f0f6fc" text-anchor="middle">Результат: точне вимірювання температури до -55 °C на будь-якому стандартному 12-бітному АЦП!</text>
+</svg>

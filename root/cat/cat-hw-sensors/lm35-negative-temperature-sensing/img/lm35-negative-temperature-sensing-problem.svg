@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 850 480" width="100%" height="100%">
+  <rect width="100%" height="100%" fill="#0d1117"/>
+  <text x="425" y="35" font-family="system-ui, -apple-system, sans-serif" font-size="20" font-weight="bold" fill="#f0f6fc" text-anchor="middle">Проблема вимірювання від'ємних температур сенсором LM35</text>
+  <text x="425" y="58" font-family="system-ui, -apple-system, sans-serif" font-size="13" fill="#8b949e" text-anchor="middle">Вихідна напруга 10 мВ/°C нижче 0°C та конфлікт із однополярним діапазоном АЦП мікроконтролера</text>
+
+  <!-- Plot frame -->
+  <rect x="50" y="80" width="750" height="260" rx="8" fill="#161b22" stroke="#30363d" stroke-width="1.5"/>
+
+  <!-- Zero axes -->
+  <line x1="280" y1="90" x2="280" y2="330" stroke="#8b949e" stroke-width="1.5" stroke-dasharray="3 3"/>
+  <text x="280" y="325" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="bold" fill="#8b949e" text-anchor="middle">0 °C</text>
+
+  <!-- Zero voltage horizontal axis -->
+  <line x1="60" y1="240" x2="780" y2="240" stroke="#8b949e" stroke-width="1.5"/>
+  <text x="770" y="235" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#8b949e">T (°C)</text>
+  <text x="70" y="235" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#8b949e">0.0 В</text>
+
+  <!-- Characteristic curve: -55°C (-550mV) to +150°C (+1500mV) -->
+  <!-- Negative zone: Red dashed -->
+  <line x1="140" y1="310" x2="280" y2="240" stroke="#f85149" stroke-width="3" stroke-dasharray="5 3"/>
+  <!-- Positive zone: Green solid -->
+  <line x1="280" y1="240" x2="750" y2="100" stroke="#3fb950" stroke-width="3"/>
+
+  <!-- Negative zone shading -->
+  <rect x="60" y="240" width="220" height="90" fill="#f85149" opacity="0.12"/>
+  <text x="170" y="270" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="bold" fill="#f85149" text-anchor="middle">Від'ємна зона напруги</text>
+  <text x="170" y="288" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#f85149" text-anchor="middle">(-550 мВ .. 0 В)</text>
+
+  <!-- Points -->
+  <circle cx="140" cy="310" r="5" fill="#f85149"/>
+  <text x="140" y="330" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#f85149" text-anchor="middle">-55 °C (-550 мВ)</text>
+
+  <circle cx="280" cy="240" r="5" fill="#58a6ff"/>
+  <text x="270" y="225" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="bold" fill="#58a6ff" text-anchor="end">0 °C (0.00 В)</text>
+
+  <circle cx="750" cy="100" r="5" fill="#3fb950"/>
+  <text x="730" y="90" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#3fb950" text-anchor="middle">+150 °C (+1.50 В)</text>
+
+  <!-- ADC Warning card -->
+  <rect x="50" y="355" width="750" height="110" rx="8" fill="#161b22" stroke="#f85149" stroke-width="1.5"/>
+  <text x="70" y="380" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="bold" fill="#f85149">Чому не можна підключати від'ємний вихід напряму до АЦП мікроконтролера?</text>
+  <text x="70" y="405" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#c9d1d9">1. Однополярний діапазон: вхідний АЦП МК фіксує лише напруги від 0.0 В до V_ref (все нижче нуля зчитується як 0).</text>
+  <text x="70" y="425" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#c9d1d9">2. Ризик пошкодження: напруга нижче -0.3 В відкриває внутрішні ESD-діоди підкладки MCU, викликаючи тиристорний ефект (Latch-up).</text>
+  <text x="70" y="445" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="bold" fill="#3fb950">Рішення: застосування схем зміщення рівня (Level Shift) або віртуальної землі на діодах чи ОП.</text>
+</svg>
