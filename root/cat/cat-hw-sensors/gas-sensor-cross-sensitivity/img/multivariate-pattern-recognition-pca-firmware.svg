@@ -1,0 +1,87 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 840 500" width="100%" height="100%">
+  <rect width="840" height="500" fill="#0d1117"/>
+  <text x="420" y="34" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="20" font-weight="bold" fill="#f0f6fc" text-anchor="middle">Алгоритм багатовимірної класифікації у прошивці</text>
+  <text x="420" y="58" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="13" fill="#8b949e" text-anchor="middle">Зменшення розмірності простору сигналів (PCA) та геометрична ідентифікація газу</text>
+
+  <!-- Step 1: Feature Vector Construction -->
+  <rect x="40" y="90" width="220" height="150" rx="8" fill="#161b22" stroke="#58a6ff" stroke-width="1.5"/>
+  <circle cx="65" cy="115" r="14" fill="#58a6ff"/>
+  <text x="65" y="120" font-family="monospace" font-size="12" font-weight="bold" fill="#0d1117" text-anchor="middle">1</text>
+  <text x="90" y="120" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto" font-size="14" font-weight="bold" fill="#f0f6fc">Вектор відгуку</text>
+
+  <text x="55" y="150" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto" font-size="11" fill="#8b949e">• Збір вектора опорів:</text>
+  <text x="65" y="168" font-family="monospace" font-size="11" fill="#58a6ff">X = [S1, S2, S3, S4]</text>
+  <text x="55" y="190" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto" font-size="11" fill="#8b949e">• Логарифмування відгуку:</text>
+  <text x="65" y="208" font-family="monospace" font-size="10" fill="#3fb950">x_i = ln(Rs_i / R0_i)</text>
+
+  <!-- Arrow 1 to 2 -->
+  <line x1="260" y1="165" x2="310" y2="165" stroke="#58a6ff" stroke-width="2" stroke-dasharray="4"/>
+
+  <!-- Step 2: Whitening / Normalization -->
+  <rect x="310" y="90" width="220" height="150" rx="8" fill="#161b22" stroke="#58a6ff" stroke-width="1.5"/>
+  <circle cx="335" cy="115" r="14" fill="#58a6ff"/>
+  <text x="335" y="120" font-family="monospace" font-size="12" font-weight="bold" fill="#0d1117" text-anchor="middle">2</text>
+  <text x="360" y="120" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto" font-size="14" font-weight="bold" fill="#f0f6fc">Нормалізація</text>
+
+  <text x="325" y="150" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto" font-size="11" fill="#8b949e">• Центрування та шкалювання:</text>
+  <text x="335" y="170" font-family="monospace" font-size="11" fill="#f0f6fc">z_i = (x_i - mean_i) / std_i</text>
+  <text x="325" y="195" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto" font-size="11" fill="#8b949e">• Усунення залежності від</text>
+  <text x="325" y="212" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto" font-size="11" fill="#8b949e">  абсолютної амплітуди</text>
+
+  <!-- Arrow 2 to 3 -->
+  <line x1="530" y1="165" x2="580" y2="165" stroke="#58a6ff" stroke-width="2" stroke-dasharray="4"/>
+
+  <!-- Step 3: Projection to 2D PCA Space -->
+  <rect x="580" y="90" width="220" height="150" rx="8" fill="#161b22" stroke="#3fb950" stroke-width="1.5"/>
+  <circle cx="605" cy="115" r="14" fill="#3fb950"/>
+  <text x="605" y="120" font-family="monospace" font-size="12" font-weight="bold" fill="#0d1117" text-anchor="middle">3</text>
+  <text x="630" y="120" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto" font-size="14" font-weight="bold" fill="#3fb950">Проекція PCA</text>
+
+  <text x="595" y="150" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto" font-size="11" fill="#8b949e">• Множення на матрицю W:</text>
+  <text x="605" y="170" font-family="monospace" font-size="10" fill="#f0f6fc">PC1 = w11*z1 + ... + w14*z4</text>
+  <text x="605" y="188" font-family="monospace" font-size="10" fill="#f0f6fc">PC2 = w21*z1 + ... + w24*z4</text>
+  <text x="595" y="212" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto" font-size="11" fill="#3fb950">Покриває 94% дисперсії!</text>
+
+  <!-- Arrow 3 down to 2D Cluster Graph -->
+  <line x1="690" y1="240" x2="690" y2="280" stroke="#3fb950" stroke-width="2" stroke-dasharray="4"/>
+
+  <!-- Step 4: 2D Cluster Scatter Plot on Bottom-Right -->
+  <rect x="440" y="280" width="360" height="180" rx="8" fill="#161b22" stroke="#30363d" stroke-width="1.5"/>
+  <text x="620" y="305" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto" font-size="13" font-weight="bold" fill="#f0f6fc" text-anchor="middle">Простір головних компонент (PC1 vs PC2)</text>
+
+  <!-- PCA Axes -->
+  <line x1="470" y1="390" x2="770" y2="390" stroke="#21262d" stroke-width="1.5"/>
+  <line x1="620" y1="315" x2="620" y2="445" stroke="#21262d" stroke-width="1.5"/>
+  <text x="765" y="405" font-family="monospace" font-size="10" fill="#8b949e">PC1</text>
+  <text x="628" y="325" font-family="monospace" font-size="10" fill="#8b949e">PC2</text>
+
+  <!-- Cluster: Methane (Top Left) -->
+  <circle cx="530" cy="345" r="18" fill="rgba(88, 166, 255, 0.25)" stroke="#58a6ff" stroke-width="1.5"/>
+  <circle cx="525" cy="340" r="3" fill="#58a6ff"/>
+  <circle cx="535" cy="350" r="3" fill="#58a6ff"/>
+  <text x="530" y="375" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto" font-size="10" font-weight="bold" fill="#58a6ff" text-anchor="middle">CH4 (метан)</text>
+
+  <!-- Cluster: Carbon Monoxide (Bottom Center) -->
+  <circle cx="620" cy="420" r="18" fill="rgba(248, 81, 73, 0.25)" stroke="#f85149" stroke-width="1.5"/>
+  <circle cx="620" cy="420" r="3" fill="#f85149"/>
+  <text x="620" y="448" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto" font-size="10" font-weight="bold" fill="#f85149" text-anchor="middle">CO (чадний газ)</text>
+
+  <!-- Cluster: Ethanol / Vapors (Top Right) -->
+  <circle cx="720" cy="345" r="18" fill="rgba(63, 185, 80, 0.25)" stroke="#3fb950" stroke-width="1.5"/>
+  <circle cx="715" cy="340" r="3" fill="#3fb950"/>
+  <circle cx="725" cy="350" r="3" fill="#3fb950"/>
+  <text x="720" y="375" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto" font-size="10" font-weight="bold" fill="#3fb950" text-anchor="middle">Алкоголь / ЛОС</text>
+
+  <!-- Step 5: Identification Engine (Bottom Left) -->
+  <rect x="40" y="280" width="370" height="180" rx="8" fill="#161b22" stroke="#d29922" stroke-width="1.5"/>
+  <circle cx="65" cy="305" r="14" fill="#d29922"/>
+  <text x="65" y="310" font-family="monospace" font-size="12" font-weight="bold" fill="#0d1117" text-anchor="middle">4</text>
+  <text x="90" y="310" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto" font-size="14" font-weight="bold" fill="#f0f6fc">Прийняття рішення</text>
+
+  <text x="55" y="338" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto" font-size="11" fill="#8b949e">• Обчислення відстані Махаланобіса d_k:</text>
+  <text x="65" y="358" font-family="monospace" font-size="11" fill="#f0f6fc">d_k = sqrt((P - C_k)^T * S^-1 * (P - C_k))</text>
+  <text x="55" y="382" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto" font-size="11" fill="#8b949e">• Якщо найближчий кластер = "Алкоголь":</text>
+  <text x="65" y="400" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto" font-size="11" fill="#d29922">  -> Блокування аварійного реле витоку газу!</text>
+  <text x="55" y="424" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto" font-size="11" fill="#8b949e">• Якщо кластер = "CO":</text>
+  <text x="65" y="442" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto" font-size="11" fill="#f85149">  -> Миттєва пожежна тривога та вентиляція!</text>
+</svg>
