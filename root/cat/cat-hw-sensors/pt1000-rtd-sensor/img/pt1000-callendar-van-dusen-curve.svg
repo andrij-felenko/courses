@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 850 520" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bg-grad5" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0d1117"/>
+      <stop offset="100%" stop-color="#161b22"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="100%" height="100%" fill="url(#bg-grad5)"/>
+  <rect x="15" y="15" width="820" height="490" rx="10" fill="none" stroke="#30363d" stroke-width="1.5"/>
+
+  <text x="30" y="45" fill="#58a6ff" font-family="system-ui, sans-serif" font-size="18" font-weight="bold">Календар-Ван Дюзен (CVD) характеристика та лінеаризація PT1000</text>
+  <text x="30" y="68" fill="#8b949e" font-family="system-ui, sans-serif" font-size="13">Залежність R(T) від -200 °C до +600 °C, відхилення від прямої та квадратичне обернення</text>
+
+  <!-- Resistance Curve Graph -->
+  <g transform="translate(40, 110)">
+    <rect width="450" height="260" rx="8" fill="#161b22" stroke="#30363d" stroke-width="1.5"/>
+    <text x="25" y="30" fill="#58a6ff" font-family="system-ui" font-size="13" font-weight="bold">Графік R(T) за рівнянням Календара-Ван Дюзена</text>
+
+    <!-- Axes -->
+    <line x1="60" y1="210" x2="420" y2="210" stroke="#8b949e" stroke-width="1.5"/>
+    <line x1="160" y1="50" x2="160" y2="210" stroke="#8b949e" stroke-width="1.5"/>
+    <text x="415" y="225" fill="#8b949e" font-family="system-ui" font-size="10">T (°C)</text>
+    <text x="150" y="45" fill="#8b949e" font-family="system-ui" font-size="10" text-anchor="end">Опір R (Ω)</text>
+
+    <!-- Ticks X -->
+    <text x="80" y="225" fill="#8b949e" font-family="monospace" font-size="9" text-anchor="middle">-200°</text>
+    <text x="160" y="225" fill="#58a6ff" font-family="monospace" font-size="10" font-weight="bold" text-anchor="middle">0°C</text>
+    <text x="240" y="225" fill="#8b949e" font-family="monospace" font-size="9" text-anchor="middle">+200°</text>
+    <text x="320" y="225" fill="#8b949e" font-family="monospace" font-size="9" text-anchor="middle">+400°</text>
+    <text x="390" y="225" fill="#8b949e" font-family="monospace" font-size="9" text-anchor="middle">+600°</text>
+
+    <!-- Ticks Y -->
+    <text x="150" y="195" fill="#8b949e" font-family="monospace" font-size="9" text-anchor="end">185 Ω (-200°)</text>
+    <text x="150" y="145" fill="#58a6ff" font-family="monospace" font-size="10" font-weight="bold" text-anchor="end">1000 Ω (0°C)</text>
+    <text x="150" y="70" fill="#f85149" font-family="monospace" font-size="9" text-anchor="end">3137 Ω (+600°)</text>
+
+    <!-- Curve: from -200C (185) to +600C (3137) -->
+    <!-- Quadratic smooth curve -->
+    <path d="M 80 195 Q 160 145, 240 115 T 390 65" fill="none" stroke="#7ee787" stroke-width="3"/>
+
+    <!-- Linear comparison dashed line -->
+    <line x1="80" y1="195" x2="390" y2="50" stroke="#f85149" stroke-width="1.5" stroke-dasharray="3,3"/>
+    <text x="340" y="45" fill="#f85149" font-family="sans-serif" font-size="9">Лінійне наближення</text>
+  </g>
+
+  <!-- CVD Equation Card -->
+  <g transform="translate(510, 110)">
+    <rect width="300" height="260" rx="8" fill="#161b22" stroke="#30363d" stroke-width="1.5"/>
+    <text x="20" y="28" fill="#58a6ff" font-family="system-ui" font-size="13" font-weight="bold">Рівняння Callendar-Van Dusen</text>
+
+    <!-- Formula for T >= 0 -->
+    <rect x="15" y="45" width="270" height="70" rx="4" fill="#1c2128" stroke="#7ee787" stroke-width="1.5"/>
+    <text x="25" y="65" fill="#7ee787" font-family="system-ui" font-size="11" font-weight="bold">Для T ≥ 0 °C (Квадратичне):</text>
+    <text x="25" y="85" fill="#f0f6fc" font-family="monospace" font-size="11">R(T) = R0 × (1 + A·T + B·T²)</text>
+    <text x="25" y="103" fill="#8b949e" font-family="sans-serif" font-size="9">A = 3.9083×10^-3, B = -5.775×10^-7</text>
+
+    <!-- Inversion Formula -->
+    <rect x="15" y="125" width="270" height="115" rx="4" fill="#1c2128" stroke="#bc8cff" stroke-width="1.5"/>
+    <text x="25" y="145" fill="#bc8cff" font-family="system-ui" font-size="11" font-weight="bold">Точне аналітичне обернення T(R):</text>
+    <text x="25" y="170" fill="#f0f6fc" font-family="monospace" font-size="11">T = [ -A + √(A² - 4B(1 - R/R0)) ] / 2B</text>
+    <text x="25" y="195" fill="#7ee787" font-family="sans-serif" font-size="10">Дає нульову математичну похибку</text>
+    <text x="25" y="215" fill="#7ee787" font-family="sans-serif" font-size="10">у всьому діапазоні від 0 до +600 °C!</text>
+  </g>
+
+  <!-- Polynomial Card -->
+  <g transform="translate(40, 390)">
+    <rect width="770" height="85" rx="6" fill="#1c2128" stroke="#30363d" stroke-width="1.5"/>
+    <text x="20" y="25" fill="#58a6ff" font-family="system-ui" font-size="12" font-weight="bold">Швидка поліноміальна апроксимація для мікроконтролерів:</text>
+    <text x="20" y="48" fill="#f0f6fc" font-family="monospace" font-size="11">T ≈ (R - 1000.0) × 0.2599 + (R - 1000.0)² × 1.05×10^-5  (Максимальна похибка &lt; 0.05 °C у діапазоні -40..+150 °C)</text>
+    <text x="20" y="68" fill="#7ee787" font-family="sans-serif" font-size="11">Виключає дорогі операції обчислення квадратного кореня у швидких контурах регулювання PID.</text>
+  </g>
+</svg>

@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 850 520" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bg-grad3" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0d1117"/>
+      <stop offset="100%" stop-color="#161b22"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="100%" height="100%" fill="url(#bg-grad3)"/>
+  <rect x="15" y="15" width="820" height="490" rx="10" fill="none" stroke="#30363d" stroke-width="1.5"/>
+
+  <text x="30" y="45" fill="#58a6ff" font-family="system-ui, sans-serif" font-size="18" font-weight="bold">Порівняння чутливості до опору дротів: 2-провідна схема PT100 vs PT1000</text>
+  <text x="30" y="68" fill="#8b949e" font-family="system-ui, sans-serif" font-size="13">Чому PT1000 дозволяє відмовитися від 3-го та 4-го компенсаційних проводів на трасах до 15–20 метрів</text>
+
+  <!-- 2-Wire Circuit Model -->
+  <g transform="translate(40, 110)">
+    <rect width="770" height="140" rx="8" fill="#161b22" stroke="#30363d" stroke-width="1.5"/>
+    <text x="25" y="28" fill="#58a6ff" font-family="system-ui" font-size="13" font-weight="bold">Еквівалентна 2-провідна схема кабельної траси (Опір дроту R_lead1 + R_lead2)</text>
+
+    <!-- Circuit Drawing -->
+    <g transform="translate(30, 45)">
+      <!-- ADC Terminals -->
+      <circle cx="10" cy="20" r="5" fill="#bc8cff"/>
+      <text x="10" y="10" fill="#bc8cff" font-family="monospace" font-size="11" text-anchor="middle">IN+</text>
+
+      <circle cx="10" cy="70" r="5" fill="#bc8cff"/>
+      <text x="10" y="85" fill="#bc8cff" font-family="monospace" font-size="11" text-anchor="middle">IN−</text>
+
+      <!-- Lead 1 Resistance -->
+      <line x1="15" y1="20" x2="80" y2="20" stroke="#f85149" stroke-width="2"/>
+      <rect x="80" y="13" width="50" height="14" fill="#1c2128" stroke="#f85149" stroke-width="1.5"/>
+      <text x="105" y="24" fill="#f85149" font-family="sans-serif" font-size="10" text-anchor="middle">R_lead 0.5Ω</text>
+      <line x1="130" y1="20" x2="220" y2="20" stroke="#f85149" stroke-width="2"/>
+
+      <!-- RTD Sensor -->
+      <rect x="220" y="10" width="80" height="70" rx="6" fill="#1c2128" stroke="#58a6ff" stroke-width="2"/>
+      <text x="260" y="40" fill="#58a6ff" font-family="system-ui" font-size="13" font-weight="bold" text-anchor="middle">RTD</text>
+      <text x="260" y="60" fill="#8b949e" font-family="sans-serif" font-size="10" text-anchor="middle">PT100 / PT1000</text>
+
+      <!-- Lead 2 Resistance -->
+      <line x1="15" y1="70" x2="80" y2="70" stroke="#f85149" stroke-width="2"/>
+      <rect x="80" y="63" width="50" height="14" fill="#1c2128" stroke="#f85149" stroke-width="1.5"/>
+      <text x="105" y="74" fill="#f85149" font-family="sans-serif" font-size="10" text-anchor="middle">R_lead 0.5Ω</text>
+      <line x1="130" y1="70" x2="220" y2="70" stroke="#f85149" stroke-width="2"/>
+
+      <!-- Total Error Equation -->
+      <g transform="translate(340, 15)">
+        <text x="0" y="20" fill="#f0f6fc" font-family="system-ui" font-size="12">Сумарний додатковий паразитичний опір: <tspan fill="#f85149" font-weight="bold">R_wire = 0.5 + 0.5 = 1.00 Ω</tspan></text>
+        <text x="0" y="45" fill="#8b949e" font-family="system-ui" font-size="11">Кабель: 15 метрів мідного дроту перерізом 0.5 мм²</text>
+      </g>
+    </g>
+  </g>
+
+  <!-- Side by Side Comparative Analysis -->
+  <g transform="translate(40, 270)">
+    <!-- PT100 Disaster -->
+    <rect width="370" height="130" rx="8" fill="#161b22" stroke="#f85149" stroke-width="1.5"/>
+    <text x="20" y="30" fill="#f85149" font-family="system-ui" font-size="14" font-weight="bold">PT100 у 2-провідній схемі:</text>
+    <text x="20" y="55" fill="#8b949e" font-family="system-ui" font-size="11">Чутливість: dR/dT = 0.385 Ω/°C</text>
+    <text x="20" y="80" fill="#f0f6fc" font-family="monospace" font-size="12">ΔT_err = R_wire / (dR/dT) = 1.00 Ω / 0.385 Ω/°C</text>
+    <text x="20" y="110" fill="#f85149" font-family="system-ui" font-size="18" font-weight="bold">Похибка: +2.60 °C (Неприпустимо!)</text>
+
+    <!-- PT1000 Success -->
+    <g transform="translate(400, 0)">
+      <rect width="370" height="130" rx="8" fill="#161b22" stroke="#3fb950" stroke-width="1.5"/>
+      <text x="20" y="30" fill="#3fb950" font-family="system-ui" font-size="14" font-weight="bold">PT1000 у 2-провідній схемі:</text>
+      <text x="20" y="55" fill="#8b949e" font-family="system-ui" font-size="11">Чутливість: dR/dT = 3.85 Ω/°C (у 10 разів більше!)</text>
+      <text x="20" y="80" fill="#f0f6fc" font-family="monospace" font-size="12">ΔT_err = R_wire / (dR/dT) = 1.00 Ω / 3.85 Ω/°C</text>
+      <text x="20" y="110" fill="#7ee787" font-family="system-ui" font-size="18" font-weight="bold">Похибка: +0.26 °C (Цілком прийнятно!)</text>
+    </g>
+  </g>
+
+  <!-- Technical Conclusion Banner -->
+  <g transform="translate(40, 420)">
+    <rect width="770" height="65" rx="6" fill="#1c2128" stroke="#30363d" stroke-width="1.5"/>
+    <text x="20" y="24" fill="#58a6ff" font-family="system-ui" font-size="12" font-weight="bold">Економічний висновок для промислового монтажу:</text>
+    <text x="20" y="46" fill="#f0f6fc" font-family="sans-serif" font-size="11">PT1000 скорочує витрати на кабельні лінії на 30–50% за рахунок переходу з 3-провідного або 4-провідного кабелю на дешеву 2-жильну пару без втрати метрологічної точності в системах опалення, вентиляції та сонячних колекторах.</text>
+  </g>
+</svg>

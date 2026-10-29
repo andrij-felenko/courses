@@ -1,0 +1,80 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 850 520" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bg-grad2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0d1117"/>
+      <stop offset="100%" stop-color="#161b22"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="100%" height="100%" fill="url(#bg-grad2)"/>
+  <rect x="15" y="15" width="820" height="490" rx="10" fill="none" stroke="#30363d" stroke-width="1.5"/>
+
+  <text x="30" y="45" fill="#58a6ff" font-family="system-ui, sans-serif" font-size="18" font-weight="bold">Струм збудження та ефект саморозігріву (P = I² × R) для PT1000</text>
+  <text x="30" y="68" fill="#8b949e" font-family="system-ui, sans-serif" font-size="13">Обмеження струму збудження до 50–100 мкА для усунення методичної температурної похибки</text>
+
+  <!-- Self-Heating Graph -->
+  <g transform="translate(40, 110)">
+    <rect width="450" height="260" rx="8" fill="#161b22" stroke="#30363d" stroke-width="1.5"/>
+    <text x="25" y="30" fill="#58a6ff" font-family="system-ui" font-size="13" font-weight="bold">Похибка саморозігріву ΔT (°C) від струму I_exc</text>
+
+    <!-- Axes -->
+    <line x1="60" y1="210" x2="410" y2="210" stroke="#8b949e" stroke-width="1.5"/>
+    <line x1="60" y1="50" x2="60" y2="210" stroke="#8b949e" stroke-width="1.5"/>
+    <text x="400" y="225" fill="#8b949e" font-family="system-ui" font-size="10">I_exc (мкА / мА)</text>
+    <text x="55" y="45" fill="#8b949e" font-family="system-ui" font-size="10" text-anchor="end">ΔT (°C)</text>
+
+    <!-- Ticks & Grid -->
+    <text x="130" y="225" fill="#3fb950" font-family="monospace" font-size="10" text-anchor="middle">50 мкА</text>
+    <text x="200" y="225" fill="#7ee787" font-family="monospace" font-size="10" text-anchor="middle">100 мкА</text>
+    <text x="290" y="225" fill="#d29922" font-family="monospace" font-size="10" text-anchor="middle">300 мкА</text>
+    <text x="380" y="225" fill="#f85149" font-family="monospace" font-size="10" text-anchor="middle">1000 мкА (1мА)</text>
+
+    <!-- Y Ticks -->
+    <text x="55" y="200" fill="#8b949e" font-family="monospace" font-size="9" text-anchor="end">0.01°</text>
+    <text x="55" y="150" fill="#8b949e" font-family="monospace" font-size="9" text-anchor="end">0.10°</text>
+    <text x="55" y="90" fill="#f85149" font-family="monospace" font-size="9" text-anchor="end">1.00°</text>
+
+    <!-- Safe Zone Box (0 to 100 uA) -->
+    <rect x="60" y="50" width="150" height="160" fill="#238636" opacity="0.15"/>
+    <text x="135" y="70" fill="#3fb950" font-family="system-ui" font-size="10" font-weight="bold" text-anchor="middle">Безпечна зона (I &lt; 100 мкА)</text>
+
+    <!-- Self heating curve: quadratic P = I^2 * R -->
+    <path d="M 60 205 Q 160 204, 200 195 T 290 160 T 380 80" fill="none" stroke="#f85149" stroke-width="3"/>
+
+    <!-- Marker 100 uA -->
+    <circle cx="200" cy="195" r="4" fill="#3fb950"/>
+    <text x="200" y="180" fill="#3fb950" font-family="monospace" font-size="10" text-anchor="middle">ΔT &lt; 0.02 °C (P=10 мкВт)</text>
+
+    <!-- Marker 1 mA -->
+    <circle cx="380" cy="80" r="4" fill="#f85149"/>
+    <text x="370" y="65" fill="#f85149" font-family="monospace" font-size="11" font-weight="bold" text-anchor="end">ΔT &gt; 1.0 °C! (P=1 мВт)</text>
+  </g>
+
+  <!-- Power Comparison Calculation Card -->
+  <g transform="translate(510, 110)">
+    <rect width="300" height="260" rx="8" fill="#161b22" stroke="#30363d" stroke-width="1.5"/>
+    <text x="20" y="28" fill="#58a6ff" font-family="system-ui" font-size="13" font-weight="bold">Порівняння теплової потужності:</text>
+
+    <!-- Case 1: 100 uA (Correct) -->
+    <rect x="15" y="45" width="270" height="90" rx="4" fill="#1c2128" stroke="#3fb950" stroke-width="1.5"/>
+    <text x="25" y="65" fill="#3fb950" font-family="system-ui" font-size="11" font-weight="bold">1. Рекомендований струм: I = 100 мкА</text>
+    <text x="25" y="85" fill="#f0f6fc" font-family="monospace" font-size="11">P = (100×10^-6)^2 × 1000 = 10 мкВт</text>
+    <text x="25" y="105" fill="#7ee787" font-family="sans-serif" font-size="10">Коефіцієнт саморозігріву E = 2 мВт/°C</text>
+    <text x="25" y="122" fill="#7ee787" font-family="monospace" font-size="11">ΔT = 0.010 мВт / 2 = +0.005 °C (Ідеально!)</text>
+
+    <!-- Case 2: 1 mA (Typical PT100 source, Fatal for PT1000!) -->
+    <rect x="15" y="150" width="270" height="95" rx="4" fill="#1c2128" stroke="#f85149" stroke-width="1.5"/>
+    <text x="25" y="170" fill="#f85149" font-family="system-ui" font-size="11" font-weight="bold">2. Струм 1 мА (як для PT100):</text>
+    <text x="25" y="190" fill="#f0f6fc" font-family="monospace" font-size="11">P = (1×10^-3)^2 × 1000 = 1.000 мВт</text>
+    <text x="25" y="210" fill="#f85149" font-family="sans-serif" font-size="10">Потужність зростає у 100 разів!</text>
+    <text x="25" y="228" fill="#f85149" font-family="monospace" font-size="11">ΔT = 1.000 мВт / 2 = +0.50 °C (Помилка!)</text>
+  </g>
+
+  <!-- Warning Banner -->
+  <g transform="translate(40, 390)">
+    <rect width="770" height="85" rx="6" fill="#1c2128" stroke="#30363d" stroke-width="1.5"/>
+    <text x="20" y="25" fill="#e3b341" font-family="system-ui" font-size="12" font-weight="bold">Золоте інженерне правило для PT1000:</text>
+    <text x="20" y="48" fill="#f0f6fc" font-family="monospace" font-size="12">Ніколи не підключайте PT1000 до вимірювальних каналів, налаштованих на струм 1.0 мА для PT100!</text>
+    <text x="20" y="68" fill="#7ee787" font-family="monospace" font-size="11">Оптимальний струм збудження становить від 50 до 100 мкА (максимально 200 мкА в проточній рідині).</text>
+  </g>
+</svg>

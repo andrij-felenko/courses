@@ -1,0 +1,109 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 850 520" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bg-grad4" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0d1117"/>
+      <stop offset="100%" stop-color="#161b22"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="100%" height="100%" fill="url(#bg-grad4)"/>
+  <rect x="15" y="15" width="820" height="490" rx="10" fill="none" stroke="#30363d" stroke-width="1.5"/>
+
+  <text x="30" y="45" fill="#58a6ff" font-family="system-ui, sans-serif" font-size="18" font-weight="bold">Логометрична (Ratiometric) схема підключення PT1000 до 24-бітного АЦП</text>
+  <text x="30" y="68" fill="#8b949e" font-family="system-ui, sans-serif" font-size="13">Повне пригнічення дрейфу струму збудження: вимірювання відносно прецизійного шунта R_ref (ADS1220 / MAX31865)</text>
+
+  <!-- Circuit Schematic -->
+  <g transform="translate(40, 110)">
+    <!-- Excitation Current Source I_exc = 100 uA -->
+    <g transform="translate(80, 20)">
+      <circle cx="40" cy="30" r="22" fill="#1c2128" stroke="#f85149" stroke-width="2"/>
+      <path d="M 40 18 L 40 42 M 35 35 L 40 42 L 45 35" stroke="#f85149" stroke-width="2" fill="none"/>
+      <text x="75" y="35" fill="#f85149" font-family="monospace" font-size="11" font-weight="bold">I_exc = 100 мкА</text>
+    </g>
+
+    <!-- Wire down to PT1000 -->
+    <path d="M 120 72 L 120 110" stroke="#58a6ff" stroke-width="2" fill="none"/>
+
+    <!-- PT1000 Sensor -->
+    <rect x="100" y="110" width="40" height="60" rx="4" fill="#1c2128" stroke="#58a6ff" stroke-width="2"/>
+    <text x="120" y="145" fill="#58a6ff" font-family="system-ui" font-size="11" font-weight="bold" text-anchor="middle">PT1000</text>
+    <text x="70" y="145" fill="#8b949e" font-family="sans-serif" font-size="10" text-anchor="end">V_rtd</text>
+
+    <!-- Wire from PT1000 to Reference Resistor R_ref -->
+    <path d="M 120 170 L 120 210" stroke="#e3b341" stroke-width="2" fill="none"/>
+
+    <!-- Reference Resistor R_ref (4.000 kOhm 0.05%) -->
+    <rect x="100" y="210" width="40" height="70" rx="4" fill="#1c2128" stroke="#7ee787" stroke-width="2"/>
+    <text x="120" y="245" fill="#7ee787" font-family="system-ui" font-size="11" font-weight="bold" text-anchor="middle">R_ref</text>
+    <text x="120" y="262" fill="#7ee787" font-family="sans-serif" font-size="9" text-anchor="middle">4.00 кΩ</text>
+    <text x="70" y="245" fill="#8b949e" font-family="sans-serif" font-size="10" text-anchor="end">V_ref</text>
+
+    <!-- Ground wire -->
+    <path d="M 120 280 L 120 310" stroke="#3fb950" stroke-width="2" fill="none"/>
+    <line x1="105" y1="310" x2="135" y2="310" stroke="#3fb950" stroke-width="2.5"/>
+
+    <!-- Differential Sensing Tap lines to ADC -->
+    <!-- V_rtd taps -->
+    <path d="M 120 110 L 250 110" stroke="#58a6ff" stroke-width="1.5" stroke-dasharray="3,3" fill="none"/>
+    <circle cx="120" cy="110" r="3" fill="#58a6ff"/>
+
+    <path d="M 120 170 L 250 170" stroke="#58a6ff" stroke-width="1.5" stroke-dasharray="3,3" fill="none"/>
+    <circle cx="120" cy="170" r="3" fill="#58a6ff"/>
+
+    <!-- V_ref taps -->
+    <path d="M 120 210 L 250 210" stroke="#7ee787" stroke-width="1.5" stroke-dasharray="3,3" fill="none"/>
+    <circle cx="120" cy="210" r="3" fill="#7ee787"/>
+
+    <path d="M 120 280 L 250 280" stroke="#7ee787" stroke-width="1.5" stroke-dasharray="3,3" fill="none"/>
+    <circle cx="120" cy="280" r="3" fill="#7ee787"/>
+
+    <!-- 24-bit Delta Sigma ADC Block -->
+    <g transform="translate(250, 80)">
+      <rect width="250" height="230" rx="8" fill="#1c2128" stroke="#bc8cff" stroke-width="2"/>
+      <text x="125" y="30" fill="#bc8cff" font-family="system-ui" font-size="14" font-weight="bold" text-anchor="middle">24-бітний сигма-дельта АЦП</text>
+      <text x="125" y="48" fill="#8b949e" font-family="monospace" font-size="10" text-anchor="middle">ADS1220 / MAX31865</text>
+
+      <!-- Differential Inputs -->
+      <text x="15" y="35" fill="#58a6ff" font-family="monospace" font-size="11">AIN0 (V+)</text>
+      <text x="15" y="95" fill="#58a6ff" font-family="monospace" font-size="11">AIN1 (V−)</text>
+
+      <!-- Reference Inputs -->
+      <text x="15" y="135" fill="#7ee787" font-family="monospace" font-size="11">REFP</text>
+      <text x="15" y="205" fill="#7ee787" font-family="monospace" font-size="11">REFN</text>
+
+      <!-- Digital Output to MCU -->
+      <path d="M 250 115 L 290 115" stroke="#f0f6fc" stroke-width="2" fill="none"/>
+      <text x="270" y="105" fill="#f0f6fc" font-family="monospace" font-size="10">SPI</text>
+    </g>
+  </g>
+
+  <!-- Mathematical Proof of Ratiometric Immunity -->
+  <g transform="translate(560, 110)">
+    <rect width="250" height="300" rx="8" fill="#161b22" stroke="#30363d" stroke-width="1.5"/>
+    <text x="125" y="28" fill="#58a6ff" font-family="system-ui" font-size="13" font-weight="bold" text-anchor="middle">Математичне скорочення I_exc</text>
+
+    <!-- Derivation -->
+    <g transform="translate(15, 45)">
+      <text x="0" y="20" fill="#8b949e" font-family="system-ui" font-size="11">1. Напруга на сенсорі:</text>
+      <text x="0" y="40" fill="#58a6ff" font-family="monospace" font-size="11">V_rtd = I_exc × R_pt1000</text>
+
+      <text x="0" y="70" fill="#8b949e" font-family="system-ui" font-size="11">2. Опорна напруга АЦП:</text>
+      <text x="0" y="90" fill="#7ee787" font-family="monospace" font-size="11">V_ref = I_exc × R_ref</text>
+
+      <text x="0" y="125" fill="#8b949e" font-family="system-ui" font-size="11">3. Код АЦП (Code):</text>
+      <text x="0" y="145" fill="#f0f6fc" font-family="monospace" font-size="11">Code = (V_rtd / V_ref) × 2^23</text>
+
+      <text x="0" y="175" fill="#8b949e" font-family="system-ui" font-size="11">4. Підставляємо значення:</text>
+      <text x="0" y="195" fill="#d29922" font-family="monospace" font-size="11">Code = (I × R_rtd) / (I × R_ref)</text>
+
+      <text x="0" y="230" fill="#7ee787" font-family="system-ui" font-size="12" font-weight="bold">Фінальний розрахунок:</text>
+      <text x="0" y="250" fill="#7ee787" font-family="monospace" font-size="12" font-weight="bold">R_rtd = R_ref × (Code / 2^23)</text>
+    </g>
+  </g>
+
+  <!-- Banner -->
+  <g transform="translate(40, 430)">
+    <rect width="770" height="55" rx="6" fill="#1c2128" stroke="#30363d" stroke-width="1.5"/>
+    <text x="385" y="32" fill="#7ee787" font-family="system-ui" font-size="12" font-weight="bold" text-anchor="middle">Висновок: Струм I_exc повністю скорочується! Нестабільність та шум джерела струму взагалі не впливають на точність.</text>
+  </g>
+</svg>
