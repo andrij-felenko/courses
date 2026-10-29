@@ -1,0 +1,114 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 540" width="100%" height="100%">
+  <defs>
+    <style>
+      .bg { fill: #0f172a; }
+      .panel { fill: #1e293b; stroke: #334155; stroke-width: 1.5; rx: 8px; }
+      .panel-sub { fill: #0f172a; stroke: #334155; stroke-width: 1; rx: 6px; }
+      .title { font-family: system-ui, sans-serif; font-size: 20px; font-weight: 700; fill: #f8fafc; }
+      .subtitle { font-family: system-ui, sans-serif; font-size: 13px; fill: #94a3b8; }
+      .h2 { font-family: system-ui, sans-serif; font-size: 15px; font-weight: 600; fill: #38bdf8; }
+      .lbl { font-family: system-ui, sans-serif; font-size: 12px; fill: #f8fafc; }
+      .lbl-bold { font-family: system-ui, sans-serif; font-size: 12px; font-weight: 700; fill: #f8fafc; }
+      .lbl-dim { font-family: system-ui, sans-serif; font-size: 11px; fill: #94a3b8; }
+      .lbl-code { font-family: monospace, monospace; font-size: 11px; fill: #38bdf8; }
+      
+      .axis { stroke: #64748b; stroke-width: 1.5; }
+      .grid { stroke: #334155; stroke-dasharray: 4,4; stroke-width: 1; }
+      .bar-busy { fill: #881337; stroke: #f43f5e; stroke-width: 1.5; rx: 4px; }
+      .bar-foc { fill: #0284c7; stroke: #38bdf8; stroke-width: 1.5; rx: 4px; }
+      .bar-isr { fill: #065f46; stroke: #10b981; stroke-width: 1.5; rx: 4px; }
+      .bar-idle { fill: #1e293b; stroke: #475569; stroke-width: 1; rx: 4px; }
+    </style>
+  </defs>
+
+  <rect width="100%" height="100%" class="bg" />
+
+  <!-- Title Block -->
+  <text x="30" y="38" class="title">Порівняння блокувального опитування та переривань SPI</text>
+  <text x="30" y="60" class="subtitle">Аналіз часових витрат процесора в циклі 20 кГц векторного керування FOC (період 50 мкс)</text>
+
+  <!-- Top Timeline: Blocking Polling (Stall) -->
+  <g transform="translate(30, 85)">
+    <rect width="860" height="195" class="panel" />
+    <text x="20" y="28" class="h2">1. Блокувальне опитування (Busy-Wait Polling): Втрата 8 мкс процесорного часу</text>
+
+    <g transform="translate(40, 45)">
+      <!-- Timeline axis -->
+      <line x1="0" y1="60" x2="780" y2="60" class="axis" />
+      <text x="790" y="64" class="lbl-dim">Час</text>
+
+      <!-- Period markers -->
+      <line x1="0" y1="15" x2="0" y2="70" class="grid" />
+      <line x1="750" y1="15" x2="750" y2="70" class="grid" />
+      <text x="0" y="85" class="lbl-dim">0 мкс</text>
+      <text x="750" y="85" class="lbl-dim">50 мкс (20 кГц)</text>
+
+      <!-- Execution blocks -->
+      <!-- ADC Start (0-2 us) -->
+      <rect x="0" y="20" width="30" height="40" class="bar-foc" />
+      <text x="15" y="44" class="lbl-dim" text-anchor="middle" fill="#ffffff">ADC</text>
+
+      <!-- Busy-Wait Stall Block (2-18 us = 16 ticks = 8 us) -->
+      <rect x="35" y="15" width="160" height="50" class="bar-busy" />
+      <text x="115" y="38" class="lbl-bold" text-anchor="middle" fill="#fecdd3">БЛОКУВАННЯ CPU (8 мкс)</text>
+      <text x="115" y="55" class="lbl-dim" text-anchor="middle" fill="#ffffff">while(!SPI_TXE); while(SPI_BSY);</text>
+
+      <!-- FOC Calculation Block (10 us) -->
+      <rect x="200" y="20" width="180" height="40" class="bar-foc" />
+      <text x="290" y="44" class="lbl-bold" text-anchor="middle" fill="#ffffff">Розрахунок FOC (10 мкс)</text>
+
+      <!-- Remainder Idle -->
+      <rect x="385" y="25" width="365" height="30" class="bar-idle" />
+      <text x="567" y="44" class="lbl-dim" text-anchor="middle">Фоновий потік / RTOS</text>
+    </g>
+
+    <!-- Downside notes -->
+    <rect x="40" y="145" width="780" height="35" class="panel-sub" />
+    <text x="50" y="167" class="lbl" fill="#f43f5e">Недоліки: Процесор зависає на 16% всього циклу керування, створюючи джиттер ШІМ та обмежуючи частоту контуру.</text>
+  </g>
+
+  <!-- Bottom Timeline: Interrupt / DMA Driven (Non-blocking) -->
+  <g transform="translate(30, 300)">
+    <rect width="860" height="210" class="panel" />
+    <text x="20" y="28" class="h2">2. Асинхронне читання через переривання або DMA: 0.6 мкс обробки</text>
+
+    <g transform="translate(40, 45)">
+      <!-- Timeline axis -->
+      <line x1="0" y1="60" x2="780" y2="60" class="axis" />
+      <text x="790" y="64" class="lbl-dim">Час</text>
+
+      <line x1="0" y1="15" x2="0" y2="70" class="grid" />
+      <line x1="750" y1="15" x2="750" y2="70" class="grid" />
+      <text x="0" y="85" class="lbl-dim">0 мкс</text>
+      <text x="750" y="85" class="lbl-dim">50 мкс (20 кГц)</text>
+
+      <!-- ADC + Start SPI trigger (0-3 us) -->
+      <rect x="0" y="20" width="40" height="40" class="bar-foc" />
+      <text x="20" y="44" class="lbl-dim" text-anchor="middle" fill="#ffffff">ADC+TX</text>
+
+      <!-- Hardware SPI background transfer in silicon (CPU is free!) -->
+      <rect x="45" y="28" width="160" height="24" fill="none" stroke="#38bdf8" stroke-dasharray="4,3" rx="3" />
+      <text x="125" y="44" class="lbl-dim" text-anchor="middle" fill="#38bdf8">Апаратний SPI у фоні (8 мкс)</text>
+
+      <!-- CPU executes other logic or continues immediately -->
+      <rect x="45" y="20" width="160" height="40" fill="#0369a1" fill-opacity="0.3" stroke="#0284c7" rx="3" />
+      <text x="125" y="44" class="lbl-bold" text-anchor="middle" fill="#bae6fd">CPU ВІЛЬНИЙ</text>
+
+      <!-- SPI ISR / DMA Complete (at 8 us) -->
+      <rect x="210" y="15" width="35" height="50" class="bar-isr" />
+      <text x="227" y="44" class="lbl-bold" text-anchor="middle" fill="#ffffff">ISR</text>
+
+      <!-- FOC Calculation Block using received angle -->
+      <rect x="250" y="20" width="180" height="40" class="bar-foc" />
+      <text x="340" y="44" class="lbl-bold" text-anchor="middle" fill="#ffffff">Розрахунок FOC (10 мкс)</text>
+
+      <!-- Huge Idle / RTOS budget -->
+      <rect x="435" y="20" width="315" height="40" class="bar-idle" />
+      <text x="592" y="44" class="lbl-bold" text-anchor="middle" fill="#4ade80">Вільний ресурс CPU: 76% (38 мкс)</text>
+    </g>
+
+    <!-- Upside notes -->
+    <rect x="40" y="160" width="780" height="35" class="panel-sub" />
+    <text x="50" y="182" class="lbl" fill="#4ade80">Перевага: Апаратне зчитування без затримок процесора — контур FOC працює з нульовим фазовим тремтінням.</text>
+  </g>
+</svg>

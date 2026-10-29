@@ -1,0 +1,97 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 540" width="100%" height="100%">
+  <defs>
+    <style>
+      .bg { fill: #0f172a; }
+      .panel { fill: #1e293b; stroke: #334155; stroke-width: 1.5; rx: 8px; }
+      .panel-sub { fill: #0f172a; stroke: #334155; stroke-width: 1; rx: 6px; }
+      .title { font-family: system-ui, sans-serif; font-size: 20px; font-weight: 700; fill: #f8fafc; }
+      .subtitle { font-family: system-ui, sans-serif; font-size: 13px; fill: #94a3b8; }
+      .h2 { font-family: system-ui, sans-serif; font-size: 15px; font-weight: 600; fill: #38bdf8; }
+      .lbl { font-family: system-ui, sans-serif; font-size: 12px; fill: #f8fafc; }
+      .lbl-bold { font-family: system-ui, sans-serif; font-size: 12px; font-weight: 700; fill: #f8fafc; }
+      .lbl-dim { font-family: system-ui, sans-serif; font-size: 11px; fill: #94a3b8; }
+      .lbl-code { font-family: monospace, monospace; font-size: 12px; fill: #38bdf8; }
+      
+      .box-parity { fill: #0284c7; stroke: #38bdf8; stroke-width: 2; rx: 4px; }
+      .box-ef { fill: #881337; stroke: #f43f5e; stroke-width: 2; rx: 4px; }
+      .box-data { fill: #065f46; stroke: #10b981; stroke-width: 2; rx: 4px; }
+      .arrow { stroke-width: 2; marker-end: url(#arr); }
+    </style>
+    <marker id="arr" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 8 5 L 0 9 z" fill="#38bdf8" />
+    </marker>
+  </defs>
+
+  <rect width="100%" height="100%" class="bg" />
+
+  <!-- Title Block -->
+  <text x="30" y="38" class="title">Формат кадру SPI, контроль парності та діагностика помилок</text>
+  <text x="30" y="60" class="subtitle">Розподіл бітів кадру MISO: 15 (Even Parity), 14 (Error Flag) та 13:0 (14-бітний кут положення)</text>
+
+  <!-- 16-bit Frame Representation -->
+  <g transform="translate(30, 85)">
+    <rect width="860" height="150" class="panel" />
+    <text x="25" y="28" class="h2">1. Структура 16-бітного слова відповіді AS5048 (MISO)</text>
+
+    <!-- Bits Layout -->
+    <g transform="translate(30, 50)">
+      <!-- Bit 15: Parity -->
+      <rect x="0" y="0" width="70" height="60" class="box-parity" />
+      <text x="35" y="25" class="lbl-bold" text-anchor="middle" fill="#ffffff">PAR</text>
+      <text x="35" y="45" class="lbl-dim" text-anchor="middle" fill="#ffffff">Біт 15</text>
+
+      <!-- Bit 14: Error Flag -->
+      <rect x="75" y="0" width="70" height="60" class="box-ef" />
+      <text x="110" y="25" class="lbl-bold" text-anchor="middle" fill="#ffffff">EF</text>
+      <text x="110" y="45" class="lbl-dim" text-anchor="middle" fill="#ffffff">Біт 14</text>
+
+      <!-- Bits 13:0: Angle Data -->
+      <rect x="150" y="0" width="650" height="60" class="box-data" />
+      <text x="475" y="25" class="lbl-bold" text-anchor="middle" font-size="14" fill="#ffffff">ANGLE DATA [13:0]</text>
+      <text x="475" y="45" class="lbl-dim" text-anchor="middle" fill="#ffffff">14 бітів абсолютного положення (0 ... 16383 відліків, крок 0.0219°)</text>
+    </g>
+
+    <!-- Legend below frame -->
+    <text x="55" y="132" class="lbl-bold" fill="#38bdf8">PAR (Even Parity):</text>
+    <text x="180" y="132" class="lbl">Парність усього 16-бітного слова</text>
+    <text x="450" y="132" class="lbl-bold" fill="#f43f5e">EF (Error Flag):</text>
+    <text x="560" y="132" class="lbl">1 = Апаратна помилка датчика</text>
+  </g>
+
+  <!-- Flow & Diagnostics Details -->
+  <g transform="translate(30, 250)">
+    <!-- Left: Parity Algorithm -->
+    <g transform="translate(0, 0)">
+      <rect width="415" height="260" class="panel" />
+      <text x="20" y="28" class="h2">2. Швидкий контроль парності (Even Parity)</text>
+
+      <rect x="20" y="45" width="375" height="110" class="panel-sub" />
+      <text x="30" y="68" class="lbl-code">bool check_parity(uint16_t w) {</text>
+      <text x="45" y="88" class="lbl-code">w ^= w >> 8; w ^= w >> 4;</text>
+      <text x="45" y="108" class="lbl-code">w ^= w >> 2; w ^= w >> 1;</text>
+      <text x="45" y="128" class="lbl-code">return !(w &amp; 1); // 1 = валідно</text>
+      <text x="30" y="148" class="lbl-code">}</text>
+
+      <text x="20" y="180" class="lbl">• Загальна кількість одиниць у слові має бути <tspan fill="#38bdf8">парною</tspan>.</text>
+      <text x="20" y="200" class="lbl">• На Cortex-M4 виконується за <tspan fill="#4ade80">5 тактів CPU</tspan> або через апаратну інструкцію.</text>
+      <text x="20" y="220" class="lbl">• При збої парності: відхилити значення, повторити опитування.</text>
+    </g>
+
+    <!-- Right: Error Flag Handling -->
+    <g transform="translate(445, 0)">
+      <rect width="415" height="260" class="panel" />
+      <text x="20" y="28" class="h2">3. Обробка прапорця EF (Error Flag = 1)</text>
+
+      <rect x="20" y="45" width="375" height="110" class="panel-sub" />
+      <text x="30" y="68" class="lbl-bold" fill="#f43f5e">Дії при виявленні EF = 1:</text>
+      <text x="30" y="90" class="lbl">1. Прочитати регістр помилки <tspan fill="#fbbf24">0x0001 (Clear Error)</tspan>.</text>
+      <text x="30" y="110" class="lbl">2. Розпізнати джерело збою:</text>
+      <text x="45" y="128" class="lbl-dim">• Помилка переповнення CORDIC або паритету</text>
+      <text x="45" y="144" class="lbl-dim">• Ослаблення / відрив магніту (AGC saturation)</text>
+
+      <text x="20" y="180" class="lbl">• <tspan fill="#f43f5e">Захист силового контуру:</tspan> Негайно скинути струми інвертора.</text>
+      <text x="20" y="200" class="lbl">• <tspan fill="#fbbf24">Безпечна зупинка:</tspan> Аварійне гальмування приводу.</text>
+      <text x="20" y="220" class="lbl">• Запобігання розносу безколекторного двигуна (BLDC).</text>
+    </g>
+  </g>
+</svg>

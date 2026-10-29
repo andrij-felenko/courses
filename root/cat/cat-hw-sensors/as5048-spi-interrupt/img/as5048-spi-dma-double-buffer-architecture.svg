@@ -1,0 +1,122 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 540" width="100%" height="100%">
+  <defs>
+    <style>
+      .bg { fill: #0f172a; }
+      .panel { fill: #1e293b; stroke: #334155; stroke-width: 1.5; rx: 8px; }
+      .panel-sub { fill: #0f172a; stroke: #334155; stroke-width: 1; rx: 6px; }
+      .title { font-family: system-ui, sans-serif; font-size: 20px; font-weight: 700; fill: #f8fafc; }
+      .subtitle { font-family: system-ui, sans-serif; font-size: 13px; fill: #94a3b8; }
+      .h2 { font-family: system-ui, sans-serif; font-size: 15px; font-weight: 600; fill: #38bdf8; }
+      .lbl { font-family: system-ui, sans-serif; font-size: 12px; fill: #f8fafc; }
+      .lbl-bold { font-family: system-ui, sans-serif; font-size: 12px; font-weight: 700; fill: #f8fafc; }
+      .lbl-dim { font-family: system-ui, sans-serif; font-size: 11px; fill: #94a3b8; }
+      .lbl-code { font-family: monospace, monospace; font-size: 11px; fill: #38bdf8; }
+      
+      .box-block { fill: #1e293b; stroke: #38bdf8; stroke-width: 1.5; rx: 6px; }
+      .box-dma { fill: #064e3b; stroke: #10b981; stroke-width: 2; rx: 6px; }
+      .box-buf-active { fill: #0284c7; stroke: #38bdf8; stroke-width: 2; rx: 4px; }
+      .box-buf-rx { fill: #831843; stroke: #f43f5e; stroke-width: 2; rx: 4px; }
+      .wire-bus { stroke: #38bdf8; stroke-width: 2.5; fill: none; marker-end: url(#arr); }
+      .wire-dma { stroke: #10b981; stroke-width: 2.5; fill: none; marker-end: url(#arr-green); }
+      .wire-foc { stroke: #fbbf24; stroke-width: 2.5; fill: none; marker-end: url(#arr-gold); }
+    </style>
+    <marker id="arr" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 8 5 L 0 9 z" fill="#38bdf8" />
+    </marker>
+    <marker id="arr-green" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 8 5 L 0 9 z" fill="#10b981" />
+    </marker>
+    <marker id="arr-gold" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 8 5 L 0 9 z" fill="#fbbf24" />
+    </marker>
+  </defs>
+
+  <rect width="100%" height="100%" class="bg" />
+
+  <!-- Title Block -->
+  <text x="30" y="38" class="title">Архітектура DMA та подвійної буферизації (Double Buffering)</text>
+  <text x="30" y="60" class="subtitle">Апаратне синхронне оновлення кута без блокування процесора та без ризику розриву даних (Data Tearing)</text>
+
+  <!-- Flow Block Diagram -->
+  <g transform="translate(30, 85)">
+    <rect width="860" height="300" class="panel" />
+
+    <!-- 1. PWM Timer Trigger -->
+    <g transform="translate(25, 40)">
+      <rect width="150" height="90" class="box-block" />
+      <text x="75" y="25" class="lbl-bold" text-anchor="middle" fill="#fbbf24">PWM Таймер</text>
+      <text x="75" y="45" class="lbl-dim" text-anchor="middle">(TIM1 / TIM8)</text>
+      <text x="75" y="68" class="lbl-code" text-anchor="middle">TRGO Event</text>
+    </g>
+
+    <!-- Trigger arrow to DMA -->
+    <line x1="175" y1="85" x2="225" y2="85" class="wire-foc" />
+    <text x="200" y="75" class="lbl-dim" text-anchor="middle" fill="#fbbf24">20 кГц</text>
+
+    <!-- 2. DMA Controller -->
+    <g transform="translate(230, 30)">
+      <rect width="170" height="110" class="box-dma" />
+      <text x="85" y="25" class="lbl-bold" text-anchor="middle" fill="#10b981">Контролер DMA</text>
+      <text x="85" y="45" class="lbl-dim" text-anchor="middle">Circular Mode / Stream</text>
+      <rect x="15" y="60" width="140" height="35" class="panel-sub" />
+      <text x="85" y="82" class="lbl-dim" text-anchor="middle">Автообмін SPI TX/RX</text>
+    </g>
+
+    <!-- DMA bus to SPI hardware -->
+    <line x1="400" y1="85" x2="455" y2="85" class="wire-dma" />
+    <text x="427" y="75" class="lbl-dim" text-anchor="middle" fill="#10b981">16 біт</text>
+
+    <!-- 3. Hardware SPI Peripheral + AS5048 -->
+    <g transform="translate(460, 30)">
+      <rect width="150" height="110" class="box-block" />
+      <text x="75" y="25" class="lbl-bold" text-anchor="middle" fill="#38bdf8">SPI Модуль</text>
+      <text x="75" y="45" class="lbl-dim" text-anchor="middle">Master 10 МГц</text>
+      <rect x="15" y="60" width="120" height="35" fill="#0f172a" rx="4" />
+      <text x="75" y="82" class="lbl-bold" text-anchor="middle" fill="#f43f5e">AS5048A</text>
+    </g>
+
+    <!-- DMA Transfer to Double Buffer -->
+    <path d="M 315 140 L 315 200 L 455 200" class="wire-dma" />
+    <text x="385" y="190" class="lbl-bold" text-anchor="middle" fill="#10b981">DMA Complete</text>
+
+    <!-- 4. Double Buffer (Ping-Pong RAM) -->
+    <g transform="translate(460, 160)">
+      <rect width="365" height="115" class="panel-sub" />
+      <text x="20" y="24" class="lbl-bold" fill="#38bdf8">Подвійний буфер Ping-Pong (Атомарний доступ)</text>
+
+      <!-- Buffer A: Currently being written by DMA -->
+      <g transform="translate(20, 40)">
+        <rect width="150" height="55" class="box-buf-rx" />
+        <text x="75" y="22" class="lbl-bold" text-anchor="middle" fill="#ffffff">Буфер 0 (Запис DMA)</text>
+        <text x="75" y="42" class="lbl-dim" text-anchor="middle" fill="#fecdd3">Прийом свіжого кута</text>
+      </g>
+
+      <!-- Buffer B: Currently being read by FOC task -->
+      <g transform="translate(195, 40)">
+        <rect width="150" height="55" class="box-buf-active" />
+        <text x="75" y="22" class="lbl-bold" text-anchor="middle" fill="#ffffff">Буфер 1 (Читання FOC)</text>
+        <text x="75" y="42" class="lbl-dim" text-anchor="middle" fill="#e0f2fe">Валідний кут θ_elec</text>
+      </g>
+    </g>
+
+    <!-- Arrow to FOC calculation -->
+    <g transform="translate(25, 175)">
+      <rect width="180" height="95" class="box-block" stroke="#fbbf24" />
+      <text x="90" y="25" class="lbl-bold" text-anchor="middle" fill="#fbbf24">Контур FOC (ISR)</text>
+      <text x="90" y="45" class="lbl-dim" text-anchor="middle">Трансформації Кларка/Парка</text>
+      <rect x="20" y="55" width="140" height="25" class="panel-sub" />
+      <text x="90" y="72" class="lbl-bold" text-anchor="middle" fill="#4ade80">Читає стабільний кут</text>
+    </g>
+
+    <line x1="460" y1="230" x2="210" y2="230" class="wire-foc" />
+  </g>
+
+  <!-- Bottom Insights Panel -->
+  <g transform="translate(30, 400)">
+    <rect width="860" height="115" class="panel" />
+    <text x="25" y="26" class="lbl-bold" fill="#38bdf8">Запобігання розриву даних (Data Tearing) за допомогою Ping-Pong буфера:</text>
+    <text x="25" y="52" class="lbl">• <tspan fill="#f43f5e">Проблема розриву:</tspan> Якщо FOC перериває запис 16-бітного значення, він зчитає частину старого і частину нового кадру, що викличе стрибок фази.</text>
+    <text x="25" y="72" class="lbl">• <tspan fill="#4ade80">Рішення Ping-Pong:</tspan> DMA завжди пише в неактивний буфер, а по завершенні передачі атомарно перемикає покажчик.</text>
+    <text x="25" y="92" class="lbl">• <tspan fill="#fbbf24">Нульове блокування:</tspan> Розрахунок FOC ніколи не чекає на завершення транзакцій SPI і бере перевірені дані миттєво.</text>
+  </g>
+</svg>

@@ -1,0 +1,83 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 540" width="100%" height="100%">
+  <defs>
+    <style>
+      .bg { fill: #0f172a; }
+      .panel { fill: #1e293b; stroke: #334155; stroke-width: 1.5; rx: 8px; }
+      .panel-sub { fill: #0f172a; stroke: #334155; stroke-width: 1; rx: 6px; }
+      .title { font-family: system-ui, sans-serif; font-size: 20px; font-weight: 700; fill: #f8fafc; }
+      .subtitle { font-family: system-ui, sans-serif; font-size: 13px; fill: #94a3b8; }
+      .h2 { font-family: system-ui, sans-serif; font-size: 15px; font-weight: 600; fill: #38bdf8; }
+      .lbl { font-family: system-ui, sans-serif; font-size: 12px; fill: #f8fafc; }
+      .lbl-bold { font-family: system-ui, sans-serif; font-size: 12px; font-weight: 700; fill: #f8fafc; }
+      .lbl-dim { font-family: system-ui, sans-serif; font-size: 11px; fill: #94a3b8; }
+      .lbl-code { font-family: monospace, monospace; font-size: 11px; fill: #38bdf8; }
+      
+      .trace-cs { stroke: #fbbf24; stroke-width: 2.5; fill: none; }
+      .trace-sck { stroke: #38bdf8; stroke-width: 2; fill: none; }
+      .trace-mosi { stroke: #4ade80; stroke-width: 2.5; fill: none; }
+      .trace-miso { stroke: #f43f5e; stroke-width: 2.5; fill: none; }
+      .grid { stroke: #334155; stroke-dasharray: 4,4; stroke-width: 1; }
+    </style>
+  </defs>
+
+  <rect width="100%" height="100%" class="bg" />
+
+  <!-- Title Block -->
+  <text x="30" y="38" class="title">Конвеєризований протокол SPI енкодера AS5048</text>
+  <text x="30" y="60" class="subtitle">Часові вимоги (Mode 1: CPOL=0, CPHA=1), пауза t_CSnH та конвеєрна затримка відповіді N+1</text>
+
+  <!-- Pipelined Timing Waveforms -->
+  <g transform="translate(30, 85)">
+    <rect width="860" height="310" class="panel" />
+
+    <g transform="translate(60, 25)">
+      <!-- Frame N / Frame N+1 labels -->
+      <rect x="70" y="0" width="310" height="24" fill="#0369a1" fill-opacity="0.25" stroke="#0284c7" rx="3" />
+      <text x="225" y="16" class="lbl-bold" text-anchor="middle" fill="#38bdf8">Кадр N: Запит читання кута (CMD 0x3FFF)</text>
+
+      <rect x="420" y="0" width="310" height="24" fill="#15803d" fill-opacity="0.25" stroke="#16a34a" rx="3" />
+      <text x="575" y="16" class="lbl-bold" text-anchor="middle" fill="#4ade80">Кадр N+1: Отримання результату кута N</text>
+
+      <!-- Signal 1: CSn -->
+      <text x="-40" y="55" class="lbl-bold" fill="#fbbf24">CSn</text>
+      <!-- Frame N: High -> Low (x=70) -> High (x=380) -> Pause t_CSnH -> Low (x=420) -> High (x=730) -->
+      <path d="M 0 45 L 70 45 L 70 75 L 380 75 L 380 45 L 420 45 L 420 75 L 730 75 L 730 45 L 770 45" class="trace-cs" />
+      
+      <!-- Pause dimension t_CSnH -->
+      <line x1="380" y1="35" x2="420" y2="35" stroke="#fbbf24" stroke-width="1.5" />
+      <text x="400" y="30" class="lbl-dim" text-anchor="middle" fill="#fbbf24">t_CSnH ≥ 350 нс</text>
+
+      <!-- Signal 2: SCK (16 pulses in Frame N, 16 pulses in Frame N+1) -->
+      <text x="-40" y="115" class="lbl-bold" fill="#38bdf8">SCK</text>
+      <!-- Mode 1: idle low, clocking -->
+      <path d="M 0 130 L 90 130 L 95 105 L 105 130 L 115 105 L 125 130 L 135 105 L 145 130 L 340 130 L 350 105 L 360 130 L 440 130 L 450 105 L 460 130 L 690 130 L 700 105 L 710 130 L 770 130" class="trace-sck" />
+      <text x="225" y="120" class="lbl-dim" text-anchor="middle" fill="#38bdf8">16 тактових імпульсів (до 10 МГц)</text>
+      <text x="575" y="120" class="lbl-dim" text-anchor="middle" fill="#38bdf8">16 тактових імпульсів</text>
+
+      <!-- Signal 3: MOSI (Master Out Slave In) -->
+      <text x="-40" y="175" class="lbl-bold" fill="#4ade80">MOSI</text>
+      <rect x="90" y="160" width="270" height="28" fill="#1e293b" stroke="#4ade80" rx="3" />
+      <text x="225" y="178" class="lbl-code" text-anchor="middle" fill="#4ade80">Команда: 0xFFFF (Read 0x3FFF + Parity)</text>
+
+      <rect x="440" y="160" width="270" height="28" fill="#1e293b" stroke="#4ade80" rx="3" />
+      <text x="575" y="178" class="lbl-code" text-anchor="middle" fill="#4ade80">Команда: 0x0000 (NOP або наступна)</text>
+
+      <!-- Signal 4: MISO (Master In Slave Out) -->
+      <text x="-40" y="235" class="lbl-bold" fill="#f43f5e">MISO</text>
+      <rect x="90" y="220" width="270" height="28" fill="#1e293b" stroke="#64748b" rx="3" />
+      <text x="225" y="238" class="lbl-dim" text-anchor="middle">Попередній кадр N-1 (ігнорується)</text>
+
+      <rect x="440" y="220" width="270" height="28" fill="#1e293b" stroke="#f43f5e" rx="3" />
+      <text x="575" y="238" class="lbl-bold" text-anchor="middle" fill="#f43f5e">Angle Data [13:0] + EF + Parity</text>
+    </g>
+  </g>
+
+  <!-- Bottom Detailed Insights Panel -->
+  <g transform="translate(30, 410)">
+    <rect width="860" height="105" class="panel" />
+    <text x="25" y="26" class="lbl-bold" fill="#38bdf8">Ключові правила роботи з конвеєром AS5048 по SPI:</text>
+    <text x="25" y="50" class="lbl">1. <tspan fill="#fbbf24">Конвеєрна затримка (Pipeline):</tspan> Дані кута, запрошені в транзакції N, з'являються на лінії MISO лише в транзакції N+1.</text>
+    <text x="25" y="70" class="lbl">2. <tspan fill="#4ade80">Час підготовки t_CSnH:</tspan> Між спадами CSn обов'язкова пауза не менше 350 нс для перезавантаження внутрішніх регістрів.</text>
+    <text x="25" y="90" class="lbl">3. <tspan fill="#f43f5e">Режим SPI:</tspan> Суворо Mode 1 (CPOL = 0, CPHA = 1). Дані виставляються за фронтом і стробуються за спадом SCK.</text>
+  </g>
+</svg>
