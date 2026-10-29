@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 840 500" width="100%" height="100%">
+  <rect width="840" height="500" fill="#0d1117"/>
+  <text x="420" y="34" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="20" font-weight="bold" fill="#f0f6fc" text-anchor="middle">Схема підключення: Апаратний тандем MQ-7 + SHT30</text>
+  <text x="420" y="58" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="13" fill="#8b949e" text-anchor="middle">Газовий давач із ШІМ-нагрівачем та цифровий кліматичний сенсор у єдиному вимірювальному вузлі</text>
+
+  <!-- MCU Block (Center-Right) -->
+  <rect x="520" y="100" width="280" height="350" rx="10" fill="#161b22" stroke="#58a6ff" stroke-width="2"/>
+  <text x="660" y="135" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto" font-size="16" font-weight="bold" fill="#58a6ff" text-anchor="middle">Мікроконтролер (MCU)</text>
+  <text x="660" y="155" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto" font-size="12" fill="#8b949e" text-anchor="middle">ESP32 / STM32 / RP2040</text>
+
+  <!-- Pins on MCU -->
+  <rect x="520" y="190" width="70" height="26" rx="4" fill="#21262d"/>
+  <text x="555" y="208" font-family="monospace" font-size="11" fill="#f0f6fc" text-anchor="middle">ADC1_CH0</text>
+
+  <rect x="520" y="240" width="70" height="26" rx="4" fill="#21262d"/>
+  <text x="555" y="258" font-family="monospace" font-size="11" fill="#f0f6fc" text-anchor="middle">TIM_PWM</text>
+
+  <rect x="520" y="300" width="70" height="26" rx="4" fill="#21262d"/>
+  <text x="555" y="318" font-family="monospace" font-size="11" fill="#3fb950" text-anchor="middle">I2C_SDA</text>
+
+  <rect x="520" y="345" width="70" height="26" rx="4" fill="#21262d"/>
+  <text x="555" y="363" font-family="monospace" font-size="11" fill="#3fb950" text-anchor="middle">I2C_SCL</text>
+
+  <rect x="520" y="400" width="70" height="26" rx="4" fill="#21262d"/>
+  <text x="555" y="418" font-family="monospace" font-size="11" fill="#8b949e" text-anchor="middle">GND / 3V3</text>
+
+  <!-- MQ-7 Sensor Unit (Top Left) -->
+  <rect x="40" y="100" width="220" height="180" rx="8" fill="#161b22" stroke="#f85149" stroke-width="1.5"/>
+  <text x="150" y="128" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto" font-size="14" font-weight="bold" fill="#f85149" text-anchor="middle">MQ-7 (Чадний газ CO)</text>
+
+  <circle cx="150" cy="180" r="35" fill="#21262d" stroke="#f85149" stroke-width="1.5"/>
+  <text x="150" y="185" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto" font-size="11" fill="#8b949e" text-anchor="middle">SnO2 + Heater</text>
+
+  <!-- Load Resistor and Divider -->
+  <rect x="310" y="180" width="140" height="70" rx="6" fill="#161b22" stroke="#30363d"/>
+  <text x="380" y="202" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto" font-size="11" fill="#8b949e" text-anchor="middle">Дільник напруги</text>
+  <text x="380" y="222" font-family="monospace" font-size="12" font-weight="bold" fill="#f0f6fc" text-anchor="middle">RL = 10 кОм (1%)</text>
+  <text x="380" y="240" font-family="monospace" font-size="10" fill="#58a6ff" text-anchor="middle">V_out -> ADC</text>
+
+  <!-- Connections MQ7 to ADC -->
+  <line x1="260" y1="203" x2="310" y2="203" stroke="#f0f6fc" stroke-width="2"/>
+  <line x1="450" y1="203" x2="520" y2="203" stroke="#58a6ff" stroke-width="2"/>
+
+  <!-- Heater Circuit with MOSFET -->
+  <rect x="310" y="260" width="140" height="65" rx="6" fill="#161b22" stroke="#30363d"/>
+  <text x="380" y="282" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto" font-size="11" fill="#8b949e" text-anchor="middle">Ключ підігріву</text>
+  <text x="380" y="302" font-family="monospace" font-size="11" font-weight="bold" fill="#d29922" text-anchor="middle">MOSFET AO3400</text>
+  <line x1="520" y1="253" x2="480" y2="253" stroke="#d29922" stroke-width="2"/>
+  <line x1="480" y1="253" x2="480" y2="290" stroke="#d29922" stroke-width="2"/>
+  <line x1="480" y1="290" x2="450" y2="290" stroke="#d29922" stroke-width="2"/>
+
+  <!-- SHT30 Climate Sensor (Bottom Left) -->
+  <rect x="40" y="310" width="220" height="140" rx="8" fill="#161b22" stroke="#3fb950" stroke-width="1.5"/>
+  <text x="150" y="338" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto" font-size="14" font-weight="bold" fill="#3fb950" text-anchor="middle">SHT30 / AHT20 (Клімат)</text>
+  <text x="150" y="360" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto" font-size="11" fill="#8b949e" text-anchor="middle">Вимірює точні T [°C] та RH [%]</text>
+
+  <!-- I2C Bus lines -->
+  <line x1="260" y1="380" x2="520" y2="313" stroke="#3fb950" stroke-width="2"/>
+  <line x1="260" y1="410" x2="520" y2="358" stroke="#3fb950" stroke-width="2"/>
+  <text x="370" y="360" font-family="monospace" font-size="11" fill="#3fb950">I2C Bus (SDA / SCL)</text>
+
+  <!-- Note box on isolation -->
+  <rect x="40" y="455" width="460" height="35" rx="4" fill="#21262d" stroke="#30363d"/>
+  <text x="50" y="476" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto" font-size="11" fill="#d29922">Увага: Розміщувати SHT30 на відстані >3 см від MQ-7 для виключення теплового нагріву!</text>
+</svg>

@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 840 500" width="100%" height="100%">
+  <rect width="840" height="500" fill="#0d1117"/>
+  <text x="420" y="34" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="20" font-weight="bold" fill="#f0f6fc" text-anchor="middle">Хемосорбція вологи та кисню на поверхні SnO2</text>
+  <text x="420" y="58" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="13" fill="#8b949e" text-anchor="middle">Конкурентні реакції адсорбції H2O і O2-, донорний ефект електронів та зміна бар'єру Шотткі</text>
+
+  <!-- Left: Dry Air (Normal baseline) -->
+  <rect x="50" y="85" width="355" height="375" rx="8" fill="#161b22" stroke="#30363d" stroke-width="1.5"/>
+  <text x="227" y="112" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto" font-size="15" font-weight="bold" fill="#58a6ff" text-anchor="middle">1. Сухе повітря: Іонізація кисню</text>
+
+  <!-- SnO2 Grain -->
+  <path d="M 80,340 C 80,240 160,200 230,200 C 300,200 370,240 370,340 Z" fill="#21262d" stroke="#58a6ff" stroke-width="2"/>
+  <text x="227" y="310" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto" font-size="14" font-weight="bold" fill="#8b949e" text-anchor="middle">Зерно SnO2 (n-тип)</text>
+  <text x="227" y="330" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto" font-size="11" fill="#8b949e" text-anchor="middle">Зона виснаження електронів (qVs високий)</text>
+
+  <!-- Oxygen ions on surface -->
+  <circle cx="130" cy="225" r="14" fill="#f85149"/>
+  <text x="130" y="230" font-family="monospace" font-size="11" font-weight="bold" fill="#f0f6fc" text-anchor="middle">O-</text>
+
+  <circle cx="227" cy="195" r="14" fill="#f85149"/>
+  <text x="227" y="200" font-family="monospace" font-size="11" font-weight="bold" fill="#f0f6fc" text-anchor="middle">O-</text>
+
+  <circle cx="320" cy="225" r="14" fill="#f85149"/>
+  <text x="320" y="230" font-family="monospace" font-size="11" font-weight="bold" fill="#f0f6fc" text-anchor="middle">O-</text>
+
+  <!-- Incoming O2 molecule -->
+  <path d="M 227,135 L 227,170" stroke="#f85149" stroke-width="2" stroke-dasharray="3" marker-end="url(#arrow-red)"/>
+  <text x="227" y="130" font-family="monospace" font-size="12" fill="#f85149" text-anchor="middle">O2 + 2e- -> 2O-(ads)</text>
+
+  <rect x="70" y="370" width="315" height="75" rx="6" fill="#0d1117" stroke="#30363d"/>
+  <text x="80" y="392" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto" font-size="12" fill="#f0f6fc">• Кисень захоплює електрони з зони провідності</text>
+  <text x="80" y="410" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto" font-size="12" fill="#f0f6fc">• Утворюється глибокий шар просторового заряду</text>
+  <text x="80" y="428" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto" font-size="12" fill="#58a6ff">• Високий опір Rs_air, чистий базовий рівень</text>
+
+  <!-- Right: Humid Air (Water vapour interaction) -->
+  <rect x="435" y="85" width="355" height="375" rx="8" fill="#161b22" stroke="#30363d" stroke-width="1.5"/>
+  <text x="612" y="112" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto" font-size="15" font-weight="bold" fill="#3fb950" text-anchor="middle">2. Вологе повітря: Хемосорбція H2O</text>
+
+  <!-- SnO2 Grain with reduced barrier -->
+  <path d="M 465,340 C 465,240 545,200 615,200 C 685,200 755,240 755,340 Z" fill="#21262d" stroke="#3fb950" stroke-width="2"/>
+  <text x="612" y="310" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto" font-size="14" font-weight="bold" fill="#8b949e" text-anchor="middle">Зерно SnO2 (n-тип)</text>
+  <text x="612" y="330" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto" font-size="11" fill="#3fb950" text-anchor="middle">Бар'єр звужено (додатковий донор e-)</text>
+
+  <!-- Hydroxyl group & Proton -->
+  <circle cx="515" cy="225" r="14" fill="#3fb950"/>
+  <text x="515" y="230" font-family="monospace" font-size="10" font-weight="bold" fill="#0d1117" text-anchor="middle">OH-</text>
+
+  <circle cx="615" cy="195" r="14" fill="#bc8cff"/>
+  <text x="615" y="200" font-family="monospace" font-size="10" font-weight="bold" fill="#0d1117" text-anchor="middle">H+</text>
+
+  <circle cx="705" cy="225" r="14" fill="#3fb950"/>
+  <text x="705" y="230" font-family="monospace" font-size="10" font-weight="bold" fill="#0d1117" text-anchor="middle">OH-</text>
+
+  <!-- Water reaction formula -->
+  <path d="M 612,135 L 612,170" stroke="#3fb950" stroke-width="2" stroke-dasharray="3"/>
+  <text x="612" y="130" font-family="monospace" font-size="11" fill="#3fb950" text-anchor="middle">H2O + Sn(lat) + O- -> (Sn-OH) + OH- + e-</text>
+
+  <rect x="455" y="370" width="315" height="75" rx="6" fill="#0d1117" stroke="#30363d"/>
+  <text x="465" y="392" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto" font-size="12" fill="#f0f6fc">• Молекули вологи дисоціюють, витісняючи O-</text>
+  <text x="465" y="410" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto" font-size="12" fill="#f0f6fc">• Вивільняється електрон у зону провідності: e-</text>
+  <text x="465" y="428" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto" font-size="12" fill="#f85149">• Опір Rs падає навіть за відсутності CO!</text>
+</svg>

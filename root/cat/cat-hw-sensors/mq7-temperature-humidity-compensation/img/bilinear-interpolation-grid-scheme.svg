@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 840 500" width="100%" height="100%">
+  <rect width="840" height="500" fill="#0d1117"/>
+  <text x="420" y="34" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="20" font-weight="bold" fill="#f0f6fc" text-anchor="middle">Матриця та алгоритм 2D-білінійної інтерполяції K(T, RH)</text>
+  <text x="420" y="58" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="13" fill="#8b949e" text-anchor="middle">Обчислення коригуючого коефіцієнта для довільної точки поточного клімату (T_cur, RH_cur)</text>
+
+  <!-- Grid Cell Visualization -->
+  <rect x="60" y="90" width="460" height="360" rx="8" fill="#161b22" stroke="#30363d" stroke-width="1.5"/>
+
+  <!-- Grid Box (T1, RH1) to (T2, RH2) -->
+  <rect x="130" y="150" width="300" height="220" fill="#21262d" stroke="#58a6ff" stroke-width="2" stroke-dasharray="6"/>
+
+  <!-- Nodes -->
+  <!-- Top Left: Q12 (T1, RH2) -->
+  <circle cx="130" cy="150" r="8" fill="#58a6ff"/>
+  <text x="120" y="135" font-family="monospace" font-size="12" font-weight="bold" fill="#58a6ff" text-anchor="end">Q12 = K(T1, RH2)</text>
+
+  <!-- Top Right: Q22 (T2, RH2) -->
+  <circle cx="430" cy="150" r="8" fill="#58a6ff"/>
+  <text x="440" y="135" font-family="monospace" font-size="12" font-weight="bold" fill="#58a6ff">Q22 = K(T2, RH2)</text>
+
+  <!-- Bottom Left: Q11 (T1, RH1) -->
+  <circle cx="130" cy="370" r="8" fill="#58a6ff"/>
+  <text x="120" y="390" font-family="monospace" font-size="12" font-weight="bold" fill="#58a6ff" text-anchor="end">Q11 = K(T1, RH1)</text>
+
+  <!-- Bottom Right: Q21 (T2, RH1) -->
+  <circle cx="430" cy="370" r="8" fill="#58a6ff"/>
+  <text x="440" y="390" font-family="monospace" font-size="12" font-weight="bold" fill="#58a6ff">Q21 = K(T2, RH1)</text>
+
+  <!-- Target Point P(T, RH) -->
+  <line x1="260" y1="150" x2="260" y2="370" stroke="#d29922" stroke-dasharray="3"/>
+  <line x1="130" y1="270" x2="430" y2="270" stroke="#d29922" stroke-dasharray="3"/>
+
+  <!-- Intermediate R1 and R2 points -->
+  <circle cx="260" cy="370" r="6" fill="#bc8cff"/>
+  <text x="260" y="405" font-family="monospace" font-size="11" fill="#bc8cff" text-anchor="middle">R1(T, RH1)</text>
+
+  <circle cx="260" cy="150" r="6" fill="#bc8cff"/>
+  <text x="260" y="130" font-family="monospace" font-size="11" fill="#bc8cff" text-anchor="middle">R2(T, RH2)</text>
+
+  <!-- Target P -->
+  <circle cx="260" cy="270" r="9" fill="#f85149" stroke="#f0f6fc" stroke-width="2"/>
+  <text x="275" y="265" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto" font-size="13" font-weight="bold" fill="#f85149">P(T, RH) -> K_target</text>
+
+  <!-- Axis labels -->
+  <text x="130" y="440" font-family="monospace" font-size="12" fill="#8b949e" text-anchor="middle">T1 = 10 °C</text>
+  <text x="260" y="440" font-family="monospace" font-size="12" fill="#f85149" font-weight="bold" text-anchor="middle">T_cur = 18 °C</text>
+  <text x="430" y="440" font-family="monospace" font-size="12" fill="#8b949e" text-anchor="middle">T2 = 25 °C</text>
+  <text x="280" y="460" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto" font-size="12" fill="#8b949e" text-anchor="middle">Вісь температури T -></text>
+
+  <text x="90" y="375" font-family="monospace" font-size="12" fill="#8b949e" text-anchor="end">RH1=40%</text>
+  <text x="90" y="275" font-family="monospace" font-size="12" fill="#f85149" font-weight="bold" text-anchor="end">RH=55%</text>
+  <text x="90" y="155" font-family="monospace" font-size="12" fill="#8b949e" text-anchor="end">RH2=70%</text>
+
+  <!-- Math Explanation Panel -->
+  <rect x="540" y="90" width="275" height="360" rx="8" fill="#161b22" stroke="#30363d" stroke-width="1.5"/>
+  <text x="555" y="118" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto" font-size="14" font-weight="bold" fill="#f0f6fc">Математичний розрахунок:</text>
+
+  <rect x="550" y="135" width="255" height="65" rx="6" fill="#0d1117" stroke="#30363d"/>
+  <text x="560" y="155" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto" font-size="11" font-weight="bold" fill="#3fb950">Крок 1. Інтерполяція по T:</text>
+  <text x="560" y="172" font-family="monospace" font-size="10" fill="#f0f6fc">t = (T - T1) / (T2 - T1)</text>
+  <text x="560" y="188" font-family="monospace" font-size="10" fill="#8b949e">R1 = (1-t)*Q11 + t*Q21</text>
+
+  <rect x="550" y="210" width="255" height="65" rx="6" fill="#0d1117" stroke="#30363d"/>
+  <text x="560" y="230" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto" font-size="11" font-weight="bold" fill="#3fb950">Крок 2. Друга лінія по T:</text>
+  <text x="560" y="247" font-family="monospace" font-size="10" fill="#8b949e">R2 = (1-t)*Q12 + t*Q22</text>
+  <text x="560" y="263" font-family="monospace" font-size="10" fill="#8b949e">h = (RH - RH1)/(RH2 - RH1)</text>
+
+  <rect x="550" y="285" width="255" height="75" rx="6" fill="#0d1117" stroke="#30363d"/>
+  <text x="560" y="305" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto" font-size="11" font-weight="bold" fill="#f85149">Крок 3. Інтерполяція по RH:</text>
+  <text x="560" y="322" font-family="monospace" font-size="10" fill="#f0f6fc">K(T, RH) = (1-h)*R1 + h*R2</text>
+  <text x="560" y="342" font-family="monospace" font-size="10" fill="#58a6ff">Rs_corr = Rs_raw / K(T,RH)</text>
+
+  <rect x="550" y="370" width="255" height="65" rx="6" fill="#21262d" stroke="#3fb950"/>
+  <text x="560" y="392" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto" font-size="11" fill="#f0f6fc">Гарантує C(0) неперервність</text>
+  <text x="560" y="412" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto" font-size="11" fill="#3fb950">Час виконання на Cortex-M: &lt; 2 мкс</text>
+</svg>

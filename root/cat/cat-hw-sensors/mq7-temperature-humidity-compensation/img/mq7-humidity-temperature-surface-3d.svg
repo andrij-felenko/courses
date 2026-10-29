@@ -1,0 +1,78 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 840 500" width="100%" height="100%">
+  <rect width="840" height="500" fill="#0d1117"/>
+  <text x="420" y="34" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="20" font-weight="bold" fill="#f0f6fc" text-anchor="middle">Кліматична залежність чутливості MQ-7: Rs/R0 = f(T, RH)</text>
+  <text x="420" y="58" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="13" fill="#8b949e" text-anchor="middle">Зміна опору напівпровідникового шару SnO2 відносно опорного стану (20 °C, 65% RH)</text>
+
+  <!-- Main Chart Canvas -->
+  <rect x="70" y="80" width="480" height="360" rx="8" fill="#161b22" stroke="#30363d" stroke-width="1.5"/>
+
+  <!-- Grid lines -->
+  <line x1="70" y1="140" x2="550" y2="140" stroke="#21262d" stroke-dasharray="4"/>
+  <line x1="70" y1="200" x2="550" y2="200" stroke="#21262d" stroke-dasharray="4"/>
+  <line x1="70" y1="260" x2="550" y2="260" stroke="#21262d" stroke-dasharray="4"/>
+  <line x1="70" y1="320" x2="550" y2="320" stroke="#21262d" stroke-dasharray="4"/>
+  <line x1="70" y1="380" x2="550" y2="380" stroke="#21262d" stroke-dasharray="4"/>
+
+  <line x1="150" y1="80" x2="150" y2="440" stroke="#21262d" stroke-dasharray="4"/>
+  <line x1="230" y1="80" x2="230" y2="440" stroke="#21262d" stroke-dasharray="4"/>
+  <line x1="310" y1="80" x2="310" y2="440" stroke="#21262d" stroke-dasharray="4"/>
+  <line x1="390" y1="80" x2="390" y2="440" stroke="#21262d" stroke-dasharray="4"/>
+  <line x1="470" y1="80" x2="470" y2="440" stroke="#21262d" stroke-dasharray="4"/>
+
+  <!-- Axes labels -->
+  <text x="60" y="145" font-family="monospace" font-size="11" fill="#8b949e" text-anchor="end">1.8</text>
+  <text x="60" y="205" font-family="monospace" font-size="11" fill="#8b949e" text-anchor="end">1.5</text>
+  <text x="60" y="265" font-family="monospace" font-size="11" fill="#8b949e" text-anchor="end">1.2</text>
+  <text x="60" y="325" font-family="monospace" font-size="11" fill="#8b949e" text-anchor="end">1.0</text>
+  <text x="60" y="385" font-family="monospace" font-size="11" fill="#8b949e" text-anchor="end">0.7</text>
+  <text x="40" y="260" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto" font-size="12" fill="#58a6ff" text-anchor="middle" transform="rotate(-90 40 260)">Відносний опір Rs/R0</text>
+
+  <text x="150" y="460" font-family="monospace" font-size="11" fill="#8b949e" text-anchor="middle">-10 °C</text>
+  <text x="230" y="460" font-family="monospace" font-size="11" fill="#8b949e" text-anchor="middle">0 °C</text>
+  <text x="310" y="460" font-family="monospace" font-size="11" fill="#8b949e" text-anchor="middle">+10 °C</text>
+  <text x="390" y="460" font-family="monospace" font-size="11" fill="#3fb950" font-weight="bold" text-anchor="middle">+20 °C</text>
+  <text x="470" y="460" font-family="monospace" font-size="11" fill="#8b949e" text-anchor="middle">+35 °C</text>
+  <text x="540" y="460" font-family="monospace" font-size="11" fill="#8b949e" text-anchor="middle">+50 °C</text>
+  <text x="310" y="482" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto" font-size="12" fill="#8b949e" text-anchor="middle">Температура навколишнього середовища T, °C</text>
+
+  <!-- Curve: 33% RH (dry) -->
+  <path d="M 90,130 C 180,160 300,230 390,290 C 450,330 500,350 540,365" fill="none" stroke="#f85149" stroke-width="3"/>
+  <circle cx="390" cy="290" r="4" fill="#f85149"/>
+
+  <!-- Curve: 65% RH (nominal) -->
+  <path d="M 90,180 C 180,210 300,280 390,320 C 450,350 500,375 540,390" fill="none" stroke="#3fb950" stroke-width="3"/>
+  <circle cx="390" cy="320" r="5" fill="#3fb950" stroke="#f0f6fc" stroke-width="2"/>
+
+  <!-- Curve: 85% RH (humid) -->
+  <path d="M 90,230 C 180,260 300,320 390,350 C 450,375 500,395 540,405" fill="none" stroke="#58a6ff" stroke-width="3"/>
+  <circle cx="390" cy="350" r="4" fill="#58a6ff"/>
+
+  <!-- Reference point annotation -->
+  <line x1="390" y1="320" x2="350" y2="370" stroke="#3fb950" stroke-width="1.5"/>
+  <rect x="250" y="370" width="130" height="28" rx="4" fill="#21262d" stroke="#3fb950" stroke-width="1"/>
+  <text x="315" y="388" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto" font-size="11" fill="#f0f6fc" text-anchor="middle">Опора: 20 °C, 65% (1.0)</text>
+
+  <!-- Info / Legend Card -->
+  <rect x="570" y="80" width="245" height="360" rx="8" fill="#161b22" stroke="#30363d" stroke-width="1.5"/>
+  <text x="585" y="108" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto" font-size="14" font-weight="bold" fill="#f0f6fc">Криві вологості RH:</text>
+
+  <line x1="585" y1="135" x2="625" y2="135" stroke="#f85149" stroke-width="3"/>
+  <text x="635" y="139" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto" font-size="12" fill="#f0f6fc">RH = 33% (сухе повітря)</text>
+  <text x="635" y="155" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto" font-size="11" fill="#8b949e">Опір зростає до +30%</text>
+
+  <line x1="585" y1="185" x2="625" y2="185" stroke="#3fb950" stroke-width="3"/>
+  <text x="635" y="189" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto" font-size="12" fill="#3fb950" font-weight="bold">RH = 65% (номінал)</text>
+  <text x="635" y="205" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto" font-size="11" fill="#8b949e">Базовий калібр паспорта</text>
+
+  <line x1="585" y1="235" x2="625" y2="235" stroke="#58a6ff" stroke-width="3"/>
+  <text x="635" y="239" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto" font-size="12" fill="#f0f6fc">RH = 85% (висока вологість)</text>
+  <text x="635" y="255" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto" font-size="11" fill="#8b949e">Опір падає на 20..25%</text>
+
+  <rect x="580" y="280" width="225" height="145" rx="6" fill="#0d1117" stroke="#30363d" stroke-width="1"/>
+  <text x="592" y="304" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto" font-size="12" font-weight="bold" fill="#d29922">Фізичні наслідки без компенсації:</text>
+  <text x="592" y="326" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto" font-size="11" fill="#8b949e">• На морозі (-10 °C): хибне заниження</text>
+  <text x="592" y="344" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto" font-size="11" fill="#8b949e">  концентрації CO до 2-3 разів!</text>
+  <text x="592" y="366" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto" font-size="11" fill="#8b949e">• У спеку (+45 °C) і вологу: хибна</text>
+  <text x="592" y="384" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto" font-size="11" fill="#8b949e">  тривога загазованості (помилка >80%)</text>
+  <text x="592" y="406" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto" font-size="11" fill="#3fb950">Потрібна 2D-компенсація K(T, RH)!</text>
+</svg>
