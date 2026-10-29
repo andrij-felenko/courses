@@ -1,0 +1,88 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="100%" height="100%">
+  <rect width="960" height="480" fill="#0d1117" rx="12"/>
+  <text x="480" y="38" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="20" font-weight="700" fill="#f0f6fc" text-anchor="middle">Фізичні сенсорні технології в мікросхемах Bosch Sensortec</text>
+  <text x="480" y="62" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" fill="#8b949e" text-anchor="middle">Поєднання п'єзорезистивного тиску, полімерної вологості та нагрівального газового MOX-елемента</text>
+
+  <!-- Panel 1: Pressure MEMS -->
+  <g transform="translate(50, 95)">
+    <rect width="270" height="340" rx="8" fill="#161b22" stroke="#58a6ff" stroke-width="1.5"/>
+    <rect width="270" height="30" rx="8" fill="#1f6feb" fill-opacity="0.2"/>
+    <text x="135" y="20" font-family="sans-serif" font-size="12" font-weight="bold" fill="#58a6ff" text-anchor="middle">1. Сенсор тиску (MEMS)</text>
+
+    <!-- Cross Section Sketch -->
+    <rect x="25" y="55" width="220" height="110" rx="4" fill="#0d1117" stroke="#30363d"/>
+    <!-- Silicon Cavity -->
+    <path d="M 45,145 L 85,85 L 185,85 L 225,145 Z" fill="#21262d"/>
+    <text x="135" y="125" font-family="sans-serif" font-size="10" fill="#8b949e" text-anchor="middle">Вакуумна камера P_ref</text>
+    <!-- Flexible Membrane -->
+    <line x1="85" y1="85" x2="185" y2="85" stroke="#58a6ff" stroke-width="4"/>
+    <text x="135" y="75" font-family="sans-serif" font-size="10" fill="#58a6ff" text-anchor="middle">Кремнієва мембрана</text>
+    <!-- Piezoresistors on edges -->
+    <circle cx="95" cy="85" r="4" fill="#f85149"/>
+    <circle cx="175" cy="85" r="4" fill="#f85149"/>
+
+    <text x="20" y="190" font-family="sans-serif" font-size="11" font-weight="bold" fill="#f0f6fc">Принцип дії:</text>
+    <text x="20" y="210" font-family="sans-serif" font-size="10" fill="#8b949e">• Зовнішній тиск вигинає мембрану.</text>
+    <text x="20" y="228" font-family="sans-serif" font-size="10" fill="#8b949e">• П'єзорезистори моста Уїтстона</text>
+    <text x="20" y="244" font-family="sans-serif" font-size="10" fill="#8b949e">  змінюють опір (ΔR/R ~ P).</text>
+    <text x="20" y="265" font-family="sans-serif" font-size="10" fill="#f0f6fc">• У BMP581: ємнісний зазор</text>
+    <text x="20" y="281" font-family="sans-serif" font-size="10" fill="#58a6ff">  (вищий ККД, менший струм).</text>
+
+    <text x="135" y="315" font-family="sans-serif" font-size="10" font-weight="bold" fill="#58a6ff" text-anchor="middle">BMP280 / BME280 / BMP390</text>
+  </g>
+
+  <!-- Panel 2: Humidity MEMS -->
+  <g transform="translate(345, 95)">
+    <rect width="270" height="340" rx="8" fill="#161b22" stroke="#3fb950" stroke-width="1.5"/>
+    <rect width="270" height="30" rx="8" fill="#238636" fill-opacity="0.2"/>
+    <text x="135" y="20" font-family="sans-serif" font-size="12" font-weight="bold" fill="#3fb950" text-anchor="middle">2. Сенсор вологості (RH)</text>
+
+    <!-- Cross section sketch -->
+    <rect x="25" y="55" width="220" height="110" rx="4" fill="#0d1117" stroke="#30363d"/>
+    <rect x="45" y="75" width="180" height="18" fill="#1f6feb" opacity="0.3"/>
+    <text x="135" y="88" font-family="sans-serif" font-size="9" fill="#c9d1d9" text-anchor="middle">Верхній електрод (пористий Pt)</text>
+    
+    <rect x="45" y="95" width="180" height="30" fill="#3fb950" opacity="0.7"/>
+    <text x="135" y="114" font-family="sans-serif" font-size="11" font-weight="bold" fill="#ffffff" text-anchor="middle">Полімерний діелектрик</text>
+    
+    <rect x="45" y="127" width="180" height="15" fill="#30363d"/>
+    <text x="135" y="138" font-family="sans-serif" font-size="9" fill="#8b949e" text-anchor="middle">Нижній кремнієвий шар</text>
+
+    <text x="20" y="190" font-family="sans-serif" font-size="11" font-weight="bold" fill="#f0f6fc">Принцип дії:</text>
+    <text x="20" y="210" font-family="sans-serif" font-size="10" fill="#8b949e">• Полімер адсорбує молекули H2O.</text>
+    <text x="20" y="228" font-family="sans-serif" font-size="10" fill="#8b949e">• Діелектрична проникність ε_r</text>
+    <text x="20" y="244" font-family="sans-serif" font-size="10" fill="#8b949e">  зростає від 3.0 до 15+.</text>
+    <text x="20" y="265" font-family="sans-serif" font-size="10" fill="#3fb950">• Швидкий відгук: t_63% = 1.0 с</text>
+    <text x="20" y="281" font-family="sans-serif" font-size="10" fill="#8b949e">  (найшвидший на ринку IoT).</text>
+
+    <text x="135" y="315" font-family="sans-serif" font-size="10" font-weight="bold" fill="#3fb950" text-anchor="middle">BME280 / BME680 / BME688</text>
+  </g>
+
+  <!-- Panel 3: Gas MOX & Hotplate -->
+  <g transform="translate(640, 95)">
+    <rect width="270" height="340" rx="8" fill="#161b22" stroke="#bc8cff" stroke-width="1.5"/>
+    <rect width="270" height="30" rx="8" fill="#8957e5" fill-opacity="0.2"/>
+    <text x="135" y="20" font-family="sans-serif" font-size="12" font-weight="bold" fill="#bc8cff" text-anchor="middle">3. Сенсор газів VOC (MOX)</text>
+
+    <!-- Cross section sketch -->
+    <rect x="25" y="55" width="220" height="110" rx="4" fill="#0d1117" stroke="#30363d"/>
+    <rect x="55" y="75" width="160" height="25" rx="3" fill="#bc8cff" opacity="0.8"/>
+    <text x="135" y="91" font-family="sans-serif" font-size="10" font-weight="bold" fill="#ffffff" text-anchor="middle">Оксид металу (MOX нано-шар)</text>
+    
+    <!-- Micro-hotplate -->
+    <rect x="75" y="105" width="120" height="15" fill="#f85149"/>
+    <text x="135" y="116" font-family="sans-serif" font-size="9" font-weight="bold" fill="#ffffff" text-anchor="middle">Мікронагрівач (до 400°C)</text>
+    
+    <path d="M 50,145 L 85,125 L 185,125 L 220,145 Z" fill="#21262d"/>
+    <text x="135" y="140" font-family="sans-serif" font-size="9" fill="#8b949e" text-anchor="middle">Теплоізолююча мембрана</text>
+
+    <text x="20" y="190" font-family="sans-serif" font-size="11" font-weight="bold" fill="#f0f6fc">Принцип дії:</text>
+    <text x="20" y="210" font-family="sans-serif" font-size="10" fill="#8b949e">• Нагрівач розжарює шар до 320°C.</text>
+    <text x="20" y="228" font-family="sans-serif" font-size="10" fill="#8b949e">• Гази відновлювачі (VOC, леткі)</text>
+    <text x="20" y="244" font-family="sans-serif" font-size="10" fill="#8b949e">  окислюються на поверхні.</text>
+    <text x="20" y="265" font-family="sans-serif" font-size="10" fill="#bc8cff">• Опір плівки падає від МОм до кОм.</text>
+    <text x="20" y="281" font-family="sans-serif" font-size="10" fill="#d29922">• BME688: сканує до 10 темп. профілів!</text>
+
+    <text x="135" y="315" font-family="sans-serif" font-size="10" font-weight="bold" fill="#bc8cff" text-anchor="middle">BME680 / BME688</text>
+  </g>
+</svg>

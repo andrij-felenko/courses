@@ -1,0 +1,87 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="100%" height="100%">
+  <rect width="960" height="480" fill="#0d1117" rx="12"/>
+  <text x="480" y="38" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="20" font-weight="700" fill="#f0f6fc" text-anchor="middle">Еволюційне дерево сенсорів клімату та тиску Bosch Sensortec</text>
+  <text x="480" y="62" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" fill="#8b949e" text-anchor="middle">Розвиток лінійок від перших барометрів BMP085 до AI-газоаналізаторів BME688 та ємнісних BMP581</text>
+
+  <!-- Root: BMP085 / BMP180 -->
+  <g transform="translate(40, 190)">
+    <rect width="150" height="90" rx="8" fill="#161b22" stroke="#8b949e" stroke-width="1.5"/>
+    <rect width="150" height="24" rx="8" fill="#30363d"/>
+    <text x="75" y="17" font-family="sans-serif" font-size="11" font-weight="bold" fill="#f0f6fc" text-anchor="middle">BMP085 / BMP180</text>
+    <text x="15" y="45" font-family="sans-serif" font-size="10" fill="#8b949e">2008 – 2011 роки</text>
+    <text x="15" y="62" font-family="sans-serif" font-size="10" fill="#f0f6fc">• Лише тиск + T</text>
+    <text x="15" y="78" font-family="sans-serif" font-size="10" fill="#8b949e">• Шум висоти: ±0.5 м</text>
+  </g>
+
+  <!-- Fork to BMP280 -->
+  <line x1="190" y1="235" x2="250" y2="235" stroke="#58a6ff" stroke-width="2"/>
+  <polygon points="250,235 240,230 240,240" fill="#58a6ff"/>
+
+  <!-- Node: BMP280 -->
+  <g transform="translate(250, 190)">
+    <rect width="150" height="90" rx="8" fill="#161b22" stroke="#58a6ff" stroke-width="2"/>
+    <rect width="150" height="24" rx="8" fill="#1f6feb" fill-opacity="0.3"/>
+    <text x="75" y="17" font-family="sans-serif" font-size="11" font-weight="bold" fill="#58a6ff" text-anchor="middle">BMP280 (2014)</text>
+    <text x="15" y="45" font-family="sans-serif" font-size="10" fill="#8b949e">• I2C + SPI (до 10 МГц)</text>
+    <text x="15" y="62" font-family="sans-serif" font-size="10" fill="#f0f6fc">• Апаратний IIR-фільтр</text>
+    <text x="15" y="78" font-family="sans-serif" font-size="10" fill="#3fb950">• Струм 2.7 мкА, 0.16 Па</text>
+  </g>
+
+  <!-- Branch 1 (Up): Climate & Air Quality (BME280 -> BME680 -> BME688) -->
+  <line x1="325" y1="190" x2="325" y2="120" stroke="#3fb950" stroke-width="2"/>
+  <line x1="325" y1="120" x2="440" y2="120" stroke="#3fb950" stroke-width="2"/>
+  <polygon points="440,120 430,115 430,125" fill="#3fb950"/>
+
+  <g transform="translate(440, 75)">
+    <rect width="180" height="90" rx="8" fill="#161b22" stroke="#3fb950" stroke-width="1.5"/>
+    <rect width="180" height="24" rx="8" fill="#238636" fill-opacity="0.3"/>
+    <text x="90" y="17" font-family="sans-serif" font-size="11" font-weight="bold" fill="#3fb950" text-anchor="middle">BME280 (2015)</text>
+    <text x="15" y="45" font-family="sans-serif" font-size="10" fill="#f0f6fc">• Тиск + Темп + Вологість</text>
+    <text x="15" y="62" font-family="sans-serif" font-size="10" fill="#3fb950">• Золотий стандарт IoT</text>
+    <text x="15" y="78" font-family="sans-serif" font-size="10" fill="#8b949e">• Час відгуку RH: 1 с</text>
+  </g>
+
+  <line x1="620" y1="120" x2="680" y2="120" stroke="#3fb950" stroke-width="2"/>
+  <polygon points="680,120 670,115 670,125" fill="#3fb950"/>
+
+  <g transform="translate(680, 75)">
+    <rect width="230" height="90" rx="8" fill="#161b22" stroke="#bc8cff" stroke-width="2"/>
+    <rect width="230" height="24" rx="8" fill="#8957e5" fill-opacity="0.3"/>
+    <text x="115" y="17" font-family="sans-serif" font-size="11" font-weight="bold" fill="#bc8cff" text-anchor="middle">BME680 / BME688 (2017–2021)</text>
+    <text x="15" y="45" font-family="sans-serif" font-size="10" fill="#f0f6fc">• 4-в-1: T + P + RH + Газ (MOX)</text>
+    <text x="15" y="62" font-family="sans-serif" font-size="10" fill="#bc8cff">• Оцінка якості повітря IAQ (0..500)</text>
+    <text x="15" y="78" font-family="sans-serif" font-size="10" fill="#d29922">• ШІ сканер запахів (BSEC AI)</text>
+  </g>
+
+  <!-- Branch 2 (Down): Precision Altimetry (BMP388/390 -> BMP581) -->
+  <line x1="325" y1="280" x2="325" y2="350" stroke="#d29922" stroke-width="2"/>
+  <line x1="325" y1="350" x2="440" y2="350" stroke="#d29922" stroke-width="2"/>
+  <polygon points="440,350 430,345 430,355" fill="#d29922"/>
+
+  <g transform="translate(440, 305)">
+    <rect width="180" height="95" rx="8" fill="#161b22" stroke="#d29922" stroke-width="1.5"/>
+    <rect width="180" height="24" rx="8" fill="#d29922" fill-opacity="0.3"/>
+    <text x="90" y="17" font-family="sans-serif" font-size="11" font-weight="bold" fill="#d29922" text-anchor="middle">BMP388 / BMP390 (2018)</text>
+    <text x="15" y="45" font-family="sans-serif" font-size="10" fill="#f0f6fc">• 24-бітний АЦП, FIFO на 512 Б</text>
+    <text x="15" y="62" font-family="sans-serif" font-size="10" fill="#d29922">• Шум висоти: ±5..8 см</text>
+    <text x="15" y="80" font-family="sans-serif" font-size="10" fill="#8b949e">• Спортивні годинники, дрони</text>
+  </g>
+
+  <line x1="620" y1="350" x2="680" y2="350" stroke="#d29922" stroke-width="2"/>
+  <polygon points="680,350 670,345 670,355" fill="#d29922"/>
+
+  <g transform="translate(680, 305)">
+    <rect width="230" height="95" rx="8" fill="#161b22" stroke="#f85149" stroke-width="2"/>
+    <rect width="230" height="24" rx="8" fill="#da3633" fill-opacity="0.3"/>
+    <text x="115" y="17" font-family="sans-serif" font-size="11" font-weight="bold" fill="#f85149" text-anchor="middle">BMP581 (2022+ Флагман)</text>
+    <text x="15" y="45" font-family="sans-serif" font-size="10" fill="#f0f6fc">• Ємнісний MEMS (нова фізика)</text>
+    <text x="15" y="62" font-family="sans-serif" font-size="10" fill="#f85149">• Рекордна точність: 1/64 Па (±2 см!)</text>
+    <text x="15" y="80" font-family="sans-serif" font-size="10" fill="#3fb950">• Струм споживання: лише 1.3 мкА</text>
+  </g>
+
+  <!-- Bottom Summary Note -->
+  <rect x="40" y="420" width="870" height="40" rx="6" fill="#161b22" stroke="#30363d"/>
+  <text x="475" y="445" font-family="sans-serif" font-size="12" fill="#8b949e" text-anchor="middle">
+    Дві гілки розвитку: <tspan fill="#3fb950">мультипараметричний клімат</tspan> (BME688) та <tspan fill="#d29922">субсантиметрова альтиметрія</tspan> (BMP581 з ємнісною мембраною)
+  </text>
+</svg>
