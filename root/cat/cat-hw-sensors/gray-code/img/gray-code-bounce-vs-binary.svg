@@ -1,0 +1,80 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 500" width="100%" height="100%">
+  <defs>
+    <style>
+      .bg { fill: #0f172a; }
+      .panel { fill: #1e293b; stroke: #334155; stroke-width: 1; rx: 8px; }
+      .box { fill: #0f172a; stroke: #475569; stroke-width: 1.5; rx: 6px; }
+      .title { fill: #f8fafc; font-family: system-ui, -apple-system, sans-serif; font-size: 16px; font-weight: bold; }
+      .subtitle { fill: #94a3b8; font-family: system-ui, -apple-system, sans-serif; font-size: 12px; }
+      .lbl { fill: #cbd5e1; font-family: system-ui, -apple-system, sans-serif; font-size: 12px; }
+      .lbl-bold { fill: #f1f5f9; font-family: system-ui, -apple-system, sans-serif; font-size: 12px; font-weight: bold; }
+      .wave-norm { stroke: #38bdf8; stroke-width: 2.5; fill: none; }
+      .wave-bounce { stroke: #f43f5e; stroke-width: 2; fill: none; }
+      .wave-gray { stroke: #10b981; stroke-width: 2.5; fill: none; }
+    </style>
+  </defs>
+
+  <rect width="880" height="500" class="bg" />
+
+  <text x="440" y="28" text-anchor="middle" class="title">Порівняння стійкості до брязкоту (Bounce): Двійковий код vs Код Ґрея</text>
+  <text x="440" y="48" text-anchor="middle" class="subtitle">Поведінка системи при вібрації або брязкоті контактів механічного кутоміра на межі секторів</text>
+
+  <!-- Left: Binary Code Disaster -->
+  <rect x="30" y="65" width="400" height="415" class="panel" />
+  <text x="50" y="90" class="lbl-bold" fill="#f43f5e">1. Двійковий код: Катастрофічні викиди</text>
+  <text x="50" y="106" class="subtitle">Межа між 0111₂ (число 7) та 1000₂ (число 8)</text>
+
+  <g transform="translate(50, 120)">
+    <!-- Bouncing waveforms -->
+    <text x="0" y="25" class="lbl-bold">Контакт B0:</text>
+    <path d="M 90 20 L 150 20 L 160 35 L 170 20 L 180 35 L 190 20 L 205 35 L 340 35" class="wave-bounce" />
+
+    <text x="0" y="65" class="lbl-bold">Контакт B3:</text>
+    <path d="M 90 75 L 140 75 L 155 60 L 165 75 L 175 60 L 195 75 L 210 60 L 340 60" class="wave-bounce" />
+
+    <!-- Error Codes readout -->
+    <rect x="0" y="95" width="350" height="90" class="box" style="stroke: #f43f5e;" />
+    <text x="15" y="118" class="lbl-bold" fill="#f43f5e">Хибні стани шини під час брязкоту:</text>
+    <text x="15" y="140" class="lbl">• 0000₂ (число 0! — падіння на початок шкали)</text>
+    <text x="15" y="160" class="lbl">• 1111₂ (число 15! — стрибок на кінець шкали)</text>
+    <text x="15" y="178" class="subtitle">Помилка охоплює 100% робочого діапазону!</text>
+  </g>
+
+  <!-- Binary Impact note -->
+  <rect x="50" y="325" width="360" height="135" class="box" />
+  <text x="65" y="348" class="lbl-bold" fill="#fbbf24">Наслідки для приводу:</text>
+  <text x="65" y="370" class="lbl">• Зрив синхронізації крокового двигуна</text>
+  <text x="65" y="388" class="lbl">• Аварійний реверс сервопідсилювача</text>
+  <text x="65" y="406" class="lbl">• Повна втрата базової нульової точки</text>
+  <text x="65" y="424" class="subtitle" fill="#f43f5e">Не лікується програмним фільтром на межі!</text>
+
+  <!-- Right: Gray Code Safety -->
+  <rect x="450" y="65" width="400" height="415" class="panel" />
+  <text x="470" y="90" class="lbl-bold" fill="#10b981">2. Код Ґрея: Локалізація в межах ±1 LSB</text>
+  <text x="470" y="106" class="subtitle">Межа між 0100₂ (стан 7) та 1100₂ (стан 8)</text>
+
+  <g transform="translate(470, 120)">
+    <!-- Bouncing single bit -->
+    <text x="0" y="25" class="lbl-bold">Стабільні B0..B2:</text>
+    <path d="M 120 20 L 340 20" class="wave-norm" />
+    <text x="200" y="15" class="subtitle">Постійно 100₂</text>
+
+    <text x="0" y="65" class="lbl-bold">Брязкіт лише B3:</text>
+    <path d="M 120 75 L 160 75 L 170 60 L 180 75 L 195 60 L 205 75 L 220 60 L 340 60" class="wave-gray" />
+
+    <!-- Safe Readout Box -->
+    <rect x="0" y="95" width="350" height="90" class="box" style="stroke: #10b981;" />
+    <text x="15" y="118" class="lbl-bold" fill="#10b981">Стани шини під час брязкоту:</text>
+    <text x="15" y="140" class="lbl">• Тільки 0100₂ (сектор 7)</text>
+    <text x="15" y="160" class="lbl">• Тільки 1100₂ (сектор 8)</text>
+    <text x="15" y="178" class="subtitle" fill="#10b981">Жодних сторонніх чисел! Коливання строго ±1 LSB</text>
+  </g>
+
+  <!-- Gray Code Safety note -->
+  <rect x="470" y="325" width="360" height="135" class="box" />
+  <text x="485" y="348" class="lbl-bold" fill="#10b981">Безпека сервосистеми:</text>
+  <text x="485" y="370" class="lbl">• ПІД-регулятор бачить коливання в межах шуму</text>
+  <text x="485" y="388" class="lbl">• Відсутність фатальних ударів струму</text>
+  <text x="485" y="406" class="lbl">• Гарантована монотонність характеристики</text>
+  <text x="485" y="424" class="subtitle" fill="#10b981">Абсолютна стабільність контуру позиціонування</text>
+</svg>

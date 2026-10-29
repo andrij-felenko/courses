@@ -1,0 +1,103 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 500" width="100%" height="100%">
+  <defs>
+    <style>
+      .bg { fill: #0f172a; }
+      .panel { fill: #1e293b; stroke: #334155; stroke-width: 1; rx: 8px; }
+      .box { fill: #0f172a; stroke: #38bdf8; stroke-width: 1.5; rx: 6px; }
+      .title { fill: #f8fafc; font-family: system-ui, -apple-system, sans-serif; font-size: 16px; font-weight: bold; }
+      .subtitle { fill: #94a3b8; font-family: system-ui, -apple-system, sans-serif; font-size: 12px; }
+      .lbl { fill: #cbd5e1; font-family: system-ui, -apple-system, sans-serif; font-size: 12px; }
+      .lbl-bold { fill: #f1f5f9; font-family: system-ui, -apple-system, sans-serif; font-size: 12px; font-weight: bold; }
+      .ring { stroke: #64748b; stroke-width: 2; fill: none; }
+      .omit-arc { stroke: #f43f5e; stroke-width: 6; fill: none; stroke-dasharray: 4,4; }
+      .valid-arc { stroke: #10b981; stroke-width: 6; fill: none; }
+    </style>
+  </defs>
+
+  <rect width="880" height="500" class="bg" />
+
+  <text x="440" y="28" text-anchor="middle" class="title">Циклічні коди Ґрея некратних роздільностей (Excess Gray Code)</text>
+  <text x="440" y="48" text-anchor="middle" class="subtitle">Симетричне відкидання надлишкових станів для збереження одиничної відстані Геммінга на межі 359° → 0°</text>
+
+  <!-- Left: Circle of 16-state matrix with S=3 omitted on both ends -->
+  <g transform="translate(260, 275)">
+    <!-- Base Circle -->
+    <circle cx="0" cy="0" r="160" class="ring" />
+
+    <!-- Valid Sector Positions (10 items: states 3 to 12) -->
+    <!-- Draw nodes for 10 valid states -->
+    <circle cx="0" cy="-160" r="14" fill="#10b981" />
+    <text x="0" y="-155" text-anchor="middle" class="lbl-bold" fill="#0f172a">D=0</text>
+    <text x="0" y="-180" text-anchor="middle" class="lbl-bold" fill="#38bdf8">0010₂ (G_3)</text>
+
+    <circle cx="94" cy="-130" r="14" fill="#10b981" />
+    <text x="94" y="-125" text-anchor="middle" class="lbl-bold" fill="#0f172a">D=1</text>
+    <text x="135" y="-140" class="subtitle">0110₂ (G_4)</text>
+
+    <circle cx="152" cy="-49" r="14" fill="#10b981" />
+    <text x="152" y="-44" text-anchor="middle" class="lbl-bold" fill="#0f172a">D=2</text>
+    <text x="175" y="-45" class="subtitle">0111₂ (G_5)</text>
+
+    <circle cx="152" cy="49" r="14" fill="#10b981" />
+    <text x="152" y="54" text-anchor="middle" class="lbl-bold" fill="#0f172a">D=3</text>
+    <text x="175" y="55" class="subtitle">0101₂ (G_6)</text>
+
+    <circle cx="94" cy="130" r="14" fill="#10b981" />
+    <text x="94" y="135" text-anchor="middle" class="lbl-bold" fill="#0f172a">D=4</text>
+    <text x="135" y="145" class="subtitle">0100₂ (G_7)</text>
+
+    <circle cx="0" cy="160" r="14" fill="#10b981" />
+    <text x="0" y="165" text-anchor="middle" class="lbl-bold" fill="#0f172a">D=5</text>
+    <text x="0" y="190" text-anchor="middle" class="subtitle">1100₂ (G_8)</text>
+
+    <circle cx="-94" cy="130" r="14" fill="#10b981" />
+    <text x="-94" y="135" text-anchor="middle" class="lbl-bold" fill="#0f172a">D=6</text>
+    <text x="-135" y="145" text-anchor="end" class="subtitle">1101₂ (G_9)</text>
+
+    <circle cx="-152" cy="49" r="14" fill="#10b981" />
+    <text x="-152" y="54" text-anchor="middle" class="lbl-bold" fill="#0f172a">D=7</text>
+    <text x="-175" y="55" text-anchor="end" class="subtitle">1111₂ (G_10)</text>
+
+    <circle cx="-152" cy="-49" r="14" fill="#10b981" />
+    <text x="-152" y="-44" text-anchor="middle" class="lbl-bold" fill="#0f172a">D=8</text>
+    <text x="-175" y="-45" text-anchor="end" class="subtitle">1110₂ (G_11)</text>
+
+    <circle cx="-94" cy="-130" r="14" fill="#10b981" />
+    <text x="-94" y="-125" text-anchor="middle" class="lbl-bold" fill="#0f172a">D=9</text>
+    <text x="-135" y="-140" text-anchor="end" class="lbl-bold" fill="#f43f5e">1010₂ (G_12)</text>
+
+    <!-- Center text -->
+    <text x="0" y="-10" text-anchor="middle" class="lbl-bold" fill="#fbbf24">Роздільність N = 10</text>
+    <text x="0" y="10" text-anchor="middle" class="subtitle">k = 4 біти (2⁴ = 16)</text>
+    <text x="0" y="28" text-anchor="middle" class="subtitle" fill="#10b981">Робоча зона: 3...12</text>
+
+    <!-- Cyclic transition indicator: D=9 (1010) to D=0 (0010) -->
+    <path d="M -80 -135 C -40 -155, -20 -155, -15 -158" stroke="#38bdf8" stroke-width="3" fill="none" marker-end="url(#arr)" />
+    <text x="-45" y="-105" text-anchor="middle" class="lbl-bold" fill="#38bdf8">1010₂ → 0010₂</text>
+    <text x="-45" y="-90" text-anchor="middle" class="subtitle" fill="#38bdf8">Зміна лише MSB!</text>
+  </g>
+
+  <!-- Right: Mathematical Formulas & Algorithm Panel -->
+  <rect x="540" y="75" width="310" height="395" class="panel" />
+  <text x="560" y="100" class="lbl-bold" fill="#38bdf8">Алгоритм симетричного зсуву (Excess):</text>
+
+  <rect x="555" y="120" width="280" height="110" class="box" />
+  <text x="570" y="142" class="lbl-bold" fill="#fbbf24">1. Розрахунок зсуву S:</text>
+  <text x="570" y="162" class="lbl">• Задана парна кількість відліків: N</text>
+  <text x="570" y="180" class="lbl">• Двійкова розрядність: 2ᵏ ≥ N</text>
+  <text x="570" y="198" class="lbl">• Надлишок: M = 2ᵏ - N</text>
+  <text x="570" y="216" class="lbl-bold" fill="#10b981">• Симетричний зсув: S = M / 2</text>
+
+  <rect x="555" y="240" width="280" height="110" class="box" />
+  <text x="570" y="262" class="lbl-bold" fill="#38bdf8">2. Формування коду на диску:</text>
+  <text x="570" y="282" class="lbl">• Зсунутий відлік: D' = D + S</text>
+  <text x="570" y="300" class="lbl">• Код Ґрея: G = D' ⊕ (D' ≫ 1)</text>
+  <text x="570" y="320" class="subtitle">Відкинуто S станів з початку та кінця</text>
+  <text x="570" y="338" class="subtitle">Зберігає дзеркальну симетрію таблиці</text>
+
+  <rect x="555" y="360" width="280" height="95" class="box" />
+  <text x="570" y="382" class="lbl-bold" fill="#f43f5e">3. Зворотне декодування в МК:</text>
+  <text x="570" y="402" class="lbl">• 1. Відновлення D' = gray_to_bin(G)</text>
+  <text x="570" y="420" class="lbl-bold" fill="#10b981">• 2. Віднімання зсуву: D = D' - S</text>
+  <text x="570" y="438" class="subtitle">Результат: точний кут 0...N-1</text>
+</svg>

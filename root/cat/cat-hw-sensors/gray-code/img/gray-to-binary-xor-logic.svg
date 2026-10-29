@@ -1,0 +1,108 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 500" width="100%" height="100%">
+  <defs>
+    <style>
+      .bg { fill: #0f172a; }
+      .panel { fill: #1e293b; stroke: #334155; stroke-width: 1; rx: 8px; }
+      .box { fill: #0f172a; stroke: #38bdf8; stroke-width: 1.5; rx: 6px; }
+      .title { fill: #f8fafc; font-family: system-ui, -apple-system, sans-serif; font-size: 16px; font-weight: bold; }
+      .subtitle { fill: #94a3b8; font-family: system-ui, -apple-system, sans-serif; font-size: 12px; }
+      .lbl { fill: #cbd5e1; font-family: system-ui, -apple-system, sans-serif; font-size: 12px; }
+      .lbl-bold { fill: #f1f5f9; font-family: system-ui, -apple-system, sans-serif; font-size: 12px; font-weight: bold; }
+      .wire { stroke: #94a3b8; stroke-width: 2; fill: none; }
+      .xor-gate { fill: #1e293b; stroke: #a855f7; stroke-width: 2; }
+      .dot { fill: #38bdf8; }
+    </style>
+    <marker id="marr4" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 8 5 L 0 9 z" fill="#38bdf8" />
+    </marker>
+  </defs>
+
+  <rect width="880" height="500" class="bg" />
+
+  <text x="440" y="28" text-anchor="middle" class="title">Апаратна логіка декодування коду Ґрея у двійковий формат</text>
+  <text x="440" y="48" text-anchor="middle" class="subtitle">Послідовний каскадний ланцюг XOR та швидкий паралельний алгоритм побітових зсувів</text>
+
+  <!-- Top: 4-bit Serial Ripple Cascade XOR -->
+  <rect x="30" y="65" width="820" height="210" class="panel" />
+  <text x="50" y="90" class="lbl-bold" fill="#a855f7">1. Каскадна апаратна схема декодування (Послідовний Ripple XOR):</text>
+  <text x="50" y="106" class="subtitle">b_msb = g_msb;  b_i = b_{i+1} ⊕ g_i | Затримка поширення: (N - 1) · t_pd</text>
+
+  <g transform="translate(60, 120)">
+    <!-- Bit 3 (MSB): directly connected -->
+    <text x="0" y="30" class="lbl-bold" fill="#38bdf8">g3 (MSB)</text>
+    <line x1="65" y1="25" x2="200" y2="25" class="wire" />
+    <circle cx="150" cy="25" r="4" class="dot" />
+    <line x1="200" y1="25" x2="700" y2="25" class="wire" marker-end="url(#marr4)" />
+    <text x="715" y="30" class="lbl-bold" fill="#10b981">b3 = g3</text>
+
+    <!-- Tap down from b3 to XOR 2 -->
+    <line x1="150" y1="25" x2="150" y2="65" class="wire" />
+    <line x1="150" y1="65" x2="220" y2="65" class="wire" />
+
+    <!-- Bit 2 Input -->
+    <text x="0" y="85" class="lbl-bold" fill="#38bdf8">g2</text>
+    <line x1="65" y1="80" x2="220" y2="80" class="wire" />
+
+    <!-- XOR Gate 1 (for b2) -->
+    <rect x="220" y="55" width="50" height="35" class="xor-gate" rx="4" />
+    <text x="245" y="77" text-anchor="middle" class="lbl-bold" fill="#a855f7">XOR</text>
+    <line x1="270" y1="72" x2="350" y2="72" class="wire" />
+    <circle cx="350" cy="72" r="4" class="dot" />
+    <line x1="350" y1="72" x2="700" y2="72" class="wire" marker-end="url(#marr4)" />
+    <text x="715" y="77" class="lbl-bold" fill="#10b981">b2 = b3 ⊕ g2</text>
+
+    <!-- Tap down from b2 to XOR 2 -->
+    <line x1="350" y1="72" x2="350" y2="110" class="wire" />
+    <line x1="350" y1="110" x2="420" y2="110" class="wire" />
+
+    <!-- Bit 1 Input -->
+    <text x="0" y="130" class="lbl-bold" fill="#38bdf8">g1</text>
+    <line x1="65" y1="125" x2="420" y2="125" class="wire" />
+
+    <!-- XOR Gate 2 (for b1) -->
+    <rect x="420" y="100" width="50" height="35" class="xor-gate" rx="4" />
+    <text x="445" y="122" text-anchor="middle" class="lbl-bold" fill="#a855f7">XOR</text>
+    <line x1="470" y1="117" x2="550" y2="117" class="wire" />
+    <circle cx="550" cy="117" r="4" class="dot" />
+    <line x1="550" y1="117" x2="700" y2="117" class="wire" marker-end="url(#marr4)" />
+    <text x="715" y="122" class="lbl-bold" fill="#10b981">b1 = b2 ⊕ g1</text>
+
+    <!-- Tap down from b1 to XOR 3 -->
+    <line x1="550" y1="117" x2="550" y2="155" class="wire" />
+    <line x1="550" y1="155" x2="620" y2="155" class="wire" />
+
+    <!-- Bit 0 Input -->
+    <text x="0" y="175" class="lbl-bold" fill="#38bdf8">g0 (LSB)</text>
+    <line x1="65" y1="170" x2="620" y2="170" class="wire" />
+
+    <!-- XOR Gate 3 (for b0) -->
+    <rect x="620" y="145" width="50" height="35" class="xor-gate" rx="4" />
+    <text x="645" y="167" text-anchor="middle" class="lbl-bold" fill="#a855f7">XOR</text>
+    <line x1="670" y1="162" x2="700" y2="162" class="wire" marker-end="url(#marr4)" />
+    <text x="715" y="167" class="lbl-bold" fill="#10b981">b0 = b1 ⊕ g0</text>
+  </g>
+
+  <!-- Bottom: Fast Software Parallel Decoder -->
+  <rect x="30" y="290" width="820" height="190" class="panel" />
+  <text x="50" y="315" class="lbl-bold" fill="#38bdf8">2. Швидкі програмні алгоритми декодування в мікроконтролерах:</text>
+
+  <g transform="translate(50, 330)">
+    <!-- Branchless C code snippet -->
+    <rect x="0" y="10" width="370" height="120" class="box" />
+    <text x="15" y="32" class="lbl-bold" fill="#10b981">// Безгалузевий O(log2 N) для 16 біт:</text>
+    <text x="15" y="52" class="lbl">uint16_t gray_to_bin16(uint16_t g) {</text>
+    <text x="15" y="70" class="lbl">    g ^= (g &gt;&gt; 1);</text>
+    <text x="15" y="88" class="lbl">    g ^= (g &gt;&gt; 2);</text>
+    <text x="15" y="106" class="lbl">    g ^= (g &gt;&gt; 4);</text>
+    <text x="15" y="124" class="lbl">    g ^= (g &gt;&gt; 8);  return g; }</text>
+
+    <!-- Table LUT method snippet -->
+    <rect x="390" y="10" width="380" height="120" class="box" />
+    <text x="405" y="32" class="lbl-bold" fill="#fbbf24">// Табличний метод LUT O(1) для 8 біт:</text>
+    <text x="405" y="52" class="lbl">static const uint8_t GRAY_LUT[256] = {</text>
+    <text x="405" y="70" class="lbl">    0, 1, 3, 2, 7, 6, 4, 5, 15, 14, ...</text>
+    <text x="405" y="88" class="lbl">};</text>
+    <text x="405" y="108" class="lbl">uint8_t bin = GRAY_LUT[gray_in];</text>
+    <text x="405" y="124" class="subtitle">Ідеально для високочастотних переривань АЦП/SPI</text>
+  </g>
+</svg>

@@ -1,0 +1,87 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 500" width="100%" height="100%">
+  <defs>
+    <style>
+      .bg { fill: #0f172a; }
+      .panel { fill: #1e293b; stroke: #334155; stroke-width: 1; rx: 8px; }
+      .box { fill: #0f172a; stroke: #475569; stroke-width: 1.5; rx: 6px; }
+      .title { fill: #f8fafc; font-family: system-ui, -apple-system, sans-serif; font-size: 16px; font-weight: bold; }
+      .subtitle { fill: #94a3b8; font-family: system-ui, -apple-system, sans-serif; font-size: 12px; }
+      .lbl { fill: #cbd5e1; font-family: system-ui, -apple-system, sans-serif; font-size: 12px; }
+      .lbl-bold { fill: #f1f5f9; font-family: system-ui, -apple-system, sans-serif; font-size: 12px; font-weight: bold; }
+      .wire-sig { stroke: #38bdf8; stroke-width: 2.5; fill: none; }
+      .wire-glitch { stroke: #f43f5e; stroke-width: 2.5; fill: none; }
+      .glitch-zone { fill: #f43f5e; fill-opacity: 0.15; stroke: #f43f5e; stroke-dasharray: 4,4; stroke-width: 1.5; }
+      .axis { stroke: #64748b; stroke-width: 1.5; }
+    </style>
+  </defs>
+
+  <rect width="880" height="500" class="bg" />
+
+  <text x="440" y="28" text-anchor="middle" class="title">Змагання сигналів (Race Condition) у двійкових енкодерах</text>
+  <text x="440" y="48" text-anchor="middle" class="subtitle">Перехід між сектором 3 (011₂) та сектором 4 (100₂) з утворенням катастрофічного хибного коду 111₂ (сектор 7)</text>
+
+  <!-- Left: Timing Diagram Panel -->
+  <rect x="30" y="65" width="540" height="415" class="panel" />
+  <text x="50" y="90" class="lbl-bold" fill="#38bdf8">Часові діаграми перемикання сенсорів на межі секторів</text>
+
+  <g transform="translate(50, 110)">
+    <!-- Zone of glitch between t1 and t2 -->
+    <rect x="180" y="0" width="70" height="230" class="glitch-zone" />
+    <text x="215" y="-8" text-anchor="middle" class="lbl-bold" fill="#f43f5e">Зона перегонів Δt</text>
+    <text x="215" y="10" text-anchor="middle" class="subtitle" fill="#f43f5e">(10–200 нс)</text>
+
+    <!-- Bit 2 (MSB): transitions 0 -> 1 FIRST -->
+    <text x="0" y="45" class="lbl-bold">Біт 2 (B2)</text>
+    <text x="0" y="60" class="subtitle">(0 → 1)</text>
+    <path d="M 70 50 L 180 50 L 180 20 L 360 20 L 460 20" class="wire-sig" />
+    <text x="130" y="42" class="subtitle">0</text>
+    <text x="270" y="15" class="subtitle">1 (швидкий)</text>
+
+    <!-- Bit 1: transitions 1 -> 0 with delay -->
+    <text x="0" y="115" class="lbl-bold">Біт 1 (B1)</text>
+    <text x="0" y="130" class="subtitle">(1 → 0)</text>
+    <path d="M 70 90 L 250 90 L 250 120 L 460 120" class="wire-sig" />
+    <text x="130" y="85" class="subtitle">1</text>
+    <text x="320" y="135" class="subtitle">0 (затримка t_d)</text>
+
+    <!-- Bit 0 (LSB): transitions 1 -> 0 with delay -->
+    <text x="0" y="185" class="lbl-bold">Біт 0 (B0)</text>
+    <text x="0" y="200" class="subtitle">(1 → 0)</text>
+    <path d="M 70 160 L 250 160 L 250 190 L 460 190" class="wire-sig" />
+    <text x="130" y="155" class="subtitle">1</text>
+    <text x="320" y="205" class="subtitle">0 (затримка t_d)</text>
+
+    <!-- Bus Output Value Display -->
+    <rect x="70" y="250" width="390" height="75" class="box" />
+    <text x="80" y="275" class="lbl-bold">Зчитаний код:</text>
+    <text x="120" y="305" text-anchor="middle" class="lbl-bold" fill="#38bdf8">011₂ (3)</text>
+    <text x="215" y="305" text-anchor="middle" class="lbl-bold" fill="#f43f5e" font-size="16">111₂ (7!)</text>
+    <text x="360" y="305" text-anchor="middle" class="lbl-bold" fill="#10b981">100₂ (4)</text>
+    <text x="215" y="270" text-anchor="middle" class="subtitle" fill="#f43f5e">Хибний сплеск</text>
+  </g>
+
+  <!-- Right: Physical Causes and Impact -->
+  <rect x="590" y="65" width="260" height="415" class="panel" />
+  <text x="605" y="90" class="lbl-bold" fill="#f43f5e">Чому це катастрофічно:</text>
+
+  <rect x="605" y="110" width="230" height="110" class="panel" style="fill: #0f172a; stroke: #f43f5e;" />
+  <text x="615" y="130" class="lbl-bold" fill="#f43f5e">1. Стрибок позиції на 135°:</text>
+  <text x="615" y="150" class="lbl">• Реальний рух: 135° → 180°</text>
+  <text x="615" y="168" class="lbl">• Хибний відлік: 315° (сектор 7!)</text>
+  <text x="615" y="186" class="lbl">• Відхилення понад 135 градусів</text>
+  <text x="615" y="204" class="subtitle">за кілька наносекунд</text>
+
+  <rect x="605" y="230" width="230" height="115" class="panel" style="fill: #0f172a; stroke: #fbbf24;" />
+  <text x="615" y="250" class="lbl-bold" fill="#fbbf24">2. Реакція ПІД-регулятора:</text>
+  <text x="615" y="270" class="lbl">• Диференційна ланка D = dθ/dt</text>
+  <text x="615" y="288" class="lbl">• Віртуальна швидкість: млн об/хв</text>
+  <text x="615" y="306" class="lbl">• Ударний струм на інвертор</text>
+  <text x="615" y="324" class="subtitle">Руйнування редуктора сервоприводу</text>
+
+  <rect x="605" y="355" width="230" height="110" class="panel" style="fill: #0f172a; stroke: #10b981;" />
+  <text x="615" y="375" class="lbl-bold" fill="#10b981">3. Розв'язок: Код Ґрея:</text>
+  <text x="615" y="395" class="lbl">• Сектор 3: 010 (Ґрей)</text>
+  <text x="615" y="413" class="lbl">• Сектор 4: 110 (Ґрей)</text>
+  <text x="615" y="431" class="lbl-bold" fill="#10b981">• Змінюється ЛИШЕ 1 БІТ!</text>
+  <text x="615" y="449" class="subtitle">Змагання сигналів неможливі</text>
+</svg>
