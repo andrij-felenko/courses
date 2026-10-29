@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="100%" height="100%">
+  <rect width="960" height="480" fill="#0d1117" rx="12"/>
+  <text x="480" y="38" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="20" font-weight="700" fill="#f0f6fc" text-anchor="middle">Безділильна індексація за степенем двійки (h = 2^k)</text>
+  <text x="480" y="62" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" fill="#8b949e" text-anchor="middle">Розщеплення 12-бітного коду АЦП на індекс вузла та інтерполяційний ваговий коефіцієнт</text>
+
+  <!-- Big 12-bit Register Bar -->
+  <g transform="translate(120, 95)">
+    <text x="360" y="22" font-family="sans-serif" font-size="13" font-weight="bold" fill="#f0f6fc" text-anchor="middle">12-бітний вхідний код АЦП: adc_code [11:0] (діапазон 0..4095)</text>
+
+    <!-- Entire 12-bit bar -->
+    <rect x="0" y="40" width="720" height="55" rx="6" fill="#161b22" stroke="#30363d"/>
+
+    <!-- High 6 bits: Table Index -->
+    <rect x="0" y="40" width="360" height="55" rx="6" fill="#1f6feb" fill-opacity="0.3" stroke="#58a6ff" stroke-width="2"/>
+    <text x="180" y="68" font-family="sans-serif" font-size="13" font-weight="bold" fill="#58a6ff" text-anchor="middle">Старші 6 бітів: [11 : 6]</text>
+    <text x="180" y="85" font-family="monospace" font-size="10" fill="#8b949e" text-anchor="middle">Індекс таблиці (idx = adc &gt;&gt; 6, 64 вузли)</text>
+
+    <!-- Low 6 bits: Fractional Weight -->
+    <rect x="360" y="40" width="360" height="55" rx="6" fill="#238636" fill-opacity="0.3" stroke="#3fb950" stroke-width="2"/>
+    <text x="540" y="68" font-family="sans-serif" font-size="13" font-weight="bold" fill="#3fb950" text-anchor="middle">Молодші 6 бітів: [5 : 0]</text>
+    <text x="540" y="85" font-family="monospace" font-size="10" fill="#8b949e" text-anchor="middle">Вага інтерполяції (frac = adc &amp; 0x3F, крок 64)</text>
+  </g>
+
+  <!-- Execution Pipeline Boxes -->
+  <g transform="translate(120, 220)">
+    <!-- Box 1: Extraction -->
+    <rect x="0" y="0" width="220" height="150" rx="6" fill="#161b22" stroke="#58a6ff"/>
+    <text x="110" y="25" font-family="sans-serif" font-size="12" font-weight="bold" fill="#58a6ff" text-anchor="middle">1. Виділення індексу</text>
+    <rect x="15" y="45" width="190" height="35" rx="4" fill="#0d1117" stroke="#30363d"/>
+    <text x="110" y="67" font-family="monospace" font-size="11" fill="#58a6ff" text-anchor="middle">idx = adc &gt;&gt; 6;</text>
+    <text x="15" y="105" font-family="sans-serif" font-size="10" fill="#f0f6fc">• Час: 1 такт CPU</text>
+    <text x="15" y="125" font-family="sans-serif" font-size="10" fill="#8b949e">• Жодного ділення!</text>
+  </g>
+
+  <!-- Arrow 1 -> 2 -->
+  <line x1="340" y1="295" x2="370" y2="295" stroke="#58a6ff" stroke-width="2"/>
+  <polygon points="370,295 360,290 360,300" fill="#58a6ff"/>
+
+  <!-- Box 2: Memory Fetch -->
+  <g transform="translate(370, 220)">
+    <rect x="0" y="0" width="220" height="150" rx="6" fill="#161b22" stroke="#3fb950"/>
+    <text x="110" y="25" font-family="sans-serif" font-size="12" font-weight="bold" fill="#3fb950" text-anchor="middle">2. Читання з Flash (ROM)</text>
+    <rect x="15" y="45" width="190" height="35" rx="4" fill="#0d1117" stroke="#30363d"/>
+    <text x="110" y="67" font-family="monospace" font-size="10" fill="#3fb950" text-anchor="middle">y0 = lut[idx]; y1 = lut[idx+1];</text>
+    <text x="15" y="105" font-family="sans-serif" font-size="10" fill="#f0f6fc">• Прямий доступ за покажчиком</text>
+    <text x="15" y="125" font-family="sans-serif" font-size="10" fill="#8b949e">• 2 операції LDR</text>
+  </g>
+
+  <!-- Arrow 2 -> 3 -->
+  <line x1="590" y1="295" x2="620" y2="295" stroke="#3fb950" stroke-width="2"/>
+  <polygon points="620,295 610,290 610,300" fill="#3fb950"/>
+
+  <!-- Box 3: Linear LERP Step -->
+  <g transform="translate(620, 220)">
+    <rect x="0" y="0" width="220" height="150" rx="6" fill="#161b22" stroke="#bc8cff"/>
+    <text x="110" y="25" font-family="sans-serif" font-size="12" font-weight="bold" fill="#bc8cff" text-anchor="middle">3. Лінійна інтерполяція</text>
+    <rect x="15" y="45" width="190" height="45" rx="4" fill="#0d1117" stroke="#30363d"/>
+    <text x="110" y="65" font-family="monospace" font-size="9" fill="#d2a8ff" text-anchor="middle">dy = y1 - y0;</text>
+    <text x="110" y="80" font-family="monospace" font-size="9" fill="#d2a8ff" text-anchor="middle">res = y0 + ((dy * frac) &gt;&gt; 6);</text>
+    <text x="15" y="115" font-family="sans-serif" font-size="10" fill="#f0f6fc">• Множення і зсув на 6 біт</text>
+    <text x="15" y="132" font-family="sans-serif" font-size="10" fill="#3fb950">• Сумарно: &lt; 8 тактів CPU!</text>
+  </g>
+
+  <!-- Bottom Banner -->
+  <rect x="120" y="400" width="720" height="45" rx="6" fill="#161b22" stroke="#30363d"/>
+  <text x="480" y="428" font-family="sans-serif" font-size="12" fill="#f0f6fc" text-anchor="middle">
+    Крок таблиці, кратний степеню двійки, перетворює важке ділення на звичайний асемблерний зсув <tspan font-family="monospace" fill="#58a6ff">LSR</tspan> та маску <tspan font-family="monospace" fill="#3fb950">AND</tspan>.
+  </text>
+</svg>

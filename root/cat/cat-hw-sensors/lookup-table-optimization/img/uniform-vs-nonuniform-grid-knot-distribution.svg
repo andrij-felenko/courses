@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="100%" height="100%">
+  <rect width="960" height="480" fill="#0d1117" rx="12"/>
+  <text x="480" y="38" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="20" font-weight="700" fill="#f0f6fc" text-anchor="middle">Рівномірна проти адаптивної (нерівномірної) сітки вузлів</text>
+  <text x="480" y="62" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" fill="#8b949e" text-anchor="middle">Розподіл вузлів таблиці відповідно до локальної кривизни функції сенсора</text>
+
+  <!-- Left: Uniform Grid -->
+  <g transform="translate(60, 95)">
+    <rect width="390" height="340" rx="8" fill="#161b22" stroke="#f85149" stroke-width="1.5"/>
+    <rect width="390" height="32" rx="8" fill="#da3633" fill-opacity="0.2"/>
+    <text x="195" y="22" font-family="sans-serif" font-size="14" font-weight="bold" fill="#f85149" text-anchor="middle">Рівномірна сітка (Uniform Grid)</text>
+
+    <!-- Axes -->
+    <line x1="30" y1="210" x2="360" y2="210" stroke="#30363d" stroke-width="1.5"/>
+    <line x1="50" y1="50" x2="50" y2="220" stroke="#30363d" stroke-width="1.5"/>
+
+    <!-- Curve: Steep at start, flat at end (like NTC resistance vs T) -->
+    <path d="M 60,60 Q 80,170 140,195 T 350,205" fill="none" stroke="#58a6ff" stroke-width="2.5"/>
+
+    <!-- Uniform nodes: equidistant on X (step = 50px) -->
+    <!-- x=50, 100, 150, 200, 250, 300, 350 -->
+    <circle cx="100" cy="210" r="3" fill="#f85149"/>
+    <circle cx="150" cy="210" r="3" fill="#f85149"/>
+    <circle cx="200" cy="210" r="3" fill="#f85149"/>
+    <circle cx="250" cy="210" r="3" fill="#f85149"/>
+    <circle cx="300" cy="210" r="3" fill="#f85149"/>
+    <circle cx="350" cy="210" r="3" fill="#f85149"/>
+
+    <!-- High error indicator on steep section -->
+    <rect x="65" y="70" width="75" height="110" fill="#f85149" fill-opacity="0.15" stroke="#f85149" stroke-dasharray="3 3"/>
+    <text x="102" y="125" font-family="sans-serif" font-size="10" font-weight="bold" fill="#f85149" text-anchor="middle">Велика похибка!</text>
+
+    <!-- Low utility on flat section -->
+    <text x="270" y="190" font-family="sans-serif" font-size="10" fill="#8b949e" text-anchor="middle">Надлишкові вузли</text>
+
+    <!-- Pros and Cons -->
+    <text x="20" y="245" font-family="sans-serif" font-size="11" font-weight="bold" fill="#3fb950">+ Миттєвий пошук O(1): <tspan font-family="monospace">idx = (x - x0) / h</tspan></text>
+    <text x="20" y="268" font-family="sans-serif" font-size="11" font-weight="bold" fill="#3fb950">+ Швидкий бітовий зсув, якщо крок h = 2^k</text>
+    <text x="20" y="295" font-family="sans-serif" font-size="11" fill="#f85149">- Неефективне використання пам'яті ROM</text>
+    <text x="20" y="315" font-family="sans-serif" font-size="11" fill="#f85149">- Катастрофічні похибки в зонах різких перегинів</text>
+  </g>
+
+  <!-- Right: Adaptive Non-Uniform Grid -->
+  <g transform="translate(510, 95)">
+    <rect width="390" height="340" rx="8" fill="#161b22" stroke="#3fb950" stroke-width="1.5"/>
+    <rect width="390" height="32" rx="8" fill="#238636" fill-opacity="0.2"/>
+    <text x="195" y="22" font-family="sans-serif" font-size="14" font-weight="bold" fill="#3fb950" text-anchor="middle">Адаптивна нерівномірна сітка</text>
+
+    <!-- Axes -->
+    <line x1="30" y1="210" x2="360" y2="210" stroke="#30363d" stroke-width="1.5"/>
+    <line x1="50" y1="50" x2="50" y2="220" stroke="#30363d" stroke-width="1.5"/>
+
+    <!-- Curve: identical steep curve -->
+    <path d="M 60,60 Q 80,170 140,195 T 350,205" fill="none" stroke="#58a6ff" stroke-width="2.5"/>
+
+    <!-- Adaptive nodes: dense at start, sparse at end -->
+    <!-- Dense: x=65, 80, 100, 125, 160. Sparse: 240, 350 -->
+    <circle cx="65" cy="210" r="3" fill="#3fb950"/>
+    <circle cx="80" cy="210" r="3" fill="#3fb950"/>
+    <circle cx="100" cy="210" r="3" fill="#3fb950"/>
+    <circle cx="125" cy="210" r="3" fill="#3fb950"/>
+    <circle cx="160" cy="210" r="3" fill="#3fb950"/>
+    <circle cx="240" cy="210" r="3" fill="#3fb950"/>
+    <circle cx="350" cy="210" r="3" fill="#3fb950"/>
+
+    <text x="110" y="125" font-family="sans-serif" font-size="10" font-weight="bold" fill="#3fb950" text-anchor="middle">Густа сітка</text>
+    <text x="110" y="140" font-family="sans-serif" font-size="9" fill="#8b949e" text-anchor="middle">Точна апроксимація</text>
+
+    <text x="295" y="190" font-family="sans-serif" font-size="10" fill="#3fb950" text-anchor="middle">Рідкісні вузли</text>
+
+    <!-- Pros and Cons -->
+    <text x="20" y="245" font-family="sans-serif" font-size="11" font-weight="bold" fill="#3fb950">+ Мінімальна похибка при мінімумі точок (3..5x економія)</text>
+    <text x="20" y="268" font-family="sans-serif" font-size="11" font-weight="bold" fill="#3fb950">+ Ідеально для терморезисторів NTC та термопар</text>
+    <text x="20" y="295" font-family="sans-serif" font-size="11" fill="#8b949e">- Пошук інтервалу вимагає двійкового пошуку O(log N)</text>
+    <text x="20" y="315" font-family="sans-serif" font-size="11" fill="#8b949e">- Потрібно зберігати масиви і X, і Y координат</text>
+  </g>
+</svg>

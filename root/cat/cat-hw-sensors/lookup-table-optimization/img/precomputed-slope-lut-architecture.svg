@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="100%" height="100%">
+  <rect width="960" height="480" fill="#0d1117" rx="12"/>
+  <text x="480" y="38" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="20" font-weight="700" fill="#f0f6fc" text-anchor="middle">Архітектура таблиці з попередньо розрахованими нахилами (Slope LUT)</text>
+  <text x="480" y="62" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" fill="#8b949e" text-anchor="middle">Збереження пар {y_0, slope} у Flash для усунення операції віднімання вузлів у реальному часі</text>
+
+  <!-- Left Memory Layout -->
+  <g transform="translate(60, 95)">
+    <rect width="360" height="340" rx="8" fill="#161b22" stroke="#58a6ff" stroke-width="1.5"/>
+    <rect width="360" height="32" rx="8" fill="#1f6feb" fill-opacity="0.2"/>
+    <text x="180" y="22" font-family="sans-serif" font-size="13" font-weight="bold" fill="#58a6ff" text-anchor="middle">Структура елемента в ROM: struct lut_entry</text>
+
+    <!-- Struct Definition -->
+    <rect x="20" y="55" width="320" height="85" rx="6" fill="#0d1117" stroke="#30363d"/>
+    <text x="35" y="80" font-family="monospace" font-size="11" fill="#58a6ff">typedef struct {</text>
+    <text x="55" y="100" font-family="monospace" font-size="11" fill="#f0f6fc">int16_t y_base; // Базове значення</text>
+    <text x="55" y="118" font-family="monospace" font-size="11" fill="#3fb950">int16_t slope;  // Нахил (dy/dx * 2^16)</text>
+    <text x="35" y="135" font-family="monospace" font-size="11" fill="#58a6ff">} lut_entry_t;  // Розмір: 4 байти</text>
+
+    <!-- Memory visual table -->
+    <rect x="20" y="160" width="320" height="155" rx="6" fill="#0d1117" stroke="#30363d"/>
+    <text x="35" y="185" font-family="monospace" font-size="10" fill="#8b949e">ROM[0]: { y_base: 2500, slope: -1420 }</text>
+    <text x="35" y="210" font-family="monospace" font-size="10" fill="#8b949e">ROM[1]: { y_base: 2358, slope: -1310 }</text>
+    <text x="35" y="235" font-family="monospace" font-size="10" fill="#8b949e">ROM[2]: { y_base: 2227, slope: -1180 }</text>
+    <text x="35" y="260" font-family="monospace" font-size="10" fill="#3fb950">ROM[i]: { y_base: y_i,  slope: k_i   }</text>
+    <text x="35" y="285" font-family="monospace" font-size="10" fill="#8b949e">...</text>
+  </g>
+
+  <!-- Right Execution Pipeline -->
+  <g transform="translate(460, 95)">
+    <rect width="440" height="340" rx="8" fill="#161b22" stroke="#3fb950" stroke-width="1.5"/>
+    <rect width="440" height="32" rx="8" fill="#238636" fill-opacity="0.2"/>
+    <text x="220" y="22" font-family="sans-serif" font-size="13" font-weight="bold" fill="#3fb950" text-anchor="middle">Обчислення результату за 1 такт MAC</text>
+
+    <text x="20" y="65" font-family="sans-serif" font-size="12" font-weight="bold" fill="#f0f6fc">Математичний алгоритм:</text>
+    <rect x="20" y="80" width="400" height="55" rx="6" fill="#0d1117" stroke="#30363d"/>
+    <text x="220" y="105" font-family="monospace" font-size="12" fill="#3fb950" text-anchor="middle">y = entry.y_base + ((dx * entry.slope) &gt;&gt; 16)</text>
+    <text x="220" y="125" font-family="sans-serif" font-size="10" fill="#8b949e" text-anchor="middle">де dx = x - x_i (відхилення всередині сегмента)</text>
+
+    <text x="20" y="165" font-family="sans-serif" font-size="12" font-weight="bold" fill="#58a6ff">Чому це найшвидший підхід у світі Embedded:</text>
+    <text x="20" y="190" font-family="sans-serif" font-size="11" fill="#f0f6fc">1. Не потрібно зчитувати сусідній елемент <tspan font-family="monospace">lut[i+1]</tspan>;</text>
+    <text x="20" y="212" font-family="sans-serif" font-size="11" fill="#f0f6fc">2. Не потрібно обчислювати різницю <tspan font-family="monospace">(y1 - y0)</tspan>;</text>
+    <text x="20" y="234" font-family="sans-serif" font-size="11" fill="#f0f6fc">3. Не потрібно виконувати ділення на довжину інтервалу;</text>
+    <text x="20" y="256" font-family="sans-serif" font-size="11" fill="#f0f6fc">4. Виконується апаратною інструкцією <tspan font-family="monospace" fill="#3fb950">SMLABB / SMLAWB</tspan> за 1 такт!</text>
+
+    <rect x="20" y="280" width="400" height="40" rx="4" fill="#238636" fill-opacity="0.15"/>
+    <text x="220" y="305" font-family="sans-serif" font-size="11" font-weight="bold" fill="#3fb950" text-anchor="middle">Ідеальне рішення для частоти опитування &gt; 100 кГц</text>
+  </g>
+</svg>

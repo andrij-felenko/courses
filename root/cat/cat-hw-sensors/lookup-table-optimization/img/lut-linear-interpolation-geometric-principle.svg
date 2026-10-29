@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="100%" height="100%">
+  <rect width="960" height="480" fill="#0d1117" rx="12"/>
+  <text x="480" y="38" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="20" font-weight="700" fill="#f0f6fc" text-anchor="middle">Геометричний принцип кусково-лінійної інтерполяції (LERP)</text>
+  <text x="480" y="62" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" fill="#8b949e" text-anchor="middle">Апроксимація нелінійної калібрувальної кривої хордою між сусідніми вузлами таблиці</text>
+
+  <!-- Plot Area -->
+  <g transform="translate(100, 85)">
+    <!-- Axes -->
+    <line x1="0" y1="280" x2="760" y2="280" stroke="#30363d" stroke-width="2"/>
+    <line x1="60" y1="20" x2="60" y2="320" stroke="#30363d" stroke-width="2"/>
+    <text x="750" y="305" font-family="sans-serif" font-size="12" fill="#8b949e">x (Вхідний сигнал / код АЦП)</text>
+    <text x="40" y="35" font-family="sans-serif" font-size="12" fill="#8b949e">y</text>
+
+    <!-- True Nonlinear Curve y = f(x) -->
+    <path d="M 100,260 Q 280,240 450,150 T 700,40" fill="none" stroke="#58a6ff" stroke-width="3"/>
+    <text x="710" y="45" font-family="sans-serif" font-size="13" font-weight="bold" fill="#58a6ff">y = f(x) (Справжня крива)</text>
+
+    <!-- Node k (x_k, y_k) -->
+    <!-- Point at x = 200, y = 245 -->
+    <line x1="200" y1="280" x2="200" y2="245" stroke="#8b949e" stroke-width="1.5" stroke-dasharray="4 4"/>
+    <circle cx="200" cy="245" r="6" fill="#3fb950"/>
+    <circle cx="200" cy="280" r="4" fill="#3fb950"/>
+    <text x="200" y="305" font-family="sans-serif" font-size="12" font-weight="bold" fill="#3fb950" text-anchor="middle">x_k</text>
+    <text x="180" y="235" font-family="sans-serif" font-size="11" fill="#f0f6fc">(x_k, y_k)</text>
+
+    <!-- Node k+1 (x_{k+1}, y_{k+1}) -->
+    <!-- Point at x = 550, y = 105 -->
+    <line x1="550" y1="280" x2="550" y2="105" stroke="#8b949e" stroke-width="1.5" stroke-dasharray="4 4"/>
+    <circle cx="550" cy="105" r="6" fill="#3fb950"/>
+    <circle cx="550" cy="280" r="4" fill="#3fb950"/>
+    <text x="550" y="305" font-family="sans-serif" font-size="12" font-weight="bold" fill="#3fb950" text-anchor="middle">x_{k+1}</text>
+    <text x="570" y="105" font-family="sans-serif" font-size="11" fill="#f0f6fc">(x_{k+1}, y_{k+1})</text>
+
+    <!-- Linear Chord (Secant) -->
+    <line x1="200" y1="245" x2="550" y2="105" stroke="#3fb950" stroke-width="2.5" stroke-dasharray="6 3"/>
+    <text x="360" y="160" font-family="sans-serif" font-size="11" font-weight="bold" fill="#3fb950">Лінійна хорда LERP</text>
+
+    <!-- Intermediate point x -->
+    <!-- Point at x = 370. True curve y ~ 185. Chord y ~ 177 -->
+    <line x1="370" y1="280" x2="370" y2="177" stroke="#d29922" stroke-width="1.5"/>
+    <circle cx="370" cy="280" r="4" fill="#d29922"/>
+    <text x="370" y="305" font-family="sans-serif" font-size="12" font-weight="bold" fill="#d29922" text-anchor="middle">x</text>
+
+    <circle cx="370" cy="177" r="5" fill="#d29922"/>
+    <text x="385" y="180" font-family="sans-serif" font-size="11" font-weight="bold" fill="#d29922">y_interp</text>
+
+    <!-- Error line (delta) -->
+    <line x1="370" y1="177" x2="370" y2="200" stroke="#f85149" stroke-width="3"/>
+    <circle cx="370" cy="200" r="4" fill="#58a6ff"/>
+    <text x="385" y="205" font-family="sans-serif" font-size="11" font-weight="bold" fill="#f85149">Похибка ε(x)</text>
+
+    <!-- Step h -->
+    <line x1="200" y1="330" x2="550" y2="330" stroke="#8b949e" stroke-width="1.5"/>
+    <text x="375" y="345" font-family="sans-serif" font-size="11" fill="#8b949e" text-anchor="middle">Крок сітки h = x_{k+1} - x_k</text>
+  </g>
+
+  <!-- Formula Callout -->
+  <g transform="translate(100, 395)">
+    <rect width="760" height="65" rx="6" fill="#161b22" stroke="#30363d"/>
+    <text x="380" y="25" font-family="monospace" font-size="13" font-weight="bold" fill="#3fb950" text-anchor="middle">
+      y = y_k + (x - x_k) * (y_{k+1} - y_k) / (x_{k+1} - x_k)
+    </text>
+    <text x="380" y="48" font-family="sans-serif" font-size="11" fill="#8b949e" text-anchor="middle">
+      Максимальна похибка інтерполяції обмежена другою похідною: |ε_max| ≤ (h² / 8) * max|f''(x)|
+    </text>
+  </g>
+</svg>
