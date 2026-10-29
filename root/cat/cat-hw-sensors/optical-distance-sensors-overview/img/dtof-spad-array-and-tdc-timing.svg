@@ -1,0 +1,93 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgGrad3" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f172a"/>
+      <stop offset="100%" stop-color="#1e293b"/>
+    </linearGradient>
+    <filter id="shadow3" x="-5%" y="-5%" width="110%" height="115%">
+      <feDropShadow dx="0" dy="3" stdDeviation="4" flood-color="#000" flood-opacity="0.5"/>
+    </filter>
+  </defs>
+
+  <rect width="960" height="520" fill="url(#bgGrad3)"/>
+
+  <!-- Title -->
+  <text x="480" y="35" font-family="system-ui, sans-serif" font-size="21" font-weight="700" fill="#f8fafc" text-anchor="middle">Прямий час польоту dToF: VCSEL-імпульси, SPAD-матриця та гістограма TDC</text>
+  <text x="480" y="58" font-family="system-ui, sans-serif" font-size="13" fill="#94a3b8" text-anchor="middle">Реєстрація окремих фотонів лавинними фотодіодами та накопичення часової гістограми відстані</text>
+
+  <!-- Left: SPAD and TDC Architecture -->
+  <g transform="translate(50, 80)" filter="url(#shadow3)">
+    <rect width="380" height="395" rx="8" fill="#111827" stroke="#334155"/>
+    <text x="190" y="26" font-family="system-ui, sans-serif" font-size="12" font-weight="700" fill="#e2e8f0" text-anchor="middle">Апаратне ядро сенсора dToF (VL53L0X / VL53L1X)</text>
+
+    <!-- VCSEL Pulse Driver -->
+    <rect x="20" y="45" width="340" height="65" rx="6" fill="#1e293b" stroke="#ef4444"/>
+    <text x="35" y="68" font-family="system-ui, sans-serif" font-size="11" font-weight="700" fill="#fca5a5">Лазер VCSEL 940 нм</text>
+    <text x="35" y="88" font-family="system-ui, sans-serif" font-size="10" fill="#cbd5e1">Імпульс тривалістю ~1–2 нс; пікова потужність до 50 мВт</text>
+    <rect x="280" y="55" width="65" height="25" rx="4" fill="#dc2626"/>
+    <text x="312" y="71" font-family="monospace" font-size="10" fill="#fff" text-anchor="middle">Start t₀</text>
+
+    <!-- Down arrow -->
+    <path d="M 190 115 L 190 135" stroke="#38bdf8" stroke-width="2" fill="none"/>
+
+    <!-- SPAD Array -->
+    <rect x="20" y="140" width="340" height="120" rx="6" fill="#1e293b" stroke="#10b981"/>
+    <text x="35" y="162" font-family="system-ui, sans-serif" font-size="11" font-weight="700" fill="#6ee7b7">Матриця SPAD (напр. 16×16 діодів)</text>
+    <text x="35" y="180" font-family="system-ui, sans-serif" font-size="10" fill="#cbd5e1">• Geiger-mode напруга пробою (~15–20 В)</text>
+    <text x="35" y="196" font-family="system-ui, sans-serif" font-size="10" fill="#cbd5e1">• Лавинний струм при реєстрації одного фотона</text>
+    <text x="35" y="212" font-family="system-ui, sans-serif" font-size="10" fill="#cbd5e1">• Пасивне/активне гасіння розряду (Quenching)</text>
+    <rect x="250" y="225" width="95" height="24" rx="4" fill="#047857"/>
+    <text x="297" y="241" font-family="monospace" font-size="10" fill="#a7f3d0" text-anchor="middle">Stop Event t₁</text>
+
+    <!-- Down arrow -->
+    <path d="M 190 265 L 190 285" stroke="#38bdf8" stroke-width="2" fill="none"/>
+
+    <!-- TDC Timer -->
+    <rect x="20" y="290" width="340" height="85" rx="6" fill="#1e293b" stroke="#3b82f6"/>
+    <text x="35" y="312" font-family="system-ui, sans-serif" font-size="11" font-weight="700" fill="#93c5fd">TDC (Time-to-Digital Converter)</text>
+    <text x="35" y="330" font-family="system-ui, sans-serif" font-size="10" fill="#cbd5e1">• Кільцевий генератор з лінійкою затримок</text>
+    <text x="35" y="346" font-family="system-ui, sans-serif" font-size="10" fill="#cbd5e1">• Роздільність квантування: ~20–50 пікосекунд!</text>
+    <text x="35" y="362" font-family="monospace" font-size="10" fill="#facc15">Δt = t₁ - t₀   →   d = (c · Δt) / 2</text>
+  </g>
+
+  <!-- Right: Photon Arrival Histogram (TCSPC) -->
+  <g transform="translate(460, 80)" filter="url(#shadow3)">
+    <rect width="450" height="395" rx="8" fill="#111827" stroke="#334155"/>
+    <text x="225" y="26" font-family="system-ui, sans-serif" font-size="12" font-weight="700" fill="#e2e8f0" text-anchor="middle">Гістограма накопичення фотонів (TCSPC)</text>
+
+    <!-- Histogram Axes -->
+    <line x1="50" y1="330" x2="420" y2="330" stroke="#64748b" stroke-width="1.5"/>
+    <line x1="50" y1="330" x2="50" y2="60" stroke="#64748b" stroke-width="1.5"/>
+    <text x="430" y="334" font-family="system-ui, sans-serif" font-size="10" fill="#94a3b8">Час t (нс)</text>
+    <text x="40" y="55" font-family="system-ui, sans-serif" font-size="10" fill="#94a3b8">Кількість фотонів</text>
+
+    <!-- Ambient Noise Floor -->
+    <rect x="50" y="290" width="370" height="40" fill="#f59e0b" fill-opacity="0.15"/>
+    <line x1="50" y1="290" x2="420" y2="290" stroke="#f59e0b" stroke-width="1" stroke-dasharray="3,3"/>
+    <text x="330" y="280" font-family="system-ui, sans-serif" font-size="10" fill="#fbbf24">Фонове засвічення (шум)</text>
+
+    <!-- Laser start marker -->
+    <line x1="70" y1="60" x2="70" y2="330" stroke="#ef4444" stroke-width="2"/>
+    <text x="70" y="50" font-family="monospace" font-size="10" fill="#fca5a5" text-anchor="middle">Start (t₀)</text>
+
+    <!-- Target return peak -->
+    <!-- Histogram bins forming a Gaussian-like peak around t = 13.4 ns (2 метри) -->
+    <rect x="230" y="275" width="10" height="55" fill="#38bdf8"/>
+    <rect x="242" y="240" width="10" height="90" fill="#38bdf8"/>
+    <rect x="254" y="160" width="10" height="170" fill="#38bdf8"/>
+    <rect x="266" y="90" width="10" height="240" fill="#0284c7" stroke="#38bdf8" stroke-width="1"/>
+    <rect x="278" y="150" width="10" height="180" fill="#38bdf8"/>
+    <rect x="290" y="235" width="10" height="95" fill="#38bdf8"/>
+    <rect x="302" y="270" width="10" height="60" fill="#38bdf8"/>
+
+    <!-- Peak Annotation -->
+    <polyline points="271,85 271,70 340,70" stroke="#38bdf8" stroke-width="1.5" fill="none"/>
+    <text x="345" y="74" font-family="system-ui, sans-serif" font-size="10" font-weight="700" fill="#38bdf8">Пік відбиття від цілі</text>
+
+    <!-- Time delta annotation -->
+    <line x1="70" y1="355" x2="271" y2="355" stroke="#facc15" stroke-width="1.5"/>
+    <polyline points="76,351 70,355 76,359" stroke="#facc15" stroke-width="1.5" fill="none"/>
+    <polyline points="265,351 271,355 265,359" stroke="#facc15" stroke-width="1.5" fill="none"/>
+    <text x="170" y="372" font-family="monospace" font-size="11" font-weight="700" fill="#facc15" text-anchor="middle">Δt = 13.34 нс  (d = 2.00 м)</text>
+  </g>
+</svg>

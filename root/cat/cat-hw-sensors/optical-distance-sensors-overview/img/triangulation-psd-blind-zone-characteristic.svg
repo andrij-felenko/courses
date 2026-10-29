@@ -1,0 +1,97 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgGrad2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#090d16"/>
+      <stop offset="100%" stop-color="#111827"/>
+    </linearGradient>
+    <filter id="shadow2" x="-5%" y="-5%" width="110%" height="115%">
+      <feDropShadow dx="0" dy="3" stdDeviation="4" flood-color="#000" flood-opacity="0.5"/>
+    </filter>
+  </defs>
+
+  <rect width="960" height="520" fill="url(#bgGrad2)"/>
+
+  <!-- Title -->
+  <text x="480" y="35" font-family="system-ui, sans-serif" font-size="21" font-weight="700" fill="#f8fafc" text-anchor="middle">Характеристика напруги PSD-давача та пастка сліпої зони</text>
+  <text x="480" y="58" font-family="system-ui, sans-serif" font-size="13" fill="#94a3b8" text-anchor="middle">Нелінійна залежність вихідної напруги V(x) від відстані для сенсора Sharp GP2Y0A21YK0F</text>
+
+  <!-- Left Chart: Curve V vs Distance -->
+  <g transform="translate(60, 85)" filter="url(#shadow2)">
+    <rect width="520" height="390" rx="8" fill="#1f2937" stroke="#374151"/>
+    <text x="260" y="25" font-family="system-ui, sans-serif" font-size="12" font-weight="700" fill="#e5e7eb" text-anchor="middle">Вихідна напруга V_out від відстані (см)</text>
+
+    <!-- Axes -->
+    <line x1="60" y1="340" x2="480" y2="340" stroke="#6b7280" stroke-width="1.5"/>
+    <line x1="60" y1="340" x2="60" y2="50" stroke="#6b7280" stroke-width="1.5"/>
+
+    <!-- Y-axis labels (Volts) -->
+    <text x="50" y="60" font-family="monospace" font-size="11" fill="#9ca3af" text-anchor="end">3.0 В</text>
+    <line x1="56" y1="55" x2="480" y2="55" stroke="#374151" stroke-dasharray="2,2"/>
+    <text x="50" y="115" font-family="monospace" font-size="11" fill="#9ca3af" text-anchor="end">2.5 В</text>
+    <line x1="56" y1="110" x2="480" y2="110" stroke="#374151" stroke-dasharray="2,2"/>
+    <text x="50" y="170" font-family="monospace" font-size="11" fill="#9ca3af" text-anchor="end">2.0 В</text>
+    <line x1="56" y1="165" x2="480" y2="165" stroke="#374151" stroke-dasharray="2,2"/>
+    <text x="50" y="225" font-family="monospace" font-size="11" fill="#9ca3af" text-anchor="end">1.5 В</text>
+    <line x1="56" y1="220" x2="480" y2="220" stroke="#374151" stroke-dasharray="2,2"/>
+    <text x="50" y="280" font-family="monospace" font-size="11" fill="#9ca3af" text-anchor="end">1.0 В</text>
+    <line x1="56" y1="275" x2="480" y2="275" stroke="#374151" stroke-dasharray="2,2"/>
+    <text x="50" y="335" font-family="monospace" font-size="11" fill="#9ca3af" text-anchor="end">0.5 В</text>
+    <line x1="56" y1="330" x2="480" y2="330" stroke="#374151" stroke-dasharray="2,2"/>
+
+    <!-- X-axis labels (cm) -->
+    <text x="110" y="358" font-family="monospace" font-size="10" fill="#9ca3af" text-anchor="middle">10</text>
+    <text x="170" y="358" font-family="monospace" font-size="10" fill="#9ca3af" text-anchor="middle">20</text>
+    <text x="240" y="358" font-family="monospace" font-size="10" fill="#9ca3af" text-anchor="middle">30</text>
+    <text x="310" y="358" font-family="monospace" font-size="10" fill="#9ca3af" text-anchor="middle">40</text>
+    <text x="380" y="358" font-family="monospace" font-size="10" fill="#9ca3af" text-anchor="middle">60</text>
+    <text x="450" y="358" font-family="monospace" font-size="10" fill="#9ca3af" text-anchor="middle">80 см</text>
+
+    <!-- Blind zone background -->
+    <rect x="60" y="50" width="50" height="290" fill="#ef4444" fill-opacity="0.12"/>
+    <text x="85" y="80" font-family="system-ui, sans-serif" font-size="10" font-weight="700" fill="#f87171" text-anchor="middle">Сліпа</text>
+    <text x="85" y="94" font-family="system-ui, sans-serif" font-size="10" font-weight="700" fill="#f87171" text-anchor="middle">зона</text>
+
+    <!-- Operational zone background -->
+    <rect x="110" y="50" width="370" height="290" fill="#10b981" fill-opacity="0.05"/>
+    <text x="290" y="75" font-family="system-ui, sans-serif" font-size="11" font-weight="700" fill="#34d399" text-anchor="middle">Робочий діапазон (10 .. 80 см)</text>
+
+    <!-- Curve -->
+    <!-- 0-10 cm: rises from 0.4V to 2.3V; 10-80 cm: drops hyperbolically from 2.3V to 0.4V -->
+    <path d="M 60 310 Q 80 200 110 120 Q 150 200 240 260 T 450 320" stroke="#38bdf8" stroke-width="3" fill="none"/>
+
+    <!-- Peak point at 10 cm (2.3 V) -->
+    <circle cx="110" cy="120" r="5" fill="#facc15" stroke="#fff" stroke-width="1.5"/>
+    <text x="135" y="112" font-family="system-ui, sans-serif" font-size="10" font-weight="700" fill="#facc15">Пік ~2.3 В (10 см)</text>
+
+    <!-- Ambiguity line (e.g. 1.5 V corresponds to both 4 cm and 25 cm!) -->
+    <line x1="60" y1="220" x2="200" y2="220" stroke="#f43f5e" stroke-width="1.5" stroke-dasharray="3,3"/>
+    <circle cx="85" cy="220" r="4" fill="#f43f5e"/>
+    <circle cx="200" cy="220" r="4" fill="#f43f5e"/>
+    <text x="210" y="215" font-family="system-ui, sans-serif" font-size="10" fill="#fb7185">Двозначність: 1.5 В = 4 см або 25 см!</text>
+  </g>
+
+  <!-- Right Panel: Explanations -->
+  <g transform="translate(610, 85)" filter="url(#shadow2)">
+    <rect width="300" height="390" rx="8" fill="#111827" stroke="#374151"/>
+    <text x="150" y="28" font-family="system-ui, sans-serif" font-size="13" font-weight="700" fill="#f3f4f6" text-anchor="middle">Особливості характеристики</text>
+
+    <rect x="15" y="48" width="270" height="90" rx="6" fill="#1e293b" stroke="#ef4444"/>
+    <text x="25" y="70" font-family="system-ui, sans-serif" font-size="11" font-weight="700" fill="#fca5a5">1. Небезпека сліпої зони (&lt;10 см):</text>
+    <text x="25" y="88" font-family="system-ui, sans-serif" font-size="10" fill="#cbd5e1">• Пляма виходить за межі лінзи/детектора.</text>
+    <text x="25" y="104" font-family="system-ui, sans-serif" font-size="10" fill="#cbd5e1">• Напруга падає, імітуючи далеку ціль!</text>
+    <text x="25" y="122" font-family="system-ui, sans-serif" font-size="10" fill="#fca5a5">• Робот у перешкоду в'їжджає на швидкості.</text>
+
+    <rect x="15" y="150" width="270" height="100" rx="6" fill="#1e293b" stroke="#3b82f6"/>
+    <text x="25" y="172" font-family="system-ui, sans-serif" font-size="11" font-weight="700" fill="#93c5fd">2. Гіперболічна лінеаризація:</text>
+    <text x="25" y="190" font-family="system-ui, sans-serif" font-size="10" fill="#cbd5e1">• У робочому діапазоні: V ≈ k / (x + k2)</text>
+    <text x="25" y="208" font-family="system-ui, sans-serif" font-size="10" fill="#cbd5e1">• Для переведення в см використовують:</text>
+    <rect x="25" y="215" width="250" height="25" rx="4" fill="#0f172a"/>
+    <text x="150" y="232" font-family="monospace" font-size="11" font-weight="700" fill="#facc15" text-anchor="middle">dist_cm = 27.728 / (V - 0.1)</text>
+
+    <rect x="15" y="262" width="270" height="105" rx="6" fill="#1e293b" stroke="#10b981"/>
+    <text x="25" y="284" font-family="system-ui, sans-serif" font-size="11" font-weight="700" fill="#6ee7b7">3. Зниження роздільної здатності:</text>
+    <text x="25" y="302" font-family="system-ui, sans-serif" font-size="10" fill="#cbd5e1">• Від 10 до 20 см зміна напруги становить ~1.2 В</text>
+    <text x="25" y="320" font-family="system-ui, sans-serif" font-size="10" fill="#cbd5e1">• Від 60 до 80 см зміна напруги всього ~0.15 В!</text>
+    <text x="25" y="338" font-family="system-ui, sans-serif" font-size="10" fill="#94a3b8">• На великих відстанях чутливість різко падає.</text>
+  </g>
+</svg>

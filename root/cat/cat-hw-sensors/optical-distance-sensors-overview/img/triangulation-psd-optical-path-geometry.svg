@@ -1,0 +1,85 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f172a"/>
+      <stop offset="100%" stop-color="#1e293b"/>
+    </linearGradient>
+    <filter id="shadow" x="-5%" y="-5%" width="110%" height="115%">
+      <feDropShadow dx="0" dy="4" stdDeviation="5" flood-color="#000" flood-opacity="0.5"/>
+    </filter>
+  </defs>
+
+  <rect width="960" height="540" fill="url(#bgGrad)"/>
+
+  <!-- Title -->
+  <text x="480" y="38" font-family="system-ui, sans-serif" font-size="21" font-weight="700" fill="#f8fafc" text-anchor="middle">Оптична геометрія триангуляційного далекоміра (PSD)</text>
+  <text x="480" y="62" font-family="system-ui, sans-serif" font-size="13" fill="#94a3b8" text-anchor="middle">Зв'язок між дистанцією x, оптичною базою B, фокусною відстанню f та зміщенням плями dx</text>
+
+  <!-- Sensor housing -->
+  <rect x="60" y="100" width="220" height="380" rx="12" fill="#111827" stroke="#3b82f6" stroke-width="2" filter="url(#shadow)"/>
+  <text x="170" y="130" font-family="system-ui, sans-serif" font-size="13" font-weight="700" fill="#93c5fd" text-anchor="middle">Корпус сенсора Sharp</text>
+
+  <!-- Emitter Block (Top) -->
+  <g transform="translate(90, 160)">
+    <rect width="160" height="70" rx="6" fill="#1e293b" stroke="#ef4444"/>
+    <text x="80" y="25" font-family="system-ui, sans-serif" font-size="11" font-weight="700" fill="#fca5a5" text-anchor="middle">ІЧ-Випромінювач (LED/Лазер)</text>
+    <ellipse cx="80" cy="50" rx="30" ry="10" fill="#dc2626"/>
+    <text x="80" y="54" font-family="monospace" font-size="9" fill="#fff" text-anchor="middle">λ = 850 нм</text>
+  </g>
+
+  <!-- Receiver Block (Bottom) -->
+  <g transform="translate(90, 350)">
+    <rect width="160" height="90" rx="6" fill="#1e293b" stroke="#10b981"/>
+    <text x="80" y="22" font-family="system-ui, sans-serif" font-size="11" font-weight="700" fill="#6ee7b7" text-anchor="middle">Приймальна лінза (f)</text>
+    <path d="M 60 30 Q 80 20 100 30 Q 80 40 60 30 Z" fill="#059669"/>
+    
+    <!-- PSD Detector Strip -->
+    <rect x="25" y="50" width="110" height="25" rx="3" fill="#047857" stroke="#34d399"/>
+    <text x="80" y="67" font-family="monospace" font-size="10" fill="#ffffff" text-anchor="middle">PSD-Детектор</text>
+    <circle cx="95" cy="62" r="4" fill="#fbbf24"/>
+    <text x="105" y="66" font-family="system-ui, sans-serif" font-size="9" fill="#facc15">dx</text>
+  </g>
+
+  <!-- Baseline B Dimension -->
+  <line x1="75" y1="195" x2="75" y2="395" stroke="#38bdf8" stroke-width="2"/>
+  <polyline points="71,202 75,195 79,202" stroke="#38bdf8" stroke-width="2" fill="none"/>
+  <polyline points="71,388 75,395 79,388" stroke="#38bdf8" stroke-width="2" fill="none"/>
+  <text x="50" y="300" font-family="system-ui, sans-serif" font-size="14" font-weight="700" fill="#38bdf8" text-anchor="middle">База B</text>
+
+  <!-- Object at Distance x -->
+  <!-- Near target -->
+  <rect x="520" y="140" width="20" height="260" rx="4" fill="#475569" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <text x="530" y="130" font-family="system-ui, sans-serif" font-size="11" fill="#cbd5e1" text-anchor="middle">Близька ціль (x₁)</text>
+
+  <!-- Far target -->
+  <rect x="820" y="120" width="25" height="300" rx="4" fill="#334155" stroke="#64748b" stroke-width="2"/>
+  <text x="832" y="110" font-family="system-ui, sans-serif" font-size="12" font-weight="700" fill="#f1f5f9" text-anchor="middle">Далека ціль (x₂)</text>
+
+  <!-- Emitted Ray (Parallel horizontal) -->
+  <line x1="250" y1="195" x2="820" y2="195" stroke="#ef4444" stroke-width="2.5"/>
+  <text x="380" y="185" font-family="system-ui, sans-serif" font-size="11" fill="#fca5a5">Прямий зондувальний промінь</text>
+
+  <!-- Reflected Rays -->
+  <!-- From far target -->
+  <line x1="820" y1="195" x2="190" y2="380" stroke="#fbbf24" stroke-width="2" stroke-dasharray="6,4"/>
+  <!-- From near target -->
+  <line x1="520" y1="195" x2="190" y2="380" stroke="#34d399" stroke-width="2"/>
+
+  <!-- Ray focus on PSD -->
+  <line x1="190" y1="380" x2="170" y2="412" stroke="#34d399" stroke-width="2"/>
+  <line x1="190" y1="380" x2="140" y2="412" stroke="#fbbf24" stroke-width="2" stroke-dasharray="6,4"/>
+
+  <!-- Distance Dimensions -->
+  <line x1="250" y1="460" x2="820" y2="460" stroke="#94a3b8" stroke-width="1.5"/>
+  <polyline points="257,456 250,460 257,464" stroke="#94a3b8" stroke-width="1.5" fill="none"/>
+  <polyline points="813,456 820,460 813,464" stroke="#94a3b8" stroke-width="1.5" fill="none"/>
+  <text x="535" y="480" font-family="system-ui, sans-serif" font-size="13" font-weight="700" fill="#f8fafc" text-anchor="middle">Відстань до об'єкта (x)</text>
+
+  <!-- Formula Panel -->
+  <g transform="translate(350, 240)">
+    <rect width="280" height="95" rx="8" fill="#1e293b" stroke="#334155" filter="url(#shadow)"/>
+    <text x="140" y="24" font-family="system-ui, sans-serif" font-size="12" font-weight="700" fill="#38bdf8" text-anchor="middle">Рівняння оптичної тріангуляції:</text>
+    <text x="140" y="52" font-family="monospace" font-size="14" font-weight="700" fill="#facc15" text-anchor="middle">dx = (B · f) / x</text>
+    <text x="140" y="78" font-family="system-ui, sans-serif" font-size="11" fill="#cbd5e1" text-anchor="middle">Зміщення плями обернено пропорційне x</text>
+  </g>
+</svg>
