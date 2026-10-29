@@ -1,0 +1,86 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, -apple-system, BlinkMacSystemFont, Roboto, sans-serif">
+  <!-- Фон -->
+  <rect width="960" height="540" fill="#0d1117"/>
+  <rect x="15" y="15" width="930" height="510" rx="12" fill="none" stroke="#30363d" stroke-width="1.5"/>
+
+  <!-- Заголовок -->
+  <text x="480" y="45" fill="#f0f6fc" font-size="20" font-weight="700" text-anchor="middle">Компенсація холодного спаю (Cold Junction Compensation, CJC)</text>
+  <text x="480" y="70" fill="#8b949e" font-size="13" text-anchor="middle">Принцип усунення паразитної термо-ЕРС на клемах підключення до мідних доріжок плати</text>
+
+  <!-- Головна схема -->
+  <g transform="translate(40, 95)">
+    <!-- Гарячий спай (Вимірювальний зонд) -->
+    <rect x="10" y="70" width="160" height="180" rx="8" fill="#161b22" stroke="#ff7b72" stroke-width="1.5" stroke-dasharray="4,4"/>
+    <text x="90" y="95" fill="#ff7b72" font-size="13" font-weight="700" text-anchor="middle">Гарячий спай T_hot</text>
+    <text x="90" y="115" fill="#8b949e" font-size="11" text-anchor="middle">Об'єкт контролю (0..1200 °C)</text>
+
+    <circle cx="90" cy="170" r="12" fill="#f85149"/>
+    <text x="90" y="174" fill="#ffffff" font-size="10" font-weight="700" text-anchor="middle">T_h</text>
+
+    <!-- Провідники термопари (Тип K: Хромель + / Алюмель -) -->
+    <!-- Провід + (Хромель, жовтий/фіолетовий) -->
+    <path d="M 90 170 C 130 140, 200 130, 310 130" fill="none" stroke="#e3b341" stroke-width="4"/>
+    <text x="200" y="120" fill="#e3b341" font-size="11" font-weight="600" text-anchor="middle">Хромель (+) сплав Ni-Cr</text>
+
+    <!-- Провід - (Алюмель, червоний) -->
+    <path d="M 90 170 C 130 200, 200 210, 310 210" fill="none" stroke="#f85149" stroke-width="4"/>
+    <text x="200" y="235" fill="#f85149" font-size="11" font-weight="600" text-anchor="middle">Алюмель (-) сплав Ni-Al</text>
+
+    <!-- Ізотермічний блок (Клемник + опорна зона) -->
+    <rect x="300" y="50" width="260" height="230" rx="10" fill="#161b22" stroke="#58a6ff" stroke-width="1.8"/>
+    <text x="430" y="75" fill="#58a6ff" font-size="13" font-weight="700" text-anchor="middle">Ізотермічний блок (T_ref / T_cjc)</text>
+    <text x="430" y="93" fill="#8b949e" font-size="10" text-anchor="middle">Обидві клеми мають абсолютно однакову температуру</text>
+
+    <!-- Клеми переходу на мідь Cu -->
+    <!-- Клема J1 -->
+    <rect x="310" y="118" width="24" height="24" rx="4" fill="#21262d" stroke="#e3b341" stroke-width="1.5"/>
+    <circle cx="322" cy="130" r="5" fill="#e3b341"/>
+    <text x="345" y="125" fill="#f0f6fc" font-size="11" font-weight="600">J1: Хромель-Cu</text>
+    <text x="345" y="139" fill="#8b949e" font-size="10">Паразитна ЕРС e1(T_ref)</text>
+
+    <!-- Клема J2 -->
+    <rect x="310" y="198" width="24" height="24" rx="4" fill="#21262d" stroke="#f85149" stroke-width="1.5"/>
+    <circle cx="322" cy="210" r="5" fill="#f85149"/>
+    <text x="345" y="205" fill="#f0f6fc" font-size="11" font-weight="600">J2: Алюмель-Cu</text>
+    <text x="345" y="219" fill="#8b949e" font-size="10">Паразитна ЕРС e2(T_ref)</text>
+
+    <!-- Локальний сенсор CJC (Термістор / RTD / Цифровий датчик) -->
+    <rect x="380" y="150" width="165" height="46" rx="6" fill="#1f2937" stroke="#3fb950" stroke-width="1.5"/>
+    <circle cx="395" cy="173" r="6" fill="#3fb950"/>
+    <text x="410" y="167" fill="#3fb950" font-size="11" font-weight="700">Датчик температури CJC</text>
+    <text x="410" y="183" fill="#8b949e" font-size="10">Вимірює точне значення T_ref</text>
+
+    <!-- Мідні доріжки PCB (Cu) до АЦП -->
+    <path d="M 334 130 L 610 130" stroke="#f0883e" stroke-width="3" stroke-dasharray="none"/>
+    <text x="580" y="120" fill="#f0883e" font-size="11" font-weight="600">Мідь (Cu)</text>
+
+    <path d="M 334 210 L 610 210" stroke="#f0883e" stroke-width="3" stroke-dasharray="none"/>
+    <text x="580" y="228" fill="#f0883e" font-size="11" font-weight="600">Мідь (Cu)</text>
+
+    <path d="M 545 173 L 610 173" stroke="#3fb950" stroke-width="2" stroke-dasharray="3,3"/>
+
+    <!-- Блок вимірювання (AFE / Мікроконтролер) -->
+    <rect x="610" y="90" width="260" height="160" rx="8" fill="#161b22" stroke="#8957e5" stroke-width="1.8"/>
+    <text x="740" y="115" fill="#d2a8ff" font-size="13" font-weight="700" text-anchor="middle">Вимірювальний AFE / МК</text>
+    
+    <text x="625" y="145" fill="#f0f6fc" font-size="11">1. Вимір V_meas = V(T_hot) - V(T_ref)</text>
+    <text x="625" y="170" fill="#3fb950" font-size="11">2. Вимір T_ref локальним сенсором</text>
+    <text x="625" y="195" fill="#58a6ff" font-size="11">3. Розрахунок V(T_ref) за поліномом NIST</text>
+    <text x="625" y="220" fill="#e3b341" font-size="11" font-weight="600">4. V_hot = V_meas + V(T_ref) =&gt; T_hot</text>
+  </g>
+
+  <!-- Математичний підвал -->
+  <g transform="translate(40, 400)">
+    <rect width="880" height="105" rx="8" fill="#161b22" stroke="#30363d" stroke-width="1.2"/>
+    <text x="25" y="25" fill="#58a6ff" font-size="12" font-weight="700">МАТЕМАТИЧНА МОДЕЛЬ КОМПЕНСАЦІЇ ХОЛОДНОГО СПАЮ:</text>
+    <text x="25" y="47" fill="#f0f6fc" font-size="12" font-family="Consolas, monospace">
+      V_клеми = V_термопари(T_hot) - V_термопари(T_cjc)
+    </text>
+    <text x="25" y="68" fill="#e3b341" font-size="12" font-family="Consolas, monospace">
+      V_компенсоване = V_клеми + Поліном_NIST(T_cjc)  ==&gt;  T_hot = Зворотний_Поліном(V_компенсоване)
+    </text>
+    <text x="25" y="90" fill="#8b949e" font-size="11">
+      Без компенсації холодного спаю похибка дорівнює коливанням кімнатної температури клем (до 20..30 °C).
+    </text>
+  </g>
+</svg>
