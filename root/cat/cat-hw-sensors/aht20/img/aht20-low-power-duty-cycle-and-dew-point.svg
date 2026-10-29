@@ -1,0 +1,77 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 850 520" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bg-grad5" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0d1117"/>
+      <stop offset="100%" stop-color="#161b22"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="100%" height="100%" fill="url(#bg-grad5)"/>
+  <rect x="15" y="15" width="820" height="490" rx="10" fill="none" stroke="#30363d" stroke-width="1.5"/>
+
+  <text x="30" y="45" fill="#58a6ff" font-family="system-ui, sans-serif" font-size="18" font-weight="bold">Профіль енергоспоживання (Duty Cycle) та контроль точки роси AHT20</text>
+  <text x="30" y="68" fill="#8b949e" font-family="system-ui, sans-serif" font-size="13">Оптимізація живлення батарейних IoT-вузлів та запобігання небезпечній конденсації</text>
+
+  <!-- Power Duty Cycle Graph -->
+  <g transform="translate(40, 110)">
+    <rect width="450" height="260" rx="8" fill="#161b22" stroke="#30363d" stroke-width="1.5"/>
+    <text x="20" y="30" fill="#58a6ff" font-family="system-ui" font-size="13" font-weight="bold">Профіль струму в циклі вимірювання (Duty Cycle)</text>
+
+    <!-- Axes -->
+    <line x1="50" y1="210" x2="420" y2="210" stroke="#8b949e" stroke-width="1.5"/>
+    <line x1="50" y1="50" x2="50" y2="210" stroke="#8b949e" stroke-width="1.5"/>
+    <text x="415" y="225" fill="#8b949e" font-family="system-ui" font-size="10">Час t</text>
+    <text x="45" y="45" fill="#8b949e" font-family="system-ui" font-size="10" text-anchor="end">Струм (мкА)</text>
+
+    <!-- Current pulse: Sleep (0.25uA) -> Active (23uA for 80ms) -> Sleep -->
+    <!-- Base sleep line -->
+    <line x1="50" y1="205" x2="150" y2="205" stroke="#3fb950" stroke-width="2.5"/>
+    <!-- Rising edge -->
+    <line x1="150" y1="205" x2="150" y2="90" stroke="#f85149" stroke-width="2.5"/>
+    <!-- Active measurement -->
+    <line x1="150" y1="90" x2="250" y2="90" stroke="#f85149" stroke-width="2.5"/>
+    <!-- Falling edge -->
+    <line x1="250" y1="90" x2="250" y2="205" stroke="#f85149" stroke-width="2.5"/>
+    <!-- Return to sleep -->
+    <line x1="250" y1="205" x2="420" y2="205" stroke="#3fb950" stroke-width="2.5"/>
+
+    <!-- Labels -->
+    <text x="200" y="80" fill="#f85149" font-family="monospace" font-size="11" font-weight="bold" text-anchor="middle">Активно: 23 мкА (80 мс)</text>
+    <text x="100" y="225" fill="#3fb950" font-family="monospace" font-size="10" text-anchor="middle">Сон: 0.25 мкА</text>
+    <text x="330" y="225" fill="#3fb950" font-family="monospace" font-size="10" text-anchor="middle">Сон (59.9 с)</text>
+
+    <!-- Battery Life Calculation -->
+    <g transform="translate(20, 130)">
+      <rect width="200" height="55" rx="4" fill="#1c2128" stroke="#3fb950" stroke-width="1"/>
+      <text x="100" y="20" fill="#3fb950" font-family="system-ui" font-size="10" font-weight="bold" text-anchor="middle">Середній струм I_avg:</text>
+      <text x="100" y="40" fill="#f0f6fc" font-family="monospace" font-size="11" text-anchor="middle">I_avg ≈ 0.28 мкА</text>
+    </g>
+  </g>
+
+  <!-- Dew Point & Condensation Prevention Box -->
+  <g transform="translate(510, 110)">
+    <rect width="300" height="260" rx="8" fill="#161b22" stroke="#30363d" stroke-width="1.5"/>
+    <text x="20" y="28" fill="#58a6ff" font-family="system-ui" font-size="13" font-weight="bold">Контроль точки роси (Dew Point)</text>
+
+    <!-- Formula -->
+    <rect x="15" y="45" width="270" height="80" rx="4" fill="#1c2128" stroke="#8b949e" stroke-width="1"/>
+    <text x="135" y="65" fill="#e3b341" font-family="system-ui" font-size="10" font-weight="bold" text-anchor="middle">Формула Магнуса-Тетенса:</text>
+    <text x="135" y="85" fill="#f0f6fc" font-family="monospace" font-size="10" text-anchor="middle">γ(T, RH) = (17.27T)/(237.7+T) + ln(RH/100)</text>
+    <text x="135" y="105" fill="#7ee787" font-family="monospace" font-size="11" font-weight="bold" text-anchor="middle">T_dew = (237.7 × γ) / (17.27 - γ)</text>
+
+    <!-- Hazard Threshold Warning -->
+    <rect x="15" y="140" width="270" height="100" rx="4" fill="#1c2128" stroke="#f85149" stroke-width="1.5"/>
+    <text x="135" y="165" fill="#f85149" font-family="system-ui" font-size="11" font-weight="bold" text-anchor="middle">⚠️ Поріг загрози конденсації:</text>
+    <text x="135" y="185" fill="#f0f6fc" font-family="sans-serif" font-size="10" text-anchor="middle">Якщо (T_сенсор - T_dew) &lt; 2.0 °C</text>
+    <text x="135" y="205" fill="#f85149" font-family="sans-serif" font-size="9" text-anchor="middle">→ Високий ризик плівкової конденсації!</text>
+    <text x="135" y="222" fill="#8b949e" font-family="sans-serif" font-size="8" text-anchor="middle">Необхідно увімкнути нагрів або вентиляцію</text>
+  </g>
+
+  <!-- Battery Node Autonomy Summary -->
+  <g transform="translate(40, 390)">
+    <rect width="770" height="85" rx="6" fill="#1c2128" stroke="#30363d" stroke-width="1.5"/>
+    <text x="20" y="24" fill="#58a6ff" font-family="system-ui" font-size="12" font-weight="bold">Енергетичний розрахунок вузла на батарейці CR2032 (220 мА·год):</text>
+    <text x="20" y="46" fill="#f0f6fc" font-family="monospace" font-size="11">Час роботи AHT20: 220 000 мкА·год / 0.28 мкА ≈ 785 000 годин (&gt; 10 років автономії!)</text>
+    <text x="20" y="68" fill="#7ee787" font-family="sans-serif" font-size="11">Саморозряд батарейки становить близько 1–2% на рік, що перевищує енергоспоживання самого сенсора.</text>
+  </g>
+</svg>

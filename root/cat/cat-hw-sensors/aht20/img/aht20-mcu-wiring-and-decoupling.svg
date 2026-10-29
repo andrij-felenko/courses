@@ -1,0 +1,107 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 850 520" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bg-grad1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0d1117"/>
+      <stop offset="100%" stop-color="#161b22"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="100%" height="100%" fill="url(#bg-grad1)"/>
+  <rect x="15" y="15" width="820" height="490" rx="10" fill="none" stroke="#30363d" stroke-width="1.5"/>
+
+  <text x="30" y="45" fill="#58a6ff" font-family="system-ui, sans-serif" font-size="18" font-weight="bold">Схема підключення сенсора AHT20 до мікроконтролера по шині I2C</text>
+  <text x="30" y="68" fill="#8b949e" font-family="system-ui, sans-serif" font-size="13">Підтягуючі резистори 4.7 кОм, блокувальний конденсатор 100 нФ та узгодження рівнів 3.3 В</text>
+
+  <!-- MCU Block -->
+  <g transform="translate(50, 130)">
+    <rect width="170" height="260" rx="8" fill="#1c2128" stroke="#bc8cff" stroke-width="2"/>
+    <text x="85" y="35" fill="#bc8cff" font-family="system-ui" font-size="16" font-weight="bold" text-anchor="middle">MCU</text>
+    <text x="85" y="55" fill="#8b949e" font-family="system-ui" font-size="11" text-anchor="middle">ESP32 / STM32</text>
+
+    <!-- Pins on MCU -->
+    <circle cx="170" cy="100" r="4" fill="#58a6ff"/>
+    <text x="155" y="105" fill="#58a6ff" font-family="monospace" font-size="11" text-anchor="end">SDA (GPIO21)</text>
+
+    <circle cx="170" cy="150" r="4" fill="#58a6ff"/>
+    <text x="155" y="155" fill="#58a6ff" font-family="monospace" font-size="11" text-anchor="end">SCL (GPIO22)</text>
+
+    <circle cx="170" cy="200" r="4" fill="#f85149"/>
+    <text x="155" y="205" fill="#f85149" font-family="monospace" font-size="11" text-anchor="end">+3.3V (VDD)</text>
+
+    <circle cx="170" cy="240" r="4" fill="#3fb950"/>
+    <text x="155" y="245" fill="#3fb950" font-family="monospace" font-size="11" text-anchor="end">GND</text>
+  </g>
+
+  <!-- Pull-Up Resistors Block in the middle -->
+  <g transform="translate(320, 110)">
+    <rect width="160" height="130" rx="6" fill="#161b22" stroke="#30363d" stroke-width="1.5"/>
+    <text x="80" y="25" fill="#d29922" font-family="system-ui" font-size="11" font-weight="bold" text-anchor="middle">Pull-Up до VDD (+3.3V)</text>
+
+    <!-- R_pull SDA -->
+    <rect x="35" y="45" width="14" height="40" fill="#1c2128" stroke="#d29922" stroke-width="1.5"/>
+    <text x="42" y="100" fill="#d29922" font-family="sans-serif" font-size="10" text-anchor="middle">4.7k</text>
+
+    <!-- R_pull SCL -->
+    <rect x="110" y="45" width="14" height="40" fill="#1c2128" stroke="#d29922" stroke-width="1.5"/>
+    <text x="117" y="100" fill="#d29922" font-family="sans-serif" font-size="10" text-anchor="middle">4.7k</text>
+
+    <!-- Top VDD rail linking them -->
+    <path d="M 42 45 L 42 35 L 117 35 L 117 45" stroke="#f85149" stroke-width="2" fill="none"/>
+    <circle cx="80" cy="35" r="3" fill="#f85149"/>
+  </g>
+
+  <!-- Wiring Lines -->
+  <!-- VDD Line -->
+  <path d="M 220 330 L 400 330 L 400 145" stroke="#f85149" stroke-width="2" fill="none"/>
+  <path d="M 400 330 L 580 330" stroke="#f85149" stroke-width="2" fill="none"/>
+
+  <!-- SDA Line -->
+  <path d="M 220 230 L 362 230 L 362 195 L 362 230 L 580 230" stroke="#58a6ff" stroke-width="2" fill="none"/>
+  <circle cx="362" cy="230" r="3" fill="#58a6ff"/>
+
+  <!-- SCL Line -->
+  <path d="M 220 280 L 437 280 L 437 195 L 437 280 L 580 280" stroke="#58a6ff" stroke-width="2" fill="none"/>
+  <circle cx="437" cy="280" r="3" fill="#58a6ff"/>
+
+  <!-- GND Line -->
+  <path d="M 220 370 L 580 370" stroke="#3fb950" stroke-width="2" fill="none"/>
+
+  <!-- Decoupling Capacitor C_bypass 100nF -->
+  <g transform="translate(510, 310)">
+    <path d="M 20 20 L 20 40" stroke="#f85149" stroke-width="1.5" fill="none"/>
+    <line x1="10" y1="40" x2="30" y2="40" stroke="#8b949e" stroke-width="2"/>
+    <line x1="10" y1="45" x2="30" y2="45" stroke="#8b949e" stroke-width="2"/>
+    <path d="M 20 45 L 20 60" stroke="#3fb950" stroke-width="1.5" fill="none"/>
+    <text x="35" y="45" fill="#8b949e" font-family="sans-serif" font-size="10">100 нФ</text>
+  </g>
+  <circle cx="530" cy="330" r="3" fill="#f85149"/>
+  <circle cx="530" cy="370" r="3" fill="#3fb950"/>
+
+  <!-- AHT20 Sensor Module -->
+  <g transform="translate(580, 160)">
+    <rect width="210" height="230" rx="8" fill="#1c2128" stroke="#58a6ff" stroke-width="2"/>
+    <text x="105" y="35" fill="#58a6ff" font-family="system-ui" font-size="16" font-weight="bold" text-anchor="middle">AHT20 Sensor</text>
+    <text x="105" y="55" fill="#8b949e" font-family="monospace" font-size="11" text-anchor="middle">I2C Addr: 0x38</text>
+
+    <!-- Pins on Sensor -->
+    <circle cx="0" cy="70" r="4" fill="#58a6ff"/>
+    <text x="15" y="74" fill="#58a6ff" font-family="monospace" font-size="11">SDA (Pin 2)</text>
+
+    <circle cx="0" cy="120" r="4" fill="#58a6ff"/>
+    <text x="15" y="124" fill="#58a6ff" font-family="monospace" font-size="11">SCL (Pin 1)</text>
+
+    <circle cx="0" cy="170" r="4" fill="#f85149"/>
+    <text x="15" y="174" fill="#f85149" font-family="monospace" font-size="11">VDD (2.0-5.5V)</text>
+
+    <circle cx="0" cy="210" r="4" fill="#3fb950"/>
+    <text x="15" y="214" fill="#3fb950" font-family="monospace" font-size="11">GND (Pin 4)</text>
+  </g>
+
+  <!-- Technical Spec Card -->
+  <g transform="translate(50, 420)">
+    <rect width="750" height="65" rx="6" fill="#161b22" stroke="#30363d" stroke-width="1.5"/>
+    <text x="20" y="24" fill="#58a6ff" font-family="system-ui" font-size="12" font-weight="bold">Експлуатаційні характеристики інтерфейсу:</text>
+    <text x="20" y="46" fill="#f0f6fc" font-family="monospace" font-size="11">• Діапазон живлення: 2.0 .. 5.5 В (сумісний з логікою 3.3 В та 5 В без перетворювача рівнів)</text>
+    <text x="500" y="46" fill="#7ee787" font-family="monospace" font-size="11">• Максимальна швидкість I2C: 400 кГц</text>
+  </g>
+</svg>
