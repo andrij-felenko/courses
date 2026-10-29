@@ -1,0 +1,85 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 850 480" width="100%" height="100%">
+  <rect width="100%" height="100%" fill="#0d1117"/>
+  <rect x="25" y="25" width="800" height="430" rx="12" fill="#161b22" stroke="#30363d" stroke-width="2"/>
+  
+  <text x="425" y="60" text-anchor="middle" font-family="system-ui, sans-serif" font-size="20" font-weight="bold" fill="#f0f6fc">
+    Оптичний принцип рефлексійного скла Клінгера (Призматичні канавки 90°)
+  </text>
+  
+  <!-- Ліва панель: Фаза пари / газу -->
+  <g transform="translate(60, 90)">
+    <rect width="340" height="340" rx="8" fill="#0d1117" stroke="#30363d"/>
+    <text x="170" y="32" text-anchor="middle" font-family="system-ui, sans-serif" font-size="16" font-weight="bold" fill="#58a6ff">
+      Парова / Газова фаза (n ≈ 1.0)
+    </text>
+    <text x="170" y="55" text-anchor="middle" font-family="system-ui, sans-serif" font-size="12" fill="#8b949e">
+      Повне внутрішнє відбиття → Світле (сріблясте)
+    </text>
+
+    <!-- Скляний блок (n = 1.50) -->
+    <path d="M 50,80 L 290,80 L 290,200 L 250,240 L 210,200 L 170,240 L 130,200 L 90,240 L 50,200 Z" fill="#1f2937" stroke="#388bfd" stroke-width="2"/>
+    <text x="170" y="110" text-anchor="middle" font-family="system-ui, sans-serif" font-size="13" fill="#79c0ff">
+      Боросилікатне скло (n = 1.50)
+    </text>
+
+    <!-- Середовище позаду: газ -->
+    <rect x="50" y="250" width="240" height="60" rx="4" fill="#161b22" stroke="#30363d"/>
+    <text x="170" y="285" text-anchor="middle" font-family="system-ui, sans-serif" font-size="13" fill="#8b949e">
+      Суха пара / Повітря (n ≈ 1.0)
+    </text>
+
+    <!-- Промені світла: подвійне повне відбиття на 45° гранях -->
+    <!-- Промінь 1 -->
+    <path d="M 110,60 L 110,220 L 150,220 L 150,60" fill="none" stroke="#f2cc60" stroke-width="3" stroke-dasharray="6,3"/>
+    <!-- Стрілки -->
+    <polygon points="110,130 106,120 114,120" fill="#f2cc60"/>
+    <polygon points="150,110 146,120 154,120" fill="#f2cc60"/>
+    
+    <!-- Промінь 2 -->
+    <path d="M 190,60 L 190,220 L 230,220 L 230,60" fill="none" stroke="#f2cc60" stroke-width="3" stroke-dasharray="6,3"/>
+    <polygon points="190,130 186,120 194,120" fill="#f2cc60"/>
+    <polygon points="230,110 226,120 234,120" fill="#f2cc60"/>
+
+    <rect x="70" y="325" width="200" height="24" rx="4" fill="#238636" opacity="0.2"/>
+    <text x="170" y="341" text-anchor="middle" font-family="system-ui, sans-serif" font-size="11" font-weight="bold" fill="#3fb950">
+      Кут падіння 45° > Критичний кут 41.8°
+    </text>
+  </g>
+
+  <!-- Права панель: Фаза рідини -->
+  <g transform="translate(450, 90)">
+    <rect width="340" height="340" rx="8" fill="#0d1117" stroke="#30363d"/>
+    <text x="170" y="32" text-anchor="middle" font-family="system-ui, sans-serif" font-size="16" font-weight="bold" fill="#3fb950">
+      Рідка фаза (Вода, n ≈ 1.33)
+    </text>
+    <text x="170" y="55" text-anchor="middle" font-family="system-ui, sans-serif" font-size="12" fill="#8b949e">
+      Заломлення світла всередину камери → Темне (чорне)
+    </text>
+
+    <!-- Скляний блок (n = 1.50) -->
+    <path d="M 50,80 L 290,80 L 290,200 L 250,240 L 210,200 L 170,240 L 130,200 L 90,240 L 50,200 Z" fill="#1f2937" stroke="#388bfd" stroke-width="2"/>
+    <text x="170" y="110" text-anchor="middle" font-family="system-ui, sans-serif" font-size="13" fill="#79c0ff">
+      Боросилікатне скло (n = 1.50)
+    </text>
+
+    <!-- Водне середовище позаду -->
+    <rect x="50" y="245" width="240" height="65" rx="4" fill="#0c2d6b" stroke="#1f6feb"/>
+    <text x="170" y="285" text-anchor="middle" font-family="system-ui, sans-serif" font-size="13" fill="#58a6ff">
+      Рідина / Вода (n = 1.33)
+    </text>
+
+    <!-- Промені світла: заломлення крізь грань без відбиття -->
+    <path d="M 110,60 L 110,220 L 80,290" fill="none" stroke="#f2cc60" stroke-width="3" stroke-dasharray="6,3"/>
+    <polygon points="110,130 106,120 114,120" fill="#f2cc60"/>
+    <polygon points="90,265 84,258 92,254" fill="#f2cc60"/>
+
+    <path d="M 190,60 L 190,220 L 160,290" fill="none" stroke="#f2cc60" stroke-width="3" stroke-dasharray="6,3"/>
+    <polygon points="190,130 186,120 194,120" fill="#f2cc60"/>
+    <polygon points="170,265 164,258 172,254" fill="#f2cc60"/>
+
+    <rect x="70" y="325" width="200" height="24" rx="4" fill="#da3633" opacity="0.2"/>
+    <text x="170" y="341" text-anchor="middle" font-family="system-ui, sans-serif" font-size="11" font-weight="bold" fill="#f85149">
+      Кут падіння 45° &lt; Критичний кут 62.5°
+    </text>
+  </g>
+</svg>

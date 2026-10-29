@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 850 480" width="100%" height="100%">
+  <rect width="100%" height="100%" fill="#0d1117"/>
+  <rect x="25" y="25" width="800" height="430" rx="12" fill="#161b22" stroke="#30363d" stroke-width="2"/>
+  
+  <text x="425" y="55" text-anchor="middle" font-family="system-ui, sans-serif" font-size="20" font-weight="bold" fill="#f0f6fc">
+    Оптоелектронна оцифровка водомірного скла (Computer Vision / Line Sensor)
+  </text>
+
+  <!-- Скло та оптична лінійка -->
+  <g transform="translate(60, 85)">
+    <!-- Скло Клінгера -->
+    <rect x="30" y="20" width="60" height="280" rx="4" fill="#0d1117" stroke="#388bfd" stroke-width="2"/>
+    <rect x="35" y="25" width="50" height="120" fill="#f0f6fc"/>
+    <text x="60" y="90" text-anchor="middle" font-family="system-ui, sans-serif" font-size="11" font-weight="bold" fill="#0d1117">Світла пара</text>
+    
+    <rect x="35" y="145" width="50" height="150" fill="#161b22"/>
+    <text x="60" y="225" text-anchor="middle" font-family="system-ui, sans-serif" font-size="11" font-weight="bold" fill="#58a6ff">Темна вода</text>
+
+    <!-- Межа рівня рідини -->
+    <line x1="20" y1="145" x2="100" y2="145" stroke="#f85149" stroke-width="3" stroke-dasharray="4,2"/>
+    <text x="60" y="325" text-anchor="middle" font-family="system-ui, sans-serif" font-size="12" fill="#c9d1d9">Водомірне скло</text>
+  </g>
+
+  <!-- Сенсор / Камера -->
+  <g transform="translate(220, 110)">
+    <rect width="160" height="100" rx="8" fill="#21262d" stroke="#58a6ff" stroke-width="2"/>
+    <circle cx="80" cy="50" r="25" fill="#0d1117" stroke="#388bfd" stroke-width="2"/>
+    <text x="80" y="55" text-anchor="middle" font-family="system-ui, sans-serif" font-size="11" fill="#79c0ff">CMOS-матриця</text>
+    <text x="80" y="125" text-anchor="middle" font-family="system-ui, sans-serif" font-size="12" fill="#c9d1d9">Оптичний датчик</text>
+  </g>
+
+  <!-- Стрілка передачі зображення -->
+  <path d="M 390,160 L 450,160" stroke="#f0883e" stroke-width="3" marker-end="url(#arrow)"/>
+
+  <!-- Процесорний блок (DSP / Edge AI) -->
+  <g transform="translate(460, 85)">
+    <rect width="320" height="345" rx="8" fill="#0d1117" stroke="#30363d"/>
+    <text x="160" y="30" text-anchor="middle" font-family="system-ui, sans-serif" font-size="15" font-weight="bold" fill="#3fb950">
+      Обробка сигналів (Edge DSP)
+    </text>
+
+    <!-- Профіль яскравості градієнта -->
+    <g transform="translate(30, 50)">
+      <rect width="260" height="120" rx="6" fill="#161b22" stroke="#30363d"/>
+      <text x="130" y="20" text-anchor="middle" font-family="system-ui, sans-serif" font-size="11" fill="#8b949e">
+        Профіль яскравості вздовж осі Z
+      </text>
+      <!-- Графік інтенсивності -->
+      <polyline points="20,40 120,40 140,100 240,100" fill="none" stroke="#58a6ff" stroke-width="3"/>
+      <!-- Порогове значення -->
+      <line x1="20" y1="70" x2="240" y2="70" stroke="#f85149" stroke-width="1" stroke-dasharray="3,3"/>
+      <text x="210" y="65" font-family="system-ui, sans-serif" font-size="10" fill="#f85149">Threshold</text>
+      <text x="130" y="112" text-anchor="middle" font-family="system-ui, sans-serif" font-size="10" fill="#3fb950">
+        Пік градієнта dI/dz (Рівень = 54.2%)
+      </text>
+    </g>
+
+    <!-- Інтерфейси виходу -->
+    <g transform="translate(30, 190)">
+      <rect width="260" height="135" rx="6" fill="#161b22" stroke="#30363d"/>
+      <text x="130" y="25" text-anchor="middle" font-family="system-ui, sans-serif" font-size="13" font-weight="bold" fill="#d29922">
+        Промислові виходи
+      </text>
+      <text x="20" y="55" font-family="system-ui, sans-serif" font-size="12" fill="#c9d1d9">• Струмова петля: 4–20 мА</text>
+      <text x="20" y="80" font-family="system-ui, sans-serif" font-size="12" fill="#c9d1d9">• Цифровий канал: Modbus RTU (RS-485)</text>
+      <text x="20" y="105" font-family="system-ui, sans-serif" font-size="12" fill="#c9d1d9">• Реле тривоги: Мін / Макс аварійний рівень</text>
+    </g>
+  </g>
+</svg>

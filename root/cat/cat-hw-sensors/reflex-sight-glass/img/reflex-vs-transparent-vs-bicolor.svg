@@ -1,0 +1,82 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 850 480" width="100%" height="100%">
+  <rect width="100%" height="100%" fill="#0d1117"/>
+  <rect x="25" y="25" width="800" height="430" rx="12" fill="#161b22" stroke="#30363d" stroke-width="2"/>
+  
+  <text x="425" y="55" text-anchor="middle" font-family="system-ui, sans-serif" font-size="20" font-weight="bold" fill="#f0f6fc">
+    Порівняння конструкцій оптичних покажчиків рівня
+  </text>
+
+  <!-- 1. Рефлексійний -->
+  <g transform="translate(50, 85)">
+    <rect width="230" height="345" rx="8" fill="#0d1117" stroke="#30363d"/>
+    <text x="115" y="30" text-anchor="middle" font-family="system-ui, sans-serif" font-size="15" font-weight="bold" fill="#58a6ff">
+      Рефлексійний (Reflex)
+    </text>
+    <text x="115" y="50" text-anchor="middle" font-family="system-ui, sans-serif" font-size="11" fill="#8b949e">
+      Призматичні канавки
+    </text>
+
+    <!-- Схема -->
+    <rect x="65" y="70" width="100" height="150" rx="6" fill="#161b22" stroke="#8b949e"/>
+    <!-- Верх: сріблястий -->
+    <rect x="75" y="80" width="80" height="65" fill="#f0f6fc" opacity="0.9"/>
+    <text x="115" y="118" text-anchor="middle" font-family="system-ui, sans-serif" font-size="12" font-weight="bold" fill="#0d1117">Пара (Світла)</text>
+    <!-- Низ: чорний -->
+    <rect x="75" y="145" width="80" height="65" fill="#0d1117"/>
+    <text x="115" y="183" text-anchor="middle" font-family="system-ui, sans-serif" font-size="12" font-weight="bold" fill="#58a6ff">Вода (Темна)</text>
+
+    <text x="20" y="250" font-family="system-ui, sans-serif" font-size="11" fill="#c9d1d9">• Макс. контрастність</text>
+    <text x="20" y="272" font-family="system-ui, sans-serif" font-size="11" fill="#c9d1d9">• Не потребує підсвітки</text>
+    <text x="20" y="294" font-family="system-ui, sans-serif" font-size="11" fill="#c9d1d9">• До 400 °C / 400 бар</text>
+    <text x="20" y="316" font-family="system-ui, sans-serif" font-size="11" fill="#8b949e">• Не для в'язких нафтопродуктів</text>
+  </g>
+
+  <!-- 2. Прозорий -->
+  <g transform="translate(310, 85)">
+    <rect width="230" height="345" rx="8" fill="#0d1117" stroke="#30363d"/>
+    <text x="115" y="30" text-anchor="middle" font-family="system-ui, sans-serif" font-size="15" font-weight="bold" fill="#3fb950">
+      Прозорий (Transparent)
+    </text>
+    <text x="115" y="50" text-anchor="middle" font-family="system-ui, sans-serif" font-size="11" fill="#8b949e">
+      Два плоских скла
+    </text>
+
+    <!-- Схема -->
+    <rect x="65" y="70" width="100" height="150" rx="6" fill="#161b22" stroke="#8b949e"/>
+    <!-- Просвіт крізь скло -->
+    <rect x="75" y="80" width="80" height="130" fill="#21262d"/>
+    <line x1="75" y1="145" x2="155" y2="145" stroke="#388bfd" stroke-width="3"/>
+    <text x="115" y="118" text-anchor="middle" font-family="system-ui, sans-serif" font-size="12" fill="#8b949e">Газ</text>
+    <text x="115" y="183" text-anchor="middle" font-family="system-ui, sans-serif" font-size="12" fill="#79c0ff">Рідина</text>
+
+    <text x="20" y="250" font-family="system-ui, sans-serif" font-size="11" fill="#c9d1d9">• Видно колір рідини</text>
+    <text x="20" y="272" font-family="system-ui, sans-serif" font-size="11" fill="#c9d1d9">• Межа розділу фаз масло/вода</text>
+    <text x="20" y="294" font-family="system-ui, sans-serif" font-size="11" fill="#c9d1d9">• Слюдяні пластини (Mica)</text>
+    <text x="20" y="316" font-family="system-ui, sans-serif" font-size="11" fill="#8b949e">• Потребує задньої підсвітки</text>
+  </g>
+
+  <!-- 3. Двоколірний -->
+  <g transform="translate(570, 85)">
+    <rect width="230" height="345" rx="8" fill="#0d1117" stroke="#30363d"/>
+    <text x="115" y="30" text-anchor="middle" font-family="system-ui, sans-serif" font-size="15" font-weight="bold" fill="#f0883e">
+      Двоколірний (Bi-color)
+    </text>
+    <text x="115" y="50" text-anchor="middle" font-family="system-ui, sans-serif" font-size="11" fill="#8b949e">
+      Червоний / Зелений
+    </text>
+
+    <!-- Схема -->
+    <rect x="65" y="70" width="100" height="150" rx="6" fill="#161b22" stroke="#8b949e"/>
+    <!-- Верх: Червоний -->
+    <rect x="75" y="80" width="80" height="65" fill="#da3633"/>
+    <text x="115" y="118" text-anchor="middle" font-family="system-ui, sans-serif" font-size="12" font-weight="bold" fill="#ffffff">Пара (Черв.)</text>
+    <!-- Низ: Зелений -->
+    <rect x="75" y="145" width="80" height="65" fill="#238636"/>
+    <text x="115" y="183" text-anchor="middle" font-family="system-ui, sans-serif" font-size="12" font-weight="bold" fill="#ffffff">Вода (Зел.)</text>
+
+    <text x="20" y="250" font-family="system-ui, sans-serif" font-size="11" fill="#c9d1d9">• Трапецієподібний корпус</text>
+    <text x="20" y="272" font-family="system-ui, sans-serif" font-size="11" fill="#c9d1d9">• Подвійна дифракція</text>
+    <text x="20" y="294" font-family="system-ui, sans-serif" font-size="11" fill="#c9d1d9">• Котли надвисокого тиску</text>
+    <text x="20" y="316" font-family="system-ui, sans-serif" font-size="11" fill="#8b949e">• Дистанційний відеонагляд</text>
+  </g>
+</svg>

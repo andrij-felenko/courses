@@ -1,0 +1,82 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 850 500" width="100%" height="100%">
+  <rect width="100%" height="100%" fill="#0d1117"/>
+  <rect x="25" y="25" width="800" height="450" rx="12" fill="#161b22" stroke="#30363d" stroke-width="2"/>
+  
+  <text x="425" y="60" text-anchor="middle" font-family="system-ui, sans-serif" font-size="20" font-weight="bold" fill="#f0f6fc">
+    Конструктивний розріз рефлексійного показчика рівня
+  </text>
+  
+  <g transform="translate(60, 95)">
+    <!-- Коване сталеве тіло покажчика -->
+    <rect x="50" y="30" width="300" height="320" rx="10" fill="#21262d" stroke="#8b949e" stroke-width="3"/>
+    <!-- Внутрішня рідинна камера -->
+    <path d="M 110,60 L 290,60 L 290,320 L 110,320 Z" fill="#0d1117" stroke="#30363d" stroke-width="2"/>
+    <text x="200" y="190" text-anchor="middle" font-family="system-ui, sans-serif" font-size="14" fill="#8b949e">
+      Робоча камера тиску
+    </text>
+
+    <!-- Ущільнювальна прокладка (Gasket) -->
+    <rect x="90" y="40" width="15" height="300" fill="#d29922"/>
+
+    <!-- Рефлексійне боросилікатне скло з канавками -->
+    <rect x="65" y="50" width="25" height="280" fill="#388bfd" opacity="0.6"/>
+    <!-- Призматичні канавки на склі -->
+    <path d="M 90,60 L 80,70 L 90,80 L 80,90 L 90,100 L 80,110 L 90,120 L 80,130 L 90,140 L 80,150 L 90,160 L 80,170 L 90,180 L 80,190 L 90,200 L 80,210 L 90,220 L 80,230 L 90,240 L 80,250 L 90,260 L 80,270 L 90,280 L 80,290 L 90,300 L 80,310 L 90,320" fill="none" stroke="#f0f6fc" stroke-width="2"/>
+
+    <!-- Демпферна прокладка (Cushion Gasket) -->
+    <rect x="50" y="40" width="12" height="300" fill="#d29922"/>
+
+    <!-- Притискна кришка (Cover Plate) -->
+    <rect x="15" y="30" width="35" height="320" rx="4" fill="#30363d" stroke="#8b949e" stroke-width="2"/>
+
+    <!-- Затискні болти з тарілчастими пружинами -->
+    <rect x="-15" y="50" width="40" height="20" rx="3" fill="#f0883e"/>
+    <line x1="25" y1="60" x2="110" y2="60" stroke="#f0883e" stroke-width="6"/>
+
+    <rect x="-15" y="130" width="40" height="20" rx="3" fill="#f0883e"/>
+    <line x1="25" y1="140" x2="110" y2="140" stroke="#f0883e" stroke-width="6"/>
+
+    <rect x="-15" y="210" width="40" height="20" rx="3" fill="#f0883e"/>
+    <line x1="25" y1="220" x2="110" y2="220" stroke="#f0883e" stroke-width="6"/>
+
+    <rect x="-15" y="290" width="40" height="20" rx="3" fill="#f0883e"/>
+    <line x1="25" y1="300" x2="110" y2="300" stroke="#f0883e" stroke-width="6"/>
+
+    <!-- Сполучні патрубки до котла / резервуара -->
+    <rect x="290" y="70" width="70" height="30" fill="#21262d" stroke="#8b949e" stroke-width="2"/>
+    <rect x="290" y="280" width="70" height="30" fill="#21262d" stroke="#8b949e" stroke-width="2"/>
+  </g>
+
+  <!-- Специфікація та виноски праворуч -->
+  <g transform="translate(480, 110)">
+    <rect width="280" height="320" rx="8" fill="#0d1117" stroke="#30363d"/>
+    <text x="140" y="30" text-anchor="middle" font-family="system-ui, sans-serif" font-size="16" font-weight="bold" fill="#58a6ff">
+      Специфікація вузлів
+    </text>
+
+    <g transform="translate(20, 55)">
+      <circle cx="8" cy="8" r="6" fill="#f0883e"/>
+      <text x="24" y="12" font-family="system-ui, sans-serif" font-size="12" fill="#c9d1d9">Болти із пружинами Бельвіля</text>
+    </g>
+    <g transform="translate(20, 95)">
+      <circle cx="8" cy="8" r="6" fill="#30363d"/>
+      <text x="24" y="12" font-family="system-ui, sans-serif" font-size="12" fill="#c9d1d9">Кована притискна планка</text>
+    </g>
+    <g transform="translate(20, 135)">
+      <circle cx="8" cy="8" r="6" fill="#d29922"/>
+      <text x="24" y="12" font-family="system-ui, sans-serif" font-size="12" fill="#c9d1d9">Демпферна прокладка (Cushion)</text>
+    </g>
+    <g transform="translate(20, 175)">
+      <circle cx="8" cy="8" r="6" fill="#388bfd"/>
+      <text x="24" y="12" font-family="system-ui, sans-serif" font-size="12" fill="#c9d1d9">Боросилікатне скло DIN 7081</text>
+    </g>
+    <g transform="translate(20, 215)">
+      <circle cx="8" cy="8" r="6" fill="#d29922"/>
+      <text x="24" y="12" font-family="system-ui, sans-serif" font-size="12" fill="#c9d1d9">Герметизуюча графітова прокладка</text>
+    </g>
+    <g transform="translate(20, 255)">
+      <circle cx="8" cy="8" r="6" fill="#21262d" stroke="#8b949e"/>
+      <text x="24" y="12" font-family="system-ui, sans-serif" font-size="12" fill="#c9d1d9">Корпус (Сталь A105 / 316L)</text>
+    </g>
+  </g>
+</svg>
