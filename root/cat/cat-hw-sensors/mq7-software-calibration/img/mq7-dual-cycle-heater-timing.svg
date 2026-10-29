@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 840 500" width="100%" height="100%">
+  <rect width="840" height="500" fill="#0d1117"/>
+  <text x="420" y="34" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="20" font-weight="bold" fill="#f0f6fc" text-anchor="middle">Часова діаграма двофазного циклу нагріву MQ-7</text>
+  <text x="420" y="58" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="13" fill="#8b949e" text-anchor="middle">Період циклу 150 секунд: очищення при 5.0 В (60 с) та детекція при 1.4 В (90 с)</text>
+
+  <!-- Timeline Canvas -->
+  <rect x="50" y="85" width="740" height="370" rx="8" fill="#161b22" stroke="#30363d" stroke-width="1.5"/>
+
+  <!-- Phase 1: High Temperature Cleaning (0..60s) -->
+  <rect x="90" y="110" width="280" height="150" fill="rgba(248, 81, 73, 0.12)" stroke="#f85149" stroke-width="2"/>
+  <text x="230" y="135" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto" font-size="15" font-weight="bold" fill="#f85149" text-anchor="middle">Фаза 1: Очищення (Purge)</text>
+  <text x="230" y="155" font-family="monospace" font-size="13" fill="#f0f6fc" text-anchor="middle">VH = 5.0 В | Тривалість: 60 секунд</text>
+
+  <rect x="110" y="175" width="240" height="70" rx="4" fill="#0d1117" stroke="#30363d"/>
+  <text x="120" y="195" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto" font-size="11" fill="#8b949e">• Температура шару досягає ~400 °C</text>
+  <text x="120" y="213" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto" font-size="11" fill="#8b949e">• Спалювання адсорбованих залишків</text>
+  <text x="120" y="231" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto" font-size="11" fill="#f85149">• Вимірювання АЦП ЗАБОРОНЕНО!</text>
+
+  <!-- Phase 2: Low Temperature Sensing (60..150s) -->
+  <rect x="370" y="110" width="380" height="150" fill="rgba(88, 166, 255, 0.12)" stroke="#58a6ff" stroke-width="2"/>
+  <text x="560" y="135" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto" font-size="15" font-weight="bold" fill="#58a6ff" text-anchor="middle">Фаза 2: Детектування CO (Sense)</text>
+  <text x="560" y="155" font-family="monospace" font-size="13" fill="#f0f6fc" text-anchor="middle">VH = 1.4 В | Тривалість: 90 секунд</text>
+
+  <!-- Temperature stabilization zone inside Phase 2 (first 75s of phase 2) -->
+  <rect x="380" y="175" width="220" height="70" rx="4" fill="#0d1117" stroke="#30363d"/>
+  <text x="390" y="195" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto" font-size="11" fill="#8b949e">• Охолодження до ~100 °C (0-75 с)</text>
+  <text x="390" y="213" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto" font-size="11" fill="#8b949e">• Релаксація хімічного потенціалу</text>
+  <text x="390" y="231" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto" font-size="11" fill="#d29922">• Перехідний процес (не валідно)</text>
+
+  <!-- Valid ADC Measurement Window (last 15s: 135s to 150s) -->
+  <rect x="610" y="175" width="130" height="70" rx="4" fill="#21262d" stroke="#3fb950" stroke-width="2"/>
+  <text x="675" y="197" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto" font-size="11" font-weight="bold" fill="#3fb950" text-anchor="middle">Вікно АЦП</text>
+  <text x="675" y="215" font-family="monospace" font-size="11" fill="#f0f6fc" text-anchor="middle">135...150 с</text>
+  <text x="675" y="233" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto" font-size="10" fill="#3fb950" text-anchor="middle">Оверсемплінг</text>
+
+  <!-- Heater Voltage Waveform -->
+  <text x="70" y="295" font-family="monospace" font-size="11" fill="#8b949e">VH (В)</text>
+  <line x1="90" y1="330" x2="750" y2="330" stroke="#30363d"/>
+
+  <!-- Waveform: 5V for 60s, then 1.4V for 90s -->
+  <path d="M 90,280 L 370,280 L 370,320 L 750,320" fill="none" stroke="#d29922" stroke-width="3"/>
+  <text x="100" y="275" font-family="monospace" font-size="11" fill="#f85149">5.0 В (PWM 100%)</text>
+  <text x="400" y="315" font-family="monospace" font-size="11" fill="#58a6ff">1.4 В (PWM 28%)</text>
+
+  <!-- Time Axis ticks -->
+  <line x1="90" y1="350" x2="90" y2="360" stroke="#8b949e"/>
+  <text x="90" y="375" font-family="monospace" font-size="11" fill="#8b949e" text-anchor="middle">0 с</text>
+
+  <line x1="370" y1="350" x2="370" y2="360" stroke="#8b949e"/>
+  <text x="370" y="375" font-family="monospace" font-size="11" fill="#8b949e" text-anchor="middle">60 с</text>
+
+  <line x1="610" y1="350" x2="610" y2="360" stroke="#3fb950"/>
+  <text x="610" y="375" font-family="monospace" font-size="11" fill="#3fb950" font-weight="bold" text-anchor="middle">135 с</text>
+
+  <line x1="750" y1="350" x2="750" y2="360" stroke="#8b949e"/>
+  <text x="750" y="375" font-family="monospace" font-size="11" fill="#8b949e" text-anchor="middle">150 с</text>
+
+  <text x="420" y="395" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto" font-size="12" fill="#8b949e" text-anchor="middle">Час циклу t, секунди -> [Повторення кожні 2.5 хвилини]</text>
+
+  <!-- Safety Banner at bottom -->
+  <rect x="90" y="415" width="660" height="30" rx="4" fill="#0d1117" stroke="#3fb950" stroke-width="1"/>
+  <text x="420" y="435" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto" font-size="11" fill="#3fb950" text-anchor="middle">Правильне вимірювання у вікні 135-150 с виключає вплив термоудару та стабілізує сигнал CO!</text>
+</svg>

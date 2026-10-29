@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 840 500" width="100%" height="100%">
+  <rect width="840" height="500" fill="#0d1117"/>
+  <text x="420" y="34" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="20" font-weight="bold" fill="#f0f6fc" text-anchor="middle">Оптимізація обчислення степеневої функції ppm = A * Ratio^B</text>
+  <text x="420" y="58" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="13" fill="#8b949e" text-anchor="middle">Порівняння стандартної функції powf() та швидкої цілочисельної табличної апроксимації (LUT)</text>
+
+  <!-- Left Card: Standard Float powf -->
+  <rect x="50" y="90" width="350" height="360" rx="8" fill="#161b22" stroke="#f85149" stroke-width="1.5"/>
+  <text x="225" y="120" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto" font-size="15" font-weight="bold" fill="#f85149" text-anchor="middle">1. Стандартний powf() (libm)</text>
+
+  <rect x="70" y="140" width="310" height="80" rx="6" fill="#0d1117" stroke="#30363d"/>
+  <text x="80" y="162" font-family="monospace" font-size="11" fill="#f0f6fc">// Розрахунок через експоненту та логарифм</text>
+  <text x="80" y="180" font-family="monospace" font-size="12" fill="#58a6ff">float ppm = A * powf(ratio, B);</text>
+  <text x="80" y="200" font-family="monospace" font-size="10" fill="#8b949e">// pow(x, y) = exp(y * log(x))</text>
+
+  <text x="70" y="250" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto" font-size="12" font-weight="bold" fill="#f0f6fc">Характеристики виконання:</text>
+  <text x="70" y="275" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto" font-size="11" fill="#8b949e">• Такти процесора (Cortex-M0 / M3): ~850 тактів</text>
+  <text x="70" y="295" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto" font-size="11" fill="#8b949e">• Розмір Flash-пам'яті libm: ~2.4 КБ коду</text>
+  <text x="70" y="315" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto" font-size="11" fill="#8b949e">• Схильність до переповнення при ratio -> 0</text>
+  <text x="70" y="335" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto" font-size="11" fill="#8b949e">• Час на 16 МГц (AVR): > 140 мкс</text>
+
+  <rect x="70" y="360" width="310" height="65" rx="6" fill="#21262d" stroke="#f85149"/>
+  <text x="80" y="382" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto" font-size="11" fill="#f85149">Недоліки для низькоспоживаючих вузлів:</text>
+  <text x="80" y="402" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto" font-size="10" fill="#f0f6fc">Зайве енергоспоживання ядра в батарейних датчиках</text>
+
+  <!-- Right Card: Fast Fixed-Point LUT -->
+  <rect x="440" y="90" width="350" height="360" rx="8" fill="#161b22" stroke="#3fb950" stroke-width="1.5"/>
+  <text x="615" y="120" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto" font-size="15" font-weight="bold" fill="#3fb950" text-anchor="middle">2. Швидка таблиця LUT + Lerp</text>
+
+  <rect x="460" y="140" width="310" height="80" rx="6" fill="#0d1117" stroke="#30363d"/>
+  <text x="470" y="162" font-family="monospace" font-size="11" fill="#f0f6fc">// 32 вузли попередньо обчислених ppm</text>
+  <text x="470" y="180" font-family="monospace" font-size="12" fill="#3fb950">uint16_t ppm = lookup_ppm_fast(ratio_q8);</text>
+  <text x="470" y="200" font-family="monospace" font-size="10" fill="#8b949e">// Лінійна інтерполяція між сусідніми точками</text>
+
+  <text x="460" y="250" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto" font-size="12" font-weight="bold" fill="#f0f6fc">Характеристики виконання:</text>
+  <text x="460" y="275" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto" font-size="11" fill="#3fb950">• Такти процесора: лише 24 такти!</text>
+  <text x="460" y="295" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto" font-size="11" fill="#3fb950">• Розмір Flash-пам'яті: 64 байти (uint16_t[32])</text>
+  <text x="460" y="315" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto" font-size="11" fill="#3fb950">• Час на 16 МГц: &lt; 1.5 мкс (прискорення у 90 разів!)</text>
+  <text x="460" y="335" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto" font-size="11" fill="#3fb950">• Залишкова похибка апроксимації: &lt; 0.4%</text>
+
+  <rect x="460" y="360" width="310" height="65" rx="6" fill="#21262d" stroke="#3fb950"/>
+  <text x="470" y="382" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto" font-size="11" fill="#3fb950">Ідеально для IoT / Battery Devices:</text>
+  <text x="470" y="402" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto" font-size="10" fill="#f0f6fc">Швидке пробудження зі сну, обчислення та засинання</text>
+</svg>

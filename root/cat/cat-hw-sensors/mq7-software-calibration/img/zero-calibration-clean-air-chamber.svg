@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 840 500" width="100%" height="100%">
+  <rect width="840" height="500" fill="#0d1117"/>
+  <text x="420" y="34" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="20" font-weight="bold" fill="#f0f6fc" text-anchor="middle">Процедура нульового калібрування в чистому повітрі (Zero R0)</text>
+  <text x="420" y="58" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="13" fill="#8b949e" text-anchor="middle">Накопичення статистики, фільтрація та збереження базового опору R0 в енергонезалежну пам'ять</text>
+
+  <!-- Step 1: Pre-heating Burn-in -->
+  <rect x="40" y="90" width="220" height="160" rx="8" fill="#161b22" stroke="#d29922" stroke-width="1.5"/>
+  <circle cx="65" cy="115" r="14" fill="#d29922"/>
+  <text x="65" y="120" font-family="monospace" font-size="12" font-weight="bold" fill="#0d1117" text-anchor="middle">1</text>
+  <text x="90" y="120" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto" font-size="14" font-weight="bold" fill="#f0f6fc">Прогрів (Burn-in)</text>
+
+  <text x="55" y="150" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto" font-size="11" fill="#8b949e">• Тривалість: 24..48 годин</text>
+  <text x="55" y="170" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto" font-size="11" fill="#8b949e">• Стабілізація кисневої решітки</text>
+  <text x="55" y="190" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto" font-size="11" fill="#8b949e">• Видалення монтажних флюсів</text>
+  <text x="55" y="210" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto" font-size="11" fill="#d29922">• Новий сенсор дрейфує до 30%</text>
+
+  <!-- Arrow 1 to 2 -->
+  <line x1="260" y1="170" x2="310" y2="170" stroke="#58a6ff" stroke-width="2" stroke-dasharray="4"/>
+
+  <!-- Step 2: Clean Air Exposure -->
+  <rect x="310" y="90" width="220" height="160" rx="8" fill="#161b22" stroke="#58a6ff" stroke-width="1.5"/>
+  <circle cx="335" cy="115" r="14" fill="#58a6ff"/>
+  <text x="335" y="120" font-family="monospace" font-size="12" font-weight="bold" fill="#0d1117" text-anchor="middle">2</text>
+  <text x="360" y="120" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto" font-size="14" font-weight="bold" fill="#f0f6fc">Чисте повітря</text>
+
+  <text x="325" y="150" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto" font-size="11" fill="#8b949e">• Концентрація CO: 0.0 ppm</text>
+  <text x="325" y="170" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto" font-size="11" fill="#8b949e">• Фіксація T = 20 °C, RH = 65%</text>
+  <text x="325" y="190" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto" font-size="11" fill="#8b949e">• Накопичення 10 повних циклів</text>
+  <text x="325" y="210" font-family="monospace" font-size="10" fill="#3fb950">N = 10 вибірок у вікнах 145с</text>
+
+  <!-- Arrow 2 to 3 -->
+  <line x1="530" y1="170" x2="580" y2="170" stroke="#58a6ff" stroke-width="2" stroke-dasharray="4"/>
+
+  <!-- Step 3: Statistical Filtering -->
+  <rect x="580" y="90" width="220" height="160" rx="8" fill="#161b22" stroke="#3fb950" stroke-width="1.5"/>
+  <circle cx="605" cy="115" r="14" fill="#3fb950"/>
+  <text x="605" y="120" font-family="monospace" font-size="12" font-weight="bold" fill="#0d1117" text-anchor="middle">3</text>
+  <text x="630" y="120" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto" font-size="14" font-weight="bold" fill="#3fb950">Фільтрація шуму</text>
+
+  <text x="595" y="150" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto" font-size="11" fill="#8b949e">• Відкидання мін. та макс. значень</text>
+  <text x="595" y="170" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto" font-size="11" fill="#8b949e">• Розрахунок медіани Rs_clean</text>
+  <text x="595" y="195" font-family="monospace" font-size="11" fill="#f0f6fc">R0 = Rs_clean / 26.5</text>
+  <text x="595" y="215" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto" font-size="10" fill="#3fb950">Критерій: СКО &lt; 3%</text>
+
+  <!-- Arrow 3 Down to NVS -->
+  <line x1="690" y1="250" x2="690" y2="295" stroke="#3fb950" stroke-width="2" stroke-dasharray="4"/>
+
+  <!-- Step 4: Storage in NVS / EEPROM -->
+  <rect x="440" y="295" width="360" height="160" rx="8" fill="#161b22" stroke="#bc8cff" stroke-width="1.5"/>
+  <text x="620" y="325" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto" font-size="14" font-weight="bold" fill="#bc8cff" text-anchor="middle">Запис у пам'ять (NVS / EEPROM / Flash)</text>
+
+  <rect x="460" y="340" width="320" height="95" rx="6" fill="#0d1117" stroke="#30363d"/>
+  <text x="475" y="362" font-family="monospace" font-size="11" fill="#f0f6fc">struct CalibrationRecord {</text>
+  <text x="490" y="380" font-family="monospace" font-size="10" fill="#58a6ff">float r0_calibrated;  // Наприклад: 4.82 кОм</text>
+  <text x="490" y="396" font-family="monospace" font-size="10" fill="#8b949e">uint32_t cal_timestamp; // Дата калібрування</text>
+  <text x="490" y="412" font-family="monospace" font-size="10" fill="#3fb950">uint16_t crc16;       // Контрольна сума цілісності</text>
+  <text x="475" y="428" font-family="monospace" font-size="11" fill="#f0f6fc">};</text>
+
+  <!-- Explanatory card on Bottom-Left -->
+  <rect x="40" y="295" width="370" height="160" rx="8" fill="#161b22" stroke="#30363d" stroke-width="1.5"/>
+  <text x="55" y="325" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto" font-size="13" font-weight="bold" fill="#f0f6fc">Чому R0 індивідуальний для кожного давача?</text>
+  <text x="55" y="350" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto" font-size="11" fill="#8b949e">• Технологічний розкид товщини плівки SnO2: до +-40%</text>
+  <text x="55" y="372" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto" font-size="11" fill="#8b949e">• Розкид опору нагрівальної спіралі (29..36 Ом)</text>
+  <text x="55" y="394" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto" font-size="11" fill="#8b949e">• Без індивідуального R0 помилка концентрації CO сягає 100%</text>
+  <text x="55" y="420" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto" font-size="11" fill="#3fb950">Рекомендовано повторювати калібрування раз на рік!</text>
+</svg>
