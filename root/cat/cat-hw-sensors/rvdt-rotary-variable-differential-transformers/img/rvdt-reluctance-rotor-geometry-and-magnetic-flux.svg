@@ -1,0 +1,91 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 520" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f172a"/>
+      <stop offset="100%" stop-color="#1e293b"/>
+    </linearGradient>
+    <linearGradient id="statorGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#334155"/>
+      <stop offset="100%" stop-color="#1e293b"/>
+    </linearGradient>
+    <linearGradient id="rotorGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#38bdf8"/>
+      <stop offset="100%" stop-color="#0284c7"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="880" height="520" fill="url(#bgGrad)" rx="12" stroke="#334155" stroke-width="1.5"/>
+
+  <!-- Title -->
+  <text x="440" y="35" fill="#f8fafc" font-family="system-ui, sans-serif" font-size="18" font-weight="bold" text-anchor="middle">
+    Електромагнітна конструкція та геометрія ротора RVDT
+  </text>
+  <text x="440" y="58" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="13" text-anchor="middle">
+    Зміна магнітного опору (reluctance) повітряних проміжків під полюсами статора під час обертання
+  </text>
+
+  <!-- Left: Cross-section Diagram -->
+  <g transform="translate(60, 95)">
+    <!-- Outer Stator Ring -->
+    <circle cx="200" cy="180" r="160" fill="url(#statorGrad)" stroke="#475569" stroke-width="3"/>
+    <circle cx="200" cy="180" r="110" fill="#090d16" stroke="#475569" stroke-width="2"/>
+
+    <!-- Poles -->
+    <!-- Primary Top Pole (Excitation) -->
+    <rect x="180" y="30" width="40" height="60" fill="#475569" stroke="#64748b"/>
+    <rect x="175" y="45" width="50" height="30" rx="3" fill="#b45309" stroke="#f59e0b" stroke-width="1.5"/>
+    <text x="200" y="65" fill="#fef08a" font-family="system-ui" font-size="10.5" font-weight="bold" text-anchor="middle">V_exc</text>
+
+    <!-- Secondary Pole S1 (Left) -->
+    <rect x="50" y="160" width="60" height="40" fill="#475569" stroke="#64748b"/>
+    <rect x="65" y="155" width="30" height="50" rx="3" fill="#15803d" stroke="#22c55e" stroke-width="1.5"/>
+    <text x="80" y="185" fill="#dcfce7" font-family="system-ui" font-size="10.5" font-weight="bold" text-anchor="middle">S1</text>
+
+    <!-- Secondary Pole S2 (Right) -->
+    <rect x="290" y="160" width="60" height="40" fill="#475569" stroke="#64748b"/>
+    <rect x="305" y="155" width="30" height="50" rx="3" fill="#15803d" stroke="#22c55e" stroke-width="1.5"/>
+    <text x="320" y="185" fill="#dcfce7" font-family="system-ui" font-size="10.5" font-weight="bold" text-anchor="middle">S2</text>
+
+    <!-- Bottom Return Pole -->
+    <rect x="180" y="270" width="40" height="60" fill="#475569" stroke="#64748b"/>
+
+    <!-- Cam-shaped Rotor (Turned by angle theta) -->
+    <path d="M 170 140 Q 240 130, 260 170 Q 280 220, 220 230 Q 150 240, 140 190 Z" fill="url(#rotorGrad)" stroke="#7dd3fc" stroke-width="2"/>
+    <circle cx="200" cy="180" r="16" fill="#0f172a" stroke="#cbd5e1" stroke-width="2"/>
+    <circle cx="200" cy="180" r="6" fill="#f8fafc"/>
+    <text x="200" y="184" fill="#0f172a" font-family="monospace" font-size="9" text-anchor="middle">Вал</text>
+
+    <!-- Air gaps callouts -->
+    <line x1="110" y1="180" x2="145" y2="180" stroke="#f43f5e" stroke-width="2"/>
+    <text x="127" y="172" fill="#fb7185" font-family="monospace" font-size="10" font-weight="bold" text-anchor="middle">g1(θ)</text>
+
+    <line x1="260" y1="180" x2="290" y2="180" stroke="#f43f5e" stroke-width="2"/>
+    <text x="275" y="172" fill="#fb7185" font-family="monospace" font-size="10" font-weight="bold" text-anchor="middle">g2(θ)</text>
+  </g>
+
+  <!-- Right: Physics & Equations -->
+  <g transform="translate(500, 95)">
+    <rect width="330" height="370" rx="8" fill="#111827" stroke="#334155" stroke-width="1.5"/>
+    <text x="165" y="30" fill="#f8fafc" font-family="system-ui" font-size="14" font-weight="bold" text-anchor="middle">
+      Принцип зміни магнітного опору
+    </text>
+
+    <rect x="20" y="55" width="290" height="55" rx="5" fill="#1e293b" stroke="#f59e0b" stroke-width="1"/>
+    <text x="35" y="77" fill="#fbbf24" font-family="monospace" font-size="13" font-weight="bold">R_m(θ) = g(θ) / (μ_0 · A)</text>
+    <text x="35" y="98" fill="#cbd5e1" font-family="system-ui" font-size="10.5">Опір повітряного зазору домінує в колі</text>
+
+    <g transform="translate(20, 125)">
+      <text x="0" y="20" fill="#38bdf8" font-family="system-ui" font-size="12" font-weight="bold">При повороті вала на кут θ:</text>
+      <text x="10" y="42" fill="#cbd5e1" font-family="system-ui" font-size="11">• Зазор g1 зменшується → R_m1 падає</text>
+      <text x="10" y="62" fill="#cbd5e1" font-family="system-ui" font-size="11">• Магнітний потік Φ1 через S1 зростає</text>
+      <text x="10" y="82" fill="#cbd5e1" font-family="system-ui" font-size="11">• Зазор g2 збільшується → R_m2 зростає</text>
+      <text x="10" y="102" fill="#cbd5e1" font-family="system-ui" font-size="11">• Магнітний потік Φ2 через S2 падає</text>
+    </g>
+
+    <rect x="20" y="245" width="290" height="95" rx="5" fill="#0f172a" stroke="#10b981" stroke-width="1"/>
+    <text x="30" y="268" fill="#34d399" font-family="system-ui" font-size="11.5" font-weight="bold">Диференціальний вихідний сигнал:</text>
+    <text x="30" y="290" fill="#ffffff" font-family="monospace" font-size="12" font-weight="bold">V_diff = V_s1 - V_s2</text>
+    <text x="30" y="312" fill="#a7f3d0" font-family="monospace" font-size="12" font-weight="bold">V_diff = 2 · K_d · θ · V_exc</text>
+    <text x="30" y="330" fill="#94a3b8" font-family="system-ui" font-size="10.5">Строга лінійність в інтервалі ±40° ... ±60°</text>
+  </g>
+</svg>
