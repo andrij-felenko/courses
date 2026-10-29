@@ -1,0 +1,86 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 850 480" width="100%" height="100%">
+  <rect width="100%" height="100%" fill="#0d1117"/>
+  <rect x="25" y="25" width="800" height="430" rx="12" fill="#161b22" stroke="#30363d" stroke-width="2"/>
+  
+  <text x="425" y="55" text-anchor="middle" font-family="system-ui, sans-serif" font-size="20" font-weight="bold" fill="#f0f6fc">
+    Магнітний гістерезис (Pull-in / Drop-out) та перекриття зон герконів
+  </text>
+
+  <!-- Графік магнітного гістерезису -->
+  <g transform="translate(60, 90)">
+    <rect width="340" height="340" rx="8" fill="#0d1117" stroke="#30363d"/>
+    <text x="170" y="30" text-anchor="middle" font-family="system-ui, sans-serif" font-size="15" font-weight="bold" fill="#58a6ff">
+      Петля гістерезису геркона
+    </text>
+
+    <!-- Осі координат -->
+    <line x1="50" y1="280" x2="310" y2="280" stroke="#8b949e" stroke-width="2"/>
+    <text x="310" y="295" font-family="system-ui, sans-serif" font-size="11" fill="#8b949e">z (мм)</text>
+    <line x1="50" y1="280" x2="50" y2="60" stroke="#8b949e" stroke-width="2"/>
+    <text x="30" y="60" font-family="system-ui, sans-serif" font-size="11" fill="#8b949e">Стан</text>
+
+    <!-- Петля перемикання -->
+    <!-- Замикання (Pull-in) -->
+    <path d="M 60,260 L 140,260 L 140,110 L 290,110" fill="none" stroke="#3fb950" stroke-width="3"/>
+    <text x="145" y="95" font-family="system-ui, sans-serif" font-size="11" font-weight="bold" fill="#3fb950">Pull-in (Замикання)</text>
+
+    <!-- Розмикання (Drop-out) -->
+    <path d="M 290,110 L 100,110 L 100,260 L 60,260" fill="none" stroke="#f85149" stroke-width="3" stroke-dasharray="5,3"/>
+    <text x="95" y="245" font-family="system-ui, sans-serif" font-size="11" font-weight="bold" fill="#f85149">Drop-out (Розмикання)</text>
+
+    <!-- Зона гістерезису Δz -->
+    <rect x="100" y="130" width="40" height="110" fill="#d29922" opacity="0.2"/>
+    <text x="120" y="190" text-anchor="middle" font-family="system-ui, sans-serif" font-size="11" fill="#f2cc60">Гістерезис Δz</text>
+  </g>
+
+  <!-- Геометрія перекриття (Overlap) в лінійці -->
+  <g transform="translate(450, 90)">
+    <rect width="340" height="340" rx="8" fill="#0d1117" stroke="#30363d"/>
+    <text x="170" y="30" text-anchor="middle" font-family="system-ui, sans-serif" font-size="15" font-weight="bold" fill="#3fb950">
+      Розрахунок кроку встановлення (Overlap)
+    </text>
+
+    <!-- Неправильний великий крок: мертва зона -->
+    <g transform="translate(30, 50)">
+      <text x="0" y="20" font-family="system-ui, sans-serif" font-size="12" font-weight="bold" fill="#f85149">
+        Помилка: Завеликий крок (Dead Band)
+      </text>
+      <!-- Зона геркона 1 -->
+      <rect x="10" y="35" width="80" height="20" rx="3" fill="#388bfd" opacity="0.5"/>
+      <text x="50" y="49" text-anchor="middle" font-family="system-ui, sans-serif" font-size="10" fill="#f0f6fc">Геркон 1</text>
+      <!-- Мертва зона -->
+      <rect x="90" y="35" width="40" height="20" fill="#da3633" opacity="0.4"/>
+      <text x="110" y="49" text-anchor="middle" font-family="system-ui, sans-serif" font-size="9" fill="#f85149">Обрив!</text>
+      <!-- Зона геркона 2 -->
+      <rect x="130" y="35" width="80" height="20" rx="3" fill="#388bfd" opacity="0.5"/>
+      <text x="170" y="49" text-anchor="middle" font-family="system-ui, sans-serif" font-size="10" fill="#f0f6fc">Геркон 2</text>
+    </g>
+
+    <!-- Правильний розрахунок: зона перекриття -->
+    <g transform="translate(30, 150)">
+      <text x="0" y="20" font-family="system-ui, sans-serif" font-size="12" font-weight="bold" fill="#3fb950">
+        Правильно: Перекриття зон (Overlap)
+      </text>
+      <!-- Зона геркона 1 -->
+      <rect x="10" y="35" width="110" height="20" rx="3" fill="#388bfd" opacity="0.5"/>
+      <text x="55" y="49" text-anchor="middle" font-family="system-ui, sans-serif" font-size="10" fill="#f0f6fc">Геркон 1</text>
+      <!-- Зона геркона 2 -->
+      <rect x="90" y="35" width="110" height="20" rx="3" fill="#238636" opacity="0.5"/>
+      <text x="155" y="49" text-anchor="middle" font-family="system-ui, sans-serif" font-size="10" fill="#f0f6fc">Геркон 2</text>
+      
+      <!-- Зона перекриття 90..120 -->
+      <rect x="90" y="35" width="30" height="20" fill="#f2cc60" opacity="0.6"/>
+      <text x="105" y="70" text-anchor="middle" font-family="system-ui, sans-serif" font-size="10" fill="#f2cc60">Перекриття 2–3 мм</text>
+    </g>
+
+    <text x="30" y="260" font-family="system-ui, sans-serif" font-size="11" fill="#c9d1d9">
+      • Крок установки: s ≤ L_act - 2 мм
+    </text>
+    <text x="30" y="285" font-family="system-ui, sans-serif" font-size="11" fill="#c9d1d9">
+      • Забезпечує неперервний монотонний вихідний опір
+    </text>
+    <text x="30" y="310" font-family="system-ui, sans-serif" font-size="11" fill="#8b949e">
+      • Виключає стрибки напруги до максимуму шкали
+    </text>
+  </g>
+</svg>

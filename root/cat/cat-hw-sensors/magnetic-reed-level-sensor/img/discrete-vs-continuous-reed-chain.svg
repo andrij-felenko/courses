@@ -1,0 +1,92 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 850 480" width="100%" height="100%">
+  <rect width="100%" height="100%" fill="#0d1117"/>
+  <rect x="25" y="25" width="800" height="430" rx="12" fill="#161b22" stroke="#30363d" stroke-width="2"/>
+  
+  <text x="425" y="55" text-anchor="middle" font-family="system-ui, sans-serif" font-size="20" font-weight="bold" fill="#f0f6fc">
+    Топології: Дискретний багатоточковий давач vs Неперервний резистивний ланцюг
+  </text>
+
+  <!-- Топологія 1: Дискретні точки аварійного рівня -->
+  <g transform="translate(60, 85)">
+    <rect width="340" height="345" rx="8" fill="#0d1117" stroke="#30363d"/>
+    <text x="170" y="30" text-anchor="middle" font-family="system-ui, sans-serif" font-size="16" font-weight="bold" fill="#58a6ff">
+      1. Дискретні рівні (Alarm Limits)
+    </text>
+    <text x="170" y="50" text-anchor="middle" font-family="system-ui, sans-serif" font-size="12" fill="#8b949e">
+      Точковий контроль: Min, Norm, Max
+    </text>
+
+    <!-- Трубка зонда -->
+    <rect x="70" y="70" width="20" height="240" rx="4" fill="#30363d" stroke="#8b949e"/>
+
+    <!-- Геркон 1 (Верхній) -->
+    <rect x="74" y="90" width="12" height="25" fill="#f85149" rx="2"/>
+    <line x1="90" y1="102" x2="160" y2="102" stroke="#f85149" stroke-width="2"/>
+    <text x="170" y="106" font-family="system-ui, sans-serif" font-size="12" fill="#f85149">Аварійний MAX</text>
+
+    <!-- Геркон 2 (Середній) -->
+    <rect x="74" y="175" width="12" height="25" fill="#3fb950" rx="2"/>
+    <line x1="90" y1="187" x2="160" y2="187" stroke="#3fb950" stroke-width="2"/>
+    <text x="170" y="191" font-family="system-ui, sans-serif" font-size="12" fill="#3fb950">Робочий НОРМА</text>
+
+    <!-- Геркон 3 (Нижній) -->
+    <rect x="74" y="260" width="12" height="25" fill="#d29922" rx="2"/>
+    <line x1="90" y1="272" x2="160" y2="272" stroke="#d29922" stroke-width="2"/>
+    <text x="170" y="276" font-family="system-ui, sans-serif" font-size="12" fill="#d29922">Сухий хід MIN</text>
+
+    <!-- Поплавок на середньому рівні -->
+    <rect x="50" y="170" width="60" height="35" rx="6" fill="#da3633" stroke="#f0f6fc" stroke-width="2" opacity="0.85"/>
+  </g>
+
+  <!-- Топологія 2: Неперервна квазілінійна лінійка (Resistor Chain) -->
+  <g transform="translate(450, 85)">
+    <rect width="340" height="345" rx="8" fill="#0d1117" stroke="#30363d"/>
+    <text x="170" y="30" text-anchor="middle" font-family="system-ui, sans-serif" font-size="16" font-weight="bold" fill="#3fb950">
+      2. Неперервна лінійка (R-Chain)
+    </text>
+    <text x="170" y="50" text-anchor="middle" font-family="system-ui, sans-serif" font-size="12" fill="#8b949e">
+      Крок роздільної здатності 5, 10 або 20 мм
+    </text>
+
+    <!-- Вертикальна плата з ланцюжком герконів і резисторів -->
+    <rect x="60" y="70" width="30" height="240" rx="4" fill="#1b4721" stroke="#3fb950"/>
+
+    <!-- Резистори та геркони на платі -->
+    <g transform="translate(70, 75)">
+      <!-- R1 -->
+      <rect x="2" y="10" width="6" height="15" fill="#d29922"/>
+      <circle cx="5" cy="30" r="3" fill="#f0883e"/>
+      <!-- R2 -->
+      <rect x="2" y="40" width="6" height="15" fill="#d29922"/>
+      <circle cx="5" cy="60" r="3" fill="#f0883e"/>
+      <!-- R3 -->
+      <rect x="2" y="70" width="6" height="15" fill="#d29922"/>
+      <circle cx="5" cy="90" r="3" fill="#3fb950"/>
+      <!-- R4 -->
+      <rect x="2" y="100" width="6" height="15" fill="#d29922"/>
+      <circle cx="5" cy="120" r="3" fill="#3fb950"/>
+      <!-- R5 -->
+      <rect x="2" y="130" width="6" height="15" fill="#d29922"/>
+      <circle cx="5" cy="150" r="3" fill="#f0883e"/>
+      <!-- R6 -->
+      <rect x="2" y="160" width="6" height="15" fill="#d29922"/>
+      <circle cx="5" cy="180" r="3" fill="#f0883e"/>
+      <!-- R7 -->
+      <rect x="2" y="190" width="6" height="15" fill="#d29922"/>
+      <circle cx="5" cy="210" r="3" fill="#f0883e"/>
+    </g>
+
+    <!-- Поплавок з магнітом перемикає точку подільника -->
+    <rect x="40" y="150" width="70" height="40" rx="6" fill="#da3633" stroke="#f0f6fc" stroke-width="2" opacity="0.85"/>
+
+    <!-- Схема поділу напруги праворуч -->
+    <g transform="translate(130, 90)">
+      <text x="0" y="30" font-family="system-ui, sans-serif" font-size="12" fill="#c9d1d9">• 3-провідний потенціометр</text>
+      <text x="0" y="60" font-family="system-ui, sans-serif" font-size="12" fill="#c9d1d9">• Опір пропорційний рівню</text>
+      <text x="0" y="90" font-family="system-ui, sans-serif" font-size="12" fill="#c9d1d9">• U_out = VCC * (h / H_max)</text>
+      <text x="0" y="125" font-family="system-ui, sans-serif" font-size="12" fill="#3fb950">• Нечутливість до піни</text>
+      <text x="0" y="155" font-family="system-ui, sans-serif" font-size="12" fill="#3fb950">• Стійкість до пари й пилу</text>
+      <text x="0" y="185" font-family="system-ui, sans-serif" font-size="12" fill="#8b949e">• Не вимагає перекалібрування</text>
+    </g>
+  </g>
+</svg>

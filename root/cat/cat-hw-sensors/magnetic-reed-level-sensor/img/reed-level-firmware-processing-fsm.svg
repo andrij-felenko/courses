@@ -1,0 +1,80 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 850 480" width="100%" height="100%">
+  <rect width="100%" height="100%" fill="#0d1117"/>
+  <rect x="25" y="25" width="800" height="430" rx="12" fill="#161b22" stroke="#30363d" stroke-width="2"/>
+  
+  <text x="425" y="55" text-anchor="middle" font-family="system-ui, sans-serif" font-size="20" font-weight="bold" fill="#f0f6fc">
+    Конвеєр цифрової обробки сигналу герконового давача (Firmware Pipeline)
+  </text>
+
+  <!-- Блок-схема конвеєра -->
+  <g transform="translate(50, 95)">
+    <!-- Блок 1: АЦП дискретизація -->
+    <rect x="0" y="30" width="130" height="80" rx="8" fill="#21262d" stroke="#58a6ff" stroke-width="2"/>
+    <text x="65" y="65" text-anchor="middle" font-family="system-ui, sans-serif" font-size="12" font-weight="bold" fill="#58a6ff">ADC Опитування</text>
+    <text x="65" y="85" text-anchor="middle" font-family="system-ui, sans-serif" font-size="10" fill="#8b949e">100 Гц, Оверсемплінг</text>
+
+    <!-- Стрілка 1 -->
+    <path d="M 130,70 L 160,70" stroke="#8b949e" stroke-width="2"/>
+
+    <!-- Блок 2: Медіанний фільтр -->
+    <rect x="160" y="30" width="130" height="80" rx="8" fill="#21262d" stroke="#3fb950" stroke-width="2"/>
+    <text x="225" y="65" text-anchor="middle" font-family="system-ui, sans-serif" font-size="12" font-weight="bold" fill="#3fb950">Медіанний фільтр</text>
+    <text x="225" y="85" text-anchor="middle" font-family="system-ui, sans-serif" font-size="10" fill="#8b949e">Придушення дребезгу</text>
+
+    <!-- Стрілка 2 -->
+    <path d="M 290,70 L 320,70" stroke="#8b949e" stroke-width="2"/>
+
+    <!-- Блок 3: Діагностика ліній (Failsafe) -->
+    <rect x="320" y="30" width="140" height="80" rx="8" fill="#21262d" stroke="#d29922" stroke-width="2"/>
+    <text x="390" y="65" text-anchor="middle" font-family="system-ui, sans-serif" font-size="12" font-weight="bold" fill="#d29922">Failsafe перевірка</text>
+    <text x="390" y="85" text-anchor="middle" font-family="system-ui, sans-serif" font-size="10" fill="#8b949e">Обрив / КЗ шлейфу</text>
+
+    <!-- Стрілка 3 -->
+    <path d="M 460,70 L 490,70" stroke="#8b949e" stroke-width="2"/>
+
+    <!-- Блок 4: Калібрувальна таблиця LUT -->
+    <rect x="490" y="30" width="130" height="80" rx="8" fill="#21262d" stroke="#bc8cff" stroke-width="2"/>
+    <text x="555" y="65" text-anchor="middle" font-family="system-ui, sans-serif" font-size="12" font-weight="bold" fill="#bc8cff">Таблиця LUT / Сплайн</text>
+    <text x="555" y="85" text-anchor="middle" font-family="system-ui, sans-serif" font-size="10" fill="#8b949e">Корекція геометрії</text>
+
+    <!-- Стрілка 4 -->
+    <path d="M 620,70 L 650,70" stroke="#8b949e" stroke-width="2"/>
+
+    <!-- Блок 5: Вихідні дані -->
+    <rect x="650" y="30" width="110" height="80" rx="8" fill="#1b4721" stroke="#3fb950" stroke-width="2"/>
+    <text x="705" y="65" text-anchor="middle" font-family="system-ui, sans-serif" font-size="12" font-weight="bold" fill="#3fb950">Рівень (мм / %)</text>
+    <text x="705" y="85" text-anchor="middle" font-family="system-ui, sans-serif" font-size="10" fill="#f0f6fc">Об'єм (Літри)</text>
+  </g>
+
+  <!-- Нижня панель статусів станів (FSM) -->
+  <g transform="translate(50, 240)">
+    <rect width="750" height="180" rx="8" fill="#0d1117" stroke="#30363d"/>
+    <text x="375" y="30" text-anchor="middle" font-family="system-ui, sans-serif" font-size="15" font-weight="bold" fill="#f0f6fc">
+      Статуси діагностики та обробки аварій (NAMUR NE43 сумісність)
+    </text>
+
+    <g transform="translate(30, 55)">
+      <rect width="210" height="100" rx="6" fill="#161b22" stroke="#da3633"/>
+      <text x="105" y="25" text-anchor="middle" font-family="system-ui, sans-serif" font-size="12" font-weight="bold" fill="#f85149">Обрив лінії (U &lt; 0.2 В)</text>
+      <text x="10" y="50" font-family="system-ui, sans-serif" font-size="11" fill="#c9d1d9">• Втрата зв'язку з зондом</text>
+      <text x="10" y="70" font-family="system-ui, sans-serif" font-size="11" fill="#c9d1d9">• Вихідний струм I = 3.6 мА</text>
+      <text x="10" y="90" font-family="system-ui, sans-serif" font-size="11" fill="#8b949e">• Аварійний тригер SCADA</text>
+    </g>
+
+    <g transform="translate(270, 55)">
+      <rect width="210" height="100" rx="6" fill="#161b22" stroke="#3fb950"/>
+      <text x="105" y="25" text-anchor="middle" font-family="system-ui, sans-serif" font-size="12" font-weight="bold" fill="#3fb950">Штатна зона (0.5..4.5 В)</text>
+      <text x="10" y="50" font-family="system-ui, sans-serif" font-size="11" fill="#c9d1d9">• Валідний відлік рівня</text>
+      <text x="10" y="70" font-family="system-ui, sans-serif" font-size="11" fill="#c9d1d9">• Вихідний струм: 4–20 мА</text>
+      <text x="10" y="90" font-family="system-ui, sans-serif" font-size="11" fill="#8b949e">• Пропорційно 0..100%</text>
+    </g>
+
+    <g transform="translate(510, 55)">
+      <rect width="210" height="100" rx="6" fill="#161b22" stroke="#da3633"/>
+      <text x="105" y="25" text-anchor="middle" font-family="system-ui, sans-serif" font-size="12" font-weight="bold" fill="#f85149">Коротке замикання (U &gt; 4.8 В)</text>
+      <text x="10" y="50" font-family="system-ui, sans-serif" font-size="11" fill="#c9d1d9">• Замикання сигнального на VCC</text>
+      <text x="10" y="70" font-family="system-ui, sans-serif" font-size="11" fill="#c9d1d9">• Вихідний струм I = 21.5 мА</text>
+      <text x="10" y="90" font-family="system-ui, sans-serif" font-size="11" fill="#8b949e">• Негайна зупинка насоса</text>
+    </g>
+  </g>
+</svg>
