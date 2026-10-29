@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="100%" height="100%">
+  <rect width="960" height="480" fill="#0d1117" rx="12"/>
+  <text x="480" y="38" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="20" font-weight="700" fill="#f0f6fc" text-anchor="middle">Режими передискретизації (Oversampling Setting, OSS) BMP180</text>
+  <text x="480" y="62" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" fill="#8b949e" text-anchor="middle">Компроміс між часом конверсії, струмоспоживанням та рівнем шуму (шум висоти від 0.5 до 0.17 м)</text>
+
+  <!-- Table Container -->
+  <g transform="translate(60, 95)">
+    <rect width="840" height="340" rx="8" fill="#161b22" stroke="#30363d"/>
+
+    <!-- Header Row -->
+    <rect x="0" y="0" width="840" height="40" rx="8" fill="#21262d"/>
+    <text x="80" y="25" font-family="sans-serif" font-size="12" font-weight="bold" fill="#f0f6fc" text-anchor="middle">Режим (OSS)</text>
+    <text x="200" y="25" font-family="sans-serif" font-size="12" font-weight="bold" fill="#f0f6fc" text-anchor="middle">Вибірок (N)</text>
+    <text x="320" y="25" font-family="sans-serif" font-size="12" font-weight="bold" fill="#f0f6fc" text-anchor="middle">Час виміру (t_conv)</text>
+    <text x="450" y="25" font-family="sans-serif" font-size="12" font-weight="bold" fill="#f0f6fc" text-anchor="middle">Струм (при 1 вим/с)</text>
+    <text x="590" y="25" font-family="sans-serif" font-size="12" font-weight="bold" fill="#f0f6fc" text-anchor="middle">Шум тиску / шуму h</text>
+    <text x="730" y="25" font-family="sans-serif" font-size="12" font-weight="bold" fill="#f0f6fc" text-anchor="middle">Типове застосування</text>
+
+    <!-- Row 0: Ultra Low Power (OSS = 0) -->
+    <g transform="translate(0, 40)">
+      <line x1="0" y1="65" x2="840" y2="65" stroke="#30363d"/>
+      <text x="80" y="32" font-family="sans-serif" font-size="12" font-weight="bold" fill="#3fb950" text-anchor="middle">Ultra Low Power (0)</text>
+      <text x="200" y="32" font-family="sans-serif" font-size="11" fill="#c9d1d9" text-anchor="middle">1 вибірка</text>
+      <text x="320" y="32" font-family="monospace" font-size="11" fill="#3fb950" text-anchor="middle">4.5 мс</text>
+      <text x="450" y="32" font-family="sans-serif" font-size="11" fill="#3fb950" text-anchor="middle">3.0 мкА</text>
+      <text x="590" y="32" font-family="sans-serif" font-size="11" fill="#f85149" text-anchor="middle">0.06 гПа (±0.5 м)</text>
+      <text x="730" y="32" font-family="sans-serif" font-size="11" fill="#8b949e" text-anchor="middle">Батарейні логери погоди</text>
+    </g>
+
+    <!-- Row 1: Standard (OSS = 1) -->
+    <g transform="translate(0, 105)">
+      <line x1="0" y1="65" x2="840" y2="65" stroke="#30363d"/>
+      <text x="80" y="32" font-family="sans-serif" font-size="12" font-weight="bold" fill="#58a6ff" text-anchor="middle">Standard (1)</text>
+      <text x="200" y="32" font-family="sans-serif" font-size="11" fill="#c9d1d9" text-anchor="middle">2 вибірки</text>
+      <text x="320" y="32" font-family="monospace" font-size="11" fill="#58a6ff" text-anchor="middle">7.5 мс</text>
+      <text x="450" y="32" font-family="sans-serif" font-size="11" fill="#c9d1d9" text-anchor="middle">5.0 мкА</text>
+      <text x="590" y="32" font-family="sans-serif" font-size="11" fill="#d29922" text-anchor="middle">0.05 гПа (±0.4 м)</text>
+      <text x="730" y="32" font-family="sans-serif" font-size="11" fill="#8b949e" text-anchor="middle">Портативні метеостанції</text>
+    </g>
+
+    <!-- Row 2: High Resolution (OSS = 2) -->
+    <g transform="translate(0, 170)">
+      <line x1="0" y1="65" x2="840" y2="65" stroke="#30363d"/>
+      <text x="80" y="32" font-family="sans-serif" font-size="12" font-weight="bold" fill="#bc8cff" text-anchor="middle">High Resolution (2)</text>
+      <text x="200" y="32" font-family="sans-serif" font-size="11" fill="#c9d1d9" text-anchor="middle">4 вибірки</text>
+      <text x="320" y="32" font-family="monospace" font-size="11" fill="#bc8cff" text-anchor="middle">13.5 мс</text>
+      <text x="450" y="32" font-family="sans-serif" font-size="11" fill="#c9d1d9" text-anchor="middle">7.0 мкА</text>
+      <text x="590" y="32" font-family="sans-serif" font-size="11" fill="#3fb950" text-anchor="middle">0.04 гПа (±0.3 м)</text>
+      <text x="730" y="32" font-family="sans-serif" font-size="11" fill="#8b949e" text-anchor="middle">Пішохідна навігація, трекінг</text>
+    </g>
+
+    <!-- Row 3: Ultra High Resolution (OSS = 3) -->
+    <g transform="translate(0, 235)">
+      <text x="80" y="32" font-family="sans-serif" font-size="12" font-weight="bold" fill="#f85149" text-anchor="middle">Ultra High Res (3)</text>
+      <text x="200" y="32" font-family="sans-serif" font-size="11" fill="#c9d1d9" text-anchor="middle">8 вибірок</text>
+      <text x="320" y="32" font-family="monospace" font-size="11" fill="#f85149" text-anchor="middle">25.5 мс</text>
+      <text x="450" y="32" font-family="sans-serif" font-size="11" fill="#d29922" text-anchor="middle">12.0 мкА</text>
+      <text x="590" y="32" font-family="sans-serif" font-size="11" font-weight="bold" fill="#3fb950" text-anchor="middle">0.03 гПа (±0.25 м)</text>
+      <text x="730" y="32" font-family="sans-serif" font-size="11" fill="#3fb950" text-anchor="middle">Дрони, варіометри, ліфти</text>
+    </g>
+  </g>
+</svg>
