@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 850 520" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bg-grad4" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0d1117"/>
+      <stop offset="100%" stop-color="#161b22"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="100%" height="100%" fill="url(#bg-grad4)"/>
+  <rect x="15" y="15" width="820" height="490" rx="10" fill="none" stroke="#30363d" stroke-width="1.5"/>
+
+  <text x="30" y="45" fill="#58a6ff" font-family="system-ui, sans-serif" font-size="18" font-weight="bold">Структура 40-бітного пакету даних DHT22 та перевірка контрольної суми</text>
+  <text x="30" y="68" fill="#8b949e" font-family="system-ui, sans-serif" font-size="13">16 біт вологості (0.1% RH) + 16 біт температури зі знаком (0.1 °C) + 8 біт контрольної суми</text>
+
+  <!-- Byte Payload Visualization -->
+  <g transform="translate(30, 110)">
+    <!-- Byte 0: RH High -->
+    <rect x="0" y="0" width="150" height="90" rx="6" fill="#1c2128" stroke="#58a6ff" stroke-width="2"/>
+    <text x="75" y="25" fill="#58a6ff" font-family="system-ui" font-size="12" font-weight="bold" text-anchor="middle">Байт 0: RH_High</text>
+    <text x="75" y="50" fill="#f0f6fc" font-family="monospace" font-size="14" font-weight="bold" text-anchor="middle">0000 0010</text>
+    <text x="75" y="75" fill="#8b949e" font-family="sans-serif" font-size="10" text-anchor="middle">Старші 8 біт RH</text>
+
+    <!-- Byte 1: RH Low -->
+    <rect x="160" y="0" width="150" height="90" rx="6" fill="#1c2128" stroke="#58a6ff" stroke-width="2"/>
+    <text x="235" y="25" fill="#58a6ff" font-family="system-ui" font-size="12" font-weight="bold" text-anchor="middle">Байт 1: RH_Low</text>
+    <text x="235" y="50" fill="#f0f6fc" font-family="monospace" font-size="14" font-weight="bold" text-anchor="middle">1000 1100</text>
+    <text x="235" y="75" fill="#8b949e" font-family="sans-serif" font-size="10" text-anchor="middle">Молодші 8 біт RH</text>
+
+    <!-- Byte 2: Temp High -->
+    <rect x="320" y="0" width="150" height="90" rx="6" fill="#1c2128" stroke="#d29922" stroke-width="2"/>
+    <text x="395" y="25" fill="#d29922" font-family="system-ui" font-size="12" font-weight="bold" text-anchor="middle">Байт 2: Temp_High</text>
+    <text x="395" y="50" fill="#f0f6fc" font-family="monospace" font-size="14" font-weight="bold" text-anchor="middle">0000 0001</text>
+    <text x="395" y="75" fill="#8b949e" font-family="sans-serif" font-size="10" text-anchor="middle">Біт 15: Знак (0=+)</text>
+
+    <!-- Byte 3: Temp Low -->
+    <rect x="480" y="0" width="150" height="90" rx="6" fill="#1c2128" stroke="#d29922" stroke-width="2"/>
+    <text x="555" y="25" fill="#d29922" font-family="system-ui" font-size="12" font-weight="bold" text-anchor="middle">Байт 3: Temp_Low</text>
+    <text x="555" y="50" fill="#f0f6fc" font-family="monospace" font-size="14" font-weight="bold" text-anchor="middle">0101 1111</text>
+    <text x="555" y="75" fill="#8b949e" font-family="sans-serif" font-size="10" text-anchor="middle">Молодші 8 біт T</text>
+
+    <!-- Byte 4: Checksum -->
+    <rect x="640" y="0" width="150" height="90" rx="6" fill="#1c2128" stroke="#7ee787" stroke-width="2"/>
+    <text x="715" y="25" fill="#7ee787" font-family="system-ui" font-size="12" font-weight="bold" text-anchor="middle">Байт 4: Checksum</text>
+    <text x="715" y="50" fill="#f0f6fc" font-family="monospace" font-size="14" font-weight="bold" text-anchor="middle">1111 0010</text>
+    <text x="715" y="75" fill="#8b949e" font-family="sans-serif" font-size="10" text-anchor="middle">Сума байтів 0..3</text>
+  </g>
+
+  <!-- Decoding Calculation Block -->
+  <g transform="translate(30, 230)">
+    <!-- Humidity Math Card -->
+    <rect width="380" height="150" rx="6" fill="#161b22" stroke="#30363d" stroke-width="1.5"/>
+    <text x="20" y="28" fill="#58a6ff" font-family="system-ui" font-size="13" font-weight="bold">Розрахунок відносної вологості (RH):</text>
+    <text x="20" y="55" fill="#8b949e" font-family="monospace" font-size="11">Raw_RH = (0x02 &lt;&lt; 8) | 0x8C = 0x028C = 652</text>
+    <text x="20" y="80" fill="#f0f6fc" font-family="monospace" font-size="12">RH = Raw_RH / 10.0</text>
+    <text x="20" y="110" fill="#7ee787" font-family="system-ui" font-size="18" font-weight="bold">RH = 65.2 %</text>
+    <text x="20" y="132" fill="#8b949e" font-family="sans-serif" font-size="10">Роздільна здатність: 0.1 % RH</text>
+
+    <!-- Temperature Math Card -->
+    <g transform="translate(410, 0)">
+      <rect width="380" height="150" rx="6" fill="#161b22" stroke="#30363d" stroke-width="1.5"/>
+      <text x="20" y="28" fill="#d29922" font-family="system-ui" font-size="13" font-weight="bold">Розрахунок температури (°C):</text>
+      <text x="20" y="55" fill="#8b949e" font-family="monospace" font-size="11">Raw_T = (0x01 &lt;&lt; 8) | 0x5F = 0x015F = 351</text>
+      <text x="20" y="80" fill="#f0f6fc" font-family="monospace" font-size="12">Знак: біт 15 = 0 (+)  →  T = Raw_T / 10.0</text>
+      <text x="20" y="110" fill="#7ee787" font-family="system-ui" font-size="18" font-weight="bold">T = +35.1 °C</text>
+      <text x="20" y="132" fill="#8b949e" font-family="sans-serif" font-size="10">(Для -10.5 °C передається: 0x8069, біт 15 = 1)</text>
+    </g>
+  </g>
+
+  <!-- Checksum Verification Card -->
+  <g transform="translate(30, 400)">
+    <rect width="790" height="85" rx="6" fill="#1c2128" stroke="#7ee787" stroke-width="1.5"/>
+    <text x="20" y="25" fill="#7ee787" font-family="system-ui" font-size="13" font-weight="bold">Формула верифікації контрольної суми (Checksum):</text>
+    <text x="20" y="48" fill="#f0f6fc" font-family="monospace" font-size="11">Sum = (Byte0 + Byte1 + Byte2 + Byte3) &amp; 0xFF = (0x02 + 0x8C + 0x01 + 0x5F) &amp; 0xFF = 0x1F2 &amp; 0xFF = 0xF2 (242)</text>
+    <text x="20" y="70" fill="#58a6ff" font-family="sans-serif" font-size="11">Якщо обчислена Sum співпадає з Byte4 (0xF2) → Дані валідні, пакет прийнято без спотворень!</text>
+  </g>
+</svg>

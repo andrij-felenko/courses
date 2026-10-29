@@ -1,0 +1,86 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 850 520" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bg-grad5" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0d1117"/>
+      <stop offset="100%" stop-color="#161b22"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="100%" height="100%" fill="url(#bg-grad5)"/>
+  <rect x="15" y="15" width="820" height="490" rx="10" fill="none" stroke="#30363d" stroke-width="1.5"/>
+
+  <text x="30" y="45" fill="#58a6ff" font-family="system-ui, sans-serif" font-size="18" font-weight="bold">Порівняльна матриця: DHT22 (AM2302) vs DHT11 vs Сучасні I2C сенсори</text>
+  <text x="30" y="68" fill="#8b949e" font-family="system-ui, sans-serif" font-size="13">Аналіз параметрів точності, діапазонів, інтерфейсів та енергоефективності</text>
+
+  <!-- Comparison Table -->
+  <g transform="translate(30, 100)">
+    <!-- Header Row -->
+    <rect width="790" height="40" rx="4" fill="#1c2128" stroke="#30363d" stroke-width="1"/>
+    <text x="20" y="25" fill="#8b949e" font-family="system-ui" font-size="11" font-weight="bold">ПАРАМЕТР</text>
+    <text x="230" y="25" fill="#f85149" font-family="system-ui" font-size="11" font-weight="bold">DHT11</text>
+    <text x="420" y="25" fill="#58a6ff" font-family="system-ui" font-size="11" font-weight="bold">DHT22 (AM2302)</text>
+    <text x="640" y="25" fill="#7ee787" font-family="system-ui" font-size="11" font-weight="bold">AHT20 / SHT30 (I2C)</text>
+
+    <!-- Row 1: Humidity Range -->
+    <rect y="45" width="790" height="35" fill="#161b22"/>
+    <text x="20" y="67" fill="#f0f6fc" font-family="system-ui" font-size="11">Діапазон вологості</text>
+    <text x="230" y="67" fill="#8b949e" font-family="monospace" font-size="11">20 .. 90 % RH</text>
+    <text x="420" y="67" fill="#58a6ff" font-family="monospace" font-size="11" font-weight="bold">0 .. 99.9 % RH</text>
+    <text x="640" y="67" fill="#7ee787" font-family="monospace" font-size="11">0 .. 100 % RH</text>
+
+    <!-- Row 2: Humidity Accuracy -->
+    <rect y="82" width="790" height="35" fill="#1c2128"/>
+    <text x="20" y="104" fill="#f0f6fc" font-family="system-ui" font-size="11">Точність вологості</text>
+    <text x="230" y="104" fill="#f85149" font-family="monospace" font-size="11">±5 % RH</text>
+    <text x="420" y="104" fill="#58a6ff" font-family="monospace" font-size="11" font-weight="bold">±2 % RH</text>
+    <text x="640" y="104" fill="#7ee787" font-family="monospace" font-size="11">±2 % RH (SHT: ±1.5%)</text>
+
+    <!-- Row 3: Temperature Range -->
+    <rect y="119" width="790" height="35" fill="#161b22"/>
+    <text x="20" y="141" fill="#f0f6fc" font-family="system-ui" font-size="11">Діапазон темп.</text>
+    <text x="230" y="141" fill="#f85149" font-family="monospace" font-size="11">0 .. +50 °C (без мінуса)</text>
+    <text x="420" y="141" fill="#58a6ff" font-family="monospace" font-size="11" font-weight="bold">-40 .. +80 °C</text>
+    <text x="640" y="141" fill="#7ee787" font-family="monospace" font-size="11">-40 .. +85 °C / +125 °C</text>
+
+    <!-- Row 4: Temperature Accuracy -->
+    <rect y="156" width="790" height="35" fill="#1c2128"/>
+    <text x="20" y="178" fill="#f0f6fc" font-family="system-ui" font-size="11">Точність темп.</text>
+    <text x="230" y="178" fill="#f85149" font-family="monospace" font-size="11">±2.0 °C</text>
+    <text x="420" y="178" fill="#58a6ff" font-family="monospace" font-size="11" font-weight="bold">±0.5 °C</text>
+    <text x="640" y="178" fill="#7ee787" font-family="monospace" font-size="11">±0.3 °C</text>
+
+    <!-- Row 5: Resolution -->
+    <rect y="193" width="790" height="35" fill="#161b22"/>
+    <text x="20" y="215" fill="#f0f6fc" font-family="system-ui" font-size="11">Роздільна здатність</text>
+    <text x="230" y="215" fill="#8b949e" font-family="monospace" font-size="11">1 °C / 1 % (цілі числа)</text>
+    <text x="420" y="215" fill="#58a6ff" font-family="monospace" font-size="11" font-weight="bold">0.1 °C / 0.1 % RH</text>
+    <text x="640" y="215" fill="#7ee787" font-family="monospace" font-size="11">0.01 °C / 0.024 %</text>
+
+    <!-- Row 6: Sampling Rate -->
+    <rect y="230" width="790" height="35" fill="#1c2128"/>
+    <text x="20" y="252" fill="#f0f6fc" font-family="system-ui" font-size="11">Період вимірювання</text>
+    <text x="230" y="252" fill="#8b949e" font-family="monospace" font-size="11">1.0 с (1 Гц)</text>
+    <text x="420" y="252" fill="#d29922" font-family="monospace" font-size="11">2.0 с (0.5 Гц)</text>
+    <text x="640" y="252" fill="#7ee787" font-family="monospace" font-size="11">0.1 с (до 10–50 Гц)</text>
+
+    <!-- Row 7: Protocol -->
+    <rect y="267" width="790" height="35" fill="#161b22"/>
+    <text x="20" y="289" fill="#f0f6fc" font-family="system-ui" font-size="11">Інтерфейс передачі</text>
+    <text x="230" y="289" fill="#8b949e" font-family="sans-serif" font-size="11">Single-Wire (кастом)</text>
+    <text x="420" y="289" fill="#58a6ff" font-family="sans-serif" font-size="11" font-weight="bold">Single-Wire (кастом)</text>
+    <text x="640" y="289" fill="#7ee787" font-family="sans-serif" font-size="11">Стандартний I2C (CRC-8)</text>
+
+    <!-- Row 8: Supply Voltage -->
+    <rect y="304" width="790" height="35" fill="#1c2128"/>
+    <text x="20" y="326" fill="#f0f6fc" font-family="system-ui" font-size="11">Напруга живлення</text>
+    <text x="230" y="326" fill="#8b949e" font-family="monospace" font-size="11">3.3 .. 5.5 В</text>
+    <text x="420" y="326" fill="#58a6ff" font-family="monospace" font-size="11" font-weight="bold">3.3 .. 5.5 В</text>
+    <text x="640" y="326" fill="#7ee787" font-family="monospace" font-size="11">2.0 .. 5.5 В</text>
+  </g>
+
+  <!-- Summary Conclusion -->
+  <g transform="translate(30, 455)">
+    <rect width="790" height="40" rx="4" fill="#161b22" stroke="#30363d" stroke-width="1"/>
+    <text x="395" y="25" fill="#58a6ff" font-family="system-ui" font-size="12" font-weight="bold" text-anchor="middle">Висновок: DHT22 перевершує DHT11 у 4 рази за роздільною здатністю та дозволяє вимірювати мінусові температури.</text>
+  </g>
+</svg>

@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 850 520" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bg-grad3" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0d1117"/>
+      <stop offset="100%" stop-color="#161b22"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="100%" height="100%" fill="url(#bg-grad3)"/>
+  <rect x="15" y="15" width="820" height="490" rx="10" fill="none" stroke="#30363d" stroke-width="1.5"/>
+
+  <text x="30" y="45" fill="#58a6ff" font-family="system-ui, sans-serif" font-size="18" font-weight="bold">Кодування бітів «0» та «1» за тривалістю імпульсу (ШІМ-декодування)</text>
+  <text x="30" y="68" fill="#8b949e" font-family="system-ui, sans-serif" font-size="13">Дискримінація логічних рівнів за тривалістю високого стану: поріг прийняття рішення 45–50 мкс</text>
+
+  <!-- Logic 0 Comparison Box -->
+  <g transform="translate(40, 110)">
+    <rect width="770" height="150" rx="8" fill="#161b22" stroke="#3fb950" stroke-width="1.5"/>
+    <text x="25" y="30" fill="#3fb950" font-family="system-ui" font-size="15" font-weight="bold">Логічний «0»: Високий рівень триває 26–28 мкс</text>
+
+    <!-- Waveform Bit 0 -->
+    <path d="M 50 110 L 150 110 L 150 50 L 220 50 L 220 110 L 300 110" fill="none" stroke="#3fb950" stroke-width="3"/>
+
+    <!-- Dimension arrows for low pulse (50 us) -->
+    <line x1="50" y1="125" x2="150" y2="125" stroke="#8b949e" stroke-width="1.5"/>
+    <text x="100" y="140" fill="#8b949e" font-family="monospace" font-size="11" text-anchor="middle">50 мкс (Low)</text>
+
+    <!-- Dimension arrows for high pulse (26..28 us) -->
+    <line x1="150" y1="35" x2="220" y2="35" stroke="#3fb950" stroke-width="1.5"/>
+    <text x="185" y="28" fill="#3fb950" font-family="monospace" font-size="11" font-weight="bold" text-anchor="middle">26–28 мкс (High)</text>
+
+    <!-- Description -->
+    <g transform="translate(350, 40)">
+      <text x="0" y="20" fill="#f0f6fc" font-family="system-ui" font-size="12">• Загальна тривалість біта: ~76–78 мкс</text>
+      <text x="0" y="45" fill="#f0f6fc" font-family="system-ui" font-size="12">• Таймер МК або вибірка через 40 мкс після фронту фіксує: <tspan fill="#3fb950" font-weight="bold">РІВЕНЬ LOW</tspan></text>
+      <text x="0" y="70" fill="#8b949e" font-family="system-ui" font-size="11">• Інтерпретується як бінарний 0 у поточному байті</text>
+    </g>
+  </g>
+
+  <!-- Logic 1 Comparison Box -->
+  <g transform="translate(40, 280)">
+    <rect width="770" height="150" rx="8" fill="#161b22" stroke="#bc8cff" stroke-width="1.5"/>
+    <text x="25" y="30" fill="#bc8cff" font-family="system-ui" font-size="15" font-weight="bold">Логічна «1»: Високий рівень триває 70 мкс</text>
+
+    <!-- Waveform Bit 1 -->
+    <path d="M 50 110 L 150 110 L 150 50 L 320 50 L 320 110 L 400 110" fill="none" stroke="#bc8cff" stroke-width="3"/>
+
+    <!-- Dimension arrows for low pulse (50 us) -->
+    <line x1="50" y1="125" x2="150" y2="125" stroke="#8b949e" stroke-width="1.5"/>
+    <text x="100" y="140" fill="#8b949e" font-family="monospace" font-size="11" text-anchor="middle">50 мкс (Low)</text>
+
+    <!-- Dimension arrows for high pulse (70 us) -->
+    <line x1="150" y1="35" x2="320" y2="35" stroke="#bc8cff" stroke-width="1.5"/>
+    <text x="235" y="28" fill="#bc8cff" font-family="monospace" font-size="11" font-weight="bold" text-anchor="middle">70 мкс (High)</text>
+
+    <!-- Description -->
+    <g transform="translate(430, 40)">
+      <text x="0" y="20" fill="#f0f6fc" font-family="system-ui" font-size="12">• Загальна тривалість біта: ~120 мкс</text>
+      <text x="0" y="45" fill="#f0f6fc" font-family="system-ui" font-size="12">• Таймер МК або вибірка через 40 мкс після фронту фіксує: <tspan fill="#bc8cff" font-weight="bold">РІВЕНЬ HIGH</tspan></text>
+      <text x="0" y="70" fill="#8b949e" font-family="system-ui" font-size="11">• Інтерпретується як бінарна 1 у поточному байті</text>
+    </g>
+  </g>
+
+  <!-- Decision Threshold Rule -->
+  <g transform="translate(40, 445)">
+    <rect width="770" height="45" rx="6" fill="#1c2128" stroke="#30363d" stroke-width="1.5"/>
+    <text x="385" y="28" fill="#e3b341" font-family="system-ui" font-size="12" font-weight="bold" text-anchor="middle">Золоте правило програмного розпізнавання: Якщо T_high &gt; 45 мкс → біт = 1, інакше біт = 0</text>
+  </g>
+</svg>
