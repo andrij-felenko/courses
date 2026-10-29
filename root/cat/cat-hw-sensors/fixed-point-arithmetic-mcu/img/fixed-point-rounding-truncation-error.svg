@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="100%" height="100%">
+  <rect width="960" height="480" fill="#0d1117" rx="12"/>
+  <text x="480" y="38" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="20" font-weight="700" fill="#f0f6fc" text-anchor="middle">Похибка усічення (Truncation) проти симетричного округлення</text>
+  <text x="480" y="62" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" fill="#8b949e" text-anchor="middle">Накопичення постійного зміщення (DC Bias) у цифрових фільтрах сенсорів</text>
+
+  <!-- Left: Truncation (Floor) -->
+  <g transform="translate(60, 95)">
+    <rect width="390" height="340" rx="8" fill="#161b22" stroke="#f85149" stroke-width="1.5"/>
+    <rect width="390" height="32" rx="8" fill="#da3633" fill-opacity="0.2"/>
+    <text x="195" y="22" font-family="sans-serif" font-size="14" font-weight="bold" fill="#f85149" text-anchor="middle">Звичайне усічення (x &gt;&gt; N)</text>
+
+    <text x="20" y="60" font-family="sans-serif" font-size="12" font-weight="bold" fill="#f0f6fc">Принцип дії:</text>
+    <text x="20" y="80" font-family="sans-serif" font-size="11" fill="#8b949e">Пряме відкидання молодших розрядів:</text>
+    
+    <rect x="20" y="95" width="350" height="36" rx="4" fill="#0d1117" stroke="#30363d"/>
+    <text x="195" y="118" font-family="monospace" font-size="12" fill="#f85149" text-anchor="middle">res = val &gt;&gt; 16;</text>
+
+    <!-- Error distribution graph sketch -->
+    <rect x="20" y="145" width="350" height="80" rx="4" fill="#0d1117" stroke="#30363d"/>
+    <line x1="40" y1="185" x2="350" y2="185" stroke="#30363d" stroke-width="1.5"/>
+    <line x1="195" y1="155" x2="195" y2="215" stroke="#30363d" stroke-width="1.5"/>
+    <!-- Error is always negative: from -1 LSB to 0 -->
+    <rect x="70" y="185" width="125" height="25" fill="#f85149" fill-opacity="0.5"/>
+    <text x="130" y="175" font-family="sans-serif" font-size="10" fill="#f85149" text-anchor="middle">Похибка: [-1 LSB .. 0]</text>
+    <text x="130" y="202" font-family="sans-serif" font-size="10" font-weight="bold" fill="#ffffff" text-anchor="middle">Середнє = -0.5 LSB!</text>
+
+    <text x="20" y="250" font-family="sans-serif" font-size="11" font-weight="bold" fill="#f85149">Катастрофічний наслідок у ФНЧ:</text>
+    <text x="20" y="270" font-family="sans-serif" font-size="11" fill="#f0f6fc">• Накопичення негативного зсуву нуля (DC Drift).</text>
+    <text x="20" y="290" font-family="sans-serif" font-size="11" fill="#8b949e">• При сталому вході фільтр поступово</text>
+    <text x="20" y="308" font-family="sans-serif" font-size="11" fill="#8b949e">  занижує значення на кілька квантів АЦП.</text>
+  </g>
+
+  <!-- Right: Round-to-nearest -->
+  <g transform="translate(510, 95)">
+    <rect width="390" height="340" rx="8" fill="#161b22" stroke="#3fb950" stroke-width="1.5"/>
+    <rect width="390" height="32" rx="8" fill="#238636" fill-opacity="0.2"/>
+    <text x="195" y="22" font-family="sans-serif" font-size="14" font-weight="bold" fill="#3fb950" text-anchor="middle">Округлення до найближчого (+ 0.5 LSB)</text>
+
+    <text x="20" y="60" font-family="sans-serif" font-size="12" font-weight="bold" fill="#f0f6fc">Принцип дії:</text>
+    <text x="20" y="80" font-family="sans-serif" font-size="11" fill="#8b949e">Додавання половини ваги LSB перед зсувом:</text>
+    
+    <rect x="20" y="95" width="350" height="36" rx="4" fill="#0d1117" stroke="#30363d"/>
+    <text x="195" y="118" font-family="monospace" font-size="12" fill="#3fb950" text-anchor="middle">res = (val + 0x8000) &gt;&gt; 16;</text>
+
+    <!-- Error distribution graph sketch -->
+    <rect x="20" y="145" width="350" height="80" rx="4" fill="#0d1117" stroke="#30363d"/>
+    <line x1="40" y1="185" x2="350" y2="185" stroke="#30363d" stroke-width="1.5"/>
+    <line x1="195" y1="155" x2="195" y2="215" stroke="#30363d" stroke-width="1.5"/>
+    <!-- Error is symmetric: [-0.5 LSB .. +0.5 LSB] -->
+    <rect x="135" y="165" width="120" height="40" fill="#3fb950" fill-opacity="0.4"/>
+    <text x="195" y="155" font-family="sans-serif" font-size="10" fill="#3fb950" text-anchor="middle">Похибка: [-0.5 LSB .. +0.5 LSB]</text>
+    <text x="195" y="190" font-family="sans-serif" font-size="10" font-weight="bold" fill="#ffffff" text-anchor="middle">Середнє = 0.0 LSB!</text>
+
+    <text x="20" y="250" font-family="sans-serif" font-size="11" font-weight="bold" fill="#3fb950">Повна ліквідація дрейфу:</text>
+    <text x="20" y="270" font-family="sans-serif" font-size="11" fill="#f0f6fc">• Симетрична похибка з нульовим матсподіванням.</text>
+    <text x="20" y="290" font-family="sans-serif" font-size="11" fill="#8b949e">• Фільтр утримує ідеальне стаціонарне значення.</text>
+    <text x="20" y="308" font-family="sans-serif" font-size="11" fill="#8b949e">• Коштує всього 1 додаткову операцію додавання.</text>
+  </g>
+</svg>

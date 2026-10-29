@@ -1,0 +1,93 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="100%" height="100%">
+  <rect width="960" height="480" fill="#0d1117" rx="12"/>
+  <text x="480" y="38" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="20" font-weight="700" fill="#f0f6fc" text-anchor="middle">Наскрізний вбудований конвеєр обробки сенсора без Float</text>
+  <text x="480" y="62" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" fill="#8b949e" text-anchor="middle">Від 12-бітного коду АЦП через рекурсивний ФНЧ до виводу на символьний дисплей</text>
+
+  <!-- Step 1: Raw ADC -->
+  <g transform="translate(40, 105)">
+    <rect width="180" height="230" rx="8" fill="#161b22" stroke="#58a6ff" stroke-width="1.5"/>
+    <rect width="180" height="30" rx="8" fill="#1f6feb" fill-opacity="0.2"/>
+    <text x="90" y="20" font-family="sans-serif" font-size="12" font-weight="bold" fill="#58a6ff" text-anchor="middle">1. АЦП (12 біт)</text>
+    
+    <text x="15" y="55" font-family="sans-serif" font-size="11" fill="#f0f6fc">Сирий код:</text>
+    <text x="15" y="75" font-family="monospace" font-size="12" fill="#58a6ff">uint16_t adc</text>
+    <text x="15" y="95" font-family="sans-serif" font-size="10" fill="#8b949e">Діапазон: 0..4095</text>
+    
+    <text x="15" y="130" font-family="sans-serif" font-size="11" fill="#f0f6fc">Приклад:</text>
+    <text x="15" y="150" font-family="monospace" font-size="11" fill="#3fb950">adc = 2048</text>
+    <text x="15" y="170" font-family="sans-serif" font-size="10" fill="#8b949e">(Рівно половина VREF)</text>
+  </g>
+
+  <!-- Arrow 1 -> 2 -->
+  <g transform="translate(220, 205)">
+    <line x1="0" y1="0" x2="30" y2="0" stroke="#58a6ff" stroke-width="2"/>
+    <polygon points="30,0 22,-4 22,4" fill="#58a6ff"/>
+  </g>
+
+  <!-- Step 2: Linear Scaling to Q16.16 Voltage -->
+  <g transform="translate(250, 105)">
+    <rect width="210" height="230" rx="8" fill="#161b22" stroke="#3fb950" stroke-width="1.5"/>
+    <rect width="210" height="30" rx="8" fill="#238636" fill-opacity="0.2"/>
+    <text x="105" y="20" font-family="sans-serif" font-size="12" font-weight="bold" fill="#3fb950" text-anchor="middle">2. Масштабування в Q16</text>
+
+    <text x="15" y="55" font-family="sans-serif" font-size="11" fill="#f0f6fc">Множення на масштаб:</text>
+    <rect x="10" y="70" width="190" height="40" rx="4" fill="#0d1117" stroke="#30363d"/>
+    <text x="105" y="95" font-family="monospace" font-size="10" fill="#3fb950" text-anchor="middle">v_q16 = (adc * K_Q16) &gt;&gt; 12</text>
+
+    <text x="15" y="135" font-family="sans-serif" font-size="11" fill="#f0f6fc">Константа масштабу:</text>
+    <text x="15" y="155" font-family="monospace" font-size="10" fill="#8b949e">K_Q16 = 3300 * 65536</text>
+    <text x="15" y="175" font-family="sans-serif" font-size="10" fill="#8b949e">Результат: напруга в мВ</text>
+    <text x="15" y="195" font-family="monospace" font-size="11" fill="#3fb950">v = 1650.000 мВ</text>
+  </g>
+
+  <!-- Arrow 2 -> 3 -->
+  <g transform="translate(460, 205)">
+    <line x1="0" y1="0" x2="30" y2="0" stroke="#3fb950" stroke-width="2"/>
+    <polygon points="30,0 22,-4 22,4" fill="#3fb950"/>
+  </g>
+
+  <!-- Step 3: Low-pass filter (IIR) in Q16 -->
+  <g transform="translate(490, 105)">
+    <rect width="210" height="230" rx="8" fill="#161b22" stroke="#d29922" stroke-width="1.5"/>
+    <rect width="210" height="30" rx="8" fill="#d29922" fill-opacity="0.2"/>
+    <text x="105" y="20" font-family="sans-serif" font-size="12" font-weight="bold" fill="#d29922" text-anchor="middle">3. Цифровий ФНЧ (IIR)</text>
+
+    <text x="15" y="55" font-family="sans-serif" font-size="11" fill="#f0f6fc">Експоненційне згладжування:</text>
+    <rect x="10" y="70" width="190" height="50" rx="4" fill="#0d1117" stroke="#30363d"/>
+    <text x="105" y="90" font-family="monospace" font-size="9" fill="#d29922" text-anchor="middle">diff = v_q16 - filt_q16;</text>
+    <text x="105" y="108" font-family="monospace" font-size="9" fill="#d29922" text-anchor="middle">filt += (diff &gt;&gt; 4); // α=1/16</text>
+
+    <text x="15" y="145" font-family="sans-serif" font-size="11" fill="#f0f6fc">• Нуль ділень!</text>
+    <text x="15" y="165" font-family="sans-serif" font-size="11" fill="#f0f6fc">• Лише віднімання та зсув</text>
+    <text x="15" y="185" font-family="sans-serif" font-size="10" fill="#3fb950">Час виконання: 4 такти CPU</text>
+  </g>
+
+  <!-- Arrow 3 -> 4 -->
+  <g transform="translate(700, 205)">
+    <line x1="0" y1="0" x2="30" y2="0" stroke="#d29922" stroke-width="2"/>
+    <polygon points="30,0 22,-4 22,4" fill="#d29922"/>
+  </g>
+
+  <!-- Step 4: Display Output -->
+  <g transform="translate(730, 105)">
+    <rect width="190" height="230" rx="8" fill="#161b22" stroke="#bc8cff" stroke-width="1.5"/>
+    <rect width="190" height="30" rx="8" fill="#8957e5" fill-opacity="0.2"/>
+    <text x="95" y="20" font-family="sans-serif" font-size="12" font-weight="bold" fill="#bc8cff" text-anchor="middle">4. Вивід на LCD/UART</text>
+
+    <text x="15" y="55" font-family="sans-serif" font-size="11" fill="#f0f6fc">Ділення на цілу/дріб:</text>
+    <text x="15" y="80" font-family="monospace" font-size="10" fill="#bc8cff">int integer = val &gt;&gt; 16;</text>
+    <text x="15" y="105" font-family="monospace" font-size="10" fill="#bc8cff">int frac = ((val &amp; 0xFFFF)</text>
+    <text x="15" y="120" font-family="monospace" font-size="10" fill="#bc8cff">            * 100) &gt;&gt; 16;</text>
+
+    <rect x="15" y="145" width="160" height="40" rx="4" fill="#0d1117" stroke="#30363d"/>
+    <text x="95" y="170" font-family="monospace" font-size="12" font-weight="bold" fill="#3fb950" text-anchor="middle">"16.50 V"</text>
+
+    <text x="15" y="210" font-family="sans-serif" font-size="10" fill="#8b949e">Жодної бібліотеки float!</text>
+  </g>
+
+  <!-- Bottom banner -->
+  <rect x="40" y="380" width="880" height="50" rx="6" fill="#161b22" stroke="#30363d"/>
+  <text x="480" y="410" font-family="sans-serif" font-size="12" fill="#f0f6fc" text-anchor="middle">
+    Повний конвеєр займає менше 100 байтів Flash, виконується за <tspan fill="#3fb950">~25 тактів CPU</tspan> і працює на будь-якому 8/32-бітному мікроконтролері.
+  </text>
+</svg>

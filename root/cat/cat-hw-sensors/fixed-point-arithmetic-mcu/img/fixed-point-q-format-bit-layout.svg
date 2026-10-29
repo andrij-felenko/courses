@@ -1,0 +1,83 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="100%" height="100%">
+  <rect width="960" height="480" fill="#0d1117" rx="12"/>
+  <text x="480" y="38" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="20" font-weight="700" fill="#f0f6fc" text-anchor="middle">Структура та бітова сітка формату Q15.16 (int32_t)</text>
+  <text x="480" y="62" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" fill="#8b949e" text-anchor="middle">Розподіл 32 розрядів між знаком, цілою величиною та дробовою частиною</text>
+
+  <!-- Bit Layout Grid -->
+  <g transform="translate(60, 95)">
+    <!-- Sign bit (Bit 31) -->
+    <rect x="0" y="20" width="50" height="60" rx="4" fill="#da3633" fill-opacity="0.3" stroke="#f85149" stroke-width="2"/>
+    <text x="25" y="45" font-family="monospace" font-size="14" font-weight="bold" fill="#f85149" text-anchor="middle">S</text>
+    <text x="25" y="65" font-family="sans-serif" font-size="10" fill="#8b949e" text-anchor="middle">Б[31]</text>
+
+    <!-- Integer part (Bits 30..16) -->
+    <rect x="55" y="20" width="370" height="60" rx="4" fill="#1f6feb" fill-opacity="0.3" stroke="#58a6ff" stroke-width="2"/>
+    <text x="240" y="45" font-family="sans-serif" font-size="13" font-weight="bold" fill="#58a6ff" text-anchor="middle">Ціла частина: 15 бітів (m = 15)</text>
+    <text x="240" y="65" font-family="monospace" font-size="10" fill="#8b949e" text-anchor="middle">Біти [30 .. 16] (Ваги від 2^14 до 2^0)</text>
+
+    <!-- Binary Point Marker -->
+    <circle cx="430" cy="50" r="6" fill="#d29922"/>
+    <text x="430" y="20" font-family="sans-serif" font-size="11" font-weight="bold" fill="#d29922" text-anchor="middle">Фіксована кома</text>
+
+    <!-- Fractional part (Bits 15..0) -->
+    <rect x="435" y="20" width="405" height="60" rx="4" fill="#238636" fill-opacity="0.3" stroke="#3fb950" stroke-width="2"/>
+    <text x="637" y="45" font-family="sans-serif" font-size="13" font-weight="bold" fill="#3fb950" text-anchor="middle">Дробова частина: 16 бітів (n = 16)</text>
+    <text x="637" y="65" font-family="monospace" font-size="10" fill="#8b949e" text-anchor="middle">Біти [15 .. 0] (Ваги від 2^-1 до 2^-16)</text>
+  </g>
+
+  <!-- Technical Specs Cards -->
+  <g transform="translate(60, 200)">
+    <!-- Card 1: Quantization & Range -->
+    <rect x="0" y="0" width="260" height="230" rx="8" fill="#161b22" stroke="#30363d"/>
+    <rect x="0" y="0" width="260" height="30" rx="8" fill="#1f6feb" fill-opacity="0.2"/>
+    <text x="130" y="20" font-family="sans-serif" font-size="12" font-weight="bold" fill="#58a6ff" text-anchor="middle">Діапазон та роздільна здатність</text>
+
+    <text x="15" y="55" font-family="sans-serif" font-size="11" fill="#f0f6fc">• Крок квантування (LSB):</text>
+    <text x="25" y="75" font-family="monospace" font-size="11" fill="#3fb950">1 / 65536 ≈ 15.25878 мкВ</text>
+
+    <text x="15" y="105" font-family="sans-serif" font-size="11" fill="#f0f6fc">• Максимальне число:</text>
+    <text x="25" y="125" font-family="monospace" font-size="11" fill="#8b949e">+32767.9999847</text>
+
+    <text x="15" y="155" font-family="sans-serif" font-size="11" fill="#f0f6fc">• Мінімальне число:</text>
+    <text x="25" y="175" font-family="monospace" font-size="11" fill="#8b949e">-32768.0000000</text>
+
+    <text x="15" y="210" font-family="sans-serif" font-size="10" fill="#8b949e">Перекриває будь-які діапазони АЦП</text>
+  </g>
+
+  <!-- Card 2: Scaling conversions -->
+  <g transform="translate(350, 200)">
+    <rect x="0" y="0" width="260" height="230" rx="8" fill="#161b22" stroke="#30363d"/>
+    <rect x="0" y="0" width="260" height="30" rx="8" fill="#238636" fill-opacity="0.2"/>
+    <text x="130" y="20" font-family="sans-serif" font-size="12" font-weight="bold" fill="#3fb950" text-anchor="middle">Перетворення масштабів</text>
+
+    <text x="15" y="55" font-family="sans-serif" font-size="11" fill="#f0f6fc">Перехід Float → Q16.16:</text>
+    <rect x="15" y="65" width="230" height="35" rx="4" fill="#0d1117" stroke="#30363d"/>
+    <text x="130" y="87" font-family="monospace" font-size="10" fill="#3fb950" text-anchor="middle">(int32_t)(val * 65536.0f)</text>
+
+    <text x="15" y="125" font-family="sans-serif" font-size="11" fill="#f0f6fc">Перехід Q16.16 → Float:</text>
+    <rect x="15" y="135" width="230" height="35" rx="4" fill="#0d1117" stroke="#30363d"/>
+    <text x="130" y="157" font-family="monospace" font-size="10" fill="#58a6ff" text-anchor="middle">((float)val) / 65536.0f</text>
+
+    <text x="15" y="195" font-family="sans-serif" font-size="11" fill="#f0f6fc">Перехід Ціле X → Q16.16:</text>
+    <text x="25" y="215" font-family="monospace" font-size="11" fill="#d29922">X &lt;&lt; 16 (Миттєвий зсув!)</text>
+  </g>
+
+  <!-- Card 3: Other common formats -->
+  <g transform="translate(640, 200)">
+    <rect x="0" y="0" width="260" height="230" rx="8" fill="#161b22" stroke="#30363d"/>
+    <rect x="0" y="0" width="260" height="30" rx="8" fill="#8957e5" fill-opacity="0.2"/>
+    <text x="130" y="20" font-family="sans-serif" font-size="12" font-weight="bold" fill="#bc8cff" text-anchor="middle">Інші поширені Q-формати</text>
+
+    <text x="15" y="55" font-family="sans-serif" font-size="11" font-weight="bold" fill="#f0f6fc">• Q8.8 (uint16_t / int16_t):</text>
+    <text x="25" y="73" font-family="sans-serif" font-size="10" fill="#8b949e">Крок 1/256 ≈ 0.0039. Для 8-біт МК</text>
+    <text x="25" y="88" font-family="sans-serif" font-size="10" fill="#8b949e">і збереження пам'яті сенсорів.</text>
+
+    <text x="15" y="115" font-family="sans-serif" font-size="11" font-weight="bold" fill="#f0f6fc">• Q1.15 (Q15 у CMSIS-DSP):</text>
+    <text x="25" y="133" font-family="sans-serif" font-size="10" fill="#8b949e">Діапазон [-1.0 .. +0.9999].</text>
+    <text x="25" y="148" font-family="sans-serif" font-size="10" fill="#8b949e">Стандарт для аудіо та БПФ.</text>
+
+    <text x="15" y="175" font-family="sans-serif" font-size="11" font-weight="bold" fill="#f0f6fc">• Q10.22 (BME280 SDK):</text>
+    <text x="25" y="193" font-family="sans-serif" font-size="10" fill="#8b949e">Прецизійний розрахунок тиску</text>
+    <text x="25" y="208" font-family="sans-serif" font-size="10" fill="#8b949e">у паскалях у 32-бітних регістрах.</text>
+  </g>
+</svg>
