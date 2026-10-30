@@ -1,0 +1,85 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 480" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bg3" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0d1117"/>
+      <stop offset="100%" stop-color="#161b22"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="900" height="480" fill="url(#bg3)" rx="12" stroke="#30363d" stroke-width="1.5"/>
+
+  <text x="450" y="36" fill="#58a6ff" font-family="system-ui, sans-serif" font-size="20" font-weight="bold" text-anchor="middle">
+    Акустична настройка впускного тракту: резонатор Гельмгольца
+  </text>
+  <text x="450" y="60" fill="#8b949e" font-family="system-ui, sans-serif" font-size="13" text-anchor="middle">
+    Зв'язок геометрії дифузора та об'єму картера з піком коефіцієнта наповнення (η_v)
+  </text>
+
+  <!-- Left: Acoustic Helmholtz Model -->
+  <g transform="translate(35, 85)">
+    <rect width="395" height="365" rx="10" fill="#161b22" stroke="#30363d" stroke-width="1.5"/>
+    <rect width="395" height="32" rx="10" fill="#1f242c"/>
+    <text x="197" y="22" fill="#58a6ff" font-family="system-ui, sans-serif" font-size="14" font-weight="bold" text-anchor="middle">Акустична еквівалентна схема</text>
+
+    <!-- Carburetor runner (Neck) -->
+    <rect x="30" y="90" width="140" height="50" fill="#0d1117" stroke="#58a6ff" stroke-width="2"/>
+    <text x="100" y="112" fill="#58a6ff" font-family="system-ui, sans-serif" font-size="11" font-weight="bold" text-anchor="middle">Горловина (Тракт)</text>
+    <text x="100" y="128" fill="#8b949e" font-family="system-ui, sans-serif" font-size="10" text-anchor="middle">Довжина L, площа A</text>
+
+    <!-- Acoustic mass / slug arrow -->
+    <line x1="40" y1="155" x2="160" y2="155" stroke="#d29922" stroke-width="3" stroke-linecap="round"/>
+    <polygon points="170,155 158,150 158,160" fill="#d29922"/>
+    <polygon points="30,155 42,150 42,160" fill="#d29922"/>
+    <text x="100" y="173" fill="#d29922" font-family="system-ui, sans-serif" font-size="11" text-anchor="middle">Акустична маса M_ac = rho*L/A</text>
+
+    <!-- Crankcase volume (Cavity) -->
+    <ellipse cx="270" cy="115" rx="80" ry="55" fill="#0d1117" stroke="#3fb950" stroke-width="2"/>
+    <text x="270" y="112" fill="#3fb950" font-family="system-ui, sans-serif" font-size="12" font-weight="bold" text-anchor="middle">Камера картера</text>
+    <text x="270" y="128" fill="#8b949e" font-family="system-ui, sans-serif" font-size="10" text-anchor="middle">Об'єм V_c (пружність)</text>
+    <text x="270" y="144" fill="#8b949e" font-family="system-ui, sans-serif" font-size="10" text-anchor="middle">C_ac = V_c / (rho * c^2)</text>
+
+    <!-- Tuning formula box -->
+    <rect x="25" y="205" width="345" height="135" rx="8" fill="#0d1117" stroke="#30363d" stroke-width="1.5"/>
+    <text x="197" y="230" fill="#f0f6fc" font-family="system-ui, sans-serif" font-size="12" font-weight="bold" text-anchor="middle">Резонансна частота Гельмгольца:</text>
+    <text x="197" y="255" fill="#58a6ff" font-family="monospace" font-size="12" font-weight="bold" text-anchor="middle">f_H = (c / 2*pi) * sqrt( A / (L_eff * V_c) )</text>
+    
+    <text x="197" y="285" fill="#f0f6fc" font-family="system-ui, sans-serif" font-size="12" font-weight="bold" text-anchor="middle">Розрахунок резонансних обертів ДВЗ:</text>
+    <text x="197" y="310" fill="#3fb950" font-family="monospace" font-size="12" font-weight="bold" text-anchor="middle">RPM_tune = (60 * f_H) / k_harm</text>
+    <text x="197" y="330" fill="#8b949e" font-family="system-ui, sans-serif" font-size="10" text-anchor="middle">де c = 340 м/с, k_harm = 1 або 2</text>
+  </g>
+
+  <!-- Right: Volumetric Efficiency vs RPM -->
+  <g transform="translate(450, 85)">
+    <rect width="415" height="365" rx="10" fill="#161b22" stroke="#30363d" stroke-width="1.5"/>
+    <rect width="415" height="32" rx="10" fill="#1f242c"/>
+    <text x="207" y="22" fill="#3fb950" font-family="system-ui, sans-serif" font-size="14" font-weight="bold" text-anchor="middle">Коефіцієнт наповнення циліндра η_v(RPM)</text>
+
+    <!-- Axes -->
+    <line x1="45" y1="270" x2="375" y2="270" stroke="#8b949e" stroke-width="1.5"/>
+    <line x1="45" y1="270" x2="45" y2="60" stroke="#8b949e" stroke-width="1.5"/>
+    <text x="325" y="295" fill="#8b949e" font-family="system-ui, sans-serif" font-size="11">Оберти (об/хв)</text>
+    <text x="30" y="50" fill="#8b949e" font-family="system-ui, sans-serif" font-size="11">η_v (%)</text>
+
+    <!-- Grid lines -->
+    <line x1="45" y1="150" x2="375" y2="150" stroke="#30363d" stroke-width="1" stroke-dasharray="3 3"/>
+    <text x="20" y="154" fill="#8b949e" font-family="system-ui, sans-serif" font-size="10">100%</text>
+
+    <text x="110" y="285" fill="#8b949e" font-family="system-ui, sans-serif" font-size="10" text-anchor="middle">4000</text>
+    <text x="190" y="285" fill="#8b949e" font-family="system-ui, sans-serif" font-size="10" text-anchor="middle">7500</text>
+    <text x="270" y="285" fill="#8b949e" font-family="system-ui, sans-serif" font-size="10" text-anchor="middle">11000</text>
+
+    <!-- Short runner curve (High RPM tuning) -->
+    <path d="M 60 230 C 130 220, 200 170, 270 95 C 310 115, 340 180, 370 240" fill="none" stroke="#58a6ff" stroke-width="2.5"/>
+    <circle cx="270" cy="95" r="5" fill="#58a6ff"/>
+    <text x="270" y="80" fill="#58a6ff" font-family="system-ui, sans-serif" font-size="11" font-weight="bold" text-anchor="middle">Короткий тракт (11000)</text>
+
+    <!-- Long runner curve (Mid RPM tuning) -->
+    <path d="M 60 210 C 120 160, 150 105, 190 100 C 240 125, 290 220, 370 255" fill="none" stroke="#3fb950" stroke-width="2.5"/>
+    <circle cx="190" cy="100" r="5" fill="#3fb950"/>
+    <text x="180" y="85" fill="#3fb950" font-family="system-ui, sans-serif" font-size="11" font-weight="bold" text-anchor="middle">Довгий тракт (7500)</text>
+
+    <!-- Dynamic ram zone -->
+    <rect x="55" y="310" width="310" height="35" rx="6" fill="#0d1117" stroke="#30363d" stroke-width="1"/>
+    <text x="210" y="332" fill="#d29922" font-family="system-ui, sans-serif" font-size="11" font-weight="bold" text-anchor="middle">Резонансний наддув η_v понад 100% за рахунок інерції газу</text>
+  </g>
+</svg>

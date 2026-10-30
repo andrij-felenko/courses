@@ -1,0 +1,77 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 480" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bg4" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0d1117"/>
+      <stop offset="100%" stop-color="#161b22"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="900" height="480" fill="url(#bg4)" rx="12" stroke="#30363d" stroke-width="1.5"/>
+
+  <text x="450" y="36" fill="#58a6ff" font-family="system-ui, sans-serif" font-size="20" font-weight="bold" text-anchor="middle">
+    Інерційний наддув (Ram-Effect) та хвильова x-t діаграма впускного тракту
+  </text>
+  <text x="450" y="60" fill="#8b949e" font-family="system-ui, sans-serif" font-size="13" text-anchor="middle">
+    Поширення хвиль розрідження та відбиття хвилі стиснення від відкритого дифузора
+  </text>
+
+  <!-- Top: Physical Runner Model -->
+  <g transform="translate(40, 85)">
+    <rect width="820" height="115" rx="8" fill="#161b22" stroke="#30363d" stroke-width="1.5"/>
+    <text x="20" y="25" fill="#58a6ff" font-family="system-ui, sans-serif" font-size="13" font-weight="bold">Геометрія тракту впуску</text>
+
+    <!-- Airbox / Bellmouth on left -->
+    <path d="M 70 45 C 90 60, 110 65, 130 65 L 680 65 C 700 65, 710 55, 720 45" fill="none" stroke="#8b949e" stroke-width="2.5"/>
+    <path d="M 70 95 C 90 80, 110 75, 130 75 L 680 75 C 700 75, 710 85, 720 95" fill="none" stroke="#8b949e" stroke-width="2.5"/>
+
+    <text x="60" y="75" fill="#39c5cf" font-family="system-ui, sans-serif" font-size="11" text-anchor="end">Відкритий розтруб (P_atm)</text>
+    <text x="730" y="75" fill="#f85149" font-family="system-ui, sans-serif" font-size="11" text-anchor="start">Клапан / Вікно картера</text>
+
+    <!-- Rarefaction wave moving left -->
+    <path d="M 650 70 L 420 70" stroke="#58a6ff" stroke-width="3" stroke-dasharray="6 3"/>
+    <polygon points="410,70 422,65 422,75" fill="#58a6ff"/>
+    <text x="535" y="58" fill="#58a6ff" font-family="system-ui, sans-serif" font-size="10" font-weight="bold" text-anchor="middle">Хвиля розрідження (-) від відкриття вікна</text>
+
+    <!-- Compression wave returning right -->
+    <path d="M 180 70 L 400 70" stroke="#3fb950" stroke-width="3"/>
+    <polygon points="410,70 398,65 398,75" fill="#3fb950"/>
+    <text x="280" y="92" fill="#3fb950" font-family="system-ui, sans-serif" font-size="10" font-weight="bold" text-anchor="middle">Відбита хвиля стиснення (+) Ram-хвиля</text>
+  </g>
+
+  <!-- Bottom: x-t Wave Diagram -->
+  <g transform="translate(40, 215)">
+    <rect width="820" height="235" rx="8" fill="#161b22" stroke="#30363d" stroke-width="1.5"/>
+    <text x="20" y="24" fill="#39c5cf" font-family="system-ui, sans-serif" font-size="13" font-weight="bold">Хвильова x-t діаграма (Простір - Час)</text>
+
+    <!-- Axis x and t -->
+    <line x1="80" y1="190" x2="760" y2="190" stroke="#8b949e" stroke-width="1.5"/>
+    <line x1="80" y1="190" x2="80" y2="40" stroke="#8b949e" stroke-width="1.5"/>
+    <text x="765" y="195" fill="#8b949e" font-family="system-ui, sans-serif" font-size="11">x (Координата тракту: Розтруб -> Клапан)</text>
+    <text x="70" y="35" fill="#8b949e" font-family="system-ui, sans-serif" font-size="11">Час t (Кут ПКВ)</text>
+
+    <!-- Event 1: Intake opens at valve -->
+    <circle cx="700" cy="55" r="4" fill="#f85149"/>
+    <text x="710" y="58" fill="#f85149" font-family="system-ui, sans-serif" font-size="10" font-weight="bold">t_0: Відкриття впуску</text>
+
+    <!-- Wave 1 travels to bellmouth -->
+    <line x1="700" y1="55" x2="120" y2="115" stroke="#58a6ff" stroke-width="2.5" stroke-dasharray="5 3"/>
+    <text x="420" y="80" fill="#58a6ff" font-family="system-ui, sans-serif" font-size="10" text-anchor="middle">Швидкість звуку проти потоку (c - v)</text>
+
+    <!-- Reflection at open end -->
+    <circle cx="120" cy="115" r="4" fill="#39c5cf"/>
+    <text x="130" y="110" fill="#39c5cf" font-family="system-ui, sans-serif" font-size="10">Інверсія фази: розрідження -&gt; стиснення</text>
+
+    <!-- Reflected compression wave returns to valve -->
+    <line x1="120" y1="115" x2="700" y2="170" stroke="#3fb950" stroke-width="3"/>
+    <text x="420" y="150" fill="#3fb950" font-family="system-ui, sans-serif" font-size="10" text-anchor="middle">Швидкість звуку за потоком (c + v)</text>
+
+    <!-- Supercharging peak before close -->
+    <circle cx="700" cy="170" r="5" fill="#d29922"/>
+    <text x="710" y="173" fill="#d29922" font-family="system-ui, sans-serif" font-size="11" font-weight="bold">t_ram: Пік тиску перед закриттям</text>
+
+    <rect x="220" y="197" width="380" height="28" rx="4" fill="#0d1117" stroke="#30363d" stroke-width="1"/>
+    <text x="410" y="216" fill="#f0f6fc" font-family="system-ui, sans-serif" font-size="11" text-anchor="middle">
+      Критерій синхронізації: t_pulse = 2*L / c = кут відкритого стану вікна
+    </text>
+  </g>
+</svg>

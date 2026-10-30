@@ -1,0 +1,89 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 480" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bg5" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0d1117"/>
+      <stop offset="100%" stop-color="#161b22"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="900" height="480" fill="url(#bg5)" rx="12" stroke="#30363d" stroke-width="1.5"/>
+
+  <text x="450" y="36" fill="#58a6ff" font-family="system-ui, sans-serif" font-size="20" font-weight="bold" text-anchor="middle">
+    Принцип роботи резонаторної камери впуску (Boost Bottle / YEIS)
+  </text>
+  <text x="450" y="60" fill="#8b949e" font-family="system-ui, sans-serif" font-size="13" text-anchor="middle">
+    Згладжування пульсацій, усунення вторинного збагачення та покращення низової тяги
+  </text>
+
+  <!-- Left: Phase A (Reed closes) -->
+  <g transform="translate(35, 85)">
+    <rect width="400" height="365" rx="10" fill="#161b22" stroke="#30363d" stroke-width="1.5"/>
+    <rect width="400" height="32" rx="10" fill="#1f242c"/>
+    <text x="200" y="22" fill="#f85149" font-family="system-ui, sans-serif" font-size="14" font-weight="bold" text-anchor="middle">
+      Фаза A: Закриття клапана (акумуляція імпульсу)
+    </text>
+
+    <!-- Carburetor on left -->
+    <rect x="25" y="180" width="80" height="60" rx="6" fill="#0d1117" stroke="#8b949e" stroke-width="2"/>
+    <text x="65" y="215" fill="#8b949e" font-family="system-ui, sans-serif" font-size="11" font-weight="bold" text-anchor="middle">Карбюратор</text>
+
+    <!-- Intake manifold tract -->
+    <path d="M 105 195 L 310 195 L 310 225 L 105 225 Z" fill="#1f242c" stroke="#8b949e" stroke-width="1.5"/>
+
+    <!-- Reed valve CLOSED -->
+    <line x1="310" y1="190" x2="310" y2="230" stroke="#f85149" stroke-width="4" stroke-linecap="round"/>
+    <text x="345" y="214" fill="#f85149" font-family="system-ui, sans-serif" font-size="11" font-weight="bold">Клапан закритий</text>
+
+    <!-- Boost bottle branch above manifold -->
+    <rect x="175" y="110" width="20" height="85" fill="#1f242c" stroke="#58a6ff" stroke-width="1.5"/>
+    <rect x="130" y="55" width="110" height="55" rx="12" fill="#0d1117" stroke="#58a6ff" stroke-width="2"/>
+    <text x="185" y="86" fill="#58a6ff" font-family="system-ui, sans-serif" font-size="12" font-weight="bold" text-anchor="middle">Boost Bottle</text>
+
+    <!-- Pressure rebound into bottle -->
+    <path d="M 290 205 Q 185 205 185 125" fill="none" stroke="#f85149" stroke-width="3.5"/>
+    <polygon points="185,115 180,127 190,127" fill="#f85149"/>
+
+    <text x="200" y="285" fill="#f85149" font-family="system-ui, sans-serif" font-size="12" font-weight="bold" text-anchor="middle">Запобігання «зворотному викиду» (Spit-back)</text>
+    <text x="200" y="310" fill="#8b949e" font-family="system-ui, sans-serif" font-size="11" text-anchor="middle">Без ємності суміш пролітає карбюратор двічі,</text>
+    <text x="200" y="328" fill="#8b949e" font-family="system-ui, sans-serif" font-size="11" text-anchor="middle">перезбагачуючи суміш на низьких/середніх обертах.</text>
+    <text x="200" y="348" fill="#3fb950" font-family="system-ui, sans-serif" font-size="11" font-weight="bold" text-anchor="middle">Ємність поглинає інерційний сплеск тиску!</text>
+  </g>
+
+  <!-- Right: Phase B (Reed opens) -->
+  <g transform="translate(465, 85)">
+    <rect width="400" height="365" rx="10" fill="#161b22" stroke="#30363d" stroke-width="1.5"/>
+    <rect width="400" height="32" rx="10" fill="#1f242c"/>
+    <text x="200" y="22" fill="#3fb950" font-family="system-ui, sans-serif" font-size="14" font-weight="bold" text-anchor="middle">
+      Фаза B: Відкриття впуску (додаткова зарядка)
+    </text>
+
+    <!-- Carburetor on left -->
+    <rect x="25" y="180" width="80" height="60" rx="6" fill="#0d1117" stroke="#8b949e" stroke-width="2"/>
+    <text x="65" y="215" fill="#8b949e" font-family="system-ui, sans-serif" font-size="11" font-weight="bold" text-anchor="middle">Карбюратор</text>
+
+    <!-- Intake manifold tract -->
+    <path d="M 105 195 L 310 195 L 310 225 L 105 225 Z" fill="#1f242c" stroke="#8b949e" stroke-width="1.5"/>
+
+    <!-- Reed valve OPEN -->
+    <line x1="310" y1="195" x2="335" y2="185" stroke="#3fb950" stroke-width="3.5" stroke-linecap="round"/>
+    <line x1="310" y1="225" x2="335" y2="235" stroke="#3fb950" stroke-width="3.5" stroke-linecap="round"/>
+    <text x="345" y="214" fill="#3fb950" font-family="system-ui, sans-serif" font-size="11" font-weight="bold">Клапан відкритий</text>
+
+    <!-- Boost bottle branch above manifold -->
+    <rect x="175" y="110" width="20" height="85" fill="#1f242c" stroke="#3fb950" stroke-width="1.5"/>
+    <rect x="130" y="55" width="110" height="55" rx="12" fill="#0d1117" stroke="#3fb950" stroke-width="2"/>
+    <text x="185" y="86" fill="#3fb950" font-family="system-ui, sans-serif" font-size="12" font-weight="bold" text-anchor="middle">Boost Bottle</text>
+
+    <!-- Bottle discharges into engine -->
+    <path d="M 185 115 Q 185 210 290 210" fill="none" stroke="#3fb950" stroke-width="3.5"/>
+    <polygon points="298,210 286,205 286,215" fill="#3fb950"/>
+
+    <!-- Carburetor main stream -->
+    <line x1="105" y1="210" x2="170" y2="210" stroke="#58a6ff" stroke-width="3" stroke-dasharray="4 2"/>
+
+    <text x="200" y="285" fill="#3fb950" font-family="system-ui, sans-serif" font-size="12" font-weight="bold" text-anchor="middle">Миттєва віддача заготовленої суміші</text>
+    <text x="200" y="310" fill="#8b949e" font-family="system-ui, sans-serif" font-size="11" text-anchor="middle">Збережений заряд миттєво втягується в картер,</text>
+    <text x="200" y="328" fill="#8b949e" font-family="system-ui, sans-serif" font-size="11" text-anchor="middle">підвищуючи швидкість відгуку на ручку газу (throttle response)</text>
+    <text x="200" y="348" fill="#58a6ff" font-family="system-ui, sans-serif" font-size="11" font-weight="bold" text-anchor="middle">та покращуючи крутний момент на низах до +12%.</text>
+  </g>
+</svg>
