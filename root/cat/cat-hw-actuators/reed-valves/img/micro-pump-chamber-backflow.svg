@@ -1,0 +1,198 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Canvas background -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Main header -->
+  <text x="480" y="34" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Робоча камера мікропомпи: паразитний зворотний тік та його усунення</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Пасивні пелюсткові клапани ліквідують симетрію потоку, перетворюючи пульсації на однонаправлений рух</text>
+
+  <!-- Left Panel: Without valves -->
+  <rect x="30" y="76" width="435" height="442" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <text x="247" y="102" font-size="15" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Без клапанів (прямі канали)</text>
+  <rect x="117" y="112" width="260" height="24" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="247" y="128" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Паразитний зворотний тік • Q_net ≈ 0</text>
+
+  <!-- Right Panel: With reed valves -->
+  <rect x="495" y="76" width="435" height="442" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <text x="712" y="102" font-size="15" font-weight="bold" fill="#1a1a1a" text-anchor="middle">З пасивними пелюстковими клапанами</text>
+  <rect x="582" y="112" width="260" height="24" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="712" y="128" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Однонаправлене нагнітання • Q_net &gt; 0</text>
+
+  <!-- LEFT PANEL - PHASE 1: SUCTION -->
+  <rect x="45" y="148" width="405" height="170" rx="6" fill="white" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="60" y="168" font-size="13" font-weight="bold" fill="#1a1a1a">Фаза всмоктування: розширення камери</text>
+  <text x="247" y="185" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Мембрана рухається вгору ↑</text>
+
+  <!-- Chamber cavity fill -->
+  <path d="M 187,264 L 187,206 Q 247,194 307,206 L 307,264 Z" fill="#eaf0fd"/>
+  <!-- Membrane curved line -->
+  <path d="M 187,206 Q 247,194 307,206" stroke="#2457d6" stroke-width="4" fill="none"/>
+  <!-- Membrane anchors / side walls -->
+  <line x1="187" y1="206" x2="187" y2="240" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="307" y1="206" x2="307" y2="240" stroke="#1a1a1a" stroke-width="2"/>
+  <!-- Channel top walls -->
+  <line x1="65" y1="240" x2="187" y2="240" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="307" y1="240" x2="430" y2="240" stroke="#1a1a1a" stroke-width="2"/>
+  <!-- Continuous bottom wall -->
+  <line x1="65" y1="264" x2="430" y2="264" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Chamber pressure label -->
+  <text x="247" y="226" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">P_кам &lt; P_зовн</text>
+
+  <!-- Flow arrows Phase 1 Left -->
+  <path d="M 75,252 L 215,252" stroke="#2457d6" stroke-width="2.5" fill="none" marker-end="url(#arr-blue)"/>
+  <text x="120" y="234" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Вхідний потік →</text>
+
+  <path d="M 420,252 L 279,252" stroke="#c0392b" stroke-width="2.5" fill="none" marker-end="url(#arr-red)"/>
+  <text x="372" y="234" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">← Зворотний тік</text>
+
+  <!-- Port labels -->
+  <text x="120" y="280" font-size="12" fill="#6b7280" text-anchor="middle">Вхідний канал</text>
+  <text x="372" y="280" font-size="12" fill="#6b7280" text-anchor="middle">Вихідний канал</text>
+  <text x="247" y="306" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Зворотний тік з виходу: рідина всмоктується з обох каналів</text>
+
+
+  <!-- LEFT PANEL - PHASE 2: DISCHARGE -->
+  <rect x="45" y="332" width="405" height="170" rx="6" fill="white" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="60" y="352" font-size="13" font-weight="bold" fill="#1a1a1a">Фаза нагнітання: стиснення камери</text>
+  <text x="247" y="370" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Мембрана тисне вниз ↓</text>
+
+  <!-- Chamber cavity fill -->
+  <path d="M 187,448 L 187,390 Q 247,404 307,390 L 307,448 Z" fill="#fdecea"/>
+  <!-- Membrane curved line -->
+  <path d="M 187,390 Q 247,404 307,390" stroke="#c0392b" stroke-width="4" fill="none"/>
+  <!-- Membrane anchors / side walls -->
+  <line x1="187" y1="390" x2="187" y2="424" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="307" y1="390" x2="307" y2="424" stroke="#1a1a1a" stroke-width="2"/>
+  <!-- Channel top walls -->
+  <line x1="65" y1="424" x2="187" y2="424" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="307" y1="424" x2="430" y2="424" stroke="#1a1a1a" stroke-width="2"/>
+  <!-- Continuous bottom wall -->
+  <line x1="65" y1="448" x2="430" y2="448" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Chamber pressure label -->
+  <text x="247" y="420" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">P_кам &gt; P_зовн</text>
+
+  <!-- Flow arrows Phase 2 Left -->
+  <path d="M 215,436 L 75,436" stroke="#c0392b" stroke-width="2.5" fill="none" marker-end="url(#arr-red)"/>
+  <text x="120" y="418" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">← Зворотний викид</text>
+
+  <path d="M 279,436 L 420,436" stroke="#2457d6" stroke-width="2.5" fill="none" marker-end="url(#arr-blue)"/>
+  <text x="372" y="418" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Вихідний потік →</text>
+
+  <!-- Port labels -->
+  <text x="120" y="464" font-size="12" fill="#6b7280" text-anchor="middle">Вхідний канал</text>
+  <text x="372" y="464" font-size="12" fill="#6b7280" text-anchor="middle">Вихідний канал</text>
+  <text x="247" y="490" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Зворотний викид у вхід: рідина втрачається назад у вхід</text>
+
+
+  <!-- RIGHT PANEL - PHASE 1: SUCTION -->
+  <rect x="510" y="148" width="405" height="170" rx="6" fill="white" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="525" y="168" font-size="13" font-weight="bold" fill="#1a1a1a">Фаза всмоктування: розширення камери</text>
+  <text x="712" y="185" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Мембрана рухається вгору ↑</text>
+
+  <!-- Chamber cavity fill -->
+  <path d="M 652,264 L 652,206 Q 712,194 772,206 L 772,264 Z" fill="#eaf0fd"/>
+  <!-- Membrane curved line -->
+  <path d="M 652,206 Q 712,194 772,206" stroke="#2457d6" stroke-width="4" fill="none"/>
+  <!-- Membrane anchors / side walls -->
+  <line x1="652" y1="206" x2="652" y2="240" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="772" y1="206" x2="772" y2="240" stroke="#1a1a1a" stroke-width="2"/>
+  <!-- Channel top walls -->
+  <line x1="530" y1="240" x2="652" y2="240" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="772" y1="240" x2="895" y2="240" stroke="#1a1a1a" stroke-width="2"/>
+  <!-- Continuous bottom wall -->
+  <line x1="530" y1="264" x2="895" y2="264" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Valve Seats Phase 1 Right -->
+  <!-- Inlet seat at x=652 -->
+  <line x1="652" y1="240" x2="652" y2="245" stroke="#1a1a1a" stroke-width="3"/>
+  <line x1="652" y1="259" x2="652" y2="264" stroke="#1a1a1a" stroke-width="3"/>
+  <circle cx="652" cy="245" r="2.5" fill="#1a1a1a"/>
+  <!-- Inlet reed: OPEN into chamber -->
+  <path d="M 652,245 Q 662,251 668,260" stroke="#27ae60" stroke-width="3" fill="none"/>
+
+  <!-- Outlet seat at x=772 -->
+  <line x1="772" y1="240" x2="772" y2="245" stroke="#1a1a1a" stroke-width="3"/>
+  <line x1="772" y1="259" x2="772" y2="264" stroke="#1a1a1a" stroke-width="3"/>
+  <circle cx="772" cy="245" r="2.5" fill="#1a1a1a"/>
+  <!-- Outlet reed: CLOSED against seat -->
+  <line x1="772" y1="245" x2="772" y2="261" stroke="#c0392b" stroke-width="3"/>
+
+  <!-- Chamber pressure label -->
+  <text x="712" y="226" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">P_кам &lt; P_зовн</text>
+
+  <!-- Flow arrows Phase 1 Right -->
+  <path d="M 540,252 L 680,252" stroke="#27ae60" stroke-width="2.5" fill="none" marker-end="url(#arr-green)"/>
+  <text x="585" y="234" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Впуск відкрито →</text>
+
+  <text x="837" y="234" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">Випуск закрито ⛔</text>
+
+  <!-- Port labels -->
+  <text x="585" y="280" font-size="12" fill="#6b7280" text-anchor="middle">Вхідний канал</text>
+  <text x="837" y="280" font-size="12" fill="#6b7280" text-anchor="middle">Вихідний канал</text>
+  <text x="712" y="306" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Впускна пелюстка відкрита, випускна притиснута до сідла</text>
+
+
+  <!-- RIGHT PANEL - PHASE 2: DISCHARGE -->
+  <rect x="510" y="332" width="405" height="170" rx="6" fill="white" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="525" y="352" font-size="13" font-weight="bold" fill="#1a1a1a">Фаза нагнітання: стиснення камери</text>
+  <text x="712" y="370" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Мембрана тисне вниз ↓</text>
+
+  <!-- Chamber cavity fill -->
+  <path d="M 652,448 L 652,390 Q 712,404 772,390 L 772,448 Z" fill="#e9f7ef"/>
+  <!-- Membrane curved line -->
+  <path d="M 652,390 Q 712,404 772,390" stroke="#c0392b" stroke-width="4" fill="none"/>
+  <!-- Membrane anchors / side walls -->
+  <line x1="652" y1="390" x2="652" y2="424" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="772" y1="390" x2="772" y2="424" stroke="#1a1a1a" stroke-width="2"/>
+  <!-- Channel top walls -->
+  <line x1="530" y1="424" x2="652" y2="424" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="772" y1="424" x2="895" y2="424" stroke="#1a1a1a" stroke-width="2"/>
+  <!-- Continuous bottom wall -->
+  <line x1="530" y1="448" x2="895" y2="448" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Valve Seats Phase 2 Right -->
+  <!-- Inlet seat at x=652 -->
+  <line x1="652" y1="424" x2="652" y2="429" stroke="#1a1a1a" stroke-width="3"/>
+  <line x1="652" y1="443" x2="652" y2="448" stroke="#1a1a1a" stroke-width="3"/>
+  <circle cx="652" cy="429" r="2.5" fill="#1a1a1a"/>
+  <!-- Inlet reed: CLOSED against seat -->
+  <line x1="652" y1="429" x2="652" y2="445" stroke="#c0392b" stroke-width="3"/>
+
+  <!-- Outlet seat at x=772 -->
+  <line x1="772" y1="424" x2="772" y2="429" stroke="#1a1a1a" stroke-width="3"/>
+  <line x1="772" y1="443" x2="772" y2="448" stroke="#1a1a1a" stroke-width="3"/>
+  <circle cx="772" cy="429" r="2.5" fill="#1a1a1a"/>
+  <!-- Outlet reed: OPEN into outlet channel -->
+  <path d="M 772,429 Q 782,435 788,444" stroke="#27ae60" stroke-width="3" fill="none"/>
+
+  <!-- Chamber pressure label -->
+  <text x="712" y="420" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">P_кам &gt; P_зовн</text>
+
+  <!-- Flow arrows Phase 2 Right -->
+  <text x="585" y="418" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">Впуск закрито ⛔</text>
+
+  <path d="M 745,436 L 885,436" stroke="#27ae60" stroke-width="2.5" fill="none" marker-end="url(#arr-green)"/>
+  <text x="837" y="418" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Випуск відкрито →</text>
+
+  <!-- Port labels -->
+  <text x="585" y="464" font-size="12" fill="#6b7280" text-anchor="middle">Вхідний канал</text>
+  <text x="837" y="464" font-size="12" fill="#6b7280" text-anchor="middle">Вихідний канал</text>
+  <text x="712" y="490" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Впускна пелюстка на сідлі, випускна відкрита тиском</text>
+</svg>

@@ -1,0 +1,116 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="36" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Пошарове складання (sandwich) клапанного блока мікропомпи</text>
+  <text x="480" y="58" text-anchor="middle" font-size="13" fill="#6b7280">Взаємна орієнтація плат, мембрани з пелюстками та обмежувачів ходу</text>
+
+  <!-- Exploded Assembly Layers (Isometric-like schematic view) -->
+  
+  <!-- Alignment Pins (Vertical Dashed Lines & Pins) -->
+  <g stroke="#6b7280" stroke-dasharray="4,4" stroke-width="1.5">
+    <line x1="310" y1="100" x2="310" y2="440"/>
+    <line x1="650" y1="100" x2="650" y2="440"/>
+  </g>
+
+  <!-- Pin heads top -->
+  <rect x="304" y="90" width="12" height="20" rx="3" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="644" y="90" width="12" height="20" rx="3" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Layer 4: Upper Stopper / Limiter Plate (Top) -->
+  <g transform="translate(240, 120)">
+    <rect x="0" y="0" width="480" height="60" rx="6" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="2"/>
+    <!-- Cutouts / Stopper Arches -->
+    <path d="M60,15 C60,5 180,5 180,15 L180,45 C180,55 60,55 60,45 Z" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+    <path d="M300,15 C300,5 420,5 420,15 L420,45 C420,55 300,55 300,45 Z" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+    <!-- Screw holes -->
+    <circle cx="20" cy="30" r="5" fill="white" stroke="#1a1a1a" stroke-width="1.5"/>
+    <circle cx="460" cy="30" r="5" fill="white" stroke="#1a1a1a" stroke-width="1.5"/>
+  </g>
+
+  <!-- Layer 3: Spacer Shim (Middle-Upper) -->
+  <g transform="translate(240, 205)">
+    <rect x="0" y="0" width="480" height="45" rx="6" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="2"/>
+    <rect x="50" y="8" width="140" height="29" fill="white" stroke="#d0d7de" stroke-width="1.5"/>
+    <rect x="290" y="8" width="140" height="29" fill="white" stroke="#d0d7de" stroke-width="1.5"/>
+    <circle cx="20" cy="22" r="5" fill="white" stroke="#1a1a1a" stroke-width="1.5"/>
+    <circle cx="460" cy="22" r="5" fill="white" stroke="#1a1a1a" stroke-width="1.5"/>
+  </g>
+
+  <!-- Layer 2: Flexible Membrane Film with Reed Flaps (Middle-Lower) -->
+  <g transform="translate(240, 280)">
+    <rect x="0" y="0" width="480" height="55" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+    <!-- Flap valves (bent upwards) -->
+    <path d="M60,27 L180,10" stroke="#2457d6" stroke-width="3" fill="none"/>
+    <path d="M300,27 L420,10" stroke="#2457d6" stroke-width="3" fill="none"/>
+    <circle cx="20" cy="27" r="5" fill="white" stroke="#2457d6" stroke-width="1.5"/>
+    <circle cx="460" cy="27" r="5" fill="white" stroke="#2457d6" stroke-width="1.5"/>
+  </g>
+
+  <!-- Layer 1: Lower Valve Seat Plate (Bottom) -->
+  <g transform="translate(240, 360)">
+    <rect x="0" y="0" width="480" height="70" rx="6" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="2"/>
+    <rect x="50" y="12" width="140" height="46" rx="4" fill="white" stroke="#1a1a1a" stroke-width="1.5"/>
+    <rect x="290" y="12" width="140" height="46" rx="4" fill="white" stroke="#1a1a1a" stroke-width="1.5"/>
+    <circle cx="20" cy="35" r="5" fill="white" stroke="#1a1a1a" stroke-width="1.5"/>
+    <circle cx="460" cy="35" r="5" fill="white" stroke="#1a1a1a" stroke-width="1.5"/>
+  </g>
+
+  <!-- Flow Arrows and Indicators -->
+  <!-- Inflow arrows at bottom -->
+  <g fill="none" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr)">
+    <path d="M120,465 L170,435"/>
+    <path d="M840,465 L790,435"/>
+  </g>
+  <text x="120" y="488" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Вхід потоку</text>
+  <text x="840" y="488" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Вихід потоку</text>
+
+  <!-- Callouts / Labels on the Left -->
+  <g font-size="13" fill="#1a1a1a">
+    <line x1="240" y1="150" x2="80" y2="150" stroke="#6b7280" stroke-width="1"/>
+    <circle cx="240" cy="150" r="3" fill="#6b7280"/>
+    <text x="70" y="145" text-anchor="end" font-weight="bold">Плата обмежувачів ходу</text>
+    <text x="70" y="162" text-anchor="end" fill="#6b7280">(Stopper Plate)</text>
+
+    <line x1="240" y1="227" x2="80" y2="227" stroke="#6b7280" stroke-width="1"/>
+    <circle cx="240" cy="227" r="3" fill="#6b7280"/>
+    <text x="70" y="222" text-anchor="end" font-weight="bold">Дистанційна проставка</text>
+    <text x="70" y="239" text-anchor="end" fill="#6b7280">(Spacer Shim)</text>
+
+    <line x1="240" y1="307" x2="80" y2="307" stroke="#6b7280" stroke-width="1"/>
+    <circle cx="240" cy="307" r="3" fill="#6b7280"/>
+    <text x="70" y="302" text-anchor="end" font-weight="bold">Плівкова мембрана з пелюстками</text>
+    <text x="70" y="319" text-anchor="end" fill="#6b7280">(Reed Film)</text>
+
+    <line x1="240" y1="395" x2="80" y2="395" stroke="#6b7280" stroke-width="1"/>
+    <circle cx="240" cy="395" r="3" fill="#6b7280"/>
+    <text x="70" y="390" text-anchor="end" font-weight="bold">Нижня плата сідел</text>
+    <text x="70" y="407" text-anchor="end" fill="#6b7280">(Seat Plate)</text>
+  </g>
+
+  <!-- Callouts on the Right -->
+  <g font-size="13" fill="#1a1a1a">
+    <line x1="720" y1="150" x2="880" y2="150" stroke="#6b7280" stroke-width="1"/>
+    <circle cx="720" cy="150" r="3" fill="#6b7280"/>
+    <text x="890" y="154" text-anchor="start" font-weight="bold">Обмежувальні дуги</text>
+
+    <line x1="720" y1="307" x2="880" y2="307" stroke="#6b7280" stroke-width="1"/>
+    <circle cx="720" cy="307" r="3" fill="#6b7280"/>
+    <text x="890" y="311" text-anchor="start" font-weight="bold">Гнучкі пелюстки</text>
+
+    <line x1="310" y1="75" x2="880" y2="75" stroke="#6b7280" stroke-width="1"/>
+    <circle cx="310" cy="90" r="3" fill="#6b7280"/>
+    <text x="890" y="79" text-anchor="start" font-weight="bold">Напрямні штифти</text>
+  </g>
+
+</svg>

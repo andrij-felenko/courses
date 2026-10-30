@@ -1,0 +1,152 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-black" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Main Title & Subtitle -->
+  <text x="480" y="34" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Профіль згину пелюстки та розподіл вигинального моменту</text>
+  <text x="480" y="55" font-size="13" fill="#6b7280" text-anchor="middle">Клиноподібний зазор зростає до вільного краю, а вигинальний момент сягає максимуму біля защемлення</text>
+
+  <!-- Left Panel: Physical Deflection and Wedge Gap -->
+  <rect x="30" y="75" width="435" height="360" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="248" y="102" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Профіль згину та клиноподібний зазор</text>
+  <text x="248" y="121" font-size="12" fill="#6b7280" text-anchor="middle">Деформація консолі над сідлом під дією перепаду тиску ΔP</text>
+
+  <!-- Upper Clamp Body -->
+  <rect x="55" y="190" width="60" height="40" rx="3" fill="#eaf0fd" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="85" cy="210" r="4.5" fill="white" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="82" y1="210" x2="88" y2="210" stroke="#1a1a1a" stroke-width="1.2"/>
+  <text x="85" y="178" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Затискач</text>
+
+  <!-- Lower Valve Seat Body -->
+  <rect x="55" y="237" width="105" height="68" fill="white" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="290" y="237" width="135" height="68" fill="white" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="105" y="275" font-size="12" fill="#6b7280" text-anchor="middle">Сідло</text>
+  <text x="357" y="275" font-size="12" fill="#6b7280" text-anchor="middle">Сідло</text>
+
+  <!-- Orifice Channel Walls and Title -->
+  <line x1="160" y1="237" x2="160" y2="305" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="290" y1="237" x2="290" y2="305" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="225" y="322" font-size="12" fill="#6b7280" text-anchor="middle">Прохідний отвір d_0</text>
+
+  <!-- Wedge-shaped Gap Shading -->
+  <path d="M 115 237 C 215 237, 310 200, 390 185 L 390 237 Z" fill="#eaf0fd"/>
+
+  <!-- Ghost line: Closed flat reed -->
+  <line x1="115" y1="237" x2="390" y2="237" stroke="#6b7280" stroke-width="1" stroke-dasharray="4 3"/>
+
+  <!-- Deflected Flexible Reed -->
+  <path d="M 55 230 L 115 230 C 215 230, 310 193, 390 178 L 390 185 C 310 200, 215 237, 115 237 L 55 237 Z" fill="#2457d6" stroke="#1a1a1a" stroke-width="1.2"/>
+
+  <!-- Reed label at tip -->
+  <text x="382" y="160" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Пелюстка</text>
+  <line x1="382" y1="164" x2="382" y2="173" stroke="#2457d6" stroke-width="1" marker-end="url(#arr-blue)"/>
+
+  <!-- Fluid Flow Streamlines -->
+  <path d="M 200 280 C 200 245, 220 220, 280 215 L 340 210" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <path d="M 245 280 C 248 240, 275 215, 335 202 L 375 197" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Pressure Arrows Pin -->
+  <line x1="180" y1="265" x2="180" y2="244" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <line x1="225" y1="265" x2="225" y2="236" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <line x1="270" y1="265" x2="270" y2="224" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <line x1="175" y1="265" x2="275" y2="265" stroke="#2457d6" stroke-width="1"/>
+  <text x="225" y="285" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Тиск P_in (перепад ΔP)</text>
+
+  <!-- Labels for Deflected State -->
+  <text x="240" y="148" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Клиноподібний зазор h(x)</text>
+  <text x="240" y="164" font-size="12" fill="#6b7280" text-anchor="middle">Зазор розширюється до w_max</text>
+
+  <!-- Dimension w_max -->
+  <line x1="390" y1="237" x2="422" y2="237" stroke="#6b7280" stroke-width="1" stroke-dasharray="2 2"/>
+  <line x1="390" y1="185" x2="422" y2="185" stroke="#6b7280" stroke-width="1" stroke-dasharray="2 2"/>
+  <line x1="410" y1="205" x2="410" y2="187" stroke="#1a1a1a" stroke-width="1.2" marker-end="url(#arr-black)"/>
+  <line x1="410" y1="217" x2="410" y2="235" stroke="#1a1a1a" stroke-width="1.2" marker-end="url(#arr-black)"/>
+  <text x="435" y="215" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">w_max</text>
+
+  <!-- Dimension L -->
+  <line x1="115" y1="242" x2="115" y2="346" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="390" y1="242" x2="390" y2="346" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="195" y1="340" x2="117" y2="340" stroke="#1a1a1a" stroke-width="1.2" marker-end="url(#arr-black)"/>
+  <line x1="310" y1="340" x2="388" y2="340" stroke="#1a1a1a" stroke-width="1.2" marker-end="url(#arr-black)"/>
+  <text x="252" y="344" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">L (робоча довжина)</text>
+
+  <!-- Bottom Card Left -->
+  <rect x="45" y="362" width="405" height="58" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="248" y="382" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Прогин кінця:  w_max = (3 · ΔP · L⁴) / (2 · E · h³)</text>
+  <text x="248" y="403" font-size="12" fill="#1a1a1a" text-anchor="middle">Кубічна залежність від товщини h³ та степінь довжини L⁴</text>
+
+  <!-- Right Panel: Bending Moment Diagram -->
+  <rect x="495" y="75" width="435" height="360" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="713" y="102" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Епюра вигинального моменту M(x)</text>
+  <text x="713" y="121" font-size="12" fill="#6b7280" text-anchor="middle">Максимальний момент у защемленні та нульовий на вільному кінці</text>
+
+  <!-- Beam Scheme Upper -->
+  <line x1="550" y1="168" x2="880" y2="168" stroke="#1a1a1a" stroke-width="3"/>
+  <line x1="550" y1="150" x2="550" y2="186" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="542" y1="158" x2="550" y2="150" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="542" y1="170" x2="550" y2="162" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="542" y1="182" x2="550" y2="174" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="542" y1="194" x2="550" y2="186" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="550" y="144" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">x = 0</text>
+  <text x="880" y="144" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">x = L</text>
+
+  <!-- Distributed load q -->
+  <line x1="560" y1="205" x2="875" y2="205" stroke="#2457d6" stroke-width="1.2"/>
+  <line x1="575" y1="205" x2="575" y2="174" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <line x1="615" y1="205" x2="615" y2="174" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <line x1="655" y1="205" x2="655" y2="174" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <line x1="695" y1="205" x2="695" y2="174" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <line x1="735" y1="205" x2="735" y2="174" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <line x1="775" y1="205" x2="775" y2="174" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <line x1="815" y1="205" x2="815" y2="174" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <line x1="855" y1="205" x2="855" y2="174" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="715" y="222" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Розподілене навантаження: q = ΔP · b</text>
+
+  <!-- Alignment dashed line at x = L -->
+  <line x1="880" y1="188" x2="880" y2="295" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2 2"/>
+
+  <!-- Bending Moment Curve M(x) -->
+  <path d="M 550 305 L 550 250 C 660 268, 780 305, 880 305 Z" fill="#fdecea"/>
+  <path d="M 550 250 C 660 268, 780 305, 880 305" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+
+  <!-- Axes for M(x) -->
+  <line x1="550" y1="305" x2="895" y2="305" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-black)"/>
+  <text x="903" y="309" font-size="12" font-style="italic" fill="#1a1a1a" text-anchor="start">x</text>
+  <line x1="550" y1="305" x2="550" y2="238" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-black)"/>
+  <text x="532" y="242" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">M(x)</text>
+
+  <!-- Labels on Moment Curve -->
+  <text x="565" y="244" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="start">M_max = q · L² / 2</text>
+  <text x="880" y="323" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">M = 0</text>
+
+  <!-- Bottom Cards in Right Panel -->
+  <rect x="510" y="342" width="200" height="78" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="610" y="360" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Затиск (x = 0): Пік напружень</text>
+  <text x="610" y="377" font-size="12" fill="#1a1a1a" text-anchor="middle">M_max = ΔP · b · L² / 2</text>
+  <text x="610" y="394" font-size="12" fill="#1a1a1a" text-anchor="middle">σ_max = (3 · ΔP · L²) / h²</text>
+  <text x="610" y="411" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Зона ризику втоми матеріалу</text>
+
+  <rect x="725" y="342" width="195" height="78" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="822" y="360" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Кінець (x = L): Макс. зазор</text>
+  <text x="822" y="377" font-size="12" fill="#1a1a1a" text-anchor="middle">w_max = (3 · ΔP · L⁴) / (2 · E · h³)</text>
+  <text x="822" y="394" font-size="12" fill="#1a1a1a" text-anchor="middle">M = 0  (вигин відсутній)</text>
+  <text x="822" y="411" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Максимальна витрата потоку</text>
+</svg>

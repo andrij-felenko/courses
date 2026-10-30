@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="8" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <rect x="500" y="80" width="100" height="300" fill="#fdecea"/>
+
+  <text x="480" y="35" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Динаміка відгуку пелюсткового клапана</text>
+  <text x="480" y="55" text-anchor="middle" font-size="13" fill="#6b7280">Затримка закриття та зворотний тік при високих частотах пульсацій тиску</text>
+
+  <path d="M 200,80 L 200,380" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="4 4"/>
+  <path d="M 500,80 L 500,380" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="4 4"/>
+  <path d="M 600,80 L 600,380" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="4 4"/>
+
+  <path d="M 150,80 L 350,80" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="4 4"/>
+  <path d="M 150,240 L 650,240" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="4 4"/>
+  <path d="M 150,280 L 400,280" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="4 4"/>
+
+  <path d="M 150,250 L 150,80" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <path d="M 150,160 L 870,160" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <path d="M 150,400 L 150,260" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <path d="M 150,380 L 870,380" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <path d="M 150,160 L 200,160 Q 275,80 350,80 T 500,160 Q 575,240 650,240 T 800,160 L 850,160" stroke="#2457d6" stroke-width="2.5" fill="none"/>
+  <path d="M 150,380 L 200,380 Q 300,280 400,280 T 600,380 L 850,380" stroke="#27ae60" stroke-width="2.5" fill="none"/>
+
+  <text x="135" y="75" text-anchor="end" font-size="14" font-style="italic" fill="#1a1a1a">p</text>
+  <text x="875" y="155" text-anchor="start" font-size="14" font-style="italic" fill="#1a1a1a">t</text>
+  <text x="140" y="164" text-anchor="end" font-size="12" font-style="italic" fill="#1a1a1a">p<tspan font-style="normal" baseline-shift="sub" font-size="10">out</tspan></text>
+  <text x="140" y="84" text-anchor="end" font-size="12" font-style="italic" fill="#1a1a1a">p<tspan font-style="normal" baseline-shift="sub" font-size="10">max</tspan></text>
+  <text x="140" y="244" text-anchor="end" font-size="12" font-style="italic" fill="#1a1a1a">p<tspan font-style="normal" baseline-shift="sub" font-size="10">min</tspan></text>
+
+  <text x="135" y="255" text-anchor="end" font-size="14" font-style="italic" fill="#1a1a1a">h</text>
+  <text x="875" y="375" text-anchor="start" font-size="14" font-style="italic" fill="#1a1a1a">t</text>
+  <text x="140" y="384" text-anchor="end" font-size="12" font-style="normal" fill="#1a1a1a">0</text>
+  <text x="140" y="284" text-anchor="end" font-size="12" font-style="italic" fill="#1a1a1a">h<tspan font-style="normal" baseline-shift="sub" font-size="10">max</tspan></text>
+
+  <text x="550" y="260" text-anchor="middle" font-size="12" fill="#c0392b">Зворотний тік</text>
+
+  <path d="M 550,400 L 500,400" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <path d="M 550,400 L 600,400" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="550" y="422" text-anchor="middle" font-size="12" fill="#1a1a1a">Затримка закриття</text>
+</svg>

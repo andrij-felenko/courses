@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Визначення маркерів -->
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Вигин пелюсткового клапана та профіль зазору</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Консольна балка під дією тиску формує змінний прохідний зазор w(x)</text>
+
+  <!-- Панель схеми -->
+  <rect x="40" y="80" width="880" height="340" fill="#f4f6f8" stroke="#d0d7de" rx="8"/>
+
+  <!-- Сідло клапана (основа) -->
+  <path d="M 120,280 L 320,280 L 320,320 L 120,320 Z" fill="#e2e8f0" stroke="#6b7280" stroke-width="2"/>
+  <text x="220" y="305" font-size="13" fill="#6b7280" text-anchor="middle">Сідло клапана</text>
+
+  <!-- Обмежувач підйому (stop) -->
+  <path d="M 320,130 L 780,130 L 780,150 L 320,150 Z" fill="#e2e8f0" stroke="#6b7280" stroke-width="2"/>
+  <text x="550" y="142" font-size="12" fill="#6b7280" text-anchor="middle">Обмежувач вигину</text>
+
+  <!-- Затиск пелюстки (защемлений кінець) -->
+  <rect x="100" y="240" width="40" height="40" fill="#cbd5e1" stroke="#475569" stroke-width="2"/>
+  <line x1="100" y1="240" x2="100" y2="280" stroke="#1a1a1a" stroke-width="3"/>
+
+  <!-- Недеформована пелюстка (пунктир) -->
+  <line x1="140" y1="240" x2="780" y2="240" stroke="#94a3b8" stroke-width="3" stroke-dasharray="6,6"/>
+
+  <!-- Деформована пелюстка w(x) -->
+  <path d="M 140,240 C 350,240 550,180 780,170" fill="none" stroke="#2457d6" stroke-width="4"/>
+
+  <!-- Стрілки розподіленого навантаження тиску p -->
+  <g stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)">
+    <line x1="200" y1="310" x2="200" y2="265"/>
+    <line x1="280" y1="310" x2="280" y2="260"/>
+    <line x1="360" y1="310" x2="360" y2="250"/>
+    <line x1="440" y1="310" x2="440" y2="235"/>
+    <line x1="520" y1="310" x2="520" y2="215"/>
+    <line x1="600" y1="310" x2="600" y2="195"/>
+    <line x1="680" y1="310" x2="680" y2="182"/>
+    <line x1="760" y1="310" x2="760" y2="175"/>
+  </g>
+  <text x="360" y="338" font-size="13" fill="#c0392b" text-anchor="middle">Тиск рідини p</text>
+
+  <!-- Розміри та позначення -->
+  <!-- Координата x -->
+  <line x1="140" y1="360" x2="780" y2="360" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)" marker-start="url(#arr)"/>
+  <text x="460" y="380" font-size="13" fill="#1a1a1a" text-anchor="middle">Довжина пелюстки L (вісь x)</text>
+
+  <!-- Прогин w(x) -->
+  <line x1="620" y1="240" x2="620" y2="178" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#arr-blue)"/>
+  <text x="640" y="215" font-size="13" fill="#2457d6" text-anchor="start">w(x)</text>
+
+  <!-- Товщина h -->
+  <rect x="70" y="200" width="15" height="40" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="77" y="190" font-size="12" fill="#2457d6" text-anchor="middle">h</text>
+
+  <!-- Додаткові позначки -->
+  <text x="145" y="225" font-size="12" fill="#6b7280">x = 0</text>
+  <text x="750" y="195" font-size="12" fill="#6b7280">x = L</text>
+</svg>

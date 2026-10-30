@@ -1,0 +1,104 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- White background -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Markers -->
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="35" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Випробувальний стенд динаміки пелюсткового клапана</text>
+  <text x="480" y="57" text-anchor="middle" font-size="13" fill="#6b7280">Схема пульсаційної камери, оптичного датчика вигину та каналів реєстрації</text>
+
+  <!-- Main Flow Cell Panel -->
+  <rect x="40" y="80" width="440" height="380" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="260" y="105" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Проточна камера та вузол клапана</text>
+
+  <!-- Pulsation Generator / Inlet Pipe -->
+  <rect x="60" y="210" width="90" height="70" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="105" y="240" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Генератор</text>
+  <text x="105" y="255" text-anchor="middle" font-size="12" fill="#2457d6">пульсацій</text>
+
+  <!-- Inlet Pressure Sensor -->
+  <rect x="175" y="140" width="60" height="40" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="205" y="165" text-anchor="middle" font-size="12" fill="#1a1a1a">p_in(t)</text>
+  <!-- Arrow from inlet pipe to sensor port -->
+  <line x1="205" y1="210" x2="205" y2="180" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- Inlet Flow Channel -->
+  <path d="M 150 245 L 230 245" fill="none" stroke="#2457d6" stroke-width="3" marker-end="url(#arr-blue)"/>
+  <text x="190" y="232" text-anchor="middle" font-size="12" fill="#2457d6">Q(t)</text>
+
+  <!-- Valve Block / Chamber -->
+  <rect x="235" y="195" width="120" height="100" rx="4" fill="white" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="295" y="218" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Робоча камера</text>
+
+  <!-- Valve Seat and Reed -->
+  <!-- Seat -->
+  <rect x="315" y="215" width="10" height="60" fill="#6b7280"/>
+  <!-- Reed (deflected) -->
+  <path d="M 315 220 Q 335 235 345 250" fill="none" stroke="#c0392b" stroke-width="3"/>
+  <text x="365" y="300" text-anchor="middle" font-size="12" fill="#c0392b">Пелюстка w(t)</text>
+  <!-- Leader line from reed to text -->
+  <path d="M 345 245 L 365 285" fill="none" stroke="#c0392b" stroke-width="1" stroke-dasharray="2,2"/>
+
+  <!-- Outlet Flow Channel -->
+  <path d="M 355 245 L 420 245" fill="none" stroke="#2457d6" stroke-width="3" marker-end="url(#arr-blue)"/>
+  
+  <!-- Outlet / Discharge -->
+  <rect x="420" y="210" width="40" height="70" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="440" y="250" text-anchor="middle" font-size="12" fill="#2457d6">Вихід</text>
+
+  <!-- Outlet Pressure Sensor -->
+  <rect x="380" y="320" width="60" height="40" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="410" y="345" text-anchor="middle" font-size="12" fill="#1a1a1a">p_out(t)</text>
+  <line x1="410" y1="320" x2="410" y2="280" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+
+
+  <!-- Optical Measurement Panel -->
+  <rect x="510" y="80" width="410" height="220" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="715" y="105" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Оптичний канал відстеження вигину</text>
+
+  <!-- LED Light Source -->
+  <rect x="540" y="150" width="80" height="50" rx="4" fill="white" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="580" y="172" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">LED Діод</text>
+  <text x="580" y="188" text-anchor="middle" font-size="12" fill="#6b7280">підсвічування</text>
+
+  <!-- Photodiode / Receiver -->
+  <rect x="790" y="150" width="90" height="50" rx="4" fill="white" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="835" y="172" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Фотодіод</text>
+  <text x="835" y="188" text-anchor="middle" font-size="12" fill="#6b7280">приймач</text>
+
+  <!-- Optical Beam ray -->
+  <path d="M 620 175 L 790 175" fill="none" stroke="#e67e22" stroke-width="2" stroke-dasharray="5,3" marker-end="url(#arr)"/>
+  <text x="705" y="145" text-anchor="middle" font-size="12" fill="#e67e22">Світловий промінь</text>
+
+  <!-- Optical explanation note inside panel -->
+  <text x="715" y="255" text-anchor="middle" font-size="12" fill="#6b7280">Зміна площі перекриття пелюсткою</text>
+  <text x="715" y="272" text-anchor="middle" font-size="12" fill="#6b7280">променя дає пропорційний сигнал u_opt(t)</text>
+
+
+  <!-- Data Acquisition & Oscilloscope Panel -->
+  <rect x="510" y="320" width="410" height="140" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="715" y="345" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Реєстрація та обробка сигналів</text>
+
+  <!-- Oscilloscope / DAQ box -->
+  <rect x="630" y="370" width="170" height="70" rx="4" fill="white" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="715" y="400" text-anchor="middle" font-size="14" font-weight="bold" fill="#2457d6">ЦАП / Осцилограф</text>
+  <text x="715" y="420" text-anchor="middle" font-size="12" fill="#6b7280">Аналіз затримки Δt</text>
+
+  <!-- Signal Lines connecting to DAQ -->
+  <!-- From Inlet Sensor -->
+  <path d="M 205 140 L 205 120 L 580 120 L 630 390" fill="none" stroke="#1a1a1a" stroke-width="1" stroke-dasharray="3,3"/>
+  <!-- From Outlet Sensor -->
+  <path d="M 410 360 L 410 400 L 630 405" fill="none" stroke="#1a1a1a" stroke-width="1" stroke-dasharray="3,3"/>
+  <!-- From Photodiode -->
+  <path d="M 835 200 L 835 300 L 750 300 L 750 370" fill="none" stroke="#e67e22" stroke-width="1" stroke-dasharray="3,3"/>
+
+</svg>

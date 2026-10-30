@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="38" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Мікроопори (димпли) для запобігання капілярному залипанню</text>
+  <text x="480" y="60" text-anchor="middle" font-size="13" fill="#6b7280">Точкові виступи мінімізують площу контакту твердих тіл і перешкоджають утворенню суцільної рідинної плівки</text>
+
+  <!-- Panel Background -->
+  <rect x="40" y="85" width="880" height="335" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Silicon Substrate / Valve Seat -->
+  <path d="M 120,280 L 320,280 L 350,330 L 730,330 L 760,280 L 840,280 L 840,370 L 120,370 Z" fill="#e5e7eb" stroke="#9ca3af" stroke-width="2"/>
+  <text x="480" y="355" text-anchor="middle" font-size="13" font-weight="bold" fill="#4b5563">Кремнієва основа (сідло клапана)</text>
+
+  <!-- Flow Channels (Inlet) -->
+  <path d="M 180,370 L 180,320 L 220,320 L 220,370 Z" fill="#eaf0fd"/>
+  <path d="M 280,370 L 280,320 L 320,320 L 320,370 Z" fill="#eaf0fd"/>
+  <path d="M 640,370 L 640,320 L 680,320 L 680,370 Z" fill="#eaf0fd"/>
+
+  <!-- Fluid Flow Arrows -->
+  <path d="M 200,350 L 200,305" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr)"/>
+  <path d="M 300,350 L 300,305" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr)"/>
+  <path d="M 660,350 L 660,305" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr)"/>
+  <text x="250" y="295" text-anchor="middle" font-size="12" fill="#2457d6">Потік рідини / газу</text>
+
+  <!-- Dimples (Micro-pillars) on the Seat -->
+  <rect x="380" y="272" width="16" height="8" rx="2" fill="#27ae60" stroke="#1e8449" stroke-width="1"/>
+  <rect x="480" y="272" width="16" height="8" rx="2" fill="#27ae60" stroke="#1e8449" stroke-width="1"/>
+  <rect x="580" y="272" width="16" height="8" rx="2" fill="#27ae60" stroke="#1e8449" stroke-width="1"/>
+
+  <!-- Polyimide Reed / Flap -->
+  <path d="M 160,210 C 300,210 500,212 800,215 L 800,235 C 500,232 300,230 160,230 Z" fill="#2457d6" opacity="0.85"/>
+  <rect x="140" y="195" width="40" height="50" rx="4" fill="#1a5276" stroke="#11435f" stroke-width="1.5"/>
+  <text x="160" y="180" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a5276">Закріплення</text>
+
+  <!-- Labels & Callouts -->
+  <!-- Dimple callout -->
+  <path d="M 480,272 L 480,150 L 380,150" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4,4" marker-end="url(#arr-dark)"/>
+  <text x="370" y="145" text-anchor="end" font-size="13" font-weight="bold" fill="#27ae60">Мікроопори (димпли)</text>
+  <text x="370" y="162" text-anchor="end" font-size="12" fill="#6b7280">Зменшують площу контакту</text>
+
+  <!-- Reed valve callout -->
+  <path d="M 550,222 L 600,120 L 650,120" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4,4" marker-end="url(#arr-dark)"/>
+  <text x="660" y="115" text-anchor="start" font-size="13" font-weight="bold" fill="#2457d6">Поліімідна пелюстка</text>
+  <text x="660" y="132" text-anchor="start" font-size="12" fill="#6b7280">Гнучкий елемент клапана</text>
+
+  <!-- Anti-stiction gap callout -->
+  <path d="M 430,245 L 430,110 L 340,110" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,4" marker-end="url(#arr-dark)"/>
+  <text x="330" y="105" text-anchor="end" font-size="13" font-weight="bold" fill="#c0392b">Зазор проти залипання</text>
+  <text x="330" y="122" text-anchor="end" font-size="12" fill="#6b7280">Запобігає капілярному ефекту</text>
+
+</svg>

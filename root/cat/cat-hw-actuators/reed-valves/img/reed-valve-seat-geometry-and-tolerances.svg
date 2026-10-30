@@ -1,0 +1,186 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <!-- Arrow markers -->
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <pattern id="hatch" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+      <line x1="0" y1="0" x2="0" y2="8" stroke="#d0d7de" stroke-width="1.2"/>
+    </pattern>
+  </defs>
+
+  <!-- Canvas background -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Main header -->
+  <text x="480" y="34" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Геометрія посадкового місця сідла пелюсткового клапана</text>
+  <text x="480" y="56" font-size="13" fill="#6b7280" text-anchor="middle">Вузький кільцевий поясок seat land формує високий контактний тиск, а мікрорельєф запобігає залипанню</text>
+
+  <!-- ================= LEFT PANEL: TOP VIEW ================= -->
+  <rect x="30" y="78" width="435" height="422" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="247" y="104" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Вигляд сідла згори: топологія контактної зони</text>
+  <text x="247" y="122" font-size="12" fill="#6b7280" text-anchor="middle">Взаємне розташування отвору, пояска ущільнення та пелюстки</text>
+
+  <!-- Base seat plate circle (r=100) -->
+  <circle cx="215" cy="235" r="100" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Anti-stiction textured outer zone (r=62 to r=88) -->
+  <circle cx="215" cy="235" r="88" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <!-- Radial microgrooves / vents in the stiction-relief zone -->
+  <line x1="215" y1="149" x2="215" y2="171" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="215" y1="299" x2="215" y2="321" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="129" y1="235" x2="151" y2="235" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="279" y1="235" x2="301" y2="235" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="154" y1="174" x2="170" y2="190" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="260" y1="280" x2="276" y2="296" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="154" y1="296" x2="170" y2="280" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="260" y1="190" x2="276" y2="174" stroke="#6b7280" stroke-width="1.5"/>
+
+  <!-- Sealing Land (annular ring from r=45 to r=62) -->
+  <circle cx="215" cy="235" r="62" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+
+  <!-- Valve Orifice / Through-hole (r=45, d=90 px representing d_port = 0.80 mm) -->
+  <circle cx="215" cy="235" r="45" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="215" y="239" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">⌀ 0.80 мм</text>
+
+  <!-- Cantilever Reed outline (dashed overlay) -->
+  <!-- Clamping base on the left (x=48 to 95) -->
+  <rect x="48" y="190" width="245" height="90" rx="4" fill="#2457d6" fill-opacity="0.06" stroke="#1a1a1a" stroke-width="1.5" stroke-dasharray="6,4"/>
+  <!-- Clamping line on the left -->
+  <line x1="95" y1="190" x2="95" y2="280" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="54" y="215" font-size="12" font-weight="bold" fill="#1a1a1a">Затиск</text>
+  <text x="54" y="232" font-size="12" fill="#6b7280">кореня</text>
+
+  <!-- Callouts for Left Panel -->
+  <!-- Seat Land Callout (Top Right) -->
+  <path d="M 260 195 L 305 168 L 325 168" fill="none" stroke="#27ae60" stroke-width="1.5"/>
+  <circle cx="260" cy="195" r="2.5" fill="#27ae60"/>
+  <text x="330" y="163" font-size="12" font-weight="bold" fill="#27ae60">Поясок seat land</text>
+  <text x="330" y="180" font-size="12" fill="#1a1a1a">w_land = 100 ± 10 мкм</text>
+  <text x="330" y="197" font-size="12" fill="#6b7280">Ra ≤ 0.1 мкм</text>
+
+  <!-- Microrelief Callout (Bottom Right) -->
+  <path d="M 280 275 L 310 295 L 325 295" fill="none" stroke="#6b7280" stroke-width="1.5"/>
+  <circle cx="280" cy="275" r="2.5" fill="#6b7280"/>
+  <text x="330" y="291" font-size="12" font-weight="bold" fill="#1a1a1a">Мікрорельєф сідла</text>
+  <text x="330" y="308" font-size="12" fill="#6b7280">Радіальні канавки 20 мкм</text>
+  <text x="330" y="325" font-size="12" fill="#27ae60">Проти стикції</text>
+
+  <!-- Overlap Dimension Callout (Right of reed) -->
+  <path d="M 293 218 L 320 218" fill="none" stroke="#1a1a1a" stroke-width="1.2" marker-end="url(#arr)"/>
+  <text x="325" y="222" font-size="12" fill="#1a1a1a">Перекриття 0.35 мм</text>
+
+  <!-- Left Panel Bottom Summary Card -->
+  <rect x="45" y="372" width="405" height="114" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="60" y="394" font-size="12" font-weight="bold" fill="#2457d6">Параметр</text>
+  <text x="180" y="394" font-size="12" font-weight="bold" fill="#2457d6">Допуск / Значення</text>
+  <text x="315" y="394" font-size="12" font-weight="bold" fill="#2457d6">Призначення</text>
+  <line x1="55" y1="402" x2="440" y2="402" stroke="#d0d7de" stroke-width="1"/>
+
+  <text x="60" y="420" font-size="12" fill="#1a1a1a">Ширина пояска w</text>
+  <text x="180" y="420" font-size="12" font-weight="bold" fill="#1a1a1a">80–120 мкм</text>
+  <text x="315" y="420" font-size="12" fill="#6b7280">Високий тиск σ_c</text>
+
+  <text x="60" y="442" font-size="12" fill="#1a1a1a">Шорсткість пояска</text>
+  <text x="180" y="442" font-size="12" font-weight="bold" fill="#27ae60">Ra ≤ 0.10 мкм</text>
+  <text x="315" y="442" font-size="12" fill="#6b7280">Суха герметичність</text>
+
+  <text x="60" y="464" font-size="12" fill="#1a1a1a">Площинність сідла</text>
+  <text x="180" y="464" font-size="12" font-weight="bold" fill="#1a1a1a">⏥ 0.8 мкм</text>
+  <text x="315" y="464" font-size="12" fill="#6b7280">Виключення щілин</text>
+
+
+  <!-- ================= RIGHT PANEL: SECTION VIEW ================= -->
+  <rect x="495" y="78" width="435" height="422" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="712" y="104" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Поперечний профіль: поясок та мікрорельєф</text>
+  <text x="712" y="122" font-size="12" fill="#6b7280" text-anchor="middle">Збільшений переріз контактної зони та положення пелюстки</text>
+
+  <!-- Seat body cross section (symmetrical around bore cx=712) -->
+  <!-- Left body: x=580 to 665, baseline y=254, seat land raised at 645..665 up to y=236 -->
+  <!-- Stiction microgrooves at x=590..635, depth 6 px (y=260) -->
+  <path d="M 580 254 L 590 254 L 590 260 L 600 260 L 600 254 L 610 254 L 610 260 L 620 260 L 620 254 L 645 254 L 645 236 L 665 236 L 665 330 L 580 330 Z" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Right body: x=759 to 844, seat land at 759..779 up to y=236, grooves at 789..834 -->
+  <path d="M 759 236 L 779 236 L 779 254 L 804 254 L 804 260 L 814 260 L 814 254 L 824 254 L 824 260 L 834 260 L 834 254 L 844 254 L 844 330 L 759 330 Z" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Hatching inside the cut body -->
+  <path d="M 582 262 L 643 262 L 643 240 L 663 240 L 663 328 L 582 328 Z" fill="url(#hatch)" stroke="none"/>
+  <path d="M 761 240 L 781 240 L 781 262 L 842 262 L 842 328 L 761 328 Z" fill="url(#hatch)" stroke="none"/>
+
+  <!-- Sealing land highlighted top surfaces (green line) -->
+  <line x1="645" y1="236" x2="665" y2="236" stroke="#27ae60" stroke-width="3"/>
+  <line x1="759" y1="236" x2="779" y2="236" stroke="#27ae60" stroke-width="3"/>
+
+  <!-- Valve Orifice Channel (between 665 and 759, width 94 px) -->
+  <rect x="666" y="238" width="92" height="92" fill="#eaf0fd" fill-opacity="0.4" stroke="none"/>
+  <text x="712" y="278" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Вхідний отвір</text>
+  <text x="712" y="295" font-size="12" fill="#6b7280" text-anchor="middle">P_in &lt; P_out</text>
+
+  <!-- Clamping block on the left (x=570 to 605) -->
+  <rect x="570" y="214" width="35" height="14" rx="2" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.2"/>
+  <text x="587" y="208" font-size="12" fill="#6b7280" text-anchor="middle">Затиск</text>
+
+  <!-- Cantilever Reed Blade in closed / contact state -->
+  <!-- Reed thickness = 8 px, rests at y=236 (top at y=228), spans from clamping x=570 to free tip x=795 -->
+  <rect x="570" y="228" width="225" height="8" rx="1.5" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="502" y="233" font-size="12" font-weight="bold" fill="#2457d6">Пелюстка</text>
+  <text x="502" y="250" font-size="12" fill="#6b7280">h = 25 мкм</text>
+  <path d="M 554 232 L 567 232" stroke="#2457d6" stroke-width="1.2" marker-end="url(#arr-blue)"/>
+
+  <!-- Reverse pressure force label and arrows (closing force -ΔP) -->
+  <text x="712" y="196" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Зворотний тиск -ΔP (притискання)</text>
+  <path d="M 655 204 L 655 224" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arr-red)"/>
+  <path d="M 769 204 L 769 224" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arr-red)"/>
+
+  <!-- Contact point highlights (green circles at land) -->
+  <circle cx="655" cy="236" r="4" fill="#27ae60"/>
+  <circle cx="769" cy="236" r="4" fill="#27ae60"/>
+
+  <!-- Roughness indicator on seat land (Ra <= 0.1 um) -->
+  <path d="M 655 236 L 640 160 L 615 160" fill="none" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="610" y="155" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="end">Ra ≤ 0.10 мкм</text>
+  <text x="610" y="172" font-size="12" fill="#6b7280" text-anchor="end">Поясок seat land</text>
+
+  <!-- Land Width Dimension w_land = 100 um -->
+  <path d="M 769 236 L 784 160 L 804 160" fill="none" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="809" y="155" font-size="12" font-weight="bold" fill="#1a1a1a">w_land = 100 ± 10 мкм</text>
+  <text x="809" y="172" font-size="12" fill="#6b7280">Висота h = 30 мкм</text>
+
+  <!-- Orifice width dimension line at bottom -->
+  <line x1="665" y1="344" x2="759" y2="344" stroke="#2457d6" stroke-width="1.2"/>
+  <line x1="665" y1="335" x2="665" y2="348" stroke="#2457d6" stroke-width="1.2"/>
+  <line x1="759" y1="335" x2="759" y2="348" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="712" y="360" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">d_port = ⌀ 0.80 ± 0.02 мм</text>
+
+  <!-- Microrelief callout on section (Left side below grooves) -->
+  <path d="M 605 260 L 590 285 L 575 285" fill="none" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="570" y="281" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">Мікрорельєф</text>
+  <text x="570" y="298" font-size="12" fill="#6b7280" text-anchor="end">Глибина 6 мкм</text>
+  <text x="570" y="315" font-size="12" fill="#27ae60" text-anchor="end">Розрив меніска</text>
+
+  <!-- Right Panel Bottom Engineering Rules Card -->
+  <rect x="510" y="372" width="405" height="114" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="525" y="394" font-size="12" font-weight="bold" fill="#1a1a1a">Інженерні вимоги до контактної зони:</text>
+
+  <circle cx="533" cy="416" r="3.5" fill="#27ae60"/>
+  <text x="544" y="420" font-size="12" fill="#1a1a1a">Шорсткість Ra ≤ 0.1 мкм: сухе безклейове ущільнення</text>
+
+  <circle cx="533" cy="438" r="3.5" fill="#2457d6"/>
+  <text x="544" y="442" font-size="12" fill="#1a1a1a">Ширина 80–120 мкм: баланс контактного тиску та зносу</text>
+
+  <circle cx="533" cy="460" r="3.5" fill="#27ae60"/>
+  <text x="544" y="464" font-size="12" fill="#1a1a1a">Заглиблений мікрорельєф: зниження стикції на 85–90%</text>
+
+</svg>

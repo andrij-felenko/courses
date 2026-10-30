@@ -1,0 +1,83 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Definitions for markers and filters -->
+  <defs>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Динаміка спрацьовування пелюсткового клапана та часова затримка закриття</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Порівняння пульсацій тиску, оптичного сигналу переміщення пелюстки та фази зворотного току</text>
+
+  <!-- Panel Background for Waveforms -->
+  <rect x="50" y="75" width="860" height="395" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Axes & Grid Lines -->
+  <!-- Time axis X -->
+  <line x1="120" y1="430" x2="890" y2="430" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+  <text x="905" y="435" font-size="12" fill="#1a1a1a">t</text>
+
+  <!-- Channel 1: Chamber Pressure p_c(t) -->
+  <g transform="translate(0, 0)">
+    <text x="70" y="105" font-size="12" font-weight="bold" fill="#2457d6">p_c(t)</text>
+    <line x1="120" y1="120" x2="870" y2="120" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4,4"/>
+    <line x1="120" y1="150" x2="870" y2="150" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4,4"/>
+    <text x="75" y="124" font-size="11" fill="#6b7280">p_max</text>
+    <!-- Waveform p_c -->
+    <path d="M 120 150 Q 150 90, 180 120 T 240 120 T 300 120 T 360 120 T 420 120 T 480 120 T 540 120 T 600 120 T 660 120 T 720 120 T 780 120 T 840 120 T 870 135" 
+          fill="none" stroke="#2457d6" stroke-width="2"/>
+  </g>
+
+  <!-- Channel 2: Outlet Pressure p_out(t) with Backflow / Reverse Flow -->
+  <g transform="translate(0, 0)">
+    <text x="70" y="200" font-size="12" font-weight="bold" fill="#c0392b">p_out(t)</text>
+    <line x1="120" y1="210" x2="870" y2="210" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4,4"/>
+    <line x1="120" y1="245" x2="870" y2="245" stroke="#d0d7de" stroke-width="1"/> <!-- Zero line -->
+    <text x="95" y="249" font-size="11" fill="#6b7280">0</text>
+    <!-- Waveform p_out showing reverse flow dip below zero -->
+    <path d="M 120 245 Q 160 245, 190 210 T 250 210 T 310 210 T 370 210 T 430 210 T 490 210 T 550 210 T 610 210 Q 640 210, 660 265 Q 680 280, 700 245 T 760 245 T 820 245 T 870 245" 
+          fill="none" stroke="#c0392b" stroke-width="2"/>
+    <!-- Highlight Reverse Flow Area -->
+    <text x="630" y="295" font-size="12" font-weight="bold" fill="#c0392b">Зворотний тік</text>
+  </g>
+
+  <!-- Channel 3: Optical Sensor / Reed Displacement h(t) -->
+  <g transform="translate(0, 0)">
+    <text x="70" y="335" font-size="12" font-weight="bold" fill="#27ae60">h(t)</text>
+    <line x1="120" y1="320" x2="870" y2="320" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4,4"/>
+    <text x="70" y="324" font-size="11" fill="#6b7280">h_max</text>
+    <line x1="120" y1="380" x2="870" y2="380" stroke="#d0d7de" stroke-width="1"/> <!-- Seat line -->
+    <text x="75" y="384" font-size="11" fill="#6b7280">Сідло</text>
+    <!-- Waveform h(t) -->
+    <path d="M 120 380 Q 140 320, 180 320 T 240 320 T 300 320 T 360 320 T 420 320 T 480 320 T 540 320 T 600 320 Q 640 320, 680 380 T 780 380 T 870 380" 
+          fill="none" stroke="#27ae60" stroke-width="2.5"/>
+  </g>
+
+  <!-- Time Markers and Delay Annotation -->
+  <!-- t_0: Pressure reversal moment -->
+  <line x1="600" y1="95" x2="600" y2="430" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="3,3"/>
+  <text x="600" y="90" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">t_0</text>
+
+  <!-- t_c: Full closure moment -->
+  <line x1="680" y1="95" x2="680" y2="430" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="3,3"/>
+  <text x="680" y="90" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">t_c</text>
+
+  <!-- Closing Delay Interval (Delta t) -->
+  <line x1="603" y1="355" x2="677" y2="355" stroke="#1a1a1a" stroke-width="1.5" marker-start="url(#arr-dark)" marker-end="url(#arr-dark)"/>
+  <rect x="615" y="342" width="55" height="18" fill="white" opacity="0.8"/>
+  <text x="642" y="355" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Δt_closed</text>
+
+</svg>

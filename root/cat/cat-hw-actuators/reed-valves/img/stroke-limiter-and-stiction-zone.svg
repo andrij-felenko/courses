@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-grey" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <text x="480" y="40" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Пелюстковий клапан: обмежувач ходу та мікрорельєф сідла</text>
+  <text x="480" y="60" text-anchor="middle" font-size="13" fill="#6b7280">Стопер запобігає втомному руйнуванню, а рельєф знижує залипання пелюстки</text>
+
+  <path d="M 400 360 L 400 295 Q 600 295, 800 214 L 800 295 L 550 295 L 550 360 Z" fill="#eaf0fd"/>
+
+  <rect x="250" y="220" width="150" height="61" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <rect x="250" y="295" width="150" height="65" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+
+  <circle cx="325" cy="250" r="5" fill="#d0d7de" stroke="#6b7280" stroke-width="1.5"/>
+  <circle cx="325" cy="327" r="5" fill="#d0d7de" stroke="#6b7280" stroke-width="1.5"/>
+
+  <path d="M 250 281 L 400 281 Q 600 281, 800 200 L 800 210 Q 600 291, 400 291 L 250 291 Z" fill="#f4f6f8" stroke="#6b7280" stroke-width="2"/>
+
+  <path d="M 250 291 L 400 291 Q 600 291, 800 210 L 800 214 Q 600 295, 400 295 L 250 295 Z" fill="#2457d6"/>
+
+  <path d="M 550 300 L 570 300 L 575 295 L 580 300 L 610 300 L 615 295 L 620 300 L 650 300 L 655 295 L 660 300 L 690 300 L 695 295 L 700 300 L 730 300 L 735 295 L 740 300 L 800 300 L 800 360 L 550 360 Z" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+
+  <rect x="400" y="291" width="400" height="4" fill="none" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4,3" opacity="0.6"/>
+
+  <path d="M 475 360 L 475 310" stroke="#2457d6" stroke-width="3" marker-end="url(#arr-blue)"/>
+  <path d="M 475 285 Q 550 270, 650 270" stroke="#2457d6" stroke-width="3" fill="none" marker-end="url(#arr-blue)"/>
+  <text x="420" y="380" text-anchor="end" font-size="14" font-weight="bold" fill="#2457d6">Потік рідини</text>
+  <text x="420" y="400" text-anchor="end" font-size="13" fill="#2457d6">або газу</text>
+
+  <text x="650" y="140" text-anchor="middle" font-weight="bold" fill="#1a1a1a" font-size="14">Обмежувач ходу (стопер)</text>
+  <text x="650" y="160" text-anchor="middle" fill="#27ae60" font-size="13">Запобігає надмірному згину</text>
+  <path d="M 650 168 L 650 244" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-grey)"/>
+
+  <text x="650" y="395" text-anchor="middle" font-weight="bold" fill="#1a1a1a" font-size="14">Мікрорельєф сідла</text>
+  <text x="650" y="413" text-anchor="middle" fill="#27ae60" font-size="13">Зменшує площу контакту</text>
+  <text x="650" y="431" text-anchor="middle" fill="#27ae60" font-size="13">та послаблює залипання</text>
+  <path d="M 650 380 L 655 298" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-grey)"/>
+
+  <text x="870" y="260" text-anchor="middle" font-size="13" font-weight="bold" fill="#c0392b">Рідинний місток</text>
+  <text x="870" y="275" text-anchor="middle" font-size="12" fill="#c0392b">мінімальний</text>
+  <path d="M 870 280 L 738 296" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+
+  <text x="825" y="215" text-anchor="start" font-size="12" fill="#2457d6">Відкритий стан</text>
+  <path d="M 820 212 L 804 212" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <text x="825" y="315" text-anchor="start" font-size="12" fill="#6b7280">Закритий стан</text>
+  <path d="M 820 311 L 802 297" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-grey)"/>
+
+</svg>

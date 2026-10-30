@@ -1,0 +1,138 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 500" width="960" height="500" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="500" fill="white"/>
+
+  <!-- Main Title & Subtitle -->
+  <text x="480" y="34" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Гідравлічна характеристика та насичення пелюсткового клапана</text>
+  <text x="480" y="56" font-size="13" fill="#6b7280" text-anchor="middle">При підйомі w_max ≥ 0.25 d_0 опір щілини зникає, і витрата обмежується площею отвору сідла A_0</text>
+
+  <!-- ================= LEFT PANEL ================= -->
+  <rect x="30" y="78" width="435" height="402" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="247" y="104" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Витрата від висоти підйому: Q(w_max)</text>
+  <text x="247" y="122" font-size="12" fill="#6b7280" text-anchor="middle">Фізика гідравлічного насичення при ΔP = const</text>
+
+  <!-- Left Axes -->
+  <line x1="85" y1="275" x2="85" y2="148" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="78" y="145" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">Q</text>
+  <text x="78" y="159" font-size="12" fill="#6b7280" text-anchor="end">[м³/с]</text>
+  <line x1="80" y1="175" x2="85" y2="175" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="76" y="179" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">Q_sat</text>
+  <text x="76" y="279" font-size="12" fill="#6b7280" text-anchor="end">0</text>
+
+  <line x1="85" y1="275" x2="415" y2="275" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="422" y="271" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">w_max</text>
+  <text x="422" y="286" font-size="12" fill="#6b7280" text-anchor="start">[мкм]</text>
+
+  <!-- Left Transition Point & Reference Lines -->
+  <line x1="245" y1="275" x2="245" y2="280" stroke="#1a1a1a" stroke-width="1.2"/>
+  <text x="245" y="295" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">0.25 d_0</text>
+  <text x="245" y="310" font-size="12" fill="#6b7280" text-anchor="middle">(поріг насичення)</text>
+
+  <line x1="245" y1="175" x2="245" y2="275" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="3,3"/>
+  <line x1="245" y1="175" x2="400" y2="175" stroke="#2457d6" stroke-width="1.2" stroke-dasharray="4,3"/>
+  <text x="330" y="163" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Q_sat = C_d · A_0 · √(2ΔP/ρ)</text>
+
+  <!-- Left Curve -->
+  <path d="M 85 275 C 135 230, 195 178, 245 175 L 400 175" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+  <circle cx="245" cy="175" r="4.5" fill="#2457d6"/>
+
+  <!-- Left Plot Labels -->
+  <text x="96" y="172" font-size="12" font-weight="bold" fill="#c0392b">Дроселювання</text>
+  <text x="96" y="188" font-size="12" fill="#6b7280">R_gap ≫ R_seat</text>
+
+  <text x="328" y="212" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Зона насичення</text>
+  <text x="328" y="229" font-size="12" fill="#6b7280" text-anchor="middle">Лімітує отвір сідла A_0</text>
+  <text x="328" y="246" font-size="12" fill="#27ae60" text-anchor="middle">ΔQ / Δw ≈ 0  (плато)</text>
+
+  <!-- Left Bottom Cards -->
+  <rect x="48" y="344" width="195" height="120" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="145" y="363" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Дроселювання щілиною</text>
+  <text x="145" y="383" font-size="12" fill="#1a1a1a" text-anchor="middle">w_max &lt; 0.25 d_0</text>
+  <text x="145" y="403" font-size="12" fill="#1a1a1a" text-anchor="middle">A_gap &lt; A_0  (площа щілини)</text>
+  <text x="145" y="423" font-size="12" fill="#6b7280" text-anchor="middle">R_gap ∝ μ / w_max³</text>
+  <text x="145" y="443" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Лімітує вузький зазор</text>
+
+  <rect x="255" y="344" width="195" height="120" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="352" y="363" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Гідравлічне насичення</text>
+  <text x="352" y="383" font-size="12" fill="#1a1a1a" text-anchor="middle">w_max ≥ 0.25 d_0</text>
+  <text x="352" y="403" font-size="12" fill="#1a1a1a" text-anchor="middle">A_gap ≥ A_0  (площа отвору)</text>
+  <text x="352" y="423" font-size="12" fill="#6b7280" text-anchor="middle">R_seat ≫ R_gap</text>
+  <text x="352" y="443" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Лімітує отвір сідла A_0</text>
+
+  <!-- ================= RIGHT PANEL ================= -->
+  <rect x="495" y="78" width="435" height="402" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="712" y="104" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Витратна характеристика: Q(ΔP)</text>
+  <text x="712" y="122" font-size="12" fill="#6b7280" text-anchor="middle">Перехід від відкриття клапана до квадратичного опору отвору</text>
+
+  <!-- Right Axes -->
+  <line x1="550" y1="275" x2="550" y2="148" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="543" y="145" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">Q</text>
+  <text x="543" y="159" font-size="12" fill="#6b7280" text-anchor="end">[м³/с]</text>
+  <text x="543" y="279" font-size="12" fill="#6b7280" text-anchor="end">0</text>
+
+  <line x1="550" y1="275" x2="880" y2="275" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="888" y="271" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">ΔP</text>
+  <text x="888" y="286" font-size="12" fill="#6b7280" text-anchor="start">[кПа]</text>
+
+  <!-- Right Ticks on X-Axis -->
+  <line x1="550" y1="275" x2="605" y2="275" stroke="#c0392b" stroke-width="3"/>
+  <text x="577" y="263" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Закрито</text>
+
+  <line x1="605" y1="275" x2="605" y2="280" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="605" y="295" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">ΔP_crack</text>
+  <text x="605" y="310" font-size="12" fill="#6b7280" text-anchor="middle">(відкриття)</text>
+
+  <line x1="725" y1="275" x2="725" y2="280" stroke="#1a1a1a" stroke-width="1.2"/>
+  <text x="725" y="295" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">ΔP_sat</text>
+  <text x="725" y="310" font-size="12" fill="#6b7280" text-anchor="middle">(насичення)</text>
+
+  <line x1="725" y1="195" x2="725" y2="275" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="3,3"/>
+
+  <!-- Right Curve -->
+  <path d="M 605 275 C 650 275, 695 235, 725 195 C 760 175, 810 163, 865 160" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+  <circle cx="725" cy="195" r="4.5" fill="#2457d6"/>
+
+  <!-- Right Plot Labels -->
+  <text x="650" y="172" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Дроселювання</text>
+  <text x="650" y="188" font-size="12" fill="#6b7280" text-anchor="middle">Згин пелюстки ∝ ΔP</text>
+  <text x="650" y="204" font-size="12" fill="#c0392b" text-anchor="middle">A_gap(ΔP) ∝ ΔP</text>
+
+  <text x="795" y="145" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Q ∝ √(ΔP)</text>
+
+  <text x="800" y="212" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Зона насичення</text>
+  <text x="800" y="229" font-size="12" fill="#6b7280" text-anchor="middle">Пелюстка відкрита</text>
+  <text x="800" y="246" font-size="12" fill="#27ae60" text-anchor="middle">Лімітує отвір A_0</text>
+
+  <!-- Right Bottom Cards -->
+  <rect x="513" y="344" width="195" height="120" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="610" y="363" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Ділянка відкриття</text>
+  <text x="610" y="383" font-size="12" fill="#1a1a1a" text-anchor="middle">ΔP_crack &lt; ΔP &lt; ΔP_sat</text>
+  <text x="610" y="403" font-size="12" fill="#1a1a1a" text-anchor="middle">w_max зростає з ΔP</text>
+  <text x="610" y="423" font-size="12" fill="#6b7280" text-anchor="middle">A_gap(ΔP) розширюється</text>
+  <text x="610" y="443" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Крутий приріст витрати</text>
+
+  <rect x="720" y="344" width="195" height="120" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="817" y="363" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Ділянка насичення</text>
+  <text x="817" y="383" font-size="12" fill="#1a1a1a" text-anchor="middle">ΔP ≥ ΔP_sat</text>
+  <text x="817" y="403" font-size="12" fill="#1a1a1a" text-anchor="middle">A_eff = const = A_0</text>
+  <text x="817" y="423" font-size="12" fill="#6b7280" text-anchor="middle">Q = C_d·A_0·√(2ΔP/ρ)</text>
+  <text x="817" y="443" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Квадратичний опір отвору</text>
+</svg>
