@@ -1,0 +1,74 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 840 500" width="100%" height="100%">
+  <rect width="840" height="500" fill="#0d1117"/>
+  <text x="420" y="34" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="20" font-weight="bold" fill="#f0f6fc" text-anchor="middle">Геометрія капілярної пастки бульбашок з масивом мікроколон</text>
+  <text x="420" y="58" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="13" fill="#8b949e" text-anchor="middle">Гідродинамічне розділення фаз: утримання бульбашок поверхневим натягом без перешкоди рідині</text>
+
+  <!-- Trap Chamber Box -->
+  <rect x="50" y="85" width="510" height="375" rx="8" fill="#161b22" stroke="#30363d" stroke-width="1.5"/>
+
+  <!-- Inlet Channel -->
+  <rect x="50" y="225" width="80" height="60" fill="rgba(88, 166, 255, 0.2)" stroke="#58a6ff" stroke-width="1.5"/>
+  <text x="90" y="260" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto" font-size="12" font-weight="bold" fill="#58a6ff" text-anchor="middle">Вхід</text>
+  <line x1="80" y1="275" x2="115" y2="275" stroke="#58a6ff" stroke-width="2"/>
+
+  <!-- Chamber Expansion -->
+  <!-- Divergent walls -->
+  <path d="M 130,225 L 200,120 L 510,120 L 510,390 L 200,390 L 130,285 Z" fill="#0d1117" stroke="#30363d" stroke-width="2"/>
+
+  <!-- Array of Micro-pillars (Pillar grid) -->
+  <!-- Row 1: Outer coarse filter -->
+  <circle cx="230" cy="160" r="14" fill="#21262d" stroke="#58a6ff" stroke-width="2"/>
+  <circle cx="230" cy="210" r="14" fill="#21262d" stroke="#58a6ff" stroke-width="2"/>
+  <circle cx="230" cy="260" r="14" fill="#21262d" stroke="#58a6ff" stroke-width="2"/>
+  <circle cx="230" cy="310" r="14" fill="#21262d" stroke="#58a6ff" stroke-width="2"/>
+  <circle cx="230" cy="360" r="14" fill="#21262d" stroke="#58a6ff" stroke-width="2"/>
+
+  <!-- Row 2: Intermediate pillars (staggered) -->
+  <circle cx="280" cy="185" r="12" fill="#21262d" stroke="#58a6ff" stroke-width="2"/>
+  <circle cx="280" cy="235" r="12" fill="#21262d" stroke="#58a6ff" stroke-width="2"/>
+  <circle cx="280" cy="285" r="12" fill="#21262d" stroke="#58a6ff" stroke-width="2"/>
+  <circle cx="280" cy="335" r="12" fill="#21262d" stroke="#58a6ff" stroke-width="2"/>
+
+  <!-- Trapped Gas Bubbles in Dead-end Pockets -->
+  <ellipse cx="255" cy="170" rx="16" ry="12" fill="rgba(210, 153, 34, 0.4)" stroke="#d29922" stroke-width="2"/>
+  <ellipse cx="255" cy="220" rx="18" ry="14" fill="rgba(210, 153, 34, 0.4)" stroke="#d29922" stroke-width="2"/>
+  <ellipse cx="255" cy="320" rx="15" ry="11" fill="rgba(210, 153, 34, 0.4)" stroke="#d29922" stroke-width="2"/>
+  <text x="350" y="165" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto" font-size="11" font-weight="bold" fill="#d29922">Захоплені бульбашки газу</text>
+  <line x1="275" y1="170" x2="330" y2="165" stroke="#d29922" stroke-width="1.5" stroke-dasharray="3"/>
+
+  <!-- Streamlines of Liquid Bypassing Bubbles -->
+  <path d="M 125,255 C 180,255 190,275 230,285 C 270,295 320,270 380,260 C 430,250 470,255 510,255" fill="none" stroke="#3fb950" stroke-width="3"/>
+  <path d="M 125,250 C 180,250 200,200 240,195 C 280,190 320,240 380,245 C 440,250 470,250 510,250" fill="none" stroke="#3fb950" stroke-width="2" stroke-dasharray="4"/>
+  <text x="380" y="295" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto" font-size="11" fill="#3fb950">Вільний потік рідини в обхід</text>
+
+  <!-- Outlet Channel -->
+  <rect x="510" y="225" width="50" height="60" fill="rgba(63, 185, 80, 0.2)" stroke="#3fb950" stroke-width="1.5"/>
+  <text x="535" y="260" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto" font-size="11" font-weight="bold" fill="#3fb950" text-anchor="middle">Вихід</text>
+
+  <!-- Gap Dimension Annotation -->
+  <line x1="230" y1="210" x2="230" y2="260" stroke="#bc8cff" stroke-width="1.5"/>
+  <text x="210" y="240" font-family="monospace" font-size="10" fill="#bc8cff" text-anchor="end">W_gap</text>
+
+  <!-- Side Specifications Panel -->
+  <rect x="580" y="85" width="235" height="375" rx="8" fill="#161b22" stroke="#30363d" stroke-width="1.5"/>
+  <text x="595" y="115" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto" font-size="14" font-weight="bold" fill="#f0f6fc">Критерії розрахунку:</text>
+
+  <rect x="590" y="130" width="215" height="95" rx="6" fill="#0d1117" stroke="#30363d"/>
+  <text x="600" y="152" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto" font-size="11" font-weight="bold" fill="#58a6ff">1. Ширина проміжку W_gap:</text>
+  <text x="600" y="170" font-family="monospace" font-size="10" fill="#f0f6fc">W_gap &lt; D_bubble / 2</text>
+  <text x="600" y="188" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto" font-size="10" fill="#8b949e">Бульбашка не може протиснутися</text>
+  <text x="600" y="205" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto" font-size="10" fill="#8b949e">крізь щілину без високого ΔP.</text>
+
+  <rect x="590" y="235" width="215" height="100" rx="6" fill="#0d1117" stroke="#30363d"/>
+  <text x="600" y="255" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto" font-size="11" font-weight="bold" fill="#3fb950">2. Гідродинамічний шунт:</text>
+  <text x="600" y="273" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto" font-size="10" fill="#8b949e">Навіть якщо 50% пасток</text>
+  <text x="600" y="290" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto" font-size="10" fill="#8b949e">заповнено повітрям, паралельні</text>
+  <text x="600" y="307" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto" font-size="10" fill="#8b949e">канали пропускають рідину</text>
+  <text x="600" y="324" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto" font-size="10" fill="#3fb950">з мінімальним перепадом тиску.</text>
+
+  <rect x="590" y="345" width="215" height="100" rx="6" fill="#21262d" stroke="#d29922"/>
+  <text x="600" y="367" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto" font-size="11" font-weight="bold" fill="#d29922">3. Форма мікроколон:</text>
+  <text x="600" y="385" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto" font-size="10" fill="#f0f6fc">• Круглі: мінімум гідравлічного опору</text>
+  <text x="600" y="402" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto" font-size="10" fill="#f0f6fc">• Трикутні / краплеподібні:</text>
+  <text x="600" y="420" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto" font-size="10" fill="#8b949e">  напрямне відведення газу у сховище</text>
+</svg>

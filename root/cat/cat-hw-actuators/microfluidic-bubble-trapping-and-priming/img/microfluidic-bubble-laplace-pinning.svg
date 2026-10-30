@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 840 500" width="100%" height="100%">
+  <rect width="840" height="500" fill="#0d1117"/>
+  <text x="420" y="34" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="20" font-weight="bold" fill="#f0f6fc" text-anchor="middle">Капілярне блокування бульбашки в мікроканалі: Рівняння Юнга-Лапласа</text>
+  <text x="420" y="58" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="13" fill="#8b949e" text-anchor="middle">Перепад капілярного тиску на передньому і задньому менісках та виникнення гідравлічного корка</text>
+
+  <!-- Microchannel Container -->
+  <rect x="60" y="90" width="480" height="360" rx="8" fill="#161b22" stroke="#30363d" stroke-width="1.5"/>
+
+  <!-- Channel walls -->
+  <rect x="80" y="140" width="440" height="30" fill="#21262d" stroke="#58a6ff" stroke-width="1.5"/>
+  <text x="300" y="160" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto" font-size="12" fill="#8b949e" text-anchor="middle">Верхня стінка мікроканалу (PDMS / скло)</text>
+
+  <rect x="80" y="310" width="440" height="30" fill="#21262d" stroke="#58a6ff" stroke-width="1.5"/>
+  <text x="300" y="330" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto" font-size="12" fill="#8b949e" text-anchor="middle">Нижня стінка мікроканалу (кремній / PMMA)</text>
+
+  <!-- Fluid Flow on Left -->
+  <rect x="80" y="170" width="100" height="140" fill="rgba(88, 166, 255, 0.25)"/>
+  <line x1="100" y1="240" x2="160" y2="240" stroke="#58a6ff" stroke-width="3"/>
+  <polygon points="160,235 170,240 160,245" fill="#58a6ff"/>
+  <text x="130" y="220" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto" font-size="12" font-weight="bold" fill="#58a6ff" text-anchor="middle">Потік P_in</text>
+
+  <!-- Air Bubble in Center -->
+  <!-- Left meniscus (receding): curved inward -->
+  <!-- Right meniscus (advancing, constricted into narrower section): high curvature -->
+  <path d="M 180,170 C 210,210 210,270 180,310 L 380,310 C 350,270 350,210 380,170 Z" fill="rgba(210, 153, 34, 0.2)" stroke="#d29922" stroke-width="2.5"/>
+  <text x="280" y="235" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto" font-size="15" font-weight="bold" fill="#d29922" text-anchor="middle">Повітряна бульбашка</text>
+  <text x="280" y="255" font-family="monospace" font-size="12" fill="#f0f6fc" text-anchor="middle">Тиск газу P_gas</text>
+
+  <!-- Constriction section on the right -->
+  <polygon points="380,170 420,200 520,200 520,170" fill="#21262d" stroke="#58a6ff" stroke-width="1.5"/>
+  <polygon points="380,310 420,280 520,280 520,310" fill="#21262d" stroke="#58a6ff" stroke-width="1.5"/>
+
+  <!-- Fluid Flow on Right (blocked/low) -->
+  <rect x="420" y="200" width="100" height="80" fill="rgba(88, 166, 255, 0.1)"/>
+  <text x="470" y="245" font-family="monospace" font-size="12" fill="#8b949e" text-anchor="middle">P_out</text>
+
+  <!-- Meniscus Radii Annotations -->
+  <!-- R_rec -->
+  <path d="M 180,170 C 210,240 180,310 180,310" fill="none" stroke="#3fb950" stroke-width="2" stroke-dasharray="4"/>
+  <text x="140" y="280" font-family="monospace" font-size="11" fill="#3fb950">R_rec (великий)</text>
+
+  <!-- R_adv in throat -->
+  <path d="M 400,200 C 430,240 400,280 400,280" fill="none" stroke="#f85149" stroke-width="2" stroke-dasharray="4"/>
+  <text x="440" y="190" font-family="monospace" font-size="11" fill="#f85149">R_adv (малий!)</text>
+
+  <!-- Force balance annotation -->
+  <rect x="80" y="375" width="440" height="55" rx="6" fill="#0d1117" stroke="#30363d"/>
+  <text x="95" y="398" font-family="monospace" font-size="12" fill="#f0f6fc">ΔP_cap = P_in - P_out = 2γ · (cos θ_adv / r_throat - cos θ_rec / r_wide)</text>
+  <text x="95" y="418" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto" font-size="11" fill="#3fb950">Капілярний бар'єр досягає 5..50 кПа, повністю блокуючи потік!</text>
+
+  <!-- Theory Panel on Right -->
+  <rect x="560" y="90" width="250" height="360" rx="8" fill="#161b22" stroke="#30363d" stroke-width="1.5"/>
+  <text x="575" y="118" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto" font-size="14" font-weight="bold" fill="#f0f6fc">Причини блокування:</text>
+
+  <rect x="575" y="135" width="220" height="90" rx="6" fill="#0d1117" stroke="#30363d"/>
+  <text x="585" y="155" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto" font-size="11" font-weight="bold" fill="#d29922">1. Гістерезис кута змочування:</text>
+  <text x="585" y="173" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto" font-size="10" fill="#8b949e">θ_adv > θ_rec, що створює</text>
+  <text x="585" y="190" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto" font-size="10" fill="#8b949e">асиметрію сил поверхневого</text>
+  <text x="585" y="207" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto" font-size="10" fill="#8b949e">натягу проти руху потоку.</text>
+
+  <rect x="575" y="235" width="220" height="95" rx="6" fill="#0d1117" stroke="#30363d"/>
+  <text x="585" y="255" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto" font-size="11" font-weight="bold" fill="#f85149">2. Звуження перерізу (pinning):</text>
+  <text x="585" y="273" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto" font-size="10" fill="#8b949e">При переході в горловину</text>
+  <text x="585" y="290" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto" font-size="10" fill="#8b949e">радіус меніска різко меншає,</text>
+  <text x="585" y="307" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto" font-size="10" fill="#8b949e">створюючи опір Лапласа.</text>
+
+  <rect x="575" y="340" width="220" height="95" rx="6" fill="#21262d" stroke="#58a6ff"/>
+  <text x="585" y="362" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto" font-size="11" font-weight="bold" fill="#58a6ff">Наслідки для мікропомпи:</text>
+  <text x="585" y="380" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto" font-size="10" fill="#f0f6fc">• Втрата самовсмоктування</text>
+  <text x="585" y="398" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto" font-size="10" fill="#f0f6fc">• Падіння подачі на 70-100%</text>
+  <text x="585" y="416" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto" font-size="10" fill="#3fb950">Потрібні капілярні пастки!</text>
+</svg>

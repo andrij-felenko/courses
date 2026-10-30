@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 840 500" width="100%" height="100%">
+  <rect width="840" height="500" fill="#0d1117"/>
+  <text x="420" y="34" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="20" font-weight="bold" fill="#f0f6fc" text-anchor="middle">Мікрофлюїдний дегазатор з пористою гідрофобною мембраною</text>
+  <text x="420" y="58" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="13" fill="#8b949e" text-anchor="middle">Безперервна евакуація повітряних бульбашок через мембрану PTFE без витоку рідини</text>
+
+  <!-- Cross-section Canvas -->
+  <rect x="50" y="85" width="480" height="375" rx="8" fill="#161b22" stroke="#30363d" stroke-width="1.5"/>
+
+  <!-- Upper Atmosphere / Vacuum Layer -->
+  <rect x="80" y="110" width="420" height="50" rx="4" fill="#0d1117" stroke="#30363d"/>
+  <text x="290" y="140" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto" font-size="13" font-weight="bold" fill="#8b949e" text-anchor="middle">Атмосферний вентиляційний порт або вакуумна камера (P_vac)</text>
+
+  <!-- Venting Arrows -->
+  <line x1="230" y1="190" x2="230" y2="165" stroke="#d29922" stroke-width="2.5" stroke-dasharray="4"/>
+  <line x1="290" y1="190" x2="290" y2="165" stroke="#d29922" stroke-width="2.5" stroke-dasharray="4"/>
+  <line x1="350" y1="190" x2="350" y2="165" stroke="#d29922" stroke-width="2.5" stroke-dasharray="4"/>
+
+  <!-- Hydrophobic PTFE Membrane -->
+  <rect x="80" y="180" width="420" height="25" fill="#21262d" stroke="#58a6ff" stroke-width="2"/>
+  <text x="290" y="197" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto" font-size="12" font-weight="bold" fill="#58a6ff" text-anchor="middle">Гідрофобна мембрана ePTFE (пори 0.2..1.0 мкм, кут θ > 115°)</text>
+
+  <!-- Liquid Microfluidic Channel -->
+  <rect x="80" y="205" width="420" height="140" fill="rgba(88, 166, 255, 0.2)"/>
+
+  <!-- Liquid Flow Arrow -->
+  <path d="M 90,290 L 490,290" stroke="#3fb950" stroke-width="3"/>
+  <polygon points="490,285 500,290 490,295" fill="#3fb950"/>
+  <text x="140" y="280" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto" font-size="12" font-weight="bold" fill="#3fb950">Потік рідини</text>
+  <text x="450" y="280" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto" font-size="12" font-weight="bold" fill="#3fb950">Чистий вихід</text>
+
+  <!-- Gas Bubbles rising and escaping -->
+  <circle cx="160" cy="260" r="14" fill="rgba(210, 153, 34, 0.5)" stroke="#d29922" stroke-width="1.5"/>
+  <path d="M 160,240 L 180,215" stroke="#d29922" stroke-width="1.5" stroke-dasharray="2"/>
+
+  <circle cx="230" cy="225" r="18" fill="rgba(210, 153, 34, 0.5)" stroke="#d29922" stroke-width="2"/>
+  <circle cx="310" cy="215" r="12" fill="rgba(210, 153, 34, 0.5)" stroke="#d29922" stroke-width="1.5"/>
+
+  <text x="230" y="255" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto" font-size="11" font-weight="bold" fill="#d29922" text-anchor="middle">Бульбашка торкається PTFE</text>
+
+  <!-- Bottom Channel Substrate -->
+  <rect x="80" y="345" width="420" height="40" fill="#21262d" stroke="#30363d"/>
+  <text x="290" y="370" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto" font-size="12" fill="#8b949e" text-anchor="middle">Підкладка чіпа (PMMA / скло / циклоолефін COP)</text>
+
+  <!-- Breakthrough Pressure Annotation -->
+  <rect x="80" y="395" width="420" height="50" rx="4" fill="#0d1117" stroke="#f85149"/>
+  <text x="95" y="415" font-family="monospace" font-size="11" fill="#f85149">Тиск прориву рідини (Liquid Entry Pressure, LEP):</text>
+  <text x="95" y="433" font-family="monospace" font-size="11" fill="#f0f6fc">LEP = -2γ · cos θ / r_pore > 150 кПа (вода не проходить крізь пори!)</text>
+
+  <!-- Right Side Explanations -->
+  <rect x="550" y="85" width="260" height="375" rx="8" fill="#161b22" stroke="#30363d" stroke-width="1.5"/>
+  <text x="565" y="115" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto" font-size="14" font-weight="bold" fill="#f0f6fc">Принцип дії дегазатора:</text>
+
+  <rect x="560" y="130" width="240" height="100" rx="6" fill="#0d1117" stroke="#30363d"/>
+  <text x="570" y="152" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto" font-size="12" font-weight="bold" fill="#58a6ff">1. Селективна проникність:</text>
+  <text x="570" y="172" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto" font-size="10" fill="#8b949e">Мембрана з експандованого PTFE</text>
+  <text x="570" y="190" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto" font-size="10" fill="#8b949e">має мікропори (0.2–0.45 мкм).</text>
+  <text x="570" y="208" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto" font-size="10" fill="#3fb950">Гази дифундують миттєво,</text>
+  <text x="570" y="222" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto" font-size="10" fill="#3fb950">а рідина відштовхується гідрофобно.</text>
+
+  <rect x="560" y="240" width="240" height="95" rx="6" fill="#0d1117" stroke="#30363d"/>
+  <text x="570" y="262" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto" font-size="12" font-weight="bold" fill="#d29922">2. Злиття бульбашок:</text>
+  <text x="570" y="282" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto" font-size="10" fill="#8b949e">Торкаючись сухої поверхні PTFE,</text>
+  <text x="570" y="300" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto" font-size="10" fill="#8b949e">бульбашка розриває водяну плівку</text>
+  <text x="570" y="318" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto" font-size="10" fill="#8b949e">і скидає надлишковий тиск назовні.</text>
+
+  <rect x="560" y="345" width="240" height="100" rx="6" fill="#21262d" stroke="#3fb950"/>
+  <text x="570" y="367" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto" font-size="12" font-weight="bold" fill="#3fb950">3. Пасивний / активний режим:</text>
+  <text x="570" y="387" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto" font-size="10" fill="#f0f6fc">• Пасивний: скидання в атмосферу</text>
+  <text x="570" y="405" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto" font-size="10" fill="#f0f6fc">• Вакуумний (P_vac = -50 кПа):</text>
+  <text x="570" y="425" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto" font-size="10" fill="#3fb950">  видалення навіть розчинених газів!</text>
+</svg>
