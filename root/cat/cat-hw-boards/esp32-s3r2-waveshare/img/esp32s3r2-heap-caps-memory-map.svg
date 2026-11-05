@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+<defs>
+<marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+<path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+</marker>
+</defs>
+<rect x="0" y="0" width="960" height="480" fill="white"/>
+<text x="480" y="40" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Розподіл кучі ESP32-S3 (heap_caps_malloc)</text>
+<text x="480" y="60" font-size="13" fill="#6b7280" text-anchor="middle">Розділення внутрішньої SRAM та зовнішньої PSRAM</text>
+
+<rect x="180" y="100" width="280" height="300" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+<text x="320" y="130" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Внутрішня SRAM (Internal)</text>
+<rect x="200" y="160" width="240" height="60" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+<text x="320" y="195" font-size="13" fill="#1a1a1a" text-anchor="middle">MALLOC_CAP_INTERNAL</text>
+<rect x="200" y="240" width="240" height="60" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+<text x="320" y="275" font-size="13" fill="#1a1a1a" text-anchor="middle">malloc() (за замовчуванням)</text>
+
+<rect x="500" y="100" width="280" height="300" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+<text x="640" y="130" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Зовнішня PSRAM (External)</text>
+<rect x="520" y="160" width="240" height="60" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+<text x="640" y="195" font-size="13" fill="#1a1a1a" text-anchor="middle">MALLOC_CAP_SPIRAM</text>
+<text x="640" y="215" font-size="12" fill="#6b7280" text-anchor="middle">heap_caps_malloc()</text>
+</svg>

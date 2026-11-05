@@ -273,7 +273,7 @@
           "slug": "esp32-s3-zero",
           "title": "ESP32-S3-Zero (Type-C, 4 МБ)",
           "basic": {
-            "status": "empty"
+            "status": "done"
           },
           "detailed": {
             "status": "done",
@@ -1056,16 +1056,6 @@
           }
         },
         {
-          "slug": "waveshare-esp32-s3-touch-lcd-1-28",
-          "title": "Плата Waveshare ESP32-S3 Touch LCD 1.28",
-          "basic": {
-            "status": "empty"
-          },
-          "detailed": {
-            "status": "pending"
-          }
-        },
-        {
           "slug": "esp32-p4-microcontroller",
           "title": "Мікроконтролер ESP32-P4",
           "basic": {
@@ -1103,6 +1093,16 @@
               "file": "math-esp32-p4-riscv-vector-tinyml-throughput.md",
               "status": "done"
             }
+          ],
+          "proj": [
+            {
+              "file": "proj-esp32-p4-hosted-wireless-coprocessor.md",
+              "status": "done"
+            },
+            {
+              "file": "proj-esp32-p4-tinyml-mipi-csi-vision.md",
+              "status": "done"
+            }
           ]
         },
         {
@@ -1135,6 +1135,12 @@
               "file": "math-dvp-frame-buffer-bandwidth.md",
               "status": "done"
             }
+          ],
+          "proj": [
+            {
+              "file": "proj-edge-ai-person-detection.md",
+              "status": "done"
+            }
           ]
         },
         {
@@ -1160,6 +1166,10 @@
             {
               "file": "api-esp32s3-efuse-esp-idf-hal-api.md",
               "status": "done"
+            },
+            {
+              "file": "api-esp32s3-boot-hardware-strapping-spec.md",
+              "status": "done"
             }
           ],
           "hist": [
@@ -1171,6 +1181,10 @@
           "math": [
             {
               "file": "math-strapping-pins-rc-timing-budget.md",
+              "status": "done"
+            },
+            {
+              "file": "math-esp32s3-efuse-reed-solomon-ecc.md",
               "status": "done"
             }
           ]
@@ -1185,7 +1199,7 @@
           "slug": "esp-01",
           "title": "ESP-01 (Wi-Fi, ESP8266)",
           "basic": {
-            "status": "empty"
+            "status": "done"
           },
           "detailed": {
             "status": "done"
@@ -1208,7 +1222,7 @@
           "slug": "esp-01s",
           "title": "ESP-01S (Wi-Fi, ESP8266)",
           "basic": {
-            "status": "empty"
+            "status": "done"
           },
           "detailed": {
             "status": "done"
@@ -1706,10 +1720,10 @@
           "slug": "esp8266-fota-update",
           "title": "Оновлення прошивки ESP8266 по повітрю (FOTA)",
           "basic": {
-            "status": "empty"
+            "status": "done"
           },
           "detailed": {
-            "status": "pending"
+            "status": "done"
           }
         },
         {
@@ -1944,20 +1958,20 @@
           "slug": "esp8266-soc-architecture-overview",
           "title": "Огляд мікроконтролера та архітектури SoC ESP8266",
           "basic": {
-            "status": "empty"
+            "status": "done"
           },
           "detailed": {
-            "status": "pending"
+            "status": "done"
           }
         },
         {
           "slug": "esp8266-bootloader-architecture",
           "title": "Архітектура завантажувача та режими старту ESP8266",
           "basic": {
-            "status": "empty"
+            "status": "done"
           },
           "detailed": {
-            "status": "pending"
+            "status": "done"
           }
         },
         {
@@ -2071,7 +2085,7 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
+            "status": "done"
           }
         },
         {
@@ -2081,7 +2095,7 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
+            "status": "done"
           }
         },
         {
@@ -2091,7 +2105,7 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
+            "status": "done"
           }
         },
         {
@@ -2101,18 +2115,40 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
+            "status": "done"
           }
         },
         {
           "slug": "esp8266-at-cipsend-handshake",
           "title": "Протокол двофазної передачі даних AT+CIPSEND в ESP8266",
           "basic": {
-            "status": "empty"
+            "status": "done"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "done"
+          },
+          "api": [
+            {
+              "file": "api-esp8266-at-cipsend-command-interface.md",
+              "status": "done"
+            },
+            {
+              "file": "api-esp8266-uart-cipsend-hardware-interface.md",
+              "status": "done"
+            }
+          ],
+          "hist": [
+            {
+              "file": "hist-esp8266-cipsend-two-phase-protocol-history.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-esp8266-cipsend-timing-and-throughput-calc.md",
+              "status": "done"
+            }
+          ]
         },
         {
           "slug": "esp8266-uart-hardware-fifo",
@@ -2144,7 +2180,7 @@
           "slug": "stm32f072b-disco",
           "title": "STM32F072B-DISCO (Discovery, Cortex-M0)",
           "basic": {
-            "status": "empty"
+            "status": "done"
           },
           "detailed": {
             "status": "done",
@@ -2275,7 +2311,7 @@
           "slug": "pixhawk-6c",
           "title": "Pixhawk 6C — польотний контролер",
           "basic": {
-            "status": "empty"
+            "status": "done"
           },
           "detailed": {
             "status": "done"
@@ -2298,7 +2334,7 @@
           "slug": "pixhawk-pwm-adapter",
           "title": "PWM-адаптер для Pixhawk",
           "basic": {
-            "status": "empty"
+            "status": "done"
           },
           "detailed": {
             "status": "done",
@@ -2595,20 +2631,10 @@
           "slug": "flashing-tools-esptool-and-nodemcu-pyflasher",
           "title": "Інструменти прошивання мікроконтролерів ESP: esptool та GUI-завантажувачі",
           "basic": {
-            "status": "empty"
+            "status": "done"
           },
           "detailed": {
-            "status": "pending"
-          }
-        },
-        {
-          "slug": "usb-dfu-bootloader-flashing",
-          "title": "Первинне прошивання завантажувача USB DFU в STM32",
-          "basic": {
-            "status": "empty"
-          },
-          "detailed": {
-            "status": "pending"
+            "status": "done"
           }
         },
         {
@@ -2724,10 +2750,10 @@
           "slug": "fail-safe-digital-input-modules",
           "title": "Вхідні модулі дискретних входів безпеки (F-DI)",
           "basic": {
-            "status": "empty"
+            "status": "done"
           },
           "detailed": {
-            "status": "pending"
+            "status": "done"
           }
         },
         {

@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+<defs>
+<marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+<path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+</marker>
+</defs>
+<rect x="0" y="0" width="960" height="480" fill="white"/>
+<text x="480" y="40" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Схема розподілу регуляторів LDO та доменів VDD_SPI</text>
+<text x="480" y="60" font-size="13" fill="#6b7280" text-anchor="middle">Домени живлення плати Waveshare ESP32-S3R2 з виділенням напруг пам'яті</text>
+
+<!-- 5V Input -->
+<rect x="50" y="200" width="120" height="60" fill="#fdecea" stroke="#c0392b" stroke-width="2"/>
+<text x="110" y="235" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">VBUS (5V)</text>
+
+<path d="M 170 230 L 220 230" fill="none" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+
+<!-- LDO ME6211 -->
+<rect x="220" y="190" width="160" height="80" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+<text x="300" y="225" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">LDO ME6211</text>
+<text x="300" y="245" font-size="12" fill="#6b7280" text-anchor="middle">Зовнішній (На платі)</text>
+
+<path d="M 380 230 L 440 230" fill="none" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+<text x="410" y="220" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">3.3V</text>
+
+<!-- ESP32-S3 SoC (VDD33) -->
+<rect x="440" y="140" width="200" height="180" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+<text x="540" y="170" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">ESP32-S3 SoC</text>
+<text x="540" y="190" font-size="12" fill="#6b7280" text-anchor="middle">VDD33 Домен</text>
+
+<!-- Internal LDO -->
+<rect x="460" y="220" width="160" height="60" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+<text x="540" y="245" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Внутрішній LDO</text>
+<text x="540" y="265" font-size="12" fill="#6b7280" text-anchor="middle">Налаштовано на 3.3V</text>
+
+<path d="M 640 230 L 720 230" fill="none" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+<text x="680" y="220" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">VDD_SPI</text>
+
+<!-- Memory Domain -->
+<rect x="720" y="170" width="160" height="120" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+<text x="800" y="200" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Домен Пам'яті</text>
+<text x="800" y="235" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">16MB Flash</text>
+<text x="800" y="265" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">2MB PSRAM</text>
+
+</svg>

@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 600" width="960" height="600" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+  <rect x="0" y="0" width="960" height="600" fill="white"/>
+
+  <text x="480" y="35" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Формування фінальних відповідей AT+CIPSEND в ESP8266</text>
+  <text x="480" y="55" text-anchor="middle" font-size="13" fill="#6b7280">Причинно-наслідкові шляхи від прийняття UART-буфера до статусів SEND OK, SEND FAIL та ERROR</text>
+
+  <rect x="350" y="80" width="260" height="40" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="480" y="105" text-anchor="middle" font-size="14" fill="#1a1a1a">Старт: введено дані після "&gt; "</text>
+  <line x1="480" y1="120" x2="480" y2="150" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <rect x="370" y="150" width="220" height="40" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="480" y="175" text-anchor="middle" font-size="14" fill="#1a1a1a">Запит до lwIP tcp_write()</text>
+  <line x1="480" y1="190" x2="480" y2="220" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <rect x="350" y="220" width="260" height="50" rx="25" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="480" y="250" text-anchor="middle" font-size="14" fill="#1a1a1a">Чи прийняв lwIP дані в буфер?</text>
+
+  <line x1="610" y1="245" x2="730" y2="245" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="670" y="238" text-anchor="middle" font-size="12" fill="#1a1a1a">Ні (ERR_MEM)</text>
+
+  <line x1="480" y1="270" x2="480" y2="310" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="490" y="295" text-anchor="start" font-size="12" fill="#1a1a1a">Так (ERR_OK)</text>
+
+  <rect x="740" y="225" width="120" height="40" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="800" y="250" text-anchor="middle" font-size="14" font-weight="bold" fill="#c0392b">ERROR</text>
+
+  <rect x="310" y="310" width="340" height="40" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="480" y="335" text-anchor="middle" font-size="14" fill="#1a1a1a">lwIP tcp_output(): відправка TCP-сегмента</text>
+  <line x1="480" y1="350" x2="480" y2="380" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <rect x="340" y="380" width="280" height="40" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="480" y="405" text-anchor="middle" font-size="14" fill="#1a1a1a">Очікування квитанції (таймер RTO)</text>
+  <line x1="480" y1="420" x2="480" y2="450" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <rect x="350" y="450" width="260" height="50" rx="25" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="480" y="480" text-anchor="middle" font-size="14" fill="#1a1a1a">Який мережевий результат?</text>
+
+  <line x1="610" y1="475" x2="730" y2="475" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="670" y="468" text-anchor="middle" font-size="12" fill="#1a1a1a">Таймаут / RST</text>
+
+  <line x1="480" y1="500" x2="480" y2="540" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="490" y="525" text-anchor="start" font-size="12" fill="#1a1a1a">Отримано TCP ACK</text>
+
+  <rect x="740" y="455" width="120" height="40" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="800" y="480" text-anchor="middle" font-size="14" font-weight="bold" fill="#c0392b">SEND FAIL</text>
+
+  <rect x="420" y="540" width="120" height="40" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="480" y="565" text-anchor="middle" font-size="14" font-weight="bold" fill="#27ae60">SEND OK</text>
+</svg>

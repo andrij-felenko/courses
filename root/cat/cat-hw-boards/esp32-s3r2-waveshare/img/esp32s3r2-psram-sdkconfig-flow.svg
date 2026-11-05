@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+<defs>
+<marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+<path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+</marker>
+</defs>
+<rect x="0" y="0" width="960" height="480" fill="white"/>
+<text x="480" y="40" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Конфігурація SPIRAM у sdkconfig</text>
+<text x="480" y="60" font-size="13" fill="#6b7280" text-anchor="middle">Зв'язок між активацією CONFIG_SPIRAM та ініціалізацією драйвера пам'яті</text>
+
+<rect x="150" y="200" width="200" height="80" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+<text x="250" y="245" font-size="14" fill="#1a1a1a" text-anchor="middle">CONFIG_SPIRAM</text>
+
+<path d="M 350 240 L 410 240" fill="none" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+
+<rect x="420" y="200" width="200" height="80" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+<text x="520" y="245" font-size="14" fill="#1a1a1a" text-anchor="middle">Вибір частоти шини SPI</text>
+
+<path d="M 620 240 L 680 240" fill="none" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+
+<rect x="690" y="200" width="200" height="80" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+<text x="790" y="245" font-size="14" fill="#1a1a1a" text-anchor="middle">Ініціалізація драйвера</text>
+
+</svg>

@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+<defs>
+<marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+<path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+</marker>
+</defs>
+<rect x="0" y="0" width="960" height="480" fill="white"/>
+<text x="480" y="40" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Часові інтервали пакетної транзакції Quad SPI</text>
+<text x="480" y="60" font-size="13" fill="#6b7280" text-anchor="middle">Цикли арбітражу, затримки MMU та передача кеш-лінії L1 Cache</text>
+
+<!-- Timeline axis -->
+<path d="M 100 240 L 860 240" fill="none" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+<text x="860" y="270" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="end">Час (Цикли шини)</text>
+
+<!-- Blocks -->
+<!-- Arbitration -->
+<rect x="120" y="200" width="140" height="40" fill="#fdecea" stroke="#c0392b" stroke-width="2"/>
+<text x="190" y="225" font-size="14" font-weight="bold" fill="#c0392b" text-anchor="middle">Арбітраж шини</text>
+<path d="M 120 180 L 260 180" fill="none" stroke="#6b7280" stroke-width="1"/>
+<text x="190" y="170" font-size="12" fill="#6b7280" text-anchor="middle">~2 цикли</text>
+
+<!-- MMU Latency -->
+<rect x="260" y="200" width="160" height="40" fill="#fdecea" stroke="#c0392b" stroke-width="2"/>
+<text x="340" y="225" font-size="14" font-weight="bold" fill="#c0392b" text-anchor="middle">Затримка MMU</text>
+<path d="M 260 180 L 420 180" fill="none" stroke="#6b7280" stroke-width="1"/>
+<text x="340" y="170" font-size="12" fill="#6b7280" text-anchor="middle">~4-5 циклів</text>
+
+<!-- Command / Address -->
+<rect x="420" y="200" width="180" height="40" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+<text x="510" y="225" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">Команда/Адреса</text>
+<path d="M 420 180 L 600 180" fill="none" stroke="#6b7280" stroke-width="1"/>
+<text x="510" y="170" font-size="12" fill="#6b7280" text-anchor="middle">~6 циклів</text>
+
+<!-- Data Transfer -->
+<rect x="600" y="200" width="220" height="40" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+<text x="710" y="225" font-size="14" font-weight="bold" fill="#27ae60" text-anchor="middle">Передача даних 32B (Кеш)</text>
+<path d="M 600 180 L 820 180" fill="none" stroke="#6b7280" stroke-width="1"/>
+<text x="710" y="170" font-size="12" fill="#6b7280" text-anchor="middle">64 цикли (Quad SPI)</text>
+
+<!-- Total Latency Brace -->
+<path d="M 120 290 L 120 300 L 470 300 L 470 310 L 470 300 L 820 300 L 820 290" fill="none" stroke="#2457d6" stroke-width="2"/>
+<text x="470" y="330" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">Загальний час транзакції кеш-лінії</text>
+
+</svg>

@@ -1,0 +1,89 @@
+<svg viewBox="0 0 960 460" width="960" height="460" xmlns="http://www.w3.org/2000/svg" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+  <defs>
+    <marker id="arr-black" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="40" font-weight="bold" font-size="18" text-anchor="middle" fill="#1a1a1a">Колізія асинхронного +IPD та запрошення &gt; при AT+CIPSEND</text>
+  <text x="480" y="60" font-size="13" text-anchor="middle" fill="#6b7280">FSM-парсер хоста перехоплює несподіваний вхідний кадр, після чого безпечно дочікується символу-запрошення</text>
+
+  <!-- Заголовки ліній життя -->
+  <rect x="220" y="80" width="160" height="30" fill="#f4f6f8" stroke="#d0d7de" rx="4"/>
+  <text x="300" y="100" font-size="14" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Хост (MCU)</text>
+  
+  <rect x="640" y="80" width="160" height="30" fill="#f4f6f8" stroke="#d0d7de" rx="4"/>
+  <text x="720" y="100" font-size="14" font-weight="bold" text-anchor="middle" fill="#1a1a1a">ESP8266</text>
+
+  <!-- Лінії життя -->
+  <path d="M 300,110 L 300,430" stroke="#d0d7de" stroke-width="2" stroke-dasharray="6"/>
+  <path d="M 720,110 L 720,430" stroke="#d0d7de" stroke-width="2" stroke-dasharray="6"/>
+
+  <!-- Стан 1: IDLE -->
+  <rect x="80" y="100" width="180" height="30" fill="#f4f6f8" stroke="#d0d7de" rx="4"/>
+  <text x="170" y="120" font-size="14" font-family="monospace" font-weight="bold" text-anchor="middle" fill="#1a1a1a">IDLE</text>
+
+  <!-- 1. CIPSEND -->
+  <text x="510" y="115" font-size="14" font-family="monospace" text-anchor="middle" fill="#2457d6">AT+CIPSEND=5\r\n</text>
+  <path d="M 300,120 L 710,120" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Стан 2: WAIT_PROMPT 1 -->
+  <rect x="80" y="142" width="180" height="60" fill="#eaf0fd" stroke="#2457d6" stroke-dasharray="4" rx="4"/>
+  <text x="170" y="166" font-size="14" font-family="monospace" font-weight="bold" text-anchor="middle" fill="#2457d6">WAIT_PROMPT</text>
+  <text x="170" y="186" font-size="12" text-anchor="middle" fill="#6b7280">(очікування &gt;)</text>
+
+  <!-- 2. OK -->
+  <text x="510" y="160" font-size="14" font-family="monospace" text-anchor="middle" fill="#1a1a1a">\r\nOK\r\n</text>
+  <path d="M 720,165 L 310,165" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr-black)"/>
+
+  <!-- Подія Wi-Fi -->
+  <rect x="740" y="185" width="160" height="24" fill="#fdecea" stroke="#c0392b" rx="4"/>
+  <text x="820" y="202" font-size="12" text-anchor="middle" fill="#c0392b">Вхідний TCP-кадр</text>
+
+  <!-- Стан 3: READ_IPD -->
+  <rect x="80" y="214" width="180" height="40" fill="#fdecea" stroke="#c0392b" rx="4"/>
+  <text x="170" y="232" font-size="14" font-family="monospace" font-weight="bold" text-anchor="middle" fill="#c0392b">READ_IPD</text>
+  <text x="170" y="247" font-size="12" text-anchor="middle" fill="#c0392b">обробка +IPD</text>
+
+  <!-- 3. +IPD -->
+  <text x="510" y="220" font-size="14" font-family="monospace" text-anchor="middle" fill="#c0392b">\r\n+IPD,7:URGENT</text>
+  <path d="M 720,225 L 310,225" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+
+  <!-- Стан 4: WAIT_PROMPT 2 -->
+  <rect x="80" y="266" width="180" height="44" fill="#e9f7ef" stroke="#27ae60" rx="4"/>
+  <text x="170" y="286" font-size="14" font-family="monospace" font-weight="bold" text-anchor="middle" fill="#27ae60">WAIT_PROMPT</text>
+  <text x="170" y="303" font-size="12" text-anchor="middle" fill="#27ae60">очікування триває</text>
+
+  <!-- 4. Пропт > -->
+  <text x="510" y="280" font-size="14" font-family="monospace" font-weight="bold" text-anchor="middle" fill="#27ae60">&gt; </text>
+  <path d="M 720,285 L 310,285" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- Стан 5: SEND_DATA -->
+  <rect x="80" y="322" width="180" height="44" fill="#f4f6f8" stroke="#d0d7de" rx="4"/>
+  <text x="170" y="342" font-size="14" font-family="monospace" font-weight="bold" text-anchor="middle" fill="#1a1a1a">SEND_DATA</text>
+  <text x="170" y="359" font-size="12" text-anchor="middle" fill="#6b7280">надсилання payload</text>
+
+  <!-- 5. Payload -->
+  <text x="510" y="335" font-size="14" font-family="monospace" text-anchor="middle" fill="#2457d6">"HELLO"</text>
+  <path d="M 300,340 L 710,340" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- 6. SEND OK -->
+  <text x="510" y="380" font-size="14" font-family="monospace" text-anchor="middle" fill="#1a1a1a">\r\nSEND OK\r\n</text>
+  <path d="M 720,385 L 310,385" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr-black)"/>
+
+  <!-- Стан 6: IDLE -->
+  <rect x="80" y="397" width="180" height="30" fill="#f4f6f8" stroke="#d0d7de" rx="4"/>
+  <text x="170" y="417" font-size="14" font-family="monospace" font-weight="bold" text-anchor="middle" fill="#1a1a1a">IDLE</text>
+
+</svg>

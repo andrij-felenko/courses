@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+<defs>
+<marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+<path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+</marker>
+</defs>
+<rect x="0" y="0" width="960" height="480" fill="white"/>
+<text x="480" y="40" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Принципова схема живлення плати Waveshare ESP32-S3R2</text>
+<text x="480" y="60" font-size="13" fill="#6b7280" text-anchor="middle">Двоканальне живлення від USB Type-C та 5V, LDO-стабілізатор 3.3V</text>
+
+<!-- Inputs -->
+<rect x="100" y="150" width="160" height="60" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+<text x="180" y="185" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">USB Type-C (5V)</text>
+
+<rect x="100" y="250" width="160" height="60" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+<text x="180" y="285" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Вивід 5V (Ext)</text>
+
+<!-- Diodes -->
+<path d="M 260 180 L 320 180 L 320 215 L 360 215" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr)"/>
+<text x="320" y="170" font-size="12" fill="#2457d6" text-anchor="middle">Діод Шотткі</text>
+
+<path d="M 260 280 L 320 280 L 320 245 L 360 245" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr)"/>
+<text x="320" y="305" font-size="12" fill="#2457d6" text-anchor="middle">Діод Шотткі</text>
+
+<!-- OR Node -->
+<circle cx="360" cy="230" r="5" fill="#2457d6"/>
+
+<!-- LDO -->
+<rect x="400" y="190" width="160" height="80" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+<text x="480" y="225" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">LDO Стабілізатор</text>
+<text x="480" y="245" font-size="13" fill="#6b7280" text-anchor="middle">ME6211C33M5G-N</text>
+
+<path d="M 360 230 L 400 230" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr)"/>
+<text x="380" y="220" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">5V</text>
+
+<path d="M 560 230 L 640 230" fill="none" stroke="#27ae60" stroke-width="2" marker-end="url(#arr)"/>
+<text x="600" y="220" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">3.3V</text>
+
+<!-- ESP32-S3 -->
+<rect x="640" y="150" width="200" height="160" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+<text x="740" y="185" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">ESP32-S3R2</text>
+<text x="740" y="215" font-size="12" fill="#1a1a1a" text-anchor="middle">Живлення SoC та PSRAM</text>
+
+<!-- Buttons -->
+<rect x="660" y="240" width="70" height="40" fill="#fdecea" stroke="#c0392b" stroke-width="2"/>
+<text x="695" y="265" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">RESET</text>
+
+<rect x="750" y="240" width="70" height="40" fill="#fdecea" stroke="#c0392b" stroke-width="2"/>
+<text x="785" y="265" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">BOOT</text>
+
+</svg>

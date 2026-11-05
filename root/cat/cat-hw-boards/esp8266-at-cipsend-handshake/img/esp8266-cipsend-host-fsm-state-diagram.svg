@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <text x="480" y="40" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Драйвер хоста для AT+CIPSEND</text>
+  <text x="480" y="60" font-size="13" fill="#6b7280" text-anchor="middle">Діаграма станів і переходів скінченного автомата керування двофазною передачею</text>
+
+  <!-- States -->
+  <rect x="80" y="260" width="120" height="60" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2" rx="8"/>
+  <text x="140" y="295" font-size="16" font-weight="bold" fill="#1a1a1a" text-anchor="middle">IDLE</text>
+
+  <rect x="380" y="160" width="140" height="60" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2" rx="8"/>
+  <text x="450" y="195" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">WAIT_PROMPT</text>
+
+  <rect x="700" y="160" width="140" height="60" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2" rx="8"/>
+  <text x="770" y="195" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">WAIT_RESULT</text>
+
+  <!-- Transitions -->
+  <!-- IDLE to WAIT_PROMPT -->
+  <path d="M 140,260 L 140,190 L 380,190" fill="none" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="150" y="170" fill="#1a1a1a" font-size="13">Потреба відправити дані</text>
+  <text x="150" y="210" fill="#2457d6" font-size="13">TX: AT+CIPSEND=N</text>
+
+  <!-- WAIT_PROMPT to WAIT_RESULT -->
+  <path d="M 520,190 L 700,190" fill="none" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="610" y="170" fill="#1a1a1a" font-size="13" text-anchor="middle">RX: &gt; </text>
+  <text x="610" y="210" fill="#2457d6" font-size="13" text-anchor="middle">TX: payload (N байтів)</text>
+
+  <!-- WAIT_RESULT to IDLE (Success) -->
+  <path d="M 770,220 L 770,290 L 200,290" fill="none" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="600" y="270" fill="#1a1a1a" font-size="13" text-anchor="middle">RX: SEND OK</text>
+  <text x="600" y="310" fill="#27ae60" font-size="13" text-anchor="middle">Подія: Успіх</text>
+
+  <!-- WAIT_PROMPT to IDLE (Timeout/Error) -->
+  <path d="M 450,220 L 450,350 L 140,350 L 140,320" fill="none" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="295" y="340" fill="#1a1a1a" font-size="13" text-anchor="middle">Таймаут або RX: ERROR</text>
+  <text x="295" y="370" fill="#c0392b" font-size="13" text-anchor="middle">Подія: Збій (Fail)</text>
+
+  <!-- WAIT_RESULT to IDLE (Timeout/Fail/Error) -->
+  <path d="M 820,220 L 820,400 L 100,400 L 100,320" fill="none" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="460" y="390" fill="#1a1a1a" font-size="13" text-anchor="middle">Таймаут, RX: SEND FAIL / ERROR</text>
+  <text x="460" y="420" fill="#c0392b" font-size="13" text-anchor="middle">Подія: Збій (Fail)</text>
+
+  <!-- WAIT_PROMPT self loop (Ignore) -->
+  <path d="M 430,160 L 430,120 L 470,120 L 470,160" fill="none" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="450" y="90" fill="#6b7280" font-size="12" text-anchor="middle">Асинхр. +IPD або</text>
+  <text x="450" y="105" fill="#6b7280" font-size="12" text-anchor="middle">сміття (ігнорувати)</text>
+
+  <!-- WAIT_RESULT self loop (Buffer IPD) -->
+  <path d="M 750,160 L 750,120 L 790,120 L 790,160" fill="none" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="770" y="90" fill="#6b7280" font-size="12" text-anchor="middle">Асинхр. +IPD</text>
+  <text x="770" y="105" fill="#6b7280" font-size="12" text-anchor="middle">(буферизувати)</text>
+</svg>

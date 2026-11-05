@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 420" width="720" height="420" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="720" height="420" fill="white"/>
+  <text x="360" y="40" font-size="18" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Залежність пропускної здатності від розміру порції даних</text>
+  <text x="360" y="60" font-size="13" text-anchor="middle" fill="#6b7280">Оптимальний розмір — 2048 байтів, більші порції обмежуються буфером</text>
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+  <line x1="100" y1="350" x2="650" y2="350" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="100" y1="350" x2="100" y2="100" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="650" y1="350" x2="660" y2="350" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+  <line x1="100" y1="100" x2="100" y2="90" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+  <text x="100" y="75" font-size="13" text-anchor="middle" fill="#1a1a1a">кБ/с</text>
+  <text x="650" y="380" font-size="13" text-anchor="middle" fill="#1a1a1a">Байт</text>
+  <text x="85" y="105" font-size="12" text-anchor="end" fill="#6b7280">12</text>
+  <text x="85" y="147" font-size="12" text-anchor="end" fill="#6b7280">10</text>
+  <text x="85" y="188" font-size="12" text-anchor="end" fill="#6b7280">8</text>
+  <text x="85" y="230" font-size="12" text-anchor="end" fill="#6b7280">6</text>
+  <text x="85" y="272" font-size="12" text-anchor="end" fill="#6b7280">4</text>
+  <text x="85" y="313" font-size="12" text-anchor="end" fill="#6b7280">2</text>
+  <text x="85" y="355" font-size="12" text-anchor="end" fill="#6b7280">0</text>
+  <text x="140" y="370" font-size="12" text-anchor="middle" fill="#6b7280">64</text>
+  <text x="220" y="370" font-size="12" text-anchor="middle" fill="#6b7280">128</text>
+  <text x="300" y="370" font-size="12" text-anchor="middle" fill="#6b7280">256</text>
+  <text x="380" y="370" font-size="12" text-anchor="middle" fill="#6b7280">512</text>
+  <text x="460" y="370" font-size="12" text-anchor="middle" fill="#6b7280">1024</text>
+  <text x="540" y="370" font-size="12" font-weight="bold" text-anchor="middle" fill="#27ae60">2048</text>
+  <line x1="140" y1="350" x2="140" y2="355" stroke="#1a1a1a" stroke-width="1"/>
+  <line x1="220" y1="350" x2="220" y2="355" stroke="#1a1a1a" stroke-width="1"/>
+  <line x1="300" y1="350" x2="300" y2="355" stroke="#1a1a1a" stroke-width="1"/>
+  <line x1="380" y1="350" x2="380" y2="355" stroke="#1a1a1a" stroke-width="1"/>
+  <line x1="460" y1="350" x2="460" y2="355" stroke="#1a1a1a" stroke-width="1"/>
+  <line x1="540" y1="350" x2="540" y2="355" stroke="#1a1a1a" stroke-width="1"/>
+  <line x1="100" y1="142" x2="620" y2="142" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4 4"/>
+  <line x1="100" y1="183" x2="620" y2="183" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4 4"/>
+  <line x1="100" y1="225" x2="620" y2="225" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4 4"/>
+  <line x1="100" y1="267" x2="620" y2="267" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4 4"/>
+  <line x1="100" y1="308" x2="620" y2="308" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4 4"/>
+  <path d="M 140 308 L 220 267 L 300 225 L 380 183 L 460 152 L 540 131" fill="none" stroke="#2457d6" stroke-width="3"/>
+  <circle cx="140" cy="308" r="4" fill="#2457d6"/>
+  <circle cx="220" cy="267" r="4" fill="#2457d6"/>
+  <circle cx="300" cy="225" r="4" fill="#2457d6"/>
+  <circle cx="380" cy="183" r="4" fill="#2457d6"/>
+  <circle cx="460" cy="152" r="4" fill="#2457d6"/>
+  <circle cx="540" cy="131" r="5" fill="#27ae60"/>
+  <rect x="390" y="80" width="170" height="30" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="475" y="100" font-size="13" text-anchor="middle" fill="#27ae60">Оптимальний розмір</text>
+  <line x1="475" y1="110" x2="535" y2="125" stroke="#27ae60" stroke-width="1" stroke-dasharray="2 2"/>
+</svg>

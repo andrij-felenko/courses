@@ -1,0 +1,90 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Gray zone for indeterminate logic level -->
+  <rect x="100" y="250" width="338" height="50" fill="#fdecea"/>
+  <rect x="562" y="250" width="338" height="50" fill="#fdecea"/>
+
+  <!-- Latch Window Background -->
+  <rect x="450" y="190" width="100" height="170" fill="#eaf0fd"/>
+  <!-- Latch Window Outline -->
+  <rect x="450" y="190" width="100" height="170" fill="none" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="6,4"/>
+
+  <!-- V_IH and V_IL dashed lines -->
+  <path d="M 100,250 L 900,250" fill="none" stroke="#c0392b" stroke-width="1" stroke-dasharray="4,4"/>
+  <path d="M 100,300 L 900,300" fill="none" stroke="#c0392b" stroke-width="1" stroke-dasharray="4,4"/>
+
+  <!-- Vertical reference line for CHIP_PU rise -->
+  <path d="M 170,90 L 170,400" fill="none" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="4,4"/>
+
+  <!-- Signals -->
+  <path d="M 100,150 L 160,150 L 170,90 L 900,90" fill="none" stroke="#1a1a1a" stroke-width="2.5"/>
+  <path d="M 100,150 L 900,150" fill="none" stroke="#d0d7de" stroke-width="1"/>
+  
+  <path d="M 100,330 L 900,330" fill="none" stroke="#d0d7de" stroke-width="1"/>
+  <path d="M 100,330 L 170,330 Q 220,210 320,210 L 900,210" fill="none" stroke="#27ae60" stroke-width="3"/>
+  <circle cx="240" cy="250" r="4" fill="#27ae60"/>
+  
+  <path d="M 170,330 Q 450,310 800,210 L 900,210" fill="none" stroke="#c0392b" stroke-width="3" stroke-dasharray="6,4"/>
+  <circle cx="500" cy="284" r="5" fill="#c0392b"/>
+
+  <!-- Timing Budget Arrows -->
+  <path d="M 310,355 L 175,355" fill="none" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <path d="M 310,355 L 445,355" fill="none" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  
+  <path d="M 175,235 L 235,235" fill="none" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  
+  <!-- System State Blocks -->
+  <rect x="100" y="390" width="70" height="30" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="182" y="390" width="256" height="30" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="450" y="390" width="100" height="30" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="562" y="390" width="338" height="30" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- TEXTS -->
+  <text x="480" y="35" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Часовий бюджет скидання та зчитування конфігурації ESP32-S3</text>
+  <text x="480" y="55" font-size="13" fill="#6b7280" text-anchor="middle">Перевищення часу RC-затримки (t_settle) призводить до збою фіксації стану strapping-виводів ROM-завантажувачем</text>
+
+  <text x="95" y="125" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="end">CHIP_PU</text>
+  <text x="95" y="140" font-size="11" fill="#6b7280" text-anchor="end">Скидання</text>
+  
+  <text x="95" y="275" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="end">Strapping</text>
+  <text x="95" y="290" font-size="11" fill="#6b7280" text-anchor="end">GPIO 0,45,46</text>
+  
+  <text x="95" y="410" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="end">Стан</text>
+
+  <text x="895" y="245" font-size="12" fill="#c0392b" text-anchor="end">V_IH (логічна 1)</text>
+  <text x="895" y="315" font-size="12" fill="#c0392b" text-anchor="end">V_IL (логічний 0)</text>
+  <text x="350" y="278" font-size="12" fill="#c0392b" text-anchor="middle">Невизначений стан (Сіра зона)</text>
+
+  <text x="135" y="410" font-size="12" fill="#1a1a1a" text-anchor="middle">Скидання</text>
+  <text x="310" y="410" font-size="12" fill="#1a1a1a" text-anchor="middle">Апаратна ініціалізація</text>
+  <text x="500" y="410" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Засувка стану</text>
+  <text x="731" y="410" font-size="12" fill="#1a1a1a" text-anchor="middle">Виконання ROM Bootloader</text>
+
+  <text x="310" y="348" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Часовий бюджет (Timing Budget)</text>
+  <text x="205" y="228" font-size="12" fill="#27ae60" text-anchor="middle">t_settle</text>
+
+  <path d="M 240,245 L 260,185 L 270,185" fill="none" stroke="#27ae60" stroke-width="1"/>
+  <text x="275" y="180" font-size="12" font-weight="bold" fill="#27ae60">Нормальний RC-заряд</text>
+  <text x="275" y="195" font-size="12" fill="#27ae60">Надійна фіксація '1'</text>
+  
+  <path d="M 505,284 L 530,185 L 540,185" fill="none" stroke="#c0392b" stroke-width="1"/>
+  <text x="545" y="180" font-size="12" font-weight="bold" fill="#c0392b">Збій зчитування</text>
+  <text x="545" y="195" font-size="12" fill="#c0392b">Завеликий номінал R або C</text>
+
+  <text x="500" y="170" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Вікно засувки</text>
+  <text x="500" y="185" font-size="12" fill="#2457d6" text-anchor="middle">(Latch Window)</text>
+</svg>

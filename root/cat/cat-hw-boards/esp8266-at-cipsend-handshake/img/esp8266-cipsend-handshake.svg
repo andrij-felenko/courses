@@ -1,0 +1,44 @@
+<svg viewBox="0 0 720 400" width="720" height="400" xmlns="http://www.w3.org/2000/svg" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="720" height="400" fill="white"/>
+  
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <text x="360" y="40" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Протокол двофазної передачі даних AT+CIPSEND</text>
+  <text x="360" y="62" font-size="13" fill="#6b7280" text-anchor="middle">Хост чекає на запрошення «&gt;» після виділення пам'яті контролером</text>
+
+  <line x1="150" y1="110" x2="150" y2="380" stroke="#d0d7de" stroke-width="2" stroke-dasharray="6,6"/>
+  <line x1="570" y1="110" x2="570" y2="380" stroke="#d0d7de" stroke-width="2" stroke-dasharray="6,6"/>
+
+  <rect x="70" y="80" width="160" height="40" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <text x="150" y="105" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Хост</text>
+
+  <rect x="490" y="80" width="160" height="40" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <text x="570" y="105" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">ESP8266</text>
+
+  <line x1="150" y1="150" x2="558" y2="150" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+  <text x="360" y="140" font-size="14" fill="#1a1a1a" text-anchor="middle">AT+CIPSEND=4</text>
+
+  <rect x="490" y="180" width="160" height="46" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <text x="570" y="200" font-size="13" fill="#1a1a1a" text-anchor="middle">Виділення буферів</text>
+  <text x="570" y="218" font-size="13" fill="#1a1a1a" text-anchor="middle">пам'яті (затримка)</text>
+
+  <line x1="570" y1="270" x2="162" y2="270" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="360" y="260" font-size="14" fill="#27ae60" font-weight="bold" text-anchor="middle">OK \r\n &gt;</text>
+
+  <line x1="150" y1="320" x2="558" y2="320" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="360" y="310" font-size="14" fill="#2457d6" font-weight="bold" text-anchor="middle">Дані (4 байти)</text>
+
+  <line x1="570" y1="370" x2="162" y2="370" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+  <text x="360" y="360" font-size="14" fill="#1a1a1a" text-anchor="middle">SEND OK</text>
+
+</svg>

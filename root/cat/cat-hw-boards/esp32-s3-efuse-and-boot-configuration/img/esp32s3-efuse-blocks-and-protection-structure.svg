@@ -1,0 +1,110 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+  <defs>
+    <marker id="arr-red" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="30" font-size="18" font-weight="700" text-anchor="middle" fill="#1a1a1a">Структура пам'яті eFuse ESP32-S3 та апаратний захист ключів</text>
+  <text x="480" y="50" font-size="13" font-weight="400" text-anchor="middle" fill="#6b7280">Маски RD_DIS та WR_DIS апаратно блокують доступ до EFUSE_BLK0–BLK10 для Flash Encryption та Secure Boot</text>
+
+  <!-- Panel 1: EFUSE_BLK0 Protection Structure -->
+  <rect x="30" y="70" width="430" height="235" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="8"/>
+  <text x="245" y="92" font-size="14" font-weight="700" text-anchor="middle" fill="#1a1a1a">EFUSE_BLK0: Системні маски захисту та прапорці</text>
+
+  <!-- RD_DIS Box -->
+  <rect x="45" y="108" width="190" height="88" fill="#fdecea" stroke="#c0392b" stroke-width="1" rx="6"/>
+  <text x="140" y="128" font-size="13" font-weight="700" text-anchor="middle" fill="#c0392b">RD_DIS (Read Disable)</text>
+  <text x="140" y="146" font-size="12" fill="#1a1a1a" text-anchor="middle">Блокує зчитування KEY0–KEY5</text>
+  <text x="140" y="162" font-size="12" fill="#6b7280" text-anchor="middle">Захищає ключ шифрування</text>
+  <text x="140" y="180" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">CPU/JTAG Access: DENIED</text>
+
+  <!-- WR_DIS Box -->
+  <rect x="255" y="108" width="190" height="88" fill="#e9f7ef" stroke="#27ae60" stroke-width="1" rx="6"/>
+  <text x="350" y="128" font-size="13" font-weight="700" text-anchor="middle" fill="#27ae60">WR_DIS (Write Disable)</text>
+  <text x="350" y="146" font-size="12" fill="#1a1a1a" text-anchor="middle">Блокує повторне запікання</text>
+  <text x="350" y="162" font-size="12" fill="#6b7280" text-anchor="middle">Фіксує конфігурацію і дайджест</text>
+  <text x="350" y="180" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">Подальший запис: LOCKED</text>
+
+  <!-- Security Controls Box inside BLK0 -->
+  <rect x="45" y="208" width="400" height="82" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="245" y="228" font-size="12" font-weight="700" text-anchor="middle" fill="#1a1a1a">Прапорці апаратної безпеки (Security Controls)</text>
+  <text x="245" y="248" font-size="12" fill="#1a1a1a" text-anchor="middle">KEY_PURPOSE_0..5 (призначення блоків KEY0–KEY5)</text>
+  <text x="245" y="266" font-size="12" fill="#6b7280" text-anchor="middle">FLASH_CRYPT_CNT, SECURE_BOOT_EN, DIS_PAD_JTAG</text>
+
+  <!-- Panel 2: Memory Map (EFUSE_BLK0 – EFUSE_BLK10) -->
+  <rect x="490" y="70" width="440" height="450" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="8"/>
+  <text x="710" y="92" font-size="14" font-weight="700" text-anchor="middle" fill="#1a1a1a">Карта блоків eFuse (256 біт на блок)</text>
+
+  <!-- BLK0 block -->
+  <rect x="508" y="108" width="404" height="34" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="4"/>
+  <text x="710" y="129" font-size="12" font-weight="700" text-anchor="middle" fill="#2457d6">EFUSE_BLK0: SYS_DATA / RD_DIS / WR_DIS / Controls</text>
+
+  <!-- BLK1-3 block -->
+  <rect x="508" y="150" width="404" height="34" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="4"/>
+  <text x="710" y="171" font-size="12" fill="#1a1a1a" text-anchor="middle">EFUSE_BLK1–BLK3: System Data / MAC / Calibration / Custom</text>
+
+  <!-- BLK4 KEY0 block -->
+  <rect x="508" y="192" width="404" height="46" fill="#fdecea" stroke="#c0392b" stroke-width="1" rx="4"/>
+  <text x="710" y="211" font-size="12" font-weight="700" text-anchor="middle" fill="#c0392b">EFUSE_BLK4 (KEY0): FE Key (XTS_AES_256_KEY_1)</text>
+  <text x="710" y="228" font-size="12" fill="#c0392b" text-anchor="middle">[Захищено RD_DIS] — Зчитування заборонено для CPU</text>
+
+  <!-- BLK5 KEY1 block -->
+  <rect x="508" y="246" width="404" height="46" fill="#e9f7ef" stroke="#27ae60" stroke-width="1" rx="4"/>
+  <text x="710" y="265" font-size="12" font-weight="700" text-anchor="middle" fill="#27ae60">EFUSE_BLK5 (KEY1): SB Digest (SECURE_BOOT_DIGEST_HASH)</text>
+  <text x="710" y="282" font-size="12" fill="#27ae60" text-anchor="middle">[Захищено WR_DIS] — Перезапис заборонено (Immutable)</text>
+
+  <!-- BLK6-9 KEY2-5 block -->
+  <rect x="508" y="300" width="404" height="46" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="4"/>
+  <text x="710" y="319" font-size="12" font-weight="700" text-anchor="middle" fill="#1a1a1a">EFUSE_BLK6–BLK9 (KEY2–KEY5): HMAC / DigSig / SB2 / FE2</text>
+  <text x="710" y="336" font-size="12" fill="#6b7280" text-anchor="middle">Призначення задається через KEY_PURPOSE_2..5</text>
+
+  <!-- BLK10 block -->
+  <rect x="508" y="354" width="404" height="34" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="4"/>
+  <text x="710" y="375" font-size="12" fill="#1a1a1a" text-anchor="middle">EFUSE_BLK10: SYS_DATA_PART2 / Резерв користувача</text>
+
+  <!-- eFuse burning rules info box -->
+  <rect x="508" y="398" width="404" height="107" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="4"/>
+  <text x="710" y="417" font-size="12" font-weight="700" text-anchor="middle" fill="#1a1a1a">Принцип запікання бітів (eFuse Burning)</text>
+  <text x="710" y="436" font-size="12" fill="#1a1a1a" text-anchor="middle">1. Запікання відбувається одноразовим пропалюванням бітів (0 -&gt; 1)</text>
+  <text x="710" y="454" font-size="12" fill="#c0392b" text-anchor="middle">2. Процес незворотний: скидання чи стирання апаратно неможливе</text>
+  <text x="710" y="472" font-size="12" fill="#27ae60" text-anchor="middle">3. Режим --dry-run в espefuse.py моделює дії без реального запису</text>
+  <text x="710" y="490" font-size="12" fill="#6b7280" text-anchor="middle">4. Перевірка стану здійснюється командою espefuse.py summary</text>
+
+  <!-- Panel 3: Hardware Encryption & Verification Engines -->
+  <rect x="30" y="325" width="430" height="195" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="8"/>
+  <text x="245" y="347" font-size="14" font-weight="700" text-anchor="middle" fill="#1a1a1a">Апаратний споживач ключів та доступ</text>
+
+  <!-- Flash Encryption Engine -->
+  <rect x="45" y="360" width="190" height="65" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="6"/>
+  <text x="140" y="380" font-size="12" font-weight="700" text-anchor="middle" fill="#2457d6">Flash Encryption Engine</text>
+  <text x="140" y="397" font-size="12" fill="#1a1a1a" text-anchor="middle">Прямий шинопровід до KEY0</text>
+  <text x="140" y="414" font-size="12" fill="#2457d6" text-anchor="middle">Прозоре шифрування Flash</text>
+
+  <!-- Secure Boot V2 Verifier -->
+  <rect x="255" y="360" width="190" height="65" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="6"/>
+  <text x="350" y="380" font-size="12" font-weight="700" text-anchor="middle" fill="#2457d6">Secure Boot V2 Engine</text>
+  <text x="350" y="397" font-size="12" fill="#1a1a1a" text-anchor="middle">Зчитує дайджест із KEY1</text>
+  <text x="350" y="414" font-size="12" fill="#2457d6" text-anchor="middle">Перевірка підпису коду</text>
+
+  <!-- CPU / JTAG Access Control -->
+  <rect x="45" y="435" width="400" height="70" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="245" y="455" font-size="12" font-weight="700" text-anchor="middle" fill="#1a1a1a">Доступ CPU / Програматора (espefuse.py / JTAG)</text>
+  <text x="245" y="473" font-size="12" fill="#c0392b" text-anchor="middle">KEY0 (FE Key): READ BLOCKED (повертається 0x0)</text>
+  <text x="245" y="490" font-size="12" fill="#27ae60" text-anchor="middle">KEY1 (SB Digest): WRITE BLOCKED (запис відхилено)</text>
+
+  <!-- Connection Lines & Arrows staying strictly in empty margin gap x=460..490 -->
+  <!-- RD_DIS to KEY0 line -->
+  <path d="M 460,125 L 476,125 L 476,215 L 500,215" fill="none" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr-red)"/>
+
+  <!-- WR_DIS to KEY1 line -->
+  <path d="M 460,175 L 476,175 L 476,269 L 500,269" fill="none" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr-green)"/>
+</svg>

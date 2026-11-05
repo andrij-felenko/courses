@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 360" width="720" height="360" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="720" height="360" fill="white"/>
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок -->
+  <text x="360" y="40" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Підключення UART з апаратним контролем потоку</text>
+  <text x="360" y="65" text-anchor="middle" font-size="13" fill="#6b7280">Чотири лінії для узгодження швидкості та уникнення переповнення буферів</text>
+
+  <!-- Керуючий Хост -->
+  <rect x="60" y="100" width="160" height="230" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <text x="140" y="130" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Керуючий Хост</text>
+  
+  <text x="210" y="175" text-anchor="end" font-size="14" fill="#1a1a1a">TX</text>
+  <text x="210" y="215" text-anchor="end" font-size="14" fill="#1a1a1a">RX</text>
+  <text x="210" y="255" text-anchor="end" font-size="14" fill="#1a1a1a">RTS</text>
+  <text x="210" y="295" text-anchor="end" font-size="14" fill="#1a1a1a">CTS</text>
+
+  <!-- ESP8266 -->
+  <rect x="500" y="100" width="160" height="230" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <text x="580" y="130" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">ESP8266</text>
+
+  <text x="510" y="175" text-anchor="start" font-size="14" fill="#1a1a1a">RX</text>
+  <text x="510" y="215" text-anchor="start" font-size="14" fill="#1a1a1a">TX</text>
+  <text x="510" y="255" text-anchor="start" font-size="14" fill="#1a1a1a">CTS</text>
+  <text x="510" y="295" text-anchor="start" font-size="14" fill="#1a1a1a">RTS</text>
+
+  <!-- З'єднання -->
+  <!-- Host TX -> ESP RX -->
+  <path d="M 230 170 L 490 170" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="360" y="162" text-anchor="middle" font-size="12" fill="#6b7280">Дані (Data)</text>
+
+  <!-- Host RX <- ESP TX -->
+  <path d="M 490 210 L 230 210" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="360" y="202" text-anchor="middle" font-size="12" fill="#6b7280">Дані (Data)</text>
+
+  <!-- Host RTS -> ESP CTS -->
+  <path d="M 230 250 L 490 250" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="360" y="242" text-anchor="middle" font-size="12" fill="#6b7280">Дозвіл на відправку (Flow Control)</text>
+
+  <!-- Host CTS <- ESP RTS -->
+  <path d="M 490 290 L 230 290" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="360" y="282" text-anchor="middle" font-size="12" fill="#6b7280">Дозвіл на відправку (Flow Control)</text>
+</svg>

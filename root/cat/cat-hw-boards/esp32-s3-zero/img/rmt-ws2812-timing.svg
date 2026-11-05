@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+<defs>
+<marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+<path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+</marker>
+<marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+<path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+</marker>
+</defs>
+<rect x="0" y="0" width="960" height="480" fill="white"/>
+<text x="480" y="40" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Формування часових імпульсів RMT для WS2812B</text>
+<text x="480" y="60" font-size="13" fill="#6b7280" text-anchor="middle">Часова діаграма імпульсів керування з тактуванням 20 МГц (тик 50 нс)</text>
+
+<!-- Data signal line -->
+<path d="M 100 250 L 150 250 L 150 150 L 250 150 L 250 250 L 450 250 L 450 150 L 650 150 L 650 250 L 850 250 L 850 150" fill="none" stroke="#2457d6" stroke-width="3"/>
+
+<text x="70" y="155" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="end">HIGH</text>
+<text x="70" y="255" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="end">LOW</text>
+
+<!-- Bit 0 logic labels -->
+<text x="300" y="130" font-size="16" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Logic 0 (0 код)</text>
+<line x1="150" y1="135" x2="150" y2="280" fill="none" stroke="#6b7280" stroke-width="1" stroke-dasharray="4 4"/>
+<line x1="450" y1="135" x2="450" y2="280" fill="none" stroke="#6b7280" stroke-width="1" stroke-dasharray="4 4"/>
+
+<!-- Bit 1 logic labels -->
+<text x="650" y="130" font-size="16" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Logic 1 (1 код)</text>
+<line x1="850" y1="135" x2="850" y2="280" fill="none" stroke="#6b7280" stroke-width="1" stroke-dasharray="4 4"/>
+<line x1="650" y1="150" x2="650" y2="280" fill="none" stroke="#6b7280" stroke-width="1" stroke-dasharray="4 4"/>
+<line x1="250" y1="150" x2="250" y2="280" fill="none" stroke="#6b7280" stroke-width="1" stroke-dasharray="4 4"/>
+
+<!-- Time spans -->
+<!-- T0H -->
+<path d="M 155 270 L 245 270" fill="none" stroke="#27ae60" stroke-width="2" marker-end="url(#arr)" marker-start="url(#arr)"/>
+<text x="200" y="295" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">T0H (0.4us)</text>
+<text x="200" y="315" font-size="12" fill="#6b7280" text-anchor="middle">8 тиків RMT</text>
+
+<!-- T0L -->
+<path d="M 255 270 L 445 270" fill="none" stroke="#c0392b" stroke-width="2" marker-end="url(#arr)" marker-start="url(#arr)"/>
+<text x="350" y="295" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">T0L (0.85us)</text>
+<text x="350" y="315" font-size="12" fill="#6b7280" text-anchor="middle">17 тиків RMT</text>
+
+<!-- T1H -->
+<path d="M 455 270 L 645 270" fill="none" stroke="#27ae60" stroke-width="2" marker-end="url(#arr)" marker-start="url(#arr)"/>
+<text x="550" y="295" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">T1H (0.8us)</text>
+<text x="550" y="315" font-size="12" fill="#6b7280" text-anchor="middle">16 тиків RMT</text>
+
+<!-- T1L -->
+<path d="M 655 270 L 845 270" fill="none" stroke="#c0392b" stroke-width="2" marker-end="url(#arr)" marker-start="url(#arr)"/>
+<text x="750" y="295" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">T1L (0.45us)</text>
+<text x="750" y="315" font-size="12" fill="#6b7280" text-anchor="middle">9 тиків RMT</text>
+
+<!-- Note -->
+<rect x="350" y="360" width="260" height="40" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+<text x="480" y="385" font-size="13" fill="#1a1a1a" text-anchor="middle">Світлодіод WS2812B: 1 біт = 1.25 мкс</text>
+
+</svg>
