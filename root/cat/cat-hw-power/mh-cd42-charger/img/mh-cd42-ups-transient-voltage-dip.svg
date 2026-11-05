@@ -1,118 +1,64 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
-  <!-- White Background -->
-  <rect x="0" y="0" width="960" height="540" fill="white"/>
-
-  <!-- Markers -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400">
   <defs>
-    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
-      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
-    </marker>
-    <marker id="arr-blue-start" markerWidth="9" markerHeight="9" refX="0.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
-      <path d="M8,0 L0,4 L8,8 Z" fill="#2457d6"/>
-    </marker>
-    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
-      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
-    </marker>
-    <marker id="arr-red-start" markerWidth="9" markerHeight="9" refX="0.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
-      <path d="M8,0 L0,4 L8,8 Z" fill="#c0392b"/>
+    <style>
+      .box { fill: #f8f9fa; stroke: #343a40; stroke-width: 2; rx: 5; ry: 5; }
+      .text { font-family: sans-serif; font-size: 14px; fill: #212529; text-anchor: middle; alignment-baseline: middle; }
+      .title { font-weight: bold; font-size: 16px; }
+      .axis { stroke: #343a40; stroke-width: 2; }
+      .line-bad { fill: none; stroke: #dc3545; stroke-width: 3; }
+      .line-good { fill: none; stroke: #198754; stroke-width: 3; stroke-dasharray: 6,4; }
+      .thresh { fill: none; stroke: #fd7e14; stroke-width: 2; stroke-dasharray: 4,4; }
+      .label { font-family: sans-serif; font-size: 13px; fill: #495057; }
+      .legend { font-family: sans-serif; font-size: 14px; }
+    </style>
+    <marker id="arrow" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#343a40"/>
     </marker>
   </defs>
 
-  <!-- Title & Subtitle -->
-  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Перехідне просідання напруги V_OUT при відключенні V_IN у режимі UPS</text>
-  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">При знеструмленні VIN напруга VOUT тимчасово знижується на ΔV, після чудо boost-конвертер відновлює 5 В</text>
+  <rect x="20" y="20" width="760" height="360" class="box" fill="#ffffff"/>
+  <text x="400" y="50" class="text title">Перехідний процес напруги 5 В при перемиканні в режим ДБЖ (UPS)</text>
 
-  <!-- Main Panel -->
-  <rect x="40" y="70" width="880" height="445" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="8"/>
+  <!-- Axes -->
+  <line x1="80" y1="320" x2="720" y2="320" class="axis" marker-end="url(#arrow)"/>
+  <line x1="80" y1="320" x2="80" y2="80" class="axis" marker-end="url(#arrow)"/>
+  <text x="60" y="90" class="text">U (В)</text>
+  <text x="710" y="340" class="text">t (мс)</text>
 
-  <!-- Plot Screen Area (Nested inside Main Panel) -->
-  <rect x="130" y="95" width="760" height="280" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="4"/>
+  <!-- Y-Axis Labels -->
+  <text x="50" y="120" class="label">5.0</text>
+  <text x="50" y="240" class="label">4.2</text>
+  <text x="50" y="280" class="label">3.0</text>
 
-  <!-- Phase Background Highlights (Nested inside Plot Screen) -->
-  <rect x="131" y="96" width="188" height="278" fill="#2457d6" fill-opacity="0.03"/>
-  <rect x="320" y="96" width="240" height="278" fill="#c0392b" fill-opacity="0.04"/>
-  <rect x="561" y="96" width="328" height="278" fill="#27ae60" fill-opacity="0.03"/>
+  <line x1="75" y1="120" x2="85" y2="120" class="axis"/>
+  <line x1="75" y1="240" x2="85" y2="240" class="axis"/>
+  <line x1="75" y1="280" x2="85" y2="280" class="axis"/>
 
-  <!-- Phase Dividers (Dashed vertical lines) -->
-  <line x1="320" y1="95" x2="320" y2="375" stroke="#6b7280" stroke-width="1" stroke-dasharray="4 4"/>
-  <line x1="560" y1="95" x2="560" y2="375" stroke="#6b7280" stroke-width="1" stroke-dasharray="4 4"/>
+  <!-- Critical Threshold (BOD Reset typically happens when 5V drops to ~4.3V causing 3.3V LDO drop) -->
+  <line x1="80" y1="220" x2="700" y2="220" class="thresh"/>
+  <text x="600" y="210" class="label" fill="#fd7e14">Критична напруга перезапуску MCU</text>
 
-  <!-- Grid Horizontal Lines -->
-  <!-- 5.15 V VIN line -->
-  <line x1="130" y1="145" x2="890" y2="145" stroke="#e5e7eb" stroke-width="1" stroke-dasharray="2 2"/>
-  <!-- 5.0 V Nom line -->
-  <line x1="130" y1="155" x2="890" y2="155" stroke="#9ca3af" stroke-width="1.2" stroke-dasharray="4 4"/>
-  <!-- 4.3 V Min line -->
-  <line x1="130" y1="230" x2="890" y2="230" stroke="#fca5a5" stroke-width="1" stroke-dasharray="3 3"/>
-  <!-- 2.7 V BOD line -->
-  <line x1="130" y1="330" x2="890" y2="330" stroke="#dc2626" stroke-width="1.2" stroke-dasharray="4 4"/>
+  <!-- Switch Event Line -->
+  <line x1="250" y1="80" x2="250" y2="320" stroke="#adb5bd" stroke-width="2" stroke-dasharray="5,5"/>
+  <text x="250" y="340" class="label">Знеструмлення мережі</text>
 
-  <!-- Y-Axis Labels & Header -->
-  <text x="85" y="88" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Напруга V</text>
-  <text x="122" y="159" font-size="12" fill="#1a1a1a" text-anchor="end">5.0 В (V_nom)</text>
-  <text x="122" y="234" font-size="12" fill="#c0392b" font-weight="bold" text-anchor="end">4.3 В (V_min)</text>
-  <text x="122" y="334" font-size="12" fill="#dc2626" text-anchor="end">2.7 В (V_BOD)</text>
-  <text x="122" y="364" font-size="12" fill="#6b7280" text-anchor="end">0.0 В (GND)</text>
+  <!-- Waveform without capacitor (Bad) -->
+  <!-- 5V -> drop to 4.2V -> recovery to 5V -->
+  <path d="M 80 120 L 250 120 Q 260 250 280 240 Q 300 120 350 120 L 700 120" class="line-bad"/>
 
-  <!-- BOD Line Label (right end inside plot) -->
-  <text x="880" y="324" font-size="11" fill="#dc2626" font-weight="bold" text-anchor="end">Поріг скидання МК (BOD = 2.7 В)</text>
+  <!-- Waveform with capacitor (Good) -->
+  <!-- 5V -> drop to 4.8V -> recovery -->
+  <path d="M 80 120 L 250 120 Q 280 160 320 120 L 700 120" class="line-good"/>
 
-  <!-- Phase Header Text Labels -->
-  <text x="225" y="112" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">Зовнішнє живлення VIN</text>
-  <text x="440" y="132" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">Перехідний провал напруги</text>
-  <text x="725" y="112" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">Живлення від АКБ (Boost 5 В)</text>
+  <!-- Annotations -->
+  <text x="320" y="260" class="label" fill="#dc3545">Просідання до 4.2–4.5 В</text>
 
-  <!-- Signal Traces -->
+  <!-- Legend -->
+  <rect x="450" y="250" width="280" height="60" fill="#f8f9fa" stroke="#ced4da" stroke-width="1" rx="3"/>
+  <line x1="460" y1="270" x2="500" y2="270" class="line-bad"/>
+  <text x="510" y="270" class="legend" text-anchor="start">Без компенсації (перезапуск)</text>
+  
+  <line x1="460" y1="295" x2="500" y2="295" class="line-good"/>
+  <text x="510" y="295" class="legend" text-anchor="start">З конденсатором 220–470 мкФ</text>
 
-  <!-- Trace 1: VIN (Amber/Orange line) -->
-  <path d="M 130 145 L 320 145 L 335 360 L 890 360" fill="none" stroke="#d97706" stroke-width="2.5" stroke-linejoin="round"/>
-  <text x="225" y="135" font-size="11" font-weight="bold" fill="#d97706" text-anchor="middle">V_IN = 5.15 В</text>
-  <text x="340" y="352" font-size="11" font-weight="bold" fill="#d97706" text-anchor="start">V_IN = 0 В</text>
-
-  <!-- Trace 2: VOUT (Blue line) -->
-  <path d="M 130 155 L 320 155 C 360 155, 390 230, 440 230 C 480 230, 520 155, 560 155 L 890 155" fill="none" stroke="#2457d6" stroke-width="3.5" stroke-linejoin="round"/>
-  <text x="225" y="175" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">V_OUT = 5.0 В (Стабільна)</text>
-
-  <!-- Minimum Dip Point Circle -->
-  <circle cx="440" cy="230" r="4.5" fill="#c0392b"/>
-
-  <!-- Annotations & Badges -->
-
-  <!-- Duration Arrows & Badge (dt_dip) -->
-  <line x1="375" y1="111" x2="320" y2="111" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
-  <line x1="505" y1="111" x2="560" y2="111" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
-  <rect x="380" y="100" width="120" height="22" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="4"/>
-  <text x="440" y="115" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">Δt_dip ≈ 10–15 мс</text>
-
-  <!-- Amplitude Badge (dV_dip) -->
-  <line x1="500" y1="180" x2="500" y2="155" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
-  <line x1="500" y1="206" x2="500" y2="230" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
-  <rect x="440" y="180" width="120" height="26" fill="#fdecea" stroke="#c0392b" stroke-width="1" rx="4"/>
-  <text x="500" y="197" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">ΔV_dip ≈ 0.7 В</text>
-
-  <!-- Minimum Point Callout Box -->
-  <path d="M 440 234 L 415 250" stroke="#c0392b" stroke-width="1.2"/>
-  <rect x="320" y="250" width="175" height="44" fill="#ffffff" stroke="#c0392b" stroke-width="1.5" rx="4"/>
-  <text x="407" y="267" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">Мінімум V_min ≈ 4.3 В</text>
-  <text x="407" y="284" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">V_min > V_BOD (2.7 В) ✓</text>
-
-  <!-- X-Axis Labels -->
-  <text x="320" y="390" font-size="11" fill="#6b7280" text-anchor="middle">t0 (0 мс)</text>
-  <text x="440" y="390" font-size="11" fill="#c0392b" text-anchor="middle">t_min (~5 мс)</text>
-  <text x="560" y="390" font-size="11" fill="#6b7280" text-anchor="middle">t1 (~15 мс)</text>
-  <text x="510" y="408" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Час t (мілісекунди)</text>
-
-  <!-- Bottom Informational Cards (Sibling rects inside Main Panel) -->
-
-  <!-- Card 1: Problem / Cause -->
-  <rect x="50" y="420" width="415" height="85" fill="#fdecea" stroke="#c0392b" stroke-width="1" rx="6"/>
-  <text x="70" y="442" font-size="13" font-weight="bold" fill="#c0392b">Чому виникає просідання ΔV_dip?</text>
-  <text x="70" y="464" font-size="12" fill="#1a1a1a">• Пауза на виявлення знеструмлення та запуск Boost (~10 мс)</text>
-  <text x="70" y="486" font-size="12" fill="#1a1a1a">• Розряд вихідних ємностей струмом навантаження під час паузи</text>
-
-  <!-- Card 2: Solution / Recommendation -->
-  <rect x="485" y="420" width="425" height="85" fill="#e9f7ef" stroke="#27ae60" stroke-width="1" rx="6"/>
-  <text x="505" y="442" font-size="13" font-weight="bold" fill="#27ae60">Практичне рішення для мікроконтролера</text>
-  <text x="505" y="464" font-size="12" fill="#1a1a1a">• Додати буферний конденсатор 470–1000 мкФ на вихід 5 В</text>
-  <text x="505" y="486" font-size="12" fill="#1a1a1a">• Налаштувати поріг BOD МК нижче V_min (наприклад, 2.7 В)</text>
 </svg>

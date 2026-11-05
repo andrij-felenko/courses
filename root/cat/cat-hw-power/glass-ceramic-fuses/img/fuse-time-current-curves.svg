@@ -1,0 +1,66 @@
+<svg viewBox="0 0 720 560" width="720" height="560" xmlns="http://www.w3.org/2000/svg" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+<rect x="0" y="0" width="720" height="560" fill="white"/>
+
+<!-- Заголовок -->
+<text x="360" y="30" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Часо-струмові характеристики запобіжників</text>
+<text x="360" y="50" font-size="13" fill="#6b7280" text-anchor="middle">Залежність часу розплавлення від кратності номінального струму</text>
+
+<!-- Сітка -->
+<g stroke="#d0d7de" stroke-width="1" fill="none" stroke-dasharray="4 4">
+  <line x1="214" y1="80" x2="214" y2="480"/>
+  <line x1="328" y1="80" x2="328" y2="480"/>
+  <line x1="479" y1="80" x2="479" y2="480"/>
+  <line x1="593" y1="80" x2="593" y2="480"/>
+
+  <line x1="100" y1="147" x2="660" y2="147"/>
+  <line x1="100" y1="213" x2="660" y2="213"/>
+  <line x1="100" y1="280" x2="660" y2="280"/>
+  <line x1="100" y1="347" x2="660" y2="347"/>
+  <line x1="100" y1="413" x2="660" y2="413"/>
+</g>
+
+<!-- Осі -->
+<g stroke="#1a1a1a" stroke-width="2" fill="none">
+  <line x1="100" y1="80" x2="100" y2="480"/>
+  <line x1="100" y1="480" x2="660" y2="480"/>
+</g>
+
+<!-- Підписи Y -->
+<g font-size="13" fill="#6b7280" text-anchor="end">
+  <text x="90" y="84">1000</text>
+  <text x="90" y="151">100</text>
+  <text x="90" y="217">10</text>
+  <text x="90" y="284">1</text>
+  <text x="90" y="351">0.1</text>
+  <text x="90" y="417">0.01</text>
+  <text x="90" y="484">0.001</text>
+</g>
+<text x="90" y="65" font-size="13" fill="#1a1a1a" text-anchor="end">Час, с</text>
+
+<!-- Підписи X -->
+<g font-size="13" fill="#6b7280" text-anchor="middle">
+  <text x="100" y="500">1</text>
+  <text x="214" y="500">2</text>
+  <text x="328" y="500">4</text>
+  <text x="479" y="500">10</text>
+  <text x="593" y="500">20</text>
+</g>
+<text x="380" y="530" font-size="14" fill="#1a1a1a" text-anchor="middle">Кратність струму (I / I<tspan baseline-shift="sub" font-size="10">n</tspan>)</text>
+
+<!-- Криві -->
+<path d="M 167 80 L 178 147 L 214 213 L 281 280 L 328 300 L 479 367 L 593 413" stroke="#27ae60" stroke-width="3" fill="none"/>
+<path d="M 130 80 L 143 147 L 167 213 L 214 300 L 328 367 L 479 440 L 593 480" stroke="#2457d6" stroke-width="3" fill="none"/>
+<path d="M 116 80 L 130 147 L 155 213 L 214 347 L 328 440 L 395 480" stroke="#c0392b" stroke-width="3" fill="none"/>
+
+<!-- Легенда -->
+<rect x="420" y="90" width="220" height="90" fill="#f4f6f8" stroke="#d0d7de" rx="4"/>
+<line x1="435" y1="110" x2="465" y2="110" stroke="#c0392b" stroke-width="3"/>
+<text x="475" y="114" font-size="13" fill="#1a1a1a">FF — надшвидкі</text>
+
+<line x1="435" y1="135" x2="465" y2="135" stroke="#2457d6" stroke-width="3"/>
+<text x="475" y="139" font-size="13" fill="#1a1a1a">F — швидкі</text>
+
+<line x1="435" y1="160" x2="465" y2="160" stroke="#27ae60" stroke-width="3"/>
+<text x="475" y="164" font-size="13" fill="#1a1a1a">T — повільні</text>
+
+</svg>

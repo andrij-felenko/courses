@@ -1,0 +1,233 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <linearGradient id="capGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#9ca3af"/>
+      <stop offset="25%" stop-color="#ffffff"/>
+      <stop offset="60%" stop-color="#d0d7de"/>
+      <stop offset="100%" stop-color="#6b7280"/>
+    </linearGradient>
+    <radialGradient id="sputter" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#1a1a1a" stop-opacity="0.95"/>
+      <stop offset="45%" stop-color="#2d3748" stop-opacity="0.85"/>
+      <stop offset="80%" stop-color="#4a5568" stop-opacity="0.5"/>
+      <stop offset="100%" stop-color="#1a1a1a" stop-opacity="0.15"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Canvas Background -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Main Title & Subtitle -->
+  <text x="480" y="35" text-anchor="middle" font-size="18" font-weight="700" fill="#1a1a1a">Конструкція тримачів 5×20 мм та візуальна діагностика стану колби</text>
+  <text x="480" y="55" text-anchor="middle" font-size="13" fill="#6b7280">Монтаж у панель чи на плату забезпечує захист, а стан колби вказує на перевантаження або жорстке КЗ</text>
+
+  <!-- ========================================== -->
+  <!-- TOP SECTION: FUSE HOLDERS (5x20 mm)        -->
+  <!-- ========================================== -->
+
+  <!-- Card 1A: Panel-Mount Holder -->
+  <rect x="20" y="72" width="450" height="208" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="28" y="80" width="434" height="26" rx="5" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="245" y="98" text-anchor="middle" font-size="13" font-weight="700" fill="#2457d6">Панельний тримач (Panel Mount / IEC 60127-6)</text>
+
+  <!-- Panel Mount Drawing Elements -->
+  <!-- Chassis Panel Cutout -->
+  <rect x="132" y="120" width="10" height="88" fill="#d0d7de" stroke="#6b7280" stroke-width="1"/>
+  <text x="137" y="116" text-anchor="middle" font-size="12" fill="#6b7280">Панель</text>
+
+  <!-- Hex Nut Behind Chassis -->
+  <rect x="142" y="124" width="14" height="80" fill="#f4f6f8" stroke="#6b7280" stroke-width="1"/>
+
+  <!-- Holder Barrel Body (Insulated socket) -->
+  <rect x="156" y="132" width="138" height="64" rx="3" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+
+  <!-- Removable Screw Cap (External) -->
+  <path d="M 54 135 L 132 135 L 132 193 L 54 193 Q 46 193 46 185 L 46 143 Q 46 135 54 135 Z" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.5"/>
+  <!-- Screwdriver Slot -->
+  <rect x="52" y="149" width="6" height="30" rx="1" fill="#1a1a1a"/>
+  <text x="88" y="128" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">Знімна кришка</text>
+  <text x="88" y="208" text-anchor="middle" font-size="12" fill="#6b7280">шліц викрутки</text>
+
+  <!-- 5x20 mm Fuse inside holder -->
+  <rect x="176" y="144" width="22" height="40" rx="2" fill="url(#capGrad)" stroke="#6b7280" stroke-width="1"/>
+  <rect x="198" y="147" width="68" height="34" fill="#eaf0fd" fill-opacity="0.4" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="198" y1="164" x2="266" y2="164" stroke="#1a1a1a" stroke-width="2"/>
+  <rect x="266" y="144" width="22" height="40" rx="2" fill="url(#capGrad)" stroke="#6b7280" stroke-width="1"/>
+
+  <!-- Rear / Axial Contact (Phase Line L) -->
+  <line x1="288" y1="164" x2="330" y2="164" stroke="#c0392b" stroke-width="2.5"/>
+  <circle cx="330" cy="164" r="3.5" fill="#c0392b"/>
+  <line x1="330" y1="164" x2="366" y2="164" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="374" y="158" font-size="12" font-weight="700" fill="#c0392b">Фаза L (вхід)</text>
+  <text x="374" y="174" font-size="12" fill="#6b7280">донний контакт</text>
+
+  <!-- Side Contact (Load) -->
+  <line x1="218" y1="196" x2="218" y2="218" stroke="#2457d6" stroke-width="2.5"/>
+  <circle cx="218" cy="218" r="3.5" fill="#2457d6"/>
+  <line x1="218" y1="218" x2="258" y2="218" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="266" y="214" font-size="12" font-weight="700" fill="#2457d6">До навантаження</text>
+  <text x="266" y="228" font-size="12" fill="#6b7280">бічний контакт</text>
+
+  <!-- Bottom Info Badge inside Card 1A -->
+  <rect x="28" y="244" width="434" height="30" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="245" y="263" text-anchor="middle" font-size="12" fill="#1a1a1a">Безпека: донний контакт першим розриває фазу L при викручуванні кришки</text>
+
+
+  <!-- Card 1B: PCB-Mount Holder -->
+  <rect x="490" y="72" width="450" height="208" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="498" y="80" width="434" height="26" rx="5" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="715" y="98" text-anchor="middle" font-size="13" font-weight="700" fill="#2457d6">Платний тримач (PCB Mount / Кліпси з кришкою)</text>
+
+  <!-- PCB Mount Drawing Elements -->
+  <!-- PCB Substrate -->
+  <rect x="518" y="210" width="394" height="12" rx="2" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="874" y="204" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">Плата FR-4</text>
+
+  <!-- Copper Traces -->
+  <line x1="518" y1="210" x2="588" y2="210" stroke="#d0d7de" stroke-width="4"/>
+  <line x1="772" y1="210" x2="840" y2="210" stroke="#d0d7de" stroke-width="4"/>
+
+  <!-- THT Solder Pins Through Board -->
+  <line x1="588" y1="210" x2="588" y2="228" stroke="#6b7280" stroke-width="3"/>
+  <polygon points="584,224 592,224 588,232" fill="#6b7280"/>
+  <line x1="772" y1="210" x2="772" y2="228" stroke="#6b7280" stroke-width="3"/>
+  <polygon points="768,224 776,224 772,232" fill="#6b7280"/>
+
+  <text x="548" y="227" text-anchor="middle" font-size="12" fill="#6b7280">Термобар'єри</text>
+  <text x="548" y="240" text-anchor="middle" font-size="12" fill="#6b7280">при пайці THT</text>
+
+  <!-- Clips (Phosphor Bronze / Brass) -->
+  <!-- Left Clip -->
+  <path d="M 578 210 L 578 152 Q 578 144 584 144 L 594 144" fill="none" stroke="#2457d6" stroke-width="2"/>
+  <path d="M 598 210 L 598 152 Q 598 144 592 144" fill="none" stroke="#2457d6" stroke-width="2"/>
+
+  <!-- Right Clip -->
+  <path d="M 762 210 L 762 152 Q 762 144 768 144" fill="none" stroke="#2457d6" stroke-width="2"/>
+  <path d="M 782 210 L 782 152 Q 782 144 776 144 L 766 144" fill="none" stroke="#2457d6" stroke-width="2"/>
+
+  <!-- Fuse Sitting in Clips -->
+  <rect x="576" y="148" width="22" height="40" rx="2" fill="url(#capGrad)" stroke="#6b7280" stroke-width="1"/>
+  <rect x="598" y="151" width="164" height="34" fill="#eaf0fd" fill-opacity="0.4" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="598" y1="168" x2="762" y2="168" stroke="#1a1a1a" stroke-width="2"/>
+  <rect x="762" y="148" width="22" height="40" rx="2" fill="url(#capGrad)" stroke="#6b7280" stroke-width="1"/>
+
+  <!-- Silkscreen Text on PCB -->
+  <text x="680" y="202" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">Шовкодрук: F1  T2A 250V</text>
+
+  <!-- Insulating Transparent Cover (Dashed Outline, fill none) -->
+  <rect x="562" y="132" width="236" height="56" rx="4" fill="none" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4 3"/>
+  <text x="680" y="126" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">Захисна прозора кришка (ізоляція від дотику)</text>
+
+  <!-- Clip Label -->
+  <text x="852" y="148" font-size="12" font-weight="700" fill="#1a1a1a">Пружинні кліпси</text>
+  <text x="852" y="164" font-size="12" fill="#6b7280">латунь / бронза</text>
+
+  <!-- Bottom Info Badge inside Card 1B -->
+  <rect x="498" y="244" width="434" height="30" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="715" y="263" text-anchor="middle" font-size="12" fill="#1a1a1a">Компактний монтаж на плату; заміна потребує доступу до шасі</text>
+
+
+  <!-- ========================================== -->
+  <!-- BOTTOM SECTION: 3 STATES FOR DIAGNOSTICS   -->
+  <!-- ========================================== -->
+
+  <!-- Card 2A: State 1 - Normal -->
+  <rect x="20" y="296" width="296" height="242" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="28" y="304" width="280" height="26" rx="5" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="168" y="322" text-anchor="middle" font-size="13" font-weight="700" fill="#27ae60">1. Норма (справний стан)</text>
+
+  <!-- Fuse Graphic 1 -->
+  <rect x="28" y="338" width="280" height="78" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="78" y="360" width="24" height="34" rx="2" fill="url(#capGrad)" stroke="#6b7280" stroke-width="1"/>
+  <rect x="102" y="362" width="132" height="30" fill="#eaf0fd" fill-opacity="0.4" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="104" y1="366" x2="232" y2="366" stroke="#ffffff" stroke-width="1.5"/>
+  <line x1="102" y1="377" x2="234" y2="377" stroke="#1a1a1a" stroke-width="2"/>
+  <rect x="234" y="360" width="24" height="34" rx="2" fill="url(#capGrad)" stroke="#6b7280" stroke-width="1"/>
+  <text x="168" y="405" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">ціла нитка • прозоре скло</text>
+
+  <!-- Info Box 1 -->
+  <rect x="28" y="424" width="280" height="106" rx="5" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="38" y="443" font-size="12" font-weight="700" fill="#27ae60">Струм:</text>
+  <text x="124" y="443" font-size="12" fill="#1a1a1a">I ≤ I_n (штатний номінал)</text>
+  <text x="38" y="463" font-size="12" font-weight="700" fill="#1a1a1a">Колба:</text>
+  <text x="124" y="463" font-size="12" fill="#1a1a1a">чиста, без нальоту й диму</text>
+  <text x="38" y="483" font-size="12" font-weight="700" fill="#1a1a1a">Опір:</text>
+  <text x="124" y="483" font-size="12" fill="#1a1a1a">R ≈ 0 Ом (дзвінок мультиметра)</text>
+  <text x="38" y="503" font-size="12" font-weight="700" fill="#1a1a1a">Висновок:</text>
+  <text x="124" y="503" font-size="12" fill="#27ae60">вставка готова до роботи</text>
+  <text x="168" y="522" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">Готовий до експлуатації</text>
+
+
+  <!-- Card 2B: State 2 - Overload -->
+  <rect x="332" y="296" width="296" height="242" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="340" y="304" width="280" height="26" rx="5" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="480" y="322" text-anchor="middle" font-size="13" font-weight="700" fill="#c0392b">2. Теплове перевантаження</text>
+
+  <!-- Fuse Graphic 2 -->
+  <rect x="340" y="338" width="280" height="78" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="390" y="360" width="24" height="34" rx="2" fill="url(#capGrad)" stroke="#6b7280" stroke-width="1"/>
+  <rect x="414" y="362" width="132" height="30" fill="#eaf0fd" fill-opacity="0.4" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="416" y1="366" x2="544" y2="366" stroke="#ffffff" stroke-width="1.5"/>
+  <!-- Broken Wire with Melted Beads -->
+  <line x1="414" y1="377" x2="472" y2="377" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="472" cy="377" r="3.5" fill="#1a1a1a"/>
+  <line x1="488" y1="377" x2="546" y2="377" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="488" cy="377" r="3.5" fill="#1a1a1a"/>
+  <rect x="546" y="360" width="24" height="34" rx="2" fill="url(#capGrad)" stroke="#6b7280" stroke-width="1"/>
+  <text x="480" y="405" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">акуратний розрив нитки • скло чисте</text>
+
+  <!-- Info Box 2 -->
+  <rect x="340" y="424" width="280" height="106" rx="5" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="350" y="443" font-size="12" font-weight="700" fill="#c0392b">Струм:</text>
+  <text x="436" y="443" font-size="12" fill="#1a1a1a">I ≈ 1.5...3 × I_n (тепловий нагрів)</text>
+  <text x="350" y="463" font-size="12" font-weight="700" fill="#1a1a1a">Колба:</text>
+  <text x="436" y="463" font-size="12" fill="#1a1a1a">скло прозоре, без кіптяви</text>
+  <text x="350" y="483" font-size="12" font-weight="700" fill="#1a1a1a">Опір:</text>
+  <text x="436" y="483" font-size="12" fill="#1a1a1a">R = ∞ (ланцюг розімкнено)</text>
+  <text x="350" y="503" font-size="12" font-weight="700" fill="#1a1a1a">Причина:</text>
+  <text x="436" y="503" font-size="12" fill="#1a1a1a">пусковий струм або знос</text>
+  <text x="480" y="522" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">Заміна безпечна після перевірки</text>
+
+
+  <!-- Card 2C: State 3 - Explosion Short Circuit -->
+  <rect x="644" y="296" width="296" height="242" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="652" y="304" width="280" height="26" rx="5" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="792" y="322" text-anchor="middle" font-size="13" font-weight="700" fill="#c0392b">3. Вибухове коротке замикання</text>
+
+  <!-- Fuse Graphic 3 -->
+  <rect x="652" y="338" width="280" height="78" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="702" y="360" width="24" height="34" rx="2" fill="url(#capGrad)" stroke="#6b7280" stroke-width="1"/>
+  <rect x="726" y="362" width="132" height="30" fill="#eaf0fd" fill-opacity="0.4" stroke="#d0d7de" stroke-width="1"/>
+  <!-- Vaporized Wire Stubs -->
+  <line x1="726" y1="377" x2="734" y2="377" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="850" y1="377" x2="858" y2="377" stroke="#1a1a1a" stroke-width="2"/>
+  <!-- Metal Vapor Sputtered Coating -->
+  <ellipse cx="792" cy="377" rx="58" ry="12" fill="url(#sputter)"/>
+  <rect x="858" y="360" width="24" height="34" rx="2" fill="url(#capGrad)" stroke="#6b7280" stroke-width="1"/>
+  <text x="792" y="405" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">чорне напилення • дріт випарувався</text>
+
+  <!-- Info Box 3 -->
+  <rect x="652" y="424" width="280" height="106" rx="5" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="662" y="443" font-size="12" font-weight="700" fill="#c0392b">Струм:</text>
+  <text x="748" y="443" font-size="12" fill="#c0392b">I >> 10 × I_n (струм КЗ, дуга)</text>
+  <text x="662" y="463" font-size="12" font-weight="700" fill="#1a1a1a">Колба:</text>
+  <text x="748" y="463" font-size="12" fill="#1a1a1a">темний наліт пари металу</text>
+  <text x="662" y="483" font-size="12" font-weight="700" fill="#1a1a1a">Опір:</text>
+  <text x="748" y="483" font-size="12" fill="#1a1a1a">R = ∞ (вибух плавкого дроту)</text>
+  <text x="662" y="503" font-size="12" font-weight="700" fill="#c0392b">Причина:</text>
+  <text x="748" y="503" font-size="12" fill="#1a1a1a">пробій діодів / ключів / КЗ</text>
+  <text x="792" y="522" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">⛔ Не вмикати без ремонту схеми!</text>
+
+</svg>

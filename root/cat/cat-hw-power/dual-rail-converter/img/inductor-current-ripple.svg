@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 380" width="720" height="380" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="720" height="380" fill="white"/>
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="360" y="40" font-size="18" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Пульсації струму індуктивності в режимі CCM</text>
+  <text x="360" y="60" font-size="13" text-anchor="middle" fill="#6b7280">Фази наростання та спаду струму визначають амплітуду пульсацій та межу безперервного струму</text>
+
+  <!-- Filled Area for CCM -->
+  <path d="M 120 300 L 120 220 L 360 100 L 520 220 L 660 150 L 660 300 Z" fill="#eaf0fd"/>
+
+  <!-- Reference Lines & Ticks -->
+  <path d="M 120 100 L 550 100" fill="none" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="4 4"/>
+  <path d="M 120 160 L 660 160" fill="none" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="8 4"/>
+  <path d="M 120 220 L 550 220" fill="none" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="4 4"/>
+
+  <!-- X-axis Ticks -->
+  <path d="M 120 300 L 120 345" fill="none" stroke="#6b7280" stroke-width="1" stroke-dasharray="2 2"/>
+  <path d="M 360 300 L 360 345" fill="none" stroke="#6b7280" stroke-width="1" stroke-dasharray="2 2"/>
+  <path d="M 520 300 L 520 345" fill="none" stroke="#6b7280" stroke-width="1" stroke-dasharray="2 2"/>
+
+  <!-- BCM Boundary Waveform -->
+  <path d="M 120 300 L 360 180 L 520 300 L 660 230" fill="none" stroke="#6b7280" stroke-width="2" stroke-dasharray="6 4"/>
+
+  <!-- Axes -->
+  <path d="M 120 300 L 675 300" fill="none" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <path d="M 120 300 L 120 85" fill="none" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- CCM Main Waveform -->
+  <path d="M 120 220 L 360 100 L 520 220 L 660 150" fill="none" stroke="#2457d6" stroke-width="3" stroke-linejoin="round"/>
+
+  <!-- Axis Labels -->
+  <text x="675" y="290" font-size="14" text-anchor="middle" fill="#1a1a1a">t</text>
+  <text x="105" y="90" font-size="14" text-anchor="end" fill="#1a1a1a">I<tspan baseline-shift="sub" font-size="12">L</tspan></text>
+
+  <!-- Y-axis Values -->
+  <text x="110" y="104" font-size="14" text-anchor="end" fill="#1a1a1a">I<tspan baseline-shift="sub" font-size="12">max</tspan></text>
+  <text x="110" y="164" font-size="14" text-anchor="end" fill="#1a1a1a">I<tspan baseline-shift="sub" font-size="12">avg</tspan></text>
+  <text x="110" y="224" font-size="14" text-anchor="end" fill="#1a1a1a">I<tspan baseline-shift="sub" font-size="12">min</tspan></text>
+
+  <!-- Dimensions for Ripple -->
+  <path d="M 530 145 L 530 102" fill="none" stroke="#1a1a1a" stroke-width="1" marker-end="url(#arr)"/>
+  <path d="M 530 175 L 530 218" fill="none" stroke="#1a1a1a" stroke-width="1" marker-end="url(#arr)"/>
+  <text x="535" y="164" font-size="14" text-anchor="start" fill="#1a1a1a">ΔI<tspan baseline-shift="sub" font-size="12">L</tspan></text>
+
+  <!-- Time Intervals (t_on, t_off, T) -->
+  <path d="M 225 320 L 122 320" fill="none" stroke="#1a1a1a" stroke-width="1" marker-end="url(#arr)"/>
+  <path d="M 255 320 L 358 320" fill="none" stroke="#1a1a1a" stroke-width="1" marker-end="url(#arr)"/>
+  <text x="240" y="324" font-size="14" text-anchor="middle" fill="#1a1a1a">t<tspan baseline-shift="sub" font-size="12">on</tspan></text>
+
+  <path d="M 425 320 L 362 320" fill="none" stroke="#1a1a1a" stroke-width="1" marker-end="url(#arr)"/>
+  <path d="M 455 320 L 518 320" fill="none" stroke="#1a1a1a" stroke-width="1" marker-end="url(#arr)"/>
+  <text x="440" y="324" font-size="14" text-anchor="middle" fill="#1a1a1a">t<tspan baseline-shift="sub" font-size="12">off</tspan></text>
+
+  <path d="M 310 340 L 122 340" fill="none" stroke="#1a1a1a" stroke-width="1" marker-end="url(#arr)"/>
+  <path d="M 330 340 L 518 340" fill="none" stroke="#1a1a1a" stroke-width="1" marker-end="url(#arr)"/>
+  <text x="320" y="344" font-size="14" text-anchor="middle" fill="#1a1a1a">T</text>
+
+  <!-- Explanatory Labels -->
+  <text x="230" y="140" font-size="14" text-anchor="middle" fill="#2457d6">Наростання</text>
+  <text x="450" y="140" font-size="14" text-anchor="middle" fill="#2457d6">Спад</text>
+
+  <path d="M 320 245 L 320 206" fill="none" stroke="#6b7280" stroke-width="1" marker-end="url(#arr-gray)"/>
+  <text x="320" y="260" font-size="14" text-anchor="middle" fill="#6b7280">Межа CCM (I<tspan baseline-shift="sub" font-size="12">min</tspan> = 0)</text>
+
+</svg>

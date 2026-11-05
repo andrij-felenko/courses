@@ -1,0 +1,133 @@
+<svg viewBox="0 0 960 460" width="960" height="460" xmlns="http://www.w3.org/2000/svg" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+<rect x="0" y="0" width="960" height="460" fill="white"/>
+
+<defs>
+  <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+    <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+  </marker>
+  <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+    <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+  </marker>
+  <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+    <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+  </marker>
+  <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+    <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+  </marker>
+</defs>
+
+<!-- Headers -->
+<text x="480" y="40" font-size="18" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Захист IEC 60127-6 та індикація спрацьовування</text>
+<text x="480" y="60" font-size="13" text-anchor="middle" fill="#6b7280">Безпечне відключення контактів при заміні та схема струмів при перегоранні вставки</text>
+
+<!-- Divider -->
+<path d="M 480 100 L 480 420" fill="none" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4 4"/>
+
+<!-- Left Block: Constructive protection -->
+<text x="110" y="90" font-size="13" fill="#6b7280" text-anchor="end">Панель приладу</text>
+<path d="M 120 95 L 120 380" fill="none" stroke="#d0d7de" stroke-width="6"/>
+
+<!-- Side contact -->
+<rect x="180" y="180" width="20" height="10" fill="#1a1a1a"/>
+<path d="M 190 180 L 190 140 L 250 140" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+<text x="255" y="144" font-size="14" fill="#1a1a1a" text-anchor="start">До навантаження</text>
+
+<!-- Holder body -->
+<path d="M 120 190 L 340 190 L 340 310 L 120 310 L 120 290 L 320 290 L 320 210 L 120 210 Z" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+
+<!-- Center contact (Live) -->
+<rect x="310" y="240" width="10" height="20" fill="#2457d6"/>
+<path d="M 320 250 L 380 250" fill="none" stroke="#2457d6" stroke-width="2"/>
+<text x="385" y="254" font-size="14" fill="#1a1a1a" text-anchor="start">Фазний (L)</text>
+<text x="385" y="270" font-size="12" fill="#6b7280" text-anchor="start">на дні</text>
+
+<!-- Cap -->
+<path d="M 20 210 h 30 v 80 h -30 Z" fill="#d0d7de" stroke="#6b7280" stroke-width="2"/>
+<path d="M 50 225 h 60 v 50 h -60 Z" fill="#f4f6f8" stroke="#6b7280" stroke-width="2"/>
+<!-- Contact ring on cap -->
+<path d="M 100 215 h 10 v 10 h -10 Z" fill="#1a1a1a"/>
+
+<!-- Fuse inside cap -->
+<path d="M 70 235 h 90 v 30 h -90 Z" fill="white" stroke="#1a1a1a" stroke-width="2"/>
+<path d="M 70 235 h 20 v 30 h -20 Z" fill="#d0d7de"/>
+<path d="M 140 235 h 20 v 30 h -20 Z" fill="#d0d7de"/>
+
+<!-- Opening action -->
+<path d="M 80 180 L 40 180" fill="none" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+<text x="60" y="170" font-size="13" fill="#c0392b" text-anchor="middle">Відкриття</text>
+
+<!-- Safe distance -->
+<path d="M 170 250 L 300 250" fill="none" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+<text x="235" y="240" font-size="12" fill="#27ae60" text-anchor="middle">Безпечна відстань</text>
+<text x="235" y="265" font-size="12" fill="#27ae60" text-anchor="middle">недоступно для пальця</text>
+
+<!-- Left Info Box -->
+<rect x="230" y="350" width="200" height="40" fill="#e9f7ef" rx="4"/>
+<text x="330" y="369" font-size="13" fill="#27ae60" font-weight="bold" text-anchor="middle">IEC 60127-6</text>
+<text x="330" y="385" font-size="12" fill="#27ae60" text-anchor="middle">безпечне знеструмлення</text>
+
+<!-- Right Block: Indicator Circuit -->
+<!-- Main wire L -->
+<path d="M 520 250 L 620 250" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+<text x="520" y="240" font-size="14" fill="#1a1a1a" text-anchor="start">L</text>
+
+<!-- Node A -->
+<circle cx="620" cy="250" r="4" fill="#1a1a1a"/>
+
+<!-- Main wire to Fuse -->
+<path d="M 620 250 L 660 250" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+
+<!-- Fuse (blown) -->
+<path d="M 660 240 h 80 v 20 h -80 Z" fill="white" stroke="#1a1a1a" stroke-width="2"/>
+<path d="M 660 250 L 690 250" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+<path d="M 710 250 L 740 250" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+<path d="M 695 245 L 705 255 M 705 245 L 695 255" fill="none" stroke="#c0392b" stroke-width="2"/>
+
+<text x="700" y="280" font-size="13" fill="#c0392b" text-anchor="middle">Запобіжник</text>
+<text x="700" y="295" font-size="12" fill="#c0392b" text-anchor="middle">перегорів</text>
+
+<!-- Main wire from Fuse to Node B -->
+<path d="M 740 250 L 780 250" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+
+<!-- Node B -->
+<circle cx="780" cy="250" r="4" fill="#1a1a1a"/>
+
+<!-- Main wire to Load -->
+<path d="M 780 250 L 880 250" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+<text x="880" y="240" font-size="14" fill="#1a1a1a" text-anchor="end">Навантаження</text>
+
+<!-- Parallel path -->
+<path d="M 620 250 L 620 150 L 650 150" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+
+<!-- Resistor -->
+<path d="M 650 140 h 40 v 20 h -40 Z" fill="white" stroke="#1a1a1a" stroke-width="2"/>
+<text x="670" y="132" font-size="13" fill="#1a1a1a" text-anchor="middle">R</text>
+
+<!-- Lamp connection -->
+<path d="M 690 150 L 714 150" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+
+<!-- Neon lamp -->
+<circle cx="730" cy="150" r="16" fill="#eaf0fd" stroke="#1a1a1a" stroke-width="2"/>
+<path d="M 714 150 L 722 150" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+<path d="M 746 150 L 738 150" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+<circle cx="725" cy="150" r="2" fill="#1a1a1a"/>
+<circle cx="735" cy="150" r="2" fill="#1a1a1a"/>
+
+<!-- Return path from lamp -->
+<path d="M 746 150 L 780 150 L 780 250" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+
+<!-- Glow effect -->
+<circle cx="730" cy="150" r="24" fill="none" stroke="#2457d6" stroke-width="2" stroke-dasharray="4 4"/>
+<text x="730" y="115" font-size="13" fill="#2457d6" text-anchor="middle">Світіння неонової лампи</text>
+
+<!-- Current flow in parallel path -->
+<path d="M 620 200 L 620 180" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+<text x="610" y="195" font-size="12" fill="#2457d6" text-anchor="end">Струм індикації</text>
+<path d="M 780 180 L 780 200" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+<!-- Right Info Box -->
+<rect x="610" y="350" width="180" height="40" fill="#eaf0fd" rx="4"/>
+<text x="700" y="369" font-size="13" fill="#2457d6" font-weight="bold" text-anchor="middle">Робота індикатора</text>
+<text x="700" y="385" font-size="12" fill="#2457d6" text-anchor="middle">при перегоранні вставки</text>
+
+</svg>

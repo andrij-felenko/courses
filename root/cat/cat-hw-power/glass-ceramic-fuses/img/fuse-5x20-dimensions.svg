@@ -1,0 +1,202 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <!-- Arrowhead markers -->
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-rev" markerWidth="9" markerHeight="9" refX="0.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-blue-rev" markerWidth="9" markerHeight="9" refX="0.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-green-rev" markerWidth="9" markerHeight="9" refX="0.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#27ae60"/>
+    </marker>
+
+    <!-- Gradients -->
+    <linearGradient id="capGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#9ca3af"/>
+      <stop offset="18%" stop-color="#ffffff"/>
+      <stop offset="45%" stop-color="#d0d7de"/>
+      <stop offset="80%" stop-color="#f4f6f8"/>
+      <stop offset="100%" stop-color="#6b7280"/>
+    </linearGradient>
+    <linearGradient id="glassGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#dbeafe" stop-opacity="0.7"/>
+      <stop offset="20%" stop-color="#ffffff" stop-opacity="0.95"/>
+      <stop offset="65%" stop-color="#eff6ff" stop-opacity="0.5"/>
+      <stop offset="100%" stop-color="#bfdbfe" stop-opacity="0.8"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="36" text-anchor="middle" font-size="18" font-weight="700" fill="#1a1a1a">Креслення та допуски запобіжника 5×20 мм (IEC 60127)</text>
+  <text x="480" y="56" text-anchor="middle" font-size="13" fill="#6b7280">Допуски довжини 20±0,5 мм та діаметра Ø5,2±0,2 мм визначають зусилля губок і крок контактів тримача</text>
+
+  <!-- ==================== UPPER MAIN PANEL ==================== -->
+  <rect x="20" y="72" width="920" height="214" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Sub-panel 1 Header: Longitudinal Drawing -->
+  <text x="36" y="88" font-size="13" font-weight="700" fill="#1a1a1a">Поздовжній вигляд (Longitudinal View)</text>
+  <text x="500" y="88" text-anchor="end" font-size="12" fill="#6b7280">Масштаб 17:1</text>
+
+  <!-- Fuse Body (Glass/Ceramic tube) -->
+  <rect x="247" y="131" width="166" height="88" rx="2" fill="url(#glassGrad)" stroke="#2457d6" stroke-width="1.5"/>
+
+  <!-- Internal fuse wire with center droplet -->
+  <line x1="247" y1="175" x2="326" y2="175" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="330" cy="175" r="3.5" fill="#1a1a1a"/>
+  <line x1="334" y1="175" x2="413" y2="175" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <text x="330" y="156" text-anchor="middle" font-size="12" fill="#6b7280">Корпус: скло / кераміка</text>
+  <text x="330" y="200" text-anchor="middle" font-size="12" fill="#1a1a1a">Плавка нитка (M-ефект)</text>
+
+  <!-- Left Metal End Cap -->
+  <rect x="160" y="128" width="87" height="94" rx="4" fill="url(#capGrad)" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="164" y1="134" x2="164" y2="216" stroke="#ffffff" stroke-width="1.5" stroke-opacity="0.8"/>
+  <text x="203" y="179" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">Ковпачок</text>
+
+  <!-- Right Metal End Cap -->
+  <rect x="413" y="128" width="87" height="94" rx="4" fill="url(#capGrad)" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="496" y1="134" x2="496" y2="216" stroke="#ffffff" stroke-width="1.5" stroke-opacity="0.8"/>
+  <text x="456" y="179" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">Ковпачок</text>
+
+  <!-- Axis centerline ticks outside caps -->
+  <line x1="126" y1="175" x2="154" y2="175" stroke="#6b7280" stroke-width="1" stroke-dasharray="6 3 2 3"/>
+  <line x1="506" y1="175" x2="520" y2="175" stroke="#6b7280" stroke-width="1" stroke-dasharray="6 3 2 3"/>
+
+  <!-- ==================== DIMENSIONS ON MAIN DRAWING ==================== -->
+
+  <!-- 1. Overall Length: 20.0 ± 0.5 mm -->
+  <line x1="160" y1="124" x2="160" y2="112" stroke="#6b7280" stroke-width="1"/>
+  <line x1="500" y1="124" x2="500" y2="112" stroke="#6b7280" stroke-width="1"/>
+  <line x1="162" y1="116" x2="498" y2="116" stroke="#1a1a1a" stroke-width="1.5" marker-start="url(#arr-rev)" marker-end="url(#arr)"/>
+  <text x="330" y="106" text-anchor="middle" font-size="13" font-weight="700" fill="#1a1a1a">L = 20,0 ± 0,5 мм (діапазон 20,0...20,5 мм)</text>
+
+  <!-- 2. Cap Length: 5.1 ± 0.6 mm (Left) -->
+  <line x1="160" y1="226" x2="160" y2="248" stroke="#6b7280" stroke-width="1"/>
+  <line x1="247" y1="226" x2="247" y2="248" stroke="#6b7280" stroke-width="1"/>
+  <line x1="162" y1="244" x2="245" y2="244" stroke="#2457d6" stroke-width="1.5" marker-start="url(#arr-blue-rev)" marker-end="url(#arr-blue)"/>
+  <text x="203" y="261" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">5,1 ± 0,6 мм</text>
+  <text x="203" y="275" text-anchor="middle" font-size="12" fill="#6b7280">хв. 4,5 мм</text>
+
+  <!-- 3. Insulating body length: 9.8 ± 0.8 mm (Center) -->
+  <line x1="249" y1="244" x2="411" y2="244" stroke="#1a1a1a" stroke-width="1.5" marker-start="url(#arr-rev)" marker-end="url(#arr)"/>
+  <text x="330" y="261" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">9,8 ± 0,8 мм</text>
+  <text x="330" y="275" text-anchor="middle" font-size="12" fill="#6b7280">ізоляційний зазор</text>
+
+  <!-- 4. Cap Length: 5.1 ± 0.6 mm (Right) -->
+  <line x1="413" y1="226" x2="413" y2="248" stroke="#6b7280" stroke-width="1"/>
+  <line x1="500" y1="226" x2="500" y2="248" stroke="#6b7280" stroke-width="1"/>
+  <line x1="415" y1="244" x2="498" y2="244" stroke="#2457d6" stroke-width="1.5" marker-start="url(#arr-blue-rev)" marker-end="url(#arr-blue)"/>
+  <text x="456" y="261" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">5,1 ± 0,6 мм</text>
+  <text x="456" y="275" text-anchor="middle" font-size="12" fill="#6b7280">хв. 4,5 мм</text>
+
+  <!-- 5. Diameter: Ø 5.2 ± 0.2 mm (Left vertical dimension) -->
+  <line x1="156" y1="128" x2="112" y2="128" stroke="#6b7280" stroke-width="1"/>
+  <line x1="156" y1="222" x2="112" y2="222" stroke="#6b7280" stroke-width="1"/>
+  <line x1="116" y1="130" x2="116" y2="220" stroke="#2457d6" stroke-width="1.5" marker-start="url(#arr-blue-rev)" marker-end="url(#arr-blue)"/>
+  <text x="66" y="171" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">Ø 5,2 ± 0,2 мм</text>
+  <text x="66" y="187" text-anchor="middle" font-size="12" fill="#6b7280">(5,0...5,4 мм)</text>
+
+  <!-- ==================== RIGHT SIDE: END VIEW & CLIP FIT ==================== -->
+  <line x1="525" y1="78" x2="525" y2="276" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Right Sub-panel Header -->
+  <text x="545" y="88" font-size="13" font-weight="700" fill="#1a1a1a">Встановлення у пружинну кліпсу тримача</text>
+
+  <!-- 1. End View with clip jaws -->
+  <text x="625" y="114" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">Обтиск Ø 5,2 мм</text>
+
+  <circle cx="625" cy="176" r="45" fill="url(#capGrad)" stroke="#6b7280" stroke-width="1.5"/>
+  <circle cx="625" cy="176" r="37" fill="none" stroke="#ffffff" stroke-width="1.5" stroke-opacity="0.8"/>
+
+  <!-- Outer ticks for end view center -->
+  <line x1="625" y1="121" x2="625" y2="127" stroke="#6b7280" stroke-width="1"/>
+  <line x1="625" y1="225" x2="625" y2="231" stroke="#6b7280" stroke-width="1"/>
+  <line x1="570" y1="176" x2="576" y2="176" stroke="#6b7280" stroke-width="1"/>
+  <line x1="674" y1="176" x2="680" y2="176" stroke="#6b7280" stroke-width="1"/>
+
+  <!-- End text -->
+  <text x="625" y="172" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">Торець</text>
+  <text x="625" y="188" text-anchor="middle" font-size="12" fill="#6b7280">латунь/Ni</text>
+
+  <!-- Clip curved arms around circle -->
+  <path d="M 572,136 C 560,152 560,200 572,216" fill="none" stroke="#2457d6" stroke-width="3"/>
+  <path d="M 678,136 C 690,152 690,200 678,216" fill="none" stroke="#2457d6" stroke-width="3"/>
+
+  <!-- Inward contact force arrows -->
+  <line x1="544" y1="176" x2="558" y2="176" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <line x1="706" y1="176" x2="692" y2="176" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <!-- Below End View -->
+  <text x="625" y="246" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">Сила притиску F_конт</text>
+  <text x="625" y="262" text-anchor="middle" font-size="12" fill="#6b7280">Діапазон 5,0...5,4 мм</text>
+
+  <!-- 2. Longitudinal Clip Jaw Fit (Right Side of Panel) -->
+  <text x="825" y="114" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">Поздовжній зазор до колби</text>
+
+  <!-- Mini Fuse Cap and Glass Body -->
+  <rect x="745" y="143" width="70" height="66" rx="3" fill="url(#capGrad)" stroke="#6b7280" stroke-width="1.5"/>
+  <rect x="815" y="146" width="70" height="60" rx="2" fill="url(#glassGrad)" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="770" y="180" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">Ковпачок</text>
+  <text x="850" y="180" text-anchor="middle" font-size="12" fill="#6b7280">Скло</text>
+
+  <!-- Clip Jaw Gripping Cap (width 46 px representing ~ 3.5 mm) -->
+  <rect x="748" y="133" width="46" height="8" rx="2" fill="#2457d6"/>
+  <rect x="748" y="211" width="46" height="8" rx="2" fill="#2457d6"/>
+  <line x1="748" y1="141" x2="748" y2="211" stroke="#2457d6" stroke-width="2"/>
+
+  <!-- Safety gap bracket between jaw (x=794) and glass (x=815) -->
+  <line x1="794" y1="130" x2="815" y2="130" stroke="#27ae60" stroke-width="1.5" marker-start="url(#arr-green-rev)" marker-end="url(#arr-green)"/>
+  <line x1="794" y1="126" x2="794" y2="134" stroke="#27ae60" stroke-width="1"/>
+  <line x1="815" y1="126" x2="815" y2="134" stroke="#27ae60" stroke-width="1"/>
+
+  <!-- Labels for Clip Fit -->
+  <text x="825" y="232" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">Зазор до скла ≥ 0,8 мм</text>
+  <text x="825" y="248" text-anchor="middle" font-size="12" fill="#1a1a1a">Губка лише по металу!</text>
+  <text x="825" y="264" text-anchor="middle" font-size="12" fill="#6b7280">Захист колби від розколу</text>
+
+  <!-- ==================== LOWER THREE CARDS: IMPACT ON HOLDER ==================== -->
+
+  <!-- CARD 1: LENGTH IMPACT -->
+  <rect x="20" y="300" width="296" height="138" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="28" y="306" width="280" height="26" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="168" y="324" text-anchor="middle" font-size="13" font-weight="700" fill="#2457d6">Довжина: 20,0 ± 0,5 мм</text>
+  <text x="36" y="348" font-size="12" font-weight="700" fill="#1a1a1a">• Міжцентровий крок на PCB:</text>
+  <text x="46" y="364" font-size="12" fill="#6b7280">Відстань між кліпсами: 22,5 мм</text>
+  <text x="36" y="384" font-size="12" font-weight="700" fill="#1a1a1a">• Хід торцевої пружини тримача:</text>
+  <text x="46" y="400" font-size="12" fill="#6b7280">Запас ходу ≥ 1,5 мм на допуск</text>
+  <text x="36" y="422" font-size="12" font-weight="700" fill="#c0392b">Критично: L &gt; 20,5 мм блокує байонет</text>
+
+  <!-- CARD 2: DIAMETER IMPACT -->
+  <rect x="332" y="300" width="296" height="138" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="340" y="306" width="280" height="26" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="480" y="324" text-anchor="middle" font-size="13" font-weight="700" fill="#2457d6">Діаметр: Ø 5,2 ± 0,2 мм</text>
+  <text x="348" y="348" font-size="12" font-weight="700" fill="#1a1a1a">• Пружне охоплення губок:</text>
+  <text x="358" y="364" font-size="12" fill="#6b7280">Робочий діапазон: 5,0...5,4 мм</text>
+  <text x="348" y="384" font-size="12" font-weight="700" fill="#1a1a1a">• Перехідний контактний опір:</text>
+  <text x="358" y="400" font-size="12" fill="#6b7280">Норма R_конт &lt; 5 мОм без нагріву</text>
+  <text x="348" y="422" font-size="12" font-weight="700" fill="#c0392b">Критично: Ø &lt; 5,0 мм дає люфт і нагар</text>
+
+  <!-- CARD 3: CAP LENGTH IMPACT -->
+  <rect x="644" y="300" width="296" height="138" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="652" y="306" width="280" height="26" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="792" y="324" text-anchor="middle" font-size="13" font-weight="700" fill="#2457d6">Ковпачок: 5,1 ± 0,6 мм</text>
+  <text x="660" y="348" font-size="12" font-weight="700" fill="#1a1a1a">• Зона контакту кліпси:</text>
+  <text x="670" y="364" font-size="12" fill="#6b7280">Ширина губки до 4,0 мм (лише метал)</text>
+  <text x="660" y="384" font-size="12" font-weight="700" fill="#1a1a1a">• Захист від розколу корпусу:</text>
+  <text x="670" y="400" font-size="12" fill="#6b7280">Зазор до скла ≥ 0,5 мм (без зусиль)</text>
+  <text x="660" y="422" font-size="12" font-weight="700" fill="#27ae60">Ізоляційний зазор: 9,8 мм на 250 В</text>
+
+</svg>

@@ -73,6 +73,10 @@
             {
               "file": "proj-18650-battery-pack-design.md",
               "status": "done"
+            },
+            {
+              "file": "proj-18650-discharge-bench-test.md",
+              "status": "done"
             }
           ]
         },
@@ -132,6 +136,16 @@
             },
             {
               "file": "math-solar-iv-curve-model.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-solar-charger-tp4056-cn3791.md",
+              "status": "done"
+            },
+            {
+              "file": "proj-mppt-esp32-harvesting-node.md",
               "status": "done"
             }
           ]
@@ -233,6 +247,12 @@
               "file": "math-imax-b6-charging-and-balancing-calculations.md",
               "status": "done"
             }
+          ],
+          "proj": [
+            {
+              "file": "proj-imax-b6-pc-monitoring-and-calibration.md",
+              "status": "done"
+            }
           ]
         },
         {
@@ -273,7 +293,7 @@
           "slug": "mh-cd42-charger",
           "title": "MH-CD42 — заряд-розряд 1S (5 В / 2 А)",
           "basic": {
-            "status": "empty"
+            "status": "done"
           },
           "detailed": {
             "status": "done"
@@ -551,11 +571,33 @@
           "slug": "dual-rail-converter",
           "title": "Перетворювач 5 В → ±12 В (двополярне живлення)",
           "basic": {
-            "status": "empty"
+            "status": "done"
           },
           "detailed": {
             "status": "done"
-          }
+          },
+          "api": [
+            {
+              "file": "api-dual-rail-converter-hardware.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-dual-rail-calculation.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-dual-rail-boost-inverting-ldo.md",
+              "status": "done"
+            },
+            {
+              "file": "proj-dual-rail-charge-pump-module.md",
+              "status": "done"
+            }
+          ]
         }
       ]
     },
@@ -593,11 +635,37 @@
           "slug": "ams1117-linear-regulator",
           "title": "AMS1117 — лінійний стабілізатор з малим падінням напруги (LDO)",
           "basic": {
-            "status": "empty"
+            "status": "done"
           },
           "detailed": {
             "status": "done"
-          }
+          },
+          "api": [
+            {
+              "file": "api-ams1117-hardware-pinout-and-wiring.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-ams1117-adj-divider-calculation.md",
+              "status": "done"
+            },
+            {
+              "file": "math-ams1117-thermal-dissipation-calculation.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-ams1117-5v-to-3v3-power-module.md",
+              "status": "done"
+            },
+            {
+              "file": "proj-ams1117-adjustable-bench-supply.md",
+              "status": "done"
+            }
+          ]
         }
       ]
     },
@@ -629,11 +697,35 @@
           "slug": "cell-insulators-and-wrap",
           "title": "Шайби-ізолятори й термоусадка для 18650",
           "basic": {
-            "status": "empty"
+            "status": "done"
           },
           "detailed": {
             "status": "done"
-          }
+          },
+          "api": [
+            {
+              "file": "api-18650-insulation-and-sleeve-hardware-spec.md",
+              "status": "done"
+            }
+          ],
+          "hist": [
+            {
+              "file": "hist-18650-insulation-evolution.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-18650-sleeve-geometry-and-dielectric-strength.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-18650-rewrapping-and-insulator-replacement-workshop.md",
+              "status": "done"
+            }
+          ]
         },
         {
           "slug": "lipo-safety-bag",

@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 360" width="720" height="360" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+    <rect x="0" y="0" width="720" height="360" fill="white"/>
+    
+    <!-- Title -->
+    <text x="360" y="40" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Принципова схема підключення AMS1117-3.3</text>
+    <text x="360" y="60" font-size="13" fill="#6b7280" text-anchor="middle">Вхідні та вихідні конденсатори забезпечують стабільність і фільтрацію перешкод</text>
+
+    <!-- Wires -->
+    <path d="M 120 180 L 300 180" stroke="#1a1a1a" stroke-width="2" fill="none"/>
+    <path d="M 420 180 L 600 180" stroke="#1a1a1a" stroke-width="2" fill="none"/>
+    <path d="M 120 280 L 600 280" stroke="#1a1a1a" stroke-width="2" fill="none"/>
+    <path d="M 360 220 L 360 280" stroke="#1a1a1a" stroke-width="2" fill="none"/>
+    
+    <!-- C1 Wires -->
+    <path d="M 220 180 L 220 220" stroke="#1a1a1a" stroke-width="2" fill="none"/>
+    <path d="M 220 240 L 220 280" stroke="#1a1a1a" stroke-width="2" fill="none"/>
+    
+    <!-- C2 Wires -->
+    <path d="M 500 180 L 500 220" stroke="#1a1a1a" stroke-width="2" fill="none"/>
+    <path d="M 500 240 L 500 280" stroke="#1a1a1a" stroke-width="2" fill="none"/>
+    
+    <!-- Ground Wire -->
+    <path d="M 360 280 L 360 300" stroke="#1a1a1a" stroke-width="2" fill="none"/>
+
+    <!-- Capacitors -->
+    <line x1="205" y1="220" x2="235" y2="220" stroke="#1a1a1a" stroke-width="2"/>
+    <line x1="205" y1="240" x2="235" y2="240" stroke="#1a1a1a" stroke-width="2"/>
+    <line x1="485" y1="220" x2="515" y2="220" stroke="#1a1a1a" stroke-width="2"/>
+    <line x1="485" y1="240" x2="515" y2="240" stroke="#1a1a1a" stroke-width="2"/>
+    
+    <!-- Polarity C2 -->
+    <text x="475" y="222" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="end">+</text>
+
+    <!-- Ground symbol -->
+    <line x1="345" y1="300" x2="375" y2="300" stroke="#1a1a1a" stroke-width="2"/>
+    <line x1="350" y1="305" x2="370" y2="305" stroke="#1a1a1a" stroke-width="2"/>
+    <line x1="355" y1="310" x2="365" y2="310" stroke="#1a1a1a" stroke-width="2"/>
+
+    <!-- Terminals -->
+    <circle cx="120" cy="180" r="4" fill="white" stroke="#1a1a1a" stroke-width="2"/>
+    <circle cx="600" cy="180" r="4" fill="white" stroke="#1a1a1a" stroke-width="2"/>
+    <circle cx="120" cy="280" r="4" fill="white" stroke="#1a1a1a" stroke-width="2"/>
+    <circle cx="600" cy="280" r="4" fill="white" stroke="#1a1a1a" stroke-width="2"/>
+
+    <!-- Junctions -->
+    <circle cx="220" cy="180" r="3" fill="#1a1a1a"/>
+    <circle cx="220" cy="280" r="3" fill="#1a1a1a"/>
+    <circle cx="500" cy="180" r="3" fill="#1a1a1a"/>
+    <circle cx="500" cy="280" r="3" fill="#1a1a1a"/>
+    <circle cx="360" cy="280" r="3" fill="#1a1a1a"/>
+
+    <!-- IC Block -->
+    <rect x="300" y="140" width="120" height="80" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+    <text x="360" y="165" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">AMS1117-3.3</text>
+    <text x="310" y="185" font-size="12" fill="#6b7280" text-anchor="start">VIN</text>
+    <text x="410" y="185" font-size="12" fill="#6b7280" text-anchor="end">VOUT</text>
+    <text x="360" y="210" font-size="12" fill="#6b7280" text-anchor="middle">GND</text>
+
+    <!-- Input / Output Labels -->
+    <text x="120" y="165" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">+5V (USB)</text>
+    <text x="600" y="165" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">+3.3V</text>
+    <text x="120" y="305" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">GND</text>
+    <text x="600" y="305" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">GND</text>
+
+    <!-- Capacitor Labels -->
+    <text x="190" y="225" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="end">C1</text>
+    <text x="190" y="240" font-size="12" fill="#1a1a1a" text-anchor="end">10 µF</text>
+    <text x="190" y="255" font-size="12" fill="#6b7280" text-anchor="end">Кераміка</text>
+    
+    <text x="530" y="225" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="start">C2</text>
+    <text x="530" y="240" font-size="12" fill="#1a1a1a" text-anchor="start">22 µF</text>
+    <text x="530" y="255" font-size="12" fill="#6b7280" text-anchor="start">Танталовий</text>
+</svg>

@@ -1,0 +1,84 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 460" width="720" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Тло -->
+  <rect x="0" y="0" width="720" height="460" fill="white"/>
+
+  <!-- Заголовки -->
+  <text x="360" y="40" text-anchor="middle" font-weight="bold" font-size="18" fill="#1a1a1a">Коротке замикання на плюсовому торці 18650</text>
+  <text x="360" y="60" text-anchor="middle" font-size="13" fill="#6b7280">Пошкодження тонкої плівки призводить до контакту між мінусовим корпусом і стрічкою</text>
+
+  <!-- Маркери -->
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Вісь симетрії -->
+  <line x1="200" y1="80" x2="200" y2="430" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="10 4 2 4"/>
+  <text x="200" y="70" text-anchor="middle" fill="#6b7280" font-size="12">Вісь симетрії акумулятора</text>
+
+  <!-- Внутрішні шари (Jelly roll) -->
+  <rect x="200" y="240" width="340" height="150" fill="#ffffff" stroke="#d0d7de" stroke-width="2"/>
+  <path d="M 220 240 v 20 M 220 370 v 20 M 240 240 v 20 M 240 370 v 20 M 260 240 v 20 M 260 370 v 20 M 280 240 v 20 M 280 370 v 20 M 300 240 v 20 M 300 370 v 20 M 320 240 v 20 M 320 370 v 20 M 340 240 v 20 M 340 370 v 20 M 360 240 v 20 M 360 370 v 20 M 380 240 v 20 M 380 370 v 20 M 400 240 v 20 M 400 370 v 20 M 420 240 v 20 M 420 370 v 20 M 440 240 v 20 M 440 370 v 20 M 460 240 v 20 M 460 370 v 20 M 480 240 v 20 M 480 370 v 20 M 500 240 v 20 M 500 370 v 20 M 520 240 v 20 M 520 370 v 20 M 540 240 v 150" fill="none" stroke="#d0d7de" stroke-width="2"/>
+  <text x="370" y="415" text-anchor="middle" font-size="12" fill="#6b7280">Активні шари (катод, анод, сепаратор)</text>
+
+  <!-- Плюсовий контакт (Cap) -->
+  <path d="M 200 110 L 350 110 L 380 160 L 520 160 L 520 200 L 370 200 L 340 150 L 200 150 Z" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="2" stroke-linejoin="round"/>
+
+  <!-- Ізоляційне кільце (Gasket) -->
+  <path d="M 460 140 L 500 140 A 40 40 0 0 1 540 180 L 540 220 L 480 220 L 480 200 L 520 200 L 520 160 L 460 160 Z" fill="#6b7280" stroke="#1a1a1a" stroke-width="2" stroke-linejoin="round"/>
+
+  <!-- Мінусовий корпус (Can) -->
+  <path d="M 560 400 L 560 180 A 60 60 0 0 0 500 120 L 470 120 L 470 140 L 500 140 A 40 40 0 0 1 540 180 L 540 400 Z" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="2" stroke-linejoin="round"/>
+
+  <!-- Термоусадкова плівка (Heat shrink) -->
+  <!-- Зовнішня частина (з обривом) -->
+  <path d="M 562 400 L 562 180 A 62 62 0 0 0 500 118 L 485 118" fill="none" stroke="#2457d6" stroke-width="4" stroke-linecap="round"/>
+  <!-- Внутрішній залишок -->
+  <path d="M 468 142 L 468 120" fill="none" stroke="#2457d6" stroke-width="4" stroke-linecap="round"/>
+
+  <!-- Нікелева стрічка (Nickel strip) -->
+  <path d="M 200 110 L 340 110 C 380 110, 410 120, 450 120 L 650 120 L 650 114 L 450 114 C 410 114, 380 104, 340 104 L 200 104 Z" fill="#eaf0fd" stroke="#2457d6" stroke-width="2" stroke-linejoin="round"/>
+
+  <!-- Іскра короткого замикання -->
+  <circle cx="477" cy="120" r="18" fill="#fdecea" stroke="#c0392b" stroke-width="2"/>
+  <path d="M 477 108 L 483 118 L 477 119 L 484 130 L 471 122 L 476 121 L 469 111 Z" fill="#c0392b"/>
+
+  <!-- Панель проблеми -->
+  <rect x="220" y="260" width="300" height="110" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="2"/>
+  <text x="240" y="290" font-weight="bold" fill="#c0392b" font-size="14">КОРОТКЕ ЗАМИКАННЯ</text>
+  <text x="240" y="315" fill="#1a1a1a" font-size="13">Проплавлення або протирання</text>
+  <text x="240" y="335" fill="#1a1a1a" font-size="13">плівки з'єднує плюсову стрічку</text>
+  <text x="240" y="355" fill="#1a1a1a" font-size="13">з мінусовим краєм корпусу</text>
+  <!-- Стрілка від панелі до іскри -->
+  <path d="M 477 260 L 477 142" fill="none" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+
+  <!-- Підписи зліва -->
+  <text x="40" y="140" font-size="13" fill="#1a1a1a">Плюсовий контакт</text>
+  <text x="40" y="155" font-size="12" fill="#6b7280">кришка з клапаном</text>
+  <path d="M 160 136 L 230 136" fill="none" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- Підписи справа -->
+  <!-- Стрічка -->
+  <text x="570" y="95" font-size="13" fill="#1a1a1a">Нікелева стрічка</text>
+  <text x="570" y="110" font-size="12" fill="#6b7280">приварена до плюса</text>
+  <path d="M 565 91 L 530 91 L 510 109" fill="none" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- Плівка -->
+  <text x="570" y="185" font-size="13" fill="#1a1a1a">Термоусадкова плівка</text>
+  <text x="570" y="200" font-size="12" fill="#6b7280">заводська ізоляція</text>
+  <path d="M 565 181 L 562 181" fill="none" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- Корпус -->
+  <text x="570" y="260" font-size="13" fill="#1a1a1a">Мінусовий корпус</text>
+  <text x="570" y="275" font-size="12" fill="#6b7280">сталевий стакан</text>
+  <path d="M 565 256 L 530 256" fill="none" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- Кільце -->
+  <text x="570" y="340" font-size="13" fill="#1a1a1a">Ізоляційне кільце</text>
+  <text x="570" y="355" font-size="12" fill="#6b7280">відокремлює + від -</text>
+  <path d="M 565 336 L 510 336 L 510 230" fill="none" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr)"/>
+</svg>

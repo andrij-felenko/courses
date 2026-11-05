@@ -1,0 +1,100 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+  
+  <defs>
+    <marker id="arr-wrong" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-right" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <text x="480" y="40" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Підключення панельного тримача запобіжника</text>
+  <text x="480" y="60" font-size="13" fill="#6b7280" text-anchor="middle">Фаза має подаватись на центральний контакт для усунення напруги на різьбі при знятому ковпачку</text>
+
+  <!-- Left panel: Wrong -->
+  <rect x="40" y="90" width="420" height="340" fill="#fdecea" stroke="#c0392b" stroke-width="2" rx="4"/>
+  <text x="250" y="125" font-size="15" font-weight="bold" fill="#c0392b" text-anchor="middle">НЕПРАВИЛЬНО</text>
+  <text x="250" y="145" font-size="14" fill="#1a1a1a" text-anchor="middle">Фаза на бічному контакті</text>
+  
+  <!-- Right panel: Right -->
+  <rect x="500" y="90" width="420" height="340" fill="#e9f7ef" stroke="#27ae60" stroke-width="2" rx="4"/>
+  <text x="710" y="125" font-size="15" font-weight="bold" fill="#27ae60" text-anchor="middle">ПРАВИЛЬНО</text>
+  <text x="710" y="145" font-size="14" fill="#1a1a1a" text-anchor="middle">Фаза на центральному контакті</text>
+
+  <!-- Left Holder -->
+  <rect x="190" y="160" width="10" height="240" fill="#d0d7de"/>
+  <path d="M 170 210 H 200 V 230 H 345 V 330 H 200 V 350 H 170 Z" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="2"/>
+  <path d="M 170 250 H 330 V 310 H 170 Z" fill="white" stroke="#1a1a1a" stroke-width="2"/>
+  
+  <!-- Left Contacts -->
+  <rect x="315" y="265" width="15" height="30" fill="#6b7280" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="330" y="275" width="40" height="10" fill="#6b7280" stroke="#1a1a1a" stroke-width="1.5"/>
+  <path d="M 170 250 h 50 v 10 h -50 z" fill="#6b7280" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="180" y1="250" x2="180" y2="260" stroke="#1a1a1a"/>
+  <line x1="190" y1="250" x2="190" y2="260" stroke="#1a1a1a"/>
+  <line x1="200" y1="250" x2="200" y2="260" stroke="#1a1a1a"/>
+  <line x1="210" y1="250" x2="210" y2="260" stroke="#1a1a1a"/>
+  <path d="M 170 300 h 125 v 60 h -15 v -50 h -110 z" fill="#6b7280" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="180" y1="300" x2="180" y2="310" stroke="#1a1a1a"/>
+  <line x1="190" y1="300" x2="190" y2="310" stroke="#1a1a1a"/>
+  <line x1="200" y1="300" x2="200" y2="310" stroke="#1a1a1a"/>
+  <line x1="210" y1="300" x2="210" y2="310" stroke="#1a1a1a"/>
+
+  <!-- Left Wires -->
+  <path d="M 370 280 h 40 v -80 h 30" fill="none" stroke="#2457d6" stroke-width="4"/>
+  <text x="440" y="195" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="end">До навантаження</text>
+  <path d="M 287 360 v 30 h -80" fill="none" stroke="#c0392b" stroke-width="4"/>
+  <text x="200" y="395" font-size="14" font-weight="bold" fill="#c0392b" text-anchor="end">L (Фаза)</text>
+
+  <!-- Left Cap & Fuse -->
+  <rect x="50" y="250" width="20" height="60" fill="#1a1a1a" rx="2"/>
+  <rect x="70" y="260" width="20" height="40" fill="#1a1a1a"/>
+  <rect x="90" y="270" width="15" height="20" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="105" y="270" width="40" height="20" fill="#eaf0fd" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="105" y1="280" x2="145" y2="280" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="145" y="270" width="15" height="20" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Left Danger Text -->
+  <text x="170" y="160" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="start">Різьба під напругою!</text>
+  <path d="M 200 165 v 80" fill="none" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-wrong)"/>
+
+  <!-- Right Holder -->
+  <rect x="670" y="160" width="10" height="240" fill="#d0d7de"/>
+  <path d="M 650 210 H 680 V 230 H 825 V 330 H 680 V 350 H 650 Z" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="2"/>
+  <path d="M 650 250 H 810 V 310 H 650 Z" fill="white" stroke="#1a1a1a" stroke-width="2"/>
+  
+  <!-- Right Contacts -->
+  <rect x="795" y="265" width="15" height="30" fill="#6b7280" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="810" y="275" width="40" height="10" fill="#6b7280" stroke="#1a1a1a" stroke-width="1.5"/>
+  <path d="M 650 250 h 50 v 10 h -50 z" fill="#6b7280" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="660" y1="250" x2="660" y2="260" stroke="#1a1a1a"/>
+  <line x1="670" y1="250" x2="670" y2="260" stroke="#1a1a1a"/>
+  <line x1="680" y1="250" x2="680" y2="260" stroke="#1a1a1a"/>
+  <line x1="690" y1="250" x2="690" y2="260" stroke="#1a1a1a"/>
+  <path d="M 650 300 h 125 v 60 h -15 v -50 h -110 z" fill="#6b7280" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="660" y1="300" x2="660" y2="310" stroke="#1a1a1a"/>
+  <line x1="670" y1="300" x2="670" y2="310" stroke="#1a1a1a"/>
+  <line x1="680" y1="300" x2="680" y2="310" stroke="#1a1a1a"/>
+  <line x1="690" y1="300" x2="690" y2="310" stroke="#1a1a1a"/>
+
+  <!-- Right Wires -->
+  <path d="M 850 280 h 40 v -80 h 30" fill="none" stroke="#27ae60" stroke-width="4"/>
+  <text x="920" y="195" font-size="14" font-weight="bold" fill="#27ae60" text-anchor="end">L (Фаза)</text>
+  <path d="M 767 360 v 30 h 140" fill="none" stroke="#2457d6" stroke-width="4"/>
+  <text x="900" y="385" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="end">До навантаження</text>
+
+  <!-- Right Cap & Fuse -->
+  <rect x="530" y="250" width="20" height="60" fill="#1a1a1a" rx="2"/>
+  <rect x="550" y="260" width="20" height="40" fill="#1a1a1a"/>
+  <rect x="570" y="270" width="15" height="20" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="585" y="270" width="40" height="20" fill="#eaf0fd" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="585" y1="280" x2="625" y2="280" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="625" y="270" width="15" height="20" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Right Safety Text -->
+  <text x="650" y="160" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="start">Різьба безпечна (0 В)</text>
+  <path d="M 680 165 v 80" fill="none" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-right)"/>
+
+</svg>

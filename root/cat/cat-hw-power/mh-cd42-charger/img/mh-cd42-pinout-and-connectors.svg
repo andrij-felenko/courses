@@ -1,0 +1,102 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Title -->
+  <text x="480" y="40" font-size="18" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Модуль живлення MH-CD42: розпіновка та підключення</text>
+  <text x="480" y="65" font-size="13" text-anchor="middle" fill="#6b7280">Розташування силових контактних майданчиків та варіанти роз'ємів</text>
+
+  <!-- Main Board -->
+  <rect x="340" y="120" width="480" height="220" rx="10" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+
+  <!-- Input Connector (Left) -->
+  <rect x="340" y="200" width="20" height="60" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+
+  <!-- Output Connector (Right) -->
+  <rect x="820" y="170" width="50" height="120" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <rect x="830" y="180" width="20" height="100" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <rect x="835" y="200" width="10" height="20" fill="#d0d7de"/>
+  <rect x="835" y="240" width="10" height="20" fill="#d0d7de"/>
+  
+  <text x="845" y="320" font-size="14" font-weight="bold" text-anchor="middle" fill="#1a1a1a">USB Type-A</text>
+  <text x="845" y="340" font-size="12" text-anchor="middle" fill="#6b7280">Вихід 5 В</text>
+  <text x="845" y="356" font-size="12" text-anchor="middle" fill="#6b7280">(до 2 А)</text>
+
+  <!-- Components on Board -->
+  <!-- Button -->
+  <rect x="400" y="160" width="24" height="24" rx="4" fill="#d0d7de" stroke="#6b7280"/>
+  <circle cx="412" cy="172" r="6" fill="#1a1a1a"/>
+  <text x="412" y="205" font-size="12" text-anchor="middle" fill="#6b7280">Кнопка</text>
+
+  <!-- LEDs -->
+  <rect x="460" y="166" width="80" height="20" rx="10" fill="#1a1a1a"/>
+  <circle cx="472" cy="176" r="4" fill="#27ae60"/>
+  <circle cx="491" cy="176" r="4" fill="#27ae60"/>
+  <circle cx="510" cy="176" r="4" fill="#27ae60"/>
+  <circle cx="529" cy="176" r="4" fill="#f4f6f8" stroke="#6b7280"/>
+  <text x="500" y="205" font-size="12" text-anchor="middle" fill="#6b7280">Індикатори заряду</text>
+
+  <!-- Chip -->
+  <rect x="580" y="170" width="60" height="60" rx="3" fill="#1a1a1a"/>
+  <text x="610" y="204" font-size="12" fill="#6b7280" text-anchor="middle">IP5328</text>
+
+  <!-- Inductor -->
+  <rect x="670" y="175" width="50" height="50" rx="5" fill="#6b7280"/>
+  <text x="695" y="204" font-size="12" fill="#f4f6f8" text-anchor="middle">4R7</text>
+
+  <!-- Pads and Labels -->
+  <!-- VIN -->
+  <circle cx="400" cy="320" r="10" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="400" y="295" font-size="14" font-weight="bold" text-anchor="middle" fill="#1a1a1a">VIN</text>
+  <path d="M400,365 L400,335" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="400" y="385" font-size="14" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Вхід 5 В</text>
+  <text x="400" y="405" font-size="12" text-anchor="middle" fill="#6b7280">від джерела</text>
+
+  <!-- BAT -->
+  <circle cx="510" cy="320" r="10" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="510" y="295" font-size="14" font-weight="bold" text-anchor="middle" fill="#1a1a1a">BAT</text>
+  <path d="M510,365 L510,335" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="510" y="385" font-size="14" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Акумулятор</text>
+  <text x="510" y="405" font-size="12" text-anchor="middle" fill="#6b7280">Li-Ion 3.7 В</text>
+
+  <!-- GND -->
+  <circle cx="630" cy="320" r="10" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="630" y="295" font-size="14" font-weight="bold" text-anchor="middle" fill="#1a1a1a">GND</text>
+  <path d="M630,365 L630,335" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="630" y="385" font-size="14" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Спільна земля</text>
+  <text x="630" y="405" font-size="12" text-anchor="middle" fill="#6b7280">GND / мінус</text>
+
+  <!-- OUT -->
+  <circle cx="740" cy="320" r="10" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="740" y="295" font-size="14" font-weight="bold" text-anchor="middle" fill="#1a1a1a">OUT</text>
+  <path d="M740,365 L740,335" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="740" y="385" font-size="14" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Вихід 5 В</text>
+  <text x="740" y="405" font-size="12" text-anchor="middle" fill="#6b7280">навантаження</text>
+
+  <!-- Input Variants Panel -->
+  <rect x="40" y="120" width="220" height="190" rx="8" fill="#ffffff" stroke="#d0d7de" stroke-width="2"/>
+  <text x="150" y="150" font-size="14" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Роз'єм живлення</text>
+  <text x="150" y="170" font-size="13" text-anchor="middle" fill="#6b7280">(один із двох типів)</text>
+
+  <!-- Micro-USB icon -->
+  <path d="M75,210 L125,210 L125,220 L117,227 L83,227 L75,220 Z" fill="#1a1a1a"/>
+  <path d="M83,212 L117,212 L117,216 L83,216 Z" fill="#f4f6f8"/>
+  <text x="100" y="255" font-size="13" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Micro-USB</text>
+
+  <!-- Type-C icon -->
+  <rect x="170" y="207" width="60" height="22" rx="11" fill="#1a1a1a"/>
+  <rect x="180" y="214" width="40" height="8" rx="4" fill="#f4f6f8"/>
+  <text x="200" y="255" font-size="13" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Type-C</text>
+
+  <text x="150" y="285" font-size="12" text-anchor="middle" fill="#6b7280">Використовується для заряджання</text>
+
+  <!-- Link from panel to board -->
+  <path d="M260,230 L340,230" stroke="#2457d6" stroke-width="2" stroke-dasharray="4,4"/>
+  <circle cx="340" cy="230" r="3" fill="#2457d6"/>
+
+</svg>

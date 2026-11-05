@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 360" width="720" height="360" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+<rect x="0" y="0" width="720" height="360" fill="white"/>
+
+<defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+        <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+        <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+</defs>
+
+<text x="360" y="30" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Стискання комірок та ризик електричного пробою</text>
+<text x="360" y="50" font-size="13" fill="#6b7280" text-anchor="middle">Механічний тиск зменшує товщину ізоляції, підвищуючи ймовірність пробою</text>
+
+<circle cx="255" cy="190" r="100" fill="#f4f6f8" stroke="#d0d7de" stroke-width="3"/>
+<text x="255" y="160" font-size="14" fill="#1a1a1a" font-weight="bold" text-anchor="middle">Комірка 1</text>
+<text x="255" y="180" font-size="14" fill="#6b7280" text-anchor="middle">(+ потенціал)</text>
+
+<circle cx="465" cy="190" r="100" fill="#f4f6f8" stroke="#d0d7de" stroke-width="3"/>
+<text x="465" y="160" font-size="14" fill="#1a1a1a" font-weight="bold" text-anchor="middle">Комірка 2</text>
+<text x="465" y="180" font-size="14" fill="#6b7280" text-anchor="middle">(- потенціал)</text>
+
+<rect x="356" y="80" width="8" height="220" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+<line x1="360" y1="300" x2="360" y2="330" stroke="#2457d6" stroke-width="1"/>
+<text x="360" y="345" font-size="13" fill="#2457d6" text-anchor="middle">Діелектричний бар'єр</text>
+
+<line x1="100" y1="190" x2="145" y2="190" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+<text x="85" y="195" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">F</text>
+
+<line x1="620" y1="190" x2="575" y2="190" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+<text x="635" y="195" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">F</text>
+
+<circle cx="360" cy="190" r="22" fill="#fdecea" stroke="#c0392b" stroke-width="2" stroke-dasharray="4" opacity="0.8"/>
+<line x1="375" y1="205" x2="400" y2="230" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+<text x="405" y="240" font-size="14" fill="#c0392b" font-weight="bold">Зона пробою</text>
+
+</svg>

@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 480" width="800" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+    <defs>
+        <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+            <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+        </marker>
+    </defs>
+    <rect x="0" y="0" width="800" height="480" fill="white"/>
+    
+    <text x="400" y="35" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Внутрішня блок-схема лінійного стабілізатора AMS1117</text>
+    <text x="400" y="55" text-anchor="middle" font-size="13" fill="#6b7280">Функціональні вузли та взаємодія в контурі зворотного зв'язку</text>
+
+    <!-- Package -->
+    <rect x="140" y="90" width="520" height="280" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+    <text x="160" y="115" font-size="14" font-weight="bold" fill="#6b7280">AMS1117</text>
+
+    <!-- Pins -->
+    <line x1="40" y1="130" x2="140" y2="130" stroke="#1a1a1a" stroke-width="3"/>
+    <text x="90" y="120" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">VIN</text>
+
+    <line x1="660" y1="190" x2="760" y2="190" stroke="#1a1a1a" stroke-width="3"/>
+    <text x="710" y="180" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">VOUT</text>
+
+    <line x1="400" y1="370" x2="400" y2="440" stroke="#1a1a1a" stroke-width="3"/>
+    <text x="400" y="460" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">ADJ / GND</text>
+
+    <!-- Blocks -->
+    <!-- Bandgap -->
+    <rect x="150" y="260" width="110" height="60" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+    <text x="205" y="285" text-anchor="middle" font-size="13" fill="#1a1a1a">Опорна напруга</text>
+    <text x="205" y="305" text-anchor="middle" font-size="13" fill="#1a1a1a">Bandgap 1.25 В</text>
+
+    <!-- Error Amp -->
+    <path d="M 300 230 L 300 310 L 380 270 Z" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+    <text x="312" y="295" font-size="14" font-weight="bold" fill="#1a1a1a">+</text>
+    <text x="312" y="255" font-size="16" font-weight="bold" fill="#1a1a1a">-</text>
+
+    <!-- Pass Transistor -->
+    <rect x="460" y="160" width="140" height="60" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+    <text x="530" y="185" text-anchor="middle" font-size="13" fill="#1a1a1a">Вихідний</text>
+    <text x="530" y="205" text-anchor="middle" font-size="13" fill="#1a1a1a">NPN-транзистор</text>
+
+    <!-- Feedback Divider -->
+    <rect x="460" y="260" width="140" height="60" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+    <text x="530" y="285" text-anchor="middle" font-size="13" fill="#1a1a1a">Дільник звор.</text>
+    <text x="530" y="305" text-anchor="middle" font-size="13" fill="#1a1a1a">зв'язку</text>
+
+    <!-- Internal Routing -->
+    <!-- VIN Flow -->
+    <path d="M 140 130 L 530 130 L 530 160" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr)"/>
+    
+    <!-- VOUT Flow -->
+    <path d="M 600 190 L 660 190" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr)"/>
+
+    <!-- Bandgap to Error Amp -->
+    <path d="M 260 290 L 300 290" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr)"/>
+
+    <!-- Error Amp to Pass Transistor -->
+    <path d="M 380 270 L 420 270 L 420 190 L 460 190" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr)"/>
+
+    <!-- VOUT tap to Divider -->
+    <path d="M 630 190 L 630 290 L 600 290" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr)"/>
+    <circle cx="630" cy="190" r="4" fill="#1a1a1a"/>
+
+    <!-- Divider to Error Amp Feedback -->
+    <path d="M 460 290 L 440 290 L 440 330 L 280 330 L 280 250 L 300 250" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr)"/>
+
+    <!-- Common Ground Line -->
+    <path d="M 205 320 L 205 350 L 530 350 L 530 320" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+    <line x1="400" y1="350" x2="400" y2="370" stroke="#1a1a1a" stroke-width="2"/>
+    <circle cx="400" cy="350" r="4" fill="#1a1a1a"/>
+</svg>

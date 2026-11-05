@@ -1,0 +1,97 @@
+<svg viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Підкладка -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="40" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Ланцюжок фільтрації вихідної напруги імпульсного перетворювача</text>
+  <text x="480" y="65" text-anchor="middle" font-size="13" fill="#6b7280">Пригнічення високочастотних завад і пульсацій за допомогою LC-ланки та лінійного LDO-стабілізатора</text>
+
+  <!-- Блок 1: Імпульсний перетворювач -->
+  <rect x="50" y="120" width="160" height="80" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <text x="130" y="155" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Імпульсний</text>
+  <text x="130" y="175" text-anchor="middle" font-size="14" fill="#1a1a1a">перетворювач</text>
+
+  <!-- Блок 2: LC-фільтр -->
+  <rect x="330" y="120" width="160" height="80" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <text x="410" y="140" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">LC-фільтр</text>
+  
+  <path d="M 330 165 L 360 165 Q 370 150, 380 165 Q 390 150, 400 165 Q 410 150, 420 165 L 490 165" fill="none" stroke="#1a1a1a" stroke-width="1.5"/>
+  <!-- Лінія до конденсатора -->
+  <line x1="450" y1="165" x2="450" y2="180" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="450" cy="165" r="2.5" fill="#1a1a1a"/>
+  <!-- Конденсатор -->
+  <line x1="440" y1="180" x2="460" y2="180" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="440" y1="185" x2="460" y2="185" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="450" y1="185" x2="450" y2="192" stroke="#1a1a1a" stroke-width="1.5"/>
+  <!-- Земля -->
+  <path d="M 442 192 L 458 192 M 445 195 L 455 195 M 448 198 L 452 198" fill="none" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Блок 3: LDO стабілізатор -->
+  <rect x="610" y="120" width="160" height="80" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <text x="690" y="155" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">LDO</text>
+  <text x="690" y="175" text-anchor="middle" font-size="14" fill="#1a1a1a">стабілізатор</text>
+
+  <!-- Зв'язки -->
+  <!-- Вхід -->
+  <line x1="20" y1="165" x2="42" y2="165" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+  <text x="20" y="155" text-anchor="start" font-size="14" font-weight="bold" fill="#1a1a1a">+5 В</text>
+
+  <!-- Лінія 1 -->
+  <line x1="210" y1="165" x2="322" y2="165" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+  <!-- Лінія 2 -->
+  <line x1="490" y1="165" x2="602" y2="165" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+  <!-- Лінія 3 -->
+  <line x1="770" y1="165" x2="862" y2="165" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+  
+  <!-- Вихід -->
+  <circle cx="870" cy="165" r="3" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="880" y="170" text-anchor="start" font-size="14" font-weight="bold" fill="#1a1a1a">±12 В</text>
+
+  <!-- Пунктирні лінії до графіків -->
+  <line x1="270" y1="170" x2="270" y2="215" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="4 4"/>
+  <line x1="550" y1="170" x2="550" y2="215" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="4 4"/>
+  <line x1="815" y1="170" x2="815" y2="215" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="4 4"/>
+
+  <!-- Заголовки графіків -->
+  <text x="270" y="230" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Вихід імпульсника</text>
+  <text x="550" y="230" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Після LC-фільтра</text>
+  <text x="815" y="230" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Після LDO-стабілізатора</text>
+
+  <!-- Осі графіків -->
+  <polyline points="200,250 200,330 340,330" fill="none" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="195" y="260" text-anchor="end" font-size="12" fill="#6b7280">V</text>
+  <text x="335" y="345" text-anchor="end" font-size="12" fill="#6b7280">t</text>
+
+  <polyline points="480,250 480,330 620,330" fill="none" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="475" y="260" text-anchor="end" font-size="12" fill="#6b7280">V</text>
+  <text x="615" y="345" text-anchor="end" font-size="12" fill="#6b7280">t</text>
+
+  <polyline points="745,250 745,330 885,330" fill="none" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="740" y="260" text-anchor="end" font-size="12" fill="#6b7280">V</text>
+  <text x="880" y="345" text-anchor="end" font-size="12" fill="#6b7280">t</text>
+
+  <!-- Графік 1: Шуми перемикання -->
+  <path d="M 205 290 L 220 280 L 220 260 L 222 300 L 225 280 L 240 300 L 240 320 L 242 280 L 245 300 L 260 280 L 260 260 L 262 300 L 265 280 L 280 300 L 280 320 L 282 280 L 285 300 L 300 280 L 300 260 L 302 300 L 305 280 L 320 300 L 320 320 L 322 280 L 325 300 L 335 290" fill="none" stroke="#c0392b" stroke-width="2" stroke-linejoin="round"/>
+  
+  <!-- Графік 2: Згладжені пульсації -->
+  <path d="M 485 290 Q 492.5 285, 500 290 Q 507.5 295, 515 290 Q 522.5 285, 530 290 Q 537.5 295, 545 290 Q 552.5 285, 560 290 Q 567.5 295, 575 290 Q 582.5 285, 590 290 Q 597.5 295, 605 290 Q 612.5 285, 615 288" fill="none" stroke="#2457d6" stroke-width="2"/>
+
+  <!-- Графік 3: Чистий постійний струм -->
+  <path d="M 750 290 L 880 290" fill="none" stroke="#27ae60" stroke-width="2"/>
+
+  <!-- Підписи під графіками -->
+  <text x="270" y="375" text-anchor="middle" font-size="13" fill="#c0392b">Шуми перемикання</text>
+  <text x="270" y="395" text-anchor="middle" font-size="13" fill="#c0392b">та великі пульсації</text>
+
+  <text x="550" y="375" text-anchor="middle" font-size="13" fill="#2457d6">Завади пригнічені,</text>
+  <text x="550" y="395" text-anchor="middle" font-size="13" fill="#2457d6">залишкові пульсації</text>
+
+  <text x="815" y="375" text-anchor="middle" font-size="13" fill="#27ae60">Чиста напруга</text>
+  <text x="815" y="395" text-anchor="middle" font-size="13" fill="#27ae60">без пульсацій</text>
+</svg>

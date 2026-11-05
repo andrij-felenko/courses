@@ -1,0 +1,97 @@
+<svg viewBox="0 0 960 460" width="960" height="460" xmlns="http://www.w3.org/2000/svg" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+  
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <text x="480" y="40" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Підключення двополярного перетворювача 5 В → ±12 В</text>
+  <text x="480" y="60" font-size="13" fill="#6b7280" text-anchor="middle">Принципова схема базового підключення з фільтрами та керуванням</text>
+
+  <rect x="380" y="100" width="200" height="280" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <text x="480" y="245" font-size="16" font-weight="bold" fill="#1a1a1a" text-anchor="middle">DC-DC 5 V → ±12 V</text>
+  <text x="480" y="265" font-size="13" fill="#6b7280" text-anchor="middle">Converter</text>
+
+  <text x="390" y="165" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="start">VIN</text>
+  <text x="390" y="225" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="start">EN</text>
+  <text x="390" y="285" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="start">GND</text>
+  
+  <text x="570" y="165" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="end">+VOUT</text>
+  <text x="570" y="225" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="end">FB</text>
+  <text x="570" y="285" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="end">GND</text>
+  <text x="570" y="345" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="end">-VOUT</text>
+
+  <path d="
+    M 200 160 L 380 160
+    M 200 280 L 380 280
+    M 260 220 L 380 220
+    M 240 160 L 240 215
+    M 240 225 L 240 280
+    M 300 160 L 300 175
+    M 300 205 L 300 220
+    M 580 160 L 760 160
+    M 580 280 L 760 280
+    M 580 340 L 760 340
+    M 580 220 L 620 220
+    M 620 160 L 620 175
+    M 620 205 L 620 235
+    M 620 265 L 620 280
+    M 680 160 L 680 215
+    M 680 225 L 680 305
+    M 680 315 L 680 340
+  " fill="none" stroke="#1a1a1a" stroke-width="2"/>
+
+  <text x="190" y="165" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="end">VIN (5 V)</text>
+  <text x="190" y="285" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="end">GND</text>
+  <text x="260" y="235" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="start">EN / SHDN</text>
+  
+  <text x="770" y="165" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="start">+12 V</text>
+  <text x="770" y="285" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="start">GND</text>
+  <text x="770" y="345" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="start">-12 V</text>
+
+  <path d="M 225 215 L 255 215 M 225 225 L 255 225" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="215" y="225" font-size="14" fill="#1a1a1a" text-anchor="end">Cin</text>
+  
+  <rect x="295" y="175" width="10" height="30" fill="#ffffff" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="285" y="195" font-size="14" fill="#1a1a1a" text-anchor="end">R_EN</text>
+  
+  <rect x="615" y="175" width="10" height="30" fill="#ffffff" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="635" y="195" font-size="14" fill="#1a1a1a" text-anchor="start">R1</text>
+  
+  <rect x="615" y="235" width="10" height="30" fill="#ffffff" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="635" y="255" font-size="14" fill="#1a1a1a" text-anchor="start">R2</text>
+  
+  <path d="M 665 215 L 695 215 M 665 225 L 695 225" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="705" y="225" font-size="14" fill="#1a1a1a" text-anchor="start">Cout+</text>
+
+  <path d="M 665 305 L 695 305 M 665 315 L 695 315" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="705" y="315" font-size="14" fill="#1a1a1a" text-anchor="start">Cout-</text>
+
+  <circle cx="240" cy="160" r="4" fill="#1a1a1a"/>
+  <circle cx="240" cy="280" r="4" fill="#1a1a1a"/>
+  <circle cx="300" cy="160" r="4" fill="#1a1a1a"/>
+  <circle cx="300" cy="220" r="4" fill="#1a1a1a"/>
+  
+  <circle cx="620" cy="160" r="4" fill="#1a1a1a"/>
+  <circle cx="620" cy="220" r="4" fill="#1a1a1a"/>
+  <circle cx="620" cy="280" r="4" fill="#1a1a1a"/>
+  <circle cx="680" cy="160" r="4" fill="#1a1a1a"/>
+  <circle cx="680" cy="280" r="4" fill="#1a1a1a"/>
+  <circle cx="680" cy="340" r="4" fill="#1a1a1a"/>
+
+  <path d="
+    M 240 280 L 240 300
+    M 230 300 L 250 300
+    M 235 305 L 245 305
+    M 238 310 L 242 310
+    
+    M 750 280 L 750 300
+    M 740 300 L 760 300
+    M 745 305 L 755 305
+    M 748 310 L 752 310
+  " fill="none" stroke="#1a1a1a" stroke-width="2"/>
+  
+  <circle cx="750" cy="280" r="4" fill="#1a1a1a"/>
+</svg>

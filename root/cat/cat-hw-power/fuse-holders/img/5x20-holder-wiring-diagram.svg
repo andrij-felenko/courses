@@ -1,0 +1,82 @@
+<svg width="960" height="460" viewBox="0 0 960 460" xmlns="http://www.w3.org/2000/svg" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Titles -->
+  <text x="480" y="40" font-size="18" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Підключення тримача запобіжника з індикацією</text>
+  <text x="480" y="70" font-size="13" text-anchor="middle" fill="#6b7280">Паралельне коло світиться при перегоранні запобіжника, замикаючись через навантаження</text>
+
+  <!-- Fuse Holder Dashed Box -->
+  <rect x="220" y="90" width="460" height="200" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2" stroke-dasharray="6,6" rx="8"/>
+  <text x="450" y="275" font-size="14" text-anchor="middle" fill="#6b7280">Корпус тримача запобіжника</text>
+
+  <!-- Terminals -->
+  <text x="90" y="225" font-size="14" font-weight="bold" text-anchor="end" fill="#1a1a1a">L (Фаза)</text>
+  <text x="90" y="385" font-size="14" font-weight="bold" text-anchor="end" fill="#1a1a1a">N (Нуль)</text>
+
+  <!-- Main Wires -->
+  <line x1="100" y1="220" x2="400" y2="220" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="500" y1="220" x2="800" y2="220" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="100" y1="380" x2="800" y2="380" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- External Terminals (Circles on Holder box) -->
+  <circle cx="220" cy="220" r="4" fill="white" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="680" cy="220" r="4" fill="white" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Nodes A and B -->
+  <circle cx="250" cy="220" r="4" fill="#1a1a1a"/>
+  <circle cx="650" cy="220" r="4" fill="#1a1a1a"/>
+
+  <!-- Fuse -->
+  <rect x="400" y="205" width="100" height="30" fill="white" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="400" y1="220" x2="500" y2="220" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="450" y="190" font-size="14" text-anchor="middle" fill="#1a1a1a">Запобіжник 5×20 мм</text>
+
+  <!-- Indicator Branch -->
+  <text x="450" y="110" font-size="13" text-anchor="middle" fill="#6b7280">Паралельне коло індикації</text>
+  <polyline points="250,220 250,130 350,130" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+  
+  <!-- Resistor -->
+  <rect x="350" y="120" width="50" height="20" fill="white" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="375" y="160" font-size="13" text-anchor="middle" fill="#1a1a1a">R</text>
+  <line x1="400" y1="130" x2="532" y2="130" stroke="#1a1a1a" stroke-width="2"/>
+  
+  <!-- Lamp / LED -->
+  <circle cx="550" cy="130" r="18" fill="white" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="537.2" y1="117.2" x2="562.8" y2="142.8" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="537.2" y1="142.8" x2="562.8" y2="117.2" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="550" y="165" font-size="13" text-anchor="middle" fill="#1a1a1a">LED / Неон</text>
+  
+  <polyline points="568,130 650,130 650,220" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Load -->
+  <line x1="800" y1="220" x2="800" y2="250" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="800" y1="330" x2="800" y2="380" stroke="#1a1a1a" stroke-width="2"/>
+  <rect x="750" y="250" width="100" height="80" fill="#eaf0fd" stroke="#2457d6" stroke-width="2" rx="4"/>
+  <text x="800" y="285" font-size="14" text-anchor="middle" fill="#1a1a1a">Наван-</text>
+  <text x="800" y="305" font-size="14" text-anchor="middle" fill="#1a1a1a">таження</text>
+
+  <!-- Flow Arrows (Blue - Normal) -->
+  <path d="M 120 200 L 200 200" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="160" y="190" font-size="12" text-anchor="middle" fill="#2457d6">Струм навантаження</text>
+
+  <path d="M 750 400 L 670 400" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="710" y="420" font-size="12" text-anchor="middle" fill="#2457d6">Зворотний струм</text>
+
+  <!-- Flow Arrows (Red - Fault) -->
+  <path d="M 230 220 L 230 105 L 320 105" fill="none" stroke="#c0392b" stroke-width="2" stroke-dasharray="4,4" marker-end="url(#arr-red)"/>
+  <text x="220" y="90" font-size="12" text-anchor="end" fill="#c0392b">Струм при</text>
+  <text x="220" y="105" font-size="12" text-anchor="end" fill="#c0392b">перегоранні</text>
+
+  <path d="M 580 105 L 670 105 L 670 210" fill="none" stroke="#c0392b" stroke-width="2" stroke-dasharray="4,4" marker-end="url(#arr-red)"/>
+
+</svg>

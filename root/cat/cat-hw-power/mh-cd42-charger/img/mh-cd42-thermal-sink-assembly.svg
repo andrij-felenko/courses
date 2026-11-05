@@ -1,0 +1,71 @@
+<svg viewBox="0 0 960 460" width="960" height="460" xmlns="http://www.w3.org/2000/svg" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-flow" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="30" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Монтаж пасивного радіатора на чип MH-CD42</text>
+  <text x="480" y="50" font-size="13" fill="#6b7280" text-anchor="middle">Розташування теплоінтерфейсу та напрямки відведення тепла конвекцією</text>
+
+  <!-- Напис конвекції -->
+  <text x="480" y="70" font-size="14" fill="#1a1a1a" text-anchor="middle">Відведення тепла конвекцією</text>
+
+  <!-- Стрілки конвекції -->
+  <path d="M 390,120 L 390,85" stroke="#2457d6" stroke-width="2" fill="none" marker-end="url(#arr-flow)"/>
+  <path d="M 435,120 L 435,85" stroke="#2457d6" stroke-width="2" fill="none" marker-end="url(#arr-flow)"/>
+  <path d="M 480,120 L 480,85" stroke="#2457d6" stroke-width="2" fill="none" marker-end="url(#arr-flow)"/>
+  <path d="M 525,120 L 525,85" stroke="#2457d6" stroke-width="2" fill="none" marker-end="url(#arr-flow)"/>
+  <path d="M 570,120 L 570,85" stroke="#2457d6" stroke-width="2" fill="none" marker-end="url(#arr-flow)"/>
+
+  <!-- Радіатор -->
+  <path d="M 380,250 L 580,250 L 580,130 L 560,130 L 560,220 L 535,220 L 535,130 L 515,130 L 515,220 L 490,220 L 490,130 L 470,130 L 470,220 L 445,220 L 445,130 L 425,130 L 425,220 L 400,220 L 400,130 L 380,130 Z" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+
+  <!-- Лінії збірки (радіатор -> клей) -->
+  <path d="M 400,250 L 400,280 M 560,250 L 560,280" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4 4" fill="none"/>
+
+  <!-- Теплопровідний клей -->
+  <rect x="400" y="280" width="160" height="10" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+
+  <!-- Лінії збірки (клей -> чип) -->
+  <path d="M 400,290 L 400,310 M 560,290 L 560,310" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4 4" fill="none"/>
+
+  <!-- Силовий чип -->
+  <rect x="400" y="310" width="160" height="50" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="480" y="340" font-size="14" fill="#6b7280" text-anchor="middle">SOC IP5328P</text>
+
+  <!-- Лінії збірки (чип -> плата) -->
+  <path d="M 400,360 L 400,380 M 560,360 L 560,380" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4 4" fill="none"/>
+
+  <!-- Друкована плата -->
+  <rect x="280" y="380" width="400" height="20" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+
+  <!-- Виноски (лінії та точки) -->
+  <path d="M 240,200 L 380,200" stroke="#6b7280" stroke-width="1.5" fill="none"/>
+  <circle cx="380" cy="200" r="2.5" fill="#6b7280"/>
+  
+  <path d="M 240,285 L 400,285" stroke="#6b7280" stroke-width="1.5" fill="none"/>
+  <circle cx="400" cy="285" r="2.5" fill="#6b7280"/>
+  
+  <path d="M 240,340 L 400,340" stroke="#6b7280" stroke-width="1.5" fill="none"/>
+  <circle cx="400" cy="340" r="2.5" fill="#6b7280"/>
+  
+  <path d="M 240,390 L 280,390" stroke="#6b7280" stroke-width="1.5" fill="none"/>
+  <circle cx="280" cy="390" r="2.5" fill="#6b7280"/>
+
+  <!-- Тексти виносок -->
+  <text x="230" y="170" font-size="14" fill="#1a1a1a" text-anchor="end">Алюмінієвий</text>
+  <text x="230" y="186" font-size="14" fill="#1a1a1a" text-anchor="end">радіатор</text>
+
+  <text x="230" y="255" font-size="14" fill="#1a1a1a" text-anchor="end">Теплопровідний клей</text>
+  <text x="230" y="271" font-size="14" fill="#6b7280" text-anchor="end">товщина ~0.1 мм</text>
+
+  <text x="230" y="310" font-size="14" fill="#1a1a1a" text-anchor="end">Силовий чип</text>
+  <text x="230" y="326" font-size="14" fill="#1a1a1a" text-anchor="end">модуля MH-CD42</text>
+
+  <text x="230" y="376" font-size="14" fill="#1a1a1a" text-anchor="end">Друкована плата</text>
+
+</svg>

@@ -1,0 +1,111 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-black" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+  
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+  
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="40" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Пасивне шунтове балансування комірки</text>
+  <text x="480" y="60" font-size="13" fill="#6b7280" text-anchor="middle">Струм байпасу проходить через шунтуючий резистор і ключ, перетворюючи надлишок енергії на тепло</text>
+  
+  <!-- Лінії живлення -->
+  <line x1="100" y1="120" x2="60" y2="120" stroke="#1a1a1a" stroke-width="2" stroke-dasharray="4,4"/>
+  <line x1="100" y1="380" x2="60" y2="380" stroke="#1a1a1a" stroke-width="2" stroke-dasharray="4,4"/>
+  <line x1="860" y1="120" x2="900" y2="120" stroke="#1a1a1a" stroke-width="2" stroke-dasharray="4,4"/>
+  <line x1="860" y1="380" x2="900" y2="380" stroke="#1a1a1a" stroke-width="2" stroke-dasharray="4,4"/>
+  
+  <path d="M 100 120 L 160 120" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr-black)"/>
+  <line x1="160" y1="120" x2="860" y2="120" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="100" y1="380" x2="860" y2="380" stroke="#1a1a1a" stroke-width="2"/>
+  
+  <!-- Мітки живлення -->
+  <text x="80" y="105" font-size="14" font-weight="bold" fill="#c0392b" text-anchor="middle">V+</text>
+  <text x="80" y="405" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">V-</text>
+  
+  <text x="130" y="105" font-size="14" fill="#1a1a1a" text-anchor="middle">I<tspan dy="3" font-size="11">charge</tspan></text>
+  
+  <text x="880" y="125" font-size="14" fill="#6b7280">До інших</text>
+  <text x="880" y="145" font-size="14" fill="#6b7280">комірок...</text>
+  
+  <!-- Комірка -->
+  <line x1="250" y1="120" x2="250" y2="230" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="250" y1="270" x2="250" y2="380" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="250" cy="120" r="4" fill="#1a1a1a"/>
+  <circle cx="250" cy="380" r="4" fill="#1a1a1a"/>
+  
+  <line x1="210" y1="230" x2="290" y2="230" stroke="#1a1a1a" stroke-width="4"/>
+  <line x1="225" y1="270" x2="275" y2="270" stroke="#1a1a1a" stroke-width="8"/>
+  
+  <text x="280" y="215" font-size="16" font-weight="bold" fill="#1a1a1a">+</text>
+  <text x="280" y="295" font-size="16" font-weight="bold" fill="#1a1a1a">-</text>
+  
+  <text x="170" y="245" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="end">Комірка</text>
+  <text x="170" y="265" font-size="14" fill="#6b7280" text-anchor="end">Li-ion</text>
+  
+  <!-- Моніторинг і Vref -->
+  <circle cx="400" cy="120" r="4" fill="#1a1a1a"/>
+  <line x1="400" y1="120" x2="400" y2="290" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="400" y1="290" x2="460" y2="290" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="410" y="280" font-size="13" fill="#1a1a1a">V<tspan dy="2" font-size="11">cell</tspan></text>
+  
+  <circle cx="400" cy="380" r="4" fill="#1a1a1a"/>
+  <line x1="400" y1="332" x2="400" y2="380" stroke="#1a1a1a" stroke-width="2"/>
+  
+  <rect x="380" y="308" width="40" height="24" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="400" y="325" font-size="12" fill="#1a1a1a" text-anchor="middle">V<tspan dy="2" font-size="10">ref</tspan></text>
+  
+  <line x1="420" y1="320" x2="460" y2="320" stroke="#1a1a1a" stroke-width="2"/>
+  
+  <!-- Компаратор -->
+  <path d="M 460 275 L 460 335 L 520 305 Z" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="480" y="310" font-size="13" fill="#1a1a1a" text-anchor="middle">Comp</text>
+  <text x="465" y="294" font-size="12" fill="#1a1a1a">+</text>
+  <text x="465" y="324" font-size="12" fill="#1a1a1a">-</text>
+  
+  <!-- Сигнал на ключ -->
+  <line x1="520" y1="305" x2="710" y2="305" stroke="#1a1a1a" stroke-width="2"/>
+  
+  <text x="615" y="275" font-size="14" fill="#27ae60" text-anchor="middle" font-weight="bold">Якщо V<tspan dy="3" font-size="11" font-weight="bold">cell</tspan><tspan dy="-3"> &gt; V</tspan><tspan dy="3" font-size="11" font-weight="bold">ref</tspan></text>
+  <text x="615" y="295" font-size="13" fill="#27ae60" text-anchor="middle">сигнал відкриває ключ</text>
+  
+  <!-- Шунтуючий резистор і ключ -->
+  <circle cx="750" cy="120" r="4" fill="#1a1a1a"/>
+  <line x1="750" y1="120" x2="750" y2="150" stroke="#1a1a1a" stroke-width="2"/>
+  
+  <rect x="738" y="150" width="24" height="70" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="2"/>
+  
+  <text x="770" y="175" font-size="14" fill="#1a1a1a">Шунтуючий</text>
+  <text x="770" y="195" font-size="14" fill="#1a1a1a">резистор</text>
+  <text x="770" y="215" font-size="14" fill="#6b7280">R<tspan dy="3" font-size="11">shunt</tspan></text>
+  
+  <line x1="750" y1="220" x2="750" y2="280" stroke="#1a1a1a" stroke-width="2"/>
+  
+  <!-- Байпас струм (синя стрілка на дроті) -->
+  <text x="735" y="255" font-size="14" fill="#2457d6" text-anchor="end" font-weight="bold">I<tspan dy="3" font-size="11" font-weight="bold">bypass</tspan></text>
+  <path d="M 742 240 L 742 260" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  
+  <!-- Ключ MOSFET -->
+  <rect x="710" y="280" width="80" height="50" rx="4" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="750" y="300" font-size="14" fill="#1a1a1a" text-anchor="middle">Ключ</text>
+  <text x="750" y="316" font-size="12" fill="#6b7280" text-anchor="middle">(MOSFET)</text>
+  
+  <line x1="750" y1="330" x2="750" y2="380" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="750" cy="380" r="4" fill="#1a1a1a"/>
+  
+  <!-- Виділення тепла -->
+  <path d="M 733 160 Q 720 130 725 105" stroke="#c0392b" stroke-width="2" fill="none" marker-end="url(#arr-red)"/>
+  <path d="M 733 185 Q 695 160 705 105" stroke="#c0392b" stroke-width="2" fill="none" marker-end="url(#arr-red)"/>
+  <path d="M 733 210 Q 670 180 685 105" stroke="#c0392b" stroke-width="2" fill="none" marker-end="url(#arr-red)"/>
+  
+  <text x="705" y="90" font-size="13" fill="#c0392b" font-weight="bold" text-anchor="middle">Виділення тепла</text>
+
+</svg>

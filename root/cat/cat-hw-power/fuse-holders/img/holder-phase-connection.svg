@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 360" width="720" height="360" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+<rect x="0" y="0" width="720" height="360" fill="white"/>
+
+<text x="360" y="35" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Безпечне підключення тримача запобіжника</text>
+<text x="360" y="55" font-size="13" fill="#6b7280" text-anchor="middle">Фазний провідник живить центральний контакт, унеможливлюючи дотик під напругою при заміні</text>
+
+<defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+        <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+        <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+</defs>
+
+<rect x="250" y="110" width="10" height="120" fill="#d0d7de"/>
+<text x="235" y="255" font-size="13" fill="#6b7280" text-anchor="middle">Панель</text>
+
+<path d="M 240,120 L 250,120 L 250,130 L 400,130 L 400,230 L 250,230 L 250,240 L 240,240 Z" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+<rect x="240" y="150" width="150" height="60" fill="white" stroke="#d0d7de" stroke-width="1"/>
+
+<rect x="255" y="140" width="25" height="10" fill="#d0d7de"/>
+<rect x="260" y="100" width="10" height="40" fill="#d0d7de"/>
+<path d="M 265,100 L 265,90" stroke="#1a1a1a" stroke-width="2"/>
+<text x="265" y="85" font-size="14" fill="#1a1a1a" text-anchor="middle">Навантаження</text>
+
+<rect x="390" y="165" width="30" height="30" fill="#d0d7de"/>
+<rect x="380" y="165" width="10" height="30" fill="#d0d7de"/>
+<path d="M 420,180 L 450,180" stroke="#27ae60" stroke-width="3"/>
+<text x="460" y="185" font-size="14" fill="#27ae60" font-weight="bold">L (Фаза)</text>
+
+<g transform="translate(-45, 0)">
+    <rect x="210" y="130" width="30" height="100" fill="#1a1a1a"/>
+    <rect x="240" y="145" width="60" height="70" fill="#6b7280"/>
+    <g stroke="#1a1a1a" stroke-width="1">
+        <line x1="250" y1="145" x2="250" y2="215"/>
+        <line x1="260" y1="145" x2="260" y2="215"/>
+        <line x1="270" y1="145" x2="270" y2="215"/>
+        <line x1="280" y1="145" x2="280" y2="215"/>
+        <line x1="290" y1="145" x2="290" y2="215"/>
+    </g>
+    <rect x="280" y="165" width="20" height="30" fill="#d0d7de"/>
+    <rect x="300" y="165" width="60" height="30" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+    <rect x="360" y="165" width="20" height="30" fill="#d0d7de"/>
+    <text x="225" y="115" font-size="13" fill="#6b7280" text-anchor="middle">Ковпачок</text>
+    <text x="330" y="184" font-size="12" fill="#2457d6" text-anchor="middle">Запобіжник</text>
+    <text x="165" y="170" font-size="13" fill="#1a1a1a" text-anchor="middle">Викручування</text>
+    <path d="M 190,185 L 140,185" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+</g>
+
+<rect x="340" y="165" width="40" height="30" fill="#e9f7ef"/>
+<path d="M 345,180 L 375,180" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="4"/>
+<text x="370" y="275" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="bold">Безпечний розрив</text>
+<text x="370" y="295" font-size="13" fill="#27ae60" text-anchor="middle">фаза не дістає до запобіжника</text>
+<path d="M 370,250 L 370,205" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+</svg>

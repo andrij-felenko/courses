@@ -1,0 +1,88 @@
+<svg viewBox="0 0 960 560" width="960" height="560" xmlns="http://www.w3.org/2000/svg" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr_blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr_green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr_gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr_start_gray" markerWidth="9" markerHeight="9" refX="0.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <text x="480" y="40" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Геометрія усадки терморукава</text>
+  <text x="480" y="66" text-anchor="middle" font-size="13" fill="#6b7280">Радіальне стиснення фіксує плівку на циліндрі та створює тороїдальне перекриття на торцях</text>
+
+  <text x="240" y="540" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">До усадки</text>
+
+  <text x="240" y="100" text-anchor="middle" font-size="12" fill="#6b7280">D_s</text>
+  <line x1="160" y1="115" x2="320" y2="115" stroke="#6b7280" stroke-width="1" marker-start="url(#arr_start_gray)" marker-end="url(#arr_gray)"/>
+  <line x1="160" y1="130" x2="160" y2="110" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4 2"/>
+  <line x1="320" y1="130" x2="320" y2="110" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4 2"/>
+
+  <text x="50" y="324" text-anchor="end" font-size="12" fill="#6b7280">L_s</text>
+  <line x1="65" y1="130" x2="65" y2="500" stroke="#6b7280" stroke-width="1" marker-start="url(#arr_start_gray)" marker-end="url(#arr_gray)"/>
+  <line x1="60" y1="130" x2="160" y2="130" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4 2"/>
+  <line x1="60" y1="500" x2="160" y2="500" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4 2"/>
+
+  <text x="105" y="324" text-anchor="end" font-size="12" fill="#6b7280">L_c</text>
+  <line x1="120" y1="160" x2="120" y2="470" stroke="#6b7280" stroke-width="1" marker-start="url(#arr_start_gray)" marker-end="url(#arr_gray)"/>
+  <line x1="115" y1="160" x2="190" y2="160" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4 2"/>
+  <line x1="115" y1="470" x2="190" y2="470" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4 2"/>
+
+  <rect x="190" y="160" width="100" height="310" fill="#f4f6f8" stroke="#6b7280" stroke-width="2"/>
+  <rect x="225" y="155" width="30" height="5" fill="#eaf0fd" stroke="#6b7280" stroke-width="2"/>
+  <line x1="190" y1="158" x2="220" y2="158" stroke="#1a1a1a" stroke-width="4"/>
+  <line x1="260" y1="158" x2="290" y2="158" stroke="#1a1a1a" stroke-width="4"/>
+  
+  <text x="240" y="445" text-anchor="middle" font-size="12" fill="#6b7280">D_c</text>
+  <line x1="190" y1="460" x2="290" y2="460" stroke="#6b7280" stroke-width="1" marker-start="url(#arr_start_gray)" marker-end="url(#arr_gray)"/>
+
+  <line x1="160" y1="130" x2="160" y2="500" stroke="#2457d6" stroke-width="4"/>
+  <line x1="320" y1="130" x2="320" y2="500" stroke="#2457d6" stroke-width="4"/>
+
+  <line x1="160" y1="215" x2="185" y2="215" stroke="#2457d6" stroke-width="2" marker-end="url(#arr_blue)"/>
+  <line x1="320" y1="215" x2="295" y2="215" stroke="#2457d6" stroke-width="2" marker-end="url(#arr_blue)"/>
+  <line x1="160" y1="315" x2="185" y2="315" stroke="#2457d6" stroke-width="2" marker-end="url(#arr_blue)"/>
+  <line x1="320" y1="315" x2="295" y2="315" stroke="#2457d6" stroke-width="2" marker-end="url(#arr_blue)"/>
+  <line x1="160" y1="415" x2="185" y2="415" stroke="#2457d6" stroke-width="2" marker-end="url(#arr_blue)"/>
+  <line x1="320" y1="415" x2="295" y2="415" stroke="#2457d6" stroke-width="2" marker-end="url(#arr_blue)"/>
+  
+  <line x1="160" y1="130" x2="185" y2="152" stroke="#2457d6" stroke-width="2" marker-end="url(#arr_blue)"/>
+  <line x1="320" y1="130" x2="295" y2="152" stroke="#2457d6" stroke-width="2" marker-end="url(#arr_blue)"/>
+  <line x1="160" y1="500" x2="185" y2="478" stroke="#2457d6" stroke-width="2" marker-end="url(#arr_blue)"/>
+  <line x1="320" y1="500" x2="295" y2="478" stroke="#2457d6" stroke-width="2" marker-end="url(#arr_blue)"/>
+
+  <text x="480" y="285" text-anchor="middle" font-size="14" font-weight="bold" fill="#2457d6">Термоусадка</text>
+  <line x1="400" y1="315" x2="560" y2="315" stroke="#2457d6" stroke-width="3" marker-end="url(#arr_blue)"/>
+  <text x="480" y="345" text-anchor="middle" font-size="12" fill="#6b7280">радіальне стиснення</text>
+  <text x="480" y="369" text-anchor="middle" font-size="12" fill="#6b7280">до 50% діаметра</text>
+
+  <text x="720" y="540" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Після усадки</text>
+
+  <rect x="670" y="160" width="100" height="310" fill="#f4f6f8" stroke="#6b7280" stroke-width="2"/>
+  <rect x="705" y="155" width="30" height="5" fill="#eaf0fd" stroke="#6b7280" stroke-width="2"/>
+  <line x1="670" y1="158" x2="700" y2="158" stroke="#1a1a1a" stroke-width="4"/>
+  <line x1="740" y1="158" x2="770" y2="158" stroke="#1a1a1a" stroke-width="4"/>
+
+  <path d="M 695 155 L 668 155 Q 666 155 666 157 L 666 470 Q 666 472 668 472 L 695 472" fill="none" stroke="#2457d6" stroke-width="4" stroke-linejoin="round"/>
+  <path d="M 745 155 L 772 155 Q 774 155 774 157 L 774 470 Q 774 472 772 472 L 745 472" fill="none" stroke="#2457d6" stroke-width="4" stroke-linejoin="round"/>
+
+  <text x="630" y="110" text-anchor="end" font-size="13" font-weight="bold" fill="#27ae60">Тороїдальне перекриття</text>
+  <text x="630" y="135" text-anchor="end" font-size="12" fill="#6b7280">надійно фіксує ізолятор</text>
+  <line x1="645" y1="115" x2="670" y2="152" stroke="#27ae60" stroke-width="1" marker-end="url(#arr_green)"/>
+
+  <text x="810" y="110" text-anchor="start" font-size="13" font-weight="bold" fill="#1a1a1a">Шайба-ізолятор</text>
+  <text x="810" y="135" text-anchor="start" font-size="12" fill="#6b7280">захищає від КЗ</text>
+  <line x1="795" y1="115" x2="760" y2="152" stroke="#1a1a1a" stroke-width="1" marker-end="url(#arr)"/>
+
+</svg>

@@ -1,0 +1,142 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+<defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+        <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+</defs>
+<rect x="0" y="0" width="960" height="560" fill="white"/>
+
+<!-- Заголовок -->
+<text x="480" y="40" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Тримачі запобіжників 5×20 мм: конструктивні виконання</text>
+<text x="480" y="60" font-size="13" fill="#6b7280" text-anchor="middle">Спосіб монтажу визначає форму корпусу та розташування контактів</text>
+
+<!-- 1. На друковану плату -->
+<rect x="40" y="90" width="400" height="210" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+<text x="240" y="120" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">1. На друковану плату (PCB Mount)</text>
+
+<!-- Плата -->
+<rect x="150" y="240" width="180" height="8" fill="#d0d7de" stroke="#6b7280" stroke-width="1"/>
+<text x="240" y="265" font-size="12" fill="#6b7280" text-anchor="middle">Друкована плата (PCB)</text>
+
+<!-- Корпус/База -->
+<rect x="190" y="225" width="100" height="15" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+<line x1="205" y1="240" x2="205" y2="260" stroke="#2457d6" stroke-width="3"/>
+<line x1="275" y1="240" x2="275" y2="260" stroke="#2457d6" stroke-width="3"/>
+
+<!-- Кліпси -->
+<path d="M 200 225 L 200 190 M 210 225 L 210 190" stroke="#2457d6" stroke-width="2"/>
+<path d="M 195 190 Q 205 180 215 190" fill="none" stroke="#2457d6" stroke-width="2"/>
+<path d="M 270 225 L 270 190 M 280 225 L 280 190" stroke="#2457d6" stroke-width="2"/>
+<path d="M 265 190 Q 275 180 285 190" fill="none" stroke="#2457d6" stroke-width="2"/>
+
+<!-- Запобіжник -->
+<rect x="195" y="180" width="90" height="20" rx="2" fill="white" stroke="#1a1a1a" stroke-width="1.5"/>
+<rect x="195" y="180" width="15" height="20" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1.5"/>
+<rect x="270" y="180" width="15" height="20" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1.5"/>
+<line x1="210" y1="190" x2="270" y2="190" stroke="#1a1a1a" stroke-width="1"/>
+
+<!-- Підписи 1 -->
+<line x1="165" y1="190" x2="190" y2="190" stroke="#1a1a1a" marker-end="url(#arr)"/>
+<text x="160" y="194" font-size="12" fill="#1a1a1a" text-anchor="end">Пружинний контакт</text>
+
+<line x1="165" y1="250" x2="195" y2="250" stroke="#1a1a1a" marker-end="url(#arr)"/>
+<text x="160" y="254" font-size="12" fill="#1a1a1a" text-anchor="end">Вивід під пайку</text>
+
+<line x1="320" y1="190" x2="295" y2="190" stroke="#1a1a1a" marker-end="url(#arr)"/>
+<text x="325" y="194" font-size="12" fill="#1a1a1a" text-anchor="start">Плавка вставка</text>
+
+<!-- 2. На панель -->
+<rect x="520" y="90" width="400" height="210" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+<text x="720" y="120" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">2. На панель (Panel Mount)</text>
+
+<!-- Панель -->
+<rect x="640" y="140" width="6" height="120" fill="#d0d7de" stroke="#6b7280" stroke-width="1"/>
+<text x="643" y="275" font-size="12" fill="#6b7280" text-anchor="middle">Панель корпусу</text>
+
+<!-- Корпус -->
+<rect x="656" y="180" width="60" height="30" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+<rect x="646" y="170" width="10" height="50" rx="2" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1.5"/>
+<rect x="615" y="177" width="25" height="36" rx="2" fill="#2457d6" stroke="#1a1a1a" stroke-width="1.5"/>
+<rect x="620" y="193" width="6" height="4" fill="white"/>
+
+<!-- Контакти -->
+<path d="M 716 195 L 735 195 A 3 3 0 1 1 735 195" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+<circle cx="730" cy="195" r="1.5" fill="white" stroke="#1a1a1a"/>
+
+<path d="M 690 210 L 690 230 L 710 230" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+<circle cx="705" cy="230" r="1.5" fill="white" stroke="#1a1a1a"/>
+
+<!-- Підписи 2 -->
+<text x="615" y="245" font-size="12" fill="#1a1a1a" text-anchor="end">Знімна кришка</text>
+<line x1="615" y1="230" x2="623" y2="215" stroke="#1a1a1a" marker-end="url(#arr)"/>
+
+<text x="651" y="130" font-size="12" fill="#1a1a1a" text-anchor="middle">Фіксуюча гайка</text>
+<line x1="651" y1="135" x2="651" y2="165" stroke="#1a1a1a" marker-end="url(#arr)"/>
+
+<line x1="770" y1="195" x2="745" y2="195" stroke="#1a1a1a" marker-end="url(#arr)"/>
+<text x="775" y="199" font-size="12" fill="#1a1a1a" text-anchor="start">Центральний</text>
+
+<line x1="770" y1="230" x2="720" y2="230" stroke="#1a1a1a" marker-end="url(#arr)"/>
+<text x="775" y="234" font-size="12" fill="#1a1a1a" text-anchor="start">Боковий контакт</text>
+
+<!-- 3. На DIN-рейку -->
+<rect x="40" y="320" width="400" height="210" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+<text x="240" y="350" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">3. На DIN-рейку (DIN-rail Mount)</text>
+
+<!-- Рейка -->
+<path d="M 215 500 L 225 500 L 225 485 L 255 485 L 255 500 L 265 500" fill="none" stroke="#6b7280" stroke-width="4"/>
+<text x="240" y="518" font-size="12" fill="#6b7280" text-anchor="middle">DIN-рейка (35 мм)</text>
+
+<!-- Корпус -->
+<path d="M 190 380 L 290 380 L 290 485 L 265 485 L 265 495 L 215 495 L 215 485 L 190 485 Z" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+<rect x="210" y="380" width="70" height="25" rx="2" fill="#2457d6" stroke="#1a1a1a" stroke-width="1.5"/>
+<circle cx="270" cy="392" r="3" fill="white" stroke="#1a1a1a" stroke-width="1.5"/>
+
+<!-- Клеми -->
+<circle cx="205" cy="450" r="5" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1.5"/>
+<line x1="202" y1="447" x2="208" y2="453" stroke="#1a1a1a"/>
+<circle cx="275" cy="450" r="5" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1.5"/>
+<line x1="272" y1="447" x2="278" y2="453" stroke="#1a1a1a"/>
+
+<!-- Проводи -->
+<path d="M 150 450 L 190 450" fill="none" stroke="#1a1a1a" stroke-width="3"/>
+<path d="M 330 450 L 290 450" fill="none" stroke="#1a1a1a" stroke-width="3"/>
+
+<!-- Підписи 3 -->
+<line x1="170" y1="392" x2="200" y2="392" stroke="#1a1a1a" marker-end="url(#arr)"/>
+<text x="165" y="396" font-size="12" fill="#1a1a1a" text-anchor="end">Відкидний тримач</text>
+
+<line x1="170" y1="450" x2="195" y2="450" stroke="#1a1a1a" marker-end="url(#arr)"/>
+<text x="165" y="454" font-size="12" fill="#1a1a1a" text-anchor="end">Гвинтова клема</text>
+
+<line x1="335" y1="435" x2="315" y2="450" stroke="#1a1a1a" marker-end="url(#arr)"/>
+<text x="340" y="433" font-size="12" fill="#1a1a1a" text-anchor="start">Провідник</text>
+
+<!-- 4. В розріз проводу -->
+<rect x="520" y="320" width="400" height="210" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+<text x="720" y="350" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">4. В розріз проводу (In-line)</text>
+
+<!-- Корпус -->
+<path d="M 650 410 L 720 410 L 720 440 L 650 440 Z" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+<path d="M 720 405 L 780 405 L 780 445 L 720 445 Z" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+<path d="M 730 405 L 730 425 L 740 425" fill="none" stroke="#2457d6" stroke-width="2"/>
+
+<!-- Гумові вводи -->
+<path d="M 650 415 L 620 420 L 620 430 L 650 435 Z" fill="#1a1a1a"/>
+<path d="M 780 415 L 810 420 L 810 430 L 780 435 Z" fill="#1a1a1a"/>
+
+<!-- Проводи -->
+<path d="M 570 425 L 620 425" fill="none" stroke="#1a1a1a" stroke-width="4"/>
+<path d="M 810 425 L 860 425" fill="none" stroke="#1a1a1a" stroke-width="4"/>
+
+<!-- Підписи 4 -->
+<text x="715" y="380" font-size="12" fill="#1a1a1a" text-anchor="middle">Замок (байонет)</text>
+<line x1="715" y1="385" x2="715" y2="405" stroke="#1a1a1a" marker-end="url(#arr)"/>
+
+<text x="715" y="480" font-size="12" fill="#1a1a1a" text-anchor="middle">Ізольований корпус</text>
+<line x1="715" y1="465" x2="715" y2="445" stroke="#1a1a1a" marker-end="url(#arr)"/>
+
+<text x="595" y="415" font-size="12" fill="#1a1a1a" text-anchor="middle">Провід</text>
+<text x="835" y="415" font-size="12" fill="#1a1a1a" text-anchor="middle">Провід</text>
+
+</svg>

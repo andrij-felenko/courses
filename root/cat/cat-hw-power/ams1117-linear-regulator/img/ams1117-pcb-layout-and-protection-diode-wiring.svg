@@ -1,0 +1,137 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-black" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Заголовок -->
+  <text x="480" y="30" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Схема підключення та топологія плати для AMS1117</text>
+  <text x="480" y="50" font-size="13" fill="#6b7280" text-anchor="middle">Розміщення конденсаторів біля виводів та встановлення захисного діода зворотного струму</text>
+
+  <!-- Заголовки розділів -->
+  <text x="250" y="80" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Принципова схема</text>
+  <text x="680" y="80" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Топологія друкованої плати (Top View)</text>
+
+  <!-- ================= ПРИНЦИПОВА СХЕМА ================= -->
+  
+  <!-- U1 AMS1117 -->
+  <rect x="210" y="210" width="80" height="80" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="250" y="225" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">AMS1117</text>
+  <text x="215" y="244" font-size="12" fill="#1a1a1a" text-anchor="start">IN</text>
+  <text x="285" y="244" font-size="12" fill="#1a1a1a" text-anchor="end">OUT</text>
+  <text x="250" y="285" font-size="12" fill="#1a1a1a" text-anchor="middle">GND</text>
+
+  <!-- Вхідні лінії та термінал -->
+  <path d="M 210 240 L 100 240" stroke="#1a1a1a" stroke-width="2" fill="none"/>
+  <circle cx="100" cy="240" r="4" fill="#1a1a1a"/>
+  <text x="90" y="244" font-size="14" fill="#1a1a1a" text-anchor="end">V<tspan dy="2" font-size="10">in</tspan></text>
+
+  <!-- Вихідні лінії та термінал -->
+  <path d="M 290 240 L 400 240" stroke="#1a1a1a" stroke-width="2" fill="none"/>
+  <circle cx="400" cy="240" r="4" fill="#1a1a1a"/>
+  <text x="410" y="244" font-size="14" fill="#1a1a1a" text-anchor="start">V<tspan dy="2" font-size="10">out</tspan></text>
+
+  <!-- Конденсатор Cin -->
+  <circle cx="150" cy="240" r="3" fill="#1a1a1a"/>
+  <path d="M 150 240 L 150 280" stroke="#1a1a1a" stroke-width="2" fill="none"/>
+  <path d="M 135 280 L 165 280 M 135 290 L 165 290" stroke="#1a1a1a" stroke-width="2" fill="none"/>
+  <text x="125" y="290" font-size="13" fill="#1a1a1a" text-anchor="end">C<tspan dy="2" font-size="10">in</tspan></text>
+
+  <!-- Конденсатор Cout -->
+  <circle cx="350" cy="240" r="3" fill="#1a1a1a"/>
+  <path d="M 350 240 L 350 280" stroke="#1a1a1a" stroke-width="2" fill="none"/>
+  <path d="M 335 280 L 365 280 M 335 290 L 365 290" stroke="#1a1a1a" stroke-width="2" fill="none"/>
+  <text x="375" y="290" font-size="13" fill="#1a1a1a" text-anchor="start">C<tspan dy="2" font-size="10">out</tspan></text>
+
+  <!-- Спільна земля -->
+  <path d="M 150 290 L 150 330 L 350 330 L 350 290" stroke="#1a1a1a" stroke-width="2" fill="none"/>
+  <path d="M 250 290 L 250 350" stroke="#1a1a1a" stroke-width="2" fill="none"/>
+  <circle cx="250" cy="330" r="3" fill="#1a1a1a"/>
+  <path d="M 240 350 L 260 350 M 245 355 L 255 355 M 248 360 L 252 360" stroke="#1a1a1a" stroke-width="2" fill="none"/>
+
+  <!-- Захисний діод D1 -->
+  <circle cx="320" cy="240" r="3" fill="#1a1a1a"/>
+  <circle cx="180" cy="240" r="3" fill="#1a1a1a"/>
+  <path d="M 320 240 L 320 150 L 260 150 M 240 150 L 180 150 L 180 240" stroke="#1a1a1a" stroke-width="2" fill="none"/>
+  <path d="M 260 140 L 260 160 L 240 150 Z" fill="#1a1a1a"/>
+  <path d="M 240 140 L 240 160" stroke="#1a1a1a" stroke-width="2" fill="none"/>
+  <text x="250" y="120" font-size="13" fill="#27ae60" text-anchor="middle">Захист від зворотного струму</text>
+  <text x="250" y="135" font-size="13" fill="#1a1a1a" text-anchor="middle">D1</text>
+
+  <!-- Струм розряду на схемі -->
+  <path d="M 320 165 L 270 165" stroke="#c0392b" stroke-width="2" stroke-dasharray="4" marker-end="url(#arr-red)"/>
+  <text x="295" y="180" font-size="12" fill="#c0392b" text-anchor="middle">I<tspan dy="2" font-size="10">зворотний</tspan></text>
+
+
+  <!-- ================= ТОПОЛОГІЯ ПЛАТИ ================= -->
+  
+  <!-- GND Полігон -->
+  <path d="M 530 120 L 610 120 L 610 290 L 630 290 L 630 270 L 645 270 L 645 320 L 655 320 L 655 400 L 530 400 Z" fill="#eaf0fd" stroke="#2457d6" stroke-width="2" stroke-linejoin="round"/>
+  <text x="570" y="260" font-size="16" font-weight="bold" fill="#2457d6" text-anchor="middle">GND</text>
+
+  <!-- OUT Полігон -->
+  <path d="M 635 120 L 840 120 L 840 230 L 730 230 L 730 270 L 667.5 270 L 667.5 290 L 652.5 290 L 652.5 265 L 630 265 L 630 220 L 635 220 Z" fill="#eaf0fd" stroke="#2457d6" stroke-width="2" stroke-linejoin="round"/>
+  <text x="780" y="160" font-size="16" font-weight="bold" fill="#2457d6" text-anchor="middle">V<tspan dy="2" font-size="12">out</tspan></text>
+
+  <!-- IN Полігон -->
+  <path d="M 675 270 L 690 270 L 690 300 L 840 300 L 840 400 L 675 400 Z" fill="#eaf0fd" stroke="#2457d6" stroke-width="2" stroke-linejoin="round"/>
+  <text x="780" y="370" font-size="16" font-weight="bold" fill="#2457d6" text-anchor="middle">V<tspan dy="2" font-size="12">in</tspan></text>
+
+  <!-- AMS1117 SOT-223 -->
+  <!-- Tab -->
+  <rect x="635" y="195" width="50" height="25" rx="2" fill="#d0d7de"/>
+  <!-- Pins -->
+  <rect x="630" y="270" width="15" height="25" rx="2" fill="#d0d7de"/>
+  <rect x="652.5" y="270" width="15" height="25" rx="2" fill="#d0d7de"/>
+  <rect x="675" y="270" width="15" height="25" rx="2" fill="#d0d7de"/>
+  <!-- Body -->
+  <rect x="620" y="220" width="80" height="50" rx="3" fill="#1a1a1a"/>
+  <text x="660" y="245" font-size="12" font-weight="bold" fill="#f4f6f8" text-anchor="middle">AMS1117</text>
+  <text x="660" y="260" font-size="12" fill="#f4f6f8" text-anchor="middle">LDO</text>
+
+  <!-- C_out SMD -->
+  <rect x="610" y="152" width="25" height="16" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="610" y="152" width="6" height="16" fill="#1a1a1a"/>
+  <rect x="629" y="152" width="6" height="16" fill="#1a1a1a"/>
+  <text x="622.5" y="145" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">C<tspan dy="2" font-size="10">out</tspan></text>
+
+  <!-- C_in SMD -->
+  <rect x="655" y="352" width="20" height="16" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="655" y="352" width="5" height="16" fill="#1a1a1a"/>
+  <rect x="670" y="352" width="5" height="16" fill="#1a1a1a"/>
+  <text x="665" y="345" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">C<tspan dy="2" font-size="10">in</tspan></text>
+
+  <!-- D1 SMD -->
+  <rect x="768" y="240" width="24" height="50" rx="2" fill="#1a1a1a"/>
+  <rect x="768" y="275" width="24" height="10" fill="#d0d7de"/>
+  <text x="800" y="260" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">D1</text>
+  <text x="800" y="275" font-size="12" fill="#27ae60" text-anchor="start">Захисний діод</text>
+
+  <!-- Струм розряду на платі -->
+  <path d="M 780 170 L 780 205" stroke="#c0392b" stroke-width="2" stroke-dasharray="4" marker-end="url(#arr-red)"/>
+  <path d="M 780 320 L 780 345" stroke="#c0392b" stroke-width="2" stroke-dasharray="4" marker-end="url(#arr-red)"/>
+  <text x="850" y="195" font-size="12" fill="#c0392b" text-anchor="start">Струм розряду</text>
+
+  <!-- Анотації розводки -->
+  <text x="480" y="160" font-size="12" fill="#2457d6" text-anchor="start">Фільтр поруч</text>
+  <text x="480" y="175" font-size="12" fill="#2457d6" text-anchor="start">із мікросхемою</text>
+  <path d="M 565 155 L 600 155" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <text x="480" y="360" font-size="12" fill="#2457d6" text-anchor="start">Мінімізація</text>
+  <text x="480" y="375" font-size="12" fill="#2457d6" text-anchor="start">петлі струму</text>
+  <path d="M 555 365 L 640 365" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <text x="850" y="145" font-size="12" fill="#1a1a1a" text-anchor="start">Мідний полігон</text>
+  <text x="850" y="160" font-size="12" fill="#1a1a1a" text-anchor="start">відведення тепла</text>
+  <path d="M 845 150 L 810 150" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-black)"/>
+
+</svg>

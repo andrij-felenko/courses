@@ -1,0 +1,126 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Підкладка -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Температурний коефіцієнт K_T плавкого запобіжника</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">При нагріванні допустимий струм стрімко знижується, а при охолодженні — зростає відносно номіналу</text>
+
+  <!-- Ліва панель: графік -->
+  <rect x="35" y="75" width="590" height="365" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Індикатори зон угорі графіка -->
+  <text x="60" y="103" font-size="13" font-weight="bold" fill="#1a1a1a">Коефіцієнт K_T</text>
+
+  <rect x="180" y="87" width="165" height="24" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="262" y="103" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Охолодження (K_T &gt; 1.0)</text>
+
+  <rect x="375" y="87" width="165" height="24" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="457" y="103" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Нагрівання (K_T &lt; 1.0)</text>
+
+  <!-- Горизонтальні лінії сітки (K_T від 0.60 до 1.20) -->
+  <line x1="100" y1="140" x2="590" y2="140" stroke="#e5e7eb" stroke-width="1"/>
+  <line x1="100" y1="180" x2="590" y2="180" stroke="#e5e7eb" stroke-width="1"/>
+  <line x1="100" y1="260" x2="590" y2="260" stroke="#e5e7eb" stroke-width="1"/>
+  <line x1="100" y1="300" x2="590" y2="300" stroke="#e5e7eb" stroke-width="1"/>
+  <line x1="100" y1="340" x2="590" y2="340" stroke="#e5e7eb" stroke-width="1"/>
+
+  <!-- Базова лінія 1.00 (Номінал) -->
+  <line x1="100" y1="220" x2="590" y2="220" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="5,4"/>
+
+  <!-- Опорні вертикальні проекції від точок до осі X -->
+  <line x1="170" y1="174" x2="170" y2="380" stroke="#27ae60" stroke-width="1.2" stroke-dasharray="3,3"/>
+  <line x1="328" y1="220" x2="328" y2="380" stroke="#2457d6" stroke-width="1.2" stroke-dasharray="3,3"/>
+  <line x1="485" y1="300" x2="485" y2="380" stroke="#c0392b" stroke-width="1.2" stroke-dasharray="3,3"/>
+
+  <!-- Координатні осі -->
+  <line x1="100" y1="380" x2="100" y2="120" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <line x1="100" y1="380" x2="600" y2="380" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- Підписи осі Y (K_T) -->
+  <text x="92" y="144" font-size="12" fill="#6b7280" text-anchor="end">1.20</text>
+  <text x="92" y="184" font-size="12" fill="#6b7280" text-anchor="end">1.10</text>
+  <text x="92" y="224" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">1.00</text>
+  <text x="92" y="264" font-size="12" fill="#6b7280" text-anchor="end">0.90</text>
+  <text x="92" y="304" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="end">0.80</text>
+  <text x="92" y="344" font-size="12" fill="#6b7280" text-anchor="end">0.70</text>
+  <text x="92" y="384" font-size="12" fill="#6b7280" text-anchor="end">0.60</text>
+
+  <!-- Засічки осі X -->
+  <line x1="100" y1="380" x2="100" y2="385" stroke="#1a1a1a" stroke-width="1.2"/>
+  <line x1="170" y1="380" x2="170" y2="385" stroke="#1a1a1a" stroke-width="1.2"/>
+  <line x1="240" y1="380" x2="240" y2="385" stroke="#1a1a1a" stroke-width="1.2"/>
+  <line x1="310" y1="380" x2="310" y2="385" stroke="#1a1a1a" stroke-width="1.2"/>
+  <line x1="380" y1="380" x2="380" y2="385" stroke="#1a1a1a" stroke-width="1.2"/>
+  <line x1="450" y1="380" x2="450" y2="385" stroke="#1a1a1a" stroke-width="1.2"/>
+  <line x1="520" y1="380" x2="520" y2="385" stroke="#1a1a1a" stroke-width="1.2"/>
+  <line x1="590" y1="380" x2="590" y2="385" stroke="#1a1a1a" stroke-width="1.2"/>
+
+  <!-- Підписи осі X (Температура) -->
+  <text x="100" y="400" font-size="12" fill="#6b7280" text-anchor="middle">-40</text>
+  <text x="170" y="400" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">-20</text>
+  <text x="240" y="400" font-size="12" fill="#6b7280" text-anchor="middle">0</text>
+  <text x="310" y="400" font-size="12" fill="#6b7280" text-anchor="middle">+20</text>
+  <text x="380" y="400" font-size="12" fill="#6b7280" text-anchor="middle">+40</text>
+  <text x="450" y="400" font-size="12" fill="#6b7280" text-anchor="middle">+60</text>
+  <text x="520" y="400" font-size="12" fill="#6b7280" text-anchor="middle">+80</text>
+  <text x="590" y="400" font-size="12" fill="#6b7280" text-anchor="middle">+100</text>
+
+  <text x="560" y="422" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">T_amb, °C</text>
+
+  <!-- Крива K_T -->
+  <path d="M 100 156 C 180 176, 260 200, 328 220 C 390 240, 440 270, 485 300 C 525 325, 560 342, 590 356" fill="none" stroke="#2457d6" stroke-width="3.5"/>
+
+  <!-- Точки на кривій -->
+  <circle cx="170" cy="174" r="4.5" fill="#27ae60"/>
+  <circle cx="328" cy="220" r="5" fill="#2457d6"/>
+  <circle cx="485" cy="300" r="5" fill="#c0392b"/>
+
+  <!-- Виноска 1: Мороз -20 °C (між y=140 і y=174) -->
+  <rect x="110" y="144" width="130" height="26" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="175" y="161" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">-20 °C: K_T = 1.11 (+11%)</text>
+
+  <!-- Виноска 2: Номінал 25 °C (між y=180 і y=220) -->
+  <rect x="345" y="186" width="145" height="26" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="417" y="203" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">25 °C: K_T = 1.00 (номінал)</text>
+
+  <!-- Виноска 3: Нагрів у тримачі 70 °C (між y=340 і y=380, ліворуч від проекції 485) -->
+  <rect x="305" y="345" width="165" height="26" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="387" y="362" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">70 °C: K_T = 0.80 (-20%)</text>
+
+  <!-- Права панель: Інженерний розрахунок -->
+  <rect x="645" y="75" width="280" height="365" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="785" y="102" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Інженерний розрахунок</text>
+
+  <!-- Блок 1: Формула -->
+  <rect x="660" y="115" width="250" height="68" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="672" y="134" font-size="12" font-weight="bold" fill="#2457d6">Необхідний номінал I_nom:</text>
+  <text x="785" y="154" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">I_nom ≥ I_work ÷ (0.75 × K_T)</text>
+  <text x="672" y="172" font-size="12" fill="#6b7280">де 0.75 — запас UL; K_T — графік</text>
+
+  <!-- Блок 2: Приклад для запобіжника 2.0 А -->
+  <rect x="660" y="195" width="250" height="135" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="672" y="215" font-size="12" font-weight="bold" fill="#1a1a1a">Для номіналу I_nom = 2.0 А:</text>
+
+  <text x="672" y="235" font-size="12" fill="#1a1a1a">• 25 °C (K_T = 1.00) → I_allow = 2.00 А</text>
+  <text x="684" y="250" font-size="12" fill="#6b7280">базовий розрахунковий режим</text>
+
+  <text x="672" y="271" font-size="12" font-weight="bold" fill="#c0392b">• 70 °C (K_T = 0.80) → I_allow = 1.60 А</text>
+  <text x="684" y="286" font-size="12" fill="#c0392b">струм 1.8 А спалить запобіжник!</text>
+
+  <text x="672" y="307" font-size="12" font-weight="bold" fill="#27ae60">• -20 °C (K_T = 1.11) → I_allow = 2.22 А</text>
+  <text x="684" y="322" font-size="12" fill="#27ae60">підвищена стійкість до струму</text>
+
+  <!-- Блок 3: Застереження про закритий тримач -->
+  <rect x="660" y="342" width="250" height="86" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="672" y="362" font-size="12" font-weight="bold" fill="#c0392b">Фактор закритого тримача</text>
+  <text x="672" y="380" font-size="12" fill="#1a1a1a">Тепловиділення P = I²R у закритому</text>
+  <text x="672" y="396" font-size="12" fill="#1a1a1a">тримачі розігріває колбу до +70 °C</text>
+  <text x="672" y="414" font-size="12" font-weight="bold" fill="#c0392b">навіть за кімнатної температури!</text>
+</svg>

@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+  
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+  
+  <text x="480" y="40" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Ризик короткого замикання на торці комірки 18650</text>
+  <text x="480" y="60" text-anchor="middle" font-size="13" fill="#6b7280">Пошкоджена термоусадка відкриває шлях струму від плюсового контакту до мінусового корпусу</text>
+  
+  <rect x="300" y="220" width="360" height="180" fill="#f4f6f8"/>
+
+  <path d="M 280 400 L 280 200 L 400 200 L 400 220 L 300 220 L 300 400 Z" fill="#d0d7de" stroke="#6b7280" stroke-width="2"/>
+  <path d="M 680 400 L 680 200 L 560 200 L 560 220 L 660 220 L 660 400 Z" fill="#d0d7de" stroke="#6b7280" stroke-width="2"/>
+  
+  <path d="M 420 220 L 420 180 L 460 180 L 460 150 L 500 150 L 500 180 L 540 180 L 540 220 Z" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  
+  <text x="480" y="205" text-anchor="middle" font-size="24" font-weight="bold" fill="#2457d6">+</text>
+  <text x="340" y="320" text-anchor="middle" font-size="24" font-weight="bold" fill="#6b7280">−</text>
+  <text x="620" y="320" text-anchor="middle" font-size="24" font-weight="bold" fill="#6b7280">−</text>
+
+  <rect x="310" y="185" width="115" height="15" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <path d="M 276 400 L 276 181 L 390 181" fill="none" stroke="#27ae60" stroke-width="8"/>
+  <path d="M 684 400 L 684 250" fill="none" stroke="#c0392b" stroke-width="8"/>
+
+  <path d="M 410 200 L 410 100 L 335 100" fill="none" stroke="#1a1a1a" stroke-width="1"/>
+  <circle cx="410" cy="200" r="3" fill="#1a1a1a"/>
+  <text x="320" y="95" font-size="14" fill="#1a1a1a" text-anchor="end">
+    <tspan x="320" y="95">Мінімальний зазор</tspan>
+    <tspan x="320" y="115">&lt; 1 мм</tspan>
+  </text>
+  
+  <path d="M 360 185 L 360 140 L 305 140" fill="none" stroke="#27ae60" stroke-width="1"/>
+  <circle cx="360" cy="185" r="3" fill="#27ae60"/>
+  <text x="290" y="135" font-size="14" fill="#27ae60" text-anchor="end">
+    <tspan x="290" y="135">Ізоляційне кільце</tspan>
+    <tspan x="290" y="155">на місці</tspan>
+  </text>
+
+  <path d="M 276 300 L 225 300" fill="none" stroke="#27ae60" stroke-width="1"/>
+  <circle cx="276" cy="300" r="3" fill="#27ae60"/>
+  <text x="210" y="295" font-size="14" fill="#27ae60" text-anchor="end">
+    <tspan x="210" y="295">Ціла термоусадка</tspan>
+    <tspan x="210" y="315">тримає кільце</tspan>
+  </text>
+
+  <path d="M 535 180 Q 550 160 558 190" fill="none" stroke="#c0392b" stroke-width="3" marker-end="url(#arr-red)"/>
+  <text x="575" y="170" font-size="14" font-weight="bold" fill="#c0392b" text-anchor="start">
+    <tspan x="575" y="170">Коротке</tspan>
+    <tspan x="575" y="190">замикання</tspan>
+  </text>
+  
+  <path d="M 550 200 L 550 100 L 630 100" fill="none" stroke="#c0392b" stroke-width="1"/>
+  <circle cx="550" cy="200" r="3" fill="#c0392b"/>
+  <text x="645" y="95" font-size="14" fill="#c0392b" text-anchor="start">
+    <tspan x="645" y="95">Ізолятор випав,</tspan>
+    <tspan x="645" y="115">зазор відкритий</tspan>
+  </text>
+  
+  <path d="M 684 250 L 735 250" fill="none" stroke="#c0392b" stroke-width="1"/>
+  <circle cx="684" cy="250" r="3" fill="#c0392b"/>
+  <text x="750" y="245" font-size="14" fill="#c0392b" text-anchor="start">
+    <tspan x="750" y="245">Термоусадка</tspan>
+    <tspan x="750" y="265">пошкоджена</tspan>
+  </text>
+</svg>

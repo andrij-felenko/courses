@@ -1,0 +1,151 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <!-- Arrowhead markers -->
+    <marker id="arr-black" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-blue-rev" markerWidth="9" markerHeight="9" refX="0.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-red-rev" markerWidth="9" markerHeight="9" refX="0.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-green-rev" markerWidth="9" markerHeight="9" refX="0.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Main Header -->
+  <text x="480" y="32" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Посадочне місце тримача 5×20 мм: повітряні зазори та шляхи витоку</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Наскрізний ізоляційний паз подовжує шлях витоку по поверхні (creepage) без зміни повітряного зазору</text>
+
+  <!-- ==================== LEFT PANEL (WITHOUT SLOT) ==================== -->
+  <rect x="24" y="68" width="444" height="372" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Badge 1 -->
+  <rect x="36" y="78" width="420" height="28" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="246" y="97" font-size="13" font-weight="700" fill="#c0392b" text-anchor="middle">Без ізоляційного паза: прямий шлях витоку по FR-4</text>
+
+  <!-- PCB Board 1 -->
+  <rect x="36" y="118" width="420" height="196" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Traces 1 -->
+  <line x1="36" y1="192" x2="114" y2="192" stroke="#1a1a1a" stroke-width="8"/>
+  <line x1="378" y1="192" x2="456" y2="192" stroke="#1a1a1a" stroke-width="8"/>
+
+  <!-- Solder Pads 1 -->
+  <rect x="114" y="166" width="40" height="52" rx="3" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="134" cy="181" r="4.5" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="134" cy="203" r="4.5" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <rect x="338" y="166" width="40" height="52" rx="3" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="358" cy="181" r="4.5" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="358" cy="203" r="4.5" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Terminal Labels 1 -->
+  <text x="75" y="180" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">L_in (230 V)</text>
+  <text x="417" y="180" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">L_out (до БЖ)</text>
+
+  <!-- Fuse Silkscreen 1 -->
+  <rect x="166" y="174" width="32" height="36" rx="2" fill="none" stroke="#6b7280" stroke-width="1.2"/>
+  <rect x="294" y="174" width="32" height="36" rx="2" fill="none" stroke="#6b7280" stroke-width="1.2"/>
+  <rect x="198" y="174" width="96" height="36" fill="none" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="4 2"/>
+  <line x1="198" y1="192" x2="294" y2="192" stroke="#6b7280" stroke-width="1.2"/>
+  <circle cx="246" cy="192" r="3" fill="#6b7280"/>
+  <text x="246" y="186" font-size="12" fill="#6b7280" text-anchor="middle">5×20 мм</text>
+
+  <!-- Clearance Line 1 -->
+  <line x1="154" y1="138" x2="338" y2="138" stroke="#2457d6" stroke-width="1.5" marker-start="url(#arr-blue-rev)" marker-end="url(#arr-blue)"/>
+  <line x1="154" y1="138" x2="154" y2="166" stroke="#2457d6" stroke-width="1" stroke-dasharray="3 3"/>
+  <line x1="338" y1="138" x2="338" y2="166" stroke="#2457d6" stroke-width="1" stroke-dasharray="3 3"/>
+  <text x="246" y="132" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">Повітряний зазор d_clr = 14.5 мм (Clearance)</text>
+
+  <!-- Creepage Line 1 -->
+  <line x1="154" y1="236" x2="338" y2="236" stroke="#c0392b" stroke-width="2" marker-start="url(#arr-red-rev)" marker-end="url(#arr-red)"/>
+  <line x1="154" y1="218" x2="154" y2="236" stroke="#c0392b" stroke-width="1" stroke-dasharray="3 3"/>
+  <line x1="338" y1="218" x2="338" y2="236" stroke="#c0392b" stroke-width="1" stroke-dasharray="3 3"/>
+  <text x="246" y="254" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">Шлях витоку d_crp = 14.5 мм (поверхня FR-4)</text>
+  <text x="246" y="272" font-size="12" fill="#c0392b" text-anchor="middle">d_crp = d_clr — плоска плата без перешкод</text>
+  <text x="246" y="290" font-size="12" fill="#6b7280" text-anchor="middle">Ризик: пил і волога утворюють струмопровідний місток</text>
+
+  <!-- Info Card 1 -->
+  <rect x="36" y="324" width="420" height="104" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="48" y="344" font-size="12" font-weight="700" fill="#c0392b">Особливості посадочного місця без паза:</text>
+  <text x="48" y="364" font-size="12" fill="#1a1a1a">• Повітряний зазор d_clr: найкоротша пряма лінія в повітрі</text>
+  <text x="48" y="384" font-size="12" fill="#1a1a1a">• Шлях витоку d_crp: пряма лінія по поверхні текстоліту</text>
+  <text x="48" y="404" font-size="12" fill="#6b7280">• Недолік: d_crp = d_clr, немає бар'єра проти нагару та вологи</text>
+  <text x="48" y="420" font-size="12" font-weight="700" fill="#c0392b">• Підсумок: небезпека перекриття дугою при перегорянні</text>
+
+  <!-- ==================== RIGHT PANEL (WITH SLOT) ==================== -->
+  <rect x="492" y="68" width="444" height="372" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Badge 2 -->
+  <rect x="504" y="78" width="420" height="28" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="714" y="97" font-size="13" font-weight="700" fill="#27ae60" text-anchor="middle">З наскрізним пазом: подовжений шлях витоку в обхід</text>
+
+  <!-- PCB Board 2 -->
+  <rect x="504" y="118" width="420" height="196" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Traces 2 -->
+  <line x1="504" y1="192" x2="582" y2="192" stroke="#1a1a1a" stroke-width="8"/>
+  <line x1="846" y1="192" x2="924" y2="192" stroke="#1a1a1a" stroke-width="8"/>
+
+  <!-- Solder Pads 2 -->
+  <rect x="582" y="166" width="40" height="52" rx="3" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="602" cy="181" r="4.5" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="602" cy="203" r="4.5" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <rect x="806" y="166" width="40" height="52" rx="3" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="826" cy="181" r="4.5" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="826" cy="203" r="4.5" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Terminal Labels 2 -->
+  <text x="543" y="180" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">L_in (230 V)</text>
+  <text x="885" y="180" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">L_out (до БЖ)</text>
+
+  <!-- Fuse Silkscreen 2 -->
+  <rect x="634" y="174" width="32" height="36" rx="2" fill="none" stroke="#6b7280" stroke-width="1.2"/>
+  <rect x="762" y="174" width="32" height="36" rx="2" fill="none" stroke="#6b7280" stroke-width="1.2"/>
+  <rect x="666" y="174" width="96" height="36" fill="none" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="4 2"/>
+  <line x1="666" y1="192" x2="706" y2="192" stroke="#6b7280" stroke-width="1.2"/>
+  <line x1="722" y1="192" x2="762" y2="192" stroke="#6b7280" stroke-width="1.2"/>
+
+  <!-- Milled Isolation Slot (through PCB) -->
+  <rect x="706" y="150" width="16" height="84" rx="4" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="708" y1="166" x2="720" y2="158" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="708" y1="186" x2="720" y2="178" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="708" y1="206" x2="720" y2="198" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="708" y1="226" x2="720" y2="218" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Clearance Line 2 -->
+  <line x1="622" y1="138" x2="806" y2="138" stroke="#2457d6" stroke-width="1.5" marker-start="url(#arr-blue-rev)" marker-end="url(#arr-blue)"/>
+  <line x1="622" y1="138" x2="622" y2="166" stroke="#2457d6" stroke-width="1" stroke-dasharray="3 3"/>
+  <line x1="806" y1="138" x2="806" y2="166" stroke="#2457d6" stroke-width="1" stroke-dasharray="3 3"/>
+  <text x="714" y="132" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">Повітряний зазор d_clr = 14.5 мм (не змінився)</text>
+
+  <!-- Creepage Path 2 (detour around slot) -->
+  <path d="M 622,218 L 622,244 L 806,244 L 806,218" fill="none" stroke="#27ae60" stroke-width="2" stroke-dasharray="5 3" marker-start="url(#arr-green-rev)" marker-end="url(#arr-green)"/>
+  <text x="714" y="260" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">Шлях витоку d_crp = a + b + c = 19.7 мм (в обхід паза)</text>
+  <text x="714" y="278" font-size="12" fill="#27ae60" text-anchor="middle">d_crp &gt; d_clr — пропил збільшує шлях витоку на +36%</text>
+  <text x="714" y="296" font-size="12" fill="#6b7280" text-anchor="middle">Паз шириною ≥1 мм розриває місток: IEC 62368-1 виконано</text>
+
+  <!-- Info Card 2 -->
+  <rect x="504" y="324" width="420" height="104" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="516" y="344" font-size="12" font-weight="700" fill="#27ae60">Особливості посадочного місця з пазом:</text>
+  <text x="516" y="364" font-size="12" fill="#1a1a1a">• Повітряний зазор d_clr: незмінний (визначається відстанню контактів)</text>
+  <text x="516" y="384" font-size="12" fill="#1a1a1a">• Наскрізний паз: фрезерування в FR-4 під корпусом (ширина ≥1,5 мм)</text>
+  <text x="516" y="404" font-size="12" fill="#6b7280">• Ефект: шлях витоку змушений огинати пропил по діелектрику</text>
+  <text x="516" y="420" font-size="12" font-weight="700" fill="#27ae60">• Підсумок: гарантована ізоляція 230 V при забрудненні та дузі</text>
+</svg>

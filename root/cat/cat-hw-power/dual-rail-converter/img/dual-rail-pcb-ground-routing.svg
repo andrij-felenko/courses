@@ -1,0 +1,132 @@
+<svg viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Titles -->
+  <text x="480" y="35" text-anchor="middle" font-weight="bold" font-size="18" fill="#1a1a1a">Трасування землі двополярного перетворювача</text>
+  <text x="480" y="55" text-anchor="middle" font-size="13" fill="#6b7280">Розділення силової та аналогової земель із з'єднанням в одній точці (зіркою)</text>
+
+  <!-- PCB Board -->
+  <rect x="50" y="80" width="860" height="340" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+
+  <!-- Ground Planes -->
+  <!-- PGND -->
+  <path d="M 80 110 H 460 V 230 H 480 V 270 H 460 V 390 H 80 Z" fill="#fdecea" stroke="#c0392b" stroke-width="2" stroke-dasharray="6,4"/>
+  <text x="270" y="140" text-anchor="middle" fill="#c0392b" font-weight="bold" font-size="14">Силова земля (PGND)</text>
+
+  <!-- AGND -->
+  <path d="M 880 110 H 500 V 230 H 480 V 270 H 500 V 390 H 880 Z" fill="#e9f7ef" stroke="#27ae60" stroke-width="2" stroke-dasharray="6,4"/>
+  <text x="690" y="140" text-anchor="middle" fill="#27ae60" font-weight="bold" font-size="14">Аналогова земля (AGND)</text>
+
+  <!-- Input Connectors & Traces -->
+  <rect x="55" y="215" width="10" height="10" fill="#6b7280"/>
+  <rect x="55" y="275" width="10" height="10" fill="#6b7280"/>
+  <text x="45" y="225" text-anchor="end" font-size="13" fill="#1a1a1a">+5 В</text>
+  <text x="45" y="285" text-anchor="end" font-size="13" fill="#1a1a1a">GND</text>
+  
+  <path d="M 65 220 L 120 220" stroke="#1a1a1a" stroke-width="2"/>
+  <path d="M 65 280 L 120 280" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Input Capacitor -->
+  <rect x="82" y="235" width="16" height="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <path d="M 90 220 L 90 235" stroke="#1a1a1a" stroke-width="1.5"/>
+  <path d="M 90 243 L 90 260" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="90" cy="260" r="3" fill="#1a1a1a"/>
+  <text x="115" y="250" text-anchor="middle" font-size="12" fill="#1a1a1a">Cin</text>
+
+  <!-- DC-DC Module -->
+  <rect x="120" y="180" width="140" height="140" rx="4" fill="#ffffff" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="190" y="245" text-anchor="middle" font-weight="bold" font-size="14" fill="#1a1a1a">DC-DC Модуль</text>
+  <text x="190" y="265" text-anchor="middle" font-size="13" fill="#6b7280">5 В → ±12 В</text>
+
+  <!-- Output Traces from DC-DC -->
+  <path d="M 260 210 L 320 210" stroke="#2457d6" stroke-width="2" fill="none"/>
+  <path d="M 260 290 L 320 290" stroke="#2457d6" stroke-width="2" fill="none"/>
+  <path d="M 260 250 L 280 250" stroke="#1a1a1a" stroke-width="2" fill="none"/>
+  
+  <circle cx="280" cy="250" r="3" fill="#1a1a1a"/>
+  <text x="280" y="240" text-anchor="middle" font-size="12" fill="#1a1a1a">GND</text>
+  
+  <text x="270" y="205" text-anchor="start" font-size="12" font-weight="bold" fill="#2457d6">+12V</text>
+  <text x="270" y="285" text-anchor="start" font-size="12" font-weight="bold" fill="#2457d6">-12V</text>
+
+  <!-- LC Filters -->
+  <rect x="320" y="200" width="40" height="20" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="340" y="193" text-anchor="middle" font-size="12" fill="#1a1a1a">L1 (FB)</text>
+  
+  <rect x="320" y="280" width="40" height="20" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="340" y="273" text-anchor="middle" font-size="12" fill="#1a1a1a">L2 (FB)</text>
+
+  <!-- Routed Traces Over the Bridge -->
+  <path d="M 360 210 L 420 210 L 450 240 L 510 240 L 540 210 L 680 210" stroke="#2457d6" stroke-width="2" fill="none"/>
+  <path d="M 360 290 L 420 290 L 450 260 L 510 260 L 540 290 L 680 290" stroke="#2457d6" stroke-width="2" fill="none"/>
+
+  <!-- Trace Labels on Clean Side -->
+  <text x="610" y="205" text-anchor="start" font-size="12" fill="#2457d6">+12V Clean</text>
+  <text x="610" y="285" text-anchor="start" font-size="12" fill="#2457d6">-12V Clean</text>
+
+  <!-- Bypass Capacitors -->
+  <!-- C1 -->
+  <rect x="572" y="215" width="16" height="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <path d="M 580 210 L 580 215" stroke="#1a1a1a" stroke-width="1.5"/>
+  <path d="M 580 223 L 580 240" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="580" cy="240" r="3" fill="#1a1a1a"/>
+  <text x="590" y="235" font-size="12" fill="#1a1a1a">C1</text>
+
+  <!-- C2 -->
+  <rect x="572" y="277" width="16" height="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <path d="M 580 285 L 580 290" stroke="#1a1a1a" stroke-width="1.5"/>
+  <path d="M 580 260 L 580 277" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="580" cy="260" r="3" fill="#1a1a1a"/>
+  <text x="590" y="265" font-size="12" fill="#1a1a1a">C2</text>
+
+  <!-- Analog Load -->
+  <rect x="680" y="180" width="160" height="140" rx="4" fill="#ffffff" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="760" y="245" text-anchor="middle" font-weight="bold" font-size="14" fill="#1a1a1a">Аналогова схема</text>
+  <text x="760" y="265" text-anchor="middle" font-size="13" fill="#6b7280">(ОП, АЦП тощо)</text>
+  
+  <!-- Analog Load GND -->
+  <path d="M 680 250 L 650 250" stroke="#1a1a1a" stroke-width="2" fill="none"/>
+  <circle cx="650" cy="250" r="3" fill="#1a1a1a"/>
+  <text x="645" y="245" text-anchor="end" font-size="12" fill="#1a1a1a">AGND</text>
+
+  <!-- Explanatory Annotations -->
+  <!-- 1. Traces over bridge -->
+  <text x="540" y="140" text-anchor="middle" font-size="13" fill="#2457d6">
+    <tspan x="540" dy="0">Траси ±12 В проходять</tspan>
+    <tspan x="540" dy="16">строго над містком</tspan>
+  </text>
+  <path d="M 540 160 L 515 230" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- 2. Star Ground -->
+  <text x="480" y="440" text-anchor="middle" font-size="13" fill="#1a1a1a">
+    <tspan x="480" dy="0">Єдина точка з'єднання</tspan>
+    <tspan x="480" dy="16">(зіркове заземлення)</tspan>
+  </text>
+  <path d="M 480 425 L 480 275" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- 3. Noise indicator -->
+  <path d="M 120 340 C 120 380, 180 380, 180 340" fill="none" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="150" y="405" text-anchor="middle" font-size="12" fill="#c0392b">
+    <tspan x="150" dy="0">Імпульсні струми</tspan>
+    <tspan x="150" dy="16">замикаються локально</tspan>
+  </text>
+
+  <!-- 4. Clean indicator -->
+  <text x="760" y="405" text-anchor="middle" font-size="12" fill="#27ae60">
+    <tspan x="760" dy="0">Чутливі сигнали</tspan>
+    <tspan x="760" dy="16">захищені від завад</tspan>
+  </text>
+</svg>

@@ -1,0 +1,123 @@
+<svg viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif" xmlns="http://www.w3.org/2000/svg">
+<rect x="0" y="0" width="960" height="460" fill="white"/>
+
+<!-- Title -->
+<text x="480" y="40" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Тримачі запобіжників 5×20 мм</text>
+<text x="480" y="60" text-anchor="middle" font-size="13" fill="#6b7280">Основні типи конструкції: на плату, на панель та кабельний (в розрив дроту)</text>
+
+<defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+        <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+        <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-dim" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+        <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-dim-start" markerWidth="9" markerHeight="9" refX="0.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+        <path d="M8,0 L0,4 L8,8 Z" fill="#6b7280"/>
+    </marker>
+</defs>
+
+<!-- Section 1: PCB Clips (Кліпси на плату) -->
+<g transform="translate(30, 100)">
+    <text x="140" y="30" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">На друковану плату</text>
+    <text x="140" y="50" text-anchor="middle" font-size="13" fill="#6b7280">(Кліпси або блок)</text>
+    
+    <!-- PCB -->
+    <rect x="40" y="220" width="200" height="8" fill="#d0d7de" rx="2"/>
+    <text x="140" y="250" text-anchor="middle" font-size="13" fill="#6b7280">Друкована плата</text>
+
+    <!-- Clips -->
+    <path d="M80,220 L80,180 A10,10 0 0 1 90,170 A10,10 0 0 1 100,180 L100,220 M90,220 L90,230" fill="none" stroke="#6b7280" stroke-width="4"/>
+    <path d="M180,220 L180,180 A10,10 0 0 0 190,170 A10,10 0 0 0 200,180 L200,220 M190,220 L190,230" fill="none" stroke="#6b7280" stroke-width="4"/>
+    
+    <!-- Fuse -->
+    <rect x="70" y="120" width="140" height="20" rx="2" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+    <rect x="70" y="120" width="15" height="20" fill="#2457d6"/>
+    <rect x="195" y="120" width="15" height="20" fill="#2457d6"/>
+    <line x1="85" y1="130" x2="195" y2="130" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="2 2"/>
+    
+    <!-- Fuse drop arrow -->
+    <line x1="90" y1="145" x2="90" y2="165" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+    <line x1="190" y1="145" x2="190" y2="165" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+    <!-- Dimensions -->
+    <line x1="90" y1="240" x2="90" y2="260" stroke="#d0d7de" stroke-width="1"/>
+    <line x1="190" y1="240" x2="190" y2="260" stroke="#d0d7de" stroke-width="1"/>
+    <line x1="90" y1="250" x2="190" y2="250" stroke="#6b7280" stroke-width="1" marker-start="url(#arr-dim-start)" marker-end="url(#arr-dim)"/>
+    <text x="140" y="270" text-anchor="middle" font-size="12" fill="#6b7280">Крок 22.5 мм</text>
+    
+    <!-- Fuse dimension -->
+    <line x1="70" y1="100" x2="210" y2="100" stroke="#6b7280" stroke-width="1" marker-start="url(#arr-dim-start)" marker-end="url(#arr-dim)"/>
+    <text x="140" y="90" text-anchor="middle" font-size="12" fill="#6b7280">20 мм</text>
+    
+    <line x1="60" y1="120" x2="60" y2="140" stroke="#6b7280" stroke-width="1" marker-start="url(#arr-dim-start)" marker-end="url(#arr-dim)"/>
+    <text x="50" y="134" text-anchor="end" font-size="12" fill="#6b7280">5 мм</text>
+</g>
+
+<!-- Section 2: Panel Mount (На панель) -->
+<g transform="translate(350, 100)">
+    <text x="140" y="30" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">На панель</text>
+    <text x="140" y="50" text-anchor="middle" font-size="13" fill="#6b7280">(Кріплення гайкою)</text>
+    
+    <!-- Panel -->
+    <rect x="80" y="100" width="10" height="120" fill="#d0d7de"/>
+    <text x="85" y="240" text-anchor="middle" font-size="13" fill="#6b7280">Панель</text>
+    
+    <!-- Holder Body -->
+    <rect x="90" y="140" width="120" height="40" fill="#f4f6f8" stroke="#6b7280" stroke-width="2"/>
+    <!-- Thread area -->
+    <rect x="90" y="135" width="40" height="50" fill="none" stroke="#6b7280" stroke-width="2" stroke-dasharray="2 4"/>
+    <!-- Nut -->
+    <rect x="110" y="130" width="15" height="60" fill="#d0d7de" stroke="#6b7280" stroke-width="2"/>
+    
+    <!-- Cap -->
+    <rect x="60" y="140" width="20" height="40" rx="3" fill="#1a1a1a" stroke="#1a1a1a" stroke-width="2"/>
+    <!-- Slot in cap -->
+    <rect x="60" y="155" width="5" height="10" fill="white"/>
+    
+    <!-- Terminals -->
+    <path d="M210,150 L230,150" fill="none" stroke="#6b7280" stroke-width="3"/>
+    <path d="M210,170 L230,170" fill="none" stroke="#6b7280" stroke-width="3"/>
+    <circle cx="225" cy="150" r="2" fill="white" stroke="#6b7280" stroke-width="1"/>
+    <circle cx="225" cy="170" r="2" fill="white" stroke="#6b7280" stroke-width="1"/>
+    
+    <!-- Dimensions -->
+    <line x1="60" y1="200" x2="210" y2="200" stroke="#6b7280" stroke-width="1" marker-start="url(#arr-dim-start)" marker-end="url(#arr-dim)"/>
+    <text x="135" y="218" text-anchor="middle" font-size="12" fill="#6b7280">Довжина ~35 мм</text>
+    
+    <!-- Hole dimension -->
+    <line x1="45" y1="140" x2="45" y2="180" stroke="#6b7280" stroke-width="1" marker-start="url(#arr-dim-start)" marker-end="url(#arr-dim)"/>
+    <text x="40" y="165" text-anchor="end" font-size="12" fill="#6b7280">Отвір</text>
+    <text x="40" y="180" text-anchor="end" font-size="12" fill="#6b7280">Ø12 мм</text>
+</g>
+
+<!-- Section 3: Inline (В розрив дроту) -->
+<g transform="translate(670, 100)">
+    <text x="140" y="30" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">В розрив дроту</text>
+    <text x="140" y="50" text-anchor="middle" font-size="13" fill="#6b7280">(Кабельний тримач)</text>
+    
+    <!-- Wires -->
+    <path d="M20,160 C 40,160 50,150 70,160" fill="none" stroke="#c0392b" stroke-width="4"/>
+    <path d="M210,160 C 230,170 240,160 260,160" fill="none" stroke="#c0392b" stroke-width="4"/>
+    
+    <text x="70" y="145" text-anchor="middle" font-size="12" fill="#c0392b">Фазний провід</text>
+    <text x="210" y="145" text-anchor="middle" font-size="12" fill="#c0392b">До навантаження</text>
+
+    <!-- Holder Left Half -->
+    <path d="M70,150 L135,150 L135,170 L70,170 Z" fill="#1a1a1a" stroke="#1a1a1a" stroke-width="2" stroke-linejoin="round"/>
+    <!-- Holder Right Half -->
+    <path d="M145,150 L210,150 L210,170 L145,170 Z" fill="#1a1a1a" stroke="#1a1a1a" stroke-width="2" stroke-linejoin="round"/>
+    <!-- Bayonet connector -->
+    <rect x="130" y="155" width="20" height="10" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1"/>
+    
+    <!-- Dimensions -->
+    <line x1="70" y1="190" x2="210" y2="190" stroke="#6b7280" stroke-width="1" marker-start="url(#arr-dim-start)" marker-end="url(#arr-dim)"/>
+    <text x="140" y="208" text-anchor="middle" font-size="12" fill="#6b7280">Довжина ~50 мм</text>
+    
+    <line x1="140" y1="120" x2="140" y2="140" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+    <text x="140" y="110" text-anchor="middle" font-size="12" fill="#2457d6">Рознімне з'єднання</text>
+</g>
+</svg>

@@ -1,0 +1,175 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 420" width="960" height="420" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="960" height="420" fill="white"/>
+
+  <!-- Заголовки -->
+  <text x="480" y="35" font-size="18" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Принцип роботи ємнісного інвертуючого помпувача заряду</text>
+  <text x="480" y="55" font-size="13" text-anchor="middle" fill="#6b7280">Перетворення позитивної напруги на негативну за два такти</text>
+
+  <!-- ================= PANEL 1 ================= -->
+  <rect x="25" y="80" width="455" height="300" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <text x="252" y="115" font-size="18" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Такт 1: Зарядка</text>
+  <text x="252" y="135" font-size="13" text-anchor="middle" fill="#6b7280">C_fly заряджається від V_in</text>
+
+  <!-- Nodes Panel 1 -->
+  <circle cx="90" cy="190" r="4" fill="#1a1a1a"/>
+  <circle cx="90" cy="280" r="4" fill="#1a1a1a"/>
+  <circle cx="430" cy="280" r="4" fill="white" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Terminals labels -->
+  <text x="80" y="194" font-size="14" text-anchor="end" fill="#1a1a1a">V_in</text>
+  <text x="80" y="284" font-size="14" text-anchor="end" fill="#1a1a1a">GND</text>
+  <text x="350" y="180" font-size="14" text-anchor="middle" fill="#1a1a1a">GND</text>
+  <text x="440" y="284" font-size="14" text-anchor="start" fill="#1a1a1a">V_out</text>
+
+  <!-- Inactive Paths Panel 1 -->
+  <path d="M 220,190 L 270,190 M 310,190 L 350,190" stroke="#1a1a1a" stroke-width="2" fill="none"/>
+  <path d="M 220,280 L 270,280 M 310,280 L 430,280" stroke="#1a1a1a" stroke-width="2" fill="none"/>
+  
+  <!-- S3 Open -->
+  <circle cx="270" cy="190" r="3" fill="white" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="310" cy="190" r="3" fill="white" stroke="#1a1a1a" stroke-width="2"/>
+  <path d="M 270,190 L 305,175" stroke="#1a1a1a" stroke-width="2" fill="none"/>
+  <text x="290" y="170" font-size="14" text-anchor="middle" fill="#1a1a1a">S3</text>
+  
+  <!-- S4 Open -->
+  <circle cx="270" cy="280" r="3" fill="white" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="310" cy="280" r="3" fill="white" stroke="#1a1a1a" stroke-width="2"/>
+  <path d="M 270,280 L 305,265" stroke="#1a1a1a" stroke-width="2" fill="none"/>
+  <text x="290" y="260" font-size="14" text-anchor="middle" fill="#1a1a1a">S4</text>
+
+  <!-- Active Paths Panel 1 (Blue) -->
+  <path d="M 90,190 L 130,190 M 170,190 L 220,190 L 220,230" stroke="#2457d6" stroke-width="3" fill="none"/>
+  <path d="M 220,240 L 220,280 L 170,280 M 130,280 L 90,280" stroke="#2457d6" stroke-width="3" fill="none"/>
+  
+  <!-- S1 Closed -->
+  <circle cx="130" cy="190" r="3" fill="white" stroke="#2457d6" stroke-width="2"/>
+  <circle cx="170" cy="190" r="3" fill="white" stroke="#2457d6" stroke-width="2"/>
+  <path d="M 130,190 L 170,190" stroke="#2457d6" stroke-width="3" fill="none"/>
+  <text x="150" y="180" font-size="14" font-weight="bold" text-anchor="middle" fill="#2457d6">S1</text>
+  
+  <!-- S2 Closed -->
+  <circle cx="130" cy="280" r="3" fill="white" stroke="#2457d6" stroke-width="2"/>
+  <circle cx="170" cy="280" r="3" fill="white" stroke="#2457d6" stroke-width="2"/>
+  <path d="M 130,280 L 170,280" stroke="#2457d6" stroke-width="3" fill="none"/>
+  <text x="150" y="270" font-size="14" font-weight="bold" text-anchor="middle" fill="#2457d6">S2</text>
+  
+  <!-- C_fly Plates -->
+  <path d="M 205,230 L 235,230 M 205,240 L 235,240" stroke="#2457d6" stroke-width="3" fill="none"/>
+  <text x="195" y="228" font-size="14" font-weight="bold" text-anchor="end" fill="#2457d6">+</text>
+  <text x="195" y="245" font-size="14" font-weight="bold" text-anchor="end" fill="#2457d6">-</text>
+  <text x="245" y="240" font-size="14" font-weight="bold" fill="#2457d6">C_fly</text>
+
+  <!-- C_out (Inactive) -->
+  <path d="M 350,280 L 350,310 M 350,320 L 350,350" stroke="#1a1a1a" stroke-width="2" fill="none"/>
+  <path d="M 335,310 L 365,310 M 335,320 L 365,320" stroke="#1a1a1a" stroke-width="2" fill="none"/>
+  <text x="375" y="308" font-size="14" font-weight="bold" text-anchor="start" fill="#1a1a1a">-</text>
+  <text x="375" y="325" font-size="14" font-weight="bold" text-anchor="start" fill="#1a1a1a">+</text>
+  <text x="325" y="320" font-size="14" text-anchor="end" fill="#1a1a1a">C_out</text>
+  
+  <!-- GND C_out -->
+  <path d="M 340,350 L 360,350 M 344,355 L 356,355 M 348,360 L 352,360" stroke="#1a1a1a" stroke-width="2" fill="none"/>
+
+  <!-- Load R_L -->
+  <path d="M 430,280 L 430,300 l -5,5 l 10,5 l -10,5 l 10,5 l -10,5 l 5,5 L 430,350" stroke="#1a1a1a" stroke-width="2" fill="none"/>
+  <path d="M 420,350 L 440,350 M 424,355 L 436,355 M 428,360 L 432,360" stroke="#1a1a1a" stroke-width="2" fill="none"/>
+  <text x="415" y="320" font-size="14" text-anchor="end" fill="#1a1a1a">R_L</text>
+
+  <!-- Load Current Arrow -->
+  <path d="M 450,340 L 450,300" stroke="#6b7280" stroke-width="2" marker-end="url(#arr-gray)"/>
+  <text x="455" y="325" font-size="12" fill="#6b7280">I_L</text>
+
+  <!-- Arrows Panel 1 -->
+  <path d="M 180,190 L 195,190" stroke="#2457d6" stroke-width="3" marker-end="url(#arr-blue)"/>
+  <path d="M 190,280 L 175,280" stroke="#2457d6" stroke-width="3" marker-end="url(#arr-blue)"/>
+  <path d="M 220,200 L 220,215" stroke="#2457d6" stroke-width="3" marker-end="url(#arr-blue)"/>
+
+  <!-- ================= PANEL 2 ================= -->
+  <rect x="495" y="80" width="455" height="300" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <text x="722" y="115" font-size="18" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Такт 2: Перенос заряду</text>
+  <text x="722" y="135" font-size="13" text-anchor="middle" fill="#6b7280">C_fly підключається до C_out та віддає заряд</text>
+
+  <!-- Nodes Panel 2 -->
+  <circle cx="560" cy="190" r="4" fill="#1a1a1a"/>
+  <circle cx="560" cy="280" r="4" fill="#1a1a1a"/>
+  <circle cx="900" cy="280" r="4" fill="white" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Terminals labels -->
+  <text x="550" y="194" font-size="14" text-anchor="end" fill="#1a1a1a">V_in</text>
+  <text x="550" y="284" font-size="14" text-anchor="end" fill="#1a1a1a">GND</text>
+  <text x="820" y="180" font-size="14" font-weight="bold" text-anchor="middle" fill="#2457d6">GND</text>
+  <text x="910" y="284" font-size="14" text-anchor="start" fill="#1a1a1a">V_out</text>
+
+  <!-- Inactive Paths Panel 2 -->
+  <path d="M 560,190 L 600,190 M 640,190 L 690,190" stroke="#1a1a1a" stroke-width="2" fill="none"/>
+  <path d="M 560,280 L 600,280 M 640,280 L 690,280" stroke="#1a1a1a" stroke-width="2" fill="none"/>
+  <path d="M 780,280 L 900,280" stroke="#1a1a1a" stroke-width="2" fill="none"/>
+
+  <!-- S1 Open -->
+  <circle cx="600" cy="190" r="3" fill="white" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="640" cy="190" r="3" fill="white" stroke="#1a1a1a" stroke-width="2"/>
+  <path d="M 600,190 L 635,175" stroke="#1a1a1a" stroke-width="2" fill="none"/>
+  <text x="620" y="170" font-size="14" text-anchor="middle" fill="#1a1a1a">S1</text>
+  
+  <!-- S2 Open -->
+  <circle cx="600" cy="280" r="3" fill="white" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="640" cy="280" r="3" fill="white" stroke="#1a1a1a" stroke-width="2"/>
+  <path d="M 600,280 L 635,265" stroke="#1a1a1a" stroke-width="2" fill="none"/>
+  <text x="620" y="260" font-size="14" text-anchor="middle" fill="#1a1a1a">S2</text>
+
+  <!-- Active Paths Panel 2 (Blue) -->
+  <path d="M 690,230 L 690,190 L 740,190 M 780,190 L 820,190" stroke="#2457d6" stroke-width="3" fill="none"/>
+  <path d="M 690,240 L 690,280 L 740,280 M 780,280 L 820,280 L 820,310" stroke="#2457d6" stroke-width="3" fill="none"/>
+  <path d="M 820,320 L 820,350" stroke="#2457d6" stroke-width="3" fill="none"/>
+
+  <!-- S3 Closed -->
+  <circle cx="740" cy="190" r="3" fill="white" stroke="#2457d6" stroke-width="2"/>
+  <circle cx="780" cy="190" r="3" fill="white" stroke="#2457d6" stroke-width="2"/>
+  <path d="M 740,190 L 780,190" stroke="#2457d6" stroke-width="3" fill="none"/>
+  <text x="760" y="180" font-size="14" font-weight="bold" text-anchor="middle" fill="#2457d6">S3</text>
+  
+  <!-- S4 Closed -->
+  <circle cx="740" cy="280" r="3" fill="white" stroke="#2457d6" stroke-width="2"/>
+  <circle cx="780" cy="280" r="3" fill="white" stroke="#2457d6" stroke-width="2"/>
+  <path d="M 740,280 L 780,280" stroke="#2457d6" stroke-width="3" fill="none"/>
+  <text x="760" y="270" font-size="14" font-weight="bold" text-anchor="middle" fill="#2457d6">S4</text>
+
+  <!-- C_fly Plates (Active) -->
+  <path d="M 675,230 L 705,230 M 675,240 L 705,240" stroke="#2457d6" stroke-width="3" fill="none"/>
+  <text x="665" y="228" font-size="14" font-weight="bold" text-anchor="end" fill="#2457d6">+</text>
+  <text x="665" y="245" font-size="14" font-weight="bold" text-anchor="end" fill="#2457d6">-</text>
+  <text x="715" y="240" font-size="14" font-weight="bold" fill="#2457d6">C_fly</text>
+
+  <!-- C_out Plates (Active) -->
+  <path d="M 805,310 L 835,310 M 805,320 L 835,320" stroke="#2457d6" stroke-width="3" fill="none"/>
+  <text x="845" y="308" font-size="14" font-weight="bold" text-anchor="start" fill="#2457d6">-</text>
+  <text x="845" y="325" font-size="14" font-weight="bold" text-anchor="start" fill="#2457d6">+</text>
+  <text x="795" y="320" font-size="14" font-weight="bold" text-anchor="end" fill="#2457d6">C_out</text>
+  
+  <!-- GND C_out (Active) -->
+  <path d="M 810,350 L 830,350 M 814,355 L 826,355 M 818,360 L 822,360" stroke="#2457d6" stroke-width="3" fill="none"/>
+
+  <!-- Load R_L -->
+  <path d="M 900,280 L 900,300 l -5,5 l 10,5 l -10,5 l 10,5 l -10,5 l 5,5 L 900,350" stroke="#1a1a1a" stroke-width="2" fill="none"/>
+  <path d="M 890,350 L 910,350 M 894,355 L 906,355 M 898,360 L 902,360" stroke="#1a1a1a" stroke-width="2" fill="none"/>
+  <text x="885" y="320" font-size="14" text-anchor="end" fill="#1a1a1a">R_L</text>
+
+  <!-- Load Current Arrow -->
+  <path d="M 920,340 L 920,300" stroke="#6b7280" stroke-width="2" marker-end="url(#arr-gray)"/>
+  <text x="925" y="325" font-size="12" fill="#6b7280">I_L</text>
+
+  <!-- Arrows Panel 2 -->
+  <path d="M 710,190 L 725,190" stroke="#2457d6" stroke-width="3" marker-end="url(#arr-blue)"/>
+  <path d="M 805,280 L 790,280" stroke="#2457d6" stroke-width="3" marker-end="url(#arr-blue)"/>
+  <path d="M 690,220 L 690,205" stroke="#2457d6" stroke-width="3" marker-end="url(#arr-blue)"/>
+  <path d="M 820,345 L 820,330" stroke="#2457d6" stroke-width="3" marker-end="url(#arr-blue)"/>
+
+</svg>

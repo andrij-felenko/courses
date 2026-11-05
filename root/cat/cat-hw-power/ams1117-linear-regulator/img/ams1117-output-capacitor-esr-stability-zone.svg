@@ -1,0 +1,61 @@
+<svg viewBox="0 0 720 460" width="720" height="460" xmlns="http://www.w3.org/2000/svg" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="720" height="460" fill="white"/>
+
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <text x="360" y="30" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Зона стійкості AMS1117 (ESR вихідного конденсатора)</text>
+  <text x="360" y="50" text-anchor="middle" font-size="13" fill="#6b7280">Безпечний діапазон еквівалентного послідовного опору для запобігання самозбудженню</text>
+
+  <path d="M 80,110 Q 280,150 680,180 L 680,320 Q 380,330 80,340 Z" fill="#e9f7ef" stroke="#27ae60" stroke-width="2" />
+
+  <path d="M 80,190 L 385,190 M 620,190 L 680,190" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4 4" fill="none" />
+  <path d="M 80,290 L 680,290" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4 4" fill="none" />
+  <path d="M 200,90 L 200,390" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4 4" fill="none" />
+  <path d="M 320,90 L 320,215 M 320,270 L 320,335" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4 4" fill="none" />
+  <path d="M 440,90 L 440,105 M 440,160 L 440,175 M 440,270 L 440,335" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4 4" fill="none" />
+  <path d="M 560,90 L 560,105 M 560,160 L 560,175 M 560,205 L 560,390" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4 4" fill="none" />
+  <path d="M 680,90 L 680,390" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4 4" fill="none" />
+
+  <text x="380" y="240" text-anchor="middle" font-size="16" font-weight="bold" fill="#27ae60">ЗОНА СТІЙКОСТІ</text>
+  <text x="380" y="260" text-anchor="middle" font-size="13" fill="#27ae60">Рекомендований діапазон ESR</text>
+
+  <text x="500" y="130" text-anchor="middle" font-size="14" font-weight="bold" fill="#c0392b">НЕСТАБІЛЬНА РОБОТА</text>
+  <text x="500" y="150" text-anchor="middle" font-size="12" fill="#c0392b">Занадто високий ESR</text>
+
+  <text x="380" y="360" text-anchor="middle" font-size="14" font-weight="bold" fill="#c0392b">НЕСТАБІЛЬНА РОБОТА</text>
+  <text x="380" y="380" text-anchor="middle" font-size="12" fill="#c0392b">Занадто низький ESR (чиста кераміка)</text>
+
+  <circle cx="380" cy="190" r="5" fill="#2457d6" />
+  <text x="395" y="195" text-anchor="start" font-size="13" font-weight="bold" fill="#2457d6">Типовий танталовий конденсатор</text>
+  <text x="395" y="210" text-anchor="start" font-size="12" fill="#2457d6">22 мкФ, ESR ≈ 1 Ом</text>
+
+  <path d="M 80,390 L 80,70" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)" fill="none" />
+  <path d="M 80,390 L 700,390" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)" fill="none" />
+
+  <text x="70" y="94" text-anchor="end" font-size="12" fill="#1a1a1a">10</text>
+  <text x="70" y="194" text-anchor="end" font-size="12" fill="#1a1a1a">1.0</text>
+  <text x="70" y="294" text-anchor="end" font-size="12" fill="#1a1a1a">0.1</text>
+  <text x="70" y="394" text-anchor="end" font-size="12" fill="#1a1a1a">0.01</text>
+
+  <text x="80" y="60" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">ESR, Ом</text>
+
+  <path d="M 200,390 L 200,395" stroke="#1a1a1a" stroke-width="2" fill="none" />
+  <path d="M 320,390 L 320,395" stroke="#1a1a1a" stroke-width="2" fill="none" />
+  <path d="M 440,390 L 440,395" stroke="#1a1a1a" stroke-width="2" fill="none" />
+  <path d="M 560,390 L 560,395" stroke="#1a1a1a" stroke-width="2" fill="none" />
+  <path d="M 680,390 L 680,395" stroke="#1a1a1a" stroke-width="2" fill="none" />
+
+  <text x="80" y="415" text-anchor="middle" font-size="12" fill="#1a1a1a">0</text>
+  <text x="200" y="415" text-anchor="middle" font-size="12" fill="#1a1a1a">200</text>
+  <text x="320" y="415" text-anchor="middle" font-size="12" fill="#1a1a1a">400</text>
+  <text x="440" y="415" text-anchor="middle" font-size="12" fill="#1a1a1a">600</text>
+  <text x="560" y="415" text-anchor="middle" font-size="12" fill="#1a1a1a">800</text>
+  <text x="680" y="415" text-anchor="middle" font-size="12" fill="#1a1a1a">1000</text>
+
+  <text x="380" y="445" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Вихідний струм навантаження (I_OUT), мА</text>
+
+</svg>

@@ -1,0 +1,106 @@
+<svg viewBox="0 0 960 460" width="960" height="460" xmlns="http://www.w3.org/2000/svg" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+  
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <text x="480" y="35" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Вплив дисбалансу на напругу комірок</text>
+  <text x="480" y="55" font-size="13" fill="#6b7280" text-anchor="middle">Слабша комірка досягає порогу відключення раніше, обмежуючи корисну ємність усієї збірки</text>
+
+  <!-- Circuit Background Boxes -->
+  <rect x="60" y="100" width="240" height="95" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-dasharray="4 2"/>
+  <rect x="60" y="205" width="240" height="95" rx="4" fill="#fdecea" stroke="#c0392b" stroke-dasharray="4 2"/>
+  <rect x="60" y="310" width="240" height="95" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-dasharray="4 2"/>
+
+  <!-- Circuit Box Titles -->
+  <text x="70" y="118" font-size="14" font-weight="bold" fill="#1a1a1a">Комірка 1</text>
+  <text x="70" y="223" font-size="14" font-weight="bold" fill="#c0392b">Комірка 2 (слабка)</text>
+  <text x="70" y="328" font-size="14" font-weight="bold" fill="#1a1a1a">Комірка 3</text>
+
+  <!-- Top and Bottom Wires -->
+  <path d="M 260,100 L 260,80 L 430,80 L 430,225" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+  <path d="M 260,405 L 260,425 L 430,425 L 430,285" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="280" y1="80" x2="330" y2="80" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="305" y="72" font-size="13" fill="#2457d6" text-anchor="middle">I розряду</text>
+
+  <!-- Load Resistor -->
+  <rect x="422" y="225" width="16" height="60" fill="white" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="445" y="250" font-size="14" fill="#1a1a1a">Навантаження</text>
+  <text x="445" y="268" font-size="13" fill="#6b7280">R_load</text>
+
+  <!-- Box 1 Components -->
+  <path d="M 260,100 L 260,125" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+  <rect x="252" y="125" width="16" height="24" fill="white" stroke="#1a1a1a" stroke-width="2"/>
+  <path d="M 260,149 L 260,165" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="245" y1="165" x2="275" y2="165" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="252" y1="171" x2="268" y2="171" stroke="#1a1a1a" stroke-width="4"/>
+  <path d="M 260,171 L 260,195" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="240" y="142" font-size="13" fill="#1a1a1a" text-anchor="end">R₁ (норма)</text>
+  <text x="240" y="170" font-size="13" fill="#1a1a1a" text-anchor="end">E₁</text>
+
+  <!-- Interconnect 1-2 -->
+  <path d="M 260,195 L 260,205" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Box 2 Components -->
+  <path d="M 260,205 L 260,230" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+  <rect x="252" y="230" width="16" height="24" fill="white" stroke="#1a1a1a" stroke-width="2"/>
+  <path d="M 260,254 L 260,270" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="245" y1="270" x2="275" y2="270" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="252" y1="276" x2="268" y2="276" stroke="#1a1a1a" stroke-width="4"/>
+  <path d="M 260,276 L 260,300" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="240" y="247" font-size="13" fill="#c0392b" font-weight="bold" text-anchor="end">R₂ &gt; R₁</text>
+  <text x="240" y="275" font-size="13" fill="#1a1a1a" text-anchor="end">E₂ ≈ E₁</text>
+
+  <!-- Interconnect 2-3 -->
+  <path d="M 260,300 L 260,310" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Box 3 Components -->
+  <path d="M 260,310 L 260,335" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+  <rect x="252" y="335" width="16" height="24" fill="white" stroke="#1a1a1a" stroke-width="2"/>
+  <path d="M 260,359 L 260,375" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="245" y1="375" x2="275" y2="375" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="252" y1="381" x2="268" y2="381" stroke="#1a1a1a" stroke-width="4"/>
+  <path d="M 260,381 L 260,405" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="240" y="352" font-size="13" fill="#1a1a1a" text-anchor="end">R₃ = R₁</text>
+  <text x="240" y="380" font-size="13" fill="#1a1a1a" text-anchor="end">E₃ = E₁</text>
+
+  <!-- Graph -->
+  <!-- Axes -->
+  <path d="M 560,405 L 560,95" fill="none" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+  <path d="M 560,405 L 930,405" fill="none" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+  <text x="550" y="95" font-size="13" fill="#6b7280" text-anchor="end">Напруга (V)</text>
+  <text x="930" y="430" font-size="13" fill="#6b7280" text-anchor="end">Час розряду (t)</text>
+  <text x="548" y="420" font-size="12" fill="#6b7280" text-anchor="end">0</text>
+
+  <!-- Cutoff Line -->
+  <path d="M 550,310 L 920,310" fill="none" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="6 4"/>
+  <text x="920" y="305" font-size="12" fill="#6b7280" text-anchor="end">Поріг відключення (V_cut)</text>
+
+  <!-- Good Cells -->
+  <path d="M 560,130 Q 680,150 760,210" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+  <path d="M 760,210 Q 840,270 900,310" fill="none" stroke="#2457d6" stroke-width="2.5" stroke-dasharray="4 4"/>
+  <text x="740" y="160" font-size="13" fill="#2457d6" text-anchor="end">Напруга нормальних (V₁, V₃)</text>
+
+  <!-- Weak Cell -->
+  <path d="M 560,170 Q 680,200 760,310" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+  <text x="670" y="260" font-size="13" fill="#c0392b" text-anchor="end">Напруга слабкої (V₂)</text>
+
+  <!-- Protection Trigger Line -->
+  <line x1="760" y1="210" x2="760" y2="405" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4 4"/>
+  <text x="760" y="425" font-size="12" fill="#c0392b" text-anchor="middle">Відключення</text>
+
+  <!-- End of Good Cell Capacity Line -->
+  <line x1="900" y1="310" x2="900" y2="405" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4 4"/>
+
+  <!-- Unused Capacity Arrows -->
+  <line x1="830" y1="360" x2="900" y2="360" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <line x1="830" y1="360" x2="760" y2="360" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="830" y="355" font-size="12" fill="#1a1a1a" text-anchor="middle">Втрачена ємність</text>
+
+</svg>

@@ -1,0 +1,78 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr_green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr_blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr_red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Підкладка -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Заголовок та підзаголовок -->
+  <text x="480" y="40" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Анатомія верхівки 18650 та ризик пробою</text>
+  <text x="480" y="65" font-size="13" fill="#6b7280" text-anchor="middle">Зсув нікелевої стрічки без додаткової шайби-ізолятора спричиняє коротке замикання на мінусовий корпус</text>
+
+  <!-- Внутрішність елемента (jelly roll) -->
+  <rect x="280" y="300" width="400" height="160" fill="#f4f6f8"/>
+  <path d="M 280 320 L 680 320 M 280 340 L 680 340 M 280 360 L 680 360 M 280 380 L 680 380 M 280 400 L 680 400 M 280 420 L 680 420 M 280 440 L 680 440" stroke="#d0d7de" stroke-width="2"/>
+
+  <!-- Гумовий ізолятор-прокладка (Gasket) -->
+  <path d="M 270 300 L 270 240 Q 270 215 350 215 L 610 215 Q 690 215 690 240 L 690 300 Z" fill="#6b7280" stroke="#1a1a1a"/>
+
+  <!-- Мінусовий корпус (Can) -->
+  <path d="M 260 460 L 260 240 Q 260 200 350 200 L 350 220 Q 280 220 280 250 L 280 460 Z" fill="#d0d7de" stroke="#1a1a1a"/>
+  <path d="M 700 460 L 700 240 Q 700 200 610 200 L 610 220 Q 680 220 680 250 L 680 460 Z" fill="#d0d7de" stroke="#1a1a1a"/>
+
+  <!-- Плюсовий контакт (Positive Cap) -->
+  <path d="M 370 280 L 370 230 L 420 230 L 430 180 L 530 180 L 540 230 L 590 230 L 590 280 Z" fill="#f4f6f8" stroke="#1a1a1a"/>
+
+  <!-- Заводська термоусадка -->
+  <path d="M 256 460 L 256 240 Q 256 196 350 196 L 350 200 Q 260 200 260 240 L 260 460 Z" fill="#2457d6"/>
+  <path d="M 704 460 L 704 240 Q 704 196 610 196 L 610 200 Q 700 200 700 240 L 700 460 Z" fill="#2457d6"/>
+
+  <!-- Ліва частина: правильний монтаж із шайбою-ізолятором -->
+  <rect x="280" y="190" width="70" height="6" fill="#e9f7ef" stroke="#27ae60"/>
+  <rect x="200" y="176" width="280" height="6" fill="#f4f6f8" stroke="#1a1a1a"/>
+
+  <!-- Права частина: зсув стрічки без шайби (КЗ) -->
+  <path d="M 480 176 L 560 176 Q 620 176 660 196 L 660 202 Q 620 182 560 182 L 480 182 Z" fill="#f4f6f8" stroke="#1a1a1a"/>
+  <!-- Іскра пробою -->
+  <path d="M 640 196 L 650 180 L 660 194 L 675 185 L 665 205 L 650 200 Z" fill="#c0392b"/>
+
+  <!-- Підписи ліворуч -->
+  <text x="240" y="180" font-size="13" fill="#1a1a1a" text-anchor="end">Нікелева стрічка</text>
+  <line x1="245" y1="176" x2="260" y2="179" stroke="#1a1a1a" marker-end="url(#arr)"/>
+
+  <text x="240" y="205" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="end">Додаткова шайба-ізолятор</text>
+  <line x1="245" y1="201" x2="280" y2="193" stroke="#27ae60" marker-end="url(#arr_green)"/>
+
+  <text x="240" y="240" font-size="13" fill="#1a1a1a" text-anchor="end">Мінусовий бортик (корпус)</text>
+  <line x1="245" y1="236" x2="280" y2="220" stroke="#1a1a1a" marker-end="url(#arr)"/>
+
+  <text x="240" y="275" font-size="13" fill="#2457d6" text-anchor="end">Заводська термоусадка</text>
+  <line x1="245" y1="271" x2="260" y2="260" stroke="#2457d6" marker-end="url(#arr_blue)"/>
+
+  <!-- Підписи праворуч -->
+  <text x="720" y="160" font-size="13" fill="#1a1a1a">Зсув стрічки до краю</text>
+  <line x1="715" y1="156" x2="650" y2="180" stroke="#1a1a1a" marker-end="url(#arr)"/>
+
+  <text x="720" y="195" font-size="13" font-weight="bold" fill="#c0392b">Пробій на корпус (КЗ)!</text>
+  <line x1="715" y1="191" x2="670" y2="191" stroke="#c0392b" marker-end="url(#arr_red)"/>
+
+  <text x="720" y="230" font-size="13" fill="#c0392b">Шайба відсутня: зазор мінімальний</text>
+  <line x1="715" y1="226" x2="630" y2="205" stroke="#c0392b" marker-end="url(#arr_red)"/>
+
+  <!-- Підпис по центру -->
+  <text x="480" y="110" font-size="13" fill="#1a1a1a" text-anchor="middle">Плюсовий контакт</text>
+  <line x1="480" y1="115" x2="480" y2="175" stroke="#1a1a1a" marker-end="url(#arr)"/>
+
+</svg>

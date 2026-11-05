@@ -1,0 +1,197 @@
+<svg viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif" xmlns="http://www.w3.org/2000/svg">
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Titles -->
+  <text x="480" y="40" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Топології перетворювачів 5 В → ±12 В</text>
+  <text x="480" y="60" font-size="13" fill="#6b7280" text-anchor="middle">Порівняння ємнісної, індуктивної та ізольованої схем генерації двополярного живлення</text>
+
+  <!-- Panel 1: Charge Pump -->
+  <rect x="30" y="90" width="280" height="440" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="170" y="120" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Ємнісний помпувач заряду</text>
+  <text x="170" y="140" font-size="13" fill="#6b7280" text-anchor="middle">Лише конденсатори, без котушок</text>
+
+  <!-- Panel 1 Components -->
+  <rect x="110" y="200" width="100" height="130" fill="white" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="160" y="260" font-size="14" fill="#6b7280" text-anchor="middle" font-weight="bold">IC</text>
+  <text x="160" y="275" font-size="11" fill="#6b7280" text-anchor="middle">Контролер</text>
+
+  <path d="M60,230 L110,230" fill="none" stroke="#1a1a1a" stroke-width="1.5"/>
+  <path d="M60,290 L110,290" fill="none" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="60" y="225" font-size="12" fill="#1a1a1a" text-anchor="start">+5V</text>
+  <text x="60" y="285" font-size="12" fill="#1a1a1a" text-anchor="start">GND</text>
+  <circle cx="60" cy="230" r="2.5" fill="#1a1a1a"/>
+  <circle cx="60" cy="290" r="2.5" fill="#1a1a1a"/>
+
+  <path d="M210,230 L260,230" fill="none" stroke="#1a1a1a" stroke-width="1.5"/>
+  <path d="M210,290 L260,290" fill="none" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="265" y="234" font-size="12" fill="#1a1a1a" text-anchor="start">+12V</text>
+  <text x="265" y="294" font-size="12" fill="#1a1a1a" text-anchor="start">-12V</text>
+  <circle cx="260" cy="230" r="2.5" fill="#1a1a1a"/>
+  <circle cx="260" cy="290" r="2.5" fill="#1a1a1a"/>
+
+  <path d="M135,200 L135,170 L145,170" fill="none" stroke="#1a1a1a" stroke-width="1.5"/>
+  <path d="M185,200 L185,170 L175,170" fill="none" stroke="#1a1a1a" stroke-width="1.5"/>
+  <path d="M145,160 L145,180" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+  <path d="M175,160 L175,180" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="160" y="150" font-size="12" fill="#1a1a1a" text-anchor="middle">C_fly</text>
+
+  <path d="M230,230 L230,240" fill="none" stroke="#1a1a1a" stroke-width="1.5"/>
+  <path d="M220,240 L240,240" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+  <path d="M220,246 L240,246" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+  <path d="M230,246 L230,260" fill="none" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="230" cy="230" r="2.5" fill="#1a1a1a"/>
+  <text x="245" y="246" font-size="12" fill="#1a1a1a" text-anchor="start">C2</text>
+
+  <path d="M230,290 L230,280" fill="none" stroke="#1a1a1a" stroke-width="1.5"/>
+  <path d="M220,280 L240,280" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+  <path d="M220,274 L240,274" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+  <path d="M230,274 L230,260" fill="none" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="230" cy="290" r="2.5" fill="#1a1a1a"/>
+  <text x="245" y="280" font-size="12" fill="#1a1a1a" text-anchor="start">C3</text>
+
+  <path d="M220,260 h20 m-16,4 h12 m-8,4 h4" fill="none" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="230" cy="260" r="2.5" fill="#1a1a1a"/>
+
+  <!-- Panel 1 Pros/Cons -->
+  <text x="50" y="420" font-size="13" font-weight="bold" fill="#1a1a1a">Переваги:</text>
+  <text x="50" y="440" font-size="13" fill="#27ae60">• Низька вартість (без котушок)</text>
+  <text x="50" y="455" font-size="13" fill="#27ae60">• Компактність рішення</text>
+  <text x="50" y="480" font-size="13" font-weight="bold" fill="#1a1a1a">Недоліки:</text>
+  <text x="50" y="500" font-size="13" fill="#c0392b">• Дуже малий вихідний струм</text>
+  <text x="50" y="515" font-size="13" fill="#c0392b">• Високі шуми та пульсації</text>
+
+  <!-- Panel 2: Regulators -->
+  <rect x="340" y="90" width="280" height="440" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="480" y="120" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Два імпульсних регулятори</text>
+  <text x="480" y="140" font-size="13" fill="#6b7280" text-anchor="middle">Boost (+12V) та Inverting (-12V)</text>
+
+  <!-- Panel 2 Boost -->
+  <path d="M360,200 L380,200" fill="none" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="360" y="195" font-size="12" fill="#1a1a1a" text-anchor="start">+5V</text>
+  <circle cx="360" cy="200" r="2.5" fill="#1a1a1a"/>
+
+  <rect x="380" y="195" width="30" height="10" fill="white" stroke="#1a1a1a" stroke-width="1.5"/>
+  <path d="M410,200 L430,200" fill="none" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="395" y="185" font-size="12" fill="#1a1a1a" text-anchor="middle">L1</text>
+  <circle cx="430" cy="200" r="2.5" fill="#1a1a1a"/>
+
+  <path d="M430,200 L415,225" fill="none" stroke="#1a1a1a" stroke-width="1.5"/>
+  <path d="M430,225 L430,250" fill="none" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="430" cy="225" r="2.5" fill="#1a1a1a"/>
+  <path d="M420,250 h20 m-16,4 h12 m-8,4 h4" fill="none" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="400" y="230" font-size="12" fill="#1a1a1a" text-anchor="middle">SW1</text>
+
+  <path d="M430,200 L440,200" fill="none" stroke="#1a1a1a" stroke-width="1.5"/>
+  <polygon points="440,195 450,200 440,205" fill="white" stroke="#1a1a1a" stroke-width="1.5"/>
+  <path d="M450,195 L450,205" fill="none" stroke="#1a1a1a" stroke-width="1.5"/>
+  <path d="M450,200 L470,200" fill="none" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="445" y="185" font-size="12" fill="#1a1a1a" text-anchor="middle">D1</text>
+  <circle cx="470" cy="200" r="2.5" fill="#1a1a1a"/>
+
+  <path d="M470,200 L470,220" fill="none" stroke="#1a1a1a" stroke-width="1.5"/>
+  <path d="M460,220 L480,220" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+  <path d="M460,226 L480,226" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+  <path d="M470,226 L470,250" fill="none" stroke="#1a1a1a" stroke-width="1.5"/>
+  <path d="M460,250 h20 m-16,4 h12 m-8,4 h4" fill="none" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="485" y="226" font-size="12" fill="#1a1a1a" text-anchor="start">C1</text>
+
+  <path d="M470,200 L500,200" fill="none" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="505" y="204" font-size="12" fill="#1a1a1a" text-anchor="start">+12V</text>
+  <circle cx="500" cy="200" r="2.5" fill="#1a1a1a"/>
+
+  <!-- Panel 2 Inverting -->
+  <path d="M360,320 L380,320" fill="none" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="360" y="315" font-size="12" fill="#1a1a1a" text-anchor="start">+5V</text>
+  <circle cx="360" cy="320" r="2.5" fill="#1a1a1a"/>
+
+  <path d="M380,320 L405,300" fill="none" stroke="#1a1a1a" stroke-width="1.5"/>
+  <path d="M410,320 L430,320" fill="none" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="380" cy="320" r="2.5" fill="#1a1a1a"/>
+  <circle cx="410" cy="320" r="2.5" fill="#1a1a1a"/>
+  <text x="390" y="295" font-size="12" fill="#1a1a1a" text-anchor="middle">SW2</text>
+  <circle cx="430" cy="320" r="2.5" fill="#1a1a1a"/>
+
+  <path d="M430,320 L430,340" fill="none" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="425" y="340" width="10" height="30" fill="white" stroke="#1a1a1a" stroke-width="1.5"/>
+  <path d="M430,370 L430,390" fill="none" stroke="#1a1a1a" stroke-width="1.5"/>
+  <path d="M420,390 h20 m-16,4 h12 m-8,4 h4" fill="none" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="415" y="360" font-size="12" fill="#1a1a1a" text-anchor="end">L2</text>
+
+  <path d="M430,320 L440,320" fill="none" stroke="#1a1a1a" stroke-width="1.5"/>
+  <polygon points="450,315 440,320 450,325" fill="white" stroke="#1a1a1a" stroke-width="1.5"/>
+  <path d="M440,315 L440,325" fill="none" stroke="#1a1a1a" stroke-width="1.5"/>
+  <path d="M450,320 L470,320" fill="none" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="445" y="310" font-size="12" fill="#1a1a1a" text-anchor="middle">D2</text>
+  <circle cx="470" cy="320" r="2.5" fill="#1a1a1a"/>
+
+  <path d="M470,320 L470,350" fill="none" stroke="#1a1a1a" stroke-width="1.5"/>
+  <path d="M460,350 L480,350" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+  <path d="M460,356 L480,356" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+  <path d="M470,356 L470,390" fill="none" stroke="#1a1a1a" stroke-width="1.5"/>
+  <path d="M460,390 h20 m-16,4 h12 m-8,4 h4" fill="none" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="485" y="356" font-size="12" fill="#1a1a1a" text-anchor="start">C2</text>
+
+  <path d="M470,320 L500,320" fill="none" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="505" y="324" font-size="12" fill="#1a1a1a" text-anchor="start">-12V</text>
+  <circle cx="500" cy="320" r="2.5" fill="#1a1a1a"/>
+
+  <!-- Panel 2 Pros/Cons -->
+  <text x="360" y="420" font-size="13" font-weight="bold" fill="#1a1a1a">Переваги:</text>
+  <text x="360" y="440" font-size="13" fill="#27ae60">• Високий струм і стабільність</text>
+  <text x="360" y="455" font-size="13" fill="#27ae60">• Гнучкість налаштування (BOM)</text>
+  <text x="360" y="480" font-size="13" font-weight="bold" fill="#1a1a1a">Недоліки:</text>
+  <text x="360" y="500" font-size="13" fill="#c0392b">• Складна розводка плати</text>
+  <text x="360" y="515" font-size="13" fill="#c0392b">• Шум від двох котушок</text>
+
+  <!-- Panel 3: Isolated -->
+  <rect x="650" y="90" width="280" height="440" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="790" y="120" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Ізольований DC-DC модуль</text>
+  <text x="790" y="140" font-size="13" fill="#6b7280" text-anchor="middle">Рішення з гальванічною розв'язкою</text>
+
+  <!-- Panel 3 Components -->
+  <rect x="720" y="200" width="120" height="130" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="780" y="220" font-size="13" fill="#2457d6" font-weight="bold" text-anchor="middle">DC-DC Модуль</text>
+
+  <path d="M680,240 L720,240" fill="none" stroke="#1a1a1a" stroke-width="1.5"/>
+  <path d="M680,290 L720,290" fill="none" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="680" y="235" font-size="12" fill="#1a1a1a" text-anchor="start">+5V</text>
+  <text x="680" y="285" font-size="12" fill="#1a1a1a" text-anchor="start">GND</text>
+  <circle cx="680" cy="240" r="2.5" fill="#1a1a1a"/>
+  <circle cx="680" cy="290" r="2.5" fill="#1a1a1a"/>
+
+  <path d="M840,240 L870,240" fill="none" stroke="#1a1a1a" stroke-width="1.5"/>
+  <path d="M840,265 L870,265" fill="none" stroke="#1a1a1a" stroke-width="1.5"/>
+  <path d="M840,290 L870,290" fill="none" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="875" y="244" font-size="12" fill="#1a1a1a" text-anchor="start">+12V</text>
+  <text x="875" y="269" font-size="12" fill="#1a1a1a" text-anchor="start">0V</text>
+  <text x="875" y="294" font-size="12" fill="#1a1a1a" text-anchor="start">-12V</text>
+  <circle cx="870" cy="240" r="2.5" fill="#1a1a1a"/>
+  <circle cx="870" cy="265" r="2.5" fill="#1a1a1a"/>
+  <circle cx="870" cy="290" r="2.5" fill="#1a1a1a"/>
+
+  <rect x="750" y="235" width="10" height="60" rx="2" fill="white" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="800" y="235" width="10" height="60" rx="2" fill="white" stroke="#1a1a1a" stroke-width="1.5"/>
+  <path d="M775,230 L775,300" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+  <path d="M785,230 L785,300" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+  <path d="M780,185 L780,345" fill="none" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4 4"/>
+
+  <path d="M720,240 L750,240" fill="none" stroke="#1a1a1a" stroke-width="1.5"/>
+  <path d="M720,290 L750,290" fill="none" stroke="#1a1a1a" stroke-width="1.5"/>
+  <path d="M810,240 L840,240" fill="none" stroke="#1a1a1a" stroke-width="1.5"/>
+  <path d="M810,265 L840,265" fill="none" stroke="#1a1a1a" stroke-width="1.5"/>
+  <path d="M810,290 L840,290" fill="none" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <text x="725" y="236" font-size="11" fill="#6b7280" text-anchor="start">VIN</text>
+  <text x="725" y="286" font-size="11" fill="#6b7280" text-anchor="start">GND</text>
+  <text x="835" y="236" font-size="11" fill="#6b7280" text-anchor="end">+V</text>
+  <text x="835" y="261" font-size="11" fill="#6b7280" text-anchor="end">COM</text>
+  <text x="835" y="286" font-size="11" fill="#6b7280" text-anchor="end">-V</text>
+
+  <!-- Panel 3 Pros/Cons -->
+  <text x="670" y="420" font-size="13" font-weight="bold" fill="#1a1a1a">Переваги:</text>
+  <text x="670" y="440" font-size="13" fill="#27ae60">• Просте впровадження</text>
+  <text x="670" y="455" font-size="13" fill="#27ae60">• Гальванічна ізоляція</text>
+  <text x="670" y="480" font-size="13" font-weight="bold" fill="#1a1a1a">Недоліки:</text>
+  <text x="670" y="500" font-size="13" fill="#c0392b">• Висока вартість модуля</text>
+  <text x="670" y="515" font-size="13" fill="#c0392b">• Найбільші габарити</text>
+</svg>

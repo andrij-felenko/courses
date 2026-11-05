@@ -1,0 +1,78 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <text x="480" y="40" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Типові схеми включення стабілізатора AMS1117</text>
+  <text x="480" y="60" font-size="13" fill="#6b7280" text-anchor="middle">Фіксована та регульована версії: підключення конденсаторів і дільника напруги</text>
+
+  <text x="240" y="110" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Фіксована напруга</text>
+  <text x="700" y="110" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Регульована напруга</text>
+
+  <g id="fixed-version">
+    <path d="M 80,200 L 180,200 M 300,200 L 400,200 M 80,280 L 400,280 M 240,240 L 240,280 M 140,200 L 140,235 M 125,235 L 155,235 M 125,245 L 155,245 M 140,245 L 140,280 M 340,200 L 340,235 M 325,235 L 355,235 M 325,245 L 355,245 M 340,245 L 340,280" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+    <path d="M 240,280 L 240,295 M 230,295 L 250,295 M 234,300 L 246,300 M 238,305 L 242,305" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+    
+    <rect x="180" y="160" width="120" height="80" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+    <text x="240" y="185" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">AMS1117</text>
+    <text x="240" y="202" font-size="13" fill="#6b7280" text-anchor="middle">-3.3</text>
+    <text x="188" y="204" font-size="12" fill="#6b7280" text-anchor="start">IN</text>
+    <text x="292" y="204" font-size="12" fill="#6b7280" text-anchor="end">OUT</text>
+    <text x="240" y="234" font-size="12" fill="#6b7280" text-anchor="middle">GND</text>
+
+    <circle cx="140" cy="200" r="4" fill="#1a1a1a"/>
+    <circle cx="140" cy="280" r="4" fill="#1a1a1a"/>
+    <circle cx="240" cy="280" r="4" fill="#1a1a1a"/>
+    <circle cx="340" cy="200" r="4" fill="#1a1a1a"/>
+    <circle cx="340" cy="280" r="4" fill="#1a1a1a"/>
+    <circle cx="80" cy="200" r="4" fill="white" stroke="#1a1a1a" stroke-width="2"/>
+    <circle cx="80" cy="280" r="4" fill="white" stroke="#1a1a1a" stroke-width="2"/>
+    <circle cx="400" cy="200" r="4" fill="white" stroke="#1a1a1a" stroke-width="2"/>
+    <circle cx="400" cy="280" r="4" fill="white" stroke="#1a1a1a" stroke-width="2"/>
+
+    <text x="80" y="185" font-size="14" fill="#1a1a1a" text-anchor="middle">V<tspan dy="3" font-size="11">IN</tspan></text>
+    <text x="400" y="185" font-size="14" fill="#1a1a1a" text-anchor="middle">V<tspan dy="3" font-size="11">OUT</tspan></text>
+    <text x="115" y="238" font-size="13" fill="#1a1a1a" text-anchor="end">C<tspan dy="3" font-size="10">IN</tspan></text>
+    <text x="115" y="255" font-size="13" fill="#1a1a1a" text-anchor="end">10 мкФ</text>
+    <text x="120" y="230" font-size="12" fill="#1a1a1a" text-anchor="start">+</text>
+    <text x="365" y="238" font-size="13" fill="#1a1a1a" text-anchor="start">C<tspan dy="3" font-size="10">OUT</tspan></text>
+    <text x="365" y="255" font-size="13" fill="#1a1a1a" text-anchor="start">22 мкФ</text>
+    <text x="320" y="230" font-size="12" fill="#1a1a1a" text-anchor="start">+</text>
+  </g>
+
+  <g id="adjustable-version">
+    <path d="M 520,200 L 640,200 M 760,200 L 900,200 M 520,330 L 900,330 M 580,200 L 580,260 M 565,260 L 595,260 M 565,270 L 595,270 M 580,270 L 580,330 M 850,200 L 850,260 M 835,260 L 865,260 M 835,270 L 865,270 M 850,270 L 850,330 M 700,240 L 700,270 L 790,270 M 790,200 L 790,225 M 790,255 L 790,270 M 700,270 L 700,285 M 700,315 L 700,330" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+    <path d="M 700,330 L 700,345 M 690,345 L 710,345 M 694,350 L 706,350 M 698,355 L 702,355" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+    
+    <rect x="784" y="225" width="12" height="30" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+    <rect x="694" y="285" width="12" height="30" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+
+    <rect x="640" y="160" width="120" height="80" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+    <text x="700" y="185" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">AMS1117</text>
+    <text x="700" y="202" font-size="13" fill="#6b7280" text-anchor="middle">-ADJ</text>
+    <text x="648" y="204" font-size="12" fill="#6b7280" text-anchor="start">IN</text>
+    <text x="752" y="204" font-size="12" fill="#6b7280" text-anchor="end">OUT</text>
+    <text x="700" y="234" font-size="12" fill="#6b7280" text-anchor="middle">ADJ</text>
+
+    <circle cx="580" cy="200" r="4" fill="#1a1a1a"/>
+    <circle cx="580" cy="330" r="4" fill="#1a1a1a"/>
+    <circle cx="790" cy="200" r="4" fill="#1a1a1a"/>
+    <circle cx="700" cy="270" r="4" fill="#1a1a1a"/>
+    <circle cx="700" cy="330" r="4" fill="#1a1a1a"/>
+    <circle cx="850" cy="200" r="4" fill="#1a1a1a"/>
+    <circle cx="850" cy="330" r="4" fill="#1a1a1a"/>
+    <circle cx="520" cy="200" r="4" fill="white" stroke="#1a1a1a" stroke-width="2"/>
+    <circle cx="520" cy="330" r="4" fill="white" stroke="#1a1a1a" stroke-width="2"/>
+    <circle cx="900" cy="200" r="4" fill="white" stroke="#1a1a1a" stroke-width="2"/>
+    <circle cx="900" cy="330" r="4" fill="white" stroke="#1a1a1a" stroke-width="2"/>
+
+    <text x="520" y="185" font-size="14" fill="#1a1a1a" text-anchor="middle">V<tspan dy="3" font-size="11">IN</tspan></text>
+    <text x="900" y="185" font-size="14" fill="#1a1a1a" text-anchor="middle">V<tspan dy="3" font-size="11">OUT</tspan></text>
+    <text x="555" y="263" font-size="13" fill="#1a1a1a" text-anchor="end">C<tspan dy="3" font-size="10">IN</tspan></text>
+    <text x="555" y="280" font-size="13" fill="#1a1a1a" text-anchor="end">10 мкФ</text>
+    <text x="560" y="255" font-size="12" fill="#1a1a1a" text-anchor="start">+</text>
+    <text x="875" y="263" font-size="13" fill="#1a1a1a" text-anchor="start">C<tspan dy="3" font-size="10">OUT</tspan></text>
+    <text x="875" y="280" font-size="13" fill="#1a1a1a" text-anchor="start">22 мкФ</text>
+    <text x="830" y="255" font-size="12" fill="#1a1a1a" text-anchor="start">+</text>
+    <text x="805" y="245" font-size="13" fill="#1a1a1a" text-anchor="start">R<tspan dy="3" font-size="10">1</tspan></text>
+    <text x="715" y="305" font-size="13" fill="#1a1a1a" text-anchor="start">R<tspan dy="3" font-size="10">2</tspan></text>
+  </g>
+</svg>

@@ -1,0 +1,201 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+  
+  <defs>
+    <marker id="arr-black" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <text x="480" y="35" font-size="18" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Схема підключення 4S BMS (Окремий та Спільний порти)</text>
+  <text x="480" y="60" font-size="13" text-anchor="middle" fill="#6b7280">Розпінування балансувального роз'єму JST-XH, клеми та NTC-термістор</text>
+
+  <!-- Left: Окремий порт -->
+  <text x="240" y="100" font-size="16" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Окремий порт (Separate Port)</text>
+
+  <g id="cells-left">
+    <rect x="90" y="140" width="60" height="40" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+    <text x="120" y="165" font-size="14" text-anchor="middle" fill="#1a1a1a">Cell 1</text>
+    <rect x="150" y="140" width="60" height="40" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+    <text x="180" y="165" font-size="14" text-anchor="middle" fill="#1a1a1a">Cell 2</text>
+    <rect x="210" y="140" width="60" height="40" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+    <text x="240" y="165" font-size="14" text-anchor="middle" fill="#1a1a1a">Cell 3</text>
+    <rect x="270" y="140" width="60" height="40" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+    <text x="300" y="165" font-size="14" text-anchor="middle" fill="#1a1a1a">Cell 4</text>
+    
+    <line x1="150" y1="140" x2="150" y2="180" stroke="#1a1a1a" stroke-width="2"/>
+    <line x1="210" y1="140" x2="210" y2="180" stroke="#1a1a1a" stroke-width="2"/>
+    <line x1="270" y1="140" x2="270" y2="180" stroke="#1a1a1a" stroke-width="2"/>
+    
+    <text x="90" y="130" font-size="12" text-anchor="middle" fill="#1a1a1a">0V</text>
+    <text x="150" y="130" font-size="12" text-anchor="middle" fill="#1a1a1a">3.7V</text>
+    <text x="210" y="130" font-size="12" text-anchor="middle" fill="#1a1a1a">7.4V</text>
+    <text x="270" y="130" font-size="12" text-anchor="middle" fill="#1a1a1a">11.1V</text>
+    <text x="330" y="130" font-size="12" text-anchor="middle" fill="#c0392b">14.8V</text>
+    
+    <circle cx="90" cy="180" r="3" fill="#1a1a1a"/>
+    <circle cx="150" cy="180" r="3" fill="#1a1a1a"/>
+    <circle cx="210" cy="180" r="3" fill="#1a1a1a"/>
+    <circle cx="270" cy="180" r="3" fill="#1a1a1a"/>
+    <circle cx="330" cy="180" r="3" fill="#c0392b"/>
+  </g>
+
+  <rect x="70" y="300" width="340" height="130" fill="#eaf0fd" stroke="#2457d6" stroke-width="2" rx="4"/>
+  <text x="240" y="335" font-size="14" font-weight="bold" text-anchor="middle" fill="#2457d6">BMS 4S</text>
+  <text x="240" y="360" font-size="13" text-anchor="middle" fill="#6b7280">Роз'єм JST-XH</text>
+
+  <rect x="80" y="285" width="260" height="15" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <circle cx="90" cy="292" r="2" fill="#1a1a1a"/>
+  <circle cx="150" cy="292" r="2" fill="#1a1a1a"/>
+  <circle cx="210" cy="292" r="2" fill="#1a1a1a"/>
+  <circle cx="270" cy="292" r="2" fill="#1a1a1a"/>
+  <circle cx="330" cy="292" r="2" fill="#c0392b"/>
+  
+  <text x="90" y="320" font-size="12" text-anchor="middle" fill="#1a1a1a">B-</text>
+  <text x="150" y="320" font-size="12" text-anchor="middle" fill="#1a1a1a">B1</text>
+  <text x="210" y="320" font-size="12" text-anchor="middle" fill="#1a1a1a">B2</text>
+  <text x="270" y="320" font-size="12" text-anchor="middle" fill="#1a1a1a">B3</text>
+  <text x="330" y="320" font-size="12" text-anchor="middle" fill="#c0392b">B+</text>
+
+  <line x1="90" y1="180" x2="90" y2="285" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="150" y1="180" x2="150" y2="285" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="210" y1="180" x2="210" y2="285" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="270" y1="180" x2="270" y2="285" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="330" y1="180" x2="330" y2="285" stroke="#c0392b" stroke-width="1.5"/>
+
+  <g id="ntc-left">
+    <path d="M 380 340 L 400 340 L 400 200" fill="none" stroke="#1a1a1a" stroke-width="1.5"/>
+    <path d="M 390 340 L 410 340 L 410 200" fill="none" stroke="#1a1a1a" stroke-width="1.5"/>
+    <ellipse cx="405" cy="190" rx="6" ry="10" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.5"/>
+    <text x="420" y="194" font-size="12" text-anchor="start" fill="#1a1a1a">NTC</text>
+    <circle cx="380" cy="340" r="2.5" fill="#1a1a1a"/>
+    <circle cx="390" cy="340" r="2.5" fill="#1a1a1a"/>
+    <text x="385" y="360" font-size="12" text-anchor="middle" fill="#1a1a1a">NTC</text>
+  </g>
+
+  <rect x="80" y="415" width="40" height="15" fill="#1a1a1a"/>
+  <text x="100" y="410" font-size="14" font-weight="bold" text-anchor="middle" fill="#1a1a1a">B-</text>
+  
+  <rect x="170" y="415" width="40" height="15" fill="#1a1a1a"/>
+  <text x="190" y="410" font-size="14" font-weight="bold" text-anchor="middle" fill="#1a1a1a">C-</text>
+
+  <rect x="280" y="415" width="40" height="15" fill="#1a1a1a"/>
+  <text x="300" y="410" font-size="14" font-weight="bold" text-anchor="middle" fill="#1a1a1a">P-</text>
+
+  <path d="M 90 140 L 40 140 L 40 460 L 100 460 L 100 430" fill="none" stroke="#1a1a1a" stroke-width="3"/>
+  <circle cx="90" cy="140" r="4" fill="#1a1a1a"/>
+  <text x="45" y="135" font-size="12" fill="#6b7280" text-anchor="start">Силовий B-</text>
+
+  <circle cx="330" cy="140" r="4" fill="#c0392b"/>
+  <path d="M 330 140 L 450 140 L 450 525 L 222 525 L 222 510" fill="none" stroke="#c0392b" stroke-width="3"/>
+  <path d="M 340 525 L 340 510" fill="none" stroke="#c0392b" stroke-width="3"/>
+  <circle cx="222" cy="510" r="3" fill="#c0392b"/>
+  <circle cx="340" cy="510" r="3" fill="#c0392b"/>
+  <circle cx="340" cy="525" r="3" fill="#c0392b"/>
+  <text x="445" y="135" font-size="12" text-anchor="end" fill="#c0392b">Силовий B+</text>
+
+  <rect x="150" y="480" width="80" height="30" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <text x="190" y="500" font-size="13" text-anchor="middle" fill="#27ae60">Зарядка</text>
+  <text x="222" y="500" font-size="14" font-weight="bold" fill="#c0392b">+</text>
+  <text x="160" y="500" font-size="14" font-weight="bold" fill="#1a1a1a">-</text>
+  
+  <rect x="250" y="480" width="100" height="30" fill="#fdecea" stroke="#c0392b" stroke-width="2"/>
+  <text x="300" y="500" font-size="13" text-anchor="middle" fill="#c0392b">Навантаження</text>
+  <text x="340" y="500" font-size="14" font-weight="bold" fill="#c0392b">+</text>
+  <text x="260" y="500" font-size="14" font-weight="bold" fill="#1a1a1a">-</text>
+  
+  <path d="M 190 430 L 190 480" fill="none" stroke="#1a1a1a" stroke-width="3"/>
+  <path d="M 300 430 L 300 480" fill="none" stroke="#1a1a1a" stroke-width="3"/>
+
+  <!-- Right: Спільний порт -->
+  <text x="720" y="100" font-size="16" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Спільний порт (Common Port)</text>
+
+  <g id="cells-right">
+    <rect x="570" y="140" width="60" height="40" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+    <text x="600" y="165" font-size="14" text-anchor="middle" fill="#1a1a1a">Cell 1</text>
+    <rect x="630" y="140" width="60" height="40" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+    <text x="660" y="165" font-size="14" text-anchor="middle" fill="#1a1a1a">Cell 2</text>
+    <rect x="690" y="140" width="60" height="40" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+    <text x="720" y="165" font-size="14" text-anchor="middle" fill="#1a1a1a">Cell 3</text>
+    <rect x="750" y="140" width="60" height="40" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+    <text x="780" y="165" font-size="14" text-anchor="middle" fill="#1a1a1a">Cell 4</text>
+    
+    <line x1="630" y1="140" x2="630" y2="180" stroke="#1a1a1a" stroke-width="2"/>
+    <line x1="690" y1="140" x2="690" y2="180" stroke="#1a1a1a" stroke-width="2"/>
+    <line x1="750" y1="140" x2="750" y2="180" stroke="#1a1a1a" stroke-width="2"/>
+    
+    <text x="570" y="130" font-size="12" text-anchor="middle" fill="#1a1a1a">0V</text>
+    <text x="630" y="130" font-size="12" text-anchor="middle" fill="#1a1a1a">3.7V</text>
+    <text x="690" y="130" font-size="12" text-anchor="middle" fill="#1a1a1a">7.4V</text>
+    <text x="750" y="130" font-size="12" text-anchor="middle" fill="#1a1a1a">11.1V</text>
+    <text x="810" y="130" font-size="12" text-anchor="middle" fill="#c0392b">14.8V</text>
+
+    <circle cx="570" cy="180" r="3" fill="#1a1a1a"/>
+    <circle cx="630" cy="180" r="3" fill="#1a1a1a"/>
+    <circle cx="690" cy="180" r="3" fill="#1a1a1a"/>
+    <circle cx="750" cy="180" r="3" fill="#1a1a1a"/>
+    <circle cx="810" cy="180" r="3" fill="#c0392b"/>
+  </g>
+
+  <rect x="550" y="300" width="340" height="130" fill="#e9f7ef" stroke="#27ae60" stroke-width="2" rx="4"/>
+  <text x="720" y="335" font-size="14" font-weight="bold" text-anchor="middle" fill="#27ae60">BMS 4S</text>
+  <text x="720" y="360" font-size="13" text-anchor="middle" fill="#6b7280">Роз'єм JST-XH</text>
+
+  <rect x="560" y="285" width="260" height="15" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <circle cx="570" cy="292" r="2" fill="#1a1a1a"/>
+  <circle cx="630" cy="292" r="2" fill="#1a1a1a"/>
+  <circle cx="690" cy="292" r="2" fill="#1a1a1a"/>
+  <circle cx="750" cy="292" r="2" fill="#1a1a1a"/>
+  <circle cx="810" cy="292" r="2" fill="#c0392b"/>
+
+  <text x="570" y="320" font-size="12" text-anchor="middle" fill="#1a1a1a">B-</text>
+  <text x="630" y="320" font-size="12" text-anchor="middle" fill="#1a1a1a">B1</text>
+  <text x="690" y="320" font-size="12" text-anchor="middle" fill="#1a1a1a">B2</text>
+  <text x="750" y="320" font-size="12" text-anchor="middle" fill="#1a1a1a">B3</text>
+  <text x="810" y="320" font-size="12" text-anchor="middle" fill="#c0392b">B+</text>
+
+  <line x1="570" y1="180" x2="570" y2="285" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="630" y1="180" x2="630" y2="285" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="690" y1="180" x2="690" y2="285" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="750" y1="180" x2="750" y2="285" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="810" y1="180" x2="810" y2="285" stroke="#c0392b" stroke-width="1.5"/>
+
+  <g id="ntc-right">
+    <path d="M 860 340 L 880 340 L 880 200" fill="none" stroke="#1a1a1a" stroke-width="1.5"/>
+    <path d="M 870 340 L 890 340 L 890 200" fill="none" stroke="#1a1a1a" stroke-width="1.5"/>
+    <ellipse cx="885" cy="190" rx="6" ry="10" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.5"/>
+    <text x="900" y="194" font-size="12" text-anchor="start" fill="#1a1a1a">NTC</text>
+    <circle cx="860" cy="340" r="2.5" fill="#1a1a1a"/>
+    <circle cx="870" cy="340" r="2.5" fill="#1a1a1a"/>
+    <text x="865" y="360" font-size="12" text-anchor="middle" fill="#1a1a1a">NTC</text>
+  </g>
+
+  <rect x="620" y="415" width="40" height="15" fill="#1a1a1a"/>
+  <text x="640" y="410" font-size="14" font-weight="bold" text-anchor="middle" fill="#1a1a1a">B-</text>
+
+  <rect x="760" y="415" width="60" height="15" fill="#1a1a1a"/>
+  <text x="790" y="410" font-size="14" font-weight="bold" text-anchor="middle" fill="#1a1a1a">P- (C-)</text>
+
+  <path d="M 570 140 L 520 140 L 520 460 L 640 460 L 640 430" fill="none" stroke="#1a1a1a" stroke-width="3"/>
+  <circle cx="570" cy="140" r="4" fill="#1a1a1a"/>
+  <text x="525" y="135" font-size="12" fill="#6b7280" text-anchor="start">Силовий B-</text>
+
+  <circle cx="810" cy="140" r="4" fill="#c0392b"/>
+  <path d="M 810 140 L 940 140 L 940 525 L 895 525 L 895 510" fill="none" stroke="#c0392b" stroke-width="3"/>
+  <circle cx="895" cy="510" r="3" fill="#c0392b"/>
+  <text x="935" y="135" font-size="12" text-anchor="end" fill="#c0392b">Силовий B+</text>
+
+  <rect x="670" y="480" width="240" height="30" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="790" y="500" font-size="13" text-anchor="middle" fill="#2457d6">Зарядка / Навантаження</text>
+  <text x="895" y="500" font-size="14" font-weight="bold" fill="#c0392b">+</text>
+  <text x="685" y="500" font-size="14" font-weight="bold" fill="#1a1a1a">-</text>
+
+  <path d="M 790 430 L 790 480" fill="none" stroke="#1a1a1a" stroke-width="3"/>
+
+</svg>

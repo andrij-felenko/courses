@@ -1,0 +1,99 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+    <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+    <defs>
+        <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+            <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+        </marker>
+        <marker id="arr-black" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+            <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+        </marker>
+    </defs>
+
+    <!-- Заголовок та підзаголовок -->
+    <text x="480" y="40" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Схема підключення модуля MH-CD42</text>
+    <text x="480" y="60" text-anchor="middle" font-size="13" fill="#6b7280">Підключення до акумулятора, джерела живлення, навантаження та зовнішньої кнопки</text>
+
+    <!-- Лінії з'єднань -->
+    <path d="M 240,180 L 338,180" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+    <path d="M 240,220 L 338,220" fill="none" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr-black)"/>
+
+    <path d="M 620,180 L 718,180" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+    <path d="M 620,220 L 718,220" fill="none" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr-black)"/>
+
+    <path d="M 390,420 L 390,342" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+    <path d="M 450,420 L 450,342" fill="none" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr-black)"/>
+
+    <path d="M 600,420 L 600,342" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+    <path d="M 550,420 L 550,390 L 450,390" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+
+    <!-- Точка з'єднання землі кнопки та батареї -->
+    <circle cx="450" cy="390" r="4" fill="#1a1a1a"/>
+
+    <!-- Підписи ліній -->
+    <text x="290" y="172" text-anchor="middle" font-size="12" fill="#2457d6">+5 В</text>
+    <text x="290" y="212" text-anchor="middle" font-size="12" fill="#1a1a1a">GND</text>
+    
+    <text x="670" y="172" text-anchor="middle" font-size="12" fill="#2457d6">+5 В</text>
+    <text x="670" y="212" text-anchor="middle" font-size="12" fill="#1a1a1a">GND</text>
+
+    <text x="380" y="380" text-anchor="end" font-size="12" fill="#2457d6">+</text>
+    <text x="440" y="380" text-anchor="end" font-size="12" fill="#1a1a1a">–</text>
+
+    <!-- Джерело 5 В -->
+    <rect x="100" y="160" width="140" height="80" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2" rx="4"/>
+    <text x="170" y="205" text-anchor="middle" font-size="14" fill="#1a1a1a">Джерело 5 В</text>
+    <circle cx="240" cy="180" r="3" fill="#2457d6"/>
+    <circle cx="240" cy="220" r="3" fill="#1a1a1a"/>
+
+    <!-- Навантаження (Споживач) -->
+    <rect x="720" y="160" width="140" height="80" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2" rx="4"/>
+    <text x="790" y="205" text-anchor="middle" font-size="14" fill="#1a1a1a">Споживач</text>
+    <circle cx="720" cy="180" r="3" fill="#2457d6"/>
+    <circle cx="720" cy="220" r="3" fill="#1a1a1a"/>
+
+    <!-- Акумулятор -->
+    <rect x="350" y="420" width="140" height="60" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2" rx="4"/>
+    <text x="420" y="455" text-anchor="middle" font-size="14" fill="#1a1a1a">Li-ion 1S</text>
+    <circle cx="390" cy="420" r="3" fill="#2457d6"/>
+    <circle cx="450" cy="420" r="3" fill="#1a1a1a"/>
+
+    <!-- Кнопка -->
+    <rect x="530" y="420" width="90" height="40" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2" rx="4"/>
+    <text x="575" y="445" text-anchor="middle" font-size="13" fill="#1a1a1a">Кнопка</text>
+    <circle cx="550" cy="420" r="3" fill="#1a1a1a"/>
+    <circle cx="600" cy="420" r="3" fill="#2457d6"/>
+
+    <!-- Модуль MH-CD42 -->
+    <rect x="340" y="140" width="280" height="200" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2" rx="6"/>
+    <text x="480" y="165" text-anchor="middle" font-size="16" font-weight="bold" fill="#1a1a1a">MH-CD42</text>
+    
+    <circle cx="450" cy="200" r="4" fill="#6b7280"/>
+    <circle cx="470" cy="200" r="4" fill="#6b7280"/>
+    <circle cx="490" cy="200" r="4" fill="#6b7280"/>
+    <circle cx="510" cy="200" r="4" fill="#6b7280"/>
+    <text x="480" y="225" text-anchor="middle" font-size="12" fill="#6b7280">Рівень заряду</text>
+
+    <rect x="335" y="250" width="10" height="30" fill="#d0d7de" rx="3"/>
+    <text x="355" y="269" text-anchor="start" font-size="12" fill="#6b7280">Вхід Type-C / Micro-USB</text>
+
+    <!-- Майданчики модуля -->
+    <circle cx="340" cy="180" r="4" fill="#2457d6"/>
+    <circle cx="340" cy="220" r="4" fill="#1a1a1a"/>
+    <circle cx="620" cy="180" r="4" fill="#2457d6"/>
+    <circle cx="620" cy="220" r="4" fill="#1a1a1a"/>
+    <circle cx="390" cy="340" r="4" fill="#2457d6"/>
+    <circle cx="450" cy="340" r="4" fill="#1a1a1a"/>
+    <circle cx="600" cy="340" r="4" fill="#2457d6"/>
+
+    <!-- Підписи майданчиків -->
+    <text x="350" y="184" text-anchor="start" font-size="13" font-weight="bold" fill="#1a1a1a">VIN</text>
+    <text x="350" y="224" text-anchor="start" font-size="13" font-weight="bold" fill="#1a1a1a">GND</text>
+    <text x="610" y="184" text-anchor="end" font-size="13" font-weight="bold" fill="#1a1a1a">OUT</text>
+    <text x="610" y="224" text-anchor="end" font-size="13" font-weight="bold" fill="#1a1a1a">GND</text>
+    
+    <text x="390" y="325" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">BAT</text>
+    <text x="450" y="325" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">GND</text>
+    <text x="600" y="325" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">KEY</text>
+
+</svg>

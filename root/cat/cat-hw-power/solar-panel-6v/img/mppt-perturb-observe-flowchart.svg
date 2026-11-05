@@ -1,0 +1,116 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="800" height="600">
+  <rect width="100%" height="100%" fill="#ffffff" />
+  <g transform="translate(400, 50)" font-family="sans-serif" font-size="14" text-anchor="middle">
+    
+    <!-- Start -->
+    <rect x="-75" y="0" width="150" height="40" rx="20" ry="20" fill="#c8e6c9" stroke="#4caf50" stroke-width="2"/>
+    <text x="0" y="25" font-weight="bold">Початок циклу</text>
+    
+    <line x1="0" y1="40" x2="0" y2="70" stroke="#333" stroke-width="2"/>
+    <polygon points="-5,60 5,60 0,70" fill="#333"/>
+
+    <!-- Measure V, I -->
+    <rect x="-100" y="70" width="200" height="40" fill="#e3f2fd" stroke="#2196f3" stroke-width="2"/>
+    <text x="0" y="95">Виміряти V(t) та I(t)</text>
+    
+    <line x1="0" y1="110" x2="0" y2="140" stroke="#333" stroke-width="2"/>
+    <polygon points="-5,130 5,130 0,140" fill="#333"/>
+    
+    <!-- Calc P -->
+    <rect x="-100" y="140" width="200" height="40" fill="#fff9c4" stroke="#fbc02d" stroke-width="2"/>
+    <text x="0" y="165">P(t) = V(t) * I(t)</text>
+    
+    <line x1="0" y1="180" x2="0" y2="210" stroke="#333" stroke-width="2"/>
+    <polygon points="-5,200 5,200 0,210" fill="#333"/>
+
+    <!-- Calc dP, dV -->
+    <rect x="-100" y="210" width="200" height="40" fill="#fff9c4" stroke="#fbc02d" stroke-width="2"/>
+    <text x="0" y="235">ΔP = P(t) - P(t-1)</text>
+    
+    <line x1="0" y1="250" x2="0" y2="280" stroke="#333" stroke-width="2"/>
+    <polygon points="-5,270 5,270 0,280" fill="#333"/>
+    
+    <!-- Delta P Check -->
+    <polygon points="0,280 80,310 0,340 -80,310" fill="#e1bee7" stroke="#9c27b0" stroke-width="2"/>
+    <text x="0" y="315">ΔP = 0 ?</text>
+    
+    <!-- If Delta P = 0 -->
+    <line x1="-80" y1="310" x2="-250" y2="310" stroke="#333" stroke-width="2"/>
+    <text x="-160" y="305">Так</text>
+    <line x1="-250" y1="310" x2="-250" y2="520" stroke="#333" stroke-width="2"/>
+    <line x1="-250" y1="520" x2="-100" y2="520" stroke="#333" stroke-width="2"/>
+    <polygon points="-110,515 -110,525 -100,520" fill="#333"/>
+    
+    <!-- If Delta P != 0 -->
+    <line x1="0" y1="340" x2="0" y2="370" stroke="#333" stroke-width="2"/>
+    <text x="15" y="360">Ні</text>
+    <polygon points="-5,360 5,360 0,370" fill="#333"/>
+    
+    <!-- Delta P > 0 Check -->
+    <polygon points="0,370 80,400 0,430 -80,400" fill="#e1bee7" stroke="#9c27b0" stroke-width="2"/>
+    <text x="0" y="405">ΔP > 0 ?</text>
+    
+    <!-- Delta P > 0 : Yes -->
+    <line x1="-80" y1="400" x2="-150" y2="400" stroke="#333" stroke-width="2"/>
+    <text x="-115" y="395">Так</text>
+    <line x1="-150" y1="400" x2="-150" y2="420" stroke="#333" stroke-width="2"/>
+    <polygon points="-155,410 -145,410 -150,420" fill="#333"/>
+    
+    <!-- Delta P > 0 : No -->
+    <line x1="80" y1="400" x2="150" y2="400" stroke="#333" stroke-width="2"/>
+    <text x="115" y="395">Ні</text>
+    <line x1="150" y1="400" x2="150" y2="420" stroke="#333" stroke-width="2"/>
+    <polygon points="145,410 155,410 150,420" fill="#333"/>
+
+    <!-- V Checks -->
+    <!-- Left side (dP > 0) -->
+    <polygon points="-150,420 -90,450 -150,480 -210,450" fill="#ffe0b2" stroke="#ff9800" stroke-width="2"/>
+    <text x="-150" y="455">ΔV > 0 ?</text>
+    
+    <line x1="-210" y1="450" x2="-240" y2="450" stroke="#333" stroke-width="2"/>
+    <text x="-225" y="445">Так</text>
+    <rect x="-290" y="440" width="50" height="40" fill="#ffcdd2" stroke="#f44336" stroke-width="2"/>
+    <text x="-265" y="465">V++</text>
+    
+    <line x1="-90" y1="450" x2="-60" y2="450" stroke="#333" stroke-width="2"/>
+    <text x="-75" y="445">Ні</text>
+    <rect x="-60" y="440" width="50" height="40" fill="#ffcdd2" stroke="#f44336" stroke-width="2"/>
+    <text x="-35" y="465">V--</text>
+
+    <!-- Right side (dP < 0) -->
+    <polygon points="150,420 210,450 150,480 90,450" fill="#ffe0b2" stroke="#ff9800" stroke-width="2"/>
+    <text x="150" y="455">ΔV > 0 ?</text>
+    
+    <line x1="90" y1="450" x2="60" y2="450" stroke="#333" stroke-width="2"/>
+    <text x="75" y="445">Так</text>
+    <rect x="10" y="440" width="50" height="40" fill="#ffcdd2" stroke="#f44336" stroke-width="2"/>
+    <text x="35" y="465">V--</text>
+    
+    <line x1="210" y1="450" x2="240" y2="450" stroke="#333" stroke-width="2"/>
+    <text x="225" y="445">Ні</text>
+    <rect x="240" y="440" width="50" height="40" fill="#ffcdd2" stroke="#f44336" stroke-width="2"/>
+    <text x="265" y="465">V++</text>
+    
+    <!-- Joining all to End -->
+    <line x1="-265" y1="480" x2="-265" y2="500" stroke="#333" stroke-width="2"/>
+    <line x1="-35" y1="480" x2="-35" y2="500" stroke="#333" stroke-width="2"/>
+    <line x1="35" y1="480" x2="35" y2="500" stroke="#333" stroke-width="2"/>
+    <line x1="265" y1="480" x2="265" y2="500" stroke="#333" stroke-width="2"/>
+    
+    <line x1="-265" y1="500" x2="265" y2="500" stroke="#333" stroke-width="2"/>
+    <line x1="0" y1="500" x2="0" y2="520" stroke="#333" stroke-width="2"/>
+    <polygon points="-5,510 5,510 0,520" fill="#333"/>
+    
+    <!-- Save states -->
+    <rect x="-100" y="520" width="200" height="40" fill="#b2dfdb" stroke="#009688" stroke-width="2"/>
+    <text x="0" y="545">Зберегти P(t-1) = P(t)</text>
+    
+    <line x1="0" y1="560" x2="0" y2="580" stroke="#333" stroke-width="2"/>
+    <polygon points="-5,570 5,570 0,580" fill="#333"/>
+    
+    <!-- Sleep -->
+    <rect x="-100" y="580" width="200" height="40" rx="20" ry="20" fill="#cfd8dc" stroke="#607d8b" stroke-width="2"/>
+    <text x="0" y="605">Глибокий сон (Deep Sleep)</text>
+    
+  </g>
+</svg>

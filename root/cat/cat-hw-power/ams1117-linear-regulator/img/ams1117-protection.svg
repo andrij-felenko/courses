@@ -1,0 +1,123 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- White background -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Definitions -->
+  <defs>
+    <!-- Standard black arrow -->
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <!-- Flow arrow -->
+    <marker id="arr-flow" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Titles -->
+  <text x="480" y="40" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Схема обв'язки AMS1117 із захисним діодом</text>
+  <text x="480" y="60" font-size="13" fill="#6b7280" text-anchor="middle">Шляхи безпечного розряду вихідної ємності та конденсатора ADJ</text>
+
+  <!-- Flow paths (drawn before wires so they appear underneath or cleanly alongside) -->
+  <path d="M 665,275 L 665,205 L 545,205 L 545,125 L 415,125 L 415,205 L 260,205" fill="none" stroke="#2457d6" stroke-width="2" stroke-dasharray="6,4" stroke-linejoin="round" marker-end="url(#arr-flow)"/>
+  <path d="M 405,325 L 405,310 L 585,310 L 585,215 L 575,215" fill="none" stroke="#2457d6" stroke-width="2" stroke-dasharray="6,4" stroke-linejoin="round" marker-end="url(#arr-flow)"/>
+
+  <!-- Main wires -->
+  <line x1="240" y1="220" x2="420" y2="220" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="540" y1="220" x2="720" y2="220" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="240" y1="380" x2="720" y2="380" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- ADJ horizontal -->
+  <line x1="420" y1="300" x2="600" y2="300" stroke="#1a1a1a" stroke-width="2"/>
+  <!-- ADJ vertical pin connection -->
+  <line x1="480" y1="260" x2="480" y2="300" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Cin vertical -->
+  <line x1="320" y1="220" x2="320" y2="295" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="320" y1="305" x2="320" y2="380" stroke="#1a1a1a" stroke-width="2"/>
+  
+  <!-- Cadj vertical -->
+  <line x1="420" y1="300" x2="420" y2="335" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="420" y1="345" x2="420" y2="380" stroke="#1a1a1a" stroke-width="2"/>
+  
+  <!-- Cout vertical -->
+  <line x1="680" y1="220" x2="680" y2="295" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="680" y1="305" x2="680" y2="380" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- R1 vertical wires -->
+  <line x1="600" y1="220" x2="600" y2="240" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="600" y1="280" x2="600" y2="300" stroke="#1a1a1a" stroke-width="2"/>
+  
+  <!-- R2 vertical wires -->
+  <line x1="540" y1="300" x2="540" y2="320" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="540" y1="360" x2="540" y2="380" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- D1 wires -->
+  <line x1="560" y1="220" x2="560" y2="140" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="560" y1="140" x2="495" y2="140" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="465" y1="140" x2="400" y2="140" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="400" y1="140" x2="400" y2="220" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- LDO AMS1117 -->
+  <rect x="420" y="180" width="120" height="80" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <text x="480" y="200" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">AMS1117</text>
+  <text x="430" y="210" font-size="12" fill="#6b7280" text-anchor="start">IN</text>
+  <text x="530" y="210" font-size="12" fill="#6b7280" text-anchor="end">OUT</text>
+  <text x="480" y="250" font-size="12" fill="#6b7280" text-anchor="middle">ADJ</text>
+
+  <!-- Resistors -->
+  <rect x="592" y="240" width="16" height="40" fill="white" stroke="#1a1a1a" stroke-width="2"/>
+  <rect x="532" y="320" width="16" height="40" fill="white" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Capacitors -->
+  <line x1="305" y1="295" x2="335" y2="295" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="305" y1="305" x2="335" y2="305" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="405" y1="335" x2="435" y2="335" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="405" y1="345" x2="435" y2="345" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="665" y1="295" x2="695" y2="295" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="665" y1="305" x2="695" y2="305" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Protection Diode D1 -->
+  <polygon points="495,125 495,155 465,140" fill="#1a1a1a"/>
+  <line x1="465" y1="125" x2="465" y2="155" stroke="#1a1a1a" stroke-width="3"/>
+
+  <!-- GND Symbol -->
+  <line x1="480" y1="380" x2="480" y2="400" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="464" y1="400" x2="496" y2="400" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="472" y1="405" x2="488" y2="405" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="476" y1="410" x2="484" y2="410" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Terminals -->
+  <circle cx="240" cy="220" r="4" fill="white" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="240" cy="380" r="4" fill="white" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="720" cy="220" r="4" fill="white" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="720" cy="380" r="4" fill="white" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Junction Dots -->
+  <circle cx="400" cy="220" r="4" fill="#1a1a1a"/>
+  <circle cx="320" cy="220" r="4" fill="#1a1a1a"/>
+  <circle cx="560" cy="220" r="4" fill="#1a1a1a"/>
+  <circle cx="600" cy="220" r="4" fill="#1a1a1a"/>
+  <circle cx="680" cy="220" r="4" fill="#1a1a1a"/>
+  <circle cx="480" cy="300" r="4" fill="#1a1a1a"/>
+  <circle cx="540" cy="300" r="4" fill="#1a1a1a"/>
+  <circle cx="320" cy="380" r="4" fill="#1a1a1a"/>
+  <circle cx="420" cy="380" r="4" fill="#1a1a1a"/>
+  <circle cx="480" cy="380" r="4" fill="#1a1a1a"/>
+  <circle cx="540" cy="380" r="4" fill="#1a1a1a"/>
+  <circle cx="680" cy="380" r="4" fill="#1a1a1a"/>
+
+  <!-- Component Labels -->
+  <text x="230" y="210" font-size="14" fill="#1a1a1a" text-anchor="end">V<tspan dy="2" font-size="11">IN</tspan></text>
+  <text x="730" y="210" font-size="14" fill="#1a1a1a" text-anchor="start">V<tspan dy="2" font-size="11">OUT</tspan></text>
+  
+  <text x="290" y="305" font-size="14" fill="#1a1a1a" text-anchor="end">C<tspan dy="2" font-size="11">IN</tspan></text>
+  <text x="710" y="305" font-size="14" fill="#1a1a1a" text-anchor="start">C<tspan dy="2" font-size="11">OUT</tspan></text>
+  <text x="390" y="345" font-size="14" fill="#1a1a1a" text-anchor="end">C<tspan dy="2" font-size="11">ADJ</tspan></text>
+  
+  <text x="620" y="265" font-size="14" fill="#1a1a1a" text-anchor="start">R<tspan dy="2" font-size="11">1</tspan></text>
+  <text x="560" y="345" font-size="14" fill="#1a1a1a" text-anchor="start">R<tspan dy="2" font-size="11">2</tspan></text>
+  
+  <text x="480" y="115" font-size="14" fill="#1a1a1a" text-anchor="middle">D<tspan dy="2" font-size="11">1</tspan> (1N4007)</text>
+
+</svg>

@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 300" width="720" height="300" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="720" height="300" fill="white"/>
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4"
+            orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок -->
+  <text x="360" y="40" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Пригнічення шумів лінійним стабілізатором (LDO)</text>
+  <text x="360" y="60" font-size="13" fill="#6b7280" text-anchor="middle">Напруга після імпульсного перетворювача має значні пульсації, які LDO ефективно згладжує</text>
+
+  <!-- Графік 1: V_IN -->
+  <!-- Осі -->
+  <line x1="60" y1="170" x2="260" y2="170" stroke="#1a1a1a" stroke-width="1" marker-end="url(#arr)"/>
+  <line x1="60" y1="170" x2="60" y2="80" stroke="#1a1a1a" stroke-width="1" marker-end="url(#arr)"/>
+  <text x="50" y="90" font-size="14" fill="#1a1a1a" text-anchor="end">V<tspan dy="3" font-size="10">IN</tspan></text>
+  <text x="270" y="175" font-size="14" fill="#1a1a1a">t</text>
+  
+  <!-- Форма напруги -->
+  <path d="M 60,115 L 75,105 L 77,100 L 80,120 L 85,125 L 100,105 L 102,100 L 105,120 L 110,125 L 125,105 L 127,100 L 130,120 L 135,125 L 150,105 L 152,100 L 155,120 L 160,125 L 175,105 L 177,100 L 180,120 L 185,125 L 200,105 L 202,100 L 205,120 L 210,125 L 225,105 L 227,100 L 230,120 L 235,125 L 250,105 L 252,100 L 255,115" fill="none" stroke="#c0392b" stroke-width="2"/>
+  <line x1="60" y1="115" x2="255" y2="115" stroke="#c0392b" stroke-width="1" stroke-dasharray="4 4"/>
+  <text x="160" y="90" font-size="12" fill="#c0392b" text-anchor="middle">Пульсації та шум</text>
+  <line x1="56" y1="115" x2="60" y2="115" stroke="#1a1a1a" stroke-width="1"/>
+
+  <!-- Графік 2: V_OUT -->
+  <!-- Осі -->
+  <line x1="460" y1="170" x2="660" y2="170" stroke="#1a1a1a" stroke-width="1" marker-end="url(#arr)"/>
+  <line x1="460" y1="170" x2="460" y2="80" stroke="#1a1a1a" stroke-width="1" marker-end="url(#arr)"/>
+  <text x="450" y="90" font-size="14" fill="#1a1a1a" text-anchor="end">V<tspan dy="3" font-size="10">OUT</tspan></text>
+  <text x="670" y="175" font-size="14" fill="#1a1a1a">t</text>
+
+  <!-- Форма напруги -->
+  <line x1="460" y1="140" x2="655" y2="140" stroke="#27ae60" stroke-width="2"/>
+  <text x="560" y="132" font-size="12" fill="#27ae60" text-anchor="middle">Згладжена напруга</text>
+  <line x1="456" y1="140" x2="460" y2="140" stroke="#1a1a1a" stroke-width="1"/>
+
+  <!-- Референсна лінія V_IN -->
+  <line x1="460" y1="115" x2="655" y2="115" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4 4"/>
+  <text x="655" y="110" font-size="12" fill="#6b7280" text-anchor="end">V<tspan dy="2" font-size="10">IN</tspan></text>
+
+  <!-- Блок-схема внизу -->
+  <!-- Блок: Імпульсний перетворювач -->
+  <rect x="40" y="230" width="120" height="40" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="100" y="248" font-size="12" fill="#1a1a1a" text-anchor="middle">Імпульсний</text>
+  <text x="100" y="262" font-size="12" fill="#1a1a1a" text-anchor="middle">перетворювач</text>
+
+  <!-- Лінія V_IN -->
+  <line x1="160" y1="250" x2="290" y2="250" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+  <text x="225" y="242" font-size="14" fill="#1a1a1a" text-anchor="middle">V<tspan dy="3" font-size="10">IN</tspan></text>
+
+  <!-- Блок LDO -->
+  <rect x="300" y="220" width="120" height="60" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="360" y="248" font-size="16" font-weight="bold" fill="#2457d6" text-anchor="middle">LDO</text>
+  <text x="360" y="268" font-size="12" fill="#2457d6" text-anchor="middle">Стабілізатор</text>
+
+  <!-- Лінія V_OUT -->
+  <line x1="420" y1="250" x2="550" y2="250" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+  <text x="485" y="242" font-size="14" fill="#1a1a1a" text-anchor="middle">V<tspan dy="3" font-size="10">OUT</tspan></text>
+
+  <!-- Блок Навантаження -->
+  <rect x="560" y="230" width="120" height="40" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="620" y="255" font-size="12" fill="#1a1a1a" text-anchor="middle">Навантаження</text>
+</svg>

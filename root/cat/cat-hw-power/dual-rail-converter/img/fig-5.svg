@@ -1,0 +1,94 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <text x="480" y="40" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Перетворювач 5 В → ±12 В</text>
+  <text x="480" y="60" font-size="13" fill="#6b7280" text-anchor="middle">Структура формування чистого двополярного живлення для чутливих аналогових каскадів</text>
+
+  <!-- Blocks -->
+  <!-- Source -->
+  <rect x="60" y="200" width="100" height="60" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <text x="110" y="225" font-size="14" fill="#6b7280" text-anchor="middle">Джерело</text>
+  <text x="110" y="245" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">+5V</text>
+
+  <!-- DC-DC -->
+  <rect x="220" y="110" width="140" height="240" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <text x="290" y="150" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">+5V → ±15V</text>
+  <text x="290" y="210" font-size="14" fill="#1a1a1a" text-anchor="middle">Ізольований</text>
+  <text x="290" y="230" font-size="14" fill="#1a1a1a" text-anchor="middle">DC-DC</text>
+  <text x="290" y="250" font-size="14" fill="#1a1a1a" text-anchor="middle">модуль</text>
+
+  <!-- LC Filters -->
+  <rect x="460" y="110" width="100" height="60" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <text x="510" y="135" font-size="14" fill="#1a1a1a" text-anchor="middle">LC-фільтр</text>
+  <text x="510" y="155" font-size="12" fill="#6b7280" text-anchor="middle">(ФНЧ)</text>
+
+  <rect x="460" y="290" width="100" height="60" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <text x="510" y="315" font-size="14" fill="#1a1a1a" text-anchor="middle">LC-фільтр</text>
+  <text x="510" y="335" font-size="12" fill="#6b7280" text-anchor="middle">(ФНЧ)</text>
+
+  <!-- LDOs -->
+  <rect x="660" y="110" width="100" height="60" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <text x="710" y="135" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">LDO +12V</text>
+  <text x="710" y="155" font-size="12" fill="#6b7280" text-anchor="middle">регулятор</text>
+
+  <rect x="660" y="290" width="100" height="60" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <text x="710" y="315" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">LDO -12V</text>
+  <text x="710" y="335" font-size="12" fill="#6b7280" text-anchor="middle">регулятор</text>
+
+  <!-- Connections -->
+  <line x1="160" y1="230" x2="218" y2="230" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+
+  <line x1="360" y1="140" x2="458" y2="140" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+  <line x1="360" y1="320" x2="458" y2="320" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+
+  <line x1="560" y1="140" x2="658" y2="140" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+  <line x1="560" y1="320" x2="658" y2="320" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+
+  <line x1="760" y1="140" x2="878" y2="140" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+  <line x1="760" y1="320" x2="878" y2="320" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+
+  <line x1="360" y1="230" x2="878" y2="230" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+
+  <!-- GND connections inside circuit -->
+  <path d="M510,170 L510,290 M710,170 L710,290" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="510" cy="230" r="3" fill="#1a1a1a"/>
+  <circle cx="710" cy="230" r="3" fill="#1a1a1a"/>
+  <circle cx="360" cy="230" r="3" fill="#1a1a1a"/>
+
+  <!-- Text and graphs along the lines -->
+  <!-- Gap 1: DC-DC to LC -->
+  <text x="410" y="130" font-size="14" fill="#1a1a1a" text-anchor="middle">+15V</text>
+  <text x="410" y="160" font-size="12" fill="#c0392b" text-anchor="middle">імпульси</text>
+  <path d="M395,175 l5,-10 l5,20 l5,-20 l5,20 l5,-20 l5,10" stroke="#c0392b" stroke-width="1.5" fill="none"/>
+
+  <text x="410" y="310" font-size="14" fill="#1a1a1a" text-anchor="middle">-15V</text>
+  <text x="410" y="340" font-size="12" fill="#c0392b" text-anchor="middle">імпульси</text>
+  <path d="M395,355 l5,-10 l5,20 l5,-20 l5,20 l5,-20 l5,10" stroke="#c0392b" stroke-width="1.5" fill="none"/>
+
+  <!-- Gap 2: LC to LDO -->
+  <text x="610" y="130" font-size="14" fill="#1a1a1a" text-anchor="middle">+15V</text>
+  <text x="610" y="160" font-size="12" fill="#2457d6" text-anchor="middle">згладжені</text>
+  <path d="M595,175 l5,-3 l5,6 l5,-6 l5,6 l5,-6 l5,3" stroke="#2457d6" stroke-width="1.5" fill="none"/>
+
+  <text x="610" y="310" font-size="14" fill="#1a1a1a" text-anchor="middle">-15V</text>
+  <text x="610" y="340" font-size="12" fill="#2457d6" text-anchor="middle">згладжені</text>
+  <path d="M595,355 l5,-3 l5,6 l5,-6 l5,6 l5,-6 l5,3" stroke="#2457d6" stroke-width="1.5" fill="none"/>
+
+  <!-- Gap 3: LDO to Out -->
+  <text x="820" y="130" font-size="14" font-weight="bold" fill="#27ae60" text-anchor="middle">+12V</text>
+  <text x="820" y="160" font-size="12" fill="#27ae60" text-anchor="middle">чисті</text>
+  <path d="M805,175 l30,0" stroke="#27ae60" stroke-width="2" fill="none"/>
+
+  <text x="820" y="310" font-size="14" font-weight="bold" fill="#27ae60" text-anchor="middle">-12V</text>
+  <text x="820" y="340" font-size="12" fill="#27ae60" text-anchor="middle">чисті</text>
+  <path d="M805,355 l30,0" stroke="#27ae60" stroke-width="2" fill="none"/>
+
+  <!-- GND label -->
+  <text x="850" y="220" font-size="14" fill="#6b7280" text-anchor="middle">GND</text>
+</svg>

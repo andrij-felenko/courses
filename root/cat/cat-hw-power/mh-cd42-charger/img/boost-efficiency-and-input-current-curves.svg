@@ -1,0 +1,89 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+  
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+  
+  <!-- Titles -->
+  <text x="480" y="30" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Залежність вхідного струму I_bat та ККД від напруги батареї V_bat</text>
+  <text x="480" y="50" text-anchor="middle" font-size="13" fill="#6b7280">Зі зниженням напруги акумулятора струм розряду нелінійно зростає (при V_out = 5 В, I_out = 2 А)</text>
+  
+  <!-- Axis Labels -->
+  <text x="90" y="60" text-anchor="end" font-size="14" fill="#1a1a1a">I_bat, А</text>
+  <text x="870" y="60" text-anchor="start" font-size="14" fill="#1a1a1a">η, %</text>
+  <text x="480" y="435" text-anchor="middle" font-size="14" fill="#1a1a1a">Напруга батареї V_bat, В</text>
+  
+  <!-- Grid Lines -->
+  <path d="M 100 140 L 860 140 M 100 200 L 860 200 M 100 260 L 860 260 M 100 320 L 860 320" stroke="#f4f6f8" stroke-width="2" fill="none"/>
+  <path d="M 226.67 80 L 226.67 380 M 353.33 80 L 353.33 380 M 480 80 L 480 380 M 606.67 80 L 606.67 380 M 733.33 80 L 733.33 380" stroke="#f4f6f8" stroke-width="2" fill="none"/>
+  
+  <!-- Plot Area Frame -->
+  <rect x="100" y="80" width="760" height="300" fill="none" stroke="#d0d7de" stroke-width="2"/>
+  
+  <!-- Axis Ticks -->
+  <path d="M 100 380 v 6 M 226.67 380 v 6 M 353.33 380 v 6 M 480 380 v 6 M 606.67 380 v 6 M 733.33 380 v 6 M 860 380 v 6" stroke="#d0d7de" stroke-width="2" fill="none"/>
+  <path d="M 100 80 h -6 M 100 140 h -6 M 100 200 h -6 M 100 260 h -6 M 100 320 h -6 M 100 380 h -6" stroke="#d0d7de" stroke-width="2" fill="none"/>
+  <path d="M 860 80 h 6 M 860 140 h 6 M 860 200 h 6 M 860 260 h 6 M 860 320 h 6 M 860 380 h 6" stroke="#d0d7de" stroke-width="2" fill="none"/>
+  
+  <!-- Tick Labels X -->
+  <text x="100" y="405" text-anchor="middle" font-size="14" fill="#6b7280">3.0</text>
+  <text x="226.67" y="405" text-anchor="middle" font-size="14" fill="#6b7280">3.2</text>
+  <text x="353.33" y="405" text-anchor="middle" font-size="14" fill="#6b7280">3.4</text>
+  <text x="480" y="405" text-anchor="middle" font-size="14" fill="#6b7280">3.6</text>
+  <text x="606.67" y="405" text-anchor="middle" font-size="14" fill="#6b7280">3.8</text>
+  <text x="733.33" y="405" text-anchor="middle" font-size="14" fill="#6b7280">4.0</text>
+  <text x="860" y="405" text-anchor="middle" font-size="14" fill="#6b7280">4.2</text>
+  
+  <!-- Tick Labels Y1 (Left) -->
+  <text x="85" y="85" text-anchor="end" font-size="14" fill="#6b7280">4.5</text>
+  <text x="85" y="145" text-anchor="end" font-size="14" fill="#6b7280">4.0</text>
+  <text x="85" y="205" text-anchor="end" font-size="14" fill="#6b7280">3.5</text>
+  <text x="85" y="265" text-anchor="end" font-size="14" fill="#6b7280">3.0</text>
+  <text x="85" y="325" text-anchor="end" font-size="14" fill="#6b7280">2.5</text>
+  <text x="85" y="385" text-anchor="end" font-size="14" fill="#6b7280">2.0</text>
+  
+  <!-- Tick Labels Y2 (Right) -->
+  <text x="875" y="85" text-anchor="start" font-size="14" fill="#6b7280">100</text>
+  <text x="875" y="145" text-anchor="start" font-size="14" fill="#6b7280">95</text>
+  <text x="875" y="205" text-anchor="start" font-size="14" fill="#6b7280">90</text>
+  <text x="875" y="265" text-anchor="start" font-size="14" fill="#6b7280">85</text>
+  <text x="875" y="325" text-anchor="start" font-size="14" fill="#6b7280">80</text>
+  <text x="875" y="385" text-anchor="start" font-size="14" fill="#6b7280">75</text>
+  
+  <!-- Data Curves -->
+  <path d="M 100 132.2 L 226.67 178.9 L 353.33 219.0 L 480 249.7 L 606.67 274.9 L 733.33 297.4 L 860 316.0" stroke="#2457d6" stroke-width="3" fill="none"/>
+  <path d="M 100 296 L 226.67 260 L 353.33 224 L 480 200 L 606.67 182 L 733.33 164 L 860 152" stroke="#27ae60" stroke-width="3" fill="none"/>
+  
+  <!-- Data Points -->
+  <circle cx="100" cy="132.2" r="4" fill="#ffffff" stroke="#2457d6" stroke-width="2"/>
+  <circle cx="226.67" cy="178.9" r="4" fill="#ffffff" stroke="#2457d6" stroke-width="2"/>
+  <circle cx="353.33" cy="219.0" r="4" fill="#ffffff" stroke="#2457d6" stroke-width="2"/>
+  <circle cx="480" cy="249.7" r="4" fill="#ffffff" stroke="#2457d6" stroke-width="2"/>
+  <circle cx="606.67" cy="274.9" r="4" fill="#ffffff" stroke="#2457d6" stroke-width="2"/>
+  <circle cx="733.33" cy="297.4" r="4" fill="#ffffff" stroke="#2457d6" stroke-width="2"/>
+  <circle cx="860" cy="316.0" r="4" fill="#ffffff" stroke="#2457d6" stroke-width="2"/>
+  
+  <circle cx="100" cy="296" r="4" fill="#ffffff" stroke="#27ae60" stroke-width="2"/>
+  <circle cx="226.67" cy="260" r="4" fill="#ffffff" stroke="#27ae60" stroke-width="2"/>
+  <circle cx="353.33" cy="224" r="4" fill="#ffffff" stroke="#27ae60" stroke-width="2"/>
+  <circle cx="480" cy="200" r="4" fill="#ffffff" stroke="#27ae60" stroke-width="2"/>
+  <circle cx="606.67" cy="182" r="4" fill="#ffffff" stroke="#27ae60" stroke-width="2"/>
+  <circle cx="733.33" cy="164" r="4" fill="#ffffff" stroke="#27ae60" stroke-width="2"/>
+  <circle cx="860" cy="152" r="4" fill="#ffffff" stroke="#27ae60" stroke-width="2"/>
+  
+  <!-- Annotation -->
+  <text x="250" y="160" font-size="13" fill="#2457d6">Нелінійне зростання струму</text>
+  <path d="M 245 155 Q 180 155 145 148" stroke="#2457d6" stroke-width="1.5" fill="none" marker-end="url(#arr-blue)"/>
+  
+  <!-- Legend -->
+  <rect x="420" y="75" width="320" height="70" fill="#f4f6f8" stroke="#d0d7de" rx="4"/>
+  <line x1="435" y1="90" x2="465" y2="90" stroke="#2457d6" stroke-width="3"/>
+  <text x="475" y="94" font-size="13" fill="#1a1a1a">Вхідний струм I_bat</text>
+  <line x1="435" y1="110" x2="465" y2="110" stroke="#27ae60" stroke-width="3"/>
+  <text x="475" y="114" font-size="13" fill="#1a1a1a">Коефіцієнт корисної дії η</text>
+  <text x="475" y="134" font-size="12" fill="#6b7280">I_bat = (V_out × I_out) / (V_bat × η)</text>
+</svg>

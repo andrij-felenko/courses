@@ -14,11 +14,23 @@
           "slug": "glass-ceramic-fuses",
           "title": "Плавкі запобіжники 5×20 (скляні й керамічні)",
           "basic": {
-            "status": "empty"
+            "status": "done"
           },
           "detailed": {
             "status": "done"
-          }
+          },
+          "api": [
+            {
+              "file": "api-5x20-holders-and-footprints-hardware.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-fuse-rating-derating.md",
+              "status": "done"
+            }
+          ]
         },
         {
           "slug": "polyswitch-ptc",
@@ -34,11 +46,35 @@
           "slug": "fuse-holders",
           "title": "Тримачі запобіжників 5×20",
           "basic": {
-            "status": "empty"
+            "status": "done"
           },
           "detailed": {
             "status": "done"
-          }
+          },
+          "api": [
+            {
+              "file": "api-5x20-fuse-holder-hardware-interface.md",
+              "status": "done"
+            }
+          ],
+          "hist": [
+            {
+              "file": "hist-5x20-fuse-holders-evolution.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-5x20-fuse-holder-thermal-and-electrical-calculations.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-5x20-fuse-holder-mounting-and-diagnostics.md",
+              "status": "done"
+            }
+          ]
         }
       ]
     },
@@ -54,6 +90,22 @@
           },
           "detailed": {
             "status": "done"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "grounding-and-bonding",
+      "title": "Заземлення й вирівнювання потенціалів",
+      "topics": [
+        {
+          "slug": "equipotential-bonding-in-industrial-cabinets",
+          "title": "Система вирівнювання потенціалів та заземлення шаф керування",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
           }
         }
       ]

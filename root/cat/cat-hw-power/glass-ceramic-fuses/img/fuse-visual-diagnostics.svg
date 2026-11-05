@@ -1,0 +1,160 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <!-- End cap metallic gradient -->
+    <linearGradient id="capGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#9ca3af"/>
+      <stop offset="20%" stop-color="#ffffff"/>
+      <stop offset="50%" stop-color="#d0d7de"/>
+      <stop offset="80%" stop-color="#f4f6f8"/>
+      <stop offset="100%" stop-color="#6b7280"/>
+    </linearGradient>
+
+    <!-- Short-circuit metallic sputtering radial gradient -->
+    <radialGradient id="blastGrad" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#0a0a0a" stop-opacity="0.98"/>
+      <stop offset="45%" stop-color="#1f242d" stop-opacity="0.92"/>
+      <stop offset="75%" stop-color="#374151" stop-opacity="0.8"/>
+      <stop offset="100%" stop-color="#111827" stop-opacity="0.95"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Canvas Background -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Візуальна діагностика стану плавкого запобіжника 5×20 мм</text>
+  <text x="480" y="54" text-anchor="middle" font-size="13" fill="#6b7280">Чиста колба з розривом вказує на перевантаження, чорний наліт — на коротке замикання в колі</text>
+
+  <!-- ==================== COLUMN 1: INTACT ==================== -->
+  <rect x="24" y="70" width="288" height="370" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Badge 1 -->
+  <rect x="36" y="82" width="264" height="32" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="168" y="103" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">1. Справний стан (Норма)</text>
+
+  <!-- Fuse 1 Showcase -->
+  <rect x="36" y="124" width="264" height="72" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Left Cap -->
+  <rect x="78" y="138" width="28" height="44" rx="3" fill="url(#capGrad)" stroke="#6b7280" stroke-width="1.2"/>
+  <line x1="82" y1="142" x2="82" y2="178" stroke="#ffffff" stroke-width="1.5" stroke-opacity="0.8"/>
+
+  <!-- Glass Tube -->
+  <rect x="106" y="141" width="124" height="38" rx="2" fill="#eaf0fd" fill-opacity="0.3" stroke="#27ae60" stroke-width="1.2"/>
+  <!-- Glass Reflection -->
+  <rect x="106" y="144" width="124" height="5" fill="#ffffff" fill-opacity="0.8"/>
+  <rect x="106" y="173" width="124" height="2" fill="#ffffff" fill-opacity="0.4"/>
+
+  <!-- Intact Wire with M-effect droplet -->
+  <line x1="106" y1="160" x2="164" y2="160" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="168" cy="160" r="3" fill="#1a1a1a"/>
+  <line x1="172" y1="160" x2="230" y2="160" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Right Cap -->
+  <rect x="230" y="138" width="28" height="44" rx="3" fill="url(#capGrad)" stroke="#6b7280" stroke-width="1.2"/>
+  <line x1="254" y1="142" x2="254" y2="178" stroke="#ffffff" stroke-width="1.5" stroke-opacity="0.8"/>
+
+  <!-- Col 1 Card A: Appearance & Measurements -->
+  <rect x="36" y="208" width="264" height="100" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="48" y="226" font-size="12" font-weight="bold" fill="#1a1a1a">Зовнішні ознаки та замір:</text>
+  <text x="48" y="246" font-size="12" fill="#1a1a1a">• Колба: <tspan fill="#27ae60" font-weight="bold">прозора, чиста</tspan></text>
+  <text x="48" y="266" font-size="12" fill="#1a1a1a">• Нитка: <tspan fill="#27ae60" font-weight="bold">ціла, без розривів</tspan></text>
+  <text x="48" y="286" font-size="12" fill="#1a1a1a">• Опір: <tspan fill="#27ae60" font-weight="bold">R ≈ 0,1...2 Ом (OK)</tspan></text>
+
+  <!-- Col 1 Card B: Diagnostics & Action -->
+  <rect x="36" y="320" width="264" height="108" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="48" y="338" font-size="12" font-weight="bold" fill="#27ae60">Режим і рекомендація:</text>
+  <text x="48" y="356" font-size="12" fill="#1a1a1a">• Струм: <tspan font-weight="bold">I ≤ I_nom (норма)</tspan></text>
+  <text x="48" y="374" font-size="12" fill="#1a1a1a">• Стан: схема не перевантажена</text>
+  <text x="48" y="394" font-size="12" font-weight="bold" fill="#27ae60">✓ Заміна не потрібна</text>
+  <text x="48" y="412" font-size="12" fill="#6b7280">Пристрій готовий до роботи</text>
+
+
+  <!-- ==================== COLUMN 2: OVERLOAD ==================== -->
+  <rect x="336" y="70" width="288" height="370" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Badge 2 -->
+  <rect x="348" y="82" width="264" height="32" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="480" y="103" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">2. Перевантаження (Сплеск)</text>
+
+  <!-- Fuse 2 Showcase -->
+  <rect x="348" y="124" width="264" height="72" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Left Cap -->
+  <rect x="390" y="138" width="28" height="44" rx="3" fill="url(#capGrad)" stroke="#6b7280" stroke-width="1.2"/>
+  <line x1="394" y1="142" x2="394" y2="178" stroke="#ffffff" stroke-width="1.5" stroke-opacity="0.8"/>
+
+  <!-- Glass Tube -->
+  <rect x="418" y="141" width="124" height="38" rx="2" fill="#eaf0fd" fill-opacity="0.3" stroke="#2457d6" stroke-width="1.2"/>
+  <!-- Glass Reflection -->
+  <rect x="418" y="144" width="124" height="5" fill="#ffffff" fill-opacity="0.8"/>
+  <rect x="418" y="173" width="124" height="2" fill="#ffffff" fill-opacity="0.4"/>
+
+  <!-- Melted Broken Wire with Droplets -->
+  <line x1="418" y1="160" x2="464" y2="160" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="466" cy="160" r="3.5" fill="#1a1a1a"/>
+  <circle cx="494" cy="160" r="3.5" fill="#1a1a1a"/>
+  <line x1="496" y1="160" x2="542" y2="160" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Right Cap -->
+  <rect x="542" y="138" width="28" height="44" rx="3" fill="url(#capGrad)" stroke="#6b7280" stroke-width="1.2"/>
+  <line x1="566" y1="142" x2="566" y2="178" stroke="#ffffff" stroke-width="1.5" stroke-opacity="0.8"/>
+
+  <!-- Col 2 Card A: Appearance & Measurements -->
+  <rect x="348" y="208" width="264" height="100" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="360" y="226" font-size="12" font-weight="bold" fill="#1a1a1a">Зовнішні ознаки та замір:</text>
+  <text x="360" y="246" font-size="12" fill="#1a1a1a">• Колба: <tspan fill="#2457d6" font-weight="bold">чиста, без нагару</tspan></text>
+  <text x="360" y="266" font-size="12" fill="#1a1a1a">• Нитка: <tspan fill="#2457d6" font-weight="bold">розрив / краплі металу</tspan></text>
+  <text x="360" y="286" font-size="12" fill="#1a1a1a">• Опір: <tspan fill="#c0392b" font-weight="bold">R = ∞ (обрив ланцюга)</tspan></text>
+
+  <!-- Col 2 Card B: Diagnostics & Action -->
+  <rect x="348" y="320" width="264" height="108" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="360" y="338" font-size="12" font-weight="bold" fill="#2457d6">Причина та протокол дій:</text>
+  <text x="360" y="356" font-size="12" fill="#1a1a1a">• Струм: <tspan font-weight="bold">I ≈ (1,35...2,5) · I_nom</tspan></text>
+  <text x="360" y="374" font-size="12" fill="#1a1a1a">• Причина: сплеск або втома нитки</text>
+  <text x="360" y="394" font-size="12" font-weight="bold" fill="#2457d6">ℹ Перевірити навантаження</text>
+  <text x="360" y="412" font-size="12" fill="#6b7280">Замінити на такий самий номінал</text>
+
+
+  <!-- ==================== COLUMN 3: SHORT CIRCUIT ==================== -->
+  <rect x="648" y="70" width="288" height="370" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Badge 3 -->
+  <rect x="660" y="82" width="264" height="32" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="792" y="103" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">3. Коротке замикання (КЗ)</text>
+
+  <!-- Fuse 3 Showcase -->
+  <rect x="660" y="124" width="264" height="72" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Left Cap -->
+  <rect x="702" y="138" width="28" height="44" rx="3" fill="url(#capGrad)" stroke="#6b7280" stroke-width="1.2"/>
+  <line x1="706" y1="142" x2="706" y2="178" stroke="#ffffff" stroke-width="1.5" stroke-opacity="0.8"/>
+
+  <!-- Glass Tube with Dark Sputtering -->
+  <rect x="730" y="141" width="124" height="38" rx="2" fill="url(#blastGrad)" stroke="#c0392b" stroke-width="1.2"/>
+  <!-- Wire Remnants -->
+  <path d="M 730,160 L 742,157 L 745,163" fill="none" stroke="#9ca3af" stroke-width="1.5"/>
+  <path d="M 854,160 L 842,162 L 839,157" fill="none" stroke="#9ca3af" stroke-width="1.5"/>
+  <!-- Dark Glass Reflection -->
+  <rect x="730" y="144" width="124" height="5" fill="#ffffff" fill-opacity="0.2"/>
+  <rect x="730" y="173" width="124" height="2" fill="#ffffff" fill-opacity="0.1"/>
+
+  <!-- Right Cap -->
+  <rect x="854" y="138" width="28" height="44" rx="3" fill="url(#capGrad)" stroke="#6b7280" stroke-width="1.2"/>
+  <line x1="878" y1="142" x2="878" y2="178" stroke="#ffffff" stroke-width="1.5" stroke-opacity="0.8"/>
+
+  <!-- Col 3 Card A: Appearance & Measurements -->
+  <rect x="660" y="208" width="264" height="100" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="672" y="226" font-size="12" font-weight="bold" fill="#1a1a1a">Зовнішні ознаки та замір:</text>
+  <text x="672" y="246" font-size="12" fill="#1a1a1a">• Колба: <tspan fill="#c0392b" font-weight="bold">чорний наліт / нагар</tspan></text>
+  <text x="672" y="266" font-size="12" fill="#1a1a1a">• Нитка: <tspan fill="#c0392b" font-weight="bold">повністю випарувалася</tspan></text>
+  <text x="672" y="286" font-size="12" fill="#1a1a1a">• Опір: <tspan fill="#c0392b" font-weight="bold">R = ∞ (плазмова дуга)</tspan></text>
+
+  <!-- Col 3 Card B: Diagnostics & Action -->
+  <rect x="660" y="320" width="264" height="108" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="672" y="338" font-size="12" font-weight="bold" fill="#c0392b">Аварія та сувора заборона:</text>
+  <text x="672" y="356" font-size="12" fill="#1a1a1a">• Струм: <tspan font-weight="bold">I ≫ 10 · I_nom (ударний КЗ)</tspan></text>
+  <text x="672" y="374" font-size="12" fill="#1a1a1a">• Причина: пробій ключів / діодів</text>
+  <text x="672" y="394" font-size="12" font-weight="bold" fill="#c0392b">⛔ Не вмикати повторно!</text>
+  <text x="672" y="412" font-size="12" fill="#c0392b">Знайти та усунути КЗ в схемі</text>
+</svg>

@@ -1,0 +1,56 @@
+<svg viewBox="0 0 960 460" width="960" height="460" xmlns="http://www.w3.org/2000/svg" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <defs>
+    <marker id="arr-axis" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-gray-rev" markerWidth="9" markerHeight="9" refX="0.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <text x="480" y="40" font-size="18" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Keep-Alive Pulse Timing</text>
+  <text x="480" y="60" font-size="13" text-anchor="middle" fill="#6b7280">Перевищення порогу 50 мА короткими імпульсами на тлі сну MCU</text>
+
+  <!-- Axes -->
+  <line x1="100" y1="400" x2="930" y2="400" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr-axis)"/>
+  <line x1="100" y1="400" x2="100" y2="90" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr-axis)"/>
+  
+  <text x="930" y="420" font-size="14" font-style="italic" text-anchor="end" fill="#1a1a1a">t</text>
+  <text x="80" y="100" font-size="14" font-style="italic" text-anchor="end" fill="#1a1a1a">I</text>
+
+  <!-- Y-axis marks -->
+  <line x1="95" y1="140" x2="105" y2="140" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="90" y="144" font-size="14" text-anchor="end" fill="#1a1a1a">I_pulse</text>
+
+  <line x1="95" y1="240" x2="105" y2="240" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="90" y="244" font-size="14" text-anchor="end" fill="#1a1a1a">~50 mA</text>
+
+  <line x1="95" y1="360" x2="105" y2="360" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="90" y="364" font-size="14" text-anchor="end" fill="#1a1a1a">Sleep</text>
+
+  <!-- Threshold line -->
+  <line x1="100" y1="240" x2="910" y2="240" stroke="#c0392b" stroke-width="2" stroke-dasharray="6,4"/>
+  <text x="470" y="226" font-size="14" text-anchor="middle" fill="#c0392b">Поріг фіксації навантаження (≈ 45–50 mA)</text>
+
+  <!-- Signal -->
+  <path d="M 100 360 L 200 360 L 200 140 L 300 140 L 300 360 L 640 360 L 640 140 L 740 140 L 740 360 L 910 360" fill="none" stroke="#2457d6" stroke-width="3" stroke-linejoin="round"/>
+  
+  <text x="470" y="346" font-size="14" text-anchor="middle" fill="#2457d6">Глибокий сон мікроконтролера</text>
+
+  <!-- Measurements -->
+  <line x1="200" y1="90" x2="200" y2="130" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <line x1="300" y1="90" x2="300" y2="130" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <line x1="200" y1="100" x2="300" y2="100" stroke="#6b7280" stroke-width="1.5" marker-start="url(#arr-gray-rev)" marker-end="url(#arr-gray)"/>
+  <text x="250" y="86" font-size="14" text-anchor="middle" fill="#1a1a1a">t_pulse</text>
+
+  <line x1="200" y1="370" x2="200" y2="445" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <line x1="640" y1="370" x2="640" y2="445" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <line x1="200" y1="435" x2="640" y2="435" stroke="#6b7280" stroke-width="1.5" marker-start="url(#arr-gray-rev)" marker-end="url(#arr-gray)"/>
+  <text x="420" y="421" font-size="14" text-anchor="middle" fill="#1a1a1a">T_period</text>
+
+</svg>

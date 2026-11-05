@@ -1,0 +1,58 @@
+<svg viewBox="0 0 960 460" width="960" height="460" xmlns="http://www.w3.org/2000/svg" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <text x="480" y="30" text-anchor="middle" fill="#1a1a1a" font-size="18" font-weight="bold">Автомат станів програмного драйвера BMS</text>
+  <text x="480" y="52" text-anchor="middle" fill="#6b7280" font-size="13">Обробка запитів, перевірка цілісності даних (CRC) та відновлення після збоїв</text>
+
+  <!-- Paths -->
+  <path d="M 30,210 L 90,210" stroke="#1a1a1a" stroke-width="1.5" fill="none" marker-end="url(#arr)"/>
+  <text x="60" y="197" text-anchor="middle" fill="#6b7280" font-size="13">Запит</text>
+
+  <path d="M 260,210 L 390,210" stroke="#1a1a1a" stroke-width="1.5" fill="none" marker-end="url(#arr)"/>
+  <text x="325" y="197" text-anchor="middle" fill="#6b7280" font-size="13">Tx завершено</text>
+
+  <path d="M 560,210 L 690,210" stroke="#1a1a1a" stroke-width="1.5" fill="none" marker-end="url(#arr)"/>
+  <text x="625" y="197" text-anchor="middle" fill="#6b7280" font-size="13">Rx завершено</text>
+
+  <path d="M 860,210 L 930,210" stroke="#1a1a1a" stroke-width="1.5" fill="none" marker-end="url(#arr)"/>
+  <text x="895" y="197" text-anchor="middle" fill="#6b7280" font-size="13">CRC OK</text>
+
+  <path d="M 480,240 L 480,310" stroke="#1a1a1a" stroke-width="1.5" fill="none" marker-end="url(#arr)"/>
+  <text x="493" y="275" text-anchor="start" fill="#6b7280" font-size="13">Таймаут</text>
+
+  <path d="M 780,240 L 780,295 L 180,295 L 180,310" stroke="#1a1a1a" stroke-width="1.5" fill="none" marker-end="url(#arr)"/>
+  <text x="630" y="287" text-anchor="middle" fill="#6b7280" font-size="13">Помилка CRC</text>
+
+  <path d="M 400,350 L 270,350" stroke="#1a1a1a" stroke-width="1.5" fill="none" marker-end="url(#arr)"/>
+  <text x="335" y="337" text-anchor="middle" fill="#6b7280" font-size="13">Повторити</text>
+
+  <path d="M 130,320 L 130,250" stroke="#1a1a1a" stroke-width="1.5" fill="none" marker-end="url(#arr)"/>
+  <text x="117" y="285" text-anchor="end" fill="#6b7280" font-size="13">Спроба &lt; Max</text>
+
+  <!-- Boxes -->
+  <rect x="100" y="180" width="160" height="60" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <text x="180" y="202" text-anchor="middle" fill="#1a1a1a" font-size="14" font-weight="bold">Надсилання</text>
+  <text x="180" y="222" text-anchor="middle" fill="#1a1a1a" font-size="14" font-weight="bold">запиту</text>
+
+  <rect x="400" y="180" width="160" height="60" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <text x="480" y="202" text-anchor="middle" fill="#1a1a1a" font-size="14" font-weight="bold">Очікування</text>
+  <text x="480" y="222" text-anchor="middle" fill="#1a1a1a" font-size="14" font-weight="bold">відповіді</text>
+
+  <rect x="700" y="180" width="160" height="60" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <text x="780" y="202" text-anchor="middle" fill="#1a1a1a" font-size="14" font-weight="bold">Перевірка</text>
+  <text x="780" y="222" text-anchor="middle" fill="#1a1a1a" font-size="14" font-weight="bold">контрольної суми</text>
+
+  <rect x="100" y="320" width="160" height="60" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <text x="180" y="342" text-anchor="middle" fill="#1a1a1a" font-size="14" font-weight="bold">Повторна</text>
+  <text x="180" y="362" text-anchor="middle" fill="#1a1a1a" font-size="14" font-weight="bold">спроба</text>
+
+  <rect x="400" y="320" width="160" height="60" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="2"/>
+  <text x="480" y="342" text-anchor="middle" fill="#1a1a1a" font-size="14" font-weight="bold">Фіксація помилки</text>
+  <text x="480" y="362" text-anchor="middle" fill="#1a1a1a" font-size="14" font-weight="bold">таймауту</text>
+</svg>

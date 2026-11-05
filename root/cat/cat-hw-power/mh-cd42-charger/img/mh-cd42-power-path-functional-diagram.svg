@@ -1,147 +1,69 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400">
   <defs>
-    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
-      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
-    </marker>
-    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
-      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
-    </marker>
-    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
-      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    <style>
+      .box { fill: #f8f9fa; stroke: #343a40; stroke-width: 2; rx: 5; ry: 5; }
+      .text { font-family: sans-serif; font-size: 16px; fill: #212529; text-anchor: middle; alignment-baseline: middle; }
+      .title { font-weight: bold; font-size: 18px; }
+      .path { fill: none; stroke: #007bff; stroke-width: 3; }
+      .arrow { fill: #007bff; }
+      .switch { fill: none; stroke: #dc3545; stroke-width: 3; stroke-dasharray: 5,5; }
+      .mosfet { fill: #e9ecef; stroke: #6c757d; stroke-width: 2; }
+      .label { font-family: sans-serif; font-size: 14px; fill: #495057; }
+    </style>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" class="arrow"/>
     </marker>
   </defs>
 
-  <!-- Біла підкладка -->
-  <rect x="0" y="0" width="960" height="520" fill="white"/>
+  <!-- Background / Module Boundary -->
+  <rect x="180" y="40" width="440" height="320" class="box" fill="#ffffff" stroke-dasharray="8,4" stroke="#adb5bd"/>
+  <text x="400" y="60" class="text title" fill="#6c757d">Модуль MH-CD42 (Power Path)</text>
 
-  <!-- Заголовок і підзаголовок -->
-  <text x="480" y="30" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Функціональна схема Power Path у модулі MH-CD42</text>
-  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">При USB-живленні струм іде на навантаження й заряд АКБ; без USB — Boost піднімає 3.7 В до 5 В</text>
+  <!-- External Inputs / Outputs -->
+  <rect x="20" y="100" width="120" height="60" class="box" fill="#e2e3e5"/>
+  <text x="80" y="130" class="text title">Вхід 5 В</text>
 
-  <!-- Блок Micro-USB / Type-C (Вхід) -->
-  <rect x="30" y="130" width="115" height="80" fill="#eaf0fd" stroke="#2457d6" stroke-width="2" rx="6"/>
-  <text x="87.5" y="160" font-size="13" font-weight="700" fill="#2457d6" text-anchor="middle">Micro-USB / Type-C</text>
-  <text x="87.5" y="182" font-size="12" fill="#6b7280" text-anchor="middle">Вхід 5 В (VIN)</text>
+  <rect x="660" y="100" width="120" height="60" class="box" fill="#e2e3e5"/>
+  <text x="720" y="120" class="text title">Шина</text>
+  <text x="720" y="140" class="text title">навантаження</text>
 
-  <!-- Головний корпус модуля MH-CD42 -->
-  <rect x="175" y="80" width="515" height="340" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2" rx="8"/>
-  <text x="432.5" y="106" font-size="14" font-weight="700" fill="#1a1a1a" text-anchor="middle">Модуль MH-CD42 (Зарядний пристрій + Boost 5 В / 2 А)</text>
+  <rect x="340" y="320" width="120" height="60" class="box" fill="#e2e3e5"/>
+  <text x="400" y="340" class="text title">Li-Ion АКБ</text>
+  <text x="400" y="360" class="text">3.0–4.2 В</text>
 
-  <!-- ВЕРХНІЙ РЯДОК БЛОКІВ -->
+  <!-- Internal Components -->
+  <rect x="320" y="100" width="160" height="60" class="box" fill="#d1e7dd"/>
+  <text x="400" y="120" class="text title">Зарядний вузол</text>
+  <text x="400" y="140" class="text">CC / CV</text>
 
-  <!-- 1. Power Path Switch -->
-  <rect x="195" y="130" width="135" height="80" fill="#ffffff" stroke="#2457d6" stroke-width="1.5" rx="4"/>
-  <text x="262.5" y="154" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">Power Path</text>
-  <text x="262.5" y="174" font-size="12" fill="#6b7280" text-anchor="middle">Перемикач джерела</text>
-  <text x="262.5" y="194" font-size="12" fill="#2457d6" text-anchor="middle">Пріоритет USB</text>
+  <rect x="440" y="220" width="180" height="60" class="box" fill="#fff3cd"/>
+  <text x="530" y="240" class="text title">DC-DC Boost</text>
+  <text x="530" y="260" class="text">5.1 В / до 2.1 А</text>
 
-  <!-- 2. Boost Converter -->
-  <rect x="365" y="130" width="135" height="80" fill="#ffffff" stroke="#27ae60" stroke-width="1.5" rx="4"/>
-  <text x="432.5" y="154" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">Синхронний Boost</text>
-  <text x="432.5" y="174" font-size="12" fill="#6b7280" text-anchor="middle">3.0–4.2 В -> 5.0 В</text>
-  <text x="432.5" y="194" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">I_out до 2.0 А</text>
+  <rect x="200" y="220" width="120" height="40" class="box" fill="#cff4fc"/>
+  <text x="260" y="240" class="text">MOSFET Ключ</text>
 
-  <!-- 3. OUT+ Шина -->
-  <rect x="535" y="130" width="135" height="80" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="4"/>
-  <text x="602.5" y="154" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">Вихідна шина</text>
-  <text x="602.5" y="174" font-size="13" font-weight="700" fill="#2457d6" text-anchor="middle">OUT+ / OUT- (5 В)</text>
-  <text x="602.5" y="194" font-size="12" fill="#6b7280" text-anchor="middle">Живлення пристрою</text>
+  <!-- Connections -->
+  <!-- Input to Charge Node -->
+  <line x1="140" y1="130" x2="320" y2="130" class="path" marker-end="url(#arrowhead)"/>
+  
+  <!-- Charge Node to Battery -->
+  <path d="M 400 160 L 400 320" class="path" marker-end="url(#arrowhead)"/>
+  
+  <!-- Input to Load (Bypass) -->
+  <path d="M 140 130 L 170 130 L 170 80 L 640 80 L 640 115 L 660 115" class="path" marker-end="url(#arrowhead)"/>
+  <text x="400" y="70" class="label" text-anchor="middle">Наскрізне живлення (Bypass)</text>
 
-  <!-- НИЖНІЙ РЯДОК БЛОКІВ -->
+  <!-- Battery to Boost -->
+  <path d="M 400 320 L 400 250 L 440 250" class="path" marker-end="url(#arrowhead)"/>
+  
+  <!-- Boost to Load -->
+  <path d="M 620 250 L 640 250 L 640 145 L 660 145" class="path" marker-end="url(#arrowhead)"/>
 
-  <!-- 4. Контролер Заряду CC/CV -->
-  <rect x="195" y="245" width="135" height="145" fill="#ffffff" stroke="#2457d6" stroke-width="1.5" rx="4"/>
-  <text x="262.5" y="270" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">Контролер заряду</text>
-  <text x="262.5" y="292" font-size="12" fill="#6b7280" text-anchor="middle">Режим CC / CV</text>
-  <text x="262.5" y="314" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">I_ch = 2.1 А</text>
-  <text x="262.5" y="338" font-size="12" fill="#6b7280" text-anchor="middle">Захист АКБ</text>
-  <text x="262.5" y="358" font-size="12" fill="#6b7280" text-anchor="middle">(відбої 4.2 В)</text>
+  <!-- Battery Disconnect Key (Low Voltage Protection) -->
+  <circle cx="400" cy="285" r="15" fill="#fff" stroke="#dc3545" stroke-width="2"/>
+  <line x1="390" y1="285" x2="415" y2="275" stroke="#dc3545" stroke-width="2"/>
+  <text x="460" y="290" class="label" fill="#dc3545">Захист від</text>
+  <text x="460" y="305" class="label" fill="#dc3545">глибокого розряду</text>
 
-  <!-- 5. MCU & Захист -->
-  <rect x="365" y="245" width="135" height="145" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" rx="4"/>
-  <text x="432.5" y="270" font-size="13" font-weight="700" fill="#c0392b" text-anchor="middle">MCU Керування</text>
-  <text x="432.5" y="292" font-size="12" fill="#1a1a1a" text-anchor="middle">Індикація 4xLED</text>
-  <text x="432.5" y="314" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">Детектор I &lt; 45 мА</text>
-  <text x="432.5" y="336" font-size="12" fill="#c0392b" text-anchor="middle">Автосон через 30 с</text>
-  <text x="432.5" y="358" font-size="12" fill="#6b7280" text-anchor="middle">Кнопка Key (Start)</text>
-
-  <!-- 6. Клеми BAT+ / BAT- -->
-  <rect x="535" y="245" width="135" height="145" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="4"/>
-  <text x="602.5" y="270" font-size="13" font-weight="700" fill="#27ae60" text-anchor="middle">Клеми BAT+ / BAT-</text>
-  <text x="602.5" y="292" font-size="12" fill="#1a1a1a" text-anchor="middle">Двонапрямний вузол</text>
-  <text x="602.5" y="314" font-size="12" fill="#2457d6" text-anchor="middle">Заряд: до 2.1 А</text>
-  <text x="602.5" y="336" font-size="12" fill="#27ae60" text-anchor="middle">Розряд: до 3.5 А</text>
-  <text x="602.5" y="358" font-size="12" fill="#6b7280" text-anchor="middle">Напруга 3.0–4.2 В</text>
-
-  <!-- ЗОВНІШНІ БЛОКИ -->
-
-  <!-- Навантаження -->
-  <rect x="730" y="130" width="200" height="85" fill="#ffffff" stroke="#d0d7de" stroke-width="2" rx="6"/>
-  <text x="830" y="154" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">Навантаження</text>
-  <text x="830" y="174" font-size="12" fill="#6b7280" text-anchor="middle">Мікроконтролер / 5 В</text>
-  <text x="830" y="194" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">I_load &gt; 45 мА</text>
-
-  <!-- АКБ 1S -->
-  <rect x="730" y="260" width="200" height="130" fill="#e9f7ef" stroke="#27ae60" stroke-width="2" rx="6"/>
-  <text x="830" y="285" font-size="13" font-weight="700" fill="#27ae60" text-anchor="middle">1S Li-Ion / LiPo</text>
-  <text x="830" y="307" font-size="12" fill="#1a1a1a" text-anchor="middle">Батарея 3.7 В</text>
-  <text x="830" y="329" font-size="12" fill="#6b7280" text-anchor="middle">Діапазон 3.0–4.2 В</text>
-  <text x="830" y="351" font-size="12" fill="#6b7280" text-anchor="middle">Вбудована BMS</text>
-  <text x="830" y="371" font-size="12" fill="#6b7280" text-anchor="middle">(захист АКБ)</text>
-
-  <!-- З'ЄДНАЛЬНІ ЛІНІЇ ТА СТРІЛКИ -->
-
-  <!-- 1. Micro-USB -> Power Path -->
-  <line x1="145" y1="170" x2="195" y2="170" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
-  <text x="170" y="156" font-size="12" fill="#2457d6" text-anchor="middle">5 В Вхід</text>
-
-  <!-- 2. Power Path -> Boost (USB Bypass) -->
-  <line x1="330" y1="170" x2="365" y2="170" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
-  <text x="347.5" y="156" font-size="12" fill="#2457d6" text-anchor="middle">Bypass</text>
-
-  <!-- 3. Power Path -> Charger -->
-  <line x1="262.5" y1="210" x2="262.5" y2="245" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
-  <text x="272" y="231" font-size="12" fill="#2457d6" text-anchor="start">Заряд 5В</text>
-
-  <!-- 4. Charger -> BAT+ Bus (по нижньому обходу y=405) -->
-  <path d="M 262.5,390 L 262.5,405 L 602.5,405 L 602.5,390" fill="none" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
-  <text x="432.5" y="401" font-size="12" fill="#2457d6" text-anchor="middle">Зарядний струм I_ch (до 2.1 А)</text>
-
-  <!-- 5. BAT+ Bus -> Boost (Розряд, по середньому проміжку y=227.5) -->
-  <path d="M 602.5,245 L 602.5,227.5 L 432.5,227.5 L 432.5,210" fill="none" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arr-green)"/>
-  <text x="517.5" y="223" font-size="12" fill="#27ae60" text-anchor="middle">Розряд АКБ (3.0–4.2 В)</text>
-
-  <!-- 6. Boost -> OUT+ Bus -->
-  <line x1="500" y1="170" x2="535" y2="170" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arr-green)"/>
-  <text x="517.5" y="156" font-size="12" fill="#27ae60" text-anchor="middle">5.0 В</text>
-
-  <!-- 7. OUT+ Bus -> Load -->
-  <line x1="670" y1="170" x2="730" y2="170" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
-  <text x="700" y="156" font-size="12" fill="#2457d6" text-anchor="middle">5 В / 2 А</text>
-
-  <!-- 8. BAT+ Bus <-> External Battery -->
-  <line x1="670" y1="295" x2="730" y2="295" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
-  <line x1="730" y1="325" x2="670" y2="325" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
-  <text x="700" y="314" font-size="12" fill="#1a1a1a" text-anchor="middle">АКБ</text>
-
-  <!-- 9. OUT+ Bus -> MCU Control (Детекція струму) -->
-  <path d="M 602.5,210 L 602.5,227.5 L 450,227.5 L 450,245" fill="none" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr-red)"/>
-
-  <!-- Легенда / Пояснення внизу -->
-  <rect x="30" y="430" width="900" height="75" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5" rx="6"/>
-
-  <!-- Легенда: Рядок 1 -->
-  <line x1="45" y1="450" x2="80" y2="450" stroke="#2457d6" stroke-width="3" marker-end="url(#arr-blue)"/>
-  <text x="95" y="454" font-size="12" font-weight="700" fill="#2457d6">Живлення від USB (5 В):</text>
-  <text x="250" y="454" font-size="12" fill="#1a1a1a">струм 5 В живить навантаження та заряджає АКБ (CC/CV до 2.1 А)</text>
-
-  <!-- Легенда: Рядок 2 -->
-  <line x1="45" y1="470" x2="80" y2="470" stroke="#27ae60" stroke-width="3" marker-end="url(#arr-green)"/>
-  <text x="95" y="474" font-size="12" font-weight="700" fill="#27ae60">Живлення від АКБ:</text>
-  <text x="250" y="474" font-size="12" fill="#1a1a1a">Boost підвищує 3.0–4.2 В до 5.0 В (струм навантаження до 2 А)</text>
-
-  <!-- Легенда: Рядок 3 -->
-  <line x1="45" y1="490" x2="80" y2="490" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr-red)"/>
-  <text x="95" y="494" font-size="12" font-weight="700" fill="#c0392b">Особливість (автосон):</text>
-  <text x="250" y="494" font-size="12" fill="#6b7280">при I &lt; 45–50 мА модуль вимикається через 30 с (активація кнопкою Key)</text>
 </svg>

@@ -1,0 +1,103 @@
+<svg viewBox="0 0 960 560" width="960" height="560" xmlns="http://www.w3.org/2000/svg" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <text x="480" y="40" font-size="18" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Геометрія термоусадочного рукава акумулятора 18650</text>
+  <text x="480" y="60" font-size="13" text-anchor="middle" fill="#6b7280">Взаємозв'язок пласкої ширини плівки, торцевих виступів та формування захисного ободу</text>
+
+  <!-- Col 1 -->
+  <text x="120" y="110" font-size="16" font-weight="bold" text-anchor="middle" fill="#1a1a1a">1. Геометрія плівки</text>
+
+  <circle cx="120" cy="220" r="45" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <line x1="100" y1="220" x2="77" y2="220" stroke="#1a1a1a" stroke-width="1" marker-end="url(#arr)"/>
+  <line x1="140" y1="220" x2="163" y2="220" stroke="#1a1a1a" stroke-width="1" marker-end="url(#arr)"/>
+  <text x="120" y="215" font-size="13" text-anchor="middle" fill="#1a1a1a">D ≈ 18.5 - 19 мм</text>
+  <text x="120" y="285" font-size="13" text-anchor="middle" fill="#1a1a1a">Діаметр (D)</text>
+  <text x="120" y="305" font-size="12" text-anchor="middle" fill="#6b7280">W = π × D / 2</text>
+
+  <rect x="49" y="380" width="142" height="12" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <line x1="49" y1="360" x2="191" y2="360" stroke="#1a1a1a" stroke-width="1"/>
+  <line x1="69" y1="360" x2="51" y2="360" stroke="#1a1a1a" stroke-width="1" marker-end="url(#arr)"/>
+  <line x1="171" y1="360" x2="189" y2="360" stroke="#1a1a1a" stroke-width="1" marker-end="url(#arr)"/>
+  <text x="120" y="352" font-size="13" text-anchor="middle" fill="#1a1a1a">W ≈ 29.5 - 30 мм</text>
+  <text x="120" y="420" font-size="13" text-anchor="middle" fill="#1a1a1a">Пласка ширина (W)</text>
+
+  <!-- Col 2 -->
+  <text x="410" y="110" font-size="16" font-weight="bold" text-anchor="middle" fill="#1a1a1a">2. Позиціонування</text>
+
+  <rect x="365" y="200" width="90" height="200" fill="#f4f6f8" stroke="#6b7280" stroke-width="2" rx="3"/>
+  <rect x="395" y="195" width="30" height="5" fill="#d0d7de" stroke="#6b7280" stroke-width="2"/>
+  <text x="410" y="305" font-size="16" font-weight="bold" fill="#6b7280" text-anchor="middle">18650</text>
+  <rect x="360" y="175" width="100" height="250" fill="#eaf0fd" opacity="0.8" stroke="#2457d6" stroke-width="2"/>
+
+  <!-- Col 2 Dimensions Left -->
+  <line x1="355" y1="175" x2="270" y2="175" stroke="#2457d6" stroke-width="1"/>
+  <line x1="355" y1="425" x2="270" y2="425" stroke="#2457d6" stroke-width="1"/>
+  <line x1="277" y1="200" x2="277" y2="177" stroke="#2457d6" stroke-width="1" marker-end="url(#arr-blue)"/>
+  <line x1="277" y1="400" x2="277" y2="423" stroke="#2457d6" stroke-width="1" marker-end="url(#arr-blue)"/>
+  <line x1="277" y1="200" x2="277" y2="400" stroke="#2457d6" stroke-width="1"/>
+  <text x="265" y="295" font-size="13" fill="#2457d6" text-anchor="end">Довжина рукава</text>
+  <text x="265" y="312" font-size="13" fill="#2457d6" text-anchor="end">(≈ 71 - 72 мм)</text>
+
+  <line x1="355" y1="200" x2="340" y2="200" stroke="#1a1a1a" stroke-width="1"/>
+  <line x1="355" y1="400" x2="340" y2="400" stroke="#1a1a1a" stroke-width="1"/>
+  <line x1="347" y1="220" x2="347" y2="202" stroke="#1a1a1a" stroke-width="1" marker-end="url(#arr)"/>
+  <line x1="347" y1="380" x2="347" y2="398" stroke="#1a1a1a" stroke-width="1" marker-end="url(#arr)"/>
+  <line x1="347" y1="220" x2="347" y2="380" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="335" y="305" font-size="13" fill="#1a1a1a" text-anchor="end">Корпус (65 мм)</text>
+
+  <!-- Col 2 Dimensions Right -->
+  <line x1="465" y1="175" x2="480" y2="175" stroke="#1a1a1a" stroke-width="1"/>
+  <line x1="465" y1="200" x2="480" y2="200" stroke="#1a1a1a" stroke-width="1"/>
+  <line x1="472" y1="187.5" x2="472" y2="177" stroke="#1a1a1a" stroke-width="1" marker-end="url(#arr)"/>
+  <line x1="472" y1="187.5" x2="472" y2="198" stroke="#1a1a1a" stroke-width="1" marker-end="url(#arr)"/>
+  <text x="490" y="185" font-size="13" fill="#1a1a1a">Торцевий виступ (h)</text>
+  <text x="490" y="202" font-size="12" fill="#6b7280">(запас для усадки)</text>
+
+  <line x1="465" y1="400" x2="480" y2="400" stroke="#1a1a1a" stroke-width="1"/>
+  <line x1="465" y1="425" x2="480" y2="425" stroke="#1a1a1a" stroke-width="1"/>
+  <line x1="472" y1="412.5" x2="472" y2="402" stroke="#1a1a1a" stroke-width="1" marker-end="url(#arr)"/>
+  <line x1="472" y1="412.5" x2="472" y2="423" stroke="#1a1a1a" stroke-width="1" marker-end="url(#arr)"/>
+  <text x="490" y="417" font-size="13" fill="#1a1a1a">h ≈ 3 - 3.5 мм</text>
+
+  <!-- Col 3 -->
+  <text x="780" y="110" font-size="16" font-weight="bold" text-anchor="middle" fill="#1a1a1a">3. Після усадки</text>
+
+  <rect x="735" y="200" width="90" height="200" fill="#f4f6f8" stroke="#6b7280" stroke-width="2" rx="3"/>
+  <rect x="765" y="195" width="30" height="5" fill="#d0d7de" stroke="#6b7280" stroke-width="2"/>
+  <text x="780" y="305" font-size="16" font-weight="bold" fill="#6b7280" text-anchor="middle">18650</text>
+
+  <!-- Insulator -->
+  <rect x="735" y="196" width="25" height="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="800" y="196" width="25" height="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+
+  <!-- Shrunk Sleeve -->
+  <path d="M 750 194.5 L 733.5 194.5 L 733.5 401.5 L 750 401.5" fill="none" stroke="#2457d6" stroke-width="3"/>
+  <path d="M 810 194.5 L 826.5 194.5 L 826.5 401.5 L 810 401.5" fill="none" stroke="#2457d6" stroke-width="3"/>
+
+  <!-- Col 3 Labels Left -->
+  <text x="710" y="165" text-anchor="end" font-size="13" fill="#27ae60">Додаткова</text>
+  <text x="710" y="182" text-anchor="end" font-size="13" fill="#27ae60">шайба-ізолятор</text>
+  <line x1="715" y1="180" x2="735" y2="195" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <!-- Col 3 Labels Right -->
+  <text x="850" y="165" text-anchor="middle" font-size="13" fill="#1a1a1a">Тороїдальний обід</text>
+  <text x="850" y="182" text-anchor="middle" font-size="12" fill="#6b7280">(надійне утримання)</text>
+  <line x1="850" y1="187" x2="815" y2="195" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <text x="850" y="410" text-anchor="middle" font-size="13" fill="#1a1a1a">Захист</text>
+  <text x="850" y="427" text-anchor="middle" font-size="13" fill="#1a1a1a">мінусового краю</text>
+  <line x1="850" y1="415" x2="815" y2="401" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+
+</svg>
