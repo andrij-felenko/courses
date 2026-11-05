@@ -1,0 +1,81 @@
+<svg viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Header -->
+  <text x="480" y="30" font-size="18" font-weight="700" text-anchor="middle" fill="#1a1a1a">Безпечний експорт ключів через запечатування (Key Wrapping)</text>
+  <text x="480" y="52" font-size="13" text-anchor="middle" fill="#6b7280">Приватний ключ зашифровується майстер-ключем KEK перед виходом у недовірене середовище</text>
+
+  <!-- Markers -->
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Source HSM (Left) -->
+  <rect x="35" y="85" width="280" height="345" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="175" y="110" font-size="14" font-weight="700" text-anchor="middle" fill="#2457d6">Початковий модуль HSM (Джерело)</text>
+
+  <rect x="55" y="135" width="240" height="60" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="175" y="155" font-size="12" font-weight="700" text-anchor="middle" fill="#c0392b">Цільовий ключ K_data</text>
+  <text x="175" y="175" font-size="11" text-anchor="middle" fill="#1a1a1a">(Відкритий лише всередині HSM)</text>
+
+  <rect x="55" y="210" width="240" height="60" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+  <text x="175" y="230" font-size="12" font-weight="700" text-anchor="middle" fill="#2457d6">Майстер-ключ KEK</text>
+  <text x="175" y="250" font-size="11" text-anchor="middle" fill="#6b7280">(Key Encryption Key)</text>
+
+  <rect x="55" y="285" width="240" height="85" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="175" y="307" font-size="12" font-weight="700" text-anchor="middle" fill="#2457d6">Двигун Key Wrapping (AES-KW)</text>
+  <text x="175" y="327" font-size="11" text-anchor="middle" fill="#1a1a1a">Шифрування K_data за допомогою KEK</text>
+  <text x="175" y="347" font-size="11" text-anchor="middle" fill="#1a1a1a">+ Обчислення коду цілісності (MAC)</text>
+
+  <text x="175" y="405" font-size="11" font-weight="700" text-anchor="middle" fill="#2457d6">Захищений периметр HSM 1</text>
+
+  <!-- Untrusted Transit (Middle) -->
+  <rect x="350" y="85" width="260" height="345" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="480" y="110" font-size="14" font-weight="700" text-anchor="middle" fill="#1a1a1a">Недовірене середовище</text>
+  <text x="480" y="130" font-size="12" text-anchor="middle" fill="#6b7280">(Мережа / Диск / Хмари)</text>
+
+  <rect x="370" y="160" width="220" height="150" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="480" y="185" font-size="13" font-weight="700" text-anchor="middle" fill="#1a1a1a">Запечатаний блок (Key Blob)</text>
+  <line x1="380" y1="197" x2="580" y2="197" stroke="#d0d7de" stroke-width="1"/>
+  <text x="480" y="220" font-size="12" font-weight="700" text-anchor="middle" fill="#2457d6">E_KEK(K_data)</text>
+  <text x="480" y="240" font-size="11" text-anchor="middle" fill="#6b7280">Зашифрований вміст ключа</text>
+  <text x="480" y="265" font-size="12" font-weight="700" text-anchor="middle" fill="#27ae60">+ Імітовставка MAC</text>
+  <text x="480" y="285" font-size="11" text-anchor="middle" fill="#6b7280">Захист від підробки</text>
+
+  <rect x="370" y="330" width="220" height="75" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="480" y="352" font-size="12" font-weight="700" text-anchor="middle" fill="#27ae60">Абсолютна безпека</text>
+  <text x="480" y="370" font-size="11" text-anchor="middle" fill="#1a1a1a">Без KEK зловмисник</text>
+  <text x="480" y="388" font-size="11" text-anchor="middle" fill="#1a1a1a">бачить лише шифротекст</text>
+
+  <!-- Destination HSM (Right) -->
+  <rect x="645" y="85" width="280" height="345" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="785" y="110" font-size="14" font-weight="700" text-anchor="middle" fill="#2457d6">Цільовий модуль HSM (Приймач)</text>
+
+  <rect x="665" y="135" width="240" height="60" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+  <text x="785" y="155" font-size="12" font-weight="700" text-anchor="middle" fill="#2457d6">Той самий KEK</text>
+  <text x="785" y="175" font-size="11" text-anchor="middle" fill="#6b7280">(Спільний майстер-ключ)</text>
+
+  <rect x="665" y="210" width="240" height="85" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="785" y="232" font-size="12" font-weight="700" text-anchor="middle" fill="#2457d6">Розпакування (Key Unwrapping)</text>
+  <text x="785" y="252" font-size="11" text-anchor="middle" fill="#1a1a1a">Перевірка цілісності MAC</text>
+  <text x="785" y="272" font-size="11" text-anchor="middle" fill="#1a1a1a">Розшифрування K_data всередині</text>
+
+  <rect x="665" y="310" width="240" height="70" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="785" y="335" font-size="12" font-weight="700" text-anchor="middle" fill="#27ae60">Відновлений K_data</text>
+  <text x="785" y="355" font-size="11" text-anchor="middle" fill="#1a1a1a">Готовий до роботи в HSM 2</text>
+
+  <text x="785" y="405" font-size="11" font-weight="700" text-anchor="middle" fill="#2457d6">Захищений периметр HSM 2</text>
+
+  <!-- Connectors -->
+  <path d="M 295 327 L 368 235" fill="none" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <path d="M 590 235 L 663 252" fill="none" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+</svg>

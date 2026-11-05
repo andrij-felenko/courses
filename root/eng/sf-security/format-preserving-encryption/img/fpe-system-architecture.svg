@@ -1,0 +1,89 @@
+<svg viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Header -->
+  <text x="480" y="30" font-size="18" font-weight="700" text-anchor="middle" fill="#1a1a1a">Архітектура інтеграції FPE у застарілу інфраструктуру</text>
+  <text x="480" y="52" font-size="13" text-anchor="middle" fill="#6b7280">Перетворення даних у потрібний формат без зміни схеми баз даних та контрактів API</text>
+
+  <!-- Markers -->
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Column 1: Application -->
+  <rect x="40" y="90" width="260" height="320" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="170" y="115" font-size="14" font-weight="700" text-anchor="middle" fill="#1a1a1a">Бекенд Застосунку</text>
+
+  <!-- Sub-block App -->
+  <rect x="60" y="140" width="220" height="65" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="170" y="162" font-size="12" font-weight="700" text-anchor="middle" fill="#1a1a1a">Вхідний запит клієнта</text>
+  <text x="170" y="180" font-size="12" text-anchor="middle" fill="#c0392b">PAN: 4532 8901 2345 6789</text>
+  <text x="170" y="195" font-size="11" text-anchor="middle" fill="#6b7280">(Відкритий 16-значний номер)</text>
+
+  <rect x="60" y="235" width="220" height="65" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="170" y="257" font-size="12" font-weight="700" text-anchor="middle" fill="#1a1a1a">Контекст запису (Tweak)</text>
+  <text x="170" y="275" font-size="12" text-anchor="middle" fill="#2457d6">TxID: 98412039</text>
+  <text x="170" y="290" font-size="11" text-anchor="middle" fill="#6b7280">(Унікальний IV для кожного запису)</text>
+
+  <rect x="60" y="330" width="220" height="60" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="170" y="352" font-size="12" font-weight="700" text-anchor="middle" fill="#27ae60">Отриманий шифротекст</text>
+  <text x="170" y="372" font-size="12" text-anchor="middle" fill="#1a1a1a">PAN: 4111 2222 3333 4444</text>
+
+  <!-- Column 2: FPE Service -->
+  <rect x="350" y="90" width="260" height="320" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="480" y="115" font-size="14" font-weight="700" text-anchor="middle" fill="#2457d6">Сервіс FPE (FF1 / FF3-1)</text>
+
+  <rect x="370" y="140" width="220" height="65" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+  <text x="480" y="162" font-size="12" font-weight="700" text-anchor="middle" fill="#1a1a1a">Секретний ключ K</text>
+  <text x="480" y="180" font-size="12" text-anchor="middle" fill="#6b7280">AES-256 (Зберігається в HSM)</text>
+
+  <rect x="370" y="235" width="220" height="70" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+  <text x="480" y="255" font-size="12" font-weight="700" text-anchor="middle" fill="#2457d6">Двигун шифрування FPE</text>
+  <text x="480" y="273" font-size="11" text-anchor="middle" fill="#1a1a1a">Radix = 10 (цифри 0-9)</text>
+  <text x="480" y="290" font-size="11" text-anchor="middle" fill="#1a1a1a">Довжина = 16 символів</text>
+
+  <rect x="370" y="335" width="220" height="50" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="480" y="356" font-size="12" font-weight="700" text-anchor="middle" fill="#27ae60">Гарантія формату</text>
+  <text x="480" y="372" font-size="11" text-anchor="middle" fill="#6b7280">Без вирівнювання (No Padding)</text>
+
+  <!-- Column 3: Legacy DB -->
+  <rect x="660" y="90" width="260" height="320" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="790" y="115" font-size="14" font-weight="700" text-anchor="middle" fill="#1a1a1a">Застаріла База Даних</text>
+
+  <rect x="680" y="150" width="220" height="110" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="790" y="175" font-size="12" font-weight="700" text-anchor="middle" fill="#1a1a1a">Схема таблиці: users</text>
+  <line x1="690" y1="187" x2="890" y2="187" stroke="#d0d7de" stroke-width="1"/>
+  <text x="700" y="208" font-size="12" fill="#6b7280">id: INT (PRIMARY)</text>
+  <text x="700" y="228" font-size="12" font-weight="700" fill="#27ae60">card_num: CHAR(16)</text>
+  <text x="700" y="248" font-size="11" fill="#1a1a1a">Значення: &quot;4111222233334444&quot;</text>
+
+  <rect x="680" y="290" width="220" height="95" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="790" y="315" font-size="12" font-weight="700" text-anchor="middle" fill="#27ae60">Успішна валідація</text>
+  <text x="790" y="335" font-size="11" text-anchor="middle" fill="#1a1a1a">Тип CHAR(16) збігається</text>
+  <text x="790" y="352" font-size="11" text-anchor="middle" fill="#1a1a1a">Жодних змін схеми</text>
+  <text x="790" y="369" font-size="11" text-anchor="middle" fill="#1a1a1a">Зовнішні API працюють</text>
+
+  <!-- Flow Arrows -->
+  <!-- App to FPE Service -->
+  <path d="M 280 172 L 348 172" fill="none" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="315" y="165" font-size="11" text-anchor="middle" fill="#2457d6">Plain</text>
+
+  <path d="M 280 267 L 348 267" fill="none" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="315" y="260" font-size="11" text-anchor="middle" fill="#2457d6">Tweak</text>
+
+  <!-- FPE Service to App (Ciphertext result) -->
+  <path d="M 370 360 L 282 360" fill="none" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <!-- App to Legacy DB -->
+  <path d="M 170 390 L 170 425 L 790 425 L 790 387" fill="none" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <text x="480" y="420" font-size="12" font-weight="700" text-anchor="middle" fill="#27ae60">Збереження зашифрованого 16-значного рядка в базу даних</text>
+</svg>

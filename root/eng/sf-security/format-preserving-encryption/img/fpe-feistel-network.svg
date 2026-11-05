@@ -1,0 +1,77 @@
+<svg viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Header -->
+  <text x="480" y="30" font-size="18" font-weight="700" text-anchor="middle" fill="#1a1a1a">Незбалансована мережа Фейстеля в FPE (Radix 10)</text>
+  <text x="480" y="52" font-size="13" text-anchor="middle" fill="#6b7280">Розбиття рядка на нерівні частини та раундове додавання за модулем 10ⁿ</text>
+
+  <!-- Markers -->
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Input Container -->
+  <rect x="300" y="75" width="360" height="45" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="480" y="94" font-size="13" font-weight="700" text-anchor="middle" fill="#1a1a1a">Вхідні дані: 9 десяткових цифр</text>
+  <text x="480" y="110" font-size="12" text-anchor="middle" fill="#6b7280">Вхідний текст = &quot;453289012&quot;</text>
+
+  <!-- Split Panel Left / Right -->
+  <rect x="180" y="145" width="220" height="50" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="290" y="166" font-size="13" font-weight="700" text-anchor="middle" fill="#2457d6">Ліва частина L₀ (4 цифри)</text>
+  <text x="290" y="184" font-size="12" text-anchor="middle" fill="#1a1a1a">L₀ = &quot;4532&quot; (модуль 10⁴)</text>
+
+  <rect x="560" y="145" width="220" height="50" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="670" y="166" font-size="13" font-weight="700" text-anchor="middle" fill="#2457d6">Права частина R₀ (5 цифр)</text>
+  <text x="670" y="184" font-size="12" text-anchor="middle" fill="#1a1a1a">R₀ = &quot;89012&quot; (модуль 10⁵)</text>
+
+  <!-- Lines from Input to L0, R0 -->
+  <path d="M 400 120 L 290 145" fill="none" stroke="#1a1a1a" stroke-width="1.2" marker-end="url(#arr)"/>
+  <path d="M 560 120 L 670 145" fill="none" stroke="#1a1a1a" stroke-width="1.2" marker-end="url(#arr)"/>
+
+  <!-- Round 1 Box -->
+  <rect x="60" y="215" width="840" height="110" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-dasharray="4 4" stroke-width="1.5"/>
+  <text x="80" y="235" font-size="13" font-weight="700" fill="#6b7280">Раунд 1</text>
+
+  <!-- Function F Block -->
+  <rect x="540" y="240" width="260" height="50" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="670" y="261" font-size="13" font-weight="700" text-anchor="middle" fill="#2457d6">Псевдовипадкова функція F</text>
+  <text x="670" y="279" font-size="12" text-anchor="middle" fill="#6b7280">AES_K (Tweak T, R₀)</text>
+
+  <!-- Modulo Addition Node -->
+  <circle cx="290" cy="265" r="18" fill="#ffffff" stroke="#27ae60" stroke-width="2"/>
+  <text x="290" y="270" font-size="16" font-weight="700" text-anchor="middle" fill="#27ae60">+</text>
+  <text x="235" y="250" font-size="12" font-weight="700" fill="#27ae60">mod 10⁴</text>
+
+  <!-- Arrows in Round 1 -->
+  <!-- R0 to F -->
+  <path d="M 670 195 L 670 240" fill="none" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <!-- F output to Modulo Addition -->
+  <path d="M 540 265 L 308 265" fill="none" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <!-- L0 down to Modulo Addition -->
+  <path d="M 290 195 L 290 247" fill="none" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- Modulo Addition output down -->
+  <path d="M 290 283 L 290 315" fill="none" stroke="#27ae60" stroke-width="1.5"/>
+
+  <!-- Crossover Lines to Round 2 (L1 becomes R1, R0 becomes L1) -->
+  <!-- R0 straight down to next Left side -->
+  <path d="M 670 290 L 670 315 L 290 350" fill="none" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="490" y="325" font-size="12" text-anchor="middle" fill="#6b7280">Перестановка (Swap R₀ → L₁)</text>
+
+  <!-- Modulo result to next Right side -->
+  <path d="M 290 315 L 670 350" fill="none" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <!-- Output Container -->
+  <rect x="250" y="380" width="460" height="50" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="480" y="401" font-size="13" font-weight="700" text-anchor="middle" fill="#27ae60">Результат після N раундів: зашифрований текст</text>
+  <text x="480" y="419" font-size="12" text-anchor="middle" fill="#1a1a1a">Шифротекст = &quot;819430567&quot; (збережено 9 десяткових цифр)</text>
+</svg>

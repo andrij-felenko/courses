@@ -1,0 +1,88 @@
+<svg viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Header -->
+  <text x="480" y="30" font-size="18" font-weight="700" text-anchor="middle" fill="#1a1a1a">Фізична та логічна архітектура апаратного модуля безпеки (HSM)</text>
+  <text x="480" y="52" font-size="13" text-anchor="middle" fill="#6b7280">Захищений периметр ізолює ключі у внутрішній пам'яті, що автономно знищується при атаках</text>
+
+  <!-- Markers -->
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Host Server Zone (Left) -->
+  <rect x="40" y="85" width="220" height="345" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="150" y="110" font-size="14" font-weight="700" text-anchor="middle" fill="#1a1a1a">Сервер (Host System)</text>
+
+  <rect x="55" y="135" width="190" height="85" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="150" y="155" font-size="12" font-weight="700" text-anchor="middle" fill="#1a1a1a">Застосунок / ОС</text>
+  <text x="150" y="175" font-size="11" text-anchor="middle" fill="#6b7280">PKCS#11 API Client</text>
+  <text x="150" y="195" font-size="11" text-anchor="middle" fill="#2457d6">Використовує Handle (Хендл)</text>
+
+  <rect x="55" y="240" width="190" height="80" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="150" y="260" font-size="12" font-weight="700" text-anchor="middle" fill="#1a1a1a">Передача даних</text>
+  <text x="150" y="280" font-size="11" text-anchor="middle" fill="#6b7280">Лише геш для підпису</text>
+  <text x="150" y="298" font-size="11" text-anchor="middle" fill="#6b7280">Ключі НЕ передаються!</text>
+
+  <rect x="55" y="340" width="190" height="75" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="150" y="362" font-size="12" font-weight="700" text-anchor="middle" fill="#27ae60">Результат</text>
+  <text x="150" y="382" font-size="11" text-anchor="middle" fill="#1a1a1a">Готовий підпис / біти</text>
+
+  <!-- Tamper Envelope Outer Boundary (Right) -->
+  <rect x="300" y="85" width="620" height="345" rx="10" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="610" y="110" font-size="14" font-weight="700" text-anchor="middle" fill="#2457d6">Захисний конверт (Tamper Envelope) з активною сіткою провідників</text>
+
+  <!-- Subsystem 1: Sensors & Zeroization -->
+  <rect x="320" y="130" width="250" height="135" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="445" y="152" font-size="13" font-weight="700" text-anchor="middle" fill="#c0392b">Датчики атаки (Tamper Sensors)</text>
+  <text x="445" y="175" font-size="11" text-anchor="middle" fill="#1a1a1a">• Детектор сітки (Wire Mesh)</text>
+  <text x="445" y="193" font-size="11" text-anchor="middle" fill="#1a1a1a">• Сенсори напруги та температури</text>
+  <text x="445" y="211" font-size="11" text-anchor="middle" fill="#1a1a1a">• Рентгенівський/оптичний захист</text>
+  <text x="445" y="235" font-size="11" font-weight="700" text-anchor="middle" fill="#c0392b">Реакція: миттєве стирання</text>
+
+  <!-- Subsystem 2: Battery & Zeroization Circuit -->
+  <rect x="320" y="280" width="250" height="135" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="445" y="302" font-size="13" font-weight="700" text-anchor="middle" fill="#c0392b">Автономне джерело живлення</text>
+  <text x="445" y="325" font-size="11" text-anchor="middle" fill="#1a1a1a">Внутрішня резервна батарея</text>
+  <text x="445" y="347" font-size="11" text-anchor="middle" fill="#1a1a1a">Схема Zeroization (знищення)</text>
+  <text x="445" y="375" font-size="11" font-weight="700" text-anchor="middle" fill="#c0392b">Працює навіть при вимкненні</text>
+  <text x="445" y="393" font-size="11" text-anchor="middle" fill="#6b7280">з зовнішнього сервера</text>
+
+  <!-- Subsystem 3: Protected Crypto Core -->
+  <rect x="590" y="130" width="310" height="285" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="745" y="152" font-size="13" font-weight="700" text-anchor="middle" fill="#2457d6">Ізольоване криптографічне ядро</text>
+
+  <rect x="610" y="170" width="270" height="50" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="745" y="190" font-size="12" font-weight="700" text-anchor="middle" fill="#2457d6">Апаратний генератор TRNG</text>
+  <text x="745" y="207" font-size="11" text-anchor="middle" fill="#6b7280">Тепловий шум / квантові флуктуації</text>
+
+  <rect x="610" y="230" width="270" height="50" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="745" y="250" font-size="12" font-weight="700" text-anchor="middle" fill="#2457d6">Криптопроцесор (RSA / ECC / AES)</text>
+  <text x="745" y="267" font-size="11" text-anchor="middle" fill="#6b7280">Мобільні / сертифіковані обчислення</text>
+
+  <rect x="610" y="290" width="270" height="110" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="745" y="312" font-size="12" font-weight="700" text-anchor="middle" fill="#c0392b">Захищена пам'ять (Secure RAM)</text>
+  <text x="745" y="332" font-size="11" font-weight="700" text-anchor="middle" fill="#1a1a1a">Зберігає Майстер-ключі й KEK</text>
+  <text x="745" y="352" font-size="11" text-anchor="middle" fill="#1a1a1a">Приватні ключі НІКОЛИ не покидають SE</text>
+  <text x="745" y="377" font-size="11" font-weight="700" text-anchor="middle" fill="#c0392b">Стирається за мілісекунди при атаці</text>
+
+  <!-- Signal & Data Lines -->
+  <!-- Host to Envelope -->
+  <path d="M 245 177 L 298 177" fill="none" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <path d="M 298 377 L 247 377" fill="none" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <!-- Zeroization Signal Arrow -->
+  <path d="M 570 345 L 608 345" fill="none" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+</svg>

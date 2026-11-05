@@ -87,7 +87,7 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
+            "status": "done"
           },
           "api": [
             {
@@ -102,40 +102,6 @@
       "slug": "exploit-mitigations",
       "title": "Бар'єри експлуатації",
       "topics": [
-        {
-          "slug": "aslr",
-          "title": "ASLR: рандомізація розкладки адресного простору",
-          "basic": {
-            "status": "empty"
-          },
-          "detailed": {
-            "status": "pending"
-          },
-          "hist": [
-            {
-              "file": "hist-aslr-pax-project.md",
-              "status": "pending"
-            }
-          ],
-          "math": [
-            {
-              "file": "math-aslr-entropy-and-probabilities.md",
-              "status": "pending"
-            }
-          ],
-          "proj": [
-            {
-              "file": "proj-aslr-leak-and-exploit.md",
-              "status": "pending"
-            }
-          ],
-          "api": [
-            {
-              "file": "api-pie-gcc-flags-and-randomization-sysctl.md",
-              "status": "pending"
-            }
-          ]
-        },
         {
           "slug": "no-execute-memory",
           "title": "Пам'ять без права виконання: біт NX і правило W^X",

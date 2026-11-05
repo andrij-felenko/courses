@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400">
+  <defs>
+    <style>
+      .box { fill: #f8f9fa; stroke: #343a40; stroke-width: 2; rx: 5; }
+      .text { font-family: Arial, sans-serif; font-size: 14px; fill: #212529; }
+      .title { font-family: Arial, sans-serif; font-size: 16px; font-weight: bold; fill: #212529; text-anchor: middle; }
+      .arrow { stroke: #007bff; stroke-width: 2; marker-end: url(#arrowhead); }
+      .label { font-family: Arial, sans-serif; font-size: 12px; fill: #007bff; text-anchor: middle; }
+    </style>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#007bff"/>
+    </marker>
+  </defs>
+
+  <rect width="100%" height="100%" fill="white"/>
+
+  <!-- Attacker Process -->
+  <rect x="50" y="50" width="200" height="300" class="box" fill="#e3f2fd"/>
+  <text x="150" y="80" class="title">Атакуючий процес</text>
+
+  <!-- Victim Process -->
+  <rect x="550" y="50" width="200" height="300" class="box" fill="#fce4ec"/>
+  <text x="650" y="80" class="title">Процес-жертва</text>
+
+  <!-- Shared Cache Line -->
+  <rect x="300" y="180" width="200" height="60" class="box" fill="#e8f5e9" stroke="#4caf50"/>
+  <text x="400" y="205" class="title">Спільний Кеш (L3)</text>
+  <text x="400" y="225" class="text" text-anchor="middle">Кеш-лінія (Shared)</text>
+
+  <!-- Step 1: Flush -->
+  <text x="150" y="130" class="text" text-anchor="middle">1. Flush (clflush)</text>
+  <line x1="250" y1="125" x2="350" y2="180" class="arrow"/>
+  <text x="300" y="145" class="label">Видаляє лінію</text>
+
+  <!-- Step 2: Victim execution -->
+  <text x="650" y="130" class="text" text-anchor="middle">2. Робота жертви</text>
+  <line x1="650" y1="140" x2="650" y2="170" stroke="#343a40" stroke-width="2" marker-end="url(#arrowhead)"/>
+  <line x1="550" y1="190" x2="500" y2="200" class="arrow" stroke="#e91e63"/>
+  <text x="525" y="185" class="label" fill="#e91e63">Доступ?</text>
+
+  <!-- Step 3: Reload -->
+  <text x="150" y="260" class="text" text-anchor="middle">3. Reload &amp; Measure</text>
+  <line x1="350" y1="240" x2="250" y2="255" class="arrow"/>
+  <text x="300" y="270" class="label">Вимірювання rdtsc</text>
+
+  <!-- Hit / Miss logic -->
+  <text x="150" y="300" class="text" text-anchor="middle" font-weight="bold">Hit: Жертва зверталась</text>
+  <text x="150" y="320" class="text" text-anchor="middle" font-weight="bold">Miss: Жертва не зверталась</text>
+
+</svg>
