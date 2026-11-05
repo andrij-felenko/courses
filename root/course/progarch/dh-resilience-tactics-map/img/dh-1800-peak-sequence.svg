@@ -1,35 +1,56 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="-24 -10 1044 460" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-24" y="-10" width="1044" height="460" fill="#ffffff"/>
-<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
-<text x="510.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Послідовність обробки різнорідного трафіку під час піку 18:00</text>
-<rect x="60.0" y="30.0" width="200.0" height="45.0" rx="6" fill="#eef2f6" stroke="#1a1a1a" stroke-width="1.5"/><text x="160.0" y="56.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="160.0" dy="0.0">Пристрої / Клієнти</tspan></text>
-<line x1="160.0" y1="75.0" x2="160.0" y2="420.0" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="4,4"/>
-<rect x="280.0" y="30.0" width="200.0" height="45.0" rx="6" fill="#eef2f6" stroke="#1a1a1a" stroke-width="1.5"/><text x="380.0" y="56.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="380.0" dy="0.0">Edge Gateway (Shedder)</tspan></text>
-<line x1="380.0" y1="75.0" x2="380.0" y2="420.0" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="4,4"/>
-<rect x="520.0" y="30.0" width="200.0" height="45.0" rx="6" fill="#eef2f6" stroke="#1a1a1a" stroke-width="1.5"/><text x="620.0" y="56.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="620.0" dy="0.0">Worker Pool (Adaptive)</tspan></text>
-<line x1="620.0" y1="75.0" x2="620.0" y2="420.0" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="4,4"/>
-<rect x="760.0" y="30.0" width="200.0" height="45.0" rx="6" fill="#eef2f6" stroke="#1a1a1a" stroke-width="1.5"/><text x="860.0" y="56.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="860.0" dy="0.0">Downstream (DB / Broker)</tspan></text>
-<line x1="860.0" y1="75.0" x2="860.0" y2="420.0" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="4,4"/>
-<text x="40.0" y="105.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#7e22ce" text-anchor="middle" font-weight="700">P4 Video Upload</text>
-<line x1="160.0" y1="120.0" x2="380.0" y2="120.0" stroke="#7e22ce" stroke-width="1.8" marker-end="url(#arrow)"/>
-<rect x="380.0" y="105.0" width="18.0" height="30.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="389.0" y="123.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="389.0" dy="0.0">X</tspan></text>
-<line x1="380.0" y1="120.0" x2="160.0" y2="120.0" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="2,2"/>
-<text x="270.0" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle">503 Shedded</text>
-<text x="40.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#e08a1e" text-anchor="middle" font-weight="700">P2 Heartbeat</text>
-<line x1="160.0" y1="190.0" x2="380.0" y2="190.0" stroke="#e08a1e" stroke-width="1.8" marker-end="url(#arrow)"/>
-<rect x="380.0" y="175.0" width="18.0" height="30.0" rx="6" fill="#fdf0dd" stroke="#e08a1e" stroke-width="1.5"/><text x="389.0" y="193.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="389.0" dy="0.0">~</tspan></text>
-<line x1="380.0" y1="190.0" x2="160.0" y2="190.0" stroke="#e08a1e" stroke-width="1.5" stroke-dasharray="2,2"/>
-<text x="270.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#e08a1e" text-anchor="middle">429 Throttled</text>
-<text x="40.0" y="245.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">P0 Door Unlock</text>
-<line x1="160.0" y1="260.0" x2="380.0" y2="260.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
-<line x1="380.0" y1="260.0" x2="620.0" y2="260.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
-<line x1="620.0" y1="260.0" x2="860.0" y2="260.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
-<line x1="860.0" y1="280.0" x2="620.0" y2="280.0" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="2,2"/>
-<line x1="620.0" y1="280.0" x2="380.0" y2="280.0" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="2,2"/>
-<line x1="380.0" y1="280.0" x2="160.0" y2="280.0" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="2,2"/>
-<text x="500.0" y="295.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle">200 OK (p99 &lt; 50ms)</text>
-<text x="40.0" y="335.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Async Event (Poison)</text>
-<line x1="160.0" y1="350.0" x2="620.0" y2="350.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
-<rect x="620.0" y="340.0" width="18.0" height="30.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="629.0" y="358.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="629.0" dy="0.0">!</tspan></text>
-<line x1="620.0" y1="370.0" x2="860.0" y2="370.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
-<text x="740.0" y="385.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle">Routed to DLQ</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+  <text x="480" y="36" font-size="18" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Послідовність захисту системи при піковому навантаженні 1800 req/s</text>
+  <text x="480" y="58" font-size="13" text-anchor="middle" fill="#6b7280">Адаптивне відсікання надлишкових запитів на рівні Rate Limiter захищає ядро бази даних</text>
+
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-drop" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-pass" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Lifelines -->
+  <rect x="60" y="90" width="160" height="40" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="4"/>
+  <text x="140" y="115" font-size="13" font-weight="bold" text-anchor="middle" fill="#2457d6">Вхідний потік (1800 r/s)</text>
+
+  <rect x="290" y="90" width="160" height="40" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" rx="4"/>
+  <text x="370" y="115" font-size="13" font-weight="bold" text-anchor="middle" fill="#c0392b">Rate Limiter (Max 1000)</text>
+
+  <rect x="520" y="90" width="160" height="40" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="4"/>
+  <text x="600" y="115" font-size="13" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Bulkhead Pool</text>
+
+  <rect x="740" y="90" width="160" height="40" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="4"/>
+  <text x="820" y="115" font-size="13" font-weight="bold" text-anchor="middle" fill="#27ae60">Core DB Engine</text>
+
+  <!-- Vertical lines -->
+  <line x1="140" y1="130" x2="140" y2="410" stroke="#d0d7de" stroke-dasharray="4,4"/>
+  <line x1="370" y1="130" x2="370" y2="410" stroke="#d0d7de" stroke-dasharray="4,4"/>
+  <line x1="600" y1="130" x2="600" y2="410" stroke="#d0d7de" stroke-dasharray="4,4"/>
+  <line x1="820" y1="130" x2="820" y2="410" stroke="#d0d7de" stroke-dasharray="4,4"/>
+
+  <!-- Step 1: Burst Surge -->
+  <line x1="140" y1="160" x2="370" y2="180" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr)"/>
+  <text x="255" y="163" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">1800 req/s Burst</text>
+
+  <!-- Step 2: Rate Limiter Shedding -->
+  <line x1="370" y1="205" x2="140" y2="235" stroke="#c0392b" stroke-width="2" stroke-dasharray="4,4" marker-end="url(#arr-drop)"/>
+  <text x="255" y="215" font-size="12" font-weight="bold" text-anchor="middle" fill="#c0392b">Drop 800 req/s (HTTP 429 Too Many Requests)</text>
+
+  <!-- Step 3: Passed Traffic to Bulkhead -->
+  <line x1="370" y1="250" x2="600" y2="270" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-pass)"/>
+  <text x="485" y="253" font-size="12" font-weight="bold" text-anchor="middle" fill="#27ae60">Pass 1000 req/s</text>
+
+  <!-- Step 4: Bulkhead Isolation -->
+  <line x1="600" y1="290" x2="820" y2="310" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-pass)"/>
+  <text x="710" y="293" font-size="12" font-weight="bold" text-anchor="middle" fill="#27ae60">Bounded Thread Pool (100 threads)</text>
+
+  <!-- Step 5: DB Response -->
+  <line x1="820" y1="340" x2="140" y2="380" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="4,4" marker-end="url(#arr-pass)"/>
+  <text x="480" y="355" font-size="12" font-weight="bold" text-anchor="middle" fill="#27ae60">Успішна відповідь 1000 req/s (Стабільна затримка 15ms)</text>
 </svg>
