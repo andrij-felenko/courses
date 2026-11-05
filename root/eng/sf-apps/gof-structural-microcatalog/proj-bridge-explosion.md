@@ -122,12 +122,7 @@ Renderer:  begin(w, h) · polyline(точки, замкнена) · ellipse(cx, 
 Перший вивід — SVG:
 
 ```
-<svg viewBox="0 0 80 40" xmlns="http://www.w3.org/2000/svg">
-  <polygon points="2.0,2.0 78.0,2.0 78.0,38.0 2.0,38.0" fill="none" stroke="black"/>
-  <ellipse cx="16.0" cy="20.0" rx="10.0" ry="10.0" fill="none" stroke="black"/>
-  <polygon points="40.0,8.0 50.0,32.0 30.0,32.0" fill="none" stroke="black"/>
-  <polygon points="64.0,8.0 66.9,16.0 75.4,16.3 68.8,21.5 71.1,29.7 64.0,25.0 56.9,29.7 59.2,21.5 52.6,16.3 61.1,16.0" fill="none" stroke="black"/>
-</svg>
+![Перший вивід — SVG](img/proj-bridge-explosion.svg)
 ```
 
 Після `scene.use(AsciiRenderer())` ті самі чотири об'єкти дають уже це:
