@@ -1,0 +1,82 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-rev" markerWidth="9" markerHeight="9" refX="0.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="34" text-anchor="middle" font-weight="bold" font-size="18" fill="#1a1a1a">Часова діаграма мультиплексування</text>
+  <text x="480" y="56" text-anchor="middle" font-size="13" fill="#6b7280">Циклічне сканування розрядів: активний час t_on становить 1/4 періоду кадру T_frame</text>
+
+  <!-- Розміри та підписи періодів (винесені вище сітки) -->
+  <line x1="200" y1="96" x2="600" y2="96" stroke="#1a1a1a" stroke-width="1.5" marker-start="url(#arr-rev)" marker-end="url(#arr)"/>
+  <line x1="600" y1="96" x2="700" y2="96" stroke="#1a1a1a" stroke-width="1.5" marker-start="url(#arr-rev)" marker-end="url(#arr)"/>
+  <line x1="200" y1="90" x2="200" y2="102" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="600" y1="90" x2="600" y2="102" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="700" y1="90" x2="700" y2="102" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <text x="400" y="84" text-anchor="middle" font-size="13" fill="#1a1a1a">T_frame (період кадру)</text>
+  <text x="650" y="84" text-anchor="middle" font-size="13" fill="#1a1a1a">t_on</text>
+
+  <!-- Вертикальні лінії сітки (таймінги розрядів) -->
+  <line x1="200" y1="106" x2="200" y2="396" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4 4"/>
+  <line x1="300" y1="106" x2="300" y2="396" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4 4"/>
+  <line x1="400" y1="106" x2="400" y2="396" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4 4"/>
+  <line x1="500" y1="106" x2="500" y2="396" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4 4"/>
+  <line x1="600" y1="106" x2="600" y2="396" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4 4"/>
+  <line x1="700" y1="106" x2="700" y2="396" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4 4"/>
+  <line x1="800" y1="106" x2="800" y2="396" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4 4"/>
+
+  <!-- Підписи сигналів ліворуч -->
+  <text x="135" y="138" text-anchor="end" font-size="13" fill="#1a1a1a">Розряд 1</text>
+  <text x="135" y="192" text-anchor="end" font-size="13" fill="#1a1a1a">Розряд 2</text>
+  <text x="135" y="246" text-anchor="end" font-size="13" fill="#1a1a1a">Розряд 3</text>
+  <text x="135" y="300" text-anchor="end" font-size="13" fill="#1a1a1a">Розряд 4</text>
+  <text x="135" y="374" text-anchor="end" font-size="13" fill="#1a1a1a">Сегменти</text>
+
+  <!-- Фонова заливка активних імпульсів розрядів -->
+  <path d="M 200 148 L 200 118 L 300 118 L 300 148 Z" fill="#eaf0fd"/>
+  <path d="M 600 148 L 600 118 L 700 118 L 700 148 Z" fill="#eaf0fd"/>
+  <path d="M 300 202 L 300 172 L 400 172 L 400 202 Z" fill="#eaf0fd"/>
+  <path d="M 700 202 L 700 172 L 800 172 L 800 202 Z" fill="#eaf0fd"/>
+  <path d="M 400 256 L 400 226 L 500 226 L 500 256 Z" fill="#eaf0fd"/>
+  <path d="M 800 256 L 800 226 L 860 226 L 860 256 Z" fill="#eaf0fd"/>
+  <path d="M 500 310 L 500 280 L 600 280 L 600 310 Z" fill="#eaf0fd"/>
+
+  <!-- Сигнали розрядів -->
+  <path d="M 150 148 L 200 148 L 200 118 L 300 118 L 300 148 L 600 148 L 600 118 L 700 118 L 700 148 L 860 148" fill="none" stroke="#2457d6" stroke-width="2" stroke-linejoin="round"/>
+  <path d="M 150 202 L 300 202 L 300 172 L 400 172 L 400 202 L 700 202 L 700 172 L 800 172 L 800 202 L 860 202" fill="none" stroke="#2457d6" stroke-width="2" stroke-linejoin="round"/>
+  <path d="M 150 256 L 400 256 L 400 226 L 500 226 L 500 256 L 800 256 L 800 226 L 860 226" fill="none" stroke="#2457d6" stroke-width="2" stroke-linejoin="round"/>
+  <path d="M 150 310 L 500 310 L 500 280 L 600 280 L 600 310 L 860 310" fill="none" stroke="#2457d6" stroke-width="2" stroke-linejoin="round"/>
+
+  <!-- Шина даних сегментів (фонова заливка активних зон) -->
+  <path d="M 195 370 L 205 350 L 295 350 L 305 370 L 295 390 L 205 390 Z" fill="#eaf0fd"/>
+  <path d="M 295 370 L 305 350 L 395 350 L 405 370 L 395 390 L 305 390 Z" fill="#eaf0fd"/>
+  <path d="M 395 370 L 405 350 L 495 350 L 505 370 L 495 390 L 405 390 Z" fill="#eaf0fd"/>
+  <path d="M 495 370 L 505 350 L 595 350 L 605 370 L 595 390 L 505 390 Z" fill="#eaf0fd"/>
+  <path d="M 595 370 L 605 350 L 695 350 L 705 370 L 695 390 L 605 390 Z" fill="#eaf0fd"/>
+  <path d="M 695 370 L 705 350 L 795 350 L 805 370 L 795 390 L 705 390 Z" fill="#eaf0fd"/>
+  <path d="M 795 370 L 805 350 L 860 350 L 860 390 L 805 390 Z" fill="#eaf0fd"/>
+
+  <!-- Шина даних сегментів (контури) -->
+  <path d="M 150 370 L 195 370 L 205 350 L 295 350 L 305 390 L 395 390 L 405 350 L 495 350 L 505 390 L 595 390 L 605 350 L 695 350 L 705 390 L 795 390 L 805 350 L 860 350" fill="none" stroke="#2457d6" stroke-width="2" stroke-linejoin="round"/>
+  <path d="M 150 370 L 195 370 L 205 390 L 295 390 L 305 350 L 395 350 L 405 390 L 495 390 L 505 350 L 595 350 L 605 390 L 695 390 L 705 350 L 795 350 L 805 390 L 860 390" fill="none" stroke="#2457d6" stroke-width="2" stroke-linejoin="round"/>
+
+  <!-- Текст усередині шини даних -->
+  <text x="250" y="374" text-anchor="middle" font-size="12" fill="#1a1a1a">Дані 1</text>
+  <text x="350" y="374" text-anchor="middle" font-size="12" fill="#1a1a1a">Дані 2</text>
+  <text x="450" y="374" text-anchor="middle" font-size="12" fill="#1a1a1a">Дані 3</text>
+  <text x="550" y="374" text-anchor="middle" font-size="12" fill="#1a1a1a">Дані 4</text>
+  <text x="650" y="374" text-anchor="middle" font-size="12" fill="#1a1a1a">Дані 1</text>
+  <text x="750" y="374" text-anchor="middle" font-size="12" fill="#1a1a1a">Дані 2</text>
+  <text x="832" y="374" text-anchor="middle" font-size="12" fill="#1a1a1a">Дані 3</text>
+
+  <!-- Підсумковий підпис знизу -->
+  <text x="480" y="430" text-anchor="middle" font-size="13" fill="#6b7280">Шпаруватість імпульсів: 1/4 (25% активного часу кожного розряду)</text>
+</svg>

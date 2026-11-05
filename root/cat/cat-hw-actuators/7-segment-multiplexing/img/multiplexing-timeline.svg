@@ -1,0 +1,92 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Blanking columns -->
+  <rect x="280" y="140" width="40" height="370" fill="#f4f6f8"/>
+  <rect x="420" y="140" width="40" height="370" fill="#f4f6f8"/>
+  <rect x="560" y="140" width="40" height="370" fill="#f4f6f8"/>
+  <rect x="700" y="140" width="40" height="370" fill="#f4f6f8"/>
+  <rect x="840" y="140" width="40" height="370" fill="#f4f6f8"/>
+
+  <!-- Vertical Interrupt Grid -->
+  <line x1="180" y1="135" x2="180" y2="510" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4 4"/>
+  <line x1="320" y1="135" x2="320" y2="510" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4 4"/>
+  <line x1="460" y1="135" x2="460" y2="510" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4 4"/>
+  <line x1="600" y1="135" x2="600" y2="510" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4 4"/>
+  <line x1="740" y1="135" x2="740" y2="510" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4 4"/>
+  <line x1="880" y1="135" x2="880" y2="510" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4 4"/>
+
+  <!-- Horizontal Waveform Bases Grid -->
+  <line x1="150" y1="220" x2="910" y2="220" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4 4"/>
+  <line x1="150" y1="290" x2="910" y2="290" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4 4"/>
+  <line x1="150" y1="360" x2="910" y2="360" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4 4"/>
+  <line x1="150" y1="430" x2="910" y2="430" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4 4"/>
+
+  <!-- Texts & Dimensions -->
+  <text x="480" y="40" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Часова діаграма процесу сканування</text>
+  <text x="480" y="60" text-anchor="middle" font-size="13" fill="#6b7280">Послідовне вмикання розрядів та інтервали гасіння для запобігання фантомним світінням</text>
+
+  <text x="460" y="95" text-anchor="middle" font-size="13" fill="#1a1a1a">Повний цикл оновлення (4 розряди)</text>
+  <line x1="460" y1="105" x2="740" y2="105" stroke="#1a1a1a" marker-end="url(#arr)"/>
+  <line x1="460" y1="105" x2="180" y2="105" stroke="#1a1a1a" marker-end="url(#arr)"/>
+
+  <text x="250" y="125" text-anchor="middle" font-size="13" fill="#1a1a1a">Період розряду</text>
+  <line x1="250" y1="135" x2="320" y2="135" stroke="#1a1a1a" marker-end="url(#arr)"/>
+  <line x1="250" y1="135" x2="180" y2="135" stroke="#1a1a1a" marker-end="url(#arr)"/>
+
+  <text x="140" y="130" text-anchor="end" font-size="13" fill="#6b7280">Переривання</text>
+  <line x1="180" y1="125" x2="180" y2="135" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+  <line x1="320" y1="125" x2="320" y2="135" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+  <line x1="460" y1="125" x2="460" y2="135" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+  <line x1="600" y1="125" x2="600" y2="135" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+  <line x1="740" y1="125" x2="740" y2="135" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+  <line x1="880" y1="125" x2="880" y2="135" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+
+  <text x="230" y="162" text-anchor="middle" font-size="12" fill="#1a1a1a">Світіння</text>
+  <path d="M 180 175 L 180 170 L 278 170 L 278 175" stroke="#1a1a1a" fill="none"/>
+  <text x="300" y="162" text-anchor="middle" font-size="12" fill="#1a1a1a">Гас.</text>
+  <path d="M 282 175 L 282 170 L 320 170 L 320 175" stroke="#1a1a1a" fill="none"/>
+
+  <text x="140" y="205" text-anchor="end" font-size="14" fill="#1a1a1a">Розряд 1 (D1)</text>
+  <text x="140" y="275" text-anchor="end" font-size="14" fill="#1a1a1a">Розряд 2 (D2)</text>
+  <text x="140" y="345" text-anchor="end" font-size="14" fill="#1a1a1a">Розряд 3 (D3)</text>
+  <text x="140" y="415" text-anchor="end" font-size="14" fill="#1a1a1a">Розряд 4 (D4)</text>
+  <text x="140" y="490" text-anchor="end" font-size="14" fill="#1a1a1a">Дані сегментів</text>
+
+  <!-- Waveform Traces -->
+  <path d="M 150 220 L 180 220 L 180 180 L 280 180 L 280 220 L 740 220 L 740 180 L 840 180 L 840 220 L 910 220" fill="none" stroke="#2457d6" stroke-width="2" stroke-linejoin="round"/>
+  <path d="M 150 290 L 320 290 L 320 250 L 420 250 L 420 290 L 910 290" fill="none" stroke="#2457d6" stroke-width="2" stroke-linejoin="round"/>
+  <path d="M 150 360 L 460 360 L 460 320 L 560 320 L 560 360 L 910 360" fill="none" stroke="#2457d6" stroke-width="2" stroke-linejoin="round"/>
+  <path d="M 150 430 L 600 430 L 600 390 L 700 390 L 700 430 L 910 430" fill="none" stroke="#2457d6" stroke-width="2" stroke-linejoin="round"/>
+
+  <!-- Segments Data -->
+  <polygon points="150,470 175,470 180,485 175,500 150,500" fill="#eaf0fd" stroke="#2457d6" stroke-width="2" stroke-linejoin="round"/>
+  <text x="162" y="490" text-anchor="middle" font-size="13" fill="#1a1a1a">...</text>
+
+  <polygon points="180,485 185,470 315,470 320,485 315,500 185,500" fill="#eaf0fd" stroke="#2457d6" stroke-width="2" stroke-linejoin="round"/>
+  <text x="250" y="490" text-anchor="middle" font-size="13" fill="#1a1a1a">Дані D1</text>
+
+  <polygon points="320,485 325,470 455,470 460,485 455,500 325,500" fill="#eaf0fd" stroke="#2457d6" stroke-width="2" stroke-linejoin="round"/>
+  <text x="390" y="490" text-anchor="middle" font-size="13" fill="#1a1a1a">Дані D2</text>
+
+  <polygon points="460,485 465,470 595,470 600,485 595,500 465,500" fill="#eaf0fd" stroke="#2457d6" stroke-width="2" stroke-linejoin="round"/>
+  <text x="530" y="490" text-anchor="middle" font-size="13" fill="#1a1a1a">Дані D3</text>
+
+  <polygon points="600,485 605,470 735,470 740,485 735,500 605,500" fill="#eaf0fd" stroke="#2457d6" stroke-width="2" stroke-linejoin="round"/>
+  <text x="670" y="490" text-anchor="middle" font-size="13" fill="#1a1a1a">Дані D4</text>
+
+  <polygon points="740,485 745,470 875,470 880,485 875,500 745,500" fill="#eaf0fd" stroke="#2457d6" stroke-width="2" stroke-linejoin="round"/>
+  <text x="810" y="490" text-anchor="middle" font-size="13" fill="#1a1a1a">Дані D1</text>
+
+  <polygon points="880,485 885,470 910,470 910,500 885,500" fill="#eaf0fd" stroke="#2457d6" stroke-width="2" stroke-linejoin="round"/>
+  <text x="897" y="490" text-anchor="middle" font-size="13" fill="#1a1a1a">...</text>
+</svg>

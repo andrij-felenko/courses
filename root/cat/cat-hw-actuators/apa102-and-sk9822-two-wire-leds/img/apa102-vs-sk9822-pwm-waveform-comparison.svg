@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+    <defs>
+        <marker id="arr" markerWidth="6" markerHeight="4" refX="5" refY="2" orient="auto">
+            <polygon points="0,0 6,2 0,4" fill="#1a1a1a"/>
+        </marker>
+    </defs>
+    <rect x="0" y="0" width="960" height="460" fill="white"/>
+    
+    <text x="480" y="40" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Порівняння імпульсів ШІМ-модуляції APA102 та SK9822</text>
+    <text x="480" y="65" font-size="13" fill="#6b7280" text-anchor="middle">Демонстрація щільності скважності на частотах 19.2 кГц та 4.7 кГц</text>
+    
+    <!-- APA102 Graph (19.2 kHz) -->
+    <text x="100" y="110" font-size="14" font-weight="bold" fill="#2457d6">APA102: Частота ШІМ 19.2 кГц</text>
+    
+    <!-- Axes -->
+    <line x1="80" y1="210" x2="880" y2="210" stroke="#1a1a1a" stroke-width="1" marker-end="url(#arr)"/>
+    <line x1="80" y1="210" x2="80" y2="120" stroke="#1a1a1a" stroke-width="1" marker-end="url(#arr)"/>
+    <text x="60" y="130" font-size="12" fill="#1a1a1a">V</text>
+    <text x="880" y="230" font-size="12" fill="#1a1a1a">t (Час)</text>
+    
+    <!-- APA102 Waveform (dense) -->
+    <path d="M 80,210 L 80,150 L 90,150 L 90,210 L 100,210 L 100,150 L 110,150 L 110,210 L 120,210 L 120,150 L 130,150 L 130,210 
+             L 140,210 L 140,150 L 150,150 L 150,210 L 160,210 L 160,150 L 170,150 L 170,210 L 180,210 L 180,150 L 190,150 L 190,210
+             L 200,210 L 200,150 L 210,150 L 210,210 L 220,210 L 220,150 L 230,150 L 230,210 L 240,210 L 240,150 L 250,150 L 250,210
+             L 260,210 L 260,150 L 270,150 L 270,210 L 280,210 L 280,150 L 290,150 L 290,210 L 300,210 L 300,150 L 310,150 L 310,210
+             L 320,210 L 320,150 L 330,150 L 330,210 L 340,210 L 340,150 L 350,150 L 350,210 L 360,210 L 360,150 L 370,150 L 370,210
+             L 380,210 L 380,150 L 390,150 L 390,210 L 400,210 L 400,150 L 410,150 L 410,210 L 420,210 L 420,150 L 430,150 L 430,210
+             L 440,210 L 440,150 L 450,150 L 450,210 L 460,210 L 460,150 L 470,150 L 470,210 L 480,210 L 480,150 L 490,150 L 490,210
+             L 500,210 L 500,150 L 510,150 L 510,210 L 520,210 L 520,150 L 530,150 L 530,210 L 540,210 L 540,150 L 550,150 L 550,210
+             L 560,210 L 560,150 L 570,150 L 570,210 L 580,210 L 580,150 L 590,150 L 590,210 L 600,210 L 600,150 L 610,150 L 610,210
+             L 620,210 L 620,150 L 630,150 L 630,210 L 640,210 L 640,150 L 650,150 L 650,210 L 660,210 L 660,150 L 670,150 L 670,210
+             L 680,210 L 680,150 L 690,150 L 690,210 L 700,210 L 700,150 L 710,150 L 710,210 L 720,210 L 720,150 L 730,150 L 730,210
+             L 740,210 L 740,150 L 750,150 L 750,210 L 760,210 L 760,150 L 770,150 L 770,210 L 780,210 L 780,150 L 790,150 L 790,210
+             L 800,210 L 800,150 L 810,150 L 810,210 L 820,210 L 820,150 L 830,150 L 830,210 L 840,210 L 840,150 L 850,150 L 850,210" 
+          fill="none" stroke="#2457d6" stroke-width="2"/>
+          
+    <text x="480" y="235" font-size="12" fill="#6b7280" text-anchor="middle">Висока частота дає суцільний шлейф при POV (Persistence of Vision)</text>
+
+    <!-- SK9822 Graph (4.7 kHz) -->
+    <text x="100" y="280" font-size="14" font-weight="bold" fill="#c0392b">SK9822: Частота ШІМ 4.7 кГц</text>
+    
+    <!-- Axes -->
+    <line x1="80" y1="380" x2="880" y2="380" stroke="#1a1a1a" stroke-width="1" marker-end="url(#arr)"/>
+    <line x1="80" y1="380" x2="80" y2="290" stroke="#1a1a1a" stroke-width="1" marker-end="url(#arr)"/>
+    <text x="60" y="300" font-size="12" fill="#1a1a1a">V</text>
+    <text x="880" y="400" font-size="12" fill="#1a1a1a">t (Час)</text>
+    
+    <!-- SK9822 Waveform (sparse, ~1/4 density of APA102) -->
+    <path d="M 80,380 L 80,320 L 120,320 L 120,380 L 160,380 L 160,320 L 200,320 L 200,380
+             L 240,380 L 240,320 L 280,320 L 280,380 L 320,380 L 320,320 L 360,320 L 360,380
+             L 400,380 L 400,320 L 440,320 L 440,380 L 480,380 L 480,320 L 520,320 L 520,380
+             L 560,380 L 560,320 L 600,320 L 600,380 L 640,380 L 640,320 L 680,320 L 680,380
+             L 720,380 L 720,320 L 760,320 L 760,380 L 800,380 L 800,320 L 840,320 L 840,380" 
+          fill="none" stroke="#c0392b" stroke-width="2"/>
+          
+    <text x="480" y="405" font-size="12" fill="#6b7280" text-anchor="middle">Низька частота може викликати стробоскопічний ефект (пунктир) при швидкому русі</text>
+    
+    
+</svg>

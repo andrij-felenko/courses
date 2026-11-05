@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+    <defs>
+        <marker id="arr" markerWidth="6" markerHeight="4" refX="5" refY="2" orient="auto">
+            <polygon points="0,0 6,2 0,4" fill="#1a1a1a"/>
+        </marker>
+        <marker id="arr-blue" markerWidth="6" markerHeight="4" refX="5" refY="2" orient="auto">
+            <polygon points="0,0 6,2 0,4" fill="#2457d6"/>
+        </marker>
+    </defs>
+    <rect x="0" y="0" width="960" height="460" fill="white"/>
+    
+    <text x="480" y="40" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Схема підключення буфера з узгоджувальними резисторами</text>
+    <text x="480" y="65" font-size="13" fill="#6b7280" text-anchor="middle">Узгодження сигнальних ліній CKI та SDI для шин світлодіодів 5В</text>
+    
+    <!-- MCU 3.3V -->
+    <rect x="50" y="150" width="120" height="160" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+    <text x="110" y="180" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">MCU 3.3V</text>
+    
+    <text x="140" y="225" font-size="12" fill="#1a1a1a" text-anchor="end">SDO</text>
+    <line x1="170" y1="220" x2="280" y2="220" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+    
+    <text x="140" y="275" font-size="12" fill="#1a1a1a" text-anchor="end">CKO</text>
+    <line x1="170" y1="270" x2="280" y2="270" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+    
+    <!-- Level Shifter 74AHCT125 -->
+    <rect x="280" y="130" width="160" height="200" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+    <text x="360" y="160" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">74AHCT125</text>
+    <text x="360" y="180" font-size="12" fill="#6b7280" text-anchor="middle">(Level Shifter 5V)</text>
+    
+    <!-- Buffer symbols inside 74AHCT125 -->
+    <!-- Buffer 1 (Data) -->
+    <polygon points="310,210 350,220 310,230" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+    <line x1="350" y1="220" x2="440" y2="220" stroke="#1a1a1a" stroke-width="2"/>
+    
+    <!-- Buffer 2 (Clock) -->
+    <polygon points="310,260 350,270 310,280" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+    <line x1="350" y1="270" x2="440" y2="270" stroke="#1a1a1a" stroke-width="2"/>
+    
+    <!-- Series Resistors -->
+    <!-- Resistor 1 (Data) -->
+    <rect x="490" y="210" width="60" height="20" fill="#ffffff" stroke="#1a1a1a" stroke-width="2"/>
+    <text x="520" y="225" font-size="12" fill="#1a1a1a" text-anchor="middle">33-100 Ом</text>
+    
+    <line x1="440" y1="220" x2="490" y2="220" stroke="#1a1a1a" stroke-width="2"/>
+    <line x1="550" y1="220" x2="700" y2="220" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+    <text x="625" y="210" font-size="12" fill="#2457d6" text-anchor="middle">SDI (5V)</text>
+    
+    <!-- Resistor 2 (Clock) -->
+    <rect x="490" y="260" width="60" height="20" fill="#ffffff" stroke="#1a1a1a" stroke-width="2"/>
+    <text x="520" y="275" font-size="12" fill="#1a1a1a" text-anchor="middle">33-100 Ом</text>
+    
+    <line x1="440" y1="270" x2="490" y2="270" stroke="#1a1a1a" stroke-width="2"/>
+    <line x1="550" y1="270" x2="700" y2="270" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+    <text x="625" y="260" font-size="12" fill="#2457d6" text-anchor="middle">CKI (5V)</text>
+    
+    <!-- LED Strip -->
+    <rect x="700" y="150" width="160" height="160" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+    <text x="780" y="180" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">LED Strip 5V</text>
+    <text x="780" y="200" font-size="12" fill="#1a1a1a" text-anchor="middle">(APA102/SK9822)</text>
+    
+    <text x="720" y="225" font-size="12" fill="#1a1a1a">SDI</text>
+    <text x="720" y="275" font-size="12" fill="#1a1a1a">CKI</text>
+    
+    <!-- Explanation Text -->
+    <rect x="150" y="370" width="660" height="60" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+    <text x="480" y="395" font-size="13" fill="#1a1a1a" text-anchor="middle">Послідовні резистори біля виходів буфера поглинають відбиті хвилі та</text>
+    <text x="480" y="415" font-size="13" fill="#1a1a1a" text-anchor="middle">усувають паразитні резонанси (ringing) на довгих лініях даних і тактування.</text>
+</svg>

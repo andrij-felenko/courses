@@ -1,0 +1,61 @@
+<svg viewBox="0 0 720 360" width="720" height="360" xmlns="http://www.w3.org/2000/svg" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+<rect x="0" y="0" width="720" height="360" fill="white"/>
+<text x="360" y="30" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Топологія вихідного каскаду BTL (H-міст)</text>
+<text x="360" y="50" font-size="13" fill="#6b7280" text-anchor="middle">Принцип роботи мостового підсилювача PAM8403</text>
+
+<!-- VDD line -->
+<line x1="260" y1="100" x2="460" y2="100" stroke="#1a1a1a" stroke-width="2"/>
+<text x="360" y="90" font-size="14" fill="#1a1a1a" text-anchor="middle">VDD (5V)</text>
+
+<!-- PGND line -->
+<line x1="260" y1="280" x2="460" y2="280" stroke="#1a1a1a" stroke-width="2"/>
+<text x="360" y="300" font-size="14" fill="#1a1a1a" text-anchor="middle">PGND (0V)</text>
+
+<!-- Left bridge -->
+<line x1="310" y1="100" x2="310" y2="130" stroke="#1a1a1a" stroke-width="2"/>
+<rect x="290" y="130" width="40" height="40" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+<text x="310" y="155" font-size="14" fill="#1a1a1a" text-anchor="middle">Q1(P)</text>
+
+<line x1="310" y1="170" x2="310" y2="210" stroke="#1a1a1a" stroke-width="2"/>
+<circle cx="310" cy="190" r="3" fill="#1a1a1a"/>
+
+<rect x="290" y="210" width="40" height="40" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+<text x="310" y="235" font-size="14" fill="#1a1a1a" text-anchor="middle">Q3(N)</text>
+<line x1="310" y1="250" x2="310" y2="280" stroke="#1a1a1a" stroke-width="2"/>
+
+<!-- Right bridge -->
+<line x1="410" y1="100" x2="410" y2="130" stroke="#1a1a1a" stroke-width="2"/>
+<rect x="390" y="130" width="40" height="40" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+<text x="410" y="155" font-size="14" fill="#1a1a1a" text-anchor="middle">Q2(P)</text>
+
+<line x1="410" y1="170" x2="410" y2="210" stroke="#1a1a1a" stroke-width="2"/>
+<circle cx="410" cy="190" r="3" fill="#1a1a1a"/>
+
+<rect x="390" y="210" width="40" height="40" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+<text x="410" y="235" font-size="14" fill="#1a1a1a" text-anchor="middle">Q4(N)</text>
+<line x1="410" y1="250" x2="410" y2="280" stroke="#1a1a1a" stroke-width="2"/>
+
+<!-- Speaker connections -->
+<line x1="310" y1="190" x2="330" y2="190" stroke="#1a1a1a" stroke-width="2"/>
+<line x1="390" y1="190" x2="410" y2="190" stroke="#1a1a1a" stroke-width="2"/>
+
+<rect x="330" y="175" width="60" height="30" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+<text x="360" y="195" font-size="14" fill="#1a1a1a" text-anchor="middle">Динамік</text>
+
+<text x="280" y="195" font-size="14" fill="#2457d6" text-anchor="end">OUT+</text>
+<text x="440" y="195" font-size="14" fill="#2457d6" text-anchor="start">OUT-</text>
+
+<!-- PWM Inputs -->
+<line x1="230" y1="150" x2="290" y2="150" stroke="#2457d6" stroke-width="1" stroke-dasharray="4,4"/>
+<text x="220" y="155" font-size="14" fill="#2457d6" text-anchor="end">PWM+</text>
+
+<line x1="230" y1="230" x2="290" y2="230" stroke="#2457d6" stroke-width="1" stroke-dasharray="4,4"/>
+<text x="220" y="235" font-size="14" fill="#2457d6" text-anchor="end">PWM- (inv)</text>
+
+<line x1="490" y1="150" x2="430" y2="150" stroke="#2457d6" stroke-width="1" stroke-dasharray="4,4"/>
+<text x="500" y="155" font-size="14" fill="#2457d6" text-anchor="start">PWM- (inv)</text>
+
+<line x1="490" y1="230" x2="430" y2="230" stroke="#2457d6" stroke-width="1" stroke-dasharray="4,4"/>
+<text x="500" y="235" font-size="14" fill="#2457d6" text-anchor="start">PWM+</text>
+
+</svg>

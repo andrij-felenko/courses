@@ -1,0 +1,197 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-black" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Підкладка -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Часова діаграма виникнення фантомного підсвічування та інтервал гасіння</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Затримка вимкнення ключа t_off накладає новий код на старий розряд; пауза t_blank усуває накладання</text>
+
+  <!-- ========================================== -->
+  <!-- ПАНЕЛЬ 1: БЕЗ ГАСІННЯ (ВИНИКНЕННЯ GHOSTING) -->
+  <!-- ========================================== -->
+  <rect x="24" y="70" width="912" height="226" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Заголовок панелі 1 -->
+  <rect x="36" y="80" width="530" height="24" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="46" y="96" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="start">1. Без гасіння: затримка ключа t_off створює паразитне підсвічування</text>
+
+  <!-- Картка результату на дисплеї (Панель 1) -->
+  <rect x="734" y="80" width="190" height="204" rx="6" fill="white" stroke="#c0392b" stroke-width="1.5"/>
+  <rect x="742" y="88" width="174" height="22" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="829" y="104" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Результат: Ghosting</text>
+
+  <!-- Семисегментний індикатор (Розряд 1 з фантомом) -->
+  <rect x="805" y="118" width="48" height="74" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <!-- Сегменти a, d, e, f, g (паразитно світяться червоним) -->
+  <line x1="817" y1="124" x2="841" y2="124" stroke="#c0392b" stroke-width="3" stroke-dasharray="3,2"/>
+  <line x1="813" y1="128" x2="813" y2="151" stroke="#c0392b" stroke-width="3" stroke-dasharray="3,2"/>
+  <line x1="817" y1="155" x2="841" y2="155" stroke="#c0392b" stroke-width="3" stroke-dasharray="3,2"/>
+  <line x1="813" y1="159" x2="813" y2="182" stroke="#c0392b" stroke-width="3" stroke-dasharray="3,2"/>
+  <line x1="817" y1="186" x2="841" y2="186" stroke="#c0392b" stroke-width="3" stroke-dasharray="3,2"/>
+  <!-- Сегменти b, c (активна одиниця - яскраво синій) -->
+  <line x1="845" y1="128" x2="845" y2="151" stroke="#2457d6" stroke-width="4.5"/>
+  <line x1="845" y1="159" x2="845" y2="182" stroke="#2457d6" stroke-width="4.5"/>
+
+  <!-- Підписи до індикатора 1 -->
+  <text x="829" y="210" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Розряд 1 (код «1»)</text>
+  <text x="829" y="228" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Паразитний контур «8»</text>
+  <text x="829" y="246" font-size="12" fill="#c0392b" text-anchor="middle">Фантомне світіння</text>
+  <text x="829" y="264" font-size="12" fill="#6b7280" text-anchor="middle">через затримку t_off</text>
+
+  <!-- Текстові мітки сигналів (Панель 1) -->
+  <text x="195" y="119" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">DIG1_CTRL (МК)</text>
+  <text x="195" y="155" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">Ключ Q1 (DIG1)</text>
+  <text x="195" y="195" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">Шина SEG[a..g]</text>
+  <text x="195" y="235" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">DIG2_CTRL (МК)</text>
+  <text x="195" y="271" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">Струм I(DIG1)</text>
+
+  <!-- Зона конфлікту t_off (червоне тло) -->
+  <rect x="380" y="106" width="75" height="174" fill="#fdecea" stroke="#c0392b" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="417" y="120" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">t_off</text>
+
+  <!-- Базові лінії розмежування сигналів (сірі пунктири) -->
+  <line x1="215" y1="135" x2="715" y2="135" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="215" y1="173" x2="715" y2="173" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="215" y1="215" x2="715" y2="215" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="215" y1="251" x2="715" y2="251" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2,2"/>
+
+  <!-- Вертикальна лінія перемикання МК (t1) -->
+  <line x1="380" y1="104" x2="380" y2="280" stroke="#c0392b" stroke-width="1.5"/>
+
+  <!-- Сигнал 1: DIG1_CTRL -->
+  <polyline points="215,110 380,110 380,128 715,128" fill="none" stroke="#2457d6" stroke-width="2"/>
+  <text x="290" y="124" font-size="12" fill="#2457d6" text-anchor="middle">HIGH (активний)</text>
+  <text x="560" y="124" font-size="12" fill="#6b7280" text-anchor="middle">LOW (вимкнено МК)</text>
+
+  <!-- Сигнал 2: Ключ Q1 (затримка закриття t_off) -->
+  <polyline points="215,146 380,146 455,166 715,166" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="290" y="160" font-size="12" fill="#1a1a1a" text-anchor="middle">Відкритий</text>
+  <text x="560" y="162" font-size="12" fill="#6b7280" text-anchor="middle">Закритий</text>
+
+  <!-- Сигнал 3: Шина SEG[a..g] -->
+  <rect x="225" y="181" width="145" height="24" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="297" y="197" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Код «1» (сегменти b, c)</text>
+  <rect x="385" y="181" width="320" height="24" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="545" y="197" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Код «8» (усі сегменти a..g увімкнені!)</text>
+
+  <!-- Сигнал 4: DIG2_CTRL -->
+  <polyline points="215,244 380,244 380,226 715,226" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="290" y="240" font-size="12" fill="#6b7280" text-anchor="middle">LOW (неактивний)</text>
+  <text x="560" y="238" font-size="12" fill="#1a1a1a" text-anchor="middle">HIGH (активний)</text>
+
+  <!-- Сигнал 5: Струм I(DIG1) -->
+  <line x1="215" y1="260" x2="380" y2="260" stroke="#2457d6" stroke-width="2"/>
+  <polygon points="380,274 380,256 455,274" fill="#fdecea" stroke="#c0392b" stroke-width="2"/>
+  <line x1="455" y1="274" x2="715" y2="274" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="290" y="272" font-size="12" fill="#2457d6" text-anchor="middle">I_nom (світить «1»)</text>
+  <text x="475" y="270" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="start">I_ghost (паразитний спалах «8»!)</text>
+
+  <!-- Позначки часу на панелі 1 -->
+  <text x="380" y="290" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">t1</text>
+  <text x="455" y="290" font-size="12" fill="#6b7280" text-anchor="middle">t1 + t_off</text>
+
+
+  <!-- ========================================== -->
+  <!-- ПАНЕЛЬ 2: З ГАСІННЯМ (BLANKING / DEAD TIME) -->
+  <!-- ========================================== -->
+  <rect x="24" y="312" width="912" height="226" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Заголовок панелі 2 -->
+  <rect x="36" y="322" width="560" height="24" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="46" y="338" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="start">2. З інтервалом гасіння: пауза безпеки t_blank усуває накладання сигналів</text>
+
+  <!-- Картка результату на дисплеї (Панель 2) -->
+  <rect x="734" y="322" width="190" height="204" rx="6" fill="white" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="742" y="330" width="174" height="22" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="829" y="346" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Результат: Чистий показ</text>
+
+  <!-- Семисегментний індикатор (Розряд 1 без фантома) -->
+  <rect x="805" y="360" width="48" height="74" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <!-- Сегменти a, d, e, f, g (вимкнені - нейтрально сірі) -->
+  <line x1="817" y1="366" x2="841" y2="366" stroke="#d0d7de" stroke-width="3"/>
+  <line x1="813" y1="370" x2="813" y2="393" stroke="#d0d7de" stroke-width="3"/>
+  <line x1="817" y1="397" x2="841" y2="397" stroke="#d0d7de" stroke-width="3"/>
+  <line x1="813" y1="401" x2="813" y2="424" stroke="#d0d7de" stroke-width="3"/>
+  <line x1="817" y1="428" x2="841" y2="428" stroke="#d0d7de" stroke-width="3"/>
+  <!-- Сегменти b, c (активна одиниця - яскраво зелений) -->
+  <line x1="845" y1="370" x2="845" y2="393" stroke="#27ae60" stroke-width="4.5"/>
+  <line x1="845" y1="401" x2="845" y2="424" stroke="#27ae60" stroke-width="4.5"/>
+
+  <!-- Підписи до індикатора 2 -->
+  <text x="829" y="452" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Розряд 1 (код «1»)</text>
+  <text x="829" y="470" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Контур «8» відсутній</text>
+  <text x="829" y="488" font-size="12" fill="#27ae60" text-anchor="middle">100% чіткість символу</text>
+  <text x="829" y="506" font-size="12" fill="#6b7280" text-anchor="middle">пауза t_blank &gt; t_off</text>
+
+  <!-- Текстові мітки сигналів (Панель 2) -->
+  <text x="195" y="361" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">DIG1_CTRL (МК)</text>
+  <text x="195" y="397" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">Ключ Q1 (DIG1)</text>
+  <text x="195" y="437" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">Шина SEG[a..g]</text>
+  <text x="195" y="477" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">DIG2_CTRL (МК)</text>
+  <text x="195" y="513" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">Струм I(DIG1)</text>
+
+  <!-- Зона безпеки t_blank (зелене тло) -->
+  <rect x="380" y="348" width="140" height="174" fill="#e9f7ef" stroke="#27ae60" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="450" y="362" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Пауза гасіння: t_blank</text>
+
+  <!-- Базові лінії розмежування сигналів (сірі пунктири) -->
+  <line x1="215" y1="377" x2="715" y2="377" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="215" y1="415" x2="715" y2="415" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="215" y1="457" x2="715" y2="457" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="215" y1="493" x2="715" y2="493" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2,2"/>
+
+  <!-- Межі інтервалу гасіння -->
+  <line x1="380" y1="346" x2="380" y2="522" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="520" y1="346" x2="520" y2="522" stroke="#27ae60" stroke-width="1.5"/>
+
+  <!-- Сигнал 1: DIG1_CTRL -->
+  <polyline points="215,352 380,352 380,370 715,370" fill="none" stroke="#2457d6" stroke-width="2"/>
+  <text x="290" y="366" font-size="12" fill="#2457d6" text-anchor="middle">HIGH (активний)</text>
+  <text x="615" y="366" font-size="12" fill="#6b7280" text-anchor="middle">LOW (вимкнено)</text>
+
+  <!-- Сигнал 2: Ключ Q1 -->
+  <polyline points="215,388 380,388 455,408 715,408" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="290" y="402" font-size="12" fill="#1a1a1a" text-anchor="middle">Відкритий</text>
+  <text x="485" y="402" font-size="12" fill="#27ae60" text-anchor="middle">Повністю закритий</text>
+  <text x="615" y="404" font-size="12" fill="#6b7280" text-anchor="middle">Закритий</text>
+
+  <!-- Сигнал 3: Шина SEG[a..g] -->
+  <rect x="225" y="423" width="145" height="24" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="297" y="439" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Код «1» (сегменти b, c)</text>
+  <rect x="385" y="423" width="80" height="24" rx="3" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="425" y="439" font-size="12" fill="#6b7280" text-anchor="middle">Гасіння</text>
+  <rect x="470" y="423" width="235" height="24" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="587" y="439" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Код «8» (оновлення в паузі)</text>
+
+  <!-- Сигнал 4: DIG2_CTRL -->
+  <polyline points="215,486 520,486 520,468 715,468" fill="none" stroke="#27ae60" stroke-width="2"/>
+  <text x="290" y="482" font-size="12" fill="#6b7280" text-anchor="middle">LOW (неактивний)</text>
+  <text x="450" y="482" font-size="12" fill="#27ae60" text-anchor="middle">LOW (блокування)</text>
+  <text x="615" y="480" font-size="12" fill="#27ae60" text-anchor="middle">HIGH (увімкнено)</text>
+
+  <!-- Сигнал 5: Струм I(DIG1) -->
+  <line x1="215" y1="502" x2="380" y2="502" stroke="#2457d6" stroke-width="2"/>
+  <polyline points="380,502 455,516 715,516" fill="none" stroke="#27ae60" stroke-width="2"/>
+  <text x="290" y="514" font-size="12" fill="#2457d6" text-anchor="middle">I_nom (світить «1»)</text>
+  <text x="530" y="508" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="start">I_ghost = 0 (струм відсутній)</text>
+
+  <!-- Позначки часу на панелі 2 -->
+  <text x="380" y="532" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">t1</text>
+  <text x="520" y="532" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">t2 = t1 + t_blank</text>
+
+</svg>

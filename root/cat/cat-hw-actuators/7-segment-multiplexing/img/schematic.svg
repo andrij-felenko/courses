@@ -1,0 +1,193 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Заголовок -->
+  <text x="480" y="40" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Мультиплексування семисегментного індикатора</text>
+  <text x="480" y="60" font-size="13" fill="#6b7280" text-anchor="middle">Резистори обмежують струм сегментів, а транзистори комутують спільні виводи розрядів</text>
+
+  <!-- MCU -->
+  <rect x="40" y="100" width="140" height="380" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <text x="110" y="125" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Мікроконтролер</text>
+  <text x="110" y="145" font-size="12" fill="#6b7280" text-anchor="middle">Порт сегментів</text>
+  <text x="110" y="385" font-size="12" fill="#6b7280" text-anchor="middle">Порт розрядів</text>
+
+  <!-- Шина сегментів (Label) -->
+  <text x="450" y="145" font-size="13" fill="#6b7280" text-anchor="middle">Шина сегментів (8 ліній)</text>
+
+  <!-- PA0 / A -->
+  <text x="172" y="164" font-size="12" fill="#1a1a1a" text-anchor="end">PA0 (A)</text>
+  <line x1="180" y1="160" x2="240" y2="160" stroke="#1a1a1a" stroke-width="2"/>
+  <rect x="240" y="156" width="40" height="8" fill="white" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="260" y="152" font-size="12" fill="#1a1a1a" text-anchor="middle">R1</text>
+  <line x1="280" y1="160" x2="620" y2="160" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="626" y="164" font-size="12" fill="#2457d6" text-anchor="start">A</text>
+
+  <!-- PA1 / B -->
+  <text x="172" y="184" font-size="12" fill="#1a1a1a" text-anchor="end">PA1 (B)</text>
+  <line x1="180" y1="180" x2="240" y2="180" stroke="#1a1a1a" stroke-width="2"/>
+  <rect x="240" y="176" width="40" height="8" fill="white" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="260" y="172" font-size="12" fill="#1a1a1a" text-anchor="middle">R2</text>
+  <line x1="280" y1="180" x2="620" y2="180" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="626" y="184" font-size="12" fill="#2457d6" text-anchor="start">B</text>
+
+  <!-- PA2 / C -->
+  <text x="172" y="204" font-size="12" fill="#1a1a1a" text-anchor="end">PA2 (C)</text>
+  <line x1="180" y1="200" x2="240" y2="200" stroke="#1a1a1a" stroke-width="2"/>
+  <rect x="240" y="196" width="40" height="8" fill="white" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="260" y="192" font-size="12" fill="#1a1a1a" text-anchor="middle">R3</text>
+  <line x1="280" y1="200" x2="620" y2="200" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="626" y="204" font-size="12" fill="#2457d6" text-anchor="start">C</text>
+
+  <!-- PA3 / D -->
+  <text x="172" y="224" font-size="12" fill="#1a1a1a" text-anchor="end">PA3 (D)</text>
+  <line x1="180" y1="220" x2="240" y2="220" stroke="#1a1a1a" stroke-width="2"/>
+  <rect x="240" y="216" width="40" height="8" fill="white" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="260" y="212" font-size="12" fill="#1a1a1a" text-anchor="middle">R4</text>
+  <line x1="280" y1="220" x2="620" y2="220" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="626" y="224" font-size="12" fill="#2457d6" text-anchor="start">D</text>
+
+  <!-- PA4 / E -->
+  <text x="172" y="244" font-size="12" fill="#1a1a1a" text-anchor="end">PA4 (E)</text>
+  <line x1="180" y1="240" x2="240" y2="240" stroke="#1a1a1a" stroke-width="2"/>
+  <rect x="240" y="236" width="40" height="8" fill="white" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="260" y="232" font-size="12" fill="#1a1a1a" text-anchor="middle">R5</text>
+  <line x1="280" y1="240" x2="620" y2="240" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="626" y="244" font-size="12" fill="#2457d6" text-anchor="start">E</text>
+
+  <!-- PA5 / F -->
+  <text x="172" y="264" font-size="12" fill="#1a1a1a" text-anchor="end">PA5 (F)</text>
+  <line x1="180" y1="260" x2="240" y2="260" stroke="#1a1a1a" stroke-width="2"/>
+  <rect x="240" y="256" width="40" height="8" fill="white" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="260" y="252" font-size="12" fill="#1a1a1a" text-anchor="middle">R6</text>
+  <line x1="280" y1="260" x2="620" y2="260" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="626" y="264" font-size="12" fill="#2457d6" text-anchor="start">F</text>
+
+  <!-- PA6 / G -->
+  <text x="172" y="284" font-size="12" fill="#1a1a1a" text-anchor="end">PA6 (G)</text>
+  <line x1="180" y1="280" x2="240" y2="280" stroke="#1a1a1a" stroke-width="2"/>
+  <rect x="240" y="276" width="40" height="8" fill="white" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="260" y="272" font-size="12" fill="#1a1a1a" text-anchor="middle">R7</text>
+  <line x1="280" y1="280" x2="620" y2="280" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="626" y="284" font-size="12" fill="#2457d6" text-anchor="start">G</text>
+
+  <!-- PA7 / DP -->
+  <text x="172" y="304" font-size="12" fill="#1a1a1a" text-anchor="end">PA7 (DP)</text>
+  <line x1="180" y1="300" x2="240" y2="300" stroke="#1a1a1a" stroke-width="2"/>
+  <rect x="240" y="296" width="40" height="8" fill="white" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="260" y="292" font-size="12" fill="#1a1a1a" text-anchor="middle">R8</text>
+  <line x1="280" y1="300" x2="620" y2="300" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="626" y="304" font-size="12" fill="#2457d6" text-anchor="start">DP</text>
+
+  <!-- Display Module -->
+  <rect x="620" y="100" width="260" height="220" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="750" y="130" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">Світлодіодний індикатор</text>
+  <text x="750" y="148" font-size="12" fill="#2457d6" text-anchor="middle">(спільний катод)</text>
+
+  <!-- Digits inside display -->
+  <rect x="650" y="170" width="40" height="60" rx="4" fill="white" stroke="#2457d6" stroke-width="1" stroke-dasharray="2 2"/>
+  <text x="670" y="215" font-family="monospace" font-size="40" font-weight="bold" fill="#a0b4e0" text-anchor="middle">8.</text>
+  <line x1="670" y1="230" x2="670" y2="320" stroke="#2457d6" stroke-width="2"/>
+  <text x="674" y="312" font-size="12" fill="#2457d6" text-anchor="start">DIG1</text>
+
+  <rect x="700" y="170" width="40" height="60" rx="4" fill="white" stroke="#2457d6" stroke-width="1" stroke-dasharray="2 2"/>
+  <text x="720" y="215" font-family="monospace" font-size="40" font-weight="bold" fill="#a0b4e0" text-anchor="middle">8.</text>
+  <line x1="720" y1="230" x2="720" y2="320" stroke="#2457d6" stroke-width="2"/>
+  <text x="724" y="312" font-size="12" fill="#2457d6" text-anchor="start">DIG2</text>
+
+  <rect x="750" y="170" width="40" height="60" rx="4" fill="white" stroke="#2457d6" stroke-width="1" stroke-dasharray="2 2"/>
+  <text x="770" y="215" font-family="monospace" font-size="40" font-weight="bold" fill="#a0b4e0" text-anchor="middle">8.</text>
+  <line x1="770" y1="230" x2="770" y2="320" stroke="#2457d6" stroke-width="2"/>
+  <text x="774" y="312" font-size="12" fill="#2457d6" text-anchor="start">DIG3</text>
+
+  <rect x="800" y="170" width="40" height="60" rx="4" fill="white" stroke="#2457d6" stroke-width="1" stroke-dasharray="2 2"/>
+  <text x="820" y="215" font-family="monospace" font-size="40" font-weight="bold" fill="#a0b4e0" text-anchor="middle">8.</text>
+  <line x1="820" y1="230" x2="820" y2="320" stroke="#2457d6" stroke-width="2"/>
+  <text x="824" y="312" font-size="12" fill="#2457d6" text-anchor="start">DIG4</text>
+
+  <!-- T1 Transistor & Base -->
+  <circle cx="670" cy="370" r="16" fill="white" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="662" y1="360" x2="662" y2="380" stroke="#1a1a1a" stroke-width="3"/>
+  <line x1="650" y1="370" x2="662" y2="370" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="670" y1="354" x2="662" y2="364" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="662" y1="376" x2="670" y2="386" stroke="#1a1a1a" stroke-width="2"/>
+  <polygon points="670,386 664,384 667,380" fill="#1a1a1a"/>
+  
+  <text x="682" y="358" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">VT1</text>
+  <line x1="670" y1="320" x2="670" y2="354" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="670" y1="386" x2="670" y2="490" stroke="#1a1a1a" stroke-width="2"/>
+  
+  <line x1="650" y1="370" x2="650" y2="376" stroke="#1a1a1a" stroke-width="2"/>
+  <rect x="646" y="376" width="8" height="24" fill="white" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="642" y="392" font-size="12" fill="#1a1a1a" text-anchor="end">R9</text>
+  <line x1="180" y1="400" x2="650" y2="400" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="172" y="404" font-size="12" fill="#1a1a1a" text-anchor="end">PB0 (DIG1)</text>
+
+  <!-- T2 Transistor & Base -->
+  <circle cx="720" cy="370" r="16" fill="white" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="712" y1="360" x2="712" y2="380" stroke="#1a1a1a" stroke-width="3"/>
+  <line x1="700" y1="370" x2="712" y2="370" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="720" y1="354" x2="712" y2="364" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="712" y1="376" x2="720" y2="386" stroke="#1a1a1a" stroke-width="2"/>
+  <polygon points="720,386 714,384 717,380" fill="#1a1a1a"/>
+  
+  <text x="732" y="358" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">VT2</text>
+  <line x1="720" y1="320" x2="720" y2="354" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="720" y1="386" x2="720" y2="490" stroke="#1a1a1a" stroke-width="2"/>
+  
+  <line x1="700" y1="370" x2="700" y2="390" stroke="#1a1a1a" stroke-width="2"/>
+  <rect x="696" y="390" width="8" height="24" fill="white" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="692" y="407" font-size="12" fill="#1a1a1a" text-anchor="end">R10</text>
+  <line x1="700" y1="414" x2="700" y2="420" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="180" y1="420" x2="700" y2="420" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="172" y="424" font-size="12" fill="#1a1a1a" text-anchor="end">PB1 (DIG2)</text>
+
+  <!-- T3 Transistor & Base -->
+  <circle cx="770" cy="370" r="16" fill="white" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="762" y1="360" x2="762" y2="380" stroke="#1a1a1a" stroke-width="3"/>
+  <line x1="750" y1="370" x2="762" y2="370" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="770" y1="354" x2="762" y2="364" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="762" y1="376" x2="770" y2="386" stroke="#1a1a1a" stroke-width="2"/>
+  <polygon points="770,386 764,384 767,380" fill="#1a1a1a"/>
+  
+  <text x="782" y="358" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">VT3</text>
+  <line x1="770" y1="320" x2="770" y2="354" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="770" y1="386" x2="770" y2="490" stroke="#1a1a1a" stroke-width="2"/>
+  
+  <line x1="750" y1="370" x2="750" y2="405" stroke="#1a1a1a" stroke-width="2"/>
+  <rect x="746" y="405" width="8" height="24" fill="white" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="742" y="422" font-size="12" fill="#1a1a1a" text-anchor="end">R11</text>
+  <line x1="750" y1="429" x2="750" y2="440" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="180" y1="440" x2="750" y2="440" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="172" y="444" font-size="12" fill="#1a1a1a" text-anchor="end">PB2 (DIG3)</text>
+
+  <!-- T4 Transistor & Base -->
+  <circle cx="820" cy="370" r="16" fill="white" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="812" y1="360" x2="812" y2="380" stroke="#1a1a1a" stroke-width="3"/>
+  <line x1="800" y1="370" x2="812" y2="370" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="820" y1="354" x2="812" y2="364" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="812" y1="376" x2="820" y2="386" stroke="#1a1a1a" stroke-width="2"/>
+  <polygon points="820,386 814,384 817,380" fill="#1a1a1a"/>
+  
+  <text x="832" y="358" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">VT4</text>
+  <line x1="820" y1="320" x2="820" y2="354" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="820" y1="386" x2="820" y2="490" stroke="#1a1a1a" stroke-width="2"/>
+  
+  <line x1="800" y1="370" x2="800" y2="420" stroke="#1a1a1a" stroke-width="2"/>
+  <rect x="796" y="420" width="8" height="24" fill="white" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="792" y="437" font-size="12" fill="#1a1a1a" text-anchor="end">R12</text>
+  <line x1="800" y1="444" x2="800" y2="460" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="180" y1="460" x2="800" y2="460" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="172" y="464" font-size="12" fill="#1a1a1a" text-anchor="end">PB3 (DIG4)</text>
+
+  <!-- Ground Line & Symbol -->
+  <line x1="670" y1="490" x2="860" y2="490" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="720" cy="490" r="3" fill="#1a1a1a"/>
+  <circle cx="770" cy="490" r="3" fill="#1a1a1a"/>
+  <circle cx="820" cy="490" r="3" fill="#1a1a1a"/>
+
+  <line x1="860" y1="490" x2="860" y2="500" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="850" y1="500" x2="870" y2="500" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="853" y1="504" x2="867" y2="504" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="857" y1="508" x2="863" y2="508" stroke="#1a1a1a" stroke-width="2"/>
+
+</svg>

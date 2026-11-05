@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+    <defs>
+        <marker id="arr" markerWidth="6" markerHeight="4" refX="5" refY="2" orient="auto">
+            <polygon points="0,0 6,2 0,4" fill="#1a1a1a"/>
+        </marker>
+    </defs>
+    <rect x="0" y="0" width="960" height="460" fill="white"/>
+    
+    <text x="480" y="40" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Діаграма послідовності бітів кадру даних APA102/SK9822</text>
+    <text x="480" y="65" font-size="13" fill="#6b7280" text-anchor="middle">Структура 32-бітного кадру: стартові біти, банк яскравості, кодування BGR</text>
+    
+    <text x="40" y="110" font-size="14" font-weight="bold" fill="#1a1a1a">Структура пакета даних:</text>
+    
+    <!-- Full Packet Overview -->
+    <rect x="40" y="130" width="150" height="40" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+    <text x="115" y="155" font-size="13" fill="#1a1a1a" text-anchor="middle">Start Frame (32b)</text>
+    
+    <rect x="190" y="130" width="180" height="40" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+    <text x="280" y="155" font-size="13" fill="#1a1a1a" text-anchor="middle">LED 1 Data (32b)</text>
+    
+    <rect x="370" y="130" width="180" height="40" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+    <text x="460" y="155" font-size="13" fill="#1a1a1a" text-anchor="middle">LED 2 Data (32b)</text>
+    
+    <text x="590" y="155" font-size="14" fill="#1a1a1a" text-anchor="middle">...</text>
+    
+    <rect x="630" y="130" width="180" height="40" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+    <text x="720" y="155" font-size="13" fill="#1a1a1a" text-anchor="middle">LED N Data (32b)</text>
+    
+    <rect x="810" y="130" width="110" height="40" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+    <text x="865" y="155" font-size="13" fill="#1a1a1a" text-anchor="middle">End Frame</text>
+    
+    <!-- Zoom lines -->
+    <line x1="190" y1="170" x2="40" y2="240" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4"/>
+    <line x1="370" y1="170" x2="920" y2="240" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4"/>
+    
+    <text x="40" y="220" font-size="14" font-weight="bold" fill="#1a1a1a">Деталізація кадру світлодіода (LED Data Frame, 32 біти):</text>
+    
+    <!-- LED Frame Zoomed -->
+    <!-- Start bits (3 bits) -->
+    <rect x="40" y="240" width="80" height="60" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1"/>
+    <text x="80" y="270" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">1 1 1</text>
+    <text x="80" y="290" font-size="12" fill="#6b7280" text-anchor="middle">Маркер (3)</text>
+    
+    <!-- Global Brightness (5 bits) -->
+    <rect x="120" y="240" width="140" height="60" fill="#fff3cd" stroke="#d39e00" stroke-width="1"/>
+    <text x="190" y="275" font-size="14" fill="#1a1a1a" text-anchor="middle">Global (5 біт)</text>
+    <text x="190" y="295" font-size="12" fill="#6b7280" text-anchor="middle">Яскравість (0-31)</text>
+    
+    <!-- Blue (8 bits) -->
+    <rect x="260" y="240" width="220" height="60" fill="#cce5ff" stroke="#004085" stroke-width="1"/>
+    <text x="370" y="275" font-size="14" fill="#1a1a1a" text-anchor="middle">Blue (8 біт)</text>
+    <text x="370" y="295" font-size="12" fill="#6b7280" text-anchor="middle">Синій колір (0-255)</text>
+    
+    <!-- Green (8 bits) -->
+    <rect x="480" y="240" width="220" height="60" fill="#d4edda" stroke="#155724" stroke-width="1"/>
+    <text x="590" y="275" font-size="14" fill="#1a1a1a" text-anchor="middle">Green (8 біт)</text>
+    <text x="590" y="295" font-size="12" fill="#6b7280" text-anchor="middle">Зелений колір (0-255)</text>
+    
+    <!-- Red (8 bits) -->
+    <rect x="700" y="240" width="220" height="60" fill="#f8d7da" stroke="#721c24" stroke-width="1"/>
+    <text x="810" y="275" font-size="14" fill="#1a1a1a" text-anchor="middle">Red (8 біт)</text>
+    <text x="810" y="295" font-size="12" fill="#6b7280" text-anchor="middle">Червоний колір (0-255)</text>
+    
+    <rect x="40" y="380" width="880" height="50" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+    <text x="480" y="410" font-size="13" fill="#1a1a1a" text-anchor="middle">Увага: Послідовність передачі кольорів - BGR (Синій, Зелений, Червоний), а не RGB!</text>
+</svg>

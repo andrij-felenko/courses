@@ -1,0 +1,82 @@
+<svg viewBox="0 0 960 560" width="960" height="560" xmlns="http://www.w3.org/2000/svg" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-light" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#f1c40f"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+  
+  <text x="480" y="30" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Оптичні шари TN-матриці та кути огляду</text>
+  <text x="480" y="50" font-size="13" fill="#6b7280" text-anchor="middle">Проходження світла у режимі normally white та інверсія при кутовому спостереженні</text>
+
+  <!-- Left Side: Layers (Stack) -->
+  <text x="240" y="100" font-size="16" fill="#1a1a1a" font-weight="bold" text-anchor="middle">Структура матриці (Без напруги)</text>
+
+  <g transform="translate(140, 130)">
+    <!-- Backlight -->
+    <rect x="0" y="300" width="200" height="30" fill="#f1c40f" opacity="0.3"/>
+    <text x="220" y="320" font-size="13" fill="#1a1a1a">Фонове підсвічування</text>
+    
+    <!-- Bottom Polarizer -->
+    <rect x="0" y="260" width="200" height="15" fill="#6b7280"/>
+    <text x="220" y="272" font-size="13" fill="#1a1a1a">Нижній поляризатор (0°)</text>
+    
+    <!-- Glass + ITO Bottom -->
+    <rect x="0" y="235" width="200" height="15" fill="#eaf0fd" stroke="#d0d7de" stroke-width="1"/>
+    <text x="220" y="247" font-size="13" fill="#1a1a1a">Скло + ITO електрод</text>
+
+    <!-- Liquid Crystals (Twisted Nematic) -->
+    <path d="M 100 230 C 70 190, 130 160, 100 120" fill="none" stroke="#2457d6" stroke-width="4" stroke-dasharray="8,4"/>
+    <text x="220" y="180" font-size="13" fill="#2457d6">Рідкі кристали (поворот 90°)</text>
+    
+    <!-- Glass + Color Filter Top -->
+    <rect x="0" y="100" width="200" height="15" fill="#eaf0fd" stroke="#d0d7de" stroke-width="1"/>
+    <rect x="0" y="100" width="66" height="15" fill="#c0392b" opacity="0.7"/>
+    <rect x="66" y="100" width="67" height="15" fill="#27ae60" opacity="0.7"/>
+    <rect x="133" y="100" width="67" height="15" fill="#2980b9" opacity="0.7"/>
+    <text x="220" y="112" font-size="13" fill="#1a1a1a">Скло + Колірні фільтри</text>
+
+    <!-- Top Polarizer -->
+    <rect x="0" y="70" width="200" height="15" fill="#1a1a1a" opacity="0.8"/>
+    <text x="220" y="82" font-size="13" fill="#1a1a1a">Верхній поляризатор (90°)</text>
+
+    <!-- Light Path -->
+    <path d="M 100 300 L 100 280" fill="none" stroke="#f1c40f" stroke-width="2" marker-end="url(#arr-light)"/>
+    <path d="M 100 250 L 100 235" fill="none" stroke="#f1c40f" stroke-width="2" marker-end="url(#arr-light)"/>
+    <path d="M 100 120 L 100 115" fill="none" stroke="#f1c40f" stroke-width="2" marker-end="url(#arr-light)"/>
+    <path d="M 100 85 L 100 70" fill="none" stroke="#f1c40f" stroke-width="2" marker-end="url(#arr-light)"/>
+    <path d="M 100 55 L 100 20" fill="none" stroke="#f1c40f" stroke-width="4" marker-end="url(#arr-light)"/>
+    <text x="110" y="35" font-size="13" fill="#f39c12">Світло проходить</text>
+  </g>
+
+  <!-- Right Side: Viewing Angle -->
+  <text x="720" y="100" font-size="16" fill="#1a1a1a" font-weight="bold" text-anchor="middle">Кут огляду та інверсія кольорів</text>
+
+  <!-- Monitor representation -->
+  <rect x="620" y="250" width="200" height="10" fill="#6b7280"/>
+  <rect x="670" y="260" width="100" height="40" fill="#d0d7de"/>
+  <rect x="620" y="300" width="200" height="10" fill="#1a1a1a"/>
+
+  <!-- Perpendicular view (Normal) -->
+  <path d="M 720 150 L 720 240" fill="none" stroke="#27ae60" stroke-width="2" marker-end="url(#arr)"/>
+  <circle cx="720" cy="140" r="10" fill="#27ae60"/>
+  <text x="720" y="125" font-size="13" fill="#27ae60" text-anchor="middle">Нормальний кут (ОК)</text>
+
+  <!-- Steep angle view (Inversion) -->
+  <path d="M 550 350 L 660 255" fill="none" stroke="#c0392b" stroke-width="2" marker-end="url(#arr)"/>
+  <circle cx="540" cy="360" r="10" fill="#c0392b"/>
+  <text x="540" y="385" font-size="13" fill="#c0392b" text-anchor="middle">Кут &gt; 45° (Інверсія)</text>
+
+  <!-- Explanation text -->
+  <rect x="620" y="400" width="280" height="100" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="630" y="425" font-size="13" fill="#c0392b" font-weight="bold">Ефект інверсії:</text>
+  <text x="630" y="445" font-size="13" fill="#1a1a1a">При великих відхиленнях лінії</text>
+  <text x="630" y="465" font-size="13" fill="#1a1a1a">зору від нормалі, фазовий зсув</text>
+  <text x="630" y="485" font-size="13" fill="#1a1a1a">світла порушується, кольори</text>
+  <text x="630" y="505" font-size="13" fill="#1a1a1a">викривляються (негатив).</text>
+
+</svg>

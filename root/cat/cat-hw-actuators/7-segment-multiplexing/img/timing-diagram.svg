@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Зелені зони захисних пауз -->
+  <rect x="180" y="85" width="30" height="315" fill="#e9f7ef"/>
+  <rect x="370" y="85" width="80" height="315" fill="#e9f7ef"/>
+  <rect x="610" y="85" width="80" height="315" fill="#e9f7ef"/>
+  <rect x="850" y="85" width="80" height="315" fill="#e9f7ef"/>
+
+  <!-- Сітка часу (вертикальні пунктири) -->
+  <line x1="210" y1="85" x2="210" y2="400" stroke="#d0d7de" stroke-dasharray="4 4"/>
+  <line x1="370" y1="85" x2="370" y2="400" stroke="#d0d7de" stroke-dasharray="4 4"/>
+  <line x1="450" y1="85" x2="450" y2="400" stroke="#d0d7de" stroke-dasharray="4 4"/>
+  <line x1="610" y1="85" x2="610" y2="400" stroke="#d0d7de" stroke-dasharray="4 4"/>
+  <line x1="690" y1="85" x2="690" y2="400" stroke="#d0d7de" stroke-dasharray="4 4"/>
+  <line x1="850" y1="85" x2="850" y2="400" stroke="#d0d7de" stroke-dasharray="4 4"/>
+
+  <!-- Маркування першої паузи -->
+  <text x="410" y="65" font-size="12" font-weight="bold" text-anchor="middle" fill="#27ae60">Захисна пауза</text>
+  <line x1="410" y1="75" x2="375" y2="75" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <line x1="410" y1="75" x2="445" y2="75" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <!-- Вказівник на зміну даних -->
+  <text x="410" y="165" font-size="12" text-anchor="middle" fill="#1a1a1a">Зміна даних</text>
+  <line x1="410" y1="153" x2="410" y2="140" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- Шина сегментів -->
+  <polygon points="180,105 400,105 410,120 400,135 180,135" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <polygon points="410,120 420,105 640,105 650,120 640,135 420,135" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <polygon points="650,120 660,105 880,105 890,120 880,135 660,135" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <polygon points="890,120 900,105 930,105 930,135 900,135" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  
+  <text x="290" y="125" font-size="14" text-anchor="middle" fill="#1a1a1a">Дані 1</text>
+  <text x="530" y="125" font-size="14" text-anchor="middle" fill="#1a1a1a">Дані 2</text>
+  <text x="770" y="125" font-size="14" text-anchor="middle" fill="#1a1a1a">Дані 3</text>
+
+  <!-- COM1 -->
+  <path d="M 180,220 L 210,220 L 210,180 L 370,180 L 370,220 L 930,220" fill="none" stroke="#2457d6" stroke-width="2" stroke-linejoin="round"/>
+  <!-- COM2 -->
+  <path d="M 180,300 L 450,300 L 450,260 L 610,260 L 610,300 L 930,300" fill="none" stroke="#2457d6" stroke-width="2" stroke-linejoin="round"/>
+  <!-- COM3 -->
+  <path d="M 180,380 L 690,380 L 690,340 L 850,340 L 850,380 L 930,380" fill="none" stroke="#2457d6" stroke-width="2" stroke-linejoin="round"/>
+
+  <!-- Назви сигналів (ліворуч) -->
+  <text x="160" y="125" font-size="14" text-anchor="end" fill="#1a1a1a">Шина сегментів</text>
+  <text x="160" y="205" font-size="14" text-anchor="end" fill="#1a1a1a">Розряд 1 (COM1)</text>
+  <text x="160" y="285" font-size="14" text-anchor="end" fill="#1a1a1a">Розряд 2 (COM2)</text>
+  <text x="160" y="365" font-size="14" text-anchor="end" fill="#1a1a1a">Розряд 3 (COM3)</text>
+
+  <!-- Підписи рівнів ON/OFF -->
+  <text x="170" y="184" font-size="12" text-anchor="end" fill="#6b7280">ON</text>
+  <text x="170" y="224" font-size="12" text-anchor="end" fill="#6b7280">OFF</text>
+  
+  <text x="170" y="264" font-size="12" text-anchor="end" fill="#6b7280">ON</text>
+  <text x="170" y="304" font-size="12" text-anchor="end" fill="#6b7280">OFF</text>
+  
+  <text x="170" y="344" font-size="12" text-anchor="end" fill="#6b7280">ON</text>
+  <text x="170" y="384" font-size="12" text-anchor="end" fill="#6b7280">OFF</text>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="40" font-size="18" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Часова діаграма мультиплексування</text>
+  <text x="480" y="60" font-size="13" text-anchor="middle" fill="#6b7280">Захисна пауза запобігає паразитному засвіченню під час зміни даних</text>
+</svg>

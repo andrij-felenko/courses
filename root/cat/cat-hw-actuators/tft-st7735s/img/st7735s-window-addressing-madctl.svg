@@ -1,0 +1,63 @@
+<svg viewBox="0 0 960 460" width="960" height="460" xmlns="http://www.w3.org/2000/svg" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-green" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+  
+  <text x="480" y="30" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Механізм віконної адресації та орієнтації MADCTL</text>
+  <text x="480" y="50" font-size="13" fill="#6b7280" text-anchor="middle">Координатні перетворення при повороті екрана</text>
+
+  <!-- Left: Portrait -->
+  <text x="240" y="90" font-size="16" fill="#1a1a1a" font-weight="bold" text-anchor="middle">Портретний режим (MV=0)</text>
+  <rect x="140" y="110" width="200" height="300" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="140" y="105" font-size="12" fill="#1a1a1a" text-anchor="start">(0,0)</text>
+  <text x="340" y="425" font-size="12" fill="#1a1a1a" text-anchor="end">W=128, H=160</text>
+  
+  <!-- Window -->
+  <rect x="180" y="200" width="120" height="80" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="240" y="245" font-size="14" fill="#2457d6" font-weight="bold" text-anchor="middle">Область</text>
+  
+  <!-- Coordinates -->
+  <text x="180" y="195" font-size="12" fill="#1a1a1a" text-anchor="middle">XS</text>
+  <text x="300" y="195" font-size="12" fill="#1a1a1a" text-anchor="middle">XE</text>
+  <text x="175" y="205" font-size="12" fill="#1a1a1a" text-anchor="end">YS</text>
+  <text x="175" y="280" font-size="12" fill="#1a1a1a" text-anchor="end">YE</text>
+
+  <!-- Scan lines -->
+  <path d="M185,215 L295,215" fill="none" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <path d="M185,225 L295,225" fill="none" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <path d="M185,235 L295,235" fill="none" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+
+  <!-- Right: Landscape -->
+  <text x="720" y="90" font-size="16" fill="#1a1a1a" font-weight="bold" text-anchor="middle">Альбомний режим (MV=1)</text>
+  <rect x="570" y="160" width="300" height="200" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="570" y="155" font-size="12" fill="#1a1a1a" text-anchor="start">(0,0)</text>
+  <text x="870" y="375" font-size="12" fill="#1a1a1a" text-anchor="end">W=160, H=128</text>
+  
+  <!-- Window -->
+  <rect x="660" y="220" width="80" height="120" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="700" y="285" font-size="14" fill="#2457d6" font-weight="bold" text-anchor="middle">Область</text>
+  
+  <!-- Coordinates mapping -->
+  <text x="660" y="215" font-size="12" fill="#1a1a1a" text-anchor="middle">YS</text>
+  <text x="740" y="215" font-size="12" fill="#1a1a1a" text-anchor="middle">YE</text>
+  <text x="655" y="225" font-size="12" fill="#1a1a1a" text-anchor="end">XS</text>
+  <text x="655" y="340" font-size="12" fill="#1a1a1a" text-anchor="end">XE</text>
+
+  <!-- Scan lines mapping -->
+  <path d="M665,225 L665,335" fill="none" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <path d="M675,225 L675,335" fill="none" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <path d="M685,225 L685,335" fill="none" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <!-- Transformation arrow -->
+  <path d="M410,230 L500,230" fill="none" stroke="#c0392b" stroke-width="2" marker-end="url(#arr)"/>
+  <text x="455" y="220" font-size="13" fill="#1a1a1a" text-anchor="middle">Поворот (MV=1)</text>
+
+</svg>

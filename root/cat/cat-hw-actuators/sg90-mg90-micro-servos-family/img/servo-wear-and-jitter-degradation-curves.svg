@@ -1,0 +1,114 @@
+<svg viewBox="0 0 960 460" width="960" height="460" xmlns="http://www.w3.org/2000/svg" font-family="'Segoe UI', Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+  <text x="480" y="30" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Динаміка зносу та деградації сервоприводів (Тест на витривалість)</text>
+  <text x="480" y="50" font-size="13" fill="#6b7280" text-anchor="middle">Зростання кутового люфту та брязкання залежно від кількості робочих циклів</text>
+
+  <!-- Legend -->
+  <rect x="230" y="70" width="500" height="40" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  
+  <line x1="250" y1="90" x2="280" y2="90" stroke="#c0392b" stroke-width="3"/>
+  <circle cx="265" cy="90" r="4" fill="#c0392b"/>
+  <text x="290" y="94" font-size="12" fill="#1a1a1a">SG90 (Нейлон)</text>
+
+  <line x1="390" y1="90" x2="420" y2="90" stroke="#e67e22" stroke-width="3"/>
+  <circle cx="405" cy="90" r="4" fill="#e67e22"/>
+  <text x="430" y="94" font-size="12" fill="#1a1a1a">SG92R (Карбон)</text>
+
+  <line x1="530" y1="90" x2="560" y2="90" stroke="#2980b9" stroke-width="3"/>
+  <circle cx="545" cy="90" r="4" fill="#2980b9"/>
+  <text x="570" y="94" font-size="12" fill="#1a1a1a">MG90S (Метал)</text>
+
+  <line x1="670" y1="90" x2="700" y2="90" stroke="#27ae60" stroke-width="3"/>
+  <circle cx="685" cy="90" r="4" fill="#27ae60"/>
+  <text x="710" y="94" font-size="12" fill="#1a1a1a">MG90D (Цифровий)</text>
+
+  <!-- LEFT PLOT: Backlash -->
+  <!-- Box: 80, 150 to 440, 380 (width 360, height 230) -->
+  <rect x="80" y="150" width="360" height="230" fill="#fafbfc" stroke="#d0d7de" stroke-width="1"/>
+  <text x="260" y="140" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Кутовий люфт редуктора (Backlash)</text>
+  <text x="45" y="265" font-size="12" fill="#6b7280" transform="rotate(-90 45,265)" text-anchor="middle">Люфт (градуси °)</text>
+  <text x="260" y="415" font-size="12" fill="#6b7280" text-anchor="middle">Кількість циклів (×1000)</text>
+
+  <!-- Y-axis ticks (0 to 3.0 degrees) -->
+  <text x="70" y="384" font-size="12" fill="#6b7280" text-anchor="end">0.0</text>
+  <line x1="75" y1="380" x2="80" y2="380" stroke="#d0d7de" stroke-width="1"/>
+  
+  <text x="70" y="307.33" font-size="12" fill="#6b7280" text-anchor="end">1.0</text>
+  <line x1="75" y1="303.33" x2="80" y2="303.33" stroke="#d0d7de" stroke-width="1"/>
+  
+  <text x="70" y="230.66" font-size="12" fill="#6b7280" text-anchor="end">2.0</text>
+  <line x1="75" y1="226.66" x2="80" y2="226.66" stroke="#d0d7de" stroke-width="1"/>
+  
+  <text x="70" y="154" font-size="12" fill="#6b7280" text-anchor="end">3.0</text>
+  <line x1="75" y1="150" x2="80" y2="150" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- X-axis ticks (0 to 100) -->
+  <text x="80" y="395" font-size="12" fill="#6b7280" text-anchor="middle">0</text>
+  <text x="152" y="395" font-size="12" fill="#6b7280" text-anchor="middle">20</text>
+  <text x="224" y="395" font-size="12" fill="#6b7280" text-anchor="middle">40</text>
+  <text x="296" y="395" font-size="12" fill="#6b7280" text-anchor="middle">60</text>
+  <text x="368" y="395" font-size="12" fill="#6b7280" text-anchor="middle">80</text>
+  <text x="440" y="395" font-size="12" fill="#6b7280" text-anchor="middle">100</text>
+
+  <!-- Grid lines -->
+  <line x1="80" y1="303.33" x2="440" y2="303.33" stroke="#e1e4e8" stroke-width="1" stroke-dasharray="4,4"/>
+  <line x1="80" y1="226.66" x2="440" y2="226.66" stroke="#e1e4e8" stroke-width="1" stroke-dasharray="4,4"/>
+  <line x1="152" y1="150" x2="152" y2="380" stroke="#e1e4e8" stroke-width="1" stroke-dasharray="4,4"/>
+  <line x1="224" y1="150" x2="224" y2="380" stroke="#e1e4e8" stroke-width="1" stroke-dasharray="4,4"/>
+  <line x1="296" y1="150" x2="296" y2="380" stroke="#e1e4e8" stroke-width="1" stroke-dasharray="4,4"/>
+  <line x1="368" y1="150" x2="368" y2="380" stroke="#e1e4e8" stroke-width="1" stroke-dasharray="4,4"/>
+
+  <!-- Data lines -->
+  <!-- SG90: 0->0.5 (y=341), 10->0.8, 20->2.5, 25->breaks -->
+  <path d="M 80 341 L 116 318 L 152 188 L 170 150" fill="none" stroke="#c0392b" stroke-width="3"/>
+  <!-- SG92R: 0->0.4 (y=349), 20->0.6, 40->1.5, 60->breaks -->
+  <path d="M 80 349 L 152 334 L 224 265 L 296 150" fill="none" stroke="#e67e22" stroke-width="3"/>
+  <!-- MG90S: 0->0.8 (y=318), 40->1.0 (y=303), 100->1.2 (y=288) -->
+  <path d="M 80 318 L 224 303 L 440 288" fill="none" stroke="#2980b9" stroke-width="3"/>
+  <!-- MG90D: 0->0.6 (y=334), 40->0.7 (y=326), 100->1.0 (y=303) -->
+  <path d="M 80 334 L 224 326 L 440 303" fill="none" stroke="#27ae60" stroke-width="3"/>
+
+
+  <!-- RIGHT PLOT: Jitter -->
+  <!-- Box: 540, 150 to 900, 380 (width 360, height 230) -->
+  <rect x="540" y="150" width="360" height="230" fill="#fafbfc" stroke="#d0d7de" stroke-width="1"/>
+  <text x="720" y="140" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Брязкання / Тремтіння (RMS Jitter)</text>
+  <text x="505" y="265" font-size="12" fill="#6b7280" transform="rotate(-90 505,265)" text-anchor="middle">Відхилення (градуси °)</text>
+  <text x="720" y="415" font-size="12" fill="#6b7280" text-anchor="middle">Кількість циклів (×1000)</text>
+
+  <!-- Y-axis ticks (0 to 2.0 degrees) -->
+  <text x="530" y="384" font-size="12" fill="#6b7280" text-anchor="end">0.0</text>
+  <line x1="535" y1="380" x2="540" y2="380" stroke="#d0d7de" stroke-width="1"/>
+  
+  <text x="530" y="265" font-size="12" fill="#6b7280" text-anchor="end">1.0</text>
+  <line x1="535" y1="265" x2="540" y2="265" stroke="#d0d7de" stroke-width="1"/>
+  
+  <text x="530" y="154" font-size="12" fill="#6b7280" text-anchor="end">2.0</text>
+  <line x1="535" y1="150" x2="540" y2="150" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- X-axis ticks (0 to 100) -->
+  <text x="540" y="395" font-size="12" fill="#6b7280" text-anchor="middle">0</text>
+  <text x="612" y="395" font-size="12" fill="#6b7280" text-anchor="middle">20</text>
+  <text x="684" y="395" font-size="12" fill="#6b7280" text-anchor="middle">40</text>
+  <text x="756" y="395" font-size="12" fill="#6b7280" text-anchor="middle">60</text>
+  <text x="828" y="395" font-size="12" fill="#6b7280" text-anchor="middle">80</text>
+  <text x="900" y="395" font-size="12" fill="#6b7280" text-anchor="middle">100</text>
+
+  <!-- Grid lines -->
+  <line x1="540" y1="265" x2="900" y2="265" stroke="#e1e4e8" stroke-width="1" stroke-dasharray="4,4"/>
+  <line x1="612" y1="150" x2="612" y2="380" stroke="#e1e4e8" stroke-width="1" stroke-dasharray="4,4"/>
+  <line x1="684" y1="150" x2="684" y2="380" stroke="#e1e4e8" stroke-width="1" stroke-dasharray="4,4"/>
+  <line x1="756" y1="150" x2="756" y2="380" stroke="#e1e4e8" stroke-width="1" stroke-dasharray="4,4"/>
+  <line x1="828" y1="150" x2="828" y2="380" stroke="#e1e4e8" stroke-width="1" stroke-dasharray="4,4"/>
+
+  <!-- Data lines -->
+  <!-- SG90: 0->0.3 (y=345), 20->1.5 (y=207) -->
+  <path d="M 540 345 L 612 207" fill="none" stroke="#c0392b" stroke-width="3"/>
+  <!-- SG92R: 0->0.3 (y=345), 40->1.2 (y=242) -->
+  <path d="M 540 345 L 684 242" fill="none" stroke="#e67e22" stroke-width="3"/>
+  <!-- MG90S: 0->0.5 (y=322), 100->0.9 (y=276) -->
+  <path d="M 540 322 L 900 276" fill="none" stroke="#2980b9" stroke-width="3"/>
+  <!-- MG90D: 0->0.1 (y=368), 100->0.2 (y=357) -->
+  <path d="M 540 368 L 900 357" fill="none" stroke="#27ae60" stroke-width="3"/>
+
+</svg>

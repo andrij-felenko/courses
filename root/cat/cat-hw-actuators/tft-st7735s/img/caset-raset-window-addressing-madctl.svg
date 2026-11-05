@@ -1,0 +1,111 @@
+<svg viewBox="0 0 960 460" width="960" height="460" xmlns="http://www.w3.org/2000/svg" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+  
+  <text x="480" y="30" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Віконне оновлення пам'яті та регістр MADCTL</text>
+  <text x="480" y="50" font-size="13" fill="#6b7280" text-anchor="middle">Визначення робочої зони CASET/RASET та зміна напрямку адресації</text>
+
+  <!-- Left Side: CASET/RASET window -->
+  <!-- Outline of GRAM -->
+  <rect x="80" y="100" width="240" height="300" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <text x="200" y="120" font-size="14" fill="#1a1a1a" font-weight="bold" text-anchor="middle">Масив пам'яті GRAM</text>
+  
+  <text x="80" y="90" font-size="12" fill="#6b7280" text-anchor="start">(0,0)</text>
+  <text x="320" y="415" font-size="12" fill="#6b7280" text-anchor="end">(127,159)</text>
+
+  <!-- X axis -->
+  <line x1="80" y1="75" x2="320" y2="75" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="325" y="80" font-size="13" fill="#1a1a1a">X (Колонки)</text>
+
+  <!-- Y axis -->
+  <line x1="60" y1="100" x2="60" y2="400" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="55" y="415" font-size="13" fill="#1a1a1a" text-anchor="end">Y (Рядки)</text>
+
+  <!-- Window Area -->
+  <rect x="140" y="180" width="120" height="100" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="200" y="235" font-size="14" fill="#2457d6" font-weight="bold" text-anchor="middle">Активне Вікно</text>
+
+  <!-- CASET limits -->
+  <line x1="140" y1="170" x2="140" y2="180" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="140" y="165" font-size="12" fill="#1a1a1a" text-anchor="middle">XS</text>
+  <line x1="260" y1="170" x2="260" y2="180" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="260" y="165" font-size="12" fill="#1a1a1a" text-anchor="middle">XE</text>
+  
+  <path d="M140,150 L260,150" fill="none" stroke="#27ae60" stroke-width="2" marker-start="url(#arr)" marker-end="url(#arr)"/>
+  <text x="200" y="145" font-size="13" fill="#27ae60" text-anchor="middle">CASET</text>
+
+  <!-- RASET limits -->
+  <line x1="130" y1="180" x2="140" y2="180" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="125" y="184" font-size="12" fill="#1a1a1a" text-anchor="end">YS</text>
+  <line x1="130" y1="280" x2="140" y2="280" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="125" y="284" font-size="12" fill="#1a1a1a" text-anchor="end">YE</text>
+
+  <path d="M115,180 L115,280" fill="none" stroke="#27ae60" stroke-width="2" marker-start="url(#arr)" marker-end="url(#arr)"/>
+  <text x="105" y="235" font-size="13" fill="#27ae60" text-anchor="end">RASET</text>
+
+
+  <!-- Right Side: MADCTL Configurations -->
+  <!-- Box 1: Default MX=0, MY=0, MV=0 -->
+  <rect x="420" y="100" width="200" height="150" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="520" y="125" font-size="13" fill="#1a1a1a" font-weight="bold" text-anchor="middle">MX=0, MY=0, MV=0</text>
+  <text x="520" y="145" font-size="12" fill="#6b7280" text-anchor="middle">Стандартна орієнтація</text>
+  
+  <!-- Scan path -->
+  <path d="M470,165 L570,165" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <path d="M470,185 L570,185" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <path d="M470,205 L570,205" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <path d="M570,165 L470,185" fill="none" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2,2"/>
+  <path d="M570,185 L470,205" fill="none" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2,2"/>
+  <circle cx="470" cy="165" r="3" fill="#c0392b"/> <!-- Start point -->
+
+
+  <!-- Box 2: Mirror X (MX=1, MY=0) -->
+  <rect x="680" y="100" width="200" height="150" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="780" y="125" font-size="13" fill="#1a1a1a" font-weight="bold" text-anchor="middle">MX=1, MY=0, MV=0</text>
+  <text x="780" y="145" font-size="12" fill="#6b7280" text-anchor="middle">Віддзеркалення по X</text>
+  
+  <!-- Scan path: right to left -->
+  <path d="M830,165 L730,165" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <path d="M830,185 L730,185" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <path d="M830,205 L730,205" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <path d="M730,165 L830,185" fill="none" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2,2"/>
+  <path d="M730,185 L830,205" fill="none" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2,2"/>
+  <circle cx="830" cy="165" r="3" fill="#c0392b"/>
+
+
+  <!-- Box 3: Mirror Y (MX=0, MY=1) -->
+  <rect x="420" y="280" width="200" height="150" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="520" y="305" font-size="13" fill="#1a1a1a" font-weight="bold" text-anchor="middle">MX=0, MY=1, MV=0</text>
+  <text x="520" y="325" font-size="12" fill="#6b7280" text-anchor="middle">Віддзеркалення по Y</text>
+  
+  <!-- Scan path: bottom to top -->
+  <path d="M470,405 L570,405" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <path d="M470,385 L570,385" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <path d="M470,365 L570,365" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <path d="M570,405 L470,385" fill="none" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2,2"/>
+  <path d="M570,385 L470,365" fill="none" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2,2"/>
+  <circle cx="470" cy="405" r="3" fill="#c0392b"/>
+
+
+  <!-- Box 4: Swap X/Y (MV=1) -->
+  <rect x="680" y="280" width="200" height="150" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="780" y="305" font-size="13" fill="#1a1a1a" font-weight="bold" text-anchor="middle">MV=1, MY=0, MX=0</text>
+  <text x="780" y="325" font-size="12" fill="#6b7280" text-anchor="middle">Альбомний режим (X/Y обмін)</text>
+  
+  <!-- Scan path: top to bottom, then next column -->
+  <path d="M750,345 L750,405" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <path d="M780,345 L780,405" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <path d="M810,345 L810,405" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <path d="M750,405 L780,345" fill="none" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2,2"/>
+  <path d="M780,405 L810,345" fill="none" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2,2"/>
+  <circle cx="750" cy="345" r="3" fill="#c0392b"/>
+
+</svg>

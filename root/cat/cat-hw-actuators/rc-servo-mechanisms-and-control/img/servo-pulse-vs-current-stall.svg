@@ -1,0 +1,83 @@
+<svg viewBox="0 0 720 360" width="720" height="360" xmlns="http://www.w3.org/2000/svg" font-family="'Segoe UI', Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="720" height="360" fill="white"/>
+  <text x="360" y="30" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Залежність струму від ширини керуючого імпульсу</text>
+  <text x="360" y="50" font-size="13" fill="#6b7280" text-anchor="middle">Стрибок струму споживання при виході за межі механічного упору</text>
+
+  <!-- Plot Area -->
+  <rect x="80" y="80" width="560" height="220" fill="#fafbfc" stroke="#d0d7de" stroke-width="1"/>
+  
+  <!-- Y-axis Ticks -->
+  <text x="70" y="304" font-size="12" fill="#6b7280" text-anchor="end">0</text>
+  <text x="70" y="249" font-size="12" fill="#6b7280" text-anchor="end">250</text>
+  <text x="70" y="194" font-size="12" fill="#6b7280" text-anchor="end">500</text>
+  <text x="70" y="139" font-size="12" fill="#6b7280" text-anchor="end">750</text>
+  <text x="70" y="84" font-size="12" fill="#6b7280" text-anchor="end">1000</text>
+
+  <!-- Grid lines Y -->
+  <line x1="80" y1="245" x2="640" y2="245" stroke="#e1e4e8" stroke-width="1" stroke-dasharray="4,4"/>
+  <line x1="80" y1="190" x2="640" y2="190" stroke="#e1e4e8" stroke-width="1" stroke-dasharray="4,4"/>
+  <line x1="80" y1="135" x2="640" y2="135" stroke="#e1e4e8" stroke-width="1" stroke-dasharray="4,4"/>
+
+  <!-- X-axis Ticks -->
+  <!-- 500 to 2500 -> span = 2000. Width = 560. 560/2000 = 0.28 px/us -->
+  <text x="80" y="320" font-size="12" fill="#6b7280" text-anchor="middle">500</text>
+  <text x="220" y="320" font-size="12" fill="#6b7280" text-anchor="middle">1000</text>
+  <text x="360" y="320" font-size="12" fill="#6b7280" text-anchor="middle">1500</text>
+  <text x="500" y="320" font-size="12" fill="#6b7280" text-anchor="middle">2000</text>
+  <text x="640" y="320" font-size="12" fill="#6b7280" text-anchor="middle">2500</text>
+
+  <!-- Grid lines X -->
+  <line x1="220" y1="80" x2="220" y2="300" stroke="#e1e4e8" stroke-width="1" stroke-dasharray="4,4"/>
+  <line x1="360" y1="80" x2="360" y2="300" stroke="#e1e4e8" stroke-width="1" stroke-dasharray="4,4"/>
+  <line x1="500" y1="80" x2="500" y2="300" stroke="#e1e4e8" stroke-width="1" stroke-dasharray="4,4"/>
+
+  <!-- Y-axis Label -->
+  <text x="40" y="190" font-size="13" font-weight="bold" fill="#1a1a1a" transform="rotate(-90 40,190)" text-anchor="middle">Струм споживання (мА)</text>
+  <!-- X-axis Label -->
+  <text x="360" y="345" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Ширина ШІМ-імпульсу (мкс)</text>
+
+  <!-- Zones -->
+  <!-- Left Stall: < 550us. X < 94 -->
+  <rect x="80" y="80" width="28" height="220" fill="#fdecea" opacity="0.6"/>
+  <!-- Right Stall: > 2400us. X > 612 -->
+  <rect x="612" y="80" width="28" height="220" fill="#fdecea" opacity="0.6"/>
+  <!-- Operating: 550 to 2400 -->
+  <rect x="108" y="80" width="504" height="220" fill="#e9f7ef" opacity="0.4"/>
+
+  <!-- Zone labels -->
+  <!-- We'll put text vertically in the stall zones or just horizontally if they fit. Wait, 28px width is too narrow for text.
+       We can draw arrows pointing to them. -->
+  <text x="140" y="100" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="start">Упор (Stall)</text>
+  <line x1="135" y1="96" x2="100" y2="96" stroke="#c0392b" stroke-width="2" marker-end="url(#arrow)"/>
+  
+  <text x="580" y="100" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="end">Упор (Stall)</text>
+  <line x1="585" y1="96" x2="620" y2="96" stroke="#c0392b" stroke-width="2" marker-end="url(#arrow)"/>
+  
+  <text x="360" y="100" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Робочий діапазон (Нормальний струм)</text>
+
+  <!-- Defs for arrow -->
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Data Line -->
+  <!-- X: 500(80), 540(91.2), 550(94), 600(108), 1500(360), 2400(612), 2450(626), 2500(640) -->
+  <!-- Y (current): 
+       x=80: 950mA (y=91)
+       x=90: 940mA (y=93)
+       x=94 (550us): drops to 150mA (y=267)
+       x=108 (600us): 120mA (y=273)
+       x=360 (1500us): 100mA (y=278)
+       x=612 (2400us): 120mA (y=273)
+       x=626 (2450us): 930mA (y=95)
+       x=640 (2500us): 950mA (y=91)
+  -->
+  <path d="M 80 91 L 91 93 L 94 267 L 108 273 L 360 278 L 612 273 L 615 267 L 618 95 L 640 91" fill="none" stroke="#2457d6" stroke-width="4" stroke-linejoin="round"/>
+  
+  <!-- Highlight Stall points -->
+  <circle cx="85" cy="92" r="5" fill="#c0392b"/>
+  <circle cx="630" cy="93" r="5" fill="#c0392b"/>
+
+</svg>

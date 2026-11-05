@@ -1,0 +1,52 @@
+<svg viewBox="0 0 960 460" width="960" height="460" xmlns="http://www.w3.org/2000/svg" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
+      <path d="M0,0 L6,3 L0,6 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+  <text x="480" y="30" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Схема розв'язки живлення SG92R</text>
+  <text x="480" y="50" font-size="13" fill="#6b7280" text-anchor="middle">Фільтрація завад та стабілізація напруги мікроконтролера</text>
+
+  <!-- Battery/Power Source -->
+  <rect x="50" y="150" width="120" height="120" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <text x="110" y="200" font-size="14" fill="#1a1a1a" font-weight="bold" text-anchor="middle">Джерело</text>
+  <text x="110" y="220" font-size="12" fill="#6b7280" text-anchor="middle">Живлення 5V</text>
+
+  <!-- MCU -->
+  <rect x="700" y="100" width="160" height="100" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="780" y="145" font-size="14" fill="#1a1a1a" font-weight="bold" text-anchor="middle">Мікроконтролер</text>
+  <text x="780" y="165" font-size="12" fill="#6b7280" text-anchor="middle">Логічне живлення</text>
+
+  <!-- Servo -->
+  <rect x="700" y="260" width="160" height="100" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="2"/>
+  <text x="780" y="305" font-size="14" fill="#1a1a1a" font-weight="bold" text-anchor="middle">Сервопривід</text>
+  <text x="780" y="325" font-size="12" fill="#6b7280" text-anchor="middle">SG92R (Силове)</text>
+
+  <!-- Wiring and components -->
+  <path d="M 170 180 L 400 180" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+  <path d="M 400 180 L 700 180" fill="none" stroke="#1a1a1a" stroke-width="2"/> <!-- VCC to MCU -->
+  <path d="M 400 180 L 400 310 L 700 310" fill="none" stroke="#1a1a1a" stroke-width="2"/> <!-- VCC to Servo -->
+
+  <!-- Diode on MCU line -->
+  <rect x="520" y="170" width="40" height="20" fill="white" stroke="#1a1a1a" stroke-width="2"/>
+  <path d="M 540 170 L 540 190" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="540" y="160" font-size="12" fill="#1a1a1a" text-anchor="middle">Діод Шотткі</text>
+
+  <!-- Decoupling Cap for Servo -->
+  <path d="M 500 310 L 500 380" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+  <rect x="480" y="330" width="40" height="10" fill="white" stroke="#1a1a1a" stroke-width="2"/>
+  <rect x="480" y="350" width="40" height="10" fill="#1a1a1a" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="440" y="345" font-size="12" fill="#1a1a1a" text-anchor="middle">470 μF</text>
+
+  <!-- Ground -->
+  <path d="M 170 240 L 700 240" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+  <path d="M 500 380 L 500 420 L 700 420" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+  <path d="M 500 240 L 500 280" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+  <path d="M 700 420 L 700 360" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="400" y="255" font-size="12" fill="#1a1a1a" text-anchor="middle">Спільна GND</text>
+
+  <path d="M 700 330 L 700 280" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="750" y="440" font-size="12" fill="#1a1a1a" text-anchor="middle">Підключення Землі</text>
+
+</svg>

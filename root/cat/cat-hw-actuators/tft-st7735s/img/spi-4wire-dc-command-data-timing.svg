@@ -1,0 +1,52 @@
+<svg viewBox="0 0 960 360" width="960" height="360" xmlns="http://www.w3.org/2000/svg" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="360" fill="white"/>
+  
+  <text x="480" y="30" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Часова діаграма 4-провідної шини SPI</text>
+  <text x="480" y="50" font-size="13" fill="#6b7280" text-anchor="middle">Перемикання лінії DC між командою та даними RGB565</text>
+  
+  <!-- Signal Labels -->
+  <text x="50" y="100" font-size="14" fill="#1a1a1a" font-weight="bold">CS</text>
+  <text x="50" y="160" font-size="14" fill="#1a1a1a" font-weight="bold">SCL</text>
+  <text x="50" y="220" font-size="14" fill="#1a1a1a" font-weight="bold">SDA</text>
+  <text x="50" y="280" font-size="14" fill="#1a1a1a" font-weight="bold">DC</text>
+  
+  <!-- CS Signal -->
+  <polyline points="100,80 150,80 150,110 850,110 850,80 900,80" fill="none" stroke="#c0392b" stroke-width="2"/>
+  
+  <!-- SCL Signal (8 pulses for Cmd, then space, then 8 pulses for Data1, 8 for Data2) -->
+  <!-- Idle low: y=170, pulse high: y=140 -->
+  <path d="M100,170 L170,170 
+           L170,140 L180,140 L180,170 L190,170 L190,140 L200,140 L200,170 L210,170 L210,140 L220,140 L220,170 L230,170 L230,140 L240,140 L240,170 L250,170 L250,140 L260,140 L260,170 L270,170 L270,140 L280,140 L280,170 L290,170 L290,140 L300,140 L300,170 L310,170 L310,140 L320,140 L320,170
+           L390,170 L390,140 L400,140 L400,170 L410,170 L410,140 L420,140 L420,170 L430,170 L430,140 L440,140 L440,170 L450,170 L450,140 L460,140 L460,170 L470,170 L470,140 L480,140 L480,170 L490,170 L490,140 L500,140 L500,170 L510,170 L510,140 L520,140 L520,170 L530,170 L530,140 L540,140 L540,170
+           L610,170 L610,140 L620,140 L620,170 L630,170 L630,140 L640,140 L640,170 L650,170 L650,140 L660,140 L660,170 L670,170 L670,140 L680,140 L680,170 L690,170 L690,140 L700,140 L700,170 L710,170 L710,140 L720,140 L720,170 L730,170 L730,140 L740,140 L740,170 L750,170 L750,140 L760,140 L760,170
+           L900,170" fill="none" stroke="#2457d6" stroke-width="2"/>
+           
+  <!-- SDA Signal Boxes -->
+  <!-- Cmd Box -->
+  <polygon points="170,215 180,200 310,200 320,215 310,230 180,230" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="245" y="220" font-size="14" fill="#1a1a1a" text-anchor="middle">Command 0x2C</text>
+  
+  <!-- Data1 Box -->
+  <polygon points="390,215 400,200 530,200 540,215 530,230 400,230" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="465" y="220" font-size="14" fill="#1a1a1a" text-anchor="middle">Data1 (Color H)</text>
+  
+  <!-- Data2 Box -->
+  <polygon points="610,215 620,200 750,200 760,215 750,230 620,230" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="685" y="220" font-size="14" fill="#1a1a1a" text-anchor="middle">Data2 (Color L)</text>
+  
+  <!-- SDA undefined lines -->
+  <path d="M100,215 L170,215 M320,215 L390,215 M540,215 L610,215 M760,215 L900,215" fill="none" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4,4"/>
+  
+  <!-- DC Signal -->
+  <!-- Low during Command, High during Data -->
+  <path d="M100,290 L160,290 L170,290 L330,290 L340,260 L900,260" fill="none" stroke="#c0392b" stroke-width="2"/>
+  
+  <text x="245" y="315" font-size="13" fill="#6b7280" text-anchor="middle">DC = 0 (Command)</text>
+  <text x="575" y="250" font-size="13" fill="#6b7280" text-anchor="middle">DC = 1 (Data / RGB565)</text>
+
+  <!-- Vertical dashed guides -->
+  <line x1="170" y1="95" x2="170" y2="300" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4,4"/>
+  <line x1="320" y1="95" x2="320" y2="300" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4,4"/>
+  <line x1="390" y1="95" x2="390" y2="300" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4,4"/>
+  
+</svg>

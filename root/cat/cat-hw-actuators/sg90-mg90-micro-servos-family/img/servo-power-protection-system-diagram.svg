@@ -1,0 +1,79 @@
+<svg viewBox="0 0 960 460" width="960" height="460" xmlns="http://www.w3.org/2000/svg" font-family="'Segoe UI', Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+  <text x="480" y="30" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Розділене живлення мікроконтролера та сервопривода</text>
+  <text x="480" y="50" font-size="13" fill="#6b7280" text-anchor="middle">Спільне заземлення, розв'язувальний конденсатор та діодний захист</text>
+
+  <!-- Battery/Power Supply -->
+  <rect x="40" y="100" width="150" height="80" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <text x="115" y="135" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Джерело</text>
+  <text x="115" y="155" font-size="12" fill="#6b7280" text-anchor="middle">(Акумулятор)</text>
+  
+  <circle cx="190" cy="120" r="4" fill="#c0392b"/>
+  <circle cx="190" cy="160" r="4" fill="#1a1a1a"/>
+  
+  <text x="200" y="115" font-size="12" fill="#c0392b">+V (5V/6V)</text>
+  <text x="200" y="175" font-size="12" fill="#1a1a1a">GND</text>
+
+  <!-- Microcontroller -->
+  <rect x="40" y="260" width="150" height="120" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="115" y="310" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">Мікроконтролер</text>
+  <text x="115" y="330" font-size="12" fill="#2457d6" text-anchor="middle">(Керування)</text>
+
+  <!-- MCU Pins -->
+  <circle cx="190" cy="280" r="4" fill="#c0392b"/>
+  <circle cx="190" cy="315" r="4" fill="#1a1a1a"/>
+  <circle cx="190" cy="350" r="4" fill="#27ae60"/>
+  
+  <text x="180" y="285" font-size="12" fill="#c0392b" text-anchor="end">VIN</text>
+  <text x="180" y="320" font-size="12" fill="#1a1a1a" text-anchor="end">GND</text>
+  <text x="180" y="355" font-size="12" fill="#27ae60" text-anchor="end">PWM</text>
+
+  <!-- Servo -->
+  <rect x="740" y="170" width="150" height="100" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <text x="815" y="210" font-size="14" font-weight="bold" fill="#27ae60" text-anchor="middle">Сервопривід</text>
+  <text x="815" y="230" font-size="12" fill="#27ae60" text-anchor="middle">Виконавчий механізм</text>
+
+  <!-- Servo Pins -->
+  <circle cx="740" cy="190" r="4" fill="#c0392b"/>
+  <circle cx="740" cy="220" r="4" fill="#1a1a1a"/>
+  <circle cx="740" cy="250" r="4" fill="#27ae60"/>
+
+  <text x="750" y="195" font-size="12" fill="#c0392b" text-anchor="start">VCC</text>
+  <text x="750" y="225" font-size="12" fill="#1a1a1a" text-anchor="start">GND</text>
+  <text x="750" y="255" font-size="12" fill="#27ae60" text-anchor="start">Signal</text>
+
+  <!-- Power line from Battery to Servo -->
+  <path d="M 190 120 L 640 120 L 640 190 L 740 190" fill="none" stroke="#c0392b" stroke-width="3"/>
+  
+  <!-- Ground line Battery to Servo -->
+  <path d="M 190 160 L 670 160 L 670 220 L 740 220" fill="none" stroke="#1a1a1a" stroke-width="3"/>
+
+  <!-- Ground line MCU to common ground -->
+  <path d="M 190 315 L 450 315 L 450 160" fill="none" stroke="#1a1a1a" stroke-width="3"/>
+  <circle cx="450" cy="160" r="5" fill="#1a1a1a"/>
+  <text x="460" y="150" font-size="12" fill="#1a1a1a" font-weight="bold">Спільне заземлення</text>
+
+  <!-- PWM signal line -->
+  <path d="M 190 350 L 700 350 L 700 250 L 740 250" fill="none" stroke="#27ae60" stroke-width="3"/>
+
+  <!-- Decoupling Capacitor -->
+  <path d="M 550 120 L 550 145" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+  <path d="M 550 175 L 550 160" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="535" y1="145" x2="565" y2="145" stroke="#1a1a1a" stroke-width="3"/>
+  <line x1="535" y1="155" x2="565" y2="155" stroke="#1a1a1a" stroke-width="3"/>
+  <circle cx="550" cy="120" r="5" fill="#c0392b"/>
+  <circle cx="550" cy="160" r="5" fill="#1a1a1a"/>
+  
+  <rect x="490" y="90" width="100" height="25" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="540" y="107" font-size="12" fill="#c0392b" text-anchor="middle">470 - 2200 мкФ</text>
+  <text x="570" y="145" font-size="12" fill="#1a1a1a">Конденсатор</text>
+
+  <!-- Schottky Diode -->
+  <path d="M 330 120 L 330 280 L 190 280" fill="none" stroke="#c0392b" stroke-width="3"/>
+  <circle cx="330" cy="120" r="5" fill="#c0392b"/>
+  
+  <polygon points="320,190 340,190 330,210" fill="#c0392b"/>
+  <line x1="320" y1="210" x2="340" y2="210" stroke="#c0392b" stroke-width="3"/>
+  <text x="310" y="200" font-size="12" fill="#c0392b" text-anchor="end">Діод Шотткі</text>
+  <text x="310" y="215" font-size="12" fill="#6b7280" text-anchor="end">Захист мікроконтролера</text>
+</svg>
