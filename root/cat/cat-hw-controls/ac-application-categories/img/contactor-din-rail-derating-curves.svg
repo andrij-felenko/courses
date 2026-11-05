@@ -1,33 +1,81 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400" width="100%" height="100%">
-  <rect width="800" height="400" fill="#1e1e2e" rx="12"/>
-  <text x="400" y="35" fill="#cba6f7" font-family="sans-serif" font-size="18" font-weight="bold" text-anchor="middle">Дерейтинг струму контакторів на DIN-рейці</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+  <text x="480" y="36" font-size="18" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Пониження струму контакторів при щільному монтажі на DIN-рейку</text>
+  <text x="480" y="58" font-size="13" text-anchor="middle" fill="#6b7280">Коефіцієнт K_density знижується при відсутності теплового зазору d між приладами</text>
 
-  <g transform="translate(60, 60)">
-    <rect width="680" height="300" fill="#181825" stroke="#45475a" stroke-width="1.5" rx="8"/>
-    <line x1="60" y1="240" x2="620" y2="240" stroke="#6c7086" stroke-width="2"/>
-    <line x1="60" y1="40" x2="60" y2="240" stroke="#6c7086" stroke-width="2"/>
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
 
-    <text x="600" y="270" fill="#bac2de" font-family="sans-serif" font-size="12" text-anchor="middle">Температура, °C</text>
-    <text x="30" y="30" fill="#bac2de" font-family="sans-serif" font-size="12" text-anchor="middle">K_factor</text>
+  <!-- Plot area -->
+  <rect x="80" y="90" width="500" height="300" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  
+  <!-- Grid lines -->
+  <line x1="80" y1="150" x2="580" y2="150" stroke="#e1e4e8" stroke-dasharray="4,4"/>
+  <line x1="80" y1="210" x2="580" y2="210" stroke="#e1e4e8" stroke-dasharray="4,4"/>
+  <line x1="80" y1="270" x2="580" y2="270" stroke="#e1e4e8" stroke-dasharray="4,4"/>
+  <line x1="80" y1="330" x2="580" y2="330" stroke="#e1e4e8" stroke-dasharray="4,4"/>
 
-    <line x1="60" y1="80" x2="620" y2="80" stroke="#313244" stroke-dasharray="4"/>
-    <text x="45" y="85" fill="#a6adc8" font-family="sans-serif" font-size="11">1.0</text>
+  <line x1="180" y1="90" x2="180" y2="390" stroke="#e1e4e8" stroke-dasharray="4,4"/>
+  <line x1="280" y1="90" x2="280" y2="390" stroke="#e1e4e8" stroke-dasharray="4,4"/>
+  <line x1="380" y1="90" x2="380" y2="390" stroke="#e1e4e8" stroke-dasharray="4,4"/>
+  <line x1="480" y1="90" x2="480" y2="390" stroke="#e1e4e8" stroke-dasharray="4,4"/>
 
-    <line x1="60" y1="130" x2="620" y2="130" stroke="#313244" stroke-dasharray="4"/>
-    <text x="45" y="135" fill="#a6adc8" font-family="sans-serif" font-size="11">0.8</text>
+  <!-- Axes -->
+  <line x1="80" y1="390" x2="595" y2="390" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+  <line x1="80" y1="390" x2="80" y2="75" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
 
-    <line x1="60" y1="180" x2="620" y2="180" stroke="#313244" stroke-dasharray="4"/>
-    <text x="45" y="185" fill="#a6adc8" font-family="sans-serif" font-size="11">0.6</text>
+  <!-- Axis labels -->
+  <text x="600" y="394" font-size="12" font-weight="bold" fill="#1a1a1a">d (мм)</text>
+  <text x="80" y="65" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">K_density</text>
 
-    <text x="60" y="255" fill="#a6adc8" font-family="sans-serif" font-size="11">20°C</text>
-    <text x="200" y="255" fill="#a6adc8" font-family="sans-serif" font-size="11">40°C</text>
-    <text x="340" y="255" fill="#a6adc8" font-family="sans-serif" font-size="11">50°C</text>
-    <text x="480" y="255" fill="#a6adc8" font-family="sans-serif" font-size="11">60°C</text>
+  <!-- Y Ticks -->
+  <text x="70" y="394" font-size="12" text-anchor="end" fill="#6b7280">0.70</text>
+  <text x="70" y="334" font-size="12" text-anchor="end" fill="#6b7280">0.80</text>
+  <text x="70" y="274" font-size="12" text-anchor="end" fill="#6b7280">0.90</text>
+  <text x="70" y="214" font-size="12" text-anchor="end" fill="#6b7280">1.00</text>
 
-    <path d="M 60 80 L 200 80 L 340 105 L 480 130" fill="none" stroke="#a6e3a1" stroke-width="3"/>
-    <text x="500" y="125" fill="#a6e3a1" font-family="sans-serif" font-size="12">З зазором >9мм (K_density=1.0)</text>
+  <!-- X Ticks -->
+  <text x="80" y="412" font-size="12" text-anchor="middle" fill="#6b7280">0</text>
+  <text x="180" y="412" font-size="12" text-anchor="middle" fill="#6b7280">5</text>
+  <text x="280" y="412" font-size="12" text-anchor="middle" fill="#6b7280">10</text>
+  <text x="380" y="412" font-size="12" text-anchor="middle" fill="#6b7280">15</text>
+  <text x="480" y="412" font-size="12" text-anchor="middle" fill="#6b7280">20</text>
 
-    <path d="M 60 130 L 200 130 L 340 155 L 480 180" fill="none" stroke="#f38ba8" stroke-width="3"/>
-    <text x="500" y="175" fill="#f38ba8" font-family="sans-serif" font-size="12">Щільний ряд без зазору (K_density=0.8)</text>
-  </g>
+  <!-- Derating Curve -->
+  <path d="M 80,334 C 180,310 280,240 380,214 L 580,214" fill="none" stroke="#2457d6" stroke-width="3"/>
+  <circle cx="80" cy="334" r="5" fill="#2457d6"/>
+  <circle cx="180" cy="310" r="5" fill="#2457d6"/>
+  <circle cx="280" cy="240" r="5" fill="#2457d6"/>
+  <circle cx="380" cy="214" r="5" fill="#2457d6"/>
+
+  <text x="110" y="260" font-size="12" font-weight="bold" fill="#c0392b">K = 0.8 (щільний ряд)</text>
+  <text x="400" y="195" font-size="12" font-weight="bold" fill="#27ae60">K = 1.0 (зазор d &gt;= 15мм)</text>
+
+  <!-- Right side: Visual Diagram of DIN Rail Mounting -->
+  <rect x="630" y="90" width="280" height="300" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="6"/>
+  <text x="770" y="115" font-size="14" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Схема монтажу</text>
+
+  <!-- DIN rail bar -->
+  <rect x="650" y="240" width="240" height="16" fill="#d0d7de" stroke="#6b7280"/>
+  <text x="770" y="253" font-size="11" text-anchor="middle" fill="#1a1a1a">DIN-рейка 35мм</text>
+
+  <!-- Tight Mounting (Left box) -->
+  <rect x="660" y="150" width="40" height="85" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="702" y="150" width="40" height="85" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="744" y="150" width="40" height="85" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="722" y="280" font-size="12" text-anchor="middle" fill="#c0392b">d = 0 (K = 0.8)</text>
+
+  <!-- Spaced Mounting (Right box) -->
+  <rect x="800" y="150" width="40" height="85" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="860" y="150" width="40" height="85" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="840" y1="190" x2="860" y2="190" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <line x1="860" y1="190" x2="840" y2="190" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="850" y="180" font-size="11" text-anchor="middle" fill="#27ae60">d</text>
+  <text x="850" y="280" font-size="12" text-anchor="middle" fill="#27ae60">d &gt;= 15мм (K = 1.0)</text>
 </svg>
