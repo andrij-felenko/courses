@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Підкладка -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Геометрія та механічний контакт клем Faston (штекер і гніздо)</text>
+  <text x="480" y="60" font-size="13" fill="#6b7280" text-anchor="middle">Ширина леза W, товщина t, фіксуючий отвір штекера та пружні пелюстки гнізда</text>
+
+  <!-- Ліва панель: Штекерне лезо (Faston Tab / Blade) -->
+  <rect x="40" y="90" width="420" height="310" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="250" y="115" font-size="15" font-weight="bold" fill="#2457d6" text-anchor="middle">Штекерне лезо (Faston Tab)</text>
+
+  <!-- Зображення штекерного леза -->
+  <path d="M 140 180 C 120 180 120 230 140 230 L 380 230 L 380 180 Z" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  
+  <line x1="140" y1="180" x2="160" y2="180" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="140" y1="230" x2="160" y2="230" stroke="#2457d6" stroke-width="1.5"/>
+
+  <!-- Фіксуючий отвір (Detent hole / Dimple) -->
+  <circle cx="210" cy="205" r="10" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="210" y="209" font-size="10" fill="#2457d6" text-anchor="middle">Ø 1.6</text>
+
+  <!-- Розмір ширини W -->
+  <line x1="130" y1="170" x2="130" y2="145" stroke="#1a1a1a" stroke-width="1"/>
+  <line x1="380" y1="170" x2="380" y2="145" stroke="#1a1a1a" stroke-width="1"/>
+  <line x1="130" y1="150" x2="230" y2="150" stroke="#1a1a1a" stroke-width="1" marker-end="url(#arr-dark)"/>
+  <line x1="380" y1="150" x2="290" y2="150" stroke="#1a1a1a" stroke-width="1" marker-end="url(#arr-dark)"/>
+  <text x="255" y="154" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">W (6.3 / 4.8 / 2.8 мм)</text>
+
+  <!-- Розмір товщини t -->
+  <rect x="140" y="300" width="240" height="16" rx="3" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="130" y1="308" x2="130" y2="300" stroke="#1a1a1a" stroke-width="1"/>
+  <line x1="130" y1="316" x2="130" y2="324" stroke="#1a1a1a" stroke-width="1"/>
+  <line x1="130" y1="308" x2="180" y2="308" stroke="#1a1a1a" stroke-width="1" marker-end="url(#arr-dark)"/>
+  <line x1="130" y1="316" x2="180" y2="316" stroke="#1a1a1a" stroke-width="1" marker-end="url(#arr-dark)"/>
+  <text x="260" y="312" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">Товщина t = 0.8 або 0.5 мм</text>
+
+  <text x="250" y="365" font-size="12" fill="#4b5563" text-anchor="middle">Латунне або мідне луджене лезо з фасками</text>
+
+
+  <!-- Права панель: Гніздовий контакт (Faston Receptacle) -->
+  <rect x="500" y="90" width="420" height="310" rx="6" fill="#e9f7ef" stroke="#d0d7de" stroke-width="1"/>
+  <text x="710" y="115" font-size="15" font-weight="bold" fill="#27ae60" text-anchor="middle">Гніздовий контакт (Faston Receptacle)</text>
+
+  <path d="M 540 170 L 850 170 L 850 250 L 540 250 Z" fill="#ffffff" stroke="#27ae60" stroke-width="2"/>
+  
+  <path d="M 570 170 C 590 190 590 230 570 250" fill="none" stroke="#27ae60" stroke-width="2"/>
+  <path d="M 820 170 C 800 190 800 230 820 250" fill="none" stroke="#27ae60" stroke-width="2"/>
+  
+  <circle cx="680" cy="210" r="12" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <text x="680" y="214" font-size="11" fill="#27ae60" text-anchor="middle">Пуклик</text>
+
+  <line x1="530" y1="285" x2="610" y2="285" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <text x="620" y="289" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">Mating Force (Змикання)</text>
+
+  <line x1="860" y1="285" x2="780" y2="285" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+  <text x="770" y="325" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">Unmating Force (Розмикання)</text>
+
+  <text x="710" y="365" font-size="12" fill="#4b5563" text-anchor="middle">Зони електричного контакту з пружними пелюстками</text>
+
+  <!-- Нижні інформаційні підписи -->
+  <rect x="40" y="410" width="880" height="35" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="480" y="432" font-size="12" fill="#1a1a1a" text-anchor="middle">Типорозміри серій: 6.3 мм (до 20А) | 4.8 мм (до 15А) | 2.8 мм (до 5А) — Вібростійке з'єднання</text>
+</svg>

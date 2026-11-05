@@ -1,0 +1,93 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- White Background -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Markers -->
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Стікання заряду в антистатичних органайзерах ESD</text>
+  <text x="480" y="60" font-size="13" fill="#6b7280" text-anchor="middle">Поверхневий опір розсіювального пластику (10⁵–10¹¹ Ом/кв) та контрольоване стікання на шину заземлення</text>
+
+  <!-- ==================== LEFT PANEL ==================== -->
+  <rect x="30" y="85" width="450" height="345" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="50" y="108" font-size="14" font-weight="bold" fill="#1a1a1a">1. Звичайний діелектрик проти ESD-полімеру</text>
+
+  <!-- Sub-block 1: Standard plastic -->
+  <rect x="45" y="122" width="420" height="135" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="60" y="142" font-size="13" font-weight="bold" fill="#c0392b">Звичайний пластик (ABS / PS)</text>
+  <text x="70" y="165" font-size="12" fill="#1a1a1a">• Поверхневий опір R_s > 10¹² Ом/кв (високий ізолятор)</text>
+  <text x="70" y="187" font-size="12" fill="#1a1a1a">• Трибоелектричний заряд Q: 5–15 кВ (утримується годинами)</text>
+  <text x="70" y="209" font-size="12" fill="#1a1a1a">• ESD breakdown: миттєвий пробій крихких затворів IC</text>
+  <text x="70" y="231" font-size="12" fill="#c0392b" font-weight="bold">Високий ризик безповоротного пошкодження мікросхем!</text>
+
+  <!-- Sub-block 2: ESD Dissipative polymer -->
+  <rect x="45" y="270" width="420" height="145" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="60" y="290" font-size="13" font-weight="bold" fill="#27ae60">Струморозсіювальний полімер (ESD Dissipative)</text>
+  <text x="70" y="313" font-size="12" fill="#1a1a1a">• Модифікація вуглецевими нанотрубками / сажею</text>
+  <text x="70" y="335" font-size="12" fill="#1a1a1a">• Поверхневий опір: 10⁵ &lt; R_s &lt; 10¹¹ Ом/кв</text>
+  <text x="70" y="357" font-size="12" fill="#1a1a1a">• Безпечне стікання заряду без іскроутворення (t &lt; 1.0 с)</text>
+  <text x="70" y="379" font-size="12" fill="#27ae60" font-weight="bold">Надійний захист електронних компонентів в EPA</text>
+
+  <!-- ==================== RIGHT PANEL ==================== -->
+  <rect x="500" y="85" width="430" height="345" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="520" y="108" font-size="14" font-weight="bold" fill="#1a1a1a">2. Контур стікання заряду та заземлення</text>
+
+  <!-- Tray cell box -->
+  <rect x="520" y="122" width="390" height="150" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="535" y="142" font-size="12" font-weight="bold" fill="#1a1a1a">Стінка лотка ESD-органайзера</text>
+
+  <!-- Component & charges inside cell -->
+  <rect x="540" y="155" width="80" height="40" rx="4" fill="white" stroke="#2457d6" stroke-width="1"/>
+  <text x="548" y="179" font-size="11" fill="#1a1a1a">Компонент</text>
+  <text x="580" y="152" font-size="11" fill="#c0392b" font-weight="bold">q⁻ q⁻ q⁻</text>
+
+  <!-- Leakage current arrows -->
+  <path d="M 625 175 L 710 175" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)" stroke-dasharray="4,2"/>
+  <text x="635" y="168" font-size="11" fill="#2457d6">I_leakage</text>
+
+  <!-- Press-stud terminal (10mm) -->
+  <circle cx="730" cy="175" r="12" fill="#6b7280" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="710" y="205" font-size="11" fill="#1a1a1a">Клема 10 мм</text>
+
+  <!-- Ground cable with R_prot -->
+  <path d="M 742 175 L 780 175" stroke="#1a1a1a" stroke-width="2"/>
+  <rect x="780" y="165" width="50" height="20" fill="white" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="785" y="179" font-size="10" fill="#1a1a1a">R = 1МОм</text>
+  <path d="M 830 175 L 865 175" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+
+  <!-- Ground symbol without negative relative coords -->
+  <line x1="875" y1="155" x2="875" y2="195" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="863" y1="195" x2="887" y2="195" stroke="#1a1a1a" stroke-width="3"/>
+  <line x1="867" y1="200" x2="883" y2="200" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="871" y1="205" x2="879" y2="205" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="840" y="225" font-size="11" fill="#1a1a1a">Шина EPA</text>
+
+  <!-- Exponential decay graph box -->
+  <rect x="520" y="282" width="390" height="135" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="535" y="302" font-size="11" font-weight="bold" fill="#1a1a1a">Спадання напруги V(t) = V₀ · exp(-t / (R·C))</text>
+
+  <!-- Axis & curve -->
+  <path d="M 550 395 L 880 395" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr)"/>
+  <path d="M 550 395 L 550 315" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="535" y="325" font-size="11" fill="#1a1a1a">V₀</text>
+  <text x="870" y="412" font-size="11" fill="#1a1a1a">t</text>
+  <text x="545" y="412" font-size="11" fill="#1a1a1a">0</text>
+
+  <!-- Exponential curve -->
+  <path d="M 550 325 Q 600 390 850 393" stroke="#2457d6" stroke-width="2.5" fill="none"/>
+  <text x="650" y="350" font-size="11" fill="#2457d6">Експоненційне розсіювання заряду</text>
+</svg>

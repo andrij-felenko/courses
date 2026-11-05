@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="700" fill="#1a1a1a">Геометрія монтажу кільцевого неодимового магніту з потаєм</text>
+  <text x="480" y="54" text-anchor="middle" font-size="13" fill="#6b7280">Контроль заглиблення головки гвинта на 0.2–0.3 мм та використання демпферної шайби для захисту сплаву NdFeB</text>
+
+  <!-- LEFT PANEL: Cross-section assembly -->
+  <rect x="40" y="75" width="420" height="360" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="55" y="90" width="390" height="30" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="250" y="110" text-anchor="middle" font-size="13" font-weight="700" fill="#2457d6">Вузол кріплення в розрізі (демпфування)</text>
+
+  <text x="250" y="145" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">Кут фаски зенківки 90°</text>
+
+  <!-- Magnet Left & Right Halves -->
+  <path d="M90,160 L180,160 L215,195 L215,245 L90,245 Z" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <path d="M410,160 L320,160 L285,195 L285,245 L410,245 Z" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="145" y="210" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">Магніт NdFeB</text>
+  <text x="355" y="210" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">Покриття Ni-Cu-Ni</text>
+
+  <!-- Countersunk Screw Head -->
+  <path d="M186,163 L314,163 L250,227 Z" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1.5"/>
+  <!-- Screw Shank/Thread -->
+  <path d="M238,227 L262,227 L262,370 L238,370 Z" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="250" y="185" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">DIN 7991</text>
+  <text x="250" y="200" text-anchor="middle" font-size="11" fill="#1a1a1a">Сталь A2</text>
+
+  <!-- Damping washer (split left and right) -->
+  <rect x="90" y="252" width="125" height="12" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <rect x="285" y="252" width="125" height="12" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="152" y="278" text-anchor="middle" font-size="11" font-weight="700" fill="#c0392b">Демпферна шайба</text>
+  <text x="348" y="278" text-anchor="middle" font-size="11" font-weight="700" fill="#c0392b">Еластомір 0.5–1 мм</text>
+
+  <!-- Base material (split left and right) -->
+  <rect x="70" y="295" width="168" height="65" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.5"/>
+  <rect x="262" y="295" width="168" height="65" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="154" y="335" text-anchor="middle" font-size="11" font-weight="700" fill="#6b7280">Основа (метал / пластик)</text>
+  <text x="346" y="335" text-anchor="middle" font-size="11" font-weight="700" fill="#6b7280">Монтажна пластина</text>
+
+  <!-- Bottom note in left panel -->
+  <text x="250" y="415" text-anchor="middle" font-size="12" fill="#1a1a1a">Обмеження моменту: T ≤ 0.5–1.0 Н·м (ручна затяжка)</text>
+
+  <!-- RIGHT PANEL: Recess Depth Comparison -->
+  <rect x="500" y="75" width="420" height="360" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Top Case: Correct -->
+  <rect x="515" y="90" width="390" height="160" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="710" y="115" text-anchor="middle" font-size="14" font-weight="700" fill="#27ae60">Правильно: заглиблення Δh = 0.2–0.3 мм</text>
+
+  <!-- Detail sketch correct -->
+  <path d="M535,145 L655,145 L655,190 L535,190 Z" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <path d="M765,145 L885,145 L885,190 L765,190 Z" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <path d="M655,150 L765,150 L710,190 Z" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <text x="710" y="138" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">Δh = 0.2–0.3 мм (утоплено)</text>
+  <text x="710" y="215" text-anchor="middle" font-size="12" fill="#1a1a1a">Площина прилягання чиста від металевого контакту</text>
+  <text x="710" y="235" text-anchor="middle" font-size="12" fill="#27ae60">Ударні навантаження не передаються на головку гвинта</text>
+
+  <!-- Bottom Case: Incorrect -->
+  <rect x="515" y="265" width="390" height="155" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="710" y="290" text-anchor="middle" font-size="14" font-weight="700" fill="#c0392b">Небезпечно: головка виступає над магнітом</text>
+
+  <!-- Detail sketch incorrect -->
+  <path d="M535,330 L655,330 L655,375 L535,375 Z" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <path d="M765,330 L885,330 L885,375 L765,375 Z" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <path d="M655,320 L765,320 L710,365 Z" fill="#d0d7de" stroke="#c0392b" stroke-width="1.5"/>
+
+  <text x="710" y="310" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">Головка виступає: h &gt; 0</text>
+  <text x="710" y="390" text-anchor="middle" font-size="12" fill="#1a1a1a">Точкові удари планки спричиняють розтріскування</text>
+  <text x="710" y="408" text-anchor="middle" font-size="12" fill="#c0392b">Сколювання Ni-покриття та руйнування крихкого NdFeB</text>
+</svg>

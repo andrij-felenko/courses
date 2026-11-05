@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Підкладка -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Маркери -->
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Конструкція герметичного EMC-вводу M25/M32 (360° Shielding)</text>
+  <text x="480" y="60" font-size="13" fill="#6b7280" text-anchor="middle">Покроковий розріз: обтискання плетеного екрана конусною шайбою та герметизація IP68</text>
+
+  <!-- Панель 1: Ліворуч (x=30..470) -->
+  <rect x="30" y="80" width="440" height="350" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="250" y="105" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Розріз кабельного вводу та екранування</text>
+
+  <!-- Схема розрізу вводу -->
+  <!-- Корпус вводу (латунь нікельована) -->
+  <path d="M 60,200 L 140,200 L 140,215 L 120,215 L 120,265 L 140,265 L 140,280 L 60,280 Z" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="100" y="193" font-size="12" fill="#1a1a1a" text-anchor="middle">Корпус (M25/M32)</text>
+
+  <!-- Накидна притискна гайка -->
+  <path d="M 390,190 L 440,190 L 440,210 L 420,210 L 420,270 L 440,270 L 440,290 L 390,290 Z" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="415" y="183" font-size="12" fill="#1a1a1a" text-anchor="middle">Гайка</text>
+
+  <!-- Еластомерне ущільнювальне кільце (IP68) -->
+  <path d="M 350,215 L 390,215 L 390,265 L 350,265 Z" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="370" y="145" font-size="12" fill="#2457d6" text-anchor="middle">Ущільнювач IP68</text>
+  <path d="M 370,152 L 370,212" stroke="#2457d6" stroke-width="1" marker-end="url(#arr-blue)"/>
+
+  <!-- Затискна конусна шайба / контактне кільце -->
+  <path d="M 220,210 L 270,225 L 270,255 L 220,270 Z" fill="#fff" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="245" y="130" font-size="12" fill="#c0392b" text-anchor="middle">Конусна шайба</text>
+  <path d="M 245,137 L 245,215" stroke="#c0392b" stroke-width="1" marker-end="url(#arr)"/>
+
+  <!-- Плетений екран (розправлений на 360°) -->
+  <path d="M 120,225 L 230,225 L 230,255 L 120,255 Z" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="4,2"/>
+  <text x="175" y="315" font-size="12" fill="#27ae60" text-anchor="middle">Екран 360° обтиск</text>
+  <path d="M 175,307 L 175,257" stroke="#27ae60" stroke-width="1" marker-end="url(#arr)"/>
+
+  <!-- Кабель / жили -->
+  <rect x="60" y="230" width="310" height="20" fill="#1a1a1a" opacity="0.1"/>
+  <text x="100" y="265" font-size="12" fill="#1a1a1a" text-anchor="middle">Кабель</text>
+
+  <!-- Панель 2: Праворуч (x=490..930) -->
+  <rect x="490" y="80" width="440" height="350" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="710" y="105" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Електричні та механічні параметри</text>
+
+  <!-- Блок 1 -->
+  <rect x="510" y="125" width="400" height="60" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="525" y="148" font-size="13" font-weight="bold" fill="#27ae60">Круговий контакт 360°</text>
+  <text x="525" y="168" font-size="12" fill="#1a1a1a">Максимальна площа контакту, перехідний опір R_contact &lt; 5 мОм.</text>
+
+  <!-- Блок 2 -->
+  <rect x="510" y="195" width="400" height="60" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="525" y="218" font-size="13" font-weight="bold" fill="#2457d6">Відведення ВЧ завад</text>
+  <text x="525" y="238" font-size="12" fill="#1a1a1a">Ефективне гасіння завад частотних приводів на металеве шасі.</text>
+
+  <!-- Блок 3 -->
+  <rect x="510" y="265" width="400" height="60" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="525" y="288" font-size="13" font-weight="bold" fill="#2457d6">Герметичність IP68</text>
+  <text x="525" y="308" font-size="12" fill="#1a1a1a">Захист від пилу, води, мастил та емульсій у промислових умовах.</text>
+
+  <!-- Блок 4 -->
+  <rect x="510" y="335" width="400" height="75" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="525" y="358" font-size="13" font-weight="bold" fill="#c0392b">Момент затягування</text>
+  <text x="525" y="378" font-size="12" fill="#1a1a1a">M25: 10–12 Н·м</text>
+  <text x="525" y="398" font-size="12" fill="#1a1a1a">M32: 15–18 Н·м</text>
+</svg>

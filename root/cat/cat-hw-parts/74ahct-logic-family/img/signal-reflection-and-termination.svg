@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="36" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Узгодження довгої лінії у схемах 74AHCT</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Послідовний резистор прибирає відбиття (дзвін) та запобігає хибним спрацьовуванням</text>
+
+  <!-- Ліва панель: Проблема (без узгодження) -->
+  <rect x="30" y="85" width="435" height="345" rx="8" fill="#fdecea" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="50" y="105" width="395" height="40" rx="6" fill="white" stroke="#c0392b" stroke-width="1"/>
+  <text x="247" y="130" font-size="14" font-weight="bold" fill="#c0392b" text-anchor="middle">Без узгодження (відбиття сигналу)</text>
+
+  <!-- Графік епюри без узгодження (дзвін) -->
+  <rect x="50" y="160" width="395" height="200" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <!-- Осі -->
+  <line x1="80" y1="330" x2="410" y2="330" stroke="#6b7280" stroke-width="1" marker-end="url(#arr)"/>
+  <line x1="80" y1="330" x2="80" y2="180" stroke="#6b7280" stroke-width="1" marker-end="url(#arr)"/>
+  <text x="405" y="348" font-size="12" fill="#6b7280" text-anchor="middle">t</text>
+  <text x="65" y="185" font-size="12" fill="#6b7280" text-anchor="middle">U</text>
+  <text x="65" y="330" font-size="12" fill="#6b7280" text-anchor="middle">0</text>
+  <text x="65" y="240" font-size="12" fill="#6b7280" text-anchor="middle">VCC</text>
+  <line x1="75" y1="240" x2="85" y2="240" stroke="#6b7280" stroke-width="1"/>
+
+  <!-- Хвиля з дзвіном -->
+  <path d="M 80 330 L 120 325 Q 140 310 150 220 Q 160 170 180 200 Q 200 250 220 230 Q 240 210 260 235 L 400 235" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+
+  <!-- Позначки проблеми -->
+  <text x="180" y="158" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Небезпечний викид (дзвін)</text>
+  <line x1="180" y1="162" x2="180" y2="195" stroke="#c0392b" stroke-width="1" stroke-dasharray="2,2"/>
+
+  <text x="247" y="385" font-size="13" fill="#1a1a1a" text-anchor="middle">Хвильовий опір не узгоджено — виникають</text>
+  <text x="247" y="405" font-size="13" fill="#1a1a1a" text-anchor="middle">коливання, що пробивають вхідний захист.</text>
+
+  <!-- Права панель: Розв'язок (з узгодженням) -->
+  <rect x="495" y="85" width="435" height="345" rx="8" fill="#e9f7ef" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="515" y="105" width="395" height="40" rx="6" fill="white" stroke="#27ae60" stroke-width="1"/>
+  <text x="712" y="130" font-size="14" font-weight="bold" fill="#27ae60" text-anchor="middle">З узгодженням (R_s ≈ Z_0)</text>
+
+  <!-- Графік епюри з узгодженням (гладкий фронт) -->
+  <rect x="515" y="160" width="395" height="200" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <!-- Осі -->
+  <line x1="545" y1="330" x2="875" y2="330" stroke="#6b7280" stroke-width="1" marker-end="url(#arr)"/>
+  <line x1="545" y1="330" x2="545" y2="180" stroke="#6b7280" stroke-width="1" marker-end="url(#arr)"/>
+  <text x="870" y="348" font-size="12" fill="#6b7280" text-anchor="middle">t</text>
+  <text x="530" y="185" font-size="12" fill="#6b7280" text-anchor="middle">U</text>
+  <text x="530" y="330" font-size="12" fill="#6b7280" text-anchor="middle">0</text>
+  <text x="530" y="240" font-size="12" fill="#6b7280" text-anchor="middle">VCC</text>
+  <line x1="540" y1="240" x2="550" y2="240" stroke="#6b7280" stroke-width="1"/>
+
+  <!-- Плавна хвиля -->
+  <path d="M 545 330 L 580 328 Q 630 325 660 280 Q 690 238 730 235 L 875 235" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+
+  <!-- Позначки розв'язку -->
+  <text x="712" y="385" font-size="13" fill="#1a1a1a" text-anchor="middle">Послідовний резистор R_s гасить відбиття,</text>
+  <text x="712" y="405" font-size="13" fill="#1a1a1a" text-anchor="middle">забезпечуючи чистий монотонний фронт.</text>
+
+  <!-- Маркери -->
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+</svg>

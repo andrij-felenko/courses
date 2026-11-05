@@ -1,0 +1,132 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Колірне маркування провідників AWG капсульних ковзних кілець</text>
+  <text x="480" y="52" text-anchor="middle" font-size="13" fill="#6b7280">Стандартизована відповідність дротів статора й ротора номіналам струму та типам сигналів</text>
+
+  <!-- Left Panel: Stator Group (Power & Control) -->
+  <rect x="30" y="75" width="435" height="415" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="247.5" y="102" text-anchor="middle" font-size="15" font-weight="bold" fill="#1a1a1a">Статор (Stator) — Вхід / Живлення</text>
+
+  <!-- Table Header Stator -->
+  <rect x="45" y="116" width="405" height="26" rx="4" fill="#eaf0fd"/>
+  <text x="60" y="133" font-size="12" font-weight="bold" fill="#2457d6">Канал / №</text>
+  <text x="135" y="133" font-size="12" font-weight="bold" fill="#2457d6">Колір дротів AWG</text>
+  <text x="260" y="133" font-size="12" font-weight="bold" fill="#2457d6">Струм / Тип</text>
+  <text x="385" y="133" font-size="12" font-weight="bold" fill="#2457d6">Переріз</text>
+
+  <!-- Rows Stator -->
+  <!-- Row 1 -->
+  <rect x="45" y="148" width="405" height="30" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="60" y="168" font-size="12" fill="#1a1a1a">Канали 1–4</text>
+  <circle cx="145" cy="163" r="5" fill="#e74c3c"/>
+  <circle cx="160" cy="163" r="5" fill="#3498db"/>
+  <circle cx="175" cy="163" r="5" fill="#2ecc71"/>
+  <circle cx="190" cy="163" r="5" fill="#f1c40f"/>
+  <text x="202" y="168" font-size="12" fill="#6b7280">Чер/Син/Зел/Жов</text>
+  <text x="260" y="168" font-size="12" fill="#1a1a1a">Силові лінії (10A)</text>
+  <text x="385" y="168" font-size="12" fill="#1a1a1a">AWG16</text>
+
+  <!-- Row 2 -->
+  <rect x="45" y="184" width="405" height="30" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="60" y="204" font-size="12" fill="#1a1a1a">Канали 5–12</text>
+  <circle cx="145" cy="199" r="4" fill="#9b59b6"/>
+  <circle cx="157" cy="199" r="4" fill="#e67e22"/>
+  <circle cx="169" cy="199" r="4" fill="#1abc9c"/>
+  <circle cx="181" cy="199" r="4" fill="#34495e"/>
+  <text x="192" y="204" font-size="12" fill="#6b7280">Парні кольори</text>
+  <text x="260" y="204" font-size="12" fill="#1a1a1a">Живлення / Реле (2A)</text>
+  <text x="385" y="204" font-size="12" fill="#1a1a1a">AWG22</text>
+
+  <!-- Row 3 -->
+  <rect x="45" y="220" width="405" height="30" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="60" y="240" font-size="12" fill="#1a1a1a">Канали 13–20</text>
+  <circle cx="145" cy="235" r="4" fill="#bdc3c7"/>
+  <circle cx="157" cy="235" r="4" fill="#7f8c8d"/>
+  <circle cx="169" cy="235" r="4" fill="#d35400"/>
+  <text x="181" y="240" font-size="12" fill="#6b7280">Сірий/Чор/Білий</text>
+  <text x="260" y="240" font-size="12" fill="#1a1a1a">Аналогові датчики</text>
+  <text x="385" y="240" font-size="12" fill="#1a1a1a">AWG28</text>
+
+  <!-- Row 4 -->
+  <rect x="45" y="256" width="405" height="30" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="60" y="276" font-size="12" fill="#1a1a1a">Канали 21–28</text>
+  <rect x="141" y="267" width="26" height="14" rx="2" fill="#2c3e50"/>
+  <text x="175" y="276" font-size="12" fill="#6b7280">Вітопарні з екр.</text>
+  <text x="260" y="276" font-size="12" fill="#1a1a1a">Швидкісні шини (CAN)</text>
+  <text x="385" y="276" font-size="12" fill="#1a1a1a">AWG30</text>
+
+  <!-- Stator note -->
+  <rect x="45" y="292" width="405" height="182" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="60" y="313" font-size="12" font-weight="bold" fill="#27ae60">Правила монтажу статора:</text>
+  <text x="60" y="333" font-size="12" fill="#1a1a1a">• Фіксація корпусу статора має бути гнучкою</text>
+  <text x="60" y="353" font-size="12" fill="#1a1a1a">  (використання антиротаційного штифта).</text>
+  <text x="60" y="373" font-size="12" fill="#1a1a1a">• Заборонено передавати радіальні навантаження</text>
+  <text x="60" y="393" font-size="12" fill="#1a1a1a">  на вивідні джгути провідників.</text>
+  <text x="60" y="413" font-size="12" fill="#1a1a1a">• Екрани виводів обов'язково заземлюють на шасі.</text>
+  <text x="60" y="433" font-size="12" fill="#1a1a1a">• Уникайте перегинів дротів біля виходу з корпусу.</text>
+  <text x="60" y="453" font-size="12" fill="#1a1a1a">• Забезпечте мінімальний радіус вигину 10× Ø.</text>
+
+  <!-- Right Panel: Rotor Group (Signals & Output) -->
+  <rect x="495" y="75" width="435" height="415" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="712.5" y="102" text-anchor="middle" font-size="15" font-weight="bold" fill="#1a1a1a">Ротор (Rotor) — Вихід / Рухома частина</text>
+
+  <!-- Table Header Rotor -->
+  <rect x="510" y="116" width="405" height="26" rx="4" fill="#eaf0fd"/>
+  <text x="525" y="133" font-size="12" font-weight="bold" fill="#2457d6">Канал / №</text>
+  <text x="610" y="133" font-size="12" font-weight="bold" fill="#2457d6">Дзеркальне маркування</text>
+  <text x="760" y="133" font-size="12" font-weight="bold" fill="#2457d6">Призначення</text>
+  <text x="875" y="133" font-size="12" font-weight="bold" fill="#2457d6">Струм</text>
+
+  <!-- Rows Rotor -->
+  <!-- Row 1 -->
+  <rect x="510" y="148" width="405" height="30" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="525" y="168" font-size="12" fill="#1a1a1a">Канали 1–4</text>
+  <text x="610" y="168" font-size="12" fill="#6b7280">Червоний / Синій / Зел / Жов</text>
+  <text x="760" y="168" font-size="12" fill="#1a1a1a">Силове живлення</text>
+  <text x="875" y="168" font-size="12" fill="#1a1a1a">10 А</text>
+
+  <!-- Row 2 -->
+  <rect x="510" y="184" width="405" height="30" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="525" y="204" font-size="12" fill="#1a1a1a">Канали 5–12</text>
+  <text x="610" y="204" font-size="12" fill="#6b7280">Кольорова індив. палітра</text>
+  <text x="760" y="204" font-size="12" fill="#1a1a1a">Живлення вузлів</text>
+  <text x="875" y="204" font-size="12" fill="#1a1a1a">2 А</text>
+
+  <!-- Row 3 -->
+  <rect x="510" y="220" width="405" height="30" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="525" y="240" font-size="12" fill="#1a1a1a">Канали 13–20</text>
+  <text x="610" y="240" font-size="12" fill="#6b7280">Послідовні коди кольорів</text>
+  <text x="760" y="240" font-size="12" fill="#1a1a1a">Сигнали сенсорів</text>
+  <text x="875" y="240" font-size="12" fill="#1a1a1a">1.5 А</text>
+
+  <!-- Row 4 -->
+  <rect x="510" y="256" width="405" height="30" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="525" y="276" font-size="12" fill="#1a1a1a">Канали 21–28</text>
+  <text x="610" y="276" font-size="12" fill="#6b7280">Екрановані вітопарні дроти</text>
+  <text x="760" y="276" font-size="12" fill="#1a1a1a">Енкодери / Ethernet</text>
+  <text x="875" y="276" font-size="12" fill="#1a1a1a">1.5 А</text>
+
+  <!-- Rotor note -->
+  <rect x="510" y="292" width="405" height="182" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="525" y="313" font-size="12" font-weight="bold" fill="#c0392b">Технічні обмеження та шум:</text>
+  <text x="525" y="333" font-size="12" fill="#1a1a1a">• Динамічний контактний опір &lt; 10 мОм.</text>
+  <text x="525" y="353" font-size="12" fill="#1a1a1a">• Максимальна швидкість обертання: 250 об/хв.</text>
+  <text x="525" y="373" font-size="12" fill="#1a1a1a">• Ізоляція: &gt; 500 МОм при 500 В постійного струму.</text>
+  <text x="525" y="393" font-size="12" fill="#1a1a1a">• Уникайте перетину сигнальних і силових кіл</text>
+  <text x="525" y="413" font-size="12" fill="#1a1a1a">  безпосередньо біля контактної зони кільця.</text>
+  <text x="525" y="433" font-size="12" fill="#1a1a1a">• Заземлюйте екрани кабелів ротора на єдину шину.</text>
+  <text x="525" y="453" font-size="12" fill="#1a1a1a">• Проводьте регламентне чищення кожні 2 млн об.</text>
+
+</svg>

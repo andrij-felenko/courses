@@ -1,0 +1,127 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-black" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Складальна схема модульного органайзера та контур заземлення ESD</text>
+  <text x="480" y="56" font-size="13" fill="#6b7280" text-anchor="middle">Модульна матриця висувних касет, координатна сітка маркування 5S та шина стікання заряду EPA</text>
+
+  <!-- ЛІВА ПАНЕЛЬ: КАСЕТНИЙ БЛОК -->
+  <rect x="40" y="85" width="530" height="415" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="40" y="85" width="530" height="34" rx="8" fill="#eaf0fd" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="305" y="107" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">МОДУЛЬНИЙ КАСЕТНИЙ БЛОК ТА КООРДИНАТНЕ МАРКУВАННЯ</text>
+
+  <!-- Заголовки колонок -->
+  <text x="117" y="136" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">Кол. 1</text>
+  <text x="210" y="136" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">Кол. 2</text>
+  <text x="303" y="136" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">Кол. 3</text>
+  <text x="396" y="136" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">Кол. 4</text>
+  <text x="489" y="136" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">Кол. 5</text>
+
+  <!-- Ряд A: Малі висувні лотки -->
+  <text x="58" y="195" font-size="14" font-weight="bold" fill="#6b7280" text-anchor="middle">A</text>
+  
+  <rect x="75" y="150" width="85" height="80" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2"/>
+  <rect x="75" y="150" width="85" height="18" rx="4" fill="#eaf0fd" stroke="#d0d7de" stroke-width="1.2"/>
+  <text x="117" y="163" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">A1: M2/M2.5</text>
+  <rect x="97" y="212" width="41" height="6" rx="3" fill="#d0d7de"/>
+
+  <rect x="168" y="150" width="85" height="80" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2"/>
+  <rect x="168" y="150" width="85" height="18" rx="4" fill="#eaf0fd" stroke="#d0d7de" stroke-width="1.2"/>
+  <text x="210" y="163" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">A2: M3 гв.</text>
+  <rect x="190" y="212" width="41" height="6" rx="3" fill="#d0d7de"/>
+
+  <rect x="261" y="150" width="85" height="80" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2"/>
+  <rect x="261" y="150" width="85" height="18" rx="4" fill="#eaf0fd" stroke="#d0d7de" stroke-width="1.2"/>
+  <text x="303" y="163" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">A3: M3 гайк.</text>
+  <rect x="283" y="212" width="41" height="6" rx="3" fill="#d0d7de"/>
+
+  <rect x="354" y="150" width="85" height="80" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2"/>
+  <rect x="354" y="150" width="85" height="18" rx="4" fill="#eaf0fd" stroke="#d0d7de" stroke-width="1.2"/>
+  <text x="396" y="163" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">A4: Стійки</text>
+  <rect x="376" y="212" width="41" height="6" rx="3" fill="#d0d7de"/>
+
+  <rect x="447" y="150" width="85" height="80" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2"/>
+  <rect x="447" y="150" width="85" height="18" rx="4" fill="#eaf0fd" stroke="#d0d7de" stroke-width="1.2"/>
+  <text x="489" y="163" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">A5: Шайби</text>
+  <rect x="469" y="212" width="41" height="6" rx="3" fill="#d0d7de"/>
+
+  <!-- Ряд B: Середні лотки -->
+  <text x="58" y="295" font-size="14" font-weight="bold" fill="#6b7280" text-anchor="middle">B</text>
+
+  <rect x="75" y="245" width="146" height="90" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2"/>
+  <rect x="75" y="245" width="146" height="18" rx="4" fill="#e9f7ef" stroke="#d0d7de" stroke-width="1.2"/>
+  <text x="148" y="258" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">B1: MOSFET транзистори</text>
+  <rect x="127" y="318" width="42" height="6" rx="3" fill="#d0d7de"/>
+
+  <rect x="235" y="245" width="146" height="90" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2"/>
+  <rect x="235" y="245" width="146" height="18" rx="4" fill="#e9f7ef" stroke="#d0d7de" stroke-width="1.2"/>
+  <text x="308" y="258" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">B2: Лінійні стабілізатори</text>
+  <rect x="287" y="318" width="42" height="6" rx="3" fill="#d0d7de"/>
+
+  <rect x="395" y="245" width="137" height="90" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2"/>
+  <rect x="395" y="245" width="137" height="18" rx="4" fill="#e9f7ef" stroke="#d0d7de" stroke-width="1.2"/>
+  <text x="463" y="258" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">B3: Логічні ІС SOIC</text>
+  <rect x="442" y="318" width="42" height="6" rx="3" fill="#d0d7de"/>
+
+  <!-- Ряд C: Великі лотки -->
+  <text x="58" y="400" font-size="14" font-weight="bold" fill="#6b7280" text-anchor="middle">C</text>
+
+  <rect x="75" y="350" width="223" height="90" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2"/>
+  <rect x="75" y="350" width="223" height="18" rx="4" fill="#fdecea" stroke="#d0d7de" stroke-width="1.2"/>
+  <text x="186" y="363" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">C1: З'єднувальні джгути та кабелі</text>
+  <rect x="165" y="423" width="43" height="6" rx="3" fill="#d0d7de"/>
+
+  <rect x="312" y="350" width="220" height="90" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2"/>
+  <rect x="312" y="350" width="220" height="18" rx="4" fill="#fdecea" stroke="#d0d7de" stroke-width="1.2"/>
+  <text x="422" y="363" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">C2: ESD інструмент та пінцети</text>
+  <rect x="400" y="423" width="44" height="6" rx="3" fill="#d0d7de"/>
+
+  <!-- Підпис внизу лівої панелі -->
+  <text x="305" y="475" font-size="12" fill="#1a1a1a" text-anchor="middle">Струморозсіювальний ESD-полімер (10⁵ – 10¹¹ Ом/кв) з маркуванням 5S</text>
+
+  <!-- ПРАВА ПАНЕЛЬ: КОНТУР ESD ЗАЗЕМЛЕННЯ -->
+  <rect x="590" y="85" width="330" height="415" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="590" y="85" width="330" height="34" rx="8" fill="#e9f7ef" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="755" y="107" font-size="14" font-weight="bold" fill="#27ae60" text-anchor="middle">КОНТУР ЗАЗЕМЛЕННЯ EPA (IEC 61340-5-1)</text>
+
+  <!-- Snap stud клема 10 мм -->
+  <circle cx="635" cy="165" r="14" fill="#d0d7de" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="635" cy="165" r="7" fill="#6b7280"/>
+  <text x="665" y="160" font-size="13" font-weight="bold" fill="#1a1a1a">Клема Snap Stud Ø10 мм</text>
+  <text x="665" y="177" font-size="12" fill="#6b7280">Монтаж на задню стінку шафи</text>
+
+  <!-- Провід та резистор -->
+  <line x1="635" y1="180" x2="635" y2="225" stroke="#2457d6" stroke-width="3"/>
+  
+  <rect x="620" y="225" width="30" height="50" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="665" y="244" font-size="13" font-weight="bold" fill="#2457d6">R_safe = 1 МОм (±10%)</text>
+  <text x="665" y="262" font-size="12" fill="#1a1a1a">Струмообмежувальний захист</text>
+  <text x="665" y="278" font-size="12" fill="#6b7280">Безпека майстра (струм менше 0.25 мА)</text>
+
+  <line x1="635" y1="275" x2="635" y2="330" stroke="#2457d6" stroke-width="3"/>
+
+  <!-- Точка EBP та заземлення -->
+  <circle cx="635" cy="335" r="6" fill="#27ae60"/>
+  <text x="665" y="333" font-size="13" font-weight="bold" fill="#27ae60">Точка з'єднання EBP</text>
+  <text x="665" y="350" font-size="12" fill="#6b7280">Підключення до шини цеху</text>
+
+  <line x1="635" y1="341" x2="635" y2="365" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="621" y1="365" x2="649" y2="365" stroke="#1a1a1a" stroke-width="3"/>
+  <line x1="626" y1="371" x2="644" y2="371" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="631" y1="377" x2="639" y2="377" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Таблиця характеристик -->
+  <rect x="605" y="395" width="300" height="85" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="617" y="416" font-size="12" font-weight="bold" fill="#1a1a1a">Параметри захищеної зони EPA:</text>
+  <text x="617" y="434" font-size="12" fill="#1a1a1a">• Опір витоку: R_g = 1.0·10⁶ ... 1.0·10⁹ Ом</text>
+  <text x="617" y="452" font-size="12" fill="#1a1a1a">• Час розсіювання заряду: t_decay менше 2.0 с</text>
+  <text x="617" y="470" font-size="12" fill="#27ae60" font-weight="bold">• Норматив: IEC 61340-5-1 / ESD TR20.20</text>
+</svg>

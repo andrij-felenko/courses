@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Main Title & Subtitle -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Гальванічна корозія в парі нержавіюча сталь А2 – алюміній 6061</text>
+  <text x="480" y="60" font-size="13" fill="#6b7280" text-anchor="middle">Електрохімічна різниця потенціалів ΔE ≈ 0.40–0.50 В, анодне розчинення Al та катодне відновлення кисню</text>
+
+  <!-- LEFT PANEL: 30 to 510, y=80 to 430 -->
+  <rect x="30" y="80" width="480" height="350" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="50" y="105" font-size="14" font-weight="bold" fill="#1a1a1a">Поздовжній розріз контактного вузла</text>
+
+  <!-- Electrolyte layer -->
+  <rect x="60" y="115" width="420" height="20" rx="3" fill="#e0f2fe" stroke="#0284c7" stroke-width="1" fill-opacity="0.8"/>
+  <text x="70" y="129" font-size="11" fill="#0369a1" font-weight="bold">Електроліт (H₂O + NaCl, тонка плівка вологи)</text>
+
+  <!-- Labels positioned entirely outside structural boxes in whitespace on separate lines -->
+  <text x="60" y="150" font-size="11" font-weight="bold" fill="#2457d6">Алюмінієва деталь (Al 6061-T6, анод E₀ ≈ -0.75 В)</text>
+  <text x="60" y="165" font-size="11" font-weight="bold" fill="#1a1a1a">Гвинт М3 (Сталь А2, катод E₀ ≈ -0.30 В)</text>
+
+  <!-- Aluminum plate (anode body) -->
+  <rect x="60" y="180" width="420" height="75" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  
+  <!-- Screw head (DIN 7991 M3) -->
+  <polygon points="215,180 265,180 240,205" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="233" y="205" width="14" height="50" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Explanatory text block at bottom of left panel -->
+  <rect x="50" y="265" width="440" height="150" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="65" y="290" font-size="12" font-weight="bold" fill="#c0392b">Електрохімічні реакції та руйнування:</text>
+  <text x="65" y="312" font-size="11" fill="#1a1a1a"><tspan font-weight="bold" fill="#c0392b">Анод:</tspan> Al → Al³⁺ + 3e⁻ (розчинення металу біля фаски)</text>
+  <text x="65" y="334" font-size="11" fill="#1a1a1a"><tspan font-weight="bold" fill="#2457d6">Катод:</tspan> O₂ + 2H₂O + 4e⁻ → 4OH⁻ (на нержавіючій сталі)</text>
+  <text x="65" y="356" font-size="11" fill="#1a1a1a"><tspan font-weight="bold" fill="#c0392b">Продукти:</tspan> утворення білих шламі / оксидних пластівців Al(OH)₃</text>
+  <text x="65" y="378" font-size="11" fill="#6b7280">Результат: інтенсивний пітинг та послаблення різьбової посадки.</text>
+
+
+  <!-- RIGHT PANEL: 530 to 930, y=80 to 430 -->
+  <rect x="530" y="80" width="400" height="350" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="550" y="105" font-size="14" font-weight="bold" fill="#1a1a1a">Електрохімічний ряд та захист</text>
+
+  <!-- Potential scale block -->
+  <rect x="550" y="120" width="360" height="135" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="565" y="142" font-size="12" font-weight="bold" fill="#1a1a1a">Потенціали у морській воді:</text>
+  <text x="565" y="164" font-size="11" fill="#c0392b">• Нержавіюча сталь A2 (AISI 304): -0.30 ... -0.35 В (Катод)</text>
+  <text x="565" y="184" font-size="11" fill="#6b7280">• Вуглецева сталь: -0.60 ... -0.70 В</text>
+  <text x="565" y="204" font-size="11" fill="#2457d6">• Алюмінієві сплави (Al 6061): -0.75 ... -0.90 В (Анод)</text>
+  <text x="565" y="228" font-size="11" font-weight="bold" fill="#c0392b">ΔE = |-0.35 - (-0.75)| = 0.40 В &gt;&gt; 0.15 В (критично!)</text>
+
+  <!-- Protection measures block -->
+  <rect x="550" y="265" width="360" height="150" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="565" y="288" font-size="13" font-weight="bold" fill="#27ae60">Заходи інженерного захисту:</text>
+  <text x="565" y="310" font-size="11" font-weight="bold" fill="#1a1a1a">1. Анодування алюмінію:</text>
+  <text x="580" y="327" font-size="11" fill="#6b7280">Шар Al₂O₃ (15–25 мкм) як діелектричний бар'єр.</text>
+  <text x="565" y="349" font-size="11" font-weight="bold" fill="#1a1a1a">2. Діелектричні шайби:</text>
+  <text x="580" y="366" font-size="11" fill="#6b7280">Поліамідні / тефлонові шайби під головку гвинта.</text>
+  <text x="565" y="388" font-size="11" font-weight="bold" fill="#1a1a1a">3. Антикорозійні пасти / герметики:</text>
+  <text x="580" y="405" font-size="11" fill="#6b7280">Loctite / Duralac для витіснення вологи із зазорів.</text>
+</svg>

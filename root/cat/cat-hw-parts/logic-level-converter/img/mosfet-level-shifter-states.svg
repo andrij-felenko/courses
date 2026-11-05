@@ -1,0 +1,165 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Три робочі стани двонапрямного MOSFET-перетворювача рівнів</text>
+  <text x="480" y="60" font-size="13" fill="#6b7280" text-anchor="middle">Схемотехніка N-канального MOSFET (BSS138) із підтяжками до 3.3 В та 5 В для шини I2C</text>
+
+  <!-- Panel 1: Left (x=30..310) -> State 1: Rest -->
+  <rect x="30" y="80" width="280" height="350" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="42" y="92" width="256" height="32" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="170" y="113" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Стан 1: Спокій (Логічна 1)</text>
+  
+  <!-- Mini schematic representation for State 1 -->
+  <!-- 3.3V LV Pullup -->
+  <text x="65" y="150" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">3.3V (LV)</text>
+  <line x1="65" y1="158" x2="65" y2="175" stroke="#1a1a1a" stroke-width="2"/>
+  <!-- Resistor R_LV -->
+  <path d="M65,175 L60,179 L70,185 L60,191 L70,197 L60,203 L70,209 L65,213" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="65" y1="213" x2="65" y2="235" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="90" y="197" font-size="11" fill="#6b7280" text-anchor="start">R_LV</text>
+
+  <!-- 5V HV Pullup -->
+  <text x="275" y="150" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">5.0V (HV)</text>
+  <line x1="275" y1="158" x2="275" y2="175" stroke="#1a1a1a" stroke-width="2"/>
+  <!-- Resistor R_HV -->
+  <path d="M275,175 L270,179 L280,185 L270,191 L280,197 L270,203 L280,209 L275,213" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="275" y1="213" x2="275" y2="235" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="242" y="197" font-size="11" fill="#6b7280" text-anchor="end">R_HV</text>
+
+  <!-- Interconnect line -->
+  <line x1="65" y1="235" x2="275" y2="235" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="170" y1="235" x2="170" y2="260" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- MOSFET symbol -->
+  <text x="125" y="299" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">G (3.3V)</text>
+  <line x1="140" y1="295" x2="170" y2="295" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="170" y1="275" x2="170" y2="315" stroke="#1a1a1a" stroke-width="4"/> <!-- Gate line -->
+  <!-- Channel lines -->
+  <line x1="185" y1="275" x2="185" y2="288" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="185" y1="292" x2="185" y2="303" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="185" y1="307" x2="185" y2="320" stroke="#1a1a1a" stroke-width="2"/>
+  <!-- Drain (top) & Source (bottom) connections -->
+  <line x1="185" y1="275" x2="275" y2="275" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="275" y1="235" x2="275" y2="275" stroke="#1a1a1a" stroke-width="2"/>
+  
+  <line x1="185" y1="320" x2="65" y2="320" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="65" y1="235" x2="65" y2="320" stroke="#1a1a1a" stroke-width="2"/>
+  <!-- Body diode -->
+  <path d="M160,290 L170,297 L160,304 Z" fill="none" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="160" y1="287" x2="170" y2="287" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Explanatory text box 1 -->
+  <rect x="42" y="335" width="256" height="82" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="52" y="352" font-size="11" fill="#1a1a1a" text-anchor="start">G = 3.3 В, S = 3.3 В, D = 5.0 В</text>
+  <text x="52" y="369" font-size="11" fill="#1a1a1a" text-anchor="start">V_GS = 3.3 - 3.3 = 0 В &lt; V_th</text>
+  <text x="52" y="386" font-size="11" fill="#27ae60" font-weight="bold" text-anchor="start">Транзистор закритий.</text>
+  <text x="52" y="403" font-size="11" fill="#6b7280" text-anchor="start">Обидва боки ізольовані на HIGH.</text>
+
+
+  <!-- Panel 2: Center (x=340..620) -> State 2: Low from LV -->
+  <rect x="340" y="80" width="280" height="350" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="352" y="92" width="256" height="32" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="480" y="113" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Стан 2: Передача 0 з LV (LV→HV)</text>
+
+  <!-- 3.3V LV Pullup & Ground driver -->
+  <text x="375" y="150" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">0V (GND)</text>
+  <line x1="375" y1="158" x2="375" y2="175" stroke="#1a1a1a" stroke-width="2"/>
+  <path d="M375,175 L370,179 L380,185 L370,191 L380,197 L370,203 L380,209 L375,213" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="375" y1="213" x2="375" y2="235" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="400" y="197" font-size="11" fill="#6b7280" text-anchor="start">R_LV</text>
+
+  <!-- 5V HV Pullup -->
+  <text x="585" y="150" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">5.0V (HV)</text>
+  <line x1="585" y1="158" x2="585" y2="175" stroke="#1a1a1a" stroke-width="2"/>
+  <path d="M585,175 L580,179 L590,185 L580,191 L590,197 L580,203 L590,209 L585,213" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="585" y1="213" x2="585" y2="235" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="552" y="197" font-size="11" fill="#6b7280" text-anchor="end">R_HV</text>
+
+  <!-- Current flow indication -->
+  <line x1="375" y1="235" x2="585" y2="235" stroke="#2457d6" stroke-width="3" marker-end="url(#arr-blue)"/>
+  <line x1="480" y1="235" x2="480" y2="260" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- MOSFET symbol -->
+  <text x="435" y="299" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">G (3.3V)</text>
+  <line x1="450" y1="295" x2="480" y2="295" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="480" y1="275" x2="480" y2="315" stroke="#1a1a1a" stroke-width="4"/>
+  <line x1="495" y1="275" x2="495" y2="288" stroke="#2457d6" stroke-width="2"/>
+  <line x1="495" y1="292" x2="495" y2="303" stroke="#2457d6" stroke-width="2"/>
+  <line x1="495" y1="307" x2="495" y2="320" stroke="#2457d6" stroke-width="2"/>
+  
+  <line x1="495" y1="275" x2="585" y2="275" stroke="#2457d6" stroke-width="2"/>
+  <line x1="585" y1="235" x2="585" y2="275" stroke="#2457d6" stroke-width="2"/>
+  
+  <line x1="495" y1="320" x2="375" y2="320" stroke="#2457d6" stroke-width="2"/>
+  <line x1="375" y1="235" x2="375" y2="320" stroke="#2457d6" stroke-width="2"/>
+  
+  <path d="M470,290 L480,297 L470,304 Z" fill="none" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="470" y1="287" x2="480" y2="287" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Explanatory text box 2 -->
+  <rect x="352" y="335" width="256" height="82" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="362" y="352" font-size="11" fill="#1a1a1a" text-anchor="start">S = 0 В (притягнуто до GND)</text>
+  <text x="362" y="369" font-size="11" fill="#1a1a1a" text-anchor="start">V_GS = 3.3 - 0 = 3.3 В &gt; V_th</text>
+  <text x="362" y="386" font-size="11" fill="#2457d6" font-weight="bold" text-anchor="start">Транзистор відкривається!</text>
+  <text x="362" y="403" font-size="11" fill="#6b7280" text-anchor="start">Стік D падає до 0 В через канал.</text>
+
+
+  <!-- Panel 3: Right (x=650..930) -> State 3: Low from HV -->
+  <rect x="650" y="80" width="280" height="350" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="662" y="92" width="256" height="32" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="790" y="113" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">Стан 3: Передача 0 з HV (HV→LV)</text>
+
+  <!-- 3.3V LV Pullup -->
+  <text x="685" y="150" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">3.3V (LV)</text>
+  <line x1="685" y1="158" x2="685" y2="175" stroke="#1a1a1a" stroke-width="2"/>
+  <path d="M685,175 L680,179 L690,185 L680,191 L690,197 L680,203 L690,209 L685,213" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="685" y1="213" x2="685" y2="235" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="710" y="197" font-size="11" fill="#6b7280" text-anchor="start">R_LV</text>
+
+  <!-- 0V HV Ground driver -->
+  <text x="895" y="150" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">0V (GND)</text>
+  <line x1="895" y1="158" x2="895" y2="175" stroke="#1a1a1a" stroke-width="2"/>
+  <path d="M895,175 L890,179 L900,185 L890,191 L900,197 L890,203 L900,209 L895,213" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="895" y1="213" x2="895" y2="235" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="862" y="197" font-size="11" fill="#6b7280" text-anchor="end">R_HV</text>
+
+  <!-- Current flow indication -->
+  <line x1="895" y1="235" x2="685" y2="235" stroke="#c0392b" stroke-width="3" marker-end="url(#arr)"/>
+  <line x1="790" y1="235" x2="790" y2="260" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- MOSFET symbol -->
+  <text x="745" y="299" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">G (3.3V)</text>
+  <line x1="760" y1="295" x2="790" y2="295" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="790" y1="275" x2="790" y2="315" stroke="#1a1a1a" stroke-width="4"/>
+  <line x1="805" y1="275" x2="805" y2="288" stroke="#c0392b" stroke-width="2"/>
+  <line x1="805" y1="292" x2="805" y2="303" stroke="#c0392b" stroke-width="2"/>
+  <line x1="805" y1="307" x2="805" y2="320" stroke="#c0392b" stroke-width="2"/>
+  
+  <line x1="805" y1="275" x2="895" y2="275" stroke="#c0392b" stroke-width="2"/>
+  <line x1="895" y1="235" x2="895" y2="275" stroke="#c0392b" stroke-width="2"/>
+  
+  <line x1="805" y1="320" x2="685" y2="320" stroke="#c0392b" stroke-width="2"/>
+  <line x1="685" y1="235" x2="685" y2="320" stroke="#c0392b" stroke-width="2"/>
+  
+  <!-- Body diode conducting -->
+  <path d="M780,290 L790,297 L780,304 Z" fill="#c0392b" stroke="#c0392b" stroke-width="1.5"/>
+  <line x1="780" y1="287" x2="790" y2="287" stroke="#c0392b" stroke-width="1.5"/>
+
+  <!-- Explanatory text box 3 -->
+  <rect x="662" y="335" width="256" height="82" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="672" y="352" font-size="11" fill="#1a1a1a" text-anchor="start">D = 0 В -> Діод знижує S до 0.7 В</text>
+  <text x="672" y="369" font-size="11" fill="#1a1a1a" text-anchor="start">V_GS = 3.3 - 0.7 = 2.6 В &gt; V_th</text>
+  <text x="672" y="386" font-size="11" fill="#c0392b" font-weight="bold" text-anchor="start">Транзистор відкривається!</text>
+  <text x="672" y="403" font-size="11" fill="#6b7280" text-anchor="start">Канал дотягує S до повного 0 В.</text>
+</svg>

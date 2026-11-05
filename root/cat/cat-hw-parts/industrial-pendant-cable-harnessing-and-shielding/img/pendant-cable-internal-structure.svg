@@ -1,0 +1,120 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Поперечний розріз промислового підвісного кабелю</text>
+  <text x="480" y="60" font-size="13" fill="#6b7280" text-anchor="middle">Взаємне розташування центрального силового троса, скручених жил, екрана та захисної PUR-оболонки</text>
+
+  <!-- ЛІВА ПАНЕЛЬ: Поперечний переріз круглого підвісного кабелю (x=30..470, y=85..430) -->
+  <rect x="30" y="85" width="440" height="345" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  
+  <text x="250" y="112" font-size="15" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Конструктивні шари кабелю</text>
+
+  <!-- Кабель у розрізі (центр у x=250, y=265) -->
+  <!-- 1. Зовнішня PUR оболонка -->
+  <circle cx="250" cy="265" r="115" fill="#e9f7ef" stroke="#27ae60" stroke-width="4"/>
+  
+  <!-- 2. Луджений мідний екран-обплетення -->
+  <circle cx="250" cy="265" r="92" fill="#fef9e7" stroke="#f39c12" stroke-width="3" stroke-dasharray="6,4"/>
+  
+  <!-- 3. Роздільна флізелінова стрічка -->
+  <circle cx="250" cy="265" r="77" fill="#ffffff" stroke="#bdc3c7" stroke-width="1.5" stroke-dasharray="3,3"/>
+
+  <!-- 4. Внутрішній простір / заповнювач -->
+  <circle cx="250" cy="265" r="68" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Сигнальні жили (ізольовані круги навколо центру) -->
+  <!-- Жила 1 (верх) -->
+  <circle cx="250" cy="205" r="14" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <circle cx="250" cy="205" r="5" fill="#c0392b"/>
+
+  <!-- Жила 2 (право-верх) -->
+  <circle cx="302" cy="235" r="14" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <circle cx="302" cy="235" r="5" fill="#27ae60"/>
+
+  <!-- Жила 3 (право-низ) -->
+  <circle cx="302" cy="295" r="14" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <circle cx="302" cy="295" r="5" fill="#1a1a1a"/>
+
+  <!-- Жила 4 (низ) -->
+  <circle cx="250" cy="325" r="14" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <circle cx="250" cy="325" r="5" fill="#2457d6"/>
+
+  <!-- Жила 5 (ліво-низ) -->
+  <circle cx="198" cy="295" r="14" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <circle cx="198" cy="295" r="5" fill="#f39c12"/>
+
+  <!-- Жила 6 (ліво-верх) -->
+  <circle cx="198" cy="235" r="14" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <circle cx="198" cy="235" r="5" fill="#8e44ad"/>
+
+  <!-- 5. Центральне осердя: сталевий трос -->
+  <circle cx="250" cy="265" r="24" fill="#d0d7de" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="250" cy="265" r="10" fill="#1a1a1a"/>
+
+  <!-- Виносні лінії для лівої панелі -->
+  <!-- Оболонка PUR -->
+  <line x1="330" y1="180" x2="385" y2="145" stroke="#6b7280" stroke-width="1" marker-end="url(#arr)"/>
+  <text x="390" y="141" font-size="12" fill="#1a1a1a">PUR оболонка</text>
+
+  <!-- Екран -->
+  <line x1="320" y1="230" x2="385" y2="200" stroke="#6b7280" stroke-width="1" marker-end="url(#arr)"/>
+  <text x="390" y="196" font-size="12" fill="#1a1a1a">Мідне обплетення</text>
+
+  <!-- Жила -->
+  <line x1="316" y1="295" x2="385" y2="255" stroke="#6b7280" stroke-width="1" marker-end="url(#arr)"/>
+  <text x="390" y="251" font-size="12" fill="#1a1a1a">Сигнальна жила</text>
+
+  <!-- Центральний трос -->
+  <line x1="230" y1="265" x2="110" y2="220" stroke="#6b7280" stroke-width="1" marker-end="url(#arr)"/>
+  <text x="45" y="215" font-size="12" fill="#1a1a1a">Сталевий трос</text>
+
+
+  <!-- ПРАВА ПАНЕЛЬ: Функціональна специфікація та навантаження (x=490..930, y=85..430) -->
+  <rect x="490" y="85" width="440" height="345" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <text x="710" y="112" font-size="15" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Функціональна специфікація елементів</text>
+
+  <!-- Блок 1: Центральний трос -->
+  <rect x="510" y="130" width="400" height="64" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <circle cx="532" cy="162" r="12" fill="#eaf0fd"/>
+  <text x="532" y="166" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">1</text>
+  <text x="555" y="152" font-size="13" font-weight="bold" fill="#1a1a1a">Центральний силовий трос</text>
+  <text x="555" y="171" font-size="12" fill="#6b7280">Сприймає 100% розтягувального навантаження (вага + динаміка),</text>
+  <text x="555" y="186" font-size="12" fill="#6b7280">запобігає витягуванню мідних жил.</text>
+
+  <!-- Блок 2: Мідні жили -->
+  <rect x="510" y="204" width="400" height="64" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <circle cx="532" cy="236" r="12" fill="#eaf0fd"/>
+  <text x="532" y="240" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">2</text>
+  <text x="555" y="226" font-size="13" font-weight="bold" fill="#1a1a1a">Мідні жили (клас 5/6)</text>
+  <text x="555" y="245" font-size="12" fill="#6b7280">Мають короткий крок звивки навколо центру,</text>
+  <text x="555" y="260" font-size="12" fill="#6b7280">витримують понад 1 000 000 циклів вигину.</text>
+
+  <!-- Блок 3: Луджене обплетення -->
+  <rect x="510" y="278" width="400" height="64" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <circle cx="532" cy="310" r="12" fill="#eaf0fd"/>
+  <text x="532" y="314" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">3</text>
+  <text x="555" y="300" font-size="13" font-weight="bold" fill="#1a1a1a">Луджене мідне обплетення (EMC)</text>
+  <text x="555" y="319" font-size="12" fill="#6b7280">Оптична щільність 85%; захист сигналів від завад</text>
+  <text x="555" y="334" font-size="12" fill="#6b7280">інверторів і частотних перетворювачів (VFD/ПЧ).</text>
+
+  <!-- Блок 4: Оболонка PUR -->
+  <rect x="510" y="352" width="400" height="64" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <circle cx="532" cy="384" r="12" fill="#d4efdf"/>
+  <text x="532" y="388" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">4</text>
+  <text x="555" y="374" font-size="13" font-weight="bold" fill="#1a1a1a">Захисна PUR-оболонка</text>
+  <text x="555" y="393" font-size="12" fill="#27ae60">Висока стійкість до стирання, гідролізу, олив та УФ</text>
+  <text x="555" y="408" font-size="12" fill="#27ae60">(надійність згідно з EN 60204-1).</text>
+
+</svg>

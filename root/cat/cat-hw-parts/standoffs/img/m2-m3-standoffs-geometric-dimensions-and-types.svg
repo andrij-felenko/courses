@@ -1,0 +1,119 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-black" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Геометричні розміри та типи міжплатних стійок M2 та M3</text>
+  <text x="480" y="54" text-anchor="middle" font-size="13" fill="#6b7280">Параметри виконання «папа-мама» та «мама-мама» для латуні (CW614N) і нейлону (PA66)</text>
+
+  <!-- ЛІВА ПАНЕЛЬ: Стійка «папа-мама» (Male-Female) -->
+  <rect x="30" y="75" width="440" height="360" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="250" y="102" text-anchor="middle" font-size="15" font-weight="bold" fill="#1a1a1a">Тип «папа-мама» (Male-Female)</text>
+
+  <!-- Креслення стійки Male-Female -->
+  <rect x="50" y="120" width="400" height="150" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+
+  <!-- Шестигранне тіло стійки -->
+  <rect x="150" y="155" width="160" height="60" rx="2" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <!-- Фаски на гранях -->
+  <line x1="150" y1="175" x2="310" y2="175" stroke="#2457d6" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="150" y1="195" x2="310" y2="195" stroke="#2457d6" stroke-width="1" stroke-dasharray="2,2"/>
+
+  <!-- Хвостовик «папа» ліворуч -->
+  <rect x="90" y="170" width="60" height="30" rx="2" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1.5"/>
+  <!-- Нарізка витків на хвостовику -->
+  <line x1="102" y1="170" x2="102" y2="200" stroke="#1a1a1a" stroke-width="1"/>
+  <line x1="114" y1="170" x2="114" y2="200" stroke="#1a1a1a" stroke-width="1"/>
+  <line x1="126" y1="170" x2="126" y2="200" stroke="#1a1a1a" stroke-width="1"/>
+  <line x1="138" y1="170" x2="138" y2="200" stroke="#1a1a1a" stroke-width="1"/>
+
+  <!-- Внутрішня різьба «мама» праворуч (пунктир) -->
+  <rect x="240" y="170" width="70" height="30" rx="2" fill="#f4f6f8" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,2"/>
+
+  <!-- Розмірні лінії та написи -->
+  <!-- Довжина хвостовика L_m -->
+  <line x1="90" y1="145" x2="150" y2="145" stroke="#1a1a1a" stroke-width="1.2" marker-start="url(#arr-black)" marker-end="url(#arr-black)"/>
+  <text x="120" y="138" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a1a">L_m = 4-6 мм</text>
+
+  <!-- Довжина тіла L -->
+  <line x1="150" y1="145" x2="310" y2="145" stroke="#2457d6" stroke-width="1.2" marker-start="url(#arr-blue)" marker-end="url(#arr-blue)"/>
+  <text x="230" y="138" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">Довжина тіла L = 5-35 мм</text>
+
+  <!-- Глибина внутрішньої різьби L_f -->
+  <line x1="240" y1="225" x2="310" y2="225" stroke="#c0392b" stroke-width="1.2" marker-start="url(#arr-black)" marker-end="url(#arr-black)"/>
+  <text x="275" y="242" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">L_f &gt;= 5.0 мм</text>
+
+  <!-- Розмір під ключ SW -->
+  <text x="325" y="188" font-size="12" font-weight="bold" fill="#1a1a1a">SW</text>
+
+  <!-- Підсумкова табличка параметрів Male-Female -->
+  <rect x="50" y="285" width="400" height="135" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="65" y="307" font-size="13" font-weight="bold" fill="#1a1a1a">Стандарти типорозмірів M2 / M3:</text>
+
+  <rect x="65" y="318" width="180" height="42" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="75" y="335" font-size="11" font-weight="bold" fill="#2457d6">Типорозмір M2:</text>
+  <text x="75" y="351" font-size="11" fill="#1a1a1a">SW = 4.0 мм, крок P = 0.4 мм</text>
+
+  <rect x="255" y="318" width="180" height="42" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="265" y="335" font-size="11" font-weight="bold" fill="#27ae60">Типорозмір M3:</text>
+  <text x="265" y="351" font-size="11" fill="#1a1a1a">SW = 5.0 / 5.5 мм, P = 0.5 мм</text>
+
+  <text x="65" y="380" font-size="11" fill="#1a1a1a">Хвостовик: L_m = 4.0 мм (M2), L_m = 6.0 мм (M3)</text>
+  <text x="65" y="402" font-size="11" fill="#6b7280">Застосування: послідовне нарощування ярусів плат без гайок</text>
+
+  <!-- ПРАВА ПАНЕЛЬ: Стійка «мама-мама» (Female-Female) -->
+  <rect x="490" y="75" width="440" height="360" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="710" y="102" text-anchor="middle" font-size="15" font-weight="bold" fill="#1a1a1a">Тип «мама-мама» (Female-Female)</text>
+
+  <!-- Креслення стійки Female-Female -->
+  <rect x="510" y="120" width="400" height="150" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+
+  <!-- Шестигранне тіло стійки -->
+  <rect x="570" y="155" width="220" height="60" rx="2" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <line x1="570" y1="175" x2="790" y2="175" stroke="#2457d6" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="570" y1="195" x2="790" y2="195" stroke="#2457d6" stroke-width="1" stroke-dasharray="2,2"/>
+
+  <!-- Внутрішня різьба ліворуч (пунктир) -->
+  <rect x="570" y="170" width="75" height="30" rx="2" fill="#f4f6f8" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,2"/>
+  <!-- Внутрішня різьба праворуч (пунктир) -->
+  <rect x="715" y="170" width="75" height="30" rx="2" fill="#f4f6f8" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,2"/>
+
+  <!-- Розмірні лінії -->
+  <!-- Загальна довжина L -->
+  <line x1="570" y1="145" x2="790" y2="145" stroke="#2457d6" stroke-width="1.2" marker-start="url(#arr-blue)" marker-end="url(#arr-blue)"/>
+  <text x="680" y="138" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">Загальна довжина L = 4-40 мм</text>
+
+  <!-- Глибини різьби L_f1 та L_f2 -->
+  <line x1="570" y1="225" x2="645" y2="225" stroke="#c0392b" stroke-width="1.2" marker-start="url(#arr-black)" marker-end="url(#arr-black)"/>
+  <text x="607" y="242" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">L_f &gt;= 5.0</text>
+
+  <line x1="715" y1="225" x2="790" y2="225" stroke="#c0392b" stroke-width="1.2" marker-start="url(#arr-black)" marker-end="url(#arr-black)"/>
+  <text x="752" y="242" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">L_f &gt;= 5.0</text>
+
+  <!-- Розмір під ключ SW -->
+  <text x="805" y="188" font-size="12" font-weight="bold" fill="#1a1a1a">SW</text>
+
+  <!-- Підсумкова табличка параметрів Female-Female -->
+  <rect x="510" y="285" width="400" height="135" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="525" y="307" font-size="13" font-weight="bold" fill="#1a1a1a">Конструктивні особливості різьби:</text>
+
+  <rect x="525" y="318" width="180" height="42" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="535" y="335" font-size="11" font-weight="bold" fill="#27ae60">L &lt;= 10-12 мм:</text>
+  <text x="535" y="351" font-size="11" fill="#1a1a1a">Наскрізна нарізь по всій довжині</text>
+
+  <rect x="715" y="318" width="180" height="42" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="725" y="335" font-size="11" font-weight="bold" fill="#c0392b">L &gt;= 15 мм:</text>
+  <text x="725" y="351" font-size="11" fill="#1a1a1a">Глухі отвори з перемичкою</text>
+
+  <text x="525" y="380" font-size="11" fill="#1a1a1a">Матеріали: Латунь CW614N (нікель) або Нейлон PA66 (діелектрик)</text>
+  <text x="525" y="402" font-size="11" fill="#6b7280">Кріплення: гвинти з обох боків плати забезпечують гладкі площини</text>
+</svg>

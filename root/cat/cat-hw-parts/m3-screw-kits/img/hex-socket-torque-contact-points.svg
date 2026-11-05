@@ -1,0 +1,105 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460">
+  <style>
+    .title { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 18px; font-weight: bold; fill: #1a1a1a; }
+    .subtitle { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 13px; fill: #6b7280; }
+    .section-title { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 14px; font-weight: bold; fill: #1a1a1a; }
+    .label { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 11px; fill: #1a1a1a; }
+    .sublabel { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 11px; fill: #6b7280; }
+    .badge { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 12px; font-weight: bold; }
+  </style>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Header -->
+  <text x="480" y="38" text-anchor="middle" class="title">Контактні сили та механіка злизування шестигранного шліца 2.0 мм</text>
+  <text x="480" y="60" text-anchor="middle" class="subtitle">Взаємодія ключа Hex 2 мм зі шліцом гвинта М3 DIN 7991, концентрація напружень на кутах та ліміт моменту затягування</text>
+
+  <!-- ========================================== -->
+  <!-- PANEL 1: Left (x=30..490) Геометрія контакту -->
+  <!-- ========================================== -->
+  <rect x="30" y="75" width="455" height="365" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="257" y="100" text-anchor="middle" class="section-title">1. Геометрія контакту та вектори сил (Top Cross Section)</text>
+
+  <!-- Screw socket hex & key drawing (centered around x=220, y=260) -->
+  <!-- Outer screw body (circular / countersunk representation) -->
+  <circle cx="220" cy="260" r="120" fill="#eaf0fd" stroke="#2457d6" stroke-width="2" stroke-dasharray="4 2"/>
+  <text x="220" y="145" text-anchor="middle" class="sublabel">Тіло гвинта M3 (DIN 7991)</text>
+
+  <!-- Hex Socket (Outer polygon, s=2.0 mm nominal scaled up for visualization) -->
+  <!-- Flat-to-flat = 160 px radius ~ 80 px distance -> vertices -->
+  <!-- Hexagon points: R=92 -->
+  <polygon points="220,168 300,214 300,306 220,352 140,306 140,214" fill="#ffffff" stroke="#1a1a1a" stroke-width="2.5"/>
+
+  <!-- Hex Key (Slightly rotated by theta ~ 3-4 deg to show angular backlash & corner contact) -->
+  <!-- Key R=89 -->
+  <g transform="rotate(3.5 220 260)">
+    <polygon points="220,171 297,215 297,305 220,349 143,305 143,215" fill="#d0d7de" fill-opacity="0.6" stroke="#2457d6" stroke-width="2"/>
+    <!-- Key center hole / shading -->
+    <circle cx="220" cy="260" r="45" fill="#f4f6f8" stroke="#2457d6" stroke-width="1.5"/>
+    <text x="220" y="264" text-anchor="middle" class="label" font-weight="bold">Hex Key</text>
+    <text x="220" y="278" text-anchor="middle" class="sublabel">SW 2.0 мм</text>
+  </g>
+
+  <!-- Contact point highlights (red circles near corners) -->
+  <circle cx="298" cy="218" r="4" fill="#c0392b"/>
+  <circle cx="142" cy="302" r="4" fill="#c0392b"/>
+  <circle cx="223" cy="349" r="4" fill="#c0392b"/>
+
+  <!-- Force Vectors & Annotations -->
+  <!-- Tangential force F_tangential -->
+  <line x1="300" y1="180" x2="350" y2="155" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arrow)"/>
+  <text x="355" y="150" text-anchor="start" class="label" font-weight="bold" fill="#c0392b">F_tangential</text>
+  <text x="355" y="163" text-anchor="start" class="sublabel">(крутний момент)</text>
+
+  <!-- Radial force F_radial -->
+  <line x1="300" y1="214" x2="345" y2="214" stroke="#2457d6" stroke-width="2" stroke-dasharray="3 3"/>
+  <text x="350" y="218" text-anchor="start" class="label">F_radial (розтискання)</text>
+
+  <!-- Stress concentration sigma_max annotation -->
+  <line x1="295" y1="216" x2="350" y2="270" stroke="#1a1a1a" stroke-width="1"/>
+  <circle cx="298" cy="216" r="3" fill="#1a1a1a"/>
+  <text x="355" y="274" text-anchor="start" class="label" font-weight="bold">σ_max (концентрація</text>
+  <text x="355" y="288" text-anchor="start" class="label" font-weight="bold">напружень на кутах)</text>
+
+  <!-- Backlash Delta_s annotation -->
+  <path d="M 220 168 L 220 171" stroke="#6b7280" stroke-width="1"/>
+  <text x="180" y="130" text-anchor="start" class="sublabel">Зазор Δs = 0.03–0.05 мм</text>
+  <text x="180" y="143" text-anchor="start" class="sublabel">(кутовий люфт θ ≈ 2–3°)</text>
+
+
+  <!-- ========================================== -->
+  <!-- PANEL 2: Right (x=510..930) Порівняння -->
+  <!-- ========================================== -->
+  <rect x="505" y="75" width="425" height="365" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="717" y="100" text-anchor="middle" class="section-title">2. Нормальне затягування vs Аварійне злизування</text>
+
+  <!-- Sub-block 1: Normal tightening (Green) -->
+  <rect x="520" y="115" width="395" height="145" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="535" y="125" width="12" height="12" rx="3" fill="#27ae60"/>
+  <text x="555" y="136" class="badge" fill="#27ae60">1. Нормальний режим затягування</text>
+
+  <text x="535" y="160" class="label">• Рекомендований момент для нержавійки A2-70: <tspan font-weight="bold">M = 0.6–0.8 Н·м</tspan></text>
+  <text x="535" y="180" class="label">• Рекомендований момент для сталі 10.9: <tspan font-weight="bold">M = 1.0–1.2 Н·м</tspan></text>
+  <text x="535" y="200" class="label">• Повний контакт на всю глибину заглиблення <tspan font-weight="bold">t_hex = 1.2–1.4 мм</tspan></text>
+  <text x="535" y="220" class="label">• Ключ утримується строго перпендикулярно до осі гвинта</text>
+  <text x="535" y="242" class="sublabel">Рівномірний розподіл зусиль по всій висоті грані шліца.</text>
+
+  <!-- Sub-block 2: Stripped socket (Red) -->
+  <rect x="520" y="275" width="395" height="150" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <rect x="535" y="285" width="12" height="12" rx="3" fill="#c0392b"/>
+  <text x="555" y="296" class="badge" fill="#c0392b">2. Аварійне злизування граней (Stripped Socket)</text>
+
+  <text x="535" y="320" class="label">• Перевищення допустимого моменту: <tspan font-weight="bold" fill="#c0392b">M > 1.5–1.8 Н·м</tspan> для шліца 2 мм</text>
+  <text x="535" y="340" class="label">• Неповне осадження ключа (вставлено лише на <tspan font-weight="bold">0.5 мм</tspan>)</text>
+  <text x="535" y="360" class="label">• Подвоєння локальних напружень через малу площу контакту</text>
+  <text x="535" y="380" class="label">• Пластична деформація кутів: перетворення шліца на циліндр</text>
+  <text x="535" y="402" class="sublabel">Зношений ключ або кутовий (ball-end) зриває грані миттєво!</text>
+
+  <!-- SVG marker definition -->
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 2 L 10 5 L 0 8 z" fill="#c0392b"/>
+    </marker>
+  </defs>
+</svg>

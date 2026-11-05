@@ -1,0 +1,188 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="34" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Послідовність збирання різьбового пакета кріплення</text>
+  <text x="480" y="55" text-anchor="middle" font-size="13" fill="#6b7280">Плоска шайба захищає деталь від пошкодження кромками гровера та розподіляє тиск</text>
+
+  <!-- LEFT PANEL: Exploded View -->
+  <rect x="24" y="74" width="476" height="422" rx="8" fill="#f4f6f8" stroke="#d0d7de"/>
+  <rect x="38" y="86" width="448" height="26" rx="5" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="262" y="103" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">ВИБУХ-СХЕМА: послідовність монтажу пакета</text>
+
+  <!-- Assembly Axis line -->
+  <line x1="105" y1="120" x2="105" y2="382" stroke="#94a3b8" stroke-width="1.2" stroke-dasharray="6,4"/>
+
+  <!-- 1. Bolt M5/M6 -->
+  <rect x="79" y="122" width="52" height="20" rx="2" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="95" y="142" width="20" height="32" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="95" y1="152" x2="115" y2="152" stroke="#2457d6" stroke-width="1"/>
+  <line x1="95" y1="158" x2="115" y2="158" stroke="#2457d6" stroke-width="1"/>
+  <line x1="95" y1="164" x2="115" y2="164" stroke="#2457d6" stroke-width="1"/>
+  <line x1="95" y1="170" x2="115" y2="170" stroke="#2457d6" stroke-width="1"/>
+
+  <!-- Arrow 1 -> 2 -->
+  <line x1="105" y1="178" x2="105" y2="188" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Row 1 Label -->
+  <rect x="186" y="136" width="22" height="20" rx="4" fill="#2457d6"/>
+  <text x="197" y="151" text-anchor="middle" font-size="12" font-weight="bold" fill="#ffffff">1</text>
+  <text x="216" y="145" font-size="13" font-weight="bold" fill="#1a1a1a">Болт М5 / М6 (DIN 912 / 933)</text>
+  <text x="216" y="162" font-size="12" fill="#6b7280">Силовий стрижень, передача затягу F_p</text>
+
+  <!-- 2. Flat washer top -->
+  <rect x="68" y="192" width="74" height="12" rx="1.5" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="94" y1="192" x2="94" y2="204" stroke="#27ae60" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="116" y1="192" x2="116" y2="204" stroke="#27ae60" stroke-width="1" stroke-dasharray="2,2"/>
+
+  <!-- Arrow 2 -> 3 -->
+  <line x1="105" y1="208" x2="105" y2="218" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Row 2 Label -->
+  <rect x="186" y="190" width="22" height="20" rx="4" fill="#27ae60"/>
+  <text x="197" y="205" text-anchor="middle" font-size="12" font-weight="bold" fill="#ffffff">2</text>
+  <text x="216" y="197" font-size="13" font-weight="bold" fill="#27ae60">Плоска шайба DIN 125</text>
+  <text x="216" y="214" font-size="12" fill="#6b7280">Розподіл тиску під головкою болта</text>
+
+  <!-- 3. Workpieces -->
+  <rect x="50" y="222" width="43" height="18" fill="#ffffff" stroke="#6b7280" stroke-width="1.2"/>
+  <rect x="117" y="222" width="43" height="18" fill="#ffffff" stroke="#6b7280" stroke-width="1.2"/>
+  <rect x="50" y="243" width="43" height="18" fill="#e5e7eb" stroke="#6b7280" stroke-width="1.2"/>
+  <rect x="117" y="243" width="43" height="18" fill="#e5e7eb" stroke="#6b7280" stroke-width="1.2"/>
+
+  <!-- Arrow 3 -> 4 -->
+  <line x1="105" y1="265" x2="105" y2="275" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Row 3 Label -->
+  <rect x="186" y="234" width="22" height="20" rx="4" fill="#6b7280"/>
+  <text x="197" y="249" text-anchor="middle" font-size="12" font-weight="bold" fill="#ffffff">3</text>
+  <text x="216" y="241" font-size="13" font-weight="bold" fill="#1a1a1a">З'єднувані деталі корпусу</text>
+  <text x="216" y="258" font-size="12" fill="#6b7280">Пакет деталей із наскрізним отвором</text>
+
+  <!-- 4. Flat washer bottom -->
+  <rect x="68" y="279" width="74" height="12" rx="1.5" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="94" y1="279" x2="94" y2="291" stroke="#27ae60" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="116" y1="279" x2="116" y2="291" stroke="#27ae60" stroke-width="1" stroke-dasharray="2,2"/>
+
+  <!-- Arrow 4 -> 5 -->
+  <line x1="105" y1="295" x2="105" y2="305" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Row 4 Label -->
+  <rect x="186" y="277" width="22" height="20" rx="4" fill="#27ae60"/>
+  <text x="197" y="292" text-anchor="middle" font-size="12" font-weight="bold" fill="#ffffff">4</text>
+  <text x="216" y="284" font-size="13" font-weight="bold" fill="#27ae60">Плоска шайба DIN 125</text>
+  <text x="216" y="301" font-size="12" fill="#6b7280">Опорний буфер, захист від кромок гровера</text>
+
+  <!-- 5. Spring washer DIN 127 -->
+  <path d="M 70,309 L 94,309 L 94,323 L 70,323 Z" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <path d="M 116,315 L 140,315 L 140,329 L 116,329 Z" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="94" y1="309" x2="116" y2="315" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="2,2"/>
+  <line x1="94" y1="323" x2="116" y2="329" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="2,2"/>
+
+  <!-- Arrow 5 -> 6 -->
+  <line x1="105" y1="333" x2="105" y2="343" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Row 5 Label -->
+  <rect x="186" y="313" width="22" height="20" rx="4" fill="#2457d6"/>
+  <text x="197" y="328" text-anchor="middle" font-size="12" font-weight="bold" fill="#ffffff">5</text>
+  <text x="216" y="320" font-size="13" font-weight="bold" fill="#2457d6">Пружинна шайба DIN 127</text>
+  <text x="216" y="337" font-size="12" fill="#6b7280">Гровер: пружний натяг і стопоріння</text>
+
+  <!-- 6. Hex nut DIN 934 -->
+  <rect x="73" y="347" width="64" height="26" rx="2" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="89" y1="347" x2="89" y2="373" stroke="#2457d6" stroke-width="1"/>
+  <line x1="121" y1="347" x2="121" y2="373" stroke="#2457d6" stroke-width="1"/>
+
+  <!-- Row 6 Label -->
+  <rect x="186" y="351" width="22" height="20" rx="4" fill="#1a1a1a"/>
+  <text x="197" y="366" text-anchor="middle" font-size="12" font-weight="bold" fill="#ffffff">6</text>
+  <text x="216" y="358" font-size="13" font-weight="bold" fill="#1a1a1a">Шестигранна гайка DIN 934</text>
+  <text x="216" y="375" font-size="12" fill="#6b7280">Замикання пакета й затяг різьби F_p</text>
+
+  <!-- Left Bottom Summary Card -->
+  <rect x="38" y="396" width="448" height="86" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="54" y="417" font-size="13" font-weight="bold" fill="#2457d6">Правило послідовності монтажу:</text>
+  <text x="54" y="437" font-size="12" fill="#1a1a1a">• Порядок: Болт → Шайба → Деталі → Шайба → Гровер → Гайка</text>
+  <text x="54" y="455" font-size="12" fill="#1a1a1a">• Плоска шайба під гровером обов'язкова: захищає деталь</text>
+  <text x="54" y="473" font-size="12" fill="#6b7280">• Гровер під гайкою стопорить з'єднання пружним натягом</text>
+
+  <!-- RIGHT TOP PANEL: Assembled View -->
+  <rect x="516" y="74" width="420" height="202" rx="8" fill="#f4f6f8" stroke="#d0d7de"/>
+  <rect x="530" y="86" width="392" height="26" rx="5" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="726" y="103" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">ЗІБРАНИЙ СТАН: робочий натяг F_p</text>
+
+  <!-- Assembled components drawing -->
+  <!-- Bolt head -->
+  <rect x="564" y="126" width="52" height="18" rx="2" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <!-- Flat washer 1 -->
+  <rect x="553" y="144" width="74" height="8" rx="1" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <!-- Plates -->
+  <rect x="535" y="152" width="45" height="16" fill="#ffffff" stroke="#6b7280" stroke-width="1.2"/>
+  <rect x="600" y="152" width="45" height="16" fill="#ffffff" stroke="#6b7280" stroke-width="1.2"/>
+  <rect x="535" y="168" width="45" height="16" fill="#e5e7eb" stroke="#6b7280" stroke-width="1.2"/>
+  <rect x="600" y="168" width="45" height="16" fill="#e5e7eb" stroke="#6b7280" stroke-width="1.2"/>
+  <!-- Flat washer 2 -->
+  <rect x="553" y="184" width="74" height="8" rx="1" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <!-- Grover washer compressed -->
+  <rect x="555" y="192" width="70" height="8" rx="1" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="588" y1="192" x2="592" y2="200" stroke="#2457d6" stroke-width="1.2"/>
+  <!-- Nut -->
+  <rect x="558" y="200" width="64" height="22" rx="2" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="574" y1="200" x2="574" y2="222" stroke="#2457d6" stroke-width="1"/>
+  <line x1="606" y1="200" x2="606" y2="222" stroke="#2457d6" stroke-width="1"/>
+  <!-- Bolt threaded end protruding -->
+  <rect x="580" y="222" width="20" height="12" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="580" y1="226" x2="600" y2="226" stroke="#2457d6" stroke-width="1"/>
+  <line x1="580" y1="230" x2="600" y2="230" stroke="#2457d6" stroke-width="1"/>
+
+  <!-- Preload force vectors -->
+  <line x1="590" y1="116" x2="590" y2="123" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <line x1="590" y1="244" x2="590" y2="237" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Assembled callout single card on the right -->
+  <rect x="660" y="118" width="262" height="146" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="674" y="137" font-size="12" font-weight="bold" fill="#2457d6">Осьовий затиск F_p</text>
+  <text x="674" y="153" font-size="12" fill="#6b7280">Шайба розподіляє тиск q під головкою</text>
+  <line x1="674" y1="166" x2="908" y2="166" stroke="#e5e7eb" stroke-width="1"/>
+  <text x="674" y="183" font-size="12" font-weight="bold" fill="#27ae60">Захист поверхонь деталей</text>
+  <text x="674" y="199" font-size="12" fill="#6b7280">Обидві площини затиснуті шайбами</text>
+  <line x1="674" y1="212" x2="908" y2="212" stroke="#e5e7eb" stroke-width="1"/>
+  <text x="674" y="229" font-size="12" font-weight="bold" fill="#2457d6">Гровер стиснутий у площину</text>
+  <text x="674" y="245" font-size="12" fill="#6b7280">Акумулює пружну енергію проти вібрацій</text>
+
+  <!-- RIGHT BOTTOM PANEL: Why flat washer is critical -->
+  <rect x="516" y="290" width="420" height="206" rx="8" fill="#f4f6f8" stroke="#d0d7de"/>
+  <rect x="530" y="300" width="392" height="26" rx="5" fill="#fdecea" stroke="#c0392b"/>
+  <text x="726" y="317" text-anchor="middle" font-size="13" font-weight="bold" fill="#c0392b">ЧОМУ ГРОВЕР НЕ СТАВЛЯТЬ БЕЗ ШАЙБИ?</text>
+
+  <!-- Error Card -->
+  <rect x="530" y="334" width="392" height="68" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.2"/>
+  <rect x="542" y="342" width="74" height="18" rx="3" fill="#fdecea"/>
+  <text x="579" y="355" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">ПОМИЛКА</text>
+  <text x="624" y="355" font-size="12" font-weight="bold" fill="#c0392b">Гровер прямо на деталь (без шайби)</text>
+  <text x="544" y="374" font-size="12" fill="#1a1a1a">• Гострі кромки розрізу здирають захисний шар деталі</text>
+  <text x="544" y="392" font-size="12" fill="#6b7280">• Зминання поверхні послаблює натяг F_p при вібраціях</text>
+
+  <!-- Correct Card -->
+  <rect x="530" y="414" width="392" height="68" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.2"/>
+  <rect x="542" y="422" width="80" height="18" rx="3" fill="#e9f7ef"/>
+  <text x="582" y="435" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">ПРАВИЛЬНО</text>
+  <text x="630" y="435" font-size="12" font-weight="bold" fill="#27ae60">Плоска шайба під гровером (буфер)</text>
+  <text x="544" y="454" font-size="12" fill="#1a1a1a">• Плоска шайба сприймає врізання загартованих кромок</text>
+  <text x="544" y="472" font-size="12" fill="#6b7280">• Опорний тиск q розподіляється рівномірно на деталь</text>
+</svg>

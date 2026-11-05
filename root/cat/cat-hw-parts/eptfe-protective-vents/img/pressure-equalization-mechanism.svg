@@ -1,0 +1,93 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Підкладка -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="38" font-size="18" font-weight="700" text-anchor="middle" fill="#1a1a1a">Вирівнювання тиску у корпусах електроніки: без клапана та з ePTFE-мембраною</text>
+  <text x="480" y="60" font-size="13" text-anchor="middle" fill="#6b7280">Мембрана ePTFE вирівнює внутрішній тиск з атмосферним, запобігаючи деформації ущільнювачів та конденсації вологи</text>
+
+  <!-- Визначення стрілок -->
+  <defs>
+    <marker id="arr-prob" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-sol" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- 1) ЛІВА ПАНЕЛЬ: Герметичний корпус без клапана -->
+  <rect x="40" y="80" width="420" height="350" rx="8" fill="#fdecea" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="250" y="108" font-size="15" font-weight="700" text-anchor="middle" fill="#c0392b">Герметичний корпус без клапана</text>
+
+  <!-- Корпус (бокс) -->
+  <rect x="80" y="140" width="340" height="240" rx="4" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="2"/>
+  
+  <!-- Електроніка всередині -->
+  <rect x="110" y="270" width="140" height="80" rx="4" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="180" y="315" font-size="12" text-anchor="middle" fill="#1a1a1a">Електроніка (PCB)</text>
+
+  <!-- Охолодження / Зниження температури -->
+  <path d="M 230 120 L 230 135" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="230" y="128" font-size="12" text-anchor="middle" fill="#2457d6">Охолодження (-ΔT)</text>
+
+  <!-- Падіння тиску P_in < P_atm -->
+  <text x="250" y="170" font-size="13" font-weight="700" text-anchor="middle" fill="#c0392b">P_in &lt; P_atm (Вакуум)</text>
+
+  <!-- Ущільнювач (O-ring) з деформацією -->
+  <path d="M 380 140 Q 370 145 380 150" fill="none" stroke="#c0392b" stroke-width="3"/>
+  <text x="320" y="146" font-size="12" text-anchor="end" fill="#c0392b">Деформація ущільнювача</text>
+
+  <!-- Засмоктування вологи через стик -->
+  <path d="M 440 210 L 385 210" fill="none" stroke="#c0392b" stroke-width="2" stroke-dasharray="4,4" marker-end="url(#arr-prob)"/>
+  <text x="445" y="198" font-size="12" text-anchor="end" fill="#c0392b">Волога / вода</text>
+  <text x="445" y="226" font-size="12" text-anchor="end" fill="#c0392b">засмоктується всередину</text>
+
+  <!-- Конденсат всередині -->
+  <circle cx="150" cy="240" r="5" fill="#c0392b"/>
+  <circle cx="170" cy="245" r="4" fill="#c0392b"/>
+  <circle cx="160" cy="255" r="4.5" fill="#c0392b"/>
+  <text x="210" y="246" font-size="12" text-anchor="start" fill="#c0392b">Конденсат</text>
+
+
+  <!-- 2) ПРАВА ПАНЕЛЬ: Корпус із захисним ePTFE-клапаном -->
+  <rect x="500" y="80" width="420" height="350" rx="8" fill="#e9f7ef" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="710" y="108" font-size="15" font-weight="700" text-anchor="middle" fill="#27ae60">Корпус із ePTFE-мембраною</text>
+
+  <!-- Корпус (бокс) -->
+  <rect x="540" y="140" width="340" height="240" rx="4" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Електроніка всередині -->
+  <rect x="570" y="270" width="140" height="80" rx="4" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="640" y="315" font-size="12" text-anchor="middle" fill="#1a1a1a">Електроніка (PCB)</text>
+
+  <!-- Охолодження / Зниження температури -->
+  <path d="M 690 120 L 690 135" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="690" y="128" font-size="12" text-anchor="middle" fill="#2457d6">Охолодження (-ΔT)</text>
+
+  <!-- Вирівнювання тиску P_in ≈ P_atm -->
+  <text x="710" y="170" font-size="13" font-weight="700" text-anchor="middle" fill="#27ae60">P_in ≈ P_atm (Тиск рівний)</text>
+
+  <!-- ePTFE клапан у верхній стінці -->
+  <rect x="690" y="136" width="40" height="8" rx="2" fill="#27ae60" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="710" y="120" font-size="12" text-anchor="middle" fill="#27ae60">ePTFE мембрана</text>
+
+  <!-- Вільне проходження повітря через мембрану -->
+  <path d="M 710 100 L 710 132" fill="none" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-sol)"/>
+  <text x="775" y="128" font-size="12" text-anchor="start" fill="#27ae60">Повітря вільно</text>
+  <text x="775" y="142" font-size="12" text-anchor="start" fill="#27ae60">проходить</text>
+
+  <!-- Гідрофобний бар'єр затримує краплі вологи -->
+  <path d="M 820 100 Q 810 115 820 130" fill="none" stroke="#27ae60" stroke-width="2"/>
+  <circle cx="835" cy="115" r="4" fill="#2457d6"/>
+  <circle cx="845" cy="125" r="4" fill="#2457d6"/>
+  <text x="860" y="118" font-size="12" text-anchor="start" fill="#27ae60">Гідрофобний</text>
+  <text x="860" y="132" font-size="12" text-anchor="start" fill="#27ae60">бар'єр (вода зовні)</text>
+
+  <!-- Сухо всередині -->
+  <text x="710" y="235" font-size="12" font-weight="700" text-anchor="middle" fill="#27ae60">Сухе середовище, без конденсату</text>
+
+</svg>

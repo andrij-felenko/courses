@@ -1,0 +1,58 @@
+<svg viewBox="0 0 720 360" width="720" height="360" xmlns="http://www.w3.org/2000/svg" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="720" height="360" fill="white"/>
+  
+  <text x="360" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Геометрія укладки провідників у пучку</text>
+  <text x="360" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Ефективний діаметр залежить від зазорів між жилами різного калібру</text>
+  
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Bundle background -->
+  <circle cx="240" cy="190" r="100" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2" stroke-dasharray="6,4"/>
+  
+  <!-- Conductors -->
+  <circle cx="240" cy="190" r="28" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <circle cx="290" cy="190" r="22" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <circle cx="265" cy="233.3" r="22" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <circle cx="215" cy="233.3" r="22" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <circle cx="190" cy="190" r="22" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <circle cx="215" cy="146.7" r="22" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <circle cx="265" cy="146.7" r="22" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+
+  <circle cx="305" cy="227.5" r="13" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <circle cx="240" cy="265" r="13" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <circle cx="175" cy="227.5" r="13" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <circle cx="175" cy="152.5" r="13" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <circle cx="240" cy="115" r="13" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <circle cx="305" cy="152.5" r="13" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+
+  <!-- Labels -->
+  <text x="420" y="130" font-size="14" font-weight="bold" fill="#1a1a1a">Жили різного калібру (d_i)</text>
+  <line x1="410" y1="125" x2="260" y2="115" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <line x1="410" y1="125" x2="280" y2="146.7" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <text x="420" y="180" font-size="14" font-weight="bold" fill="#6b7280">
+    <tspan x="420" dy="0">Повітряні зазори</tspan>
+    <tspan x="420" dy="18">(коефіцієнт укладки)</tspan>
+  </text>
+  <line x1="410" y1="185" x2="280" y2="185" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+  <line x1="410" y1="185" x2="210" y2="185" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+
+  <text x="420" y="240" font-size="14" font-weight="bold" fill="#1a1a1a">Зовнішній огинаючий контур</text>
+  <line x1="410" y1="235" x2="335" y2="245" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- Dimensioning for D_eff -->
+  <line x1="140" y1="200" x2="140" y2="335" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <line x1="340" y1="200" x2="340" y2="335" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="4,4"/>
+  
+  <line x1="240" y1="325" x2="149" y2="325" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <line x1="240" y1="325" x2="331" y2="325" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  
+  <text x="240" y="315" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Ефективний діаметр D_eff</text>
+</svg>

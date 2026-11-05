@@ -1,0 +1,108 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Порівняння механізмів натягу паса GT2</text>
+  <text x="480" y="60" font-size="13" fill="#6b7280" text-anchor="middle">Вектори прикладання сил, жорсткість фіксації та вплив на динамічну точність позиціонування</text>
+
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Колонки (3 панелі: x=30..315, x=335..620, x=640..925, y=80..440) -->
+  
+  <!-- 1. Гвинтовий натяжник -->
+  <rect x="30" y="80" width="285" height="360" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="42" y="92" width="261" height="32" rx="4" fill="#eaf0fd"/>
+  <text x="172.5" y="113" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">1. Гвинтовий натяжник</text>
+
+  <!-- Схема 1 -->
+  <rect x="50" y="135" width="245" height="115" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="70" y="155" width="130" height="75" rx="2" fill="#e5e7eb" stroke="#9ca3af" stroke-width="1"/>
+  <circle cx="170" cy="192" r="18" fill="#d1d5db" stroke="#4b5563" stroke-width="2"/>
+  <circle cx="170" cy="192" r="6" fill="#1a1a1a"/>
+  <path d="M60,180 L152,180" stroke="#1a1a1a" stroke-width="4" fill="none"/>
+  <path d="M60,204 L152,204" stroke="#1a1a1a" stroke-width="4" fill="none"/>
+  <line x1="70" y1="192" x2="120" y2="192" stroke="#2457d6" stroke-width="3" stroke-dasharray="3,3"/>
+  <line x1="100" y1="162" x2="145" y2="162" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+  <text x="122" y="148" font-size="12" fill="#2457d6" text-anchor="middle">F_tension</text>
+  <circle cx="85" cy="170" r="3" fill="#1a1a1a"/>
+  <circle cx="85" cy="214" r="3" fill="#1a1a1a"/>
+
+  <!-- Опис 1 -->
+  <rect x="42" y="260" width="261" height="168" rx="4" fill="#e9f7ef"/>
+  <text x="52" y="280" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="start">Рекомендовано для 3D-принтерів</text>
+  <text x="52" y="302" font-size="12" fill="#1a1a1a" text-anchor="start">• Гвинт M3/M4 створює силу</text>
+  <text x="52" y="320" font-size="12" fill="#1a1a1a" text-anchor="start">  F_tension уздовж осі руху.</text>
+  <text x="52" y="342" font-size="12" fill="#1a1a1a" text-anchor="start">• Жорстка фіксація ролика</text>
+  <text x="52" y="360" font-size="12" fill="#1a1a1a" text-anchor="start">  болтами без люфтів.</text>
+  <text x="52" y="382" font-size="12" fill="#1a1a1a" text-anchor="start">• Висока стабільність,</text>
+  <text x="52" y="400" font-size="12" fill="#1a1a1a" text-anchor="start">  відсутність дзвону.</text>
+
+
+  <!-- 2. Ексцентриковий механізм -->
+  <rect x="335" y="80" width="285" height="360" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="347" y="92" width="261" height="32" rx="4" fill="#eaf0fd"/>
+  <text x="477.5" y="113" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">2. Ексцентриковий механізм</text>
+
+  <!-- Схема 2 -->
+  <rect x="355" y="135" width="245" height="115" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="375" y="155" width="130" height="75" rx="2" fill="#e5e7eb" stroke="#9ca3af" stroke-width="1"/>
+  <circle cx="455" cy="192" r="20" fill="#d1d5db" stroke="#4b5563" stroke-width="2"/>
+  <circle cx="445" cy="192" r="14" fill="#9ca3af" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="445" cy="192" r="5" fill="#1a1a1a"/>
+  <path d="M445,192 Q460,175 470,178" stroke="#2457d6" stroke-width="2" fill="none" marker-end="url(#arr-blue)"/>
+  <text x="480" y="175" font-size="12" fill="#2457d6" text-anchor="middle">dR</text>
+  <line x1="365" y1="180" x2="430" y2="180" stroke="#1a1a1a" stroke-width="4"/>
+  <line x1="365" y1="204" x2="430" y2="204" stroke="#1a1a1a" stroke-width="4"/>
+  <text x="545" y="168" font-size="12" fill="#4b5563" text-anchor="middle">Контргайка</text>
+
+  <!-- Опис 2 -->
+  <rect x="347" y="260" width="261" height="168" rx="4" fill="#eaf0fd"/>
+  <text x="357" y="280" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="start">Компактний індустріальний вузол</text>
+  <text x="357" y="302" font-size="12" fill="#1a1a1a" text-anchor="start">• Поворот ексцентрика дає</text>
+  <text x="357" y="320" font-size="12" fill="#1a1a1a" text-anchor="start">  радіальне зміщення осі dR.</text>
+  <text x="357" y="342" font-size="12" fill="#1a1a1a" text-anchor="start">• Швидке регулювання та</text>
+  <text x="357" y="360" font-size="12" fill="#1a1a1a" text-anchor="start">  малі габарити механізму.</text>
+  <text x="357" y="382" font-size="12" fill="#1a1a1a" text-anchor="start">• Надійна фіксація контргайкою,</text>
+  <text x="357" y="400" font-size="12" fill="#1a1a1a" text-anchor="start">  середній діапазон ходу.</text>
+
+
+  <!-- 3. Пружинний натяжник -->
+  <rect x="640" y="80" width="285" height="360" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="652" y="92" width="261" height="32" rx="4" fill="#fdecea"/>
+  <text x="782.5" y="113" font-size="14" font-weight="bold" fill="#c0392b" text-anchor="middle">3. Пружинний натяжник</text>
+
+  <!-- Схема 3 -->
+  <rect x="660" y="135" width="245" height="115" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="680" y="155" width="130" height="75" rx="2" fill="#e5e7eb" stroke="#9ca3af" stroke-width="1"/>
+  <circle cx="770" cy="192" r="18" fill="#d1d5db" stroke="#4b5563" stroke-width="2"/>
+  <circle cx="770" cy="192" r="6" fill="#1a1a1a"/>
+  <path d="M690,192 L705,182 L715,202 L725,182 L735,202 L745,182 L752,192" stroke="#c0392b" stroke-width="2.5" fill="none"/>
+  <line x1="710" y1="162" x2="755" y2="162" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arr-red)"/>
+  <text x="732" y="148" font-size="12" fill="#c0392b" text-anchor="middle">F_spring</text>
+  <path d="M670,180 L752,180" stroke="#1a1a1a" stroke-width="4" fill="none"/>
+  <path d="M670,204 L752,204" stroke="#1a1a1a" stroke-width="4" fill="none"/>
+
+  <!-- Опис 3 -->
+  <rect x="652" y="260" width="261" height="168" rx="4" fill="#fdecea"/>
+  <text x="662" y="280" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="start">Не рекомендується для точного друку</text>
+  <text x="662" y="302" font-size="12" fill="#1a1a1a" text-anchor="start">• Пружна сила F_spring створює</text>
+  <text x="662" y="320" font-size="12" fill="#1a1a1a" text-anchor="start">  автоматичний натяг паса.</text>
+  <text x="662" y="342" font-size="12" fill="#1a1a1a" text-anchor="start">• Паразитна податливість:</text>
+  <text x="662" y="360" font-size="12" fill="#1a1a1a" text-anchor="start">  пружина коливається під час</text>
+  <text x="662" y="382" font-size="12" fill="#1a1a1a" text-anchor="start">  розгону (ефект дзвону /</text>
+  <text x="662" y="400" font-size="12" fill="#1a1a1a" text-anchor="start">  ghosting та ringing на деталі).</text>
+
+</svg>

@@ -1,0 +1,91 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1300 460" width="1300" height="460">
+  <style>
+    .title { font-family: sans-serif; font-size: 15px; font-weight: bold; fill: #1a1a1a; text-anchor: middle; }
+    .subtitle { font-family: sans-serif; font-size: 10px; fill: #6b7280; text-anchor: middle; }
+    .label { font-family: sans-serif; font-size: 12px; fill: #1a1a1a; font-weight: bold; }
+    .signal-label { font-family: sans-serif; font-size: 14px; fill: #2457d6; font-weight: bold; }
+    .dim-text { font-family: sans-serif; font-size: 10px; fill: #6b7280; text-anchor: middle; }
+    .box-title { font-family: sans-serif; font-size: 12px; font-weight: bold; fill: #1a1a1a; }
+    .box-text { font-family: sans-serif; font-size: 10px; fill: #333333; }
+    .signal { fill: none; stroke: #2457d6; stroke-width: 2; }
+    .signal-oe { fill: none; stroke: #c0392b; stroke-width: 2; }
+    .signal-y { fill: none; stroke: #27ae60; stroke-width: 2; }
+    .hiz { fill: none; stroke: #6b7280; stroke-width: 1.5; stroke-dasharray: 4,4; }
+  </style>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="1300" height="460" fill="white"/>
+
+  <!-- Header -->
+  <text x="650" y="38" class="title">Часова діаграма комутації буфера 74LVC1G125</text>
+  <text x="650" y="58" class="subtitle">Затримки поширення сигналу t_pd та часи переходу в активний стан t_en і стан Hi-Z t_dis</text>
+
+  <!-- Left Panel: Timing Diagrams -->
+  <rect x="25" y="80" width="600" height="350" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  
+  <!-- Signals Container -->
+  <!-- Signal /OE -->
+  <text x="40" y="115" class="signal-label">/OE</text>
+  <path d="M 80 120 L 140 120 L 150 100 L 280 100 L 290 120 L 440 120 L 450 100 L 580 100" class="signal-oe"/>
+
+  <!-- Signal A -->
+  <text x="40" y="195" class="signal-label">A</text>
+  <path d="M 80 200 L 180 200 L 190 180 L 340 180 L 350 200 L 520 200 L 530 180 L 580 180" class="signal"/>
+
+  <!-- Signal Y -->
+  <text x="40" y="275" class="signal-label">Y</text>
+  <path d="M 80 280 L 145 280" class="signal-y"/>
+  <path d="M 145 270 Q 150 270 155 240 L 185 240" class="signal-y"/>
+  <path d="M 185 270 L 275 270" class="hiz"/>
+  <path d="M 275 200 Q 280 270 285 270 L 435 270" class="signal-y"/>
+  <path d="M 435 270 Q 440 270 445 200 L 580 200" class="signal-y"/>
+
+  <!-- Time markers & arrows -->
+  <line x1="180" y1="210" x2="195" y2="210" stroke="#1a1a1a" stroke-width="1"/>
+  <line x1="180" y1="205" x2="180" y2="215" stroke="#1a1a1a" stroke-width="1"/>
+  <line x1="195" y1="205" x2="195" y2="215" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="187" y="228" class="dim-text">t_pd</text>
+
+  <line x1="275" y1="285" x2="290" y2="285" stroke="#27ae60" stroke-width="1"/>
+  <line x1="275" y1="280" x2="275" y2="290" stroke="#27ae60" stroke-width="1"/>
+  <line x1="290" y1="280" x2="290" y2="290" stroke="#27ae60" stroke-width="1"/>
+  <text x="282" y="303" class="dim-text">t_en</text>
+
+  <line x1="435" y1="285" x2="450" y2="285" stroke="#c0392b" stroke-width="1"/>
+  <line x1="435" y1="280" x2="435" y2="290" stroke="#c0392b" stroke-width="1"/>
+  <line x1="450" y1="280" x2="450" y2="290" stroke="#c0392b" stroke-width="1"/>
+  <text x="442" y="303" class="dim-text">t_dis</text>
+
+  <!-- Descriptions inside Left Panel -->
+  <rect x="40" y="330" width="570" height="80" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="50" y="350" class="box-title">Затримки (3.3В):</text>
+  <text x="50" y="370" class="box-text">t_pd ≈ 2.5-3.5нс</text>
+  <text x="50" y="390" class="box-text">t_en ≈ 3.5-4.5нс</text>
+  <text x="250" y="370" class="box-text">t_dis ≈ 3.0-4.0нс</text>
+
+
+  <!-- Right Panel: Rules & Protection -->
+  <rect x="645" y="80" width="600" height="350" rx="8" fill="#eaf0fd" stroke="#d0d7de" stroke-width="1"/>
+  
+  <text x="945" y="105" class="box-title" text-anchor="middle">Правила комутації</text>
+
+  <!-- Rule 1 -->
+  <rect x="660" y="120" width="570" height="85" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="670" y="140" class="box-title" fill="#2457d6">Break-Before-Make</text>
+  <text x="670" y="158" class="box-text">t_off_old > t_on_new</text>
+  <text x="670" y="174" class="box-text">Запобігає одночасному відкриттю двох буферів.</text>
+
+  <!-- Rule 2 -->
+  <rect x="660" y="215" width="570" height="85" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="670" y="235" class="box-title" fill="#c0392b">Характеристики Hi-Z</text>
+  <text x="670" y="253" class="box-text">R_out > 1 ГОм, I_OZ &lt; 5 мкА</text>
+  <text x="670" y="269" class="box-text">Високоімпедансний стан (відключено).</text>
+
+  <!-- Rule 3 -->
+  <rect x="660" y="310" width="570" height="105" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="670" y="330" class="box-title" fill="#27ae60">Резистори зв'язку</text>
+  <text x="670" y="348" class="box-text">Pull-up / Pull-down</text>
+  <text x="670" y="366" class="box-text">утримують стабільний рівень під час Hi-Z</text>
+  <text x="670" y="384" class="box-text">для захисту від плаваючих шумів на шині.</text>
+
+</svg>

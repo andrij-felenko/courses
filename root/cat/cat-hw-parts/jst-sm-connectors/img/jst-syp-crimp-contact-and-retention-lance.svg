@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Конструкція контакту JST-SYP та фіксація Locking Lance</text>
+  <text x="480" y="60" font-size="13" fill="#6b7280" text-anchor="middle">Двозонний обтиск AWG 24–28, пружинний язичок та механізм утримання в ізоляторі (серія SYF-001T / SYM-001T)</text>
+
+  <!-- Panel 1: Left (x=30..510, y=80..430) -->
+  <rect x="30" y="80" width="480" height="350" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="270" y="105" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Анатомія контакту JST-SYP</text>
+
+  <!-- Wire & Contact Drawing -->
+  <rect x="45" y="140" width="90" height="28" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="90" y="158" font-size="11" fill="#2457d6" text-anchor="middle">AWG 24-28</text>
+
+  <line x1="135" y1="154" x2="175" y2="154" stroke="#c0392b" stroke-width="2" stroke-dasharray="3,3"/>
+  
+  <path d="M 170 125 Q 185 110 200 125 L 200 185 Q 185 200 170 185 Z" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1.5"/>
+  
+  <rect x="200" y="140" width="16" height="28" fill="white" stroke="#6b7280" stroke-width="1" stroke-dasharray="2,2"/>
+
+  <path d="M 216 120 Q 231 105 246 120 L 246 190 Q 231 205 216 190 Z" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <rect x="246" y="135" width="120" height="28" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1.5"/>
+  <path d="M 300 135 L 325 112 L 340 135 Z" fill="#2457d6" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Panel 1 Labels (Single line per y, strictly separated) -->
+  <text x="90" y="195" font-size="11" fill="#6b7280" text-anchor="middle">Ізоляція</text>
+  <text x="185" y="220" font-size="11" fill="#6b7280" text-anchor="middle">Крила ізоляції</text>
+  <text x="208" y="122" font-size="11" fill="#6b7280" text-anchor="middle">Вікно</text>
+  <text x="231" y="240" font-size="11" fill="#6b7280" text-anchor="middle">B-обтиск жили</text>
+  <text x="320" y="98" font-size="11" fill="#2457d6" text-anchor="middle">Locking Lance</text>
+  <text x="306" y="185" font-size="11" fill="#1a1a1a" text-anchor="middle">Робоча зона</text>
+
+  <!-- Panel 2: Right (x=530..930, y=80..430) -->
+  <rect x="530" y="80" width="400" height="350" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="730" y="105" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Механіка фіксації в корпусі</text>
+
+  <!-- Housing -->
+  <path d="M 550 145 L 910 145 L 910 215 L 550 215 Z" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+  <path d="M 730 145 L 730 168 L 710 168" fill="none" stroke="#c0392b" stroke-width="2"/>
+  <text x="730" y="132" font-size="11" fill="#c0392b" text-anchor="middle">Housing Shoulder</text>
+
+  <!-- Contact inside housing -->
+  <rect x="565" y="158" width="120" height="24" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1"/>
+  <path d="M 645 158 L 670 140 L 690 158 Z" fill="#27ae60" stroke="#1a1a1a" stroke-width="1"/>
+
+  <!-- Specs Box -->
+  <rect x="550" y="230" width="360" height="85" rx="4" ry="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="565" y="250" font-size="12" font-weight="bold" fill="#1a1a1a">Нормативні параметри:</text>
+  <text x="565" y="267" font-size="11" fill="#1a1a1a">- Зусилля утримання: F_retention &gt;= 15 Н</text>
+  <text x="565" y="284" font-size="11" fill="#1a1a1a">- Виривання: AWG24 &gt;= 29.4Н, AWG26 &gt;= 19.6Н</text>
+  <text x="565" y="301" font-size="11" fill="#1a1a1a">- Перехідний опір: R_contact &lt;= 10 мОм</text>
+
+  <!-- Warning Box -->
+  <rect x="550" y="328" width="360" height="55" rx="4" ry="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="565" y="348" font-size="11" font-weight="bold" fill="#c0392b">Застереження:</text>
+  <text x="565" y="367" font-size="11" fill="#c0392b">Повторне вилучення голкою зламає язичок!</text>
+</svg>

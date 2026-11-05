@@ -1,0 +1,115 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 500" width="960" height="500" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2563eb"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#16a34a"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="500" fill="#ffffff"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Розрахунок пакета затискання та довжини потайного гвинта М3 DIN 7991</text>
+  <text x="480" y="52" text-anchor="middle" font-size="13" fill="#6b7280">Визначення номінальної довжини L_min = t_stack + h_w + m + 2P та вибір найближчого розміру М3×16</text>
+
+  <!-- Left Panel: Складальний розріз пакета -->
+  <rect x="25" y="75" width="520" height="400" rx="8" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+  <text x="45" y="102" font-size="14" font-weight="bold" fill="#0f172a">1. Конструктивний розріз пакета деталей і кріплення</text>
+
+  <!-- Center axis -->
+  <line x1="220" y1="110" x2="220" y2="445" stroke="#94a3b8" stroke-dasharray="6,4" stroke-width="1"/>
+
+  <!-- Plate 1 (Upper Aluminum Panel with countersink, t1 = 3.0 mm, scaled 1mm = 16px -> 48px) -->
+  <path d="M 60,130 L 172,130 L 196,157 L 196,178 L 60,178 Z" fill="#dbeafe" stroke="#3b82f6" stroke-width="1.5"/>
+  <path d="M 244,178 L 244,157 L 268,130 L 380,130 L 380,178 Z" fill="#dbeafe" stroke="#3b82f6" stroke-width="1.5"/>
+  <text x="110" y="158" font-size="11" font-weight="bold" fill="#1e40af">Деталь 1 (t₁ = 3.0 мм)</text>
+
+  <!-- Plate 2 (Lower Plate / Chassis, t2 = 4.0 mm -> 64px) -->
+  <rect x="60" y="178" width="136" height="64" fill="#f1f5f9" stroke="#64748b" stroke-width="1.5"/>
+  <rect x="244" y="178" width="136" height="64" fill="#f1f5f9" stroke="#64748b" stroke-width="1.5"/>
+  <text x="110" y="214" font-size="11" font-weight="bold" fill="#475569">Деталь 2 (t₂ = 4.0 мм)</text>
+
+  <!-- Flat Washer DIN 125 under nut (h_w = 0.5 mm -> 10px) -->
+  <rect x="180" y="242" width="80" height="10" rx="1" fill="#cbd5e1" stroke="#475569" stroke-width="1.5"/>
+  <text x="120" y="250" font-size="10" fill="#475569" text-anchor="end">Шайба DIN 125 (0.5 мм)</text>
+
+  <!-- Nyloc Locknut DIN 985 (m = 4.0 mm -> 64px) -->
+  <rect x="175" y="252" width="90" height="54" rx="3" fill="#e2e8f0" stroke="#334155" stroke-width="1.5"/>
+  <rect x="185" y="296" width="70" height="10" fill="#3b82f6" rx="2"/>
+  <text x="220" y="282" font-size="11" text-anchor="middle" font-weight="bold" fill="#1e293b">Гайка DIN 985</text>
+  <text x="220" y="304" font-size="9" text-anchor="middle" fill="#ffffff" font-weight="bold">Нейлонове кільце</text>
+
+  <!-- Screw M3 DIN 7991 (Head flush at y=130) -->
+  <polygon points="172,130 268,130 244,157 196,157" fill="#94a3b8" stroke="#1e293b" stroke-width="1.5"/>
+  <!-- Hex socket indication -->
+  <polygon points="208,130 232,130 226,140 214,140" fill="#475569"/>
+
+  <!-- Screw shank (M3, d=48px, length 16 mm -> 256px -> extends to y=386) -->
+  <rect x="196" y="157" width="48" height="230" fill="#cbd5e1" stroke="#1e293b" stroke-width="1.5"/>
+  <!-- Thread ridges -->
+  <line x1="196" y1="230" x2="244" y2="235" stroke="#94a3b8" stroke-width="1"/>
+  <line x1="196" y1="245" x2="244" y2="250" stroke="#94a3b8" stroke-width="1"/>
+  <line x1="196" y1="260" x2="244" y2="265" stroke="#94a3b8" stroke-width="1"/>
+  <line x1="196" y1="275" x2="244" y2="280" stroke="#94a3b8" stroke-width="1"/>
+  <line x1="196" y1="290" x2="244" y2="295" stroke="#94a3b8" stroke-width="1"/>
+  <line x1="196" y1="315" x2="244" y2="320" stroke="#94a3b8" stroke-width="1.5"/>
+  <line x1="196" y1="335" x2="244" y2="340" stroke="#94a3b8" stroke-width="1.5"/>
+  <line x1="196" y1="355" x2="244" y2="360" stroke="#94a3b8" stroke-width="1.5"/>
+  <line x1="196" y1="375" x2="244" y2="380" stroke="#94a3b8" stroke-width="1.5"/>
+
+  <!-- Protruding thread section (exit past nut) -->
+  <rect x="194" y="306" width="52" height="80" fill="none" stroke="#16a34a" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <text x="255" y="345" font-size="11" font-weight="bold" fill="#16a34a">Вихід різьби: 5.0 мм ≥ 2P</text>
+
+  <!-- Dimension line for full length L = 16 mm on right side -->
+  <line x1="420" y1="130" x2="420" y2="386" stroke="#2563eb" stroke-width="2" marker-start="url(#arr-blue)" marker-end="url(#arr-blue)"/>
+  <line x1="275" y1="130" x2="430" y2="130" stroke="#94a3b8" stroke-dasharray="2,2"/>
+  <line x1="248" y1="386" x2="430" y2="386" stroke="#94a3b8" stroke-dasharray="2,2"/>
+  <text x="440" y="260" font-size="13" font-weight="bold" fill="#2563eb">L = 16 мм (DIN 7991)</text>
+
+  <!-- Right Panel: Розрахункова таблиця та формула -->
+  <rect x="565" y="75" width="370" height="400" rx="8" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+  <text x="585" y="102" font-size="14" font-weight="bold" fill="#0f172a">2. Математичний баланс пакета затискання</text>
+
+  <!-- Formula box -->
+  <rect x="580" y="120" width="340" height="70" rx="6" fill="#eff6ff" stroke="#3b82f6" stroke-width="1"/>
+  <text x="590" y="142" font-size="12" font-weight="bold" fill="#1e40af">L_min = t_stack + h_w + m + (2 · P)</text>
+  <text x="590" y="162" font-size="11" fill="#334155">= (3.0 + 4.0) + 0.5 + 4.0 + (2 · 0.5)</text>
+  <text x="590" y="180" font-size="12" font-weight="bold" fill="#2563eb">= 12.5 мм  →  Обираємо гвинт М3×16</text>
+
+  <!-- Table breakdown -->
+  <rect x="580" y="205" width="340" height="185" rx="6" fill="#ffffff" stroke="#e2e8f0" stroke-width="1"/>
+  <text x="590" y="226" font-size="12" font-weight="bold" fill="#1e293b">Складові пакета затискання:</text>
+
+  <text x="590" y="250" font-size="11" fill="#334155">1. Товщина панелей t_stack (3 + 4 мм):</text>
+  <text x="880" y="250" font-size="11" font-weight="bold" fill="#1e293b" text-anchor="end">7.0 мм</text>
+
+  <text x="590" y="272" font-size="11" fill="#334155">2. Товщина шайби DIN 125 (h_w):</text>
+  <text x="880" y="272" font-size="11" font-weight="bold" fill="#1e293b" text-anchor="end">0.5 мм</text>
+
+  <text x="590" y="294" font-size="11" fill="#334155">3. Висота гайки DIN 985 (m):</text>
+  <text x="880" y="294" font-size="11" font-weight="bold" fill="#1e293b" text-anchor="end">4.0 мм</text>
+
+  <text x="590" y="316" font-size="11" fill="#334155">4. Гарантований вихід різьби (2 кроки P):</text>
+  <text x="880" y="316" font-size="11" font-weight="bold" fill="#16a34a" text-anchor="end">1.0 мм</text>
+
+  <line x1="590" y1="330" x2="905" y2="330" stroke="#cbd5e1" stroke-width="1"/>
+
+  <text x="590" y="348" font-size="11" font-weight="bold" fill="#1e293b">Мінімально необхідна довжина L_min:</text>
+  <text x="880" y="348" font-size="12" font-weight="bold" fill="#2563eb" text-anchor="end">12.5 мм</text>
+
+  <text x="590" y="372" font-size="11" font-weight="bold" fill="#15803d">Стандартний типорозмір з набору:</text>
+  <text x="880" y="372" font-size="12" font-weight="bold" fill="#15803d" text-anchor="end">М3 × 16 мм</text>
+
+  <!-- Bottom Tip -->
+  <rect x="580" y="402" width="340" height="60" rx="6" fill="#f0fdf4" stroke="#86efac" stroke-width="1"/>
+  <text x="590" y="422" font-size="11" font-weight="bold" fill="#166534">Правило вимірювання DIN 7991:</text>
+  <text x="590" y="438" font-size="11" fill="#14532d">Довжина потайного гвинта вимірюється ПОВНІСТЮ</text>
+  <text x="590" y="452" font-size="11" fill="#14532d">від площини головки до кінця різьбового стержня.</text>
+</svg>

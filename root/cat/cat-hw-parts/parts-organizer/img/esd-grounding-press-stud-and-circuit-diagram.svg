@@ -1,0 +1,74 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="700" fill="#1a1a1a">Схема підключення ESD-заземлення та клеми press-stud</text>
+  <text x="480" y="54" text-anchor="middle" font-size="13" fill="#6b7280">Вузол 10-мм кнопки, захисний резистор 1 МОм та точки контролю опору за IEC 61340-5-1</text>
+
+  <!-- LEFT PANEL: Mechanical Press-stud connection -->
+  <rect x="40" y="75" width="420" height="360" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="55" y="90" width="390" height="30" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="250" y="110" text-anchor="middle" font-size="13" font-weight="700" fill="#2457d6">Конструкція клеми press-stud 10 мм у розрізі</text>
+
+  <!-- Conductive ESD tray wall -->
+  <rect x="70" y="190" width="130" height="35" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="300" y="190" width="130" height="35" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="135" y="175" text-anchor="middle" font-size="11" font-weight="700" fill="#1a1a1a">ESD пластик лотка</text>
+  <text x="365" y="175" text-anchor="middle" font-size="11" font-weight="700" fill="#1a1a1a">Дисипативний PP</text>
+
+  <!-- 10mm male snap button -->
+  <path d="M210,190 L290,190 L290,205 L260,205 L260,225 L240,225 L240,205 L210,205 Z" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <circle cx="250" cy="180" r="10" fill="#2457d6" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="250" y="150" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">Кнопка-папа Ø10 мм</text>
+
+  <!-- Female connector with cable -->
+  <path d="M225,180 L235,165 L265,165 L275,180 Z" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <line x1="250" y1="225" x2="250" y2="300" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="250" cy="305" r="5" fill="#1a1a1a"/>
+  <text x="250" y="325" text-anchor="middle" font-size="11" font-weight="700" fill="#1a1a1a">Гвинтовий контакт заземлення</text>
+
+  <!-- Notes bottom left -->
+  <text x="250" y="375" text-anchor="middle" font-size="12" fill="#1a1a1a">Надійний прямий контакт без ізолюючих оксидів</text>
+  <text x="250" y="395" text-anchor="middle" font-size="12" fill="#2457d6">Поверхневий опір пластику: 10⁴ .. 10⁹ Ом/кв</text>
+
+  <!-- RIGHT PANEL: Electrical Circuit & Measurement -->
+  <rect x="500" y="75" width="420" height="360" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="515" y="90" width="390" height="30" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="710" y="110" text-anchor="middle" font-size="13" font-weight="700" fill="#27ae60">Електрична схема та точки вимірювання опору</text>
+
+  <!-- Measurement Point A -->
+  <rect x="535" y="145" width="85" height="50" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="577" y="168" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">Точка A</text>
+  <text x="577" y="185" text-anchor="middle" font-size="10" fill="#1a1a1a">Поверхня лотка</text>
+
+  <line x1="620" y1="170" x2="655" y2="170" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Measurement Point B (Snap 10mm) -->
+  <rect x="655" y="145" width="95" height="50" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="702" y="168" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">Точка B</text>
+  <text x="702" y="185" text-anchor="middle" font-size="10" fill="#1a1a1a">Клема 10 мм</text>
+
+  <line x1="750" y1="170" x2="780" y2="170" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Resistor 1 MOhm -->
+  <rect x="780" y="155" width="55" height="30" fill="#ffffff" stroke="#27ae60" stroke-width="2"/>
+  <text x="807" y="174" text-anchor="middle" font-size="11" font-weight="700" fill="#27ae60">1 МОм</text>
+
+  <line x1="835" y1="170" x2="865" y2="170" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Measurement Point C (Ground EBP) -->
+  <rect x="760" y="235" width="105" height="45" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="812" y="255" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">Точка C (EBP)</text>
+  <text x="812" y="271" text-anchor="middle" font-size="10" fill="#1a1a1a">Земля контуру</text>
+
+  <!-- Connect to Point C -->
+  <line x1="865" y1="170" x2="865" y2="215" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="865" y1="215" x2="812" y2="215" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="812" y1="215" x2="812" y2="235" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Limits & standards text in right panel -->
+  <text x="710" y="325" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">Норми опору за IEC 61340-5-1:</text>
+  <text x="710" y="350" text-anchor="middle" font-size="11" fill="#2457d6">R(A → B): опір розсіювання матеріалу ≤ 10⁹ Ом</text>
+  <text x="710" y="370" text-anchor="middle" font-size="11" fill="#27ae60">R(B → C): захисний резистор R = 1 МОм (±10%)</text>
+  <text x="710" y="395" text-anchor="middle" font-size="11" fill="#1a1a1a">Обмеження струму при випадковому дотику до 230 В (&lt; 0.25 мА)</text>
+</svg>

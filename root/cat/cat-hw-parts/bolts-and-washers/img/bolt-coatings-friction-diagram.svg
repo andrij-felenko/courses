@@ -1,0 +1,107 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2563eb"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#dc2626"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="520" fill="#ffffff"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Вплив захисного покриття болтів М5/М6 на коефіцієнт тертя та затискне зусилля</text>
+  <text x="480" y="52" text-anchor="middle" font-size="13" fill="#6b7280">Залежність T = K · F · d: при однаковому крутному моменті тип покриття визначає натяг і ризик галінгу</text>
+
+  <!-- Left Card: Порівняльна діаграма K і моменту T (для F = 6 кН, болт М6) -->
+  <rect x="25" y="75" width="460" height="420" rx="8" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+  <text x="45" y="102" font-size="15" font-weight="bold" fill="#0f172a">1. Коефіцієнт тертя K та момент затягування T для F = 6000 Н (М6)</text>
+
+  <!-- Grid lines -->
+  <line x1="160" y1="130" x2="160" y2="350" stroke="#e2e8f0" stroke-width="1"/>
+  <line x1="230" y1="130" x2="230" y2="350" stroke="#e2e8f0" stroke-width="1"/>
+  <line x1="300" y1="130" x2="300" y2="350" stroke="#e2e8f0" stroke-width="1"/>
+  <line x1="370" y1="130" x2="370" y2="350" stroke="#e2e8f0" stroke-width="1"/>
+  <line x1="440" y1="130" x2="440" y2="350" stroke="#e2e8f0" stroke-width="1"/>
+
+  <text x="160" y="365" font-size="11" fill="#64748b" text-anchor="middle">2 Н·м</text>
+  <text x="230" y="365" font-size="11" fill="#64748b" text-anchor="middle">4 Н·м</text>
+  <text x="300" y="365" font-size="11" fill="#64748b" text-anchor="middle">6 Н·м</text>
+  <text x="370" y="365" font-size="11" fill="#64748b" text-anchor="middle">8 Н·м</text>
+  <text x="440" y="365" font-size="11" fill="#64748b" text-anchor="middle">10 Н·м</text>
+
+  <!-- Row 1: Суха нержавійка (A2-70) - ризик галінгу -->
+  <text x="40" y="152" font-size="12" font-weight="bold" fill="#1e293b">Нержавійка A2 (суха)</text>
+  <text x="40" y="167" font-size="11" fill="#dc2626">K ≈ 0.28..0.35 (високе тертя)</text>
+  <rect x="160" y="142" width="260" height="26" rx="4" fill="#fca5a5" stroke="#dc2626" stroke-width="1.5"/>
+  <text x="428" y="159" font-size="11" font-weight="bold" fill="#991b1b">10.8 Н·м</text>
+
+  <!-- Row 2: Оцинкована сталь (суха) -->
+  <text x="40" y="202" font-size="12" font-weight="bold" fill="#1e293b">Оцинкована сталь 8.8</text>
+  <text x="40" y="217" font-size="11" fill="#64748b">K ≈ 0.20 (стандарт)</text>
+  <rect x="160" y="192" width="182" height="26" rx="4" fill="#fed7aa" stroke="#ea580c" stroke-width="1.5"/>
+  <text x="350" y="209" font-size="11" font-weight="bold" fill="#9a3412">7.2 Н·м</text>
+
+  <!-- Row 3: Нікельована сталь -->
+  <text x="40" y="252" font-size="12" font-weight="bold" fill="#1e293b">Нікельована сталь</text>
+  <text x="40" y="267" font-size="11" fill="#64748b">K ≈ 0.14 (знижене тертя)</text>
+  <rect x="160" y="242" width="127" height="26" rx="4" fill="#bae6fd" stroke="#0284c7" stroke-width="1.5"/>
+  <text x="295" y="259" font-size="11" font-weight="bold" fill="#0369a1">5.04 Н·м</text>
+
+  <!-- Row 4: Змащена різьба / фіксатор -->
+  <text x="40" y="302" font-size="12" font-weight="bold" fill="#1e293b">Змащена / анаеробна</text>
+  <text x="40" y="317" font-size="11" fill="#16a34a">K ≈ 0.11..0.12 (мастило/Loctite)</text>
+  <rect x="160" y="292" width="105" height="26" rx="4" fill="#bbf7d0" stroke="#16a34a" stroke-width="1.5"/>
+  <text x="273" y="309" font-size="11" font-weight="bold" fill="#15803d">4.1 Н·м</text>
+
+  <!-- Summary box inside left panel -->
+  <rect x="40" y="390" width="430" height="90" rx="6" fill="#ffffff" stroke="#e2e8f0" stroke-width="1"/>
+  <text x="50" y="412" font-size="12" font-weight="bold" fill="#dc2626">⚠ Небезпека неврахування покриття:</text>
+  <text x="50" y="430" font-size="11" fill="#334155">• Затягування змащеного болта моментом 7.2 Н·м перевантажує натяг F до 10500 Н!</text>
+  <text x="50" y="448" font-size="11" fill="#334155">• Стержень зазнає пластичної деформації або зриває витки різьби в алюмінії.</text>
+  <text x="50" y="466" font-size="11" fill="#334155">• Зниження K на 30% вимагає пропорційного зменшення моменту на ключі.</text>
+
+  <!-- Right Panel: Трибологія contacts & Galling Risk -->
+  <rect x="505" y="75" width="430" height="420" rx="8" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+  <text x="525" y="102" font-size="15" font-weight="bold" fill="#0f172a">2. Трибологічні явища у витках різьби</text>
+
+  <!-- Box A: Galling / Задирання різьби -->
+  <rect x="520" y="125" width="400" height="160" rx="6" fill="#fff1f2" stroke="#e11d48" stroke-width="1.5"/>
+  <text x="535" y="148" font-size="13" font-weight="bold" fill="#be123c">А. Задирання (Galling) та холодне зварювання витків</text>
+
+  <!-- Thread sketch with galling -->
+  <path d="M 540,170 L 565,190 L 590,170 L 615,190 L 640,170" fill="none" stroke="#475569" stroke-width="2"/>
+  <path d="M 540,185 L 565,205 L 590,185 L 615,205 L 640,185" fill="none" stroke="#dc2626" stroke-width="2.5"/>
+  <circle cx="565" cy="198" r="8" fill="#fecdd3" stroke="#e11d48" stroke-width="1.5"/>
+  <text x="580" y="215" font-size="10" font-weight="bold" fill="#9f1239">Мікросхоплення!</text>
+
+  <text x="655" y="172" font-size="11" font-weight="bold" fill="#1e293b">Особливо вразливі:</text>
+  <text x="655" y="188" font-size="11" fill="#334155">• Нержавійка A2/A4 по нержавійці</text>
+  <text x="655" y="204" font-size="11" fill="#334155">• Титан по титану чи сталі без мастила</text>
+  <text x="535" y="240" font-size="11" fill="#475569">При високому тиску оксидний шар руйнується, метал схоплюється намертво.</text>
+  <text x="535" y="258" font-size="11" font-weight="bold" fill="#be123c">Запобігання: антизадирні пасти (Anti-seize, MoS₂) або цинкування.</text>
+
+  <!-- Box B: Гальванічна корозія -->
+  <rect x="520" y="300" width="400" height="180" rx="6" fill="#eff6ff" stroke="#3b82f6" stroke-width="1.5"/>
+  <text x="535" y="324" font-size="13" font-weight="bold" fill="#1d4ed8">Б. Гальванічна корозійна пара (Сталь + Алюміній)</text>
+
+  <!-- Potential gradient visual -->
+  <rect x="535" y="340" width="180" height="26" fill="#dbeafe" stroke="#3b82f6" rx="3"/>
+  <text x="625" y="357" font-size="11" text-anchor="middle" font-weight="bold" fill="#1e40af">Катод: Сталь (+0.4 В)</text>
+
+  <rect x="735" y="340" width="170" height="26" fill="#fee2e2" stroke="#ef4444" rx="3"/>
+  <text x="820" y="357" font-size="11" text-anchor="middle" font-weight="bold" fill="#991b1b">Анод: Алюміній (-0.8 В)</text>
+
+  <line x1="720" y1="353" x2="730" y2="353" stroke="#2563eb" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <text x="535" y="388" font-size="11" fill="#334155">• У вологому середовищі алюміній шасі навколо отвору інтенсивно руйнується.</text>
+  <text x="535" y="406" font-size="11" fill="#334155">• Окислення призводить до зрізу витків і релаксації попереднього натягу.</text>
+  <text x="535" y="428" font-size="11" font-weight="bold" fill="#1d4ed8">Інженерні заходи захисту:</text>
+  <text x="535" y="446" font-size="11" fill="#1e40af">1. Анодування алюмінієвих панелей (створення ізолюючого Al₂O₃).</text>
+  <text x="535" y="464" font-size="11" fill="#1e40af">2. Ізолюючі шайби або анаеробний фіксатор різьби як бар'єр від вологи.</text>
+</svg>

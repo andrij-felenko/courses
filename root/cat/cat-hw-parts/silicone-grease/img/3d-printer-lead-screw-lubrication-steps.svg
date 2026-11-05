@@ -1,0 +1,110 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Регламент змащування гвинта T8 та гайки POM змазкою SI-180</text>
+  <text x="480" y="54" text-anchor="middle" font-size="13" fill="#6b7280">Чотирикроковий технологічний цикл для формування стабільної трибоплівки 5-15 мкм</text>
+
+  <!-- Крок 1 -->
+  <rect x="30" y="80" width="205" height="340" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="42" y="92" width="32" height="32" rx="6" fill="#2457d6"/>
+  <text x="58" y="113" text-anchor="middle" font-size="15" font-weight="bold" fill="#ffffff">1</text>
+  <text x="84" y="113" font-size="15" font-weight="bold" fill="#1a1a1a">Очищення</text>
+
+  <rect x="42" y="136" width="181" height="84" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="52" y="156" font-size="12" font-weight="bold" fill="#2457d6">Ізопропанол IPA 99.8%</text>
+  <text x="52" y="174" font-size="11" fill="#1a1a1a">Безворсова серветка</text>
+  <text x="52" y="192" font-size="11" fill="#6b7280">Видалення старого</text>
+  <text x="52" y="208" font-size="11" fill="#6b7280">мастила та пилу</text>
+
+  <rect x="42" y="232" width="181" height="174" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="52" y="254" font-size="12" font-weight="bold" fill="#1a1a1a">Вимоги до операції:</text>
+  <text x="52" y="276" font-size="11" fill="#1a1a1a">• Очистити витки T8</text>
+  <text x="52" y="296" font-size="11" fill="#1a1a1a">• Промити втулку POM</text>
+  <text x="52" y="316" font-size="11" fill="#27ae60">• Висушити 5-10 хв</text>
+  <text x="52" y="346" font-size="11" font-weight="bold" fill="#c0392b">Заборонено:</text>
+  <text x="52" y="366" font-size="11" fill="#c0392b">• Ацетон та ефіри</text>
+  <text x="52" y="386" font-size="11" fill="#6b7280">(деградація POM)</text>
+
+  <!-- Стрілка 1 -> 2 -->
+  <line x1="237" y1="250" x2="265" y2="250" stroke="#2457d6" stroke-width="2" marker-end="url(#arr)"/>
+
+  <!-- Крок 2 -->
+  <rect x="270" y="80" width="205" height="340" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="282" y="92" width="32" height="32" rx="6" fill="#2457d6"/>
+  <text x="298" y="113" text-anchor="middle" font-size="15" font-weight="bold" fill="#ffffff">2</text>
+  <text x="324" y="113" font-size="15" font-weight="bold" fill="#1a1a1a">Дозування</text>
+
+  <rect x="282" y="136" width="181" height="84" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="292" y="156" font-size="12" font-weight="bold" fill="#2457d6">Змазка SI-180 (PTFE)</text>
+  <text x="292" y="174" font-size="11" fill="#1a1a1a">Шприц-аплікатор</text>
+  <text x="292" y="192" font-size="11" fill="#6b7280">В'язкість 1000 cSt</text>
+  <text x="292" y="208" font-size="11" fill="#6b7280">Об'єм 0.1-0.2 мл</text>
+
+  <rect x="282" y="232" width="181" height="174" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="292" y="254" font-size="12" font-weight="bold" fill="#1a1a1a">Точки нанесення:</text>
+  <text x="292" y="276" font-size="11" fill="#1a1a1a">• Точково вздовж T8</text>
+  <text x="292" y="296" font-size="11" fill="#1a1a1a">• Крок крапель 40-50 мм</text>
+  <text x="292" y="316" font-size="11" fill="#27ae60">• Зона входу в гайку</text>
+  <text x="292" y="346" font-size="11" font-weight="bold" fill="#c0392b">Застереження:</text>
+  <text x="292" y="366" font-size="11" fill="#c0392b">• Уникати надлишку</text>
+  <text x="292" y="386" font-size="11" fill="#6b7280">(ризик налипання пилу)</text>
+
+  <!-- Стрілка 2 -> 3 -->
+  <line x1="477" y1="250" x2="505" y2="250" stroke="#2457d6" stroke-width="2" marker-end="url(#arr)"/>
+
+  <!-- Крок 3 -->
+  <rect x="510" y="80" width="205" height="340" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="522" y="92" width="32" height="32" rx="6" fill="#2457d6"/>
+  <text x="538" y="113" text-anchor="middle" font-size="15" font-weight="bold" fill="#ffffff">3</text>
+  <text x="564" y="113" font-size="15" font-weight="bold" fill="#1a1a1a">Розкатування</text>
+
+  <rect x="522" y="136" width="181" height="84" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="532" y="156" font-size="12" font-weight="bold" fill="#2457d6">Цикли по осі Z</text>
+  <text x="532" y="174" font-size="11" fill="#1a1a1a">Повний хід каретки</text>
+  <text x="532" y="192" font-size="11" fill="#6b7280">Швидкість 5-10 мм/с</text>
+  <text x="532" y="208" font-size="11" fill="#6b7280">3-5 проходів Z</text>
+
+  <rect x="522" y="232" width="181" height="174" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="532" y="254" font-size="12" font-weight="bold" fill="#1a1a1a">Формування шару:</text>
+  <text x="532" y="276" font-size="11" fill="#1a1a1a">• Розподіл по витках</text>
+  <text x="532" y="296" font-size="11" fill="#1a1a1a">• Заповнення мікропор</text>
+  <text x="532" y="316" font-size="11" fill="#27ae60">• Шар h = 5-15 мкм</text>
+  <text x="532" y="346" font-size="11" font-weight="bold" fill="#2457d6">Гідродинаміка:</text>
+  <text x="532" y="366" font-size="11" fill="#1a1a1a">• Мінімум вібрацій</text>
+  <text x="532" y="386" font-size="11" fill="#6b7280">• Плавність кроку двигуна</text>
+
+  <!-- Стрілка 3 -> 4 -->
+  <line x1="717" y1="250" x2="745" y2="250" stroke="#2457d6" stroke-width="2" marker-end="url(#arr)"/>
+
+  <!-- Крок 4 -->
+  <rect x="750" y="80" width="180" height="340" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="762" y="92" width="32" height="32" rx="6" fill="#27ae60"/>
+  <text x="778" y="113" text-anchor="middle" font-size="15" font-weight="bold" fill="#ffffff">4</text>
+  <text x="804" y="113" font-size="15" font-weight="bold" fill="#1a1a1a">Контроль</text>
+
+  <rect x="762" y="136" width="156" height="84" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="772" y="156" font-size="12" font-weight="bold" fill="#27ae60">Фінішна інспекція</text>
+  <text x="772" y="174" font-size="11" fill="#1a1a1a">Видалення валиків</text>
+  <text x="772" y="192" font-size="11" fill="#6b7280">Перевірка струму</text>
+  <text x="772" y="208" font-size="11" fill="#6b7280">Відсутність пропусків</text>
+
+  <rect x="762" y="232" width="156" height="174" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="772" y="254" font-size="12" font-weight="bold" fill="#1a1a1a">Критерії якості:</text>
+  <text x="772" y="276" font-size="11" fill="#1a1a1a">• Чисті торці ходу Z</text>
+  <text x="772" y="296" font-size="11" fill="#1a1a1a">• Рівномірний блиск</text>
+  <text x="772" y="316" font-size="11" fill="#27ae60">• Безшумний рух</text>
+  <text x="772" y="346" font-size="11" font-weight="bold" fill="#27ae60">Ресурс роботи:</text>
+  <text x="772" y="366" font-size="11" fill="#1a1a1a">• 300-500 год друку</text>
+  <text x="772" y="386" font-size="11" fill="#6b7280">або 3-6 місяців</text>
+</svg>

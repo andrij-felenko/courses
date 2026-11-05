@@ -1,0 +1,91 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Капсульне ковзне кільце: специфікація електричних каналів</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Розподіл навантажень (10А, 2А, 1.5А), параметри ізоляції та діелектричної міцності</text>
+
+  <!-- Секція 1: Статор vs Ротор / Канали -->
+  <!-- Панель Статор -->
+  <rect x="40" y="80" width="260" height="340" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="170" y="110" font-size="16" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Статор (Дроти джгута)</text>
+  
+  <rect x="60" y="130" width="220" height="70" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="170" y="155" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Силові канали (10 А)</text>
+  <text x="170" y="175" font-size="12" fill="#1a1a1a" text-anchor="middle">AWG16 / AWG14 (Живлення)</text>
+  <text x="170" y="192" font-size="11" fill="#6b7280" text-anchor="middle">Червоний, Чорний, Жовтий</text>
+
+  <rect x="60" y="215" width="220" height="90" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="170" y="240" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Сигнальні канали (2 А / 1.5 А)</text>
+  <text x="170" y="260" font-size="12" fill="#1a1a1a" text-anchor="middle">AWG28 / AWG30 (Дані / Сигнали)</text>
+  <text x="170" y="278" font-size="11" fill="#6b7280" text-anchor="middle">Кольорове маркування (смуги)</text>
+  <text x="170" y="295" font-size="11" fill="#27ae60" text-anchor="middle">Екрановані виточені пари</text>
+
+  <rect x="60" y="320" width="220" height="80" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="170" y="345" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Захист та Екран</text>
+  <text x="170" y="365" font-size="12" fill="#1a1a1a" text-anchor="middle">Дріт заземлення екрана</text>
+  <text x="170" y="385" font-size="11" fill="#6b7280" text-anchor="middle">Зовнішній опліт / Корпус</text>
+
+  <!-- Центральна зона: Ковзний контакт та ізоляція -->
+  <rect x="330" y="80" width="300" height="340" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="480" y="110" font-size="16" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Контактний блок та Ізоляція</text>
+
+  <!-- Ілюстрація кілець і щіток -->
+  <rect x="360" y="135" width="240" height="180" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  
+  <!-- Канали всередині капсули -->
+  <line x1="380" y1="165" x2="580" y2="165" stroke="#2457d6" stroke-width="4" stroke-linecap="round"/>
+  <text x="480" y="160" font-size="11" fill="#2457d6" text-anchor="middle">Силове кільце 10А (Золото-Золото)</text>
+
+  <line x1="380" y1="210" x2="580" y2="210" stroke="#1a1a1a" stroke-width="2" stroke-linecap="round"/>
+  <text x="480" y="202" font-size="11" fill="#1a1a1a" text-anchor="middle">Сигнальне кільце 2А</text>
+
+  <line x1="380" y1="250" x2="580" y2="250" stroke="#6b7280" stroke-width="1.5" stroke-linecap="round"/>
+  <text x="480" y="243" font-size="11" fill="#6b7280" text-anchor="middle">Сигнальне кільце 1.5А (Швидкісні дані)</text>
+
+  <!-- Бар'єри ізоляції -->
+  <text x="480" y="290" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Діелектрична міцність</text>
+  <text x="480" y="310" font-size="11" fill="#6b7280" text-anchor="middle">Опір ізоляції &gt; 500 МОм / 500 В DC</text>
+
+  <rect x="350" y="335" width="260" height="70" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="480" y="358" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Електричні шуми &lt; 5 мОм</text>
+  <text x="480" y="378" font-size="11" fill="#1a1a1a" text-anchor="middle">Швидкість до 300 об/хв (стабільний контакт)</text>
+
+  <!-- Панель Ротор -->
+  <rect x="660" y="80" width="260" height="340" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="790" y="110" font-size="16" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Ротор (Вихідні дроти)</text>
+
+  <rect x="680" y="130" width="220" height="70" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="790" y="155" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Силові лінії виходу</text>
+  <text x="790" y="175" font-size="12" fill="#1a1a1a" text-anchor="middle">Навантаження двигунів / живлення</text>
+  <text x="790" y="192" font-size="11" fill="#6b7280" text-anchor="middle">Відповідне колірне маркування</text>
+
+  <rect x="680" y="215" width="220" height="90" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="790" y="240" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Сигнальні лінії виходу</text>
+  <text x="790" y="260" font-size="12" fill="#1a1a1a" text-anchor="middle">CAN-bus, Ethernet, Сенсори</text>
+  <text x="790" y="278" font-size="11" fill="#6b7280" text-anchor="middle">Зменшення перехресних наводок</text>
+  <text x="790" y="295" font-size="11" fill="#27ae60" text-anchor="middle">Збереження цілісності пакетів</text>
+
+  <rect x="680" y="320" width="220" height="80" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="790" y="345" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">Межі напруги</text>
+  <text x="790" y="365" font-size="12" fill="#1a1a1a" text-anchor="middle">240 В AC / DC (стандарт)</text>
+  <text x="790" y="385" font-size="11" fill="#6b7280" text-anchor="middle">Ізольовані контури каналів</text>
+
+  <!-- З'єднувальні стрілки між статором і центром -->
+  <line x1="300" y1="165" x2="330" y2="165" stroke="#2457d6" stroke-width="2" marker-end="url(#arr)"/>
+  <line x1="300" y1="260" x2="330" y2="260" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr-dark)"/>
+
+  <!-- З'єднувальні стрілки між центром і ротором -->
+  <line x1="630" y1="165" x2="660" y2="165" stroke="#2457d6" stroke-width="2" marker-end="url(#arr)"/>
+  <line x1="630" y1="260" x2="660" y2="260" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr-dark)"/>
+
+</svg>

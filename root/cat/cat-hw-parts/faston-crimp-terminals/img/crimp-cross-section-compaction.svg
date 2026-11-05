@@ -1,0 +1,81 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Підкладка -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="38" font-size="18" font-weight="700" text-anchor="middle" fill="#1a1a1a">Мікроструктура та ущільнення жили в обтискному контакті</text>
+  <text x="480" y="60" font-size="13" font-weight="400" text-anchor="middle" fill="#6b7280">Пластична деформація: перетворення круглих жилок на газонепроникний шестигранний моноліт</text>
+
+  <!-- Ліва панель: До деформації -->
+  <rect x="40" y="90" width="420" height="300" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="250" y="115" font-size="14" font-weight="700" text-anchor="middle" fill="#1a1a1a">До деформації (Вільне вкладання)</text>
+
+  <!-- U-подібний відкритий барель клеми (ліва панель) -->
+  <path d="M 160 150 L 160 280 C 160 320, 190 350, 250 350 C 310 350, 340 320, 340 280 L 340 150" fill="none" stroke="#94a3b8" stroke-width="8" stroke-linecap="round"/>
+
+  <!-- Круглі жили (мідні кружечки з зазорами) -->
+  <circle cx="250" cy="245" r="11" fill="#e67e22" stroke="#b95d15" stroke-width="1.5"/>
+  <circle cx="225" cy="230" r="11" fill="#e67e22" stroke="#b95d15" stroke-width="1.5"/>
+  <circle cx="275" cy="230" r="11" fill="#e67e22" stroke="#b95d15" stroke-width="1.5"/>
+  <circle cx="225" cy="265" r="11" fill="#e67e22" stroke="#b95d15" stroke-width="1.5"/>
+  <circle cx="275" cy="265" r="11" fill="#e67e22" stroke="#b95d15" stroke-width="1.5"/>
+  <circle cx="250" cy="215" r="11" fill="#e67e22" stroke="#b95d15" stroke-width="1.5"/>
+  <circle cx="250" cy="280" r="11" fill="#e67e22" stroke="#b95d15" stroke-width="1.5"/>
+  <circle cx="200" cy="245" r="11" fill="#e67e22" stroke="#b95d15" stroke-width="1.5"/>
+  <circle cx="300" cy="245" r="11" fill="#e67e22" stroke="#b95d15" stroke-width="1.5"/>
+  <circle cx="210" cy="205" r="11" fill="#e67e22" stroke="#b95d15" stroke-width="1.5"/>
+  <circle cx="290" cy="205" r="11" fill="#e67e22" stroke="#b95d15" stroke-width="1.5"/>
+  <circle cx="230" cy="185" r="11" fill="#e67e22" stroke="#b95d15" stroke-width="1.5"/>
+  <circle cx="270" cy="185" r="11" fill="#e67e22" stroke="#b95d15" stroke-width="1.5"/>
+
+  <!-- Мітка лівої панелі -->
+  <rect x="55" y="335" width="390" height="42" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="0.8"/>
+  <text x="250" y="353" font-size="11" font-weight="600" text-anchor="middle" fill="#c0392b">Наявність повітряних зазорів</text>
+  <text x="250" y="369" font-size="11" font-weight="600" text-anchor="middle" fill="#c0392b">(ризик швидкого окиснення та високого перехідного опору)</text>
+
+
+  <!-- Права панель: Після обтискання -->
+  <rect x="500" y="90" width="420" height="300" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="710" y="115" font-size="14" font-weight="700" text-anchor="middle" fill="#1a1a1a">Після обтискання (Газощільний моноліт)</text>
+
+  <!-- B-подібні загнуті вушка гільзи (права панель) -->
+  <path d="M 610 145 C 650 135, 770 135, 810 145 C 830 155, 835 180, 820 200 C 800 220, 770 210, 750 205 C 710 205, 670 220, 650 205 C 635 190, 610 170, 610 145 Z" fill="none" stroke="#27ae60" stroke-width="6" stroke-linejoin="round"/>
+  <!-- Основний контур обтиснутого шестигранного бареля -->
+  <path d="M 630 160 L 790 160 L 830 245 L 790 330 L 630 330 L 590 245 Z" fill="none" stroke="#2c3e50" stroke-width="6" stroke-linejoin="round"/>
+
+  <!-- Шестигранні полігони жили (стільники без зазорів) -->
+  <!-- Ряд 1 -->
+  <polygon points="710,175 735,188 735,212 710,225 685,212 685,188" fill="#d35400" stroke="#a04000" stroke-width="1.2"/>
+  <polygon points="660,175 685,188 685,212 660,225 635,212 635,188" fill="#d35400" stroke="#a04000" stroke-width="1.2"/>
+  <polygon points="760,175 785,188 785,212 760,225 735,212 735,188" fill="#d35400" stroke="#a04000" stroke-width="1.2"/>
+  <!-- Ряд 2 -->
+  <polygon points="710,225 735,238 735,262 710,275 685,262 685,238" fill="#d35400" stroke="#a04000" stroke-width="1.2"/>
+  <polygon points="660,225 685,238 685,262 660,275 635,262 635,238" fill="#d35400" stroke="#a04000" stroke-width="1.2"/>
+  <polygon points="760,225 785,238 785,262 760,275 735,262 735,238" fill="#d35400" stroke="#a04000" stroke-width="1.2"/>
+  <!-- Ряд 3 -->
+  <polygon points="710,275 735,288 735,312 710,325 685,312 685,288" fill="#d35400" stroke="#a04000" stroke-width="1.2"/>
+  <polygon points="660,275 685,288 685,312 660,325 635,312 635,288" fill="#d35400" stroke="#a04000" stroke-width="1.2"/>
+  <polygon points="760,275 785,288 785,312 760,325 735,312 735,288" fill="#d35400" stroke="#a04000" stroke-width="1.2"/>
+
+  <!-- Розміри: Crimp Height (CH) та Crimp Width (CW) -->
+  <line x1="850" y1="160" x2="850" y2="330" stroke="#1a1a1a" stroke-width="1.2" marker-start="url(#arr)" marker-end="url(#arr)"/>
+  <text x="862" y="250" font-size="12" font-weight="700" fill="#1a1a1a">CH</text>
+
+  <line x1="630" y1="345" x2="790" y2="345" stroke="#1a1a1a" stroke-width="1.2" marker-start="url(#arr)" marker-end="url(#arr)"/>
+  <text x="710" y="360" font-size="12" font-weight="700" text-anchor="middle" fill="#1a1a1a">CW</text>
+
+  <!-- Зелена мітка правої панелі -->
+  <rect x="515" y="335" width="390" height="42" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="0.8"/>
+  <text x="710" y="353" font-size="11" font-weight="600" text-anchor="middle" fill="#27ae60">Газонепроникний контакт</text>
+  <text x="710" y="369" font-size="11" font-weight="600" text-anchor="middle" fill="#27ae60">(відсутність доступу кисню, стабільний опір)</text>
+
+  <!-- Інформаційний підсумок внизу -->
+  <text x="480" y="425" font-size="13" font-weight="600" text-anchor="middle" fill="#1a1a1a">Оптимальне стискання руйнує оксидні плівки й утворює прямий металевий контакт між жилами</text>
+
+  <!-- Маркери -->
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+</svg>

@@ -1,0 +1,93 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Підкладка -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Акустичний метод вимірювання натягу зубчастого паса GT2</text>
+  <text x="480" y="60" font-size="13" fill="#6b7280" text-anchor="middle">Формула струни Мерсенна f = 1/(2L) * sqrt(T/μ), резонансний спектр звукових коливань та номограма натягу</text>
+
+  <!-- === ПАНЕЛЬ 1: Схема поперечних коливань (x=30..310, y=85..435) === -->
+  <rect x="30" y="85" width="280" height="350" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="170" y="112" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">1. Фізична модель (вітка)</text>
+  
+  <!-- Шківи -->
+  <rect x="50" y="210" width="20" height="70" rx="4" fill="#6b7280"/>
+  <rect x="270" y="210" width="20" height="70" rx="4" fill="#6b7280"/>
+  <text x="60" y="295" font-size="12" fill="#1a1a1a" text-anchor="middle">Шків 1</text>
+  <text x="280" y="295" font-size="12" fill="#1a1a1a" text-anchor="middle">Шків 2</text>
+
+  <!-- Пас (спокій) -->
+  <line x1="70" y1="230" x2="270" y2="230" stroke="#1a1a1a" stroke-width="3"/>
+  <!-- Пас (коливання - стояча півхвиля) -->
+  <path d="M70,230 Q170,170 270,230" fill="none" stroke="#2457d6" stroke-width="2.5" stroke-dasharray="5,3"/>
+  <path d="M70,230 Q170,290 270,230" fill="none" stroke="#2457d6" stroke-width="2.5" stroke-dasharray="5,3"/>
+
+  <!-- Розмір довжини L -->
+  <line x1="70" y1="320" x2="270" y2="320" stroke="#6b7280" stroke-width="1" marker-start="url(#arr)" marker-end="url(#arr)"/>
+  <text x="170" y="340" font-size="12" fill="#1a1a1a" text-anchor="middle">L = 150 мм (0.15 м)</text>
+
+  <!-- Параметри -->
+  <text x="45" y="380" font-size="12" fill="#1a1a1a" text-anchor="start">Маса μ = 9.0 г/м (0.009 кг/м)</text>
+  <text x="45" y="405" font-size="12" fill="#1a1a1a" text-anchor="start">Збурення: щипковий імпульс</text>
+
+  <!-- === ПАНЕЛЬ 2: Частотний спектр FFT (x=340..620, y=85..435) === -->
+  <rect x="340" y="85" width="280" height="350" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="480" y="112" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">2. Частотний спектр (FFT)</text>
+
+  <!-- Осі графіка -->
+  <line x1="370" y1="330" x2="590" y2="330" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr)"/>
+  <line x1="370" y1="330" x2="370" y2="155" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="595" y="345" font-size="11" fill="#6b7280" text-anchor="middle">f, Гц</text>
+  <text x="355" y="155" font-size="11" fill="#6b7280" text-anchor="middle">А</text>
+
+  <!-- Позначки осі частот -->
+  <text x="370" y="345" font-size="11" fill="#6b7280" text-anchor="middle">0</text>
+  <text x="443" y="345" font-size="11" fill="#6b7280" text-anchor="middle">110</text>
+  <text x="516" y="345" font-size="11" fill="#6b7280" text-anchor="middle">220</text>
+  
+  <line x1="443" y1="330" x2="443" y2="334" stroke="#6b7280" stroke-width="1"/>
+  <line x1="516" y1="330" x2="516" y2="334" stroke="#6b7280" stroke-width="1"/>
+
+  <!-- Крива спектра (шум + піки) -->
+  <path d="M370,325 L410,322 L430,310 L443,180 L456,310 L480,320 L505,315 L516,250 L527,315 L560,325 L590,327" fill="none" stroke="#2457d6" stroke-width="2"/>
+
+  <!-- Лінія і виноска на основний пік -->
+  <line x1="443" y1="180" x2="443" y2="330" stroke="#c0392b" stroke-width="1" stroke-dasharray="3,3"/>
+  
+  <!-- Замість прямокутника поверх піку, робимо опис нижче в панелі щоб уникнути перетинів -->
+  <text x="365" y="375" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="start">Пік f_0 = 110 Гц (T ≈ 15.7 Н)</text>
+  <text x="365" y="398" font-size="11" fill="#1a1a1a" text-anchor="start">Фільтрація: смуговий фільтр</text>
+  <text x="365" y="418" font-size="11" fill="#1a1a1a" text-anchor="start">Детектор: мікрофон смартфона</text>
+
+  <!-- === ПАНЕЛЬ 3: Номограма натягу (x=650..930, y=85..435) === -->
+  <rect x="650" y="85" width="280" height="350" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="790" y="112" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">3. Номограма та зони натягу</text>
+
+  <!-- Формула -->
+  <text x="665" y="138" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">T = 4 * μ * L^2 * f^2</text>
+  <text x="665" y="158" font-size="11" fill="#6b7280" text-anchor="start">Розрахунок: 4*0.009*0.0225*12100 ≈ 9.8 Н</text>
+
+  <!-- Зони натягу з рознесеними текстами -->
+  <rect x="665" y="175" width="250" height="40" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="790" y="193" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">&lt; 80 Гц: Слабкий натяг</text>
+  <text x="790" y="208" font-size="10" fill="#6b7280" text-anchor="middle">Ризик перескакування зубів</text>
+
+  <rect x="665" y="225" width="250" height="40" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="790" y="243" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">100–120 Гц: Оптимальний</text>
+  <text x="790" y="258" font-size="10" fill="#6b7280" text-anchor="middle">Робочий діапазон: 15–20 Н</text>
+
+  <rect x="665" y="275" width="250" height="40" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="790" y="293" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">&gt; 150 Гц: Перетягнутий пас</text>
+  <text x="790" y="308" font-size="10" fill="#6b7280" text-anchor="middle">Знос підшипників двигуна</text>
+
+  <text x="665" y="340" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">Рекомендація:</text>
+  <text x="665" y="360" font-size="11" fill="#6b7280" text-anchor="start">Налаштовуйте за середньою</text>
+  <text x="665" y="378" font-size="11" fill="#6b7280" text-anchor="start">точкою шкали для мінімізації</text>
+  <text x="665" y="396" font-size="11" fill="#6b7280" text-anchor="start">вібрацій і люфтів.</text>
+</svg>

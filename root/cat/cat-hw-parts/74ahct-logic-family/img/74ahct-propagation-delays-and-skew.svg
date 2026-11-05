@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="36" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Затримки поширення сигналу та перекіс (skew)</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Часові діаграми t_PHL, t_PLH та різниці часу спрацювання виходів</text>
+
+  <!-- Сигнал входу A -->
+  <g transform="translate(80, 90)">
+    <text x="0" y="20" font-size="14" fill="#1a1a1a" font-weight="bold">Вхід A</text>
+    <path d="M 70,30 L 150,30 L 160,0 L 290,0 L 300,30 L 760,30" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+    <!-- Лінії сітки для порівняння часу -->
+    <line x1="160" y1="0" x2="160" y2="240" stroke="#d0d7de" stroke-dasharray="4,4" stroke-width="1"/>
+    <line x1="300" y1="0" x2="300" y2="240" stroke="#d0d7de" stroke-dasharray="4,4" stroke-width="1"/>
+  </g>
+
+  <!-- Вихід Y1 (швидкий) -->
+  <g transform="translate(80, 160)">
+    <text x="0" y="20" font-size="14" fill="#1a1a1a" font-weight="bold">Вихід Y₁</text>
+    <path d="M 70,0 L 200,0 L 210,30 L 340,30 L 350,0 L 760,0" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+    <text x="215" y="48" font-size="12" fill="#27ae60">t_PHL1</text>
+  </g>
+
+  <!-- Вихід Y2 (повільний) -->
+  <g transform="translate(80, 230)">
+    <text x="0" y="20" font-size="14" fill="#1a1a1a" font-weight="bold">Вихід Y₂</text>
+    <path d="M 70,0 L 230,0 L 240,30 L 370,30 L 380,0 L 760,0" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+    <text x="245" y="48" font-size="12" fill="#c0392b">t_PHL2</text>
+  </g>
+
+  <!-- Вісь часу та перекіс (Skew) -->
+  <g transform="translate(80, 310)">
+    <!-- Вісь часу -->
+    <line x1="70" y1="20" x2="840" y2="20" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+    <text x="845" y="25" font-size="12" fill="#1a1a1a">Час (t)</text>
+
+    <!-- Вертикальні лінії для skew відносно початків виходів у межах полотна -->
+    <line x1="200" y1="0" x2="200" y2="20" stroke="#6b7280" stroke-dasharray="2,2" stroke-width="1"/>
+    <line x1="230" y1="0" x2="230" y2="20" stroke="#6b7280" stroke-dasharray="2,2" stroke-width="1"/>
+    
+    <!-- Двонаправлена стрілка для Skew -->
+    <line x1="200" y1="10" x2="230" y2="10" stroke="#c0392b" stroke-width="2" marker-end="url(#arr)" marker-start="url(#arr)"/>
+    <rect x="190" y="15" width="50" height="20" fill="#fdecea" rx="3"/>
+    <text x="215" y="30" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">t_sk(o)</text>
+  </g>
+
+  <!-- Легенда / Пояснення в блоці -->
+  <g transform="translate(80, 385)">
+    <rect x="0" y="0" width="800" height="45" fill="#f4f6f8" stroke="#d0d7de" rx="6"/>
+    <text x="20" y="27" font-size="13" fill="#1a1a1a">
+      <tspan font-weight="bold" fill="#2457d6">t_pd:</tspan> затримка поширення від входу до виходу &nbsp;&nbsp;|&nbsp;&nbsp; 
+      <tspan font-weight="bold" fill="#c0392b">t_sk (Output Skew):</tspan> різниця часу затримки між різними виходами однієї мікросхеми
+    </text>
+  </g>
+
+  <!-- Визначення маркеров -->
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+</svg>

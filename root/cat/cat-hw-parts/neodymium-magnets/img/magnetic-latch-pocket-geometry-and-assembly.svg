@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="700" fill="#1a1a1a">Геометрія посадкового гнізда магнітного фіксатора</text>
+  <text x="480" y="54" text-anchor="middle" font-size="13" fill="#6b7280">Конструктивний розріз з упорним буртиком, клейовими кишенями та центруванням кришки з корпусом</text>
+
+  <!-- LEFT PANEL: Pocket Geometry -->
+  <rect x="40" y="75" width="420" height="360" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="55" y="90" width="390" height="30" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="250" y="110" text-anchor="middle" font-size="13" font-weight="700" fill="#2457d6">Вузол гнізда в розрізі (детальна геометрія)</text>
+
+  <!-- Pocket body (left and right walls) -->
+  <path d="M70,150 L160,150 L160,170 L175,170 L175,270 L70,270 Z" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <path d="M430,150 L340,150 L340,170 L325,170 L325,270 L430,270 Z" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <path d="M175,270 L325,270 L325,320 L175,320 Z" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+
+  <!-- Glue reservoir at the bottom and sides -->
+  <rect x="175" y="245" width="150" height="25" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <rect x="175" y="170" width="10" height="75" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <rect x="315" y="170" width="10" height="75" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+
+  <!-- Magnet body -->
+  <rect x="185" y="170" width="130" height="75" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="250" y="212" text-anchor="middle" font-size="13" font-weight="700" fill="#1a1a1a">Магніт NdFeB N42</text>
+  <text x="250" y="230" text-anchor="middle" font-size="11" fill="#6b7280">10 x 3 мм (Ni-Cu-Ni)</text>
+
+  <!-- Labels in left panel -->
+  <text x="115" y="140" text-anchor="middle" font-size="11" font-weight="700" fill="#2457d6">Корпус (FDM/Al)</text>
+  <text x="385" y="140" text-anchor="middle" font-size="11" font-weight="700" fill="#2457d6">Корпус (FDM/Al)</text>
+
+  <!-- Retaining lip callout -->
+  <text x="250" y="160" text-anchor="middle" font-size="11" font-weight="700" fill="#2457d6">Упорний буртик 0.2 мм</text>
+
+  <!-- Glue label -->
+  <text x="250" y="295" text-anchor="middle" font-size="11" font-weight="700" fill="#c0392b">Клейова кишеня (епоксидний склад)</text>
+
+  <!-- Bottom note -->
+  <text x="250" y="375" text-anchor="middle" font-size="12" fill="#1a1a1a">Механічний замок запобігає вириванню магніту</text>
+  <text x="250" y="395" text-anchor="middle" font-size="12" fill="#2457d6">Радіальний зазор під клей: δ = 0.15–0.20 мм</text>
+
+  <!-- RIGHT PANEL: Cover Latch Interface -->
+  <rect x="500" y="75" width="420" height="360" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="515" y="90" width="390" height="30" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="710" y="110" text-anchor="middle" font-size="13" font-weight="700" fill="#27ae60">Спряження кришки з корпусом приладу</text>
+
+  <!-- Cover (top part) -->
+  <path d="M530,135 L890,135 L890,175 L795,175 L795,190 L530,190 Z" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="650" y="155" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">Кришка корпусу (із центруючим буртом)</text>
+
+  <!-- Steel response plate in cover -->
+  <rect x="635" y="175" width="130" height="15" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="700" y="187" text-anchor="middle" font-size="10" font-weight="700" fill="#1a1a1a">Сталева пластина</text>
+
+  <!-- Air gap line -->
+  <line x1="635" y1="195" x2="765" y2="195" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <text x="835" y="198" text-anchor="middle" font-size="11" font-weight="700" fill="#2457d6">Зазор Δz = 0.1 мм</text>
+
+  <!-- Main enclosure body (bottom part) -->
+  <path d="M530,200 L790,200 L790,215 L890,215 L890,320 L530,320 Z" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="600" y="280" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">Основний корпус</text>
+
+  <!-- Magnet in body -->
+  <rect x="635" y="200" width="130" height="40" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="700" y="225" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">Магніт NdFeB N42</text>
+
+  <!-- Alignment step note -->
+  <text x="710" y="355" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">Центруючий східець бере на себе бічні сили</text>
+  <text x="710" y="375" text-anchor="middle" font-size="12" fill="#1a1a1a">Зсувне навантаження не руйнує клейовий шов магніту</text>
+  <text x="710" y="395" text-anchor="middle" font-size="12" fill="#27ae60">Магнітний замок працює виключно на нормальний відрив</text>
+</svg>

@@ -1,0 +1,132 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Допустимі межі зміщень валів та компенсація люфту гнучкої муфти</text>
+  <text x="480" y="60" font-size="13" fill="#6b7280" text-anchor="middle">Спіральна секція компенсує кутове, радіальне та осьове зміщення за умови збереження нульового люфту</text>
+
+  <!-- ==================== LEFT PANEL: Angular Misalignment ==================== -->
+  <rect x="30" y="80" width="280" height="350" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="42" y="92" width="256" height="32" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="170" y="113" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">1. Кутове зміщення (Angular)</text>
+
+  <!-- Shaft 1 (left) -->
+  <rect x="50" y="195" width="65" height="30" rx="3" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="82" y="214" font-size="11" fill="#1a1a1a" text-anchor="middle">Вал 1</text>
+
+  <!-- Angled Coupling representation -->
+  <rect x="115" y="192" width="25" height="36" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1"/>
+  <path d="M140,196 L148,190 L156,198 L164,190 L172,198 L180,190 L188,196" fill="none" stroke="#2457d6" stroke-width="3" stroke-linecap="round"/>
+  <path d="M140,224 L148,218 L156,226 L164,218 L172,226 L180,218 L188,224" fill="none" stroke="#2457d6" stroke-width="3" stroke-linecap="round"/>
+  <line x1="148" y1="190" x2="148" y2="218" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="164" y1="190" x2="164" y2="218" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="180" y1="190" x2="180" y2="218" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="188" y="188" width="25" height="36" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1"/>
+
+  <!-- Shaft 2 (right, angled) -->
+  <rect x="213" y="185" width="65" height="30" rx="3" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="245" y="204" font-size="11" fill="#1a1a1a" text-anchor="middle">Вал 2</text>
+
+  <!-- Angle alpha label (moved up to avoid overlap) -->
+  <text x="142" y="168" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="start">α ≤ 1.5°</text>
+
+  <!-- Left panel texts -->
+  <text x="50" y="278" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">Допустимий кут: α ≤ 1.5°</text>
+  <text x="50" y="296" font-size="12" fill="#6b7280" text-anchor="start">Мін. граничний кут: 2.0°</text>
+  <text x="50" y="320" font-size="12" fill="#1a1a1a" text-anchor="start">• Витки спіралі стискаються з</text>
+  <text x="62" y="338" font-size="12" fill="#1a1a1a" text-anchor="start">одного боку й розтягуються з іншого.</text>
+
+  <!-- Solution box inside left panel -->
+  <rect x="42" y="358" width="256" height="58" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="170" y="377" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">Вплив на люфт:</text>
+  <text x="170" y="397" font-size="11" fill="#1a1a1a" text-anchor="middle">Нульовий кутовий люфт (zero backlash)</text>
+  <text x="170" y="411" font-size="11" fill="#1a1a1a" text-anchor="middle">зберігається завдяки цілісній пружині</text>
+
+
+  <!-- ==================== CENTRAL PANEL: Radial Misalignment ==================== -->
+  <rect x="340" y="80" width="280" height="350" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="352" y="92" width="256" height="32" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="480" y="113" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">2. Радіальне зміщення (Radial)</text>
+
+  <!-- Radial Diagram Schematic (axis lines placed above/below rects) -->
+  <line x1="370" y1="150" x2="490" y2="150" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4 2"/>
+  <rect x="370" y="160" width="60" height="30" rx="3" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="400" y="179" font-size="11" fill="#1a1a1a" text-anchor="middle">Вал 1</text>
+
+  <line x1="490" y1="225" x2="610" y2="225" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4 2"/>
+  <rect x="530" y="195" width="60" height="30" rx="3" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="560" y="214" font-size="11" fill="#1a1a1a" text-anchor="middle">Вал 2</text>
+
+  <!-- Coupling bridging radial offset -->
+  <path d="M430,175 C460,175 470,210 530,210" fill="none" stroke="#2457d6" stroke-width="5" stroke-linecap="round"/>
+
+  <!-- Offset dimension arrow Δr -->
+  <line x1="490" y1="160" x2="490" y2="210" stroke="#c0392b" stroke-width="1.5" marker-start="url(#arr-red)" marker-end="url(#arr-red)"/>
+  <text x="508" y="189" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="start">Δr ≤ 0.2мм</text>
+
+  <!-- Central panel texts -->
+  <text x="360" y="258" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">Допустимий зсув осей: Δr ≤ 0.1–0.2 мм</text>
+  <text x="360" y="280" font-size="12" fill="#1a1a1a" text-anchor="start">• Синусоїдальний знакозмінний вигин</text>
+  <text x="372" y="298" font-size="12" fill="#1a1a1a" text-anchor="start">спіралі за кожен повний оберт вала.</text>
+
+  <!-- Problem / Warning box inside central panel -->
+  <rect x="352" y="318" width="256" height="98" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="480" y="337" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">⚠ КРИТИЧНЕ ЗАСТЕРЕЖЕННЯ:</text>
+  <text x="480" y="357" font-size="11" fill="#1a1a1a" text-anchor="middle">Радіальний зсув створює значні</text>
+  <text x="480" y="375" font-size="11" fill="#1a1a1a" text-anchor="middle">циклічні втомні напруження та</text>
+  <text x="480" y="393" font-size="11" fill="#1a1a1a" text-anchor="middle">суттєво знижує ресурс муфти!</text>
+
+
+  <!-- ==================== RIGHT PANEL: Axial Displacement ==================== -->
+  <rect x="650" y="80" width="280" height="350" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="662" y="92" width="256" height="32" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="790" y="113" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">3. Осьове зміщення (Axial)</text>
+
+  <!-- Axial Diagram Schematic -->
+  <rect x="665" y="195" width="55" height="30" rx="3" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="692" y="214" font-size="11" fill="#1a1a1a" text-anchor="middle">Вал 1</text>
+
+  <!-- Gap indicator 1-2mm -->
+  <line x1="720" y1="180" x2="720" y2="235" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="2 2"/>
+  <line x1="738" y1="180" x2="738" y2="235" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="2 2"/>
+  <line x1="720" y1="225" x2="738" y2="225" stroke="#27ae60" stroke-width="1.5" marker-start="url(#arr-green)" marker-end="url(#arr-green)"/>
+  <text x="729" y="172" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">Зазор 1-2 мм</text>
+
+  <!-- Coupling flexible spiral section stretching -->
+  <path d="M738,188 L748,192 L758,184 L768,192 L778,184 L788,192 L798,188" fill="none" stroke="#2457d6" stroke-width="3" stroke-linecap="round"/>
+  <path d="M738,212 L748,208 L758,216 L768,208 L778,216 L788,208 L798,212" fill="none" stroke="#2457d6" stroke-width="3" stroke-linecap="round"/>
+
+  <!-- Shaft 2 right -->
+  <rect x="798" y="195" width="55" height="30" rx="3" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="825" y="214" font-size="11" fill="#1a1a1a" text-anchor="middle">Вал 2</text>
+
+  <!-- Axial travel arrows Δa -->
+  <line x1="738" y1="152" x2="798" y2="152" stroke="#2457d6" stroke-width="1.5" marker-start="url(#arr-blue)" marker-end="url(#arr-blue)"/>
+  <text x="768" y="145" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Δa ≤ ±0.4 мм</text>
+
+  <!-- Right panel texts -->
+  <text x="670" y="258" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">Допустимий осьовий хід: Δa ≤ ±0.4 мм</text>
+  <text x="670" y="280" font-size="12" fill="#6b7280" text-anchor="start">• Пружинна жорсткість забезпечує</text>
+  <text x="682" y="298" font-size="12" fill="#6b7280" text-anchor="start">стабільне позиціонування каретки Z.</text>
+
+  <!-- Solution box inside right panel -->
+  <rect x="662" y="318" width="256" height="98" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="790" y="337" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">✓ МОНТАЖНА ВИМОГА:</text>
+  <text x="790" y="357" font-size="11" fill="#1a1a1a" text-anchor="middle">Обов'язковий зазор між торцями</text>
+  <text x="790" y="375" font-size="11" fill="#1a1a1a" text-anchor="middle">валів 1–2 мм запобігає заклинюванню</text>
+  <text x="790" y="393" font-size="11" fill="#1a1a1a" text-anchor="middle">та деформації вала двигуна.</text>
+
+</svg>

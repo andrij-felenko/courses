@@ -1,0 +1,95 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-black" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Специфікація монтажних отворів та зон відчуження (Keepout) на PCB</text>
+  <text x="480" y="54" text-anchor="middle" font-size="13" fill="#6b7280">Геометрія отворів, заземлювальних кілець та захисних зон для стійок M2 та M3</text>
+
+  <!-- ЛІВА ПАНЕЛЬ: Топологія отвору на платі -->
+  <rect x="30" y="75" width="440" height="360" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="250" y="102" text-anchor="middle" font-size="15" font-weight="bold" fill="#1a1a1a">Топологія монтажного вузла (M3)</text>
+
+  <!-- Поле креслення PCB -->
+  <rect x="50" y="120" width="400" height="190" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+
+  <!-- Концентричні кола топології (Центр: x=200, y=215) -->
+  <!-- 1. Зона відчуження Keepout (червоний пунктир, r=70 -> D=140px ~ 7.0 мм) -->
+  <circle cx="200" cy="215" r="70" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,3"/>
+
+  <!-- 2. Шестигранник стійки SW5.5 (пунктирне окреслення контакту торця) -->
+  <polygon points="200,155 252,185 252,245 200,275 148,245 148,185" fill="none" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="2,2"/>
+
+  <!-- 3. Мідне кільце заземлення GND Pad (золотаво-зелене, r=55 -> D=110px ~ 5.5-6.0 мм) -->
+  <circle cx="200" cy="215" r="55" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+
+  <!-- 4. Металізований отвір кріплення (сірий, r=32 -> D=64px ~ 3.2 мм) -->
+  <circle cx="200" cy="215" r="32" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Перехідні отвори прошивки GND на кільці -->
+  <circle cx="160" cy="215" r="3" fill="#27ae60"/>
+  <circle cx="240" cy="215" r="3" fill="#27ae60"/>
+  <circle cx="200" cy="175" r="3" fill="#27ae60"/>
+  <circle cx="200" cy="255" r="3" fill="#27ae60"/>
+
+  <!-- Виносні лінії та пояснення праворуч від кола -->
+  <text x="295" y="150" font-size="11" font-weight="bold" fill="#c0392b">Зона Keepout D = 7.0 мм</text>
+  <text x="295" y="165" font-size="10" fill="#6b7280">(заборона доріжок і SMD)</text>
+
+  <text x="295" y="195" font-size="11" font-weight="bold" fill="#6b7280">Габарит SW5.5 (шестигранник)</text>
+  <text x="295" y="210" font-size="10" fill="#6b7280">Описане коло D_hex = 6.35 мм</text>
+
+  <text x="295" y="240" font-size="11" font-weight="bold" fill="#27ae60">Кільце GND D = 6.0 мм</text>
+  <text x="295" y="255" font-size="10" fill="#6b7280">Маска розкрита під латунь</text>
+
+  <text x="295" y="285" font-size="11" font-weight="bold" fill="#1a1a1a">Отвір свердління d = 3.2 мм</text>
+  <text x="295" y="300" font-size="10" fill="#6b7280">Зазор під гвинт M3 (d_nom=3.0)</text>
+
+  <!-- Блок рекомендацій внизу лівої панелі -->
+  <rect x="50" y="325" width="400" height="95" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="65" y="345" font-size="12" font-weight="bold" fill="#1a1a1a">Вимоги до трасування навколо стійки:</text>
+  <text x="65" y="365" font-size="11" fill="#1a1a1a">• Жодних провідних доріжок у зоні радіусом 3.5 мм (Keepout)</text>
+  <text x="65" y="385" font-size="11" fill="#c0392b">• Не розміщувати перехідні отвори під торцем без намету</text>
+  <text x="65" y="405" font-size="11" fill="#27ae60">• 4-8 переходів GND для надійного екранування шасі</text>
+
+  <!-- ПРАВА ПАНЕЛЬ: Нормативна таблиця M2 та M3 -->
+  <rect x="490" y="75" width="440" height="360" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="710" y="102" text-anchor="middle" font-size="15" font-weight="bold" fill="#1a1a1a">Нормативні розміри посадкових місць</text>
+
+  <!-- Картка M2 -->
+  <rect x="510" y="120" width="400" height="110" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <rect x="522" y="130" width="90" height="22" rx="4" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="567" y="145" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">Стійка M2</text>
+  <text x="625" y="145" font-size="11" fill="#1a1a1a">Розмір ключа SW = 4.0 мм (D_опис = 4.62 мм)</text>
+
+  <text x="525" y="172" font-size="11" fill="#1a1a1a">• Діаметр отвору на платі: d_hole = 2.20 +- 0.05 мм</text>
+  <text x="525" y="192" font-size="11" fill="#27ae60">• Діаметр контактного кільця: D_pad = 4.50 мм</text>
+  <text x="525" y="212" font-size="11" fill="#c0392b">• Радіус зони відчуження (Keepout): R_keep = 2.75 мм (D = 5.5 мм)</text>
+
+  <!-- Картка M3 -->
+  <rect x="510" y="245" width="400" height="110" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <rect x="522" y="255" width="90" height="22" rx="4" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="567" y="270" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">Стійка M3</text>
+  <text x="625" y="270" font-size="11" fill="#1a1a1a">Розмір ключа SW = 5.0 / 5.5 мм (D_опис = 6.35 мм)</text>
+
+  <text x="525" y="297" font-size="11" fill="#1a1a1a">• Діаметр отвору на платі: d_hole = 3.20 +- 0.05 мм</text>
+  <text x="525" y="317" font-size="11" fill="#27ae60">• Діаметр контактного кільця: D_pad = 6.00 мм</text>
+  <text x="525" y="337" font-size="11" fill="#c0392b">• Радіус зони відчуження (Keepout): R_keep = 3.50 мм (D = 7.0 мм)</text>
+
+  <!-- Підсумок безпеки -->
+  <rect x="510" y="368" width="400" height="52" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="525" y="388" font-size="11" font-weight="bold" fill="#1a1a1a">Правило ізоляції для нейлону (PA66):</text>
+  <text x="525" y="406" font-size="11" fill="#6b7280">Покрити кільце захисною маскою для виключення контакту з GND</text>
+</svg>

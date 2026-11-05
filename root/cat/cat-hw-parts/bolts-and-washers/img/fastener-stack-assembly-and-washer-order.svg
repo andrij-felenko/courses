@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="38" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Послідовність збирання пакета силового кріплення</text>
+  <text x="480" y="58" text-anchor="middle" font-size="13" fill="#6b7280">Правильний порядок шайб та болта для захисту шасі від продавлювання і вібрацій</text>
+
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Exploded Assembly View (Left Side) -->
+  <!-- Bolt head -->
+  <rect x="70" y="160" width="40" height="100" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <text x="90" y="215" text-anchor="middle" font-size="12" fill="#1a1a1a">Болт М5/М6</text>
+
+  <!-- Spring Washer (Grover) -->
+  <rect x="150" y="170" width="20" height="80" rx="2" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="160" y="150" text-anchor="middle" font-size="12" fill="#2457d6">Пружинна шайба</text>
+  <line x1="160" y1="156" x2="160" y2="170" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Flat Washer -->
+  <rect x="210" y="150" width="20" height="120" rx="2" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="220" y="125" text-anchor="middle" font-size="12" fill="#2457d6">Плоска шайба</text>
+  <line x1="220" y1="131" x2="220" y2="150" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Chassis Plates -->
+  <rect x="270" y="120" width="30" height="180" rx="3" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <text x="285" y="95" text-anchor="middle" font-size="12" fill="#1a1a1a">Пластини шасі</text>
+  <line x1="285" y1="101" x2="285" y2="120" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- Nut -->
+  <rect x="340" y="160" width="35" height="100" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <text x="357" y="215" text-anchor="middle" font-size="12" fill="#1a1a1a">Гайка</text>
+
+  <!-- Assembly Bracket / Arrow representing assembly direction -->
+  <line x1="100" y1="300" x2="350" y2="300" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4 4"/>
+  <text x="225" y="322" text-anchor="middle" font-size="12" fill="#6b7280">Напрямок складання пакета кріплення</text>
+
+  <!-- Assembled View (Right Side) -->
+  <rect x="520" y="130" width="380" height="200" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  
+  <text x="710" y="160" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Зібраний силовий пакет</text>
+
+  <!-- Assembled layers visualization inside the box -->
+  <rect x="550" y="190" width="25" height="100" fill="#cbd5e1" rx="2"/>
+  <rect x="575" y="195" width="12" height="90" fill="#2457d6" rx="1"/>
+  <rect x="587" y="180" width="15" height="120" fill="#93c5fd" rx="1"/>
+  <rect x="602" y="170" width="45" height="140" fill="#94a3b8" rx="2"/>
+  <rect x="647" y="190" width="25" height="100" fill="#cbd5e1" rx="2"/>
+
+  <!-- Labels for Assembled View -->
+  <text x="750" y="200" font-size="12" fill="#1a1a1a">1. Голівка болта</text>
+  <text x="750" y="225" font-size="12" fill="#2457d6">2. Пружинна шайба (Гровер)</text>
+  <text x="750" y="250" font-size="12" fill="#2457d6">3. Плоска шайба (розподіл тиску)</text>
+  <text x="750" y="275" font-size="12" fill="#1a1a1a">4. Металеві пластини шасі</text>
+  <text x="750" y="300" font-size="12" fill="#1a1a1a">5. Гайка з різьбою</text>
+
+  <!-- Highlights / Callouts -->
+  <rect x="545" y="345" width="350" height="40" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="720" y="370" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Захист від продавлювання та вібрацій забезпечено</text>
+</svg>

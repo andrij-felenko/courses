@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Охолодження герметичного корпусу без вентиляційного клапана</text>
+  <text x="480" y="62" font-size="13" fill="#6b7280" text-anchor="middle">Падіння внутрішнього тиску (вакуум) деформує ущільнення та засмоктує вологу через мікрощілини</text>
+
+  <!-- Left Callout Box (Cooling / Vacuum) -->
+  <rect x="30" y="110" width="220" height="130" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="45" y="138" font-size="14" font-weight="bold" fill="#2457d6">1. Охолодження і вакуум</text>
+  <text x="45" y="163" font-size="12" fill="#1a1a1a">Температура падає (T &#x2193;), повітря</text>
+  <text x="45" y="183" font-size="12" fill="#1a1a1a">всередині стискається.</text>
+  <text x="45" y="203" font-size="12" font-weight="bold" fill="#2457d6">Виникає некомпенсований</text>
+  <text x="45" y="221" font-size="12" font-weight="bold" fill="#2457d6">внутрішній вакуум (P_int &lt; P_ext).</text>
+
+  <!-- Right Callout Box (Moisture Ingress) -->
+  <rect x="710" y="110" width="220" height="140" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="725" y="138" font-size="14" font-weight="bold" fill="#c0392b">2. Проникнення вологи</text>
+  <text x="725" y="163" font-size="12" fill="#1a1a1a">Ущільнення прогинається,</text>
+  <text x="725" y="183" font-size="12" fill="#1a1a1a">утворюючи мікрощілини.</text>
+  <text x="725" y="203" font-size="12" font-weight="bold" fill="#c0392b">Зовнішнє вологе повітря</text>
+  <text x="725" y="221" font-size="12" font-weight="bold" fill="#c0392b">та краплі засмоктуються всередину.</text>
+
+  <!-- Main Enclosure Schematic (Center X: 290 to 670) -->
+  <rect x="290" y="110" width="380" height="280" rx="10" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <rect x="320" y="150" width="320" height="210" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-dasharray="4,4" stroke-width="1.5"/>
+
+  <!-- Enclosure Lid / Joint with deformed gasket -->
+  <rect x="310" y="135" width="340" height="18" rx="3" fill="#d0d7de" stroke="#6b7280" stroke-width="1"/>
+  <path d="M 340,153 Q 480,173 620,153" fill="none" stroke="#c0392b" stroke-width="6" stroke-linecap="round"/>
+  <text x="480" y="148" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Деформоване ущільнення</text>
+
+  <!-- Micro-crack / Gap indicator -->
+  <circle cx="480" cy="163" r="10" fill="#fdecea" stroke="#c0392b" stroke-width="2"/>
+  <text x="480" y="167" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">!</text>
+
+  <!-- Ingress arrows -->
+  <path d="M 480,95 L 480,140" fill="none" stroke="#c0392b" stroke-width="3" marker-end="url(#arr-red)"/>
+  
+  <!-- Water droplets entering -->
+  <circle cx="475" cy="120" r="4" fill="#2457d6"/>
+  <circle cx="485" cy="125" r="3" fill="#2457d6"/>
+  <circle cx="480" cy="132" r="3.5" fill="#2457d6"/>
+
+  <!-- Vacuum indicators inside cavity -->
+  <text x="480" y="210" font-size="16" font-weight="bold" fill="#c0392b" text-anchor="middle">Вакуум у корпусі</text>
+  <text x="480" y="232" font-size="13" fill="#6b7280" text-anchor="middle">P_int &lt; P_ext</text>
+
+  <!-- Suction arrows inside pointing towards center -->
+  <path d="M 360,240 L 410,240" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <path d="M 600,240 L 550,240" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <path d="M 480,290 L 480,260" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Bottom subtitle / conclusion inside box -->
+  <rect x="330" y="305" width="300" height="40" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="480" y="323" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Накопичення конденсату та корозія</text>
+  <text x="480" y="338" font-size="11" fill="#6b7280" text-anchor="middle">руйнують електронні компоненти</text>
+
+  <!-- Temperature drop indicator outside -->
+  <rect x="30" y="270" width="220" height="70" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="45" y="295" font-size="12" font-weight="bold" fill="#1a1a1a">Цикл охолодження:</text>
+  <text x="45" y="315" font-size="12" fill="#6b7280">Зміна температури довкілля</text>
+  <text x="45" y="330" font-size="12" fill="#6b7280">щодня створює ризик розгерметизації.</text>
+
+</svg>

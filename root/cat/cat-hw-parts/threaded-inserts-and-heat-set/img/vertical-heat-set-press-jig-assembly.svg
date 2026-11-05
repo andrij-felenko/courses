@@ -1,0 +1,105 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Вертикальний пресовий кондуктор для гарячого впаювання втулок</text>
+  <text x="480" y="54" text-anchor="middle" font-size="13" fill="#6b7280">Забезпечення суворої співвісності жала й отвору босу без перекосів та затікання розплаву</text>
+
+  <!-- ЛІВА ПАНЕЛЬ: Кінематика кондуктора -->
+  <rect x="30" y="75" width="490" height="360" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="275" y="102" text-anchor="middle" font-size="15" font-weight="bold" fill="#1a1a1a">Кінематика пресового кондуктора (Jig)</text>
+
+  <!-- Схема станка-кондуктора -->
+  <rect x="50" y="120" width="450" height="200" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+
+  <!-- Вертикальна сталева колона/вал ліворуч -->
+  <rect x="100" y="130" width="14" height="175" rx="2" fill="#d0d7de" stroke="#1a1a1a"/>
+  <!-- Поворотна пружина повернення навколо вала -->
+  <line x1="95" y1="160" x2="119" y2="170" stroke="#2457d6" stroke-width="2"/>
+  <line x1="95" y1="180" x2="119" y2="190" stroke="#2457d6" stroke-width="2"/>
+  <line x1="95" y1="200" x2="119" y2="210" stroke="#2457d6" stroke-width="2"/>
+  <text x="75" y="190" text-anchor="end" font-size="11" font-weight="bold" fill="#2457d6">Пружина</text>
+
+  <!-- Рухома каретка на лінійному підшипнику -->
+  <rect x="94" y="215" width="140" height="42" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="145" y="232" font-size="11" font-weight="bold" fill="#2457d6">Каретка Z</text>
+  <text x="145" y="248" font-size="10" fill="#6b7280">хід 60 мм</text>
+
+  <!-- Хомут кріплення паяльника -->
+  <rect x="220" y="150" width="22" height="110" rx="3" fill="#6b7280"/>
+  <text x="250" y="165" font-size="11" fill="#1a1a1a">Паяльник (T12/TS100)</text>
+
+  <!-- Спеціальне латунне жало з пілотом -->
+  <polygon points="225,260 237,260 234,282 228,282" fill="#d0d7de" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="245" y="278" font-size="11" font-weight="bold" fill="#c0392b">Жало M3</text>
+
+  <!-- Вісь соосності Z (червоний пунктир через жало та бос) -->
+  <line x1="231" y1="135" x2="231" y2="310" stroke="#c0392b" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="240" y="142" font-size="10" font-weight="bold" fill="#c0392b">Вісь Z (90.0 град)</text>
+
+  <!-- Деталь із бобишкою на столі -->
+  <rect x="180" y="295" width="102" height="20" rx="2" fill="#f4f6f8" stroke="#1a1a1a"/>
+  <!-- Посадковий отвір під втулку -->
+  <rect x="225" y="295" width="12" height="12" rx="1" fill="#ffffff" stroke="#27ae60"/>
+
+  <!-- Базова плита столу -->
+  <rect x="80" y="310" width="390" height="8" rx="2" fill="#1a1a1a"/>
+
+  <!-- Текстовий блок знизу лівої панелі -->
+  <rect x="50" y="330" width="450" height="90" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="65" y="350" font-size="12" font-weight="bold" fill="#1a1a1a">Переваги верстатного кондуктора над ручним паянням:</text>
+  <text x="65" y="370" font-size="11" fill="#27ae60">• Відхилення від нормалі менше 0.2° (вручну перекіс сягає 3-5°)</text>
+  <text x="65" y="390" font-size="11" fill="#2457d6">• Плавне плавне занурення під власною вагою каретки</text>
+  <text x="65" y="408" font-size="10" fill="#6b7280">Виключає пошкодження заходу різьби та вигинання тонких стінок</text>
+
+  <!-- ПРАВА ПАНЕЛЬ: Вузол впаювання та термопрофілі -->
+  <rect x="540" y="75" width="390" height="360" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="735" y="102" text-anchor="middle" font-size="15" font-weight="bold" fill="#1a1a1a">Геометрія жала та термопрофілі</text>
+
+  <!-- Вузол жала та втулки крупним планом -->
+  <rect x="555" y="120" width="360" height="120" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+
+  <!-- Жало з напрямним пілотом -->
+  <path d="M 600,130 L 640,130 L 630,165 L 625,165 L 625,185 L 615,185 L 615,165 L 610,165 Z" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="650" y="145" font-size="11" font-weight="bold" fill="#2457d6">Корпус жала паяльника</text>
+  <text x="650" y="162" font-size="11" fill="#1a1a1a">Термопередача в торець втулки</text>
+  <text x="650" y="180" font-size="10" font-weight="bold" fill="#c0392b">Пілот d_pilot = 2.8 мм (центрує)</text>
+
+  <!-- Втулка з насічкою -->
+  <rect x="605" y="188" width="30" height="35" rx="2" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="645" y="202" font-size="11" font-weight="bold" fill="#1a1a1a">Втулка M3 (латунь CW614N)</text>
+  <text x="645" y="218" font-size="10" fill="#27ae60">Подвійна конічна насічка</text>
+
+  <!-- Таблиця рекомендованих температур -->
+  <rect x="555" y="250" width="360" height="170" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="570" y="270" font-size="13" font-weight="bold" fill="#1a1a1a">Температурний регламент паяльника:</text>
+
+  <rect x="570" y="280" width="160" height="36" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="578" y="295" font-size="11" font-weight="bold" fill="#2457d6">PLA пластик:</text>
+  <text x="578" y="309" font-size="11" fill="#1a1a1a">T = 200 - 215 °C</text>
+
+  <rect x="740" y="280" width="160" height="36" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="748" y="295" font-size="11" font-weight="bold" fill="#27ae60">PETG пластик:</text>
+  <text x="748" y="309" font-size="11" fill="#1a1a1a">T = 225 - 235 °C</text>
+
+  <rect x="570" y="325" width="160" height="36" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="578" y="340" font-size="11" font-weight="bold" fill="#c0392b">ABS / ASA:</text>
+  <text x="578" y="354" font-size="11" fill="#1a1a1a">T = 245 - 255 °C</text>
+
+  <rect x="740" y="325" width="160" height="36" rx="4" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="748" y="340" font-size="11" font-weight="bold" fill="#1a1a1a">PA-CF (Нейлон-карбон):</text>
+  <text x="748" y="354" font-size="11" fill="#1a1a1a">T = 270 - 285 °C</text>
+
+  <text x="570" y="385" font-size="11" font-weight="bold" fill="#c0392b">Час занурення: 2.0 - 4.0 секунди на одну втулку</text>
+  <text x="570" y="405" font-size="10" fill="#6b7280">Перегрів викликає термодеструкцію полімеру та втрату міцності</text>
+</svg>

@@ -1,0 +1,93 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Геометричні серії мініатюрних підшипників: 62x проти 68x</text>
+  <text x="480" y="60" font-size="13" fill="#6b7280" text-anchor="middle">Порівняння товщини кілець, вантажопідйомності та фланцевої фіксації (F625 / F685)</text>
+
+  <!-- Panel 1: Standard 62x (625: 5x16x5) -->
+  <rect x="30" y="85" width="280" height="345" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="170" y="113" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">1. Стандартна серія 62x</text>
+  <text x="170" y="131" font-size="12" fill="#6b7280" text-anchor="middle">На прикладі 625: 5 × 16 × 5 мм</text>
+
+  <!-- Bearing 1 (cx=170, cy=245) -->
+  <circle cx="170" cy="245" r="45" fill="none" stroke="#6b7280" stroke-width="15"/>
+  <circle cx="170" cy="215" r="6" fill="#2457d6"/>
+  <circle cx="200" cy="245" r="6" fill="#2457d6"/>
+  <circle cx="170" cy="275" r="6" fill="#2457d6"/>
+  <circle cx="140" cy="245" r="6" fill="#2457d6"/>
+  <circle cx="170" cy="245" r="18" fill="none" stroke="#6b7280" stroke-width="12"/>
+  <circle cx="170" cy="245" r="12" fill="#f4f6f8"/>
+  <text x="170" y="249" font-size="11" fill="#1a1a1a" text-anchor="middle">d=5</text>
+  <line x1="125" y1="190" x2="215" y2="190" stroke="#1a1a1a" stroke-width="1" marker-start="url(#arr)" marker-end="url(#arr)"/>
+  <text x="170" y="184" font-size="11" fill="#1a1a1a" text-anchor="middle">D = 16 мм</text>
+
+  <!-- Specs 1 -->
+  <text x="45" y="340" font-size="12" font-weight="bold" fill="#1a1a1a">• Конструкція:</text>
+  <text x="57" y="356" font-size="11" fill="#6b7280">Товсті кільця, великі кульки (D_w ≈ 2.78)</text>
+  <text x="45" y="378" font-size="12" font-weight="bold" fill="#1a1a1a">• Вантажопідйомність:</text>
+  <text x="57" y="394" font-size="11" fill="#27ae60" font-weight="bold">Висока динамічна C ≈ 1750 Н</text>
+  <text x="45" y="416" font-size="12" font-weight="bold" fill="#1a1a1a">• Призначення: ролики V-Slot</text>
+
+  <!-- Panel 2: Thin-walled 68x (685: 5x11x5) -->
+  <rect x="330" y="85" width="300" height="345" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="480" y="113" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">2. Тонкостінна серія 68x</text>
+  <text x="480" y="131" font-size="12" fill="#6b7280" text-anchor="middle">На прикладі 685: 5 × 11 × 5 мм</text>
+
+  <!-- Bearing 2 (cx=480, cy=245) -->
+  <circle cx="480" cy="245" r="32" fill="none" stroke="#6b7280" stroke-width="8"/>
+  <circle cx="480" cy="221" r="4" fill="#2457d6"/>
+  <circle cx="504" cy="245" r="4" fill="#2457d6"/>
+  <circle cx="480" cy="269" r="4" fill="#2457d6"/>
+  <circle cx="456" cy="245" r="4" fill="#2457d6"/>
+  <circle cx="480" cy="245" r="18" fill="none" stroke="#6b7280" stroke-width="9"/>
+  <circle cx="480" cy="245" r="12" fill="#f4f6f8"/>
+  <text x="480" y="249" font-size="11" fill="#1a1a1a" text-anchor="middle">d=5</text>
+  <line x1="448" y1="200" x2="512" y2="200" stroke="#1a1a1a" stroke-width="1" marker-start="url(#arr)" marker-end="url(#arr)"/>
+  <text x="480" y="194" font-size="11" fill="#1a1a1a" text-anchor="middle">D = 11 мм (-31%)</text>
+
+  <!-- Specs 2 -->
+  <text x="345" y="340" font-size="12" font-weight="bold" fill="#1a1a1a">• Конструкція:</text>
+  <text x="357" y="356" font-size="11" fill="#6b7280">Тонкі кільця, менші кульки (D_w ≈ 1.5)</text>
+  <text x="345" y="378" font-size="12" font-weight="bold" fill="#1a1a1a">• Вантажопідйомність:</text>
+  <text x="357" y="394" font-size="11" fill="#2457d6" font-weight="bold">Помірна C ≈ 720 Н, вага -60%</text>
+  <text x="345" y="416" font-size="12" font-weight="bold" fill="#1a1a1a">• Призначення: дрони, двигуни</text>
+
+  <!-- Panel 3: Flanged Modification F -->
+  <rect x="650" y="85" width="280" height="345" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="790" y="113" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">3. Фланцева модифікація (F)</text>
+  <text x="790" y="131" font-size="12" fill="#6b7280" text-anchor="middle">На прикладі F625 / F685</text>
+
+  <!-- Bearing 3 (cx=790, cy=245) -->
+  <circle cx="790" cy="245" r="38" fill="none" stroke="#27ae60" stroke-width="10"/>
+  <circle cx="790" cy="245" r="43" fill="none" stroke="#27ae60" stroke-dasharray="4,2" stroke-width="2"/>
+  <circle cx="790" cy="218" r="5" fill="#27ae60"/>
+  <circle cx="817" cy="245" r="5" fill="#27ae60"/>
+  <circle cx="790" cy="272" r="5" fill="#27ae60"/>
+  <circle cx="763" cy="245" r="5" fill="#27ae60"/>
+  <circle cx="790" cy="245" r="18" fill="none" stroke="#6b7280" stroke-width="10"/>
+  <circle cx="790" cy="245" r="12" fill="#f4f6f8"/>
+  <text x="790" y="249" font-size="11" fill="#1a1a1a" text-anchor="middle">d=5</text>
+  <line x1="747" y1="194" x2="833" y2="194" stroke="#27ae60" stroke-width="1" marker-start="url(#arr-green)" marker-end="url(#arr-green)"/>
+  <text x="790" y="188" font-size="11" fill="#27ae60" font-weight="bold" text-anchor="middle">Фланець D_f (упор)</text>
+
+  <!-- Specs 3 -->
+  <text x="665" y="340" font-size="12" font-weight="bold" fill="#1a1a1a">• Особливість:</text>
+  <text x="677" y="356" font-size="11" fill="#6b7280">Зовнішній буртик на кільці</text>
+  <text x="665" y="378" font-size="12" font-weight="bold" fill="#1a1a1a">• Монтаж:</text>
+  <text x="677" y="394" font-size="11" fill="#6b7280">Механічний упор у стінку</text>
+  <text x="665" y="416" font-size="12" font-weight="bold" fill="#1a1a1a">• Перевага: осьова фіксація</text>
+</svg>

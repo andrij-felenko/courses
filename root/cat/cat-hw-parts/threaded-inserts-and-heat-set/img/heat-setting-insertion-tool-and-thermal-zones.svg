@@ -1,0 +1,112 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L6,3 L0,6 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-rev" markerWidth="8" markerHeight="8" refX="0" refY="3" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M6,0 L0,3 L6,6 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L6,3 L0,6 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L6,3 L0,6 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <!-- Header -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Термічне впаювання нарізної втулки та температурні зони</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Розподіл тепла від жала паяльника, зона розплаву полімеру та центрування по осі</text>
+
+  <!-- Left Panel: Assembly Cross-Section -->
+  <rect x="40" y="75" width="490" height="380" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="285" y="100" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Процес занурення та температурні зони</text>
+
+  <!-- Central axis line -->
+  <line x1="285" y1="110" x2="285" y2="435" stroke="#94a3b8" stroke-width="1" stroke-dasharray="6,4"/>
+
+  <!-- Plastic Boss / Solid Cold Material (T < Tg) -->
+  <rect x="60" y="380" width="450" height="55" fill="#e2e8f0" stroke="#94a3b8" stroke-width="1.5"/>
+  <path d="M 180,380 L 180,240 Q 180,230 190,230 L 235,230 L 235,350 L 335,350 L 335,230 L 380,230 Q 390,230 390,240 L 390,380 Z" fill="#e2e8f0" stroke="#94a3b8" stroke-width="1.5"/>
+
+  <!-- Molten polymer zones (left, right, bottom strips) -->
+  <rect x="228" y="240" width="12" height="85" fill="#fecaca" stroke="#c0392b" stroke-width="1"/>
+  <rect x="330" y="240" width="12" height="85" fill="#fecaca" stroke="#c0392b" stroke-width="1"/>
+  <rect x="240" y="325" width="90" height="15" fill="#fecaca" stroke="#c0392b" stroke-width="1"/>
+
+  <!-- Brass Threaded Insert Cross-Section (Left & Right halves) -->
+  <rect x="240" y="235" width="25" height="85" rx="1" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/>
+  <rect x="305" y="235" width="25" height="85" rx="1" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/>
+
+  <!-- Knurling bands on insert halves -->
+  <line x1="240" y1="255" x2="252" y2="255" stroke="#b45309" stroke-width="2"/>
+  <line x1="240" y1="275" x2="252" y2="275" stroke="#b45309" stroke-width="2"/>
+  <line x1="240" y1="295" x2="252" y2="295" stroke="#b45309" stroke-width="2"/>
+  <line x1="318" y1="255" x2="330" y2="255" stroke="#b45309" stroke-width="2"/>
+  <line x1="318" y1="275" x2="330" y2="275" stroke="#b45309" stroke-width="2"/>
+  <line x1="318" y1="295" x2="330" y2="295" stroke="#b45309" stroke-width="2"/>
+
+  <!-- Thread grooves inside insert halves -->
+  <line x1="265" y1="245" x2="265" y2="315" stroke="#b45309" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="305" y1="245" x2="305" y2="315" stroke="#b45309" stroke-width="1" stroke-dasharray="3,3"/>
+
+  <!-- Soldering Iron Heat-Set Tip (Single combined path with pilot) -->
+  <path d="M 260,118 L 310,118 L 310,185 L 325,210 L 325,233 L 300,233 L 300,268 L 270,268 L 270,233 L 245,233 L 245,210 L 260,185 Z" fill="#ea580c" stroke="#9a3412" stroke-width="1.5"/>
+  <text x="285" y="165" font-size="12" fill="white" text-anchor="middle" font-weight="bold">Жало</text>
+  <text x="285" y="180" font-size="11" fill="white" text-anchor="middle">220–260°C</text>
+
+  <!-- Force Vector Arrow on Left -->
+  <line x1="210" y1="120" x2="210" y2="160" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arr-red)"/>
+  <text x="205" y="145" font-size="11" fill="#c0392b" text-anchor="end" font-weight="bold">F_press (2–5 Н)</text>
+
+  <!-- Callout 1: Molten polymer zone -->
+  <path d="M 228,260 L 150,260" stroke="#c0392b" stroke-width="1" marker-start="url(#arr-red)"/>
+  <text x="145" y="255" font-size="11" fill="#c0392b" text-anchor="end" font-weight="bold">Зона розплаву</text>
+  <text x="145" y="269" font-size="10" fill="#6b7280" text-anchor="end">T > T_melt (тече в пази)</text>
+
+  <!-- Callout 2: Shoulder push contact -->
+  <path d="M 326,233 L 420,215" stroke="#2457d6" stroke-width="1" marker-start="url(#arr-blue)"/>
+  <text x="425" y="210" font-size="11" fill="#2457d6" font-weight="bold">Упорний буртик</text>
+  <text x="425" y="224" font-size="10" fill="#6b7280">Передача тепла на торець</text>
+
+  <!-- Callout 3: Solid cold boss -->
+  <path d="M 390,300 L 420,300" stroke="#1a1a1a" stroke-width="1" marker-start="url(#arr)"/>
+  <text x="425" y="295" font-size="11" fill="#1a1a1a" font-weight="bold">Холодний бос</text>
+  <text x="425" y="309" font-size="10" fill="#6b7280">T &lt; T_g (жорсткий каркас)</text>
+
+  <!-- Callout 4: Alignment pilot -->
+  <path d="M 301,250 L 420,255" stroke="#2457d6" stroke-width="1" marker-start="url(#arr-blue)"/>
+  <text x="425" y="252" font-size="11" fill="#2457d6" font-weight="bold">Центрувальний пілот</text>
+  <text x="425" y="266" font-size="10" fill="#6b7280">Захист різьби від запливу</text>
+
+  <!-- Right Panel: Installation Guidelines -->
+  <rect x="550" y="75" width="370" height="380" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="735" y="102" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Технологічні параметри впаювання</text>
+
+  <!-- Card 1 -->
+  <rect x="565" y="116" width="340" height="68" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="580" y="136" font-size="13" font-weight="bold" fill="#2457d6">1. Температурні режими (T_tip)</text>
+  <text x="580" y="154" font-size="11" fill="#1a1a1a">PLA: 200–220 °C | PETG: 220–240 °C</text>
+  <text x="580" y="170" font-size="11" fill="#6b7280">ABS / ASA: 240–260 °C | PC / PA-CF: 260–290 °C</text>
+
+  <!-- Card 2 -->
+  <rect x="565" y="194" width="340" height="68" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="580" y="214" font-size="13" font-weight="bold" fill="#27ae60">2. Осьове зусилля (F_press)</text>
+  <text x="580" y="232" font-size="11" fill="#1a1a1a">Лише власна вага інструмента (2–5 Н).</text>
+  <text x="580" y="248" font-size="11" fill="#6b7280">Плавне занурення триває 3–5 секунд без перекосу.</text>
+
+  <!-- Card 3 -->
+  <rect x="565" y="272" width="340" height="68" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="580" y="292" font-size="13" font-weight="bold" fill="#2457d6">3. Спеціалізоване жало (Heat-Set Tip)</text>
+  <text x="580" y="310" font-size="11" fill="#1a1a1a">Гладкий носик центрує втулку по осі отвору,</text>
+  <text x="580" y="326" font-size="11" fill="#6b7280">не торкаючись і не пошкоджуючи внутрішню різьбу.</text>
+
+  <!-- Card 4 -->
+  <rect x="565" y="350" width="340" height="68" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="580" y="370" font-size="13" font-weight="bold" fill="#1a1a1a">4. Фінішне вирівнювання врівень</text>
+  <text x="580" y="388" font-size="11" fill="#1a1a1a">Жало виймають за 0.1 мм до площини,</text>
+  <text x="580" y="404" font-size="11" fill="#6b7280">притискаючи торець холодним металевим бруском.</text>
+</svg>

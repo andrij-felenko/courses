@@ -1,0 +1,90 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460">
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Заголовок та підзаголовок -->
+  <text x="480" y="38" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Схема підключення буфера 74AHCT125 для трансляції 3.3 В у 5.0 В</text>
+  <text x="480" y="60" font-family="Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">Живлення 5 В, ТТЛ-сумісні пороги входів V_IH ≥ 2.0 В, фільтрація C_dec = 0.1 мкФ та керування лінією /OE</text>
+
+  <!-- Панель 1: Ліворуч (x=30..530) Принципова електрична схема -->
+  <rect x="30" y="80" width="500" height="350" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="280" y="105" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Принципова електрична схема перетворювача</text>
+
+  <!-- 74AHCT125 IC Box -->
+  <rect x="230" y="150" width="120" height="200" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="290" y="175" font-family="Arial, sans-serif" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">74AHCT125</text>
+  <text x="290" y="195" font-family="Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">1/4 Quad Buffer</text>
+
+  <!-- Pins labels on IC -->
+  <!-- Pin 1: /1OE -->
+  <text x="245" y="215" font-family="Arial, sans-serif" font-size="11" fill="#1a1a1a">1: /1OE</text>
+  <!-- Pin 2: 1A -->
+  <text x="245" y="245" font-family="Arial, sans-serif" font-size="11" fill="#1a1a1a">2: 1A</text>
+  <!-- Pin 3: 1Y -->
+  <text x="335" y="245" font-family="Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="end">3: 1Y</text>
+  <!-- Pin 7: GND -->
+  <text x="290" y="335" font-family="Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">7: GND</text>
+  <!-- Pin 14: VCC -->
+  <text x="290" y="165" font-family="Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">14: VCC</text>
+
+  <!-- External Connections -->
+  <!-- Signal Source 3.3V (ESP32/STM32 GPIO) -->
+  <rect x="50" y="230" width="80" height="30" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="90" y="250" font-family="Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">ESP32 GPIO</text>
+  <line x1="130" y1="245" x2="230" y2="245" stroke="#2457d6" stroke-width="2"/>
+  <text x="180" y="240" font-family="Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle">3.3В сигнал</text>
+
+  <!-- OE Control & Resistor R1 -->
+  <line x1="160" y1="210" x2="230" y2="210" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="145" y="214" font-family="Arial, sans-serif" font-size="11" fill="#1a1a1a">/OE</text>
+  <!-- Resistor R1 -->
+  <path d="M 175 210 L 180 205 L 190 215 L 200 205 L 210 215 L 215 210" fill="none" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="195" y="195" font-family="Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">R1: 10к</text>
+  <!-- GND for R1 -->
+  <line x1="195" y1="215" x2="195" y2="230" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="185" y1="230" x2="205" y2="230" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="189" y1="234" x2="201" y2="234" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="193" y1="238" x2="197" y2="238" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Output 1Y to WS2812B / Device -->
+  <line x1="350" y1="245" x2="450" y2="245" stroke="#27ae60" stroke-width="2"/>
+  <rect x="450" y="230" width="60" height="30" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="480" y="250" font-family="Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">WS2812B</text>
+  <text x="400" y="240" font-family="Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle">5.0В (DIN)</text>
+
+  <!-- Power VCC 5.0V -->
+  <line x1="290" y1="150" x2="290" y2="120" stroke="#c0392b" stroke-width="2"/>
+  <text x="290" y="115" font-family="Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle">VCC = +5.0В</text>
+  <!-- Decoupling Capacitor C1 = 0.1 uF -->
+  <line x1="320" y1="120" x2="320" y2="135" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="312" y1="135" x2="328" y2="135" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="312" y1="140" x2="328" y2="140" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="320" y1="140" x2="320" y2="155" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="350" y="142" font-family="Arial, sans-serif" font-size="11" fill="#1a1a1a">C1: 0.1мкФ</text>
+
+  <!-- GND Pin 7 -->
+  <line x1="290" y1="350" x2="290" y2="380" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="275" y1="380" x2="305" y2="380" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="281" y1="384" x2="299" y2="384" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="287" y1="388" x2="293" y2="388" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="315" y="380" font-family="Arial, sans-serif" font-size="11" fill="#1a1a1a">GND</text>
+
+
+  <!-- Панель 2: Праворуч (x=550..930) Пороги та параметри -->
+  <rect x="550" y="80" width="380" height="350" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="740" y="105" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Пороги перемикання та параметри</text>
+
+  <!-- Sub-block: Voltage levels / margins -->
+  <rect x="570" y="120" width="340" height="150" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="740" y="140" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Діаграма логічних рівнів та запасів</text>
+  <text x="585" y="165" font-family="Arial, sans-serif" font-size="11" fill="#1a1a1a">• 3.3V контролер: V_OH_min = 2.4 В</text>
+  <text x="585" y="190" font-family="Arial, sans-serif" font-size="11" fill="#1a1a1a">• Пороги 74AHCT125: V_IH_min = 2.0 В, V_IL_max = 0.8 В</text>
+  <text x="585" y="215" font-family="Arial, sans-serif" font-size="11" fill="#27ae60" font-weight="bold">• Запас перешкодостійкості: Margin = 2.4В - 2.0В = 0.4В</text>
+  <text x="585" y="240" font-family="Arial, sans-serif" font-size="11" fill="#1a1a1a">• Вихідний сигнал: V_OH = 4.5–5.0 В (Push-Pull, до ±8мА)</text>
+
+  <!-- Sub-block: Green advantages box -->
+  <rect x="570" y="285" width="340" height="130" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="740" y="305" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Переваги рішення</text>
+  <text x="585" y="330" font-family="Arial, sans-serif" font-size="11" fill="#1a1a1a">• Швидкісний відгук t_pd &lt; 5.5 нс (частоти до 25 МГц)</text>
+  <text x="585" y="355" font-family="Arial, sans-serif" font-size="11" fill="#1a1a1a">• Активний перезаряд ємності довгого кабелю</text>
+  <text x="585" y="380" font-family="Arial, sans-serif" font-size="11" fill="#1a1a1a">• Стан Hi-Z при /OE = HIGH для захисту шини</text>
+</svg>

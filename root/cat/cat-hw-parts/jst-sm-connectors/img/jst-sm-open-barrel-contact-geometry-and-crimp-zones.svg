@@ -1,0 +1,95 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Геометрія відкритого хвостовика та зон обтиску контактів JST-SM</text>
+  <text x="480" y="60" font-size="13" fill="#6b7280" text-anchor="middle">Штировий і гніздовий контакти, зони обтиску провідника (B-crimp) та ізоляції (O-crimp) для AWG 22–28</text>
+
+  <!-- ЛІВА ПАНЕЛЬ: Поздовжня анатомія (x=30..510, y=80..430) -->
+  <rect x="30" y="80" width="480" height="350" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="50" y="105" font-size="14" font-weight="bold" fill="#1a1a1a">1. Поздовжня анатомія відкритого контакту (Open-barrel)</text>
+
+  <!-- Схема контакту (горизонтальна осі ~y=230) -->
+  <!-- Провідник AWG 22-28 з ізоляцією -->
+  <rect x="50" y="200" width="100" height="60" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="100" y="235" font-size="12" fill="#2457d6" text-anchor="middle">AWG 22–28</text>
+
+  <!-- Зачищена мідна жила -->
+  <path d="M150,220 L230,220" stroke="#c0392b" stroke-width="3" stroke-dasharray="4,2"/>
+  <text x="190" y="212" font-size="11" fill="#c0392b" text-anchor="middle">Жила</text>
+
+  <!-- Зона обтиску ізоляції (Insulation Crimp Wings) -->
+  <rect x="150" y="190" width="70" height="80" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="185" y="182" font-size="11" fill="#6b7280" text-anchor="middle">Ізоляція (1.6–1.8 мм)</text>
+
+  <!-- Оглядове вікно (Wire Inspection Window) -->
+  <rect x="220" y="205" width="25" height="50" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="232" y="275" font-size="11" fill="#c0392b" text-anchor="middle">Вікно 0.3–0.5</text>
+
+  <!-- Зона обтиску жили (Conductor Crimp Wings) -->
+  <rect x="245" y="190" width="80" height="80" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="285" y="182" font-size="11" fill="#2457d6" text-anchor="middle">Жила (1.8–2.0 мм)</text>
+
+  <!-- Передній розтруб та щіточка жил (Front Brush) -->
+  <rect x="325" y="200" width="30" height="60" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="340" y="288" font-size="11" fill="#27ae60" text-anchor="middle">Щіточка 0.2–0.5</text>
+
+  <!-- Пружинний язичок (Locking Lance) -->
+  <path d="M370,230 L400,210" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+  <text x="385" y="198" font-size="11" fill="#1a1a1a" text-anchor="middle">Язичок 15–20°</text>
+
+  <!-- Робоча зона штиря / гнізда -->
+  <rect x="370" y="215" width="110" height="30" rx="3" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="425" y="235" font-size="11" fill="#1a1a1a" text-anchor="middle">Робоча зона (0.64 мм)</text>
+
+  <!-- Текстові пояснення в лівій панелі -->
+  <text x="50" y="320" font-size="12" fill="#1a1a1a">• Зона обтиску ізоляції (Insulation Crimp): довжина 1.6–1.8 мм.</text>
+  <text x="50" y="342" font-size="12" fill="#1a1a1a">• Оглядове вікно: видимий стик між ізоляцією та жилами.</text>
+  <text x="50" y="364" font-size="12" fill="#1a1a1a">• Зона обтиску жили (Conductor Crimp): довжина 1.8–2.0 мм.</text>
+  <text x="50" y="386" font-size="12" fill="#1a1a1a">• Передній виступ жил (Front Brush): 0.2–0.5 мм за кромку.</text>
+  <text x="50" y="408" font-size="12" fill="#1a1a1a">• Матеріал: луджена фосфориста бронза.</text>
+
+  <!-- ПРАВА ПАНЕЛЬ: Поперечні перерізи (x=530..930, y=80..430) -->
+  <rect x="530" y="80" width="400" height="350" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="550" y="105" font-size="14" font-weight="bold" fill="#1a1a1a">2. Поперечні перерізи та нормативи (Cross Sections)</text>
+
+  <!-- Переріз 1: B-обтиск жили -->
+  <rect x="550" y="125" width="170" height="110" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="635" y="145" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">B-обтиск жили (Conductor)</text>
+  <!-- Імітація B-профілю -->
+  <path d="M605,175 C595,175 590,185 590,195 C590,205 595,215 605,215 L665,215 C675,215 680,205 680,195 C680,185 675,175 665,175 Z" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <circle cx="625" cy="195" r="3" fill="#c0392b"/>
+  <circle cx="635" cy="190" r="3" fill="#c0392b"/>
+  <circle cx="645" cy="195" r="3" fill="#c0392b"/>
+  <circle cx="635" cy="200" r="3" fill="#c0392b"/>
+  <text x="635" y="228" font-size="11" fill="#1a1a1a" text-anchor="middle">CH = 0.72–0.78 мм (±0.03)</text>
+
+  <!-- Переріз 2: O-обтиск ізоляції -->
+  <rect x="740" y="125" width="170" height="110" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="825" y="145" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">O-обтиск ізоляції (Insulation)</text>
+  <!-- Імітація O-профілю -->
+  <circle cx="825" cy="195" r="22" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <circle cx="825" cy="195" r="10" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="825" y="228" font-size="11" fill="#1a1a1a" text-anchor="middle">Без розрізання діелектрика</text>
+
+  <!-- Нормативний зелений блок -->
+  <rect x="550" y="245" width="360" height="165" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="570" y="270" font-size="13" font-weight="bold" fill="#27ae60">Нормативні параметри та зусилля утримання:</text>
+  <text x="570" y="295" font-size="12" fill="#1a1a1a">• AWG 22: зусилля виривання (Tensile) ≥ 40 Н</text>
+  <text x="570" y="320" font-size="12" fill="#1a1a1a">• AWG 24: зусилля виривання (Tensile) ≥ 30 Н</text>
+  <text x="570" y="345" font-size="12" fill="#1a1a1a">• AWG 28: зусилля виривання (Tensile) ≥ 15 Н</text>
+  <text x="570" y="375" font-size="12" fill="#1a1a1a">• Матеріал: луджена фосфориста бронза</text>
+  <text x="570" y="398" font-size="12" fill="#1a1a1a">• Товщина шару олова: 1–3 мкм</text>
+</svg>

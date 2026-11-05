@@ -1,0 +1,142 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Підкладка на все полотно -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="700" fill="#1a1a1a">Геометрія каналів W/L: симетричний CMOS проти асиметрії 74AHCT</text>
+  <text x="480" y="52" text-anchor="middle" font-size="13" fill="#6b7280">Розширення каналу NMOS зміщує баланс провідності й знижує поріг перемикання V_M з 2,5 В до 1,4 В</text>
+
+  <!-- ================= ЛІВА ПАНЕЛЬ: СИМЕТРИЧНИЙ CMOS ================= -->
+  <rect x="24" y="68" width="444" height="452" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="246" y="92" text-anchor="middle" font-size="14" font-weight="700" fill="#1a1a1a">Симетричний CMOS (74HC / 74AHC)</text>
+  <text x="246" y="110" text-anchor="middle" font-size="12" fill="#6b7280">V_CC = 5,0 В • Пороги CMOS: V_IL = 1,5 В, V_IH = 3,5 В</text>
+  <line x1="38" y1="118" x2="454" y2="118" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Лівий блок 1: PMOS -->
+  <rect x="38" y="126" width="416" height="90" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="50" y="142" font-size="12" font-weight="700" fill="#1a1a1a">PMOS (pull-up до V_CC)</text>
+  <rect x="52" y="154" width="28" height="44" rx="2" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="66" y="180" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">S</text>
+  <rect x="84" y="150" width="16" height="52" rx="2" fill="#1a1a1a"/>
+  <text x="92" y="180" text-anchor="middle" font-size="12" font-weight="700" fill="white">G</text>
+  <rect x="104" y="154" width="28" height="44" rx="2" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="118" y="180" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">D</text>
+  <line x1="138" y1="154" x2="138" y2="198" stroke="#2457d6" stroke-width="1.2"/>
+  <line x1="135" y1="154" x2="141" y2="154" stroke="#2457d6" stroke-width="1.2"/>
+  <line x1="135" y1="198" x2="141" y2="198" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="146" y="180" font-size="12" font-weight="700" fill="#2457d6">W_p</text>
+  <text x="180" y="160" font-size="12" font-weight="700" fill="#1a1a1a">(W/L)_p ≈ 2,5 … 3 (канал розширено)</text>
+  <text x="180" y="178" font-size="12" fill="#6b7280">Компенсує малу рухливість дірок μ_p</text>
+  <text x="180" y="196" font-size="12" fill="#2457d6">Крутизна: g_mp = μ_p · C_ox · (W/L)_p</text>
+
+  <!-- Лівий блок 2: NMOS -->
+  <rect x="38" y="226" width="416" height="90" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="50" y="242" font-size="12" font-weight="700" fill="#1a1a1a">NMOS (pull-down до GND)</text>
+  <rect x="52" y="266" width="28" height="20" rx="2" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="66" y="280" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">S</text>
+  <rect x="84" y="262" width="16" height="28" rx="2" fill="#1a1a1a"/>
+  <text x="92" y="280" text-anchor="middle" font-size="12" font-weight="700" fill="white">G</text>
+  <rect x="104" y="266" width="28" height="20" rx="2" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="118" y="280" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">D</text>
+  <line x1="138" y1="266" x2="138" y2="286" stroke="#2457d6" stroke-width="1.2"/>
+  <line x1="135" y1="266" x2="141" y2="266" stroke="#2457d6" stroke-width="1.2"/>
+  <line x1="135" y1="286" x2="141" y2="286" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="146" y="280" font-size="12" font-weight="700" fill="#2457d6">W_n</text>
+  <text x="180" y="260" font-size="12" font-weight="700" fill="#1a1a1a">(W/L)_n ≈ 1,0 (базовий вузький)</text>
+  <text x="180" y="278" font-size="12" fill="#6b7280">Висока μ_n електронів (μ_n ≈ 2,5·μ_p)</text>
+  <text x="180" y="296" font-size="12" fill="#2457d6">Баланс крутизни: g_mn ≈ g_mp</text>
+
+  <!-- Лівий блок 3: Поріг та несумісність -->
+  <rect x="38" y="326" width="416" height="184" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="50" y="344" font-size="13" font-weight="700" fill="#c0392b">Поріг перемикання V_M = 2,5 В (симетрія 5 В CMOS)</text>
+  <rect x="50" y="364" width="118" height="18" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="109" y="377" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">LOW (&lt; 1,5 В)</text>
+  <rect x="168" y="364" width="156" height="18" fill="#ffffff" stroke="#c0392b" stroke-dasharray="3,2"/>
+  <text x="246" y="377" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">V_M = 2,5 В (невизначена)</text>
+  <rect x="324" y="364" width="118" height="18" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="383" y="377" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">HIGH (&gt; 3,5 В)</text>
+  <text x="50" y="396" font-size="12" fill="#6b7280">0 В</text>
+  <text x="168" y="396" text-anchor="middle" font-size="12" fill="#6b7280">1,5 В</text>
+  <text x="324" y="396" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">V_IH=3,5 В</text>
+  <text x="442" y="396" text-anchor="end" font-size="12" fill="#6b7280">5,0 В</text>
+  <rect x="50" y="408" width="392" height="92" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+  <text x="60" y="426" font-size="12" font-weight="700" fill="#c0392b">ПРОБЛЕМА: Несумісність із логікою 3,3 В</text>
+  <text x="60" y="444" font-size="12" fill="#1a1a1a">• Вихідний рівень 3,3 В нижчий за поріг одиниці V_IH = 3,5 В</text>
+  <text x="60" y="462" font-size="12" fill="#1a1a1a">• Сигнал потрапляє в заборонену зону (обидва транзистори напіввідкриті)</text>
+  <text x="60" y="480" font-size="12" font-weight="700" fill="#c0392b">• Виникає наскрізний струм I_CC та збої логічних станів</text>
+
+  <!-- ================= ПРАВА ПАНЕЛЬ: АСИМЕТРІЯ 74AHCT ================= -->
+  <rect x="492" y="68" width="444" height="452" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="714" y="92" text-anchor="middle" font-size="14" font-weight="700" fill="#1a1a1a">Асиметричний інвертор 74AHCT (TTL-вхід)</text>
+  <text x="714" y="110" text-anchor="middle" font-size="12" fill="#2457d6">V_CC = 5,0 В • Пороги TTL: V_IL = 0,8 В, V_IH = 2,0 В</text>
+  <line x1="506" y1="118" x2="922" y2="118" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Правий блок 1: PMOS -->
+  <rect x="506" y="126" width="416" height="90" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="518" y="142" font-size="12" font-weight="700" fill="#1a1a1a">PMOS (послаблений pull-up)</text>
+  <rect x="520" y="166" width="28" height="20" rx="2" fill="#f4f6f8" stroke="#6b7280" stroke-width="1"/>
+  <text x="534" y="180" text-anchor="middle" font-size="12" font-weight="700" fill="#6b7280">S</text>
+  <rect x="552" y="162" width="16" height="28" rx="2" fill="#1a1a1a"/>
+  <text x="560" y="180" text-anchor="middle" font-size="12" font-weight="700" fill="white">G</text>
+  <rect x="572" y="166" width="28" height="20" rx="2" fill="#f4f6f8" stroke="#6b7280" stroke-width="1"/>
+  <text x="586" y="180" text-anchor="middle" font-size="12" font-weight="700" fill="#6b7280">D</text>
+  <line x1="606" y1="166" x2="606" y2="186" stroke="#6b7280" stroke-width="1.2"/>
+  <line x1="603" y1="166" x2="609" y2="166" stroke="#6b7280" stroke-width="1.2"/>
+  <line x1="603" y1="186" x2="609" y2="186" stroke="#6b7280" stroke-width="1.2"/>
+  <text x="614" y="180" font-size="12" font-weight="700" fill="#6b7280">W_p</text>
+  <text x="648" y="160" font-size="12" font-weight="700" fill="#1a1a1a">(W/L)_p ≈ 1,0 (навмисно звужений)</text>
+  <text x="648" y="178" font-size="12" fill="#6b7280">Слабкий pull-up до шини V_CC</text>
+  <text x="648" y="196" font-size="12" fill="#6b7280">Крутизна g_mp мала (поступається NMOS)</text>
+
+  <!-- Правий блок 2: NMOS -->
+  <rect x="506" y="226" width="416" height="90" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="518" y="242" font-size="12" font-weight="700" fill="#27ae60">NMOS (сильно підсилений pull-down)</text>
+  <rect x="520" y="254" width="28" height="46" rx="2" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="534" y="280" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">S</text>
+  <rect x="552" y="250" width="16" height="54" rx="2" fill="#1a1a1a"/>
+  <text x="560" y="280" text-anchor="middle" font-size="12" font-weight="700" fill="white">G</text>
+  <rect x="572" y="254" width="28" height="46" rx="2" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="586" y="280" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">D</text>
+  <line x1="606" y1="254" x2="606" y2="300" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="603" y1="254" x2="609" y2="254" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="603" y1="300" x2="609" y2="300" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="614" y="280" font-size="12" font-weight="700" fill="#27ae60">W_n</text>
+  <text x="648" y="260" font-size="12" font-weight="700" fill="#27ae60">(W/L)_n ≈ 4 … 6 × (W/L)_p (дуже широкий)</text>
+  <text x="648" y="278" font-size="12" fill="#1a1a1a">Перекіс крутизни: g_mn ≫ g_mp</text>
+  <text x="648" y="296" font-size="12" font-weight="700" fill="#27ae60">NMOS домінує вже при напрузі входу ~1,4 В</text>
+
+  <!-- Правий блок 3: Зміщений поріг та вирішення -->
+  <rect x="506" y="326" width="416" height="184" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="518" y="344" font-size="13" font-weight="700" fill="#27ae60">Зміщений поріг перемикання V_M ≈ 1,4 В (TTL-вхід)</text>
+  <rect x="518" y="364" width="63" height="18" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="549" y="377" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">LOW</text>
+  <rect x="581" y="364" width="94" height="18" fill="#ffffff" stroke="#d0d7de" stroke-dasharray="3,2"/>
+  <text x="628" y="377" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">V_M ≈ 1,4 В</text>
+  <rect x="675" y="364" width="235" height="18" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="792" y="377" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">HIGH (V_IH ≥ 2,0 В — TTL-сумісно)</text>
+  <text x="518" y="396" font-size="12" fill="#6b7280">0 В</text>
+  <text x="581" y="396" text-anchor="middle" font-size="12" fill="#6b7280">0,8 В</text>
+  <text x="675" y="396" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">V_IH=2,0 В</text>
+  <text x="777" y="396" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">3,3 В MCU</text>
+  <text x="910" y="396" text-anchor="end" font-size="12" fill="#6b7280">5,0 В</text>
+  <rect x="518" y="408" width="392" height="92" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="528" y="426" font-size="12" font-weight="700" fill="#27ae60">РОЗВ'ЯЗОК: Повна сумісність із рівнями 3,3 В</text>
+  <text x="528" y="444" font-size="12" fill="#1a1a1a">• Поріг одиниці знижено: V_IH(min) = 2,0 В (стандарт TTL)</text>
+  <text x="528" y="462" font-size="12" fill="#1a1a1a">• Запас завадостійкості: 3,3 В − 2,0 В = 1,3 В (надійне спрацьовування)</text>
+  <text x="528" y="480" font-size="12" font-weight="700" fill="#27ae60">• Вихідний 5 В CMOS-каскад гарантує повний розмах без струму I_CC</text>
+</svg>

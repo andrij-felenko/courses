@@ -1,0 +1,106 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Header -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Складальне креслення корпусу з кріпленням М3 DIN 7991</text>
+  <text x="480" y="60" font-size="13" fill="#6b7280" text-anchor="middle">Алюмінієва лицьова панель 2.5 мм із зенкуванням 90°, корпус із 3D-друку та самоконтруючі гайки DIN 985</text>
+
+  <!-- Left Panel: Exploded Assembly View -->
+  <rect x="30" y="80" width="480" height="350" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="50" y="105" font-size="14" font-weight="bold" fill="#1a1a1a">1. Конструктивний розріз вузла складання</text>
+
+  <!-- Center axis line -->
+  <line x1="190" y1="115" x2="190" y2="415" stroke="#a0a8b0" stroke-dasharray="6,4" stroke-width="1"/>
+
+  <!-- Screw M3 DIN 7991 -->
+  <polygon points="166,130 214,130 196,150 184,150" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="187" y="132" width="6" height="8" fill="#6b7280"/>
+  <rect x="187" y="150" width="6" height="45" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="187" y1="160" x2="193" y2="163" stroke="#6b7280" stroke-width="1"/>
+  <line x1="187" y1="170" x2="193" y2="173" stroke="#6b7280" stroke-width="1"/>
+  <line x1="187" y1="180" x2="193" y2="183" stroke="#6b7280" stroke-width="1"/>
+
+  <!-- Aluminum Panel -->
+  <path d="M70,205 L166,205 L184,218 L184,230 L70,230 Z" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <path d="M196,218 L214,205 L310,205 L310,230 L196,230 Z" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+
+  <!-- Seal Gasket -->
+  <rect x="70" y="238" width="114" height="10" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <rect x="196" y="238" width="114" height="10" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+
+  <!-- Housing Wall & Boss -->
+  <rect x="70" y="256" width="114" height="70" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="196" y="256" width="114" height="70" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Flat Washer DIN 125 -->
+  <rect x="160" y="334" width="60" height="10" rx="2" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1"/>
+
+  <!-- Nylon Locknut DIN 985 -->
+  <rect x="165" y="352" width="50" height="20" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="168" y="372" width="44" height="10" rx="3" fill="#27ae60" stroke="#27ae60"/>
+
+  <!-- Callouts -->
+  <!-- Screw callout -->
+  <line x1="216" y1="140" x2="330" y2="140" stroke="#1a1a1a" stroke-width="1" marker-end="url(#arr)"/>
+  <text x="340" y="136" font-size="11" font-weight="bold" fill="#1a1a1a">Гвинт М3 DIN 7991</text>
+  <text x="340" y="152" font-size="11" fill="#6b7280">L = 16 мм, шліц Hex 2.0</text>
+
+  <!-- Panel callout -->
+  <line x1="216" y1="218" x2="330" y2="218" stroke="#2457d6" stroke-width="1" marker-end="url(#arr-blue)"/>
+  <text x="340" y="214" font-size="11" font-weight="bold" fill="#2457d6">Алюмінієва панель 2.5 мм</text>
+  <text x="340" y="230" font-size="11" fill="#6b7280">фаска 90°, посадка врівень</text>
+
+  <!-- Gasket callout -->
+  <line x1="216" y1="243" x2="330" y2="243" stroke="#c0392b" stroke-width="1" marker-end="url(#arr-red)"/>
+  <text x="340" y="247" font-size="11" font-weight="bold" fill="#c0392b">Силіконова прокладка 1 мм</text>
+
+  <!-- Boss callout -->
+  <line x1="216" y1="290" x2="330" y2="290" stroke="#1a1a1a" stroke-width="1" marker-end="url(#arr)"/>
+  <text x="340" y="286" font-size="11" font-weight="bold" fill="#1a1a1a">Стінка корпусу (PETG)</text>
+  <text x="340" y="302" font-size="11" fill="#6b7280">бобишка, отвір D = 3.4 мм</text>
+
+  <!-- Washer callout -->
+  <line x1="222" y1="339" x2="330" y2="339" stroke="#1a1a1a" stroke-width="1" marker-end="url(#arr)"/>
+  <text x="340" y="343" font-size="11" font-weight="bold" fill="#1a1a1a">Шайба DIN 125 (розподіл F_p)</text>
+
+  <!-- Locknut callout -->
+  <line x1="217" y1="367" x2="330" y2="367" stroke="#27ae60" stroke-width="1" marker-end="url(#arr-green)"/>
+  <text x="340" y="363" font-size="11" font-weight="bold" fill="#27ae60">Гайка DIN 985</text>
+  <text x="340" y="379" font-size="11" fill="#6b7280">із нейлоновим кільцем</text>
+
+  <!-- Right Panel: Engineering Assembly & Tightening Rules -->
+  <rect x="530" y="80" width="400" height="350" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="550" y="105" font-size="14" font-weight="bold" fill="#1a1a1a">2. Інженерні правила складання</text>
+
+  <!-- Sub-block 1: Sequence (Green) -->
+  <rect x="545" y="120" width="370" height="135" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="560" y="145" font-size="13" font-weight="bold" fill="#27ae60">1. Послідовність монтажу та підготовка</text>
+  <text x="560" y="170" font-size="11" fill="#1a1a1a">• Контроль глибини зенкування h_k перед фарбуванням.</text>
+  <text x="560" y="195" font-size="11" fill="#1a1a1a">• Шайба DIN 125 під гайку усуває повзучість пластику.</text>
+  <text x="560" y="220" font-size="11" fill="#1a1a1a">• Вихід різьби за нейлон мінімум на 1.5–2.0 витки.</text>
+  <text x="560" y="242" font-size="11" fill="#1a1a1a">• Герметизація зазору силіконовою прокладкою.</text>
+
+  <!-- Sub-block 2: Tightening & Tooling (Red) -->
+  <rect x="545" y="270" width="370" height="145" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="560" y="295" font-size="13" font-weight="bold" fill="#c0392b">2. Захист шестигранного шліца 2.0 мм</text>
+  <text x="560" y="320" font-size="11" fill="#1a1a1a">• Граничний крутний момент: M_max = 0.8–1.0 Н·м.</text>
+  <text x="560" y="345" font-size="11" fill="#1a1a1a">• Утримувати ключ 2 мм нерухомо, затягувати ГАЙКУ!</text>
+  <text x="560" y="370" font-size="11" font-weight="bold" fill="#c0392b">• Кручення гайки накидним ключем на 5.5 мм повністю</text>
+  <text x="560" y="390" font-size="11" font-weight="bold" fill="#c0392b">  унеможливлює злизування шліца гвинта.</text>
+</svg>

@@ -1,0 +1,91 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+  
+  <!-- Title and Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Залежність контактного опору та флуктуацій шуму від зусилля щітки</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Оптимальний притиск забезпечує мінімум шуму та зносу без перегріву і заклинювання</text>
+
+  <!-- Panel Background for Plot Area -->
+  <rect x="80" y="80" width="820" height="320" fill="#f4f6f8" stroke="#d0d7de" rx="6"/>
+
+  <!-- Grid lines -->
+  <line x1="140" y1="130" x2="840" y2="130" stroke="#e1e4e8" stroke-dasharray="4 4"/>
+  <line x1="140" y1="180" x2="840" y2="180" stroke="#e1e4e8" stroke-dasharray="4 4"/>
+  <line x1="140" y1="230" x2="840" y2="230" stroke="#e1e4e8" stroke-dasharray="4 4"/>
+  <line x1="140" y1="280" x2="840" y2="280" stroke="#e1e4e8" stroke-dasharray="4 4"/>
+  <line x1="140" y1="330" x2="840" y2="330" stroke="#e1e4e8" stroke-dasharray="4 4"/>
+
+  <!-- Axes -->
+  <line x1="140" y1="360" x2="860" y2="360" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+  <line x1="140" y1="360" x2="140" y2="90" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+
+  <!-- Definitions for Markers -->
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Axis Labels -->
+  <text x="500" y="425" font-size="13" fill="#1a1a1a" text-anchor="middle">Притискне зусилля щітки F (мН)</text>
+  <text x="135" y="75" font-size="13" fill="#1a1a1a" text-anchor="middle">Опір / Шум</text>
+
+  <!-- Y-axis ticks & labels -->
+  <text x="130" y="364" font-size="12" fill="#6b7280" text-anchor="end">0</text>
+  <text x="130" y="314" font-size="12" fill="#6b7280" text-anchor="end">25%</text>
+  <text x="130" y="264" font-size="12" fill="#6b7280" text-anchor="end">50%</text>
+  <text x="130" y="214" font-size="12" fill="#6b7280" text-anchor="end">75%</text>
+  <text x="130" y="164" font-size="12" fill="#6b7280" text-anchor="end">100%</text>
+
+  <!-- X-axis ticks & labels -->
+  <text x="140" y="378" font-size="12" fill="#6b7280" text-anchor="middle">0</text>
+  <text x="280" y="378" font-size="12" fill="#6b7280" text-anchor="middle">50</text>
+  <text x="420" y="378" font-size="12" fill="#6b7280" text-anchor="middle">100</text>
+  <text x="560" y="378" font-size="12" fill="#6b7280" text-anchor="middle">150</text>
+  <text x="700" y="378" font-size="12" fill="#6b7280" text-anchor="middle">200</text>
+  <text x="840" y="378" font-size="12" fill="#6b7280" text-anchor="middle">250</text>
+
+  <!-- Zones background -->
+  <!-- Low pressure zone: high noise -->
+  <rect x="140" y="90" width="140" height="270" fill="#fdecea" opacity="0.4"/>
+  <!-- Optimal zone -->
+  <rect x="380" y="90" width="160" height="270" fill="#e9f7ef" opacity="0.5"/>
+  <!-- High pressure zone -->
+  <rect x="700" y="90" width="140" height="270" fill="#fdecea" opacity="0.3"/>
+
+  <!-- Zone labels -->
+  <text x="210" y="112" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Слабий притиск</text>
+  <text x="210" y="126" font-size="11" fill="#c0392b" text-anchor="middle">вібрації та зсуви</text>
+
+  <text x="460" y="112" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Оптимальна зона</text>
+  <text x="460" y="126" font-size="11" fill="#27ae60" text-anchor="middle">стабільний контакт</text>
+
+  <text x="770" y="112" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Надмірний тиск</text>
+  <text x="770" y="126" font-size="11" fill="#c0392b" text-anchor="middle">механічний знос</text>
+
+  <!-- Curve 1: R_k (Contact resistance) - Blue -->
+  <path d="M 140,140 Q 240,300 420,330 T 840,340" fill="none" stroke="#2457d6" stroke-width="3"/>
+  <text x="310" y="310" font-size="12" fill="#2457d6" font-weight="bold" text-anchor="middle">R_k (контактний опір)</text>
+
+  <!-- Curve 2: Delta U_n (Noise fluctuations / contact noise) - Red -->
+  <path d="M 140,115 Q 220,125 350,320 T 840,230" fill="none" stroke="#c0392b" stroke-width="3"/>
+  <text x="250" y="195" font-size="12" fill="#c0392b" font-weight="bold" text-anchor="middle">ΔU_n (шум)</text>
+
+  <!-- Optimal operating point indicator -->
+  <line x1="460" y1="90" x2="460" y2="360" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="3 3"/>
+  <circle cx="460" cy="326" r="5" fill="#27ae60"/>
+  <text x="475" y="320" font-size="12" fill="#27ae60" font-weight="bold" text-anchor="start">Робоча точка</text>
+
+  <!-- Legend (moved away from curves and bottom right labels, placed at top right inside plot) -->
+  <rect x="620" y="140" width="240" height="60" fill="white" stroke="#d0d7de" rx="4"/>
+  <line x1="632" y1="160" x2="657" y2="160" stroke="#2457d6" stroke-width="3"/>
+  <text x="667" y="164" font-size="12" fill="#1a1a1a" text-anchor="start">Опір контакту (R_k)</text>
+  <line x1="632" y1="184" x2="657" y2="184" stroke="#c0392b" stroke-width="3"/>
+  <text x="667" y="188" font-size="12" fill="#1a1a1a" text-anchor="start">Амплітуда шуму (ΔU_n)</text>
+</svg>

@@ -1,0 +1,100 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-rev" markerWidth="9" markerHeight="9" refX="0.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-blue-rev" markerWidth="9" markerHeight="9" refX="0.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Геометрія спряження Pogo Pin та контактного майданчика (Target Pad)</text>
+  <text x="480" y="52" text-anchor="middle" font-size="13" fill="#6b7280">Співвідношення робочого ходу пружини, діаметра майданчика та поля механічного допуску</text>
+
+  <!-- ЛІВА ЧАСТИНА: Креслення спряження -->
+  <!-- Розмір майданчика D_pad -->
+  <text x="265" y="66" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Ширина майданчика D_pad (≥ 2.0 мм)</text>
+  <line x1="160" y1="72" x2="370" y2="72" stroke="#1a1a1a" stroke-width="1.5" marker-start="url(#arr-rev)" marker-end="url(#arr)"/>
+  <line x1="160" y1="72" x2="160" y2="104" stroke="#6b7280" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="370" y1="72" x2="370" y2="104" stroke="#6b7280" stroke-width="1" stroke-dasharray="2,2"/>
+
+  <!-- Плата з майданчиком (Target Pad PCB) -->
+  <rect x="50" y="80" width="440" height="24" fill="#2d5a27" stroke="#1e3d1a" stroke-width="1.5" rx="2"/>
+  <text x="60" y="96" font-size="11" fill="#ffffff" font-weight="bold">Плата FR4</text>
+
+  <!-- Паяльна маска (зелена) з вікном -->
+  <rect x="50" y="104" width="110" height="6" fill="#23461e"/>
+  <rect x="370" y="104" width="120" height="6" fill="#23461e"/>
+
+  <!-- Позолочений контактний майданчик (Target Pad) -->
+  <rect x="160" y="104" width="210" height="8" fill="#ffd700" stroke="#b8860b" stroke-width="1.5"/>
+  <text x="385" y="118" font-size="11" font-weight="bold" fill="#b8860b">Майданчик (Au / Ni)</text>
+
+  <!-- Допустима зона зсуву Δr -->
+  <rect x="385" y="136" width="105" height="22" fill="#e9f7ef" stroke="#27ae60" stroke-width="1" rx="3"/>
+  <text x="437" y="151" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">Допуск зсуву ±Δr</text>
+
+  <!-- Блок робочого ходу плунжера -->
+  <rect x="60" y="140" width="140" height="42" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="4"/>
+  <text x="130" y="157" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">Робочий хід h_work</text>
+  <text x="130" y="172" text-anchor="middle" font-size="11" fill="#1a1a1a">1.0–1.5 мм (стиснення)</text>
+  <line x1="200" y1="161" x2="245" y2="161" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Плунжер у робочому положенні (стиснутий) -->
+  <path d="M253,116 L265,112 L277,116 L277,200 L253,200 Z" fill="#ffd700" stroke="#b8860b" stroke-width="1.5"/>
+  <text x="315" y="185" font-size="11" font-weight="bold" fill="#b8860b">Плунжер (Au)</text>
+
+  <!-- Гільза (Barrel) у розрізі -->
+  <rect x="235" y="200" width="60" height="210" fill="#f4f6f8" stroke="#b8860b" stroke-width="2" rx="2"/>
+  <!-- Стінки гільзи -->
+  <rect x="235" y="200" width="10" height="210" fill="#ecd9b0" stroke="#b8860b" stroke-width="1"/>
+  <rect x="285" y="200" width="10" height="210" fill="#ecd9b0" stroke="#b8860b" stroke-width="1"/>
+
+  <!-- Внутрішня пружина (стиснута) -->
+  <path d="M250,210 L280,225 L250,240 L280,255 L250,270 L280,285 L250,300 L280,315 L250,330 L280,345 L250,360 L280,375 L265,395" 
+        fill="none" stroke="#7f8c8d" stroke-width="2.5" stroke-linecap="round"/>
+  <text x="175" y="300" text-anchor="middle" font-size="11" font-weight="bold" fill="#7f8c8d">Внутрішня</text>
+  <text x="175" y="315" text-anchor="middle" font-size="11" font-weight="bold" fill="#7f8c8d">пружина</text>
+  <line x1="210" y1="305" x2="245" y2="305" stroke="#7f8c8d" stroke-width="1"/>
+
+  <!-- Хвостовик / вивід Pogo Pin -->
+  <rect x="258" y="410" width="14" height="25" fill="#ffd700" stroke="#b8860b" stroke-width="1.5"/>
+  <text x="290" y="428" font-size="11" fill="#6b7280">SMD / THT хвіст</text>
+
+  <!-- ПРАВА ЧАСТИНА: Інженерні параметри та правила розрахунку -->
+  <rect x="520" y="80" width="400" height="355" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="6"/>
+  <text x="540" y="108" font-size="14" font-weight="bold" fill="#1a1a1a">Критерії надійного контакту Pogo Pin</text>
+
+  <!-- Блок 1: Розрахунок діаметра майданчика -->
+  <rect x="535" y="125" width="370" height="85" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="4"/>
+  <text x="550" y="146" font-size="12" font-weight="bold" fill="#2457d6">1. Геометрія майданчика Target Pad</text>
+  <text x="550" y="166" font-size="11" fill="#1a1a1a">Мінімальний діаметр контактного п'ятака:</text>
+  <text x="550" y="185" font-size="12" font-weight="bold" fill="#1a1a1a">D_pad ≥ D_tip + 2·Δr_mech + 0.4 мм</text>
+  <text x="550" y="202" font-size="11" fill="#6b7280">де D_tip — наконечник (0.8–1.5 мм), Δr — люфт корпусу</text>
+
+  <!-- Блок 2: Механіка притиску та робочий хід -->
+  <rect x="535" y="220" width="370" height="95" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="4"/>
+  <text x="550" y="241" font-size="12" font-weight="bold" fill="#27ae60">2. Робочий хід та зусилля пружини</text>
+  <text x="550" y="261" font-size="11" fill="#1a1a1a">Оптимальне стиснення: h_work ≈ (0.6...0.7) · h_max</text>
+  <text x="550" y="278" font-size="11" fill="#1a1a1a">Контактна сила F_contact: 0.8–1.5 Н (80–150 гс)</text>
+  <text x="550" y="295" font-size="11" fill="#6b7280">Запобігає мікророзривам при вібрації та ударах</text>
+  <text x="550" y="309" font-size="11" fill="#6b7280">і не допускає механічного пробиття позолоти</text>
+
+  <!-- Блок 3: Вимоги до покриття -->
+  <rect x="535" y="325" width="370" height="95" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="4"/>
+  <text x="550" y="346" font-size="12" font-weight="bold" fill="#c0392b">3. Захист від фретингу та окислення</text>
+  <text x="550" y="366" font-size="11" fill="#1a1a1a">Покриття майданчика: ENIG або гальванічне золото</text>
+  <text x="550" y="383" font-size="11" fill="#1a1a1a">Товщина: Au ≥ 0.05–0.15 мкм по підшару Ni ≥ 3–5 мкм</text>
+  <text x="550" y="400" font-size="11" fill="#6b7280">Нікелевий бар'єр зупиняє дифузію міді на поверхню,</text>
+  <text x="550" y="414" font-size="11" fill="#6b7280">а золото усуває окисну плівку при низьких напругах</text>
+</svg>

@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Порівняння вхідних і вихідних рівнів напруги (Voltage Levels Comparison)</text>
+  <text x="480" y="60" font-size="13" fill="#6b7280" text-anchor="middle">Чому вихід 3.3V не розпізнається класичним CMOS 5V, але успішно читається через TTL / AHCT пороги</text>
+
+  <!-- Legend / Panels Background -->
+  <!-- 1. CMOS 3.3V Output -->
+  <rect x="40" y="90" width="270" height="350" fill="#f4f6f8" stroke="#d0d7de" rx="8"/>
+  <text x="175" y="120" font-size="15" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Вихід CMOS 3.3V</text>
+
+  <rect x="60" y="140" width="230" height="120" fill="#eaf0fd" stroke="#2457d6" rx="6"/>
+  <text x="175" y="175" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">V_OH min = 2.4V</text>
+  <text x="175" y="195" font-size="12" fill="#1a1a1a" text-anchor="middle">Логічна одиниця (High)</text>
+  <text x="175" y="235" font-size="12" fill="#6b7280" text-anchor="middle">Макс. вихід 3.3V</text>
+
+  <rect x="60" y="290" width="230" height="120" fill="white" stroke="#d0d7de" rx="6"/>
+  <text x="175" y="325" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">V_OL max = 0.4V</text>
+  <text x="175" y="345" font-size="12" fill="#1a1a1a" text-anchor="middle">Логічний нуль (Low)</text>
+
+  <!-- 2. Standard CMOS 5V Inputs -->
+  <rect x="345" y="90" width="270" height="350" fill="#fdecea" stroke="#c0392b" rx="8"/>
+  <text x="480" y="120" font-size="15" font-weight="bold" fill="#c0392b" text-anchor="middle">CMOS 5V (Класичний вхід)</text>
+
+  <rect x="365" y="140" width="230" height="120" fill="white" stroke="#c0392b" rx="6"/>
+  <text x="480" y="175" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">V_IH = 3.5V (70% Vcc)</text>
+  <text x="480" y="195" font-size="12" fill="#c0392b" text-anchor="middle">Потрібно мінімум 3.5В!</text>
+  <rect x="385" y="215" width="190" height="30" fill="#fdecea" rx="4"/>
+  <text x="480" y="235" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">ПРОБЛЕМА: 2.4V &lt; 3.5V</text>
+
+  <rect x="365" y="290" width="230" height="120" fill="white" stroke="#d0d7de" rx="6"/>
+  <text x="480" y="325" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">V_IL = 1.5V (30% Vcc)</text>
+  <text x="480" y="345" font-size="12" fill="#1a1a1a" text-anchor="middle">Максимум для нуля</text>
+
+  <!-- 3. TTL / AHCT 5V Inputs -->
+  <rect x="650" y="90" width="270" height="350" fill="#e9f7ef" stroke="#27ae60" rx="8"/>
+  <text x="785" y="120" font-size="15" font-weight="bold" fill="#27ae60" text-anchor="middle">TTL / 74AHCT (Вхід)</text>
+
+  <rect x="670" y="140" width="230" height="120" fill="white" stroke="#27ae60" rx="6"/>
+  <text x="785" y="175" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">V_IH = 2.0V (TTL пороги)</text>
+  <text x="785" y="195" font-size="12" fill="#27ae60" text-anchor="middle">Достатньо виходу 2.4В!</text>
+  <rect x="690" y="215" width="190" height="30" fill="#e9f7ef" rx="4"/>
+  <text x="785" y="235" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">РІШЕННЯ: 2.4V &gt; 2.0V</text>
+
+  <rect x="670" y="290" width="230" height="120" fill="white" stroke="#d0d7de" rx="6"/>
+  <text x="785" y="325" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">V_IL = 0.8V (TTL пороги)</text>
+  <text x="785" y="345" font-size="12" fill="#1a1a1a" text-anchor="middle">Сумісно з рівнем 0</text>
+
+  <!-- Connecting arrows/lines -->
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <line x1="290" y1="175" x2="357" y2="175" stroke="#c0392b" stroke-width="2" stroke-dasharray="4,4" marker-end="url(#arr-red)"/>
+  <line x1="290" y1="175" x2="662" y2="175" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+</svg>

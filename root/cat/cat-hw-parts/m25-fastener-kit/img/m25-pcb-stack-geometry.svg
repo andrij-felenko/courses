@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Геометрія міжплатного стека та розрахунок кліренсу стійок М2.5</text>
+  <text x="480" y="60" font-size="13" fill="#6b7280" text-anchor="middle">Висота стійок H_standoff = 11 мм, товщина плат FR-4 1.6 мм, висоти роз'ємів GPIO та запас безпеки Delta_H ≥ 1.0 мм</text>
+
+  <!-- Left Panel: Cross section (x=30..530, y=80..430) -->
+  <rect x="30" y="80" width="500" height="350" fill="#f4f6f8" stroke="#d0d7de" rx="6"/>
+  <text x="50" y="105" font-size="14" font-weight="bold" fill="#1a1a1a">Поздовжній розріз міжплатного складання (Raspberry Pi + HAT)</text>
+
+  <!-- Base PCB (RPi) -->
+  <rect x="50" y="350" width="460" height="16" fill="#2457d6" rx="2"/>
+  <text x="280" y="362" font-size="12" fill="white" text-anchor="middle">Нижня плата Base PCB (RPi), H_pcb1 = 1.6 мм</text>
+
+  <!-- Top PCB (HAT) -->
+  <rect x="50" y="210" width="460" height="16" fill="#2457d6" rx="2"/>
+  <text x="280" y="222" font-size="12" fill="white" text-anchor="middle">Верхня плата HAT / Extension PCB, H_pcb2 = 1.6 мм</text>
+
+  <!-- Standoffs (M2.5 Hex brass) -->
+  <rect x="80" y="226" width="18" height="124" fill="#f39c12" stroke="#d68910" rx="2"/>
+  <rect x="480" y="226" width="18" height="124" fill="#f39c12" stroke="#d68910" rx="2"/>
+  <text x="110" y="276" font-size="12" fill="#1a1a1a" text-anchor="start">Стійка М2.5</text>
+  <text x="110" y="292" font-size="12" fill="#6b7280" text-anchor="start">H = 11.0 мм</text>
+
+  <!-- Screw & Washer at top -->
+  <rect x="82" y="198" width="14" height="12" fill="#7f8c8d" rx="1"/>
+  <rect x="79" y="194" width="20" height="4" fill="#95a5a6" rx="1"/>
+
+  <!-- GPIO Connector 40-pin -->
+  <rect x="220" y="226" width="70" height="84" fill="#34495e" stroke="#2c3e50" rx="2"/>
+  <text x="255" y="272" font-size="12" fill="white" text-anchor="middle">GPIO</text>
+
+  <!-- Protruding SMD Component on RPi -->
+  <rect x="330" y="290" width="45" height="60" fill="#7f8c8d" rx="2"/>
+  <text x="352" y="324" font-size="11" fill="white" text-anchor="middle">SMD</text>
+  <text x="352" y="278" font-size="11" fill="#c0392b" text-anchor="middle">H_comp = 9.5 мм</text>
+
+  <!-- Clearance text (Plain text in empty space) -->
+  <text x="120" y="250" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="start">Зазор ΔH = 1.5 мм</text>
+
+
+  <!-- Right Panel: Balance and constraints (x=550..930, y=80..430) -->
+  <rect x="550" y="80" width="380" height="350" fill="#f4f6f8" stroke="#d0d7de" rx="6"/>
+  <text x="570" y="105" font-size="14" font-weight="bold" fill="#1a1a1a">Баланс висот та інженерні обмеження</text>
+
+  <!-- Equation box -->
+  <rect x="570" y="120" width="340" height="40" fill="#eaf0fd" stroke="#2457d6" rx="4"/>
+  <text x="740" y="145" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">H_total = H_pcb1 + H_standoff + H_pcb2 + H_head</text>
+
+  <!-- Green Block: Standard heights -->
+  <rect x="570" y="172" width="340" height="95" fill="#e9f7ef" stroke="#27ae60" rx="4"/>
+  <text x="590" y="195" font-size="12" font-weight="bold" fill="#27ae60">Стандартні висоти стійок М2.5:</text>
+  <text x="590" y="215" font-size="11" fill="#1a1a1a">• H = 10.0 мм (низькопрофільні шилди)</text>
+  <text x="590" y="235" font-size="11" fill="#1a1a1a">• H = 11.0 мм (стандарт Raspberry Pi HAT)</text>
+  <text x="590" y="255" font-size="11" fill="#1a1a1a">• H = 12.0 мм (для високих індуктивностей)</text>
+
+  <!-- Red Block: Warnings -->
+  <rect x="570" y="278" width="340" height="135" fill="#fdecea" stroke="#c0392b" rx="4"/>
+  <text x="590" y="302" font-size="12" font-weight="bold" fill="#c0392b">Застереження щодо безпеки:</text>
+  <text x="590" y="324" font-size="11" fill="#1a1a1a">Кліренс: Gap = H_standoff - H_comp ≥ 1.0 мм</text>
+  <text x="590" y="346" font-size="11" fill="#c0392b" font-weight="bold">Використання стійок H = 8.0 мм призводить</text>
+  <text x="590" y="366" font-size="11" fill="#c0392b" font-weight="bold">до впирання компонентів/USB в плату</text>
+  <text x="590" y="386" font-size="11" fill="#c0392b" font-weight="bold">та виникнення КОРОТКОГО ЗАМИКАННЯ!</text>
+</svg>

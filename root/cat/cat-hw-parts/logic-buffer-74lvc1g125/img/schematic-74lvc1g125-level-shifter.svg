@@ -1,0 +1,97 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Схема перетворювача рівнів 5 В → 3.3 В на буфері 74LVC1G125</text>
+  <text x="480" y="60" font-size="13" fill="#6b7280" text-anchor="middle">Толерантність входу A до 5.5 В та захист вимкненого живлення I_off запобігають зворотному живленню MCU</text>
+
+  <!-- ЛІВА ПАНЕЛЬ: Принципова схема (x=30..520, y=80..440) -->
+  <rect x="30" y="80" width="490" height="350" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="275" y="105" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Принципова схема підключення</text>
+
+  <!-- Джерело сигналу 5В -->
+  <rect x="50" y="160" width="90" height="50" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="95" y="182" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">5V TX</text>
+  <text x="95" y="199" font-size="11" fill="#6b7280" text-anchor="middle">Джерело 5 В</text>
+
+  <!-- Лінія від джерела до входу А -->
+  <path d="M140 185 L210 185" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="175" y="177" font-size="11" fill="#2457d6" text-anchor="middle">Pin 2 (A)</text>
+
+  <!-- Мікросхема 74LVC1G125 -->
+  <rect x="210" y="175" width="120" height="150" rx="6" fill="white" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="270" y="197" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">74LVC1G125</text>
+  
+  <!-- Виводи мікросхеми -->
+  <text x="215" y="218" font-size="11" fill="#1a1a1a" text-anchor="start">2: A</text>
+  <text x="215" y="248" font-size="11" fill="#1a1a1a" text-anchor="start">1: /OE</text>
+  <text x="215" y="278" font-size="11" fill="#1a1a1a" text-anchor="start">5: VCC</text>
+  <text x="215" y="308" font-size="11" fill="#1a1a1a" text-anchor="start">3: GND</text>
+  <text x="325" y="248" font-size="11" fill="#1a1a1a" text-anchor="end">4: Y</text>
+
+  <!-- Шина VCC 3.3V -->
+  <path d="M350 120 L430 120" fill="none" stroke="#c0392b" stroke-width="2"/>
+  <text x="390" y="110" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">VCC 3.3V</text>
+
+  <!-- Підтяжка /OE -->
+  <path d="M210 245 L165 245 L165 260 L165 280" fill="none" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="150" y="240" width="30" height="15" rx="3" fill="white" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="165" y="252" font-size="10" fill="#1a1a1a" text-anchor="middle">R_PU</text>
+  <text x="125" y="268" font-size="10" fill="#6b7280" text-anchor="middle">10 кОм</text>
+  <path d="M165 280 L390 280 L390 120" fill="none" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="275" y="294" font-size="10" fill="#6b7280" text-anchor="middle">Дозволу /OE (Active Low)</text>
+
+  <!-- Живлення VCC Pin 5 -->
+  <path d="M255 275 L255 120" fill="none" stroke="#27ae60" stroke-width="2"/>
+  <text x="235" y="205" font-size="10" fill="#27ae60" text-anchor="middle">3.3V</text>
+
+  <!-- Блокувальний конденсатор C1 (вертикально зліва від шини, напис праворуч або зверху) -->
+  <path d="M255 140 L240 140" fill="none" stroke="#1a1a1a" stroke-width="1.5"/>
+  <path d="M240 145 L250 145" fill="none" stroke="#1a1a1a" stroke-width="1.5"/>
+  <path d="M240 150 L250 150" fill="none" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="260" y="148" font-size="10" fill="#1a1a1a" text-anchor="start">C1 0.1мкФ</text>
+  <path d="M245 155 L245 170 L210 170" fill="none" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- GND Pin 3 -->
+  <path d="M255 325 L255 355 L275 355" fill="none" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="275" y="369" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="middle">GND (0V)</text>
+
+  <!-- Вихід Y до MCU 3.3V -->
+  <path d="M330 245 L410 245" fill="none" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <rect x="410" y="220" width="95" height="50" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="457" y="242" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">MCU 3.3V RX</text>
+  <text x="457" y="259" font-size="10" fill="#6b7280" text-anchor="middle">Вхід MCU</text>
+
+  <!-- ПРАВА ПАНЕЛЬ: Порівняння захисту при знеструмленні (x=540..930, y=80..440) -->
+  <rect x="540" y="80" width="390" height="350" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="735" y="105" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Порівняння захисту при знеструмленні</text>
+
+  <!-- Вгорі: Звичайна КМОН-логіка -->
+  <rect x="555" y="120" width="360" height="135" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="735" y="140" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Звичайна КМОН-логіка (без I_off)</text>
+  <text x="570" y="162" font-size="11" fill="#1a1a1a" text-anchor="start">• Наявний верхній ESD-діод між входом і VCC.</text>
+  <text x="570" y="182" font-size="11" fill="#1a1a1a" text-anchor="start">• При знеструмленні (0 В) сигнал 5 В відкриває діод:</text>
+  <text x="585" y="200" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="start">виникає струм затікання I_leak &gt; 50 мА!</text>
+  <text x="570" y="222" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="start">Наслідок: паразитне зворотне живлення MCU (Back-powering).</text>
+
+  <!-- Внизу: 74LVC1G125 із захистом I_off -->
+  <rect x="555" y="265" width="360" height="150" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="735" y="285" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">74LVC1G125 із захистом I_off (Partial Power-Down)</text>
+  <text x="570" y="307" font-size="11" fill="#1a1a1a" text-anchor="start">• Верхній діод до VCC відсутній (плаваючий колодязь).</text>
+  <text x="570" y="327" font-size="11" fill="#1a1a1a" text-anchor="start">• Струм витоку знеструмленого буфера:</text>
+  <text x="585" y="345" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="start">I_off ≤ 10 мкА (практично нуль).</text>
+  <text x="570" y="370" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="start">Наслідок: повна безпека при знятому живленні та</text>
+  <text x="570" y="388" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="start">гарячому підключенні (Hot-insertion compliant).</text>
+</svg>

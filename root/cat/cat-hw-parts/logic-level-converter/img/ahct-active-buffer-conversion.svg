@@ -1,0 +1,106 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="36" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Активний перетворювач 3.3 В → 5 В на базі push-pull буфера 74AHCT</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">ТТЛ-пороги входу (V_IH = 2.0 В) та 5V двотактний вихід формують круті фронти сигналів (t_r, t_f &lt; 5 нс)</text>
+
+  <!-- Panel 1: Schematic (Left: 30 to 480) -->
+  <rect x="30" y="80" width="450" height="350" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="50" y="106" font-size="15" font-weight="bold" fill="#1a1a1a">Принципова схема буфера 74AHCT125</text>
+
+  <!-- MCU Source Block -->
+  <rect x="50" y="130" width="110" height="65" rx="4" fill="white" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="105" y="152" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">MCU 3.3V</text>
+  <text x="105" y="171" font-size="12" fill="#6b7280" text-anchor="middle">V_OH = 3.3 В</text>
+
+  <!-- Wire MCU to Buffer Input -->
+  <line x1="160" y1="162" x2="220" y2="162" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="190" y="154" font-size="12" fill="#2457d6" text-anchor="middle">Сигнал A</text>
+
+  <!-- Buffer 74AHCT125 IC Box -->
+  <rect x="220" y="125" width="130" height="150" rx="6" fill="white" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="285" y="148" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">74AHCT125</text>
+  <text x="285" y="167" font-size="12" fill="#6b7280" text-anchor="middle">TTL Input Buffer</text>
+
+  <!-- Buffer Pins / Internals text -->
+  <text x="235" y="195" font-size="12" fill="#1a1a1a">Вхід A</text>
+  <text x="235" y="215" font-size="11" fill="#6b7280">V_IH_min = 2.0В</text>
+  <text x="235" y="230" font-size="11" fill="#6b7280">V_IL_max = 0.8В</text>
+  <text x="235" y="255" font-size="11" fill="#27ae60">Запас: 1.3 В</text>
+
+  <!-- VCC 5V and Capacitor -->
+  <line x1="285" y1="125" x2="285" y2="95" stroke="#c0392b" stroke-width="2"/>
+  <text x="315" y="108" font-size="12" font-weight="bold" fill="#c0392b">VCC = 5.0В</text>
+  <text x="315" y="122" font-size="11" fill="#6b7280">0.1 мкФ до GND</text>
+
+  <!-- /OE pin to GND -->
+  <line x1="250" y1="275" x2="250" y2="310" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="255" y="300" font-size="11" fill="#6b7280">/OE = GND ( active )</text>
+
+  <!-- Output Y Wire & Push-Pull Stage -->
+  <line x1="350" y1="162" x2="420" y2="162" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="385" y="154" font-size="12" fill="#27ae60" text-anchor="middle">Вихід Y</text>
+
+  <!-- Push-Pull load block -->
+  <rect x="420" y="135" width="45" height="55" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="442" y="160" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">Push</text>
+  <text x="442" y="175" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">Pull</text>
+
+  <!-- Bottom notes in Panel 1 -->
+  <rect x="45" y="325" width="420" height="90" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="60" y="348" font-size="12" font-weight="bold" fill="#1a1a1a">Особливості схемотехніки:</text>
+  <text x="60" y="368" font-size="11" fill="#6b7280">• ТТЛ-сумісні входи коректно розпізнають 3.3V логічну «1» (V_IH ≥ 2.0В).</text>
+  <text x="60" y="386" font-size="11" fill="#6b7280">• Двотактний вихід (PMOS+NMOS) дає ±8 мА струму та швидкий заряд ємності.</text>
+  <text x="60" y="404" font-size="11" fill="#6b7280">• Повністю усуває завали фронтів та зриви синхронізації (напр. WS2812B).</text>
+
+  <!-- Panel 2: Waveforms & Comparison (Right: 500 to 930) -->
+  <rect x="500" y="80" width="430" height="350" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="520" y="106" font-size="15" font-weight="bold" fill="#1a1a1a">Часові епюри та порівняння сигналів</text>
+
+  <!-- Waveform A (3.3V Input) -->
+  <rect x="520" y="125" width="390" height="115" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="535" y="146" font-size="12" font-weight="bold" fill="#2457d6">Вхідний сигнал A (3.3 В, 800 кГц, наприклад WS2812B)</text>
+  
+  <!-- Grid / Axis for Wave A -->
+  <line x1="550" y1="210" x2="890" y2="210" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="550" y1="165" x2="890" y2="165" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="532" y="214" font-size="10" fill="#6b7280">0V</text>
+  <text x="532" y="169" font-size="10" fill="#6b7280">3.3V</text>
+
+  <!-- Pulse A waveform -->
+  <path d="M 560,210 L 560,165 L 630,165 L 630,210 L 700,210 L 700,165 L 770,165 L 770,210 L 850,210" fill="none" stroke="#2457d6" stroke-width="2"/>
+
+  <!-- Waveform Y (5.0V Active Push-Pull Output) -->
+  <rect x="520" y="250" width="390" height="165" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="535" y="272" font-size="12" font-weight="bold" fill="#27ae60">Вихідний сигнал Y (5.0 В, круті фронти t_r, t_f &lt; 5 нс)</text>
+
+  <!-- Grid / Axis for Wave Y -->
+  <line x1="550" y1="385" x2="890" y2="385" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="550" y1="340" x2="890" y2="340" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="550" y1="295" x2="890" y2="295" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="532" y="389" font-size="10" fill="#6b7280">0V</text>
+  <text x="532" y="344" font-size="10" fill="#6b7280">3.3V</text>
+  <text x="532" y="299" font-size="10" fill="#6b7280">5.0V</text>
+
+  <!-- Pulse Y waveform with steep edges -->
+  <path d="M 560,385 L 562,295 L 630,295 L 632,385 L 700,385 L 702,295 L 770,295 L 772,385 L 850,385" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+
+  <!-- Comparison Callout -->
+  <rect x="535" y="393" width="360" height="18" rx="2" fill="#e9f7ef"/>
+  <text x="715" y="406" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">Активний перезаряд ємності лінії запобігає мерехтінню пікселів</text>
+
+</svg>

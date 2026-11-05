@@ -1,0 +1,98 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="28" font-size="15" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Габаритне креслення та допуски спіральної гнучкої муфти 5×5 мм</text>
+  <text x="480" y="46" font-size="11" fill="#6b7280" text-anchor="middle">Геометричні розміри D=19 мм, L=25 мм, отвори d1=d2=5 мм (H7/h6) та клемне кріплення М3 DIN 912</text>
+
+  <!-- Left Panel: Drawing (x=30..530, y=60..440) -->
+  <rect x="30" y="60" width="500" height="380" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="50" y="82" font-size="12" font-weight="bold" fill="#1a1a1a">1. Креслення в розрізі та збоку</text>
+
+  <!-- Coupling Body Schematic (Centered around y=200, x=150..430) -->
+  <!-- Outer body outline -->
+  <rect x="160" y="140" width="280" height="95" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  
+  <!-- Shaft 1 (Left) -->
+  <rect x="80" y="158" width="90" height="58" fill="#d0d7de" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4,2"/>
+  <text x="125" y="191" font-size="11" fill="#1a1a1a" text-anchor="middle">d1=5</text>
+
+  <!-- Shaft 2 (Right) -->
+  <rect x="430" y="158" width="90" height="58" fill="#d0d7de" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4,2"/>
+  <text x="475" y="191" font-size="11" fill="#1a1a1a" text-anchor="middle">d2=5</text>
+
+  <!-- Hellical beam section (Center) -->
+  <rect x="270" y="140" width="60" height="95" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <!-- Spiral cuts representation -->
+  <path d="M275,148 L325,164 M275,164 L325,180 M275,180 L325,196 M275,196 L325,212 M275,212 L325,228" stroke="#2457d6" stroke-width="1.5"/>
+  <path d="M325,148 L275,164 M325,164 L275,180 M325,180 L275,196 M325,196 L275,212 M325,212 L275,228" stroke="#2457d6" stroke-width="1.5"/>
+
+  <!-- Gap between shafts -->
+  <line x1="300" y1="158" x2="300" y2="216" stroke="#c0392b" stroke-width="2" stroke-dasharray="3,3"/>
+
+  <!-- Clamping slots & screws M3 -->
+  <line x1="210" y1="140" x2="210" y2="158" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="390" y1="140" x2="390" y2="158" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="210" y="127" font-size="11" fill="#1a1a1a" text-anchor="middle">М3 DIN 912</text>
+  <text x="390" y="127" font-size="11" fill="#1a1a1a" text-anchor="middle">М3 DIN 912</text>
+
+  <!-- Dimensions & Callouts (Left Panel) -->
+  <!-- Total Length L = 25 mm -->
+  <line x1="160" y1="310" x2="440" y2="310" stroke="#1a1a1a" stroke-width="1" marker-start="url(#arr)" marker-end="url(#arr)"/>
+  <text x="300" y="328" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="middle">L = 25.0 ±0.3</text>
+
+  <!-- Outer Diameter D = 19 mm -->
+  <line x1="135" y1="140" x2="135" y2="235" stroke="#1a1a1a" stroke-width="1" marker-start="url(#arr)" marker-end="url(#arr)"/>
+  <text x="120" y="191" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="end">D = 19.0</text>
+
+  <!-- Helical section length L_flex = 11 mm -->
+  <line x1="270" y1="350" x2="330" y2="350" stroke="#2457d6" stroke-width="1" marker-start="url(#arr-blue)" marker-end="url(#arr-blue)"/>
+  <text x="300" y="367" font-size="11" fill="#2457d6" text-anchor="middle">L_flex = 11.0</text>
+
+  <!-- Insertion depth L_insert = 7 mm -->
+  <line x1="160" y1="350" x2="230" y2="350" stroke="#6b7280" stroke-width="1" marker-start="url(#arr)" marker-end="url(#arr)"/>
+  <text x="195" y="367" font-size="11" fill="#6b7280" text-anchor="middle">L_insert = 7</text>
+
+  <!-- Gap callout -->
+  <text x="300" y="395" font-size="11" fill="#c0392b" text-anchor="middle">ΔL_gap = 1.0–2.0 мм</text>
+  <line x1="300" y1="380" x2="300" y2="225" stroke="#c0392b" stroke-width="1" marker-end="url(#arr-red)"/>
+
+  <!-- Right Panel: Tolerances & Norms (x=550..930, y=60..440) -->
+  <rect x="550" y="60" width="380" height="380" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="570" y="82" font-size="12" font-weight="bold" fill="#1a1a1a">2. Посадки, допуски та механічні норми</text>
+
+  <!-- Tolerance Box 1 -->
+  <rect x="570" y="100" width="340" height="38" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="585" y="124" font-size="11" fill="#1a1a1a">Отвори муфти: <tspan font-weight="bold" fill="#2457d6">5.0 мм H7</tspan> (+0.012 / 0)</text>
+
+  <!-- Tolerance Box 2 -->
+  <rect x="570" y="148" width="340" height="38" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="585" y="172" font-size="11" fill="#1a1a1a">Вали двигуна: <tspan font-weight="bold" fill="#27ae60">5.0 мм h6</tspan> (0 / -0.008)</text>
+
+  <!-- Specs List -->
+  <rect x="570" y="196" width="340" height="115" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="585" y="218" font-size="11" fill="#1a1a1a">• Посадка: ковзна / щільна (zero backlash)</text>
+  <text x="585" y="238" font-size="11" fill="#1a1a1a">• Матеріал: анодований алюміній 6061-T6</text>
+  <text x="585" y="258" font-size="11" fill="#1a1a1a">• Маса: 16 г | Інерція J = 0.85 г·см²</text>
+  <text x="585" y="278" font-size="11" fill="#1a1a1a">• Момент: T_nom = 0.5 Н·м (max 1.0 Н·м)</text>
+  <text x="585" y="298" font-size="11" fill="#1a1a1a">• Затягування гвинтів М3: 1.2–1.4 Н·м</text>
+
+  <!-- Warning Box -->
+  <rect x="570" y="321" width="340" height="70" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="585" y="344" font-size="11" font-weight="bold" fill="#c0392b">ЗАСТЕРЕЖЕННЯ:</text>
+  <text x="585" y="363" font-size="11" fill="#c0392b">Не допускати упору торців валів</text>
+  <text x="585" y="380" font-size="11" fill="#c0392b">один в одного у центрі муфти!</text>
+</svg>

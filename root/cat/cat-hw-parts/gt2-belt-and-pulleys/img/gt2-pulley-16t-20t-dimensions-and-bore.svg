@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Підкладка -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Габаритні розміри та геометрія зубчастих шківів GT2 16T та 20T</text>
+  <text x="480" y="60" font-size="13" fill="#6b7280" text-anchor="middle">Порівняння ділильного діаметра D_pitch, зовнішнього діаметра D_out, буртиків та кріплення під вал 5 мм</text>
+
+  <!-- Дві панелі -->
+  <!-- Панель 1: Шків GT2 16T -->
+  <rect x="30" y="80" width="445" height="350" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="252" y="108" font-size="16" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Шків GT2 16T (z = 16)</text>
+
+  <!-- Креслення 16T з абсолютними координатами навколо x=252, y=225 -->
+  <!-- Буртики: x від 187 до 317, y від 190 до 260 -->
+  <rect x="187" y="190" width="130" height="70" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <!-- Зубчаста зона: x від 207 до 297, y від 200 до 250 -->
+  <rect x="207" y="200" width="90" height="50" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <!-- Маточина -->
+  <circle cx="252" cy="225" r="16" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.5"/>
+  <!-- Отвір валу d=5 мм -->
+  <circle cx="252" cy="225" r="8" fill="#ffffff" stroke="#c0392b" stroke-width="2" stroke-dasharray="3,3"/>
+  <!-- Стопорний гвинт М3 -->
+  <line x1="252" y1="225" x2="252" y2="209" stroke="#c0392b" stroke-width="1.5"/>
+  <circle cx="252" cy="209" r="3" fill="#c0392b"/>
+  <!-- Розмірні лінії 16T -->
+  <line x1="202" y1="267" x2="302" y2="267" stroke="#1a1a1a" stroke-width="1" marker-start="url(#arr)" marker-end="url(#arr)"/>
+  <line x1="184" y1="185" x2="184" y2="265" stroke="#2457d6" stroke-width="1" marker-start="url(#arr-blue)" marker-end="url(#arr-blue)"/>
+
+  <!-- Текстові характеристики 16T -->
+  <text x="50" y="300" font-size="12" fill="#1a1a1a">Ділильний діаметр: D_pitch = 10.19 мм</text>
+  <text x="50" y="320" font-size="12" fill="#1a1a1a">Зовнішній діаметр вершин: D_out = 9.68 мм</text>
+  <text x="50" y="340" font-size="12" fill="#1a1a1a">Діаметр буртиків: D_flange = 13.0 мм</text>
+  <text x="50" y="360" font-size="12" fill="#1a1a1a">Посадочний отвір: d = 5.0 мм (H7)</text>
+  <text x="50" y="380" font-size="12" fill="#1a1a1a">Маточина: 2× М3 під кутом 90° (DIN 916)</text>
+  <text x="50" y="400" font-size="12" fill="#2457d6" font-weight="bold">Макс. крутний момент і вища дискретність</text>
+
+
+  <!-- Панель 2: Шків GT2 20T -->
+  <rect x="485" y="80" width="445" height="350" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="707" y="108" font-size="16" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Шків GT2 20T (z = 20)</text>
+
+  <!-- Креслення 20T з абсолютними координатами навколо x=707, y=225 -->
+  <!-- Буртики: x від 632 до 782, y від 187 до 263 -->
+  <rect x="632" y="187" width="150" height="76" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <!-- Зубчаста зона: x від 655 to 759, y від 197 to 253 -->
+  <rect x="655" y="197" width="104" height="56" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <!-- Маточина -->
+  <circle cx="707" cy="225" r="18" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.5"/>
+  <!-- Отвір валу d=5 мм -->
+  <circle cx="707" cy="225" r="8" fill="#ffffff" stroke="#27ae60" stroke-width="2" stroke-dasharray="3,3"/>
+  <!-- Стопорний гвинт М3 -->
+  <line x1="707" y1="225" x2="707" y2="207" stroke="#27ae60" stroke-width="1.5"/>
+  <circle cx="707" cy="207" r="3" fill="#27ae60"/>
+  <!-- Розмірні лінії 20T -->
+  <line x1="649" y1="271" x2="765" y2="271" stroke="#1a1a1a" stroke-width="1" marker-start="url(#arr)" marker-end="url(#arr)"/>
+  <line x1="629" y1="183" x2="629" y2="267" stroke="#27ae60" stroke-width="1" marker-start="url(#arr-blue)" marker-end="url(#arr-blue)"/>
+
+  <!-- Текстові характеристики 20T -->
+  <text x="505" y="300" font-size="12" fill="#1a1a1a">Ділильний діаметр: D_pitch = 12.73 мм</text>
+  <text x="505" y="320" font-size="12" fill="#1a1a1a">Зовнішній діаметр вершин: D_out = 12.22 мм</text>
+  <text x="505" y="340" font-size="12" fill="#1a1a1a">Діаметр буртиків: D_flange = 16.0 мм</text>
+  <text x="505" y="360" font-size="12" fill="#1a1a1a">Посадочний отвір: d = 5.0 мм (H7)</text>
+  <text x="505" y="380" font-size="12" fill="#1a1a1a">Маточина: 2× стопорні гвинти М3 (0.8–1.0 Н·м)</text>
+  <text x="505" y="400" font-size="12" fill="#27ae60" font-weight="bold">Зменшений вигин паса та вища швидкість</text>
+</svg>

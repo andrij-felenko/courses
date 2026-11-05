@@ -1,0 +1,116 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Мультиплексування та ізоляція шини SPI на буферах 74LVC1G125</text>
+  <text x="480" y="60" font-size="13" fill="#6b7280" text-anchor="middle">Підтяжка ліній /OE утримує Z-стан при скиданні, а роздільне керування унеможливлює Bus Contention</text>
+
+  <!-- Left Panel: Schematic -->
+  <rect x="30" y="80" width="560" height="360" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="50" y="105" font-size="14" font-weight="bold" fill="#1a1a1a">Принципова схема селектора SPI (74LVC1G125)</text>
+
+  <!-- Master MCU -->
+  <rect x="50" y="130" width="80" height="280" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="90" y="150" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Master MCU</text>
+  
+  <text x="60" y="180" font-size="11" fill="#1a1a1a">SCLK</text>
+  <text x="60" y="215" font-size="11" fill="#1a1a1a">MOSI</text>
+  <text x="60" y="250" font-size="11" fill="#1a1a1a">MISO</text>
+  <text x="60" y="315" font-size="11" fill="#1a1a1a">/CS1</text>
+  <text x="60" y="375" font-size="11" fill="#1a1a1a">/CS2</text>
+
+  <!-- Channel 1 Labels -->
+  <text x="180" y="125" font-size="12" font-weight="bold" fill="#1a1a1a">Канал 1</text>
+  <!-- Buffers Channel 1 -->
+  <polygon points="210,170 210,190 230,180" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="220" y="160" font-size="10" fill="#6b7280" text-anchor="middle">U1A</text>
+  
+  <polygon points="210,205 210,225 230,215" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="220" y="195" font-size="10" fill="#6b7280" text-anchor="middle">U1B</text>
+  
+  <polygon points="230,240 230,260 210,250" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="220" y="272" font-size="10" fill="#6b7280" text-anchor="middle">U1C</text>
+
+  <!-- Channel 2 Labels -->
+  <text x="180" y="295" font-size="12" font-weight="bold" fill="#1a1a1a">Канал 2</text>
+  <!-- Buffers Channel 2 -->
+  <polygon points="210,320 210,340 230,330" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="220" y="310" font-size="10" fill="#6b7280" text-anchor="middle">U2A</text>
+  
+  <polygon points="210,355 210,375 230,365" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="220" y="345" font-size="10" fill="#6b7280" text-anchor="middle">U2B</text>
+  
+  <polygon points="230,390 230,410 210,400" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="220" y="422" font-size="10" fill="#6b7280" text-anchor="middle">U2C</text>
+
+  <!-- Slave Device 1 -->
+  <rect x="450" y="150" width="120" height="110" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="510" y="175" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">SPI Device 1</text>
+  <text x="460" y="200" font-size="11" fill="#1a1a1a">SCLK1, MOSI1</text>
+  <text x="460" y="225" font-size="11" fill="#1a1a1a">MISO1, /CS1</text>
+
+  <!-- Slave Device 2 -->
+  <rect x="450" y="300" width="120" height="110" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="510" y="325" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">SPI Device 2</text>
+  <text x="460" y="350" font-size="11" fill="#1a1a1a">SCLK2, MOSI2</text>
+  <text x="460" y="375" font-size="11" fill="#1a1a1a">MISO2, /CS2</text>
+
+  <!-- Wires & Connections -->
+  <!-- SCLK 1 -->
+  <path d="M130,180 L210,180" stroke="#1a1a1a" stroke-width="1.5"/>
+  <path d="M230,180 L450,180" stroke="#1a1a1a" stroke-width="1.5"/>
+  <!-- MOSI 1 -->
+  <path d="M130,215 L210,215" stroke="#1a1a1a" stroke-width="1.5"/>
+  <path d="M230,215 L450,215" stroke="#1a1a1a" stroke-width="1.5"/>
+  <!-- MISO 1 -->
+  <path d="M450,250 L230,250" stroke="#1a1a1a" stroke-width="1.5"/>
+  <path d="M210,250 L130,250" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- SCLK 2 -->
+  <path d="M130,180 L150,180 L150,330 L210,330" stroke="#1a1a1a" stroke-width="1.5" fill="none"/>
+  <path d="M230,330 L450,330" stroke="#1a1a1a" stroke-width="1.5"/>
+  <!-- MOSI 2 -->
+  <path d="M130,215 L160,215 L160,365 L210,365" stroke="#1a1a1a" stroke-width="1.5" fill="none"/>
+  <path d="M230,365 L450,365" stroke="#1a1a1a" stroke-width="1.5"/>
+  <!-- MISO 2 -->
+  <path d="M450,400 L230,400" stroke="#1a1a1a" stroke-width="1.5"/>
+  <path d="M210,400 L140,400 L140,250" stroke="#1a1a1a" stroke-width="1.5" fill="none"/>
+
+  <!-- OE lines & Pull-ups -->
+  <text x="270" y="280" font-size="10" fill="#6b7280">/OE1, R_PU</text>
+  <text x="270" y="430" font-size="10" fill="#6b7280">/OE2, R_PU</text>
+  <path d="M130,315 L260,315" stroke="#2457d6" stroke-width="1.2" stroke-dasharray="3,3"/>
+  <path d="M130,375 L260,375" stroke="#2457d6" stroke-width="1.2" stroke-dasharray="3,3"/>
+
+  <!-- Right Panel: States & Protection -->
+  <rect x="610" y="80" width="320" height="360" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="630" y="105" font-size="14" font-weight="bold" fill="#1a1a1a">Стани комутації та захист</text>
+
+  <!-- Box 1: Reset -->
+  <rect x="630" y="125" width="280" height="60" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="645" y="145" font-size="12" font-weight="bold" fill="#c0392b">Стан скидання (Reset):</text>
+  <text x="645" y="165" font-size="11" fill="#1a1a1a">/OE1=1, /OE2=1 -&gt; Hi-Z, шини ізольовані</text>
+
+  <!-- Box 2: Dev 1 -->
+  <rect x="630" y="195" width="280" height="60" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="645" y="215" font-size="12" font-weight="bold" fill="#27ae60">Обмін із Device 1:</text>
+  <text x="645" y="235" font-size="11" fill="#1a1a1a">/OE1=0, /OE2=1 -&gt; Канал 1 активний, Канал 2 у Z</text>
+
+  <!-- Box 3: Dev 2 -->
+  <rect x="630" y="265" width="280" height="60" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="645" y="285" font-size="12" font-weight="bold" fill="#27ae60">Обмін із Device 2:</text>
+  <text x="645" y="305" font-size="11" fill="#1a1a1a">/OE1=1, /OE2=0 -&gt; Каncol 2 активний, Канал 1 у Z</text>
+
+  <!-- Box 4: Break-Before-Make -->
+  <rect x="630" y="335" width="280" height="85" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="645" y="355" font-size="12" font-weight="bold" fill="#2457d6">Захист Break-Before-Make:</text>
+  <text x="645" y="375" font-size="11" fill="#1a1a1a">Деактивація старого каналу перед</text>
+  <text x="645" y="395" font-size="11" font-weight="100">активацією нового (к.з. &gt;100мА виключено)</text>
+
+</svg>

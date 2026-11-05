@@ -1,0 +1,80 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-main" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Header -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Розклад сил на доріжках кочення та контактний кут α</text>
+  <text x="480" y="60" font-size="13" fill="#6b7280" text-anchor="middle">Взаємодія радіальної Fr та осьової Fa сил з утворенням нормальної реакції кульки під кутом α</text>
+
+  <!-- Left Panel: Geometry & Contact -->
+  <rect x="30" y="85" width="450" height="345" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  
+  <!-- Left Panel Title -->
+  <text x="255" y="112" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Геометрія підшипника та контактний кут</text>
+
+  <!-- Outer Ring (Top) -->
+  <path d="M 100,165 Q 255,145 410,165 L 390,220 Q 255,200 120,220 Z" fill="#e2e8f0" stroke="#94a3b8" stroke-width="1.5"/>
+  <!-- Inner Ring (Bottom) -->
+  <path d="M 120,300 Q 255,320 390,300 L 410,355 Q 255,375 100,355 Z" fill="#e2e8f0" stroke="#94a3b8" stroke-width="1.5"/>
+
+  <!-- Ball -->
+  <circle cx="255" cy="260" r="38" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+
+  <!-- Contact Line (Alpha) -->
+  <line x1="220" y1="225" x2="290" y2="295" stroke="#c0392b" stroke-width="2" stroke-dasharray="5,3"/>
+  <!-- Radial reference line -->
+  <line x1="255" y1="210" x2="255" y2="310" stroke="#6b7280" stroke-width="1" stroke-dasharray="2,2"/>
+
+  <!-- Angle arc representation (Approximate visual arc) -->
+  <path d="M 255,235 A 25,25 0 0,1 273,253" fill="none" stroke="#2457d6" stroke-width="1.5"/>
+
+  <!-- Labels Left Panel -->
+  <text x="280" y="235" font-size="12" fill="#2457d6">α</text>
+  <text x="225" y="152" font-size="12" fill="#1a1a1a" text-anchor="middle">Зовнішнє кільце</text>
+  <text x="225" y="380" font-size="12" fill="#1a1a1a" text-anchor="middle">Внутрішнє кільце</text>
+  <text x="345" y="270" font-size="12" fill="#1a1a1a">Кулька</text>
+  <text x="345" y="225" font-size="11" fill="#6b7280">Точки контакту</text>
+  <text x="345" y="240" font-size="11" fill="#6b7280">Герца</text>
+
+  <!-- Right Panel: Force Vectors & ISO 281 -->
+  <rect x="500" y="85" width="430" height="345" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Right Panel Title -->
+  <text x="715" y="112" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Векторний трикутник сил та еквівалентне P</text>
+
+  <!-- Force Triangle coordinate system / vectors -->
+  <!-- Origin for vectors at (570, 240) -->
+  <!-- Radial Force Fr (Horizontal) -->
+  <line x1="570" y1="240" x2="730" y2="240" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+  <!-- Axial Force Fa (Vertical) -->
+  <line x1="570" y1="240" x2="570" y2="150" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arr-red)"/>
+  <!-- Resultant Fn -->
+  <line x1="570" y1="240" x2="730" y2="150" stroke="#27ae60" stroke-width="3" marker-end="url(#arr-green)"/>
+
+  <!-- Vector Labels -->
+  <text x="650" y="232" font-size="12" font-weight="bold" fill="#2457d6">Fr (радіальна)</text>
+  <text x="580" y="190" font-size="12" font-weight="bold" fill="#c0392b">Fa (осьова)</text>
+  <text x="660" y="185" font-size="12" font-weight="bold" fill="#27ae60">Fn = √(Fr² + Fa²)</text>
+
+  <!-- ISO 281 Box -->
+  <rect x="530" y="275" width="370" height="135" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="715" y="297" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Граничний критерій ISO 281:</text>
+  <text x="545" y="322" font-size="12" fill="#1a1a1a">• Якщо Fa / Fr ≤ e :  P = Fr  (X = 1, Y = 0)</text>
+  <text x="545" y="347" font-size="12" fill="#1a1a1a">• Якщо Fa / Fr &gt; e :  P = X · Fr + Y · Fa</text>
+  <text x="565" y="367" font-size="11" fill="#6b7280">де зазвичай X = 0.56, Y = 1.2–2.0 (залежить від e та α)</text>
+  <text x="545" y="392" font-size="11" fill="#2457d6">Вплив α: зростання Fa збільшує кут і зміщує точки дотику.</text>
+</svg>

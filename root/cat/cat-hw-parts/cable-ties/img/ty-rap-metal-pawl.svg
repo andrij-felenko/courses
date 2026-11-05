@@ -1,0 +1,170 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Біла підкладка на все полотно -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Визначення маркерів стрілок -->
+  <defs>
+    <marker id="arr-black" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Головний заголовок і підзаголовок -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Механізм фіксації: Ty-Rap Логана (1958) проти сучасного хомута</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Пружний сталевий зуб врізається в гладку стрічку без кроку; литий храповик зачіпає лише дискретні насічки</text>
+
+  <!-- ========================================== -->
+  <!-- ЛІВА КОЛОНКА: Ty-Rap Логана (1958)        -->
+  <!-- ========================================== -->
+  <rect x="24" y="68" width="444" height="372" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <text x="44" y="93" font-size="14" font-weight="bold" fill="#2457d6">Ty-Rap (Thomas &amp; Betts, 1958)</text>
+  <text x="44" y="109" font-size="12" fill="#6b7280">Металевий затискний зуб Логана в нейлоновій головці</text>
+
+  <!-- Картка схеми в розрізі -->
+  <rect x="38" y="120" width="416" height="186" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Підпис до вузла фіксації -->
+  <text x="246" y="139" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Пружний зуб із нержавіючої сталі 316</text>
+
+  <!-- Верхня стінка головки хомута -->
+  <rect x="136" y="149" width="220" height="34" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="300" y="170" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Корпус (PA66)</text>
+
+  <!-- Гніздо посадки сталевого зуба -->
+  <rect x="176" y="155" width="36" height="22" rx="2" fill="#d0d7de" stroke="#6b7280" stroke-width="1"/>
+
+  <!-- Сталевий затискний зуб (пластина під гострим кутом) -->
+  <polygon points="190,163 197,163 238,203 231,205" fill="#475569" stroke="#1a1a1a" stroke-width="1.2"/>
+
+  <!-- Точка клинового врізання сталі в нейлон -->
+  <circle cx="235" cy="204" r="3.5" fill="#c0392b"/>
+
+  <!-- Текстова мітка точки врізання -->
+  <text x="248" y="196" font-size="12" font-weight="bold" fill="#c0392b">Врізання сталі</text>
+
+  <!-- Гладка нейлонова стрічка без насічок -->
+  <rect x="52" y="204" width="388" height="20" rx="2" fill="#f4f6f8" stroke="#2457d6" stroke-width="1.5"/>
+
+  <!-- Нижня опорна стінка головки -->
+  <rect x="136" y="224" width="220" height="28" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="246" y="242" font-size="12" fill="#6b7280" text-anchor="middle">Опорне ложе головки</text>
+
+  <!-- Стрілка та напис затягування (справа) -->
+  <text x="395" y="196" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Вільний хід</text>
+  <line x1="366" y1="214" x2="424" y2="214" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- Стрілка та напис зворотного зусилля (зліва) -->
+  <text x="96" y="196" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Натяг</text>
+  <line x1="126" y1="214" x2="68" y2="214" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+
+  <!-- Пояснення принципу дії внизу картки -->
+  <text x="246" y="274" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Гладка стрічка — безступінчасте клинове врізання</text>
+  <text x="246" y="293" font-size="12" fill="#6b7280" text-anchor="middle">Точний натяг без люфту й без концентраторів напружень</text>
+
+  <!-- Нижня ліва картка переваг -->
+  <rect x="38" y="320" width="202" height="106" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="48" y="339" font-size="12" font-weight="bold" fill="#27ae60">Безступінчастий затиск</text>
+  <text x="48" y="357" font-size="12" fill="#1a1a1a">· Точне зусилля без кроку</text>
+  <text x="48" y="375" font-size="12" fill="#1a1a1a">· Відсутній «мертвий хід»</text>
+  <text x="48" y="393" font-size="12" fill="#1a1a1a">· Сталь не ламається на холоді</text>
+  <text x="48" y="411" font-size="12" fill="#27ae60">Стандарт авіації (Boeing 707)</text>
+
+  <!-- Нижня права картка особливостей конструкції -->
+  <rect x="252" y="320" width="202" height="106" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="262" y="339" font-size="12" font-weight="bold" fill="#2457d6">Особливості Ty-Rap</text>
+  <text x="262" y="357" font-size="12" fill="#1a1a1a">· Біметалева конструкція</text>
+  <text x="262" y="375" font-size="12" fill="#1a1a1a">· Гладка поверхня стрічки</text>
+  <text x="262" y="393" font-size="12" fill="#1a1a1a">· Стійкість до вібрацій</text>
+  <text x="262" y="411" font-size="12" fill="#6b7280">Вища вартість виготовлення</text>
+
+  <!-- ========================================== -->
+  <!-- ПРАВА КОЛОНКА: Сучасний суцільнолитий хомут-->
+  <!-- ========================================== -->
+  <rect x="492" y="68" width="444" height="372" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <text x="512" y="93" font-size="14" font-weight="bold" fill="#1a1a1a">Сучасний суцільнолитий хомут</text>
+  <text x="512" y="109" font-size="12" fill="#6b7280">Цілісний поліамід PA66 з литим храповим язичком</text>
+
+  <!-- Картка схеми в розрізі -->
+  <rect x="506" y="120" width="416" height="186" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Підпис до вузла фіксації -->
+  <text x="714" y="139" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Інтегрований пластиковий храповик (PA66)</text>
+
+  <!-- Верхня стінка головки хомута -->
+  <rect x="604" y="149" width="220" height="34" rx="4" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="768" y="170" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">Моноліт PA66</text>
+
+  <!-- Пластиковий язичок, відлитий разом із корпусом -->
+  <polygon points="636,165 644,165 684,204 676,204" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1.2"/>
+  <!-- Литий зубець храповика, що впирається у вертикальну стінку насічки -->
+  <polygon points="674,198 684,198 684,204 674,204" fill="#1a1a1a"/>
+
+  <!-- Текстова мітка упору зубця -->
+  <text x="696" y="196" font-size="12" font-weight="bold" fill="#c0392b">Упор у паз</text>
+
+  <!-- Стрічка з пилкоподібними насічками -->
+  <!-- Основне тіло стрічки -->
+  <rect x="520" y="204" width="388" height="20" rx="2" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.5"/>
+
+  <!-- Литі зубці на поверхні стрічки -->
+  <polygon points="536,204 546,198 546,204" fill="#6b7280"/>
+  <polygon points="554,204 564,198 564,204" fill="#6b7280"/>
+  <polygon points="572,204 582,198 582,204" fill="#6b7280"/>
+  <polygon points="590,204 600,198 600,204" fill="#6b7280"/>
+  <polygon points="608,204 618,198 618,204" fill="#6b7280"/>
+  <polygon points="626,204 636,198 636,204" fill="#6b7280"/>
+  <polygon points="644,204 654,198 654,204" fill="#6b7280"/>
+  <polygon points="662,204 672,198 672,204" fill="#6b7280"/>
+  <polygon points="674,204 684,198 684,204" fill="#1a1a1a"/>
+  <polygon points="698,204 708,198 708,204" fill="#6b7280"/>
+  <polygon points="716,204 726,198 726,204" fill="#6b7280"/>
+  <polygon points="734,204 744,198 744,204" fill="#6b7280"/>
+  <polygon points="752,204 762,198 762,204" fill="#6b7280"/>
+  <polygon points="770,204 780,198 780,204" fill="#6b7280"/>
+  <polygon points="788,204 798,198 798,204" fill="#6b7280"/>
+  <polygon points="806,204 816,198 816,204" fill="#6b7280"/>
+  <polygon points="824,204 834,198 834,204" fill="#6b7280"/>
+
+  <!-- Нижня опорна стінка головки -->
+  <rect x="604" y="224" width="220" height="28" rx="4" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="714" y="242" font-size="12" fill="#6b7280" text-anchor="middle">Опорне ложе головки</text>
+
+  <!-- Стрілка та напис затягування (справа) -->
+  <text x="863" y="196" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Клацання</text>
+  <line x1="834" y1="214" x2="892" y2="214" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- Стрілка та напис зворотного упору (зліва) -->
+  <text x="564" y="196" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Блок</text>
+  <line x1="594" y1="214" x2="536" y2="214" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+
+  <!-- Пояснення принципу дії внизу картки -->
+  <text x="714" y="274" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Зубчаста рейка — дискретне ступінчасте зачеплення</text>
+  <text x="714" y="293" font-size="12" fill="#6b7280" text-anchor="middle">Крок зубців Δx ≈ 1 мм; впадини насічок послаблюють стрічку</text>
+
+  <!-- Нижня ліва картка обмежень -->
+  <rect x="506" y="320" width="202" height="106" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="516" y="339" font-size="12" font-weight="bold" fill="#c0392b">Дискретний крок (Δx)</text>
+  <text x="516" y="357" font-size="12" fill="#1a1a1a">· Люфт між сусідніми пазами</text>
+  <text x="516" y="375" font-size="12" fill="#1a1a1a">· Концентратори напружень</text>
+  <text x="516" y="393" font-size="12" fill="#1a1a1a">· Ламкість язичка на морозі</text>
+  <text x="516" y="411" font-size="12" fill="#c0392b">Ризик розриву при вібрації</text>
+
+  <!-- Нижня права картка переваг виробництва -->
+  <rect x="720" y="320" width="202" height="106" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="730" y="339" font-size="12" font-weight="bold" fill="#1a1a1a">Масове виробництво</text>
+  <text x="730" y="357" font-size="12" fill="#1a1a1a">· Лиття однією деталлю</text>
+  <text x="730" y="375" font-size="12" fill="#1a1a1a">· Мінімальна ціна деталі</text>
+  <text x="730" y="393" font-size="12" fill="#1a1a1a">· Для помірних навантажень</text>
+  <text x="730" y="411" font-size="12" fill="#6b7280">Сучасний комерційний стандарт</text>
+</svg>

@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Підкладка -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Тепловий баланс та ризик оплавлення роз'ємів JST-SM</text>
+  <text x="480" y="60" font-size="13" fill="#6b7280" text-anchor="middle">Порівняння безпечного навантаження з дерейтингом та аварійного перегріву при 3.0 А на всі полюси з AWG 28</text>
+
+  <!-- ЛІВА ПАНЕЛЬ: Безпечний режим (Safe Operating Area) -->
+  <rect x="30" y="80" width="450" height="350" rx="8" fill="#e9f7ef" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="45" y="95" width="420" height="35" rx="6" fill="#27ae60"/>
+  <text x="255" y="118" font-size="14" font-weight="bold" fill="white" text-anchor="middle">1. Безпечний режим (Safe Operating Area)</text>
+
+  <!-- Параметри лівої панелі (розділені на два рядки або рознесені по X) -->
+  <g font-size="12" fill="#1a1a1a">
+    <text x="55" y="152" font-weight="bold">Конфігурація:</text>
+    <text x="55" y="170">Колодка 4P/8P, дроти AWG 22–24</text>
+
+    <text x="55" y="200" font-weight="bold">Робочий струм:</text>
+    <text x="55" y="218">I = 1.3 – 1.8 А (коефіцієнти F_poles, F_awg)</text>
+
+    <text x="55" y="248" font-weight="bold">Контактний опір та втрати:</text>
+    <text x="55" y="266">R_contact = 20–25 мОм, P_loss ≈ 0.05 Вт</text>
+
+    <text x="55" y="296" font-weight="bold">Температура та безпека:</text>
+    <text x="55" y="314">T_housing ≤ 60 °C (запас до T_max = 85 °C)</text>
+  </g>
+
+  <!-- Висновок лівої панелі -->
+  <rect x="45" y="335" width="420" height="80" rx="6" fill="white" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="255" y="358" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Результат: Надійна тривала робота</text>
+  <text x="60" y="380" font-size="12" fill="#1a1a1a">Без деградації нейлону PA66, стабільний контакт.</text>
+  <text x="60" y="400" font-size="12" fill="#1a1a1a">Сумарне тепловиділення колодки P_total ≤ 0.4 Вт.</text>
+
+
+  <!-- ПРАВА ПАНЕЛЬ: Аварійне перевантаження (Overheating & Melt Failure) -->
+  <rect x="500" y="80" width="430" height="350" rx="8" fill="#fdecea" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="515" y="95" width="400" height="35" rx="6" fill="#c0392b"/>
+  <text x="715" y="118" font-size="14" font-weight="bold" fill="white" text-anchor="middle">2. Аварійне перевантаження (Melt Failure)</text>
+
+  <!-- Параметри правої панелі -->
+  <g font-size="12" fill="#1a1a1a">
+    <text x="525" y="152" font-weight="bold">Конфігурація:</text>
+    <text x="525" y="170">Колодка 8P, тонкі дроти AWG 28</text>
+
+    <text x="525" y="200" font-weight="bold">Подача струму:</text>
+    <text x="525" y="218">3.0 А на ВСІ 8 полюсів (помилка!)</text>
+
+    <text x="525" y="248" font-weight="bold">Втрати і потужність:</text>
+    <text x="525" y="266">P_loss = 0.225 Вт, P_total = 1.80 Вт</text>
+
+    <text x="525" y="296" font-weight="bold">Розрахунок перегріву:</text>
+    <text x="525" y="314">ΔT = 81 °C, T_housing = 121 °C >> T_max</text>
+  </g>
+
+  <!-- Висновок правої панелі -->
+  <rect x="515" y="335" width="400" height="80" rx="6" fill="white" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="715" y="358" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">Результат: Катастрофічний вихід з ладу</text>
+  <text x="530" y="380" font-size="12" fill="#1a1a1a">Оплавлення PA66, втрата пружності фіксаторів.</text>
+  <text x="530" y="400" font-size="12" fill="#1a1a1a">Ризик короткого замикання та виходу з ладу.</text>
+</svg>

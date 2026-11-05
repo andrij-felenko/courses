@@ -1,0 +1,203 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 580" width="960" height="580" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-black" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="580" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="34" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Цоколівка та шинна архітектура буферів 74AHCT125 і 74AHCT245</text>
+  <text x="480" y="56" font-size="13" fill="#6b7280" text-anchor="middle">Поканальне керування для розрізнених ліній та наскрізна симетрія A↔B для прямого трасування шин</text>
+
+  <!-- Ліва панель: 74AHCT125 -->
+  <rect x="24" y="74" width="444" height="404" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="246" y="98" font-size="14" font-weight="700" fill="#1a1a1a" text-anchor="middle">74AHCT125: 4-канальний буфер (SOIC-14)</text>
+  <text x="246" y="116" font-size="12" fill="#6b7280" text-anchor="middle">Поканальне групування: входи й виходи на одній стороні</text>
+
+  <!-- Корпус SOIC-14 -->
+  <rect x="175" y="132" width="142" height="236" rx="4" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.8"/>
+  <path d="M 238 132 A 8 8 0 0 0 254 132" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.8"/>
+  <circle cx="190" cy="144" r="3" fill="#1a1a1a"/>
+  <text x="246" y="244" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">74AHCT125</text>
+  <text x="246" y="260" font-size="12" fill="#6b7280" text-anchor="middle">Quad Driver</text>
+
+  <rect x="212" y="166" width="68" height="40" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="246" y="182" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">Ch 1, 2</text>
+  <text x="246" y="198" font-size="12" fill="#6b7280" text-anchor="middle">ліворуч</text>
+  <rect x="212" y="278" width="68" height="40" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="246" y="294" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">Ch 3, 4</text>
+  <text x="246" y="310" font-size="12" fill="#6b7280" text-anchor="middle">праворуч</text>
+
+  <line x1="150" y1="152" x2="175" y2="152" stroke="#6b7280" stroke-width="2.5"/>
+  <text x="188" y="156" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">1</text>
+  <text x="142" y="156" font-size="12" fill="#1a1a1a" text-anchor="end"><tspan font-weight="700" fill="#2457d6">1OE#</tspan> (дозвіл 1)</text>
+  <line x1="150" y1="184" x2="175" y2="184" stroke="#6b7280" stroke-width="2.5"/>
+  <text x="188" y="188" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">2</text>
+  <text x="142" y="188" font-size="12" fill="#1a1a1a" text-anchor="end"><tspan font-weight="700" fill="#2457d6">1A</tspan> (вхід 1)</text>
+  <line x1="150" y1="216" x2="175" y2="216" stroke="#6b7280" stroke-width="2.5"/>
+  <text x="188" y="220" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">3</text>
+  <text x="142" y="220" font-size="12" fill="#1a1a1a" text-anchor="end"><tspan font-weight="700" fill="#27ae60">1Y</tspan> (вихід 1)</text>
+  <line x1="150" y1="248" x2="175" y2="248" stroke="#6b7280" stroke-width="2.5"/>
+  <text x="188" y="252" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">4</text>
+  <text x="142" y="252" font-size="12" fill="#1a1a1a" text-anchor="end"><tspan font-weight="700" fill="#2457d6">2OE#</tspan> (дозвіл 2)</text>
+  <line x1="150" y1="280" x2="175" y2="280" stroke="#6b7280" stroke-width="2.5"/>
+  <text x="188" y="284" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">5</text>
+  <text x="142" y="284" font-size="12" fill="#1a1a1a" text-anchor="end"><tspan font-weight="700" fill="#2457d6">2A</tspan> (вхід 2)</text>
+  <line x1="150" y1="312" x2="175" y2="312" stroke="#6b7280" stroke-width="2.5"/>
+  <text x="188" y="316" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">6</text>
+  <text x="142" y="316" font-size="12" fill="#1a1a1a" text-anchor="end"><tspan font-weight="700" fill="#27ae60">2Y</tspan> (вихід 2)</text>
+  <line x1="150" y1="344" x2="175" y2="344" stroke="#6b7280" stroke-width="2.5"/>
+  <text x="188" y="348" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">7</text>
+  <text x="142" y="348" font-size="12" fill="#1a1a1a" text-anchor="end"><tspan font-weight="700" fill="#1a1a1a">GND</tspan> (0 В)</text>
+  <line x1="317" y1="152" x2="342" y2="152" stroke="#6b7280" stroke-width="2.5"/>
+  <text x="304" y="156" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">14</text>
+  <text x="350" y="156" font-size="12" fill="#1a1a1a" text-anchor="start"><tspan font-weight="700" fill="#c0392b">VCC</tspan> (+5 В)</text>
+  <line x1="317" y1="184" x2="342" y2="184" stroke="#6b7280" stroke-width="2.5"/>
+  <text x="304" y="188" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">13</text>
+  <text x="350" y="188" font-size="12" fill="#1a1a1a" text-anchor="start"><tspan font-weight="700" fill="#2457d6">4OE#</tspan> (дозвіл 4)</text>
+  <line x1="317" y1="216" x2="342" y2="216" stroke="#6b7280" stroke-width="2.5"/>
+  <text x="304" y="220" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">12</text>
+  <text x="350" y="220" font-size="12" fill="#1a1a1a" text-anchor="start"><tspan font-weight="700" fill="#2457d6">4A</tspan> (вхід 4)</text>
+  <line x1="317" y1="248" x2="342" y2="248" stroke="#6b7280" stroke-width="2.5"/>
+  <text x="304" y="252" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">11</text>
+  <text x="350" y="252" font-size="12" fill="#1a1a1a" text-anchor="start"><tspan font-weight="700" fill="#27ae60">4Y</tspan> (вихід 4)</text>
+  <line x1="317" y1="280" x2="342" y2="280" stroke="#6b7280" stroke-width="2.5"/>
+  <text x="304" y="284" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">10</text>
+  <text x="350" y="284" font-size="12" fill="#1a1a1a" text-anchor="start"><tspan font-weight="700" fill="#2457d6">3OE#</tspan> (дозвіл 3)</text>
+  <line x1="317" y1="312" x2="342" y2="312" stroke="#6b7280" stroke-width="2.5"/>
+  <text x="304" y="316" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">9</text>
+  <text x="350" y="316" font-size="12" fill="#1a1a1a" text-anchor="start"><tspan font-weight="700" fill="#2457d6">3A</tspan> (вхід 3)</text>
+  <line x1="317" y1="344" x2="342" y2="344" stroke="#6b7280" stroke-width="2.5"/>
+  <text x="304" y="348" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">8</text>
+  <text x="350" y="348" font-size="12" fill="#1a1a1a" text-anchor="start"><tspan font-weight="700" fill="#27ae60">3Y</tspan> (вихід 3)</text>
+
+  <!-- Функціональна схема окремого каналу 74AHCT125 -->
+  <rect x="36" y="380" width="420" height="86" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="46" y="398" font-size="12" font-weight="700" fill="#2457d6">Функціональна схема каналу:</text>
+  <text x="46" y="416" font-size="12" fill="#1a1a1a">OE# = 0: <tspan font-weight="700" fill="#27ae60">Y = A</tspan> (вхід 3.3V → вихід 5V CMOS)</text>
+  <text x="46" y="434" font-size="12" fill="#1a1a1a">OE# = 1: <tspan font-weight="700" fill="#c0392b">Y = Hi-Z</tspan> (ізоляція виходу)</text>
+  <text x="46" y="452" font-size="12" fill="#6b7280">Топологія: канали 1..2 зліва, 3..4 справа</text>
+  <!-- Схемний символ буфера 74AHCT125 -->
+  <path d="M 374 413 L 374 439 L 402 426 Z" fill="#ffffff" stroke="#2457d6" stroke-width="1.6"/>
+  <line x1="355" y1="426" x2="374" y2="426" stroke="#2457d6" stroke-width="1.6"/>
+  <line x1="402" y1="426" x2="422" y2="426" stroke="#27ae60" stroke-width="1.6"/>
+  <circle cx="388" cy="410" r="2.5" fill="#ffffff" stroke="#2457d6" stroke-width="1.4"/>
+  <line x1="388" y1="395" x2="388" y2="407" stroke="#2457d6" stroke-width="1.4"/>
+  <text x="348" y="430" font-size="12" font-weight="700" fill="#2457d6" text-anchor="end">A</text>
+  <text x="428" y="430" font-size="12" font-weight="700" fill="#27ae60" text-anchor="start">Y</text>
+  <text x="388" y="391" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">OE#</text>
+
+  <!-- Права панель: 74AHCT245 -->
+  <rect x="492" y="74" width="444" height="404" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="714" y="98" font-size="14" font-weight="700" fill="#1a1a1a" text-anchor="middle">74AHCT245: 8-розрядний трансивер (SOIC-20)</text>
+  <text x="714" y="116" font-size="12" fill="#6b7280" text-anchor="middle">Наскрізна шинна симетрія: Port A (A1..A8) ↔ Port B (B1..B8)</text>
+
+  <!-- Корпус SOIC-20 -->
+  <rect x="644" y="124" width="142" height="246" rx="4" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.8"/>
+  <path d="M 706 124 A 8 8 0 0 0 722 124" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.8"/>
+  <circle cx="658" cy="136" r="3" fill="#1a1a1a"/>
+  <text x="714" y="242" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">74AHCT245</text>
+  <text x="714" y="258" font-size="12" fill="#6b7280" text-anchor="middle">Octal Bus</text>
+
+  <rect x="682" y="174" width="64" height="38" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="714" y="190" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">A ➔ B</text>
+  <text x="714" y="205" font-size="12" fill="#6b7280" text-anchor="middle">(DIR=1)</text>
+  <rect x="682" y="280" width="64" height="38" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="714" y="296" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">B ➔ A</text>
+  <text x="714" y="311" font-size="12" fill="#6b7280" text-anchor="middle">(DIR=0)</text>
+
+  <line x1="620" y1="138" x2="644" y2="138" stroke="#6b7280" stroke-width="2.5"/>
+  <text x="657" y="142" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">1</text>
+  <text x="612" y="142" font-size="12" fill="#1a1a1a" text-anchor="end"><tspan font-weight="700" fill="#2457d6">DIR</tspan> (напрямок)</text>
+  <line x1="620" y1="161" x2="644" y2="161" stroke="#6b7280" stroke-width="2.5"/>
+  <text x="657" y="165" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">2</text>
+  <text x="612" y="165" font-size="12" fill="#1a1a1a" text-anchor="end"><tspan font-weight="700" fill="#2457d6">A1</tspan> (шина A)</text>
+  <line x1="620" y1="184" x2="644" y2="184" stroke="#6b7280" stroke-width="2.5"/>
+  <text x="657" y="188" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">3</text>
+  <text x="612" y="188" font-size="12" fill="#1a1a1a" text-anchor="end"><tspan font-weight="700" fill="#2457d6">A2</tspan> (шина A)</text>
+  <line x1="620" y1="207" x2="644" y2="207" stroke="#6b7280" stroke-width="2.5"/>
+  <text x="657" y="211" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">4</text>
+  <text x="612" y="211" font-size="12" fill="#1a1a1a" text-anchor="end"><tspan font-weight="700" fill="#2457d6">A3</tspan> (шина A)</text>
+  <line x1="620" y1="230" x2="644" y2="230" stroke="#6b7280" stroke-width="2.5"/>
+  <text x="657" y="234" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">5</text>
+  <text x="612" y="234" font-size="12" fill="#1a1a1a" text-anchor="end"><tspan font-weight="700" fill="#2457d6">A4</tspan> (шина A)</text>
+  <line x1="620" y1="253" x2="644" y2="253" stroke="#6b7280" stroke-width="2.5"/>
+  <text x="657" y="257" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">6</text>
+  <text x="612" y="257" font-size="12" fill="#1a1a1a" text-anchor="end"><tspan font-weight="700" fill="#2457d6">A5</tspan> (шина A)</text>
+  <line x1="620" y1="276" x2="644" y2="276" stroke="#6b7280" stroke-width="2.5"/>
+  <text x="657" y="280" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">7</text>
+  <text x="612" y="280" font-size="12" fill="#1a1a1a" text-anchor="end"><tspan font-weight="700" fill="#2457d6">A6</tspan> (шина A)</text>
+  <line x1="620" y1="299" x2="644" y2="299" stroke="#6b7280" stroke-width="2.5"/>
+  <text x="657" y="303" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">8</text>
+  <text x="612" y="303" font-size="12" fill="#1a1a1a" text-anchor="end"><tspan font-weight="700" fill="#2457d6">A7</tspan> (шина A)</text>
+  <line x1="620" y1="322" x2="644" y2="322" stroke="#6b7280" stroke-width="2.5"/>
+  <text x="657" y="326" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">9</text>
+  <text x="612" y="326" font-size="12" fill="#1a1a1a" text-anchor="end"><tspan font-weight="700" fill="#2457d6">A8</tspan> (шина A)</text>
+  <line x1="620" y1="345" x2="644" y2="345" stroke="#6b7280" stroke-width="2.5"/>
+  <text x="657" y="349" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">10</text>
+  <text x="612" y="349" font-size="12" fill="#1a1a1a" text-anchor="end"><tspan font-weight="700" fill="#1a1a1a">GND</tspan> (0 В)</text>
+  <line x1="786" y1="138" x2="810" y2="138" stroke="#6b7280" stroke-width="2.5"/>
+  <text x="772" y="142" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">20</text>
+  <text x="818" y="142" font-size="12" fill="#1a1a1a" text-anchor="start"><tspan font-weight="700" fill="#c0392b">VCC</tspan> (+5 В)</text>
+  <line x1="786" y1="161" x2="810" y2="161" stroke="#6b7280" stroke-width="2.5"/>
+  <text x="772" y="165" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">19</text>
+  <text x="818" y="165" font-size="12" fill="#1a1a1a" text-anchor="start"><tspan font-weight="700" fill="#2457d6">OE#</tspan> (дозвіл)</text>
+  <line x1="786" y1="184" x2="810" y2="184" stroke="#6b7280" stroke-width="2.5"/>
+  <text x="772" y="188" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">18</text>
+  <text x="818" y="188" font-size="12" fill="#1a1a1a" text-anchor="start"><tspan font-weight="700" fill="#27ae60">B1</tspan> (шина B)</text>
+  <line x1="786" y1="207" x2="810" y2="207" stroke="#6b7280" stroke-width="2.5"/>
+  <text x="772" y="211" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">17</text>
+  <text x="818" y="211" font-size="12" fill="#1a1a1a" text-anchor="start"><tspan font-weight="700" fill="#27ae60">B2</tspan> (шина B)</text>
+  <line x1="786" y1="230" x2="810" y2="230" stroke="#6b7280" stroke-width="2.5"/>
+  <text x="772" y="234" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">16</text>
+  <text x="818" y="234" font-size="12" fill="#1a1a1a" text-anchor="start"><tspan font-weight="700" fill="#27ae60">B3</tspan> (шина B)</text>
+  <line x1="786" y1="253" x2="810" y2="253" stroke="#6b7280" stroke-width="2.5"/>
+  <text x="772" y="257" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">15</text>
+  <text x="818" y="257" font-size="12" fill="#1a1a1a" text-anchor="start"><tspan font-weight="700" fill="#27ae60">B4</tspan> (шина B)</text>
+  <line x1="786" y1="276" x2="810" y2="276" stroke="#6b7280" stroke-width="2.5"/>
+  <text x="772" y="280" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">14</text>
+  <text x="818" y="280" font-size="12" fill="#1a1a1a" text-anchor="start"><tspan font-weight="700" fill="#27ae60">B5</tspan> (шина B)</text>
+  <line x1="786" y1="299" x2="810" y2="299" stroke="#6b7280" stroke-width="2.5"/>
+  <text x="772" y="303" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">13</text>
+  <text x="818" y="303" font-size="12" fill="#1a1a1a" text-anchor="start"><tspan font-weight="700" fill="#27ae60">B6</tspan> (шина B)</text>
+  <line x1="786" y1="322" x2="810" y2="322" stroke="#6b7280" stroke-width="2.5"/>
+  <text x="772" y="326" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">12</text>
+  <text x="818" y="326" font-size="12" fill="#1a1a1a" text-anchor="start"><tspan font-weight="700" fill="#27ae60">B7</tspan> (шина B)</text>
+  <line x1="786" y1="345" x2="810" y2="345" stroke="#6b7280" stroke-width="2.5"/>
+  <text x="772" y="349" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">11</text>
+  <text x="818" y="349" font-size="12" fill="#1a1a1a" text-anchor="start"><tspan font-weight="700" fill="#27ae60">B8</tspan> (шина B)</text>
+
+  <!-- Функціональна схема трансивера 74AHCT245 -->
+  <rect x="504" y="380" width="420" height="86" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="514" y="398" font-size="12" font-weight="700" fill="#2457d6">Логіка керування трансивером:</text>
+  <text x="514" y="416" font-size="12" fill="#1a1a1a">OE# = 0, DIR = 1: <tspan font-weight="700" fill="#2457d6">Потік A → B</tspan> (3.3V → 5V)</text>
+  <text x="514" y="434" font-size="12" fill="#1a1a1a">OE# = 0, DIR = 0: <tspan font-weight="700" fill="#27ae60">Потік B → A</tspan> (приймання)</text>
+  <text x="514" y="452" font-size="12" fill="#6b7280">OE# = 1: A, B = Hi-Z (ізоляція шини)</text>
+  <!-- Схемний символ двонапрямного трансивера -->
+  <path d="M 836 410 L 836 426 L 858 418 Z" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <path d="M 858 430 L 858 446 L 836 438 Z" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="822" y1="428" x2="836" y2="418" stroke="#2457d6" stroke-width="1.4"/>
+  <line x1="822" y1="428" x2="836" y2="438" stroke="#2457d6" stroke-width="1.4"/>
+  <line x1="810" y1="428" x2="822" y2="428" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="872" y1="428" x2="858" y2="418" stroke="#27ae60" stroke-width="1.4"/>
+  <line x1="872" y1="428" x2="858" y2="438" stroke="#27ae60" stroke-width="1.4"/>
+  <line x1="872" y1="428" x2="884" y2="428" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="804" y="432" font-size="12" font-weight="700" fill="#2457d6" text-anchor="end">A</text>
+  <text x="890" y="432" font-size="12" font-weight="700" fill="#27ae60" text-anchor="start">B</text>
+  <text x="847" y="396" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">DIR</text>
+
+  <!-- Підсумкова плашка порівняння для трасування -->
+  <rect x="24" y="490" width="912" height="64" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="480" y="509" font-size="13" font-weight="700" fill="#27ae60" text-anchor="middle">Висновки для трасування друкованої плати (PCB Layout)</text>
+  <text x="480" y="527" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan font-weight="700">74AHCT125:</tspan> Роздільні входи/виходи на сторонах чіпа. Ідеально для ліній WS2812B, SPI (MOSI/SCK/CS) та UART TX.</text>
+  <text x="480" y="544" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan font-weight="700">74AHCT245:</tspan> Наскрізний шинний потік A1..A8 ↔ B1..B8. Паралельні доріжки проходять платою без перетинань.</text>
+</svg>

@@ -1,0 +1,93 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-black" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Структура гальванічних покриттів контактної пари Pogo Pin</text>
+  <text x="480" y="56" font-size="13" fill="#6b7280" text-anchor="middle">Бар'єрний підшар нікелю та фінішне покриття твердим золотом у зонах тертя й контакту</text>
+
+  <!-- ЛІВА ПАНЕЛЬ: РОЗРІЗ КОНТАКТУ -->
+  <rect x="40" y="85" width="470" height="375" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="40" y="85" width="470" height="34" rx="8" fill="#eaf0fd" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="275" y="107" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">РОЗРІЗ КОНТАКТНОЇ ГРУПИ (ПЛУНЖЕР - ГІЛЬЗА - ПЛАТА)</text>
+
+  <!-- Стінки гільзи Barrel (ліва та права) -->
+  <rect x="120" y="135" width="22" height="150" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="258" y="135" width="22" height="150" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Золоте покриття внутрішньої поверхні гільзи -->
+  <rect x="139" y="135" width="3" height="150" fill="#f1c40f"/>
+  <rect x="258" y="135" width="3" height="150" fill="#f1c40f"/>
+
+  <!-- Плунжер Plunger (зі скосом 18° вгорі для надійного бокового контакту) -->
+  <path d="M152,240 L152,145 L242,165 L248,240 Q248,275 200,285 Q152,275 152,240 Z" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  
+  <!-- Золочене покриття наконечника плунжера (зовнішня лінія) -->
+  <path d="M150,240 Q150,277 200,287 Q250,277 250,240" fill="none" stroke="#f1c40f" stroke-width="4"/>
+
+  <!-- Точка бокового ковзання (Primary Contact) -->
+  <circle cx="245" cy="195" r="5" fill="#27ae60"/>
+  <line x1="245" y1="195" x2="315" y2="175" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <text x="325" y="172" font-size="12" font-weight="bold" fill="#27ae60">Боковий контакт R_b</text>
+  <text x="325" y="189" font-size="12" fill="#6b7280">опір менше 15 мОм</text>
+
+  <!-- Точка контакту з майданчиком (Tip Contact) -->
+  <circle cx="200" cy="287" r="5" fill="#2457d6"/>
+  <line x1="200" y1="287" x2="270" y2="305" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="280" y="302" font-size="12" font-weight="bold" fill="#2457d6">Контакт наконечника R_pad</text>
+  <text x="280" y="319" font-size="12" fill="#6b7280">притиск F = 1.0–1.5 Н</text>
+
+  <text x="131" y="126" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Гільза</text>
+  <text x="269" y="126" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Гільза</text>
+
+  <!-- Target Pad на платі -->
+  <rect x="90" y="291" width="220" height="7" fill="#f1c40f" stroke="#1a1a1a" stroke-width="1"/>
+  <rect x="70" y="298" width="260" height="16" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="200" y="332" font-size="12" fill="#6b7280" text-anchor="middle">FR4 PCB + Target Pad (покриття ENIG)</text>
+
+  <!-- Картка пояснення шляху струму -->
+  <rect x="55" y="355" width="440" height="90" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="70" y="377" font-size="12" font-weight="bold" fill="#1a1a1a">Шлях протікання струму (Biased Piston Design):</text>
+  <text x="70" y="397" font-size="12" fill="#1a1a1a">• Скошений торець притискає плунжер до внутрішньої стінки гільзи</text>
+  <text x="70" y="417" font-size="12" fill="#27ae60" font-weight="bold">• Струм тече напряму Plunger → Barrel, оминаючи сталеву пружину</text>
+  <text x="70" y="435" font-size="12" fill="#6b7280">• Усуває паразитну індуктивність та перегрів пружини струмами до 3–5 А</text>
+
+  <!-- ПРАВА ПАНЕЛЬ: СПЕЦИФІКАЦІЯ ШАРІВ -->
+  <rect x="530" y="85" width="390" height="375" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="530" y="85" width="390" height="34" rx="8" fill="#e9f7ef" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="725" y="107" font-size="14" font-weight="bold" fill="#27ae60" text-anchor="middle">ПОШАРОВА СТРУКТУРА ГАЛЬВАНІКИ</text>
+
+  <!-- Блок 1: Фінішне золото -->
+  <rect x="550" y="135" width="350" height="95" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="550" y="135" width="8" height="95" fill="#f1c40f"/>
+  <text x="570" y="157" font-size="13" font-weight="bold" fill="#1a1a1a">1. Фініш: Тверде золото (Hard Au / Co-Au)</text>
+  <text x="570" y="177" font-size="12" fill="#1a1a1a">• Товщина на плунжері: 0.25 ... 0.75 мкм (10–30 μin)</text>
+  <text x="570" y="195" font-size="12" fill="#1a1a1a">• Товщина в гільзі: 0.10 ... 0.25 мкм (4–10 μin)</text>
+  <text x="570" y="213" font-size="12" fill="#27ae60">• Мікротвердість: 140–200 HK (захист від фретингу)</text>
+
+  <!-- Блок 2: Підшар нікелю -->
+  <rect x="550" y="242" width="350" height="95" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="550" y="242" width="8" height="95" fill="#6b7280"/>
+  <text x="570" y="264" font-size="13" font-weight="bold" fill="#1a1a1a">2. Бар'єр: Гальванічний нікель (Nickel)</text>
+  <text x="570" y="284" font-size="12" fill="#1a1a1a">• Товщина підшару: 1.5 ... 3.0 мкм (50–120 μin)</text>
+  <text x="570" y="302" font-size="12" fill="#1a1a1a">• Блокує дифузію атомів міді та цинку в шар золота</text>
+  <text x="570" y="320" font-size="12" fill="#2457d6">• Забезпечує тверду підкладку проти продавлювання</text>
+
+  <!-- Блок 3: Базовий сплав -->
+  <rect x="550" y="349" width="350" height="95" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="550" y="349" width="8" height="95" fill="#2457d6"/>
+  <text x="570" y="371" font-size="13" font-weight="bold" fill="#1a1a1a">3. Основа: Латунь або берилієва мідь</text>
+  <text x="570" y="391" font-size="12" fill="#1a1a1a">• Плунжер: берилієва мідь C17300 або латунь C3604</text>
+  <text x="570" y="409" font-size="12" fill="#1a1a1a">• Гільза: автоматна свинцева латунь C3604 (точіння)</text>
+  <text x="570" y="427" font-size="12" fill="#6b7280">• Пружина: нержавіюча сталь SUS304 з позолотою</text>
+</svg>

@@ -1,0 +1,106 @@
+<svg width="960" height="460" viewBox="0 0 960 460" xmlns="http://www.w3.org/2000/svg" font-family="Segoe UI, Arial, sans-serif">
+  <!-- Podkladka -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Style definitions -->
+  <defs>
+    <style>
+      .panel-bg { fill: #f4f6f8; stroke: #d0d7de; stroke-width: 1px; rx: 8px; }
+      .box-blue { fill: #eaf0fd; stroke: #2457d6; stroke-width: 1.5px; rx: 6px; }
+      .box-red { fill: #fdecea; stroke: #c0392b; stroke-width: 1.5px; rx: 6px; }
+      .box-green { fill: #e9f7ef; stroke: #27ae60; stroke-width: 1.5px; rx: 6px; }
+      .text-small { font-size: 11px; fill: #4b5563; }
+      .wire { stroke: #1a1a1a; stroke-width: 1.5px; fill: none; }
+      .wire-vcc { stroke: #c0392b; stroke-width: 1.5px; fill: none; }
+      .wire-gnd { stroke: #27ae60; stroke-width: 1.5px; fill: none; }
+    </style>
+  </defs>
+
+  <!-- Headers -->
+  <text x="480" y="32" font-size="16" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Схема узгодження рівнів для світлодіодів WS2812B на базі 74AHCT125</text>
+  <text x="480" y="52" font-size="12" fill="#6b7280" text-anchor="middle">Трансляція 3.3 В у 5.0 В (V_IH &gt;= 3.5 В), блокувальний C_dec = 0.1 мкФ та R_damp = 33–100 Ом</text>
+
+  <!-- Panel 1: Schematic (Left: 30..530, y: 70..440) -->
+  <rect x="30" y="70" width="500" height="360" class="panel-bg"/>
+  <text x="280" y="92" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">1. Принципова електрична схема підключення</text>
+
+  <!-- MCU Block -->
+  <rect x="50" y="130" width="90" height="110" class="box-blue"/>
+  <text x="95" y="152" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="middle">MCU (3.3V)</text>
+  <text x="95" y="168" class="text-small" text-anchor="middle">ESP32/STM32</text>
+  <text x="95" y="195" font-size="11" fill="#1a1a1a" text-anchor="middle">GPIO DIN</text>
+  
+  <!-- MCU Pin out -->
+  <circle cx="140" cy="195" r="3" fill="#1a1a1a"/>
+  
+  <!-- Wire from MCU to 74AHCT125 Input 1A (Pin 2) -->
+  <path d="M 140 195 L 210 195" class="wire"/>
+  <text x="175" y="187" class="text-small" text-anchor="middle">3.3В логіка</text>
+
+  <!-- 74AHCT125 IC Block -->
+  <rect x="210" y="110" width="120" height="160" class="box-blue"/>
+  <text x="270" y="132" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="middle">74AHCT125</text>
+  <text x="270" y="148" class="text-small" text-anchor="middle">Quad Buffer</text>
+  
+  <text x="220" y="172" class="text-small">1: /1OE</text>
+  <text x="220" y="198" class="text-small">2: 1A</text>
+  <text x="220" y="224" class="text-small">3: 1Y</text>
+  <text x="220" y="250" class="text-small">7:GND, 14:VCC</text>
+
+  <!-- /1OE tied to GND -->
+  <path d="M 220 172 L 180 172 L 180 320 L 250 320" class="wire-gnd"/>
+  <text x="185" y="305" font-size="10" fill="#27ae60">GND (LOW)</text>
+
+  <!-- VCC Pin 14 tied to +5V -->
+  <path d="M 290 110 L 290 95 L 380 95" class="wire-vcc"/>
+  <text x="335" y="88" font-size="10" fill="#c0392b">+5.0В VCC</text>
+
+  <!-- Decoupling capacitor C1 = 0.1 uF -->
+  <line x1="315" y1="95" x2="315" y2="110" class="wire"/>
+  <text x="335" y="115" class="text-small">C1 0.1мкФ</text>
+
+  <!-- GND Pin 7 tied to GND -->
+  <path d="M 250 270 L 250 320" class="wire-gnd"/>
+
+  <!-- Output 1Y (Pin 3) to Resistor -->
+  <circle cx="330" cy="224" r="3" fill="#1a1a1a"/>
+  <path d="M 330 224 L 370 224" class="wire"/>
+
+  <!-- Damping Resistor R_damp (33-100 Ohm) -->
+  <rect x="370" y="214" width="45" height="20" fill="white" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="392" y="228" font-size="10" fill="#1a1a1a" text-anchor="middle">R_damp</text>
+  <text x="392" y="248" font-size="10" fill="#6b7280" text-anchor="middle">47–68 Ом</text>
+
+  <path d="M 415 224 L 460 224" class="wire"/>
+
+  <!-- WS2812B Strip Block -->
+  <rect x="460" y="160" width="55" height="100" class="box-blue"/>
+  <text x="487" y="182" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="middle">WS2812</text>
+  <text x="487" y="212" class="text-small" text-anchor="middle">DIN</text>
+  <text x="487" y="240" class="text-small" text-anchor="middle">+5V/GND</text>
+
+  <!-- Explanatory notes under panel 1 -->
+  <text x="280" y="375" font-size="11" fill="#4b5563" text-anchor="middle">• 74AHCT125 має TTL-сумісні входи (V_IH = 2.0В при V_CC=5В)</text>
+  <text x="280" y="395" font-size="11" fill="#4b5563" text-anchor="middle">• Забезпечує чіткий розмах виходу 0–5.0 В без падіння</text>
+
+  <!-- Panel 2: Physics & Oscillograms (Right: 550..930, y: 70..440) -->
+  <rect x="550" y="70" width="380" height="360" class="panel-bg"/>
+  <text x="740" y="92" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">2. Фізика узгодження та сигнали</text>
+
+  <!-- Red Block: Direct connection problem -->
+  <rect x="565" y="110" width="350" height="135" class="box-red"/>
+  <text x="740" y="130" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">Проблема прямого підключення 3.3 В</text>
+  <text x="575" y="152" font-size="11" fill="#1a1a1a">• Пороги WS2812B: V_IH_min = 0.7 · V_DD = 3.5 В!</text>
+  <text x="575" y="172" font-size="11" fill="#1a1a1a">• Сигнал 3.3 В &lt; 3.5 В → робота в зоні невизначеності.</text>
+  <text x="575" y="192" font-size="11" fill="#1a1a1a">• Наслідки: мерехтіння кольорів, спотворення першого</text>
+  <text x="575" y="212" font-size="11" fill="#1a1a1a">  пікселя, випадкові збої при просадках живлення.</text>
+
+  <!-- Green Block: Damping resistor effect -->
+  <rect x="565" y="255" width="350" height="155" class="box-green"/>
+  <text x="740" y="275" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">Ефект демпфувального резистора R_damp</text>
+  <text x="575" y="297" font-size="11" fill="#1a1a1a">• Довгий провід (L &gt; 20 см) утворює лінію з Z_0 ≈ 50–100 Ом.</text>
+  <text x="575" y="317" font-size="11" fill="#1a1a1a">• Без резистора: крутий фронт t_r &lt; 3 нс викликає дзвоніння</text>
+  <text x="575" y="337" font-size="11" fill="#1a1a1a">  (ringing) і викиди напруги &gt; 7 В (пробій входу DIN).</text>
+  <text x="575" y="357" font-size="11" fill="#1a1a1a">• З R_damp = 47–68 Ом: повне гасіння відбитків хвилі,</text>
+  <text x="575" y="377" font-size="11" fill="#1a1a1a">  стабільний фронт без викидів на частоті 800 кГц.</text>
+</svg>

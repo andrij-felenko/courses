@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="38" font-size="18" font-weight="700" text-anchor="middle" fill="#1a1a1a">Порівняння стійкості до ударів та температури ціаноакрилатів</text>
+  <text x="480" y="60" font-size="13" text-anchor="middle" fill="#6b7280">Стандартні етилові проти модифікованих каучуком (еластомером) промислових складів</text>
+
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Сітка та осі графіка -->
+  <!-- Осі координат -->
+  <line x1="80" y1="390" x2="620" y2="390" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <line x1="80" y1="390" x2="80" y2="90" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- Горизонтальні лінії сітки (Y: 0, 5, 10, 15, 20, 25 кДж/м²) -->
+  <line x1="80" y1="332" x2="620" y2="332" stroke="#d0d7de" stroke-dasharray="4 4" stroke-width="1"/>
+  <text x="70" y="336" font-size="12" text-anchor="end" fill="#6b7280">5</text>
+
+  <line x1="80" y1="274" x2="620" y2="274" stroke="#d0d7de" stroke-dasharray="4 4" stroke-width="1"/>
+  <text x="70" y="278" font-size="12" text-anchor="end" fill="#6b7280">10</text>
+
+  <line x1="80" y1="216" x2="620" y2="216" stroke="#d0d7de" stroke-dasharray="4 4" stroke-width="1"/>
+  <text x="70" y="220" font-size="12" text-anchor="end" fill="#6b7280">15</text>
+
+  <line x1="80" y1="158" x2="620" y2="158" stroke="#d0d7de" stroke-dasharray="4 4" stroke-width="1"/>
+  <text x="70" y="162" font-size="12" text-anchor="end" fill="#6b7280">20</text>
+
+  <line x1="80" y1="100" x2="620" y2="100" stroke="#d0d7de" stroke-dasharray="4 4" stroke-width="1"/>
+  <text x="70" y="104" font-size="12" text-anchor="end" fill="#6b7280">25</text>
+
+  <text x="70" y="394" font-size="12" text-anchor="end" fill="#6b7280">0</text>
+
+  <!-- Вертикальні лінії сітки (X: 20, 60, 100, 140 °C) -->
+  <line x1="194" y1="90" x2="194" y2="390" stroke="#d0d7de" stroke-dasharray="4 4" stroke-width="1"/>
+  <text x="194" y="410" font-size="12" text-anchor="middle" fill="#6b7280">60</text>
+
+  <line x1="308" y1="90" x2="308" y2="390" stroke="#d0d7de" stroke-dasharray="4 4" stroke-width="1"/>
+  <text x="308" y="410" font-size="12" text-anchor="middle" fill="#6b7280">100</text>
+
+  <line x1="422" y1="90" x2="422" y2="390" stroke="#d0d7de" stroke-dasharray="4 4" stroke-width="1"/>
+  <text x="422" y="410" font-size="12" text-anchor="middle" fill="#6b7280">140</text>
+
+  <text x="80" y="410" font-size="12" text-anchor="middle" fill="#6b7280">20</text>
+  <text x="536" y="410" font-size="12" text-anchor="middle" fill="#6b7280">160</text>
+
+  <!-- Написи осей -->
+  <text x="350" y="435" font-size="13" font-weight="700" text-anchor="middle" fill="#1a1a1a">Максимальна робоча температура, T (°C)</text>
+  <text x="80" y="80" font-size="12" font-weight="700" text-anchor="start" fill="#1a1a1a">Ударна в'язкість (кДж/м²)</text>
+
+  <!-- Область 1: Стандартний етиловий ціаноакрилат (T до 80°C, удар 2-4 кДж/м²) -->
+  <!-- x від 80 (20°C) до 236 (80°C), y від 342 (4 кДж/м²) до 366 (2 кДж/м²) -->
+  <rect x="80" y="342" width="156" height="24" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="2"/>
+  <text x="158" y="358" font-size="12" font-weight="700" text-anchor="middle" fill="#c0392b">Стандартний етиловий</text>
+
+  <!-- Область 2: Модифікований каучуком (T до 120-140°C, удар 12-20 кДж/м²) -->
+  <!-- x від 80 (20°C) до 422 (140°C), y від 158 (20 кДж/м²) до 250 (12 кДж/м²) -->
+  <rect x="80" y="158" width="342" height="92" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <text x="251" y="208" font-size="14" font-weight="700" text-anchor="middle" fill="#27ae60">Модифікований каучуком (еластомером)</text>
+
+  <!-- Права колонка: Інформаційні блоки -->
+  <!-- Блок 1: Стандартний -->
+  <rect x="645" y="90" width="290" height="135" rx="6" fill="#fdecea" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="645" y="90" width="290" height="32" rx="6" fill="#fdecea"/>
+  <circle cx="665" cy="106" r="6" fill="#c0392b"/>
+  <text x="682" y="110" font-size="14" font-weight="700" fill="#1a1a1a">Стандартний етиловий</text>
+  <text x="660" y="142" font-size="12" fill="#1a1a1a"><tspan x="660" dy="0">• Висока крихкість та низька ударна міцність</tspan><tspan x="660" dy="18">  (2–4 кДж/м²).</tspan><tspan x="660" dy="18">• Обмежена термостійкість (робоча T до 80°C).</tspan><tspan x="660" dy="18">• Швидке затвердіння, але чутливість до ударів.</tspan></text>
+
+  <!-- Блок 2: Модифікований каучуком -->
+  <rect x="645" y="245" width="290" height="155" rx="6" fill="#e9f7ef" stroke="#d0d7de" stroke-width="1"/>
+  <circle cx="665" cy="265" r="6" fill="#27ae60"/>
+  <text x="682" y="269" font-size="14" font-weight="700" fill="#1a1a1a">Модифікований каучуком</text>
+  <text x="660" y="301" font-size="12" fill="#1a1a1a"><tspan x="660" dy="0">• Висока стійкість до ударів і вібрацій</tspan><tspan x="660" dy="18">  (12–20 кДж/м²).</tspan><tspan x="660" dy="18">• Розширений діапазон температур</tspan><tspan x="660" dy="18">  (робоча T до 120–140°C).</tspan><tspan x="660" dy="18">• Ідеально для динамічних навантажень.</tspan></text>
+
+</svg>

@@ -1,0 +1,129 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Titles -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Застосування та обмеження силіконової змазки SI-180</text>
+  <text x="480" y="52" text-anchor="middle" font-size="13" fill="#6b7280">Стабільність у парах з полімерами проти руйнування у сталевих редукторах і на контактах</text>
+
+  <!-- PANEL 1: Recommended (3D Printer Z-axis) -->
+  <rect x="30" y="75" width="285" height="355" rx="8" fill="#f4f6f8" stroke="#27ae60" stroke-width="2"/>
+  <rect x="42" y="87" width="130" height="24" rx="4" fill="#e9f7ef"/>
+  <text x="107" y="103" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">РЕКОМЕНДОВАНО</text>
+
+  <text x="42" y="132" font-size="14" font-weight="bold" fill="#1a1a1a">Ходовий гвинт і втулки Z</text>
+  <text x="42" y="150" font-size="12" fill="#6b7280">Пара: Сталь Tr8x8 + Латунь / POM</text>
+
+  <!-- Illustration 1: Screw & Nut cross-section -->
+  <rect x="45" y="165" width="255" height="130" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  
+  <!-- Screw body -->
+  <rect x="135" y="175" width="75" height="110" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="172" y="235" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">Гвинт Tr8</text>
+
+  <!-- Nut sides -->
+  <rect x="65" y="195" width="60" height="70" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="95" y="235" text-anchor="middle" font-size="11" fill="#1a1a1a">Гайка POM</text>
+
+  <rect x="220" y="195" width="65" height="70" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="252" y="235" text-anchor="middle" font-size="11" fill="#1a1a1a">Латунь</text>
+
+  <!-- Lubricant layers -->
+  <rect x="127" y="195" width="6" height="70" fill="#27ae60"/>
+  <rect x="212" y="195" width="6" height="70" fill="#27ae60"/>
+
+  <text x="172" y="188" text-anchor="middle" font-size="11" fill="#27ae60">Шар мастила SI-180</text>
+
+  <!-- Text notes 1 -->
+  <text x="42" y="315" font-size="12" fill="#1a1a1a">Тиск: помірний (&lt; 15 МПа)</text>
+  <text x="42" y="333" font-size="11" fill="#6b7280">Повна інертність до POM та ABS</text>
+  <text x="42" y="350" font-size="11" fill="#6b7280">Демпфування шуму та вібрацій Z</text>
+
+  <rect x="42" y="380" width="261" height="34" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="172" y="402" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Плавний хід, стабільна товщина</text>
+
+
+  <!-- PANEL 2: Steel gears (Forbidden) -->
+  <rect x="335" y="75" width="285" height="355" rx="8" fill="#f4f6f8" stroke="#c0392b" stroke-width="2"/>
+  <rect x="347" y="87" width="120" height="24" rx="4" fill="#fdecea"/>
+  <text x="407" y="103" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">ЗАБОРОНЕНО</text>
+
+  <text x="347" y="132" font-size="14" font-weight="bold" fill="#1a1a1a">Сталеві навантажені шестерні</text>
+  <text x="347" y="150" font-size="12" fill="#6b7280">Пара: Сталь + Загартована сталь</text>
+
+  <!-- Illustration 2: High Hertzian pressure -->
+  <rect x="350" y="165" width="255" height="130" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Upper tooth -->
+  <path d="M440,175 L515,175 L495,215 L460,215 Z" fill="#eaf0fd" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="477" y="195" text-anchor="middle" font-size="11" fill="#1a1a1a">Зуб шестерні 1</text>
+
+  <!-- Lower tooth -->
+  <path d="M460,245 L495,245 L515,285 L440,285 Z" fill="#eaf0fd" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="477" y="270" text-anchor="middle" font-size="11" fill="#1a1a1a">Зуб шестерні 2</text>
+
+  <!-- Broken film & contact -->
+  <line x1="455" y1="230" x2="500" y2="230" stroke="#c0392b" stroke-width="3" stroke-dasharray="4 2"/>
+  <text x="477" y="226" text-anchor="middle" font-size="10" font-weight="bold" fill="#c0392b">Прорив плівки</text>
+
+  <!-- Force arrows -->
+  <line x1="410" y1="185" x2="410" y2="225" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="395" y="210" text-anchor="end" font-size="11" font-weight="bold" fill="#c0392b">F_N</text>
+
+  <text x="530" y="234" font-size="10" fill="#c0392b">Задир (scuffing)</text>
+
+  <!-- Text notes 2 -->
+  <text x="347" y="315" font-size="12" fill="#1a1a1a">Тиск: Герца (&gt; 500 МПа)</text>
+  <text x="347" y="333" font-size="11" fill="#6b7280">Силікон не має EP-добавок (S, P)</text>
+  <text x="347" y="350" font-size="11" fill="#6b7280">Видавлювання плівки та сухе тертя</text>
+
+  <rect x="347" y="380" width="261" height="34" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="477" y="402" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Зварювання та кришення сталі</text>
+
+
+  <!-- PANEL 3: Electrical contacts (Forbidden) -->
+  <rect x="645" y="75" width="285" height="355" rx="8" fill="#f4f6f8" stroke="#c0392b" stroke-width="2"/>
+  <rect x="657" y="87" width="120" height="24" rx="4" fill="#fdecea"/>
+  <text x="717" y="103" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">ЗАБОРОНЕНО</text>
+
+  <text x="657" y="132" font-size="14" font-weight="bold" fill="#1a1a1a">Розмикальні контакти реле</text>
+  <text x="657" y="150" font-size="12" fill="#6b7280">Вузли: Реле, мікроперемикачі</text>
+
+  <!-- Illustration 3: Spark and SiO2 crust -->
+  <rect x="660" y="165" width="255" height="130" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Left contact arm -->
+  <rect x="675" y="215" width="55" height="15" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="735" cy="222" r="10" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Right contact arm -->
+  <rect x="840" y="215" width="55" height="15" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="835" cy="222" r="10" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Spark arc -->
+  <path d="M748,218 Q785,200 822,218" fill="none" stroke="#2457d6" stroke-width="2" stroke-dasharray="3 2"/>
+  <text x="785" y="195" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">Іскровий розряд</text>
+
+  <!-- Insulating SiO2 crust -->
+  <rect x="742" y="212" width="6" height="20" fill="#c0392b"/>
+  <rect x="822" y="212" width="6" height="20" fill="#c0392b"/>
+  <text x="785" y="245" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">Кірка SiO2</text>
+  <text x="785" y="260" text-anchor="middle" font-size="10" fill="#6b7280">(діелектрик + абразив)</text>
+
+  <!-- Text notes 3 -->
+  <text x="657" y="315" font-size="12" fill="#1a1a1a">Дія: плазмовий розклад PDMS</text>
+  <text x="657" y="333" font-size="11" fill="#6b7280">Утворення непровідного SiO2</text>
+  <text x="657" y="350" font-size="11" fill="#6b7280">Швидка ізоляція та обрив кола</text>
+
+  <rect x="657" y="380" width="261" height="34" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="787" y="402" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Повна втрата контакту</text>
+</svg>

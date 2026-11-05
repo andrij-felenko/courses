@@ -1,0 +1,106 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Діагностика биття ходового гвинта та кінематична розв'язка</text>
+  <text x="480" y="60" font-size="13" fill="#6b7280" text-anchor="middle">Вимірювання радіального відхилення індикатором та усунення періодичних смуг за допомогою плаваючої гайки Oldham</text>
+
+  <!-- Left Panel: Dial Indicator Diagnostics (x=30..470, y=85..440) -->
+  <rect x="30" y="85" width="440" height="345" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="45" y="100" width="410" height="32" rx="4" fill="#eaf0fd"/>
+  <text x="250" y="121" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">1. Вимірювання биття гвинта індикатором</text>
+
+  <!-- Screw & Indicator Graphics inside Left Panel -->
+  <!-- Lead screw Tr8x8 (vertical center around x=110) -->
+  <rect x="102" y="150" width="16" height="150" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1"/>
+  <!-- Thread lines -->
+  <line x1="102" y1="165" x2="118" y2="175" stroke="#1a1a1a" stroke-width="1"/>
+  <line x1="102" y1="185" x2="118" y2="195" stroke="#1a1a1a" stroke-width="1"/>
+  <line x1="102" y1="205" x2="118" y2="215" stroke="#1a1a1a" stroke-width="1"/>
+  <line x1="102" y1="225" x2="118" y2="235" stroke="#1a1a1a" stroke-width="1"/>
+  <line x1="102" y1="245" x2="118" y2="255" stroke="#1a1a1a" stroke-width="1"/>
+  <line x1="102" y1="265" x2="118" y2="275" stroke="#1a1a1a" stroke-width="1"/>
+  <line x1="102" y1="285" x2="118" y2="295" stroke="#1a1a1a" stroke-width="1"/>
+
+  <!-- Wobble amplitude indicator curve (sinusoidal deviation) -->
+  <path d="M 110,150 Q 95,190 110,225 T 110,300" fill="none" stroke="#c0392b" stroke-width="2" stroke-dasharray="4,4"/>
+
+  <!-- Dial Indicator probe touching the screw -->
+  <rect x="180" y="200" width="55" height="40" rx="4" fill="white" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="207" y="225" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">IND</text>
+  <line x1="118" y1="220" x2="180" y2="220" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+
+  <!-- Delta r dimension -->
+  <line x1="85" y1="195" x2="85" y2="220" stroke="#c0392b" stroke-width="1.5" marker-start="url(#arr-red)" marker-end="url(#arr-red)"/>
+  <text x="65" y="212" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Δr</text>
+
+  <!-- Left panel explanations -->
+  <text x="250" y="165" font-size="12" font-weight="bold" fill="#1a1a1a">Ходовий гвинт Tr8x8</text>
+  <text x="250" y="183" font-size="12" fill="#6b7280">Крок різьби: P = 8 мм</text>
+  <text x="250" y="215" font-size="12" font-weight="bold" fill="#c0392b">Дефект Z-wobble:</text>
+  <text x="250" y="233" font-size="12" fill="#6b7280">Радіальне биття передається</text>
+  <text x="250" y="251" font-size="12" fill="#6b7280">на каретку, створюючи</text>
+  <text x="250" y="269" font-size="12" fill="#6b7280">хвилясті смуги на шарах.</text>
+
+  <rect x="45" y="315" width="410" height="95" rx="6" fill="#fdecea" stroke="#f5c6cb" stroke-width="1"/>
+  <text x="250" y="338" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Причина виникнення:</text>
+  <text x="250" y="358" font-size="12" fill="#1a1a1a" text-anchor="middle">Ексцентриситет муфти або гвинта змушує</text>
+  <text x="250" y="376" font-size="12" fill="#1a1a1a" text-anchor="middle">гайку жорстко вигинати вал із періодом,</text>
+  <text x="250" y="394" font-size="12" fill="#1a1a1a" text-anchor="middle">що дорівнює одному оберту (8 мм).</text>
+
+  <!-- Right Panel: Oldham Floating Nut (x=490..930, y=85..440) -->
+  <rect x="490" y="85" width="440" height="345" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="505" y="100" width="410" height="32" rx="4" fill="#e9f7ef"/>
+  <text x="710" y="121" font-size="14" font-weight="bold" fill="#27ae60" text-anchor="middle">2. Плаваюча гайка Oldham (Floating Nut)</text>
+
+  <!-- Oldham Structure Drawing inside Right Panel (Centered around x=560) -->
+  <!-- Bottom plate attached to Z carriage -->
+  <rect x="505" y="325" width="110" height="24" rx="3" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="560" y="341" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Нижня пластина</text>
+
+  <!-- Central floating slider (POM / brass) -->
+  <rect x="520" y="260" width="80" height="45" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="560" y="287" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Повзун</text>
+
+  <!-- Top bronze nut Tr8x8 -->
+  <rect x="525" y="180" width="70" height="50" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="560" y="203" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Гайка</text>
+  <text x="560" y="220" font-size="11" fill="#6b7280" text-anchor="middle">Tr8x8</text>
+
+  <!-- Screw passing through (x=552..568, y=140..180) -->
+  <rect x="552" y="140" width="16" height="40" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1"/>
+
+  <!-- Vertical motion arrow (Z axis) -->
+  <line x1="560" y1="315" x2="560" y2="305" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <line x1="560" y1="255" x2="560" y2="230" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- Right panel explanations -->
+  <text x="635" y="165" font-size="12" font-weight="bold" fill="#1a1a1a">Принцип роботи розв'язки:</text>
+  <text x="635" y="185" font-size="12" fill="#6b7280">• Плаваюча муфта Oldham має</text>
+  <text x="635" y="203" font-size="12" fill="#6b7280">  взаємно перпендикулярні пази.</text>
+  <text x="635" y="221" font-size="12" fill="#6b7280">• Радіальне коливання гвинта</text>
+  <text x="635" y="239" font-size="12" fill="#6b7280">  вільно поглинається у XY.</text>
+  <text x="635" y="257" font-size="12" fill="#6b7280">• На каретку передається суто</text>
+  <text x="635" y="275" font-size="12" fill="#6b7280">  осьовий підйом без вигинання.</text>
+
+  <rect x="505" y="370" width="410" height="45" rx="6" fill="#e9f7ef" stroke="#c3e6cb" stroke-width="1"/>
+  <text x="710" y="388" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Результат: повне усунення Z-wobble на моделі</text>
+  <text x="710" y="405" font-size="11" fill="#6b7280" text-anchor="middle">Ідеально гладкі стінки друку без видимих смуг кроку різьби</text>
+
+</svg>

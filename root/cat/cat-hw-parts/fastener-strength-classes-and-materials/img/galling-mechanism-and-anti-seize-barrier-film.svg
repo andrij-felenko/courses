@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Трибологічний механізм задирання різьби та захист Anti-Seize</text>
+  <text x="480" y="60" font-size="13" fill="#6b7280" text-anchor="middle">Порівняння сухого контакту з утворенням ювенільних мікрозварювань та захисного бар'єру пасти</text>
+
+  <!-- Panel 1: Dry tightening (galling & cold welding) -->
+  <rect x="30" y="80" width="440" height="350" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="250" y="108" font-size="15" font-weight="bold" fill="#c0392b" text-anchor="middle">Сухе закручування: задирання та холодне зварювання</text>
+
+  <!-- Panel 1 Graphic Representation (Thread teeth contact under pressure) -->
+  <!-- Bolt thread tooth (moving down) -->
+  <path d="M 120,150 L 180,210 L 120,230 Z" fill="#d0d7de" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="110" y="142" font-size="11" fill="#1a1a1a">Виток болта</text>
+
+  <!-- Nut thread tooth (fixed) -->
+  <path d="M 360,270 L 300,210 L 360,190 Z" fill="#d0d7de" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="325" y="295" font-size="11" fill="#1a1a1a">Виток гайки</text>
+
+  <!-- Pressure arrows -->
+  <line x1="160" y1="130" x2="200" y2="170" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arr-red)"/>
+  <line x1="320" y1="290" x2="280" y2="250" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arr-red)"/>
+  <text x="180" y="118" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Тиск монтажу</text>
+
+  <!-- Contact zone / Asperity breakdown / Cold welding -->
+  <circle cx="235" cy="215" r="22" fill="#f5b041" fill-opacity="0.4" stroke="#c0392b" stroke-dasharray="3,3" stroke-width="1.5"/>
+  <text x="250" y="305" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Руйнування Cr₂O₃ плівки &lt; 10 нм</text>
+  <text x="250" y="323" font-size="12" fill="#1a1a1a" text-anchor="middle">Вихід ювенільного металу без оксиду</text>
+  <text x="250" y="341" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Адгезійне мікрозварювання (galling)</text>
+  <text x="250" y="359" font-size="12" fill="#6b7280" text-anchor="middle">Виривання матеріалу та повний клин різьби</text>
+
+
+  <!-- Panel 2: Anti-Seize barrier film -->
+  <rect x="490" y="80" width="440" height="350" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="710" y="108" font-size="15" font-weight="bold" fill="#27ae60" text-anchor="middle">Застосування протизадирної пасти Anti-Seize</text>
+
+  <!-- Panel 2 Graphic Representation -->
+  <!-- Bolt thread tooth -->
+  <path d="M 580,150 L 640,210 L 580,230 Z" fill="#d0d7de" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="570" y="142" font-size="11" fill="#1a1a1a">Виток болта</text>
+
+  <!-- Nut thread tooth -->
+  <path d="M 820,270 L 760,210 L 820,190 Z" fill="#d0d7de" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="785" y="295" font-size="11" fill="#1a1a1a">Виток гайки</text>
+
+  <!-- Barrier film / lubricant gap with microparticles -->
+  <path d="M 640,210 L 760,210" stroke="#27ae60" stroke-width="8" stroke-opacity="0.3" fill="none"/>
+  <!-- Microparticles -->
+  <circle cx="670" cy="210" r="4" fill="#d35400"/>
+  <circle cx="695" cy="207" r="4" fill="#27ae60"/>
+  <circle cx="720" cy="213" r="4" fill="#d35400"/>
+  <circle cx="745" cy="210" r="4" fill="#27ae60"/>
+
+  <line x1="710" y1="155" x2="710" y2="200" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="710" y="145" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">Розділювальний шар пасти</text>
+
+  <text x="710" y="305" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Пластичний носій + мікрочастки</text>
+  <text x="710" y="323" font-size="12" fill="#1a1a1a" text-anchor="middle">(мідь, MoS₂, нітрид бору BN)</text>
+  <text x="710" y="341" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Механічний контакт метал-метал виключено</text>
+  <text x="710" y="359" font-size="12" fill="#6b7280" text-anchor="middle">Зріз по шарах, коефіцієнт тертя f ≈ 0.10–0.12</text>
+</svg>

@@ -1,0 +1,132 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <!-- Main Title & Subtitle -->
+  <text x="480" y="34" font-size="18" font-weight="700" text-anchor="middle" fill="#1a1a1a">Вхідний каскад 74LVC: фізика толерантності до 5.5 В та режим I_off</text>
+  <text x="480" y="56" font-size="13" text-anchor="middle" fill="#6b7280">Відсутність захисного діода на шину V_CC усуває паразитне живлення (back-powering) при V_in &gt; V_CC</text>
+
+  <!-- LEFT PANEL: Standard CMOS Input Stage (Unprotected) -->
+  <rect x="30" y="75" width="435" height="380" rx="8" fill="#fdf7f7" stroke="#e8b4b8" stroke-width="1.5"/>
+  <rect x="30" y="75" width="435" height="36" rx="8" fill="#fdecea"/>
+  <text x="45" y="99" font-size="14" font-weight="700" fill="#c0392b">Стандартний CMOS (з верхнім діодом ESD)</text>
+
+  <!-- VCC Rail Left -->
+  <line x1="60" y1="140" x2="420" y2="140" stroke="#c0392b" stroke-width="2.5"/>
+  <circle cx="210" cy="140" r="4" fill="#c0392b"/>
+  <text x="210" y="130" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">V_CC (3.3 В або 0 В)</text>
+
+  <!-- GND Rail Left -->
+  <line x1="60" y1="360" x2="420" y2="360" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="210" cy="360" r="4" fill="#1a1a1a"/>
+  <text x="210" y="380" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">GND (0 В)</text>
+
+  <!-- Input Pin A Left -->
+  <text x="50" y="245" font-size="13" font-weight="700" fill="#c0392b">Вхід A</text>
+  <text x="50" y="262" font-size="11" fill="#6b7280">(5.0 В)</text>
+  <line x1="95" y1="245" x2="210" y2="245" stroke="#c0392b" stroke-width="2.5"/>
+  <circle cx="210" cy="245" r="4" fill="#c0392b"/>
+
+  <!-- Upper Diode D_high (Forward Biased Danger) -->
+  <line x1="210" y1="245" x2="210" y2="195" stroke="#c0392b" stroke-width="2"/>
+  <!-- Diode Triangle pointing UP to VCC -->
+  <polygon points="200,195 220,195 210,175" fill="#c0392b" stroke="#c0392b" stroke-width="1.5"/>
+  <line x1="200" y1="175" x2="220" y2="175" stroke="#c0392b" stroke-width="2"/>
+  <line x1="210" y1="175" x2="210" y2="140" stroke="#c0392b" stroke-width="2"/>
+  <text x="228" y="190" font-size="11" font-weight="700" fill="#c0392b">D_ESD (ВЕРХНІЙ)</text>
+  <text x="228" y="205" font-size="10" fill="#c0392b">Відкритий! (V_in &gt; V_CC)</text>
+
+  <!-- Parasitic current path arrow -->
+  <path d="M120,235 Q170,235 190,190 T205,150" fill="none" stroke="#c0392b" stroke-width="2" stroke-dasharray="4,3" marker-end="url(#arr-red)"/>
+  <text x="110" y="210" font-size="11" font-weight="700" fill="#c0392b">Струм витоку I_leak</text>
+
+  <!-- Lower Diode D_low -->
+  <line x1="210" y1="245" x2="210" y2="295" stroke="#1a1a1a" stroke-width="2"/>
+  <polygon points="200,315 220,315 210,295" fill="#6b7280" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="200" y1="315" x2="220" y2="315" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="210" y1="315" x2="210" y2="360" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="228" y="310" font-size="10" fill="#6b7280">D_ESD (закритий)</text>
+
+  <!-- Gate connections to CMOS inverter -->
+  <line x1="210" y1="245" x2="310" y2="245" stroke="#1a1a1a" stroke-width="2"/>
+  <rect x="310" y="210" width="10" height="70" fill="#1a1a1a" rx="1"/>
+  <rect x="325" y="200" width="80" height="90" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5" rx="4"/>
+  <text x="365" y="240" font-size="11" font-weight="700" text-anchor="middle" fill="#1a1a1a">Вхідний</text>
+  <text x="365" y="255" font-size="11" text-anchor="middle" fill="#1a1a1a">інвертор</text>
+
+  <!-- Hazard callout box -->
+  <rect x="45" y="400" width="405" height="42" rx="4" fill="#fbe9e7" stroke="#c0392b" stroke-width="1"/>
+  <text x="55" y="417" font-size="11" font-weight="700" fill="#c0392b">Критичні ризики:</text>
+  <text x="55" y="432" font-size="10.5" fill="#1a1a1a">Паразитне заживлення шини V_CC, защіпання (latch-up), вигорання діода ESD</text>
+
+
+  <!-- RIGHT PANEL: 74LVC Input Stage (5V-Tolerant & I_off Protected) -->
+  <rect x="495" y="75" width="435" height="380" rx="8" fill="#f4f9f5" stroke="#a3d9b1" stroke-width="1.5"/>
+  <rect x="495" y="75" width="435" height="36" rx="8" fill="#eaf7ed"/>
+  <text x="510" y="99" font-size="14" font-weight="700" fill="#27ae60">74LVC1G125 (Толерантний вхід + схема I_off)</text>
+
+  <!-- VCC Rail Right -->
+  <line x1="525" y1="140" x2="885" y2="140" stroke="#2457d6" stroke-width="2.5"/>
+  <circle cx="675" cy="140" r="4" fill="#2457d6"/>
+  <text x="675" y="130" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">V_CC (1.65 – 5.5 В або 0 В)</text>
+
+  <!-- GND Rail Right -->
+  <line x1="525" y1="360" x2="885" y2="360" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="675" cy="360" r="4" fill="#1a1a1a"/>
+  <text x="675" y="380" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">GND (0 В)</text>
+
+  <!-- Input Pin A Right -->
+  <text x="515" y="245" font-size="13" font-weight="700" fill="#2457d6">Вхід A</text>
+  <text x="515" y="262" font-size="11" fill="#27ae60">(до 5.5 В)</text>
+  <line x1="560" y1="245" x2="675" y2="245" stroke="#2457d6" stroke-width="2.5"/>
+  <circle cx="675" cy="245" r="4" fill="#2457d6"/>
+
+  <!-- NO Diode to VCC Box -->
+  <line x1="675" y1="245" x2="675" y2="185" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <rect x="625" y="160" width="100" height="32" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="675" y="176" font-size="10.5" font-weight="700" fill="#27ae60" text-anchor="middle">ВЕРХНІЙ ДІОД</text>
+  <text x="675" y="188" font-size="10" font-weight="700" fill="#27ae60" text-anchor="middle">ВІДСУТНІЙ!</text>
+
+  <!-- Substrate / I_off switch protection -->
+  <rect x="740" y="155" width="130" height="42" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="805" y="172" font-size="10.5" font-weight="700" fill="#2457d6" text-anchor="middle">Substrate Switch</text>
+  <text x="805" y="188" font-size="10" fill="#6b7280" text-anchor="middle">Ізоляція підкладки I_off</text>
+  <path d="M675,140 L740,175" stroke="#2457d6" stroke-width="1.2" stroke-dasharray="2,2"/>
+
+  <!-- Specialized ESD Clamp to GND -->
+  <line x1="675" y1="245" x2="675" y2="295" stroke="#1a1a1a" stroke-width="2"/>
+  <!-- Zener / Avalanche ESD Clamp symbol -->
+  <polygon points="665,315 685,315 675,295" fill="#27ae60" stroke="#1a1a1a" stroke-width="1.5"/>
+  <path d="M660,315 L665,315 M685,315 L690,322" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="675" y1="315" x2="675" y2="360" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="695" y="308" font-size="10.5" font-weight="700" fill="#1a1a1a">ESD-стабілітрон</text>
+  <text x="695" y="322" font-size="10" fill="#6b7280">Пробій &gt; 6.5 В на GND</text>
+
+  <!-- Gate connections to 74LVC gate oxide -->
+  <line x1="675" y1="245" x2="775" y2="245" stroke="#1a1a1a" stroke-width="2"/>
+  <rect x="775" y="210" width="10" height="70" fill="#27ae60" rx="1"/>
+  <rect x="790" y="200" width="80" height="90" fill="#ffffff" stroke="#27ae60" stroke-width="1.5" rx="4"/>
+  <text x="830" y="235" font-size="11" font-weight="700" text-anchor="middle" fill="#27ae60">Посилений</text>
+  <text x="830" y="250" font-size="11" text-anchor="middle" fill="#1a1a1a">діелектрик</text>
+  <text x="830" y="265" font-size="10" text-anchor="middle" fill="#6b7280">затвора</text>
+
+  <!-- Advantage callout box -->
+  <rect x="510" y="400" width="405" height="42" rx="4" fill="#e8f5e9" stroke="#27ae60" stroke-width="1"/>
+  <text x="520" y="417" font-size="11" font-weight="700" fill="#27ae60">Інженерні переваги 74LVC:</text>
+  <text x="520" y="432" font-size="10.5" fill="#1a1a1a">Пряме узгодження 5 В → 3.3 В, нульовий струм зворотного живлення (I_off &lt; 10 мкА)</text>
+</svg>

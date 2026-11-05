@@ -1,0 +1,104 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-black" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Полотно -->
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="28" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Коефіцієнт передачі вібрації T від частотного співвідношення r</text>
+  <text x="480" y="48" font-size="13" fill="#6b7280" text-anchor="middle">Ефективна віброізоляція (T &lt; 1) настає строго при r &gt; √2 незалежно від коефіцієнта згасання ζ</text>
+
+  <!-- ЛІВА ПАНЕЛЬ: АЧХ коефіцієнта передачі -->
+  <rect x="25" y="68" width="500" height="395" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="45" y="94" font-size="15" font-weight="bold" fill="#1a1a1a">Криві коефіцієнта передачі T(r, ζ)</text>
+
+  <!-- Графічна область: x: 75..495, y: 115..355 -->
+  <!-- Фонове зонування: Підсилення (x: 75..245) vs Ізоляція (x: 245..495) -->
+  <rect x="75" y="115" width="170" height="240" fill="#fdecea"/>
+  <rect x="245" y="115" width="250" height="240" fill="#e9f7ef"/>
+
+  <!-- Розділова вертикальна лінія r = √2 (x = 245) -->
+  <line x1="245" y1="115" x2="245" y2="355" stroke="#1a1a1a" stroke-width="2" stroke-dasharray="5,3"/>
+  <text x="240" y="132" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="end">Підсилення T &gt; 1</text>
+  <text x="250" y="132" font-size="11" font-weight="bold" fill="#27ae60">Ізоляція T &lt; 1</text>
+
+  <!-- Горизонтальна лінія T = 1.0 (y = 275) -->
+  <line x1="75" y1="275" x2="495" y2="275" stroke="#64748b" stroke-width="1.2" stroke-dasharray="3,3"/>
+  <text x="70" y="278" font-size="10" fill="#64748b" text-anchor="end">T=1.0</text>
+
+  <!-- Осі координат -->
+  <!-- Горизонтальна вісь r = ω / ω_n -->
+  <line x1="75" y1="355" x2="500" y2="355" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arr-black)"/>
+  <text x="495" y="375" font-size="11" fill="#1a1a1a" text-anchor="end">Частотне співвідношення r = ω / ω_n</text>
+
+  <!-- Позначки на осі r: r=0 (75), r=1.0 (195), r=√2=1.414 (245), r=2.0 (315), r=3.0 (435) -->
+  <line x1="195" y1="355" x2="195" y2="360" stroke="#1a1a1a" stroke-width="1.2"/>
+  <text x="195" y="372" font-size="10" fill="#1a1a1a" text-anchor="middle">1.0</text>
+  <line x1="245" y1="355" x2="245" y2="360" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="245" y="372" font-size="10" font-weight="bold" fill="#c0392b" text-anchor="middle">r = √2</text>
+  <line x1="315" y1="355" x2="315" y2="360" stroke="#1a1a1a" stroke-width="1.2"/>
+  <text x="315" y="372" font-size="10" fill="#1a1a1a" text-anchor="middle">2.0</text>
+  <line x1="435" y1="355" x2="435" y2="360" stroke="#1a1a1a" stroke-width="1.2"/>
+  <text x="435" y="372" font-size="10" fill="#1a1a1a" text-anchor="middle">3.0</text>
+
+  <!-- Вертикальна вісь T -->
+  <line x1="75" y1="355" x2="75" y2="120" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arr-black)"/>
+  <text x="80" y="125" font-size="11" fill="#1a1a1a">Передача T</text>
+
+  <!-- Крива 1: ζ = 0.05 (мале демпфування: величезний пік, швидке падіння за √2) -->
+  <path d="M75,275 C120,275 170,230 190,135 C195,120 200,120 205,145 C220,215 235,260 245,275 C270,310 330,345 490,352" fill="none" stroke="#c0392b" stroke-width="2"/>
+  <text x="195" y="112" font-size="10" fill="#c0392b" text-anchor="middle">ζ = 0.05</text>
+
+  <!-- Крива 2: ζ = 0.20 (оптимальний трос / силікон: помірний пік T≈2.5) -->
+  <path d="M75,275 C130,275 170,225 195,190 C220,195 235,250 245,275 C265,305 330,335 490,348" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+  <text x="215" y="185" font-size="11" font-weight="bold" fill="#2457d6">ζ = 0.20 (Wire Rope)</text>
+
+  <!-- Крива 3: ζ = 0.50 (сильне демпфування: низький пік, повільне спадання) -->
+  <path d="M75,275 C140,275 180,245 195,235 C220,240 235,260 245,275 C270,295 350,320 490,335" fill="none" stroke="#64748b" stroke-width="1.8" stroke-dasharray="4,2"/>
+  <text x="120" y="210" font-size="10" fill="#64748b">ζ = 0.50</text>
+
+  <!-- Інваріантна точка перетину (245, 275) -->
+  <circle cx="245" cy="275" r="5" fill="#1a1a1a"/>
+  <text x="255" y="290" font-size="11" font-weight="bold" fill="#1a1a1a">Точка інваріантності (√2, 1.0)</text>
+
+  <!-- Висновок внизу лівої панелі -->
+  <text x="275" y="415" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">При r &gt; 2.5–3.0 коефіцієнт передачі T падає нижче 0.1–0.15</text>
+  <text x="275" y="435" font-size="11" fill="#6b7280" text-anchor="middle">Це забезпечує придушення понад 85–90% енергії вібрацій</text>
+
+
+  <!-- ПРАВА ПАНЕЛЬ: Формула та інженерний розрахунок -->
+  <rect x="545" y="68" width="390" height="395" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="565" y="94" font-size="15" font-weight="bold" fill="#1a1a1a">Математичний апарат віброізоляції</text>
+
+  <!-- Картка 1: Формула коефіцієнта передачі -->
+  <rect x="565" y="112" width="350" height="105" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="580" y="134" font-size="12" font-weight="bold" fill="#2457d6">Аналітичний вираз коефіцієнта передачі T:</text>
+  <text x="580" y="156" font-size="13" font-weight="bold" fill="#1a1a1a">T = √[ (1 + (2·ζ·r)²) / ((1 - r²)² + (2·ζ·r)²) ]</text>
+  <text x="580" y="178" font-size="11" fill="#1a1a1a">• r = ω_збудж / ω_власна — частотне відношення</text>
+  <text x="580" y="196" font-size="11" fill="#2457d6">• ζ = c / (2·√(k·m)) — безрозмірний коефіцієнт згасання</text>
+
+  <!-- Картка 2: Чому r = √2 є межею -->
+  <rect x="565" y="228" width="350" height="105" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="580" y="250" font-size="12" font-weight="bold" fill="#1a1a1a">Доведення точки інваріантності r = √2:</text>
+  <text x="580" y="270" font-size="11" fill="#1a1a1a">• При r = √2 знаменник: (1 - 2)² + (2·ζ·r)² = 1 + (2·ζ·r)²</text>
+  <text x="580" y="286" font-size="11" fill="#1a1a1a">• Чисельник тотожно дорівнює знаменнику: T = √1 = 1.0</text>
+  <text x="580" y="304" font-size="11" font-weight="bold" fill="#c0392b">• При r &lt; √2 демпфування рятує від резонансу</text>
+  <text x="580" y="320" font-size="11" font-weight="bold" fill="#27ae60">• При r &gt; √2 менше згасання дає чистішу ізоляцію</text>
+
+  <!-- Картка 3: Інженерне правило підбору -->
+  <rect x="565" y="345" width="350" height="105" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="580" y="367" font-size="12" font-weight="bold" fill="#27ae60">Золоте правило проектування підвісу:</text>
+  <text x="580" y="387" font-size="11" fill="#1a1a1a">• Розраховують власну частоту f_n у 2.5–3 рази нижче f_робочої</text>
+  <text x="580" y="403" font-size="11" fill="#1a1a1a">• Трос Wire Rope (ζ ≈ 0.15–0.25) безпечно долає пуск</text>
+  <text x="580" y="421" font-size="11" font-weight="bold" fill="#27ae60">• Захищає Pogo Pins і гіроскопи без перегріву та зносу</text>
+</svg>

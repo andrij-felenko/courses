@@ -1,0 +1,92 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Екранування та трасування ліній Ethernet і живлення в капсульному ковзному кільці</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Розділення силових кіл та симетричне заземлення екранів для мінімізації ЕМЗ від моторів</text>
+
+  <!-- Блок 1: Статор (Зовнішня частина / Джерело) -->
+  <rect x="50" y="90" width="260" height="330" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="180" y="118" font-size="15" font-weight="bold" fill="#1a1a1a" text-anchor="middle">СТАТОР (Нерухома частина)</text>
+
+  <!-- Підпанелі статора -->
+  <rect x="70" y="135" width="220" height="120" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="85" y="158" font-size="13" font-weight="bold" fill="#2457d6">Диференційні пари Ethernet</text>
+  <text x="85" y="180" font-size="12" fill="#1a1a1a">Tx+, Tx-, Rx+, Rx-</text>
+  <text x="85" y="202" font-size="12" fill="#6b7280">Звиті пари з індивідуальним</text>
+  <text x="85" y="218" font-size="12" fill="#6b7280">фольгованим екраном (STP)</text>
+  <text x="85" y="239" font-size="12" fill="#27ae60" font-weight="bold">Екран заземлено на корпус</text>
+
+  <rect x="70" y="267" width="220" height="135" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="85" y="290" font-size="13" font-weight="bold" fill="#c0392b">Силові кола живлення моторів</text>
+  <text x="85" y="312" font-size="12" fill="#1a1a1a">+Vcc, GND (ШІМ-сигнали)</text>
+  <text x="85" y="334" font-size="12" fill="#6b7280">Високі імпульсні струми,</text>
+  <text x="85" y="350" font-size="12" fill="#6b7280">джерело ємнісних та</text>
+  <text x="85" y="366" font-size="12" fill="#6b7280">індуктивних завад (ЕМЗ)</text>
+  <text x="85" y="388" font-size="12" fill="#c0392b" font-weight="bold">Просторове рознесення!</text>
+
+  <!-- Блок 2: Капсульне ковзне кільце (Контактний вузол) -->
+  <rect x="350" y="90" width="260" height="330" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="480" y="118" font-size="15" font-weight="bold" fill="#1a1a1a" text-anchor="middle">КАПСУЛЬНЕ КОВЗНЕ КІЛЬЦЕ</text>
+
+  <!-- Центральна вісь / підшипник -->
+  <rect x="375" y="140" width="210" height="100" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="480" y="165" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Контакти «Золото-Золото»</text>
+  <text x="480" y="187" font-size="12" fill="#6b7280" text-anchor="middle">Низький перехідний опір</text>
+  <text x="480" y="205" font-size="12" fill="#6b7280" text-anchor="middle">Мінімальний джиттер та шум</text>
+  <text x="480" y="223" font-size="12" fill="#27ae60" text-anchor="middle">Фізичне розділення дорожок</text>
+
+  <!-- Захисний екран всередині капсули -->
+  <rect x="375" y="255" width="210" height="147" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="480" y="280" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Внутрішній захисний еджек</text>
+  <text x="480" y="303" font-size="12" fill="#1a1a1a" text-anchor="middle">Заземлений центральний екрануючий</text>
+  <text x="480" y="321" font-size="12" fill="#1a1a1a" text-anchor="middle">бар'єр між силовим блоком</text>
+  <text x="480" y="339" font-size="12" fill="#1a1a1a" text-anchor="middle">та високошвидкісними</text>
+  <text x="480" y="357" font-size="12" fill="#1a1a1a" text-anchor="middle">ланцюгами Ethernet</text>
+  <text x="480" y="384" font-size="12" fill="#2457d6" font-weight="bold" text-anchor="middle">Подавлення перехресних завад (Crosstalk)</text>
+
+  <!-- Блок 3: Ротор (Обертова частина / Споживач) -->
+  <rect x="650" y="90" width="260" height="330" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="780" y="118" font-size="15" font-weight="bold" fill="#1a1a1a" text-anchor="middle">РОТОР (Обертова частина)</text>
+
+  <!-- Підпанелі ротора -->
+  <rect x="670" y="135" width="220" height="120" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="685" y="158" font-size="13" font-weight="bold" fill="#2457d6">Вихід Ethernet до камери</text>
+  <text x="685" y="180" font-size="12" fill="#1a1a1a">Стабільна очна діаграма</text>
+  <text x="685" y="202" font-size="12" fill="#6b7280">Без втрат пакетів (iperf / ping)</text>
+  <text x="685" y="218" font-size="12" fill="#6b7280">на максимальних обертах</text>
+  <text x="685" y="239" font-size="12" fill="#27ae60" font-weight="bold">Цілісність сигналів 100BASE-T</text>
+
+  <rect x="670" y="267" width="220" height="135" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="685" y="290" font-size="13" font-weight="bold" fill="#27ae60">Живлення безводних моторів</text>
+  <text x="685" y="312" font-size="12" fill="#1a1a1a">Двигуни підвісу (Pitch / Yaw)</text>
+  <text x="685" y="334" font-size="12" fill="#6b7280">Механічна розв'язка дротів</text>
+  <text x="685" y="350" font-size="12" fill="#6b7280">через 3D-друковані адаптери</text>
+  <text x="685" y="366" font-size="12" fill="#6b7280">для компенсації напружень</text>
+  <text x="685" y="388" font-size="12" fill="#27ae60" font-weight="bold">Захист від передчасного зносу</text>
+
+  <!-- З'єднувальні стрілки між блоками -->
+  <!-- Ethernet з'єднання -->
+  <path d="M 290 180 L 375 180" fill="none" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+  <path d="M 585 180 L 670 180" fill="none" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Силове з'єднання -->
+  <path d="M 290 315 L 375 315" fill="none" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arr-red)"/>
+  <path d="M 585 315 L 670 315" fill="none" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arr-green)"/>
+
+</svg>

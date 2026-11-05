@@ -1,0 +1,99 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Розріз головки гвинта М3 DIN 7991 та розклад контактних сил</text>
+  <text x="480" y="60" font-size="13" fill="#6b7280" text-anchor="middle">Кут конуса 90°, розклад осьового зусилля на нормальну силу N та радіальну розклинювальну складову F_r</text>
+
+  <!-- Ліва панель: Поздовжній розріз вузла та силовий трикутник -->
+  <rect x="30" y="80" width="480" height="350" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  
+  <path d="M 100,160 L 255,160 L 270,110 L 285,160 L 440,160 L 440,390 L 100,390 Z" fill="#f8fafc" stroke="#475569" stroke-width="1.5"/>
+  <!-- Штрихування деталі -->
+  <g stroke="#cbd5e1" stroke-width="1">
+    <line x1="110" y1="180" x2="140" y2="150" />
+    <line x1="130" y1="210" x2="170" y2="170" />
+    <line x1="150" y1="240" x2="200" y2="190" />
+    <line x1="170" y1="270" x2="230" y2="210" />
+    <line x1="190" y1="300" x2="250" y2="240" />
+    <line x1="210" y1="330" x2="270" y2="270" />
+    <line x1="230" y1="360" x2="290" y2="300" />
+    <line x1="250" y1="390" x2="320" y2="320" />
+    
+    <line x1="290" y1="390" x2="360" y2="320" />
+    <line x1="320" y1="390" x2="390" y2="320" />
+    <line x1="350" y1="390" x2="420" y2="320" />
+    <line x1="380" y1="390" x2="430" y2="340" />
+    <line x1="400" y1="370" x2="430" y2="340" />
+  </g>
+
+  <!-- Отвір у деталі -->
+  <path d="M 265,160 L 270,145 L 275,160 L 271.5,160 L 271.5,390 L 268.5,390 L 268.5,160 Z" fill="#ffffff" stroke="#1a1a1a" stroke-width="1"/>
+
+  <!-- Головка гвинта М3 DIN 7991 -->
+  <polygon points="240,115 300,115 273,158 267,158" fill="#cbd5e1" stroke="#1a1a1a" stroke-width="2"/>
+  <!-- Стрижень гвинта М3 -->
+  <rect x="267" y="158" width="6" height="200" fill="#cbd5e1" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Внутрішній шестигранник (зміщений нижче від лінії z=115, щоб не перетинати рамку/лінії) -->
+  <rect x="264" y="122" width="12" height="15" fill="#94a3b8" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="270" y="134" font-size="11" fill="#1a1a1a" text-anchor="middle">s=2</text>
+
+  <!-- Вісь симетрії -->
+  <line x1="270" y1="95" x2="270" y2="415" stroke="#e11d48" stroke-dasharray="6,4" stroke-width="1.2"/>
+  <text x="270" y="427" font-size="12" fill="#e11d48" text-anchor="middle">Вісь гвинта</text>
+
+  <!-- Вектори сил у точці контакту конуса -->
+  <line x1="315" y1="120" x2="315" y2="180" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+  <text x="332" y="153" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="start">F_ax</text>
+
+  <line x1="286" y1="140" x2="326" y2="100" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arr-green)"/>
+  <text x="332" y="105" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="start">F_N</text>
+
+  <line x1="286" y1="140" x2="336" y2="140" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arr-red)"/>
+  <text x="342" y="144" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="start">F_r</text>
+
+  <!-- Кут конуса 90° та альфа = 45° -->
+  <path d="M 270,158 L 270,135 A 23 23 0 0 1 286,138" fill="none" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="210" y="130" font-size="12" fill="#1a1a1a" text-anchor="middle">α = 45°</text>
+  <text x="210" y="105" font-size="12" fill="#1a1a1a" text-anchor="middle">Кут зенкування 90°</text>
+
+  <!-- Розміри головки -->
+  <line x1="240" y1="102" x2="300" y2="102" stroke="#1a1a1a" stroke-width="1" marker-end="url(#arr)" marker-start="url(#arr)"/>
+  <text x="270" y="97" font-size="12" fill="#1a1a1a" text-anchor="middle">d_k = 6.0 мм</text>
+
+  <!-- Права панель: Механіка напружень та контактний тиск -->
+  <rect x="530" y="80" width="400" height="350" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Зелений блок: Силовий баланс та контактний тиск -->
+  <rect x="550" y="100" width="360" height="145" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="570" y="125" font-size="15" font-weight="bold" fill="#27ae60" text-anchor="start">Силовий баланс та контактний тиск</text>
+  <text x="570" y="152" font-size="13" fill="#1a1a1a" text-anchor="start">• Нормальна реакція: F_N = F_ax / sin(45°) ≈ 1.414 · F_ax</text>
+  <text x="570" y="178" font-size="13" fill="#1a1a1a" text-anchor="start">• Радіальне розпирання: F_rad = F_ax (100% осьової сили</text>
+  <text x="585" y="196" font-size="13" fill="#1a1a1a" text-anchor="start">діє на розрив стінки отвору!)</text>
+  <text x="570" y="222" font-size="13" fill="#1a1a1a" text-anchor="start">• Середній контактний тиск: p_contact = F_N / A_cone</text>
+
+  <!-- Червоний блок: Небезпеки конічної посадки -->
+  <rect x="550" y="260" width="360" height="150" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="570" y="285" font-size="15" font-weight="bold" fill="#c0392b" text-anchor="start">Небезпеки конічної посадки DIN 7991</text>
+  <text x="570" y="312" font-size="13" fill="#1a1a1a" text-anchor="start">• У тонкостінних втулках радіальна сила F_rad викликає</text>
+  <text x="585" y="330" font-size="13" fill="#1a1a1a" text-anchor="start">розтріскування бобишки вздовж радіуса.</text>
+  <text x="570" y="356" font-size="13" fill="#1a1a1a" text-anchor="start">• У м'якому алюмінії тиск перевищує межу плинності,</text>
+  <text x="585" y="374" font-size="13" fill="#1a1a1a" text-anchor="start">що призводить до просідання головки й ослаблення.</text>
+  <text x="570" y="398" font-size="13" fill="#1a1a1a" text-anchor="start">• Фрикційне заклинювання (ефект клинця).</text>
+</svg>

@@ -1,0 +1,91 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-black" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Полотно -->
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="28" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">В'язкопружні характеристики силіконового еластомера</text>
+  <text x="480" y="48" font-size="13" fill="#6b7280" text-anchor="middle">Залежність модулів E', E'' та коефіцієнта втрат tan(δ) від частоти збудження й температури</text>
+
+  <!-- ЛІВА ПАНЕЛЬ: Графік реології DMA -->
+  <rect x="25" y="68" width="500" height="395" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="45" y="94" font-size="15" font-weight="bold" fill="#1a1a1a">Криві динамічного механічного аналізу (DMA)</text>
+
+  <!-- Графічна область -->
+  <rect x="45" y="112" width="460" height="260" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Осі координат -->
+  <!-- Горизонтальна вісь частоти ω (або -T) -->
+  <line x1="85" y1="330" x2="485" y2="330" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arr-black)"/>
+  <text x="485" y="352" font-size="11" fill="#1a1a1a" text-anchor="end">Частота збудження ω (рад/с) або зниження T</text>
+
+  <!-- Ліва вертикальна вісь модуля E (логарифмічна) -->
+  <line x1="85" y1="330" x2="85" y2="125" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arr-black)"/>
+  <text x="90" y="130" font-size="11" fill="#1a1a1a">Модуль пружності E', E'' (Па)</text>
+
+  <!-- Права вертикальна вісь tan(δ) -->
+  <line x1="480" y1="330" x2="480" y2="125" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-black)"/>
+  <text x="475" y="130" font-size="11" fill="#27ae60" text-anchor="end">Коефіцієнт втрат tan(δ)</text>
+
+  <!-- Зони стану матеріалу (фонові смуги) -->
+  <line x1="210" y1="125" x2="210" y2="330" stroke="#e2e8f0" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="360" y1="125" x2="360" y2="330" stroke="#e2e8f0" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="145" y="320" font-size="10" fill="#6b7280" text-anchor="middle">Високоеластичний</text>
+  <text x="285" y="320" font-size="10" fill="#6b7280" text-anchor="middle">Перехідний</text>
+  <text x="420" y="320" font-size="10" fill="#6b7280" text-anchor="middle">Склоподібний</text>
+
+  <!-- Крива модуля накопичення E' (синій: S-подібне зростання) -->
+  <path d="M85,280 C160,275 220,260 285,200 C340,150 400,140 475,138" fill="none" stroke="#2457d6" stroke-width="3"/>
+  <text x="130" y="265" font-size="11" font-weight="bold" fill="#2457d6">E' (накопичення)</text>
+
+  <!-- Крива модуля втрат E'' (червоний: куполоподібний пік) -->
+  <path d="M85,310 C160,305 220,290 285,220 C340,165 370,230 475,270" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+  <text x="195" y="295" font-size="11" font-weight="bold" fill="#c0392b">E'' (втрати)</text>
+
+  <!-- Крива tan(δ) = E''/E' (зелена штрихова з піком у переході) -->
+  <path d="M85,315 C170,310 230,270 275,170 C310,240 370,295 475,310" fill="none" stroke="#27ae60" stroke-width="2" stroke-dasharray="5,3"/>
+  <circle cx="275" cy="170" r="4.5" fill="#27ae60"/>
+  <text x="285" y="165" font-size="11" font-weight="bold" fill="#27ae60">Пік tan(δ)</text>
+
+  <!-- Пояснення внизу лівої панелі -->
+  <text x="275" y="390" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Зона максимального демпфування збігається з піком tan(δ)</text>
+  <text x="275" y="408" font-size="11" fill="#6b7280" text-anchor="middle">Зсув робочої точки визначається температурно-частотною аналогією TTSP</text>
+
+
+  <!-- ПРАВА ПАНЕЛЬ: Формули та аналогія WLF -->
+  <rect x="545" y="68" width="390" height="395" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="565" y="94" font-size="15" font-weight="bold" fill="#1a1a1a">Математична модель та принцип суперпозиції</text>
+
+  <!-- Картка 1: Комплексний модуль -->
+  <rect x="565" y="112" width="350" height="98" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="580" y="134" font-size="12" font-weight="bold" fill="#2457d6">Комплексний динамічний модуль пружності:</text>
+  <text x="580" y="154" font-size="13" font-weight="bold" fill="#1a1a1a">E* = E' + i · E'' = E' · (1 + i · tan(δ))</text>
+  <text x="580" y="174" font-size="11" fill="#1a1a1a">• E' — пружна реакція демпфера (динамічна жорсткість)</text>
+  <text x="580" y="190" font-size="11" fill="#c0392b">• E'' — дисипація коливальної енергії у внутрішнє тепло</text>
+
+  <!-- Картка 2: Рівняння WLF (коефіцієнт зсуву) -->
+  <rect x="565" y="220" width="350" height="115" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="580" y="242" font-size="12" font-weight="bold" fill="#1a1a1a">Температурно-частотна аналогія (WLF):</text>
+  <text x="580" y="264" font-size="12" font-weight="bold" fill="#2457d6">lg(a_T) = -C_1 · (T - T_0) / (C_2 + T - T_0)</text>
+  <text x="580" y="286" font-size="11" fill="#1a1a1a">• Підвищення частоти еквівалентне охолодженню матеріалу</text>
+  <text x="580" y="302" font-size="11" fill="#1a1a1a">• Зниження T зміщує спектр демпфування в низькі частоти</text>
+  <text x="580" y="318" font-size="11" fill="#6b7280">• Силікон зберігає еластичність від -50 °C до +180 °C</text>
+
+  <!-- Картка 3: Практичний висновок -->
+  <rect x="565" y="345" width="350" height="105" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="580" y="367" font-size="12" font-weight="bold" fill="#27ae60">Особливості силіконових демпферів:</text>
+  <text x="580" y="387" font-size="11" fill="#1a1a1a">• Низька температура склування: T_g ≈ -120 °C</text>
+  <text x="580" y="403" font-size="11" fill="#1a1a1a">• Стабільний коефіцієнт втрат tan(δ) ≈ 0.15–0.30 в робочій зоні</text>
+  <text x="580" y="421" font-size="11" font-weight="bold" fill="#27ae60">• Відсутність раптового окрихчення при морозі</text>
+</svg>

@@ -1,0 +1,78 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="36" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Захисний ковпачок та дефлектор ePTFE-клапана (IP69K)</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Лабіринтні канали відводять водяні струмені під високим тиском і захищають мембрану</text>
+
+  <!-- Main Housing Container Panel -->
+  <rect x="60" y="75" width="840" height="365" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Valve Body cross section -->
+  <!-- Outer metallic/plastic housing body left -->
+  <path d="M 280,340 L 280,180 L 320,140 L 440,140 L 440,340 Z" fill="#e2e8f0" stroke="#475569" stroke-width="2"/>
+  <!-- Outer metallic/plastic housing body right -->
+  <path d="M 520,340 L 520,140 L 640,140 L 680,180 L 680,340 Z" fill="#e2e8f0" stroke="#475569" stroke-width="2"/>
+
+  <!-- Base / Thread mounting area -->
+  <rect x="360" y="340" width="240" height="60" fill="#cbd5e1" stroke="#475569" stroke-width="2"/>
+  <line x1="380" y1="355" x2="580" y2="355" stroke="#94a3b8" stroke-width="2"/>
+  <line x1="380" y1="370" x2="580" y2="370" stroke="#94a3b8" stroke-width="2"/>
+  <line x1="380" y1="385" x2="580" y2="385" stroke="#94a3b8" stroke-width="2"/>
+
+  <!-- Inner chamber / Air cavity (adjusted to not overlap membrane) -->
+  <rect x="360" y="206" width="240" height="114" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+
+  <!-- ePTFE Membrane layer (starts at 198, height 8 -> ends at 206, precisely touching cavity without overlap) -->
+  <rect x="380" y="198" width="200" height="8" fill="#38bdf8" stroke="#0284c7" stroke-width="1.5"/>
+
+  <!-- Protective Cap / Baffle structure -->
+  <!-- Baffle element (mushroom shaped cap) -->
+  <path d="M 320,140 Q 480,90 640,140 L 600,160 Q 480,120 360,160 Z" fill="#cbd5e1" stroke="#475569" stroke-width="2"/>
+  <!-- Central support pillar for cap -->
+  <rect x="460" y="140" width="40" height="40" fill="#cbd5e1" stroke="#475569" stroke-width="2"/>
+
+  <!-- Water Jet / High Pressure arrows (IP69K simulation) -->
+  <path d="M 160,120 L 240,150" stroke="#2457d6" stroke-width="3" marker-end="url(#arr-blue)"/>
+  <path d="M 150,160 L 230,175" stroke="#2457d6" stroke-width="3" marker-end="url(#arr-blue)"/>
+  
+  <path d="M 800,120 L 720,150" stroke="#2457d6" stroke-width="3" marker-end="url(#arr-blue)"/>
+  <path d="M 810,160 L 730,175" stroke="#2457d6" stroke-width="3" marker-end="url(#arr-blue)"/>
+
+  <!-- Air flow arrows passing through membrane and labyrinth -->
+  <path d="M 480,390 L 480,280" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arr)"/>
+  <path d="M 480,240 L 480,185" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arr)"/>
+
+  <!-- Labels and pointers -->
+  <!-- ePTFE Membrane label -->
+  <line x1="580" y1="202" x2="690" y2="202" stroke="#6b7280" stroke-width="1"/>
+  <text x="700" y="206" font-size="13" fill="#1a1a1a">Мембрана ePTFE</text>
+
+  <!-- Protective Cap label -->
+  <text x="480" y="100" font-size="13" fill="#1a1a1a" text-anchor="middle">Захисний ковпачок (дефлектор)</text>
+
+  <!-- Labyrinth channel label -->
+  <line x1="335" y1="150" x2="220" y2="120" stroke="#6b7280" stroke-width="1"/>
+  <text x="210" y="116" font-size="13" fill="#1a1a1a" text-anchor="end">Лабіринтний канал</text>
+
+  <!-- Water Jet label -->
+  <text x="140" y="100" font-size="13" fill="#2457d6" text-anchor="middle">Струмінь води (IP69K)</text>
+
+  <!-- Air flow label (moved outside right housing to avoid line intersection) -->
+  <line x1="600" y1="370" x2="690" y2="370" stroke="#6b7280" stroke-width="1"/>
+  <text x="700" y="374" font-size="13" fill="#27ae60">Вільний газообмін Q</text>
+
+  <!-- Housing wall label -->
+  <line x1="280" y1="250" x2="180" y2="250" stroke="#6b7280" stroke-width="1"/>
+  <text x="170" y="254" font-size="13" fill="#1a1a1a" text-anchor="end">Корпус пристрою</text>
+</svg>

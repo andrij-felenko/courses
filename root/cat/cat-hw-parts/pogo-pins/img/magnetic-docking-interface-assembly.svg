@@ -1,0 +1,119 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Складальний вузол магнітного док-інтерфейсу на Pogo Pins</text>
+  <text x="480" y="52" text-anchor="middle" font-size="13" fill="#6b7280">Взаємне центрування напрямними штифтами та магнітами до стиснення плунжерів</text>
+
+  <!-- ЛІВА ЧАСТИНА: Вибух-схема спряження двох частин -->
+  <!-- Верхня частина: Корпус портативного пристрою -->
+  <rect x="50" y="75" width="440" height="70" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="6"/>
+  <text x="65" y="96" font-size="12" font-weight="bold" fill="#1a1a1a">Верхня частина: Портативний пристрій</text>
+
+  <!-- Лівий магніт пристрою (Полюс S донизу) -->
+  <rect x="75" y="112" width="50" height="20" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" rx="2"/>
+  <text x="100" y="127" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">S (магніт)</text>
+
+  <!-- Напрямний отвір лівий (фаска під штифт) -->
+  <rect x="145" y="112" width="22" height="20" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="1"/>
+  <text x="156" y="127" text-anchor="middle" font-size="10" font-weight="bold" fill="#2457d6">Втулка</text>
+
+  <!-- 4 контактні майданчики (Target Pads) -->
+  <rect x="195" y="124" width="150" height="8" fill="#ffd700" stroke="#b8860b" stroke-width="1.5" rx="1"/>
+  <text x="270" y="118" text-anchor="middle" font-size="11" font-weight="bold" fill="#b8860b">4 × Target Pads (Au)</text>
+
+  <!-- Напрямний отвір правий -->
+  <rect x="370" y="112" width="22" height="20" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="1"/>
+  <text x="381" y="127" text-anchor="middle" font-size="10" font-weight="bold" fill="#2457d6">Втулка</text>
+
+  <!-- Правий магніт пристрою (Полюс N донизу) -->
+  <rect x="415" y="112" width="50" height="20" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="2"/>
+  <text x="440" y="127" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">N (магніт)</text>
+
+  <!-- Лінії напрямку стикування та центрування -->
+  <line x1="100" y1="135" x2="100" y2="295" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr)"/>
+  <line x1="156" y1="135" x2="156" y2="265" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr-blue)"/>
+  <line x1="381" y1="135" x2="381" y2="265" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr-blue)"/>
+  <line x1="440" y1="135" x2="440" y2="295" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr)"/>
+
+  <!-- Пояснення різниці висот -->
+  <rect x="180" y="195" width="180" height="48" fill="#e9f7ef" stroke="#27ae60" stroke-width="1" rx="4"/>
+  <text x="270" y="213" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">Порядок контактування:</text>
+  <text x="270" y="231" text-anchor="middle" font-size="11" fill="#1a1a1a">h_штифта &gt; h_пінів на 1.5 мм</text>
+
+  <!-- Нижня частина: Док-станція (Base) -->
+  <rect x="50" y="315" width="440" height="115" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="6"/>
+  <text x="65" y="418" font-size="12" font-weight="bold" fill="#1a1a1a">Нижня частина: Док-станція (Base)</text>
+
+  <!-- Лівий магніт доку (Полюс N догори, притягує S) -->
+  <rect x="75" y="325" width="50" height="20" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="2"/>
+  <text x="100" y="340" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">N (магніт)</text>
+  <text x="100" y="360" text-anchor="middle" font-size="10" fill="#27ae60">Притягання</text>
+
+  <!-- Лівий напрямний штифт (виступає вище контактів!) -->
+  <path d="M150,325 L150,270 L156,260 L162,270 L162,325 Z" fill="#b0bec5" stroke="#455a64" stroke-width="1.5"/>
+  <text x="156" y="345" text-anchor="middle" font-size="10" font-weight="bold" fill="#455a64">Штифт</text>
+
+  <!-- Блок 4-х Pogo Pins -->
+  <!-- Pin 1 -->
+  <rect x="210" y="325" width="14" height="40" fill="#ffd700" stroke="#b8860b" stroke-width="1"/>
+  <path d="M213,325 L217,300 L221,325 Z" fill="#ffd700" stroke="#b8860b" stroke-width="1"/>
+  <!-- Pin 2 -->
+  <rect x="245" y="325" width="14" height="40" fill="#ffd700" stroke="#b8860b" stroke-width="1"/>
+  <path d="M248,325 L252,300 L256,325 Z" fill="#ffd700" stroke="#b8860b" stroke-width="1"/>
+  <!-- Pin 3 -->
+  <rect x="280" y="325" width="14" height="40" fill="#ffd700" stroke="#b8860b" stroke-width="1"/>
+  <path d="M283,325 L287,300 L291,325 Z" fill="#ffd700" stroke="#b8860b" stroke-width="1"/>
+  <!-- Pin 4 -->
+  <rect x="315" y="325" width="14" height="40" fill="#ffd700" stroke="#b8860b" stroke-width="1"/>
+  <path d="M318,325 L322,300 L326,325 Z" fill="#ffd700" stroke="#b8860b" stroke-width="1"/>
+
+  <text x="270" y="385" text-anchor="middle" font-size="11" font-weight="bold" fill="#b8860b">4 × Pogo Pins (VCC, D-, D+, GND)</text>
+
+  <!-- Правий напрямний штифт -->
+  <path d="M375,325 L375,270 L381,260 L387,270 L387,325 Z" fill="#b0bec5" stroke="#455a64" stroke-width="1.5"/>
+  <text x="381" y="345" text-anchor="middle" font-size="10" font-weight="bold" fill="#455a64">Штифт</text>
+
+  <!-- Правий магніт доку (Полюс S догори, притягує N) -->
+  <rect x="415" y="325" width="50" height="20" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" rx="2"/>
+  <text x="440" y="340" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">S (магніт)</text>
+  <text x="440" y="360" text-anchor="middle" font-size="10" fill="#27ae60">Притягання</text>
+
+  <!-- ПРАВА ЧАСТИНА: Технічні правила конструювання -->
+  <rect x="520" y="75" width="400" height="355" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="6"/>
+  <text x="540" y="103" font-size="14" font-weight="bold" fill="#1a1a1a">Інженерні принципи магнітного доку</text>
+
+  <!-- Картка 1: Трирівневе центрування -->
+  <rect x="535" y="118" width="370" height="90" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="4"/>
+  <text x="550" y="139" font-size="12" font-weight="bold" fill="#2457d6">1. Послідовність механічного контактування</text>
+  <text x="550" y="158" font-size="11" fill="#1a1a1a">• Магнітне захоплення: притягання з дистанції 5–10 мм</text>
+  <text x="550" y="174" font-size="11" fill="#1a1a1a">• Входження штифтів: точне вирівнювання до ±0.1 мм</text>
+  <text x="550" y="190" font-size="11" fill="#1a1a1a">• Торкання контактів: лише вертикальний стиск пружин</text>
+  <text x="550" y="202" font-size="10" fill="#27ae60">Повністю знімає бічне згинальне навантаження з плунжерів</text>
+
+  <!-- Картка 2: Полярний ключ -->
+  <rect x="535" y="218" width="370" height="90" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="4"/>
+  <text x="550" y="239" font-size="12" font-weight="bold" fill="#c0392b">2. Магнітний ключ від переполюсовки</text>
+  <text x="550" y="258" font-size="11" fill="#1a1a1a">• Ліва пара: N-S (притягання), права пара: S-N</text>
+  <text x="550" y="274" font-size="11" fill="#1a1a1a">• Спроба встановити пристрій розвернутим на 180°</text>
+  <text x="550" y="290" font-size="11" fill="#1a1a1a">спричиняє відштовхування однойменних полюсів N-N та S-S</text>
+  <text x="550" y="302" font-size="10" fill="#c0392b">Фізично унеможливлює подачу короткого замикання</text>
+
+  <!-- Картка 3: Сила утримання -->
+  <rect x="535" y="318" width="370" height="95" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="4"/>
+  <text x="550" y="339" font-size="12" font-weight="bold" fill="#27ae60">3. Баланс контактних та магнітних сил</text>
+  <text x="550" y="358" font-size="11" fill="#1a1a1a">• Опір пружин: F_springs = 4 × 1.2 Н = 4.8 Н</text>
+  <text x="550" y="374" font-size="11" fill="#1a1a1a">• Магнітне зусилля пари N52: F_mag ≥ 8.0–12.0 Н</text>
+  <text x="550" y="390" font-size="11" fill="#6b7280">Запас зусилля (F_mag &gt; F_springs) утримує док</text>
+  <text x="550" y="404" font-size="10" fill="#6b7280">в стиснутому стані без люфтів під час вібрацій</text>
+</svg>

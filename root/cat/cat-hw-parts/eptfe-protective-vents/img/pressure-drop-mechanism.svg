@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Title and Subtitle -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Механізм виникнення розрідження та засмоктування вологи в корпусі</text>
+  <text x="480" y="60" font-size="13" fill="#6b7280" text-anchor="middle">Різке охолодження створює вакуум (P_внутр &lt; P_зовн), що призводить до деформації ущільнень і засмоктування води</text>
+
+  <!-- Panel 1: Stage 1 (Left) -->
+  <rect x="40" y="80" width="420" height="350" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="60" y="100" width="380" height="40" rx="6" fill="#eaf0fd"/>
+  <text x="250" y="125" font-size="15" font-weight="bold" fill="#2457d6" text-anchor="middle">Стадія 1: Різке охолодження (T_внутр &lt; T_зовн)</text>
+
+  <!-- Enclosure body Stage 1 -->
+  <rect x="90" y="170" width="320" height="220" rx="6" fill="white" stroke="#1a1a1a" stroke-width="2"/>
+  
+  <!-- Outer cold air / rain arrows -->
+  <path d="M 60,190 L 85,190" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <path d="M 60,250 L 85,250" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <path d="M 60,310 L 85,310" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="60" y="175" font-size="12" fill="#2457d6" text-anchor="start">T_зовн, P_зовн</text>
+
+  <!-- Inner vacuum indicator -->
+  <text x="250" y="210" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">P_внутр ↓ (Вакуум)</text>
+  <text x="250" y="230" font-size="12" fill="#6b7280" text-anchor="middle">Охолодження повітря всередині</text>
+
+  <!-- O-ring normal -->
+  <rect x="180" y="380" width="140" height="12" rx="4" fill="#6b7280"/>
+  <text x="250" y="415" font-size="12" fill="#1a1a1a" text-anchor="middle">Ущільнювач (O-ring)</text>
+
+
+  <!-- Panel 2: Stage 2 (Right) -->
+  <rect x="500" y="80" width="420" height="350" rx="8" fill="#fdecea" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="520" y="100" width="380" height="40" rx="6" fill="#fdecea"/>
+  <text x="710" y="125" font-size="15" font-weight="bold" fill="#c0392b" text-anchor="middle">Стадія 2: Засмоктування вологи та корозія</text>
+
+  <!-- Enclosure body Stage 2 -->
+  <rect x="550" y="170" width="320" height="220" rx="6" fill="white" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Water droplets being sucked in through microgap -->
+  <path d="M 520,310 Q 540,310 550,320" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)" fill="none"/>
+  <circle cx="560" cy="325" r="4" fill="#2457d6"/>
+  <circle cx="575" cy="330" r="3" fill="#2457d6"/>
+  <text x="515" y="295" font-size="12" fill="#c0392b" text-anchor="start">ΔP (Всмоктування)</text>
+
+  <!-- Deformed O-ring -->
+  <path d="M 640,380 Q 710,392 780,380" stroke="#c0392b" stroke-width="4" fill="none"/>
+  <text x="710" y="415" font-size="12" fill="#c0392b" text-anchor="middle">Деформація ущільнювача крізь щілину</text>
+
+  <!-- PCB with condensation and corrosion -->
+  <rect x="620" y="260" width="180" height="50" rx="4" fill="#27ae60" opacity="0.2"/>
+  <rect x="630" y="270" width="160" height="30" rx="2" fill="#27ae60"/>
+  <text x="710" y="290" font-size="12" fill="white" font-weight="bold" text-anchor="middle">Плата електроніки</text>
+  
+  <!-- Condensation droplets on PCB -->
+  <circle cx="660" cy="250" r="5" fill="#2457d6"/>
+  <circle cx="710" cy="245" r="6" fill="#2457d6"/>
+  <circle cx="760" cy="252" r="4" fill="#2457d6"/>
+  <text x="710" y="230" font-size="12" fill="#c0392b" font-weight="bold" text-anchor="middle">Краплі конденсату &amp; корозія</text>
+
+</svg>

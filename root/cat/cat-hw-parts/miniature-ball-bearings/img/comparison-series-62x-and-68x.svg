@@ -1,0 +1,124 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Markers -->
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#64748b"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Порівняння підшипників серій 62x та 68x однакового вала (d = 5 мм)</text>
+  <text x="480" y="60" font-size="13" fill="#6b7280" text-anchor="middle">Стандартний 625 (5×16×5 мм) проти тонкостінного 685 (5×11×5 мм): різниця вантажопідйомності, ваги та габаритів</text>
+
+  <!-- Left Panel: Geometric Overlay -->
+  <rect x="30" y="85" width="460" height="355" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="260" y="112" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Накладення профілів (серія 685 vs 625)</text>
+
+  <!-- Centerline of Shaft -->
+  <line x1="260" y1="130" x2="260" y2="400" stroke="#9ca3af" stroke-dasharray="6,3,2,3" stroke-width="1.2"/>
+  <text x="260" y="420" font-size="11" fill="#6b7280" text-anchor="middle">Вісь вала (d = 5 мм)</text>
+
+  <!-- Shaft (d = 5 mm, drawn as separate blocks to avoid overlap) -->
+  <rect x="235" y="145" width="50" height="240" fill="#e5e7eb" stroke="#9ca3af" stroke-width="1.2"/>
+
+  <!-- Bearing 625 outer ring profile (Green #27ae60, fill #e9f7ef) -->
+  <!-- Top outer ring: y=165..195, x=170..235 and x=285..350 -->
+  <rect x="170" y="165" width="65" height="25" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="285" y="165" width="65" height="25" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <!-- Bottom outer ring: y=340..365 -->
+  <rect x="170" y="340" width="65" height="25" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="285" y="340" width="65" height="25" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+
+  <!-- Ball 625 (diameter dw = 2.8 mm, scaled) -->
+  <circle cx="202" cy="210" r="13" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <circle cx="318" cy="210" r="13" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <circle cx="202" cy="320" r="13" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <circle cx="318" cy="320" r="13" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+
+  <!-- Bearing 685 overlay (Blue #2457d6, fill #eaf0fd) -->
+  <!-- Outer ring 685: D=11 mm (scaled: x=195..235 and 285..325, y=230..250 and 280..300) -->
+  <rect x="195" y="230" width="40" height="18" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="285" y="230" width="40" height="18" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="195" y="282" width="40" height="18" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="285" y="282" width="40" height="18" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+
+  <!-- Ball 685 (diameter dw = 1.5 mm, scaled) -->
+  <circle cx="215" cy="265" r="7" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <circle cx="305" cy="265" r="7" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+
+  <!-- Labels on the left and right pointing to rings -->
+  <line x1="165" y1="177" x2="115" y2="177" stroke="#27ae60" stroke-width="1.2" marker-end="url(#arr-green)"/>
+  <text x="110" y="172" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="end">625: D = 16 мм</text>
+  <text x="110" y="187" font-size="11" fill="#475569" text-anchor="end">Dw = 2.78 мм</text>
+
+  <line x1="190" y1="239" x2="115" y2="239" stroke="#2457d6" stroke-width="1.2" marker-end="url(#arr-blue)"/>
+  <text x="110" y="234" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="end">685: D = 11 мм</text>
+  <text x="110" y="249" font-size="11" fill="#475569" text-anchor="end">Dw = 1.50 мм</text>
+
+  <!-- Right Callout blocks for 685 and 625 -->
+  <line x1="355" y1="177" x2="385" y2="177" stroke="#27ae60" stroke-width="1.2"/>
+  <rect x="388" y="165" width="90" height="26" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="433" y="182" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">Серія 625</text>
+
+  <line x1="330" y1="239" x2="365" y2="239" stroke="#2457d6" stroke-width="1.2"/>
+  <rect x="368" y="227" width="110" height="26" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="423" y="244" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">Серія 685 (тонкий)</text>
+
+
+  <!-- Right Panel: Comparison Table & Criteria -->
+  <rect x="510" y="85" width="420" height="355" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="720" y="112" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Технічні характеристики та критерії</text>
+
+  <!-- Table Header -->
+  <rect x="530" y="125" width="380" height="26" rx="4" fill="#e2e8f0"/>
+  <text x="545" y="142" font-size="12" font-weight="bold" fill="#1a1a1a">Параметр (d = 5 мм)</text>
+  <text x="740" y="142" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">625 (стандарт)</text>
+  <text x="860" y="142" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">685 (тонкий)</text>
+
+  <!-- Row 1: Outer Diameter -->
+  <rect x="530" y="155" width="380" height="24" fill="white"/>
+  <text x="545" y="171" font-size="11" fill="#1a1a1a">Зовнішній діаметр (D)</text>
+  <text x="740" y="171" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">16 мм</text>
+  <text x="860" y="171" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">11 мм (-31%)</text>
+
+  <!-- Row 2: Dynamic Load C -->
+  <rect x="530" y="181" width="380" height="24" fill="#f8fafc"/>
+  <text x="545" y="197" font-size="11" fill="#1a1a1a">Динаміч. навантаження (C)</text>
+  <text x="740" y="197" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">1750 Н</text>
+  <text x="860" y="197" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">715 Н (×2.4 менше)</text>
+
+  <!-- Row 3: Static Load C0 -->
+  <rect x="530" y="207" width="380" height="24" fill="white"/>
+  <text x="545" y="223" font-size="11" fill="#1a1a1a">Статич. навантаження (C0)</text>
+  <text x="740" y="223" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">670 Н</text>
+  <text x="860" y="223" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">280 Н</text>
+
+  <!-- Row 4: Weight -->
+  <rect x="530" y="233" width="380" height="24" fill="#f8fafc"/>
+  <text x="545" y="249" font-size="11" fill="#1a1a1a">Вага одиниці</text>
+  <text x="740" y="249" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">5.0 г</text>
+  <text x="860" y="249" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">1.7 г (×3 легше)</text>
+
+  <!-- Selection Recommendations Section -->
+  <text x="530" y="280" font-size="12" font-weight="bold" fill="#1a1a1a">Рекомендації щодо вибору:</text>
+
+  <rect x="530" y="292" width="380" height="60" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="0.8"/>
+  <text x="542" y="310" font-size="11" font-weight="bold" fill="#27ae60">Серія 62x (напр. 623, 625):</text>
+  <text x="542" y="326" font-size="11" fill="#1a1a1a">Високі радіальні навантаження, ролики ременів GT2,</text>
+  <text x="542" y="342" font-size="11" fill="#1a1a1a">ходові гвинти Z 3D-принтерів та потужні вузли.</text>
+
+  <rect x="530" y="360" width="380" height="60" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="0.8"/>
+  <text x="542" y="378" font-size="11" font-weight="bold" fill="#2457d6">Серія 68x (напр. 685, 686):</text>
+  <text x="542" y="394" font-size="11" fill="#1a1a1a">Дрібні шарніри, редуктори мікросервоприводів,</text>
+  <text x="542" y="410" font-size="11" fill="#1a1a1a">коптери та конструкції з жорстким обмеженням габаритів.</text>
+
+</svg>

@@ -1,0 +1,160 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="34" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Паразитне живлення 74AHCT через захисний ESD-діод входу</text>
+  <text x="480" y="56" font-size="13" fill="#6b7280" text-anchor="middle">Активний вихід 3,3 В зміщує верхній ESD-діод у прямому напрямку й нештатно живить шину V_CC</text>
+
+  <!-- Left Panel: Microcontroller -->
+  <rect x="30" y="78" width="280" height="344" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="170" y="104" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Мікроконтролер (МК)</text>
+
+  <rect x="65" y="115" width="210" height="24" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="170" y="131" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">V_DD = 3,3 В • ЖИВЛЕННЯ УВІМКНЕНО</text>
+
+  <!-- Power rail V_DD -->
+  <text x="145" y="158" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Шина живлення V_DD (+3,3 В)</text>
+  <line x1="80" y1="168" x2="210" y2="168" stroke="#27ae60" stroke-width="2"/>
+
+  <!-- P-MOS switch -->
+  <line x1="145" y1="168" x2="145" y2="188" stroke="#27ae60" stroke-width="2"/>
+  <rect x="95" y="188" width="100" height="38" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="145" y="204" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">P-MOSFET (ON)</text>
+  <text x="145" y="218" font-size="12" fill="#27ae60" text-anchor="middle">канал відкритий</text>
+  <line x1="145" y1="226" x2="145" y2="265" stroke="#27ae60" stroke-width="2"/>
+  <path d="M 145,230 L 145,258" stroke="#c0392b" stroke-width="2" stroke-dasharray="4,2" fill="none" marker-end="url(#arr-red)"/>
+
+  <!-- Output Node & Pin -->
+  <circle cx="145" cy="265" r="3.5" fill="#1a1a1a"/>
+  <line x1="145" y1="265" x2="295" y2="265" stroke="#1a1a1a" stroke-width="2"/>
+  <path d="M 152,265 L 285,265" stroke="#c0392b" stroke-width="2" stroke-dasharray="5,3" fill="none" marker-end="url(#arr-red)"/>
+  <rect x="295" y="255" width="15" height="20" rx="2" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="220" y="253" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Вивід GPIO</text>
+  <text x="220" y="283" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">V_OH ≈ 3,3 В</text>
+
+  <!-- N-MOS switch -->
+  <line x1="145" y1="265" x2="145" y2="298" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="3,2"/>
+  <rect x="95" y="298" width="100" height="38" rx="4" fill="#ffffff" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="3,2"/>
+  <text x="145" y="314" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">N-MOSFET (OFF)</text>
+  <text x="145" y="328" font-size="12" fill="#6b7280" text-anchor="middle">канал закритий</text>
+  <line x1="145" y1="336" x2="145" y2="365" stroke="#6b7280" stroke-width="1.5"/>
+
+  <!-- GND rail MK -->
+  <line x1="80" y1="365" x2="210" y2="365" stroke="#6b7280" stroke-width="2"/>
+  <line x1="145" y1="365" x2="145" y2="376" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="135" y1="376" x2="155" y2="376" stroke="#6b7280" stroke-width="2"/>
+  <line x1="139" y1="380" x2="151" y2="380" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="142" y1="384" x2="148" y2="384" stroke="#6b7280" stroke-width="1"/>
+  <text x="145" y="402" font-size="12" fill="#6b7280" text-anchor="middle">GND (0 В)</text>
+
+  <!-- Middle Section: Signal Line & Current Flow -->
+  <line x1="310" y1="265" x2="520" y2="265" stroke="#1a1a1a" stroke-width="2"/>
+  <path d="M 320,265 L 505,265" stroke="#c0392b" stroke-width="2.5" stroke-dasharray="6,4" fill="none" marker-end="url(#arr-red)"/>
+  <text x="415" y="238" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Паразитний струм I_ESD</text>
+  <text x="415" y="252" font-size="12" fill="#c0392b" text-anchor="middle">від активного виходу</text>
+  <text x="415" y="285" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Сигнальна лінія (3,3 В)</text>
+  <text x="415" y="300" font-size="12" fill="#6b7280" text-anchor="middle">Рівень логічної 1</text>
+
+  <!-- Right Panel: 74AHCT -->
+  <rect x="520" y="78" width="410" height="344" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="725" y="104" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Логічний елемент 74AHCT</text>
+
+  <rect x="585" y="115" width="280" height="24" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="725" y="131" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">V_CC = 0 В • ЗНЕСТРУМЛЕНО (ВИМКНЕНО)</text>
+
+  <!-- Power rail V_CC -->
+  <line x1="570" y1="168" x2="890" y2="168" stroke="#c0392b" stroke-width="2.5"/>
+  <rect x="625" y="144" width="210" height="20" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="730" y="158" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">V_CC(паразитна) ≈ 2,6...2,7 В (фантомне)</text>
+
+  <!-- Input Pad & Line -->
+  <rect x="520" y="255" width="15" height="20" rx="2" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="560" y="255" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Вхід IN</text>
+  <line x1="535" y1="265" x2="605" y2="265" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="605" cy="265" r="3.5" fill="#1a1a1a"/>
+
+  <!-- Upper ESD Diode D1 -->
+  <line x1="605" y1="265" x2="605" y2="230" stroke="#c0392b" stroke-width="2"/>
+  <polygon points="595,230 615,230 605,210" fill="#c0392b" stroke="#c0392b" stroke-width="1.5"/>
+  <line x1="595" y1="210" x2="615" y2="210" stroke="#c0392b" stroke-width="2.5"/>
+  <line x1="605" y1="210" x2="605" y2="168" stroke="#c0392b" stroke-width="2"/>
+  <path d="M 605,260 L 605,176" stroke="#c0392b" stroke-width="2.5" stroke-dasharray="5,3" fill="none" marker-end="url(#arr-red)"/>
+
+  <text x="625" y="206" font-size="12" font-weight="bold" fill="#c0392b">Верхній ESD-діод D₁</text>
+  <text x="625" y="221" font-size="12" font-weight="bold" fill="#c0392b">ВІДІМКНЕНИЙ (прямий струм)</text>
+  <text x="625" y="236" font-size="12" fill="#6b7280">Спад напруги U_F ≈ 0,6...0,7 В</text>
+
+  <!-- Input line to internal logic gate -->
+  <line x1="605" y1="265" x2="675" y2="265" stroke="#1a1a1a" stroke-width="2"/>
+  <polygon points="675,250 675,280 705,265" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="708" cy="265" r="3" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="660" y="292" font-size="12" fill="#6b7280" text-anchor="middle">Вхідний каскад</text>
+  <text x="660" y="306" font-size="12" fill="#6b7280" text-anchor="middle">(R_in &gt; 10¹² Ом)</text>
+
+  <!-- Lower ESD Diode D2 -->
+  <line x1="605" y1="265" x2="605" y2="320" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="595" y1="320" x2="615" y2="320" stroke="#6b7280" stroke-width="2"/>
+  <polygon points="595,340 615,340 605,320" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="605" y1="340" x2="605" y2="365" stroke="#6b7280" stroke-width="1.5"/>
+
+  <text x="625" y="334" font-size="12" font-weight="bold" fill="#6b7280">Нижній ESD-діод D₂</text>
+  <text x="625" y="348" font-size="12" fill="#6b7280">ЗАКРИТИЙ (зворотне зміщення)</text>
+
+  <!-- Current flow along V_CC -->
+  <path d="M 615,168 L 805,168" stroke="#c0392b" stroke-width="2.5" stroke-dasharray="5,3" fill="none" marker-end="url(#arr-red)"/>
+
+  <!-- Decoupling capacitor -->
+  <line x1="770" y1="168" x2="770" y2="245" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="758" y1="245" x2="782" y2="245" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="758" y1="253" x2="782" y2="253" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="770" y1="253" x2="770" y2="365" stroke="#1a1a1a" stroke-width="1.5"/>
+  <path d="M 770,175 L 770,238" stroke="#c0392b" stroke-width="2" stroke-dasharray="4,2" fill="none" marker-end="url(#arr-red)"/>
+  <text x="790" y="248" font-size="12" font-weight="bold" fill="#1a1a1a">C_розв</text>
+  <text x="790" y="262" font-size="12" fill="#6b7280">100 нФ</text>
+
+  <!-- Other consumers on V_CC -->
+  <line x1="865" y1="168" x2="865" y2="230" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="845" y="230" width="40" height="40" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="865" y="247" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">Інші</text>
+  <text x="865" y="261" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">вузли</text>
+  <line x1="865" y1="270" x2="865" y2="365" stroke="#1a1a1a" stroke-width="1.5"/>
+  <path d="M 865,175 L 865,223" stroke="#c0392b" stroke-width="2" stroke-dasharray="4,2" fill="none" marker-end="url(#arr-red)"/>
+
+  <!-- GND rail 74AHCT -->
+  <line x1="570" y1="365" x2="890" y2="365" stroke="#6b7280" stroke-width="2"/>
+  <line x1="730" y1="365" x2="730" y2="376" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="720" y1="376" x2="740" y2="376" stroke="#6b7280" stroke-width="2"/>
+  <line x1="724" y1="380" x2="736" y2="380" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="727" y1="384" x2="733" y2="384" stroke="#6b7280" stroke-width="1"/>
+  <text x="730" y="402" font-size="12" fill="#6b7280" text-anchor="middle">GND (0 В)</text>
+
+  <!-- Bottom Warning Banner -->
+  <rect x="30" y="435" width="900" height="75" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <rect x="45" y="447" width="120" height="22" rx="4" fill="#c0392b"/>
+  <text x="105" y="462" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">УВАГА: НАСЛІДКИ</text>
+
+  <text x="180" y="462" font-size="12" font-weight="bold" fill="#c0392b">1. Перевантаження МК</text>
+  <text x="180" y="478" font-size="12" fill="#1a1a1a">Струм виводу GPIO перевищує</text>
+  <text x="180" y="493" font-size="12" fill="#1a1a1a">допустимі 20...25 мА → перегрів</text>
+
+  <text x="430" y="462" font-size="12" font-weight="bold" fill="#c0392b">2. Фантомне живлення чипа</text>
+  <text x="430" y="478" font-size="12" fill="#1a1a1a">Напруга 2,6...2,7 В спричиняє хаос,</text>
+  <text x="430" y="493" font-size="12" fill="#1a1a1a">напівробочий стан чипа й Brown-out</text>
+
+  <text x="690" y="462" font-size="12" font-weight="bold" fill="#c0392b">3. Ризик защіпання (Latch-up)</text>
+  <text x="690" y="478" font-size="12" fill="#1a1a1a">При подачі основних 5 В чип може</text>
+  <text x="690" y="493" font-size="12" fill="#1a1a1a">відімкнути тиристор і згоріти</text>
+</svg>

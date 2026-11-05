@@ -1,0 +1,87 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 460" width="720" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-black" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="720" height="460" fill="white"/>
+
+  <text x="360" y="40" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Механіка радіального затискання кабельного хомута</text>
+  <text x="360" y="60" font-size="13" fill="#6b7280" text-anchor="middle">Векторний розклад колового натягу та виникнення контактного тиску на поверхню джгута</text>
+
+  <circle cx="280" cy="260" r="150" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  
+  <g fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5">
+    <circle cx="280" cy="260" r="50"/>
+    <circle cx="280" cy="160" r="50"/>
+    <circle cx="366.6" cy="210" r="50"/>
+    <circle cx="366.6" cy="310" r="50"/>
+    <circle cx="280" cy="360" r="50"/>
+    <circle cx="193.4" cy="310" r="50"/>
+    <circle cx="193.4" cy="210" r="50"/>
+  </g>
+
+  <line x1="280" y1="260" x2="150" y2="185" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-black)"/>
+  <text x="215" y="215" font-size="14" fill="#1a1a1a" text-anchor="end">R</text>
+
+  <circle cx="280" cy="260" r="153" fill="none" stroke="#1a1a1a" stroke-width="6"/>
+  
+  <rect x="265" y="410" width="30" height="15" fill="#1a1a1a" rx="2"/>
+  <path d="M 295 417.5 C 320 417.5, 340 425, 360 440" fill="none" stroke="#1a1a1a" stroke-width="6" stroke-linecap="round"/>
+
+  <path d="M 203.5 127.5 A 153 153 0 0 1 356.5 127.5" fill="none" stroke="#2457d6" stroke-width="6"/>
+
+  <line x1="280" y1="260" x2="203.5" y2="127.5" stroke="#6b7280" stroke-dasharray="5 5"/>
+  <line x1="280" y1="260" x2="356.5" y2="127.5" stroke="#6b7280" stroke-dasharray="5 5"/>
+  
+  <path d="M 260 225.4 A 40 40 0 0 1 300 225.4" fill="none" stroke="#6b7280"/>
+  <text x="280" y="215" font-size="14" fill="#1a1a1a" text-anchor="middle">dθ</text>
+
+  <line x1="203.5" y1="127.5" x2="116.9" y2="177.5" stroke="#2457d6" stroke-width="3" marker-end="url(#arr-blue)"/>
+  <text x="105" y="195" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="end">Натяг T</text>
+  
+  <line x1="356.5" y1="127.5" x2="443.1" y2="177.5" stroke="#2457d6" stroke-width="3" marker-end="url(#arr-blue)"/>
+  <text x="455" y="195" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="start">Натяг T</text>
+
+  <line x1="203.5" y1="127.5" x2="116.9" y2="127.5" stroke="#6b7280" stroke-width="2" marker-end="url(#arr-gray)" stroke-dasharray="4 2"/>
+  <line x1="116.9" y1="127.5" x2="116.9" y2="177.5" stroke="#6b7280" stroke-width="2" marker-end="url(#arr-gray)" stroke-dasharray="4 2"/>
+  <text x="105" y="150" font-size="12" fill="#6b7280" text-anchor="end">Радіальна</text>
+  <text x="105" y="165" font-size="12" fill="#6b7280" text-anchor="end">складова</text>
+  
+  <line x1="356.5" y1="127.5" x2="443.1" y2="127.5" stroke="#6b7280" stroke-width="2" marker-end="url(#arr-gray)" stroke-dasharray="4 2"/>
+  <line x1="443.1" y1="127.5" x2="443.1" y2="177.5" stroke="#6b7280" stroke-width="2" marker-end="url(#arr-gray)" stroke-dasharray="4 2"/>
+  <text x="455" y="150" font-size="12" fill="#6b7280" text-anchor="start">Радіальна</text>
+  <text x="455" y="165" font-size="12" fill="#6b7280" text-anchor="start">складова</text>
+
+  <line x1="217.8" y1="120.2" x2="225.9" y2="138.5" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <line x1="248.2" y1="110.3" x2="252.4" y2="129.9" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <line x1="280" y1="107" x2="280" y2="127" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <line x1="311.8" y1="110.3" x2="307.6" y2="129.9" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <line x1="342.2" y1="120.2" x2="334.1" y2="138.5" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+
+  <text x="280" y="95" font-size="14" font-weight="bold" fill="#c0392b" text-anchor="middle">p</text>
+
+  <rect x="480" y="210" width="210" height="180" fill="#f4f6f8" stroke="#d0d7de" rx="4"/>
+  <text x="495" y="235" font-size="14" font-weight="bold" fill="#1a1a1a">Закон Лапласа</text>
+  <text x="495" y="260" font-size="14" font-weight="bold" fill="#2457d6">p = T / (R · w)</text>
+  
+  <text x="495" y="285" font-size="12" fill="#6b7280"><tspan font-weight="bold" fill="#c0392b">p</tspan> — радіальний тиск</text>
+  <text x="495" y="305" font-size="12" fill="#6b7280"><tspan font-weight="bold" fill="#2457d6">T</tspan> — зусилля натягу стрічки</text>
+  <text x="495" y="325" font-size="12" fill="#6b7280"><tspan font-weight="bold" fill="#1a1a1a">R</tspan> — радіус джгута кабелів</text>
+  <text x="495" y="345" font-size="12" fill="#6b7280"><tspan font-weight="bold" fill="#1a1a1a">w</tspan> — ширина стрічки хомута</text>
+
+  <rect x="480" y="400" width="210" height="40" fill="#fdecea" rx="4"/>
+  <text x="495" y="418" font-size="12" fill="#c0392b">Надмірний T спричиняє</text>
+  <text x="495" y="433" font-size="12" fill="#c0392b">деформацію ізоляції</text>
+
+</svg>

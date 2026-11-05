@@ -1,0 +1,147 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-main" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    
+    <!-- Wire bundle pattern -->
+    <pattern id="wires" patternUnits="userSpaceOnUse" width="20" height="20">
+      <circle cx="10" cy="10" r="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+      <circle cx="10" cy="10" r="3" fill="#2457d6"/>
+    </pattern>
+  </defs>
+
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Title -->
+  <text x="480" y="40" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Механізм натяжного пістолета та обрізки хомутів</text>
+  <text x="480" y="60" font-size="13" fill="#6b7280" text-anchor="middle">Нормоване зусилля натягу та порівняння якості зрізу: гострий залишок проти обрізки заподлице</text>
+
+  <!-- LEFT PANEL: Tension Tool -->
+  <rect x="40" y="90" width="460" height="430" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <text x="270" y="120" font-size="16" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Натяжний інструмент (Tension Tool)</text>
+
+  <!-- Wire Bundle -->
+  <circle cx="140" cy="300" r="50" fill="url(#wires)" stroke="#1a1a1a" stroke-width="2"/>
+  
+  <!-- Cable Tie around bundle -->
+  <path d="M 140 240 A 60 60 0 1 1 80 300" fill="none" stroke="#1a1a1a" stroke-width="6"/>
+  <!-- Cable Tie Head -->
+  <rect x="70" y="235" width="20" height="24" rx="3" fill="#1a1a1a"/>
+  <rect x="74" y="239" width="12" height="16" fill="white"/>
+  
+  <!-- Cable Tie Tail / Strap -->
+  <path d="M 80 235 L 80 180 C 80 160, 100 150, 150 150 L 350 150" fill="none" stroke="#1a1a1a" stroke-width="6"/>
+
+  <!-- Tool Body -->
+  <!-- Nose of tool gripping the tie -->
+  <rect x="180" y="130" width="40" height="40" rx="4" fill="#2457d6"/>
+  <!-- Main Body -->
+  <path d="M 220 120 L 380 120 C 390 120, 400 130, 400 140 L 400 200 C 400 210, 390 220, 380 220 L 220 220 Z" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  
+  <!-- Handle -->
+  <path d="M 360 220 L 380 360 C 382 370, 370 380, 360 380 L 330 380 C 320 380, 315 370, 315 360 L 300 220 Z" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <!-- Trigger -->
+  <path d="M 270 220 L 290 340 C 292 350, 280 360, 270 360 L 250 360 C 240 360, 235 350, 235 340 L 230 220 Z" fill="#2457d6"/>
+
+  <!-- Tension Adjustment Knob -->
+  <circle cx="360" cy="170" r="25" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="2"/>
+  <!-- Dial markings -->
+  <line x1="360" y1="145" x2="360" y2="152" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="385" y1="170" x2="378" y2="170" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="360" y1="195" x2="360" y2="188" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="335" y1="170" x2="342" y2="170" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="360" cy="170" r="15" fill="#1a1a1a"/>
+  <!-- Arrow on dial -->
+  <path d="M 360 170 L 345 155" stroke="white" stroke-width="3"/>
+  
+  <text x="360" y="215" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Регулятор зусилля</text>
+  
+  <!-- Forces -->
+  <!-- Hand Pull force -->
+  <line x1="220" y1="280" x2="160" y2="280" stroke="#2457d6" stroke-width="3" marker-end="url(#arr-blue)"/>
+  <text x="150" y="275" font-size="14" fill="#2457d6" font-style="italic" text-anchor="end">F<tspan dy="5" font-size="10">grip</tspan></text>
+  
+  <!-- Tension force on strap -->
+  <line x1="160" y1="120" x2="210" y2="120" stroke="#1a1a1a" stroke-width="3" marker-end="url(#arr-main)"/>
+  <text x="215" y="115" font-size="14" fill="#1a1a1a" font-style="italic" text-anchor="start">F<tspan dy="5" font-size="10">tension</tspan></text>
+
+  <!-- Cutting Mechanism Callout -->
+  <line x1="180" y1="150" x2="130" y2="110" stroke="#1a1a1a" stroke-width="1.5" stroke-dasharray="4 4"/>
+  <text x="125" y="105" font-size="13" fill="#1a1a1a" text-anchor="middle">Механізм відрізання стрічки</text>
+
+  <!-- Explanatory Text for Tool -->
+  <rect x="60" y="420" width="420" height="80" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="75" y="445" font-size="13" fill="#1a1a1a">
+    <tspan x="75" dy="0">1. Затягування з попередньо заданим зусиллям (F</tspan>
+    <tspan dy="3" font-size="10">tension</tspan>
+    <tspan dy="-3" font-size="13">).</tspan>
+    <tspan x="75" dy="18">2. Автоматичне відрізання після досягнення ліміту.</tspan>
+    <tspan x="75" dy="18">3. Запобігає пошкодженню ізоляції через перетягування.</tspan>
+  </text>
+
+
+  <!-- RIGHT PANEL: Cut Comparison -->
+  <rect x="520" y="90" width="400" height="430" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <text x="720" y="120" font-size="16" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Якість обрізки стрічки</text>
+
+  <!-- TOP RIGHT: Incorrect Cut (Standard Cutters) -->
+  <rect x="540" y="140" width="360" height="170" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="2"/>
+  <text x="560" y="165" font-size="14" font-weight="bold" fill="#c0392b">НЕПРАВИЛЬНО: Звичайні кусачки</text>
+  
+  <!-- Tie head -->
+  <rect x="580" y="210" width="40" height="50" rx="4" fill="#1a1a1a"/>
+  <!-- Internal locking mechanism (simplified) -->
+  <rect x="590" y="215" width="20" height="40" fill="white"/>
+  <path d="M 590 230 L 600 240 L 610 230" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+  
+  <!-- Sharp Tail protruding -->
+  <path d="M 620 225 L 680 225 L 670 245 L 620 245 Z" fill="#1a1a1a"/>
+  
+  <!-- Callout for Sharp Edge -->
+  <circle cx="680" cy="225" r="15" fill="none" stroke="#c0392b" stroke-width="3"/>
+  <line x1="695" y1="210" x2="740" y2="180" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="745" y="175" font-size="13" font-weight="bold" fill="#c0392b">Гострий залишок (Заусенець)</text>
+  <text x="745" y="195" font-size="12" fill="#c0392b">Травмонебезпечно для рук.</text>
+  <text x="745" y="215" font-size="12" fill="#c0392b">Ризик пошкодження сусідніх кабелів.</text>
+
+  <!-- Cutter profile comparison -->
+  <path d="M 670 260 L 685 290 L 700 260 Z" fill="#d0d7de" stroke="#1a1a1a" stroke-width="2"/>
+  <path d="M 690 260 L 705 290 L 720 260 Z" fill="#d0d7de" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="695" y="310" font-size="12" fill="#6b7280" text-anchor="middle">Профіль лез звичайних кусачок</text>
+
+
+  <!-- BOTTOM RIGHT: Correct Cut (Flush Cutters) -->
+  <rect x="540" y="330" width="360" height="170" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <text x="560" y="355" font-size="14" font-weight="bold" fill="#27ae60">ПРАВИЛЬНО: Flush Cutters / Tension Tool</text>
+  
+  <!-- Tie head -->
+  <rect x="580" y="400" width="40" height="50" rx="4" fill="#1a1a1a"/>
+  <!-- Internal locking mechanism -->
+  <rect x="590" y="405" width="20" height="40" fill="white"/>
+  <path d="M 590 420 L 600 430 L 610 420" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+  
+  <!-- Flush cut tail (ends exactly at head) -->
+  <rect x="620" y="415" width="5" height="20" fill="#1a1a1a"/>
+  
+  <!-- Callout for Flush Cut -->
+  <line x1="625" y1="425" x2="680" y2="425" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="690" y="420" font-size="13" font-weight="bold" fill="#27ae60">Обрізка заподлице (Flush Cut)</text>
+  <text x="690" y="440" font-size="12" fill="#27ae60">Плоский зріз на рівні замка.</text>
+  <text x="690" y="460" font-size="12" fill="#27ae60">Безпечний і акуратний.</text>
+
+  <!-- Flush Cutter profile -->
+  <path d="M 640 470 L 640 490 L 625 470 Z" fill="#d0d7de" stroke="#1a1a1a" stroke-width="2"/>
+  <path d="M 642 470 L 642 490 L 657 470 Z" fill="#d0d7de" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="640" y="510" font-size="12" fill="#6b7280" text-anchor="middle">Плоский профіль лез (Flush)</text>
+
+</svg>

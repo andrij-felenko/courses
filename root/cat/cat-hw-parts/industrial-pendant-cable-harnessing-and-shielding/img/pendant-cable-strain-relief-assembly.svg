@@ -1,0 +1,97 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Definitions -->
+  <defs>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Вузол механічного розвантаження від натягу (Strain Relief)</text>
+  <text x="480" y="60" font-size="13" fill="#6b7280" text-anchor="middle">Передача навантаження на розвантажувальний трос через коуш і затискачі та вільне положення сигнальних жил</text>
+
+  <!-- Left Panel: Mechanical Fixation -->
+  <rect x="30" y="80" width="440" height="350" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="250" y="106" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">1. Анкерування троса (Механічна фіксація)</text>
+
+  <!-- Panel Wall / Gland graphical representation -->
+  <rect x="50" y="130" width="20" height="260" fill="#d0d7de" rx="2"/>
+  <text x="60" y="265" font-size="12" fill="#6b7280" text-anchor="middle" writing-mode="vertical-rl">Стінка пульта</text>
+
+  <!-- Cable Outer Sheath coming in -->
+  <rect x="35" y="185" width="95" height="30" fill="#1a1a1a" rx="4"/>
+
+  <!-- Steel Wire inside pulling -->
+  <path d="M120 200 L230 200" stroke="#6b7280" stroke-width="6" stroke-linecap="round"/>
+  
+  <!-- Thimble (Коуш) at 250, 200 -->
+  <path d="M230 175 C260 175, 260 225, 230 225 Z" fill="none" stroke="#d0d7de" stroke-width="5"/>
+  <circle cx="245" cy="200" r="4" fill="#1a1a1a"/>
+
+  <!-- Wire Clamp (Дуплексний затискач) -->
+  <rect x="180" y="185" width="35" height="30" rx="3" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="197" y1="185" x2="197" y2="215" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Chassis Bracket (Масивний силовий кронштейн) -->
+  <path d="M310 130 L310 270 L350 270" fill="none" stroke="#1a1a1a" stroke-width="4"/>
+  <circle cx="310" cy="200" r="6" fill="#2457d6"/>
+  <text x="310" y="292" font-size="12" fill="#1a1a1a" text-anchor="middle">Рим-болт / Кронштейн шасі</text>
+
+  <!-- Tension Vector F_tension -->
+  <line x1="90" y1="150" x2="160" y2="150" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+  <text x="125" y="142" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">F_tension</text>
+
+  <!-- Explanatory notes inside left panel -->
+  <rect x="55" y="325" width="390" height="85" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="70" y="347" font-size="12" font-weight="bold" fill="#2457d6">Зусилля знято з проводів:</text>
+  <text x="70" y="367" font-size="12" fill="#1a1a1a">• Вектор натягу F_tension сприймається тросом і корпусом.</text>
+  <text x="70" y="387" font-size="12" fill="#1a1a1a">• Сталевий трос огинає коуш і зафіксований затискачем.</text>
+
+  <!-- Right Panel: Signal Wires / Service Loop -->
+  <rect x="490" y="80" width="440" height="350" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="710" y="106" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">2. Вільне положення сигнальних жил</text>
+
+  <!-- Service Loop S-shape -->
+  <path d="M520 180 C570 180, 560 250, 610 250 C650 250, 650 180, 690 180" fill="none" stroke="#27ae60" stroke-width="3" stroke-linecap="round"/>
+  <path d="M520 195 C570 195, 560 265, 610 265 C650 265, 650 195, 690 195" fill="none" stroke="#e67e22" stroke-width="2.5" stroke-linecap="round"/>
+  <path d="M520 210 C570 210, 560 280, 610 280 C650 280, 650 210, 690 210" fill="none" stroke="#2980b9" stroke-width="2.5" stroke-linecap="round"/>
+
+  <!-- Terminal Blocks (Контактні колодки) -->
+  <rect x="800" y="150" width="100" height="90" rx="4" fill="white" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="850" y="170" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Колодки</text>
+  <circle cx="820" cy="190" r="4" fill="#27ae60"/>
+  <circle cx="820" cy="210" r="4" fill="#e67e22"/>
+  <circle cx="820" cy="230" r="4" fill="#2980b9"/>
+  <text x="835" y="194" font-size="12" fill="#1a1a1a">Кнопки</text>
+  <text x="835" y="214" font-size="12" fill="#1a1a1a">E-Stop</text>
+  <text x="835" y="234" font-size="12" fill="#1a1a1a">RS-485</text>
+
+  <!-- Connection lines to terminals -->
+  <line x1="690" y1="180" x2="800" y2="190" stroke="#27ae60" stroke-width="2"/>
+  <line x1="690" y1="195" x2="800" y2="210" stroke="#e67e22" stroke-width="1.5"/>
+  <line x1="690" y1="210" x2="800" y2="230" stroke="#2980b9" stroke-width="1.5"/>
+
+  <!-- Success note F_contacts = 0 N -->
+  <rect x="510" y="305" width="200" height="50" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="610" y="325" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">F_contacts = 0 Н</text>
+  <text x="610" y="343" font-size="12" fill="#1a1a1a" text-anchor="middle">100% захист від виривання</text>
+
+  <!-- Warning note without relief -->
+  <rect x="720" y="305" width="195" height="105" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="817" y="325" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Без фіксації троса:</text>
+  <text x="730" y="345" font-size="12" fill="#1a1a1a">• Вага пульта натягує жили</text>
+  <text x="730" y="365" font-size="12" fill="#1a1a1a">• Обрив мідних провідників</text>
+  <text x="730" y="385" font-size="12" fill="#1a1a1a">• Відмова системи керування</text>
+
+</svg>

@@ -1,0 +1,139 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Заголовок -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Координатна сітка маркування та кольорове кодування комірок</text>
+  <text x="480" y="60" font-size="13" fill="#6b7280" text-anchor="middle">Адресація матриці [Рядок-Стовпець], кодування за рядами E24/E12 та типами кріплення</text>
+
+  <!-- Панель 1: Матрична координатна сітка органайзера (лiворуч) -->
+  <rect x="30" y="85" width="500" height="345" rx="8" fill="#f4f6f8" stroke="#d0d7de"/>
+  
+  <!-- Заголовки стовпців 1..5 -->
+  <text x="135" y="115" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">1</text>
+  <text x="215" y="115" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">2</text>
+  <text x="295" y="115" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">3</text>
+  <text x="375" y="115" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">4</text>
+  <text x="455" y="115" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">5</text>
+
+  <!-- Позначення рядків та комірки -->
+  <!-- Рядок A: кріплення (#2457d6 / #eaf0fd) -->
+  <text x="75" y="152" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">Рядок A</text>
+  <rect x="95" y="132" width="75" height="38" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="132" y="155" font-size="11" fill="#1a1a1a" text-anchor="middle">М2.5×6</text>
+
+  <rect x="175" y="132" width="75" height="38" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="212" y="155" font-size="11" fill="#1a1a1a" text-anchor="middle">М2.5×10</text>
+
+  <rect x="255" y="132" width="75" height="38" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="292" y="155" font-size="11" fill="#1a1a1a" text-anchor="middle">М3×8</text>
+
+  <rect x="335" y="132" width="75" height="38" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="372" y="155" font-size="11" fill="#1a1a1a" text-anchor="middle">М3×12</text>
+
+  <rect x="415" y="132" width="75" height="38" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="452" y="155" font-size="11" fill="#1a1a1a" text-anchor="middle">М3×16</text>
+
+
+  <!-- Рядок B: шайби та гайки (#27ae60 / #e9f7ef) -->
+  <text x="75" y="202" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">Рядок B</text>
+  <rect x="95" y="182" width="75" height="38" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="132" y="205" font-size="11" fill="#1a1a1a" text-anchor="middle">Шайби М2.5</text>
+
+  <rect x="175" y="182" width="75" height="38" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="212" y="205" font-size="11" fill="#1a1a1a" text-anchor="middle">Шайби М3</text>
+
+  <rect x="255" y="182" width="75" height="38" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="292" y="205" font-size="11" fill="#1a1a1a" text-anchor="middle">Гайки М3</text>
+
+  <rect x="335" y="182" width="75" height="38" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="372" y="205" font-size="11" fill="#1a1a1a" text-anchor="middle">Гровер М3</text>
+
+  <rect x="415" y="182" width="75" height="38" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="452" y="205" font-size="11" fill="#1a1a1a" text-anchor="middle">Стійки М3</text>
+
+
+  <!-- Рядок C: резистори 0805 E24 (#f39c12 / #fef9e7) -->
+  <text x="75" y="252" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">Рядок C</text>
+  <rect x="95" y="232" width="75" height="38" rx="4" fill="#fef9e7" stroke="#f39c12" stroke-width="1"/>
+  <text x="132" y="255" font-size="11" fill="#1a1a1a" text-anchor="middle">100 Ом</text>
+
+  <rect x="175" y="232" width="75" height="38" rx="4" fill="#fef9e7" stroke="#f39c12" stroke-width="1"/>
+  <text x="212" y="255" font-size="11" fill="#1a1a1a" text-anchor="middle">220 Ом</text>
+
+  <rect x="255" y="232" width="75" height="38" rx="4" fill="#fef9e7" stroke="#f39c12" stroke-width="1"/>
+  <text x="292" y="255" font-size="11" fill="#1a1a1a" text-anchor="middle">470 Ом</text>
+
+  <rect x="335" y="232" width="75" height="38" rx="4" fill="#fef9e7" stroke="#f39c12" stroke-width="1"/>
+  <text x="372" y="255" font-size="11" fill="#1a1a1a" text-anchor="middle">1.0 кОм</text>
+
+  <rect x="415" y="232" width="75" height="38" rx="4" fill="#fef9e7" stroke="#f39c12" stroke-width="1"/>
+  <text x="452" y="255" font-size="11" fill="#1a1a1a" text-anchor="middle">2.2 кОм</text>
+
+
+  <!-- Рядок D: конденсатори керамічні (#8e44ad / #f4ecf7) -->
+  <text x="75" y="302" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">Рядок D</text>
+  <rect x="95" y="282" width="75" height="38" rx="4" fill="#f4ecf7" stroke="#8e44ad" stroke-width="1"/>
+  <text x="132" y="305" font-size="11" fill="#1a1a1a" text-anchor="middle">100 пФ</text>
+
+  <rect x="175" y="282" width="75" height="38" rx="4" fill="#f4ecf7" stroke="#8e44ad" stroke-width="1"/>
+  <text x="212" y="305" font-size="11" fill="#1a1a1a" text-anchor="middle">1.0 нФ</text>
+
+  <rect x="255" y="282" width="75" height="38" rx="4" fill="#f4ecf7" stroke="#8e44ad" stroke-width="1"/>
+  <text x="292" y="305" font-size="11" fill="#1a1a1a" text-anchor="middle">10 нФ</text>
+
+  <rect x="335" y="282" width="75" height="38" rx="4" fill="#f4ecf7" stroke="#8e44ad" stroke-width="1"/>
+  <text x="372" y="305" font-size="11" fill="#1a1a1a" text-anchor="middle">100 нФ</text>
+
+  <rect x="415" y="282" width="75" height="38" rx="4" fill="#f4ecf7" stroke="#8e44ad" stroke-width="1"/>
+  <text x="452" y="305" font-size="11" fill="#1a1a1a" text-anchor="middle">1.0 мкФ</text>
+
+  <!-- Принцип та опис під матрицею -->
+  <text x="280" y="352" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Принцип адресації матриці органайзера</text>
+  <text x="280" y="375" font-size="11" fill="#6b7280" text-anchor="middle">Координата комірки [наприклад, B3 = Гайки М3]</text>
+  <text x="280" y="393" font-size="11" fill="#6b7280" text-anchor="middle">для миттєвого пошуку у відомості специфікації (BOM)</text>
+
+
+  <!-- Панель 2: Стандарт інформаційного ярлика комірки (праворуч) -->
+  <rect x="550" y="85" width="380" height="345" rx="8" fill="#f4f6f8" stroke="#d0d7de"/>
+
+  <text x="740" y="115" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Стандарт інформаційного ярлика комірки</text>
+
+  <!-- Збільшений вигляд етикетки комірки -->
+  <g transform="translate(580, 135)">
+    <!-- Рамка етикетки ширина 320, висота 130 -->
+    <rect x="0" y="0" width="320" height="130" rx="6" fill="white" stroke="#2457d6" stroke-width="2"/>
+    <!-- Верхня кольорова смуга категорії (Color ID) -->
+    <rect x="0" y="0" width="320" height="18" rx="6" fill="#f39c12"/>
+    <rect x="0" y="10" width="320" height="8" fill="#f39c12"/>
+    
+    <!-- Координатна адреса в кутку ярлика -->
+    <text x="295" y="35" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="end">[C03]</text>
+
+    <!-- Великий основний текст номіналу -->
+    <text x="20" y="65" font-size="20" font-weight="bold" fill="#1a1a1a" text-anchor="start">10 kΩ 1%</text>
+
+    <!-- Технічні атрибути -->
+    <text x="20" y="90" font-size="12" fill="#6b7280" text-anchor="start">Корпус 0805, 0.125 Вт, TKC ±100 ppm</text>
+
+    <!-- QR / DataMatrix симуляція (мікрокод) -->
+    <rect x="250" y="55" width="55" height="55" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+    <rect x="256" y="61" width="12" height="12" fill="#1a1a1a"/>
+    <rect x="287" y="61" width="12" height="12" fill="#1a1a1a"/>
+    <rect x="256" y="92" width="12" height="12" fill="#1a1a1a"/>
+    <rect x="274" y="74" width="18" height="18" fill="#1a1a1a"/>
+    <rect x="268" y="98" width="8" height="8" fill="#1a1a1a"/>
+    <rect x="292" y="86" width="7" height="14" fill="#1a1a1a"/>
+  </g>
+
+  <!-- Правило 5S під етикеткою -->
+  <text x="740" y="300" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Правило 5S у маркуванні:</text>
+  <text x="740" y="325" font-size="11" fill="#6b7280" text-anchor="middle">Чітке контрастне маркування знижує час</text>
+  <text x="740" y="343" font-size="11" fill="#6b7280" text-anchor="middle">пошуку компонента на 80% і виключає</text>
+  <text x="740" y="361" font-size="11" fill="#6b7280" text-anchor="middle">будь-які помилки монтажу чи сортування</text>
+</svg>

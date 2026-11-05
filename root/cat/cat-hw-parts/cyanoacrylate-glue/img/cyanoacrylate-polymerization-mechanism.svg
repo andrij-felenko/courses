@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="36" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Механізм аніонної полімеризації ціаноакрилату</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Реакція ініціюється адсорбованою вологою (OH⁻), утворюючи міцний полімерний ланцюжок</text>
+
+  <!-- Блок 1: Адсорбована волога (Ініціація) -->
+  <rect x="60" y="110" width="260" height="120" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="190" y="138" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">1. Ініціація (Волога)</text>
+  <text x="190" y="166" font-size="13" fill="#6b7280" text-anchor="middle">Адсорбована волога на поверхні</text>
+  <text x="190" y="190" font-size="13" fill="#2457d6" font-weight="bold" text-anchor="middle">H₂O → OH⁻ + H⁺</text>
+
+  <!-- Стрілка 1 -->
+  <line x1="335" y1="170" x2="385" y2="170" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="360" y="156" font-size="12" fill="#2457d6" text-anchor="middle">Атака OH⁻</text>
+
+  <!-- Блок 2: Мономер ціаноакрилату (Ріст ланцюга) -->
+  <rect x="400" y="110" width="260" height="120" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="530" y="138" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">2. Ріст ланцюга</text>
+  <text x="530" y="166" font-size="13" fill="#6b7280" text-anchor="middle">Атака аніона на мономери</text>
+  <text x="530" y="190" font-size="13" fill="#2457d6" font-weight="bold" text-anchor="middle">OH⁻ + CH₂=C(CN)COOR</text>
+
+  <!-- Стрілка 2 -->
+  <line x1="675" y1="170" x2="725" y2="170" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="700" y="156" font-size="12" fill="#2457d6" text-anchor="middle">Швидка полімеризація</text>
+
+  <!-- Блок 3: Полімерна мережа / З'єднання -->
+  <rect x="740" y="110" width="160" height="120" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="820" y="138" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">3. Полімер</text>
+  <text x="820" y="166" font-size="13" fill="#6b7280" text-anchor="middle">Міцне тверде</text>
+  <text x="820" y="190" font-size="13" fill="#27ae60" font-weight="bold" text-anchor="middle">[-CH₂-C(CN)-]ₙ</text>
+
+  <!-- Нижній блок: Візуалізація поверхонь та зазору -->
+  <rect x="60" y="270" width="840" height="140" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="480" y="300" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Формування клейового шва між деталями</text>
+  
+  <!-- Деталь 1 -->
+  <rect x="100" y="325" width="280" height="35" rx="4" fill="#d0d7de"/>
+  <text x="240" y="347" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="bold">Поверхня деталі 1 (з вологою)</text>
+
+  <!-- Клейовий зазор -->
+  <rect x="400" y="325" width="160" height="35" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-dasharray="4,4"/>
+  <text x="480" y="347" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="bold">Ціаноакрилат у зазорі</text>
+
+  <!-- Деталь 2 -->
+  <rect x="580" y="325" width="280" height="35" rx="4" fill="#d0d7de"/>
+  <text x="720" y="347" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="bold">Поверхня деталі 2</text>
+
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+</svg>

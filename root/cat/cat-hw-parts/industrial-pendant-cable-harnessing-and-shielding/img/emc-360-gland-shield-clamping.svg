@@ -1,0 +1,86 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Markers -->
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Header -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Кругове затискання екрана в EMC-гермовводі (360° Shield Clamping)</text>
+  <text x="480" y="60" font-size="13" fill="#6b7280" text-anchor="middle">Суцільний контакт плетіння екрана з корпусом через конічну втулку без індуктивних скруток-косичок</text>
+
+  <!-- ==================== LEFT PANEL: CROSS SECTION ==================== -->
+  <rect x="30" y="80" width="440" height="350" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="250" y="105" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Пошаровий зріз EMC-гермовводу (M25)</text>
+
+  <!-- Control box wall -->
+  <rect x="130" y="130" width="16" height="260" rx="2" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="95" y="150" font-size="12" fill="#1a1a1a" text-anchor="end">Стінка пульта</text>
+  <path d="M100,146 L128,146" fill="none" stroke="#1a1a1a" stroke-width="1" marker-end="url(#arr)"/>
+
+  <!-- Cable outer jacket (left side) -->
+  <rect x="45" y="220" width="105" height="60" rx="4" fill="#374151" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="95" y="210" font-size="12" fill="#1a1a1a" text-anchor="middle">Зовнішня оболочка</text>
+  <path d="M95,215 L95,220" fill="none" stroke="#1a1a1a" stroke-width="1" marker-end="url(#arr)"/>
+
+  <!-- Central conductors passing through -->
+  <line x1="45" y1="245" x2="430" y2="245" stroke="#e74c3c" stroke-width="4" stroke-linecap="round"/>
+  <line x1="45" y1="255" x2="430" y2="255" stroke="#3498db" stroke-width="4" stroke-linecap="round"/>
+  <line x1="45" y1="265" x2="430" y2="265" stroke="#2ecc71" stroke-width="3" stroke-linecap="round"/>
+  <text x="390" y="235" font-size="12" fill="#1a1a1a" text-anchor="middle">Силові жили / шини</text>
+  <path d="M390,238 L390,245" fill="none" stroke="#1a1a1a" stroke-width="1" marker-end="url(#arr)"/>
+
+  <!-- Unraveled Braid (360° copper braid flared out) -->
+  <path d="M150,230 L220,195 L300,195 L300,315 L220,315 L150,280 Z" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <text x="180" y="340" font-size="12" fill="#2457d6" font-weight="bold" text-anchor="middle">360° Плетений екран</text>
+  <path d="M180,328 L180,290" fill="none" stroke="#2457d6" stroke-width="1" marker-end="url(#arr-green)"/>
+
+  <!-- Gland metallic body (housing) -->
+  <path d="M146,170 L350,170 L350,200 L320,200 L320,320 L350,320 L350,350 L146,350 Z" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Conical clamping ring (Cone spring / iris) -->
+  <polygon points="230,195 260,215 260,225 230,205" fill="#d4af37" stroke="#1a1a1a" stroke-width="1"/>
+  <polygon points="230,315 260,295 260,285 230,305" fill="#d4af37" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="210" y="160" font-size="12" fill="#1a1a1a" text-anchor="middle">Конічне кільце</text>
+  <path d="M210,165 L235,195" fill="none" stroke="#1a1a1a" stroke-width="1" marker-end="url(#arr)"/>
+
+  <!-- Clamping cap nut -->
+  <rect x="310" y="185" width="45" height="110" rx="3" fill="#cbd5e1" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="385" y="175" font-size="12" fill="#1a1a1a" text-anchor="middle">Притискна гайка</text>
+  <path d="M355,185 L335,195" fill="none" stroke="#1a1a1a" stroke-width="1" marker-end="url(#arr)"/>
+
+  <!-- Internal IP68 sealing ring -->
+  <rect x="280" y="200" width="25" height="100" rx="3" fill="#64748b" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="325" y="375" font-size="12" fill="#1a1a1a" text-anchor="middle">Ущільнювач IP68</text>
+  <path d="M310,363 L295,280" fill="none" stroke="#1a1a1a" stroke-width="1" marker-end="url(#arr)"/>
+
+
+  <!-- ==================== RIGHT PANEL: COMPARISON ==================== -->
+  <rect x="490" y="80" width="440" height="350" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="710" y="105" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Електромагнітна ефективність</text>
+
+  <!-- Card 1: 360 Degree Contact (Correct) -->
+  <rect x="510" y="125" width="400" height="135" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="525" y="150" font-size="13" font-weight="bold" fill="#27ae60">✓ 360° круговий контакт (правильно)</text>
+  <text x="525" y="178" font-size="12" fill="#1a1a1a">• Індуктивність: L_parasitic ≈ 0 Гн (суцільний обтиск)</text>
+  <text x="525" y="203" font-size="12" fill="#1a1a1a">• Передавальний опір: Z_t &lt; 10 мОм/м</text>
+  <text x="525" y="228" font-size="12" fill="#1a1a1a">• Ефективне відведення ВЧ-завад частотних приводів (VFD)</text>
+
+  <!-- Card 2: Pigtail (Incorrect) -->
+  <rect x="510" y="275" width="400" height="135" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="525" y="300" font-size="13" font-weight="bold" fill="#c0392b">✗ Заземлення через косичку / pigtail (хибно)</text>
+  <text x="525" y="328" font-size="12" fill="#1a1a1a">• Висока індуктивність: L_pigtail ≈ 1 нГн/мм</text>
+  <text x="525" y="353" font-size="12" fill="#1a1a1a">• Паразитний імпеданс Z = 2·π·f·L випромінює завади</text>
+  <text x="525" y="378" font-size="12" fill="#1a1a1a">• Наводки на RS-485 та хибні спрацьовування Stop</text>
+
+</svg>

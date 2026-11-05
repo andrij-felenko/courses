@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Main Title & Subtitle -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Архітектура трансиверів автовизначення напрямку: TXS проти TXB</text>
+  <text x="480" y="60" font-size="13" fill="#6b7280" text-anchor="middle">Відмінності внутрішньої структури: One-Shot прискорювачі з підтяжками (TXS) проти слабких буферів (TXB)</text>
+
+  <!-- Panel 1: TXS (Open-Drain / I2C) -->
+  <rect x="30" y="80" width="440" height="350" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="50" y="98" width="400" height="34" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="250" y="120" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">Серія TXS (TXS0108E) — Open-Drain (I2C)</text>
+
+  <!-- TXS Sub-blocks -->
+  <rect x="50" y="146" width="400" height="64" rx="4" fill="white" stroke="#d0d7de"/>
+  <text x="65" y="168" font-size="13" font-weight="bold" fill="#1a1a1a">Внутрішні резистори підтяжки R_PU</text>
+  <text x="65" y="188" font-size="12" fill="#6b7280">10 кОм в активному стані, 4 кОм під час One-Shot імпульсу</text>
+
+  <rect x="50" y="222" width="400" height="74" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="65" y="244" font-size="13" font-weight="bold" fill="#2457d6">Блок One-Shot Edge Detector</text>
+  <text x="65" y="264" font-size="12" fill="#1a1a1a">Виявляє висхідний фронт і на ≈30 нс вмикає потужний PMOS-ключ</text>
+  <text x="65" y="282" font-size="12" fill="#6b7280">Імпульс струму I_pulse швидко перезаряджає ємність C_bus</text>
+
+  <rect x="50" y="308" width="400" height="104" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="65" y="330" font-size="13" font-weight="bold" fill="#27ae60">Галузь застосування (Open-Drain)</text>
+  <text x="65" y="352" font-size="12" fill="#1a1a1a">• Ідеально для шин I2C з відкритим стоком/колектором</text>
+  <text x="65" y="372" font-size="12" fill="#1a1a1a">• Не потребує зовнішніх резисторів підтяжки на лінії</text>
+  <text x="65" y="392" font-size="12" fill="#1a1a1a">• Сумісний зі змішаними рівнями напруг (1.2V - 5.5V)</text>
+
+
+  <!-- Panel 2: TXB (Push-Pull / SPI, UART) -->
+  <rect x="490" y="80" width="440" height="350" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="510" y="98" width="400" height="34" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="710" y="120" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">Серія TXB (TXB0108) — Push-Pull (SPI, UART)</text>
+
+  <rect x="510" y="146" width="400" height="64" rx="4" fill="white" stroke="#d0d7de"/>
+  <text x="525" y="168" font-size="13" font-weight="bold" fill="#1a1a1a">Двонапрямні слабкі інвертори (Keepers)</text>
+  <text x="525" y="188" font-size="12" fill="#6b7280">Вихідний опір Z_out ≈ 4 кОм; зовнішній драйвер легко їх долає</text>
+
+  <rect x="510" y="222" width="400" height="74" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="525" y="244" font-size="13" font-weight="bold" fill="#2457d6">Динамічний прискорювач фронтів</text>
+  <text x="525" y="264" font-size="12" fill="#1a1a1a">One-Shot схемотехніка формує імпульс для швидких фронтів</text>
+  <text x="525" y="282" font-size="12" fill="#6b7280">Підтримує високошвидкісні протоколи на частотах до 100 МГц</text>
+
+  <rect x="510" y="308" width="400" height="104" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="525" y="330" font-size="13" font-weight="bold" fill="#c0392b">Важливе застереження (Push-Pull)</text>
+  <text x="525" y="352" font-size="12" fill="#1a1a1a">• Несумісний із зовнішніми підтяжками R_PU &lt; 50 кОм</text>
+  <text x="525" y="372" font-size="12" fill="#1a1a1a">• Категорично заборонено використовуати для шини I2C!</text>
+  <text x="525" y="392" font-size="12" fill="#6b7280">• Призначений виключно для двонапрямних Push-Pull ліній</text>
+
+</svg>

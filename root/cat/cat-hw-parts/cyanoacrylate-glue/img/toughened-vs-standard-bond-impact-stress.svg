@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Біла підкладка на все полотно -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <defs>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="35" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Розподіл напружень при ударному навантаженні</text>
+  <text x="480" y="55" font-size="13" fill="#6b7280" text-anchor="middle">Еластомірні включення гасять мікротріщини, запобігаючи руйнуванню шва</text>
+
+  <!-- Ліва панель: Стандартний клей -->
+  <rect x="40" y="80" width="420" height="340" rx="6" fill="#fdecea" stroke="#d0d7de" stroke-width="1"/>
+  <text x="250" y="110" font-size="18" font-weight="bold" fill="#c0392b" text-anchor="middle">Стандартний ціаноакрилат</text>
+  <text x="250" y="130" font-size="13" fill="#6b7280" text-anchor="middle">Крихітний шов без амортизації</text>
+
+  <!-- Зображення з'єднання (стандартний) -->
+  <rect x="80" y="160" width="340" height="30" rx="3" fill="#d0d7de"/>
+  <rect x="80" y="220" width="340" height="30" rx="3" fill="#d0d7de"/>
+  <!-- Клейовий шов (крихкий) -->
+  <rect x="235" y="190" width="30" height="30" fill="#f4f6f8" stroke="#c0392b" stroke-width="2"/>
+  <path d="M250,190 L250,220" stroke="#c0392b" stroke-width="2" stroke-dasharray="3,3"/>
+  
+  <!-- Тріщина -->
+  <path d="M250,192 C260,200 240,210 255,218" fill="none" stroke="#c0392b" stroke-width="3"/>
+
+  <!-- Сила удару -->
+  <line x1="250" y1="145" x2="250" y2="155" stroke="#c0392b" stroke-width="3" marker-end="url(#arr-red)"/>
+  <text x="250" y="142" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Удар</text>
+
+  <!-- Опис ефекту (стандартний) -->
+  <rect x="60" y="280" width="380" height="120" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="80" y="305" font-size="14" font-weight="bold" fill="#1a1a1a">Наслідки для шва:</text>
+  <text x="80" y="330" font-size="13" fill="#1a1a1a">• Концентрація напружень у вершині тріщини</text>
+  <text x="80" y="355" font-size="13" fill="#1a1a1a">• Миттєвий розвиток магістральної тріщини</text>
+  <text x="80" y="380" font-size="13" fill="#c0392b" font-weight="bold">Результат: Катастрофічне руйнування</text>
+
+
+  <!-- Права панель: Еластомірно-модифікований клей -->
+  <rect x="500" y="80" width="420" height="340" rx="6" fill="#e9f7ef" stroke="#d0d7de" stroke-width="1"/>
+  <text x="710" y="110" font-size="18" font-weight="bold" fill="#27ae60" text-anchor="middle">Еластомірно-модифікований</text>
+  <text x="710" y="130" font-size="13" fill="#6b7280" text-anchor="middle">З гнучкими гумовими мікрочастинками</text>
+
+  <!-- Зображення з'єднання (модифікований) -->
+  <rect x="540" y="160" width="340" height="30" rx="3" fill="#d0d7de"/>
+  <rect x="540" y="220" width="340" height="30" rx="3" fill="#d0d7de"/>
+  <!-- Клейовий шов (модифікований) -->
+  <rect x="695" y="190" width="30" height="30" fill="#f4f6f8" stroke="#27ae60" stroke-width="2"/>
+  
+  <!-- Еластомірні включення (кружечки) та розсіяні мікротріщини -->
+  <circle cx="705" cy="200" r="3" fill="#27ae60"/>
+  <circle cx="715" cy="210" r="3" fill="#27ae60"/>
+  <circle cx="703" cy="215" r="2.5" fill="#27ae60"/>
+  <path d="M705,195 C708,198 700,202 705,205" fill="none" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="2,2"/>
+
+  <!-- Сила удару -->
+  <line x1="710" y1="145" x2="710" y2="155" stroke="#27ae60" stroke-width="3" marker-end="url(#arr-green)"/>
+  <text x="710" y="142" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Удар</text>
+
+  <!-- Опис ефекту (модифікований) -->
+  <rect x="520" y="280" width="380" height="120" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="540" y="305" font-size="14" font-weight="bold" fill="#1a1a1a">Механізм гасіння:</text>
+  <text x="540" y="330" font-size="13" fill="#1a1a1a">• Еластомірна фаза деформує вершину тріщини</text>
+  <text x="540" y="355" font-size="13" fill="#1a1a1a">• Розсіювання кінетичної енергії удару</text>
+  <text x="540" y="380" font-size="13" fill="#27ae60" font-weight="bold">Результат: Збереження цілісності шва</text>
+
+</svg>

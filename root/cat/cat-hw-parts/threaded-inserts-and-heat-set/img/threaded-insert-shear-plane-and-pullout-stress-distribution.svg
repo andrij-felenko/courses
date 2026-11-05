@@ -1,0 +1,125 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-black" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Полотно -->
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="28" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Розподіл напружень зсуву та циліндр зрізу полімеру при вириванні втулки</text>
+  <text x="480" y="48" font-size="13" fill="#6b7280" text-anchor="middle">Осьове зусилля F_pull урівноважується напруженнями зсуву τ по зовнішньому діаметру насічки D_out</text>
+
+  <!-- ЛІВА ПАНЕЛЬ: Механіка навантаження та площина зсуву -->
+  <rect x="25" y="68" width="500" height="395" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="45" y="94" font-size="15" font-weight="bold" fill="#1a1a1a">Геометрія циліндра зрізу в пластиковому босі</text>
+
+  <!-- Полімерний бос зліва (x: 55..190, y: 140..370) -->
+  <rect x="55" y="140" width="135" height="230" fill="#e2e8f0" stroke="#94a3b8" stroke-width="1.5"/>
+  <!-- Полімерний бос справа (x: 350..485, y: 140..370) -->
+  <rect x="350" y="140" width="135" height="230" fill="#e2e8f0" stroke="#94a3b8" stroke-width="1.5"/>
+
+  <!-- Поверхні зсуву (зона зрізу полімеру): штрих-пунктир червоного кольору -->
+  <!-- Ліва лінія зсуву x=190, y: 150..350 -->
+  <line x1="190" y1="150" x2="190" y2="350" stroke="#c0392b" stroke-width="2.5" stroke-dasharray="6,3"/>
+  <!-- Права лінія зсуву x=350, y: 150..350 -->
+  <line x1="350" y1="150" x2="350" y2="350" stroke="#c0392b" stroke-width="2.5" stroke-dasharray="6,3"/>
+
+  <!-- Металева втулка (латунь) - ліва половина (x: 190..245, y: 150..350) -->
+  <path d="M190,150 L245,150 L245,350 L190,350 L195,330 L190,310 L195,290 L190,270 L195,250 L190,230 L195,210 L190,190 L195,170 Z" fill="#d97706" stroke="#92400e" stroke-width="1.5"/>
+  <!-- Металева втулка (латунь) - права половина (x: 295..350, y: 150..350) -->
+  <path d="M295,150 L350,150 L345,170 L350,190 L345,210 L350,230 L345,250 L350,270 L345,290 L350,310 L345,330 L350,350 L295,350 Z" fill="#d97706" stroke="#92400e" stroke-width="1.5"/>
+
+  <!-- Внутрішня різьба (отвір втулки x: 245..295, y: 150..350) -->
+  <rect x="245" y="150" width="50" height="200" fill="#f8fafc" stroke="#94a3b8" stroke-width="1"/>
+  <line x1="245" y1="175" x2="295" y2="185" stroke="#64748b" stroke-width="1.5"/>
+  <line x1="245" y1="205" x2="295" y2="215" stroke="#64748b" stroke-width="1.5"/>
+  <line x1="245" y1="235" x2="295" y2="245" stroke="#64748b" stroke-width="1.5"/>
+  <line x1="245" y1="265" x2="295" y2="275" stroke="#64748b" stroke-width="1.5"/>
+  <line x1="245" y1="295" x2="295" y2="305" stroke="#64748b" stroke-width="1.5"/>
+  <line x1="245" y1="325" x2="295" y2="335" stroke="#64748b" stroke-width="1.5"/>
+
+  <!-- Стрілка осьового виривного зусилля F_pull (вгору) -->
+  <line x1="270" y1="150" x2="270" y2="92" stroke="#c0392b" stroke-width="3" marker-end="url(#arr-red)"/>
+  <text x="285" y="112" font-size="14" font-weight="bold" fill="#c0392b">F_pull (осьова сила вириву)</text>
+
+  <!-- Стрілки напружень зсуву в полімері (спрямовані вниз вздовж лінії зрізу) -->
+  <!-- Зліва -->
+  <line x1="178" y1="165" x2="178" y2="185" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arr-blue)"/>
+  <line x1="178" y1="210" x2="178" y2="227" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <line x1="178" y1="255" x2="178" y2="270" stroke="#2457d6" stroke-width="1.2" marker-end="url(#arr-blue)"/>
+  <line x1="178" y1="300" x2="178" y2="312" stroke="#2457d6" stroke-width="1.0" marker-end="url(#arr-blue)"/>
+
+  <!-- Справа -->
+  <line x1="362" y1="165" x2="362" y2="185" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arr-blue)"/>
+  <line x1="362" y1="210" x2="362" y2="227" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <line x1="362" y1="255" x2="362" y2="270" stroke="#2457d6" stroke-width="1.2" marker-end="url(#arr-blue)"/>
+  <line x1="362" y1="300" x2="362" y2="312" stroke="#2457d6" stroke-width="1.0" marker-end="url(#arr-blue)"/>
+
+  <!-- Підписи на лівій панелі -->
+  <text x="120" y="128" font-size="12" font-weight="bold" fill="#475569" text-anchor="middle">Стінка босу (пластик)</text>
+  <text x="420" y="128" font-size="12" font-weight="bold" fill="#475569" text-anchor="middle">Матриця PLA/PETG</text>
+
+  <!-- Розмірні лінії -->
+  <!-- D_out (діаметр циліндра зрізу) -->
+  <line x1="190" y1="375" x2="350" y2="375" stroke="#1a1a1a" stroke-width="1.2"/>
+  <line x1="190" y1="355" x2="190" y2="385" stroke="#1a1a1a" stroke-width="1"/>
+  <line x1="350" y1="355" x2="350" y2="385" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="270" y="392" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Зовнішній діаметр D_out</text>
+
+  <!-- L_eff (довжина залягання) -->
+  <line x1="45" y1="150" x2="45" y2="350" stroke="#1a1a1a" stroke-width="1.2"/>
+  <line x1="40" y1="150" x2="52" y2="150" stroke="#1a1a1a" stroke-width="1"/>
+  <line x1="40" y1="350" x2="52" y2="350" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="40" y="255" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">L_eff</text>
+
+  <text x="270" y="425" font-size="11" fill="#c0392b" text-anchor="middle">Циліндрична площа зсуву: A_shear = π · D_out · L_eff</text>
+  <text x="270" y="442" font-size="11" fill="#2457d6" text-anchor="middle">Зсувні напруження пластику τ_shear протидіють вириванню</text>
+
+
+  <!-- ПРАВА ПАНЕЛЬ: Епюра розподілу напружень та формула -->
+  <rect x="545" y="68" width="390" height="395" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="565" y="94" font-size="15" font-weight="bold" fill="#1a1a1a">Епюра напружень зсуву та формула міцності</text>
+
+  <!-- Картка 1: Епюра τ(z) -->
+  <rect x="565" y="110" width="350" height="150" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="580" y="132" font-size="13" font-weight="bold" fill="#2457d6">Епюра зсувних напружень вздовж осі втулки</text>
+
+  <!-- Осі графіка -->
+  <line x1="620" y1="150" x2="620" y2="240" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-black)"/>
+  <line x1="620" y1="150" x2="880" y2="150" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-black)"/>
+  <text x="610" y="248" font-size="11" fill="#1a1a1a">Глибина z</text>
+  <text x="890" y="154" font-size="11" fill="#1a1a1a">Напруження τ</text>
+
+  <!-- Крива епюри (пік на вході, спадання в глибину) -->
+  <path d="M850,155 Q680,180 645,235" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+  <!-- Штрихування епюри -->
+  <line x1="620" y1="165" x2="770" y2="165" stroke="#c0392b" stroke-width="1" stroke-dasharray="3,2"/>
+  <line x1="620" y1="185" x2="690" y2="185" stroke="#c0392b" stroke-width="1" stroke-dasharray="3,2"/>
+  <line x1="620" y1="205" x2="660" y2="205" stroke="#c0392b" stroke-width="1" stroke-dasharray="3,2"/>
+  <line x1="620" y1="225" x2="648" y2="225" stroke="#c0392b" stroke-width="1" stroke-dasharray="3,2"/>
+
+  <text x="780" y="180" font-size="11" font-weight="bold" fill="#c0392b">Пік τ_max на кромці</text>
+  <text x="680" y="225" font-size="10" fill="#6b7280">концентратор напружень</text>
+
+  <!-- Картка 2: Розрахункова формула -->
+  <rect x="565" y="272" width="350" height="90" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="580" y="294" font-size="13" font-weight="bold" fill="#1a1a1a">Розрахункове граничне зусилля вириву</text>
+  <text x="580" y="318" font-size="13" font-weight="bold" fill="#2457d6">F_pull = π · D_out · L_eff · τ_shear</text>
+  <text x="580" y="338" font-size="11" fill="#1a1a1a">• τ_shear — межа міцності полімеру на зсув (25–40 МПа)</text>
+  <text x="580" y="352" font-size="11" fill="#6b7280">• Накатка збільшує L_eff завдяки рельєфному зчепленню</text>
+
+  <!-- Картка 3: Критерій надійності -->
+  <rect x="565" y="372" width="350" height="75" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="580" y="394" font-size="12" font-weight="bold" fill="#27ae60">Запобігання прогресуючому зрізу</text>
+  <text x="580" y="414" font-size="11" fill="#1a1a1a">• Глибина L_eff ≥ 1.5–2.0 × D_out усуває вирив футорки</text>
+  <text x="580" y="432" font-size="11" fill="#27ae60">• Руйнування переноситься на розрив сталевого гвинта</text>
+</svg>

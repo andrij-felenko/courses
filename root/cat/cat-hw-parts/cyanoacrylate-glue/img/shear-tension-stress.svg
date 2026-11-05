@@ -1,0 +1,83 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Розподіл навантажень у клейовому шві</text>
+  <text x="480" y="60" font-size="13" fill="#6b7280" text-anchor="middle">Вектори розтягувальних і зсувних зусиль відносно робочої площі контакту</text>
+
+  <defs>
+    <marker id="arr-main" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- ЛІВА ЧАСТИНА: На розтяг (Tension) -->
+  <g transform="translate(60, 90)">
+    <!-- Панель тло -->
+    <rect x="0" y="0" width="380" height="330" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+    
+    <text x="190" y="30" font-size="16" font-weight="bold" fill="#1a1a1a" text-anchor="middle">А. Навантаження на розтяг</text>
+    
+    <!-- Верхня склеювана деталізація -->
+    <rect x="110" y="70" width="160" height="50" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+    <text x="190" y="100" font-size="13" fill="#1a1a1a" text-anchor="middle">Верхня деталь</text>
+
+    <!-- Клейовий шар -->
+    <rect x="110" y="125" width="160" height="12" fill="#c0392b" rx="2"/>
+    <text x="285" y="135" font-size="12" fill="#6b7280">клей (h)</text>
+
+    <!-- Нижня деталь -->
+    <rect x="110" y="142" width="160" height="50" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+    <text x="190" y="172" font-size="13" fill="#1a1a1a" text-anchor="middle">Нижня деталь</text>
+
+    <!-- Вектори сил розтягу -->
+    <line x1="190" y1="50" x2="190" y2="65" stroke="#2457d6" stroke-width="3" marker-end="url(#arr-blue)"/>
+    <text x="210" y="60" font-size="13" font-weight="bold" fill="#2457d6">F_t</text>
+
+    <line x1="190" y1="215" x2="190" y2="200" stroke="#2457d6" stroke-width="3" marker-end="url(#arr-blue)"/>
+    <text x="210" y="215" font-size="13" font-weight="bold" fill="#2457d6">F_t</text>
+
+    <!-- Пояснення площі -->
+    <text x="190" y="255" font-size="13" fill="#1a1a1a" text-anchor="middle">Площа контакту: S = a × b</text>
+    <text x="190" y="280" font-size="12" fill="#6b7280" text-anchor="middle">Крихкість шару: критично до зазору</text>
+    <text x="190" y="302" font-size="12" fill="#27ae60" font-weight="bold" text-anchor="middle">Основна міцность на відрив</text>
+  </g>
+
+  <!-- ПРАВА ЧАСТИНА: На зсув (Shear) -->
+  <g transform="translate(520, 90)">
+    <!-- Панель тло -->
+    <rect x="0" y="0" width="380" height="330" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+    
+    <text x="190" y="30" font-size="16" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Б. Навантаження на зсув</text>
+
+    <!-- Верхня деталь зсув -->
+    <rect x="90" y="70" width="140" height="60" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+    <text x="160" y="105" font-size="13" fill="#1a1a1a" text-anchor="middle">Верхня деталь</text>
+
+    <!-- Нижня деталь зсув (зміщена вправо відносно перекриття) -->
+    <rect x="130" y="138" width="140" height="60" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+    <text x="200" y="173" font-size="13" fill="#1a1a1a" text-anchor="middle">Нижня деталь</text>
+
+    <!-- Клейовий шар у зоні перекриття -->
+    <rect x="130" y="130" width="100" height="10" fill="#27ae60" rx="2"/>
+    <text x="245" y="138" font-size="12" fill="#6b7280">зсувний шов</text>
+
+    <!-- Вектори сил зсуву -->
+    <line x1="60" y1="100" x2="85" y2="100" stroke="#27ae60" stroke-width="3" marker-end="url(#arr-green)"/>
+    <text x="45" y="105" font-size="13" font-weight="bold" fill="#27ae60">F_s</text>
+
+    <line x1="290" y1="168" x2="265" y2="168" stroke="#27ae60" stroke-width="3" marker-end="url(#arr-green)"/>
+    <text x="300" y="173" font-size="13" font-weight="bold" fill="#27ae60">F_s</text>
+
+    <!-- Пояснення площі -->
+    <text x="190" y="255" font-size="13" fill="#1a1a1a" text-anchor="middle">Робоча площа зсуву: A_s = b × L_k</text>
+    <text x="190" y="280" font-size="12" fill="#6b7280" text-anchor="middle">Ціаноакрилати працюють найкраще</text>
+    <text x="190" y="302" font-size="12" fill="#27ae60" font-weight="bold" text-anchor="middle">Найвища стійкість з'єднання</text>
+  </g>
+</svg>

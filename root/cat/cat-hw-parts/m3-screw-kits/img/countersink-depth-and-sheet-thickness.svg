@@ -1,0 +1,106 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Підкладка -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Маркери для стрілок -->
+  <defs>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Глибина зенкування під М3 у листах різної товщини</text>
+  <text x="480" y="60" font-size="13" fill="#6b7280" text-anchor="middle">Порівняння монтажу в деталях товщиною 3.0 мм, 2.0 мм та тонкому листі 1.2 мм із дефектом ножового краю (knife-edge)</text>
+
+  <!-- ================= ЗОНА А: Товстий матеріал (t = 3.0 мм) ================= -->
+  <rect x="30" y="80" width="280" height="350" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="40" y="90" width="260" height="32" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="170" y="111" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Зона А: t = 3.0 мм — Норма</text>
+
+  <!-- Деталь розріз (Зона А) -->
+  <path d="M 60,170 L 140,170 L 170,200 L 200,170 L 280,170 L 280,310 L 60,310 Z" fill="#e2e8f0" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="160" y1="200" x2="160" y2="310" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="180" y1="200" x2="180" y2="310" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Головка гвинта DIN 7991 M3 -->
+  <polygon points="135,145 205,145 180,170 160,170" fill="#2457d6" opacity="0.85" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="167" y="130" width="6" height="15" fill="#1a1a1a"/>
+
+  <!-- Розміри зона А -->
+  <line x1="90" y1="170" x2="90" y2="200" stroke="#2457d6" stroke-width="1.5" marker-start="url(#arr-blue)" marker-end="url(#arr-blue)"/>
+  <text x="45" y="165" font-size="12" fill="#2457d6" font-weight="bold">h_c=1.3</text>
+
+  <line x1="90" y1="200" x2="90" y2="310" stroke="#27ae60" stroke-width="1.5" marker-start="url(#arr-green)" marker-end="url(#arr-green)"/>
+  <text x="95" y="260" font-size="12" fill="#27ae60" font-weight="bold">t_cyl=1.7</text>
+
+  <!-- Текст опису А -->
+  <text x="45" y="335" font-size="11" fill="#1a1a1a">• Конус h_c = 1.30 мм (90°)</text>
+  <text x="45" y="353" font-size="11" fill="#1a1a1a">• Поясок t_cyl = 1.70 мм (>0.5t)</text>
+  <text x="45" y="371" font-size="11" fill="#27ae60" font-weight="bold">• Ідеально врівень, макс. міцність</text>
+
+
+  <!-- ================= ЗОНА Б: Гранична товщина (t = 1.8-2.0 мм) ================= -->
+  <rect x="340" y="80" width="280" height="350" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="350" y="90" width="260" height="32" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="480" y="111" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Зона Б: t = 2.0 мм — Допустимо</text>
+
+  <!-- Деталь розріз (Зона Б) -->
+  <path d="M 370,170 L 450,170 L 480,200 L 510,170 L 590,170 L 590,290 L 370,290 Z" fill="#e2e8f0" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="470" y1="200" x2="470" y2="290" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="490" y1="200" x2="490" y2="290" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Головка гвинта -->
+  <polygon points="445,145 515,145 490,170 470,170" fill="#2457d6" opacity="0.85" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="477" y="130" width="6" height="15" fill="#1a1a1a"/>
+
+  <!-- Розміри зона Б -->
+  <line x1="400" y1="170" x2="400" y2="200" stroke="#2457d6" stroke-width="1.5" marker-start="url(#arr-blue)" marker-end="url(#arr-blue)"/>
+  <text x="355" y="165" font-size="12" fill="#2457d6" font-weight="bold">h_c=1.3</text>
+
+  <line x1="400" y1="200" x2="400" y2="290" stroke="#2457d6" stroke-width="1.5" marker-start="url(#arr-blue)" marker-end="url(#arr-blue)"/>
+  <text x="405" y="250" font-size="12" fill="#2457d6" font-weight="bold">t_cyl=0.7</text>
+
+  <!-- Текст опису Б -->
+  <text x="355" y="315" font-size="11" fill="#1a1a1a">• Конус h_c = 1.30 мм</text>
+  <text x="355" y="333" font-size="11" fill="#1a1a1a">• Залишковий поясок t_cyl = 0.7 мм</text>
+  <text x="355" y="351" font-size="11" fill="#1a1a1a">• Достатньо при M ≤ 0.8 Н·м</text>
+  <text x="355" y="369" font-size="11" fill="#2457d6" font-weight="bold">• Граничний режим монтажу</text>
+
+
+  <!-- ================= ЗОНА В: Тонкий лист (t = 1.2 мм) ================= -->
+  <rect x="650" y="80" width="280" height="350" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="660" y="90" width="260" height="32" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="790" y="111" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">Зона В: t = 1.2 мм — Дефект</text>
+
+  <!-- Деталь розріз (Зона В) - зрізаний гострий край -->
+  <path d="M 680,170 L 760,170 L 790,200 L 820,170 L 900,170 L 900,240 L 680,240 Z" fill="#e2e8f0" stroke="#c0392b" stroke-width="2"/>
+  <circle cx="790" cy="200" r="3" fill="#c0392b"/>
+
+  <!-- Головка гвинта провалена -->
+  <polygon points="755,148 825,148 790,183 790,170" fill="#c0392b" opacity="0.85" stroke="#c0392b" stroke-width="1.5"/>
+  <rect x="787" y="133" width="6" height="15" fill="#1a1a1a"/>
+
+  <!-- Розміри зона В -->
+  <line x1="700" y1="170" x2="700" y2="240" stroke="#c0392b" stroke-width="1.5" marker-start="url(#arr-red)" marker-end="url(#arr-red)"/>
+  <text x="665" y="165" font-size="12" fill="#c0392b" font-weight="bold">t=1.2</text>
+
+  <line x1="835" y1="190" x2="805" y2="198" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <text x="840" y="188" font-size="11" fill="#c0392b" font-weight="bold">Ножовий край</text>
+
+  <!-- Текст опису В -->
+  <text x="665" y="260" font-size="11" fill="#c0392b" font-weight="bold">• h_c (1.3) > товщини t (1.2)!</text>
+  <text x="665" y="278" font-size="11" fill="#c0392b" font-weight="bold">• Циліндричний поясок відсутній</text>
+  <text x="665" y="296" font-size="11" fill="#1a1a1a">• Дефект «ножовий край» (knife-edge)</text>
+  <text x="665" y="314" font-size="11" fill="#1a1a1a">• Ризик прорізання та зриву різьби</text>
+  <text x="665" y="332" font-size="11" fill="#2457d6">• Рекомендація: пуклівка / ISO 7380</text>
+</svg>

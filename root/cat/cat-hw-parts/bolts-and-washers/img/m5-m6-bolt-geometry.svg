@@ -1,0 +1,182 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 500" width="960" height="500" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="500" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Геометричні параметри та профіль різьби болта М5 / М6</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Кут профілю 60°, крок P і діаметри d та d₃ визначають площу перерізу As і розподіл силових навантажень</text>
+
+  <!-- PANEL 1: BOLT LONGITUDINAL SECTION -->
+  <rect x="24" y="72" width="536" height="404" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="34" y="82" width="516" height="36" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="292" y="105" font-size="14" font-weight="700" fill="#2457d6" text-anchor="middle">1. Поздовжній розріз та розміри стержня болта</text>
+
+  <!-- Canvas for Bolt Graphic -->
+  <rect x="34" y="130" width="516" height="232" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Symmetry Center Line -->
+  <line x1="48" y1="230" x2="536" y2="230" stroke="#94a3b8" stroke-width="1.2" stroke-dasharray="8,4,2,4"/>
+
+  <!-- Hex Head: x=58..95, y=180..280 -->
+  <path d="M 58 190 L 68 180 L 95 180 L 95 280 L 68 280 L 58 270 Z" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="58" y1="208" x2="95" y2="208" stroke="#2457d6" stroke-width="1"/>
+  <line x1="58" y1="252" x2="95" y2="252" stroke="#2457d6" stroke-width="1"/>
+
+  <!-- Smooth Shank: x=95..190, y=202..258 -->
+  <path d="M 95 202 L 190 202 L 190 258 L 95 258 Z" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+
+  <!-- Transition Fillet Highlight (Stress Concentration) -->
+  <path d="M 95 198 Q 97 202 101 202" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+  <path d="M 95 262 Q 97 258 101 258" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+
+  <!-- Threaded Shank: x=190..450 -->
+  <path d="M 190 202 L 190 212 
+           L 200 202 L 210 212 
+           L 220 202 L 230 212 
+           L 240 202 L 250 212 
+           L 260 202 L 270 212 
+           L 280 202 L 290 212 
+           L 300 202 L 310 212 
+           L 320 202 L 330 212 
+           L 340 202 L 350 212 
+           L 360 202 L 370 212 
+           L 380 202 L 390 212 
+           L 400 202 L 410 212 
+           L 420 202 L 430 212 
+           L 440 202 L 446 208 L 452 216 L 452 244 L 446 252 L 440 258 
+           L 430 248 L 420 258 
+           L 410 248 L 400 258 
+           L 390 248 L 380 258 
+           L 370 248 L 360 258 
+           L 350 248 L 340 258 
+           L 330 248 L 320 258 
+           L 310 248 L 300 258 
+           L 290 248 L 280 258 
+           L 270 248 L 260 258 
+           L 250 248 L 240 258 
+           L 230 248 L 220 258 
+           L 210 248 L 200 258 
+           L 190 248 L 190 258 Z" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+
+  <!-- Core boundary (dashed lines showing d3) -->
+  <line x1="190" y1="212" x2="446" y2="212" stroke="#2457d6" stroke-width="1" stroke-dasharray="3 2" opacity="0.6"/>
+  <line x1="190" y1="248" x2="446" y2="248" stroke="#2457d6" stroke-width="1" stroke-dasharray="3 2" opacity="0.6"/>
+
+  <!-- Preload force vectors (tensile stretching of bolt shank) -->
+  <line x1="130" y1="230" x2="110" y2="230" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <line x1="155" y1="230" x2="175" y2="230" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="142" y="222" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">Fp</text>
+
+  <!-- Clamping reaction under head -->
+  <line x1="102" y1="188" x2="95" y2="188" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <line x1="102" y1="272" x2="95" y2="272" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- DIMENSIONS on Bolt Graphic -->
+  <!-- 1. Diameter d (Nominal Outer Diameter) -->
+  <line x1="140" y1="202" x2="140" y2="170" stroke="#6b7280" stroke-width="1"/>
+  <line x1="170" y1="202" x2="170" y2="170" stroke="#6b7280" stroke-width="1"/>
+  <text x="135" y="160" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">d (M5 / M6)</text>
+  <text x="135" y="146" font-size="12" fill="#6b7280" text-anchor="middle">номінальний діаметр</text>
+
+  <!-- 2. Thread Pitch P -->
+  <line x1="240" y1="200" x2="240" y2="168" stroke="#6b7280" stroke-width="1"/>
+  <line x1="260" y1="200" x2="260" y2="168" stroke="#6b7280" stroke-width="1"/>
+  <line x1="240" y1="172" x2="260" y2="172" stroke="#2457d6" stroke-width="1.2" marker-start="url(#arr-blue)" marker-end="url(#arr-blue)"/>
+  <text x="250" y="160" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">P (крок)</text>
+  <text x="250" y="146" font-size="12" fill="#6b7280" text-anchor="middle">0.8 / 1.0 мм</text>
+
+  <!-- 3. Minor diameter d3 callout -->
+  <line x1="390" y1="212" x2="415" y2="168" stroke="#6b7280" stroke-width="1"/>
+  <text x="420" y="160" font-size="12" font-weight="700" fill="#2457d6" text-anchor="start">d₃ (внутрішній Ø)</text>
+  <text x="420" y="146" font-size="12" fill="#6b7280" text-anchor="start">площа розтягу As</text>
+
+  <!-- 4. Fillet callout -->
+  <line x1="97" y1="200" x2="80" y2="168" stroke="#c0392b" stroke-width="1"/>
+  <text x="50" y="160" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">Галтель r</text>
+  <text x="50" y="146" font-size="12" fill="#6b7280" text-anchor="middle">зона втоми</text>
+
+  <!-- 5. Thread Length Lt (below bolt) -->
+  <line x1="190" y1="260" x2="190" y2="298" stroke="#6b7280" stroke-width="1"/>
+  <line x1="452" y1="246" x2="452" y2="298" stroke="#6b7280" stroke-width="1"/>
+  <line x1="192" y1="294" x2="450" y2="294" stroke="#1a1a1a" stroke-width="1.2" marker-start="url(#arr)" marker-end="url(#arr)"/>
+  <text x="321" y="312" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Lt (довжина нарізаної частини)</text>
+
+  <!-- 6. Total Shank Length L (below Lt) -->
+  <line x1="95" y1="282" x2="95" y2="340" stroke="#6b7280" stroke-width="1"/>
+  <line x1="452" y1="300" x2="452" y2="340" stroke="#6b7280" stroke-width="1"/>
+  <line x1="97" y1="334" x2="450" y2="334" stroke="#1a1a1a" stroke-width="1.2" marker-start="url(#arr)" marker-end="url(#arr)"/>
+  <text x="273" y="352" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">L (номінальна довжина стержня болта)</text>
+
+  <!-- Bottom Explanatory Card in Panel 1 -->
+  <rect x="34" y="374" width="516" height="92" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="48" y="394" font-size="12" font-weight="700" fill="#1a1a1a">Конструкційні залежності стержня болта:</text>
+  <text x="48" y="414" font-size="12" fill="#1a1a1a">• Номінальний зовнішній діаметр: d = 5.0 мм (М5) та d = 6.0 мм (М6)</text>
+  <text x="48" y="432" font-size="12" fill="#1a1a1a">• Площа небезпечного перерізу As розраховується за внутрішнім діаметром d₃</text>
+  <text x="48" y="450" font-size="12" fill="#6b7280">• Осьовий натяг Fp розтягує стержень; радіус галтелі r запобігає відриву головки</text>
+
+  <!-- PANEL 2: ISO THREAD PROFILE 60 DEG -->
+  <rect x="574" y="72" width="362" height="210" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="584" y="82" width="342" height="36" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="755" y="105" font-size="14" font-weight="700" fill="#2457d6" text-anchor="middle">2. Профіль різьби ISO (кут 60°)</text>
+
+  <!-- Drawing Box for Thread Profile -->
+  <rect x="584" y="128" width="342" height="144" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Two Enlarged Thread Teeth: x=600..780 -->
+  <path d="M 600 236 L 632 165 L 648 165 L 680 236 Q 690 242 700 236 L 732 165 L 748 165 L 780 236" fill="none" stroke="#2457d6" stroke-width="2"/>
+  <!-- Light background fill below teeth -->
+  <path d="M 600 236 L 632 165 L 648 165 L 680 236 Q 690 242 700 236 L 732 165 L 748 165 L 780 236 L 780 242 L 600 242 Z" fill="#eaf0fd" opacity="0.4"/>
+
+  <!-- Angle 60° Arc & Label -->
+  <path d="M 666 210 Q 690 220 714 210" fill="none" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="690" y="204" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">60°</text>
+  <text x="690" y="190" font-size="12" fill="#6b7280" text-anchor="middle">кут профілю</text>
+
+  <!-- Pitch P dimension between crests -->
+  <line x1="640" y1="162" x2="640" y2="142" stroke="#6b7280" stroke-width="1"/>
+  <line x1="740" y1="162" x2="740" y2="142" stroke="#6b7280" stroke-width="1"/>
+  <line x1="642" y1="145" x2="738" y2="145" stroke="#2457d6" stroke-width="1.2" marker-start="url(#arr-blue)" marker-end="url(#arr-blue)"/>
+  <text x="690" y="139" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">P (крок різьби)</text>
+
+  <!-- Normal Force Arrow on loaded flank -->
+  <line x1="780" y1="172" x2="720" y2="204" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  
+  <!-- Flank Labels on Right Side (x=792..920 is clear of teeth) -->
+  <text x="792" y="176" font-size="12" font-weight="700" fill="#27ae60" text-anchor="start">FN (сила контакту)</text>
+  <text x="792" y="194" font-size="12" fill="#6b7280" text-anchor="start">кут 30° до осі болта</text>
+
+  <!-- Rounded Root Callout -->
+  <text x="690" y="258" font-size="12" fill="#6b7280" text-anchor="middle">Радіусна западина R = 0.144P</text>
+
+  <!-- PANEL 3: FORCE DISTRIBUTION & M5 vs M6 COMPARISON -->
+  <rect x="574" y="294" width="362" height="182" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="584" y="304" width="342" height="36" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="755" y="327" font-size="14" font-weight="700" fill="#27ae60" text-anchor="middle">3. Силові точки та параметри М5 vs М6</text>
+
+  <!-- Thread Load Share Card -->
+  <rect x="584" y="348" width="342" height="54" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="594" y="366" font-size="12" font-weight="700" fill="#c0392b">Розподіл осьового натягу Fp по витках:</text>
+  <text x="594" y="382" font-size="12" fill="#1a1a1a">• 1-й виток: ~34%  │  2-й виток: ~23%  │  3-й виток: ~16%</text>
+  <text x="594" y="396" font-size="12" fill="#6b7280">Перші 2 витки сприймають понад 55% загального навантаження</text>
+
+  <!-- Technical Specs Comparison Box -->
+  <rect x="584" y="410" width="342" height="56" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="594" y="428" font-size="12" font-weight="700" fill="#2457d6">Порівняння силових характеристик (клас 8.8):</text>
+  <text x="594" y="444" font-size="12" fill="#1a1a1a">М5: d=5 мм, P=0.8 мм, As ≈ 14.2 мм² → Fp = 6.8 кН</text>
+  <text x="594" y="458" font-size="12" fill="#1a1a1a">М6: d=6 мм, P=1.0 мм, As ≈ 20.1 мм² → Fp = 9.6 кН (+41% As)</text>
+</svg>

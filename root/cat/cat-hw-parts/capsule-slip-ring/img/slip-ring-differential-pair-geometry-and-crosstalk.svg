@@ -1,0 +1,117 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="40" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Геометрія диференційної пари у ковзному кільці</text>
+  <text x="480" y="60" text-anchor="middle" font-size="13" fill="#6b7280">Заземлювальні кільця локалізують електричне поле та екранують диференційний сигнал від міжканальних завад</text>
+
+  <!-- Розміри та позначки -->
+  <text x="430" y="85" text-anchor="middle" font-size="14" font-weight="bold" fill="#2457d6">Z<tspan baseline-shift="sub" font-size="10">diff</tspan> = 100 Ω</text>
+  <line x1="380" y1="95" x2="380" y2="120" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="480" y1="95" x2="480" y2="120" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="430" y1="105" x2="380" y2="105" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <line x1="430" y1="105" x2="480" y2="105" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Пояснення екранування -->
+  <text x="580" y="90" text-anchor="middle" font-size="13" fill="#27ae60" font-weight="bold">Екран від завад</text>
+  <text x="580" y="110" text-anchor="middle" font-size="13" fill="#6b7280">GND замикає поле Tx+</text>
+  <line x1="580" y1="120" x2="580" y2="135" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- Ізолятори (діелектрик) -->
+  <rect x="310" y="260" width="40" height="60" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="410" y="260" width="40" height="60" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="510" y="260" width="40" height="60" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="610" y="260" width="40" height="60" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Електричне поле (повітряний зазор) -->
+  <path d="M 370,240 Q 330,210 290,240" fill="none" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="3 3" marker-end="url(#arr-gray)"/>
+  <path d="M 390,240 Q 430,200 470,240" fill="none" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4 4" marker-end="url(#arr-blue)"/>
+  <path d="M 490,240 Q 530,210 570,240" fill="none" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="3 3" marker-end="url(#arr-gray)"/>
+  <path d="M 670,240 Q 630,210 590,240" fill="none" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3 3" marker-end="url(#arr-red)"/>
+
+  <!-- Електричне поле (в ізоляторі) -->
+  <path d="M 350,270 L 310,270" fill="none" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="3 3" marker-end="url(#arr-gray)"/>
+  <path d="M 350,290 L 310,290" fill="none" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="3 3" marker-end="url(#arr-gray)"/>
+  <path d="M 350,310 L 310,310" fill="none" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="3 3" marker-end="url(#arr-gray)"/>
+  
+  <path d="M 410,270 L 450,270" fill="none" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4 4" marker-end="url(#arr-blue)"/>
+  <path d="M 410,290 L 450,290" fill="none" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4 4" marker-end="url(#arr-blue)"/>
+  <path d="M 410,310 L 450,310" fill="none" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4 4" marker-end="url(#arr-blue)"/>
+
+  <path d="M 510,270 L 550,270" fill="none" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="3 3" marker-end="url(#arr-gray)"/>
+  <path d="M 510,290 L 550,290" fill="none" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="3 3" marker-end="url(#arr-gray)"/>
+  <path d="M 510,310 L 550,310" fill="none" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="3 3" marker-end="url(#arr-gray)"/>
+
+  <path d="M 650,270 L 610,270" fill="none" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3 3" marker-end="url(#arr-red)"/>
+  <path d="M 650,290 L 610,290" fill="none" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3 3" marker-end="url(#arr-red)"/>
+  <path d="M 650,310 L 610,310" fill="none" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3 3" marker-end="url(#arr-red)"/>
+
+  <!-- Щітки -->
+  <path d="M 272,140 L 288,140 L 288,240 L 272,240 Z" fill="#6b7280" stroke="#1a1a1a" stroke-width="2"/>
+  <path d="M 372,140 L 388,140 L 388,240 L 372,240 Z" fill="#6b7280" stroke="#1a1a1a" stroke-width="2"/>
+  <path d="M 472,140 L 488,140 L 488,240 L 472,240 Z" fill="#6b7280" stroke="#1a1a1a" stroke-width="2"/>
+  <path d="M 572,140 L 588,140 L 588,240 L 572,240 Z" fill="#6b7280" stroke="#1a1a1a" stroke-width="2"/>
+  <path d="M 672,140 L 688,140 L 688,240 L 672,240 Z" fill="#6b7280" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Контактні кільця (переріз) -->
+  <rect x="250" y="240" width="60" height="80" fill="#d0d7de" stroke="#1a1a1a" stroke-width="2"/>
+  <rect x="350" y="240" width="60" height="80" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <rect x="450" y="240" width="60" height="80" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <rect x="550" y="240" width="60" height="80" fill="#d0d7de" stroke="#1a1a1a" stroke-width="2"/>
+  <rect x="650" y="240" width="60" height="80" fill="#fdecea" stroke="#c0392b" stroke-width="2"/>
+
+  <!-- Написи на кільцях -->
+  <text x="280" y="285" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">GND</text>
+  <text x="380" y="285" text-anchor="middle" font-size="14" font-weight="bold" fill="#2457d6">D+</text>
+  <text x="480" y="285" text-anchor="middle" font-size="14" font-weight="bold" fill="#2457d6">D-</text>
+  <text x="580" y="285" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">GND</text>
+  <text x="680" y="285" text-anchor="middle" font-size="14" font-weight="bold" fill="#c0392b">Tx+</text>
+
+  <!-- Паразитні ємності -->
+  <line x1="380" y1="320" x2="380" y2="350" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="480" y1="320" x2="480" y2="350" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="380" y1="350" x2="420" y2="350" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="480" y1="350" x2="440" y2="350" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="420" y1="340" x2="420" y2="360" stroke="#2457d6" stroke-width="2"/>
+  <line x1="440" y1="340" x2="440" y2="360" stroke="#2457d6" stroke-width="2"/>
+  <text x="430" y="375" text-anchor="middle" font-size="14" fill="#2457d6">C<tspan baseline-shift="sub" font-size="10">diff</tspan></text>
+
+  <line x1="280" y1="320" x2="280" y2="380" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="380" y1="350" x2="380" y2="380" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="280" y1="380" x2="320" y2="380" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="380" y1="380" x2="340" y2="380" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="320" y1="370" x2="320" y2="390" stroke="#6b7280" stroke-width="2"/>
+  <line x1="340" y1="370" x2="340" y2="390" stroke="#6b7280" stroke-width="2"/>
+  <text x="330" y="405" text-anchor="middle" font-size="14" fill="#6b7280">C<tspan baseline-shift="sub" font-size="10">gnd</tspan></text>
+
+  <line x1="480" y1="350" x2="480" y2="380" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="580" y1="320" x2="580" y2="380" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="480" y1="380" x2="520" y2="380" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="580" y1="380" x2="540" y2="380" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="520" y1="370" x2="520" y2="390" stroke="#6b7280" stroke-width="2"/>
+  <line x1="540" y1="370" x2="540" y2="390" stroke="#6b7280" stroke-width="2"/>
+  <text x="530" y="405" text-anchor="middle" font-size="14" fill="#6b7280">C<tspan baseline-shift="sub" font-size="10">gnd</tspan></text>
+
+  <line x1="580" y1="380" x2="580" y2="410" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="680" y1="320" x2="680" y2="410" stroke="#c0392b" stroke-width="1.5"/>
+  <line x1="580" y1="410" x2="620" y2="410" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="680" y1="410" x2="640" y2="410" stroke="#c0392b" stroke-width="1.5"/>
+  <line x1="620" y1="400" x2="620" y2="420" stroke="#6b7280" stroke-width="2"/>
+  <line x1="640" y1="400" x2="640" y2="420" stroke="#c0392b" stroke-width="2"/>
+  <text x="630" y="435" text-anchor="middle" font-size="14" fill="#c0392b">C<tspan baseline-shift="sub" font-size="10">xtalk</tspan></text>
+</svg>

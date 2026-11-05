@@ -1,0 +1,179 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Background canvas -->
+  <rect x="0" y="0" width="960" height="520" fill="#ffffff"/>
+
+  <!-- Main Title & Subtitle -->
+  <text x="480" y="30" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Розподіл контактного тиску під головкою болта та плоскою шайбою</text>
+  <text x="480" y="50" font-size="13" fill="#6b7280" text-anchor="middle">Шайба розширює опорну площу, знижує піковий тиск p і запобігає зминанню деталей</text>
+
+  <!-- ==================== LEFT COLUMN: WITHOUT WASHER ==================== -->
+  <rect x="24" y="72" width="446" height="428" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Left Header Badge -->
+  <rect x="38" y="84" width="418" height="34" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="247" y="99" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">БЕЗ ШАЙБИ: високий локальний тиск</text>
+  <text x="247" y="112" font-size="12" fill="#6b7280" text-anchor="middle">Концентрація напружень під головкою, ризик пластичного зминання</text>
+
+  <!-- Left Graphic Box -->
+  <rect x="38" y="130" width="418" height="220" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Left: Clamped plates (left & right sides of clearance hole) -->
+  <!-- Left plate section: x from 68 to 235 -->
+  <rect x="68" y="186" width="167" height="30" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="68" y="216" width="167" height="30" fill="#eef2f6" stroke="#d0d7de" stroke-width="1"/>
+  <!-- Right plate section: x from 259 to 426 -->
+  <rect x="259" y="186" width="167" height="30" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="259" y="216" width="167" height="30" fill="#eef2f6" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Left: Rötscher's stress cone (reddish tint) -->
+  <polygon points="215,186 180,246 235,246 235,186" fill="#fdecea"/>
+  <line x1="215" y1="186" x2="180" y2="246" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3 3"/>
+  <polygon points="279,186 314,246 259,246 259,186" fill="#fdecea"/>
+  <line x1="279" y1="186" x2="314" y2="246" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3 3"/>
+
+  <!-- Left: Bolt Shank in clearance hole -->
+  <rect x="238" y="186" width="18" height="60" fill="#cbd5e1" stroke="#64748b" stroke-width="1"/>
+
+  <!-- Left: Bolt Head -->
+  <rect x="215" y="152" width="64" height="34" rx="2" fill="#cbd5e1" stroke="#475569" stroke-width="1.5"/>
+
+  <!-- Left: Force F_0 arrows on bolt head -->
+  <line x1="247" y1="136" x2="247" y2="150" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <line x1="225" y1="138" x2="225" y2="150" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <line x1="269" y1="138" x2="269" y2="150" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <text x="282" y="146" font-size="12" font-weight="bold" fill="#c0392b">F_0 (натяг)</text>
+
+  <!-- Left: Bolt head pointer -->
+  <text x="208" y="172" font-size="12" fill="#6b7280" text-anchor="end">Головка болта</text>
+  <line x1="210" y1="168" x2="215" y2="168" stroke="#6b7280" stroke-width="1"/>
+
+  <!-- Left labels for plates -->
+  <text x="76" y="202" font-size="12" fill="#6b7280">Деталь 1</text>
+  <text x="76" y="234" font-size="12" fill="#6b7280">Деталь 2</text>
+  <!-- Cone label outside the plates -->
+  <text x="325" y="202" font-size="12" fill="#c0392b">Конус 2α ≈ 60°</text>
+  <text x="325" y="234" font-size="12" fill="#6b7280">вузька база</text>
+
+  <!-- Left: Contact Pressure Curve (епюра тиску p) -->
+  <!-- Axis r (horizontal) -->
+  <line x1="110" y1="324" x2="384" y2="324" stroke="#6b7280" stroke-width="1" marker-end="url(#arr-gray)"/>
+  <text x="390" y="328" font-size="12" fill="#6b7280">r</text>
+  <!-- Axis p (vertical) -->
+  <line x1="120" y1="328" x2="120" y2="262" stroke="#6b7280" stroke-width="1" marker-end="url(#arr-gray)"/>
+  <text x="120" y="257" font-size="12" fill="#6b7280" text-anchor="middle">p</text>
+
+  <!-- Allowable stress line [p] -->
+  <line x1="120" y1="292" x2="374" y2="292" stroke="#6b7280" stroke-width="1" stroke-dasharray="3 3"/>
+  <text x="125" y="287" font-size="12" fill="#6b7280">[p] допустимий</text>
+
+  <!-- Left: Pressure Profile Polygons (peaks above [p]) -->
+  <polygon points="215,324 215,286 220,268 230,274 235,282 235,324" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <polygon points="259,324 259,282 264,274 274,268 279,286 279,324" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+
+  <!-- Peak label placed above the curves -->
+  <text x="247" y="258" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">p_max &gt;&gt; [p]</text>
+  <text x="247" y="340" font-size="12" fill="#c0392b" text-anchor="middle">Зона пластичної деформації</text>
+
+  <!-- Left Bottom Summary Box -->
+  <rect x="38" y="362" width="418" height="126" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="52" y="384" font-size="12" fill="#1a1a1a"><tspan font-weight="bold" fill="#c0392b">• Площа контакту:</tspan> мала (A_1 — лише кільце під головкою)</text>
+  <text x="52" y="410" font-size="12" fill="#1a1a1a"><tspan font-weight="bold" fill="#c0392b">• Питомий тиск:</tspan> p_max = F_0 / A_1 &gt;&gt; [p] (ризик зминання)</text>
+  <text x="52" y="436" font-size="12" fill="#1a1a1a"><tspan font-weight="bold" fill="#c0392b">• Конус навантаження:</tspan> вузька зона стиснення в тілі деталі</text>
+  <text x="52" y="462" font-size="12" fill="#1a1a1a"><tspan font-weight="bold" fill="#c0392b">• Наслідки:</tspan> пошкодження поверхні, ослаблення натягу F_0</text>
+
+  <!-- ==================== RIGHT COLUMN: WITH FLAT WASHER ==================== -->
+  <rect x="490" y="72" width="446" height="428" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Right Header Badge -->
+  <rect x="504" y="84" width="418" height="34" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="713" y="99" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">З ПЛОСКОЮ ШАЙБОЮ: безпечний розподіл</text>
+  <text x="713" y="112" font-size="12" fill="#6b7280" text-anchor="middle">Шайба збільшує площу — тиск нижче межі текучості</text>
+
+  <!-- Right Graphic Box -->
+  <rect x="504" y="130" width="418" height="220" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Right: Clamped plates (left & right sides of clearance hole) -->
+  <!-- Left plate section: x from 534 to 701 -->
+  <rect x="534" y="186" width="167" height="30" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="534" y="216" width="167" height="30" fill="#eef2f6" stroke="#d0d7de" stroke-width="1"/>
+  <!-- Right plate section: x from 725 to 892 -->
+  <rect x="725" y="186" width="167" height="30" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="725" y="216" width="167" height="30" fill="#eef2f6" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Right: Rötscher's stress cone (greenish tint, wider) -->
+  <polygon points="658,186 623,246 701,246 701,186" fill="#e9f7ef"/>
+  <line x1="658" y1="186" x2="623" y2="246" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="3 3"/>
+  <polygon points="768,186 803,246 725,246 725,186" fill="#e9f7ef"/>
+  <line x1="768" y1="186" x2="803" y2="246" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="3 3"/>
+
+  <!-- Right: Bolt Shank in clearance hole -->
+  <rect x="704" y="186" width="18" height="60" fill="#cbd5e1" stroke="#64748b" stroke-width="1"/>
+
+  <!-- Right: Flat Washer (between bolt head and plate) -->
+  <!-- Left washer half: from 658 to 701 -->
+  <rect x="658" y="176" width="43" height="10" rx="1" fill="#e2e8f0" stroke="#2457d6" stroke-width="1.5"/>
+  <!-- Right washer half: from 725 to 768 -->
+  <rect x="725" y="176" width="43" height="10" rx="1" fill="#e2e8f0" stroke="#2457d6" stroke-width="1.5"/>
+
+  <!-- Right: Bolt Head (sits on washer) -->
+  <rect x="681" y="152" width="64" height="24" rx="2" fill="#cbd5e1" stroke="#475569" stroke-width="1.5"/>
+
+  <!-- Right: Force F_0 arrows on bolt head -->
+  <line x1="713" y1="136" x2="713" y2="150" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <line x1="691" y1="138" x2="691" y2="150" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <line x1="735" y1="138" x2="735" y2="150" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <text x="748" y="146" font-size="12" font-weight="bold" fill="#27ae60">F_0 (той самий натяг)</text>
+
+  <!-- Right: Washer label and pointer -->
+  <text x="650" y="184" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">Плоска шайба</text>
+  <line x1="652" y1="181" x2="658" y2="181" stroke="#2457d6" stroke-width="1.5"/>
+
+  <!-- Right labels for plates -->
+  <text x="542" y="202" font-size="12" fill="#6b7280">Деталь 1</text>
+  <text x="542" y="234" font-size="12" fill="#6b7280">Деталь 2</text>
+  <!-- Cone label outside the plates -->
+  <text x="812" y="202" font-size="12" fill="#27ae60">Конус 2α ≈ 60°</text>
+  <text x="812" y="234" font-size="12" fill="#6b7280">широка база</text>
+
+  <!-- Right: Contact Pressure Curve (епюра тиску p) -->
+  <!-- Axis r (horizontal) -->
+  <line x1="576" y1="324" x2="850" y2="324" stroke="#6b7280" stroke-width="1" marker-end="url(#arr-gray)"/>
+  <text x="856" y="328" font-size="12" fill="#6b7280">r</text>
+  <!-- Axis p (vertical) -->
+  <line x1="586" y1="328" x2="586" y2="262" stroke="#6b7280" stroke-width="1" marker-end="url(#arr-gray)"/>
+  <text x="586" y="257" font-size="12" fill="#6b7280" text-anchor="middle">p</text>
+
+  <!-- Allowable stress line [p] -->
+  <line x1="586" y1="292" x2="840" y2="292" stroke="#6b7280" stroke-width="1" stroke-dasharray="3 3"/>
+  <text x="591" y="287" font-size="12" fill="#6b7280">[p] допустимий</text>
+
+  <!-- Right: Pressure Profile Polygons (well below [p]) -->
+  <polygon points="658,324 658,308 672,304 690,305 701,310 701,324" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <polygon points="725,324 725,310 736,305 754,304 768,308 768,324" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+
+  <!-- Peak label placed above the curves -->
+  <text x="713" y="258" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">p_max &lt; [p]</text>
+  <text x="713" y="340" font-size="12" fill="#27ae60" text-anchor="middle">Безпечна пружна деформація</text>
+
+  <!-- Right Bottom Summary Box -->
+  <rect x="504" y="362" width="418" height="126" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="518" y="384" font-size="12" fill="#1a1a1a"><tspan font-weight="bold" fill="#27ae60">• Площа контакту:</tspan> збільшена у 2,5–3 рази (A_2 &gt;&gt; A_1)</text>
+  <text x="518" y="410" font-size="12" fill="#1a1a1a"><tspan font-weight="bold" fill="#27ae60">• Питомий тиск:</tspan> p_avg = F_0 / A_2 ≤ [p] (безпечний рівень)</text>
+  <text x="518" y="436" font-size="12" fill="#1a1a1a"><tspan font-weight="bold" fill="#27ae60">• Конус навантаження:</tspan> розширений кут 2α, більший об'єм</text>
+  <text x="518" y="462" font-size="12" fill="#1a1a1a"><tspan font-weight="bold" fill="#27ae60">• Переваги:</tspan> захист матеріалу від тертя, стабільний натяг F_0</text>
+</svg>

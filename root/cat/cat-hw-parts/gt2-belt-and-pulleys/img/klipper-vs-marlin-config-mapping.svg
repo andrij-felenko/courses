@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Порівняння кінематичних параметрів: steps_per_mm (Marlin) проти rotation_distance (Klipper)</text>
+  <text x="480" y="60" font-size="13" fill="#6b7280" text-anchor="middle">Klipper відокремлює чисту механіку від мікрокроку драйвера, тоді як Marlin об'єднує їх в один коефіцієнт</text>
+
+  <!-- ЛІВА ПАНЕЛЬ: Marlin -->
+  <rect x="30" y="85" width="445" height="345" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="45" y="100" width="415" height="36" rx="4" fill="#fdecea"/>
+  <text x="252" y="123" font-size="14" font-weight="bold" fill="#c0392b" text-anchor="middle">Marlin: steps_per_mm (Зв'язана кінематика)</text>
+
+  <text x="60" y="160" font-size="13" fill="#1a1a1a">Формула: steps_per_mm = (кроки × мікрокрок) / (z × P)</text>
+  <text x="60" y="185" font-size="13" fill="#1a1a1a">Приклад: (200 × 16) / (20 × 2) = 3200 / 40 = 80.0</text>
+
+  <!-- Проблема -->
+  <rect x="45" y="205" width="415" height="75" rx="4" fill="white" stroke="#c0392b" stroke-width="1"/>
+  <text x="60" y="230" font-size="12" font-weight="bold" fill="#c0392b">Проблема залежності:</text>
+  <text x="60" y="252" font-size="12" fill="#1a1a1a">Зміна мікрокроку (напр. 1/16 на 1/32) дає 160.0 кроків/мм</text>
+  <text x="60" y="270" font-size="12" fill="#1a1a1a">та вимагає переналаштування M92 та збереження!</text>
+
+  <!-- Конфігурація -->
+  <rect x="45" y="295" width="415" height="65" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="60" y="318" font-size="12" font-weight="bold" fill="#6b7280">Configuration.h:</text>
+  <text x="60" y="338" font-size="11" fill="#1a1a1a" font-family="Consolas, monospace">#define DEFAULT_AXIS_STEPS_PER_UNIT {80, 80, 400, 93}</text>
+
+  <text x="252" y="385" font-size="12" fill="#6b7280" text-anchor="middle">Електроніка й механіка зв'язані в єдине число</text>
+
+
+  <!-- ПРАВА ПАНЕЛЬ: Klipper -->
+  <rect x="485" y="85" width="445" height="345" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="500" y="100" width="415" height="36" rx="4" fill="#e9f7ef"/>
+  <text x="707" y="123" font-size="14" font-weight="bold" fill="#27ae60" text-anchor="middle">Klipper: rotation_distance (Незалежна кінематика)</text>
+
+  <text x="515" y="160" font-size="13" fill="#1a1a1a">Формула: rotation_distance = z × P = 20 × 2.0 = 40.0 мм</text>
+
+  <!-- Конфігурація Klipper -->
+  <rect x="500" y="180" width="415" height="85" rx="4" fill="white" stroke="#27ae60" stroke-width="1"/>
+  <text x="515" y="202" font-size="12" font-weight="bold" fill="#27ae60">[stepper_x]</text>
+  <text x="515" y="222" font-size="12" fill="#1a1a1a" font-family="Consolas, monospace">rotation_distance: 40  # Чиста механіка</text>
+  <text x="515" y="242" font-size="12" fill="#1a1a1a" font-family="Consolas, monospace">microsteps: 16  # Можна міняти на 32/64 без M92!</text>
+
+  <!-- Перевага -->
+  <rect x="500" y="280" width="415" height="80" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="515" y="305" font-size="12" font-weight="bold" fill="#27ae60">Перевага:</text>
+  <text x="515" y="325" font-size="12" fill="#1a1a1a">Зміна режимів драйвера (StealthChop/SpreadCycle)</text>
+  <text x="515" y="343" font-size="12" fill="#1a1a1a">або мікрокроку не руйнує калібрування розміру!</text>
+
+  <text x="707" y="385" font-size="12" fill="#6b7280" text-anchor="middle">Механіка повністю відокремлена від електроніки</text>
+
+</svg>

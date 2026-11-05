@@ -1,0 +1,124 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-main" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Полотно -->
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="28" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Вузол фіксації вклеюваної футорки у панелі з вуглепластику (CFRP)</text>
+  <text x="480" y="48" font-size="13" fill="#6b7280" text-anchor="middle">Епоксидний шар передає зсувні напруження на ламінат без термічної деструкції термореактивної матриці</text>
+
+  <!-- ЛІВА ПАНЕЛЬ: Конструктивний розріз -->
+  <rect x="25" y="68" width="500" height="395" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="45" y="94" font-size="15" font-weight="bold" fill="#1a1a1a">Конструктивний розріз зони вклеювання</text>
+
+  <!-- Ламінат CFRP зліва (x: 50..185, y: 140..370) -->
+  <rect x="50" y="140" width="135" height="230" fill="#2b2d42" stroke="#1a1a1a" stroke-width="1.5"/>
+  <!-- Шари карбону зліва -->
+  <line x1="50" y1="170" x2="185" y2="170" stroke="#4a4e69" stroke-width="1.5" stroke-dasharray="4,2"/>
+  <line x1="50" y1="200" x2="185" y2="200" stroke="#4a4e69" stroke-width="1.5" stroke-dasharray="4,2"/>
+  <line x1="50" y1="230" x2="185" y2="230" stroke="#4a4e69" stroke-width="1.5" stroke-dasharray="4,2"/>
+  <line x1="50" y1="260" x2="185" y2="260" stroke="#4a4e69" stroke-width="1.5" stroke-dasharray="4,2"/>
+  <line x1="50" y1="290" x2="185" y2="290" stroke="#4a4e69" stroke-width="1.5" stroke-dasharray="4,2"/>
+  <line x1="50" y1="320" x2="185" y2="320" stroke="#4a4e69" stroke-width="1.5" stroke-dasharray="4,2"/>
+  <line x1="50" y1="350" x2="185" y2="350" stroke="#4a4e69" stroke-width="1.5" stroke-dasharray="4,2"/>
+
+  <!-- Ламінат CFRP справа (x: 365..500, y: 140..370) -->
+  <rect x="365" y="140" width="135" height="230" fill="#2b2d42" stroke="#1a1a1a" stroke-width="1.5"/>
+  <!-- Шари карбону справа -->
+  <line x1="365" y1="170" x2="500" y2="170" stroke="#4a4e69" stroke-width="1.5" stroke-dasharray="4,2"/>
+  <line x1="365" y1="200" x2="500" y2="200" stroke="#4a4e69" stroke-width="1.5" stroke-dasharray="4,2"/>
+  <line x1="365" y1="230" x2="500" y2="230" stroke="#4a4e69" stroke-width="1.5" stroke-dasharray="4,2"/>
+  <line x1="365" y1="260" x2="500" y2="260" stroke="#4a4e69" stroke-width="1.5" stroke-dasharray="4,2"/>
+  <line x1="365" y1="290" x2="500" y2="290" stroke="#4a4e69" stroke-width="1.5" stroke-dasharray="4,2"/>
+  <line x1="365" y1="320" x2="500" y2="320" stroke="#4a4e69" stroke-width="1.5" stroke-dasharray="4,2"/>
+  <line x1="365" y1="350" x2="500" y2="350" stroke="#4a4e69" stroke-width="1.5" stroke-dasharray="4,2"/>
+
+  <!-- Клейовий шар лівий (x: 185..205, y: 140..345) -->
+  <rect x="185" y="140" width="20" height="205" fill="#cfe2ff" stroke="#2457d6" stroke-width="1"/>
+  <!-- Клейовий шар правий (x: 345..365, y: 140..345) -->
+  <rect x="345" y="140" width="20" height="205" fill="#cfe2ff" stroke="#2457d6" stroke-width="1"/>
+  <!-- Резервуар клею знизу (x: 185..365, y: 345..370) -->
+  <rect x="185" y="345" width="180" height="25" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+
+  <!-- Металева втулка ліва частина (x: 205..250, y: 130..345) -->
+  <path d="M205,130 L250,130 L250,345 L205,345 L205,315 L212,305 L205,295 L205,265 L212,255 L205,245 L205,215 L212,205 L205,195 Z" fill="#d97706" stroke="#92400e" stroke-width="1.5"/>
+  <!-- Металева втулка права частина (x: 300..345, y: 130..345) -->
+  <path d="M300,130 L345,130 L345,195 L338,205 L345,215 L345,245 L338,255 L345,265 L345,295 L338,305 L345,315 L345,345 L300,345 Z" fill="#d97706" stroke="#92400e" stroke-width="1.5"/>
+
+  <!-- Внутрішня різьба (центральний отвір x: 250..300, y: 130..330) -->
+  <rect x="250" y="130" width="50" height="200" fill="#f8fafc" stroke="#94a3b8" stroke-width="1"/>
+  <line x1="250" y1="160" x2="300" y2="170" stroke="#64748b" stroke-width="1.5"/>
+  <line x1="250" y1="190" x2="300" y2="200" stroke="#64748b" stroke-width="1.5"/>
+  <line x1="250" y1="220" x2="300" y2="230" stroke="#64748b" stroke-width="1.5"/>
+  <line x1="250" y1="250" x2="300" y2="260" stroke="#64748b" stroke-width="1.5"/>
+  <line x1="250" y1="280" x2="300" y2="290" stroke="#64748b" stroke-width="1.5"/>
+  <line x1="250" y1="310" x2="300" y2="320" stroke="#64748b" stroke-width="1.5"/>
+
+  <!-- Підписи на лівій панелі -->
+  <text x="117" y="125" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Вуглепластик CFRP</text>
+  <text x="432" y="125" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Волокна 0°/90°/±45°</text>
+
+  <!-- Виносні стрілки та мітки -->
+  <!-- Опорний фланець втулки -->
+  <line x1="275" y1="108" x2="275" y2="126" stroke="#1a1a1a" stroke-width="1.2" marker-end="url(#arr-main)"/>
+  <text x="275" y="103" font-size="12" font-weight="bold" fill="#92400e" text-anchor="middle">Фланець втулки</text>
+
+  <!-- Клейовий зазор -->
+  <line x1="120" y1="210" x2="183" y2="210" stroke="#2457d6" stroke-width="1.2" marker-end="url(#arr-blue)"/>
+  <text x="115" y="205" font-size="11" fill="#2457d6" text-anchor="end">Клейовий зазор δ</text>
+  <text x="115" y="220" font-size="10" fill="#6b7280" text-anchor="end">0.15–0.25 мм</text>
+
+  <!-- Насічки під смолу -->
+  <line x1="430" y1="255" x2="347" y2="255" stroke="#92400e" stroke-width="1.2" marker-end="url(#arr-main)"/>
+  <text x="435" y="252" font-size="11" fill="#92400e">Канавки під епоксид</text>
+  <text x="435" y="267" font-size="10" fill="#6b7280">механічний замок</text>
+
+  <!-- Резервуар надлишку смоли -->
+  <line x1="275" y1="410" x2="275" y2="373" stroke="#2457d6" stroke-width="1.2" marker-end="url(#arr-blue)"/>
+  <text x="275" y="425" font-size="11" fill="#2457d6" text-anchor="middle">Резервуар надлишку епоксиду на дні</text>
+  <text x="275" y="440" font-size="10" fill="#6b7280" text-anchor="middle">запобігає видавлюванню смоли у внутрішню різьбу</text>
+
+
+  <!-- ПРАВА ПАНЕЛЬ: Механіка та критерії -->
+  <rect x="545" y="68" width="390" height="395" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="565" y="94" font-size="15" font-weight="bold" fill="#1a1a1a">Механіка з'єднання та критерії</text>
+
+  <!-- Картка 1: Розподіл зусилля зсуву -->
+  <rect x="565" y="110" width="350" height="85" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="580" y="132" font-size="13" font-weight="bold" fill="#2457d6">Зсувне навантаження (Shear Load)</text>
+  <text x="580" y="152" font-size="12" fill="#1a1a1a">• F_pull передається через зсув клейового шва: τ = F / (π·D·L)</text>
+  <text x="580" y="170" font-size="12" fill="#1a1a1a">• Канавки футорки утворюють механічний замок у полімері</text>
+  <text x="580" y="186" font-size="11" fill="#6b7280">• Епоксидна смола заповнює мікрорельєф без пікових напруг</text>
+
+  <!-- Картка 2: Чому не гаряче впаювання -->
+  <rect x="565" y="208" width="350" height="85" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="580" y="230" font-size="13" font-weight="bold" fill="#c0392b">Термореактивна матриця CFRP (Не плавиться!)</text>
+  <text x="580" y="250" font-size="12" fill="#1a1a1a">• Нагрів понад 200°C спричиняє деструкцію епоксиду</text>
+  <text x="580" y="268" font-size="12" fill="#1a1a1a">• Розшарування (деламінація) волокон послаблює панель</text>
+  <text x="580" y="284" font-size="11" fill="#c0392b">• Термовпаювання в карбон суворо неприпустиме</text>
+
+  <!-- Картка 3: Правильне адгезійне з'єднання -->
+  <rect x="565" y="306" width="350" height="95" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="580" y="328" font-size="13" font-weight="bold" fill="#27ae60">Адгезійне вклеювання (Cold Bonding)</text>
+  <text x="580" y="348" font-size="12" fill="#1a1a1a">• Конструкційний епоксид (DP420, DP460 або аналог)</text>
+  <text x="580" y="366" font-size="12" fill="#1a1a1a">• Зазор 0.15–0.25 мм забезпечує рівномірну міцність шва</text>
+  <text x="580" y="384" font-size="11" fill="#27ae60">• Витримка 24 год гарантує 100% полімеризацію смоли</text>
+
+  <!-- Індикатор успіху знизу -->
+  <circle cx="585" cy="425" r="7" fill="#27ae60"/>
+  <text x="600" y="429" font-size="12" font-weight="bold" fill="#27ae60">Збереження 100% міцності вуглецевих волокон CFRP</text>
+</svg>

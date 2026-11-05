@@ -1,0 +1,119 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Header -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Будова спіральної муфти 5x5 мм та типи компенсації неспіввісності</text>
+  <text x="480" y="60" font-size="13" fill="#6b7280" text-anchor="middle">Механізм пружної компенсації радіального, кутового й осьового зміщень валів без кутового люфту</text>
+
+  <!-- Left Panel: Coupling Cross Section -->
+  <rect x="30" y="80" width="310" height="350" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="185" y="105" font-size="15" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Спіральна муфта в розрізі</text>
+  <text x="185" y="122" font-size="12" fill="#6b7280" text-anchor="middle">Алюміній 6061-T6, отвори d₁=d₂=5 мм</text>
+
+  <!-- Coupling Body Graphic -->
+  <!-- Shaft 1 (left) -->
+  <rect x="50" y="240" width="60" height="40" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="80" y="265" font-size="12" fill="#1a1a1a" text-anchor="middle">вал d₁</text>
+
+  <!-- Coupling Left Hub -->
+  <rect x="110" y="210" width="55" height="100" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <!-- Clamping screw left -->
+  <rect x="125" y="195" width="25" height="15" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1"/>
+
+  <!-- Central Helical Flexible Beam -->
+  <rect x="165" y="215" width="60" height="90" fill="#f4f6f8" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4,2"/>
+  <!-- Helical cuts representation -->
+  <path d="M165,230 L225,250 M165,250 L225,270 M165,270 L225,290 M165,290 L225,305" stroke="#2457d6" stroke-width="2"/>
+  <path d="M225,230 L165,250 M225,250 L165,270 M225,270 L165,290 M225,290 L165,305" stroke="#2457d6" stroke-width="2"/>
+  <!-- Air gap inside -->
+  <line x1="165" y1="260" x2="225" y2="260" stroke="#6b7280" stroke-width="1" stroke-dasharray="2,2"/>
+
+  <!-- Coupling Right Hub -->
+  <rect x="225" y="210" width="55" height="100" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <!-- Clamping screw right -->
+  <rect x="240" y="195" width="25" height="15" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1"/>
+
+  <!-- Shaft 2 (right) -->
+  <rect x="280" y="240" width="50" height="40" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="305" y="265" font-size="12" fill="#1a1a1a" text-anchor="middle">вал d₂</text>
+
+  <!-- Labels for left schematic -->
+  <text x="185" y="340" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Спіральний проріз</text>
+  <text x="185" y="357" font-size="11" fill="#6b7280" text-anchor="middle">(багатозахідна пружна балка)</text>
+  <text x="185" y="385" font-size="12" fill="#1a1a1a" text-anchor="middle">Центральна порожнина (зазор)</text>
+  <text x="185" y="405" font-size="12" fill="#27ae60" font-weight="bold" text-anchor="middle">Нульовий кутовий люфт</text>
+
+  <!-- Panel 1: Radial Misalignment -->
+  <rect x="360" y="80" width="180" height="350" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="450" y="105" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Радіальний зсув</text>
+  <text x="450" y="122" font-size="12" fill="#6b7280" text-anchor="middle">Зміщення осей (Δr)</text>
+
+  <!-- Radial visual graphic -->
+  <line x1="380" y1="200" x2="450" y2="200" stroke="#1a1a1a" stroke-width="3"/>
+  <line x1="450" y1="240" x2="520" y2="240" stroke="#1a1a1a" stroke-width="3"/>
+  <path d="M450,200 C470,200 430,240 450,240" fill="none" stroke="#2457d6" stroke-width="6"/>
+  <line x1="475" y1="200" x2="475" y2="240" stroke="#c0392b" stroke-width="1.5" marker-start="url(#arr-red)" marker-end="url(#arr-red)"/>
+  <text x="490" y="224" font-size="12" font-weight="bold" fill="#c0392b">Δr</text>
+
+  <text x="450" y="315" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">S-подібний вигин</text>
+  <text x="450" y="335" font-size="11" fill="#6b7280" text-anchor="middle">паралельні вали</text>
+  <rect x="375" y="355" width="150" height="55" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="450" y="375" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">Компенсація:</text>
+  <text x="450" y="392" font-size="11" fill="#1a1a1a" text-anchor="middle">До 0.2..0.5 мм без зносу</text>
+
+
+  <!-- Panel 2: Angular Misalignment -->
+  <rect x="560" y="80" width="180" height="350" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="650" y="105" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Кутовий перекіс</text>
+  <text x="650" y="122" font-size="12" fill="#6b7280" text-anchor="middle">Перетин осей (α)</text>
+
+  <!-- Angular visual graphic -->
+  <line x1="580" y1="205" x2="650" y2="220" stroke="#1a1a1a" stroke-width="3"/>
+  <line x1="650" y1="220" x2="720" y2="235" stroke="#1a1a1a" stroke-width="3"/>
+  <path d="M640,210 C650,215 650,225 640,230" fill="none" stroke="#2457d6" stroke-width="6"/>
+  <path d="M 650,205 A 15 15 0 0 1 665 220" fill="none" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="672" y="215" font-size="12" font-weight="bold" fill="#c0392b">α</text>
+
+  <text x="650" y="315" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Однобічний вигин</text>
+  <text x="650" y="335" font-size="11" fill="#6b7280" text-anchor="middle">перетин під кутом</text>
+  <rect x="575" y="355" width="150" height="55" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="650" y="375" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">Компенсація:</text>
+  <text x="650" y="392" font-size="11" fill="#1a1a1a" text-anchor="middle">До 1°..3° без кутового люфту</text>
+
+
+  <!-- Panel 3: Axial Misalignment -->
+  <rect x="760" y="80" width="180" height="350" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="850" y="105" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Осьове зміщення</text>
+  <text x="850" y="122" font-size="12" fill="#6b7280" text-anchor="middle">Вздовж осі (Δz)</text>
+
+  <!-- Axial visual graphic -->
+  <line x1="780" y1="220" x2="830" y2="220" stroke="#1a1a1a" stroke-width="3"/>
+  <line x1="860" y1="220" x2="920" y2="220" stroke="#1a1a1a" stroke-width="3"/>
+  <rect x="830" y="202" width="30" height="36" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="2,2"/>
+  <path d="M830,210 L860,210 M830,220 L860,220 M830,230 L860,230" stroke="#2457d6" stroke-width="2"/>
+  <line x1="830" y1="190" x2="860" y2="190" stroke="#c0392b" stroke-width="1.5" marker-start="url(#arr-red)" marker-end="url(#arr-red)"/>
+  <text x="838" y="182" font-size="12" font-weight="bold" fill="#c0392b">Δz</text>
+
+  <text x="850" y="315" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Стискання / розтяг</text>
+  <text x="850" y="335" font-size="11" fill="#6b7280" text-anchor="middle">теплові похибки</text>
+  <rect x="775" y="355" width="150" height="55" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="850" y="375" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">Компенсація:</text>
+  <text x="850" y="392" font-size="11" fill="#1a1a1a" text-anchor="middle">До ±0.5 мм пружної дії</text>
+
+</svg>

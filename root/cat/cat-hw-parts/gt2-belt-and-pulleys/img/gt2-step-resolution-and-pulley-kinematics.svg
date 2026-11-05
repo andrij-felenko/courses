@@ -1,0 +1,93 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Кінематика та дискретність позиціонування приводу GT2</text>
+  <text x="480" y="60" font-size="13" fill="#6b7280" text-anchor="middle">Вплив кута кроку мотора, мікрокроку драйвера та кількості зубів шківа (16T проти 20T) на точність переміщення</text>
+
+  <!-- Left Panel: Kinematic Schema (x=30..480, y=85..435) -->
+  <rect x="30" y="85" width="450" height="345" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="50" y="112" font-size="15" font-weight="bold" fill="#1a1a1a">1. Кінематична схема приводу</text>
+
+  <!-- Motor Block -->
+  <rect x="50" y="130" width="120" height="110" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="110" y="152" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Кроковий мотор</text>
+  <text x="60" y="175" font-size="12" fill="#1a1a1a">θ = 1.8° (200 к/об)</text>
+  <text x="60" y="195" font-size="12" fill="#1a1a1a">або 0.9° (400 к/об)</text>
+  <text x="60" y="220" font-size="11" fill="#6b7280">Драйвер: 1/16 мікрокрок</text>
+
+  <line x1="170" y1="185" x2="205" y2="185" stroke="#2457d6" stroke-width="2" marker-end="url(#arr)"/>
+
+  <!-- Pulley Block -->
+  <rect x="205" y="130" width="120" height="110" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="265" y="152" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Шків GT2</text>
+  <text x="215" y="175" font-size="12" fill="#1a1a1a">16T: S=32.0 мм</text>
+  <text x="215" y="195" font-size="12" fill="#1a1a1a">20T: S=40.0 мм</text>
+  <text x="215" y="220" font-size="11" fill="#6b7280">Крок зуба: 2.0 мм</text>
+
+  <line x1="325" y1="185" x2="360" y2="185" stroke="#2457d6" stroke-width="2" marker-end="url(#arr)"/>
+
+  <!-- Carriage Block -->
+  <rect x="360" y="130" width="100" height="110" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="410" y="152" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Каретка</text>
+  <text x="370" y="178" font-size="12" fill="#1a1a1a">Лінійний зсув</text>
+  <text x="370" y="198" font-size="12" font-weight="bold" fill="#1a1a1a">Δx за мікрокрок</text>
+
+  <!-- Formulas Section inside Left Panel -->
+  <rect x="50" y="255" width="410" height="155" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="65" y="278" font-size="13" font-weight="bold" fill="#1a1a1a">Розрахункові співвідношення:</text>
+  <text x="65" y="300" font-size="12" fill="#1a1a1a">• Оберт шківа: S_rev = Z * p (p = 2.0 мм)</text>
+  <text x="65" y="323" font-size="12" fill="#1a1a1a">• Кроків на мм: steps_per_mm = (кр * мкр) / S_rev</text>
+  <text x="65" y="346" font-size="12" fill="#1a1a1a">• Дискретність: Δx = 1 / steps_per_mm</text>
+  <text x="65" y="375" font-size="11" fill="#6b7280">Приклад (16T, 1.8°, 1/16): S_rev = 32 мм/об</text>
+  <text x="65" y="393" font-size="11" fill="#6b7280">3200 мкр/об -> 100 к/мм (Δx = 10 мкм)</text>
+
+  <!-- Right Panel: Resolution Matrix & Configuration (x=500..930, y=85..435) -->
+  <rect x="500" y="85" width="430" height="345" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="520" y="112" font-size="15" font-weight="bold" fill="#1a1a1a">2. Матриця роздільної здатності</text>
+
+  <!-- Table Header Background -->
+  <rect x="520" y="128" width="390" height="26" fill="#d0d7de" rx="3"/>
+  <text x="530" y="145" font-size="11" font-weight="bold" fill="#1a1a1a">Конфігурація (Шків + Мотор + Драйвер)</text>
+  <text x="770" y="145" font-size="11" font-weight="bold" fill="#1a1a1a">Крок/мм</text>
+  <text x="845" y="145" font-size="11" font-weight="bold" fill="#1a1a1a">Δx (мкм)</text>
+
+  <!-- Table Rows -->
+  <!-- Row 1 -->
+  <rect x="520" y="160" width="390" height="32" fill="#e9f7ef" rx="3" stroke="#27ae60" stroke-width="1"/>
+  <text x="530" y="180" font-size="12" font-weight="bold" fill="#1a1a1a">16T + 1.8° (1/16)</text>
+  <text x="775" y="180" font-size="12" fill="#1a1a1a">100 к/мм</text>
+  <text x="850" y="180" font-size="12" font-weight="bold" fill="#27ae60">10.0 мкм</text>
+
+  <!-- Row 2 -->
+  <rect x="520" y="198" width="390" height="32" fill="#eaf0fd" rx="3" stroke="#2457d6" stroke-width="1"/>
+  <text x="530" y="218" font-size="12" font-weight="bold" fill="#1a1a1a">16T + 0.9° (1/16)</text>
+  <text x="775" y="218" font-size="12" fill="#1a1a1a">200 к/мм</text>
+  <text x="850" y="218" font-size="12" font-weight="bold" fill="#2457d6">5.0 мкм</text>
+
+  <!-- Row 3 -->
+  <rect x="520" y="236" width="390" height="32" fill="white" rx="3" stroke="#d0d7de" stroke-width="1"/>
+  <text x="530" y="256" font-size="12" font-weight="bold" fill="#1a1a1a">20T + 1.8° (1/16)</text>
+  <text x="775" y="256" font-size="12" fill="#1a1a1a">80 к/мм</text>
+  <text x="850" y="256" font-size="12" fill="#1a1a1a">12.5 мкм</text>
+
+  <!-- Row 4 -->
+  <rect x="520" y="274" width="390" height="32" fill="white" rx="3" stroke="#d0d7de" stroke-width="1"/>
+  <text x="530" y="294" font-size="12" font-weight="bold" fill="#1a1a1a">20T + 0.9° (1/16)</text>
+  <text x="775" y="294" font-size="12" fill="#1a1a1a">160 к/мм</text>
+  <text x="850" y="294" font-size="12" fill="#1a1a1a">6.25 мкм</text>
+
+  <!-- Conclusion Box -->
+  <rect x="520" y="320" width="390" height="96" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="530" y="340" font-size="12" font-weight="bold" fill="#27ae60">Висновок та рекомендації:</text>
+  <text x="530" y="358" font-size="11" fill="#1a1a1a">16T забезпечує менший крок і більше зусилля;</text>
+  <text x="530" y="374" font-size="11" fill="#1a1a1a">20T забезпечує вищу максимальну швидкість</text>
+  <text x="530" y="390" font-size="11" fill="#1a1a1a">каретки при тій самій частоті кроків.</text>
+</svg>

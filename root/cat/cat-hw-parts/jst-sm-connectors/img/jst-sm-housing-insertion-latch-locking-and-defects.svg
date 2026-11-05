@@ -1,0 +1,90 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Header -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Монтаж контакту в корпус JST-SM, випробування pull-test та дефекти обтиску</text>
+  <text x="480" y="60" font-size="13" fill="#6b7280" text-anchor="middle">Послідовність заведення до упору, механіка утримання ланцюга та аналіз дефектів опресування</text>
+
+  <!-- Left Panel: Insertion & Pull-test (x=30..490, y=80..430) -->
+  <rect x="30" y="80" width="460" height="350" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="50" y="105" font-size="14" font-weight="bold" fill="#1a1a1a">1. Просування в канал та Pull-test</text>
+
+  <!-- PA66 Nylon Housing cross section -->
+  <path d="M 60 150 L 320 150 L 320 130 L 450 130 L 450 250 L 320 250 L 320 230 L 60 230 Z" fill="#e2e8f0" stroke="#94a3b8" stroke-width="2"/>
+  <text x="350" y="146" font-size="11" fill="#475569">Корпус PA66</text>
+
+  <!-- Retaining Shoulder (Упорний зуб) -->
+  <path d="M 280 150 L 280 175 L 265 175 Z" fill="#cbd5e1" stroke="#64748b" stroke-width="1"/>
+  <text x="235" y="138" font-size="11" fill="#1a1a1a">Упорний зуб</text>
+
+  <!-- AWG 24 Wire & Crimp Contact -->
+  <rect x="70" y="180" width="80" height="20" rx="3" fill="#1e293b"/>
+  <text x="80" y="194" font-size="11" fill="#ffffff">Ізоляція</text>
+  
+  <rect x="150" y="183" width="40" height="14" rx="2" fill="#b45309"/>
+  <text x="155" y="193" font-size="10" fill="#ffffff">Жила</text>
+
+  <!-- Pin Body -->
+  <rect x="190" y="177" width="100" height="26" rx="4" fill="#3b82f6" stroke="#1d4ed8" stroke-width="1"/>
+  
+  <!-- Locking Lance (Пружинний язичок) -->
+  <path d="M 240 177 L 260 162 L 275 177 Z" fill="#60a5fa" stroke="#1d4ed8" stroke-width="1"/>
+  <text x="215" y="215" font-size="11" fill="#1a1a1a">Фіксатор (Lance)</text>
+
+  <!-- Insertion Force Arrow F_insert -->
+  <line x1="80" y1="260" x2="160" y2="260" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="100" y="278" font-size="12" font-weight="bold" fill="#2457d6">F_insert (5–10 Н)</text>
+
+  <!-- Pull-test Arrow F_pull -->
+  <line x1="130" y1="310" x2="50" y2="310" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="70" y="328" font-size="12" font-weight="bold" fill="#c0392b">F_pull ≥ 20–25 Н</text>
+
+  <!-- Explanatory notes left panel -->
+  <text x="50" y="360" font-size="12" fill="#1a1a1a">• Замикання язичка за упор із клацанням</text>
+  <text x="50" y="380" font-size="12" fill="#1a1a1a">• Випробування виривання кабелю (Pull-test)</text>
+  <text x="50" y="400" font-size="12" fill="#1a1a1a">• Гарантія надійного утримання в роз'ємі</text>
+
+  <!-- Right Panel: Defects & Norm (x=510..930, y=80..430) -->
+  <rect x="510" y="80" width="420" height="350" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="530" y="105" font-size="14" font-weight="bold" fill="#1a1a1a">2. Дефекти обтиску та якісна норма</text>
+
+  <!-- Defect 1 -->
+  <rect x="525" y="120" width="390" height="42" rx="4" fill="#fdecea" stroke="#f5c6cb" stroke-width="1"/>
+  <text x="535" y="137" font-size="12" font-weight="bold" fill="#c0392b">1. Зім'ятий язичок (Bent Lance)</text>
+  <text x="535" y="153" font-size="11" fill="#475569">Недостатнє зачеплення — випадання піна з колодки (push-out).</text>
+
+  <!-- Defect 2 -->
+  <rect x="525" y="168" width="390" height="42" rx="4" fill="#fdecea" stroke="#f5c6cb" stroke-width="1"/>
+  <text x="535" y="185" font-size="12" font-weight="bold" fill="#c0392b">2. Перетиснутий кримп (Over-crimp)</text>
+  <text x="535" y="201" font-size="11" fill="#475569">Надмірне стиснення жили — підрізання міді, обрив при вигині.</text>
+
+  <!-- Defect 3 -->
+  <rect x="525" y="216" width="390" height="42" rx="4" fill="#fdecea" stroke="#f5c6cb" stroke-width="1"/>
+  <text x="535" y="233" font-size="12" font-weight="bold" fill="#c0392b">3. Бананоподібний вигин</text>
+  <text x="535" y="249" font-size="11" fill="#475569">Викривлення контакту в кримпері — клин у пластиковому корпусі.</text>
+
+  <!-- Defect 4 -->
+  <rect x="525" y="264" width="390" height="42" rx="4" fill="#fdecea" stroke="#f5c6cb" stroke-width="1"/>
+  <text x="535" y="281" font-size="12" font-weight="bold" fill="#c0392b">4. Ізоляція в зоні жили</text>
+  <text x="535" y="297" font-size="11" fill="#475569">Оболонка під B-кримпом — відсутність електричного контакту.</text>
+
+  <!-- Green Norm Block -->
+  <rect x="525" y="316" width="390" height="94" rx="4" fill="#e9f7ef" stroke="#d4edda" stroke-width="1"/>
+  <text x="535" y="335" font-size="12" font-weight="bold" fill="#27ae60">Норма: якісний B-обтиск</text>
+  <text x="535" y="354" font-size="11" fill="#1a1a1a">• Якісний B-обтиск жили та O-обтиск ізоляції</text>
+  <text x="535" y="374" font-size="11" fill="#1a1a1a">• Видимий розтруб Bellmouth 0.2–0.5 мм</text>
+  <text x="535" y="394" font-size="11" fill="#1a1a1a">• Повна відсутність мікропошкоджень жил</text>
+</svg>

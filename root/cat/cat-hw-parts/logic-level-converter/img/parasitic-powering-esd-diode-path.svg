@@ -1,0 +1,107 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <!-- Main Title & Subtitle -->
+  <text x="480" y="34" font-size="18" font-weight="700" text-anchor="middle" fill="#1a1a1a">Механізм паразитного живлення (Back-powering) через вхідні ESD-діоди</text>
+  <text x="480" y="56" font-size="13" text-anchor="middle" fill="#6b7280">Струм активної лінії 5 В протікає через верхній захисний діод на знеструмлену шину V_CC (0 В)</text>
+
+  <!-- LEFT BLOCK: Active 5V Transmitter -->
+  <rect x="40" y="80" width="230" height="340" rx="8" fill="#fdf7f7" stroke="#e8b4b8" stroke-width="1.5"/>
+  <rect x="40" y="80" width="230" height="35" rx="8" fill="#fdecea"/>
+  <text x="155" y="103" font-size="13" font-weight="700" fill="#c0392b" text-anchor="middle">Активний передавач (HV)</text>
+
+  <rect x="65" y="135" width="180" height="40" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+  <text x="155" y="159" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">Живлення V_HV = 5.0 В</text>
+
+  <!-- Push-Pull Output Stage representation -->
+  <line x1="155" y1="175" x2="155" y2="230" stroke="#c0392b" stroke-width="2"/>
+  <circle cx="155" cy="230" r="4" fill="#c0392b"/>
+  <text x="155" y="220" font-size="11" font-weight="700" fill="#c0392b" text-anchor="middle">Вихід HIGH (5.0 В)</text>
+
+  <!-- Output Pin -->
+  <line x1="155" y1="230" x2="270" y2="230" stroke="#c0392b" stroke-width="3"/>
+
+  <rect x="65" y="340" width="180" height="35" rx="4" fill="#ffffff" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="155" y="362" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Спільна земля GND (0 В)</text>
+  <line x1="155" y1="375" x2="155" y2="400" stroke="#1a1a1a" stroke-width="2"/>
+
+
+  <!-- MIDDLE: Signal Line with Current Path -->
+  <line x1="270" y1="230" x2="490" y2="230" stroke="#c0392b" stroke-width="3"/>
+  <path d="M280,215 L440,215" fill="none" stroke="#c0392b" stroke-width="2" stroke-dasharray="5,3" marker-end="url(#arr-red)"/>
+  <text x="360" y="205" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">Паразитний струм I_leak &gt; 15 мА</text>
+  <text x="360" y="250" font-size="11" fill="#6b7280" text-anchor="middle">Сигнальна лінія (5 В)</text>
+
+
+  <!-- RIGHT BLOCK: Unpowered 3.3V Receiver -->
+  <rect x="490" y="80" width="430" height="340" rx="8" fill="#f8f9fa" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="490" y="80" width="430" height="35" rx="8" fill="#eaf0fd"/>
+  <text x="705" y="103" font-size="13" font-weight="700" fill="#2457d6" text-anchor="middle">Знеструмлений приймач (LV MCU, номінал 3.3 В)</text>
+
+  <!-- Unpowered VCC rail -->
+  <line x1="520" y1="150" x2="890" y2="150" stroke="#c0392b" stroke-width="2.5"/>
+  <circle cx="630" cy="150" r="4" fill="#c0392b"/>
+  <text x="760" y="142" font-size="12" font-weight="700" fill="#c0392b">Шина V_LV (вимкнена!)</text>
+  <text x="760" y="165" font-size="11" font-weight="700" fill="#c0392b">Напруга піднялася до ~4.3 В!</text>
+
+  <!-- Ground Rail Right -->
+  <line x1="520" y1="380" x2="890" y2="380" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="630" cy="380" r="4" fill="#1a1a1a"/>
+  <text x="760" y="398" font-size="11" font-weight="700" fill="#1a1a1a">GND (0 В)</text>
+
+  <!-- Input Pin IO -->
+  <circle cx="510" cy="230" r="4" fill="#c0392b"/>
+  <text x="525" y="222" font-size="11" font-weight="700" fill="#1a1a1a">IO-пін (5 В)</text>
+  <line x1="510" y1="230" x2="630" y2="230" stroke="#c0392b" stroke-width="2.5"/>
+  <circle cx="630" cy="230" r="4" fill="#c0392b"/>
+
+  <!-- Upper Diode (Forward Biased) -->
+  <line x1="630" y1="230" x2="630" y2="195" stroke="#c0392b" stroke-width="2"/>
+  <polygon points="620,195 640,195 630,175" fill="#c0392b" stroke="#c0392b" stroke-width="1.5"/>
+  <line x1="620" y1="175" x2="640" y2="175" stroke="#c0392b" stroke-width="2"/>
+  <line x1="630" y1="175" x2="630" y2="150" stroke="#c0392b" stroke-width="2"/>
+  
+  <text x="648" y="185" font-size="11" font-weight="700" fill="#c0392b">D_ESD (Верхній)</text>
+  <text x="648" y="200" font-size="10" fill="#c0392b">ВІДКРИТИЙ! ΔV ≈ 0.7 В</text>
+
+  <!-- Current Path through Diode onto VCC rail -->
+  <path d="M570,220 Q610,220 622,170 T640,140" fill="none" stroke="#c0392b" stroke-width="2" stroke-dasharray="4,3" marker-end="url(#arr-red)"/>
+
+  <!-- Lower Diode (Closed) -->
+  <line x1="630" y1="230" x2="630" y2="295" stroke="#1a1a1a" stroke-width="2"/>
+  <polygon points="620,315 640,315 630,295" fill="#6b7280" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="620" y1="315" x2="640" y2="315" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="630" y1="315" x2="630" y2="380" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="648" y="310" font-size="10" fill="#6b7280">D_ESD (Нижній, закритий)</text>
+
+  <!-- Internal MCU Circuits being phantom powered -->
+  <rect x="740" y="205" width="150" height="95" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="815" y="228" font-size="11" font-weight="700" fill="#c0392b" text-anchor="middle">Внутрішнє ядро</text>
+  <text x="815" y="244" font-size="11" text-anchor="middle" fill="#1a1a1a">та периферія MCU</text>
+  <text x="815" y="265" font-size="10" fill="#c0392b" text-anchor="middle">Хаотичний старт,</text>
+  <text x="815" y="280" font-size="10" fill="#c0392b" text-anchor="middle">небезпека Latch-up</text>
+
+  <!-- Feed from VCC rail into internal circuits -->
+  <line x1="770" y1="150" x2="770" y2="205" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <!-- Return to GND from circuits -->
+  <line x1="770" y1="300" x2="770" y2="380" stroke="#1a1a1a" stroke-width="2"/>
+
+
+  <!-- Bottom Summary Callout Box -->
+  <rect x="40" y="430" width="880" height="40" rx="4" fill="#fbe9e7" stroke="#c0392b" stroke-width="1"/>
+  <text x="50" y="447" font-size="11" font-weight="700" fill="#c0392b">Наслідки відсутності перетворювача рівнів:</text>
+  <text x="50" y="461" font-size="10.5" fill="#1a1a1a">Вигорання мікроскопічного діода ESD від тривалого перегріву, аномальне заживлення шини 3.3 В до 4.3 В, тиристорне защіпання (Latch-up).</text>
+</svg>

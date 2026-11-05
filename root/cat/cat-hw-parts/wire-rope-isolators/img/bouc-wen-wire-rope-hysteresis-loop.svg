@@ -1,0 +1,81 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-black" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Полотно -->
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="28" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Нелінійна петля гістерезису Бука-Вена для тросового демпфера</text>
+  <text x="480" y="48" font-size="13" fill="#6b7280" text-anchor="middle">Розсіювання енергії сухого тертя між жилами сталевого троса при циклічній деформації</text>
+
+  <!-- ЛІВА ПАНЕЛЬ: Графік F(x) -->
+  <rect x="25" y="68" width="500" height="395" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="45" y="94" font-size="15" font-weight="bold" fill="#1a1a1a">Залежність відновлювальної сили F від зміщення x</text>
+
+  <!-- Графічна область F(x) -->
+  <rect x="45" y="112" width="460" height="260" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Осі координат: центр (275, 242) -->
+  <line x1="65" y1="242" x2="485" y2="242" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-black)"/>
+  <text x="485" y="260" font-size="11" fill="#1a1a1a" text-anchor="end">Деформація x</text>
+
+  <line x1="275" y1="355" x2="275" y2="125" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-black)"/>
+  <text x="285" y="130" font-size="11" fill="#1a1a1a">Сила F</text>
+
+  <!-- Велика петля гістерезису (велика амплітуда) з заливкою розсіяної енергії -->
+  <!-- Завантаження (вгору-вправо), розвантаження (вниз-вліво) -->
+  <path d="M125,320 C180,300 240,250 320,180 C370,165 425,160 425,165 C370,185 310,235 230,305 C180,320 125,325 125,320 Z" fill="#eaf0fd" stroke="#2457d6" stroke-width="2.5"/>
+
+  <!-- Мала петля гістерезису (мала амплітуда - пружна зона без ковзання жил) -->
+  <path d="M220,270 C245,260 265,245 295,225 C325,215 330,215 330,217 C305,227 285,242 255,262 C225,272 220,272 220,270 Z" fill="#fdecea" stroke="#c0392b" stroke-width="2"/>
+
+  <!-- Позначення напрямку обходу петлі (стрілки) -->
+  <line x1="380" y1="170" x2="395" y2="168" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arr-blue)"/>
+  <line x1="170" y1="314" x2="155" y2="316" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arr-blue)"/>
+
+  <!-- Підписи на лівому графіку -->
+  <text x="360" y="152" font-size="11" font-weight="bold" fill="#2457d6">Велика амплітуда (прослизання жил)</text>
+  <text x="110" y="195" font-size="11" font-weight="bold" fill="#c0392b">Мала амплітуда</text>
+  <text x="110" y="210" font-size="10" fill="#6b7280">(пружне зчеплення)</text>
+
+  <!-- Площа петлі = розсіяна енергія E_d -->
+  <text x="275" y="388" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Площа петлі дорівнює розсіяній за цикл енергії: E_d = ∮ F dx</text>
+  <text x="275" y="406" font-size="11" fill="#6b7280" text-anchor="middle">При зростанні x площа стрімко росте завдяки сухому тертю Кулона</text>
+
+
+  <!-- ПРАВА ПАНЕЛЬ: Модель Бука-Вена та змінна z -->
+  <rect x="545" y="68" width="390" height="395" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="565" y="94" font-size="15" font-weight="bold" fill="#1a1a1a">Математична декомпозиція Бука-Вена</text>
+
+  <!-- Картка 1: Рівняння сили -->
+  <rect x="565" y="112" width="350" height="100" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="580" y="134" font-size="12" font-weight="bold" fill="#2457d6">Структура відновлювальної сили F(x):</text>
+  <text x="580" y="154" font-size="13" font-weight="bold" fill="#1a1a1a">F = α · k · x + (1 - α) · k · z + c · ẋ</text>
+  <text x="580" y="174" font-size="11" fill="#1a1a1a">• α · k · x — лінійна пружна складова дроту</text>
+  <text x="580" y="190" font-size="11" fill="#2457d6">• (1 - α) · k · z — нелінійна гістерезисна складова тертя</text>
+
+  <!-- Картка 2: Еволюційне рівняння для z -->
+  <rect x="565" y="222" width="350" height="120" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="580" y="244" font-size="12" font-weight="bold" fill="#1a1a1a">Диференціальне рівняння змінної z:</text>
+  <text x="580" y="266" font-size="12" font-weight="bold" fill="#c0392b">ż = A · ẋ - β · |ẋ| · |z|ⁿ⁻¹ · z - γ · ẋ · |z|ⁿ</text>
+  <text x="580" y="288" font-size="11" fill="#1a1a1a">• Параметри β, γ та n керують формою і гладкістю петлі</text>
+  <text x="580" y="304" font-size="11" fill="#1a1a1a">• Насичення: при великих x змінна z прямує до ±z_max</text>
+  <text x="580" y="320" font-size="11" fill="#6b7280">• Описує плавний перехід від спокою до кулонівського зсуву</text>
+
+  <!-- Картка 3: Інженерний висновок -->
+  <rect x="565" y="352" width="350" height="98" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="580" y="374" font-size="12" font-weight="bold" fill="#27ae60">Властивості тросового ізолятора Wire Rope:</text>
+  <text x="580" y="394" font-size="11" fill="#1a1a1a">• Еквівалентне демпфування досягає 15–25% (вище гуми)</text>
+  <text x="580" y="410" font-size="11" fill="#1a1a1a">• Відсутність старіння, стійкість до олив, вакууму та УФ</text>
+  <text x="580" y="428" font-size="11" font-weight="bold" fill="#27ae60">• Стабільний захист авіоніки та камер від резонансу</text>
+</svg>

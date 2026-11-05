@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Напружений стан елементарного об'єму стержня болта</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Одночасна дія нормальних напружень розтягу та дотичних напружень від скручування</text>
+
+  <!-- Main visualization panel -->
+  <rect x="280" y="90" width="400" height="340" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- 3D Isometric Element / Cube representation (Center at 480, 260) -->
+  <polygon points="480,180 570,220 570,320 480,280" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <polygon points="390,220 480,180 480,280 390,320" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.5"/>
+  <polygon points="390,220 480,260 570,220 480,180" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Normal Stress Sigma (z direction / vertical axis) -->
+  <line x1="480" y1="180" x2="480" y2="135" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+  <text x="500" y="150" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="start">σ</text>
+
+  <line x1="480" y1="280" x2="480" y2="325" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+  <text x="500" y="315" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="start">σ</text>
+
+  <!-- Shear stresses tau on the top and side faces - shifted text to avoid collision with (388,260) -->
+  <line x1="450" y1="195" x2="480" y2="210" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="432" y="195" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="end">τ</text>
+
+  <line x1="420" y1="245" x2="420" y2="285" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="375" y="270" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="end">τ</text>
+
+  <!-- Legend / Info Boxes inside or around -->
+  <rect x="50" y="120" width="200" height="100" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="65" y="145" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="start">Осьовий розтяг (σ)</text>
+  <text x="65" y="170" font-size="12" fill="#6b7280" text-anchor="start">Викликаний попереднім</text>
+  <text x="65" y="190" font-size="12" fill="#6b7280" text-anchor="start">затягуванням болта (F)</text>
+
+  <rect x="710" y="120" width="200" height="100" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="725" y="145" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="start">Скручування (τ)</text>
+  <text x="725" y="170" font-size="12" fill="#6b7280" text-anchor="start">Викликане тертям у різьбі</text>
+  <text x="725" y="190" font-size="12" fill="#6b7280" text-anchor="start">від крутного моменту (M)</text>
+
+  <rect x="280" y="440" width="400" height="24" fill="none"/>
+  <text x="480" y="420" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Еквівалентне напруження за енергетичною теорією: σ_eq = √(σ² + 3τ²)</text>
+</svg>

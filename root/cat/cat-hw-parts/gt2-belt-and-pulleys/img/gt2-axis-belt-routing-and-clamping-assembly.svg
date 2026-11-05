@@ -1,0 +1,93 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Підкладка -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Маркери стрілок -->
+  <defs>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Монтаж та кінематика пасового вузла лінійної осі GT2</text>
+  <text x="480" y="60" font-size="13" fill="#6b7280" text-anchor="middle">Зубчастий затискач каретки, гвинтовий натяжник і збереження паралельності віток паса лінійній рейці MGN12</text>
+
+  <!-- ========================================== -->
+  <!-- ЛІВА ПАНЕЛЬ: x=30..560, y=80..430          -->
+  <!-- ========================================== -->
+  <rect x="30" y="80" width="530" height="350" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="50" y="106" font-size="14" font-weight="bold" fill="#1a1a1a">Загальна схема лінійної осі та трасування паса</text>
+
+  <!-- Лінійний профіль / рейка MGN12 (горизонтальна балка y=350..370) -->
+  <rect x="70" y="350" width="450" height="20" rx="3" fill="#d0d7de" stroke="#6b7280" stroke-width="1"/>
+  <text x="295" y="364" font-size="11" fill="#6b7280" text-anchor="middle">Рейка MGN12</text>
+
+  <!-- Рухома каретка (центр навколо x=280, y=240..284) -->
+  <rect x="230" y="240" width="110" height="44" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="285" y="258" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Каретка</text>
+  <text x="285" y="274" font-size="11" fill="#1a1a1a" text-anchor="middle">Зубчастий затискач</text>
+
+  <!-- Кроковий двигун зі зубчастим шківом 20T (зліва, x=90, y=210) -->
+  <circle cx="90" cy="210" r="22" fill="#d0d7de" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="90" cy="210" r="8" fill="#1a1a1a"/>
+  <text x="90" y="166" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Двигун 20T</text>
+  <line x1="90" y1="174" x2="90" y2="186" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+
+  <!-- Гвинтовий натяжник з обвідним зубчастим роликом (справа, x=490, y=210) -->
+  <rect x="460" y="185" width="55" height="50" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <circle cx="490" cy="210" r="16" fill="#ffffff" stroke="#27ae60" stroke-width="2"/>
+  <circle cx="490" cy="210" r="5" fill="#27ae60"/>
+  <text x="487" y="166" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Натяжник</text>
+  <line x1="515" y1="210" x2="535" y2="210" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+  <text x="525" y="200" font-size="11" fill="#1a1a1a" text-anchor="middle">М4</text>
+
+  <!-- Паралельні вітки паса GT2 -->
+  <!-- Верхня зворотна вітка: y=160 -->
+  <line x1="90" y1="160" x2="490" y2="160" stroke="#6b7280" stroke-width="2" stroke-dasharray="4,4"/>
+  <text x="290" y="152" font-size="11" fill="#6b7280" text-anchor="middle">Зворотна гілка паса</text>
+
+  <!-- Нижня робоча вітка: y=250 -->
+  <line x1="90" y1="250" x2="490" y2="250" stroke="#2457d6" stroke-width="3" stroke-dasharray="6,3"/>
+  <text x="290" y="230" font-size="11" fill="#2457d6" text-anchor="middle">Робоча гілка паса (θ = 0°)</text>
+
+  <!-- Довжина зачеплення L_clamp на каретці -->
+  <line x1="245" y1="300" x2="325" y2="300" stroke="#1a1a1a" stroke-width="1" marker-end="url(#arr-dark)" marker-start="url(#arr-dark)"/>
+  <text x="285" y="318" font-size="11" fill="#1a1a1a" text-anchor="middle">L_clamp ≥ 6-8 зубів</text>
+
+  <!-- ========================================== -->
+  <!-- ПРАВА ПАНЕЛЬ: x=590..930, y=80..430         -->
+  <!-- ========================================== -->
+  <rect x="590" y="80" width="340" height="350" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="610" y="106" font-size="14" font-weight="bold" fill="#1a1a1a">Конструкція та монтажні правила</text>
+
+  <!-- Підпанель 1: Зубчастий затискач (x=610..910, y=120..205) -->
+  <rect x="610" y="120" width="300" height="85" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="625" y="140" font-size="12" font-weight="bold" fill="#1a1a1a">Зубчастий затискач (pitch 2.0 мм)</text>
+  <text x="625" y="158" font-size="11" fill="#6b7280">• Профіль зуб-у-зуб, глибина 0.75 мм</text>
+  <text x="625" y="174" font-size="11" fill="#6b7280">• Гвинти М3 DIN 912: рівномірний притиск</text>
+  <text x="625" y="190" font-size="11" fill="#c0392b">• Заборонено роздавлювати скловолоконний корд</text>
+
+  <!-- Підпанель 2: Вибір ідлерів (x=610..910, y=215..310) -->
+  <rect x="610" y="215" width="300" height="95" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="625" y="235" font-size="12" font-weight="bold" fill="#27ae60">Правило вибору обвідних роликів</text>
+  <text x="625" y="255" font-size="11" fill="#1a1a1a">• Контакт зубами → Зубчастий ролик (TOOTHED idler)</text>
+  <text x="625" y="273" font-size="11" fill="#1a1a1a">  (усунення вібрацій та пульсацій кроку)</text>
+  <text x="625" y="291" font-size="11" fill="#1a1a1a">• Контакт гладкою спинкою → Гладкий ролик (FLAT idler)</text>
+
+  <!-- Підпанель 3: Застереження (x=610..910, y=320..415) -->
+  <rect x="610" y="320" width="300" height="95" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="625" y="340" font-size="12" font-weight="bold" fill="#c0392b">Критичне застереження</text>
+  <text x="625" y="360" font-size="11" fill="#1a1a1a">• Непаралельність вітки (θ ≠ 0°) викликає змінний натяг</text>
+  <text x="625" y="378" font-size="11" fill="#1a1a1a">• Зміна steps_per_mm вздовж ходу осі</text>
+  <text x="625" y="396" font-size="11" fill="#1a1a1a">• Прискорений знос буртиків шківа та кромок паса</text>
+</svg>

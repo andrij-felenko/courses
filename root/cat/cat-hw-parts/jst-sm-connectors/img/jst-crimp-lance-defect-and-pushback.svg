@@ -1,0 +1,142 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <pattern id="diag-hatch" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+      <line x1="0" y1="0" x2="0" y2="8" stroke="#cbd5e1" stroke-width="1.5"/>
+    </pattern>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="540" fill="#ffffff"/>
+
+  <!-- Header -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Механізм відтискання вусика-ланса (Lance) та дефект виштовхування піна (Push-back)</text>
+  <text x="480" y="52" text-anchor="middle" font-size="13" fill="#6b7280">Нормальне замикання контакту за уступ корпусу JST-SM проти вислизання клеми під час сочленення</text>
+
+  <!-- Panel 1: Нормальна фіксація контакту -->
+  <rect x="20" y="70" width="450" height="210" rx="8" fill="#f0fdf4" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="35" y="94" font-size="14" font-weight="bold" fill="#1e7e34">1. Норма: замикання вусика за упорний уступ корпусу</text>
+
+  <!-- Plastic housing channel (cutaway) -->
+  <path d="M 40,115 L 450,115 L 450,135 L 290,135 L 290,125 L 40,125 Z" fill="#e2e8f0" stroke="#94a3b8" stroke-width="1"/>
+  <!-- Plastic retention shoulder -->
+  <rect x="270" y="125" width="20" height="25" fill="#cbd5e1" stroke="#64748b" stroke-width="1"/>
+  <text x="280" y="142" font-size="10" text-anchor="middle" fill="#475569" font-weight="bold">Уступ</text>
+  <path d="M 40,215 L 450,215 L 450,230 L 40,230 Z" fill="#e2e8f0" stroke="#94a3b8" stroke-width="1"/>
+
+  <!-- Wire -->
+  <rect x="50" y="165" width="40" height="14" fill="#3b82f6" rx="2"/>
+  <line x1="90" y1="172" x2="115" y2="172" stroke="#d97706" stroke-width="3"/>
+
+  <!-- Contact body -->
+  <rect x="115" y="160" width="50" height="24" fill="#cbd5e1" stroke="#475569" stroke-width="1.5" rx="2"/>
+  <rect x="165" y="163" width="90" height="18" fill="#e2e8f0" stroke="#475569" stroke-width="1.5" rx="1"/>
+  <rect x="255" y="165" width="80" height="14" fill="#cbd5e1" stroke="#475569" stroke-width="1.5" rx="1"/>
+
+  <!-- Spring lance (proper angle ~18 deg) -->
+  <path d="M 210,163 L 268,136" stroke="#27ae60" stroke-width="3.5" stroke-linecap="round"/>
+  <!-- Lance abutment line -->
+  <line x1="268" y1="136" x2="270" y2="136" stroke="#16a34a" stroke-width="2"/>
+
+  <!-- Callouts for Panel 1 -->
+  <circle cx="268" cy="136" r="5" fill="#22c55e"/>
+  <line x1="330" y1="110" x2="275" y2="132" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <text x="335" y="108" font-size="12" font-weight="bold" fill="#16a34a">Надійний упор у пластик!</text>
+  <text x="335" y="124" font-size="11" fill="#475569">Кут відгину ланса ≈ 18°</text>
+
+  <!-- Force arrow (Pull / Retention) -->
+  <line x1="120" y1="205" x2="60" y2="205" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="90" y="222" font-size="11" font-weight="bold" fill="#16a34a">F_утримання ≥ 15 Н</text>
+
+  <rect x="35" y="240" width="420" height="30" rx="4" fill="#dcfce7"/>
+  <text x="45" y="260" font-size="11" fill="#15803d">✓ Контакт заблоковано від зворотного руху. Зусилля виривання відповідає стандарту JST.</text>
+
+  <!-- Panel 2: Дефект деформації вусика (Lance Distortion) -->
+  <rect x="490" y="70" width="450" height="210" rx="8" fill="#fff1f2" stroke="#e11d48" stroke-width="1.5"/>
+  <text x="505" y="94" font-size="14" font-weight="bold" fill="#be123c">2. Дефект: сплющений або вдавлений вусик-ланс</text>
+
+  <!-- Plastic housing channel -->
+  <path d="M 510,115 L 920,115 L 920,135 L 760,135 L 760,125 L 510,125 Z" fill="#e2e8f0" stroke="#94a3b8" stroke-width="1"/>
+  <rect x="740" y="125" width="20" height="25" fill="#cbd5e1" stroke="#64748b" stroke-width="1"/>
+  <text x="750" y="142" font-size="10" text-anchor="middle" fill="#475569" font-weight="bold">Уступ</text>
+  <path d="M 510,215 L 920,215 L 920,230 L 510,230 Z" fill="#e2e8f0" stroke="#94a3b8" stroke-width="1"/>
+
+  <!-- Wire -->
+  <rect x="520" y="165" width="40" height="14" fill="#3b82f6" rx="2"/>
+  <line x1="560" y1="172" x2="585" y2="172" stroke="#d97706" stroke-width="3"/>
+
+  <!-- Contact body -->
+  <rect x="585" y="160" width="50" height="24" fill="#cbd5e1" stroke="#475569" stroke-width="1.5" rx="2"/>
+  <rect x="635" y="163" width="90" height="18" fill="#e2e8f0" stroke="#475569" stroke-width="1.5" rx="1"/>
+  <rect x="725" y="165" width="80" height="14" fill="#cbd5e1" stroke="#475569" stroke-width="1.5" rx="1"/>
+
+  <!-- Flattened lance (almost 0 deg, parallel to body) -->
+  <path d="M 680,163 L 735,162" stroke="#e11d48" stroke-width="3.5" stroke-linecap="round"/>
+  <!-- Gap indicating failure to engage shoulder -->
+  <line x1="735" y1="140" x2="735" y2="158" stroke="#e11d48" stroke-width="1.5" stroke-dasharray="2,2"/>
+
+  <!-- Callouts for Panel 2 -->
+  <line x1="820" y1="120" x2="745" y2="158" stroke="#e11d48" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <text x="795" y="112" font-size="12" font-weight="bold" fill="#be123c">Зазор! Вусик не зачепився</text>
+  <text x="795" y="128" font-size="11" fill="#475569">Вусик притиснутий кримпером</text>
+
+  <!-- Warning box -->
+  <rect x="505" y="240" width="420" height="30" rx="4" fill="#ffe4e6"/>
+  <text x="515" y="260" font-size="11" fill="#9f1239">⚠ Контакт утримується лише тертям ізоляції. Замкового блокування немає.</text>
+
+  <!-- Panel 3: Механізм виштовхування піна (Push-back під час стикування) -->
+  <rect x="20" y="295" width="920" height="225" rx="8" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+  <text x="35" y="320" font-size="14" font-weight="bold" fill="#0f172a">3. Наслідок: виштовхування незафіксованого піна (явище Push-back при з'єднанні вилки та розетки)</text>
+
+  <!-- Receptacle Housing Outline (Left) -->
+  <rect x="40" y="340" width="370" height="110" rx="4" fill="#f1f5f9" stroke="#64748b" stroke-width="1.5"/>
+  <text x="50" y="358" font-size="11" font-weight="bold" fill="#475569">Корпус розетки JST-SM (Receptacle)</text>
+
+  <!-- Plug Housing Outline (Right) inserting into Receptacle -->
+  <rect x="430" y="340" width="490" height="110" rx="4" fill="#f8fafc" stroke="#64748b" stroke-width="1.5"/>
+  <text x="770" y="358" font-size="11" font-weight="bold" fill="#475569">Корпус вилки JST-SM (Plug)</text>
+
+  <!-- Latch mechanism on outer housing -->
+  <path d="M 380,335 L 435,335 L 445,348 L 415,348 Z" fill="#94a3b8"/>
+  <text x="435" y="330" font-size="10" text-anchor="middle" fill="#64748b">Зовнішній замок корпусу</text>
+
+  <!-- Male Pin from Plug (Right) pushing into Socket -->
+  <rect x="580" y="390" width="100" height="10" fill="#f59e0b" stroke="#b45309" stroke-width="1"/>
+  <text x="630" y="384" font-size="10" text-anchor="middle" fill="#b45309" font-weight="bold">Штир (Male Pin)</text>
+
+  <!-- Insertion Force Arrow -->
+  <line x1="560" y1="395" x2="470" y2="395" stroke="#2563eb" stroke-width="3" marker-end="url(#arr-blue)"/>
+  <text x="515" y="385" font-size="11" font-weight="bold" text-anchor="middle" fill="#2563eb">F_стикування</text>
+
+  <!-- Socket Terminal pushed backwards to the left -->
+  <rect x="180" y="386" width="90" height="18" fill="#e2e8f0" stroke="#c0392b" stroke-width="2" rx="1"/>
+  <rect x="270" y="388" width="60" height="14" fill="#cbd5e1" stroke="#c0392b" stroke-width="2" rx="1"/>
+  <!-- Wire pushed back -->
+  <rect x="90" y="390" width="90" height="10" fill="#ef4444" rx="2"/>
+
+  <!-- Push-back motion arrow -->
+  <line x1="200" y1="420" x2="100" y2="420" stroke="#dc2626" stroke-width="3" marker-end="url(#arr-red)"/>
+  <text x="150" y="440" font-size="12" font-weight="bold" text-anchor="middle" fill="#dc2626">Зміщення піна назад (Push-back)</text>
+
+  <!-- Gap between pin and socket -->
+  <rect x="335" y="382" width="130" height="26" fill="#fee2e2" stroke="#ef4444" stroke-dasharray="3,3" stroke-width="1.5" rx="3"/>
+  <text x="400" y="398" font-size="11" text-anchor="middle" font-weight="bold" fill="#b91c1c">РОЗРИВ КОЛА!</text>
+  <text x="400" y="412" font-size="10" text-anchor="middle" fill="#7f1d1d">Немає контакту</text>
+
+  <!-- Bottom Explanatory Row -->
+  <rect x="35" y="465" width="890" height="42" rx="6" fill="#f1f5f9" stroke="#94a3b8" stroke-width="1"/>
+  <text x="50" y="484" font-size="12" font-weight="bold" fill="#0f172a">Методика усунення:</text>
+  <text x="180" y="484" font-size="12" fill="#334155">1. Обов'язковий тест потягуванням (Pull test 3–5 Н) для кожного провідника після встановлення в колодку.</text>
+  <text x="180" y="500" font-size="12" fill="#334155">2. Якщо ланс зігнутий — обережно підняти голкою до кута 15–20° перед повторним замиканням до клацання.</text>
+</svg>

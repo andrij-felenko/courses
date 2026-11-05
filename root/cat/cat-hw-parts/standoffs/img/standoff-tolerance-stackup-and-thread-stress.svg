@@ -1,0 +1,116 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Механіка різьби стійок та стек допусків міжплатного зазору</text>
+  <text x="480" y="54" text-anchor="middle" font-size="13" fill="#6b7280">Розподіл осьового навантаження по витках та аналіз зазору за Worst-Case і RSS</text>
+
+  <!-- ЛІВА ПАНЕЛЬ: Розподіл напружень у різьбі -->
+  <rect x="30" y="75" width="440" height="360" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="250" y="102" text-anchor="middle" font-size="15" font-weight="bold" fill="#1a1a1a">Розподіл навантаження по витках різьби</text>
+
+  <!-- Графік/діаграма навантаження на витки -->
+  <rect x="50" y="120" width="400" height="150" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+
+  <!-- 5 витків: смуги навантаження -->
+  <!-- Виток 1 -->
+  <text x="65" y="146" font-size="12" font-weight="bold" fill="#1a1a1a">1-й виток:</text>
+  <rect x="150" y="134" width="140" height="16" rx="3" fill="#c0392b"/>
+  <text x="300" y="147" font-size="11" font-weight="bold" fill="#c0392b">34% F_0 (пік напруження)</text>
+
+  <!-- Виток 2 -->
+  <text x="65" y="172" font-size="12" font-weight="bold" fill="#1a1a1a">2-й виток:</text>
+  <rect x="150" y="160" width="95" height="16" rx="3" fill="#2457d6"/>
+  <text x="255" y="173" font-size="11" fill="#2457d6">23% F_0</text>
+
+  <!-- Виток 3 -->
+  <text x="65" y="198" font-size="12" font-weight="bold" fill="#1a1a1a">3-й виток:</text>
+  <rect x="150" y="186" width="66" height="16" rx="3" fill="#2457d6"/>
+  <text x="225" y="199" font-size="11" fill="#2457d6">16% F_0</text>
+
+  <!-- Виток 4 -->
+  <text x="65" y="224" font-size="12" font-weight="bold" fill="#1a1a1a">4-й виток:</text>
+  <rect x="150" y="212" width="45" height="16" rx="3" fill="#6b7280"/>
+  <text x="205" y="225" font-size="11" fill="#6b7280">11% F_0</text>
+
+  <!-- Витки 5-6 -->
+  <text x="65" y="250" font-size="12" font-weight="bold" fill="#1a1a1a">5-6 витки:</text>
+  <rect x="150" y="238" width="30" height="16" rx="3" fill="#6b7280"/>
+  <text x="190" y="251" font-size="11" fill="#6b7280">16% F_0 (сумарно)</text>
+
+  <!-- Блок характеристик матеріалів -->
+  <rect x="50" y="285" width="400" height="135" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="65" y="307" font-size="13" font-weight="bold" fill="#1a1a1a">Граничні моменти затягування T_max:</text>
+
+  <rect x="65" y="318" width="180" height="42" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="75" y="335" font-size="11" font-weight="bold" fill="#2457d6">Латунь CW614N (M3):</text>
+  <text x="75" y="351" font-size="11" fill="#1a1a1a">T_rec = 0.55-0.65 Н*м</text>
+
+  <rect x="255" y="318" width="180" height="42" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="265" y="335" font-size="11" font-weight="bold" fill="#c0392b">Поліамід PA66 (M3):</text>
+  <text x="265" y="351" font-size="11" fill="#1a1a1a">T_max = 0.18-0.22 Н*м</text>
+
+  <text x="65" y="380" font-size="11" fill="#1a1a1a">Напруження в ядрі: sigma = F_0 / A_s (A_s = 5.03 мм2)</text>
+  <text x="65" y="402" font-size="11" fill="#6b7280">Еквівалентне: sigma_eq = sqrt(sigma^2 + 3*tau^2) &lt;= [sigma_y]</text>
+
+  <!-- ПРАВА ПАНЕЛЬ: Стек допусків міжплатного зазору -->
+  <rect x="490" y="75" width="440" height="360" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="710" y="102" text-anchor="middle" font-size="15" font-weight="bold" fill="#1a1a1a">Стек допусків та гарантований зазор</text>
+
+  <!-- Схема стійки і плат -->
+  <rect x="510" y="120" width="400" height="150" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+
+  <!-- Ліва частина схеми: геометрія -->
+  <!-- Верхня плата -->
+  <rect x="530" y="132" width="140" height="8" rx="2" fill="#27ae60"/>
+
+  <!-- Стійка ліворуч -->
+  <rect x="535" y="140" width="14" height="62" rx="2" fill="#d0d7de" stroke="#1a1a1a"/>
+
+  <!-- Компонент під верхньою платою -->
+  <rect x="565" y="140" width="85" height="36" rx="3" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="607" y="163" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">H_c</text>
+
+  <!-- Зазор під компонентом -->
+  <rect x="565" y="178" width="85" height="24" rx="2" fill="#e9f7ef" stroke="#27ae60" stroke-dasharray="3,2"/>
+  <text x="607" y="194" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">G_clear</text>
+
+  <!-- Нижня плата -->
+  <rect x="530" y="202" width="140" height="8" rx="2" fill="#27ae60"/>
+
+  <!-- Пояснення праворуч від геометрії -->
+  <text x="690" y="140" font-size="11" font-weight="bold" fill="#27ae60">Верхня PCB (прогин delta)</text>
+  <text x="690" y="160" font-size="11" fill="#2457d6">H_c = 6.50 +- 0.25 мм</text>
+  <text x="690" y="180" font-size="11" font-weight="bold" fill="#27ae60">G_clear &gt;= 1.00 мм</text>
+  <text x="690" y="200" font-size="11" fill="#1a1a1a">Стійка H_s = 10 +- 0.10 мм</text>
+  <text x="690" y="220" font-size="11" font-weight="bold" fill="#27ae60">Нижня PCB</text>
+  <text x="530" y="254" font-size="11" fill="#6b7280">Максимальний прогин плати під навантаженням: delta_max = 0.35 мм</text>
+
+  <!-- Блок розрахунку Worst-Case та RSS -->
+  <rect x="510" y="285" width="400" height="135" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="525" y="307" font-size="13" font-weight="bold" fill="#1a1a1a">Методи оцінки зазору G_clear:</text>
+
+  <rect x="525" y="318" width="180" height="42" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="535" y="335" font-size="11" font-weight="bold" fill="#c0392b">Найгірший випадок (WC):</text>
+  <text x="535" y="351" font-size="11" fill="#1a1a1a">G_WC = H_min - H_max - delta</text>
+
+  <rect x="715" y="318" width="180" height="42" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="725" y="335" font-size="11" font-weight="bold" fill="#27ae60">Статистичний метод (RSS):</text>
+  <text x="725" y="351" font-size="11" fill="#1a1a1a">sigma_sum = sqrt(sum sigma_i^2)</text>
+
+  <text x="525" y="380" font-size="11" fill="#1a1a1a">WC: G_clear = 9.90 - 6.75 - 0.35 = 2.80 мм (гарантовано &gt; 0)</text>
+  <text x="525" y="402" font-size="11" fill="#27ae60">Критерій надійності: G_clear &gt;= 1.0 мм виключає коротке замикання</text>
+</svg>

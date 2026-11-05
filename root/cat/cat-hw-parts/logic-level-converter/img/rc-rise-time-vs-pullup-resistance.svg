@@ -1,0 +1,101 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460">
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+  
+  <!-- Title & Subtitle -->
+  <text x="480" y="38" font-size="18" font-weight="bold" font-family="sans-serif" text-anchor="middle" fill="#1a1a1a">Залежність часу наростання фронту t_r від опору підтяжки R_PU</text>
+  <text x="480" y="60" font-size="13" font-family="sans-serif" text-anchor="middle" fill="#6b7280">Формула t_r &#x2248; 2.2 &#xb7; R_PU &#xb7; C_load для ємностей 50&#x2013;400 пФ та нормативні ліміти стандартів I2C</text>
+
+  <!-- Left Panel: Chart (x=30..550, y=80..430) -->
+  <rect x="30" y="80" width="520" height="350" fill="#f4f6f8" rx="6" stroke="#d0d7de" stroke-width="1"/>
+  
+  <!-- Chart inner area: x=80 to 520, y=100 to 380 -->
+  <!-- Grid lines Y: 0, 200, 400, 600, 800, 1000, 1200 -->
+  <line x1="80" y1="380" x2="520" y2="380" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="80" y1="333.3" x2="520" y2="333.3" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="80" y1="286.6" x2="520" y2="286.6" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="80" y1="240" x2="520" y2="240" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="80" y1="193.3" x2="520" y2="193.3" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="80" y1="146.6" x2="520" y2="146.6" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="80" y1="100" x2="520" y2="100" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Grid lines X: 1, 3, 5, 7, 9, 10 kOhm (span = 440, step = 44 per kOhm) -->
+  <line x1="80" y1="100" x2="80" y2="380" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="168" y1="100" x2="168" y2="380" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="256" y1="100" x2="256" y2="380" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="344" y1="100" x2="344" y2="380" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="432" y1="100" x2="432" y2="380" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="520" y1="100" x2="520" y2="380" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Limits -->
+  <line x1="80" y1="146.6" x2="520" y2="146.6" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <text x="440" y="140" font-size="11" font-family="sans-serif" fill="#c0392b">1000нс (Std)</text>
+
+  <line x1="80" y1="310" x2="520" y2="310" stroke="#d97706" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <text x="440" y="304" font-size="11" font-family="sans-serif" fill="#d97706">300нс (Fast)</text>
+
+  <!-- Curves: t_r = 2.2 * R_PU * C_load -->
+  <!-- C = 50 pF -->
+  <path d="M 80 354.3 L 168 332.9 L 256 311.5 L 344 290.0 L 432 268.6 L 520 247.1" fill="none" stroke="#27ae60" stroke-width="2"/>
+  <!-- C = 100 pF -->
+  <path d="M 80 328.7 L 168 285.7 L 256 242.9 L 344 200.0 L 432 157.1 L 474 136" fill="none" stroke="#2457d6" stroke-width="2"/>
+  <!-- C = 200 pF -->
+  <path d="M 80 277.3 L 168 191.4 L 217 146 L 256 105.7" fill="none" stroke="#d97706" stroke-width="2"/>
+  <!-- C = 400 pF -->
+  <path d="M 80 174.7 L 126 100" fill="none" stroke="#c0392b" stroke-width="2"/>
+
+  <!-- Axes Labels Y -->
+  <text x="72" y="384" font-size="11" font-family="sans-serif" text-anchor="end" fill="#6b7280">0</text>
+  <text x="72" y="337" font-size="11" font-family="sans-serif" text-anchor="end" fill="#6b7280">200</text>
+  <text x="72" y="290" font-size="11" font-family="sans-serif" text-anchor="end" fill="#6b7280">400</text>
+  <text x="72" y="244" font-size="11" font-family="sans-serif" text-anchor="end" fill="#6b7280">600</text>
+  <text x="72" y="197" font-size="11" font-family="sans-serif" text-anchor="end" fill="#6b7280">800</text>
+  <text x="72" y="150" font-size="11" font-family="sans-serif" text-anchor="end" fill="#6b7280">1000</text>
+  <text x="72" y="104" font-size="11" font-family="sans-serif" text-anchor="end" fill="#6b7280">1200</text>
+  <text x="45" y="240" font-size="11" font-weight="bold" font-family="sans-serif" text-anchor="middle" fill="#1a1a1a" transform="rotate(-90 45 240)">t_r (нс)</text>
+
+  <!-- Axes Labels X -->
+  <text x="80" y="396" font-size="11" font-family="sans-serif" text-anchor="middle" fill="#6b7280">1к</text>
+  <text x="168" y="396" font-size="11" font-family="sans-serif" text-anchor="middle" fill="#6b7280">3к</text>
+  <text x="256" y="396" font-size="11" font-family="sans-serif" text-anchor="middle" fill="#6b7280">5к</text>
+  <text x="344" y="396" font-size="11" font-family="sans-serif" text-anchor="middle" fill="#6b7280">7к</text>
+  <text x="432" y="396" font-size="11" font-family="sans-serif" text-anchor="middle" fill="#6b7280">9к</text>
+  <text x="520" y="396" font-size="11" font-family="sans-serif" text-anchor="middle" fill="#6b7280">10к</text>
+  <text x="300" y="418" font-size="11" font-weight="bold" font-family="sans-serif" text-anchor="middle" fill="#1a1a1a">Опір підтяжки R_PU (Ом)</text>
+
+  <!-- Legend -->
+  <rect x="95" y="110" width="105" height="70" fill="white" rx="3" stroke="#d0d7de" stroke-width="1"/>
+  <circle cx="107" cy="123" r="4" fill="#27ae60"/>
+  <text x="117" y="127" font-size="11" font-family="sans-serif" fill="#1a1a1a">50 пФ</text>
+  <circle cx="107" cy="140" r="4" fill="#2457d6"/>
+  <text x="117" y="144" font-size="11" font-family="sans-serif" fill="#1a1a1a">100 пФ</text>
+  <circle cx="107" cy="157" r="4" fill="#d97706"/>
+  <text x="117" y="161" font-size="11" font-family="sans-serif" fill="#1a1a1a">200 пФ</text>
+  <circle cx="107" cy="174" r="4" fill="#c0392b"/>
+  <text x="117" y="178" font-size="11" font-family="sans-serif" fill="#1a1a1a">400 пФ</text>
+
+  <!-- Right Panel: Math & Rules (x=580..930, y=80..430) -->
+  <rect x="580" y="80" width="350" height="350" fill="#f4f6f8" rx="6" stroke="#d0d7de" stroke-width="1"/>
+  
+  <text x="595" y="105" font-size="13" font-weight="bold" font-family="sans-serif" fill="#1a1a1a">Математична модель:</text>
+  <text x="595" y="125" font-size="11" font-family="sans-serif" fill="#6b7280">V(t) = V_CC &#xb7; (1 - e^(-t / tau))</text>
+  <text x="595" y="142" font-size="11" font-family="sans-serif" fill="#6b7280">t_10% = 0.105&#xb7;tau, t_90% = 2.303&#xb7;tau</text>
+  <text x="595" y="159" font-size="11" font-family="sans-serif" fill="#6b7280">t_r = ln(9) &#xb7; tau &#x2248; 2.197 &#xb7; R_PU &#xb7; C_load</text>
+
+  <text x="595" y="190" font-size="13" font-weight="bold" font-family="sans-serif" fill="#1a1a1a">Розрахунок R_max:</text>
+  <text x="595" y="210" font-size="11" font-family="sans-serif" fill="#6b7280">R_max = t_r_max / (2.2 &#xb7; C_load)</text>
+  <text x="595" y="227" font-size="11" font-family="sans-serif" fill="#6b7280">Fast Mode (300нс, 100пФ):</text>
+  <text x="595" y="244" font-size="11" font-family="sans-serif" fill="#6b7280">R_max = 300 / 0.22 = 1.36 кОм</text>
+  <text x="595" y="261" font-size="11" font-family="sans-serif" fill="#6b7280">Рекомендовано: 1.5&#x2013;2.2 кОм</text>
+
+  <!-- Green block: Min R -->
+  <rect x="595" y="276" width="320" height="45" fill="#e9f7ef" rx="4" stroke="#27ae60" stroke-width="1"/>
+  <text x="605" y="293" font-size="11" font-weight="bold" font-family="sans-serif" fill="#27ae60">Мінімальний опір R_min:</text>
+  <text x="605" y="310" font-size="11" font-family="sans-serif" fill="#1a1a1a">Обмежено струмом I_OL &#x2264; 3мА (R &#x2265; 1.0&#x2013;1.2кОм)</text>
+
+  <!-- Red block: Warning -->
+  <rect x="595" y="328" width="320" height="52" fill="#fdecea" rx="4" stroke="#c0392b" stroke-width="1"/>
+  <text x="605" y="345" font-size="11" font-weight="bold" font-family="sans-serif" fill="#c0392b">Застереження:</text>
+  <text x="605" y="362" font-size="11" font-family="sans-serif" fill="#1a1a1a">R_PU &gt; R_max спричиняє завал фронтів,</text>
+  <text x="605" y="377" font-size="11" font-family="sans-serif" fill="#1a1a1a">порушення синхронізації та зависання шини.</text>
+
+</svg>

@@ -1,0 +1,136 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Header -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Номенклатура елементів набору кріплення М2.5</text>
+  <text x="480" y="60" font-size="13" fill="#6b7280" text-anchor="middle">Шестигранні стійки двох типів, гвинти DIN 7985/912, гайки DIN 934 та захисні шайби DIN 125/127</text>
+
+  <!-- Panel 1: Standoffs (x=30..240, width=210) -->
+  <rect x="30" y="80" width="210" height="350" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="135" y="105" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">1. Стійки (M2.5, SW5)</text>
+  
+  <!-- Female-Female graphic representation -->
+  <rect x="65" y="125" width="45" height="110" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <!-- hex facets representation -->
+  <line x1="87.5" y1="125" x2="87.5" y2="235" stroke="#2457d6" stroke-width="0.8" stroke-dasharray="3,3"/>
+  <!-- internal threads hint -->
+  <line x1="75" y1="135" x2="100" y2="135" stroke="#6b7280" stroke-width="1"/>
+  <line x1="75" y1="225" x2="100" y2="225" stroke="#6b7280" stroke-width="1"/>
+  
+  <text x="135" y="145" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">Гайка-гайка</text>
+  <text x="135" y="162" font-size="11" fill="#6b7280" text-anchor="start">Внутрішня різьба</text>
+  <text x="135" y="177" font-size="11" fill="#6b7280" text-anchor="start">М2.5 наскрізь</text>
+
+  <!-- Male-Female graphic representation -->
+  <rect x="65" y="260" width="45" height="90" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="87.5" y1="260" x2="87.5" y2="350" stroke="#2457d6" stroke-width="0.8" stroke-dasharray="3,3"/>
+  <!-- male screw end -->
+  <rect x="78" y="245" width="19" height="15" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="82" y1="245" x2="82" y2="260" stroke="#6b7280" stroke-width="0.8"/>
+  <line x1="93" y1="245" x2="93" y2="260" stroke="#6b7280" stroke-width="0.8"/>
+
+  <text x="135" y="280" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">Шпилька-гайка</text>
+  <text x="135" y="297" font-size="11" fill="#6b7280" text-anchor="start">Зовнішня шпилька</text>
+  <text x="135" y="312" font-size="11" fill="#6b7280" text-anchor="start">6 мм + гніздо</text>
+
+  <text x="135" y="375" font-size="11" fill="#1a1a1a" text-anchor="middle">Фіксований зазор</text>
+  <text x="135" y="390" font-size="11" fill="#1a1a1a" text-anchor="middle">без вигину плат</text>
+  <text x="135" y="410" font-size="11" fill="#6b7280" text-anchor="middle">Крок різьби 0.45 мм</text>
+
+
+  <!-- Panel 2: Screws (x=260..470, width=210) -->
+  <rect x="260" y="80" width="210" height="350" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="365" y="105" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">2. Гвинти (DIN 7985/912)</text>
+
+  <!-- Screw 1: Cylinder head DIN 912 -->
+  <rect x="285" y="125" width="24" height="16" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="293" y="141" width="8" height="75" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <!-- threads -->
+  <line x1="293" y1="150" x2="301" y2="153" stroke="#6b7280" stroke-width="0.8"/>
+  <line x1="293" y1="160" x2="301" y2="163" stroke="#6b7280" stroke-width="0.8"/>
+  <line x1="293" y1="170" x2="301" y2="173" stroke="#6b7280" stroke-width="0.8"/>
+  <line x1="293" y1="180" x2="301" y2="183" stroke="#6b7280" stroke-width="0.8"/>
+  <line x1="293" y1="190" x2="301" y2="193" stroke="#6b7280" stroke-width="0.8"/>
+  <line x1="293" y1="200" x2="301" y2="203" stroke="#6b7280" stroke-width="0.8"/>
+
+  <text x="325" y="135" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">DIN 912 (Циліндр)</text>
+  <text x="325" y="152" font-size="11" fill="#6b7280" text-anchor="start">Шестигранний шліц</text>
+  <text x="325" y="167" font-size="11" fill="#6b7280" text-anchor="start">SW 2 мм</text>
+
+  <!-- Screw 2: Pan head DIN 7985 -->
+  <path d="M285,255 C285,245 309,245 309,255 Z" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="293" y="255" width="8" height="75" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="293" y1="265" x2="301" y2="268" stroke="#6b7280" stroke-width="0.8"/>
+  <line x1="293" y1="275" x2="301" y2="278" stroke="#6b7280" stroke-width="0.8"/>
+  <line x1="293" y1="285" x2="301" y2="288" stroke="#6b7280" stroke-width="0.8"/>
+  <line x1="293" y1="295" x2="301" y2="298" stroke="#6b7280" stroke-width="0.8"/>
+  <line x1="293" y1="305" x2="301" y2="308" stroke="#6b7280" stroke-width="0.8"/>
+
+  <text x="325" y="255" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">DIN 7985 (Напівкруг)</text>
+  <text x="325" y="272" font-size="11" fill="#6b7280" text-anchor="start">Шліц PH0 / PZ0</text>
+  <text x="325" y="287" font-size="11" fill="#6b7280" text-anchor="start">Метрична різьба М2.5</text>
+
+  <text x="365" y="360" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Довжини L (мм)</text>
+  <text x="365" y="380" font-size="11" fill="#6b7280" text-anchor="middle">4, 6, 8, 10, 12 мм</text>
+  <text x="365" y="405" font-size="11" fill="#1a1a1a" text-anchor="middle">Для з'єднання пакетів різної товщини</text>
+
+
+  <!-- Panel 3: Nuts & Washers (x=490..700, width=210) -->
+  <rect x="490" y="80" width="210" height="350" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="595" y="105" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">3. Гайки та шайби</text>
+
+  <!-- Nut DIN 934 -->
+  <polygon points="515,130 535,130 543,145 535,160 515,160 507,145" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <circle cx="525" cy="145" r="4" fill="white" stroke="#2457d6" stroke-width="1"/>
+  <text x="555" y="140" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">Гайка DIN 934</text>
+  <text x="555" y="157" font-size="11" fill="#6b7280" text-anchor="start">Висота m = 2 мм</text>
+  <text x="555" y="172" font-size="11" fill="#6b7280" text-anchor="start">Під ключ s = 5 мм</text>
+
+  <!-- Washer DIN 125 -->
+  <rect x="510" y="200" width="30" height="10" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="525" y1="200" x2="525" y2="210" stroke="#2457d6" stroke-width="1"/>
+  <text x="555" y="205" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">Шайба DIN 125</text>
+  <text x="555" y="222" font-size="11" fill="#6b7280" text-anchor="start">Ød2 = 5.0 мм, t = 0.5</text>
+  <text x="555" y="237" font-size="11" fill="#6b7280" text-anchor="start">Захист паяльної маски</text>
+
+  <!-- Spring Washer DIN 127 -->
+  <path d="M515,280 C515,270 535,270 535,285 C535,295 515,295 515,285" fill="none" stroke="#2457d6" stroke-width="2"/>
+  <line x1="515" y1="280" x2="515" y2="290" stroke="#c0392b" stroke-width="2"/>
+  <text x="555" y="280" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">Шайба Гровера DIN 127</text>
+  <text x="555" y="297" font-size="11" fill="#6b7280" text-anchor="start">Пружинне розрізне кільце</text>
+  <text x="555" y="312" font-size="11" fill="#6b7280" text-anchor="start">Захист від вібрацій</text>
+
+  <text x="595" y="375" font-size="11" fill="#1a1a1a" text-anchor="middle">Розподіл зусилля притискання</text>
+  <text x="595" y="395" font-size="11" fill="#6b7280" text-anchor="middle">Безпечний монтаж плати</text>
+
+
+  <!-- Panel 4: Nickel Plating (x=720..930, width=210) -->
+  <rect x="720" y="80" width="210" height="350" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="825" y="105" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">4. Нікелювання</text>
+
+  <rect x="738" y="130" width="174" height="75" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="825" y="152" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Покриття Ni 3–8 мкм</text>
+  <text x="825" y="170" font-size="11" fill="#6b7280" text-anchor="middle">Пасивація: оксидна плівка</text>
+  <text x="825" y="187" font-size="11" fill="#6b7280" text-anchor="middle">NiO захищає латунь від окислення</text>
+
+  <rect x="738" y="220" width="174" height="85" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="825" y="242" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Зниження тертя (K ≈ 0.18)</text>
+  <text x="825" y="262" font-size="11" fill="#6b7280" text-anchor="middle">Захист дрібної різьби М2.5</text>
+  <text x="825" y="279" font-size="11" fill="#6b7280" text-anchor="middle">від задирання (anti-galling)</text>
+
+  <rect x="738" y="320" width="174" height="85" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="825" y="342" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Електропровідність</text>
+  <text x="825" y="362" font-size="11" fill="#6b7280" text-anchor="middle">Надійний контур заземлення</text>
+  <text x="825" y="379" font-size="11" fill="#6b7280" text-anchor="middle">між платами (ESD / EMI)</text>
+
+</svg>

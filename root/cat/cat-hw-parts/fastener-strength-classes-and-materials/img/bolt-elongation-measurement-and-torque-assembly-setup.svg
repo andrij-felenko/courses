@@ -1,0 +1,130 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460">
+  <style>
+    .bg { fill: #ffffff; }
+    .panel-bg { fill: #f4f6f8; stroke: #d0d7de; stroke-width: 1; rx: 8; }
+    .title { font-family: system-ui, -apple-system, sans-serif; font-size: 13px; font-weight: bold; fill: #1a1a1a; text-anchor: middle; }
+    .subtitle { font-family: system-ui, -apple-system, sans-serif; font-size: 9px; fill: #6b7280; text-anchor: middle; }
+    .label { font-family: system-ui, -apple-system, sans-serif; font-size: 11px; fill: #1a1a1a; }
+    .label-bold { font-family: system-ui, -apple-system, sans-serif; font-size: 11px; font-weight: bold; fill: #1a1a1a; }
+    .label-sm { font-family: system-ui, -apple-system, sans-serif; font-size: 9px; fill: #6b7280; }
+    .grid { stroke: #e5e7eb; stroke-width: 1; stroke-dasharray: 3,3; }
+    .axis { stroke: #6b7280; stroke-width: 1.5; }
+    .curve-blue { fill: none; stroke: #2457d6; stroke-width: 2.5; }
+    .curve-green { fill: none; stroke: #27ae60; stroke-width: 2; stroke-dasharray: 4,4; }
+    .point-red { fill: #c0392b; stroke: #ffffff; stroke-width: 1.5; }
+    .plate { fill: #d0d7de; stroke: #6b7280; stroke-width: 1; }
+    .bolt { fill: #7f8c8d; stroke: #2c3e50; stroke-width: 1; }
+    .wrench { fill: #2c3e50; stroke: #1a1a1a; stroke-width: 1; }
+    .indicator { fill: #eaf0fd; stroke: #2457d6; stroke-width: 1.5; }
+    .dimension { stroke: #c0392b; stroke-width: 1; marker-end: url(#arrow); marker-start: url(#arrow-start); }
+    .force-arrow { stroke: #c0392b; stroke-width: 2; marker-end: url(#arrow-red); }
+  </style>
+
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#c0392b"/>
+    </marker>
+    <marker id="arrow-start" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M 10 0 L 0 5 L 10 10 z" fill="#c0392b"/>
+    </marker>
+    <marker id="arrow-red" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="460" class="bg"/>
+
+  <!-- Header -->
+  <text x="480" y="36" class="title">Стенд контролю подовження болта 10.9 та динамометричного затягування</text>
+  <text x="480" y="50" class="subtitle">Вимірювання розтягу dL мікрометром та графік сили F від моменту T</text>
+
+  <!-- Left Panel: Test Rig Schematic -->
+  <rect x="30" y="75" width="440" height="355" class="panel-bg"/>
+  <text x="250" y="97" class="label-bold" text-anchor="middle">Конструктивна схема вимірювального стенда</text>
+
+  <!-- Base Plate / Structure -->
+  <rect x="70" y="340" width="300" height="25" class="plate" rx="3"/>
+  <rect x="110" y="290" width="220" height="40" class="plate" rx="3"/>
+  
+  <!-- Bolt M10 (class 10.9) -->
+  <rect x="200" y="150" width="60" height="25" class="bolt" rx="2"/>
+  <rect x="220" y="175" width="20" height="165" class="bolt"/>
+
+  <!-- Torque wrench on bolt head -->
+  <path d="M 230 160 L 130 135 L 125 145 L 230 170 Z" class="wrench"/>
+  <circle cx="130" cy="140" r="10" fill="#34495e" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="130" y="118" class="label-bold" text-anchor="middle">T</text>
+  <path d="M 116 120 Q 130 126 144 120" fill="none" stroke="#6b7280" stroke-width="1.2" marker-end="url(#arrow-red)"/>
+
+  <!-- Elongation measurement bracket & dial indicator -->
+  <path d="M 230 150 L 230 130 L 290 130 L 290 235" fill="none" stroke="#2457d6" stroke-width="2"/>
+  <rect x="275" y="235" width="30" height="30" class="indicator" rx="4"/>
+  <circle cx="290" cy="250" r="10" fill="#ffffff" stroke="#2457d6" stroke-width="1.2"/>
+  <line x1="290" y1="250" x2="296" y2="244" stroke="#c0392b" stroke-width="1.2"/>
+  <line x1="290" y1="265" x2="290" y2="340" stroke="#2457d6" stroke-width="2"/>
+  
+  <line x1="335" y1="150" x2="335" y2="340" class="dimension"/>
+  <circle cx="335" cy="150" r="2" fill="#c0392b"/>
+  <circle cx="335" cy="340" r="2" fill="#c0392b"/>
+  <rect x="342" y="235" width="35" height="20" fill="#ffffff" rx="3" stroke="#d0d7de"/>
+  <text x="359" y="249" class="label-bold" text-anchor="middle">dL</text>
+
+  <!-- Force F arrows -->
+  <path d="M 175 125 L 175 145" class="force-arrow"/>
+  <text x="162" y="137" class="label-bold">F</text>
+  <path d="M 175 385 L 175 365" class="force-arrow"/>
+  <text x="162" y="380" class="label-bold">F</text>
+
+  <!-- Labels for Left Panel -->
+  <text x="75" y="375" class="label-sm">Плита</text>
+  <text x="90" y="166" class="label-sm">Болт</text>
+  <text x="315" y="253" class="label-sm">Мікр.</text>
+
+
+  <!-- Right Panel: Graph F vs delta L & T -->
+  <rect x="490" y="75" width="440" height="355" class="panel-bg"/>
+  <text x="710" y="97" class="label-bold" text-anchor="middle">Графік залежності F від dL та моменту T</text>
+
+  <!-- Graph Axes & Grid -->
+  <line x1="550" y1="375" x2="550" y2="135" class="axis"/>
+  <line x1="550" y1="375" x2="890" y2="375" class="axis"/>
+
+  <line x1="550" y1="325" x2="890" y2="325" class="grid"/>
+  <text x="538" y="329" class="label-sm" text-anchor="end">15</text>
+  <line x1="550" y1="275" x2="890" y2="275" class="grid"/>
+  <text x="538" y="279" class="label-sm" text-anchor="end">30</text>
+  <line x1="550" y1="225" x2="890" y2="225" class="grid"/>
+  <text x="538" y="229" class="label-sm" text-anchor="end">45</text>
+  <line x1="550" y1="175" x2="890" y2="175" class="grid"/>
+  <text x="538" y="179" class="label-sm" text-anchor="end">60</text>
+
+  <line x1="635" y1="375" x2="635" y2="135" class="grid"/>
+  <text x="635" y="390" class="label-sm" text-anchor="middle">25</text>
+  <line x1="720" y1="375" x2="720" y2="135" class="grid"/>
+  <text x="720" y="390" class="label-sm" text-anchor="middle">50</text>
+  <line x1="805" y1="375" x2="805" y2="135" class="grid"/>
+  <text x="805" y="390" class="label-sm" text-anchor="middle">75</text>
+  <line x1="890" y1="375" x2="890" y2="135" class="grid"/>
+  <text x="890" y="390" class="label-sm" text-anchor="middle">100</text>
+
+  <text x="515" y="255" class="label-bold" transform="rotate(-90, 515, 255)" text-anchor="middle">Сила F (кН)</text>
+  <text x="720" y="415" class="label-bold" text-anchor="middle">dL (мкм) / T (Нм)</text>
+
+  <path d="M 550 375 L 830 150" class="curve-blue"/>
+
+  <circle cx="700" cy="230" r="5" class="point-red"/>
+  <line x1="550" y1="230" x2="695" y2="230" class="curve-green"/>
+  <line x1="700" y1="375" x2="700" y2="235" class="curve-green"/>
+  
+  <rect x="615" y="180" width="145" height="34" class="bg" rx="4" stroke="#c0392b" stroke-width="1"/>
+  <text x="687" y="193" class="label-bold" text-anchor="middle">Ціль: F = 38 кН</text>
+  <text x="687" y="206" class="label-sm" text-anchor="middle">dL ≈ 53 мкм, T = 65 Нм</text>
+
+  <rect x="565" y="112" width="150" height="38" class="bg" rx="4" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="575" y1="124" x2="595" y2="124" class="curve-blue"/>
+  <text x="605" y="127" class="label">Розтяг (10.9)</text>
+  <circle cx="585" cy="139" r="3" class="point-red"/>
+  <text x="605" y="142" class="label">Робоча точка</text>
+
+</svg>

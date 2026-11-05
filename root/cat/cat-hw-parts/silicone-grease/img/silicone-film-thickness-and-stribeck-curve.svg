@@ -1,0 +1,100 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-black" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Полотно -->
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="28" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Крива Штрібека та розрахункова товщина плівки Гамрока-Даусона</text>
+  <text x="480" y="48" font-size="13" fill="#6b7280" text-anchor="middle">Зв'язок режимів змащування з коефіцієнтом λ для пари поліацеталь POM — сталь</text>
+
+  <!-- ЛІВА ПАНЕЛЬ: Крива Штрібека -->
+  <rect x="25" y="68" width="500" height="395" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="45" y="94" font-size="15" font-weight="bold" fill="#1a1a1a">Класична крива Штрібека: режими тертя</text>
+
+  <!-- Фон зон тертя на графіку (осі: x: 80..490, y: 120..350) -->
+  <!-- Зона 1: Межове (x: 80..180, y: 120..350) -->
+  <rect x="80" y="120" width="100" height="230" fill="#fdecea"/>
+  <!-- Зона 2: Змішане (x: 180..320, y: 120..350) -->
+  <rect x="180" y="120" width="140" height="230" fill="#eaf0fd"/>
+  <!-- Зона 3: Гідродинамічне / EHL (x: 320..490, y: 120..350) -->
+  <rect x="320" y="120" width="170" height="230" fill="#e9f7ef"/>
+
+  <!-- Межі зон (вертикальні пунктири) -->
+  <line x1="180" y1="120" x2="180" y2="350" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <line x1="320" y1="120" x2="320" y2="350" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="4,3"/>
+
+  <!-- Підписи зон угорі графіка -->
+  <text x="130" y="138" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">1. Межове</text>
+  <text x="130" y="152" font-size="10" fill="#6b7280" text-anchor="middle">h &lt; R_q</text>
+
+  <text x="250" y="138" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">2. Змішане</text>
+  <text x="250" y="152" font-size="10" fill="#6b7280" text-anchor="middle">h ≈ R_q</text>
+
+  <text x="405" y="138" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">3. Гідродинамічне / EHL</text>
+  <text x="405" y="152" font-size="10" fill="#6b7280" text-anchor="middle">h &gt;&gt; R_q (розділено)</text>
+
+  <!-- Осі графіка -->
+  <line x1="80" y1="350" x2="495" y2="350" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arr-black)"/>
+  <text x="495" y="370" font-size="11" fill="#1a1a1a" text-anchor="end">Параметр змащування Герсі (η · v / P)</text>
+
+  <line x1="80" y1="350" x2="80" y2="115" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arr-black)"/>
+  <text x="85" y="112" font-size="11" fill="#1a1a1a">Коефіцієнт тертя μ</text>
+
+  <!-- Числові позначки осі μ -->
+  <line x1="75" y1="170" x2="80" y2="170" stroke="#1a1a1a" stroke-width="1.2"/>
+  <text x="70" y="174" font-size="10" fill="#6b7280" text-anchor="end">0.20</text>
+  <line x1="75" y1="240" x2="80" y2="240" stroke="#1a1a1a" stroke-width="1.2"/>
+  <text x="70" y="244" font-size="10" fill="#6b7280" text-anchor="end">0.10</text>
+  <line x1="75" y1="310" x2="80" y2="310" stroke="#1a1a1a" stroke-width="1.2"/>
+  <text x="70" y="314" font-size="10" fill="#6b7280" text-anchor="end">0.02</text>
+
+  <!-- Крива Штрібека: висока в межовому, різко падає в змішаному, повільно росте в EHL -->
+  <path d="M85,170 C130,170 170,185 220,290 C250,325 290,335 320,330 C370,320 430,300 480,270" fill="none" stroke="#1a1a1a" stroke-width="3"/>
+
+  <!-- Точка мінімуму тертя -->
+  <circle cx="310" cy="331" r="4.5" fill="#27ae60"/>
+  <text x="310" y="348" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">μ_min ≈ 0.01–0.02</text>
+
+  <!-- Пояснення внизу лівої панелі -->
+  <text x="275" y="420" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Критична вимога для силікону в парі POM-сталь:</text>
+  <text x="275" y="438" font-size="11" fill="#6b7280" text-anchor="middle">Підтримувати швидкість ковзання для перебування в зоні EHL (λ ≥ 3)</text>
+
+
+  <!-- ПРАВА ПАНЕЛЬ: Товщина плівки Гамрока-Даусона -->
+  <rect x="545" y="68" width="390" height="395" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="565" y="94" font-size="15" font-weight="bold" fill="#1a1a1a">Розрахунок плівки за Гамроком-Даусоном</text>
+
+  <!-- Картка 1: Рівняння Гамрока-Даусона -->
+  <rect x="565" y="110" width="350" height="95" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="580" y="132" font-size="12" font-weight="bold" fill="#2457d6">Рівняння мінімальної товщини плівки h_min:</text>
+  <text x="580" y="152" font-size="12" font-weight="bold" fill="#1a1a1a">h_min = 3.63 · R_eff · U⁰·⁶⁸ · G⁰·⁴⁹ · W⁻⁰·⁰⁷³</text>
+  <text x="580" y="172" font-size="11" fill="#1a1a1a">• Високий вплив швидкості U⁰·⁶⁸ (динамічний підйом клину)</text>
+  <text x="580" y="188" font-size="11" fill="#6b7280">• Слабкий вплив навантаження W⁻⁰·⁰⁷³ (полімер зминається)</text>
+
+  <!-- Картка 2: Критерій захисту поверхонь λ -->
+  <rect x="565" y="218" width="350" height="110" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="580" y="240" font-size="13" font-weight="bold" fill="#1a1a1a">Безрозмірний критерій товщини плівки λ:</text>
+  <text x="580" y="262" font-size="13" font-weight="bold" fill="#2457d6">λ = h_min / √(R_q1² + R_q2²)</text>
+  <text x="580" y="284" font-size="11" fill="#c0392b">• λ &lt; 1.0 — межовий режим, інтенсивний знос пластику</text>
+  <text x="580" y="300" font-size="11" fill="#d97706">• 1.0 ≤ λ &lt; 3.0 — змішане тертя, помірне зношування</text>
+  <text x="580" y="316" font-size="11" fill="#27ae60">• λ ≥ 3.0 — повне рідинне розділення EHL (нульовий знос)</text>
+
+  <!-- Картка 3: Результат для пари POM-сталь -->
+  <rect x="565" y="340" width="350" height="105" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="580" y="362" font-size="12" font-weight="bold" fill="#27ae60">Розрахункові показники пари POM — сталь:</text>
+  <text x="580" y="382" font-size="11" fill="#1a1a1a">• Шорсткість: R_q_POM ≈ 0.4 мкм, R_q_steel ≈ 0.2 мкм</text>
+  <text x="580" y="398" font-size="11" fill="#1a1a1a">• Еквівалентна шорсткість: σ_q = √(0.4² + 0.2²) ≈ 0.45 мкм</text>
+  <text x="580" y="416" font-size="11" font-weight="bold" fill="#27ae60">• При u = 0.25 м/с: h_min ≈ 1.4 мкм → λ ≈ 3.1 (режим EHL)</text>
+  <text x="580" y="432" font-size="10" fill="#6b7280">Силіконова плівка повністю усуває сухий контакт деталей</text>
+</svg>

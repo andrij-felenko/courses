@@ -1,0 +1,90 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Підкладка -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="38" font-size="18" font-weight="700" text-anchor="middle" fill="#1a1a1a">Геометричний профіль та конструкція зубчастого паса GT2</text>
+  <text x="480" y="60" font-size="13" text-anchor="middle" fill="#6b7280">Криволінійний зуб 2 мм, скловолоконний корд і нейтральна ділильна лінія натягу (PLD = 0.254 мм)</text>
+
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Ліва панель: Креслення перерізу паса -->
+  <rect x="30" y="80" width="500" height="350" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="50" y="105" font-size="14" font-weight="700" fill="#1a1a1a">1. Поперечний переріз зуба та корду GT2</text>
+
+  <!-- Графічне зображення паса -->
+  <path d="M 120,356 
+           L 480,356 
+           L 480,280 
+           C 480,271 475,263 468,258
+           C 455,248 440,190 420,190
+           C 405,190 390,248 377,258
+           C 370,263 365,271 365,280
+           C 365,271 360,263 353,258
+           C 340,248 325,190 305,190
+           C 290,190 275,248 262,258
+           C 255,263 250,271 250,280
+           C 250,271 245,263 238,258
+           C 225,248 210,190 190,190
+           C 175,190 160,248 147,258
+           C 140,263 135,271 135,280
+           L 120,280 Z" 
+        fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+
+  <!-- Корди (скловолокно) -->
+  <circle cx="190" cy="249" r="6" fill="#2457d6" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="305" cy="249" r="6" fill="#2457d6" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="420" cy="249" r="6" fill="#2457d6" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Нейтральна лінія натягу (Pitch Line) -->
+  <line x1="100" y1="249" x2="500" y2="249" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="6,4"/>
+
+  <!-- Розмірні лінії та позначки -->
+  <line x1="95" y1="190" x2="95" y2="280" stroke="#1a1a1a" stroke-width="1" marker-start="url(#arr)" marker-end="url(#arr)"/>
+  <text x="88" y="240" font-size="12" font-weight="700" text-anchor="end" fill="#1a1a1a">h_t 0.75</text>
+
+  <line x1="95" y1="280" x2="95" y2="356" stroke="#1a1a1a" stroke-width="1" marker-start="url(#arr)" marker-end="url(#arr)"/>
+  <text x="88" y="322" font-size="12" font-weight="700" text-anchor="end" fill="#1a1a1a">h_b 0.63</text>
+
+  <line x1="65" y1="190" x2="65" y2="356" stroke="#1a1a1a" stroke-width="1" marker-start="url(#arr)" marker-end="url(#arr)"/>
+  <text x="58" y="277" font-size="12" font-weight="700" text-anchor="end" fill="#1a1a1a">H 1.38</text>
+
+  <line x1="190" y1="170" x2="305" y2="170" stroke="#2457d6" stroke-width="1" marker-start="url(#arr-blue)" marker-end="url(#arr-blue)"/>
+  <text x="247" y="163" font-size="12" font-weight="700" text-anchor="middle" fill="#2457d6">P = 2.00 мм</text>
+
+  <line x1="510" y1="280" x2="510" y2="249" stroke="#c0392b" stroke-width="1" marker-start="url(#arr-red)" marker-end="url(#arr-red)"/>
+  <text x="517" y="268" font-size="11" font-weight="700" text-anchor="start" fill="#c0392b">PLD 0.254</text>
+
+  <text x="450" y="243" font-size="11" fill="#2457d6">Корд (Fiberglass)</text>
+  <text x="450" y="230" font-size="11" fill="#c0392b">Нейтральна лінія</text>
+
+
+  <!-- Права панель: Структура шарів та типорозміри -->
+  <rect x="550" y="80" width="380" height="350" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="570" y="105" font-size="14" font-weight="700" fill="#1a1a1a">2. Структура шарів та типорозміри</text>
+
+  <text x="570" y="135" font-size="12" font-weight="700" fill="#1a1a1a">Шари паса GT2:</text>
+  <text x="570" y="155" font-size="12" fill="#1a1a1a">1. Верхня спинка: неопреновий каучук (стійкість).</text>
+  <text x="570" y="175" font-size="12" fill="#1a1a1a">2. Силовий каркас: скловолокно (нульове подовження).</text>
+  <text x="570" y="195" font-size="12" fill="#1a1a1a">3. Зубчастий шар: сформований неопрен зчеплення.</text>
+  <text x="570" y="215" font-size="12" fill="#1a1a1a">4. Покриття: нейлонова тканина низького тертя.</text>
+
+  <text x="570" y="255" font-size="12" font-weight="700" fill="#1a1a1a">Стандартні ширини пасів:</text>
+  <text x="570" y="280" font-size="12" font-weight="700" fill="#2457d6">• 6 мм — стандарт для кареток 3D-принтерів</text>
+  <text x="590" y="298" font-size="11" fill="#6b7280">Максимальне натягнення F_max ≈ 20–30 Н</text>
+
+  <text x="570" y="330" font-size="12" font-weight="700" fill="#2457d6">• 9 мм / 10 мм — важкі портали та лазери</text>
+  <text x="590" y="348" font-size="11" fill="#6b7280">Підвищене навантаження, нульовий люфт</text>
+
+  <text x="570" y="390" font-size="11" fill="#6b7280">Профіль Gates PowerGrip GT2: мінімізація люфту.</text>
+</svg>

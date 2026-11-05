@@ -1,0 +1,116 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Мікроструктура ePTFE та вибіркова проникність</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Вузли й фібрили ePTFE забезпечують вільний газообмін при повному захисті від води й пилу</text>
+
+  <!-- Left Panel: ePTFE Microstructure -->
+  <rect x="40" y="75" width="430" height="375" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="60" y="105" font-size="15" font-weight="bold" fill="#1a1a1a">Мережа вузлів та фібрил ePTFE</text>
+
+  <!-- Microstructure graphic container -->
+  <g transform="translate(60, 120)">
+    <!-- Background box for microstructure -->
+    <rect x="0" y="0" width="390" height="235" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+    
+    <!-- Fibrils (webs) -->
+    <path d="M40,35 L110,50 L180,30 L250,60 L320,40 L370,75" stroke="#6b7280" stroke-width="1.5" fill="none"/>
+    <path d="M20,95 L90,85 L160,115 L230,100 L300,110 L360,95" stroke="#6b7280" stroke-width="1.5" fill="none"/>
+    <path d="M50,155 L120,140 L190,170 L260,145 L330,165 L380,150" stroke="#6b7280" stroke-width="1.5" fill="none"/>
+    <path d="M30,205 L100,195 L170,215 L240,200 L310,220 L350,195" stroke="#6b7280" stroke-width="1.5" fill="none"/>
+
+    <!-- Cross fibrils -->
+    <path d="M40,35 L20,95 L50,155 L30,205" stroke="#6b7280" stroke-width="1" fill="none"/>
+    <path d="M110,50 L90,85 L120,140 L100,195" stroke="#6b7280" stroke-width="1" fill="none"/>
+    <path d="M180,30 L160,115 L190,170 L170,215" stroke="#6b7280" stroke-width="1" fill="none"/>
+    <path d="M250,60 L230,100 L260,145 L240,200" stroke="#6b7280" stroke-width="1" fill="none"/>
+    <path d="M320,40 L300,110 L330,165 L310,220" stroke="#6b7280" stroke-width="1" fill="none"/>
+    <path d="M370,75 L360,95 L380,150 L350,195" stroke="#6b7280" stroke-width="1" fill="none"/>
+
+    <!-- Nodes (nodules) -->
+    <ellipse cx="40" cy="35" rx="9" ry="6" fill="#1a1a1a"/>
+    <ellipse cx="110" cy="50" rx="10" ry="7" fill="#1a1a1a"/>
+    <ellipse cx="180" cy="30" rx="8" ry="6" fill="#1a1a1a"/>
+    <ellipse cx="250" cy="60" rx="9" ry="7" fill="#1a1a1a"/>
+    <ellipse cx="320" cy="40" rx="10" ry="6" fill="#1a1a1a"/>
+    
+    <ellipse cx="90" cy="85" rx="11" ry="8" fill="#1a1a1a"/>
+    <ellipse cx="160" cy="115" rx="9" ry="7" fill="#1a1a1a"/>
+    <ellipse cx="230" cy="100" rx="10" ry="8" fill="#1a1a1a"/>
+    <ellipse cx="300" cy="110" rx="8" ry="6" fill="#1a1a1a"/>
+    
+    <ellipse cx="50" cy="155" rx="10" ry="7" fill="#1a1a1a"/>
+    <ellipse cx="120" cy="140" rx="9" ry="8" fill="#1a1a1a"/>
+    <ellipse cx="190" cy="170" rx="11" ry="7" fill="#1a1a1a"/>
+    <ellipse cx="260" cy="145" rx="8" ry="6" fill="#1a1a1a"/>
+    <ellipse cx="330" cy="165" rx="10" ry="8" fill="#1a1a1a"/>
+
+    <!-- Gas Flow Molecules (passing) -->
+    <g fill="#2457d6">
+      <circle cx="70" cy="65" r="3"/>
+      <circle cx="140" cy="75" r="3"/>
+      <circle cx="210" cy="70" r="3"/>
+      <circle cx="280" cy="80" r="3"/>
+      
+      <circle cx="85" cy="120" r="3"/>
+      <circle cx="155" cy="135" r="3"/>
+      <circle cx="225" cy="125" r="3"/>
+      <circle cx="290" cy="140" r="3"/>
+    </g>
+    <!-- Arrow indicating air flow -->
+    <path d="M20,15 L370,15" stroke="#2457d6" stroke-width="2" stroke-dasharray="4,4" marker-end="url(#arr-blue)"/>
+    <text x="200" y="30" font-size="12" fill="#2457d6" text-anchor="middle">Потік повітря (гази)</text>
+
+    <!-- Blocked Water Drop -->
+    <g transform="translate(140, 185)">
+      <path d="M0,-20 C-10,-35 -15,-45 -15,-52 C-15,-60 -8,-67 0,-67 C8,-67 15,-60 15,-52 C15,-45 10,-35 0,-20 Z" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+    </g>
+    <text x="140" y="98" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="bold">Крапля води</text>
+  </g>
+
+  <!-- Legend / Info under microstructure -->
+  <text x="60" y="380" font-size="12" fill="#1a1a1a">• Вузли сполучені міцними фібрилами (висока пористість ~85%)</text>
+  <text x="60" y="400" font-size="12" fill="#1a1a1a">• Розмір пор значно менший за краплю води, але більший за газ</text>
+  <text x="60" y="420" font-size="12" fill="#27ae60" font-weight="bold">✓ Вільний вирівнює тиск і затримує вологу (IP67 / IP68)</text>
+
+  <!-- Right Panel: Size Comparison & Selective Permeability -->
+  <rect x="490" y="75" width="430" height="375" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="515" y="105" font-size="15" font-weight="bold" fill="#1a1a1a">Масштаб частинок та вибірковість</text>
+
+  <!-- Comparison Items -->
+  <!-- 1. Gas molecules -->
+  <rect x="515" y="125" width="380" height="55" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <circle cx="545" cy="152" r="8" fill="#27ae60"/>
+  <text x="565" y="146" font-size="13" font-weight="bold" fill="#1a1a1a">Молекули газу / повітря (~0.3 нм)</text>
+  <text x="565" y="165" font-size="12" fill="#27ae60">Проходять вільно через пори ePTFE</text>
+
+  <!-- 2. Water droplet -->
+  <rect x="515" y="195" width="380" height="55" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <circle cx="545" cy="222" r="12" fill="#2457d6"/>
+  <text x="565" y="216" font-size="13" font-weight="bold" fill="#1a1a1a">Крапля води (100–1000 мкм)</text>
+  <text x="565" y="235" font-size="12" fill="#2457d6">Блокується поверхневим натягом (гідрофобність)</text>
+
+  <!-- 3. Oil / Aerosol -->
+  <rect x="515" y="265" width="380" height="55" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <circle cx="545" cy="292" r="10" fill="#c0392b"/>
+  <text x="565" y="286" font-size="13" font-weight="bold" fill="#1a1a1a">Масляна емульсія / аерозолі (1–50 мкм)</text>
+  <text x="565" y="305" font-size="12" fill="#c0392b">Затримується олеофобним покриттям</text>
+
+  <!-- Summary box at bottom right -->
+  <rect x="515" y="335" width="380" height="95" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="535" y="360" font-size="13" font-weight="bold" fill="#1a1a1a">Механізм вибіркової проникності:</text>
+  <text x="535" y="385" font-size="12" fill="#6b7280">1. Низька поверхнева енергія PTFE відштовхує рідини.</text>
+  <text x="535" y="407" font-size="12" fill="#6b7280">2. Тривимірна мережа забезпечує високу повітропроникність.</text>
+
+</svg>

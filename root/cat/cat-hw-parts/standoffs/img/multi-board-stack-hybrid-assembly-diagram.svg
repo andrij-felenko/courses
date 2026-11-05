@@ -1,0 +1,105 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Гібридне складання трирівневого стека плат на стійках M2.5/M3</text>
+  <text x="480" y="54" text-anchor="middle" font-size="13" fill="#6b7280">Поєднання латунних стійок (GND-контур) та нейлонових PA66 (гальванічна ізоляція)</text>
+
+  <!-- ЛІВА ПАНЕЛЬ: Вибух-схема складання стека -->
+  <rect x="30" y="75" width="560" height="360" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="310" y="100" text-anchor="middle" font-size="15" font-weight="bold" fill="#1a1a1a">Пошарова вибух-схема трирівневого стека</text>
+
+  <!-- ВЕРХНІЙ РІВЕНЬ: Плата RF / Сенсорів -->
+  <rect x="70" y="115" width="460" height="26" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="85" y="132" font-size="12" font-weight="bold" fill="#27ae60">Рівень 3: Плата RF та прецизійних датчиків</text>
+  <text x="410" y="132" font-size="11" fill="#1a1a1a">Товщина 1.6 мм</text>
+
+  <!-- Міжплатний ярус 2-3 (H_s1 = 8 мм) -->
+  <!-- Стійки латунні (ліворуч) -->
+  <rect x="90" y="152" width="22" height="36" rx="2" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="120" y="166" font-size="11" font-weight="bold" fill="#2457d6">Латунь CW614N</text>
+  <text x="120" y="180" font-size="10" fill="#6b7280">H_s1 = 8.0 мм (GND)</text>
+
+  <!-- Компонент роз'єму у зазорі -->
+  <rect x="250" y="152" width="70" height="25" rx="3" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="285" y="168" text-anchor="middle" font-size="10" fill="#1a1a1a">Роз'єм 5.5 мм</text>
+  <text x="285" y="196" text-anchor="middle" font-size="10" font-weight="bold" fill="#27ae60">Зазор 2.5 мм</text>
+
+  <!-- Стійки нейлонові (праворуч) -->
+  <rect x="420" y="152" width="22" height="36" rx="2" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="450" y="166" font-size="11" font-weight="bold" fill="#c0392b">Нейлон PA66</text>
+  <text x="450" y="180" font-size="10" fill="#6b7280">Ізоляція антени</text>
+
+  <!-- СЕРЕДНІЙ РІВЕНЬ: Плата MCU -->
+  <rect x="70" y="202" width="460" height="26" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="85" y="219" font-size="12" font-weight="bold" fill="#2457d6">Рівень 2: Плата процесора MCU та інтерфейсів</text>
+  <text x="410" y="219" font-size="11" fill="#1a1a1a">Товщина 1.6 мм</text>
+
+  <!-- Міжплатний ярус 1-2 (H_s2 = 12 мм) -->
+  <!-- Стійки латунні (ліворуч) -->
+  <rect x="90" y="238" width="22" height="46" rx="2" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="120" y="256" font-size="11" font-weight="bold" fill="#2457d6">Латунь CW614N</text>
+  <text x="120" y="272" font-size="10" fill="#6b7280">H_s2 = 12.0 мм (GND)</text>
+
+  <!-- Компонент дроселя/конденсатора у зазорі -->
+  <rect x="245" y="238" width="80" height="32" rx="3" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="285" y="258" text-anchor="middle" font-size="10" fill="#1a1a1a">Конденсатор 9.0 мм</text>
+  <text x="285" y="294" text-anchor="middle" font-size="10" font-weight="bold" fill="#27ae60">Зазор 3.0 мм</text>
+
+  <!-- Стійки нейлонові (праворуч) -->
+  <rect x="420" y="238" width="22" height="46" rx="2" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="450" y="256" font-size="11" font-weight="bold" fill="#c0392b">Нейлон PA66</text>
+  <text x="450" y="272" font-size="10" fill="#6b7280">Гальванічна розв'язка</text>
+
+  <!-- НИЖНІЙ РІВЕНЬ: Силова плата -->
+  <rect x="70" y="300" width="460" height="26" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="85" y="317" font-size="12" font-weight="bold" fill="#c0392b">Рівень 1: Силова плата перетворювачів живлення (DC-DC 24В)</text>
+
+  <!-- Опорні гвинти шасі -->
+  <rect x="90" y="336" width="22" height="18" rx="2" fill="#d0d7de" stroke="#1a1a1a"/>
+  <text x="120" y="350" font-size="11" fill="#1a1a1a">Монтаж до металевого корпусу (шасі GND)</text>
+
+  <!-- Пояснення внизу лівої панелі -->
+  <rect x="70" y="372" width="460" height="48" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="85" y="392" font-size="11" font-weight="bold" fill="#1a1a1a">Порядок складання:</text>
+  <text x="210" y="392" font-size="11" fill="#1a1a1a">База 1 -&gt; Стійки H_s2 -&gt; Плата 2 -&gt; Стійки H_s1 -&gt; Плата 3</text>
+  <text x="85" y="410" font-size="11" fill="#6b7280">Затягування по діагоналі: 1 (SW) -&gt; 3 (NE) -&gt; 2 (SE) -&gt; 4 (NW) рівномірним кроком</text>
+
+  <!-- ПРАВА ПАНЕЛЬ: Інженерні норми та матеріали -->
+  <rect x="610" y="75" width="320" height="360" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="770" y="100" text-anchor="middle" font-size="15" font-weight="bold" fill="#1a1a1a">Інженерні вимоги стека</text>
+
+  <!-- Картка 1: Гібридне кріплення -->
+  <rect x="625" y="115" width="290" height="95" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="635" y="134" font-size="12" font-weight="bold" fill="#2457d6">1. Електромагнітна сумісність:</text>
+  <text x="635" y="152" font-size="11" fill="#1a1a1a">• Латунь: замкнутий GND-контур</text>
+  <text x="635" y="168" font-size="11" fill="#6b7280">  (екранування чутливих вузлів)</text>
+  <text x="635" y="186" font-size="11" fill="#1a1a1a">• Нейлон: ізоляція 20 кВ/мм</text>
+  <text x="635" y="202" font-size="11" fill="#6b7280">  (усунення контурів заземлення)</text>
+
+  <!-- Картка 2: Норми затягування -->
+  <rect x="625" y="220" width="290" height="95" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="635" y="239" font-size="12" font-weight="bold" fill="#1a1a1a">2. Норми моментів (M3):</text>
+  <text x="635" y="257" font-size="11" fill="#2457d6">• Латунні стійки: 0.55-0.65 Н*м</text>
+  <text x="635" y="273" font-size="11" fill="#c0392b">• Нейлонові PA66: 0.18-0.20 Н*м</text>
+  <text x="635" y="291" font-size="11" font-weight="bold" fill="#27ae60">• Контроль: динамометричний ключ</text>
+  <text x="635" y="307" font-size="11" fill="#6b7280">  (виключає деформацію FR-4)</text>
+
+  <!-- Картка 3: Фіксація різьби -->
+  <rect x="625" y="325" width="290" height="95" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="635" y="344" font-size="12" font-weight="bold" fill="#27ae60">3. Вібростійкість з'єднання:</text>
+  <text x="635" y="362" font-size="11" fill="#1a1a1a">• Латунь: Loctite 222 (низька дія)</text>
+  <text x="635" y="378" font-size="11" fill="#6b7280">  (легкий демонтаж при сервісі)</text>
+  <text x="635" y="396" font-size="11" fill="#c0392b">• Нейлон: без анаеробів!</text>
+  <text x="635" y="412" font-size="11" fill="#6b7280">  (використовувати гроверні шайби)</text>
+</svg>

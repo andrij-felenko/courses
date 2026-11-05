@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="38" text-anchor="middle" font-size="18" font-weight="700" fill="#1a1a1a">Геометрія корпусів JST-SM, полярне ключування та замок фіксації</text>
+  <text x="480" y="60" text-anchor="middle" font-size="13" fill="#6b7280">Крок виводів 2.5 мм, асиметричні напрямні пази keying та клямковий замок latching arm проти вібраційного роз'єднання</text>
+
+  <!-- Left Panel: Assembly & Mating -->
+  <rect x="30" y="80" width="445" height="355" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="50" y="108" font-size="14" font-weight="700" fill="#1a1a1a">Складальний розріз та зчленування (Plug &amp; Receptacle)</text>
+
+  <!-- Receptacle housing illustration (left side of mating) -->
+  <rect x="55" y="130" width="185" height="90" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="147" y="152" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">Розетковий корпус (Receptacle)</text>
+  <!-- Pins representation -->
+  <line x1="75" y1="175" x2="220" y2="175" stroke="#2457d6" stroke-width="2" stroke-dasharray="4,2"/>
+  <text x="147" y="198" text-anchor="middle" font-size="11" fill="#2457d6">Контакти (Pins)</text>
+
+  <!-- Plug housing illustration (right side of mating) -->
+  <rect x="265" y="130" width="195" height="90" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="362" y="152" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">Вилковий корпус (Plug)</text>
+  <text x="362" y="178" text-anchor="middle" font-size="11" fill="#6b7280">Упорний зуб (Locking Catch)</text>
+
+  <!-- Mating force arrow -->
+  <line x1="235" y1="175" x2="255" y2="175" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="245" y="122" text-anchor="middle" font-size="11" font-weight="700" fill="#2457d6">F_mate (10–15 Н)</text>
+
+  <!-- Details list in left panel -->
+  <text x="55" y="245" font-size="12" font-weight="700" fill="#1a1a1a">Конструктивні параметри зчленування:</text>
+  <text x="65" y="270" font-size="11" fill="#1a1a1a">• Крок виводів (Pitch): 2.50 мм (допуск ±0.05 мм)</text>
+  <text x="65" y="295" font-size="11" fill="#1a1a1a">• Еластичний консольний важіль (Latching Arm)</text>
+  <text x="65" y="320" font-size="11" fill="#1a1a1a">• Фіксація з характерним клацанням (Audible click)</text>
+  <text x="65" y="345" font-size="11" fill="#1a1a1a">• Стійкість до вібрацій та ривків кабелю</text>
+  <text x="65" y="370" font-size="11" fill="#1a1a1a">• Номінальний струм: до 3 А (провідник AWG 22–28)</text>
+
+  <!-- Right Panel: Keying & Reliability -->
+  <rect x="495" y="80" width="435" height="355" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="515" y="108" font-size="14" font-weight="700" fill="#1a1a1a">Полярне ключування та характеристики надійності</text>
+
+  <text x="515" y="138" font-size="12" font-weight="700" fill="#1a1a1a">Асиметричне полярне ключування (Keying):</text>
+  <text x="525" y="162" font-size="11" fill="#6b7280">• Поздовжні пази та ребра запобігають переполюсуванню.</text>
+  <text x="525" y="184" font-size="11" fill="#6b7280">• Механічний упор при спробі зчленування на 180° (mismatch).</text>
+
+  <text x="515" y="214" font-size="12" font-weight="700" fill="#1a1a1a">Ізоляційний матеріал:</text>
+  <text x="525" y="236" font-size="11" fill="#6b7280">• Поліамід PA66 (нейлон), вогнестійкість UL94V-0.</text>
+  <text x="525" y="258" font-size="11" fill="#6b7280">• Робочий діапазон температур: -25 °C .. +85 °C.</text>
+
+  <!-- Mechanical norms box -->
+  <rect x="515" y="275" width="395" height="115" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="530" y="297" font-size="12" font-weight="700" fill="#27ae60">Електричні та механічні норми:</text>
+  <text x="540" y="322" font-size="11" fill="#1a1a1a">• Зусилля утримання замка (Lock Retention): F_lock ≥ 40–50 Н</text>
+  <text x="540" y="347" font-size="11" fill="#1a1a1a">• Опір ізоляції (Insulation Resistance): R_iso ≥ 1000 МОм (500 В)</text>
+  <text x="540" y="372" font-size="11" fill="#1a1a1a">• Витримувана напруга: 1000 В AC протягом 1 хвилини</text>
+
+  <text x="515" y="415" font-size="11" font-weight="700" fill="#2457d6">Застосування: Світлодіодні стрічки WS2812B, крокові мотори, пульти.</text>
+</svg>

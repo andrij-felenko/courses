@@ -1,0 +1,92 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Геометрія подвійного обтискання Faston та типові дефекти</text>
+  <text x="480" y="60" font-size="13" fill="#6b7280" text-anchor="middle">Нормативний двоконтурний профіль F-crimp та порівняння з критичними дефектами монтажу</text>
+
+  <!-- ========================================== -->
+  <!-- BLOCK 1: ЕТАЛОННИЙ ПОДВІЙНИЙ ОБТИСК (ЛІВОРУЧ) -->
+  <!-- ========================================== -->
+  <rect x="25" y="80" width="295" height="355" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  
+  <rect x="35" y="90" width="275" height="30" rx="4" fill="#e9f7ef"/>
+  <text x="172" y="110" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Еталонний обтиск (Норма)</text>
+
+  <!-- Drawing Container for Standard Crimp (Absolute coordinates, no nested negative offsets) -->
+  <!-- Insulation barrel (outer, wider loop) centered around x=172, y=230 -->
+  <path d="M 112,190 C 112,155 232,155 232,190 C 232,215 217,240 207,255 C 200,265 144,265 137,255 C 127,240 112,215 112,190 Z" fill="#eaf0fd" stroke="#2457d6" stroke-width="3"/>
+  
+  <!-- Insulation grip wings container -->
+  <rect x="127" y="200" width="90" height="45" rx="15" fill="#ffffff" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <text x="172" y="228" font-size="11" fill="#2457d6" text-anchor="middle">Ізоляція</text>
+
+  <!-- Conductor barrel (inner crimp) -->
+  <path d="M 137,320 C 137,290 207,290 207,320 C 207,340 192,355 172,355 C 152,355 137,340 137,320 Z" fill="#e9f7ef" stroke="#27ae60" stroke-width="3"/>
+  
+  <!-- Monolithic deformed strands -->
+  <circle cx="172" cy="325" r="14" fill="#e0f3eb" stroke="#27ae60" stroke-width="1.5"/>
+  <circle cx="165" cy="320" r="5" fill="#27ae60"/>
+  <circle cx="179" cy="320" r="5" fill="#27ae60"/>
+  <circle cx="172" cy="333" r="5" fill="#27ae60"/>
+  <circle cx="166" cy="330" r="4" fill="#27ae60"/>
+  <circle cx="178" cy="330" r="4" fill="#27ae60"/>
+
+  <!-- Callouts for Standard Crimp -->
+  <line x1="220" y1="180" x2="250" y2="150" stroke="#6b7280" stroke-width="1" marker-end="url(#arr)"/>
+  <text x="255" y="146" font-size="11" fill="#1a1a1a" text-anchor="start">Ізоляційний контур</text>
+
+  <line x1="210" y1="320" x2="250" y2="340" stroke="#6b7280" stroke-width="1" marker-end="url(#arr)"/>
+  <text x="255" y="344" font-size="11" fill="#1a1a1a" text-anchor="start">Силовий barrel</text>
+
+  <text x="172" y="415" font-size="11" fill="#27ae60" font-weight="bold" text-anchor="middle">Монолітне деформування без пустот</text>
+
+
+  <!-- ========================================== -->
+  <!-- BLOCK 2: ДЕФЕКТИ МОНТАЖУ (ПРАВОРУЧ) -->
+  <!-- ========================================== -->
+  <rect x="335" y="80" width="600" height="355" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  
+  <rect x="345" y="90" width="580" height="30" rx="4" fill="#fdecea"/>
+  <text x="635" y="110" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">Типові дефекти монтажу та порушення геометрії</text>
+
+  <!-- Sub-block A: Недотискання (Under-crimp) -->
+  <rect x="355" y="140" width="170" height="280" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <path d="M 405,210 C 390,185 425,175 440,195 C 455,175 490,185 475,210" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+  <circle cx="440" cy="235" r="12" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3,2"/>
+  <circle cx="435" cy="235" r="3" fill="#6b7280"/>
+  <circle cx="445" cy="237" r="3" fill="#6b7280"/>
+  <circle cx="440" cy="230" r="3" fill="#6b7280"/>
+  
+  <text x="440" y="325" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">1. Недотискання</text>
+  <text x="440" y="343" font-size="11" fill="#6b7280" text-anchor="middle">Зазори, окиснення,</text>
+  <text x="440" y="356" font-size="11" fill="#6b7280" text-anchor="middle">слабкий контакт</text>
+
+  <!-- Sub-block B: Підрізання жил (Over-crimp / Cut strands) -->
+  <rect x="550" y="140" width="170" height="280" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <path d="M 605,215 C 595,185 635,175 670,215 C 675,235 660,255 635,255 C 610,255 595,235 605,215 Z" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+  <path d="M 620,225 L 650,220" stroke="#c0392b" stroke-width="2"/>
+  <path d="M 625,235 L 653,230" stroke="#c0392b" stroke-width="2"/>
+  
+  <text x="635" y="325" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">2. Підрізання жил</text>
+  <text x="635" y="343" font-size="11" fill="#6b7280" text-anchor="middle">Зменшений переріз,</text>
+  <text x="635" y="356" font-size="11" fill="#6b7280" text-anchor="middle">обрив під навантаж.</text>
+
+  <!-- Sub-block C: Зміщення ізоляції (Insulation in barrel) -->
+  <rect x="745" y="140" width="170" height="280" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="805" y="200" width="60" height="50" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="3,2"/>
+  <path d="M 800,270 C 800,255 870,255 870,270" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+  <text x="835" y="228" font-size="10" fill="#2457d6" text-anchor="middle">Ізоляція</text>
+
+  <text x="830" y="325" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">3. Потрап. ізоляції</text>
+  <text x="830" y="343" font-size="11" fill="#6b7280" text-anchor="middle">Втрата контакту,</text>
+  <text x="830" y="356" font-size="11" fill="#6b7280" text-anchor="middle">механічна нестійкість</text>
+
+</svg>

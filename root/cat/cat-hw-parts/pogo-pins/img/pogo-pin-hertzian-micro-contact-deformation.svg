@@ -1,0 +1,94 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-black" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Пружна деформація за Герцом та контактні плями a-spots</text>
+  <text x="480" y="56" font-size="13" fill="#6b7280" text-anchor="middle">Перехід від макроскопічного радіуса наконечника до мікронерівностей та опору Гольма</text>
+
+  <!-- ЛІВА ПАНЕЛЬ: МАКРОКОНТАКТ ЗА ГЕРЦОМ -->
+  <rect x="40" y="85" width="430" height="375" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="40" y="85" width="430" height="34" rx="8" fill="#eaf0fd" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="255" y="107" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">МАКРОСКОПІЧНИЙ КОНТАКТ (ГЕРЦ)</text>
+
+  <!-- Сферичний наконечник плунжера -->
+  <path d="M150,140 L150,180 Q150,260 255,260 Q360,260 360,180 L360,140 Z" fill="#ffffff" stroke="#2457d6" stroke-width="2"/>
+  
+  <!-- Вектор сили притиску F -->
+  <line x1="255" y1="125" x2="255" y2="185" stroke="#c0392b" stroke-width="3" marker-end="url(#arr-red)"/>
+  <text x="265" y="155" font-size="13" font-weight="bold" fill="#c0392b">Сила F_c</text>
+
+  <!-- Радіус сфери R_tip -->
+  <line x1="255" y1="180" x2="330" y2="230" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-black)"/>
+  <text x="285" y="200" font-size="12" font-weight="bold" fill="#1a1a1a">R_tip</text>
+
+  <!-- Плаский контактний майданчик -->
+  <rect x="80" y="260" width="350" height="15" fill="#f1c40f" stroke="#1a1a1a" stroke-width="1.2"/>
+  <rect x="60" y="275" width="390" height="20" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1.2"/>
+  <text x="75" y="290" font-size="11" fill="#6b7280">Target Pad</text>
+
+  <!-- Область уявного контакту a_Hertz -->
+  <line x1="215" y1="260" x2="295" y2="260" stroke="#27ae60" stroke-width="4"/>
+  <line x1="255" y1="260" x2="295" y2="260" stroke="#27ae60" stroke-width="4"/>
+  <text x="255" y="248" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">2 · a_Hertz</text>
+
+  <!-- Картка розрахунку Герца -->
+  <rect x="55" y="315" width="400" height="130" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="70" y="337" font-size="12" font-weight="bold" fill="#2457d6">Теорія пружного контакту Герца:</text>
+  <text x="70" y="358" font-size="12" font-weight="bold" fill="#1a1a1a">a_Hertz = [ (3 · F_c · R_tip) / (4 · E*) ]^(1/3)</text>
+  <text x="70" y="378" font-size="12" fill="#1a1a1a">• E* — приведений модуль Юнга (золото-золото / латунь)</text>
+  <text x="70" y="398" font-size="12" fill="#6b7280">• Уявна площа контакту: A_app = π · a_Hertz²</text>
+  <text x="70" y="418" font-size="12" fill="#27ae60" font-weight="bold">• При F = 1.0 Н, R = 0.5 мм: a_Hertz ~ 25 ... 35 мкм</text>
+
+  <!-- ПРАВА ПАНЕЛЬ: МІКРОРЕЛЬЄФ ТА A-SPOTS -->
+  <rect x="490" y="85" width="430" height="375" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="490" y="85" width="430" height="34" rx="8" fill="#e9f7ef" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="705" y="107" font-size="14" font-weight="bold" fill="#27ae60" text-anchor="middle">МІКРОРЕЛЬЄФ ТА ПЛЯМИ ДОТИКУ (A-SPOTS)</text>
+
+  <!-- Збільшений профіль шорсткості (мікронерівності) -->
+  <!-- Тіло плунжера зверху з нерівностями -->
+  <path d="M520,135 L520,170 Q540,195 560,180 Q580,210 600,185 Q620,215 640,190 Q660,210 680,185 Q700,215 720,190 Q740,210 760,185 Q780,215 800,180 L800,135 Z" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+
+  <!-- Плаский майданчик знизу з нерівностями -->
+  <path d="M520,230 Q550,215 570,225 Q590,210 610,225 Q630,210 650,225 Q670,210 690,225 Q710,210 730,225 Q750,210 770,225 L800,225 L800,250 L520,250 Z" fill="#fef9e7" stroke="#f1c40f" stroke-width="1.5"/>
+
+  <!-- Плями дотику a-spots (червоні точки пластичного зминання) -->
+  <circle cx="583" cy="208" r="4" fill="#c0392b"/>
+  <circle cx="642" cy="210" r="4" fill="#c0392b"/>
+  <circle cx="703" cy="210" r="4" fill="#c0392b"/>
+
+  <!-- Лінії протікання струму (стягування до a-spots) -->
+  <path d="M560,140 Q575,185 583,208" fill="none" stroke="#27ae60" stroke-width="1.5"/>
+  <path d="M605,140 Q595,185 583,208" fill="none" stroke="#27ae60" stroke-width="1.5"/>
+  <path d="M625,140 Q635,185 642,210" fill="none" stroke="#27ae60" stroke-width="1.5"/>
+  <path d="M660,140 Q650,185 642,210" fill="none" stroke="#27ae60" stroke-width="1.5"/>
+  <path d="M685,140 Q695,185 703,210" fill="none" stroke="#27ae60" stroke-width="1.5"/>
+  <path d="M720,140 Q710,185 703,210" fill="none" stroke="#27ae60" stroke-width="1.5"/>
+
+  <text x="815" y="195" font-size="12" font-weight="bold" fill="#c0392b">a-spots</text>
+  <text x="815" y="212" font-size="11" fill="#6b7280">плями контакту</text>
+  <text x="815" y="165" font-size="11" fill="#27ae60">лінії струму</text>
+
+  <!-- Картка розрахунку Гольма -->
+  <rect x="505" y="275" width="400" height="170" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="520" y="297" font-size="12" font-weight="bold" fill="#27ae60">Формула контактного опору Гольма (Holm):</text>
+  <text x="520" y="318" font-size="12" font-weight="bold" fill="#1a1a1a">R_contact = R_constriction + R_film</text>
+  <text x="520" y="338" font-size="12" font-weight="bold" fill="#2457d6">R_constriction = ρ / (2 · Σ a_i) ≈ ρ / (2 · a_Hertz)</text>
+  <text x="520" y="358" font-size="12" fill="#1a1a1a">• Реальна площа дотику: A_true = F_c / H_hardness</text>
+  <text x="520" y="378" font-size="12" fill="#6b7280">• A_true становить менше 1% від уявної площі A_app</text>
+  <text x="520" y="398" font-size="12" fill="#1a1a1a">• На твердому золоті R_film ≈ 0 (відсутність оксидної плівки)</text>
+  <text x="520" y="418" font-size="12" fill="#27ae60" font-weight="bold">• Опір стягування чистих металів: R_c &lt; 15–20 мОм</text>
+</svg>

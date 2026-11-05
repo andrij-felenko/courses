@@ -1,0 +1,158 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-black" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Підкладка -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="34" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Паразитне живлення та дзвінок сигнальних ліній у логіці 74AHCT</text>
+  <text x="480" y="56" font-size="13" fill="#6b7280" text-anchor="middle">Струм витоку через ESD-діоди за V_CC = 0 V та зворотні відбиття у неузгодженій лінії</text>
+
+  <!-- ==================== ПАНЕЛЬ 1: ПАРАЗИТНЕ ЖИВЛЕННЯ ==================== -->
+  <rect x="24" y="78" width="444" height="418" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="36" y="90" width="420" height="32" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="246" y="111" font-size="14" font-weight="bold" fill="#c0392b" text-anchor="middle">1. Механізм паразитного живлення (V_CC = 0 V)</text>
+
+  <!-- Блок джерела (Мікроконтролер 3.3 В) -->
+  <rect x="38" y="138" width="102" height="152" rx="5" fill="white" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="89" y="160" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">МК (3.3 В)</text>
+  <text x="89" y="178" font-size="12" fill="#6b7280" text-anchor="middle">Активне джерело</text>
+  <line x1="48" y1="192" x2="130" y2="192" stroke="#d0d7de" stroke-width="1"/>
+  <text x="89" y="214" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">GPIO = 3.3 В</text>
+  <text x="89" y="232" font-size="12" fill="#6b7280" text-anchor="middle">Логічна «1»</text>
+  <rect x="44" y="248" width="90" height="24" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="89" y="264" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">I_out &gt; 20 mA!</text>
+
+  <!-- Лінія струму I_leak від МК до мікросхеми -->
+  <line x1="140" y1="214" x2="204" y2="214" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arr-red)"/>
+  <text x="172" y="204" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">I_leak</text>
+
+  <!-- Корпус знеструмленої мікросхеми -->
+  <rect x="208" y="138" width="246" height="234" rx="6" fill="white" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="331" y="157" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Знеструмлена CMOS-логіка</text>
+
+  <!-- Шина V_CC всередині чипа -->
+  <line x1="220" y1="174" x2="438" y2="174" stroke="#c0392b" stroke-width="2"/>
+  <text x="224" y="168" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="start">Шина V_CC (Вимкнено, 0 В)</text>
+
+  <!-- Шина GND всередині чипа -->
+  <line x1="220" y1="346" x2="438" y2="346" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="224" y="362" font-size="12" fill="#6b7280" text-anchor="start">Шина GND = 0 В</text>
+
+  <!-- Вхідний вивід IN та внутрішнє коло -->
+  <line x1="208" y1="214" x2="270" y2="214" stroke="#c0392b" stroke-width="2.5"/>
+  <circle cx="270" cy="214" r="3.5" fill="#1a1a1a"/>
+  <text x="214" y="232" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">Вхід IN</text>
+
+  <!-- Верхній діод D_ESD1 (Відкритий прямо) -->
+  <line x1="270" y1="214" x2="270" y2="198" stroke="#c0392b" stroke-width="2.5"/>
+  <polygon points="262,198 278,198 270,184" fill="#c0392b"/>
+  <line x1="261" y1="184" x2="279" y2="184" stroke="#c0392b" stroke-width="2"/>
+  <line x1="270" y1="184" x2="270" y2="175" stroke="#c0392b" stroke-width="2.5"/>
+  <text x="284" y="196" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="start">D_ESD1 (ВІДКРИТИЙ)</text>
+  <text x="284" y="210" font-size="12" fill="#6b7280" text-anchor="start">Спадання V_F ≈ 0.7 В</text>
+
+  <!-- Паразитне живлення шини C_dec / паразитна ємність -->
+  <line x1="400" y1="174" x2="400" y2="236" stroke="#c0392b" stroke-width="1.5"/>
+  <line x1="388" y1="236" x2="412" y2="236" stroke="#c0392b" stroke-width="2"/>
+  <line x1="388" y1="242" x2="412" y2="242" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="400" y1="242" x2="400" y2="346" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="306" y="226" width="76" height="34" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="344" y="241" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">V_CC(пар)</text>
+  <text x="344" y="254" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">≈ 2.6 В</text>
+  <text x="418" y="243" font-size="12" fill="#6b7280" text-anchor="start">C_dec</text>
+
+  <!-- Нижній діод D_ESD2 (Закритий зворотно) -->
+  <line x1="270" y1="214" x2="270" y2="268" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="261" y1="268" x2="279" y2="268" stroke="#6b7280" stroke-width="2"/>
+  <polygon points="262,284 278,284 270,268" fill="#6b7280"/>
+  <line x1="270" y1="284" x2="270" y2="346" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="284" y="278" font-size="12" fill="#6b7280" text-anchor="start">D_ESD2 (ЗАКРИТИЙ)</text>
+  <text x="284" y="294" font-size="12" fill="#6b7280" text-anchor="start">Зворотна напруга 3.3 В</text>
+
+  <!-- Внутрішня логіка Hi-Z -->
+  <line x1="270" y1="214" x2="300" y2="214" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="284" y="318" font-size="12" fill="#6b7280" text-anchor="start">Вхід логіки: Hi-Z</text>
+  <text x="284" y="334" font-size="12" fill="#6b7280" text-anchor="start">(R_in &gt; 10¹² Ом)</text>
+
+  <!-- Підсумкова картка панелі 1 -->
+  <rect x="36" y="386" width="420" height="96" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="46" y="405" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="start">Небезпека паразитного живлення:</text>
+  <text x="46" y="423" font-size="12" fill="#1a1a1a" text-anchor="start">• Витік I_leak заряджає шину V_CC до 2.6 В (нештатне вмикання чипа)</text>
+  <text x="46" y="441" font-size="12" fill="#1a1a1a" text-anchor="start">• Перевантаження GPIO мікроконтролера та ризик тиристорного Latch-up</text>
+  <text x="46" y="461" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="start">Захист: резистор R_lim (100–500 Ом) або входи без діода на V_CC</text>
+
+  <!-- ==================== ПАНЕЛЬ 2: ДЗВІНОК У ЛІНІЇ ==================== -->
+  <rect x="492" y="78" width="444" height="418" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="504" y="90" width="420" height="32" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="714" y="111" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">2. Хвильовий дзвінок у довгій лінії (l &gt; l_crit)</text>
+
+  <!-- Драйвер 74AHCT -->
+  <rect x="504" y="136" width="92" height="66" rx="4" fill="white" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="550" y="156" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">74AHCT</text>
+  <text x="550" y="172" font-size="12" fill="#1a1a1a" text-anchor="middle">R_out ≈ 22 Ω</text>
+  <text x="550" y="188" font-size="12" fill="#6b7280" text-anchor="middle">t_r ≈ 2 ns</text>
+
+  <!-- Лінія передачі сигналів -->
+  <line x1="596" y1="169" x2="832" y2="169" stroke="#2457d6" stroke-width="2.5"/>
+  <line x1="616" y1="152" x2="688" y2="152" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="652" y="145" font-size="12" fill="#2457d6" text-anchor="middle">Пряма хвиля →</text>
+  <line x1="812" y1="186" x2="740" y2="186" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <text x="776" y="199" font-size="12" fill="#c0392b" text-anchor="middle">← Відбита хвиля</text>
+  <text x="714" y="165" font-size="12" fill="#6b7280" text-anchor="middle">Z_0 ≈ 50 Ω, l &gt; 15 cm</text>
+
+  <!-- Приймач сигналів (Hi-Z) -->
+  <rect x="832" y="136" width="92" height="66" rx="4" fill="white" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="878" y="156" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Приймач</text>
+  <text x="878" y="172" font-size="12" fill="#1a1a1a" text-anchor="middle">R_in &gt; 1 MΩ</text>
+  <text x="878" y="188" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Γ_L ≈ +1</text>
+
+  <!-- Осцилографічний екран -->
+  <rect x="504" y="216" width="420" height="158" rx="6" fill="white" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Рівні напруги на осцилограмі -->
+  <text x="560" y="260" font-size="12" fill="#6b7280" text-anchor="end">5.0 V</text>
+  <line x1="566" y1="256" x2="910" y2="256" stroke="#d0d7de" stroke-dasharray="3,3" stroke-width="1"/>
+
+  <text x="560" y="296" font-size="12" fill="#2457d6" text-anchor="end">2.0 V</text>
+  <line x1="566" y1="292" x2="910" y2="292" stroke="#eaf0fd" stroke-width="1.5"/>
+
+  <text x="560" y="324" font-size="12" fill="#6b7280" text-anchor="end">0.0 V</text>
+  <line x1="566" y1="320" x2="910" y2="320" stroke="#1a1a1a" stroke-width="1"/>
+
+  <!-- Ідеальний фронт з узгодженням (пунктирний зелений) -->
+  <path d="M570,320 L600,320 L605,256 L720,256 L725,320 L860,320" fill="none" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="4,3"/>
+
+  <!-- Реальний дзвінок без узгодження (червоний графік) -->
+  <path d="M570,320 L600,320 Q604,270 607,234 Q612,230 618,245 Q624,274 632,274 Q640,248 648,248 Q656,262 664,262 L720,256 Q724,290 727,342 Q732,348 738,332 Q744,306 752,306 Q760,328 768,328 L860,320" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+
+  <!-- Позначки викидів на графіку -->
+  <rect x="618" y="222" width="138" height="20" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="687" y="236" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Перерегулювання (+6.5 V)</text>
+
+  <rect x="742" y="338" width="138" height="20" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="811" y="352" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Недорегулювання (-1.2 V)</text>
+
+  <text x="874" y="246" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Узгоджено (R_S)</text>
+  <text x="874" y="260" font-size="12" fill="#6b7280" text-anchor="middle">Ідеальний фронт</text>
+
+  <!-- Підсумкова картка панелі 2 -->
+  <rect x="504" y="386" width="420" height="96" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="514" y="405" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="start">Небезпека зворотного дзвінка:</text>
+  <text x="514" y="423" font-size="12" fill="#1a1a1a" text-anchor="start">• Помилкові спрацьовування стробів і тактових входів 74HC595/165</text>
+  <text x="514" y="441" font-size="12" fill="#1a1a1a" text-anchor="start">• Викиди вище V_CC та від'ємні сплески нижче GND порушують роботу</text>
+  <text x="514" y="461" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="start">Розв'язок: резистор R_S = Z_0 - R_out ≈ 27...33 Ом біля виходу чипа</text>
+</svg>

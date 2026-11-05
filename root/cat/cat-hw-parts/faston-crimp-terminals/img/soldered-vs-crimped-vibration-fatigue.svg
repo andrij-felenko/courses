@@ -1,0 +1,86 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Підкладка -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="38" font-size="18" font-weight="700" text-anchor="middle" fill="#1a1a1a">Порівняння вібростійкості: паяне з'єднання проти обтискного контакту Faston</text>
+  <text x="480" y="60" font-size="13" font-weight="400" text-anchor="middle" fill="#6b7280">Концентрація напружень на межі затікання припою vs розподіл згинання подвійним обтисканням</text>
+
+  <!-- Ліва панель: Паяне з'єднання -->
+  <rect x="40" y="90" width="420" height="300" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <!-- Заголовок панелі -->
+  <text x="250" y="122" font-size="15" font-weight="700" text-anchor="middle" fill="#c0392b">Паяне з'єднання (Жорсткий перехід)</text>
+
+  <!-- Ілюстрація лівої панелі -->
+  <!-- Клема / гільза -->
+  <rect x="300" y="180" width="120" height="80" rx="4" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="360" y="225" font-size="12" font-weight="700" text-anchor="middle" fill="#1a1a1a">Клема</text>
+
+  <!-- Жила кабелю та капілярний припой -->
+  <!-- Ізоляція кабелю -->
+  <path d="M60,195 L180,195" stroke="#6b7280" stroke-width="26" stroke-linecap="round" fill="none"/>
+  <text x="120" y="175" font-size="12" font-weight="400" text-anchor="middle" fill="#6b7280">Ізоляція</text>
+
+  <!-- Багатожильний провід / стержень припою -->
+  <path d="M180,195 L300,195" stroke="#c0392b" stroke-width="16" fill="none"/>
+  <text x="240" y="175" font-size="12" font-weight="700" text-anchor="middle" fill="#c0392b">Припой (капіляр)</text>
+
+  <!-- Вібраційні хвилі / стрілки -->
+  <path d="M70,240 C85,225 85,255 100,240 C115,225 115,255 130,240" stroke="#2457d6" stroke-width="2" fill="none" marker-end="url(#arr-dark)"/>
+  <text x="100" y="265" font-size="12" font-weight="400" text-anchor="middle" fill="#2457d6">F_vibr</text>
+
+  <!-- Точка зламу / концентрації напружень -->
+  <circle cx="180" cy="195" r="7" fill="#c0392b"/>
+  <line x1="180" y1="145" x2="180" y2="185" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <text x="180" y="138" font-size="12" font-weight="700" text-anchor="middle" fill="#c0392b">Точка концентрації напружень</text>
+  <text x="180" y="325" font-size="12" font-weight="400" text-anchor="middle" fill="#1a1a1a">Припій затікає під ізоляцію,</text>
+  <text x="180" y="343" font-size="12" font-weight="400" text-anchor="middle" fill="#1a1a1a">створюючи жорсткий стрижень.</text>
+  <text x="180" y="365" font-size="12" font-weight="700" text-anchor="middle" fill="#c0392b">Злам жили на межі припою!</text>
+
+
+  <!-- Права панель: Обтискне з'єднання -->
+  <rect x="500" y="90" width="420" height="300" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <!-- Заголовок панелі -->
+  <text x="710" y="122" font-size="15" font-weight="700" text-anchor="middle" fill="#27ae60">Обтискний контакт Faston (Подвійне захоплення)</text>
+
+  <!-- Ілюстрація правої панелі -->
+  <!-- Ізоляційний барель (strain relief) -->
+  <rect x="560" y="170" width="80" height="50" rx="4" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="600" y="200" font-size="12" font-weight="700" text-anchor="middle" fill="#1a1a1a">Ізоляція</text>
+
+  <!-- Провідниковий барель (wire crimp) -->
+  <rect x="700" y="170" width="110" height="50" rx="4" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="755" y="200" font-size="12" font-weight="700" text-anchor="middle" fill="#1a1a1a">Жила</text>
+
+  <!-- Плавний вигин гнучких жил -->
+  <path d="M520,195 C540,195 550,195 560,195" stroke="#27ae60" stroke-width="4" fill="none"/>
+  <path d="M640,195 C670,195 680,195 700,195" stroke="#27ae60" stroke-width="4" fill="none"/>
+  <path d="M810,195 L880,195" stroke="#27ae60" stroke-width="4" fill="none"/>
+
+  <!-- Вібраційні хвилі / стрілки -->
+  <path d="M530,240 C545,225 545,255 560,240 C575,225 575,255 590,240" stroke="#2457d6" stroke-width="2" fill="none" marker-end="url(#arr-dark)"/>
+  <text x="560" y="265" font-size="12" font-weight="400" text-anchor="middle" fill="#2457d6">F_vibr (гаситься)</text>
+
+  <!-- Зелена мітка -->
+  <line x1="600" y1="145" x2="600" y2="165" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <text x="600" y="138" font-size="12" font-weight="700" text-anchor="middle" fill="#27ae60">Розвантаження від натягу</text>
+
+  <text x="710" y="325" font-size="12" font-weight="400" text-anchor="middle" fill="#1a1a1a">Подвійне обтискання фіксує</text>
+  <text x="710" y="343" font-size="12" font-weight="400" text-anchor="middle" fill="#1a1a1a">ізоляцію та жилу окремо.</text>
+  <text x="710" y="365" font-size="12" font-weight="700" text-anchor="middle" fill="#27ae60">Плавний розподіл напружень!</text>
+
+  <!-- Внизу інформаційний підсумок -->
+  <text x="480" y="425" font-size="13" font-weight="700" text-anchor="middle" fill="#1a1a1a">Обтискання зберігає гнучкість мідних жил та усуває ризик раптового втомного обриву під дією вібрації.</text>
+</svg>

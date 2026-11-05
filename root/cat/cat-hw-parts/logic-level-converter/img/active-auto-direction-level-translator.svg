@@ -1,0 +1,102 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Header -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Блок-схема активного трансивера рівнів із автовизначенням напрямку</text>
+  <text x="480" y="60" font-size="13" fill="#6b7280" text-anchor="middle">Архітектура трансляції між доменами VCCA та VCCB без зовнішнього сигналу керування напрямком DIR</text>
+
+  <!-- Left Panel: Internal Path -->
+  <rect x="30" y="85" width="450" height="350" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="50" y="112" font-size="14" font-weight="bold" fill="#1a1a1a">Внутрішній тракт каналу</text>
+
+  <!-- Port A Box -->
+  <rect x="55" y="145" width="80" height="230" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="95" y="168" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Порт A</text>
+  <text x="95" y="188" font-size="11" fill="#6b7280" text-anchor="middle">VCCA</text>
+  <text x="95" y="204" font-size="11" fill="#6b7280" text-anchor="middle">1.2–3.6 В</text>
+  <text x="95" y="240" font-size="11" fill="#2457d6" text-anchor="middle">Tx / Rx</text>
+  <path d="M95,255 L135,255" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+  <path d="M135,305 L95,305" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+
+  <!-- VCCA Supply bus -->
+  <rect x="65" y="395" width="60" height="25" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="95" y="412" font-size="11" fill="#2457d6" text-anchor="middle">VCCA + 0.1µF</text>
+  <path d="M95,375 L95,395" stroke="#2457d6" stroke-width="1.5"/>
+
+  <!-- Port B Box -->
+  <rect x="375" y="145" width="80" height="230" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="415" y="168" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Порт B</text>
+  <text x="415" y="188" font-size="11" fill="#6b7280" text-anchor="middle">VCCB</text>
+  <text x="415" y="204" font-size="11" fill="#6b7280" text-anchor="middle">1.65–5.5 В</text>
+  <text x="415" y="240" font-size="11" fill="#2457d6" text-anchor="middle">Tx / Rx</text>
+  <path d="M375,255 L335,255" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+  <path d="M335,305 L375,305" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+
+  <!-- VCCB Supply bus -->
+  <rect x="385" y="395" width="60" height="25" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="415" y="412" font-size="11" fill="#2457d6" text-anchor="middle">VCCB + 0.1µF</text>
+  <path d="M415,375 L415,395" stroke="#2457d6" stroke-width="1.5"/>
+
+  <!-- Buffers & Sensing Logic -->
+  <!-- Buffer A->B -->
+  <rect x="160" y="145" width="80" height="40" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="200" y="170" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Буфер A→B</text>
+
+  <!-- Buffer B->A -->
+  <rect x="270" y="290" width="80" height="40" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="310" y="308" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Буфер B→A</text>
+
+  <!-- Central Direction Sensing & One-shot -->
+  <rect x="165" y="205" width="180" height="70" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="255" y="230" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Direction Sensing Logic</text>
+  <text x="255" y="250" font-size="11" fill="#1a1a1a" text-anchor="middle">&amp; Edge Accelerator (One-shot)</text>
+
+  <!-- OE Pin Control -->
+  <rect x="55" y="123" width="70" height="18" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="90" y="136" font-size="10" font-weight="bold" fill="#27ae60" text-anchor="middle">OE (Hi-Z)</text>
+
+  <!-- Interconnect lines for Left Panel -->
+  <path d="M135,160 L160,160" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <path d="M240,160 L375,160" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <path d="M335,320 L270,320" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <path d="M160,320 L135,320" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+
+  <!-- Right Panel: Principle & Rules -->
+  <rect x="500" y="85" width="430" height="350" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="520" y="112" font-size="14" font-weight="bold" fill="#1a1a1a">Принцип дії та правила включення</text>
+
+  <!-- Item 1: Detection Algorithm -->
+  <rect x="520" y="130" width="390" height="65" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="535" y="152" font-size="12" font-weight="bold" fill="#1a1a1a">Алгоритм детекції спаду:</text>
+  <text x="535" y="170" font-size="11" fill="#6b7280">Зовнішній пристрій притягує порт до GND → сенсор фіксує спад</text>
+  <text x="535" y="184" font-size="11" fill="#6b7280">напруги та миттєво активує передачу у протилежний бік.</text>
+
+  <!-- Item 2: One-Shot Accelerator -->
+  <rect x="520" y="205" width="390" height="65" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="535" y="227" font-size="12" font-weight="bold" fill="#1a1a1a">One-Shot прискорювач фронтів:</text>
+  <text x="535" y="245" font-size="11" fill="#6b7280">При переході 0→1 генерує потужний імпульс струму для</text>
+  <text x="535" y="259" font-size="11" fill="#6b7280">швидкого заряду паразитної ємності шини.</text>
+
+  <!-- Item 3: Power Rule -->
+  <rect x="520" y="280" width="390" height="65" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="535" y="302" font-size="12" font-weight="bold" fill="#27ae60">Правило живлення (VCCA ≤ VCCB):</text>
+  <text x="535" y="320" font-size="11" fill="#1a1a1a">Гарантує стабільну роботу внутрішньої логіки узгодження</text>
+  <text x="535" y="334" font-size="11" fill="#1a1a1a">рівнів без струмів витоку та збоїв.</text>
+
+  <!-- Item 4: Reset State -->
+  <rect x="520" y="355" width="390" height="65" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="535" y="377" font-size="12" font-weight="bold" fill="#1a1a1a">Стан скидання (OE та R_PD):</text>
+  <text x="535" y="395" font-size="11" fill="#6b7280">Вивід OE підтягується до GND через R_PD = 10 кОм</text>
+  <text x="535" y="409" font-size="11" fill="#6b7280">для гарантованого Hi-Z під час подачі живлення.</text>
+
+</svg>

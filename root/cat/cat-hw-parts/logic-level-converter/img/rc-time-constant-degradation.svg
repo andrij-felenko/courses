@@ -1,0 +1,102 @@
+<svg width="1240" height="460" viewBox="0 0 1240 460" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    .title { font-family: sans-serif; font-size: 16px; font-weight: bold; fill: #1a1a1a; text-anchor: middle; }
+    .subtitle { font-family: sans-serif; font-size: 12px; fill: #6b7280; text-anchor: middle; }
+    .axis { stroke: #d0d7de; stroke-width: 1.5; }
+    .grid { stroke: #f4f6f8; stroke-dasharray: 4,4; stroke-width: 1; }
+    .label { font-family: sans-serif; font-size: 11px; fill: #6b7280; }
+    .bold-label { font-family: sans-serif; font-size: 12px; font-weight: bold; fill: #1a1a1a; }
+    .code { font-family: monospace; font-size: 11px; fill: #1a1a1a; }
+    .formula { font-family: monospace; font-size: 12px; fill: #2457d6; font-weight: bold; }
+  </style>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="1240" height="460" fill="white"/>
+
+  <!-- Header -->
+  <text x="620" y="38" class="title">Деградація фронтів сигналу через постійну часу RC у відкритому стоці</text>
+  <text x="620" y="58" class="subtitle">Затягування висхідного фронту t_rise обмежує граничну швидкість та спотворює імпульси</text>
+
+  <!-- Panel 1: Left (Oscillogram) x=30..490, y=80..430 -->
+  <rect x="30" y="80" width="460" height="350" fill="#f4f6f8" rx="8" stroke="#d0d7de" stroke-width="1"/>
+  
+  <text x="260" y="105" font-family="sans-serif" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Осцилограма: Низька vs Висока частота</text>
+
+  <!-- Left Chart Area: x=50..470, y=120..400 -->
+  <!-- Grid lines -->
+  <line x1="70" y1="140" x2="470" y2="140" class="grid"/>
+  <line x1="70" y1="185" x2="470" y2="185" class="grid"/>
+  <line x1="70" y1="230" x2="470" y2="230" class="grid"/>
+  <line x1="70" y1="275" x2="470" y2="275" class="grid"/>
+  <line x1="70" y1="320" x2="470" y2="320" class="grid"/>
+  <line x1="70" y1="365" x2="470" y2="365" class="grid"/>
+
+  <!-- V_IH Threshold line (3.5V out of 5V, height 245px -> y = 365 - (3.5/5)*225 = 365 - 157.5 = 207.5) -->
+  <line x1="70" y1="208" x2="470" y2="208" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="6,3"/>
+  <text x="75" y="202" font-family="sans-serif" font-size="10" fill="#c0392b" font-weight="bold">V_IH = 3.5V</text>
+
+  <!-- Axes -->
+  <line x1="70" y1="365" x2="470" y2="365" class="axis"/>
+  <line x1="70" y1="130" x2="70" y2="365" class="axis"/>
+
+  <!-- Voltage labels -->
+  <text x="45" y="369" class="label">0V</text>
+  <text x="40" y="212" class="label">3.5V</text>
+  <text x="45" y="144" class="label">5V</text>
+
+  <!-- Low Frequency Signal (100 kHz) -->
+  <path d="M 70 365 
+           L 70 140 
+           L 150 140 
+           L 150 365 
+           C 165 365, 190 140, 210 140
+           L 270 140
+           L 270 365
+           C 285 365, 310 140, 330 140
+           L 470 140" 
+        fill="none" stroke="#27ae60" stroke-width="2.5"/>
+  <text x="280" y="132" font-family="sans-serif" font-size="10" fill="#27ae60" font-weight="bold">Низька частота</text>
+
+  <!-- High Frequency Signal (1-2 MHz) - Red accent, failing threshold -->
+  <path d="M 70 365 
+           L 70 140 
+           L 110 140 
+           L 110 365 
+           C 120 365, 135 240, 145 220
+           L 145 365
+           C 155 365, 170 240, 180 220
+           L 180 365
+           C 190 365, 205 240, 215 220
+           L 215 365" 
+        fill="none" stroke="#c0392b" stroke-width="2.5"/>
+  <text x="160" y="390" font-family="sans-serif" font-size="10" fill="#c0392b" font-weight="bold">Висока частота: фронт не доходить до V_IH</text>
+
+
+  <!-- Panel 2: Right (Formulas & Parameters) x=510..930, y=80..430 -->
+  <rect x="510" y="80" width="420" height="350" fill="#eaf0fd" rx="8" stroke="#d0d7de" stroke-width="1"/>
+  
+  <text x="720" y="105" class="bold-label" text-anchor="middle">Фізичні параметри та формули RC-кола</text>
+
+  <!-- Formula 1 -->
+  <rect x="530" y="125" width="380" height="40" fill="white" rx="4" stroke="#d0d7de" stroke-width="1"/>
+  <text x="540" y="150" class="formula">V(t) = VDD * (1 - e^(-t / tau))</text>
+  <text x="815" y="150" class="code">tau = R*C</text>
+
+  <!-- Formula 2 -->
+  <rect x="530" y="175" width="380" height="40" fill="white" rx="4" stroke="#d0d7de" stroke-width="1"/>
+  <text x="540" y="200" class="code">t_rise(10%..90%) ≈ 2.2*tau</text>
+  <text x="740" y="200" class="code">t_rise(0..V_IH) ≈ 1.2*tau</text>
+
+  <!-- Numeric Example -->
+  <rect x="530" y="225" width="380" height="75" fill="white" rx="4" stroke="#d0d7de" stroke-width="1"/>
+  <text x="540" y="247" class="bold-label">Числовий приклад:</text>
+  <text x="540" y="265" class="code">R = 10 кОм, C_bus = 100 пФ => tau = 1.0 мкс</text>
+  <text x="540" y="285" class="code">t_rise (0..3.5В) = 1.2 * 1.0 мкс = 1.2 мкс</text>
+
+  <!-- Conclusion & Mitigation -->
+  <rect x="530" y="310" width="380" height="100" fill="#fdecea" rx="4" stroke="#c0392b" stroke-width="1"/>
+  <text x="540" y="332" font-family="sans-serif" font-size="12" font-weight="bold" fill="#c0392b">Критичне обмеження та висновок:</text>
+  <text x="540" y="352" font-family="sans-serif" font-size="11" fill="#1a1a1a">При 1 Мбіт/с (період 1.0 мкс) лінія не встигає</text>
+  <text x="540" y="370" font-family="sans-serif" font-size="11" fill="#1a1a1a">очиститися, дані втрачаються!</text>
+  <text x="540" y="392" font-family="sans-serif" font-size="11" font-weight="bold" fill="#1a1a1a">Рішення: зменшення R або активний Push-Pull.</text>
+</svg>

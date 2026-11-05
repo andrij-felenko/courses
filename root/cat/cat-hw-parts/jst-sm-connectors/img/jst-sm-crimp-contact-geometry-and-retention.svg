@@ -1,0 +1,83 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="38" font-size="18" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Анатомія обтискного контакту JST-SM та фіксація в ізоляторі</text>
+  <text x="480" y="60" font-size="13" text-anchor="middle" fill="#6b7280">Подвійний B-обтиск кримпа (жила та ізоляція), пружинний язичок locking lance та зусилля утримання</text>
+
+  <!-- Left Panel: Crimp Contact Anatomy -->
+  <rect x="30" y="80" width="490" height="355" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="50" y="108" font-size="15" font-weight="bold" fill="#1a1a1a">1. Анатомія обтискного контакту (Crimp Contact)</text>
+
+  <!-- Wire & Contact Schematic Graphics -->
+  <!-- Insulation & Wire -->
+  <rect x="50" y="165" width="120" height="50" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="110" y="195" font-size="12" text-anchor="middle" fill="#2457d6">Провідник AWG 22–28</text>
+
+  <!-- Stripped copper strands -->
+  <path d="M170 180 L390 180" stroke="#d35400" stroke-width="6" stroke-linecap="round" opacity="0.85"/>
+  
+  <!-- Insulation Crimp Wings -->
+  <path d="M170 145 C170 135 220 135 220 145 L220 215 C220 225 170 225 170 215 Z" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1.5"/>
+  
+  <!-- Inspection Window Gap -->
+  <rect x="235" y="170" width="20" height="30" fill="#f4f6f8" stroke="#6b7280" stroke-dasharray="2,2"/>
+  <text x="245" y="222" font-size="11" text-anchor="middle" fill="#6b7280">Вікно</text>
+
+  <!-- Conductor Wire Crimp (B-crimp) -->
+  <path d="M265 140 C265 130 355 130 355 140 L355 220 C355 230 265 230 265 220 Z" fill="#cbd5e1" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="310" y="187" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">B-обтиск</text>
+
+  <!-- Front Bellmouth / Brush -->
+  <path d="M355 175 L385 170 L385 210 L355 205 Z" fill="#94a3b8" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Contact Pin / Mating Area -->
+  <rect x="385" y="178" width="115" height="24" rx="2" fill="#e2e8f0" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="442" y="195" font-size="12" text-anchor="middle" fill="#1a1a1a">Штир 0.64 мм</text>
+
+  <!-- Pointers / Labels for Left Panel -->
+  <!-- Insulation Crimp Label -->
+  <line x1="195" y1="135" x2="195" y2="120" stroke="#6b7280" stroke-width="1"/>
+  <text x="195" y="116" font-size="11" text-anchor="middle" fill="#6b7280">Обтиск ізоляції</text>
+
+  <!-- Bellmouth Label -->
+  <line x1="370" y1="165" x2="370" y2="140" stroke="#6b7280" stroke-width="1"/>
+  <text x="370" y="136" font-size="11" text-anchor="middle" fill="#6b7280">Виступ 0.2–0.5 мм</text>
+
+  <!-- Bottom annotations inside left panel -->
+  <text x="50" y="270" font-size="12" font-weight="bold" fill="#1a1a1a">Ключові зони та допуски геометрії:</text>
+  <text x="50" y="292" font-size="11" fill="#6b7280">• Insulation Crimp: механічне розвантаження жили (без проколювання)</text>
+  <text x="50" y="312" font-size="11" fill="#6b7280">• Inspection Window: видимий кінчик ізоляції та початок жилки</text>
+  <text x="50" y="332" font-size="11" fill="#6b7280">• Conductor Crimp: газощільне монолітне пресування (F/B-crimp)</text>
+  <text x="50" y="352" font-size="11" fill="#6b7280">• Матеріал: луджена фосфориста бронза високої пружності</text>
+
+  <!-- Right Panel: Locking Lance Retention -->
+  <rect x="540" y="80" width="390" height="355" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="560" y="108" font-size="15" font-weight="bold" fill="#1a1a1a">2. Механіка фіксації в корпусі (Retention)</text>
+
+  <!-- Housing cross section & Locking Lance graphic -->
+  <rect x="560" y="130" width="350" height="145" rx="6" fill="#e2e8f0" stroke="#cbd5e1" stroke-width="1.5"/>
+  <text x="575" y="152" font-size="12" font-weight="bold" fill="#475569">Пластиковий канал ізолятора (Nylon 66, UL94V-0)</text>
+
+  <!-- Housing retention shoulder (stop tooth) -->
+  <path d="M780 160 L800 160 L800 200 L780 200 Z" fill="#94a3b8" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="790" y="215" font-size="11" text-anchor="middle" fill="#475569">Упорний зуб</text>
+
+  <!-- Contact body inside housing -->
+  <rect x="580" y="185" width="170" height="30" rx="3" fill="#cbd5e1" stroke="#1a1a1a" stroke-width="1.5"/>
+  
+  <!-- Locking Lance (spring tongue bent at 15-20 deg) -->
+  <path d="M720 185 L785 165" stroke="#2457d6" stroke-width="3" stroke-linecap="round"/>
+  <text x="690" y="165" font-size="11" font-weight="bold" fill="#2457d6">Locking Lance (15–20°)</text>
+
+  <!-- Green Box: Normative parameters -->
+  <rect x="560" y="285" width="350" height="75" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="575" y="308" font-size="12" font-weight="bold" fill="#27ae60">Нормативні параметри утримання (JST Spec):</text>
+  <text x="575" y="328" font-size="11" fill="#1a1a1a">• Зусилля утримання (Retention Force): F_retention ≥ 20–25 Н</text>
+  <text x="575" y="348" font-size="11" fill="#1a1a1a">• Зусилля зчленення (Insertion Force): F_insert ≤ 5–8 Н (30–50 циклів)</text>
+
+  <!-- Red Box: Warning / Risk -->
+  <rect x="560" y="370" width="350" height="55" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="575" y="392" font-size="11" font-weight="bold" fill="#c0392b">Застереження:</text>
+  <text x="670" y="392" font-size="11" fill="#1a1a1a">Зминання язичка викликає випадання контактів.</text>
+</svg>

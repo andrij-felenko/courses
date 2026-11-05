@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Title and Subtitle -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Механізм дії праймера та активатора на неполярному пластику</text>
+  <text x="480" y="60" font-size="13" fill="#6b7280" text-anchor="middle">Праймер підвищує поверхневу енергію для змочування, а активатор миттєво запускає полімеризацію</text>
+
+  <!-- Panel 1: Non-polar plastic without primer (Left side) -->
+  <rect x="40" y="90" width="420" height="425" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="60" y="118" font-size="14" font-weight="bold" fill="#1a1a1a">Неполярний пластик без праймера (PE / PP)</text>
+  
+  <!-- Plastic block -->
+  <rect x="60" y="150" width="380" height="60" rx="4" fill="#e2e8f0" stroke="#cbd5e1" stroke-width="1"/>
+  <text x="250" y="185" font-size="13" fill="#475569" text-anchor="middle">Субстрат (низька поверхнева енергія)</text>
+
+  <!-- Droplet failing to wet -->
+  <path d="M 220,150 Q 250,110 280,150 Z" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="250" y="135" font-size="12" fill="#c0392b" text-anchor="middle">Крапля збирається в кулю (погане змочування)</text>
+
+  <rect x="60" y="230" width="380" height="45" rx="4" fill="#fdecea" stroke="#f5c6cb" stroke-width="1"/>
+  <text x="250" y="258" font-size="12" fill="#c0392b" text-anchor="middle">Результат: клей не розтікається, з'єднання не тримається</text>
+
+  <!-- Panel 2: With Primer and Activator (Right side) -->
+  <rect x="500" y="90" width="420" height="425" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="520" y="118" font-size="14" font-weight="bold" fill="#1a1a1a">Модифікація поверхні праймером та активатором</text>
+
+  <!-- Plastic block with primer layer -->
+  <rect x="520" y="170" width="380" height="60" rx="4" fill="#e2e8f0" stroke="#cbd5e1" stroke-width="1"/>
+  <rect x="520" y="162" width="380" height="10" rx="2" fill="#d1fae5" stroke="#10b981" stroke-width="1"/>
+  <text x="710" y="197" font-size="13" fill="#1e293b" text-anchor="middle">Субстрат</text>
+  <text x="710" y="215" font-size="12" fill="#047857" text-anchor="middle">Шар праймера (активні центри / підвищена енергія)</text>
+
+  <!-- Spread adhesive droplet / layer -->
+  <path d="M 540,162 Q 710,132 880,162 L 880,162 Z" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="710" y="147" font-size="12" fill="#2457d6" text-anchor="middle">Ціаноакрилат рівномірно змочує поверхню</text>
+
+  <!-- Activator spray / effect -->
+  <line x1="710" y1="245" x2="710" y2="285" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <rect x="570" y="290" width="280" height="45" rx="4" fill="#eaf0fd" stroke="#bcf0da" stroke-width="1"/>
+  <text x="710" y="318" font-size="12" fill="#1e3a8a" text-anchor="middle">Аерозольний активатор (дає іони для аніонної полімеризації)</text>
+
+  <!-- Polymerization reaction zone -->
+  <rect x="520" y="360" width="380" height="65" rx="4" fill="#d1fae5" stroke="#10b981" stroke-width="1"/>
+  <text x="710" y="385" font-size="13" font-weight="bold" fill="#065f46" text-anchor="middle">Миттєвий запуск полімеризації (товстий шар)</text>
+  <text x="710" y="407" font-size="12" fill="#047857" text-anchor="middle">Рівномірне твердіння без затримки</text>
+
+  <rect x="520" y="445" width="380" height="45" rx="4" fill="#27ae60" opacity="0.15"/>
+  <text x="710" y="473" font-size="12" font-weight="bold" fill="#15803d" text-anchor="middle">Висока міцність та надійне з'єднання</text>
+
+  <!-- Connecting arrow between panels -->
+  <line x1="465" y1="190" x2="495" y2="190" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr-dark)"/>
+  <text x="480" y="175" font-size="12" fill="#6b7280" text-anchor="middle">Ефект</text>
+
+</svg>

@@ -1,0 +1,106 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Definitions -->
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Крутильна жорсткість та осьова піддатливість спіральної муфти</text>
+  <text x="480" y="60" font-size="13" fill="#6b7280" text-anchor="middle">Високий опір скручуванню Kt проти низької осьової жорсткості Kz та ефект пружинення вздовж осі Z</text>
+
+  <!-- PANEL 1: Torsional Stiffness (Left) -->
+  <rect x="30" y="80" width="440" height="350" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  
+  <text x="250" y="110" font-size="16" font-weight="bold" fill="#2457d6" text-anchor="middle">Панель 1: Крутильний момент (Жорстко)</text>
+  <text x="250" y="130" font-size="12" fill="#6b7280" text-anchor="middle">Висока крутильна жорсткість Kt (~0.5–1.2 Нм/рад)</text>
+
+  <!-- Coupling schematic 1 (Torsion) -->
+  <!-- Shaft 1 left -->
+  <rect x="70" y="220" width="70" height="40" rx="3" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="105" y="245" font-size="12" fill="#1a1a1a" text-anchor="middle">Вал 1</text>
+
+  <!-- Coupling body left hub -->
+  <rect x="140" y="200" width="60" height="80" rx="4" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.5"/>
+  
+  <!-- Spiral section -->
+  <g transform="translate(200, 200)">
+    <rect x="0" y="0" width="100" height="80" fill="#f4f6f8" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4,2"/>
+    <!-- Helical cuts representation -->
+    <path d="M 15,10 Q 35,70 50,10 T 85,10" fill="none" stroke="#2457d6" stroke-width="2"/>
+    <path d="M 15,30 Q 35,90 50,30 T 85,30" fill="none" stroke="#2457d6" stroke-width="2"/>
+    <path d="M 15,50 Q 35,110 50,50 T 85,50" fill="none" stroke="#2457d6" stroke-width="2"/>
+    <path d="M 15,70 Q 35,130 50,70 T 85,70" fill="none" stroke="#2457d6" stroke-width="2"/>
+  </g>
+
+  <!-- Coupling body right hub -->
+  <rect x="300" y="200" width="60" height="80" rx="4" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Shaft 2 right -->
+  <rect x="360" y="220" width="70" height="40" rx="3" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="395" y="245" font-size="12" fill="#1a1a1a" text-anchor="middle">Вал 2</text>
+
+  <!-- Torque arrows T -->
+  <path d="M 95,190 A 25,25 0 0,1 125,180" fill="none" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+  <text x="110" y="172" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">T (момент)</text>
+
+  <path d="M 375,190 A 25,25 0 0,1 405,180" fill="none" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+  <text x="390" y="172" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">T (момент)</text>
+
+  <!-- Descriptive texts for Panel 1 -->
+  <text x="250" y="325" font-size="13" fill="#1a1a1a" text-anchor="middle">Мінімальний кутовий зсув θ</text>
+  <text x="250" y="348" font-size="13" fill="#1a1a1a" text-anchor="middle">Відсутність кутового люфту в передачі</text>
+  <text x="250" y="371" font-size="13" fill="#2457d6" font-weight="bold" text-anchor="middle">Пряма і точна передача обертання</text>
+
+
+  <!-- PANEL 2: Axial Springing (Right) -->
+  <rect x="490" y="80" width="440" height="350" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+
+  <text x="710" y="110" font-size="16" font-weight="bold" fill="#c0392b" text-anchor="middle">Панель 2: Осьове зусилля (Пружинення)</text>
+  <text x="710" y="130" font-size="12" fill="#6b7280" text-anchor="middle">Низька осьова жорсткість Kz (~30–50 Н/мм)</text>
+
+  <!-- Coupling schematic 2 (Axial) -->
+  <!-- Fixed base left -->
+  <rect x="530" y="210" width="30" height="60" rx="2" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="530" y1="200" x2="530" y2="280" stroke="#1a1a1a" stroke-width="3"/>
+  <line x1="524" y1="205" x2="530" y2="200" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="524" y1="220" x2="530" y2="215" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="524" y1="235" x2="530" y2="230" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="524" y1="250" x2="530" y2="245" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="524" y1="265" x2="530" y2="260" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="524" y1="280" x2="530" y2="275" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Compressed/Springing helical section -->
+  <g transform="translate(560, 210)">
+    <!-- Squished spring/spiral coils -->
+    <path d="M 0,30 Q 30,5 60,30 T 120,30 T 180,30" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+    <path d="M 0,50 Q 30,25 60,50 T 120,50 T 180,50" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+  </g>
+
+  <!-- Moving load right (Carriage / Lead screw load) -->
+  <rect x="740" y="200" width="50" height="80" rx="4" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="765" y="245" font-size="12" fill="#1a1a1a" text-anchor="middle">Каретка</text>
+
+  <!-- Axial force Fz arrow -->
+  <line x1="765" y1="150" x2="765" y2="192" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arr-red)"/>
+  <text x="765" y="142" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">Fz (осьова сила)</text>
+
+  <!-- Delta z dimension indicator -->
+  <line x1="560" y1="305" x2="740" y2="305" stroke="#6b7280" stroke-width="1" stroke-dasharray="2,2"/>
+  <text x="650" y="300" font-size="12" fill="#c0392b" font-weight="bold" text-anchor="middle">Δz (стискання / розтягнення)</text>
+
+  <!-- Descriptive texts for Panel 2 -->
+  <text x="710" y="325" font-size="13" fill="#1a1a1a" text-anchor="middle">Динамічні сили та вага викликають деформацію</text>
+  <text x="710" y="348" font-size="13" fill="#1a1a1a" text-anchor="middle">Ефект пружини: вертикальні смуги (Z-banding)</text>
+  <text x="710" y="371" font-size="13" fill="#c0392b" font-weight="bold" text-anchor="middle">Погіршення точності друку вздовж осі Z</text>
+
+</svg>

@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="460" viewBox="0 0 960 460" font-family="system-ui, -apple-system, sans-serif">
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Кінематика передачі від крокового двигуна до паса GT2</text>
+  <text x="480" y="60" font-size="13" fill="#6b7280" text-anchor="middle">Зв'язок кутового кроку вала, ділильного діаметра шківа та лінійного переміщення каретки</text>
+
+  <!-- Left Panel: Motor & Pulley -->
+  <rect x="30" y="80" width="440" height="340" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="250" y="110" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Двигун і привідний шків</text>
+
+  <!-- Motor Body -->
+  <rect x="70" y="145" width="120" height="110" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="130" y="170" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Кроковий двигун</text>
+  <text x="130" y="192" font-size="11" fill="#1a1a1a" text-anchor="middle">1.8°/крок (200 ш.)</text>
+  <text x="130" y="212" font-size="11" fill="#1a1a1a" text-anchor="middle">Мікрокрок 1/16</text>
+  <text x="130" y="232" font-size="11" fill="#6b7280" text-anchor="middle">3200 мікрокрок/об</text>
+
+  <!-- Motor Shaft -->
+  <rect x="190" y="190" width="60" height="20" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="220" y="182" font-size="11" fill="#1a1a1a" text-anchor="middle">Вал Ø5 мм</text>
+
+  <!-- Pulley GT2 -->
+  <rect x="250" y="150" width="45" height="100" rx="6" fill="#2457d6" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="272" y="268" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Шків GT2 (p=2мм)</text>
+
+  <!-- Left Panel Info Box -->
+  <rect x="50" y="290" width="400" height="115" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="65" y="315" font-size="12" font-weight="bold" fill="#1a1a1a">Параметри приводу:</text>
+  <text x="65" y="338" font-size="11" fill="#1a1a1a">• Кутовий зсув вала: θ (градуси / радіани)</text>
+  <text x="65" y="358" font-size="11" fill="#1a1a1a">• Кутова швидкість вала: ω (рад/с)</text>
+  <text x="65" y="378" font-size="11" fill="#1a1a1a">• Крок зубчастого паса: p = 2.0 мм</text>
+  <text x="65" y="398" font-size="11" fill="#6b7280">• Зусилля передається без проковзування</text>
+
+  <!-- Right Panel: 16T vs 20T -->
+  <rect x="490" y="80" width="440" height="340" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="710" y="110" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Перетворення в лінійний рух (16T vs 20T)</text>
+
+  <!-- 16T Card -->
+  <rect x="510" y="130" width="195" height="160" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="607" y="155" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Шків 16T (z = 16)</text>
+  <text x="525" y="180" font-size="11" fill="#1a1a1a">• Ділильний діаметр: d_p = 10.19 мм</text>
+  <text x="525" y="202" font-size="11" fill="#1a1a1a">• Переміщення: L = 32 мм/об</text>
+  <text x="525" y="224" font-size="11" fill="#1a1a1a">• Роздільність: 100 кроків/мм</text>
+  <text x="525" y="250" font-size="11" font-weight="bold" fill="#27ae60">Висока тяга і точність</text>
+
+  <!-- 20T Card -->
+  <rect x="715" y="130" width="195" height="160" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="812" y="155" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Шків 20T (z = 20)</text>
+  <text x="730" y="180" font-size="11" fill="#1a1a1a">• Ділильний діаметр: d_p = 12.73 мм</text>
+  <text x="730" y="202" font-size="11" fill="#1a1a1a">• Переміщення: L = 40 мм/об</text>
+  <text x="730" y="224" font-size="11" fill="#1a1a1a">• Роздільність: 80 кроків/мм</text>
+  <text x="730" y="250" font-size="11" font-weight="bold" fill="#2457d6">Вища швидкість руху</text>
+
+  <!-- Right Panel Formula Box -->
+  <rect x="510" y="305" width="400" height="100" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="525" y="328" font-size="12" font-weight="bold" fill="#1a1a1a">Кінематичні співвідношення:</text>
+  <text x="525" y="350" font-size="11" fill="#1a1a1a">• Лінійне переміщення: Δx = (θ / 360°) · z · p</text>
+  <text x="525" y="372" font-size="11" fill="#1a1a1a">• Лінійна швидкість: v = ω · r_p</text>
+  <text x="525" y="394" font-size="11" fill="#1a1a1a">• Еквівалент кроків: steps/mm = 3200 / (z · p)</text>
+</svg>

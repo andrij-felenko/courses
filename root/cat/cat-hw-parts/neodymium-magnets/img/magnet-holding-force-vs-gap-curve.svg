@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="700" fill="#1a1a1a">Залежність сили утримання неодимового магніту від повітряного зазору</text>
+  <text x="480" y="54" text-anchor="middle" font-size="13" fill="#6b7280">Нелінійне спадання сили при мікрозазорах та обмеження магнітним насиченням пластини</text>
+
+  <!-- LEFT PANEL: Graph -->
+  <rect x="40" y="75" width="450" height="360" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="55" y="90" width="420" height="30" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="265" y="110" text-anchor="middle" font-size="13" font-weight="700" fill="#2457d6">Криві утримання F_pull(z)</text>
+
+  <!-- Coordinate grid inside graph -->
+  <!-- X axis -->
+  <line x1="100" y1="360" x2="440" y2="360" stroke="#1a1a1a" stroke-width="1.5"/>
+  <!-- Y axis -->
+  <line x1="100" y1="360" x2="100" y2="150" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Axis labels -->
+  <text x="100" y="142" text-anchor="middle" font-size="11" font-weight="700" fill="#1a1a1a">Сила F, %</text>
+  <text x="440" y="380" text-anchor="middle" font-size="11" font-weight="700" fill="#1a1a1a">Зазор z, мм</text>
+
+  <!-- Grid ticks and markers -->
+  <line x1="95" y1="170" x2="100" y2="170" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="85" y="174" text-anchor="end" font-size="10" fill="#6b7280">100%</text>
+
+  <line x1="95" y1="217" x2="100" y2="217" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="85" y="221" text-anchor="end" font-size="10" fill="#6b7280">75%</text>
+
+  <line x1="95" y1="265" x2="100" y2="265" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="85" y="269" text-anchor="end" font-size="10" fill="#6b7280">50%</text>
+
+  <line x1="95" y1="312" x2="100" y2="312" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="85" y="316" text-anchor="end" font-size="10" fill="#6b7280">25%</text>
+
+  <line x1="168" y1="360" x2="168" y2="365" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="168" y="380" text-anchor="middle" font-size="10" fill="#6b7280">0.2</text>
+
+  <line x1="236" y1="360" x2="236" y2="365" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="236" y="380" text-anchor="middle" font-size="10" fill="#6b7280">0.5</text>
+
+  <line x1="304" y1="360" x2="304" y2="365" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="304" y="380" text-anchor="middle" font-size="10" fill="#6b7280">1.0</text>
+
+  <line x1="372" y1="360" x2="372" y2="365" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="372" y="380" text-anchor="middle" font-size="10" fill="#6b7280">2.0</text>
+
+  <!-- Curve 1: Thick plate (no saturation) -->
+  <path d="M100,170 Q140,240 236,290 T420,350" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+
+  <!-- Curve 2: Thin plate (saturation limit) -->
+  <path d="M100,265 L140,265 Q180,280 236,305 T420,352" fill="none" stroke="#c0392b" stroke-width="2.5" stroke-dasharray="5,3"/>
+
+  <!-- Legend -->
+  <line x1="120" y1="410" x2="150" y2="410" stroke="#2457d6" stroke-width="2.5"/>
+  <text x="155" y="414" text-anchor="start" font-size="11" font-weight="700" fill="#2457d6">Товста сталь (t ≥ 4 мм)</text>
+
+  <line x1="290" y1="410" x2="320" y2="410" stroke="#c0392b" stroke-width="2.5" stroke-dasharray="5,3"/>
+  <text x="325" y="414" text-anchor="start" font-size="11" font-weight="700" fill="#c0392b">Тонка сталь (t = 0.8 мм, насичення)</text>
+
+  <!-- RIGHT PANEL: Physical Mechanisms -->
+  <rect x="510" y="75" width="410" height="360" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Box 1: Air gap effect -->
+  <rect x="525" y="90" width="380" height="155" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="715" y="115" text-anchor="middle" font-size="13" font-weight="700" fill="#2457d6">1. Експоненційне падіння від зазору</text>
+  <text x="715" y="145" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">Закон спадання: F_pull ∝ B(z)²</text>
+  <text x="715" y="175" text-anchor="middle" font-size="11" fill="#1a1a1a">Зазор z = 0.5 мм (товстий шар фарби чи бруду)</text>
+  <text x="715" y="195" text-anchor="middle" font-size="11" fill="#1a1a1a">зменшує силу утримання на понад 50%!</text>
+  <text x="715" y="225" text-anchor="middle" font-size="11" font-weight="700" fill="#2457d6">При z = 2.0 мм втрачається до 85–90% сили</text>
+
+  <!-- Box 2: Saturation effect -->
+  <rect x="525" y="260" width="380" height="160" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="715" y="285" text-anchor="middle" font-size="13" font-weight="700" fill="#c0392b">2. Магнітне насичення пластини</text>
+  <text x="715" y="315" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">Межа індукції сталі: B_sat ≈ 1.6–2.0 Тл</text>
+  <text x="715" y="345" text-anchor="middle" font-size="11" fill="#1a1a1a">Тонка пластина не пропускає весь потік магніту;</text>
+  <text x="715" y="365" text-anchor="middle" font-size="11" fill="#1a1a1a">надлишок ліній розсіюється у навколишній простір.</text>
+  <text x="715" y="395" text-anchor="middle" font-size="11" font-weight="700" fill="#c0392b">Сила утримання падає у 2–2.5 рази навіть при z = 0</text>
+</svg>

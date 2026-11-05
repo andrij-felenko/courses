@@ -1,0 +1,136 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Main Title & Subtitle -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Криві дерейтингу струму роз'ємів JST-SM (AWG 22–28 та 2P–8P)</text>
+  <text x="480" y="60" font-size="13" fill="#6b7280" text-anchor="middle">Залежність допустимого робочого струму від температури довкілля T_amb та кількості полюсів для запобігання перегріву PA66 &gt; 85 °C</text>
+
+  <!-- Left Panel: Chart (x=30..530) -->
+  <rect x="30" y="80" width="500" height="345" fill="#f4f6f8" rx="8" stroke="#d0d7de" stroke-width="1"/>
+  
+  <!-- Chart inner plot area: x=80..490, y=110..380 -->
+  <!-- Safe zone background -->
+  <rect x="80" y="110" width="370" height="270" fill="#e9f7ef" opacity="0.6"/>
+  <!-- Overload zone indication (> 85 °C would be past x=450, but 85 is right edge) -->
+  
+  <!-- Grid lines Y (0.0 to 3.5 A, step 0.5) -->
+  <!-- y mapping: I=0 -> y=380, I=3.5 -> y=110. Height = 270. Scale = 270/3.5 ≈ 77.14 px per A -->
+  <!-- I=3.5: y=110 -->
+  <line x1="80" y1="110" x2="490" y2="110" stroke="#d0d7de" stroke-dasharray="3,3"/>
+  <!-- I=3.0: y=110 + 77.14 * 0.5 = 148.6 -> 149 -->
+  <line x1="80" y1="149" x2="490" y2="149" stroke="#d0d7de" stroke-dasharray="3,3"/>
+  <!-- I=2.5: y=148.6 + 38.57 = 187 -->
+  <line x1="80" y1="187" x2="490" y2="187" stroke="#d0d7de" stroke-dasharray="3,3"/>
+  <!-- I=2.0: y=187 + 38.57 = 226 -->
+  <line x1="80" y1="226" x2="490" y2="226" stroke="#d0d7de" stroke-dasharray="3,3"/>
+  <!-- I=1.5: y=226 + 38.57 = 265 -->
+  <line x1="80" y1="265" x2="490" y2="265" stroke="#d0d7de" stroke-dasharray="3,3"/>
+  <!-- I=1.0: y=265 + 38.57 = 303 -->
+  <line x1="80" y1="303" x2="490" y2="303" stroke="#d0d7de" stroke-dasharray="3,3"/>
+  <!-- I=0.5: y=303 + 38.57 = 342 -->
+  <line x1="80" y1="342" x2="490" y2="342" stroke="#d0d7de" stroke-dasharray="3,3"/>
+  <!-- I=0.0: y=380 -->
+  <line x1="80" y1="380" x2="490" y2="380" stroke="#1a1a1a" stroke-width="1"/>
+
+  <!-- Grid lines X (20 °C to 85 °C, step 10 °C) -->
+  <!-- T range: 20 to 85 (span 65 °C). Width = 410 (from 80 to 490). Scale = 410/65 ≈ 6.307 px per °C -->
+  <!-- 20 °C: x=80 -->
+  <!-- 30 °C: x=80 + 10*6.307 = 143 -->
+  <line x1="143" y1="110" x2="143" y2="380" stroke="#d0d7de" stroke-dasharray="3,3"/>
+  <!-- 40 °C: x=80 + 20*6.307 = 206 -->
+  <line x1="206" y1="110" x2="206" y2="380" stroke="#d0d7de" stroke-dasharray="3,3"/>
+  <!-- 50 °C: x=80 + 30*6.307 = 269 -->
+  <line x1="269" y1="110" x2="269" y2="380" stroke="#d0d7de" stroke-dasharray="3,3"/>
+  <!-- 60 °C: x=80 + 40*6.307 = 332 -->
+  <line x1="332" y1="110" x2="332" y2="380" stroke="#d0d7de" stroke-dasharray="3,3"/>
+  <!-- 70 °C: x=80 + 50*6.307 = 395 -->
+  <line x1="395" y1="110" x2="395" y2="380" stroke="#d0d7de" stroke-dasharray="3,3"/>
+  <!-- 80 °C: x=80 + 60*6.307 = 458 -->
+  <line x1="458" y1="110" x2="458" y2="380" stroke="#d0d7de" stroke-dasharray="3,3"/>
+  <!-- 85 °C: x=490 -->
+  <line x1="490" y1="110" x2="490" y2="380" stroke="#c0392b" stroke-width="1.5"/>
+
+  <!-- Axes Labels Y -->
+  <text x="72" y="384" font-size="11" fill="#1a1a1a" text-anchor="end">0.0</text>
+  <text x="72" y="346" font-size="11" fill="#1a1a1a" text-anchor="end">0.5</text>
+  <text x="72" y="307" font-size="11" fill="#1a1a1a" text-anchor="end">1.0</text>
+  <text x="72" y="269" font-size="11" fill="#1a1a1a" text-anchor="end">1.5</text>
+  <text x="72" y="230" font-size="11" fill="#1a1a1a" text-anchor="end">2.0</text>
+  <text x="72" y="191" font-size="11" fill="#1a1a1a" text-anchor="end">2.5</text>
+  <text x="72" y="153" font-size="11" fill="#1a1a1a" text-anchor="end">3.0</text>
+  <text x="72" y="114" font-size="11" fill="#1a1a1a" text-anchor="end">3.5 A</text>
+
+  <!-- Axes Labels X -->
+  <text x="80" y="398" font-size="11" fill="#1a1a1a" text-anchor="middle">20</text>
+  <text x="143" y="398" font-size="11" fill="#1a1a1a" text-anchor="middle">30</text>
+  <text x="206" y="398" font-size="11" fill="#1a1a1a" text-anchor="middle">40</text>
+  <text x="269" y="398" font-size="11" fill="#1a1a1a" text-anchor="middle">50</text>
+  <text x="332" y="398" font-size="11" fill="#1a1a1a" text-anchor="middle">60</text>
+  <text x="395" y="398" font-size="11" fill="#1a1a1a" text-anchor="middle">70</text>
+  <text x="458" y="398" font-size="11" fill="#1a1a1a" text-anchor="middle">80</text>
+  <text x="490" y="398" font-size="11" fill="#1a1a1a" text-anchor="middle">85°C</text>
+
+  <text x="285" y="420" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Температура довкілля T_amb (°C)</text>
+
+  <!-- Curves plotting -->
+  <!-- AWG 22 (#2457d6) -->
+  <!-- 2P: (20,3.0) -> (55,3.0) -> (85,0) -->
+  <!-- x for 55: 80 + 35*6.307 = 300.7 -->
+  <!-- y for 3.0: 149, y for 0.0: 380 -->
+  <polyline points="80,149 301,149 490,380" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+  <text x="310" y="145" font-size="11" fill="#2457d6" font-weight="bold">AWG 22 (2P)</text>
+
+  <!-- 4P: (20,2.5) -> (50,2.5) -> (85,0) -->
+  <!-- x for 50: 269, y for 2.5: 187 -->
+  <polyline points="80,187 269,187 490,380" fill="none" stroke="#2457d6" stroke-width="2" stroke-dasharray="6,3"/>
+  <text x="278" y="183" font-size="11" fill="#2457d6">AWG 22 (4P)</text>
+
+  <!-- 8P: (20,2.0) -> (45,2.0) -> (85,0) -->
+  <!-- x for 45: 80 + 25*6.307 = 237.7, y for 2.0: 226 -->
+  <polyline points="80,226 238,226 490,380" fill="none" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="2,2"/>
+  <text x="140" y="220" font-size="11" fill="#2457d6">AWG 22 (8P)</text>
+
+  <!-- AWG 24 (#27ae60) -->
+  <!-- 4P: (20,1.8) -> (50,1.8) -> (85,0) -->
+  <!-- y for 1.8: 380 - 1.8*77.14 = 380 - 138.85 = 241 -->
+  <polyline points="80,241 269,241 490,380" fill="none" stroke="#27ae60" stroke-width="2"/>
+  <text x="278" y="238" font-size="11" fill="#27ae60" font-weight="bold">AWG 24 (4P)</text>
+
+  <!-- 8P: (20,1.4) -> (45,1.4) -> (85,0) -->
+  <!-- y for 1.4: 380 - 1.4*77.14 = 380 - 108 = 272 -->
+  <polyline points="80,272 238,272 490,380" fill="none" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="4,2"/>
+  <text x="140" y="265" font-size="11" fill="#27ae60">AWG 24 (8P)</text>
+
+  <!-- AWG 28 (#6b7280) -->
+  <!-- 8P: (20,0.8) -> (40,0.8) -> (85,0) -->
+  <!-- x for 40: 206, y for 0.8: 380 - 0.8*77.14 = 318 -->
+  <polyline points="80,318 206,318 490,380" fill="none" stroke="#6b7280" stroke-width="1.8"/>
+  <text x="140" y="312" font-size="11" fill="#6b7280" font-weight="bold">AWG 28 (8P)</text>
+
+
+  <!-- Right Panel: Mathematical Model & Calculation (x=550..930) -->
+  <rect x="550" y="80" width="380" height="345" fill="#f4f6f8" rx="8" stroke="#d0d7de" stroke-width="1"/>
+  
+  <text x="740" y="108" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Математична модель дерейтингу</text>
+
+  <rect x="565" y="122" width="350" height="32" fill="white" rx="4" stroke="#d0d7de" stroke-width="1"/>
+  <text x="740" y="143" font-size="12" font-family="monospace" font-weight="bold" fill="#2457d6" text-anchor="middle">I_max = I_rated · F_temp · F_poles · F_awg</text>
+
+  <text x="565" y="175" font-size="12" font-weight="bold" fill="#1a1a1a">Коефіцієнт полюсності (F_poles):</text>
+  <text x="575" y="195" font-size="11" fill="#1a1a1a">• 2 контакти (2P): F_poles = 1.00 (3.00 А на AWG 22)</text>
+  <text x="575" y="213" font-size="11" fill="#1a1a1a">• 4 контакти (4P): F_poles = 0.85 (2.55 А на AWG 22)</text>
+  <text x="575" y="231" font-size="11" fill="#1a1a1a">• 8 контактів (8P): F_poles = 0.70 (2.10 А на AWG 22)</text>
+
+  <text x="565" y="258" font-size="12" font-weight="bold" fill="#1a1a1a">Температурний коефіцієнт (F_temp):</text>
+  <text x="575" y="278" font-size="11" fill="#1a1a1a">F_temp = sqrt((T_max - T_amb) / (T_max - T_ref))</text>
+  <text x="575" y="296" font-size="11" fill="#6b7280">де T_max = 85 °C (межа PA66), T_ref = 20 °C</text>
+
+  <!-- Warning Box -->
+  <rect x="565" y="316" width="350" height="95" fill="#fdecea" rx="6" stroke="#c0392b" stroke-width="1"/>
+  <text x="575" y="338" font-size="11" font-weight="bold" fill="#c0392b">⚠️ Увага (Теплове перевантаження):</text>
+  <text x="575" y="358" font-size="11" fill="#1a1a1a">Подача номінальних 3.0 А одночасно на всі</text>
+  <text x="575" y="376" font-size="11" fill="#1a1a1a">8 контактів при T_amb = 50 °C викликає нагрівання</text>
+  <text x="575" y="394" font-size="11" fill="#1a1a1a">до 95 °C та термічну деградацію нейлону PA66!</text>
+
+</svg>

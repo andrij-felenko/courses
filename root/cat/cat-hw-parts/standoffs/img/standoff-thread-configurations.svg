@@ -1,0 +1,155 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Main Titles -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Конфігурації різьбових стійок М2 та М3</text>
+  <text x="480" y="52" text-anchor="middle" font-size="13" fill="#6b7280">Геометричні відмінності виконань та схема ярусного нарощування міжплатного стека</text>
+
+  <!-- PANEL 1: Female-Female -->
+  <rect x="30" y="75" width="205" height="355" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="42" y="87" width="95" height="22" rx="4" fill="#eaf0fd"/>
+  <text x="89" y="102" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">РІЗЬБА F-F</text>
+  <text x="42" y="128" font-size="14" font-weight="bold" fill="#1a1a1a">Мама-мама</text>
+  <text x="42" y="145" font-size="11" fill="#6b7280">Двостороння внутрішня</text>
+
+  <!-- Body 1 -->
+  <rect x="80" y="170" width="105" height="120" rx="2" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="115" y1="170" x2="115" y2="290" stroke="#d0d7de" stroke-width="1.5"/>
+  <line x1="150" y1="170" x2="150" y2="290" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Thread Cavities -->
+  <rect x="110" y="172" width="45" height="32" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" stroke-dasharray="3 2"/>
+  <text x="132" y="192" text-anchor="middle" font-size="10" fill="#2457d6">Різьба F</text>
+
+  <rect x="110" y="256" width="45" height="32" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" stroke-dasharray="3 2"/>
+  <text x="132" y="276" text-anchor="middle" font-size="10" fill="#2457d6">Різьба F</text>
+
+  <text x="132" y="235" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a1a">Тіло SW</text>
+
+  <!-- Notes 1 -->
+  <text x="42" y="315" font-size="11" fill="#1a1a1a">SW: 4 мм (М2), 5–5.5 мм (М3)</text>
+  <text x="42" y="333" font-size="11" fill="#6b7280">Висота L: від 3 до 30 мм</text>
+  <text x="42" y="351" font-size="11" fill="#6b7280">Монтаж: гвинтами з двох боків</text>
+
+  <rect x="42" y="378" width="181" height="36" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="132" y="400" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a1a">Базовий опорний ярус</text>
+
+
+  <!-- PANEL 2: Male-Female -->
+  <rect x="255" y="75" width="205" height="355" rx="8" fill="#f4f6f8" stroke="#2457d6" stroke-width="2"/>
+  <rect x="267" y="87" width="95" height="22" rx="4" fill="#eaf0fd"/>
+  <text x="314" y="102" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">РІЗЬБА M-F</text>
+  <text x="267" y="128" font-size="14" font-weight="bold" fill="#1a1a1a">Тато-мама</text>
+  <text x="267" y="145" font-size="11" fill="#6b7280">Хвостовик + внутрішня</text>
+
+  <!-- Male Stud Top -->
+  <rect x="337" y="138" width="40" height="32" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="337" y1="146" x2="377" y2="146" stroke="#1a1a1a" stroke-width="1"/>
+  <line x1="337" y1="154" x2="377" y2="154" stroke="#1a1a1a" stroke-width="1"/>
+  <line x1="337" y1="162" x2="377" y2="162" stroke="#1a1a1a" stroke-width="1"/>
+
+  <text x="390" y="158" font-size="11" font-weight="bold" fill="#2457d6">Хвостовик М</text>
+
+  <!-- Body 2 -->
+  <rect x="305" y="170" width="105" height="120" rx="2" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="340" y1="170" x2="340" y2="290" stroke="#d0d7de" stroke-width="1.5"/>
+  <line x1="375" y1="170" x2="375" y2="290" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Female Bottom -->
+  <rect x="335" y="256" width="45" height="32" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" stroke-dasharray="3 2"/>
+  <text x="357" y="276" text-anchor="middle" font-size="10" fill="#2457d6">Різьба F</text>
+
+  <text x="357" y="218" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a1a">Тіло L</text>
+
+  <!-- Notes 2 -->
+  <text x="267" y="315" font-size="11" fill="#1a1a1a">Довжина різьби: 4–6 мм</text>
+  <text x="267" y="333" font-size="11" fill="#6b7280">Крок P: 0.4 мм (М2), 0.5 мм (М3)</text>
+  <text x="267" y="351" font-size="11" fill="#6b7280">Швидке послідовне складання</text>
+
+  <rect x="267" y="378" width="181" height="36" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="357" y="400" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">Головний тип для стеків</text>
+
+
+  <!-- PANEL 3: Male-Male -->
+  <rect x="480" y="75" width="205" height="355" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="492" y="87" width="95" height="22" rx="4" fill="#eaf0fd"/>
+  <text x="539" y="102" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">РІЗЬБА M-M</text>
+  <text x="492" y="128" font-size="14" font-weight="bold" fill="#1a1a1a">Тато-тато</text>
+  <text x="492" y="145" font-size="11" fill="#6b7280">Двосторонні хвостовики</text>
+
+  <!-- Male Stud Top -->
+  <rect x="562" y="138" width="40" height="32" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="562" y1="146" x2="602" y2="146" stroke="#1a1a1a" stroke-width="1"/>
+  <line x1="562" y1="154" x2="602" y2="154" stroke="#1a1a1a" stroke-width="1"/>
+  <line x1="562" y1="162" x2="602" y2="162" stroke="#1a1a1a" stroke-width="1"/>
+
+  <!-- Body 3 -->
+  <rect x="530" y="170" width="105" height="90" rx="2" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="565" y1="170" x2="565" y2="260" stroke="#d0d7de" stroke-width="1.5"/>
+  <line x1="600" y1="170" x2="600" y2="260" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="582" y="220" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a1a">Тіло SW</text>
+
+  <!-- Male Stud Bottom -->
+  <rect x="562" y="260" width="40" height="32" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="562" y1="268" x2="602" y2="268" stroke="#1a1a1a" stroke-width="1"/>
+  <line x1="562" y1="276" x2="602" y2="276" stroke="#1a1a1a" stroke-width="1"/>
+  <line x1="562" y1="284" x2="602" y2="284" stroke="#1a1a1a" stroke-width="1"/>
+
+  <!-- Notes 3 -->
+  <text x="492" y="315" font-size="11" fill="#1a1a1a">Хвостовики з обох кінців</text>
+  <text x="492" y="333" font-size="11" fill="#6b7280">Фіксація двома гайками</text>
+  <text x="492" y="351" font-size="11" fill="#6b7280">Прохідний монтаж у панель</text>
+
+  <rect x="492" y="378" width="181" height="36" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="582" y="400" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a1a">Міжпанельні переходи</text>
+
+
+  <!-- PANEL 4: Stacking Assembly Principle -->
+  <rect x="705" y="75" width="225" height="355" rx="8" fill="#f4f6f8" stroke="#27ae60" stroke-width="2"/>
+  <rect x="717" y="87" width="115" height="22" rx="4" fill="#e9f7ef"/>
+  <text x="774" y="102" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">НАРОЩУВАННЯ</text>
+  <text x="717" y="128" font-size="14" font-weight="bold" fill="#1a1a1a">Ярусний стек</text>
+  <text x="717" y="145" font-size="11" fill="#6b7280">Вкручування ярус у ярус</text>
+
+  <!-- Upper Standoff -->
+  <rect x="770" y="158" width="75" height="42" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="807" y="184" text-anchor="middle" font-size="11" fill="#1a1a1a">Стійка 2</text>
+
+  <!-- Stud passing through PCB -->
+  <rect x="792" y="200" width="30" height="28" fill="#d0d7de" stroke="#2457d6" stroke-width="1.5"/>
+
+  <!-- PCB Board split around hole -->
+  <rect x="725" y="208" width="65" height="10" rx="2" fill="#27ae60"/>
+  <rect x="824" y="208" width="70" height="10" rx="2" fill="#27ae60"/>
+  <text x="725" y="200" font-size="11" font-weight="bold" fill="#27ae60">Плата FR4</text>
+
+  <!-- Lower Standoff with cavity -->
+  <rect x="770" y="228" width="75" height="52" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="787" y="229" width="40" height="25" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" stroke-dasharray="2 2"/>
+  <text x="807" y="270" text-anchor="middle" font-size="11" fill="#1a1a1a">Стійка 1</text>
+
+  <!-- Screw-in rotational arrow -->
+  <line x1="860" y1="180" x2="860" y2="240" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="872" y="215" font-size="11" font-weight="bold" fill="#27ae60">Затиск</text>
+
+  <!-- Notes 4 -->
+  <text x="717" y="315" font-size="11" fill="#1a1a1a">Хвостовик затискає плату</text>
+  <text x="717" y="333" font-size="11" fill="#6b7280">Вкручується в нижню стійку</text>
+  <text x="717" y="351" font-size="11" fill="#6b7280">Без додаткових гайок</text>
+
+  <rect x="717" y="378" width="201" height="36" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="817" y="400" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">Компактний жорсткий вузол</text>
+</svg>

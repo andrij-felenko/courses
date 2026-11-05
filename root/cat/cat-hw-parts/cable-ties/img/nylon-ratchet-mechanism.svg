@@ -1,0 +1,86 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- White background -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="35" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Розріз суцільнолитого замка нейлонового хомута</text>
+  <text x="480" y="55" text-anchor="middle" font-size="13" fill="#6b7280">Храповий механізм забезпечує одностороннє блокування стрічки зубцями</text>
+
+  <defs>
+    <!-- Markers for arrows -->
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Background panel for diagram area -->
+  <rect x="40" y="80" width="880" height="420" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Diagram graphics -->
+  <!-- Head outer housing (section cut view) -->
+  <path d="M 470,150 L 700,150 C 720,150 730,160 730,180 L 730,380 C 730,400 720,410 700,410 L 470,410 C 450,410 440,400 440,380 L 440,180 C 440,160 450,150 470,150 Z" fill="#e2e8f0" stroke="#475569" stroke-width="3"/>
+
+  <!-- Internal tunnel / aperture through which the strap slides -->
+  <rect x="400" y="240" width="370" height="100" rx="4" fill="#ffffff" stroke="#cbd5e1" stroke-width="2"/>
+
+  <!-- Strap body passing through the tunnel -->
+  <rect x="330" y="260" width="450" height="60" fill="#cbd5e1" stroke="#64748b" stroke-width="2"/>
+
+  <!-- Teeth on the upper side of the strap -->
+  <g fill="#94a3b8" stroke="#475569" stroke-width="1.5">
+    <polygon points="380,260 395,260 380,245"/>
+    <polygon points="405,260 420,260 405,245"/>
+    <polygon points="430,260 445,260 430,245"/>
+    <polygon points="455,260 470,260 455,245"/>
+    <polygon points="480,260 495,260 480,245"/>
+    <polygon points="505,260 520,260 505,245"/>
+    <polygon points="530,260 545,260 530,245"/>
+    <polygon points="555,260 570,260 555,245"/>
+    <polygon points="580,260 595,260 580,245"/>
+    <polygon points="605,260 620,260 605,245"/>
+    <polygon points="630,260 645,260 630,245"/>
+    <polygon points="655,260 670,260 655,245"/>
+    <polygon points="680,260 695,260 680,245"/>
+    <polygon points="705,260 720,260 705,245"/>
+  </g>
+
+  <!-- Pawl (flexible plastic tongue / язичок) hinged inside the head -->
+  <path d="M 540,180 C 550,220 565,235 585,245 L 570,260 C 550,245 535,220 525,180 Z" fill="#e9f7ef" stroke="#27ae60" stroke-width="2.5"/>
+  <polygon points="585,245 600,250 580,265" fill="#27ae60" stroke="#1e8449" stroke-width="1.5"/>
+
+  <!-- Direction of insertion arrow -->
+  <path d="M 810,290 L 740,290" stroke="#2457d6" stroke-width="3" marker-end="url(#arr-blue)" fill="none"/>
+  <rect x="715" y="200" width="165" height="30" rx="4" fill="#eaf0fd" stroke="#b0c4de" stroke-width="1"/>
+  <text x="797.5" y="220" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Введення стрічки</text>
+
+  <!-- Blocking direction / tension arrow (pointing left, blocked) -->
+  <path d="M 310,290 L 370,290" stroke="#c0392b" stroke-width="3" marker-end="url(#arr-red)" fill="none"/>
+  <rect x="200" y="355" width="220" height="30" rx="4" fill="#fdecea" stroke="#f5c6cb" stroke-width="1"/>
+  <text x="310" y="375" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Блокування зворотного ходу</text>
+
+  <!-- Labels pointing to key parts -->
+  <!-- 1. flexible pawl -->
+  <line x1="555" y1="210" x2="220" y2="120" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <rect x="135" y="88" width="170" height="32" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="220" y="109" text-anchor="middle" font-size="12" fill="#1a1a1a">Гнучкий язичок (пал)</text>
+
+  <!-- 2. ratchet teeth -->
+  <line x1="630" y1="245" x2="630" y2="120" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <rect x="525" y="88" width="210" height="32" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="630" y="109" text-anchor="middle" font-size="12" fill="#1a1a1a">Зубці на стрічці (храповик)</text>
+
+  <!-- 3. housing head -->
+  <line x1="680" y1="395" x2="800" y2="445" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <rect x="705" y="445" width="190" height="32" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="800" y="466" text-anchor="middle" font-size="12" fill="#1a1a1a">Суцільнолитий корпус замка</text>
+
+</svg>

@@ -1,0 +1,92 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Глибина заходження валів у спіральну муфту 5x5 мм</text>
+  <text x="480" y="60" font-size="13" fill="#6b7280" text-anchor="middle">Порівняння нормативної посадки у затискні маточини та аварійного перекриття робочої спіральної зони</text>
+
+  <!-- Markers -->
+  <defs>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- ================= PANEL 1: Normal Mounting (Left) ================= -->
+  <rect x="30" y="85" width="440" height="345" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  
+  <!-- Panel 1 Header -->
+  <rect x="50" y="100" width="400" height="32" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="250" y="121" font-size="14" font-weight="bold" fill="#27ae60" text-anchor="middle">Нормативний монтаж (правильно)</text>
+
+  <!-- Coupling & Shafts (Left) -->
+  <!-- Shaft Top (Normal) -->
+  <rect x="100" y="172" width="90" height="36" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="145" y="195" font-size="12" fill="#1a1a1a" text-anchor="middle">Вал Ø5</text>
+
+  <!-- Shaft Bottom (Normal) -->
+  <rect x="310" y="172" width="90" height="36" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="355" y="195" font-size="12" fill="#1a1a1a" text-anchor="middle">Вал Ø5</text>
+
+  <!-- Top Hub -->
+  <rect x="100" y="147" width="90" height="86" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="2"/>
+  <rect x="130" y="130" width="30" height="17" fill="#1a1a1a" rx="2"/>
+
+  <!-- Bottom Hub -->
+  <rect x="310" y="147" width="90" height="86" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="2"/>
+  <rect x="340" y="233" width="30" height="17" fill="#1a1a1a" rx="2"/>
+
+  <!-- Central Spiral Zone -->
+  <rect x="190" y="147" width="120" height="86" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4,2"/>
+  <path d="M 200 152 L 300 228 M 220 152 L 280 228 M 240 152 L 260 228 M 260 152 L 240 228 M 280 152 L 220 228 M 300 152 L 200 228" stroke="#2457d6" stroke-width="1.5" opacity="0.6"/>
+
+  <text x="250" y="142" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Повітряний зазор</text>
+
+  <!-- Dimension line for insertion depth -->
+  <line x1="100" y1="262" x2="190" y2="262" stroke="#1a1a1a" stroke-width="1" marker-start="url(#arr-dark)" marker-end="url(#arr-dark)"/>
+  <text x="145" y="280" font-size="12" fill="#1a1a1a" text-anchor="middle">Глибина ≤ 8 мм</text>
+
+  <!-- Explanatory bullets Panel 1 -->
+  <text x="55" y="315" font-size="12" fill="#1a1a1a">• Вали заходять суто в монолітні маточні зони (до 8 мм).</text>
+  <text x="55" y="340" font-size="12" fill="#1a1a1a">• Центральна спіраль залишається абсолютно вільною.</text>
+  <text x="55" y="365" font-size="12" fill="#1a1a1a">• Гвинти надійно затискають вал у межах маточини.</text>
+  <text x="55" y="390" font-size="12" fill="#27ae60" font-weight="bold">• Повна компенсація перекосів без напружень зламу.</text>
+
+
+  <!-- ================= PANEL 2: Emergency Mounting (Right) ================= -->
+  <rect x="490" y="85" width="440" height="345" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  
+  <!-- Panel 2 Header -->
+  <rect x="510" y="100" width="400" height="32" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+  <text x="710" y="121" font-size="14" font-weight="bold" fill="#c0392b" text-anchor="middle">Аварійний монтаж (неправильно)</text>
+
+  <!-- Coupling Body Right (Single unified rect, shafts drawn fully inside without overlapping separate hub rects) -->
+  <rect x="540" y="147" width="220" height="86" fill="#d0d7de" stroke="#c0392b" stroke-width="2"/>
+  <rect x="570" y="130" width="30" height="17" fill="#1a1a1a" rx="2"/>
+  <rect x="700" y="233" width="30" height="17" fill="#1a1a1a" rx="2"/>
+
+  <!-- Central overlapped zone (spiral jammed) -->
+  <rect x="630" y="147" width="40" height="86" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <path d="M 635 152 Q 650 190 665 152 M 635 172 Q 650 200 665 172 M 635 192 Q 650 178 665 192 M 635 212 Q 650 220 665 212" stroke="#c0392b" stroke-width="2" fill="none"/>
+
+  <!-- Collision / Clash X mark -->
+  <circle cx="650" cy="190" r="12" fill="#c0392b"/>
+  <text x="650" y="194" font-size="14" font-weight="bold" fill="#ffffff" text-anchor="middle">✕</text>
+
+  <!-- Dimension line showing deep insertion -->
+  <line x1="540" y1="262" x2="660" y2="262" stroke="#c0392b" stroke-width="1" marker-start="url(#arr-red)" marker-end="url(#arr-red)"/>
+  <text x="600" y="280" font-size="12" fill="#c0392b" font-weight="bold" text-anchor="middle">Занадто глибоко (> 8 мм)</text>
+
+  <!-- Explanatory bullets Panel 2 -->
+  <text x="515" y="315" font-size="12" fill="#1a1a1a">• Вали заведені всередину робочої спіральної зони.</text>
+  <text x="515" y="340" font-size="12" fill="#1a1a1a">• Жорсткі вали блокують пружний прогин витків.</text>
+  <text x="515" y="365" font-size="12" fill="#1a1a1a">• Колосальні напруження зламу та втомне руйнування.</text>
+  <text x="515" y="390" font-size="12" fill="#c0392b" font-weight="bold">• Ризик заклинювання, пошкодження підшипників.</text>
+</svg>

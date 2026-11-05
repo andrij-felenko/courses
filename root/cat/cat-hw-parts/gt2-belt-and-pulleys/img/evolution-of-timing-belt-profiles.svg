@@ -1,0 +1,87 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="460" viewBox="0 0 960 460">
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="38" font-size="18" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Еволюція профілів зубчастих пасів: від MXL до GT2</text>
+  <text x="480" y="60" font-size="13" text-anchor="middle" fill="#6b7280">Перехід від трапеції до модифікованої криволінійної форми усуває люфт при реверсі позиціонування</text>
+
+  <!-- Left Panel: MXL -->
+  <rect x="30" y="80" width="280" height="350" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="170" y="105" font-size="14" font-weight="bold" text-anchor="middle" fill="#1a1a1a">1-е покоління: MXL (T2.5)</text>
+  <text x="170" y="127" font-size="12" text-anchor="middle" fill="#6b7280">Трапецієподібний зуб (40°)</text>
+
+  <!-- Graphic 1: Trapezoidal profile diagram -->
+  <g transform="translate(30, 140)">
+    <!-- Pulley base (grey) -->
+    <path d="M 40,20 L 90,110 L 190,110 L 240,20 Z" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+    <!-- Pulley teeth slots -->
+    <path d="M 90,110 L 110,60 L 170,60 L 190,110" fill="none" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="4,2"/>
+    <!-- Belt tooth (trapezoid) -->
+    <polygon points="105,65 115,100 165,100 175,65" fill="#2457d6" opacity="0.85"/>
+    <!-- Contact points / stress concentration (red) -->
+    <circle cx="107" cy="68" r="4" fill="#c0392b"/>
+    <circle cx="173" cy="68" r="4" fill="#c0392b"/>
+    <!-- Backlash gap indicator -->
+    <line x1="90" y1="85" x2="105" y2="85" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="2,2"/>
+    <text x="75" y="88" font-size="10" fill="#c0392b" font-weight="bold">люфт</text>
+  </g>
+
+  <!-- Panel 1 Text details -->
+  <text x="170" y="305" font-size="11" font-weight="bold" text-anchor="middle" fill="#c0392b">Зона контакту: точкове</text>
+  <text x="170" y="322" font-size="11" text-anchor="middle" fill="#c0392b">навантаження на кромках</text>
+  <text x="170" y="355" font-size="11" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Недолік:</text>
+  <text x="170" y="372" font-size="11" text-anchor="middle" fill="#6b7280">Бічний люфт > 0.1 мм</text>
+  <text x="170" y="389" font-size="11" text-anchor="middle" fill="#6b7280">концентрація напружень</text>
+
+
+  <!-- Central Panel: HTD -->
+  <rect x="340" y="80" width="280" height="350" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="480" y="105" font-size="14" font-weight="bold" text-anchor="middle" fill="#1a1a1a">2-е покоління: HTD (3M/5M)</text>
+  <text x="480" y="127" font-size="12" text-anchor="middle" fill="#6b7280">Напівкруглий профіль дуги</text>
+
+  <!-- Graphic 2: Rounded HTD diagram -->
+  <g transform="translate(340, 140)">
+    <!-- Pulley base -->
+    <rect x="40" y="20" width="200" height="90" rx="6" fill="#fdfefe" stroke="#6b7280" stroke-width="2"/>
+    <!-- Semicircular groove -->
+    <path d="M 100,20 A 40,40 0 0,0 180,20 Z" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+    <!-- Rounded belt tooth -->
+    <path d="M 110,25 A 30,30 0 0,0 170,25 Z" fill="#2457d6" opacity="0.85"/>
+    <!-- Radial clearance indicator -->
+    <line x1="140" y1="20" x2="140" y2="35" stroke="#d35400" stroke-width="1.5" stroke-dasharray="2,2"/>
+    <circle cx="140" cy="27" r="3" fill="#d35400"/>
+  </g>
+
+  <!-- Panel 2 Text details -->
+  <text x="480" y="305" font-size="11" font-weight="bold" text-anchor="middle" fill="#d35400">Зона контакту: рівномірніший</text>
+  <text x="480" y="322" font-size="11" text-anchor="middle" fill="#d35400">розподіл зусилля</text>
+  <text x="480" y="355" font-size="11" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Недолік:</text>
+  <text x="480" y="372" font-size="11" text-anchor="middle" fill="#6b7280">Радіальний зазор (вхід)</text>
+  <text x="480" y="389" font-size="11" text-anchor="middle" fill="#6b7280">непридатний для 3D-друку</text>
+
+
+  <!-- Right Panel: GT2 -->
+  <rect x="650" y="80" width="280" height="350" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="790" y="105" font-size="14" font-weight="bold" text-anchor="middle" fill="#1a1a1a">3-є покоління: GT2 (Gates)</text>
+  <text x="790" y="127" font-size="12" text-anchor="middle" fill="#27ae60">Параболічний профіль</text>
+
+  <!-- Graphic 3: Parabolic GT2 diagram -->
+  <g transform="translate(650, 140)">
+    <!-- Pulley base -->
+    <rect x="40" y="20" width="200" height="90" rx="6" fill="#fdfefe" stroke="#27ae60" stroke-width="2"/>
+    <!-- Parabolic groove -->
+    <path d="M 90,20 Q 140,80 190,20 Z" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+    <!-- Parabolic belt tooth fitting tightly -->
+    <path d="M 95,22 Q 140,74 185,22 Z" fill="#27ae60" opacity="0.85"/>
+    <!-- Full flank contact highlight -->
+    <path d="M 100,30 Q 140,65 180,30" fill="none" stroke="#27ae60" stroke-width="3"/>
+  </g>
+
+  <!-- Panel 3 Text details -->
+  <text x="790" y="305" font-size="11" font-weight="bold" text-anchor="middle" fill="#27ae60">Зона контакту: повне</text>
+  <text x="790" y="322" font-size="11" text-anchor="middle" fill="#27ae60">щільне прилягання грані</text>
+  <text x="790" y="355" font-size="11" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Перевага:</text>
+  <text x="790" y="372" font-size="11" font-weight="bold" text-anchor="middle" fill="#27ae60">Нульовий люфт (zero backlash)</text>
+  <text x="790" y="389" font-size="11" text-anchor="middle" fill="#6b7280">плавний вхід без удару</text>
+
+</svg>

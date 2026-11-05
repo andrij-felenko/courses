@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="36" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Порівняння форм-факторів захисних вентиляційних клапанів ePTFE</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Особливості монтажу, геометрії ущільнення та конструктивного виконання вузлів</text>
+
+  <!-- Panel 1: Threaded Valve -->
+  <rect x="40" y="80" width="280" height="370" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="180" y="112" font-size="15" font-weight="bold" fill="#1a1a1a" text-anchor="middle">1. Різьбовий клапан</text>
+  <text x="180" y="132" font-size="12" fill="#6b7280" text-anchor="middle">З ущільнювальним кільцем (O-ring)</text>
+
+  <!-- Panel 1 Drawing -->
+  <g transform="translate(0,0)">
+    <path d="M70,165 L290,165 L290,320 L270,320 L270,240 L90,240 L90,320 L70,320 Z" fill="#e2e8f0" stroke="#94a3b8" stroke-width="1.5"/>
+    <rect x="135" y="195" width="90" height="25" rx="3" fill="#cbd5e1" stroke="#475569" stroke-width="1.5"/>
+    <rect x="145" y="220" width="70" height="45" fill="#cbd5e1" stroke="#475569" stroke-width="1.5"/>
+    <line x1="145" y1="230" x2="138" y2="235" stroke="#475569" stroke-width="1.5"/>
+    <line x1="145" y1="245" x2="138" y2="250" stroke="#475569" stroke-width="1.5"/>
+    <line x1="215" y1="230" x2="222" y2="235" stroke="#475569" stroke-width="1.5"/>
+    <line x1="215" y1="245" x2="222" y2="250" stroke="#475569" stroke-width="1.5"/>
+    <ellipse cx="143" cy="225" rx="4" ry="7" fill="#e056fd" stroke="#b83280" stroke-width="1"/>
+    <ellipse cx="217" cy="225" rx="4" ry="7" fill="#e056fd" stroke="#b83280" stroke-width="1"/>
+    <rect x="160" y="202" width="40" height="6" rx="2" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="2,2"/>
+    <line x1="180" y1="175" x2="180" y2="193" stroke="#2457d6" stroke-width="2" marker-end="url(#arr)"/>
+    <line x1="180" y1="267" x2="180" y2="295" stroke="#2457d6" stroke-width="2" marker-end="url(#arr)"/>
+
+    <text x="180" y="340" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Корпус / Різьба / O-ring</text>
+    <text x="180" y="358" font-size="12" fill="#6b7280" text-anchor="middle">Висока механічна міцність</text>
+    <text x="180" y="376" font-size="12" fill="#27ae60" text-anchor="middle">✓ Для важких умов (IP69K)</text>
+    <text x="180" y="394" font-size="12" fill="#6b7280" text-anchor="middle">Багаторазовий демонтаж</text>
+  </g>
+
+  <!-- Panel 2: Press-fit Valve -->
+  <rect x="340" y="80" width="280" height="370" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="480" y="112" font-size="15" font-weight="bold" fill="#1a1a1a" text-anchor="middle">2. Запресовуваний клапан</text>
+  <text x="480" y="132" font-size="12" fill="#6b7280" text-anchor="middle">Фіксація натягом у пластиковому корпусі</text>
+
+  <!-- Panel 2 Drawing -->
+  <g transform="translate(0,0)">
+    <path d="M370,165 L590,165 L590,320 L570,320 L570,240 L410,240 L410,320 L370,320 Z" fill="#e2e8f0" stroke="#94a3b8" stroke-width="1.5"/>
+    <path d="M455,195 L505,195 L510,225 L518,230 L510,235 L510,265 L450,265 L450,235 L442,230 L450,225 Z" fill="#cbd5e1" stroke="#475569" stroke-width="1.5"/>
+    <rect x="465" y="205" width="30" height="6" rx="2" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="2,2"/>
+    <line x1="480" y1="175" x2="480" y2="193" stroke="#2457d6" stroke-width="2" marker-end="url(#arr)"/>
+    <line x1="480" y1="267" x2="480" y2="295" stroke="#2457d6" stroke-width="2" marker-end="url(#arr)"/>
+
+    <text x="480" y="340" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Натяг / Зазубрини (Barb)</text>
+    <text x="480" y="358" font-size="12" fill="#6b7280" text-anchor="middle">Швидкий монтаж без різьби</text>
+    <text x="480" y="376" font-size="12" fill="#27ae60" text-anchor="middle">✓ Економія місця та часу</text>
+    <text x="480" y="394" font-size="12" fill="#6b7280" text-anchor="middle">Чутливість до допуску отвору</text>
+  </g>
+
+  <!-- Panel 3: Adhesive Patch -->
+  <rect x="640" y="80" width="280" height="370" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="780" y="112" font-size="15" font-weight="bold" fill="#1a1a1a" text-anchor="middle">3. Клейова наліпка</text>
+  <text x="780" y="132" font-size="12" fill="#6b7280" text-anchor="middle">Монтаж на клейовому шарці без корпусу</text>
+
+  <!-- Panel 3 Drawing -->
+  <g transform="translate(0,0)">
+    <path d="M670,165 L890,165 L890,320 L670,320 Z" fill="#e2e8f0" stroke="#94a3b8" stroke-width="1.5"/>
+    <path d="M750,165 L750,210 L810,210 L810,165 Z" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+    <rect x="740" y="158" width="80" height="8" rx="2" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+    <rect x="745" y="152" width="70" height="8" rx="2" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+    <line x1="780" y1="135" x2="780" y2="150" stroke="#2457d6" stroke-width="2" marker-end="url(#arr)"/>
+    <line x1="780" y1="225" x2="780" y2="255" stroke="#2457d6" stroke-width="2" marker-end="url(#arr)"/>
+
+    <text x="780" y="340" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Мембрана + Клейовий шар</text>
+    <text x="780" y="358" font-size="12" fill="#6b7280" text-anchor="middle">Мінімальна товщина та вага</text>
+    <text x="780" y="376" font-size="12" fill="#27ae60" text-anchor="middle">✓ Найнижча вартість</text>
+    <text x="780" y="394" font-size="12" fill="#c0392b" text-anchor="middle">⚠️ Обмежений захист (IP67)</text>
+  </g>
+</svg>

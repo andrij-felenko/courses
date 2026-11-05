@@ -1,0 +1,114 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Definitions for arrow markers -->
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Еквівалентне RC-коло шини у стані Hi-Z та час наростання t_r</text>
+  <text x="480" y="60" font-size="13" fill="#6b7280" text-anchor="middle">Залежність часу наростання напруги від постійної часу tau = R_PU * C_bus при виході з Z-стану</text>
+
+  <!-- Left Panel: Equivalent Circuit -->
+  <rect x="30" y="80" width="440" height="340" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="250" y="105" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Еквівалентна схема шини (Hi-Z)</text>
+
+  <!-- V_CC Supply -->
+  <text x="250" y="132" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">V_CC (3.3 В)</text>
+  <line x1="250" y1="138" x2="250" y2="155" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Pull-up resistor R_PU -->
+  <path d="M250,155 L245,158 L255,164 L245,170 L255,176 L245,182 L255,188 L250,191" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="285" y="176" font-size="12" font-weight="bold" fill="#2457d6">R_PU (10 кОм)</text>
+  <line x1="250" y1="191" x2="250" y2="215" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Bus Node & Main Bus Line -->
+  <circle cx="250" cy="215" r="4" fill="#2457d6"/>
+  <text x="270" y="212" font-size="11" fill="#6b7280" text-anchor="start">Спільна шина (Bus)</text>
+  
+  <line x1="150" y1="215" x2="370" y2="215" stroke="#2457d6" stroke-width="2.5"/>
+
+  <!-- 74LVC1G125 Buffer (Left branch) -->
+  <line x1="150" y1="215" x2="150" y2="245" stroke="#1a1a1a" stroke-width="2"/>
+  <rect x="95" y="245" width="110" height="45" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="150" y="263" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">74LVC1G125</text>
+  <text x="150" y="280" font-size="11" fill="#c0392b" text-anchor="middle">Hi-Z (I_OZ)</text>
+
+  <!-- Receiver Inputs (Right branch) -->
+  <line x1="350" y1="215" x2="350" y2="245" stroke="#1a1a1a" stroke-width="2"/>
+  <rect x="305" y="245" width="90" height="45" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="350" y="264" font-size="12" fill="#1a1a1a" text-anchor="middle">Приймачі</text>
+  <text x="350" y="280" font-size="11" fill="#6b7280" text-anchor="middle">Входи (I_IH)</text>
+
+  <!-- Parasitic Capacitance C_bus (Down branch) -->
+  <line x1="250" y1="215" x2="250" y2="310" stroke="#1a1a1a" stroke-width="2"/>
+  <!-- Capacitor plates -->
+  <line x1="235" y1="310" x2="265" y2="310" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="235" y1="318" x2="265" y2="318" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="285" y="318" font-size="12" font-weight="bold" fill="#2457d6">C_bus (20 пФ)</text>
+  <line x1="250" y1="318" x2="250" y2="345" stroke="#1a1a1a" stroke-width="2"/>
+  
+  <!-- GND Symbol -->
+  <line x1="235" y1="345" x2="265" y2="345" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="241" y1="350" x2="259" y2="350" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="247" y1="355" x2="253" y2="355" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="250" y="373" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">GND</text>
+
+  <!-- Left panel bottom note -->
+  <rect x="42" y="385" width="416" height="25" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="0.8"/>
+  <text x="250" y="401" font-size="11" fill="#27ae60" font-weight="bold" text-anchor="middle">tau = R_PU * C_bus = 10кОм * 20пФ = 200 нс</text>
+
+
+  <!-- Right Panel: Exponential Graph -->
+  <rect x="490" y="80" width="440" height="340" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="710" y="105" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Графік заряду та час фронту t_r</text>
+
+  <!-- Graph Axes -->
+  <line x1="540" y1="370" x2="890" y2="370" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="900" y="374" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">t</text>
+  
+  <line x1="540" y1="370" x2="540" y2="125" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="540" y="115" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">V</text>
+
+  <!-- Y-axis Voltage Levels & Grid Lines -->
+  <!-- V_CC = 3.3V -->
+  <line x1="540" y1="145" x2="870" y2="145" stroke="#d0d7de" stroke-dasharray="3,3" stroke-width="1"/>
+  <text x="532" y="149" font-size="11" fill="#6b7280" text-anchor="end">3.3В (V_CC)</text>
+
+  <!-- 90% V_CC -->
+  <line x1="540" y1="170" x2="870" y2="170" stroke="#d0d7de" stroke-dasharray="3,3" stroke-width="1"/>
+  <text x="532" y="174" font-size="11" fill="#6b7280" text-anchor="end">0.9·V_CC</text>
+
+  <!-- V_IH = 0.7 V_CC -->
+  <line x1="540" y1="210" x2="870" y2="210" stroke="#d0d7de" stroke-dasharray="3,3" stroke-width="1"/>
+  <text x="532" y="214" font-size="11" fill="#6b7280" text-anchor="end">V_IH (0.7·V_CC)</text>
+
+  <!-- 10% V_CC -->
+  <line x1="540" y1="340" x2="870" y2="340" stroke="#d0d7de" stroke-dasharray="3,3" stroke-width="1"/>
+  <text x="532" y="344" font-size="11" fill="#6b7280" text-anchor="end">0.1·V_CC</text>
+
+  <!-- 0V -->
+  <text x="532" y="374" font-size="11" fill="#6b7280" text-anchor="end">0В</text>
+  <text x="540" y="388" font-size="11" fill="#6b7280" text-anchor="middle">0</text>
+
+  <!-- Time t_r mark (~2.2 tau = 440ns) -->
+  <line x1="740" y1="170" x2="740" y2="370" stroke="#2457d6" stroke-dasharray="4,4" stroke-width="1.2"/>
+  <text x="740" y="388" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">t_r ≈ 440 нс</text>
+
+  <!-- Exponential Curve -->
+  <!-- V(t) = 3.3 * (1 - e^(-t / tau)) -->
+  <path d="M 540 370 Q 600 370 640 310 T 740 170 T 870 145" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+
+  <!-- Intersection dot at 90% (t_r) -->
+  <circle cx="740" cy="170" r="4.5" fill="#c0392b"/>
+
+  <!-- Formula & Conclusion inside right panel -->
+  <text x="710" y="405" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">V_bus(t) = V_CC · (1 - e^(-t / tau))</text>
+</svg>

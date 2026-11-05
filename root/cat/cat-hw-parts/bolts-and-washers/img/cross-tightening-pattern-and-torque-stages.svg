@@ -1,0 +1,108 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="38" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Послідовність затягування болтів силового каркаса</text>
+  <text x="480" y="60" text-anchor="middle" font-size="13" fill="#6b7280">Хрест-навхрест у три етапи (50%, 75%, 100%) для рівномірного розподілу зусиль</text>
+
+  <!-- Panel 1: Stage 1 (50%) -->
+  <g transform="translate(40, 90)">
+    <rect x="0" y="0" width="270" height="330" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+    <text x="135" y="30" text-anchor="middle" font-size="16" font-weight="bold" fill="#1a1a1a">Етап 1: 50% моменту</text>
+    
+    <!-- Frame background -->
+    <rect x="35" y="55" width="200" height="200" rx="4" fill="white" stroke="#d0d7de" stroke-width="2"/>
+    <text x="135" y="160" text-anchor="middle" font-size="13" fill="#6b7280">Силовий каркас</text>
+
+    <!-- Bolt 1 (Top-Left) -->
+    <circle cx="65" cy="85" r="14" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+    <text x="65" y="89" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">1</text>
+
+    <!-- Bolt 4 (Bottom-Right) -->
+    <circle cx="205" cy="225" r="14" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+    <text x="205" y="229" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">2</text>
+
+    <!-- Cross sequence arrows -->
+    <path d="M 79 95 L 191 215" fill="none" stroke="#2457d6" stroke-width="2" stroke-dasharray="4,4" marker-end="url(#arr-blue)"/>
+
+    <!-- Bolt 3 (Bottom-Left) -->
+    <circle cx="65" cy="225" r="14" fill="#f4f6f8" stroke="#6b7280" stroke-width="2"/>
+    <text x="65" y="229" text-anchor="middle" font-size="12" fill="#6b7280">3</text>
+
+    <!-- Bolt 2 (Top-Right) -->
+    <circle cx="205" cy="85" r="14" fill="#f4f6f8" stroke="#6b7280" stroke-width="2"/>
+    <text x="205" y="89" text-anchor="middle" font-size="12" fill="#6b7280">4</text>
+    
+    <path d="M 79 215 L 191 95" fill="none" stroke="#6b7280" stroke-width="2" stroke-dasharray="4,4" marker-end="url(#arr)"/>
+
+    <text x="135" y="295" text-anchor="middle" font-size="13" fill="#1a1a1a">Початкове центрування стику</text>
+  </g>
+
+  <!-- Panel 2: Stage 2 (75%) -->
+  <g transform="translate(345, 90)">
+    <rect x="0" y="0" width="270" height="330" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+    <text x="135" y="30" text-anchor="middle" font-size="16" font-weight="bold" fill="#1a1a1a">Етап 2: 75% моменту</text>
+    
+    <!-- Frame background -->
+    <rect x="35" y="55" width="200" height="200" rx="4" fill="white" stroke="#d0d7de" stroke-width="2"/>
+    <text x="135" y="160" text-anchor="middle" font-size="13" fill="#6b7280">Силовий каркас</text>
+
+    <!-- All bolts active -->
+    <circle cx="65" cy="85" r="14" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+    <text x="65" y="89" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">1</text>
+
+    <circle cx="205" cy="225" r="14" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+    <text x="205" y="229" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">2</text>
+
+    <circle cx="65" cy="225" r="14" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+    <text x="65" y="229" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">3</text>
+
+    <circle cx="205" cy="85" r="14" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+    <text x="205" y="89" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">4</text>
+
+    <!-- Cross connection lines -->
+    <path d="M 79 95 L 191 215" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+    <path d="M 79 215 L 191 95" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+    <text x="135" y="295" text-anchor="middle" font-size="13" fill="#1a1a1a">Послідовне перехресне обтискання</text>
+  </g>
+
+  <!-- Panel 3: Stage 3 (100%) -->
+  <g transform="translate(650, 90)">
+    <rect x="0" y="0" width="270" height="330" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+    <text x="135" y="30" text-anchor="middle" font-size="16" font-weight="bold" fill="#1a1a1a">Етап 3: 100% моменту</text>
+    
+    <!-- Frame background -->
+    <rect x="35" y="55" width="200" height="200" rx="4" fill="white" stroke="#27ae60" stroke-width="2"/>
+    <text x="135" y="160" text-anchor="middle" font-size="13" fill="#6b7280">Силовий каркас</text>
+
+    <!-- Final tightened bolts -->
+    <circle cx="65" cy="85" r="14" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+    <text x="65" y="89" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">1</text>
+
+    <circle cx="205" cy="225" r="14" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+    <text x="205" y="229" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">2</text>
+
+    <circle cx="65" cy="225" r="14" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+    <text x="65" y="229" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">3</text>
+
+    <circle cx="205" cy="85" r="14" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+    <text x="205" y="89" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">4</text>
+
+    <!-- Perimeter check circle or lock icon representation -->
+    <path d="M 125 140 L 135 150 L 155 130" fill="none" stroke="#27ae60" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+
+    <text x="135" y="295" text-anchor="middle" font-size="13" fill="#27ae60" font-weight="bold">Фінальний момент затягування</text>
+  </g>
+
+</svg>

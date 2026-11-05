@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="700" fill="#1a1a1a">Концентрація магнітного потоку в сталевій чашці</text>
+  <text x="480" y="54" text-anchor="middle" font-size="13" fill="#6b7280">Порівняння розсіяного поля вільного диска та фокусування обох полюсів у магнітопроводі</text>
+
+  <!-- LEFT PANEL: Free disc magnet -->
+  <rect x="40" y="75" width="420" height="360" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="55" y="90" width="390" height="30" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="250" y="110" text-anchor="middle" font-size="13" font-weight="700" fill="#c0392b">Вільний дисковий магніт (розсіяне поле)</text>
+
+  <!-- Flux lines looping freely -->
+  <path d="M180,180 C110,130 110,290 180,240" fill="none" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <path d="M150,180 C60,110 60,310 150,240" fill="none" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <path d="M320,180 C390,130 390,290 320,240" fill="none" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <path d="M350,180 C440,110 440,310 350,240" fill="none" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4,3"/>
+
+  <!-- Magnet body: North on top, South on bottom -->
+  <rect x="180" y="180" width="140" height="30" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="250" y="200" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">Полюс N (північ)</text>
+
+  <rect x="180" y="210" width="140" height="30" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="250" y="230" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">Полюс S (південь)</text>
+
+  <!-- Labels in left panel -->
+  <text x="250" y="280" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">Зворотний потік розсіюється в просторі</text>
+  <text x="250" y="305" text-anchor="middle" font-size="11" fill="#6b7280">Лише один полюс взаємодіє з деталлю</text>
+  <text x="250" y="340" text-anchor="middle" font-size="12" fill="#c0392b">Високе магнітне розсіяння позаду</text>
+  <text x="250" y="375" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">Базова сила відриву: 1.0× F₀</text>
+
+  <!-- RIGHT PANEL: Magnet in Steel Cup -->
+  <rect x="500" y="75" width="420" height="360" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="515" y="90" width="390" height="30" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="710" y="110" text-anchor="middle" font-size="13" font-weight="700" fill="#27ae60">Магніт у сталевій чашці (магнітопровід)</text>
+
+  <!-- Steel cup cross section: bottom and two vertical rims -->
+  <path d="M605,175 L625,175 L625,235 L795,235 L795,175 L815,175 L815,255 L605,255 Z" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="710" y="250" text-anchor="middle" font-size="11" font-weight="700" fill="#1a1a1a">Сталева чашка (сталь 10 / низьковуглецева)</text>
+
+  <!-- Magnet inside cup -->
+  <rect x="635" y="175" width="150" height="30" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="710" y="195" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">Полюс N (центр)</text>
+
+  <rect x="635" y="205" width="150" height="30" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="710" y="225" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">Полюс S (контакт із дном)</text>
+
+  <!-- Rim polarity indicators -->
+  <text x="615" y="165" text-anchor="middle" font-size="10" font-weight="700" fill="#2457d6">S (буртик)</text>
+  <text x="805" y="165" text-anchor="middle" font-size="10" font-weight="700" fill="#2457d6">S (буртик)</text>
+
+  <!-- Concentrated short loop flux lines -->
+  <path d="M640,175 Q630,145 615,175" fill="none" stroke="#27ae60" stroke-width="2"/>
+  <path d="M780,175 Q790,145 805,175" fill="none" stroke="#27ae60" stroke-width="2"/>
+
+  <!-- Right panel explanations -->
+  <text x="710" y="280" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">Обидва полюси виведені на робочу площину</text>
+  <text x="710" y="305" text-anchor="middle" font-size="11" fill="#1a1a1a">Сталь концентрує потік у вузькому зазорі</text>
+  <text x="710" y="340" text-anchor="middle" font-size="12" fill="#27ae60">Зворотне магнітне поле повністю екрановане</text>
+  <text x="710" y="375" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">Сила утримання при z = 0: 2.0× .. 4.0× F₀</text>
+</svg>

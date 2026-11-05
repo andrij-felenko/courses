@@ -1,0 +1,172 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 500" width="960" height="500" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Підкладка на все полотно -->
+  <rect x="0" y="0" width="960" height="500" fill="white"/>
+
+  <!-- Маркери стрілок -->
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="700" fill="#1a1a1a">Порівняння логічних рівнів: вихід 3,3 В MCU проти входів 5 В 74HC та 74AHCT</text>
+  <text x="480" y="54" text-anchor="middle" font-size="13" fill="#6b7280">Вихід 3,3 В потрапляє в заборонену зону 74HC (V_IH = 3,5 В), але надійно перевищує поріг 74AHCT (V_IH = 2,0 В)</text>
+
+  <!-- Шкала напруги ліворуч -->
+  <line x1="70" y1="395" x2="70" y2="120" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="48" y="118" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">U (В)</text>
+
+  <!-- Позначки на шкалі напруги (50 px на 1 В) -->
+  <line x1="64" y1="140" x2="70" y2="140" stroke="#1a1a1a" stroke-width="1.2"/>
+  <text x="58" y="144" text-anchor="end" font-size="12" fill="#6b7280">5,0</text>
+
+  <line x1="64" y1="190" x2="70" y2="190" stroke="#1a1a1a" stroke-width="1.2"/>
+  <text x="58" y="194" text-anchor="end" font-size="12" fill="#6b7280">4,0</text>
+
+  <line x1="64" y1="240" x2="70" y2="240" stroke="#1a1a1a" stroke-width="1.2"/>
+  <text x="58" y="244" text-anchor="end" font-size="12" fill="#6b7280">3,0</text>
+
+  <line x1="64" y1="290" x2="70" y2="290" stroke="#1a1a1a" stroke-width="1.2"/>
+  <text x="58" y="294" text-anchor="end" font-size="12" fill="#6b7280">2,0</text>
+
+  <line x1="64" y1="340" x2="70" y2="340" stroke="#1a1a1a" stroke-width="1.2"/>
+  <text x="58" y="344" text-anchor="end" font-size="12" fill="#6b7280">1,0</text>
+
+  <line x1="64" y1="390" x2="70" y2="390" stroke="#1a1a1a" stroke-width="1.2"/>
+  <text x="58" y="394" text-anchor="end" font-size="12" fill="#6b7280">0,0</text>
+
+  <!-- ======================================================== -->
+  <!-- КОЛОНКА 1: Вихід 3,3 В мікроконтролера                  -->
+  <!-- ======================================================== -->
+  <rect x="88" y="74" width="264" height="404" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="220" y="96" text-anchor="middle" font-size="14" font-weight="700" fill="#1a1a1a">Вихід 3,3 В MCU</text>
+  <text x="220" y="114" text-anchor="middle" font-size="12" fill="#6b7280">Джерело сигналу (V_CC = 3,3 В)</text>
+  <line x1="100" y1="124" x2="340" y2="124" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Стовпчик рівнів MCU (x = 104..158, w = 54) -->
+  <!-- Зона понад 3,3 В (y = 140..225, h = 85) -->
+  <rect x="104" y="140" width="54" height="85" fill="#f4f6f8" stroke="#d0d7de" stroke-dasharray="3,3"/>
+  <text x="131" y="186" text-anchor="middle" font-size="12" fill="#6b7280">&gt; 3,3 В</text>
+  <text x="168" y="178" font-size="12" fill="#6b7280">Поза живленням МК</text>
+  <text x="168" y="196" font-size="12" fill="#6b7280">V_CC = 3,3 В</text>
+
+  <!-- Гарантований високий рівень V_OH (2,4 В .. 3,3 В, y = 225..270, h = 45) -->
+  <rect x="104" y="225" width="54" height="45" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="131" y="252" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">V_OH</text>
+  <text x="168" y="244" font-size="12" font-weight="700" fill="#2457d6">Високий рівень «1»</text>
+  <text x="168" y="260" font-size="12" fill="#1a1a1a">2,4 В ... 3,3 В</text>
+
+  <!-- Зона перемикання / фронту (0,4 В .. 2,4 В, y = 270..370, h = 100) -->
+  <rect x="104" y="270" width="54" height="100" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="131" y="324" text-anchor="middle" font-size="12" fill="#6b7280">Фронт</text>
+  <text x="168" y="316" font-size="12" fill="#6b7280">Перехідний стан</text>
+  <text x="168" y="332" font-size="12" fill="#6b7280">(фронт перемикання)</text>
+
+  <!-- Гарантований низький рівень V_OL (0,0 В .. 0,4 В, y = 370..390, h = 20) -->
+  <rect x="104" y="370" width="54" height="20" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="131" y="384" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">0</text>
+  <text x="168" y="384" font-size="12" fill="#1a1a1a">Низький «0»: ≤ 0,4 В</text>
+
+  <!-- Підсумок колонки 1 -->
+  <rect x="100" y="414" width="240" height="52" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="220" y="432" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">Вихідний каскад MCU</text>
+  <text x="220" y="450" text-anchor="middle" font-size="12" fill="#2457d6">V_OH = 2,4 ... 3,3 В (HIGH)</text>
+
+  <!-- Зʼєднувальний місток до 74HC (x = 352..368) -->
+  <polygon points="352,225 368,225 368,270 352,270" fill="#fdecea"/>
+  <line x1="352" y1="225" x2="368" y2="225" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3,2"/>
+  <line x1="352" y1="270" x2="368" y2="270" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3,2"/>
+  <line x1="352" y1="247" x2="366" y2="247" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+
+  <!-- ======================================================== -->
+  <!-- КОЛОНКА 2: Вхід 5 В CMOS (серія 74HC)                   -->
+  <!-- ======================================================== -->
+  <rect x="368" y="74" width="264" height="404" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="500" y="96" text-anchor="middle" font-size="14" font-weight="700" fill="#1a1a1a">Вхід 74HC (5 В CMOS)</text>
+  <text x="500" y="114" text-anchor="middle" font-size="12" fill="#6b7280">V_CC = 5,0 В (чистий CMOS)</text>
+  <line x1="380" y1="124" x2="620" y2="124" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Стовпчик рівнів 74HC (x = 384..438, w = 54) -->
+  <!-- Гарантована одиниця V_IH >= 3,5 В (y = 140..215, h = 75) -->
+  <rect x="384" y="140" width="54" height="75" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="411" y="182" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">HIGH</text>
+  <text x="448" y="172" font-size="12" font-weight="700" fill="#27ae60">Гарантована «1»</text>
+  <text x="448" y="190" font-size="12" fill="#1a1a1a">V_IH ≥ 3,5 В (0,7 · V_CC)</text>
+
+  <!-- Невизначена зона 1,5 В .. 3,5 В (y = 215..315, h = 100) -->
+  <rect x="384" y="215" width="54" height="100" fill="#fdecea" stroke="#c0392b" stroke-width="2"/>
+  <!-- Проєкція виходу MCU всередину невизначеної зони (y = 225..270) -->
+  <rect x="388" y="225" width="46" height="45" rx="3" fill="#ffffff" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <text x="411" y="252" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">V_OH</text>
+  <text x="448" y="236" font-size="12" font-weight="700" fill="#c0392b">НЕВИЗНАЧЕНА ЗОНА</text>
+  <text x="448" y="252" font-size="12" fill="#c0392b">1,5 В ... 3,5 В (заборонена)</text>
+  <text x="448" y="272" font-size="12" font-weight="700" fill="#c0392b">Вихід МК нижче V_IH!</text>
+  <text x="448" y="288" font-size="12" fill="#6b7280">Дефіцит напруги: -1,1 В</text>
+  <text x="448" y="304" font-size="12" fill="#c0392b">Наскрізний струм PMOS/NMOS</text>
+
+  <!-- Гарантований нуль V_IL <= 1,5 В (y = 315..390, h = 75) -->
+  <rect x="384" y="315" width="54" height="75" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="411" y="357" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">LOW</text>
+  <text x="448" y="348" font-size="12" font-weight="700" fill="#27ae60">Гарантований «0»</text>
+  <text x="448" y="366" font-size="12" fill="#1a1a1a">V_IL ≤ 1,5 В (0,3 · V_CC)</text>
+
+  <!-- Підсумок колонки 2 -->
+  <rect x="380" y="414" width="240" height="52" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="500" y="432" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">⛔ ПРЯМА НЕСУМІСНІСТЬ</text>
+  <text x="500" y="450" text-anchor="middle" font-size="12" fill="#c0392b">Дефіцит до 1,1 В → наскрізний струм</text>
+
+  <!-- Зʼєднувальний місток до 74AHCT (x = 632..648) -->
+  <polygon points="632,225 648,225 648,270 632,270" fill="#e9f7ef"/>
+  <line x1="632" y1="225" x2="648" y2="225" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="3,2"/>
+  <line x1="632" y1="270" x2="648" y2="270" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="3,2"/>
+  <line x1="632" y1="247" x2="646" y2="247" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- ======================================================== -->
+  <!-- КОЛОНКА 3: Вхід 5 В TTL-сумісний (серія 74AHCT)         -->
+  <!-- ======================================================== -->
+  <rect x="648" y="74" width="264" height="404" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="780" y="96" text-anchor="middle" font-size="14" font-weight="700" fill="#1a1a1a">Вхід 74AHCT (5 В TTL)</text>
+  <text x="780" y="114" text-anchor="middle" font-size="12" fill="#6b7280">V_CC = 5,0 В (TTL-пороги)</text>
+  <line x1="660" y1="124" x2="900" y2="124" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Стовпчик рівнів 74AHCT (x = 664..718, w = 54) -->
+  <!-- Гарантована одиниця V_IH >= 2,0 В (y = 140..290, h = 150) -->
+  <rect x="664" y="140" width="54" height="150" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <!-- Проєкція виходу MCU всередину зони HIGH (y = 225..270) -->
+  <rect x="668" y="225" width="46" height="45" rx="3" fill="#ffffff" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <text x="691" y="252" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">V_OH</text>
+  <text x="691" y="182" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">HIGH</text>
+  <text x="728" y="168" font-size="12" font-weight="700" fill="#27ae60">Гарантована «1»</text>
+  <text x="728" y="186" font-size="12" fill="#1a1a1a">V_IH ≥ 2,0 В (TTL-поріг)</text>
+  <text x="728" y="236" font-size="12" font-weight="700" fill="#27ae60">Вихід МК надійно в «1»!</text>
+  <text x="728" y="252" font-size="12" fill="#27ae60">Запас завадостійкості:</text>
+  <text x="728" y="268" font-size="12" font-weight="700" fill="#27ae60">+0,4 В ... +1,3 В</text>
+  <text x="728" y="284" font-size="12" fill="#6b7280">(2,4...3,3 В &gt; 2,0 В)</text>
+
+  <!-- Невизначена зона 0,8 В .. 2,0 В (y = 290..350, h = 60) -->
+  <rect x="664" y="290" width="54" height="60" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="691" y="324" text-anchor="middle" font-size="12" fill="#c0392b">?</text>
+  <text x="728" y="316" font-size="12" fill="#c0392b">Невизначена зона</text>
+  <text x="728" y="332" font-size="12" fill="#6b7280">0,8 В ... 2,0 В (вузька)</text>
+
+  <!-- Гарантований нуль V_IL <= 0,8 В (y = 350..390, h = 40) -->
+  <rect x="664" y="350" width="54" height="40" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="691" y="375" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">LOW</text>
+  <text x="728" y="366" font-size="12" font-weight="700" fill="#27ae60">Гарантований «0»</text>
+  <text x="728" y="384" font-size="12" fill="#1a1a1a">V_IL ≤ 0,8 В (TTL-поріг)</text>
+
+  <!-- Підсумок колонки 3 -->
+  <rect x="660" y="414" width="240" height="52" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="780" y="432" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">✔ ВПЕВНЕНА СУМІСНІСТЬ</text>
+  <text x="780" y="450" text-anchor="middle" font-size="12" fill="#27ae60">Запас +0,4...+1,3 В над V_IH = 2,0 В</text>
+</svg>

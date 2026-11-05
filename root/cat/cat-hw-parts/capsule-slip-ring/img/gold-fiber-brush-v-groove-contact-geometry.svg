@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <text x="480" y="40" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Контактна геометрія багатониткової щітки (Fiber Brush) у V-канавці</text>
+  <text x="480" y="60" text-anchor="middle" font-size="13" fill="#6b7280">Дублювання контактів та розподіл зусилля мінімізують електричний шум під час обертання</text>
+
+  <path d="M 150 500 L 150 300 L 380 300 L 480 400 L 580 300 L 810 300 L 810 500 Z" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <path d="M 150 300 L 380 300 L 480 400 L 580 300 L 810 300" fill="none" stroke="#2457d6" stroke-width="4"/>
+  <text x="480" y="460" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Золочена кільцева доріжка (ротор)</text>
+
+  <path d="M 380 530 L 580 530" stroke="#6b7280" stroke-width="2" fill="none" marker-end="url(#arr-gray)"/>
+  <text x="480" y="520" text-anchor="middle" font-size="13" fill="#6b7280">Напрямок обертання</text>
+
+  <path d="M 440 130 L 520 130 L 520 180 L 440 180 Z" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <text x="480" y="160" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Статор</text>
+
+  <path d="M 480 85 L 480 120" stroke="#1a1a1a" stroke-width="2" fill="none" marker-end="url(#arr)"/>
+  <text x="490" y="105" text-anchor="start" font-size="13" fill="#1a1a1a">Зусилля притиску</text>
+
+  <path d="M 445 180 Q 420 260 420 340" stroke="#2457d6" stroke-width="2" fill="none"/>
+  <path d="M 455 180 Q 440 270 440 360" stroke="#2457d6" stroke-width="2" fill="none"/>
+  <path d="M 465 180 Q 460 280 460 380" stroke="#2457d6" stroke-width="2" fill="none"/>
+  <path d="M 495 180 Q 500 280 500 380" stroke="#2457d6" stroke-width="2" fill="none"/>
+  <path d="M 505 180 Q 520 270 520 360" stroke="#2457d6" stroke-width="2" fill="none"/>
+  <path d="M 515 180 Q 540 260 540 340" stroke="#2457d6" stroke-width="2" fill="none"/>
+
+  <circle cx="420" cy="340" r="4" fill="#ffffff" stroke="#27ae60" stroke-width="2"/>
+  <circle cx="440" cy="360" r="4" fill="#ffffff" stroke="#27ae60" stroke-width="2"/>
+  <circle cx="460" cy="380" r="4" fill="#ffffff" stroke="#27ae60" stroke-width="2"/>
+  <circle cx="500" cy="380" r="4" fill="#ffffff" stroke="#27ae60" stroke-width="2"/>
+  <circle cx="520" cy="360" r="4" fill="#ffffff" stroke="#27ae60" stroke-width="2"/>
+  <circle cx="540" cy="340" r="4" fill="#ffffff" stroke="#27ae60" stroke-width="2"/>
+
+  <text x="250" y="220" text-anchor="middle" font-size="14" font-weight="bold" fill="#27ae60">Незалежні мікроконтакти</text>
+  <text x="250" y="240" text-anchor="middle" font-size="13" fill="#6b7280">
+    <tspan x="250" dy="0">Кожна нитка пружинить окремо,</tspan>
+    <tspan x="250" dy="20">компенсуючи мікронерівності</tspan>
+  </text>
+  <path d="M 250 270 L 250 340 L 410 340" stroke="#6b7280" stroke-width="1.5" fill="none" marker-end="url(#arr-gray)"/>
+  <path d="M 250 340 L 250 360 L 430 360" stroke="#6b7280" stroke-width="1.5" fill="none" marker-end="url(#arr-gray)"/>
+  <path d="M 250 360 L 250 380 L 450 380" stroke="#6b7280" stroke-width="1.5" fill="none" marker-end="url(#arr-gray)"/>
+
+  <text x="710" y="220" text-anchor="middle" font-size="14" font-weight="bold" fill="#2457d6">V-подібна канавка</text>
+  <text x="710" y="240" text-anchor="middle" font-size="13" fill="#6b7280">
+    <tspan x="710" dy="0">Розподіляє зусилля на дві площини,</tspan>
+    <tspan x="710" dy="20">запобігаючи зсуву щітки</tspan>
+  </text>
+  <path d="M 710 270 L 710 330 L 560 330" stroke="#6b7280" stroke-width="1.5" fill="none" marker-end="url(#arr-gray)"/>
+  <path d="M 710 270 L 710 280 L 390 280 L 390 300" stroke="#6b7280" stroke-width="1.5" fill="none" marker-end="url(#arr-gray)"/>
+</svg>

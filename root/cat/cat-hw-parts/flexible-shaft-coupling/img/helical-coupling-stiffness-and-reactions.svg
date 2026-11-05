@@ -1,0 +1,88 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- White background -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Markers -->
+  <defs>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Деформація витків спіралі та реактивні сили на опори</text>
+  <text x="480" y="60" font-size="13" fill="#6b7280" text-anchor="middle">Передача крутного моменту T та виникнення радіальної реакції Fr і згинального моменту Mb при зміщенні осей</text>
+
+  <!-- Panel 1: Left (30..470) - Torsion -->
+  <rect x="30" y="80" width="440" height="355" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="250" y="108" font-size="15" font-weight="bold" fill="#1a1a1a" text-anchor="middle">1. Скручування спіралі крутним моментом T</text>
+
+  <!-- Panel 1 Graphic elements: Shaft & Helix representation -->
+  <!-- Left shaft -->
+  <rect x="60" y="220" width="90" height="50" rx="4" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="105" y="250" font-size="12" fill="#1a1a1a" text-anchor="middle">Вал 1</text>
+
+  <!-- Right shaft (Panel 1) -->
+  <rect x="350" y="220" width="90" height="50" rx="4" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="395" y="250" font-size="12" fill="#1a1a1a" text-anchor="middle">Вал 2</text>
+
+  <!-- Helix flexible section -->
+  <rect x="150" y="200" width="200" height="90" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <path d="M 150 245 Q 175 210, 200 245 T 250 245 T 300 245 T 350 245" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+  <path d="M 150 245 Q 175 280, 200 245 T 250 245 T 300 245 T 350 245" fill="none" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4,3"/>
+
+  <!-- Torque T arrows -->
+  <path d="M 105 195 A 25 25 0 0 1 130 220" fill="none" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arr-red)"/>
+  <text x="105" y="185" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">T (Вхід)</text>
+
+  <path d="M 395 295 A 25 25 0 0 1 370 270" fill="none" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arr-green)"/>
+  <text x="395" y="318" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">T (Вихід)</text>
+
+  <!-- Panel 1 Explanatory notes -->
+  <text x="50" y="335" font-size="12" fill="#1a1a1a">• Висока крутильна жорсткість Kt витків</text>
+  <text x="50" y="357" font-size="12" fill="#1a1a1a">• Чистий зсув у металі витків без люфту</text>
+  <text x="50" y="379" font-size="12" fill="#1a1a1a">• Нульовий кутовий люфт (синхронність)</text>
+
+  <!-- Panel 2: Right (490..930) - Radial offset & reactions -->
+  <rect x="490" y="80" width="440" height="355" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="710" y="108" font-size="15" font-weight="bold" fill="#1a1a1a" text-anchor="middle">2. Радіальне зміщення delta та реакції</text>
+
+  <!-- Panel 2 Graphic elements: S-bend helix -->
+  <!-- Opora 1 -->
+  <rect x="520" y="220" width="90" height="50" rx="4" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="565" y="250" font-size="12" fill="#1a1a1a" text-anchor="middle">Опора 1</text>
+
+  <!-- Displaced shaft -->
+  <rect x="790" y="195" width="90" height="50" rx="4" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="835" y="225" font-size="12" fill="#1a1a1a" text-anchor="middle">Зміщений вал</text>
+
+  <!-- S-bend helix -->
+  <path d="M 610 245 C 660 245, 740 220, 790 220" fill="none" stroke="#c0392b" stroke-width="3"/>
+  <path d="M 610 265 C 660 265, 740 240, 790 240" fill="none" stroke="#c0392b" stroke-width="2" stroke-dasharray="4,3"/>
+
+  <!-- Radial offset delta -->
+  <line x1="890" y1="245" x2="890" y2="220" stroke="#2457d6" stroke-width="1.5" marker-start="url(#arr-blue)" marker-end="url(#arr-blue)"/>
+  <text x="898" y="236" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="start">delta</text>
+
+  <!-- Radial reaction Fr -->
+  <line x1="790" y1="165" x2="790" y2="190" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arr-red)"/>
+  <text x="790" y="152" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">Fr = Kr * delta</text>
+
+  <!-- Bending moment Mb -->
+  <path d="M 770 185 A 15 15 0 0 1 795 185" fill="none" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="725" y="175" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Mb (згин)</text>
+
+  <!-- Panel 2 Explanatory notes -->
+  <text x="510" y="335" font-size="12" fill="#1a1a1a">• S-подібний пружний вигин спіралі</text>
+  <text x="510" y="357" font-size="12" fill="#1a1a1a">• Радіальна реакція Fr на підшипник</text>
+  <text x="510" y="379" font-size="12" fill="#1a1a1a">• Згинальний момент Mb перекошує кільця</text>
+</svg>

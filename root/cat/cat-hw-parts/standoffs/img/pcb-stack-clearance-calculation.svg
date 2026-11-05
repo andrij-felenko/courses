@@ -1,0 +1,87 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Titles -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Розрахунок безпечного міжплатного зазору стека</text>
+  <text x="480" y="52" text-anchor="middle" font-size="13" fill="#6b7280">Визначення довжини стійки за сумою висот компонентів, виводів THT та вентиляційного просвіту</text>
+
+  <!-- Main Assembly Panel -->
+  <rect x="30" y="75" width="900" height="355" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Left Standoff -->
+  <rect x="130" y="145" width="45" height="170" rx="2" fill="#fef5e7" stroke="#b7950b" stroke-width="1.5"/>
+  <text x="152" y="235" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a1a">Стійка</text>
+
+  <!-- Right Standoff -->
+  <rect x="840" y="145" width="45" height="170" rx="2" fill="#fef5e7" stroke="#b7950b" stroke-width="1.5"/>
+  <text x="862" y="235" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a1a">Стійка</text>
+
+  <!-- PCB 2 (Upper Board) -->
+  <rect x="60" y="133" width="840" height="12" rx="2" fill="#27ae60"/>
+  <text x="195" y="123" font-size="12" font-weight="bold" fill="#27ae60">Верхня плата PCB 2 (товщина t = 1.6 мм)</text>
+
+  <!-- PCB 1 (Lower Board) -->
+  <rect x="60" y="315" width="840" height="12" rx="2" fill="#27ae60"/>
+  <text x="195" y="342" font-size="12" font-weight="bold" fill="#27ae60">Нижня плата PCB 1 (товщина t = 1.6 мм)</text>
+
+  <!-- Protruding THT leads from PCB 2 -->
+  <rect x="300" y="145" width="6" height="22" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1"/>
+  <rect x="330" y="145" width="6" height="22" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1"/>
+  <rect x="360" y="145" width="6" height="22" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1"/>
+
+  <!-- THT lead dimension line -->
+  <line x1="285" y1="145" x2="285" y2="167" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="275" y="159" text-anchor="end" font-size="11" font-weight="bold" fill="#c0392b">H_lead</text>
+  <text x="390" y="160" font-size="11" fill="#6b7280">Виступ виводів THT (1.5–2.5 мм)</text>
+
+  <!-- Tall Component on PCB 1 (Connector / Cap) -->
+  <rect x="290" y="195" width="105" height="120" rx="3" fill="#ffffff" stroke="#2457d6" stroke-width="2"/>
+  <text x="342" y="255" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Розʼєм RJ45 / Конденсатор</text>
+  <text x="342" y="275" text-anchor="middle" font-size="11" fill="#6b7280">H_comp = 11.5 мм</text>
+
+  <!-- Component 2 on PCB 1 (Inductor) -->
+  <rect x="440" y="235" width="85" height="80" rx="3" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="482" y="275" text-anchor="middle" font-size="11" fill="#1a1a1a">Дросель SMPS</text>
+  <text x="482" y="295" text-anchor="middle" font-size="10" fill="#6b7280">H = 7.0 мм</text>
+
+  <!-- Component 3 on PCB 1 (IC Chip) -->
+  <rect x="560" y="285" width="110" height="30" rx="2" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="615" y="305" text-anchor="middle" font-size="11" fill="#1a1a1a">MCU / QFP</text>
+
+  <!-- Air Clearance Gap Dimension between H_lead and H_comp -->
+  <rect x="280" y="167" width="125" height="28" fill="#e9f7ef" stroke="#27ae60" stroke-width="1" stroke-dasharray="3 2"/>
+  <text x="415" y="185" font-size="11" font-weight="bold" fill="#27ae60">Повітряний зазор Δ_air ≥ 2.0 мм</text>
+
+  <!-- Standoff Total Height Dimension Arrow (Left) -->
+  <line x1="110" y1="145" x2="110" y2="315" stroke="#1a1a1a" stroke-width="2" marker-start="url(#arr)" marker-end="url(#arr)"/>
+  <text x="100" y="235" text-anchor="end" font-size="11" font-weight="bold" fill="#1a1a1a">H_standoff</text>
+
+  <!-- Component Height Dimension Arrow -->
+  <line x1="260" y1="195" x2="260" y2="315" stroke="#2457d6" stroke-width="2" marker-start="url(#arr-blue)" marker-end="url(#arr-blue)"/>
+  <text x="250" y="255" text-anchor="end" font-size="12" font-weight="bold" fill="#2457d6">H_comp</text>
+
+  <!-- Explanatory Box on Right -->
+  <rect x="690" y="170" width="135" height="120" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="700" y="192" font-size="11" font-weight="bold" fill="#1a1a1a">Складові зазору:</text>
+  <text x="700" y="212" font-size="11" fill="#2457d6">• H_comp: макс. деталь</text>
+  <text x="700" y="230" font-size="11" fill="#c0392b">• H_lead: вивід пайки</text>
+  <text x="700" y="248" font-size="11" fill="#27ae60">• Δ_air: ізоляція й обдув</text>
+  <text x="700" y="266" font-size="11" fill="#6b7280">• δ_tol: запас на вигин</text>
+
+  <!-- Bottom Formula Banner -->
+  <rect x="60" y="375" width="840" height="38" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="480" y="399" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Критерій вибору стійки: H_standoff ≥ H_comp + H_lead + Δ_air + δ_tol</text>
+</svg>

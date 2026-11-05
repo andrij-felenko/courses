@@ -1,0 +1,107 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-axis" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <!-- Заголовок та підзаголовок -->
+  <text x="480" y="30" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Амплітудно-частотна характеристика підвісу корисного навантаження</text>
+  <text x="480" y="52" text-anchor="middle" font-size="13" fill="#6b7280">Комбінований демпфер зсуває резонанс униз і забезпечує спад амплітуди в зоні робочих вібрацій</text>
+
+  <!-- ЛІВА ПАНЕЛЬ: Графік АЧХ -->
+  <rect x="30" y="70" width="590" height="390" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="50" y="96" font-size="14" font-weight="bold" fill="#1a1a1a">Графік коефіцієнта передачі вібрацій T = A_вих / A_вх</text>
+
+  <!-- Сітка графіка -->
+  <!-- Координатна сітка: походження осей (90, 390), ширина 480, висота 260 (верх 130) -->
+  <!-- Зона віброізоляції (T < 1.0, f > 31 Гц) -->
+  <rect x="250" y="130" width="320" height="260" fill="#e9f7ef" opacity="0.6"/>
+  <text x="260" y="150" font-size="11" font-weight="bold" fill="#27ae60">Зона віброізоляції (T менше 1.0)</text>
+
+  <!-- Горизонтальні лінії сітки -->
+  <line x1="90" y1="390" x2="570" y2="390" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="90" y1="310" x2="570" y2="310" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="80" y="314" text-anchor="end" font-size="11" fill="#6b7280">T = 1.0</text>
+
+  <line x1="90" y1="210" x2="570" y2="210" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="80" y="214" text-anchor="end" font-size="11" fill="#6b7280">T = 2.5</text>
+
+  <line x1="90" y1="130" x2="570" y2="130" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="80" y="134" text-anchor="end" font-size="11" fill="#6b7280">T = 5.0</text>
+
+  <!-- Межа ізоляції f = sqrt(2) * f0 -->
+  <line x1="250" y1="130" x2="250" y2="390" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <text x="255" y="275" font-size="11" font-weight="bold" fill="#27ae60">f = 1.41 f₀</text>
+
+  <!-- Осі координат -->
+  <!-- Вісь X -->
+  <line x1="90" y1="390" x2="585" y2="390" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-axis)"/>
+  <text x="530" y="415" font-size="12" font-weight="bold" fill="#1a1a1a">Частота f (Гц)</text>
+
+  <!-- Позначки на осі X -->
+  <text x="90" y="405" text-anchor="middle" font-size="11" fill="#6b7280">0</text>
+  <text x="180" y="405" text-anchor="middle" font-size="11" fill="#6b7280">22</text>
+  <text x="250" y="405" text-anchor="middle" font-size="11" fill="#6b7280">31</text>
+  <text x="360" y="405" text-anchor="middle" font-size="11" fill="#6b7280">60</text>
+  <text x="470" y="405" text-anchor="middle" font-size="11" fill="#6b7280">100</text>
+
+  <!-- Вісь Y -->
+  <line x1="90" y1="390" x2="90" y2="115" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-axis)"/>
+  <text x="45" y="110" font-size="12" font-weight="bold" fill="#1a1a1a">T = A_вих/A_вх</text>
+
+  <!-- КРИВА 1: Жорсткий монтаж (червона пунктирна) -->
+  <!-- Резонанс на 85 Гц, пік дуже високий (виходить за межі) -->
+  <path d="M 90,310 Q 300,310 400,260 T 450,135 T 480,260 T 570,350" fill="none" stroke="#c0392b" stroke-width="2" stroke-dasharray="4,3"/>
+  <text x="400" y="120" font-size="11" font-weight="bold" fill="#c0392b">Жорсткий монтаж (f₀ = 85 Гц)</text>
+
+  <!-- КРИВА 2: Комбінований підвіс Wire Rope + Силікон (зелена товста) -->
+  <!-- Резонанс на 22 Гц (x=180, y=225, T=2.2), перетин T=1 на x=250, далі спад до дна -->
+  <path d="M 90,310 Q 140,305 180,225 Q 210,240 250,310 Q 340,375 570,385" fill="none" stroke="#27ae60" stroke-width="3"/>
+  <circle cx="180" cy="225" r="4" fill="#27ae60"/>
+  <text x="145" y="210" font-size="11" font-weight="bold" fill="#27ae60">Новий пік (22 Гц)</text>
+
+  <!-- Стрілка зсуву резонансу -->
+  <line x1="420" y1="180" x2="210" y2="215" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="250" y="172" font-size="11" font-weight="bold" fill="#2457d6">Зсув резонансу вниз (-74%)</text>
+
+  <!-- Підпис внизу графіку -->
+  <text x="90" y="440" font-size="11" fill="#1a1a1a">Зона гасіння починається з 31 Гц: амплітуда вібрацій бортових двигунів зменшується в 5–10 разів</text>
+
+  <!-- ПРАВА ПАНЕЛЬ: Інженерні параметри та висновки -->
+  <rect x="635" y="70" width="295" height="390" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="655" y="96" font-size="14" font-weight="bold" fill="#1a1a1a">Ключові параметри демпфування</text>
+
+  <!-- Картка 1: Зсув власної частоти -->
+  <rect x="655" y="115" width="255" height="75" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="670" y="135" font-size="12" font-weight="bold" fill="#2457d6">1. Зниження частоти f₀</text>
+  <text x="670" y="155" font-size="11" fill="#1a1a1a">Зменшення з 85 Гц до 22 Гц</text>
+  <text x="670" y="173" font-size="11" fill="#6b7280">Виводить резонанс із робочого спектра</text>
+
+  <!-- Картка 2: Демпфування піку -->
+  <rect x="655" y="200" width="255" height="75" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="670" y="220" font-size="12" font-weight="bold" fill="#27ae60">2. Демпфування піку (Q-фактор)</text>
+  <text x="670" y="240" font-size="11" fill="#1a1a1a">Пікове посилення T_max менше 2.3</text>
+  <text x="670" y="258" font-size="11" fill="#6b7280">Сухе тертя троса + в'язкість силікону</text>
+
+  <!-- Картка 3: Високочастотна ізоляція -->
+  <rect x="655" y="285" width="255" height="75" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="670" y="305" font-size="12" font-weight="bold" fill="#1a1a1a">3. Ефективність при f понад 50 Гц</text>
+  <text x="670" y="325" font-size="11" fill="#27ae60">Спад амплітуди: 85–95% (-20 дБ)</text>
+  <text x="670" y="343" font-size="11" fill="#6b7280">Захист Pogo Pin від мікророзривів</text>
+
+  <!-- Підсумковий висновок -->
+  <rect x="655" y="370" width="255" height="75" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="670" y="392" font-size="11" font-weight="bold" fill="#2457d6">Результат для апарата:</text>
+  <text x="670" y="412" font-size="11" fill="#1a1a1a">Повна ліквідація желе-ефекту</text>
+  <text x="670" y="430" font-size="11" fill="#1a1a1a">на кадрах камери та стабільний IMU</text>
+</svg>

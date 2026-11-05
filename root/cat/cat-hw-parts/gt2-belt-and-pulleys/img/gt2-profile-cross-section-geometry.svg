@@ -1,0 +1,106 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Title and subtitle -->
+  <text x="480" y="38" font-size="18" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Геометрія перерізу паса GT2 та зачеплення зі шківом</text>
+  <text x="480" y="60" font-size="13" text-anchor="middle" fill="#6b7280">Розташування армувального корду на ділильному діаметрі та беззазорне спряження зубів</text>
+
+  <!-- Left Panel: Internal structure and cross-section -->
+  <rect x="30" y="80" width="440" height="350" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="50" y="110" font-size="14" font-weight="bold" fill="#1a1a1a">1. Внутрішня будова та переріз паса GT2</text>
+
+  <!-- Belt cross-section graphics (Left panel, centered around x=250, y=230) -->
+  <!-- Belt backing rectangle -->
+  <rect x="110" y="150" width="280" height="50" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <!-- Cord line (dashed blue) -->
+  <line x1="110" y1="200" x2="390" y2="200" stroke="#2457d6" stroke-width="2" stroke-dasharray="6,4"/>
+  
+  <!-- Belt teeth (parabolic profile, repeating with pitch p = 2.0 mm scaled) -->
+  <path d="M 110,200 
+           L 150,200 Q 190,200 190,265 Q 190,200 230,200 
+           Q 270,200 270,265 Q 270,200 310,200 
+           Q 350,200 350,265 Q 350,200 390,200 
+           L 390,200 Z" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Nylon fabric layer on tooth surface (bottom edge) -->
+  <path d="M 150,265 Q 190,200 230,265 Q 270,200 310,265 Q 350,200 390,265" fill="none" stroke="#27ae60" stroke-width="3"/>
+
+  <!-- Cord circles (glass fibers) along the cord line y=200 -->
+  <circle cx="140" cy="200" r="4" fill="#c0392b"/>
+  <circle cx="180" cy="200" r="4" fill="#c0392b"/>
+  <circle cx="220" cy="200" r="4" fill="#c0392b"/>
+  <circle cx="260" cy="200" r="4" fill="#c0392b"/>
+  <circle cx="300" cy="200" r="4" fill="#c0392b"/>
+  <circle cx="340" cy="200" r="4" fill="#c0392b"/>
+  <circle cx="380" cy="200" r="4" fill="#c0392b"/>
+
+  <!-- Dimension lines and annotations for Left Panel -->
+  <!-- Total thickness H = 1.38 mm -->
+  <line x1="90" y1="150" x2="90" y2="265" stroke="#1a1a1a" stroke-width="1" marker-start="url(#arr)" marker-end="url(#arr)"/>
+  <text x="52" y="212" font-size="12" font-weight="bold" fill="#1a1a1a">H = 1.38</text>
+
+  <!-- Tooth height h_t = 0.75 mm -->
+  <line x1="410" y1="200" x2="410" y2="265" stroke="#1a1a1a" stroke-width="1" marker-start="url(#arr)" marker-end="url(#arr)"/>
+  <text x="418" y="236" font-size="12" font-weight="bold" fill="#1a1a1a">h_t = 0.75</text>
+
+  <!-- Pitch p = 2.0 mm (between tooth tips 110 and 150) -->
+  <line x1="110" y1="285" x2="150" y2="285" stroke="#1a1a1a" stroke-width="1" marker-start="url(#arr)" marker-end="url(#arr)"/>
+  <text x="130" y="310" font-size="12" text-anchor="middle" font-weight="bold" fill="#1a1a1a">p = 2.0</text>
+
+  <!-- Labels pointing to features -->
+  <!-- Cord -->
+  <line x1="300" y1="175" x2="350" y2="135" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="355" y="132" font-size="12" fill="#c0392b" font-weight="bold">Армувальний корд</text>
+
+  <!-- Neoprene / polyurethane base -->
+  <line x1="160" y1="175" x2="110" y2="135" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="115" y="130" font-size="12" fill="#2457d6" font-weight="bold">Неопренова основа</text>
+
+  <!-- Nylon fabric -->
+  <text x="300" y="360" font-size="12" text-anchor="middle" fill="#27ae60" font-weight="bold">Зносостійка нейлонова тканина</text>
+  <line x1="300" y1="345" x2="300" y2="285" stroke="#27ae60" stroke-width="1" marker-end="url(#arr)"/>
+
+
+  <!-- Right Panel: Belt and pulley engagement -->
+  <rect x="490" y="80" width="440" height="350" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="510" y="110" font-size="14" font-weight="bold" fill="#1a1a1a">2. Схема зачеплення зі шківом (без зазору)</text>
+
+  <!-- Pulley and belt engagement graphics (Right panel, centered around x=710, y=240) -->
+  <!-- Pulley body representation (circular arc at bottom) -->
+  <path d="M 530,220 A 180,180 0 0,0 890,220" fill="none" stroke="#d0d7de" stroke-width="14" stroke-linecap="round"/>
+  <!-- Pulley teeth / grooves matching GT2 profile -->
+  <path d="M 600,220 Q 640,240 680,220 Q 720,240 760,220 Q 800,240 840,220" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Engaging belt with parabolic tooth fitting perfectly into pulley groove -->
+  <path d="M 560,180 L 860,180 
+           L 860,200 Q 840,200 840,220 Q 840,200 800,200 
+           Q 760,200 760,220 Q 760,200 720,200 
+           Q 680,200 680,220 Q 680,200 640,200 
+           L 640,180 L 560,180 Z" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+
+  <!-- Pitch diameter line d_p passing through cord -->
+  <line x1="550" y1="200" x2="870" y2="200" stroke="#2457d6" stroke-width="2" stroke-dasharray="6,4"/>
+  <circle cx="710" cy="200" r="4" fill="#c0392b"/>
+
+  <!-- Annotations for Right Panel -->
+  <line x1="710" y1="210" x2="710" y2="155" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="710" y="148" font-size="12" text-anchor="middle" fill="#c0392b" font-weight="bold">Ділильна лінія / корд (d_p)</text>
+
+  <!-- Zero backlash / parabolic profile -->
+  <text x="710" y="280" font-size="12" text-anchor="middle" fill="#27ae60" font-weight="bold">Повне збігання профілю: нульовий зазор (zero backlash)</text>
+
+  <!-- Smooth entry -->
+  <text x="710" y="310" font-size="12" text-anchor="middle" fill="#2457d6" font-weight="bold">Плавний вхід зуба в зачеплення без ударів</text>
+
+  <text x="710" y="360" font-size="12" text-anchor="middle" fill="#6b7280">Точна відповідність параболічного зуба паса впадині шківа</text>
+
+</svg>

@@ -1,0 +1,80 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="38" font-size="18" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Анатомія F-подібного обтискання Faston із подвійним захопленням (Double Crimp)</text>
+  <text x="480" y="60" font-size="13" text-anchor="middle" fill="#6b7280">Газощільне холодне зварювання жили (Wire Barrel) та механічне розвантаження ізоляції (Insulation Barrel)</text>
+
+  <!-- Left Panel: Longitudinal Profile -->
+  <rect x="40" y="90" width="440" height="300" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="260" y="120" font-size="14" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Поздовжній вигляд вузла обтискання</text>
+
+  <!-- Longitudinal profile graphics -->
+  <!-- Wire/Cable insulation (right) -->
+  <rect x="370" y="195" width="90" height="50" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <text x="415" y="225" font-size="11" text-anchor="middle" fill="#27ae60">Ізоляція кабелю</text>
+
+  <!-- Strands inside insulation extending to wire barrel -->
+  <path d="M370,210 L310,210" stroke="#c0392b" stroke-width="3" stroke-dasharray="4,2"/>
+  <path d="M370,230 L310,230" stroke="#c0392b" stroke-width="3" stroke-dasharray="4,2"/>
+
+  <!-- Insulation Barrel -->
+  <rect x="345" y="180" width="90" height="80" rx="4" fill="none" stroke="#27ae60" stroke-width="2" stroke-dasharray="6,3"/>
+  
+  <!-- Wire Brush / Window gap -->
+  <rect x="315" y="190" width="25" height="60" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Wire Barrel -->
+  <rect x="200" y="175" width="110" height="90" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <!-- Compressed strands inside wire barrel (monolithic) -->
+  <path d="M205,190 L310,190 M205,205 L310,205 M205,220 L310,220 M205,235 L310,235 M205,250 L310,250" stroke="#2457d6" stroke-width="2" opacity="0.6"/>
+
+  <!-- Bellmouth (transition) -->
+  <path d="M200,175 C190,175 185,185 180,195 L180,245 C185,255 190,265 200,265 Z" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+
+  <!-- Contact Blade (Faston tab) -->
+  <path d="M60,205 L180,205 L180,235 L60,235 Z" fill="#d0d7de" stroke="#6b7280" stroke-width="1.5"/>
+  <circle cx="120" cy="220" r="4" fill="#ffffff" stroke="#6b7280" stroke-width="1"/>
+
+  <!-- Annotations for Longitudinal Profile -->
+  <text x="120" y="285" font-size="12" text-anchor="middle" fill="#6b7280">Штекерний контакт</text>
+  <text x="185" y="162" font-size="11" text-anchor="middle" fill="#6b7280">Bellmouth</text>
+  <text x="255" y="285" font-size="12" text-anchor="middle" font-weight="bold" fill="#2457d6">Провідниковий барель</text>
+  <text x="327" y="162" font-size="11" text-anchor="middle" fill="#6b7280">Віконце</text>
+  <text x="390" y="285" font-size="12" text-anchor="middle" font-weight="bold" fill="#27ae60">Ізоляційний барель</text>
+
+  <!-- Right Panel: Cross Sections -->
+  <rect x="510" y="90" width="410" height="300" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="715" y="120" font-size="14" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Поперечний переріз F-Crimp</text>
+
+  <!-- Cross Section Zone 1: Wire Barrel (F-crimp / B-crimp with solid deformed strands) -->
+  <g transform="translate(610, 220)">
+    <!-- Crimp wings / terminal metal -->
+    <path d="M-45,-35 C-45,-50 -25,-55 0,-55 C25,-55 45,-50 45,-35 L45,15 C45,35 30,45 0,45 C-30,45 -45,35 -45,15 Z" fill="none" stroke="#2457d6" stroke-width="3"/>
+    <!-- Folded crimp serrations digging into strands -->
+    <path d="M-45,-15 C-55,-15 -55,10 -45,15 M45,-15 C55,-15 55,10 45,15" stroke="#2457d6" stroke-width="2.5" fill="none"/>
+    <!-- Deformed monolithic copper strands (no gaps - gas tight cold weld) -->
+    <circle cx="0" cy="0" r="28" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+    <path d="M-18,-12 L18,-12 M-22,0 L22,0 M-18,12 L18,12 M0,-22 L0,22" stroke="#27ae60" stroke-width="2" opacity="0.8"/>
+  </g>
+  <text x="610" y="325" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">Зона 1: Провідниковий барель</text>
+  <text x="610" y="343" font-size="11" text-anchor="middle" fill="#6b7280">Газощільне з'єднання (без порожнин)</text>
+
+  <!-- Cross Section Zone 2: Insulation Barrel (Strain relief grip over jacket) -->
+  <g transform="translate(820, 220)">
+    <!-- Insulation wings wrapping jacket -->
+    <path d="M-40,-30 C-40,-45 -20,-50 0,-50 C20,-50 40,-45 40,-30 L40,25 C40,40 25,45 0,45 C-25,45 -40,40 -40,25 Z" fill="none" stroke="#27ae60" stroke-width="3"/>
+    <!-- Outer jacket circle -->
+    <circle cx="0" cy="0" r="26" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+    <!-- Inner wire strands inside insulation -->
+    <circle cx="-6" cy="-6" r="4" fill="#c0392b" opacity="0.7"/>
+    <circle cx="8" cy="-4" r="4" fill="#c0392b" opacity="0.7"/>
+    <circle cx="0" cy="8" r="4" fill="#c0392b" opacity="0.7"/>
+  </g>
+  <text x="820" y="325" font-size="12" font-weight="bold" text-anchor="middle" fill="#27ae60">Зона 2: Ізоляційний барель</text>
+  <text x="820" y="343" font-size="11" text-anchor="middle" fill="#6b7280">Механічне розвантаження (Strain Relief)</text>
+
+  <!-- Bottom Explanatory Note -->
+  <text x="480" y="425" font-size="13" text-anchor="middle" fill="#1a1a1a">Важливо: відсутність порожнин між деформованими жилами у провідниковому барелі виключає доступ кисню та запобігає окисленню.</text>
+</svg>

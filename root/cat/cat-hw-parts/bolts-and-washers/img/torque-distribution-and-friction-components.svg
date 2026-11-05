@@ -1,0 +1,153 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Полотно -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="700" fill="#1a1a1a">Розподіл крутного моменту затягування різьбового з'єднання</text>
+  <text x="480" y="54" text-anchor="middle" font-size="13" fill="#6b7280">До 90% моменту розсіюється на тертя у торці та витках, і лише ~10% створює осьовий натяг F_v</text>
+
+  <!-- ==================== ПАНЕЛЬ 1: ГЕОМЕТРИЧНА МОДЕЛЬ І ПЛЕЧІ СИЛ ==================== -->
+  <rect x="24" y="76" width="480" height="424" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="264" y="100" text-anchor="middle" font-size="14" font-weight="700" fill="#1a1a1a">Геометрична модель і плечі прикладання сил</text>
+  <text x="264" y="118" text-anchor="middle" font-size="12" fill="#6b7280">Плече торця r_b більше за плече різьби r_2 (D_b &gt; d_2)</text>
+
+  <!-- Осьова лінія болта -->
+  <line x1="220" y1="138" x2="220" y2="422" stroke="#6b7280" stroke-width="1" stroke-dasharray="8 3 2 3"/>
+
+  <!-- Прикладений крутний момент T на головці -->
+  <path d="M 160,142 C 185,134 255,134 280,142" fill="none" stroke="#1a1a1a" stroke-width="2.5" marker-end="url(#arr)"/>
+  <text x="310" y="146" font-size="12" font-weight="700" fill="#1a1a1a">T (момент затягування)</text>
+
+  <!-- Головка болта -->
+  <rect x="145" y="152" width="150" height="32" rx="2" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="185" y1="152" x2="185" y2="184" stroke="#d0d7de" stroke-width="1.5"/>
+  <line x1="255" y1="152" x2="255" y2="184" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Зона 1: Опорний торець головки -->
+  <!-- Опорні контактні площадки (під торцем) -->
+  <rect x="145" y="184" width="38" height="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+  <rect x="257" y="184" width="38" height="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+
+  <!-- Сила тертя на торці F_f,b (протистоїть обертанню) -->
+  <line x1="295" y1="187" x2="265" y2="187" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+
+  <!-- Розмірне плече r_b = D_b / 2 -->
+  <line x1="220" y1="202" x2="276" y2="202" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <line x1="276" y1="202" x2="220" y2="202" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <line x1="276" y1="190" x2="276" y2="206" stroke="#c0392b" stroke-width="1"/>
+  <text x="310" y="200" font-size="12" font-weight="700" fill="#c0392b">r_b = D_b / 2 (плече торця)</text>
+  <text x="310" y="214" font-size="12" fill="#6b7280">D_b — ефект. діаметр торця</text>
+  <text x="310" y="228" font-size="12" fill="#6b7280">T_b = F_v · μ_b · r_b (~50% T)</text>
+
+  <!-- Затиснутий пакет деталей -->
+  <!-- Деталь 1 (верхня) -->
+  <rect x="60" y="190" width="120" height="52" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="260" y="190" width="40" height="52" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <!-- Деталь 2 (нижня) -->
+  <rect x="60" y="242" width="120" height="54" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="260" y="242" width="40" height="54" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+
+  <!-- Стержень болта під розтягом -->
+  <rect x="195" y="184" width="50" height="112" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Вектори осьового натягу F_v всередині стержня -->
+  <line x1="220" y1="250" x2="220" y2="226" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <line x1="220" y1="250" x2="220" y2="274" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- Підпис осьового натягу ліворуч -->
+  <text x="175" y="242" text-anchor="end" font-size="12" font-weight="700" fill="#27ae60">F_v (осьовий натяг)</text>
+  <text x="175" y="258" text-anchor="end" font-size="12" fill="#6b7280">розтяг стержня болта</text>
+
+  <!-- Гайка / різьбова бобишка -->
+  <rect x="110" y="296" width="70" height="92" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="260" y="296" width="40" height="92" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Стержень з різьбою -->
+  <rect x="195" y="296" width="50" height="92" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Витки різьби (схематичний профіль) -->
+  <path d="M 195,306 L 183,312 L 195,318 L 183,324 L 195,330 L 183,336 L 195,342 L 183,348 L 195,354 L 183,360 L 195,366" fill="none" stroke="#2457d6" stroke-width="1.5"/>
+  <path d="M 245,306 L 257,312 L 245,318 L 257,324 L 245,330 L 257,336 L 245,342 L 257,348 L 245,354 L 257,360 L 245,366" fill="none" stroke="#2457d6" stroke-width="1.5"/>
+
+  <!-- Крок різьби P ліворуч -->
+  <line x1="177" y1="324" x2="177" y2="336" stroke="#6b7280" stroke-width="1.2" marker-start="url(#arr)" marker-end="url(#arr)"/>
+  <text x="168" y="334" text-anchor="end" font-size="12" fill="#6b7280">P (крок)</text>
+
+  <!-- Сила тертя різьби проти обертання -->
+  <line x1="262" y1="336" x2="242" y2="336" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Плече середнього радіуса різьби r_2 = d_2 / 2 -->
+  <line x1="220" y1="404" x2="251" y2="404" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <line x1="251" y1="404" x2="220" y2="404" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <line x1="251" y1="366" x2="251" y2="408" stroke="#2457d6" stroke-width="1"/>
+  <text x="310" y="326" font-size="12" font-weight="700" fill="#2457d6">r_2 = d_2 / 2 (плече різьби)</text>
+  <text x="310" y="342" font-size="12" fill="#6b7280">d_2 — середній діаметр різьби</text>
+  <text x="310" y="358" font-size="12" fill="#6b7280">T_th = F_v · r_2 · μ&apos;_th (~40% T)</text>
+  <text x="310" y="380" font-size="12" font-weight="700" fill="#27ae60">T_p — підйом по різьбі (~10%)</text>
+  <text x="310" y="396" font-size="12" fill="#6b7280">T_p = F_v · (P / 2π) → натяг F_v</text>
+
+  <!-- Блок співвідношення плечей -->
+  <rect x="40" y="432" width="448" height="54" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="54" y="452" font-size="12" font-weight="700" fill="#1a1a1a">Ключове геометричне співвідношення плечей сил:</text>
+  <text x="54" y="470" font-size="12" fill="#6b7280">r_b &gt; r_2: плече торця більше, тому торець поглинає ~50% T</text>
+
+  <!-- ==================== ПАНЕЛЬ 2: БАЛАНС КРУТНОГО МОМЕНТУ ==================== -->
+  <rect x="524" y="76" width="412" height="424" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="730" y="100" text-anchor="middle" font-size="14" font-weight="700" fill="#1a1a1a">Баланс крутного моменту: розклад 100% T</text>
+  <text x="730" y="118" text-anchor="middle" font-size="12" fill="#6b7280">За моделлю VDI 2230: T = T_b + T_th + T_p (домінування тертя)</text>
+
+  <!-- Графічна шкала розподілу 100% -->
+  <rect x="548" y="136" width="180" height="28" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="638" y="154" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">T_b ≈ 50% (торець)</text>
+
+  <rect x="732" y="136" width="140" height="28" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="802" y="154" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">T_th ≈ 40% (різьба)</text>
+
+  <rect x="876" y="136" width="36" height="28" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="894" y="154" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">10%</text>
+
+  <!-- Картка 1: Тертя на опорному торці -->
+  <rect x="548" y="178" width="364" height="70" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.2"/>
+  <rect x="558" y="184" width="62" height="20" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="589" y="198" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">~50% T</text>
+  <text x="628" y="198" font-size="13" font-weight="700" fill="#1a1a1a">T_b — Тертя опорного торця головки</text>
+  <text x="558" y="220" font-size="12" font-weight="700" fill="#c0392b">T_b = F_v · μ_b · r_b = F_v · μ_b · (D_b / 2)</text>
+  <text x="558" y="236" font-size="12" fill="#6b7280">Найбільше плече r_b; розсіює ~50% моменту в тепло</text>
+
+  <!-- Картка 2: Тертя у витках різьби -->
+  <rect x="548" y="260" width="364" height="70" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.2"/>
+  <rect x="558" y="266" width="62" height="20" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="589" y="280" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">~40% T</text>
+  <text x="628" y="280" font-size="13" font-weight="700" fill="#1a1a1a">T_th — Тертя у витках різьби</text>
+  <text x="558" y="302" font-size="12" font-weight="700" fill="#2457d6">T_th = F_v · (d_2 / 2) · [μ_th / cos(α/2)]</text>
+  <text x="558" y="318" font-size="12" fill="#6b7280">Плече r_2; тертя клина граней різьби (α = 60°)</text>
+
+  <!-- Картка 3: Корисний натяг болта -->
+  <rect x="548" y="342" width="364" height="70" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.2"/>
+  <rect x="558" y="348" width="62" height="20" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="589" y="362" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">~10% T</text>
+  <text x="628" y="362" font-size="13" font-weight="700" fill="#1a1a1a">T_p — Корисна складова натягу F_v</text>
+  <text x="558" y="384" font-size="12" font-weight="700" fill="#27ae60">T_p = F_v · (d_2 / 2) · tan(ψ) = F_v · P / (2π)</text>
+  <text x="558" y="400" font-size="12" fill="#6b7280">Підйом по гвинтовій лінії створює осьовий натяг F_v</text>
+
+  <!-- Картка 4: Інженерний підсумок і повна формула -->
+  <rect x="548" y="426" width="364" height="64" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2"/>
+  <text x="558" y="444" font-size="12" font-weight="700" fill="#1a1a1a">Сумарний крутний момент (VDI 2230):</text>
+  <text x="558" y="462" font-size="12" font-weight="700" fill="#2457d6">T = F_v · [ 0.50·μ_b·D_b + 0.58·μ_th·d_2 + 0.16·P ]</text>
+  <text x="558" y="478" font-size="12" fill="#6b7280">~90% моменту йде на тертя; стан різьби й торця критичний</text>
+</svg>

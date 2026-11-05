@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Біле тло -->
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Внутрішній тиск у герметичному корпусі під час циклу нагрівання та охолодження</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Порівняння корпусу без мембрани (помповий ефект) та із захисним клапаном ePTFE</text>
+
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Сітка та осі координат -->
+  <!-- Горизонтальні лінії сітки: +25, +12.5, 0, -12.5, -25 кПа -->
+  <line x1="80" y1="100" x2="880" y2="100" stroke="#e5e7eb" stroke-dasharray="4,4"/>
+  <line x1="80" y1="160" x2="880" y2="160" stroke="#e5e7eb" stroke-dasharray="4,4"/>
+  <line x1="80" y1="220" x2="880" y2="220" stroke="#d0d7de" stroke-width="1.5"/>
+  <line x1="80" y1="280" x2="880" y2="280" stroke="#e5e7eb" stroke-dasharray="4,4"/>
+  <line x1="80" y1="340" x2="880" y2="340" stroke="#e5e7eb" stroke-dasharray="4,4"/>
+
+  <!-- Вертикальні лінії сітки (фази циклу) -->
+  <line x1="280" y1="80" x2="280" y2="380" stroke="#f0f2f5"/>
+  <line x1="480" y1="80" x2="480" y2="380" stroke="#f0f2f5"/>
+  <line x1="680" y1="80" x2="680" y2="380" stroke="#f0f2f5"/>
+
+  <!-- Осі X та Y -->
+  <line x1="80" y1="380" x2="890" y2="380" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+  <line x1="80" y1="380" x2="80" y2="70" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+
+  <!-- Підписи осі Y (Перепад тиску ΔP, кПа) -->
+  <text x="65" y="104" font-size="12" fill="#6b7280" text-anchor="end">+25</text>
+  <text x="65" y="164" font-size="12" fill="#6b7280" text-anchor="end">+12.5</text>
+  <text x="65" y="224" font-size="12" fill="#6b7280" text-anchor="end">0</text>
+  <text x="65" y="284" font-size="12" fill="#6b7280" text-anchor="end">-12.5</text>
+  <text x="65" y="344" font-size="12" fill="#6b7280" text-anchor="end">-25</text>
+
+  <text x="45" y="230" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">ΔP, кПа</text>
+
+  <!-- Підписи осі X (Час / температурний цикл t) -->
+  <text x="80" y="405" font-size="12" fill="#6b7280" text-anchor="middle">Початок</text>
+  <text x="280" y="405" font-size="12" fill="#6b7280" text-anchor="middle">Нагрів (+70°C)</text>
+  <text x="480" y="405" font-size="12" fill="#6b7280" text-anchor="middle">Стабілізація</text>
+  <text x="680" y="405" font-size="12" fill="#6b7280" text-anchor="middle">Охолодження (+5°C)</text>
+  <text x="880" y="405" font-size="12" fill="#6b7280" text-anchor="middle">Кінець</text>
+
+  <text x="480" y="435" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Час / температурний цикл t</text>
+
+  <!-- Зелена крива (корпус із захисним клапаном ePTFE) -->
+  <path d="M 80,220 L 280,218 L 680,222 L 880,220" fill="none" stroke="#27ae60" stroke-width="3"/>
+
+  <!-- Червона крива (герметичний корпус без мембрани) -->
+  <path d="M 80,220 C 180,220 230,138 280,138 L 480,138 C 580,138 630,314 680,314 L 880,220" fill="none" stroke="#c0392b" stroke-width="3"/>
+
+  <!-- Легенда / Позначки -->
+  <rect x="560" y="85" width="300" height="75" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  
+  <line x1="575" y1="110" x2="605" y2="110" stroke="#c0392b" stroke-width="3"/>
+  <circle cx="590" cy="110" r="4" fill="#c0392b"/>
+  <text x="615" y="114" font-size="12" fill="#1a1a1a">Без мембрани (помповий ефект)</text>
+
+  <line x1="575" y1="140" x2="605" y2="140" stroke="#27ae60" stroke-width="3"/>
+  <circle cx="590" cy="140" r="4" fill="#27ae60"/>
+  <text x="615" y="144" font-size="12" fill="#1a1a1a">З клапаном ePTFE (ΔP ≈ 0 кПа)</text>
+
+  <!-- Пояснювальні написи біля кривих -->
+  <text x="310" y="125" font-size="12" font-weight="bold" fill="#c0392b">+17 кПа (надлишковий тиск)</text>
+  <text x="590" y="335" font-size="12" font-weight="bold" fill="#c0392b">-19 кПа (глибоке розрядження)</text>
+</svg>

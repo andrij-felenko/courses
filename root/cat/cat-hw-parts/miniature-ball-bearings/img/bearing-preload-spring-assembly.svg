@@ -1,0 +1,92 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Підкладка -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Маркери стрілок -->
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Попередній осьовий натяг підшипникового вузла хвилястою пружиною</text>
+  <text x="480" y="60" font-size="13" fill="#6b7280" text-anchor="middle">Вибір пружного зміщення кілець, усунення радіального люфту Δr та стабілізація кута контакту α</text>
+
+  <!-- ЛІВА ПАНЕЛЬ: Поздовжній розріз вузла (x=30..510, y=85..440) -->
+  <rect x="30" y="85" width="480" height="355" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="50" y="112" font-size="14" font-weight="bold" fill="#1a1a1a">Поздовжній розріз вузла опори вала</text>
+
+  <!-- Корпус (Housing) - окремі неперетинні прямокутники -->
+  <rect x="50" y="125" width="440" height="20" fill="#e2e8f0" stroke="#94a3b8" stroke-width="1.2"/>
+  <rect x="50" y="355" width="440" height="20" fill="#e2e8f0" stroke="#94a3b8" stroke-width="1.2"/>
+  <text x="75" y="140" font-size="12" fill="#475569">Корпус</text>
+
+  <!-- Вал d = 5 мм (y=235..265) -->
+  <rect x="50" y="235" width="440" height="30" fill="#cbd5e1" stroke="#64748b" stroke-width="1.5"/>
+  <text x="270" y="255" font-size="13" font-weight="bold" fill="#334155" text-anchor="middle">Вал d = 5 мм</text>
+
+  <!-- Підшипник 1 (лівий): зовнішні кільця (y=145..175 та 325..355), внутрішні кільця (y=205..235 та 265..295) -->
+  <rect x="175" y="145" width="50" height="30" fill="#94a3b8" stroke="#475569" stroke-width="1.2"/>
+  <rect x="175" y="325" width="50" height="30" fill="#94a3b8" stroke="#475569" stroke-width="1.2"/>
+  <rect x="175" y="205" width="50" height="30" fill="#94a3b8" stroke="#475569" stroke-width="1.2"/>
+  <rect x="175" y="265" width="50" height="30" fill="#94a3b8" stroke="#475569" stroke-width="1.2"/>
+
+  <!-- Підшипник 2 (правий): зовнішні кільця (y=145..175 та 325..355), внутрішні кільця (y=205..235 та 265..295) -->
+  <rect x="345" y="145" width="50" height="30" fill="#94a3b8" stroke="#475569" stroke-width="1.2"/>
+  <rect x="345" y="325" width="50" height="30" fill="#94a3b8" stroke="#475569" stroke-width="1.2"/>
+  <rect x="345" y="205" width="50" height="30" fill="#94a3b8" stroke="#475569" stroke-width="1.2"/>
+  <rect x="345" y="265" width="50" height="30" fill="#94a3b8" stroke="#475569" stroke-width="1.2"/>
+
+  <!-- Кульки качення (cx=200 та cx=370, cy=190 та cy=310) -->
+  <circle cx="200" cy="190" r="11" fill="#f8fafc" stroke="#1e293b" stroke-width="1.2"/>
+  <circle cx="200" cy="310" r="11" fill="#f8fafc" stroke="#1e293b" stroke-width="1.2"/>
+  <circle cx="370" cy="190" r="11" fill="#f8fafc" stroke="#1e293b" stroke-width="1.2"/>
+  <circle cx="370" cy="310" r="11" fill="#f8fafc" stroke="#1e293b" stroke-width="1.2"/>
+
+  <!-- Хвиляста пружина (Wave Spring) біля правого зовнішнього кільця (x=315..340) -->
+  <path d="M 315 145 Q 325 160 330 145 Q 338 160 345 145" fill="none" stroke="#2457d6" stroke-width="3"/>
+  <path d="M 315 355 Q 325 340 330 355 Q 338 340 345 355" fill="none" stroke="#2457d6" stroke-width="3"/>
+  <text x="310" y="180" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">Хвиляста пружина</text>
+
+  <!-- Вектори сили F_preload -->
+  <line x1="435" y1="160" x2="400" y2="160" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="445" y="164" font-size="12" font-weight="bold" fill="#2457d6">F_preload</text>
+
+  <!-- Кут контакту alpha -->
+  <line x1="370" y1="190" x2="385" y2="175" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <text x="390" y="188" font-size="12" font-weight="bold" fill="#c0392b">α ≈ 15°</text>
+
+  <!-- Лічильники зазору / зміщення -->
+  <text x="270" y="395" font-size="12" fill="#1a1a1a" text-anchor="middle">Усунення радіального люфту Δr → 0 та вибірка осьового зазору Gr</text>
+  <text x="270" y="418" font-size="12" fill="#6b7280" text-anchor="middle">Типорозмір підшипника: 625 (d = 5 мм, D = 16 мм, B = 5 мм)</text>
+
+
+  <!-- ПРАВА ПАНЕЛЬ: Механіка натягу та інженерні переваги (x=530..930, y=85..440) -->
+  <rect x="530" y="85" width="400" height="355" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="550" y="112" font-size="14" font-weight="bold" fill="#1a1a1a">Механіка натягу та переваги</text>
+
+  <!-- 1. Переваги попереднього натягу (зелений блок) -->
+  <rect x="550" y="130" width="360" height="135" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="565" y="152" font-size="13" font-weight="bold" fill="#27ae60">1. Переваги попереднього натягу</text>
+  <text x="565" y="174" font-size="12" fill="#1a1a1a">• Повна ліквідація осьового та радіального биття (Δr → 0)</text>
+  <text x="565" y="196" font-size="12" fill="#1a1a1a">• Підвищення динамічної жорсткості шпинделя/приводу</text>
+  <text x="565" y="218" font-size="12" fill="#1a1a1a">• Запобігання прослизанню кульок при швидкісних режимах</text>
+  <text x="565" y="240" font-size="12" fill="#1a1a1a">• Компенсація теплового подовження вала ΔL = α_t·L·ΔT</text>
+
+  <!-- 2. Розрахунок сили та застереження (червоний блок) -->
+  <rect x="550" y="280" width="360" height="145" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="565" y="302" font-size="13" font-weight="bold" fill="#c0392b">2. Розрахунок сили та застереження</text>
+  <text x="565" y="324" font-size="12" fill="#1a1a1a">• Оптимальне зусилля для 625/685: F_preload ≈ 5–15 Н</text>
+  <text x="565" y="346" font-size="12" fill="#1a1a1a">  (рекомендовано 0.01 – 0.02 · C0)</text>
+  <text x="565" y="368" font-size="12" fill="#c0392b" font-weight="bold">• Перетяжка (F > 30 Н): зростання моменту тертя,</text>
+  <text x="565" y="390" font-size="12" fill="#c0392b">  перегрів, швидке втомне викришування</text>
+  <text x="565" y="412" font-size="12" fill="#6b7280">• Недонатяг (F &lt; 2 Н): вібраційний резонанс</text>
+
+</svg>

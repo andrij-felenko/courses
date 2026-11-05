@@ -1,0 +1,78 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+  <defs>
+    <marker id="arr-dim" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+      <path d="M1,1 L7,4 L1,7 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-dim-rev" markerWidth="8" markerHeight="8" refX="2" refY="4" orient="auto">
+      <path d="M7,1 L1,4 L7,7 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-callout" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+      <path d="M1,1 L7,4 L1,7 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Параметричний переріз комірки Gridfinity та магнітні гнізда</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Базовий крок сітки 42 мм, скоси 45° посадкового профілю та гнізда під магніти Ø6×2 мм</text>
+
+  <!-- Left Panel: Gridfinity Profile -->
+  <rect x="30" y="70" width="530" height="360" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="295" y="98" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Конструктивний переріз бази комірки (42×42 мм)</text>
+  <text x="295" y="116" font-size="12" fill="#6b7280" text-anchor="middle">Профіль сполучення комірки з опорною плитою (Baseplate)</text>
+
+  <!-- Baseplate (socket outline) -->
+  <path d="M 60 350 L 130 350 L 140 330 L 140 300 L 155 285 L 435 285 L 450 300 L 450 330 L 460 350 L 530 350" fill="none" stroke="#6b7280" stroke-width="2"/>
+  <rect x="60" y="350" width="470" height="20" fill="#d0d7de" opacity="0.3"/>
+
+  <!-- Bin bottom profile (fitted into socket) -->
+  <path d="M 80 150 L 80 260 L 160 280 L 145 295 L 145 325 L 135 345 L 455 345 L 445 325 L 445 295 L 430 280 L 510 260 L 510 150 Z" fill="#eaf0fd" stroke="#2457d6" stroke-width="2.5"/>
+
+  <!-- Inner pocket / curved scoop -->
+  <path d="M 100 150 L 100 240 Q 100 270 140 270 L 450 270 Q 490 270 490 240 L 490 150" fill="none" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="3,3"/>
+
+  <!-- Magnet pockets inside bin corners -->
+  <rect x="150" y="325" width="30" height="15" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <rect x="410" y="325" width="30" height="15" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+
+  <!-- Dimensions on Left Panel -->
+  <!-- 42 mm module -->
+  <line x1="135" y1="380" x2="455" y2="380" stroke="#2457d6" stroke-width="1.5" marker-start="url(#arr-dim-rev)" marker-end="url(#arr-dim)"/>
+  <text x="295" y="400" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Базовий крок растра: 42.0 мм</text>
+
+  <!-- Chamfer labels -->
+  <line x1="125" y1="290" x2="90" y2="290" stroke="#6b7280" stroke-width="1"/>
+  <text x="85" y="294" font-size="11" fill="#1a1a1a" text-anchor="end">Скіс 45°</text>
+
+  <line x1="120" y1="335" x2="90" y2="335" stroke="#6b7280" stroke-width="1"/>
+  <text x="85" y="339" font-size="11" fill="#1a1a1a" text-anchor="end">Фаска 45°</text>
+
+  <!-- Scoop radius text -->
+  <text x="295" y="240" font-size="12" fill="#2457d6" text-anchor="middle">Радіусний вигрібний жолоб R = 15 мм</text>
+
+  <!-- Right Panel: Magnet Pocket Details -->
+  <rect x="580" y="70" width="350" height="360" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="755" y="98" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Вузол магнітної фіксації</text>
+  <text x="755" y="116" font-size="12" fill="#6b7280" text-anchor="middle">Магніт Ø6×2 мм у корпусі з ESD-полімеру</text>
+
+  <!-- Pocket Cross Section -->
+  <!-- Outer plastic body -->
+  <rect x="630" y="150" width="250" height="150" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  
+  <!-- Bored pocket -->
+  <rect x="685" y="190" width="140" height="110" fill="#fdecea" stroke="#c0392b" stroke-width="2"/>
+  
+  <!-- Disc magnet -->
+  <rect x="695" y="230" width="120" height="65" rx="3" fill="#2457d6" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="755" y="268" font-size="13" font-weight="bold" fill="white" text-anchor="middle">Магніт N35 (S/N)</text>
+
+  <!-- Glue gap indication -->
+  <line x1="685" y1="210" x2="825" y2="210" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="3,2"/>
+  <text x="755" y="206" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">Клейовий зазор Δh = 0.2...0.3 мм</text>
+
+  <!-- Annotations on Right Panel -->
+  <text x="755" y="335" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Гніздо Ø6.5 мм × 2.4 мм (з натягом)</text>
+  <text x="755" y="355" font-size="11" fill="#6b7280" text-anchor="middle">Неодимовий магніт диск Ø6.0 мм × 2.0 мм</text>
+  <text x="755" y="380" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Дисипативний матеріал ESD PETG</text>
+  <text x="755" y="398" font-size="11" fill="#6b7280" text-anchor="middle">Поверхневий опір R_s = 10⁵...10⁹ Ом/кв</text>
+</svg>

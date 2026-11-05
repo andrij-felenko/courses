@@ -1,0 +1,167 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Background Canvas -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="700" fill="#1a1a1a">Розподіл контактного тиску під головкою гвинта та шайбою</text>
+  <text x="480" y="54" text-anchor="middle" font-size="13" fill="#6b7280">Плоска шайба розсіює осьове навантаження під кутом 45°, знижуючи тиск нижче межі зминання p_allow</text>
+
+  <!-- Left Panel: Without Washer -->
+  <rect x="24" y="72" width="444" height="428" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Left Header Badge -->
+  <rect x="38" y="86" width="416" height="28" rx="5" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="246" y="105" text-anchor="middle" font-size="13" font-weight="700" fill="#c0392b">Без шайби: концентрація контактного тиску</text>
+
+  <!-- Left Assembly Drawing: Preload Force -->
+  <line x1="246" y1="120" x2="246" y2="142" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="256" y="134" font-size="12" font-weight="700" fill="#2457d6">F_p = 2500 N</text>
+
+  <!-- Left Assembly Drawing: Screw Head -->
+  <rect x="208" y="148" width="76" height="36" rx="2" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="234" y="148" width="24" height="12" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.2"/>
+  <text x="120" y="166" text-anchor="middle" font-size="12" fill="#1a1a1a">Головка DIN 912</text>
+
+  <!-- Left Assembly Drawing: Screw Shank -->
+  <rect x="232" y="184" width="28" height="48" fill="#eaf0fd" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="232" y1="200" x2="260" y2="204" stroke="#2457d6" stroke-width="1"/>
+  <line x1="232" y1="212" x2="260" y2="216" stroke="#2457d6" stroke-width="1"/>
+  <line x1="232" y1="224" x2="260" y2="228" stroke="#2457d6" stroke-width="1"/>
+
+  <!-- Left Assembly Drawing: Clamped Plate -->
+  <rect x="48" y="184" width="180" height="48" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+  <rect x="264" y="184" width="180" height="48" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="120" y="212" text-anchor="middle" font-size="12" fill="#6b7280">Деталь (алюміній)</text>
+
+  <!-- Left Assembly Drawing: Yielding Zones -->
+  <rect x="208" y="184" width="20" height="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <rect x="264" y="184" width="20" height="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="360" y="170" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">Зминання кромки</text>
+  <line x1="310" y1="174" x2="288" y2="183" stroke="#c0392b" stroke-width="1.2" marker-end="url(#arr-red)"/>
+
+  <!-- Left Pressure Epure: Allowable limit -->
+  <line x1="48" y1="298" x2="288" y2="298" stroke="#c0392b" stroke-width="1.2" stroke-dasharray="4 3"/>
+  <text x="52" y="290" font-size="12" font-weight="700" fill="#c0392b">p_allow = 190 MPa</text>
+
+  <!-- Left Pressure Epure: Polygons -->
+  <polygon points="208,334 208,312 226,274 228,274 228,334" fill="#fdecea" stroke="#c0392b" stroke-width="1.8"/>
+  <polygon points="264,334 264,274 266,274 284,312 284,334" fill="#fdecea" stroke="#c0392b" stroke-width="1.8"/>
+  <line x1="218" y1="292" x2="218" y2="308" stroke="#c0392b" stroke-width="1.2" marker-end="url(#arr-red)"/>
+  <line x1="274" y1="292" x2="274" y2="308" stroke="#c0392b" stroke-width="1.2" marker-end="url(#arr-red)"/>
+
+  <!-- Left Pressure Epure: Baseline -->
+  <line x1="48" y1="334" x2="444" y2="334" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="52" y="348" font-size="12" fill="#6b7280">p = 0</text>
+
+  <!-- Left Pressure Epure: Peak Warning Card -->
+  <rect x="296" y="260" width="144" height="42" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="368" y="277" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">p_max = 233.3 MPa</text>
+  <text x="368" y="294" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">Перевищення на 23%</text>
+  <line x1="294" y1="277" x2="270" y2="274" stroke="#c0392b" stroke-width="1.2" marker-end="url(#arr-red)"/>
+
+  <!-- Left Area Metric -->
+  <text x="246" y="354" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">Опорна площа: A_b = 13.4 мм²</text>
+
+  <!-- Left Specs Card -->
+  <rect x="38" y="368" width="416" height="74" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="52" y="388" font-size="12" fill="#6b7280">Опорний діаметр спирання:</text>
+  <text x="438" y="388" text-anchor="end" font-size="12" font-weight="700" fill="#1a1a1a">d_w = 5.35 мм</text>
+  <text x="52" y="408" font-size="12" fill="#6b7280">Середній контактний тиск:</text>
+  <text x="438" y="408" text-anchor="end" font-size="12" font-weight="700" fill="#1a1a1a">p = F_p / A_b = 186.6 MPa</text>
+  <text x="52" y="428" font-size="12" fill="#6b7280">Піковий тиск на кромці отвору:</text>
+  <text x="438" y="428" text-anchor="end" font-size="12" font-weight="700" fill="#c0392b">p_max = 233.3 MPa (&gt; p_allow)</text>
+
+  <!-- Left Status Badge -->
+  <rect x="38" y="454" width="416" height="32" rx="5" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="246" y="474" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">Ризик: пластичне продавлювання та втрата натягу</text>
+
+
+  <!-- Right Panel: With Flat Washer -->
+  <rect x="492" y="72" width="444" height="428" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Right Header Badge -->
+  <rect x="506" y="86" width="416" height="28" rx="5" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="714" y="105" text-anchor="middle" font-size="13" font-weight="700" fill="#27ae60">З плоскою шайбою: розсіювання конусом 45°</text>
+
+  <!-- Right Assembly Drawing: Preload Force -->
+  <line x1="714" y1="118" x2="714" y2="134" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="724" y="128" font-size="12" font-weight="700" fill="#2457d6">F_p = 2500 N</text>
+
+  <!-- Right Assembly Drawing: Screw Head -->
+  <rect x="676" y="136" width="76" height="36" rx="2" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="702" y="136" width="24" height="12" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.2"/>
+
+  <!-- Right Assembly Drawing: Flat Washer -->
+  <rect x="656" y="172" width="40" height="12" rx="1" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="732" y="172" width="40" height="12" rx="1" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="588" y="166" text-anchor="middle" font-size="12" fill="#2457d6">Шайба DIN 125</text>
+  <line x1="628" y1="168" x2="652" y2="174" stroke="#2457d6" stroke-width="1.2" marker-end="url(#arr-blue)"/>
+
+  <!-- Right Assembly Drawing: Screw Shank -->
+  <rect x="700" y="184" width="28" height="48" fill="#eaf0fd" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="700" y1="200" x2="728" y2="204" stroke="#2457d6" stroke-width="1"/>
+  <line x1="700" y1="212" x2="728" y2="216" stroke="#2457d6" stroke-width="1"/>
+  <line x1="700" y1="224" x2="728" y2="228" stroke="#2457d6" stroke-width="1"/>
+
+  <!-- Right Assembly Drawing: Clamped Plate -->
+  <rect x="516" y="184" width="180" height="48" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+  <rect x="732" y="184" width="180" height="48" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="588" y="212" text-anchor="middle" font-size="12" fill="#6b7280">Деталь (алюміній)</text>
+
+  <!-- Right Assembly Drawing: 45 Degree Cone Spread -->
+  <line x1="676" y1="172" x2="656" y2="192" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="3 2"/>
+  <line x1="752" y1="172" x2="772" y2="192" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="3 2"/>
+  <text x="834" y="162" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">Конус розсіювання 45°</text>
+  <line x1="764" y1="168" x2="752" y2="176" stroke="#2457d6" stroke-width="1.2" marker-end="url(#arr-blue)"/>
+
+  <!-- Right Pressure Epure: Allowable limit -->
+  <line x1="516" y1="298" x2="758" y2="298" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="4 3"/>
+  <text x="520" y="290" font-size="12" font-weight="700" fill="#6b7280">p_allow = 190 MPa</text>
+
+  <!-- Right Pressure Epure: Polygons -->
+  <polygon points="656,334 656,322 694,314 696,314 696,334" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.8"/>
+  <polygon points="732,334 732,314 734,314 772,322 772,334" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.8"/>
+  <line x1="676" y1="318" x2="676" y2="328" stroke="#27ae60" stroke-width="1.2" marker-end="url(#arr-green)"/>
+  <line x1="752" y1="318" x2="752" y2="328" stroke="#27ae60" stroke-width="1.2" marker-end="url(#arr-green)"/>
+
+  <!-- Right Pressure Epure: Baseline -->
+  <line x1="516" y1="334" x2="912" y2="334" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="520" y="348" font-size="12" fill="#6b7280">p = 0</text>
+
+  <!-- Right Pressure Epure: Safe Result Card -->
+  <rect x="766" y="260" width="144" height="42" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="838" y="277" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">p_w = 85.0 MPa</text>
+  <text x="838" y="294" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">Запас міцності S_p = 2.24</text>
+  <line x1="764" y1="285" x2="750" y2="310" stroke="#27ae60" stroke-width="1.2" marker-end="url(#arr-green)"/>
+
+  <!-- Right Area Metric -->
+  <text x="714" y="354" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">Опорна площа: A_w = 29.4 мм² (у 2.2× більша)</text>
+
+  <!-- Right Specs Card -->
+  <rect x="506" y="368" width="416" height="74" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="520" y="388" font-size="12" fill="#6b7280">Зовнішній діаметр шайби:</text>
+  <text x="906" y="388" text-anchor="end" font-size="12" font-weight="700" fill="#1a1a1a">d_w_washer = 7.00 мм</text>
+  <text x="520" y="408" font-size="12" fill="#6b7280">Знижений тиск під шайбою:</text>
+  <text x="906" y="408" text-anchor="end" font-size="12" font-weight="700" fill="#1a1a1a">p_w = F_p / A_w = 85.0 MPa</text>
+  <text x="520" y="428" font-size="12" fill="#6b7280">Піковий контактний тиск:</text>
+  <text x="906" y="428" text-anchor="end" font-size="12" font-weight="700" fill="#27ae60">p_w_max ≈ 106.3 MPa (&lt; p_allow)</text>
+
+  <!-- Right Status Badge -->
+  <rect x="506" y="454" width="416" height="32" rx="5" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="714" y="474" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">Норма VDI 2230: p ≤ p_allow — зминання відсутнє</text>
+</svg>

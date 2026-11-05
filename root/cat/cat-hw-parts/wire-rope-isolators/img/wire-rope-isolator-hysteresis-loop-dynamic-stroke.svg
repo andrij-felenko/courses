@@ -1,0 +1,89 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-black" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Полотно -->
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="28" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Динамічна жорсткість та петля тертя тросового віброізолятора</text>
+  <text x="480" y="48" font-size="13" fill="#6b7280" text-anchor="middle">Нелінійне наростання жорсткості при стисненні та обмеження пікового динамічного ходу x_dyn</text>
+
+  <!-- ЛІВА ПАНЕЛЬ: Графік F(x) з динамічним ходом -->
+  <rect x="25" y="68" width="500" height="395" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="45" y="94" font-size="15" font-weight="bold" fill="#1a1a1a">Силова петля гістерезису при стисненні й розтягу</text>
+
+  <!-- Графічна область -->
+  <rect x="45" y="112" width="460" height="260" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Осі координат: початок у (270, 245) -->
+  <line x1="65" y1="245" x2="485" y2="245" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arr-black)"/>
+  <text x="485" y="262" font-size="11" fill="#1a1a1a" text-anchor="end">Хід x (стиск + / розтяг -)</text>
+
+  <line x1="270" y1="355" x2="270" y2="125" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arr-black)"/>
+  <text x="278" y="130" font-size="11" fill="#1a1a1a">Сила F</text>
+
+  <!-- Межа допустимого ходу x_max (пунктир x=440) -->
+  <line x1="440" y1="125" x2="440" y2="355" stroke="#c0392b" stroke-width="1.2" stroke-dasharray="4,3"/>
+  <text x="445" y="142" font-size="10" font-weight="bold" fill="#c0392b">x_max (упор)</text>
+
+  <!-- Робочий динамічний хід x_dyn (пунктир x=400) -->
+  <line x1="400" y1="150" x2="400" y2="355" stroke="#2457d6" stroke-width="1.2" stroke-dasharray="3,2"/>
+  <text x="395" y="235" font-size="10" font-weight="bold" fill="#2457d6" text-anchor="end">x_dyn</text>
+
+  <!-- Нелінійна гістерезисна петля Wire Rope з наростанням жорсткості при стисненні -->
+  <path d="M120,310 C180,290 230,260 270,245 C320,225 360,195 400,150 C405,152 400,165 375,200 C340,240 300,265 270,270 C220,280 160,315 120,310 Z" fill="#eaf0fd" stroke="#2457d6" stroke-width="2.5"/>
+
+  <!-- Лінія січної динамічної жорсткості k_dyn (пунктир між піками) -->
+  <line x1="120" y1="310" x2="400" y2="150" stroke="#64748b" stroke-width="1.5" stroke-dasharray="4,2"/>
+  <text x="235" y="195" font-size="11" font-weight="bold" fill="#64748b">k_dyn (нахил січної)</text>
+
+  <!-- Напрямок руху петлі -->
+  <line x1="340" y1="205" x2="355" y2="192" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arr-blue)"/>
+  <line x1="210" y1="272" x2="195" y2="280" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arr-blue)"/>
+
+  <!-- Пояснення площі петлі -->
+  <text x="110" y="150" font-size="11" font-weight="bold" fill="#2457d6">Площа петлі E_d</text>
+  <text x="110" y="165" font-size="10" fill="#6b7280">(тертя сталевих жил)</text>
+
+  <!-- Підпис внизу лівої панелі -->
+  <text x="275" y="390" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Прогресивне зростання жорсткості k_dyn захищає від удару об упор</text>
+  <text x="275" y="408" font-size="11" fill="#6b7280" text-anchor="middle">Збільшення амплітуди розширює петлю тертя й підсилює дисипацію E_d</text>
+
+
+  <!-- ПРАВА ПАНЕЛЬ: Формули та розрахункові критерії -->
+  <rect x="545" y="68" width="390" height="395" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="565" y="94" font-size="15" font-weight="bold" fill="#1a1a1a">Розрахунок динамічної жорсткості та демпфування</text>
+
+  <!-- Картка 1: Динамічна жорсткість -->
+  <rect x="565" y="112" width="350" height="95" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="580" y="134" font-size="12" font-weight="bold" fill="#2457d6">Січна динамічна жорсткість k_dyn:</text>
+  <text x="580" y="154" font-size="13" font-weight="bold" fill="#1a1a1a">k_dyn = (F_max - F_min) / (x_max - x_min)</text>
+  <text x="580" y="174" font-size="11" fill="#1a1a1a">• Зростає при стисненні завдяки геометрії дуги троса</text>
+  <text x="580" y="190" font-size="11" fill="#6b7280">• Запобігає різкому пробиванню при перевантаженнях</text>
+
+  <!-- Картка 2: Еквівалентне згасання -->
+  <rect x="565" y="218" width="350" height="110" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="580" y="240" font-size="12" font-weight="bold" fill="#1a1a1a">Еквівалентний коефіцієнт згасання ζ_eq:</text>
+  <text x="580" y="262" font-size="13" font-weight="bold" fill="#2457d6">ζ_eq = E_d / (2 · π · k_dyn · x_peak²)</text>
+  <text x="580" y="284" font-size="11" fill="#1a1a1a">• E_d = ∮ F dx — площа петлі гістерезису тертя</text>
+  <text x="580" y="300" font-size="11" fill="#1a1a1a">• Для сталевого троса: ζ_eq сягає 0.15–0.25 (15–25%)</text>
+  <text x="580" y="316" font-size="11" fill="#6b7280">• У 3–5 разів перевищує звичайні пружини чи еластомери</text>
+
+  <!-- Картка 3: Критерій проектування -->
+  <rect x="565" y="338" width="350" height="112" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="580" y="360" font-size="12" font-weight="bold" fill="#27ae60">Критерій безпечного динамічного ходу:</text>
+  <text x="580" y="380" font-size="11" fill="#1a1a1a">• Розрахунковий хід x_dyn повинен задовольняти умову:</text>
+  <text x="580" y="398" font-size="12" font-weight="bold" fill="#27ae60">x_dyn ≤ 0.70–0.75 × x_max</text>
+  <text x="580" y="416" font-size="11" fill="#1a1a1a">• Залишає 25–30% запасу ходу на випадкові сплески удару</text>
+  <text x="580" y="432" font-size="10" fill="#6b7280">Гарантує відсутність удару витків об фіксатор демпфера</text>
+</svg>

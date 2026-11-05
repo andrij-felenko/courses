@@ -1,0 +1,89 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Геометрія багатозахідної спіральної муфти 5x5 мм (6061-T6)</text>
+  <text x="480" y="60" font-size="13" fill="#6b7280" text-anchor="middle">Багатозахідні наскрізні прорізи та градієнт пружних напружень при компенсації неспіввісності</text>
+
+  <!-- Left Panel: Geometry -->
+  <rect x="30" y="80" width="440" height="350" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="250" y="108" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">1. Конструктивна геометрія муфти</text>
+
+  <!-- Coupling Body Diagram (Left side) -->
+  <!-- Main cylinder outline: center at x=250, y=240, D=140px (represents 19mm), L=200px (represents 25mm) -->
+  <!-- x: 180 to 320, y: 140 to 340 -->
+  <rect x="180" y="140" width="140" height="200" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  
+  <!-- Bores: NEMA 17 shaft (5mm -> 35px) and Tr8x8 screw (5mm -> 35px) -->
+  <!-- Left bore (Top): x: 232.5 to 267.5, y: 140 to 180 -->
+  <rect x="232.5" y="140" width="35" height="40" fill="white" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="250" y="165" font-size="12" fill="#6b7280" text-anchor="middle">Ø5 мм</text>
+
+  <!-- Right bore (Bottom): x: 232.5 to 267.5, y: 300 to 340 -->
+  <rect x="232.5" y="300" width="35" height="40" fill="white" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="250" y="325" font-size="12" fill="#6b7280" text-anchor="middle">Ø5 мм</text>
+
+  <!-- Multi-start helical cuts (Crossing slots) -->
+  <!-- Cut 1 (left to right down) -->
+  <path d="M 180,190 Q 250,210 320,230" fill="none" stroke="#c0392b" stroke-width="3"/>
+  <path d="M 180,230 Q 250,250 320,270" fill="none" stroke="#c0392b" stroke-width="3"/>
+  <path d="M 180,270 Q 250,290 320,310" fill="none" stroke="#c0392b" stroke-width="3"/>
+
+  <!-- Cut 2 (interleaved, multi-start) -->
+  <path d="M 180,210 Q 250,230 320,250" fill="none" stroke="#2457d6" stroke-width="3"/>
+  <path d="M 180,250 Q 250,270 320,290" fill="none" stroke="#2457d6" stroke-width="3"/>
+
+  <!-- Dimension annotations -->
+  <line x1="160" y1="140" x2="160" y2="340" stroke="#1a1a1a" stroke-width="1" marker-start="url(#arr)" marker-end="url(#arr)"/>
+  <text x="145" y="245" font-size="12" fill="#1a1a1a" text-anchor="middle">L=25</text>
+
+  <line x1="180" y1="360" x2="320" y2="360" stroke="#1a1a1a" stroke-width="1" marker-start="url(#arr)" marker-end="url(#arr)"/>
+  <text x="250" y="380" font-size="12" fill="#1a1a1a" text-anchor="middle">D=19 мм</text>
+
+  <!-- Descriptions left -->
+  <text x="50" y="405" font-size="12" fill="#1a1a1a">• Сплав 6061-T6 (Rm ~276 МПа)</text>
+  <text x="50" y="422" font-size="12" fill="#1a1a1a">• Багатозахідна балка (multi-beam)</text>
+
+
+  <!-- Right Panel: Stress & Deformation -->
+  <rect x="490" y="80" width="440" height="350" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="710" y="108" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">2. Деформації та розподіл напружень</text>
+
+  <!-- Stress visualization diagram (Right side) -->
+  <!-- Coupling body deflected/stressed -->
+  <rect x="640" y="140" width="140" height="200" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="2" transform="rotate(3 710 240)"/>
+
+  <!-- Bores in deflected state -->
+  <rect x="692.5" y="140" width="35" height="40" fill="white" stroke="#6b7280" stroke-width="1.5" transform="rotate(3 710 240)"/>
+  <rect x="692.5" y="300" width="35" height="40" fill="white" stroke="#6b7280" stroke-width="1.5" transform="rotate(3 710 240)"/>
+
+  <!-- Stress concentration indicators (Red/Blue gradient highlights) -->
+  <circle cx="645" cy="195" r="8" fill="#c0392b" opacity="0.8"/>
+  <circle cx="775" cy="285" r="8" fill="#c0392b" opacity="0.8"/>
+  <circle cx="645" cy="285" r="8" fill="#2457d6" opacity="0.8"/>
+  <circle cx="775" cy="195" r="8" fill="#2457d6" opacity="0.8"/>
+
+  <text x="815" y="195" font-size="12" fill="#c0392b">Макс. згин</text>
+  <text x="540" y="285" font-size="12" fill="#2457d6">Нульовий люфт</text>
+
+  <!-- Torque transmission arrows -->
+  <path d="M 680,125 A 30 30 0 0 1 740,125" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="710" y="118" font-size="12" fill="#2457d6" text-anchor="middle">Крутний момент T</text>
+
+  <!-- Descriptions right -->
+  <text x="510" y="405" font-size="12" fill="#1a1a1a">• Рівномірний розподіл між витками</text>
+  <text x="510" y="422" font-size="12" fill="#1a1a1a">• Висока втомна довговічність</text>
+</svg>

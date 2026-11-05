@@ -1,0 +1,97 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Підкладка -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Маркери -->
+  <defs>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Порівняння заземлення екрана: Pigtail проти 360° EMC-вводу</text>
+  <text x="480" y="60" font-size="13" fill="#6b7280" text-anchor="middle">Паразитна індуктивність скрутки викликає наведення ВЧ-завад на лінію зв'язку RS-485</text>
+
+  <!-- ЛІВА ПАНЕЛЬ: Pigtail -->
+  <rect x="30" y="85" width="440" height="350" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="250" y="112" font-size="15" font-weight="bold" fill="#c0392b" text-anchor="middle">1. Дренажний хвіст (Pigtail / скрутка)</text>
+
+  <!-- Схема ліворуч -->
+  <!-- Шафа / Джерело завади -->
+  <rect x="50" y="140" width="80" height="260" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="90" y="165" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">VFD / Шафа</text>
+  <text x="90" y="185" font-size="11" fill="#6b7280" text-anchor="middle">ПЧ струм завади</text>
+  <text x="90" y="275" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">I_cm</text>
+
+  <!-- Кабель та екран -->
+  <path d="M 130 200 L 290 200" stroke="#2457d6" stroke-width="4" fill="none"/>
+  <text x="210" y="192" font-size="11" fill="#2457d6" text-anchor="middle">Сигнальні жили RS-485</text>
+
+  <path d="M 130 240 L 270 240" stroke="#6b7280" stroke-width="6" stroke-dasharray="4,2" fill="none"/>
+  <text x="200" y="232" font-size="11" fill="#6b7280" text-anchor="middle">Екран кабелю</text>
+
+  <!-- Pigtail хвіст -->
+  <path d="M 270 240 Q 295 240 295 285 Q 295 330 310 330" stroke="#c0392b" stroke-width="3" fill="none" marker-end="url(#arr-red)"/>
+  <text x="315" y="280" font-size="12" font-weight="bold" fill="#c0392b">L_pigtail ≈ 80 нГн</text>
+  <text x="315" y="296" font-size="11" fill="#6b7280">Z = 5..6.3 Ом (10МГц)</text>
+
+  <!-- Приймач (Пульт) -->
+  <rect x="350" y="140" width="100" height="260" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="400" y="165" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Приймач RS-485</text>
+  
+  <circle cx="400" cy="200" r="4" fill="#2457d6"/>
+  <circle cx="400" cy="330" r="4" fill="#c0392b"/>
+  <text x="420" y="204" font-size="11" fill="#1a1a1a">Rx+</text>
+  <text x="420" y="334" font-size="11" fill="#c0392b">U_noise</text>
+
+  <!-- Наслідок текст внизу лівої панелі -->
+  <text x="250" y="380" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Стрибок потенціалу пробиває приймач</text>
+  <text x="250" y="398" font-size="11" fill="#6b7280" text-anchor="middle">Спотворення байтів, аварійні зупинки</text>
+
+
+  <!-- ПРАВА ПАНЕЛЬ: 360 EMC -->
+  <rect x="490" y="85" width="440" height="350" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="710" y="112" font-size="15" font-weight="bold" fill="#27ae60" text-anchor="middle">2. Круговий 360° EMC-гермоввід</text>
+
+  <!-- Схема праворуч -->
+  <!-- Шафа / Джерело завади -->
+  <rect x="510" y="140" width="80" height="260" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="550" y="165" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">VFD / Шафа</text>
+  <text x="550" y="185" font-size="11" fill="#6b7280" text-anchor="middle">ПЧ струм завади</text>
+  <text x="550" y="275" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">I_cm</text>
+
+  <!-- Кабель та екран -->
+  <path d="M 590 200 L 750 200" stroke="#2457d6" stroke-width="4" fill="none"/>
+  <text x="670" y="192" font-size="11" fill="#2457d6" text-anchor="middle">Сигнальні жили RS-485</text>
+
+  <path d="M 590 240 L 725 240" stroke="#27ae60" stroke-width="6" fill="none"/>
+  <text x="660" y="232" font-size="11" fill="#27ae60" text-anchor="middle">Плетений екран 360°</text>
+
+  <!-- 360 контакт конічна втулка -->
+  <rect x="715" y="215" width="20" height="50" rx="2" fill="#27ae60" opacity="0.3" stroke="#27ae60" stroke-width="2"/>
+  <text x="725" y="285" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">L_tail ≈ 0</text>
+  <text x="725" y="301" font-size="11" fill="#6b7280" text-anchor="middle">Z_t &lt; 10 мОм/м</text>
+
+  <!-- Приймач (Пульт) -->
+  <rect x="810" y="140" width="100" height="260" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="860" y="165" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Приймач RS-485</text>
+
+  <circle cx="860" cy="200" r="4" fill="#2457d6"/>
+  <circle cx="860" cy="330" r="4" fill="#27ae60"/>
+  <text x="880" y="204" font-size="11" fill="#1a1a1a">Rx+</text>
+  <text x="880" y="334" font-size="11" fill="#27ae60">U_noise ≈ 0В</text>
+
+  <!-- Наслідок текст внизу правої панелі -->
+  <text x="710" y="380" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Вільне стікання завади на масу шафи</text>
+  <text x="710" y="398" font-size="11" fill="#6b7280" text-anchor="middle">Повний захист сигналів та надійність мережі</text>
+</svg>

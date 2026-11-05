@@ -1,0 +1,98 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Геометрія корпусів, полярне ключування та pinout роз'ємів JST-SYP</text>
+  <text x="480" y="60" font-size="13" fill="#6b7280" text-anchor="middle">Крок виводів 2.5 мм, компактний профіль wire-to-wire, фрикційний замок та захист від переполюсування</text>
+
+  <!-- 1) Ліва панель: Складальний кресленик та зчленування (x=30..490, y=85..435) -->
+  <rect x="30" y="85" width="460" height="350" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  
+  <text x="260" y="112" font-size="15" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Зчленування корпусів SYP та геометрія</text>
+
+  <!-- Вилковий корпус (Plug Housing SYP-02T-1) праворуч -->
+  <rect x="270" y="145" width="180" height="110" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="360" y="167" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Plug SYP-02T-1</text>
+  <!-- Полярний ключ / внутрішній профіль -->
+  <path d="M290,185 L310,185 L310,215 L290,215 Z" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1"/>
+  <!-- Контакти у вилці -->
+  <circle cx="340" cy="185" r="4" fill="#1a1a1a"/>
+  <circle cx="340" cy="215" r="4" fill="#1a1a1a"/>
+  <text x="390" y="195" font-size="12" fill="#1a1a1a" text-anchor="middle">Pin 1</text>
+  <text x="390" y="220" font-size="12" fill="#1a1a1a" text-anchor="middle">Pin 2</text>
+
+  <!-- Розетковий корпус (Receptacle Housing SYR-02T) ліворуч -->
+  <rect x="70" y="145" width="160" height="110" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="150" y="167" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Receptacle SYR-02T</text>
+  <!-- Вхідні отвори -->
+  <rect x="190" y="177" width="20" height="16" rx="2" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <rect x="190" y="207" width="20" height="16" rx="2" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+
+  <!-- Фрикційний замок і напрямні ребра -->
+  <path d="M140,145 L140,135 L180,135 L180,145" fill="none" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="160" y="128" font-size="11" fill="#27ae60" text-anchor="middle">Friction Lock</text>
+
+  <!-- Стрілка зчленування F_mate -->
+  <line x1="235" y1="200" x2="265" y2="200" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="250" y="190" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">F_mate</text>
+  <text x="250" y="230" font-size="11" fill="#6b7280" text-anchor="middle">5–8 Н</text>
+
+  <!-- Розмірні лінії кроку -->
+  <line x1="336" y1="235" x2="344" y2="235" stroke="#1a1a1a" stroke-width="1"/>
+  <line x1="336" y1="265" x2="344" y2="265" stroke="#1a1a1a" stroke-width="1"/>
+  <line x1="340" y1="235" x2="340" y2="265" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="375" y="254" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Pitch = 2.50 mm</text>
+
+  <!-- Пояснення знизу на лівій панелі -->
+  <rect x="45" y="290" width="430" height="125" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="60" y="312" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">Особливості конструкції:</text>
+  <text x="60" y="332" font-size="12" fill="#6b7280" text-anchor="start">• Полярні напрямні ребра (Polarizing Guide Ribs): асиметрія</text>
+  <text x="60" y="350" font-size="12" fill="#6b7280" text-anchor="start">  профілю унеможливлює зворотне сочленення на 180°.</text>
+  <text x="60" y="370" font-size="12" fill="#6b7280" text-anchor="start">• Фрикційний замок (Friction Lock): бічні виступи й пази тертя</text>
+  <text x="60" y="388" font-size="12" fill="#6b7280" text-anchor="start">  забезпечують надійну фіксацію без громіздких важелів.</text>
+
+  <!-- 2) Права панель: Схема виводів (Pinout) та характеристики (x=510..930, y=85..435) -->
+  <rect x="510" y="85" width="420" height="350" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  
+  <text x="720" y="112" font-size="15" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Pinout та паспортні характеристики</text>
+
+  <!-- Блок Pinout (торцевий вигляд) -->
+  <rect x="530" y="130" width="180" height="85" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="620" y="150" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Торцевий вид (Pinout)</text>
+  <circle cx="570" cy="180" r="10" fill="#c0392b"/>
+  <text x="570" y="184" font-size="11" font-weight="bold" fill="#ffffff" text-anchor="middle">1</text>
+  <text x="570" y="202" font-size="11" fill="#c0392b" text-anchor="middle">VCC (червоний)</text>
+
+  <circle cx="670" cy="180" r="10" fill="#1a1a1a"/>
+  <text x="670" y="184" font-size="11" font-weight="bold" fill="#ffffff" text-anchor="middle">2</text>
+  <text x="670" y="202" font-size="11" fill="#6b7280" text-anchor="middle">GND (чорний)</text>
+
+  <!-- Блок технічних характеристик -->
+  <rect x="730" y="130" width="180" height="85" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="820" y="150" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Ізолятор і норми</text>
+  <text x="745" y="170" font-size="11" fill="#1a1a1a" text-anchor="start">• PA66 (UL94V-0)</text>
+  <text x="745" y="188" font-size="11" fill="#1a1a1a" text-anchor="start">• -25 °C .. +85 °C</text>
+  <text x="745" y="206" font-size="11" fill="#1a1a1a" text-anchor="start">• Струм: 1.0 А (до 2А)</text>
+
+  <!-- Електричні норми детально -->
+  <rect x="530" y="225" width="380" height="95" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="720" y="245" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Електричні параметри та опір</text>
+  <text x="545" y="265" font-size="11" fill="#6b7280" text-anchor="start">• Робоча напруга: 250 В AC/DC</text>
+  <text x="545" y="283" font-size="11" fill="#6b7280" text-anchor="start">• Опір ізоляції: R_iso >= 500 МОм (при 500 В DC)</text>
+  <text x="545" y="301" font-size="11" fill="#6b7280" text-anchor="start">• Діелектрична міцність: 1000 В AC (1 хв)</text>
+
+  <!-- Застосування (зелений блок) -->
+  <rect x="530" y="330" width="380" height="90" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="720" y="352" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Типові застосування</text>
+  <text x="545" y="375" font-size="11" fill="#1a1a1a" text-anchor="start">• Компактні 1S LiPo батареї для радіокерованих моделей та дронів</text>
+  <text x="545" y="395" font-size="11" fill="#1a1a1a" text-anchor="start">• Малопотужні ланцюги живлення в портативних приладах</text>
+</svg>

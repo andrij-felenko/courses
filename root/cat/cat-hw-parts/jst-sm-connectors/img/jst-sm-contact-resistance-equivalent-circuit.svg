@@ -1,0 +1,103 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <defs>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Еквівалентна схема контактного опору та тепловтрат роз'єму JST-SM</text>
+  <text x="480" y="60" font-size="13" fill="#6b7280" text-anchor="middle">Послідовний ланцюг R_crimp, R_constriction, R_film, розподіл падіння напруги V_drop та Джоулеве нагрівання P_loss = I^2 · R</text>
+
+  <!-- Panel 1: Left (x=30..530, y=85..430) -->
+  <rect x="30" y="85" width="500" height="345" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="55" y="112" font-size="15" font-weight="bold" fill="#1a1a1a">1. Еквівалентна принципова схема контактної пари</text>
+
+  <!-- Schematic circuit line & blocks -->
+  <!-- Wire AWG 22 (plug) -->
+  <line x1="50" y1="180" x2="110" y2="180" stroke="#2457d6" stroke-width="4" marker-end="url(#arr-blue)"/>
+  <text x="80" y="165" font-size="12" fill="#2457d6" text-anchor="middle">AWG 22</text>
+
+  <!-- R_crimp1 -->
+  <rect x="115" y="160" width="60" height="40" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="145" y="185" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">R_crimp1</text>
+  <text x="145" y="215" font-size="11" fill="#6b7280" text-anchor="middle">0.8–1.5 мОм</text>
+
+  <line x1="175" y1="180" x2="205" y2="180" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Pin body / Interface -->
+  <rect x="210" y="150" width="75" height="60" rx="4" fill="white" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="247" y="176" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Штифт</text>
+  <text x="247" y="196" font-size="11" fill="#6b7280" text-anchor="middle">Бронза/Латунь</text>
+
+  <line x1="285" y1="180" x2="315" y2="180" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- R_constriction -->
+  <rect x="320" y="160" width="90" height="40" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="365" y="185" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">R_constriction</text>
+  <text x="365" y="215" font-size="11" fill="#6b7280" text-anchor="middle">3–6 мОм (a-spots)</text>
+
+  <line x1="410" y1="180" x2="430" y2="180" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- R_film -->
+  <rect x="435" y="160" width="75" height="40" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="472" y="185" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">R_film</text>
+  <text x="472" y="215" font-size="11" fill="#6b7280" text-anchor="middle">2–5 мОм (SnO2)</text>
+
+  <!-- Second half continuation lower or next row -->
+  <!-- R_crimp2 & socket wire -->
+  <rect x="115" y="270" width="60" height="40" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="145" y="295" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">R_crimp2</text>
+  <text x="145" y="325" font-size="11" fill="#6b7280" text-anchor="middle">0.8–1.5 мОм</text>
+
+  <line x1="175" y1="290" x2="230" y2="290" stroke="#1a1a1a" stroke-width="2"/>
+
+  <rect x="235" y="260" width="75" height="60" rx="4" fill="white" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="272" y="286" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Гніздо</text>
+  <text x="272" y="306" font-size="11" fill="#6b7280" text-anchor="middle">Пружний контакт</text>
+
+  <line x1="310" y1="290" x2="380" y2="290" stroke="#2457d6" stroke-width="4" marker-end="url(#arr-blue)"/>
+  <text x="345" y="315" font-size="12" fill="#2457d6" text-anchor="middle">AWG 22 (розетка)</text>
+
+  <!-- Connecting bridge routing around text -->
+  <path d="M 510,180 L 522,180 L 522,240 L 272,240 L 272,260" fill="none" stroke="#1a1a1a" stroke-width="2" stroke-dasharray="4,4"/>
+  <text x="400" y="234" font-size="11" fill="#6b7280" text-anchor="middle">Зона контакту вилки й розетки</text>
+
+  <!-- Summary box inside Panel 1 -->
+  <rect x="50" y="355" width="460" height="55" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="65" y="377" font-size="12" font-weight="bold" fill="#1a1a1a">Повний опір контактної пари:</text>
+  <text x="65" y="397" font-size="12" fill="#2457d6">R_total = R_crimp1 + R_constriction + R_film + R_crimp2 ≤ 10–20 мОм</text>
+
+  <!-- Panel 2: Right (x=550..930, y=85..430) -->
+  <rect x="550" y="85" width="380" height="345" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="575" y="112" font-size="15" font-weight="bold" fill="#1a1a1a">2. Формули та тепловий розрахунок</text>
+
+  <!-- Formulas list -->
+  <text x="575" y="142" font-size="12" font-weight="bold" fill="#1a1a1a">Формула Хольма (звуження ліній):</text>
+  <text x="575" y="162" font-size="12" fill="#2457d6">R_constriction = ρ / (2 · a)  (де a — радіус плями)</text>
+
+  <text x="575" y="192" font-size="12" font-weight="bold" fill="#1a1a1a">Падіння напруги (закон Ома):</text>
+  <text x="575" y="212" font-size="12" fill="#2457d6">V_drop = I · R_total = 3.0 А · 0.015 Ом = 45.0 мВ</text>
+
+  <text x="575" y="242" font-size="12" font-weight="bold" fill="#1a1a1a">Локальне тепловиділення (Джоуль-Ленц):</text>
+  <text x="575" y="262" font-size="12" fill="#2457d6">P_loss = I^2 · R_total = (3.0)^2 · 0.015 = 0.135 Вт</text>
+
+  <text x="575" y="292" font-size="12" font-weight="bold" fill="#1a1a1a">Багатополюсний роз'єм (8 контактів):</text>
+  <text x="575" y="312" font-size="12" fill="#1a1a1a">P_sum = 8 · 0.135 Вт ≈ 1.08 Вт</text>
+
+  <!-- Thermal warning alert box -->
+  <rect x="570" y="328" width="340" height="85" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="585" y="350" font-size="12" font-weight="bold" fill="#c0392b">Теплове застереження (Перегрів):</text>
+  <text x="585" y="370" font-size="11" fill="#1a1a1a">ΔT = P_sum · R_th = 1.08 · 35 °C/Вт ≈ 38 °C</text>
+  <text x="585" y="390" font-size="11" font-weight="bold" fill="#c0392b">T_amb (50 °C) + 38 °C = 88 °C > T_max (85 °C)!</text>
+  <text x="585" y="407" font-size="11" fill="#1a1a1a">Потрібен дерейтинг струму до 1.8–2.0 А.</text>
+
+</svg>

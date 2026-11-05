@@ -1,0 +1,87 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Баланс складових моменту затягування болтового з'єднання</text>
+  <text x="480" y="60" font-size="13" fill="#6b7280" text-anchor="middle">Розподіл монтажного моменту T на корисний натяг (~10%) та подолання тертя (~90%)</text>
+
+  <!-- Ліва панель: Схема навантаження болта -->
+  <rect x="30" y="85" width="430" height="320" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="245" y="112" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Схема розподілу контактних поверхонь</text>
+
+  <!-- Затиснуті пластини (ліворуч і праворуч від стержня болта) -->
+  <rect x="70" y="200" width="125" height="110" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="295" y="200" width="125" height="110" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="132" y="255" font-size="12" fill="#2457d6" text-anchor="middle">З'єднувані</text>
+  <text x="132" y="272" font-size="12" fill="#2457d6" text-anchor="middle">деталі</text>
+  <text x="357" y="255" font-size="12" fill="#2457d6" text-anchor="middle">Пакет</text>
+  <text x="357" y="272" font-size="12" fill="#2457d6" text-anchor="middle">стискання</text>
+
+  <!-- Головка болта -->
+  <rect x="150" y="145" width="190" height="50" rx="4" fill="#ffffff" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="245" y="174" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Головка болта</text>
+
+  <!-- Тертя під головкою (червона зона) -->
+  <line x1="150" y1="195" x2="340" y2="195" stroke="#c0392b" stroke-width="4"/>
+  <text x="65" y="180" font-size="12" font-weight="bold" fill="#c0392b">Зона Tb</text>
+  <line x1="115" y1="178" x2="145" y2="193" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+
+  <!-- Стержень болта -->
+  <rect x="205" y="195" width="80" height="120" fill="#ffffff" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Гайка / нарізна частина -->
+  <rect x="175" y="315" width="140" height="55" rx="4" fill="#ffffff" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="245" y="347" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Різьба / Гайка</text>
+
+  <!-- Тертя у витках різьби (синя зона) -->
+  <line x1="205" y1="320" x2="285" y2="320" stroke="#2457d6" stroke-width="3"/>
+  <line x1="205" y1="335" x2="285" y2="335" stroke="#2457d6" stroke-width="3"/>
+  <line x1="205" y1="350" x2="285" y2="350" stroke="#2457d6" stroke-width="3"/>
+
+  <!-- Розмірні лінії: Db та d2 -->
+  <line x1="150" y1="135" x2="340" y2="135" stroke="#6b7280" stroke-width="1.5" marker-start="url(#arr)" marker-end="url(#arr)"/>
+  <text x="245" y="130" font-size="12" fill="#6b7280" text-anchor="middle">Опорний діаметр головки Db</text>
+
+  <line x1="205" y1="385" x2="285" y2="385" stroke="#6b7280" stroke-width="1.5" marker-start="url(#arr)" marker-end="url(#arr)"/>
+  <text x="245" y="400" font-size="12" fill="#6b7280" text-anchor="middle">Середній діаметр d2</text>
+
+  <!-- Права панель: Три складові моменту затягування -->
+  <rect x="480" y="85" width="450" height="320" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="705" y="112" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Розподіл складових крутного моменту T</text>
+
+  <!-- Блок 1: Тертя під головкою Tb (~50%) -->
+  <rect x="500" y="125" width="410" height="75" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="515" y="148" font-size="13" font-weight="bold" fill="#c0392b">1. Тертя під головкою болта: Tb ≈ 50% моменту T</text>
+  <text x="515" y="168" font-size="12" fill="#1a1a1a">Формула: Tb = 0.5 · Fp · μb · Db</text>
+  <text x="515" y="186" font-size="12" fill="#6b7280">Плече: Db (опорний діаметр торця), коефіцієнт тертя μb</text>
+
+  <!-- Блок 2: Тертя у витках різьби Tth (~40%) -->
+  <rect x="500" y="210" width="410" height="75" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="515" y="233" font-size="13" font-weight="bold" fill="#2457d6">2. Тертя у витках різьби: Tth ≈ 40% моменту T</text>
+  <text x="515" y="253" font-size="12" fill="#1a1a1a">Формула: Tth = 0.5 · Fp · d2 · (μth / cos 30°)</text>
+  <text x="515" y="271" font-size="12" fill="#6b7280">Плече: d2/2 (середній радіус різьби), коефіцієнт тертя μth</text>
+
+  <!-- Блок 3: Корисний момент розтягу Tp (~10%) -->
+  <rect x="500" y="295" width="410" height="75" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="515" y="318" font-size="13" font-weight="bold" fill="#27ae60">3. Корисний натяг болта: Tp ≈ 10% моменту T</text>
+  <text x="515" y="338" font-size="12" fill="#1a1a1a">Формула: Tp = 0.5 · Fp · d2 · tan ψ ≈ Fp · (p / 2π)</text>
+  <text x="515" y="356" font-size="12" fill="#6b7280">Перетворення обертання на осьове розтягнення болта Fp</text>
+
+  <!-- Нижня лінія підсумку -->
+  <text x="480" y="432" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Загальний баланс: T = Tb + Tth + Tp = Fp · (0.16·p + 0.58·μth·d2 + 0.5·μb·Db)</text>
+</svg>

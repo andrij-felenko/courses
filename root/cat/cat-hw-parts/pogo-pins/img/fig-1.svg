@@ -1,0 +1,85 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-black" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Конструкція та механіка пружинного контакту Pogo Pin</text>
+  <text x="480" y="56" font-size="13" fill="#6b7280" text-anchor="middle">Внутрішня будова гільзи, механізм косого торця (Biased Piston) та прямий шлях струму</text>
+
+  <!-- ЛІВА ПАНЕЛЬ: РОЗРІЗ POGO PIN -->
+  <rect x="40" y="85" width="460" height="375" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="40" y="85" width="460" height="34" rx="8" fill="#eaf0fd" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="270" y="107" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">ПОЗДОВЖНІЙ РОЗРІЗ ШТИФТА</text>
+
+  <!-- Корпус гільзи (Barrel) -->
+  <path d="M180,140 L180,360 L240,360 L240,140 L226,140 L226,345 L194,345 L194,140 Z" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1.5"/>
+  <!-- Хвостовик для паяння (SMD хвостовик) -->
+  <rect x="198" y="360" width="24" height="25" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="270" y="375" font-size="12" font-weight="bold" fill="#2457d6">Паяльний хвостовик</text>
+
+  <!-- Плунжер (Plunger) зі скошеним торцем 18° -->
+  <path d="M200,120 Q210,110 220,120 L222,230 L198,242 L198,120 Z" fill="#ffffff" stroke="#2457d6" stroke-width="2"/>
+  <!-- Сферичний наконечник -->
+  <circle cx="210" cy="116" r="8" fill="#f1c40f" stroke="#1a1a1a" stroke-width="1"/>
+
+  <!-- Спіральна пружина стиску (Compression Spring) -->
+  <path d="M200,242 L220,255 L200,270 L220,285 L200,300 L220,315 L200,330 L220,345" fill="none" stroke="#6b7280" stroke-width="2.5"/>
+
+  <!-- Виноски до компонентів -->
+  <line x1="220" y1="120" x2="310" y2="135" stroke="#1a1a1a" stroke-width="1.2" marker-end="url(#arr-black)"/>
+  <text x="318" y="132" font-size="12" font-weight="bold" fill="#1a1a1a">Плунжер (Plunger)</text>
+  <text x="318" y="148" font-size="12" fill="#6b7280">позолочена латунь/BeCu</text>
+
+  <line x1="240" y1="190" x2="310" y2="190" stroke="#1a1a1a" stroke-width="1.2" marker-end="url(#arr-black)"/>
+  <text x="318" y="187" font-size="12" font-weight="bold" fill="#1a1a1a">Гільза (Barrel)</text>
+  <text x="318" y="203" font-size="12" fill="#6b7280">обтискний верхній буртик</text>
+
+  <line x1="210" y1="285" x2="310" y2="285" stroke="#1a1a1a" stroke-width="1.2" marker-end="url(#arr-black)"/>
+  <text x="318" y="282" font-size="12" font-weight="bold" fill="#1a1a1a">Пружина (Spring)</text>
+  <text x="318" y="298" font-size="12" fill="#6b7280">сталь SUS304 / SWP</text>
+
+  <!-- Точка бічного контакту через скіс -->
+  <circle cx="224" cy="225" r="4" fill="#27ae60"/>
+  <text x="75" y="222" font-size="12" font-weight="bold" fill="#27ae60">Скіс 18° торця</text>
+  <text x="75" y="238" font-size="12" fill="#6b7280">радіальний притиск</text>
+
+  <!-- Картка знизу лівої панелі -->
+  <rect x="55" y="405" width="430" height="42" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="70" y="430" font-size="12" fill="#1a1a1a">Робочий хід: x_work = 0.6–1.5 мм при силі F = 0.8–1.5 Н</text>
+
+  <!-- ПРАВА ПАНЕЛЬ: ФІЗИЧНИЙ МЕХАНІЗМ BIASED PISTON -->
+  <rect x="520" y="85" width="400" height="375" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="520" y="85" width="400" height="34" rx="8" fill="#e9f7ef" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="720" y="107" font-size="14" font-weight="bold" fill="#27ae60" text-anchor="middle">МЕХАНІЗМ СТАБІЛІЗАЦІЇ ОПОРУ BIASED PISTON</text>
+
+  <!-- Картка 1: Прямий шлях струму -->
+  <rect x="540" y="135" width="360" height="95" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="555" y="157" font-size="13" font-weight="bold" fill="#27ae60">1. Розподіл сили пружини (Вектори)</text>
+  <text x="555" y="177" font-size="12" fill="#1a1a1a">• Осьова сила стиску: F_axial = F_spring · cos(18°)</text>
+  <text x="555" y="195" font-size="12" fill="#1a1a1a">• Радіальна сила притиску: F_rad = F_spring · sin(18°)</text>
+  <text x="555" y="213" font-size="12" fill="#2457d6">• Забезпечує постійний контакт плунжера зі стінкою гільзи</text>
+
+  <!-- Картка 2: Шунтування пружини -->
+  <rect x="540" y="242" width="360" height="95" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="555" y="264" font-size="13" font-weight="bold" fill="#2457d6">2. Електричне шунтування пружини</text>
+  <text x="555" y="284" font-size="12" fill="#1a1a1a">• Опір сталевої пружини: R_spring ~ 100–300 мОм</text>
+  <text x="555" y="302" font-size="12" fill="#1a1a1a">• Опір прямого контакту плунжер-гільза: R_contact &lt; 20 мОм</text>
+  <text x="555" y="320" font-size="12" fill="#27ae60" font-weight="bold">• 95% струму протікає через стінку гільзи (без перегріву)</text>
+
+  <!-- Картка 3: Порівняння конструкцій -->
+  <rect x="540" y="349" width="360" height="95" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="555" y="371" font-size="13" font-weight="bold" fill="#1a1a1a">3. Захист від втрати сигналу при вібрації</text>
+  <text x="555" y="391" font-size="12" fill="#1a1a1a">• Плоский торець (без скосу): мікропереривання під вібрацією</text>
+  <text x="555" y="409" font-size="12" fill="#27ae60">• Скошений торець (Biased): опір стабільний до 100 000 циклів</text>
+  <text x="555" y="427" font-size="12" fill="#6b7280">• Кульковий інтерфейс (Ball design): для струмів понад 5 А</text>
+</svg>
