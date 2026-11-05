@@ -1,0 +1,153 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="100%" height="100%" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- White Background -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Definitions for Markers -->
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="34" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Вплив бар'єрів пам'яті DMB/DSB та скидання конвеєра на критичну секцію</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">DSB виштовхує буфер запису до зняття маски, а ISB синхронізує конвеєр з новим станом CPU</text>
+
+  <!-- ==================== LEFT PANEL: WITHOUT BARRIERS ==================== -->
+  <rect x="24" y="74" width="444" height="342" rx="8" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Left Header -->
+  <rect x="38" y="82" width="120" height="20" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="98" y="96" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">БЕЗ БАР'ЄРІВ</text>
+  <text x="170" y="97" font-size="14" font-weight="700" fill="#1a1a1a">Апаратна гонітва в буфері запису</text>
+
+  <!-- Left Row 1: Code Box -->
+  <rect x="38" y="112" width="416" height="70" rx="6" fill="#f8fafc" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="38" y="112" width="416" height="22" rx="6" fill="#eef2f6"/>
+  <text x="48" y="127" font-size="12" font-weight="700" fill="#6b7280">Код виходу без бар'єрів (небезпечна послідовність):</text>
+  <text x="48" y="148" font-size="12" font-family="monospace" fill="#1a1a1a">STR  R0, [R1]      <tspan fill="#6b7280">; запис у пам'ять або регістр периферії</tspan></text>
+  <text x="48" y="166" font-size="12" font-family="monospace" fill="#c0392b" font-weight="700">MSR  BASEPRI, R2   <tspan fill="#6b7280">; зняття маски (запис ще в черзі шини!)</tspan></text>
+
+  <!-- Left Row 2A: Pipeline Box -->
+  <rect x="38" y="196" width="196" height="118" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="48" y="213" font-size="12" font-weight="700" fill="#1a1a1a">Конвеєр ядра (Pipeline)</text>
+  <rect x="48" y="224" width="42" height="24" rx="3" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="69" y="240" font-size="12" fill="#1a1a1a" text-anchor="middle">Fetch</text>
+  <line x1="91" y1="236" x2="97" y2="236" stroke="#6b7280" marker-end="url(#arr-gray)"/>
+  <rect x="99" y="224" width="46" height="24" rx="3" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="122" y="240" font-size="12" fill="#1a1a1a" text-anchor="middle">Decode</text>
+  <line x1="146" y1="236" x2="152" y2="236" stroke="#6b7280" marker-end="url(#arr-gray)"/>
+  <rect x="154" y="224" width="44" height="24" rx="3" fill="#fdecea" stroke="#c0392b"/>
+  <text x="176" y="240" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">Exec</text>
+  <text x="48" y="264" font-size="12" fill="#6b7280">Префетч завантажив команди</text>
+  <text x="48" y="282" font-size="12" fill="#6b7280">до зміни системної маски:</text>
+  <text x="48" y="300" font-size="12" font-weight="700" fill="#c0392b">ризик хибного виконання</text>
+
+  <!-- Left Row 2B: Write Buffer Box -->
+  <rect x="246" y="196" width="208" height="118" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="256" y="213" font-size="12" font-weight="700" fill="#1a1a1a">Буфер запису (Write Buffer)</text>
+  <rect x="256" y="224" width="86" height="26" rx="3" fill="#fdecea" stroke="#c0392b"/>
+  <text x="299" y="241" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">STR у черзі</text>
+  <line x1="344" y1="237" x2="362" y2="237" stroke="#c0392b" stroke-dasharray="3,2" marker-end="url(#arr-red)"/>
+  <rect x="364" y="222" width="82" height="30" rx="3" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="405" y="236" font-size="12" fill="#6b7280" text-anchor="middle">SRAM / APB</text>
+  <text x="405" y="249" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">СТАРІ ДАНІ</text>
+  <text x="256" y="264" font-size="12" fill="#6b7280">Запис затримано шиною</text>
+  <text x="256" y="282" font-size="12" font-weight="700" fill="#c0392b">MSR відкриває IRQ зарано</text>
+  <text x="256" y="300" font-size="12" fill="#c0392b">ISR бачить старе значення</text>
+
+  <!-- Left Row 3: Failure Box -->
+  <rect x="38" y="328" width="416" height="76" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="50" y="347" font-size="13" font-weight="700" fill="#c0392b">Аварія: Порушення атомарності / Spurious IRQ</text>
+  <text x="50" y="367" font-size="12" fill="#1a1a1a">• ISR читає старе значення: дані застрягли у буфері шини</text>
+  <text x="50" y="386" font-size="12" fill="#1a1a1a">• Прапорець периферії не скинуто — хибний повтор ISR</text>
+
+  <!-- ==================== RIGHT PANEL: WITH DSB + ISB ==================== -->
+  <rect x="492" y="74" width="444" height="342" rx="8" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Right Header -->
+  <rect x="506" y="82" width="124" height="20" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="568" y="96" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">З DSB ТА ISB</text>
+  <text x="642" y="97" font-size="14" font-weight="700" fill="#1a1a1a">Детермінована синхронізація</text>
+
+  <!-- Right Row 1: Code Box -->
+  <rect x="506" y="112" width="416" height="70" rx="6" fill="#f8fafc" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="506" y="112" width="416" height="22" rx="6" fill="#eef2f6"/>
+  <text x="516" y="127" font-size="12" font-weight="700" fill="#6b7280">Код виходу з бар'єрами DSB + ISB (безпечна схема):</text>
+  <text x="516" y="148" font-size="12" font-family="monospace" fill="#1a1a1a">STR  R0, [R1]      <tspan fill="#27ae60" font-weight="700">| DSB 0xF</tspan> <tspan fill="#6b7280">; злив буфера шини</tspan></text>
+  <text x="516" y="166" font-size="12" font-family="monospace" fill="#2457d6" font-weight="700">MSR  BASEPRI, R2   <tspan fill="#2457d6">| ISB 0xF</tspan> <tspan fill="#6b7280">; скидання конвеєра</tspan></text>
+
+  <!-- Right Row 2A: Pipeline Box -->
+  <rect x="506" y="196" width="196" height="118" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="516" y="213" font-size="12" font-weight="700" fill="#1a1a1a">Конвеєр ядра (ISB Flush)</text>
+  <rect x="516" y="224" width="42" height="24" rx="3" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="537" y="240" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">Flush</text>
+  <line x1="559" y1="236" x2="565" y2="236" stroke="#2457d6" marker-end="url(#arr-blue)"/>
+  <rect x="567" y="224" width="56" height="24" rx="3" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="595" y="240" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">Refetch</text>
+  <line x1="624" y1="236" x2="630" y2="236" stroke="#27ae60" marker-end="url(#arr-green)"/>
+  <rect x="632" y="224" width="44" height="24" rx="3" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="654" y="240" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">Exec</text>
+  <text x="516" y="264" font-size="12" font-weight="700" fill="#2457d6">ISB скидає конвеєр вибірки:</text>
+  <text x="516" y="282" font-size="12" fill="#6b7280">команди перечитуються вже</text>
+  <text x="516" y="300" font-size="12" font-weight="700" fill="#2457d6">з новим значенням BASEPRI</text>
+
+  <!-- Right Row 2B: Write Buffer Box -->
+  <rect x="714" y="196" width="208" height="118" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="724" y="213" font-size="12" font-weight="700" fill="#1a1a1a">Буфер запису (DSB Drain)</text>
+  <rect x="724" y="224" width="86" height="26" rx="3" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="767" y="241" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">Спорожнено</text>
+  <line x1="812" y1="237" x2="830" y2="237" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <rect x="832" y="222" width="82" height="30" rx="3" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="873" y="236" font-size="12" fill="#1a1a1a" text-anchor="middle">SRAM / APB</text>
+  <text x="873" y="249" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">ОНОВЛЕНО</text>
+  <text x="724" y="264" font-size="12" font-weight="700" fill="#27ae60">DSB зупиняє ядро до зливу</text>
+  <text x="724" y="282" font-size="12" fill="#6b7280">всіх операцій на шині AHB/APB</text>
+  <text x="724" y="300" font-size="12" font-weight="700" fill="#27ae60">Дані 100% зафіксовані в RAM</text>
+
+  <!-- Right Row 3: Result Box -->
+  <rect x="506" y="328" width="416" height="76" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="518" y="347" font-size="13" font-weight="700" fill="#27ae60">Результат: Детермінізм та цілісність даних</text>
+  <text x="518" y="367" font-size="12" fill="#1a1a1a">• Буфер запису злито: ISR гарантовано бачить свіжі дані у RAM</text>
+  <text x="518" y="386" font-size="12" fill="#1a1a1a">• Прапорець периферії знято до виходу — нуль хибних ISR</text>
+
+  <!-- ==================== BOTTOM CARDS: DMB vs DSB vs ISB ==================== -->
+  <!-- Card 1: DMB -->
+  <rect x="24" y="430" width="296" height="90" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2"/>
+  <rect x="34" y="438" width="46" height="20" rx="3" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="57" y="452" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">DMB</text>
+  <text x="88" y="453" font-size="12" font-weight="700" fill="#1a1a1a">Порядок доступу до пам'яті</text>
+  <text x="34" y="472" font-size="12" fill="#6b7280">• Фіксує черговість R/W операцій</text>
+  <text x="34" y="490" font-size="12" fill="#6b7280">• Не зупиняє виконання конвеєра ядра</text>
+  <text x="34" y="508" font-size="12" font-weight="600" fill="#1a1a1a">• Застосування: DMA, SMP ядра</text>
+
+  <!-- Card 2: DSB -->
+  <rect x="332" y="430" width="296" height="90" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="342" y="438" width="46" height="20" rx="3" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="365" y="452" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">DSB</text>
+  <text x="396" y="453" font-size="12" font-weight="700" fill="#27ae60">Синхронізація шини та даних</text>
+  <text x="342" y="472" font-size="12" fill="#1a1a1a">• Зупиняє ядро до повного зливу буфера</text>
+  <text x="342" y="490" font-size="12" fill="#1a1a1a">• Гарантує завершення транзакцій шини</text>
+  <text x="342" y="508" font-size="12" font-weight="600" fill="#27ae60">• Застосування: перед MSR / виходом</text>
+
+  <!-- Card 3: ISB -->
+  <rect x="640" y="430" width="296" height="90" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="650" y="438" width="46" height="20" rx="3" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="673" y="452" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">ISB</text>
+  <text x="704" y="453" font-size="12" font-weight="700" fill="#2457d6">Скидання конвеєра вибірки</text>
+  <text x="650" y="472" font-size="12" fill="#1a1a1a">• Скидає конвеєр вибірки (Pipeline Flush)</text>
+  <text x="650" y="490" font-size="12" fill="#1a1a1a">• Перечитує команди з новим станом CPU</text>
+  <text x="650" y="508" font-size="12" font-weight="600" fill="#2457d6">• Застосування: після зміни BASEPRI</text>
+</svg>

@@ -1,0 +1,98 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Традиційне форматування проти відкладеного логування</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Перенесення розбору рядків і форматування чисел із мікроконтролера на комп'ютер</text>
+
+  <!-- Top Container: Traditional printf (Red) -->
+  <rect x="40" y="78" width="880" height="160" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="60" y="104" font-size="14" font-weight="bold" fill="#c0392b">Традиційний конвеєр: форкатування на пристрої (printf / snprintf)</text>
+
+  <!-- Step 1: Format strings in Flash -->
+  <rect x="60" y="118" width="180" height="100" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+  <text x="150" y="142" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Пам'ять Flash MCU</text>
+  <text x="150" y="162" font-size="12" fill="#6b7280" text-anchor="middle">ASCII форматні рядки</text>
+  <text x="150" y="180" font-size="12" fill="#c0392b" text-anchor="middle">"Temp=%d C, Err=%s\n"</text>
+  <text x="150" y="198" font-size="12" fill="#6b7280" text-anchor="middle">Займає 10–50 КБ Flash</text>
+
+  <!-- Step 2: CPU Formatting -->
+  <rect x="280" y="118" width="180" height="100" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+  <text x="370" y="142" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Процесорне ядро</text>
+  <text x="370" y="162" font-size="12" fill="#6b7280" text-anchor="middle">vsnprintf() рушій</text>
+  <text x="370" y="180" font-size="12" fill="#c0392b" text-anchor="middle">Ділення на 10, парсинг</text>
+  <text x="370" y="198" font-size="12" fill="#6b7280" text-anchor="middle">Сотні тактів блокування</text>
+
+  <!-- Step 3: UART ASCII stream -->
+  <rect x="500" y="118" width="180" height="100" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+  <text x="590" y="142" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Канал передачі</text>
+  <text x="590" y="162" font-size="12" fill="#6b7280" text-anchor="middle">Шина UART (115200)</text>
+  <text x="590" y="180" font-size="12" fill="#c0392b" text-anchor="middle">48 байтів ASCII тексту</text>
+  <text x="590" y="198" font-size="12" fill="#6b7280" text-anchor="middle">Затримка 4.2 мілісекунди</text>
+
+  <!-- Step 4: PC Terminal -->
+  <rect x="720" y="118" width="180" height="100" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+  <text x="810" y="142" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Хост-комп'ютер</text>
+  <text x="810" y="162" font-size="12" fill="#6b7280" text-anchor="middle">Пасивний термінал</text>
+  <text x="810" y="180" font-size="12" fill="#1a1a1a" text-anchor="middle">Прямий вивід ASCII</text>
+  <text x="810" y="198" font-size="12" fill="#6b7280" text-anchor="middle">Без участі процесора ПК</text>
+
+  <!-- Top Step Arrows -->
+  <path d="M240,168 L275,168" fill="none" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <path d="M460,168 L495,168" fill="none" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <path d="M680,168 L715,168" fill="none" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+
+  <!-- Bottom Container: Deferred logging (Green) -->
+  <rect x="40" y="258" width="880" height="175" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="60" y="284" font-size="14" font-weight="bold" fill="#27ae60">Відкладений конвеєр: нульові витрати Flash (defmt / TRICE)</text>
+
+  <!-- Step 1: String table in ELF -->
+  <rect x="60" y="298" width="180" height="115" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="150" y="322" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Таблиця рядків в ELF</text>
+  <text x="150" y="342" font-size="12" fill="#6b7280" text-anchor="middle">Секція .defmt на хості</text>
+  <text x="150" y="360" font-size="12" fill="#27ae60" text-anchor="middle">0 байтів у Flash MCU!</text>
+  <text x="150" y="378" font-size="12" fill="#6b7280" text-anchor="middle">Рядки замінено на ID</text>
+  <text x="150" y="396" font-size="12" fill="#6b7280" text-anchor="middle">Числовий маркер (2 байти)</text>
+
+  <!-- Step 2: Fast Binary Packing -->
+  <rect x="280" y="298" width="180" height="115" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="370" y="322" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Процесорне ядро</text>
+  <text x="370" y="342" font-size="12" fill="#6b7280" text-anchor="middle">Пакування аргументів</text>
+  <text x="370" y="360" font-size="12" fill="#27ae60" text-anchor="middle">Бінарний кадр {ID, val}</text>
+  <text x="370" y="378" font-size="12" fill="#6b7280" text-anchor="middle">Прямий запис без парсингу</text>
+  <text x="370" y="396" font-size="12" fill="#6b7280" text-anchor="middle">Усього 5–15 тактів ядра</text>
+
+  <!-- Step 3: Fast binary transport -->
+  <rect x="500" y="298" width="180" height="115" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="590" y="322" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Канал передачі</text>
+  <text x="590" y="342" font-size="12" fill="#6b7280" text-anchor="middle">Шина RTT / SWO / UART</text>
+  <text x="590" y="360" font-size="12" fill="#27ae60" text-anchor="middle">Лише 4 байти бінарно</text>
+  <text x="590" y="378" font-size="12" fill="#6b7280" text-anchor="middle">Затримка 0.3 мікросекунди</text>
+  <text x="590" y="396" font-size="12" fill="#6b7280" text-anchor="middle">Колосальне пришвидшення</text>
+
+  <!-- Step 4: Host Decoder -->
+  <rect x="720" y="298" width="180" height="115" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="810" y="322" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Хост-декодер</text>
+  <text x="810" y="342" font-size="12" fill="#6b7280" text-anchor="middle">Утиліта на ПК (CLI / GUI)</text>
+  <text x="810" y="360" font-size="12" fill="#27ae60" text-anchor="middle">Зіставлення ID з ELF</text>
+  <text x="810" y="378" font-size="12" fill="#6b7280" text-anchor="middle">Форматування на потужному CPU</text>
+  <text x="810" y="396" font-size="12" fill="#6b7280" text-anchor="middle">Вивід розбірливого тексту</text>
+
+  <!-- Bottom Step Arrows -->
+  <path d="M240,355 L275,355" fill="none" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <path d="M460,355 L495,355" fill="none" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <path d="M680,355 L715,355" fill="none" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+</svg>

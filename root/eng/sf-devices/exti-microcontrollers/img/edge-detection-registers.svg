@@ -1,0 +1,81 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <!-- Titles -->
+  <text x="480" y="40" fill="#1a1a1a" font-size="18" font-weight="bold" text-anchor="middle">Регістри детектування фронтів EXTI</text>
+  <text x="480" y="65" fill="#6b7280" font-size="13" text-anchor="middle">Апаратна логіка захоплення наростаючого та спадаючого фронту вхідного сигналу</text>
+
+  <!-- Input Block -->
+  <rect x="30" y="200" width="100" height="60" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <text x="80" y="225" fill="#1a1a1a" font-size="14" font-weight="bold" text-anchor="middle">Вхідний пін</text>
+  <text x="80" y="245" fill="#6b7280" font-size="13" text-anchor="middle">GPIO (EXTI)</text>
+
+  <!-- Input Lines and Split -->
+  <path d="M 130 230 L 150 230" stroke="#2457d6" stroke-width="2" fill="none"/>
+  <circle cx="150" cy="230" r="4" fill="#2457d6"/>
+  <path d="M 150 230 L 150 145 L 170 145" stroke="#2457d6" stroke-width="2" fill="none" marker-end="url(#arr)"/>
+  <path d="M 150 230 L 150 315 L 170 315" stroke="#2457d6" stroke-width="2" fill="none" marker-end="url(#arr)"/>
+
+  <!-- Top Detector -->
+  <rect x="170" y="110" width="170" height="70" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <text x="255" y="135" fill="#1a1a1a" font-size="14" font-weight="bold" text-anchor="middle">Наростаючий фронт</text>
+  <text x="255" y="155" fill="#6b7280" font-size="13" text-anchor="middle">Дозвіл у RTSR</text>
+
+  <!-- SWIER -->
+  <rect x="170" y="195" width="170" height="70" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <text x="255" y="220" fill="#1a1a1a" font-size="14" font-weight="bold" text-anchor="middle">Програмний запит</text>
+  <text x="255" y="240" fill="#6b7280" font-size="13" text-anchor="middle">Встановлення SWIER</text>
+
+  <!-- Bottom Detector -->
+  <rect x="170" y="280" width="170" height="70" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <text x="255" y="305" fill="#1a1a1a" font-size="14" font-weight="bold" text-anchor="middle">Спадаючий фронт</text>
+  <text x="255" y="325" fill="#6b7280" font-size="13" text-anchor="middle">Дозвіл у FTSR</text>
+
+  <!-- Lines to OR -->
+  <path d="M 340 145 L 360 145 L 360 205 L 380 205" stroke="#2457d6" stroke-width="2" fill="none" marker-end="url(#arr)"/>
+  <path d="M 340 230 L 380 230" stroke="#2457d6" stroke-width="2" fill="none" marker-end="url(#arr)"/>
+  <path d="M 340 315 L 360 315 L 360 255 L 380 255" stroke="#2457d6" stroke-width="2" fill="none" marker-end="url(#arr)"/>
+
+  <!-- OR Gate -->
+  <rect x="380" y="180" width="60" height="100" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="410" y="235" fill="#2457d6" font-size="16" font-weight="bold" text-anchor="middle">АБО</text>
+
+  <!-- OR to PR -->
+  <path d="M 440 230 L 470 230" stroke="#2457d6" stroke-width="2" fill="none" marker-end="url(#arr)"/>
+
+  <!-- PR Register -->
+  <rect x="470" y="195" width="140" height="70" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <text x="540" y="225" fill="#27ae60" font-size="14" font-weight="bold" text-anchor="middle">Запит (Pending)</text>
+  <text x="540" y="245" fill="#1a1a1a" font-size="13" text-anchor="middle">Регістр PR</text>
+
+  <!-- PR to AND -->
+  <path d="M 610 230 L 670 230" stroke="#2457d6" stroke-width="2" fill="none" marker-end="url(#arr)"/>
+
+  <!-- AND Gate -->
+  <rect x="670" y="200" width="60" height="60" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="700" y="235" fill="#2457d6" font-size="16" font-weight="bold" text-anchor="middle">ТА</text>
+
+  <!-- IMR to AND -->
+  <path d="M 700 295 L 700 260" stroke="#2457d6" stroke-width="2" fill="none" marker-end="url(#arr)"/>
+
+  <!-- IMR Register -->
+  <rect x="630" y="295" width="140" height="60" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <text x="700" y="320" fill="#1a1a1a" font-size="14" font-weight="bold" text-anchor="middle">Маска (IMR)</text>
+  <text x="700" y="340" fill="#6b7280" font-size="13" text-anchor="middle">Дозволяє лінію</text>
+
+  <!-- AND to NVIC -->
+  <path d="M 730 230 L 790 230" stroke="#2457d6" stroke-width="2" fill="none" marker-end="url(#arr)"/>
+
+  <!-- NVIC -->
+  <rect x="790" y="200" width="140" height="60" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <text x="860" y="225" fill="#1a1a1a" font-size="14" font-weight="bold" text-anchor="middle">Контролер</text>
+  <text x="860" y="245" fill="#1a1a1a" font-size="14" font-weight="bold" text-anchor="middle">NVIC</text>
+
+</svg>

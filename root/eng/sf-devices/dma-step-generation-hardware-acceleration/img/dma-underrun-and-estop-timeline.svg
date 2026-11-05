@@ -1,0 +1,81 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-main" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <text x="480" y="36" text-anchor="middle" font-size="18" font-weight="700" fill="#1a1a1a">Діаграма подій Half-Transfer, Underrun та аварійного E-STOP</text>
+  <text x="480" y="58" text-anchor="middle" font-size="13" fill="#6b7280">Детекція затримки RTOS, спустошення буфера кроків та миттєве апаратне вимкнення таймера</text>
+
+  <rect x="40" y="80" width="880" height="355" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Розмітка зон діаграми -->
+  <line x1="390" y1="95" x2="390" y2="415" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="680" y1="95" x2="680" y2="415" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,3"/>
+
+  <text x="215" y="105" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">Фаза 1: Нормальний рух (HT/TC)</text>
+  <text x="535" y="105" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">Фаза 2: Underrun (Буфер пустий)</text>
+  <text x="800" y="105" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">Фаза 3: Апаратний E-STOP</text>
+
+  <!-- 1. Сигнал генерації STEP -->
+  <text x="60" y="145" font-size="13" font-weight="700" fill="#1a1a1a">Імпульси STEP</text>
+  <!-- Нормальні імпульси -->
+  <path d="M 170 150 L 190 150 L 190 130 L 205 130 L 205 150 L 225 150 L 225 130 L 240 130 L 240 150 L 260 150 L 260 130 L 275 130 L 275 150 L 295 150 L 295 130 L 310 130 L 310 150 L 330 150 L 330 130 L 345 130 L 345 150 L 365 150 L 365 130 L 380 130 L 380 150 L 400 150 L 400 130 L 415 130 L 415 150 L 440 150 L 440 130 L 455 130 L 455 150 L 485 150 L 485 130 L 500 130 L 500 150 L 535 150 L 535 130 L 550 130 L 550 150 L 610 150 L 610 130 L 625 130 L 625 150 L 680 150 L 880 150" stroke="#1a1a1a" stroke-width="1.5" fill="none"/>
+
+  <!-- 2. Буфер DMA (Стан заповнення) -->
+  <text x="60" y="200" font-size="13" font-weight="700" fill="#2457d6">Буфер DMA</text>
+  <rect x="170" y="185" width="110" height="28" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="225" y="203" text-anchor="middle" font-size="12" fill="#2457d6">Буфер A (Готовий)</text>
+
+  <rect x="285" y="185" width="100" height="28" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="335" y="203" text-anchor="middle" font-size="12" fill="#27ae60">Буфер B (Готовий)</text>
+
+  <rect x="390" y="185" width="140" height="28" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="460" y="203" text-anchor="middle" font-size="12" fill="#2457d6">Буфер A (Зчитано)</text>
+
+  <rect x="535" y="185" width="145" height="28" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="607" y="203" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">Буфер B (НЕ ГОТОВИЙ!)</text>
+
+  <rect x="685" y="185" width="195" height="28" rx="4" fill="#ffffff" stroke="#6b7280" stroke-width="1"/>
+  <text x="782" y="203" text-anchor="middle" font-size="12" fill="#6b7280">DMA вимкнено (Idle)</text>
+
+  <!-- 3. Події Half-Transfer / Transfer-Complete -->
+  <text x="60" y="255" font-size="13" font-weight="700" fill="#27ae60">Події переривань</text>
+  <circle cx="280" cy="245" r="4" fill="#2457d6"/>
+  <text x="280" y="265" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">HT Interrupt</text>
+
+  <circle cx="390" cy="245" r="4" fill="#27ae60"/>
+  <text x="390" y="265" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">TC Interrupt</text>
+
+  <!-- Подія Underrun -->
+  <circle cx="535" cy="245" r="4" fill="#c0392b"/>
+  <text x="535" y="265" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">Underrun Warning</text>
+
+  <!-- 4. Аварійний сигнал E-STOP (Hardware Break) -->
+  <text x="60" y="315" font-size="13" font-weight="700" fill="#c0392b">Вхід E-STOP / Break</text>
+  <path d="M 170 305 L 680 305 L 680 325 L 880 325" stroke="#c0392b" stroke-width="2" fill="none"/>
+  <circle cx="680" cy="325" r="4" fill="#c0392b"/>
+  <text x="700" y="315" font-size="12" font-weight="700" fill="#c0392b">Апаратний Break (TIMx_BKIN)</text>
+
+  <!-- 5. Стан виходів таймера MOE -->
+  <text x="60" y="375" font-size="13" font-weight="700" fill="#1a1a1a">Регістр BDTR.MOE</text>
+  <rect x="170" y="360" width="510" height="28" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="425" y="378" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">MOE = 1 (Виходи таймера активні, кроки генеруються)</text>
+
+  <rect x="680" y="360" width="200" height="28" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="780" y="378" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">MOE = 0 (Миттєвий Hi-Z)</text>
+
+  <text x="480" y="462" text-anchor="middle" font-size="12" fill="#6b7280">Апаратний вхід Break знеструмлює силові ключі двигуна за 12-25 нс без очікування переривання CPU</text>
+</svg>

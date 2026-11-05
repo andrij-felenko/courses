@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+  <text x="480" y="40" fill="#1a1a1a" font-size="18" font-weight="bold" text-anchor="middle">timer-encoder-mode-registers.svg</text>
+  <text x="480" y="65" fill="#6b7280" font-size="13" text-anchor="middle">Регістри налаштування апаратного квадратурного декодера</text>
+
+  <rect x="200" y="140" width="750" height="260" fill="none" stroke="#d0d7de" stroke-width="2" stroke-dasharray="8,4" rx="8"/>
+  <text x="220" y="170" fill="#6b7280" font-size="14" text-anchor="start">Периферійний модуль таймера</text>
+
+  <rect x="30" y="190" width="140" height="80" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <text x="100" y="230" fill="#1a1a1a" font-size="16" font-weight="bold" text-anchor="middle">Канали A та B</text>
+  <text x="100" y="250" fill="#6b7280" font-size="13" text-anchor="middle">Піни TI1, TI2</text>
+
+  <rect x="30" y="320" width="140" height="60" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <text x="100" y="348" fill="#1a1a1a" font-size="16" font-weight="bold" text-anchor="middle">Канал Z</text>
+  <text x="100" y="368" fill="#6b7280" font-size="13" text-anchor="middle">Імпульс індексу</text>
+
+  <rect x="220" y="190" width="140" height="80" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="290" y="230" fill="#2457d6" font-size="16" font-weight="bold" text-anchor="middle">CCMR1</text>
+  <text x="290" y="250" fill="#1a1a1a" font-size="13" text-anchor="middle">Фільтрація (ICF)</text>
+
+  <rect x="410" y="190" width="140" height="80" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="480" y="230" fill="#2457d6" font-size="16" font-weight="bold" text-anchor="middle">CCER</text>
+  <text x="480" y="250" fill="#1a1a1a" font-size="13" text-anchor="middle">Полярність (CCxP)</text>
+
+  <rect x="410" y="320" width="140" height="60" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="480" y="348" fill="#2457d6" font-size="16" font-weight="bold" text-anchor="middle">ETR / EXTI</text>
+  <text x="480" y="368" fill="#1a1a1a" font-size="13" text-anchor="middle">Обробка індексу</text>
+
+  <rect x="600" y="190" width="160" height="80" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="680" y="230" fill="#2457d6" font-size="16" font-weight="bold" text-anchor="middle">SMCR</text>
+  <text x="680" y="250" fill="#1a1a1a" font-size="13" text-anchor="middle">Режим енкодера (SMS)</text>
+
+  <rect x="800" y="190" width="130" height="80" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <text x="865" y="230" fill="#27ae60" font-size="16" font-weight="bold" text-anchor="middle">CNT / ARR</text>
+  <text x="865" y="250" fill="#1a1a1a" font-size="13" text-anchor="middle">Лічильник позиції</text>
+
+  <line x1="170" y1="230" x2="212" y2="230" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <line x1="360" y1="230" x2="402" y2="230" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <line x1="550" y1="230" x2="592" y2="230" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <line x1="760" y1="230" x2="792" y2="230" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <line x1="170" y1="350" x2="402" y2="350" stroke="#6b7280" stroke-width="2" marker-end="url(#arr-gray)"/>
+  <path d="M550,350 L865,350 L865,278" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="707" y="335" fill="#6b7280" font-size="12" text-anchor="middle">Скидання лічильника</text>
+
+</svg>

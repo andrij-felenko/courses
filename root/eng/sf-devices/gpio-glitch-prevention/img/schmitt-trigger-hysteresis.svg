@@ -1,0 +1,87 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+  
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="30" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Тригер Шмітта: гістерезис та придушення шуму</text>
+  <text x="480" y="55" text-anchor="middle" font-size="13" fill="#6b7280">Перетворює зашумлений пологий сигнал на чіткі прямокутні імпульси завдяки різним порогам перемикання</text>
+
+  <!-- Left Graph: Hysteresis Loop -->
+  <path d="M 100,400 L 440,400" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+  <path d="M 100,400 L 100,80" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+  <text x="445" y="405" font-size="14" font-style="italic" fill="#1a1a1a">V<tspan baseline-shift="sub" font-size="10">in</tspan></text>
+  <text x="100" y="70" text-anchor="middle" font-size="14" font-style="italic" fill="#1a1a1a">V<tspan baseline-shift="sub" font-size="10">out</tspan></text>
+
+  <path d="M 200,400 L 200,405" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="200" y="422" text-anchor="middle" font-size="14" fill="#1a1a1a">V<tspan baseline-shift="sub" font-size="10">T-</tspan></text>
+  <path d="M 300,400 L 300,405" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="300" y="422" text-anchor="middle" font-size="14" fill="#1a1a1a">V<tspan baseline-shift="sub" font-size="10">T+</tspan></text>
+
+  <path d="M 100,350 L 95,350" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="85" y="355" text-anchor="end" font-size="14" fill="#1a1a1a">V<tspan baseline-shift="sub" font-size="10">OL</tspan></text>
+  <path d="M 100,150 L 95,150" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="85" y="155" text-anchor="end" font-size="14" fill="#1a1a1a">V<tspan baseline-shift="sub" font-size="10">OH</tspan></text>
+
+  <path d="M 200,400 L 200,150" stroke="#d0d7de" stroke-dasharray="4 4" stroke-width="1"/>
+  <path d="M 300,400 L 300,150" stroke="#d0d7de" stroke-dasharray="4 4" stroke-width="1"/>
+  <path d="M 100,350 L 300,350" stroke="#d0d7de" stroke-dasharray="4 4" stroke-width="1"/>
+  <path d="M 100,150 L 400,150" stroke="#d0d7de" stroke-dasharray="4 4" stroke-width="1"/>
+
+  <path d="M 100,350 L 250,350" stroke="#2457d6" stroke-width="3" fill="none" marker-end="url(#arr-blue)"/>
+  <path d="M 250,350 L 300,350 L 300,150 L 400,150" stroke="#2457d6" stroke-width="3" fill="none" stroke-linejoin="round"/>
+  <path d="M 400,150 L 250,150" stroke="#2457d6" stroke-width="3" fill="none" marker-end="url(#arr-blue)"/>
+  <path d="M 250,150 L 200,150 L 200,350 L 100,350" stroke="#2457d6" stroke-width="3" fill="none" stroke-linejoin="round"/>
+
+  <path d="M 230,380 L 205,380" stroke="#6b7280" stroke-width="1" marker-end="url(#arr-gray)"/>
+  <path d="M 270,380 L 295,380" stroke="#6b7280" stroke-width="1" marker-end="url(#arr-gray)"/>
+  <text x="250" y="384" text-anchor="middle" font-size="14" fill="#6b7280">ΔV<tspan baseline-shift="sub" font-size="10">H</tspan></text>
+
+  <text x="270" y="460" text-anchor="middle" font-size="14" fill="#1a1a1a">Передавальна характеристика</text>
+
+  <!-- Right Graphs: Time Domain -->
+  <!-- Top Graph: Input -->
+  <path d="M 530,260 L 930,260" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+  <path d="M 530,260 L 530,80" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+  <text x="935" y="265" font-size="14" font-style="italic" fill="#1a1a1a">t</text>
+  <text x="530" y="70" text-anchor="middle" font-size="14" font-style="italic" fill="#1a1a1a">V<tspan baseline-shift="sub" font-size="10">in</tspan></text>
+
+  <path d="M 530,140 L 910,140" stroke="#6b7280" stroke-dasharray="4 4" stroke-width="1"/>
+  <path d="M 530,200 L 910,200" stroke="#6b7280" stroke-dasharray="4 4" stroke-width="1"/>
+  <text x="520" y="145" text-anchor="end" font-size="14" fill="#6b7280">V<tspan baseline-shift="sub" font-size="10">T+</tspan></text>
+  <text x="520" y="205" text-anchor="end" font-size="14" fill="#6b7280">V<tspan baseline-shift="sub" font-size="10">T-</tspan></text>
+
+  <path d="M 530,240 L 560,240 L 575,210 L 580,220 L 590,180 L 595,190 L 605,150 L 610,160 L 614,130 L 618,155 L 624,120 L 640,110 L 720,110 L 735,140 L 740,130 L 750,170 L 755,160 L 765,190 L 770,185 L 775,210 L 780,185 L 785,225 L 800,240 L 930,240" stroke="#6b7280" stroke-width="2.5" fill="none" stroke-linejoin="round"/>
+  
+  <text x="730" y="95" text-anchor="middle" font-size="14" fill="#1a1a1a">Зашумлений сигнал (RC-фільтр)</text>
+
+  <!-- Bottom Graph: Output -->
+  <path d="M 530,440 L 930,440" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+  <path d="M 530,440 L 530,280" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+  <text x="935" y="445" font-size="14" font-style="italic" fill="#1a1a1a">t</text>
+  <text x="530" y="270" text-anchor="middle" font-size="14" font-style="italic" fill="#1a1a1a">V<tspan baseline-shift="sub" font-size="10">out</tspan></text>
+
+  <path d="M 530,320 L 525,320" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="520" y="325" text-anchor="end" font-size="14" fill="#1a1a1a">V<tspan baseline-shift="sub" font-size="10">OH</tspan></text>
+  <path d="M 530,420 L 525,420" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="520" y="425" text-anchor="end" font-size="14" fill="#1a1a1a">V<tspan baseline-shift="sub" font-size="10">OL</tspan></text>
+
+  <!-- Switching Vertical Lines -->
+  <path d="M 613,130 L 613,440" stroke="#d0d7de" stroke-dasharray="4 4" stroke-width="1"/>
+  <path d="M 773,210 L 773,440" stroke="#d0d7de" stroke-dasharray="4 4" stroke-width="1"/>
+
+  <path d="M 530,420 L 613,420 L 613,320 L 773,320 L 773,420 L 930,420" stroke="#2457d6" stroke-width="2.5" fill="none" stroke-linejoin="round"/>
+  
+  <text x="730" y="305" text-anchor="middle" font-size="14" fill="#2457d6">Відновлений прямокутний імпульс</text>
+
+  <!-- Subtitle for Right Graph -->
+  <text x="730" y="460" text-anchor="middle" font-size="14" fill="#1a1a1a">Часові діаграми</text>
+
+</svg>

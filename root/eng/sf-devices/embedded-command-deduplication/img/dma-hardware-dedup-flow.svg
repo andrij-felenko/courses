@@ -1,0 +1,98 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Підкладка -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Низькорівневий конвеєр апаратної дедуплікації вхідного кадру</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Обробка DMA, апаратний CRC32, атомарний доступ без блокування переривань та очищення D-Cache</text>
+
+  <!-- Блок 1: Прийом DMA -->
+  <rect x="30" y="80" width="205" height="345" fill="#f4f6f8" stroke="#d0d7de" rx="6"/>
+  <text x="132" y="108" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">1. Прийом через DMA</text>
+
+  <rect x="45" y="125" width="175" height="110" fill="#eaf0fd" stroke="#2457d6" rx="4"/>
+  <text x="132" y="152" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Кільцевий DMA буфер</text>
+  <text x="132" y="174" font-size="12" fill="#1a1a1a" text-anchor="middle">Прийом із порту UART</text>
+  <text x="132" y="196" font-size="12" fill="#1a1a1a" text-anchor="middle">Фіксований розмір кадру</text>
+  <text x="132" y="216" font-size="11" fill="#6b7280" text-anchor="middle">Без участі процесора</text>
+
+  <rect x="45" y="250" width="175" height="155" fill="#fdecea" stroke="#c0392b" rx="4"/>
+  <text x="132" y="278" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">Контроль D-Cache</text>
+  <text x="132" y="300" font-size="12" fill="#1a1a1a" text-anchor="middle">alignas(32) буферів</text>
+  <text x="132" y="322" font-size="12" fill="#c0392b" text-anchor="middle">SCB_InvalidateDCache</text>
+  <text x="132" y="344" font-size="12" fill="#1a1a1a" text-anchor="middle">Усунення застарілих</text>
+  <text x="132" y="366" font-size="12" fill="#1a1a1a" text-anchor="middle">рядків кеш-пам'яті</text>
+  <text x="132" y="386" font-size="11" fill="#6b7280" text-anchor="middle">Синхронізація з RAM</text>
+
+  <!-- Стрілка 1 -> 2 -->
+  <line x1="235" y1="180" x2="253" y2="180" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Блок 2: Апаратний CRC32 -->
+  <rect x="255" y="80" width="210" height="345" fill="#f4f6f8" stroke="#d0d7de" rx="6"/>
+  <text x="360" y="108" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">2. Апаратний CRC32</text>
+
+  <rect x="270" y="125" width="180" height="135" fill="#eaf0fd" stroke="#2457d6" rx="4"/>
+  <text x="360" y="152" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Периферія CRC-&gt;DR</text>
+  <text x="360" y="174" font-size="12" fill="#1a1a1a" text-anchor="middle">Апаратний поліном</text>
+  <text x="360" y="196" font-size="12" fill="#2457d6" text-anchor="middle">4 такти на кожне слово</text>
+  <text x="360" y="218" font-size="12" fill="#1a1a1a" text-anchor="middle">Обчислення хешу TxID</text>
+  <text x="360" y="238" font-size="11" fill="#6b7280" text-anchor="middle">Час згортки &lt; 40 нс</text>
+
+  <rect x="270" y="275" width="180" height="130" fill="#ffffff" stroke="#d0d7de" rx="4"/>
+  <text x="360" y="302" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Швидка індексація</text>
+  <text x="360" y="324" font-size="12" fill="#1a1a1a" text-anchor="middle">index = hash &amp; (M - 1)</text>
+  <text x="360" y="346" font-size="12" fill="#27ae60" text-anchor="middle">1 такт замість UDIV</text>
+  <text x="360" y="368" font-size="12" fill="#1a1a1a" text-anchor="middle">Фіксований WCET</text>
+  <text x="360" y="388" font-size="11" fill="#6b7280" text-anchor="middle">Таблиця M = 2^k</text>
+
+  <!-- Стрілка 2 -> 3 -->
+  <line x1="465" y1="180" x2="483" y2="180" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Блок 3: Атомарна перевірка -->
+  <rect x="485" y="80" width="220" height="345" fill="#f4f6f8" stroke="#d0d7de" rx="6"/>
+  <text x="595" y="108" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">3. Атомарний доступ</text>
+
+  <rect x="500" y="125" width="190" height="150" fill="#e9f7ef" stroke="#27ae60" rx="4"/>
+  <text x="595" y="152" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Схема без блокувань</text>
+  <text x="595" y="174" font-size="12" fill="#1a1a1a" text-anchor="middle">Інструкція LDREX</text>
+  <text x="595" y="196" font-size="12" fill="#1a1a1a" text-anchor="middle">Монітор ексклюзивності</text>
+  <text x="595" y="218" font-size="12" fill="#1a1a1a" text-anchor="middle">Фіксація через STREX</text>
+  <text x="595" y="240" font-size="12" fill="#27ae60" text-anchor="middle">Без зупинки переривань</text>
+  <text x="595" y="260" font-size="11" fill="#6b7280" text-anchor="middle">Latency залишається &lt; 1 мкс</text>
+
+  <rect x="500" y="290" width="190" height="115" fill="#ffffff" stroke="#d0d7de" rx="4"/>
+  <text x="595" y="318" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Бар'єри пам'яті</text>
+  <text x="595" y="340" font-size="12" fill="#1a1a1a" text-anchor="middle">DMB: порядок дескриптора</text>
+  <text x="595" y="362" font-size="12" fill="#1a1a1a" text-anchor="middle">DSB: фіксація в шині</text>
+  <text x="595" y="382" font-size="11" fill="#6b7280" text-anchor="middle">Гарантія послідовності</text>
+
+  <!-- Стрілка 3 -> 4 -->
+  <line x1="705" y1="180" x2="723" y2="180" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+
+  <!-- Блок 4: Результат кешу -->
+  <rect x="725" y="80" width="205" height="345" fill="#f4f6f8" stroke="#d0d7de" rx="6"/>
+  <text x="827" y="108" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">4. Рішення кешу O(1)</text>
+
+  <rect x="740" y="125" width="175" height="125" fill="#fdecea" stroke="#c0392b" rx="4"/>
+  <text x="827" y="152" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">Дублікат (Hit)</text>
+  <text x="827" y="174" font-size="12" fill="#c0392b" text-anchor="middle">Команда вже виконана</text>
+  <text x="827" y="196" font-size="12" fill="#1a1a1a" text-anchor="middle">Миттєва повторна ACK</text>
+  <text x="827" y="218" font-size="12" fill="#27ae60" text-anchor="middle">Приводи не рухаються</text>
+  <text x="827" y="238" font-size="11" fill="#6b7280" text-anchor="middle">Ідемпотентна відповідь</text>
+
+  <rect x="740" y="265" width="175" height="140" fill="#e9f7ef" stroke="#27ae60" rx="4"/>
+  <text x="827" y="292" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Нова команда (Miss)</text>
+  <text x="827" y="314" font-size="12" fill="#27ae60" text-anchor="middle">Запис TxID у хеш-таблицю</text>
+  <text x="827" y="336" font-size="12" fill="#1a1a1a" text-anchor="middle">Стан TX_PROCESSING</text>
+  <text x="827" y="358" font-size="12" fill="#1a1a1a" text-anchor="middle">Витіснення LRU у FIFO</text>
+  <text x="827" y="380" font-size="12" fill="#2457d6" text-anchor="middle">Передача актуаторам</text>
+</svg>

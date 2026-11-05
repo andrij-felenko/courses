@@ -1,0 +1,164 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="100%" height="100%" font-family="system-ui, -apple-system, sans-serif">
+  <!-- Canvas Background -->
+  <rect x="0" y="0" width="960" height="540" fill="#ffffff"/>
+
+  <defs>
+    <!-- Arrow markers -->
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-amber" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#d97706"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="36" text-anchor="middle" font-size="18" font-weight="700" fill="#1a1a1a">Осцилограма діагностичних сигналів захисту буфера DDA</text>
+  <text x="480" y="56" text-anchor="middle" font-size="13" fill="#6b7280">Діагностика затримки RTOS, рекурентне гальмування Тейлора та відновлення черги команд</text>
+
+  <!-- Main Logic Analyzer Panel -->
+  <rect x="24" y="72" width="912" height="358" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Toolbar / Header -->
+  <circle cx="40" cy="88" r="4" fill="#27ae60"/>
+  <text x="52" y="92" font-size="12" font-weight="700" fill="#1a1a1a">LOGIC ANALYZER</text>
+  <text x="165" y="92" font-size="12" fill="#6b7280">24 MS/s • 3.3V CMOS • Тригер: CH2 (DEBUG_DECEL) ↑ Наростаючий фронт</text>
+  <text x="918" y="92" font-size="12" font-weight="700" fill="#2457d6" text-anchor="end">Шкала: 5 мс / поділ</text>
+
+  <!-- Phase Background Shading in Waveform Grid -->
+  <rect x="330" y="130" width="128" height="216" fill="#fef3c7" opacity="0.35"/>
+  <rect x="458" y="130" width="156" height="216" fill="#fdecea" opacity="0.4"/>
+  <rect x="764" y="130" width="156" height="216" fill="#e9f7ef" opacity="0.35"/>
+
+  <!-- Phase Header Badges -->
+  <rect x="206" y="104" width="118" height="22" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="265" y="119" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">1. Штатний рух</text>
+
+  <rect x="334" y="104" width="118" height="22" rx="4" fill="#fef3c7" stroke="#d97706" stroke-width="1"/>
+  <text x="393" y="119" font-size="12" font-weight="700" fill="#d97706" text-anchor="middle">2. Попередження</text>
+
+  <rect x="470" y="104" width="160" height="22" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="550" y="119" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">3. Soft-stop гальмування</text>
+
+  <rect x="642" y="104" width="118" height="22" rx="4" fill="#ffffff" stroke="#6b7280" stroke-width="1"/>
+  <text x="701" y="119" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">4. Зупинка (0 Гц)</text>
+
+  <rect x="772" y="104" width="146" height="22" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="845" y="119" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">5. Поновлення черги</text>
+
+  <!-- Vertical Channel Separator -->
+  <line x1="200" y1="102" x2="200" y2="410" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Row Dividers -->
+  <line x1="24" y1="184" x2="936" y2="184" stroke="#e1e4e8" stroke-width="1"/>
+  <line x1="24" y1="238" x2="936" y2="238" stroke="#e1e4e8" stroke-width="1"/>
+  <line x1="24" y1="292" x2="936" y2="292" stroke="#e1e4e8" stroke-width="1"/>
+  <line x1="24" y1="346" x2="936" y2="346" stroke="#e1e4e8" stroke-width="1"/>
+
+  <!-- Channel 0 Labels -->
+  <text x="36" y="153" font-size="13" font-weight="700" fill="#1a1a1a">CH0: STEP_OUT</text>
+  <text x="36" y="171" font-size="12" fill="#6b7280">Фізичні кроки DDA</text>
+  <text x="194" y="150" font-size="12" fill="#6b7280" text-anchor="end">1</text>
+  <text x="194" y="174" font-size="12" fill="#6b7280" text-anchor="end">0</text>
+
+  <!-- Channel 1 Labels -->
+  <text x="36" y="207" font-size="13" font-weight="700" fill="#d97706">CH1: DEBUG_WARN</text>
+  <text x="36" y="225" font-size="12" fill="#6b7280">T_avail ≤ T_warning</text>
+  <text x="194" y="204" font-size="12" fill="#6b7280" text-anchor="end">1</text>
+  <text x="194" y="228" font-size="12" fill="#6b7280" text-anchor="end">0</text>
+
+  <!-- Channel 2 Labels -->
+  <text x="36" y="261" font-size="13" font-weight="700" fill="#c0392b">CH2: DEBUG_DECEL</text>
+  <text x="36" y="279" font-size="12" fill="#6b7280">Активне гальмування</text>
+  <text x="194" y="258" font-size="12" fill="#6b7280" text-anchor="end">1</text>
+  <text x="194" y="282" font-size="12" fill="#6b7280" text-anchor="end">0</text>
+
+  <!-- Channel 3 Labels -->
+  <text x="36" y="315" font-size="13" font-weight="700" fill="#1a1a1a">CH3: DEBUG_STOP</text>
+  <text x="36" y="333" font-size="12" fill="#6b7280">Фіксація зупинки</text>
+  <text x="194" y="312" font-size="12" fill="#6b7280" text-anchor="end">1</text>
+  <text x="194" y="336" font-size="12" fill="#6b7280" text-anchor="end">0</text>
+
+  <!-- Channel 4 Labels -->
+  <text x="36" y="369" font-size="13" font-weight="700" fill="#2457d6">CH4: PLANNER_FIFO</text>
+  <text x="36" y="387" font-size="12" fill="#6b7280">Стан задачі та черги</text>
+
+  <!-- Trigger Marker & Vertical Line -->
+  <path d="M454,128 L462,128 L458,134 Z" fill="#c0392b"/>
+  <line x1="458" y1="134" x2="458" y2="346" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,3"/>
+
+  <!-- Waveform CH0: STEP_OUT -->
+  <path d="M200,170 L206,170 L206,146 L211,146 L211,170 L222,170 L222,146 L227,146 L227,170 L238,170 L238,146 L243,146 L243,170 L254,170 L254,146 L259,146 L259,170 L270,170 L270,146 L275,146 L275,170 L286,170 L286,146 L291,146 L291,170 L302,170 L302,146 L307,146 L307,170 L318,170 L318,146 L323,146 L323,170 L334,170 L334,146 L339,146 L339,170 L350,170 L350,146 L355,146 L355,170 L366,170 L366,146 L371,146 L371,170 L382,170 L382,146 L387,146 L387,170 L398,170 L398,146 L403,146 L403,170 L414,170 L414,146 L419,146 L419,170 L430,170 L430,146 L435,146 L435,170 L446,170 L446,146 L451,146 L451,170 L468,170 L468,146 L473,146 L473,170 L498,170 L498,146 L503,146 L503,170 L540,170 L540,146 L545,146 L545,170 L598,170 L598,146 L603,146 L603,170 L778,170 L778,146 L783,146 L783,170 L824,170 L824,146 L829,146 L829,170 L856,170 L856,146 L861,146 L861,170 L880,170 L880,146 L885,146 L885,170 L898,170 L898,146 L903,146 L903,170 L920,170" fill="none" stroke="#2457d6" stroke-width="2"/>
+
+  <!-- Waveform CH1: DEBUG_WARN -->
+  <path d="M200,224 L330,224 L330,200 L764,200 L764,224 L920,224" fill="none" stroke="#d97706" stroke-width="2"/>
+
+  <!-- Waveform CH2: DEBUG_DECEL -->
+  <path d="M200,278 L458,278 L458,254 L614,254 L614,278 L920,278" fill="none" stroke="#c0392b" stroke-width="2"/>
+
+  <!-- Waveform CH3: DEBUG_STOP -->
+  <path d="M200,332 L614,332 L614,308 L764,308 L764,332 L920,332" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Channel 4 State / Bus Blocks -->
+  <rect x="204" y="360" width="124" height="28" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="266" y="378" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">FIFO в нормі</text>
+
+  <rect x="338" y="360" width="296" height="28" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="486" y="378" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">Затримка RTOS (буфер DDA спустошується)</text>
+
+  <rect x="644" y="360" width="116" height="28" rx="4" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/>
+  <text x="702" y="378" font-size="12" font-weight="700" fill="#d97706" text-anchor="middle">Поповнення FIFO</text>
+
+  <rect x="770" y="360" width="150" height="28" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="845" y="378" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">FIFO &gt; Watermark (ОК)</text>
+
+  <!-- Timeline Axis & Ticks -->
+  <line x1="200" y1="410" x2="860" y2="410" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="872" y="414" font-size="12" font-weight="700" fill="#1a1a1a">Час, t</text>
+
+  <line x1="200" y1="407" x2="200" y2="413" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="200" y="425" font-size="12" fill="#6b7280" text-anchor="middle">t₀</text>
+
+  <line x1="330" y1="407" x2="330" y2="413" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="330" y="425" font-size="12" fill="#6b7280" text-anchor="middle">t_warn</text>
+
+  <line x1="458" y1="407" x2="458" y2="413" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="458" y="425" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">t_trigger</text>
+
+  <line x1="614" y1="407" x2="614" y2="413" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="614" y="425" font-size="12" fill="#6b7280" text-anchor="middle">t_stop</text>
+
+  <line x1="764" y1="407" x2="764" y2="413" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="764" y="425" font-size="12" fill="#27ae60" text-anchor="middle">t_refill</text>
+
+  <!-- Bottom Insight Cards -->
+  <!-- Card 1 -->
+  <rect x="24" y="442" width="292" height="76" rx="6" fill="#ffffff" stroke="#d97706" stroke-width="1.5"/>
+  <text x="36" y="458" font-size="12" font-weight="700" fill="#d97706">1. Фізичний поріг T_avail (попередження)</text>
+  <text x="36" y="475" font-size="12" fill="#1a1a1a">• T_avail = ∑ Δt_k &lt; T_warn: сигнал задачі RTOS</text>
+  <text x="36" y="492" font-size="12" fill="#6b7280">• Захист від пастки дрібних мікросегментів</text>
+  <text x="36" y="508" font-size="12" fill="#6b7280">• Планувальник підвищує пріоритет у черзі</text>
+
+  <!-- Card 2 -->
+  <rect x="334" y="442" width="292" height="76" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="346" y="458" font-size="12" font-weight="700" fill="#c0392b">2. Автономне гальмування Тейлора</text>
+  <text x="346" y="475" font-size="12" fill="#1a1a1a">• c_n = c_{n-1} + ((c_{n-1} · K_Q16[n]) &gt;&gt; 16)</text>
+  <text x="346" y="492" font-size="12" fill="#6b7280">• Розрахунок у ISR за 2–3 такти без FPU</text>
+  <text x="346" y="508" font-size="12" fill="#6b7280">• М'яка зупинка soft-stop без зриву кроків</text>
+
+  <!-- Card 3 -->
+  <rect x="644" y="442" width="292" height="76" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="656" y="458" font-size="12" font-weight="700" fill="#27ae60">3. Фіксація зупинки та відновлення</text>
+  <text x="656" y="475" font-size="12" fill="#1a1a1a">• Баланс: S_total == S_emitted + S_remaining</text>
+  <text x="656" y="492" font-size="12" fill="#6b7280">• Залишок повертається в голову черги DDA</text>
+  <text x="656" y="508" font-size="12" fill="#6b7280">• Плавний розгін після наповнення буфера</text>
+</svg>

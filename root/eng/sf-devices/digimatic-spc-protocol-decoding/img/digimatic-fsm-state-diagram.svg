@@ -1,0 +1,84 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-ok" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-err" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <text x="480" y="36" fill="#1a1a1a" font-size="18" font-weight="bold" text-anchor="middle">Скінченний автомат декодування протоколів Mitutoyo Digimatic та 24-bit SPC</text>
+  <text x="480" y="58" fill="#6b7280" font-size="13" text-anchor="middle">Покроковий перехід станів: від ініціалізації запиту REQ до валідації бітів і відкату при таймаутах</text>
+
+  <!-- STATE_IDLE -->
+  <rect x="50" y="140" width="160" height="90" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <text x="130" y="168" fill="#1a1a1a" font-size="13" font-weight="bold" text-anchor="middle">STATE_IDLE</text>
+  <text x="130" y="190" fill="#6b7280" font-size="11" text-anchor="middle">Очікування тригера</text>
+  <text x="130" y="210" fill="#6b7280" font-size="11" text-anchor="middle">Лінія вільна (REQ High)</text>
+
+  <!-- STATE_REQUEST -->
+  <rect x="270" y="140" width="165" height="90" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="352" y="168" fill="#2457d6" font-size="13" font-weight="bold" text-anchor="middle">STATE_REQUEST</text>
+  <text x="352" y="190" fill="#1a1a1a" font-size="11" text-anchor="middle">Формування REQ = Low</text>
+  <text x="352" y="210" fill="#6b7280" font-size="11" text-anchor="middle">Запуск таймауту CLK</text>
+
+  <!-- STATE_RECEIVE -->
+  <rect x="495" y="140" width="170" height="90" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="580" y="168" fill="#2457d6" font-size="13" font-weight="bold" text-anchor="middle">STATE_RECEIVE</text>
+  <text x="580" y="190" fill="#1a1a1a" font-size="11" text-anchor="middle">Зсув біта по спаду CLK</text>
+  <text x="580" y="210" fill="#6b7280" font-size="11" text-anchor="middle">Лічильник бітів bit_idx++</text>
+
+  <!-- STATE_VALIDATE -->
+  <rect x="725" y="140" width="180" height="90" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <text x="815" y="168" fill="#27ae60" font-size="13" font-weight="bold" text-anchor="middle">STATE_VALIDATE</text>
+  <text x="815" y="190" fill="#1a1a1a" font-size="11" text-anchor="middle">Контроль BCD / формату</text>
+  <text x="815" y="210" fill="#27ae60" font-size="11" text-anchor="middle">Готове значення у SI</text>
+
+  <!-- STATE_ERROR -->
+  <rect x="380" y="320" width="200" height="85" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="2"/>
+  <text x="480" y="348" fill="#c0392b" font-size="13" font-weight="bold" text-anchor="middle">STATE_ERROR</text>
+  <text x="480" y="370" fill="#1a1a1a" font-size="11" text-anchor="middle">Таймаут лінії CLK (&gt; 50 мс)</text>
+  <text x="480" y="390" fill="#6b7280" font-size="11" text-anchor="middle">Скидання лінії REQ = High</text>
+
+  <!-- Flow Arrows -->
+  <!-- IDLE -> REQUEST -->
+  <line x1="210" y1="185" x2="268" y2="185" stroke="#2457d6" stroke-width="2" marker-end="url(#arr)"/>
+  <text x="240" y="177" fill="#2457d6" font-size="11" text-anchor="middle">Запит</text>
+
+  <!-- REQUEST -> RECEIVE -->
+  <line x1="435" y1="185" x2="493" y2="185" stroke="#2457d6" stroke-width="2" marker-end="url(#arr)"/>
+  <text x="465" y="177" fill="#2457d6" font-size="11" text-anchor="middle">Спад CLK</text>
+
+  <!-- RECEIVE loop -->
+  <path d="M 550,140 C 550,112 610,112 610,138" fill="none" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arr)"/>
+  <text x="580" y="108" fill="#2457d6" font-size="11" text-anchor="middle">Спади CLK: bit_idx &lt; N</text>
+
+  <!-- RECEIVE -> VALIDATE -->
+  <line x1="665" y1="185" x2="723" y2="185" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-ok)"/>
+  <text x="695" y="177" fill="#27ae60" font-size="11" text-anchor="middle">Повний пакет</text>
+
+  <!-- VALIDATE -> IDLE (Loop back at top) -->
+  <path d="M 815,140 L 815,85 L 130,85 L 130,138" fill="none" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arr-ok)"/>
+  <text x="480" y="78" fill="#27ae60" font-size="11" font-weight="bold" text-anchor="middle">Пакет прийнято: публікація результату та повернення в спокій</text>
+
+  <!-- REQUEST -> ERROR (Timeout) -->
+  <line x1="335" y1="230" x2="400" y2="318" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arr-err)"/>
+  <text x="340" y="275" fill="#c0392b" font-size="11" text-anchor="middle">Таймаут CLK</text>
+
+  <!-- RECEIVE -> ERROR (Timeout during packet) -->
+  <line x1="600" y1="230" x2="540" y2="318" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arr-err)"/>
+  <text x="595" y="275" fill="#c0392b" font-size="11" text-anchor="middle">Втрата такту</text>
+
+  <!-- ERROR -> IDLE -->
+  <path d="M 380,362 L 130,362 L 130,232" fill="none" stroke="#6b7280" stroke-width="1.8" stroke-dasharray="4 3" marker-end="url(#arr-gray)"/>
+  <text x="250" y="354" fill="#6b7280" font-size="11" text-anchor="middle">Відновлення після збою (Recovery)</text>
+</svg>

@@ -1,0 +1,173 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка на все полотно -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="34" fill="#1a1a1a" font-size="18" font-weight="bold" text-anchor="middle">Конвеєр перетворення Digimatic BCD та 24-bit SPC у нанометри SI</text>
+  <text x="480" y="54" fill="#6b7280" font-size="13" text-anchor="middle">Цілочисельне приведення без ділення та FPU гарантує нульову похибку й сталий час</text>
+
+  <!-- ================= СТОВПЧИК 1: ВХІДНІ СИРІ КАДРИ ================= -->
+  <!-- Трек A: Digimatic BCD -->
+  <rect x="24" y="70" width="214" height="190" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="131" y="92" fill="#2457d6" font-size="13" font-weight="bold" text-anchor="middle">1A. Mitutoyo (52 біти)</text>
+  <text x="131" y="108" fill="#6b7280" font-size="12" text-anchor="middle">13 BCD-тетрад d₀..d₁₂ по 4 біти</text>
+
+  <rect x="34" y="118" width="194" height="34" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="131" y="132" fill="#1a1a1a" font-size="12" text-anchor="middle">d₀..d₃: преамбула (0xF..0xF)</text>
+  <text x="131" y="146" fill="#6b7280" font-size="12" text-anchor="middle">d₄: знак s | d₁₁: p | d₁₂: unit</text>
+
+  <rect x="34" y="158" width="194" height="52" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="131" y="173" fill="#2457d6" font-size="12" font-weight="bold" text-anchor="middle">d₅..d₁₀: 6 BCD-тетрад мантиси</text>
+  <text x="131" y="195" fill="#1a1a1a" font-size="12" font-weight="bold" text-anchor="middle">d₁₀ d₉ d₈ d₇ d₆ d₅ (10⁵..10⁰)</text>
+
+  <text x="131" y="230" fill="#1a1a1a" font-size="12" text-anchor="middle">Валідація тетрад: 0 ≤ d_k ≤ 9</text>
+  <text x="131" y="248" fill="#6b7280" font-size="12" text-anchor="middle">Захист від апаратного збою</text>
+
+  <!-- Трек B: 24-bit SPC -->
+  <rect x="24" y="276" width="214" height="190" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="131" y="298" fill="#27ae60" font-size="13" font-weight="bold" text-anchor="middle">1B. 24-bit SPC Protocol</text>
+  <text x="131" y="314" fill="#6b7280" font-size="12" text-anchor="middle">24-бітний двійковий потік</text>
+
+  <rect x="34" y="324" width="194" height="42" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="131" y="340" fill="#1a1a1a" font-size="12" font-weight="bold" text-anchor="middle">Біти [19:0]: Модуль кроків M</text>
+  <text x="131" y="356" fill="#6b7280" font-size="12" text-anchor="middle">Біт 20: знак | [23:21]: статус</text>
+
+  <rect x="34" y="374" width="194" height="46" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="131" y="392" fill="#27ae60" font-size="12" font-weight="bold" text-anchor="middle">M = raw &amp; 0x0FFFFF</text>
+  <text x="131" y="408" fill="#1a1a1a" font-size="12" text-anchor="middle">Перевірка: M ≠ 0xFFFFF</text>
+
+  <text x="131" y="438" fill="#1a1a1a" font-size="12" text-anchor="middle">Прямий двійковий лічильник</text>
+  <text x="131" y="454" fill="#6b7280" font-size="12" text-anchor="middle">Відліки ємнісного енкодера</text>
+
+  <!-- Стрілки між Стовпчиком 1 і Стовпчиком 2 -->
+  <line x1="238" y1="165" x2="254" y2="165" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <line x1="238" y1="371" x2="254" y2="371" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- ================= СТОВПЧИК 2: НОРМАЛІЗАЦІЯ В ЦІЛЕ ================= -->
+  <!-- Трек A: Згортка Горнера -->
+  <rect x="254" y="70" width="214" height="190" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="361" y="92" fill="#2457d6" font-size="13" font-weight="bold" text-anchor="middle">2A. Згортка мантиси BCD</text>
+  <text x="361" y="108" fill="#6b7280" font-size="12" text-anchor="middle">Схема Горнера (без множника)</text>
+
+  <rect x="264" y="118" width="194" height="42" rx="4" fill="white" stroke="#2457d6" stroke-width="1"/>
+  <text x="361" y="134" fill="#2457d6" font-size="12" font-weight="bold" text-anchor="middle">acc = acc · 10 + d_k</text>
+  <text x="361" y="150" fill="#1a1a1a" font-size="12" text-anchor="middle">(acc &lt;&lt; 3) + (acc &lt;&lt; 1) + d_k</text>
+
+  <rect x="264" y="168" width="194" height="44" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="361" y="185" fill="#27ae60" font-size="12" font-weight="bold" text-anchor="middle">1 такт на зсуви (без MUL)</text>
+  <text x="361" y="201" fill="#6b7280" font-size="12" text-anchor="middle">6 ітерацій згортки: d₁₀ → d₅</text>
+
+  <text x="361" y="232" fill="#1a1a1a" font-size="12" font-weight="bold" text-anchor="middle">V_raw ∈ [0..999999]</text>
+  <text x="361" y="248" fill="#6b7280" font-size="12" text-anchor="middle">Цілочисельна мантиса</text>
+
+  <!-- Трек B: Доповняльний код -->
+  <rect x="254" y="276" width="214" height="190" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="361" y="298" fill="#27ae60" font-size="13" font-weight="bold" text-anchor="middle">2B. Знакова нормалізація</text>
+  <text x="361" y="314" fill="#6b7280" font-size="12" text-anchor="middle">Перехід у доповняльний код</text>
+
+  <rect x="264" y="324" width="194" height="42" rx="4" fill="white" stroke="#27ae60" stroke-width="1"/>
+  <text x="361" y="340" fill="#27ae60" font-size="12" font-weight="bold" text-anchor="middle">N_raw = (біт 20) ? −M : +M</text>
+  <text x="361" y="356" fill="#1a1a1a" font-size="12" text-anchor="middle">Апаратна інверсія знака</text>
+
+  <rect x="264" y="374" width="194" height="44" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="361" y="391" fill="#1a1a1a" font-size="12" font-weight="bold" text-anchor="middle">1 такт: NEG / CMOV</text>
+  <text x="361" y="407" fill="#6b7280" font-size="12" text-anchor="middle">Без перетворення систем</text>
+
+  <text x="361" y="438" fill="#1a1a1a" font-size="12" font-weight="bold" text-anchor="middle">N_raw ∈ int32_t</text>
+  <text x="361" y="454" fill="#6b7280" font-size="12" text-anchor="middle">Знаковий цілий відлік кроків</text>
+
+  <!-- Стрілки між Стовпчиком 2 і Стовпчиком 3 -->
+  <line x1="468" y1="165" x2="484" y2="165" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <line x1="468" y1="371" x2="484" y2="371" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- ================= СТОВПЧИК 3: БЕЗДІЛИЛЬНЕ МАСШТАБУВАННЯ ================= -->
+  <!-- Трек A: Табличне множення K[p] -->
+  <rect x="484" y="70" width="214" height="190" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="591" y="92" fill="#1a1a1a" font-size="13" font-weight="bold" text-anchor="middle">3A. Масштабування в SI</text>
+  <text x="591" y="108" fill="#6b7280" font-size="12" text-anchor="middle">Таблиця LUT (без ділення)</text>
+
+  <rect x="494" y="118" width="194" height="42" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="591" y="134" fill="#2457d6" font-size="12" font-weight="bold" text-anchor="middle">Метрика: K_metric = 10⁶⁻ᵖ</text>
+  <text x="591" y="150" fill="#1a1a1a" font-size="12" text-anchor="middle">p = 2 (0.01 мм) → K = 10 000</text>
+
+  <rect x="494" y="168" width="194" height="44" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="591" y="184" fill="#2457d6" font-size="12" font-weight="bold" text-anchor="middle">Дюйми: K_inch = 25.4·10⁶/10ᵖ</text>
+  <text x="591" y="200" fill="#1a1a1a" font-size="12" text-anchor="middle">p = 4 (0.0001&quot;) → K = 2 540</text>
+
+  <text x="591" y="232" fill="#1a1a1a" font-size="12" font-weight="bold" text-anchor="middle">L_nm = (s ? −1 : +1) · V_raw · K</text>
+  <text x="591" y="248" fill="#27ae60" font-size="12" text-anchor="middle">Цілочисельний добуток у нм</text>
+
+  <!-- Трек B: Множення на S_nm -->
+  <rect x="484" y="276" width="214" height="190" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="591" y="298" fill="#1a1a1a" font-size="13" font-weight="bold" text-anchor="middle">3B. Цілочисельний крок S</text>
+  <text x="591" y="314" fill="#6b7280" font-size="12" text-anchor="middle">Фіксована ціна поділки шкали</text>
+
+  <rect x="494" y="324" width="194" height="42" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="591" y="340" fill="#27ae60" font-size="12" font-weight="bold" text-anchor="middle">Метрика: S = 10 000 нм</text>
+  <text x="591" y="356" fill="#1a1a1a" font-size="12" text-anchor="middle">Крок шкали 0.01 мм</text>
+
+  <rect x="494" y="374" width="194" height="44" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="591" y="390" fill="#27ae60" font-size="12" font-weight="bold" text-anchor="middle">Дюйми: S = 12 700 нм</text>
+  <text x="591" y="406" fill="#1a1a1a" font-size="12" text-anchor="middle">1/2000&quot; = рівно 12 700 нм</text>
+
+  <text x="591" y="438" fill="#1a1a1a" font-size="12" font-weight="bold" text-anchor="middle">L_nm = N_raw · S_nm</text>
+  <text x="591" y="454" fill="#27ae60" font-size="12" text-anchor="middle">Точне множення без остачі</text>
+
+  <!-- Стрілки від Стовпчика 3 до Регістра в Стовпчику 4 -->
+  <path d="M 698,165 L 712,165 L 726,220" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <path d="M 698,371 L 712,371 L 726,280" fill="none" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- ================= СТОВПЧИК 4: КАНОНІЧНИЙ РЕЗУЛЬТАТ SI ================= -->
+  <rect x="714" y="70" width="222" height="396" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="825" y="92" fill="#1a1a1a" font-size="14" font-weight="bold" text-anchor="middle">4. Канонічний формат SI</text>
+  <text x="825" y="108" fill="#6b7280" font-size="12" text-anchor="middle">Уніфікований вихід прошивки</text>
+
+  <rect x="726" y="118" width="198" height="58" rx="5" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="825" y="135" fill="#2457d6" font-size="12" font-weight="bold" text-anchor="middle">Детермінізм: 0 тактів FPU</text>
+  <text x="825" y="152" fill="#27ae60" font-size="12" font-weight="bold" text-anchor="middle">Похибка округлення: 0 нм</text>
+  <text x="825" y="168" fill="#6b7280" font-size="12" text-anchor="middle">100% цілочисельний конвеєр</text>
+
+  <!-- Центральний регістр L_nm -->
+  <rect x="726" y="190" width="198" height="110" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="825" y="212" fill="#2457d6" font-size="13" font-weight="bold" text-anchor="middle">L_nm : int32_t (нм)</text>
+  <text x="825" y="232" fill="#1a1a1a" font-size="12" font-weight="bold" text-anchor="middle">1 дискрет = 1 нанометр</text>
+  <text x="825" y="252" fill="#27ae60" font-size="12" text-anchor="middle">Діапазон: ±2 147 483 647 нм</text>
+  <text x="825" y="271" fill="#6b7280" font-size="12" text-anchor="middle">Хід: &gt; ±2.14 м (без переповнення)</text>
+  <text x="825" y="290" fill="#1a1a1a" font-size="12" text-anchor="middle">Базова одиниця для RTOS / DRO</text>
+
+  <!-- Стрілка до споживача -->
+  <line x1="825" y1="300" x2="825" y2="314" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <!-- Блок розподілу для споживача -->
+  <rect x="726" y="314" width="198" height="98" rx="6" fill="white" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="825" y="333" fill="#27ae60" font-size="12" font-weight="bold" text-anchor="middle">Вивід без float (RTOS / DRO)</text>
+  <text x="825" y="353" fill="#1a1a1a" font-size="12" text-anchor="middle">mm_whole = L_nm / 1 000 000</text>
+  <text x="825" y="373" fill="#1a1a1a" font-size="12" text-anchor="middle">μm_frac = (L_nm % 10⁶) / 1 000</text>
+  <text x="825" y="394" fill="#6b7280" font-size="12" text-anchor="middle">Цілочисельний вивід на LCD</text>
+
+  <!-- ================= НИЖНЯ ПАНЕЛЬ: ПОРІВНЯННЯ ================= -->
+  <rect x="24" y="482" width="448" height="56" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="248" y="501" fill="#c0392b" font-size="12" font-weight="bold" text-anchor="middle">Недоліки плаваючої коми (float / double / IEEE 754)</text>
+  <text x="248" y="517" fill="#1a1a1a" font-size="12" text-anchor="middle">0.01 мм = 0.00001010001111...₂ — нескінченний дріб, накопичення дрейфу</text>
+  <text x="248" y="531" fill="#6b7280" font-size="12" text-anchor="middle">100+ тактів емуляції ділення без FPU зривають часові рамки RTOS</text>
+
+  <rect x="488" y="482" width="448" height="56" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="712" y="501" fill="#27ae60" font-size="12" font-weight="bold" text-anchor="middle">Переваги канонічних нанометрів SI (int32_t)</text>
+  <text x="712" y="517" fill="#1a1a1a" font-size="12" text-anchor="middle">0.01 мм = 10 000 нм, 1/2000&quot; = 12 700 нм — точні цілі числа</text>
+  <text x="712" y="531" fill="#6b7280" font-size="12" text-anchor="middle">1 такт на операцію, 0 нм похибки та 100% сталий час конвеєра</text>
+</svg>

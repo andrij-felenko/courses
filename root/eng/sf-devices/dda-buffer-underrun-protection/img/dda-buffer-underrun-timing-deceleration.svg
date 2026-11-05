@@ -1,0 +1,174 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="100%" height="100%" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif">
+<rect width="960" height="540" fill="#ffffff"/>
+<defs>
+  <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+    <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+  </marker>
+  <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+    <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+  </marker>
+  <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+    <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+  </marker>
+  <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+    <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+  </marker>
+  <marker id="arr-amber" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+    <path d="M0,0 L8,4 L0,8 Z" fill="#d97706"/>
+  </marker>
+</defs>
+
+<!-- Header -->
+<text x="480" y="28" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Динаміка буфера DDA: захисне кероване гальмування проти аварійного обриву</text>
+<text x="480" y="47" font-size="13" fill="#6b7280" text-anchor="middle">Контроль фізичного часу T_avail запобігає аварійному зриву кроків при сплесках затримки планувальника</text>
+
+<!-- Phase Indicator Banner -->
+<text x="36" y="76" font-size="12" font-weight="700" fill="#6b7280">ФАЗИ ПРОЦЕСУ:</text>
+<rect x="220" y="60" width="144" height="24" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+<text x="292" y="76" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">Нормальний рух</text>
+
+<rect x="378" y="60" width="206" height="24" rx="4" fill="#fef3c7" stroke="#d97706" stroke-width="1"/>
+<text x="481" y="76" font-size="12" font-weight="700" fill="#d97706" text-anchor="middle">Затримка планувальника (p99)</text>
+
+<rect x="598" y="60" width="146" height="24" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+<text x="671" y="76" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">Керований Soft-Stop</text>
+
+<rect x="758" y="60" width="166" height="24" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+<text x="841" y="76" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">Спустошення буфера</text>
+
+<!-- Vertical synchronization line at decision point t3 = 595 -->
+<line x1="595" y1="96" x2="595" y2="426" stroke="#2457d6" stroke-dasharray="4,4" stroke-width="1.2" opacity="0.4"/>
+
+<!-- Channel 1: Buffer dynamics -->
+<rect x="30" y="96" width="900" height="122" rx="6" fill="#f8fafc" stroke="#d0d7de" stroke-width="1"/>
+<text x="42" y="122" font-size="14" font-weight="700" fill="#1a1a1a">Буфер DDA: T_avail</text>
+<text x="42" y="142" font-size="13" font-weight="600" fill="#2457d6">T_avail = ∑ Δt_k</text>
+<text x="42" y="162" font-size="12" fill="#6b7280">фізичний запас часу</text>
+<text x="42" y="182" font-size="12" fill="#6b7280">у мілісекундах (мс)</text>
+
+<!-- Channel 1 axes and reference lines -->
+<line x1="220" y1="204" x2="220" y2="108" stroke="#6b7280" stroke-width="1.2" marker-end="url(#arr)"/>
+<line x1="220" y1="204" x2="895" y2="204" stroke="#6b7280" stroke-width="1.2" marker-end="url(#arr)"/>
+<text x="214" y="123" font-size="12" fill="#6b7280" text-anchor="end">80 мс</text>
+<text x="214" y="157" font-size="12" font-weight="700" fill="#d97706" text-anchor="end">T_warn</text>
+<text x="214" y="181" font-size="12" font-weight="700" fill="#c0392b" text-anchor="end">T_decel</text>
+<text x="214" y="207" font-size="12" fill="#6b7280" text-anchor="end">0 мс</text>
+
+<line x1="220" y1="120" x2="370" y2="120" stroke="#cbd5e1" stroke-dasharray="3,3" stroke-width="1"/>
+<line x1="220" y1="154" x2="475" y2="154" stroke="#fef3c7" stroke-dasharray="3,3" stroke-width="1"/>
+<line x1="220" y1="178" x2="595" y2="178" stroke="#fdecea" stroke-dasharray="3,3" stroke-width="1"/>
+
+<!-- Channel 1 Curves -->
+<line x1="220" y1="120" x2="370" y2="120" stroke="#2457d6" stroke-width="2.5"/>
+<line x1="370" y1="120" x2="595" y2="178" stroke="#2457d6" stroke-width="2.5"/>
+<path d="M 595,178 Q 665,198 730,204" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+<line x1="730" y1="204" x2="885" y2="204" stroke="#27ae60" stroke-width="2.5"/>
+<line x1="595" y1="178" x2="680" y2="204" stroke="#c0392b" stroke-width="2" stroke-dasharray="4,3"/>
+
+<circle cx="475" cy="154" r="4" fill="#d97706"/>
+<circle cx="595" cy="178" r="4.5" fill="#2457d6"/>
+<circle cx="730" cy="204" r="4" fill="#27ae60"/>
+<circle cx="680" cy="204" r="4" fill="#c0392b"/>
+
+<text x="235" y="112" font-size="12" font-weight="600" fill="#2457d6">Норма: T_avail &gt; T_warn</text>
+<text x="405" y="112" font-size="12" font-weight="600" fill="#d97706">Витрата буфера DDA (1 мс / 1 мс)</text>
+<text x="475" y="170" font-size="12" font-weight="700" fill="#d97706" text-anchor="middle">Поріг T_warn: xTaskNotifyFromISR()</text>
+<text x="610" y="140" font-size="12" font-weight="700" fill="#c0392b">Поріг T_avail ≤ T_decel: старт гальмування</text>
+<text x="610" y="156" font-size="12" font-weight="600" fill="#2457d6">DDA_BUF_STATE_DECELERATING</text>
+<text x="735" y="196" font-size="12" font-weight="700" fill="#27ae60">Soft-Stop: зупинка (v = 0)</text>
+<text x="685" y="174" font-size="12" font-weight="700" fill="#c0392b">Спустошення на v_0!</text>
+
+<!-- Channel 2: Velocity profiles -->
+<rect x="30" y="230" width="900" height="124" rx="6" fill="#f8fafc" stroke="#d0d7de" stroke-width="1"/>
+<text x="42" y="256" font-size="14" font-weight="700" fill="#1a1a1a">Швидкість осі: v(t)</text>
+<text x="42" y="276" font-size="13" font-weight="600" fill="#2457d6">v_0 = 200 мм/с</text>
+<text x="42" y="296" font-size="12" fill="#6b7280">порівняння кривих</text>
+<text x="42" y="316" font-size="12" fill="#6b7280">зупинки приводу</text>
+
+<!-- Channel 2 axes and reference lines -->
+<line x1="220" y1="338" x2="220" y2="244" stroke="#6b7280" stroke-width="1.2" marker-end="url(#arr)"/>
+<line x1="220" y1="338" x2="895" y2="338" stroke="#6b7280" stroke-width="1.2" marker-end="url(#arr)"/>
+<text x="214" y="264" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="end">v_0</text>
+<text x="214" y="341" font-size="12" fill="#6b7280" text-anchor="end">0</text>
+<line x1="220" y1="260" x2="595" y2="260" stroke="#cbd5e1" stroke-dasharray="3,3" stroke-width="1"/>
+
+<!-- Channel 2 Curves -->
+<line x1="220" y1="260" x2="595" y2="260" stroke="#2457d6" stroke-width="2.5"/>
+<line x1="595" y1="260" x2="720" y2="338" stroke="#27ae60" stroke-width="3"/>
+<line x1="720" y1="338" x2="885" y2="338" stroke="#27ae60" stroke-width="2.5"/>
+
+<line x1="595" y1="260" x2="670" y2="260" stroke="#c0392b" stroke-width="2.5" stroke-dasharray="5,3"/>
+<line x1="670" y1="260" x2="670" y2="338" stroke="#c0392b" stroke-width="3"/>
+<line x1="670" y1="338" x2="885" y2="338" stroke="#c0392b" stroke-width="2" stroke-dasharray="3,3"/>
+
+<text x="250" y="252" font-size="12" font-weight="600" fill="#2457d6">Плановий рух із v_0 = 200 мм/с</text>
+
+<!-- Green Soft-stop labels to the left of x=580 -->
+<text x="575" y="300" font-size="12" font-weight="700" fill="#27ae60" text-anchor="end">Soft-Stop: кероване a_decel</text>
+<text x="575" y="316" font-size="12" fill="#27ae60" text-anchor="end">Плавна зупинка без втрати кроків</text>
+<text x="575" y="331" font-size="12" fill="#6b7280" text-anchor="end">Збереження координат приводу</text>
+
+<!-- Red Abrupt crash labels to the right of x=685 -->
+<text x="685" y="266" font-size="12" font-weight="700" fill="#c0392b">Аварійний зупин: a → -∞</text>
+<text x="685" y="282" font-size="12" font-weight="700" fill="#c0392b">Зрив ротора з синхронізму</text>
+<text x="685" y="298" font-size="12" fill="#c0392b">Пропуск кроків, втрата осі!</text>
+
+<!-- Channel 3: STEP Pulses -->
+<rect x="30" y="366" width="900" height="60" rx="6" fill="#f8fafc" stroke="#d0d7de" stroke-width="1"/>
+<text x="42" y="392" font-size="14" font-weight="700" fill="#1a1a1a">Імпульси STEP</text>
+<text x="42" y="412" font-size="12" fill="#6b7280">Таймер DDA ISR</text>
+
+<line x1="220" y1="416" x2="895" y2="416" stroke="#6b7280" stroke-width="1"/>
+<!-- Normal pulses -->
+<line x1="230" y1="416" x2="230" y2="398" stroke="#2457d6" stroke-width="1.5"/>
+<line x1="245" y1="416" x2="245" y2="398" stroke="#2457d6" stroke-width="1.5"/>
+<line x1="260" y1="416" x2="260" y2="398" stroke="#2457d6" stroke-width="1.5"/>
+<line x1="275" y1="416" x2="275" y2="398" stroke="#2457d6" stroke-width="1.5"/>
+<line x1="290" y1="416" x2="290" y2="398" stroke="#2457d6" stroke-width="1.5"/>
+<line x1="305" y1="416" x2="305" y2="398" stroke="#2457d6" stroke-width="1.5"/>
+<line x1="320" y1="416" x2="320" y2="398" stroke="#2457d6" stroke-width="1.5"/>
+<line x1="335" y1="416" x2="335" y2="398" stroke="#2457d6" stroke-width="1.5"/>
+<line x1="350" y1="416" x2="350" y2="398" stroke="#2457d6" stroke-width="1.5"/>
+<line x1="365" y1="416" x2="365" y2="398" stroke="#2457d6" stroke-width="1.5"/>
+<line x1="380" y1="416" x2="380" y2="398" stroke="#2457d6" stroke-width="1.5"/>
+<line x1="395" y1="416" x2="395" y2="398" stroke="#2457d6" stroke-width="1.5"/>
+<line x1="410" y1="416" x2="410" y2="398" stroke="#2457d6" stroke-width="1.5"/>
+<line x1="425" y1="416" x2="425" y2="398" stroke="#2457d6" stroke-width="1.5"/>
+<line x1="440" y1="416" x2="440" y2="398" stroke="#2457d6" stroke-width="1.5"/>
+<line x1="455" y1="416" x2="455" y2="398" stroke="#2457d6" stroke-width="1.5"/>
+<line x1="470" y1="416" x2="470" y2="398" stroke="#2457d6" stroke-width="1.5"/>
+<line x1="485" y1="416" x2="485" y2="398" stroke="#2457d6" stroke-width="1.5"/>
+<line x1="500" y1="416" x2="500" y2="398" stroke="#2457d6" stroke-width="1.5"/>
+<line x1="515" y1="416" x2="515" y2="398" stroke="#2457d6" stroke-width="1.5"/>
+<line x1="530" y1="416" x2="530" y2="398" stroke="#2457d6" stroke-width="1.5"/>
+<line x1="545" y1="416" x2="545" y2="398" stroke="#2457d6" stroke-width="1.5"/>
+<line x1="560" y1="416" x2="560" y2="398" stroke="#2457d6" stroke-width="1.5"/>
+<line x1="575" y1="416" x2="575" y2="398" stroke="#2457d6" stroke-width="1.5"/>
+<line x1="590" y1="416" x2="590" y2="398" stroke="#2457d6" stroke-width="1.5"/>
+
+<!-- Deceleration expanding pulses -->
+<line x1="610" y1="416" x2="610" y2="398" stroke="#27ae60" stroke-width="2"/>
+<line x1="632" y1="416" x2="632" y2="398" stroke="#27ae60" stroke-width="2"/>
+<line x1="658" y1="416" x2="658" y2="398" stroke="#27ae60" stroke-width="2"/>
+<line x1="688" y1="416" x2="688" y2="398" stroke="#27ae60" stroke-width="2"/>
+<line x1="724" y1="416" x2="724" y2="398" stroke="#27ae60" stroke-width="2"/>
+
+<text x="235" y="388" font-size="12" font-weight="600" fill="#2457d6">Постійна частота: c_0 = const (f = 100 кГц)</text>
+<text x="600" y="388" font-size="12" font-weight="600" fill="#27ae60">c_n зростає за Тейлором</text>
+<text x="745" y="402" font-size="12" font-weight="700" fill="#c0392b">Аварійний обрив імпульсів</text>
+<text x="745" y="416" font-size="12" fill="#c0392b">dt → 0, зупинка таймера</text>
+
+<!-- Bottom Summary Cards -->
+<rect x="30" y="438" width="440" height="82" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+<text x="46" y="455" font-size="13" font-weight="700" fill="#c0392b">⛔ Без захисту: аварійний обрив генерації</text>
+<text x="46" y="472" font-size="12" fill="#1a1a1a">• Рух на швидкості v_0 до повного спустошення (T_avail = 0)</text>
+<text x="46" y="488" font-size="12" fill="#1a1a1a">• Миттєвий обрив імпульсів (dt → 0) викликає ривок a → -∞</text>
+<text x="46" y="504" font-size="12" fill="#6b7280">• Наслідок: зрив ротора кроковика, втрата координат осі</text>
+
+<rect x="490" y="438" width="440" height="82" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+<text x="506" y="455" font-size="13" font-weight="700" fill="#27ae60">✓ Із захистом: керований автономний Soft-Stop</text>
+<text x="506" y="472" font-size="12" fill="#1a1a1a">• Моніторинг T_avail і старт гальмування при T_avail ≤ T_decel</text>
+<text x="506" y="488" font-size="12" fill="#1a1a1a">• Автономний розрахунок інтервалів c_n в ISR таймера</text>
+<text x="506" y="504" font-size="12" fill="#6b7280">• Наслідок: безаварійна зупинка при a ≤ a_max, нуль втрат</text>
+
+</svg>

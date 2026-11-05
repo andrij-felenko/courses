@@ -1,0 +1,108 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <text x="480" y="30" font-size="18" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Передавальна характеристика та придушення завад тригером Шмітта</text>
+  <text x="480" y="50" font-size="13" text-anchor="middle" fill="#6b7280">Вікно гістерезису фільтрує шум на пологому фронті без хибних перемикань</text>
+
+  <!-- Left Panel: Transfer characteristic -->
+  <rect x="40" y="80" width="300" height="360" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="50" y="105" font-size="14" font-weight="bold" fill="#1a1a1a">Петля гістерезису</text>
+
+  <!-- Axes -->
+  <path d="M 60 400 L 60 140" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <path d="M 60 400 L 320 400" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="320" y="420" font-size="13" text-anchor="end" fill="#1a1a1a">V_in</text>
+  <text x="50" y="130" font-size="13" text-anchor="middle" fill="#1a1a1a">V_out</text>
+
+  <!-- Threshold lines -->
+  <line x1="130" y1="400" x2="130" y2="160" stroke="#6b7280" stroke-width="1" stroke-dasharray="4"/>
+  <line x1="230" y1="400" x2="230" y2="160" stroke="#6b7280" stroke-width="1" stroke-dasharray="4"/>
+  <text x="130" y="420" font-size="13" text-anchor="middle" fill="#c0392b">V_TH-</text>
+  <text x="230" y="420" font-size="13" text-anchor="middle" fill="#2457d6">V_TH+</text>
+
+  <!-- Hysteresis Loop -->
+  <!-- Rising path (blue) -->
+  <path d="M 60 360 L 230 360 L 230 180 L 300 180" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+  <!-- Falling path (red) -->
+  <path d="M 300 180 L 130 180 L 130 360 L 60 360" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+
+  <!-- Arrows on loop -->
+  <path d="M 180 360 L 190 355 L 180 350" fill="none" stroke="#2457d6" stroke-width="2"/>
+  <path d="M 230 270 L 225 260 L 235 260" fill="none" stroke="#2457d6" stroke-width="2"/>
+
+  <path d="M 180 180 L 170 185 L 180 190" fill="none" stroke="#c0392b" stroke-width="2"/>
+  <path d="M 130 270 L 125 280 L 135 280" fill="none" stroke="#c0392b" stroke-width="2"/>
+
+  <text x="240" y="270" font-size="12" fill="#2457d6">Увімкнення</text>
+  <text x="60" y="270" font-size="12" fill="#c0392b">Вимкнення</text>
+
+  <rect x="130" y="160" width="100" height="240" fill="#27ae60" opacity="0.1"/>
+  <text x="180" y="220" font-size="13" text-anchor="middle" fill="#27ae60">Вікно</text>
+  <text x="180" y="235" font-size="13" text-anchor="middle" fill="#27ae60">гістерезису</text>
+
+
+  <!-- Right Panel: Time domain -->
+  <rect x="360" y="80" width="560" height="360" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="370" y="105" font-size="14" font-weight="bold" fill="#1a1a1a">Часова діаграма сигналів</text>
+
+  <!-- Axes -->
+  <path d="M 390 400 L 390 140" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <path d="M 390 400 L 900 400" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="900" y="420" font-size="13" text-anchor="end" fill="#1a1a1a">Час (t)</text>
+  <text x="390" y="130" font-size="13" text-anchor="middle" fill="#1a1a1a">Напруга</text>
+
+  <!-- Threshold lines -->
+  <line x1="390" y1="300" x2="880" y2="300" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="6"/>
+  <line x1="390" y1="220" x2="880" y2="220" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="6"/>
+  
+  <text x="890" y="305" font-size="13" fill="#c0392b">V_TH-</text>
+  <text x="890" y="225" font-size="13" fill="#2457d6">V_TH+</text>
+
+  <!-- Highlight Hysteresis window -->
+  <rect x="390" y="220" width="490" height="80" fill="#27ae60" opacity="0.1"/>
+
+  <!-- Signal V_in -->
+  <path d="M 390 380 
+           Q 430 380 450 310 
+           T 500 240
+           L 520 260
+           L 550 200
+           L 580 250
+           Q 620 160 650 160
+           Q 700 160 730 230
+           L 750 250
+           L 770 230
+           L 800 320
+           Q 830 380 870 380" 
+        fill="none" stroke="#6b7280" stroke-width="2.5"/>
+
+  <!-- Signal V_out -->
+  <path d="M 390 380 L 535 380 L 535 160 L 785 160 L 785 380 L 870 380" fill="none" stroke="#27ae60" stroke-width="3"/>
+
+  <text x="400" y="190" font-size="13" fill="#6b7280">V_in (зашумлений RC-фронт)</text>
+  <text x="600" y="130" font-size="13" fill="#27ae60" font-weight="bold">V_out (очищений сигнал)</text>
+
+  <!-- Markers for switching points -->
+  <!-- Intersection of V_in with V_TH+ (approx x=535) -->
+  <circle cx="535" cy="220" r="4" fill="#2457d6"/>
+  <line x1="535" y1="220" x2="535" y2="400" stroke="#2457d6" stroke-width="1" stroke-dasharray="2"/>
+  
+  <!-- Intersection of V_in with V_TH- (approx x=785) -->
+  <circle cx="785" cy="300" r="4" fill="#c0392b"/>
+  <line x1="785" y1="300" x2="785" y2="400" stroke="#c0392b" stroke-width="1" stroke-dasharray="2"/>
+
+  <!-- Annotations on noise immunity -->
+  <path d="M 500 240 L 520 260" stroke="#c0392b" stroke-width="2"/>
+  <text x="510" y="285" font-size="12" text-anchor="middle" fill="#c0392b">Шум у вікні</text>
+  <text x="510" y="300" font-size="12" text-anchor="middle" fill="#c0392b">не викликає</text>
+  <text x="510" y="315" font-size="12" text-anchor="middle" fill="#c0392b">перемикання</text>
+
+  <path d="M 750 250 L 770 230" stroke="#c0392b" stroke-width="2"/>
+  <text x="760" y="200" font-size="12" text-anchor="middle" fill="#c0392b">Шум ігнорується</text>
+
+</svg>

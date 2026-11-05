@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Порівняння побайтового опитування та апаратного виведення DMA</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">DMA забезпечує безперервний потік на шині SPI та повністю звільняє ядро для обчислень</text>
+
+  <!-- Верхній блок: Побайтове опитування (Проблема) -->
+  <rect x="30" y="75" width="900" height="170" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="50" y="100" font-size="14" font-weight="bold" fill="#c0392b">1. Програмне опитування прапорців (Polling / Bit-Banging) — 100% завантаження CPU</text>
+
+  <!-- CPU діаграма A -->
+  <text x="50" y="140" font-size="12" font-weight="bold" fill="#1a1a1a">Ядро CPU:</text>
+  <rect x="150" y="125" width="750" height="24" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="525" y="141" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">100% часу ядра витрачається на очікування прапорця TXE у циклі while</text>
+
+  <!-- SPI Bus діаграма A -->
+  <text x="50" y="190" font-size="12" font-weight="bold" fill="#1a1a1a">Шина SPI:</text>
+  <rect x="150" y="175" width="80" height="24" rx="2" fill="#d0d7de" stroke="#6b7280"/>
+  <text x="190" y="191" font-size="11" fill="#1a1a1a" text-anchor="middle">Байт 0</text>
+
+  <rect x="270" y="175" width="80" height="24" rx="2" fill="#d0d7de" stroke="#6b7280"/>
+  <text x="310" y="191" font-size="11" fill="#1a1a1a" text-anchor="middle">Байт 1</text>
+
+  <rect x="390" y="175" width="80" height="24" rx="2" fill="#d0d7de" stroke="#6b7280"/>
+  <text x="430" y="191" font-size="11" fill="#1a1a1a" text-anchor="middle">Байт 2</text>
+
+  <rect x="510" y="175" width="80" height="24" rx="2" fill="#d0d7de" stroke="#6b7280"/>
+  <text x="550" y="191" font-size="11" fill="#1a1a1a" text-anchor="middle">Байт 3</text>
+
+  <text x="650" y="191" font-size="11" fill="#c0392b">Паузи між байтами через програмні затримки</text>
+
+  <text x="50" y="230" font-size="12" fill="#6b7280">Результат: низька середня пропускна здатність шини, ядро заблоковане для інших завдань RTOS</text>
+
+  <!-- Нижній блок: Апаратне DMA (Розв'язок) -->
+  <rect x="30" y="260" width="900" height="195" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="50" y="285" font-size="14" font-weight="bold" fill="#27ae60">2. Апаратне виведення через DMA (Hardware Streaming) — до 99% вільного часу CPU</text>
+
+  <!-- CPU діаграма B -->
+  <text x="50" y="325" font-size="12" font-weight="bold" fill="#1a1a1a">Ядро CPU:</text>
+  <rect x="150" y="310" width="60" height="24" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="180" y="326" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">Старт DMA</text>
+
+  <rect x="230" y="310" width="600" height="24" rx="3" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="530" y="326" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">CPU вільний: рендеринг наступного кадру або виконання потоків RTOS</text>
+
+  <rect x="850" y="310" width="50" height="24" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="875" y="326" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">ISR TC</text>
+
+  <!-- SPI Bus діаграма B -->
+  <text x="50" y="375" font-size="12" font-weight="bold" fill="#1a1a1a">Шина SPI:</text>
+  <rect x="210" y="360" width="640" height="24" rx="2" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="530" y="376" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Щільний безперервний потік даних (Back-to-back) без пауз на частоті до 50 МГц</text>
+
+  <text x="50" y="415" font-size="12" fill="#1a1a1a">Контролер DMA самостійно забирає байти з пам'яті за апаратними запитами від передавача SPI</text>
+  <text x="50" y="435" font-size="12" font-weight="bold" fill="#27ae60">Результат: максимальний FPS дисплея при мінімальному енергоспоживанні процесора</text>
+</svg>

@@ -1,0 +1,180 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="100%" height="100%" font-family="system-ui, -apple-system, sans-serif">
+  <defs>
+    <marker id="arr-black" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-amber" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#d97706"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Header -->
+  <text x="480" y="30" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Дерево обробки помилок та формування звіту FAIL.TXT</text>
+  <text x="480" y="50" font-size="13" fill="#6b7280" text-anchor="middle">Класифікація збоїв Flash, формування статусів SCSI Sense та оновлення віртуальної FAT</text>
+
+  <!-- Column 1: Classification & Fault Sources -->
+  <rect x="20" y="66" width="285" height="454" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="20" y="66" width="285" height="32" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="162" y="87" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">1. Джерела та класифікація збоїв</text>
+
+  <!-- Col 1: Root Monitor -->
+  <rect x="32" y="106" width="261" height="68" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="32" y="106" width="261" height="22" rx="6" fill="#eaf0fd" stroke="none"/>
+  <text x="162" y="122" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Моніторинг конвеєра запису Flash</text>
+  <text x="42" y="143" font-size="12" fill="#1a1a1a">• Приймання секторів з USB Bulk-Out</text>
+  <text x="42" y="161" font-size="12" font-weight="bold" fill="#c0392b">• Виявлено збій операції запису</text>
+
+  <!-- Col 1: Tree Bus Line -->
+  <line x1="46" y1="174" x2="46" y2="386" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="46" y1="230" x2="58" y2="230" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <line x1="46" y1="308" x2="58" y2="308" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <line x1="46" y1="386" x2="58" y2="386" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Col 1: Branch 1 (Hardware Flash) -->
+  <rect x="60" y="196" width="223" height="68" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+  <rect x="60" y="196" width="223" height="20" rx="6" fill="#fdecea" stroke="none"/>
+  <text x="171" y="211" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Апаратний збій Flash</text>
+  <text x="68" y="231" font-size="12" font-weight="bold" fill="#1a1a1a">• FLASH_TIMEOUT <tspan font-weight="normal" fill="#6b7280">(BSY lock)</tspan></text>
+  <text x="68" y="250" font-size="12" font-weight="bold" fill="#1a1a1a">• VERIFY_MISMATCH <tspan font-weight="normal" fill="#6b7280">(bit error)</tspan></text>
+
+  <!-- Col 1: Branch 2 (Validation Faults) -->
+  <rect x="60" y="274" width="223" height="68" rx="6" fill="#ffffff" stroke="#d97706" stroke-width="1.5"/>
+  <rect x="60" y="274" width="223" height="20" rx="6" fill="#fef3c7" stroke="none"/>
+  <text x="171" y="289" font-size="12" font-weight="bold" fill="#d97706" text-anchor="middle">Помилка валідації образу</text>
+  <text x="68" y="309" font-size="12" font-weight="bold" fill="#1a1a1a">• VECTOR_INVALID <tspan font-weight="normal" fill="#6b7280">(MSP/Reset)</tspan></text>
+  <text x="68" y="328" font-size="12" font-weight="bold" fill="#1a1a1a">• SIZE_OVERFLOW <tspan font-weight="normal" fill="#6b7280">(&gt; App Flash)</tspan></text>
+
+  <!-- Col 1: Branch 3 (Protection & Security) -->
+  <rect x="60" y="352" width="223" height="68" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+  <rect x="60" y="352" width="223" height="20" rx="6" fill="#fdecea" stroke="none"/>
+  <text x="171" y="367" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Захист запису та живлення</text>
+  <text x="68" y="387" font-size="12" font-weight="bold" fill="#1a1a1a">• WRITE_PROTECTED <tspan font-weight="normal" fill="#6b7280">(bootloader)</tspan></text>
+  <text x="68" y="406" font-size="12" font-weight="bold" fill="#1a1a1a">• BROWNOUT / RDP <tspan font-weight="normal" fill="#6b7280">(&lt; 2.7 V)</tspan></text>
+
+  <!-- Col 1: Connector to Context Card -->
+  <line x1="171" y1="420" x2="171" y2="430" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-black)"/>
+
+  <!-- Col 1: Context Card -->
+  <rect x="32" y="432" width="261" height="74" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="32" y="432" width="261" height="20" rx="6" fill="#eaf0fd" stroke="none"/>
+  <text x="162" y="447" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Реєстрація: diag_record_failure()</text>
+  <text x="42" y="468" font-size="12" fill="#1a1a1a">g_diag_ctx: <tspan fill="#c0392b" font-weight="bold">error_code</tspan>, <tspan fill="#2457d6">fault_addr</tspan></text>
+  <text x="42" y="488" font-size="12" fill="#6b7280">Збереження expected vs actual</text>
+
+  <!-- Inter-column arrows: Col 1 -> Col 2 -->
+  <line x1="283" y1="230" x2="343" y2="248" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <line x1="283" y1="308" x2="343" y2="312" stroke="#d97706" stroke-width="1.5" marker-end="url(#arr-amber)"/>
+  <line x1="283" y1="386" x2="343" y2="376" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <line x1="293" y1="469" x2="335" y2="469" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <!-- Column 2: Protocol Layer USB / SCSI -->
+  <rect x="325" y="66" width="310" height="454" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="325" y="66" width="310" height="32" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="480" y="87" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">2. Протокольний рівень USB / SCSI</text>
+
+  <!-- Col 2: Top Card (USB BOT Status) -->
+  <rect x="337" y="106" width="286" height="76" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+  <rect x="337" y="106" width="286" height="22" rx="6" fill="#fdecea" stroke="none"/>
+  <text x="480" y="122" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Обробка на рівні транспорту USB BOT</text>
+  <text x="347" y="143" font-size="12" font-weight="bold" fill="#1a1a1a">• Пакет CSW: <tspan fill="#c0392b">bCSWStatus = 0x01 (FAIL)</tspan></text>
+  <text x="347" y="160" font-size="12" font-weight="bold" fill="#1a1a1a">• Bulk-In Endpoint: <tspan fill="#c0392b">апаратний STALL</tspan></text>
+  <text x="347" y="176" font-size="12" fill="#6b7280">→ Хост надсилає SCSI REQUEST SENSE</text>
+
+  <!-- Col 2: Middle Card (SCSI Sense Table) -->
+  <rect x="337" y="196" width="286" height="224" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="337" y="196" width="286" height="22" rx="6" fill="#eaf0fd" stroke="none"/>
+  <text x="480" y="211" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Формування відповіді SCSI (18 байтів)</text>
+
+  <!-- Row 1: Medium Error -->
+  <rect x="345" y="226" width="270" height="56" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="353" y="244" font-size="12" font-weight="bold" fill="#c0392b">Sense: 0x03 (Medium Error)</text>
+  <text x="353" y="260" font-size="12" font-weight="bold" fill="#1a1a1a">ASC: 0x0C, ASCQ: 0x00 <tspan font-weight="normal" fill="#6b7280">(Write Error)</tspan></text>
+  <text x="353" y="274" font-size="12" fill="#6b7280">Збій запису або таймаут стирання</text>
+
+  <!-- Row 2: Invalid CDB -->
+  <rect x="345" y="290" width="270" height="56" rx="4" fill="#fef3c7" stroke="#d97706" stroke-width="1.2"/>
+  <text x="353" y="308" font-size="12" font-weight="bold" fill="#d97706">Sense: 0x05 (Illegal Request)</text>
+  <text x="353" y="324" font-size="12" font-weight="bold" fill="#1a1a1a">ASC: 0x24, ASCQ: 0x00 <tspan font-weight="normal" fill="#6b7280">(Invalid CDB)</tspan></text>
+  <text x="353" y="338" font-size="12" fill="#6b7280">Хибна таблиця векторів / адреса</text>
+
+  <!-- Row 3: Write Protected -->
+  <rect x="345" y="354" width="270" height="56" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="353" y="372" font-size="12" font-weight="bold" fill="#c0392b">Sense: 0x05 (Illegal Request)</text>
+  <text x="353" y="388" font-size="12" font-weight="bold" fill="#1a1a1a">ASC: 0x27, ASCQ: 0x00 <tspan font-weight="normal" fill="#6b7280">(Write Protect)</tspan></text>
+  <text x="353" y="402" font-size="12" fill="#6b7280">Захищений сектор Bootloader / RDP</text>
+
+  <!-- Col 2: Bottom Card (FSM & Control) -->
+  <rect x="337" y="432" width="286" height="74" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="337" y="432" width="286" height="20" rx="6" fill="#e9f7ef" stroke="none"/>
+  <text x="480" y="447" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Кінцевий автомат FSM та блокування</text>
+  <text x="347" y="468" font-size="12" font-weight="bold" fill="#1a1a1a">• Стан FSM: <tspan fill="#c0392b">STATE_TRANSFER_ERROR</tspan></text>
+  <text x="347" y="485" font-size="12" font-weight="bold" fill="#1a1a1a">• Блокування: <tspan fill="#c0392b">заборона Jump to App</tspan></text>
+  <text x="347" y="500" font-size="12" fill="#2457d6">• Диск: утримання MAINTENANCE</text>
+
+  <!-- Inter-column arrows: Col 2 -> Col 3 -->
+  <line x1="623" y1="144" x2="665" y2="144" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <line x1="623" y1="469" x2="665" y2="469" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <!-- Column 3: Virtual File System (VFS) -->
+  <rect x="655" y="66" width="285" height="454" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="655" y="66" width="285" height="32" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="797" y="87" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">3. Віртуальна файлова система (VFS)</text>
+
+  <!-- Col 3: Top Card (Root Directory Table) -->
+  <rect x="667" y="106" width="261" height="146" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="667" y="106" width="261" height="22" rx="6" fill="#eaf0fd" stroke="none"/>
+  <text x="797" y="122" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Підміна дескрипторів FAT (Root Dir)</text>
+
+  <!-- Before fault -->
+  <rect x="677" y="134" width="241" height="36" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="685" y="149" font-size="12" fill="#6b7280">До збою: <tspan font-weight="bold" fill="#1a1a1a">DETAILS.TXT / PROG.BIN</tspan></text>
+  <text x="685" y="163" font-size="12" fill="#6b7280">Стандартні файли успішної сесії</text>
+
+  <!-- After fault: FAIL.TXT descriptor -->
+  <rect x="677" y="176" width="241" height="68" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="685" y="192" font-size="12" font-weight="bold" fill="#c0392b">Дескриптор FAIL.TXT (32 байти):</text>
+  <text x="691" y="209" font-size="12" fill="#1a1a1a">• Ім'я: <tspan font-weight="bold">"FAIL    TXT"</tspan> (Read-Only)</text>
+  <text x="691" y="225" font-size="12" fill="#1a1a1a">• Зсув 28: розмір файлу = <tspan font-weight="bold">512 Б</tspan></text>
+  <text x="691" y="239" font-size="12" fill="#1a1a1a">• Вказівник на динамічний кластер</text>
+
+  <!-- Col 3: Connector down -->
+  <line x1="797" y1="252" x2="797" y2="262" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Col 3: Bottom Card (Dynamic FAIL.TXT LBA Sector) -->
+  <rect x="667" y="264" width="261" height="242" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+  <rect x="667" y="264" width="261" height="22" rx="6" fill="#fdecea" stroke="none"/>
+  <text x="797" y="280" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Динамічний сектор LBA: FAIL.TXT</text>
+  <text x="677" y="301" font-size="12" fill="#6b7280">Читання хостом → vfs_generate():</text>
+
+  <!-- Terminal Preview Box -->
+  <rect x="675" y="308" width="245" height="154" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="675" y="308" width="245" height="20" rx="4" fill="#eaf0fd" stroke="none"/>
+  <circle cx="685" cy="318" r="3.5" fill="#c0392b"/>
+  <circle cx="695" cy="318" r="3.5" fill="#d97706"/>
+  <circle cx="705" cy="318" r="3.5" fill="#27ae60"/>
+  <text x="797" y="323" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">ASCII-буфер сектора 512 Б</text>
+
+  <text x="685" y="343" font-size="12" font-weight="bold" fill="#c0392b">error: An error occurred</text>
+  <text x="685" y="358" font-size="12" font-weight="bold" fill="#c0392b">       during the update.</text>
+  <text x="685" y="376" font-size="12" font-weight="bold" fill="#1a1a1a">reason: <tspan font-weight="normal" fill="#6b7280">Flash verify failed.</tspan></text>
+  <text x="685" y="392" font-size="12" fill="#6b7280">  Memory cells lost charge.</text>
+  <text x="685" y="410" font-size="12" font-weight="bold" fill="#1a1a1a">type: <tspan font-weight="normal" fill="#6b7280">interface-firmware-update</tspan></text>
+  <text x="685" y="428" font-size="12" font-weight="bold" fill="#1a1a1a">addr: <tspan font-weight="normal" fill="#2457d6">0x08012000 (exp != act)</tspan></text>
+  <text x="685" y="448" font-size="12" font-weight="bold" fill="#27ae60">remount: <tspan font-weight="normal" fill="#6b7280">Virtual drive refreshed</tspan></text>
+
+  <!-- Summary badge -->
+  <rect x="675" y="468" width="245" height="30" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="797" y="488" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Інженер бачить вердикт відмови</text>
+</svg>

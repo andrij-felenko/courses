@@ -1,0 +1,194 @@
+<svg viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <!-- Arrow markers -->
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Main Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Фізична організація комірок NOR Flash та асиметрія операцій</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Паралельна матриця дозволяє довільне читання слів, але стирання 0 → 1 діє лише на цілий сектор</text>
+
+  <!-- ==================== TOP LEFT: CELL PHYSICAL STRUCTURE ==================== -->
+  <rect x="30" y="75" width="435" height="190" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="45" y="96" font-size="13" font-weight="bold" fill="#1a1a1a">Будова комірки NOR: транзистор із плаваючим затвором (FG)</text>
+
+  <!-- Sub-box: Erased state (1) -->
+  <rect x="45" y="110" width="195" height="142" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="142" y="127" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Стан «1» (Стертий, Erased)</text>
+
+  <rect x="65" y="137" width="154" height="15" rx="2" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="142" y="149" font-size="12" fill="#2457d6" text-anchor="middle">Керуючий затвор (CG / WL)</text>
+
+  <rect x="65" y="157" width="154" height="15" rx="2" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="142" y="169" font-size="12" fill="#27ae60" text-anchor="middle">Плаваючий затвор (чистий)</text>
+
+  <rect x="65" y="177" width="154" height="15" rx="2" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="142" y="189" font-size="12" fill="#1a1a1a" text-anchor="middle">Канал провідний (ВІДКРИТО)</text>
+
+  <text x="142" y="212" font-size="12" fill="#6b7280" text-anchor="middle">Низька V_th: струм I_cell &gt; I_ref</text>
+  <text x="142" y="232" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Стертий стан байта: 0xFF</text>
+
+  <!-- Sub-box: Programmed state (0) -->
+  <rect x="255" y="110" width="195" height="142" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="352" y="127" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Стан «0» (Записаний, Program)</text>
+
+  <rect x="275" y="137" width="154" height="15" rx="2" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="352" y="149" font-size="12" fill="#2457d6" text-anchor="middle">Керуючий затвор (CG / WL)</text>
+
+  <rect x="275" y="157" width="154" height="15" rx="2" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="352" y="169" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Заряд e⁻ на затворі (пастка)</text>
+
+  <rect x="275" y="177" width="154" height="15" rx="2" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="352" y="189" font-size="12" fill="#1a1a1a" text-anchor="middle">Канал екрановано (ЗАКРИТО)</text>
+
+  <text x="352" y="212" font-size="12" fill="#6b7280" text-anchor="middle">Висока V_th: струм I_cell = 0</text>
+  <text x="352" y="232" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Записаний стан біта: «0»</text>
+
+  <!-- ==================== TOP RIGHT: NOR ARRAY TOPOLOGY ==================== -->
+  <rect x="485" y="75" width="445" height="190" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="500" y="96" font-size="13" font-weight="bold" fill="#1a1a1a">Топологія NOR-матриці: паралельне ввімкнення комірок</text>
+
+  <!-- Matrix circuit diagram -->
+  <!-- Word Lines (WL) -->
+  <text x="526" y="146" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">WL[0]</text>
+  <line x1="532" y1="142" x2="542" y2="142" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="578" y1="142" x2="632" y2="142" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="668" y1="142" x2="686" y2="142" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <text x="526" y="196" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">WL[1]</text>
+  <line x1="532" y1="192" x2="542" y2="192" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="578" y1="192" x2="632" y2="192" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="668" y1="192" x2="686" y2="192" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Bit Lines (BL) -->
+  <text x="560" y="112" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">BL[0]</text>
+  <line x1="560" y1="118" x2="560" y2="130" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="560" y1="154" x2="560" y2="180" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="560" y1="204" x2="560" y2="222" stroke="#2457d6" stroke-width="1.5"/>
+
+  <text x="650" y="112" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">BL[1]</text>
+  <line x1="650" y1="118" x2="650" y2="130" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="650" y1="154" x2="650" y2="180" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="650" y1="204" x2="650" y2="222" stroke="#2457d6" stroke-width="1.5"/>
+
+  <!-- Source Line (SL / Ground) -->
+  <line x1="605" y1="126" x2="605" y2="222" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="578" y1="142" x2="605" y2="142" stroke="#6b7280" stroke-width="1"/>
+  <line x1="632" y1="142" x2="605" y2="142" stroke="#6b7280" stroke-width="1"/>
+  <circle cx="605" cy="142" r="2.5" fill="#6b7280"/>
+  <circle cx="605" cy="192" r="2.5" fill="#6b7280"/>
+  <line x1="597" y1="222" x2="613" y2="222" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="600" y1="226" x2="610" y2="226" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="603" y1="230" x2="607" y2="230" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="605" y="244" font-size="12" fill="#6b7280" text-anchor="middle">SL (GND)</text>
+
+  <!-- Cell transistor boxes -->
+  <rect x="542" y="130" width="36" height="24" rx="3" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="560" y="146" font-size="12" fill="#2457d6" text-anchor="middle">C₀₀</text>
+
+  <rect x="632" y="130" width="36" height="24" rx="3" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="650" y="146" font-size="12" fill="#2457d6" text-anchor="middle">C₀₁</text>
+
+  <rect x="542" y="180" width="36" height="24" rx="3" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="560" y="196" font-size="12" fill="#2457d6" text-anchor="middle">C₁₀</text>
+
+  <rect x="632" y="180" width="36" height="24" rx="3" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="650" y="196" font-size="12" fill="#2457d6" text-anchor="middle">C₁₁</text>
+
+  <!-- Explanatory note box -->
+  <rect x="702" y="110" width="216" height="142" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="714" y="129" font-size="12" font-weight="bold" fill="#2457d6">Чому NOR Flash унікальна:</text>
+  <text x="714" y="150" font-size="12" fill="#1a1a1a">• Паралельне ввімкнення комірок</text>
+  <text x="714" y="168" font-size="12" fill="#1a1a1a">• Прямий контакт кожної до BL</text>
+  <text x="714" y="186" font-size="12" fill="#1a1a1a">• Довільний доступ без ланцюжка</text>
+  <text x="714" y="204" font-size="12" fill="#1a1a1a">• Пряме виконання коду (XIP)</text>
+  <text x="714" y="226" font-size="12" font-weight="bold" fill="#27ae60">t_read: 10 – 50 нс (як SRAM)</text>
+  <text x="714" y="244" font-size="12" fill="#6b7280">NAND потребує читання сторінками</text>
+
+  <!-- ==================== BOTTOM: ASYMMETRY OF OPERATIONS ==================== -->
+  <!-- Card 1: Read -->
+  <rect x="30" y="280" width="286" height="235" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="42" y="292" width="262" height="28" rx="4" fill="#2457d6"/>
+  <text x="173" y="311" font-size="13" font-weight="bold" fill="#ffffff" text-anchor="middle">1. Читання (Read Word / Byte)</text>
+
+  <rect x="42" y="328" width="262" height="175" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="54" y="348" font-size="12" fill="#6b7280">Одиниця:</text>
+  <text x="292" y="348" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">1 байт / слово</text>
+
+  <text x="54" y="370" font-size="12" fill="#6b7280">Зміна біта:</text>
+  <text x="292" y="370" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">Неінвазивно (—)</text>
+
+  <text x="54" y="392" font-size="12" fill="#6b7280">Напруга:</text>
+  <text x="292" y="392" font-size="12" fill="#1a1a1a" text-anchor="end">V_dd = 1.8 – 3.3 В</text>
+
+  <text x="54" y="414" font-size="12" fill="#6b7280">Час t_read:</text>
+  <text x="292" y="414" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">10 – 50 нс</text>
+
+  <line x1="54" y1="426" x2="292" y2="426" stroke="#d0d7de" stroke-width="1"/>
+
+  <text x="54" y="444" font-size="12" font-weight="bold" fill="#2457d6">Роль в обробці аварій:</text>
+  <text x="54" y="464" font-size="12" fill="#1a1a1a">Пряме виконання (XIP) коду</text>
+  <text x="54" y="484" font-size="12" fill="#1a1a1a">обробника паніки без затримок</text>
+
+  <!-- Card 2: Program -->
+  <rect x="336" y="280" width="288" height="235" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="348" y="292" width="264" height="28" rx="4" fill="#27ae60"/>
+  <text x="480" y="311" font-size="13" font-weight="bold" fill="#ffffff" text-anchor="middle">2. Програмування (Program Word)</text>
+
+  <rect x="348" y="328" width="264" height="175" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="360" y="348" font-size="12" fill="#6b7280">Одиниця:</text>
+  <text x="600" y="348" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">Слово (1–4 B)</text>
+
+  <text x="360" y="370" font-size="12" fill="#6b7280">Зміна біта:</text>
+  <text x="600" y="370" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="end">Лише 1 → 0 (e⁻)</text>
+
+  <text x="360" y="392" font-size="12" fill="#6b7280">Напруга:</text>
+  <text x="600" y="392" font-size="12" fill="#1a1a1a" text-anchor="end">V_prog = 9 – 12 В</text>
+
+  <text x="360" y="414" font-size="12" fill="#6b7280">Час t_prog:</text>
+  <text x="600" y="414" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="end">20 – 50 мкс</text>
+
+  <line x1="360" y1="426" x2="600" y2="426" stroke="#d0d7de" stroke-width="1"/>
+
+  <text x="360" y="444" font-size="12" font-weight="bold" fill="#27ae60">Запис дампу T_write:</text>
+  <text x="360" y="464" font-size="12" fill="#1a1a1a">Запис 4 КБ триває ≈ 49 мс</text>
+  <text x="360" y="484" font-size="12" font-weight="bold" fill="#27ae60">T_write &lt; T_wdg (вкладається!)</text>
+
+  <!-- Card 3: Erase -->
+  <rect x="644" y="280" width="286" height="235" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <rect x="656" y="292" width="262" height="28" rx="4" fill="#c0392b"/>
+  <text x="787" y="311" font-size="13" font-weight="bold" fill="#ffffff" text-anchor="middle">3. Стирання (Sector Erase)</text>
+
+  <rect x="656" y="328" width="262" height="175" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="668" y="348" font-size="12" fill="#6b7280">Одиниця:</text>
+  <text x="906" y="348" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="end">Сектор (4–128 КБ)</text>
+
+  <text x="668" y="370" font-size="12" fill="#6b7280">Зміна біта:</text>
+  <text x="906" y="370" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="end">Усі в 1 (0 → 1)</text>
+
+  <text x="668" y="392" font-size="12" fill="#6b7280">Напруга:</text>
+  <text x="906" y="392" font-size="12" fill="#1a1a1a" text-anchor="end">V_erase = ±12 В</text>
+
+  <text x="668" y="414" font-size="12" fill="#6b7280">Час t_erase:</text>
+  <text x="906" y="414" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="end">200 – 800 мс</text>
+
+  <line x1="668" y1="426" x2="906" y2="426" stroke="#d0d7de" stroke-width="1"/>
+
+  <text x="668" y="444" font-size="12" font-weight="bold" fill="#c0392b">Заборонено під час аварії:</text>
+  <text x="668" y="464" font-size="12" fill="#1a1a1a">t_erase &gt; T_wdg (сторож 500 мс)</text>
+  <text x="668" y="484" font-size="12" font-weight="bold" fill="#c0392b">Спричинить скид watchdog!</text>
+</svg>

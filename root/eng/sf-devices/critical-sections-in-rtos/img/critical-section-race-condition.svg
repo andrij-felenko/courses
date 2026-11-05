@@ -1,0 +1,163 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="100%" height="100%" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-amber" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#d97706"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="540" fill="#ffffff"/>
+
+  <!-- Header -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Виникнення стану гонитви при розриві Read-Modify-Write циклу</text>
+  <text x="480" y="56" font-size="13" fill="#6b7280" text-anchor="middle">Асинхронне витіснення задачі обробником ISR призводить до втрати оновлення змінної в пам'яті</text>
+
+  <!-- Panel 1: Task A -->
+  <rect x="30" y="72" width="275" height="356" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <path d="M 30,80 Q 30,72 38,72 L 297,72 Q 305,72 305,80 L 305,114 L 30,114 Z" fill="#eaf0fd"/>
+  <line x1="30" y1="114" x2="305" y2="114" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="167" y="91" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">Задача: Task A (Низький пріоритет)</text>
+  <text x="167" y="106" font-size="12" fill="#6b7280" text-anchor="middle">Виконує: g_sensor_event_count++</text>
+
+  <!-- Panel 2: Shared RAM -->
+  <rect x="345" y="72" width="270" height="356" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <path d="M 345,80 Q 345,72 353,72 L 607,72 Q 615,72 615,80 L 615,114 L 345,114 Z" fill="#f4f6f8"/>
+  <line x1="345" y1="114" x2="615" y2="114" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="480" y="91" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Спільна пам'ять SRAM (32-біт)</text>
+  <text x="480" y="106" font-size="12" fill="#6b7280" text-anchor="middle">Адреса: 0x20000000 (g_sensor_event_count)</text>
+
+  <!-- Panel 3: ISR -->
+  <rect x="655" y="72" width="275" height="356" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <path d="M 655,80 Q 655,72 663,72 L 922,72 Q 930,72 930,80 L 930,114 L 655,114 Z" fill="#fef3c7"/>
+  <line x1="655" y1="114" x2="930" y2="114" stroke="#d97706" stroke-width="1.5"/>
+  <text x="792" y="91" font-size="14" font-weight="bold" fill="#b45309" text-anchor="middle">Обробник переривання (ISR)</text>
+  <text x="792" y="106" font-size="12" fill="#6b7280" text-anchor="middle">Високий пріоритет • Апаратне IRQ</text>
+
+  <!-- Stage 1 (t1): Task Reads from RAM -->
+  <!-- Panel 1: Card 1 -->
+  <rect x="42" y="126" width="250" height="66" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="50" y="144" font-size="12" font-weight="bold" fill="#2457d6">t₁ : ЧИТАННЯ</text>
+  <text x="145" y="144" font-size="12" font-family="monospace" font-weight="bold" fill="#1a1a1a">LDR R0, [R1]</text>
+  <text x="50" y="164" font-size="12" fill="#6b7280">Зчитує значення змінної з RAM</text>
+  <text x="50" y="182" font-size="12" font-weight="bold" fill="#2457d6">Локальний регістр R0 = 42</text>
+
+  <!-- Panel 2: RAM Initial State -->
+  <rect x="355" y="126" width="250" height="66" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="365" y="144" font-size="12" font-weight="bold" fill="#2457d6">RAM [t₀–t₁]</text>
+  <text x="445" y="144" font-size="12" fill="#6b7280">• Початковий стан</text>
+  <rect x="363" y="152" width="234" height="32" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="375" y="173" font-size="12" font-family="monospace" fill="#1a1a1a">0x20000000 :</text>
+  <text x="500" y="173" font-size="14" font-family="monospace" font-weight="bold" fill="#2457d6">42</text>
+
+  <!-- Panel 3: ISR Idle -->
+  <rect x="665" y="126" width="250" height="66" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-dasharray="4 3" stroke-width="1"/>
+  <text x="790" y="152" font-size="12" fill="#6b7280" text-anchor="middle">Обробник не активний</text>
+  <text x="790" y="172" font-size="12" fill="#9ca3af" text-anchor="middle">Очікування апаратного запиту IRQ</text>
+
+  <!-- Bus Arrow: RAM to Task at t1 -->
+  <line x1="355" y1="168" x2="295" y2="168" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="325" y="156" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">LDR 42</text>
+
+  <!-- Stage 2 (t2-t3): Hardware IRQ & ISR RMW -->
+  <!-- Panel 1: Task Preempted -->
+  <rect x="42" y="206" width="250" height="94" rx="6" fill="#fef3c7" stroke="#d97706" stroke-dasharray="4 3" stroke-width="1.5"/>
+  <text x="50" y="225" font-size="12" font-weight="bold" fill="#b45309">t₂–t₃ : ВИТІСНЕННЯ ЗАДАЧІ</text>
+  <text x="50" y="244" font-size="12" font-weight="bold" fill="#b45309">Задачу примусово зупинено NVIC!</text>
+  <text x="50" y="262" font-size="12" fill="#1a1a1a">Ядро зберігає контекст у стек</text>
+  <rect x="50" y="270" width="234" height="22" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="56" y="286" font-size="12" fill="#6b7280">Стек задачі:</text>
+  <text x="142" y="286" font-size="12" font-family="monospace" font-weight="bold" fill="#c0392b">R0 = 42 (старий)</text>
+
+  <!-- Panel 3: IRQ Trigger & ISR RMW -->
+  <rect x="665" y="206" width="250" height="94" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="673" y="214" width="234" height="22" rx="4" fill="#fef3c7" stroke="#d97706" stroke-width="1"/>
+  <text x="790" y="229" font-size="12" font-weight="bold" fill="#b45309" text-anchor="middle">⚡ t₂ : Апаратне переривання IRQ</text>
+  <text x="673" y="253" font-size="12" font-weight="bold" fill="#27ae60">t₃ : Повний RMW-цикл в ISR:</text>
+  <text x="673" y="269" font-size="12" font-family="monospace" fill="#1a1a1a">LDR R0, [R1] <tspan fill="#6b7280">; R0 = 42</tspan></text>
+  <text x="673" y="284" font-size="12" font-family="monospace" fill="#1a1a1a">ADD R0, #1   <tspan fill="#27ae60">; R0 = 43</tspan></text>
+  <text x="673" y="299" font-size="12" font-family="monospace" font-weight="bold" fill="#27ae60">STR R0, [R1] <tspan fill="#6b7280">; запис 43</tspan></text>
+
+  <!-- Panel 2: RAM Updated by ISR -->
+  <rect x="355" y="206" width="250" height="94" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="365" y="224" font-size="12" font-weight="bold" fill="#27ae60">RAM [t₃]</text>
+  <text x="420" y="224" font-size="12" font-weight="bold" fill="#27ae60">• Оновлено обробником ISR</text>
+  <text x="365" y="244" font-size="12" fill="#1a1a1a">Виконано повний інкремент змінної:</text>
+  <rect x="363" y="252" width="234" height="30" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="375" y="272" font-size="12" font-family="monospace" fill="#1a1a1a">0x20000000 :</text>
+  <text x="500" y="272" font-size="14" font-family="monospace" font-weight="bold" fill="#27ae60">43</text>
+  <text x="365" y="295" font-size="12" fill="#27ae60">✓ Значення в пам'яті оновлено до 43</text>
+
+  <!-- Bus Arrows: RAM and ISR at t3 -->
+  <line x1="605" y1="252" x2="663" y2="252" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="3 2" marker-end="url(#arr-blue)"/>
+  <text x="635" y="240" font-size="12" fill="#2457d6" text-anchor="middle">LDR 42</text>
+  <line x1="665" y1="288" x2="607" y2="288" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="635" y="276" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">STR 43</text>
+
+  <!-- Stage 3 (t4): Task Resumes & Overwrites -->
+  <!-- Panel 1: Task Resumes with Stale Data -->
+  <rect x="42" y="314" width="250" height="70" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="50" y="332" font-size="12" font-weight="bold" fill="#c0392b">t₄ : ВІДНОВЛЕННЯ ТА ЗБІЙ</text>
+  <text x="50" y="350" font-size="12" font-family="monospace" fill="#1a1a1a">ADD R0, #1  <tspan fill="#c0392b">; R0 = 42 + 1 = 43</tspan></text>
+  <text x="50" y="366" font-size="12" font-family="monospace" font-weight="bold" fill="#c0392b">STR R0, [R1] <tspan fill="#6b7280">; запис 43 у RAM!</tspan></text>
+
+  <!-- Panel 2: RAM Overwritten -->
+  <rect x="355" y="314" width="250" height="70" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="2"/>
+  <text x="365" y="331" font-size="12" font-weight="bold" fill="#c0392b">RAM [t₄] • ЗАТИРАННЯ ДАНИХ!</text>
+  <rect x="363" y="340" width="234" height="26" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="2"/>
+  <text x="375" y="358" font-size="12" font-family="monospace" fill="#1a1a1a">0x20000000 :</text>
+  <text x="500" y="358" font-size="14" font-family="monospace" font-weight="bold" fill="#c0392b">43</text>
+  <text x="365" y="378" font-size="12" font-weight="bold" fill="#c0392b">❌ Затерто старе 43 замість 44!</text>
+
+  <!-- Panel 3: ISR Completed -->
+  <rect x="665" y="314" width="250" height="70" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-dasharray="4 3" stroke-width="1"/>
+  <text x="790" y="338" font-size="12" fill="#6b7280" text-anchor="middle">ISR завершено (BX LR)</text>
+  <text x="790" y="356" font-size="12" fill="#9ca3af" text-anchor="middle">Відновлено стек задачі</text>
+  <text x="790" y="374" font-size="12" fill="#6b7280" text-anchor="middle">Задача продовжила з ADD</text>
+
+  <!-- Bus Arrow: Task writes 43 to RAM at t4 -->
+  <line x1="292" y1="360" x2="353" y2="360" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arr-red)"/>
+  <text x="325" y="348" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">STR 43</text>
+
+  <!-- Bottom Badges inside panels -->
+  <rect x="42" y="398" width="250" height="22" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="167" y="413" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Стан R0 задачі: 43 (хибний)</text>
+
+  <rect x="355" y="398" width="250" height="22" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="480" y="413" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">RAM = 43 (втрата оновлення)</text>
+
+  <rect x="665" y="398" width="250" height="22" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="790" y="413" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Інкремент ISR: знищено</text>
+
+  <!-- Summary Banner -->
+  <rect x="30" y="442" width="900" height="78" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Card A: Expected -->
+  <rect x="42" y="449" width="250" height="64" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="167" y="467" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Очікуваний результат</text>
+  <text x="52" y="486" font-size="12" fill="#1a1a1a">Подія 1 (Task) + Подія 2 (ISR)</text>
+  <text x="52" y="503" font-size="12" font-weight="bold" fill="#27ae60">Коректно в RAM: 42 + 2 = 44</text>
+
+  <!-- Card B: Actual -->
+  <rect x="355" y="449" width="250" height="64" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="480" y="467" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">Фактичний результат (Збій)</text>
+  <text x="365" y="486" font-size="12" fill="#1a1a1a">Запис Task затер оновлення ISR</text>
+  <text x="365" y="503" font-size="12" font-weight="bold" fill="#c0392b">Фактично в RAM: 43 (втрата +1)</text>
+
+  <!-- Card C: Remedy -->
+  <rect x="665" y="449" width="250" height="64" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="790" y="467" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Вирішення: Критична секція</text>
+  <text x="675" y="486" font-size="12" fill="#1a1a1a">Захист RMW: taskENTER_CRITICAL()</text>
+  <text x="675" y="503" font-size="12" fill="#2457d6">Або атомарні: LDREX / STREX</text>
+</svg>

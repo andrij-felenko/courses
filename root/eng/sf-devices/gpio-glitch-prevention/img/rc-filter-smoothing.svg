@@ -1,0 +1,70 @@
+<svg viewBox="0 0 960 480" width="960" height="480" xmlns="http://www.w3.org/2000/svg" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+  
+  <rect x="0" y="0" width="960" height="480" fill="white" />
+  
+  <text x="480" y="40" fill="#1a1a1a" font-size="18" font-weight="bold" text-anchor="middle">Придушення високочастотного глітча пасивним RC-фільтром</text>
+  <text x="480" y="60" fill="#6b7280" font-size="13" text-anchor="middle">Конденсатор не встигає зарядитися від сплеску, знижуючи його амплітуду до безпечного рівня</text>
+
+  <rect x="110" y="190" width="800" height="90" fill="#f4f6f8" />
+  
+  <text x="250" y="230" fill="#6b7280" font-size="13">
+    <tspan x="250" dy="0">Зона невизначеності</tspan>
+    <tspan x="250" dy="18">логічних рівнів</tspan>
+  </text>
+
+  <line x1="100" y1="190" x2="910" y2="190" stroke="#6b7280" stroke-dasharray="4 4" stroke-width="1" />
+  <text x="95" y="194" fill="#6b7280" font-size="12" text-anchor="end">V_IH (2.31 V)</text>
+
+  <line x1="100" y1="280" x2="910" y2="280" stroke="#6b7280" stroke-dasharray="4 4" stroke-width="1" />
+  <text x="95" y="284" fill="#6b7280" font-size="12" text-anchor="end">V_IL (0.99 V)</text>
+
+  <line x1="100" y1="120" x2="910" y2="120" stroke="#6b7280" stroke-width="1" />
+  <text x="95" y="124" fill="#6b7280" font-size="12" text-anchor="end">3.3 V</text>
+
+  <line x1="100" y1="350" x2="910" y2="350" stroke="#6b7280" stroke-width="1" />
+  <text x="95" y="354" fill="#6b7280" font-size="12" text-anchor="end">0 V</text>
+
+  <line x1="110" y1="380" x2="910" y2="380" stroke="#1a1a1a" stroke-width="1" marker-end="url(#arr)" />
+  <text x="910" y="400" fill="#1a1a1a" font-size="13" text-anchor="end">Час (t)</text>
+
+  <path d="M 110,350 
+           L 210,350 L 215,80 L 220,350 
+           L 410,350 L 410,120 
+           L 760,120 L 765,300 L 770,120 
+           L 910,120" 
+        fill="none" stroke="#c0392b" stroke-width="2" />
+
+  <path d="M 110,350 
+           L 210,350 
+           L 215,320 L 220,350 
+           L 410,350 
+           L 425,299 L 440,258 L 455,226 L 470,205 
+           L 485,188 L 500,173 L 515,161 L 530,152 
+           L 545,145 L 560,139 L 575,135 L 590,132 
+           L 610,128 L 630,125 L 650,122 L 670,121 
+           L 760,120 
+           L 765,140 L 770,120 
+           L 910,120" 
+        fill="none" stroke="#27ae60" stroke-width="3" />
+
+  <text x="220" y="75" fill="#c0392b" font-size="13" font-weight="bold" text-anchor="start">Глітч</text>
+  
+  <line x1="180" y1="315" x2="210" y2="325" stroke="#1a1a1a" stroke-width="1" marker-end="url(#arr)" />
+  <text x="175" y="318" fill="#27ae60" font-size="13" font-weight="bold" text-anchor="end">Безпечний рівень</text>
+
+  <text x="560" y="235" fill="#27ae60" font-size="13" font-weight="bold">Пологий фронт (τ = RC)</text>
+  <line x1="550" y1="230" x2="480" y2="200" stroke="#1a1a1a" stroke-width="1" marker-end="url(#arr)" />
+
+  <text x="775" y="320" fill="#c0392b" font-size="13" font-weight="bold" text-anchor="start">Провал</text>
+  
+  <line x1="745" y1="180" x2="760" y2="150" stroke="#1a1a1a" stroke-width="1" marker-end="url(#arr)" />
+  <text x="740" y="190" fill="#27ae60" font-size="13" font-weight="bold" text-anchor="end">Згладжено</text>
+
+  <text x="800" y="105" fill="#c0392b" font-size="13" font-weight="bold">Вхідний сигнал</text>
+  <text x="800" y="145" fill="#27ae60" font-size="13" font-weight="bold">Згладжений сигнал</text>
+</svg>

@@ -1,0 +1,184 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="34" fill="#1a1a1a" font-size="18" font-weight="700" text-anchor="middle">Апаратний обчислювальний тракт CORDIC</text>
+  <text x="480" y="58" fill="#6b7280" font-size="13" text-anchor="middle">Паралельне оновлення координат і кута за допомогою зсувачів і суматорів-віднімачів</text>
+
+  <!-- Заголовки каналів -->
+  <text x="140" y="86" fill="#1a1a1a" font-size="14" font-weight="700" text-anchor="middle">Канал X (координата x)</text>
+  <text x="380" y="86" fill="#1a1a1a" font-size="14" font-weight="700" text-anchor="middle">Канал Y (координата y)</text>
+  <text x="620" y="86" fill="#1a1a1a" font-size="14" font-weight="700" text-anchor="middle">Канал Z (кут θ)</text>
+  <text x="840" y="86" fill="#1a1a1a" font-size="14" font-weight="700" text-anchor="middle">Керування та лічильник</text>
+
+  <!-- Вхідні сигнали ініціалізації -->
+  <line x1="35" y1="118" x2="65" y2="118" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="50" y="110" fill="#1a1a1a" font-size="12" font-weight="700" text-anchor="middle">X₀</text>
+
+  <line x1="275" y1="118" x2="305" y2="118" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="290" y="110" fill="#1a1a1a" font-size="12" font-weight="700" text-anchor="middle">Y₀</text>
+
+  <line x1="515" y1="118" x2="545" y2="118" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="530" y="110" fill="#1a1a1a" font-size="12" font-weight="700" text-anchor="middle">Z₀</text>
+
+  <!-- Ряд 1: Мультиплексори вибору даних -->
+  <rect x="65" y="108" width="150" height="40" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="140" y="133" fill="#1a1a1a" font-size="12" font-weight="700" text-anchor="middle">MUX X (X₀ / Xᵢ₊₁)</text>
+
+  <rect x="305" y="108" width="150" height="40" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="380" y="133" fill="#1a1a1a" font-size="12" font-weight="700" text-anchor="middle">MUX Y (Y₀ / Yᵢ₊₁)</text>
+
+  <rect x="545" y="108" width="150" height="40" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="620" y="133" fill="#1a1a1a" font-size="12" font-weight="700" text-anchor="middle">MUX Z (Z₀ / Zᵢ₊₁)</text>
+
+  <!-- Колон 4: Лічильник ітерацій -->
+  <rect x="760" y="108" width="160" height="66" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="840" y="132" fill="#1a1a1a" font-size="12" font-weight="700" text-anchor="middle">Лічильник ітерацій i</text>
+  <text x="840" y="154" fill="#2457d6" font-size="12" font-weight="700" text-anchor="middle">i = 0, 1, 2 … N−1</text>
+
+  <!-- Лінії від MUX до Регістрів -->
+  <line x1="140" y1="148" x2="140" y2="175" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <line x1="380" y1="148" x2="380" y2="175" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <line x1="620" y1="148" x2="620" y2="175" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- Ряд 2: Регістри тракту (стан ітерації) -->
+  <rect x="55" y="175" width="170" height="50" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="140" y="196" fill="#2457d6" font-size="13" font-weight="700" text-anchor="middle">Регістр X (32 біти)</text>
+  <text x="140" y="214" fill="#1a1a1a" font-size="12" text-anchor="middle">Поточна величина Xᵢ</text>
+
+  <rect x="295" y="175" width="170" height="50" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="380" y="196" fill="#2457d6" font-size="13" font-weight="700" text-anchor="middle">Регістр Y (32 біти)</text>
+  <text x="380" y="214" fill="#1a1a1a" font-size="12" text-anchor="middle">Поточна величина Yᵢ</text>
+
+  <rect x="535" y="175" width="170" height="50" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="620" y="196" fill="#2457d6" font-size="13" font-weight="700" text-anchor="middle">Регістр Z (32 біти)</text>
+  <text x="620" y="214" fill="#1a1a1a" font-size="12" text-anchor="middle">Кутовий залишок Zᵢ</text>
+
+  <!-- Колон 4: Блок знака -->
+  <rect x="760" y="195" width="160" height="100" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="840" y="217" fill="#1a1a1a" font-size="12" font-weight="700" text-anchor="middle">Блок вибору знака σᵢ</text>
+  <text x="840" y="238" fill="#6b7280" font-size="12" text-anchor="middle">Вхід: MSB(Z) / MSB(Y)</text>
+  <text x="840" y="259" fill="#6b7280" font-size="12" text-anchor="middle">Обертання: σᵢ = sign(Z)</text>
+  <text x="840" y="280" fill="#6b7280" font-size="12" text-anchor="middle">Векторний: σᵢ = −sign(Y)</text>
+
+  <!-- Сигнал знакового біта від Register Z до блоку вибору знака -->
+  <path d="M 705,205 L 735,205 L 735,225 L 760,225" fill="none" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#arr)"/>
+  <text x="732" y="197" fill="#6b7280" font-size="12" text-anchor="middle">MSB(Z)</text>
+
+  <!-- Прямі лінії даних від регістрів до суматорів-віднімачів -->
+  <line x1="90" y1="225" x2="90" y2="370" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <line x1="430" y1="225" x2="430" y2="370" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <line x1="575" y1="225" x2="575" y2="370" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Перехресні зв'язки до матричних зсувачів -->
+  <!-- X -> Зсувач X (у каналі Y): від x=210 до x=340 -->
+  <path d="M 210,225 L 210,246 L 340,246 L 340,280" fill="none" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Y -> Зсувач Y (у каналі X): від x=310 до x=180 -->
+  <path d="M 310,225 L 310,260 L 180,260 L 180,280" fill="none" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Ряд 3: Матричні зсувачі та таблиця кутових констант -->
+  <rect x="125" y="280" width="110" height="50" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="180" y="301" fill="#1a1a1a" font-size="12" font-weight="700" text-anchor="middle">Зсувач Y ≫ i</text>
+  <text x="180" y="319" fill="#6b7280" font-size="12" text-anchor="middle">Матричний зсув</text>
+
+  <rect x="285" y="280" width="110" height="50" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="340" y="301" fill="#1a1a1a" font-size="12" font-weight="700" text-anchor="middle">Зсувач X ≫ i</text>
+  <text x="340" y="319" fill="#6b7280" font-size="12" text-anchor="middle">Матричний зсув</text>
+
+  <rect x="610" y="280" width="110" height="50" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="665" y="301" fill="#1a1a1a" font-size="12" font-weight="700" text-anchor="middle">Таблиця LUT</text>
+  <text x="665" y="319" fill="#6b7280" font-size="12" text-anchor="middle">αᵢ = arctan(2⁻ⁱ)</text>
+
+  <!-- Керування зсувом і адресою від лічильника i -->
+  <line x1="98" y1="305" x2="125" y2="305" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="111" y="297" fill="#2457d6" font-size="12" font-weight="700" text-anchor="middle">i</text>
+
+  <line x1="262" y1="305" x2="285" y2="305" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="273" y="297" fill="#2457d6" font-size="12" font-weight="700" text-anchor="middle">i</text>
+
+  <line x1="745" y1="305" x2="720" y2="305" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="733" y="297" fill="#2457d6" font-size="12" font-weight="700" text-anchor="middle">i</text>
+
+  <!-- Виходи зсувачів і LUT до суматорів-віднімачів -->
+  <line x1="180" y1="330" x2="180" y2="370" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <line x1="340" y1="330" x2="340" y2="370" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <line x1="665" y1="330" x2="665" y2="370" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- Ряд 4: Суматори-віднімачі -->
+  <rect x="55" y="370" width="170" height="55" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <text x="140" y="392" fill="#27ae60" font-size="13" font-weight="700" text-anchor="middle">Суматор-віднімач X</text>
+  <text x="140" y="412" fill="#1a1a1a" font-size="12" text-anchor="middle">Xᵢ₊₁ = Xᵢ ∓ (Yᵢ ≫ i)</text>
+
+  <rect x="295" y="370" width="170" height="55" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <text x="380" y="392" fill="#27ae60" font-size="13" font-weight="700" text-anchor="middle">Суматор-віднімач Y</text>
+  <text x="380" y="412" fill="#1a1a1a" font-size="12" text-anchor="middle">Yᵢ₊₁ = Yᵢ ± (Xᵢ ≫ i)</text>
+
+  <rect x="535" y="370" width="170" height="55" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <text x="620" y="392" fill="#27ae60" font-size="13" font-weight="700" text-anchor="middle">Суматор-віднімач Z</text>
+  <text x="620" y="412" fill="#1a1a1a" font-size="12" text-anchor="middle">Zᵢ₊₁ = Zᵢ ∓ αᵢ</text>
+
+  <!-- Колон 4: Керування операціями -->
+  <rect x="760" y="325" width="160" height="105" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="840" y="347" fill="#1a1a1a" font-size="12" font-weight="700" text-anchor="middle">Керування операціями</text>
+  <text x="840" y="367" fill="#27ae60" font-size="12" font-weight="700" text-anchor="middle">Сигнал напрямку σᵢ</text>
+  <text x="840" y="387" fill="#6b7280" font-size="12" text-anchor="middle">X: віднімання / додавання</text>
+  <text x="840" y="405" fill="#6b7280" font-size="12" text-anchor="middle">Y: додавання / віднімання</text>
+  <text x="840" y="423" fill="#6b7280" font-size="12" text-anchor="middle">Z: віднімання / додавання</text>
+
+  <!-- Сигнал вибору операції від блоку керування до суматорів -->
+  <line x1="760" y1="395" x2="705" y2="395" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr-red)"/>
+  <line x1="535" y1="395" x2="465" y2="395" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr-red)"/>
+  <line x1="295" y1="395" x2="225" y2="395" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr-red)"/>
+
+  <!-- Лінії від суматорів до вихідних блоків -->
+  <line x1="140" y1="425" x2="140" y2="455" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <line x1="380" y1="425" x2="380" y2="455" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <line x1="620" y1="425" x2="620" y2="455" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <!-- Ряд 5: Результати ітерації -->
+  <rect x="75" y="455" width="130" height="40" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="140" y="473" fill="#1a1a1a" font-size="12" font-weight="700" text-anchor="middle">Вихід Xᵢ₊₁</text>
+  <text x="140" y="488" fill="#6b7280" font-size="12" text-anchor="middle">нова абсциса</text>
+
+  <rect x="315" y="455" width="130" height="40" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="380" y="473" fill="#1a1a1a" font-size="12" font-weight="700" text-anchor="middle">Вихід Yᵢ₊₁</text>
+  <text x="380" y="488" fill="#6b7280" font-size="12" text-anchor="middle">нова ордината</text>
+
+  <rect x="555" y="455" width="130" height="40" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="620" y="473" fill="#1a1a1a" font-size="12" font-weight="700" text-anchor="middle">Вихід Zᵢ₊₁</text>
+  <text x="620" y="488" fill="#6b7280" font-size="12" text-anchor="middle">новий кут</text>
+
+  <!-- Колон 4: Тактування -->
+  <rect x="760" y="455" width="160" height="40" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="840" y="473" fill="#2457d6" font-size="12" font-weight="700" text-anchor="middle">Тактовий сигнал CLK</text>
+  <text x="840" y="488" fill="#1a1a1a" font-size="12" text-anchor="middle">Синхронний запис</text>
+
+  <!-- Індивідуальні шини зворотного зв'язку до MUX -->
+  <!-- Канал X зворотний зв'язок -->
+  <path d="M 140,495 L 140,515 L 35,515 L 35,134 L 65,134" fill="none" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr-blue)"/>
+
+  <!-- Канал Y зворотний зв'язок -->
+  <path d="M 380,495 L 380,515 L 248,515 L 248,134 L 305,134" fill="none" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr-blue)"/>
+
+  <!-- Канал Z зворотний зв'язок -->
+  <path d="M 620,495 L 620,515 L 495,515 L 495,134 L 545,134" fill="none" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr-blue)"/>
+
+  <!-- Пояснювальний підпис унизу -->
+  <text x="480" y="542" fill="#2457d6" font-size="12" font-weight="700" text-anchor="middle">Зворотний зв'язок: стан усіх регістрів оновлюється строго синхронно на кожному такті конвеєра</text>
+</svg>

@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <text x="480" y="36" text-anchor="middle" font-size="18" font-weight="700" fill="#1a1a1a">Розподіл пам'яті GRAM дисплея при апаратному скролінгу</text>
+  <text x="480" y="58" text-anchor="middle" font-size="13" fill="#6b7280">Фіксовані зони TFA/BFA захищені від зсуву, VSA зчитується кільцево від вказівника VSP</text>
+
+  <rect x="50" y="80" width="400" height="360" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="250" y="106" text-anchor="middle" font-size="14" font-weight="700" fill="#1a1a1a">Адресний простір GRAM (320 рядків)</text>
+
+  <rect x="75" y="125" width="350" height="48" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="250" y="145" text-anchor="middle" font-size="13" font-weight="700" fill="#2457d6">Top Fixed Area (TFA = 40 рядків)</text>
+  <text x="250" y="162" text-anchor="middle" font-size="12" fill="#1a1a1a">Адреси 0..39 — нерухомий статус-бар</text>
+
+  <rect x="75" y="183" width="350" height="66" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="250" y="208" text-anchor="middle" font-size="13" font-weight="700" fill="#27ae60">VSA: Верхня частина (рядки 40 .. 159)</text>
+  <text x="250" y="228" text-anchor="middle" font-size="12" fill="#1a1a1a">Зчитується після замикання кільця</text>
+
+  <rect x="75" y="259" width="350" height="28" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="250" y="278" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">Вказівник скролінгу VSP = 160 (поточний старт)</text>
+
+  <rect x="75" y="297" width="350" height="66" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="250" y="322" text-anchor="middle" font-size="13" font-weight="700" fill="#c0392b">VSA: Нижня частина (рядки 160 .. 279)</text>
+  <text x="250" y="342" text-anchor="middle" font-size="12" fill="#1a1a1a">Зчитується першою від мітки VSP</text>
+
+  <rect x="75" y="373" width="350" height="48" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="250" y="393" text-anchor="middle" font-size="13" font-weight="700" fill="#2457d6">Bottom Fixed Area (BFA = 40 рядків)</text>
+  <text x="250" y="410" text-anchor="middle" font-size="12" fill="#1a1a1a">Адреси 280..319 — нерухомий футер</text>
+
+  <rect x="510" y="80" width="400" height="360" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="710" y="106" text-anchor="middle" font-size="14" font-weight="700" fill="#1a1a1a">Фізична матриця TFT (растрове розгортання)</text>
+
+  <rect x="535" y="125" width="350" height="48" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="710" y="145" text-anchor="middle" font-size="13" font-weight="700" fill="#2457d6">Нерухома шапка (рядки екрана 0 .. 39)</text>
+  <text x="710" y="162" text-anchor="middle" font-size="12" fill="#1a1a1a">Відображає дані TFA з рядків 0..39</text>
+
+  <rect x="535" y="183" width="350" height="80" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="710" y="215" text-anchor="middle" font-size="13" font-weight="700" fill="#c0392b">Рухома область: верх (рядки 40 .. 159)</text>
+  <text x="710" y="235" text-anchor="middle" font-size="12" fill="#1a1a1a">Відображає дані VSA від рядка VSP (160..279)</text>
+
+  <rect x="535" y="273" width="350" height="90" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="710" y="308" text-anchor="middle" font-size="13" font-weight="700" fill="#27ae60">Рухома область: низ (рядки 160 .. 279)</text>
+  <text x="710" y="328" text-anchor="middle" font-size="12" fill="#1a1a1a">Кільцевий перехід на початок VSA (рядки 40..159)</text>
+
+  <rect x="535" y="373" width="350" height="48" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="710" y="393" text-anchor="middle" font-size="13" font-weight="700" fill="#2457d6">Нерухомий футер (рядки екрана 280 .. 319)</text>
+  <text x="710" y="410" text-anchor="middle" font-size="12" fill="#1a1a1a">Відображає дані BFA з рядків 280..319</text>
+
+  <path d="M 425 149 L 527 149" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <path d="M 425 330 C 470 330, 480 223, 527 223" stroke="#c0392b" stroke-width="1.5" fill="none" marker-end="url(#arr-red)"/>
+  <path d="M 425 216 C 470 216, 480 318, 527 318" stroke="#27ae60" stroke-width="1.5" fill="none" marker-end="url(#arr-green)"/>
+  <path d="M 425 397 L 527 397" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <text x="480" y="462" text-anchor="middle" font-size="12" fill="#6b7280">Апаратний зсув змінює лише покажчик VSP у контролері без перезапису пам'яті GRAM</text>
+</svg>

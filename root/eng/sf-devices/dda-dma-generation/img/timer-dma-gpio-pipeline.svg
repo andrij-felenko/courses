@@ -1,0 +1,197 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="100%" height="100%" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-amber" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#d97706"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Полотно -->
+  <rect x="0" y="0" width="960" height="540" fill="#ffffff"/>
+
+  <!-- Заголовок та підзаголовок -->
+  <text x="480" y="30" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Конвеєр двобуферного вивантаження патернів DDA</text>
+  <text x="480" y="50" text-anchor="middle" font-size="13" fill="#6b7280">Апаратне потокове виведення в GPIO через DMA Circular Mode з чергуванням за подіями HT і TC</text>
+
+  <!-- СЕКЦІЯ 1: Апаратний конвеєр передачі даних -->
+  <rect x="25" y="68" width="910" height="202" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="40" y="88" font-size="12" font-weight="bold" fill="#6b7280" letter-spacing="0.5">АПАРАТНО-ПРОГРАМНИЙ КОНВЕЄР ДВОБУФЕРНОГО ВИВАНТАЖЕННЯ</text>
+
+  <!-- Блок 1: CPU / Ядро DDA -->
+  <rect x="40" y="100" width="145" height="158" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="40" y="100" width="145" height="26" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="112" y="118" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">CPU: Ядро DDA</text>
+  <text x="48" y="140" font-size="12" fill="#1a1a1a">• Розрахунок кроків</text>
+  <text x="48" y="157" font-size="12" fill="#1a1a1a">• Кроковий патерн</text>
+  <text x="48" y="174" font-size="12" fill="#1a1a1a">• Запис у RAM-буфер</text>
+  <line x1="48" y1="184" x2="177" y2="184" stroke="#e1e4e8" stroke-width="1"/>
+  <text x="48" y="199" font-size="12" font-weight="bold" fill="#6b7280">Дії в перериваннях:</text>
+  <text x="48" y="215" font-size="12" font-weight="bold" fill="#27ae60">HT: оновлення Half 0</text>
+  <text x="48" y="231" font-size="12" font-weight="bold" fill="#2457d6">TC: оновлення Half 1</text>
+  <text x="48" y="247" font-size="12" fill="#6b7280">t_calc &lt; t_half</text>
+
+  <!-- Стрілка: CPU -> SRAM -->
+  <line x1="185" y1="165" x2="208" y2="165" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="197" y="157" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Запис</text>
+  <text x="197" y="179" text-anchor="middle" font-size="12" fill="#6b7280">в RAM</text>
+
+  <!-- Блок 2: SRAM (Кільцевий буфер) -->
+  <rect x="210" y="100" width="225" height="158" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="210" y="100" width="225" height="26" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="322" y="118" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">SRAM: Кільцевий буфер (N)</text>
+
+  <!-- Half 0 -->
+  <rect x="218" y="132" width="102" height="74" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="269" y="149" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Half 0 (Ping)</text>
+  <text x="269" y="166" text-anchor="middle" font-size="12" fill="#1a1a1a">Кроки 0..N/2-1</text>
+  <text x="269" y="183" text-anchor="middle" font-size="12" fill="#6b7280">Розмір: N/2</text>
+  <text x="269" y="199" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Адреса: 0x00</text>
+
+  <!-- Half 1 -->
+  <rect x="325" y="132" width="102" height="74" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="376" y="149" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Half 1 (Pong)</text>
+  <text x="376" y="166" text-anchor="middle" font-size="12" fill="#1a1a1a">Кроки N/2..N-1</text>
+  <text x="376" y="183" text-anchor="middle" font-size="12" fill="#6b7280">Розмір: N/2</text>
+  <text x="376" y="199" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Адреса: +N/2</text>
+
+  <!-- Межі та події HT/TC -->
+  <text x="269" y="226" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">▲ Подія HT</text>
+  <text x="269" y="244" text-anchor="middle" font-size="12" fill="#6b7280">(50% буфера)</text>
+  <text x="376" y="226" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">▲ Подія TC</text>
+  <text x="376" y="244" text-anchor="middle" font-size="12" fill="#6b7280">(100% буфера)</text>
+
+  <!-- Стрілка: SRAM -> DMA -->
+  <line x1="435" y1="215" x2="458" y2="215" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr-dark)"/>
+  <text x="447" y="208" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Дані</text>
+
+  <!-- Блок 3 Top: Таймер TIMx -->
+  <rect x="460" y="100" width="140" height="64" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="460" y="100" width="140" height="24" rx="6" fill="#fef3c7" stroke="#d97706" stroke-width="1"/>
+  <text x="530" y="117" text-anchor="middle" font-size="12" font-weight="bold" fill="#d97706">Таймер TIMx</text>
+  <text x="468" y="137" font-size="12" fill="#1a1a1a">• Період t_step</text>
+  <text x="468" y="153" font-size="12" fill="#6b7280">• Update Event (TRGO)</text>
+
+  <!-- Стрілка: TIMx -> DMA -->
+  <line x1="530" y1="164" x2="530" y2="178" stroke="#d97706" stroke-width="2" marker-end="url(#arr-amber)"/>
+
+  <!-- Блок 3 Bottom: DMA Контролер -->
+  <rect x="460" y="180" width="140" height="78" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="460" y="180" width="140" height="24" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="530" y="196" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">DMA Circular</text>
+  <text x="468" y="215" font-size="12" fill="#1a1a1a">• Авточитання RAM</text>
+  <text x="468" y="231" font-size="12" fill="#1a1a1a">• Лічильник N → 0</text>
+  <text x="468" y="247" font-size="12" fill="#6b7280">• Circular auto-wrap</text>
+
+  <!-- Стрілка: DMA -> GPIO -->
+  <line x1="600" y1="219" x2="623" y2="219" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="612" y="211" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Запис</text>
+
+  <!-- Блок 4: GPIO (Порт виводу) -->
+  <rect x="625" y="100" width="135" height="158" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="625" y="100" width="135" height="26" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="692" y="118" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">GPIOx->BSRR</text>
+  <text x="633" y="139" font-size="12" fill="#1a1a1a">• Атомарний порт</text>
+  <text x="633" y="155" font-size="12" fill="#1a1a1a">• Запис за 1 такт</text>
+  <text x="633" y="171" font-size="12" fill="#1a1a1a">• Без пауз CPU</text>
+  <line x1="633" y1="181" x2="750" y2="181" stroke="#e1e4e8" stroke-width="1"/>
+  <text x="633" y="197" font-size="12" font-weight="bold" fill="#6b7280">Виводи мікросхеми:</text>
+  <text x="633" y="214" font-size="12" fill="#2457d6">• STEP_X (Pin 0)</text>
+  <text x="633" y="231" font-size="12" fill="#1a1a1a">• DIR_X  (Pin 1)</text>
+  <text x="633" y="248" font-size="12" fill="#2457d6">• STEP_Y (Pin 2)</text>
+
+  <!-- Стрілка: GPIO -> Сигнали -->
+  <line x1="760" y1="179" x2="783" y2="179" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- Блок 5: Фізичні виходи та форма сигналів -->
+  <rect x="785" y="100" width="135" height="158" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="785" y="100" width="135" height="26" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="852" y="118" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Виходи кроку</text>
+  <text x="793" y="139" font-size="12" font-weight="bold" fill="#2457d6">STEP:</text>
+  <path d="M 837,141 L 847,141 L 847,130 L 857,130 L 857,141 L 872,141 L 872,130 L 882,130 L 882,141 L 907,141" stroke="#2457d6" stroke-width="2" fill="none"/>
+  <text x="793" y="162" font-size="12" font-weight="bold" fill="#1a1a1a">DIR:</text>
+  <line x1="837" y1="158" x2="907" y2="158" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="793" y1="176" x2="910" y2="176" stroke="#e1e4e8" stroke-width="1"/>
+  <text x="793" y="194" font-size="12" font-weight="bold" fill="#27ae60">✓ Джитер = 0 нс</text>
+  <text x="793" y="211" font-size="12" fill="#1a1a1a">Апаратна точність</text>
+  <text x="793" y="228" font-size="12" fill="#6b7280">100% плавний рух</text>
+  <text x="793" y="245" font-size="12" fill="#6b7280">без збоїв частоти</text>
+
+  <!-- СЕКЦІЯ 2: Двофазний цикл перемикання буферів (Ping-Pong) -->
+
+  <!-- Ліва картка: Фаза 1 -->
+  <rect x="25" y="280" width="445" height="245" rx="8" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="25" y="280" width="445" height="30" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="40" y="300" font-size="13" font-weight="bold" fill="#27ae60">ФАЗА 1: DMA читає Half 0 — CPU заповнює Half 1</text>
+
+  <!-- Стан буферів у Фазі 1 -->
+  <rect x="40" y="320" width="195" height="46" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="137" y="338" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Half 0: АКТИВНИЙ (DMA)</text>
+  <text x="137" y="354" text-anchor="middle" font-size="12" fill="#1a1a1a">Читання в GPIO (кроки 0..N/2-1)</text>
+
+  <rect x="250" y="320" width="195" height="46" rx="4" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/>
+  <text x="347" y="338" text-anchor="middle" font-size="12" font-weight="bold" fill="#d97706">Half 1: ОНОВЛЕННЯ (CPU)</text>
+  <text x="347" y="354" text-anchor="middle" font-size="12" fill="#1a1a1a">Генерація DDA (кроки N/2..N-1)</text>
+
+  <!-- Опис кроків Фази 1 -->
+  <text x="40" y="384" font-size="12" font-weight="bold" fill="#1a1a1a">1. Потік DMA:</text>
+  <text x="135" y="384" font-size="12" fill="#6b7280">TIMx стробує DMA → автовивід у GPIO_BSRR</text>
+
+  <text x="40" y="402" font-size="12" font-weight="bold" fill="#1a1a1a">2. Робота CPU:</text>
+  <text x="135" y="402" font-size="12" fill="#6b7280">DDA розраховує наступні кроки для Half 1</text>
+
+  <text x="40" y="420" font-size="12" font-weight="bold" fill="#27ae60">3. Подія HT:</text>
+  <text x="135" y="420" font-size="12" fill="#1a1a1a">DMA передав N/2 слів → виклик переривання ISR</text>
+
+  <text x="40" y="438" font-size="12" font-weight="bold" fill="#1a1a1a">4. Результат:</text>
+  <text x="135" y="438" font-size="12" fill="#6b7280">Half 0 передано, старт оновлення (Фаза 2)</text>
+
+  <!-- Детермінізм Фаза 1 -->
+  <rect x="40" y="456" width="415" height="56" rx="5" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="52" y="476" font-size="12" font-weight="bold" fill="#1a1a1a">Умова детермінізму:</text>
+  <text x="185" y="476" font-size="12" font-weight="bold" fill="#27ae60">t_calc(N/2) &lt; (N/2) · t_step</text>
+  <text x="52" y="496" font-size="12" fill="#6b7280">CPU встигає підготувати буфер до завершення поточної передачі</text>
+
+  <!-- Права картка: Фаза 2 -->
+  <rect x="490" y="280" width="445" height="245" rx="8" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="490" y="280" width="445" height="30" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="505" y="300" font-size="13" font-weight="bold" fill="#2457d6">ФАЗА 2: DMA читає Half 1 — CPU оновлює Half 0</text>
+
+  <!-- Стан буферів у Фазі 2 -->
+  <rect x="505" y="320" width="195" height="46" rx="4" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/>
+  <text x="602" y="338" text-anchor="middle" font-size="12" font-weight="bold" fill="#d97706">Half 0: ОНОВЛЕННЯ (CPU)</text>
+  <text x="602" y="354" text-anchor="middle" font-size="12" fill="#1a1a1a">Новий патерн DDA (кроки 0..N/2-1)</text>
+
+  <rect x="715" y="320" width="195" height="46" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="812" y="338" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Half 1: АКТИВНИЙ (DMA)</text>
+  <text x="812" y="354" text-anchor="middle" font-size="12" fill="#1a1a1a">Читання в GPIO (кроки N/2..N-1)</text>
+
+  <!-- Опис кроків Фази 2 -->
+  <text x="505" y="384" font-size="12" font-weight="bold" fill="#1a1a1a">1. Потік DMA:</text>
+  <text x="600" y="384" font-size="12" fill="#6b7280">DMA без пауз читає Half 1 за адресою N/2</text>
+
+  <text x="505" y="402" font-size="12" font-weight="bold" fill="#1a1a1a">2. Робота CPU:</text>
+  <text x="600" y="402" font-size="12" fill="#6b7280">ISR запускає розрахунок DDA для вільного Half 0</text>
+
+  <text x="505" y="420" font-size="12" font-weight="bold" fill="#2457d6">3. Подія TC:</text>
+  <text x="600" y="420" font-size="12" fill="#1a1a1a">DMA передав буфер N → виклик переривання ISR</text>
+
+  <text x="505" y="438" font-size="12" font-weight="bold" fill="#1a1a1a">4. Кільце wrap:</text>
+  <text x="600" y="438" font-size="12" fill="#6b7280">DMA Circular wrap на початок Half 0 (Фаза 1)</text>
+
+  <!-- Результат Фаза 2 -->
+  <rect x="505" y="456" width="415" height="56" rx="5" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="517" y="476" font-size="12" font-weight="bold" fill="#1a1a1a">Апаратна перевага:</text>
+  <text x="655" y="476" font-size="12" font-weight="bold" fill="#2457d6">Нульовий джитер (0 ns) та RTOS вільна</text>
+  <text x="517" y="496" font-size="12" fill="#6b7280">Неперервний рух приводів без затримок між порціями даних</text>
+</svg>

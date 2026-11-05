@@ -1,0 +1,145 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="100%" height="100%" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="960" height="540" fill="#ffffff"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="38" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Карта пам'яті DAPLink та потік вибору режиму завантаження</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Розподіл Flash-пам'яті MCU та логіка переходу в режим обслуговування (Maintenance)</text>
+
+  <!-- LEFT PANEL: Memory Map -->
+  <rect x="24" y="75" width="372" height="440" rx="8" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="42" y="100" font-size="15" font-weight="700" fill="#1a1a1a">Розподіл Flash-пам'яті (Memory Map)</text>
+  <line x1="24" y1="112" x2="396" y2="112" stroke="#d0d7de" stroke-width="1"/>
+
+  <text x="110" y="132" font-size="12" font-weight="600" fill="#6b7280" text-anchor="end">Адреса</text>
+  <text x="124" y="132" font-size="12" font-weight="600" fill="#6b7280">Призначення сектору</text>
+
+  <!-- Sector 1: Bootloader -->
+  <text x="110" y="162" font-size="12" fill="#6b7280" text-anchor="end">0x08000000</text>
+  <text x="110" y="180" font-size="12" font-weight="600" fill="#2457d6" text-anchor="end">64 КБ (RO)</text>
+  <text x="110" y="224" font-size="12" fill="#6b7280" text-anchor="end">0x0800FFFF</text>
+  <rect x="118" y="144" width="264" height="88" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="128" y="164" font-size="13" font-weight="700" fill="#2457d6">Сектор завантажувача (Bootloader)</text>
+  <text x="128" y="182" font-size="12" fill="#1a1a1a">• Первинний запуск: VTOR = 0x08000000</text>
+  <text x="128" y="200" font-size="12" fill="#1a1a1a">• Режим Maintenance: оновлення образу</text>
+  <text x="128" y="218" font-size="12" fill="#6b7280">• Апаратний захист від запису (WRP)</text>
+
+  <!-- Sector 2: Shared Config -->
+  <text x="110" y="262" font-size="12" fill="#6b7280" text-anchor="end">0x08010000</text>
+  <text x="110" y="280" font-size="12" font-weight="600" fill="#d97706" text-anchor="end">16 КБ</text>
+  <text x="110" y="302" font-size="12" fill="#6b7280" text-anchor="end">0x08013FFF</text>
+  <rect x="118" y="244" width="264" height="66" rx="6" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/>
+  <text x="128" y="264" font-size="13" font-weight="700" fill="#b45309">Конфігурація (Shared Config)</text>
+  <text x="128" y="283" font-size="12" fill="#1a1a1a">• Прапорець boot_mode (Boot Token)</text>
+  <text x="128" y="300" font-size="12" fill="#1a1a1a">• Налаштування плати та лічильники</text>
+
+  <!-- Sector 3: Interface App -->
+  <text x="110" y="340" font-size="12" fill="#6b7280" text-anchor="end">0x08014000</text>
+  <text x="110" y="358" font-size="12" font-weight="600" fill="#27ae60" text-anchor="end">~432 КБ</text>
+  <text x="110" y="418" font-size="12" fill="#6b7280" text-anchor="end">0x0807FFFF</text>
+  <rect x="118" y="322" width="264" height="104" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="128" y="342" font-size="13" font-weight="700" fill="#27ae60">Робоча прошивка (Interface App)</text>
+  <text x="128" y="361" font-size="12" fill="#1a1a1a">• CMSIS-DAP (SWD-емулятор відладки)</text>
+  <text x="128" y="379" font-size="12" fill="#1a1a1a">• USB CDC (UART) + MSC диск 'DAPLINK'</text>
+  <text x="128" y="397" font-size="12" fill="#1a1a1a">• Оновлюється через режим Maintenance</text>
+  <text x="128" y="415" font-size="12" fill="#6b7280">• Зсув векторів: VTOR = 0x08014000</text>
+
+  <!-- Sector 4: SRAM Mailbox -->
+  <text x="110" y="458" font-size="12" fill="#6b7280" text-anchor="end">0x20000000</text>
+  <text x="110" y="476" font-size="12" font-weight="600" fill="#1a1a1a" text-anchor="end">SRAM</text>
+  <rect x="118" y="438" width="264" height="58" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="128" y="460" font-size="13" font-weight="700" fill="#1a1a1a">SRAM: Поштова скринька (Mailbox)</text>
+  <text x="128" y="480" font-size="12" fill="#6b7280">• Збереження стану при Soft Reset</text>
+
+  <!-- RIGHT PANEL: Decision Tree & Boot Flow -->
+  <rect x="416" y="75" width="520" height="440" rx="8" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="436" y="100" font-size="15" font-weight="700" fill="#1a1a1a">Алгоритм вибору режиму (Boot Flow)</text>
+  <line x1="416" y1="112" x2="936" y2="112" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Start Node -->
+  <rect x="465" y="124" width="190" height="32" rx="16" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="560" y="145" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">Power-On / Reset MCU</text>
+
+  <!-- Arrow Start -> Decision 1 -->
+  <line x1="560" y1="156" x2="560" y2="176" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+
+  <!-- Decision 1 -->
+  <rect x="434" y="178" width="252" height="52" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="446" y="198" font-size="13" font-weight="700" fill="#1a1a1a">1. Кнопка Reset затиснута?</text>
+  <text x="446" y="217" font-size="12" fill="#6b7280">Апаратне утримання виводу nRESET/GPIO</text>
+
+  <!-- Decision 1 -> Maintenance (YES) -->
+  <line x1="686" y1="204" x2="734" y2="204" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <text x="710" y="197" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">ТАК</text>
+
+  <!-- Decision 1 -> Decision 2 (NO) -->
+  <line x1="560" y1="230" x2="560" y2="256" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+  <text x="550" y="248" font-size="12" font-weight="700" fill="#27ae60" text-anchor="end">НІ</text>
+
+  <!-- Decision 2 -->
+  <rect x="434" y="258" width="252" height="52" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="446" y="278" font-size="13" font-weight="700" fill="#1a1a1a">2. Прапорець у RAM встановлено?</text>
+  <text x="446" y="297" font-size="12" fill="#6b7280">Сигнатура Soft Reset (Bootloader Token)</text>
+
+  <!-- Decision 2 -> Maintenance (YES) -->
+  <line x1="686" y1="284" x2="734" y2="284" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <text x="710" y="277" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">ТАК</text>
+
+  <!-- Decision 2 -> Decision 3 (NO) -->
+  <line x1="560" y1="310" x2="560" y2="336" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+  <text x="550" y="328" font-size="12" font-weight="700" fill="#27ae60" text-anchor="end">НІ</text>
+
+  <!-- Decision 3 -->
+  <rect x="434" y="338" width="252" height="52" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="446" y="358" font-size="13" font-weight="700" fill="#1a1a1a">3. Прошивка App валідна?</text>
+  <text x="446" y="377" font-size="12" fill="#6b7280">Стек SP у межах RAM та вірна CRC32</text>
+
+  <!-- Decision 3 -> Maintenance (NO) -->
+  <line x1="686" y1="364" x2="734" y2="364" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <text x="710" y="357" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">НІ</text>
+
+  <!-- Decision 3 -> Interface Mode (YES) -->
+  <line x1="560" y1="390" x2="560" y2="420" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <text x="550" y="410" font-size="12" font-weight="700" fill="#27ae60" text-anchor="end">ТАК</text>
+
+  <!-- Terminal Block: Interface Mode -->
+  <rect x="434" y="422" width="252" height="74" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <text x="446" y="443" font-size="13" font-weight="700" fill="#27ae60">Режим Interface (Робочий)</text>
+  <text x="446" y="463" font-size="12" fill="#1a1a1a">• Ремапінг векторів: VTOR = 0x08014000</text>
+  <text x="446" y="482" font-size="12" fill="#1a1a1a">• Активні: CMSIS-DAP + CDC + MSC</text>
+
+  <!-- Maintenance Mode Block -->
+  <rect x="736" y="178" width="182" height="212" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="2"/>
+  <text x="827" y="202" font-size="14" font-weight="700" fill="#c0392b" text-anchor="middle">Режим Maintenance</text>
+  <text x="827" y="219" font-size="12" fill="#6b7280" text-anchor="middle">(Аварійне відновлення)</text>
+  <line x1="748" y1="228" x2="906" y2="228" stroke="#f1aeb5" stroke-width="1"/>
+  <text x="746" y="248" font-size="12" fill="#1a1a1a">• Виконується Bootloader</text>
+  <text x="746" y="268" font-size="12" fill="#1a1a1a">• USB-диск 'MAINTENANCE'</text>
+  <text x="746" y="288" font-size="12" fill="#1a1a1a">• Очікування файлу *.bin</text>
+  <text x="746" y="308" font-size="12" fill="#1a1a1a">• Запис у Flash 0x08014000</text>
+  <text x="746" y="328" font-size="12" fill="#1a1a1a">• Перевірка CRC та звіт</text>
+  <text x="746" y="352" font-size="12" font-weight="700" fill="#c0392b">• Захист від оцеглення</text>
+  <text x="746" y="372" font-size="12" fill="#6b7280">  (Bootloader не стирається)</text>
+
+  <!-- Maintenance -> Completion -->
+  <line x1="827" y1="390" x2="827" y2="420" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+  <text x="836" y="409" font-size="12" fill="#6b7280">Запис .bin</text>
+
+  <!-- Completion Card -->
+  <rect x="736" y="422" width="182" height="74" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="827" y="443" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Завершення оновлення:</text>
+  <text x="746" y="463" font-size="12" fill="#1a1a1a">• Генерація DETAILS.TXT</text>
+  <text x="746" y="482" font-size="12" fill="#1a1a1a">• Автоматичний Soft Reset</text>
+</svg>

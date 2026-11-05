@@ -1,0 +1,90 @@
+<svg viewBox="0 0 960 480" width="960" height="480" xmlns="http://www.w3.org/2000/svg" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="34" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Фреймування COBS та фіксація аварійного дампа в .noinit</text>
+  <text x="480" y="56" text-anchor="middle" font-size="13" fill="#6b7280">Усунення нульових байтів для маркування меж кадру та збереження логу в SRAM при HardFault</text>
+
+  <!-- Top Panel: COBS Framing -->
+  <rect x="30" y="75" width="900" height="170" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="50" y="100" font-size="14" font-weight="bold" fill="#1a1a1a">Кодування COBS (Consistent Overhead Byte Stuffing)</text>
+  <text x="50" y="120" font-size="12" fill="#6b7280">Перетворення байтів даних так, щоб байт 0x00 був виключно роздільником між кадрами</text>
+
+  <!-- Raw Data -->
+  <rect x="50" y="135" width="370" height="40" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="65" y="160" font-size="12" fill="#1a1a1a">Вхідні дані:</text>
+  <text x="145" y="160" font-size="12" font-family="monospace" fill="#1a1a1a">11  22 </text>
+  <text x="195" y="160" font-size="12" font-family="monospace" font-weight="bold" fill="#c0392b">00</text>
+  <text x="215" y="160" font-size="12" font-family="monospace" fill="#1a1a1a"> 33  44 </text>
+  <text x="265" y="160" font-size="12" font-family="monospace" font-weight="bold" fill="#c0392b">00</text>
+  <text x="285" y="160" font-size="12" font-family="monospace" fill="#1a1a1a"> 55</text>
+  <text x="350" y="160" font-size="11" fill="#c0392b">(нулі всередині)</text>
+
+  <!-- Arrow -->
+  <line x1="430" y1="155" x2="475" y2="155" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="453" y="145" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">COBS</text>
+
+  <!-- Encoded Packet -->
+  <rect x="490" y="135" width="420" height="40" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="505" y="160" font-size="12" fill="#2457d6">COBS:</text>
+  <text x="555" y="160" font-size="12" font-family="monospace" font-weight="bold" fill="#27ae60">03</text>
+  <text x="575" y="160" font-size="12" font-family="monospace" fill="#1a1a1a"> 11 22 </text>
+  <text x="625" y="160" font-size="12" font-family="monospace" font-weight="bold" fill="#27ae60">03</text>
+  <text x="645" y="160" font-size="12" font-family="monospace" fill="#1a1a1a"> 33 44 </text>
+  <text x="695" y="160" font-size="12" font-family="monospace" font-weight="bold" fill="#27ae60">02</text>
+  <text x="715" y="160" font-size="12" font-family="monospace" fill="#1a1a1a"> 55 </text>
+  <rect x="750" y="142" width="60" height="26" rx="3" fill="#27ae60"/>
+  <text x="780" y="160" text-anchor="middle" font-size="12" font-weight="bold" fill="#ffffff">0x00</text>
+  <text x="820" y="160" font-size="11" fill="#27ae60">Роздільник</text>
+
+  <!-- Explanation line in top panel -->
+  <text x="50" y="200" font-size="12" fill="#1a1a1a">• Офсети 03 та 02 вказують відстань до наступного нуля: жоден нульовий байт не потрапляє в потік кадру</text>
+  <text x="50" y="222" font-size="12" fill="#1a1a1a">• Байт 0x00 слугує абсолютно детермінованою межею кадру для апаратного UART розпізнавача</text>
+
+  <!-- Bottom Panel: Crashlog Pipeline in .noinit -->
+  <rect x="30" y="260" width="900" height="200" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="50" y="285" font-size="14" font-weight="bold" fill="#1a1a1a">Фіксація аварійного журналу в енергонезалежній секції .noinit</text>
+
+  <!-- Step 1: Crash -->
+  <rect x="50" y="300" width="260" height="140" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="65" y="325" font-size="13" font-weight="bold" fill="#c0392b">1. Аварія HardFault</text>
+  <text x="65" y="348" font-size="12" fill="#1a1a1a">- Виникає збій шини або адреси</text>
+  <text x="65" y="370" font-size="12" fill="#1a1a1a">- Обробник HardFault_Handler</text>
+  <text x="65" y="392" font-size="12" fill="#1a1a1a">- Фіксує PC, LR, PSR та регістри</text>
+  <text x="65" y="415" font-size="12" fill="#1a1a1a">- Викликає NVIC_SystemReset()</text>
+
+  <!-- Arrow 1 -> 2 -->
+  <line x1="315" y1="370" x2="345" y2="370" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+
+  <!-- Step 2: SRAM .noinit -->
+  <rect x="350" y="300" width="270" height="140" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="365" y="325" font-size="13" font-weight="bold" fill="#2457d6">2. Секція SRAM .noinit</text>
+  <text x="365" y="348" font-size="12" fill="#1a1a1a">- Скрипт лінкера виключає скидання</text>
+  <text x="365" y="370" font-size="12" fill="#1a1a1a">- Зберігає останні кадри логу</text>
+  <text x="365" y="392" font-size="12" fill="#1a1a1a">- Записує сигнатуру 0xDEADBEEF</text>
+  <text x="365" y="415" font-size="12" fill="#1a1a1a">- Пам'ять жива під час софт-рестарту</text>
+
+  <!-- Arrow 2 -> 3 -->
+  <line x1="625" y1="370" x2="655" y2="370" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Step 3: Post-Mortem Recovery -->
+  <rect x="660" y="300" width="250" height="140" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="675" y="325" font-size="13" font-weight="bold" fill="#27ae60">3. Відновлення після рестарту</text>
+  <text x="675" y="348" font-size="12" fill="#1a1a1a">- ResetHandler перевіряє сигнатуру</text>
+  <text x="675" y="370" font-size="12" fill="#1a1a1a">- Дамп передається через UART/COBS</text>
+  <text x="675" y="392" font-size="12" fill="#1a1a1a">- Сигнатура очищається</text>
+  <text x="675" y="415" font-size="12" fill="#1a1a1a">- Нормальний старт програми</text>
+</svg>

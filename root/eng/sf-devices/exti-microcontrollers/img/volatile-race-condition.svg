@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-prob" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <text x="480" y="35" fill="#1a1a1a" font-size="18" font-weight="bold" text-anchor="middle">Стан гонитви (Race Condition) при використанні volatile</text>
+  <text x="480" y="60" fill="#6b7280" font-size="13" text-anchor="middle">Кваліфікатор volatile не робить операцію атомарною: переривання може вклинитися між читанням і записом</text>
+
+  <text x="240" y="100" fill="#1a1a1a" font-size="16" font-weight="bold" text-anchor="middle">Головний цикл (main)</text>
+  <text x="480" y="100" fill="#1a1a1a" font-size="16" font-weight="bold" text-anchor="middle">Пам'ять (volatile count)</text>
+  <text x="720" y="100" fill="#1a1a1a" font-size="16" font-weight="bold" text-anchor="middle">Переривання (EXTI ISR)</text>
+
+  <line x1="240" y1="120" x2="240" y2="440" stroke="#d0d7de" stroke-width="2" stroke-dasharray="6 6"/>
+  <line x1="480" y1="120" x2="480" y2="440" stroke="#d0d7de" stroke-width="2" stroke-dasharray="6 6"/>
+  <line x1="720" y1="120" x2="720" y2="440" stroke="#d0d7de" stroke-width="2" stroke-dasharray="6 6"/>
+
+  <rect x="400" y="120" width="160" height="40" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="480" y="145" fill="#2457d6" font-size="14" font-weight="bold" text-anchor="middle">count = 5</text>
+
+  <rect x="140" y="160" width="200" height="40" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <text x="240" y="185" fill="#1a1a1a" font-size="14" text-anchor="middle">1. Читання: reg = count (5)</text>
+  <line x1="400" y1="180" x2="350" y2="180" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+
+  <text x="720" y="215" fill="#c0392b" font-size="14" font-weight="bold" text-anchor="middle">⚡ Апаратне переривання EXTI</text>
+
+  <rect x="620" y="230" width="200" height="40" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <text x="720" y="255" fill="#1a1a1a" font-size="14" text-anchor="middle">2. Читання: reg = count (5)</text>
+  <line x1="560" y1="250" x2="610" y2="250" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+
+  <rect x="620" y="290" width="200" height="40" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <text x="720" y="315" fill="#1a1a1a" font-size="14" text-anchor="middle">3. Запис: count = 6</text>
+  <line x1="620" y1="310" x2="570" y2="310" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+
+  <rect x="400" y="290" width="160" height="40" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="480" y="315" fill="#2457d6" font-size="14" font-weight="bold" text-anchor="middle">count = 6</text>
+
+  <text x="720" y="355" fill="#6b7280" font-size="13" text-anchor="middle">Повернення керування (IRET)</text>
+
+  <rect x="140" y="370" width="200" height="40" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="2"/>
+  <text x="240" y="395" fill="#c0392b" font-size="14" font-weight="bold" text-anchor="middle">4. Запис: count = 5 + 1 = 6</text>
+  <line x1="340" y1="390" x2="390" y2="390" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-prob)"/>
+
+  <rect x="400" y="370" width="160" height="40" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="2"/>
+  <text x="480" y="395" fill="#c0392b" font-size="14" font-weight="bold" text-anchor="middle">count = 6 (Помилка!)</text>
+
+  <rect x="230" y="430" width="500" height="30" rx="4" fill="#fdecea" stroke="none"/>
+  <text x="480" y="450" fill="#c0392b" font-size="13" font-weight="bold" text-anchor="middle">Результат: інкремент із головного циклу перезаписав зміну від переривання (втрата даних)</text>
+</svg>

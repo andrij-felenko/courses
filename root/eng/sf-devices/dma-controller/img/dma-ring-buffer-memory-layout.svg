@@ -1,0 +1,83 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-main" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <text x="480" y="36" text-anchor="middle" font-size="18" font-weight="700" fill="#1a1a1a">Подвійний кільцевий буфер DMA у пам'яті SRAM</text>
+  <text x="480" y="58" text-anchor="middle" font-size="13" fill="#6b7280">Апаратні переривання Half-Transfer (HT) та Transfer-Complete (TC) для безперервної обробки</text>
+
+  <!-- Верхня панель: Структура пам'яті буфера -->
+  <rect x="40" y="80" width="880" height="175" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="60" y="104" font-size="14" font-weight="700" fill="#1a1a1a">Розподіл неперервного масиву пам'яті (Розмір: N байтів у SRAM)</text>
+
+  <!-- Перша половина (First Half) -->
+  <rect x="140" y="125" width="340" height="70" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="310" y="152" text-anchor="middle" font-size="13" font-weight="700" fill="#2457d6">Перша половина (Індекс: 0 .. N/2 - 1)</text>
+  <text x="310" y="172" text-anchor="middle" font-size="12" fill="#1a1a1a">Буфер A: Зчитування процесором під час фази TC</text>
+
+  <!-- Друга половина (Second Half) -->
+  <rect x="480" y="125" width="340" height="70" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="650" y="152" text-anchor="middle" font-size="13" font-weight="700" fill="#27ae60">Друга половина (Індекс: N/2 .. N - 1)</text>
+  <text x="650" y="172" text-anchor="middle" font-size="12" fill="#1a1a1a">Буфер B: Зчитування процесором під час фази HT</text>
+
+  <!-- Адресні межі -->
+  <text x="140" y="215" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">Base Addr</text>
+  <text x="140" y="230" text-anchor="middle" font-size="12" fill="#6b7280">&amp;rx_buf[0]</text>
+
+  <line x1="480" y1="120" x2="480" y2="210" stroke="#c0392b" stroke-width="2" stroke-dasharray="4,3"/>
+  <text x="480" y="222" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">Поріг HT: N/2 байтів</text>
+  <text x="480" y="238" text-anchor="middle" font-size="12" fill="#c0392b">Генерація переривання HTIF</text>
+
+  <text x="820" y="215" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">Поріг TC: N байтів</text>
+  <text x="820" y="230" text-anchor="middle" font-size="12" fill="#2457d6">Генерація переривання TCIF</text>
+
+  <!-- Нижня панель: Паралельна робота DMA та CPU (Пінг-понг) -->
+  <rect x="40" y="265" width="880" height="180" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="60" y="289" font-size="14" font-weight="700" fill="#1a1a1a">Часовий цикл пінг-понг обробки (Non-blocking DMA Stream)</text>
+
+  <!-- Фаза 1: DMA заповнює 2-гу половину, CPU обробляє 1-шу -->
+  <rect x="70" y="305" width="395" height="120" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="267" y="325" text-anchor="middle" font-size="13" font-weight="700" fill="#c0392b">Фаза 1: Спрацював поріг HT (Half-Transfer)</text>
+
+  <rect x="85" y="340" width="175" height="40" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="172" y="360" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">CPU ISR / Task</text>
+  <text x="172" y="374" text-anchor="middle" font-size="12" fill="#1a1a1a">Обробляє половину A</text>
+
+  <rect x="275" y="340" width="175" height="40" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="362" y="360" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">DMA Запис</text>
+  <text x="362" y="374" text-anchor="middle" font-size="12" fill="#1a1a1a">Заповнює половину B</text>
+
+  <text x="267" y="405" text-anchor="middle" font-size="12" fill="#6b7280">Немає гонки: вказівники DMA та CPU розведені в пам'яті</text>
+
+  <!-- Стрілка циклу -->
+  <line x1="475" y1="365" x2="488" y2="365" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-main)"/>
+
+  <!-- Фаза 2: DMA заповнює 1-шу половину, CPU обробляє 2-гу -->
+  <rect x="495" y="305" width="405" height="120" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="697" y="325" text-anchor="middle" font-size="13" font-weight="700" fill="#2457d6">Фаза 2: Спрацював поріг TC (Transfer-Complete)</text>
+
+  <rect x="510" y="340" width="180" height="40" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="600" y="360" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">DMA Запис (Wrap)</text>
+  <text x="600" y="374" text-anchor="middle" font-size="12" fill="#1a1a1a">Заповнює половину A</text>
+
+  <rect x="705" y="340" width="180" height="40" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="795" y="360" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">CPU ISR / Task</text>
+  <text x="795" y="374" text-anchor="middle" font-size="12" fill="#1a1a1a">Обробляє половину B</text>
+
+  <text x="697" y="405" text-anchor="middle" font-size="12" fill="#6b7280">Автоматичне кільцеве замикання (Circular Mode у регістрі CR)</text>
+
+  <text x="480" y="462" text-anchor="middle" font-size="12" fill="#6b7280">Концепція Double-Buffer забезпечує потоковий прийом на максимальній швидкості без втрати байтів</text>
+</svg>

@@ -1,0 +1,164 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="100%" height="100%" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <!-- Arrow markers -->
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-amber" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#d97706"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Main Title & Subtitle -->
+  <text x="480" y="30" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Конвеєр блокуючого запису Flash з контролем таймауту та WDT</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Посторінкове MMIO-програмування без переривань: захист від Bus Stall та оновлення WDT</text>
+
+  <!-- ==================== PANEL 1: DATA STREAM & PAGE SLICING ==================== -->
+  <rect x="24" y="68" width="280" height="452" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="164" y="90" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">1. Потік даних і розбиття сторінок</text>
+  <text x="164" y="106" font-size="12" fill="#6b7280" text-anchor="middle">Вхід з аварії: CPSID I, без RTOS</text>
+
+  <!-- Box 1.1: Payload Sources -->
+  <rect x="38" y="118" width="252" height="82" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2"/>
+  <text x="48" y="136" font-size="12" font-weight="700" fill="#1a1a1a">Джерела дампу (S_dump = 3944 B)</text>
+  <text x="48" y="153" font-size="12" fill="#6b7280">• Регістри CPU: r0–r12, PC, LR</text>
+  <text x="48" y="170" font-size="12" fill="#6b7280">• Стеки: PSP (2 KB) + MSP (1 KB)</text>
+  <text x="48" y="187" font-size="12" fill="#6b7280">• Трасування: кільцевий лог S_trace</text>
+
+  <!-- Line 1.1 -> 1.2 -->
+  <line x1="164" y1="200" x2="164" y2="210" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Box 1.2: Slot Start State -->
+  <rect x="38" y="212" width="252" height="66" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="48" y="230" font-size="12" font-weight="700" fill="#2457d6">Старт слота: STATE_START</text>
+  <text x="48" y="248" font-size="12" fill="#1a1a1a">Слово стану: 0xFFFFFFFE</text>
+  <text x="48" y="265" font-size="12" fill="#2457d6">Скинуто біт 0 (без стирання)</text>
+
+  <!-- Line 1.2 -> 1.3 -->
+  <line x1="164" y1="278" x2="164" y2="288" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Box 1.3: Running CRC32 -->
+  <rect x="38" y="290" width="252" height="80" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2"/>
+  <text x="48" y="308" font-size="12" font-weight="700" fill="#1a1a1a">Потоковий CRC32 «на льоту»</text>
+  <text x="48" y="326" font-size="12" fill="#2457d6">running_crc = crc32_step(...)</text>
+  <text x="48" y="344" font-size="12" fill="#6b7280">• Розрахунок під час копіювання</text>
+  <text x="48" y="361" font-size="12" fill="#6b7280">• Нуль алокацій (без malloc)</text>
+
+  <!-- Line 1.3 -> 1.4 -->
+  <line x1="164" y1="370" x2="164" y2="380" stroke="#d97706" stroke-width="1.5" marker-end="url(#arr-amber)"/>
+
+  <!-- Box 1.4: Page Segmentation -->
+  <rect x="38" y="382" width="252" height="124" rx="6" fill="#fef3c7" stroke="#d97706" stroke-width="1.2"/>
+  <text x="48" y="400" font-size="12" font-weight="700" fill="#d97706">Розбиття по сторінках (256 B)</text>
+  <text x="48" y="418" font-size="12" fill="#1a1a1a">Захист від page wrap-around:</text>
+  <text x="48" y="435" font-size="12" fill="#6b7280">Перетин межі закільцьовує Flash</text>
+  <text x="48" y="453" font-size="12" fill="#1a1a1a">Посторінковий потік слів:</text>
+  <text x="48" y="471" font-size="12" fill="#6b7280">64 слова × 4 B = 256 B у сторінці</text>
+  <text x="48" y="492" font-size="12" font-weight="700" fill="#d97706">Потік передається в MMIO →</text>
+
+  <!-- Connector: Panel 1 -> Panel 2 -->
+  <line x1="290" y1="414" x2="330" y2="414" stroke="#d97706" stroke-width="1.8" marker-end="url(#arr-amber)"/>
+
+  <!-- ==================== PANEL 2: POLLED MMIO WRITE ENGINE ==================== -->
+  <rect x="322" y="68" width="316" height="452" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="480" y="90" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">2. Блокуюче опитування та запис MMIO</text>
+  <text x="480" y="106" font-size="12" fill="#6b7280" text-anchor="middle">Контроль BSY, ліміт таймауту і пам'ять</text>
+
+  <!-- Box 2.1: Wait Ready -->
+  <rect x="336" y="118" width="288" height="82" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2"/>
+  <text x="346" y="136" font-size="12" font-weight="700" fill="#1a1a1a">flash_wait_ready(): перевірка BSY</text>
+  <text x="346" y="153" font-size="12" fill="#2457d6">while (FLASH_SR &amp; BSY) { timeout--; }</text>
+  <text x="346" y="170" font-size="12" fill="#6b7280">Ліміт: 500 000 ітерацій (NOP)</text>
+  <text x="346" y="188" font-size="12" font-weight="700" fill="#27ae60">✓ BSY == 0: шина готова</text>
+
+  <!-- Line 2.1 -> 2.2 -->
+  <line x1="480" y1="200" x2="480" y2="210" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <!-- Box 2.2: Write Word -->
+  <rect x="336" y="212" width="288" height="106" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="346" y="230" font-size="12" font-weight="700" fill="#2457d6">flash_write_word(addr, val)</text>
+  <text x="346" y="248" font-size="12" fill="#1a1a1a">1. FLASH_CR |= FLASH_CR_PG</text>
+  <text x="346" y="266" font-size="12" fill="#1a1a1a">2. *(volatile uint32_t*)addr = val</text>
+  <text x="346" y="284" font-size="12" fill="#6b7280">3. Бар'єри: asm("dsb 0xF; isb 0xF")</text>
+  <text x="346" y="302" font-size="12" fill="#1a1a1a">4. Опитування BSY та скидання PG</text>
+
+  <!-- Line 2.2 -> 2.3 -->
+  <line x1="480" y1="318" x2="480" y2="328" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Box 2.3: Stream Loop & Page Boundary -->
+  <rect x="336" y="330" width="288" height="108" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="346" y="348" font-size="12" font-weight="700" fill="#27ae60">flash_write_stream(): цикл сторінки</text>
+  <text x="346" y="366" font-size="12" fill="#1a1a1a">Перевірка: *(uint32_t*)addr == val</text>
+  <text x="346" y="384" font-size="12" fill="#6b7280">Інкремент індексу слова: i++</text>
+  <text x="346" y="404" font-size="12" font-weight="700" fill="#2457d6">if ((i % 64) == 0) → Межа 256 B</text>
+  <text x="346" y="424" font-size="12" font-weight="700" fill="#2457d6">Скидання WDT кожну сторінку →</text>
+
+  <!-- Line 2.3 -> 2.4 -->
+  <line x1="480" y1="438" x2="480" y2="448" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3 2" marker-end="url(#arr-red)"/>
+
+  <!-- Box 2.4: Bus Stall Fault Guard -->
+  <rect x="336" y="450" width="288" height="56" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="346" y="468" font-size="12" font-weight="700" fill="#c0392b">Захист: timeout == 0 | PGSERR</text>
+  <text x="346" y="486" font-size="12" fill="#c0392b">Bus Stall → аварійний ребут</text>
+
+  <!-- Connector: Panel 2 -> Panel 3 (Page Boundary to WDT Feed) -->
+  <path d="M 624 414 L 646 414 L 646 158 L 664 158" fill="none" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arr-blue)"/>
+
+  <!-- ==================== PANEL 3: WATCHDOG TIMER & ATOMIC COMMIT ==================== -->
+  <rect x="656" y="68" width="280" height="452" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="796" y="90" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">3. Оновлення WDT та атомарний коміт</text>
+  <text x="796" y="106" font-size="12" fill="#6b7280" text-anchor="middle">Апаратне скидання та валідація</text>
+
+  <!-- Box 3.1: Watchdog Feed -->
+  <rect x="670" y="118" width="252" height="82" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="680" y="136" font-size="12" font-weight="700" fill="#2457d6">watchdog_feed(): скид WDT</text>
+  <text x="680" y="153" font-size="12" fill="#1a1a1a">IWDG_KR = 0xAAAA (Reload Key)</text>
+  <text x="680" y="170" font-size="12" fill="#6b7280">Викликається кожні 256 B</text>
+  <text x="680" y="188" font-size="12" font-weight="700" fill="#27ae60">✓ Лічильник скинуто на максимум</text>
+
+  <!-- Line 3.1 -> 3.2 -->
+  <line x1="796" y1="200" x2="796" y2="210" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+
+  <!-- Box 3.2: Timing Margin Budget -->
+  <rect x="670" y="212" width="252" height="88" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2"/>
+  <text x="680" y="230" font-size="12" font-weight="700" fill="#1a1a1a">Запас надійності за часом:</text>
+  <text x="680" y="248" font-size="12" fill="#6b7280">• Час сторінки: T_page ≈ 3.15 мс</text>
+  <text x="680" y="266" font-size="12" fill="#6b7280">• Поріг сторожа: T_wdg = 500 мс</text>
+  <text x="680" y="284" font-size="12" font-weight="700" fill="#27ae60">N_safe = 500 / 3.15 = 158 сторінок!</text>
+
+  <!-- Line 3.2 -> 3.3 -->
+  <line x1="796" y1="300" x2="796" y2="310" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Box 3.3: CRC32 Trailer -->
+  <rect x="670" y="312" width="252" height="62" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2"/>
+  <text x="680" y="330" font-size="12" font-weight="700" fill="#1a1a1a">Запис кінцевика S_crc (4 B)</text>
+  <text x="680" y="348" font-size="12" fill="#1a1a1a">Запис обчисленого running_crc</text>
+  <text x="680" y="362" font-size="12" fill="#6b7280">Фіксує цілісність усіх даних</text>
+
+  <!-- Line 3.3 -> 3.4 -->
+  <line x1="796" y1="374" x2="796" y2="384" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <!-- Box 3.4: Atomic Commit & Reset -->
+  <rect x="670" y="386" width="252" height="120" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="680" y="404" font-size="12" font-weight="700" fill="#27ae60">Атомарний коміт (Atomic Commit)</text>
+  <text x="680" y="422" font-size="12" font-weight="700" fill="#1a1a1a">state = STATE_VALID (0xFFFFFFF8)</text>
+  <text x="680" y="440" font-size="12" fill="#27ae60">Скидання біта 2 (без стирання)</text>
+  <text x="680" y="458" font-size="12" fill="#6b7280">Дамп зафіксовано неподільно</text>
+  <text x="680" y="478" font-size="12" font-weight="700" fill="#2457d6">Фінал: NVIC_SystemReset()</text>
+  <text x="680" y="494" font-size="12" fill="#6b7280">Штатний ребут для зчитування</text>
+</svg>

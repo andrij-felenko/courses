@@ -1,0 +1,206 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="100%" height="100%" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-amber" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#d97706"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="540" fill="#ffffff"/>
+
+  <!-- Main Title & Subtitle -->
+  <text x="480" y="27" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Діагностика логічним аналізатором: запас часу DMA та фіксація Underrun</text>
+  <text x="480" y="47" text-anchor="middle" font-size="13" fill="#6b7280">Трасування ліній PIN_DBG_ISR і PIN_DBG_TASK: вимірювання T_headroom та апаратна зупинка генерації кроків</text>
+
+  <!-- ==================== ПАНЕЛЬ 1: ШТАТНИЙ РЕЖИМ ==================== -->
+  <rect x="24" y="60" width="912" height="210" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Заголовок панелі 1 -->
+  <rect x="24" y="60" width="912" height="26" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="38" y="77" font-size="12" font-weight="bold" fill="#27ae60">РЕЖИМ 1: ШТАТНЕ ВИВАНТАЖЕННЯ — ДОСТАТНІЙ ЗАПАС НАДІЙНОСТІ (T_headroom = 1.2 мс / 60% T_deadline)</text>
+  <rect x="815" y="64" width="112" height="18" rx="3" fill="#27ae60"/>
+  <text x="871" y="77" text-anchor="middle" font-size="12" font-weight="bold" fill="#ffffff">ШТАТНО: OK</text>
+
+  <!-- Підписи каналів панелі 1 -->
+  <rect x="36" y="97" width="24" height="15" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="48" y="109" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">D0</text>
+  <text x="66" y="109" font-size="12" font-weight="bold" fill="#1a1a1a">PIN_DBG_ISR</text>
+  <text x="66" y="123" font-size="12" fill="#6b7280">DMA HT/TC перерив.</text>
+
+  <rect x="36" y="137" width="24" height="15" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="48" y="149" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">D1</text>
+  <text x="66" y="149" font-size="12" font-weight="bold" fill="#1a1a1a">PIN_DBG_TASK</text>
+  <text x="66" y="163" font-size="12" fill="#6b7280">DDA обчислення RTOS</text>
+
+  <rect x="36" y="177" width="24" height="15" rx="3" fill="#f4f6f8" stroke="#6b7280" stroke-width="1"/>
+  <text x="48" y="189" text-anchor="middle" font-size="12" font-weight="bold" fill="#6b7280">D2</text>
+  <text x="66" y="189" font-size="12" font-weight="bold" fill="#1a1a1a">DMA STREAM</text>
+  <text x="66" y="203" font-size="12" fill="#6b7280">Вивантаження в GPIO</text>
+
+  <rect x="36" y="217" width="24" height="15" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="48" y="229" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">D3</text>
+  <text x="66" y="229" font-size="12" font-weight="bold" fill="#1a1a1a">STEP (GPIO)</text>
+  <text x="66" y="243" font-size="12" fill="#27ae60">Стабільні (0 нс джит.)</text>
+
+  <!-- Екран логічного аналізатора панелі 1 -->
+  <rect x="194" y="92" width="726" height="154" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Вертикальні маркери подій (HT та TC) -->
+  <line x1="230" y1="92" x2="230" y2="246" stroke="#2457d6" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="750" y1="92" x2="750" y2="246" stroke="#27ae60" stroke-width="1" stroke-dasharray="3,3"/>
+
+  <!-- CH0: PIN_DBG_ISR -->
+  <path d="M 194,122 L 230,122 L 230,102 L 238,102 L 238,122 L 750,122 L 750,102 L 758,102 L 758,122 L 920,122" fill="none" stroke="#2457d6" stroke-width="2"/>
+  <text x="245" y="115" font-size="12" font-weight="bold" fill="#2457d6">HT ISR (виклик задачі)</text>
+  <text x="765" y="115" font-size="12" font-weight="bold" fill="#27ae60">TC ISR (буфер валідний)</text>
+
+  <!-- CH1: PIN_DBG_TASK -->
+  <!-- Jitter box -->
+  <rect x="232" y="138" width="87" height="20" rx="3" fill="#fef3c7" stroke="#d97706" stroke-width="1" stroke-dasharray="2,2"/>
+  <text x="275" y="152" text-anchor="middle" font-size="12" font-weight="bold" fill="#d97706">Jitter 350 мкс</text>
+
+  <!-- Task Active -->
+  <rect x="321" y="138" width="117" height="20" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="379" y="152" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">DDA (450 мкс)</text>
+
+  <!-- Headroom Safe Zone -->
+  <rect x="444" y="136" width="300" height="24" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="594" y="152" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">T_headroom = 1.20 мс (60% T_deadline) — OK</text>
+
+  <path d="M 194,158 L 321,158 L 321,138 L 438,138 L 438,158 L 920,158" fill="none" stroke="#27ae60" stroke-width="2"/>
+
+  <!-- CH2: DMA BUFFER STREAM -->
+  <rect x="194" y="176" width="36" height="20" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="212" y="190" text-anchor="middle" font-size="12" fill="#6b7280">H0</text>
+  <rect x="230" y="176" width="520" height="20" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="490" y="190" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">DMA вивантажує Half 1 (Buffer B) у регістр GPIO BSRR [2.0 мс]</text>
+  <rect x="750" y="176" width="170" height="20" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="835" y="190" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Half 0 (готовий)</text>
+
+  <!-- CH3: STEP (GPIO) -->
+  <path d="M 194,232 L 194,214 L 202,214 L 202,232 L 218,232 L 218,214 L 226,214 L 226,232 L 242,232 L 242,214 L 250,214 L 250,232 L 266,232 L 266,214 L 274,214 L 274,232 L 290,232 L 290,214 L 298,214 L 298,232 L 314,232 L 314,214 L 322,214 L 322,232 L 338,232 L 338,214 L 346,214 L 346,232 L 362,232 L 362,214 L 370,214 L 370,232 L 386,232 L 386,214 L 394,214 L 394,232 L 410,232 L 410,214 L 418,214 L 418,232 L 434,232 L 434,214 L 442,214 L 442,232 L 458,232 L 458,214 L 466,214 L 466,232 L 482,232 L 482,214 L 490,214 L 490,232 L 506,232 L 506,214 L 514,214 L 514,232 L 530,232 L 530,214 L 538,214 L 538,232 L 554,232 L 554,214 L 562,214 L 562,232 L 578,232 L 578,214 L 586,214 L 586,232 L 602,232 L 602,214 L 610,214 L 610,232 L 626,232 L 626,214 L 634,214 L 634,232 L 650,232 L 650,214 L 658,214 L 658,232 L 674,232 L 674,214 L 682,214 L 682,232 L 698,232 L 698,214 L 706,214 L 706,232 L 722,232 L 722,214 L 730,214 L 730,232 L 746,232 L 746,214 L 754,214 L 754,232 L 770,232 L 770,214 L 778,214 L 778,232 L 794,232 L 794,214 L 802,214 L 802,232 L 818,232 L 818,214 L 826,214 L 826,232 L 842,232 L 842,214 L 850,214 L 850,232 L 866,232 L 866,214 L 874,214 L 874,232 L 890,232 L 890,214 L 898,214 L 898,232 L 914,232" fill="none" stroke="#2457d6" stroke-width="1.5"/>
+
+  <!-- Часова шкала панелі 1 -->
+  <line x1="194" y1="248" x2="920" y2="248" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="230" y1="248" x2="230" y2="252" stroke="#6b7280" stroke-width="1"/>
+  <line x1="360" y1="248" x2="360" y2="252" stroke="#6b7280" stroke-width="1"/>
+  <line x1="490" y1="248" x2="490" y2="252" stroke="#6b7280" stroke-width="1"/>
+  <line x1="620" y1="248" x2="620" y2="252" stroke="#6b7280" stroke-width="1"/>
+  <line x1="750" y1="248" x2="750" y2="252" stroke="#6b7280" stroke-width="1"/>
+  <line x1="854" y1="248" x2="854" y2="252" stroke="#6b7280" stroke-width="1"/>
+
+  <text x="230" y="263" text-anchor="middle" font-size="12" fill="#6b7280">0.0 мс (HT)</text>
+  <text x="360" y="263" text-anchor="middle" font-size="12" fill="#6b7280">0.5 мс</text>
+  <text x="490" y="263" text-anchor="middle" font-size="12" fill="#6b7280">1.0 мс</text>
+  <text x="620" y="263" text-anchor="middle" font-size="12" fill="#6b7280">1.5 мс</text>
+  <text x="750" y="263" text-anchor="middle" font-size="12" fill="#6b7280">2.0 мс (TC / Дедлайн)</text>
+  <text x="854" y="263" text-anchor="middle" font-size="12" fill="#6b7280">2.4 мс</text>
+
+  <!-- ==================== ПАНЕЛЬ 2: АВАРІЙНИЙ РЕЖИМ (UNDERRUN) ==================== -->
+  <rect x="24" y="284" width="912" height="210" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Заголовок панелі 2 -->
+  <rect x="24" y="284" width="912" height="26" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="38" y="301" font-size="12" font-weight="bold" fill="#c0392b">РЕЖИМ 2: ЗАТРИМКА RTOS — ВИЧЕРПАННЯ ЗАПАСУ ТА АВАРІЙНЕ СПУСТОШЕННЯ (BUFFER UNDERRUN)</text>
+  <rect x="795" y="288" width="132" height="18" rx="3" fill="#c0392b"/>
+  <text x="861" y="301" text-anchor="middle" font-size="12" font-weight="bold" fill="#ffffff">АВАРІЯ: UNDERRUN</text>
+
+  <!-- Підписи каналів панелі 2 -->
+  <rect x="36" y="321" width="24" height="15" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="48" y="333" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">D0</text>
+  <text x="66" y="333" font-size="12" font-weight="bold" fill="#1a1a1a">PIN_DBG_ISR</text>
+  <text x="66" y="347" font-size="12" fill="#6b7280">DMA HT/TC перерив.</text>
+
+  <rect x="36" y="361" width="24" height="15" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="48" y="373" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">D1</text>
+  <text x="66" y="373" font-size="12" font-weight="bold" fill="#1a1a1a">PIN_DBG_TASK</text>
+  <text x="66" y="387" font-size="12" fill="#c0392b">DDA заблоковано!</text>
+
+  <rect x="36" y="401" width="24" height="15" rx="3" fill="#f4f6f8" stroke="#6b7280" stroke-width="1"/>
+  <text x="48" y="413" text-anchor="middle" font-size="12" font-weight="bold" fill="#6b7280">D2</text>
+  <text x="66" y="413" font-size="12" font-weight="bold" fill="#1a1a1a">DMA STREAM</text>
+  <text x="66" y="427" font-size="12" fill="#6b7280">Вивантаження в GPIO</text>
+
+  <rect x="36" y="441" width="24" height="15" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="48" y="453" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">D3</text>
+  <text x="66" y="453" font-size="12" font-weight="bold" fill="#1a1a1a">STEP (GPIO)</text>
+  <text x="66" y="467" font-size="12" fill="#c0392b">Аварійний Stop (0 В)</text>
+
+  <!-- Екран логічного аналізатора панелі 2 -->
+  <rect x="194" y="316" width="726" height="154" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Вертикальні маркери подій панелі 2 -->
+  <line x1="230" y1="316" x2="230" y2="470" stroke="#2457d6" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="750" y1="316" x2="750" y2="470" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,3"/>
+
+  <!-- CH0: PIN_DBG_ISR -->
+  <path d="M 194,346 L 230,346 L 230,326 L 238,326 L 238,346 L 750,346 L 750,326 L 762,326 L 762,346 L 920,346" fill="none" stroke="#c0392b" stroke-width="2"/>
+  <text x="245" y="339" font-size="12" font-weight="bold" fill="#2457d6">HT ISR (виклик задачі)</text>
+  <text x="768" y="339" font-size="12" font-weight="bold" fill="#c0392b">TC ISR: Underrun детекція!</text>
+
+  <!-- CH1: PIN_DBG_TASK -->
+  <!-- Блокування планувальника -->
+  <rect x="232" y="360" width="420" height="24" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <text x="442" y="376" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Затримка RTOS 1.65 мс: ядро витіснене Flash Erase / мережевим стеком</text>
+
+  <!-- Пізній старт обчислень -->
+  <rect x="660" y="360" width="90" height="24" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/>
+  <text x="705" y="376" text-anchor="middle" font-size="12" font-weight="bold" fill="#d97706">DDA...</text>
+
+  <path d="M 194,382 L 660,382 L 660,362 L 750,362 L 755,382 L 920,382" fill="none" stroke="#c0392b" stroke-width="2"/>
+
+  <!-- Аварійне переривання дедлайну -->
+  <rect x="760" y="360" width="150" height="24" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="835" y="376" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">T_headroom &lt; 0 (ABORT)</text>
+
+  <!-- CH2: DMA BUFFER STREAM -->
+  <rect x="194" y="400" width="36" height="20" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="212" y="414" text-anchor="middle" font-size="12" fill="#6b7280">H0</text>
+  <rect x="230" y="400" width="520" height="20" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="490" y="414" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">DMA вивантажує Half 1 (Buffer B) — дані закінчуються, а нові не готові!</text>
+  <rect x="750" y="400" width="170" height="20" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="835" y="414" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">ЗУПИНЕНО: TIM_DIER_UDE=0</text>
+
+  <!-- CH3: STEP (GPIO) -->
+  <path d="M 194,456 L 194,438 L 202,438 L 202,456 L 218,456 L 218,438 L 226,438 L 226,456 L 242,456 L 242,438 L 250,438 L 250,456 L 266,456 L 266,438 L 274,438 L 274,456 L 290,456 L 290,438 L 298,438 L 298,456 L 314,456 L 314,438 L 322,438 L 322,456 L 338,456 L 338,438 L 346,438 L 346,456 L 362,456 L 362,438 L 370,438 L 370,456 L 386,456 L 386,438 L 394,438 L 394,456 L 410,456 L 410,438 L 418,438 L 418,456 L 434,456 L 434,438 L 442,438 L 442,456 L 458,456 L 458,438 L 466,438 L 466,456 L 482,456 L 482,438 L 490,438 L 490,456 L 506,456 L 506,438 L 514,438 L 514,456 L 530,456 L 530,438 L 538,438 L 538,456 L 554,456 L 554,438 L 562,438 L 562,456 L 578,456 L 578,438 L 586,438 L 586,456 L 602,456 L 602,438 L 610,438 L 610,456 L 626,456 L 626,438 L 634,438 L 634,456 L 650,456 L 650,438 L 658,438 L 658,456 L 674,456 L 674,438 L 682,438 L 682,456 L 698,456 L 698,438 L 706,438 L 706,456 L 722,456 L 722,438 L 730,438 L 730,456 L 746,456 L 746,438 L 754,438 L 754,456 L 920,456" fill="none" stroke="#2457d6" stroke-width="1.5"/>
+  <!-- Лінія зупинки STEP -->
+  <line x1="750" y1="456" x2="920" y2="456" stroke="#c0392b" stroke-width="3"/>
+  <rect x="760" y="434" width="150" height="20" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="835" y="448" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">STEP = 0 (Safe Stop)</text>
+
+  <!-- Часова шкала панелі 2 -->
+  <line x1="194" y1="472" x2="920" y2="472" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="230" y1="472" x2="230" y2="476" stroke="#6b7280" stroke-width="1"/>
+  <line x1="360" y1="472" x2="360" y2="476" stroke="#6b7280" stroke-width="1"/>
+  <line x1="490" y1="472" x2="490" y2="476" stroke="#6b7280" stroke-width="1"/>
+  <line x1="620" y1="472" x2="620" y2="476" stroke="#6b7280" stroke-width="1"/>
+  <line x1="750" y1="472" x2="750" y2="476" stroke="#6b7280" stroke-width="1"/>
+  <line x1="854" y1="472" x2="854" y2="476" stroke="#6b7280" stroke-width="1"/>
+
+  <text x="230" y="487" text-anchor="middle" font-size="12" fill="#6b7280">0.0 мс (HT)</text>
+  <text x="360" y="487" text-anchor="middle" font-size="12" fill="#6b7280">0.5 мс</text>
+  <text x="490" y="487" text-anchor="middle" font-size="12" fill="#6b7280">1.0 мс</text>
+  <text x="620" y="487" text-anchor="middle" font-size="12" fill="#6b7280">1.5 мс</text>
+  <text x="750" y="487" text-anchor="middle" font-size="12" fill="#6b7280">2.0 мс (TC / Underrun)</text>
+  <text x="854" y="487" text-anchor="middle" font-size="12" fill="#6b7280">2.4 мс</text>
+
+  <!-- ==================== ПІДСУМКОВА ПАНЕЛЬ ==================== -->
+  <rect x="24" y="504" width="912" height="26" rx="5" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.2"/>
+  <circle cx="36" cy="517" r="4" fill="#27ae60"/>
+  <text x="46" y="521" font-size="12" fill="#1a1a1a"><tspan font-weight="bold" fill="#27ae60">T_headroom = 1.20 мс:</tspan> 60% запасу від T_deadline (поріг надійності &gt; 20%)</text>
+
+  <circle cx="490" cy="517" r="4" fill="#c0392b"/>
+  <text x="500" y="521" font-size="12" fill="#1a1a1a"><tspan font-weight="bold" fill="#c0392b">Захист Underrun:</tspan> TIMx-&gt;DIER &amp;= ~UDE, скидання STEP = 0 через GPIO BSRR</text>
+</svg>

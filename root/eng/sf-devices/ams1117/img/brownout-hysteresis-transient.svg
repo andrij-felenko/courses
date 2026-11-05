@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse"><path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/></marker>
+  </defs>
+  <rect x="0" y="0" width="960" height="460" fill="#ffffff"/>
+  <text x="480" y="30" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Перехідний процес просідання напруги (Brownout Transient)</text>
+  <text x="480" y="50" font-size="13" fill="#6b7280" text-anchor="middle">Вплив падіння VIN на вихідну напругу LDO та поріг скидання МК</text>
+
+  <text x="120" y="120" font-size="13" font-weight="700" fill="#c0392b" text-anchor="end">Вхідна VIN</text>
+  <path d="M140,100 L300,100 L400,160 L500,160 L600,100 L850,100" fill="none" stroke="#c0392b" stroke-width="2"/>
+
+  <text x="120" y="220" font-size="13" font-weight="700" fill="#2457d6" text-anchor="end">Вихід VOUT (LDO)</text>
+  <path d="M140,210 L350,210 L400,240 L480,240 L550,210 L850,210" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+
+  <!-- Dropout threshold line -->
+  <line x1="140" y1="230" x2="850" y2="230" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <text x="860" y="234" font-size="12" fill="#6b7280">V_dropout (1.1V)</text>
+
+  <!-- MCU Reset Signal -->
+  <text x="120" y="330" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="end">RESET (Active Low)</text>
+  <path d="M140,320 L400,320 L400,350 L520,350 L520,320 L850,320" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Region Labels -->
+  <line x1="400" y1="80" x2="400" y2="380" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="520" y1="80" x2="520" y2="380" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="460" y="375" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">Зона Brownout Reset</text>
+</svg>

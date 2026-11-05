@@ -1,0 +1,168 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="100%" height="100%" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <!-- Arrow markers -->
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-amber" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#d97706"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Main Title & Subtitle -->
+  <text x="480" y="28" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Конвеєр оновлення прошивки DAPLink у режимі Maintenance</text>
+  <text x="480" y="48" font-size="13" fill="#6b7280" text-anchor="middle">Трансляція LBA-секторів USB MSC через буфер FAT до внутрішньої Flash-пам'яті</text>
+
+  <!-- ==================== PANEL 1: USB MSC & VFS ==================== -->
+  <rect x="24" y="66" width="288" height="456" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="168" y="88" font-size="14" font-weight="700" fill="#1a1a1a" text-anchor="middle">1. USB MSC та віртуальний FAT</text>
+  <text x="168" y="104" font-size="12" fill="#6b7280" text-anchor="middle">Перехоплення LBA та фільтрація файлів</text>
+
+  <!-- Box 1.1: SCSI / BOT Intercept -->
+  <rect x="36" y="114" width="264" height="80" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2"/>
+  <text x="46" y="132" font-size="13" font-weight="700" fill="#1a1a1a">Перехоплення SCSI WRITE(10)</text>
+  <text x="46" y="150" font-size="12" fill="#2457d6">• USB Bulk-Out: пакети по 64 Б</text>
+  <text x="46" y="167" font-size="12" fill="#6b7280">• Декодування блоку команд CBW</text>
+  <text x="46" y="184" font-size="12" fill="#1a1a1a">• Квант хоста: сектор LBA 512 Б</text>
+
+  <!-- Line 1.1 -> 1.2 -->
+  <line x1="168" y1="194" x2="168" y2="206" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Box 1.2: Dynamic VFS FAT -->
+  <rect x="36" y="208" width="264" height="98" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="46" y="226" font-size="13" font-weight="700" fill="#2457d6">Синтез віртуальної FAT12/16</text>
+  <text x="46" y="244" font-size="12" fill="#1a1a1a">• Бездискова VFS (0 Б у RAM)</text>
+  <text x="46" y="261" font-size="12" fill="#6b7280">• Генерація PBR/BPB на льоту</text>
+  <text x="46" y="278" font-size="12" fill="#6b7280">• Файли: DETAILS, PRODINFO</text>
+  <text x="46" y="295" font-size="12" fill="#2457d6">• Вільний пул: кластери образу</text>
+
+  <!-- Line 1.2 -> 1.3 -->
+  <line x1="168" y1="306" x2="168" y2="318" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Box 1.3: File Classification -->
+  <rect x="36" y="320" width="264" height="82" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2"/>
+  <text x="46" y="338" font-size="13" font-weight="700" fill="#1a1a1a">Селекція корисного потоку</text>
+  <text x="46" y="356" font-size="12" fill="#c0392b">• .DS_Store / ini → ігнор (CSW OK)</text>
+  <text x="46" y="373" font-size="12" fill="#27ae60">• .BIN / .HEX → потік у Flash</text>
+  <text x="46" y="390" font-size="12" fill="#2457d6">• offset = (cluster - 2) × S_clust</text>
+
+  <!-- Line 1.3 -> 1.4 -->
+  <line x1="168" y1="402" x2="168" y2="414" stroke="#d97706" stroke-width="1.5" marker-end="url(#arr-amber)"/>
+
+  <!-- Box 1.4: LBA Output Queue -->
+  <rect x="36" y="416" width="264" height="94" rx="6" fill="#fef3c7" stroke="#d97706" stroke-width="1.2"/>
+  <text x="46" y="434" font-size="13" font-weight="700" fill="#d97706">Буфер корисного сектора</text>
+  <text x="46" y="452" font-size="12" fill="#1a1a1a">• Квант даних: S_lba = 512 Б</text>
+  <text x="46" y="469" font-size="12" fill="#6b7280">• target = FLASH_APP + offset</text>
+  <text x="46" y="486" font-size="12" fill="#1a1a1a">• Черга 512-байтових блоків</text>
+  <text x="46" y="503" font-size="12" font-weight="700" fill="#d97706">Потік передається в адаптер →</text>
+
+  <!-- Inter-Panel Path 1 -> 2 -->
+  <path d="M 300 463 L 324 463 L 324 154 L 346 154" fill="none" stroke="#d97706" stroke-width="1.8" marker-end="url(#arr-amber)"/>
+
+  <!-- ==================== PANEL 2: ADAPTATION & FLASH BUFFER ==================== -->
+  <rect x="336" y="66" width="288" height="456" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="480" y="88" font-size="14" font-weight="700" fill="#1a1a1a" text-anchor="middle">2. Адаптація LBA та Flash-буфер</text>
+  <text x="480" y="104" font-size="12" fill="#6b7280" text-anchor="middle">Узгодження 512 Б (LBA) та 2048 Б Flash</text>
+
+  <!-- Box 2.1: Granularity Adaptation -->
+  <rect x="348" y="114" width="264" height="80" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2"/>
+  <text x="358" y="132" font-size="13" font-weight="700" fill="#1a1a1a">Адаптація: 512 Б → 2048 Б</text>
+  <text x="358" y="150" font-size="12" fill="#2457d6">• 4 × 512 Б сектори = 1 блок Flash</text>
+  <text x="358" y="167" font-size="12" fill="#6b7280">• Фізичний сектор S_sec = 2048 Б</text>
+  <text x="358" y="184" font-size="12" fill="#d97706">• if (target % S_sec == 0) → Стирання</text>
+
+  <!-- Line 2.1 -> 2.2 -->
+  <line x1="480" y1="194" x2="480" y2="206" stroke="#d97706" stroke-width="1.5" marker-end="url(#arr-amber)"/>
+
+  <!-- Box 2.2: Sector Erase & WDT -->
+  <rect x="348" y="208" width="264" height="98" rx="6" fill="#fef3c7" stroke="#d97706" stroke-width="1.2"/>
+  <text x="358" y="226" font-size="13" font-weight="700" fill="#d97706">Стирання: erase_sector()</text>
+  <text x="358" y="244" font-size="12" fill="#1a1a1a">• Виконується на межі 2048 Б</text>
+  <text x="358" y="261" font-size="12" fill="#d97706">• Скид таймера: watchdog_feed()</text>
+  <text x="358" y="278" font-size="12" fill="#6b7280">• Тривалість t_erase ≈ 40 мс</text>
+  <text x="358" y="295" font-size="12" fill="#27ae60">• Опитування BSY без Bus Stall</text>
+
+  <!-- Line 2.2 -> 2.3 -->
+  <line x1="480" y1="306" x2="480" y2="318" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <!-- Box 2.3: Flash Write Word Loop -->
+  <rect x="348" y="320" width="264" height="82" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2"/>
+  <text x="358" y="338" font-size="13" font-weight="700" fill="#1a1a1a">Запис: write_flash_block()</text>
+  <text x="358" y="356" font-size="12" fill="#2457d6">• Програмування слів по 32 біти</text>
+  <text x="358" y="373" font-size="12" fill="#6b7280">• Бар'єри: asm(dsb; isb)</text>
+  <text x="358" y="390" font-size="12" fill="#1a1a1a">• Опитування прапорця PG / BSY</text>
+
+  <!-- Line 2.3 -> 2.4 -->
+  <line x1="480" y1="402" x2="480" y2="414" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Box 2.4: Hardware Error Guard -->
+  <rect x="348" y="416" width="264" height="94" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="358" y="434" font-size="13" font-weight="700" fill="#c0392b">Контроль апаратних збоїв</text>
+  <text x="358" y="452" font-size="12" fill="#c0392b">• Помилка PGSERR / WRPERR</text>
+  <text x="358" y="469" font-size="12" fill="#6b7280">• Запис діагностики у FAIL.TXT</text>
+  <text x="358" y="486" font-size="12" fill="#1a1a1a">• Успіх: передача на валідацію</text>
+  <text x="358" y="503" font-size="12" font-weight="700" fill="#2457d6">Перехід до блоку валідації →</text>
+
+  <!-- Inter-Panel Path 2 -> 3 -->
+  <path d="M 612 463 L 636 463 L 636 163 L 658 163" fill="none" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arr-blue)"/>
+
+  <!-- ==================== PANEL 3: SAFETY, VALIDATION & COMMIT ==================== -->
+  <rect x="648" y="66" width="288" height="456" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="792" y="88" font-size="14" font-weight="700" fill="#1a1a1a" text-anchor="middle">3. Безпека, валідація та запуск</text>
+  <text x="792" y="104" font-size="12" fill="#6b7280" text-anchor="middle">Захист від знеструмлення та релокація</text>
+
+  <!-- Box 3.1: Power-loss Safe Vector -->
+  <rect x="660" y="114" width="264" height="98" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2"/>
+  <text x="670" y="132" font-size="13" font-weight="700" fill="#1a1a1a">Відкладений Reset Handler</text>
+  <text x="670" y="150" font-size="12" fill="#d97706">• LBA 0 містить вектор скидання</text>
+  <text x="670" y="167" font-size="12" fill="#c0392b">• У Flash пишеться 0xFFFFFFFF</text>
+  <text x="670" y="184" font-size="12" fill="#2457d6">• Справжній вектор — у SRAM</text>
+  <text x="670" y="201" font-size="12" fill="#6b7280">• Знеструмлення не окрихчує чип</text>
+
+  <!-- Line 3.1 -> 3.2 -->
+  <line x1="792" y1="212" x2="792" y2="222" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Box 3.2: Integrity Checks -->
+  <rect x="660" y="224" width="264" height="98" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="670" y="242" font-size="13" font-weight="700" fill="#2457d6">Валідація образу (Pre-Boot)</text>
+  <text x="670" y="260" font-size="12" fill="#1a1a1a">1. Стек: SRAM_BASE ≤ MSP ≤ END</text>
+  <text x="670" y="277" font-size="12" fill="#1a1a1a">2. Reset: FLASH_APP ≤ PC &lt; END</text>
+  <text x="670" y="294" font-size="12" fill="#2457d6">3. Thumb-2: біт (PC &amp; 1) == 1</text>
+  <text x="670" y="311" font-size="12" fill="#6b7280">4. Перевірка контрольної суми CRC</text>
+
+  <!-- Line 3.2 -> 3.3 -->
+  <line x1="792" y1="322" x2="792" y2="332" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <!-- Box 3.3: Atomic Commit -->
+  <rect x="660" y="334" width="264" height="80" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="670" y="352" font-size="13" font-weight="700" fill="#27ae60">Атомарний запис вектора</text>
+  <text x="670" y="370" font-size="12" fill="#1a1a1a">• Запис справжнього Reset Handler</text>
+  <text x="670" y="387" font-size="12" fill="#27ae60">• Фіксація цілісності прошивки</text>
+  <text x="670" y="404" font-size="12" fill="#6b7280">✓ Образ дозволено до запуску</text>
+
+  <!-- Line 3.3 -> 3.4 -->
+  <line x1="792" y1="414" x2="792" y2="424" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <!-- Box 3.4: Relocation & Launch -->
+  <rect x="660" y="426" width="264" height="84" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="670" y="444" font-size="13" font-weight="700" fill="#2457d6">Релокація VTOR та запуск</text>
+  <text x="670" y="462" font-size="12" fill="#1a1a1a">• bsp_usb_disconnect() (D+ off)</text>
+  <text x="670" y="479" font-size="12" fill="#2457d6">• SCB-&gt;VTOR = FLASH_APP_START</text>
+  <text x="670" y="496" font-size="12" font-weight="700" fill="#27ae60">• jump_to_app(initial_msp, PC)</text>
+</svg>

@@ -1,0 +1,199 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <!-- Arrow markers -->
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-rev" markerWidth="9" markerHeight="9" refX="0.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-blue-rev" markerWidth="9" markerHeight="9" refX="0.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-red-rev" markerWidth="9" markerHeight="9" refX="0.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-green-rev" markerWidth="9" markerHeight="9" refX="0.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="34" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Часова діаграма передачі пакета Digimatic та міжкадрові таймаути</text>
+  <text x="480" y="56" text-anchor="middle" font-size="13" fill="#6b7280">Строб REQ ініціює 52-бітний пакет, а міжкадрова пауза T_gap детектує межу кадру та скидає автомат</text>
+
+  <!-- Main Waveform Panel -->
+  <rect x="25" y="74" width="910" height="272" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Signal Labels Divider Line -->
+  <line x1="180" y1="82" x2="180" y2="338" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Signal Names (Left Column) -->
+  <!-- REQ -->
+  <text x="38" y="118" font-size="14" font-weight="bold" fill="#2457d6">REQ</text>
+  <text x="38" y="135" font-size="12" fill="#6b7280">Запит хоста (~REQ)</text>
+
+  <!-- CLK -->
+  <text x="38" y="186" font-size="14" font-weight="bold" fill="#1a1a1a">CLK</text>
+  <text x="38" y="203" font-size="12" fill="#6b7280">Такти приладу</text>
+
+  <!-- DATA -->
+  <text x="38" y="260" font-size="14" font-weight="bold" fill="#27ae60">DATA</text>
+  <text x="38" y="277" font-size="12" fill="#6b7280">Дані (52 біти BCD)</text>
+  <text x="38" y="295" font-size="12" fill="#2457d6">Захоплення по CLK ↓</text>
+
+  <!-- ==================== REGION BACKGROUND FOR T_gap ==================== -->
+  <rect x="528" y="80" width="222" height="260" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2" stroke-dasharray="4,3"/>
+
+  <!-- T_gap header inside panel -->
+  <text x="639" y="92" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Міжкадровий інтервал (T_gap)</text>
+
+  <!-- Dimension line for T_gap -->
+  <line x1="536" y1="100" x2="742" y2="100" stroke="#2457d6" stroke-width="1.5" marker-start="url(#arr-blue-rev)" marker-end="url(#arr-blue)"/>
+  <text x="639" y="112" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">T_gap ≥ 100 мс (Шина IDLE)</text>
+
+  <!-- Gap explanation text in Corridor A (between REQ and CLK) -->
+  <text x="639" y="138" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Шина вільна (стан IDLE = HIGH)</text>
+  <text x="639" y="156" text-anchor="middle" font-size="12" fill="#2457d6">Пауза CLK &gt; 2 мс → кінець пакета</text>
+
+  <!-- Gap explanation text in Corridor B (between CLK and DATA) -->
+  <text x="639" y="208" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Скидання бітового лічильника FSM</text>
+  <text x="639" y="226" text-anchor="middle" font-size="12" fill="#6b7280">Автомат повертається в STATE_IDLE</text>
+
+  <!-- Gap explanation text in Corridor C (below DATA) -->
+  <text x="639" y="288" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Відновлення сенсора приладу</text>
+  <text x="639" y="306" text-anchor="middle" font-size="12" fill="#6b7280">Оновлення шкали та BCD-регістрів</text>
+
+  <!-- ==================== PACKET N (Left) ==================== -->
+  <!-- Packet N Header -->
+  <text x="350" y="90" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Пакет N (52 біти / 13 ніблів)</text>
+
+  <!-- t_REQ Dimension Line & Text -->
+  <line x1="215" y1="98" x2="265" y2="98" stroke="#2457d6" stroke-width="1.2" marker-start="url(#arr-blue-rev)" marker-end="url(#arr-blue)"/>
+  <text x="240" y="90" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">t_REQ</text>
+
+  <!-- REQ Waveform: Packet N -->
+  <!-- High at 118, Low at 146 -->
+  <path d="M 190,118 L 215,118 L 215,146 L 265,146 L 265,118 L 528,118" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+
+  <!-- t_resp Dimension Line & Text (Corridor between REQ and CLK) -->
+  <line x1="215" y1="162" x2="295" y2="162" stroke="#6b7280" stroke-width="1.2" marker-start="url(#arr-rev)" marker-end="url(#arr)"/>
+  <text x="255" y="155" text-anchor="middle" font-size="12" fill="#6b7280">t_resp &lt; 20 мс</text>
+
+  <!-- T_CLK Period Dimension -->
+  <line x1="345" y1="172" x2="395" y2="172" stroke="#1a1a1a" stroke-width="1.2" marker-start="url(#arr-rev)" marker-end="url(#arr)"/>
+  <text x="370" y="165" text-anchor="middle" font-size="12" fill="#1a1a1a">T_CLK ≈ 100–300 мкс</text>
+
+  <!-- CLK Waveform: Packet N -->
+  <!-- Idle High: 186, Active Low: 214 -->
+  <path d="M 190,186 L 295,186 L 295,214 L 320,214 L 320,186 L 345,186 L 345,214 L 370,214 L 370,186 L 395,186 L 395,214 L 415,214" fill="none" stroke="#1a1a1a" stroke-width="2.2"/>
+  
+  <!-- CLK Waveform Break -->
+  <text x="440" y="202" text-anchor="middle" font-size="14" fill="#6b7280">···</text>
+
+  <!-- CLK Waveform Last Pulse (Clock 52) -->
+  <path d="M 465,214 L 475,214 L 475,186 L 505,186 L 505,214 L 520,214 L 520,186 L 528,186" fill="none" stroke="#1a1a1a" stroke-width="2.2"/>
+
+  <!-- Clock labels -->
+  <text x="307" y="230" text-anchor="middle" font-size="12" fill="#6b7280">№1</text>
+  <text x="357" y="230" text-anchor="middle" font-size="12" fill="#6b7280">№2</text>
+  <text x="512" y="230" text-anchor="middle" font-size="12" fill="#6b7280">№52</text>
+
+  <!-- DATA Waveform & Cells: Packet N -->
+  <!-- Idle line before burst at y=262 -->
+  <line x1="190" y1="262" x2="285" y2="262" stroke="#27ae60" stroke-width="2.2"/>
+
+  <!-- Bit 0 Cell -->
+  <rect x="288" y="250" width="46" height="24" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="311" y="266" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">b0</text>
+  <text x="311" y="291" text-anchor="middle" font-size="12" fill="#1a1a1a">d0:0</text>
+
+  <!-- Bit 1 Cell -->
+  <rect x="338" y="250" width="46" height="24" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="361" y="266" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">b1</text>
+  <text x="361" y="291" text-anchor="middle" font-size="12" fill="#1a1a1a">d0:1</text>
+
+  <!-- Data break -->
+  <text x="440" y="266" text-anchor="middle" font-size="14" fill="#6b7280">···</text>
+  <text x="440" y="291" text-anchor="middle" font-size="12" fill="#6b7280">d1..d11</text>
+
+  <!-- Bit 51 Cell (Last bit) -->
+  <rect x="488" y="250" width="36" height="24" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="506" y="266" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">b51</text>
+  <text x="506" y="291" text-anchor="middle" font-size="12" fill="#1a1a1a">d12</text>
+
+  <!-- End of packet marker line -->
+  <line x1="528" y1="84" x2="528" y2="334" stroke="#d0d7de" stroke-width="1.2" stroke-dasharray="3,3"/>
+
+  <!-- ==================== SIGNALS ACROSS T_gap ==================== -->
+  <!-- REQ in gap: Idle High (118) -->
+  <line x1="528" y1="118" x2="750" y2="118" stroke="#2457d6" stroke-width="2.5"/>
+
+  <!-- CLK in gap: Idle High (186) -->
+  <line x1="528" y1="186" x2="750" y2="186" stroke="#1a1a1a" stroke-width="2.2"/>
+
+  <!-- DATA in gap: Idle High (262) -->
+  <line x1="528" y1="262" x2="750" y2="262" stroke="#27ae60" stroke-width="2.2"/>
+
+  <!-- ==================== PACKET N+1 (Right) ==================== -->
+  <!-- Packet N+1 Header -->
+  <text x="835" y="90" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Пакет N+1</text>
+
+  <!-- Start of packet marker line -->
+  <line x1="750" y1="84" x2="750" y2="334" stroke="#d0d7de" stroke-width="1.2" stroke-dasharray="3,3"/>
+
+  <!-- REQ Waveform: Packet N+1 -->
+  <!-- Pulls low at 765, returns high at 810 -->
+  <path d="M 750,118 L 765,118 L 765,146 L 810,146 L 810,118 L 920,118" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+  <text x="787" y="108" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Новий REQ ↓</text>
+
+  <!-- CLK Waveform: Packet N+1 -->
+  <!-- Clock starts at 840 -->
+  <path d="M 750,186 L 840,186 L 840,214 L 865,214 L 865,186 L 890,186 L 890,214 L 910,214 L 910,186 L 920,186" fill="none" stroke="#1a1a1a" stroke-width="2.2"/>
+  <text x="852" y="230" text-anchor="middle" font-size="12" fill="#6b7280">№1</text>
+  <text x="900" y="230" text-anchor="middle" font-size="12" fill="#6b7280">№2</text>
+
+  <!-- DATA Waveform: Packet N+1 -->
+  <line x1="750" y1="262" x2="830" y2="262" stroke="#27ae60" stroke-width="2.2"/>
+  <rect x="832" y="250" width="44" height="24" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="854" y="266" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">b0</text>
+  <text x="854" y="291" text-anchor="middle" font-size="12" fill="#1a1a1a">d0:0</text>
+
+  <rect x="880" y="250" width="35" height="24" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="897" y="266" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">b1</text>
+  <text x="897" y="291" text-anchor="middle" font-size="12" fill="#1a1a1a">d0:1</text>
+
+  <!-- ==================== BOTTOM CARDS: THREE TIMEOUT RULES ==================== -->
+  <!-- Card 1: Response Timeout -->
+  <rect x="25" y="362" width="290" height="96" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="40" y="384" font-size="13" font-weight="bold" fill="#2457d6">1. Таймаут відповіді (t_resp)</text>
+  <text x="40" y="405" font-size="12" fill="#1a1a1a">Очікування CLK після REQ: 20–50 мс.</text>
+  <text x="40" y="425" font-size="12" fill="#6b7280">Для пробудження строб REQ задають 5–10 мс;</text>
+  <text x="40" y="443" font-size="12" fill="#6b7280">інакше фіксується TIMEOUT_NO_RESPONSE.</text>
+
+  <!-- Card 2: Inter-clock Timeout -->
+  <rect x="335" y="362" width="290" height="96" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="350" y="384" font-size="13" font-weight="bold" fill="#c0392b">2. Міжтактовий таймаут (t_clk)</text>
+  <text x="350" y="405" font-size="12" fill="#1a1a1a">Максимальна пауза між тактами: 1–2 мс.</text>
+  <text x="350" y="425" font-size="12" fill="#6b7280">Якщо такти урвалися — watchdog скидає FSM</text>
+  <text x="350" y="443" font-size="12" fill="#6b7280">в стан IDLE, запобігаючи зависанню RTOS.</text>
+
+  <!-- Card 3: Inter-packet Gap -->
+  <rect x="645" y="362" width="290" height="96" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="660" y="384" font-size="13" font-weight="bold" fill="#27ae60">3. Пауза між пакетами (T_gap)</text>
+  <text x="660" y="405" font-size="12" fill="#1a1a1a">Міжкадровий інтервал: T_gap ≥ 100 мс.</text>
+  <text x="660" y="425" font-size="12" fill="#6b7280">Відокремлює кадри й запобігає колізіям</text>
+  <text x="660" y="443" font-size="12" fill="#6b7280">під час внутрішнього перерахунку сенсора.</text>
+</svg>

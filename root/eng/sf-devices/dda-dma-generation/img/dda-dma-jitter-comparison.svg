@@ -1,0 +1,224 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="100%" height="100%" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif">
+<rect width="960" height="540" fill="#ffffff"/>
+
+<defs>
+  <marker id="arr" markerWidth="8" markerHeight="8" refX="6.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+    <path d="M0,1 L7,4 L0,7 Z" fill="#1a1a1a"/>
+  </marker>
+  <marker id="arr-blue" markerWidth="8" markerHeight="8" refX="6.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+    <path d="M0,1 L7,4 L0,7 Z" fill="#2457d6"/>
+  </marker>
+  <marker id="arr-red" markerWidth="8" markerHeight="8" refX="6.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+    <path d="M0,1 L7,4 L0,7 Z" fill="#c0392b"/>
+  </marker>
+  <marker id="arr-green" markerWidth="8" markerHeight="8" refX="6.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+    <path d="M0,1 L7,4 L0,7 Z" fill="#27ae60"/>
+  </marker>
+</defs>
+
+<!-- Header -->
+<text x="480" y="38" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Порівняння часового джитера: програмний ISR проти автономного DMA</text>
+<text x="480" y="56" font-size="13" fill="#6b7280" text-anchor="middle">Програмні переривання мають джитер 1–5 мкс через блокування в RTOS; автономний DMA усуває затримки</text>
+
+<!-- PANEL 1: Software Timer ISR (Problem / Jitter) -->
+<rect x="30" y="72" width="900" height="170" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+<!-- Panel 1 Badges -->
+<rect x="44" y="80" width="240" height="20" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+<text x="164" y="94" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">Програмні переривання (Timer ISR)</text>
+
+<rect x="296" y="80" width="240" height="20" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+<text x="416" y="94" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">Джитер Δt: ±1,0...5,0 мкс (високий)</text>
+
+<!-- Panel 1 Left Track Labels -->
+<text x="44" y="120" font-size="12" font-weight="700" fill="#1a1a1a">Події таймера (ідеал)</text>
+<text x="44" y="134" font-size="12" fill="#6b7280">Тактова сітка T_nom</text>
+
+<text x="44" y="160" font-size="12" font-weight="700" fill="#1a1a1a">Ядро CPU / Затримка</text>
+<text x="44" y="174" font-size="12" fill="#c0392b">Флуктуація входу в ISR</text>
+
+<text x="44" y="200" font-size="12" font-weight="700" fill="#1a1a1a">Фізичний вихід STEP</text>
+<text x="44" y="214" font-size="12" fill="#6b7280">Нерівні інтервали кроку</text>
+
+<!-- Panel 1 Track 1: Timer T_nom Reference -->
+<line x1="262" y1="112" x2="232" y2="112" stroke="#2457d6" stroke-width="1.2" marker-end="url(#arr-blue)"/>
+<line x1="308" y1="112" x2="338" y2="112" stroke="#2457d6" stroke-width="1.2" marker-end="url(#arr-blue)"/>
+<text x="285" y="116" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">T_nom</text>
+
+<path d="M 215,130 L 230,130 L 230,120 L 236,120 L 236,130 L 340,130 L 340,120 L 346,120 L 346,130 L 450,130 L 450,120 L 456,120 L 456,130 L 560,130 L 560,120 L 566,120 L 566,130 L 670,130 L 670,120 L 676,120 L 676,130 L 690,130" fill="none" stroke="#2457d6" stroke-width="1.5"/>
+
+<!-- Panel 1 Track 2: CPU Baseline Segments and Execution Blocks -->
+<line x1="215" y1="157" x2="230" y2="157" stroke="#cbd5e1" stroke-width="1"/>
+<line x1="232" y1="157" x2="252" y2="157" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="2,2" marker-end="url(#arr-red)"/>
+<text x="233" y="144" font-size="12" font-weight="700" fill="#c0392b">t_lat₁</text>
+<rect x="256" y="148" width="22" height="18" fill="#c0392b" rx="2"/>
+<text x="267" y="161" font-size="12" font-weight="700" fill="#ffffff" text-anchor="middle">ISR</text>
+
+<line x1="280" y1="157" x2="310" y2="157" stroke="#cbd5e1" stroke-width="1"/>
+<rect x="312" y="148" width="36" height="18" fill="#fef3c7" stroke="#d97706" rx="2"/>
+<text x="330" y="161" font-size="12" font-weight="700" fill="#d97706" text-anchor="middle">CAN</text>
+<line x1="350" y1="157" x2="372" y2="157" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="2,2" marker-end="url(#arr-red)"/>
+<text x="350" y="144" font-size="12" font-weight="700" fill="#d97706">t_lat₂</text>
+<rect x="376" y="148" width="22" height="18" fill="#c0392b" rx="2"/>
+<text x="387" y="161" font-size="12" font-weight="700" fill="#ffffff" text-anchor="middle">ISR</text>
+
+<line x1="400" y1="157" x2="448" y2="157" stroke="#cbd5e1" stroke-width="1"/>
+<line x1="450" y1="157" x2="460" y2="157" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="2,2" marker-end="url(#arr-red)"/>
+<text x="446" y="144" font-size="12" font-weight="700" fill="#c0392b">t_lat₃</text>
+<rect x="464" y="148" width="22" height="18" fill="#c0392b" rx="2"/>
+<text x="475" y="161" font-size="12" font-weight="700" fill="#ffffff" text-anchor="middle">ISR</text>
+
+<line x1="488" y1="157" x2="528" y2="157" stroke="#cbd5e1" stroke-width="1"/>
+<rect x="530" y="148" width="30" height="18" fill="#fdecea" stroke="#c0392b" stroke-dasharray="2,2" rx="2"/>
+<text x="545" y="161" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">Lock</text>
+<line x1="562" y1="157" x2="580" y2="157" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="2,2" marker-end="url(#arr-red)"/>
+<text x="561" y="144" font-size="12" font-weight="700" fill="#c0392b">t_lat₄</text>
+<rect x="584" y="148" width="22" height="18" fill="#c0392b" rx="2"/>
+<text x="595" y="161" font-size="12" font-weight="700" fill="#ffffff" text-anchor="middle">ISR</text>
+<line x1="608" y1="157" x2="690" y2="157" stroke="#cbd5e1" stroke-width="1"/>
+
+<!-- Panel 1 Track 3: Reference Dashed Lines in Track 3 -->
+<line x1="230" y1="190" x2="230" y2="216" stroke="#cbd5e1" stroke-dasharray="2,2" stroke-width="1"/>
+<line x1="340" y1="190" x2="340" y2="216" stroke="#cbd5e1" stroke-dasharray="2,2" stroke-width="1"/>
+<line x1="450" y1="190" x2="450" y2="216" stroke="#cbd5e1" stroke-dasharray="2,2" stroke-width="1"/>
+<line x1="560" y1="190" x2="560" y2="216" stroke="#cbd5e1" stroke-dasharray="2,2" stroke-width="1"/>
+<line x1="670" y1="190" x2="670" y2="216" stroke="#cbd5e1" stroke-dasharray="2,2" stroke-width="1"/>
+
+<!-- Panel 1 Track 3: Jitter Shaded Regions as Paths -->
+<path d="M 230,194 L 256,194 L 256,216 L 230,216 Z" fill="#fdecea" stroke="#c0392b" stroke-dasharray="2,2" opacity="0.75"/>
+<text x="233" y="186" font-size="12" font-weight="700" fill="#c0392b">+Δt₁</text>
+
+<path d="M 340,194 L 376,194 L 376,216 L 340,216 Z" fill="#fdecea" stroke="#c0392b" stroke-dasharray="2,2" opacity="0.75"/>
+<text x="343" y="186" font-size="12" font-weight="700" fill="#c0392b">+Δt₂ (4.8 мкс)</text>
+
+<path d="M 450,194 L 464,194 L 464,216 L 450,216 Z" fill="#fdecea" stroke="#c0392b" stroke-dasharray="2,2" opacity="0.75"/>
+<text x="453" y="186" font-size="12" font-weight="700" fill="#c0392b">+Δt₃</text>
+
+<path d="M 560,194 L 584,194 L 584,216 L 560,216 Z" fill="#fdecea" stroke="#c0392b" stroke-dasharray="2,2" opacity="0.75"/>
+<text x="563" y="186" font-size="12" font-weight="700" fill="#c0392b">+Δt₄</text>
+
+<path d="M 215,216 L 256,216 L 256,194 L 276,194 L 276,216 L 376,216 L 376,194 L 396,194 L 396,216 L 464,216 L 464,194 L 484,194 L 484,216 L 584,216 L 584,194 L 604,194 L 604,216 L 690,216" fill="none" stroke="#c0392b" stroke-width="2"/>
+
+<!-- Panel 1 Actual Intervals Under Track 3 -->
+<text x="316" y="230" font-size="12" fill="#6b7280" text-anchor="middle">T₁ = 120 px</text>
+<line x1="272" y1="235" x2="258" y2="235" stroke="#6b7280" stroke-width="1.2" marker-end="url(#arr)"/>
+<line x1="360" y1="235" x2="374" y2="235" stroke="#6b7280" stroke-width="1.2" marker-end="url(#arr)"/>
+
+<text x="420" y="230" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">T₂ = 88 px (стиск)</text>
+<line x1="388" y1="235" x2="378" y2="235" stroke="#c0392b" stroke-width="1.2" marker-end="url(#arr-red)"/>
+<line x1="452" y1="235" x2="462" y2="235" stroke="#c0392b" stroke-width="1.2" marker-end="url(#arr-red)"/>
+
+<text x="525" y="230" font-size="12" fill="#6b7280" text-anchor="middle">T₃ = 120 px</text>
+<line x1="481" y1="235" x2="466" y2="235" stroke="#6b7280" stroke-width="1.2" marker-end="url(#arr)"/>
+<line x1="569" y1="235" x2="582" y2="235" stroke="#6b7280" stroke-width="1.2" marker-end="url(#arr)"/>
+
+<!-- Panel 1 Right Info Card -->
+<rect x="704" y="80" width="216" height="152" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+<text x="714" y="98" font-size="12" font-weight="700" fill="#1a1a1a">Проблеми Timer ISR:</text>
+<text x="714" y="116" font-size="12" font-weight="700" fill="#c0392b">✗ Джитер Δt: ±1,0...5,0 мкс</text>
+<text x="714" y="134" font-size="12" fill="#6b7280">• Затримка входу (латентність)</text>
+<text x="714" y="152" font-size="12" fill="#6b7280">• Блокування критичних секцій</text>
+<text x="714" y="170" font-size="12" fill="#6b7280">• Витіснення пріоритетними IRQ</text>
+<text x="714" y="188" font-size="12" font-weight="700" fill="#c0392b">• Стрибки прискорення a_inst</text>
+<text x="714" y="206" font-size="12" fill="#c0392b">• Вібрація і ризик зриву кроку</text>
+<text x="714" y="224" font-size="12" fill="#6b7280">• Навантаження CPU до 40–60%</text>
+
+
+<!-- PANEL 2: Autonomous DMA Engine (Solution / Determinism) -->
+<rect x="30" y="256" width="900" height="170" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+<!-- Panel 2 Badges -->
+<rect x="44" y="264" width="260" height="20" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+<text x="174" y="278" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">Автономне вивантаження (Timer + DMA)</text>
+
+<rect x="316" y="264" width="240" height="20" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+<text x="436" y="278" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">Джитер Δt: &lt; 20 нс (детерміновано)</text>
+
+<!-- Panel 2 Left Track Labels -->
+<text x="44" y="304" font-size="12" font-weight="700" fill="#1a1a1a">Таймер: запит DMA</text>
+<text x="44" y="318" font-size="12" fill="#27ae60">Апаратний строб T_nom</text>
+
+<text x="44" y="344" font-size="12" font-weight="700" fill="#1a1a1a">Шина AHB / DMA канал</text>
+<text x="44" y="358" font-size="12" fill="#2457d6">RAM → GPIO без CPU</text>
+
+<text x="44" y="384" font-size="12" font-weight="700" fill="#1a1a1a">Фізичний вихід STEP</text>
+<text x="44" y="398" font-size="12" fill="#27ae60">Ідеально рівний крок</text>
+
+<!-- Panel 2 Track 1: Timer DMA Trigger Reference -->
+<line x1="262" y1="294" x2="232" y2="294" stroke="#27ae60" stroke-width="1.2" marker-end="url(#arr-green)"/>
+<line x1="308" y1="294" x2="338" y2="294" stroke="#27ae60" stroke-width="1.2" marker-end="url(#arr-green)"/>
+<text x="285" y="298" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">T_nom</text>
+
+<path d="M 215,316 L 230,316 L 230,306 L 236,306 L 236,316 L 340,316 L 340,306 L 346,306 L 346,316 L 450,316 L 450,306 L 456,306 L 456,316 L 560,316 L 560,306 L 566,306 L 566,316 L 670,316 L 670,306 L 676,306 L 676,316 L 690,316" fill="none" stroke="#27ae60" stroke-width="1.5"/>
+
+<!-- Panel 2 Track 2: AHB Bus & Autonomous DMA Transfer -->
+<rect x="215" y="328" width="470" height="22" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" stroke-dasharray="3,3"/>
+<text x="450" y="343" font-size="12" font-weight="600" fill="#2457d6" text-anchor="middle">Ядро CPU вільне: фоновий розрахунок кінематики RTOS (0% переривань)</text>
+
+<!-- Panel 2 Track 3: Reference Dashed Lines in Track 3 -->
+<line x1="230" y1="372" x2="230" y2="398" stroke="#cbd5e1" stroke-dasharray="2,2" stroke-width="1"/>
+<line x1="340" y1="372" x2="340" y2="398" stroke="#cbd5e1" stroke-dasharray="2,2" stroke-width="1"/>
+<line x1="450" y1="372" x2="450" y2="398" stroke="#cbd5e1" stroke-dasharray="2,2" stroke-width="1"/>
+<line x1="560" y1="372" x2="560" y2="398" stroke="#cbd5e1" stroke-dasharray="2,2" stroke-width="1"/>
+<line x1="670" y1="372" x2="670" y2="398" stroke="#cbd5e1" stroke-dasharray="2,2" stroke-width="1"/>
+
+<!-- Panel 2 Track 3: STEP Waveform Phase-Locked -->
+<path d="M 230,376 L 232,376 L 232,398 L 230,398 Z" fill="#27ae60"/>
+<text x="238" y="368" font-size="12" font-weight="700" fill="#27ae60">Δt &lt; 20 нс</text>
+
+<path d="M 340,376 L 342,376 L 342,398 L 340,398 Z" fill="#27ae60"/>
+<text x="348" y="368" font-size="12" font-weight="700" fill="#27ae60">Δt &lt; 20 нс</text>
+
+<path d="M 450,376 L 452,376 L 452,398 L 450,398 Z" fill="#27ae60"/>
+<text x="458" y="368" font-size="12" font-weight="700" fill="#27ae60">Δt &lt; 20 нс</text>
+
+<path d="M 560,376 L 562,376 L 562,398 L 560,398 Z" fill="#27ae60"/>
+<text x="568" y="368" font-size="12" font-weight="700" fill="#27ae60">Δt &lt; 20 нс</text>
+
+<path d="M 215,398 L 232,398 L 232,376 L 252,376 L 252,398 L 342,398 L 342,376 L 362,376 L 362,398 L 452,398 L 452,376 L 472,376 L 472,398 L 562,398 L 562,376 L 582,376 L 582,398 L 672,398 L 672,376 L 692,376 L 692,398 L 695,398" fill="none" stroke="#27ae60" stroke-width="2"/>
+
+<!-- Panel 2 Equal Intervals T_nom Under Track 3 -->
+<text x="285" y="412" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">T₁ = T_nom</text>
+<line x1="250" y1="418" x2="234" y2="418" stroke="#27ae60" stroke-width="1.2" marker-end="url(#arr-green)"/>
+<line x1="320" y1="418" x2="340" y2="418" stroke="#27ae60" stroke-width="1.2" marker-end="url(#arr-green)"/>
+
+<text x="395" y="412" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">T₂ = T_nom</text>
+<line x1="360" y1="418" x2="344" y2="418" stroke="#27ae60" stroke-width="1.2" marker-end="url(#arr-green)"/>
+<line x1="430" y1="418" x2="450" y2="418" stroke="#27ae60" stroke-width="1.2" marker-end="url(#arr-green)"/>
+
+<text x="505" y="412" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">T₃ = T_nom</text>
+<line x1="470" y1="418" x2="454" y2="418" stroke="#27ae60" stroke-width="1.2" marker-end="url(#arr-green)"/>
+<line x1="540" y1="418" x2="560" y2="418" stroke="#27ae60" stroke-width="1.2" marker-end="url(#arr-green)"/>
+
+<text x="615" y="412" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">T₄ = T_nom</text>
+<line x1="580" y1="418" x2="564" y2="418" stroke="#27ae60" stroke-width="1.2" marker-end="url(#arr-green)"/>
+<line x1="650" y1="418" x2="670" y2="418" stroke="#27ae60" stroke-width="1.2" marker-end="url(#arr-green)"/>
+
+<!-- Panel 2 Right Info Card -->
+<rect x="704" y="266" width="216" height="152" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+<text x="714" y="282" font-size="12" font-weight="700" fill="#1a1a1a">Переваги апаратного DMA:</text>
+<text x="714" y="300" font-size="12" font-weight="700" fill="#27ae60">✓ Джитер Δt: &lt; 20 нс (тактовий)</text>
+<text x="714" y="318" font-size="12" fill="#6b7280">• Прямий запис RAM → GPIO BSRR</text>
+<text x="714" y="336" font-size="12" fill="#6b7280">• Нуль затримок від RTOS чи IRQ</text>
+<text x="714" y="354" font-size="12" fill="#6b7280">• Нуль навантаження CPU на крок</text>
+<text x="714" y="372" font-size="12" font-weight="700" fill="#27ae60">• Плавний рух, нуль вібрацій</text>
+<text x="714" y="390" font-size="12" fill="#27ae60">• Робота на частотах до 1–2 МГц</text>
+<text x="714" y="408" font-size="12" fill="#6b7280">• Захист від втрати координат</text>
+
+
+<!-- BOTTOM SUMMARY COMPARISON CARDS -->
+<!-- Left Card: Software Problem -->
+<rect x="30" y="440" width="442" height="76" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+<text x="44" y="457" font-size="12" font-weight="700" fill="#c0392b">⛔ Програмне переривання (Timer ISR): недетермінований вихід</text>
+<text x="44" y="473" font-size="12" fill="#1a1a1a">• Джитер: ±1,0...5,0 мкс через затримки ISR та блокування</text>
+<text x="44" y="489" font-size="12" fill="#1a1a1a">• Наслідок: паразитний момент, вібрація, ризик зриву кроку</text>
+<text x="44" y="505" font-size="12" fill="#6b7280">• Навантаження: переривання на кожен крок (до 40–60% CPU)</text>
+
+<!-- Right Card: Hardware Solution -->
+<rect x="488" y="440" width="442" height="76" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+<text x="502" y="457" font-size="12" font-weight="700" fill="#27ae60">✓ Автономне DMA-вивантаження: жорстка фазова стабільність</text>
+<text x="502" y="473" font-size="12" fill="#1a1a1a">• Джитер: &lt; 20 нс (детерміновано тактуванням шини AHB)</text>
+<text x="502" y="489" font-size="12" fill="#1a1a1a">• Наслідок: плавний хід ротора, максимальний крутний момент</text>
+<text x="502" y="505" font-size="12" fill="#6b7280">• Навантаження: 0% CPU під час виводу, розрахунок у фоні RTOS</text>
+
+</svg>

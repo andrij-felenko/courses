@@ -1,0 +1,224 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Підкладка на все полотно -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <defs>
+    <!-- Маркери стрілок за стандартом курсу -->
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="27" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Інверсія пріоритетів та апаратне GPIO-профілювання в RTOS</text>
+  <text x="480" y="47" font-size="13" fill="#6b7280" text-anchor="middle">Успадкування пріоритету усуває затримку Task_H від Task_M; цифрові виводи фіксують таймінг</text>
+
+  <!-- ==================== ПАНЕЛЬ 1: БЕЗ УСПАДКУВАННЯ ==================== -->
+  <rect x="20" y="58" width="920" height="232" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Заголовок панелі 1 -->
+  <rect x="34" y="66" width="395" height="22" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="44" y="82" font-size="12" font-weight="bold" fill="#c0392b">1. Необмежена інверсія (без успадкування) — Збій детермінізму</text>
+  <text x="924" y="82" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="end">Затримка Task_H: Δt = t_crit + t_M (необмежена)</text>
+
+  <!-- Ліва колонка назв каналів -->
+  <text x="40" y="125" font-size="12" font-weight="bold" fill="#2457d6">Task_H (Високий)</text>
+  <text x="40" y="139" font-size="12" fill="#6b7280">GPIO CH0 [A0]</text>
+
+  <text x="40" y="165" font-size="12" font-weight="bold" fill="#1a1a1a">Task_M (Середній)</text>
+  <text x="40" y="179" font-size="12" fill="#6b7280">GPIO CH1 [A1]</text>
+
+  <text x="40" y="205" font-size="12" font-weight="bold" fill="#1a1a1a">Task_L (Низький)</text>
+  <text x="40" y="219" font-size="12" fill="#6b7280">GPIO CH2 [A2]</text>
+
+  <!-- Розділювальна лінія між каналами та осцилограмою -->
+  <line x1="195" y1="94" x2="195" y2="280" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Вимірювальний маркер затримки (Cursor A - Cursor B) -->
+  <text x="595" y="102" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Інверсія: Task_H чекає невизначений час через Task_M</text>
+  <line x1="435" y1="110" x2="755" y2="110" stroke="#c0392b" stroke-width="1.5" marker-start="url(#arr-red)" marker-end="url(#arr-red)"/>
+
+  <!-- СИГНАЛ CH0 (Task_H) -->
+  <!-- Базова лінія 0 В -->
+  <line x1="210" y1="142" x2="365" y2="142" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="435" y1="142" x2="755" y2="142" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="855" y1="142" x2="915" y2="142" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Імпульс 1: Task_H намагається взяти м'ютекс [365..435] -->
+  <rect x="365" y="120" width="70" height="22" rx="2" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="400" y="136" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Task_H</text>
+
+  <!-- Зона блокування Task_H [435..755] -->
+  <rect x="435" y="120" width="320" height="22" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4 3"/>
+  <text x="595" y="136" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">GPIO_H = 0: Task_H заблоковано в очікуванні Mutex M</text>
+
+  <!-- Імпульс 2: Task_H виконує критичну секцію після звільнення M [755..855] -->
+  <rect x="755" y="120" width="100" height="22" rx="2" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="805" y="136" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Task_H [Крит. секція]</text>
+
+  <!-- СИГНАЛ CH1 (Task_M) -->
+  <!-- Базова лінія 0 В -->
+  <line x1="210" y1="182" x2="505" y2="182" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="685" y1="182" x2="915" y2="182" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Імпульс Task_M: витісняє Task_L і монополізує процесор [505..685] -->
+  <rect x="505" y="160" width="180" height="22" rx="2" fill="#fff7ed" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="595" y="176" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">GPIO_M = 1: Task_M витісняє Task_L</text>
+
+  <!-- СИГНАЛ CH2 (Task_L) -->
+  <!-- Базова лінія 0 В -->
+  <line x1="210" y1="222" x2="225" y2="222" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="365" y1="222" x2="435" y2="222" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="505" y1="222" x2="685" y2="222" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="755" y1="222" x2="855" y2="222" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="905" y1="222" x2="915" y2="222" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Імпульс 1: Task_L захоплює Mutex M [225..365] -->
+  <rect x="225" y="200" width="140" height="22" rx="2" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="295" y="216" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Task_L [захоплює M]</text>
+
+  <!-- Імпульс 2: Task_L виконується після блокування Task_H [435..505] -->
+  <rect x="435" y="200" width="70" height="22" rx="2" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="470" y="216" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">lock(M)</text>
+
+  <!-- Зона витіснення Task_L задачею Task_M [505..685] -->
+  <rect x="505" y="202" width="180" height="18" rx="2" fill="none" stroke="#6b7280" stroke-width="1" stroke-dasharray="3 2"/>
+  <text x="595" y="216" font-size="12" fill="#6b7280" text-anchor="middle">Витіснена (тримає M)</text>
+
+  <!-- Імпульс 3: Task_L звільняє Mutex M [685..755] -->
+  <rect x="685" y="200" width="70" height="22" rx="2" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="720" y="216" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">unlock(M)</text>
+
+  <!-- Імпульс 4: Task_L завершує фонову роботу [855..905] -->
+  <rect x="855" y="200" width="50" height="22" rx="2" fill="#f4f6f8" stroke="#6b7280" stroke-width="1"/>
+  <text x="880" y="216" font-size="12" fill="#6b7280" text-anchor="middle">Кінець</text>
+
+  <!-- Часова вісь Панелі 1 -->
+  <line x1="210" y1="246" x2="915" y2="246" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <line x1="225" y1="242" x2="225" y2="250" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="225" y="262" font-size="12" fill="#6b7280" text-anchor="middle">t₀</text>
+  <line x1="365" y1="242" x2="365" y2="250" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="365" y="262" font-size="12" fill="#6b7280" text-anchor="middle">t₁</text>
+  <line x1="435" y1="242" x2="435" y2="250" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="435" y="262" font-size="12" fill="#6b7280" text-anchor="middle">t₂</text>
+  <line x1="505" y1="242" x2="505" y2="250" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="505" y="262" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">t₃</text>
+  <line x1="685" y1="242" x2="685" y2="250" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="685" y="262" font-size="12" fill="#6b7280" text-anchor="middle">t₄</text>
+  <line x1="755" y1="242" x2="755" y2="250" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="755" y="262" font-size="12" fill="#6b7280" text-anchor="middle">t₅</text>
+  <line x1="855" y1="242" x2="855" y2="250" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="855" y="262" font-size="12" fill="#6b7280" text-anchor="middle">t₆</text>
+  <text x="915" y="262" font-size="12" fill="#1a1a1a" text-anchor="end">Час (t)</text>
+
+  <!-- Підпис внизу Панелі 1 -->
+  <text x="210" y="280" font-size="12" fill="#c0392b">⚠ Аномалія: Task_M блокує Task_H, хоча Task_M має нижчий пріоритет і не використовує ресурс M</text>
+
+  <!-- ==================== ПАНЕЛЬ 2: З УСПАДКУВАННЯМ ПРІОРИТЕТУ ==================== -->
+  <rect x="20" y="304" width="920" height="232" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Заголовок панелі 2 -->
+  <rect x="34" y="312" width="395" height="22" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="44" y="328" font-size="12" font-weight="bold" fill="#27ae60">2. Успадкування пріоритету (PIP) — Відновлення детермінізму</text>
+  <text x="924" y="328" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="end">Затримка Task_H: Δt = t_crit (детермінована й мінімальна)</text>
+
+  <!-- Ліва колонка назв каналів -->
+  <text x="40" y="371" font-size="12" font-weight="bold" fill="#2457d6">Task_H (Високий)</text>
+  <text x="40" y="385" font-size="12" fill="#6b7280">GPIO CH0 [A0]</text>
+
+  <text x="40" y="411" font-size="12" font-weight="bold" fill="#1a1a1a">Task_M (Середній)</text>
+  <text x="40" y="425" font-size="12" fill="#6b7280">GPIO CH1 [A1]</text>
+
+  <text x="40" y="451" font-size="12" font-weight="bold" fill="#27ae60">Task_L (Успадк. P_H)</text>
+  <text x="40" y="465" font-size="12" fill="#6b7280">GPIO CH2 [A2]</text>
+
+  <!-- Розділювальна лінія між каналами та осцилограмою -->
+  <line x1="195" y1="340" x2="195" y2="526" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Вимірювальний маркер затримки -->
+  <text x="495" y="348" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Δt = t_crit (детермінований час)</text>
+  <line x1="435" y1="356" x2="555" y2="356" stroke="#27ae60" stroke-width="1.5" marker-start="url(#arr-green)" marker-end="url(#arr-green)"/>
+
+  <!-- СИГНАЛ CH0 (Task_H) -->
+  <!-- Базова лінія 0 В -->
+  <line x1="210" y1="388" x2="365" y2="388" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="435" y1="388" x2="555" y2="388" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="655" y1="388" x2="915" y2="388" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Імпульс 1: Task_H [365..435] -->
+  <rect x="365" y="366" width="70" height="22" rx="2" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="400" y="382" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Task_H</text>
+
+  <!-- Зона блокування Task_H [435..555] — коротка й фіксована -->
+  <rect x="435" y="366" width="120" height="22" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="4 3"/>
+  <text x="495" y="382" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Чекає: лише t_crit</text>
+
+  <!-- Імпульс 2: Task_H [555..655] -->
+  <rect x="555" y="366" width="100" height="22" rx="2" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="605" y="382" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Task_H [Виконання]</text>
+
+  <!-- СИГНАЛ CH1 (Task_M) -->
+  <!-- Базова лінія 0 В -->
+  <line x1="210" y1="428" x2="655" y2="428" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="835" y1="428" x2="915" y2="428" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Зона затримки Task_M: перебуває в черзі READY [505..655] -->
+  <rect x="505" y="408" width="150" height="18" rx="2" fill="none" stroke="#6b7280" stroke-width="1" stroke-dasharray="3 2"/>
+  <text x="580" y="422" font-size="12" fill="#6b7280" text-anchor="middle">В черзі READY (P_M &lt; P_H)</text>
+
+  <!-- Імпульс Task_M після Task_H [655..835] -->
+  <rect x="655" y="406" width="180" height="22" rx="2" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="745" y="422" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Task_M (після Task_H)</text>
+
+  <!-- СИГНАЛ CH2 (Task_L) -->
+  <!-- Базова лінія 0 В -->
+  <line x1="210" y1="468" x2="225" y2="468" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="365" y1="468" x2="435" y2="468" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="555" y1="468" x2="835" y2="468" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="905" y1="468" x2="915" y2="468" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Імпульс 1: Task_L [225..365] -->
+  <rect x="225" y="446" width="140" height="22" rx="2" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="295" y="462" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Task_L [захоплює M]</text>
+
+  <!-- Імпульс 2: Task_L з успадкованим пріоритетом [435..555] -->
+  <rect x="435" y="446" width="120" height="22" rx="2" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="495" y="462" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Task_L (успадк. P_H)</text>
+
+  <!-- Імпульс 3: Task_L завершує роботу [835..905] -->
+  <rect x="835" y="446" width="70" height="22" rx="2" fill="#f4f6f8" stroke="#6b7280" stroke-width="1"/>
+  <text x="870" y="462" font-size="12" fill="#6b7280" text-anchor="middle">Кінець</text>
+
+  <!-- Часова вісь Панелі 2 -->
+  <line x1="210" y1="492" x2="915" y2="492" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <line x1="225" y1="488" x2="225" y2="496" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="225" y="508" font-size="12" fill="#6b7280" text-anchor="middle">t₀</text>
+  <line x1="365" y1="488" x2="365" y2="496" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="365" y="508" font-size="12" fill="#6b7280" text-anchor="middle">t₁</text>
+  <line x1="435" y1="488" x2="435" y2="496" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="435" y="508" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">t₂ [PIP]</text>
+  <line x1="505" y1="488" x2="505" y2="496" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="505" y="508" font-size="12" fill="#6b7280" text-anchor="middle">t₃</text>
+  <line x1="555" y1="488" x2="555" y2="496" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="555" y="508" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">t₄</text>
+  <line x1="655" y1="488" x2="655" y2="496" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="655" y="508" font-size="12" fill="#6b7280" text-anchor="middle">t₅</text>
+  <line x1="835" y1="488" x2="835" y2="496" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="835" y="508" font-size="12" fill="#6b7280" text-anchor="middle">t₆</text>
+  <text x="915" y="508" font-size="12" fill="#1a1a1a" text-anchor="end">Час (t)</text>
+
+  <!-- Підпис внизу Панелі 2 -->
+  <text x="210" y="526" font-size="12" fill="#27ae60">✔ Детермінізм відновлено: Task_H виконується вчасно, затримка обмежена тривалістю критичної секції Task_L</text>
+</svg>

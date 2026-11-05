@@ -1,0 +1,109 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Підкладка -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Архітектура кешу дедуплікації команд без динамічної пам'яті</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Кільцевий буфер FIFO витісняє застарілі записи, а хеш-таблиця забезпечує пошук за O(1)</text>
+
+  <!-- Панель 1: Вхідна команда (зліва) -->
+  <rect x="30" y="80" width="220" height="340" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="140" y="110" font-size="15" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Вхідна транзакція</text>
+  <text x="140" y="130" font-size="12" fill="#6b7280" text-anchor="middle">Пакет із каналу зв'язку</text>
+
+  <rect x="45" y="150" width="190" height="70" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="55" y="172" font-size="12" font-weight="bold" fill="#1a1a1a">Поля команди:</text>
+  <text x="55" y="192" font-size="12" fill="#2457d6">UUID / cmd_id (8 байтів)</text>
+  <text x="55" y="210" font-size="12" fill="#6b7280">timestamp, payload</text>
+
+  <rect x="45" y="240" width="190" height="60" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="140" y="264" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Хеш-функція</text>
+  <text x="140" y="284" font-size="12" fill="#2457d6" text-anchor="middle">h = Murmur3(cmd_id)</text>
+
+  <rect x="45" y="320" width="190" height="80" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="55" y="342" font-size="12" font-weight="bold" fill="#1a1a1a">Індекс у таблиці:</text>
+  <text x="55" y="364" font-size="13" font-weight="bold" fill="#2457d6">idx = h &amp; (TABLE_SIZE - 1)</text>
+  <text x="55" y="384" font-size="12" fill="#6b7280">Бітова маска замість ділення</text>
+
+  <!-- Стрілка від входу до хеш-таблиці -->
+  <line x1="250" y1="270" x2="310" y2="270" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Панель 2: Хеш-таблиця з відкритою адресацією (центр) -->
+  <rect x="320" y="80" width="310" height="340" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="475" y="110" font-size="15" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Хеш-таблиця (Open Addressing)</text>
+  <text x="475" y="130" font-size="12" fill="#6b7280" text-anchor="middle">Статичний масив слотів із лінійним пробуванням</text>
+
+  <!-- Слот 0 -->
+  <rect x="335" y="148" width="280" height="42" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="345" y="173" font-size="12" fill="#6b7280">Слот 0:</text>
+  <text x="400" y="173" font-size="12" fill="#27ae60">OCCUPIED</text>
+  <text x="480" y="173" font-size="12" fill="#1a1a1a">key=0xA14F, fifo_idx=2</text>
+
+  <!-- Слот 1 (Колізія / Пошук) -->
+  <rect x="335" y="198" width="280" height="42" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="345" y="223" font-size="12" fill="#2457d6" font-weight="bold">Слот 1:</text>
+  <text x="400" y="223" font-size="12" fill="#27ae60">OCCUPIED</text>
+  <text x="480" y="223" font-size="12" fill="#1a1a1a">key=0x5C89, fifo_idx=3</text>
+
+  <!-- Слот 2 (Звільнений tombstone) -->
+  <rect x="335" y="248" width="280" height="42" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="345" y="273" font-size="12" fill="#6b7280">Слот 2:</text>
+  <text x="400" y="273" font-size="12" fill="#c0392b">TOMBSTONE</text>
+  <text x="495" y="273" font-size="12" fill="#6b7280">(витіснено з FIFO)</text>
+
+  <!-- Слот 3 (Вільний) -->
+  <rect x="335" y="298" width="280" height="42" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="345" y="323" font-size="12" fill="#27ae60">Слот 3:</text>
+  <text x="400" y="323" font-size="12" fill="#27ae60" font-weight="bold">EMPTY</text>
+  <text x="480" y="323" font-size="12" fill="#1a1a1a">Слот готовий до запису</text>
+
+  <!-- Блок перевірки дубліката -->
+  <rect x="335" y="350" width="280" height="55" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="345" y="372" font-size="12" fill="#1a1a1a"><tspan font-weight="bold">Збіг key:</tspan> дублікат, відкинути виконання</text>
+  <text x="345" y="392" font-size="12" fill="#1a1a1a"><tspan font-weight="bold">EMPTY:</tspan> новий запит, додати в таблицю та FIFO</text>
+
+  <!-- Стрілка від хеш-таблиці до FIFO -->
+  <line x1="630" y1="220" x2="680" y2="220" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Панель 3: Статичний кільцевий буфер FIFO (справа) -->
+  <rect x="690" y="80" width="240" height="340" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="810" y="110" font-size="15" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Кільцевий буфер FIFO</text>
+  <text x="810" y="130" font-size="12" fill="#6b7280" text-anchor="middle">Вікно витіснення за часом N</text>
+
+  <!-- Елементи кільцевого буфера -->
+  <rect x="710" y="150" width="200" height="40" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="720" y="174" font-size="12" fill="#6b7280">Індекс 0: hash_slot=8</text>
+
+  <rect x="710" y="198" width="200" height="40" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="720" y="222" font-size="12" fill="#c0392b" font-weight="bold">Tail (Старий) → Витіснення</text>
+
+  <rect x="710" y="246" width="200" height="40" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="720" y="270" font-size="12" fill="#6b7280">Індекс 2: hash_slot=0</text>
+
+  <rect x="710" y="294" width="200" height="40" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="720" y="318" font-size="12" fill="#27ae60" font-weight="bold">Head (Новий) ← Додавання</text>
+
+  <!-- Зворотний зв'язок витіснення (Tail виставляє TOMBSTONE) -->
+  <path d="M 710 218 L 650 218 L 650 268 L 625 268" fill="none" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr-red)"/>
+  <text x="668" y="258" font-size="12" fill="#c0392b" text-anchor="middle">Очищення</text>
+
+  <!-- Нижня примітка -->
+  <rect x="710" y="348" width="200" height="58" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="720" y="370" font-size="12" fill="#1a1a1a">Фіксований масив у BSS</text>
+  <text x="720" y="390" font-size="12" fill="#27ae60" font-weight="bold">0 байтів у купі (Heap)</text>
+</svg>

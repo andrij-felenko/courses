@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-start" markerWidth="9" markerHeight="9" refX="1.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+  
+  <text x="480" y="40" fill="#1a1a1a" font-size="18" font-weight="bold" text-anchor="middle">Затримка сигналів у GPIO Matrix</text>
+  <text x="480" y="60" fill="#6b7280" font-size="13" text-anchor="middle">Синхронізація вхідного сигналу віднімає 2 такти шини APB</text>
+  
+  <!-- Clock ticks (Vertical dotted lines) -->
+  <line x1="225" y1="100" x2="225" y2="400" stroke="#d0d7de" stroke-width="2" stroke-dasharray="4,4"/>
+  <line x1="325" y1="100" x2="325" y2="400" stroke="#d0d7de" stroke-width="2" stroke-dasharray="4,4"/>
+  <line x1="425" y1="100" x2="425" y2="400" stroke="#d0d7de" stroke-width="2" stroke-dasharray="4,4"/>
+  <line x1="525" y1="100" x2="525" y2="400" stroke="#d0d7de" stroke-width="2" stroke-dasharray="4,4"/>
+  <line x1="625" y1="100" x2="625" y2="400" stroke="#d0d7de" stroke-width="2" stroke-dasharray="4,4"/>
+  
+  <!-- Cycle labels -->
+  <text x="275" y="90" fill="#6b7280" font-size="12" text-anchor="middle">Такт 1</text>
+  <text x="375" y="90" fill="#6b7280" font-size="12" text-anchor="middle">Такт 2</text>
+  <text x="475" y="90" fill="#6b7280" font-size="12" text-anchor="middle">Такт 3</text>
+  
+  <!-- APB Clock -->
+  <text x="180" y="145" fill="#1a1a1a" font-size="14" font-weight="bold" text-anchor="end">APB_CLK</text>
+  <path d="M 200,160 L 225,160 L 225,120 L 275,120 L 275,160 L 325,160 L 325,120 L 375,120 L 375,160 L 425,160 L 425,120 L 475,120 L 475,160 L 525,160 L 525,120 L 575,120 L 575,160 L 625,160 L 625,120 L 675,120 L 675,160 L 725,160 L 725,120 L 775,120 L 775,160 L 800,160" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+  
+  <!-- Input Signal -->
+  <text x="180" y="245" fill="#2457d6" font-size="14" font-weight="bold" text-anchor="end">Вхід (Pad)</text>
+  <path d="M 200,260 L 210,260 L 210,220 L 800,220" fill="none" stroke="#2457d6" stroke-width="3"/>
+  
+  <!-- Synchronized Signal inside Matrix -->
+  <text x="180" y="345" fill="#27ae60" font-size="14" font-weight="bold" text-anchor="end">Вхід периферії</text>
+  <path d="M 200,360 L 425,360 L 425,320 L 800,320" fill="none" stroke="#27ae60" stroke-width="3"/>
+  
+  <!-- Delay annotation -->
+  <line x1="210" y1="285" x2="425" y2="285" stroke="#c0392b" stroke-width="2" marker-end="url(#arr)" marker-start="url(#arr-start)"/>
+  <text x="317" y="275" fill="#c0392b" font-size="13" font-weight="bold" text-anchor="middle">Затримка 2 такти шини APB</text>
+  
+  <line x1="210" y1="265" x2="210" y2="295" stroke="#c0392b" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="425" y1="325" x2="425" y2="295" stroke="#c0392b" stroke-width="1" stroke-dasharray="2,2"/>
+</svg>

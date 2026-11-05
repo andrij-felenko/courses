@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-main" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <text x="480" y="36" text-anchor="middle" font-size="18" font-weight="700" fill="#1a1a1a">Збої таймінгів SPI при роботі з DMA: передчасне підняття CS</text>
+  <text x="480" y="58" text-anchor="middle" font-size="13" fill="#6b7280">Переривання DMA_TC спрацьовує до завершення зсувного регістра, обриваючи останній байт</text>
+
+  <rect x="40" y="80" width="880" height="355" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- 1. SCK Лінія -->
+  <text x="60" y="125" font-size="13" font-weight="700" fill="#1a1a1a">SCK (Клок)</text>
+  <path d="M 170 130 L 190 130 L 190 112 L 210 112 L 210 130 L 230 130 L 230 112 L 250 112 L 250 130 L 270 130 L 270 112 L 290 112 L 290 130 L 310 130 L 310 112 L 330 112 L 330 130 L 350 130 L 350 112 L 370 112 L 370 130 L 390 130 L 390 112 L 410 112 L 410 130 L 430 130 L 430 112 L 450 112 L 450 130 L 470 130 L 470 112 L 490 112 L 490 130 L 510 130 L 510 112 L 530 112 L 530 130 L 550 130 L 550 112 L 570 112 L 570 130 L 590 130 L 590 112 L 610 112 L 610 130 L 630 130 L 630 112 L 650 112 L 650 130 L 670 130 L 670 112 L 690 112 L 690 130 L 710 130 L 710 112 L 730 112 L 730 130 L 880 130" stroke="#1a1a1a" stroke-width="1.5" fill="none"/>
+
+  <!-- 2. MOSI (Shift Register) -->
+  <text x="60" y="175" font-size="13" font-weight="700" fill="#2457d6">MOSI (Зсув)</text>
+
+  <polygon points="170,170 180,158 430,158 440,170 430,182 180,182" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="305" y="174" text-anchor="middle" font-size="12" fill="#2457d6">Попередній байт N-2</text>
+
+  <polygon points="440,170 450,158 720,158 730,170 720,182 450,182" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="585" y="174" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">Останній байт N-1 (виштовхується SPI)</text>
+
+  <line x1="730" y1="170" x2="880" y2="170" stroke="#6b7280" stroke-width="1.5"/>
+
+  <!-- Подія DMA_TCIF -->
+  <line x1="440" y1="95" x2="440" y2="410" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <circle cx="440" cy="205" r="4" fill="#c0392b"/>
+  <text x="445" y="200" font-size="12" font-weight="700" fill="#c0392b">DMA TCIF (DR спустошено)</text>
+
+  <!-- 3. Помилковий CS (Помилка) -->
+  <text x="60" y="235" font-size="13" font-weight="700" fill="#c0392b">CS (Помилка)</text>
+  <path d="M 170 245 L 450 245 L 450 220 L 880 220" stroke="#c0392b" stroke-width="2" fill="none"/>
+  <text x="470" y="238" font-size="12" font-weight="700" fill="#c0392b">Передчасне CS=1: байт N-1 обірвано на біті 7!</text>
+
+  <!-- 4. Помилковий D/C (Помилка) -->
+  <text x="60" y="285" font-size="13" font-weight="700" fill="#c0392b">D/C (Помилка)</text>
+  <path d="M 170 295 L 450 295 L 450 270 L 880 270" stroke="#c0392b" stroke-width="2" fill="none"/>
+  <text x="470" y="288" font-size="12" font-weight="700" fill="#c0392b">D/C перемкнувся на CMD: піксель сприйнято як команду!</text>
+
+  <!-- 5. Прапорець SPI_SR.BSY -->
+  <text x="60" y="335" font-size="13" font-weight="700" fill="#1a1a1a">SPI_SR.BSY</text>
+  <path d="M 170 325 L 730 325 L 730 345 L 880 345" stroke="#1a1a1a" stroke-width="2" fill="none"/>
+  <circle cx="730" cy="345" r="4" fill="#27ae60"/>
+  <text x="740" y="340" font-size="12" font-weight="700" fill="#27ae60">BSY=0 (Апаратний кінець передачі)</text>
+
+  <!-- 6. Правильний сигнал CS -->
+  <text x="60" y="385" font-size="13" font-weight="700" fill="#27ae60">CS (Коректно)</text>
+  <path d="M 170 395 L 740 395 L 740 370 L 880 370" stroke="#27ae60" stroke-width="2" fill="none"/>
+  <text x="750" y="390" font-size="12" font-weight="700" fill="#27ae60">Безпечне підняття CS після BSY=0</text>
+
+  <text x="480" y="462" text-anchor="middle" font-size="12" fill="#6b7280">В обробнику DMA_TC обов'язково слід очікувати прапорця BSY=0 перед скиданням CS або зміною D/C</text>
+</svg>

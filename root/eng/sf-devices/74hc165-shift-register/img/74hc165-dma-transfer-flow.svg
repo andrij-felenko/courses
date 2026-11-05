@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse"><path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/></marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse"><path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/></marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse"><path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/></marker>
+  </defs>
+  <rect x="0" y="0" width="960" height="460" fill="#ffffff"/>
+  <text x="480" y="30" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Потік передачі даних 74HC165 через SPI DMA</text>
+  <text x="480" y="50" font-size="13" fill="#6b7280" text-anchor="middle">Автоматичне зчитування регістру PISO без завантаження ядра CPU</text>
+
+  <!-- Hardware Level -->
+  <rect x="40" y="90" width="260" height="320" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="6"/>
+  <text x="170" y="115" font-size="14" font-weight="700" fill="#1a1a1a" text-anchor="middle">Зсувний регістр 74HC165</text>
+
+  <rect x="60" y="140" width="220" height="50" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="4"/>
+  <text x="170" y="160" font-size="13" font-weight="700" fill="#2457d6" text-anchor="middle">Паралельні входи D0–D7</text>
+  <text x="170" y="178" font-size="12" fill="#6b7280" text-anchor="middle">Фіксація стану кнопок / датчиків</text>
+
+  <rect x="60" y="220" width="220" height="50" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5" rx="4"/>
+  <text x="170" y="240" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">Лінія PL (Parallel Load)</text>
+  <text x="170" y="258" font-size="12" fill="#6b7280" text-anchor="middle">Низький імпульс засувки</text>
+
+  <rect x="60" y="300" width="220" height="50" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5" rx="4"/>
+  <text x="170" y="320" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">Послідовний вихід Q7</text>
+  <text x="170" y="338" font-size="12" fill="#6b7280" text-anchor="middle">Сигнал MISO до SPI MCU</text>
+
+  <!-- Peripherals Level -->
+  <rect x="350" y="90" width="260" height="320" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="6"/>
+  <text x="480" y="115" font-size="14" font-weight="700" fill="#1a1a1a" text-anchor="middle">Периферія МК (SPI + DMA)</text>
+
+  <rect x="370" y="140" width="220" height="50" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5" rx="4"/>
+  <text x="480" y="160" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">Таймер імпульсу PL</text>
+  <text x="480" y="178" font-size="12" fill="#6b7280" text-anchor="middle">Періодичний тригер засувки</text>
+
+  <rect x="370" y="220" width="220" height="50" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="4"/>
+  <text x="480" y="240" font-size="13" font-weight="700" fill="#2457d6" text-anchor="middle">Контролер SPI RX DMA</text>
+  <text x="480" y="258" font-size="12" fill="#6b7280" text-anchor="middle">Зчитує байти з MISO в RAM</text>
+
+  <rect x="370" y="300" width="220" height="50" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="4"/>
+  <text x="480" y="320" font-size="13" font-weight="700" fill="#27ae60" text-anchor="middle">Канал DMA Circular Buffer</text>
+  <text x="480" y="338" font-size="12" fill="#6b7280" text-anchor="middle">Прямий запис без участі CPU</text>
+
+  <!-- Memory & System Level -->
+  <rect x="660" y="90" width="260" height="320" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="6"/>
+  <text x="790" y="115" font-size="14" font-weight="700" fill="#1a1a1a" text-anchor="middle">ОЗП та Обробка Вхідних Даних</text>
+
+  <rect x="680" y="140" width="220" height="50" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5" rx="4"/>
+  <text x="790" y="160" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">Буфер вхідних станів</text>
+  <text x="790" y="178" font-size="12" fill="#6b7280" text-anchor="middle">uint8_t rx_buffer[RAW_SIZE]</text>
+
+  <rect x="680" y="220" width="220" height="50" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="4"/>
+  <text x="790" y="240" font-size="13" font-weight="700" fill="#27ae60" text-anchor="middle">Переривання DMA Transfer Complete</text>
+  <text x="790" y="258" font-size="12" fill="#6b7280" text-anchor="middle">Сповіщення про новий кадр</text>
+
+  <rect x="680" y="300" width="220" height="50" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5" rx="4"/>
+  <text x="790" y="320" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">Програмна фільтрація</text>
+  <text x="790" y="338" font-size="12" fill="#6b7280" text-anchor="middle">Мажоритарний антидребізг</text>
+
+  <!-- Arrows -->
+  <line x1="280" y1="245" x2="370" y2="245" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <line x1="280" y1="325" x2="370" y2="255" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4,4" marker-end="url(#arr-blue)"/>
+  <line x1="590" y1="325" x2="680" y2="165" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <line x1="590" y1="325" x2="680" y2="245" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <line x1="790" y1="270" x2="790" y2="300" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+</svg>

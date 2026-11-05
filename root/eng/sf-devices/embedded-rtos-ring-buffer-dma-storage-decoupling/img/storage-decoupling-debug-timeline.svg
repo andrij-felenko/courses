@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Підкладка -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Часова діаграма GPIO сигналів та ізоляція затримок накопичувача</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Осцилограма логічного аналізатора: буфер DMA, черга RTOS та блокування шини під час GC</text>
+
+  <!-- Панель осцилографа -->
+  <rect x="30" y="75" width="900" height="350" fill="#f4f6f8" stroke="#d0d7de" rx="6"/>
+
+  <!-- Канал 1: DMA Ping-Pong -->
+  <text x="180" y="112" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">DMA Ping-Pong</text>
+  <text x="180" y="128" font-size="11" fill="#6b7280" text-anchor="end">GPIO HT / TC</text>
+  <path d="M 205 130 H 265 V 105 H 325 V 130 H 385 V 105 H 445 V 130 H 505 V 105 H 565 V 130 H 625 V 105 H 685 V 130 H 745 V 105 H 805 V 130 H 865 V 105 H 905" stroke="#2457d6" stroke-width="2" fill="none"/>
+
+  <!-- Канал 2: Лінія DAT0 (Flash Busy) -->
+  <text x="180" y="172" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">Лінія DAT0</text>
+  <text x="180" y="188" font-size="11" fill="#c0392b" text-anchor="end">SDIO Flash Busy</text>
+
+  <!-- Підсвічування зони GC -->
+  <rect x="385" y="150" width="330" height="42" fill="#fdecea" stroke="#c0392b" stroke-dasharray="3,3" rx="3"/>
+  <text x="550" y="175" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Збирання сміття FTL / GC (пауза ~250 мс)</text>
+
+  <path d="M 205 160 H 385 V 185 H 715 V 160 H 905" stroke="#c0392b" stroke-width="2" fill="none"/>
+
+  <!-- Канал 3: Рівень заповнення кільцевої черги -->
+  <text x="180" y="235" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">Черга RTOS RAM</text>
+  <text x="180" y="251" font-size="11" fill="#27ae60" text-anchor="end">Рівень буфера</text>
+
+  <path d="M 205 260 H 385 L 445 250 L 505 240 L 565 230 L 625 220 L 715 208 L 765 225 L 815 245 L 865 260 H 905" stroke="#27ae60" stroke-width="2.5" fill="none"/>
+  <text x="735" y="200" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">Пік: 13 блоків</text>
+
+  <!-- Канал 4: Активність задачі запису RTOS -->
+  <text x="180" y="305" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">Потік запису RTOS</text>
+  <text x="180" y="321" font-size="11" fill="#1a1a1a" text-anchor="end">Стан задачі</text>
+
+  <path d="M 205 320 H 255 V 298 H 280 V 320 H 315 V 298 H 340 V 320 H 715 V 298 H 865 V 320 H 905" stroke="#1a1a1a" stroke-width="2" fill="none"/>
+  <text x="550" y="313" font-size="11" fill="#c0392b" text-anchor="middle">Задача заблокована очікуванням шини</text>
+  <text x="790" y="292" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">Скидання накопичених даних</text>
+
+  <!-- Підсумкова плашка -->
+  <rect x="50" y="355" width="860" height="52" fill="#ffffff" stroke="#d0d7de" rx="4"/>
+  <text x="480" y="376" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Висновок: DMA продовжує прийом без втрат (overflow = 0) завдяки поглинанню піку кільцевою чергою RTOS</text>
+  <text x="480" y="396" font-size="11" fill="#6b7280" text-anchor="middle">Після завершення збирання сміття воркер швидко вичитує накопичені блоки, повертаючи чергу до норми</text>
+</svg>

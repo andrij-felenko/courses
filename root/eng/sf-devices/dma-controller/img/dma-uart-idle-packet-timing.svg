@@ -1,0 +1,82 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-main" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <text x="480" y="36" text-anchor="middle" font-size="18" font-weight="700" fill="#1a1a1a">Захоплення пакета змінної довжини через UART IDLE та DMA</text>
+  <text x="480" y="58" text-anchor="middle" font-size="13" fill="#6b7280">Апаратна детекція паузи в лінії, обчислення розміру через NDTR та скидання лічильника</text>
+
+  <!-- Загальна рамка -->
+  <rect x="40" y="80" width="880" height="355" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- 1. Лінія UART RX -->
+  <text x="60" y="125" font-size="13" font-weight="700" fill="#1a1a1a">Лінія UART RX</text>
+
+  <!-- Пакети на лінії -->
+  <polygon points="190,120 200,105 280,105 290,120 280,135 200,135" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="240" y="124" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">Байт 0</text>
+
+  <polygon points="295,120 305,105 385,105 395,120 385,135 305,135" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="345" y="124" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">Байт 1</text>
+
+  <polygon points="400,120 410,105 490,105 500,120 490,135 410,135" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="450" y="124" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">Байт 2</text>
+
+  <polygon points="505,120 515,105 595,105 605,120 595,135 515,135" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="555" y="124" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">Байт N-1</text>
+
+  <!-- Пауза / Простій лінії IDLE -->
+  <line x1="605" y1="105" x2="880" y2="105" stroke="#27ae60" stroke-width="2.5"/>
+  <text x="730" y="98" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">Простій лінії &gt; 1 фрейму (IDLE)</text>
+
+  <!-- 2. Прапорець USART_ISR.IDLE -->
+  <text x="60" y="185" font-size="13" font-weight="700" fill="#27ae60">Прапорець IDLE</text>
+  <path d="M 190 195 L 685 195 L 685 165 L 880 165" stroke="#27ae60" stroke-width="2" fill="none"/>
+  <circle cx="685" cy="165" r="4" fill="#27ae60"/>
+  <text x="700" y="182" font-size="12" font-weight="700" fill="#27ae60">Подія IDLE detected</text>
+
+  <!-- 3. Регістр DMA CNDTR -->
+  <text x="60" y="245" font-size="13" font-weight="700" fill="#2457d6">DMA CNDTR</text>
+  <rect x="190" y="225" width="95" height="32" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="237" y="246" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">64</text>
+
+  <rect x="295" y="225" width="95" height="32" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="342" y="246" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">63</text>
+
+  <rect x="400" y="225" width="95" height="32" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="447" y="246" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">62</text>
+
+  <rect x="505" y="225" width="95" height="32" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="552" y="246" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">64 - N</text>
+
+  <rect x="685" y="225" width="195" height="32" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="782" y="246" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">CNDTR фіксовано = 64 - N</text>
+
+  <!-- 4. Дії обробника UART_IRQHandler -->
+  <text x="60" y="315" font-size="13" font-weight="700" fill="#c0392b">CPU Обробник</text>
+  <line x1="685" y1="195" x2="685" y2="340" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3,3"/>
+
+  <rect x="695" y="295" width="195" height="68" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="792" y="316" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">1. Довжина = Розмір - CNDTR</text>
+  <text x="792" y="334" text-anchor="middle" font-size="12" fill="#1a1a1a">2. Очищення IDLE (ICR)</text>
+  <text x="792" y="350" text-anchor="middle" font-size="12" fill="#2457d6">3. Перезапуск DMA (CNDTR=64)</text>
+
+  <!-- 5. Нижній пояснювальний блок -->
+  <rect x="190" y="375" width="700" height="42" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="540" y="401" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">Пакет миттєво передається в чергу RTOS без очікування переповнення всього буфера</text>
+
+  <text x="480" y="462" text-anchor="middle" font-size="12" fill="#6b7280">Комбінація DMA + IDLE дозволяє приймати пакети довільної довжини з нульовим навантаженням на CPU</text>
+</svg>

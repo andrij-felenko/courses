@@ -1,0 +1,110 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-main" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <text x="480" y="36" text-anchor="middle" font-size="18" font-weight="700" fill="#1a1a1a">Внутрішня архітектура IP-ядра контролера DMA</text>
+  <text x="480" y="58" text-anchor="middle" font-size="13" fill="#6b7280">Арбітраж запитів, регістрова конфігурація каналів, черга FIFO та роздільні порти шини</text>
+
+  <!-- Загальний контур IP-ядра DMA -->
+  <rect x="180" y="80" width="600" height="355" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="480" y="104" text-anchor="middle" font-size="14" font-weight="700" fill="#1a1a1a">DMA Controller Core (Внутрішні блоки)</text>
+
+  <!-- Зовнішні сигнали зліва -->
+  <rect x="25" y="125" width="130" height="70" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="90" y="152" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">Шина APB/AHB</text>
+  <text x="90" y="172" text-anchor="middle" font-size="12" fill="#1a1a1a">Конфігурація CPU</text>
+
+  <line x1="155" y1="160" x2="198" y2="160" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <rect x="25" y="275" width="130" height="85" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="90" y="302" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">Запити периферії</text>
+  <text x="90" y="322" text-anchor="middle" font-size="12" fill="#1a1a1a">DMAMUX / REQ</text>
+  <text x="90" y="340" text-anchor="middle" font-size="12" fill="#6b7280">UART, SPI, ADC</text>
+
+  <line x1="155" y1="315" x2="198" y2="315" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+
+  <!-- Внутрішній блок 1: Регістровий файл каналу -->
+  <rect x="205" y="120" width="180" height="135" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="295" y="142" text-anchor="middle" font-size="13" font-weight="700" fill="#2457d6">Регістри каналу</text>
+  <text x="295" y="162" text-anchor="middle" font-size="12" fill="#1a1a1a">CR (Керування та режим)</text>
+  <text x="295" y="180" text-anchor="middle" font-size="12" fill="#1a1a1a">NDTR (Лічильник байтів)</text>
+  <text x="295" y="198" text-anchor="middle" font-size="12" fill="#1a1a1a">PAR (Адреса периферії)</text>
+  <text x="295" y="216" text-anchor="middle" font-size="12" fill="#1a1a1a">M0AR (Базова адреса)</text>
+  <text x="295" y="234" text-anchor="middle" font-size="12" fill="#6b7280">FCR (Керування FIFO)</text>
+
+  <!-- Внутрішній блок 2: Арбітр пріоритетів -->
+  <rect x="205" y="270" width="180" height="95" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="295" y="295" text-anchor="middle" font-size="13" font-weight="700" fill="#c0392b">Арбітр каналів</text>
+  <text x="295" y="315" text-anchor="middle" font-size="12" fill="#1a1a1a">Пріоритет (Very High)</text>
+  <text x="295" y="333" text-anchor="middle" font-size="12" fill="#1a1a1a">Апаратний номер каналу</text>
+  <text x="295" y="350" text-anchor="middle" font-size="12" fill="#6b7280">Схема Round-Robin</text>
+
+  <!-- Зв'язки всередині: Арбітр -> Стейт-машина / Контролер передачі -->
+  <rect x="415" y="120" width="170" height="110" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="500" y="145" text-anchor="middle" font-size="13" font-weight="700" fill="#1a1a1a">Керуюча логіка</text>
+  <text x="500" y="167" text-anchor="middle" font-size="12" fill="#1a1a1a">Генератор адресних фаз</text>
+  <text x="500" y="185" text-anchor="middle" font-size="12" fill="#1a1a1a">Автоінкремент покажчиків</text>
+  <text x="500" y="205" text-anchor="middle" font-size="12" fill="#2457d6">Burst Controller (INCR)</text>
+
+  <line x1="385" y1="180" x2="408" y2="180" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-main)"/>
+  <path d="M 385 315 L 405 315 L 405 210 L 410 210" stroke="#c0392b" stroke-width="1.5" fill="none" marker-end="url(#arr-red)"/>
+
+  <!-- Внутрішній блок 3: Черга FIFO та упаковка даних -->
+  <rect x="415" y="245" width="170" height="115" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="500" y="270" text-anchor="middle" font-size="13" font-weight="700" fill="#27ae60">FIFO Буфер (4×32 біти)</text>
+  <text x="500" y="292" text-anchor="middle" font-size="12" fill="#1a1a1a">Пакування / розпакування</text>
+  <text x="500" y="310" text-anchor="middle" font-size="12" fill="#1a1a1a">8-біт ↔ 16-біт ↔ 32-біт</text>
+  <text x="500" y="328" text-anchor="middle" font-size="12" fill="#1a1a1a">Усунення простоїв шини</text>
+  <text x="500" y="346" text-anchor="middle" font-size="12" fill="#27ae60">Поріг: 1/4, 1/2, 3/4, Full</text>
+
+  <!-- Блок переривань внизу IP ядра -->
+  <rect x="205" y="378" width="380" height="42" rx="6" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="395" y="404" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">Генератор переривань: TC (Complete), HT (Half), TE (Error)</text>
+
+  <!-- Внутрішній блок 4: Майстер-порти шини AHB/AXI -->
+  <rect x="615" y="130" width="145" height="95" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="687" y="155" text-anchor="middle" font-size="13" font-weight="700" fill="#2457d6">Memory Port</text>
+  <text x="687" y="175" text-anchor="middle" font-size="12" fill="#1a1a1a">Майстер-інтерфейс</text>
+  <text x="687" y="193" text-anchor="middle" font-size="12" fill="#1a1a1a">до SRAM / Flash</text>
+  <text x="687" y="210" text-anchor="middle" font-size="12" fill="#6b7280">Швидкісна AXI-шина</text>
+
+  <rect x="615" y="255" width="145" height="95" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="687" y="280" text-anchor="middle" font-size="13" font-weight="700" fill="#27ae60">Peripheral Port</text>
+  <text x="687" y="300" text-anchor="middle" font-size="12" fill="#1a1a1a">Майстер-інтерфейс</text>
+  <text x="687" y="318" text-anchor="middle" font-size="12" fill="#1a1a1a">до периферії APB/AHB</text>
+  <text x="687" y="335" text-anchor="middle" font-size="12" fill="#6b7280">DR-регістри пристроїв</text>
+
+  <line x1="585" y1="180" x2="608" y2="180" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <line x1="585" y1="305" x2="608" y2="305" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <!-- Зовнішні блоки праворуч: Системна пам'ять та периферія -->
+  <rect x="805" y="140" width="130" height="75" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="870" y="167" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">Системна SRAM</text>
+  <text x="870" y="187" text-anchor="middle" font-size="12" fill="#1a1a1a">Буфери додатку</text>
+  <text x="870" y="202" text-anchor="middle" font-size="12" fill="#6b7280">Кільцеві структури</text>
+
+  <line x1="760" y1="180" x2="800" y2="180" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <rect x="805" y="265" width="130" height="75" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="870" y="292" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">Периферія</text>
+  <text x="870" y="312" text-anchor="middle" font-size="12" fill="#1a1a1a">UART, SPI, I2C, ADC</text>
+  <text x="870" y="327" text-anchor="middle" font-size="12" fill="#6b7280">Регістри RDR/TDR</text>
+
+  <line x1="760" y1="305" x2="800" y2="305" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <text x="480" y="462" text-anchor="middle" font-size="12" fill="#6b7280">Роздільні порти Memory та Peripheral забезпечують одночасний доступ без блокування системної шини</text>
+</svg>

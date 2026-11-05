@@ -1,0 +1,127 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-black" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Header -->
+  <text x="480" y="34" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Пошаровий фізичний розріз карти SD/microSD</text>
+  <text x="480" y="56" font-size="13" fill="#6b7280" text-anchor="middle">Кристали FTL і Flash ізольовані в компаунді: хост взаємодіє виключно з контролером</text>
+
+  <!-- Main Panel: Cross Section -->
+  <rect x="24" y="74" width="912" height="236" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="480" y="96" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Фізичний пошаровий розріз корпусу SiP (System-in-Package)</text>
+
+  <!-- Package Molding Body -->
+  <rect x="60" y="106" width="840" height="106" rx="4" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="480" y="124" font-size="12" fill="#6b7280" text-anchor="middle">Захисний герметизуючий компаунд (Epoxy Mold Compound) — суцільна ізоляція кристалів</text>
+
+  <!-- FTL Controller Die -->
+  <rect x="90" y="146" width="220" height="58" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="200" y="166" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Кристал контролера FTL</text>
+  <text x="200" y="183" font-size="12" fill="#1a1a1a" text-anchor="middle">RISC CPU · SRAM L2P · ECC</text>
+  <text x="200" y="198" font-size="12" fill="#6b7280" text-anchor="middle">FTL · Wear Leveling</text>
+  <circle cx="102" cy="146" r="3.5" fill="#2457d6"/>
+  <circle cx="298" cy="146" r="3.5" fill="#27ae60"/>
+  <circle cx="298" cy="154" r="3.5" fill="#27ae60"/>
+
+  <!-- NAND Flash Dies (Staircase Stack) -->
+  <!-- Upper Die (Layer 1) -->
+  <rect x="420" y="140" width="450" height="30" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="650" y="160" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Кристал Flash (Шар 1): Сторінки 4–16 KB · Блоки 4–8 MB</text>
+  <circle cx="430" cy="140" r="3.5" fill="#27ae60"/>
+
+  <!-- Lower Die (Layer 0) -->
+  <rect x="370" y="174" width="500" height="30" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="650" y="194" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Кристал Flash (Шар 0): Енергонезалежні комірки SLC/MLC/TLC</text>
+  <circle cx="380" cy="174" r="3.5" fill="#27ae60"/>
+
+  <!-- Substrate (Interposer PCB) -->
+  <rect x="60" y="214" width="840" height="14" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.5"/>
+  <circle cx="102" cy="214" r="3.5" fill="#2457d6"/>
+
+  <!-- Vias in Substrate -->
+  <line x1="102" y1="214" x2="102" y2="228" stroke="#2457d6" stroke-width="2.5"/>
+  <line x1="140" y1="214" x2="140" y2="228" stroke="#2457d6" stroke-width="2.5"/>
+  <line x1="175" y1="214" x2="175" y2="228" stroke="#2457d6" stroke-width="2.5"/>
+  <line x1="210" y1="214" x2="210" y2="228" stroke="#2457d6" stroke-width="2.5"/>
+  <line x1="245" y1="214" x2="245" y2="228" stroke="#2457d6" stroke-width="2.5"/>
+  <line x1="280" y1="214" x2="280" y2="228" stroke="#2457d6" stroke-width="2.5"/>
+  <line x1="315" y1="214" x2="315" y2="228" stroke="#2457d6" stroke-width="2.5"/>
+  <line x1="350" y1="214" x2="350" y2="228" stroke="#2457d6" stroke-width="2.5"/>
+
+  <!-- External Contact Pads -->
+  <rect x="88" y="228" width="28" height="10" rx="1" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <rect x="126" y="228" width="28" height="10" rx="1" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <rect x="161" y="228" width="28" height="10" rx="1" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <rect x="196" y="228" width="28" height="10" rx="1" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <rect x="231" y="228" width="28" height="10" rx="1" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <rect x="266" y="228" width="28" height="10" rx="1" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <rect x="301" y="228" width="28" height="10" rx="1" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <rect x="336" y="228" width="28" height="10" rx="1" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+
+  <!-- Wire Bonds -->
+  <path d="M 102 214 C 82 195, 82 165, 102 146" fill="none" stroke="#2457d6" stroke-width="2"/>
+  <path d="M 298 154 C 325 156, 355 162, 380 174" fill="none" stroke="#27ae60" stroke-width="2"/>
+  <path d="M 298 146 C 340 138, 385 136, 430 140" fill="none" stroke="#27ae60" stroke-width="2"/>
+
+  <!-- Annotations below Cross-Section Slice -->
+  <text x="226" y="254" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Контактні площадки хоста: DAT0–DAT3, CMD, CLK, VDD, VSS</text>
+  <text x="640" y="254" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">⛔ Прямий доступ до Flash відсутній — матриця повністю ізольована</text>
+  <text x="480" y="276" font-size="12" fill="#1a1a1a" text-anchor="middle">Зв'язки: золоті мікродроти (Bond Wires Ø 20 мкм) та перехідні отвори (Vias) підкладки</text>
+  <text x="480" y="296" font-size="12" fill="#6b7280" text-anchor="middle">Усі операції введення-виведення хоста проходять через контролер; Flash недоступна напряму</text>
+
+  <!-- Lower Explanatory Panels -->
+  <!-- Panel 1: Contacts & Substrate -->
+  <rect x="24" y="326" width="288" height="169" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="34" y="336" width="268" height="28" rx="5" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="168" y="355" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">1. Контакти та підкладка (I/O)</text>
+  <text x="38" y="380" font-size="12" fill="#1a1a1a">• 8 майданчиків під інтерфейс SDIO / SPI</text>
+  <text x="38" y="400" font-size="12" fill="#1a1a1a">• Живлення 3.3 В (VDD, VSS), CLK, CMD</text>
+  <text x="38" y="420" font-size="12" fill="#1a1a1a">• Лінії даних DAT0–DAT3 (DAT0 = Busy)</text>
+  <text x="38" y="440" font-size="12" fill="#6b7280">• Vias і доріжки ведуть тільки до FTL</text>
+  <text x="38" y="460" font-size="12" font-weight="bold" fill="#c0392b">• Фізичного виходу на матрицю немає</text>
+  <text x="38" y="480" font-size="12" fill="#6b7280">• Захист кристалів від перепадів та ESD</text>
+
+  <!-- Panel 2: FTL Controller -->
+  <rect x="328" y="326" width="304" height="169" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="338" y="336" width="284" height="28" rx="5" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="480" y="355" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">2. Кристал контролера FTL</text>
+  <text x="342" y="380" font-size="12" fill="#1a1a1a">• RISC CPU: виконує мікрокод FTL</text>
+  <text x="342" y="400" font-size="12" fill="#1a1a1a">• SRAM: кеш секторів і таблиці L2P</text>
+  <text x="342" y="420" font-size="12" fill="#1a1a1a">• Апаратний ECC: корекція помилок бітів</text>
+  <text x="342" y="440" font-size="12" fill="#6b7280">• Wear Leveling: вирівнювання зносу</text>
+  <text x="342" y="460" font-size="12" font-weight="bold" fill="#c0392b">• Збирання сміття (GC) триває до 500 мс</text>
+  <text x="342" y="480" font-size="12" fill="#c0392b">• Тримає DAT0=0 — джерело tail latency</text>
+
+  <!-- Panel 3: NAND Flash -->
+  <rect x="648" y="326" width="288" height="169" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="658" y="336" width="268" height="28" rx="5" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="792" y="355" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">3. Матриця NAND Flash</text>
+  <text x="662" y="380" font-size="12" fill="#1a1a1a">• Енергонезалежний масив комірок Flash</text>
+  <text x="662" y="400" font-size="12" fill="#1a1a1a">• Читання/запис: сторінки по 4–16 KB</text>
+  <text x="662" y="420" font-size="12" fill="#1a1a1a">• Стирання: тільки блоками по 4–8 MB</text>
+  <text x="662" y="440" font-size="12" fill="#6b7280">• Помпа заряду: 15–20 В тунелювання</text>
+  <text x="662" y="460" font-size="12" font-weight="bold" fill="#c0392b">• Час стирання блоку: 200–500 мс</text>
+  <text x="662" y="480" font-size="12" fill="#6b7280">• Зв'язана виключно з FTL через мікродроти</text>
+
+  <!-- Bus Flow Arrows between lower panels -->
+  <line x1="314" y1="410" x2="326" y2="410" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <line x1="634" y1="410" x2="646" y2="410" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+</svg>

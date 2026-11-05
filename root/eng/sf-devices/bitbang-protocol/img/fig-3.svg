@@ -1,0 +1,102 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Оптимізація Bit-bang: неоптимізований цикл проти розгортання та кешування</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Кешування масок у регістрах R0–R7 та розгортання циклу скорочують такт біта з 11 до 3 тактів</text>
+
+  <!-- Left Column: Unoptimized Loop -->
+  <rect x="36" y="70" width="434" height="370" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="253" y="94" font-size="15" font-weight="700" fill="#c0392b" text-anchor="middle">Неоптимізований цикл зі зсувами</text>
+  <text x="253" y="112" font-size="12" fill="#6b7280" text-anchor="middle">N_unoptimized = 11 тактів ядра на кожен переданий біт</text>
+
+  <!-- Left Box 1: Code -->
+  <rect x="54" y="126" width="398" height="64" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="70" y="145" font-size="12" font-weight="700" fill="#c0392b">Алгоритм з динамічним розрахунком маски:</text>
+  <text x="70" y="162" font-size="12" fill="#1a1a1a">for (int8_t i = 7; i &gt;= 0; i--) {</text>
+  <text x="86" y="179" font-size="12" fill="#6b7280">val = (data &amp; (1U &lt;&lt; i)); GPIO-&gt;ODR = val; }</text>
+
+  <!-- Left Box 2: Pipeline cycles -->
+  <rect x="54" y="202" width="398" height="84" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="70" y="220" font-size="12" font-weight="700" fill="#1a1a1a">Конвеєр інструкцій процесора (11 тактів на біт):</text>
+
+  <rect x="70" y="230" width="128" height="24" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="134" y="246" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">N_shift = 4T</text>
+
+  <rect x="202" y="230" width="66" height="24" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.2"/>
+  <text x="235" y="246" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">LDR: 2T</text>
+
+  <rect x="272" y="230" width="66" height="24" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="305" y="246" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">STR: 2T</text>
+
+  <rect x="342" y="230" width="94" height="24" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="389" y="246" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">BNE: 3T</text>
+
+  <text x="253" y="272" font-size="12" fill="#6b7280" text-anchor="middle">4T зсув + 2T читання + 2T запис + 3T скидання конвеєра</text>
+
+  <!-- Left Box 3: Waveform -->
+  <rect x="54" y="298" width="398" height="68" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="70" y="314" font-size="12" font-weight="700" fill="#1a1a1a">Сигнал на ніжці GPIO (SCK / DATA):</text>
+  <path d="M 70,348 L 130,348 L 130,328 L 220,328 L 220,348 L 260,348" fill="none" stroke="#c0392b" stroke-width="2"/>
+  <text x="280" y="332" font-size="12" font-weight="700" fill="#c0392b">T_bit = 11 тактів CPU</text>
+  <text x="280" y="350" font-size="12" fill="#6b7280">Джитер через стрибок BNE</text>
+
+  <!-- Left Box 4: Summary -->
+  <rect x="54" y="378" width="398" height="50" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="253" y="396" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">Втрати: 73% часу ядра на службові інструкції</text>
+  <text x="253" y="414" font-size="12" fill="#1a1a1a" text-anchor="middle">Швидкість обмежена накладними витратами конвеєра</text>
+
+  <!-- Right Column: Optimized Caching + Unrolling -->
+  <rect x="490" y="70" width="434" height="370" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="707" y="94" font-size="15" font-weight="700" fill="#27ae60" text-anchor="middle">Кешування масок та розгортання циклу</text>
+  <text x="707" y="112" font-size="12" fill="#6b7280" text-anchor="middle">N_optimized = 3 такти ядра на біт (прискорення у 3.67×)</text>
+
+  <!-- Right Box 1: Code -->
+  <rect x="508" y="126" width="398" height="64" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="524" y="145" font-size="12" font-weight="700" fill="#27ae60">Маски в R0–R7 + 8 розгорнутих записів у BSRR:</text>
+  <text x="524" y="162" font-size="12" fill="#1a1a1a">GPIO-&gt;BSRR = r_mask_b7; GPIO-&gt;BSRR = r_mask_b6; ...</text>
+  <text x="524" y="179" font-size="12" fill="#6b7280">Прямий запис без обчислення зсувів та без циклу for</text>
+
+  <!-- Right Box 2: Pipeline cycles -->
+  <rect x="508" y="202" width="398" height="84" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="524" y="220" font-size="12" font-weight="700" fill="#1a1a1a">Конвеєр інструкцій процесора (3 такти на біт):</text>
+
+  <rect x="524" y="230" width="130" height="24" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="589" y="246" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">STR BSRR: 2T</text>
+
+  <rect x="658" y="230" width="80" height="24" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="698" y="246" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">Крок: 1T</text>
+
+  <rect x="742" y="230" width="148" height="24" rx="4" fill="#f4f6f8" stroke="#27ae60" stroke-width="1.2" stroke-dasharray="3 3"/>
+  <text x="816" y="246" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">Заощаджено 8 тактів</text>
+
+  <text x="707" y="272" font-size="12" fill="#6b7280" text-anchor="middle">2T запис + 1T крок + 0T зсув (маски в R0–R7) + 0T розгалуження</text>
+
+  <!-- Right Box 3: Waveform -->
+  <rect x="508" y="298" width="398" height="68" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="524" y="314" font-size="12" font-weight="700" fill="#1a1a1a">Сигнал на ніжці GPIO (SCK / DATA):</text>
+  <path d="M 524,348 L 548,348 L 548,328 L 572,328 L 572,348 L 596,348 L 596,328 L 620,328 L 620,348 L 644,348 L 644,328 L 668,328 L 668,348 L 714,348" fill="none" stroke="#27ae60" stroke-width="2"/>
+  <text x="734" y="332" font-size="12" font-weight="700" fill="#27ae60">T_bit = 3 такти (3.67× швидше)</text>
+  <text x="734" y="350" font-size="12" fill="#6b7280">100% апаратний детермінізм</text>
+
+  <!-- Right Box 4: Summary -->
+  <rect x="508" y="378" width="398" height="50" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="707" y="396" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">Результат: пропускна здатність зростає у 3.67 раза</text>
+  <text x="707" y="414" font-size="12" fill="#1a1a1a" text-anchor="middle">Жодного скидання конвеєра та стабільний крок фази</text>
+</svg>

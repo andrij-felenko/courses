@@ -1,0 +1,180 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Defs / Markers -->
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-success" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Header Title & Subtitle -->
+  <text x="480" y="33" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Диференціальний ємнісний сенсор лінійного переміщення штангенциркуля</text>
+  <text x="480" y="53" font-size="13" fill="#6b7280" text-anchor="middle">Багатофазне збудження повзунка та періодичний статор шини модулюють фазу вихідного сигналу</text>
+
+  <!-- ==================== TOP PANEL: PHYSICAL STRUCTURE ==================== -->
+  <rect x="30" y="70" width="900" height="210" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Subheader Box -->
+  <rect x="42" y="78" width="876" height="30" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="54" y="98" font-size="13" font-weight="bold" fill="#2457d6">Конструктивна топологія: рухомий повзунок над нерухомою шиною статора</text>
+  <path d="M 720 93 L 795 93" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="805" y="97" font-size="12" font-weight="bold" fill="#2457d6">Зсув x →</text>
+
+  <!-- 1. SLIDER PCB (Moving head) -->
+  <rect x="160" y="116" width="745" height="58" rx="5" fill="white" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="175" y="139" font-size="12" font-weight="bold" fill="#2457d6">Плата повзунка</text>
+  <text x="175" y="157" font-size="12" fill="#6b7280">(рухомий блок)</text>
+
+  <!-- Excitation Electrodes: 8 pads (4 phases x 2 cycles) -->
+  <!-- Pad 1: phi1 (0 deg) -->
+  <rect x="280" y="120" width="42" height="50" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="301" y="141" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">φ1</text>
+  <text x="301" y="159" font-size="12" fill="#6b7280" text-anchor="middle">0°</text>
+
+  <!-- Pad 2: phi2 (90 deg) -->
+  <rect x="328" y="120" width="42" height="50" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="349" y="141" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">φ2</text>
+  <text x="349" y="159" font-size="12" fill="#6b7280" text-anchor="middle">90°</text>
+
+  <!-- Pad 3: phi3 (180 deg) -->
+  <rect x="376" y="120" width="42" height="50" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="397" y="141" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">φ3</text>
+  <text x="397" y="159" font-size="12" fill="#6b7280" text-anchor="middle">180°</text>
+
+  <!-- Pad 4: phi4 (270 deg) -->
+  <rect x="424" y="120" width="42" height="50" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="445" y="141" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">φ4</text>
+  <text x="445" y="159" font-size="12" fill="#6b7280" text-anchor="middle">270°</text>
+
+  <!-- Pad 5: phi1 (0 deg) -->
+  <rect x="472" y="120" width="42" height="50" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="493" y="141" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">φ1</text>
+  <text x="493" y="159" font-size="12" fill="#6b7280" text-anchor="middle">0°</text>
+
+  <!-- Pad 6: phi2 (90 deg) -->
+  <rect x="520" y="120" width="42" height="50" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="541" y="141" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">φ2</text>
+  <text x="541" y="159" font-size="12" fill="#6b7280" text-anchor="middle">90°</text>
+
+  <!-- Pad 7: phi3 (180 deg) -->
+  <rect x="568" y="120" width="42" height="50" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="589" y="141" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">φ3</text>
+  <text x="589" y="159" font-size="12" fill="#6b7280" text-anchor="middle">180°</text>
+
+  <!-- Pad 8: phi4 (270 deg) -->
+  <rect x="616" y="120" width="42" height="50" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="637" y="141" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">φ4</text>
+  <text x="637" y="159" font-size="12" fill="#6b7280" text-anchor="middle">270°</text>
+
+  <!-- Receiver Rx+ -->
+  <rect x="680" y="120" width="95" height="50" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="727" y="141" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Приймач Rx+</text>
+  <text x="727" y="159" font-size="12" fill="#27ae60" text-anchor="middle">+диференціал</text>
+
+  <!-- Receiver Rx- -->
+  <rect x="790" y="120" width="95" height="50" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="837" y="141" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Приймач Rx-</text>
+  <text x="837" y="159" font-size="12" fill="#27ae60" text-anchor="middle">-диференціал</text>
+
+  <!-- 2. AIR GAP & COUPLING -->
+  <text x="45" y="193" font-size="12" font-weight="bold" fill="#6b7280">Зазор d ≈ 0.1 мм</text>
+  <text x="45" y="206" font-size="12" fill="#6b7280">ємнісний зв'язок C(x)</text>
+
+  <!-- Dashed coupling lines (x from 301 to 837) -->
+  <line x1="301" y1="175" x2="301" y2="204" stroke="#2457d6" stroke-width="1.2" stroke-dasharray="3,3"/>
+  <line x1="349" y1="175" x2="349" y2="204" stroke="#2457d6" stroke-width="1.2" stroke-dasharray="3,3"/>
+  <line x1="397" y1="175" x2="397" y2="204" stroke="#2457d6" stroke-width="1.2" stroke-dasharray="3,3"/>
+  <line x1="445" y1="175" x2="445" y2="204" stroke="#2457d6" stroke-width="1.2" stroke-dasharray="3,3"/>
+  <line x1="493" y1="175" x2="493" y2="204" stroke="#2457d6" stroke-width="1.2" stroke-dasharray="3,3"/>
+  <line x1="541" y1="175" x2="541" y2="204" stroke="#2457d6" stroke-width="1.2" stroke-dasharray="3,3"/>
+  <line x1="589" y1="175" x2="589" y2="204" stroke="#2457d6" stroke-width="1.2" stroke-dasharray="3,3"/>
+  <line x1="637" y1="175" x2="637" y2="204" stroke="#2457d6" stroke-width="1.2" stroke-dasharray="3,3"/>
+  <line x1="727" y1="175" x2="727" y2="204" stroke="#27ae60" stroke-width="1.2" stroke-dasharray="3,3"/>
+  <line x1="837" y1="175" x2="837" y2="204" stroke="#27ae60" stroke-width="1.2" stroke-dasharray="3,3"/>
+
+  <!-- 3. STATOR SCALE (Caliper Beam) -->
+  <rect x="160" y="205" width="745" height="68" rx="4" fill="#e5e7eb" stroke="#9ca3af" stroke-width="1.5"/>
+  <text x="45" y="235" font-size="12" font-weight="bold" fill="#1a1a1a">Шина статора</text>
+  <text x="45" y="251" font-size="12" fill="#6b7280">(сталева лінійка)</text>
+
+  <!-- Stator Copper Segments -->
+  <rect x="304" y="210" width="90" height="30" rx="3" fill="white" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="349" y="230" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Сегмент Ps</text>
+
+  <rect x="496" y="210" width="90" height="30" rx="3" fill="white" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="541" y="230" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Сегмент Ps</text>
+
+  <rect x="688" y="210" width="90" height="30" rx="3" fill="white" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="733" y="230" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Сегмент Ps</text>
+
+  <!-- Pitch dimension line -->
+  <line x1="349" y1="248" x2="541" y2="248" stroke="#1a1a1a" stroke-width="1.2"/>
+  <line x1="349" y1="244" x2="349" y2="252" stroke="#1a1a1a" stroke-width="1.2"/>
+  <line x1="541" y1="244" x2="541" y2="252" stroke="#1a1a1a" stroke-width="1.2"/>
+  <text x="445" y="265" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Період статора Ps = 5.0 мм</text>
+
+  <!-- ==================== BOTTOM LEFT PANEL: EXCITATION ASIC ==================== -->
+  <rect x="30" y="295" width="440" height="175" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="42" y="305" width="416" height="28" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="250" y="324" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Багатофазний генератор збудження (ASIC)</text>
+
+  <!-- Waveform box -->
+  <rect x="42" y="341" width="416" height="74" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="52" y="357" font-size="12" font-weight="bold" fill="#2457d6">φ1 (0°)</text>
+  <text x="52" y="373" font-size="12" font-weight="bold" fill="#2457d6">φ2 (90°)</text>
+  <text x="52" y="389" font-size="12" font-weight="bold" fill="#2457d6">φ3 (180°)</text>
+  <text x="52" y="405" font-size="12" font-weight="bold" fill="#2457d6">φ4 (270°)</text>
+
+  <!-- Square wave pulses -->
+  <path d="M 125 350 H 195 V 358 H 265 V 350 H 335 V 358 H 405 V 350 H 445" fill="none" stroke="#2457d6" stroke-width="1.5"/>
+  <path d="M 125 374 H 160 V 366 H 230 V 374 H 300 V 366 H 370 V 374 H 440 V 366 H 445" fill="none" stroke="#2457d6" stroke-width="1.5"/>
+  <path d="M 125 390 H 195 V 382 H 265 V 390 H 335 V 382 H 405 V 390 H 445" fill="none" stroke="#2457d6" stroke-width="1.5"/>
+  <path d="M 125 398 H 160 V 406 H 230 V 398 H 300 V 406 H 370 V 398 H 440 V 406 H 445" fill="none" stroke="#2457d6" stroke-width="1.5"/>
+
+  <!-- Waveform explanations -->
+  <text x="45" y="432" font-size="12" font-weight="bold" fill="#1a1a1a">Просторова хвиля збудження:</text>
+  <text x="45" y="448" font-size="12" fill="#1a1a1a">• Квадратурні імпульси f0 ≈ 100 кГц створюють біжуче поле E(x, t)</text>
+  <text x="45" y="464" font-size="12" fill="#6b7280">• Просторовий період збудження λ = Ps (крок статора 5.0 мм)</text>
+
+  <!-- ==================== BOTTOM RIGHT PANEL: DIFFERENTIAL & DSP ==================== -->
+  <rect x="490" y="295" width="440" height="175" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="502" y="305" width="416" height="28" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="710" y="324" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Диференціальний прийом та інтерполяція</text>
+
+  <!-- Amp Box -->
+  <rect x="502" y="341" width="180" height="42" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="592" y="358" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Диференц. підсилювач</text>
+  <text x="592" y="374" font-size="12" fill="#2457d6" text-anchor="middle">Vdiff = Rx+ - Rx-</text>
+
+  <!-- Pipeline Arrow -->
+  <line x1="687" y1="362" x2="725" y2="362" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-success)"/>
+
+  <!-- Discriminator Box -->
+  <rect x="730" y="341" width="188" height="42" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="824" y="358" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Фазовий дискримінатор</text>
+  <text x="824" y="374" font-size="12" fill="#27ae60" text-anchor="middle">Зсув фази θ(x) = 2π·(x/Ps)</text>
+
+  <!-- Formula & Analysis Box -->
+  <rect x="502" y="391" width="416" height="71" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="514" y="408" font-size="12" font-weight="bold" fill="#1a1a1a">Розрахунок x:</text>
+  <text x="615" y="408" font-size="13" font-weight="bold" fill="#2457d6">Δx = Ps · (θ / 2π) + N · Ps</text>
+  <text x="514" y="425" font-size="12" fill="#1a1a1a">• Ноніусний відлік:</text>
+  <text x="645" y="425" font-size="12" fill="#6b7280">інтерполяція фази θ до 0.01 мм</text>
+  <text x="514" y="441" font-size="12" fill="#1a1a1a">• Лічильник кроків N:</text>
+  <text x="645" y="441" font-size="12" fill="#6b7280">відлік повних періодів Ps</text>
+  <text x="514" y="457" font-size="12" font-weight="bold" fill="#27ae60">• Диференц. баланс:</text>
+  <text x="645" y="457" font-size="12" fill="#27ae60">компенсація коливань зазору Δd</text>
+
+  <!-- ==================== BOTTOM SUMMARY BAR ==================== -->
+  <rect x="30" y="482" width="900" height="34" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="45" y="503" font-size="12" font-weight="bold" fill="#2457d6">Ключовий висновок:</text>
+  <text x="180" y="503" font-size="12" fill="#1a1a1a">Диференціальна ємнісна схема усуває вплив перекосів і зазору; фазовий зсув забезпечує субмікронну роздільність</text>
+</svg>

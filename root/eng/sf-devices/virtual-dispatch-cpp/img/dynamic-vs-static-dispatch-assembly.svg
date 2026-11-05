@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+  
+  <text x="480" y="40" fill="#1a1a1a" font-size="18" font-weight="bold" text-anchor="middle">Статична та динамічна диспетчеризація: машинний код</text>
+  <text x="480" y="65" fill="#6b7280" font-size="13" text-anchor="middle">Порівняння кількості інструкцій та звернень до пам'яті для прямого та віртуального викликів</text>
+
+  <!-- Left panel: Static Dispatch -->
+  <rect x="80" y="100" width="360" height="280" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <text x="260" y="135" fill="#27ae60" font-size="16" font-weight="bold" text-anchor="middle">Статичний виклик (Static Dispatch)</text>
+  
+  <rect x="100" y="160" width="320" height="150" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="120" y="185" fill="#1a1a1a" font-size="14" font-weight="bold">C++:</text>
+  <text x="160" y="185" fill="#1a1a1a" font-size="14" font-family="monospace">device.init();</text>
+  
+  <text x="120" y="225" fill="#1a1a1a" font-size="14" font-weight="bold">ARM Assembly:</text>
+  <text x="120" y="250" fill="#27ae60" font-size="14" font-family="monospace" font-weight="bold">BL   Device_init</text>
+  <text x="120" y="280" fill="#6b7280" font-size="13">Прямий перехід на відому адресу.</text>
+  <text x="120" y="300" fill="#6b7280" font-size="13">1 інструкція, 0 звернень до RAM.</text>
+  
+  <text x="260" y="350" fill="#1a1a1a" font-size="14" text-anchor="middle">Підтримує інлайнінг (Inlining)</text>
+
+  <!-- Right panel: Dynamic Dispatch -->
+  <rect x="520" y="100" width="360" height="280" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="2"/>
+  <text x="700" y="135" fill="#c0392b" font-size="16" font-weight="bold" text-anchor="middle">Динамічний виклик (Dynamic Dispatch)</text>
+  
+  <rect x="540" y="160" width="320" height="150" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="560" y="185" fill="#1a1a1a" font-size="14" font-weight="bold">C++:</text>
+  <text x="600" y="185" fill="#1a1a1a" font-size="14" font-family="monospace">device-&gt;init();</text>
+  
+  <text x="560" y="225" fill="#1a1a1a" font-size="14" font-weight="bold">ARM Assembly (через vtable):</text>
+  <text x="560" y="250" fill="#c0392b" font-size="14" font-family="monospace" font-weight="bold">LDR  R3, [R0]</text>
+  <text x="660" y="250" fill="#6b7280" font-size="12">; читання vptr з об'єкта</text>
+  
+  <text x="560" y="270" fill="#c0392b" font-size="14" font-family="monospace" font-weight="bold">LDR  R3, [R3, #4]</text>
+  <text x="690" y="270" fill="#6b7280" font-size="12">; адреса методу з vtable</text>
+  
+  <text x="560" y="290" fill="#c0392b" font-size="14" font-family="monospace" font-weight="bold">BLX  R3</text>
+  <text x="660" y="290" fill="#6b7280" font-size="12">; непрямий виклик</text>
+  
+  <text x="700" y="350" fill="#1a1a1a" font-size="14" text-anchor="middle">3 інструкції, 2 звернення до пам'яті</text>
+  <text x="700" y="370" fill="#1a1a1a" font-size="14" text-anchor="middle">Інлайнінг неможливий</text>
+</svg>

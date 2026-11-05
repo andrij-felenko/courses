@@ -1,0 +1,149 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="460" fill="#ffffff"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Часова діаграма читання 8 біт із зсувного регістра 74HC165</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Строб PL фіксує входи D0–D7; біт D7 доступний одразу, біти D6–D0 зсуваються фронтами CP</text>
+
+  <!-- Phase Header Panels -->
+  <rect x="170" y="68" width="85" height="24" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="212" y="84" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">Засувка PL</text>
+
+  <rect x="270" y="68" width="655" height="24" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="597" y="84" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">Послідовне зчитування та зсув 8 бітів (D7 ➔ D0)</text>
+
+  <!-- Divider Line between Labels and Waveforms -->
+  <line x1="165" y1="96" x2="165" y2="355" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Signal Labels (Left Column) -->
+  <text x="155" y="125" font-size="13" font-weight="700" fill="#c0392b" text-anchor="end">PL (SH/LD)</text>
+  <text x="155" y="141" font-size="12" fill="#6b7280" text-anchor="end">Засувка входів</text>
+
+  <text x="155" y="195" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="end">CP (CLK)</text>
+  <text x="155" y="211" font-size="12" fill="#6b7280" text-anchor="end">Тактування зсуву</text>
+  <text x="155" y="227" font-size="12" fill="#6b7280" text-anchor="end">(CE = 0 / GND)</text>
+
+  <text x="155" y="265" font-size="13" font-weight="700" fill="#2457d6" text-anchor="end">QH (Q7)</text>
+  <text x="155" y="281" font-size="12" fill="#6b7280" text-anchor="end">Послідовні дані</text>
+
+  <text x="155" y="325" font-size="13" font-weight="700" fill="#27ae60" text-anchor="end">MCU Sample</text>
+  <text x="155" y="341" font-size="12" fill="#6b7280" text-anchor="end">Точки зчитування</text>
+
+  <!-- Signal 1: PL Waveform -->
+  <path d="M165,118 L185,118 L185,146 L235,146 L235,118 L925,118" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+  <text x="210" y="164" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">Строб PL</text>
+  <text x="585" y="108" font-size="12" fill="#6b7280" text-anchor="middle">PL = 1: паралельні входи заблоковані, активовано режим зсуву тригерів</text>
+
+  <!-- Note above CP Waveform -->
+  <text x="585" y="156" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">Фронти CP (0➔1): висування наступного біта даних на вихід QH</text>
+
+  <!-- Signal 2: CP Waveform (8 pulses) -->
+  <path d="M165,208 L310,208 L310,182 L328,182 L328,208 L392,208 L392,182 L410,182 L410,208 L474,208 L474,182 L492,182 L492,208 L556,208 L556,182 L574,182 L574,208 L638,208 L638,182 L656,182 L656,208 L720,208 L720,182 L738,182 L738,208 L802,208 L802,182 L820,182 L820,208 L884,208 L884,182 L902,182 L902,208 L925,208" fill="none" stroke="#1a1a1a" stroke-width="2.5"/>
+
+  <!-- CP Pulse Numbers (above pulses) -->
+  <text x="319" y="172" font-size="12" fill="#6b7280" text-anchor="middle">1</text>
+  <text x="401" y="172" font-size="12" fill="#6b7280" text-anchor="middle">2</text>
+  <text x="483" y="172" font-size="12" fill="#6b7280" text-anchor="middle">3</text>
+  <text x="565" y="172" font-size="12" fill="#6b7280" text-anchor="middle">4</text>
+  <text x="647" y="172" font-size="12" fill="#6b7280" text-anchor="middle">5</text>
+  <text x="729" y="172" font-size="12" fill="#6b7280" text-anchor="middle">6</text>
+  <text x="811" y="172" font-size="12" fill="#6b7280" text-anchor="middle">7</text>
+  <text x="893" y="172" font-size="12" fill="#6b7280" text-anchor="middle">8</text>
+
+  <!-- Shift Action Lines (Connecting CP rising edges to QH transitions) -->
+  <line x1="310" y1="208" x2="322" y2="252" stroke="#2457d6" stroke-width="1.2" stroke-dasharray="2,2" marker-end="url(#arr-blue)"/>
+  <line x1="392" y1="208" x2="404" y2="252" stroke="#2457d6" stroke-width="1.2" stroke-dasharray="2,2" marker-end="url(#arr-blue)"/>
+  <line x1="474" y1="208" x2="486" y2="252" stroke="#2457d6" stroke-width="1.2" stroke-dasharray="2,2" marker-end="url(#arr-blue)"/>
+  <line x1="556" y1="208" x2="568" y2="252" stroke="#2457d6" stroke-width="1.2" stroke-dasharray="2,2" marker-end="url(#arr-blue)"/>
+  <line x1="638" y1="208" x2="650" y2="252" stroke="#2457d6" stroke-width="1.2" stroke-dasharray="2,2" marker-end="url(#arr-blue)"/>
+  <line x1="720" y1="208" x2="732" y2="252" stroke="#2457d6" stroke-width="1.2" stroke-dasharray="2,2" marker-end="url(#arr-blue)"/>
+  <line x1="802" y1="208" x2="814" y2="252" stroke="#2457d6" stroke-width="1.2" stroke-dasharray="2,2" marker-end="url(#arr-blue)"/>
+  <line x1="884" y1="208" x2="896" y2="252" stroke="#2457d6" stroke-width="1.2" stroke-dasharray="2,2" marker-end="url(#arr-blue)"/>
+
+  <!-- Signal 3: QH / Q7 Inactive Line (before load) -->
+  <line x1="165" y1="273" x2="248" y2="273" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="3,3"/>
+
+  <!-- DATA 8 Bit Cells -->
+  <polygon points="248,273 254,258 320,258 326,273 320,288 254,288" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="287" y="277" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">D7 (MSB)</text>
+
+  <polygon points="326,273 332,258 402,258 408,273 402,288 332,288" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="367" y="277" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">D6</text>
+
+  <polygon points="408,273 414,258 484,258 490,273 484,288 414,288" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="449" y="277" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">D5</text>
+
+  <polygon points="490,273 496,258 566,258 572,273 566,288 496,288" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="531" y="277" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">D4</text>
+
+  <polygon points="572,273 578,258 648,258 654,273 648,288 578,288" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="613" y="277" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">D3</text>
+
+  <polygon points="654,273 660,258 730,258 736,273 730,288 660,288" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="695" y="277" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">D2</text>
+
+  <polygon points="736,273 742,258 812,258 818,273 812,288 742,288" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="777" y="277" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">D1</text>
+
+  <polygon points="818,273 824,258 894,258 900,273 894,288 824,288" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="859" y="277" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">D0 (LSB)</text>
+
+  <!-- DATA Inactive Line (after byte) -->
+  <line x1="900" y1="273" x2="925" y2="273" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="3,3"/>
+
+  <!-- MCU Sample Arrows (Pointing up into bit cells) -->
+  <line x1="287" y1="316" x2="287" y2="294" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arr-green)"/>
+  <line x1="367" y1="316" x2="367" y2="294" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arr-green)"/>
+  <line x1="449" y1="316" x2="449" y2="294" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arr-green)"/>
+  <line x1="531" y1="316" x2="531" y2="294" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arr-green)"/>
+  <line x1="613" y1="316" x2="613" y2="294" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arr-green)"/>
+  <line x1="695" y1="316" x2="695" y2="294" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arr-green)"/>
+  <line x1="777" y1="316" x2="777" y2="294" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arr-green)"/>
+  <line x1="859" y1="316" x2="859" y2="294" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arr-green)"/>
+
+  <!-- MCU Sample Labels -->
+  <text x="287" y="332" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">Чит. 1</text>
+  <text x="367" y="332" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">Чит. 2</text>
+  <text x="449" y="332" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">Чит. 3</text>
+  <text x="531" y="332" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">Чит. 4</text>
+  <text x="613" y="332" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">Чит. 5</text>
+  <text x="695" y="332" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">Чит. 6</text>
+  <text x="777" y="332" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">Чит. 7</text>
+  <text x="859" y="332" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">Чит. 8</text>
+
+  <!-- Annotations below MCU Samples -->
+  <text x="287" y="352" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">Без такту CP!</text>
+  <text x="620" y="352" font-size="12" fill="#6b7280" text-anchor="middle">7 наступних бітів зчитуються після кожного тактового імпульсу зсуву CP</text>
+
+  <!-- Bottom Educational Summary Cards -->
+  <rect x="24" y="368" width="292" height="76" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="36" y="388" font-size="12" font-weight="700" fill="#c0392b">1. Засувка входів (PL = 0)</text>
+  <text x="36" y="407" font-size="12" fill="#1a1a1a">Асинхронний спад фіксує D0–D7 у тригерах.</text>
+  <text x="36" y="425" font-size="12" fill="#1a1a1a">Старший біт D7 негайно з&#39;являється на QH.</text>
+
+  <rect x="334" y="368" width="292" height="76" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="346" y="388" font-size="12" font-weight="700" fill="#27ae60">2. Перша вибірка (Sample D7)</text>
+  <text x="346" y="407" font-size="12" fill="#1a1a1a">MCU читає D7 ДО першого такту CP.</text>
+  <text x="346" y="425" font-size="12" fill="#1a1a1a">Помилковий такт призводить до втрати MSB!</text>
+
+  <rect x="644" y="368" width="292" height="76" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="656" y="388" font-size="12" font-weight="700" fill="#2457d6">3. Зсув наступних бітів (CP 0➔1)</text>
+  <text x="656" y="407" font-size="12" fill="#1a1a1a">Кожен фронт CP висуває розряди D6 ... D0.</text>
+  <text x="656" y="425" font-size="12" fill="#1a1a1a">Вибірка (Чит. 1–8) відбувається перед тактом.</text>
+</svg>

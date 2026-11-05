@@ -1,0 +1,183 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="100%" height="100%" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif">
+<rect width="960" height="540" fill="#ffffff"/>
+<defs>
+  <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+    <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+  </marker>
+  <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+    <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+  </marker>
+  <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+    <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+  </marker>
+  <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+    <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+  </marker>
+  <marker id="arr-amber" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+    <path d="M0,0 L8,4 L0,8 Z" fill="#d97706"/>
+  </marker>
+</defs>
+
+<!-- Header -->
+<text x="480" y="38" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Синхронізація лічильника таймера з тіньовими регістрами та ланцюжком DMA</text>
+<text x="480" y="55" font-size="13" fill="#6b7280" text-anchor="middle">Буферизація ARPE=1 та аварійне перемикання дескриптора DMA запобігають зриву кроків при спустошенні буфера</text>
+
+<!-- 1. LEFT COLUMN: SRAM & DMA -->
+<rect x="20" y="68" width="440" height="348" rx="8" fill="#f8fafc" stroke="#d0d7de" stroke-width="1"/>
+<text x="32" y="86" font-size="14" font-weight="700" fill="#1a1a1a">1. Пам'ять SRAM та Scatter-Gather дескриптори DMA</text>
+
+<!-- 1A. SRAM Buffers Panel -->
+<rect x="30" y="96" width="420" height="136" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+<text x="40" y="111" font-size="12" font-weight="700" fill="#6b7280">КІЛЬЦЕВИЙ БУФЕР КРОКІВ У ПАМ'ЯТІ (SRAM):</text>
+
+<!-- Buffer A -->
+<rect x="40" y="118" width="194" height="46" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+<text x="48" y="133" font-size="12" font-weight="700" fill="#2457d6">Буфер A (Активний)</text>
+<text x="48" y="153" font-size="12" fill="#1a1a1a">Кроки: c_0, c_1 (рух v_0)</text>
+
+<!-- Buffer B -->
+<rect x="246" y="118" width="194" height="46" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,3"/>
+<text x="254" y="133" font-size="12" font-weight="700" fill="#c0392b">Буфер B (Порожній! ⚠️)</text>
+<text x="254" y="153" font-size="12" fill="#c0392b">Затримка: T_avail &lt; T_decel</text>
+
+<!-- Emergency Soft-Stop Buffer -->
+<rect x="40" y="172" width="400" height="50" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+<text x="48" y="190" font-size="12" font-weight="700" fill="#27ae60">Аварійний буфер Soft-Stop (Статичний масив в SRAM)</text>
+<text x="48" y="209" font-size="12" fill="#1a1a1a">Вектор Тейлора Q16: c_n = c_{n-1} + Δc_n (гальмування до v=0)</text>
+
+<!-- 1B. DMA Descriptors Panel -->
+<rect x="30" y="242" width="420" height="164" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+<text x="40" y="257" font-size="12" font-weight="700" fill="#6b7280">ЛАНЦЮЖОК ДЕСКРИПТОРІВ DMA (SCATTER-GATHER):</text>
+
+<!-- Desc A -->
+<rect x="40" y="265" width="115" height="70" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+<text x="48" y="280" font-size="12" font-weight="700" fill="#2457d6">Дескриптор A</text>
+<text x="48" y="295" font-size="12" fill="#1a1a1a">Src: Буфер A</text>
+<text x="48" y="310" font-size="12" fill="#1a1a1a">Dst: TIM_ARR</text>
+<text x="48" y="325" font-size="12" fill="#6b7280">Next_Ptr:</text>
+
+<!-- Switch Logic -->
+<rect x="165" y="265" width="140" height="70" rx="4" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/>
+<text x="235" y="280" font-size="12" font-weight="700" fill="#d97706" text-anchor="middle">Перемикання</text>
+<text x="235" y="295" font-size="12" fill="#1a1a1a" text-anchor="middle">Обробник HT-ISR</text>
+<text x="235" y="310" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">T_avail ≤ T_decel</text>
+<text x="235" y="325" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">Next = &amp;Desc_Stop</text>
+
+<!-- Desc B (Canceled) -->
+<rect x="315" y="265" width="125" height="28" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.2" stroke-dasharray="3,3"/>
+<text x="377" y="278" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">Дескриптор B ❌</text>
+<text x="377" y="290" font-size="12" fill="#6b7280" text-anchor="middle">Обрив (спустошено)</text>
+
+<!-- Desc Stop (Active) -->
+<rect x="315" y="303" width="125" height="32" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+<text x="377" y="317" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">Дескриптор Stop ✓</text>
+<text x="377" y="330" font-size="12" fill="#1a1a1a" text-anchor="middle">Src: Soft-Stop масив</text>
+
+<!-- Desc Arrows -->
+<line x1="155" y1="298" x2="165" y2="298" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+<path d="M 305,279 L 315,279" stroke="#c0392b" stroke-dasharray="3,3" stroke-width="1.5"/>
+<path d="M 305,319 L 315,319" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+<!-- DMA Master Strip -->
+<rect x="40" y="347" width="400" height="48" rx="4" fill="#f8fafc" stroke="#2457d6" stroke-width="1.5"/>
+<text x="48" y="365" font-size="12" font-weight="700" fill="#2457d6">Контролер DMA: читання періоду c_n та передача в таймер</text>
+<text x="48" y="384" font-size="12" fill="#1a1a1a">Автономний запис у шину APB/AHB без затримок і переривань CPU</text>
+
+<!-- Connecting Bus Arrow (from DMA to ARR Preload) -->
+<path d="M 440,371 L 471,371 L 471,138 L 498,138" fill="none" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+
+<!-- 2. RIGHT COLUMN: Hardware Timer -->
+<rect x="482" y="68" width="458" height="348" rx="8" fill="#f8fafc" stroke="#d0d7de" stroke-width="1"/>
+<text x="494" y="86" font-size="14" font-weight="700" fill="#1a1a1a">2. Апаратний таймер: буферизація ARR та лічильник</text>
+
+<!-- 2A. Preload & Shadow Registers Panel -->
+<rect x="492" y="96" width="438" height="136" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+<text x="502" y="111" font-size="12" font-weight="700" fill="#6b7280">ТІНЬОВІ РЕГІСТРИ ПЕРЕЗАВАНТАЖЕННЯ (РЕЖИМ ARPE = 1):</text>
+
+<!-- ARR Preload -->
+<rect x="500" y="118" width="168" height="46" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+<text x="508" y="133" font-size="12" font-weight="700" fill="#2457d6">ARR Preload (Буфер)</text>
+<text x="508" y="153" font-size="12" fill="#1a1a1a">Новий період c_n</text>
+
+<!-- UEV Transfer Arrow -->
+<line x1="672" y1="138" x2="744" y2="138" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arr-green)"/>
+<text x="708" y="128" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">Подія UEV</text>
+<text x="708" y="156" font-size="12" fill="#6b7280" text-anchor="middle">Перенос</text>
+
+<!-- ARR Shadow -->
+<rect x="752" y="118" width="168" height="46" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+<text x="760" y="133" font-size="12" font-weight="700" fill="#27ae60">ARR Shadow (Активний)</text>
+<text x="760" y="153" font-size="12" fill="#1a1a1a">Поточний період c_{n-1}</text>
+
+<!-- UEV Explanation Strip -->
+<rect x="500" y="172" width="420" height="50" rx="4" fill="#f8fafc" stroke="#d0d7de" stroke-width="1"/>
+<text x="508" y="190" font-size="12" font-weight="700" fill="#1a1a1a">Подія UEV (Update Event): генерується при CNT == ARR_Shadow</text>
+<text x="508" y="209" font-size="12" fill="#27ae60">✓ Безпечний перенос в кінці такту: виключає пропуск порівняння</text>
+
+<!-- 2B. Counter Core & Waveform Panel -->
+<rect x="492" y="242" width="438" height="164" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+<text x="502" y="257" font-size="12" font-weight="700" fill="#6b7280">ЛІЧИЛЬНИК CNT ТА ГЕНЕРАЦІЯ ІМПУЛЬСІВ STEP:</text>
+
+<!-- CNT Box -->
+<rect x="500" y="265" width="110" height="42" rx="4" fill="#f8fafc" stroke="#2457d6" stroke-width="1.5"/>
+<text x="555" y="280" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">Лічильник CNT</text>
+<text x="555" y="296" font-size="12" fill="#1a1a1a" text-anchor="middle">Рахує 0 → ARR</text>
+
+<!-- CCR Box -->
+<rect x="636" y="265" width="150" height="42" rx="4" fill="#f8fafc" stroke="#1a1a1a" stroke-width="1.5"/>
+<text x="711" y="280" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Регістр CCR (Shadow)</text>
+<text x="711" y="296" font-size="12" fill="#6b7280" text-anchor="middle">Порівняння CNT == CCR</text>
+
+<!-- GPIO STEP Box -->
+<rect x="810" y="265" width="116" height="42" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+<text x="868" y="280" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">Вихід STEP (GPIO)</text>
+<text x="868" y="296" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">Крок на драйвер</text>
+
+<!-- Connectors -->
+<line x1="610" y1="286" x2="636" y2="286" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+<line x1="786" y1="286" x2="810" y2="286" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+<!-- CNT Waveform Display -->
+<!-- Axes -->
+<line x1="536" y1="368" x2="905" y2="368" stroke="#6b7280" stroke-width="1" marker-end="url(#arr)"/>
+<line x1="536" y1="368" x2="536" y2="318" stroke="#6b7280" stroke-width="1" marker-end="url(#arr)"/>
+<text x="530" y="324" font-size="12" fill="#6b7280" text-anchor="end">CNT</text>
+<text x="530" y="371" font-size="12" fill="#6b7280" text-anchor="end">0</text>
+<text x="912" y="371" font-size="12" fill="#6b7280">t</text>
+
+<!-- Waveform Labels placed well above ramp line -->
+<text x="588" y="334" font-size="12" font-weight="600" fill="#2457d6" text-anchor="middle">c_{n-1}</text>
+<text x="640" y="330" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">UEV</text>
+<text x="715" y="332" font-size="12" font-weight="600" fill="#27ae60" text-anchor="middle">c_n (Soft-Stop)</text>
+
+<!-- Ramp 1: Cycle n-1 (normal) -->
+<line x1="536" y1="368" x2="640" y2="338" stroke="#2457d6" stroke-width="2.5"/>
+<line x1="640" y1="338" x2="640" y2="368" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="3,3"/>
+<circle cx="640" cy="338" r="3.5" fill="#27ae60"/>
+
+<!-- Ramp 2: Cycle n (deceleration, wider period) -->
+<line x1="640" y1="368" x2="790" y2="328" stroke="#27ae60" stroke-width="2.5"/>
+<line x1="790" y1="328" x2="790" y2="368" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="3,3"/>
+<circle cx="790" cy="328" r="3.5" fill="#27ae60"/>
+
+<!-- STEP Pin line & pulses -->
+<line x1="536" y1="394" x2="905" y2="394" stroke="#cbd5e1" stroke-width="1"/>
+<text x="530" y="392" font-size="12" font-weight="600" fill="#27ae60" text-anchor="end">STEP</text>
+<path d="M 536,394 L 546,394 L 546,382 L 558,382 L 558,394 L 640,394 L 650,394 L 650,382 L 662,382 L 662,394 L 790,394" fill="none" stroke="#27ae60" stroke-width="2"/>
+
+<!-- 3. BOTTOM SUMMARY CARDS -->
+<!-- Card 1: Problem / Race condition without ARPE -->
+<rect x="20" y="426" width="440" height="90" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+<text x="32" y="444" font-size="13" font-weight="700" fill="#c0392b">⛔ Апаратна пастка гонитви (ARPE = 0 або прямий запис):</text>
+<text x="32" y="464" font-size="12" fill="#1a1a1a">• Запис ARR &lt; CNT: лічильник проскакує збіг і біжить до 0xFFFF</text>
+<text x="32" y="482" font-size="12" fill="#1a1a1a">• Пауза в тисячі тактів: привід зупиняється миттєво (a → -∞)</text>
+<text x="32" y="500" font-size="12" font-weight="700" fill="#c0392b">• Наслідок: зрив ротора двигуна, пропуск кроків, втрата координат</text>
+
+<!-- Card 2: Solution / Buffered ARPE=1 with DMA -->
+<rect x="482" y="426" width="458" height="90" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+<text x="494" y="444" font-size="13" font-weight="700" fill="#27ae60">✓ Апаратний захист: буферизація ARPE = 1 + ланцюжок DMA:</text>
+<text x="494" y="464" font-size="12" fill="#1a1a1a">• Новий період c_n буферизується в Preload без збою активного рахунку</text>
+<text x="494" y="482" font-size="12" fill="#1a1a1a">• Апаратне оновлення по UEV гарантує плавний перехід між кроками</text>
+<text x="494" y="500" font-size="12" font-weight="700" fill="#27ae60">• DMA переходить на дескриптор Soft-Stop: детермінована зупинка</text>
+
+</svg>

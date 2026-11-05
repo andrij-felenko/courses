@@ -1,0 +1,207 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="100%" height="100%" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- White Background -->
+  <rect x="0" y="0" width="960" height="540" fill="#ffffff"/>
+
+  <!-- Markers -->
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-start-blue" markerWidth="9" markerHeight="9" refX="0.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-amber" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#d97706"/>
+    </marker>
+    <marker id="arr-start-amber" markerWidth="9" markerHeight="9" refX="0.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#d97706"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-start-green" markerWidth="9" markerHeight="9" refX="0.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-start-gray" markerWidth="9" markerHeight="9" refX="0.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="34" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Апаратне формування сигналів STEP/DIR через регістри GPIO та автоскидання</text>
+  <text x="480" y="54" text-anchor="middle" font-size="13" fill="#6b7280">Атомарний запис BSRR перемикає виводи за 1 такт, а таймерне порівняння автоскидає STEP без затримок ядра</text>
+
+  <!-- Main Panel -->
+  <rect x="30" y="68" width="900" height="352" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Left Labels Column Separator -->
+  <line x1="220" y1="68" x2="220" y2="420" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Row Dividers -->
+  <line x1="30" y1="142" x2="930" y2="142" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="30" y1="218" x2="930" y2="218" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="30" y1="312" x2="930" y2="312" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- ======================================================== -->
+  <!-- TRACK 1: Timer & ISR Timing Grid (y: 68 - 142)          -->
+  <!-- ======================================================== -->
+  <text x="44" y="93" font-size="13" font-weight="bold" fill="#1a1a1a">Таймер DDA (TIMx)</text>
+  <text x="44" y="112" font-size="12" fill="#6b7280">Квант T_DDA = 10 мкс</text>
+  <text x="44" y="130" font-size="12" fill="#2457d6">Переривання оновлює DDA</text>
+
+  <!-- Vertical Timing Guidelines -->
+  <line x1="310" y1="106" x2="310" y2="312" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="430" y1="142" x2="430" y2="312" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="530" y1="218" x2="530" y2="312" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="630" y1="106" x2="630" y2="312" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="730" y1="218" x2="730" y2="312" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+
+  <!-- Timer Counter (TIMx_CNT) Sawtooth Waveform -->
+  <path d="M235,134 L310,104 L310,134 L630,104 L630,134 L910,104" fill="none" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4,2"/>
+  <text x="240" y="96" font-size="12" fill="#2457d6">CNT (пила)</text>
+
+  <!-- Timer Ticks Points & Labels -->
+  <circle cx="310" cy="134" r="4" fill="#2457d6"/>
+  <text x="310" y="80" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Такт k (ISR)</text>
+
+  <circle cx="630" cy="134" r="4" fill="#2457d6"/>
+  <text x="630" y="80" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Такт k+1 (ISR)</text>
+
+  <!-- Period Dimension Line -->
+  <line x1="310" y1="92" x2="630" y2="92" stroke="#2457d6" stroke-width="1.5" marker-start="url(#arr-start-blue)" marker-end="url(#arr-blue)"/>
+  <text x="470" y="86" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Період квантування T_DDA (10 мкс)</text>
+
+  <!-- ======================================================== -->
+  <!-- TRACK 2: DIR Signal (y: 142 - 218)                      -->
+  <!-- ======================================================== -->
+  <text x="44" y="169" font-size="13" font-weight="bold" fill="#1a1a1a">Вихід DIR (GPIO)</text>
+  <text x="44" y="188" font-size="12" fill="#d97706">BSRR.BS[DIR] (атомарно)</text>
+  <text x="44" y="206" font-size="12" fill="#6b7280">Вимога: t_setup / t_hold</text>
+
+  <!-- DIR Register Action Badge -->
+  <rect x="236" y="152" width="70" height="18" rx="3" fill="#fef3c7" stroke="#d97706" stroke-width="1"/>
+  <text x="271" y="165" text-anchor="middle" font-size="12" font-weight="bold" fill="#d97706">BS[DIR]=1</text>
+
+  <!-- DIR Waveform -->
+  <path d="M230,202 L310,202 L310,168 L910,168" fill="none" stroke="#d97706" stroke-width="2.5"/>
+  <text x="260" y="196" text-anchor="middle" font-size="12" fill="#6b7280">DIR=0</text>
+
+  <!-- Setup Time Dimension Line -->
+  <line x1="310" y1="188" x2="430" y2="188" stroke="#d97706" stroke-width="1.5" marker-start="url(#arr-start-amber)" marker-end="url(#arr-amber)"/>
+  <text x="370" y="183" text-anchor="middle" font-size="12" font-weight="bold" fill="#d97706">t_setup ≥ 2 мкс</text>
+  <text x="370" y="203" text-anchor="middle" font-size="12" fill="#6b7280">стабілізація DIR</text>
+
+  <!-- Hold Time Dimension Line -->
+  <line x1="530" y1="188" x2="610" y2="188" stroke="#6b7280" stroke-width="1.2" marker-start="url(#arr-start-gray)" marker-end="url(#arr-gray)"/>
+  <text x="570" y="183" text-anchor="middle" font-size="12" fill="#6b7280">t_hold ≥ 2 мкс</text>
+
+  <!-- ======================================================== -->
+  <!-- TRACK 3: STEP Signal (y: 218 - 312)                     -->
+  <!-- ======================================================== -->
+  <text x="44" y="245" font-size="13" font-weight="bold" fill="#1a1a1a">Вихід STEP (GPIO)</text>
+  <text x="44" y="264" font-size="12" fill="#2457d6">BSRR.BS (1) / BR (0)</text>
+  <text x="44" y="282" font-size="12" fill="#6b7280">Атомарне встановлення</text>
+  <text x="44" y="300" font-size="12" fill="#27ae60">Безпечний строб приводу</text>
+
+  <!-- STEP Pulse 1 Highlight -->
+  <rect x="430" y="258" width="100" height="38" fill="#eaf0fd" fill-opacity="0.8"/>
+
+  <!-- STEP Pulse 2 Highlight -->
+  <rect x="630" y="258" width="100" height="38" fill="#eaf0fd" fill-opacity="0.8"/>
+
+  <!-- STEP Waveform -->
+  <path d="M230,296 L430,296 L430,258 L530,258 L530,296 L630,296 L630,258 L730,258 L730,296 L910,296" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+
+  <!-- Pulse 1 Set Register Badge -->
+  <rect x="334" y="262" width="86" height="18" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="377" y="275" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">BS[STEP]=1</text>
+  <line x1="420" y1="271" x2="427" y2="271" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Pulse 1 Duration Dimension -->
+  <line x1="430" y1="248" x2="530" y2="248" stroke="#2457d6" stroke-width="1.5" marker-start="url(#arr-start-blue)" marker-end="url(#arr-blue)"/>
+  <text x="480" y="242" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">t_pulse: 2 мкс</text>
+  <text x="480" y="280" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Імпульс 1</text>
+
+  <!-- Pulse 2 Set Register Badge -->
+  <rect x="536" y="262" width="84" height="18" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="578" y="275" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">BS[STEP]=1</text>
+  <line x1="620" y1="271" x2="627" y2="271" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Pulse 2 Duration Dimension -->
+  <line x1="630" y1="248" x2="730" y2="248" stroke="#2457d6" stroke-width="1.5" marker-start="url(#arr-start-blue)" marker-end="url(#arr-blue)"/>
+  <text x="680" y="242" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">t_pulse: 2 мкс</text>
+  <text x="680" y="280" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Імпульс 2</text>
+
+  <!-- Inter-step interval text -->
+  <text x="820" y="290" text-anchor="middle" font-size="12" fill="#6b7280">Міжкроковий інтервал</text>
+
+  <!-- ======================================================== -->
+  <!-- TRACK 4: Hardware Auto-Reset & CPU State (y: 312 - 420)  -->
+  <!-- ======================================================== -->
+  <text x="44" y="337" font-size="13" font-weight="bold" fill="#27ae60">Автоскидання таймером</text>
+  <text x="44" y="355" font-size="12" fill="#1a1a1a">Модуль порівняння CCR</text>
+  <text x="44" y="373" font-size="12" fill="#6b7280">Апаратний скид BR[STEP]</text>
+  <text x="44" y="391" font-size="12" fill="#27ae60">0 тактів затримки CPU!</text>
+  <text x="44" y="409" font-size="12" fill="#c0392b">Без delay_us() у ядрі</text>
+
+  <!-- Compare Match 1 Auto-Reset Trigger -->
+  <line x1="530" y1="332" x2="530" y2="302" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <rect x="468" y="338" width="124" height="19" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="530" y="352" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">CNT==CCR : BR=1</text>
+
+  <!-- Compare Match 2 Auto-Reset Trigger -->
+  <line x1="730" y1="332" x2="730" y2="302" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <rect x="668" y="338" width="124" height="19" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="730" y="352" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">CNT==CCR : BR=1</text>
+
+  <!-- CPU State Container Bar -->
+  <rect x="235" y="368" width="675" height="42" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- CPU State: ISR Execution 1 -->
+  <rect x="300" y="371" width="38" height="36" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="319" y="393" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">ISR</text>
+
+  <!-- CPU State: Free Processing Block 1 -->
+  <rect x="344" y="371" width="270" height="36" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="479" y="386" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">CPU вільний для задач RTOS</text>
+  <text x="479" y="401" text-anchor="middle" font-size="12" fill="#6b7280">Автоскид: нуль затримок ядра</text>
+
+  <!-- CPU State: ISR Execution 2 -->
+  <rect x="620" y="371" width="38" height="36" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="639" y="393" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">ISR</text>
+
+  <!-- CPU State: Free Processing Block 2 -->
+  <rect x="664" y="371" width="240" height="36" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="784" y="386" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">CPU вільний (0% очікування)</text>
+  <text x="784" y="401" text-anchor="middle" font-size="12" fill="#6b7280">Висока частота DDA-кроків</text>
+
+  <!-- ======================================================== -->
+  <!-- BOTTOM CARDS (y: 432 - 520)                              -->
+  <!-- ======================================================== -->
+  <!-- Card 1: Atomic BSRR Register -->
+  <rect x="30" y="432" width="288" height="88" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="44" y="454" font-size="13" font-weight="bold" fill="#2457d6">1. Атомарний регістр BSRR</text>
+  <text x="44" y="473" font-size="12" fill="#1a1a1a">Запис у BSRR перемикає виводи</text>
+  <text x="44" y="490" font-size="12" fill="#6b7280">за 1 такт шини без модифікації</text>
+  <text x="44" y="507" font-size="12" fill="#6b7280">інших бітів порту (без RMW).</text>
+
+  <!-- Card 2: Timing Protection (t_setup & t_hold) -->
+  <rect x="336" y="432" width="288" height="88" rx="6" fill="#fef3c7" stroke="#d97706" stroke-width="1" stroke-opacity="0.6"/>
+  <text x="350" y="454" font-size="13" font-weight="bold" fill="#d97706">2. Захист t_setup та t_hold</text>
+  <text x="350" y="473" font-size="12" fill="#1a1a1a">Сигнал DIR виставляється завчасно</text>
+  <text x="350" y="490" font-size="12" fill="#6b7280">(t_setup ≥ 2 мкс) до фронту STEP,</text>
+  <text x="350" y="507" font-size="12" fill="#6b7280">щоб оптрони встигли відкритися.</text>
+
+  <!-- Card 3: Hardware Auto-Reset -->
+  <rect x="642" y="432" width="288" height="88" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1" stroke-opacity="0.6"/>
+  <text x="656" y="454" font-size="13" font-weight="bold" fill="#27ae60">3. Апаратне автоскидання</text>
+  <text x="656" y="473" font-size="12" fill="#1a1a1a">Таймерний канал порівняння (CCR)</text>
+  <text x="656" y="490" font-size="12" fill="#6b7280">скидає STEP автоматично; ядро</text>
+  <text x="656" y="507" font-size="12" fill="#6b7280">не зависає в delay_us().</text>
+</svg>

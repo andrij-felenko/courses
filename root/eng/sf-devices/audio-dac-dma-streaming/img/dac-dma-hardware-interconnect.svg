@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <text x="480" y="30" font-size="18" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Апаратна взаємодія периферійних блоків: DAC, DMA та Таймер</text>
+  <text x="480" y="50" font-size="13" text-anchor="middle" fill="#6b7280">Передача вибірок з пам'яті в регістр ЦАП здійснюється повністю апаратно без участі ядра</text>
+
+  <!-- CPU (faded) -->
+  <rect x="390" y="80" width="180" height="60" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="4"/>
+  <text x="480" y="105" font-size="14" font-weight="bold" text-anchor="middle" fill="#6b7280">Ядро CPU</text>
+  <text x="480" y="125" font-size="12" text-anchor="middle" fill="#6b7280">Спить або зайняте</text>
+
+  <!-- SRAM -->
+  <rect x="60" y="180" width="180" height="120" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="150" y="210" font-size="14" font-weight="bold" text-anchor="middle" fill="#1a1a1a">SRAM (Пам'ять)</text>
+  <rect x="80" y="230" width="140" height="40" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="150" y="255" font-size="13" text-anchor="middle" fill="#2457d6">Аудіо буфер (Масив)</text>
+
+  <!-- DMA Controller -->
+  <rect x="390" y="180" width="180" height="120" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="480" y="210" font-size="14" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Контролер DMA</text>
+  <rect x="410" y="230" width="140" height="25" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="480" y="247" font-size="12" text-anchor="middle" fill="#c0392b">Адреса джерела</text>
+  <rect x="410" y="260" width="140" height="25" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="480" y="277" font-size="12" text-anchor="middle" fill="#27ae60">Адреса приймача</text>
+
+  <!-- DAC -->
+  <rect x="720" y="180" width="180" height="120" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="810" y="210" font-size="14" font-weight="bold" text-anchor="middle" fill="#1a1a1a">ЦАП (DAC)</text>
+  <rect x="740" y="230" width="140" height="40" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="810" y="255" font-size="13" text-anchor="middle" fill="#2457d6">Регістр даних (DHR)</text>
+
+  <!-- Timer -->
+  <rect x="720" y="360" width="180" height="80" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="810" y="390" font-size="14" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Системний Таймер</text>
+  <text x="810" y="415" font-size="13" text-anchor="middle" fill="#6b7280">Задає частоту дискретизації</text>
+
+  <!-- Data Flow Arrows -->
+  <path d="M 240 240 L 385 240" stroke="#2457d6" stroke-width="3" marker-end="url(#arr-blue)"/>
+  <text x="315" y="230" font-size="13" font-weight="bold" text-anchor="middle" fill="#2457d6">Читання (AHB Bus)</text>
+
+  <path d="M 570 240 L 715 240" stroke="#2457d6" stroke-width="3" marker-end="url(#arr-blue)"/>
+  <text x="645" y="230" font-size="13" font-weight="bold" text-anchor="middle" fill="#2457d6">Запис у DHR</text>
+
+  <!-- Trigger Arrows -->
+  <path d="M 810 360 L 810 305" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="820" y="335" font-size="13" font-weight="bold" fill="#c0392b">Тригер (TRGO)</text>
+
+  <path d="M 720 195 L 575 195" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+  <text x="645" y="185" font-size="13" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Апаратний DMA REQ</text>
+
+  <!-- Analog Output -->
+  <path d="M 900 240 L 950 240" stroke="#27ae60" stroke-width="3" marker-end="url(#arr-green)"/>
+  <text x="910" y="230" font-size="13" font-weight="bold" fill="#27ae60">OUT</text>
+  <defs>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+</svg>

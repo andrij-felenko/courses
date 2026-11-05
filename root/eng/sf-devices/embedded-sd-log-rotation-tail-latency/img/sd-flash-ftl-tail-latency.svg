@@ -1,0 +1,80 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Підкладка -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Взаємодія FAT32 та FTL: фізична природа хвостових затримок Flash</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Трансляція логічних секторів у блоки NAND та сплески затримок при збиранні сміття (GC)</text>
+
+  <!-- Панель 1: Файлова система FAT32 -->
+  <rect x="30" y="80" width="270" height="345" fill="#f4f6f8" stroke="#d0d7de" rx="6"/>
+  <text x="165" y="108" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">1. Файлова система FAT32</text>
+
+  <rect x="45" y="125" width="240" height="130" fill="#ffffff" stroke="#d0d7de" rx="4"/>
+  <text x="165" y="152" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Логічні сектори LBA</text>
+  <text x="165" y="174" font-size="12" fill="#1a1a1a" text-anchor="middle">Розмір кластера 32 КБ</text>
+  <text x="165" y="196" font-size="12" fill="#1a1a1a" text-anchor="middle">Оновлення таблиць FAT</text>
+  <text x="165" y="218" font-size="12" fill="#c0392b" text-anchor="middle">Запис метаданих каталогу</text>
+  <text x="165" y="238" font-size="11" fill="#6b7280" text-anchor="middle">WAF &gt; 1: випадковий запис</text>
+
+  <rect x="45" y="270" width="240" height="135" fill="#e9f7ef" stroke="#27ae60" rx="4"/>
+  <text x="165" y="296" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Попереднє виділення</text>
+  <text x="165" y="318" font-size="12" fill="#1a1a1a" text-anchor="middle">Виклик f_expand FatFs</text>
+  <text x="165" y="340" font-size="12" fill="#27ae60" text-anchor="middle">Суцільний лінійний файл</text>
+  <text x="165" y="362" font-size="12" fill="#1a1a1a" text-anchor="middle">Без пауз на метадані</text>
+  <text x="165" y="384" font-size="11" fill="#6b7280" text-anchor="middle">Зменшення ризику затримок</text>
+
+  <!-- Стрілка 1 -> 2 -->
+  <line x1="300" y1="190" x2="318" y2="190" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+
+  <!-- Панель 2: Рівень трансляції FTL -->
+  <rect x="320" y="80" width="290" height="345" fill="#f4f6f8" stroke="#d0d7de" rx="6"/>
+  <text x="465" y="108" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">2. Рівень трансляції FTL</text>
+
+  <rect x="335" y="125" width="260" height="130" fill="#eaf0fd" stroke="#2457d6" rx="4"/>
+  <text x="465" y="152" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Таблиця LBA -&gt; PBA</text>
+  <text x="465" y="174" font-size="12" fill="#1a1a1a" text-anchor="middle">Трансляція логічних адрес</text>
+  <text x="465" y="196" font-size="12" fill="#1a1a1a" text-anchor="middle">Out-of-place оновлення</text>
+  <text x="465" y="218" font-size="12" fill="#2457d6" text-anchor="middle">Вирівнювання зносу (Wear)</text>
+  <text x="465" y="238" font-size="11" fill="#6b7280" text-anchor="middle">RAM-кеш транслятора SD</text>
+
+  <rect x="335" y="270" width="260" height="135" fill="#fdecea" stroke="#c0392b" rx="4"/>
+  <text x="465" y="296" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">Збирання сміття (GC)</text>
+  <text x="465" y="318" font-size="12" fill="#1a1a1a" text-anchor="middle">Вичерпання чистих блоків</text>
+  <text x="465" y="340" font-size="12" fill="#c0392b" text-anchor="middle">Копіювання валідних сторінок</text>
+  <text x="465" y="362" font-size="12" fill="#1a1a1a" text-anchor="middle">Стирання старого блоку</text>
+  <text x="465" y="384" font-size="11" fill="#6b7280" text-anchor="middle">Лінія DAT0 в стані Busy</text>
+
+  <!-- Стрілка 2 -> 3 зверху -->
+  <line x1="610" y1="190" x2="628" y2="190" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+
+  <!-- Стрілка GC -> Tail знизу -->
+  <line x1="595" y1="337" x2="643" y2="337" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+
+  <!-- Панель 3: Фізичний NAND Flash -->
+  <rect x="645" y="80" width="285" height="345" fill="#f4f6f8" stroke="#d0d7de" rx="6"/>
+  <text x="787" y="108" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">3. Фізичний NAND Flash</text>
+
+  <rect x="660" y="125" width="255" height="130" fill="#ffffff" stroke="#d0d7de" rx="4"/>
+  <text x="787" y="152" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Сторінки та блоки</text>
+  <text x="787" y="174" font-size="12" fill="#1a1a1a" text-anchor="middle">Сторінка запису: 4–16 КБ</text>
+  <text x="787" y="196" font-size="12" fill="#1a1a1a" text-anchor="middle">Блок стирання: 1–4 МБ</text>
+  <text x="787" y="218" font-size="12" fill="#1a1a1a" text-anchor="middle">Час запису сторінки: 1–2 мс</text>
+  <text x="787" y="238" font-size="11" fill="#6b7280" text-anchor="middle">Стирання блоку: 5–10 мс</text>
+
+  <rect x="660" y="270" width="255" height="135" fill="#fdecea" stroke="#c0392b" rx="4"/>
+  <text x="787" y="296" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">Хвостова затримка (Tail)</text>
+  <text x="787" y="318" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Сплеск затримки до 500 мс!</text>
+  <text x="787" y="340" font-size="12" fill="#1a1a1a" text-anchor="middle">99-й перцентиль (p99 / p99.9)</text>
+  <text x="787" y="362" font-size="12" fill="#27ae60" text-anchor="middle">Ізоляція буфером у RAM</text>
+  <text x="787" y="384" font-size="11" fill="#6b7280" text-anchor="middle">Захист від апаратних втрат</text>
+</svg>

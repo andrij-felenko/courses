@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse"><path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/></marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse"><path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/></marker>
+  </defs>
+  <rect x="0" y="0" width="960" height="460" fill="#ffffff"/>
+  <text x="480" y="30" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Принципова схема захисту вхідного каналу 74HC165</text>
+  <text x="480" y="50" font-size="13" fill="#6b7280" text-anchor="middle">Підтяжка (Pull-up), апаратний RC-фільтр та обмежувальні захисні діоди</text>
+
+  <!-- Power rail VCC -->
+  <line x1="240" y1="100" x2="240" y2="140" stroke="#c0392b" stroke-width="2"/>
+  <text x="240" y="90" font-size="13" font-weight="700" fill="#c0392b" text-anchor="middle">+5V (VCC)</text>
+
+  <!-- Pull-up Resistor R1 -->
+  <rect x="225" y="140" width="30" height="60" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="270" y="175" font-size="12" fill="#1a1a1a">R1 (10 kΩ)</text>
+  <line x1="240" y1="200" x2="240" y2="240" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- External Terminal -->
+  <rect x="40" y="215" width="110" height="50" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="4"/>
+  <text x="95" y="238" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">Зовнішній</text>
+  <text x="95" y="254" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">Датчик / Кнопка</text>
+  <line x1="150" y1="240" x2="240" y2="240" stroke="#2457d6" stroke-width="2"/>
+
+  <!-- Series Resistor R2 -->
+  <line x1="240" y1="240" x2="320" y2="240" stroke="#1a1a1a" stroke-width="2"/>
+  <rect x="320" y="225" width="60" height="30" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="350" y="215" font-size="12" fill="#1a1a1a" text-anchor="middle">R2 (1 kΩ)</text>
+
+  <line x1="380" y1="240" x2="520" y2="240" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- RC Capacitor C1 to GND -->
+  <line x1="520" y1="240" x2="520" y2="290" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="500" y1="290" x2="540" y2="290" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="500" y1="298" x2="540" y2="298" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="560" y="298" font-size="12" fill="#1a1a1a">C1 (10 nF)</text>
+  <line x1="520" y1="298" x2="520" y2="340" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="500" y1="340" x2="540" y2="340" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- ESD Diodes Stage -->
+  <line x1="640" y1="240" x2="640" y2="140" stroke="#1a1a1a" stroke-width="1.5"/>
+  <polygon points="640,140 630,160 650,160" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="630" y1="140" x2="650" y2="140" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="680" y="155" font-size="12" fill="#6b7280">ESD VCC</text>
+
+  <line x1="640" y1="240" x2="640" y2="340" stroke="#1a1a1a" stroke-width="1.5"/>
+  <polygon points="640,340 630,320 650,320" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="630" y1="340" x2="650" y2="340" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="680" y="335" font-size="12" fill="#6b7280">ESD GND</text>
+
+  <!-- IC Input Pin -->
+  <line x1="520" y1="240" x2="740" y2="240" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <rect x="740" y="200" width="180" height="80" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="6"/>
+  <text x="830" y="235" font-size="14" font-weight="700" fill="#27ae60" text-anchor="middle">74HC165 Pin D0..D7</text>
+  <text x="830" y="258" font-size="12" fill="#6b7280" text-anchor="middle">CMOS Schmitt Trigger</text>
+</svg>

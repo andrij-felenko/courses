@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+  
+  <text x="480" y="40" fill="#1a1a1a" font-size="18" font-weight="bold" text-anchor="middle">Формування сигналу RC-фільтром та тригером Шмітта</text>
+  <text x="480" y="65" fill="#6b7280" font-size="13" text-anchor="middle">Усунення брязкання: сигнал кнопки, заряд конденсатора та гістерезис тригера</text>
+  
+  <!-- Dashed vertical guides -->
+  <line x1="200" y1="90" x2="200" y2="430" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="4 4"/>
+  <line x1="270" y1="90" x2="270" y2="430" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="4 4"/>
+  <line x1="400" y1="90" x2="400" y2="430" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="4 4"/>
+  <line x1="470" y1="90" x2="470" y2="430" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="4 4"/>
+
+  <!-- Chart 1: V_sw -->
+  <text x="80" y="145" fill="#1a1a1a" font-size="14" font-weight="bold" text-anchor="end">V<tspan dy="4" font-size="10">sw</tspan></text>
+  <text x="80" y="125" fill="#6b7280" font-size="12" text-anchor="end">1</text>
+  <text x="80" y="175" fill="#6b7280" font-size="12" text-anchor="end">0</text>
+  <line x1="90" y1="170" x2="880" y2="170" stroke="#6b7280" stroke-width="1" marker-end="url(#arr)"/>
+  <text x="890" y="174" fill="#6b7280" font-size="12" text-anchor="start">t</text>
+  <path d="M 100 120 L 200 120 L 200 170 L 205 120 L 210 170 L 215 120 L 220 170 L 225 120 L 230 170 L 400 170 L 400 120 L 405 170 L 410 120 L 415 170 L 420 120 L 425 170 L 430 120 L 860 120" fill="none" stroke="#c0392b" stroke-width="2" stroke-linejoin="round"/>
+
+  <!-- Chart 2: V_c -->
+  <text x="80" y="270" fill="#1a1a1a" font-size="14" font-weight="bold" text-anchor="end">V<tspan dy="4" font-size="10">c</tspan></text>
+  <text x="80" y="235" fill="#6b7280" font-size="12" text-anchor="end">V<tspan dy="3" font-size="9">cc</tspan></text>
+  <text x="80" y="255" fill="#6b7280" font-size="12" text-anchor="end">V<tspan dy="3" font-size="9">T+</tspan></text>
+  <text x="80" y="295" fill="#6b7280" font-size="12" text-anchor="end">V<tspan dy="3" font-size="9">T-</tspan></text>
+  <text x="80" y="315" fill="#6b7280" font-size="12" text-anchor="end">0</text>
+  <line x1="90" y1="310" x2="880" y2="310" stroke="#6b7280" stroke-width="1" marker-end="url(#arr)"/>
+  <text x="890" y="314" fill="#6b7280" font-size="12" text-anchor="start">t</text>
+  
+  <line x1="90" y1="250" x2="860" y2="250" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4 4"/>
+  <line x1="90" y1="290" x2="860" y2="290" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4 4"/>
+  
+  <path d="M 100 230 L 200 230 L 205 240 L 210 235 L 215 245 L 220 240 L 225 250 L 230 245 L 240 250 Q 260 310, 350 310 L 400 310 L 405 300 L 410 305 L 415 295 L 420 300 L 425 290 L 430 295 L 440 290 Q 460 230, 550 230 L 860 230" fill="none" stroke="#2457d6" stroke-width="2" stroke-linejoin="round"/>
+
+  <!-- Chart 3: V_out -->
+  <text x="80" y="395" fill="#1a1a1a" font-size="14" font-weight="bold" text-anchor="end">V<tspan dy="4" font-size="10">out</tspan></text>
+  <text x="80" y="375" fill="#6b7280" font-size="12" text-anchor="end">1</text>
+  <text x="80" y="425" fill="#6b7280" font-size="12" text-anchor="end">0</text>
+  <line x1="90" y1="420" x2="880" y2="420" stroke="#6b7280" stroke-width="1" marker-end="url(#arr)"/>
+  <text x="890" y="424" fill="#6b7280" font-size="12" text-anchor="start">t</text>
+  <path d="M 100 420 L 270 420 L 270 370 L 470 370 L 470 420 L 860 420" fill="none" stroke="#27ae60" stroke-width="2" stroke-linejoin="round"/>
+
+  <!-- Labels for events -->
+  <text x="200" y="85" fill="#6b7280" font-size="12" text-anchor="middle">Натискання</text>
+  <text x="400" y="85" fill="#6b7280" font-size="12" text-anchor="middle">Відпускання</text>
+  <text x="270" y="445" fill="#6b7280" font-size="12" text-anchor="middle">Поріг V<tspan dy="3" font-size="9">T-</tspan></text>
+  <text x="470" y="445" fill="#6b7280" font-size="12" text-anchor="middle">Поріг V<tspan dy="3" font-size="9">T+</tspan></text>
+</svg>

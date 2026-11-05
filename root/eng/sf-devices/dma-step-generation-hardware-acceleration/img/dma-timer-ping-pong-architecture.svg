@@ -1,0 +1,103 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-main" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <text x="480" y="36" text-anchor="middle" font-size="18" font-weight="700" fill="#1a1a1a">Двобуферна архітектура DMA з таймерним тригером</text>
+  <text x="480" y="58" text-anchor="middle" font-size="13" fill="#6b7280">Апаратне перемикання M0AR/M1AR за подією таймера для безперервної генерації STEP/DIR</text>
+
+  <!-- Блок 1: Апаратний таймер (Тригер) -->
+  <rect x="40" y="90" width="180" height="340" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="130" y="118" text-anchor="middle" font-size="14" font-weight="700" fill="#1a1a1a">1. Апаратний таймер</text>
+
+  <rect x="55" y="140" width="150" height="60" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="130" y="165" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">Базова частота</text>
+  <text x="130" y="185" text-anchor="middle" font-size="12" fill="#2457d6">TIMx Клок (e.g. 168 МГц)</text>
+
+  <rect x="55" y="220" width="150" height="70" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="130" y="245" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">Лічильник CNT / ARR</text>
+  <text x="130" y="265" text-anchor="middle" font-size="12" fill="#1a1a1a">Період кроку двигуна</text>
+  <text x="130" y="280" text-anchor="middle" font-size="12" fill="#6b7280">Автоперезавантаження</text>
+
+  <rect x="55" y="310" width="150" height="95" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="130" y="335" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">Тригер TRGO / UEV</text>
+  <text x="130" y="355" text-anchor="middle" font-size="12" fill="#1a1a1a">Подія оновлення</text>
+  <text x="130" y="375" text-anchor="middle" font-size="12" fill="#1a1a1a">Синхронний строб</text>
+  <text x="130" y="392" text-anchor="middle" font-size="12" fill="#27ae60">Запит DMA Request</text>
+
+  <line x1="220" y1="260" x2="258" y2="260" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Блок 2: Контролер DMA (Двобуферний режим) -->
+  <rect x="260" y="90" width="280" height="340" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="400" y="118" text-anchor="middle" font-size="14" font-weight="700" fill="#1a1a1a">2. DMA Контролер (DBM=1)</text>
+
+  <rect x="275" y="140" width="250" height="70" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="400" y="165" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">Покажчик M0AR (Buffer 0)</text>
+  <text x="400" y="185" text-anchor="middle" font-size="12" fill="#1a1a1a">Активний буфер передачі</text>
+  <text x="400" y="200" text-anchor="middle" font-size="12" fill="#6b7280">Вичитується за стробом таймера</text>
+
+  <rect x="275" y="225" width="250" height="70" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="400" y="250" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">Покажчик M1AR (Buffer 1)</text>
+  <text x="400" y="270" text-anchor="middle" font-size="12" fill="#1a1a1a">Тіньовий буфер заповнення</text>
+  <text x="400" y="285" text-anchor="middle" font-size="12" fill="#6b7280">Готується задачею RTOS</text>
+
+  <rect x="275" y="310" width="250" height="100" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="400" y="335" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">Апаратний перемикач CT</text>
+  <text x="400" y="355" text-anchor="middle" font-size="12" fill="#1a1a1a">Біт Current Target (CR.CT)</text>
+  <text x="400" y="375" text-anchor="middle" font-size="12" fill="#c0392b">Миттєвий своп при NDTR=0</text>
+  <text x="400" y="395" text-anchor="middle" font-size="12" fill="#2457d6">Генерація переривання TCIF</text>
+
+  <line x1="540" y1="260" x2="578" y2="260" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Блок 3: SRAM Пам'ять (Подвійний буфер кроків) -->
+  <rect x="580" y="90" width="180" height="340" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="670" y="118" text-anchor="middle" font-size="14" font-weight="700" fill="#1a1a1a">3. Пам'ять SRAM</text>
+
+  <rect x="595" y="140" width="150" height="80" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="670" y="165" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">Масив кроків 0</text>
+  <text x="670" y="185" text-anchor="middle" font-size="12" fill="#1a1a1a">Таблиця бітів BSRR</text>
+  <text x="670" y="202" text-anchor="middle" font-size="12" fill="#6b7280">Читання через DMA</text>
+
+  <rect x="595" y="240" width="150" height="80" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="670" y="265" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">Масив кроків 1</text>
+  <text x="670" y="285" text-anchor="middle" font-size="12" fill="#1a1a1a">Таблиця бітів BSRR</text>
+  <text x="670" y="302" text-anchor="middle" font-size="12" fill="#6b7280">Запис задачею RTOS</text>
+
+  <rect x="595" y="340" width="150" height="70" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="670" y="365" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">Профіль траєкторії</text>
+  <text x="670" y="385" text-anchor="middle" font-size="12" fill="#6b7280">S-крива розгону</text>
+
+  <line x1="760" y1="260" x2="788" y2="260" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Блок 4: Вихідний порт GPIO -->
+  <rect x="790" y="90" width="130" height="340" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="855" y="118" text-anchor="middle" font-size="14" font-weight="700" fill="#1a1a1a">4. Порт GPIO</text>
+
+  <rect x="800" y="140" width="110" height="110" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="855" y="165" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">Регістр BSRR</text>
+  <text x="855" y="185" text-anchor="middle" font-size="12" fill="#1a1a1a">Атомарне</text>
+  <text x="855" y="202" text-anchor="middle" font-size="12" fill="#1a1a1a">встановлення</text>
+  <text x="855" y="222" text-anchor="middle" font-size="12" fill="#27ae60">та скидання біт</text>
+
+  <rect x="800" y="270" width="110" height="140" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="855" y="295" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">Піни двигуна</text>
+  <text x="855" y="320" text-anchor="middle" font-size="12" fill="#2457d6">STEP (Крок)</text>
+  <text x="855" y="345" text-anchor="middle" font-size="12" fill="#2457d6">DIR (Напрям)</text>
+  <text x="855" y="375" text-anchor="middle" font-size="12" fill="#6b7280">Апаратний</text>
+  <text x="855" y="392" text-anchor="middle" font-size="12" fill="#6b7280">джиттер: 0 нс</text>
+
+  <text x="480" y="462" text-anchor="middle" font-size="12" fill="#6b7280">Таймер формує стабільну часову сітку, а подвійний буфер DMA виключає вплив затримок RTOS на кроки</text>
+</svg>

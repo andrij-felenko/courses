@@ -1,0 +1,81 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="40" fill="#1a1a1a" font-size="24" font-weight="bold" text-anchor="middle">Таймінги приймання пакетів UART з Idle Line Detection</text>
+  <text x="480" y="70" fill="#6b7280" font-size="16" text-anchor="middle">Формування переривання при відсутності активності на лінії протягом одного кадру</text>
+
+  <!-- Bracket for Packet 1 -->
+  <path d="M 140 120 L 140 110 L 510 110 L 510 120" fill="none" stroke="#6b7280" stroke-width="2"/>
+  <text x="325" y="100" fill="#1a1a1a" font-size="14" text-anchor="middle">Пакет даних (без пауз між байтами)</text>
+
+  <!-- Byte 1 -->
+  <rect x="140" y="140" width="100" height="40" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="190" y="166" fill="#2457d6" font-size="16" font-weight="bold" text-anchor="middle">Байт 1</text>
+  
+  <!-- Byte 2 -->
+  <rect x="250" y="140" width="100" height="40" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="300" y="166" fill="#2457d6" font-size="16" font-weight="bold" text-anchor="middle">Байт 2</text>
+  
+  <text x="380" y="166" fill="#2457d6" font-size="20" font-weight="bold" text-anchor="middle">...</text>
+
+  <!-- Byte N -->
+  <rect x="410" y="140" width="100" height="40" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="460" y="166" fill="#2457d6" font-size="16" font-weight="bold" text-anchor="middle">Байт N</text>
+
+  <!-- Next Packet Byte 1 -->
+  <rect x="700" y="140" width="100" height="40" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="750" y="166" fill="#2457d6" font-size="16" font-weight="bold" text-anchor="middle">Байт 1</text>
+
+  <!-- RX Label -->
+  <text x="50" y="240" fill="#1a1a1a" font-size="16" font-weight="bold">RX Line</text>
+
+  <!-- RX Signal -->
+  <path d="M 120 220 L 140 220 L 140 250 L 150 250 L 150 220 L 160 220 L 160 250 L 180 250 L 180 220 L 200 220 L 200 250 L 210 250 L 210 220 L 220 220 L 220 250 L 230 250 L 230 220 L 240 220"
+        fill="none" stroke="#2457d6" stroke-width="2" stroke-linejoin="round"/>
+        
+  <path d="M 240 220 L 250 220 L 250 250 L 260 250 L 260 220 L 280 220 L 280 250 L 290 250 L 290 220 L 310 220 L 310 250 L 330 250 L 330 220 L 350 220"
+        fill="none" stroke="#2457d6" stroke-width="2" stroke-linejoin="round"/>
+        
+  <!-- dotted gap -->
+  <path d="M 350 220 L 410 220" stroke="#2457d6" stroke-width="2" stroke-dasharray="4,4" fill="none"/>
+  
+  <path d="M 410 220 L 410 250 L 420 250 L 420 220 L 440 220 L 440 250 L 460 250 L 460 220 L 480 220 L 480 250 L 500 250 L 500 220 L 510 220"
+        fill="none" stroke="#2457d6" stroke-width="2" stroke-linejoin="round"/>
+        
+  <!-- Idle Period High Line -->
+  <path d="M 510 220 L 700 220" fill="none" stroke="#2457d6" stroke-width="2"/>
+  
+  <!-- Next Packet -->
+  <path d="M 700 220 L 700 250 L 710 250 L 710 220 L 730 220 L 730 250 L 740 250 L 740 220 L 760 220 L 760 250 L 780 250 L 780 220 L 800 220"
+        fill="none" stroke="#2457d6" stroke-width="2" stroke-linejoin="round"/>
+  
+  <path d="M 800 220 L 850 220" fill="none" stroke="#2457d6" stroke-width="2" stroke-dasharray="4,4"/>
+
+  <!-- Vertical dashed line for packet end -->
+  <line x1="510" y1="220" x2="510" y2="420" stroke="#6b7280" stroke-width="1" stroke-dasharray="4,4"/>
+  <line x1="610" y1="220" x2="610" y2="260" stroke="#6b7280" stroke-width="1" stroke-dasharray="4,4"/>
+
+  <!-- Bracket for Idle Line -->
+  <path d="M 510 260 L 510 270 L 610 270 L 610 260" fill="none" stroke="#c0392b" stroke-width="2"/>
+  <text x="560" y="295" fill="#c0392b" font-size="14" font-weight="bold" text-anchor="middle">Тривалість 1 кадру</text>
+  <text x="560" y="315" fill="#c0392b" font-size="13" text-anchor="middle">(лінія у стані HIGH)</text>
+
+  <!-- Interrupt Trigger Arrow -->
+  <line x1="610" y1="270" x2="610" y2="350" stroke="#c0392b" stroke-width="2"/>
+  <polygon points="605,345 615,345 610,355" fill="#c0392b"/>
+  <rect x="530" y="355" width="160" height="40" rx="4" fill="#fdf2f2" stroke="#c0392b" stroke-width="2"/>
+  <text x="610" y="380" fill="#c0392b" font-size="14" font-weight="bold" text-anchor="middle">IDLE Interrupt</text>
+  
+  <!-- Next packet bracket -->
+  <path d="M 700 120 L 700 110 L 800 110 L 800 120" fill="none" stroke="#6b7280" stroke-width="2"/>
+  <text x="750" y="100" fill="#1a1a1a" font-size="14" text-anchor="middle">Наступний пакет</text>
+
+  <!-- Responsibilities Boxes -->
+  <rect x="140" y="420" width="370" height="40" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="325" y="445" fill="#2457d6" font-size="14" font-weight="bold" text-anchor="middle">Апаратний DMA циклічно записує байти</text>
+  
+  <rect x="530" y="420" width="270" height="40" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <text x="665" y="445" fill="#27ae60" font-size="14" font-weight="bold" text-anchor="middle">Програма аналізує прийнятий пакет</text>
+
+</svg>

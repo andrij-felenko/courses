@@ -1,0 +1,90 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+  <defs>
+    <marker id="arr-main" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="36" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Покажчики Head та Tail у кільцевому буфері UART DMA</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Взаємодія апаратного DMA (запис Head) та системного процесу (читання Tail)</text>
+
+  <!-- Circular Buffer Array Layout -->
+  <rect x="30" y="90" width="900" height="140" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="480" y="115" font-size="14" font-weight="700" fill="#1a1a1a" text-anchor="middle">Кільцевий буфер у пам'яті SRAM (uint8_t rx_buf[BUFFER_SIZE])</text>
+
+  <!-- Slot 0: Consumed -->
+  <rect x="50" y="135" width="95" height="60" rx="4" fill="white" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="97" y="158" font-size="11" fill="#6b7280" text-anchor="middle">[0]</text>
+  <text x="97" y="178" font-size="12" fill="#1a1a1a" text-anchor="middle">Оброблено</text>
+
+  <!-- Slot 1: Consumed -->
+  <rect x="155" y="135" width="95" height="60" rx="4" fill="white" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="202" y="158" font-size="11" fill="#6b7280" text-anchor="middle">[1]</text>
+  <text x="202" y="178" font-size="12" fill="#1a1a1a" text-anchor="middle">Оброблено</text>
+
+  <!-- Slot 2: Tail points here (Next to read) -->
+  <rect x="260" y="135" width="105" height="60" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <text x="312" y="158" font-size="11" font-weight="700" fill="#27ae60" text-anchor="middle">[2] = Tail</text>
+  <text x="312" y="178" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Байт 0x3F</text>
+
+  <!-- Slot 3: Valid data -->
+  <rect x="375" y="135" width="95" height="60" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="422" y="158" font-size="11" fill="#2457d6" text-anchor="middle">[3]</text>
+  <text x="422" y="178" font-size="12" fill="#1a1a1a" text-anchor="middle">Байт 0x5A</text>
+
+  <!-- Slot 4: Valid data -->
+  <rect x="480" y="135" width="95" height="60" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="527" y="158" font-size="11" fill="#2457d6" text-anchor="middle">[4]</text>
+  <text x="527" y="178" font-size="12" fill="#1a1a1a" text-anchor="middle">Байт 0xA2</text>
+
+  <!-- Slot 5: Head points here (Next to write by DMA) -->
+  <rect x="585" y="135" width="105" height="60" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="637" y="158" font-size="11" font-weight="700" fill="#2457d6" text-anchor="middle">[5] = Head</text>
+  <text x="637" y="178" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">Вільний слот</text>
+
+  <!-- Slot 6: Empty -->
+  <rect x="700" y="135" width="95" height="60" rx="4" fill="white" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <text x="747" y="158" font-size="11" fill="#6b7280" text-anchor="middle">[6]</text>
+  <text x="747" y="178" font-size="12" fill="#6b7280" text-anchor="middle">Порожньо</text>
+
+  <!-- Slot 7: Empty (N-1) -->
+  <rect x="805" y="135" width="105" height="60" rx="4" fill="white" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <text x="857" y="158" font-size="11" fill="#6b7280" text-anchor="middle">[N-1]</text>
+  <text x="857" y="178" font-size="12" fill="#6b7280" text-anchor="middle">Порожньо</text>
+
+  <!-- Pointer Markers & Annotations -->
+  <!-- Tail Pointer (Green) -->
+  <line x1="312" y1="265" x2="312" y2="205" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arr-green)"/>
+  <rect x="230" y="270" width="165" height="44" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="312" y="290" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">Tail: Споживач (CPU)</text>
+  <text x="312" y="306" font-size="11" fill="#1a1a1a" text-anchor="middle">Індекс читання пакетів</text>
+
+  <!-- Head Pointer (Blue) -->
+  <line x1="637" y1="265" x2="637" y2="205" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+  <rect x="555" y="270" width="165" height="44" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="637" y="290" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">Head: Виробник (DMA)</text>
+  <text x="637" y="306" font-size="11" fill="#1a1a1a" text-anchor="middle">Індекс апаратного запису</text>
+
+  <!-- Bottom Comparison Cards: Math & States -->
+  <!-- Left Card: Fill Formula -->
+  <rect x="30" y="335" width="430" height="105" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="245" y="358" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">Розрахунок доступних даних</text>
+  <rect x="45" y="370" width="400" height="55" rx="6" fill="white" stroke="#d0d7de"/>
+  <text x="55" y="390" font-size="12" font-weight="700" fill="#2457d6">count = (head - tail) &amp; (BUFFER_SIZE - 1)</text>
+  <text x="55" y="410" font-size="11" fill="#6b7280">Head == Tail: буфер порожній; Head == Tail - 1: буфер повний</text>
+
+  <!-- Right Card: Lock-Free Property -->
+  <rect x="490" y="335" width="440" height="105" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="710" y="358" font-size="13" font-weight="700" fill="#27ae60" text-anchor="middle">Властивість Lock-Free (SPSC)</text>
+  <rect x="505" y="370" width="410" height="55" rx="6" fill="white" stroke="#27ae60"/>
+  <text x="515" y="390" font-size="12" font-weight="700" fill="#1a1a1a">DMA змінює тільки Head; CPU змінює тільки Tail</text>
+  <text x="515" y="410" font-size="11" fill="#6b7280">Не потребує м'ютексів або заборони переривань при читанні</text>
+</svg>

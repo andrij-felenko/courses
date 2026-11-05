@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+  
+  <text x="480" y="40" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Апаратний конвеєр передачі даних через SDMMC та подвійний буфер DMA</text>
+  <text x="480" y="60" font-size="13" fill="#6b7280" text-anchor="middle">Переривання датчиків наповнюють активний буфер, перемикач ping-pong спрямовує блок до DMA, який транслює байти на SD-карту.</text>
+
+  <!-- Sensors -->
+  <rect x="50" y="200" width="120" height="80" fill="#f4f6f8" stroke="#d0d7de" rx="4"/>
+  <text x="110" y="235" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Датчики</text>
+  <text x="110" y="255" font-size="12" fill="#1a1a1a" text-anchor="middle">(Переривання)</text>
+
+  <!-- Ping Pong Buffers -->
+  <rect x="250" y="140" width="160" height="200" fill="#f4f6f8" stroke="#d0d7de" rx="4"/>
+  <text x="330" y="165" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Подвійний буфер</text>
+  
+  <rect x="270" y="180" width="120" height="50" fill="#e9f7ef" stroke="#27ae60" rx="4"/>
+  <text x="330" y="210" font-size="14" font-weight="bold" fill="#27ae60" text-anchor="middle">Буфер A</text>
+  
+  <rect x="270" y="260" width="120" height="50" fill="#f4f6f8" stroke="#d0d7de" rx="4"/>
+  <text x="330" y="290" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Буфер B</text>
+
+  <line x1="170" y1="240" x2="270" y2="200" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+
+  <!-- Ping Pong Switch -->
+  <rect x="460" y="200" width="120" height="80" fill="#eaf0fd" stroke="#2457d6" rx="4"/>
+  <text x="520" y="235" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">Перемикач</text>
+  <text x="520" y="255" font-size="12" fill="#2457d6" text-anchor="middle">Ping-Pong</text>
+
+  <line x1="390" y1="205" x2="460" y2="240" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+
+  <!-- DMA Controller -->
+  <rect x="630" y="200" width="120" height="80" fill="#fdecea" stroke="#c0392b" rx="4"/>
+  <text x="690" y="235" font-size="14" font-weight="bold" fill="#c0392b" text-anchor="middle">DMA</text>
+  <text x="690" y="255" font-size="12" fill="#c0392b" text-anchor="middle">Контролер</text>
+
+  <line x1="580" y1="240" x2="630" y2="240" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+
+  <!-- SD Card -->
+  <rect x="800" y="200" width="120" height="80" fill="#f4f6f8" stroke="#d0d7de" rx="4"/>
+  <text x="860" y="235" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">SD-карта</text>
+  <text x="860" y="255" font-size="12" fill="#1a1a1a" text-anchor="middle">(Шина SDMMC)</text>
+
+  <line x1="750" y1="240" x2="800" y2="240" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+
+</svg>

@@ -1,0 +1,97 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+  
+  <text x="480" y="30" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Фазове декодування квадратурних сигналів енкодера</text>
+  <text x="480" y="55" text-anchor="middle" font-size="13" fill="#6b7280">Стан лічильника в режимах x1, x2 та x4 при обертанні вперед і назад</text>
+  
+  <text x="280" y="85" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Обертання за годинниковою стрілкою (CW)</text>
+  <text x="740" y="85" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Обертання проти годинникової стрілки (CCW)</text>
+  
+  <text x="110" y="125" text-anchor="end" font-size="14" fill="#1a1a1a">Канал A (TI1)</text>
+  <text x="110" y="185" text-anchor="end" font-size="14" fill="#1a1a1a">Канал B (TI2)</text>
+  <text x="110" y="250" text-anchor="end" font-size="14" fill="#1a1a1a">Режим x1 (CNT)</text>
+  <text x="110" y="320" text-anchor="end" font-size="14" fill="#1a1a1a">Режим x2 (CNT)</text>
+  <text x="110" y="390" text-anchor="end" font-size="14" fill="#1a1a1a">Режим x4 (CNT)</text>
+
+  <g id="cw">
+    <path d="M160,90 L160,420 M200,90 L200,420 M240,90 L240,420 M280,90 L280,420 M320,90 L320,420 M360,90 L360,420 M400,90 L400,420" stroke="#d0d7de" stroke-dasharray="4,4" fill="none"/>
+    
+    <path d="M120,135 L160,135 L160,105 L240,105 L240,135 L320,135 L320,105 L400,105 L400,135 L440,135" stroke="#1a1a1a" stroke-width="2" fill="none"/>
+    <path d="M120,195 L200,195 L200,165 L280,165 L280,195 L360,195 L360,165 L440,165" stroke="#1a1a1a" stroke-width="2" fill="none"/>
+    
+    <rect x="120" y="230" width="40" height="30" fill="#eaf0fd" stroke="#2457d6"/>
+    <text x="140" y="250" text-anchor="middle" font-size="14" fill="#2457d6">0</text>
+    <rect x="160" y="230" width="160" height="30" fill="#eaf0fd" stroke="#2457d6"/>
+    <text x="240" y="250" text-anchor="middle" font-size="14" fill="#2457d6">1</text>
+    <rect x="320" y="230" width="120" height="30" fill="#eaf0fd" stroke="#2457d6"/>
+    <text x="380" y="250" text-anchor="middle" font-size="14" fill="#2457d6">2</text>
+    
+    <rect x="120" y="300" width="40" height="30" fill="#eaf0fd" stroke="#2457d6"/>
+    <text x="140" y="320" text-anchor="middle" font-size="14" fill="#2457d6">0</text>
+    <rect x="160" y="300" width="80" height="30" fill="#eaf0fd" stroke="#2457d6"/>
+    <text x="200" y="320" text-anchor="middle" font-size="14" fill="#2457d6">1</text>
+    <rect x="240" y="300" width="80" height="30" fill="#eaf0fd" stroke="#2457d6"/>
+    <text x="280" y="320" text-anchor="middle" font-size="14" fill="#2457d6">2</text>
+    <rect x="320" y="300" width="80" height="30" fill="#eaf0fd" stroke="#2457d6"/>
+    <text x="360" y="320" text-anchor="middle" font-size="14" fill="#2457d6">3</text>
+    <rect x="400" y="300" width="40" height="30" fill="#eaf0fd" stroke="#2457d6"/>
+    <text x="420" y="320" text-anchor="middle" font-size="14" fill="#2457d6">4</text>
+    
+    <rect x="120" y="370" width="40" height="30" fill="#eaf0fd" stroke="#2457d6"/>
+    <text x="140" y="390" text-anchor="middle" font-size="14" fill="#2457d6">0</text>
+    <rect x="160" y="370" width="40" height="30" fill="#eaf0fd" stroke="#2457d6"/>
+    <text x="180" y="390" text-anchor="middle" font-size="14" fill="#2457d6">1</text>
+    <rect x="200" y="370" width="40" height="30" fill="#eaf0fd" stroke="#2457d6"/>
+    <text x="220" y="390" text-anchor="middle" font-size="14" fill="#2457d6">2</text>
+    <rect x="240" y="370" width="40" height="30" fill="#eaf0fd" stroke="#2457d6"/>
+    <text x="260" y="390" text-anchor="middle" font-size="14" fill="#2457d6">3</text>
+    <rect x="280" y="370" width="40" height="30" fill="#eaf0fd" stroke="#2457d6"/>
+    <text x="300" y="390" text-anchor="middle" font-size="14" fill="#2457d6">4</text>
+    <rect x="320" y="370" width="40" height="30" fill="#eaf0fd" stroke="#2457d6"/>
+    <text x="340" y="390" text-anchor="middle" font-size="14" fill="#2457d6">5</text>
+    <rect x="360" y="370" width="40" height="30" fill="#eaf0fd" stroke="#2457d6"/>
+    <text x="380" y="390" text-anchor="middle" font-size="14" fill="#2457d6">6</text>
+    <rect x="400" y="370" width="40" height="30" fill="#eaf0fd" stroke="#2457d6"/>
+    <text x="420" y="390" text-anchor="middle" font-size="14" fill="#2457d6">7</text>
+  </g>
+
+  <g id="ccw">
+    <path d="M620,90 L620,420 M660,90 L660,420 M700,90 L700,420 M740,90 L740,420 M780,90 L780,420 M820,90 L820,420 M860,90 L860,420" stroke="#d0d7de" stroke-dasharray="4,4" fill="none"/>
+    
+    <path d="M580,135 L660,135 L660,105 L740,105 L740,135 L820,135 L820,105 L900,105" stroke="#1a1a1a" stroke-width="2" fill="none"/>
+    <path d="M580,195 L620,195 L620,165 L700,165 L700,195 L780,195 L780,165 L860,165 L860,195 L900,195" stroke="#1a1a1a" stroke-width="2" fill="none"/>
+    
+    <rect x="580" y="230" width="80" height="30" fill="#fdecea" stroke="#c0392b"/>
+    <text x="620" y="250" text-anchor="middle" font-size="14" fill="#c0392b">2</text>
+    <rect x="660" y="230" width="160" height="30" fill="#fdecea" stroke="#c0392b"/>
+    <text x="740" y="250" text-anchor="middle" font-size="14" fill="#c0392b">1</text>
+    <rect x="820" y="230" width="80" height="30" fill="#fdecea" stroke="#c0392b"/>
+    <text x="860" y="250" text-anchor="middle" font-size="14" fill="#c0392b">0</text>
+    
+    <rect x="580" y="300" width="80" height="30" fill="#fdecea" stroke="#c0392b"/>
+    <text x="620" y="320" text-anchor="middle" font-size="14" fill="#c0392b">4</text>
+    <rect x="660" y="300" width="80" height="30" fill="#fdecea" stroke="#c0392b"/>
+    <text x="700" y="320" text-anchor="middle" font-size="14" fill="#c0392b">3</text>
+    <rect x="740" y="300" width="80" height="30" fill="#fdecea" stroke="#c0392b"/>
+    <text x="780" y="320" text-anchor="middle" font-size="14" fill="#c0392b">2</text>
+    <rect x="820" y="300" width="80" height="30" fill="#fdecea" stroke="#c0392b"/>
+    <text x="860" y="320" text-anchor="middle" font-size="14" fill="#c0392b">1</text>
+    
+    <rect x="580" y="370" width="40" height="30" fill="#fdecea" stroke="#c0392b"/>
+    <text x="600" y="390" text-anchor="middle" font-size="14" fill="#c0392b">8</text>
+    <rect x="620" y="370" width="40" height="30" fill="#fdecea" stroke="#c0392b"/>
+    <text x="640" y="390" text-anchor="middle" font-size="14" fill="#c0392b">7</text>
+    <rect x="660" y="370" width="40" height="30" fill="#fdecea" stroke="#c0392b"/>
+    <text x="680" y="390" text-anchor="middle" font-size="14" fill="#c0392b">6</text>
+    <rect x="700" y="370" width="40" height="30" fill="#fdecea" stroke="#c0392b"/>
+    <text x="720" y="390" text-anchor="middle" font-size="14" fill="#c0392b">5</text>
+    <rect x="740" y="370" width="40" height="30" fill="#fdecea" stroke="#c0392b"/>
+    <text x="760" y="390" text-anchor="middle" font-size="14" fill="#c0392b">4</text>
+    <rect x="780" y="370" width="40" height="30" fill="#fdecea" stroke="#c0392b"/>
+    <text x="800" y="390" text-anchor="middle" font-size="14" fill="#c0392b">3</text>
+    <rect x="820" y="370" width="40" height="30" fill="#fdecea" stroke="#c0392b"/>
+    <text x="840" y="390" text-anchor="middle" font-size="14" fill="#c0392b">2</text>
+    <rect x="860" y="370" width="40" height="30" fill="#fdecea" stroke="#c0392b"/>
+    <text x="880" y="390" text-anchor="middle" font-size="14" fill="#c0392b">1</text>
+  </g>
+</svg>

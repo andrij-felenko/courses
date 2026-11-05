@@ -1,0 +1,85 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-main" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Підкладка -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Апаратний тракт SDIO з подвійним буфером DMA та станами шини</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Безперервне приймання даних контролером DMA під час очікування зайнятості лінії DAT0</text>
+
+  <!-- Панель 1: Пам'ять SRAM (Ping-Pong) -->
+  <rect x="40" y="80" width="250" height="345" fill="#f4f6f8" stroke="#d0d7de" rx="6"/>
+  <text x="165" y="108" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Пам'ять SRAM (Ping-Pong)</text>
+
+  <rect x="60" y="128" width="210" height="92" fill="#eaf0fd" stroke="#2457d6" rx="4"/>
+  <text x="165" y="154" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Буфер A (512 байтів)</text>
+  <text x="165" y="177" font-size="12" fill="#1a1a1a" text-anchor="middle">Стан: Заповнюється DMA</text>
+  <text x="165" y="199" font-size="12" fill="#2457d6" text-anchor="middle">Активний прийом даних</text>
+
+  <rect x="60" y="238" width="210" height="92" fill="#e9f7ef" stroke="#27ae60" rx="4"/>
+  <text x="165" y="264" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Буфер B (512 байтів)</text>
+  <text x="165" y="287" font-size="12" fill="#1a1a1a" text-anchor="middle">Стан: Готовий до запису</text>
+  <text x="165" y="309" font-size="12" fill="#27ae60" text-anchor="middle">Черга відправлення на SD</text>
+
+  <text x="165" y="365" font-size="12" fill="#6b7280" text-anchor="middle">Почерговий обмін HT / TC</text>
+  <text x="165" y="388" font-size="12" fill="#6b7280" text-anchor="middle">без зупинки вхідного потоку</text>
+
+  <!-- Зв'язок Буфер -> DMA -->
+  <line x1="270" y1="174" x2="338" y2="174" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="305" y="164" font-size="12" fill="#2457d6" text-anchor="middle">DMA</text>
+
+  <!-- Панель 2: Апаратний контролер -->
+  <rect x="345" y="80" width="260" height="345" fill="#f4f6f8" stroke="#d0d7de" rx="6"/>
+  <text x="475" y="108" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Контролери ядра</text>
+
+  <rect x="365" y="128" width="220" height="102" fill="#eaf0fd" stroke="#2457d6" rx="4"/>
+  <text x="475" y="154" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Контролер DMA</text>
+  <text x="475" y="177" font-size="12" fill="#1a1a1a" text-anchor="middle">Кільцевий режим (Circular)</text>
+  <text x="475" y="199" font-size="12" fill="#1a1a1a" text-anchor="middle">Регістри M0AR / M1AR</text>
+  <text x="475" y="218" font-size="11" fill="#6b7280" text-anchor="middle">Автоперемикання буферів</text>
+
+  <!-- Зв'язок DMA -> SDIO всередині блоку -->
+  <line x1="475" y1="230" x2="475" y2="258" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <rect x="365" y="265" width="220" height="120" fill="#ffffff" stroke="#d0d7de" rx="4"/>
+  <text x="475" y="292" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Периферійний модуль SDIO</text>
+  <text x="475" y="315" font-size="12" fill="#1a1a1a" text-anchor="middle">Шина даних DAT[3:0]</text>
+  <text x="475" y="337" font-size="12" fill="#1a1a1a" text-anchor="middle">Тактова частота SDIO_CK</text>
+  <text x="475" y="359" font-size="12" fill="#6b7280" text-anchor="middle">Апаратний моніторинг DAT0</text>
+
+  <!-- Зв'язок SDIO -> SD Card -->
+  <line x1="585" y1="325" x2="658" y2="325" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr-main)"/>
+  <text x="622" y="315" font-size="12" fill="#1a1a1a" text-anchor="middle">Дані</text>
+
+  <!-- Зв'язок Busy -> SDIO -->
+  <line x1="660" y1="184" x2="592" y2="184" stroke="#c0392b" stroke-width="2" stroke-dasharray="4,3" marker-end="url(#arr-red)"/>
+  <text x="626" y="174" font-size="12" fill="#c0392b" text-anchor="middle">Busy</text>
+
+  <!-- Панель 3: SD-карта та стани шини -->
+  <rect x="665" y="80" width="255" height="345" fill="#f4f6f8" stroke="#d0d7de" rx="6"/>
+  <text x="792" y="108" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Карта пам'яті SD</text>
+
+  <rect x="685" y="128" width="215" height="102" fill="#fdecea" stroke="#c0392b" rx="4"/>
+  <text x="792" y="154" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">Лінія стану DAT0</text>
+  <text x="792" y="177" font-size="12" fill="#c0392b" text-anchor="middle">Низький: Зайнята (Busy)</text>
+  <text x="792" y="199" font-size="12" fill="#1a1a1a" text-anchor="middle">Високий: Готова (Ready)</text>
+  <text x="792" y="218" font-size="11" fill="#6b7280" text-anchor="middle">Сигнал блокування запису</text>
+
+  <rect x="685" y="250" width="215" height="150" fill="#ffffff" stroke="#d0d7de" rx="4"/>
+  <text x="792" y="277" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Контролер FTL та Flash</text>
+  <text x="792" y="300" font-size="12" fill="#1a1a1a" text-anchor="middle">Збирання сміття (GC)</text>
+  <text x="792" y="322" font-size="12" fill="#1a1a1a" text-anchor="middle">Вирівнювання зносу пам'яті</text>
+  <text x="792" y="344" font-size="12" fill="#c0392b" text-anchor="middle">Затримка до 250–500 мс</text>
+  <text x="792" y="375" font-size="12" fill="#27ae60" text-anchor="middle">Подвійний буфер поглинає пік</text>
+</svg>

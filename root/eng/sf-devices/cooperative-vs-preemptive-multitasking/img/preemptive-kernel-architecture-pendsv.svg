@@ -1,0 +1,149 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="28" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Архітектура витісняльного ядра RTOS: розмежування SysTick і PendSV</text>
+  <text x="480" y="50" font-size="13" fill="#6b7280" text-anchor="middle">SysTick виконує арбітраж O(1) і запит на витіснення, а PendSV безпечно перемикає контекст у стеках</text>
+
+  <!-- COLUMN 1: Task Stacks -->
+  <rect x="24" y="70" width="314" height="446" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="181" y="93" font-size="14" font-weight="700" fill="#1a1a1a" text-anchor="middle">Виділені стеки задач (Thread Mode / PSP)</text>
+  <text x="181" y="110" font-size="12" fill="#6b7280" text-anchor="middle">Кожна задача має приватний стек у RAM</text>
+
+  <!-- Task 1 Container -->
+  <rect x="36" y="122" width="290" height="184" rx="6" fill="white" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="44" y="130" width="138" height="22" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="113" y="145" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">Задача 1 (Витісняється)</text>
+  <text x="194" y="145" font-size="12" fill="#6b7280">TCB 1: prio 1 | READY</text>
+
+  <rect x="44" y="158" width="274" height="140" rx="5" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <rect x="50" y="164" width="262" height="58" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="58" y="180" font-size="12" font-weight="700" fill="#2457d6">Програмний кадр (Software Frame)</text>
+  <text x="58" y="198" font-size="12" fill="#1a1a1a">Регістри R4–R11 (збережено в PendSV)</text>
+  <text x="58" y="214" font-size="12" font-weight="700" fill="#2457d6">SP → g_tcbs[0].sp (збережено в TCB)</text>
+
+  <rect x="50" y="228" width="262" height="62" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="58" y="244" font-size="12" font-weight="700" fill="#27ae60">Апаратний кадр (Hardware Frame)</text>
+  <text x="58" y="262" font-size="12" fill="#1a1a1a">xPSR, PC, LR, R12, R3, R2, R1, R0</text>
+  <text x="58" y="278" font-size="12" fill="#6b7280">Автозбереження ядром CPU при виклику ISR</text>
+
+  <!-- Task 2 Container -->
+  <rect x="36" y="318" width="290" height="184" rx="6" fill="white" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="44" y="326" width="138" height="22" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="113" y="341" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">Задача 2 (Активується)</text>
+  <text x="194" y="341" font-size="12" fill="#6b7280">TCB 2: prio 2 | RUNNING</text>
+
+  <rect x="44" y="354" width="274" height="140" rx="5" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <rect x="50" y="360" width="262" height="58" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="58" y="376" font-size="12" font-weight="700" fill="#2457d6">Програмний кадр (Software Frame)</text>
+  <text x="58" y="394" font-size="12" fill="#1a1a1a">Регістри R4–R11 (відновлює PendSV)</text>
+  <text x="58" y="410" font-size="12" font-weight="700" fill="#2457d6">PSP ← g_tcbs[1].sp (завантажено з TCB)</text>
+
+  <rect x="50" y="424" width="262" height="62" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="58" y="440" font-size="12" font-weight="700" fill="#27ae60">Апаратний кадр (Hardware Frame)</text>
+  <text x="58" y="458" font-size="12" fill="#1a1a1a">xPSR, PC, LR, R12, R3, R2, R1, R0</text>
+  <text x="58" y="474" font-size="12" fill="#6b7280">Автовідновлення CPU при виході з PendSV</text>
+
+  <!-- COLUMN 2: Kernel & Scheduler -->
+  <rect x="354" y="70" width="252" height="446" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="480" y="93" font-size="14" font-weight="700" fill="#1a1a1a" text-anchor="middle">Ядро RTOS &amp; Диспетчер</text>
+  <text x="480" y="110" font-size="12" fill="#6b7280" text-anchor="middle">Арбітраж O(1) та керування TCB</text>
+
+  <!-- Box 2.1: Ready Bitmap -->
+  <rect x="366" y="122" width="228" height="86" rx="6" fill="white" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="480" y="140" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Бітова шкала готових задач</text>
+  <rect x="376" y="148" width="208" height="24" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="480" y="164" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">ready_bitmap = 0b00...0110</text>
+  <text x="480" y="186" font-size="12" fill="#1a1a1a" text-anchor="middle">top_prio = 31 - CLZ(bitmap)</text>
+  <text x="480" y="200" font-size="12" fill="#6b7280" text-anchor="middle">Миттєвий вибір за O(1) тактів</text>
+
+  <!-- Box 2.2: TCB Pointers -->
+  <rect x="366" y="218" width="228" height="98" rx="6" fill="white" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="480" y="235" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Арбітраж TCB вказівників</text>
+  <rect x="376" y="242" width="208" height="24" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="480" y="258" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">g_current_tcb → TCB 1</text>
+  <rect x="376" y="272" width="208" height="24" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="480" y="288" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">g_next_tcb → TCB 2 (обрано)</text>
+  <text x="480" y="307" font-size="12" fill="#6b7280" text-anchor="middle">next != current ⇒ потрібне витіснення</text>
+
+  <!-- Box 2.3: ICSR Register -->
+  <rect x="366" y="328" width="228" height="94" rx="6" fill="white" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="480" y="346" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Регістр ICSR (0xE000ED04)</text>
+  <rect x="376" y="354" width="208" height="28" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="480" y="372" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">Біт 28: PENDSVSET = 1</text>
+  <text x="480" y="396" font-size="12" fill="#1a1a1a" text-anchor="middle">SysTick виставляє запит переривання</text>
+  <text x="480" y="411" font-size="12" fill="#6b7280" text-anchor="middle">Апаратний прапорець очікування</text>
+
+  <!-- Box 2.4: MSP Stack -->
+  <rect x="366" y="432" width="228" height="74" rx="6" fill="white" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="480" y="449" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Головний стек ядра (MSP)</text>
+  <text x="480" y="466" font-size="12" fill="#1a1a1a" text-anchor="middle">SysTick, ISR та PendSV діють на MSP</text>
+  <text x="480" y="482" font-size="12" fill="#6b7280" text-anchor="middle">Ізолює стеки задач від переривань</text>
+  <text x="480" y="497" font-size="12" fill="#27ae60" text-anchor="middle">Повний захист пам'яті задач</text>
+
+  <!-- COLUMN 3: Interrupts SysTick & PendSV -->
+  <rect x="622" y="70" width="314" height="446" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="779" y="93" font-size="14" font-weight="700" fill="#1a1a1a" text-anchor="middle">Розмежування переривань (Handler Mode)</text>
+  <text x="779" y="110" font-size="12" fill="#6b7280" text-anchor="middle">Дворівнева схема для усунення затримок</text>
+
+  <!-- Box 3.1: SysTick -->
+  <rect x="634" y="122" width="290" height="100" rx="6" fill="white" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="642" y="130" width="274" height="22" rx="4" fill="#eaf0fd"/>
+  <text x="779" y="145" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">1. SysTick_Handler (Пріоритет таймера)</text>
+  <text x="646" y="167" font-size="12" fill="#1a1a1a">• Оновлює кванти часу (delay_ticks)</text>
+  <text x="646" y="183" font-size="12" fill="#1a1a1a">• Обирає g_next_tcb через CLZ(ready_bitmap)</text>
+  <text x="646" y="199" font-size="12" font-weight="700" fill="#2457d6">• Встановлює ICSR[28] = 1 (PENDSVSET)</text>
+  <text x="646" y="215" font-size="12" fill="#27ae60">• Швидкий вихід — НЕ блокує переривання!</text>
+
+  <!-- Box 3.2: Critical ISRs -->
+  <rect x="634" y="232" width="290" height="72" rx="6" fill="white" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="642" y="238" width="274" height="22" rx="4" fill="#e9f7ef"/>
+  <text x="779" y="253" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">Периферійні ISR (USART, DMA, CAN, PWM)</text>
+  <text x="646" y="275" font-size="12" fill="#1a1a1a">• Вищий пріоритет NVIC ніж у PendSV</text>
+  <text x="646" y="291" font-size="12" fill="#6b7280">• Виконуються негайно без затримки на зміну задач</text>
+
+  <!-- Box 3.3: PendSV -->
+  <rect x="634" y="314" width="290" height="192" rx="6" fill="white" stroke="#c0392b" stroke-width="1.5"/>
+  <rect x="642" y="322" width="274" height="22" rx="4" fill="#fdecea"/>
+  <text x="779" y="337" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">2. PendSV_Handler (Найнижчий пріоритет = 15)</text>
+  <text x="646" y="356" font-size="12" font-weight="700" fill="#1a1a1a">Виконується після завершення всіх ISR:</text>
+  <text x="646" y="374" font-size="12" fill="#1a1a1a">1. MRS R0, PSP (отримати покажчик Задачі 1)</text>
+  <text x="646" y="392" font-size="12" fill="#1a1a1a">2. STMDB R0!, {R4–R11} (зберегти програмний кадр)</text>
+  <text x="646" y="410" font-size="12" fill="#1a1a1a">3. g_current_tcb-&gt;sp = R0; g_current_tcb = next</text>
+  <text x="646" y="428" font-size="12" fill="#1a1a1a">4. R0 = g_next_tcb-&gt;sp; LDMIA R0!, {R4–R11}</text>
+  <text x="646" y="446" font-size="12" fill="#1a1a1a">5. MSR PSP, R0 (активувати стек Задачі 2)</text>
+  <text x="646" y="464" font-size="12" font-weight="700" fill="#2457d6">6. BX LR (EXC_RETURN = 0xFFFFFFFD)</text>
+  <text x="646" y="482" font-size="12" fill="#27ae60">➔ CPU апаратно відновлює xPSR..R0 у Задачі 2</text>
+  <text x="646" y="498" font-size="12" fill="#6b7280">   Повернення у Thread Mode з оновленим PSP</text>
+
+  <!-- Bridges / Arrows in Gutters -->
+  <!-- SysTick sets ICSR -->
+  <path d="M 634 199 L 614 199 L 614 368 L 594 368" fill="none" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- ICSR fires PendSV -->
+  <path d="M 594 380 L 634 380" fill="none" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+
+  <!-- Current TCB to Task 1 -->
+  <path d="M 366 254 L 346 254 L 346 214 L 326 214" fill="none" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+
+  <!-- Next TCB to Task 2 -->
+  <path d="M 366 284 L 346 284 L 346 410 L 326 410" fill="none" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+</svg>

@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+  
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="30" fill="#1a1a1a" font-size="18" font-weight="bold" text-anchor="middle">Архітектура селекторів регістрів GPIO Matrix</text>
+  <text x="480" y="55" fill="#6b7280" font-size="13" text-anchor="middle">Прив'язка периферійних сигналів до фізичних ніжок через конфігураційні регістри</text>
+
+  <!-- Divider -->
+  <line x1="40" y1="275" x2="920" y2="275" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4 4"/>
+
+  <!-- ================= OUTPUT SECTION ================= -->
+  <text x="480" y="85" fill="#1a1a1a" font-size="14" font-weight="bold" text-anchor="middle">1. Вихідний шлях (Output): Маршрутизація до фізичної ніжки</text>
+  
+  <rect x="120" y="110" width="200" height="70" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <text x="220" y="140" fill="#1a1a1a" font-size="14" font-weight="bold" text-anchor="middle">Вихідні сигнали</text>
+  <text x="220" y="160" fill="#6b7280" font-size="13" text-anchor="middle">256 внутрішніх ліній</text>
+
+  <polygon points="440,100 520,115 520,175 440,190" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="480" y="145" fill="#2457d6" font-size="14" font-weight="bold" text-anchor="middle">MUX</text>
+  <text x="480" y="162" fill="#2457d6" font-size="12" text-anchor="middle">ніжки x</text>
+
+  <rect x="640" y="120" width="200" height="50" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <text x="740" y="142" fill="#27ae60" font-size="14" font-weight="bold" text-anchor="middle">Фізична ніжка GPIO x</text>
+  <text x="740" y="159" fill="#1a1a1a" font-size="12" text-anchor="middle">Output Pad</text>
+
+  <rect x="365" y="215" width="230" height="50" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <text x="480" y="237" fill="#1a1a1a" font-size="14" font-weight="bold" text-anchor="middle">GPIO_FUNCx_OUT_SEL_CFG</text>
+  <text x="480" y="254" fill="#6b7280" font-size="12" text-anchor="middle">Значення = індекс сигналу</text>
+
+  <line x1="320" y1="145" x2="436" y2="145" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <line x1="520" y1="145" x2="636" y2="145" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <line x1="480" y1="215" x2="480" y2="187" stroke="#6b7280" stroke-width="2" stroke-dasharray="4 4" marker-end="url(#arr-gray)"/>
+
+  <!-- ================= INPUT SECTION ================= -->
+  <text x="480" y="295" fill="#1a1a1a" font-size="14" font-weight="bold" text-anchor="middle">2. Вхідний шлях (Input): Маршрутизація до периферійного блоку</text>
+  
+  <rect x="640" y="325" width="200" height="50" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <text x="740" y="347" fill="#27ae60" font-size="14" font-weight="bold" text-anchor="middle">Довільна ніжка GPIO y</text>
+  <text x="740" y="364" fill="#1a1a1a" font-size="12" text-anchor="middle">Input Pad</text>
+
+  <polygon points="520,305 440,320 440,380 520,395" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="480" y="350" fill="#2457d6" font-size="14" font-weight="bold" text-anchor="middle">MUX</text>
+  <text x="480" y="367" fill="#2457d6" font-size="12" text-anchor="middle">входу x</text>
+
+  <rect x="120" y="315" width="200" height="70" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <text x="220" y="345" fill="#1a1a1a" font-size="14" font-weight="bold" text-anchor="middle">Вхідний сигнал x</text>
+  <text x="220" y="365" fill="#6b7280" font-size="13" text-anchor="middle">UART RX, I2C SCL...</text>
+
+  <rect x="365" y="420" width="230" height="50" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <text x="480" y="442" fill="#1a1a1a" font-size="14" font-weight="bold" text-anchor="middle">GPIO_FUNCx_IN_SEL_CFG</text>
+  <text x="480" y="459" fill="#6b7280" font-size="12" text-anchor="middle">Значення = номер ніжки (y)</text>
+
+  <line x1="640" y1="350" x2="524" y2="350" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <line x1="440" y1="350" x2="324" y2="350" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <line x1="480" y1="420" x2="480" y2="392" stroke="#6b7280" stroke-width="2" stroke-dasharray="4 4" marker-end="url(#arr-gray)"/>
+
+</svg>

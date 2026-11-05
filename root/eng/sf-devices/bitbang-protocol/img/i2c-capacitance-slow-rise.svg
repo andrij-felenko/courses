@@ -1,0 +1,120 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="34" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Спотворення фронту сигналу I2C через ємність шини та помилка вибірки</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Завалена RC-експонента не встигає досягти порогу V_IH до стробу зчитування, викликаючи помилковий нуль</text>
+
+  <!-- Upper Panel -->
+  <rect x="25" y="68" width="910" height="236" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="40" y="87" font-size="13" font-weight="bold" fill="#1a1a1a">Осцилограма шини I2C: строб тактування SCL та експонента лінії SDA</text>
+  <text x="918" y="87" font-size="12" fill="#6b7280" text-anchor="end">Постійна часу: &#964; = R_pullup &#215; C_bus; поріг V_IH = 0.7&#183;V_DD</text>
+
+  <!-- Oscilloscope Display Screen -->
+  <rect x="37" y="98" width="615" height="194" rx="6" fill="white" stroke="#d0d7de" stroke-width="1.2"/>
+
+  <!-- SCL Waveform & Labels -->
+  <text x="48" y="132" font-size="12" font-weight="bold" fill="#2457d6">SCL (CLK)</text>
+  <text x="48" y="146" font-size="12" fill="#6b7280">Строб майстра</text>
+  <path d="M 220,146 L 305,146 L 315,124 L 505,124 L 515,146 L 600,146" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+  <text x="410" y="114" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Тактовий імпульс SCL (t_HIGH)</text>
+
+  <!-- SDA Voltage Threshold Grid Lines -->
+  <line x1="220" y1="186" x2="600" y2="186" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2 2"/>
+  <line x1="220" y1="213" x2="600" y2="213" stroke="#27ae60" stroke-width="1.2" stroke-dasharray="4 3"/>
+  <line x1="220" y1="249" x2="600" y2="249" stroke="#c0392b" stroke-width="1.2" stroke-dasharray="4 3"/>
+  <line x1="220" y1="276" x2="600" y2="276" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Voltage Labels -->
+  <text x="212" y="190" font-size="12" fill="#6b7280" text-anchor="end">V_DD (3.3V)</text>
+  <text x="212" y="217" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="end">V_IH (2.31V)</text>
+  <text x="212" y="253" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="end">V_IL (0.99V)</text>
+  <text x="212" y="280" font-size="12" fill="#6b7280" text-anchor="end">GND (0V)</text>
+
+  <!-- SDA Channel Labels -->
+  <text x="48" y="218" font-size="12" font-weight="bold" fill="#1a1a1a">SDA (Дані)</text>
+  <text x="48" y="232" font-size="12" fill="#6b7280">Open-Drain</text>
+
+  <!-- Ideal Step Response (Gray Dashed) -->
+  <path d="M 220,276 L 240,276 L 240,186 L 600,186" fill="none" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="3 3"/>
+  <text x="245" y="172" font-size="12" fill="#6b7280">Ідеал</text>
+
+  <!-- Normal SDA Curve (Green) -->
+  <path d="M 220,276 L 240,276 L 242,267.4 L 246,252.7 L 250,240.6 L 254,230.7 L 258,222.6 L 262,216.0 L 266,210.5 L 270,206.1 L 274,202.4 L 278,199.5 L 282,197.0 L 286,195.0 L 290,193.4 L 294,192.0 L 298,191.0 L 302,190.1 L 306,189.3 L 310,188.7 L 314,188.2 L 318,187.8 L 322,187.5 L 326,187.2 L 330,187.0 L 600,186" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+  <text x="290" y="172" font-size="12" font-weight="bold" fill="#27ae60">Норма (&#964; мала)</text>
+
+  <!-- Slow SDA Curve (Red) -->
+  <path d="M 220,276 L 240,276 L 245,274.0 L 250,272.0 L 255,270.1 L 260,268.2 L 265,266.3 L 270,264.5 L 275,262.8 L 280,261.0 L 285,259.4 L 290,257.7 L 295,256.1 L 300,254.5 L 305,253.0 L 310,251.5 L 315,250.0 L 320,248.6 L 325,247.2 L 330,245.8 L 335,244.4 L 340,243.1 L 345,241.8 L 350,240.6 L 355,239.4 L 360,238.2 L 365,237.0 L 370,235.8 L 375,234.7 L 380,233.6 L 385,232.6 L 390,231.5 L 395,230.5 L 400,229.5 L 405,228.5 L 410,227.6 L 415,226.6 L 420,225.7 L 425,224.8 L 430,223.9 L 435,223.1 L 440,222.3 L 445,221.4 L 450,220.6 L 455,219.9 L 460,219.1 L 465,218.4 L 470,217.6 L 475,216.9 L 480,216.2 L 485,215.6 L 490,214.9 L 495,214.2 L 500,213.6 L 505,213.0 L 510,212.4 L 515,211.8 L 520,211.2 L 525,210.6 L 530,210.1 L 535,209.5 L 540,209.0 L 545,208.5 L 550,208.0 L 555,207.5 L 560,207.0 L 565,206.5 L 570,206.1 L 575,205.6 L 580,205.2 L 585,204.8 L 590,204.3 L 595,203.9 L 600,203.5" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+  <text x="430" y="266" font-size="12" font-weight="bold" fill="#c0392b">Завалена експонента (&#964; велика)</text>
+
+  <!-- Sampling Instant Vertical Strobe -->
+  <line x1="410" y1="120" x2="410" y2="274" stroke="#1a1a1a" stroke-width="1.5" stroke-dasharray="4 3"/>
+  <circle cx="410" cy="186" r="5" fill="#27ae60" stroke="white" stroke-width="1.5"/>
+  <circle cx="410" cy="228" r="8" fill="none" stroke="#c0392b" stroke-width="1.2" stroke-dasharray="2 2"/>
+  <circle cx="410" cy="228" r="5" fill="#c0392b" stroke="white" stroke-width="1.5"/>
+
+  <!-- Right Upper Cards -->
+  <!-- Card 1: Normal Result -->
+  <rect x="664" y="98" width="259" height="92" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="676" y="118" font-size="12" font-weight="bold" fill="#27ae60">1. Норма (C_bus &#8804; 100 пФ)</text>
+  <text x="676" y="136" font-size="12" fill="#1a1a1a">Швидкий фронт: t_rise &lt; t_setup</text>
+  <text x="676" y="152" font-size="12" fill="#1a1a1a">У точці стробу: V &gt; V_IH (3.3V)</text>
+  <text x="676" y="170" font-size="12" font-weight="bold" fill="#27ae60">Результат: біт «1» &#8212; валідний</text>
+
+  <!-- Card 2: Error Result -->
+  <rect x="664" y="202" width="259" height="92" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="676" y="222" font-size="12" font-weight="bold" fill="#c0392b">2. Аварія (C_bus &#8805; 400 пФ)</text>
+  <text x="676" y="240" font-size="12" fill="#1a1a1a">Завалений фронт: t_rise &gt; t_setup</text>
+  <text x="676" y="256" font-size="12" fill="#1a1a1a">У точці стробу: V &lt; V_IH (1.8V)</text>
+  <text x="676" y="274" font-size="12" font-weight="bold" fill="#c0392b">Результат: зчитано «0» &#8212; ПОМИЛКА</text>
+
+  <!-- Connecting arrows from Oscilloscope Screen to Cards -->
+  <text x="644" y="137" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">OK</text>
+  <path d="M 630,144 L 658,144" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arr-green)"/>
+  <text x="644" y="241" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">ЗБІЙ</text>
+  <path d="M 630,248 L 658,248" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arr-red)"/>
+
+  <!-- Lower Section: 3 Architecture & Diagnostic Cards -->
+  <!-- Bottom Card 1: Hardware Open-Drain Model -->
+  <rect x="25" y="316" width="294" height="122" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="37" y="336" font-size="13" font-weight="bold" fill="#1a1a1a">RC-модель каскаду Open-Drain</text>
+  <text x="37" y="356" font-size="12" fill="#2457d6">Вихідний N-FET розімкнено (Hi-Z)</text>
+  <text x="37" y="374" font-size="12" fill="#1a1a1a">Шина заряджається через R_pullup</text>
+  <text x="37" y="392" font-size="12" fill="#6b7280">Струм заряду: i(t) = (V_DD - V)/R</text>
+  <text x="37" y="410" font-size="12" fill="#6b7280">Сумарна ємність: C_bus = C_line + C_in</text>
+  <text x="37" y="426" font-size="12" font-weight="bold" fill="#c0392b">Спад активний, фронт затягнутий</text>
+
+  <!-- Bottom Card 2: Math of Slow Rise -->
+  <rect x="333" y="316" width="294" height="122" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="345" y="336" font-size="13" font-weight="bold" fill="#1a1a1a">Математика наростання напруги</text>
+  <text x="345" y="356" font-size="12" fill="#2457d6">Постійна часу: &#964; = R &#215; C_bus</text>
+  <text x="345" y="374" font-size="12" fill="#1a1a1a">Закон: V(t) = V_DD&#183;(1 - e^(-t/&#964;))</text>
+  <text x="345" y="392" font-size="12" fill="#6b7280">Час фронту: t_rise &#8776; 2.2&#183;&#964;</text>
+  <text x="345" y="410" font-size="12" fill="#6b7280">Час до V_IH: t &#8776; 1.2&#183;&#964;</text>
+  <text x="345" y="426" font-size="12" font-weight="bold" fill="#c0392b">Критерій збою: t(V_IH) &gt; t_sample</text>
+
+  <!-- Bottom Card 3: Consequences & Solutions -->
+  <rect x="641" y="316" width="294" height="122" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="653" y="336" font-size="13" font-weight="bold" fill="#1a1a1a">Наслідки та апаратне усунення</text>
+  <text x="653" y="356" font-size="12" font-weight="bold" fill="#c0392b">Наслідок: біт збито, пропуск ACK</text>
+  <text x="653" y="374" font-size="12" fill="#1a1a1a">1. Зменшити R_pullup (до 2.2 кОм)</text>
+  <text x="653" y="392" font-size="12" fill="#27ae60">2. Збільшити delay_us() у Bit-bang</text>
+  <text x="653" y="410" font-size="12" fill="#6b7280">3. Знизити тактову частоту шини SCL</text>
+  <text x="653" y="426" font-size="12" fill="#2457d6">4. Активні буфери шини (LTC4311)</text>
+</svg>

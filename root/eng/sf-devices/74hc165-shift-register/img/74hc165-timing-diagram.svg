@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse"><path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/></marker>
+  </defs>
+  <rect x="0" y="0" width="960" height="460" fill="#ffffff"/>
+  <text x="480" y="30" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Часова діаграма сигналів керування 74HC165</text>
+  <text x="480" y="50" font-size="13" fill="#6b7280" text-anchor="middle">Співвідношення сигналів Засувки (PL), Тактування (CP) та Виходу даних (Q7)</text>
+
+  <!-- Grid & Axes -->
+  <line x1="140" y1="100" x2="140" y2="400" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="120" y="130" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="end">PL (Parallel Load)</text>
+  <text x="120" y="210" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="end">CE (Clock Enable)</text>
+  <text x="120" y="290" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="end">CP (Clock Pulse)</text>
+  <text x="120" y="370" font-size="13" font-weight="700" fill="#2457d6" text-anchor="end">Q7 (Data Out)</text>
+
+  <!-- PL Waveform: High, drop low for load, back high -->
+  <path d="M140,110 L220,110 L220,140 L300,140 L300,110 L900,110" fill="none" stroke="#c0392b" stroke-width="2"/>
+  <text x="260" y="158" font-size="12" fill="#c0392b" text-anchor="middle">Засувка входів D0-D7</text>
+
+  <!-- CE Waveform: Low enabled -->
+  <path d="M140,220 L280,220 L280,190 L850,190 L850,220 L900,220" fill="none" stroke="#6b7280" stroke-width="2"/>
+  <text x="560" y="180" font-size="12" fill="#6b7280" text-anchor="middle">Дозвіл тактування (Low)</text>
+
+  <!-- CP Waveform: Clock pulses starting after PL high -->
+  <path d="M140,290 L320,290 L320,260 L360,260 L360,290 L400,290 L400,260 L440,260 L440,290 L480,290 L480,260 L520,260 L520,290 L560,290 L560,260 L600,260 L600,290 L900,290" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+  
+  <!-- Q7 Data Out Waveform -->
+  <path d="M140,370 L300,370 L300,340 L400,340 L400,370 L480,370 L480,340 L560,340 L560,370 L900,370" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+  <text x="350" y="332" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">D7</text>
+  <text x="440" y="385" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">D6</text>
+  <text x="520" y="332" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">D5</text>
+
+  <!-- Vertical Guide Lines -->
+  <line x1="220" y1="90" x2="220" y2="400" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="300" y1="90" x2="300" y2="400" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="320" y1="90" x2="320" y2="400" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="400" y1="90" x2="400" y2="400" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+</svg>

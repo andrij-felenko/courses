@@ -1,0 +1,89 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Апаратний контролер проти програмного Bit-bang на GPIO</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Апаратний периферійний блок передає дані автономно, а Bit-bang блокує CPU побітовим формуванням сигналів</text>
+
+  <!-- Left Column: Hardware Controller -->
+  <rect x="36" y="74" width="430" height="366" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="251" y="100" font-size="15" font-weight="700" fill="#1a1a1a" text-anchor="middle">Апаратний контролер периферії</text>
+  <text x="251" y="118" font-size="12" fill="#6b7280" text-anchor="middle">UART / SPI / I2C: апаратна передача в кремнії</text>
+
+  <!-- Box 1 Left: CPU -->
+  <rect x="56" y="132" width="390" height="50" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="251" y="152" font-size="13" font-weight="700" fill="#2457d6" text-anchor="middle">Ядро процесора (CPU)</text>
+  <text x="251" y="170" font-size="12" fill="#1a1a1a" text-anchor="middle">1. Запис 1 байта: TX_REG = byte (1 такт CPU)</text>
+
+  <!-- Arrow down 1 Left -->
+  <line x1="251" y1="182" x2="251" y2="206" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Box 2 Left: Hardware Peripheral -->
+  <rect x="56" y="208" width="390" height="70" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="251" y="228" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">Апаратний модуль зв&apos;язку</text>
+  <text x="251" y="248" font-size="12" fill="#6b7280" text-anchor="middle">Автомат станів (FSM) + тактовий генератор</text>
+  <text x="251" y="266" font-size="12" fill="#1a1a1a" text-anchor="middle">2. Зсувний регістр сам видає біти на шину</text>
+
+  <!-- Arrow down 2 Left -->
+  <line x1="251" y1="278" x2="251" y2="302" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <!-- Box 3 Left: Bus Pins -->
+  <rect x="56" y="304" width="390" height="46" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="251" y="323" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">Фізичні лінії (SCK, MOSI, SDA)</text>
+  <text x="251" y="340" font-size="12" fill="#27ae60" text-anchor="middle">Стабільний такт, t_bit = const, нуль джитера</text>
+
+  <!-- Box 4 Left: Summary Green -->
+  <rect x="56" y="362" width="390" height="64" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="251" y="383" font-size="13" font-weight="700" fill="#27ae60" text-anchor="middle">Властивості апаратного модуля</text>
+  <text x="251" y="401" font-size="12" fill="#1a1a1a" text-anchor="middle">+ Навантаження CPU: ~0% (ядро вільне)</text>
+  <text x="251" y="417" font-size="12" fill="#6b7280" text-anchor="middle">+ Переривання не спотворюють часові інтервали</text>
+
+  <!-- Right Column: Software Bit-bang -->
+  <rect x="494" y="74" width="430" height="366" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="709" y="100" font-size="15" font-weight="700" fill="#1a1a1a" text-anchor="middle">Програмний Bit-bang на GPIO</text>
+  <text x="709" y="118" font-size="12" fill="#6b7280" text-anchor="middle">Програмна емуляція: побітове смикання ніжок</text>
+
+  <!-- Box 1 Right: Bit-bang API -->
+  <rect x="514" y="132" width="390" height="50" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="709" y="152" font-size="13" font-weight="700" fill="#2457d6" text-anchor="middle">Прикладний код та Bit-bang API</text>
+  <text x="709" y="170" font-size="12" fill="#1a1a1a" text-anchor="middle">1. Виклик bitbang_write_byte(&amp;config, byte)</text>
+
+  <!-- Arrow down 1 Right -->
+  <line x1="709" y1="182" x2="709" y2="206" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+
+  <!-- Box 2 Right: Driver in CPU -->
+  <rect x="514" y="208" width="390" height="70" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="709" y="228" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">Програмний драйвер у ядрі CPU</text>
+  <text x="709" y="248" font-size="12" fill="#6b7280" text-anchor="middle">Цикл по 8 бітах: зсув даних + delay_us()</text>
+  <text x="709" y="266" font-size="12" fill="#1a1a1a" text-anchor="middle">2. Запис у регістри порту: GPIO-&gt;BSRR / ODR</text>
+
+  <!-- Arrow down 2 Right -->
+  <line x1="709" y1="278" x2="709" y2="302" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+
+  <!-- Box 3 Right: GPIO Pins -->
+  <rect x="514" y="304" width="390" height="46" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="709" y="323" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">Фізичні виводи GPIO (SCL, SDA)</text>
+  <text x="709" y="340" font-size="12" fill="#c0392b" text-anchor="middle">Нерівномірний такт: чутливість до затримок</text>
+
+  <!-- Box 4 Right: Summary Red -->
+  <rect x="514" y="362" width="390" height="64" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="709" y="383" font-size="13" font-weight="700" fill="#c0392b" text-anchor="middle">Особливості програмного Bit-bang</text>
+  <text x="709" y="401" font-size="12" fill="#1a1a1a" text-anchor="middle">- Навантаження CPU: 100% (блокуючий виклик)</text>
+  <text x="709" y="417" font-size="12" fill="#6b7280" text-anchor="middle">- Джитер: переривання (ISR) розтягують біти</text>
+</svg>

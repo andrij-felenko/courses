@@ -1,0 +1,183 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка на все полотно -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="36" fill="#1a1a1a" font-size="18" font-weight="bold" text-anchor="middle">Обчислення мантиси за схемою Горнера та масштабування у фіксовану кому</text>
+  <text x="480" y="58" fill="#6b7280" font-size="13" text-anchor="middle">Згортка BCD-цифр бітовими зсувами та табличне множення виключають плаваючу кому й ділення</text>
+
+  <!-- ================= ПАНЕЛЬ 1: Вхідний кадр Digimatic ================= -->
+  <rect x="30" y="80" width="260" height="455" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="160" y="104" fill="#1a1a1a" font-size="14" font-weight="bold" text-anchor="middle">1. Кадр Digimatic (52 біти)</text>
+  <text x="160" y="122" fill="#6b7280" font-size="12" text-anchor="middle">13 напівбайтів d₀..d₁₂ по 4 біти</text>
+
+  <!-- 1.1 Преамбула d0..d3 -->
+  <rect x="45" y="136" width="230" height="38" rx="5" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="160" y="152" fill="#1a1a1a" font-size="12" font-weight="bold" text-anchor="middle">d₀..d₃: Преамбула кадру</text>
+  <text x="160" y="167" fill="#6b7280" font-size="12" text-anchor="middle">Синхронізація: 0xF 0xF 0xF 0xF</text>
+
+  <!-- 1.2 Знак d4 -->
+  <rect x="45" y="187" width="230" height="38" rx="5" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="160" y="203" fill="#1a1a1a" font-size="12" font-weight="bold" text-anchor="middle">d₄: Полярність (знак s)</text>
+  <text x="160" y="218" fill="#6b7280" font-size="12" text-anchor="middle">d₄ &amp; 0x8 ? «−» (1) : «+» (0)</text>
+
+  <!-- 1.3 BCD мантиса d5..d10 -->
+  <rect x="45" y="238" width="230" height="152" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="160" y="256" fill="#2457d6" font-size="12" font-weight="bold" text-anchor="middle">d₅..d₁₀: 6 BCD-цифр мантиси</text>
+  <text x="160" y="272" fill="#6b7280" font-size="12" text-anchor="middle">Валідація розрядів: 0 ≤ d_k ≤ 9</text>
+
+  <!-- 6 комірок BCD d10..d5 -->
+  <rect x="51" y="284" width="34" height="38" rx="4" fill="white" stroke="#2457d6" stroke-width="1"/>
+  <text x="68" y="299" fill="#2457d6" font-size="12" font-weight="bold" text-anchor="middle">d₁₀</text>
+  <text x="68" y="315" fill="#6b7280" font-size="12" text-anchor="middle">10⁵</text>
+
+  <rect x="88" y="284" width="34" height="38" rx="4" fill="white" stroke="#2457d6" stroke-width="1"/>
+  <text x="105" y="299" fill="#2457d6" font-size="12" font-weight="bold" text-anchor="middle">d₉</text>
+  <text x="105" y="315" fill="#6b7280" font-size="12" text-anchor="middle">10⁴</text>
+
+  <rect x="125" y="284" width="34" height="38" rx="4" fill="white" stroke="#2457d6" stroke-width="1"/>
+  <text x="142" y="299" fill="#2457d6" font-size="12" font-weight="bold" text-anchor="middle">d₈</text>
+  <text x="142" y="315" fill="#6b7280" font-size="12" text-anchor="middle">10³</text>
+
+  <rect x="162" y="284" width="34" height="38" rx="4" fill="white" stroke="#2457d6" stroke-width="1"/>
+  <text x="179" y="299" fill="#2457d6" font-size="12" font-weight="bold" text-anchor="middle">d₇</text>
+  <text x="179" y="315" fill="#6b7280" font-size="12" text-anchor="middle">10²</text>
+
+  <rect x="199" y="284" width="34" height="38" rx="4" fill="white" stroke="#2457d6" stroke-width="1"/>
+  <text x="216" y="299" fill="#2457d6" font-size="12" font-weight="bold" text-anchor="middle">d₆</text>
+  <text x="216" y="315" fill="#6b7280" font-size="12" text-anchor="middle">10¹</text>
+
+  <rect x="236" y="284" width="34" height="38" rx="4" fill="white" stroke="#2457d6" stroke-width="1"/>
+  <text x="253" y="299" fill="#2457d6" font-size="12" font-weight="bold" text-anchor="middle">d₅</text>
+  <text x="253" y="315" fill="#6b7280" font-size="12" text-anchor="middle">10⁰</text>
+
+  <text x="160" y="342" fill="#1a1a1a" font-size="12" text-anchor="middle">Многочлен: ∑ d_k · 10^(k−5)</text>
+  <text x="160" y="360" fill="#2457d6" font-size="12" font-weight="bold" text-anchor="middle">Порядок згортки: d₁₀ → d₅</text>
+  <text x="160" y="377" fill="#6b7280" font-size="12" text-anchor="middle">Старший розряд обробляється першим</text>
+
+  <!-- 1.4 Крапка d11 -->
+  <rect x="45" y="403" width="230" height="52" rx="5" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="160" y="420" fill="#1a1a1a" font-size="12" font-weight="bold" text-anchor="middle">d₁₁: Позиція коми (p = 0..5)</text>
+  <text x="160" y="437" fill="#6b7280" font-size="12" text-anchor="middle">Дільник виміру: 10ᵖ</text>
+  <text x="160" y="450" fill="#6b7280" font-size="12" text-anchor="middle">Індекс вибору в таблиці LUT</text>
+
+  <!-- 1.5 Одиниця d12 -->
+  <rect x="45" y="468" width="230" height="52" rx="5" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="160" y="485" fill="#1a1a1a" font-size="12" font-weight="bold" text-anchor="middle">d₁₂: Одиниця (u = d₁₂ &amp; 1)</text>
+  <text x="160" y="502" fill="#6b7280" font-size="12" text-anchor="middle">u = 0: мм (метрична шкала)</text>
+  <text x="160" y="515" fill="#6b7280" font-size="12" text-anchor="middle">u = 1: дюйм (імперська шкала)</text>
+
+  <!-- ================= ПАНЕЛЬ 2: Схема Горнера ================= -->
+  <rect x="310" y="80" width="320" height="455" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="470" y="104" fill="#2457d6" font-size="14" font-weight="bold" text-anchor="middle">2. Схема Горнера: згортка мантиси</text>
+  <text x="470" y="122" fill="#6b7280" font-size="12" text-anchor="middle">Ітеративне множення на 10 через бітові зсуви</text>
+
+  <!-- 2.1 Формула Горнера -->
+  <rect x="325" y="136" width="290" height="58" rx="6" fill="white" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="470" y="153" fill="#2457d6" font-size="12" font-weight="bold" text-anchor="middle">Рекурентний крок: acc = acc · 10 + d_k</text>
+  <text x="470" y="170" fill="#1a1a1a" font-size="12" font-weight="bold" text-anchor="middle">Оптимізація: (acc &lt;&lt; 3) + (acc &lt;&lt; 1) + d_k</text>
+  <text x="470" y="186" fill="#27ae60" font-size="12" text-anchor="middle">Зсуви на 3 і 1 такт: без апаратного MUL</text>
+
+  <!-- 2.2 Граф накопичення -->
+  <rect x="325" y="207" width="290" height="188" rx="6" fill="white" stroke="#d0d7de" stroke-width="1.2"/>
+  <text x="470" y="224" fill="#1a1a1a" font-size="12" font-weight="bold" text-anchor="middle">Граф накопичення розрядів d₁₀ → d₅</text>
+
+  <text x="340" y="244" fill="#1a1a1a" font-size="12" font-weight="bold">Крок 0:</text>
+  <text x="390" y="244" fill="#2457d6" font-size="12">acc₀ = d₁₀</text>
+  <text x="595" y="244" fill="#6b7280" font-size="12" text-anchor="end">= 0</text>
+
+  <text x="340" y="263" fill="#1a1a1a" font-size="12" font-weight="bold">Крок 1:</text>
+  <text x="390" y="263" fill="#2457d6" font-size="12">acc₁ = (acc₀ · 10) + d₉</text>
+  <text x="595" y="263" fill="#6b7280" font-size="12" text-anchor="end">= 1</text>
+
+  <text x="340" y="282" fill="#1a1a1a" font-size="12" font-weight="bold">Крок 2:</text>
+  <text x="390" y="282" fill="#2457d6" font-size="12">acc₂ = (acc₁ · 10) + d₈</text>
+  <text x="595" y="282" fill="#6b7280" font-size="12" text-anchor="end">= 12</text>
+
+  <text x="340" y="301" fill="#1a1a1a" font-size="12" font-weight="bold">Крок 3:</text>
+  <text x="390" y="301" fill="#2457d6" font-size="12">acc₃ = (acc₂ · 10) + d₇</text>
+  <text x="595" y="301" fill="#6b7280" font-size="12" text-anchor="end">= 125</text>
+
+  <text x="340" y="320" fill="#1a1a1a" font-size="12" font-weight="bold">Крок 4:</text>
+  <text x="390" y="320" fill="#2457d6" font-size="12">acc₄ = (acc₃ · 10) + d₆</text>
+  <text x="595" y="320" fill="#6b7280" font-size="12" text-anchor="end">= 1254</text>
+
+  <text x="340" y="339" fill="#1a1a1a" font-size="12" font-weight="bold">Крок 5:</text>
+  <text x="390" y="339" fill="#2457d6" font-size="12">acc₅ = (acc₄ · 10) + d₅</text>
+  <text x="595" y="339" fill="#6b7280" font-size="12" text-anchor="end">= 12545</text>
+
+  <line x1="335" y1="351" x2="605" y2="351" stroke="#d0d7de" stroke-width="1"/>
+
+  <text x="470" y="368" fill="#2457d6" font-size="12" text-anchor="middle">((((d₁₀·10+d₉)·10+d₈)·10+d₇)·10+d₆)·10+d₅</text>
+  <text x="470" y="386" fill="#27ae60" font-size="12" font-weight="bold" text-anchor="middle">5 зсувів + 5 додавань (&lt; 20 тактів CPU)</text>
+
+  <!-- 2.3 Вихід мантиси V_raw -->
+  <rect x="325" y="408" width="290" height="112" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="470" y="430" fill="#27ae60" font-size="13" font-weight="bold" text-anchor="middle">Результат мантиси: V_raw</text>
+  <text x="470" y="450" fill="#1a1a1a" font-size="12" font-weight="bold" text-anchor="middle">V_raw = acc₅ = 12545 (ціле число int32_t)</text>
+  <text x="470" y="470" fill="#6b7280" font-size="12" text-anchor="middle">Точна цілочисельна мантиса без float</text>
+  <text x="470" y="490" fill="#1a1a1a" font-size="12" text-anchor="middle">Помилка заокруглення: 0 нм</text>
+  <text x="470" y="508" fill="#2457d6" font-size="12" font-weight="bold" text-anchor="middle">Передається на вхід множника SI →</text>
+
+  <!-- ================= ПАНЕЛЬ 3: Масштабування LUT ================= -->
+  <rect x="650" y="80" width="280" height="455" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="790" y="104" fill="#1a1a1a" font-size="14" font-weight="bold" text-anchor="middle">3. Масштабування констант LUT</text>
+  <text x="790" y="122" fill="#6b7280" font-size="12" text-anchor="middle">Цілочисельні нанометри SI (1 нм = 10⁻⁹ м)</text>
+
+  <!-- 3.1 Метричний LUT -->
+  <rect x="665" y="136" width="250" height="82" rx="6" fill="white" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="790" y="153" fill="#2457d6" font-size="12" font-weight="bold" text-anchor="middle">Метричний LUT (u = 0, мм): K_metric</text>
+  <text x="790" y="171" fill="#1a1a1a" font-size="12" font-weight="bold" text-anchor="middle">K_metric[p] = 10⁶⁻ᵖ нм/од (1 мм = 10⁶ нм)</text>
+  <text x="790" y="189" fill="#6b7280" font-size="12" text-anchor="middle">p=0 → 1 000 000 | p=1 → 100 000</text>
+  <text x="790" y="206" fill="#2457d6" font-size="12" font-weight="bold" text-anchor="middle">p=2 (0.01 мм) → K = 10 000 нм</text>
+
+  <!-- 3.2 Дюймовий LUT -->
+  <rect x="665" y="230" width="250" height="82" rx="6" fill="white" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="790" y="247" fill="#2457d6" font-size="12" font-weight="bold" text-anchor="middle">Дюймовий LUT (u = 1, inch): K_inch</text>
+  <text x="790" y="265" fill="#1a1a1a" font-size="12" font-weight="bold" text-anchor="middle">K_inch[p] = 25 400 000 / 10ᵖ нм/од</text>
+  <text x="790" y="283" fill="#6b7280" font-size="12" text-anchor="middle">p=2 → 254 000 | p=3 → 25 400</text>
+  <text x="790" y="300" fill="#2457d6" font-size="12" font-weight="bold" text-anchor="middle">p=4 (0.0001&quot;) → K = 2 540 нм</text>
+
+  <!-- 3.3 Селектор константи K[p] -->
+  <rect x="665" y="324" width="250" height="72" rx="6" fill="white" stroke="#d0d7de" stroke-width="1.2"/>
+  <text x="790" y="342" fill="#1a1a1a" font-size="12" font-weight="bold" text-anchor="middle">Селектор константи K[p] за одиницею u</text>
+  <text x="790" y="360" fill="#2457d6" font-size="12" font-weight="bold" text-anchor="middle">K = (u == 1) ? K_inch[p] : K_metric[p]</text>
+  <text x="790" y="378" fill="#6b7280" font-size="12" text-anchor="middle">Вибірка за 1 машинний такт без ділення</text>
+
+  <!-- 3.4 Підсумковий блок SI -->
+  <rect x="665" y="408" width="250" height="112" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="790" y="428" fill="#27ae60" font-size="13" font-weight="bold" text-anchor="middle">Канонічний вимір SI (int32_t)</text>
+  <text x="790" y="446" fill="#2457d6" font-size="12" font-weight="bold" text-anchor="middle">L_nm = V_raw · K[p] = +125 450 000 нм</text>
+  <text x="790" y="464" fill="#1a1a1a" font-size="12" text-anchor="middle">Знак: d₄ &amp; 0x8 ? L_nm = −L_nm : +L_nm</text>
+  <text x="790" y="484" fill="#6b7280" font-size="12" text-anchor="middle">Ціла частина: mm = L_nm / 10⁶ = 125 мм</text>
+  <text x="790" y="502" fill="#6b7280" font-size="12" text-anchor="middle">Дробова: μm = (L_nm % 10⁶)/1000 = 450 мкм</text>
+
+  <!-- ================= СТРІЛКИ ЗВ'ЯЗКІВ ================= -->
+  <!-- 1. Від BCD розрядів до схеми Горнера -->
+  <line x1="275" y1="314" x2="323" y2="314" stroke="#2457d6" stroke-width="2" marker-end="url(#arr)"/>
+
+  <!-- 2. Внутрішні стрілки панелі 2 (потік Горнера) -->
+  <line x1="470" y1="194" x2="470" y2="205" stroke="#2457d6" stroke-width="2" marker-end="url(#arr)"/>
+  <line x1="470" y1="395" x2="470" y2="406" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- 3. Від результату Горнера V_raw до блоку множення SI -->
+  <line x1="615" y1="464" x2="663" y2="464" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- 4. Від LUT вниз до селектора констант -->
+  <line x1="790" y1="312" x2="790" y2="322" stroke="#6b7280" stroke-width="2" marker-end="url(#arr-gray)"/>
+
+  <!-- 5. Від селектора констант вниз до блоку SI -->
+  <line x1="790" y1="396" x2="790" y2="406" stroke="#2457d6" stroke-width="2" marker-end="url(#arr)"/>
+</svg>

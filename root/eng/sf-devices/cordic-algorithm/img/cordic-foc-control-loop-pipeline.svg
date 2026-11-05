@@ -1,0 +1,162 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 490" width="960" height="490" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-black" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Підкладка на все полотно -->
+  <rect x="0" y="0" width="960" height="490" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="34" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Апаратний CORDIC у контурі векторного керування (FOC)</text>
+  <text x="480" y="55" font-size="13" fill="#6b7280" text-anchor="middle">Демодуляція кута ротора у векторному режимі та координатні обертання у режимі ротації</text>
+
+  <!-- Головна панель 1: Мікроконтролер (MCU / CORDIC) -->
+  <rect x="26" y="72" width="688" height="398" rx="8" fill="#f8fafc" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="42" y="94" font-size="13" font-weight="700" fill="#2457d6">Мікроконтролер (вбудована прошивка та співпроцесор CORDIC)</text>
+
+  <!-- Панель 2: Силова частина та двигун -->
+  <rect x="736" y="72" width="196" height="398" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="834" y="94" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">Силова частина та двигун</text>
+
+  <!-- ================= БЛОКИ СИЛОВОЇ ЧАСТИНИ ================= -->
+  <!-- 3-фазний інвертор -->
+  <rect x="752" y="110" width="164" height="62" rx="6" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="834" y="133" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">3-фазний інвертор</text>
+  <text x="834" y="153" font-size="12" fill="#6b7280" text-anchor="middle">MOSFET / IGBT міст</text>
+
+  <!-- Зв'язок Інвертор -> PMSM -->
+  <line x1="834" y1="172" x2="834" y2="198" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-black)"/>
+  <text x="844" y="188" font-size="12" fill="#6b7280">U, V, W</text>
+
+  <!-- Двигун PMSM -->
+  <rect x="752" y="198" width="164" height="62" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="834" y="221" font-size="13" font-weight="700" fill="#2457d6" text-anchor="middle">Двигун PMSM</text>
+  <text x="834" y="241" font-size="12" fill="#1a1a1a" text-anchor="middle">Обмотки статора</text>
+
+  <!-- Механічний вал PMSM -> Резольвер -->
+  <line x1="834" y1="260" x2="834" y2="286" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr-gray)"/>
+  <text x="844" y="276" font-size="12" fill="#6b7280">Вал ротора</text>
+
+  <!-- Датчик-резольвер -->
+  <rect x="752" y="286" width="164" height="62" rx="6" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="834" y="309" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">Датчик-резольвер</text>
+  <text x="834" y="329" font-size="12" fill="#6b7280" text-anchor="middle">Обмотки sin θ, cos θ</text>
+
+  <!-- Шунти струму -->
+  <rect x="752" y="374" width="164" height="62" rx="6" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="834" y="397" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">Шунти струму</text>
+  <text x="834" y="417" font-size="12" fill="#6b7280" text-anchor="middle">Фазові струми I_a, I_b</text>
+
+  <!-- ================= РЯДОК 1 MCU: ПРЯМИЙ КАНАЛ КЕРУВАННЯ ================= -->
+  <!-- Вузли похибок -->
+  <rect x="34" y="110" width="112" height="62" rx="6" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="90" y="131" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Вузли похибок</text>
+  <text x="90" y="148" font-size="12" fill="#2457d6" text-anchor="middle">e_d = I_d* - I_d</text>
+  <text x="90" y="163" font-size="12" fill="#2457d6" text-anchor="middle">e_q = I_q* - I_q</text>
+
+  <!-- Зв'язок Вузли похибок -> PI -->
+  <line x1="146" y1="141" x2="164" y2="141" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-black)"/>
+
+  <!-- PI-регулятори струму -->
+  <rect x="164" y="110" width="102" height="62" rx="6" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="215" y="135" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">PI-регулятори</text>
+  <text x="215" y="155" font-size="12" fill="#6b7280" text-anchor="middle">Контури d та q</text>
+
+  <!-- Зв'язок PI -> Зворотний Парк -->
+  <line x1="266" y1="141" x2="304" y2="141" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-black)"/>
+  <text x="285" y="133" font-size="12" fill="#1a1a1a" text-anchor="middle">V_dq*</text>
+
+  <!-- CORDIC 1: Зворотний Парк -->
+  <rect x="304" y="110" width="175" height="62" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="391" y="130" font-size="13" font-weight="700" fill="#2457d6" text-anchor="middle">Зворотний Парк (Inv Park)</text>
+  <text x="391" y="147" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">CORDIC: режим ротації</text>
+  <text x="391" y="163" font-size="12" fill="#1a1a1a" text-anchor="middle">(V_d*, V_q*) → (V_α*, V_β*)</text>
+
+  <!-- Зв'язок Зворотний Парк -> SVPWM -->
+  <line x1="479" y1="141" x2="525" y2="141" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-black)"/>
+  <text x="502" y="133" font-size="12" fill="#1a1a1a" text-anchor="middle">V_α,β*</text>
+
+  <!-- SVPWM генератор -->
+  <rect x="525" y="110" width="140" height="62" rx="6" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="595" y="135" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">Генератор SVPWM</text>
+  <text x="595" y="155" font-size="12" fill="#6b7280" text-anchor="middle">ШІМ таймер (a, b, c)</text>
+
+  <!-- Зв'язок SVPWM -> Інвертор -->
+  <line x1="665" y1="141" x2="752" y2="141" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="708" y="133" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">ШІМ a,b,c</text>
+
+  <!-- ================= РЯДОК 2 MCU: ДЕМОДУЛЯЦІЯ РЕЗОЛЬВЕРА ================= -->
+  <!-- Захист та діагностика CORDIC -->
+  <rect x="70" y="222" width="206" height="62" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="173" y="241" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">Захист та мертва зона</text>
+  <text x="173" y="258" font-size="12" fill="#1a1a1a" text-anchor="middle">Амплітуда: R = √(x² + y²)</text>
+  <text x="173" y="274" font-size="12" fill="#6b7280" text-anchor="middle">Поріг шуму: |x| + |y| > deadband</text>
+
+  <!-- Зв'язок CORDIC 2 -> Блок захисту -->
+  <line x1="304" y1="253" x2="276" y2="253" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <!-- CORDIC 2: Демодулятор резольвера -->
+  <rect x="304" y="222" width="175" height="62" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="391" y="241" font-size="13" font-weight="700" fill="#2457d6" text-anchor="middle">Демодулятор резольвера</text>
+  <text x="391" y="258" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">CORDIC: векторний режим</text>
+  <text x="391" y="274" font-size="12" fill="#1a1a1a" text-anchor="middle">θ = arctan(y / x), R = |V|</text>
+
+  <!-- Роздача кута ротора θ вгору (у Зворотний Парк) -->
+  <line x1="391" y1="222" x2="391" y2="172" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="398" y="201" font-size="12" font-weight="700" fill="#2457d6">Кут ротора θ</text>
+
+  <!-- Роздача кута ротора θ вниз (у Прямий Парк) -->
+  <line x1="391" y1="284" x2="391" y2="354" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="398" y="323" font-size="12" font-weight="700" fill="#2457d6">Кут ротора θ</text>
+
+  <!-- Зв'язок АЦП -> CORDIC 2 -->
+  <line x1="525" y1="253" x2="479" y2="253" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-black)"/>
+  <text x="502" y="244" font-size="12" fill="#1a1a1a" text-anchor="middle">x, y</text>
+
+  <!-- АЦП резольвера -->
+  <rect x="525" y="222" width="140" height="62" rx="6" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="595" y="245" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">АЦП резольвера</text>
+  <text x="595" y="265" font-size="12" fill="#6b7280" text-anchor="middle">Вибірка піків (x, y)</text>
+
+  <!-- Зв'язок Резольвер -> АЦП резольвера -->
+  <polyline points="752,317 735,317 735,253 665,253" fill="none" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-black)"/>
+  <text x="700" y="244" font-size="12" fill="#1a1a1a" text-anchor="middle">U_sin,cos</text>
+
+  <!-- ================= РЯДОК 3 MCU: ЗВОРОТНИЙ ЗВ'ЯЗОК СТРУМІВ ================= -->
+  <!-- Перетворення Кларк -->
+  <rect x="525" y="354" width="140" height="62" rx="6" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="595" y="377" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">Перетворення Кларк</text>
+  <text x="595" y="397" font-size="12" fill="#6b7280" text-anchor="middle">(I_a, I_b) → (I_α, I_β)</text>
+
+  <!-- Зв'язок Шунти -> Кларк -->
+  <polyline points="752,405 735,405 735,385 665,385" fill="none" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-black)"/>
+  <text x="700" y="376" font-size="12" fill="#1a1a1a" text-anchor="middle">I_a, I_b</text>
+
+  <!-- Зв'язок Кларк -> CORDIC 3 (Прямий Парк) -->
+  <line x1="525" y1="385" x2="479" y2="385" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-black)"/>
+  <text x="502" y="376" font-size="12" fill="#1a1a1a" text-anchor="middle">I_α,β</text>
+
+  <!-- CORDIC 3: Прямий Парк -->
+  <rect x="304" y="354" width="175" height="62" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="391" y="374" font-size="13" font-weight="700" fill="#2457d6" text-anchor="middle">Прямий Парк (Park)</text>
+  <text x="391" y="391" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">CORDIC: режим ротації</text>
+  <text x="391" y="407" font-size="12" fill="#1a1a1a" text-anchor="middle">(I_α, I_β) → (I_d, I_q)</text>
+
+  <!-- Зворотна петля I_d, I_q від Прямого Парка до Вузлів похибок -->
+  <polyline points="304,385 48,385 48,172" fill="none" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="175" y="376" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">Зворотний зв'язок струмів: I_d, I_q</text>
+
+  <!-- Нижній інформаційний підпис MCU -->
+  <text x="370" y="452" font-size="12" fill="#6b7280" text-anchor="middle">Апаратний співпроцесор CORDIC: 24 такти на розрахунок (у 50 разів швидше за програмну емуляцію)</text>
+</svg>

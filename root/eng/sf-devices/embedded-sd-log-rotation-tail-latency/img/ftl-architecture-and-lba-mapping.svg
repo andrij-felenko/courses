@@ -1,0 +1,125 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Підкладка -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Архітектура контролера FTL: трансляція LBA, лог-блоки та лінія DAT0</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Out-of-place запис у лог-блоки вичерпує чисті блоки та викликає GC, під час якого DAT0 блокує хост на 200–500 мс</text>
+
+  <!-- Панель 1: Хост і шина SD -->
+  <rect x="24" y="78" width="224" height="462" fill="#f4f6f8" stroke="#d0d7de" rx="6"/>
+  <text x="136" y="104" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">1. Хост (MCU) та шина SD</text>
+
+  <rect x="38" y="118" width="196" height="102" fill="#ffffff" stroke="#d0d7de" rx="4"/>
+  <text x="136" y="138" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Задача логування RTOS</text>
+  <text x="136" y="160" font-size="12" fill="#1a1a1a" text-anchor="middle">Виклик f_write() (512 Б)</text>
+  <text x="136" y="182" font-size="12" fill="#2457d6" text-anchor="middle">Сектор LBA #42 (лог-пакет)</text>
+  <text x="136" y="204" font-size="12" fill="#6b7280" text-anchor="middle">Потік телеметрії в реальному часі</text>
+
+  <!-- Потік запису з RTOS в SDIO -->
+  <line x1="136" y1="220" x2="136" y2="232" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <rect x="38" y="234" width="196" height="102" fill="#eaf0fd" stroke="#2457d6" rx="4"/>
+  <text x="136" y="254" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Контролер SDIO / SPI</text>
+  <text x="136" y="276" font-size="12" fill="#1a1a1a" text-anchor="middle">Команда CMD24 / CMD25</text>
+  <text x="136" y="298" font-size="12" fill="#1a1a1a" text-anchor="middle">Шина даних DAT[3:0]</text>
+  <text x="136" y="320" font-size="12" fill="#2457d6" text-anchor="middle">Передавання секторів LBA</text>
+
+  <rect x="38" y="350" width="196" height="172" fill="#fdecea" stroke="#c0392b" rx="4"/>
+  <text x="136" y="372" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">Апаратне зависання хоста</text>
+  <text x="136" y="396" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Лінія DAT0 = LOW (BUSY)</text>
+  <text x="136" y="420" font-size="12" fill="#1a1a1a" text-anchor="middle">Хвостова затримка: 200..500 мс</text>
+  <text x="136" y="444" font-size="12" fill="#1a1a1a" text-anchor="middle">Переповнення FIFO UART / CAN</text>
+  <text x="136" y="468" font-size="12" fill="#c0392b" text-anchor="middle">Загроза перезапуску Watchdog</text>
+  <text x="136" y="498" font-size="12" fill="#27ae60" text-anchor="middle">Потрібен буфер у RAM RTOS</text>
+
+  <!-- Панель 2: Контролер карти та FTL -->
+  <rect x="264" y="78" width="336" height="462" fill="#f4f6f8" stroke="#d0d7de" rx="6"/>
+  <text x="432" y="104" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">2. Контролер карти та FTL</text>
+
+  <rect x="278" y="118" width="308" height="142" fill="#ffffff" stroke="#d0d7de" rx="4"/>
+  <text x="432" y="138" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Таблиця відображення (LBA → PPN)</text>
+  <text x="294" y="162" font-size="12" fill="#2457d6">LBA #42  →  PPN #108  (Лог-блок, активний)</text>
+  <text x="294" y="186" font-size="12" fill="#c0392b">LBA #41  →  PPN #082  (Стара сторінка = Stale)</text>
+  <text x="294" y="210" font-size="12" fill="#27ae60">LBA #40  →  PPN #040  (Блок даних, валідна)</text>
+  <text x="432" y="238" font-size="12" fill="#6b7280" text-anchor="middle">Таблиця трансляції кешується в ОЗП FTL</text>
+
+  <!-- Зв'язок таблиці трансляції з буфером FTL -->
+  <line x1="432" y1="260" x2="432" y2="272" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <rect x="278" y="274" width="308" height="92" fill="#eaf0fd" stroke="#2457d6" rx="4"/>
+  <text x="432" y="294" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Буфер ОЗП та алгоритм FTL</text>
+  <text x="432" y="318" font-size="12" fill="#1a1a1a" text-anchor="middle">Агрегація секторів 512 Б у сторінку (4–16 КБ)</text>
+  <text x="432" y="342" font-size="12" fill="#2457d6" text-anchor="middle">Out-of-place запис у наступну чисту сторінку</text>
+
+  <!-- Зв'язок вичерпання чистих сторінок із тригером GC -->
+  <line x1="432" y1="366" x2="432" y2="378" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+
+  <rect x="278" y="380" width="308" height="142" fill="#fdecea" stroke="#c0392b" rx="4"/>
+  <text x="432" y="402" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">Менеджер GC та драйвер лінії DAT0</text>
+  <text x="432" y="426" font-size="12" fill="#1a1a1a" text-anchor="middle">Тригер: нестача чистих блоків під час запису</text>
+  <text x="432" y="450" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Формування сигналу BUSY на лінії DAT0</text>
+  <text x="432" y="474" font-size="12" fill="#1a1a1a" text-anchor="middle">Апаратне утримання DAT0 = 0 (200..500 мс)</text>
+  <text x="432" y="500" font-size="12" fill="#27ae60" text-anchor="middle">Зняття блокування (DAT0 = 1) після завершення GC</text>
+
+  <!-- Панель 3: Фізичний NAND Flash і GC -->
+  <rect x="616" y="78" width="320" height="462" fill="#f4f6f8" stroke="#d0d7de" rx="6"/>
+  <text x="776" y="104" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">3. Фізичний NAND Flash і GC</text>
+
+  <rect x="630" y="118" width="292" height="142" fill="#ffffff" stroke="#d0d7de" rx="4"/>
+  <text x="776" y="138" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Активний лог-блок (Log Block)</text>
+  <rect x="642" y="150" width="268" height="24" fill="#fdecea" stroke="#c0392b" rx="3"/>
+  <text x="776" y="166" font-size="12" fill="#c0392b" text-anchor="middle">PPN #107: Застаріла сторінка (Stale / Invalid)</text>
+  <rect x="642" y="180" width="268" height="24" fill="#eaf0fd" stroke="#2457d6" rx="3"/>
+  <text x="776" y="196" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">PPN #108: Новий запис LBA #42 (Valid)</text>
+  <rect x="642" y="210" width="268" height="24" fill="#f4f6f8" stroke="#d0d7de" rx="3"/>
+  <text x="776" y="226" font-size="12" fill="#6b7280" text-anchor="middle">PPN #109..255: Вільні сторінки (Free / Erased)</text>
+  <text x="776" y="248" font-size="12" fill="#6b7280" text-anchor="middle">Запис сторінками (4–16 КБ), стирання блоками</text>
+
+  <rect x="630" y="274" width="292" height="248" fill="#ffffff" stroke="#d0d7de" rx="4"/>
+  <text x="776" y="294" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">Цикл збирання сміття (Garbage Collection)</text>
+
+  <rect x="642" y="306" width="268" height="58" fill="#fdecea" stroke="#c0392b" rx="3"/>
+  <text x="776" y="324" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">1. Вибір блоку-жертви (Victim Block)</text>
+  <text x="776" y="346" font-size="12" fill="#1a1a1a" text-anchor="middle">Містить застарілі (80%) та валідні (20%) дані</text>
+
+  <rect x="642" y="372" width="268" height="58" fill="#e9f7ef" stroke="#27ae60" rx="3"/>
+  <text x="776" y="390" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">2. Копіювання валідних сторінок</text>
+  <text x="776" y="412" font-size="12" fill="#1a1a1a" text-anchor="middle">Перенесення у новий чистий блок (~5 мс)</text>
+
+  <rect x="642" y="438" width="268" height="74" fill="#fdecea" stroke="#c0392b" rx="3"/>
+  <text x="776" y="456" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">3. Апаратне стирання блоку високою напругою</text>
+  <text x="776" y="476" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Тривалість: 200..500 мс (T_erase)!</text>
+  <text x="776" y="496" font-size="12" fill="#1a1a1a" text-anchor="middle">Стирання 1..4 МБ блоку у стан 0xFF</text>
+
+  <!-- Стрілки зв'язку між панелями -->
+  <!-- Запис із SDIO у FTL буфер -->
+  <line x1="234" y1="285" x2="274" y2="285" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Трансляція LBA у фізичну сторінку PPN #108 у лог-блоці -->
+  <line x1="586" y1="192" x2="626" y2="192" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Переповнення лог-блоку запускає GC -->
+  <line x1="776" y1="260" x2="776" y2="270" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+
+  <!-- Сигнал DAT0 BUSY: від стирання Flash до контролера FTL -->
+  <line x1="630" y1="460" x2="590" y2="460" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arr-red)"/>
+
+  <!-- Сигнал DAT0 BUSY: від контролера FTL до хоста SDIO -->
+  <line x1="278" y1="460" x2="238" y2="460" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arr-red)"/>
+</svg>

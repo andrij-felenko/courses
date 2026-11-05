@@ -1,0 +1,141 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="100%" height="100%" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-black" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-amber" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#d97706"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Header -->
+  <text x="480" y="28" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Апаратний конвеєр подвійної буферизації USB-DMA та Flash у DAPLink</text>
+  <text x="480" y="48" font-size="13" fill="#6b7280" text-anchor="middle">Асинхронний прийом блоків LBA через DMA та запис у Flash з утриманням шини маркерами NAK</text>
+
+  <!-- COLUMN 1: USB Peripheral & DMA -->
+  <rect x="24" y="66" width="254" height="288" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="151" y="88" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Кінцева точка USB Bulk-Out</text>
+  <text x="151" y="105" font-size="12" fill="#6b7280" text-anchor="middle">Full-Speed USB PHY (12 Мбіт/с)</text>
+
+  <!-- Sub-block 1.1: USB FIFO -->
+  <rect x="36" y="114" width="230" height="50" rx="5" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="151" y="134" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Вхідний буфер FIFO (64 B)</text>
+  <text x="151" y="152" font-size="12" fill="#6b7280" text-anchor="middle">8 пакетів = 1 сектор LBA (512 B)</text>
+
+  <!-- Sub-block 1.2: Flow Control (ACK/NAK) -->
+  <rect x="36" y="178" width="230" height="70" rx="5" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="151" y="196" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Апаратне керування потоком:</text>
+  <!-- Badge ACK -->
+  <rect x="46" y="206" width="100" height="34" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="96" y="221" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">ACK (Готовий)</text>
+  <text x="96" y="234" font-size="12" fill="#27ae60" text-anchor="middle">Буфер вільний</text>
+  <!-- Badge NAK -->
+  <rect x="156" y="206" width="100" height="34" rx="4" fill="#fef3c7" stroke="#d97706" stroke-width="1.2"/>
+  <text x="206" y="221" font-size="12" font-weight="bold" fill="#d97706" text-anchor="middle">NAK (Пауза)</text>
+  <text x="206" y="234" font-size="12" fill="#d97706" text-anchor="middle">Flash зайнятий</text>
+
+  <!-- Sub-block 1.3: DMA Controller -->
+  <rect x="36" y="262" width="230" height="80" rx="5" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="151" y="281" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Контролер DMA (RX-канал)</text>
+  <text x="151" y="299" font-size="12" fill="#6b7280" text-anchor="middle">Прямий запис у SRAM без CPU</text>
+  <text x="151" y="317" font-size="12" fill="#2457d6" font-weight="bold" text-anchor="middle">Переривання TC (512 B передано)</text>
+  <text x="151" y="334" font-size="12" fill="#6b7280" text-anchor="middle">Свап буфера: g_rx_index ^= 1</text>
+
+  <!-- Arrow Col 1 -> Col 2 -->
+  <line x1="278" y1="163" x2="310" y2="163" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+
+  <!-- COLUMN 2: SRAM Ping-Pong Buffers -->
+  <rect x="312" y="66" width="336" height="288" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="480" y="88" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">SRAM: Подвійна буферизація (Ping-Pong)</text>
+  <text x="480" y="105" font-size="12" fill="#6b7280" text-anchor="middle">Два незалежні сектори по 512 B (розмір блоку LBA)</text>
+
+  <!-- Sub-block 2.1: Buffer A -->
+  <rect x="324" y="114" width="312" height="98" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.8"/>
+  <text x="336" y="134" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="start">Буфер A (512 B, 0x20000400)</text>
+  <rect x="530" y="121" width="94" height="20" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="577" y="135" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">RX: FILLING</text>
+  <text x="336" y="156" font-size="12" fill="#1a1a1a" text-anchor="start">• Прийом блоку N+1 від USB DMA (R_usb = 800 КБ/с)</text>
+  <text x="336" y="176" font-size="12" fill="#6b7280" text-anchor="start">• Тривалість заповнення: t_usb_lba = 0.64 мс</text>
+  <text x="336" y="196" font-size="12" fill="#27ae60" font-weight="bold" text-anchor="start">• Статус: активне перенесення даних у фоні</text>
+
+  <!-- Sub-block 2.2: Buffer B -->
+  <rect x="324" y="228" width="312" height="98" rx="6" fill="#ffffff" stroke="#d97706" stroke-width="1.8"/>
+  <text x="336" y="248" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="start">Буфер B (512 B, 0x20000600)</text>
+  <rect x="514" y="235" width="110" height="20" rx="4" fill="#fef3c7" stroke="#d97706" stroke-width="1.2"/>
+  <text x="569" y="249" font-size="12" font-weight="bold" fill="#d97706" text-anchor="middle">FLASH: WRITING</text>
+  <text x="336" y="270" font-size="12" fill="#1a1a1a" text-anchor="start">• Запис блоку N у Flash (128 слів по 32 біти)</text>
+  <text x="336" y="290" font-size="12" fill="#6b7280" text-anchor="start">• Час програмування слів: t_flash_prog_lba = 5.76 мс</text>
+  <text x="336" y="310" font-size="12" fill="#c0392b" font-weight="bold" text-anchor="start">• Стирання нового сектора: t_erase = 40.0 мс</text>
+
+  <!-- Swap indicator inside Col 2 -->
+  <text x="480" y="344" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Перемикання ролей: swap(g_rx_index, g_flash_index)</text>
+
+  <!-- Arrow Col 2 -> Col 3 -->
+  <line x1="648" y1="277" x2="680" y2="277" stroke="#d97706" stroke-width="2.5" marker-end="url(#arr-amber)"/>
+
+  <!-- COLUMN 3: Flash Controller & Flash Memory -->
+  <rect x="682" y="66" width="254" height="288" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="809" y="88" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Контролер та масив Flash</text>
+  <text x="809" y="105" font-size="12" fill="#6b7280" text-anchor="middle">Вбудований NVM Flash Controller (FMC)</text>
+
+  <!-- Sub-block 3.1: Flash Registers -->
+  <rect x="694" y="114" width="230" height="64" rx="5" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="809" y="133" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Регістри Flash: ACR, KEYR, SR, CR</text>
+  <text x="809" y="151" font-size="12" fill="#6b7280" text-anchor="middle">Ключі KEYR: 0x45670123 / 0xCDEF89AB</text>
+  <text x="809" y="169" font-size="12" fill="#2457d6" font-weight="bold" text-anchor="middle">Прапорці SR: BSY (зайнятий), EOP</text>
+
+  <!-- Sub-block 3.2: Flash Array -->
+  <rect x="694" y="192" width="230" height="70" rx="5" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="809" y="211" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">Масив комірок Flash (NVM)</text>
+  <text x="809" y="230" font-size="12" fill="#1a1a1a" text-anchor="middle">Сектор Flash: 2048 B (4 блоки LBA)</text>
+  <text x="809" y="249" font-size="12" fill="#6b7280" text-anchor="middle">Високовольтне стирання t_erase = 40 мс</text>
+
+  <!-- Sub-block 3.3: Execution from RAM -->
+  <rect x="694" y="276" width="230" height="66" rx="5" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="809" y="295" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Драйвер запису в RAM (.ramfunc)</text>
+  <text x="809" y="314" font-size="12" fill="#1a1a1a" text-anchor="middle">Вибірка з SRAM не блокує CPU</text>
+  <text x="809" y="331" font-size="12" fill="#6b7280" text-anchor="middle">Сторожовий таймер WDT обслуговується</text>
+
+  <!-- BOTTOM PANEL: Pipeline Timing & NAK Throttling -->
+  <rect x="24" y="366" width="912" height="154" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="38" y="386" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="start">Часова діаграма конвеєра та дроселювання USB NAK</text>
+  <text x="922" y="386" font-size="12" font-weight="bold" fill="#d97706" text-anchor="end">T_throttle = T_crit - t_usb_lba ≈ 45.12 мс</text>
+
+  <!-- Timing Row 1: USB Bulk Channel -->
+  <text x="38" y="416" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">Канал USB Bulk:</text>
+  <rect x="150" y="402" width="105" height="22" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="202" y="417" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">LBA[N] 0.64 мс</text>
+  <rect x="267" y="402" width="115" height="22" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="324" y="417" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">LBA[N+1] 0.64 мс</text>
+  <rect x="394" y="402" width="385" height="22" rx="3" fill="#fef3c7" stroke="#d97706" stroke-width="1.2"/>
+  <text x="586" y="417" font-size="12" font-weight="bold" fill="#d97706" text-anchor="middle">Дроселювання USB NAK (пауза 45.12 мс, очікування хоста)</text>
+  <rect x="791" y="402" width="131" height="22" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="856" y="417" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">LBA[N+2] (ACK)</text>
+
+  <!-- Timing Row 2: Flash Controller -->
+  <text x="38" y="450" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">Контролер Flash:</text>
+  <rect x="150" y="436" width="105" height="22" rx="3" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2"/>
+  <text x="202" y="451" font-size="12" fill="#6b7280" text-anchor="middle">Запис N-1</text>
+  <rect x="267" y="436" width="115" height="22" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="324" y="451" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Запис N (5.8 мс)</text>
+  <rect x="394" y="436" width="265" height="22" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="526" y="451" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Стирання сектора (t_erase = 40 мс)</text>
+  <rect x="671" y="436" width="108" height="22" rx="3" fill="#fef3c7" stroke="#d97706" stroke-width="1.2"/>
+  <text x="725" y="451" font-size="12" font-weight="bold" fill="#d97706" text-anchor="middle">Запис N+1</text>
+  <rect x="791" y="436" width="131" height="22" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="856" y="451" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Запис N+2</text>
+
+  <!-- Technical Summary Card -->
+  <rect x="38" y="468" width="884" height="42" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="48" y="484" font-size="12" text-anchor="start"><tspan fill="#2457d6" font-weight="bold">Швидкий конвеєр:</tspan><tspan fill="#1a1a1a"> прийом блоку DMA (0.64 мс) повністю перекривається часом запису Flash (5.76 мс).</tspan></text>
+  <text x="48" y="501" font-size="12" text-anchor="start"><tspan fill="#c0392b" font-weight="bold">Захист від переповнення:</tspan><tspan fill="#1a1a1a"> пауза стирання (45.12 мс) утримується NAK без тайм-ауту ОС (&lt;&lt; 5000 мс).</tspan></text>
+</svg>

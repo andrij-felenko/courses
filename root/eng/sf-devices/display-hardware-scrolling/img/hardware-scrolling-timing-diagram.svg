@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Часова діаграма синхронізації апаратного скролінгу</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Оновлення зсуву VSCRSADD та запис нового рядка виконуються у вікні кадрового гасіння</text>
+
+  <!-- Фонова панель часових діаграм -->
+  <rect x="30" y="75" width="900" height="375" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Зона V-Blank: вертикальні лінії меж -->
+  <line x1="340" y1="85" x2="340" y2="420" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4 3"/>
+  <line x1="560" y1="85" x2="560" y2="420" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4 3"/>
+  <text x="450" y="105" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Інтервал V-Blank (кадрове гасіння)</text>
+
+  <!-- 1. Сигнал TE -->
+  <text x="50" y="145" font-size="13" font-weight="bold" fill="#1a1a1a">Сигнал TE (Pin)</text>
+  <path d="M220,150 L340,150 L340,125 L560,125 L560,150 L900,150" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="240" y="142" font-size="11" fill="#6b7280">Активний кадр</text>
+  <text x="580" y="142" font-size="11" fill="#6b7280">Наступний кадр</text>
+
+  <!-- 2. Обробник переривання MCU -->
+  <text x="50" y="205" font-size="13" font-weight="bold" fill="#1a1a1a">MCU ISR / Подія</text>
+  <path d="M220,210 L340,210 L340,185 L380,185 L380,210 L900,210" fill="none" stroke="#2457d6" stroke-width="2"/>
+  <rect x="340" y="185" width="40" height="25" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="400" y="202" font-size="12" fill="#2457d6">Вхід в ISR за фронтом TE</text>
+
+  <!-- 3. Команда VSCRSADD -->
+  <text x="50" y="265" font-size="13" font-weight="bold" fill="#1a1a1a">SPI: Команда 0x37</text>
+  <rect x="390" y="245" width="100" height="30" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="440" y="265" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">VSCRSADD</text>
+  <text x="505" y="265" font-size="11" fill="#6b7280">Зсув покажчика</text>
+
+  <!-- 4. Запис рядка через DMA -->
+  <text x="50" y="325" font-size="13" font-weight="bold" fill="#1a1a1a">SPI: Запис DMA</text>
+  <rect x="500" y="305" width="180" height="30" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="590" y="325" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Передача пікселів DMA</text>
+  <text x="695" y="325" font-size="11" fill="#6b7280">Новий рядок у GRAM</text>
+
+  <!-- 5. Позиція розгортки екрана -->
+  <text x="50" y="385" font-size="13" font-weight="bold" fill="#1a1a1a">Розгортка дисплея</text>
+  <line x1="220" y1="365" x2="330" y2="410" stroke="#c0392b" stroke-width="2"/>
+  <line x1="350" y1="415" x2="550" y2="415" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4 2"/>
+  <line x1="570" y1="365" x2="880" y2="410" stroke="#c0392b" stroke-width="2"/>
+  <text x="250" y="380" font-size="11" fill="#c0392b">Рядки 0..319</text>
+  <text x="450" y="402" font-size="11" fill="#6b7280" text-anchor="middle">Промінь повертається на початок</text>
+  <text x="750" y="380" font-size="11" fill="#c0392b">Рядки 0..319</text>
+
+  <!-- Захист від розриву кадру -->
+  <text x="480" y="442" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">✓ Запис завершується до того, як розгортка досягне змінених рядків — відсутність розривів кадру</text>
+</svg>

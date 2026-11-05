@@ -1,0 +1,77 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <text x="480" y="36" fill="#1a1a1a" font-size="18" font-weight="bold" text-anchor="middle">Апаратне захоплення кадрів протоколів SPC через таймер, DMA та кільцевий буфер</text>
+  <text x="480" y="58" fill="#6b7280" font-size="13" text-anchor="middle">Спадний фронт CLK тригерує таймерний DMA-запит на паралельне зчитування портів без участі ядра процесора</text>
+
+  <!-- Блок 1: Вхідні сигнали та таймер -->
+  <rect x="40" y="90" width="250" height="340" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="165" y="118" fill="#1a1a1a" font-size="13" font-weight="bold" text-anchor="middle">1. Фізичний рівень і таймер</text>
+
+  <rect x="60" y="140" width="210" height="40" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="165" y="165" fill="#2457d6" font-size="12" font-weight="bold" text-anchor="middle">Лінія тактування: GPIO (CLK)</text>
+
+  <rect x="60" y="195" width="210" height="40" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="165" y="220" fill="#2457d6" font-size="12" font-weight="bold" text-anchor="middle">Лінія даних: GPIO (DATA)</text>
+
+  <rect x="60" y="255" width="210" height="155" rx="6" fill="white" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="165" y="280" fill="#1a1a1a" font-size="12" font-weight="bold" text-anchor="middle">Модуль Input Capture TIMx</text>
+  <text x="165" y="306" fill="#6b7280" font-size="11" text-anchor="middle">Детекція спадного фронту</text>
+  <text x="165" y="326" fill="#6b7280" font-size="11" text-anchor="middle">Апаратний тригер захоплення</text>
+  <rect x="75" y="345" width="180" height="35" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="165" y="367" fill="#2457d6" font-size="11" font-weight="bold" text-anchor="middle">Запит TIM_DMA_CC1</text>
+
+  <!-- Блок 2: Контролер DMA -->
+  <rect x="330" y="90" width="290" height="340" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="475" y="118" fill="#2457d6" font-size="13" font-weight="bold" text-anchor="middle">2. Контролер прямого доступу DMA</text>
+
+  <rect x="350" y="140" width="250" height="60" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="475" y="164" fill="#1a1a1a" font-size="12" font-weight="bold" text-anchor="middle">Джерело: Peripheral Address</text>
+  <text x="475" y="185" fill="#6b7280" font-size="11" text-anchor="middle">Регістр входу GPIOx-&gt;IDR</text>
+
+  <rect x="350" y="215" width="250" height="60" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="475" y="239" fill="#1a1a1a" font-size="12" font-weight="bold" text-anchor="middle">Приймач: Memory Address</text>
+  <text x="475" y="260" fill="#6b7280" font-size="11" text-anchor="middle">Статичний буфер у пам'яті SRAM</text>
+
+  <rect x="350" y="290" width="250" height="120" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="475" y="315" fill="#1a1a1a" font-size="12" font-weight="bold" text-anchor="middle">Режим роботи каналу</text>
+  <text x="475" y="338" fill="#6b7280" font-size="11" text-anchor="middle">Ширина шини: 16 біт (Half-Word)</text>
+  <text x="475" y="358" fill="#6b7280" font-size="11" text-anchor="middle">Інкремент пам'яті: увімкнено</text>
+  <text x="475" y="380" fill="#27ae60" font-size="11" font-weight="bold" text-anchor="middle">Витрати CPU: 0 тактів на біт</text>
+
+  <!-- Блок 3: SRAM і обробка -->
+  <rect x="660" y="90" width="260" height="340" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="790" y="118" fill="#27ae60" font-size="13" font-weight="bold" text-anchor="middle">3. ОЗП і задача розбору</text>
+
+  <rect x="680" y="140" width="220" height="120" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="790" y="165" fill="#1a1a1a" font-size="12" font-weight="bold" text-anchor="middle">Кільцевий буфер сирих слів</text>
+  <rect x="695" y="178" width="190" height="22" rx="3" fill="#eaf0fd"/>
+  <text x="790" y="193" fill="#2457d6" font-size="10" text-anchor="middle">Слово 0: стан GPIO_IDR</text>
+  <rect x="695" y="204" width="190" height="22" rx="3" fill="#eaf0fd"/>
+  <text x="790" y="219" fill="#2457d6" font-size="10" text-anchor="middle">Слово 1: стан GPIO_IDR</text>
+  <rect x="695" y="230" width="190" height="22" rx="3" fill="#e9f7ef"/>
+  <text x="790" y="245" fill="#27ae60" font-size="10" text-anchor="middle">Слово 51 / 23: фініш кадру</text>
+
+  <rect x="680" y="275" width="220" height="135" rx="6" fill="white" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="790" y="302" fill="#27ae60" font-size="12" font-weight="bold" text-anchor="middle">Задача обробки (Worker)</text>
+  <text x="790" y="325" fill="#6b7280" font-size="11" text-anchor="middle">Подія: DMA Transfer Complete</text>
+  <text x="790" y="347" fill="#1a1a1a" font-size="11" text-anchor="middle">Маскування біта DATA</text>
+  <text x="790" y="369" fill="#1a1a1a" font-size="11" text-anchor="middle">Декодування BCD / двійкового коду</text>
+  <text x="790" y="391" fill="#27ae60" font-size="11" font-weight="bold" text-anchor="middle">Результат у SI (мм / дюйми)</text>
+
+  <!-- Зв'язки між блоками -->
+  <!-- Від таймера до DMA -->
+  <line x1="290" y1="362" x2="328" y2="362" stroke="#2457d6" stroke-width="2" marker-end="url(#arr)"/>
+
+  <!-- Від DMA до SRAM -->
+  <line x1="620" y1="200" x2="658" y2="200" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+</svg>

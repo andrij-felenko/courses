@@ -1,0 +1,136 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="100%" height="100%" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-black" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="540" fill="#ffffff"/>
+
+  <!-- Header -->
+  <text x="480" y="34" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Архітектура конвеєра DDA-генератора кроків у прошивці</text>
+  <text x="480" y="55" font-size="13" fill="#6b7280" text-anchor="middle">Потокова обробка траєкторії: буфер блоків, таймерний ISR, дробові акумулятори та GPIO</text>
+
+  <!-- 1. Block Buffer Panel (Left) -->
+  <rect x="24" y="74" width="210" height="350" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="129" y="97" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Буфер блоків руху</text>
+  <text x="129" y="115" font-size="12" fill="#6b7280" text-anchor="middle">Кільцева черга (SPSC Lock-Free)</text>
+
+  <rect x="36" y="126" width="186" height="50" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="46" y="145" font-size="12" font-weight="bold" fill="#2457d6">Планувальник RTOS</text>
+  <text x="46" y="163" font-size="12" fill="#1a1a1a">Розрахунок → buffer[head]</text>
+
+  <path d="M 129 176 L 129 192" stroke="#2457d6" stroke-width="1.5" fill="none" marker-end="url(#arr-blue)"/>
+
+  <rect x="36" y="194" width="186" height="136" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="46" y="212" font-size="12" font-weight="bold" fill="#1a1a1a">Кільцевий масив (N=8):</text>
+
+  <rect x="44" y="220" width="170" height="24" rx="4" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="52" y="236" font-size="12" font-weight="bold" fill="#2457d6">[tail] Блок 12 (активний)</text>
+
+  <rect x="44" y="248" width="170" height="24" rx="4" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="52" y="264" font-size="12" fill="#1a1a1a">[tail+1] Блок 13 (у черзі)</text>
+
+  <rect x="44" y="276" width="170" height="24" rx="4" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="52" y="292" font-size="12" fill="#1a1a1a">[tail+2] Блок 14 (у черзі)</text>
+
+  <rect x="44" y="304" width="170" height="22" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-dasharray="3 2"/>
+  <text x="52" y="319" font-size="12" fill="#6b7280">[head] Блок 15 (запис)</text>
+
+  <rect x="36" y="338" width="186" height="74" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="46" y="356" font-size="12" font-weight="bold" fill="#1a1a1a">Параметри block_t:</text>
+  <text x="46" y="376" font-size="12" fill="#1a1a1a">• step_rate[X,Y,Z] (32-bit)</text>
+  <text x="46" y="396" font-size="12" fill="#1a1a1a">• total_steps, dir_bits</text>
+
+  <!-- 2. DDA Timer ISR Panel (Center) -->
+  <rect x="280" y="74" width="414" height="350" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="487" y="97" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Обробник переривань таймера (DDA ISR)</text>
+  <text x="487" y="115" font-size="12" fill="#6b7280" text-anchor="middle">Квантування часу: f_timer = 100 кГц (T_tick = 10 мкс)</text>
+
+  <rect x="294" y="126" width="386" height="32" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="487" y="146" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Апаратне переривання TIMx: такт квантування що 10 мкс</text>
+
+  <rect x="294" y="166" width="386" height="136" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="306" y="184" font-size="12" font-weight="bold" fill="#2457d6">Багатоосьовий дробовий акумулятор (uint32_t):</text>
+
+  <rect x="304" y="192" width="366" height="28" rx="4" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="314" y="210" font-size="12" font-weight="bold" fill="#2457d6">Вісь X:</text>
+  <text x="364" y="210" font-size="12" fill="#1a1a1a">acc_x += rate_x</text>
+  <text x="478" y="210" font-size="12" font-weight="bold" fill="#27ae60">Крок: acc_x &lt; rate_x (CY=1)</text>
+
+  <rect x="304" y="226" width="366" height="28" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="314" y="244" font-size="12" font-weight="bold" fill="#1a1a1a">Вісь Y:</text>
+  <text x="364" y="244" font-size="12" fill="#1a1a1a">acc_y += rate_y</text>
+  <text x="478" y="244" font-size="12" fill="#6b7280">Дробовий залишок (без кроку)</text>
+
+  <rect x="304" y="260" width="366" height="28" rx="4" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="314" y="278" font-size="12" font-weight="bold" fill="#2457d6">Вісь Z:</text>
+  <text x="364" y="278" font-size="12" fill="#1a1a1a">acc_z += rate_z</text>
+  <text x="478" y="278" font-size="12" font-weight="bold" fill="#27ae60">Крок: acc_z &lt; rate_z (CY=1)</text>
+
+  <rect x="294" y="310" width="386" height="102" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="306" y="328" font-size="12" font-weight="bold" fill="#1a1a1a">Формування бітової маски порту GPIO (Branchless):</text>
+  <text x="306" y="348" font-size="12" fill="#1a1a1a">step_mask = (overflow_x &lt;&lt; PIN_X) | (overflow_z &lt;&lt; PIN_Z)</text>
+  <text x="306" y="368" font-size="12" fill="#6b7280">Підготовка слова: step_mask | (dir_bits &lt;&lt; DIR_OFFSET)</text>
+  <text x="306" y="390" font-size="12" font-weight="bold" fill="#27ae60">Кінець блоку: steps_done == total → tail = (tail + 1) &amp; 7</text>
+
+  <!-- 3. GPIO and Output Panel (Right) -->
+  <rect x="740" y="74" width="196" height="350" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="838" y="97" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Периферія GPIO</text>
+  <text x="838" y="115" font-size="12" fill="#6b7280" text-anchor="middle">Регістри швидкого виводу</text>
+
+  <rect x="750" y="126" width="176" height="84" rx="6" fill="#ffffff" stroke="#2457d6"/>
+  <text x="760" y="145" font-size="12" font-weight="bold" fill="#2457d6">GPIOx-&gt;BSRR</text>
+  <text x="760" y="163" font-size="12" fill="#1a1a1a">Атомарний SET / RESET</text>
+  <text x="760" y="181" font-size="12" fill="#1a1a1a">Запис за 1 такт шини</text>
+  <text x="760" y="199" font-size="12" font-weight="bold" fill="#27ae60">Синхронний фронт осей</text>
+
+  <rect x="750" y="218" width="176" height="66" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="760" y="237" font-size="12" font-weight="bold" fill="#1a1a1a">Тривалість імпульсу</text>
+  <text x="760" y="255" font-size="12" fill="#1a1a1a">t_pulse = 1.0–2.0 мкс</text>
+  <text x="760" y="273" font-size="12" fill="#6b7280">Автоскидання таймером</text>
+
+  <rect x="750" y="292" width="176" height="120" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="760" y="310" font-size="12" font-weight="bold" fill="#1a1a1a">Виходи на драйвери:</text>
+
+  <rect x="758" y="318" width="160" height="24" rx="4" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="766" y="334" font-size="12" font-weight="bold" fill="#2457d6">STEP_X / DIR_X (Активний)</text>
+
+  <rect x="758" y="348" width="160" height="24" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="766" y="364" font-size="12" fill="#6b7280">STEP_Y / DIR_Y (Пауза)</text>
+
+  <rect x="758" y="378" width="160" height="24" rx="4" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="766" y="394" font-size="12" font-weight="bold" fill="#2457d6">STEP_Z / DIR_Z (Активний)</text>
+
+  <!-- Connectors between panels -->
+  <path d="M 234 232 L 278 232" stroke="#2457d6" stroke-width="2" fill="none" marker-end="url(#arr-blue)"/>
+  <path d="M 280 390 L 236 390" stroke="#27ae60" stroke-width="2" fill="none" marker-end="url(#arr-green)"/>
+
+  <path d="M 694 168 L 738 168" stroke="#2457d6" stroke-width="2" fill="none" marker-end="url(#arr-blue)"/>
+  <path d="M 694 251 L 738 251" stroke="#27ae60" stroke-width="2" fill="none" marker-end="url(#arr-green)"/>
+
+  <!-- 4. Bottom Summary Panel -->
+  <rect x="24" y="436" width="912" height="84" rx="8" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <rect x="36" y="445" width="280" height="66" rx="6" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="48" y="465" font-size="12" font-weight="bold" fill="#2457d6">Lock-Free синхронізація</text>
+  <text x="48" y="483" font-size="12" fill="#1a1a1a">• RTOS пише head, ISR читає tail</text>
+  <text x="48" y="501" font-size="12" fill="#1a1a1a">• Без блокування критичних секцій</text>
+
+  <rect x="340" y="445" width="280" height="66" rx="6" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="352" y="465" font-size="12" font-weight="bold" fill="#1a1a1a">32-бітний акумулятор DDA</text>
+  <text x="352" y="483" font-size="12" fill="#1a1a1a">• Переповнення acc &lt; rate за 1 такт</text>
+  <text x="352" y="501" font-size="12" fill="#6b7280">• Без ділення й розгалужень (branchless)</text>
+
+  <rect x="644" y="445" width="280" height="66" rx="6" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="656" y="465" font-size="12" font-weight="bold" fill="#27ae60">Атомарний вивід BSRR</text>
+  <text x="656" y="483" font-size="12" fill="#1a1a1a">• 1 такт шини для STEP/DIR усіх осей</text>
+  <text x="656" y="501" font-size="12" fill="#1a1a1a">• Синхронні фронти без джитеру</text>
+</svg>

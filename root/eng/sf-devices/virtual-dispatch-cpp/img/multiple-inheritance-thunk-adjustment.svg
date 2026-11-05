@@ -1,0 +1,87 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <text x="480" y="30" fill="#1a1a1a" font-size="18" font-weight="bold" text-anchor="middle">Коригування вказівника this при множинному успадкуванні (Thunk)</text>
+  <text x="480" y="55" fill="#6b7280" font-size="13" text-anchor="middle">Виклик віртуальної функції через вторинний базовий клас вимагає зсуву адреси об'єкта</text>
+
+  <!-- Object Layout (Derived) -->
+  <text x="170" y="90" fill="#1a1a1a" font-size="14" font-weight="bold" text-anchor="middle">Об'єкт Derived у пам'яті</text>
+  
+  <rect x="70" y="100" width="200" height="40" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <text x="170" y="125" fill="#1a1a1a" font-size="14" text-anchor="middle">vptr (Base1)</text>
+
+  <rect x="70" y="140" width="200" height="40" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="170" y="165" fill="#1a1a1a" font-size="14" text-anchor="middle">Дані Base1</text>
+
+  <rect x="70" y="180" width="200" height="40" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="170" y="205" fill="#1a1a1a" font-size="14" text-anchor="middle">vptr (Base2)</text>
+
+  <rect x="70" y="220" width="200" height="40" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="170" y="245" fill="#1a1a1a" font-size="14" text-anchor="middle">Дані Base2</text>
+
+  <rect x="70" y="260" width="200" height="40" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <text x="170" y="285" fill="#1a1a1a" font-size="14" text-anchor="middle">Дані Derived</text>
+
+  <!-- Pointer to Base2 -->
+  <text x="360" y="205" fill="#2457d6" font-size="14" font-weight="bold">Вказівник pBase2</text>
+  <line x1="350" y1="200" x2="278" y2="200" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  
+  <text x="360" y="225" fill="#6b7280" font-size="13">Вказує на підоб'єкт Base2,</text>
+  <text x="360" y="245" fill="#6b7280" font-size="13">а не на початок Derived</text>
+
+  <!-- VTable for Base2 -->
+  <text x="750" y="90" fill="#1a1a1a" font-size="14" font-weight="bold" text-anchor="middle">VTable (для Base2 у Derived)</text>
+  
+  <rect x="630" y="100" width="240" height="40" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="750" y="125" fill="#6b7280" font-size="14" text-anchor="middle">typeinfo for Derived</text>
+
+  <rect x="630" y="140" width="240" height="40" fill="#fdecea" stroke="#c0392b" stroke-width="2"/>
+  <text x="750" y="165" fill="#1a1a1a" font-size="14" font-weight="bold" text-anchor="middle">Thunk: Derived::func()</text>
+  
+  <rect x="630" y="180" width="240" height="40" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="750" y="205" fill="#1a1a1a" font-size="14" text-anchor="middle">Base2::otherFunc()</text>
+
+  <!-- Thunk Code -->
+  <rect x="630" y="270" width="240" height="70" fill="#fdecea" stroke="#c0392b" stroke-width="2" rx="4"/>
+  <text x="750" y="295" fill="#c0392b" font-size="14" font-weight="bold" text-anchor="middle">Thunk (перехідник)</text>
+  <text x="750" y="315" fill="#1a1a1a" font-size="13" text-anchor="middle">this = this - sizeof(Base1);</text>
+  <text x="750" y="330" fill="#1a1a1a" font-size="13" text-anchor="middle">jmp Derived::func();</text>
+
+  <!-- Real Function -->
+  <rect x="630" y="400" width="240" height="40" fill="#e9f7ef" stroke="#27ae60" stroke-width="2" rx="4"/>
+  <text x="750" y="425" fill="#27ae60" font-size="14" font-weight="bold" text-anchor="middle">Derived::func(this)</text>
+
+  <!-- Arrows -->
+  <!-- vptr Base2 -> VTable Base2 -->
+  <path d="M 270 200 C 350 200, 450 160, 622 160" fill="none" stroke="#6b7280" stroke-width="2" stroke-dasharray="4,4" marker-end="url(#arr-dark)"/>
+  <text x="490" y="145" fill="#6b7280" font-size="13" text-anchor="middle">vptr вказує на VTable</text>
+
+  <!-- Call pBase2->func() routed on the left of vtable -->
+  <path d="M 630 160 L 590 160 L 590 295 L 622 295" fill="none" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="580" y="235" fill="#c0392b" font-size="12" text-anchor="end">Виклик методу</text>
+
+  <!-- Thunk to Target -->
+  <path d="M 750 340 L 750 392" fill="none" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="760" y="375" fill="#27ae60" font-size="13">Перехід на реальну функцію</text>
+
+  <!-- Thunk modifying this -->
+  <path d="M 630 315 L 320 315 L 320 120 L 278 120" fill="none" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="330" y="290" fill="#c0392b" font-size="13">Коригування: this -= sizeof(Base1)</text>
+  <text x="330" y="335" fill="#1a1a1a" font-size="13">Новий this вказує на початок об'єкта</text>
+  
+</svg>

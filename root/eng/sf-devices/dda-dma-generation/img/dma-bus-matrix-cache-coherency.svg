@@ -1,0 +1,161 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="100%" height="100%" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif">
+  <!-- Біла підкладка полотна -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="38" font-size="18" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Архітектура D-Cache, шинної матриці та DMA при вивантаженні в GPIO</text>
+  <text x="480" y="58" font-size="13" text-anchor="middle" fill="#6b7280">DMA читає SRAM напряму в обхід кешу: буфер кроків DDA потребує скидання (Clean) перед виводом</text>
+
+  <!-- ==================== ЛІВА КОЛОНКА: МАЙСТРИ ==================== -->
+  <!-- Блок Майстер 1: CPU Core & L1 D-Cache -->
+  <rect x="24" y="74" width="250" height="130" rx="8" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="24" y="74" width="250" height="26" rx="8" fill="#f4f6f8"/>
+  <line x1="24" y1="100" x2="274" y2="100" stroke="#d0d7de" stroke-width="1"/>
+  <text x="36" y="93" font-size="13" font-weight="bold" fill="#1a1a1a">Майстер 1: CPU (Cortex-M7)</text>
+
+  <!-- Внутрішній блок: Розрахунок DDA -->
+  <rect x="34" y="108" width="230" height="34" rx="5" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="149" y="122" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Обчислення кроків DDA</text>
+  <text x="149" y="136" font-size="12" text-anchor="middle" fill="#6b7280">Формування dda_step_buf[]</text>
+
+  <!-- Внутрішній блок: L1 D-Cache -->
+  <rect x="34" y="148" width="230" height="48" rx="5" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="42" y="163" font-size="12" font-weight="bold" fill="#c0392b">L1 D-Cache (Write-Back)</text>
+  <rect x="42" y="169" width="214" height="21" rx="3" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+  <text x="48" y="184" font-size="12" fill="#c0392b">Dirty: 0x05, 0x07 (новий буфер)</text>
+
+  <!-- Блок Майстер 2: DMA Контролер & Таймер -->
+  <rect x="24" y="220" width="250" height="130" rx="8" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="24" y="220" width="250" height="26" rx="8" fill="#eaf0fd"/>
+  <line x1="24" y1="246" x2="274" y2="246" stroke="#2457d6" stroke-width="1"/>
+  <text x="36" y="239" font-size="13" font-weight="bold" fill="#2457d6">Майстер 2: DMA Контролер</text>
+
+  <!-- Внутрішній блок: Таймер періоду -->
+  <rect x="34" y="252" width="230" height="34" rx="5" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="149" y="266" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Апаратний таймер (TIMx)</text>
+  <text x="149" y="280" font-size="12" text-anchor="middle" fill="#2457d6">Тригер кроку: TIM_TRGO</text>
+
+  <!-- Внутрішній блок: DMA Stream -->
+  <rect x="34" y="292" width="230" height="50" rx="5" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="42" y="307" font-size="12" font-weight="bold" fill="#2457d6">DMA Stream (Потік DDA)</text>
+  <text x="42" y="322" font-size="12" fill="#1a1a1a">Src: SRAM (dda_step_buf)</text>
+  <text x="42" y="336" font-size="12" fill="#1a1a1a">Dst: GPIOx-&gt;BSRR (піни)</text>
+
+
+  <!-- ==================== ЦЕНТР: ШИННА МАТРИЦЯ ==================== -->
+  <rect x="292" y="74" width="376" height="276" rx="8" fill="#f8fafc" stroke="#2457d6" stroke-width="2"/>
+  <rect x="292" y="74" width="376" height="26" rx="8" fill="#eaf0fd"/>
+  <line x1="292" y1="100" x2="668" y2="100" stroke="#2457d6" stroke-width="1"/>
+  <text x="480" y="93" font-size="13" font-weight="bold" text-anchor="middle" fill="#2457d6">ШИННА МАТРИЦЯ (Bus Matrix / Crossbar)</text>
+
+  <!-- Позначення портів матриці -->
+  <text x="300" y="118" font-size="12" font-weight="bold" fill="#27ae60">M0</text>
+  <text x="644" y="118" font-size="12" font-weight="bold" fill="#27ae60">S0</text>
+
+  <!-- Верхня шина: CPU Clean Flush в SRAM (Зелена) -->
+  <line x1="274" y1="128" x2="680" y2="128" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arr-green)"/>
+  <text x="480" y="122" font-size="12" font-weight="bold" text-anchor="middle" fill="#27ae60">Скидання кешу: SCB_CleanDCache() -&gt; SRAM</text>
+
+  <!-- Центральний бар'єр когерентності (Попередження) -->
+  <rect x="314" y="142" width="332" height="72" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+  <rect x="314" y="142" width="332" height="22" rx="6" fill="#fdecea"/>
+  <line x1="314" y1="164" x2="646" y2="164" stroke="#c0392b" stroke-width="1"/>
+  <text x="480" y="158" font-size="12" font-weight="bold" text-anchor="middle" fill="#c0392b">БАР'ЄР КОГЕРЕНТНОСТІ ТА ШИН</text>
+  <text x="480" y="178" font-size="12" text-anchor="middle" fill="#1a1a1a">DMA не має доступу до L1 D-Cache процесора</text>
+  <text x="480" y="193" font-size="12" text-anchor="middle" fill="#6b7280">Апаратний снупінг відсутній: DMA бачить лише SRAM</text>
+  <text x="480" y="207" font-size="12" font-weight="bold" text-anchor="middle" fill="#c0392b">Без Clean DMA зчитає застарілу пам'ять!</text>
+
+  <!-- Траса 1: DMA читає буфер з SRAM -->
+  <text x="480" y="232" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">1. DMA читає буфер з SRAM (в обхід D-Cache)</text>
+  <path d="M274,272 L340,272 L340,240 L652,240 L652,142 L680,142" fill="none" stroke="#2457d6" stroke-width="2" stroke-dasharray="5 3" marker-end="url(#arr-blue)"/>
+
+  <!-- Позначення нижніх портів -->
+  <text x="300" y="294" font-size="12" font-weight="bold" fill="#2457d6">M1</text>
+  <text x="644" y="294" font-size="12" font-weight="bold" fill="#2457d6">S1</text>
+
+  <!-- Траса 2: DMA пише в GPIO -->
+  <line x1="274" y1="306" x2="680" y2="306" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+  <text x="480" y="324" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">2. DMA вивантажує патерн у GPIOx_BSRR</text>
+
+
+  <!-- ==================== ПРАВА КОЛОНКА: СЛЕЙВИ ==================== -->
+  <!-- Блок Слейв 1: SRAM -->
+  <rect x="686" y="74" width="250" height="130" rx="8" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="686" y="74" width="250" height="26" rx="8" fill="#f4f6f8"/>
+  <line x1="686" y1="100" x2="936" y2="100" stroke="#d0d7de" stroke-width="1"/>
+  <text x="698" y="93" font-size="13" font-weight="bold" fill="#1a1a1a">Слейв 1: Пам'ять SRAM</text>
+
+  <!-- Внутрішній блок: Буфер у RAM -->
+  <rect x="696" y="108" width="230" height="34" rx="5" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="811" y="122" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Буфер: dda_step_buf[]</text>
+  <text x="811" y="136" font-size="12" text-anchor="middle" fill="#6b7280">Фізична адреса в системній RAM</text>
+
+  <!-- Внутрішній блок: Порівняння значень у RAM -->
+  <rect x="696" y="148" width="230" height="48" rx="5" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="704" y="165" font-size="12" fill="#c0392b">Без Clean: 0x00, 0x00 (старі!)</text>
+  <text x="704" y="185" font-size="12" font-weight="bold" fill="#27ae60">Після Clean: 0x05, 0x07 (свіжі)</text>
+
+  <!-- Блок Слейв 2: GPIO Peripheral -->
+  <rect x="686" y="220" width="250" height="130" rx="8" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="686" y="220" width="250" height="26" rx="8" fill="#f4f6f8"/>
+  <line x1="686" y1="246" x2="936" y2="246" stroke="#d0d7de" stroke-width="1"/>
+  <text x="698" y="239" font-size="13" font-weight="bold" fill="#1a1a1a">Слейв 2: Периферія GPIO</text>
+
+  <!-- Внутрішній блок: Регістр BSRR -->
+  <rect x="696" y="252" width="230" height="34" rx="5" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="811" y="266" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">Регістр GPIOx-&gt;BSRR</text>
+  <text x="811" y="280" font-size="12" text-anchor="middle" fill="#1a1a1a">Атомарний запис бітів маски</text>
+
+  <!-- Внутрішній блок: Вихідні піни -->
+  <rect x="696" y="292" width="230" height="50" rx="5" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="704" y="307" font-size="12" font-weight="bold" fill="#1a1a1a">Виходи на драйвери ШД:</text>
+  <rect x="704" y="314" width="66" height="20" rx="3" fill="#ffffff" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="737" y="328" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">STEP_X</text>
+  <rect x="778" y="314" width="66" height="20" rx="3" fill="#ffffff" stroke="#6b7280" stroke-width="1.2"/>
+  <text x="811" y="328" font-size="12" font-weight="bold" text-anchor="middle" fill="#6b7280">DIR_X</text>
+  <rect x="852" y="314" width="66" height="20" rx="3" fill="#ffffff" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="885" y="328" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">STEP_Y</text>
+
+
+  <!-- ==================== НИЖНІ ПАНЕЛІ: ПОРІВНЯННЯ РЕЖИМІВ ==================== -->
+  <!-- Ліва картка: Проблема (Без когерентності) -->
+  <rect x="24" y="368" width="446" height="148" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <rect x="24" y="368" width="446" height="28" rx="8" fill="#c0392b"/>
+  <text x="36" y="389" font-size="13" font-weight="bold" fill="#ffffff">Без когерентності: D-Cache увімкнено без Clean</text>
+
+  <text x="36" y="414" font-size="12" fill="#1a1a1a">• Запис ядра: нові патерни осідають у D-Cache (Dirty)</text>
+  <text x="36" y="432" font-size="12" fill="#1a1a1a">• Фізична SRAM: не оновлена, містить нулі або старі байти</text>
+  <text x="36" y="450" font-size="12" fill="#1a1a1a">• DMA в обхід кешу: вичитує з SRAM застарілі нульові патерни</text>
+
+  <rect x="36" y="466" width="422" height="38" rx="5" fill="#ffffff" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="247" y="482" font-size="12" font-weight="bold" text-anchor="middle" fill="#c0392b">Наслідок: відсутність імпульсів STEP або хибні кроки</text>
+  <text x="247" y="497" font-size="12" text-anchor="middle" fill="#6b7280">Двигун губить координати, збій позиціонування ЧПК</text>
+
+  <!-- Права картка: Розв'язок (Когерентність) -->
+  <rect x="490" y="368" width="446" height="148" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="490" y="368" width="446" height="28" rx="8" fill="#27ae60"/>
+  <text x="502" y="389" font-size="13" font-weight="bold" fill="#ffffff">Забезпечення когерентності (Clean або MPU)</text>
+
+  <text x="502" y="414" font-size="12" fill="#1a1a1a">• Спосіб 1: SCB_CleanDCache_by_Addr() скидає кеш у SRAM</text>
+  <text x="502" y="432" font-size="12" fill="#1a1a1a">• Спосіб 2 (MPU): буфер у зоні Non-cacheable або Write-Through</text>
+  <text x="502" y="450" font-size="12" fill="#1a1a1a">• Результат: DMA читає з RAM гарантовано валідні патерни</text>
+
+  <rect x="502" y="466" width="422" height="38" rx="5" fill="#ffffff" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="713" y="482" font-size="12" font-weight="bold" text-anchor="middle" fill="#27ae60">Результат: плавний детермінований рух приводів</text>
+  <text x="713" y="497" font-size="12" text-anchor="middle" fill="#6b7280">Вивантаження без участі CPU та нульовий джиттер кроків</text>
+</svg>

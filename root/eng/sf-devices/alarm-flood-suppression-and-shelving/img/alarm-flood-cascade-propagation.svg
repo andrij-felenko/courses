@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="42" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Каскадне поширення аварії в розподіленій системі</text>
+  <text x="480" y="68" font-size="13" fill="#6b7280" text-anchor="middle">Первинний пробій силового ключа викликає лавину переривань у ядрі RTOS</text>
+
+  <!-- Колонка 1: Першопричина -->
+  <rect x="40" y="110" width="240" height="250" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="2"/>
+  <text x="160" y="145" font-size="14" font-weight="700" fill="#c0392b" text-anchor="middle">Первинна подія (Hardware)</text>
+  <text x="160" y="185" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">Пробій силового MOSFET</text>
+  <text x="160" y="215" font-size="12" fill="#6b7280" text-anchor="middle">Коротке замикання стійки</text>
+  <text x="160" y="255" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">t = 0 мкс: Струм I &gt; 500 A</text>
+  <text x="160" y="285" font-size="12" fill="#1a1a1a" text-anchor="middle">Різке просідання напруги DC</text>
+  <text x="160" y="325" font-size="12" fill="#6b7280" text-anchor="middle">Теплове руйнування кристала</text>
+
+  <!-- З'єднувальні лінії Колонки 1 -> Колонки 2 -->
+  <line x1="280" y1="180" x2="350" y2="150" stroke="#c0392b" stroke-width="2" marker-end="url(#arr)"/>
+  <line x1="280" y1="235" x2="350" y2="235" stroke="#c0392b" stroke-width="2" marker-end="url(#arr)"/>
+  <line x1="280" y1="290" x2="350" y2="320" stroke="#c0392b" stroke-width="2" marker-end="url(#arr)"/>
+
+  <!-- Колонка 2: Вторинні сенсори -->
+  <!-- Сенсор струму -->
+  <rect x="360" y="110" width="240" height="75" rx="6" fill="#f4f6f8" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="480" y="135" font-size="13" font-weight="700" fill="#c0392b" text-anchor="middle">Сенсор надструму (OCP)</text>
+  <text x="480" y="155" font-size="12" fill="#1a1a1a" text-anchor="middle">Шунт / аналоговий компаратор</text>
+  <text x="480" y="172" font-size="12" fill="#6b7280" text-anchor="middle">t = +12 мкс · Аварійний тригер</text>
+
+  <!-- Сенсор напруги -->
+  <rect x="360" y="200" width="240" height="75" rx="6" fill="#f4f6f8" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="480" y="225" font-size="13" font-weight="700" fill="#c0392b" text-anchor="middle">Сенсор напруги (UVP)</text>
+  <text x="480" y="245" font-size="12" fill="#1a1a1a" text-anchor="middle">Падіння на шині живлення VDD</text>
+  <text x="480" y="262" font-size="12" fill="#6b7280" text-anchor="middle">t = +35 мкс · ADC Watchdog</text>
+
+  <!-- Сенсор зв'язку -->
+  <rect x="360" y="290" width="240" height="75" rx="6" fill="#f4f6f8" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="480" y="315" font-size="13" font-weight="700" fill="#c0392b" text-anchor="middle">Контролер шини CAN / SPI</text>
+  <text x="480" y="335" font-size="12" fill="#1a1a1a" text-anchor="middle">Збій живлення трансивера</text>
+  <text x="480" y="352" font-size="12" fill="#6b7280" text-anchor="middle">t = +120 мкс · CAN Bus-Off error</text>
+
+  <!-- З'єднувальні лінії Колонки 2 -> Колонки 3 -->
+  <line x1="600" y1="150" x2="670" y2="170" stroke="#c0392b" stroke-width="2" marker-end="url(#arr)"/>
+  <line x1="600" y1="235" x2="670" y2="235" stroke="#c0392b" stroke-width="2" marker-end="url(#arr)"/>
+  <line x1="600" y1="320" x2="670" y2="300" stroke="#c0392b" stroke-width="2" marker-end="url(#arr)"/>
+
+  <!-- Колонка 3: RTOS / Ядро МК -->
+  <rect x="680" y="110" width="240" height="250" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="2"/>
+  <text x="800" y="140" font-size="14" font-weight="700" fill="#c0392b" text-anchor="middle">Ядро RTOS (Лавина тривог)</text>
+  <text x="800" y="170" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">ISR: OCP_Break_IRQHandler()</text>
+  <text x="800" y="190" font-size="12" fill="#6b7280" text-anchor="middle">Запис аварії в чергу повідомлень</text>
+  <text x="800" y="230" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">ISR: UVLO_ADC_IRQHandler()</text>
+  <text x="800" y="250" font-size="12" fill="#6b7280" text-anchor="middle">Витіснення критичних тасок</text>
+  <text x="800" y="290" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">ISR: CAN_Error_IRQHandler()</text>
+  <text x="800" y="310" font-size="12" fill="#6b7280" text-anchor="middle">Переповнення буфера подій</text>
+  <text x="800" y="340" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Завантаження CPU &gt; 98%</text>
+
+  <!-- Нижня панель: висновок -->
+  <rect x="40" y="385" width="880" height="50" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="480" y="415" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">Висновок: первинний апаратний збій породжує вторинні переривання — без Shelving система колапсує</text>
+</svg>

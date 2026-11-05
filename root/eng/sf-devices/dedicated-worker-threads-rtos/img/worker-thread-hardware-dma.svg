@@ -1,0 +1,95 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Безкопіювальна взаємодія DMA, D-Cache та потоку-виконавця</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Узгодження кешу через SCB_Clean/Invalidate, бар'єри пам'яті DMB/DSB та передача дескрипторів</text>
+
+  <!-- Panel 1: CPU Core & Worker (Top-Left) -->
+  <rect x="40" y="80" width="530" height="150" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="305" y="106" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Ядро процесора (ARM Cortex-M) та потік-виконавець</text>
+
+  <!-- Worker Box -->
+  <rect x="60" y="120" width="220" height="92" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="170" y="144" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Потік-виконавець (Worker)</text>
+  <text x="170" y="166" font-size="12" fill="#1a1a1a" text-anchor="middle">Формування даних у буфері</text>
+  <text x="170" y="184" font-size="12" fill="#1a1a1a" text-anchor="middle">Zero-Copy: передача покажчика</text>
+  <text x="170" y="202" font-size="12" fill="#6b7280" text-anchor="middle">Копіювання масиву відсутнє</text>
+
+  <!-- Cache Maintenance Box -->
+  <rect x="310" y="120" width="240" height="92" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="430" y="144" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">Кеш даних (D-Cache)</text>
+  <text x="430" y="166" font-size="12" fill="#1a1a1a" text-anchor="middle">SCB_CleanDCache_by_Addr()</text>
+  <text x="430" y="184" font-size="12" fill="#1a1a1a" text-anchor="middle">Бар'єр синхронізації __DSB()</text>
+  <text x="430" y="202" font-size="12" fill="#6b7280" text-anchor="middle">Виштовхування брудних рядків у RAM</text>
+
+  <!-- Panel 2: Physical SRAM & Ring Buffer (Bottom-Left) -->
+  <rect x="40" y="250" width="530" height="180" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="305" y="276" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Фізична пам'ять SRAM (шина AXI / AHB Matrix)</text>
+
+  <rect x="60" y="295" width="220" height="115" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="170" y="322" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Буфер даних DMA</text>
+  <text x="170" y="344" font-size="12" fill="#1a1a1a" text-anchor="middle">alignas(32) uint8_t buffer[]</text>
+  <text x="170" y="364" font-size="12" fill="#6b7280" text-anchor="middle">Вирівняно під рядок кешу</text>
+  <text x="170" y="384" font-size="12" fill="#6b7280" text-anchor="middle">Розмір кратний 32 байтам</text>
+
+  <rect x="310" y="295" width="240" height="115" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="430" y="322" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Кільцева черга дескрипторів</text>
+  <text x="430" y="344" font-size="12" fill="#1a1a1a" text-anchor="middle">SPSC Lock-Free Queue</text>
+  <text x="430" y="364" font-size="12" fill="#6b7280" text-anchor="middle">Зберігає {uint8_t* ptr, len}</text>
+  <text x="430" y="384" font-size="12" fill="#6b7280" text-anchor="middle">Безпечна атомарна передача</text>
+
+  <!-- Panel 3: Hardware DMA & Peripherals (Right) -->
+  <rect x="600" y="80" width="320" height="350" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="760" y="106" font-size="14" font-weight="bold" fill="#27ae60" text-anchor="middle">Апаратний контролер DMA</text>
+
+  <rect x="620" y="130" width="280" height="85" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="760" y="156" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Пряме вичитування SRAM</text>
+  <text x="760" y="178" font-size="12" fill="#1a1a1a" text-anchor="middle">Автономне перенесення байтів</text>
+  <text x="760" y="196" font-size="12" fill="#6b7280" text-anchor="middle">Процесор вільний для обчислень</text>
+
+  <rect x="620" y="235" width="280" height="85" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="760" y="260" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Периферія (SPI / UART / SDIO)</text>
+  <text x="760" y="282" font-size="12" fill="#1a1a1a" text-anchor="middle">Апаратні передавальні регістри</text>
+  <text x="760" y="300" font-size="12" fill="#6b7280" text-anchor="middle">Видача сигналу на фізичні піни</text>
+
+  <rect x="620" y="340" width="280" height="70" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+  <text x="760" y="364" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Переривання завершення (ISR)</text>
+  <text x="760" y="384" font-size="12" fill="#6b7280" text-anchor="middle">vTaskNotifyGiveFromISR(Worker)</text>
+
+  <!-- Connectors -->
+  <!-- Worker to Cache Maintenance -->
+  <path d="M280,166 L300,166" fill="none" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Cache Flush to Physical SRAM -->
+  <path d="M370,212 L370,240 L80,240 L80,285" fill="none" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+
+  <!-- Physical SRAM to DMA Reader -->
+  <path d="M280,352 L590,172" fill="none" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <!-- DMA to Peripheral -->
+  <path d="M760,215 L760,225" fill="none" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- Peripheral to ISR -->
+  <path d="M760,320 L760,330" fill="none" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- ISR back to Worker -->
+  <path d="M620,380 L585,380 L585,220 L170,220" fill="none" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+</svg>

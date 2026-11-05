@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+  <text x="480" y="30" font-size="18" font-weight="700" text-anchor="middle" fill="#1a1a1a">Ізоляція затримок: спільна черга робіт проти виділеного потоку-виконавця</text>
+  <text x="480" y="50" font-size="13" text-anchor="middle" fill="#6b7280">Виділений потік усуває блокування head-of-line та забезпечує детермінований час реакції</text>
+  <rect x="30" y="68" width="900" height="175" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="50" y="90" font-size="13" font-weight="700" fill="#c0392b">1. Спільний системний потік (System Work Queue): взаємне блокування та втрата детермінізму</text>
+  <text x="50" y="142" font-size="12" font-weight="700" fill="#1a1a1a">Потік робіт</text>
+  <rect x="150" y="122" width="360" height="34" rx="4" fill="#c0392b"/>
+  <text x="330" y="143" font-size="12" font-weight="700" fill="#ffffff" text-anchor="middle">Блокуючий запис у Flash (триває 200 мс)</text>
+  <rect x="522" y="122" width="220" height="34" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="632" y="143" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">Термінова обробка (запізніла)</text>
+  <line x1="260" y1="102" x2="260" y2="120" stroke="#c0392b" stroke-width="2"/>
+  <text x="260" y="98" font-size="11" font-weight="700" fill="#c0392b" text-anchor="middle">Подія сенсора</text>
+  <line x1="260" y1="172" x2="522" y2="172" stroke="#c0392b" stroke-width="2"/>
+  <text x="391" y="190" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">Head-of-Line Blocking: вимушене очікування в черзі 180 мс!</text>
+  <rect x="30" y="258" width="900" height="198" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="50" y="280" font-size="13" font-weight="700" fill="#27ae60">2. Ізольовані потоки-виконавці: незалежні пріоритети та миттєве витіснення</text>
+  <text x="50" y="322" font-size="12" font-weight="700" fill="#1a1a1a">Потік сенсора (High)</text>
+  <line x1="260" y1="290" x2="260" y2="306" stroke="#27ae60" stroke-width="2"/>
+  <text x="260" y="288" font-size="11" font-weight="700" fill="#27ae60" text-anchor="middle">Подія сенсора</text>
+  <rect x="260" y="306" width="200" height="30" rx="4" fill="#27ae60"/>
+  <text x="360" y="325" font-size="12" font-weight="700" fill="#ffffff" text-anchor="middle">Миттєва обробка (&lt; 100 мкс)</text>
+  <text x="475" y="325" font-size="11" fill="#27ae60">Детермінований відгук</text>
+  <text x="50" y="382" font-size="12" font-weight="700" fill="#1a1a1a">Потік Flash (Low)</text>
+  <rect x="150" y="364" width="105" height="30" rx="4" fill="#6b7280"/>
+  <text x="202" y="383" font-size="11" font-weight="700" fill="#ffffff" text-anchor="middle">Запис Flash</text>
+  <rect x="260" y="364" width="200" height="30" rx="4" fill="#ffffff" stroke="#6b7280" stroke-dasharray="4,4"/>
+  <text x="360" y="383" font-size="11" fill="#6b7280" text-anchor="middle">Витіснено планувальником</text>
+  <rect x="465" y="364" width="220" height="30" rx="4" fill="#6b7280"/>
+  <text x="575" y="383" font-size="11" font-weight="700" fill="#ffffff" text-anchor="middle">Продовження запису Flash</text>
+  <text x="150" y="426" font-size="12" fill="#1a1a1a">Висновок: виділення окремого стека та пріоритету гарантує часову ізоляцію швидких задач від повільної пам'яті</text>
+</svg>

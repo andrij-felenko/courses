@@ -1,0 +1,101 @@
+<svg viewBox="0 0 960 480" width="960" height="480" xmlns="http://www.w3.org/2000/svg" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="34" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Апаратний тракт трасування ITM та DWT через вивід SWO</text>
+  <text x="480" y="56" text-anchor="middle" font-size="13" fill="#6b7280">Безблокуючий запис у порт стимулу, черга FIFO та виведення пакетів з мітками часу</text>
+
+  <!-- Stage 1: CPU Core & DWT -->
+  <rect x="30" y="80" width="260" height="370" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="50" y="110" font-size="14" font-weight="bold" fill="#1a1a1a">1. Ядро ARM Cortex-M</text>
+  <text x="50" y="130" font-size="12" fill="#6b7280">Виконання інструкцій та таймер</text>
+
+  <!-- Code block inside CPU -->
+  <rect x="45" y="145" width="230" height="85" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="55" y="168" font-size="11" font-weight="bold" fill="#1a1a1a">Запис у порт стимулу:</text>
+  <text x="55" y="190" font-size="11" font-family="monospace" fill="#2457d6">ITM-&gt;PORT[0].u32 = val;</text>
+  <text x="55" y="210" font-size="11" fill="#27ae60">1 такт процесора (без затримки)</text>
+
+  <!-- DWT Block -->
+  <rect x="45" y="245" width="230" height="95" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="55" y="270" font-size="13" font-weight="bold" fill="#2457d6">DWT (Data Watchpoint)</text>
+  <text x="55" y="292" font-size="12" fill="#1a1a1a">• Лічильник DWT-&gt;CYCCNT</text>
+  <text x="55" y="312" font-size="12" fill="#1a1a1a">• Дискретність: 1 такт CPU</text>
+  <text x="55" y="330" font-size="11" fill="#6b7280">Генерує часові пакети TimeStamp</text>
+
+  <!-- Note box -->
+  <rect x="45" y="355" width="230" height="80" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="55" y="378" font-size="11" font-weight="bold" fill="#1a1a1a">Перевага ITM:</text>
+  <text x="55" y="398" font-size="11" fill="#1a1a1a">CPU не чекає на завершення</text>
+  <text x="55" y="418" font-size="11" fill="#1a1a1a">передачі лінії зв'язку</text>
+
+  <!-- Arrow 1 -> 2 -->
+  <line x1="290" y1="200" x2="325" y2="200" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <line x1="275" y1="290" x2="325" y2="290" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Stage 2: ITM & TPIU -->
+  <rect x="330" y="80" width="310" height="370" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="350" y="110" font-size="14" font-weight="bold" fill="#1a1a1a">2. Модуль ITM та TPIU</text>
+  <text x="350" y="130" font-size="12" fill="#6b7280">Апаратна буферизація та серіалізація</text>
+
+  <!-- Stimulus registers -->
+  <rect x="345" y="145" width="280" height="85" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="360" y="170" font-size="13" font-weight="bold" fill="#2457d6">Порти стимулів (Stimulus 0..31)</text>
+  <text x="360" y="192" font-size="12" fill="#1a1a1a">• Канал 0: повідомлення defmt / log</text>
+  <text x="360" y="212" font-size="12" fill="#1a1a1a">• Канал 31: RTOS / системні події</text>
+
+  <!-- Arrow to FIFO -->
+  <line x1="485" y1="230" x2="485" y2="250" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Hardware FIFO -->
+  <rect x="345" y="255" width="280" height="75" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="360" y="278" font-size="12" font-weight="bold" fill="#1a1a1a">Апаратний FIFO буфер ITM</text>
+  <text x="360" y="300" font-size="11" fill="#1a1a1a">Згладжує сплески трафіку логування</text>
+  <text x="360" y="318" font-size="11" fill="#27ae60">Захищає CPU від очікування шини</text>
+
+  <!-- TPIU Serializer -->
+  <rect x="345" y="345" width="280" height="85" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="360" y="370" font-size="13" font-weight="bold" fill="#27ae60">TPIU (Trace Port Interface Unit)</text>
+  <text x="360" y="392" font-size="12" fill="#1a1a1a">• Мультиплексує ITM та DWT пакети</text>
+  <text x="360" y="412" font-size="12" fill="#1a1a1a">• Кодує в асинхронний потік кадрів</text>
+
+  <!-- Arrow 2 -> 3 -->
+  <line x1="640" y1="385" x2="675" y2="385" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- Stage 3: SWO Pin & Host -->
+  <rect x="680" y="80" width="250" height="370" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="700" y="110" font-size="14" font-weight="bold" fill="#1a1a1a">3. Вивід SWO та хост</text>
+  <text x="700" y="130" font-size="12" fill="#6b7280">Фізична лінія та декодування</text>
+
+  <!-- Physical Pin SWO -->
+  <rect x="695" y="145" width="220" height="75" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="710" y="170" font-size="13" font-weight="bold" fill="#27ae60">Ніжка SWO (Serial Wire Output)</text>
+  <text x="710" y="192" font-size="12" fill="#1a1a1a">• 1 сигнальний провід</text>
+  <text x="710" y="210" font-size="11" fill="#6b7280">Протокол: UART NRZ або Manchester</text>
+
+  <!-- Hardware Debugger -->
+  <rect x="695" y="235" width="220" height="75" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="710" y="260" font-size="13" font-weight="bold" fill="#2457d6">Апаратний відлагоджувач</text>
+  <text x="710" y="282" font-size="12" fill="#1a1a1a">• J-Link / ST-Link V3 / CMSIS-DAP</text>
+  <text x="710" y="300" font-size="11" fill="#1a1a1a">Швидкість до 20-50 Мбіт/с</text>
+
+  <!-- Host PC Decoder -->
+  <rect x="695" y="325" width="220" height="110" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="710" y="350" font-size="13" font-weight="bold" fill="#1a1a1a">Хост-декодер (ПК)</text>
+  <text x="710" y="372" font-size="12" fill="#1a1a1a">• Підставляє рядки з ELF файлу</text>
+  <text x="710" y="394" font-size="12" fill="#1a1a1a">• Відображає лог із таймштампом</text>
+  <text x="710" y="416" font-size="11" fill="#27ae60">defmt-print / orbuculum</text>
+</svg>

@@ -1,0 +1,150 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-red-rev" markerWidth="9" markerHeight="9" refX="0.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-green-rev" markerWidth="9" markerHeight="9" refX="0.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Main Title & Subtitle -->
+  <text x="480" y="34" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Відгук на асинхронну подію: кооперативна проти витісняльної багатозадачності</text>
+  <text x="480" y="56" font-size="13" fill="#6b7280" text-anchor="middle">Витіснення забезпечує детерміновану реакцію L ≈ T_switch без затримок на добровільний yield()</text>
+
+  <!-- ==================== PANEL 1: COOPERATIVE ==================== -->
+  <rect x="25" y="76" width="910" height="190" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="25" y="76" width="910" height="28" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="40" y="95" font-size="13" font-weight="700" fill="#c0392b">1. Кооперативний режим (добровільна передача CPU через yield)</text>
+  <text x="915" y="95" font-size="12" font-weight="700" fill="#c0392b" text-anchor="end">Недетермінована затримка: L_coop = T_block + T_switch</text>
+
+  <!-- Panel 1 Track Labels -->
+  <text x="40" y="128" font-size="12" font-weight="700" fill="#1a1a1a">Подія (IRQ)</text>
+  <text x="40" y="162" font-size="12" font-weight="700" fill="#1a1a1a">Задача 1</text>
+  <text x="40" y="176" font-size="12" fill="#6b7280">(низький пріор.)</text>
+  <text x="40" y="212" font-size="12" font-weight="700" fill="#1a1a1a">Задача 2</text>
+  <text x="40" y="226" font-size="12" fill="#6b7280">(високий пріор.)</text>
+
+  <!-- Panel 1 Signal 1: Event (IRQ) -->
+  <line x1="180" y1="130" x2="360" y2="130" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="360" y1="130" x2="360" y2="116" stroke="#c0392b" stroke-width="2"/>
+  <line x1="360" y1="116" x2="390" y2="116" stroke="#c0392b" stroke-width="2"/>
+  <line x1="390" y1="116" x2="390" y2="130" stroke="#c0392b" stroke-width="2"/>
+  <line x1="390" y1="130" x2="910" y2="130" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="352" y="111" font-size="12" font-weight="700" fill="#c0392b" text-anchor="end">t_event (подія)</text>
+
+  <!-- Panel 1 Vertical Event Alignment Gaps -->
+  <line x1="360" y1="132" x2="360" y2="148" stroke="#c0392b" stroke-width="1" stroke-dasharray="3 3"/>
+  <line x1="360" y1="180" x2="360" y2="198" stroke="#c0392b" stroke-width="1" stroke-dasharray="3 3"/>
+  <line x1="360" y1="230" x2="360" y2="244" stroke="#c0392b" stroke-width="1" stroke-dasharray="3 3"/>
+
+  <!-- Panel 1 Task 1 Blocks -->
+  <rect x="180" y="150" width="180" height="28" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="270" y="168" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">Виконання задачі 1</text>
+
+  <rect x="360" y="150" width="210" height="28" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4 2"/>
+  <text x="465" y="168" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">Робота до yield() (T_block)</text>
+
+  <rect x="570" y="150" width="50" height="28" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="595" y="168" font-size="12" fill="#6b7280" text-anchor="middle">T_sw</text>
+
+  <!-- Task 1 waiting after yield -->
+  <rect x="620" y="150" width="290" height="28" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3 3"/>
+  <text x="765" y="168" font-size="12" fill="#6b7280" text-anchor="middle">Призупинена (чекає на завершення задачі 2)</text>
+
+  <!-- Panel 1 Task 2 Blocks -->
+  <rect x="180" y="200" width="180" height="28" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3 3"/>
+  <text x="270" y="218" font-size="12" fill="#6b7280" text-anchor="middle">Очікує на подію</text>
+
+  <rect x="360" y="200" width="260" height="28" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="490" y="218" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">ГОТОВА: вимушене очікування CPU</text>
+
+  <rect x="620" y="200" width="290" height="28" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="765" y="218" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">Виконання задачі 2 (запізніла реакція)</text>
+
+  <!-- Panel 1 Latency Caliper -->
+  <line x1="620" y1="230" x2="620" y2="244" stroke="#c0392b" stroke-width="1" stroke-dasharray="3 3"/>
+  <line x1="360" y1="248" x2="398" y2="248" stroke="#c0392b" stroke-width="1.5" marker-start="url(#arr-red-rev)"/>
+  <text x="490" y="252" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">L_coop = T_block + T_switch</text>
+  <line x1="582" y1="248" x2="620" y2="248" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+
+  <!-- ==================== PANEL 2: PREEMPTIVE ==================== -->
+  <rect x="25" y="282" width="910" height="190" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="25" y="282" width="910" height="28" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="40" y="301" font-size="13" font-weight="700" fill="#27ae60">2. Витісняльний режим (миттєве перемикання через PendSV / RTOS)</text>
+  <text x="915" y="301" font-size="12" font-weight="700" fill="#27ae60" text-anchor="end">Гарантований відгук: L_preempt ≈ T_switch</text>
+
+  <!-- Panel 2 Track Labels -->
+  <text x="40" y="334" font-size="12" font-weight="700" fill="#1a1a1a">Подія (IRQ)</text>
+  <text x="40" y="368" font-size="12" font-weight="700" fill="#1a1a1a">Задача 1</text>
+  <text x="40" y="382" font-size="12" fill="#6b7280">(низький пріор.)</text>
+  <text x="40" y="418" font-size="12" font-weight="700" fill="#1a1a1a">Задача 2</text>
+  <text x="40" y="432" font-size="12" fill="#6b7280">(високий пріор.)</text>
+
+  <!-- Panel 2 Signal 1: Event (IRQ) -->
+  <line x1="180" y1="336" x2="360" y2="336" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="360" y1="336" x2="360" y2="322" stroke="#27ae60" stroke-width="2"/>
+  <line x1="360" y1="322" x2="390" y2="322" stroke="#27ae60" stroke-width="2"/>
+  <line x1="390" y1="322" x2="390" y2="336" stroke="#27ae60" stroke-width="2"/>
+  <line x1="390" y1="336" x2="910" y2="336" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="352" y="317" font-size="12" font-weight="700" fill="#27ae60" text-anchor="end">t_event (подія)</text>
+
+  <!-- Panel 2 Vertical Event Alignment Gaps -->
+  <line x1="360" y1="338" x2="360" y2="354" stroke="#27ae60" stroke-width="1" stroke-dasharray="3 3"/>
+  <line x1="360" y1="386" x2="360" y2="404" stroke="#27ae60" stroke-width="1" stroke-dasharray="3 3"/>
+  <line x1="360" y1="436" x2="360" y2="450" stroke="#27ae60" stroke-width="1" stroke-dasharray="3 3"/>
+
+  <!-- Panel 2 Task 1 Blocks -->
+  <rect x="180" y="356" width="180" height="28" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="270" y="374" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">Виконання задачі 1</text>
+
+  <rect x="360" y="356" width="50" height="28" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="385" y="374" font-size="12" fill="#6b7280" text-anchor="middle">T_sw</text>
+
+  <!-- Task 1 preempted -->
+  <rect x="410" y="356" width="310" height="28" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3 3"/>
+  <text x="565" y="374" font-size="12" fill="#6b7280" text-anchor="middle">Витіснена (контекст збережено в стеку PSP)</text>
+
+  <rect x="720" y="356" width="50" height="28" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="745" y="374" font-size="12" fill="#6b7280" text-anchor="middle">T_sw</text>
+
+  <rect x="770" y="356" width="140" height="28" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="840" y="374" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">Відновлення задачі 1</text>
+
+  <!-- Panel 2 Task 2 Blocks -->
+  <rect x="180" y="406" width="180" height="28" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3 3"/>
+  <text x="270" y="424" font-size="12" fill="#6b7280" text-anchor="middle">Очікує на подію</text>
+
+  <rect x="360" y="406" width="50" height="28" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1" stroke-dasharray="2 2"/>
+  <text x="385" y="424" font-size="12" fill="#27ae60" text-anchor="middle">T_sw</text>
+
+  <rect x="410" y="406" width="310" height="28" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="565" y="424" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">Негайне виконання задачі 2 (гарантований дедлайн)</text>
+
+  <rect x="720" y="406" width="190" height="28" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3 3"/>
+  <text x="815" y="424" font-size="12" fill="#6b7280" text-anchor="middle">Очікує наступну подію</text>
+
+  <!-- Panel 2 Latency Caliper -->
+  <line x1="410" y1="436" x2="410" y2="450" stroke="#27ae60" stroke-width="1" stroke-dasharray="3 3"/>
+  <line x1="360" y1="454" x2="410" y2="454" stroke="#27ae60" stroke-width="1.5" marker-start="url(#arr-green-rev)" marker-end="url(#arr-green)"/>
+  <text x="422" y="458" font-size="12" font-weight="700" fill="#27ae60">L_preempt ≈ T_switch (детерміновано, кілька мікросекунд)</text>
+
+  <!-- Bottom Common Time Axis -->
+  <line x1="180" y1="492" x2="900" y2="492" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+  <text x="912" y="496" font-size="12" fill="#6b7280">Час t</text>
+</svg>

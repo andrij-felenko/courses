@@ -1,0 +1,149 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 530" width="960" height="530" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Підкладка на все полотно -->
+  <rect x="0" y="0" width="960" height="530" fill="white"/>
+
+  <!-- Визначення маркерів стрілок -->
+  <defs>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Головний заголовок і підзаголовок -->
+  <text x="480" y="30" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Причини хвостової затримки на SD-карті: динамічне розширення проти f_expand</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Оновлення таблиці FAT провокує блокуюче збирання сміття у Flash; суцільне резервування усуває сплески</text>
+
+  <!-- ========================================== -->
+  <!-- ЛІВА КОЛОНКА: Динамічне розширення файлу   -->
+  <!-- ========================================== -->
+  <rect x="24" y="70" width="444" height="438" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Шапка лівої колонки -->
+  <rect x="38" y="84" width="416" height="44" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="246" y="103" font-size="14" font-weight="bold" fill="#c0392b" text-anchor="middle">Динамічне розширення (дописування f_write)</text>
+  <text x="246" y="119" font-size="12" fill="#6b7280" text-anchor="middle">Хаотичні стрибки LBA між метаданими та даними</text>
+
+  <!-- Блок 1: Рівень FatFs -->
+  <rect x="38" y="138" width="416" height="106" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="52" y="157" font-size="13" font-weight="bold" fill="#1a1a1a">FatFs: модифікація метаданих під час запису</text>
+
+  <!-- Три розпорошених сектори -->
+  <rect x="52" y="168" width="118" height="38" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="111" y="185" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Таблиця FAT</text>
+  <text x="111" y="199" font-size="12" fill="#6b7280" text-anchor="middle">LBA 128 (пошук)</text>
+
+  <rect x="186" y="168" width="118" height="38" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="245" y="185" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Каталог файлу</text>
+  <text x="245" y="199" font-size="12" fill="#6b7280" text-anchor="middle">LBA 32 (розмір)</text>
+
+  <rect x="320" y="168" width="120" height="38" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="380" y="185" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Кластер даних</text>
+  <text x="380" y="199" font-size="12" fill="#6b7280" text-anchor="middle">LBA 16384 (лог)</text>
+
+  <text x="52" y="231" font-size="12" font-weight="bold" fill="#c0392b">Розпорошені адреси LBA руйнують відкриті зони Flash</text>
+
+  <!-- Стрілка переходу 1 -> 2 -->
+  <line x1="246" y1="244" x2="246" y2="256" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+
+  <!-- Блок 2: Контролер FTL та Flash -->
+  <rect x="38" y="258" width="416" height="110" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="52" y="277" font-size="13" font-weight="bold" fill="#1a1a1a">Контролер SD / FTL: аварійне очищення</text>
+
+  <rect x="52" y="288" width="188" height="42" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="146" y="305" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Garbage Collection</text>
+  <text x="146" y="321" font-size="12" fill="#6b7280" text-anchor="middle">Копіювання сторінок 4–16 КБ</text>
+
+  <rect x="252" y="288" width="188" height="42" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="346" y="305" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Erase Block Flash</text>
+  <text x="346" y="321" font-size="12" fill="#6b7280" text-anchor="middle">Стирання блоку 4–8 МБ</text>
+
+  <text x="52" y="352" font-size="12" font-weight="bold" fill="#c0392b">Вичерпання чистих блоків: імпульс стирання матриці</text>
+
+  <!-- Стрілка переходу 2 -> 3 -->
+  <line x1="246" y1="368" x2="246" y2="380" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+
+  <!-- Блок 3: Хвостова затримка і шина -->
+  <rect x="38" y="382" width="416" height="112" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="52" y="401" font-size="13" font-weight="bold" fill="#c0392b">Хвостова затримка: блокування та втрата даних</text>
+
+  <rect x="52" y="412" width="388" height="46" rx="4" fill="white" stroke="#c0392b" stroke-width="1"/>
+  <text x="64" y="430" font-size="12" font-weight="bold" fill="#c0392b">Шина SDIO (лінія DAT0):</text>
+  <text x="64" y="447" font-size="12" fill="#1a1a1a">Притиснута до 0 (Busy Signaling)</text>
+
+  <text x="264" y="430" font-size="12" font-weight="bold" fill="#c0392b">Затримка t_tail:</text>
+  <text x="264" y="448" font-size="14" font-weight="bold" fill="#c0392b">100 ... 450 мс (сплеск)</text>
+
+  <text x="52" y="480" font-size="12" font-weight="bold" fill="#c0392b">Переповнення черги RTOS, зрив дедлайну, втрата логу</text>
+
+  <!-- ========================================== -->
+  <!-- ПРАВА КОЛОНКА: Суцільне резервування       -->
+  <!-- ========================================== -->
+  <rect x="492" y="70" width="444" height="438" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Шапка правої колонки -->
+  <rect x="506" y="84" width="416" height="44" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="714" y="103" font-size="14" font-weight="bold" fill="#27ae60" text-anchor="middle">Суцільне резервування (виклик f_expand)</text>
+  <text x="714" y="119" font-size="12" fill="#6b7280" text-anchor="middle">Попереднє виділення суцільного простору LBA</text>
+
+  <!-- Блок 1: Рівень FatFs -->
+  <rect x="506" y="138" width="416" height="106" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="520" y="157" font-size="13" font-weight="bold" fill="#1a1a1a">FatFs: нуль змін метаданих у робочому циклі</text>
+
+  <!-- Суцільний масив кластерів -->
+  <rect x="520" y="168" width="388" height="40" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <rect x="526" y="172" width="118" height="32" rx="3" fill="white" stroke="#27ae60" stroke-width="1"/>
+  <text x="585" y="186" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Кластер N</text>
+  <text x="585" y="199" font-size="12" fill="#6b7280" text-anchor="middle">LBA 16384</text>
+
+  <rect x="655" y="172" width="118" height="32" rx="3" fill="white" stroke="#27ae60" stroke-width="1"/>
+  <text x="714" y="186" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Кластер N+1</text>
+  <text x="714" y="199" font-size="12" fill="#6b7280" text-anchor="middle">LBA 16448</text>
+
+  <rect x="784" y="172" width="118" height="32" rx="3" fill="white" stroke="#27ae60" stroke-width="1"/>
+  <text x="843" y="186" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Кластер N+2</text>
+  <text x="843" y="199" font-size="12" fill="#6b7280" text-anchor="middle">LBA 16512</text>
+
+  <text x="520" y="231" font-size="12" font-weight="bold" fill="#27ae60">FAT і каталог не чіпаються; прямий потік у LBA</text>
+
+  <!-- Стрілка переходу 1 -> 2 -->
+  <line x1="714" y1="244" x2="714" y2="256" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- Блок 2: Контролер FTL та Flash -->
+  <rect x="506" y="258" width="416" height="110" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="520" y="277" font-size="13" font-weight="bold" fill="#1a1a1a">Контролер SD / FTL: фонова лінійна обробка</text>
+
+  <rect x="520" y="288" width="188" height="42" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="614" y="305" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Послідовний запис</text>
+  <text x="614" y="321" font-size="12" fill="#6b7280" text-anchor="middle">Прямий потік у відкритий блок</text>
+
+  <rect x="720" y="288" width="188" height="42" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="814" y="305" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Фонова підготовка</text>
+  <text x="814" y="321" font-size="12" fill="#6b7280" text-anchor="middle">Блоки очищуються завчасно</text>
+
+  <text x="520" y="352" font-size="12" font-weight="bold" fill="#27ae60">Нуль колізій і копіювань; коефіцієнт WAF ≈ 1</text>
+
+  <!-- Стрілка переходу 2 -> 3 -->
+  <line x1="714" y1="368" x2="714" y2="380" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- Блок 3: Хвостова затримка і шина -->
+  <rect x="506" y="382" width="416" height="112" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="520" y="401" font-size="13" font-weight="bold" fill="#27ae60">Детермінізм: передбачуваний час запису</text>
+
+  <rect x="520" y="412" width="388" height="46" rx="4" fill="white" stroke="#27ae60" stroke-width="1"/>
+  <text x="532" y="430" font-size="12" font-weight="bold" fill="#27ae60">Шина SDIO (лінія DAT0):</text>
+  <text x="532" y="447" font-size="12" fill="#1a1a1a">Короткий імпульс Busy (&lt; 1 мс)</text>
+
+  <text x="732" y="430" font-size="12" font-weight="bold" fill="#27ae60">Затримка t_tail:</text>
+  <text x="732" y="448" font-size="14" font-weight="bold" fill="#27ae60">0.5 ... 2 мс (піки &lt; 10 мс)</text>
+
+  <text x="520" y="480" font-size="12" font-weight="bold" fill="#27ae60">Черга RTOS стабільна, детермінізм збережено, нуль втрат</text>
+</svg>

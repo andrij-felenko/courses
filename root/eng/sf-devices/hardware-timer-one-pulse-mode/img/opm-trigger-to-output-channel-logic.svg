@@ -1,0 +1,80 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <rect width="960" height="480" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="40" font-size="18" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Автоматичне керування імпульсом у режимі One-Pulse Mode</text>
+  <text x="480" y="60" font-size="13" text-anchor="middle" fill="#6b7280">Вхідний тригер ініціює відлік лічильника без участі ядра, а логіка вихідного каналу формує фронт сигналу</text>
+
+  <!-- Блок 1: Контролер -->
+  <rect x="90" y="180" width="190" height="80" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="185" y="205" font-size="14" text-anchor="middle" fill="#1a1a1a">Контролер</text>
+  <text x="185" y="225" font-size="14" text-anchor="middle" fill="#1a1a1a">веденого режиму</text>
+  <text x="185" y="245" font-size="13" text-anchor="middle" fill="#6b7280">(Trigger Mode)</text>
+
+  <!-- Блок 2: Регістр CR1 -->
+  <rect x="340" y="180" width="120" height="80" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="400" y="210" font-size="14" text-anchor="middle" fill="#1a1a1a">Регістр CR1</text>
+  <text x="400" y="235" font-size="16" font-weight="bold" text-anchor="middle" fill="#2457d6">CEN = 1</text>
+
+  <!-- Блок 3: Лічильник CNT -->
+  <rect x="520" y="180" width="110" height="80" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="575" y="210" font-size="14" text-anchor="middle" fill="#1a1a1a">Лічильник</text>
+  <text x="575" y="235" font-size="16" font-weight="bold" text-anchor="middle" fill="#1a1a1a">CNT</text>
+
+  <!-- Блок 4: Логіка порівняння -->
+  <rect x="690" y="160" width="200" height="120" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="790" y="190" font-size="14" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Канал порівняння</text>
+  <text x="790" y="225" font-size="13" text-anchor="middle" fill="#1a1a1a">CNT == CCR: старт імпульсу</text>
+  <text x="790" y="250" font-size="13" text-anchor="middle" fill="#1a1a1a">CNT == ARR: кінець імпульсу</text>
+
+  <!-- Регістри CCR і ARR -->
+  <rect x="710" y="80" width="60" height="40" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="740" y="105" font-size="14" text-anchor="middle" fill="#1a1a1a">CCR</text>
+
+  <rect x="810" y="80" width="60" height="40" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="840" y="105" font-size="14" text-anchor="middle" fill="#1a1a1a">ARR</text>
+
+  <!-- Стрілки між блоками -->
+  <!-- Вхід -->
+  <path d="M20,220 L80,220" fill="none" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <path d="M35,210 L45,210 L45,190 L55,190 L55,210 L65,210" fill="none" stroke="#2457d6" stroke-width="2"/>
+  <text x="50" y="240" font-size="13" text-anchor="middle" fill="#1a1a1a">TRGI</text>
+
+  <!-- 1 -> 2 -->
+  <path d="M280,220 L330,220" fill="none" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="310" y="210" font-size="12" text-anchor="middle" fill="#6b7280">встановлює</text>
+
+  <!-- 2 -> 3 -->
+  <path d="M460,220 L510,220" fill="none" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="490" y="210" font-size="12" text-anchor="middle" fill="#6b7280">запуск</text>
+
+  <!-- 3 -> 4 -->
+  <path d="M630,220 L680,220" fill="none" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="660" y="210" font-size="12" text-anchor="middle" fill="#6b7280">рахує</text>
+
+  <!-- CCR -> 4 -->
+  <path d="M740,120 L740,150" fill="none" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  
+  <!-- ARR -> 4 -->
+  <path d="M840,120 L840,150" fill="none" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- Вихід -->
+  <path d="M890,220 L940,220" fill="none" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <path d="M900,210 L910,210 L910,190 L930,190 L930,210 L940,210" fill="none" stroke="#2457d6" stroke-width="2"/>
+  <text x="920" y="240" font-size="13" text-anchor="middle" fill="#1a1a1a">Вихід</text>
+
+  <!-- Зворотний зв'язок UEV -->
+  <!-- Лінія від Логіки порівняння до Регістра CR1 -->
+  <path d="M790,280 L790,340 L400,340 L400,262" fill="none" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <!-- Відгалуження до Лічильника CNT -->
+  <path d="M575,340 L575,262" fill="none" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  
+  <text x="595" y="365" font-size="13" text-anchor="middle" fill="#1a1a1a">Подія UEV: скидає біт CEN та обнуляє CNT</text>
+  
+</svg>

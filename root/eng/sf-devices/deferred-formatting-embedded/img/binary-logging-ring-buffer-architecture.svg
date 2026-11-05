@@ -1,0 +1,115 @@
+<svg viewBox="0 0 960 480" width="960" height="480" xmlns="http://www.w3.org/2000/svg" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="34" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Архітектура кільцевого буфера бінарного логування</text>
+  <text x="480" y="56" text-anchor="middle" font-size="13" fill="#6b7280">Атомарні покажчики head/tail у RAM та розкладка компактного кадру без збереження рядків</text>
+
+  <!-- Left Panel: Ring Buffer -->
+  <rect x="30" y="80" width="500" height="370" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="50" y="110" font-size="14" font-weight="bold" fill="#1a1a1a">Кільцевий буфер повідомлень у RAM</text>
+  <text x="50" y="130" font-size="12" fill="#6b7280">Пам'ять розділена на фіксовані або змінні слоти з індексацією за модулем 2^k</text>
+
+  <!-- Slots -->
+  <g id="slots">
+    <!-- Slot 0 -->
+    <rect x="50" y="150" width="52" height="70" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+    <text x="76" y="175" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Slot 0</text>
+    <text x="76" y="195" text-anchor="middle" font-size="11" fill="#1a1a1a">Дані</text>
+
+    <!-- Slot 1 -->
+    <rect x="110" y="150" width="52" height="70" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+    <text x="136" y="175" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Slot 1</text>
+    <text x="136" y="195" text-anchor="middle" font-size="11" fill="#1a1a1a">Дані</text>
+
+    <!-- Slot 2 -->
+    <rect x="170" y="150" width="52" height="70" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+    <text x="196" y="175" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Slot 2</text>
+    <text x="196" y="195" text-anchor="middle" font-size="11" fill="#1a1a1a">Дані</text>
+
+    <!-- Slot 3 -->
+    <rect x="230" y="150" width="52" height="70" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+    <text x="256" y="175" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Slot 3</text>
+    <text x="256" y="195" text-anchor="middle" font-size="11" fill="#1a1a1a">Дані</text>
+
+    <!-- Slot 4 (Head) -->
+    <rect x="290" y="150" width="52" height="70" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+    <text x="316" y="175" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Slot 4</text>
+    <text x="316" y="195" text-anchor="middle" font-size="11" fill="#2457d6">Новий</text>
+
+    <!-- Slot 5 -->
+    <rect x="350" y="150" width="52" height="70" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+    <text x="376" y="175" text-anchor="middle" font-size="12" fill="#6b7280">Slot 5</text>
+    <text x="376" y="195" text-anchor="middle" font-size="11" fill="#6b7280">Вільний</text>
+
+    <!-- Slot 6 -->
+    <rect x="410" y="150" width="52" height="70" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+    <text x="436" y="175" text-anchor="middle" font-size="12" fill="#6b7280">Slot 6</text>
+    <text x="436" y="195" text-anchor="middle" font-size="11" fill="#6b7280">Вільний</text>
+
+    <!-- Slot 7 -->
+    <rect x="470" y="150" width="50" height="70" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+    <text x="495" y="175" text-anchor="middle" font-size="12" fill="#6b7280">Slot 7</text>
+    <text x="495" y="195" text-anchor="middle" font-size="11" fill="#6b7280">Вільний</text>
+  </g>
+
+  <!-- Pointers -->
+  <!-- Tail pointer -->
+  <line x1="76" y1="270" x2="76" y2="228" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <rect x="35" y="275" width="95" height="38" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="82" y="292" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">tail ptr</text>
+  <text x="82" y="306" text-anchor="middle" font-size="11" fill="#1a1a1a">Зчитувач DMA</text>
+
+  <!-- Head pointer -->
+  <line x1="316" y1="270" x2="316" y2="228" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <rect x="255" y="275" width="122" height="38" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="316" y="292" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">head ptr</text>
+  <text x="316" y="306" text-anchor="middle" font-size="11" fill="#1a1a1a">Атомарний запис</text>
+
+  <!-- Info box in left panel -->
+  <rect x="50" y="330" width="460" height="100" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="65" y="352" font-size="12" font-weight="bold" fill="#1a1a1a">Атомарні гарантії вводу-виводу (SPSC):</text>
+  <text x="65" y="372" font-size="12" fill="#1a1a1a">- Запис: виконується в перериванні ISR без блокування м'ютексом</text>
+  <text x="65" y="392" font-size="12" fill="#1a1a1a">- Індексація: head = (head + size) &amp; (BUFFER_SIZE - 1) за 1 такт</text>
+  <text x="65" y="412" font-size="12" fill="#1a1a1a">- Бар'єр: DMB фіксує запис корисного навантаження перед рухом head</text>
+
+  <!-- Right Panel: Binary Frame Layout -->
+  <rect x="550" y="80" width="380" height="370" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="570" y="110" font-size="14" font-weight="bold" fill="#1a1a1a">Структура двійкового кадру (Frame)</text>
+  <text x="570" y="130" font-size="12" fill="#6b7280">Замість форматованого тексту передаються числові дескриптори</text>
+
+  <!-- Frame Fields breakdown -->
+  <rect x="570" y="150" width="340" height="55" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="585" y="173" font-size="13" font-weight="bold" fill="#2457d6">String ID / Event ID</text>
+  <text x="895" y="173" text-anchor="end" font-size="12" font-weight="bold" fill="#2457d6">2 байти (uint16_t)</text>
+  <text x="585" y="193" font-size="11" fill="#1a1a1a">Хеш рядка або індекс із таблиці ELF (символи на хості)</text>
+
+  <rect x="570" y="215" width="340" height="55" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="585" y="238" font-size="13" font-weight="bold" fill="#2457d6">Timestamp (DWT / SysTick)</text>
+  <text x="895" y="238" text-anchor="end" font-size="12" font-weight="bold" fill="#2457d6">4 байти (uint32_t)</text>
+  <text x="585" y="258" font-size="11" fill="#1a1a1a">Точний час події в тактах ядра або мілісекундах</text>
+
+  <rect x="570" y="280" width="340" height="55" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="585" y="303" font-size="13" font-weight="bold" fill="#27ae60">Raw Arguments / Payload</text>
+  <text x="895" y="303" text-anchor="end" font-size="12" font-weight="bold" fill="#27ae60">N байтів (сирі числа)</text>
+  <text x="585" y="323" font-size="11" fill="#1a1a1a">Лише бінарні змінні: наприклад, значення ADC або код збою</text>
+
+  <!-- Summary Comparison Box -->
+  <rect x="570" y="345" width="340" height="85" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="585" y="368" font-size="12" font-weight="bold" fill="#1a1a1a">Порівняння витрат на передачу:</text>
+  <text x="585" y="390" font-size="12" fill="#c0392b">- printf: 40-80 байтів текстового форматування Flash</text>
+  <text x="585" y="412" font-size="12" fill="#27ae60">- Бінарний лог defmt/TRICE: лише 8 байтів у SRAM</text>
+</svg>

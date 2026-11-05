@@ -1,0 +1,160 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-rev" markerWidth="9" markerHeight="9" refX="0.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-blue-rev" markerWidth="9" markerHeight="9" refX="0.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="700" fill="#1a1a1a">Часова діаграма передачі байта в протоколі Bit-bang</text>
+  <text x="480" y="52" text-anchor="middle" font-size="13" fill="#6b7280">Програмні затримки delay_us стабілізують шину до стробу зчитування стану</text>
+
+  <!-- ==================== UPPER PANEL: FULL BYTE FRAME ==================== -->
+  <rect x="25" y="66" width="910" height="150" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Upper Panel Headers -->
+  <text x="40" y="86" font-size="13" font-weight="700" fill="#1a1a1a">Кадр передачі 1 байта (8 бітів MSB-first + підтвердження ACK)</text>
+  <text x="918" y="86" text-anchor="end" font-size="12" fill="#6b7280">Дані: 0xA5 (10100101b)</text>
+
+  <!-- Bit Column Labels -->
+  <text x="204" y="104" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">b7 = 1</text>
+  <text x="282" y="104" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">b6 = 0</text>
+  <text x="360" y="104" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">b5 = 1</text>
+  <text x="438" y="104" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">b4 = 0</text>
+  <text x="516" y="104" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">b3 = 0</text>
+  <text x="594" y="104" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">b2 = 1</text>
+  <text x="672" y="104" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">b1 = 0</text>
+  <text x="750" y="104" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">b0 = 1</text>
+  <text x="828" y="104" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">ACK = 0</text>
+
+  <!-- Left Signal Labels -->
+  <text x="40" y="132" font-size="12" font-weight="700" fill="#2457d6">SCL (Тактування)</text>
+  <text x="40" y="180" font-size="12" font-weight="700" fill="#1a1a1a">SDA (Лінія даних)</text>
+
+  <!-- Vertical Slot Dividers -->
+  <line x1="243" y1="110" x2="243" y2="198" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3 3"/>
+  <line x1="321" y1="110" x2="321" y2="198" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3 3"/>
+  <line x1="399" y1="110" x2="399" y2="198" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3 3"/>
+  <line x1="477" y1="110" x2="477" y2="198" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3 3"/>
+  <line x1="555" y1="110" x2="555" y2="198" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3 3"/>
+  <line x1="633" y1="110" x2="633" y2="198" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3 3"/>
+  <line x1="711" y1="110" x2="711" y2="198" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3 3"/>
+  <line x1="789" y1="110" x2="789" y2="198" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3 3"/>
+  <line x1="867" y1="110" x2="867" y2="198" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3 3"/>
+
+  <!-- SCL Waveform -->
+  <path d="M 165,140 L 204,140 L 204,118 L 243,118 L 243,140 L 282,140 L 282,118 L 321,118 L 321,140 L 360,140 L 360,118 L 399,118 L 399,140 L 438,140 L 438,118 L 477,118 L 477,140 L 516,140 L 516,118 L 555,118 L 555,140 L 594,140 L 594,118 L 633,118 L 633,140 L 672,140 L 672,118 L 711,118 L 711,140 L 750,140 L 750,118 L 789,118 L 789,140 L 828,140 L 828,118 L 867,118 L 867,140 L 890,140" fill="none" stroke="#2457d6" stroke-width="2"/>
+
+  <!-- SDA Waveform -->
+  <path d="M 165,166 L 243,166 L 243,188 L 321,188 L 321,166 L 399,166 L 399,188 L 477,188 L 555,188 L 555,166 L 633,166 L 633,188 L 711,188 L 711,166 L 789,166 L 789,188 L 867,188 L 867,166 L 890,166" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Sample Dots on SDA -->
+  <circle cx="223" cy="166" r="3" fill="#27ae60"/>
+  <circle cx="301" cy="188" r="3" fill="#27ae60"/>
+  <circle cx="379" cy="166" r="3" fill="#27ae60"/>
+  <circle cx="457" cy="188" r="3" fill="#27ae60"/>
+  <circle cx="535" cy="188" r="3" fill="#27ae60"/>
+  <circle cx="613" cy="166" r="3" fill="#27ae60"/>
+  <circle cx="691" cy="188" r="3" fill="#27ae60"/>
+  <circle cx="769" cy="166" r="3" fill="#27ae60"/>
+  <circle cx="847" cy="188" r="3" fill="#27ae60"/>
+
+  <!-- Bit 7 Highlight Focus Box -->
+  <rect x="163" y="93" width="80" height="110" rx="4" fill="none" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4 3"/>
+  <text x="204" y="210" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">Зум біта b7 ↓</text>
+
+  <!-- ==================== LOWER PANEL: DETAILED BIT CYCLE ==================== -->
+  <rect x="25" y="228" width="910" height="212" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Lower Panel Header -->
+  <text x="40" y="248" font-size="13" font-weight="700" fill="#1a1a1a">Деталізація одного біта: точки встановлення рівнів, затримки delay_us та зчитування</text>
+
+  <!-- Lower Left Signal Labels -->
+  <text x="40" y="318" font-size="12" font-weight="700" fill="#2457d6">SCL (CLK)</text>
+  <text x="40" y="333" font-size="12" fill="#6b7280">Тактування</text>
+  <text x="40" y="385" font-size="12" font-weight="700" fill="#1a1a1a">SDA (DATA)</text>
+  <text x="40" y="400" font-size="12" fill="#6b7280">Дані (Bit k)</text>
+
+  <!-- Vertical Ticks for Time Slots in Detail View -->
+  <line x1="160" y1="272" x2="160" y2="334" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3 3"/>
+  <line x1="390" y1="272" x2="390" y2="334" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3 3"/>
+  <line x1="620" y1="272" x2="620" y2="334" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3 3"/>
+
+  <!-- Delay Arrows at top of Lower Waveform -->
+  <line x1="162" y1="280" x2="388" y2="280" stroke="#2457d6" stroke-width="1.5" marker-start="url(#arr-blue-rev)" marker-end="url(#arr-blue)"/>
+  <text x="275" y="274" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">delay_us (t_setup)</text>
+
+  <line x1="392" y1="280" x2="618" y2="280" stroke="#2457d6" stroke-width="1.5" marker-start="url(#arr-blue-rev)" marker-end="url(#arr-blue)"/>
+  <text x="505" y="274" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">delay_us (t_high)</text>
+
+  <!-- Detailed SCL Waveform -->
+  <path d="M 140,328 L 390,328 L 390,295 L 620,295 L 620,328 L 645,328" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+
+  <!-- SCL Transition Edge Labels -->
+  <text x="382" y="312" text-anchor="end" font-size="12" font-weight="700" fill="#2457d6">Фронт CLK=1</text>
+  <text x="612" y="312" text-anchor="end" font-size="12" font-weight="700" fill="#2457d6">Спад CLK=0</text>
+
+  <!-- SCL Markers -->
+  <circle cx="390" cy="295" r="5" fill="#2457d6" stroke="white" stroke-width="1.5"/>
+  <circle cx="620" cy="328" r="5" fill="#2457d6" stroke="white" stroke-width="1.5"/>
+
+  <!-- Detailed SDA Waveform -->
+  <path d="M 140,398 L 160,398 L 160,368 L 625,368 L 645,368" fill="none" stroke="#1a1a1a" stroke-width="2.5"/>
+
+  <!-- Point 1: DATA Setup Label & Marker -->
+  <circle cx="160" cy="368" r="5" fill="#2457d6" stroke="white" stroke-width="1.5"/>
+  <text x="170" y="348" font-size="12" font-weight="700" fill="#1a1a1a">Встановлення DATA</text>
+  <text x="170" y="362" font-size="12" fill="#6b7280">GPIO Write (BSRR)</text>
+
+  <!-- Green Strobe / Sampling Point -->
+  <line x1="505" y1="295" x2="505" y2="400" stroke="#27ae60" stroke-width="2" stroke-dasharray="4 3"/>
+  <circle cx="505" cy="368" r="5" fill="#27ae60" stroke="white" stroke-width="1.5"/>
+  <text x="515" y="348" font-size="12" font-weight="700" fill="#27ae60">Зчитування (Sample)</text>
+  <text x="515" y="362" font-size="12" fill="#6b7280">опитування IDR</text>
+
+  <!-- Bottom Full Period Dimension Arrow -->
+  <line x1="160" y1="404" x2="160" y2="426" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3 3"/>
+  <line x1="620" y1="404" x2="620" y2="426" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3 3"/>
+  <line x1="162" y1="422" x2="618" y2="422" stroke="#1a1a1a" stroke-width="1.5" marker-start="url(#arr-rev)" marker-end="url(#arr)"/>
+  <text x="390" y="416" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">Повний період тактування біта T_bit = 2 × delay_us</text>
+
+  <!-- ==================== RIGHT SIDE: DRIVER ACTION CARD ==================== -->
+  <rect x="665" y="246" width="255" height="180" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="792" y="266" text-anchor="middle" font-size="13" font-weight="700" fill="#2457d6">Кроки програмного циклу біта</text>
+
+  <!-- Step 1 -->
+  <circle cx="682" cy="285" r="7" fill="#2457d6"/>
+  <text x="682" y="289" text-anchor="middle" font-size="12" font-weight="700" fill="white">1</text>
+  <text x="696" y="285" font-size="12" font-weight="700" fill="#1a1a1a">Встановлення рівня DATA</text>
+  <text x="696" y="299" font-size="12" fill="#6b7280">GPIO Write (BSRR) при CLK=0</text>
+
+  <!-- Step 2 -->
+  <circle cx="682" cy="320" r="7" fill="#2457d6"/>
+  <text x="682" y="324" text-anchor="middle" font-size="12" font-weight="700" fill="white">2</text>
+  <text x="696" y="320" font-size="12" font-weight="700" fill="#1a1a1a">Пауза delay_us (t_setup)</text>
+  <text x="696" y="334" font-size="12" fill="#6b7280">Стабілізація перед стробом</text>
+
+  <!-- Step 3 -->
+  <circle cx="682" cy="355" r="7" fill="#27ae60"/>
+  <text x="682" y="359" text-anchor="middle" font-size="12" font-weight="700" fill="white">3</text>
+  <text x="696" y="355" font-size="12" font-weight="700" fill="#27ae60">Фронт CLK=1 і Зчитування</text>
+  <text x="696" y="369" font-size="12" fill="#6b7280">GPIO Read (IDR) / вибірка стану</text>
+
+  <!-- Step 4 -->
+  <circle cx="682" cy="390" r="7" fill="#2457d6"/>
+  <text x="682" y="394" text-anchor="middle" font-size="12" font-weight="700" fill="white">4</text>
+  <text x="696" y="390" font-size="12" font-weight="700" fill="#1a1a1a">Пауза delay_us і спад CLK=0</text>
+  <text x="696" y="404" font-size="12" fill="#6b7280">Завершення та перехід до b[k-1]</text>
+</svg>

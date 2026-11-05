@@ -1,0 +1,84 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <text x="480" y="30" font-size="18" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Фазові спотворення ЦАП при опитуванні через переривання (Jitter)</text>
+  <text x="480" y="50" font-size="13" text-anchor="middle" fill="#6b7280">Амплітудні помилки через нестабільність моменту запису в регістр даних</text>
+
+  <!-- Labels -->
+  <text x="130" y="90" font-size="14" font-weight="bold" text-anchor="end" fill="#2457d6">Апаратний таймер</text>
+  <text x="130" y="150" font-size="14" font-weight="bold" text-anchor="end" fill="#c0392b">Переривання (ISR)</text>
+  <text x="130" y="220" font-size="14" font-weight="bold" text-anchor="end" fill="#1a1a1a">Вихідна напруга</text>
+
+  <!-- Timelines base -->
+  <line x1="150" y1="100" x2="900" y2="100" stroke="#d0d7de" stroke-width="1.5"/>
+  <line x1="150" y1="160" x2="900" y2="160" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Ideal Timer Ticks (every 100px: 150, 250, 350, 450, 550, 650, 750, 850) -->
+  <path d="M 150 100 L 150 70 M 250 100 L 250 70 M 350 100 L 350 70 M 450 100 L 450 70 
+           M 550 100 L 550 70 M 650 100 L 650 70 M 750 100 L 750 70 M 850 100 L 850 70" 
+        stroke="#2457d6" stroke-width="2"/>
+
+  <!-- Jittered ISR Ticks (150, 290, 360, 500, 570, 650, 800, 860) -->
+  <path d="M 150 160 L 150 130 M 290 160 L 290 130 M 360 160 L 360 130 M 500 160 L 500 130 
+           M 570 160 L 570 130 M 650 160 L 650 130 M 800 160 L 800 130 M 860 160 L 860 130" 
+        stroke="#c0392b" stroke-width="2"/>
+
+  <!-- Connection lines from Timer to ISR (showing delay) -->
+  <line x1="150" y1="100" x2="150" y2="130" stroke="#6b7280" stroke-width="1" stroke-dasharray="2"/>
+  <line x1="250" y1="100" x2="290" y2="130" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <line x1="350" y1="100" x2="360" y2="130" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <line x1="450" y1="100" x2="500" y2="130" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <line x1="550" y1="100" x2="570" y2="130" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <line x1="650" y1="100" x2="650" y2="130" stroke="#6b7280" stroke-width="1" stroke-dasharray="2"/>
+  <line x1="750" y1="100" x2="800" y2="130" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <line x1="850" y1="100" x2="860" y2="130" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+
+  <!-- DAC Analog Output Area -->
+  <path d="M 150 420 L 900 420" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <path d="M 150 420 L 150 190" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- Ideal Sine Wave Reference (Smooth curve) -->
+  <path d="M 150 300 Q 250 200 350 200 T 550 300 T 750 400 T 900 325" fill="none" stroke="#eaf0fd" stroke-width="8"/>
+  <path d="M 150 300 Q 250 200 350 200 T 550 300 T 750 400 T 900 325" fill="none" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="6"/>
+
+  <!-- Ideal DAC Staircase (Green, Dashed) -->
+  <path d="M 150 300 L 250 300 L 250 229 L 350 229 L 350 200 L 450 200 L 450 229 L 550 229 L 550 300 L 650 300 L 650 371 L 750 371 L 750 400 L 850 400 L 850 371 L 900 371" 
+        fill="none" stroke="#27ae60" stroke-width="2" stroke-dasharray="4"/>
+
+  <!-- Actual Jittered DAC Staircase (Red, Solid) -->
+  <path d="M 150 300 L 290 300 L 290 229 L 360 229 L 360 200 L 500 200 L 500 229 L 570 229 L 570 300 L 650 300 L 650 371 L 800 371 L 800 400 L 860 400 L 860 371 L 900 371" 
+        fill="none" stroke="#c0392b" stroke-width="3"/>
+
+  <!-- Annotations showing delta T and delta V -->
+  <!-- At T=250 ideal, actual is 290 -->
+  <rect x="250" y="229" width="40" height="71" fill="#fdecea" opacity="0.6"/>
+  <line x1="250" y1="180" x2="250" y2="420" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2"/>
+  <line x1="290" y1="180" x2="290" y2="420" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2"/>
+  <text x="270" y="95" font-size="12" font-weight="bold" text-anchor="middle" fill="#c0392b">dt</text>
+  <text x="320" y="270" font-size="12" font-weight="bold" text-anchor="middle" fill="#c0392b">dV</text>
+  <path d="M 305 235 L 305 295" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+
+  <!-- At T=750 ideal, actual is 800 -->
+  <rect x="750" y="371" width="50" height="29" fill="#fdecea" opacity="0.6"/>
+  <line x1="750" y1="180" x2="750" y2="420" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2"/>
+  <line x1="800" y1="180" x2="800" y2="420" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2"/>
+
+  <!-- Legend -->
+  <rect x="180" y="360" width="180" height="50" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="190" y1="375" x2="220" y2="375" stroke="#27ae60" stroke-width="2" stroke-dasharray="4"/>
+  <text x="230" y="380" font-size="12" fill="#1a1a1a">Ідеальний ЦАП</text>
+  <line x1="190" y1="395" x2="220" y2="395" stroke="#c0392b" stroke-width="3"/>
+  <text x="230" y="400" font-size="12" fill="#1a1a1a">Реальний ЦАП</text>
+
+</svg>

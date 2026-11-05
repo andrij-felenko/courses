@@ -1,0 +1,101 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-main" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <text x="480" y="36" text-anchor="middle" font-size="18" font-weight="700" fill="#1a1a1a">Потоковий конвеєр реконструкції дельта-образу</text>
+  <text x="480" y="58" text-anchor="middle" font-size="13" fill="#6b7280">Інкрементна обробка в обмеженій RAM з RTOS-квантуванням та атомарною фіксацією у FAL</text>
+
+  <!-- 1. Вхідний потік -->
+  <rect x="40" y="90" width="180" height="340" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="130" y="118" text-anchor="middle" font-size="14" font-weight="700" fill="#1a1a1a">1. Вхідний потік</text>
+
+  <rect x="55" y="140" width="150" height="60" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="130" y="165" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">Мережевий буфер</text>
+  <text x="130" y="185" text-anchor="middle" font-size="12" fill="#1a1a1a">BLE / Wi-Fi / LTE</text>
+
+  <rect x="55" y="220" width="150" height="70" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="130" y="245" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">Потоковий парсер</text>
+  <text x="130" y="265" text-anchor="middle" font-size="12" fill="#6b7280">Декомпресія LZMA</text>
+  <text x="130" y="280" text-anchor="middle" font-size="12" fill="#6b7280">Чанки Diff / Extra</text>
+
+  <rect x="55" y="310" width="150" height="95" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="130" y="335" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">Команди дельти</text>
+  <text x="130" y="355" text-anchor="middle" font-size="12" fill="#1a1a1a">ADD (байт різниці)</text>
+  <text x="130" y="375" text-anchor="middle" font-size="12" fill="#1a1a1a">COPY (зі старого)</text>
+  <text x="130" y="392" text-anchor="middle" font-size="12" fill="#1a1a1a">INSERT (нові байти)</text>
+
+  <line x1="220" y1="260" x2="258" y2="260" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- 2. Рушій реконструкції та RTOS -->
+  <rect x="260" y="90" width="280" height="340" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="400" y="118" text-anchor="middle" font-size="14" font-weight="700" fill="#1a1a1a">2. Рушій Delta Engine</text>
+
+  <rect x="275" y="140" width="250" height="70" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="400" y="165" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">RTOS Квантування часу</text>
+  <text x="400" y="185" text-anchor="middle" font-size="12" fill="#1a1a1a">Слайс обчислень 15 мс</text>
+  <text x="400" y="200" text-anchor="middle" font-size="12" fill="#6b7280">vTaskDelay(1) для фону</text>
+
+  <rect x="275" y="225" width="250" height="85" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="400" y="250" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">Кільцевий буфер реконструкції</text>
+  <text x="400" y="270" text-anchor="middle" font-size="12" fill="#1a1a1a">SRAM Page Window (4 КБ)</text>
+  <text x="400" y="290" text-anchor="middle" font-size="12" fill="#2457d6">Зшивання Old Flash + Delta</text>
+
+  <rect x="275" y="325" width="250" height="85" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="400" y="350" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">Журналювання прогресу</text>
+  <text x="400" y="370" text-anchor="middle" font-size="12" fill="#1a1a1a">Запис зміщення у секторі</text>
+  <text x="400" y="390" text-anchor="middle" font-size="12" fill="#6b7280">Контрольна сума CRC32 блоку</text>
+
+  <line x1="540" y1="260" x2="578" y2="260" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- 3. Рівень FAL та драйвери -->
+  <rect x="580" y="90" width="180" height="340" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="670" y="118" text-anchor="middle" font-size="14" font-weight="700" fill="#1a1a1a">3. Рівень FAL</text>
+
+  <rect x="595" y="140" width="150" height="75" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="670" y="165" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">FAL Апстракція</text>
+  <text x="670" y="185" text-anchor="middle" font-size="12" fill="#1a1a1a">Трансляція адрес</text>
+  <text x="670" y="202" text-anchor="middle" font-size="12" fill="#6b7280">Керування розділами</text>
+
+  <rect x="595" y="235" width="150" height="75" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="670" y="260" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">Блоковий драйвер</text>
+  <text x="670" y="280" text-anchor="middle" font-size="12" fill="#1a1a1a">Flash Program/Erase</text>
+  <text x="670" y="297" text-anchor="middle" font-size="12" fill="#6b7280">Вирівнювання сторінок</text>
+
+  <rect x="595" y="330" width="150" height="80" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="670" y="355" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">Атомарна фіксація</text>
+  <text x="670" y="375" text-anchor="middle" font-size="12" fill="#1a1a1a">Запис у журнал секторів</text>
+  <text x="670" y="392" text-anchor="middle" font-size="12" fill="#6b7280">Підтвердження запису</text>
+
+  <line x1="760" y1="260" x2="788" y2="260" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- 4. Фізична Flash -->
+  <rect x="790" y="90" width="130" height="340" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="855" y="118" text-anchor="middle" font-size="14" font-weight="700" fill="#1a1a1a">4. Flash</text>
+
+  <rect x="800" y="140" width="110" height="110" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="855" y="165" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">Slot A</text>
+  <text x="855" y="185" text-anchor="middle" font-size="12" fill="#2457d6">Старий образ</text>
+  <text x="855" y="205" text-anchor="middle" font-size="12" fill="#6b7280">(Тільки читання</text>
+  <text x="855" y="222" text-anchor="middle" font-size="12" fill="#6b7280">для операцій)</text>
+
+  <rect x="800" y="270" width="110" height="140" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="855" y="295" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">Slot B</text>
+  <text x="855" y="315" text-anchor="middle" font-size="12" fill="#27ae60">Новий образ</text>
+  <text x="855" y="335" text-anchor="middle" font-size="12" fill="#1a1a1a">Посекторний</text>
+  <text x="855" y="352" text-anchor="middle" font-size="12" fill="#1a1a1a">запис</text>
+  <text x="855" y="375" text-anchor="middle" font-size="12" fill="#6b7280">Журнал змін</text>
+  <text x="855" y="392" text-anchor="middle" font-size="12" fill="#6b7280">у секторі метаданих</text>
+
+  <text x="480" y="462" text-anchor="middle" font-size="12" fill="#6b7280">Потокова обробка дозволяє зібрати повнорозмірний образ 1+ МБ маючи лише 16 КБ оперативної пам'яті</text>
+</svg>

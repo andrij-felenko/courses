@@ -1,0 +1,99 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <text x="480" y="30" font-size="18" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Конвеєр приймання UART із кільцевим буфером та DMA</text>
+  <text x="480" y="50" font-size="13" text-anchor="middle" fill="#6b7280">Взаємодія периферії, переривань та автомата станів без втрати даних</text>
+
+  <rect x="20" y="80" width="260" height="360" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="30" y="105" font-size="14" font-weight="bold" fill="#1a1a1a">Апаратний рівень</text>
+
+  <rect x="40" y="130" width="220" height="120" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="150" y="155" font-size="14" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Модуль UART</text>
+  <rect x="60" y="170" width="180" height="30" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="150" y="190" font-size="13" text-anchor="middle" fill="#2457d6">Зсувний регістр RX</text>
+  <rect x="60" y="210" width="180" height="30" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="150" y="230" font-size="13" text-anchor="middle" fill="#2457d6">Регістр даних (RDR)</text>
+
+  <rect x="40" y="290" width="220" height="80" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="150" y="315" font-size="14" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Контролер DMA</text>
+  <rect x="60" y="330" width="180" height="30" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="150" y="350" font-size="13" text-anchor="middle" fill="#c0392b">Лічильник NDTR</text>
+
+  <rect x="330" y="80" width="280" height="360" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="340" y="105" font-size="14" font-weight="bold" fill="#1a1a1a">Оперативна пам'ять</text>
+
+  <rect x="350" y="180" width="240" height="120" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="470" y="205" font-size="14" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Кільцевий буфер</text>
+
+  <rect x="390" y="230" width="30" height="40" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <rect x="420" y="230" width="30" height="40" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <rect x="450" y="230" width="30" height="40" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <rect x="480" y="230" width="30" height="40" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="510" y="230" width="30" height="40" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <text x="435" y="290" font-size="13" text-anchor="middle" fill="#1a1a1a">tail</text>
+  <text x="495" y="290" font-size="13" text-anchor="middle" fill="#1a1a1a">head</text>
+
+  <path d="M 435 275 L 435 240" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <path d="M 495 275 L 495 240" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <rect x="660" y="80" width="280" height="360" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="670" y="105" font-size="14" font-weight="bold" fill="#1a1a1a">Програмний рівень</text>
+
+  <rect x="680" y="130" width="240" height="80" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="800" y="155" font-size="14" font-weight="bold" text-anchor="middle" fill="#1a1a1a">IDLE Interrupt ISR</text>
+  <text x="800" y="180" font-size="13" text-anchor="middle" fill="#6b7280">head = capacity - NDTR</text>
+  <text x="800" y="195" font-size="13" text-anchor="middle" fill="#6b7280">Сповістити фоновий потік</text>
+
+  <rect x="680" y="290" width="240" height="130" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="800" y="315" font-size="14" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Фоновий потік (FSM)</text>
+
+  <rect x="700" y="330" width="50" height="30" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="725" y="350" font-size="13" text-anchor="middle" fill="#27ae60">[SOF]</text>
+  <rect x="750" y="330" width="50" height="30" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="775" y="350" font-size="13" text-anchor="middle" fill="#2457d6">[LEN]</text>
+  <rect x="800" y="330" width="50" height="30" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="825" y="350" font-size="13" text-anchor="middle" fill="#6b7280">[DATA]</text>
+  <rect x="850" y="330" width="50" height="30" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="875" y="350" font-size="13" text-anchor="middle" fill="#c0392b">[CRC]</text>
+
+  <text x="800" y="390" font-size="13" text-anchor="middle" fill="#1a1a1a">Вилучення байтів (tail++)</text>
+
+  <path d="M 15 185 L 55 185" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="35" y="180" font-size="13" text-anchor="middle" fill="#1a1a1a">RX</text>
+
+  <path d="M 150 240 L 150 285" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="160" y="265" font-size="13" fill="#6b7280">DMA Request</text>
+
+  <path d="M 260 345 L 495 345 L 495 285" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="310" y="340" font-size="13" fill="#2457d6">Запис даних</text>
+
+  <path d="M 260 145 L 675 145" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4" marker-end="url(#arr-red)"/>
+  <text x="470" y="140" font-size="13" text-anchor="middle" fill="#c0392b">Переривання IDLE Line</text>
+
+  <path d="M 680 180 L 240 180 L 240 330" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+  <text x="560" y="175" font-size="13" text-anchor="middle" fill="#6b7280">Читання NDTR</text>
+
+  <path d="M 800 210 L 800 285" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="810" y="255" font-size="13" fill="#1a1a1a">Синхронізація</text>
+
+  <path d="M 680 345 L 435 345 L 435 305" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <text x="612" y="340" font-size="13" text-anchor="middle" fill="#27ae60">Читання даних</text>
+</svg>

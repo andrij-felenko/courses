@@ -32,11 +32,24 @@
           "slug": "pin-multiplexing",
           "title": "mcu-pin-multiplexing",
           "basic": {
-            "status": "empty"
+            "status": "done"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "done"
+          },
+          "proj": [
+            {
+              "file": "proj-alternate-pins.md",
+              "status": "pending",
+              "recode": true
+            }
+          ],
+          "comp": [
+            {
+              "file": "comp-multiplexer-ic.md",
+              "status": "done"
+            }
+          ]
         },
         {
           "slug": "konfihuratsiia-piniv-iak-iedyne-dzherelo-pravdy",
@@ -81,8 +94,38 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "done"
+          },
+          "api": [
+            {
+              "file": "api-gpio-input-stage.md",
+              "status": "pending"
+            }
+          ],
+          "comp": [
+            {
+              "file": "comp-schmitt-trigger.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-rc-filter.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-hardware-rc-schmitt.md",
+              "status": "pending",
+              "recode": true
+            },
+            {
+              "file": "proj-software-debounce.md",
+              "status": "pending",
+              "recode": true
+            }
+          ]
         },
         {
           "slug": "encoder-hardware-timer-mode",
@@ -91,8 +134,26 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "done"
+          },
+          "api": [
+            {
+              "file": "api-timer-encoder-hardware-interface.md",
+              "status": "done"
+            }
+          ],
+          "comp": [
+            {
+              "file": "comp-incremental-quadrature-encoder.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-quadrature-decoding-resolution-math.md",
+              "status": "done"
+            }
+          ]
         },
         {
           "slug": "esp-idf-gpio-matrix-iomux-routing",
@@ -101,7 +162,25 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
+            "status": "done",
+            "recode": true
+          },
+          "proj": [
+            {
+              "file": "proj-high-speed-vs-flexible-routing-bench.md",
+              "status": "done",
+              "recode": true
+            }
+          ]
+        },
+        {
+          "slug": "contact-bounce",
+          "title": "Брязкіт механічних контактів",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
           }
         }
       ]
@@ -117,12 +196,96 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "done",
+            "recode": true
+          },
+          "proj": [
+            {
+              "file": "proj-hardware-schmitt-latch-debounce.md",
+              "status": "done",
+              "recode": true
+            }
+          ]
         },
         {
           "slug": "bitbang-protocol",
           "title": "Bit-bang протоколи на GPIO",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "api": [
+            {
+              "file": "api-bitbang-gpio-software-interface.md",
+              "status": "done"
+            },
+            {
+              "file": "api-bitbang-signal-timing-hardware-spec.md",
+              "status": "done"
+            }
+          ],
+          "comp": [
+            {
+              "file": "comp-gpio-port-controller.md",
+              "status": "done"
+            }
+          ],
+          "hist": [
+            {
+              "file": "hist-evolution-of-bit-banging.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "hardware-timer-one-pulse-mode",
+          "title": "Апаратний таймер у режимі одиничного імпульсу (One-Pulse Mode)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "api": [
+            {
+              "file": "api-opm-hardware-registers.md",
+              "status": "done"
+            },
+            {
+              "file": "api-opm-driver-interface.md",
+              "status": "pending"
+            }
+          ],
+          "comp": [
+            {
+              "file": "comp-hardware-timer-peripheral.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-opm-timing-calculation.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-hc-sr04-trigger-generator.md",
+              "status": "pending",
+              "recode": true
+            },
+            {
+              "file": "proj-triac-phase-pulse-driver.md",
+              "status": "pending",
+              "recode": true
+            }
+          ]
+        },
+        {
+          "slug": "level-shifting-1v5-mcu",
+          "title": "Спряження 1.5V логіки цифрових інструментів з мікроконтролерами",
           "basic": {
             "status": "empty"
           },
@@ -131,8 +294,8 @@
           }
         },
         {
-          "slug": "hardware-timer-one-pulse-mode",
-          "title": "Апаратний таймер у режимі одиничного імпульсу (One-Pulse Mode)",
+          "slug": "exti-microcontrollers",
+          "title": "Зовнішні апаратні переривання мікроконтролерів",
           "basic": {
             "status": "empty"
           },
@@ -202,8 +365,16 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "done",
+            "recode": true
+          },
+          "proj": [
+            {
+              "file": "proj-vtable-memory-inspector.md",
+              "status": "pending",
+              "recode": true
+            }
+          ]
         },
         {
           "slug": "microcontroller-laser-driver-software-interface",
@@ -212,8 +383,16 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "done",
+            "recode": true
+          },
+          "proj": [
+            {
+              "file": "proj-mcu-apc-laser-driver-c-implementation.md",
+              "status": "pending",
+              "recode": true
+            }
+          ]
         },
         {
           "slug": "esp8266-uart-dma-ringbuffer",
@@ -222,8 +401,16 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "done",
+            "recode": true
+          },
+          "proj": [
+            {
+              "file": "proj-uart-dma-ringbuffer-driver.md",
+              "status": "pending",
+              "recode": true
+            }
+          ]
         }
       ]
     },
@@ -333,6 +520,84 @@
           "slug": "74hc165-shift-register",
           "title": "Зсувний регістр 74HC165 у схемах вводу",
           "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "api": [
+            {
+              "file": "api-74hc165-driver-software-api.md",
+              "status": "done"
+            },
+            {
+              "file": "api-74hc165-hardware-interface.md",
+              "status": "done"
+            }
+          ],
+          "comp": [
+            {
+              "file": "comp-piso-shift-register.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-piso-shift-timing-and-bitwise-assembly.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-74hc165-bitbang-driver.md",
+              "status": "done"
+            },
+            {
+              "file": "proj-74hc165-spi-driver.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "digimatic-spc-protocol-decoding",
+          "title": "Декодування протоколів Digimatic та 24-bit SPC",
+          "basic": {
+            "status": "done",
+            "theses": [
+              "Розкрито причини електричної несумісності виходів 1.5 В із логікою 3.3 В, ризики пошкодження приладу через захисні діоди, схему перетворювача рівнів на польовому транзисторі та вплив паразитної ємності кабелю на крутизну фронтів; введено терміни MOSFET, GPIO та pull-up.",
+              "Описано формат кадру 52 біти BCD протоколу Mitutoyo Digimatic з лінією REQ, автономний 24-бітний потоковий протокол SPC та безблокувальне декодування за допомогою переривань GPIO і таймаутів таймера; введено терміни Mitutoyo Digimatic, REQ, CLK, DATA, BCD та SPC."
+            ]
+          },
+          "detailed": {
+            "status": "done",
+            "theses": [
+              "Пояснено фізичні обмеження живлення від елементів SR44/LR44, відкритий сток 1.5В логіки, схемотехніку спряження рівнів та детально розібрано часові й кадрові структури 52-бітного протоколу Mitutoyo Digimatic та 24-бітного китайського SPC. Введено терміни Digimatic, SPC, open-drain, BCD, level shifter.",
+              "Розглянуто програмні архітектури прийому даних (GPIO ISR, SPI Slave, DMA), розроблено конечний автомат декодування, математику розпаковки BCD та двійкових значень у фізичні величини SI, алгоритми обробки таймаутів та брязкоту, і наведено повну реалізацію драйвера мовами C та C++ для RTOS. Введено терміни ISR, FSM, FreeRTOS, bit-banging.",
+              "Розкрито проблеми навантаження процесора при програмному опитуванні, реалізовано апаратне захоплення кадрів через таймер, SPI Slave та DMA, каскадування каналів через зсувний регістр 74HC165, математику цілочисельного переведення BCD у мікрометри та низькорівневий C/C++ драйвер із кільцевим буфером. Введено терміни interrupt latency, jitter, input capture, DMA, ring buffer, fixed-point, floating-point.",
+              "Проаналізовано природу електромагнітних завад, дзвону на лініях і контактного брязкоту, методи їх цифрової фільтрації, граничні стани інструментів (глибокий сон, переповнення, розряд батареї), діагностику логічним аналізатором, вплив ємності щупів та багатоосьову синхронізацію в системах DRO. Введено терміни ringing, contact bounce, watchdog timer, logic analyzer, capacitive loading, DRO, skew."
+            ]
+          },
+          "api": [
+            {
+              "file": "api-digimatic-spc-driver-api.md",
+              "status": "done"
+            },
+            {
+              "file": "api-digimatic-spc-hardware-spec.md",
+              "status": "done"
+            }
+          ],
+          "hist": [
+            {
+              "file": "hist-spc-digimatic-evolution.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "dro-multi-axis-synchronization",
+          "title": "Синхронізація багатоосьових систем цифрової індикації DRO",
+          "basic": {
             "status": "empty"
           },
           "detailed": {
@@ -340,8 +605,28 @@
           }
         },
         {
-          "slug": "digimatic-spc-protocol-decoding",
-          "title": "Декодування протоколів Digimatic та 24-bit SPC",
+          "slug": "fault-status-register",
+          "title": "Регістр статусу помилок (Fault Status Register)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "sensor-pixel-array-configuration",
+          "title": "Конфігурація матриці пікселів сенсорів зображення",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "max31865-software-driver",
+          "title": "Програмний драйвер та зчитування даних MAX31865",
           "basic": {
             "status": "empty"
           },
@@ -384,16 +669,6 @@
       "slug": "network-stack",
       "title": "Мережа на чипі",
       "topics": [
-        {
-          "slug": "lwip-internals",
-          "title": "Архітектура lwIP",
-          "basic": {
-            "status": "empty"
-          },
-          "detailed": {
-            "status": "pending"
-          }
-        },
         {
           "slug": "web-server-mcu",
           "title": "Веб-сервер на МК",
@@ -442,20 +717,20 @@
           "slug": "dma-spi-display-transfer",
           "title": "Передавання графічних буферів через SPI з апаратним DMA",
           "basic": {
-            "status": "empty"
+            "status": "done"
           },
           "detailed": {
-            "status": "pending"
+            "status": "done"
           }
         },
         {
           "slug": "display-hardware-scrolling",
           "title": "Апаратний скролінг графічних контролерів дисплеїв",
           "basic": {
-            "status": "empty"
+            "status": "done"
           },
           "detailed": {
-            "status": "pending"
+            "status": "done"
           }
         }
       ]
@@ -468,10 +743,26 @@
           "slug": "audio-dac-dma-streaming",
           "title": "Потокова передача аудіоданих через ЦАП і DMA",
           "basic": {
-            "status": "empty"
+            "status": "done"
           },
           "detailed": {
-            "status": "pending"
+            "status": "done"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "dma-transfer",
+      "title": "Прямий доступ до пам'яті",
+      "topics": [
+        {
+          "slug": "dma-controller",
+          "title": "Контролер прямого доступу до пам'яті (DMA)",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
           }
         }
       ]

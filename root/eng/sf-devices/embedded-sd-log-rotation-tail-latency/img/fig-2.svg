@@ -1,0 +1,85 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Підкладка -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Взаємодія буфера прошивки з FatFs та хвостові затримки Flash</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Попереднє виділення кластерів усуває оновлення таблиці FAT під час запису логів</text>
+
+  <!-- Верхня панель: Архітектурний ланцюжок запису -->
+  <rect x="30" y="75" width="900" height="135" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="48" y="98" font-size="13" font-weight="bold" fill="#1a1a1a">Конвеєр передачі даних у файлову систему FatFs</text>
+
+  <!-- Блок 1: Буфер логів у RAM -->
+  <rect x="48" y="112" width="200" height="82" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="58" y="132" font-size="12" font-weight="bold" fill="#1a1a1a">Буфер телеметрії (RAM)</text>
+  <text x="58" y="152" font-size="12" fill="#2457d6">Кільцевий буфер логів</text>
+  <text x="58" y="172" font-size="12" fill="#6b7280">Черга блоків по 512 Б</text>
+
+  <!-- Стрілка 1 -> 2 -->
+  <line x1="248" y1="153" x2="298" y2="153" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="273" y="143" font-size="12" fill="#2457d6" text-anchor="middle">f_write()</text>
+
+  <!-- Блок 2: Драйвер FatFs -->
+  <rect x="300" y="112" width="220" height="82" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="310" y="132" font-size="12" font-weight="bold" fill="#1a1a1a">Модуль FatFs</text>
+  <text x="310" y="152" font-size="12" fill="#1a1a1a">Трансляція кластерів у сектори</text>
+  <text x="310" y="172" font-size="12" fill="#6b7280">Керування вікном FAT та Dir</text>
+
+  <!-- Стрілка 2 -> 3 -->
+  <line x1="520" y1="153" x2="570" y2="153" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="545" y="143" font-size="12" fill="#2457d6" text-anchor="middle">SDIO</text>
+
+  <!-- Блок 3: SD-карта (Фізичний накопичувач) -->
+  <rect x="572" y="112" width="340" height="82" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="582" y="132" font-size="12" font-weight="bold" fill="#1a1a1a">SD Card Flash Controller</text>
+  <text x="582" y="152" font-size="12" fill="#2457d6">Сектори даних файлу (Кластери)</text>
+  <text x="582" y="172" font-size="12" fill="#c0392b">Таблиця FAT1 / FAT2 та метадані</text>
+
+  <!-- Нижня ліва панель: Динамічне виділення кластерів (Проблема) -->
+  <rect x="30" y="225" width="440" height="215" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="45" y="248" font-size="14" font-weight="bold" fill="#c0392b">Динамічне виділення (Наївний підхід)</text>
+  <text x="45" y="268" font-size="12" fill="#1a1a1a">Під час вичерпання кластера FatFs виконує:</text>
+
+  <rect x="45" y="278" width="410" height="75" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="55" y="298" font-size="12" fill="#c0392b">• Пошук вільного кластера в таблиці FAT на диску</text>
+  <text x="55" y="318" font-size="12" fill="#c0392b">• Запис нового зв'язку в FAT1 і дублювання в FAT2</text>
+  <text x="55" y="338" font-size="12" fill="#c0392b">• Оновлення каталогу Directory Entry та розміру файлу</text>
+
+  <!-- Затримка динамічного режиму -->
+  <rect x="45" y="362" width="410" height="65" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+  <text x="55" y="384" font-size="12" font-weight="bold" fill="#c0392b">Хвостова затримка Flash (t_tail):</text>
+  <text x="55" y="404" font-size="13" font-weight="bold" fill="#c0392b">t_latency до 250–500 мс (сплеск затримки)</text>
+  <text x="55" y="420" font-size="11" fill="#6b7280">Спричиняє переповнення RAM-буфера та втрату телеметрії</text>
+
+  <!-- Нижня права панель: Попереднє виділення кластерів (Розв'язок) -->
+  <rect x="490" y="225" width="440" height="215" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="505" y="248" font-size="14" font-weight="bold" fill="#27ae60">Попереднє виділення кластерів (f_expand)</text>
+  <text x="505" y="268" font-size="12" fill="#1a1a1a">Усі кластери виділяються єдиним ланцюгом заздалегідь:</text>
+
+  <rect x="505" y="278" width="410" height="75" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="515" y="298" font-size="12" fill="#27ae60">• FAT і каталог оновлюються одноразово при створенні</text>
+  <text x="515" y="318" font-size="12" fill="#27ae60">• Під час роботи — прямий потоковий запис секторів</text>
+  <text x="515" y="338" font-size="12" fill="#27ae60">• Використання швидких операцій Multi-Block Write</text>
+
+  <!-- Затримка попереднього виділення -->
+  <rect x="505" y="362" width="410" height="65" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="515" y="384" font-size="12" font-weight="bold" fill="#27ae60">Детермінована затримка запису:</text>
+  <text x="515" y="404" font-size="13" font-weight="bold" fill="#27ae60">t_latency стабільно 1–3 мс (без сплесків)</text>
+  <text x="515" y="420" font-size="11" fill="#6b7280">Буфер утилізується менш ніж на 10%, нуль втрачених пакетів</text>
+</svg>

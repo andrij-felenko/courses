@@ -1,0 +1,104 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-main" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-accent" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-ok" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="35" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Потокобезпечний кільцевий буфер руху (Planner Buffer → Timer ISR)</text>
+  <text x="480" y="58" text-anchor="middle" font-size="13" fill="#6b7280">Передача блоків траєкторії через атомарні вказівники head і tail без блокування переривань</text>
+
+  <!-- Left Panel: Planner Context -->
+  <rect x="30" y="85" width="240" height="305" rx="8" ry="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="150" y="110" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Фоновий планувальник</text>
+  <text x="150" y="128" text-anchor="middle" font-size="12" fill="#6b7280">Основний потік виконання</text>
+
+  <rect x="45" y="142" width="210" height="65" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="55" y="165" font-size="13" font-weight="bold" fill="#1a1a1a">1. Розрахунок блоку</text>
+  <text x="55" y="187" font-size="12" fill="#6b7280">Траєкторія та DDA-дані</text>
+
+  <rect x="45" y="217" width="210" height="65" rx="6" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="55" y="240" font-size="13" font-weight="bold" fill="#2457d6">2. Запис у buffer[head]</text>
+  <text x="55" y="262" font-size="12" fill="#6b7280">Параметри профілю руху</text>
+
+  <rect x="45" y="292" width="210" height="83" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="55" y="314" font-size="13" font-weight="bold" fill="#1a1a1a">3. Інкремент head</text>
+  <text x="55" y="336" font-size="12" fill="#1a1a1a">head = (head + 1) % N</text>
+  <text x="55" y="358" font-size="12" font-weight="bold" fill="#27ae60">Атомарний запис (Lock-Free)</text>
+
+  <!-- Middle Panel: Ring Buffer -->
+  <rect x="310" y="85" width="340" height="305" rx="8" ry="8" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="480" y="110" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Кільцевий буфер руху (N = 8)</text>
+  <text x="480" y="128" text-anchor="middle" font-size="12" fill="#6b7280">Спільний масив у RAM</text>
+
+  <!-- Slots -->
+  <rect x="325" y="142" width="310" height="34" rx="4" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="337" y="164" font-size="12" fill="#6b7280">[0] Вільний слот (опрацьований)</text>
+
+  <rect x="325" y="181" width="310" height="34" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="337" y="203" font-size="12" font-weight="bold" fill="#2457d6">[1] Активний блок DDA (ISR)</text>
+  <text x="623" y="203" text-anchor="end" font-size="12" font-weight="bold" fill="#2457d6">tail (Читати)</text>
+
+  <rect x="325" y="220" width="310" height="34" rx="4" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="337" y="242" font-size="12" fill="#1a1a1a">[2] Блок траєкторії №42 (Черга)</text>
+
+  <rect x="325" y="259" width="310" height="34" rx="4" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="337" y="281" font-size="12" fill="#1a1a1a">[3] Блок траєкторії №43 (Черга)</text>
+
+  <rect x="325" y="298" width="310" height="34" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4 2"/>
+  <text x="337" y="320" font-size="12" font-weight="bold" fill="#2457d6">[4] Запис нового блоку №44</text>
+  <text x="623" y="320" text-anchor="end" font-size="12" font-weight="bold" fill="#2457d6">head (Запис)</text>
+
+  <rect x="325" y="337" width="310" height="34" rx="4" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="337" y="359" font-size="12" fill="#6b7280">[5] Вільний слот</text>
+
+  <!-- Right Panel: Timer ISR Context -->
+  <rect x="690" y="85" width="240" height="305" rx="8" ry="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="810" y="110" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Обробник переривань ISR</text>
+  <text x="810" y="128" text-anchor="middle" font-size="12" fill="#6b7280">Таймерне квантування (f_timer)</text>
+
+  <rect x="705" y="142" width="210" height="65" rx="6" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="715" y="165" font-size="13" font-weight="bold" fill="#2457d6">1. Читання buffer[tail]</text>
+  <text x="715" y="187" font-size="12" fill="#6b7280">Перевірка (head != tail)</text>
+
+  <rect x="705" y="217" width="210" height="65" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="715" y="240" font-size="13" font-weight="bold" fill="#1a1a1a">2. Дискретний DDA-генератор</text>
+  <text x="715" y="262" font-size="12" fill="#1a1a1a">Acc += Incr; STEP/DIR імпульс</text>
+
+  <rect x="705" y="292" width="210" height="83" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="715" y="314" font-size="13" font-weight="bold" fill="#1a1a1a">3. Завершення блоку</text>
+  <text x="715" y="336" font-size="12" fill="#1a1a1a">tail = (tail + 1) % N</text>
+  <text x="715" y="358" font-size="12" font-weight="bold" fill="#27ae60">Звільнення слота буфера</text>
+
+  <!-- Flow Arrows & Labels -->
+  <path d="M 255 249 L 290 249 L 290 315 L 317 315" stroke="#2457d6" stroke-width="2" fill="none" marker-end="url(#arr-accent)"/>
+  <text x="290" y="237" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Запис</text>
+
+  <path d="M 635 198 L 682 198" stroke="#2457d6" stroke-width="2" fill="none" marker-end="url(#arr-accent)"/>
+  <text x="670" y="186" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Читати</text>
+
+  <!-- Bottom Panel: Synchronization & Status Rules -->
+  <rect x="30" y="405" width="900" height="90" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+
+  <text x="50" y="427" font-size="13" font-weight="bold" fill="#2457d6">Потокобезпечність (Lock-Free):</text>
+  <text x="50" y="449" font-size="12" fill="#1a1a1a">• Planner змінює тільки head (запис)</text>
+  <text x="50" y="469" font-size="12" fill="#1a1a1a">• Timer ISR змінює тільки tail (читання)</text>
+
+  <text x="350" y="427" font-size="13" font-weight="bold" fill="#2457d6">Критерії стану буфера:</text>
+  <text x="350" y="449" font-size="12" fill="#1a1a1a">• Порожній:  head == tail</text>
+  <text x="350" y="469" font-size="12" fill="#1a1a1a">• Повний:     (head + 1) % N == tail</text>
+
+  <text x="640" y="427" font-size="13" font-weight="bold" fill="#27ae60">Детермінізм реального часу:</text>
+  <text x="640" y="449" font-size="12" fill="#1a1a1a">• ISR споживає готові DDA-параметри</text>
+  <text x="640" y="469" font-size="12" fill="#1a1a1a">• Нульовий часовий джитер (Zero Jitter)</text>
+</svg>

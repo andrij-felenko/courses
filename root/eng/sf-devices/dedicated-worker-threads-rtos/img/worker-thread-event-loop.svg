@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Цикл подій робочого потоку в RTOS</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Переходи станів від блокування на черзі до вибірки, диспетчеризації та виконання команд</text>
+
+  <!-- External sources container (Left) -->
+  <rect x="40" y="80" width="220" height="340" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="150" y="108" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Джерела подій</text>
+  <text x="150" y="126" font-size="12" fill="#6b7280" text-anchor="middle">Ініціатори команд</text>
+
+  <!-- Client Task Box -->
+  <rect x="60" y="150" width="180" height="64" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="150" y="176" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Клієнтські задачі</text>
+  <text x="150" y="196" font-size="12" fill="#6b7280" text-anchor="middle">xQueueSend(..., wait)</text>
+
+  <!-- ISR Box -->
+  <rect x="60" y="250" width="180" height="64" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="150" y="276" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Обробники ISR</text>
+  <text x="150" y="296" font-size="12" fill="#6b7280" text-anchor="middle">xQueueSendFromISR()</text>
+
+  <!-- Worker Thread Outer Container (Center & Right) -->
+  <rect x="290" y="80" width="630" height="340" rx="8" fill="#f4f6f8" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="6,4"/>
+  <text x="605" y="106" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">Контекст ізольованого потоку-виконавця (Worker Thread)</text>
+
+  <!-- 1. Queue Blocked State -->
+  <rect x="320" y="140" width="160" height="84" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="400" y="166" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">Стан: BLOCKED</text>
+  <text x="400" y="186" font-size="12" fill="#1a1a1a" text-anchor="middle">Очікування в черзі</text>
+  <text x="400" y="204" font-size="12" fill="#6b7280" text-anchor="middle">portMAX_DELAY (0% CPU)</text>
+
+  <!-- 2. Dequeue / Dispatch State -->
+  <rect x="525" y="140" width="160" height="84" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="605" y="166" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Стан: RUNNING</text>
+  <text x="605" y="186" font-size="12" fill="#1a1a1a" text-anchor="middle">xQueueReceive() == pdTRUE</text>
+  <text x="605" y="204" font-size="12" fill="#6b7280" text-anchor="middle">Вибірка та валідація</text>
+
+  <!-- 3. Execution / Handler State -->
+  <rect x="730" y="140" width="160" height="84" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="810" y="166" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Виконання команди</text>
+  <text x="810" y="186" font-size="12" fill="#1a1a1a" text-anchor="middle">handler(msg.payload)</text>
+  <text x="810" y="204" font-size="12" fill="#6b7280" text-anchor="middle">Робота з периферією</text>
+
+  <!-- 4. Result / Completion Box -->
+  <rect x="525" y="280" width="365" height="74" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="707" y="306" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Звіт або нотифікація клієнта</text>
+  <text x="707" y="326" font-size="12" fill="#6b7280" text-anchor="middle">Встановлення Event Flag або виклик callback(status)</text>
+  <text x="707" y="342" font-size="12" fill="#6b7280" text-anchor="middle">Звільнення буферів динамічного повідомлення</text>
+
+  <!-- Connectors from Clients to Worker Queue -->
+  <path d="M240,182 L310,182" fill="none" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <path d="M240,282 L280,282 L280,195 L310,195" fill="none" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- Step arrows in Worker Thread -->
+  <path d="M480,182 L515,182" fill="none" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <path d="M685,182 L720,182" fill="none" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <path d="M810,224 L810,270" fill="none" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- Loop back path from bottom box back to Queue Blocked -->
+  <path d="M525,317 L400,317 L400,234" fill="none" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="440" y="305" font-size="12" fill="#2457d6" text-anchor="middle">Наступна ітерація</text>
+</svg>

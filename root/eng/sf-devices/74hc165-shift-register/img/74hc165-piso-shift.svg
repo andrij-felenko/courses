@@ -1,0 +1,204 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Перетворення PISO: паралельне захоплення та послідовний зсув у 74HC165</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Строб PL фіксує 8 паралельних входів, а тактові імпульси CP виштовхують біти через Q7</text>
+
+  <!-- PANEL 1: Parallel Load -->
+  <rect x="24" y="66" width="912" height="172" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="44" y="88" font-size="14" font-weight="700" fill="#1a1a1a" text-anchor="start">1. Паралельне завантаження (PL = 0): одночасна фіксація 8 входів у тригери</text>
+  
+  <rect x="750" y="74" width="170" height="24" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="835" y="90" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">Строб PL = 0 (активний)</text>
+
+  <text x="44" y="116" font-size="12" font-weight="700" fill="#2457d6" text-anchor="start">Входи:</text>
+
+  <!-- Inputs D0..D7 & Flip-flops Panel 1 -->
+  <!-- FF0 (D0) -->
+  <text x="132" y="116" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">D0</text>
+  <line x1="132" y1="120" x2="132" y2="138" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arr-blue)"/>
+  <rect x="100" y="140" width="64" height="50" rx="5" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="132" y="158" font-size="12" fill="#6b7280" text-anchor="middle">FF0</text>
+  <text x="132" y="177" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">Біт D0</text>
+
+  <!-- FF1 (D1) -->
+  <text x="216" y="116" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">D1</text>
+  <line x1="216" y1="120" x2="216" y2="138" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arr-blue)"/>
+  <rect x="184" y="140" width="64" height="50" rx="5" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="216" y="158" font-size="12" fill="#6b7280" text-anchor="middle">FF1</text>
+  <text x="216" y="177" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">Біт D1</text>
+
+  <!-- FF2 (D2) -->
+  <text x="300" y="116" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">D2</text>
+  <line x1="300" y1="120" x2="300" y2="138" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arr-blue)"/>
+  <rect x="268" y="140" width="64" height="50" rx="5" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="300" y="158" font-size="12" fill="#6b7280" text-anchor="middle">FF2</text>
+  <text x="300" y="177" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">Біт D2</text>
+
+  <!-- FF3 (D3) -->
+  <text x="384" y="116" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">D3</text>
+  <line x1="384" y1="120" x2="384" y2="138" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arr-blue)"/>
+  <rect x="352" y="140" width="64" height="50" rx="5" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="384" y="158" font-size="12" fill="#6b7280" text-anchor="middle">FF3</text>
+  <text x="384" y="177" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">Біт D3</text>
+
+  <!-- FF4 (D4) -->
+  <text x="468" y="116" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">D4</text>
+  <line x1="468" y1="120" x2="468" y2="138" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arr-blue)"/>
+  <rect x="436" y="140" width="64" height="50" rx="5" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="468" y="158" font-size="12" fill="#6b7280" text-anchor="middle">FF4</text>
+  <text x="468" y="177" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">Біт D4</text>
+
+  <!-- FF5 (D5) -->
+  <text x="552" y="116" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">D5</text>
+  <line x1="552" y1="120" x2="552" y2="138" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arr-blue)"/>
+  <rect x="520" y="140" width="64" height="50" rx="5" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="552" y="158" font-size="12" fill="#6b7280" text-anchor="middle">FF5</text>
+  <text x="552" y="177" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">Біт D5</text>
+
+  <!-- FF6 (D6) -->
+  <text x="636" y="116" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">D6</text>
+  <line x1="636" y1="120" x2="636" y2="138" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arr-blue)"/>
+  <rect x="604" y="140" width="64" height="50" rx="5" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="636" y="158" font-size="12" fill="#6b7280" text-anchor="middle">FF6</text>
+  <text x="636" y="177" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">Біт D6</text>
+
+  <!-- FF7 (D7) -->
+  <text x="720" y="116" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">D7</text>
+  <line x1="720" y1="120" x2="720" y2="138" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arr-blue)"/>
+  <rect x="688" y="140" width="64" height="50" rx="5" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="720" y="158" font-size="12" fill="#6b7280" text-anchor="middle">FF7</text>
+  <text x="720" y="177" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">Біт D7</text>
+
+  <!-- Panel 1 Output Q7 -->
+  <line x1="752" y1="165" x2="784" y2="165" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <rect x="790" y="140" width="130" height="50" rx="5" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="855" y="158" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">Вихід Q7</text>
+  <text x="855" y="177" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">= D7 (без такту)</text>
+
+  <!-- Panel 1 Note -->
+  <text x="44" y="210" font-size="12" font-weight="700" fill="#c0392b" text-anchor="start">Керування PL:</text>
+  <text x="44" y="226" font-size="12" fill="#6b7280" text-anchor="start">Асинхронне стробування (15–20 нс): паралельні вентилі записують входи D0–D7 без тактування</text>
+
+  <!-- PANEL 2: Shift Mode -->
+  <rect x="24" y="252" width="912" height="186" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="44" y="274" font-size="14" font-weight="700" fill="#1a1a1a" text-anchor="start">2. Послідовний зсув (PL = 1): тактові імпульси CP виштовхують біти через вихід Q7</text>
+
+  <rect x="750" y="260" width="170" height="24" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="835" y="276" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">Режим зсуву (PL = 1)</text>
+
+  <!-- Serial Input DS -->
+  <rect x="32" y="306" width="60" height="38" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="62" y="322" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">Вхід DS</text>
+  <text x="62" y="336" font-size="12" fill="#6b7280" text-anchor="middle">(GND)</text>
+  <line x1="92" y1="325" x2="98" y2="325" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- FF0 (Panel 2) -->
+  <rect x="100" y="300" width="64" height="50" rx="5" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="132" y="318" font-size="12" fill="#6b7280" text-anchor="middle">FF0</text>
+  <text x="132" y="337" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">D0 →</text>
+  <line x1="164" y1="325" x2="182" y2="325" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- FF1 -->
+  <rect x="184" y="300" width="64" height="50" rx="5" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="216" y="318" font-size="12" fill="#6b7280" text-anchor="middle">FF1</text>
+  <text x="216" y="337" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">D1 →</text>
+  <line x1="248" y1="325" x2="266" y2="325" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- FF2 -->
+  <rect x="268" y="300" width="64" height="50" rx="5" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="300" y="318" font-size="12" fill="#6b7280" text-anchor="middle">FF2</text>
+  <text x="300" y="337" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">D2 →</text>
+  <line x1="332" y1="325" x2="350" y2="325" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- FF3 -->
+  <rect x="352" y="300" width="64" height="50" rx="5" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="384" y="318" font-size="12" fill="#6b7280" text-anchor="middle">FF3</text>
+  <text x="384" y="337" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">D3 →</text>
+  <line x1="416" y1="325" x2="434" y2="325" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- FF4 -->
+  <rect x="436" y="300" width="64" height="50" rx="5" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="468" y="318" font-size="12" fill="#6b7280" text-anchor="middle">FF4</text>
+  <text x="468" y="337" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">D4 →</text>
+  <line x1="500" y1="325" x2="518" y2="325" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- FF5 -->
+  <rect x="520" y="300" width="64" height="50" rx="5" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="552" y="318" font-size="12" fill="#6b7280" text-anchor="middle">FF5</text>
+  <text x="552" y="337" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">D5 →</text>
+  <line x1="584" y1="325" x2="602" y2="325" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- FF6 -->
+  <rect x="604" y="300" width="64" height="50" rx="5" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="636" y="318" font-size="12" fill="#6b7280" text-anchor="middle">FF6</text>
+  <text x="636" y="337" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">D6 →</text>
+  <line x1="668" y1="325" x2="686" y2="325" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- FF7 -->
+  <rect x="688" y="300" width="64" height="50" rx="5" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="720" y="318" font-size="12" fill="#6b7280" text-anchor="middle">FF7</text>
+  <text x="720" y="337" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">D7 →</text>
+
+  <!-- Serial Stream Output -->
+  <line x1="752" y1="325" x2="770" y2="325" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <text x="848" y="302" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">Потік на виході Q7</text>
+
+  <!-- Bit Packets -->
+  <rect x="774" y="312" width="28" height="26" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="788" y="329" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">D5</text>
+
+  <rect x="814" y="312" width="28" height="26" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="828" y="329" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">D6</text>
+
+  <rect x="854" y="312" width="28" height="26" rx="4" fill="#2457d6"/>
+  <text x="868" y="329" font-size="12" font-weight="700" fill="#ffffff" text-anchor="middle">D7</text>
+
+  <line x1="884" y1="325" x2="918" y2="325" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="848" y="354" font-size="12" fill="#6b7280" text-anchor="middle">→ послідовно до MCU</text>
+
+  <!-- Clock CP bus and signals -->
+  <text x="44" y="366" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="start">Такти CP:</text>
+  <text x="44" y="382" font-size="12" fill="#6b7280" text-anchor="start">Фронт ↑</text>
+
+  <!-- Clock Bus Line -->
+  <line x1="116" y1="366" x2="720" y2="366" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Tap lines to each flip-flop -->
+  <line x1="132" y1="366" x2="132" y2="354" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <line x1="216" y1="366" x2="216" y2="354" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <line x1="300" y1="366" x2="300" y2="354" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <line x1="384" y1="366" x2="384" y2="354" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <line x1="468" y1="366" x2="468" y2="354" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <line x1="552" y1="366" x2="552" y2="354" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <line x1="636" y1="366" x2="636" y2="354" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <line x1="720" y1="366" x2="720" y2="354" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- Waveform & Explanation -->
+  <path d="M124,414 L138,414 L138,398 L152,398 L152,414 L166,414 L166,398 L180,398 L180,414 L194,414 L194,398 L208,398 L208,414" fill="none" stroke="#1a1a1a" stroke-width="1.5"/>
+  <path d="M138,410 L138,400" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arr-green)"/>
+  <path d="M166,410 L166,400" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arr-green)"/>
+  <path d="M194,410 L194,400" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arr-green)"/>
+
+  <text x="220" y="403" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="start">Синхронний зсув: кожен фронт CP (↑) пересуває біти FF[n] → FF[n+1]</text>
+  <text x="220" y="421" font-size="12" fill="#6b7280" text-anchor="start">8 тактів послідовно висувають увесь байт: D7 (після PL) → D6 ... → D0</text>
+
+  <!-- Output order summary card -->
+  <rect x="760" y="372" width="164" height="52" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="842" y="391" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Зсувний потік:</text>
+  <text x="842" y="411" font-size="12" fill="#2457d6" text-anchor="middle">1 такт = 1 біт на Q7</text>
+</svg>

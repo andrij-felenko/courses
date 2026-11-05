@@ -1,0 +1,92 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-main" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <text x="480" y="36" text-anchor="middle" font-size="18" font-weight="700" fill="#1a1a1a">Шинна матриця AHB: роздільні магістралі CPU та DMA</text>
+  <text x="480" y="58" text-anchor="middle" font-size="13" fill="#6b7280">Багатошарова кросбар-топологія усуває затримки, розводячи потоки до Flash, SRAM та GPIO</text>
+
+  <!-- Секція Майстрів (Ліворуч) -->
+  <rect x="40" y="85" width="200" height="340" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="140" y="112" text-anchor="middle" font-size="14" font-weight="700" fill="#1a1a1a">Шинні майстри (Masters)</text>
+
+  <!-- Ядро CPU -->
+  <rect x="55" y="130" width="170" height="85" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="140" y="155" text-anchor="middle" font-size="13" font-weight="700" fill="#2457d6">Ядро Cortex-M</text>
+  <text x="140" y="175" text-anchor="middle" font-size="12" fill="#1a1a1a">I-Bus / D-Bus (Код / Дані)</text>
+  <text x="140" y="195" text-anchor="middle" font-size="12" fill="#6b7280">Системна шина S-Bus</text>
+
+  <!-- Контролер DMA -->
+  <rect x="55" y="270" width="170" height="95" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="140" y="295" text-anchor="middle" font-size="13" font-weight="700" fill="#27ae60">Контролер DMA</text>
+  <text x="140" y="315" text-anchor="middle" font-size="12" fill="#1a1a1a">Майстер-порт пам'яті</text>
+  <text x="140" y="333" text-anchor="middle" font-size="12" fill="#1a1a1a">Майстер-порт периферії</text>
+  <text x="140" y="350" text-anchor="middle" font-size="12" fill="#27ae60">Генератор кроків STEP/DIR</text>
+
+  <!-- Центральна секція: AHB Bus Matrix (Crossbar) -->
+  <rect x="280" y="85" width="400" height="340" rx="8" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="480" y="112" text-anchor="middle" font-size="14" font-weight="700" fill="#2457d6">Багатошарова матриця AHB Bus Matrix</text>
+
+  <!-- Лінії та комутація -->
+  <!-- Магістраль CPU до Flash -->
+  <line x1="225" y1="160" x2="330" y2="160" stroke="#2457d6" stroke-width="2"/>
+  <line x1="330" y1="160" x2="680" y2="160" stroke="#2457d6" stroke-width="2"/>
+  <circle cx="330" cy="160" r="4" fill="#2457d6"/>
+
+  <!-- Магістраль CPU до SRAM1 -->
+  <path d="M 330 160 L 330 230 L 680 230" stroke="#2457d6" stroke-width="2" fill="none"/>
+  <circle cx="330" cy="230" r="4" fill="#2457d6"/>
+
+  <!-- Магістраль DMA до SRAM2 (Таймерні таблиці) -->
+  <line x1="225" y1="305" x2="430" y2="305" stroke="#27ae60" stroke-width="2"/>
+  <path d="M 430 305 L 430 245 L 680 245" stroke="#27ae60" stroke-width="2" fill="none"/>
+  <circle cx="430" cy="245" r="4" fill="#27ae60"/>
+
+  <!-- Магістраль DMA до AHB GPIO Port (Пряма вибірка) -->
+  <path d="M 430 305 L 430 375 L 680 375" stroke="#27ae60" stroke-width="2.5" fill="none"/>
+  <circle cx="430" cy="375" r="4" fill="#27ae60"/>
+
+  <!-- Точка потенційної конкуренції (Арбітр GPIO) -->
+  <rect x="520" y="325" width="135" height="70" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="587" y="348" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">Арбітр порту GPIO</text>
+  <text x="587" y="366" text-anchor="middle" font-size="12" fill="#1a1a1a">Запобігає гонці</text>
+  <text x="587" y="382" text-anchor="middle" font-size="12" fill="#6b7280">Round-Robin / Fixed</text>
+
+  <!-- Секція Слейвів (Праворуч) -->
+  <rect x="720" y="85" width="200" height="340" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="820" y="112" text-anchor="middle" font-size="14" font-weight="700" fill="#1a1a1a">Слейви (Slaves / Пам'ять)</text>
+
+  <!-- Flash -->
+  <rect x="735" y="135" width="170" height="50" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="820" y="157" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">Flash Пам'ять</text>
+  <text x="820" y="173" text-anchor="middle" font-size="12" fill="#2457d6">Вибірка коду ядра</text>
+  <line x1="680" y1="160" x2="735" y2="160" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- SRAM Блоки -->
+  <rect x="735" y="210" width="170" height="60" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="820" y="232" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">SRAM1 / SRAM2</text>
+  <text x="820" y="250" text-anchor="middle" font-size="12" fill="#6b7280">Роздільні банки пам'яті</text>
+  <line x1="680" y1="230" x2="735" y2="230" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <line x1="680" y1="245" x2="735" y2="245" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- Швидкісний порт GPIO -->
+  <rect x="735" y="345" width="170" height="60" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="820" y="367" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">Порти GPIO (BSRR)</text>
+  <text x="820" y="385" text-anchor="middle" font-size="12" fill="#1a1a1a">Прямий запис STEP/DIR</text>
+  <line x1="680" y1="375" x2="735" y2="375" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arr-green)"/>
+
+  <text x="480" y="462" text-anchor="middle" font-size="12" fill="#6b7280">Виділення SRAM2 під буфер DMA повністю усуває затримки доступу ядра до оперативної пам'яті</text>
+</svg>

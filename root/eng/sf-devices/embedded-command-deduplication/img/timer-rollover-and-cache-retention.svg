@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Підкладка -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Часове вікно дедуплікації та збереження кешу в BKP RAM</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Беззнакове обчислення інтервалу в кільці 2^32 та відновлення кешу після перезапуску</text>
+
+  <!-- Панель 1: Часове вікно при переході через нуль -->
+  <rect x="35" y="80" width="430" height="345" fill="#f4f6f8" stroke="#d0d7de" rx="6"/>
+  <text x="250" y="108" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Часове вікно в кільці mod 2^32</text>
+
+  <rect x="55" y="125" width="390" height="90" fill="#eaf0fd" stroke="#2457d6" rx="4"/>
+  <text x="250" y="150" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Формула інтервалу в uint32_t</text>
+  <text x="250" y="172" font-size="13" fill="#1a1a1a" text-anchor="middle">dT = (T_curr - T_entry) mod 2^32</text>
+  <text x="250" y="194" font-size="12" fill="#27ae60" text-anchor="middle">Умова актуальності: dT &lt;= T_ttl (T_ttl &lt; 2^31)</text>
+
+  <rect x="55" y="225" width="390" height="185" fill="#ffffff" stroke="#d0d7de" rx="4"/>
+  <text x="250" y="250" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Числовий приклад переповнення</text>
+
+  <rect x="70" y="265" width="165" height="52" fill="#fdecea" stroke="#c0392b" rx="3"/>
+  <text x="152" y="286" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">T_entry = 0xFFFFFFF0</text>
+  <text x="152" y="304" font-size="11" fill="#1a1a1a" text-anchor="middle">Реєстрація до скидання</text>
+
+  <line x1="235" y1="291" x2="263" y2="291" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+
+  <rect x="265" y="265" width="165" height="52" fill="#e9f7ef" stroke="#27ae60" rx="3"/>
+  <text x="347" y="286" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">T_curr = 0x00000020</text>
+  <text x="347" y="304" font-size="11" fill="#1a1a1a" text-anchor="middle">Повтор після переходу</text>
+
+  <text x="250" y="342" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">dT = 0x00000020 - 0xFFFFFFF0 = 48 тактів</text>
+  <text x="250" y="364" font-size="12" fill="#27ae60" text-anchor="middle">48 &lt;= 100: точне виявлення дубліката</text>
+  <text x="250" y="386" font-size="11" fill="#6b7280" text-anchor="middle">Без помилкових блокувань і розгалужень</text>
+
+  <!-- Панель 2: Збереження кешу в BKP RAM -->
+  <rect x="495" y="80" width="430" height="345" fill="#f4f6f8" stroke="#d0d7de" rx="6"/>
+  <text x="710" y="108" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Збереження кешу в BKP RAM</text>
+
+  <rect x="515" y="125" width="390" height="85" fill="#eaf0fd" stroke="#2457d6" rx="4"/>
+  <text x="710" y="150" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Заголовок цілісності дедуплікатора</text>
+  <text x="710" y="172" font-size="12" fill="#1a1a1a" text-anchor="middle">Магічне число: 0xDED09CA5</text>
+  <text x="710" y="192" font-size="12" fill="#1a1a1a" text-anchor="middle">Апаратна контрольна сума CRC32</text>
+
+  <rect x="515" y="220" width="390" height="190" fill="#ffffff" stroke="#d0d7de" rx="4"/>
+  <text x="710" y="245" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Аналіз джерела скидання процесора</text>
+
+  <rect x="530" y="260" width="170" height="82" fill="#e9f7ef" stroke="#27ae60" rx="3"/>
+  <text x="615" y="282" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Теплий скид (Warm Reset)</text>
+  <text x="615" y="302" font-size="11" fill="#1a1a1a" text-anchor="middle">Watchdog або скид ядра</text>
+  <text x="615" y="322" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">Кеш збережено в BKP RAM</text>
+
+  <rect x="720" y="260" width="170" height="82" fill="#fdecea" stroke="#c0392b" rx="3"/>
+  <text x="805" y="282" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Холодний скид (Cold Reset)</text>
+  <text x="805" y="302" font-size="11" fill="#1a1a1a" text-anchor="middle">Перше ввімкнення живлення</text>
+  <text x="805" y="322" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">Ініціалізація з нуля</text>
+
+  <text x="710" y="365" font-size="12" fill="#1a1a1a" text-anchor="middle">Запобігання повторному руху актуаторів після аварії</text>
+  <text x="710" y="388" font-size="11" fill="#6b7280" text-anchor="middle">Енергонезалежний захист командного інтерфейсу</text>
+</svg>

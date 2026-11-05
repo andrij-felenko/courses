@@ -1,0 +1,144 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 490" width="960" height="490" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="490" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="28" text-anchor="middle" font-size="18" font-weight="700" fill="#1a1a1a">Формування тайм-слотів 1-Wire та межі критичної секції</text>
+  <text x="480" y="47" text-anchor="middle" font-size="13" fill="#6b7280">Маскування переривань активне лише під час критичних фронтів і стробу, мінімізуючи джитер RTOS</text>
+
+  <!-- ==================== PANEL 1: WRITE SLOT ==================== -->
+  <rect x="25" y="60" width="910" height="195" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Panel 1 Header -->
+  <text x="40" y="78" font-size="13" font-weight="700" fill="#1a1a1a">Слот запису біта (Write Slot: «1» та «0»)</text>
+  <text x="635" y="78" text-anchor="end" font-size="12" fill="#6b7280">t_SLOT ≥ 60 мкс, t_REC ≥ 1 мкс</text>
+
+  <!-- Left Signal Labels -->
+  <text x="40" y="120" font-size="12" font-weight="700" fill="#1a1a1a">Шина 1-Wire (DQ)</text>
+  <text x="40" y="135" font-size="12" fill="#6b7280">Open-Drain + R_pullup</text>
+
+  <text x="40" y="195" font-size="12" font-weight="700" fill="#2457d6">Критична секція</text>
+  <text x="40" y="210" font-size="12" fill="#6b7280">Стан переривань</text>
+
+  <!-- DQ Waveform Labels -->
+  <text x="320" y="98" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">Запис «1»: лінія відпущена (Pull-up → 3.3V)</text>
+  <text x="430" y="132" text-anchor="middle" font-size="12" fill="#6b7280">Запис «0»: утримання LOW 60 мкс веде до кінця слота</text>
+
+  <!-- DQ Waveforms -->
+  <!-- Write 1 Waveform (Blue Solid) -->
+  <path d="M 185,108 L 200,108 L 200,146 L 260,146 L 260,108 L 625,108" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+  <!-- Write 0 Waveform (Gray Dashed) -->
+  <path d="M 260,146 L 580,146 L 580,108" fill="none" stroke="#6b7280" stroke-width="2" stroke-dasharray="4 3"/>
+
+  <!-- Critical Section Entry & Exit Callouts -->
+  <text x="200" y="166" font-size="12" font-weight="700" fill="#2457d6">Вхід у секцію (t = 0 мкс) ↓</text>
+  <text x="278" y="224" font-size="12" font-weight="700" fill="#27ae60">↑ Вихід: taskEXIT_CRITICAL() (t ≈ 3..5 мкс)</text>
+
+  <!-- Critical Section Status Rects -->
+  <rect x="200" y="174" width="65" height="34" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="232" y="195" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">IRQ OFF</text>
+
+  <rect x="279" y="174" width="346" height="34" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="452" y="195" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">Переривання дозволені (IRQ ON) — вікно RTOS (~55 мкс)</text>
+
+  <!-- Panel 1 Right Card (Driver Action Card) -->
+  <rect x="655" y="72" width="265" height="171" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="787" y="92" text-anchor="middle" font-size="13" font-weight="700" fill="#2457d6">Кроки генерації слота запису «1»</text>
+
+  <circle cx="672" cy="114" r="7" fill="#2457d6"/>
+  <text x="672" y="118" text-anchor="middle" font-size="12" font-weight="700" fill="white">1</text>
+  <text x="686" y="114" font-size="12" font-weight="700" fill="#1a1a1a">taskENTER_CRITICAL()</text>
+  <text x="686" y="128" font-size="12" fill="#6b7280">Маскування переривань ядра</text>
+
+  <circle cx="672" cy="146" r="7" fill="#2457d6"/>
+  <text x="672" y="150" text-anchor="middle" font-size="12" font-weight="700" fill="white">2</text>
+  <text x="686" y="146" font-size="12" font-weight="700" fill="#1a1a1a">GPIO = 0, пауза t_LOW1 (3 мкс)</text>
+  <text x="686" y="160" font-size="12" fill="#6b7280">Спад лінії через регістр BSRR</text>
+
+  <circle cx="672" cy="178" r="7" fill="#27ae60"/>
+  <text x="672" y="182" text-anchor="middle" font-size="12" font-weight="700" fill="white">3</text>
+  <text x="686" y="178" font-size="12" font-weight="700" fill="#27ae60">GPIO = Hi-Z + taskEXIT_CRITICAL()</text>
+  <text x="686" y="192" font-size="12" fill="#6b7280">Відпускання шини, вихід із секції</text>
+
+  <circle cx="672" cy="210" r="7" fill="#2457d6"/>
+  <text x="672" y="214" text-anchor="middle" font-size="12" font-weight="700" fill="white">4</text>
+  <text x="686" y="210" font-size="12" font-weight="700" fill="#1a1a1a">Пауза t_SLOT (55 мкс) + t_REC</text>
+  <text x="686" y="224" font-size="12" fill="#6b7280">RTOS активна, джитер безпечний</text>
+
+  <!-- ==================== PANEL 2: READ SLOT ==================== -->
+  <rect x="25" y="268" width="910" height="195" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Panel 2 Header -->
+  <text x="40" y="286" font-size="13" font-weight="700" fill="#1a1a1a">Слот зчитування біта (Read Slot: строб на 13–15 мкс)</text>
+  <text x="635" y="286" text-anchor="end" font-size="12" fill="#6b7280">Строб вибірки IDR, t_RDV &lt; 15 мкс</text>
+
+  <!-- Left Signal Labels -->
+  <text x="40" y="328" font-size="12" font-weight="700" fill="#1a1a1a">Шина 1-Wire (DQ)</text>
+  <text x="40" y="343" font-size="12" fill="#6b7280">Відповідь веденого</text>
+
+  <text x="40" y="397" font-size="12" font-weight="700" fill="#2457d6">Критична секція</text>
+  <text x="40" y="412" font-size="12" fill="#6b7280">Стан переривань</text>
+
+  <!-- Strobe & Bus Labels -->
+  <text x="285" y="302" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">Строб вибірки (t_SAMPLE ≈ 13..15 мкс)</text>
+  <text x="315" y="368" font-size="12" fill="#6b7280">Біт «0» (велений утримує LOW)</text>
+  <text x="430" y="310" font-size="12" font-weight="700" fill="#2457d6">Біт «1» (велений відпустив)</text>
+
+  <!-- Read Waveforms -->
+  <!-- Master Pulse + Read 1 (Blue Solid) -->
+  <path d="M 185,316 L 200,316 L 200,352 L 225,352 L 225,316 L 625,316" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+  <!-- Read 0 Waveform (Gray Dashed) -->
+  <path d="M 225,352 L 400,352 L 400,316 L 625,316" fill="none" stroke="#6b7280" stroke-width="2" stroke-dasharray="4 3"/>
+
+  <!-- Vertical Sampling Strobe Line & Points -->
+  <line x1="285" y1="310" x2="285" y2="358" stroke="#27ae60" stroke-width="2" stroke-dasharray="3 2"/>
+  <circle cx="285" cy="316" r="4.5" fill="#27ae60" stroke="white" stroke-width="1.5"/>
+  <circle cx="285" cy="352" r="4.5" fill="#27ae60" stroke="white" stroke-width="1.5"/>
+
+  <!-- Critical Section Entry & Exit Callouts -->
+  <text x="200" y="374" font-size="12" font-weight="700" fill="#2457d6">Вхід у секцію (t = 0 мкс) ↓</text>
+  <text x="299" y="432" font-size="12" font-weight="700" fill="#27ae60">↑ Вихід: taskEXIT_CRITICAL() (t ≈ 15 мкс)</text>
+
+  <!-- Critical Section Status Rects -->
+  <rect x="200" y="382" width="85" height="34" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="242" y="403" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">IRQ OFF</text>
+
+  <rect x="299" y="382" width="326" height="34" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="462" y="403" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">Переривання дозволені (IRQ ON) — вікно RTOS</text>
+
+  <!-- Panel 2 Right Card (Driver Action Card) -->
+  <rect x="655" y="280" width="265" height="171" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="787" y="300" text-anchor="middle" font-size="13" font-weight="700" fill="#2457d6">Кроки зчитування біта з шини</text>
+
+  <circle cx="672" cy="322" r="7" fill="#2457d6"/>
+  <text x="672" y="326" text-anchor="middle" font-size="12" font-weight="700" fill="white">1</text>
+  <text x="686" y="322" font-size="12" font-weight="700" fill="#1a1a1a">taskENTER_CRITICAL()</text>
+  <text x="686" y="336" font-size="12" fill="#6b7280">Ізоляція стартового імпульсу</text>
+
+  <circle cx="672" cy="354" r="7" fill="#2457d6"/>
+  <text x="672" y="358" text-anchor="middle" font-size="12" font-weight="700" fill="white">2</text>
+  <text x="686" y="354" font-size="12" font-weight="700" fill="#1a1a1a">GPIO = 0 (2 мкс), далі Hi-Z</text>
+  <text x="686" y="368" font-size="12" fill="#6b7280">Майстер відпускає лінію</text>
+
+  <circle cx="672" cy="386" r="7" fill="#27ae60"/>
+  <text x="672" y="390" text-anchor="middle" font-size="12" font-weight="700" fill="white">3</text>
+  <text x="686" y="386" font-size="12" font-weight="700" fill="#27ae60">Зчитування IDR (13–15 мкс)</text>
+  <text x="686" y="400" font-size="12" fill="#6b7280">Строб вибірки значення біта</text>
+
+  <circle cx="672" cy="418" r="7" fill="#27ae60"/>
+  <text x="672" y="422" text-anchor="middle" font-size="12" font-weight="700" fill="white">4</text>
+  <text x="686" y="418" font-size="12" font-weight="700" fill="#27ae60">taskEXIT_CRITICAL()</text>
+  <text x="686" y="432" font-size="12" fill="#6b7280">Вихід; пауза до кінця слота (45 мкс)</text>
+</svg>

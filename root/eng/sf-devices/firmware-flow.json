@@ -64,8 +64,41 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-mainframe-to-embedded-timesharing.md",
+              "status": "done",
+              "recode": true
+            }
+          ],
+          "comp": [
+            {
+              "file": "comp-system-tick-timer.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-scheduler-context-switch.md",
+              "status": "done",
+              "recode": true
+            }
+          ],
+          "math": [
+            {
+              "file": "math-time-slicing-overhead.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-cooperative-vs-preemptive-scheduler.md",
+              "status": "pending",
+              "recode": true
+            }
+          ]
         },
         {
           "slug": "capstone-task",
@@ -85,8 +118,20 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "done"
+          },
+          "api": [
+            {
+              "file": "api-fatfs-cluster-preallocation.md",
+              "status": "done",
+              "recode": true
+            },
+            {
+              "file": "api-sdio-sd-bus-interface.md",
+              "status": "done",
+              "recode": true
+            }
+          ]
         },
         {
           "slug": "embedded-bytecode-vm-sequencer",
@@ -95,8 +140,29 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "done"
+          },
+          "api": [
+            {
+              "file": "api-bytecode-opcodes.md",
+              "status": "done",
+              "recode": true
+            }
+          ],
+          "hist": [
+            {
+              "file": "hist-forth-and-pcode.md",
+              "status": "done",
+              "recode": true
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-c-bytecode-interpreter.md",
+              "status": "done",
+              "recode": true
+            }
+          ]
         }
       ]
     },
@@ -111,8 +177,40 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-task-state-machine-evolution.md",
+              "status": "done",
+              "recode": true
+            }
+          ],
+          "math": [
+            {
+              "file": "math-task-state-transitions-and-queueing.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-bare-metal-cooperative-state-machine.md",
+              "status": "pending",
+              "recode": true
+            },
+            {
+              "file": "proj-rtos-task-state-tracer.md",
+              "status": "pending",
+              "recode": true
+            }
+          ],
+          "api": [
+            {
+              "file": "api-rtos-task-state-management-interface.md",
+              "status": "done",
+              "recode": true
+            }
+          ]
         },
         {
           "slug": "work-queue",
@@ -121,8 +219,40 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-deferred-execution-evolution.md",
+              "status": "done",
+              "recode": true
+            }
+          ],
+          "api": [
+            {
+              "file": "api-rtos-work-queue-interface.md",
+              "status": "done",
+              "recode": true
+            }
+          ],
+          "math": [
+            {
+              "file": "math-work-queue-latency-and-sizing.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-deferred-isr-work-queue.md",
+              "status": "pending",
+              "recode": true
+            },
+            {
+              "file": "proj-custom-work-queue-engine.md",
+              "status": "pending",
+              "recode": true
+            }
+          ]
         },
         {
           "slug": "uart-ring-buffer-architecture",
@@ -131,8 +261,42 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "done"
+          },
+          "math": [
+            {
+              "file": "math-uart-buffer-sizing-and-latency.md",
+              "status": "done"
+            },
+            {
+              "file": "math-ring-buffer-index-arithmetic.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-lockfree-spsc-uart-ring-buffer.md",
+              "status": "pending",
+              "recode": true
+            },
+            {
+              "file": "proj-uart-dma-circular-idle-driver.md",
+              "status": "pending",
+              "recode": true
+            }
+          ],
+          "api": [
+            {
+              "file": "api-uart-ring-buffer-c-lib.md",
+              "status": "done",
+              "recode": true
+            },
+            {
+              "file": "api-uart-dma-hardware-registers.md",
+              "status": "pending",
+              "recode": true
+            }
+          ]
         },
         {
           "slug": "uart-rx-ring-buffer-mcu",
@@ -141,7 +305,75 @@
             "status": "empty"
           },
           "detailed": {
+            "status": "done"
+          },
+          "math": [
+            {
+              "file": "math-ring-buffer-indexing-and-latency.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-embedded-uart-rx-ring-buffer-c.md",
+              "status": "pending",
+              "recode": true
+            },
+            {
+              "file": "proj-uart-dma-circular-buffer-pipeline.md",
+              "status": "pending",
+              "recode": true
+            }
+          ]
+        },
+        {
+          "slug": "freertos-queues-and-isrs",
+          "title": "Черги FreeRTOS та обробка переривань",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
             "status": "pending"
+          }
+        },
+        {
+          "slug": "cooperative-vs-preemptive-multitasking",
+          "title": "Кооперативна та витісняльна багатозадачність у вбудованих системах",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "critical-sections-in-rtos",
+          "title": "Критичні секції в RTOS",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "dedicated-worker-threads-rtos",
+          "title": "Окремі потоки-виконавці для ізольованих задач в RTOS",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "embedded-rtos-ring-buffer-dma-storage-decoupling",
+          "title": "Архітектура двобуферних кільцевих черг RTOS для ізоляції затримок накопичувачів",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
           }
         }
       ]
@@ -210,13 +442,94 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "done"
+          },
+          "math": [
+            {
+              "file": "math-clock-drift-and-slewing-calculations.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-uptime-clock-sync-module.md",
+              "status": "pending",
+              "recode": true
+            },
+            {
+              "file": "proj-rtc-gnss-pps-sync-handler.md",
+              "status": "pending",
+              "recode": true
+            }
+          ]
         },
         {
           "slug": "dda-step-generation",
           "title": "Генератор кроків DDA у прошивці: таймерне квантування, дробовий акумулятор і багатоосьовий розгін",
           "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "api": [
+            {
+              "file": "api-dda-motion-planner-interface.md",
+              "status": "done",
+              "recode": true
+            }
+          ],
+          "math": [
+            {
+              "file": "math-dda-fixed-point-accumulator.md",
+              "status": "done",
+              "recode": true
+            },
+            {
+              "file": "math-multiaxis-kinematic-dda.md",
+              "status": "done",
+              "recode": true
+            },
+            {
+              "file": "math-timer-quantization-jitter.md",
+              "status": "done",
+              "recode": true
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-dda-step-generator-isr.md",
+              "status": "done",
+              "recode": true
+            }
+          ]
+        },
+        {
+          "slug": "esp-timer-profiling",
+          "title": "esp-timer-profiling",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "comp": [
+            {
+              "file": "comp-hardware-timer-peripheral.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-timer-overhead-calibration.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "hardware-timers-profiling",
+          "title": "hardware-timers-profiling",
+          "basic": {
             "status": "empty"
           },
           "detailed": {
@@ -224,13 +537,33 @@
           }
         },
         {
-          "slug": "esp-timer-profiling",
-          "title": "Профілювання продуктивності за допомогою системних таймерів ESP-IDF",
+          "slug": "dda-buffer-underrun-protection",
+          "title": "Захист від спустошення буфера DDA",
           "basic": {
-            "status": "empty"
+            "status": "done"
           },
           "detailed": {
-            "status": "pending"
+            "status": "done"
+          }
+        },
+        {
+          "slug": "dda-dma-generation",
+          "title": "Генерація кроків DDA за допомогою DMA та таймерів",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "dma-step-generation-hardware-acceleration",
+          "title": "Генерація імпульсів STEP/DIR засобами DMA та таймерів мікроконтролера",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
           }
         }
       ]
@@ -256,8 +589,15 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "done"
+          },
+          "proj": [
+            {
+              "file": "proj-dma-adc-stream.md",
+              "status": "done",
+              "recode": true
+            }
+          ]
         }
       ]
     },
@@ -272,8 +612,26 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "done"
+          },
+          "math": [
+            {
+              "file": "math-fsm-graph.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-button-debouncer.md",
+              "status": "pending",
+              "recode": true
+            },
+            {
+              "file": "proj-device-menu.md",
+              "status": "pending",
+              "recode": true
+            }
+          ]
         }
       ]
     }

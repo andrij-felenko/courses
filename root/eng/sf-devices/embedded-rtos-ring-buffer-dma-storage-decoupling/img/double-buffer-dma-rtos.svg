@@ -1,0 +1,95 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Підкладка -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Двоступеневий конвеєр ізоляції затримок накопичувачів</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Подвійний буфер DMA стабілізує потік, а кільцева черга RTOS згладжує хвостові затримки Flash</text>
+
+  <!-- Ступінь 1: Апаратний подвійний буфер DMA (Зліва) -->
+  <rect x="30" y="80" width="280" height="340" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="170" y="108" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Ступінь 1: Подвійний буфер DMA</text>
+  <text x="170" y="128" font-size="12" fill="#6b7280" text-anchor="middle">Фізичний ввід без участі CPU</text>
+
+  <rect x="45" y="145" width="250" height="50" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="55" y="166" font-size="12" font-weight="bold" fill="#1a1a1a">Периферія (UART / ADC / SPI)</text>
+  <text x="55" y="184" font-size="12" fill="#2457d6">Безперервний потік сирих даних</text>
+
+  <!-- Подвійний буфер DMA -->
+  <rect x="45" y="210" width="250" height="55" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="55" y="232" font-size="12" font-weight="bold" fill="#27ae60">DMA Buffer 0 [Заповнюється]</text>
+  <text x="55" y="252" font-size="12" fill="#1a1a1a">Апаратне наповнення через шину</text>
+
+  <rect x="45" y="278" width="250" height="55" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="55" y="300" font-size="12" font-weight="bold" fill="#2457d6">DMA Buffer 1 [Готовий до копії]</text>
+  <text x="55" y="320" font-size="12" fill="#1a1a1a">Генерує переривання HT / TC ISR</text>
+
+  <rect x="45" y="348" width="250" height="58" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="55" y="370" font-size="12" fill="#1a1a1a">Захист від переповнення шини:</text>
+  <text x="55" y="390" font-size="12" font-weight="bold" fill="#27ae60">Апаратний детермінізм O(1)</text>
+
+  <!-- Стрілка 1 -> 2 -->
+  <line x1="310" y1="280" x2="350" y2="280" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="330" y="270" font-size="12" fill="#2457d6" text-anchor="middle">ISR</text>
+
+  <!-- Ступінь 2: Кільцева черга RTOS (Центр) -->
+  <rect x="350" y="80" width="280" height="340" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="490" y="108" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Ступінь 2: Кільцева черга RTOS</text>
+  <text x="490" y="128" font-size="12" fill="#6b7280" text-anchor="middle">Буфер поглинання затримок</text>
+
+  <rect x="365" y="145" width="250" height="188" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="375" y="168" font-size="12" font-weight="bold" fill="#1a1a1a">Черга повідомлень (Queue/FIFO):</text>
+
+  <rect x="375" y="180" width="230" height="30" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="385" y="200" font-size="12" fill="#2457d6">Пакет 4: Покажчик на блок</text>
+
+  <rect x="375" y="216" width="230" height="30" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="385" y="236" font-size="12" fill="#2457d6">Пакет 3: Покажчик на блок</text>
+
+  <rect x="375" y="252" width="230" height="30" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="385" y="272" font-size="12" fill="#2457d6">Пакет 2: Покажчик на блок</text>
+
+  <rect x="375" y="288" width="230" height="30" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="385" y="308" font-size="12" fill="#27ae60">Пакет 1: [Вичитується воркером]</text>
+
+  <rect x="365" y="348" width="250" height="58" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="375" y="370" font-size="12" fill="#1a1a1a">Глибина черги (SRAM):</text>
+  <text x="375" y="390" font-size="12" font-weight="bold" fill="#2457d6">Компенсує затримки до 500 мс</text>
+
+  <!-- Стрілка 2 -> 3 -->
+  <line x1="630" y1="280" x2="670" y2="280" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="650" y="270" font-size="12" fill="#27ae60" text-anchor="middle">Task</text>
+
+  <!-- Ступінь 3: Воркер запису та Flash-накопичувач (Справа) -->
+  <rect x="670" y="80" width="260" height="340" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="800" y="108" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Ступінь 3: Накопичувач</text>
+  <text x="800" y="128" font-size="12" fill="#6b7280" text-anchor="middle">Фоновий запис у сховище</text>
+
+  <rect x="685" y="145" width="230" height="65" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="695" y="168" font-size="12" font-weight="bold" fill="#1a1a1a">Потік запису (Worker Task)</text>
+  <text x="695" y="188" font-size="12" fill="#27ae60">Очікує семафор / чергу RTOS</text>
+  <text x="695" y="204" font-size="11" fill="#6b7280">Виконує пакетний запис блоків</text>
+
+  <rect x="685" y="222" width="230" height="110" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="695" y="244" font-size="12" font-weight="bold" fill="#1a1a1a">Фізичний Flash (SD / eMMC)</text>
+  <text x="695" y="264" font-size="12" fill="#1a1a1a">Файлова система (FatFs / LittleFS)</text>
+  <text x="695" y="286" font-size="12" fill="#c0392b">Стирання блоків (Erase latency)</text>
+  <text x="695" y="306" font-size="12" fill="#c0392b">Хвостова пауза: 100–300 мс</text>
+  <text x="695" y="324" font-size="11" fill="#6b7280">Пауза ізольована всередині воркера</text>
+
+  <rect x="685" y="348" width="230" height="58" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="695" y="370" font-size="12" fill="#1a1a1a">Результат ізоляції:</text>
+  <text x="695" y="390" font-size="12" font-weight="bold" fill="#27ae60">0 втрачених байтів на вході</text>
+</svg>

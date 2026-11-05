@@ -1,0 +1,82 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Оптимізація пам'яті та диспетчеризації віртуальної машини</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Природне вирівнювання усуває байти padding, а прямий threaded-код мінімізує накладні витрати циклу</text>
+
+  <!-- Ліва колонка: Вирівнювання структури VM -->
+  <rect x="30" y="80" width="430" height="345" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="245" y="105" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Вирівнювання структури VM у RAM</text>
+
+  <!-- Неоптимальне -->
+  <rect x="45" y="125" width="400" height="115" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="60" y="148" font-size="13" font-weight="bold" fill="#c0392b">Неоптимальне чергування полів (12 байтів):</text>
+
+  <rect x="60" y="160" width="45" height="30" fill="#ffffff" stroke="#c0392b"/>
+  <text x="82" y="179" font-size="11" fill="#1a1a1a" text-anchor="middle">op (1)</text>
+
+  <rect x="105" y="160" width="105" height="30" fill="#fdecea" stroke="#c0392b" stroke-dasharray="3,3"/>
+  <text x="157" y="179" font-size="11" fill="#c0392b" text-anchor="middle">padding (3 байти)</text>
+
+  <rect x="210" y="160" width="120" height="30" fill="#ffffff" stroke="#c0392b"/>
+  <text x="270" y="179" font-size="11" fill="#1a1a1a" text-anchor="middle">arg (4 байти)</text>
+
+  <rect x="330" y="160" width="55" height="30" fill="#ffffff" stroke="#c0392b"/>
+  <text x="357" y="179" font-size="11" fill="#1a1a1a" text-anchor="middle">id (2)</text>
+
+  <rect x="385" y="160" width="50" height="30" fill="#fdecea" stroke="#c0392b" stroke-dasharray="3,3"/>
+  <text x="410" y="179" font-size="11" fill="#c0392b" text-anchor="middle">pad (2)</text>
+
+  <text x="60" y="215" font-size="12" fill="#6b7280">5 байтів сміттєвого вирівнювання (42% витрат RAM)</text>
+
+  <!-- Природне вирівнювання -->
+  <rect x="45" y="255" width="400" height="150" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="60" y="278" font-size="13" font-weight="bold" fill="#27ae60">Природне спадне вирівнювання (8 байтів):</text>
+
+  <rect x="60" y="292" width="160" height="30" fill="#ffffff" stroke="#27ae60"/>
+  <text x="140" y="311" font-size="11" fill="#1a1a1a" text-anchor="middle">uint32_t arg (4 байти)</text>
+
+  <rect x="220" y="292" width="90" height="30" fill="#ffffff" stroke="#27ae60"/>
+  <text x="265" y="311" font-size="11" fill="#1a1a1a" text-anchor="middle">uint16_t id (2)</text>
+
+  <rect x="310" y="292" width="65" height="30" fill="#ffffff" stroke="#27ae60"/>
+  <text x="342" y="311" font-size="11" fill="#1a1a1a" text-anchor="middle">op (1)</text>
+
+  <rect x="375" y="292" width="60" height="30" fill="#ffffff" stroke="#27ae60"/>
+  <text x="405" y="311" font-size="11" fill="#1a1a1a" text-anchor="middle">flag (1)</text>
+
+  <text x="60" y="348" font-size="12" fill="#1a1a1a">Поля розміщені за спаданням кратності адресації</text>
+  <text x="60" y="370" font-size="12" fill="#27ae60" font-weight="bold">Нуль байтів padding: 100% корисної пам'яті</text>
+  <text x="60" y="390" font-size="12" fill="#6b7280">Безпечний доступ за один такт без fault-винятків</text>
+
+  <!-- Права колонка: Порівняння стратегій диспетчеризації -->
+  <rect x="490" y="80" width="440" height="345" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="710" y="105" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Порівняння стратегій диспетчеризації</text>
+
+  <!-- Switch -->
+  <rect x="505" y="125" width="410" height="85" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="520" y="148" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="start">1. Конструкція switch(opcode)</text>
+  <text x="520" y="170" font-size="12" fill="#1a1a1a" text-anchor="start">Каскад порівнянь CMP або бінарне дерево переходів</text>
+  <text x="520" y="190" font-size="12" fill="#6b7280" text-anchor="start">Затримка: O(log N); промахи передбачення переходів</text>
+
+  <!-- Jump Table -->
+  <rect x="505" y="225" width="410" height="85" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="520" y="248" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="start">2. Jump Table (Таблиця покажчиків)</text>
+  <text x="520" y="270" font-size="12" fill="#1a1a1a" text-anchor="start">Прямий виклик функції за індексом опкоду: handler[op]()</text>
+  <text x="520" y="290" font-size="12" fill="#6b7280" text-anchor="start">Затримка: O(1); накладні витрати на виклик і стек-фрейм</text>
+
+  <!-- Direct Threaded Code -->
+  <rect x="505" y="325" width="410" height="85" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="520" y="348" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="start">3. Direct Threaded Code (Мітки GCC &amp;&amp;label)</text>
+  <text x="520" y="370" font-size="12" fill="#1a1a1a" text-anchor="start">Прямий стрибок goto *dispatch[op] наприкінці інструкції</text>
+  <text x="520" y="390" font-size="12" fill="#27ae60" font-weight="bold" text-anchor="start">Затримка: O(1); відсутній центральний диспетчер</text>
+</svg>

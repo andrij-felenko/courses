@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse"><path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/></marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse"><path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/></marker>
+  </defs>
+  <rect x="0" y="0" width="960" height="460" fill="#ffffff"/>
+  <text x="480" y="30" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Апаратний конвеєр обробки тривог ADC -&gt; DMA -&gt; ISR</text>
+  <text x="480" y="50" font-size="13" fill="#6b7280" text-anchor="middle">Неперервний моніторинг датчиків з мінімальною затримкою виявлення аварій</text>
+
+  <rect x="50" y="140" width="180" height="180" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="6"/>
+  <text x="140" y="170" font-size="14" font-weight="700" fill="#1a1a1a" text-anchor="middle">ADC Peripheral</text>
+  <rect x="70" y="200" width="140" height="40" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="4"/>
+  <text x="140" y="225" font-size="12" fill="#1a1a1a" text-anchor="middle">Continuous Scan</text>
+  <rect x="70" y="255" width="140" height="40" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="4"/>
+  <text x="140" y="280" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">DMA Req Signal</text>
+
+  <rect x="300" y="140" width="220" height="180" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="6"/>
+  <text x="410" y="170" font-size="14" font-weight="700" fill="#1a1a1a" text-anchor="middle">DMA Controller</text>
+  <rect x="320" y="200" width="180" height="40" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="4"/>
+  <text x="410" y="225" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">Double Buffer Ping-Pong</text>
+  <rect x="320" y="255" width="180" height="40" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="4"/>
+  <text x="410" y="280" font-size="12" fill="#1a1a1a" text-anchor="middle">Auto-reload Circular</text>
+
+  <rect x="590" y="140" width="320" height="180" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" rx="6"/>
+  <text x="750" y="170" font-size="14" font-weight="700" fill="#c0392b" text-anchor="middle">Обробник переривань ISR / RTOS Task</text>
+  <rect x="610" y="200" width="280" height="40" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="4"/>
+  <text x="750" y="225" font-size="12" fill="#1a1a1a" text-anchor="middle">Векторна перевірка порогів (High/Low)</text>
+  <rect x="610" y="255" width="280" height="40" fill="#fdecea" stroke="#c0392b" stroke-width="1" rx="4"/>
+  <text x="750" y="280" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">Генерація події ISA18 Alarm Event</text>
+
+  <line x1="230" y1="230" x2="300" y2="230" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <line x1="520" y1="230" x2="590" y2="230" stroke="#c0392b" stroke-width="2" marker-end="url(#arr)"/>
+</svg>

@@ -1,0 +1,148 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-rev" markerWidth="9" markerHeight="9" refX="0.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-rev-red" markerWidth="9" markerHeight="9" refX="0.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-rev-gray" markerWidth="9" markerHeight="9" refX="0.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="34" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Часова діаграма взаємодії SPI та 74HC165</text>
+  <text x="480" y="55" text-anchor="middle" font-size="13" fill="#6b7280">Завантаження паралельних входів імпульсом PL та зчитування 8 бітів тактами SCK (Mode 0)</text>
+
+  <!-- Main Panel -->
+  <rect x="24" y="70" width="912" height="386" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Phase Badges -->
+  <rect x="207" y="82" width="96" height="22" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="255" y="97" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">1. Засувка PL</text>
+
+  <rect x="316" y="82" width="518" height="22" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="575" y="97" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">2. Серійне опитування SPI: 8 тактів SCK (Mode 0, MSB-first)</text>
+
+  <rect x="846" y="82" width="76" height="22" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="884" y="97" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">3. Байт OK</text>
+
+  <!-- Vertical Channel Separator -->
+  <line x1="185" y1="70" x2="185" y2="355" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Signal Labels (Left) -->
+  <text x="40" y="128" font-size="13" font-weight="bold" fill="#1a1a1a">PL (SH/LD)</text>
+  <text x="40" y="145" font-size="12" fill="#6b7280">GPIO вихід MCU</text>
+
+  <text x="40" y="205" font-size="13" font-weight="bold" fill="#1a1a1a">SCK (CP)</text>
+  <text x="40" y="222" font-size="12" fill="#6b7280">Такти SPI (Mode 0)</text>
+
+  <text x="40" y="265" font-size="13" font-weight="bold" fill="#1a1a1a">MISO (Q7)</text>
+  <text x="40" y="282" font-size="12" fill="#6b7280">Послідовні дані</text>
+
+  <text x="40" y="322" font-size="13" font-weight="bold" fill="#27ae60">Строб вибірки</text>
+  <text x="40" y="338" font-size="12" fill="#6b7280">Фронт зчитування</text>
+
+  <!-- Signal 1: PL Waveform -->
+  <path d="M 195 125 L 225 125 L 225 150 L 285 150 L 285 125 L 915 125" fill="none" stroke="#c0392b" stroke-width="2.5" stroke-linejoin="round"/>
+
+  <!-- PL Measurements -->
+  <line x1="225" y1="164" x2="285" y2="164" stroke="#c0392b" stroke-width="1.5" marker-start="url(#arr-rev-red)" marker-end="url(#arr-red)"/>
+  <text x="255" y="178" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">t_PL</text>
+
+  <line x1="285" y1="164" x2="335" y2="164" stroke="#6b7280" stroke-width="1.5" marker-start="url(#arr-rev-gray)" marker-end="url(#arr-gray)"/>
+  <text x="310" y="178" font-size="12" fill="#6b7280" text-anchor="middle">t_su</text>
+
+  <!-- Signal 2: SCK Waveform -->
+  <path d="M 195 222 L 335 222 L 335 196 L 365 196 L 365 222 L 400 222 L 400 196 L 430 196 L 430 222 L 465 222 L 465 196 L 495 196 L 495 222 L 530 222 L 530 196 L 560 196 L 560 222 L 595 222 L 595 196 L 625 196 L 625 222 L 660 222 L 660 196 L 690 196 L 690 222 L 725 222 L 725 196 L 755 196 L 755 222 L 790 222 L 790 196 L 820 196 L 820 222 L 915 222" fill="none" stroke="#1a1a1a" stroke-width="2" stroke-linejoin="round"/>
+
+  <!-- SCK Pulse Numbers -->
+  <text x="350" y="189" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">1</text>
+  <text x="415" y="189" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">2</text>
+  <text x="480" y="189" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">3</text>
+  <text x="545" y="189" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">4</text>
+  <text x="610" y="189" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">5</text>
+  <text x="675" y="189" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">6</text>
+  <text x="740" y="189" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">7</text>
+  <text x="805" y="189" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">8</text>
+
+  <!-- Signal 3: MISO Idle -->
+  <line x1="195" y1="265" x2="255" y2="265" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="3,3"/>
+
+  <!-- Signal 3: MISO Shaded Cells -->
+  <polygon points="255,265 265,252 365,252 375,265 365,278 265,278" fill="#eaf0fd"/>
+  <polygon points="365,265 375,252 430,252 440,265 430,278 375,278" fill="#eaf0fd"/>
+  <polygon points="430,265 440,252 495,252 505,265 495,278 440,278" fill="#eaf0fd"/>
+  <polygon points="495,265 505,252 560,252 570,265 560,278 505,278" fill="#eaf0fd"/>
+  <polygon points="560,265 570,252 625,252 635,265 625,278 570,278" fill="#eaf0fd"/>
+  <polygon points="625,265 635,252 690,252 700,265 690,278 635,278" fill="#eaf0fd"/>
+  <polygon points="690,265 700,252 755,252 765,265 755,278 700,278" fill="#eaf0fd"/>
+  <polygon points="755,265 765,252 820,252 830,265 820,278 765,278" fill="#eaf0fd"/>
+
+  <!-- Signal 3: MISO Boundary Lines -->
+  <path d="M 255 265 L 265 252 L 365 252 L 375 278 L 430 278 L 440 252 L 495 252 L 505 278 L 560 278 L 570 252 L 625 252 L 635 278 L 690 278 L 700 252 L 755 252 L 765 278 L 820 278 L 830 265 L 915 265" fill="none" stroke="#2457d6" stroke-width="2" stroke-linejoin="round"/>
+  <path d="M 255 265 L 265 278 L 365 278 L 375 252 L 430 252 L 440 278 L 495 278 L 505 252 L 560 252 L 570 278 L 625 278 L 635 252 L 690 252 L 700 278 L 755 278 L 765 252 L 820 252 L 830 265" fill="none" stroke="#2457d6" stroke-width="2" stroke-linejoin="round"/>
+
+  <!-- Signal 3: MISO Bit Labels -->
+  <text x="315" y="269" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">D7</text>
+  <text x="402" y="269" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">D6</text>
+  <text x="467" y="269" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">D5</text>
+  <text x="532" y="269" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">D4</text>
+  <text x="597" y="269" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">D3</text>
+  <text x="662" y="269" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">D2</text>
+  <text x="727" y="269" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">D1</text>
+  <text x="792" y="269" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">D0</text>
+
+  <!-- Sampling Strobes (Row 4) -->
+  <line x1="335" y1="318" x2="335" y2="290" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <line x1="400" y1="318" x2="400" y2="290" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <line x1="465" y1="318" x2="465" y2="290" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <line x1="530" y1="318" x2="530" y2="290" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <line x1="595" y1="318" x2="595" y2="290" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <line x1="660" y1="318" x2="660" y2="290" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <line x1="725" y1="318" x2="725" y2="290" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <line x1="790" y1="318" x2="790" y2="290" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <text x="335" y="336" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">b7</text>
+  <text x="400" y="336" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">b6</text>
+  <text x="465" y="336" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">b5</text>
+  <text x="530" y="336" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">b4</text>
+  <text x="595" y="336" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">b3</text>
+  <text x="660" y="336" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">b2</text>
+  <text x="725" y="336" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">b1</text>
+  <text x="790" y="336" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">b0</text>
+
+  <!-- Bottom Cards -->
+  <rect x="40" y="360" width="220" height="74" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="52" y="380" font-size="12" font-weight="bold" fill="#c0392b">1. Завантаження (PL = 0):</text>
+  <text x="52" y="399" font-size="12" fill="#1a1a1a">• Асинхронна засувка D0..D7</text>
+  <text x="52" y="418" font-size="12" fill="#1a1a1a">• Тривалість t_PL ≥ 20 нс</text>
+
+  <rect x="280" y="360" width="330" height="74" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="292" y="380" font-size="12" font-weight="bold" fill="#2457d6">2. Вихід MSB та зсув SPI:</text>
+  <text x="292" y="399" font-size="12" fill="#1a1a1a">• Біт D7 на MISO одразу, без SCK</text>
+  <text x="292" y="418" font-size="12" fill="#1a1a1a">• Біти D6..D0 зсуваються по спаду</text>
+
+  <rect x="630" y="360" width="285" height="74" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="642" y="380" font-size="12" font-weight="bold" fill="#27ae60">3. Зчитування в буфер:</text>
+  <text x="642" y="399" font-size="12" fill="#1a1a1a">• Вибірка по передньому фронту</text>
+  <text x="642" y="418" font-size="12" fill="#1a1a1a">• Прийом 1 байта за 8 тактів</text>
+</svg>

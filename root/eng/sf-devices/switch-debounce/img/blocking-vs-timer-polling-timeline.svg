@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <text x="480" y="36" fill="#1a1a1a" font-size="18" font-weight="bold" text-anchor="middle">Блокуюче очікування проти опитування таймера</text>
+  <text x="480" y="58" fill="#6b7280" font-size="13" text-anchor="middle">Розподіл процесорного часу при обробці затримок (delay та millis)</text>
+
+  <!-- Top Section: Blocking -->
+  <text x="50" y="105" fill="#1a1a1a" font-size="14" font-weight="bold">Підхід 1: Блокуючий виклик (delay)</text>
+
+  <rect x="80" y="125" width="70" height="36" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="115" y="148" fill="#1a1a1a" font-size="12" text-anchor="middle">Початок</text>
+
+  <rect x="162" y="125" width="556" height="36" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="440" y="148" fill="#c0392b" font-size="13" font-weight="bold" text-anchor="middle">Блокування: процесор повністю простоює</text>
+
+  <rect x="730" y="125" width="90" height="36" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="775" y="148" fill="#1a1a1a" font-size="12" text-anchor="middle">Продовження</text>
+
+  <!-- Timeline 1 -->
+  <line x1="50" y1="180" x2="880" y2="180" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <line x1="80" y1="175" x2="80" y2="185" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="80" y="202" fill="#6b7280" font-size="12" text-anchor="middle">t = 0</text>
+  <line x1="730" y1="175" x2="730" y2="185" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="730" y="202" fill="#6b7280" font-size="12" text-anchor="middle">t = Затримка</text>
+
+  <text x="440" y="222" fill="#c0392b" font-size="12" text-anchor="middle">Усі інші процеси призупинені, система не реагує на зовнішні події</text>
+
+  <!-- Bottom Section: Polling -->
+  <text x="50" y="270" fill="#1a1a1a" font-size="14" font-weight="bold">Підхід 2: Неблокуюче опитування таймера (millis)</text>
+
+  <!-- Loop 1 -->
+  <rect x="80" y="290" width="40" height="36" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="100" y="313" fill="#1a1a1a" font-size="12" text-anchor="middle">if</text>
+  <rect x="132" y="290" width="76" height="36" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="170" y="313" fill="#1a1a1a" font-size="12" text-anchor="middle">Задача</text>
+
+  <!-- Loop 2 -->
+  <rect x="220" y="290" width="40" height="36" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="240" y="313" fill="#1a1a1a" font-size="12" text-anchor="middle">if</text>
+  <rect x="272" y="290" width="76" height="36" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="310" y="313" fill="#1a1a1a" font-size="12" text-anchor="middle">Задача</text>
+
+  <!-- Loop 3 -->
+  <rect x="360" y="290" width="40" height="36" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="380" y="313" fill="#1a1a1a" font-size="12" text-anchor="middle">if</text>
+  <rect x="412" y="290" width="76" height="36" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="450" y="313" fill="#1a1a1a" font-size="12" text-anchor="middle">Задача</text>
+
+  <!-- Loop 4 -->
+  <rect x="500" y="290" width="40" height="36" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="520" y="313" fill="#1a1a1a" font-size="12" text-anchor="middle">if</text>
+  <rect x="552" y="290" width="76" height="36" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="590" y="313" fill="#1a1a1a" font-size="12" text-anchor="middle">Задача</text>
+
+  <!-- Loop 5 -->
+  <rect x="640" y="290" width="40" height="36" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="660" y="313" fill="#1a1a1a" font-size="12" text-anchor="middle">if</text>
+  <rect x="692" y="290" width="26" height="36" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="705" y="313" fill="#1a1a1a" font-size="13" font-weight="bold" text-anchor="middle">...</text>
+
+  <!-- Task A continue -->
+  <rect x="730" y="290" width="90" height="36" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="775" y="313" fill="#1a1a1a" font-size="12" text-anchor="middle">Продовження</text>
+
+  <!-- Timeline 2 -->
+  <line x1="50" y1="345" x2="880" y2="345" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <line x1="80" y1="340" x2="80" y2="350" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="80" y="367" fill="#6b7280" font-size="12" text-anchor="middle">t = 0</text>
+  <line x1="730" y1="340" x2="730" y2="350" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="730" y="367" fill="#6b7280" font-size="12" text-anchor="middle">t = Затримка</text>
+
+  <text x="440" y="387" fill="#27ae60" font-size="12" text-anchor="middle">Корисна робота постійно виконується у фоні, процесор не простоює</text>
+</svg>

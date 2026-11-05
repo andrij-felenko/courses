@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+  <text x="480" y="40" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">збереження регістрів процесора у стек першої задачі та завантаження регістрів зі</text>
+  <text x="480" y="64" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">стека другої задачі</text>
+  <text x="480" y="94" font-size="13" fill="#6b7280" text-anchor="middle">Діаграма послідовності збереження та відновлення контексту: при виникненні переривання процесор автоматично</text>
+  <text x="480" y="112" font-size="13" fill="#6b7280" text-anchor="middle">та програмно зберігає регістри поточної задачі у її персональний стек, оновлює покажчик стека в блоці</text>
+  <text x="480" y="130" font-size="13" fill="#6b7280" text-anchor="middle">управління задачею та відновлює регістри наступної задачі з її стека.</text>
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+  <rect x="180" y="168" width="600" height="240" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <rect x="220" y="208" width="200" height="160" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <rect x="540" y="208" width="200" height="160" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <line x1="420" y1="288" x2="525" y2="288" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+  <text x="320" y="278" font-size="14" fill="#1a1a1a" text-anchor="middle">Архітектура та</text>
+  <text x="320" y="296" font-size="14" fill="#1a1a1a" text-anchor="middle">компоненти</text>
+  <text x="640" y="278" font-size="14" fill="#1a1a1a" text-anchor="middle">Схема функціонування</text>
+</svg>

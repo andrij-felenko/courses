@@ -1,0 +1,77 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+  <defs>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <text x="480" y="30" font-size="18" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Діагностика DDA: джитер переривань та відновлення</text>
+  <text x="480" y="50" font-size="13" text-anchor="middle" fill="#6b7280">Осцилограми логічного аналізатора для осей X та Y</text>
+
+  <!-- Regions -->
+  <rect x="520" y="70" width="160" height="340" fill="#fdecea" opacity="0.7"/>
+  <text x="600" y="60" font-size="13" font-weight="bold" text-anchor="middle" fill="#c0392b">Buffer Underrun</text>
+
+  <text x="490" y="60" font-size="13" text-anchor="end" fill="#c0392b">Джитер</text>
+  <line x1="500" y1="70" x2="500" y2="420" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4"/>
+  
+  <line x1="350" y1="70" x2="350" y2="420" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4"/>
+  <text x="350" y="440" font-size="13" text-anchor="middle" fill="#1a1a1a">Зміна напрямку X (DIR)</text>
+
+  <line x1="680" y1="70" x2="680" y2="420" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="4"/>
+  <text x="680" y="440" font-size="13" text-anchor="middle" fill="#27ae60">Відновлення даних</text>
+
+  <!-- Labels -->
+  <text x="80" y="90" font-size="14" font-weight="bold" text-anchor="end" fill="#2457d6">TIM_ISR</text>
+  <text x="80" y="150" font-size="14" font-weight="bold" text-anchor="end" fill="#27ae60">X_STEP</text>
+  <text x="80" y="210" font-size="14" font-weight="bold" text-anchor="end" fill="#1a1a1a">X_DIR</text>
+  <text x="80" y="270" font-size="14" font-weight="bold" text-anchor="end" fill="#27ae60">Y_STEP</text>
+  <text x="80" y="330" font-size="14" font-weight="bold" text-anchor="end" fill="#1a1a1a">Y_DIR</text>
+  <text x="80" y="390" font-size="14" font-weight="bold" text-anchor="end" fill="#c0392b">ERR_FLAG</text>
+
+  <!-- Grids / Baselines -->
+  <line x1="100" y1="100" x2="900" y2="100" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="100" y1="160" x2="900" y2="160" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="100" y1="220" x2="900" y2="220" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="100" y1="280" x2="900" y2="280" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="100" y1="340" x2="900" y2="340" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="100" y1="400" x2="900" y2="400" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Traces -->
+  <!-- CH1 -->
+  <path d="M 100 100 L 200 100 L 200 70 L 220 70 L 220 100 
+           L 300 100 L 300 70 L 320 70 L 320 100 
+           L 400 100 L 400 70 L 420 70 L 420 100 
+           L 520 100 L 520 70 L 540 70 L 540 100 
+           L 600 100 L 600 70 L 620 70 L 620 100 
+           L 700 100 L 700 70 L 720 70 L 720 100 
+           L 800 100 L 800 70 L 820 70 L 820 100 
+           L 900 100" fill="none" stroke="#2457d6" stroke-width="2"/>
+
+  <!-- CH2 -->
+  <path d="M 100 160 
+           L 210 160 L 210 130 L 220 130 L 220 160 
+           L 310 160 L 310 130 L 320 130 L 320 160 
+           L 410 160 L 410 130 L 420 130 L 420 160 
+           L 710 160 L 710 130 L 720 130 L 720 160 
+           L 810 160 L 810 130 L 820 130 L 820 160 
+           L 900 160" fill="none" stroke="#27ae60" stroke-width="2"/>
+
+  <!-- CH3 -->
+  <path d="M 100 220 L 350 220 L 350 190 L 900 190" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- CH4 -->
+  <path d="M 100 280 
+           L 210 280 L 210 250 L 220 250 L 220 280 
+           L 410 280 L 410 250 L 420 250 L 420 280 
+           L 810 280 L 810 250 L 820 250 L 820 280 
+           L 900 280" fill="none" stroke="#27ae60" stroke-width="2"/>
+
+  <!-- CH5 -->
+  <path d="M 100 340 L 900 340" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- CH6 -->
+  <path d="M 100 400 L 520 400 L 520 370 L 680 370 L 680 400 L 900 400" fill="none" stroke="#c0392b" stroke-width="2"/>
+
+</svg>

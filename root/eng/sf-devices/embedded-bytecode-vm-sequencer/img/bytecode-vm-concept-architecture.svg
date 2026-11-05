@@ -1,0 +1,82 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Архітектура вбудованого байткодового інтерпретатора</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Динамічне виконання сценаріїв у статичній RAM без виділення купи та без оновлення Flash</text>
+
+  <!-- Блок 1: Зовнішнє джерело сценарію -->
+  <rect x="30" y="75" width="230" height="375" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="145" y="102" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Джерело сценарію</text>
+  <text x="145" y="120" font-size="12" fill="#6b7280" text-anchor="middle">Завантаження на льоту</text>
+
+  <rect x="45" y="145" width="200" height="75" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="145" y="170" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Канали доставки</text>
+  <text x="145" y="190" font-size="11" fill="#6b7280" text-anchor="middle">BLE / UART / Flash / EEPROM</text>
+  <text x="145" y="208" font-size="11" fill="#27ae60" text-anchor="middle">Без перепрошивання ядра</text>
+
+  <rect x="45" y="240" width="200" height="90" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="145" y="265" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Байткод програми</text>
+  <text x="145" y="285" font-size="11" fill="#1a1a1a" text-anchor="middle">Масив компактних опкодів</text>
+  <text x="145" y="303" font-size="11" fill="#1a1a1a" text-anchor="middle">[OP_SET, OP_WAIT, OP_READ]</text>
+  <text x="145" y="321" font-size="11" fill="#6b7280" text-anchor="middle">Фіксований буфер розміру N</text>
+
+  <!-- Стрілка вводу -->
+  <path d="M265,285 L295,285" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)" fill="none"/>
+
+  <!-- Блок 2: Ізольована пісочниця VM -->
+  <rect x="300" y="75" width="370" height="375" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="485" y="102" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">Ізольована віртуальна машина (VM Sandbox)</text>
+  <text x="485" y="120" font-size="12" fill="#6b7280" text-anchor="middle">Виконання у статичній пам'яті SRAM</text>
+
+  <!-- Статичний контекст -->
+  <rect x="320" y="140" width="330" height="70" rx="4" fill="#ffffff" stroke="#2457d6"/>
+  <text x="485" y="162" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Статичний контекст VM (Zero Heap)</text>
+  <text x="485" y="182" font-size="11" fill="#27ae60" text-anchor="middle">✓ Жодного виклику malloc() або free()</text>
+  <text x="485" y="198" font-size="11" fill="#6b7280" text-anchor="middle">Лічильник команд PC, регістри R0..R3, таймер затримки</text>
+
+  <!-- Валідатор і диспетчер -->
+  <rect x="320" y="225" width="330" height="110" rx="4" fill="#ffffff" stroke="#2457d6"/>
+  <text x="485" y="248" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Цикл Fetch-Decode-Execute</text>
+  <text x="485" y="268" font-size="11" fill="#c0392b" text-anchor="middle">Перевірка меж: PC &lt; Code_Size (Захист від виходу)</text>
+  <text x="485" y="288" font-size="11" fill="#1a1a1a" text-anchor="middle">Таблиця переходів switch (opcode) або direct threading</text>
+  <text x="485" y="308" font-size="11" fill="#6b7280" text-anchor="middle">Детермінована кількість тактів на інструкцію</text>
+
+  <!-- Статус безпеки -->
+  <rect x="320" y="350" width="330" height="85" rx="4" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="485" y="375" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Гарантія безпеки виконання</text>
+  <text x="485" y="395" font-size="11" fill="#1a1a1a" text-anchor="middle">Повна відсутність вказівників у байткоді</text>
+  <text x="485" y="415" font-size="11" fill="#6b7280" text-anchor="middle">Збій у скрипті не руйнує системний стек мікроконтролера</text>
+
+  <!-- Стрілка виводу -->
+  <path d="M675,285 L705,285" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)" fill="none"/>
+
+  <!-- Блок 3: Апаратне залізо та периферія -->
+  <rect x="710" y="75" width="220" height="375" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="820" y="102" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Апаратне оточення</text>
+  <text x="820" y="120" font-size="12" fill="#6b7280" text-anchor="middle">Контрольований доступ</text>
+
+  <rect x="725" y="145" width="190" height="75" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="820" y="170" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Системні виклики</text>
+  <text x="820" y="190" font-size="11" fill="#6b7280" text-anchor="middle">Чіткий білий список</text>
+  <text x="820" y="208" font-size="11" fill="#2457d6" text-anchor="middle">API вводу-виводу</text>
+
+  <rect x="725" y="240" width="190" height="195" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="820" y="265" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Керування периферією</text>
+  <text x="820" y="295" font-size="11" fill="#1a1a1a" text-anchor="middle">• Лінії GPIO (вмикання)</text>
+  <text x="820" y="325" font-size="11" fill="#1a1a1a" text-anchor="middle">• ШІМ / Двигуни</text>
+  <text x="820" y="355" font-size="11" fill="#1a1a1a" text-anchor="middle">• Давачі ADC / I2C</text>
+  <text x="820" y="385" font-size="11" fill="#1a1a1a" text-anchor="middle">• Інтерфейс CAN / UART</text>
+  <text x="820" y="415" font-size="11" fill="#27ae60" text-anchor="middle">Безпечна ізоляція</text>
+</svg>

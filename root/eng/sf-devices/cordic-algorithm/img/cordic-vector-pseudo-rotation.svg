@@ -1,0 +1,122 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-main" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="36" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Елементарне псевдообертання CORDIC та подовження гіпотенузи</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Ортогональний зсув на 2⁻ⁱ виключає множення, але подовжує вектор у kᵢ = √(1 + 2⁻²ⁱ) разів</text>
+
+  <!-- Left Panel: Visual Geometry -->
+  <rect x="20" y="80" width="550" height="380" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="40" y="106" font-size="14" font-weight="bold" fill="#1a1a1a">Геометрія псевдообертання на площині Декарта (X, Y)</text>
+  <text x="40" y="125" font-size="12" fill="#6b7280">Прямокутний трикутник з катетами Rᵢ та Rᵢ·2⁻ⁱ формує гіпотенузу Rᵢ·kᵢ</text>
+
+  <!-- Coordinate Axes -->
+  <line x1="70" y1="410" x2="540" y2="410" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-main)"/>
+  <line x1="95" y1="435" x2="95" y2="145" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-main)"/>
+  <text x="548" y="414" font-size="13" font-weight="bold" fill="#1a1a1a">X</text>
+  <text x="95" y="138" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Y</text>
+  <text x="82" y="424" font-size="12" fill="#6b7280" text-anchor="end">O(0,0)</text>
+
+  <!-- Reference Arc (radius R = 210, ideal rotation) -->
+  <path d="M 305 410 A 210 210 0 0 0 95 200" fill="none" stroke="#9ca3af" stroke-width="1.5" stroke-dasharray="4 4"/>
+  <text x="105" y="156" font-size="12" fill="#6b7280">дуга Rᵢ (ідеальне обертання)</text>
+
+  <!-- Angle arc phi (32 deg, radius 55) -->
+  <path d="M 150 410 A 55 55 0 0 0 141.6 380.8" fill="none" stroke="#6b7280" stroke-width="1.2"/>
+  <text x="154" y="402" font-size="12" fill="#6b7280">φ</text>
+
+  <!-- Angle arc +alpha_i (26.6 deg CCW, radius 100) -->
+  <path d="M 179.8 357.0 A 100 100 0 0 0 147.2 324.7" fill="none" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <text x="115" y="342" font-size="12" font-weight="bold" fill="#27ae60">+αᵢ</text>
+
+  <!-- Angle arc -alpha_i (26.6 deg CW, radius 100) -->
+  <path d="M 179.8 357.0 A 100 100 0 1 194.5 400.5" fill="none" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <text x="202" y="386" font-size="12" font-weight="bold" fill="#c0392b">−αᵢ</text>
+
+  <!-- Initial Vector V_i (angle 32 deg, length 210) -->
+  <line x1="95" y1="410" x2="273.1" y2="298.7" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+  <text x="245" y="318" font-size="13" font-weight="bold" fill="#2457d6">Vᵢ</text>
+
+  <!-- Right angle mark at tip of V_i (CCW triangle) -->
+  <path d="M 262.9 305.1 L 256.5 294.9 L 266.7 288.5" fill="none" stroke="#1a1a1a" stroke-width="1.2"/>
+
+  <!-- Perpendicular leg +Delta V (CCW: +90 deg, length 105) -->
+  <line x1="273.1" y1="298.7" x2="217.4" y2="209.7" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arr-green)"/>
+  <text x="250" y="246" font-size="12" font-weight="bold" fill="#27ae60">+ΔV</text>
+
+  <!-- Hypotenuse V_{i+1} (CCW) -->
+  <line x1="95" y1="410" x2="217.4" y2="209.7" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+  <text x="105" y="178" font-size="13" font-weight="bold" fill="#2457d6">Vᵢ₊₁: довжина kᵢ·Rᵢ</text>
+  <text x="105" y="194" font-size="12" fill="#2457d6">де kᵢ = √(1 + 2⁻²ⁱ)</text>
+
+  <!-- Ideal rotation point on arc and elongation indicator -->
+  <circle cx="204.5" cy="230.8" r="3.5" fill="#6b7280"/>
+  <line x1="204.5" y1="230.8" x2="217.4" y2="209.7" stroke="#c0392b" stroke-width="2.5"/>
+  <text x="120" y="226" font-size="12" fill="#c0392b">подовження ΔR</text>
+
+  <!-- CW Symmetric Step (sigma = -1) -->
+  <path d="M 262.9 305.1 L 269.3 315.3 L 279.5 308.9" fill="none" stroke="#1a1a1a" stroke-width="1.2"/>
+  <line x1="273.1" y1="298.7" x2="328.7" y2="387.8" stroke="#c0392b" stroke-width="1.8" stroke-dasharray="5 3" marker-end="url(#arr-red)"/>
+  <line x1="95" y1="410" x2="328.7" y2="387.8" stroke="#c0392b" stroke-width="1.8" stroke-dasharray="5 3" marker-end="url(#arr-red)"/>
+  <text x="312" y="345" font-size="12" font-weight="bold" fill="#c0392b">−ΔV</text>
+  <text x="340" y="385" font-size="12" font-weight="bold" fill="#c0392b">Vᵢ₊₁⁻</text>
+
+  <!-- Left Panel Cards (in the open area x: 288..545) -->
+  <!-- Card A: Elongation Properties -->
+  <rect x="288" y="145" width="255" height="78" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="300" y="166" font-size="12" font-weight="bold" fill="#c0392b">Подовження гіпотенузи:</text>
+  <text x="300" y="184" font-size="12" fill="#1a1a1a">• Радіус: Rᵢ₊₁ = Rᵢ · √(1 + 2⁻²ⁱ)</text>
+  <text x="300" y="202" font-size="12" fill="#1a1a1a">• Приріст довжини: ΔR = Rᵢ · (kᵢ − 1)</text>
+  <text x="300" y="216" font-size="12" fill="#c0392b">• kᵢ = 1 / cos(αᵢ) &gt; 1 (гіпотенуза &gt; катет)</text>
+
+  <!-- Card B: Triangle Parameters -->
+  <rect x="288" y="233" width="255" height="92" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="300" y="253" font-size="12" font-weight="bold" fill="#1a1a1a">Елементи кроку CORDIC:</text>
+  <text x="300" y="271" font-size="12" fill="#2457d6">• Базовий катет: |Vᵢ| = Rᵢ (під кутом φ)</text>
+  <text x="300" y="289" font-size="12" fill="#27ae60">• Ортогональний катет: ΔV = Rᵢ · 2⁻ⁱ (⟂ Vᵢ)</text>
+  <text x="300" y="307" font-size="12" fill="#1a1a1a">• Кроковий кут: αᵢ = arctan(2⁻ⁱ)</text>
+  <text x="300" y="321" font-size="12" fill="#6b7280">• Симетрія: kᵢ однаковий при σᵢ = ±1</text>
+
+  <!-- Right Panel: Analytical Architecture Cards -->
+  <rect x="590" y="80" width="350" height="380" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Card 1: Right Triangle Geometry -->
+  <rect x="605" y="95" width="320" height="105" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="618" y="116" font-size="13" font-weight="bold" fill="#2457d6">Прямокутний трикутник CORDIC</text>
+  <text x="618" y="136" font-size="12" fill="#1a1a1a">• Базовий катет: вектор Vᵢ (довжина Rᵢ)</text>
+  <text x="618" y="154" font-size="12" fill="#1a1a1a">• Перпендикулярний катет: ΔV = σᵢ · Rᵢ · 2⁻ⁱ</text>
+  <text x="618" y="172" font-size="12" fill="#1a1a1a">• Гіпотенуза: |Vᵢ₊₁| = √(Rᵢ² + (Rᵢ·2⁻ⁱ)²) = Rᵢ·kᵢ</text>
+  <text x="618" y="190" font-size="12" font-weight="bold" fill="#2457d6">• Коефіцієнт розтягу: kᵢ = √(1 + 2⁻²ⁱ)</text>
+
+  <!-- Card 2: Microcontroller formulas without multipliers -->
+  <rect x="605" y="212" width="320" height="115" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="618" y="233" font-size="13" font-weight="bold" fill="#1a1a1a">Координати без операції множення</text>
+  <text x="618" y="253" font-size="12" fill="#1a1a1a">xᵢ₊₁ = xᵢ − σᵢ · (yᵢ ≫ i)       [зсув замість tan]</text>
+  <text x="618" y="273" font-size="12" fill="#1a1a1a">yᵢ₊₁ = yᵢ + σᵢ · (xᵢ ≫ i)       [зсув замість tan]</text>
+  <text x="618" y="293" font-size="12" fill="#1a1a1a">zᵢ₊₁ = zᵢ − σᵢ · αᵢ             [табличний кут]</text>
+  <text x="618" y="313" font-size="12" fill="#6b7280">Обчислення: лише побітові зсуви (≫) та додавання</text>
+
+  <!-- Card 3: Hypotenuse properties and scale factor -->
+  <rect x="605" y="339" width="320" height="105" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="618" y="360" font-size="13" font-weight="bold" fill="#27ae60">Інваріантність та компенсація масштабу</text>
+  <text x="618" y="380" font-size="12" fill="#1a1a1a">• cos(−αᵢ) = cos(αᵢ) ⇒ kᵢ однаковий для σᵢ = ±1</text>
+  <text x="618" y="398" font-size="12" fill="#1a1a1a">• Сумарне подовження за N кроків: K ≈ 1.64676</text>
+  <text x="618" y="416" font-size="12" fill="#1a1a1a">• Обернений масштаб: A = 1/K ≈ 0.60725</text>
+  <text x="618" y="434" font-size="12" font-weight="bold" fill="#27ae60">Множення на A потрібне лише раз наприкінці!</text>
+</svg>

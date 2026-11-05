@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse"><path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/></marker>
+  </defs>
+  <rect x="0" y="0" width="960" height="460" fill="#ffffff"/>
+  <text x="480" y="30" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Часова діаграма зсуву даних PISO (Parallel-In Serial-Out)</text>
+  <text x="480" y="50" font-size="13" fill="#6b7280" text-anchor="middle">Фіксація паралельних даних по PL та послідовний вихід по кожному фронту CP</text>
+
+  <text x="100" y="120" font-size="13" font-weight="700" fill="#c0392b" text-anchor="end">/PL (Load)</text>
+  <path d="M120,100 L200,100 L200,130 L280,130 L280,100 L900,100" fill="none" stroke="#c0392b" stroke-width="2"/>
+
+  <text x="100" y="210" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="end">CP (Clock)</text>
+  <path d="M120,220 L300,220 L300,190 L340,190 L340,220 L400,220 L400,190 L440,190 L440,220 L500,220 L500,190 L540,190 L540,220 L600,220 L600,190 L640,190 L640,220 L700,220 L700,190 L740,190 L740,220 L900,220" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+
+  <text x="100" y="310" font-size="13" font-weight="700" fill="#2457d6" text-anchor="end">Q7 (Out Data)</text>
+  <rect x="280" y="290" width="60" height="40" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="310" y="315" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">D7</text>
+
+  <rect x="400" y="290" width="40" height="40" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="420" y="315" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">D6</text>
+
+  <rect x="500" y="290" width="40" height="40" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="520" y="315" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">D5</text>
+
+  <rect x="600" y="290" width="40" height="40" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="620" y="315" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">D4</text>
+
+  <rect x="700" y="290" width="40" height="40" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="720" y="315" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">D3</text>
+
+  <!-- Stage Annotations -->
+  <line x1="200" y1="80" x2="200" y2="380" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="240" y="380" font-size="12" fill="#c0392b" text-anchor="middle">1. Засувка паралельних станiв</text>
+
+  <line x1="300" y1="80" x2="300" y2="380" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="470" y="380" font-size="12" fill="#2457d6" text-anchor="middle">2. Послідовне виштовхування бітів D7..D0</text>
+</svg>

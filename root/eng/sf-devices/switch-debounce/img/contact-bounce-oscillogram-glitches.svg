@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+  
+  <text x="480" y="40" fill="#1a1a1a" font-size="18" font-weight="bold" text-anchor="middle">Осцилограма брязкоту контактів</text>
+  <text x="480" y="65" fill="#6b7280" font-size="13" text-anchor="middle">Сплески напруги під час механічного замикання</text>
+
+  <!-- Problem area background -->
+  <rect x="300" y="100" width="160" height="300" fill="#fdecea"/>
+
+  <!-- Axes -->
+  <line x1="100" y1="400" x2="860" y2="400" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="100" y1="400" x2="100" y2="100" stroke="#1a1a1a" stroke-width="2"/>
+  
+  <text x="860" y="420" fill="#1a1a1a" font-size="14" text-anchor="middle">t</text>
+  <text x="80" y="100" fill="#1a1a1a" font-size="14" text-anchor="end">V</text>
+  <text x="80" y="150" fill="#1a1a1a" font-size="14" text-anchor="end">V_DD</text>
+  <text x="80" y="400" fill="#1a1a1a" font-size="14" text-anchor="end">GND</text>
+  
+  <line x1="90" y1="150" x2="100" y2="150" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Oscillogram path -->
+  <path d="M 100 150 
+           L 300 150 
+           L 305 400
+           L 310 400
+           L 315 150
+           L 325 150
+           L 330 400
+           L 340 400
+           L 350 200
+           L 360 400
+           L 380 400
+           L 395 300
+           L 410 400
+           L 425 400
+           L 440 380
+           L 460 400
+           L 860 400" 
+        fill="none" stroke="#2457d6" stroke-width="3" stroke-linejoin="round"/>
+
+  <!-- Highlight area annotations -->
+  <line x1="300" y1="100" x2="300" y2="430" stroke="#c0392b" stroke-width="1" stroke-dasharray="4"/>
+  <line x1="460" y1="100" x2="460" y2="430" stroke="#c0392b" stroke-width="1" stroke-dasharray="4"/>
+  
+  <!-- Dimension line for t_bounce -->
+  <line x1="300" y1="430" x2="460" y2="430" stroke="#c0392b" stroke-width="2"/>
+  <line x1="300" y1="425" x2="300" y2="435" stroke="#c0392b" stroke-width="2"/>
+  <line x1="460" y1="425" x2="460" y2="435" stroke="#c0392b" stroke-width="2"/>
+  
+  <text x="380" y="450" fill="#c0392b" font-size="14" font-weight="bold" text-anchor="middle">t_bounce</text>
+  <text x="380" y="90" fill="#c0392b" font-size="14" font-weight="bold" text-anchor="middle">Брязкіт</text>
+
+  <!-- Labels -->
+  <text x="200" y="140" fill="#6b7280" font-size="14" text-anchor="middle">Відпущено (HIGH)</text>
+  <text x="650" y="385" fill="#6b7280" font-size="14" text-anchor="middle">Натиснуто (LOW)</text>
+</svg>

@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <text x="480" y="40" fill="#1a1a1a" font-size="18" font-weight="bold" text-anchor="middle">Таймінги м'якого старту та блокування (Interlock) лазера</text>
+  <text x="480" y="65" fill="#6b7280" font-size="13" text-anchor="middle">Плавне наростання потужності при увімкненні та миттєве вимкнення при розриві контуру безпеки</text>
+
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <rect x="300" y="100" width="350" height="340" fill="#e9f7ef" opacity="0.5"/>
+  <rect x="650" y="100" width="150" height="340" fill="#fdecea" opacity="0.5"/>
+
+  <path d="M300,100 L300,440" stroke="#d0d7de" stroke-width="2" stroke-dasharray="4,4"/>
+  <path d="M450,100 L450,440" stroke="#d0d7de" stroke-width="2" stroke-dasharray="4,4"/>
+  <path d="M650,100 L650,440" stroke="#d0d7de" stroke-width="2" stroke-dasharray="4,4"/>
+  <path d="M800,100 L800,440" stroke="#d0d7de" stroke-width="2" stroke-dasharray="4,4"/>
+
+  <text x="300" y="90" fill="#6b7280" font-size="12" text-anchor="middle">T1</text>
+  <text x="450" y="90" fill="#6b7280" font-size="12" text-anchor="middle">T2</text>
+  <text x="650" y="90" fill="#6b7280" font-size="12" text-anchor="middle">T3</text>
+  <text x="800" y="90" fill="#6b7280" font-size="12" text-anchor="middle">T4</text>
+
+  <text x="180" y="165" fill="#1a1a1a" font-size="14" font-weight="bold" text-anchor="end">Команда EN</text>
+  <text x="180" y="265" fill="#1a1a1a" font-size="14" font-weight="bold" text-anchor="end">Контур Interlock</text>
+  <text x="180" y="385" fill="#2457d6" font-size="14" font-weight="bold" text-anchor="end">Струм лазера</text>
+
+  <path d="M190,180 L920,180" stroke="#d0d7de" stroke-width="1"/>
+  <path d="M190,280 L920,280" stroke="#d0d7de" stroke-width="1"/>
+  <path d="M190,420 L920,420" stroke="#d0d7de" stroke-width="1"/>
+
+  <path d="M200,180 L300,180 L300,140 L880,140 L880,180 L920,180" stroke="#1a1a1a" stroke-width="2" fill="none"/>
+  
+  <path d="M200,240 L650,240 L650,280 L800,280 L800,240 L920,240" stroke="#1a1a1a" stroke-width="2" fill="none"/>
+
+  <path d="M200,420 L300,420 L450,340 L650,340 L650,420 L920,420" stroke="#2457d6" stroke-width="3" fill="none"/>
+
+  <path d="M305,435 L445,435" stroke="#1a1a1a" stroke-width="1" marker-start="url(#arr)" marker-end="url(#arr)"/>
+  <text x="375" y="455" fill="#1a1a1a" font-size="13" text-anchor="middle">М'який старт (Soft-Start)</text>
+
+  <path d="M455,435 L645,435" stroke="#1a1a1a" stroke-width="1" marker-start="url(#arr)" marker-end="url(#arr)"/>
+  <text x="550" y="455" fill="#1a1a1a" font-size="13" text-anchor="middle">Робоча потужність</text>
+
+  <text x="660" y="230" fill="#c0392b" font-size="13" font-weight="bold" text-anchor="start">Розрив кола безпеки</text>
+  <path d="M660,235 L652,260" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+
+  <text x="660" y="335" fill="#c0392b" font-size="13" font-weight="bold" text-anchor="start">Миттєва зупинка</text>
+  <path d="M660,340 L652,380" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+
+  <text x="810" y="230" fill="#27ae60" font-size="13" font-weight="bold" text-anchor="start">Відновлення Interlock</text>
+  <path d="M810,235 L802,260" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <text x="725" y="390" fill="#6b7280" font-size="12" text-anchor="middle">Лазер залишається</text>
+  <text x="725" y="405" fill="#6b7280" font-size="12" text-anchor="middle">вимкненим до</text>
+  <text x="725" y="420" fill="#6b7280" font-size="12" text-anchor="middle">скидання EN</text>
+</svg>

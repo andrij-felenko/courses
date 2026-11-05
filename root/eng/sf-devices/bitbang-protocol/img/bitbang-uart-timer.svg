@@ -1,0 +1,231 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 500" width="960" height="500" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="500" fill="white"/>
+
+  <defs>
+    <!-- Arrow markers -->
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-rev" markerWidth="9" markerHeight="9" refX="0.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-blue-rev" markerWidth="9" markerHeight="9" refX="0.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-green-rev" markerWidth="9" markerHeight="9" refX="0.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-red-rev" markerWidth="9" markerHeight="9" refX="0.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="35" text-anchor="middle" font-size="18" font-weight="700" fill="#1a1a1a">Таймінги програмного UART на перериваннях апаратного таймера</text>
+  <text x="480" y="56" text-anchor="middle" font-size="13" fill="#6b7280">TX виставляє біти на межах інтервалів T_bit, а RX стробує лінію в центрі з фазовим зсувом T_bit / 2</text>
+
+  <!-- ==================== ПАНЕЛЬ 1: ПЕРЕДАВАННЯ (TX) ==================== -->
+  <rect x="25" y="75" width="910" height="185" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Заголовок панелі 1 -->
+  <text x="45" y="96" font-size="13" font-weight="700" fill="#1a1a1a">1. Передавання (TX): виклики TIM_ISR на межах бітових інтервалів (період T_bit)</text>
+  <text x="915" y="96" text-anchor="end" font-size="12" fill="#6b7280">Кадр 8N1: 0xA5 (LSB-first) · T_bit = 1 / Baud</text>
+
+  <!-- Підписи бітових колонок TX -->
+  <text x="252.5" y="115" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">START</text>
+  <text x="317.5" y="115" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">D0 = 1</text>
+  <text x="382.5" y="115" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">D1 = 0</text>
+  <text x="447.5" y="115" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">D2 = 1</text>
+  <text x="512.5" y="115" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">D3 = 0</text>
+  <text x="577.5" y="115" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">D4 = 0</text>
+  <text x="642.5" y="115" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">D5 = 1</text>
+  <text x="707.5" y="115" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">D6 = 0</text>
+  <text x="772.5" y="115" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">D7 = 1</text>
+  <text x="837.5" y="115" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">STOP</text>
+
+  <!-- Вертикальні розділювачі бітів TX -->
+  <line x1="220" y1="124" x2="220" y2="216" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3 3"/>
+  <line x1="285" y1="124" x2="285" y2="216" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3 3"/>
+  <line x1="350" y1="124" x2="350" y2="216" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3 3"/>
+  <line x1="415" y1="124" x2="415" y2="216" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3 3"/>
+  <line x1="480" y1="124" x2="480" y2="216" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3 3"/>
+  <line x1="545" y1="124" x2="545" y2="216" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3 3"/>
+  <line x1="610" y1="124" x2="610" y2="216" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3 3"/>
+  <line x1="675" y1="124" x2="675" y2="216" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3 3"/>
+  <line x1="740" y1="124" x2="740" y2="216" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3 3"/>
+  <line x1="805" y1="124" x2="805" y2="216" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3 3"/>
+  <line x1="870" y1="124" x2="870" y2="216" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3 3"/>
+
+  <!-- Ліва колонка сигналів TX -->
+  <text x="45" y="145" font-size="12" font-weight="700" fill="#1a1a1a">Сигнал TX</text>
+  <text x="45" y="161" font-size="12" fill="#6b7280">GPIO (push-pull)</text>
+
+  <!-- Форма сигналу TX (0xA5 = 10100101b, LSB-first: 1, 0, 1, 0, 0, 1, 0, 1) -->
+  <path d="M 185,136 L 220,136 L 220,166 L 285,166 L 285,136 L 350,136 L 350,166 L 415,166 L 415,136 L 480,136 L 480,166 L 610,166 L 610,136 L 675,136 L 675,166 L 740,166 L 740,136 L 870,136 L 905,136" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+
+  <!-- Ліва колонка обробника TX -->
+  <text x="45" y="206" font-size="12" font-weight="700" fill="#2457d6">Обробник TIM_ISR</text>
+  <text x="45" y="222" font-size="12" fill="#6b7280">Запис GPIO-&gt;BSRR</text>
+
+  <!-- Імпульси виконання TIM_ISR на початку кожного біта -->
+  <line x1="185" y1="216" x2="220" y2="216" stroke="#2457d6" stroke-width="1.5"/>
+  <path d="M 220,216 L 220,196 L 232,196 L 232,216" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="232" y1="216" x2="285" y2="216" stroke="#2457d6" stroke-width="1.5"/>
+  <path d="M 285,216 L 285,196 L 297,196 L 297,216" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="297" y1="216" x2="350" y2="216" stroke="#2457d6" stroke-width="1.5"/>
+  <path d="M 350,216 L 350,196 L 362,196 L 362,216" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="362" y1="216" x2="415" y2="216" stroke="#2457d6" stroke-width="1.5"/>
+  <path d="M 415,216 L 415,196 L 427,196 L 427,216" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="427" y1="216" x2="480" y2="216" stroke="#2457d6" stroke-width="1.5"/>
+  <path d="M 480,216 L 480,196 L 492,196 L 492,216" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="492" y1="216" x2="545" y2="216" stroke="#2457d6" stroke-width="1.5"/>
+  <path d="M 545,216 L 545,196 L 557,196 L 557,216" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="557" y1="216" x2="610" y2="216" stroke="#2457d6" stroke-width="1.5"/>
+  <path d="M 610,216 L 610,196 L 622,196 L 622,216" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="622" y1="216" x2="675" y2="216" stroke="#2457d6" stroke-width="1.5"/>
+  <path d="M 675,216 L 675,196 L 687,196 L 687,216" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="687" y1="216" x2="740" y2="216" stroke="#2457d6" stroke-width="1.5"/>
+  <path d="M 740,216 L 740,196 L 752,196 L 752,216" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="752" y1="216" x2="805" y2="216" stroke="#2457d6" stroke-width="1.5"/>
+  <path d="M 805,216 L 805,196 L 817,196 L 817,216" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="817" y1="216" x2="870" y2="216" stroke="#2457d6" stroke-width="1.5"/>
+  <path d="M 870,216 L 870,196 L 882,196 L 882,216" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="882" y1="216" x2="905" y2="216" stroke="#2457d6" stroke-width="1.5"/>
+
+  <!-- Розмірна лінія T_bit у TX -->
+  <line x1="285" y1="232" x2="350" y2="232" stroke="#2457d6" stroke-width="1.5" marker-start="url(#arr-blue-rev)" marker-end="url(#arr-blue)"/>
+  <line x1="285" y1="227" x2="285" y2="237" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="350" y1="227" x2="350" y2="237" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="317.5" y="248" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">Період T_bit</text>
+
+  <!-- Пояснення внизу панелі 1 -->
+  <text x="645" y="248" text-anchor="middle" font-size="12" fill="#1a1a1a">Кожен виклик TIM_ISR записує новий біт в атомарний регістр BSRR на початку такту</text>
+
+  <!-- ==================== ПАНЕЛЬ 2: ПРИЙМАННЯ (RX) ==================== -->
+  <rect x="25" y="276" width="910" height="196" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Заголовок панелі 2 -->
+  <text x="45" y="297" font-size="13" font-weight="700" fill="#1a1a1a">2. Приймання (RX): старт за EXTI та вибірка бітів таймером TIM_ISR</text>
+  <text x="915" y="297" text-anchor="end" font-size="12" fill="#6b7280">Строб T_bit / 2 фільтрує глітч, вибірка IDR по центру біта</text>
+
+  <!-- Підписи бітових колонок RX -->
+  <text x="252.5" y="316" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">START</text>
+  <text x="317.5" y="316" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">D0</text>
+  <text x="382.5" y="316" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">D1</text>
+  <text x="447.5" y="316" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">D2</text>
+  <text x="512.5" y="316" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">D3</text>
+  <text x="577.5" y="316" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">D4</text>
+  <text x="642.5" y="316" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">D5</text>
+  <text x="707.5" y="316" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">D6</text>
+  <text x="772.5" y="316" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">D7</text>
+  <text x="837.5" y="316" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">STOP</text>
+
+  <!-- Вертикальні розділювачі бітів RX -->
+  <line x1="220" y1="325" x2="220" y2="415" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3 3"/>
+  <line x1="285" y1="325" x2="285" y2="415" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3 3"/>
+  <line x1="350" y1="325" x2="350" y2="415" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3 3"/>
+  <line x1="415" y1="325" x2="415" y2="415" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3 3"/>
+  <line x1="480" y1="325" x2="480" y2="415" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3 3"/>
+  <line x1="545" y1="325" x2="545" y2="415" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3 3"/>
+  <line x1="610" y1="325" x2="610" y2="415" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3 3"/>
+  <line x1="675" y1="325" x2="675" y2="415" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3 3"/>
+  <line x1="740" y1="325" x2="740" y2="415" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3 3"/>
+  <line x1="805" y1="325" x2="805" y2="415" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3 3"/>
+  <line x1="870" y1="325" x2="870" y2="415" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3 3"/>
+
+  <!-- Ліва колонка сигналів RX -->
+  <text x="45" y="346" font-size="12" font-weight="700" fill="#1a1a1a">Сигнал RX</text>
+  <text x="45" y="362" font-size="12" fill="#6b7280">GPIO (тригер Шмітта)</text>
+
+  <!-- Форма вхідного сигналу RX -->
+  <path d="M 185,337 L 220,337 L 220,367 L 285,367 L 285,337 L 350,337 L 350,367 L 415,367 L 415,337 L 480,337 L 480,367 L 610,367 L 610,337 L 675,337 L 675,367 L 740,367 L 740,337 L 870,337 L 905,337" fill="none" stroke="#1a1a1a" stroke-width="2.5"/>
+
+  <!-- Точки стробування IDR у центрі кожного біта (зелені кружальця) -->
+  <circle cx="252.5" cy="367" r="4" fill="#27ae60"/>
+  <circle cx="317.5" cy="337" r="4" fill="#27ae60"/>
+  <circle cx="382.5" cy="367" r="4" fill="#27ae60"/>
+  <circle cx="447.5" cy="337" r="4" fill="#27ae60"/>
+  <circle cx="512.5" cy="367" r="4" fill="#27ae60"/>
+  <circle cx="577.5" cy="367" r="4" fill="#27ae60"/>
+  <circle cx="642.5" cy="337" r="4" fill="#27ae60"/>
+  <circle cx="707.5" cy="367" r="4" fill="#27ae60"/>
+  <circle cx="772.5" cy="337" r="4" fill="#27ae60"/>
+  <circle cx="837.5" cy="337" r="4" fill="#27ae60"/>
+
+  <!-- Ліва колонка обробників RX -->
+  <text x="45" y="405" font-size="12" font-weight="700" fill="#27ae60">Обробники подій</text>
+  <text x="45" y="421" font-size="12" fill="#6b7280">EXTI + строб TIM_ISR</text>
+
+  <!-- Базова лінія обробників RX -->
+  <line x1="185" y1="415" x2="214" y2="415" stroke="#6b7280" stroke-width="1"/>
+
+  <!-- Імпульс EXTI на спадному фронті START біта -->
+  <path d="M 214,415 L 214,395 L 226,395 L 226,415" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <line x1="220" y1="392" x2="220" y2="375" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+
+  <!-- Імпульси TIM_ISR у центрах бітів -->
+  <line x1="226" y1="415" x2="246.5" y2="415" stroke="#6b7280" stroke-width="1"/>
+  <path d="M 246.5,415 L 246.5,395 L 258.5,395 L 258.5,415" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="252.5" y1="392" x2="252.5" y2="377" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <line x1="258.5" y1="415" x2="311.5" y2="415" stroke="#6b7280" stroke-width="1"/>
+  <path d="M 311.5,415 L 311.5,395 L 323.5,395 L 323.5,415" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="317.5" y1="392" x2="317.5" y2="347" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <line x1="323.5" y1="415" x2="376.5" y2="415" stroke="#6b7280" stroke-width="1"/>
+  <path d="M 376.5,415 L 376.5,395 L 388.5,395 L 388.5,415" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="382.5" y1="392" x2="382.5" y2="377" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <line x1="388.5" y1="415" x2="441.5" y2="415" stroke="#6b7280" stroke-width="1"/>
+  <path d="M 441.5,415 L 441.5,395 L 453.5,395 L 453.5,415" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="447.5" y1="392" x2="447.5" y2="347" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <line x1="453.5" y1="415" x2="506.5" y2="415" stroke="#6b7280" stroke-width="1"/>
+  <path d="M 506.5,415 L 506.5,395 L 518.5,395 L 518.5,415" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="512.5" y1="392" x2="512.5" y2="377" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <line x1="518.5" y1="415" x2="571.5" y2="415" stroke="#6b7280" stroke-width="1"/>
+  <path d="M 571.5,415 L 571.5,395 L 583.5,395 L 583.5,415" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="577.5" y1="392" x2="577.5" y2="377" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <line x1="583.5" y1="415" x2="636.5" y2="415" stroke="#6b7280" stroke-width="1"/>
+  <path d="M 636.5,415 L 636.5,395 L 648.5,395 L 648.5,415" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="642.5" y1="392" x2="642.5" y2="347" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <line x1="648.5" y1="415" x2="701.5" y2="415" stroke="#6b7280" stroke-width="1"/>
+  <path d="M 701.5,415 L 701.5,395 L 713.5,395 L 713.5,415" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="707.5" y1="392" x2="707.5" y2="377" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <line x1="713.5" y1="415" x2="766.5" y2="415" stroke="#6b7280" stroke-width="1"/>
+  <path d="M 766.5,415 L 766.5,395 L 778.5,395 L 778.5,415" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="772.5" y1="392" x2="772.5" y2="347" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <line x1="778.5" y1="415" x2="831.5" y2="415" stroke="#6b7280" stroke-width="1"/>
+  <path d="M 831.5,415 L 831.5,395 L 843.5,395 L 843.5,415" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="837.5" y1="392" x2="837.5" y2="347" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <line x1="843.5" y1="415" x2="905" y2="415" stroke="#6b7280" stroke-width="1"/>
+
+  <!-- Розмірні лінії зсуву T_bit / 2 та кроку T_bit -->
+  <line x1="220" y1="432" x2="252.5" y2="432" stroke="#c0392b" stroke-width="1.5" marker-start="url(#arr-red-rev)" marker-end="url(#arr-red)"/>
+  <line x1="220" y1="427" x2="220" y2="437" stroke="#c0392b" stroke-width="1.5"/>
+  <line x1="252.5" y1="427" x2="252.5" y2="437" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="236" y="448" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">T_bit / 2</text>
+
+  <line x1="317.5" y1="432" x2="382.5" y2="432" stroke="#27ae60" stroke-width="1.5" marker-start="url(#arr-green-rev)" marker-end="url(#arr-green)"/>
+  <line x1="317.5" y1="427" x2="317.5" y2="437" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="382.5" y1="427" x2="382.5" y2="437" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="350" y="448" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">Крок T_bit</text>
+
+  <!-- Пояснення внизу панелі 2 -->
+  <text x="660" y="448" text-anchor="middle" font-size="12" fill="#1a1a1a">Стробування в центрі стабільної зони біта (запас завадостійкості)</text>
+  <text x="480" y="465" text-anchor="middle" font-size="12" fill="#6b7280">EXTI вимикається на час кадру; таймер зупиняється після перевірки STOP-біта</text>
+</svg>

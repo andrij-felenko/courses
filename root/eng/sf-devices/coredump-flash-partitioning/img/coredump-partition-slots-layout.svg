@@ -1,0 +1,184 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Definitions for Arrow Markers -->
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Title and Subtitle -->
+  <text x="480" y="28" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Архітектура розділу coredump: кільце слотів та автомат станів</text>
+  <text x="480" y="48" font-size="13" fill="#6b7280" text-anchor="middle">Послідовне скидання бітів (1→0) фіксує фази дампу атомарно без затримок на стирання Flash</text>
+
+  <!-- ==================== PANEL 1: PARTITION & RING ==================== -->
+  <rect x="24" y="68" width="280" height="452" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="164" y="91" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">Кільцевий масив слотів розділу</text>
+  <text x="164" y="108" font-size="12" fill="#6b7280" text-anchor="middle">S_part = 4 × S_slot (по 4096 B / сектор)</text>
+
+  <!-- Slot 0: DIRTY -->
+  <rect x="38" y="124" width="190" height="68" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2"/>
+  <rect x="152" y="130" width="70" height="18" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="187" y="143" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">DIRTY</text>
+  <text x="46" y="143" font-size="12" font-weight="700" fill="#1a1a1a">Слот 0 [0x0000]</text>
+  <text x="46" y="161" font-size="12" fill="#6b7280">Tail: вичитано агентом</text>
+  <text x="46" y="179" font-size="12" fill="#c0392b">Черга фонового стирання</text>
+
+  <!-- Slot 1: VALID -->
+  <rect x="38" y="204" width="190" height="68" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <rect x="152" y="210" width="70" height="18" rx="3" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="187" y="223" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">VALID</text>
+  <text x="46" y="223" font-size="12" font-weight="700" fill="#1a1a1a">Слот 1 [0x1000]</text>
+  <text x="46" y="241" font-size="12" fill="#27ae60">Попередній дамп (seq=41)</text>
+  <text x="46" y="259" font-size="12" fill="#6b7280">Дані цілісні (CRC32 OK)</text>
+
+  <!-- Slot 2: START / WRITING -->
+  <rect x="38" y="284" width="190" height="68" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="152" y="290" width="70" height="18" rx="3" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+  <text x="187" y="303" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">START</text>
+  <text x="46" y="303" font-size="12" font-weight="700" fill="#1a1a1a">Слот 2 [0x2000]</text>
+  <text x="46" y="321" font-size="12" font-weight="700" fill="#2457d6">Head: активний запис</text>
+  <text x="46" y="339" font-size="12" fill="#6b7280">Аварія (seq=42, 49.3 мс)</text>
+
+  <!-- Slot 3: ERASED -->
+  <rect x="38" y="364" width="190" height="68" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2"/>
+  <rect x="152" y="370" width="70" height="18" rx="3" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="187" y="383" font-size="12" font-weight="700" fill="#6b7280" text-anchor="middle">ERASED</text>
+  <text x="46" y="383" font-size="12" font-weight="700" fill="#1a1a1a">Слот 3 [0x3000]</text>
+  <text x="46" y="401" font-size="12" fill="#6b7280">Стертий сектор (0xFF)</text>
+  <text x="46" y="419" font-size="12" fill="#27ae60">Готовий резерв для seq=43</text>
+
+  <!-- Circular Loopback Arrow -->
+  <path d="M 228 398 L 244 398 L 244 158 L 230 158" fill="none" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arr-blue)"/>
+  <text x="274" y="274" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">Кільце</text>
+  <text x="274" y="290" font-size="12" fill="#2457d6" text-anchor="middle">seq % 4</text>
+
+  <!-- Panel 1 Footer Note -->
+  <rect x="38" y="446" width="252" height="60" rx="5" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="164" y="465" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Апаратне вирівнювання</text>
+  <text x="164" y="482" font-size="12" fill="#6b7280" text-anchor="middle">S_slot = ceil(S_dump / S_sector) × S_sector</text>
+  <text x="164" y="498" font-size="12" fill="#2457d6" text-anchor="middle">1 слот = 1 фізичний сектор Flash (4 KB)</text>
+
+  <!-- ==================== PANEL 2: SLOT ANATOMY ==================== -->
+  <rect x="320" y="68" width="280" height="452" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="460" y="91" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">Анатомія структури слота</text>
+  <text x="460" y="108" font-size="12" fill="#6b7280" text-anchor="middle">S_dump = 3944 B у секторі 4096 B</text>
+
+  <!-- Block 1: S_hdr -->
+  <rect x="336" y="124" width="248" height="56" rx="5" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="346" y="142" font-size="12" font-weight="700" fill="#2457d6">Заголовок слота S_hdr (128 B)</text>
+  <text x="346" y="158" font-size="12" fill="#1a1a1a">magic, seq, timestamp, crash_reason</text>
+  <text x="346" y="173" font-size="12" font-weight="700" fill="#2457d6">★ state: 32-бітне слово автомата</text>
+
+  <!-- Block 2: S_regs -->
+  <rect x="336" y="192" width="248" height="40" rx="5" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2"/>
+  <text x="346" y="209" font-size="12" font-weight="700" fill="#1a1a1a">Контекст ЦП S_regs (228 B)</text>
+  <text x="346" y="225" font-size="12" fill="#6b7280">r0–r12, MSP, PSP, LR, PC, xPSR, FPU</text>
+
+  <!-- Block 3: RTOS State -->
+  <rect x="336" y="244" width="248" height="34" rx="5" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2"/>
+  <text x="346" y="261" font-size="12" font-weight="700" fill="#1a1a1a">Стан RTOS (Task Context)</text>
+  <text x="346" y="273" font-size="12" fill="#6b7280">Дескриптор TCB, ім'я задачі, пріоритет</text>
+
+  <!-- Block 4: Stacks -->
+  <rect x="336" y="290" width="248" height="44" rx="5" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2"/>
+  <text x="346" y="307" font-size="12" font-weight="700" fill="#1a1a1a">Знімки стеків (3072 B)</text>
+  <text x="346" y="324" font-size="12" fill="#6b7280">S_psp = 2048 B (задача), S_msp = 1024 B (ISR)</text>
+
+  <!-- Block 5: S_trace -->
+  <rect x="336" y="346" width="248" height="34" rx="5" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2"/>
+  <text x="346" y="363" font-size="12" font-weight="700" fill="#1a1a1a">Кільцевий буфер подій (512 B)</text>
+  <text x="346" y="375" font-size="12" fill="#6b7280">S_trace: останні логи перед аварією</text>
+
+  <!-- Block 6: S_crc -->
+  <rect x="336" y="392" width="248" height="34" rx="5" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="346" y="409" font-size="12" font-weight="700" fill="#27ae60">Кінцевик цілісності S_crc (4 B)</text>
+  <text x="346" y="421" font-size="12" fill="#6b7280">CRC32 контрольна сума всіх блоків</text>
+
+  <!-- Block 7: Padding / Align -->
+  <rect x="336" y="438" width="248" height="24" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-dasharray="3 3" stroke-width="1"/>
+  <text x="460" y="455" font-size="12" fill="#6b7280" text-anchor="middle">Вільний резерв вирівнювання (152 B, 0xFF)</text>
+
+  <!-- Panel 2 Footer Note -->
+  <rect x="336" y="470" width="248" height="36" rx="5" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="460" y="487" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">T_write = 49.3 мс &lt; T_wdg = 500 мс</text>
+  <text x="460" y="501" font-size="12" fill="#6b7280" text-anchor="middle">Запас безпеки: T_margin = 450.7 мс</text>
+
+  <!-- Connector from Block 1 to Panel 3 -->
+  <line x1="584" y1="170" x2="614" y2="170" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arr-blue)"/>
+
+  <!-- ==================== PANEL 3: MONOTONIC STATE MACHINE ==================== -->
+  <rect x="616" y="68" width="320" height="452" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="776" y="91" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">Монотонний автомат слова стану</text>
+  <text x="776" y="108" font-size="12" fill="#6b7280" text-anchor="middle">Скидання бітів 1→0 (запис слова без стирання)</text>
+
+  <!-- State 1: ERASED -->
+  <rect x="638" y="124" width="282" height="40" rx="5" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2"/>
+  <text x="648" y="141" font-size="12" font-weight="700" fill="#1a1a1a">STATE_ERASED</text>
+  <text x="910" y="141" font-size="12" font-weight="700" fill="#6b7280" text-anchor="end">0xFFFFFFFF</text>
+  <text x="648" y="157" font-size="12" fill="#6b7280">Стертий сектор Flash, готовий до прийому</text>
+
+  <!-- Arrow 1 -> 2 -->
+  <line x1="776" y1="164" x2="776" y2="180" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- State 2: START -->
+  <rect x="638" y="182" width="282" height="40" rx="5" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="648" y="199" font-size="12" font-weight="700" fill="#2457d6">STATE_START</text>
+  <text x="910" y="199" font-size="12" font-weight="700" fill="#2457d6" text-anchor="end">0xFFFFFFFE</text>
+  <text x="648" y="215" font-size="12" fill="#2457d6">HardFault: початок запису (біт 0 = 0)</text>
+
+  <!-- Arrow 2 -> 3 -->
+  <line x1="776" y1="222" x2="776" y2="238" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- State 3: DATA_OK -->
+  <rect x="638" y="240" width="282" height="40" rx="5" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="648" y="257" font-size="12" font-weight="700" fill="#2457d6">STATE_DATA_OK</text>
+  <text x="910" y="257" font-size="12" font-weight="700" fill="#2457d6" text-anchor="end">0xFFFFFFFC</text>
+  <text x="648" y="273" font-size="12" fill="#2457d6">Дамп злито у пам'ять (біт 1 = 0)</text>
+
+  <!-- Arrow 3 -> 4 -->
+  <line x1="776" y1="280" x2="776" y2="296" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <!-- State 4: VALID -->
+  <rect x="638" y="298" width="282" height="40" rx="5" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.6"/>
+  <text x="648" y="315" font-size="12" font-weight="700" fill="#27ae60">STATE_VALID</text>
+  <text x="910" y="315" font-size="12" font-weight="700" fill="#27ae60" text-anchor="end">0xFFFFFFF8</text>
+  <text x="648" y="331" font-size="12" fill="#27ae60">Дамп валідний: CRC32 OK (біт 2 = 0)</text>
+
+  <!-- Arrow 4 -> 5 -->
+  <line x1="776" y1="338" x2="776" y2="354" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+
+  <!-- State 5: EXTRACTED -->
+  <rect x="638" y="356" width="282" height="40" rx="5" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2"/>
+  <text x="648" y="373" font-size="12" font-weight="700" fill="#1a1a1a">STATE_EXTRACTED</text>
+  <text x="910" y="373" font-size="12" font-weight="700" fill="#6b7280" text-anchor="end">0xFFFFFFF0</text>
+  <text x="648" y="389" font-size="12" fill="#6b7280">Вичитано агентом після ребуту (біт 3 = 0)</text>
+
+  <!-- Arrow 5 -> 6 -->
+  <line x1="776" y1="396" x2="776" y2="412" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+
+  <!-- State 6: DIRTY -->
+  <rect x="638" y="414" width="282" height="40" rx="5" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2"/>
+  <text x="648" y="431" font-size="12" font-weight="700" fill="#c0392b">STATE_DIRTY</text>
+  <text x="910" y="431" font-size="12" font-weight="700" fill="#c0392b" text-anchor="end">0x00000000</text>
+  <text x="648" y="447" font-size="12" fill="#c0392b">Застарілий: черга на фонове стирання</text>
+
+  <!-- Background Erase Loopback Arrow (6 -> 1) -->
+  <path d="M 638 434 L 626 434 L 626 144 L 636 144" fill="none" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="3 2" marker-end="url(#arr-green)"/>
+
+  <!-- Panel 3 Footer Verification Box -->
+  <rect x="638" y="466" width="282" height="40" rx="5" fill="#ffffff" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="779" y="483" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">is_valid = ((state &amp; 0x07) == 0x00)</text>
+  <text x="779" y="497" font-size="12" fill="#6b7280" text-anchor="middle">Обірваний запис автоматично відкидається</text>
+</svg>

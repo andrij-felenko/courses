@@ -1,0 +1,153 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <text x="480" y="30" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Програмний мажоритарний фільтр завад</text>
+  <text x="480" y="50" font-size="13" fill="#6b7280" text-anchor="middle">Фільтрація поодинокого сплеску та підтвердження стабільного сигналу (вікно N=5)</text>
+
+  <defs>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <line x1="150" y1="80" x2="150" y2="420" stroke="#d0d7de" stroke-dasharray="4 4" />
+  <line x1="225" y1="80" x2="225" y2="420" stroke="#d0d7de" stroke-dasharray="4 4" />
+  <line x1="300" y1="80" x2="300" y2="420" stroke="#d0d7de" stroke-dasharray="4 4" />
+  <line x1="375" y1="80" x2="375" y2="420" stroke="#d0d7de" stroke-dasharray="4 4" />
+  <line x1="450" y1="80" x2="450" y2="420" stroke="#d0d7de" stroke-dasharray="4 4" />
+  <line x1="525" y1="80" x2="525" y2="420" stroke="#d0d7de" stroke-dasharray="4 4" />
+  <line x1="600" y1="80" x2="600" y2="420" stroke="#d0d7de" stroke-dasharray="4 4" />
+  <line x1="675" y1="80" x2="675" y2="420" stroke="#d0d7de" stroke-dasharray="4 4" />
+  <line x1="750" y1="80" x2="750" y2="420" stroke="#d0d7de" stroke-dasharray="4 4" />
+  <line x1="825" y1="80" x2="825" y2="420" stroke="#d0d7de" stroke-dasharray="4 4" />
+  <line x1="900" y1="80" x2="900" y2="420" stroke="#d0d7de" stroke-dasharray="4 4" />
+
+  <text x="40" y="90" font-size="14" font-weight="bold" fill="#1a1a1a">Фізичний стан лінії (Вхід)</text>
+
+  <path d="M 40 150 L 290 150" fill="none" stroke="#6b7280" stroke-width="3"/>
+  <path d="M 290 150 L 290 110 L 310 110 L 310 150" fill="none" stroke="#c0392b" stroke-width="3"/>
+  <path d="M 310 150 L 580 150" fill="none" stroke="#6b7280" stroke-width="3"/>
+  <path d="M 580 150 L 580 110 L 940 110" fill="none" stroke="#2457d6" stroke-width="3"/>
+
+  <text x="35" y="155" font-size="12" fill="#6b7280" text-anchor="end">0</text>
+  <text x="35" y="115" font-size="12" fill="#6b7280" text-anchor="end">1</text>
+
+  <text x="300" y="100" font-size="12" fill="#c0392b" text-anchor="middle">Сплеск</text>
+
+  <text x="110" y="175" font-size="12" fill="#6b7280" text-anchor="end">Вибірка:</text>
+  <text x="110" y="214" font-size="12" fill="#6b7280" text-anchor="end">Буфер (5 біт):</text>
+  <text x="110" y="255" font-size="12" fill="#6b7280" text-anchor="end">Сума '1':</text>
+
+  <text x="150" y="175" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">0</text>
+  <text x="225" y="175" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">0</text>
+  <text x="300" y="175" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">1</text>
+  <text x="375" y="175" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">0</text>
+  <text x="450" y="175" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">0</text>
+  <text x="525" y="175" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">0</text>
+  <text x="600" y="175" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">1</text>
+  <text x="675" y="175" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">1</text>
+  <text x="750" y="175" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">1</text>
+  <text x="825" y="175" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">1</text>
+  <text x="900" y="175" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">1</text>
+
+  <!-- i=0 -->
+  <rect x="115" y="200" width="14" height="20" fill="#f4f6f8" stroke="#d0d7de"/><text x="122" y="214" font-size="12" fill="#6b7280" text-anchor="middle">0</text>
+  <rect x="129" y="200" width="14" height="20" fill="#f4f6f8" stroke="#d0d7de"/><text x="136" y="214" font-size="12" fill="#6b7280" text-anchor="middle">0</text>
+  <rect x="143" y="200" width="14" height="20" fill="#f4f6f8" stroke="#d0d7de"/><text x="150" y="214" font-size="12" fill="#6b7280" text-anchor="middle">0</text>
+  <rect x="157" y="200" width="14" height="20" fill="#f4f6f8" stroke="#d0d7de"/><text x="164" y="214" font-size="12" fill="#6b7280" text-anchor="middle">0</text>
+  <rect x="171" y="200" width="14" height="20" fill="#f4f6f8" stroke="#d0d7de"/><text x="178" y="214" font-size="12" fill="#6b7280" text-anchor="middle">0</text>
+
+  <!-- i=1 -->
+  <rect x="190" y="200" width="14" height="20" fill="#f4f6f8" stroke="#d0d7de"/><text x="197" y="214" font-size="12" fill="#6b7280" text-anchor="middle">0</text>
+  <rect x="204" y="200" width="14" height="20" fill="#f4f6f8" stroke="#d0d7de"/><text x="211" y="214" font-size="12" fill="#6b7280" text-anchor="middle">0</text>
+  <rect x="218" y="200" width="14" height="20" fill="#f4f6f8" stroke="#d0d7de"/><text x="225" y="214" font-size="12" fill="#6b7280" text-anchor="middle">0</text>
+  <rect x="232" y="200" width="14" height="20" fill="#f4f6f8" stroke="#d0d7de"/><text x="239" y="214" font-size="12" fill="#6b7280" text-anchor="middle">0</text>
+  <rect x="246" y="200" width="14" height="20" fill="#f4f6f8" stroke="#d0d7de"/><text x="253" y="214" font-size="12" fill="#6b7280" text-anchor="middle">0</text>
+
+  <!-- i=2 (glitch at j=4) -->
+  <rect x="265" y="200" width="14" height="20" fill="#f4f6f8" stroke="#d0d7de"/><text x="272" y="214" font-size="12" fill="#6b7280" text-anchor="middle">0</text>
+  <rect x="279" y="200" width="14" height="20" fill="#f4f6f8" stroke="#d0d7de"/><text x="286" y="214" font-size="12" fill="#6b7280" text-anchor="middle">0</text>
+  <rect x="293" y="200" width="14" height="20" fill="#f4f6f8" stroke="#d0d7de"/><text x="300" y="214" font-size="12" fill="#6b7280" text-anchor="middle">0</text>
+  <rect x="307" y="200" width="14" height="20" fill="#f4f6f8" stroke="#d0d7de"/><text x="314" y="214" font-size="12" fill="#6b7280" text-anchor="middle">0</text>
+  <rect x="321" y="200" width="14" height="20" fill="#fdecea" stroke="#c0392b"/><text x="328" y="214" font-size="12" fill="#c0392b" text-anchor="middle">1</text>
+
+  <!-- i=3 (glitch at j=3) -->
+  <rect x="340" y="200" width="14" height="20" fill="#f4f6f8" stroke="#d0d7de"/><text x="347" y="214" font-size="12" fill="#6b7280" text-anchor="middle">0</text>
+  <rect x="354" y="200" width="14" height="20" fill="#f4f6f8" stroke="#d0d7de"/><text x="361" y="214" font-size="12" fill="#6b7280" text-anchor="middle">0</text>
+  <rect x="368" y="200" width="14" height="20" fill="#f4f6f8" stroke="#d0d7de"/><text x="375" y="214" font-size="12" fill="#6b7280" text-anchor="middle">0</text>
+  <rect x="382" y="200" width="14" height="20" fill="#fdecea" stroke="#c0392b"/><text x="389" y="214" font-size="12" fill="#c0392b" text-anchor="middle">1</text>
+  <rect x="396" y="200" width="14" height="20" fill="#f4f6f8" stroke="#d0d7de"/><text x="403" y="214" font-size="12" fill="#6b7280" text-anchor="middle">0</text>
+
+  <!-- i=4 (glitch at j=2) -->
+  <rect x="415" y="200" width="14" height="20" fill="#f4f6f8" stroke="#d0d7de"/><text x="422" y="214" font-size="12" fill="#6b7280" text-anchor="middle">0</text>
+  <rect x="429" y="200" width="14" height="20" fill="#f4f6f8" stroke="#d0d7de"/><text x="436" y="214" font-size="12" fill="#6b7280" text-anchor="middle">0</text>
+  <rect x="443" y="200" width="14" height="20" fill="#fdecea" stroke="#c0392b"/><text x="450" y="214" font-size="12" fill="#c0392b" text-anchor="middle">1</text>
+  <rect x="457" y="200" width="14" height="20" fill="#f4f6f8" stroke="#d0d7de"/><text x="464" y="214" font-size="12" fill="#6b7280" text-anchor="middle">0</text>
+  <rect x="471" y="200" width="14" height="20" fill="#f4f6f8" stroke="#d0d7de"/><text x="478" y="214" font-size="12" fill="#6b7280" text-anchor="middle">0</text>
+
+  <!-- i=5 (glitch at j=1) -->
+  <rect x="490" y="200" width="14" height="20" fill="#f4f6f8" stroke="#d0d7de"/><text x="497" y="214" font-size="12" fill="#6b7280" text-anchor="middle">0</text>
+  <rect x="504" y="200" width="14" height="20" fill="#fdecea" stroke="#c0392b"/><text x="511" y="214" font-size="12" fill="#c0392b" text-anchor="middle">1</text>
+  <rect x="518" y="200" width="14" height="20" fill="#f4f6f8" stroke="#d0d7de"/><text x="525" y="214" font-size="12" fill="#6b7280" text-anchor="middle">0</text>
+  <rect x="532" y="200" width="14" height="20" fill="#f4f6f8" stroke="#d0d7de"/><text x="539" y="214" font-size="12" fill="#6b7280" text-anchor="middle">0</text>
+  <rect x="546" y="200" width="14" height="20" fill="#f4f6f8" stroke="#d0d7de"/><text x="553" y="214" font-size="12" fill="#6b7280" text-anchor="middle">0</text>
+
+  <!-- i=6 (glitch at j=0, signal at j=4) -->
+  <rect x="565" y="200" width="14" height="20" fill="#fdecea" stroke="#c0392b"/><text x="572" y="214" font-size="12" fill="#c0392b" text-anchor="middle">1</text>
+  <rect x="579" y="200" width="14" height="20" fill="#f4f6f8" stroke="#d0d7de"/><text x="586" y="214" font-size="12" fill="#6b7280" text-anchor="middle">0</text>
+  <rect x="593" y="200" width="14" height="20" fill="#f4f6f8" stroke="#d0d7de"/><text x="600" y="214" font-size="12" fill="#6b7280" text-anchor="middle">0</text>
+  <rect x="607" y="200" width="14" height="20" fill="#f4f6f8" stroke="#d0d7de"/><text x="614" y="214" font-size="12" fill="#6b7280" text-anchor="middle">0</text>
+  <rect x="621" y="200" width="14" height="20" fill="#eaf0fd" stroke="#2457d6"/><text x="628" y="214" font-size="12" fill="#2457d6" text-anchor="middle">1</text>
+
+  <!-- i=7 (signal at j=3,4) -->
+  <rect x="640" y="200" width="14" height="20" fill="#f4f6f8" stroke="#d0d7de"/><text x="647" y="214" font-size="12" fill="#6b7280" text-anchor="middle">0</text>
+  <rect x="654" y="200" width="14" height="20" fill="#f4f6f8" stroke="#d0d7de"/><text x="661" y="214" font-size="12" fill="#6b7280" text-anchor="middle">0</text>
+  <rect x="668" y="200" width="14" height="20" fill="#f4f6f8" stroke="#d0d7de"/><text x="675" y="214" font-size="12" fill="#6b7280" text-anchor="middle">0</text>
+  <rect x="682" y="200" width="14" height="20" fill="#eaf0fd" stroke="#2457d6"/><text x="689" y="214" font-size="12" fill="#2457d6" text-anchor="middle">1</text>
+  <rect x="696" y="200" width="14" height="20" fill="#eaf0fd" stroke="#2457d6"/><text x="703" y="214" font-size="12" fill="#2457d6" text-anchor="middle">1</text>
+
+  <!-- i=8 (signal at j=2,3,4) -->
+  <rect x="715" y="200" width="14" height="20" fill="#f4f6f8" stroke="#d0d7de"/><text x="722" y="214" font-size="12" fill="#6b7280" text-anchor="middle">0</text>
+  <rect x="729" y="200" width="14" height="20" fill="#f4f6f8" stroke="#d0d7de"/><text x="736" y="214" font-size="12" fill="#6b7280" text-anchor="middle">0</text>
+  <rect x="743" y="200" width="14" height="20" fill="#eaf0fd" stroke="#2457d6"/><text x="750" y="214" font-size="12" fill="#2457d6" text-anchor="middle">1</text>
+  <rect x="757" y="200" width="14" height="20" fill="#eaf0fd" stroke="#2457d6"/><text x="764" y="214" font-size="12" fill="#2457d6" text-anchor="middle">1</text>
+  <rect x="771" y="200" width="14" height="20" fill="#eaf0fd" stroke="#2457d6"/><text x="778" y="214" font-size="12" fill="#2457d6" text-anchor="middle">1</text>
+
+  <!-- i=9 (signal at j=1,2,3,4) -->
+  <rect x="790" y="200" width="14" height="20" fill="#f4f6f8" stroke="#d0d7de"/><text x="797" y="214" font-size="12" fill="#6b7280" text-anchor="middle">0</text>
+  <rect x="804" y="200" width="14" height="20" fill="#eaf0fd" stroke="#2457d6"/><text x="811" y="214" font-size="12" fill="#2457d6" text-anchor="middle">1</text>
+  <rect x="818" y="200" width="14" height="20" fill="#eaf0fd" stroke="#2457d6"/><text x="825" y="214" font-size="12" fill="#2457d6" text-anchor="middle">1</text>
+  <rect x="832" y="200" width="14" height="20" fill="#eaf0fd" stroke="#2457d6"/><text x="839" y="214" font-size="12" fill="#2457d6" text-anchor="middle">1</text>
+  <rect x="846" y="200" width="14" height="20" fill="#eaf0fd" stroke="#2457d6"/><text x="853" y="214" font-size="12" fill="#2457d6" text-anchor="middle">1</text>
+
+  <!-- i=10 (signal at j=0,1,2,3,4) -->
+  <rect x="865" y="200" width="14" height="20" fill="#eaf0fd" stroke="#2457d6"/><text x="872" y="214" font-size="12" fill="#2457d6" text-anchor="middle">1</text>
+  <rect x="879" y="200" width="14" height="20" fill="#eaf0fd" stroke="#2457d6"/><text x="886" y="214" font-size="12" fill="#2457d6" text-anchor="middle">1</text>
+  <rect x="893" y="200" width="14" height="20" fill="#eaf0fd" stroke="#2457d6"/><text x="900" y="214" font-size="12" fill="#2457d6" text-anchor="middle">1</text>
+  <rect x="907" y="200" width="14" height="20" fill="#eaf0fd" stroke="#2457d6"/><text x="914" y="214" font-size="12" fill="#2457d6" text-anchor="middle">1</text>
+  <rect x="921" y="200" width="14" height="20" fill="#eaf0fd" stroke="#2457d6"/><text x="928" y="214" font-size="12" fill="#2457d6" text-anchor="middle">1</text>
+
+  <text x="150" y="255" font-size="13" fill="#6b7280" text-anchor="middle">0</text>
+  <text x="225" y="255" font-size="13" fill="#6b7280" text-anchor="middle">0</text>
+  <text x="300" y="255" font-size="13" fill="#c0392b" text-anchor="middle">1</text>
+  <text x="375" y="255" font-size="13" fill="#c0392b" text-anchor="middle">1</text>
+  <text x="450" y="255" font-size="13" fill="#c0392b" text-anchor="middle">1</text>
+  <text x="525" y="255" font-size="13" fill="#c0392b" text-anchor="middle">1</text>
+  <text x="600" y="255" font-size="13" fill="#2457d6" text-anchor="middle">2</text>
+  <text x="675" y="255" font-size="13" fill="#2457d6" text-anchor="middle">2</text>
+  <text x="750" y="255" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">3</text>
+  <text x="825" y="255" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">4</text>
+  <text x="900" y="255" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">5</text>
+
+  <text x="750" y="285" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Поріг (≥3)</text>
+  <line x1="750" y1="295" x2="750" y2="340" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <text x="40" y="330" font-size="14" font-weight="bold" fill="#1a1a1a">Відфільтрований стан (Вихід)</text>
+
+  <path d="M 40 390 L 750 390" fill="none" stroke="#6b7280" stroke-width="3"/>
+  <path d="M 750 390 L 750 350 L 940 350" fill="none" stroke="#27ae60" stroke-width="3"/>
+
+  <text x="35" y="395" font-size="12" fill="#6b7280" text-anchor="end">0</text>
+  <text x="35" y="355" font-size="12" fill="#6b7280" text-anchor="end">1</text>
+
+</svg>

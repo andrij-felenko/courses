@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse"><path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/></marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse"><path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/></marker>
+  </defs>
+  <rect x="0" y="0" width="960" height="460" fill="#ffffff"/>
+  <text x="480" y="30" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Каскадування зсувних регістрів PISO 74HC165</text>
+  <text x="480" y="50" font-size="13" fill="#6b7280" text-anchor="middle">Послідовне з'єднання Q7 -&gt; DS для розширення вхідних каналів МК</text>
+
+  <!-- MCU Box -->
+  <rect x="40" y="140" width="180" height="220" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <text x="130" y="170" font-size="14" font-weight="700" fill="#2457d6" text-anchor="middle">Мікроконтролер</text>
+  <text x="130" y="190" font-size="12" fill="#6b7280" text-anchor="middle">(SPI Master)</text>
+
+  <rect x="60" y="210" width="140" height="30" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="4"/>
+  <text x="130" y="230" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">SPI_MISO (Rx)</text>
+
+  <rect x="60" y="260" width="140" height="30" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="4"/>
+  <text x="130" y="280" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">SPI_SCK (Clock)</text>
+
+  <rect x="60" y="310" width="140" height="30" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="4"/>
+  <text x="130" y="330" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">GPIO_PL (Load)</text>
+
+  <!-- Chip 1 (First in chain - IC1) -->
+  <rect x="340" y="140" width="220" height="220" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="6"/>
+  <text x="450" y="165" font-size="14" font-weight="700" fill="#1a1a1a" text-anchor="middle">74HC165 (IC1)</text>
+  <text x="450" y="185" font-size="12" fill="#6b7280" text-anchor="middle">Канали Входу 0..7</text>
+  
+  <rect x="360" y="210" width="180" height="30" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="4"/>
+  <text x="450" y="230" font-size="12" fill="#1a1a1a" text-anchor="middle">Вихід Q7 (Data Out)</text>
+
+  <rect x="360" y="260" width="180" height="30" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="4"/>
+  <text x="450" y="280" font-size="12" fill="#1a1a1a" text-anchor="middle">Вхід CP (Clock)</text>
+
+  <rect x="360" y="310" width="180" height="30" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="4"/>
+  <text x="450" y="330" font-size="12" fill="#1a1a1a" text-anchor="middle">Вхід PL (Load)</text>
+
+  <!-- Chip 2 (Second in chain - IC2) -->
+  <rect x="680" y="140" width="220" height="220" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="6"/>
+  <text x="790" y="165" font-size="14" font-weight="700" fill="#1a1a1a" text-anchor="middle">74HC165 (IC2)</text>
+  <text x="790" y="185" font-size="12" fill="#6b7280" text-anchor="middle">Канали Входу 8..15</text>
+
+  <rect x="700" y="210" width="180" height="30" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="4"/>
+  <text x="790" y="230" font-size="12" fill="#1a1a1a" text-anchor="middle">Вхід DS (Serial In)</text>
+
+  <rect x="700" y="260" width="180" height="30" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="4"/>
+  <text x="790" y="280" font-size="12" fill="#1a1a1a" text-anchor="middle">Вихід Q7 (до IC1 DS)</text>
+
+  <rect x="700" y="310" width="180" height="30" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="4"/>
+  <text x="790" y="330" font-size="12" fill="#1a1a1a" text-anchor="middle">Вхід PL (Спільний)</text>
+
+  <!-- Interconnections -->
+  <!-- MISO to IC1 Q7 -->
+  <line x1="340" y1="225" x2="200" y2="225" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  
+  <!-- IC2 Q7 to IC1 DS -->
+  <line x1="700" y1="275" x2="620" y2="275" stroke="#27ae60" stroke-width="2"/>
+  <line x1="620" y1="275" x2="620" y2="390" stroke="#27ae60" stroke-width="2"/>
+  <line x1="620" y1="390" x2="310" y2="390" stroke="#27ae60" stroke-width="2"/>
+  <line x1="310" y1="390" x2="310" y2="185" stroke="#27ae60" stroke-width="2"/>
+  <line x1="310" y1="185" x2="340" y2="185" stroke="#27ae60" stroke-width="2" marker-end="url(#arr)"/>
+  <text x="600" y="410" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">Каскадний зв'язок Q7 -&gt; DS (16-бітний потік)</text>
+
+  <!-- SCK to CP IC1 & IC2 -->
+  <line x1="200" y1="275" x2="340" y2="275" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <line x1="560" y1="275" x2="700" y2="325" stroke="#1a1a1a" stroke-width="1.5" stroke-dasharray="4,4" marker-end="url(#arr)"/>
+
+  <!-- PL to PL IC1 & IC2 -->
+  <line x1="200" y1="325" x2="340" y2="325" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr)"/>
+</svg>

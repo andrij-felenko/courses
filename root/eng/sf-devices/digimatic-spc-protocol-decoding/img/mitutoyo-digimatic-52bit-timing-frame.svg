@@ -1,0 +1,260 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-rev" markerWidth="9" markerHeight="9" refX="0.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-blue-rev" markerWidth="9" markerHeight="9" refX="0.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="700" fill="#1a1a1a">Часова діаграма та розкладка 52-бітного кадру Mitutoyo Digimatic</text>
+  <text x="480" y="52" text-anchor="middle" font-size="13" fill="#6b7280">Синхронне опитування REQ / CK та структура 13 ніблів BCD (преамбула 0xFFFF, 6 цифр виміру, кома, одиниці)</text>
+
+  <!-- ================= BLOCK 1: TIMING DIAGRAM ================= -->
+  <rect x="24" y="68" width="912" height="180" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Column Divider -->
+  <line x1="160" y1="76" x2="160" y2="240" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Signal Names (Left Column) -->
+  <text x="36" y="100" font-size="13" font-weight="700" fill="#2457d6">REQ</text>
+  <text x="36" y="116" font-size="12" fill="#6b7280">Запит хоста (МК)</text>
+
+  <text x="36" y="152" font-size="13" font-weight="700" fill="#1a1a1a">CK (CLK)</text>
+  <text x="36" y="168" font-size="12" fill="#6b7280">Такти приладу</text>
+
+  <text x="36" y="206" font-size="13" font-weight="700" fill="#27ae60">DATA</text>
+  <text x="36" y="222" font-size="12" fill="#6b7280">Послідовні дані</text>
+
+  <!-- Dimension: t_REQ pulse -->
+  <line x1="205" y1="84" x2="265" y2="84" stroke="#2457d6" stroke-width="1.2" marker-start="url(#arr-blue-rev)" marker-end="url(#arr-blue)"/>
+  <text x="235" y="79" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">t_REQ &gt; 100 мкс</text>
+
+  <!-- Dimension: t_resp (delay from REQ fall to CK start) -->
+  <line x1="205" y1="134" x2="300" y2="134" stroke="#6b7280" stroke-width="1.2" marker-start="url(#arr-rev)" marker-end="url(#arr)"/>
+  <text x="252" y="128" text-anchor="middle" font-size="12" fill="#6b7280">t_resp ≈ 0.5–1.5 мс</text>
+
+  <!-- Dimension: T_ck period -->
+  <line x1="354" y1="134" x2="408" y2="134" stroke="#1a1a1a" stroke-width="1.2" marker-start="url(#arr-rev)" marker-end="url(#arr)"/>
+  <text x="381" y="128" text-anchor="middle" font-size="12" fill="#1a1a1a">T_ck ≈ 100–300 мкс</text>
+
+  <!-- Dimension: t_gap (inter-frame gap) -->
+  <line x1="876" y1="134" x2="916" y2="134" stroke="#6b7280" stroke-width="1.2" marker-start="url(#arr-rev)" marker-end="url(#arr)"/>
+  <text x="896" y="128" text-anchor="middle" font-size="12" fill="#6b7280">t_gap &gt; 2 мс</text>
+
+  <!-- REQ Waveform -->
+  <path d="M 175,90 L 205,90 L 205,112 L 265,112 L 265,90 L 916,90" fill="none" stroke="#2457d6" stroke-width="2.2"/>
+
+  <!-- CK Waveform -->
+  <!-- Pulses 0..3 (Nibble d0) -->
+  <path d="M 175,148 L 300,148 L 300,172 L 327,172 L 327,148 L 354,148 L 354,172 L 381,172 L 381,148 L 408,148 L 408,172 L 435,172 L 435,148 L 462,148 L 462,172 L 489,172 L 489,148 L 516,148 L 535,148" fill="none" stroke="#1a1a1a" stroke-width="2.2"/>
+
+  <!-- CK Break Lines & Ellipsis -->
+  <line x1="535" y1="142" x2="545" y2="154" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="650" y1="142" x2="660" y2="154" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="598" y="146" text-anchor="middle" font-size="12" font-weight="700" fill="#6b7280">··· 52 такти ···</text>
+  <text x="598" y="164" text-anchor="middle" font-size="12" fill="#6b7280">13 ніблів BCD</text>
+
+  <!-- CK Pulses 48..51 (Nibble d12) -->
+  <path d="M 660,148 L 660,172 L 687,172 L 687,148 L 714,148 L 714,172 L 741,172 L 741,148 L 768,148 L 768,172 L 795,172 L 795,148 L 822,148 L 822,172 L 849,172 L 849,148 L 876,148 L 916,148" fill="none" stroke="#1a1a1a" stroke-width="2.2"/>
+
+  <!-- Sampling indicators on CK rising edge -->
+  <circle cx="327" cy="148" r="3" fill="#2457d6"/>
+  <circle cx="381" cy="148" r="3" fill="#2457d6"/>
+  <circle cx="435" cy="148" r="3" fill="#2457d6"/>
+  <circle cx="489" cy="148" r="3" fill="#2457d6"/>
+  <circle cx="687" cy="148" r="3" fill="#2457d6"/>
+  <circle cx="741" cy="148" r="3" fill="#2457d6"/>
+  <circle cx="795" cy="148" r="3" fill="#2457d6"/>
+  <circle cx="849" cy="148" r="3" fill="#2457d6"/>
+
+  <!-- DATA Waveform & Bit Cells -->
+  <!-- Idle lines -->
+  <line x1="175" y1="208" x2="299" y2="208" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <line x1="877" y1="208" x2="916" y2="208" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4,4"/>
+
+  <!-- Bit Cells Nibble d0 (b0..b3) -->
+  <rect x="303" y="196" width="48" height="24" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="327" y="212" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">b0 = 1</text>
+  <text x="327" y="234" text-anchor="middle" font-size="12" fill="#6b7280">LSB</text>
+
+  <rect x="357" y="196" width="48" height="24" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="381" y="212" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">b1 = 1</text>
+
+  <rect x="411" y="196" width="48" height="24" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="435" y="212" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">b2 = 1</text>
+
+  <rect x="465" y="196" width="48" height="24" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="489" y="212" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">b3 = 1</text>
+  <text x="489" y="234" text-anchor="middle" font-size="12" fill="#6b7280">MSB</text>
+
+  <text x="408" y="234" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">Нібл d0 = 0xF</text>
+
+  <!-- DATA Break Lines & Ellipsis -->
+  <line x1="535" y1="202" x2="545" y2="214" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="650" y1="202" x2="660" y2="214" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="598" y="212" text-anchor="middle" font-size="12" font-weight="700" fill="#6b7280">··· ніблі d1 .. d11 ···</text>
+  <text x="598" y="234" text-anchor="middle" font-size="12" fill="#6b7280">44 проміжні біти</text>
+
+  <!-- Bit Cells Nibble d12 (b48..b51) -->
+  <rect x="663" y="196" width="48" height="24" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="687" y="212" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">b48</text>
+  <text x="687" y="234" text-anchor="middle" font-size="12" fill="#6b7280">LSB</text>
+
+  <rect x="717" y="196" width="48" height="24" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="741" y="212" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">b49</text>
+
+  <rect x="771" y="196" width="48" height="24" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="795" y="212" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">b50</text>
+
+  <rect x="825" y="196" width="48" height="24" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="849" y="212" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">b51</text>
+  <text x="849" y="234" text-anchor="middle" font-size="12" fill="#6b7280">MSB</text>
+
+  <text x="768" y="234" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">Нібл d12</text>
+
+  <!-- ================= BLOCK 2: 52-BIT FRAME BREAKDOWN ================= -->
+  <rect x="24" y="260" width="912" height="160" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Panel Title & Meta -->
+  <text x="40" y="282" font-size="14" font-weight="700" fill="#1a1a1a">Розкладка 52-бітного кадру Mitutoyo Digimatic на 13 ніблів BCD (d0 .. d12)</text>
+  <text x="916" y="282" text-anchor="end" font-size="12" fill="#6b7280">13 ніблів × 4 біти = 52 біти</text>
+
+  <!-- Group Category Bars -->
+  <!-- 1. Preamble (d0..d3) -->
+  <rect x="44" y="292" width="260" height="24" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="174" y="308" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">Преамбула: 0xFFFF (16 бітів)</text>
+
+  <!-- 2. Sign (d4) -->
+  <rect x="316" y="292" width="56" height="24" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="344" y="308" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">Знак</text>
+
+  <!-- 3. BCD Digits (d5..d10) -->
+  <rect x="384" y="292" width="396" height="24" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="582" y="308" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">6 BCD-цифр вимірювання: D1 .. D6 (24 біти)</text>
+
+  <!-- 4. Decimal Point (d11) -->
+  <rect x="792" y="292" width="56" height="24" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="820" y="308" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">Кома</text>
+
+  <!-- 5. Units (d12) -->
+  <rect x="860" y="292" width="56" height="24" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="888" y="308" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">Одиниця</text>
+
+  <!-- 13 Nibble Boxes -->
+  <!-- d0 -->
+  <rect x="44" y="330" width="56" height="42" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="72" y="347" text-anchor="middle" font-size="13" font-weight="700" fill="#2457d6">d0</text>
+  <text x="72" y="364" text-anchor="middle" font-size="12" fill="#2457d6">0xF</text>
+
+  <!-- d1 -->
+  <rect x="112" y="330" width="56" height="42" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="140" y="347" text-anchor="middle" font-size="13" font-weight="700" fill="#2457d6">d1</text>
+  <text x="140" y="364" text-anchor="middle" font-size="12" fill="#2457d6">0xF</text>
+
+  <!-- d2 -->
+  <rect x="180" y="330" width="56" height="42" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="208" y="347" text-anchor="middle" font-size="13" font-weight="700" fill="#2457d6">d2</text>
+  <text x="208" y="364" text-anchor="middle" font-size="12" fill="#2457d6">0xF</text>
+
+  <!-- d3 -->
+  <rect x="248" y="330" width="56" height="42" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="276" y="347" text-anchor="middle" font-size="13" font-weight="700" fill="#2457d6">d3</text>
+  <text x="276" y="364" text-anchor="middle" font-size="12" fill="#2457d6">0xF</text>
+
+  <!-- d4 -->
+  <rect x="316" y="330" width="56" height="42" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="344" y="347" text-anchor="middle" font-size="13" font-weight="700" fill="#c0392b">d4</text>
+  <text x="344" y="364" text-anchor="middle" font-size="12" fill="#c0392b">+/−</text>
+
+  <!-- d5 -->
+  <rect x="384" y="330" width="56" height="42" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="412" y="347" text-anchor="middle" font-size="13" font-weight="700" fill="#27ae60">d5</text>
+  <text x="412" y="364" text-anchor="middle" font-size="12" fill="#27ae60">10⁰</text>
+
+  <!-- d6 -->
+  <rect x="452" y="330" width="56" height="42" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="480" y="347" text-anchor="middle" font-size="13" font-weight="700" fill="#27ae60">d6</text>
+  <text x="480" y="364" text-anchor="middle" font-size="12" fill="#27ae60">10¹</text>
+
+  <!-- d7 -->
+  <rect x="520" y="330" width="56" height="42" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="548" y="347" text-anchor="middle" font-size="13" font-weight="700" fill="#27ae60">d7</text>
+  <text x="548" y="364" text-anchor="middle" font-size="12" fill="#27ae60">10²</text>
+
+  <!-- d8 -->
+  <rect x="588" y="330" width="56" height="42" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="616" y="347" text-anchor="middle" font-size="13" font-weight="700" fill="#27ae60">d8</text>
+  <text x="616" y="364" text-anchor="middle" font-size="12" fill="#27ae60">10³</text>
+
+  <!-- d9 -->
+  <rect x="656" y="330" width="56" height="42" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="684" y="347" text-anchor="middle" font-size="13" font-weight="700" fill="#27ae60">d9</text>
+  <text x="684" y="364" text-anchor="middle" font-size="12" fill="#27ae60">10⁴</text>
+
+  <!-- d10 -->
+  <rect x="724" y="330" width="56" height="42" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="752" y="347" text-anchor="middle" font-size="13" font-weight="700" fill="#27ae60">d10</text>
+  <text x="752" y="364" text-anchor="middle" font-size="12" fill="#27ae60">10⁵</text>
+
+  <!-- d11 -->
+  <rect x="792" y="330" width="56" height="42" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="820" y="347" text-anchor="middle" font-size="13" font-weight="700" fill="#2457d6">d11</text>
+  <text x="820" y="364" text-anchor="middle" font-size="12" fill="#2457d6">10ᵈ¹¹</text>
+
+  <!-- d12 -->
+  <rect x="860" y="330" width="56" height="42" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="888" y="347" text-anchor="middle" font-size="13" font-weight="700" fill="#2457d6">d12</text>
+  <text x="888" y="364" text-anchor="middle" font-size="12" fill="#2457d6">мм/in</text>
+
+  <!-- Annotations below Nibbles -->
+  <!-- Line 1: Bit ranges -->
+  <text x="174" y="390" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">Біти 0 .. 15 (Синхронізація)</text>
+  <text x="344" y="390" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">b16..b19</text>
+  <text x="582" y="390" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">Біти 20 .. 43 (BCD-мантиса: 0 .. 999999)</text>
+  <text x="820" y="390" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">b44..b47</text>
+  <text x="888" y="390" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">b48..b51</text>
+
+  <!-- Line 2: Details / Formula -->
+  <text x="174" y="408" text-anchor="middle" font-size="12" fill="#6b7280">Перевірка: d0 == d1 == d2 == d3 == 0xF</text>
+  <text x="344" y="408" text-anchor="middle" font-size="12" fill="#6b7280">0: +, 8: −</text>
+  <text x="582" y="408" text-anchor="middle" font-size="12" fill="#6b7280">raw_value = d5 + d6·10 + d7·10² + d8·10³ + d9·10⁴ + d10·10⁵</text>
+  <text x="820" y="408" text-anchor="middle" font-size="12" fill="#6b7280">scale</text>
+  <text x="888" y="408" text-anchor="middle" font-size="12" fill="#6b7280">0:мм 1:in</text>
+
+  <!-- ================= BLOCK 3: SUMMARY CARDS ================= -->
+  <!-- Card 1 -->
+  <rect x="24" y="434" width="294" height="106" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="32" y="442" width="278" height="24" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="171" y="458" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">1. Апаратний інтерфейс REQ та CK</text>
+  <text x="36" y="482" font-size="12"><tspan font-weight="700" fill="#1a1a1a">• Запит REQ: </tspan><tspan fill="#6b7280">строб host LOW (t &gt; 100 мкс)</tspan></text>
+  <text x="36" y="502" font-size="12"><tspan font-weight="700" fill="#1a1a1a">• Такти CK: </tspan><tspan fill="#6b7280">52 імпульси (T_ck ≈ 100–300 мкс)</tspan></text>
+  <text x="36" y="522" font-size="12"><tspan font-weight="700" fill="#1a1a1a">• Фіксація: </tspan><tspan fill="#6b7280">стробування DATA за фронтом CK</tspan></text>
+
+  <!-- Card 2 -->
+  <rect x="333" y="434" width="294" height="106" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="341" y="442" width="278" height="24" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="480" y="458" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">2. Формат 13 ніблів BCD (52 біти)</text>
+  <text x="345" y="482" font-size="12"><tspan font-weight="700" fill="#1a1a1a">• Біти в ніблі: </tspan><tspan fill="#6b7280">порядок LSB-first (b0 .. b3)</tspan></text>
+  <text x="345" y="502" font-size="12"><tspan font-weight="700" fill="#1a1a1a">• Преамбула: </tspan><tspan fill="#6b7280">d0..d3 = 0xFFFF (перевірка)</tspan></text>
+  <text x="345" y="522" font-size="12"><tspan font-weight="700" fill="#1a1a1a">• 6 цифр BCD: </tspan><tspan fill="#6b7280">мантиса виміру (d5 .. d10)</tspan></text>
+
+  <!-- Card 3 -->
+  <rect x="642" y="434" width="294" height="106" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="650" y="442" width="278" height="24" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="789" y="458" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">3. Обчислення значення у системі SI</text>
+  <text x="654" y="482" font-size="12"><tspan font-weight="700" fill="#1a1a1a">• Знак числа: </tspan><tspan fill="#6b7280">d4 = 0 (+), d4 = 8 (−)</tspan></text>
+  <text x="654" y="502" font-size="12"><tspan font-weight="700" fill="#1a1a1a">• Масштаб: </tspan><tspan fill="#6b7280">scale = 10ᵈ¹¹ (d11=2 → 0.01 мм)</tspan></text>
+  <text x="654" y="522" font-size="12"><tspan font-weight="700" fill="#1a1a1a">• Результат: </tspan><tspan fill="#6b7280">val_mm = (raw ÷ scale) · sign</tspan></text>
+</svg>

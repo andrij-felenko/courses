@@ -1,0 +1,77 @@
+<svg viewBox="0 0 960 480" width="960" height="480" xmlns="http://www.w3.org/2000/svg" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="34" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Розбіжність адрес машинного коду та стиснення алгоритмом BSDiff</text>
+  <text x="480" y="56" text-anchor="middle" font-size="13" fill="#6b7280">Вставка інструкції зсуває адреси переходів; BSDiff віднімає байти образу, утворюючи довгі серії нулів</text>
+
+  <!-- Left Panel: Problem - Address Divergence -->
+  <rect x="30" y="80" width="440" height="370" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="50" y="110" font-size="14" font-weight="bold" fill="#c0392b">Проблема: каскадний зсув адрес у коді</text>
+  <text x="50" y="130" font-size="12" fill="#6b7280">Вставка навіть 1 команди ламає побайтовий diff</text>
+
+  <!-- V1 Image -->
+  <rect x="50" y="150" width="180" height="150" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="65" y="172" font-size="12" font-weight="bold" fill="#1a1a1a">Прошивка V1 (Стара)</text>
+  <text x="65" y="195" font-size="11" font-family="monospace" fill="#1a1a1a">0x0800: MOV R0, #1</text>
+  <text x="65" y="215" font-size="11" font-family="monospace" fill="#1a1a1a">0x0802: ADD R1, R0</text>
+  <text x="65" y="235" font-size="11" font-family="monospace" fill="#2457d6">0x0804: BL 0x0840</text>
+  <text x="65" y="255" font-size="11" font-family="monospace" fill="#2457d6">0x0808: BL 0x0890</text>
+  <text x="65" y="275" font-size="11" font-family="monospace" fill="#1a1a1a">0x080C: LDR R2, [PC]</text>
+
+  <!-- V2 Image with insertion -->
+  <rect x="270" y="150" width="180" height="150" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="285" y="172" font-size="12" font-weight="bold" fill="#1a1a1a">Прошивка V2 (Нова)</text>
+  <text x="285" y="195" font-size="11" font-family="monospace" fill="#1a1a1a">0x0800: MOV R0, #1</text>
+  <rect x="275" y="202" width="170" height="18" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="285" y="215" font-size="11" font-family="monospace" font-weight="bold" fill="#c0392b">+ NOP (вставка 2B)</text>
+  <text x="285" y="235" font-size="11" font-family="monospace" fill="#c0392b">0x0806: BL 0x0842</text>
+  <text x="285" y="255" font-size="11" font-family="monospace" fill="#c0392b">0x080A: BL 0x0892</text>
+  <text x="285" y="275" font-size="11" font-family="monospace" fill="#c0392b">0x080E: LDR R2, [PC]</text>
+
+  <!-- Problem summary box -->
+  <rect x="50" y="320" width="400" height="110" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="65" y="342" font-size="12" font-weight="bold" fill="#c0392b">Наслідки для звичайного diff:</text>
+  <text x="65" y="365" font-size="11" fill="#1a1a1a">• Усі наступні адреси викликів функцій змінилися на +2 байти</text>
+  <text x="65" y="385" font-size="11" fill="#1a1a1a">• Побайтове порівняння фіксує 90%+ змінених байтів</text>
+  <text x="65" y="405" font-size="11" fill="#1a1a1a">• Висока ентропія: звичайний diff займає майже розмір прошивки</text>
+
+  <!-- Right Panel: BSDiff Solution -->
+  <rect x="490" y="80" width="440" height="370" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="510" y="110" font-size="14" font-weight="bold" fill="#27ae60">Розв'язок: алгоритм BSDiff</text>
+  <text x="510" y="130" font-size="12" fill="#6b7280">Пошук спільних блоків за суфіксним масивом та побайтове віднімання</text>
+
+  <!-- Operation V2[i] - V1[j] -->
+  <rect x="510" y="150" width="400" height="85" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="525" y="172" font-size="12" font-weight="bold" fill="#2457d6">Побайтова різниця (V2[i] - V1[j] mod 256):</text>
+  <text x="525" y="195" font-size="11" fill="#1a1a1a">• Опкоди однакових інструкцій дають: byte - byte = 0x00</text>
+  <text x="525" y="215" font-size="11" fill="#1a1a1a">• Зміщені адреси дають однаковий постійний операнд різниці</text>
+
+  <!-- Low entropy stream visual -->
+  <rect x="510" y="245" width="400" height="60" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="525" y="268" font-size="12" font-weight="bold" fill="#27ae60">Низькоентропійний вихідний потік різниці:</text>
+  <text x="525" y="290" font-size="12" font-family="monospace" font-weight="bold" fill="#27ae60">00 00 00 00 00 00 02 00 00 00 02 00 00 00 00</text>
+
+  <!-- Efficiency gain box -->
+  <rect x="510" y="320" width="400" height="110" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="525" y="342" font-size="12" font-weight="bold" fill="#27ae60">Результат ендемічного стиснення (LZMA / bzip2):</text>
+  <text x="525" y="365" font-size="11" fill="#1a1a1a">• Довгі послідовності нулів 0x00 стискаються у частки відсотка</text>
+  <text x="525" y="385" font-size="11" fill="#1a1a1a">• Розмір дельта-патчу: лише 3-8% від розміру повного образу</text>
+  <text x="525" y="405" font-size="11" fill="#27ae60">• Економія радіотрафіку та пам'яті OTA-слота у 10-20 разів</text>
+</svg>

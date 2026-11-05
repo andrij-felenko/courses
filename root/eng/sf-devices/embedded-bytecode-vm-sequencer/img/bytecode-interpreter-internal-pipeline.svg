@@ -1,0 +1,86 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Внутрішній конвеєр байткодового інтерпретатора</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Вибірка та декодування опкодів, ізольований стек і неблокуюча передача керування через YIELD</text>
+
+  <!-- Блок 1: Контекст VM -->
+  <rect x="30" y="80" width="220" height="345" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="140" y="105" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Контекст VM (Статична RAM)</text>
+
+  <rect x="45" y="125" width="190" height="120" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="140" y="148" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Регістровий файл</text>
+  <text x="60" y="172" font-size="12" fill="#1a1a1a">PC: лічильник команд</text>
+  <text x="60" y="194" font-size="12" fill="#1a1a1a">SP: покажчик стека</text>
+  <text x="60" y="216" font-size="12" fill="#1a1a1a">FLAGS: прапорці станів</text>
+  <text x="60" y="238" font-size="12" fill="#1a1a1a">DELAY: лічильник пауз</text>
+
+  <rect x="45" y="265" width="190" height="140" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="140" y="288" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Стек операндів (LIFO)</text>
+  <rect x="55" y="300" width="170" height="24" rx="4" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="140" y="316" font-size="12" fill="#6b7280" text-anchor="middle">Stack[top]: Аргумент 1</text>
+  <rect x="55" y="332" width="170" height="24" rx="4" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="140" y="348" font-size="12" fill="#6b7280" text-anchor="middle">Stack[top-1]: Аргумент 2</text>
+  <text x="140" y="385" font-size="12" fill="#27ae60" text-anchor="middle">Фіксований розмір (без купи)</text>
+
+  <!-- Блок 2: Конвеєр Fetch-Decode-Execute -->
+  <rect x="280" y="80" width="370" height="345" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="465" y="105" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Конвеєр виконання інструкцій</text>
+
+  <rect x="305" y="125" width="320" height="60" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="465" y="150" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">1. Fetch (Вибірка)</text>
+  <text x="465" y="172" font-size="12" fill="#1a1a1a" text-anchor="middle">Зчитування байта опкоду з Flash за адресою PC++</text>
+
+  <line x1="465" y1="185" x2="465" y2="215" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <rect x="305" y="215" width="320" height="60" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="465" y="240" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">2. Decode (Декодування)</text>
+  <text x="465" y="262" font-size="12" fill="#1a1a1a" text-anchor="middle">Вибірка обробника з таблиці переходів за опкодом</text>
+
+  <line x1="465" y1="275" x2="465" y2="305" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+
+  <rect x="305" y="305" width="320" height="100" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="465" y="330" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">3. Execute (Виконання операції)</text>
+  <text x="325" y="354" font-size="12" fill="#1a1a1a">• Арифметика та бітові операції у стеку</text>
+  <text x="325" y="374" font-size="12" fill="#1a1a1a">• Прямий запис у периферійні регістри GPIO</text>
+  <text x="325" y="394" font-size="12" fill="#1a1a1a">• Опкод YIELD: призупинення виконання</text>
+
+  <!-- Блок 3: Диспетчер та YIELD -->
+  <rect x="680" y="80" width="250" height="345" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="805" y="105" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Диспетчер прошивки / RTOS</text>
+
+  <rect x="700" y="125" width="210" height="75" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="805" y="150" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Головний цикл запуску</text>
+  <text x="805" y="172" font-size="12" fill="#6b7280" text-anchor="middle">Виклик кроку інтерпретатора</text>
+  <text x="805" y="188" font-size="12" fill="#6b7280" text-anchor="middle">у межах квоти інструкцій</text>
+
+  <line x1="805" y1="200" x2="805" y2="230" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+
+  <rect x="700" y="230" width="210" height="95" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="805" y="255" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Неблокуючий YIELD</text>
+  <text x="805" y="278" font-size="12" fill="#1a1a1a" text-anchor="middle">Збереження стану в контексті</text>
+  <text x="805" y="298" font-size="12" fill="#1a1a1a" text-anchor="middle">Встановлення таймера затримки</text>
+  <text x="805" y="316" font-size="12" fill="#27ae60" text-anchor="middle">Добровільна віддача кванта</text>
+
+  <line x1="805" y1="325" x2="805" y2="355" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <rect x="700" y="355" width="210" height="55" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="805" y="378" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Інші задачі системи</text>
+  <text x="805" y="398" font-size="12" fill="#6b7280" text-anchor="middle">Мережевий стек, сенсори, UI</text>
+
+  <!-- Зв'язки між блоками -->
+  <line x1="235" y1="155" x2="305" y2="155" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr-blue)"/>
+  <line x1="625" y1="385" x2="700" y2="280" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+</svg>
