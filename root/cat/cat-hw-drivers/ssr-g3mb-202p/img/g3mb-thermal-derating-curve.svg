@@ -1,1 +1,85 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 400" width="100%" height="100%"><rect width="600" height="400" fill="#f4f4f4" stroke="#ccc" stroke-width="2"/><text x="300" y="200" dominant-baseline="middle" text-anchor="middle" font-family="sans-serif" font-size="18" fill="#555">g3mb-thermal-derating-curve.svg</text></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="36" font-size="18" font-weight="700" text-anchor="middle" fill="#1a1a1a">Теплова характеристика (Derating Curve) реле G3MB-202P</text>
+  <text x="480" y="58" font-size="13" text-anchor="middle" fill="#6b7280">Підвищення температури середовища вимагає зниження робочого струму для запобігання пробою</text>
+
+  <!-- Plot Area: X from 120 to 860 (T = -30 to +90°C), Y from 380 to 110 (I = 0 to 2.5 A) -->
+  <!-- Grid lines -->
+  <!-- Horizontal grid lines for Current (0.5A step -> 54px) -->
+  <line x1="120" y1="380" x2="860" y2="380" stroke="#d0d7de" stroke-width="1"/>
+  <text x="105" y="384" font-size="12" text-anchor="end" fill="#6b7280">0.0 А</text>
+
+  <line x1="120" y1="326" x2="860" y2="326" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4 4"/>
+  <text x="105" y="330" font-size="12" text-anchor="end" fill="#6b7280">0.5 А</text>
+
+  <line x1="120" y1="272" x2="860" y2="272" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4 4"/>
+  <text x="105" y="276" font-size="12" text-anchor="end" fill="#6b7280">1.0 А</text>
+
+  <line x1="120" y1="218" x2="860" y2="218" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4 4"/>
+  <text x="105" y="222" font-size="12" text-anchor="end" fill="#6b7280">1.5 А</text>
+
+  <line x1="120" y1="164" x2="860" y2="164" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4 4"/>
+  <text x="105" y="168" font-size="12" text-anchor="end" fill="#6b7280">2.0 А</text>
+
+  <line x1="120" y1="110" x2="860" y2="110" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4 4"/>
+  <text x="105" y="114" font-size="12" text-anchor="end" fill="#6b7280">2.5 А</text>
+
+  <!-- Vertical grid lines for Temp (-30, 0, 20, 40, 60, 70, 85 °C) -->
+  <!-- T_px = 120 + (T + 30) * 6.16 -->
+  <!-- -30 -> 120, 0 -> 305, 20 -> 428, 40 -> 551, 60 -> 674, 70 -> 736, 85 -> 828 -->
+
+  <line x1="120" y1="110" x2="120" y2="380" stroke="#d0d7de" stroke-width="1"/>
+  <text x="120" y="402" font-size="12" text-anchor="middle" fill="#6b7280">-30°C</text>
+
+  <line x1="305" y1="110" x2="305" y2="380" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4 4"/>
+  <text x="305" y="402" font-size="12" text-anchor="middle" fill="#6b7280">0°C</text>
+
+  <line x1="428" y1="110" x2="428" y2="380" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4 4"/>
+  <text x="428" y="402" font-size="12" text-anchor="middle" fill="#6b7280">20°C</text>
+
+  <line x1="551" y1="110" x2="551" y2="380" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4 4"/>
+  <text x="551" y="402" font-size="12" font-weight="700" text-anchor="middle" fill="#2457d6">40°C</text>
+
+  <line x1="736" y1="110" x2="736" y2="380" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4 4"/>
+  <text x="736" y="402" font-size="12" font-weight="700" text-anchor="middle" fill="#c0392b">70°C</text>
+
+  <line x1="828" y1="110" x2="828" y2="380" stroke="#d0d7de" stroke-width="1"/>
+  <text x="828" y="402" font-size="12" text-anchor="middle" fill="#6b7280">85°C</text>
+
+  <!-- Shaded Safe Area (Poly: 120,380 -> 120,164 -> 551,164 -> 736,315 -> 828,380) -->
+  <polygon points="120,380 120,164 551,164 736,315 828,380" fill="#e9f7ef" opacity="0.6"/>
+  <text x="330" y="260" font-size="14" font-weight="700" text-anchor="middle" fill="#27ae60">Зона безпечної роботи (Safe Operating Area)</text>
+
+  <!-- Overload Danger Area -->
+  <polygon points="120,164 551,164 736,315 828,380 860,380 860,110 120,110" fill="#fdecea" opacity="0.4"/>
+  <text x="650" y="150" font-size="13" font-weight="700" text-anchor="middle" fill="#c0392b">Небезпека перегріву й теплового пробою</text>
+
+  <!-- Derating Curve Line -->
+  <polyline points="120,164 551,164 736,315 828,380" fill="none" stroke="#2457d6" stroke-width="3.5"/>
+
+  <!-- Key Operating Points -->
+  <!-- Point 1: 40°C, 2.0A -> (551, 164) -->
+  <circle cx="551" cy="164" r="6" fill="#2457d6"/>
+  <rect x="470" y="125" width="150" height="28" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="545" y="144" font-size="12" font-weight="700" text-anchor="middle" fill="#2457d6">2.0 А при T ≤ 40 °C</text>
+
+  <!-- Point 2: 70°C, 0.6A -> (736, 315) -->
+  <circle cx="736" cy="315" r="6" fill="#c0392b"/>
+  <rect x="650" y="325" width="150" height="28" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="725" y="344" font-size="12" font-weight="700" text-anchor="middle" fill="#c0392b">0.6 А при T = 70 °C</text>
+
+  <!-- Axes Arrows & Labels -->
+  <line x1="120" y1="380" x2="875" y2="380" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+  <text x="860" y="425" font-size="13" font-weight="700" text-anchor="end" fill="#1a1a1a">Температура навколишнього середовища T (°C)</text>
+
+  <line x1="120" y1="380" x2="120" y2="95" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+  <text x="120" y="80" font-size="13" font-weight="700" text-anchor="middle" fill="#1a1a1a">Допустимий струм I (А)</text>
+
+</svg>
