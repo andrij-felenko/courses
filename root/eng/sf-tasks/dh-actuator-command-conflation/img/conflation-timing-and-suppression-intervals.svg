@@ -1,0 +1,230 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка на все полотно -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="40" font-size="18" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Часова діаграма згортання команд та інтервалів охолодження актуатора</text>
+  <text x="480" y="60" font-size="13" text-anchor="middle" fill="#6b7280">Проміжні устави пригнічуються під час вікна T_cooldown, а на актуатор передається лише найновіший стан</text>
+
+  <!-- Головна панель -->
+  <rect x="24" y="78" width="912" height="438" rx="8" fill="#f4f6f8" stroke="#d0d7de"/>
+
+  <!-- Верхня стрічка статусів і параметрів -->
+  <rect x="42" y="90" width="226" height="24" rx="4" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="155" y="107" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">Параметр: T_cooldown = 40 мс</text>
+
+  <rect x="282" y="90" width="250" height="24" rx="4" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="407" y="107" font-size="12" font-weight="bold" text-anchor="middle" fill="#27ae60">Правило згортання: Latest-Wins</text>
+
+  <rect x="546" y="90" width="372" height="24" rx="4" fill="#fdecea" stroke="#c0392b"/>
+  <text x="732" y="107" font-size="12" font-weight="bold" text-anchor="middle" fill="#c0392b">Статистика: 2 пригнічено, 3 передано на актуатор</text>
+
+  <!-- ================= ТРЕК 1: ВХІДНІ УСТАВИ ================= -->
+  <rect x="42" y="126" width="154" height="50" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="119" y="146" font-size="13" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Вхідні устави u_in</text>
+  <text x="119" y="163" font-size="12" text-anchor="middle" fill="#6b7280">Високочастотний потік</text>
+
+  <rect x="208" y="126" width="710" height="50" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <line x1="220" y1="162" x2="890" y2="162" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Устави C1..C5 -->
+  <rect x="272" y="132" width="44" height="20" rx="3" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="294" y="146" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">C₁: 20°</text>
+  <line x1="294" y1="152" x2="294" y2="162" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <rect x="336" y="132" width="44" height="20" rx="3" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="358" y="146" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">C₂: 45°</text>
+  <line x1="358" y1="152" x2="358" y2="162" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <rect x="400" y="132" width="44" height="20" rx="3" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="422" y="146" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">C₃: 70°</text>
+  <line x1="422" y1="152" x2="422" y2="162" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <rect x="464" y="132" width="44" height="20" rx="3" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="486" y="146" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">C₄: 60°</text>
+  <line x1="486" y1="152" x2="486" y2="162" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <rect x="656" y="132" width="44" height="20" rx="3" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="678" y="146" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">C₅: 85°</text>
+  <line x1="678" y1="152" x2="678" y2="162" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- ================= ТРЕК 2: ТАЙМЕР ОХОЛОДЖЕННЯ ================= -->
+  <rect x="42" y="188" width="154" height="50" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="119" y="208" font-size="13" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Таймер охолодження</text>
+  <text x="119" y="225" font-size="12" text-anchor="middle" fill="#6b7280">T_cooldown = 40 мс</text>
+
+  <rect x="208" y="188" width="710" height="50" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+
+  <!-- Стан до C1: готовий -->
+  <text x="256" y="218" font-size="12" text-anchor="middle" fill="#27ae60">Готовий</text>
+
+  <!-- Вікно 1: 10..50 мс -->
+  <rect x="294" y="194" width="248" height="38" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="418" y="210" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">ВІКНО ПРИГНІЧЕННЯ 1 (40 мс)</text>
+  <text x="418" y="225" font-size="12" text-anchor="middle" fill="#2457d6">Пряма передача заблокована</text>
+
+  <!-- Вікно 2: 50..90 мс -->
+  <rect x="554" y="194" width="246" height="38" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="677" y="210" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">ВІКНО ПРИГНІЧЕННЯ 2 (40 мс)</text>
+  <text x="677" y="225" font-size="12" text-anchor="middle" fill="#2457d6">Накопичення найновішої устави</text>
+
+  <!-- Вікно 3 (активне після 90 мс) -->
+  <rect x="812" y="194" width="90" height="38" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4 2"/>
+  <text x="857" y="218" font-size="12" text-anchor="middle" fill="#2457d6">Пауза...</text>
+
+  <!-- ================= ТРЕК 3: СЛОТ БУФЕРА ЗГОРТАННЯ ================= -->
+  <rect x="42" y="250" width="154" height="50" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="119" y="270" font-size="13" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Слот буфера (1 елемент)</text>
+  <text x="119" y="287" font-size="12" text-anchor="middle" fill="#6b7280">Перезапис O(1) / latest-wins</text>
+
+  <rect x="208" y="250" width="710" height="50" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+
+  <!-- Слот до t=10 -->
+  <rect x="220" y="256" width="62" height="38" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-dasharray="3 3"/>
+  <text x="251" y="279" font-size="12" text-anchor="middle" fill="#6b7280">Порожньо</text>
+
+  <!-- Слот t=10..20 (C1 пройшов без затримки) -->
+  <rect x="294" y="256" width="52" height="38" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-dasharray="3 3"/>
+  <text x="320" y="279" font-size="12" text-anchor="middle" fill="#6b7280">Порожньо</text>
+
+  <!-- C2 у слоті t=20..30 (витіснено) -->
+  <rect x="358" y="256" width="52" height="38" rx="4" fill="#fdecea" stroke="#c0392b"/>
+  <text x="384" y="272" font-size="12" font-weight="bold" text-anchor="middle" fill="#c0392b">C₂: 45°</text>
+  <text x="384" y="287" font-size="12" text-anchor="middle" fill="#c0392b">Скинуто</text>
+
+  <!-- C3 у слоті t=30..40 (витіснено) -->
+  <rect x="422" y="256" width="52" height="38" rx="4" fill="#fdecea" stroke="#c0392b"/>
+  <text x="448" y="272" font-size="12" font-weight="bold" text-anchor="middle" fill="#c0392b">C₃: 70°</text>
+  <text x="448" y="287" font-size="12" text-anchor="middle" fill="#c0392b">Скинуто</text>
+
+  <!-- C4 у слоті t=40..50 (перемагає) -->
+  <rect x="486" y="256" width="56" height="38" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="514" y="272" font-size="12" font-weight="bold" text-anchor="middle" fill="#27ae60">C₄: 60°</text>
+  <text x="514" y="287" font-size="12" font-weight="bold" text-anchor="middle" fill="#27ae60">В шину</text>
+
+  <!-- Слот t=50..70 (порожньо) -->
+  <rect x="554" y="256" width="112" height="38" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-dasharray="3 3"/>
+  <text x="610" y="279" font-size="12" text-anchor="middle" fill="#6b7280">Порожньо</text>
+
+  <!-- C5 у слоті t=70..90 (перемагає) -->
+  <rect x="678" y="256" width="116" height="38" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="736" y="272" font-size="12" font-weight="bold" text-anchor="middle" fill="#27ae60">C₅: 85°</text>
+  <text x="736" y="287" font-size="12" font-weight="bold" text-anchor="middle" fill="#27ae60">Єдина устава ➔ В шину</text>
+
+  <!-- Слот після t=90 -->
+  <rect x="806" y="256" width="90" height="38" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-dasharray="3 3"/>
+  <text x="851" y="279" font-size="12" text-anchor="middle" fill="#6b7280">Порожньо</text>
+
+  <!-- ================= ТРЕК 4: ФІЗИЧНИЙ АКТУАТОР ================= -->
+  <rect x="42" y="312" width="154" height="50" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="119" y="332" font-size="13" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Фізичний актуатор u_act</text>
+  <text x="119" y="349" font-size="12" text-anchor="middle" fill="#27ae60">Фактична передача в шину</text>
+
+  <rect x="208" y="312" width="710" height="50" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+
+  <!-- TX C1 -->
+  <rect x="264" y="318" width="60" height="20" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="294" y="332" font-size="12" font-weight="bold" text-anchor="middle" fill="#27ae60">TX: C₁ (20°)</text>
+  <line x1="294" y1="338" x2="294" y2="350" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- Пригнічений діапазон C2, C3 -->
+  <rect x="336" y="318" width="172" height="20" rx="3" fill="#fdecea" stroke="#c0392b" stroke-dasharray="3 2"/>
+  <text x="422" y="332" font-size="12" text-anchor="middle" fill="#c0392b">C₂, C₃ не потрапили в шину</text>
+
+  <!-- TX C4 -->
+  <rect x="520" y="318" width="60" height="20" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="550" y="332" font-size="12" font-weight="bold" text-anchor="middle" fill="#27ae60">TX: C₄ (60°)</text>
+  <line x1="550" y1="338" x2="550" y2="350" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- Пауза до C5 -->
+  <rect x="592" y="318" width="174" height="20" rx="3" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="679" y="332" font-size="12" text-anchor="middle" fill="#6b7280">Очікування закінчення паузи</text>
+
+  <!-- TX C5 -->
+  <rect x="778" y="318" width="60" height="20" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="808" y="332" font-size="12" font-weight="bold" text-anchor="middle" fill="#27ae60">TX: C₅ (85°)</text>
+  <line x1="808" y1="338" x2="808" y2="350" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- ================= ВІСЬ ЧАСУ ================= -->
+  <text x="119" y="388" font-size="12" font-weight="bold" text-anchor="middle" fill="#6b7280">Шкала часу (мс)</text>
+  <line x1="216" y1="376" x2="880" y2="376" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="894" y="380" font-size="12" font-weight="bold" fill="#1a1a1a">t, мс</text>
+
+  <!-- Засічки часу -->
+  <line x1="230" y1="376" x2="230" y2="382" stroke="#1a1a1a"/>
+  <text x="230" y="394" font-size="12" text-anchor="middle" fill="#6b7280">0</text>
+
+  <line x1="294" y1="376" x2="294" y2="382" stroke="#1a1a1a"/>
+  <text x="294" y="394" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">10</text>
+
+  <line x1="358" y1="376" x2="358" y2="382" stroke="#1a1a1a"/>
+  <text x="358" y="394" font-size="12" text-anchor="middle" fill="#6b7280">20</text>
+
+  <line x1="422" y1="376" x2="422" y2="382" stroke="#1a1a1a"/>
+  <text x="422" y="394" font-size="12" text-anchor="middle" fill="#6b7280">30</text>
+
+  <line x1="486" y1="376" x2="486" y2="382" stroke="#1a1a1a"/>
+  <text x="486" y="394" font-size="12" text-anchor="middle" fill="#6b7280">40</text>
+
+  <line x1="550" y1="376" x2="550" y2="382" stroke="#1a1a1a"/>
+  <text x="550" y="394" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">50</text>
+
+  <line x1="614" y1="376" x2="614" y2="382" stroke="#1a1a1a"/>
+  <text x="614" y="394" font-size="12" text-anchor="middle" fill="#6b7280">60</text>
+
+  <line x1="678" y1="376" x2="678" y2="382" stroke="#1a1a1a"/>
+  <text x="678" y="394" font-size="12" text-anchor="middle" fill="#6b7280">70</text>
+
+  <line x1="742" y1="376" x2="742" y2="382" stroke="#1a1a1a"/>
+  <text x="742" y="394" font-size="12" text-anchor="middle" fill="#6b7280">80</text>
+
+  <line x1="806" y1="376" x2="806" y2="382" stroke="#1a1a1a"/>
+  <text x="806" y="394" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">90</text>
+
+  <line x1="870" y1="376" x2="870" y2="382" stroke="#1a1a1a"/>
+  <text x="870" y="394" font-size="12" text-anchor="middle" fill="#6b7280">100</text>
+
+  <!-- ================= ПІДСУМКОВА КАРТКА ЗГОРТАННЯ ================= -->
+  <rect x="42" y="410" width="876" height="88" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+
+  <!-- 5 колонок підсумку -->
+  <rect x="52" y="418" width="162" height="72" rx="4" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="133" y="436" font-size="12" font-weight="bold" text-anchor="middle" fill="#27ae60">C₁ (20°) — ВІДПРАВЛЕНО</text>
+  <text x="133" y="453" font-size="12" text-anchor="middle" fill="#1a1a1a">Канал вільний ➔ негайна TX</text>
+  <text x="133" y="470" font-size="12" text-anchor="middle" fill="#6b7280">Старт вікна T_cooldown (1)</text>
+
+  <rect x="226" y="418" width="162" height="72" rx="4" fill="#fdecea" stroke="#c0392b"/>
+  <text x="307" y="436" font-size="12" font-weight="bold" text-anchor="middle" fill="#c0392b">C₂ (45°) — ПРИГНІЧЕНО</text>
+  <text x="307" y="453" font-size="12" text-anchor="middle" fill="#1a1a1a">Прийшла під час паузи (1)</text>
+  <text x="307" y="470" font-size="12" text-anchor="middle" fill="#c0392b">Витіснена C₃ (drop++ = 1)</text>
+
+  <rect x="400" y="418" width="162" height="72" rx="4" fill="#fdecea" stroke="#c0392b"/>
+  <text x="481" y="436" font-size="12" font-weight="bold" text-anchor="middle" fill="#c0392b">C₃ (70°) — ПРИГНІЧЕНО</text>
+  <text x="481" y="453" font-size="12" text-anchor="middle" fill="#1a1a1a">Прийшла під час паузи (1)</text>
+  <text x="481" y="470" font-size="12" text-anchor="middle" fill="#c0392b">Витіснена C₄ (drop++ = 2)</text>
+
+  <rect x="574" y="418" width="162" height="72" rx="4" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="655" y="436" font-size="12" font-weight="bold" text-anchor="middle" fill="#27ae60">C₄ (60°) — ВІДПРАВЛЕНО</text>
+  <text x="655" y="453" font-size="12" text-anchor="middle" fill="#1a1a1a">Найновіша устава вікна (1)</text>
+  <text x="655" y="470" font-size="12" text-anchor="middle" fill="#27ae60">TX на межі t = 50 мс</text>
+
+  <rect x="748" y="418" width="162" height="72" rx="4" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="829" y="436" font-size="12" font-weight="bold" text-anchor="middle" fill="#27ae60">C₅ (85°) — ВІДПРАВЛЕНО</text>
+  <text x="829" y="453" font-size="12" text-anchor="middle" fill="#1a1a1a">Єдина устава у вікні (2)</text>
+  <text x="829" y="470" font-size="12" text-anchor="middle" fill="#27ae60">TX на межі t = 90 мс</text>
+</svg>

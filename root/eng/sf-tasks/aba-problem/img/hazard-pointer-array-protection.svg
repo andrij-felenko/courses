@@ -1,0 +1,58 @@
+<svg viewBox="0 0 960 480" width="960" height="480" xmlns="http://www.w3.org/2000/svg" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+  
+  <text x="480" y="30" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Hazard Pointers Array Protection</text>
+  <text x="480" y="50" font-size="13" fill="#6b7280" text-anchor="middle">Nodes are not freed if they are referenced by any active thread's Hazard Pointer</text>
+
+  <!-- Defs for arrows -->
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Thread 1 -->
+  <rect x="100" y="100" width="200" height="120" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <text x="200" y="130" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Thread 1</text>
+  <rect x="120" y="150" width="160" height="40" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="200" y="175" font-size="13" fill="#2457d6" text-anchor="middle">HP_1 = Node A</text>
+
+  <!-- Thread 2 -->
+  <rect x="100" y="260" width="200" height="120" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <text x="200" y="290" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Thread 2</text>
+  <rect x="120" y="310" width="160" height="40" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="200" y="335" font-size="13" fill="#2457d6" text-anchor="middle">HP_2 = Node B</text>
+
+  <!-- Global Hazard Pointers Array -->
+  <rect x="400" y="160" width="160" height="160" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <text x="480" y="190" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Global HP Array</text>
+  <text x="480" y="225" font-size="13" fill="#1a1a1a" text-anchor="middle">[0]: Node A</text>
+  <text x="480" y="255" font-size="13" fill="#1a1a1a" text-anchor="middle">[1]: Node B</text>
+  <text x="480" y="285" font-size="13" fill="#1a1a1a" text-anchor="middle">[2]: NULL</text>
+
+  <!-- Arrows from Threads to HP Array -->
+  <line x1="280" y1="170" x2="390" y2="210" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <line x1="280" y1="330" x2="390" y2="250" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Shared Memory / Retired List -->
+  <rect x="660" y="100" width="200" height="280" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <text x="760" y="130" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Shared Nodes</text>
+
+  <rect x="680" y="160" width="160" height="40" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="760" y="185" font-size="13" fill="#2457d6" text-anchor="middle">Node A (Active)</text>
+  
+  <rect x="680" y="220" width="160" height="40" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="760" y="245" font-size="13" fill="#2457d6" text-anchor="middle">Node B (Active)</text>
+
+  <rect x="680" y="300" width="160" height="60" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="760" y="325" font-size="13" fill="#c0392b" text-anchor="middle">Retired List</text>
+  <text x="760" y="345" font-size="12" fill="#c0392b" text-anchor="middle">(Wait for HP removal)</text>
+
+  <!-- Arrows from HP Array to Nodes -->
+  <line x1="560" y1="220" x2="670" y2="180" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+  <line x1="560" y1="250" x2="670" y2="240" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+
+</svg>

@@ -1,0 +1,21 @@
+<svg viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif" xmlns="http://www.w3.org/2000/svg">
+  <rect width="960" height="480" fill="white"/>
+  <defs>
+    <marker id="arr" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#2457d6"/>
+    </marker>
+  </defs>
+  <text x="480" y="40" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Hardware Commit of Conflated Command</text>
+  <text x="480" y="65" font-size="13" fill="#6b7280" text-anchor="middle">Atomic transfer of setpoint from conflation slot to peripheral shadow registers.</text>
+  <rect x="200" y="200" width="180" height="80" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="290" y="230" font-size="14" fill="#2457d6" font-weight="bold" text-anchor="middle">Software Conflation Slot</text>
+  <text x="290" y="260" font-size="14" fill="#1a1a1a" text-anchor="middle">Target Position: 90°</text>
+  
+  <path d="M 400 240 L 540 240" stroke="#2457d6" stroke-width="3" marker-end="url(#arr)"/>
+  <text x="470" y="230" font-size="12" fill="#2457d6" text-anchor="middle">Atomic Memory Copy</text>
+  
+  <rect x="560" y="180" width="200" height="120" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <text x="660" y="210" font-size="14" fill="#1a1a1a" font-weight="bold" text-anchor="middle">Timer Peripheral</text>
+  <rect x="580" y="230" width="160" height="40" rx="4" fill="white" stroke="#d0d7de"/>
+  <text x="660" y="255" font-size="14" fill="#1a1a1a" text-anchor="middle">Shadow Registers</text>
+</svg>

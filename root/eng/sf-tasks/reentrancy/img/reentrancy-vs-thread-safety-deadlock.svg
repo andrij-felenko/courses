@@ -1,0 +1,119 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 530" width="960" height="530" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="530" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="35" fill="#1a1a1a" font-size="18" font-weight="bold" text-anchor="middle">Реентерабельність vs Потокобезпечність: виклик з сигналу</text>
+  <text x="480" y="60" fill="#6b7280" font-size="13" text-anchor="middle">М'ютекс захищає від інших потоків, але створює Deadlock при перериванні в тому ж потоці</text>
+
+  <!-- ЛІВА ПАНЕЛЬ: Потокобезпечність (Різні потоки) -->
+  <rect x="30" y="85" width="435" height="425" rx="10" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <text x="247" y="112" fill="#2457d6" font-size="15" font-weight="bold" text-anchor="middle">1. Потокобезпечність (Різні потоки)</text>
+  <text x="247" y="132" fill="#6b7280" font-size="12" text-anchor="middle">Блокування м'ютексом захищає спільний ресурс</text>
+
+  <!-- Потік 1 -->
+  <rect x="50" y="155" width="180" height="235" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="140" y="177" fill="#2457d6" font-size="13" font-weight="bold" text-anchor="middle">Потік 1 (Thread 1)</text>
+
+  <rect x="60" y="190" width="160" height="36" rx="4" fill="#ffffff" stroke="#2457d6"/>
+  <text x="140" y="212" fill="#1a1a1a" font-size="12" text-anchor="middle">lock(mutex) → 🔒 Ок</text>
+
+  <line x1="140" y1="226" x2="140" y2="240" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <rect x="60" y="240" width="160" height="75" rx="4" fill="#ffffff" stroke="#2457d6"/>
+  <text x="140" y="264" fill="#1a1a1a" font-size="12" font-weight="bold" text-anchor="middle">Критична секція</text>
+  <text x="140" y="284" fill="#6b7280" font-size="12" text-anchor="middle">зміна глобального</text>
+  <text x="140" y="302" fill="#6b7280" font-size="12" text-anchor="middle">стану даних...</text>
+
+  <line x1="140" y1="315" x2="140" y2="330" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <rect x="60" y="330" width="160" height="36" rx="4" fill="#ffffff" stroke="#2457d6"/>
+  <text x="140" y="352" fill="#1a1a1a" font-size="12" text-anchor="middle">unlock(mutex) → 🔓 Ок</text>
+
+  <!-- Потік 2 -->
+  <rect x="260" y="155" width="185" height="235" rx="6" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="352" y="177" fill="#1a1a1a" font-size="13" font-weight="bold" text-anchor="middle">Потік 2 (Thread 2)</text>
+
+  <rect x="270" y="190" width="165" height="36" rx="4" fill="#ffffff" stroke="#6b7280"/>
+  <text x="352" y="212" fill="#1a1a1a" font-size="12" text-anchor="middle">lock(mutex) → ⏳ Чекає</text>
+
+  <line x1="352" y1="226" x2="352" y2="240" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#arr-gray)"/>
+
+  <rect x="270" y="240" width="165" height="75" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-dasharray="3,3"/>
+  <text x="352" y="268" fill="#2457d6" font-size="12" font-weight="bold" text-anchor="middle">Заблокований ОС</text>
+  <text x="352" y="292" fill="#2457d6" font-size="12" text-anchor="middle">(очікує unlock від П1)</text>
+
+  <rect x="270" y="330" width="165" height="36" rx="4" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="352" y="352" fill="#27ae60" font-size="12" font-weight="bold" text-anchor="middle">Захоплює після release</text>
+
+  <!-- Перехід від unlock П1 до захоплення П2 -->
+  <line x1="220" y1="348" x2="265" y2="348" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- Результат Лівої Панелі -->
+  <rect x="50" y="405" width="395" height="85" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="247" y="430" fill="#27ae60" font-size="13" font-weight="bold" text-anchor="middle">✅ Безпечно між різними потоками</text>
+  <text x="247" y="452" fill="#1a1a1a" font-size="12" text-anchor="middle">Потік 2 призупиняється та чекає в черзі,</text>
+  <text x="247" y="472" fill="#1a1a1a" font-size="12" text-anchor="middle">поки Потік 1 не викличе unlock(mutex).</text>
+
+
+  <!-- ПРАВА ПАНЕЛЬ: Небезпека переривання (Обробник сигналу) -->
+  <rect x="495" y="85" width="435" height="425" rx="10" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <text x="712" y="112" fill="#c0392b" font-size="15" font-weight="bold" text-anchor="middle">2. Небезпека переривання (Обробник сигналу)</text>
+  <text x="712" y="132" fill="#6b7280" font-size="12" text-anchor="middle">Повторний виклик lock() у тому самому потоці</text>
+
+  <!-- Основний виклик -->
+  <rect x="515" y="155" width="395" height="105" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="530" y="177" fill="#2457d6" font-size="13" font-weight="bold">Основний виклик (Потік 1):</text>
+
+  <rect x="530" y="190" width="175" height="58" rx="4" fill="#ffffff" stroke="#2457d6"/>
+  <text x="617" y="212" fill="#1a1a1a" font-size="12" font-weight="bold" text-anchor="middle">1. lock(mutex)</text>
+  <text x="617" y="232" fill="#2457d6" font-size="12" text-anchor="middle">🔒 М'ютекс ЗАХОПЛЕНО</text>
+
+  <line x1="705" y1="219" x2="725" y2="219" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+
+  <rect x="730" y="190" width="165" height="58" rx="4" fill="#fdecea" stroke="#c0392b"/>
+  <text x="812" y="212" fill="#c0392b" font-size="12" font-weight="bold" text-anchor="middle">2. ⚡ СИГНАЛ!</text>
+  <text x="812" y="232" fill="#c0392b" font-size="12" text-anchor="middle">перериває виконання</text>
+
+  <line x1="812" y1="248" x2="812" y2="270" stroke="#c0392b" stroke-width="2" stroke-dasharray="3,3" marker-end="url(#arr-red)"/>
+
+  <!-- Обробник сигналу -->
+  <rect x="515" y="275" width="395" height="115" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="530" y="297" fill="#c0392b" font-size="13" font-weight="bold">Обробник сигналу (виконується в Потоці 1!):</text>
+
+  <rect x="530" y="310" width="175" height="65" rx="4" fill="#ffffff" stroke="#c0392b"/>
+  <text x="617" y="330" fill="#1a1a1a" font-size="12" font-weight="bold" text-anchor="middle">3. lock(mutex) знову</text>
+  <text x="617" y="348" fill="#c0392b" font-size="12" text-anchor="middle">Чекає на розблокування</text>
+  <text x="617" y="366" fill="#6b7280" font-size="12" text-anchor="middle">(а м'ютекс у Потоці 1!)</text>
+
+  <line x1="705" y1="342" x2="725" y2="342" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+
+  <rect x="730" y="310" width="165" height="65" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="2"/>
+  <text x="812" y="330" fill="#c0392b" font-size="13" font-weight="bold" text-anchor="middle">💥 DEADLOCK!</text>
+  <text x="812" y="348" fill="#c0392b" font-size="12" font-weight="bold" text-anchor="middle">Потік 1 заблокував</text>
+  <text x="812" y="366" fill="#c0392b" font-size="12" text-anchor="middle">сам себе назавжди</text>
+
+  <!-- Результат Правої Панелі -->
+  <rect x="515" y="405" width="395" height="85" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="712" y="430" fill="#c0392b" font-size="13" font-weight="bold" text-anchor="middle">⛔ М'ютекс НЕ робить код реентерабельним!</text>
+  <text x="712" y="452" fill="#1a1a1a" font-size="12" text-anchor="middle">Потік 1 чекає на розблокування м'ютекса, але</text>
+  <text x="712" y="472" fill="#1a1a1a" font-size="12" text-anchor="middle">unlock скине тільки Потік 1 після обробника!</text>
+</svg>

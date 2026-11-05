@@ -1,0 +1,141 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <text x="480" y="34" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Внутрішня архітектура модуля згортання команд актуаторів</text>
+  <text x="480" y="55" font-size="13" fill="#6b7280" text-anchor="middle">Статичні слоти гарантують згортання O(1), кільцевий буфер чергує приводи, а таймер усуває перевантаження</text>
+
+  <!-- КОЛОНКА 1: СТАТИЧНА ТАБЛИЦЯ СЛОТІВ -->
+  <rect x="24" y="74" width="288" height="370" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="36" y="86" width="264" height="34" rx="5" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="168" y="100" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">1. Статична таблиця слотів</text>
+  <text x="168" y="114" font-size="12" fill="#6b7280" text-anchor="middle">SRAM: slot_table_t [O(1) Conflation]</text>
+
+  <rect x="36" y="130" width="264" height="52" rx="5" fill="white" stroke="#d0d7de"/>
+  <text x="46" y="145" font-size="12" font-weight="bold" fill="#1a1a1a">Вхід: u_cmd(id, val, seq)</text>
+  <text x="46" y="160" font-size="12" fill="#2457d6">Високочастотний потік устав</text>
+  <text x="46" y="174" font-size="12" fill="#6b7280">Перевірка: seq_new &gt; seq_slot</text>
+
+  <rect x="36" y="192" width="264" height="158" rx="5" fill="white" stroke="#d0d7de"/>
+  <text x="46" y="207" font-size="12" font-weight="bold" fill="#1a1a1a">Таблиця слотів у пам'яті SRAM:</text>
+
+  <rect x="44" y="215" width="248" height="36" rx="4" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="52" y="229" font-size="12" font-weight="bold" fill="#1a1a1a">Slot[0]: Act_0 | 10° | S:40</text>
+  <text x="52" y="244" font-size="12" fill="#27ae60">in_ring = 0 (доставлено на привід)</text>
+
+  <rect x="44" y="257" width="248" height="46" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="52" y="271" font-size="12" font-weight="bold" fill="#2457d6">Slot[1]: Act_1 [Latest-Wins]</text>
+  <text x="52" y="285" font-size="12" fill="#1a1a1a">val = 45° (згорнуто з 20°)</text>
+  <text x="52" y="297" font-size="12" fill="#2457d6">in_ring = 1 (очікує видачі)</text>
+
+  <rect x="44" y="309" width="248" height="34" rx="4" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="52" y="323" font-size="12" font-weight="bold" fill="#1a1a1a">Slot[N-1]: Act_N-1 | 90° | S:12</text>
+  <text x="52" y="337" font-size="12" fill="#6b7280">in_ring = 0 (очікує устав)</text>
+
+  <rect x="36" y="360" width="264" height="72" rx="5" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="46" y="376" font-size="12" font-weight="bold" fill="#27ae60">Гарантія детермінізму:</text>
+  <text x="46" y="393" font-size="12" fill="#1a1a1a">Атомарний перезапис у слоті: O(1)</text>
+  <text x="46" y="410" font-size="12" fill="#6b7280">Пам'ять статична, без malloc/free</text>
+  <text x="46" y="425" font-size="12" fill="#2457d6">Застарілі устави не засмічують чергу</text>
+
+  <!-- КОЛОНКА 2: КІЛЬЦЕВИЙ БУФЕР ДИСПЕТЧЕРИЗАЦІЇ -->
+  <rect x="336" y="74" width="288" height="370" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="348" y="86" width="264" height="34" rx="5" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="480" y="100" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">2. Кільцевий буфер диспетчеризації</text>
+  <text x="480" y="114" font-size="12" fill="#6b7280" text-anchor="middle">Кільце індексів готових слотів (FIFO ID)</text>
+
+  <rect x="348" y="130" width="264" height="52" rx="5" fill="white" stroke="#d0d7de"/>
+  <text x="358" y="145" font-size="12" font-weight="bold" fill="#1a1a1a">Постановка: Enqueue(Act_ID)</text>
+  <text x="358" y="160" font-size="12" fill="#27ae60">Якщо in_ring == 0: ring[head] = ID</text>
+  <text x="358" y="174" font-size="12" fill="#6b7280">Якщо in_ring == 1: черга не росте</text>
+
+  <rect x="348" y="192" width="264" height="158" rx="5" fill="white" stroke="#d0d7de"/>
+  <text x="358" y="207" font-size="12" font-weight="bold" fill="#1a1a1a">Кільцевий буфер ring[N] у SRAM:</text>
+
+  <rect x="360" y="222" width="44" height="36" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="382" y="244" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Act 1</text>
+
+  <rect x="409" y="222" width="44" height="36" rx="4" fill="white" stroke="#d0d7de"/>
+  <text x="431" y="244" font-size="12" fill="#1a1a1a" text-anchor="middle">Act 3</text>
+
+  <rect x="458" y="222" width="44" height="36" rx="4" fill="white" stroke="#d0d7de"/>
+  <text x="480" y="244" font-size="12" fill="#1a1a1a" text-anchor="middle">Act 0</text>
+
+  <rect x="507" y="222" width="44" height="36" rx="4" fill="#f4f6f8" stroke="#2457d6" stroke-dasharray="3 3"/>
+  <text x="529" y="244" font-size="12" fill="#2457d6" text-anchor="middle">[Вільн]</text>
+
+  <rect x="556" y="222" width="44" height="36" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-dasharray="3 3"/>
+  <text x="578" y="244" font-size="12" fill="#6b7280" text-anchor="middle">—</text>
+
+  <rect x="360" y="266" width="44" height="18" rx="3" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="382" y="279" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Tail</text>
+
+  <rect x="507" y="266" width="44" height="18" rx="3" fill="#fdecea" stroke="#c0392b"/>
+  <text x="529" y="279" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Head</text>
+
+  <text x="358" y="304" font-size="12" fill="#2457d6">• Tail: вказує на наступний привід</text>
+  <text x="358" y="320" font-size="12" fill="#c0392b">• Head: позиція для нового індексу</text>
+  <text x="358" y="336" font-size="12" fill="#27ae60">• Чесна черга FIFO між приводами</text>
+
+  <rect x="348" y="360" width="264" height="72" rx="5" fill="white" stroke="#d0d7de"/>
+  <text x="358" y="376" font-size="12" font-weight="bold" fill="#1a1a1a">Інваріант: Без переповнення</text>
+  <text x="358" y="393" font-size="12" fill="#6b7280">Привід у буфері максимум 1 раз</text>
+  <text x="358" y="410" font-size="12" fill="#27ae60">Ємність ring[N] = N: нуль втрат</text>
+  <text x="358" y="425" font-size="12" fill="#2457d6">Витрата пам'яті: лише N × 1 байт</text>
+
+  <!-- КОЛОНКА 3: ТАЙМЕР ОХОЛОДЖЕННЯ ТА ВИВІД -->
+  <rect x="648" y="74" width="288" height="370" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="660" y="86" width="264" height="34" rx="5" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="792" y="100" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">3. Таймер охолодження та вивід</text>
+  <text x="792" y="114" font-size="12" fill="#6b7280" text-anchor="middle">Захист шини та механіки (T_cooldown)</text>
+
+  <rect x="660" y="130" width="264" height="52" rx="5" fill="white" stroke="#d0d7de"/>
+  <text x="670" y="145" font-size="12" font-weight="bold" fill="#1a1a1a">Диспетчер: Dequeue(Tail) ➔ Act_1</text>
+  <text x="670" y="160" font-size="12" fill="#2457d6">Обчислення: Δt = t_now − t_last</text>
+  <text x="670" y="174" font-size="12" fill="#6b7280">Перевірка: чи минув T_cooldown?</text>
+
+  <rect x="660" y="192" width="264" height="158" rx="5" fill="white" stroke="#d0d7de"/>
+  <text x="670" y="207" font-size="12" font-weight="bold" fill="#1a1a1a">Аналіз темпорального вікна:</text>
+
+  <rect x="668" y="215" width="248" height="56" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="676" y="229" font-size="12" font-weight="bold" fill="#c0392b">Δt &lt; T_cooldown: Очікування</text>
+  <text x="676" y="244" font-size="12" fill="#1a1a1a">Устава залишається у Slot[1]</text>
+  <text x="676" y="258" font-size="12" fill="#6b7280">Нові команди продовжують згортатись</text>
+
+  <rect x="668" y="277" width="248" height="66" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="676" y="291" font-size="12" font-weight="bold" fill="#27ae60">Δt ≥ T_cooldown: Видача дозволена</text>
+  <text x="676" y="306" font-size="12" fill="#1a1a1a">Запис 45° у драйвер актуатора</text>
+  <text x="676" y="321" font-size="12" fill="#27ae60">t_last = t_now; in_ring = 0</text>
+  <text x="676" y="335" font-size="12" fill="#6b7280">Slot[1] вільний для нових змін</text>
+
+  <rect x="660" y="360" width="264" height="72" rx="5" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="670" y="376" font-size="12" font-weight="bold" fill="#1a1a1a">Апаратна периферія (Hardware):</text>
+  <text x="670" y="393" font-size="12" fill="#2457d6">Шина CAN / PWM Shadow Регістри</text>
+  <text x="670" y="410" font-size="12" fill="#27ae60">Детермінований рух без ривків</text>
+  <text x="670" y="425" font-size="12" fill="#6b7280">Захист силових ключів та редуктора</text>
+
+  <!-- ЗВ'ЯЗКИ МІЖ БЛОКАМИ -->
+  <line x1="304" y1="156" x2="344" y2="156" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <line x1="304" y1="280" x2="344" y2="280" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <line x1="616" y1="156" x2="656" y2="156" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <line x1="616" y1="280" x2="656" y2="280" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- ПІДСУМОК -->
+  <rect x="24" y="456" width="912" height="42" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="480" y="473" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Результат архітектури: детермінізм O(1) за пам'яттю та часом без ризику переповнення черги</text>
+  <text x="480" y="489" font-size="12" fill="#6b7280" text-anchor="middle">Згортання оновлює стан у виділеному слоті, кільцевий буфер чергує актуатори, а таймер обмежує частоту виводу T_cooldown</text>
+</svg>

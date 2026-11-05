@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+  <text x="480" y="40" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Етапи видалення вузла з RCU-списку</text>
+  <text x="480" y="60" font-size="13" fill="#6b7280" text-anchor="middle">Від'єднання, очікування періоду відстрочки та остаточна утилізація</text>
+  
+    <rect x="108" y="183" width="184" height="34" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="2"/>
+<text x="200" y="204.9" font-size="14" fill="#1a1a1a" text-anchor="middle">1. Від'єднання вузла</text>
+    <rect x="388" y="183" width="184" height="34" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+<text x="480" y="204.9" font-size="14" fill="#1a1a1a" text-anchor="middle">2. Період відстрочки</text>
+    <rect x="665" y="183" width="191" height="34" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+<text x="760" y="204.9" font-size="14" fill="#1a1a1a" text-anchor="middle">3. Утилізація (kfree)</text>
+    
+    <path d="M 280 200 L 380 200" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr)"/>
+    <path d="M 580 200 L 660 200" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr)"/>
+    
+    <text x="480" y="260" font-size="12" fill="#6b7280" text-anchor="middle">synchronize_rcu() очікує завершення всіх поточних читачів</text>
+    
+</svg>

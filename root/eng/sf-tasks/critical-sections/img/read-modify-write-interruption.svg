@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+<defs>
+  <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+    <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+  </marker>
+</defs>
+<rect x="0" y="0" width="960" height="480" fill="white"/>
+<text x="480" y="40" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Схема некомутативної послідовності</text>
+<text x="480" y="60" font-size="13" fill="#6b7280" text-anchor="middle">Спотворення спільних даних при перериванні</text>
+
+<!-- Потік А -->
+<rect x="50" y="100" width="300" height="300" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+<text x="200" y="130" font-size="16" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Потік А</text>
+<text x="200" y="160" font-size="14" fill="#1a1a1a" text-anchor="middle">1. R1_A = Read(counter) = 100</text>
+<text x="200" y="190" font-size="14" fill="#1a1a1a" text-anchor="middle">2. R1_A = R1_A + 1 = 101</text>
+<text x="200" y="350" font-size="14" fill="#1a1a1a" text-anchor="middle">6. Write(counter, R1_A)</text>
+<text x="200" y="380" font-size="14" fill="#c0392b" font-weight="bold" text-anchor="middle">counter = 101 (Помилка)</text>
+
+<!-- Перемикання контексту -->
+<path d="M 350 205 L 610 205" stroke="#2457d6" stroke-width="2" marker-end="url(#arr)" stroke-dasharray="5,5"/>
+<text x="480" y="195" font-size="14" fill="#2457d6" text-anchor="middle">Переривання</text>
+
+<path d="M 610 335 L 350 335" stroke="#2457d6" stroke-width="2" marker-end="url(#arr)" stroke-dasharray="5,5"/>
+<text x="480" y="325" font-size="14" fill="#2457d6" text-anchor="middle">Повернення</text>
+
+<!-- Потік Б -->
+<rect x="610" y="100" width="300" height="300" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+<text x="760" y="130" font-size="16" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Потік Б</text>
+<text x="760" y="230" font-size="14" fill="#1a1a1a" text-anchor="middle">3. R1_B = Read(counter) = 100</text>
+<text x="760" y="260" font-size="14" fill="#1a1a1a" text-anchor="middle">4. R1_B = R1_B + 1 = 101</text>
+<text x="760" y="290" font-size="14" fill="#1a1a1a" text-anchor="middle">5. Write(counter, R1_B) = 101</text>
+</svg>

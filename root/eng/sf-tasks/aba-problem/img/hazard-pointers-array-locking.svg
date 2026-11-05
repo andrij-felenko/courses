@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+  <text x="480" y="40" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Схема масиву захисних вказівників (Hazard Pointers)</text>
+  <text x="480" y="60" font-size="13" fill="#6b7280" text-anchor="middle">Блокування видалення вузла під час читання іншим потоком</text>
+  
+    <rect x="342" y="123" width="276" height="34" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+<text x="480" y="144.9" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="bold">Глобальний масив Hazard Pointers</text>
+    
+    <rect x="330" y="180" width="300" height="40" fill="#white" stroke="#6b7280" stroke-width="2"/>
+    <line x1="430" y1="180" x2="430" y2="220" stroke="#6b7280" stroke-width="2"/>
+    <line x1="530" y1="180" x2="530" y2="220" stroke="#6b7280" stroke-width="2"/>
+    
+    <text x="380" y="205" font-size="12" fill="#1a1a1a" text-anchor="middle">HP[0]: Вузол A</text>
+    <text x="480" y="205" font-size="12" fill="#1a1a1a" text-anchor="middle">HP[1]: NULL</text>
+    <text x="580" y="205" font-size="12" fill="#1a1a1a" text-anchor="middle">HP[2]: Вузол C</text>
+    
+    <rect x="135" y="183" width="130" height="34" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+<text x="200" y="204.9" font-size="14" fill="#1a1a1a" text-anchor="middle">Потік 1 читає</text>
+    <path d="M 280 200 L 320 200" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr)"/>
+    
+    <rect x="354" y="283" width="253" height="34" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="2"/>
+<text x="480" y="304.9" font-size="14" fill="#1a1a1a" text-anchor="middle">Потік 2 хоче видалити Вузол A</text>
+    <path d="M 480 280 L 400 230" fill="none" stroke="#c0392b" stroke-width="2" stroke-dasharray="4" marker-end="url(#arr-red)"/>
+    
+    <text x="480" y="360" font-size="13" fill="#1a1a1a" text-anchor="middle">Сканування масиву показує, що Вузол A захищений, видалення відкладається</text>
+    
+</svg>

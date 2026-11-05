@@ -1,0 +1,41 @@
+<svg viewBox="0 0 960 480" width="960" height="480" xmlns="http://www.w3.org/2000/svg" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+  
+  <text x="480" y="30" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Tagged Pointer Structure</text>
+  <text x="480" y="50" font-size="13" fill="#6b7280" text-anchor="middle">Packing a 48-bit address and a 16-bit version tag into a 64-bit word</text>
+
+  <!-- Defs for arrows -->
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- 64-bit Word Layout -->
+  <rect x="180" y="150" width="600" height="80" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  
+  <!-- 16-bit Tag -->
+  <rect x="180" y="150" width="150" height="80" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <text x="255" y="190" font-size="16" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Version Tag</text>
+  <text x="255" y="215" font-size="13" fill="#6b7280" text-anchor="middle">16 bits (63..48)</text>
+
+  <!-- 48-bit Address -->
+  <rect x="330" y="150" width="450" height="80" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="555" y="190" font-size="16" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Node Pointer Address</text>
+  <text x="555" y="215" font-size="13" fill="#6b7280" text-anchor="middle">48 bits (47..0)</text>
+
+  <!-- Example 1 -->
+  <text x="480" y="280" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Before Pop: Tag = 5, Address = 0x1000</text>
+  
+  <!-- Example 2 -->
+  <text x="480" y="340" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">After Pop and Re-Push: Tag = 6, Address = 0x1000</text>
+  
+  <!-- Arrow -->
+  <line x1="480" y1="295" x2="480" y2="315" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+
+  <!-- Explanation -->
+  <rect x="230" y="370" width="500" height="60" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="480" y="395" font-size="13" fill="#c0392b" text-anchor="middle">CAS fails for Thread 1 because the 64-bit value</text>
+  <text x="480" y="415" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">(Tag 5 | 0x1000) != (Tag 6 | 0x1000)</text>
+
+</svg>

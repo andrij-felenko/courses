@@ -1,0 +1,11 @@
+<svg viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif" xmlns="http://www.w3.org/2000/svg">
+<rect width="960" height="480" fill="white"/>
+<defs>
+<marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+<path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"/>
+</marker>
+</defs>
+<text x="480" y="40" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Striped Counter Hardware Mapping</text>
+<text x="480" y="65" font-size="13" fill="#6b7280" text-anchor="middle">Mapping RTOS hardware threads to separate memory cells avoids bus conflicts.</text>
+<rect x="200" y="150" width="160" height="60" fill="#eaf0fd" stroke="#2457d6" stroke-width="2" rx="4"/><text x="280" y="185" font-size="14" text-anchor="middle">Hardware Thread A</text><rect x="600" y="150" width="160" height="60" fill="#eaf0fd" stroke="#2457d6" stroke-width="2" rx="4"/><text x="680" y="185" font-size="14" text-anchor="middle">Hardware Thread B</text><rect x="350" y="280" width="260" height="80" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2" rx="4"/><text x="480" y="310" font-size="14" text-anchor="middle">Cell Array Mapping</text><path d="M280 210 L380 280" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr)"/><path d="M680 210 L580 280" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr)"/>
+</svg>

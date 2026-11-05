@@ -1,0 +1,143 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-black" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="34" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Взаємодія задачі-виробника та виконавчого процесу через неблоківну скриньку</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Бар'єри Release/Acquire гарантують цілісність устави, а сповіщення ядра RTOS усувають затримки опитування</text>
+
+  <!-- Column 1: Producer Task -->
+  <rect x="24" y="78" width="280" height="374" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="36" y="90" width="256" height="36" rx="5" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="164" y="105" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Задача-виробник (Producer)</text>
+  <text x="164" y="119" font-size="12" fill="#6b7280" text-anchor="middle">Контур керування / PID (High Priority)</text>
+
+  <!-- Row 1: Step 1 (Producer) -->
+  <rect x="36" y="136" width="256" height="66" rx="5" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="48" y="153" font-size="12" font-weight="bold" fill="#1a1a1a">1. Розрахунок устави (C_new = 45°)</text>
+  <text x="48" y="170" font-size="12" fill="#6b7280">Перевірка: |C_new - C_last| &gt; deadband</text>
+  <text x="48" y="187" font-size="12" fill="#2457d6">Запис устави: target_val = C_new</text>
+
+  <!-- Row 2: Step 2 (Producer) -->
+  <rect x="36" y="214" width="256" height="66" rx="5" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="48" y="231" font-size="12" font-weight="bold" fill="#c0392b">2. Бар'єр випуску (Release Fence)</text>
+  <text x="48" y="248" font-size="12" fill="#1a1a1a">__atomic_thread_fence(RELEASE)</text>
+  <text x="48" y="265" font-size="12" fill="#6b7280">Гарантує запис target_val перед флагом</text>
+
+  <!-- Row 3: Step 3 (Producer) -->
+  <rect x="36" y="292" width="256" height="66" rx="5" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="48" y="309" font-size="12" font-weight="bold" fill="#1a1a1a">3. Підняття прапорця та Notify</text>
+  <text x="48" y="326" font-size="12" fill="#2457d6">is_pending = true (атомарний запис)</text>
+  <text x="48" y="343" font-size="12" fill="#27ae60">xTaskNotifyGive(hDriverTask)</text>
+
+  <!-- Row 4: Step 4 (Producer) -->
+  <rect x="36" y="370" width="256" height="70" rx="5" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="48" y="388" font-size="12" font-weight="bold" fill="#1a1a1a">Виробник вільний для розрахунків</text>
+  <text x="48" y="405" font-size="12" fill="#6b7280">Нуль блокувань (Lock-Free доступ)</text>
+  <text x="48" y="422" font-size="12" fill="#2457d6">Час запису: &lt; 20 нс (детерміновано O(1))</text>
+
+  <!-- Column 2: Mailbox in RAM -->
+  <rect x="340" y="78" width="280" height="374" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="352" y="90" width="256" height="36" rx="5" fill="white" stroke="#d0d7de" stroke-width="1.2"/>
+  <text x="480" y="105" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Поштова скринька в RAM (Mailbox)</text>
+  <text x="480" y="119" font-size="12" fill="#6b7280" text-anchor="middle">Слот актуатора у SRAM (32-bit aligned)</text>
+
+  <!-- Row 1: Mailbox Slot -->
+  <rect x="352" y="136" width="256" height="66" rx="5" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="364" y="153" font-size="12" font-weight="bold" fill="#2457d6">Слот устави (Atomic Data Word)</text>
+  <text x="364" y="170" font-size="12" fill="#1a1a1a">target_value : float = 45.0° (устава)</text>
+  <text x="364" y="187" font-size="12" fill="#6b7280">seq_id = 104 (згортання: старе стерто)</text>
+
+  <!-- Row 2: Mailbox Barrier -->
+  <rect x="352" y="214" width="256" height="66" rx="5" fill="#fdecea" stroke="#c0392b" stroke-width="1.2" stroke-dasharray="4,2"/>
+  <text x="480" y="231" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Бар'єр упорядкування пам'яті</text>
+  <text x="480" y="248" font-size="12" fill="#1a1a1a" text-anchor="middle">DMB ST / Заборона реордерингу шини</text>
+  <text x="480" y="265" font-size="12" fill="#6b7280" text-anchor="middle">target_value ➔ [Бар'єр] ➔ is_pending</text>
+
+  <!-- Row 3: Mailbox Flag -->
+  <rect x="352" y="292" width="256" height="66" rx="5" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="364" y="309" font-size="12" font-weight="bold" fill="#2457d6">Прапорець стану (Atomic Flag)</text>
+  <text x="364" y="326" font-size="12" fill="#1a1a1a">is_pending : volatile bool = true</text>
+  <text x="364" y="343" font-size="12" fill="#6b7280">Сигнал: є нова неопрацьована устава</text>
+
+  <!-- Row 4: Mailbox Context -->
+  <rect x="352" y="370" width="256" height="70" rx="5" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="364" y="388" font-size="12" font-weight="bold" fill="#1a1a1a">Контекст актуатора та телеметрія</text>
+  <text x="364" y="405" font-size="12" fill="#1a1a1a">committed_value = 30.0°, last_commit_ms</text>
+  <text x="364" y="422" font-size="12" fill="#6b7280">drop_conflated++ (лічильник згортань)</text>
+
+  <!-- Column 3: Driver Task -->
+  <rect x="656" y="78" width="280" height="374" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="668" y="90" width="256" height="36" rx="5" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="796" y="105" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Виконавчий процес (Driver Task)</text>
+  <text x="796" y="119" font-size="12" fill="#6b7280" text-anchor="middle">Обробник приводу (Normal Priority)</text>
+
+  <!-- Row 1: Driver Step 1 -->
+  <rect x="668" y="136" width="256" height="66" rx="5" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="680" y="153" font-size="12" font-weight="bold" fill="#1a1a1a">Очікування сповіщення ядра</text>
+  <text x="680" y="170" font-size="12" fill="#6b7280">ulTaskNotifyTake(pdTRUE, portMAX_DELAY)</text>
+  <text x="680" y="187" font-size="12" fill="#6b7280">Стан Blocked (енергозбереження CPU)</text>
+
+  <!-- Row 2: Driver Step 2 -->
+  <rect x="668" y="214" width="256" height="66" rx="5" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="680" y="231" font-size="12" font-weight="bold" fill="#1a1a1a">Очікування сигналу RTOS</text>
+  <text x="680" y="248" font-size="12" fill="#6b7280">Виконавчий процес спить у черзі ядра</text>
+  <text x="680" y="265" font-size="12" fill="#6b7280">Не споживає шину та такти пам'яті</text>
+
+  <!-- Row 3: Driver Step 3 -->
+  <rect x="668" y="292" width="256" height="66" rx="5" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="680" y="309" font-size="12" font-weight="bold" fill="#27ae60">4. Пробудження від сповіщення ядра</text>
+  <text x="680" y="326" font-size="12" fill="#1a1a1a">ulTaskNotifyTake() повертає pdTRUE</text>
+  <text x="680" y="343" font-size="12" fill="#2457d6">Перехід у стан Ready ➔ Running</text>
+
+  <!-- Row 4: Driver Step 4 -->
+  <rect x="668" y="370" width="256" height="70" rx="5" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="680" y="386" font-size="12" font-weight="bold" fill="#c0392b">5. Бар'єр захоплення: FENCE_ACQUIRE</text>
+  <text x="680" y="402" font-size="12" fill="#1a1a1a">Читання target_val; is_pending = false</text>
+  <text x="680" y="418" font-size="12" fill="#27ae60">6. Коміт в регістр: PWM / Shadow Reg</text>
+  <text x="680" y="434" font-size="12" fill="#6b7280">Перевірка: now - last &gt;= T_cooldown</text>
+
+  <!-- Connecting Arrows -->
+  <!-- Row 1: Producer to Mailbox (Write) -->
+  <text x="320" y="161" font-size="12" fill="#2457d6" text-anchor="middle">Запис</text>
+  <path d="M 292 169 L 348 169" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Row 2: Producer to Mailbox (Release Fence) -->
+  <text x="320" y="239" font-size="12" fill="#c0392b" text-anchor="middle">DMB</text>
+  <path d="M 292 247 L 348 247" stroke="#c0392b" stroke-width="2" stroke-dasharray="4,2" marker-end="url(#arr-red)"/>
+
+  <!-- Row 3: Producer to Mailbox (Flag is_pending) -->
+  <text x="320" y="317" font-size="12" fill="#2457d6" text-anchor="middle">Сигнал</text>
+  <path d="M 292 325 L 348 325" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Row 3: Mailbox to Driver (RTOS Kernel Notify) -->
+  <text x="636" y="317" font-size="12" fill="#27ae60" text-anchor="middle">RTOS</text>
+  <path d="M 608 325 L 664 325" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- Row 4: Mailbox to Driver (Read target_val) -->
+  <text x="636" y="397" font-size="12" fill="#2457d6" text-anchor="middle">Читання</text>
+  <path d="M 608 405 L 664 405" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Bottom Summary Card -->
+  <rect x="24" y="468" width="912" height="48" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="480" y="488" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Результат архітектури: детермінований обмін без взаємних блокувань (Lock-Free)</text>
+  <text x="480" y="505" font-size="12" fill="#6b7280" text-anchor="middle">Згортання (conflation) виключає черги, бар'єри усувають стан гонитви, а сповіщення ядра мінімізують енергоспоживання</text>
+</svg>

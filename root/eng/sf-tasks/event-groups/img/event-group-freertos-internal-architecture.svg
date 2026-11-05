@@ -1,0 +1,133 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Підкладка -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="36" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Внутрішня структура EventGroup_t та розпакування xItemValue</text>
+  <text x="480" y="56" font-size="13" fill="#6b7280" text-anchor="middle">Ядро FreeRTOS зберігає прапорці розблокування задачі (AND/OR, ClearOnExit) у старших 8 бітах xItemValue</text>
+
+  <!-- ЛІВА ПАНЕЛЬ: Структура EventGroup_t -->
+  <rect x="24" y="78" width="420" height="438" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="40" y="104" font-size="14" font-weight="700" fill="#1a1a1a">Структура EventGroup_t (у пам&apos;яті RAM)</text>
+  <text x="40" y="121" font-size="12" fill="#6b7280">Дескриптор групи подій (розмір 28..36 байтів)</text>
+
+  <!-- Поле 1: uxEventBits -->
+  <rect x="40" y="135" width="388" height="114" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="54" y="155" font-size="13" font-weight="700" fill="#1a1a1a">uxEventBits <tspan font-weight="normal" fill="#6b7280">(EventBits_t, 32 біти)</tspan></text>
+  <text x="54" y="172" font-size="12" fill="#6b7280">Поточний системний стан прапорців подій у групі</text>
+
+  <!-- Бітова шкала uxEventBits -->
+  <rect x="54" y="182" width="88" height="30" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="98" y="201" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">Біти 31..24</text>
+
+  <rect x="156" y="182" width="258" height="30" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="285" y="201" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">Біти 23..0 — Події застосунку (24 біти)</text>
+
+  <text x="98" y="230" font-size="12" fill="#6b7280" text-anchor="middle">Резерв ядра (0)</text>
+  <text x="285" y="230" font-size="12" fill="#1a1a1a" text-anchor="middle">Прапорці подій: bit 0 .. bit 23</text>
+
+  <!-- Поле 2: xTasksWaitingForBits -->
+  <rect x="40" y="262" width="388" height="238" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="54" y="283" font-size="13" font-weight="700" fill="#1a1a1a">xTasksWaitingForBits <tspan font-weight="normal" fill="#6b7280">(List_t)</tspan></text>
+  <text x="54" y="300" font-size="12" fill="#6b7280">Список задач, заблокованих в очікуванні подій</text>
+
+  <!-- Вузол списку: ListItem_t -->
+  <rect x="54" y="312" width="360" height="174" rx="6" fill="#f4f6f8" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="68" y="333" font-size="12" font-weight="700" fill="#2457d6">Елемент списку ListItem_t (вузол блокування)</text>
+
+  <!-- Блок xItemValue всередині вузла -->
+  <rect x="68" y="344" width="224" height="42" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="80" y="363" font-size="12" font-weight="700" fill="#2457d6">xItemValue: 0x05000005</text>
+  <text x="80" y="378" font-size="12" fill="#1a1a1a">Зберігає умови очікування</text>
+
+  <!-- Блок pvOwner -->
+  <rect x="68" y="398" width="224" height="34" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="80" y="419" font-size="12" fill="#1a1a1a">pvOwner ➔ <tspan font-weight="700">TCB (Task A)</tspan></text>
+
+  <!-- Поле двозв&apos;язного списку -->
+  <text x="68" y="450" font-size="12" fill="#6b7280">pxNext / pxPrevious ➔ двозв&apos;язний ланцюг задач</text>
+  <text x="68" y="468" font-size="12" fill="#6b7280">Впорядковано за часом надходження виклику</text>
+
+  <!-- Зв&apos;язувальна стрілка від xItemValue до правої панелі -->
+  <path d="M 292 365 L 454 365" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- ПРАВА ПАНЕЛЬ: Розпакування xItemValue -->
+  <rect x="466" y="78" width="470" height="438" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="482" y="104" font-size="14" font-weight="700" fill="#1a1a1a">Розпакування 32-бітного слова xItemValue</text>
+  <text x="482" y="121" font-size="12" fill="#6b7280">Службові біти ядра + маска подій очікуючої задачі</text>
+
+  <!-- 32-бітна розкладка xItemValue з відступами 12 px між блоками -->
+  <!-- 31..27 -->
+  <rect x="482" y="135" width="46" height="36" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="505" y="151" font-size="12" font-weight="700" fill="#6b7280" text-anchor="middle">31..27</text>
+  <text x="505" y="164" font-size="12" fill="#6b7280" text-anchor="middle">Резерв</text>
+
+  <!-- Bit 26: WAIT_FOR_ALL -->
+  <rect x="540" y="135" width="48" height="36" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="564" y="151" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">Bit 26</text>
+  <text x="564" y="164" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">ALL</text>
+
+  <!-- Bit 25: UNBLOCKED -->
+  <rect x="600" y="135" width="52" height="36" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="626" y="151" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">Bit 25</text>
+  <text x="626" y="164" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">UNBLK</text>
+
+  <!-- Bit 24: CLEAR_ON_EXIT -->
+  <rect x="664" y="135" width="48" height="36" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="688" y="151" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">Bit 24</text>
+  <text x="688" y="164" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">CLR</text>
+
+  <!-- Bits 23..0: uxBitsToWaitFor -->
+  <rect x="724" y="135" width="196" height="36" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="822" y="151" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">Біти 23 .. 0 (24 біти)</text>
+  <text x="822" y="164" font-size="12" fill="#1a1a1a" text-anchor="middle">uxBitsToWaitFor (маска подій)</text>
+
+  <!-- Картка 1: Старші 8 бітів - службові прапорці -->
+  <rect x="482" y="183" width="438" height="172" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="496" y="204" font-size="13" font-weight="700" fill="#1a1a1a">Службові прапорці керування (маска 0xFF000000)</text>
+
+  <!-- Опис Bit 26 -->
+  <rect x="496" y="214" width="56" height="18" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="524" y="227" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">Bit 26</text>
+  <text x="560" y="227" font-size="12" fill="#1a1a1a"><tspan font-weight="700">WAIT_FOR_ALL</tspan>: 1 = логічне AND (усі), 0 = логічне OR</text>
+
+  <!-- Опис Bit 25 -->
+  <rect x="496" y="244" width="56" height="18" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="524" y="257" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">Bit 25</text>
+  <text x="560" y="257" font-size="12" fill="#1a1a1a"><tspan font-weight="700">UNBLOCKED</tspan>: 1 = подія відбулася, 0 = таймаут</text>
+
+  <!-- Опис Bit 24 -->
+  <rect x="496" y="274" width="56" height="18" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="524" y="287" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">Bit 24</text>
+  <text x="560" y="287" font-size="12" fill="#1a1a1a"><tspan font-weight="700">CLEAR_ON_EXIT</tspan>: 1 = автоочищення бітів при виході</text>
+
+  <!-- Опис Bits 31..27 -->
+  <rect x="496" y="304" width="56" height="18" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="524" y="317" font-size="12" fill="#6b7280" text-anchor="middle">31..27</text>
+  <text x="560" y="317" font-size="12" fill="#6b7280">Резерв ядра FreeRTOS (завжди встановлено в 0)</text>
+
+  <!-- Інформаційний висновок -->
+  <text x="496" y="343" font-size="12" fill="#6b7280">Ядро перевіряє ці прапорці в списку очікування без доступу до стеку</text>
+
+  <!-- Картка 2: Молодші 24 біти - маска подій та логіка розблокування -->
+  <rect x="482" y="367" width="438" height="133" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="496" y="388" font-size="13" font-weight="700" fill="#1a1a1a">uxBitsToWaitFor (Bits 23..0 — маска подій)</text>
+
+  <text x="496" y="408" font-size="12" fill="#1a1a1a">Маска подій із системного виклику <tspan font-weight="700">xEventGroupWaitBits()</tspan></text>
+
+  <!-- Формули перевірки -->
+  <rect x="496" y="418" width="410" height="32" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="701" y="439" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">AND: (uxEventBits &amp; M) == M  │  OR: (uxEventBits &amp; M) ≠ 0</text>
+
+  <text x="496" y="468" font-size="12" fill="#6b7280">Якщо умова виконана: ядро ставить Bit 25 і переводить задачу в Ready</text>
+  <text x="496" y="486" font-size="12" fill="#27ae60" font-weight="700">✓ При Bit 24 = 1 очікувані біти скидаються атомарно (ClearOnExit)</text>
+</svg>

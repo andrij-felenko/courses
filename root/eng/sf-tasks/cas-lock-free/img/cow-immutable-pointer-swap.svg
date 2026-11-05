@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+  <text x="480" y="40" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Створення локальної копії об'єкта та підміна вказівника</text>
+  <text x="480" y="60" font-size="13" fill="#6b7280" text-anchor="middle">Модифікація копії та атомарна заміна root-вказівника через CAS</text>
+  
+    <rect x="158" y="133" width="184" height="34" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+<text x="250" y="154.9" font-size="14" fill="#1a1a1a" text-anchor="middle">Оригінал (Read-Only)</text>
+    <rect x="645" y="133" width="130" height="34" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+<text x="710" y="154.9" font-size="14" fill="#1a1a1a" text-anchor="middle">Копія (Local)</text>
+    
+    <path d="M 350 150 L 610 150" fill="none" stroke="#6b7280" stroke-width="2" marker-end="url(#arr)"/>
+    <text x="480" y="140" font-size="12" fill="#6b7280" text-anchor="middle">1. Копіювання</text>
+    
+    <rect x="626" y="233" width="168" height="34" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+<text x="710" y="254.9" font-size="14" fill="#1a1a1a" text-anchor="middle">Модифікована Копія</text>
+    <path d="M 710 180 L 710 220" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr)"/>
+    <text x="820" y="200" font-size="12" fill="#6b7280" text-anchor="middle">2. Зміни</text>
+    
+    <rect x="412" y="303" width="137" height="34" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+<text x="480" y="324.9" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="bold">Root Вказівник</text>
+    <path d="M 480 300 L 280 180" fill="none" stroke="#6b7280" stroke-width="2" stroke-dasharray="4"/>
+    <path d="M 480 300 L 680 280" fill="none" stroke="#27ae60" stroke-width="2" marker-end="url(#arr)"/>
+    <text x="580" y="320" font-size="12" fill="#27ae60" text-anchor="middle">3. CAS Swap</text>
+    
+</svg>

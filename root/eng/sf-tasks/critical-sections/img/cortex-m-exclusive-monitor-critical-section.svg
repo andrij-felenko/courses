@@ -1,0 +1,64 @@
+<svg viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif" xmlns="http://www.w3.org/2000/svg">
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <text x="480" y="40" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Взаємодія NVIC, PRIMASK/BASEPRI та критичної секції</text>
+  <text x="480" y="60" font-size="13" fill="#6b7280" text-anchor="middle">Блокування переривань для захисту спільних даних на рівні ядра Cortex-M</text>
+
+  <rect x="50" y="150" width="120" height="180" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2" rx="4"/>
+  <text x="110" y="180" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Периферія</text>
+  <text x="110" y="210" font-size="12" fill="#1a1a1a" text-anchor="middle">UART IRQ</text>
+  <text x="110" y="240" font-size="12" fill="#1a1a1a" text-anchor="middle">Timer IRQ</text>
+  <text x="110" y="270" font-size="12" fill="#1a1a1a" text-anchor="middle">EXTI IRQ</text>
+  <text x="110" y="300" font-size="12" fill="#1a1a1a" text-anchor="middle">ADC IRQ</text>
+
+  <rect x="250" y="120" width="160" height="240" fill="#eaf0fd" stroke="#2457d6" stroke-width="2" rx="4"/>
+  <text x="330" y="150" font-size="16" font-weight="bold" fill="#2457d6" text-anchor="middle">NVIC</text>
+  <text x="330" y="180" font-size="12" fill="#1a1a1a" text-anchor="middle">Пріоритезація</text>
+  <text x="330" y="210" font-size="12" fill="#1a1a1a" text-anchor="middle">Маскування (індивід.)</text>
+  <text x="330" y="240" font-size="12" fill="#1a1a1a" text-anchor="middle">Pending Status</text>
+  <rect x="270" y="260" width="120" height="80" fill="white" stroke="#2457d6" stroke-width="1"/>
+  <text x="330" y="280" font-size="12" fill="#2457d6" text-anchor="middle">Очікуючі IRQ</text>
+  <text x="330" y="300" font-size="12" fill="#6b7280" text-anchor="middle">зберігаються тут</text>
+
+  <line x1="170" y1="205" x2="250" y2="205" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+  <line x1="170" y1="235" x2="250" y2="235" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+  <line x1="170" y1="265" x2="250" y2="265" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+
+  <rect x="550" y="100" width="360" height="300" fill="#f4f6f8" stroke="#6b7280" stroke-width="2" rx="8"/>
+  <text x="730" y="130" font-size="16" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Cortex-M Core</text>
+
+  <rect x="570" y="200" width="80" height="80" fill="#fdecea" stroke="#c0392b" stroke-width="2" rx="4"/>
+  <text x="610" y="225" font-size="14" font-weight="bold" fill="#c0392b" text-anchor="middle">Вентиль</text>
+  <text x="610" y="245" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">PRIMASK</text>
+  <text x="610" y="265" font-size="12" fill="#c0392b" text-anchor="middle">BASEPRI</text>
+
+  <line x1="410" y1="240" x2="570" y2="240" stroke="#c0392b" stroke-width="3" stroke-dasharray="4" marker-end="url(#arr-red)"/>
+  <text x="490" y="230" font-size="12" fill="#c0392b" text-anchor="middle">IRQ запит (заблоковано)</text>
+
+  <rect x="650" y="160" width="220" height="200" fill="white" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="760" y="190" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Виконання потоку</text>
+  
+  <rect x="680" y="210" width="160" height="30" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="760" y="230" font-size="12" fill="#27ae60" text-anchor="middle">PRIMASK = 1 (CPSID i)</text>
+
+  <rect x="680" y="250" width="160" height="50" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="760" y="270" font-size="12" fill="#c0392b" text-anchor="middle">КРИТИЧНА СЕКЦІЯ</text>
+  <text x="760" y="290" font-size="12" fill="#c0392b" text-anchor="middle">(доступ до даних)</text>
+
+  <rect x="680" y="310" width="160" height="30" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="760" y="330" font-size="12" fill="#27ae60" text-anchor="middle">PRIMASK = 0 (CPSIE i)</text>
+
+  <line x1="760" y1="240" x2="760" y2="250" stroke="#1a1a1a" stroke-width="1" marker-end="url(#arr)"/>
+  <line x1="760" y1="300" x2="760" y2="310" stroke="#1a1a1a" stroke-width="1" marker-end="url(#arr)"/>
+</svg>

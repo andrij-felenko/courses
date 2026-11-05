@@ -1,0 +1,34 @@
+<svg viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+  <rect width="960" height="480" fill="white"/>
+  <text x="480" y="38" fill="#1a1a1a" font-size="18" font-weight="bold" text-anchor="middle">Миттєве розблокування задачі з ISR</text>
+  <text x="480" y="62" fill="#6b7280" font-size="13" text-anchor="middle">Використання vTaskNotifyGiveFromISR та portYIELD_FROM_ISR()</text>
+
+  <line x1="200" y1="120" x2="200" y2="420" stroke="#d0d7de" stroke-width="2" stroke-dasharray="5,5"/>
+  <line x1="480" y1="120" x2="480" y2="420" stroke="#d0d7de" stroke-width="2" stroke-dasharray="5,5"/>
+  <line x1="760" y1="120" x2="760" y2="420" stroke="#d0d7de" stroke-width="2" stroke-dasharray="5,5"/>
+
+  <text x="200" y="100" fill="#1a1a1a" font-size="14" font-weight="bold" text-anchor="middle">Фонова задача (Низька)</text>
+  <text x="480" y="100" fill="#c0392b" font-size="14" font-weight="bold" text-anchor="middle">Переривання (ISR)</text>
+  <text x="760" y="100" fill="#27ae60" font-size="14" font-weight="bold" text-anchor="middle">Обробник (Висока)</text>
+
+  <rect x="185" y="130" width="30" height="60" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="175" y="160" fill="#1a1a1a" font-size="12" text-anchor="end">Виконання</text>
+
+  <line x1="215" y1="190" x2="465" y2="210" stroke="#c0392b" stroke-width="2" marker-end="url(#arr)"/>
+  <text x="340" y="195" fill="#c0392b" font-size="12" text-anchor="middle">Апаратний сигнал</text>
+
+  <rect x="465" y="210" width="30" height="80" fill="#fdecea" stroke="#c0392b" stroke-width="2"/>
+  <text x="505" y="240" fill="#1a1a1a" font-size="12" text-anchor="start">vTaskNotifyGiveFromISR()</text>
+  <text x="505" y="270" fill="#1a1a1a" font-size="12" text-anchor="start">portYIELD_FROM_ISR()</text>
+
+  <line x1="495" y1="290" x2="745" y2="310" stroke="#27ae60" stroke-width="2" marker-end="url(#arr)"/>
+  <text x="620" y="295" fill="#27ae60" font-size="12" text-anchor="middle">Миттєве перемикання</text>
+
+  <rect x="745" y="310" width="30" height="80" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <text x="785" y="350" fill="#1a1a1a" font-size="12" text-anchor="start">Обробка даних</text>
+</svg>

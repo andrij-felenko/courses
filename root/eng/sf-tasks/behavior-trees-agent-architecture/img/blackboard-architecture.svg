@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-black" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <text x="480" y="50" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Архітектура Blackboard</text>
+  <text x="480" y="75" text-anchor="middle" font-size="13" fill="#6b7280">Взаємодія задач через спільний масив даних із м'ютексом та генерацією подій</text>
+
+  <rect x="220" y="110" width="520" height="310" rx="10" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <text x="480" y="140" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Спільний ресурс (Blackboard)</text>
+
+  <rect x="250" y="160" width="230" height="240" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="2" stroke-dasharray="6 4"/>
+  <text x="365" y="185" text-anchor="middle" font-size="14" font-weight="bold" fill="#27ae60">Критична секція</text>
+  <text x="365" y="205" text-anchor="middle" font-size="12" fill="#27ae60">(М'ютекс)</text>
+
+  <rect x="270" y="220" width="190" height="160" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="2"/>
+  <text x="365" y="245" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Масив даних</text>
+  
+  <rect x="321" y="270" width="22" height="25" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="343" y="270" width="22" height="25" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <rect x="365" y="270" width="22" height="25" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="387" y="270" width="22" height="25" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="365" y="325" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Data[0 ... N]</text>
+
+  <rect x="560" y="170" width="140" height="60" rx="8" fill="#ffffff" stroke="#d0d7de" stroke-width="2"/>
+  <text x="630" y="195" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Генератор подій</text>
+  <text x="630" y="215" text-anchor="middle" font-size="12" fill="#6b7280">(Event API)</text>
+
+  <rect x="40" y="170" width="140" height="150" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="110" y="235" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Задача A</text>
+  <text x="110" y="255" text-anchor="middle" font-size="12" fill="#6b7280">Виробник</text>
+
+  <rect x="780" y="170" width="140" height="150" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="850" y="235" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Задача B</text>
+  <text x="850" y="255" text-anchor="middle" font-size="12" fill="#6b7280">Споживач</text>
+
+  <path d="M 180 270 L 241 270" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="215" y="260" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">1. Запис</text>
+
+  <path d="M 480 200 L 551 200" fill="none" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr-black)"/>
+  <text x="520" y="190" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">2. Тригер</text>
+
+  <path d="M 700 200 L 771 200" fill="none" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="740" y="190" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">3. Сигнал</text>
+
+  <path d="M 780 270 L 489 270" fill="none" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr-black)"/>
+  <text x="635" y="260" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">4. Запит на читання</text>
+
+  <path d="M 480 310 L 771 310" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="635" y="300" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">5. Отримані дані</text>
+</svg>

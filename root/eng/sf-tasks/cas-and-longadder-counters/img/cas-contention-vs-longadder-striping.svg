@@ -1,0 +1,11 @@
+<svg viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif" xmlns="http://www.w3.org/2000/svg">
+<rect width="960" height="480" fill="white"/>
+<defs>
+<marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+<path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"/>
+</marker>
+</defs>
+<text x="480" y="40" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">CAS Contention vs LongAdder Striping</text>
+<text x="480" y="65" font-size="13" fill="#6b7280" text-anchor="middle">LongAdder distributes contention across multiple cells, unlike a single CAS variable.</text>
+<rect x="150" y="250" width="200" height="60" fill="#fdecea" stroke="#c0392b" stroke-width="2" rx="4"/><text x="250" y="285" font-size="14" text-anchor="middle">Single Variable (Contention)</text><rect x="600" y="200" width="200" height="160" fill="#e9f7ef" stroke="#27ae60" stroke-width="2" rx="4"/><text x="700" y="240" font-size="14" text-anchor="middle">Striped Cells (No Contention)</text><rect x="620" y="260" width="70" height="40" fill="#fff" stroke="#27ae60"/><text x="655" y="285" font-size="12" text-anchor="middle">Cell 1</text><rect x="710" y="260" width="70" height="40" fill="#fff" stroke="#27ae60"/><text x="745" y="285" font-size="12" text-anchor="middle">Cell 2</text>
+</svg>

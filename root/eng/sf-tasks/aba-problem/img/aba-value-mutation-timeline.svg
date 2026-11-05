@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+  <text x="480" y="40" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Часова діаграма зміни стану комірки пам'яті A -> B -> A</text>
+  <text x="480" y="60" font-size="13" fill="#6b7280" text-anchor="middle">Два паралельні потоки створюють хибний успіх CAS через перегони</text>
+  
+    <line x1="200" y1="150" x2="760" y2="150" stroke="#d0d7de" stroke-width="2"/>
+    <text x="480" y="140" font-size="14" fill="#1a1a1a" text-anchor="middle">Значення в пам'яті</text>
+    
+    <rect x="230" y="133" width="40" height="34" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+<text x="250" y="154.9" font-size="14" fill="#1a1a1a" text-anchor="middle">A</text>
+    <rect x="460" y="133" width="40" height="34" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="2"/>
+<text x="480" y="154.9" font-size="14" fill="#1a1a1a" text-anchor="middle">B</text>
+    <rect x="690" y="133" width="40" height="34" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+<text x="710" y="154.9" font-size="14" fill="#1a1a1a" text-anchor="middle">A</text>
+    
+    <path d="M 300 150 L 430 150" fill="none" stroke="#6b7280" stroke-width="2" marker-end="url(#arr)"/>
+    <path d="M 530 150 L 660 150" fill="none" stroke="#6b7280" stroke-width="2" marker-end="url(#arr)"/>
+    
+    <rect x="174" y="233" width="153" height="34" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+<text x="250" y="254.9" font-size="14" fill="#1a1a1a" text-anchor="middle">Потік 1: Читає A</text>
+    <rect x="592" y="233" width="237" height="34" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+<text x="710" y="254.9" font-size="14" fill="#1a1a1a" text-anchor="middle">Потік 1: CAS(A, C) -> Успіх</text>
+    
+    <path d="M 250 180 L 250 230" fill="none" stroke="#2457d6" stroke-width="2" stroke-dasharray="4" marker-end="url(#arr)"/>
+    <path d="M 710 230 L 710 180" fill="none" stroke="#2457d6" stroke-width="2" stroke-dasharray="4" marker-end="url(#arr)"/>
+    
+    <text x="480" y="320" font-size="12" fill="#6b7280" text-anchor="middle">Потік 1 не помітив, що значення змінилося на B і повернулося до A</text>
+    
+</svg>

@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+  <text x="480" y="40" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Схема кроків Read-Modify-CAS циклу</text>
+  <text x="480" y="60" font-size="13" fill="#6b7280" text-anchor="middle">Зчитування, обчислення та перевірка CAS</text>
+  
+    <rect x="373" y="103" width="214" height="34" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+<text x="480" y="124.9" font-size="14" fill="#1a1a1a" text-anchor="middle">1. Read: expected = *ptr</text>
+    <path d="M 480 150 L 480 180" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr)"/>
+    
+    <rect x="338" y="193" width="284" height="34" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+<text x="480" y="214.9" font-size="14" fill="#1a1a1a" text-anchor="middle">2. Modify: desired = expected + 1</text>
+    <path d="M 480 240 L 480 270" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr)"/>
+    
+    <rect x="346" y="283" width="268" height="34" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+<text x="480" y="304.9" font-size="14" fill="#1a1a1a" text-anchor="middle">3. CAS(*ptr, expected, desired)</text>
+    
+    <path d="M 400 300 L 250 300 L 250 120 L 350 120" fill="none" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+    <text x="250" y="200" font-size="12" fill="#c0392b" text-anchor="middle">Невдача (Retry)</text>
+    
+    <path d="M 480 330 L 480 370" fill="none" stroke="#27ae60" stroke-width="2" marker-end="url(#arr)"/>
+    <text x="520" y="360" font-size="12" fill="#27ae60" text-anchor="middle">Успіх</text>
+    
+</svg>

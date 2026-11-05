@@ -1,0 +1,54 @@
+<svg viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif" xmlns="http://www.w3.org/2000/svg">
+  <rect width="960" height="480" fill="white"/>
+  
+  <text x="480" y="40" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Часова діаграма переривання блокуючого системного виклику</text>
+  <text x="480" y="60" font-size="13" fill="#6b7280" text-anchor="middle">Часова діаграма переривання блокуючого системного виклику за допомогою реєстрації зворотного виклику або міжпотокового сигналу та подальшого розгортання стека.</text>
+
+  <defs>
+    <marker id="arr" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Lifelines -->
+  <text x="150" y="120" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Керуючий Потік</text>
+  <path d="M 150 140 L 150 420" fill="none" stroke="#d0d7de" stroke-width="2" stroke-dasharray="4,4"/>
+
+  <text x="480" y="120" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Робочий Потік</text>
+  <path d="M 480 140 L 480 420" fill="none" stroke="#d0d7de" stroke-width="2" stroke-dasharray="4,4"/>
+
+  <text x="810" y="120" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">ОС (Ядро)</text>
+  <path d="M 810 140 L 810 420" fill="none" stroke="#d0d7de" stroke-width="2" stroke-dasharray="4,4"/>
+
+  <!-- Operations -->
+  <rect x="470" y="160" width="20" height="220" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  
+  <rect x="800" y="200" width="20" height="80" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="830" y="220" font-size="12" fill="#1a1a1a" text-anchor="start">Блокування в read()</text>
+
+  <path d="M 490 190 L 800 190" fill="none" stroke="#6b7280" stroke-width="2" marker-end="url(#arr)"/>
+  <text x="645" y="180" font-size="12" fill="#6b7280" text-anchor="middle">Системний виклик read(socket)</text>
+
+  <!-- Cancellation -->
+  <rect x="140" y="240" width="20" height="40" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <path d="M 160 250 L 470 250" fill="none" stroke="#c0392b" stroke-width="2" marker-end="url(#arr)"/>
+  <text x="315" y="240" font-size="12" fill="#c0392b" text-anchor="middle">cancel()</text>
+
+  <path d="M 490 260 L 800 260" fill="none" stroke="#c0392b" stroke-width="2" marker-end="url(#arr)" stroke-dasharray="4,4"/>
+  <text x="645" y="250" font-size="12" fill="#c0392b" text-anchor="middle">Активація callback: shutdown(socket)</text>
+
+  <!-- Kernel Response -->
+  <path d="M 800 280 L 490 280" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr)"/>
+  <text x="645" y="270" font-size="12" fill="#2457d6" text-anchor="middle">Помилка: EINTR або розрив</text>
+
+  <!-- Worker response -->
+  <rect x="470" y="300" width="20" height="60" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="310" y="320" font-size="12" fill="#c0392b" text-anchor="end">Перевірка токена</text>
+  <text x="310" y="340" font-size="12" fill="#c0392b" text-anchor="end">Кидає CancellationException</text>
+  <path d="M 470 310 L 320 310" fill="none" stroke="#6b7280" stroke-width="1"/>
+  <path d="M 470 330 L 320 330" fill="none" stroke="#6b7280" stroke-width="1"/>
+  
+  <rect x="470" y="380" width="20" height="40" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="500" y="405" font-size="12" fill="#27ae60" text-anchor="start">Виконання блоку finally / RAII</text>
+  
+</svg>

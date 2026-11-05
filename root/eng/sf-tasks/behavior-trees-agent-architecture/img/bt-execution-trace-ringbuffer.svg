@@ -1,0 +1,68 @@
+<svg viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif" xmlns="http://www.w3.org/2000/svg">
+  <rect width="960" height="480" fill="white"/>
+  <defs>
+    <marker id="arr" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto">
+      <path d="M0,1 L10,5 L0,9 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-rd" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto">
+      <path d="M0,1 L10,5 L0,9 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <text x="480" y="30" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Трасування станів Дерева Поведінки</text>
+  <text x="480" y="55" font-size="13" fill="#6b7280" text-anchor="middle">Неблокуючий запис статусів вузлів у кільцевий буфер забезпечує діагностику в реальному часі.</text>
+
+  <!-- BT Node -->
+  <rect x="80" y="140" width="160" height="60" fill="#eaf0fd" stroke="#2457d6" stroke-width="2" rx="4"/>
+  <text x="160" y="165" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Action: Move</text>
+  <text x="160" y="185" font-size="12" fill="#2457d6" text-anchor="middle">Status: RUNNING</text>
+
+  <!-- Event Arrow -->
+  <path d="M240,170 L295,170" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr)"/>
+  <text x="267" y="160" font-size="12" fill="#6b7280" text-anchor="middle">On Tick</text>
+
+  <!-- Trace API -->
+  <rect x="300" y="150" width="100" height="40" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2" rx="4"/>
+  <text x="350" y="175" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Trace()</text>
+
+  <!-- Write to Buffer Arrow -->
+  <path d="M400,170 L420,170 L420,100 L575,100 L575,130" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr)"/>
+  <text x="495" y="90" font-size="12" fill="#2457d6" text-anchor="middle">Store 32-bit Event (ID + Status)</text>
+
+  <!-- Ring Buffer -->
+  <rect x="450" y="140" width="250" height="60" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <line x1="500" y1="140" x2="500" y2="200" stroke="#d0d7de" stroke-width="2"/>
+  <line x1="550" y1="140" x2="550" y2="200" stroke="#d0d7de" stroke-width="2"/>
+  <line x1="600" y1="140" x2="600" y2="200" stroke="#d0d7de" stroke-width="2"/>
+  <line x1="650" y1="140" x2="650" y2="200" stroke="#d0d7de" stroke-width="2"/>
+
+  <!-- Buffer Data -->
+  <text x="475" y="175" font-size="12" fill="#1a1a1a" text-anchor="middle">0x02 OK</text>
+  <text x="525" y="175" font-size="12" fill="#1a1a1a" text-anchor="middle">0x03 OK</text>
+  <text x="575" y="175" font-size="12" fill="#2457d6" font-weight="bold" text-anchor="middle">0x04 RUN</text>
+  <text x="625" y="175" font-size="12" fill="#6b7280" text-anchor="middle">...</text>
+  <text x="675" y="175" font-size="12" fill="#6b7280" text-anchor="middle">...</text>
+
+  <!-- Pointers -->
+  <!-- Write Ptr -->
+  <text x="575" y="70" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Head (Write)</text>
+
+  <!-- Read Ptr -->
+  <path d="M475,250 L475,210" fill="none" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-rd)"/>
+  <text x="475" y="265" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Tail (Read)</text>
+
+  <!-- UART Transmit Block -->
+  <rect x="400" y="300" width="150" height="40" fill="#e9f7ef" stroke="#27ae60" stroke-width="2" rx="4"/>
+  <text x="475" y="325" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">UART / SWD Tx</text>
+
+  <!-- Tail to UART -->
+  <path d="M475,275 L475,295" fill="none" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-rd)"/>
+
+  <!-- Task isolation dashed box -->
+  <rect x="60" y="110" width="370" height="110" fill="none" stroke="#6b7280" stroke-width="2" stroke-dasharray="6" rx="8"/>
+  <text x="70" y="130" font-size="12" fill="#6b7280" text-anchor="start">High Priority RTOS Task (Agent)</text>
+
+  <rect x="380" y="270" width="190" height="90" fill="none" stroke="#6b7280" stroke-width="2" stroke-dasharray="6" rx="8"/>
+  <text x="390" y="290" font-size="12" fill="#6b7280" text-anchor="start">Low Priority Tx Task / DMA</text>
+
+</svg>

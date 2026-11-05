@@ -1,0 +1,142 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 550" width="960" height="550" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="960" height="550" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="36" fill="#1a1a1a" font-size="18" font-weight="700" text-anchor="middle">Статичне розміщення StaticEventGroup_t у DTCM та передача з DMA ISR</text>
+  <text x="480" y="58" fill="#6b7280" font-size="13" text-anchor="middle">Детермінізм нуль-затримкової пам'яті, O(1) буферизація в чергу та витіснення через PendSV</text>
+
+  <!-- БЛОК 1: Розміщення у DTCM -->
+  <rect x="24" y="78" width="912" height="170" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="44" y="100" fill="#1a1a1a" font-size="14" font-weight="700">1. Архітектура пам'яті: Статичне розміщення StaticEventGroup_t у нуль-затримковій DTCM RAM</text>
+
+  <!-- Підпанель 1: Шинна топологія -->
+  <rect x="44" y="112" width="260" height="122" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2"/>
+  <text x="56" y="132" fill="#1a1a1a" font-size="13" font-weight="700">Шинна топологія пам'яті ARM</text>
+
+  <rect x="54" y="142" width="240" height="40" rx="5" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="64" y="159" fill="#27ae60" font-size="12" font-weight="700">DTCM RAM (0x20000000)</text>
+  <text x="64" y="174" fill="#1a1a1a" font-size="12">Шина D-TCM: 0 тактів, без колізій</text>
+
+  <rect x="54" y="188" width="240" height="40" rx="5" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.2"/>
+  <text x="64" y="205" fill="#6b7280" font-size="12" font-weight="700">SRAM / Купа Heap (0x24000000)</text>
+  <text x="64" y="220" fill="#6b7280" font-size="12">Шина AXI: арбітраж, фрагментація</text>
+
+  <!-- Підпанель 2: Код створення -->
+  <rect x="320" y="112" width="276" height="122" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2"/>
+  <text x="332" y="132" fill="#1a1a1a" font-size="13" font-weight="700">Статичне створення буфера</text>
+
+  <rect x="330" y="142" width="256" height="86" rx="5" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="340" y="160" fill="#2457d6" font-size="12" font-weight="700">// Секція .dtcm_data (статично)</text>
+  <text x="340" y="178" fill="#1a1a1a" font-size="12">StaticEventGroup_t xGroupBuf;</text>
+  <text x="340" y="196" fill="#1a1a1a" font-size="12">EventGroupHandle_t xGrp =</text>
+  <text x="352" y="214" fill="#27ae60" font-size="12" font-weight="700">xEventGroupCreateStatic(&amp;xGroupBuf);</text>
+
+  <!-- Підпанель 3: Структура у DTCM -->
+  <rect x="612" y="112" width="304" height="122" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2"/>
+  <text x="624" y="132" fill="#1a1a1a" font-size="13" font-weight="700">Структура StaticEventGroup_t (DTCM)</text>
+
+  <rect x="622" y="142" width="284" height="40" rx="5" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="632" y="159" fill="#2457d6" font-size="12" font-weight="700">uxEventBits (32 біти / 4 байти)</text>
+  <text x="632" y="174" fill="#1a1a1a" font-size="12">Біти 0..23: Події | 24..31: Керування RTOS</text>
+
+  <rect x="622" y="188" width="284" height="40" rx="5" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.2"/>
+  <text x="632" y="205" fill="#1a1a1a" font-size="12" font-weight="700">xTasksWaitingForBits (List_t, 20 байт)</text>
+  <text x="632" y="220" fill="#6b7280" font-size="12">Список заблокованих задач (ListItem_t)</text>
+
+  <!-- БЛОК 2: Потік переривання та PendSV -->
+  <rect x="24" y="262" width="912" height="266" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="44" y="286" fill="#1a1a1a" font-size="14" font-weight="700">2. Передача події: DMA ISR → черга демона таймерів → перемикання PendSV → розблокування</text>
+
+  <!-- Колонка 1: DMA ISR -->
+  <rect x="44" y="298" width="206" height="218" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="54" y="318" fill="#2457d6" font-size="12" font-weight="700">Крок 1. DMA ISR (IRQ)</text>
+  <text x="54" y="334" fill="#6b7280" font-size="12">Контекст переривання [O(1)]</text>
+
+  <rect x="52" y="342" width="190" height="48" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+  <text x="58" y="358" fill="#1a1a1a" font-size="12" font-weight="700">Передача DMA готова</text>
+  <text x="58" y="374" fill="#2457d6" font-size="12">DMA2_Stream_IRQHandler</text>
+
+  <rect x="52" y="396" width="190" height="54" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+  <text x="58" y="412" fill="#1a1a1a" font-size="12" font-weight="700">xEventGroupSetBitsFromISR</text>
+  <text x="58" y="428" fill="#6b7280" font-size="12">O(1) push в xTimerQueue</text>
+  <text x="58" y="442" fill="#27ae60" font-size="12">xHigherPriorityTask = TRUE</text>
+
+  <rect x="52" y="456" width="190" height="48" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+  <text x="58" y="472" fill="#1a1a1a" font-size="12" font-weight="700">portYIELD_FROM_ISR()</text>
+  <text x="58" y="488" fill="#2457d6" font-size="12">Запит перемикання ЦП</text>
+
+  <!-- Стрілка 1 -> 2 -->
+  <line x1="250" y1="480" x2="264" y2="480" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Колонка 2: PendSV -->
+  <rect x="266" y="298" width="206" height="218" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="276" y="318" fill="#1a1a1a" font-size="12" font-weight="700">Крок 2. Диспетчер PendSV</text>
+  <text x="276" y="334" fill="#6b7280" font-size="12">Системний виняток ARM</text>
+
+  <rect x="274" y="342" width="190" height="48" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="280" y="358" fill="#1a1a1a" font-size="12" font-weight="700">Регістр ICSR NVIC</text>
+  <text x="280" y="374" fill="#2457d6" font-size="12">PENDSVSET біт = 1 (активовано)</text>
+
+  <rect x="274" y="396" width="190" height="54" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="280" y="412" fill="#1a1a1a" font-size="12" font-weight="700">Вихід з DMA ISR</text>
+  <text x="280" y="428" fill="#6b7280" font-size="12">Вхід у PendSV_Handler</text>
+  <text x="280" y="442" fill="#6b7280" font-size="12">(найнижчий пріоритет IRQ)</text>
+
+  <rect x="274" y="456" width="190" height="48" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="280" y="472" fill="#1a1a1a" font-size="12" font-weight="700">Зміна покажчика PSP</text>
+  <text x="280" y="488" fill="#2457d6" font-size="12">Перемикання на стек Демона</text>
+
+  <!-- Стрілка 2 -> 3 -->
+  <line x1="472" y1="480" x2="486" y2="480" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Колонка 3: Timer Daemon -->
+  <rect x="488" y="298" width="206" height="218" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="498" y="318" fill="#1a1a1a" font-size="12" font-weight="700">Крок 3. Демон таймерів</text>
+  <text x="498" y="334" fill="#6b7280" font-size="12">Контекст задачі prvTimerTask</text>
+
+  <rect x="496" y="342" width="190" height="48" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="502" y="358" fill="#1a1a1a" font-size="12" font-weight="700">Черга xTimerQueue</text>
+  <text x="502" y="374" fill="#2457d6" font-size="12">Вилучення повідомлення команди</text>
+
+  <rect x="496" y="396" width="190" height="54" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="502" y="412" fill="#1a1a1a" font-size="12" font-weight="700">Обробка O(N) у задачі</text>
+  <text x="502" y="428" fill="#6b7280" font-size="12">vEventGroupSetBitsCallback</text>
+  <text x="502" y="442" fill="#27ae60" font-size="12">Без затримки переривань!</text>
+
+  <rect x="496" y="456" width="190" height="48" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="502" y="472" fill="#1a1a1a" font-size="12" font-weight="700">xEventGroupSetBits()</text>
+  <text x="502" y="488" fill="#2457d6" font-size="12">Виклик оновлення прапорців</text>
+
+  <!-- Стрілка 3 -> 4 -->
+  <line x1="694" y1="480" x2="708" y2="480" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Колонка 4: Розблокування -->
+  <rect x="710" y="298" width="206" height="218" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="720" y="318" fill="#27ae60" font-size="12" font-weight="700">Крок 4. DTCM та задача</text>
+  <text x="720" y="334" fill="#6b7280" font-size="12">Оновлення стану подій</text>
+
+  <rect x="718" y="342" width="190" height="48" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="724" y="358" fill="#1a1a1a" font-size="12" font-weight="700">Запис у DTCM RAM</text>
+  <text x="724" y="374" fill="#27ae60" font-size="12">uxEventBits |= uxBitsToSet</text>
+
+  <rect x="718" y="396" width="190" height="54" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="724" y="412" fill="#1a1a1a" font-size="12" font-weight="700">Перевірка очікувань</text>
+  <text x="724" y="428" fill="#6b7280" font-size="12">Сканування списку задач</text>
+  <text x="724" y="442" fill="#27ae60" font-size="12">Умова AND / OR виконана</text>
+
+  <rect x="718" y="456" width="190" height="48" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="724" y="472" fill="#27ae60" font-size="12" font-weight="700">Задача → Стан Ready</text>
+  <text x="724" y="488" fill="#1a1a1a" font-size="12">Миттєве виконання задачі</text>
+</svg>

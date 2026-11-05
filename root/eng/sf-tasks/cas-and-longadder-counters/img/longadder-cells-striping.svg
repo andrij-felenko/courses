@@ -1,0 +1,11 @@
+<svg viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif" xmlns="http://www.w3.org/2000/svg">
+<rect width="960" height="480" fill="white"/>
+<defs>
+<marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+<path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"/>
+</marker>
+</defs>
+<text x="480" y="40" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">LongAdder Cells Striping</text>
+<text x="480" y="65" font-size="13" fill="#6b7280" text-anchor="middle">Threads are hashed to different cells, removing contention on a single variable.</text>
+<rect x="200" y="150" width="120" height="60" fill="#eaf0fd" stroke="#2457d6" stroke-width="2" rx="4"/><text x="260" y="185" font-size="14" text-anchor="middle">Thread 1</text><rect x="640" y="150" width="120" height="60" fill="#eaf0fd" stroke="#2457d6" stroke-width="2" rx="4"/><text x="700" y="185" font-size="14" text-anchor="middle">Thread 2</text><rect x="400" y="280" width="160" height="100" fill="#e9f7ef" stroke="#27ae60" stroke-width="2" rx="4"/><text x="480" y="315" font-size="14" text-anchor="middle">Striped Cells</text><path d="M260 210 L430 280" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr)"/><path d="M700 210 L530 280" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr)"/>
+</svg>

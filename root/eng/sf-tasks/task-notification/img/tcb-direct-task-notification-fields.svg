@@ -1,0 +1,25 @@
+<svg viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif" xmlns="http://www.w3.org/2000/svg">
+  <rect width="960" height="480" fill="white"/>
+  <text x="480" y="38" fill="#1a1a1a" font-size="18" font-weight="bold" text-anchor="middle">Прямі сповіщення у структурі TCB</text>
+  <text x="480" y="62" fill="#6b7280" font-size="13" text-anchor="middle">Зберігання станів сповіщення безпосередньо у блоці задачі</text>
+
+  <rect x="300" y="100" width="360" height="300" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <text x="480" y="130" fill="#1a1a1a" font-size="16" font-weight="bold" text-anchor="middle">Task Control Block (TCB)</text>
+  
+  <rect x="330" y="150" width="300" height="40" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="480" y="175" fill="#6b7280" font-size="13" text-anchor="middle">Покажчик стеку</text>
+
+  <rect x="330" y="200" width="300" height="40" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="480" y="225" fill="#6b7280" font-size="13" text-anchor="middle">Пріоритет та статус</text>
+
+  <rect x="330" y="260" width="300" height="110" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="480" y="285" fill="#2457d6" font-size="14" font-weight="bold" text-anchor="middle">Task Notifications Array</text>
+  
+  <rect x="350" y="300" width="120" height="50" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+  <text x="410" y="320" fill="#1a1a1a" font-size="12" font-weight="bold" text-anchor="middle">ucNotifyState</text>
+  <text x="410" y="340" fill="#6b7280" font-size="11" text-anchor="middle">Стан події</text>
+
+  <rect x="490" y="300" width="120" height="50" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+  <text x="550" y="320" fill="#1a1a1a" font-size="12" font-weight="bold" text-anchor="middle">ulNotifiedValue</text>
+  <text x="550" y="340" fill="#6b7280" font-size="11" text-anchor="middle">Значення / Біти</text>
+</svg>

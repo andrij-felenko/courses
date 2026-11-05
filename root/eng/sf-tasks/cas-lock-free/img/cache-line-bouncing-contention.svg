@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+  <text x="480" y="40" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Вплив повторних спроб на шину когерентності</text>
+  <text x="480" y="60" font-size="13" fill="#6b7280" text-anchor="middle">Виникнення перегонів кеш-ліній (Cache Line Bouncing)</text>
+  
+    <rect x="178" y="133" width="145" height="34" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+<text x="250" y="154.9" font-size="14" fill="#1a1a1a" text-anchor="middle">Ядро 1 (L1 Кеш)</text>
+    <rect x="638" y="133" width="145" height="34" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+<text x="710" y="154.9" font-size="14" fill="#1a1a1a" text-anchor="middle">Ядро 2 (L1 Кеш)</text>
+    
+    <line x1="200" y1="250" x2="760" y2="250" stroke="#d0d7de" stroke-width="4"/>
+    <text x="480" y="280" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="bold">Шина когерентності (MESI)</text>
+    
+    <path d="M 250 180 L 250 250" fill="none" stroke="#c0392b" stroke-width="2" stroke-dasharray="4" marker-end="url(#arr-red)"/>
+    <path d="M 710 180 L 710 250" fill="none" stroke="#c0392b" stroke-width="2" stroke-dasharray="4" marker-end="url(#arr-red)"/>
+    
+    <path d="M 350 250 L 610 250" fill="none" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+    <path d="M 610 230 L 350 230" fill="none" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+    
+    <text x="480" y="210" font-size="12" fill="#c0392b" text-anchor="middle">Постійні інвалідації (Invalidate) кеш-лінії</text>
+    <text x="480" y="320" font-size="13" fill="#1a1a1a" text-anchor="middle">Зниження продуктивності через contention</text>
+    
+</svg>

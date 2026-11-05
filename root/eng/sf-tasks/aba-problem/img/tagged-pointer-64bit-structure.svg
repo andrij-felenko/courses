@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+  <text x="480" y="40" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Структура версіонованого вказівника</text>
+  <text x="480" y="60" font-size="13" fill="#6b7280" text-anchor="middle">Розділення бітів на 64-бітному макросі: адреса пам'яті та лічильник</text>
+  
+    <rect x="230" y="200" width="500" height="60" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+    <line x1="430" y1="200" x2="430" y2="260" stroke="#d0d7de" stroke-width="2"/>
+    
+    <text x="330" y="235" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="bold">Лічильник модифікацій (Tag)</text>
+    <text x="580" y="235" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="bold">Адреса пам'яті (Pointer)</text>
+    
+    <text x="330" y="190" font-size="12" fill="#6b7280" text-anchor="middle">16-32 біти</text>
+    <text x="580" y="190" font-size="12" fill="#6b7280" text-anchor="middle">48-32 біти</text>
+    
+    <text x="480" y="320" font-size="14" fill="#27ae60" text-anchor="middle">Кожен CAS інкрементує лічильник, вирішуючи проблему ABA</text>
+    
+</svg>

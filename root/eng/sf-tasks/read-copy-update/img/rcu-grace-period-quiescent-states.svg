@@ -1,0 +1,77 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+  
+  <text x="480" y="40" font-size="18" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Період відстрочки (Grace Period) та спокійні стани</text>
+  <text x="480" y="60" font-size="13" text-anchor="middle" fill="#6b7280">Тривалість критичних секцій, виявлення спокійних станів та безпечне вивільнення пам'яті</text>
+
+  <!-- Timeline axis -->
+  <path d="M 200 400 L 900 400" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr-gray)"/>
+  <text x="920" y="405" font-size="13" font-weight="bold" fill="#1a1a1a">Час</text>
+
+  <!-- Threads labels -->
+  <text x="180" y="130" font-size="14" font-weight="bold" text-anchor="end" fill="#1a1a1a">Читач 1 (CPU 0)</text>
+  <text x="180" y="210" font-size="14" font-weight="bold" text-anchor="end" fill="#1a1a1a">Читач 2 (CPU 1)</text>
+  <text x="180" y="290" font-size="14" font-weight="bold" text-anchor="end" fill="#1a1a1a">Читач 3 (CPU 2)</text>
+  <text x="180" y="370" font-size="14" font-weight="bold" text-anchor="end" fill="#2457d6">Письменник</text>
+
+  <!-- Thread lines -->
+  <path d="M 200 125 L 900 125" stroke="#d0d7de" stroke-width="2" stroke-dasharray="4 4"/>
+  <path d="M 200 205 L 900 205" stroke="#d0d7de" stroke-width="2" stroke-dasharray="4 4"/>
+  <path d="M 200 285 L 900 285" stroke="#d0d7de" stroke-width="2" stroke-dasharray="4 4"/>
+  <path d="M 200 365 L 900 365" stroke="#d0d7de" stroke-width="2"/>
+
+  <!-- Vertical lines for events -->
+  <!-- T_swap -->
+  <path d="M 350 100 L 350 420" stroke="#c0392b" stroke-width="2" stroke-dasharray="8 4"/>
+  <text x="350" y="90" font-size="13" font-weight="bold" text-anchor="middle" fill="#c0392b">Підміна вказівника</text>
+  
+  <!-- T_end -->
+  <path d="M 750 100 L 750 420" stroke="#27ae60" stroke-width="2" stroke-dasharray="8 4"/>
+  <text x="750" y="90" font-size="13" font-weight="bold" text-anchor="middle" fill="#27ae60">Кінець Grace Period</text>
+
+  <!-- Reader 1 -->
+  <rect x="250" y="110" width="250" height="30" fill="#f4f6f8" stroke="#1a1a1a" rx="4"/>
+  <text x="375" y="130" font-size="13" text-anchor="middle" fill="#1a1a1a">Критична секція читання (стара версія)</text>
+  <circle cx="550" cy="125" r="6" fill="#2457d6"/>
+  <text x="550" y="150" font-size="12" text-anchor="middle" fill="#2457d6">Спокійний стан</text>
+
+  <!-- Reader 2 -->
+  <rect x="300" y="190" width="450" height="30" fill="#f4f6f8" stroke="#1a1a1a" rx="4"/>
+  <text x="525" y="210" font-size="13" text-anchor="middle" fill="#1a1a1a">Критична секція читання (стара версія)</text>
+  <circle cx="800" cy="205" r="6" fill="#2457d6"/>
+  <text x="800" y="230" font-size="12" text-anchor="middle" fill="#2457d6">Спокійний стан</text>
+
+  <!-- Reader 3 -->
+  <rect x="450" y="270" width="200" height="30" fill="#e9f7ef" stroke="#27ae60" rx="4"/>
+  <text x="550" y="290" font-size="13" text-anchor="middle" fill="#27ae60">Читання нової версії</text>
+  <text x="550" y="320" font-size="12" text-anchor="middle" fill="#6b7280">(не блокує утилізацію)</text>
+
+  <!-- Writer -->
+  <rect x="200" y="350" width="150" height="30" fill="#eaf0fd" stroke="#2457d6" rx="4"/>
+  <text x="275" y="370" font-size="13" text-anchor="middle" fill="#2457d6">Підготовка</text>
+
+  <rect x="350" y="350" width="400" height="30" fill="#fdecea" stroke="#c0392b" rx="4"/>
+  <text x="550" y="370" font-size="13" font-weight="bold" text-anchor="middle" fill="#c0392b">synchronize_rcu() (Очікування)</text>
+
+  <rect x="750" y="350" width="150" height="30" fill="#e9f7ef" stroke="#27ae60" rx="4"/>
+  <text x="825" y="370" font-size="13" font-weight="bold" text-anchor="middle" fill="#27ae60">free(old_ptr)</text>
+
+  <!-- Grace Period Highlight -->
+  <path d="M 350 430 L 750 430" stroke="#c0392b" stroke-width="3" marker-start="url(#arr-red)" marker-end="url(#arr-red)"/>
+  <text x="550" y="450" font-size="14" font-weight="bold" text-anchor="middle" fill="#c0392b">Період відстрочки (Grace Period)</text>
+
+</svg>

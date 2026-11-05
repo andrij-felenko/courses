@@ -1,0 +1,132 @@
+<svg viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="38" fill="#1a1a1a" font-size="18" font-weight="700" text-anchor="middle">Відображення апаратних регістрів на EventBits_t та цикл RMW</text>
+  <text x="480" y="60" fill="#6b7280" font-size="13" text-anchor="middle">Трансляція прапорців периферії у розряди подій та атомарний захист читання-модифікації-запису</text>
+
+  <!-- Блок 1: Апаратне відображення -->
+  <rect x="24" y="80" width="912" height="216" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="44" y="104" fill="#1a1a1a" font-size="14" font-weight="700">1. Апаратне відображення: регістри периферії → лінії IRQ → бітове поле пам'яті</text>
+
+  <!-- Колонка 1: Регістри -->
+  <text x="156" y="128" fill="#6b7280" font-size="12" font-weight="700" text-anchor="middle">Апаратні регістри стану (SR)</text>
+  <rect x="44" y="136" width="224" height="38" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="56" y="160" fill="#1a1a1a" font-size="12" font-weight="700">UART_SR</text>
+  <text x="122" y="160" fill="#2457d6" font-size="12" font-weight="700">RXNE=1</text>
+  <text x="180" y="160" fill="#6b7280" font-size="12">байт у буфері</text>
+
+  <rect x="44" y="184" width="224" height="38" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="56" y="208" fill="#1a1a1a" font-size="12" font-weight="700">SPI_SR</text>
+  <text x="122" y="208" fill="#2457d6" font-size="12" font-weight="700">TXE=1</text>
+  <text x="180" y="208" fill="#6b7280" font-size="12">TX вільний</text>
+
+  <rect x="44" y="232" width="224" height="38" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="56" y="256" fill="#1a1a1a" font-size="12" font-weight="700">ADC_SR</text>
+  <text x="122" y="256" fill="#2457d6" font-size="12" font-weight="700">EOC=1</text>
+  <text x="180" y="256" fill="#6b7280" font-size="12">вимір готовий</text>
+
+  <!-- Стрілки від регістрів до переривань -->
+  <line x1="268" y1="155" x2="344" y2="155" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="306" y="146" fill="#6b7280" font-size="12" text-anchor="middle">IRQ 37</text>
+
+  <line x1="268" y1="203" x2="344" y2="203" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="306" y="194" fill="#6b7280" font-size="12" text-anchor="middle">IRQ 35</text>
+
+  <line x1="268" y1="251" x2="344" y2="251" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="306" y="242" fill="#6b7280" font-size="12" text-anchor="middle">IRQ 18</text>
+
+  <!-- Колонка 2: Обробники переривань -->
+  <text x="460" y="128" fill="#6b7280" font-size="12" font-weight="700" text-anchor="middle">Лінії IRQ та виклики RTOS API</text>
+  <rect x="348" y="136" width="224" height="38" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="358" y="160" fill="#2457d6" font-size="12" font-weight="700">USART_IRQHandler</text>
+  <text x="480" y="160" fill="#1a1a1a" font-size="12">→ BIT_0</text>
+
+  <rect x="348" y="184" width="224" height="38" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="358" y="208" fill="#2457d6" font-size="12" font-weight="700">SPI_IRQHandler</text>
+  <text x="480" y="208" fill="#1a1a1a" font-size="12">→ BIT_1</text>
+
+  <rect x="348" y="232" width="224" height="38" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="358" y="256" fill="#2457d6" font-size="12" font-weight="700">ADC_IRQHandler</text>
+  <text x="480" y="256" fill="#1a1a1a" font-size="12">→ BIT_2</text>
+
+  <!-- Стрілки від переривань до бітів пам'яті -->
+  <line x1="572" y1="155" x2="648" y2="155" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <line x1="572" y1="203" x2="648" y2="186" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <line x1="572" y1="251" x2="648" y2="217" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Колонка 3: Структура EventBits_t -->
+  <text x="784" y="128" fill="#6b7280" font-size="12" font-weight="700" text-anchor="middle">Змінна EventBits_t (SRAM)</text>
+  <rect x="652" y="136" width="264" height="134" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <rect x="658" y="142" width="252" height="26" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="668" y="159" fill="#27ae60" font-size="12" font-weight="700">Біт 0 [1]</text>
+  <text x="735" y="159" fill="#1a1a1a" font-size="12">UART_RX_READY (0x01)</text>
+
+  <rect x="658" y="173" width="252" height="26" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="668" y="190" fill="#6b7280" font-size="12" font-weight="700">Біт 1 [0]</text>
+  <text x="735" y="190" fill="#1a1a1a" font-size="12">SPI_TX_EMPTY (0x02)</text>
+
+  <rect x="658" y="204" width="252" height="26" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="668" y="221" fill="#27ae60" font-size="12" font-weight="700">Біт 2 [1]</text>
+  <text x="735" y="221" fill="#1a1a1a" font-size="12">ADC_EOC_DONE (0x04)</text>
+
+  <rect x="658" y="235" width="135" height="28" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="666" y="253" fill="#6b7280" font-size="12">Біти 3..23: User</text>
+
+  <rect x="801" y="235" width="109" height="28" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="809" y="253" fill="#c0392b" font-size="12">24..31: RTOS</text>
+
+  <!-- Блок 2: Цикл RMW -->
+  <rect x="24" y="310" width="912" height="226" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="44" y="334" fill="#1a1a1a" font-size="14" font-weight="700">2. Цикл читання-модифікації-запису (RMW) та запобігання втраті подій</text>
+
+  <!-- Панель А: Проблема (Неатомарний RMW) -->
+  <rect x="44" y="346" width="422" height="176" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="56" y="368" fill="#c0392b" font-size="13" font-weight="700">Небезпека RMW без захисту: гонитва даних</text>
+
+  <rect x="56" y="378" width="398" height="28" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+  <text x="66" y="396" fill="#1a1a1a" font-size="12" font-weight="700">1. Читання (LDR):</text>
+  <text x="180" y="396" fill="#6b7280" font-size="12">Задача А читає R0 = 0x00 з RAM</text>
+
+  <rect x="56" y="412" width="398" height="28" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="66" y="430" fill="#c0392b" font-size="12" font-weight="700">⚡ Переривання:</text>
+  <text x="180" y="430" fill="#c0392b" font-size="12">ISR встановив Bit 1 → RAM стає 0x02</text>
+
+  <rect x="56" y="446" width="398" height="28" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+  <text x="66" y="464" fill="#1a1a1a" font-size="12" font-weight="700">2-3. ORR + STR:</text>
+  <text x="180" y="464" fill="#6b7280" font-size="12">Задача А пише R0|1 = 0x01 назад у RAM</text>
+
+  <rect x="56" y="480" width="398" height="30" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="66" y="500" fill="#c0392b" font-size="12" font-weight="700">❌ Втрата події:</text>
+  <text x="180" y="500" fill="#c0392b" font-size="12">Втрачено Bit 1 (0x02): RAM = 0x01</text>
+
+  <!-- Панель Б: Розв'язок (Атомарний захист) -->
+  <rect x="486" y="346" width="426" height="176" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="498" y="368" fill="#27ae60" font-size="13" font-weight="700">Атомарний захист RTOS: збереження всіх подій</text>
+
+  <rect x="498" y="378" width="402" height="28" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="508" y="396" fill="#27ae60" font-size="12" font-weight="700">1. Захист ядра:</text>
+  <text x="618" y="396" fill="#1a1a1a" font-size="12">taskENTER_CRITICAL() / Timer Daemon</text>
+
+  <rect x="498" y="412" width="402" height="28" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="508" y="430" fill="#2457d6" font-size="12" font-weight="700">2. Атомарний RMW:</text>
+  <text x="618" y="430" fill="#1a1a1a" font-size="12">Read (0x02) → ORR (#1) → Write (0x03)</text>
+
+  <rect x="498" y="446" width="402" height="28" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="508" y="464" fill="#27ae60" font-size="12" font-weight="700">3. Черга відкладень:</text>
+  <text x="638" y="464" fill="#6b7280" font-size="12">Виклики з ISR буферизуються в чергу</text>
+
+  <rect x="498" y="480" width="402" height="30" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="508" y="500" fill="#27ae60" font-size="12" font-weight="700">✔ Гарантія цілісності:</text>
+  <text x="650" y="500" fill="#27ae60" font-size="12">Збережено всі події: RAM = 0x03</text>
+</svg>

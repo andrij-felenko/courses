@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+  <text x="480" y="40" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Часова діаграма критичних секцій та періоду відстрочки</text>
+  <text x="480" y="60" font-size="13" fill="#6b7280" text-anchor="middle">Фіксація спокійних станів і межі періоду відстрочки для безпечного вивільнення пам'яті</text>
+  
+<line x1="100" y1="150" x2="860" y2="150" stroke="#d0d7de" stroke-width="2"/>
+<line x1="100" y1="250" x2="860" y2="250" stroke="#d0d7de" stroke-width="2"/>
+<text x="50" y="155" font-size="14" fill="#1a1a1a">Потік 1</text>
+<text x="50" y="255" font-size="14" fill="#1a1a1a">Потік 2</text>
+
+<!-- Thread 1 CS -->
+<rect x="150" y="130" width="150" height="40" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+<text x="225" y="155" font-size="12" fill="#1a1a1a" text-anchor="middle">Читання (CS 1)</text>
+
+<!-- Thread 2 CS -->
+<rect x="250" y="230" width="180" height="40" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+<text x="340" y="255" font-size="12" fill="#1a1a1a" text-anchor="middle">Читання (CS 2)</text>
+
+<!-- Grace Period -->
+<rect x="300" y="320" width="230" height="40" fill="#fdecea" stroke="#c0392b" stroke-width="2"/>
+<text x="415" y="345" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="bold">Період відстрочки</text>
+
+<line x1="300" y1="100" x2="300" y2="360" stroke="#6b7280" stroke-width="2" stroke-dasharray="4"/>
+<text x="300" y="90" font-size="12" fill="#6b7280" text-anchor="middle">Видалення вузла</text>
+
+<line x1="530" y1="100" x2="530" y2="360" stroke="#6b7280" stroke-width="2" stroke-dasharray="4"/>
+<text x="530" y="90" font-size="12" fill="#6b7280" text-anchor="middle">Спокійний стан (всі закінчили)</text>
+
+<rect x="566" y="323" width="168" height="34" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+<text x="650" y="344.9" font-size="14" fill="#1a1a1a" text-anchor="middle">Утилізація пам'яті</text>
+<path d="M 530 340 L 570 340" fill="none" stroke="#27ae60" stroke-width="2" marker-end="url(#arr)"/>
+
+</svg>

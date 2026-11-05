@@ -1,0 +1,222 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-rev-red" markerWidth="9" markerHeight="9" refX="0.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Підкладка -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="32" font-size="18" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Часова діаграма відпрацювання команд: черга FIFO проти latest-wins</text>
+  <text x="480" y="52" font-size="13" text-anchor="middle" fill="#6b7280">Черга FIFO накопичує фазове запізнення та паразитні рухи, тоді як згортання гарантує доставку найновішого стану</text>
+
+  <!-- ================= ВЕРХНЯ ПАНЕЛЬ: ЧЕРГА FIFO (ПРОБЛЕМА) ================= -->
+  <rect x="24" y="68" width="912" height="218" rx="8" fill="#f4f6f8" stroke="#d0d7de"/>
+
+  <!-- Бейдж статусу FIFO -->
+  <rect x="42" y="78" width="220" height="22" rx="4" fill="#fdecea" stroke="#c0392b"/>
+  <text x="152" y="94" font-size="12" font-weight="bold" text-anchor="middle" fill="#c0392b">ЧЕРГА FIFO: БЕЗ ЗГОРТАННЯ</text>
+  <text x="278" y="94" font-size="12" fill="#6b7280">Високочастотний потік команд переповнює буфер через механічну інерцію приводу</text>
+
+  <!-- Ліва картка: структура черги FIFO -->
+  <rect x="42" y="108" width="270" height="166" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="177" y="126" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Буфер міжзадачного обміну FIFO</text>
+
+  <!-- Потік і пакети у черзі -->
+  <line x1="52" y1="158" x2="68" y2="158" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  
+  <rect x="72" y="142" width="158" height="32" rx="4" fill="#f4f6f8" stroke="#d0d7de"/>
+  <rect x="76" y="146" width="34" height="24" rx="3" fill="#fdecea" stroke="#c0392b"/>
+  <text x="93" y="163" font-size="12" font-weight="bold" text-anchor="middle" fill="#c0392b">C₁</text>
+
+  <rect x="114" y="146" width="34" height="24" rx="3" fill="#fdecea" stroke="#c0392b"/>
+  <text x="131" y="163" font-size="12" font-weight="bold" text-anchor="middle" fill="#c0392b">C₂</text>
+
+  <rect x="152" y="146" width="34" height="24" rx="3" fill="#fdecea" stroke="#c0392b"/>
+  <text x="169" y="163" font-size="12" font-weight="bold" text-anchor="middle" fill="#c0392b">C₃</text>
+
+  <rect x="190" y="146" width="36" height="24" rx="3" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="208" y="163" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">C₄</text>
+
+  <line x1="234" y1="158" x2="250" y2="158" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <rect x="252" y="142" width="50" height="32" rx="4" fill="#fdecea" stroke="#c0392b"/>
+  <text x="277" y="162" font-size="12" font-weight="bold" text-anchor="middle" fill="#c0392b">Привід</text>
+
+  <!-- Пояснення в картці FIFO -->
+  <text x="177" y="196" font-size="12" text-anchor="middle" fill="#c0392b">Черга накопичує проміжні устави</text>
+  <text x="177" y="214" font-size="12" text-anchor="middle" fill="#6b7280">Привід послідовно виконує всі кроки</text>
+  <text x="177" y="232" font-size="12" text-anchor="middle" fill="#6b7280">Швидкість вичитування лімітована τ_mech</text>
+  <text x="177" y="250" font-size="12" text-anchor="middle" fill="#1a1a1a">Фазовий зсув: Δt_lag = N · τ_step</text>
+
+  <!-- Права картка: часова діаграма FIFO -->
+  <rect x="326" y="108" width="596" height="166" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+
+  <!-- Легенда FIFO -->
+  <text x="342" y="125" font-size="12" font-weight="bold" fill="#1a1a1a">Динаміка кута θ(t)</text>
+  <line x1="560" y1="121" x2="585" y2="121" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4 3"/>
+  <text x="592" y="125" font-size="12" fill="#2457d6">Уставка u_cmd</text>
+  <line x1="710" y1="121" x2="735" y2="121" stroke="#c0392b" stroke-width="2.5"/>
+  <text x="742" y="125" font-size="12" fill="#c0392b">Фактичний кут θ_act</text>
+
+  <!-- Вісі графіка FIFO -->
+  <line x1="390" y1="135" x2="390" y2="238" stroke="#1a1a1a" stroke-width="1.2"/>
+  <line x1="390" y1="238" x2="880" y2="238" stroke="#1a1a1a" stroke-width="1.2" marker-end="url(#arr)"/>
+  <text x="890" y="242" font-size="12" fill="#1a1a1a">t, мс</text>
+
+  <!-- Позначки вертикальної вісі θ -->
+  <text x="382" y="242" font-size="12" text-anchor="end" fill="#6b7280">0°</text>
+  <line x1="386" y1="238" x2="390" y2="238" stroke="#1a1a1a"/>
+
+  <text x="382" y="200" font-size="12" text-anchor="end" fill="#6b7280">40°</text>
+  <line x1="386" y1="196" x2="390" y2="196" stroke="#1a1a1a"/>
+
+  <text x="382" y="154" font-size="12" text-anchor="end" fill="#6b7280">80°</text>
+  <line x1="386" y1="150" x2="390" y2="150" stroke="#1a1a1a"/>
+
+  <!-- Часові мітки та засічки t -->
+  <line x1="460" y1="234" x2="460" y2="238" stroke="#1a1a1a"/>
+  <text x="460" y="254" font-size="12" text-anchor="middle" fill="#6b7280">20</text>
+
+  <line x1="530" y1="234" x2="530" y2="238" stroke="#1a1a1a"/>
+  <text x="530" y="254" font-size="12" text-anchor="middle" fill="#6b7280">40</text>
+
+  <line x1="600" y1="234" x2="600" y2="238" stroke="#1a1a1a"/>
+  <text x="600" y="254" font-size="12" text-anchor="middle" fill="#6b7280">60</text>
+
+  <line x1="670" y1="234" x2="670" y2="238" stroke="#1a1a1a"/>
+  <text x="670" y="254" font-size="12" text-anchor="middle" fill="#6b7280">80</text>
+
+  <line x1="740" y1="234" x2="740" y2="238" stroke="#1a1a1a"/>
+  <text x="740" y="254" font-size="12" text-anchor="middle" fill="#6b7280">100</text>
+
+  <line x1="810" y1="234" x2="810" y2="238" stroke="#1a1a1a"/>
+  <text x="810" y="254" font-size="12" text-anchor="middle" fill="#6b7280">120</text>
+
+  <!-- Траєкторія уставки u_cmd(t) -->
+  <polyline points="390,238 390,205 460,205 460,167 530,167 530,210 600,210 600,150 860,150"
+            fill="none" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4 3"/>
+
+  <!-- Траєкторія актуатора θ_act(t) в черзі FIFO: відставання, перерегулювання, реверс -->
+  <path d="M390,238 C420,238 440,207 465,205 C495,203 515,169 545,167 C570,165 585,208 615,210 C655,212 705,155 775,150 L860,150"
+        fill="none" stroke="#c0392b" stroke-width="2.5"/>
+
+  <!-- Позначки устав біля кроків -->
+  <text x="425" y="196" font-size="12" fill="#2457d6">C₁: 30°</text>
+  <text x="495" y="158" font-size="12" fill="#2457d6">C₂: 65°</text>
+  <text x="565" y="226" font-size="12" fill="#2457d6">C₃: 25°</text>
+  <text x="635" y="142" font-size="12" fill="#2457d6">C₄: 80°</text>
+
+  <!-- Анотація реверсу -->
+  <text x="575" y="146" font-size="12" font-weight="bold" text-anchor="middle" fill="#c0392b">Паразитний реверс</text>
+
+  <!-- Стрілка затримки Δt_lag -->
+  <line x1="600" y1="134" x2="775" y2="134" stroke="#c0392b" stroke-width="1.5" marker-start="url(#arr-rev-red)" marker-end="url(#arr-red)"/>
+  <text x="687" y="129" font-size="12" font-weight="bold" text-anchor="middle" fill="#c0392b">Фазова затримка Δt_lag</text>
+
+
+  <!-- ================= НИЖНЯ ПАНЕЛЬ: ЗГОРТАННЯ КОМАНД (РОЗВ'ЯЗОК) ================= -->
+  <rect x="24" y="300" width="912" height="218" rx="8" fill="#f4f6f8" stroke="#d0d7de"/>
+
+  <!-- Бейдж статусу Conflation -->
+  <rect x="42" y="312" width="250" height="22" rx="4" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="167" y="328" font-size="12" font-weight="bold" text-anchor="middle" fill="#27ae60">ЗГОРТАННЯ: LATEST-WINS</text>
+  <text x="304" y="328" font-size="12" fill="#6b7280">Проміжні устави перезаписуються в слоті O(1); нульова затримка черги (Δt_queue = 0)</text>
+
+  <!-- Ліва картка: структура поштової скриньки -->
+  <rect x="42" y="342" width="270" height="166" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="177" y="360" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Поштова скринька стану (1 слот)</text>
+
+  <!-- Потік і слот згортання -->
+  <line x1="52" y1="392" x2="68" y2="392" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <rect x="72" y="376" width="158" height="32" rx="4" fill="#e9f7ef" stroke="#27ae60"/>
+  <rect x="88" y="380" width="126" height="24" rx="3" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="151" y="397" font-size="12" font-weight="bold" text-anchor="middle" fill="#27ae60">C₄ (80°) [актуальна]</text>
+
+  <line x1="234" y1="392" x2="250" y2="392" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <rect x="252" y="376" width="50" height="32" rx="4" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="277" y="396" font-size="12" font-weight="bold" text-anchor="middle" fill="#27ae60">Привід</text>
+
+  <!-- Пояснення в картці Conflation -->
+  <text x="177" y="430" font-size="12" text-anchor="middle" fill="#27ae60">Проміжні устави C₂, C₃ перезаписано</text>
+  <text x="177" y="448" font-size="12" text-anchor="middle" fill="#6b7280">Привід спрямовується одразу на C₄</text>
+  <text x="177" y="466" font-size="12" text-anchor="middle" fill="#6b7280">Обсяг буфера O(1), відсутність черги</text>
+  <text x="177" y="484" font-size="12" text-anchor="middle" fill="#1a1a1a">Затримка черги: Δt_queue = 0</text>
+
+  <!-- Права картка: часова діаграма Conflation -->
+  <rect x="326" y="342" width="596" height="166" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+
+  <!-- Легенда Conflation -->
+  <text x="342" y="359" font-size="12" font-weight="bold" fill="#1a1a1a">Динаміка кута θ(t)</text>
+  <line x1="560" y1="355" x2="585" y2="355" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4 3"/>
+  <text x="592" y="359" font-size="12" fill="#2457d6">Уставка u_cmd</text>
+  <line x1="710" y1="355" x2="735" y2="355" stroke="#27ae60" stroke-width="2.5"/>
+  <text x="742" y="359" font-size="12" fill="#27ae60">Фактичний кут θ_act</text>
+
+  <!-- Вісі графіка Conflation -->
+  <line x1="390" y1="369" x2="390" y2="472" stroke="#1a1a1a" stroke-width="1.2"/>
+  <line x1="390" y1="472" x2="880" y2="472" stroke="#1a1a1a" stroke-width="1.2" marker-end="url(#arr)"/>
+  <text x="890" y="476" font-size="12" fill="#1a1a1a">t, мс</text>
+
+  <!-- Позначки вертикальної вісі θ -->
+  <text x="382" y="476" font-size="12" text-anchor="end" fill="#6b7280">0°</text>
+  <line x1="386" y1="472" x2="390" y2="472" stroke="#1a1a1a"/>
+
+  <text x="382" y="434" font-size="12" text-anchor="end" fill="#6b7280">40°</text>
+  <line x1="386" y1="430" x2="390" y2="430" stroke="#1a1a1a"/>
+
+  <text x="382" y="388" font-size="12" text-anchor="end" fill="#6b7280">80°</text>
+  <line x1="386" y1="384" x2="390" y2="384" stroke="#1a1a1a"/>
+
+  <!-- Часові мітки та засічки t -->
+  <line x1="460" y1="468" x2="460" y2="472" stroke="#1a1a1a"/>
+  <text x="460" y="488" font-size="12" text-anchor="middle" fill="#6b7280">20</text>
+
+  <line x1="530" y1="468" x2="530" y2="472" stroke="#1a1a1a"/>
+  <text x="530" y="488" font-size="12" text-anchor="middle" fill="#6b7280">40</text>
+
+  <line x1="600" y1="468" x2="600" y2="472" stroke="#1a1a1a"/>
+  <text x="600" y="488" font-size="12" text-anchor="middle" fill="#6b7280">60</text>
+
+  <line x1="670" y1="468" x2="670" y2="472" stroke="#1a1a1a"/>
+  <text x="670" y="488" font-size="12" text-anchor="middle" fill="#6b7280">80</text>
+
+  <line x1="740" y1="468" x2="740" y2="472" stroke="#1a1a1a"/>
+  <text x="740" y="488" font-size="12" text-anchor="middle" fill="#6b7280">100</text>
+
+  <line x1="810" y1="468" x2="810" y2="472" stroke="#1a1a1a"/>
+  <text x="810" y="488" font-size="12" text-anchor="middle" fill="#6b7280">120</text>
+
+  <!-- Траєкторія уставки u_cmd(t) -->
+  <polyline points="390,472 390,439 460,439 460,401 530,401 530,444 600,444 600,384 860,384"
+            fill="none" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4 3"/>
+
+  <!-- Траєкторія актуатора θ_act(t) зі згортанням: плавний прямий вихід без реверсу -->
+  <path d="M390,472 C420,472 440,441 465,439 C490,437 515,403 545,401 C575,399 610,384 660,384 L860,384"
+        fill="none" stroke="#27ae60" stroke-width="2.5"/>
+
+  <!-- Позначки устав біля кроків -->
+  <text x="425" y="430" font-size="12" fill="#2457d6">C₁: 30°</text>
+  <text x="495" y="392" font-size="12" fill="#2457d6">C₂: 65°</text>
+  <text x="565" y="460" font-size="12" font-weight="bold" fill="#27ae60">C₃: витіснено</text>
+  <text x="635" y="376" font-size="12" fill="#2457d6">C₄: 80°</text>
+
+  <!-- Анотація прямого руху -->
+  <text x="750" y="416" font-size="12" font-weight="bold" text-anchor="middle" fill="#27ae60">Прямий вихід на 80°</text>
+  <text x="750" y="432" font-size="12" font-weight="bold" text-anchor="middle" fill="#27ae60">Затримка черги Δt_queue = 0</text>
+  <text x="750" y="448" font-size="12" text-anchor="middle" fill="#6b7280">Час переходу лімітовано лише τ_mech</text>
+</svg>

@@ -1,0 +1,37 @@
+<svg viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+  <rect width="960" height="480" fill="white"/>
+  <text x="480" y="38" fill="#1a1a1a" font-size="18" font-weight="bold" text-anchor="middle">Бар'єр синхронізації (Rendezvous)</text>
+  <text x="480" y="62" fill="#6b7280" font-size="13" text-anchor="middle">Синхронізація трьох задач та одночасний перехід</text>
+  
+  <rect x="100" y="100" width="150" height="60" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <text x="175" y="130" fill="#1a1a1a" font-size="14" font-weight="bold" text-anchor="middle">Задача A (Bit 0)</text>
+  <text x="175" y="148" fill="#6b7280" font-size="12" text-anchor="middle">Чекає B та C</text>
+
+  <rect x="100" y="200" width="150" height="60" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <text x="175" y="230" fill="#1a1a1a" font-size="14" font-weight="bold" text-anchor="middle">Задача B (Bit 1)</text>
+  <text x="175" y="248" fill="#6b7280" font-size="12" text-anchor="middle">Чекає A та C</text>
+
+  <rect x="100" y="300" width="150" height="60" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <text x="175" y="330" fill="#1a1a1a" font-size="14" font-weight="bold" text-anchor="middle">Задача C (Bit 2)</text>
+  <text x="175" y="348" fill="#6b7280" font-size="12" text-anchor="middle">Чекає A та B</text>
+  
+  <rect x="400" y="150" width="160" height="160" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="480" y="210" fill="#2457d6" font-size="14" font-weight="bold" text-anchor="middle">Група подій</text>
+  <text x="480" y="235" fill="#1a1a1a" font-size="13" text-anchor="middle">Накопичення бітів</text>
+  <text x="480" y="260" fill="#1a1a1a" font-size="14" font-weight="bold" text-anchor="middle">[1, 1, 1]</text>
+  
+  <line x1="250" y1="130" x2="390" y2="200" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+  <line x1="250" y1="230" x2="390" y2="230" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+  <line x1="250" y1="330" x2="390" y2="260" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+  
+  <rect x="700" y="200" width="160" height="60" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <text x="780" y="225" fill="#27ae60" font-size="14" font-weight="bold" text-anchor="middle">Синхронний старт</text>
+  <text x="780" y="245" fill="#1a1a1a" font-size="12" text-anchor="middle">Авто-скидання бітів</text>
+  
+  <line x1="560" y1="230" x2="690" y2="230" stroke="#27ae60" stroke-width="2" marker-end="url(#arr)"/>
+</svg>

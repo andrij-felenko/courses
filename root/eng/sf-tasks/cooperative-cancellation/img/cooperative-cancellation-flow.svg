@@ -1,0 +1,67 @@
+<svg viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif" xmlns="http://www.w3.org/2000/svg">
+  <rect width="960" height="480" fill="white"/>
+  
+  <text x="480" y="40" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Потік дій та перевірка токена скасування у робочому циклі</text>
+  <text x="480" y="60" font-size="13" fill="#6b7280" text-anchor="middle">Схема взаємодії джерела скасування, токена та робочої задачі з відновленням апаратного стану периферії.</text>
+  
+  <defs>
+    <marker id="arr" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Left: Initiator -->
+  <rect x="50" y="100" width="200" height="300" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="150" y="125" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Ініціатор (UI/Система)</text>
+  
+  <rect x="70" y="150" width="160" height="50" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="150" y="175" font-size="13" fill="#1a1a1a" text-anchor="middle">Створює CancellationSource</text>
+  
+  <rect x="70" y="300" width="160" height="50" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="150" y="330" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="bold">Виклик cancel()</text>
+
+  <!-- Center: Token state -->
+  <rect x="380" y="100" width="200" height="300" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="480" y="125" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">Пам'ять (Atomic Flag)</text>
+  
+  <rect x="400" y="150" width="160" height="50" rx="4" fill="white" stroke="#2457d6" stroke-width="1"/>
+  <text x="480" y="175" font-size="13" fill="#1a1a1a" text-anchor="middle">is_cancelled = false</text>
+
+  <rect x="400" y="300" width="160" height="50" rx="4" fill="white" stroke="#2457d6" stroke-width="1"/>
+  <text x="480" y="330" font-size="13" fill="#c0392b" text-anchor="middle">is_cancelled = true</text>
+  
+  <!-- Right: Worker task -->
+  <rect x="710" y="100" width="200" height="300" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="810" y="125" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Фонова задача (Worker)</text>
+  
+  <rect x="730" y="150" width="160" height="50" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="810" y="175" font-size="13" fill="#1a1a1a" text-anchor="middle">Робочий цикл (ітерація)</text>
+  
+  <rect x="730" y="225" width="160" height="50" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="810" y="250" font-size="13" fill="#1a1a1a" text-anchor="middle">Точка скасування</text>
+
+  <rect x="730" y="330" width="160" height="50" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="810" y="355" font-size="13" fill="#27ae60" text-anchor="middle">Очищення та вихід</text>
+  
+  <!-- Arrows -->
+  <path d="M 230 175 L 400 175" fill="none" stroke="#6b7280" stroke-width="2" marker-end="url(#arr)"/>
+  <text x="315" y="165" font-size="12" fill="#6b7280" text-anchor="middle">Ініціалізація</text>
+
+  <path d="M 230 325 L 400 325" fill="none" stroke="#c0392b" stroke-width="2" marker-end="url(#arr)"/>
+  <text x="315" y="315" font-size="12" fill="#c0392b" text-anchor="middle">Атомарний запис</text>
+  
+  <path d="M 810 200 L 810 225" fill="none" stroke="#6b7280" stroke-width="2" marker-end="url(#arr)"/>
+  
+  <path d="M 730 250 L 560 250" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="645" y="240" font-size="12" fill="#2457d6" text-anchor="middle">Атомарне читання</text>
+  
+  <path d="M 810 275 L 810 330" fill="none" stroke="#27ae60" stroke-width="2" marker-end="url(#arr)"/>
+  <text x="820" y="305" font-size="12" fill="#27ae60" text-anchor="start">true (переривання)</text>
+  
+  <path d="M 810 250 L 890 250 L 890 175 L 810 175" fill="none" stroke="#6b7280" stroke-width="2"/>
+  <text x="900" y="215" font-size="12" fill="#6b7280" text-anchor="start">false</text>
+
+</svg>

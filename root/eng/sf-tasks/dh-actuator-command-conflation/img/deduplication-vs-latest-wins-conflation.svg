@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+<defs>
+  <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+    <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+  </marker>
+</defs>
+<rect x="0" y="0" width="960" height="480" fill="white"/>
+<text x="480" y="40" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Стратегії згортання команд</text>
+<text x="480" y="60" font-size="13" fill="#6b7280" text-anchor="middle">Порівняння дедуплікації та заміни найновішим значенням</text>
+
+<text x="240" y="110" font-size="16" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Дедуплікація (Deduplication)</text>
+<!-- Deduplication -->
+<rect x="50" y="140" width="380" height="120" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+<text x="240" y="170" font-size="14" fill="#1a1a1a" text-anchor="middle">Вхід: 45°, 45°, 45°</text>
+<text x="240" y="200" font-size="14" fill="#c0392b" text-anchor="middle">Видалення дублікатів</text>
+<text x="240" y="230" font-size="14" fill="#27ae60" text-anchor="middle">Вихід: 45°</text>
+
+<text x="720" y="110" font-size="16" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Latest-wins Conflation</text>
+<!-- Latest-wins -->
+<rect x="530" y="140" width="380" height="120" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+<text x="720" y="170" font-size="14" fill="#1a1a1a" text-anchor="middle">Вхід: 30°, 50° (під час Cooldown)</text>
+<text x="720" y="200" font-size="14" fill="#c0392b" text-anchor="middle">Перезапис 30° -> 50°</text>
+<text x="720" y="230" font-size="14" fill="#27ae60" text-anchor="middle">Вихід: 50°</text>
+
+</svg>

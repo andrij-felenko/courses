@@ -1,0 +1,27 @@
+<svg viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+  <rect width="960" height="480" fill="white"/>
+  <text x="480" y="38" fill="#1a1a1a" font-size="18" font-weight="bold" text-anchor="middle">Семафори vs Групи подій</text>
+  <text x="480" y="62" fill="#6b7280" font-size="13" text-anchor="middle">Перевага атомарної маски над послідовним блокуванням</text>
+
+  <rect x="100" y="120" width="300" height="250" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="2"/>
+  <text x="250" y="150" fill="#c0392b" font-size="14" font-weight="bold" text-anchor="middle">Проблема: Послідовні семафори</text>
+  
+  <rect x="130" y="180" width="240" height="50" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+  <text x="250" y="205" fill="#1a1a1a" font-size="13" text-anchor="middle">Take(Semaphore A) - Блок</text>
+  <text x="250" y="222" fill="#6b7280" font-size="11" text-anchor="middle">Не реагує на інші події</text>
+  
+  <rect x="130" y="260" width="240" height="50" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+  <text x="250" y="285" fill="#1a1a1a" font-size="13" text-anchor="middle">Take(Semaphore B)</text>
+
+  <rect x="560" y="120" width="300" height="250" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <text x="710" y="150" fill="#27ae60" font-size="14" font-weight="bold" text-anchor="middle">Рішення: Група подій</text>
+  
+  <rect x="590" y="220" width="240" height="60" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="710" y="245" fill="#1a1a1a" font-size="13" font-weight="bold" text-anchor="middle">WaitBits(A | B | C)</text>
+  <text x="710" y="265" fill="#6b7280" font-size="11" text-anchor="middle">Атомарно чекає будь-яку подію</text>
+</svg>

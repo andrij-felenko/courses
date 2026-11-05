@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+  
+  <text x="480" y="40" font-size="18" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Атомарна підміна вказівника в RCU</text>
+  <text x="480" y="60" font-size="13" text-anchor="middle" fill="#6b7280">Читачі працюють із різними версіями даних залежно від моменту розіменування</text>
+
+  <!-- Global pointer -->
+  <rect x="400" y="100" width="160" height="40" fill="#f4f6f8" stroke="#1a1a1a" rx="4" stroke-width="2"/>
+  <text x="480" y="125" font-size="14" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Глобальний вказівник</text>
+
+  <!-- Pointer line to Version B -->
+  <path d="M 480 140 L 480 200 L 640 200" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="560" y="190" font-size="13" font-weight="bold" text-anchor="middle" fill="#27ae60">Нове значення</text>
+
+  <!-- Memory Box: Version A (Old) -->
+  <rect x="180" y="240" width="200" height="120" fill="#fdecea" stroke="#c0392b" rx="8"/>
+  <text x="280" y="270" font-size="14" font-weight="bold" text-anchor="middle" fill="#c0392b">Версія A (Стара)</text>
+  <text x="280" y="295" font-size="13" text-anchor="middle" fill="#1a1a1a">Від'єднана від глобального</text>
+  <text x="280" y="315" font-size="13" text-anchor="middle" fill="#1a1a1a">стану (unlinked)</text>
+
+  <!-- Memory Box: Version B (New) -->
+  <rect x="640" y="180" width="200" height="120" fill="#e9f7ef" stroke="#27ae60" rx="8"/>
+  <text x="740" y="210" font-size="14" font-weight="bold" text-anchor="middle" fill="#27ae60">Версія B (Нова)</text>
+  <text x="740" y="235" font-size="13" text-anchor="middle" fill="#1a1a1a">Актуальний стан</text>
+  <text x="740" y="255" font-size="13" text-anchor="middle" fill="#1a1a1a">опублікований письменником</text>
+
+  <!-- Readers for Version A -->
+  <rect x="50" y="300" width="100" height="30" fill="#f4f6f8" stroke="#d0d7de" rx="4"/>
+  <text x="100" y="320" font-size="13" text-anchor="middle" fill="#1a1a1a">Читач 1</text>
+  <path d="M 150 315 L 170 315" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+
+  <rect x="50" y="340" width="100" height="30" fill="#f4f6f8" stroke="#d0d7de" rx="4"/>
+  <text x="100" y="360" font-size="13" text-anchor="middle" fill="#1a1a1a">Читач 2</text>
+  <path d="M 150 355 L 195 355" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  
+  <text x="120" y="280" font-size="12" text-anchor="middle" fill="#c0392b">Почали до підміни</text>
+
+  <!-- Readers for Version B -->
+  <rect x="870" y="200" width="80" height="30" fill="#f4f6f8" stroke="#d0d7de" rx="4"/>
+  <text x="910" y="220" font-size="13" text-anchor="middle" fill="#1a1a1a">Читач 3</text>
+  <path d="M 870 215 L 850 215" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <rect x="870" y="240" width="80" height="30" fill="#f4f6f8" stroke="#d0d7de" rx="4"/>
+  <text x="910" y="260" font-size="13" text-anchor="middle" fill="#1a1a1a">Читач 4</text>
+  <path d="M 870 255 L 850 255" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <text x="890" y="180" font-size="12" text-anchor="middle" fill="#27ae60">Почали після підміни</text>
+
+  <!-- Writer timeline or context -->
+  <rect x="350" y="390" width="260" height="50" fill="#f4f6f8" stroke="#d0d7de" rx="4"/>
+  <text x="480" y="410" font-size="13" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Письменник чекає (Grace Period)</text>
+  <text x="480" y="430" font-size="13" text-anchor="middle" fill="#6b7280">Поки Читачі 1 і 2 не завершать роботу</text>
+
+</svg>

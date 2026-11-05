@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+  <text x="480" y="40" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Відношення synchronizes-with при CAS</text>
+  <text x="480" y="60" font-size="13" fill="#6b7280" text-anchor="middle">Виклик CAS із семантикою Release та атомарне зчитування Acquire</text>
+  
+    <rect x="220" y="133" width="160" height="34" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+<text x="300" y="154.9" font-size="14" fill="#1a1a1a" text-anchor="middle">Потік 1 (Release)</text>
+    <rect x="580" y="133" width="160" height="34" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+<text x="660" y="154.9" font-size="14" fill="#1a1a1a" text-anchor="middle">Потік 2 (Acquire)</text>
+    
+    <rect x="243" y="203" width="114" height="34" rx="4" fill="#white" stroke="#d0d7de" stroke-width="2"/>
+<text x="300" y="224.9" font-size="14" fill="#1a1a1a" text-anchor="middle">Запис даних</text>
+    <rect x="185" y="273" width="230" height="34" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+<text x="300" y="294.9" font-size="14" fill="#1a1a1a" text-anchor="middle">CAS (memory_order_release)</text>
+    
+    <rect x="495" y="203" width="330" height="34" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+<text x="660" y="224.9" font-size="14" fill="#1a1a1a" text-anchor="middle">Атомарне Читання (memory_order_acquire)</text>
+    <rect x="595" y="273" width="130" height="34" rx="4" fill="#white" stroke="#d0d7de" stroke-width="2"/>
+<text x="660" y="294.9" font-size="14" fill="#1a1a1a" text-anchor="middle">Читання даних</text>
+    
+    <path d="M 300 250 L 300 270" fill="none" stroke="#6b7280" stroke-width="2" marker-end="url(#arr)"/>
+    <path d="M 660 250 L 660 270" fill="none" stroke="#6b7280" stroke-width="2" marker-end="url(#arr)"/>
+    
+    <path d="M 450 290 L 510 220" fill="none" stroke="#27ae60" stroke-width="2" stroke-dasharray="4" marker-end="url(#arr)"/>
+    <text x="530" y="270" font-size="12" fill="#27ae60" text-anchor="middle">synchronizes-with</text>
+    
+</svg>

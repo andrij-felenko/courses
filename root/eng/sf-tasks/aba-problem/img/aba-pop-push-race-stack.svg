@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+  <text x="480" y="40" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Гонка потоків під час виконання Pop і Push у неблокувальному стеку</text>
+  <text x="480" y="60" font-size="13" fill="#6b7280" text-anchor="middle">Повторне використання пам'яті викликає корупцію структури</text>
+  
+    <rect x="108" y="133" width="184" height="34" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+<text x="200" y="154.9" font-size="14" fill="#1a1a1a" text-anchor="middle">Потік 1: Читає Top=A</text>
+    <rect x="385" y="133" width="191" height="34" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="2"/>
+<text x="480" y="154.9" font-size="14" fill="#1a1a1a" text-anchor="middle">Потік 2: Видаляє A, B</text>
+    <rect x="684" y="133" width="153" height="34" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="2"/>
+<text x="760" y="154.9" font-size="14" fill="#1a1a1a" text-anchor="middle">Потік 2: Додає A</text>
+    
+    <path d="M 280 150 L 380 150" fill="none" stroke="#6b7280" stroke-width="2" marker-end="url(#arr)"/>
+    <path d="M 580 150 L 660 150" fill="none" stroke="#6b7280" stroke-width="2" marker-end="url(#arr)"/>
+    
+    <rect x="342" y="233" width="276" height="34" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+<text x="480" y="254.9" font-size="14" fill="#1a1a1a" text-anchor="middle">Потік 1: CAS(Top, A, B) - Успіх!</text>
+    <path d="M 480 180 L 480 230" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr)"/>
+    
+    <text x="480" y="320" font-size="14" fill="#c0392b" text-anchor="middle" font-weight="bold">Корупція: Вказівник B вже недійсний</text>
+    
+</svg>

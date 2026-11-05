@@ -1,0 +1,115 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Canvas Background -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Псування стану при перериванні обробником сигналу</text>
+  <text x="480" y="62" font-size="13" fill="#6b7280" text-anchor="middle">Повторний виклик нереентерабельної функції змінює незавершений глобальний буфер</text>
+
+  <!-- PANEL 1: Step 1 (Main Thread Starts) -->
+  <rect x="30" y="90" width="245" height="360" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="30" y="90" width="245" height="36" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="30" y="116" width="245" height="10" fill="#eaf0fd"/>
+  <line x1="30" y1="126" x2="275" y2="126" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="152.5" y="113" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">1. Основний потік</text>
+
+  <!-- Panel 1 Code Box -->
+  <rect x="45" y="140" width="215" height="70" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="60" y="162" font-size="13" font-weight="bold" fill="#1a1a1a">format_msg("A")</text>
+  <text x="60" y="184" font-size="12" fill="#2457d6">buf[0] = 'A'; // Крок 1</text>
+
+  <!-- Panel 1 Buffer Box -->
+  <rect x="45" y="225" width="215" height="90" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="60" y="245" font-size="12" fill="#6b7280">Глобальний буфер buf:</text>
+  <rect x="60" y="258" width="45" height="40" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="4"/>
+  <text x="82.5" y="283" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">'A'</text>
+  <rect x="110" y="258" width="45" height="40" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="4"/>
+  <text x="132.5" y="283" font-size="14" fill="#6b7280" text-anchor="middle">'\0'</text>
+
+  <!-- Panel 1 Status Box -->
+  <rect x="45" y="330" width="215" height="105" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="60" y="352" font-size="13" font-weight="bold" fill="#1a1a1a">Стан: Незавершений</text>
+  <text x="60" y="374" font-size="12" fill="#6b7280">Записано лише першу</text>
+  <text x="60" y="392" font-size="12" fill="#6b7280">частину даних.</text>
+  <text x="60" y="418" font-size="12" font-weight="bold" fill="#2457d6">Вміст: [ 'A', '\0' ]</text>
+
+  <!-- GAP 1: Signal Interrupt Transition -->
+  <path d="M 275,195 L 355,195" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)" stroke-dasharray="4,3"/>
+  <text x="315" y="179" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">⚡ СИГНАЛ</text>
+  <text x="315" y="217" font-size="12" fill="#c0392b" text-anchor="middle">переривання</text>
+
+  <!-- PANEL 2: Step 2 (Signal Handler Interrupts & Modifies Buffer) -->
+  <rect x="355" y="90" width="245" height="360" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="355" y="90" width="245" height="36" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <rect x="355" y="116" width="245" height="10" fill="#fdecea"/>
+  <line x1="355" y1="126" x2="600" y2="126" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="477.5" y="113" font-size="14" font-weight="bold" fill="#c0392b" text-anchor="middle">2. Обробник сигналу</text>
+
+  <!-- Panel 2 Code Box -->
+  <rect x="370" y="140" width="215" height="70" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="385" y="162" font-size="13" font-weight="bold" fill="#1a1a1a">format_msg("B")</text>
+  <text x="385" y="184" font-size="12" fill="#c0392b">buf[0]='B'; buf[1]='B';</text>
+
+  <!-- Panel 2 Buffer Box -->
+  <rect x="370" y="225" width="215" height="90" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="385" y="245" font-size="12" fill="#6b7280">Глобальний буфер buf:</text>
+  <rect x="385" y="258" width="45" height="40" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" rx="4"/>
+  <text x="407.5" y="283" font-size="14" font-weight="bold" fill="#c0392b" text-anchor="middle">'B'</text>
+  <rect x="435" y="258" width="45" height="40" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" rx="4"/>
+  <text x="457.5" y="283" font-size="14" font-weight="bold" fill="#c0392b" text-anchor="middle">'B'</text>
+
+  <!-- Panel 2 Status Box -->
+  <rect x="370" y="330" width="215" height="105" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="385" y="352" font-size="13" font-weight="bold" fill="#c0392b">Стан: Перезаписано</text>
+  <text x="385" y="374" font-size="12" fill="#6b7280">Сигнал викликав ту ж</text>
+  <text x="385" y="392" font-size="12" fill="#6b7280">функцію і змінив буфер.</text>
+  <text x="385" y="418" font-size="12" font-weight="bold" fill="#c0392b">Вміст: [ 'B', 'B' ]</text>
+
+  <!-- GAP 2: Return from Signal Handler -->
+  <path d="M 600,195 L 680,195" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="640" y="179" font-size="12" fill="#6b7280" text-anchor="middle">Повернення</text>
+  <text x="640" y="217" font-size="12" fill="#6b7280" text-anchor="middle">в осн. потік</text>
+
+  <!-- PANEL 3: Step 3 (Main Thread Resumes & Overwrites Cell 1) -->
+  <rect x="680" y="90" width="245" height="360" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="680" y="90" width="245" height="36" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <rect x="680" y="116" width="245" height="10" fill="#fdecea"/>
+  <line x1="680" y1="126" x2="925" y2="126" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="802.5" y="113" font-size="14" font-weight="bold" fill="#c0392b" text-anchor="middle">3. Зіпсований стан</text>
+
+  <!-- Panel 3 Code Box -->
+  <rect x="695" y="140" width="215" height="70" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="710" y="162" font-size="13" font-weight="bold" fill="#c0392b">buf[1] = 'A'; // Крок 2</text>
+  <text x="710" y="184" font-size="12" fill="#6b7280">(продовження виклику A)</text>
+
+  <!-- Panel 3 Buffer Box -->
+  <rect x="695" y="225" width="215" height="90" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="710" y="245" font-size="12" fill="#6b7280">Глобальний буфер buf:</text>
+  <rect x="710" y="258" width="45" height="40" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" rx="4"/>
+  <text x="732.5" y="283" font-size="14" font-weight="bold" fill="#c0392b" text-anchor="middle">'B'</text>
+  <rect x="760" y="258" width="45" height="40" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="4"/>
+  <text x="782.5" y="283" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">'A'</text>
+
+  <!-- Panel 3 Status Box -->
+  <rect x="695" y="330" width="215" height="105" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="710" y="352" font-size="13" font-weight="bold" fill="#c0392b">Результат: Зіпсовано!</text>
+  <text x="710" y="374" font-size="12" fill="#6b7280">Основний потік завершив</text>
+  <text x="710" y="392" font-size="12" fill="#6b7280">запис. Данi змішані!</text>
+  <text x="710" y="418" font-size="12" font-weight="bold" fill="#c0392b">Вміст: [ 'B', 'A' ] ❌</text>
+
+  <!-- Bottom Summary Banner -->
+  <rect x="30" y="465" width="895" height="35" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="477.5" y="487" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">❌ Нереентерабельність: використання глобального буфера призводить до руйнування стану при перериванні</text>
+</svg>

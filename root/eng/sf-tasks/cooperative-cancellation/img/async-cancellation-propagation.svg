@@ -1,0 +1,59 @@
+<svg viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif" xmlns="http://www.w3.org/2000/svg">
+  <rect width="960" height="480" fill="white"/>
+  
+  <text x="480" y="40" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Каскадне передавання сигналів скасування</text>
+  <text x="480" y="60" font-size="13" fill="#6b7280" text-anchor="middle">Розповсюдження сигналу скасування від джерела до точок перевірки та зворотне каскадне розгортання асинхронного стека через винятки.</text>
+
+  <defs>
+    <marker id="arr" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-red" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <rect x="50" y="100" width="300" height="350" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="200" y="130" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Дерево Асинхронних Задач</text>
+  
+  <rect x="100" y="160" width="200" height="40" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="200" y="185" font-size="13" fill="#1a1a1a" text-anchor="middle">Батьківська задача (Controller)</text>
+
+  <rect x="120" y="240" width="160" height="40" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="200" y="265" font-size="13" fill="#1a1a1a" text-anchor="middle">Підзадача 1 (Service)</text>
+
+  <rect x="140" y="320" width="120" height="40" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="200" y="345" font-size="13" fill="#1a1a1a" text-anchor="middle">Підзадача 1.1 (DB)</text>
+  
+  <!-- Tree connections -->
+  <path d="M 200 200 L 200 240" fill="none" stroke="#6b7280" stroke-width="2"/>
+  <path d="M 200 280 L 200 320" fill="none" stroke="#6b7280" stroke-width="2"/>
+
+  <!-- Token Passing -->
+  <path d="M 320 180 L 400 180" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr)" stroke-dasharray="4,4"/>
+  <text x="360" y="170" font-size="12" fill="#2457d6" text-anchor="middle">token</text>
+
+  <path d="M 300 260 L 400 260" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr)" stroke-dasharray="4,4"/>
+  <text x="350" y="250" font-size="12" fill="#2457d6" text-anchor="middle">token</text>
+
+  <path d="M 280 340 L 400 340" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr)" stroke-dasharray="4,4"/>
+  <text x="340" y="330" font-size="12" fill="#2457d6" text-anchor="middle">token</text>
+
+  <!-- Cancellation Process -->
+  <rect x="420" y="100" width="500" height="350" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="670" y="130" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Розповсюдження (Propagation)</text>
+
+  <text x="670" y="185" font-size="12" fill="#6b7280" text-anchor="middle">await Service(token)</text>
+  <text x="670" y="265" font-size="12" fill="#6b7280" text-anchor="middle">await DB(token)</text>
+  
+  <rect x="550" y="320" width="240" height="40" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="670" y="345" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">throw CancellationException</text>
+  
+  <!-- Upward throw arrows -->
+  <path d="M 670 320 L 670 280" fill="none" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="680" y="305" font-size="12" fill="#c0392b" text-anchor="start">Перехоплення / прокидання</text>
+
+  <path d="M 670 240 L 670 200" fill="none" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="680" y="225" font-size="12" fill="#c0392b" text-anchor="start">Перехоплення / прокидання</text>
+
+</svg>

@@ -1,0 +1,38 @@
+<svg viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif" xmlns="http://www.w3.org/2000/svg">
+<rect width="960" height="480" fill="white"/>
+<defs>
+    <marker id="arr" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+        <path d="M 0 0 L 10 5 L 0 10 z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+        <path d="M 0 0 L 10 5 L 0 10 z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+        <path d="M 0 0 L 10 5 L 0 10 z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+        <path d="M 0 0 L 10 5 L 0 10 z" fill="#27ae60"/>
+    </marker>
+</defs>
+<text x="480" y="40" font-size="18" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Concurrent Execution Timeline of a CAS Loop</text>
+<text x="480" y="60" font-size="13" text-anchor="middle" fill="#6b7280">Visualizing two threads running the read-modify-CAS loop concurrently with one failing.</text>
+<rect x="100" y="150" width="150" height="40" fill="#eaf0fd" stroke="#2457d6" stroke-width="2" rx="6"/>
+<text x="175.0" y="175.0" font-size="14" text-anchor="middle" fill="#1a1a1a">T1: Read()</text>
+<rect x="300" y="150" width="150" height="40" fill="#eaf0fd" stroke="#2457d6" stroke-width="2" rx="6"/>
+<text x="375.0" y="175.0" font-size="14" text-anchor="middle" fill="#1a1a1a">T1: Compute()</text>
+<rect x="500" y="150" width="150" height="40" fill="#e9f7ef" stroke="#27ae60" stroke-width="2" rx="6"/>
+<text x="575.0" y="175.0" font-size="14" text-anchor="middle" fill="#1a1a1a">T1: CAS (Success)</text>
+<rect x="200" y="250" width="150" height="40" fill="#fdecea" stroke="#c0392b" stroke-width="2" rx="6"/>
+<text x="275.0" y="275.0" font-size="14" text-anchor="middle" fill="#1a1a1a">T2: Read()</text>
+<rect x="400" y="250" width="150" height="40" fill="#fdecea" stroke="#c0392b" stroke-width="2" rx="6"/>
+<text x="475.0" y="275.0" font-size="14" text-anchor="middle" fill="#1a1a1a">T2: Compute()</text>
+<rect x="600" y="250" width="150" height="40" fill="#fdecea" stroke="#c0392b" stroke-width="2" rx="6"/>
+<text x="675.0" y="275.0" font-size="14" text-anchor="middle" fill="#1a1a1a">T2: CAS (Fail)</text>
+<rect x="780" y="250" width="150" height="40" fill="#fdecea" stroke="#c0392b" stroke-width="2" rx="6"/>
+<text x="855.0" y="275.0" font-size="14" text-anchor="middle" fill="#1a1a1a">T2: Retry Loop</text>
+<line x1="250" y1="170" x2="300" y2="170" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+<line x1="450" y1="170" x2="500" y2="170" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+<line x1="350" y1="270" x2="400" y2="270" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+<line x1="550" y1="270" x2="600" y2="270" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+<line x1="750" y1="270" x2="780" y2="270" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+</svg>

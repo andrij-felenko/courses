@@ -1,0 +1,24 @@
+<svg viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif" xmlns="http://www.w3.org/2000/svg">
+  <rect width="960" height="480" fill="white"/>
+  <text x="480" y="38" fill="#1a1a1a" font-size="18" font-weight="bold" text-anchor="middle">Структура EventBits_t та маски очікування</text>
+  <text x="480" y="62" fill="#6b7280" font-size="13" text-anchor="middle">Логічні операції AND/OR з бітовими прапорцями подій</text>
+  
+  <rect x="180" y="100" width="600" height="60" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <rect x="180" y="100" width="150" height="60" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="2"/>
+  <text x="255" y="130" fill="#c0392b" font-size="14" font-weight="bold" text-anchor="middle">8 біт (System)</text>
+  <text x="255" y="148" fill="#c0392b" font-size="12" text-anchor="middle">Резерв ядра</text>
+  
+  <rect x="330" y="100" width="450" height="60" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <text x="555" y="130" fill="#27ae60" font-size="14" font-weight="bold" text-anchor="middle">24 біти (User)</text>
+  <text x="555" y="148" fill="#27ae60" font-size="12" text-anchor="middle">Прапорці користувача (0-23)</text>
+  
+  <rect x="180" y="220" width="250" height="150" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="305" y="250" fill="#2457d6" font-size="14" font-weight="bold" text-anchor="middle">Логіка AND (Усі біти)</text>
+  <text x="305" y="280" fill="#1a1a1a" font-size="13" text-anchor="middle">Bit0 == 1 &amp; Bit1 == 1</text>
+  <text x="305" y="310" fill="#6b7280" font-size="12" text-anchor="middle">Задача чекає ВСІХ подій</text>
+  
+  <rect x="530" y="220" width="250" height="150" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="655" y="250" fill="#2457d6" font-size="14" font-weight="bold" text-anchor="middle">Логіка OR (Будь-який)</text>
+  <text x="655" y="280" fill="#1a1a1a" font-size="13" text-anchor="middle">Bit0 == 1 | Bit1 == 1</text>
+  <text x="655" y="310" fill="#6b7280" font-size="12" text-anchor="middle">Задача чекає ОДНУ з подій</text>
+</svg>

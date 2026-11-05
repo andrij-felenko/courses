@@ -1,0 +1,70 @@
+<svg viewBox="0 0 960 480" width="960" height="480" xmlns="http://www.w3.org/2000/svg" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+  
+  <text x="480" y="30" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">ABA Problem Timeline in Memory</text>
+  <text x="480" y="50" font-size="13" fill="#6b7280" text-anchor="middle">Thread 1 replaces Head with a freed node (B) because Head is still A</text>
+
+  <!-- Defs for arrows -->
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Thread 1 Column -->
+  <rect x="50" y="80" width="260" height="360" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <text x="180" y="105" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Thread 1</text>
+  
+  <!-- Thread 2 Column -->
+  <rect x="350" y="80" width="260" height="360" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <text x="480" y="105" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Thread 2</text>
+
+  <!-- Memory Column -->
+  <rect x="650" y="80" width="260" height="360" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="780" y="105" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Shared Stack Memory</text>
+
+  <!-- Step 1: Thread 1 reads A and B -->
+  <text x="180" y="140" font-size="13" fill="#1a1a1a" text-anchor="middle">Reads Head: node A</text>
+  <text x="180" y="160" font-size="13" fill="#1a1a1a" text-anchor="middle">Reads Next: node B</text>
+  
+  <!-- Thread 1 Suspended -->
+  <rect x="100" y="180" width="160" height="30" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="180" y="200" font-size="12" fill="#c0392b" text-anchor="middle">Suspended (Context Switch)</text>
+
+  <!-- Initial Memory State -->
+  <text x="780" y="140" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Head -> A -> B -> C</text>
+
+  <!-- Step 2: Thread 2 Pops A and B -->
+  <text x="480" y="200" font-size="13" fill="#1a1a1a" text-anchor="middle">Pops node A</text>
+  <text x="480" y="220" font-size="13" fill="#1a1a1a" text-anchor="middle">Pops node B</text>
+  
+  <text x="780" y="210" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Head -> C</text>
+
+  <!-- Step 3: Thread 2 Frees B, modifies A -->
+  <text x="480" y="260" font-size="13" fill="#1a1a1a" text-anchor="middle">Frees node B</text>
+  <text x="480" y="280" font-size="13" fill="#1a1a1a" text-anchor="middle">Reuses node A</text>
+  
+  <!-- Step 4: Thread 2 Pushes A -->
+  <text x="480" y="320" font-size="13" fill="#1a1a1a" text-anchor="middle">Pushes node A</text>
+  
+  <text x="780" y="320" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Head -> A -> C</text>
+  
+  <!-- Step 5: Thread 1 Resumes -->
+  <rect x="100" y="340" width="160" height="30" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="180" y="360" font-size="12" fill="#27ae60" text-anchor="middle">Resumed</text>
+  
+  <text x="180" y="400" font-size="13" fill="#1a1a1a" text-anchor="middle">CAS(Head, A, B)</text>
+  <text x="180" y="420" font-size="13" fill="#c0392b" text-anchor="middle">Succeeds! (A == A)</text>
+
+  <!-- Final corrupted state -->
+  <text x="780" y="410" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">Head -> B (Freed memory!)</text>
+
+  <!-- Timeline Lines -->
+  <line x1="260" y1="150" x2="650" y2="150" stroke="#6b7280" stroke-dasharray="4" marker-end="url(#arr)"/>
+  <line x1="610" y1="210" x2="650" y2="210" stroke="#6b7280" stroke-dasharray="4" marker-end="url(#arr)"/>
+  <line x1="610" y1="320" x2="650" y2="320" stroke="#6b7280" stroke-dasharray="4" marker-end="url(#arr)"/>
+  <line x1="260" y1="410" x2="650" y2="410" stroke="#c0392b" stroke-dasharray="4" marker-end="url(#arr-red)"/>
+</svg>

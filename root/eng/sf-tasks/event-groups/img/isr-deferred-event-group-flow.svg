@@ -1,0 +1,31 @@
+<svg viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+  <rect width="960" height="480" fill="white"/>
+  <text x="480" y="38" fill="#1a1a1a" font-size="18" font-weight="bold" text-anchor="middle">Відкладене встановлення подій з ISR</text>
+  <text x="480" y="62" fill="#6b7280" font-size="13" text-anchor="middle">Делегування викликів xEventGroupSetBitsFromISR через демона таймерів</text>
+
+  <rect x="50" y="180" width="160" height="80" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="2"/>
+  <text x="130" y="215" fill="#c0392b" font-size="14" font-weight="bold" text-anchor="middle">Переривання (ISR)</text>
+  <text x="130" y="235" fill="#1a1a1a" font-size="12" text-anchor="middle">SetBitsFromISR()</text>
+
+  <rect x="290" y="180" width="180" height="80" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="380" y="215" fill="#2457d6" font-size="14" font-weight="bold" text-anchor="middle">Черга таймерів</text>
+  <text x="380" y="235" fill="#1a1a1a" font-size="12" text-anchor="middle">Повідомлення команди</text>
+
+  <rect x="540" y="170" width="160" height="100" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <text x="620" y="205" fill="#1a1a1a" font-size="14" font-weight="bold" text-anchor="middle">Timer Daemon Task</text>
+  <text x="620" y="225" fill="#6b7280" font-size="12" text-anchor="middle">Контекст задачі</text>
+  <text x="620" y="245" fill="#1a1a1a" font-size="12" text-anchor="middle">Виконує SetBits()</text>
+
+  <rect x="780" y="180" width="140" height="80" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <text x="850" y="215" fill="#27ae60" font-size="14" font-weight="bold" text-anchor="middle">Група подій</text>
+  <text x="850" y="235" fill="#1a1a1a" font-size="12" text-anchor="middle">Біти оновлено</text>
+
+  <line x1="210" y1="220" x2="280" y2="220" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+  <line x1="470" y1="220" x2="530" y2="220" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+  <line x1="700" y1="220" x2="770" y2="220" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+</svg>

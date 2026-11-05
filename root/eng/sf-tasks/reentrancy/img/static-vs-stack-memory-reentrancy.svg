@@ -1,0 +1,110 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <!-- Definitions / Markers -->
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Статична пам'ять vs Стекові кадри при повторному виклику</text>
+  <text x="480" y="60" font-size="13" fill="#6b7280" text-anchor="middle">Спільний статичний стан псується перериванням; стекові кадри гарантують ізоляцію викликів</text>
+
+  <!-- LEFT PANEL: Non-Reentrant -->
+  <rect x="30" y="86" width="435" height="368" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Left Header -->
+  <rect x="42" y="98" width="411" height="36" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="247.5" y="120" font-size="14" font-weight="bold" fill="#c0392b" text-anchor="middle">НЕ РЕЕНТЕРАБЕЛЬНО: Статичний буфер</text>
+
+  <!-- Left Section A: Call Sequence -->
+  <rect x="42" y="146" width="411" height="125" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="54" y="162" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="start">Послідовність викликів:</text>
+  
+  <rect x="54" y="174" width="170" height="26" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="139" y="191" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">1. Виклик 1 (запис)</text>
+  
+  <text x="235" y="191" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="start">⚡ Переривання!</text>
+  
+  <rect x="54" y="208" width="387" height="26" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="247.5" y="225" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">2. Виклик 2 перериває і пише в ТОЙ САМИЙ буфер</text>
+  
+  <text x="54" y="256" font-size="12" fill="#c0392b" text-anchor="start">3. Виклик 1 відновлюється ➔ Дані пошкоджено!</text>
+
+  <!-- Left Section B: Memory Segment -->
+  <rect x="42" y="283" width="411" height="113" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="54" y="299" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="start">Сегмент даних (.data / .bss):</text>
+  
+  <rect x="115" y="311" width="265" height="45" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="247.5" y="330" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">static char buffer[1024]</text>
+  <text x="247.5" y="346" font-size="11" fill="#1a1a1a" text-anchor="middle">(Єдиний екземпляр для всіх викликів)</text>
+  
+  <!-- Left Memory Arrows -->
+  <line x1="54" y1="333.5" x2="108" y2="333.5" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="81" y="325" font-size="11" fill="#2457d6" text-anchor="middle">Виклик 1</text>
+
+  <line x1="441" y1="333.5" x2="387" y2="333.5" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <text x="414" y="325" font-size="11" fill="#c0392b" text-anchor="middle">Виклик 2</text>
+  
+  <text x="247.5" y="382" font-size="12" fill="#c0392b" text-anchor="middle">⚠️ Виклик 2 стере дані Виклику 1!</text>
+
+  <!-- Left Status Badge -->
+  <rect x="42" y="408" width="411" height="36" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="247.5" y="430" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">❌ Гонка даних (Data Race) і пошкодження стану</text>
+
+  <!-- RIGHT PANEL: Reentrant -->
+  <rect x="495" y="86" width="435" height="368" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Right Header -->
+  <rect x="507" y="98" width="411" height="36" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="712.5" y="120" font-size="14" font-weight="bold" fill="#27ae60" text-anchor="middle">РЕЕНТЕРАБЕЛЬНО: Стекові кадри</text>
+
+  <!-- Right Section A: Call Sequence -->
+  <rect x="507" y="146" width="411" height="125" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="519" y="162" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="start">Послідовність викликів:</text>
+  
+  <rect x="519" y="174" width="170" height="26" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="604" y="191" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">1. Виклик 1 (Стек 1)</text>
+  
+  <text x="700" y="191" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="start">⚡ Переривання!</text>
+  
+  <rect x="519" y="208" width="387" height="26" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="712.5" y="225" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">2. Виклик 2 створює СВІЙ окремий кадр у стеку</text>
+  
+  <text x="519" y="256" font-size="12" fill="#27ae60" text-anchor="start">3. Виклик 1 відновлюється ➔ Стек 1 без змін!</text>
+
+  <!-- Right Section B: Memory Segment -->
+  <rect x="507" y="283" width="411" height="113" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="519" y="299" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="start">Стек викликів (Call Stack):</text>
+  
+  <rect x="580" y="310" width="265" height="30" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="712.5" y="329" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Кадр 2: char local_buf[1024]</text>
+
+  <rect x="580" y="344" width="265" height="30" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="712.5" y="363" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Кадр 1: char local_buf[1024]</text>
+
+  <!-- Right Memory Arrows -->
+  <line x1="519" y1="325" x2="573" y2="325" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <text x="546" y="317" font-size="11" fill="#27ae60" text-anchor="middle">Виклик 2</text>
+
+  <line x1="519" y1="359" x2="573" y2="359" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="546" y="351" font-size="11" fill="#2457d6" text-anchor="middle">Виклик 1</text>
+  
+  <text x="712.5" y="388" font-size="12" fill="#27ae60" text-anchor="middle">Кожен виклик має власний локальний буфер у стеку</text>
+
+  <!-- Right Status Badge -->
+  <rect x="507" y="408" width="411" height="36" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="712.5" y="430" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">✓ Безпечне переривання (Повна ізоляція пам'яті)</text>
+</svg>
