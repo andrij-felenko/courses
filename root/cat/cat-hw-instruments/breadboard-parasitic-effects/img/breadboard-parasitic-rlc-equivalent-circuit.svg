@@ -1,0 +1,194 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Фонова біла підкладка -->
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <!-- Стрілки-маркери -->
+  <defs>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок та підзаголовок -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Еквівалентна RLC-схема контактної рейки та перемички</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Послідовні опір контакту й індуктивність дроту з паралельною ємністю утворюють RLC-контур</text>
+
+  <!-- ЛІВА ПАНЕЛЬ: Еквівалентні схеми -->
+  <rect x="24" y="72" width="600" height="388" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="324" y="95" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">1. Фізична прив'язка та еквівалентні RLC-схеми</text>
+  <text x="324" y="112" font-size="12" fill="#6b7280" text-anchor="middle">Послідовні та паралельні паразитні елементи реального макетного вузла</text>
+
+  <!-- Блок 1А: Повна деталізована схема заміщення -->
+  <rect x="38" y="124" width="572" height="148" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="50" y="142" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="start">Повна схема заміщення: контактні затискачі, перемичка та рейка</text>
+
+  <!-- Вхід V_in -->
+  <text x="48" y="171" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">V_in</text>
+  <circle cx="48" cy="186" r="3" fill="#2457d6"/>
+  <line x1="48" y1="186" x2="72" y2="186" stroke="#2457d6" stroke-width="2"/>
+
+  <!-- Контактний опір R_c1 -->
+  <rect x="72" y="179" width="26" height="14" rx="2" fill="white" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="85" y="171" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">R_c1</text>
+  <text x="85" y="208" font-size="12" fill="#6b7280" text-anchor="middle">0.2 Ом</text>
+  <line x1="98" y1="186" x2="114" y2="186" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Індуктивність перемички L_wire -->
+  <path d="M 114 186 A 5 5 0 0 1 124 186 A 5 5 0 0 1 134 186 A 5 5 0 0 1 144 186 A 5 5 0 0 1 154 186" fill="none" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="134" y="171" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">L_wire</text>
+  <text x="134" y="208" font-size="12" fill="#6b7280" text-anchor="middle">30 нГн</text>
+  <line x1="154" y1="186" x2="170" y2="186" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Опір перемички R_wire -->
+  <rect x="170" y="179" width="26" height="14" rx="2" fill="white" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="183" y="171" font-size="12" fill="#1a1a1a" text-anchor="middle">R_wire</text>
+  <text x="183" y="208" font-size="12" fill="#6b7280" text-anchor="middle">20 мОм</text>
+  <line x1="196" y1="186" x2="212" y2="186" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Контактний опір другого гнізда R_c2 -->
+  <rect x="212" y="179" width="26" height="14" rx="2" fill="white" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="225" y="171" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">R_c2</text>
+  <text x="225" y="208" font-size="12" fill="#6b7280" text-anchor="middle">0.2 Ом</text>
+  <line x1="238" y1="186" x2="254" y2="186" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Індуктивність рейки L_rail -->
+  <path d="M 254 186 A 5 5 0 0 1 264 186 A 5 5 0 0 1 274 186 A 5 5 0 0 1 284 186" fill="none" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="269" y="171" font-size="12" fill="#1a1a1a" text-anchor="middle">L_rail</text>
+  <text x="269" y="208" font-size="12" fill="#6b7280" text-anchor="middle">8 нГн</text>
+  <line x1="284" y1="186" x2="300" y2="186" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Опір рейки R_rail -->
+  <rect x="300" y="179" width="26" height="14" rx="2" fill="white" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="313" y="171" font-size="12" fill="#1a1a1a" text-anchor="middle">R_rail</text>
+  <text x="313" y="208" font-size="12" fill="#6b7280" text-anchor="middle">30 мОм</text>
+  <line x1="326" y1="186" x2="360" y2="186" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Вузол відгалуження -->
+  <circle cx="360" cy="186" r="3.5" fill="#1a1a1a"/>
+
+  <!-- Лінія виходу V_out -->
+  <line x1="360" y1="186" x2="576" y2="186" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="590" y="170" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">Вихід V_out</text>
+
+  <!-- Паралельна гілка 1: C_stray (між суміжними рейками) -->
+  <circle cx="410" cy="186" r="2.5" fill="#1a1a1a"/>
+  <line x1="410" y1="186" x2="410" y2="208" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3,2"/>
+  <line x1="398" y1="208" x2="422" y2="208" stroke="#c0392b" stroke-width="2"/>
+  <line x1="398" y1="214" x2="422" y2="214" stroke="#c0392b" stroke-width="2"/>
+  <line x1="410" y1="214" x2="410" y2="238" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3,2"/>
+  <line x1="400" y1="238" x2="420" y2="238" stroke="#6b7280" stroke-width="2"/>
+  <text x="428" y="210" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="start">C_stray</text>
+  <text x="428" y="226" font-size="12" fill="#6b7280" text-anchor="start">1...3 пФ</text>
+
+  <!-- Паралельна гілка 2: C_gnd (на металеву основу) -->
+  <circle cx="500" cy="186" r="2.5" fill="#1a1a1a"/>
+  <line x1="500" y1="186" x2="500" y2="208" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="3,2"/>
+  <line x1="488" y1="208" x2="512" y2="208" stroke="#2457d6" stroke-width="2"/>
+  <line x1="488" y1="214" x2="512" y2="214" stroke="#2457d6" stroke-width="2"/>
+  <line x1="500" y1="214" x2="500" y2="236" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="492" y1="236" x2="508" y2="236" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="495" y1="240" x2="505" y2="240" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="498" y1="244" x2="502" y2="244" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="518" y="210" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="start">C_gnd</text>
+  <text x="518" y="226" font-size="12" fill="#6b7280" text-anchor="start">1...2 пФ</text>
+
+  <!-- Блок 1Б: Зведена RLC-модель та хвильовий дзвін -->
+  <rect x="38" y="286" width="572" height="160" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="50" y="304" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">Зведена RLC-модель контуру та реакція на імпульсний перепад напруги</text>
+
+  <!-- Зведена схема RLC -->
+  <text x="52" y="344" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">V_in</text>
+  <circle cx="52" cy="358" r="3" fill="#2457d6"/>
+  <line x1="52" y1="358" x2="72" y2="358" stroke="#2457d6" stroke-width="2"/>
+
+  <!-- R_total -->
+  <rect x="72" y="351" width="34" height="14" rx="2" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="89" y="343" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">R_total</text>
+  <text x="89" y="378" font-size="12" fill="#6b7280" text-anchor="middle">≈0.5 Ом</text>
+  <line x1="106" y1="358" x2="126" y2="358" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- L_total -->
+  <path d="M 126 358 A 5 5 0 0 1 136 358 A 5 5 0 0 1 146 358 A 5 5 0 0 1 156 358 A 5 5 0 0 1 166 358" fill="none" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="146" y="343" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">L_total</text>
+  <text x="146" y="378" font-size="12" fill="#6b7280" text-anchor="middle">≈40 нГн</text>
+  <line x1="166" y1="358" x2="200" y2="358" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Вузол C_total -->
+  <circle cx="200" cy="358" r="3.5" fill="#1a1a1a"/>
+  <line x1="200" y1="358" x2="276" y2="358" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="284" y="344" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">V_out</text>
+
+  <!-- C_total -->
+  <line x1="200" y1="358" x2="200" y2="382" stroke="#c0392b" stroke-width="1.5"/>
+  <line x1="188" y1="382" x2="212" y2="382" stroke="#c0392b" stroke-width="2"/>
+  <line x1="188" y1="388" x2="212" y2="388" stroke="#c0392b" stroke-width="2"/>
+  <line x1="200" y1="388" x2="200" y2="408" stroke="#c0392b" stroke-width="1.5"/>
+  <line x1="192" y1="408" x2="208" y2="408" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="195" y1="412" x2="205" y2="412" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="198" y1="416" x2="202" y2="416" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="218" y="385" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="start">C_total</text>
+  <text x="218" y="401" font-size="12" fill="#6b7280" text-anchor="start">≈3.5 пФ</text>
+
+  <text x="50" y="432" font-size="12" fill="#6b7280" text-anchor="start">f₀ = 1/(2π√LC) ≈ 425 МГц,  Q ≈ 140</text>
+
+  <!-- Роздільник між схемою та графіком -->
+  <line x1="320" y1="316" x2="320" y2="436" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4,3"/>
+
+  <!-- Графік перехідного процесу (Ringing) -->
+  <line x1="358" y1="414" x2="580" y2="414" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+  <text x="580" y="430" font-size="12" fill="#6b7280" text-anchor="end">t (час)</text>
+  <line x1="364" y1="418" x2="364" y2="322" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+  <text x="364" y="318" font-size="12" fill="#6b7280" text-anchor="middle">V</text>
+
+  <!-- Сходинка вхідної напруги ΔV (пунктир синій) -->
+  <line x1="364" y1="414" x2="384" y2="414" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="384" y1="414" x2="384" y2="372" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="3,2"/>
+  <line x1="384" y1="372" x2="565" y2="372" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="3,2"/>
+  <line x1="360" y1="372" x2="364" y2="372" stroke="#6b7280" stroke-width="1"/>
+  <text x="356" y="376" font-size="12" fill="#2457d6" text-anchor="end">ΔV</text>
+
+  <!-- Осциляція виходу (дзвін, червоний суцільний) -->
+  <path d="M 364 414 L 384 414 C 390 414 398 332 406 332 C 414 332 418 398 426 398 C 434 398 438 350 446 350 C 454 350 458 386 466 386 C 474 386 478 360 486 360 C 494 360 498 380 506 380 C 514 380 518 366 526 366 C 536 366 546 372 565 372" fill="none" stroke="#c0392b" stroke-width="2"/>
+  <line x1="364" y1="332" x2="406" y2="332" stroke="#c0392b" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="360" y1="332" x2="364" y2="332" stroke="#c0392b" stroke-width="1"/>
+  <text x="356" y="336" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="end">V_peak</text>
+
+  <text x="418" y="328" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="start">Дзвін (Ringing ≈ 2·ΔV)</text>
+  <text x="418" y="342" font-size="12" fill="#6b7280" text-anchor="start">Добротність Q ≫ 1, ζ ≪ 1</text>
+
+  <!-- ПРАВА ПАНЕЛЬ: Розрахункові оцінки -->
+  <rect x="636" y="72" width="300" height="388" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="786" y="95" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">2. Розрахункові співвідношення</text>
+  <text x="786" y="112" font-size="12" fill="#6b7280" text-anchor="middle">Математичний опис резонансного контуру</text>
+
+  <!-- Картка 1: Контактний опір -->
+  <rect x="648" y="124" width="276" height="90" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="786" y="144" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">Контактний опір (R_contact)</text>
+  <text x="660" y="164" font-size="12" fill="#1a1a1a" text-anchor="start">• Новий контакт: 0.1...0.2 Ом</text>
+  <text x="660" y="182" font-size="12" fill="#1a1a1a" text-anchor="start">• Зношений контакт: 0.5...1.0 Ом</text>
+  <text x="660" y="200" font-size="12" fill="#c0392b" text-anchor="start">  Зсув зрізу f_c, нагрів P = I²·R</text>
+
+  <!-- Картка 2: Паразитні реактивності -->
+  <rect x="648" y="228" width="276" height="96" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="786" y="248" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Паразитні реактивності L, C</text>
+  <text x="660" y="268" font-size="12" fill="#1a1a1a" text-anchor="start">• L перемички: 10...50 нГн (~1 нГн/мм)</text>
+  <text x="660" y="286" font-size="12" fill="#1a1a1a" text-anchor="start">• C між рейками: 1...3 пФ (ABS)</text>
+  <text x="660" y="304" font-size="12" fill="#2457d6" text-anchor="start">  Хвильовий опір Z₀ = √(L/C) ≈ 100 Ом</text>
+
+  <!-- Картка 3: Резонанс та коливання -->
+  <rect x="648" y="338" width="276" height="110" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="786" y="358" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Коливання та добротність контуру</text>
+  <text x="660" y="378" font-size="12" fill="#1a1a1a" text-anchor="start">• f₀ = 1 / (2π√(LC)) ≈ 300...530 МГц</text>
+  <text x="660" y="396" font-size="12" fill="#1a1a1a" text-anchor="start">• Загасання ζ = R/(2·Z₀) ≈ 0.003 ≪ 1</text>
+  <text x="660" y="414" font-size="12" fill="#1a1a1a" text-anchor="start">• Добротність Q = 1/(2ζ) ≈ 140...170</text>
+  <text x="660" y="432" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="start">  Сплеск напруги V_peak ≈ 2 · ΔV</text>
+</svg>

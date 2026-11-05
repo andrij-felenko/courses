@@ -1,0 +1,118 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="34" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Дерево рішень контролера BAKU: коди помилок S-E та H-E</text>
+  <text x="480" y="55" font-size="13" fill="#6b7280" text-anchor="middle">Логіка контролю термопари (ADC), теплової динаміки спіралі та аварійного захисту симистора TRIAC</text>
+
+  <!-- РЯДОК 1, КОЛОНКА 1: Сенсорний вхід -->
+  <rect x="30" y="80" width="180" height="120" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="45" y="104" font-size="13" font-weight="700" fill="#2457d6">1. Сенсорний вхід</text>
+  <text x="45" y="126" font-size="12" fill="#1a1a1a">• Термопара K-типу</text>
+  <text x="45" y="146" font-size="12" fill="#1a1a1a">• Підсилювач OP-AMP</text>
+  <text x="45" y="166" font-size="12" fill="#1a1a1a">• ADC: відліки 0..1023</text>
+  <text x="45" y="186" font-size="12" fill="#6b7280">• Підтяжка pull-up до Vcc</text>
+
+  <!-- РЯДОК 1, КОЛОНКА 2: Умова 1 (ADC) -->
+  <rect x="240" y="80" width="275" height="120" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="255" y="104" font-size="13" font-weight="700" fill="#2457d6">Умова 1: Робочий діапазон ADC</text>
+  <text x="255" y="126" font-size="13" font-weight="700" fill="#1a1a1a">Критерій: 15 ≤ ADC ≤ 1005</text>
+  <text x="255" y="146" font-size="12" fill="#1a1a1a">• ADC &gt; 1005: напруга Vcc (обрив)</text>
+  <text x="255" y="166" font-size="12" fill="#1a1a1a">• ADC &lt; 15: нуль/GND (КЗ спаю)</text>
+  <text x="255" y="186" font-size="12" fill="#6b7280">• Перевірка цілісності кола датчика</text>
+
+  <!-- РЯДОК 1, КОЛОНКА 3: Код S-E -->
+  <rect x="580" y="80" width="350" height="120" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="2"/>
+  <rect x="595" y="93" width="56" height="24" rx="4" fill="#1a1a1a"/>
+  <text x="623" y="110" font-size="14" font-weight="700" fill="#ff4d4f" text-anchor="middle">S-E</text>
+  <text x="662" y="110" font-size="13" font-weight="700" fill="#c0392b">Помилка датчика (Sensor Error)</text>
+  <text x="595" y="134" font-size="12" fill="#1a1a1a">• Причина: обрив або КЗ вимірювальних жил</text>
+  <text x="595" y="154" font-size="12" fill="#1a1a1a">• Діагностика: R_сенс ≠ 1..5 Ом (R = ∞ або 0 Ом)</text>
+  <text x="595" y="174" font-size="12" font-weight="700" fill="#c0392b">• Дія: негайне блокування симистора TRIAC</text>
+  <text x="595" y="192" font-size="12" fill="#6b7280">• Захист: запобігання розгону понад 600 °C</text>
+
+  <!-- РЯДОК 2, КОЛОНКА 1: Параметри нагріву -->
+  <rect x="30" y="225" width="180" height="120" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="45" y="249" font-size="13" font-weight="700" fill="#2457d6">2. Контроль нагріву</text>
+  <text x="45" y="271" font-size="12" fill="#1a1a1a">• Задана уставка: T_set</text>
+  <text x="45" y="291" font-size="12" fill="#1a1a1a">• Поточна темп.: T_curr</text>
+  <text x="45" y="311" font-size="12" fill="#1a1a1a">• Дельта регулювання ΔT</text>
+  <text x="45" y="331" font-size="12" fill="#6b7280">• Таймаут active_ticks</text>
+
+  <!-- РЯДОК 2, КОЛОНКА 2: Умова 2 (Динаміка) -->
+  <rect x="240" y="225" width="275" height="120" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="255" y="249" font-size="13" font-weight="700" fill="#2457d6">Умова 2: Динаміка росту тепла</text>
+  <text x="255" y="271" font-size="13" font-weight="700" fill="#1a1a1a">Критерій: ticks &gt; 600 та ΔT &gt; 45 °C</text>
+  <text x="255" y="291" font-size="12" fill="#1a1a1a">• Симистор відкритий понад 6 секунд</text>
+  <text x="255" y="311" font-size="12" fill="#1a1a1a">• Немає зростання сигналу термопари</text>
+  <text x="255" y="331" font-size="12" fill="#6b7280">• Виявлення холодної спіралі фена</text>
+
+  <!-- РЯДОК 2, КОЛОНКА 3: Штатний стан (PID) -->
+  <rect x="580" y="225" width="350" height="120" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <rect x="595" y="238" width="56" height="24" rx="4" fill="#1a1a1a"/>
+  <text x="623" y="255" font-size="14" font-weight="700" fill="#52c41a" text-anchor="middle">350.</text>
+  <text x="662" y="255" font-size="13" font-weight="700" fill="#27ae60">Штатний стан: PID-контроль</text>
+  <text x="595" y="279" font-size="12" fill="#1a1a1a">• Умова: 15 ≤ ADC ≤ 1005, нагрів адекватний</text>
+  <text x="595" y="299" font-size="12" fill="#1a1a1a">• Дія: PID-модуляція фази симистора TRIAC</text>
+  <text x="595" y="319" font-size="12" font-weight="700" fill="#27ae60">• Індикація: поточна T_disp, миготіння LED</text>
+  <text x="595" y="337" font-size="12" fill="#6b7280">• Точність стабілізації струменя ±2 °C</text>
+
+  <!-- РЯДОК 3, КОЛОНКИ 1-2: Захист симистора та параметри -->
+  <rect x="30" y="370" width="485" height="120" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="45" y="394" font-size="13" font-weight="700" fill="#1a1a1a">Апаратний захист симистора TRIAC та параметри кіл</text>
+  <text x="45" y="416" font-size="12" font-weight="700" fill="#2457d6">Керування нагрівом (TRIAC):</text>
+  <text x="45" y="436" font-size="12" fill="#1a1a1a">• Симистор: BT137 / BTA16 (220 В)</text>
+  <text x="45" y="456" font-size="12" fill="#1a1a1a">• Опторозв'язка з Zero-Crossing</text>
+  <text x="45" y="476" font-size="12" font-weight="700" fill="#c0392b">• При S-E / H-E: ключ закрито (0 В)</text>
+
+  <text x="275" y="416" font-size="12" font-weight="700" fill="#2457d6">Опори кіл фена (мультиметр):</text>
+  <text x="275" y="436" font-size="12" fill="#1a1a1a">• Спіраль нагрівача: 70 – 90 Ом</text>
+  <text x="275" y="456" font-size="12" fill="#1a1a1a">• Термопара K-типу: 1 – 5 Ом</text>
+  <text x="275" y="476" font-size="12" font-weight="700" fill="#c0392b">• При обриві спіралі / спаю: R = ∞</text>
+
+  <!-- РЯДОК 3, КОЛОНКА 3: Код H-E -->
+  <rect x="580" y="370" width="350" height="120" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="2"/>
+  <rect x="595" y="383" width="56" height="24" rx="4" fill="#1a1a1a"/>
+  <text x="623" y="400" font-size="14" font-weight="700" fill="#ff4d4f" text-anchor="middle">H-E</text>
+  <text x="662" y="400" font-size="13" font-weight="700" fill="#c0392b">Помилка нагрівача (Heater Error)</text>
+  <text x="595" y="424" font-size="12" fill="#1a1a1a">• Причина: обрив спіралі або симисторного кола</text>
+  <text x="595" y="444" font-size="12" fill="#1a1a1a">• Діагностика: R_нагр = ∞ (норма 70..90 Ом)</text>
+  <text x="595" y="464" font-size="12" font-weight="700" fill="#c0392b">• Дія: аварійне блокування імпульсів TRIAC</text>
+  <text x="595" y="482" font-size="12" fill="#6b7280">• Зупинка живлення: запобігання аварії плати</text>
+
+  <!-- З'ЄДНУВАЛЬНІ СТРІЛКИ ТА ПІДПИСИ -->
+  <!-- 1. Сенсорний вхід -> Умова 1 -->
+  <line x1="210" y1="140" x2="240" y2="140" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- 2. Умова 1 -> Код S-E (Збій) -->
+  <line x1="515" y1="140" x2="580" y2="140" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="547" y="132" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">Збій</text>
+
+  <!-- 3. Умова 1 -> Умова 2 (В нормі) -->
+  <line x1="377" y1="200" x2="377" y2="225" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="390" y="217" font-size="12" font-weight="700" fill="#27ae60">Норма: сенсор OK</text>
+
+  <!-- 4. Параметри нагріву -> Умова 2 -->
+  <line x1="210" y1="285" x2="240" y2="285" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- 5. Умова 2 -> Штатний стан (Норма) -->
+  <line x1="515" y1="285" x2="580" y2="285" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="547" y="277" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">Норма</text>
+
+  <!-- 6. Умова 2 -> Код H-E (Збій) -->
+  <path d="M 515,335 L 555,335 L 555,430 L 580,430" fill="none" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="535" y="327" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">Збій</text>
+</svg>

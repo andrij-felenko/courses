@@ -1,0 +1,155 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Підкладка на все полотно -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <defs>
+    <!-- Маркери стрілок для переходу між етапами -->
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="34" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Блок-схема програмного калібрування зміщення температури (Offset Calibration)</text>
+  <text x="480" y="56" font-size="13" fill="#6b7280" text-anchor="middle">Послідовність входу в сервісне меню, вимірювання еталоном та внесення поправки T_corr у EEPROM</text>
+
+  <!-- ==================== КРОК 1 ==================== -->
+  <rect x="24" y="80" width="276" height="202" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="36" y="90" width="64" height="20" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="68" y="104" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">КРОК 1</text>
+  <text x="110" y="105" font-size="13" font-weight="700" fill="#1a1a1a">Вхід у сервісне меню</text>
+  <line x1="36" y1="118" x2="288" y2="118" stroke="#d0d7de" stroke-width="1"/>
+
+  <text x="36" y="136" font-size="12" fill="#1a1a1a">1. Вимкнути живлення (Power OFF)</text>
+  <text x="36" y="154" font-size="12" fill="#1a1a1a">2. Одночасно затиснути [UP] + [DOWN]</text>
+  <text x="36" y="172" font-size="12" fill="#1a1a1a">3. Увімкнути живлення (Power ON)</text>
+
+  <!-- Вкладена панель індикації -->
+  <rect x="36" y="186" width="252" height="84" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="46" y="196" width="82" height="34" rx="4" fill="#1a1a1a"/>
+  <text x="87" y="220" font-size="16" font-weight="700" fill="#27ae60" text-anchor="middle">CAL</text>
+  <text x="138" y="210" font-size="12" font-weight="700" fill="#2457d6">Режим юстування</text>
+  <text x="138" y="226" font-size="12" fill="#6b7280">Дисплей показує «CAL»</text>
+  <text x="46" y="254" font-size="12" fill="#1a1a1a">Утримувати клавіші 2–3 с до входу</text>
+
+  <!-- Стрілка 1 -> 2 -->
+  <line x1="304" y1="181" x2="338" y2="181" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- ==================== КРОК 2 ==================== -->
+  <rect x="342" y="80" width="276" height="202" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="354" y="90" width="64" height="20" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="386" y="104" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">КРОК 2</text>
+  <text x="428" y="105" font-size="13" font-weight="700" fill="#1a1a1a">Термостабілізація</text>
+  <line x1="354" y1="118" x2="606" y2="118" stroke="#d0d7de" stroke-width="1"/>
+
+  <text x="354" y="136" font-size="12" fill="#1a1a1a">1. Задати уставку T_set = 300 °C</text>
+  <text x="354" y="154" font-size="12" fill="#1a1a1a">2. Зняти фен з герконової підставки</text>
+  <text x="354" y="172" font-size="12" fill="#1a1a1a">3. Дочекатися виходу на режим</text>
+
+  <!-- Вкладена панель стану -->
+  <rect x="354" y="186" width="252" height="84" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="364" y="196" width="82" height="34" rx="4" fill="#1a1a1a"/>
+  <text x="405" y="219" font-size="15" font-weight="700" fill="#ffffff" text-anchor="middle">300°C</text>
+  <circle cx="436" cy="204" r="5" fill="#27ae60" opacity="0.3"/>
+  <circle cx="436" cy="204" r="3" fill="#27ae60"/>
+  <text x="456" y="210" font-size="12" font-weight="700" fill="#27ae60">LED блимає</text>
+  <text x="456" y="226" font-size="12" fill="#6b7280">PID стабілізував нагрів</text>
+  <text x="364" y="254" font-size="12" fill="#1a1a1a">Очікувати прогріву сопла 60–90 с</text>
+
+  <!-- Стрілка 2 -> 3 -->
+  <line x1="622" y1="181" x2="656" y2="181" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- ==================== КРОК 3 ==================== -->
+  <rect x="660" y="80" width="276" height="202" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="672" y="90" width="64" height="20" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="704" y="104" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">КРОК 3</text>
+  <text x="746" y="105" font-size="13" font-weight="700" fill="#1a1a1a">Еталонний вимір</text>
+  <line x1="672" y1="118" x2="924" y2="118" stroke="#d0d7de" stroke-width="1"/>
+
+  <text x="672" y="136" font-size="12" fill="#1a1a1a">1. Використати зовнішній термометр</text>
+  <text x="672" y="154" font-size="12" fill="#1a1a1a">2. Датчик: 10 мм по центру сопла</text>
+  <text x="672" y="172" font-size="12" fill="#1a1a1a">3. Фіксація показу: T_real = 315 °C</text>
+
+  <!-- Вкладена панель вимірювання -->
+  <rect x="672" y="186" width="252" height="84" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="682" y="196" width="112" height="34" rx="4" fill="#1a1a1a"/>
+  <text x="738" y="210" font-size="12" fill="#6b7280" text-anchor="middle">T_disp (станція)</text>
+  <text x="738" y="225" font-size="13" font-weight="700" fill="#ffffff" text-anchor="middle">300 °C</text>
+  <rect x="802" y="196" width="112" height="34" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="858" y="210" font-size="12" fill="#c0392b" text-anchor="middle">T_real (еталон)</text>
+  <text x="858" y="225" font-size="13" font-weight="700" fill="#c0392b" text-anchor="middle">315 °C</text>
+  <text x="682" y="254" font-size="12" font-weight="700" fill="#c0392b">Фактичний перегрів: ΔT = +15 °C</text>
+
+  <!-- Стрілка 3 -> 4 (вниз) -->
+  <line x1="798" y1="286" x2="798" y2="322" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- ==================== КРОК 4 ==================== -->
+  <rect x="660" y="326" width="276" height="202" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="672" y="336" width="64" height="20" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="704" y="350" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">КРОК 4</text>
+  <text x="746" y="351" font-size="13" font-weight="700" fill="#1a1a1a">Розрахунок зміщення</text>
+  <line x1="672" y1="364" x2="924" y2="364" stroke="#d0d7de" stroke-width="1"/>
+
+  <text x="672" y="382" font-size="12" fill="#1a1a1a">1. Розрахункова формула корекції:</text>
+  <text x="672" y="400" font-size="12" font-weight="700" fill="#2457d6">   T_corr = T_real − T_disp</text>
+  <text x="672" y="418" font-size="12" fill="#1a1a1a">2. Обчислення значення зміщення:</text>
+
+  <!-- Вкладена панель формули -->
+  <rect x="672" y="432" width="252" height="84" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="682" y="442" width="232" height="32" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="798" y="463" font-size="13" font-weight="700" fill="#c0392b" text-anchor="middle">T_corr = 315 − 300 = +15 °C</text>
+  <text x="682" y="491" font-size="12" fill="#1a1a1a">Потребує програмного зсуву +15</text>
+  <text x="682" y="506" font-size="12" fill="#6b7280">для синхронізації з сенсором</text>
+
+  <!-- Стрілка 4 -> 5 (ліворуч) -->
+  <line x1="656" y1="427" x2="622" y2="427" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- ==================== КРОК 5 ==================== -->
+  <rect x="342" y="326" width="276" height="202" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="354" y="336" width="64" height="20" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="386" y="350" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">КРОК 5</text>
+  <text x="428" y="351" font-size="13" font-weight="700" fill="#1a1a1a">Внесення поправки</text>
+  <line x1="354" y1="364" x2="606" y2="364" stroke="#d0d7de" stroke-width="1"/>
+
+  <text x="354" y="382" font-size="12" fill="#1a1a1a">1. Активувати введення зміщення</text>
+  <text x="354" y="400" font-size="12" fill="#1a1a1a">2. Кнопками [▲ UP] / [▼ DOWN]</text>
+  <text x="354" y="418" font-size="12" fill="#1a1a1a">3. Виставити значення T_corr:</text>
+
+  <!-- Вкладена панель дисплея та кнопок -->
+  <rect x="354" y="432" width="252" height="84" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="364" y="442" width="82" height="34" rx="4" fill="#1a1a1a"/>
+  <text x="405" y="466" font-size="16" font-weight="700" fill="#27ae60" text-anchor="middle">+15</text>
+  <rect x="456" y="440" width="70" height="17" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="491" y="453" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">[▲ UP]</text>
+  <rect x="456" y="461" width="70" height="17" rx="3" fill="#f4f6f8" stroke="#6b7280" stroke-width="1"/>
+  <text x="491" y="474" font-size="12" font-weight="700" fill="#6b7280" text-anchor="middle">[▼ DOWN]</text>
+  <text x="364" y="502" font-size="12" fill="#1a1a1a">Крок зміни: 1 °C за натискання</text>
+
+  <!-- Стрілка 5 -> 6 (ліворуч) -->
+  <line x1="338" y1="427" x2="304" y2="427" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- ==================== КРОК 6 ==================== -->
+  <rect x="24" y="326" width="276" height="202" rx="8" fill="#f4f6f8" stroke="#27ae60" stroke-width="2"/>
+  <rect x="36" y="336" width="64" height="20" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="68" y="350" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">КРОК 6</text>
+  <text x="110" y="351" font-size="13" font-weight="700" fill="#1a1a1a">Запис у EEPROM</text>
+  <line x1="36" y1="364" x2="288" y2="364" stroke="#d0d7de" stroke-width="1"/>
+
+  <text x="36" y="382" font-size="12" fill="#1a1a1a">1. Натиснути кнопку [SET]</text>
+  <text x="36" y="400" font-size="12" fill="#1a1a1a">2. Фіксація даних у EEPROM</text>
+  <text x="36" y="418" font-size="12" fill="#1a1a1a">3. Вихід у штатний режим роботи</text>
+
+  <!-- Вкладена панель фіксації -->
+  <rect x="36" y="432" width="252" height="84" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <rect x="46" y="442" width="60" height="34" rx="4" fill="#27ae60"/>
+  <text x="76" y="464" font-size="13" font-weight="700" fill="#ffffff" text-anchor="middle">SET</text>
+  <text x="116" y="454" font-size="12" font-weight="700" fill="#27ae60">EEPROM збережено</text>
+  <text x="116" y="470" font-size="12" fill="#1a1a1a">T_real = T_disp = 300 °C</text>
+  <text x="46" y="502" font-size="12" font-weight="700" fill="#27ae60">Калібрування завершено успішно</text>
+</svg>

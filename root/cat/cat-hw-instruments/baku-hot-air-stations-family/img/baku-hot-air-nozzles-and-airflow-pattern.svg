@@ -1,0 +1,101 @@
+<svg viewBox="0 0 960 460" width="960" height="460" xmlns="http://www.w3.org/2000/svg" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <pattern id="bga" width="16" height="16" patternUnits="userSpaceOnUse">
+      <circle cx="8" cy="8" r="4" fill="#ffffff" opacity="0.4"/>
+    </pattern>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Global Title -->
+  <text x="480" y="45" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Розподіл повітряних потоків від насадок фена</text>
+  <text x="480" y="65" text-anchor="middle" font-size="13" fill="#6b7280">Профільні насадки спрямовують тепло на контакти, запобігаючи тепловому удару кристала</text>
+
+  <!-- Panel 1: Звужувальна -->
+  <rect x="40" y="90" width="280" height="340" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="180" y="125" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Звужувальна насадка</text>
+  <text x="180" y="145" text-anchor="middle" font-size="12" fill="#6b7280">Для дрібних SMD</text>
+  <text x="180" y="165" text-anchor="middle" font-size="12" fill="#2457d6">Сопло ∅8 мм</text>
+
+  <!-- QFP 1 -->
+  <rect x="136" y="186" width="88" height="88" fill="none" stroke="#6b7280" stroke-width="4" stroke-dasharray="4,4"/>
+  <rect x="140" y="190" width="80" height="80" rx="2" fill="#d0d7de" stroke="#1a1a1a" stroke-width="2"/>
+  
+  <!-- Heat map 1 -->
+  <circle cx="180" cy="230" r="16" fill="#c0392b"/>
+  <circle cx="180" cy="230" r="32" fill="#c0392b" opacity="0.4"/>
+  <text x="180" y="234" text-anchor="middle" font-size="12" font-weight="bold" fill="#ffffff">T max</text>
+
+  <!-- Nozzle outline 1 -->
+  <circle cx="180" cy="230" r="20" fill="none" stroke="#2457d6" stroke-width="2" stroke-dasharray="4,4"/>
+
+  <!-- Airflow 1 -->
+  <line x1="180" y1="230" x2="155" y2="205" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <line x1="180" y1="230" x2="205" y2="205" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <line x1="180" y1="230" x2="155" y2="255" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <line x1="180" y1="230" x2="205" y2="255" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Conclusion 1 -->
+  <rect x="50" y="350" width="260" height="60" rx="4" fill="#fdecea"/>
+  <text x="180" y="372" text-anchor="middle" font-size="13" font-weight="bold" fill="#c0392b">Локальний прогрів</text>
+  <text x="180" y="392" text-anchor="middle" font-size="12" fill="#1a1a1a">Ризик перегріву центру кристала</text>
+
+  <!-- Panel 2: Профільна QFP -->
+  <rect x="340" y="90" width="280" height="340" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="480" y="125" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Профільна насадка</text>
+  <text x="480" y="145" text-anchor="middle" font-size="12" fill="#6b7280">Для корпусів QFP</text>
+  <text x="480" y="165" text-anchor="middle" font-size="12" fill="#2457d6">Сопло для QFP</text>
+
+  <!-- QFP 2 -->
+  <rect x="436" y="186" width="88" height="88" fill="none" stroke="#6b7280" stroke-width="4" stroke-dasharray="4,4"/>
+  <rect x="440" y="190" width="80" height="80" rx="2" fill="#d0d7de" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Heat map 2 -->
+  <rect x="440" y="190" width="80" height="80" rx="2" fill="none" stroke="#27ae60" stroke-width="16" opacity="0.8"/>
+  <rect x="455" y="192" width="50" height="20" rx="4" fill="#27ae60"/>
+  <text x="480" y="206" text-anchor="middle" font-size="12" font-weight="bold" fill="#ffffff">T max</text>
+  <text x="480" y="236" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">T min</text>
+
+  <!-- Nozzle outline 2 -->
+  <rect x="432" y="182" width="96" height="96" rx="2" fill="none" stroke="#2457d6" stroke-width="2" stroke-dasharray="6,4"/>
+
+  <!-- Airflow 2 -->
+  <line x1="480" y1="182" x2="480" y2="194" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <line x1="480" y1="278" x2="480" y2="266" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <line x1="432" y1="230" x2="444" y2="230" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <line x1="528" y1="230" x2="516" y2="230" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Conclusion 2 -->
+  <rect x="350" y="350" width="260" height="60" rx="4" fill="#e9f7ef"/>
+  <text x="480" y="372" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">Периметральний прогрів</text>
+  <text x="480" y="392" text-anchor="middle" font-size="12" fill="#1a1a1a">Нагрів виводів, кристал цілий</text>
+
+  <!-- Panel 3: Профільна BGA -->
+  <rect x="640" y="90" width="280" height="340" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="780" y="125" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Профільна насадка</text>
+  <text x="780" y="145" text-anchor="middle" font-size="12" fill="#6b7280">Для корпусів BGA</text>
+  <text x="780" y="165" text-anchor="middle" font-size="12" fill="#2457d6">Сопло для BGA</text>
+
+  <!-- BGA 3 -->
+  <rect x="740" y="190" width="80" height="80" rx="2" fill="#d0d7de" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Heat map 3 -->
+  <rect x="740" y="190" width="80" height="80" rx="2" fill="#27ae60" opacity="0.9"/>
+  <rect x="740" y="190" width="80" height="80" rx="2" fill="url(#bga)"/>
+  
+  <rect x="745" y="215" width="70" height="30" rx="4" fill="#27ae60"/>
+  <text x="780" y="234" text-anchor="middle" font-size="12" font-weight="bold" fill="#ffffff">T max</text>
+
+  <!-- Nozzle outline 3 -->
+  <rect x="732" y="182" width="96" height="96" rx="2" fill="none" stroke="#2457d6" stroke-width="2" stroke-dasharray="6,4"/>
+
+  <!-- Conclusion 3 -->
+  <rect x="650" y="350" width="260" height="60" rx="4" fill="#e9f7ef"/>
+  <text x="780" y="372" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">Площинний прогрів</text>
+  <text x="780" y="392" text-anchor="middle" font-size="12" fill="#1a1a1a">Рівномірне плавлення масиву</text>
+
+</svg>

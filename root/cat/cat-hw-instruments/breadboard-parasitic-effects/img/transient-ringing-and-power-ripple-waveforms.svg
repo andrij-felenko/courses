@@ -1,0 +1,148 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="30" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Перехідні процеси на макеті: дзвін сигналу та просідання живлення</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Індуктивність перемичок і ємність контактів викликають викиди до 2·ΔV та просідання V_CC</text>
+
+  <!-- ==================== PANEL 1: SIGNAL RINGING ==================== -->
+  <rect x="20" y="72" width="452" height="428" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Badge 1 -->
+  <rect x="32" y="84" width="428" height="30" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="246" y="104" font-size="13" font-weight="700" fill="#c0392b" text-anchor="middle">1. Дзвін на фронті цифрового сигналу (Ringing, ζ ≪ 1)</text>
+
+  <!-- Scope Display 1 -->
+  <rect x="32" y="124" width="428" height="190" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2"/>
+
+  <!-- Voltage reference lines (Panel 1) -->
+  <line x1="84" y1="150" x2="444" y2="150" stroke="#fdecea" stroke-width="1"/>
+  <line x1="84" y1="210" x2="444" y2="210" stroke="#f1f5f9" stroke-width="1.2"/>
+  <line x1="84" y1="270" x2="444" y2="270" stroke="#e2e8f0" stroke-width="1.2"/>
+
+  <!-- Voltage axis labels (Panel 1) -->
+  <text x="78" y="154" font-size="12" fill="#c0392b" text-anchor="end">6.6 В</text>
+  <text x="78" y="214" font-size="12" fill="#6b7280" text-anchor="end">3.3 В</text>
+  <text x="78" y="274" font-size="12" fill="#6b7280" text-anchor="end">0.0 В</text>
+
+  <!-- Time Axis Arrow (Panel 1) -->
+  <line x1="84" y1="270" x2="448" y2="270" stroke="#6b7280" stroke-width="1.2" marker-end="url(#arr-gray)"/>
+  <text x="448" y="286" font-size="12" fill="#6b7280" text-anchor="end">Час t</text>
+
+  <!-- Ideal step signal (dashed grey) -->
+  <polyline points="84,270 120,270 120,210 180,210" fill="none" stroke="#9ca3af" stroke-width="1.5" stroke-dasharray="4,3"/>
+
+  <!-- Ringing waveform (smooth underdamped sinusoid) -->
+  <path d="M 84,270 L 120,270 C 128,270 136,150 146,150 C 156,150 166,250 176,250 C 186,250 196,180 206,180 C 216,180 226,230 236,230 C 246,230 256,200 266,200 C 276,200 286,220 296,220 C 306,220 316,207 326,207 C 336,207 346,213 356,213 C 368,213 378,210 390,210 L 440,210" fill="none" stroke="#c0392b" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
+
+  <!-- Damping envelope -->
+  <path d="M 146,150 Q 236,190 356,209" fill="none" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="3,3"/>
+  <text x="240" y="166" font-size="12" fill="#6b7280">Обвідна e^(-ζ·ω₀·t)</text>
+  <text x="436" y="202" font-size="12" fill="#6b7280" text-anchor="end">Усталений рівень ΔV_in = 3.3 В</text>
+
+  <!-- Dimension 1: Overshoot Amplitude V_overshoot -->
+  <line x1="146" y1="146" x2="146" y2="138" stroke="#c0392b" stroke-width="1"/>
+  <line x1="102" y1="210" x2="118" y2="210" stroke="#6b7280" stroke-width="1"/>
+  <line x1="108" y1="204" x2="108" y2="156" stroke="#c0392b" stroke-width="1.5" marker-start="url(#arr-red)" marker-end="url(#arr-red)"/>
+  <text x="104" y="174" font-size="12" font-weight="700" fill="#c0392b" text-anchor="end">V_overshoot</text>
+  <text x="104" y="190" font-size="12" fill="#c0392b" text-anchor="end">≈ +3.27 В</text>
+
+  <!-- Dimension 2: Oscillation Period T_0 -->
+  <line x1="152" y1="138" x2="200" y2="138" stroke="#1a1a1a" stroke-width="1.5" marker-start="url(#arr)" marker-end="url(#arr)"/>
+  <line x1="146" y1="142" x2="146" y2="134" stroke="#1a1a1a" stroke-width="1"/>
+  <line x1="206" y1="172" x2="206" y2="134" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="176" y="132" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">T_0 = 1/f_0</text>
+
+  <!-- Bottom Card 1: Math & RLC Analysis -->
+  <rect x="32" y="326" width="428" height="162" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2"/>
+  <text x="44" y="348" font-size="13" font-weight="700" fill="#1a1a1a">Параметри паразитного RLC-контуру рейки:</text>
+  
+  <text x="44" y="372" font-size="12" fill="#1a1a1a"><tspan font-weight="700">f_0 = 1 / (2π√(L·C)):</tspan> резонансна частота ≈ 530 МГц</text>
+  <text x="44" y="392" font-size="12" fill="#1a1a1a"><tspan font-weight="700">ζ = R_tot / (2·Z_0):</tspan> коеф. загасання ≈ 0.003 (добротність Q ≈ 167)</text>
+  <text x="44" y="412" font-size="12" fill="#c0392b"><tspan font-weight="700">V_peak ≈ 2·ΔV_in:</tspan> викид напруги сягає майже 100% (+3.27 В)</text>
+
+  <!-- Warning banner 1 -->
+  <rect x="42" y="428" width="408" height="48" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="52" y="448" font-size="12" font-weight="700" fill="#c0392b">Наслідок: пік V_max = 6.57 В при перемиканні 3.3 В</text>
+  <text x="52" y="466" font-size="12" fill="#1a1a1a">Ризик пробою входів логіки та хибних спрацьовувань</text>
+
+  <!-- ==================== PANEL 2: POWER RIPPLE ==================== -->
+  <rect x="488" y="72" width="452" height="428" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Badge 2 -->
+  <rect x="500" y="84" width="428" height="30" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="714" y="104" font-size="13" font-weight="700" fill="#2457d6" text-anchor="middle">2. Просідання живлення при стрибку струму (Power Ripple)</text>
+
+  <!-- Scope Display 2 -->
+  <rect x="500" y="124" width="428" height="190" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2"/>
+
+  <!-- Track 1: Load Current I_load -->
+  <text x="512" y="142" font-size="12" font-weight="700" fill="#2457d6">Струм I_load (ΔI = 80 мА, Δt = 4 нс)</text>
+  <polyline points="556,170 592,170 600,148 912,148" fill="none" stroke="#2457d6" stroke-width="2.2" stroke-linecap="round"/>
+
+  <!-- Time alignment line -->
+  <line x1="596" y1="144" x2="596" y2="296" stroke="#6b7280" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="604" y="166" font-size="12" fill="#6b7280">dI/dt = 20 мА/нс</text>
+
+  <!-- Track 2: Power Rail Voltage V_CC -->
+  <!-- Horizontal grid lines for rail -->
+  <line x1="556" y1="214" x2="912" y2="214" stroke="#e2e8f0" stroke-width="1.2"/>
+  <line x1="556" y1="264" x2="912" y2="264" stroke="#fdecea" stroke-width="1"/>
+  
+  <!-- Voltage labels Track 2 -->
+  <text x="550" y="218" font-size="12" fill="#6b7280" text-anchor="end">3.3 В</text>
+  <text x="550" y="268" font-size="12" fill="#c0392b" text-anchor="end">2.3 В</text>
+
+  <!-- Time Axis Arrow (Panel 2) -->
+  <line x1="556" y1="290" x2="916" y2="290" stroke="#6b7280" stroke-width="1.2" marker-end="url(#arr-gray)"/>
+  <text x="916" y="306" font-size="12" fill="#6b7280" text-anchor="end">Час t</text>
+
+  <!-- Curve A: Without decoupling capacitor (Red) -->
+  <path d="M 556,214 L 592,214 C 596,214 602,264 606,264 C 616,264 626,204 636,204 C 646,204 656,240 666,240 C 676,240 686,218 696,218 C 706,218 716,228 726,228 C 738,228 748,224 760,224 L 912,224" fill="none" stroke="#c0392b" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
+
+  <!-- Curve B: With decoupling capacitor C_dec = 100 nF (Green) -->
+  <path d="M 556,214 L 592,214 C 598,214 604,218 612,218 C 620,218 628,214 640,214 L 912,214" fill="none" stroke="#27ae60" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
+
+  <!-- Dimension 3: Voltage Droop ΔV_drop -->
+  <line x1="606" y1="214" x2="580" y2="214" stroke="#6b7280" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="606" y1="264" x2="580" y2="264" stroke="#c0392b" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="584" y1="220" x2="584" y2="258" stroke="#c0392b" stroke-width="1.5" marker-start="url(#arr-red)" marker-end="url(#arr-red)"/>
+  
+  <!-- Droop label -->
+  <text x="616" y="278" font-size="12" font-weight="700" fill="#c0392b">ΔV_drop = 1.0 В (падіння до 2.3 В)</text>
+  
+  <!-- Stable label -->
+  <text x="648" y="206" font-size="12" font-weight="700" fill="#27ae60">З C_dec = 100 нФ: ΔV ≤ 0.1 В</text>
+
+  <!-- Bottom Card 2: Math & Decoupling Sizing -->
+  <rect x="500" y="326" width="428" height="162" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2"/>
+  <text x="512" y="348" font-size="13" font-weight="700" fill="#1a1a1a">Розрахунок розв'язки шини живлення:</text>
+
+  <text x="512" y="372" font-size="12" fill="#c0392b"><tspan font-weight="700">V_drop = L·(ΔI/Δt):</tspan> 50 нГн · (80 мА / 4 нс) = 1.0 В (без ємності)</text>
+  <text x="512" y="392" font-size="12" fill="#1a1a1a"><tspan font-weight="700">Z_target = ΔV_all / ΔI:</tspan> цільовий імпеданс 0.1 В / 80 мА = 1.25 Ом</text>
+  <text x="512" y="412" font-size="12" fill="#27ae60"><tspan font-weight="700">C_dec ≥ L / (Z_target)²:</tspan> C_min = 32 нФ → норма 100 нФ (0.1 мкФ)</text>
+
+  <!-- Recommendation banner 2 -->
+  <rect x="510" y="428" width="408" height="48" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="520" y="448" font-size="12" font-weight="700" fill="#27ae60">Розв'язок: керамічний конденсатор 100 нФ біля виводів IC</text>
+  <text x="520" y="466" font-size="12" fill="#1a1a1a">Знижує імпеданс шини до Z_0 ≈ 0.7 Ом і гасить пульсації</text>
+</svg>

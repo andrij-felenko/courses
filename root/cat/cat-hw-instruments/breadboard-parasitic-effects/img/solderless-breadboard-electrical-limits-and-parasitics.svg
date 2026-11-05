@@ -1,0 +1,183 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="30" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Електричні межі та паразитні параметри контактів макетної плати</text>
+  <text x="480" y="50" font-size="13" fill="#6b7280" text-anchor="middle">Струм обмежено 1 А через нагрів контактів, а смугу частот — міжрейковою ємністю 1–3 пФ</text>
+
+  <!-- Left Panel: Physical & Circuit View -->
+  <rect x="24" y="70" width="570" height="388" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="309" y="93" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Еквівалентна схема двох суміжних рейок (крок 2.54 мм)</text>
+  <text x="309" y="110" font-size="12" fill="#6b7280" text-anchor="middle">Розподіл струму в пелюстковому затискачі та взаємний ємнісний зв'язок</text>
+
+  <!-- Rail A Container -->
+  <rect x="44" y="126" width="530" height="92" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2"/>
+  <text x="56" y="146" font-size="12" font-weight="bold" fill="#2457d6">Рейка A (коло живлення)</text>
+  <text x="56" y="162" font-size="12" fill="#6b7280">5 точок / шина затискача</text>
+  <text x="56" y="178" font-size="12" fill="#6b7280">Фосфориста бронза</text>
+
+  <!-- Wire 1 Input at Pin 1 (x=270) -->
+  <text x="210" y="146" font-size="12" font-weight="bold" fill="#2457d6">Вхід струму</text>
+  <line x1="210" y1="173" x2="228" y2="173" stroke="#2457d6" stroke-width="2"/>
+  <rect x="228" y="166" width="24" height="14" rx="2" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="240" y="160" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">R_cont</text>
+  <line x1="252" y1="173" x2="261" y2="173" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Rail A Pins (x=270, 320, 370, 420, 470) -->
+  <rect x="261" y="164" width="18" height="18" rx="2" fill="#f4f6f8" stroke="#6b7280" stroke-width="1"/>
+  <text x="270" y="177" font-size="12" fill="#6b7280" text-anchor="middle">1</text>
+
+  <rect x="311" y="164" width="18" height="18" rx="2" fill="#f4f6f8" stroke="#6b7280" stroke-width="1"/>
+  <text x="320" y="177" font-size="12" fill="#6b7280" text-anchor="middle">2</text>
+
+  <rect x="361" y="164" width="18" height="18" rx="2" fill="#f4f6f8" stroke="#6b7280" stroke-width="1"/>
+  <text x="370" y="177" font-size="12" fill="#6b7280" text-anchor="middle">3</text>
+
+  <rect x="411" y="164" width="18" height="18" rx="2" fill="#f4f6f8" stroke="#6b7280" stroke-width="1"/>
+  <text x="420" y="177" font-size="12" fill="#6b7280" text-anchor="middle">4</text>
+
+  <rect x="461" y="164" width="18" height="18" rx="2" fill="#f4f6f8" stroke="#6b7280" stroke-width="1"/>
+  <text x="470" y="177" font-size="12" fill="#6b7280" text-anchor="middle">5</text>
+
+  <!-- Wire 2 Output at Pin 5 (x=470) -->
+  <line x1="479" y1="173" x2="488" y2="173" stroke="#2457d6" stroke-width="2"/>
+  <rect x="488" y="166" width="24" height="14" rx="2" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="500" y="160" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">R_cont</text>
+  <line x1="512" y1="173" x2="528" y2="173" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="536" y="177" font-size="12" font-weight="bold" fill="#2457d6">Вихід</text>
+
+  <!-- Connections from pins down to busbar in Rail A -->
+  <line x1="270" y1="182" x2="270" y2="194" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="320" y1="182" x2="320" y2="194" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="370" y1="182" x2="370" y2="194" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="420" y1="182" x2="420" y2="194" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="470" y1="182" x2="470" y2="194" stroke="#2457d6" stroke-width="1.5"/>
+
+  <!-- Current flow line in Rail A -->
+  <line x1="270" y1="194" x2="461" y2="194" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="370" y="209" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Струм шини I ≤ 1.0 A (нагрів контакту P = I²·R_cont)</text>
+
+  <!-- Pitch dimension (left) -->
+  <line x1="80" y1="250" x2="80" y2="224" stroke="#6b7280" stroke-width="1.2" marker-end="url(#arr-gray)"/>
+  <line x1="80" y1="294" x2="80" y2="320" stroke="#6b7280" stroke-width="1.2" marker-end="url(#arr-gray)"/>
+  <text x="80" y="268" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">d = 2.54 мм</text>
+  <text x="80" y="284" font-size="12" fill="#6b7280" text-anchor="middle">(крок рейок)</text>
+
+  <!-- Dielectric Zone between rails -->
+  <rect x="180" y="224" width="380" height="94" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4,4"/>
+  <text x="192" y="248" font-size="12" font-weight="bold" fill="#6b7280">Діелектрик ABS</text>
+  <text x="192" y="264" font-size="12" fill="#6b7280">Корпус плати</text>
+  <text x="192" y="280" font-size="12" fill="#6b7280">ε_r ≈ 3.0</text>
+  <text x="192" y="296" font-size="12" fill="#6b7280">R_iso &gt; 1 ГОм</text>
+
+  <!-- Parasitic Capacitance C_par at x=340 -->
+  <line x1="340" y1="224" x2="340" y2="258" stroke="#c0392b" stroke-width="1.8"/>
+  <line x1="325" y1="258" x2="355" y2="258" stroke="#c0392b" stroke-width="2.5"/>
+  <line x1="325" y1="266" x2="355" y2="266" stroke="#c0392b" stroke-width="2.5"/>
+  <line x1="340" y1="266" x2="340" y2="324" stroke="#c0392b" stroke-width="1.8"/>
+  <text x="366" y="258" font-size="12" font-weight="bold" fill="#c0392b">C_par = 1–3 пФ</text>
+  <text x="366" y="274" font-size="12" fill="#6b7280">Міжрейкова ємність</text>
+  <text x="366" y="290" font-size="12" fill="#6b7280">Crosstalk на ВЧ</text>
+
+  <!-- Voltage Limit V_max at x=505 -->
+  <line x1="505" y1="248" x2="505" y2="226" stroke="#2457d6" stroke-width="1.2" marker-end="url(#arr-blue)"/>
+  <line x1="505" y1="294" x2="505" y2="320" stroke="#2457d6" stroke-width="1.2" marker-end="url(#arr-blue)"/>
+  <text x="505" y="268" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">V_max ≤ 36 В</text>
+  <text x="505" y="284" font-size="12" fill="#6b7280" text-anchor="middle">Межа SELV</text>
+
+  <!-- Rail B Container -->
+  <rect x="44" y="324" width="530" height="76" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2"/>
+  <text x="56" y="348" font-size="12" font-weight="bold" fill="#1a1a1a">Рейка B (сигнал / GND)</text>
+  <text x="56" y="364" font-size="12" fill="#6b7280">Сусідня 5-точкова рейка</text>
+  <text x="56" y="380" font-size="12" fill="#6b7280">Крок між рейками 2.54 мм</text>
+
+  <!-- Rail B Pins -->
+  <rect x="261" y="348" width="18" height="18" rx="2" fill="#f4f6f8" stroke="#6b7280" stroke-width="1"/>
+  <text x="270" y="361" font-size="12" fill="#6b7280" text-anchor="middle">1</text>
+
+  <rect x="311" y="348" width="18" height="18" rx="2" fill="#f4f6f8" stroke="#6b7280" stroke-width="1"/>
+  <text x="320" y="361" font-size="12" fill="#6b7280" text-anchor="middle">2</text>
+
+  <rect x="361" y="348" width="18" height="18" rx="2" fill="#f4f6f8" stroke="#6b7280" stroke-width="1"/>
+  <text x="370" y="361" font-size="12" fill="#6b7280" text-anchor="middle">3</text>
+
+  <rect x="411" y="348" width="18" height="18" rx="2" fill="#f4f6f8" stroke="#6b7280" stroke-width="1"/>
+  <text x="420" y="361" font-size="12" fill="#6b7280" text-anchor="middle">4</text>
+
+  <rect x="461" y="348" width="18" height="18" rx="2" fill="#f4f6f8" stroke="#6b7280" stroke-width="1"/>
+  <text x="470" y="361" font-size="12" fill="#6b7280" text-anchor="middle">5</text>
+
+  <!-- Connections from pins down to busbar in Rail B -->
+  <line x1="270" y1="366" x2="270" y2="376" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="320" y1="366" x2="320" y2="376" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="370" y1="366" x2="370" y2="376" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="420" y1="366" x2="420" y2="376" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="470" y1="366" x2="470" y2="376" stroke="#6b7280" stroke-width="1.5"/>
+
+  <!-- Rail B connection line -->
+  <line x1="270" y1="376" x2="470" y2="376" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <text x="370" y="391" font-size="12" fill="#6b7280" text-anchor="middle">З'єднувальна шина затискача B</text>
+
+  <!-- Left Panel Bottom Note -->
+  <rect x="44" y="410" width="530" height="36" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="309" y="425" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Вплив на сигнал: паразитний струм наведення i = C_par · (dv/dt)</text>
+  <text x="309" y="439" font-size="12" fill="#1a1a1a" text-anchor="middle">При крутих фронтах (dv/dt &gt; 1 В/нс) між рейками виникають перехресні завади (crosstalk)</text>
+
+  <!-- Right Column: Card 1 (Limits) -->
+  <rect x="608" y="70" width="328" height="188" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="608" y="70" width="328" height="30" rx="8" fill="#eaf0fd" stroke="#d0d7de" stroke-width="1"/>
+  <text x="772" y="90" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Електричні межі експлуатації</text>
+
+  <rect x="622" y="110" width="68" height="20" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="656" y="124" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">I ≤ 1.0 A</text>
+  <text x="700" y="122" font-size="12" font-weight="bold" fill="#1a1a1a">Граничний струм контакту</text>
+  <text x="700" y="136" font-size="12" fill="#6b7280">Номінальний робочий: 0.5 A</text>
+  <text x="622" y="154" font-size="12" fill="#c0392b">При I &gt; 1 A: нагрів I²·R_c, розм'якшення ABS (&gt;75°C)</text>
+
+  <rect x="622" y="168" width="68" height="20" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="656" y="182" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">V ≤ 36 В</text>
+  <text x="700" y="180" font-size="12" font-weight="bold" fill="#1a1a1a">Максимальна робоча напруга</text>
+  <text x="700" y="194" font-size="12" fill="#6b7280">Категорія SELV (безпечна напруга)</text>
+  <text x="622" y="212" font-size="12" fill="#6b7280">При V &gt; 36 В: небезпека ураження та струми витоку</text>
+
+  <text x="622" y="234" font-size="12" fill="#1a1a1a"><tspan font-weight="bold">Дріт:</tspan> AWG 20–28 (Ø 0.3–0.8 мм, норма AWG 22)</text>
+  <text x="622" y="248" font-size="12" fill="#6b7280">Товстіший дріт розгинає пелюстки затискача</text>
+
+  <!-- Right Column: Card 2 (Parasitics) -->
+  <rect x="608" y="272" width="328" height="186" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="608" y="272" width="328" height="30" rx="8" fill="#fdecea" stroke="#d0d7de" stroke-width="1"/>
+  <text x="772" y="292" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">Паразитні параметри контакту</text>
+
+  <rect x="622" y="312" width="76" height="20" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="660" y="326" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">10–50 мОм</text>
+  <text x="708" y="324" font-size="12" font-weight="bold" fill="#1a1a1a">Контактний опір (R_cont)</text>
+  <text x="708" y="338" font-size="12" fill="#6b7280">Новий фосфор-бронзовий затискач</text>
+  <text x="622" y="356" font-size="12" fill="#6b7280">Зростає до &gt; 1 Ом при окисленні та втомі металу</text>
+  <text x="622" y="370" font-size="12" fill="#6b7280">Спричиняє падіння ΔV = I·R_c та шум живлення</text>
+
+  <rect x="622" y="386" width="76" height="20" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="660" y="400" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">1–3 пФ</text>
+  <text x="708" y="398" font-size="12" font-weight="bold" fill="#1a1a1a">Міжрейкова ємність (C_par)</text>
+  <text x="708" y="412" font-size="12" fill="#6b7280">Між суміжними рядами на кроці 2.54 мм</text>
+  <text x="622" y="430" font-size="12" fill="#6b7280">Спад АЧХ на високих частотах (f_cut &lt; 5–10 МГц)</text>
+  <text x="622" y="444" font-size="12" fill="#6b7280">Викликає перехресні завади (crosstalk) у шинах</text>
+</svg>

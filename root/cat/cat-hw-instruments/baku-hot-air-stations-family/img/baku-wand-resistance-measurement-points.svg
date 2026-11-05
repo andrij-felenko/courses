@@ -1,0 +1,77 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 360" width="720" height="360" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Підкладка -->
+  <rect x="0" y="0" width="720" height="360" fill="white"/>
+
+  <!-- Заголовок -->
+  <text x="360" y="30" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Вимірювання опору нагрівача та термопари фена BAKU</text>
+  <text x="360" y="50" font-size="13" fill="#6b7280" text-anchor="middle">Точки підключення мультиметра до 8-пінового роз'єму (опір та полярність)</text>
+
+  <!-- Роз'єм 8-pin -->
+  <g>
+    <circle cx="360" cy="180" r="70" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+    <circle cx="360" cy="180" r="60" fill="none" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4"/>
+    
+    <!-- Ключ (виїмка) -->
+    <path d="M 350 110 L 370 110 L 370 120 L 350 120 Z" fill="#d0d7de"/>
+    <text x="360" y="135" font-size="12" fill="#6b7280" text-anchor="middle">Ключ</text>
+
+    <!-- Піни -->
+    <!-- Пін 1 -->
+    <circle cx="320" cy="155" r="5" fill="#1a1a1a"/>
+    <text x="308" y="150" font-size="12" fill="#1a1a1a" text-anchor="end">1</text>
+    
+    <!-- Пін 2 -->
+    <circle cx="400" cy="155" r="5" fill="#1a1a1a"/>
+    <text x="412" y="150" font-size="12" fill="#1a1a1a" text-anchor="start">2</text>
+    
+    <!-- Пін 3 -->
+    <circle cx="405" cy="200" r="5" fill="#1a1a1a"/>
+    <text x="417" y="205" font-size="12" fill="#1a1a1a" text-anchor="start">3</text>
+    
+    <!-- Пін 4 -->
+    <circle cx="380" cy="230" r="5" fill="#1a1a1a"/>
+    <text x="385" y="245" font-size="12" fill="#1a1a1a" text-anchor="start">4</text>
+    
+    <!-- Пін 5 -->
+    <circle cx="340" cy="230" r="5" fill="#6b7280"/>
+    <text x="335" y="245" font-size="12" fill="#6b7280" text-anchor="end">5</text>
+    
+    <!-- Пін 6 -->
+    <circle cx="315" cy="200" r="5" fill="#6b7280"/>
+    <text x="303" y="205" font-size="12" fill="#6b7280" text-anchor="end">6</text>
+    
+    <!-- Пін 7 -->
+    <circle cx="360" cy="205" r="5" fill="#6b7280"/>
+    <text x="360" y="220" font-size="12" fill="#6b7280" text-anchor="middle">7</text>
+    
+    <!-- Пін 8 -->
+    <circle cx="360" cy="170" r="5" fill="#6b7280"/>
+    <text x="360" y="185" font-size="12" fill="#6b7280" text-anchor="middle">8</text>
+  </g>
+
+  <!-- Вимірювання нагрівача (Піни 1, 2) -->
+  <g>
+    <rect x="140" y="100" width="120" height="70" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+    <text x="200" y="120" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Нагрівач</text>
+    <text x="200" y="140" font-size="14" fill="#1a1a1a" text-anchor="middle">70...80 Ω</text>
+    <text x="200" y="160" font-size="12" fill="#6b7280" text-anchor="middle">(Без полярності)</text>
+    
+    <!-- Лінії підключення -->
+    <path d="M 260 135 L 320 155" fill="none" stroke="#2457d6" stroke-width="2"/>
+    <path d="M 260 150 L 400 155" fill="none" stroke="#2457d6" stroke-width="2"/>
+  </g>
+
+  <!-- Вимірювання термопари (Піни 3, 4) -->
+  <g>
+    <rect x="460" y="230" width="130" height="80" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+    <text x="525" y="250" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Термопара (K)</text>
+    <text x="525" y="270" font-size="14" fill="#1a1a1a" text-anchor="middle">1...2 Ω</text>
+    <text x="525" y="290" font-size="12" fill="#c0392b" text-anchor="middle">Пін 3: + (Червоний)</text>
+    <text x="525" y="305" font-size="12" fill="#2457d6" text-anchor="middle">Пін 4: - (Синій)</text>
+    
+    <!-- Лінії підключення -->
+    <path d="M 460 260 L 405 200" fill="none" stroke="#c0392b" stroke-width="2"/>
+    <path d="M 460 290 L 380 230" fill="none" stroke="#2457d6" stroke-width="2"/>
+  </g>
+
+</svg>

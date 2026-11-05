@@ -1,0 +1,142 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="28" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Вплив крутизни фронту сигналу (dv/dt) на перехресні завади в макетній платі</text>
+  <text x="480" y="50" font-size="13" fill="#6b7280" text-anchor="middle">Зниження dv/dt зменшує ємнісну наводку V_noise = R_in · C_c · (dv/dt) на сусідній доріжці до безпечного рівня</text>
+
+  <!-- Left Panel: Steep edge (Problem) -->
+  <rect x="24" y="68" width="444" height="428" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Left Panel Header -->
+  <rect x="38" y="78" width="416" height="50" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="48" y="98" font-size="13" font-weight="bold" fill="#c0392b">Крутий фронт: tr = 2 нс (dv/dt = 1.65 В/нс)</text>
+  <text x="48" y="116" font-size="12" fill="#6b7280">Доріжка 1 без демпфування → суміжний контакт (Cc = 3 пФ)</text>
+  <rect x="354" y="88" width="90" height="20" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+  <text x="399" y="102" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">НЕБЕЗПЕЧНО</text>
+
+  <!-- Left Oscilloscope Screen Box -->
+  <rect x="38" y="140" width="416" height="208" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Left Screen Status Line -->
+  <text x="48" y="158" font-size="12" font-weight="bold" fill="#2457d6">CH1 (Агресор): 2 В/под</text>
+  <text x="212" y="158" font-size="12" font-weight="bold" fill="#c0392b">CH2 (Жертва): 1 В/под</text>
+  <text x="372" y="158" font-size="12" font-weight="bold" fill="#1a1a1a">5 нс/под</text>
+
+  <!-- Left Screen Grid -->
+  <rect x="78" y="166" width="360" height="150" fill="none" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="138" y1="166" x2="138" y2="316" stroke="#f0f2f5" stroke-width="1"/>
+  <line x1="198" y1="166" x2="198" y2="316" stroke="#f0f2f5" stroke-width="1"/>
+  <line x1="258" y1="166" x2="258" y2="316" stroke="#f0f2f5" stroke-width="1"/>
+  <line x1="318" y1="166" x2="318" y2="316" stroke="#f0f2f5" stroke-width="1"/>
+  <line x1="378" y1="166" x2="378" y2="316" stroke="#f0f2f5" stroke-width="1"/>
+
+  <line x1="78" y1="196" x2="438" y2="196" stroke="#f0f2f5" stroke-width="1"/>
+  <line x1="78" y1="226" x2="438" y2="226" stroke="#f0f2f5" stroke-width="1"/>
+  <line x1="78" y1="256" x2="438" y2="256" stroke="#f0f2f5" stroke-width="1"/>
+  <line x1="78" y1="286" x2="438" y2="286" stroke="#f0f2f5" stroke-width="1"/>
+
+  <!-- Left Screen Axis Labels -->
+  <text x="72" y="230" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">1▶</text>
+  <text x="72" y="275" font-size="12" fill="#c0392b" text-anchor="end">V_th</text>
+  <text x="72" y="320" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="end">2▶</text>
+
+  <!-- Left Threshold Line (V_th = 1.5 V) -->
+  <line x1="78" y1="271" x2="438" y2="271" stroke="#c0392b" stroke-width="1" stroke-dasharray="4,3"/>
+
+  <!-- Left Waveform CH1 (Active Aggressor) -->
+  <path d="M 78,226 L 138,226 C 141,226 146,178 150,168 C 154,158 158,181 162,181 C 166,181 170,173 174,173 C 178,173 182,178 186,178 C 190,178 194,176 198,176 L 438,176" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+
+  <!-- Left Coupling Arrow -->
+  <line x1="150" y1="188" x2="150" y2="258" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#arr-red)"/>
+
+  <!-- Left Waveform CH2 (Victim Crosstalk Spike) -->
+  <path d="M 78,316 L 138,316 C 142,316 147,262 150,262 C 153,262 162,298 170,320 C 174,324 178,313 182,313 C 188,313 192,316 198,316 L 438,316" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+
+  <!-- Left Screen Footer Text -->
+  <text x="48" y="336" font-size="12" font-weight="bold" fill="#c0392b">Сплеск завади: V_noise ≈ 1.8 В &gt; V_th (ХИБНИЙ ІМПУЛЬС!)</text>
+
+  <!-- Left Panel Analysis Card -->
+  <rect x="38" y="360" width="416" height="124" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2"/>
+  <text x="48" y="380" font-size="13" font-weight="bold" fill="#c0392b">Параметри завади та наслідки (Крутий фронт):</text>
+  <text x="48" y="402" font-size="12" fill="#1a1a1a">Крутизна фронту: dv/dt = 1.65 В/нс (tr = 2 нс, ΔV = 3.3 В)</text>
+  <text x="48" y="422" font-size="12" fill="#1a1a1a">Ємнісний струм: ic = Cc · (dv/dt) ≈ 5.0 мА (при Cc = 3 пФ)</text>
+  <text x="48" y="442" font-size="12" font-weight="bold" fill="#c0392b">Пік наводки: V_noise ≈ 1.8 В &gt; V_th (1.5 В) — ЗБІЙ ЛОГІКИ</text>
+  <text x="48" y="462" font-size="12" fill="#6b7280">Хибні перемикання, зрив зв'язку SPI/I2C, паразитна генерація</text>
+
+
+  <!-- Right Panel: Slow edge (Solution) -->
+  <rect x="492" y="68" width="444" height="428" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Right Panel Header -->
+  <rect x="506" y="78" width="416" height="50" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="516" y="98" font-size="13" font-weight="bold" fill="#27ae60">Пологий фронт: tr = 20 нс (dv/dt = 0.165 В/нс)</text>
+  <text x="516" y="116" font-size="12" fill="#6b7280">Доріжка 1 з резистором Rs = 100 Ом → суміжний контакт (Cc = 3 пФ)</text>
+  <rect x="832" y="88" width="80" height="20" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="872" y="102" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">БЕЗПЕЧНО</text>
+
+  <!-- Right Oscilloscope Screen Box -->
+  <rect x="506" y="140" width="416" height="208" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Right Screen Status Line -->
+  <text x="516" y="158" font-size="12" font-weight="bold" fill="#2457d6">CH1 (Агресор): 2 В/под</text>
+  <text x="680" y="158" font-size="12" font-weight="bold" fill="#27ae60">CH2 (Жертва): 1 В/под</text>
+  <text x="840" y="158" font-size="12" font-weight="bold" fill="#1a1a1a">5 нс/под</text>
+
+  <!-- Right Screen Grid -->
+  <rect x="546" y="166" width="360" height="150" fill="none" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="606" y1="166" x2="606" y2="316" stroke="#f0f2f5" stroke-width="1"/>
+  <line x1="666" y1="166" x2="666" y2="316" stroke="#f0f2f5" stroke-width="1"/>
+  <line x1="726" y1="166" x2="726" y2="316" stroke="#f0f2f5" stroke-width="1"/>
+  <line x1="786" y1="166" x2="786" y2="316" stroke="#f0f2f5" stroke-width="1"/>
+  <line x1="846" y1="166" x2="846" y2="316" stroke="#f0f2f5" stroke-width="1"/>
+
+  <line x1="546" y1="196" x2="906" y2="196" stroke="#f0f2f5" stroke-width="1"/>
+  <line x1="546" y1="226" x2="906" y2="226" stroke="#f0f2f5" stroke-width="1"/>
+  <line x1="546" y1="256" x2="906" y2="256" stroke="#f0f2f5" stroke-width="1"/>
+  <line x1="546" y1="286" x2="906" y2="286" stroke="#f0f2f5" stroke-width="1"/>
+
+  <!-- Right Screen Axis Labels -->
+  <text x="540" y="230" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">1▶</text>
+  <text x="540" y="275" font-size="12" fill="#27ae60" text-anchor="end">V_th</text>
+  <text x="540" y="320" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="end">2▶</text>
+
+  <!-- Right Threshold Line (V_th = 1.5 V) -->
+  <line x1="546" y1="271" x2="906" y2="271" stroke="#6b7280" stroke-width="1" stroke-dasharray="4,3"/>
+
+  <!-- Right Waveform CH1 (Smooth Edge Aggressor) -->
+  <path d="M 546,226 L 606,226 C 646,226 686,176 726,176 L 906,176" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+
+  <!-- Right Coupling Arrow -->
+  <line x1="666" y1="205" x2="666" y2="307" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#arr-green)"/>
+
+  <!-- Right Waveform CH2 (Minimal Crosstalk Ripple) -->
+  <path d="M 546,316 L 606,316 C 636,316 646,311 666,311 C 686,311 696,316 726,316 L 906,316" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+
+  <!-- Right Screen Footer Text -->
+  <text x="516" y="336" font-size="12" font-weight="bold" fill="#27ae60">Завада: V_noise ≈ 0.18 В ≪ V_th (СТАБІЛЬНИЙ СТАН)</text>
+
+  <!-- Right Panel Analysis Card -->
+  <rect x="506" y="360" width="416" height="124" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2"/>
+  <text x="516" y="380" font-size="13" font-weight="bold" fill="#27ae60">Параметри завади та результат (Пологий фронт):</text>
+  <text x="516" y="402" font-size="12" fill="#1a1a1a">Крутизна фронту: dv/dt = 0.165 В/нс (tr = 20 нс, ΔV = 3.3 В)</text>
+  <text x="516" y="422" font-size="12" fill="#1a1a1a">Ємнісний струм: ic = Cc · (dv/dt) ≈ 0.5 мА (при Cc = 3 пФ)</text>
+  <text x="516" y="442" font-size="12" font-weight="bold" fill="#27ae60">Пік наводки: V_noise ≈ 0.18 В ≪ V_th (1.5 В) — НОРМА</text>
+  <text x="516" y="462" font-size="12" fill="#6b7280">Стійкий нульовий стан, чисті фронти, стабільна робота</text>
+</svg>

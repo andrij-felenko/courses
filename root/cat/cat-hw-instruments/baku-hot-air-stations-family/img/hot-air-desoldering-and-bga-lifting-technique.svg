@@ -1,0 +1,176 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Global Header -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Техніка термоповітряного демонтажу та зняття мікросхем</text>
+  <text x="480" y="52" text-anchor="middle" font-size="13" fill="#6b7280">Коловий рух сопла рівномірно оплавляє виводи, а вертикальний підйом запобігає зриву майданчиків</text>
+
+  <!-- Panel 1: Top View -->
+  <rect x="28" y="72" width="438" height="366" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="247" y="96" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">1. Траєкторія руху сопла (вигляд згори)</text>
+  <text x="247" y="114" text-anchor="middle" font-size="12" fill="#6b7280">Коловий обхід периметра для синхронного плавлення виводів</text>
+
+  <!-- Panel 1 Inner Canvas -->
+  <rect x="52" y="130" width="390" height="206" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="247" y="148" text-anchor="middle" font-size="12" fill="#2457d6">Колова траєкторія прогріву по контуру виводів</text>
+
+  <!-- Adjacent SMD Passives -->
+  <text x="106" y="178" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Обв'язка SMD</text>
+  <text x="106" y="194" text-anchor="middle" font-size="12" fill="#27ae60">не здувається</text>
+  <rect x="94" y="205" width="24" height="12" rx="1" fill="#475569" stroke="#334155" stroke-width="1"/>
+  <rect x="94" y="205" width="5" height="12" rx="1" fill="#cbd5e1"/>
+  <rect x="113" y="205" width="5" height="12" rx="1" fill="#cbd5e1"/>
+
+  <rect x="94" y="245" width="24" height="12" rx="1" fill="#475569" stroke="#334155" stroke-width="1"/>
+  <rect x="94" y="245" width="5" height="12" rx="1" fill="#cbd5e1"/>
+  <rect x="113" y="245" width="5" height="12" rx="1" fill="#cbd5e1"/>
+
+  <!-- IC Chip Body -->
+  <rect x="210" y="199" width="74" height="74" rx="4" fill="#334155" stroke="#1e293b" stroke-width="1.5"/>
+  <circle cx="218" cy="207" r="2.5" fill="#94a3b8"/>
+
+  <!-- QFP Leads Top -->
+  <line x1="227" y1="199" x2="227" y2="190" stroke="#94a3b8" stroke-width="2.5"/>
+  <line x1="237" y1="199" x2="237" y2="190" stroke="#94a3b8" stroke-width="2.5"/>
+  <line x1="247" y1="199" x2="247" y2="190" stroke="#94a3b8" stroke-width="2.5"/>
+  <line x1="257" y1="199" x2="257" y2="190" stroke="#94a3b8" stroke-width="2.5"/>
+  <line x1="267" y1="199" x2="267" y2="190" stroke="#94a3b8" stroke-width="2.5"/>
+
+  <!-- QFP Leads Bottom -->
+  <line x1="227" y1="273" x2="227" y2="282" stroke="#94a3b8" stroke-width="2.5"/>
+  <line x1="237" y1="273" x2="237" y2="282" stroke="#94a3b8" stroke-width="2.5"/>
+  <line x1="247" y1="273" x2="247" y2="282" stroke="#94a3b8" stroke-width="2.5"/>
+  <line x1="257" y1="273" x2="257" y2="282" stroke="#94a3b8" stroke-width="2.5"/>
+  <line x1="267" y1="273" x2="267" y2="282" stroke="#94a3b8" stroke-width="2.5"/>
+
+  <!-- QFP Leads Left -->
+  <line x1="210" y1="216" x2="201" y2="216" stroke="#94a3b8" stroke-width="2.5"/>
+  <line x1="210" y1="226" x2="201" y2="226" stroke="#94a3b8" stroke-width="2.5"/>
+  <line x1="210" y1="236" x2="201" y2="236" stroke="#94a3b8" stroke-width="2.5"/>
+  <line x1="210" y1="246" x2="201" y2="246" stroke="#94a3b8" stroke-width="2.5"/>
+  <line x1="210" y1="256" x2="201" y2="256" stroke="#94a3b8" stroke-width="2.5"/>
+
+  <!-- QFP Leads Right -->
+  <line x1="284" y1="216" x2="293" y2="216" stroke="#94a3b8" stroke-width="2.5"/>
+  <line x1="284" y1="226" x2="293" y2="226" stroke="#94a3b8" stroke-width="2.5"/>
+  <line x1="284" y1="236" x2="293" y2="236" stroke="#94a3b8" stroke-width="2.5"/>
+  <line x1="284" y1="246" x2="293" y2="246" stroke="#94a3b8" stroke-width="2.5"/>
+  <line x1="284" y1="256" x2="293" y2="256" stroke="#94a3b8" stroke-width="2.5"/>
+
+  <!-- Suction Cup at Center -->
+  <circle cx="247" cy="236" r="16" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <circle cx="247" cy="236" r="6" fill="#2457d6"/>
+  <text x="247" y="265" text-anchor="middle" font-size="12" fill="#ffffff">Присоска</text>
+
+  <!-- Orbital Trajectory of Nozzle -->
+  <rect x="187" y="176" width="120" height="120" rx="14" fill="none" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="5,4"/>
+  <line x1="225" y1="176" x2="265" y2="176" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <line x1="307" y1="215" x2="307" y2="255" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <line x1="265" y1="296" x2="225" y2="296" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <line x1="187" y1="255" x2="187" y2="215" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Hot Air Nozzle at Corner -->
+  <circle cx="300" cy="183" r="14" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <circle cx="300" cy="183" r="6" fill="#2457d6" opacity="0.3"/>
+  <text x="326" y="180" font-size="12" font-weight="bold" fill="#2457d6">Сопло фена</text>
+  <text x="326" y="196" font-size="12" fill="#6b7280">∅ 6–8 мм</text>
+
+  <text x="247" y="318" text-anchor="middle" font-size="12" fill="#6b7280">Синхронний прогрів 4 сторін корпусу</text>
+
+  <!-- Panel 1 Info Box -->
+  <rect x="52" y="348" width="390" height="74" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="64" y="368" font-size="12" font-weight="bold" fill="#2457d6">Траєкторія:</text>
+  <text x="146" y="368" font-size="12" fill="#1a1a1a">коловий обхід по периметру контактів</text>
+  <text x="64" y="389" font-size="12" font-weight="bold" fill="#27ae60">Результат:</text>
+  <text x="142" y="389" font-size="12" fill="#1a1a1a">синхронне плавлення припою без перегріву</text>
+  <text x="64" y="410" font-size="12" font-weight="bold" fill="#6b7280">Безпека:</text>
+  <text x="126" y="410" font-size="12" fill="#1a1a1a">кут 90°, захист сусідніх деталей від здування</text>
+
+  <!-- Panel 2: Side View -->
+  <rect x="494" y="72" width="438" height="366" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="713" y="96" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">2. Фіксація та зняття вакуумом (вигляд збоку)</text>
+  <text x="713" y="114" text-anchor="middle" font-size="12" fill="#6b7280">Суворо вертикальний підйом після повного переходу припою в ліквідус</text>
+
+  <!-- Panel 2 Inner Canvas -->
+  <rect x="518" y="130" width="390" height="206" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- PCB Substrate -->
+  <rect x="536" y="292" width="354" height="16" rx="2" fill="#d0d7de" stroke="#9ca3af" stroke-width="1"/>
+  <text x="713" y="326" text-anchor="middle" font-size="12" fill="#6b7280">Друкована плата (PCB) з нижнім підігрівом</text>
+
+  <!-- Adjacent SMD Passives Side View -->
+  <text x="566" y="256" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Обв'язка</text>
+  <text x="566" y="271" text-anchor="middle" font-size="12" fill="#27ae60">непорушна</text>
+  <rect x="548" y="290" width="10" height="2" fill="#d97706"/>
+  <rect x="574" y="290" width="10" height="2" fill="#d97706"/>
+  <rect x="552" y="280" width="28" height="12" rx="1" fill="#475569" stroke="#334155" stroke-width="1"/>
+  <rect x="550" y="280" width="5" height="12" rx="1" fill="#cbd5e1"/>
+  <rect x="575" y="280" width="5" height="12" rx="1" fill="#cbd5e1"/>
+  <polygon points="548,292 550,286 555,292" fill="#9ca3af"/>
+  <polygon points="580,292 575,286 570,292" fill="#9ca3af"/>
+
+  <!-- IC Pads and Molten Solder -->
+  <rect x="647" y="289" width="18" height="3" fill="#d97706"/>
+  <rect x="761" y="289" width="18" height="3" fill="#d97706"/>
+  <ellipse cx="656" cy="288" rx="7" ry="2.5" fill="#27ae60"/>
+  <ellipse cx="770" cy="288" rx="7" ry="2.5" fill="#27ae60"/>
+
+  <!-- IC Chip Body Side View -->
+  <rect x="653" y="232" width="120" height="18" rx="2" fill="#2c3e50" stroke="#1e293b" stroke-width="1.5"/>
+  <text x="713" y="245" text-anchor="middle" font-size="12" font-weight="bold" fill="#ffffff">Корпус IC</text>
+
+  <!-- IC Leads and Liquid Solder Droplets -->
+  <line x1="656" y1="250" x2="656" y2="264" stroke="#9ca3af" stroke-width="2.5"/>
+  <ellipse cx="656" cy="264" rx="4" ry="2" fill="#27ae60"/>
+  <line x1="770" y1="250" x2="770" y2="264" stroke="#9ca3af" stroke-width="2.5"/>
+  <ellipse cx="770" cy="264" rx="4" ry="2" fill="#27ae60"/>
+
+  <text x="713" y="280" text-anchor="middle" font-size="12" fill="#27ae60">Рідкий припій</text>
+
+  <!-- Vacuum Pickup Tool -->
+  <polygon points="699,232 705,218 721,218 727,232" fill="#2457d6" stroke="#1d4ed8" stroke-width="1"/>
+  <rect x="710" y="146" width="6" height="72" fill="#94a3b8" stroke="#475569" stroke-width="1"/>
+  <rect x="704" y="134" width="18" height="12" rx="2" fill="#475569"/>
+
+  <!-- Vertical Lifting Force Arrow and Label -->
+  <line x1="674" y1="216" x2="674" y2="152" stroke="#27ae60" stroke-width="3" marker-end="url(#arr-green)"/>
+  <text x="664" y="174" text-anchor="end" font-size="12" font-weight="bold" fill="#27ae60">Підйом 90°</text>
+  <text x="664" y="190" text-anchor="end" font-size="12" fill="#1a1a1a">суворо вгору</text>
+  <text x="664" y="206" text-anchor="end" font-size="12" fill="#6b7280">без зсувів</text>
+
+  <!-- Vacuum Pickup Label -->
+  <text x="730" y="174" font-size="12" font-weight="bold" fill="#2457d6">Присоска</text>
+  <text x="730" y="190" font-size="12" fill="#1a1a1a">у центрі IC</text>
+  <text x="730" y="206" font-size="12" fill="#27ae60">вакуумна тяга</text>
+
+  <!-- Hot Air Nozzle Side View -->
+  <text x="834" y="145" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Сопло фена</text>
+  <rect x="822" y="152" width="24" height="58" rx="2" fill="#cbd5e1" stroke="#64748b" stroke-width="1"/>
+  <polygon points="822,210 828,226 840,226 846,210" fill="#94a3b8" stroke="#64748b" stroke-width="1"/>
+  <polygon points="828,227 802,284 866,284" fill="#2457d6" fill-opacity="0.12" stroke="#2457d6" stroke-dasharray="3,3" stroke-width="1"/>
+
+  <!-- Panel 2 Info Box -->
+  <rect x="518" y="348" width="390" height="74" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="530" y="368" font-size="12" font-weight="bold" fill="#27ae60">Головне правило:</text>
+  <text x="648" y="368" font-size="12" fill="#1a1a1a">підйом лише після розплавлення всього припою</text>
+  <text x="530" y="389" font-size="12" font-weight="bold" fill="#2457d6">Напрямок сили:</text>
+  <text x="636" y="389" font-size="12" fill="#1a1a1a">суворо вертикально 90°, без бічного зусилля</text>
+  <text x="530" y="410" font-size="12" font-weight="bold" fill="#c0392b">Небезпека зсуву:</text>
+  <text x="648" y="410" font-size="12" fill="#1a1a1a">бічний зсув зриває п'ятаки та зміщує обв'язку</text>
+</svg>

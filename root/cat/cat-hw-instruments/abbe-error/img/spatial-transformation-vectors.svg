@@ -1,0 +1,97 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+  <text x="480" y="38" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Тривимірна система координат каретки та вектор плеча Аббе</text>
+  <text x="480" y="62" text-anchor="middle" font-size="13" fill="#6b7280">Кутові відхилення (pitch, yaw, roll) та просторове плече r генерують похибку Δr = θ × r</text>
+  <rect x="640" y="80" width="290" height="180" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="660" y="106" font-size="14" font-weight="bold" fill="#1a1a1a">Кутові відхилення каретки (θ)</text>
+  <rect x="655" y="120" width="260" height="36" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="668" y="143" font-size="13" font-weight="bold" fill="#2457d6">θx (Roll, крен)</text>
+  <text x="805" y="143" font-size="12" fill="#6b7280">поворот навколо X</text>
+  <rect x="655" y="164" width="260" height="36" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="668" y="187" font-size="13" font-weight="bold" fill="#27ae60">θy (Pitch, тангаж)</text>
+  <text x="805" y="187" font-size="12" fill="#6b7280">поворот навколо Y</text>
+  <rect x="655" y="208" width="260" height="36" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="668" y="231" font-size="13" font-weight="bold" fill="#c0392b">θz (Yaw, рискання)</text>
+  <text x="805" y="231" font-size="12" fill="#6b7280">поворот навколо Z</text>
+  <rect x="640" y="276" width="290" height="180" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="660" y="302" font-size="14" font-weight="bold" fill="#1a1a1a">Просторова похибка Аббе (Δr)</text>
+  <rect x="655" y="316" width="260" height="40" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="668" y="333" font-size="12" fill="#2457d6">Вектор плеча (щуп у точці P):</text>
+  <text x="668" y="349" font-size="13" font-weight="bold" fill="#1a1a1a">r = [rx, ry, rz]ᵀ</text>
+  <rect x="655" y="364" width="260" height="40" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="668" y="381" font-size="12" fill="#c0392b">Вектор просторової похибки:</text>
+  <text x="668" y="397" font-size="13" font-weight="bold" fill="#c0392b">Δr = θ × r = R·r − r</text>
+  <text x="660" y="424" font-size="12" fill="#6b7280">Поздовжня похибка вздовж осі X:</text>
+  <text x="660" y="444" font-size="13" font-weight="bold" fill="#c0392b">Δx = θy · rz − θz · ry</text>
+  <polygon points="366.2,269.0 123.7,409.0 123.7,384.0 366.2,244.0" fill="#e5e9f0" stroke="#d0d7de" stroke-width="1.5"/>
+  <polygon points="123.7,409.0 161.8,431.0 161.8,406.0 123.7,384.0" fill="#d8dee9" stroke="#d0d7de" stroke-width="1.5"/>
+  <polygon points="366.2,244.0 123.7,384.0 161.8,406.0 404.3,266.0" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <line x1="355.8" y1="258.0" x2="363.6" y2="262.5" stroke="#6b7280" stroke-width="1.2"/>
+  <line x1="338.5" y1="268.0" x2="346.3" y2="272.5" stroke="#6b7280" stroke-width="1.2"/>
+  <line x1="321.2" y1="278.0" x2="329.0" y2="282.5" stroke="#6b7280" stroke-width="1.2"/>
+  <line x1="303.9" y1="288.0" x2="311.7" y2="292.5" stroke="#6b7280" stroke-width="1.2"/>
+  <line x1="286.5" y1="298.0" x2="294.3" y2="302.5" stroke="#6b7280" stroke-width="1.2"/>
+  <line x1="269.2" y1="308.0" x2="277.0" y2="312.5" stroke="#6b7280" stroke-width="1.2"/>
+  <line x1="251.9" y1="318.0" x2="259.7" y2="322.5" stroke="#6b7280" stroke-width="1.2"/>
+  <line x1="234.6" y1="328.0" x2="242.4" y2="332.5" stroke="#6b7280" stroke-width="1.2"/>
+  <line x1="217.3" y1="338.0" x2="225.0" y2="342.5" stroke="#6b7280" stroke-width="1.2"/>
+  <line x1="199.9" y1="348.0" x2="207.7" y2="352.5" stroke="#6b7280" stroke-width="1.2"/>
+  <line x1="182.6" y1="358.0" x2="190.4" y2="362.5" stroke="#6b7280" stroke-width="1.2"/>
+  <line x1="165.3" y1="368.0" x2="173.1" y2="372.5" stroke="#6b7280" stroke-width="1.2"/>
+  <line x1="148.0" y1="378.0" x2="155.8" y2="382.5" stroke="#6b7280" stroke-width="1.2"/>
+  <text x="40" y="445" font-size="12" fill="#6b7280">Напрямна (вісь руху X)</text>
+  <line x1="175" y1="440" x2="167.0" y2="374.0" stroke="#6b7280" stroke-width="1" stroke-dasharray="2,2"/>
+  <polygon points="295.2,281.0 239.8,313.0 239.8,278.0 295.2,246.0" fill="#dbe6fb" stroke="#2457d6" stroke-width="1.5"/>
+  <polygon points="239.8,313.0 284.8,339.0 284.8,304.0 239.8,278.0" fill="#c7daf8" stroke="#2457d6" stroke-width="1.5"/>
+  <polygon points="295.2,246.0 239.8,278.0 284.8,304.0 340.2,272.0" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="145" y="240" font-size="12" font-weight="bold" fill="#2457d6">Каретка</text>
+  <line x1="195" y1="245" x2="245.8" y2="292.5" stroke="#2457d6" stroke-width="1" stroke-dasharray="2,2"/>
+  <circle cx="290.0" cy="275.0" r="3.5" fill="#1a1a1a"/>
+  <text x="280" y="270" font-size="13" font-weight="bold" text-anchor="end" fill="#1a1a1a">O</text>
+  <line x1="290.0" y1="275.0" x2="151.4" y2="355.0" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="145" y="368" font-size="13" font-weight="bold" text-anchor="end" fill="#2457d6">X</text>
+  <line x1="290.0" y1="275.0" x2="428.6" y2="355.0" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="435" y="368" font-size="13" font-weight="bold" fill="#27ae60">Y</text>
+  <line x1="290.0" y1="275.0" x2="290.0" y2="120.0" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="290" y="105" font-size="13" font-weight="bold" text-anchor="middle" fill="#c0392b">Z</text>
+  <path d="M 247.8 326.3 L 248.4 322.4 L 248.3 318.0 L 247.4 313.3 L 245.9 308.5 L 243.7 303.8 L 241.0 299.2 L 237.8 295.1 L 234.3 291.6" fill="none" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arr-blue)"/>
+  <text x="195" y="315" font-size="12" font-weight="bold" text-anchor="end" fill="#2457d6">θx (roll)</text>
+  <path d="M 330.5 327.8 L 329.9 323.5 L 330.0 318.8 L 330.9 313.6 L 332.6 308.4 L 335.0 303.2 L 338.0 298.3 L 341.4 293.8 L 345.2 289.9" fill="none" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arr-green)"/>
+  <text x="370" y="322" font-size="12" font-weight="bold" fill="#27ae60">θy (pitch)</text>
+  <path d="M 275.3 209.7 L 278.8 210.7 L 282.4 211.4 L 286.2 211.8 L 290.0 212.0 L 293.8 211.8 L 297.6 211.4 L 301.2 210.7 L 304.7 209.7" fill="none" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arr-red)"/>
+  <text x="305" y="195" font-size="12" font-weight="bold" fill="#c0392b">θz (yaw)</text>
+  <line x1="290.0" y1="275.0" x2="255.4" y2="295.0" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <text x="260" y="300" font-size="12" text-anchor="middle" fill="#6b7280">rx</text>
+  <line x1="255.4" y1="295.0" x2="359.3" y2="355.0" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <text x="325" y="345" font-size="12" text-anchor="middle" fill="#6b7280">ry</text>
+  <line x1="359.3" y1="355.0" x2="359.3" y2="245.0" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <text x="370" y="298" font-size="12" fill="#6b7280">rz</text>
+  <polyline points="290.0,295.0 376.6,345.0 359.3,245.0" fill="none" stroke="#6b7280" stroke-width="2.5"/>
+  <line x1="290.0" y1="275.0" x2="359.3" y2="245.0" stroke="#1a1a1a" stroke-width="2.2" marker-end="url(#arr)"/>
+  <text x="318" y="252" font-size="14" font-weight="bold" fill="#1a1a1a">r</text>
+  <circle cx="359.3" cy="245.0" r="4.5" fill="#2457d6" stroke="#ffffff" stroke-width="1.5"/>
+  <text x="375" y="248" font-size="13" font-weight="bold" fill="#2457d6">P (щуп)</text>
+  <line x1="385.3" y1="230.0" x2="320.3" y2="267.5" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="6,4"/>
+  <text x="398" y="226" font-size="12" fill="#2457d6">Вісь вимірювання</text>
+  <line x1="359.3" y1="245.0" x2="384.3" y2="220.0" stroke="#c0392b" stroke-width="2.2" marker-end="url(#arr-red)"/>
+  <text x="395" y="202" font-size="13" font-weight="bold" fill="#c0392b">Δr = θ × r</text>
+  <line x1="359.3" y1="260.0" x2="337.3" y2="272.7" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <text x="375" y="275" font-size="12" font-weight="bold" fill="#c0392b">Δx = θy·rz − θz·ry</text>
+</svg>

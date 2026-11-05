@@ -1,0 +1,93 @@
+<svg viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif" xmlns="http://www.w3.org/2000/svg">
+  <!-- Підкладка -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Маркери для стрілок -->
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок та підзаголовок -->
+  <text x="480" y="40" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Конвективний теплообмін струменя гарячого повітря</text>
+  <text x="480" y="60" font-size="13" fill="#6b7280" text-anchor="middle">Розподіл швидкостей, формування межевого шару та локальна тепловіддача в зоні паяння</text>
+
+  <!-- Фон повітряного потоку -->
+  <path d="M 420 180 C 420 320, 300 410, 180 410 L 780 410 C 660 410, 540 320, 540 180 Z" fill="#eaf0fd" opacity="0.6"/>
+
+  <!-- Центральна вісь -->
+  <line x1="480" y1="180" x2="480" y2="540" stroke="#d0d7de" stroke-dasharray="5 5" stroke-width="1"/>
+
+  <!-- Плата (FR-4) та SMD компонент -->
+  <rect x="180" y="410" width="600" height="30" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <rect x="440" y="380" width="80" height="30" fill="#d0d7de" stroke="#1a1a1a" stroke-width="2"/>
+  
+  <text x="260" y="430" font-size="14" fill="#1a1a1a" text-anchor="middle">FR-4 субстрат</text>
+  <text x="480" y="400" font-size="14" fill="#1a1a1a" text-anchor="middle">SMD</text>
+
+  <text x="350" y="430" font-size="14" fill="#c0392b" text-anchor="middle">T<tspan baseline-shift="sub" font-size="11">surf</tspan></text>
+
+  <!-- Насадка термофена -->
+  <polygon points="380,90 420,180 540,180 580,90" fill="#f4f6f8"/>
+  <path d="M 380 90 L 420 180 M 540 180 L 580 90" stroke="#1a1a1a" stroke-width="2" fill="none"/>
+  
+  <text x="480" y="130" font-size="14" fill="#1a1a1a" text-anchor="middle">Насадка</text>
+  <text x="480" y="155" font-size="14" fill="#c0392b" text-anchor="middle">T<tspan baseline-shift="sub" font-size="11">air</tspan></text>
+
+  <!-- Діаметр насадки -->
+  <line x1="420" y1="190" x2="540" y2="190" stroke="#1a1a1a" stroke-width="1"/>
+  <line x1="420" y1="185" x2="420" y2="195" stroke="#1a1a1a" stroke-width="1"/>
+  <line x1="540" y1="185" x2="540" y2="195" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="480" y="185" font-size="14" fill="#1a1a1a" text-anchor="middle">d</text>
+
+  <!-- Блок "Закон Ньютона" (ліворуч вгорі) -->
+  <rect x="40" y="100" width="230" height="70" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="155" y="130" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Закон Ньютона</text>
+  <text x="155" y="150" font-size="14" fill="#1a1a1a" text-anchor="middle">q = h(r) · (T<tspan baseline-shift="sub" font-size="11">air</tspan> - T<tspan baseline-shift="sub" font-size="11">surf</tspan>)</text>
+
+  <!-- Лінії повітряного потоку (streamlines) -->
+  <g stroke="#2457d6" stroke-width="1.5" fill="none" opacity="0.8">
+    <line x1="480" y1="180" x2="480" y2="370" marker-end="url(#arr-blue)"/>
+    <path d="M 500 180 C 500 340, 530 360, 760 365" marker-end="url(#arr-blue)"/>
+    <path d="M 520 180 C 520 320, 540 340, 760 345" marker-end="url(#arr-blue)"/>
+    <path d="M 460 180 C 460 340, 430 360, 200 365" marker-end="url(#arr-blue)"/>
+    <path d="M 440 180 C 440 320, 420 340, 200 345" marker-end="url(#arr-blue)"/>
+  </g>
+
+  <!-- Профіль швидкості V(r) -->
+  <line x1="380" y1="260" x2="580" y2="260" stroke="#6b7280" stroke-width="1" stroke-dasharray="4 4"/>
+  <text x="590" y="265" font-size="14" fill="#1a1a1a">V(r)</text>
+
+  <g stroke="#2457d6" stroke-width="2">
+    <line x1="480" y1="260" x2="480" y2="330" marker-end="url(#arr-blue)"/>
+    <line x1="460" y1="260" x2="460" y2="325" marker-end="url(#arr-blue)"/>
+    <line x1="500" y1="260" x2="500" y2="325" marker-end="url(#arr-blue)"/>
+    <line x1="440" y1="260" x2="440" y2="310" marker-end="url(#arr-blue)"/>
+    <line x1="520" y1="260" x2="520" y2="310" marker-end="url(#arr-blue)"/>
+    <line x1="420" y1="260" x2="420" y2="290" marker-end="url(#arr-blue)"/>
+    <line x1="540" y1="260" x2="540" y2="290" marker-end="url(#arr-blue)"/>
+  </g>
+  <path d="M 400 260 Q 440 295 480 330 Q 520 295 560 260" fill="none" stroke="#6b7280" stroke-width="1" stroke-dasharray="4 4"/>
+
+  <!-- Межевий шар (δ) праворуч -->
+  <path d="M 540 410 C 600 405, 680 395, 760 380" fill="none" stroke="#2457d6" stroke-dasharray="5 3" stroke-width="2"/>
+  <line x1="700" y1="410" x2="700" y2="390" stroke="#1a1a1a" marker-end="url(#arr)"/>
+  <text x="710" y="405" font-size="14" fill="#2457d6" text-anchor="start">δ</text>
+  <text x="770" y="385" font-size="13" fill="#6b7280" text-anchor="start">Межевий шар</text>
+
+  <!-- Графік тепловіддачі h(r) знизу -->
+  <line x1="200" y1="530" x2="760" y2="530" stroke="#6b7280" stroke-width="1" stroke-dasharray="4 4"/>
+  <line x1="480" y1="530" x2="760" y2="530" stroke="#1a1a1a" stroke-width="1" marker-end="url(#arr)"/>
+  <text x="750" y="520" font-size="12" fill="#1a1a1a">r</text>
+  
+  <line x1="480" y1="530" x2="480" y2="450" stroke="#1a1a1a" stroke-width="1" marker-end="url(#arr)"/>
+  <text x="490" y="460" font-size="12" fill="#1a1a1a">h(r)</text>
+  
+  <path d="M 200 525 Q 350 520 450 470 Q 480 450 510 470 Q 610 520 760 525" fill="none" stroke="#c0392b" stroke-width="2"/>
+  <text x="600" y="480" font-size="13" fill="#c0392b">Розподіл h(r)</text>
+
+</svg>
