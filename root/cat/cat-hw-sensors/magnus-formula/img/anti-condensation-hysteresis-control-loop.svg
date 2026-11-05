@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <rect x="100" y="140" width="760" height="100" fill="#eaf0fd"/>
+  <rect x="100" y="280" width="760" height="40" fill="#fdecea"/>
+
+  <text x="480" y="30" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Контур керування нагрівачем із гістерезисом</text>
+  <text x="480" y="50" font-size="13" fill="#6b7280" text-anchor="middle">Запобігання конденсації без частого перемикання реле</text>
+
+  <text x="600" y="305" font-size="13" fill="#c0392b" text-anchor="middle">Зона конденсації (T &lt; T_dp)</text>
+  <text x="400" y="195" font-size="13" fill="#2457d6" text-anchor="middle">Вікно гістерезису</text>
+
+  <line x1="300" y1="240" x2="300" y2="440" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <line x1="500" y1="140" x2="500" y2="440" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <line x1="700" y1="240" x2="700" y2="440" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="4,4"/>
+
+  <line x1="100" y1="280" x2="860" y2="280" stroke="#c0392b" stroke-width="2" stroke-dasharray="6,4"/>
+  <line x1="100" y1="240" x2="860" y2="240" stroke="#2457d6" stroke-width="2" stroke-dasharray="4,4"/>
+  <line x1="100" y1="140" x2="860" y2="140" stroke="#27ae60" stroke-width="2" stroke-dasharray="4,4"/>
+
+  <text x="90" y="285" font-size="13" fill="#c0392b" text-anchor="end">T_dp</text>
+  <text x="120" y="275" font-size="13" fill="#c0392b" text-anchor="start">Точка роси (конденсація)</text>
+
+  <text x="90" y="245" font-size="13" fill="#2457d6" text-anchor="end">T_on</text>
+  <text x="310" y="235" font-size="13" fill="#2457d6" text-anchor="start">Поріг увімкнення</text>
+
+  <text x="90" y="145" font-size="13" fill="#27ae60" text-anchor="end">T_off</text>
+  <text x="520" y="135" font-size="13" fill="#27ae60" text-anchor="start">Поріг вимкнення</text>
+
+  <line x1="860" y1="280" x2="880" y2="280" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="860" y1="240" x2="880" y2="240" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="860" y1="140" x2="880" y2="140" stroke="#d0d7de" stroke-width="1"/>
+
+  <line x1="870" y1="190" x2="870" y2="140" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <line x1="870" y1="190" x2="870" y2="240" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="875" y="195" font-size="13" fill="#1a1a1a" text-anchor="start">T_hyst</text>
+
+  <line x1="870" y1="260" x2="870" y2="240" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <line x1="870" y1="260" x2="870" y2="280" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="875" y="265" font-size="13" fill="#1a1a1a" text-anchor="start">ΔT</text>
+
+  <line x1="100" y1="320" x2="100" y2="80" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+  <line x1="100" y1="320" x2="880" y2="320" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+  <text x="110" y="75" font-size="14" fill="#1a1a1a" text-anchor="start">Температура (T)</text>
+
+  <path d="M 100,80 Q 200,240 300,240 Q 400,140 500,140 Q 600,240 700,240 Q 780,140 860,160" stroke="#1a1a1a" stroke-width="3" fill="none"/>
+  <text x="150" y="110" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="start">T_obj (температура об'єкта)</text>
+
+  <line x1="100" y1="440" x2="100" y2="350" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+  <line x1="100" y1="440" x2="880" y2="440" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+  <text x="110" y="345" font-size="14" fill="#1a1a1a" text-anchor="start">Стан нагрівача</text>
+  <text x="880" y="435" font-size="14" fill="#1a1a1a" text-anchor="end">Час (t)</text>
+
+  <text x="90" y="375" font-size="12" fill="#1a1a1a" text-anchor="end">УВІМК</text>
+  <text x="90" y="425" font-size="12" fill="#1a1a1a" text-anchor="end">ВИМК</text>
+
+  <path d="M 100,420 L 300,420 L 300,370 L 500,370 L 500,420 L 700,420 L 700,370 L 860,370" stroke="#2457d6" stroke-width="3" fill="none"/>
+
+</svg>

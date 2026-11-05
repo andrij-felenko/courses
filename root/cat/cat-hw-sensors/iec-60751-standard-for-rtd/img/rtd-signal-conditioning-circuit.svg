@@ -1,0 +1,84 @@
+<svg viewBox="0 0 960 460" width="960" height="460" xmlns="http://www.w3.org/2000/svg" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Заголовок -->
+  <text x="480" y="40" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Схема підготовки сигналу RTD</text>
+  <text x="480" y="65" font-size="13" fill="#6b7280" text-anchor="middle">Ратіометричне вимірювання за допомогою джерела струму, опорного резистора та диференційного підсилювача</text>
+
+  <!-- Ланцюг живлення та сенсора -->
+  <!-- VDD -->
+  <line x1="200" y1="80" x2="200" y2="110" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="200" y="72" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">VDD</text>
+
+  <!-- Джерело струму -->
+  <circle cx="200" cy="130" r="20" fill="#ffffff" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="200" y1="116" x2="200" y2="140" stroke="#1a1a1a" stroke-width="2"/>
+  <polygon points="196,134 204,134 200,142" fill="#1a1a1a"/>
+  <text x="170" y="125" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="end">I<tspan dy="4" font-size="11">EXC</tspan></text>
+  <text x="170" y="145" font-size="13" fill="#6b7280" text-anchor="end">100 µA / 1 mA</text>
+
+  <!-- Лінія до RTD -->
+  <line x1="200" y1="150" x2="200" y2="190" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="200" cy="175" r="4" fill="#1a1a1a"/>
+
+  <!-- RTD -->
+  <rect x="185" y="190" width="30" height="60" fill="#ffffff" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="175" y1="260" x2="225" y2="180" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="235" y="215" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="start">R<tspan dy="4" font-size="11">RTD</tspan></text>
+  <text x="235" y="235" font-size="13" fill="#6b7280" text-anchor="start">Pt100 / Pt1000</text>
+
+  <!-- Лінія до R_REF -->
+  <line x1="200" y1="250" x2="200" y2="310" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="200" cy="280" r="4" fill="#1a1a1a"/>
+
+  <!-- R_REF -->
+  <rect x="185" y="310" width="30" height="60" fill="#ffffff" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="235" y="335" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="start">R<tspan dy="4" font-size="11">REF</tspan></text>
+  <text x="235" y="355" font-size="13" fill="#6b7280" text-anchor="start">Опорний резистор</text>
+
+  <!-- Лінія до GND -->
+  <line x1="200" y1="370" x2="200" y2="410" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="200" cy="390" r="4" fill="#1a1a1a"/>
+
+  <!-- GND -->
+  <line x1="185" y1="410" x2="215" y2="410" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="192" y1="415" x2="208" y2="415" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="197" y1="420" x2="203" y2="420" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Диференційний підсилювач -->
+  <polygon points="420,145 420,245 520,195" fill="#ffffff" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="470" y="120" font-size="13" fill="#1a1a1a" text-anchor="middle">Диференційний</text>
+  <text x="470" y="135" font-size="13" fill="#1a1a1a" text-anchor="middle">підсилювач</text>
+  <text x="430" y="180" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="start">+</text>
+  <text x="430" y="220" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="start">-</text>
+  <text x="455" y="200" font-size="14" font-style="italic" fill="#1a1a1a" text-anchor="middle">G</text>
+
+  <!-- Зв'язки до підсилювача -->
+  <line x1="200" y1="175" x2="420" y2="175" stroke="#1a1a1a" stroke-width="2"/>
+  <path d="M 360 280 L 360 215 L 420 215" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="360" cy="280" r="4" fill="#1a1a1a"/>
+
+  <!-- АЦП -->
+  <rect x="620" y="160" width="140" height="250" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2" rx="4"/>
+  <text x="690" y="240" font-size="16" font-weight="bold" fill="#1a1a1a" text-anchor="middle">АЦП</text>
+  <text x="690" y="260" font-size="13" fill="#6b7280" text-anchor="middle">24-bit ΣΔ</text>
+
+  <!-- Зв'язки до АЦП -->
+  <!-- AIN -->
+  <line x1="520" y1="195" x2="620" y2="195" stroke="#2457d6" stroke-width="2"/>
+  <text x="630" y="190" font-size="12" fill="#1a1a1a" text-anchor="start">AIN</text>
+
+  <!-- VREF+ -->
+  <line x1="200" y1="280" x2="620" y2="280" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="630" y="275" font-size="12" fill="#1a1a1a" text-anchor="start">VREF+</text>
+
+  <!-- VREF- -->
+  <line x1="200" y1="390" x2="620" y2="390" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="630" y="385" font-size="12" fill="#1a1a1a" text-anchor="start">VREF-</text>
+
+  <!-- Вихід АЦП -->
+  <line x1="760" y1="285" x2="840" y2="285" stroke="#2457d6" stroke-width="4"/>
+  <line x1="795" y1="295" x2="805" y2="275" stroke="#2457d6" stroke-width="2"/>
+  <text x="800" y="265" font-size="13" fill="#2457d6" text-anchor="middle">SPI / I²C</text>
+  <text x="800" y="310" font-size="13" fill="#6b7280" text-anchor="middle">Дані на МК</text>
+</svg>

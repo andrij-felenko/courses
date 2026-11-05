@@ -1,0 +1,145 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="480" fill="#ffffff"/>
+
+  <defs>
+    <marker id="arr-flow" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#0284c7"/>
+    </marker>
+    <marker id="arr-dim" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
+      <path d="M0,0 L6,3 L0,6 Z" fill="#64748b"/>
+    </marker>
+    <marker id="arr-dim-rev" markerWidth="6" markerHeight="6" refX="1" refY="3" orient="auto">
+      <path d="M6,0 L0,3 L6,6 Z" fill="#64748b"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок -->
+  <text x="480" y="34" font-size="18" font-weight="bold" fill="#0f172a" text-anchor="middle">Правила та схема монтажу турбінного давача витрати води G1/2″</text>
+  <text x="480" y="56" font-size="13" fill="#64748b" text-anchor="middle">Забезпечення ламінарного профілю потоку, захист від домішок та виключення повітряних пробок</text>
+
+  <!-- Стрілка загального напрямку потоку -->
+  <g transform="translate(140, 85)">
+    <line x1="0" y1="0" x2="660" y2="0" stroke="#0284c7" stroke-width="2.5" stroke-dasharray="8,4" marker-end="url(#arr-flow)"/>
+    <text x="330" y="-8" font-size="12" font-weight="bold" fill="#0284c7" text-anchor="middle">НАПРЯМОК ПОТОКУ РІДИНИ</text>
+  </g>
+
+  <!-- Головна магістраль трубопроводу -->
+  <!-- Вхідний запірний кран -->
+  <g transform="translate(80, 160)">
+    <polygon points="0,0 30,16 0,32" fill="#94a3b8" stroke="#475569" stroke-width="1.5"/>
+    <polygon points="30,16 60,0 60,32" fill="#94a3b8" stroke="#475569" stroke-width="1.5"/>
+    <rect x="25" y="-12" width="10" height="14" fill="#dc2626" rx="2"/>
+    <text x="30" y="50" font-size="10" fill="#475569" text-anchor="middle">Кран 1</text>
+  </g>
+
+  <!-- Труба до фільтра -->
+  <rect x="140" y="166" width="40" height="20" fill="#cbd5e1" stroke="#64748b" stroke-width="1.5"/>
+
+  <!-- Сітчастий фільтр грубої очистки (Y-strainer) -->
+  <g transform="translate(180, 155)">
+    <!-- Корпус фільтра -->
+    <rect x="0" y="11" width="50" height="20" fill="#f59e0b" stroke="#b45309" stroke-width="1.5"/>
+    <!-- Косий відвід для сітки -->
+    <path d="M 15,31 L 35,55 L 45,47 L 25,23 Z" fill="#d97706" stroke="#b45309" stroke-width="1.5"/>
+    <circle cx="38" cy="51" r="5" fill="#78350f"/>
+    <text x="25" y="75" font-size="11" font-weight="bold" fill="#b45309" text-anchor="middle">Сітчастий фільтр</text>
+    <text x="25" y="88" font-size="10" fill="#78350f" text-anchor="middle">(грязьовик 300–500 мкм)</text>
+  </g>
+
+  <!-- Пряма ділянка труби ДО датчика (L_in >= 10-15 D) -->
+  <g transform="translate(230, 166)">
+    <rect x="0" y="0" width="220" height="20" fill="#e2e8f0" stroke="#475569" stroke-width="1.5"/>
+    <!-- Ламінарні стрілочки всередині -->
+    <line x1="20" y1="10" x2="60" y2="10" stroke="#38bdf8" stroke-width="1.5"/>
+    <line x1="90" y1="10" x2="130" y2="10" stroke="#38bdf8" stroke-width="1.5"/>
+    <line x1="160" y1="10" x2="200" y2="10" stroke="#38bdf8" stroke-width="1.5"/>
+
+    <!-- Розмірний маркер L_in -->
+    <line x1="0" y1="-25" x2="220" y2="-25" stroke="#64748b" stroke-width="1.5" marker-start="url(#arr-dim-rev)" marker-end="url(#arr-dim)"/>
+    <line x1="0" y1="-32" x2="0" y2="-10" stroke="#94a3b8" stroke-width="1"/>
+    <line x1="220" y1="-32" x2="220" y2="-10" stroke="#94a3b8" stroke-width="1"/>
+    <text x="110" y="-32" font-size="12" font-weight="bold" fill="#0f172a" text-anchor="middle">L₁ ≥ 10...15 · D (пряма ділянка входу)</text>
+    <text x="110" y="38" font-size="10" fill="#64748b" text-anchor="middle">Формування ламінарного профілю</text>
+  </g>
+
+  <!-- Давач витрати води G1/2″ -->
+  <g transform="translate(450, 140)">
+    <!-- Різьбові патрубки G1/2" -->
+    <rect x="-8" y="26" width="8" height="20" fill="#b45309" stroke="#78350f" stroke-width="1"/>
+    <rect x="80" y="26" width="8" height="20" fill="#b45309" stroke="#78350f" stroke-width="1"/>
+
+    <!-- Корпус датчика -->
+    <rect x="0" y="15" width="80" height="42" rx="6" fill="#1e293b" stroke="#0f172a" stroke-width="2"/>
+    <!-- Кришка відсіку Холла -->
+    <circle cx="40" cy="36" r="15" fill="#334155" stroke="#64748b" stroke-width="1.5"/>
+    <!-- Стрілка на корпусі датчика -->
+    <line x1="28" y1="36" x2="48" y2="36" stroke="#38bdf8" stroke-width="2" marker-end="url(#arr-flow)"/>
+
+    <!-- Кабель вверх -->
+    <path d="M 40,15 L 40,-15" stroke="#eab308" stroke-width="2.5"/>
+    <text x="40" y="-22" font-size="10" font-weight="bold" fill="#ca8a04" text-anchor="middle">Кабель вгору</text>
+
+    <text x="40" y="75" font-size="12" font-weight="bold" fill="#0f172a" text-anchor="middle">Давач G1/2″</text>
+    <text x="40" y="90" font-size="10" fill="#64748b" text-anchor="middle">Стрілка за потоком</text>
+  </g>
+
+  <!-- Пряма ділянка труби ПІСЛЯ датчика (L_out >= 5 D) -->
+  <g transform="translate(538, 166)">
+    <rect x="0" y="0" width="130" height="20" fill="#e2e8f0" stroke="#475569" stroke-width="1.5"/>
+    <!-- Ламінарні стрілочки всередині -->
+    <line x1="20" y1="10" x2="50" y2="10" stroke="#38bdf8" stroke-width="1.5"/>
+    <line x1="75" y1="10" x2="105" y2="10" stroke="#38bdf8" stroke-width="1.5"/>
+
+    <!-- Розмірний маркер L_out -->
+    <line x1="0" y1="-25" x2="130" y2="-25" stroke="#64748b" stroke-width="1.5" marker-start="url(#arr-dim-rev)" marker-end="url(#arr-dim)"/>
+    <line x1="0" y1="-32" x2="0" y2="-10" stroke="#94a3b8" stroke-width="1"/>
+    <line x1="130" y1="-32" x2="130" y2="-10" stroke="#94a3b8" stroke-width="1"/>
+    <text x="65" y="-32" font-size="12" font-weight="bold" fill="#0f172a" text-anchor="middle">L₂ ≥ 5 · D (вихід)</text>
+    <text x="65" y="38" font-size="10" fill="#64748b" text-anchor="middle">Захист від завихрень</text>
+  </g>
+
+  <!-- Труба до вихідного крана -->
+  <rect x="668" y="166" width="30" height="20" fill="#cbd5e1" stroke="#64748b" stroke-width="1.5"/>
+
+  <!-- Вихідний запірний кран -->
+  <g transform="translate(698, 160)">
+    <polygon points="0,0 30,16 0,32" fill="#94a3b8" stroke="#475569" stroke-width="1.5"/>
+    <polygon points="30,16 60,0 60,32" fill="#94a3b8" stroke="#475569" stroke-width="1.5"/>
+    <rect x="25" y="-12" width="10" height="14" fill="#dc2626" rx="2"/>
+    <text x="30" y="50" font-size="10" fill="#475569" text-anchor="middle">Кран 2</text>
+  </g>
+
+  <!-- Труба далі в систему -->
+  <rect x="758" y="166" width="40" height="20" fill="#cbd5e1" stroke="#64748b" stroke-width="1.5"/>
+
+  <!-- Нижні картки з рекомендаціями та заборонами -->
+  <!-- Блок РЕКОМЕНДОВАНО -->
+  <g transform="translate(80, 275)">
+    <rect x="0" y="0" width="380" height="175" rx="8" fill="#f0fdf4" stroke="#86efac" stroke-width="1.5"/>
+    <text x="20" y="26" font-size="13" font-weight="bold" fill="#166534">Рекомендовано:</text>
+
+    <text x="20" y="52" font-size="11" fill="#14532d">✔ Горизонтальний монтаж або вертикальний з потоком</text>
+    <text x="32" y="68" font-size="11" fill="#15803d">знизу вгору (гарантує 100% заповнення водою)</text>
+
+    <text x="20" y="94" font-size="11" fill="#14532d">✔ Обов'язковий фільтр грубої очистки перед лічильником</text>
+    <text x="32" y="110" font-size="11" fill="#15803d">запобігає заклинюванню крильчатки піском та іржею</text>
+
+    <text x="20" y="136" font-size="11" fill="#14532d">✔ Дотримання прямих ділянок 10D на вході та 5D на виході</text>
+    <text x="32" y="152" font-size="11" fill="#15803d">(для труби G1/2″ діаметром 15 мм це L₁ ≥ 150 мм, L₂ ≥ 75 мм)</text>
+  </g>
+
+  <!-- Блок ЗАБОРОНЕНО -->
+  <g transform="translate(490, 275)">
+    <rect x="0" y="0" width="390" height="175" rx="8" fill="#fef2f2" stroke="#fca5a5" stroke-width="1.5"/>
+    <text x="20" y="26" font-size="13" font-weight="bold" fill="#991b1b">Заборонено / Типові помилки:</text>
+
+    <text x="20" y="52" font-size="11" fill="#7f1d1d">✖ Монтаж одразу після колін 90°, трійників, насосів</text>
+    <text x="32" y="68" font-size="11" fill="#b91c1c">(сильна турбулентність спотворює K-фактор до ±15%)</text>
+
+    <text x="20" y="94" font-size="11" fill="#7f1d1d">✖ Вертикальний монтаж із рухом потоку зверху вниз</text>
+    <text x="32" y="110" font-size="11" fill="#b91c1c">(утворюються повітряні мішки, падіння сили тяжіння)</text>
+
+    <text x="20" y="136" font-size="11" fill="#7f1d1d">✖ Робота в частково заповненій трубі або без фільтра</text>
+    <text x="32" y="152" font-size="11" fill="#b91c1c">(призводить до швидкого стирання осі ротора та похибок)</text>
+  </g>
+</svg>

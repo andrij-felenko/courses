@@ -1,0 +1,124 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="520" fill="#ffffff"/>
+
+  <defs>
+    <marker id="arr-red" markerWidth="8" markerHeight="8" refX="7" refY="3.5" orient="auto">
+      <path d="M0,0 L7,3.5 L0,7 Z" fill="#dc2626"/>
+    </marker>
+    <marker id="arr-green" markerWidth="8" markerHeight="8" refX="7" refY="3.5" orient="auto">
+      <path d="M0,0 L7,3.5 L0,7 Z" fill="#16a34a"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок -->
+  <text x="480" y="34" font-size="18" font-weight="bold" fill="#0f172a" text-anchor="middle">Правила розміщення та оптико-електричного захисту PIR-модуля HC-SR505</text>
+  <text x="480" y="56" font-size="13" fill="#64748b" text-anchor="middle">Нейтралізація конвекційних теплових завад, оптичного глушіння склом та електромагнітних шумів</text>
+
+  <!-- Панель 1: Теплові конвекційні потоки -->
+  <g transform="translate(40, 90)">
+    <rect x="0" y="0" width="270" height="380" rx="8" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+    <text x="135" y="26" font-size="13" font-weight="bold" fill="#0f172a" text-anchor="middle">1. Захист від конвекції</text>
+
+    <!-- Помилка: радіатор під датчиком -->
+    <rect x="20" y="45" width="230" height="150" rx="6" fill="#fef2f2" stroke="#fca5a5"/>
+    <text x="135" y="65" font-size="11" font-weight="bold" fill="#991b1b" text-anchor="middle">ПОМИЛКА: потік від обігрівача</text>
+
+    <!-- Давач зверху -->
+    <circle cx="135" cy="95" r="14" fill="#334155" stroke="#ef4444" stroke-width="2"/>
+    <text x="135" y="99" font-size="9" fill="#ffffff" text-anchor="middle">SR505</text>
+
+    <!-- Радіатор знизу -->
+    <rect x="95" y="150" width="80" height="35" rx="3" fill="#cbd5e1" stroke="#64748b"/>
+    <text x="135" y="172" font-size="10" fill="#475569" text-anchor="middle">Радіатор</text>
+
+    <!-- Теплі потоки повітря вгору -->
+    <path d="M 110,145 Q 105,120 125,115" stroke="#dc2626" stroke-width="2" stroke-dasharray="3,3" fill="none" marker-end="url(#arr-red)"/>
+    <path d="M 160,145 Q 165,120 145,115" stroke="#dc2626" stroke-width="2" stroke-dasharray="3,3" fill="none" marker-end="url(#arr-red)"/>
+    <text x="135" y="135" font-size="9" font-weight="bold" fill="#b91c1c" text-anchor="middle">Хибні спрацьовування</text>
+
+    <!-- Правильно: нейтральна зона -->
+    <rect x="20" y="210" width="230" height="155" rx="6" fill="#f0fdf4" stroke="#86efac"/>
+    <text x="135" y="230" font-size="11" font-weight="bold" fill="#166534" text-anchor="middle">ПРАВИЛЬНО: спокійна зона</text>
+    <text x="35" y="255" font-size="10" fill="#1e293b">• Монтаж на стіні на висоті 1.8–2.2 м</text>
+    <text x="35" y="275" font-size="10" fill="#1e293b">• Відстань до батарей та кондиціонерів</text>
+    <text x="45" y="290" font-size="10" font-weight="bold" fill="#15803d">не менше 1.5–2.0 метрів</text>
+    <text x="35" y="310" font-size="10" fill="#1e293b">• Напрямок огляду перпендикулярно</text>
+    <text x="45" y="325" font-size="10" fill="#475569">до лінії очікуваного руху</text>
+    <text x="35" y="345" font-size="10" fill="#64748b">• Виключення прямих сонячних променів</text>
+  </g>
+
+  <!-- Панель 2: Оптичне вікно корпуса (матеріали) -->
+  <g transform="translate(345, 90)">
+    <rect x="0" y="0" width="270" height="380" rx="8" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+    <text x="135" y="26" font-size="13" font-weight="bold" fill="#0f172a" text-anchor="middle">2. Оптичне вікно корпуса</text>
+
+    <!-- Скло / Акрил блокують ІЧ -->
+    <rect x="20" y="45" width="230" height="150" rx="6" fill="#fef2f2" stroke="#fca5a5"/>
+    <text x="135" y="65" font-size="11" font-weight="bold" fill="#991b1b" text-anchor="middle">ПОМИЛКА: силікатне скло / акрил</text>
+
+    <!-- Промінь 10 мкм відбивається / поглинається -->
+    <text x="30" y="95" font-size="10" font-weight="bold" fill="#0f172a">Людина (λ ≈ 10 мкм)</text>
+    <line x1="30" y1="110" x2="110" y2="110" stroke="#f59e0b" stroke-width="2.5"/>
+
+    <!-- Скляне вікно -->
+    <rect x="110" y="80" width="12" height="60" rx="2" fill="#93c5fd" stroke="#2563eb"/>
+    <text x="116" y="155" font-size="9" fill="#1e40af" text-anchor="middle">Скло / PMMA</text>
+
+    <!-- Заблоковано -->
+    <line x1="130" y1="110" x2="170" y2="110" stroke="#dc2626" stroke-width="1" stroke-dasharray="2,2"/>
+    <circle cx="200" cy="110" r="12" fill="#334155" opacity="0.4"/>
+    <text x="200" y="114" font-size="8" fill="#ffffff" text-anchor="middle">SR505</text>
+    <text x="135" y="180" font-size="10" font-weight="bold" fill="#b91c1c" text-anchor="middle">Скло повністю поглинає ІЧ 8–14 мкм!</text>
+
+    <!-- Правильно: HDPE / відкритий купол -->
+    <rect x="20" y="210" width="230" height="155" rx="6" fill="#f0fdf4" stroke="#86efac"/>
+    <text x="135" y="230" font-size="11" font-weight="bold" fill="#166534" text-anchor="middle">ПРАВИЛЬНО: лінза Френеля HDPE</text>
+    <text x="35" y="255" font-size="10" fill="#1e293b">• Лінза HC-SR505 виготовлена з HDPE</text>
+    <text x="45" y="270" font-size="10" fill="#15803d">(поліетилен високої щільності, прозорий)</text>
+    <text x="35" y="295" font-size="10" fill="#1e293b">• Купол повинен виступати назовні</text>
+    <text x="45" y="310" font-size="10" fill="#475569">без додаткового захисного скла</text>
+    <text x="35" y="335" font-size="10" fill="#1e293b">• Щільне кільцеве ущільнення</text>
+    <text x="45" y="350" font-size="10" fill="#64748b">для запобігання внутрішнім протягам</text>
+  </g>
+
+  <!-- Панель 3: Електромагнітна сумісність (EMC / RF) -->
+  <g transform="translate(650, 90)">
+    <rect x="0" y="0" width="270" height="380" rx="8" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+    <text x="135" y="26" font-size="13" font-weight="bold" fill="#0f172a" text-anchor="middle">3. Захист від RF / EMI наводок</text>
+
+    <!-- Схема дистанції до ESP32 антени -->
+    <rect x="20" y="45" width="230" height="150" rx="6" fill="#eff6ff" stroke="#bfdbfe"/>
+    <text x="135" y="65" font-size="11" font-weight="bold" fill="#1d4ed8" text-anchor="middle">Розміщення відносно Wi-Fi/GSM</text>
+
+    <!-- Модуль HC-SR505 -->
+    <rect x="35" y="90" width="55" height="40" rx="4" fill="#1e293b"/>
+    <text x="62" y="114" font-size="9" fill="#ffffff" text-anchor="middle">SR505</text>
+
+    <!-- Розмірний маркер дистанції -->
+    <line x1="95" y1="110" x2="160" y2="110" stroke="#0284c7" stroke-width="1.5"/>
+    <text x="127" y="103" font-size="10" font-weight="bold" fill="#0284c7" text-anchor="middle">d ≥ 5 см</text>
+
+    <!-- Модуль ESP32 з антеною -->
+    <rect x="165" y="85" width="65" height="50" rx="4" fill="#334155"/>
+    <rect x="205" y="90" width="20" height="15" fill="#f59e0b"/>
+    <text x="195" y="125" font-size="9" fill="#ffffff" text-anchor="middle">ESP32</text>
+    <text x="215" y="102" font-size="8" fill="#000000" text-anchor="middle">RF</text>
+
+    <text x="135" y="165" font-size="10" fill="#475569" text-anchor="middle">Ізоляція від радіочастотних полів</text>
+    <text x="135" y="180" font-size="10" font-weight="bold" fill="#1d4ed8" text-anchor="middle">та імпульсних DC-DC джерел</text>
+
+    <!-- Рекомендації з фільтрації -->
+    <rect x="20" y="210" width="230" height="155" rx="6" fill="#f0fdf4" stroke="#86efac"/>
+    <text x="135" y="230" font-size="11" font-weight="bold" fill="#166534" text-anchor="middle">Схемотехнічна фільтрація</text>
+    <text x="35" y="255" font-size="10" fill="#1e293b">• Керамічний блокувальний C = 100 нФ</text>
+    <text x="45" y="270" font-size="10" fill="#15803d">безпосередньо біля VCC/GND сенсора</text>
+    <text x="35" y="295" font-size="10" fill="#1e293b">• Програмна маска warm-up time:</text>
+    <text x="45" y="310" font-size="10" font-weight="bold" fill="#b91c1c">ігнорувати OUT перші 15–30 с</text>
+    <text x="35" y="335" font-size="10" fill="#1e293b">• Екранування провідників сигналу OUT</text>
+    <text x="45" y="350" font-size="10" fill="#64748b">при довжині шлейфа понад 20 см</text>
+  </g>
+
+  <!-- Нижня рамка з резюме -->
+  <rect x="40" y="480" width="880" height="30" rx="4" fill="#f8fafc" stroke="#e2e8f0"/>
+  <text x="480" y="500" font-size="11" fill="#475569" text-anchor="middle"><tspan font-weight="bold" fill="#0f172a">Комплексна надійність:</tspan> 90% хибних спрацьовувань PIR-давачів зумовлені не дефектами кристала, а протягами, сонцем або наведеннями Wi-Fi.</text>
+</svg>

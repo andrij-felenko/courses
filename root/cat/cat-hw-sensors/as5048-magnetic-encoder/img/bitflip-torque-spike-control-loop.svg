@@ -1,0 +1,119 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-black" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+  <!-- Canvas Background -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Header Title & Subtitle -->
+  <text x="480" y="30" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Реакція контуру швидкості на спотворений біт кута енкодера AS5048</text>
+  <text x="480" y="50" font-size="13" fill="#6b7280" text-anchor="middle">Одиничний бітфліп у SPI викликає похідний сплеск швидкості, ударний струм фаз та удар у редукторі</text>
+
+  <rect x="24" y="72" width="160" height="76" rx="6" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="36" y="92" font-size="13" font-weight="bold" fill="#1a1a1a">1. Положення θ</text>
+  <text x="36" y="112" font-size="12" fill="#6b7280">Кут вала [LSB]</text>
+  <text x="36" y="132" font-size="12" fill="#2457d6">Кадр SPI (14 біт)</text>
+  <rect x="24" y="158" width="160" height="76" rx="6" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="36" y="178" font-size="13" font-weight="bold" fill="#1a1a1a">2. Швидкість ω</text>
+  <text x="36" y="198" font-size="12" fill="#6b7280">ω = Δθ / Ts [рад/с]</text>
+  <text x="36" y="218" font-size="12" fill="#2457d6">Чисельна похідна</text>
+  <rect x="24" y="244" width="160" height="76" rx="6" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="36" y="264" font-size="13" font-weight="bold" fill="#1a1a1a">3. Струм моменту Iq</text>
+  <text x="36" y="284" font-size="12" fill="#6b7280">Контур FOC [A]</text>
+  <text x="36" y="304" font-size="12" fill="#2457d6">ПІ-регулятор швидкості</text>
+  <rect x="24" y="330" width="160" height="76" rx="6" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="36" y="350" font-size="13" font-weight="bold" fill="#1a1a1a">4. Момент M / удар</text>
+  <text x="36" y="370" font-size="12" fill="#6b7280">M = kt · Iq [Н·м]</text>
+  <text x="36" y="390" font-size="12" fill="#2457d6">Навантаження вала</text>
+  <rect x="740" y="72" width="196" height="76" rx="6" fill="#fdecea" stroke="#c0392b"/>
+  <text x="752" y="92" font-size="13" font-weight="bold" fill="#c0392b">Стрибок вибірки кута</text>
+  <text x="752" y="112" font-size="12" fill="#1a1a1a">Збій біта 12: +4096 LSB</text>
+  <text x="752" y="132" font-size="12" fill="#6b7280">Тривалість: 1 такт Ts</text>
+  <rect x="740" y="158" width="196" height="76" rx="6" fill="#fdecea" stroke="#c0392b"/>
+  <text x="752" y="178" font-size="13" font-weight="bold" fill="#c0392b">Викид диференціала</text>
+  <text x="752" y="198" font-size="12" fill="#1a1a1a">Двополярний сплеск ±ω</text>
+  <text x="752" y="218" font-size="12" fill="#6b7280">Фіктивні >10 000 об/хв</text>
+  <rect x="740" y="244" width="196" height="76" rx="6" fill="#fdecea" stroke="#c0392b"/>
+  <text x="752" y="264" font-size="13" font-weight="bold" fill="#c0392b">Насичення інвертора</text>
+  <text x="752" y="284" font-size="12" fill="#1a1a1a">Струм Iq б'є в ±Imax</text>
+  <text x="752" y="304" font-size="12" fill="#6b7280">Ударний струм обмоток</text>
+  <rect x="740" y="330" width="196" height="76" rx="6" fill="#fdecea" stroke="#c0392b"/>
+  <text x="752" y="350" font-size="13" font-weight="bold" fill="#c0392b">Механічний удар</text>
+  <text x="752" y="370" font-size="12" fill="#1a1a1a">Вибірка люфту зубців</text>
+  <text x="752" y="390" font-size="12" fill="#6b7280">Акустичний тріск і вібрація</text>
+  <!-- Track 1: Angle θ -->
+  <rect x="198" y="72" width="528" height="76" rx="6" fill="#f4f6f8" stroke="#d0d7de"/>
+  <line x1="455" y1="72" x2="455" y2="148" stroke="#c0392b" stroke-width="1" stroke-dasharray="3,3" opacity="0.6"/>
+  <line x1="485" y1="72" x2="485" y2="148" stroke="#c0392b" stroke-width="1" stroke-dasharray="3,3" opacity="0.6"/>
+  <line x1="208" y1="134" x2="716" y2="102" stroke="#27ae60" stroke-width="1.8" stroke-dasharray="4,4"/>
+  <path d="M 208,134 L 455,116 L 455,94 L 485,94 L 485,114 L 716,102" fill="none" stroke="#c0392b" stroke-width="2.2"/>
+  <circle cx="455" cy="94" r="3.5" fill="#c0392b"/>
+  <circle cx="455" cy="116" r="3" fill="none" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="214" y="94" font-size="12" fill="#27ae60">Нормальна траєкторія θ</text>
+  <text x="496" y="94" font-size="12" font-weight="bold" fill="#c0392b">+4096 LSB (+90°)</text>
+  <!-- Track 2: Speed ω -->
+  <rect x="198" y="158" width="528" height="76" rx="6" fill="#f4f6f8" stroke="#d0d7de"/>
+  <line x1="455" y1="158" x2="455" y2="234" stroke="#c0392b" stroke-width="1" stroke-dasharray="3,3" opacity="0.6"/>
+  <line x1="485" y1="158" x2="485" y2="234" stroke="#c0392b" stroke-width="1" stroke-dasharray="3,3" opacity="0.6"/>
+  <line x1="208" y1="196" x2="716" y2="196" stroke="#27ae60" stroke-width="1.8" stroke-dasharray="4,4"/>
+  <path d="M 208,196 L 455,196 L 455,172 L 485,172 L 485,220 L 515,220 L 515,196 L 716,196" fill="none" stroke="#c0392b" stroke-width="2.2"/>
+  <text x="214" y="182" font-size="12" fill="#27ae60">Цільова швидкість ω₀</text>
+  <text x="496" y="178" font-size="12" font-weight="bold" fill="#c0392b">+ωmax (хибний викид)</text>
+  <text x="526" y="222" font-size="12" font-weight="bold" fill="#c0392b">-ωmax (гальмування)</text>
+  <!-- Track 3: Current Iq -->
+  <rect x="198" y="244" width="528" height="76" rx="6" fill="#f4f6f8" stroke="#d0d7de"/>
+  <line x1="455" y1="244" x2="455" y2="320" stroke="#c0392b" stroke-width="1" stroke-dasharray="3,3" opacity="0.6"/>
+  <line x1="485" y1="244" x2="485" y2="320" stroke="#c0392b" stroke-width="1" stroke-dasharray="3,3" opacity="0.6"/>
+  <line x1="208" y1="282" x2="716" y2="282" stroke="#27ae60" stroke-width="1.8" stroke-dasharray="4,4"/>
+  <path d="M 208,282 L 457,282 L 459,306 L 485,306 L 487,258 L 502,258 Q 518,282 534,282 L 716,282" fill="none" stroke="#c0392b" stroke-width="2.2"/>
+  <text x="214" y="268" font-size="12" fill="#27ae60">Номінальний струм I₀</text>
+  <text x="496" y="310" font-size="12" font-weight="bold" fill="#c0392b">-Imax (насичення)</text>
+  <text x="538" y="266" font-size="12" font-weight="bold" fill="#c0392b">+Imax (реверс)</text>
+  <!-- Track 4: Torque M and Shock -->
+  <rect x="198" y="330" width="528" height="76" rx="6" fill="#f4f6f8" stroke="#d0d7de"/>
+  <line x1="455" y1="330" x2="455" y2="406" stroke="#c0392b" stroke-width="1" stroke-dasharray="3,3" opacity="0.6"/>
+  <line x1="485" y1="330" x2="485" y2="406" stroke="#c0392b" stroke-width="1" stroke-dasharray="3,3" opacity="0.6"/>
+  <line x1="208" y1="368" x2="716" y2="368" stroke="#27ae60" stroke-width="1.8" stroke-dasharray="4,4"/>
+  <path d="M 208,368 L 459,368 L 463,390 L 485,390 L 489,342 L 503,388 L 517,356 L 531,378 L 545,362 L 559,372 L 573,366 L 585,368 L 716,368" fill="none" stroke="#c0392b" stroke-width="2.2"/>
+  <text x="214" y="354" font-size="12" fill="#27ae60">Стабільний момент M₀</text>
+  <text x="498" y="344" font-size="12" font-weight="bold" fill="#c0392b">Пік удару Mshock</text>
+  <text x="592" y="362" font-size="12" fill="#6b7280">Згасання коливань</text>
+  <!-- Time Axis Bar -->
+  <line x1="208" y1="416" x2="716" y2="416" stroke="#1a1a1a" stroke-width="1.2" marker-end="url(#arr-black)"/>
+  <line x1="260" y1="412" x2="260" y2="416" stroke="#1a1a1a" stroke-width="1"/>
+  <line x1="320" y1="412" x2="320" y2="416" stroke="#1a1a1a" stroke-width="1"/>
+  <line x1="380" y1="412" x2="380" y2="416" stroke="#1a1a1a" stroke-width="1"/>
+  <line x1="420" y1="412" x2="420" y2="416" stroke="#1a1a1a" stroke-width="1"/>
+  <line x1="455" y1="412" x2="455" y2="416" stroke="#1a1a1a" stroke-width="1"/>
+  <line x1="485" y1="412" x2="485" y2="416" stroke="#1a1a1a" stroke-width="1"/>
+  <line x1="520" y1="412" x2="520" y2="416" stroke="#1a1a1a" stroke-width="1"/>
+  <line x1="580" y1="412" x2="580" y2="416" stroke="#1a1a1a" stroke-width="1"/>
+  <line x1="640" y1="412" x2="640" y2="416" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="420" y="432" font-size="12" fill="#6b7280" text-anchor="middle">k-1</text>
+  <text x="455" y="432" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">k (збій)</text>
+  <text x="485" y="432" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">k+1</text>
+  <text x="520" y="432" font-size="12" fill="#6b7280" text-anchor="middle">k+2</text>
+  <text x="704" y="432" font-size="12" fill="#1a1a1a" text-anchor="end">Час t [мс] →</text>
+  <!-- Bottom Comparison Cards -->
+  <rect x="24" y="446" width="446" height="92" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="40" y="468" font-size="13" font-weight="bold" fill="#c0392b">⛔ Наслідок без перевірки цілісності (аварійний контур)</text>
+  <text x="40" y="488" font-size="12" fill="#1a1a1a">Поодинокий бітфліп у SPI сприймається як миттєвий ривок кута на 90°.</text>
+  <text x="40" y="506" font-size="12" fill="#1a1a1a">Диференціатор викликає насичення струму (±Imax) та ударний момент,</text>
+  <text x="40" y="524" font-size="12" fill="#1a1a1a">що руйнує зуби редуктора і може викликати вибивання інвертора (OCP).</text>
+  <rect x="490" y="446" width="446" height="92" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="506" y="468" font-size="13" font-weight="bold" fill="#27ae60">✔ Захист AS5048: апаратний біт парності (Bit 15 Parity)</text>
+  <text x="506" y="488" font-size="12" fill="#1a1a1a">Біт парності (Even Parity) миттєво сигналізує про пошкодження кадру.</text>
+  <text x="506" y="506" font-size="12" fill="#1a1a1a">Драйвер відкидає збійну вибірку й утримує попередній кут положення,</text>
+  <text x="506" y="524" font-size="12" fill="#1a1a1a">гарантуючи безперервний плавний рух без збурень і ударів струму.</text>
+</svg>

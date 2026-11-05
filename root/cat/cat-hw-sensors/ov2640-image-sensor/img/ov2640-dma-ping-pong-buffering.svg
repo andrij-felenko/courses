@@ -1,0 +1,147 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 510" width="960" height="510" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-black" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="510" fill="#ffffff"/>
+
+  <!-- Header -->
+  <text x="480" y="36" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Подвійна буферизація DMA при захопленні DVP-даних OV2640</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Почергова зміна буферів за сигналом VSYNC запобігає перезапису й втраті байтів</text>
+
+  <!-- Panel 1: OV2640 Sensor -->
+  <rect x="35" y="85" width="190" height="405" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="130" y="108" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Сенсор OV2640 (DVP)</text>
+  <text x="130" y="125" font-size="12" fill="#6b7280" text-anchor="middle">Формувач відеопотоку</text>
+
+  <!-- Sub-box 1: VSYNC -->
+  <rect x="50" y="140" width="160" height="70" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="60" y="162" font-size="13" font-weight="bold" fill="#1a1a1a">VSYNC</text>
+  <text x="60" y="180" font-size="12" fill="#6b7280">Синхронізація кадру</text>
+  <text x="60" y="196" font-size="12" fill="#c0392b" font-weight="bold">Переривання кадру</text>
+
+  <!-- Sub-box 2: HREF -->
+  <rect x="50" y="222" width="160" height="55" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="60" y="244" font-size="13" font-weight="bold" fill="#1a1a1a">HREF</text>
+  <text x="60" y="262" font-size="12" fill="#6b7280">Синхронізація рядка</text>
+
+  <!-- Sub-box 3: PCLK -->
+  <rect x="50" y="289" width="160" height="55" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="60" y="311" font-size="13" font-weight="bold" fill="#1a1a1a">PCLK</text>
+  <text x="60" y="329" font-size="12" fill="#6b7280">Тактування пікселів</text>
+
+  <!-- Sub-box 4: Y[2..9] -->
+  <rect x="50" y="356" width="160" height="55" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="60" y="378" font-size="13" font-weight="bold" fill="#1a1a1a">Y[2..9]</text>
+  <text x="60" y="396" font-size="12" fill="#6b7280">8-біт шина даних</text>
+
+  <!-- Sub-box 5: Status note -->
+  <rect x="50" y="423" width="160" height="52" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="130" y="443" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Вихідний потік</text>
+  <text x="130" y="461" font-size="12" fill="#2457d6" text-anchor="middle">8 біт / такт PCLK</text>
+
+  <!-- Signal lines from Panel 1 to Panel 2 -->
+  <path d="M 225,175 L 290,175" stroke="#c0392b" stroke-width="2" stroke-dasharray="4,3" marker-end="url(#arr-red)"/>
+  <text x="257.5" y="165" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">VSYNC</text>
+
+  <path d="M 225,383 L 290,383" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+  <text x="257.5" y="373" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">DVP Data</text>
+
+  <!-- Panel 2: DMA Controller -->
+  <rect x="290" y="85" width="205" height="405" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="392.5" y="108" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">Контролер DMA МК</text>
+  <text x="392.5" y="125" font-size="12" fill="#6b7280" text-anchor="middle">Апаратне керування буферами</text>
+
+  <!-- Sub-box 1 inside Panel 2: DVP Peripheral -->
+  <rect x="305" y="140" width="175" height="80" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+  <text x="392.5" y="162" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Периферійний блок DVP</text>
+  <text x="392.5" y="182" font-size="12" fill="#1a1a1a" text-anchor="middle">Синхронізація з PCLK/HREF</text>
+  <text x="392.5" y="202" font-size="12" fill="#6b7280" text-anchor="middle">Захоплення 8-біт значень</text>
+
+  <!-- Sub-box 2 inside Panel 2: Ping-Pong Switcher -->
+  <rect x="305" y="232" width="175" height="140" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+  <text x="392.5" y="253" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Перемикач Ping-Pong</text>
+  <rect x="315" y="262" width="155" height="28" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="392.5" y="280" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">► DMA ➔ Буфер A</text>
+  <rect x="315" y="296" width="155" height="28" rx="3" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="392.5" y="314" font-size="12" fill="#6b7280" text-anchor="middle">Черга ➔ Буфер B</text>
+  <text x="392.5" y="354" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Перемикання по VSYNC</text>
+
+  <!-- Sub-box 3 inside Panel 2: Interrupt Generator -->
+  <rect x="305" y="384" width="175" height="91" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="392.5" y="404" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Генератор переривань</text>
+  <text x="392.5" y="424" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">IRQ: DMA TC / VSYNC</text>
+  <text x="392.5" y="444" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Сповіщення CPU МК</text>
+  <text x="392.5" y="462" font-size="12" fill="#6b7280" text-anchor="middle">Захист від перезапису</text>
+
+  <!-- Routes from Panel 2 to Panel 3 -->
+  <path d="M 495,276 L 525,276 L 525,183 L 565,183" fill="none" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+  <text x="545" y="170" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">DMA A</text>
+
+  <path d="M 495,310 L 565,310" fill="none" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr-gray)"/>
+  <text x="530" y="298" font-size="12" fill="#6b7280" text-anchor="middle">Кадр N+1</text>
+
+  <!-- Panel 3: SRAM Memory -->
+  <rect x="565" y="85" width="360" height="405" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="745" y="108" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">ОЗП МК (Double Buffer SRAM)</text>
+  <text x="745" y="125" font-size="12" fill="#6b7280" text-anchor="middle">Подвійний кільцевий буфер (Ping-Pong)</text>
+
+  <!-- Sub-box 1 inside Panel 3: Buffer A -->
+  <rect x="577" y="138" width="336" height="110" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="590" y="158" font-size="13" font-weight="bold" fill="#2457d6">Буфер A (Ping)</text>
+  <rect x="750" y="144" width="150" height="22" rx="3" fill="#2457d6"/>
+  <text x="825" y="159" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">Запис DMA (Кадр N)</text>
+  <rect x="590" y="172" width="310" height="22" rx="3" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+  <rect x="592" y="174" width="195" height="18" rx="2" fill="#2457d6" fill-opacity="0.3"/>
+  <line x1="630" y1="172" x2="630" y2="194" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="670" y1="172" x2="670" y2="194" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="710" y1="172" x2="710" y2="194" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="750" y1="172" x2="750" y2="194" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="790" y1="172" x2="790" y2="194" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="830" y1="172" x2="830" y2="194" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="870" y1="172" x2="870" y2="194" stroke="#d0d7de" stroke-width="1"/>
+  <text x="590" y="212" font-size="12" font-weight="bold" fill="#2457d6">Апаратне заповнення по PCLK / DMA</text>
+  <text x="590" y="232" font-size="12" fill="#6b7280">Ядро CPU повністю вільне для обробки</text>
+
+  <!-- Rotator pill between Buffer A and Buffer B -->
+  <rect x="645" y="254" width="200" height="20" rx="10" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="745" y="268" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">⇅ Ротація буферів за VSYNC</text>
+
+  <!-- Sub-box 2 inside Panel 3: Buffer B -->
+  <rect x="577" y="284" width="336" height="110" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="590" y="304" font-size="13" font-weight="bold" fill="#27ae60">Буфер B (Pong)</text>
+  <rect x="735" y="290" width="165" height="22" rx="3" fill="#27ae60"/>
+  <text x="817.5" y="305" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">Обробка CPU (Кадр N-1)</text>
+  <rect x="590" y="318" width="310" height="22" rx="3" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <rect x="592" y="320" width="306" height="18" rx="2" fill="#27ae60" fill-opacity="0.3"/>
+  <line x1="630" y1="318" x2="630" y2="340" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="670" y1="318" x2="670" y2="340" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="710" y1="318" x2="710" y2="340" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="750" y1="318" x2="750" y2="340" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="790" y1="318" x2="790" y2="340" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="830" y1="318" x2="830" y2="340" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="870" y1="318" x2="870" y2="340" stroke="#d0d7de" stroke-width="1"/>
+  <text x="590" y="358" font-size="12" font-weight="bold" fill="#27ae60">Читання CPU / JPEG компресія / SD / Wi-Fi</text>
+  <text x="590" y="378" font-size="12" fill="#6b7280">Буфер ізольований від запису нового кадру</text>
+
+  <!-- Sub-box 3 inside Panel 3: Summary -->
+  <rect x="577" y="406" width="336" height="70" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="745" y="424" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Результат подвійної буферизації:</text>
+  <text x="745" y="443" font-size="12" fill="#2457d6" text-anchor="middle">1. Прийом DMA не блокує виконання коду CPU</text>
+  <text x="745" y="462" font-size="12" fill="#27ae60" text-anchor="middle">2. Захист від пропуску кадрів та перезапису</text>
+</svg>

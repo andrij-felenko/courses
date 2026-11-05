@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Markers -->
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="36" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Аналоговий тракт підсилення BISS0001</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Двокаскадне підсилення мікровольтних сигналів PIR-сенсора та формування смуги пропускання 0.3–3 Гц</text>
+
+  <!-- Stage 1: PIR Sensor & Input Filter -->
+  <rect x="40" y="140" width="120" height="100" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="100" y="175" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">PIR Сенсор</text>
+  <text x="100" y="195" font-size="12" fill="#6b7280" text-anchor="middle">Дез. вихід</text>
+  <text x="100" y="215" font-size="12" fill="#2457d6" text-anchor="middle">~ мікровольти</text>
+
+  <!-- Arrow 1 -->
+  <line x1="160" y1="190" x2="208" y2="190" stroke="#2457d6" stroke-width="2" marker-end="url(#arr)"/>
+  <text x="184" y="180" font-size="12" fill="#6b7280" text-anchor="middle">AC</text>
+
+  <!-- Stage 2: OP1 First Stage Amplifier -->
+  <rect x="210" y="120" width="160" height="140" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="290" y="150" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Каскад OP1</text>
+  <text x="290" y="175" font-size="12" fill="#6b7280" text-anchor="middle">ФВЧ (C1, R1, R2)</text>
+  <text x="290" y="195" font-size="12" fill="#6b7280" text-anchor="middle">Первинне підсилення</text>
+  <text x="290" y="225" font-size="12" fill="#2457d6" text-anchor="middle">f_low ≈ 0.3 Гц</text>
+
+  <!-- Arrow 2 -->
+  <line x1="370" y1="190" x2="418" y2="190" stroke="#2457d6" stroke-width="2" marker-end="url(#arr)"/>
+
+  <!-- Stage 3: Coupling & Inter-stage Filtering -->
+  <rect x="420" y="120" width="130" height="140" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="485" y="150" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Зв'язок</text>
+  <text x="485" y="175" font-size="12" fill="#6b7280" text-anchor="middle">ФНЧ / Розділення</text>
+  <text x="485" y="200" font-size="12" fill="#6b7280" text-anchor="middle">Зменшення шуму</text>
+
+  <!-- Arrow 3 -->
+  <line x1="550" y1="190" x2="598" y2="190" stroke="#2457d6" stroke-width="2" marker-end="url(#arr)"/>
+
+  <!-- Stage 4: OP2 Second Stage Amplifier -->
+  <rect x="600" y="120" width="160" height="140" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="680" y="150" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Каскад OP2</text>
+  <text x="680" y="175" font-size="12" fill="#6b7280" text-anchor="middle">Вторинне підсилення</text>
+  <text x="680" y="195" font-size="12" fill="#6b7280" text-anchor="middle">ФНЧ (C2, R3)</text>
+  <text x="680" y="225" font-size="12" fill="#2457d6" text-anchor="middle">f_high ≈ 3 Гц</text>
+
+  <!-- Arrow 4 -->
+  <line x1="760" y1="190" x2="808" y2="190" stroke="#2457d6" stroke-width="2" marker-end="url(#arr)"/>
+
+  <!-- Stage 5: Window Comparator -->
+  <rect x="810" y="140" width="110" height="100" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="865" y="175" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Віконний</text>
+  <text x="865" y="195" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">компаратор</text>
+  <text x="865" y="215" font-size="12" fill="#2457d6" text-anchor="middle">±Vref поріг</text>
+
+  <!-- Bottom annotation box -->
+  <rect x="210" y="300" width="550" height="100" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="485" y="330" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">Параметри смугового фільтра</text>
+  <text x="485" y="355" font-size="12" fill="#1a1a1a" text-anchor="middle">Обмеження смуги пропускання 0.3–3 Гц виключає хибні спрацьовування</text>
+  <text x="485" y="375" font-size="12" fill="#1a1a1a" text-anchor="middle">від повільних змін температури та швидких високочастотних перешкод</text>
+
+</svg>

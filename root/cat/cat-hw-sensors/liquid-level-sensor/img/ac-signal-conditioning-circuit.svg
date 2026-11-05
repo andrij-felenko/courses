@@ -1,0 +1,248 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="28" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Коло узгодження змінного сигналу давача рівня рідини</text>
+  <text x="480" y="48" font-size="13" fill="#6b7280" text-anchor="middle">Перетворення симетричного AC-сигналу в стабільну постійну напругу DC для входу АЦП</text>
+
+  <!-- ==================== TOP PANEL: SCHEMATIC ==================== -->
+  <rect x="20" y="65" width="920" height="230" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="480" y="84" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">ПРИНЦИПОВА СХЕМА АНАЛОГОВОГО ТРАКТУ</text>
+
+  <!-- Block 1: AC Generator -->
+  <rect x="35" y="96" width="150" height="186" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="110" y="115" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Генератор AC</text>
+  <text x="110" y="131" font-size="12" fill="#6b7280" text-anchor="middle">NE555 / MCU GPIO</text>
+
+  <!-- Generator symbol on left of card -->
+  <circle cx="70" cy="180" r="18" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <path d="M 60 180 L 60 173 L 70 173 L 70 187 L 80 187 L 80 180" fill="none" stroke="#2457d6" stroke-width="2"/>
+
+  <!-- Text on right of card -->
+  <text x="132" y="166" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">f ≈ 1...5 kHz</text>
+  <text x="132" y="184" font-size="12" fill="#1a1a1a" text-anchor="middle">5 V меандр</text>
+  <text x="132" y="202" font-size="12" fill="#6b7280" text-anchor="middle">симетричний</text>
+
+  <!-- Wires from Generator -->
+  <path d="M 70 162 L 70 150 L 200 150" fill="none" stroke="#2457d6" stroke-width="2"/>
+  <path d="M 70 198 L 70 245 L 200 245" fill="none" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- TP1 Marker -->
+  <circle cx="190" cy="138" r="9" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="190" y="142" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">1</text>
+
+  <!-- Block 2: DC Blocking Capacitors -->
+  <rect x="200" y="96" width="135" height="186" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="267" y="115" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">DC-розв'язка</text>
+  <text x="267" y="131" font-size="12" fill="#6b7280" text-anchor="middle">захист від корозії</text>
+
+  <!-- Capacitor C1 -->
+  <line x1="200" y1="150" x2="260" y2="150" stroke="#2457d6" stroke-width="2"/>
+  <line x1="260" y1="141" x2="260" y2="159" stroke="#2457d6" stroke-width="2.5"/>
+  <line x1="268" y1="141" x2="268" y2="159" stroke="#2457d6" stroke-width="2.5"/>
+  <line x1="268" y1="150" x2="350" y2="150" stroke="#2457d6" stroke-width="2"/>
+  <text x="264" y="137" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">C_1 = 100 nF</text>
+
+  <!-- Isolation Label in center -->
+  <text x="267" y="195" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">I_DC = 0</text>
+  <text x="267" y="212" font-size="12" fill="#6b7280" text-anchor="middle">нуль постійного струму</text>
+
+  <!-- Capacitor C2 -->
+  <line x1="200" y1="245" x2="260" y2="245" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="260" y1="236" x2="260" y2="254" stroke="#1a1a1a" stroke-width="2.5"/>
+  <line x1="268" y1="236" x2="268" y2="254" stroke="#1a1a1a" stroke-width="2.5"/>
+  <line x1="268" y1="245" x2="350" y2="245" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="264" y="267" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">C_2 = 100 nF</text>
+
+  <!-- Block 3: Voltage Divider & Submerged Electrodes -->
+  <rect x="350" y="96" width="235" height="186" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="467" y="115" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Вимірювальний дільник</text>
+  <text x="467" y="131" font-size="12" fill="#6b7280" text-anchor="middle">електроди в рідині</text>
+
+  <!-- Resistor R_ref -->
+  <line x1="350" y1="150" x2="372" y2="150" stroke="#2457d6" stroke-width="2"/>
+  <rect x="372" y="143" width="28" height="14" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="386" y="138" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">R_ref</text>
+  <text x="386" y="169" font-size="12" fill="#6b7280" text-anchor="middle">10 kΩ</text>
+  <line x1="400" y1="150" x2="600" y2="150" stroke="#2457d6" stroke-width="2"/>
+
+  <!-- Divider Node & TP2 Marker -->
+  <circle cx="420" cy="150" r="3.5" fill="#1a1a1a"/>
+  <circle cx="420" cy="133" r="9" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="420" y="137" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">2</text>
+
+  <!-- Tank Graphic (Path for water so no rect collision) -->
+  <rect x="440" y="180" width="125" height="85" rx="5" fill="#f4f6f8" stroke="#2457d6" stroke-width="1.5"/>
+  <path d="M 441 210 L 564 210 L 564 264 L 441 264 Z" fill="#eaf0fd"/>
+  <line x1="441" y1="210" x2="564" y2="210" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4,2"/>
+  <text x="502" y="205" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Рівень води (h)</text>
+
+  <!-- Electrode A (Drawn as line with thick stroke) -->
+  <line x1="465" y1="186" x2="465" y2="254" stroke="#6b7280" stroke-width="5" stroke-linecap="round"/>
+  <!-- Connection from node to Electrode A -->
+  <path d="M 420 150 L 420 186 L 465 186" fill="none" stroke="#2457d6" stroke-width="1.5"/>
+
+  <!-- Electrode B (Drawn as line with thick stroke) -->
+  <line x1="539" y1="186" x2="539" y2="254" stroke="#6b7280" stroke-width="5" stroke-linecap="round"/>
+  <!-- Connection from Electrode B to GND -->
+  <path d="M 539 245 L 350 245" fill="none" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Water Resistance Symbol / Text -->
+  <text x="502" y="234" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">R_water</text>
+  <text x="502" y="277" font-size="12" fill="#6b7280" text-anchor="middle">R_water ∝ 1/h</text>
+
+  <!-- Block 4: Peak Detector -->
+  <rect x="600" y="96" width="170" height="186" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="685" y="115" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Піковий детектор</text>
+  <text x="685" y="131" font-size="12" fill="#6b7280" text-anchor="middle">випрямляч та фільтр</text>
+
+  <!-- Diode D1 (Schottky) -->
+  <line x1="600" y1="150" x2="626" y2="150" stroke="#2457d6" stroke-width="2"/>
+  <polygon points="626,143 626,157 640,150" fill="#2457d6"/>
+  <path d="M 638 141 L 640 143 L 640 157 L 642 159" fill="none" stroke="#2457d6" stroke-width="1.8"/>
+  <text x="633" y="172" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">D_1</text>
+  <text x="633" y="186" font-size="12" fill="#6b7280" text-anchor="middle">Шотткі</text>
+
+  <!-- Output line from D1 -->
+  <line x1="640" y1="150" x2="785" y2="150" stroke="#27ae60" stroke-width="2"/>
+  <circle cx="680" cy="150" r="3.5" fill="#1a1a1a"/>
+  <circle cx="725" cy="150" r="3.5" fill="#1a1a1a"/>
+
+  <!-- Capacitor C_peak -->
+  <line x1="680" y1="150" x2="680" y2="188" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="670" y1="188" x2="690" y2="188" stroke="#27ae60" stroke-width="2.5"/>
+  <line x1="670" y1="196" x2="690" y2="196" stroke="#27ae60" stroke-width="2.5"/>
+  <line x1="680" y1="196" x2="680" y2="245" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="664" y="190" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="end">C_peak</text>
+  <text x="664" y="206" font-size="12" fill="#6b7280" text-anchor="end">1 µF</text>
+
+  <!-- Resistor R_load -->
+  <line x1="725" y1="150" x2="725" y2="184" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="718" y="184" width="14" height="26" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="725" y1="210" x2="725" y2="245" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="739" y="194" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">R_load</text>
+  <text x="739" y="210" font-size="12" fill="#6b7280" text-anchor="start">470 kΩ</text>
+
+  <!-- Common GND Line across Detector -->
+  <line x1="600" y1="245" x2="785" y2="245" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="685" y="266" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">τ = R_load · C_peak</text>
+
+  <!-- TP3 Marker -->
+  <circle cx="765" cy="133" r="9" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="765" y="137" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">3</text>
+
+  <!-- Block 5: MCU / ADC -->
+  <rect x="785" y="96" width="140" height="186" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="855" y="115" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Мікроконтролер</text>
+  <text x="855" y="131" font-size="12" fill="#6b7280" text-anchor="middle">MCU / ADC IN</text>
+
+  <!-- ADC Pin -->
+  <circle cx="810" cy="150" r="5" fill="#27ae60"/>
+  <text x="822" y="154" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="start">ADC0</text>
+
+  <!-- GND Pin -->
+  <circle cx="810" cy="245" r="5" fill="#1a1a1a"/>
+  <text x="822" y="249" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">GND</text>
+
+  <!-- MCU Info Subpanel -->
+  <rect x="800" y="168" width="112" height="62" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="856" y="186" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Вхід АЦП</text>
+  <text x="856" y="204" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">0...3.3 V DC</text>
+  <text x="856" y="221" font-size="12" fill="#6b7280" text-anchor="middle">оцифрування</text>
+
+  <!-- ==================== BOTTOM PANEL: WAVEFORMS ==================== -->
+  <rect x="20" y="308" width="920" height="195" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="480" y="326" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">ОСЦИЛОГРАМИ СИГНАЛУ В КОНТРОЛЬНИХ ТОЧКАХ ТРАКТУ</text>
+
+  <!-- Waveform 1: Generator AC Excitation (TP1) -->
+  <rect x="35" y="338" width="280" height="153" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <circle cx="52" cy="355" r="9" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="52" y="359" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">1</text>
+  <text x="68" y="359" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">V_gen(t) — Збудження AC</text>
+  <text x="52" y="375" font-size="12" fill="#6b7280" text-anchor="start">симетричний меандр (нуль DC)</text>
+
+  <!-- Axes Graph 1 -->
+  <line x1="70" y1="460" x2="70" y2="385" stroke="#1a1a1a" stroke-width="1" marker-end="url(#arr)"/>
+  <text x="65" y="383" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">U</text>
+  <line x1="70" y1="425" x2="295" y2="425" stroke="#1a1a1a" stroke-width="1" marker-end="url(#arr)"/>
+  <text x="298" y="429" font-size="12" fill="#1a1a1a" text-anchor="start">t</text>
+
+  <!-- Grid/levels Graph 1 -->
+  <line x1="70" y1="400" x2="280" y2="400" stroke="#d0d7de" stroke-dasharray="3,3"/>
+  <line x1="70" y1="450" x2="280" y2="450" stroke="#d0d7de" stroke-dasharray="3,3"/>
+  <text x="65" y="404" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">+V_0</text>
+  <text x="65" y="429" font-size="12" fill="#6b7280" text-anchor="end">0</text>
+  <text x="65" y="454" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">-V_0</text>
+
+  <!-- Curve Graph 1 -->
+  <path d="M 70 425 L 75 425 L 75 400 L 105 400 L 105 450 L 135 450 L 135 400 L 165 400 L 165 450 L 195 450 L 195 400 L 225 400 L 225 450 L 255 450 L 255 400 L 280 400" fill="none" stroke="#2457d6" stroke-width="2"/>
+  <text x="175" y="476" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Q_net = 0 (без електролізу)</text>
+
+  <!-- Waveform 2: Divider Signal (TP2) -->
+  <rect x="340" y="338" width="280" height="153" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <circle cx="357" cy="355" r="9" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="357" y="359" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">2</text>
+  <text x="373" y="359" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">V_div(t) — Сигнал давача</text>
+  <text x="357" y="375" font-size="12" fill="#6b7280" text-anchor="start">амплітуда модульована рівнем h</text>
+
+  <!-- Axes Graph 2 -->
+  <line x1="375" y1="460" x2="375" y2="385" stroke="#1a1a1a" stroke-width="1" marker-end="url(#arr)"/>
+  <text x="370" y="383" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">U</text>
+  <line x1="375" y1="425" x2="600" y2="425" stroke="#1a1a1a" stroke-width="1" marker-end="url(#arr)"/>
+  <text x="603" y="429" font-size="12" fill="#1a1a1a" text-anchor="start">t</text>
+
+  <!-- Grid/levels Graph 2 -->
+  <line x1="375" y1="407" x2="585" y2="407" stroke="#d0d7de" stroke-dasharray="3,3"/>
+  <line x1="375" y1="443" x2="585" y2="443" stroke="#d0d7de" stroke-dasharray="3,3"/>
+  <text x="370" y="411" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">+V_m</text>
+  <text x="370" y="429" font-size="12" fill="#6b7280" text-anchor="end">0</text>
+  <text x="370" y="447" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">-V_m</text>
+
+  <!-- Curve Graph 2 -->
+  <path d="M 375 425 L 380 425 L 380 407 L 410 407 L 410 443 L 440 443 L 440 407 L 470 407 L 470 443 L 500 443 L 500 407 L 530 407 L 530 443 L 560 443 L 560 407 L 585 407" fill="none" stroke="#2457d6" stroke-width="2"/>
+  <text x="480" y="476" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Амплітуда V_m ∝ f(рівень h)</text>
+
+  <!-- Waveform 3: ADC Voltage (TP3) -->
+  <rect x="645" y="338" width="280" height="153" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <circle cx="662" cy="355" r="9" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="662" y="359" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">3</text>
+  <text x="678" y="359" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">V_ADC(t) — Напруга для АЦП</text>
+  <text x="662" y="375" font-size="12" fill="#6b7280" text-anchor="start">стабільна зсунута постійна напруга</text>
+
+  <!-- Axes Graph 3 -->
+  <line x1="680" y1="460" x2="680" y2="385" stroke="#1a1a1a" stroke-width="1" marker-end="url(#arr)"/>
+  <text x="675" y="383" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">U</text>
+  <line x1="680" y1="450" x2="905" y2="450" stroke="#1a1a1a" stroke-width="1" marker-end="url(#arr)"/>
+  <text x="908" y="454" font-size="12" fill="#1a1a1a" text-anchor="start">t</text>
+
+  <!-- Grid/levels Graph 3 -->
+  <line x1="680" y1="405" x2="890" y2="405" stroke="#d0d7de" stroke-dasharray="3,3"/>
+  <text x="675" y="409" font-size="12" fill="#6b7280" text-anchor="end">V_m</text>
+  <text x="675" y="424" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="end">V_ADC</text>
+  <text x="675" y="454" font-size="12" fill="#6b7280" text-anchor="end">0</text>
+
+  <!-- Curves Graph 3 -->
+  <!-- Dotted incoming peaks -->
+  <path d="M 685 450 L 685 405 L 715 405 L 715 450 L 745 450 L 745 405 L 775 405 L 775 450 L 805 450 L 805 405 L 835 405 L 835 450 L 865 450 L 865 405 L 890 405" fill="none" stroke="#2457d6" stroke-width="1.2" stroke-dasharray="3,2" opacity="0.6"/>
+  <!-- Smooth output DC line -->
+  <path d="M 680 450 Q 690 420 705 420 L 890 420" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+
+  <!-- Diode drop annotation -->
+  <line x1="875" y1="405" x2="875" y2="420" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="880" y="416" font-size="12" fill="#c0392b" text-anchor="start">V_f</text>
+
+  <text x="785" y="476" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">V_ADC = V_m - V_f (стабільна DC)</text>
+</svg>

@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-axis" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-dim-start" markerWidth="9" markerHeight="9" refX="1.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-dim-end" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <text x="480" y="40" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Високочастотні пульсації (chopper ripple) на виході давача</text>
+  <text x="480" y="60" text-anchor="middle" font-size="13" fill="#6b7280">Чопперна завада спотворює постійний рівень корисного магнітного сигналу</text>
+
+  <path d="M80,380 L880,380" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-axis)"/>
+  <path d="M80,380 L80,100" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-axis)"/>
+  <text x="880" y="410" text-anchor="end" font-size="13" fill="#1a1a1a">Час (t)</text>
+  <text x="90" y="95" font-size="13" fill="#1a1a1a">Напруга (V)</text>
+
+  <path d="M80,260 L860,260" stroke="#27ae60" stroke-width="2" stroke-dasharray="6,4"/>
+  <text x="180" y="360" text-anchor="middle" font-size="14" fill="#27ae60" font-weight="bold">Корисний сигнал</text>
+  <path d="M180,345 L180,270" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <path d="M80,260 L110,220 L140,300 L170,220 L200,300 L230,220 L260,300 L290,220 L320,300 L350,220 L380,300 L410,220 L440,300 L470,220 L500,300 L530,220 L560,300 L590,220 L620,300 L650,220 L680,300 L710,220 L740,300 L770,220 L800,300 L830,220 L860,260" stroke="#c0392b" stroke-width="2" fill="none" stroke-linejoin="round"/>
+  <text x="120" y="170" font-size="14" fill="#c0392b" font-weight="bold">Реальний сигнал із пульсаціями</text>
+
+  <path d="M410,220 L410,160" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="4,2"/>
+  <path d="M470,220 L470,160" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="4,2"/>
+  <path d="M410,170 L470,170" stroke="#6b7280" stroke-width="1.5" marker-start="url(#arr-dim-start)" marker-end="url(#arr-dim-end)"/>
+  <text x="440" y="160" text-anchor="middle" font-size="13" fill="#6b7280">T<tspan dy="3" font-size="12">chop</tspan></text>
+
+  <path d="M650,220 L730,220" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="4,2"/>
+  <path d="M680,300 L730,300" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="4,2"/>
+  <path d="M710,220 L710,300" stroke="#6b7280" stroke-width="1.5" marker-start="url(#arr-dim-start)" marker-end="url(#arr-dim-end)"/>
+  <text x="720" y="264" font-size="13" fill="#6b7280">V<tspan dy="3" font-size="12">ripple</tspan></text>
+</svg>

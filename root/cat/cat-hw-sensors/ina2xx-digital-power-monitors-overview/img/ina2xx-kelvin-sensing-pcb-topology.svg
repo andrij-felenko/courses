@@ -1,0 +1,212 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Canvas Background -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Title and Subtitle -->
+  <text x="480" y="38" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Розпінування INA226 та кельвінівське підключення шунта</text>
+  <text x="480" y="60" text-anchor="middle" font-size="13" fill="#6b7280">Відокремлення вимірювальних ліній IN+/IN- від силових провідників струму забезпечує точність</text>
+
+  <!-- PANEL A: Kelvin Sensing Circuit -->
+  <rect x="30" y="78" width="440" height="462" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="250" y="104" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">1. Вимірювальне коло (Kelvin Connection)</text>
+
+  <!-- Power Source & Load Blocks -->
+  <rect x="50" y="125" width="80" height="40" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="90" y="150" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">V_BUS</text>
+
+  <rect x="370" y="125" width="80" height="40" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="410" y="150" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Навантаження</text>
+
+  <!-- Heavy Current Traces -->
+  <line x1="130" y1="145" x2="185" y2="145" stroke="#2457d6" stroke-width="5"/>
+  <line x1="315" y1="145" x2="370" y2="145" stroke="#2457d6" stroke-width="5" marker-end="url(#arr-blue)"/>
+  <text x="157" y="136" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">I_LOAD →</text>
+  <text x="343" y="136" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">→ I_LOAD</text>
+
+  <!-- Shunt Resistor Assembly -->
+  <text x="250" y="120" text-anchor="middle" font-size="12" fill="#6b7280">Вимірювальний шунт</text>
+  <rect x="185" y="130" width="25" height="30" fill="#6b7280" rx="2"/>
+  <rect x="290" y="130" width="25" height="30" fill="#6b7280" rx="2"/>
+  <rect x="210" y="133" width="80" height="24" fill="#1a1a1a" rx="2"/>
+  <text x="250" y="149" text-anchor="middle" font-size="12" font-weight="bold" fill="#ffffff">R_SHUNT</text>
+
+  <!-- Kelvin Contact Tap Points -->
+  <circle cx="198" cy="160" r="3.5" fill="#27ae60"/>
+  <circle cx="302" cy="160" r="3.5" fill="#27ae60"/>
+
+  <text x="190" y="176" text-anchor="end" font-size="12" font-weight="bold" fill="#27ae60">IN+</text>
+  <text x="310" y="176" text-anchor="start" font-size="12" font-weight="bold" fill="#27ae60">IN-</text>
+
+  <!-- Input Filter Block (RC Filter) -->
+  <rect x="130" y="200" width="310" height="150" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="4 3"/>
+  <text x="250" y="218" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Фільтр ФНЧ</text>
+
+  <!-- Kelvin Lines IN+ and IN- inside Filter -->
+  <path d="M 198 160 L 198 255 L 470 255" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+  <path d="M 302 160 L 302 315 L 470 315" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+
+  <!-- Resistor R_F1 on IN+ -->
+  <rect x="232" y="248" width="36" height="14" rx="2" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="250" y="243" text-anchor="middle" font-size="12" fill="#27ae60">R_F1 10 Ω</text>
+
+  <!-- Resistor R_F2 on IN- -->
+  <rect x="232" y="308" width="36" height="14" rx="2" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="250" y="338" text-anchor="middle" font-size="12" fill="#27ae60">R_F2 10 Ω</text>
+
+  <!-- Capacitor C_F -->
+  <line x1="360" y1="255" x2="360" y2="279" stroke="#27ae60" stroke-width="2"/>
+  <line x1="360" y1="291" x2="360" y2="315" stroke="#27ae60" stroke-width="2"/>
+  <line x1="350" y1="279" x2="370" y2="279" stroke="#27ae60" stroke-width="2"/>
+  <line x1="350" y1="291" x2="370" y2="291" stroke="#27ae60" stroke-width="2"/>
+  <circle cx="360" cy="255" r="3" fill="#27ae60"/>
+  <circle cx="360" cy="315" r="3" fill="#27ae60"/>
+  <text x="378" y="290" text-anchor="start" font-size="12" fill="#27ae60">C_F 0.1 µF</text>
+
+  <!-- VBUS Sensing Line (Bypassing V_BUS rect below) -->
+  <path d="M 140 145 L 140 180 L 85 180 L 85 375 L 470 375" fill="none" stroke="#2457d6" stroke-width="2"/>
+  <circle cx="140" cy="145" r="3" fill="#2457d6"/>
+  <text x="95" y="367" text-anchor="start" font-size="12" font-weight="bold" fill="#2457d6">VBUS (вимірювання напруги 0..36 В)</text>
+
+  <!-- Explanatory Card in Panel A -->
+  <rect x="45" y="410" width="410" height="112" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="60" y="431" text-anchor="start" font-size="12" font-weight="bold" fill="#27ae60">✔ Кельвінівське (4-провідне) підключення:</text>
+  <text x="60" y="453" text-anchor="start" font-size="12" fill="#1a1a1a">• Лінії IN+/IN- підключені безпосередньо до шунта</text>
+  <text x="60" y="475" text-anchor="start" font-size="12" fill="#1a1a1a">• Усуває похибку від спаду напруги на силових доріжках</text>
+  <text x="60" y="497" text-anchor="start" font-size="12" fill="#1a1a1a">• Трасується як симетрична пара з RC-фільтром</text>
+
+  <!-- PANEL B: INA226 Chip & I2C Interface -->
+  <rect x="490" y="78" width="440" height="462" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="710" y="104" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">2. Схема підключення INA226 (MSOP-10)</text>
+
+  <!-- VDD Power Rail -->
+  <line x1="535" y1="125" x2="895" y2="125" stroke="#2457d6" stroke-width="2"/>
+  <text x="535" y="118" text-anchor="start" font-size="12" font-weight="bold" fill="#2457d6">Шина живлення +V (2.7..5.5 В)</text>
+
+  <!-- INA226 IC Body -->
+  <rect x="620" y="150" width="120" height="235" rx="6" fill="#1a1a1a" stroke="#000000" stroke-width="2"/>
+  <circle cx="636" cy="165" r="4" fill="#6b7280"/>
+  <text x="680" y="278" text-anchor="middle" font-size="16" font-weight="bold" fill="#ffffff">INA226</text>
+  <text x="680" y="296" text-anchor="middle" font-size="12" fill="#d0d7de">MSOP-10</text>
+
+  <!-- Left Side IC Pins (1 to 5) -->
+  <rect x="605" y="169" width="15" height="12" fill="#d0d7de" rx="1"/>
+  <text x="626" y="179" text-anchor="start" font-size="12" font-weight="bold" fill="#ffffff">1: VBUS</text>
+
+  <rect x="605" y="204" width="15" height="12" fill="#d0d7de" rx="1"/>
+  <text x="626" y="214" text-anchor="start" font-size="12" font-weight="bold" fill="#ffffff">2: IN+</text>
+
+  <rect x="605" y="239" width="15" height="12" fill="#d0d7de" rx="1"/>
+  <text x="626" y="249" text-anchor="start" font-size="12" font-weight="bold" fill="#ffffff">3: IN-</text>
+
+  <rect x="605" y="309" width="15" height="12" fill="#d0d7de" rx="1"/>
+  <text x="626" y="319" text-anchor="start" font-size="12" font-weight="bold" fill="#ffffff">4: V+</text>
+
+  <rect x="605" y="344" width="15" height="12" fill="#d0d7de" rx="1"/>
+  <text x="626" y="354" text-anchor="start" font-size="12" font-weight="bold" fill="#ffffff">5: GND</text>
+
+  <!-- Right Side IC Pins (10 to 6) -->
+  <rect x="740" y="169" width="15" height="12" fill="#d0d7de" rx="1"/>
+  <text x="734" y="179" text-anchor="end" font-size="12" font-weight="bold" fill="#ffffff">A1 :10</text>
+
+  <rect x="740" y="204" width="15" height="12" fill="#d0d7de" rx="1"/>
+  <text x="734" y="214" text-anchor="end" font-size="12" font-weight="bold" fill="#ffffff">A0 :9</text>
+
+  <rect x="740" y="239" width="15" height="12" fill="#d0d7de" rx="1"/>
+  <text x="734" y="249" text-anchor="end" font-size="12" font-weight="bold" fill="#ffffff">ALERT :8</text>
+
+  <rect x="740" y="309" width="15" height="12" fill="#d0d7de" rx="1"/>
+  <text x="734" y="319" text-anchor="end" font-size="12" font-weight="bold" fill="#ffffff">SDA :7</text>
+
+  <rect x="740" y="344" width="15" height="12" fill="#d0d7de" rx="1"/>
+  <text x="734" y="354" text-anchor="end" font-size="12" font-weight="bold" fill="#ffffff">SCL :6</text>
+
+  <!-- Connections from Panel A to Left Pins -->
+  <path d="M 470 375 L 495 375 L 495 175 L 605 175" fill="none" stroke="#2457d6" stroke-width="2"/>
+  <path d="M 470 255 L 515 255 L 515 210 L 605 210" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+  <path d="M 470 315 L 530 315 L 530 245 L 605 245" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+
+  <!-- V+ (Pin 4) Power Connection & Decoupling Cap -->
+  <line x1="605" y1="315" x2="560" y2="315" stroke="#2457d6" stroke-width="2"/>
+  <line x1="560" y1="125" x2="560" y2="315" stroke="#2457d6" stroke-width="2"/>
+  <circle cx="560" cy="125" r="3" fill="#2457d6"/>
+
+  <!-- Decoupling Capacitor C_DEC (Vertical branch at x=540) -->
+  <line x1="540" y1="125" x2="540" y2="140" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="532" y1="140" x2="548" y2="140" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="532" y1="146" x2="548" y2="146" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="540" y1="146" x2="540" y2="165" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="532" y1="165" x2="548" y2="165" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="535" y1="168" x2="545" y2="168" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="537" y1="171" x2="543" y2="171" stroke="#1a1a1a" stroke-width="1"/>
+  <circle cx="540" cy="125" r="3" fill="#2457d6"/>
+  <text x="530" y="138" text-anchor="end" font-size="12" fill="#1a1a1a">C_DEC</text>
+  <text x="530" y="152" text-anchor="end" font-size="12" fill="#1a1a1a">0.1 µF</text>
+
+  <!-- GND (Pin 5) Connection -->
+  <line x1="605" y1="350" x2="560" y2="350" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="560" y1="350" x2="560" y2="365" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="550" y1="365" x2="570" y2="365" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="554" y1="369" x2="566" y2="369" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="558" y1="373" x2="562" y2="373" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="560" y="388" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">GND</text>
+
+  <!-- Right Side Connections (A0, A1, ALERT, SDA, SCL) -->
+
+  <!-- A0 and A1 connected to GND -->
+  <path d="M 755 175 L 762 175 L 762 225" fill="none" stroke="#1a1a1a" stroke-width="1.5"/>
+  <path d="M 755 210 L 762 210" fill="none" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="755" y1="225" x2="769" y2="225" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="758" y1="228" x2="766" y2="228" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="760" y1="231" x2="764" y2="231" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="735" y="145" text-anchor="end" font-size="12" font-weight="bold" fill="#1a1a1a">A0, A1: GND</text>
+  <text x="735" y="160" text-anchor="end" font-size="12" fill="#6b7280">(0x40)</text>
+
+  <!-- ALERT Line & Pull-up (10k) -->
+  <line x1="755" y1="245" x2="895" y2="245" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <line x1="810" y1="125" x2="810" y2="245" stroke="#c0392b" stroke-width="1.5"/>
+  <circle cx="810" cy="125" r="3" fill="#2457d6"/>
+  <circle cx="810" cy="245" r="3" fill="#c0392b"/>
+  <rect x="803" y="165" width="14" height="24" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="800" y="181" text-anchor="end" font-size="12" fill="#1a1a1a">10 kΩ</text>
+  <text x="900" y="249" text-anchor="start" font-size="12" font-weight="bold" fill="#c0392b">ALERT</text>
+
+  <!-- SDA Line & Pull-up (4.7k) -->
+  <line x1="755" y1="315" x2="895" y2="315" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <line x1="845" y1="125" x2="845" y2="315" stroke="#2457d6" stroke-width="1.5"/>
+  <circle cx="845" cy="125" r="3" fill="#2457d6"/>
+  <circle cx="845" cy="315" r="3" fill="#2457d6"/>
+  <rect x="838" y="250" width="14" height="24" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="834" y="266" text-anchor="end" font-size="12" fill="#1a1a1a">4.7 kΩ</text>
+  <text x="900" y="319" text-anchor="start" font-size="12" font-weight="bold" fill="#2457d6">SDA</text>
+
+  <!-- SCL Line & Pull-up (4.7k) -->
+  <line x1="755" y1="350" x2="895" y2="350" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <line x1="880" y1="125" x2="880" y2="350" stroke="#2457d6" stroke-width="1.5"/>
+  <circle cx="880" cy="125" r="3" fill="#2457d6"/>
+  <circle cx="880" cy="350" r="3" fill="#2457d6"/>
+  <rect x="873" y="290" width="14" height="24" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="887" y="306" text-anchor="start" font-size="12" fill="#1a1a1a">4.7 kΩ</text>
+  <text x="900" y="354" text-anchor="start" font-size="12" font-weight="bold" fill="#2457d6">SCL</text>
+
+  <!-- MCU Label -->
+  <text x="900" y="375" text-anchor="start" font-size="12" font-weight="bold" fill="#1a1a1a">до МК</text>
+
+  <!-- Explanatory Card in Panel B -->
+  <rect x="505" y="410" width="410" height="112" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="520" y="431" text-anchor="start" font-size="12" font-weight="bold" fill="#2457d6">ℹ Параметри та налаштування шини I2C:</text>
+  <text x="520" y="453" text-anchor="start" font-size="12" fill="#1a1a1a">• Виводи A0/A1 задають 1 із 16 I2C-адрес (GND, V+, SDA, SCL)</text>
+  <text x="520" y="475" text-anchor="start" font-size="12" fill="#1a1a1a">• ALERT — відкритий колектор, сигналізує про вихід за межі</text>
+  <text x="520" y="497" text-anchor="start" font-size="12" fill="#1a1a1a">• Резистори R_PU (4.7 кОм) обов'язкові для ліній SDA та SCL</text>
+</svg>

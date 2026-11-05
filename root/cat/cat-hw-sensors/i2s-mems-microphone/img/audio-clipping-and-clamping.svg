@@ -1,0 +1,98 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-red" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L6,3 L0,6 Z" fill="#ef4444"/>
+    </marker>
+    <marker id="arr-green" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L6,3 L0,6 Z" fill="#16a34a"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="960" height="480" fill="#ffffff"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="700" fill="#0f172a" text-anchor="middle">Порівняння цифрового кліпінгу wrap-around та обмеження clamping</text>
+  <text x="480" y="52" font-size="13" fill="#64748b" text-anchor="middle">Наслідки переповнення розрядності Q15 при масштабуванні амплітуди аудіосигналу</text>
+
+  <!-- LEFT PANEL: Wrap-around -->
+  <g transform="translate(40, 75)">
+    <rect width="420" height="375" rx="8" fill="#fef2f2" stroke="#fca5a5" stroke-width="1.5"/>
+    <rect width="420" height="36" rx="8" fill="#fee2e2"/>
+    <text x="210" y="24" font-size="13" font-weight="700" fill="#991b1b" text-anchor="middle">1. Апаратний Wrap-Around (Без захисту)</text>
+
+    <!-- Graph Axes -->
+    <g transform="translate(35, 45)">
+      <!-- Limits -->
+      <line x1="0" y1="30" x2="350" y2="30" stroke="#ef4444" stroke-dasharray="4,4" stroke-width="1.5"/>
+      <text x="355" y="34" font-size="10" font-weight="700" fill="#dc2626">+32767</text>
+
+      <line x1="0" y1="120" x2="350" y2="120" stroke="#94a3b8" stroke-width="1"/>
+      <text x="355" y="124" font-size="10" fill="#64748b">0</text>
+
+      <line x1="0" y1="210" x2="350" y2="210" stroke="#ef4444" stroke-dasharray="4,4" stroke-width="1.5"/>
+      <text x="355" y="214" font-size="10" font-weight="700" fill="#dc2626">-32768</text>
+
+      <!-- Original excessive sine wave (dotted) -->
+      <path d="M 0,120 Q 40,-30 80,120 Q 120,270 160,120 Q 200,-30 240,120 Q 280,270 320,120" fill="none" stroke="#cbd5e1" stroke-width="1.5" stroke-dasharray="3,3"/>
+
+      <!-- Wrap-around waveform (Red) -->
+      <!-- Peak 1: rises towards +32767, flips to -32768, rises back up -->
+      <path d="M 0,120 Q 25,45 34,30 L 34,210 Q 55,140 80,120 Q 105,195 126,210 L 126,30 Q 145,95 160,120 Q 185,45 194,30 L 194,210 Q 215,140 240,120" fill="none" stroke="#dc2626" stroke-width="2.5"/>
+
+      <!-- Spike Annotation -->
+      <line x1="34" y1="30" x2="34" y2="210" stroke="#dc2626" stroke-width="2" stroke-dasharray="2,2"/>
+      <circle cx="34" cy="30" r="4" fill="#dc2626"/>
+      <circle cx="34" cy="210" r="4" fill="#dc2626"/>
+
+      <text x="45" y="55" font-size="10" font-weight="700" fill="#991b1b">Стрибок амплітуди:</text>
+      <text x="45" y="70" font-size="10" fill="#b91c1c">+32767 → -32768</text>
+      <text x="45" y="85" font-size="10" font-weight="700" fill="#dc2626">Шоковий клік у динаміку!</text>
+    </g>
+
+    <!-- Description -->
+    <rect x="20" y="295" width="380" height="65" rx="6" fill="#ffffff" stroke="#fecaca"/>
+    <text x="30" y="315" font-size="11" font-weight="700" fill="#991b1b">Результат переповнення цілого:</text>
+    <text x="30" y="333" font-size="11" fill="#475569">• Біт знака інвертується: 0x7FFF + 1 = 0x8000</text>
+    <text x="30" y="350" font-size="11" fill="#475569">• Спричиняє високочастотний акустичний удар</text>
+  </g>
+
+  <!-- RIGHT PANEL: Clamping -->
+  <g transform="translate(500, 75)">
+    <rect width="420" height="375" rx="8" fill="#f0fdf4" stroke="#86efac" stroke-width="1.5"/>
+    <rect width="420" height="36" rx="8" fill="#dcfce7"/>
+    <text x="210" y="24" font-size="13" font-weight="700" fill="#166534" text-anchor="middle">2. Програмне насичення Clamp (Захищено)</text>
+
+    <!-- Graph Axes -->
+    <g transform="translate(35, 45)">
+      <!-- Limits -->
+      <line x1="0" y1="30" x2="350" y2="30" stroke="#16a34a" stroke-dasharray="4,4" stroke-width="1.5"/>
+      <text x="355" y="34" font-size="10" font-weight="700" fill="#16a34a">+32767</text>
+
+      <line x1="0" y1="120" x2="350" y2="120" stroke="#94a3b8" stroke-width="1"/>
+      <text x="355" y="124" font-size="10" fill="#64748b">0</text>
+
+      <line x1="0" y1="210" x2="350" y2="210" stroke="#16a34a" stroke-dasharray="4,4" stroke-width="1.5"/>
+      <text x="355" y="214" font-size="10" font-weight="700" fill="#16a34a">-32768</text>
+
+      <!-- Original excessive sine wave (dotted) -->
+      <path d="M 0,120 Q 40,-30 80,120 Q 120,270 160,120 Q 200,-30 240,120 Q 280,270 320,120" fill="none" stroke="#cbd5e1" stroke-width="1.5" stroke-dasharray="3,3"/>
+
+      <!-- Clamped waveform (Green) -->
+      <path d="M 0,120 Q 25,45 34,30 L 46,30 Q 55,45 80,120 Q 105,195 114,210 L 126,210 Q 135,195 160,120 Q 185,45 194,30 L 206,30 Q 215,45 240,120" fill="none" stroke="#16a34a" stroke-width="2.5"/>
+
+      <!-- Flat Top Annotation -->
+      <circle cx="40" cy="30" r="4" fill="#16a34a"/>
+      <circle cx="120" cy="210" r="4" fill="#16a34a"/>
+
+      <text x="55" y="25" font-size="10" font-weight="700" fill="#15803d">Пласка вершина (Зрізання піку)</text>
+      <text x="135" y="225" font-size="10" font-weight="700" fill="#15803d">Пласке дно (-32768)</text>
+    </g>
+
+    <!-- Description -->
+    <rect x="20" y="295" width="380" height="65" rx="6" fill="#ffffff" stroke="#bbf7d0"/>
+    <text x="30" y="315" font-size="11" font-weight="700" fill="#166534">Результат застосування clamp():</text>
+    <text x="30" y="333" font-size="11" fill="#475569">• Амплітуда жорстко обмежується межами типу</text>
+    <text x="30" y="350" font-size="11" fill="#475569">• Виникають гармоніки насичення, але без фазових розривів</text>
+  </g>
+</svg>

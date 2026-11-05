@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Підкладка -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="45" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Амплітудно-частотна характеристика FIR-фільтра</text>
+  <text x="480" y="65" font-size="13" fill="#6b7280" text-anchor="middle">Фільтр низьких частот зберігає сигнал магнітного поля та подавляє високочастотні пульсації</text>
+
+  <!-- Тло смуги пропускання -->
+  <rect x="182" y="132" width="198" height="356" fill="#e9f7ef"/>
+
+  <!-- Осі -->
+  <line x1="180" y1="490" x2="930" y2="490" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+  <line x1="180" y1="490" x2="180" y2="90" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+
+  <!-- Підписи осей -->
+  <text x="920" y="520" font-size="14" fill="#1a1a1a" text-anchor="end">Частота, f</text>
+  <text x="160" y="100" font-size="14" fill="#1a1a1a" text-anchor="end">Амплітуда, |H(f)|</text>
+
+  <!-- Рівень 0 дБ -->
+  <line x1="180" y1="130" x2="930" y2="130" stroke="#d0d7de" stroke-width="2" stroke-dasharray="4,4"/>
+  <text x="160" y="135" font-size="14" fill="#1a1a1a" text-anchor="end">0 дБ</text>
+
+  <!-- Рівень -60 дБ -->
+  <line x1="175" y1="470" x2="185" y2="470" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="160" y="475" font-size="14" fill="#1a1a1a" text-anchor="end">-60 дБ</text>
+
+  <!-- Графік АЧХ -->
+  <path d="M 180,130
+           C 330,130 380,135 430,190
+           C 480,250 530,470 580,470
+           C 610,470 630,350 660,350
+           C 690,350 710,470 740,470
+           C 770,470 790,390 810,390
+           C 830,390 850,470 880,470
+           C 900,470 910,420 920,420"
+        fill="none" stroke="#2457d6" stroke-width="4" />
+
+  <!-- Текст у смузі пропускання -->
+  <text x="281" y="285" font-size="14" fill="#27ae60" text-anchor="middle">
+    <tspan x="281" dy="0" font-weight="bold">Корисний сигнал</tspan>
+    <tspan x="281" dy="24">Смуга пропускання</tspan>
+  </text>
+
+  <!-- Вказівка на частоту пульсацій -->
+  <line x1="580" y1="260" x2="580" y2="445" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <circle cx="580" cy="470" r="5" fill="#c0392b"/>
+  <text x="580" y="215" font-size="14" fill="#c0392b" text-anchor="middle">
+    <tspan x="580" dy="0" font-weight="bold">Частота пульсацій</tspan>
+    <tspan x="580" dy="24">f_chop</tspan>
+  </text>
+</svg>

@@ -1,0 +1,89 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 500" width="960" height="500" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Background Canvas -->
+  <rect x="0" y="0" width="960" height="500" fill="#ffffff"/>
+
+  <!-- Markers -->
+  <defs>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-danger" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-success" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <linearGradient id="opt-zone" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#2457d6" stop-opacity="0.15"/>
+      <stop offset="100%" stop-color="#27ae60" stop-opacity="0.15"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Оптимізаційне вікно динамічного діапазону MEMS-акселерометра</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Компроміс між електростатичним схлопуванням (a_max) та термомеханічним броунівським шумом (a_min)</text>
+
+  <!-- Left Main Plot Area -->
+  <rect x="60" y="75" width="560" height="390" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Grid lines -->
+  <line x1="120" y1="120" x2="590" y2="120" stroke="#e1e4e8" stroke-dasharray="4,4" stroke-width="1"/>
+  <line x1="120" y1="200" x2="590" y2="200" stroke="#e1e4e8" stroke-dasharray="4,4" stroke-width="1"/>
+  <line x1="120" y1="280" x2="590" y2="280" stroke="#e1e4e8" stroke-dasharray="4,4" stroke-width="1"/>
+  <line x1="120" y1="360" x2="590" y2="360" stroke="#e1e4e8" stroke-dasharray="4,4" stroke-width="1"/>
+
+  <!-- Axes -->
+  <line x1="120" y1="410" x2="590" y2="410" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr-dark)"/>
+  <line x1="120" y1="410" x2="120" y2="90" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr-dark)"/>
+
+  <!-- Axis labels -->
+  <text x="590" y="440" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">Зазор d₀ / Жорсткість пружин k (м / Н/м)</text>
+  <text x="110" y="85" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">Прискорення a (м/с²)</text>
+
+  <!-- Upper Limit Curve: Pull-in Limit a_max -->
+  <!-- a_max = (ω0^2 * d0) / 3 -->
+  <path d="M 130,220 Q 280,170 570,120" stroke="#c0392b" stroke-width="2.5" fill="none"/>
+  <text x="570" y="110" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="end">Верхня межа: a_max (Pull-in / Колапс електродів)</text>
+
+  <!-- Lower Limit Curve: Noise Floor a_min -->
+  <!-- a_min = sqrt(4 k_B T b / m^2) * sqrt(Δf) -->
+  <path d="M 130,320 Q 300,350 570,380" stroke="#27ae60" stroke-width="2.5" fill="none"/>
+  <text x="570" y="400" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="end">Нижня межа: a_min (Тепловий шум Броуна)</text>
+
+  <!-- Filled Optimization Area between curves -->
+  <path d="M 130,220 Q 280,170 570,120 L 570,380 Q 300,350 130,320 Z" fill="url(#opt-zone)"/>
+
+  <!-- Dynamic Range Indicator Inside Plot -->
+  <line x1="330" y1="160" x2="330" y2="340" stroke="#2457d6" stroke-width="2" marker-start="url(#arr-blue)" marker-end="url(#arr-blue)"/>
+  <rect x="250" y="235" width="160" height="34" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="330" y="257" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">DR = 20·log₁₀(a_max / a_min)</text>
+
+  <!-- Right Side Parameter Breakdown Card -->
+  <rect x="640" y="75" width="280" height="390" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="780" y="105" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">ФАКТОРИ ОБМЕЖЕННЯ</text>
+  <line x1="660" y1="120" x2="900" y2="120" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Block 1: Maximum Acceleration -->
+  <rect x="655" y="135" width="250" height="90" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+  <text x="670" y="155" font-size="12" font-weight="bold" fill="#c0392b">1. Схлопування електродів</text>
+  <text x="670" y="175" font-size="11" fill="#4b5563">• Відхилення x &gt; d₀/3 спричиняє</text>
+  <text x="670" y="193" font-size="11" fill="#4b5563">  незворотне залипання (Pull-in)</text>
+  <text x="670" y="211" font-size="11" font-weight="bold" fill="#1a1a1a">• a_max = (ω₀² · d₀) / 3</text>
+
+  <!-- Block 2: Noise Floor -->
+  <rect x="655" y="240" width="250" height="95" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="670" y="260" font-size="12" font-weight="bold" fill="#27ae60">2. Броунівський шум газу</text>
+  <text x="670" y="280" font-size="11" fill="#4b5563">• Зіткнення з молекулами газу</text>
+  <text x="670" y="298" font-size="11" fill="#4b5563">  створюють випадкову силу шуму</text>
+  <text x="670" y="316" font-size="11" font-weight="bold" fill="#1a1a1a">• a_noise = √((4·k_B·T·b) / m²)</text>
+
+  <!-- Block 3: Engineering Optimization -->
+  <rect x="655" y="350" width="250" height="95" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="670" y="370" font-size="12" font-weight="bold" fill="#2457d6">3. Оптимальний компроміс</text>
+  <text x="670" y="390" font-size="11" fill="#4b5563">• Вакуумування капсули (↓b)</text>
+  <text x="670" y="408" font-size="11" fill="#4b5563">• Збільшення інерційної маси (↑m)</text>
+  <text x="670" y="426" font-size="11" fill="#4b5563">• Баланс смуги пропускання Δf</text>
+</svg>

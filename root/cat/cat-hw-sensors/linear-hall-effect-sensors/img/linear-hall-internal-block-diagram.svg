@@ -1,0 +1,113 @@
+<svg viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif" xmlns="http://www.w3.org/2000/svg">
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Title -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Внутрішня структура лінійного аналогового давача Холла</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Пластина Холла, диференційний підсилювач, схема зсуву VCC/2 та раціометричний вихід</text>
+
+  <!-- VCC Terminal Pin -->
+  <rect x="800" y="25" width="125" height="28" rx="4" fill="#c0392b"/>
+  <text x="862" y="44" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">VCC (3.0…5.5V)</text>
+
+  <!-- Main Silicon Die Box -->
+  <rect x="80" y="80" width="800" height="340" rx="10" fill="#f8fafc" stroke="#cbd5e1" stroke-width="2"/>
+  <text x="100" y="104" font-size="12" font-weight="bold" fill="#64748b">ЄДИНИЙ КРЕМНІЄВИЙ КРИСТАЛ (MONOLITHIC DIE)</text>
+
+  <!-- Voltage Regulator and Bias -->
+  <rect x="360" y="98" width="220" height="50" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+  <text x="470" y="118" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Стабілізатор струму зміщення</text>
+  <text x="470" y="136" font-size="11" fill="#64748b" text-anchor="middle">Раціометричне стеження за VCC</text>
+
+  <path d="M 862 53 L 862 123 L 580 123" fill="none" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <path d="M 360 123 L 180 123 L 180 180" fill="none" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr-red)"/>
+
+  <!-- External B Field Vector -->
+  <text x="45" y="245" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Поле B</text>
+  <text x="45" y="262" font-size="11" fill="#64748b" text-anchor="middle">(вектор)</text>
+  <line x1="15" y1="275" x2="100" y2="275" stroke="#c0392b" stroke-width="2.5" stroke-dasharray="4,3" marker-end="url(#arr-red)"/>
+
+  <!-- Block 1: Hall Plate -->
+  <rect x="105" y="180" width="150" height="150" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="180" y="202" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Елемент Холла</text>
+  <text x="180" y="218" font-size="11" fill="#64748b" text-anchor="middle">(GaAs / Silicon plate)</text>
+
+  <!-- Diamond plate -->
+  <polygon points="180,230 205,248 180,266 155,248" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="155" y1="248" x2="205" y2="248" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="180" y="295" font-size="11" fill="#1a1a1a" text-anchor="middle">ЕРС Холла:</text>
+  <text x="180" y="312" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">V_H ≈ 5-10 µV/G</text>
+
+  <!-- Line 1 to 2 -->
+  <line x1="255" y1="255" x2="290" y2="255" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="272" y="245" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">V_H</text>
+
+  <!-- Block 2: Chopper & Diff Amp -->
+  <rect x="290" y="180" width="165" height="150" rx="8" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+  <text x="372" y="202" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Чоппер + Підсилювач</text>
+  <text x="372" y="218" font-size="11" fill="#64748b" text-anchor="middle">(Dynamic Offset Cancel)</text>
+
+  <!-- Triangle Amp -->
+  <polygon points="340,232 340,278 395,255" fill="#f1f5f9" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="348" y="244" font-size="11" font-weight="bold" fill="#1a1a1a">+</text>
+  <text x="348" y="271" font-size="11" font-weight="bold" fill="#1a1a1a">−</text>
+  <text x="367" y="259" font-size="11" font-weight="bold" fill="#2457d6">K_amp</text>
+  <text x="372" y="305" font-size="11" fill="#64748b" text-anchor="middle">Коефіцієнт K ≈ 500</text>
+
+  <!-- Line 2 to 3 -->
+  <line x1="455" y1="255" x2="490" y2="255" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+
+  <!-- Block 3: Quiescent Bias & Temp Comp -->
+  <rect x="490" y="180" width="165" height="150" rx="8" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+  <text x="572" y="202" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Зсув спокою V_0</text>
+  <text x="572" y="218" font-size="11" fill="#64748b" text-anchor="middle">(VCC/2 + Термокомпенсація)</text>
+  <circle cx="572" cy="255" r="20" fill="#fef3c7" stroke="#b45309" stroke-width="1.5"/>
+  <text x="572" y="259" font-size="14" font-weight="bold" fill="#b45309" text-anchor="middle">Σ</text>
+  <text x="572" y="295" font-size="11" fill="#1a1a1a" text-anchor="middle">Напруга спокою:</text>
+  <text x="572" y="312" font-size="11" font-weight="bold" fill="#b45309" text-anchor="middle">V_0 = VCC / 2</text>
+
+  <!-- Line 3 to 4 -->
+  <line x1="655" y1="255" x2="690" y2="255" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- Block 4: Linear Rail-to-Rail Output Driver -->
+  <rect x="690" y="180" width="165" height="150" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <text x="772" y="202" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Лінійний вихід</text>
+  <text x="772" y="218" font-size="11" fill="#27ae60" text-anchor="middle">(Rail-to-Rail Push-Pull)</text>
+  <rect x="732" y="238" width="80" height="34" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="772" y="259" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">Z_out &lt; 50 Ω</text>
+  <text x="772" y="295" font-size="11" fill="#1a1a1a" text-anchor="middle">Діапазон напруги:</text>
+  <text x="772" y="312" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">0.2V … VCC-0.2V</text>
+
+  <!-- Output Pin -->
+  <line x1="855" y1="255" x2="890" y2="255" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <rect x="890" y="241" width="60" height="28" rx="4" fill="#27ae60"/>
+  <text x="920" y="260" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">VOUT</text>
+
+  <!-- Ground Line -->
+  <line x1="105" y1="365" x2="855" y2="365" stroke="#64748b" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <text x="110" y="358" font-size="11" fill="#64748b">Внутрішня спільна шина заземлення (GND)</text>
+  <line x1="480" y1="365" x2="480" y2="405" stroke="#64748b" stroke-width="2" marker-end="url(#arr)"/>
+  <rect x="430" y="405" width="100" height="26" rx="4" fill="#64748b"/>
+  <text x="480" y="422" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">GND (0V)</text>
+
+  <!-- Bottom Educational Summary -->
+  <rect x="80" y="445" width="800" height="55" rx="6" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+  <text x="95" y="475" font-size="12" font-weight="bold" fill="#1e293b">ПРИНЦИП ЛІНІЙНОГО ВИХОДУ:</text>
+  <text x="315" y="467" font-size="11" fill="#334155"><tspan font-weight="bold" fill="#c0392b">B &gt; 0 (S-полюс):</tspan> V_out зростає від VCC/2 до VCC (наприклад, 2.5 В → 4.5 В)</text>
+  <text x="315" y="487" font-size="11" fill="#334155"><tspan font-weight="bold" fill="#2457d6">B &lt; 0 (N-полюс):</tspan> V_out спадає від VCC/2 до GND (наприклад, 2.5 В → 0.5 В)</text>
+  <text x="690" y="478" font-size="12" font-weight="bold" fill="#27ae60">V_0 = VCC / 2 (при B = 0)</text>
+</svg>

@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Тімінгова діаграма BISS0001 у режимах H та L</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Порівняння поведінки виходу VO при повторному тригеруванні (H) та одноразовому (L)</text>
+
+  <!-- Panel background for waveforms -->
+  <rect x="40" y="70" width="880" height="360" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Timeline Grid / Guides -->
+  <!-- We have 3 signals: Comparator output, Mode H output (VO), Mode L output (VO) -->
+  
+  <!-- Signal 1: Trigger / Comparator output (V_RC2 / VC) -->
+  <g transform="translate(60, 90)">
+    <text x="0" y="20" font-size="13" font-weight="bold" fill="#1a1a1a">Вихід компаратора / Тригери руху</text>
+    <path d="M 0 45 L 120 45 L 120 15 L 180 15 L 180 45 L 300 45 L 300 15 L 360 15 L 360 45 L 500 45 L 500 15 L 560 15 L 560 45 L 820 45" fill="none" stroke="#2457d6" stroke-width="2"/>
+    <line x1="0" y1="45" x2="840" y2="45" stroke="#d0d7de" stroke-dasharray="3,3" stroke-width="1"/>
+  </g>
+
+  <!-- Signal 2: Mode H (Retriggerable) -->
+  <g transform="translate(60, 185)">
+    <text x="0" y="20" font-size="13" font-weight="bold" fill="#1a1a1a">Режим H (повторне тригерування, A=VDD)</text>
+    <!-- Pulse extends as long as triggers keep coming, plus Tx at the end -->
+    <path d="M 0 45 L 120 45 L 120 5 L 680 5 L 680 45 L 820 45" fill="none" stroke="#27ae60" stroke-width="2"/>
+    <line x1="0" y1="45" x2="840" y2="45" stroke="#d0d7de" stroke-dasharray="3,3" stroke-width="1"/>
+    
+    <!-- Tx bracket and label -->
+    <path d="M 120 18 L 120 12 L 300 12 L 300 18" fill="none" stroke="#6b7280" stroke-width="1"/>
+    <text x="210" y="28" font-size="12" fill="#6b7280" text-anchor="middle">Ti</text>
+
+    <!-- Tx final delay -->
+    <path d="M 500 18 L 500 12 L 680 12 L 680 18" fill="none" stroke="#6b7280" stroke-width="1"/>
+    <text x="590" y="28" font-size="12" fill="#6b7280" text-anchor="middle">Tx</text>
+  </g>
+
+  <!-- Signal 3: Mode L (Non-retriggerable) -->
+  <g transform="translate(60, 295)">
+    <text x="0" y="20" font-size="13" font-weight="bold" fill="#1a1a1a">Режим L (одноразове тригерування, A=0)</text>
+    <!-- Pulses of fixed width Ti, ignoring triggers during output active state -->
+    <path d="M 0 45 L 120 45 L 120 5 L 300 5 L 300 45 L 500 45 L 500 5 L 680 5 L 680 45 L 820 45" fill="none" stroke="#c0392b" stroke-width="2"/>
+    <line x1="0" y1="45" x2="840" y2="45" stroke="#d0d7de" stroke-dasharray="3,3" stroke-width="1"/>
+
+    <!-- Ti brackets -->
+    <path d="M 120 18 L 120 12 L 300 12 L 300 18" fill="none" stroke="#6b7280" stroke-width="1"/>
+    <text x="210" y="28" font-size="12" fill="#6b7280" text-anchor="middle">Ti</text>
+
+    <path d="M 500 18 L 500 12 L 680 12 L 680 18" fill="none" stroke="#6b7280" stroke-width="1"/>
+    <text x="590" y="28" font-size="12" fill="#6b7280" text-anchor="middle">Ti</text>
+  </g>
+
+  <!-- Legend / Notes at bottom -->
+  <g transform="translate(60, 400)">
+    <rect x="0" y="0" width="840" height="40" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+    <text x="20" y="25" font-size="12" fill="#1a1a1a">Ti — тривалість вихідного імпульсу (задається RC1)</text>
+    <text x="440" y="25" font-size="12" fill="#1a1a1a">Tx — інтервал блокування / затримки повторного спрацьовування</text>
+  </g>
+
+</svg>

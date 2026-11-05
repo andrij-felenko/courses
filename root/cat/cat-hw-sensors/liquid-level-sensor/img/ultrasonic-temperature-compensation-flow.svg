@@ -1,0 +1,127 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Біла підкладка на все полотно -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <defs>
+    <!-- Маркери стрілок під палітру -->
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок та підзаголовок -->
+  <text x="480" y="30" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Корекція швидкості звуку в ультразвуковому далекомірі</text>
+  <text x="480" y="52" text-anchor="middle" font-size="13" fill="#6b7280">Динамічний перерахунок c(T) = 331.3 + 0.606·T усуває похибку від температури повітря при обчисленні відстані d</text>
+
+  <!-- ==================== КОЛОНКА 1: ДАВАЧІ СИСТЕМИ (x=30..240) ==================== -->
+
+  <!-- Давач 1: DS18B20 -->
+  <rect x="30" y="75" width="210" height="160" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="30" y="75" width="210" height="34" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="135" y="97" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Температурний давач DS18B20</text>
+
+  <text x="42" y="127" font-size="12" fill="#1a1a1a"><tspan font-weight="bold">Інтерфейс:</tspan> 1-Wire (лінія DQ)</text>
+  <text x="42" y="145" font-size="12" fill="#6b7280">Монтаж: у зоні резервуара</text>
+  <text x="42" y="163" font-size="12" fill="#1a1a1a"><tspan font-weight="bold">Код T_raw:</tspan> 12 біт (0.0625 °C)</text>
+  <text x="42" y="181" font-size="12" fill="#6b7280">Формула: T = T_raw / 16.0</text>
+
+  <rect x="42" y="193" width="186" height="32" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="135" y="214" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Вихід: температура T [°C]</text>
+
+  <!-- Давач 2: Ультразвуковий сенсор -->
+  <rect x="30" y="260" width="210" height="160" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="30" y="260" width="210" height="34" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="135" y="282" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Ультразвуковий сенсор ToF</text>
+
+  <text x="42" y="312" font-size="12" fill="#1a1a1a"><tspan font-weight="bold">Сенсор:</tspan> JSN-SR04T / HC-SR04</text>
+  <text x="42" y="330" font-size="12" fill="#6b7280">Акустичний пакет: 40 кГц</text>
+  <text x="42" y="348" font-size="12" fill="#1a1a1a"><tspan font-weight="bold">Імпульс Echo:</tspan> тривалість t_echo</text>
+  <text x="42" y="366" font-size="12" fill="#6b7280">Шлях хвилі: подвійний (2 · d)</text>
+
+  <rect x="42" y="378" width="186" height="32" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="135" y="399" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Вихід: час ToF t_echo [мкс]</text>
+
+  <!-- ==================== СТРІЛКИ: КОЛОНКА 1 -> КОЛОНКА 2 ==================== -->
+  <!-- T стрілка -->
+  <line x1="240" y1="164" x2="318" y2="164" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="279" y="152" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">T [°C]</text>
+
+  <!-- t_echo стрілка -->
+  <line x1="240" y1="328" x2="318" y2="328" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="279" y="316" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">t_echo</text>
+
+  <!-- ==================== КОЛОНКА 2: ОБЧИСЛЮВАЛЬНИЙ БЛОК (x=305..665) ==================== -->
+  <rect x="305" y="75" width="360" height="345" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="320" y="97" font-size="13" font-weight="bold" fill="#1a1a1a">ОБЧИСЛЮВАЛЬНИЙ БЛОК (MCU)</text>
+  <text x="650" y="97" text-anchor="end" font-size="12" fill="#6b7280">Корекція та синтез d</text>
+
+  <!-- Блок 1 MCU: Розрахунок швидкості звуку -->
+  <rect x="318" y="110" width="334" height="116" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.2"/>
+  <rect x="318" y="110" width="334" height="28" rx="6" fill="#eaf0fd"/>
+  <text x="485" y="129" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">1. Динамічна корекція швидкості звуку c(T)</text>
+
+  <rect x="332" y="146" width="306" height="36" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="485" y="169" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">c(T) = 331.3 + 0.606 · T  [м/с]</text>
+
+  <text x="485" y="198" text-anchor="middle" font-size="12" fill="#6b7280">Швидкість звуку в повітрі залежно від T</text>
+  <text x="485" y="214" text-anchor="middle" font-size="12" fill="#2457d6">Коефіцієнт чутливості: ∂c/∂T = +0.606 м/(с·°C)</text>
+
+  <!-- Внутрішня вертикальна стрілка c(T) між блоками MCU -->
+  <line x1="485" y1="226" x2="485" y2="268" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="498" y="251" font-size="12" font-weight="bold" fill="#2457d6">c(T) [м/с]</text>
+
+  <!-- Блок 2 MCU: Обчислення дистанції та рівня -->
+  <rect x="318" y="268" width="334" height="140" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="318" y="268" width="334" height="28" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="485" y="287" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">2. Розрахунок реальної відстані та рівня рідини</text>
+
+  <rect x="332" y="304" width="306" height="38" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="485" y="328" text-anchor="middle" font-size="14" font-weight="bold" fill="#27ae60">d = ( c(T) · t_echo ) / 2</text>
+
+  <text x="485" y="358" text-anchor="middle" font-size="12" fill="#1a1a1a">Подвійний хід променя: 2·d = c(T) · t_echo</text>
+  <text x="485" y="376" text-anchor="middle" font-size="12" fill="#6b7280">Розрахунок залишку рідини: <tspan font-weight="bold" fill="#1a1a1a">h = H_tank − d</tspan></text>
+  <text x="485" y="394" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">✓ Точне значення без температурного дрейфу</text>
+
+  <!-- ==================== СТРІЛКИ: КОЛОНКА 2 -> КОЛОНКА 3 ==================== -->
+  <!-- Стрілка c = const до червоного блоку -->
+  <line x1="652" y1="164" x2="730" y2="164" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr-red)"/>
+  <text x="693" y="152" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">c = const</text>
+
+  <!-- Стрілка d, h до зеленого блоку -->
+  <line x1="652" y1="328" x2="730" y2="328" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="693" y="316" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">d, h</text>
+
+  <!-- ==================== КОЛОНКА 3: РЕЗУЛЬТАТ ТА ОЦІНКА ПОХИБКИ (x=730..930) ==================== -->
+
+  <!-- Блок 3.1: Без компенсації -->
+  <rect x="730" y="75" width="200" height="160" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <rect x="730" y="75" width="200" height="34" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="830" y="97" text-anchor="middle" font-size="13" font-weight="bold" fill="#c0392b">Без компенсації</text>
+
+  <text x="742" y="126" font-size="12" fill="#1a1a1a"><tspan font-weight="bold">Швидкість:</tspan> c₀ = 343.0 м/с</text>
+  <text x="742" y="144" font-size="12" fill="#6b7280">Фіксоване значення (20 °C)</text>
+  <text x="742" y="164" font-size="12" fill="#c0392b"><tspan font-weight="bold">При ΔT = ±15 °C:</tspan> Δc = ±9.1 м/с</text>
+  <text x="742" y="184" font-size="12" fill="#c0392b"><tspan font-weight="bold">Похибка рівня:</tspan> |Δd| ≈ 5.3 см</text>
+
+  <rect x="740" y="196" width="180" height="28" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+  <text x="830" y="215" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">✗ Сезонний дрейф об'єму</text>
+
+  <!-- Блок 3.2: З термокомпенсацією -->
+  <rect x="730" y="260" width="200" height="160" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="730" y="260" width="200" height="34" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="830" y="282" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">З термокомпенсацією</text>
+
+  <text x="742" y="311" font-size="12" fill="#1a1a1a"><tspan font-weight="bold">Швидкість:</tspan> c(T) динамічна</text>
+  <text x="742" y="329" font-size="12" fill="#6b7280">Адаптація під кожен вимір</text>
+  <text x="742" y="349" font-size="12" fill="#27ae60"><tspan font-weight="bold">При будь-якій T:</tspan> Δc ≈ 0 м/с</text>
+  <text x="742" y="369" font-size="12" fill="#27ae60"><tspan font-weight="bold">Похибка рівня:</tspan> |Δd| &lt; 0.2 см</text>
+
+  <rect x="740" y="381" width="180" height="28" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="830" y="400" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">✓ Стабільний точний рівень</text>
+</svg>

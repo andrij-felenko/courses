@@ -1,0 +1,101 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Titles -->
+  <text x="480" y="30" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Чопперна стабілізація: пульсації та смуга пропускання</text>
+  <text x="480" y="50" text-anchor="middle" font-size="13" fill="#6b7280">Вплив частоти чоппування на вихідний сигнал та спектр завад давача Холла</text>
+
+  <!-- Left Panel: Time Domain -->
+  <rect x="30" y="60" width="440" height="340" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="250" y="85" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Часовий відгук</text>
+  
+  <!-- Y-axis Time -->
+  <path d="M 100 370 L 100 100" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="100" y="90" text-anchor="middle" font-size="14" fill="#1a1a1a">V<tspan dy="3" font-size="11">out</tspan></text>
+  
+  <!-- X-axis Time -->
+  <path d="M 80 350 L 450 350" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="450" y="395" text-anchor="end" font-size="14" fill="#1a1a1a">Час, t</text>
+  
+  <!-- Ideal Signal -->
+  <path d="M 100 260 L 450 260" fill="none" stroke="#27ae60" stroke-width="2" stroke-dasharray="6 4"/>
+  <text x="110" y="185" text-anchor="start" font-size="13" fill="#27ae60">Корисний сигнал</text>
+  <path d="M 160 190 L 160 252" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="2 2" marker-end="url(#arr-green)"/>
+  
+  <!-- Actual Signal with Chopper Ripple -->
+  <path d="M 100 260
+           L 128 260 L 130 200 L 132 260
+           L 158 260 L 160 320 L 162 260
+           L 188 260 L 190 200 L 192 260
+           L 218 260 L 220 320 L 222 260
+           L 248 260 L 250 200 L 252 260
+           L 278 260 L 280 320 L 282 260
+           L 308 260 L 310 200 L 312 260
+           L 338 260 L 340 320 L 342 260
+           L 368 260 L 370 200 L 372 260
+           L 398 260 L 400 320 L 402 260
+           L 428 260 L 430 200 L 432 260
+           L 450 260" fill="none" stroke="#2457d6" stroke-width="2" stroke-linejoin="round"/>
+           
+  <!-- Period marker -->
+  <path d="M 190 170 L 190 160 M 250 170 L 250 160 M 190 165 L 250 165" stroke="#6b7280" stroke-width="1"/>
+  <text x="220" y="155" text-anchor="middle" font-size="13" fill="#6b7280">1 / f<tspan dy="3" font-size="10">chop</tspan></text>
+  
+  <!-- Ripple Label -->
+  <text x="340" y="160" text-anchor="middle" font-size="14" fill="#c0392b">Комутаційні піки</text>
+  <text x="340" y="175" text-anchor="middle" font-size="13" fill="#c0392b">chopper ripple</text>
+  <path d="M 340 180 L 340 193" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+
+  <!-- Right Panel: Frequency Domain -->
+  <rect x="490" y="60" width="440" height="340" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="710" y="85" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Спектр сигналу та завад</text>
+
+  <!-- Y-axis Freq -->
+  <path d="M 550 370 L 550 100" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="550" y="90" text-anchor="middle" font-size="14" fill="#1a1a1a">Амплітуда</text>
+  
+  <!-- X-axis Freq -->
+  <path d="M 530 350 L 910 350" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="910" y="395" text-anchor="end" font-size="14" fill="#1a1a1a">Частота, f</text>
+  
+  <!-- Baseband Signal -->
+  <path d="M 550 200 Q 590 200, 610 350 L 550 350 Z" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <text x="555" y="300" text-anchor="start" font-size="13" fill="#27ae60">Корисний</text>
+  <text x="555" y="315" text-anchor="start" font-size="13" fill="#27ae60">сигнал</text>
+
+  <!-- LPF Curve -->
+  <path d="M 550 160 L 620 160 C 660 160, 690 350, 800 350" fill="none" stroke="#2457d6" stroke-width="2" stroke-dasharray="6 4"/>
+  <text x="560" y="175" text-anchor="start" font-size="13" fill="#2457d6">АЧХ фільтра</text>
+  <text x="560" y="190" text-anchor="start" font-size="13" fill="#2457d6">низьких частот</text>
+
+  <!-- Spikes -->
+  <path d="M 680 350 Q 710 180, 740 350" fill="#fdecea" stroke="#c0392b" stroke-width="2"/>
+  <path d="M 840 350 Q 870 250, 900 350" fill="#fdecea" stroke="#c0392b" stroke-width="2"/>
+  
+  <path d="M 710 180 L 710 350" stroke="#c0392b" stroke-width="1" stroke-dasharray="4 4"/>
+  <path d="M 870 250 L 870 350" stroke="#c0392b" stroke-width="1" stroke-dasharray="4 4"/>
+  
+  <!-- Spike Labels -->
+  <text x="710" y="145" text-anchor="middle" font-size="13" fill="#c0392b">Модульований зсув</text>
+  <text x="710" y="160" text-anchor="middle" font-size="13" fill="#c0392b">та флікер-шум</text>
+  
+  <!-- Ticks on X-axis -->
+  <path d="M 710 350 L 710 355" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="710" y="375" text-anchor="middle" font-size="14" fill="#1a1a1a">f<tspan dy="3" font-size="11">chop</tspan></text>
+  
+  <path d="M 870 350 L 870 355" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="870" y="375" text-anchor="middle" font-size="14" fill="#1a1a1a">2·f<tspan dy="3" font-size="11">chop</tspan></text>
+</svg>

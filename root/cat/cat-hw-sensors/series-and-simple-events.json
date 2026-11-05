@@ -866,7 +866,23 @@
               "Внутрішній ФНЧ та дискретизація чоппера вносять фазовий джитер відгуку (до періоду тактування) та групову затримку, що критично для контурів векторного керування двигунами.",
               "Запобігання аліасингу високочастотних пульсацій в АЦП вимагає узгодження частоти дискретизації за критерієм Найквіста (f_s > 2*f_c) або встановлення зовнішнього RC-фільтра."
             ]
-          }
+          },
+          "api": [
+            {
+              "file": "api-chopper-hall-hardware-interface.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-chopper-quadrature-modulation.md",
+              "status": "done"
+            },
+            {
+              "file": "math-chopper-ripple-and-filtering.md",
+              "status": "done"
+            }
+          ]
         }
       ]
     },
@@ -1179,7 +1195,19 @@
               "Підтримка протоколу SMBus Alert Response Address (0x0C) у мультисенсорних Wired-OR шинах дозволяє однозначно визначити адресу аварійного вузла за один байт арбітражу.",
               "Розподіл функцій між швидким апаратним ISR та неблокуючою задачею RTOS запобігає зависанню системи на операціях I2C під час аварійного вимкнення."
             ]
-          }
+          },
+          "api": [
+            {
+              "file": "api-ina226-alert-hardware-interface.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-ina226-alert-limit-calculations.md",
+              "status": "done"
+            }
+          ]
         },
         {
           "slug": "ina2xx-digital-power-monitors-overview",

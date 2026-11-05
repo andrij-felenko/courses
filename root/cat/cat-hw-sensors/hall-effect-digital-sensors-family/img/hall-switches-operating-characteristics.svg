@@ -1,0 +1,179 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <defs>
+    <marker id="arr-axis" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto">
+      <path d="M0,0 L7,3.5 L0,7 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto">
+      <path d="M0,0 L7,3.5 L0,7 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto">
+      <path d="M0,0 L7,3.5 L0,7 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto">
+      <path d="M0,0 L7,3.5 L0,7 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="30" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Передавальні характеристики трьох родин цифрових давачів Холла</text>
+  <text x="480" y="50" text-anchor="middle" font-size="13" fill="#6b7280">Залежність логічного стану виходу V_OUT від індукції та полярності магнітного поля B</text>
+
+  <!-- ==================== PANEL 1: UNIPOLAR ==================== -->
+  <rect x="20" y="70" width="295" height="360" rx="8" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+  <rect x="20" y="70" width="295" height="36" rx="8" fill="#eaf0fd"/>
+  <rect x="20" y="94" width="295" height="12" fill="#eaf0fd"/>
+  <text x="167" y="93" text-anchor="middle" font-size="14" font-weight="bold" fill="#2457d6">1. Однополярний ключ</text>
+  <text x="167" y="122" text-anchor="middle" font-size="12" fill="#64748b">Реакція лише на один полюс (South)</text>
+
+  <!-- Plot 1 Axes -->
+  <!-- X axis -->
+  <line x1="40" y1="320" x2="295" y2="320" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-axis)"/>
+  <text x="295" y="338" text-anchor="end" font-size="11" font-weight="bold" fill="#1a1a1a">+B (S)</text>
+  <text x="40" y="338" text-anchor="start" font-size="11" font-weight="bold" fill="#64748b">-B (N)</text>
+  <!-- Y axis (B=0) -->
+  <line x1="115" y1="320" x2="115" y2="160" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-axis)"/>
+  <text x="115" y="150" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a1a">V_OUT</text>
+  <text x="115" y="338" text-anchor="middle" font-size="11" fill="#64748b">0</text>
+
+  <!-- Threshold lines -->
+  <line x1="190" y1="170" x2="190" y2="320" stroke="#27ae60" stroke-width="1.2" stroke-dasharray="3,3"/>
+  <text x="190" y="338" text-anchor="middle" font-size="10" font-weight="bold" fill="#27ae60">B_RP</text>
+  <line x1="245" y1="170" x2="245" y2="320" stroke="#c0392b" stroke-width="1.2" stroke-dasharray="3,3"/>
+  <text x="245" y="338" text-anchor="middle" font-size="10" font-weight="bold" fill="#c0392b">B_OP</text>
+
+  <!-- Levels -->
+  <text x="108" y="185" text-anchor="end" font-size="10" font-weight="bold" fill="#1a1a1a">HIGH</text>
+  <text x="108" y="285" text-anchor="end" font-size="10" font-weight="bold" fill="#1a1a1a">LOW</text>
+
+  <!-- Characteristic curve -->
+  <!-- HIGH baseline -->
+  <line x1="45" y1="180" x2="245" y2="180" stroke="#2457d6" stroke-width="2.5"/>
+  <!-- Fall at B_OP -->
+  <line x1="245" y1="180" x2="245" y2="280" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arr-red)"/>
+  <!-- LOW active -->
+  <line x1="245" y1="280" x2="285" y2="280" stroke="#2457d6" stroke-width="2.5"/>
+  <!-- Return path at B_RP -->
+  <line x1="190" y1="280" x2="245" y2="280" stroke="#2457d6" stroke-width="2.5"/>
+  <line x1="190" y1="280" x2="190" y2="180" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arr-green)"/>
+
+  <!-- Hysteresis zone -->
+  <rect x="190" y="180" width="55" height="100" fill="#2457d6" fill-opacity="0.08"/>
+  <text x="217" y="235" text-anchor="middle" font-size="10" fill="#2457d6" font-weight="bold">B_HYS</text>
+
+  <!-- Footnote -->
+  <text x="167" y="375" text-anchor="middle" font-size="11" fill="#1e293b">0 &lt; B_RP &lt; B_OP</text>
+  <text x="167" y="395" text-anchor="middle" font-size="11" fill="#64748b">Вихід відпускає при віддаленні</text>
+  <text x="167" y="412" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">Приклад: A3144, KY-003</text>
+
+
+  <!-- ==================== PANEL 2: BIPOLAR LATCH ==================== -->
+  <rect x="332" y="70" width="295" height="360" rx="8" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+  <rect x="332" y="70" width="295" height="36" rx="8" fill="#fef3c7"/>
+  <rect x="332" y="94" width="295" height="12" fill="#fef3c7"/>
+  <text x="479" y="93" text-anchor="middle" font-size="14" font-weight="bold" fill="#b45309">2. Біполярна засувка</text>
+  <text x="479" y="122" text-anchor="middle" font-size="12" fill="#64748b">Потребує чергування S та N полюсів</text>
+
+  <!-- Plot 2 Axes -->
+  <!-- X axis -->
+  <line x1="352" y1="320" x2="607" y2="320" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-axis)"/>
+  <text x="607" y="338" text-anchor="end" font-size="11" font-weight="bold" fill="#1a1a1a">+B (S)</text>
+  <text x="352" y="338" text-anchor="start" font-size="11" font-weight="bold" fill="#64748b">-B (N)</text>
+  <!-- Y axis (B=0 centered) -->
+  <line x1="479" y1="320" x2="479" y2="160" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-axis)"/>
+  <text x="479" y="150" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a1a">V_OUT</text>
+  <text x="479" y="338" text-anchor="middle" font-size="11" fill="#64748b">0</text>
+
+  <!-- Threshold lines -->
+  <line x1="415" y1="170" x2="415" y2="320" stroke="#27ae60" stroke-width="1.2" stroke-dasharray="3,3"/>
+  <text x="415" y="338" text-anchor="middle" font-size="10" font-weight="bold" fill="#27ae60">B_RP (&lt;0)</text>
+  <line x1="545" y1="170" x2="545" y2="320" stroke="#c0392b" stroke-width="1.2" stroke-dasharray="3,3"/>
+  <text x="545" y="338" text-anchor="middle" font-size="10" font-weight="bold" fill="#c0392b">B_OP (&gt;0)</text>
+
+  <!-- Levels -->
+  <text x="472" y="185" text-anchor="end" font-size="10" font-weight="bold" fill="#1a1a1a">HIGH</text>
+  <text x="472" y="285" text-anchor="end" font-size="10" font-weight="bold" fill="#1a1a1a">LOW</text>
+
+  <!-- Characteristic curve (Latch) -->
+  <line x1="360" y1="180" x2="545" y2="180" stroke="#b45309" stroke-width="2.5"/>
+  <line x1="545" y1="180" x2="545" y2="280" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arr-red)"/>
+  <line x1="545" y1="280" x2="595" y2="280" stroke="#b45309" stroke-width="2.5"/>
+
+  <line x1="415" y1="280" x2="545" y2="280" stroke="#b45309" stroke-width="2.5"/>
+  <line x1="415" y1="280" x2="415" y2="180" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arr-green)"/>
+
+  <!-- Hysteresis zone through zero -->
+  <rect x="415" y="180" width="130" height="100" fill="#f59e0b" fill-opacity="0.1"/>
+  <text x="479" y="225" text-anchor="middle" font-size="10" fill="#b45309" font-weight="bold">Пам'ять стану</text>
+  <text x="479" y="242" text-anchor="middle" font-size="10" fill="#64748b">(при B = 0)</text>
+
+  <!-- Footnote -->
+  <text x="479" y="375" text-anchor="middle" font-size="11" fill="#1e293b">B_RP &lt; 0 &lt; B_OP</text>
+  <text x="479" y="395" text-anchor="middle" font-size="11" fill="#64748b">Зберігає стан при знятті поля</text>
+  <text x="479" y="412" text-anchor="middle" font-size="11" font-weight="bold" fill="#b45309">Приклад: SS41F, US1881</text>
+
+
+  <!-- ==================== PANEL 3: OMNIPOLAR ==================== -->
+  <rect x="645" y="70" width="295" height="360" rx="8" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+  <rect x="645" y="70" width="295" height="36" rx="8" fill="#e9f7ef"/>
+  <rect x="645" y="94" width="295" height="12" fill="#e9f7ef"/>
+  <text x="792" y="93" text-anchor="middle" font-size="14" font-weight="bold" fill="#16a34a">3. Омніполярний ключ</text>
+  <text x="792" y="122" text-anchor="middle" font-size="12" fill="#64748b">Реагує на будь-який полюс (|B| &gt; B_OP)</text>
+
+  <!-- Plot 3 Axes -->
+  <!-- X axis -->
+  <line x1="665" y1="320" x2="920" y2="320" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-axis)"/>
+  <text x="920" y="338" text-anchor="end" font-size="11" font-weight="bold" fill="#1a1a1a">+B (S)</text>
+  <text x="665" y="338" text-anchor="start" font-size="11" font-weight="bold" fill="#64748b">-B (N)</text>
+  <!-- Y axis (B=0 centered) -->
+  <line x1="792" y1="320" x2="792" y2="160" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-axis)"/>
+  <text x="792" y="150" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a1a">V_OUT</text>
+  <text x="792" y="338" text-anchor="middle" font-size="11" fill="#64748b">0</text>
+
+  <!-- Threshold lines S side -->
+  <line x1="850" y1="170" x2="850" y2="320" stroke="#27ae60" stroke-width="1" stroke-dasharray="2,2"/>
+  <text x="850" y="338" text-anchor="middle" font-size="9" font-weight="bold" fill="#27ae60">B_RPS</text>
+  <line x1="885" y1="170" x2="885" y2="320" stroke="#c0392b" stroke-width="1" stroke-dasharray="2,2"/>
+  <text x="885" y="338" text-anchor="middle" font-size="9" font-weight="bold" fill="#c0392b">B_OPS</text>
+
+  <!-- Threshold lines N side -->
+  <line x1="734" y1="170" x2="734" y2="320" stroke="#27ae60" stroke-width="1" stroke-dasharray="2,2"/>
+  <text x="734" y="338" text-anchor="middle" font-size="9" font-weight="bold" fill="#27ae60">B_RPN</text>
+  <line x1="699" y1="170" x2="699" y2="320" stroke="#c0392b" stroke-width="1" stroke-dasharray="2,2"/>
+  <text x="699" y="338" text-anchor="middle" font-size="9" font-weight="bold" fill="#c0392b">B_OPN</text>
+
+  <!-- Levels -->
+  <text x="785" y="185" text-anchor="end" font-size="10" font-weight="bold" fill="#1a1a1a">HIGH</text>
+  <text x="785" y="285" text-anchor="end" font-size="10" font-weight="bold" fill="#1a1a1a">LOW</text>
+
+  <!-- Characteristic curve S side -->
+  <line x1="792" y1="180" x2="885" y2="180" stroke="#16a34a" stroke-width="2.2"/>
+  <line x1="885" y1="180" x2="885" y2="280" stroke="#c0392b" stroke-width="2.2" marker-end="url(#arr-red)"/>
+  <line x1="885" y1="280" x2="915" y2="280" stroke="#16a34a" stroke-width="2.2"/>
+  <line x1="850" y1="280" x2="885" y2="280" stroke="#16a34a" stroke-width="2.2"/>
+  <line x1="850" y1="280" x2="850" y2="180" stroke="#27ae60" stroke-width="2.2" marker-end="url(#arr-green)"/>
+
+  <!-- Characteristic curve N side -->
+  <line x1="699" y1="180" x2="792" y2="180" stroke="#16a34a" stroke-width="2.2"/>
+  <line x1="699" y1="180" x2="699" y2="280" stroke="#c0392b" stroke-width="2.2" marker-end="url(#arr-red)"/>
+  <line x1="670" y1="280" x2="699" y2="280" stroke="#16a34a" stroke-width="2.2"/>
+  <line x1="699" y1="280" x2="734" y2="280" stroke="#16a34a" stroke-width="2.2"/>
+  <line x1="734" y1="280" x2="734" y2="180" stroke="#27ae60" stroke-width="2.2" marker-end="url(#arr-green)"/>
+
+  <!-- Hysteresis zones -->
+  <rect x="850" y="180" width="35" height="100" fill="#16a34a" fill-opacity="0.08"/>
+  <rect x="699" y="180" width="35" height="100" fill="#16a34a" fill-opacity="0.08"/>
+
+  <!-- Footnote -->
+  <text x="792" y="375" text-anchor="middle" font-size="11" fill="#1e293b">Вмикається від S або N</text>
+  <text x="792" y="395" text-anchor="middle" font-size="11" fill="#64748b">Не чутливий до орієнтації магніту</text>
+  <text x="792" y="412" text-anchor="middle" font-size="11" font-weight="bold" fill="#16a34a">Приклад: TLE4913, DRV5032</text>
+
+  <!-- ==================== BOTTOM SUMMARY BAR ==================== -->
+  <rect x="20" y="445" width="920" height="60" rx="6" fill="#f1f5f9" stroke="#cbd5e1" stroke-width="1.2"/>
+  <text x="40" y="468" font-size="12" font-weight="bold" fill="#1e293b">Сфера застосування:</text>
+  <text x="40" y="488" font-size="11" fill="#334155"><tspan font-weight="bold" fill="#2457d6">Однополярні:</tspan> датчики наближення, відкриття дверей, тахометри з 1 магнітом</text>
+  <text x="360" y="488" font-size="11" fill="#334155"><tspan font-weight="bold" fill="#b45309">Біполярні засувки:</tspan> комутація обмоток BLDC двигунів, квадратурні енкодери</text>
+  <text x="700" y="488" font-size="11" fill="#334155"><tspan font-weight="bold" fill="#16a34a">Омніполярні:</tspan> смартфони (flip-чохли), витратоміри води, заміна герконів</text>
+</svg>

@@ -1,0 +1,189 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Внутрішня функціональна архітектура монітора живлення INA226</text>
+  <text x="480" y="54" font-size="13" text-anchor="middle" fill="#6b7280">16-бітний ΔΣ АЦП по черзі вимірює V_SHUNT і V_BUS, а математичний блок обчислює I та P через CAL</text>
+
+  <!-- Chip Container Body -->
+  <rect x="100" y="75" width="760" height="460" rx="10" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <text x="115" y="96" font-size="13" font-weight="bold" fill="#2457d6">Мікросхема INA226 (Корпус / Chip Boundary)</text>
+
+  <!-- External Pins & Wires (Left Side, x < 100) -->
+  <!-- IN+ Pin -->
+  <line x1="20" y1="135" x2="75" y2="135" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <rect x="75" y="129" width="12" height="12" fill="#2457d6" rx="2"/>
+  <text x="47" y="115" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">IN+</text>
+  <text x="47" y="129" font-size="12" text-anchor="middle" fill="#6b7280">(Шунт +)</text>
+
+  <!-- IN- Pin -->
+  <line x1="20" y1="185" x2="75" y2="185" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <rect x="75" y="179" width="12" height="12" fill="#2457d6" rx="2"/>
+  <text x="47" y="165" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">IN-</text>
+  <text x="47" y="179" font-size="12" text-anchor="middle" fill="#6b7280">(Шунт -)</text>
+
+  <!-- VBUS Pin -->
+  <line x1="20" y1="235" x2="75" y2="235" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <rect x="75" y="229" width="12" height="12" fill="#2457d6" rx="2"/>
+  <text x="47" y="215" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">VBUS</text>
+  <text x="47" y="229" font-size="12" text-anchor="middle" fill="#6b7280">(0..36 В)</text>
+
+  <!-- ALERT Pin (Out) -->
+  <line x1="75" y1="430" x2="20" y2="430" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <rect x="75" y="424" width="12" height="12" fill="#c0392b" rx="2"/>
+  <text x="47" y="410" font-size="12" font-weight="bold" text-anchor="middle" fill="#c0392b">ALERT</text>
+  <text x="47" y="424" font-size="12" text-anchor="middle" fill="#6b7280">Open-Drain</text>
+
+  <!-- External Pins & Wires (Right Side, x > 860) -->
+  <!-- A0, A1 Pins -->
+  <line x1="885" y1="200" x2="940" y2="200" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+  <rect x="873" y="194" width="12" height="12" fill="#d0d7de" rx="2"/>
+  <text x="912" y="180" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">A0, A1</text>
+  <text x="912" y="194" font-size="12" text-anchor="middle" fill="#6b7280">(Адреса)</text>
+
+  <!-- SDA Pin -->
+  <line x1="885" y1="350" x2="940" y2="350" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <rect x="873" y="344" width="12" height="12" fill="#2457d6" rx="2"/>
+  <text x="912" y="330" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">SDA</text>
+  <text x="912" y="344" font-size="12" text-anchor="middle" fill="#6b7280">(Дані)</text>
+
+  <!-- SCL Pin -->
+  <line x1="885" y1="410" x2="940" y2="410" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <rect x="873" y="404" width="12" height="12" fill="#2457d6" rx="2"/>
+  <text x="912" y="390" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">SCL</text>
+  <text x="912" y="404" font-size="12" text-anchor="middle" fill="#6b7280">(Тактування)</text>
+
+  <!-- INTERNAL WIRES TO/FROM PADS -->
+  <!-- IN+ pad to MUX -->
+  <line x1="87" y1="135" x2="120" y2="135" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <!-- IN- pad to MUX -->
+  <line x1="87" y1="185" x2="120" y2="185" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <!-- VBUS pad to MUX -->
+  <line x1="87" y1="235" x2="120" y2="235" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <!-- ALERT block to ALERT pad -->
+  <line x1="120" y1="430" x2="87" y2="430" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+
+  <!-- I2C pads to I2C interface block -->
+  <line x1="840" y1="200" x2="873" y2="200" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="840" y1="350" x2="873" y2="350" stroke="#2457d6" stroke-width="2"/>
+  <line x1="840" y1="410" x2="873" y2="410" stroke="#2457d6" stroke-width="2"/>
+
+  <!-- BLOCK 1: Multiplexer -->
+  <rect x="120" y="115" width="110" height="140" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="175" y="137" font-size="13" font-weight="bold" text-anchor="middle" fill="#2457d6">Вхідний MUX</text>
+  <text x="175" y="153" font-size="12" text-anchor="middle" fill="#6b7280">(Мультиплексор)</text>
+  <text x="175" y="177" font-size="12" text-anchor="middle" fill="#1a1a1a">Перемикання</text>
+  <text x="175" y="193" font-size="12" text-anchor="middle" fill="#1a1a1a">каналів</text>
+  <text x="175" y="233" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">V_SHUNT / V_BUS</text>
+
+  <!-- Connection: MUX -> ADC -->
+  <line x1="230" y1="185" x2="255" y2="185" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="242.5" y="175" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">V_IN</text>
+
+  <!-- BLOCK 2: 16-bit Delta-Sigma ADC -->
+  <rect x="255" y="115" width="160" height="140" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="335" y="137" font-size="13" font-weight="bold" text-anchor="middle" fill="#2457d6">16-бітний ΔΣ АЦП</text>
+  <text x="335" y="155" font-size="12" text-anchor="middle" fill="#1a1a1a">Вимірювання сигналів</text>
+  <text x="335" y="175" font-size="12" text-anchor="middle" fill="#6b7280">LSB_shunt = 2.5 мкВ</text>
+  <text x="335" y="193" font-size="12" text-anchor="middle" fill="#6b7280">LSB_bus = 1.25 мВ</text>
+  <text x="335" y="217" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">Усереднення: 1..1024</text>
+  <text x="335" y="235" font-size="12" text-anchor="middle" fill="#6b7280">Час: 140 мкс..8.24 мс</text>
+
+  <!-- Connection: ADC -> Math Engine -->
+  <line x1="415" y1="155" x2="445" y2="155" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="430" y="145" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">Вибірки</text>
+
+  <!-- Connection: ADC -> Registers Map -->
+  <path d="M 415 215 L 430 215 L 430 350 L 445 350" fill="none" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4 3" marker-end="url(#arr-blue)"/>
+  <text x="422" y="275" font-size="12" font-weight="bold" text-anchor="end" fill="#2457d6">V_SHUNT</text>
+  <text x="422" y="290" font-size="12" font-weight="bold" text-anchor="end" fill="#2457d6">V_BUS</text>
+
+  <!-- BLOCK 3: Math Engine -->
+  <rect x="445" y="115" width="230" height="140" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <text x="560" y="137" font-size="13" font-weight="bold" text-anchor="middle" fill="#27ae60">Математичний блок</text>
+  <text x="560" y="163" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Current = (V_SHUNT × CAL) / 2048</text>
+  <text x="560" y="187" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Power = (Current × V_BUS) / 5000</text>
+  <text x="560" y="217" font-size="12" font-weight="bold" text-anchor="middle" fill="#27ae60">Апаратні обчислення</text>
+  <text x="560" y="235" font-size="12" text-anchor="middle" fill="#6b7280">Без навантаження ЦПУ</text>
+
+  <!-- Connection: CAL -> Math Engine (upward) -->
+  <line x1="500" y1="295" x2="500" y2="255" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="508" y="279" font-size="12" font-weight="bold" fill="#2457d6">CAL (05h)</text>
+
+  <!-- Connection: Math Engine -> Registers (downward) -->
+  <line x1="620" y1="255" x2="620" y2="295" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="628" y="279" font-size="12" font-weight="bold" fill="#27ae60">I, P</text>
+
+  <!-- BLOCK 4: Registers Map -->
+  <rect x="445" y="295" width="230" height="200" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="560" y="317" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Карта регістрів INA226 (16 біт)</text>
+  <line x1="455" y1="325" x2="665" y2="325" stroke="#d0d7de" stroke-width="1"/>
+
+  <text x="455" y="343" font-size="12" fill="#1a1a1a">00h: Config (режим / час)</text>
+  <text x="455" y="362" font-size="12" fill="#1a1a1a">01h: Shunt Voltage (V_SHUNT)</text>
+  <text x="455" y="381" font-size="12" fill="#1a1a1a">02h: Bus Voltage (V_BUS)</text>
+  <text x="455" y="400" font-size="12" font-weight="bold" fill="#27ae60">03h: Power (Потужність P)</text>
+  <text x="455" y="419" font-size="12" font-weight="bold" fill="#27ae60">04h: Current (Струм I)</text>
+  <text x="455" y="438" font-size="12" font-weight="bold" fill="#2457d6">05h: Calibration (CAL)</text>
+  <text x="455" y="457" font-size="12" font-weight="bold" fill="#c0392b">06h: Mask/Enable (ALERT)</text>
+  <text x="455" y="476" font-size="12" font-weight="bold" fill="#c0392b">07h: Alert Limit (Поріг)</text>
+
+  <!-- Connection: Registers -> Alert Logic Block -->
+  <line x1="445" y1="460" x2="285" y2="460" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <text x="365" y="450" font-size="12" font-weight="bold" text-anchor="middle" fill="#c0392b">Поріг / Статус</text>
+
+  <!-- BLOCK 5: Alert Logic Block -->
+  <rect x="120" y="295" width="165" height="200" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="202.5" y="317" font-size="13" font-weight="bold" text-anchor="middle" fill="#c0392b">Логіка ALERT</text>
+  <line x1="130" y1="325" x2="275" y2="325" stroke="#c0392b" stroke-width="0.5"/>
+  <text x="202.5" y="343" font-size="12" text-anchor="middle" fill="#1a1a1a">Контроль меж:</text>
+  <text x="202.5" y="362" font-size="12" text-anchor="middle" fill="#1a1a1a">• Перевантаження I</text>
+  <text x="202.5" y="381" font-size="12" text-anchor="middle" fill="#1a1a1a">• Перенапруга VBUS</text>
+  <text x="202.5" y="400" font-size="12" text-anchor="middle" fill="#1a1a1a">• Заніжена VBUS</text>
+  <text x="202.5" y="419" font-size="12" text-anchor="middle" fill="#1a1a1a">• Потужність P_max</text>
+  <text x="202.5" y="438" font-size="12" text-anchor="middle" fill="#1a1a1a">• Готовність CVRF</text>
+  <text x="202.5" y="472" font-size="12" font-weight="bold" text-anchor="middle" fill="#c0392b">Вихід: ALERT pin</text>
+
+  <!-- Connection: Registers <-> I2C Interface -->
+  <line x1="675" y1="390" x2="705" y2="390" stroke="#2457d6" stroke-width="2" marker-start="url(#arr-blue)" marker-end="url(#arr-blue)"/>
+  <text x="690" y="380" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">Дані</text>
+
+  <!-- BLOCK 6: I2C Interface Block -->
+  <rect x="705" y="115" width="135" height="380" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="772.5" y="137" font-size="13" font-weight="bold" text-anchor="middle" fill="#2457d6">I2C / SMBus шина</text>
+  <text x="772.5" y="153" font-size="12" text-anchor="middle" fill="#6b7280">(До 2.94 МГц)</text>
+
+  <!-- Inner Box 1: Address Decoder -->
+  <rect x="715" y="168" width="115" height="75" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="772.5" y="188" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Декодер адреси</text>
+  <text x="772.5" y="205" font-size="12" text-anchor="middle" fill="#6b7280">Входи A0, A1</text>
+  <text x="772.5" y="227" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">16 адрес I2C</text>
+
+  <!-- Inner Box 2: Serial Logic -->
+  <rect x="715" y="255" width="115" height="225" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="772.5" y="277" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Логіка шини I2C</text>
+  <text x="772.5" y="297" font-size="12" text-anchor="middle" fill="#1a1a1a">• Читання даних</text>
+  <text x="772.5" y="316" font-size="12" text-anchor="middle" fill="#1a1a1a">• Налаштування</text>
+  <text x="772.5" y="335" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">• Запис CAL</text>
+  <line x1="721" y1="347" x2="824" y2="347" stroke="#d0d7de" stroke-width="1"/>
+  <text x="772.5" y="367" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">Контролер шини</text>
+  <text x="772.5" y="387" font-size="12" text-anchor="middle" fill="#6b7280">Буфер даних</text>
+  <text x="772.5" y="407" font-size="12" text-anchor="middle" fill="#1a1a1a">Зв'язок з МК</text>
+  <text x="772.5" y="427" font-size="12" text-anchor="middle" fill="#6b7280">(High-Speed)</text>
+</svg>

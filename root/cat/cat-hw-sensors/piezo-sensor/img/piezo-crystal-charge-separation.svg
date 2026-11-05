@@ -1,0 +1,168 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Background rect MUST be first element -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-accent" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="40" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Прямий п'єзоелектричний ефект у PZT-елементі</text>
+  <text x="480" y="60" font-size="13" fill="#6b7280" text-anchor="middle">Генерування напруги при механічному стисканні та згинанні PZT-диска</text>
+
+  <!-- Panel 1: Crystal Lattice -->
+  <rect x="20" y="85" width="296" height="415" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="168" y="112" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">1. Кристалічна ґратка PZT</text>
+  <text x="168" y="130" font-size="12" fill="#6b7280" text-anchor="middle">Зміщення йона Ti⁴⁺ / Zr⁴⁺</text>
+
+  <!-- Sub-card 1A: Rest State -->
+  <rect x="34" y="145" width="268" height="150" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="168" y="165" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Стан спокою (F = 0)</text>
+
+  <rect x="118" y="190" width="100" height="65" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <!-- Oxygen Corner Circles -->
+  <circle cx="118" cy="190" r="7" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <circle cx="218" cy="190" r="7" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <circle cx="118" cy="255" r="7" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <circle cx="218" cy="255" r="7" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="238" y="195" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="start">O²⁻</text>
+
+  <!-- Ti Ion -->
+  <circle cx="168" cy="222" r="12" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="168" y="226" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Ti⁴⁺</text>
+  <text x="168" y="282" font-size="12" fill="#6b7280" text-anchor="middle">Центри зарядів збігаються (p = 0)</text>
+
+  <!-- Sub-card 1B: Compression -->
+  <rect x="34" y="315" width="268" height="170" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="168" y="335" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Стискання кристала (F &gt; 0)</text>
+
+  <line x1="168" y1="340" x2="168" y2="363" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-accent)"/>
+  <text x="180" y="354" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="start">F</text>
+  <line x1="168" y1="445" x2="168" y2="423" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-accent)"/>
+
+  <rect x="118" y="368" width="100" height="50" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <circle cx="118" cy="368" r="7" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <circle cx="218" cy="368" r="7" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <circle cx="118" cy="418" r="7" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <circle cx="218" cy="418" r="7" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+
+  <!-- Shifted Ti Ion -->
+  <circle cx="168" cy="383" r="11" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="168" y="387" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Ti⁴⁺</text>
+
+  <!-- Dipole Vector -->
+  <line x1="85" y1="413" x2="85" y2="383" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="72" y="402" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="end">p</text>
+
+  <text x="168" y="472" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Зміщення йона ➔ Поляризація ΔQ</text>
+
+  <!-- Panel 2: Direct Compression -->
+  <rect x="332" y="85" width="296" height="415" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="480" y="112" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">2. Прямий тиск (стискання)</text>
+  <text x="480" y="130" font-size="12" fill="#6b7280" text-anchor="middle">Розділення зарядів на обкладках</text>
+
+  <rect x="346" y="145" width="268" height="340" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="480" y1="151" x2="480" y2="173" stroke="#2457d6" stroke-width="3" marker-end="url(#arr-accent)"/>
+  <text x="492" y="167" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="start">Сила F</text>
+
+  <!-- Top Electrode -->
+  <rect x="386" y="182" width="188" height="16" rx="2" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="480" y="194" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Верхній електрод (+)</text>
+
+  <!-- PZT Ceramic Layer -->
+  <rect x="376" y="210" width="208" height="55" rx="3" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Top Positive Charges -->
+  <circle cx="396" cy="222" r="5" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="396" y="225" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">+</text>
+  <circle cx="426" cy="222" r="5" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="426" y="225" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">+</text>
+  <circle cx="534" cy="222" r="5" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="534" y="225" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">+</text>
+  <circle cx="564" cy="222" r="5" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="564" y="225" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">+</text>
+
+  <text x="480" y="241" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">П'єзокераміка PZT</text>
+
+  <!-- Bottom Negative Charges -->
+  <circle cx="396" cy="252" r="5" fill="#fdecea" stroke="#c0392b"/>
+  <text x="396" y="255" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">-</text>
+  <circle cx="426" cy="252" r="5" fill="#fdecea" stroke="#c0392b"/>
+  <text x="426" y="255" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">-</text>
+  <circle cx="534" cy="252" r="5" fill="#fdecea" stroke="#c0392b"/>
+  <text x="534" y="255" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">-</text>
+  <circle cx="564" cy="252" r="5" fill="#fdecea" stroke="#c0392b"/>
+  <text x="564" y="255" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">-</text>
+
+  <!-- Bottom Substrate -->
+  <rect x="366" y="278" width="228" height="18" rx="2" fill="#d0d7de" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="480" y="291" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Металева основа (-)</text>
+
+  <!-- Reaction Supports -->
+  <line x1="396" y1="325" x2="396" y2="300" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <line x1="564" y1="325" x2="564" y2="300" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="480" y="318" font-size="12" fill="#6b7280" text-anchor="middle">Жорстка опора</text>
+
+  <!-- Wires & Voltmeter -->
+  <path d="M 574 190 L 595 190 L 595 365 L 535 365" fill="none" stroke="#2457d6" stroke-width="1.5"/>
+  <path d="M 594 287 L 605 287 L 605 395 L 535 395" fill="none" stroke="#c0392b" stroke-width="1.5"/>
+
+  <rect x="425" y="348" width="110" height="58" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="480" y="370" font-size="14" font-weight="bold" fill="#27ae60" text-anchor="middle">V_out &gt; 0 В</text>
+  <text x="480" y="392" font-size="12" fill="#1a1a1a" text-anchor="middle">Імпульс напруги</text>
+
+  <rect x="360" y="432" width="240" height="38" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="480" y="455" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">V = ΔQ / C   (де ΔQ ∝ F)</text>
+
+  <!-- Panel 3: Bending Mode -->
+  <rect x="644" y="85" width="296" height="415" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="792" y="112" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">3. Згинання п'єзомембрани</text>
+  <text x="792" y="130" font-size="12" fill="#6b7280" text-anchor="middle">Вимірювання вібрацій та стуків</text>
+
+  <rect x="658" y="145" width="268" height="340" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="792" y1="151" x2="792" y2="177" stroke="#c0392b" stroke-width="3" marker-end="url(#arr-red)"/>
+  <text x="804" y="167" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="start">Удар F</text>
+
+  <rect x="672" y="215" width="16" height="25" rx="2" fill="#d0d7de" stroke="#6b7280"/>
+  <rect x="896" y="215" width="16" height="25" rx="2" fill="#d0d7de" stroke="#6b7280"/>
+
+  <path d="M 688 215 Q 792 245 896 215" fill="none" stroke="#d0d7de" stroke-width="8"/>
+  <path d="M 698 208 Q 792 236 886 208" fill="none" stroke="#2457d6" stroke-width="6"/>
+
+  <text x="735" y="204" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">+</text>
+  <text x="765" y="212" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">+</text>
+  <text x="792" y="215" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">+</text>
+  <text x="819" y="212" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">+</text>
+  <text x="849" y="204" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">+</text>
+
+  <text x="792" y="260" font-size="12" fill="#6b7280" text-anchor="middle">Деформація вигинає кристали</text>
+
+  <!-- Oscillogram Sub-card -->
+  <rect x="670" y="278" width="244" height="138" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="792" y="296" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Сигнал напруги V_out(t)</text>
+
+  <line x1="690" y1="400" x2="690" y2="310" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="682" y="316" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">V</text>
+  <line x1="690" y1="365" x2="898" y2="365" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="904" y="369" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">t</text>
+
+  <line x1="690" y1="365" x2="890" y2="365" stroke="#d0d7de" stroke-dasharray="3,3"/>
+  <path d="M 690 365 Q 705 305 725 365 T 760 365 T 795 365 T 830 365 L 865 365" fill="none" stroke="#2457d6" stroke-width="2"/>
+
+  <line x1="690" y1="308" x2="705" y2="308" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="2,2"/>
+  <text x="715" y="322" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="start">V_peak</text>
+
+  <rect x="672" y="432" width="240" height="38" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="792" y="455" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Амплітуда V_peak ∝ Енергія удару</text>
+</svg>

@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="38" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Розв'язка живлення та фільтрація в схемі BISS0001</text>
+  <text x="480" y="60" text-anchor="middle" font-size="13" fill="#6b7280">RC-фільтри та шунтування для поділу аналогової і цифрової частин контролера</text>
+
+  <!-- Джерело живлення -->
+  <rect x="50" y="180" width="100" height="70" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="100" y="212" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">VCC</text>
+  <text x="100" y="232" text-anchor="middle" font-size="12" fill="#6b7280">+3V ... +5V</text>
+
+  <!-- Лінія живлення -->
+  <path d="M 150 215 L 220 215" fill="none" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+
+  <!-- RC Фільтр живлення аналогової частини -->
+  <rect x="220" y="150" width="220" height="130" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="330" y="178" text-anchor="middle" font-size="14" font-weight="bold" fill="#2457d6">Аналогове живлення (VDD)</text>
+
+  <!-- Резистор фільтра -->
+  <path d="M 240 215 L 260 215 L 265 205 L 275 225 L 285 205 L 295 225 L 305 205 L 315 225 L 320 215 L 340 215" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="290" y="196" text-anchor="middle" font-size="12" fill="#1a1a1a">R1 (100 Ом)</text>
+
+  <!-- Конденсатор фільтра -->
+  <path d="M 380 215 L 380 245" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+  <path d="M 370 245 L 390 245" fill="none" stroke="#1a1a1a" stroke-width="3"/>
+  <path d="M 370 253 L 390 253" fill="none" stroke="#1a1a1a" stroke-width="3"/>
+  <path d="M 380 253 L 380 280" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="415" y="252" text-anchor="start" font-size="12" fill="#1a1a1a">C1 (10 мкФ)</text>
+  <text x="415" y="268" text-anchor="start" font-size="12" fill="#6b7280">електроліт</text>
+
+  <!-- Додатковий блокувальний керамічний конденсатор -->
+  <rect x="500" y="150" width="180" height="130" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="590" y="178" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Шунтування біля виводів</text>
+  
+  <path d="M 440 215 L 530 215" fill="none" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+  
+  <path d="M 570 215 L 570 245" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+  <path d="M 562 245 L 578 245" fill="none" stroke="#1a1a1a" stroke-width="3"/>
+  <path d="M 562 251 L 578 251" fill="none" stroke="#1a1a1a" stroke-width="3"/>
+  <path d="M 570 251 L 570 280" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="600" y="252" text-anchor="start" font-size="12" fill="#1a1a1a">C2 (0.1 мкФ)</text>
+  <text x="600" y="268" text-anchor="start" font-size="12" fill="#6b7280">кераміка</text>
+
+  <!-- Вихід на мікросхему BISS0001 -->
+  <path d="M 680 215 L 750 215" fill="none" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+
+  <rect x="750" y="180" width="160" height="70" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="830" y="212" text-anchor="middle" font-size="14" font-weight="bold" fill="#27ae60">BISS0001</text>
+  <text x="830" y="232" text-anchor="middle" font-size="12" fill="#6b7280">Вивод VDD / VSS</text>
+
+  <!-- Земля (GND) загальна шина -->
+  <path d="M 380 280 L 410 280" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+  <path d="M 385 285 L 405 285" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+  <path d="M 392 290 L 398 290" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+
+  <path d="M 570 280 L 600 280" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+  <path d="M 575 285 L 595 285" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+  <path d="M 582 290 L 588 290" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Пояснювальний блок знизу -->
+  <rect x="50" y="320" width="860" height="100" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="70" y="348" font-size="13" font-weight="bold" fill="#1a1a1a">Призначення елементів розв'язки:</text>
+  <text x="70" y="370" font-size="12" fill="#6b7280">• R1 та C1 утворюють фільтр низьких частот для придушення пульсацій живлення та перешкод від цифрових кіл.</text>
+  <text x="70" y="392" font-size="12" fill="#6b7280">• C2 (керамічний 0.1 мкФ) встановлюється якомога ближче до виводів живлення для шунтування ВЧ-завад.</text>
+
+  <!-- Визначення маркерів стрілок -->
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+</svg>

@@ -1,0 +1,147 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <defs>
+    <!-- Маркери для стрілок напрямку струму та сигналів -->
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Схема апаратного захисту входу АЦП від сплесків напруги п'єзоелемента</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Обмежувальний резистор R_lim та діоди Шотткі VD1–VD2 утримують напругу в безпечних межах АЦП</text>
+
+  <!-- ГОЛОВНА ПАНЕЛЬ СХЕМИ -->
+  <rect x="40" y="75" width="880" height="255" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="60" y="98" font-size="13" font-weight="bold" fill="#2457d6">ГОЛОВНА ЕЛЕКТРИЧНА СХЕМА</text>
+
+  <!-- П'ЄЗОЕЛЕМЕНТ (ZP) -->
+  <!-- Підписи п'єзоелемента -->
+  <text x="110" y="118" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">П'єзоелемент ZP</text>
+  <text x="110" y="133" font-size="12" fill="#6b7280" text-anchor="middle">(високовольтне джерело)</text>
+
+  <!-- Символ п'єзоелемента -->
+  <line x1="90" y1="175" x2="130" y2="175" stroke="#1a1a1a" stroke-width="2"/>
+  <rect x="95" y="179" width="30" height="22" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="90" y1="205" x2="130" y2="205" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- З'єднання п'єзоелемента -->
+  <line x1="110" y1="150" x2="110" y2="175" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="110" y1="205" x2="110" y2="265" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- НАВАНТАЖУВАЛЬНИЙ РЕЗИСТОР R_L -->
+  <text x="230" y="133" font-size="12" fill="#6b7280" text-anchor="middle">Навантаження</text>
+  <!-- Провід та резистор R_L -->
+  <line x1="230" y1="150" x2="230" y2="185" stroke="#1a1a1a" stroke-width="2"/>
+  <rect x="218" y="185" width="24" height="50" fill="white" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="230" y1="235" x2="230" y2="265" stroke="#1a1a1a" stroke-width="2"/>
+  <!-- Підписи R_L -->
+  <text x="210" y="202" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="end">R_L</text>
+  <text x="210" y="217" font-size="12" fill="#6b7280" text-anchor="end">1 МОм</text>
+
+  <!-- СИГНАЛЬНА ЛІНІЯ (П'єзо -> R_lim) -->
+  <line x1="110" y1="150" x2="340" y2="150" stroke="#1a1a1a" stroke-width="2"/>
+  <!-- Вузли на сигнальній лінії -->
+  <circle cx="110" cy="150" r="3.5" fill="#1a1a1a"/>
+  <circle cx="230" cy="150" r="3.5" fill="#1a1a1a"/>
+
+  <!-- СТРУМООБМЕЖУВАЛЬНИЙ РЕЗИСТОР R_lim -->
+  <rect x="340" y="138" width="60" height="24" fill="white" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="370" y="116" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">R_lim</text>
+  <text x="370" y="130" font-size="12" fill="#6b7280" text-anchor="middle">10 кОм</text>
+  <text x="370" y="182" font-size="12" fill="#2457d6" text-anchor="middle">Обмеження струму</text>
+
+  <!-- СИГНАЛЬНА ЛІНІЯ (R_lim -> Вузол захисту U_in) -->
+  <line x1="400" y1="150" x2="490" y2="150" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- ВУЗОЛ ЗАХИСТУ U_in -->
+  <circle cx="490" cy="150" r="4.5" fill="#1a1a1a"/>
+  <text x="475" y="144" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="end">U_in</text>
+
+  <!-- ШИНА ЖИВЛЕННЯ +V_CC -->
+  <line x1="440" y1="105" x2="540" y2="105" stroke="#2457d6" stroke-width="2.5"/>
+  <text x="490" y="95" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">+V_CC (+3.3 В)</text>
+
+  <!-- ВЕРХНІЙ ДІОД ШОТТКІ VD2 (до +V_CC) -->
+  <line x1="490" y1="150" x2="490" y2="138" stroke="#1a1a1a" stroke-width="2"/>
+  <!-- Трикутник анода (вгору) -->
+  <polygon points="482,138 498,138 490,120" fill="#1a1a1a"/>
+  <!-- Катодний бар Шотткі (з закарлючками) -->
+  <path d="M480,120 L482,120 L482,123 M482,120 L498,120 L498,117" stroke="#1a1a1a" stroke-width="2" fill="none"/>
+  <line x1="490" y1="120" x2="490" y2="105" stroke="#1a1a1a" stroke-width="2"/>
+  <!-- Підпис VD2 -->
+  <text x="508" y="124" font-size="13" font-weight="bold" fill="#1a1a1a">VD2</text>
+  <text x="508" y="138" font-size="12" fill="#6b7280">Шотткі</text>
+
+  <!-- НИЖНІЙ ДІОД ШОТТКІ VD1 (від GND) -->
+  <line x1="490" y1="150" x2="490" y2="162" stroke="#1a1a1a" stroke-width="2"/>
+  <!-- Катодний бар Шотткі (з закарлючками) -->
+  <path d="M480,162 L482,162 L482,165 M482,162 L498,162 L498,159" stroke="#1a1a1a" stroke-width="2" fill="none"/>
+  <!-- Трикутник анода (вгору від 180 до 162) -->
+  <polygon points="482,180 498,180 490,162" fill="#1a1a1a"/>
+  <line x1="490" y1="180" x2="490" y2="265" stroke="#1a1a1a" stroke-width="2"/>
+  <!-- Підпис VD1 -->
+  <text x="508" y="170" font-size="13" font-weight="bold" fill="#1a1a1a">VD1</text>
+  <text x="508" y="184" font-size="12" fill="#6b7280">Шотткі</text>
+
+  <!-- СИГНАЛЬНА ЛІНІЯ (Вузол U_in -> АЦП МК) -->
+  <line x1="490" y1="150" x2="630" y2="150" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arr-green)"/>
+
+  <!-- БЛОК МІКРОКОНТРОЛЕРА / АЦП -->
+  <rect x="630" y="105" width="260" height="190" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="2"/>
+  <circle cx="630" cy="150" r="4.5" fill="#2457d6"/>
+  <text x="760" y="128" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">Мікроконтролер (МК)</text>
+  <text x="642" y="144" font-size="12" font-weight="bold" fill="#1a1a1a">Вхід АЦП (ADC_IN)</text>
+  <text x="760" y="175" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Безпечна напруга на вході:</text>
+  <text x="760" y="196" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">-0.3 В ... (V_CC + 0.3 В)</text>
+  <text x="760" y="225" font-size="12" fill="#6b7280" text-anchor="middle">Внутрішній опір АЦП R_in &gt;&gt; R_lim</text>
+  <text x="760" y="245" font-size="12" fill="#6b7280" text-anchor="middle">Захист вхідного каскаду від пробою</text>
+
+  <!-- ШИНА ЗЕМЛІ GND -->
+  <line x1="110" y1="265" x2="630" y2="265" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="110" cy="265" r="3.5" fill="#1a1a1a"/>
+  <circle cx="230" cy="265" r="3.5" fill="#1a1a1a"/>
+  <circle cx="490" cy="265" r="3.5" fill="#1a1a1a"/>
+
+  <!-- Позначення землі (GND) -->
+  <line x1="370" y1="265" x2="370" y2="275" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="358" y1="275" x2="382" y2="275" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="363" y1="279" x2="377" y2="279" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="367" y1="283" x2="373" y2="283" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="370" y="300" font-size="12" fill="#6b7280" text-anchor="middle">GND (0 В)</text>
+
+  <!-- НИЖНІ ПАНЕЛІ ПОЯСНЕННЯ РЕЖИМІВ ЗАХИСТУ -->
+
+  <!-- Ліва панель: Позитивний сплесок -->
+  <rect x="40" y="350" width="425" height="170" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="60" y="374" font-size="13" font-weight="bold" fill="#2457d6">РЕЖИМ 1: ПОЗИТИВНИЙ СПЛЕСОК (U_piezo &gt; +V_CC)</text>
+  <text x="60" y="396" font-size="12" fill="#1a1a1a">• U_in зростає та відкриває верхній діод VD2</text>
+  <text x="60" y="414" font-size="12" fill="#1a1a1a">• Струм сплеску шунтується через VD2 у шину +V_CC</text>
+  <text x="60" y="432" font-size="12" fill="#1a1a1a">• Резистор R_lim обмежує струм через діод на безпечному рівні</text>
+
+  <rect x="58" y="446" width="389" height="62" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+  <text x="252" y="467" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Результат: U_in фіксується на рівні ≈ V_CC + 0.3 В</text>
+  <text x="252" y="490" font-size="12" fill="#6b7280" text-anchor="middle">(захист вхідного транзистора АЦП від перенапруги)</text>
+
+  <!-- Права панель: Негативний сплесок -->
+  <rect x="495" y="350" width="425" height="170" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="515" y="374" font-size="13" font-weight="bold" fill="#c0392b">РЕЖИМ 2: НЕГАТИВНИЙ СПЛЕСОК (U_piezo &lt; 0 В)</text>
+  <text x="515" y="396" font-size="12" fill="#1a1a1a">• U_in падає нижче нуля та відкриває нижній діод VD1</text>
+  <text x="515" y="414" font-size="12" fill="#1a1a1a">• Захисний струм випливає з землі GND через VD1 і R_lim</text>
+  <text x="515" y="432" font-size="12" fill="#1a1a1a">• Запобігає інверсії полярності та пробою p-n переходу</text>
+
+  <rect x="513" y="446" width="389" height="62" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+  <text x="707" y="467" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Результат: U_in фіксується на рівні ≈ -0.3 В</text>
+  <text x="707" y="490" font-size="12" fill="#6b7280" text-anchor="middle">(блокування негативного потенціалу на вході)</text>
+</svg>

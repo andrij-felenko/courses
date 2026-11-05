@@ -1,0 +1,151 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Canvas background -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="36" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Шляхи захоплення пікселів: програмне опитування GPIO проти DCMI + DMA</text>
+  <text x="480" y="60" font-size="13" fill="#6b7280" text-anchor="middle">Апаратний DCMI з DMA розвантажує процесор до 0% та запобігає втраті даних на високих частотах PIXCLK</text>
+
+  <!-- ==================== LEFT PANEL: GPIO Polling ==================== -->
+  <rect x="30" y="82" width="435" height="432" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <text x="247.5" y="108" font-size="15" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Програмне опитування (GPIO Polling)</text>
+
+  <!-- Problem Badge -->
+  <rect x="50" y="120" width="395" height="26" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="247.5" y="137" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">100% завантаження ядра CPU • Високий ризик втрати пікселів</text>
+
+  <!-- Block 1: Sensor OV2640 -->
+  <rect x="50" y="158" width="395" height="42" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="247.5" y="175" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Сенсор OV2640 (потік даних D[7:0] + PIXCLK)</text>
+  <text x="247.5" y="191" font-size="12" fill="#6b7280" text-anchor="middle">Неперервний вивід байтів на кожному такті піксельного клоку</text>
+
+  <!-- Arrow 1 -->
+  <line x1="247.5" y1="200" x2="247.5" y2="222" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="262" y="215" font-size="12" fill="#c0392b" text-anchor="start">8-бітна паралельна шина</text>
+
+  <!-- Block 2: GPIO Input Register -->
+  <rect x="50" y="224" width="395" height="42" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="247.5" y="241" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Порт GPIO (регістр вхідних даних GPIOx_IDR)</text>
+  <text x="247.5" y="257" font-size="12" fill="#6b7280" text-anchor="middle">Немає апаратного FIFO; фіксує лише поточний стан пінів</text>
+
+  <!-- Arrow 2 -->
+  <line x1="247.5" y1="266" x2="247.5" y2="288" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="262" y="281" font-size="12" fill="#c0392b" text-anchor="start">Постійне опитування в циклі</text>
+
+  <!-- Block 3: CPU Core (Bottleneck) -->
+  <rect x="50" y="290" width="395" height="58" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="247.5" y="309" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">Ядро CPU: блокуючий цикл опитування та зсуву</text>
+  <text x="247.5" y="325" font-size="12" fill="#1a1a1a" text-anchor="middle">while(!(IDR &amp; CLK)); read IDR; mask; write SRAM;</text>
+  <text x="247.5" y="340" font-size="12" fill="#6b7280" text-anchor="middle">100% завантаження ядра; будь-яке стороннє IRQ спричиняє пропуск</text>
+
+  <!-- Arrow 3 -->
+  <line x1="247.5" y1="348" x2="247.5" y2="370" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="262" y="363" font-size="12" fill="#c0392b" text-anchor="start">Побайтний запис по шині AHB</text>
+
+  <!-- Block 4: Framebuffer SRAM -->
+  <rect x="50" y="372" width="395" height="42" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="247.5" y="389" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Буфер кадру в оперативній пам'яті (SRAM)</text>
+  <text x="247.5" y="405" font-size="12" fill="#6b7280" text-anchor="middle">Нерівномірна швидкість запису, високий фазовий джитер</text>
+
+  <!-- Left Metrics Box -->
+  <rect x="50" y="426" width="395" height="76" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+  <text x="62" y="445" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="start">• Гранична частота:</text>
+  <text x="205" y="445" font-size="12" fill="#1a1a1a" text-anchor="start">PIXCLK ≤ 2–4 МГц (ризик пропуску)</text>
+  <text x="62" y="465" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="start">• Навантаження CPU:</text>
+  <text x="205" y="465" font-size="12" fill="#1a1a1a" text-anchor="start">100% (ядро заблоковане в циклі)</text>
+  <text x="62" y="485" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="start">• Стійкість потоку:</text>
+  <text x="205" y="485" font-size="12" fill="#1a1a1a" text-anchor="start">Низька (переривання збивають кадр)</text>
+
+  <!-- ==================== RIGHT PANEL: DCMI + DMA ==================== -->
+  <rect x="495" y="82" width="435" height="432" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <text x="712.5" y="108" font-size="15" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Апаратний конвеєр (DCMI + DMA)</text>
+
+  <!-- Solution Badge -->
+  <rect x="515" y="120" width="395" height="26" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="712.5" y="137" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">0% навантаження ядра CPU • Апаратна швидкість до 54 МГц</text>
+
+  <!-- Block 1: Sensor OV2640 -->
+  <rect x="515" y="158" width="240" height="42" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="635" y="175" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Сенсор OV2640</text>
+  <text x="635" y="191" font-size="12" fill="#6b7280" text-anchor="middle">D[7:0], PIXCLK, HSYNC, VSYNC</text>
+
+  <!-- Arrow 1 (Datapath) -->
+  <line x1="635" y1="200" x2="635" y2="222" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="646" y="215" font-size="12" fill="#2457d6" text-anchor="start">Апаратні строби</text>
+
+  <!-- Block 2: DCMI Peripheral -->
+  <rect x="515" y="224" width="240" height="52" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="635" y="244" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Апаратний блок DCMI</text>
+  <text x="635" y="262" font-size="12" fill="#1a1a1a" text-anchor="middle">FIFO 4×32 біт + пакування слів</text>
+
+  <!-- Arrow 2 (Datapath) -->
+  <line x1="635" y1="276" x2="635" y2="296" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="646" y="289" font-size="12" fill="#27ae60" text-anchor="start">DCMI_DMA_REQ</text>
+
+  <!-- Block 3: DMA Controller -->
+  <rect x="515" y="298" width="240" height="52" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="635" y="318" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Контролер DMA2 (Stream 1)</text>
+  <text x="635" y="336" font-size="12" fill="#1a1a1a" text-anchor="middle">Burst-передача 32-біт по AHB</text>
+
+  <!-- Arrow 3 (Datapath) -->
+  <line x1="635" y1="350" x2="635" y2="370" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="646" y="363" font-size="12" fill="#27ae60" text-anchor="start">Прямий запис AHB</text>
+
+  <!-- Block 4: Framebuffer SRAM -->
+  <rect x="515" y="372" width="240" height="42" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="635" y="389" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Буфер кадру (SRAM / SDRAM)</text>
+  <text x="635" y="405" font-size="12" fill="#27ae60" text-anchor="middle">Double-buffer: M0 / M1</text>
+
+  <!-- CPU Core Block (Parallel / Independent, Full Height from 158 to 414) -->
+  <rect x="770" y="158" width="140" height="256" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="840" y="180" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">Ядро CPU</text>
+
+  <rect x="780" y="190" width="120" height="22" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="840" y="205" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">0% навантаження</text>
+
+  <text x="840" y="232" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Паралельні задачі:</text>
+  <text x="840" y="250" font-size="12" fill="#6b7280" text-anchor="middle">• Алгоритми CV</text>
+  <text x="840" y="268" font-size="12" fill="#6b7280" text-anchor="middle">• Стиснення JPEG</text>
+  <text x="840" y="286" font-size="12" fill="#6b7280" text-anchor="middle">• Вивід на TFT LCD</text>
+  <text x="840" y="304" font-size="12" fill="#6b7280" text-anchor="middle">• Стек LwIP / Wi-Fi</text>
+  <text x="840" y="322" font-size="12" fill="#6b7280" text-anchor="middle">• Задачі FreeRTOS</text>
+
+  <line x1="780" y1="334" x2="900" y2="334" stroke="#d0d7de" stroke-width="1"/>
+
+  <text x="840" y="352" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Апаратні події:</text>
+  <text x="840" y="370" font-size="12" fill="#1a1a1a" text-anchor="middle">• DMA TC (кадр готовий)</text>
+  <text x="840" y="388" font-size="12" fill="#1a1a1a" text-anchor="middle">• DCMI VSYNC (кадр)</text>
+  <text x="840" y="405" font-size="12" fill="#27ae60" text-anchor="middle">Читання буфера M0/M1</text>
+
+  <!-- Interrupt Arrow from DMA to CPU -->
+  <path d="M755,324 L768,324" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="3,2" marker-end="url(#arr-blue)"/>
+
+  <!-- Read Buffer Arrow from SRAM to CPU -->
+  <path d="M755,393 L768,393" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="3,2" marker-end="url(#arr-green)"/>
+
+  <!-- Right Metrics Box -->
+  <rect x="515" y="426" width="395" height="76" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="527" y="445" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="start">• Гранична частота:</text>
+  <text x="670" y="445" font-size="12" fill="#1a1a1a" text-anchor="start">PIXCLK до 54 МГц (максимум сенсора)</text>
+  <text x="527" y="465" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="start">• Навантаження CPU:</text>
+  <text x="670" y="465" font-size="12" fill="#1a1a1a" text-anchor="start">0% на перенесення (ядро повністю вільне)</text>
+  <text x="527" y="485" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="start">• Стійкість потоку:</text>
+  <text x="670" y="485" font-size="12" fill="#1a1a1a" text-anchor="start">Висока (FIFO гасить затримки шини AHB)</text>
+</svg>

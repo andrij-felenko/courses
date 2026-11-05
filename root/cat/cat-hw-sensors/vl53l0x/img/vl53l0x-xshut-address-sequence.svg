@@ -1,0 +1,148 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 530" width="960" height="530" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="530" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="30" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Послідовна ініціалізація та перепризначення I2C-адрес VL53L0X</text>
+  <text x="480" y="52" text-anchor="middle" font-size="13" fill="#6b7280">Почергове зняття XSHUT запобігає конфлікту дефолтної адреси 0x29 на спільній шині</text>
+
+  <!-- Timeline Step Headers -->
+  <rect x="180" y="72" width="140" height="32" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="250" y="92" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Усі в Reset (0V)</text>
+
+  <rect x="325" y="72" width="150" height="32" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="400" y="92" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Крок 1: 0x29 → 0x30</text>
+
+  <rect x="485" y="72" width="150" height="32" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="560" y="92" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Крок 2: 0x29 → 0x31</text>
+
+  <rect x="645" y="72" width="150" height="32" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="720" y="92" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Крок 3: 0x29 → 0x32</text>
+
+  <rect x="805" y="72" width="135" height="32" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="872" y="92" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Робочий режим</text>
+
+  <!-- Vertical Phase Separators (Dashed) -->
+  <line x1="322" y1="112" x2="322" y2="442" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <line x1="482" y1="112" x2="482" y2="442" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <line x1="642" y1="112" x2="642" y2="442" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <line x1="802" y1="112" x2="802" y2="442" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="4,4"/>
+
+  <!-- Left Sidebar Panel -->
+  <rect x="20" y="118" width="150" height="325" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Row 1 Label -->
+  <text x="35" y="142" font-size="13" font-weight="bold" fill="#1a1a1a">XSHUT 1</text>
+  <text x="35" y="157" font-size="12" fill="#6b7280">(Давач 1)</text>
+
+  <!-- Row 2 Label -->
+  <text x="35" y="207" font-size="13" font-weight="bold" fill="#1a1a1a">XSHUT 2</text>
+  <text x="35" y="222" font-size="12" fill="#6b7280">(Давач 2)</text>
+
+  <!-- Row 3 Label -->
+  <text x="35" y="272" font-size="13" font-weight="bold" fill="#1a1a1a">XSHUT 3</text>
+  <text x="35" y="287" font-size="12" fill="#6b7280">(Давач 3)</text>
+
+  <line x1="28" y1="306" x2="162" y2="306" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Row 4 Label -->
+  <text x="35" y="337" font-size="13" font-weight="bold" fill="#1a1a1a">Шина I2C</text>
+  <text x="35" y="352" font-size="12" fill="#6b7280">(SDA / SCL)</text>
+
+  <line x1="28" y1="374" x2="162" y2="374" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Row 5 Label -->
+  <text x="35" y="405" font-size="13" font-weight="bold" fill="#1a1a1a">Активні адреси</text>
+  <text x="35" y="420" font-size="12" fill="#6b7280">(стан на шині)</text>
+
+  <!-- Row 1: XSHUT 1 State Blocks -->
+  <rect x="180" y="132" width="140" height="26" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="250" y="149" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">LOW (Reset)</text>
+
+  <rect x="325" y="132" width="150" height="26" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="400" y="149" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">HIGH (0x29 → 0x30)</text>
+
+  <rect x="485" y="132" width="455" height="26" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="712" y="149" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">HIGH (Активний на адресі 0x30)</text>
+
+  <!-- Row 2: XSHUT 2 State Blocks -->
+  <rect x="180" y="197" width="295" height="26" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="327" y="214" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">LOW (Reset / Вимкнено)</text>
+
+  <rect x="485" y="197" width="150" height="26" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="560" y="214" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">HIGH (0x29 → 0x31)</text>
+
+  <rect x="645" y="197" width="295" height="26" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="792" y="214" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">HIGH (Активний на адресі 0x31)</text>
+
+  <!-- Row 3: XSHUT 3 State Blocks -->
+  <rect x="180" y="262" width="455" height="26" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="407" y="279" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">LOW (Reset / Вимкнено)</text>
+
+  <rect x="645" y="262" width="150" height="26" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="720" y="279" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">HIGH (0x29 → 0x32)</text>
+
+  <rect x="805" y="262" width="135" height="26" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="872" y="279" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">HIGH (0x32)</text>
+
+  <!-- Row 4: I2C Bus Operations -->
+  <rect x="180" y="327" width="140" height="34" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-dasharray="3,3"/>
+  <text x="250" y="348" text-anchor="middle" font-size="12" fill="#6b7280">Шина вільна</text>
+
+  <rect x="325" y="327" width="150" height="34" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="400" y="341" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">WRITE 0x29 ➔ 0x30</text>
+  <text x="400" y="355" text-anchor="middle" font-size="12" fill="#1a1a1a">Запис адреси #1</text>
+
+  <rect x="485" y="327" width="150" height="34" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="560" y="341" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">WRITE 0x29 ➔ 0x31</text>
+  <text x="560" y="355" text-anchor="middle" font-size="12" fill="#1a1a1a">Запис адреси #2</text>
+
+  <rect x="645" y="327" width="150" height="34" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="720" y="341" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">WRITE 0x29 ➔ 0x32</text>
+  <text x="720" y="355" text-anchor="middle" font-size="12" fill="#1a1a1a">Запис адреси #3</text>
+
+  <rect x="805" y="327" width="135" height="34" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="872" y="341" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">READ 0x30..0x32</text>
+  <text x="872" y="355" text-anchor="middle" font-size="12" fill="#1a1a1a">Опитування ToF</text>
+
+  <!-- Row 5: Bus Active Addresses -->
+  <rect x="180" y="395" width="140" height="34" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="250" y="409" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Немає пристроїв</text>
+  <text x="250" y="423" text-anchor="middle" font-size="12" fill="#6b7280">(шина порожня)</text>
+
+  <rect x="325" y="395" width="150" height="34" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="400" y="409" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">0x29 ➔ 0x30</text>
+  <text x="400" y="423" text-anchor="middle" font-size="12" fill="#1a1a1a">Зайнято: [0x30]</text>
+
+  <rect x="485" y="395" width="150" height="34" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="560" y="409" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">0x29 ➔ 0x31</text>
+  <text x="560" y="423" text-anchor="middle" font-size="12" fill="#1a1a1a">Зайнято: [0x30, 0x31]</text>
+
+  <rect x="645" y="395" width="150" height="34" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="720" y="409" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">0x29 ➔ 0x32</text>
+  <text x="720" y="423" text-anchor="middle" font-size="12" fill="#1a1a1a">Зайнято: 3 давачі</text>
+
+  <rect x="805" y="395" width="135" height="34" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="872" y="409" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Готово до роботи</text>
+  <text x="872" y="423" text-anchor="middle" font-size="12" fill="#1a1a1a">0x30, 0x31, 0x32</text>
+
+  <!-- Bottom Explanatory Panel -->
+  <rect x="20" y="455" width="920" height="58" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <rect x="35" y="468" width="125" height="32" rx="4" fill="#27ae60"/>
+  <text x="97" y="488" text-anchor="middle" font-size="12" font-weight="bold" fill="white">ПРИНЦИП РОБОТИ</text>
+
+  <text x="175" y="478" font-size="12" font-weight="bold" fill="#1a1a1a">Чому це працює: Збереження інших давачів у Reset (XSHUT=0) ізолює дефолтну адресу 0x29.</text>
+  <text x="175" y="497" font-size="12" fill="#6b7280">Нова адреса (0x30, 0x31, 0x32) зберігається в RAM VL53L0X до повного зняття живлення VDD.</text>
+</svg>

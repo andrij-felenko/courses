@@ -1,0 +1,241 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Canvas Background -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Main Header -->
+  <text x="480" y="28" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Топології підключення RTD за стандартом IEC 60751</text>
+  <text x="480" y="50" font-size="13" fill="#6b7280" text-anchor="middle">Відокремлення струмових кіл збудження від вимірювальних усуває похибку опору кабелю</text>
+
+  <!-- ==================== ПАНЕЛЬ 1: 2-ПРОВІДНА СХЕМА ==================== -->
+  <rect x="24" y="68" width="288" height="432" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="168" y="94" font-size="15" font-weight="bold" fill="#1a1a1a" text-anchor="middle">2-провідна схема</text>
+  
+  <rect x="52" y="106" width="232" height="24" rx="12" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="168" y="122" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Без компенсації: +2·R_L</text>
+
+  <!-- Схема 1: Внутрішня картка -->
+  <rect x="36" y="136" width="264" height="180" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="72" y="153" font-size="12" fill="#6b7280" text-anchor="middle">Прилад</text>
+  <text x="181" y="153" font-size="12" fill="#6b7280" text-anchor="middle">Кабель</text>
+  <text x="269" y="153" font-size="12" fill="#6b7280" text-anchor="middle">Сенсор</text>
+
+  <!-- Інструмент: джерело струму та вольтметр -->
+  <line x1="72" y1="195" x2="52" y2="195" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="52" y1="195" x2="52" y2="212" stroke="#2457d6" stroke-width="1.5"/>
+  <circle cx="52" cy="220" r="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <path d="M 52 224 L 52 216" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  
+  <line x1="52" y1="228" x2="52" y2="242" stroke="#2457d6" stroke-width="1.5"/>
+  <circle cx="52" cy="250" r="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="52" y="254" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">V</text>
+  <line x1="52" y1="258" x2="52" y2="275" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="52" y1="275" x2="72" y2="275" stroke="#2457d6" stroke-width="1.5"/>
+
+  <!-- Клеми -->
+  <circle cx="72" cy="195" r="3.5" fill="#2457d6"/>
+  <circle cx="72" cy="275" r="3.5" fill="#2457d6"/>
+
+  <!-- Лінія 1 (I+, V+) -->
+  <line x1="72" y1="195" x2="164" y2="195" stroke="#2457d6" stroke-width="1.5"/>
+  <path d="M 112 195 L 126 195" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="120" y="183" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">L1: I+, V+</text>
+  <rect x="164" y="185" width="34" height="20" rx="2" fill="#ffffff" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="181" y="199" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">R_L</text>
+  <line x1="198" y1="195" x2="269" y2="195" stroke="#2457d6" stroke-width="1.5"/>
+
+  <!-- Сенсор Pt100 -->
+  <rect x="242" y="168" width="54" height="138" rx="4" fill="#f4f6f8" stroke="#6b7280" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="269" y="182" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Pt100</text>
+  <line x1="269" y1="195" x2="269" y2="217" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="253" y="217" width="32" height="36" rx="2" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="269" y="239" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">R_t</text>
+  <line x1="269" y1="253" x2="269" y2="275" stroke="#2457d6" stroke-width="1.5"/>
+
+  <!-- Лінія 2 (I-, V-) -->
+  <line x1="269" y1="275" x2="198" y2="275" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="164" y="265" width="34" height="20" rx="2" fill="#ffffff" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="181" y="279" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">R_L</text>
+  <line x1="164" y1="275" x2="72" y2="275" stroke="#2457d6" stroke-width="1.5"/>
+  <path d="M 126 275 L 112 275" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="120" y="263" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">L2: I−, V−</text>
+
+  <!-- Формула 1 -->
+  <rect x="36" y="328" width="264" height="84" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="168" y="348" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Виміряна напруга V_meas:</text>
+  <text x="168" y="370" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">V = I_ex · (R_t + 2·R_L)</text>
+  <text x="168" y="392" font-size="12" fill="#c0392b" text-anchor="middle">Похибка: ΔR = 2·R_L (до +6 °C)</text>
+
+  <!-- Примітка 1 -->
+  <rect x="36" y="424" width="264" height="62" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="168" y="446" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Сфера застосування:</text>
+  <text x="168" y="468" font-size="12" fill="#6b7280" text-anchor="middle">Тільки кабель &lt; 1 м або Pt1000</text>
+
+
+  <!-- ==================== ПАНЕЛЬ 2: 3-ПРОВІДНА СХЕМА ==================== -->
+  <rect x="336" y="68" width="288" height="432" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="480" y="94" font-size="15" font-weight="bold" fill="#1a1a1a" text-anchor="middle">3-провідна схема</text>
+  
+  <rect x="364" y="106" width="232" height="24" rx="12" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="480" y="122" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Компенсація за симетрії ліній</text>
+
+  <!-- Схема 2: Внутрішня картка -->
+  <rect x="348" y="136" width="264" height="180" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="384" y="153" font-size="12" fill="#6b7280" text-anchor="middle">Прилад</text>
+  <text x="493" y="153" font-size="12" fill="#6b7280" text-anchor="middle">Кабель</text>
+  <text x="581" y="153" font-size="12" fill="#6b7280" text-anchor="middle">Сенсор</text>
+
+  <!-- Інструмент: диференційний контур L1-L2 -->
+  <line x1="384" y1="185" x2="364" y2="185" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="364" y1="185" x2="364" y2="199" stroke="#2457d6" stroke-width="1.5"/>
+  <circle cx="364" cy="207" r="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="364" y="211" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">−</text>
+  <line x1="364" y1="215" x2="364" y2="230" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="364" y1="230" x2="384" y2="230" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="384" y1="275" x2="364" y2="275" stroke="#6b7280" stroke-width="1.5"/>
+
+  <!-- Клеми -->
+  <circle cx="384" cy="185" r="3.5" fill="#2457d6"/>
+  <circle cx="384" cy="230" r="3.5" fill="#2457d6"/>
+  <circle cx="384" cy="275" r="3.5" fill="#6b7280"/>
+
+  <!-- Лінія L1 -->
+  <line x1="384" y1="185" x2="476" y2="185" stroke="#2457d6" stroke-width="1.5"/>
+  <path d="M 424 185 L 438 185" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="432" y="173" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">L1: струм I_ex</text>
+  <rect x="476" y="175" width="34" height="20" rx="2" fill="#ffffff" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="493" y="189" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">R_L1</text>
+  <line x1="510" y1="185" x2="581" y2="185" stroke="#2457d6" stroke-width="1.5"/>
+
+  <!-- Лінія L2 -->
+  <line x1="384" y1="230" x2="476" y2="230" stroke="#2457d6" stroke-width="1.5"/>
+  <path d="M 424 230 L 438 230" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="432" y="218" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">L2: комп. дріт</text>
+  <rect x="476" y="220" width="34" height="20" rx="2" fill="#ffffff" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="493" y="234" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">R_L2</text>
+  <line x1="510" y1="230" x2="581" y2="230" stroke="#2457d6" stroke-width="1.5"/>
+
+  <!-- Сенсор Pt100 (3-провідний) -->
+  <rect x="554" y="168" width="54" height="138" rx="4" fill="#f4f6f8" stroke="#6b7280" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="581" y="182" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Pt100</text>
+  <line x1="581" y1="185" x2="581" y2="238" stroke="#2457d6" stroke-width="1.5"/>
+  <circle cx="581" cy="185" r="3" fill="#2457d6"/>
+  <circle cx="581" cy="230" r="3" fill="#2457d6"/>
+  <rect x="565" y="238" width="32" height="26" rx="2" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="581" y="255" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">R_t</text>
+  <line x1="581" y1="264" x2="581" y2="275" stroke="#6b7280" stroke-width="1.5"/>
+
+  <!-- Лінія L3 -->
+  <line x1="581" y1="275" x2="510" y2="275" stroke="#6b7280" stroke-width="1.5"/>
+  <rect x="476" y="265" width="34" height="20" rx="2" fill="#ffffff" stroke="#6b7280" stroke-width="1.2"/>
+  <text x="493" y="279" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">R_L3</text>
+  <line x1="476" y1="275" x2="384" y2="275" stroke="#6b7280" stroke-width="1.5"/>
+  <path d="M 438 275 L 424 275" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="432" y="263" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">L3: зворотний</text>
+
+  <!-- Формула 2 -->
+  <rect x="348" y="328" width="264" height="84" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="480" y="348" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Компенсація опору ліній:</text>
+  <text x="480" y="370" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">V = I·R_t + I·(R_L1 − R_L2)</text>
+  <text x="480" y="392" font-size="12" fill="#2457d6" text-anchor="middle">При R_L1 = R_L2: похибка = 0</text>
+
+  <!-- Примітка 2 -->
+  <rect x="348" y="424" width="264" height="62" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="480" y="446" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Промисловий стандарт:</text>
+  <text x="480" y="468" font-size="12" fill="#6b7280" text-anchor="middle">До 100 м; чутлива до асиметрії жил</text>
+
+
+  <!-- ==================== ПАНЕЛЬ 3: 4-ПРОВІДНА СХЕМА ==================== -->
+  <rect x="648" y="68" width="288" height="432" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="792" y="94" font-size="15" font-weight="bold" fill="#1a1a1a" text-anchor="middle">4-провідна схема (Кельвін)</text>
+  
+  <rect x="676" y="106" width="232" height="24" rx="12" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="792" y="122" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Повна компенсація Кельвіна</text>
+
+  <!-- Схема 3: Внутрішня картка -->
+  <rect x="660" y="136" width="264" height="180" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="696" y="153" font-size="12" fill="#6b7280" text-anchor="middle">Прилад</text>
+  <text x="805" y="153" font-size="12" fill="#6b7280" text-anchor="middle">Кабель</text>
+  <text x="893" y="153" font-size="12" fill="#6b7280" text-anchor="middle">Сенсор</text>
+
+  <!-- Інструмент: струмовий контур та вольтметр АЦП -->
+  <line x1="696" y1="175" x2="670" y2="175" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="670" y1="175" x2="670" y2="280" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="670" y1="280" x2="696" y2="280" stroke="#2457d6" stroke-width="1.5"/>
+  <circle cx="670" cy="227" r="7" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+
+  <line x1="696" y1="210" x2="682" y2="210" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="682" y1="210" x2="682" y2="219" stroke="#27ae60" stroke-width="1.5"/>
+  <circle cx="682" cy="227" r="7" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="682" y="231" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">V</text>
+  <line x1="682" y1="235" x2="682" y2="245" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="682" y1="245" x2="696" y2="245" stroke="#27ae60" stroke-width="1.5"/>
+
+  <!-- Клеми -->
+  <circle cx="696" cy="175" r="3.5" fill="#2457d6"/>
+  <circle cx="696" cy="210" r="3.5" fill="#27ae60"/>
+  <circle cx="696" cy="245" r="3.5" fill="#27ae60"/>
+  <circle cx="696" cy="280" r="3.5" fill="#2457d6"/>
+
+  <!-- Лінія 1 (Force+, I+) -->
+  <line x1="696" y1="175" x2="788" y2="175" stroke="#2457d6" stroke-width="1.5"/>
+  <path d="M 736 175 L 750 175" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="744" y="163" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">I+ (струм)</text>
+  <rect x="788" y="165" width="34" height="20" rx="2" fill="#ffffff" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="805" y="179" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">R_L1</text>
+  <line x1="822" y1="175" x2="893" y2="175" stroke="#2457d6" stroke-width="1.5"/>
+
+  <!-- Лінія 2 (Sense+, V+) -->
+  <line x1="696" y1="210" x2="788" y2="210" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="744" y="198" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">V+ (I ≈ 0)</text>
+  <rect x="788" y="200" width="34" height="20" rx="2" fill="#ffffff" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="805" y="214" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">R_L2</text>
+  <line x1="822" y1="210" x2="893" y2="210" stroke="#27ae60" stroke-width="1.5"/>
+
+  <!-- Лінія 3 (Sense-, V-) -->
+  <line x1="893" y1="245" x2="822" y2="245" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="788" y="235" width="34" height="20" rx="2" fill="#ffffff" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="805" y="249" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">R_L3</text>
+  <line x1="788" y1="245" x2="696" y2="245" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="744" y="233" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">V− (I ≈ 0)</text>
+
+  <!-- Лінія 4 (Force-, I-) -->
+  <line x1="893" y1="280" x2="822" y2="280" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="788" y="270" width="34" height="20" rx="2" fill="#ffffff" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="805" y="284" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">R_L4</text>
+  <line x1="788" y1="280" x2="696" y2="280" stroke="#2457d6" stroke-width="1.5"/>
+  <path d="M 750 280 L 736 280" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="744" y="268" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">I− (струм)</text>
+
+  <!-- Сенсор Pt100 (4-провідний Кельвін) -->
+  <rect x="866" y="162" width="54" height="146" rx="4" fill="#f4f6f8" stroke="#6b7280" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="893" y="174" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Pt100</text>
+  
+  <line x1="893" y1="175" x2="893" y2="216" stroke="#2457d6" stroke-width="1.5"/>
+  <circle cx="893" cy="216" r="3" fill="#27ae60"/>
+  
+  <rect x="877" y="216" width="32" height="24" rx="2" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="893" y="232" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">R_t</text>
+  
+  <circle cx="893" cy="240" r="3" fill="#27ae60"/>
+  <line x1="893" y1="240" x2="893" y2="280" stroke="#2457d6" stroke-width="1.5"/>
+
+  <!-- Формула 3 -->
+  <rect x="660" y="328" width="264" height="84" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="792" y="348" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Абсолютна точність Кельвіна:</text>
+  <text x="792" y="370" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">V_meas = V_RTD = I_ex · R_t</text>
+  <text x="792" y="392" font-size="12" fill="#27ae60" text-anchor="middle">I_sense ≈ 0 ⇒ падіння на R_L = 0</text>
+
+  <!-- Примітка 3 -->
+  <rect x="660" y="424" width="264" height="62" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="792" y="446" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Прецизійний еталон:</text>
+  <text x="792" y="468" font-size="12" fill="#6b7280" text-anchor="middle">Траси &gt; 100 м; повна стійкість до дрейфу</text>
+</svg>

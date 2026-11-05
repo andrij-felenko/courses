@@ -1,0 +1,205 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- White Background -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Markers -->
+  <defs>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-dark-start" markerWidth="9" markerHeight="9" refX="0.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue-start" markerWidth="9" markerHeight="9" refX="0.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red-start" markerWidth="9" markerHeight="9" refX="0.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="28" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Геометричні відхилення вала та виникнення циклічної похибки</text>
+  <text x="480" y="48" font-size="13" fill="#6b7280" text-anchor="middle">Незбіг осей вала й енкодера створює синусоїдальну похибку 1PPR, торцеве биття та зміну зазору</text>
+
+  <!-- PANEL 1: Radial Misalignment -->
+  <rect x="20" y="65" width="296" height="245" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="168" y="85" font-size="14" font-weight="bold" fill="#c0392b" text-anchor="middle">1. Радіальний ексцентриситет (Δr)</text>
+  <text x="168" y="102" font-size="12" fill="#6b7280" text-anchor="middle">Паралельний зсув осей (ексцентриситет e)</text>
+
+  <!-- Panel 1 Diagram -->
+  <!-- Reference Centerlines -->
+  <line x1="135" y1="120" x2="135" y2="210" stroke="#9ca3af" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="165" y1="120" x2="165" y2="210" stroke="#c0392b" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="85" y1="168" x2="215" y2="168" stroke="#9ca3af" stroke-width="1" stroke-dasharray="3,3"/>
+
+  <!-- Eccentricity Delta r arrow & label -->
+  <line x1="135" y1="118" x2="165" y2="118" stroke="#c0392b" stroke-width="1.5" marker-start="url(#arr-red-start)" marker-end="url(#arr-red)"/>
+  <text x="150" y="110" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Δr</text>
+
+  <!-- Nominal Stator Circle O1 -->
+  <circle cx="135" cy="168" r="38" fill="none" stroke="#9ca3af" stroke-width="1.5" stroke-dasharray="4,3"/>
+
+  <!-- Shifted Shaft Circle O2 -->
+  <circle cx="165" cy="168" r="38" fill="#fdecea" fill-opacity="0.4" stroke="#c0392b" stroke-width="2"/>
+  <circle cx="165" cy="168" r="12" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Center Points & Connecting Line -->
+  <circle cx="135" cy="168" r="3" fill="#6b7280"/>
+  <circle cx="165" cy="168" r="3" fill="#c0392b"/>
+  <line x1="135" y1="168" x2="165" y2="168" stroke="#c0392b" stroke-width="1.5"/>
+
+  <!-- Labels O1, O2 -->
+  <text x="122" y="164" font-size="12" fill="#6b7280" text-anchor="end">O₁</text>
+  <text x="178" y="164" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="start">O₂</text>
+
+  <!-- Diagram Legend line -->
+  <text x="168" y="225" font-size="12" fill="#6b7280" text-anchor="middle">O₁ — статор/корпус, O₂ — ось вала</text>
+
+  <!-- Panel 1 Bottom Text -->
+  <text x="168" y="247" font-size="12" fill="#1a1a1a" text-anchor="middle">Похибка кута: <tspan font-weight="bold" fill="#c0392b">Δθ = (Δr / R)·sin(θ)</tspan></text>
+  <text x="168" y="265" font-size="12" fill="#6b7280" text-anchor="middle">Гармонічна похибка 1 пер/оберт (1PPR)</text>
+  <text x="168" y="283" font-size="12" fill="#6b7280" text-anchor="middle">Спричиняє радіальне навантаження</text>
+
+  <!-- PANEL 2: Angular Misalignment -->
+  <rect x="332" y="65" width="296" height="245" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="480" y="85" font-size="14" font-weight="bold" fill="#c0392b" text-anchor="middle">2. Кутовий перекіс (α)</text>
+  <text x="480" y="102" font-size="12" fill="#6b7280" text-anchor="middle">Непаралельність осей вала й енкодера</text>
+
+  <!-- Panel 2 Diagram -->
+  <!-- Horizontal reference axis -->
+  <line x1="348" y1="170" x2="612" y2="170" stroke="#9ca3af" stroke-width="1" stroke-dasharray="4,3"/>
+  <!-- Vertical reference disk line -->
+  <line x1="500" y1="118" x2="500" y2="222" stroke="#9ca3af" stroke-width="1" stroke-dasharray="4,3"/>
+
+  <!-- Tilted Shaft Body -->
+  <polygon points="365,180 555,145 555,165 365,200" fill="#eaf0fd" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="365" y1="190" x2="555" y2="155" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,2"/>
+
+  <!-- Tilted Disk -->
+  <polygon points="490,120 498,121 512,201 504,200" fill="#fdecea" stroke="#c0392b" stroke-width="2"/>
+
+  <!-- Angle Alpha Arc & Text -->
+  <path d="M 545,170 A 60,60 0 0 0 541,156" fill="none" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <text x="550" y="166" font-size="14" font-weight="bold" fill="#c0392b">α</text>
+
+  <!-- Fixed Stator Sensor Heads -->
+  <rect x="476" y="122" width="22" height="14" fill="#2457d6" stroke="#1a1a1a" rx="2"/>
+  <rect x="476" y="182" width="22" height="14" fill="#2457d6" stroke="#1a1a1a" rx="2"/>
+
+  <!-- Wobble Indicator Arrow & Text -->
+  <line x1="525" y1="114" x2="525" y2="128" stroke="#1a1a1a" stroke-width="1.2" marker-start="url(#arr-dark-start)" marker-end="url(#arr-dark)"/>
+  <text x="532" y="123" font-size="12" fill="#6b7280">Торцеве биття</text>
+  <text x="355" y="140" font-size="12" font-weight="bold" fill="#c0392b">Перекошений вал</text>
+
+  <!-- Panel 2 Bottom Text -->
+  <text x="480" y="247" font-size="12" fill="#1a1a1a" text-anchor="middle">Похибка 2PPR: <tspan font-weight="bold" fill="#c0392b">Δθ ≈ (α²/4)·sin(2θ)</tspan></text>
+  <text x="480" y="265" font-size="12" fill="#6b7280" text-anchor="middle">Модуляція оптичного/магнітного зазору</text>
+  <text x="480" y="283" font-size="12" fill="#6b7280" text-anchor="middle">Небезпека зносу й заклинювання</text>
+
+  <!-- PANEL 3: Axial Play -->
+  <rect x="644" y="65" width="296" height="245" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="792" y="85" font-size="14" font-weight="bold" fill="#c0392b" text-anchor="middle">3. Осьовий люфт (Δz)</text>
+  <text x="792" y="102" font-size="12" fill="#6b7280" text-anchor="middle">Повздовжній зсув вздовж осі Z</text>
+
+  <!-- Panel 3 Diagram -->
+  <!-- Shaft Axis -->
+  <line x1="655" y1="170" x2="830" y2="170" stroke="#9ca3af" stroke-width="1" stroke-dasharray="4,3"/>
+
+  <!-- Shaft and Displaced Components -->
+  <rect x="660" y="156" width="130" height="28" fill="#eaf0fd" stroke="#1a1a1a" stroke-width="1.5" rx="2"/>
+  <rect x="790" y="125" width="10" height="90" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1.5" rx="1"/>
+  <rect x="812" y="125" width="10" height="90" fill="#fdecea" fill-opacity="0.5" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3,2" rx="1"/>
+
+  <!-- Axial Arrow -->
+  <line x1="790" y1="114" x2="812" y2="114" stroke="#c0392b" stroke-width="1.5" marker-start="url(#arr-red-start)" marker-end="url(#arr-red)"/>
+  <text x="801" y="107" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">± Δz</text>
+
+  <!-- Fixed Stator Sensor Module -->
+  <rect x="855" y="135" width="58" height="70" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="4"/>
+  <text x="884" y="174" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Сенсор</text>
+
+  <!-- Gap Arrow & Text -->
+  <line x1="790" y1="225" x2="855" y2="225" stroke="#2457d6" stroke-width="1.5" marker-start="url(#arr-blue-start)" marker-end="url(#arr-blue)"/>
+  <text x="822.5" y="216" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">g ± Δz</text>
+
+  <!-- Panel 3 Bottom Text -->
+  <text x="792" y="247" font-size="12" fill="#1a1a1a" text-anchor="middle">Зміна зазору: <tspan font-weight="bold" fill="#c0392b">g = g₀ ± Δz</tspan></text>
+  <text x="792" y="265" font-size="12" fill="#6b7280" text-anchor="middle">Зміна амплітуди / модуляція сигналу</text>
+  <text x="792" y="283" font-size="12" fill="#6b7280" text-anchor="middle">Падіння SNR / втрата зчитування</text>
+
+  <!-- PANEL 4: Cyclic Error Graph & Mitigation -->
+  <rect x="20" y="325" width="920" height="195" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="480" y="346" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Виникнення циклічної (гармонічної) похибки вимірювання Δθ(θ)</text>
+
+  <!-- Graph Box (Left) -->
+  <rect x="36" y="358" width="469" height="152" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+
+  <!-- Envelope Lines -->
+  <line x1="88" y1="390" x2="448" y2="390" stroke="#fdecea" stroke-dasharray="3,3"/>
+  <line x1="88" y1="470" x2="448" y2="470" stroke="#fdecea" stroke-dasharray="3,3"/>
+
+  <!-- Vertical Grid Lines -->
+  <line x1="178" y1="372" x2="178" y2="472" stroke="#e5e7eb" stroke-dasharray="2,2"/>
+  <line x1="268" y1="372" x2="268" y2="472" stroke="#e5e7eb" stroke-dasharray="2,2"/>
+  <line x1="358" y1="372" x2="358" y2="472" stroke="#e5e7eb" stroke-dasharray="2,2"/>
+  <line x1="448" y1="372" x2="448" y2="472" stroke="#e5e7eb" stroke-dasharray="2,2"/>
+
+  <!-- Axis Lines -->
+  <line x1="88" y1="478" x2="88" y2="368" stroke="#1a1a1a" stroke-width="1.2" marker-end="url(#arr-dark)"/>
+  <line x1="88" y1="430" x2="482" y2="430" stroke="#1a1a1a" stroke-width="1.2" marker-end="url(#arr-dark)"/>
+
+  <!-- Y Axis Labels -->
+  <text x="82" y="368" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">Δθ</text>
+  <text x="82" y="394" font-size="12" fill="#c0392b" text-anchor="end">+Δθ_max</text>
+  <text x="82" y="434" font-size="12" fill="#6b7280" text-anchor="end">0</text>
+  <text x="82" y="474" font-size="12" fill="#c0392b" text-anchor="end">-Δθ_max</text>
+
+  <!-- X Axis Label & Ticks -->
+  <text x="455" y="446" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">θ (кут)</text>
+  <text x="88" y="494" font-size="12" fill="#6b7280" text-anchor="middle">0°</text>
+  <text x="178" y="494" font-size="12" fill="#6b7280" text-anchor="middle">90°</text>
+  <text x="268" y="494" font-size="12" fill="#6b7280" text-anchor="middle">180°</text>
+  <text x="358" y="494" font-size="12" fill="#6b7280" text-anchor="middle">270°</text>
+  <text x="448" y="494" font-size="12" fill="#6b7280" text-anchor="middle">360°</text>
+
+  <!-- Ideal Line -->
+  <line x1="88" y1="430" x2="448" y2="430" stroke="#27ae60" stroke-width="2" stroke-dasharray="6,4"/>
+
+  <!-- 1PPR Eccentricity Sine Wave Curve -->
+  <path d="M 88,430 C 133,430 133,390 178,390 C 223,390 223,430 268,430 C 313,430 313,470 358,470 C 403,470 403,430 448,430" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+
+  <!-- 2PPR Angular Misalignment Curve -->
+  <path d="M 88,430 C 110.5,430 110.5,412 133,412 C 155.5,412 155.5,430 178,430 C 200.5,430 200.5,448 223,448 C 245.5,448 245.5,430 268,430 C 290.5,430 290.5,412 313,412 C 335.5,412 335.5,430 358,430 C 380.5,430 380.5,448 403,448 C 425.5,448 425.5,430 448,430" fill="none" stroke="#2457d6" stroke-width="1.8" stroke-dasharray="4,2"/>
+
+  <!-- Graph Legend Box -->
+  <rect x="285" y="362" width="210" height="46" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="293" y1="372" x2="313" y2="372" stroke="#27ae60" stroke-width="2" stroke-dasharray="4,3"/>
+  <text x="318" y="376" font-size="12" font-weight="bold" fill="#27ae60">Ідеал (Δθ = 0)</text>
+
+  <line x1="293" y1="387" x2="313" y2="387" stroke="#c0392b" stroke-width="2.5"/>
+  <text x="318" y="391" font-size="12" font-weight="bold" fill="#c0392b">1PPR (ексцентриситет)</text>
+
+  <line x1="293" y1="402" x2="313" y2="402" stroke="#2457d6" stroke-width="1.8" stroke-dasharray="4,2"/>
+  <text x="318" y="406" font-size="12" font-weight="bold" fill="#2457d6">2PPR (перекіс)</text>
+
+  <!-- Sub-box 1: Formula (Right) -->
+  <rect x="520" y="358" width="405" height="70" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="532" y="374" font-size="12" font-weight="bold" fill="#1a1a1a">Пікова похибка від ексцентриситету:</text>
+  <text x="532" y="391" font-size="12" font-weight="bold" fill="#c0392b">Δθ_max ≈ (e / R) · (180° / π) [град]</text>
+  <text x="532" y="407" font-size="12" fill="#6b7280">Приклад: e = 50 мкм, R = 25 мм ⇒ Δθ_max ≈ 0,115°</text>
+  <text x="532" y="421" font-size="12" fill="#6b7280">(відповідає ~13 імпульсам при 3600 CPR)</text>
+
+  <!-- Sub-box 2: Solutions (Right) -->
+  <rect x="520" y="438" width="405" height="70" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="532" y="453" font-size="12" font-weight="bold" fill="#27ae60">Методи компенсації та точного монтажу:</text>
+  <text x="532" y="469" font-size="12" fill="#1a1a1a">• Гнучкі муфти (сильфонні/мембранні) для компенсації</text>
+  <text x="532" y="484" font-size="12" fill="#1a1a1a">• Прецизійна центровка безкорпусних (kit) енкодерів</text>
+  <text x="532" y="499" font-size="12" fill="#1a1a1a">• Двохголовкове зчитування (диференціальне усереднення)</text>
+</svg>

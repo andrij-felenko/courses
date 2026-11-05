@@ -1,0 +1,87 @@
+<svg viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif" xmlns="http://www.w3.org/2000/svg">
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <defs>
+    <marker id="arr-axis" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto">
+      <path d="M0,0 L7,3.5 L0,7 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Title -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Передавальна характеристика лінійного раціометричного давача Холла</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Масштабування напруги спокою V_0 та нахилу чутливості S залежно від напруги живлення VCC</text>
+
+  <!-- Plot Background -->
+  <rect x="120" y="80" width="540" height="340" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1.5"/>
+
+  <!-- Grid lines -->
+  <line x1="120" y1="130" x2="660" y2="130" stroke="#e2e8f0" stroke-dasharray="3,3"/>
+  <line x1="120" y1="210" x2="660" y2="210" stroke="#e2e8f0" stroke-dasharray="3,3"/>
+  <line x1="120" y1="250" x2="660" y2="250" stroke="#cbd5e1" stroke-width="1.5"/>
+  <line x1="120" y1="290" x2="660" y2="290" stroke="#e2e8f0" stroke-dasharray="3,3"/>
+  <line x1="120" y1="370" x2="660" y2="370" stroke="#e2e8f0" stroke-dasharray="3,3"/>
+
+  <!-- Axes -->
+  <line x1="120" y1="420" x2="675" y2="420" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr-axis)"/>
+  <line x1="390" y1="420" x2="390" y2="70" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr-axis)"/>
+
+  <!-- Axis Labels -->
+  <text x="680" y="425" font-size="12" font-weight="bold" fill="#1a1a1a">B (mT)</text>
+  <text x="390" y="60" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">V_OUT (V)</text>
+  <text x="390" y="438" font-size="11" fill="#64748b" text-anchor="middle">0 (B=0)</text>
+
+  <!-- X axis points -->
+  <text x="210" y="438" font-size="11" fill="#2457d6" text-anchor="middle">-B_max (N-полюс)</text>
+  <text x="570" y="438" font-size="11" fill="#c0392b" text-anchor="middle">+B_max (S-полюс)</text>
+
+  <!-- Curves -->
+  <!-- Curve 1: VCC = 5.0 V (Red) -->
+  <path d="M 120 380 L 190 380 L 590 120 L 660 120" fill="none" stroke="#c0392b" stroke-width="3"/>
+  <circle cx="390" cy="250" r="4" fill="#c0392b"/>
+  <text x="110" y="254" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="end">2.5 V (VCC/2)</text>
+  <text x="110" y="124" font-size="11" fill="#c0392b" text-anchor="end">4.8 V (Sat+)</text>
+  <text x="110" y="384" font-size="11" fill="#c0392b" text-anchor="end">0.2 V (Sat-)</text>
+
+  <!-- Curve 2: VCC = 4.0 V (Blue) -->
+  <path d="M 120 370 L 220 370 L 560 170 L 660 170" fill="none" stroke="#2457d6" stroke-width="2.5" stroke-dasharray="6,3"/>
+  <circle cx="390" cy="270" r="3" fill="#2457d6"/>
+  <text x="110" y="274" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="end">2.0 V (VCC/2)</text>
+
+  <!-- Curve 3: VCC = 3.3 V (Green) -->
+  <path d="M 120 365 L 240 365 L 540 205 L 660 205" fill="none" stroke="#27ae60" stroke-width="2.2" stroke-dasharray="3,2"/>
+  <circle cx="390" cy="285" r="3" fill="#27ae60"/>
+  <text x="110" y="295" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="end">1.65 V (VCC/2)</text>
+
+  <!-- Right Side Callout Legend Card -->
+  <rect x="680" y="80" width="260" height="340" rx="8" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+  <text x="810" y="105" font-size="14" font-weight="bold" fill="#1e293b" text-anchor="middle">Раціометричні графіки</text>
+
+  <!-- Legend Item 1 -->
+  <line x1="700" y1="135" x2="740" y2="135" stroke="#c0392b" stroke-width="3"/>
+  <text x="750" y="139" font-size="12" font-weight="bold" fill="#c0392b">VCC = 5.0 В</text>
+  <text x="750" y="155" font-size="11" fill="#64748b">V_0 = 2.5 В, S = 5.0 мВ/Гс</text>
+
+  <!-- Legend Item 2 -->
+  <line x1="700" y1="185" x2="740" y2="185" stroke="#2457d6" stroke-width="2.5" stroke-dasharray="6,3"/>
+  <text x="750" y="189" font-size="12" font-weight="bold" fill="#2457d6">VCC = 4.0 В</text>
+  <text x="750" y="205" font-size="11" fill="#64748b">V_0 = 2.0 В, S = 4.0 мВ/Гс</text>
+
+  <!-- Legend Item 3 -->
+  <line x1="700" y1="235" x2="740" y2="235" stroke="#27ae60" stroke-width="2.2" stroke-dasharray="3,2"/>
+  <text x="750" y="239" font-size="12" font-weight="bold" fill="#27ae60">VCC = 3.3 В</text>
+  <text x="750" y="255" font-size="11" fill="#64748b">V_0 = 1.65 В, S = 3.3 мВ/Гс</text>
+
+  <!-- Invariant Callout -->
+  <rect x="695" y="280" width="230" height="120" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="810" y="302" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Інваріантність коду АЦП</text>
+  <text x="705" y="324" font-size="11" fill="#1e293b">Код АЦП = (V_OUT / V_REF) * 2^N</text>
+  <text x="705" y="344" font-size="11" fill="#1e293b">Оскільки V_REF = VCC:</text>
+  <text x="705" y="364" font-size="11" font-weight="bold" fill="#27ae60">V_OUT / VCC = const(B)</text>
+  <text x="705" y="384" font-size="10" fill="#64748b">Дрейф живлення повністю усувається!</text>
+
+  <!-- Bottom Panel -->
+  <rect x="120" y="445" width="820" height="55" rx="6" fill="#f1f5f9" stroke="#cbd5e1" stroke-width="1.2"/>
+  <text x="140" y="475" font-size="12" font-weight="bold" fill="#1e293b">Зони характеристики:</text>
+  <text x="290" y="468" font-size="11" fill="#334155"><tspan font-weight="bold" fill="#27ae60">1. Лінійна область:</tspan> симетричний відгук на S і N полюси навколо точки спокою VCC/2</text>
+  <text x="290" y="488" font-size="11" fill="#334155"><tspan font-weight="bold" fill="#c0392b">2. Області насичення:</tspan> обмеження вихідного каскаду біля шин живлення (0.2 В та VCC - 0.2 В)</text>
+</svg>

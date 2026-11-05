@@ -1,0 +1,90 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+  
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+  
+  <text x="480" y="40" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Реалізація формули Магнуса: порівняння методів обчислення</text>
+  <text x="480" y="60" font-size="13" fill="#6b7280" text-anchor="middle">Вибір математичного апарату визначає компроміс між швидкодією, точністю та об'ємом Flash-пам'яті</text>
+  
+  <line x1="420" y1="85" x2="250" y2="85" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+  <text x="335" y="75" font-size="12" fill="#6b7280" text-anchor="middle">Вища точність</text>
+  
+  <line x1="540" y1="85" x2="710" y2="85" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+  <text x="625" y="75" font-size="12" fill="#6b7280" text-anchor="middle">Більша швидкодія</text>
+
+  <rect x="50" y="100" width="260" height="380" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <text x="180" y="130" font-size="16" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Бібліотека math.h</text>
+  <line x1="70" y1="145" x2="290" y2="145" stroke="#d0d7de" stroke-width="1"/>
+  <text x="180" y="170" font-size="13" fill="#6b7280" text-anchor="middle">Обчислення через double/float</text>
+  
+  <text x="70" y="210" font-size="13" fill="#1a1a1a">Час виконання (Такти)</text>
+  <rect x="70" y="220" width="180" height="16" rx="4" fill="#c0392b"/>
+  <text x="255" y="233" font-size="12" fill="#1a1a1a" font-weight="bold">~4500</text>
+  
+  <text x="70" y="270" font-size="13" fill="#1a1a1a">Похибка (°C)</text>
+  <rect x="70" y="280" width="4" height="16" rx="4" fill="#27ae60"/>
+  <text x="79" y="293" font-size="12" fill="#1a1a1a" font-weight="bold">0.0°C</text>
+  
+  <text x="70" y="330" font-size="13" fill="#1a1a1a">Flash пам'ять (КБ)</text>
+  <rect x="70" y="340" width="150" height="16" rx="4" fill="#c0392b"/>
+  <text x="225" y="353" font-size="12" fill="#1a1a1a" font-weight="bold">~6.0 КБ</text>
+  
+  <rect x="70" y="375" width="220" height="26" rx="4" fill="#e9f7ef"/>
+  <text x="180" y="393" font-size="13" fill="#27ae60" font-weight="bold" text-anchor="middle">Еталонна точність</text>
+  
+  <line x1="70" y1="420" x2="290" y2="420" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4 4"/>
+  <text x="180" y="440" font-size="12" fill="#6b7280" text-anchor="middle">Цільове застосування:</text>
+  <text x="180" y="460" font-size="13" fill="#1a1a1a" font-weight="bold" text-anchor="middle">MCU з апаратним FPU</text>
+
+  <rect x="350" y="100" width="260" height="380" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <text x="480" y="130" font-size="16" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Fast Log/Exp (Поліноми)</text>
+  <line x1="370" y1="145" x2="590" y2="145" stroke="#d0d7de" stroke-width="1"/>
+  <text x="480" y="170" font-size="13" fill="#6b7280" text-anchor="middle">Апроксимація Тейлора/Паде</text>
+  
+  <text x="370" y="210" font-size="13" fill="#1a1a1a">Час виконання (Такти)</text>
+  <rect x="370" y="220" width="16" height="16" rx="4" fill="#2457d6"/>
+  <text x="392" y="233" font-size="12" fill="#1a1a1a" font-weight="bold">~400</text>
+  
+  <text x="370" y="270" font-size="13" fill="#1a1a1a">Похибка (°C)</text>
+  <rect x="370" y="280" width="36" height="16" rx="4" fill="#2457d6"/>
+  <text x="411" y="293" font-size="12" fill="#1a1a1a" font-weight="bold">±0.15°C</text>
+  
+  <text x="370" y="330" font-size="13" fill="#1a1a1a">Flash пам'ять (КБ)</text>
+  <rect x="370" y="340" width="38" height="16" rx="4" fill="#2457d6"/>
+  <text x="413" y="353" font-size="12" fill="#1a1a1a" font-weight="bold">~1.5 КБ</text>
+  
+  <rect x="370" y="375" width="220" height="26" rx="4" fill="#eaf0fd"/>
+  <text x="480" y="393" font-size="13" fill="#2457d6" font-weight="bold" text-anchor="middle">Оптимальний баланс</text>
+  
+  <line x1="370" y1="420" x2="590" y2="420" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4 4"/>
+  <text x="480" y="440" font-size="12" fill="#6b7280" text-anchor="middle">Цільове застосування:</text>
+  <text x="480" y="460" font-size="13" fill="#1a1a1a" font-weight="bold" text-anchor="middle">Клімат-контроль без FPU</text>
+
+  <rect x="650" y="100" width="260" height="380" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <text x="780" y="130" font-size="16" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Табличний метод (LUT)</text>
+  <line x1="670" y1="145" x2="890" y2="145" stroke="#d0d7de" stroke-width="1"/>
+  <text x="780" y="170" font-size="13" fill="#6b7280" text-anchor="middle">Масив констант + інтерполяція</text>
+  
+  <text x="670" y="210" font-size="13" fill="#1a1a1a">Час виконання (Такти)</text>
+  <rect x="670" y="220" width="4" height="16" rx="4" fill="#27ae60"/>
+  <text x="679" y="233" font-size="12" fill="#1a1a1a" font-weight="bold">~80</text>
+  
+  <text x="670" y="270" font-size="13" fill="#1a1a1a">Похибка (°C)</text>
+  <rect x="670" y="280" width="120" height="16" rx="4" fill="#c0392b"/>
+  <text x="795" y="293" font-size="12" fill="#1a1a1a" font-weight="bold">±0.5°C</text>
+  
+  <text x="670" y="330" font-size="13" fill="#1a1a1a">Flash пам'ять (КБ)</text>
+  <rect x="670" y="340" width="100" height="16" rx="4" fill="#2457d6"/>
+  <text x="775" y="353" font-size="12" fill="#1a1a1a" font-weight="bold">~4.0 КБ</text>
+  
+  <rect x="670" y="375" width="220" height="26" rx="4" fill="#e9f7ef"/>
+  <text x="780" y="393" font-size="13" fill="#27ae60" font-weight="bold" text-anchor="middle">Максимальна швидкодія</text>
+  
+  <line x1="670" y1="420" x2="890" y2="420" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4 4"/>
+  <text x="780" y="440" font-size="12" fill="#6b7280" text-anchor="middle">Цільове застосування:</text>
+  <text x="780" y="460" font-size="13" fill="#1a1a1a" font-weight="bold" text-anchor="middle">Найпростіші термореле</text>
+</svg>

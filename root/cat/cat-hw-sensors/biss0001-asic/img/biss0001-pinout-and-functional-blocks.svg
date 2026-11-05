@@ -1,0 +1,271 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Біла підкладка на все полотно -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <defs>
+    <marker id="arr-black" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Головний заголовок і підзаголовок -->
+  <text x="480" y="28" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Цоколівка та функціональні блоки PIR-контролера BISS0001</text>
+  <text x="480" y="48" font-size="13" fill="#6b7280" text-anchor="middle">Розподіл 16 виводів між аналоговим трактом підсилення, віконним компаратором та таймерами Tx і Ti</text>
+
+  <!-- ============================================================ -->
+  <!-- ЛІВА ПАНЕЛЬ: ЦОКОЛІВКА КОРПУСУ DIP-16 / SOP-16               -->
+  <!-- ============================================================ -->
+  <rect x="24" y="64" width="336" height="476" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="192" y="88" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Цоколівка корпусу BISS0001</text>
+  <text x="192" y="104" font-size="12" fill="#6b7280" text-anchor="middle">Корпуси DIP-16 та SOP-16 (ідентичні виводи)</text>
+
+  <!-- Корпус мікросхеми (вид згори) -->
+  <rect x="152" y="118" width="80" height="272" rx="6" fill="#2d3748" stroke="#1a202c" stroke-width="1.5"/>
+
+  <!-- Ключ виводу 1 (виїмка зверху) -->
+  <path d="M 184 118 A 8 8 0 0 0 200 118" fill="#1a202c" stroke="#1a202c"/>
+  <!-- Крапка орієнтації виводу 1 -->
+  <circle cx="166" cy="132" r="3" fill="#718096"/>
+
+  <!-- Напис усередині корпусу -->
+  <text x="192" y="248" font-size="13" font-weight="bold" fill="#ffffff" text-anchor="middle">BISS0001</text>
+  <text x="192" y="266" font-size="12" fill="#cbd5e1" text-anchor="middle">PIR ASIC</text>
+
+  <!-- ================= ЛІВІ ВИВОДИ (1 до 8) ================= -->
+  <!-- Вивід 1: A -->
+  <rect x="132" y="128" width="20" height="10" rx="1" fill="#cbd5e1" stroke="#475569" stroke-width="1"/>
+  <rect x="104" y="124" width="24" height="18" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="116" y="137" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">1</text>
+  <text x="96" y="137" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">A</text>
+
+  <!-- Вивід 2: VO -->
+  <rect x="132" y="161" width="20" height="10" rx="1" fill="#cbd5e1" stroke="#475569" stroke-width="1"/>
+  <rect x="104" y="157" width="24" height="18" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="116" y="170" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">2</text>
+  <text x="96" y="170" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">VO</text>
+
+  <!-- Вивід 3: RR1 -->
+  <rect x="132" y="194" width="20" height="10" rx="1" fill="#cbd5e1" stroke="#475569" stroke-width="1"/>
+  <rect x="104" y="190" width="24" height="18" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="116" y="203" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">3</text>
+  <text x="96" y="203" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">RR1</text>
+
+  <!-- Вивід 4: RC1 -->
+  <rect x="132" y="227" width="20" height="10" rx="1" fill="#cbd5e1" stroke="#475569" stroke-width="1"/>
+  <rect x="104" y="223" width="24" height="18" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="116" y="236" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">4</text>
+  <text x="96" y="236" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">RC1</text>
+
+  <!-- Вивід 5: RC2 -->
+  <rect x="132" y="260" width="20" height="10" rx="1" fill="#cbd5e1" stroke="#475569" stroke-width="1"/>
+  <rect x="104" y="256" width="24" height="18" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="116" y="269" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">5</text>
+  <text x="96" y="269" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">RC2</text>
+
+  <!-- Вивід 6: RR2 -->
+  <rect x="132" y="293" width="20" height="10" rx="1" fill="#cbd5e1" stroke="#475569" stroke-width="1"/>
+  <rect x="104" y="289" width="24" height="18" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="116" y="302" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">6</text>
+  <text x="96" y="302" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">RR2</text>
+
+  <!-- Вивід 7: VSS -->
+  <rect x="132" y="326" width="20" height="10" rx="1" fill="#cbd5e1" stroke="#475569" stroke-width="1"/>
+  <rect x="104" y="322" width="24" height="18" rx="3" fill="#ffffff" stroke="#6b7280" stroke-width="1"/>
+  <text x="116" y="335" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">7</text>
+  <text x="96" y="335" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">VSS</text>
+
+  <!-- Вивід 8: VRF -->
+  <rect x="132" y="359" width="20" height="10" rx="1" fill="#cbd5e1" stroke="#475569" stroke-width="1"/>
+  <rect x="104" y="355" width="24" height="18" rx="3" fill="#ffffff" stroke="#6b7280" stroke-width="1"/>
+  <text x="116" y="368" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">8</text>
+  <text x="96" y="368" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">VRF</text>
+
+  <!-- ================= ПРАВІ ВИВОДИ (16 до 9) ================= -->
+  <!-- Вивід 16: 1OUT -->
+  <rect x="232" y="128" width="20" height="10" rx="1" fill="#cbd5e1" stroke="#475569" stroke-width="1"/>
+  <rect x="256" y="124" width="24" height="18" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="268" y="137" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">16</text>
+  <text x="288" y="137" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">1OUT</text>
+
+  <!-- Вивід 15: 1IN- -->
+  <rect x="232" y="161" width="20" height="10" rx="1" fill="#cbd5e1" stroke="#475569" stroke-width="1"/>
+  <rect x="256" y="157" width="24" height="18" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="268" y="170" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">15</text>
+  <text x="288" y="170" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">1IN-</text>
+
+  <!-- Вивід 14: 1IN+ -->
+  <rect x="232" y="194" width="20" height="10" rx="1" fill="#cbd5e1" stroke="#475569" stroke-width="1"/>
+  <rect x="256" y="190" width="24" height="18" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="268" y="203" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">14</text>
+  <text x="288" y="203" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">1IN+</text>
+
+  <!-- Вивід 13: 2IN- -->
+  <rect x="232" y="227" width="20" height="10" rx="1" fill="#cbd5e1" stroke="#475569" stroke-width="1"/>
+  <rect x="256" y="223" width="24" height="18" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="268" y="236" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">13</text>
+  <text x="288" y="236" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">2IN-</text>
+
+  <!-- Вивід 12: 2OUT -->
+  <rect x="232" y="260" width="20" height="10" rx="1" fill="#cbd5e1" stroke="#475569" stroke-width="1"/>
+  <rect x="256" y="256" width="24" height="18" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="268" y="269" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">12</text>
+  <text x="288" y="269" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">2OUT</text>
+
+  <!-- Вивід 11: VDD -->
+  <rect x="232" y="293" width="20" height="10" rx="1" fill="#cbd5e1" stroke="#475569" stroke-width="1"/>
+  <rect x="256" y="289" width="24" height="18" rx="3" fill="#ffffff" stroke="#6b7280" stroke-width="1"/>
+  <text x="268" y="302" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">11</text>
+  <text x="288" y="302" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">VDD</text>
+
+  <!-- Вивід 10: IB -->
+  <rect x="232" y="326" width="20" height="10" rx="1" fill="#cbd5e1" stroke="#475569" stroke-width="1"/>
+  <rect x="256" y="322" width="24" height="18" rx="3" fill="#ffffff" stroke="#6b7280" stroke-width="1"/>
+  <text x="268" y="335" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">10</text>
+  <text x="288" y="335" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">IB</text>
+
+  <!-- Вивід 9: VC -->
+  <rect x="232" y="359" width="20" height="10" rx="1" fill="#cbd5e1" stroke="#475569" stroke-width="1"/>
+  <rect x="256" y="355" width="24" height="18" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="268" y="368" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">9</text>
+  <text x="288" y="368" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">VC</text>
+
+  <!-- Таблиця функціональних груп виводів унизу лівої панелі -->
+  <rect x="36" y="404" width="312" height="124" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  
+  <rect x="44" y="412" width="12" height="12" rx="2" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="62" y="423" font-size="12" font-weight="bold" fill="#27ae60">12–16</text>
+  <text x="108" y="423" font-size="12" fill="#1a1a1a">Аналогові підсилювачі OP1, OP2</text>
+
+  <rect x="44" y="439" width="12" height="12" rx="2" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="62" y="450" font-size="12" font-weight="bold" fill="#2457d6">3–6</text>
+  <text x="108" y="450" font-size="12" fill="#1a1a1a">RC-генератори таймінгу Tx та Ti</text>
+
+  <rect x="44" y="466" width="12" height="12" rx="2" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="62" y="477" font-size="12" font-weight="bold" fill="#c0392b">1, 2, 9</text>
+  <text x="108" y="477" font-size="12" fill="#1a1a1a">Режим A, вихід VO, сутінки VC</text>
+
+  <rect x="44" y="493" width="12" height="12" rx="2" fill="#f4f6f8" stroke="#6b7280" stroke-width="1"/>
+  <text x="62" y="504" font-size="12" font-weight="bold" fill="#6b7280">7,8,10,11</text>
+  <text x="116" y="504" font-size="12" fill="#1a1a1a">Живлення VDD, земля VSS, VRF, IB</text>
+
+  <!-- ============================================================ -->
+  <!-- ПРАВА ПАНЕЛЬ: ВНУТРІШНЯ ФУНКЦІОНАЛЬНА СХЕМА                  -->
+  <!-- ============================================================ -->
+  <rect x="376" y="64" width="560" height="476" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="656" y="88" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Внутрішня функціональна схема та каскади BISS0001</text>
+  <text x="656" y="104" font-size="12" fill="#6b7280" text-anchor="middle">Повний шлях сигналу: від сенсора руху до логічного виходу VO</text>
+
+  <!-- ================= ЗОНА 1: АНАЛОГОВИЙ ТРАКТ ================= -->
+  <!-- Каскад 1: OP1 -->
+  <rect x="390" y="118" width="162" height="132" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="398" y="126" width="146" height="20" rx="3" fill="#e9f7ef"/>
+  <text x="471" y="140" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Каскад 1: OP1</text>
+  <text x="398" y="162" font-size="12" fill="#1a1a1a">Вхід [14] 1IN+ (PIR)</text>
+  <text x="398" y="180" font-size="12" fill="#1a1a1a">Зв&apos;язок [15] 1IN- (ООС)</text>
+  <text x="398" y="198" font-size="12" fill="#1a1a1a">Вихід [16] 1OUT</text>
+  <text x="398" y="222" font-size="12" fill="#6b7280">A_v1 ≈ 22 (коло ООС)</text>
+  <text x="398" y="240" font-size="12" fill="#6b7280">Відсікання зсуву (C1)</text>
+
+  <!-- Стрілка між OP1 та OP2 -->
+  <line x1="552" y1="184" x2="568" y2="184" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- Каскад 2: OP2 -->
+  <rect x="568" y="118" width="162" height="132" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="576" y="126" width="146" height="20" rx="3" fill="#e9f7ef"/>
+  <text x="649" y="140" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Каскад 2: OP2</text>
+  <text x="576" y="162" font-size="12" fill="#1a1a1a">Вхід [13] 2IN- (від C2)</text>
+  <text x="576" y="180" font-size="12" fill="#1a1a1a">Опора VRF [8] на 2IN+</text>
+  <text x="576" y="198" font-size="12" fill="#1a1a1a">Вихід [12] 2OUT</text>
+  <text x="576" y="222" font-size="12" fill="#6b7280">A_v2 ≈ 100 (разом 2200)</text>
+  <text x="576" y="240" font-size="12" fill="#6b7280">Смуга фільтра 0.1–10 Гц</text>
+
+  <!-- Стрілка між OP2 та компаратором -->
+  <line x1="730" y1="184" x2="746" y2="184" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- Каскад 3: Віконний компаратор -->
+  <rect x="746" y="118" width="176" height="132" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="754" y="126" width="160" height="20" rx="3" fill="#f4f6f8"/>
+  <text x="834" y="140" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Віконний компаратор</text>
+  <text x="754" y="162" font-size="12" fill="#1a1a1a">Вхід: напруга [12] 2OUT</text>
+  <text x="754" y="180" font-size="12" fill="#27ae60">V_high = V_ref + 0.2·VDD</text>
+  <text x="754" y="198" font-size="12" fill="#27ae60">V_low = V_ref - 0.2·VDD</text>
+  <text x="754" y="222" font-size="12" fill="#6b7280">Порівняння за вікном</text>
+  <text x="754" y="240" font-size="12" fill="#6b7280">Імпульс виявлення руху</text>
+
+  <!-- Стрілка від компаратора вниз до логіки керування -->
+  <line x1="770" y1="250" x2="770" y2="266" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr-black)"/>
+
+  <!-- ================= ЗОНА 2: ЦИФРОВА ЛОГІКА ТА ТАЙМЕРИ ================= -->
+  <!-- Таймери таймінгу Tx та Ti -->
+  <rect x="390" y="266" width="206" height="136" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="398" y="274" width="190" height="20" rx="3" fill="#eaf0fd"/>
+  <text x="493" y="288" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">RC-таймери затримок</text>
+  
+  <text x="398" y="310" font-size="12" font-weight="bold" fill="#2457d6">Таймер Tx: [3] RR1, [4] RC1</text>
+  <text x="398" y="326" font-size="12" fill="#1a1a1a">Tx ≈ 24576 · R_x · C_x</text>
+  <text x="398" y="342" font-size="12" fill="#6b7280">Час утримання виходу VO</text>
+
+  <text x="398" y="362" font-size="12" font-weight="bold" fill="#2457d6">Таймер Ti: [5] RC2, [6] RR2</text>
+  <text x="398" y="378" font-size="12" fill="#1a1a1a">Ti ≈ 24 · R_i · C_i</text>
+  <text x="398" y="394" font-size="12" fill="#6b7280">Пауза блокування сенсора</text>
+
+  <!-- Лінія взаємодії між таймерами та логікою -->
+  <line x1="596" y1="334" x2="612" y2="334" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Цифрова логіка керування -->
+  <rect x="612" y="266" width="186" height="136" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="620" y="274" width="170" height="20" rx="3" fill="#f4f6f8"/>
+  <text x="705" y="288" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Логіка керування та тригер</text>
+  <text x="620" y="310" font-size="12" font-weight="bold" fill="#2457d6">Вхід [1] A (Режим):</text>
+  <text x="620" y="326" font-size="12" fill="#1a1a1a">H: перезапуск (повтор)</text>
+  <text x="620" y="342" font-size="12" fill="#1a1a1a">L: одиночний імпульс</text>
+  <text x="620" y="362" font-size="12" font-weight="bold" fill="#c0392b">Вхід [9] VC (Сутінки):</text>
+  <text x="620" y="378" font-size="12" fill="#1a1a1a">VC &lt; 0.2·VDD → заборона</text>
+  <text x="620" y="394" font-size="12" fill="#6b7280">Блокування за світла</text>
+
+  <!-- Стрілка від логіки до вихідного драйвера -->
+  <line x1="798" y1="334" x2="814" y2="334" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Вихідний буфер VO -->
+  <rect x="814" y="266" width="108" height="136" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="822" y="274" width="92" height="20" rx="3" fill="#eaf0fd"/>
+  <text x="868" y="288" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Драйвер VO</text>
+  <text x="822" y="314" font-size="12" font-weight="bold" fill="#1a1a1a">Вивід [2] VO</text>
+  <text x="822" y="332" font-size="12" fill="#2457d6">КМОН Push-Pull</text>
+  <text x="822" y="350" font-size="12" fill="#1a1a1a">Рівні: 0 / VDD</text>
+  <text x="822" y="368" font-size="12" fill="#6b7280">I_out ≤ 15 мА</text>
+  <text x="822" y="386" font-size="12" fill="#6b7280">До MCU / ключа</text>
+
+  <!-- ================= ЗОНА 3: ОПОРНІ РІВНІ ТА ЖИВЛЕННЯ ================= -->
+  <rect x="390" y="416" width="532" height="112" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  
+  <!-- Секція 3A: Живлення -->
+  <rect x="398" y="424" width="166" height="96" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="481" y="442" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Живлення мікросхеми</text>
+  <text x="406" y="464" font-size="12" fill="#1a1a1a">[11] VDD: +3.0 ... +5.0 В</text>
+  <text x="406" y="482" font-size="12" fill="#1a1a1a">[7] VSS: 0 В (земля)</text>
+  <text x="406" y="504" font-size="12" fill="#6b7280">Струм спокою 40–50 мкА</text>
+
+  <!-- Секція 3B: Опорна напруга -->
+  <rect x="574" y="424" width="170" height="96" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="659" y="442" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Опорний рівень VRF</text>
+  <text x="582" y="464" font-size="12" fill="#1a1a1a">[8] VRF: V_ref ≈ 0.5·VDD</text>
+  <text x="582" y="482" font-size="12" fill="#1a1a1a">Віртуальна земля схеми</text>
+  <text x="582" y="504" font-size="12" fill="#6b7280">Опора OP2 та компаратора</text>
+
+  <!-- Секція 3C: Струм зміщення -->
+  <rect x="754" y="424" width="160" height="96" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="834" y="442" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Струм зміщення IB</text>
+  <text x="762" y="464" font-size="12" fill="#1a1a1a">[10] IB: генератор струму</text>
+  <text x="762" y="482" font-size="12" fill="#1a1a1a">Резистор 1 МОм на VSS</text>
+  <text x="762" y="504" font-size="12" fill="#6b7280">Струми спокою каскадів</text>
+</svg>

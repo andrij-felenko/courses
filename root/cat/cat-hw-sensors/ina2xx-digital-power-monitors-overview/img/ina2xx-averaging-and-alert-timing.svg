@@ -1,0 +1,150 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <!-- Arrow Markers -->
+    <marker id="arr-black" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-red-rev" markerWidth="8" markerHeight="8" refX="1" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M7,1 L0,4 L7,7 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Canvas Background -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Header Section -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Часова діаграма спрацьовування ALERT INA226 та обробки EXTI в STM32</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Перевищення порогового струму генерує спадаючий фронт ALERT, який активує переривання EXTI та скидається через I2C</text>
+
+  <!-- Left Signal Column -->
+  <rect x="25" y="75" width="160" height="390" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  
+  <!-- Signal 1 Label -->
+  <text x="105" y="104" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">I_load (Струм)</text>
+  <text x="105" y="120" font-size="12" fill="#6b7280" text-anchor="middle">Аналоговий рівень</text>
+  <line x1="35" y1="138" x2="175" y2="138" stroke="#d0d7de" stroke-dasharray="2,2"/>
+
+  <!-- Signal 2 Label -->
+  <text x="105" y="168" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Цикл ADC INA226</text>
+  <text x="105" y="184" font-size="12" fill="#6b7280" text-anchor="middle">Перетворення t_conv</text>
+  <line x1="35" y1="202" x2="175" y2="202" stroke="#d0d7de" stroke-dasharray="2,2"/>
+
+  <!-- Signal 3 Label -->
+  <text x="105" y="232" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">Вивід ALERT (INA226)</text>
+  <text x="105" y="248" font-size="12" fill="#c0392b" text-anchor="middle">Активний LOW</text>
+  <line x1="35" y1="266" x2="175" y2="266" stroke="#d0d7de" stroke-dasharray="2,2"/>
+
+  <!-- Signal 4 Label -->
+  <text x="105" y="296" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Лінія EXTI (STM32)</text>
+  <text x="105" y="312" font-size="12" fill="#2457d6" text-anchor="middle">Falling Edge Trigger</text>
+  <line x1="35" y1="330" x2="175" y2="330" stroke="#d0d7de" stroke-dasharray="2,2"/>
+
+  <!-- Signal 5 Label -->
+  <text x="105" y="380" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Потік STM32 / ISR</text>
+  <text x="105" y="396" font-size="12" fill="#27ae60" text-anchor="middle">Драйвер &amp; I2C</text>
+
+  <!-- Main Diagram Container -->
+  <rect x="195" y="75" width="740" height="390" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="6"/>
+
+  <!-- Phase Highlights -->
+  <path d="M 210 80 H 370 V 460 H 210 Z" fill="#f4f6f8"/>
+  <path d="M 370 80 H 530 V 460 H 370 Z" fill="#fdecea"/>
+  <path d="M 530 80 H 730 V 460 H 530 Z" fill="#eaf0fd"/>
+  <path d="M 730 80 H 920 V 460 H 730 Z" fill="#e9f7ef"/>
+
+  <!-- Vertical Phase Lines -->
+  <line x1="370" y1="80" x2="370" y2="460" stroke="#d0d7de" stroke-dasharray="3,3"/>
+  <line x1="530" y1="80" x2="530" y2="460" stroke="#c0392b" stroke-dasharray="3,3" stroke-width="1.5"/>
+  <line x1="730" y1="80" x2="730" y2="460" stroke="#27ae60" stroke-dasharray="3,3" stroke-width="1.5"/>
+
+  <!-- Phase Headers -->
+  <text x="290" y="96" font-size="12" fill="#6b7280" text-anchor="middle">1. Нормальний режим</text>
+  <text x="450" y="96" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">2. Перевищення I_limit</text>
+  <text x="630" y="96" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">3. ALERT=0 та EXTI</text>
+  <text x="825" y="96" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">4. Скидання по I2C</text>
+
+  <!-- Signal 1: I_load -->
+  <line x1="215" y1="118" x2="915" y2="118" stroke="#c0392b" stroke-dasharray="4,4" stroke-width="1.5"/>
+  <text x="260" y="114" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Поріг I_limit</text>
+  <path d="M 215 134 L 350 134 Q 370 134 390 98 L 770 98 Q 785 98 800 134 L 915 134" stroke="#1a1a1a" stroke-width="2.5" fill="none"/>
+  <text x="280" y="148" font-size="12" fill="#6b7280" text-anchor="middle">I_norm &lt; I_limit</text>
+  <text x="450" y="90" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">I_load &gt; I_limit (Перевантаження)</text>
+
+  <!-- Signal 2: ADC Cycles -->
+  <line x1="370" y1="152" x2="530" y2="152" stroke="#c0392b" marker-start="url(#arr-red-rev)" marker-end="url(#arr-red)"/>
+  <text x="450" y="146" font-size="12" fill="#c0392b" text-anchor="middle">t_conv (Час перетворення)</text>
+  <rect x="215" y="160" width="155" height="26" fill="#ffffff" stroke="#6b7280" stroke-width="1" rx="4"/>
+  <text x="292" y="177" font-size="12" fill="#6b7280" text-anchor="middle">Замір 1 (I_norm)</text>
+  <rect x="370" y="160" width="160" height="26" fill="#fdecea" stroke="#c0392b" stroke-width="2" rx="4"/>
+  <text x="450" y="177" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Замір 2 (t_conv)</text>
+  <rect x="530" y="160" width="200" height="26" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="4"/>
+  <text x="630" y="177" font-size="12" fill="#2457d6" text-anchor="middle">Замір 3 (Alert активний)</text>
+  <rect x="730" y="160" width="185" height="26" fill="#ffffff" stroke="#6b7280" stroke-width="1" rx="4"/>
+  <text x="822" y="177" font-size="12" fill="#6b7280" text-anchor="middle">Замір 4 (Відновлення)</text>
+
+  <!-- Signal 3: ALERT Pin -->
+  <text x="208" y="236" font-size="12" fill="#6b7280" text-anchor="end">VDD</text>
+  <text x="208" y="272" font-size="12" fill="#6b7280" text-anchor="end">GND</text>
+  <line x1="530" y1="212" x2="530" y2="226" stroke="#c0392b" marker-end="url(#arr-red)"/>
+  <text x="530" y="206" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Спадаючий фронт ALERT</text>
+  <path d="M 215 232 L 530 232 L 530 268 L 730 268 L 730 232 L 915 232" stroke="#c0392b" stroke-width="3" fill="none"/>
+  <text x="630" y="284" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">ALERT = 0 (Активний)</text>
+  <line x1="730" y1="212" x2="730" y2="226" stroke="#27ae60" marker-end="url(#arr-green)"/>
+  <text x="730" y="206" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">I2C Read (Скидання ALERT)</text>
+
+  <!-- Signal 4: EXTI Line -->
+  <line x1="530" y1="272" x2="530" y2="312" stroke="#2457d6" stroke-dasharray="3,3" marker-end="url(#arr-blue)"/>
+  <text x="495" y="295" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">EXTI Trigger</text>
+  <path d="M 215 348 L 530 348 L 530 318 L 610 318 L 610 348 L 915 348" stroke="#2457d6" stroke-width="2.5" fill="none"/>
+  <line x1="610" y1="300" x2="610" y2="312" stroke="#2457d6" marker-end="url(#arr-blue)"/>
+  <text x="610" y="292" font-size="12" fill="#2457d6" text-anchor="middle">Скидання EXTI_PR</text>
+
+  <!-- Signal 5: STM32 CPU / Driver Flow -->
+  <rect x="215" y="390" width="315" height="26" fill="#ffffff" stroke="#d0d7de" rx="4"/>
+  <text x="372" y="407" font-size="12" fill="#6b7280" text-anchor="middle">Основний цикл програмованого коду (Main Loop)</text>
+
+  <rect x="530" y="390" width="80" height="26" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="4"/>
+  <text x="570" y="407" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">EXTI ISR</text>
+
+  <rect x="610" y="390" width="120" height="26" fill="#eaf0fd" stroke="#2457d6" stroke-width="2" rx="4"/>
+  <text x="670" y="407" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">I2C Read Reg</text>
+
+  <rect x="730" y="390" width="80" height="26" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="4"/>
+  <text x="770" y="407" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Захист</text>
+
+  <rect x="810" y="390" width="105" height="26" fill="#ffffff" stroke="#d0d7de" rx="4"/>
+  <text x="862" y="407" font-size="12" fill="#6b7280" text-anchor="middle">Main Loop</text>
+
+  <path d="M 670 390 L 670 370 L 755 370 L 755 238" stroke="#27ae60" stroke-dasharray="3,3" stroke-width="1.5" fill="none" marker-end="url(#arr-green)"/>
+  <text x="660" y="352" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">
+    <tspan x="660" dy="0">Читання реєстру</tspan>
+    <tspan x="660" dy="14">по I2C (скидання)</tspan>
+  </text>
+
+  <!-- Bottom Summary Panel -->
+  <rect x="25" y="475" width="910" height="45" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="40" y="502" font-size="12" font-weight="bold" fill="#1a1a1a">Послідовність обробки:</text>
+
+  <text x="190" y="502" font-size="12" font-weight="bold" fill="#c0392b">1. I_load &gt; I_limit</text>
+  <path d="M 285 498 L 305 498" stroke="#1a1a1a" marker-end="url(#arr-black)"/>
+
+  <text x="315" y="502" font-size="12" fill="#1a1a1a">2. t_conv ADC</text>
+  <path d="M 380 498 L 400 498" stroke="#1a1a1a" marker-end="url(#arr-black)"/>
+
+  <text x="410" y="502" font-size="12" font-weight="bold" fill="#c0392b">3. ALERT = LOW</text>
+  <path d="M 505 498 L 525 498" stroke="#1a1a1a" marker-end="url(#arr-black)"/>
+
+  <text x="535" y="502" font-size="12" font-weight="bold" fill="#2457d6">4. EXTI ISR (STM32)</text>
+  <path d="M 655 498 L 675 498" stroke="#1a1a1a" marker-end="url(#arr-black)"/>
+
+  <text x="685" y="502" font-size="12" font-weight="bold" fill="#27ae60">5. I2C Читання &amp; Скидання ALERT</text>
+</svg>

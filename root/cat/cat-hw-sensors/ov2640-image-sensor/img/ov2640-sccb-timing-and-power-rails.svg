@@ -1,0 +1,172 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <defs>
+    <!-- Маркери стрілок -->
+    <marker id="arr-accent" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-main" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок та підзаголовок -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Схема об'язки живлення та інтерфейсів сенсора OV2640</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Три розділені шини живлення з фільтрацією (AVDD, DVDD, DOVDD) та підключення DVP / SCCB</text>
+
+  <!-- ==================== 1. БЛОК ЖИВЛЕННЯ ТА ФІЛЬТРАЦІЇ ==================== -->
+  <rect x="30" y="80" width="230" height="455" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="145" y="106" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Джерела та фільтри живлення</text>
+
+  <!-- AVDD 2.8V -->
+  <rect x="40" y="120" width="210" height="88" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="48" y="140" font-size="12" font-weight="bold" fill="#2457d6">AVDD (2.8V — Аналог)</text>
+  <text x="48" y="160" font-size="12" fill="#1a1a1a">Фільтр: L1 + C1 (10 µF)</text>
+  <text x="48" y="180" font-size="12" fill="#1a1a1a">Шунт: C2 (0.1 µF кераміка)</text>
+  <text x="48" y="198" font-size="12" fill="#27ae60">✔ Захист аналогу від шуму</text>
+
+  <!-- DVDD 1.2V -->
+  <rect x="40" y="218" width="210" height="88" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="48" y="238" font-size="12" font-weight="bold" fill="#2457d6">DVDD (1.2V — Цифрове ядро)</text>
+  <text x="48" y="258" font-size="12" fill="#1a1a1a">C3 (1 µF) + C4 (0.1 µF)</text>
+  <text x="48" y="278" font-size="12" fill="#1a1a1a">Розв'язка виводу ядра</text>
+  <text x="48" y="296" font-size="12" fill="#6b7280">Внутрішній або зовнішній LDO</text>
+
+  <!-- DOVDD 1.8-3.3V -->
+  <rect x="40" y="316" width="210" height="88" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="48" y="336" font-size="12" font-weight="bold" fill="#2457d6">DOVDD (1.8V..3.3V — I/O)</text>
+  <text x="48" y="356" font-size="12" fill="#1a1a1a">C5 (4.7 µF) + C6 (0.1 µF)</text>
+  <text x="48" y="376" font-size="12" fill="#1a1a1a">Буфери шин DVP та SCCB</text>
+  <text x="48" y="394" font-size="12" fill="#6b7280">Узгодження з MCU 3.3V</text>
+
+  <!-- Заземлення Star Ground -->
+  <rect x="40" y="414" width="210" height="108" rx="6" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="48" y="434" font-size="12" font-weight="bold" fill="#27ae60">Розділене заземлення</text>
+  <text x="48" y="454" font-size="12" fill="#1a1a1a">AGND (Аналог) / DGND (Цифра)</text>
+  <text x="48" y="474" font-size="12" fill="#1a1a1a">З'єднання в 1 точці (Star)</text>
+  <text x="48" y="494" font-size="12" fill="#27ae60">✔ Усунення петлі завад</text>
+
+  <!-- ==================== 2. СЕНСОР ЗОБРАЖЕННЯ OV2640 ==================== -->
+  <rect x="280" y="80" width="290" height="455" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="425" y="106" font-size="16" font-weight="bold" fill="#2457d6" text-anchor="middle">Сенсор зображення OV2640</text>
+  <text x="425" y="124" font-size="12" fill="#6b7280" text-anchor="middle">UXGA 2MP / DVP відеопотік</text>
+
+  <!-- Ліві виводи живлення OV2640 -->
+  <rect x="290" y="145" width="75" height="38" rx="4" fill="#ffffff" stroke="#2457d6"/>
+  <text x="327" y="161" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">AVDD</text>
+  <text x="327" y="176" font-size="12" fill="#6b7280" text-anchor="middle">2.8V</text>
+
+  <rect x="290" y="243" width="75" height="38" rx="4" fill="#ffffff" stroke="#2457d6"/>
+  <text x="327" y="259" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">DVDD</text>
+  <text x="327" y="274" font-size="12" fill="#6b7280" text-anchor="middle">1.2V</text>
+
+  <rect x="290" y="341" width="75" height="38" rx="4" fill="#ffffff" stroke="#2457d6"/>
+  <text x="327" y="357" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">DOVDD</text>
+  <text x="327" y="372" font-size="12" fill="#6b7280" text-anchor="middle">3.3V</text>
+
+  <rect x="290" y="446" width="75" height="38" rx="4" fill="#ffffff" stroke="#27ae60"/>
+  <text x="327" y="462" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">AGND/DGND</text>
+  <text x="327" y="477" font-size="12" fill="#6b7280" text-anchor="middle">GND</text>
+
+  <!-- Лінії живлення від лівого блоку до виводів OV2640 -->
+  <line x1="250" y1="164" x2="290" y2="164" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-accent)"/>
+  <line x1="250" y1="262" x2="290" y2="262" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-accent)"/>
+  <line x1="250" y1="360" x2="290" y2="360" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-accent)"/>
+  <line x1="250" y1="465" x2="290" y2="465" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- Блок підтяжки SCCB всередині OV2640 -->
+  <rect x="378" y="145" width="85" height="65" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="420" y="163" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Підтяжка</text>
+  <text x="420" y="180" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">2×4.7 kΩ</text>
+  <text x="420" y="197" font-size="12" fill="#6b7280" text-anchor="middle">до DOVDD</text>
+
+  <!-- Праві виводи OV2640 -->
+  <rect x="475" y="145" width="85" height="65" rx="4" fill="#ffffff" stroke="#2457d6"/>
+  <text x="517" y="163" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">SCCB/Ctrl</text>
+  <text x="517" y="181" font-size="12" fill="#2457d6" text-anchor="middle">SIOC, SIOD</text>
+  <text x="517" y="199" font-size="12" fill="#6b7280" text-anchor="middle">PWDN, RST</text>
+
+  <rect x="475" y="222" width="85" height="48" rx="4" fill="#ffffff" stroke="#2457d6"/>
+  <text x="517" y="240" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Тактування</text>
+  <text x="517" y="258" font-size="12" fill="#2457d6" text-anchor="middle">XCLK In</text>
+
+  <rect x="475" y="280" width="85" height="65" rx="4" fill="#ffffff" stroke="#2457d6"/>
+  <text x="517" y="298" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Синхронізація</text>
+  <text x="517" y="316" font-size="12" fill="#2457d6" text-anchor="middle">PCLK, VSYNC</text>
+  <text x="517" y="334" font-size="12" fill="#2457d6" text-anchor="middle">HREF</text>
+
+  <rect x="475" y="355" width="85" height="65" rx="4" fill="#ffffff" stroke="#2457d6"/>
+  <text x="517" y="373" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Шина даних</text>
+  <text x="517" y="391" font-size="12" fill="#2457d6" text-anchor="middle">Y[2..9] (8b)</text>
+  <text x="517" y="409" font-size="12" fill="#6b7280" text-anchor="middle">DVP Port</text>
+
+  <!-- Ядро матриці OV2640 -->
+  <rect x="378" y="445" width="182" height="78" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="469" y="463" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Матриця &amp; DSP ядро</text>
+  <text x="469" y="481" font-size="12" fill="#6b7280" text-anchor="middle">UXGA 1600×1200 / JPEG</text>
+  <text x="469" y="499" font-size="12" fill="#27ae60" text-anchor="middle">Внутрішня обробка</text>
+
+  <!-- ==================== 3. КЕРУЮЧИЙ КОНТРОЛЕР ==================== -->
+  <rect x="660" y="80" width="270" height="455" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="795" y="106" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Мікроконтролер / ПЛІС</text>
+  <text x="795" y="124" font-size="12" fill="#6b7280" text-anchor="middle">Приймач даних та майстер</text>
+
+  <!-- SCCB Master -->
+  <rect x="672" y="145" width="246" height="65" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="682" y="163" font-size="12" font-weight="bold" fill="#1a1a1a">SCCB / I2C Мастер (SIOC/SIOD)</text>
+  <text x="682" y="181" font-size="12" fill="#6b7280">Регістри конфігурації (100–400k)</text>
+  <text x="682" y="199" font-size="12" fill="#6b7280">GPIO: PWDN=LOW, RST=HIGH</text>
+
+  <!-- XCLK Master Generator -->
+  <rect x="672" y="222" width="246" height="48" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="682" y="240" font-size="12" font-weight="bold" fill="#2457d6">Генератор XCLK (PWM/MCLK)</text>
+  <text x="682" y="258" font-size="12" fill="#6b7280">Опорна частота: 10..24 МГц</text>
+
+  <!-- DVP Timing Receiver -->
+  <rect x="672" y="280" width="246" height="65" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="682" y="298" font-size="12" font-weight="bold" fill="#1a1a1a">Входи синхронізації DVP</text>
+  <text x="682" y="316" font-size="12" fill="#6b7280">PCLK — Тактування пікселів</text>
+  <text x="682" y="334" font-size="12" fill="#6b7280">VSYNC — Кадр | HREF — Рядок</text>
+
+  <!-- DVP Parallel Data Bus -->
+  <rect x="672" y="355" width="246" height="65" rx="6" fill="#ffffff" stroke="#2457d6"/>
+  <text x="682" y="373" font-size="12" font-weight="bold" fill="#2457d6">Вхідна шина Y[2..9] (8 біт)</text>
+  <text x="682" y="391" font-size="12" fill="#1a1a1a">Зчитування по фронту PCLK</text>
+  <text x="682" y="409" font-size="12" fill="#27ae60">✔ Вимоги: t_setup, t_hold &gt; 15ns</text>
+
+  <!-- DMA Frame Buffer -->
+  <rect x="672" y="445" width="246" height="78" rx="6" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="682" y="463" font-size="12" font-weight="bold" fill="#27ae60">Прямий доступ пам'яті (DMA)</text>
+  <text x="682" y="481" font-size="12" fill="#1a1a1a">Запис у буфер SRAM / PSRAM</text>
+  <text x="682" y="499" font-size="12" fill="#27ae60">✔ Без завантаження процесора</text>
+
+  <!-- ==================== СИГНАЛЬНІ ЗВ'ЯЗКИ МІЖ СЕНСОРОМ ТА МКУ ==================== -->
+  <!-- SCCB лінія SIOC -->
+  <line x1="660" y1="162" x2="560" y2="162" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-accent)"/>
+  <text x="610" y="148" font-size="12" fill="#2457d6" text-anchor="middle">SIOC (SCL)</text>
+
+  <!-- SCCB лінія SIOD -->
+  <line x1="560" y1="184" x2="660" y2="184" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-main)"/>
+  <text x="610" y="204" font-size="12" fill="#1a1a1a" text-anchor="middle">SIOD (SDA)</text>
+
+  <!-- XCLK лінія (MCU -> Sensor) -->
+  <line x1="660" y1="246" x2="560" y2="246" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-accent)"/>
+  <text x="610" y="236" font-size="12" fill="#2457d6" text-anchor="middle">XCLK (24MHz)</text>
+
+  <!-- DVP Sync лінії (Sensor -> MCU) -->
+  <line x1="560" y1="298" x2="660" y2="298" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-main)"/>
+  <text x="610" y="288" font-size="12" fill="#1a1a1a" text-anchor="middle">PCLK</text>
+
+  <line x1="560" y1="325" x2="660" y2="325" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-main)"/>
+  <text x="610" y="344" font-size="12" fill="#6b7280" text-anchor="middle">VSYNC/HREF</text>
+
+  <!-- DVP Data Bus Y[2..9] (Sensor -> MCU) -->
+  <line x1="560" y1="388" x2="660" y2="388" stroke="#2457d6" stroke-width="3" marker-end="url(#arr-accent)"/>
+  <line x1="606" y1="382" x2="614" y2="394" stroke="#2457d6" stroke-width="2"/>
+  <text x="610" y="376" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Y[2..9] (8b)</text>
+</svg>

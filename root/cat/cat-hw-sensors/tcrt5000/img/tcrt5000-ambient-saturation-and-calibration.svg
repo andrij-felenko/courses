@@ -1,0 +1,123 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="520" fill="#ffffff"/>
+
+  <defs>
+    <marker id="arr-black" markerWidth="8" markerHeight="8" refX="7" refY="3.5" orient="auto">
+      <path d="M0,0 L7,3.5 L0,7 Z" fill="#0f172a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="8" markerHeight="8" refX="7" refY="3.5" orient="auto">
+      <path d="M0,0 L7,3.5 L0,7 Z" fill="#dc2626"/>
+    </marker>
+    <marker id="arr-green" markerWidth="8" markerHeight="8" refX="7" refY="3.5" orient="auto">
+      <path d="M0,0 L7,3.5 L0,7 Z" fill="#16a34a"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок -->
+  <text x="480" y="34" font-size="18" font-weight="bold" fill="#0f172a" text-anchor="middle">Вплив фонового ІЧ-засвічення та адаптивне калібрування TCRT5000</text>
+  <text x="480" y="56" font-size="13" fill="#64748b" text-anchor="middle">Зміщення рівнів напруги, звуження контрасту ΔV та розрахунок динамічного порогу</text>
+
+  <!-- Ліва панель: Графік для чистих умов (без засвічення) -->
+  <g transform="translate(60, 90)">
+    <rect x="0" y="0" width="280" height="340" rx="8" fill="#f8fafc" stroke="#cbd5e1"/>
+    <text x="140" y="26" font-size="13" font-weight="bold" fill="#166534" text-anchor="middle">1. Нормальні умови (I_bg = 0)</text>
+
+    <!-- Осі -->
+    <line x1="45" y1="280" x2="45" y2="45" stroke="#0f172a" stroke-width="1.5" marker-end="url(#arr-black)"/>
+    <line x1="40" y1="280" x2="260" y2="280" stroke="#0f172a" stroke-width="1.5" marker-end="url(#arr-black)"/>
+
+    <text x="40" y="40" font-size="11" font-weight="bold" fill="#0f172a" text-anchor="end">V_out (В)</text>
+    <text x="260" y="300" font-size="11" fill="#64748b" text-anchor="end">Поверхня</text>
+
+    <!-- Рівень V_CC = 5.0 В -->
+    <line x1="45" y1="65" x2="250" y2="65" stroke="#94a3b8" stroke-dasharray="3,3"/>
+    <text x="38" y="69" font-size="10" fill="#64748b" text-anchor="end">V_CC (5 В)</text>
+
+    <!-- Напруга на чорному (4.8 В) -->
+    <rect x="75" y="75" width="40" height="205" fill="#1e293b" rx="3"/>
+    <text x="95" y="68" font-size="11" font-weight="bold" fill="#0f172a" text-anchor="middle">4.8 В</text>
+    <text x="95" y="296" font-size="11" font-weight="bold" fill="#0f172a" text-anchor="middle">Чорна</text>
+
+    <!-- Напруга на білому (0.8 В) -->
+    <rect x="165" y="240" width="40" height="40" fill="#e2e8f0" stroke="#94a3b8" stroke-width="1" rx="3"/>
+    <text x="185" y="234" font-size="11" font-weight="bold" fill="#0f172a" text-anchor="middle">0.8 В</text>
+    <text x="185" y="296" font-size="11" font-weight="bold" fill="#0f172a" text-anchor="middle">Біла</text>
+
+    <!-- Статичний поріг (2.8 В) -->
+    <line x1="50" y1="170" x2="245" y2="170" stroke="#16a34a" stroke-width="2" stroke-dasharray="5,3"/>
+    <text x="245" y="165" font-size="10" font-weight="bold" fill="#16a34a" text-anchor="end">V_th = 2.8 В</text>
+
+    <!-- Контраст ΔV -->
+    <line x1="140" y1="80" x2="140" y2="235" stroke="#2563eb" stroke-width="1.5"/>
+    <text x="145" y="155" font-size="11" font-weight="bold" fill="#2563eb">ΔV = 4.0 В</text>
+    <text x="140" y="325" font-size="11" fill="#166534" text-anchor="middle">Відмінне розпізнавання</text>
+  </g>
+
+  <!-- Центральна панель: Графік в умовах засвічення -->
+  <g transform="translate(365, 90)">
+    <rect x="0" y="0" width="280" height="340" rx="8" fill="#fef2f2" stroke="#fca5a5"/>
+    <text x="140" y="26" font-size="13" font-weight="bold" fill="#991b1b" text-anchor="middle">2. Фонове ІЧ-засвічення (I_bg &gt; 0)</text>
+
+    <!-- Осі -->
+    <line x1="45" y1="280" x2="45" y2="45" stroke="#0f172a" stroke-width="1.5" marker-end="url(#arr-black)"/>
+    <line x1="40" y1="280" x2="260" y2="280" stroke="#0f172a" stroke-width="1.5" marker-end="url(#arr-black)"/>
+
+    <text x="40" y="40" font-size="11" font-weight="bold" fill="#0f172a" text-anchor="end">V_out (В)</text>
+    <text x="260" y="300" font-size="11" fill="#64748b" text-anchor="end">Поверхня</text>
+
+    <!-- Зміщений рівень на чорному (2.2 В через I_bg) -->
+    <rect x="75" y="190" width="40" height="90" fill="#475569" rx="3"/>
+    <text x="95" y="182" font-size="11" font-weight="bold" fill="#b91c1c" text-anchor="middle">2.2 В</text>
+    <text x="95" y="296" font-size="11" font-weight="bold" fill="#0f172a" text-anchor="middle">Чорна</text>
+
+    <!-- Зміщений рівень на білому (0.3 В насичення) -->
+    <rect x="165" y="265" width="40" height="15" fill="#fca5a5" stroke="#ef4444" stroke-width="1" rx="3"/>
+    <text x="185" y="258" font-size="10" font-weight="bold" fill="#b91c1c" text-anchor="middle">0.3 В (V_sat)</text>
+    <text x="185" y="296" font-size="11" font-weight="bold" fill="#0f172a" text-anchor="middle">Біла</text>
+
+    <!-- Старий фіксований поріг (хибне спрацювання) -->
+    <line x1="45" y1="170" x2="250" y2="170" stroke="#dc2626" stroke-width="1.5" stroke-dasharray="3,3"/>
+    <text x="245" y="165" font-size="10" font-weight="bold" fill="#dc2626" text-anchor="end">Старий V_th (2.8 В) ✖</text>
+
+    <!-- Новий адаптивний поріг -->
+    <line x1="50" y1="225" x2="245" y2="225" stroke="#16a34a" stroke-width="2"/>
+    <text x="245" y="220" font-size="10" font-weight="bold" fill="#16a34a" text-anchor="end">V_th,adapt = 1.25 В ✔</text>
+
+    <!-- Звужений контраст -->
+    <line x1="140" y1="195" x2="140" y2="260" stroke="#b91c1c" stroke-width="1.5"/>
+    <text x="145" y="235" font-size="10" font-weight="bold" fill="#b91c1c">ΔV = 1.9 В</text>
+    <text x="140" y="325" font-size="11" fill="#b91c1c" text-anchor="middle">Звуження контрасту на 52%</text>
+  </g>
+
+  <!-- Права панель: Розрахунок та алгоритм адаптації -->
+  <g transform="translate(670, 90)">
+    <!-- Блок розрахунку I_bg,max -->
+    <rect x="0" y="0" width="230" height="160" rx="8" fill="#f8fafc" stroke="#cbd5e1"/>
+    <text x="15" y="24" font-size="12" font-weight="bold" fill="#0f172a">Межа насичення фотоелемента</text>
+
+    <text x="15" y="48" font-size="11" font-family="monospace" fill="#2563eb">I_bg,max = (V_CC - V_sat) / R_L</text>
+    <text x="15" y="68" font-size="11" font-family="monospace" fill="#0f172a">= (5.0 - 0.3) / 10 000</text>
+    <text x="15" y="88" font-size="12" font-family="monospace" font-weight="bold" fill="#b91c1c">= 0.47 мА (граничний фон)</text>
+
+    <text x="15" y="115" font-size="11" fill="#475569">При I_bg &gt; 0.47 мА транзистор</text>
+    <text x="15" y="132" font-size="11" fill="#b91c1c">повністю насичується (V=0.3В)</text>
+    <text x="15" y="148" font-size="11" fill="#475569">і втрачає реакцію на лінію.</text>
+
+    <!-- Блок динамічного калібрування -->
+    <rect x="0" y="175" width="230" height="165" rx="8" fill="#f0fdf4" stroke="#86efac"/>
+    <text x="15" y="200" font-size="12" font-weight="bold" fill="#166534">Алгоритм автокалібрування</text>
+
+    <text x="15" y="224" font-size="11" fill="#1e293b">1. Замір фону при вимкненому LED:</text>
+    <text x="25" y="240" font-size="11" font-family="monospace" fill="#0284c7">V_ambient = Read_ADC()</text>
+
+    <text x="15" y="262" font-size="11" fill="#1e293b">2. Сканування поля (Black/White):</text>
+    <text x="25" y="278" font-size="11" font-family="monospace" fill="#16a34a">V_min = min, V_max = max</text>
+
+    <text x="15" y="300" font-size="11" fill="#1e293b">3. Обчислення динамічного порогу:</text>
+    <text x="25" y="318" font-size="11" font-family="monospace" font-weight="bold" fill="#15803d">V_th = (V_min + V_max) / 2</text>
+  </g>
+
+  <!-- Нижня примітка -->
+  <rect x="60" y="450" width="840" height="40" rx="6" fill="#f8fafc" stroke="#e2e8f0"/>
+  <text x="480" y="475" font-size="12" fill="#475569" text-anchor="middle"><tspan font-weight="bold" fill="#0f172a">Практичний висновок:</tspan> Фіксовані дільники на компараторах LM393 відмовляють при зміні освітлення; в надійних роботах поріг V_th завжди обчислюється програмно в АЦП.</text>
+</svg>

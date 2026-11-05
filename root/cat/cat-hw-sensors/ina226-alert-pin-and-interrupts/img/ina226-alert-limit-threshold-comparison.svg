@@ -1,0 +1,55 @@
+<svg viewBox="0 0 960 500" width="960" height="500" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif" xmlns="http://www.w3.org/2000/svg">
+  <rect x="0" y="0" width="960" height="500" fill="white"/>
+
+  <defs>
+    <marker id="arr-axis" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto">
+      <path d="M0,0 L7,3.5 L0,7 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Title -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Порівняння виміряного сигналу з порогом Alert Limit (07h)</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Інтеграція АЦП, цифрове усереднення та момент спрацьовування апаратного компаратора</text>
+
+  <!-- Plot Area -->
+  <rect x="80" y="80" width="800" height="340" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+
+  <!-- Grid -->
+  <line x1="80" y1="200" x2="880" y2="200" stroke="#c0392b" stroke-width="2" stroke-dasharray="6,4"/>
+  <text x="890" y="205" font-size="12" font-weight="bold" fill="#c0392b">Alert Limit (0x07)</text>
+
+  <!-- Axes -->
+  <line x1="120" y1="380" x2="860" y2="380" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-axis)"/>
+  <line x1="120" y1="380" x2="120" y2="100" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-axis)"/>
+
+  <text x="860" y="400" font-size="12" font-weight="bold" fill="#1a1a1a">Час (t)</text>
+  <text x="120" y="90" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Струм / Напруга</text>
+
+  <!-- Analog Load Waveform (Grey) -->
+  <path d="M 120 330 Q 250 330 320 280 T 450 140 T 600 130 T 750 300 L 850 320" fill="none" stroke="#94a3b8" stroke-width="1.5"/>
+  <text x="450" y="125" font-size="11" fill="#64748b" text-anchor="middle">Реальний аналоговий струм навантаження I_load(t)</text>
+
+  <!-- Discrete Averaged ADC values (Blue Stepped) -->
+  <path d="M 120 330 L 220 330 L 220 320 L 320 320 L 320 260 L 420 260 L 420 160 L 520 160 L 520 150 L 620 150 L 620 230 L 720 230 L 720 310 L 850 310" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+  <circle cx="420" cy="160" r="4" fill="#c0392b"/>
+  <text x="430" y="180" font-size="11" font-weight="bold" fill="#c0392b">ПЕРЕВИЩЕННЯ ПОРОГУ!</text>
+
+  <!-- ADC conversion cycles annotation -->
+  <line x1="320" y1="365" x2="420" y2="365" stroke="#15803d" stroke-width="2"/>
+  <text x="370" y="360" font-size="10" font-weight="bold" fill="#15803d" text-anchor="middle">t_conv × AVG</text>
+
+  <line x1="420" y1="365" x2="520" y2="365" stroke="#15803d" stroke-width="2"/>
+  <text x="470" y="360" font-size="10" font-weight="bold" fill="#15803d" text-anchor="middle">Оновлення</text>
+
+  <!-- Output ALERT trace at bottom of plot -->
+  <line x1="80" y1="300" x2="880" y2="300" stroke="#e2e8f0"/>
+  <text x="90" y="315" font-size="11" font-weight="bold" fill="#1a1a1a">ALERT Pin:</text>
+  <path d="M 120 310 L 420 310 L 420 335 L 720 335 L 720 310 L 850 310" fill="none" stroke="#c0392b" stroke-width="2"/>
+  <text x="570" y="350" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">Активний LOW (Тривога)</text>
+
+  <!-- Bottom Panel -->
+  <rect x="80" y="435" width="800" height="55" rx="6" fill="#f1f5f9" stroke="#cbd5e1" stroke-width="1.2"/>
+  <text x="100" y="465" font-size="12" font-weight="bold" fill="#1e293b">ОБРОБКА ВНУТРІШНІМ КОМПАРАТОРОМ:</text>
+  <text x="360" y="458" font-size="11" fill="#334155">1. Порівняння виконується <tspan font-weight="bold">після кожного завершеного циклу усереднення</tspan></text>
+  <text x="360" y="478" font-size="11" fill="#334155">2. Регістр Alert Limit зберігає 16-бітне порогове число у форматі відповідного регістру</text>
+</svg>

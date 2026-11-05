@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 460" width="720" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+  <rect x="0" y="0" width="720" height="460" fill="white"/>
+  
+  <text x="360" y="35" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Лінійна інтерполяція в LUT-таблиці</text>
+  <text x="360" y="55" font-size="13" fill="#6b7280" text-anchor="middle">Похибка виникає через заміну нелінійної функції відрізком прямої між вузлами</text>
+
+  <path d="M 140 400 L 680 400" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <path d="M 140 400 L 140 90" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="680" y="435" font-size="14" fill="#1a1a1a" text-anchor="end">Опір R</text>
+  <text x="130" y="80" font-size="14" fill="#1a1a1a" text-anchor="end">Температура t</text>
+
+  <path d="M 190 400 L 190 340 L 140 340" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="4 4" fill="none"/>
+  <path d="M 590 400 L 590 140 L 140 140" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="4 4" fill="none"/>
+  <path d="M 390 400 L 390 240 L 140 240" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4 4" fill="none" opacity="0.6"/>
+  <path d="M 390 300 L 140 300" stroke="#1a1a1a" stroke-width="1.5" stroke-dasharray="4 4" fill="none" opacity="0.4"/>
+
+  <path d="M 190 340 L 590 140" stroke="#2457d6" stroke-width="2" fill="none"/>
+  <path d="M 190 340 Q 390 360 590 140" stroke="#1a1a1a" stroke-width="2" fill="none"/>
+
+  <circle cx="190" cy="340" r="4" fill="#2457d6"/>
+  <circle cx="590" cy="140" r="4" fill="#2457d6"/>
+  <circle cx="390" cy="240" r="4" fill="#2457d6"/>
+  <circle cx="390" cy="300" r="4" fill="#1a1a1a"/>
+
+  <text x="190" y="420" font-size="14" fill="#1a1a1a" text-anchor="middle">R<tspan dy="3" font-size="11">i</tspan></text>
+  <text x="390" y="420" font-size="14" fill="#1a1a1a" text-anchor="middle">R</text>
+  <text x="590" y="420" font-size="14" fill="#1a1a1a" text-anchor="middle">R<tspan dy="3" font-size="11">i+1</tspan></text>
+
+  <text x="130" y="345" font-size="14" fill="#1a1a1a" text-anchor="end">t<tspan dy="3" font-size="11">i</tspan></text>
+  <text x="130" y="145" font-size="14" fill="#1a1a1a" text-anchor="end">t<tspan dy="3" font-size="11">i+1</tspan></text>
+  <text x="130" y="245" font-size="14" fill="#2457d6" text-anchor="end">t<tspan dy="3" font-size="11">LUT</tspan></text>
+  <text x="130" y="305" font-size="14" fill="#1a1a1a" text-anchor="end">t<tspan dy="3" font-size="11">true</tspan></text>
+
+  <text x="360" y="235" font-size="14" fill="#2457d6" text-anchor="end">Лінійна інтерполяція</text>
+  <text x="440" y="300" font-size="14" fill="#1a1a1a" text-anchor="start">Функція t(R)</text>
+
+  <path d="M 410 260 L 410 230" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <path d="M 410 260 L 410 289" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <text x="420" y="264" font-size="14" fill="#c0392b" text-anchor="start">Δt</text>
+</svg>

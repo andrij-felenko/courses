@@ -1,0 +1,116 @@
+<svg viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif" xmlns="http://www.w3.org/2000/svg">
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <defs>
+    <marker id="arr" markerWidth="8" markerHeight="8" refX="6" refY="3.5" orient="auto">
+      <path d="M0,0 L7,3.5 L0,7 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="8" markerHeight="8" refX="6" refY="3.5" orient="auto">
+      <path d="M0,0 L7,3.5 L0,7 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Title -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Сигнальний тракт із чопперною стабілізацією давача Холла</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Модуляція струму пластини, підсилення AC, синхронна демодуляція та фільтрація офсету</text>
+
+  <!-- Flow Boxes -->
+  <!-- Block 1: Hall Plate Matrix -->
+  <rect x="30" y="90" width="160" height="170" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="110" y="115" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">1. Пластина Холла</text>
+  <text x="110" y="132" font-size="11" fill="#64748b" text-anchor="middle">+ Матричний комутатор</text>
+  <polygon points="110,145 130,165 110,185 90,165" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="110" y="169" font-size="10" font-weight="bold" fill="#2457d6" text-anchor="middle">0°/90°</text>
+  <text x="110" y="210" font-size="11" fill="#1e293b" text-anchor="middle">V_H (DC) + V_off (DC)</text>
+  <text x="110" y="228" font-size="10" fill="#64748b" text-anchor="middle">Модуляція напрямку</text>
+  <text x="110" y="244" font-size="10" fill="#64748b" text-anchor="middle">струму тактом f_clk</text>
+
+  <!-- Arrow 1 to 2 -->
+  <line x1="190" y1="175" x2="240" y2="175" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Block 2: Modulator / Commutator -->
+  <rect x="240" y="90" width="160" height="170" rx="8" fill="#f8fafc" stroke="#94a3b8" stroke-width="1.5"/>
+  <text x="320" y="115" font-size="13" font-weight="bold" fill="#1e293b" text-anchor="middle">2. Модулятор Холла</text>
+  <text x="320" y="132" font-size="11" fill="#64748b" text-anchor="middle">Транспозиція спектра</text>
+  <path d="M 280 175 L 300 155 L 320 195 L 340 155 L 360 175" fill="none" stroke="#2457d6" stroke-width="2"/>
+  <text x="320" y="215" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">V_H на частоті f_clk</text>
+  <text x="320" y="235" font-size="11" fill="#c0392b" text-anchor="middle">V_off на DC (0 Гц)</text>
+
+  <!-- Arrow 2 to 3 -->
+  <line x1="400" y1="175" x2="450" y2="175" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+
+  <!-- Block 3: AC Differential Amp -->
+  <rect x="450" y="90" width="150" height="170" rx="8" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+  <text x="525" y="115" font-size="13" font-weight="bold" fill="#1e293b" text-anchor="middle">3. Дифпідсилювач</text>
+  <text x="525" y="132" font-size="11" fill="#64748b" text-anchor="middle">AC Instrumentation Amp</text>
+  <polygon points="495,150 495,200 555,175" fill="#f1f5f9" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="515" y="179" font-size="12" font-weight="bold" fill="#2457d6">K_amp</text>
+  <text x="525" y="225" font-size="11" fill="#1e293b" text-anchor="middle">Підсилення сигналу</text>
+  <text x="525" y="242" font-size="10" fill="#64748b" text-anchor="middle">без накопичення дрейфу</text>
+
+  <!-- Arrow 3 to 4 -->
+  <line x1="600" y1="175" x2="640" y2="175" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+
+  <!-- Block 4: Synchronous Demodulator -->
+  <rect x="640" y="90" width="140" height="170" rx="8" fill="#f8fafc" stroke="#94a3b8" stroke-width="1.5"/>
+  <text x="710" y="115" font-size="13" font-weight="bold" fill="#1e293b" text-anchor="middle">4. Демодулятор</text>
+  <text x="710" y="132" font-size="11" fill="#64748b" text-anchor="middle">Синхронне випрямлення</text>
+  <circle cx="710" cy="170" r="18" fill="#fef3c7" stroke="#b45309" stroke-width="1.5"/>
+  <text x="710" y="175" font-size="14" font-weight="bold" fill="#b45309" text-anchor="middle">✕</text>
+  <text x="710" y="210" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">V_H → повернено на DC</text>
+  <text x="710" y="228" font-size="11" fill="#c0392b" text-anchor="middle">V_off → зміщено на f_clk</text>
+
+  <!-- Arrow 4 to 5 -->
+  <line x1="780" y1="175" x2="810" y2="175" stroke="#27ae60" stroke-width="2" marker-end="url(#arr)"/>
+
+  <!-- Block 5: Low-Pass Filter (LPF) -->
+  <rect x="810" y="90" width="120" height="170" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <text x="870" y="115" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">5. ФНЧ (LPF)</text>
+  <text x="870" y="132" font-size="11" fill="#64748b" text-anchor="middle">Зріз f_c &lt; f_clk/2</text>
+  <path d="M 835 180 Q 860 180 875 160 T 905 160" fill="none" stroke="#27ae60" stroke-width="2"/>
+  <text x="870" y="210" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">Чистий V_out</text>
+  <text x="870" y="228" font-size="10" fill="#64748b" text-anchor="middle">Пульсації зрізано</text>
+  <text x="870" y="244" font-size="10" fill="#27ae60" text-anchor="middle">Офсет = 0 В</text>
+
+  <!-- Master Clock Generator at bottom center -->
+  <rect x="420" y="285" width="210" height="50" rx="6" fill="#f1f5f9" stroke="#64748b" stroke-width="1.5"/>
+  <text x="525" y="306" font-size="12" font-weight="bold" fill="#1e293b" text-anchor="middle">Тактовий генератор f_clk</text>
+  <text x="525" y="323" font-size="11" fill="#64748b" text-anchor="middle">Частота чоппування: 100…400 кГц</text>
+
+  <!-- Clock feed lines -->
+  <path d="M 420 310 L 110 310 L 110 260" fill="none" stroke="#64748b" stroke-dasharray="3,3" stroke-width="1.5"/>
+  <path d="M 630 310 L 710 310 L 710 260" fill="none" stroke="#64748b" stroke-dasharray="3,3" stroke-width="1.5"/>
+
+  <!-- Spectral Illustrations Row -->
+  <rect x="30" y="355" width="900" height="145" rx="8" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+  <text x="50" y="380" font-size="13" font-weight="bold" fill="#1e293b">СПЕКТРАЛЬНА ТРАНСПОЗИЦІЯ СИГНАЛІВ ТА ПРИГНІЧЕННЯ 1/f ШУМУ:</text>
+
+  <!-- Spectrum 1 -->
+  <line x1="80" y1="475" x2="260" y2="475" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="80" y1="475" x2="80" y2="400" stroke="#1a1a1a" stroke-width="1.5"/>
+  <path d="M 80 410 Q 105 465 140 475" fill="none" stroke="#c0392b" stroke-width="2"/>
+  <line x1="85" y1="475" x2="85" y2="415" stroke="#2457d6" stroke-width="2.5"/>
+  <text x="170" y="490" font-size="10" fill="#64748b" text-anchor="middle">Частота (f)</text>
+  <text x="170" y="415" font-size="11" font-weight="bold" fill="#1e293b" text-anchor="middle">До чоппування:</text>
+  <text x="170" y="430" font-size="10" fill="#2457d6" text-anchor="middle">Сигнал Холла на DC (0 Гц)</text>
+  <text x="170" y="445" font-size="10" fill="#c0392b" text-anchor="middle">Офсет та 1/f шум на DC</text>
+
+  <!-- Spectrum 2 -->
+  <line x1="390" y1="475" x2="570" y2="475" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="390" y1="475" x2="390" y2="400" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="480" y1="475" x2="480" y2="415" stroke="#2457d6" stroke-width="2.5"/>
+  <path d="M 390 410 Q 415 465 450 475" fill="none" stroke="#c0392b" stroke-width="2"/>
+  <text x="480" y="490" font-size="10" fill="#2457d6" font-weight="bold" text-anchor="middle">f_clk</text>
+  <text x="480" y="405" font-size="11" font-weight="bold" fill="#1e293b" text-anchor="middle">Після модуляції:</text>
+  <text x="480" y="420" font-size="10" fill="#2457d6" text-anchor="middle">Сигнал Холла перенесено на f_clk</text>
+
+  <!-- Spectrum 3 -->
+  <line x1="700" y1="475" x2="880" y2="475" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="700" y1="475" x2="700" y2="400" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="705" y1="475" x2="705" y2="415" stroke="#27ae60" stroke-width="2.5"/>
+  <line x1="790" y1="475" x2="790" y2="435" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="2,2"/>
+  <path d="M 730 405 L 750 475" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="740" y="490" font-size="10" fill="#27ae60" font-weight="bold" text-anchor="middle">f_c (ФНЧ)</text>
+  <text x="790" y="405" font-size="11" font-weight="bold" fill="#1e293b" text-anchor="middle">Після демодуляції й ФНЧ:</text>
+  <text x="790" y="420" font-size="10" fill="#27ae60" text-anchor="middle">Чистий сигнал на DC, шум зрізано</text>
+</svg>

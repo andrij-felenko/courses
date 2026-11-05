@@ -1,0 +1,84 @@
+<svg viewBox="0 0 960 360" width="960" height="360" xmlns="http://www.w3.org/2000/svg" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+  <rect x="0" y="0" width="960" height="360" fill="white"/>
+
+  <!-- Title and Subtitle -->
+  <text x="480" y="40" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Спектральне перетворення в давачі Холла з чопперною стабілізацією</text>
+  <text x="480" y="65" font-size="13" fill="#6b7280" text-anchor="middle">Модуляція та демодуляція розносять спектри корисного сигналу та низькочастотних завад</text>
+
+  <!-- Panel 1 -->
+  <text x="140" y="100" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">1. Первинна модуляція</text>
+  <path d="M 60 280 L 220 280" stroke="#1a1a1a" stroke-width="1" marker-end="url(#arr)"/>
+  <path d="M 60 280 L 60 120" stroke="#1a1a1a" stroke-width="1" marker-end="url(#arr)"/>
+  <text x="220" y="295" font-size="12" fill="#1a1a1a" text-anchor="middle">f</text>
+  <text x="45" y="125" font-size="12" fill="#1a1a1a" text-anchor="middle">A</text>
+  <text x="140" y="295" font-size="12" fill="#1a1a1a" text-anchor="middle">f_chop</text>
+
+  <path d="M 110 280 L 140 180 L 170 280 Z" fill="#2457d6"/>
+  <text x="140" y="170" font-size="12" fill="#2457d6" text-anchor="middle">Сигнал</text>
+  
+  <path d="M 60 280 L 60 180 L 90 280 Z" fill="none" stroke="#2457d6" stroke-width="1" stroke-dasharray="3 3"/>
+  <text x="75" y="170" font-size="12" fill="#2457d6" text-anchor="middle">Вхід</text>
+  
+  <path d="M 75 240 L 115 240" stroke="#2457d6" stroke-width="1" marker-end="url(#arr)"/>
+
+  <!-- Panel 2 -->
+  <text x="370" y="100" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">2. Вхід підсилювача</text>
+  <path d="M 290 280 L 450 280" stroke="#1a1a1a" stroke-width="1" marker-end="url(#arr)"/>
+  <path d="M 290 280 L 290 120" stroke="#1a1a1a" stroke-width="1" marker-end="url(#arr)"/>
+  <text x="450" y="295" font-size="12" fill="#1a1a1a" text-anchor="middle">f</text>
+  <text x="275" y="125" font-size="12" fill="#1a1a1a" text-anchor="middle">A</text>
+  <text x="370" y="295" font-size="12" fill="#1a1a1a" text-anchor="middle">f_chop</text>
+
+  <path d="M 290 280 L 290 140" stroke="#c0392b" stroke-width="4"/>
+  <path d="M 290 280 L 290 210 Q 310 270 340 280 Z" fill="#fdecea"/>
+  <path d="M 290 210 Q 310 270 340 280" stroke="#c0392b" stroke-width="2" fill="none"/>
+  <text x="315" y="140" font-size="12" fill="#c0392b" text-anchor="middle">Зсув</text>
+  <text x="330" y="260" font-size="12" fill="#c0392b" text-anchor="middle">1/f шум</text>
+
+  <path d="M 340 280 L 370 180 L 400 280 Z" fill="#2457d6"/>
+  <text x="370" y="170" font-size="12" fill="#2457d6" text-anchor="middle">Сигнал</text>
+
+  <!-- Panel 3 -->
+  <text x="600" y="100" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">3. Після демодуляції</text>
+  <path d="M 520 280 L 680 280" stroke="#1a1a1a" stroke-width="1" marker-end="url(#arr)"/>
+  <path d="M 520 280 L 520 120" stroke="#1a1a1a" stroke-width="1" marker-end="url(#arr)"/>
+  <text x="680" y="295" font-size="12" fill="#1a1a1a" text-anchor="middle">f</text>
+  <text x="505" y="125" font-size="12" fill="#1a1a1a" text-anchor="middle">A</text>
+  <text x="600" y="295" font-size="12" fill="#1a1a1a" text-anchor="middle">f_chop</text>
+
+  <path d="M 520 280 L 520 180 L 550 280 Z" fill="#2457d6"/>
+  <text x="540" y="170" font-size="12" fill="#2457d6" text-anchor="middle">Сигнал</text>
+
+  <path d="M 600 280 L 600 140" stroke="#c0392b" stroke-width="4"/>
+  <path d="M 560 280 Q 580 270 600 210 Q 620 270 640 280 Z" fill="#fdecea"/>
+  <path d="M 560 280 Q 580 270 600 210 Q 620 270 640 280" stroke="#c0392b" stroke-width="2" fill="none"/>
+  <text x="625" y="140" font-size="12" fill="#c0392b" text-anchor="middle">Зсув</text>
+  <text x="640" y="260" font-size="12" fill="#c0392b" text-anchor="middle">1/f шум</text>
+  
+  <path d="M 580 240 L 540 240" stroke="#2457d6" stroke-width="1" marker-end="url(#arr)" stroke-dasharray="3 3"/>
+  <path d="M 540 260 L 580 260" stroke="#c0392b" stroke-width="1" marker-end="url(#arr)" stroke-dasharray="3 3"/>
+
+  <!-- Panel 4 -->
+  <text x="830" y="100" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">4. Після фільтрації</text>
+  <path d="M 750 280 L 910 280" stroke="#1a1a1a" stroke-width="1" marker-end="url(#arr)"/>
+  <path d="M 750 280 L 750 120" stroke="#1a1a1a" stroke-width="1" marker-end="url(#arr)"/>
+  <text x="910" y="295" font-size="12" fill="#1a1a1a" text-anchor="middle">f</text>
+  <text x="735" y="125" font-size="12" fill="#1a1a1a" text-anchor="middle">A</text>
+  <text x="830" y="295" font-size="12" fill="#1a1a1a" text-anchor="middle">f_chop</text>
+
+  <path d="M 750 280 L 750 180 L 780 280 Z" fill="#2457d6"/>
+  <text x="770" y="170" font-size="12" fill="#2457d6" text-anchor="middle">Сигнал</text>
+
+  <path d="M 750 150 L 790 150 Q 820 150 830 280" fill="none" stroke="#27ae60" stroke-width="2" stroke-dasharray="5 3"/>
+  <text x="780" y="140" font-size="12" fill="#27ae60" text-anchor="middle">ФНЧ</text>
+
+  <path d="M 830 280 L 830 140" stroke="#d0d7de" stroke-width="4" stroke-dasharray="2 2"/>
+  <path d="M 790 280 Q 810 270 830 210 Q 850 270 870 280 Z" fill="#f4f6f8"/>
+  <path d="M 790 280 Q 810 270 830 210 Q 850 270 870 280" stroke="#d0d7de" stroke-width="2" fill="none" stroke-dasharray="2 2"/>
+
+</svg>

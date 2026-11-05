@@ -1,0 +1,88 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+  
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <g id="gnd">
+      <line x1="0" y1="0" x2="24" y2="0" stroke="#1a1a1a" stroke-width="2"/>
+      <line x1="4" y1="4" x2="20" y2="4" stroke="#1a1a1a" stroke-width="2"/>
+      <line x1="8" y1="8" x2="16" y2="8" stroke="#1a1a1a" stroke-width="2"/>
+    </g>
+  </defs>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="40" fill="#1a1a1a" font-size="18" font-weight="bold" text-anchor="middle">Активний RC-фільтр низьких частот другого порядку</text>
+  <text x="480" y="65" fill="#6b7280" font-size="13" text-anchor="middle">Придушення високочастотних пульсацій і завад від чопперного механізму</text>
+
+  <!-- Панель ФНЧ -->
+  <rect x="230" y="100" width="480" height="250" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2" stroke-dasharray="6,4" rx="8"/>
+  <text x="245" y="125" fill="#6b7280" font-size="13">Активний ФНЧ 2-го порядку (Sallen-Key)</text>
+
+  <!-- Блок: Давач Холла -->
+  <rect x="40" y="150" width="140" height="100" fill="#eaf0fd" stroke="#2457d6" stroke-width="2" rx="4"/>
+  <text x="110" y="195" fill="#1a1a1a" font-size="14" font-weight="bold" text-anchor="middle">Давач Холла</text>
+  <text x="110" y="215" fill="#6b7280" font-size="13" text-anchor="middle">із чоппером</text>
+  <line x1="110" y1="250" x2="110" y2="270" stroke="#1a1a1a" stroke-width="2"/>
+  <use href="#gnd" x="98" y="270"/>
+
+  <!-- Блок: АЦП МК -->
+  <rect x="760" y="150" width="140" height="100" fill="#e9f7ef" stroke="#27ae60" stroke-width="2" rx="4"/>
+  <text x="830" y="195" fill="#1a1a1a" font-size="14" font-weight="bold" text-anchor="middle">Мікроконтролер</text>
+  <text x="830" y="215" fill="#6b7280" font-size="13" text-anchor="middle">Внутрішній АЦП</text>
+  <line x1="830" y1="250" x2="830" y2="270" stroke="#1a1a1a" stroke-width="2"/>
+  <use href="#gnd" x="818" y="270"/>
+
+  <!-- Зв'язки і компоненти схеми -->
+  <!-- Від давача до R1 -->
+  <line x1="180" y1="200" x2="280" y2="200" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="205" y="190" fill="#1a1a1a" font-size="13" text-anchor="middle">V_out</text>
+
+  <!-- Резистор R1 -->
+  <polyline points="280,200 285,200 290,190 300,210 310,190 320,210 330,190 335,200 340,200" fill="none" stroke="#1a1a1a" stroke-width="2" stroke-linejoin="round"/>
+  <text x="310" y="180" fill="#1a1a1a" font-size="14" text-anchor="middle">R1</text>
+
+  <!-- Провідник між R1 і R2 (Вузол A) -->
+  <line x1="340" y1="200" x2="380" y2="200" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="360" cy="200" r="4" fill="#1a1a1a"/>
+
+  <!-- Резистор R2 -->
+  <polyline points="380,200 385,200 390,190 400,210 410,190 420,210 430,190 435,200 440,200" fill="none" stroke="#1a1a1a" stroke-width="2" stroke-linejoin="round"/>
+  <text x="410" y="180" fill="#1a1a1a" font-size="14" text-anchor="middle">R2</text>
+
+  <!-- Провідник між R2 і U1+ (Вузол B) -->
+  <line x1="440" y1="200" x2="500" y2="200" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="460" cy="200" r="4" fill="#1a1a1a"/>
+
+  <!-- Конденсатор C1 (Зворотний зв'язок) -->
+  <line x1="360" y1="200" x2="360" y2="140" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="360" y1="140" x2="440" y2="140" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="440" y1="125" x2="440" y2="155" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="446" y1="125" x2="446" y2="155" stroke="#1a1a1a" stroke-width="2"/>
+  <polyline points="446,140 610,140 610,220" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="610" cy="220" r="4" fill="#1a1a1a"/>
+  <text x="443" y="115" fill="#1a1a1a" font-size="14" text-anchor="middle">C1</text>
+
+  <!-- Конденсатор C2 (На землю) -->
+  <line x1="460" y1="200" x2="460" y2="250" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="445" y1="250" x2="475" y2="250" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="445" y1="256" x2="475" y2="256" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="460" y1="256" x2="460" y2="310" stroke="#1a1a1a" stroke-width="2"/>
+  <use href="#gnd" x="448" y="310"/>
+  <text x="435" y="258" fill="#1a1a1a" font-size="14" text-anchor="end">C2</text>
+
+  <!-- Операційний підсилювач U1 -->
+  <polygon points="500,170 500,270 580,220" fill="#ffffff" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="535" y="225" fill="#1a1a1a" font-size="14" text-anchor="middle">U1</text>
+  <text x="512" y="205" fill="#1a1a1a" font-size="12" text-anchor="middle">+</text>
+  <text x="512" y="245" fill="#1a1a1a" font-size="12" text-anchor="middle">-</text>
+
+  <!-- Зворотний зв'язок U1- -->
+  <polyline points="500,240 480,240 480,280 590,280 590,220" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="590" cy="220" r="4" fill="#1a1a1a"/>
+
+  <!-- Вихід ФНЧ до АЦП -->
+  <line x1="580" y1="220" x2="759" y2="220" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+  <text x="735" y="210" fill="#1a1a1a" font-size="13" text-anchor="middle">ADC_IN</text>
+</svg>

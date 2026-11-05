@@ -1,0 +1,179 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-black" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Підкладка -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="28" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Часові діаграми BISS0001: неперезапускний (A = L) та перезапускний (A = H) режими</text>
+  <text x="480" y="50" font-size="13" fill="#6b7280" text-anchor="middle">При A = L вихід VO має фіксовану тривалість Tx і паузу блокування Ti; при A = H повторний рух подовжує сигнал VO</text>
+
+  <!-- ========================================== -->
+  <!-- ПАНЕЛЬ 1: НЕПЕРЕЗАПУСКНИЙ РЕЖИМ (A = L)   -->
+  <!-- ========================================== -->
+  <rect x="24" y="68" width="912" height="230" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <rect x="36" y="78" width="350" height="24" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="46" y="94" font-size="13" font-weight="bold" fill="#c0392b">Неперезапускний режим (A = L / Single Trigger)</text>
+
+  <rect x="496" y="78" width="428" height="24" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="710" y="94" font-size="12" fill="#6b7280" text-anchor="middle">Повторні імпульси під час Tx і Ti ігноруються • Фіксований час Tx</text>
+
+  <!-- Підзаголовки сценаріїв (Панель 1) -->
+  <text x="325" y="118" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Одиночне спрацьовування</text>
+  <text x="695" y="118" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Повторні спрацьовування (рух під час Tx і Ti)</text>
+  <line x1="465" y1="110" x2="465" y2="268" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4,3"/>
+
+  <!-- Мітки сигналів (Панель 1) -->
+  <text x="180" y="152" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">Рух (PIR)</text>
+  <text x="180" y="206" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">Вихід VO</text>
+  <text x="180" y="222" font-size="12" fill="#6b7280" text-anchor="end">HIGH (3.3V)</text>
+  <text x="180" y="238" font-size="12" fill="#6b7280" text-anchor="end">LOW (0V)</text>
+
+  <!-- Базові лінії сигналів (Панель 1) -->
+  <line x1="200" y1="156" x2="450" y2="156" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="480" y1="156" x2="915" y2="156" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="200" y1="238" x2="450" y2="238" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="480" y1="238" x2="915" y2="238" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Імпульси руху (Панель 1, Сценарій 1) -->
+  <polygon points="230,156 230,138 250,138 250,156" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="240" y="132" font-size="12" fill="#2457d6" text-anchor="middle">Рух 1</text>
+  <line x1="240" y1="156" x2="240" y2="194" stroke="#2457d6" stroke-width="1" stroke-dasharray="2,2" marker-end="url(#arr-blue)"/>
+
+  <!-- Імпульси руху (Панель 1, Сценарій 2) -->
+  <polygon points="505,156 505,138 525,138 525,156" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="515" y="132" font-size="12" fill="#2457d6" text-anchor="middle">Рух 1</text>
+  <line x1="515" y1="156" x2="515" y2="194" stroke="#2457d6" stroke-width="1" stroke-dasharray="2,2" marker-end="url(#arr-blue)"/>
+
+  <polygon points="580,156 580,138 600,138 600,156" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="590" y="132" font-size="12" fill="#c0392b" text-anchor="middle">Ігнор (Tx)</text>
+  <line x1="590" y1="156" x2="590" y2="194" stroke="#c0392b" stroke-width="1" stroke-dasharray="2,2" marker-end="url(#arr-red)"/>
+
+  <polygon points="655,156 655,138 675,138 675,156" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="665" y="132" font-size="12" fill="#c0392b" text-anchor="middle">Блок (Ti)</text>
+  <line x1="665" y1="156" x2="665" y2="194" stroke="#c0392b" stroke-width="1" stroke-dasharray="2,2" marker-end="url(#arr-red)"/>
+
+  <polygon points="745,156 745,138 765,138 765,156" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="755" y="132" font-size="12" fill="#2457d6" text-anchor="middle">Новий рух</text>
+  <line x1="755" y1="156" x2="755" y2="194" stroke="#2457d6" stroke-width="1" stroke-dasharray="2,2" marker-end="url(#arr-blue)"/>
+
+  <!-- Блоки VO (Панель 1, Сценарій 1) -->
+  <rect x="230" y="196" width="120" height="42" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="290" y="222" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Tx (утримання)</text>
+
+  <rect x="350" y="196" width="60" height="42" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3,2"/>
+  <text x="380" y="222" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Ti</text>
+
+  <text x="290" y="260" font-size="12" fill="#2457d6" text-anchor="middle">Активний вихід</text>
+  <text x="380" y="260" font-size="12" fill="#c0392b" text-anchor="middle">Блокування</text>
+  <text x="435" y="260" font-size="12" fill="#27ae60" text-anchor="middle">Готовий</text>
+
+  <!-- Блоки VO (Панель 1, Сценарій 2) -->
+  <rect x="505" y="196" width="120" height="42" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="565" y="222" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Tx (фіксований)</text>
+
+  <rect x="625" y="196" width="60" height="42" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3,2"/>
+  <text x="655" y="222" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Ti</text>
+
+  <rect x="745" y="196" width="120" height="42" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="805" y="222" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Новий Tx</text>
+
+  <rect x="865" y="196" width="50" height="42" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3,2"/>
+  <text x="890" y="222" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Ti</text>
+
+  <text x="565" y="260" font-size="12" fill="#c0392b" text-anchor="middle">Рух ігнорується</text>
+  <text x="655" y="260" font-size="12" fill="#c0392b" text-anchor="middle">Блок Ti</text>
+  <text x="715" y="260" font-size="12" fill="#27ae60" text-anchor="middle">Готовий</text>
+  <text x="805" y="260" font-size="12" fill="#2457d6" text-anchor="middle">Новий цикл</text>
+  <text x="890" y="260" font-size="12" fill="#c0392b" text-anchor="middle">Блок Ti</text>
+
+  <text x="480" y="286" font-size="12" fill="#6b7280" text-anchor="middle">Поведінка A = L: переривчастий вихід — імпульс VO гасне кожні Tx секунд навіть при неперервному русі в зоні огляду</text>
+
+  <!-- ========================================== -->
+  <!-- ПАНЕЛЬ 2: ПЕРЕЗАПУСКНИЙ РЕЖИМ (A = H)     -->
+  <!-- ========================================== -->
+  <rect x="24" y="314" width="912" height="230" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <rect x="36" y="324" width="350" height="24" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="46" y="340" font-size="13" font-weight="bold" fill="#27ae60">Перезапускний режим (A = H / Retriggerable)</text>
+
+  <rect x="496" y="324" width="428" height="24" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="710" y="340" font-size="12" fill="#6b7280" text-anchor="middle">Кожен новий рух скидає таймер Tx на початок • VO активний увесь час руху + Tx</text>
+
+  <!-- Підзаголовки сценаріїв (Панель 2) -->
+  <text x="325" y="364" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Одиночне спрацьовування</text>
+  <text x="695" y="364" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Повторні спрацьовування (безперервний рух)</text>
+  <line x1="465" y1="356" x2="465" y2="514" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4,3"/>
+
+  <!-- Мітки сигналів (Панель 2) -->
+  <text x="180" y="398" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">Рух (PIR)</text>
+  <text x="180" y="452" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">Вихід VO</text>
+  <text x="180" y="468" font-size="12" fill="#6b7280" text-anchor="end">HIGH (3.3V)</text>
+  <text x="180" y="484" font-size="12" fill="#6b7280" text-anchor="end">LOW (0V)</text>
+
+  <!-- Базові лінії сигналів (Панель 2) -->
+  <line x1="200" y1="402" x2="450" y2="402" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="480" y1="402" x2="915" y2="402" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="200" y1="484" x2="450" y2="484" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="480" y1="484" x2="915" y2="484" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Імпульси руху (Панель 2, Сценарій 1) -->
+  <polygon points="230,402 230,384 250,384 250,402" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="240" y="378" font-size="12" fill="#2457d6" text-anchor="middle">Рух 1</text>
+  <line x1="240" y1="402" x2="240" y2="440" stroke="#2457d6" stroke-width="1" stroke-dasharray="2,2" marker-end="url(#arr-blue)"/>
+
+  <!-- Імпульси руху (Панель 2, Сценарій 2) -->
+  <polygon points="505,402 505,384 525,384 525,402" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="515" y="378" font-size="12" fill="#2457d6" text-anchor="middle">Рух 1</text>
+  <line x1="515" y1="402" x2="515" y2="440" stroke="#2457d6" stroke-width="1" stroke-dasharray="2,2" marker-end="url(#arr-blue)"/>
+
+  <polygon points="580,402 580,384 600,384 600,402" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="590" y="378" font-size="12" fill="#27ae60" text-anchor="middle">Перезапуск</text>
+  <line x1="590" y1="402" x2="590" y2="440" stroke="#27ae60" stroke-width="1" stroke-dasharray="2,2" marker-end="url(#arr-green)"/>
+
+  <polygon points="655,402 655,384 675,384 675,402" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="665" y="378" font-size="12" fill="#27ae60" text-anchor="middle">Перезапуск</text>
+  <line x1="665" y1="402" x2="665" y2="440" stroke="#27ae60" stroke-width="1" stroke-dasharray="2,2" marker-end="url(#arr-green)"/>
+
+  <polygon points="745,402 745,384 765,384 765,402" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="755" y="378" font-size="12" fill="#2457d6" text-anchor="middle">Останній рух</text>
+  <line x1="755" y1="402" x2="755" y2="440" stroke="#27ae60" stroke-width="1" stroke-dasharray="2,2" marker-end="url(#arr-green)"/>
+
+  <!-- Блоки VO (Панель 2, Сценарій 1) -->
+  <rect x="230" y="442" width="120" height="42" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="290" y="468" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Tx (утримання)</text>
+
+  <rect x="350" y="442" width="60" height="42" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3,2"/>
+  <text x="380" y="468" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Ti</text>
+
+  <text x="290" y="506" font-size="12" fill="#2457d6" text-anchor="middle">Активний вихід</text>
+  <text x="380" y="506" font-size="12" fill="#c0392b" text-anchor="middle">Блокування</text>
+  <text x="435" y="506" font-size="12" fill="#27ae60" text-anchor="middle">Готовий</text>
+
+  <!-- Блоки VO (Панель 2, Сценарій 2) -->
+  <rect x="505" y="442" width="360" height="42" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="685" y="468" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">VO неперервно HIGH (подовження сигналу)</text>
+
+  <rect x="865" y="442" width="50" height="42" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3,2"/>
+  <text x="890" y="468" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Ti</text>
+
+  <text x="625" y="506" font-size="12" fill="#27ae60" text-anchor="middle">Перезапуск Tx при кожному русі</text>
+  <text x="805" y="506" font-size="12" fill="#2457d6" text-anchor="middle">Фінальний Tx</text>
+  <text x="890" y="506" font-size="12" fill="#c0392b" text-anchor="middle">Блок Ti</text>
+
+  <text x="480" y="532" font-size="12" fill="#6b7280" text-anchor="middle">Поведінка A = H: безперервний вихід — світло стабільно горить під час перебування людей і гасне через Tx після виходу</text>
+</svg>

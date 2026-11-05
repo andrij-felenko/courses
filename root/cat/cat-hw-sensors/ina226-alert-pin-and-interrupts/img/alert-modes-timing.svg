@@ -1,0 +1,63 @@
+<svg viewBox="0 0 960 500" width="960" height="500" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif" xmlns="http://www.w3.org/2000/svg">
+  <rect x="0" y="0" width="960" height="500" fill="white"/>
+
+  <!-- Title -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Часові діаграми роботи виводу ALERT: Transparent vs Latch</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Порівняння прозорого автоскидання (LEN=0) та режиму засувки (LEN=1) зі скиданням через I2C читання</text>
+
+  <!-- Labels Column -->
+  <rect x="30" y="80" width="180" height="340" rx="6" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.2"/>
+  <text x="120" y="120" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Аварійний сигнал</text>
+  <text x="120" y="136" font-size="10" fill="#64748b" text-anchor="middle">I_load &gt; I_limit</text>
+
+  <text x="120" y="210" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Прозорий режим</text>
+  <text x="120" y="226" font-size="10" fill="#64748b" text-anchor="middle">LEN = 0 (Transparent)</text>
+
+  <text x="120" y="300" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Режим засувки</text>
+  <text x="120" y="316" font-size="10" fill="#64748b" text-anchor="middle">LEN = 1 (Latch)</text>
+
+  <text x="120" y="380" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Шина I2C (MCU)</text>
+  <text x="120" y="396" font-size="10" fill="#64748b" text-anchor="middle">Читання Mask/Enable 06h</text>
+
+  <!-- Graph Area -->
+  <rect x="225" y="80" width="705" height="340" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.2"/>
+
+  <!-- Fault Window Highlights -->
+  <rect x="340" y="80" width="220" height="340" fill="#fee2e2" fill-opacity="0.3"/>
+  <line x1="340" y1="80" x2="340" y2="420" stroke="#c0392b" stroke-dasharray="3,3"/>
+  <line x1="560" y1="80" x2="560" y2="420" stroke="#c0392b" stroke-dasharray="3,3"/>
+  <text x="450" y="98" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">ЗОНА АВАРІЇ (СТРУМ ВИЩЕ ПОРОГУ)</text>
+
+  <!-- Trace 1: Fault State -->
+  <path d="M 235 140 L 340 140 L 340 115 L 560 115 L 560 140 L 910 140" fill="none" stroke="#1a1a1a" stroke-width="2.5"/>
+  <text x="250" y="132" font-size="10" fill="#64748b">Норма</text>
+  <text x="450" y="130" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">ПЕРЕВИЩЕННЯ ПОРОГУ</text>
+
+  <!-- Trace 2: Transparent Mode (LEN = 0) -->
+  <path d="M 235 195 L 350 195 L 350 230 L 570 230 L 570 195 L 910 195" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+  <text x="250" y="190" font-size="10" fill="#2457d6">HIGH (Норма)</text>
+  <text x="450" y="245" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">LOW (Тільки поки триває аварія)</text>
+  <text x="650" y="190" font-size="10" fill="#27ae60">Автоскидання у HIGH</text>
+
+  <!-- Trace 3: Latch Mode (LEN = 1) -->
+  <path d="M 235 285 L 350 285 L 350 320 L 760 320 L 760 285 L 910 285" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+  <text x="250" y="280" font-size="10" fill="#c0392b">HIGH</text>
+  <text x="520" y="335" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">ЗАСУВКА УТРИМУЄ LOW ПІСЛЯ ЗНИКНЕННЯ АВАРІЇ!</text>
+
+  <!-- Trace 4: I2C Read Transaction -->
+  <line x1="235" y1="390" x2="720" y2="390" stroke="#94a3b8" stroke-width="1.5"/>
+  <rect x="720" y="375" width="70" height="28" rx="3" fill="#dcfce7" stroke="#15803d" stroke-width="1.5"/>
+  <text x="755" y="393" font-size="10" font-weight="bold" fill="#15803d" text-anchor="middle">I2C READ</text>
+  <line x1="790" y1="390" x2="910" y2="390" stroke="#94a3b8" stroke-width="1.5"/>
+
+  <!-- Reset trigger arrow -->
+  <line x1="760" y1="375" x2="760" y2="295" stroke="#15803d" stroke-width="2" stroke-dasharray="3,3"/>
+  <circle cx="760" cy="285" r="4" fill="#15803d"/>
+  <text x="765" y="275" font-size="10" font-weight="bold" fill="#15803d">Скидання засувки</text>
+
+  <!-- Bottom Comparison Card -->
+  <rect x="30" y="435" width="900" height="55" rx="6" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.2"/>
+  <text x="50" y="465" font-size="12" font-weight="bold" fill="#1e293b">ОБЛАСТІ ЗАСТОСУВАННЯ:</text>
+  <text x="235" y="458" font-size="11" fill="#334155"><tspan font-weight="bold" fill="#2457d6">Transparent (LEN=0):</tspan> прості термостати, вентилятори охолодження, сигналізатори готовності АЦП</text>
+  <text x="235" y="478" font-size="11" fill="#334155"><tspan font-weight="bold" fill="#c0392b">Latch (LEN=1):</tspan> критичний захист від КЗ, фіксація короткочасних імпульсних сплесків, арбітраж шини</text>
+</svg>

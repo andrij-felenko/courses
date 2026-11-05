@@ -1,0 +1,114 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="34" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Часова діаграма фільтрації рівня води та порогового гістерезису</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Рухоме середнє усуває хвильові сплески, а зона гістерезису захищає помпу від брязкоту</text>
+
+  <!-- Main Canvas Frame (Outer panel covering >70% of canvas area) -->
+  <rect x="24" y="68" width="912" height="400" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- ==================== 1. ANALOG GRAPH ==================== -->
+  <rect x="200" y="80" width="724" height="184" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Left Y-Axis Labels for Analog Graph -->
+  <text x="190" y="100" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">Рівень h(t)</text>
+  <text x="190" y="142" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">h_high (пуск)</text>
+  <text x="190" y="174" font-size="12" fill="#6b7280" text-anchor="end">Зона Δh</text>
+  <text x="190" y="206" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="end">h_low (стоп)</text>
+  <text x="190" y="248" font-size="12" fill="#6b7280" text-anchor="end">0 (сухий хід)</text>
+
+  <!-- Graph Legend Strip inside graph header -->
+  <line x1="216" y1="96" x2="244" y2="96" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3,2"/>
+  <text x="250" y="100" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="start">h_raw (сирий сигнал із хвилями)</text>
+
+  <line x1="490" y1="96" x2="520" y2="96" stroke="#2457d6" stroke-width="2.5"/>
+  <text x="526" y="100" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="start">h_avg (рухоме середнє SMA)</text>
+
+  <rect x="744" y="89" width="22" height="14" rx="2" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" stroke-dasharray="2,2"/>
+  <text x="772" y="100" font-size="12" fill="#1a1a1a" text-anchor="start">Гістерезис Δh</text>
+
+  <line x1="200" y1="110" x2="924" y2="110" stroke="#e5e7eb" stroke-width="1"/>
+
+  <!-- Hysteresis Band (Between h_high=138 and h_low=202) -->
+  <rect x="200" y="138" width="724" height="64" fill="#eaf0fd" fill-opacity="0.6"/>
+
+  <!-- Threshold Lines -->
+  <line x1="200" y1="138" x2="924" y2="138" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="5,3"/>
+  <line x1="200" y1="202" x2="924" y2="202" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="5,3"/>
+  <line x1="200" y1="244" x2="924" y2="244" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Vertical Guide Lines across the stages -->
+  <line x1="312" y1="110" x2="312" y2="278" stroke="#c0392b" stroke-width="1" stroke-dasharray="3,3" stroke-opacity="0.7"/>
+  <line x1="460" y1="110" x2="460" y2="436" stroke="#2457d6" stroke-width="1.2" stroke-dasharray="3,3" stroke-opacity="0.8"/>
+  <line x1="620" y1="110" x2="620" y2="278" stroke="#c0392b" stroke-width="1" stroke-dasharray="3,3" stroke-opacity="0.7"/>
+  <line x1="775" y1="110" x2="775" y2="436" stroke="#27ae60" stroke-width="1.2" stroke-dasharray="3,3" stroke-opacity="0.8"/>
+
+  <!-- Waveform: Raw Signal (h_raw) with water sloshing -->
+  <path d="M 210 238 L 222 230 L 235 240 L 248 222 L 260 228 L 272 198 L 282 210 L 292 167 L 302 126 L 312 174 L 322 130 L 332 164 L 345 182 L 360 172 L 380 184 L 400 162 L 420 174 L 438 150 L 452 156 L 465 130 L 480 138 L 498 124 L 515 134 L 532 144 L 550 136 L 568 158 L 585 148 L 600 190 L 610 218 L 620 184 L 630 220 L 642 192 L 660 198 L 680 184 L 700 196 L 720 188 L 740 204 L 755 194 L 770 216 L 785 206 L 800 226 L 820 220 L 845 226 L 870 222 L 895 224 L 915 223" fill="none" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3,2"/>
+
+  <!-- Waveform: Filtered Signal (h_avg) Smooth Moving Average -->
+  <path d="M 210 236 C 250 232, 290 208, 330 188 C 370 168, 420 154, 460 138 C 495 124, 530 132, 565 148 C 610 168, 660 188, 715 200 C 745 206, 765 210, 790 220 C 820 224, 860 224, 915 224" fill="none" stroke="#2457d6" stroke-width="2.6"/>
+
+  <!-- ==================== 2. DIGITAL CHANNEL: WITHOUT FILTER ==================== -->
+  <rect x="200" y="278" width="724" height="64" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+
+  <!-- Left Channel Labels -->
+  <text x="190" y="297" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="end">Без фільтрації</text>
+  <text x="190" y="313" font-size="12" fill="#c0392b" text-anchor="end">Реле помпи</text>
+  <text x="190" y="329" font-size="12" fill="#6b7280" text-anchor="end">(деренчання)</text>
+
+  <!-- Digital Waveform: Chattering / False Switchings -->
+  <!-- Low: y=326, High: y=294 -->
+  <path d="M 210 326 L 298 326 L 298 294 L 306 294 L 306 326 L 318 326 L 318 294 L 326 294 L 326 326 L 460 326 L 460 294 L 606 294 L 606 326 L 614 326 L 614 294 L 626 294 L 626 326 L 634 326 L 634 294 L 766 294 L 766 326 L 915 326" fill="none" stroke="#c0392b" stroke-width="2"/>
+
+  <!-- Annotations in Channel 1 -->
+  <text x="312" y="290" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Хибний пуск</text>
+  <text x="620" y="290" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Хибний стоп</text>
+
+  <!-- ==================== 3. DIGITAL CHANNEL: WITH FILTER ==================== -->
+  <rect x="200" y="356" width="724" height="64" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+
+  <!-- Left Channel Labels -->
+  <text x="190" y="375" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="end">Рухоме середнє</text>
+  <text x="190" y="391" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="end">+ гістерезис</text>
+  <text x="190" y="407" font-size="12" fill="#6b7280" text-anchor="end">(стабільне)</text>
+
+  <!-- Digital Waveform: Clean and Stably Filtered -->
+  <!-- Low: y=404, High: y=372 -->
+  <path d="M 210 404 L 460 404 L 460 372 L 775 372 L 775 404 L 915 404" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+
+  <!-- Annotations in Channel 2 -->
+  <text x="312" y="398" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Сплеск зрізано (ВИМКН)</text>
+  <text x="618" y="368" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Стабільна робота помпи (УВІМКН)</text>
+  <text x="840" y="398" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Чітка зупинка (ВИМКН)</text>
+
+  <!-- ==================== 4. TIMELINE AXIS & EVENTS ==================== -->
+  <line x1="200" y1="436" x2="920" y2="436" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="924" y="452" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">Час t →</text>
+
+  <!-- Event Labels below timeline -->
+  <text x="312" y="452" font-size="12" fill="#c0392b" text-anchor="middle">t_1: Сплеск хвилі</text>
+  <text x="460" y="452" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">t_2: Пуск помпи</text>
+  <text x="620" y="452" font-size="12" fill="#6b7280" text-anchor="middle">t_3: Провал хвилі</text>
+  <text x="775" y="452" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">t_4: Стоп помпи</text>
+
+  <!-- ==================== 5. BOTTOM SUMMARY BAR ==================== -->
+  <rect x="24" y="482" width="912" height="36" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="480" y="504" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Результат: фільтрація усуває хибні перемикання реле, а гістерезис Δh захищає помпу від сухого ходу й зносу</text>
+</svg>

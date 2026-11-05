@@ -1,0 +1,168 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <!-- Arrow Markers -->
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="520" fill="#ffffff"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="30" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Топологія PCB та теплова ізоляція сенсора BME280</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Запобігання самонагріву від суміжних компонентів та викривленню показників вологості</text>
+
+  <!-- ================= LEFT PANEL: BAD LAYOUT ================= -->
+  <rect x="20" y="70" width="450" height="430" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+
+  <!-- Tag & Panel Header -->
+  <rect x="35" y="85" width="115" height="24" rx="4" fill="#c0392b"/>
+  <text x="92" y="101" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">НЕПРАВИЛЬНО</text>
+  <text x="160" y="101" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="start">Прямий тепловий контакт з MCU</text>
+
+  <!-- PCB Substrate (Left) -->
+  <rect x="35" y="120" width="420" height="230" rx="6" fill="#d9e3d8" stroke="#7a9a7b" stroke-width="1.5"/>
+  <text x="440" y="137" font-size="12" fill="#4a5568" text-anchor="end">Двошарова PCB</text>
+
+  <!-- Continuous Copper Plane -->
+  <rect x="45" y="145" width="400" height="195" rx="4" fill="#e8d8c0" stroke="#c49a62" stroke-width="1.5"/>
+  <text x="245" y="163" font-size="12" fill="#8c6d3b" text-anchor="middle">Суцільний шар міді (GND/VCC plane)</text>
+
+  <!-- Hot Component (MCU/LDO) -->
+  <rect x="60" y="185" width="110" height="120" rx="4" fill="#2d3748" stroke="#1a202c" stroke-width="1.5"/>
+  <!-- IC Pins left/right -->
+  <rect x="52" y="195" width="8" height="6" fill="#a0aec0"/>
+  <rect x="52" y="210" width="8" height="6" fill="#a0aec0"/>
+  <rect x="52" y="225" width="8" height="6" fill="#a0aec0"/>
+  <rect x="52" y="240" width="8" height="6" fill="#a0aec0"/>
+  <rect x="52" y="255" width="8" height="6" fill="#a0aec0"/>
+  <rect x="52" y="270" width="8" height="6" fill="#a0aec0"/>
+  <rect x="170" y="195" width="8" height="6" fill="#a0aec0"/>
+  <rect x="170" y="210" width="8" height="6" fill="#a0aec0"/>
+  <rect x="170" y="225" width="8" height="6" fill="#a0aec0"/>
+  <rect x="170" y="240" width="8" height="6" fill="#a0aec0"/>
+  <rect x="170" y="255" width="8" height="6" fill="#a0aec0"/>
+  <rect x="170" y="270" width="8" height="6" fill="#a0aec0"/>
+  <text x="115" y="230" font-size="13" font-weight="bold" fill="#ffffff" text-anchor="middle">MCU / LDO</text>
+  <text x="115" y="250" font-size="12" fill="#feb2b2" text-anchor="middle">(Джерело тепла)</text>
+  <text x="115" y="270" font-size="12" fill="#feb2b2" text-anchor="middle">P &gt; 300 mW</text>
+
+  <!-- Thermal Conduction Flow -->
+  <line x1="185" y1="225" x2="315" y2="225" stroke="#c0392b" stroke-width="2" stroke-dasharray="4,3" marker-end="url(#arr-red)"/>
+  <text x="250" y="215" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Теплопередача Q</text>
+  <text x="250" y="245" font-size="12" fill="#c0392b" text-anchor="middle">(мідний шар без пазу)</text>
+
+  <!-- Forced Air Flow Arrow -->
+  <line x1="60" y1="318" x2="315" y2="318" stroke="#2457d6" stroke-width="2" stroke-dasharray="4,3" marker-end="url(#arr-blue)"/>
+  <text x="187" y="310" font-size="12" fill="#2457d6" text-anchor="middle">Гарячий потік повітря</text>
+
+  <!-- Sensor BME280 -->
+  <rect x="330" y="195" width="95" height="100" rx="4" fill="#323c4d" stroke="#1a202c" stroke-width="2"/>
+  <rect x="345" y="210" width="65" height="70" rx="3" fill="#cbd5e0" stroke="#94a3b8" stroke-width="1.5"/>
+  <circle cx="362" cy="227" r="5" fill="#0f172a"/>
+  <circle cx="338" cy="203" r="3" fill="#e2e8f0"/>
+  <text x="377" y="255" font-size="13" font-weight="bold" fill="#ffffff" text-anchor="middle">BME280</text>
+  <text x="377" y="273" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">T_sens &gt; T_amb</text>
+
+  <!-- Left Card Consequences -->
+  <rect x="35" y="360" width="420" height="128" rx="6" fill="#ffffff" stroke="#f5c6cb" stroke-width="1.5"/>
+  <text x="48" y="380" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="start">Наслідки порушення топології:</text>
+  <text x="48" y="401" font-size="12" fill="#c0392b" text-anchor="start">• Самонагрів сенсора: ΔT = +2.0 °C ... +5.0 °C</text>
+  <text x="48" y="421" font-size="12" fill="#c0392b" text-anchor="start">• Викривлення відносної вологості: ΔRH ≈ -15%</text>
+  <text x="48" y="441" font-size="12" fill="#6b7280" text-anchor="start">• Відсутність термобар'єра збільшує часову сталу</text>
+  <text x="48" y="461" font-size="12" fill="#6b7280" text-anchor="start">• Конвекційне нагрівання від суміжних компонентів</text>
+
+
+  <!-- ================= RIGHT PANEL: GOOD LAYOUT ================= -->
+  <rect x="490" y="70" width="450" height="430" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+
+  <!-- Tag & Panel Header -->
+  <rect x="505" y="85" width="105" height="24" rx="4" fill="#27ae60"/>
+  <text x="557" y="101" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">ПРАВИЛЬНО</text>
+  <text x="620" y="101" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="start">Фрезеровані пази та розв'язка</text>
+
+  <!-- PCB Substrate (Right) -->
+  <rect x="505" y="120" width="420" height="230" rx="6" fill="#d9e3d8" stroke="#7a9a7b" stroke-width="1.5"/>
+  <text x="910" y="137" font-size="12" fill="#4a5568" text-anchor="end">Двошарова PCB</text>
+
+  <!-- Main Zone Copper Plane -->
+  <rect x="515" y="145" width="225" height="195" rx="4" fill="#e8d8c0" stroke="#c49a62" stroke-width="1.5"/>
+  <text x="627" y="163" font-size="12" fill="#8c6d3b" text-anchor="middle">Головна зона PCB</text>
+
+  <!-- Hot Component on Main Zone -->
+  <rect x="530" y="185" width="110" height="120" rx="4" fill="#2d3748" stroke="#1a202c" stroke-width="1.5"/>
+  <!-- Pins -->
+  <rect x="522" y="195" width="8" height="6" fill="#a0aec0"/>
+  <rect x="522" y="210" width="8" height="6" fill="#a0aec0"/>
+  <rect x="522" y="225" width="8" height="6" fill="#a0aec0"/>
+  <rect x="522" y="240" width="8" height="6" fill="#a0aec0"/>
+  <rect x="522" y="255" width="8" height="6" fill="#a0aec0"/>
+  <rect x="522" y="270" width="8" height="6" fill="#a0aec0"/>
+  <rect x="640" y="195" width="8" height="6" fill="#a0aec0"/>
+  <rect x="640" y="210" width="8" height="6" fill="#a0aec0"/>
+  <rect x="640" y="225" width="8" height="6" fill="#a0aec0"/>
+  <rect x="640" y="240" width="8" height="6" fill="#a0aec0"/>
+  <rect x="640" y="255" width="8" height="6" fill="#a0aec0"/>
+  <rect x="640" y="270" width="8" height="6" fill="#a0aec0"/>
+  <text x="585" y="230" font-size="13" font-weight="bold" fill="#ffffff" text-anchor="middle">MCU / LDO</text>
+  <text x="585" y="250" font-size="12" fill="#a0aec0" text-anchor="middle">(Джерело тепла)</text>
+  <text x="585" y="270" font-size="12" fill="#a0aec0" text-anchor="middle">P &gt; 300 mW</text>
+
+  <!-- Heat Containment Label -->
+  <text x="680" y="242" font-size="12" fill="#6b7280" text-anchor="middle">Тепло</text>
+  <text x="680" y="258" font-size="12" fill="#6b7280" text-anchor="middle">локалізовано</text>
+
+  <!-- Milling Slots (Cutouts) -->
+  <!-- Upper Cutout Slot -->
+  <rect x="750" y="145" width="14" height="75" rx="3" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="3,2"/>
+  <!-- Lower Cutout Slot -->
+  <rect x="750" y="265" width="14" height="75" rx="3" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="3,2"/>
+
+  <!-- Slot Label and Pointer -->
+  <text x="670" y="185" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Фрезерований паз</text>
+  <text x="670" y="202" font-size="12" fill="#27ae60" text-anchor="middle">(термобар'єр)</text>
+  <line x1="728" y1="185" x2="746" y2="185" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <!-- Thermal Bridge -->
+  <rect x="746" y="226" width="22" height="34" fill="#e8d8c0" stroke="#c49a62" stroke-width="1"/>
+  <!-- Signal Traces across bridge -->
+  <line x1="746" y1="233" x2="768" y2="233" stroke="#b45309" stroke-width="1.5"/>
+  <line x1="746" y1="243" x2="768" y2="243" stroke="#b45309" stroke-width="1.5"/>
+  <line x1="746" y1="253" x2="768" y2="253" stroke="#b45309" stroke-width="1.5"/>
+  <text x="757" y="218" font-size="12" fill="#27ae60" text-anchor="middle">Міст</text>
+
+  <!-- Isolated Sensor Island -->
+  <rect x="770" y="145" width="145" height="195" rx="4" fill="#e8d8c0" stroke="#c49a62" stroke-width="1.5"/>
+  <text x="842" y="163" font-size="12" fill="#8c6d3b" text-anchor="middle">Термоізольований острів</text>
+
+  <!-- Ambient Air Flow Arrow -->
+  <line x1="910" y1="318" x2="800" y2="318" stroke="#2457d6" stroke-width="2" stroke-dasharray="4,3" marker-end="url(#arr-blue)"/>
+  <text x="855" y="310" font-size="12" fill="#2457d6" text-anchor="middle">Зовнішнє повітря</text>
+
+  <!-- Sensor BME280 on Island -->
+  <rect x="795" y="195" width="95" height="100" rx="4" fill="#323c4d" stroke="#1a202c" stroke-width="2"/>
+  <rect x="810" y="210" width="65" height="70" rx="3" fill="#cbd5e0" stroke="#94a3b8" stroke-width="1.5"/>
+  <circle cx="827" cy="227" r="5" fill="#0f172a"/>
+  <circle cx="803" cy="203" r="3" fill="#e2e8f0"/>
+  <text x="842" y="255" font-size="13" font-weight="bold" fill="#ffffff" text-anchor="middle">BME280</text>
+  <text x="842" y="273" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">T_sens = T_amb</text>
+
+  <!-- Right Card Results -->
+  <rect x="505" y="360" width="420" height="128" rx="6" fill="#ffffff" stroke="#c3e6cb" stroke-width="1.5"/>
+  <text x="518" y="380" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="start">Результати оптимальної топології:</text>
+  <text x="518" y="401" font-size="12" fill="#27ae60" text-anchor="start">• Тепловий опір маршруту збільшено в 10+ разів</text>
+  <text x="518" y="421" font-size="12" fill="#27ae60" text-anchor="start">• Самонагрів відсутній: ΔT &lt; 0.1 °C</text>
+  <text x="518" y="441" font-size="12" fill="#27ae60" text-anchor="start">• Точність вимірювання RH повністю збережена</text>
+  <text x="518" y="461" font-size="12" fill="#6b7280" text-anchor="start">• Вузький міст мінімізує теплопровідність міді</text>
+
+</svg>

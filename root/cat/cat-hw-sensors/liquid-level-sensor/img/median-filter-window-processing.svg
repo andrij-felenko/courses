@@ -1,0 +1,224 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="36" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Ковзне вікно медіанного фільтра для вимірювання рівня рідини</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Сортування N = 5 вибірок усуває поодинокі спотворювальні сплески, зберігаючи дійсний рівень</text>
+
+  <!-- 1. TIME SERIES PANEL -->
+  <rect x="30" y="78" width="900" height="236" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Inner Chart Canvas -->
+  <rect x="110" y="92" width="806" height="186" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Y-Axis Labels -->
+  <text x="102" y="112" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">d (мм)</text>
+  <text x="102" y="142" font-size="12" fill="#6b7280" text-anchor="end">250</text>
+  <text x="102" y="180" font-size="12" fill="#6b7280" text-anchor="end">200</text>
+  <text x="102" y="218" font-size="12" fill="#6b7280" text-anchor="end">150</text>
+  <text x="102" y="254" font-size="12" fill="#6b7280" text-anchor="end">100</text>
+
+  <!-- Y-Axis Ticks -->
+  <line x1="106" y1="138" x2="110" y2="138" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="106" y1="176" x2="110" y2="176" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="106" y1="214" x2="110" y2="214" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="106" y1="250" x2="110" y2="250" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Reference baseline line for nominal level -->
+  <line x1="110" y1="214" x2="916" y2="214" stroke="#e5e7eb" stroke-width="1" stroke-dasharray="2 4"/>
+
+  <!-- Legend in top-left of chart -->
+  <line x1="124" y1="110" x2="152" y2="110" stroke="#c0392b" stroke-width="1.8" stroke-dasharray="4 2"/>
+  <circle cx="138" cy="110" r="3" fill="#c0392b"/>
+  <text x="160" y="114" font-size="12" font-weight="bold" fill="#c0392b">x[k]: сирі виміри (з імпульсними завадами)</text>
+
+  <line x1="124" y1="128" x2="152" y2="128" stroke="#27ae60" stroke-width="2.6"/>
+  <circle cx="138" cy="128" r="3.5" fill="#27ae60"/>
+  <text x="160" y="132" font-size="12" font-weight="bold" fill="#27ae60">y[k]: вихід медіанного фільтра (дійсний рівень)</text>
+
+  <!-- Highlighted Sliding Window Frame (covering k=6..10: x from 405 to 655) -->
+  <rect x="405" y="98" width="250" height="150" rx="6" fill="#eaf0fd" fill-opacity="0.45" stroke="#2457d6" stroke-width="1.8" stroke-dasharray="5 3"/>
+
+  <!-- Window Header Badge -->
+  <rect x="450" y="103" width="160" height="20" rx="4" fill="#2457d6"/>
+  <text x="530" y="117" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">Ковзне вікно (N = 5)</text>
+
+  <!-- Spike label directly above peak (y=138, peak is at y=146) -->
+  <text x="530" y="139" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Сплеск: 255 мм</text>
+
+  <!-- Raw Signal Path (Red Dashed) - 13 samples, delta x = 50 -->
+  <polyline points="180,216 230,218 280,220 330,240 380,219 430,217 480,215 530,146 580,214 630,212 680,210 730,208 780,206" fill="none" stroke="#c0392b" stroke-width="1.8" stroke-dasharray="4 2"/>
+
+  <!-- Filtered Signal Path (Green Solid) -->
+  <polyline points="180,216 230,218 280,219 330,219 380,219 430,217 480,215 530,214 580,214 630,212 680,210 730,208 780,206" fill="none" stroke="#27ae60" stroke-width="2.6"/>
+
+  <!-- Raw Points (Red circles) -->
+  <circle cx="180" cy="216" r="3.5" fill="#c0392b"/>
+  <circle cx="230" cy="218" r="3.5" fill="#c0392b"/>
+  <circle cx="280" cy="220" r="3.5" fill="#c0392b"/>
+  <circle cx="330" cy="240" r="4" fill="#c0392b"/>
+  <circle cx="380" cy="219" r="3.5" fill="#c0392b"/>
+  <circle cx="430" cy="217" r="3.5" fill="#c0392b"/>
+  <circle cx="480" cy="215" r="3.5" fill="#c0392b"/>
+  <circle cx="530" cy="146" r="4.5" fill="#c0392b"/>
+  <circle cx="580" cy="214" r="3.5" fill="#c0392b"/>
+  <circle cx="630" cy="212" r="3.5" fill="#c0392b"/>
+  <circle cx="680" cy="210" r="3.5" fill="#c0392b"/>
+  <circle cx="730" cy="208" r="3.5" fill="#c0392b"/>
+  <circle cx="780" cy="206" r="3.5" fill="#c0392b"/>
+
+  <!-- Filtered Points (Green circles) -->
+  <circle cx="180" cy="216" r="3.5" fill="#27ae60"/>
+  <circle cx="230" cy="218" r="3.5" fill="#27ae60"/>
+  <circle cx="280" cy="219" r="3.5" fill="#27ae60"/>
+  <circle cx="330" cy="219" r="3.5" fill="#27ae60"/>
+  <circle cx="380" cy="219" r="3.5" fill="#27ae60"/>
+  <circle cx="430" cy="217" r="3.5" fill="#27ae60"/>
+  <circle cx="480" cy="215" r="3.5" fill="#27ae60"/>
+  <circle cx="530" cy="214" r="4.5" fill="#27ae60"/>
+  <circle cx="580" cy="214" r="3.5" fill="#27ae60"/>
+  <circle cx="630" cy="212" r="3.5" fill="#27ae60"/>
+  <circle cx="680" cy="210" r="3.5" fill="#27ae60"/>
+  <circle cx="730" cy="208" r="3.5" fill="#27ae60"/>
+  <circle cx="780" cy="206" r="3.5" fill="#27ae60"/>
+
+  <!-- X-Axis Line -->
+  <line x1="110" y1="250" x2="840" y2="250" stroke="#d0d7de" stroke-width="1.2" marker-end="url(#arr)"/>
+  <text x="896" y="254" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">Вибірка k →</text>
+
+  <!-- X-Axis Ticks & Labels -->
+  <line x1="180" y1="250" x2="180" y2="254" stroke="#d0d7de"/>
+  <text x="180" y="268" font-size="12" fill="#6b7280" text-anchor="middle">1</text>
+
+  <line x1="230" y1="250" x2="230" y2="254" stroke="#d0d7de"/>
+  <text x="230" y="268" font-size="12" fill="#6b7280" text-anchor="middle">2</text>
+
+  <line x1="280" y1="250" x2="280" y2="254" stroke="#d0d7de"/>
+  <text x="280" y="268" font-size="12" fill="#6b7280" text-anchor="middle">3</text>
+
+  <line x1="330" y1="250" x2="330" y2="254" stroke="#d0d7de"/>
+  <text x="330" y="268" font-size="12" fill="#6b7280" text-anchor="middle">4</text>
+
+  <line x1="380" y1="250" x2="380" y2="254" stroke="#d0d7de"/>
+  <text x="380" y="268" font-size="12" fill="#6b7280" text-anchor="middle">5</text>
+
+  <line x1="430" y1="250" x2="430" y2="254" stroke="#2457d6"/>
+  <text x="430" y="268" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">6</text>
+
+  <line x1="480" y1="250" x2="480" y2="254" stroke="#2457d6"/>
+  <text x="480" y="268" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">7</text>
+
+  <line x1="530" y1="250" x2="530" y2="254" stroke="#2457d6"/>
+  <text x="530" y="268" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">8</text>
+
+  <line x1="580" y1="250" x2="580" y2="254" stroke="#2457d6"/>
+  <text x="580" y="268" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">9</text>
+
+  <line x1="630" y1="250" x2="630" y2="254" stroke="#2457d6"/>
+  <text x="630" y="268" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">10</text>
+
+  <line x1="680" y1="250" x2="680" y2="254" stroke="#d0d7de"/>
+  <text x="680" y="268" font-size="12" fill="#6b7280" text-anchor="middle">11</text>
+
+  <line x1="730" y1="250" x2="730" y2="254" stroke="#d0d7de"/>
+  <text x="730" y="268" font-size="12" fill="#6b7280" text-anchor="middle">12</text>
+
+  <line x1="780" y1="250" x2="780" y2="254" stroke="#d0d7de"/>
+  <text x="780" y="268" font-size="12" fill="#6b7280" text-anchor="middle">13</text>
+
+  <!-- 2. DETAIL PANEL: WINDOW PROCESSING AT k=8 -->
+  <rect x="30" y="328" width="900" height="156" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Panel 2 Header -->
+  <text x="50" y="350" font-size="13" font-weight="bold" fill="#1a1a1a">Покрокова фільтрація у вікні W для точки k = 8 (розмір N = 5 вибірок):</text>
+
+  <!-- Step 1 Box: Raw Window Array -->
+  <rect x="50" y="362" width="250" height="110" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="175" y="380" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">1. Вхідні вибірки у вікні W</text>
+
+  <!-- 5 Array Elements in Step 1 -->
+  <rect x="62" y="392" width="40" height="36" rx="4" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="82" y="406" font-size="12" fill="#6b7280" text-anchor="middle">k=6</text>
+  <text x="82" y="422" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">151</text>
+
+  <rect x="108" y="392" width="40" height="36" rx="4" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="128" y="406" font-size="12" fill="#6b7280" text-anchor="middle">k=7</text>
+  <text x="128" y="422" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">153</text>
+
+  <rect x="154" y="392" width="42" height="36" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="175" y="406" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">k=8</text>
+  <text x="175" y="422" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">255</text>
+
+  <rect x="202" y="392" width="40" height="36" rx="4" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="222" y="406" font-size="12" fill="#6b7280" text-anchor="middle">k=9</text>
+  <text x="222" y="422" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">154</text>
+
+  <rect x="248" y="392" width="40" height="36" rx="4" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="268" y="406" font-size="12" fill="#6b7280" text-anchor="middle">k=10</text>
+  <text x="268" y="422" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">156</text>
+
+  <text x="175" y="458" font-size="12" fill="#c0392b" text-anchor="middle">Одиночний викид 255 мм спотворює ряд</text>
+
+  <!-- Arrow 1 -> 2 -->
+  <line x1="308" y1="417" x2="332" y2="417" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="320" y="407" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Сорт.</text>
+
+  <!-- Step 2 Box: Sorted Array -->
+  <rect x="340" y="362" width="280" height="110" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="480" y="380" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">2. Сортування вибірок за зростанням</text>
+
+  <!-- 5 Sorted Elements -->
+  <rect x="352" y="392" width="46" height="36" rx="4" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="375" y="406" font-size="12" fill="#6b7280" text-anchor="middle">[0]</text>
+  <text x="375" y="422" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">151</text>
+
+  <rect x="404" y="392" width="46" height="36" rx="4" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="427" y="406" font-size="12" fill="#6b7280" text-anchor="middle">[1]</text>
+  <text x="427" y="422" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">153</text>
+
+  <rect x="456" y="392" width="48" height="36" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <text x="480" y="406" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">[2] Центр</text>
+  <text x="480" y="422" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">154</text>
+
+  <rect x="510" y="392" width="46" height="36" rx="4" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="533" y="406" font-size="12" fill="#6b7280" text-anchor="middle">[3]</text>
+  <text x="533" y="422" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">156</text>
+
+  <rect x="562" y="392" width="48" height="36" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="586" y="406" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">[4] Край</text>
+  <text x="586" y="422" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">255</text>
+
+  <text x="480" y="458" font-size="12" fill="#6b7280" text-anchor="middle">Викид 255 мм зсунуто на край та відсічено</text>
+
+  <!-- Arrow 2 -> 3 -->
+  <line x1="628" y1="417" x2="652" y2="417" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="640" y="407" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Медіана</text>
+
+  <!-- Step 3 Box: Filter Output -->
+  <rect x="660" y="362" width="250" height="110" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="785" y="380" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">3. Вихідне значення фільтра</text>
+
+  <rect x="715" y="394" width="140" height="34" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <text x="785" y="416" font-size="14" font-weight="bold" fill="#27ae60" text-anchor="middle">y[8] = 154 мм</text>
+
+  <text x="785" y="458" font-size="12" fill="#1a1a1a" text-anchor="middle">Сплеск зрізано: дійсний рівень</text>
+
+  <!-- 3. SUMMARY BAR -->
+  <rect x="30" y="496" width="900" height="36" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="480" y="519" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Результат: медіанний фільтр повністю відсікає імпульсний шум без затримки фази сигналу</text>
+</svg>

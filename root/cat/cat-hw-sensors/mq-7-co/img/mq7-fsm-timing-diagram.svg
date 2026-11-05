@@ -1,0 +1,84 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+  
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Titles -->
+  <text x="480" y="40" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Цикл нагріву та автомат станів (FSM) сенсора MQ-7</text>
+  <text x="480" y="60" font-size="13" fill="#6b7280" text-anchor="middle">Чергування фаз очищення (5 В, 60 с) та вимірювання (1.4 В, 90 с) зі зчитуванням АЦП наприкінці циклу</text>
+
+  <!-- Timing Diagram -->
+  <!-- Axes -->
+  <path d="M 80 270 L 80 110" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <path d="M 70 260 L 860 260" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="70" y="100" font-size="13" fill="#6b7280" text-anchor="middle">U, В</text>
+  <text x="870" y="264" font-size="13" fill="#6b7280" text-anchor="start">t, с</text>
+
+  <!-- Y ticks -->
+  <line x1="75" y1="260" x2="85" y2="260" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="65" y="264" font-size="12" fill="#1a1a1a" text-anchor="end">0</text>
+  
+  <line x1="75" y1="220" x2="85" y2="220" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="65" y="224" font-size="12" fill="#1a1a1a" text-anchor="end">1.4</text>
+  <line x1="80" y1="220" x2="850" y2="220" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4,4"/>
+  
+  <line x1="75" y1="140" x2="85" y2="140" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="65" y="144" font-size="12" fill="#1a1a1a" text-anchor="end">5.0</text>
+  <line x1="80" y1="140" x2="850" y2="140" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4,4"/>
+
+  <!-- X ticks -->
+  <line x1="100" y1="260" x2="100" y2="265" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="100" y="280" font-size="12" fill="#1a1a1a" text-anchor="middle">0</text>
+  
+  <line x1="340" y1="260" x2="340" y2="265" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="340" y="280" font-size="12" fill="#1a1a1a" text-anchor="middle">60</text>
+  <line x1="340" y1="260" x2="340" y2="140" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4,4"/>
+  
+  <line x1="700" y1="260" x2="700" y2="265" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="700" y="280" font-size="12" fill="#1a1a1a" text-anchor="middle">150</text>
+  <line x1="700" y1="260" x2="700" y2="220" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4,4"/>
+
+  <!-- Graph -->
+  <path d="M 100 260 L 100 140 L 340 140 L 340 220 L 700 220 L 700 140 L 850 140" stroke="#2457d6" stroke-width="3" fill="none"/>
+
+  <!-- Graph Annotations -->
+  <text x="220" y="125" font-size="14" fill="#1a1a1a" text-anchor="middle">Очищення (60 с)</text>
+  <text x="520" y="205" font-size="14" fill="#1a1a1a" text-anchor="middle">Вимірювання (90 с)</text>
+  <text x="775" y="125" font-size="14" fill="#1a1a1a" text-anchor="middle">Очищення...</text>
+
+  <!-- ADC Read Point -->
+  <circle cx="700" cy="220" r="5" fill="#c0392b"/>
+  <path d="M 775 180 L 710 215" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <text x="775" y="170" font-size="14" font-weight="bold" fill="#c0392b" text-anchor="middle">Зчитування АЦП</text>
+
+  <!-- FSM Graph -->
+  <text x="480" y="340" font-size="16" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Автомат станів (FSM)</text>
+
+  <!-- State 1: Cleaning -->
+  <rect x="200" y="380" width="180" height="90" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="290" y="410" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">ОЧИЩЕННЯ</text>
+  <text x="290" y="435" font-size="13" fill="#1a1a1a" text-anchor="middle">U нагрівача = 5.0 В</text>
+  <text x="290" y="455" font-size="13" fill="#1a1a1a" text-anchor="middle">Таймер = 60 с</text>
+
+  <!-- State 2: Measuring -->
+  <rect x="580" y="380" width="180" height="90" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="670" y="410" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">ВИМІРЮВАННЯ</text>
+  <text x="670" y="435" font-size="13" fill="#1a1a1a" text-anchor="middle">U нагрівача = 1.4 В</text>
+  <text x="670" y="455" font-size="13" fill="#1a1a1a" text-anchor="middle">Таймер = 90 с</text>
+
+  <!-- Transition 1 -> 2 (Top) -->
+  <path d="M 380 400 L 565 400" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="480" y="390" font-size="13" fill="#1a1a1a" text-anchor="middle">Таймер ≥ 60 с</text>
+
+  <!-- Transition 2 -> 1 (Bottom) -->
+  <path d="M 580 450 L 395 450" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="480" y="440" font-size="13" fill="#1a1a1a" text-anchor="middle">Таймер ≥ 90 с</text>
+  <text x="480" y="468" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">Зчитати АЦП</text>
+</svg>
